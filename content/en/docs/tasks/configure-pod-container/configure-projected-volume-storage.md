@@ -42,7 +42,7 @@ Here is the configuration file for the Pod:
 ```
 1. Create the Pod:
 ```shell
-       kubectl create -f https://k8s.io/examples/pods/storage/projected.yaml
+       kubectl apply -f https://k8s.io/examples/pods/storage/projected.yaml
 ```
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
@@ -50,10 +50,10 @@ the Pod:
        kubectl get --watch pod test-projected-volume
 ```
     The output looks like this:
-
+```shell
        NAME                    READY     STATUS    RESTARTS   AGE
        test-projected-volume   1/1       Running   0          14s
-
+```
 1. In another terminal, get a shell to the running Container:
 ```shell
        kubectl exec -it test-projected-volume -- /bin/sh

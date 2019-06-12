@@ -25,7 +25,7 @@ In this release, [IPVS-based in-cluster service load balancing](https://github.c
 
 ## Dynamic Kubelet Configuration Moves to Beta
 
-This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster.  Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, [users can configure Kubelets in a live cluster](https://kubernetes.io/docs/tasks/administer-cluster/reconfigure-kubelet/) via the API server.
+This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster.  Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, [users can configure Kubelets in a live cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) via the API server.
 
 ## Custom Resource Definitions Can Now Define Multiple Versions
 
@@ -49,9 +49,9 @@ Each Special Interest Group (SIG) within the community continues to deliver the 
 
 ## Availability
 
-Kubernetes 1.11 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/).
+Kubernetes 1.11 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/).
 
-You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb and RPM packages, installable using the [Kubeadm cluster installer](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) sometime on June 28th.
+You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb and RPM packages, installable using the [Kubeadm cluster installer](/docs/setup/independent/create-cluster-kubeadm/) sometime on June 28th.
 
 ## 4 Day Features Blog Series
 

@@ -37,7 +37,7 @@ A rolling update works by:
 
 Rolling updates are initiated with the `kubectl rolling-update` command:
 
-    $ kubectl rolling-update NAME \
+    kubectl rolling-update NAME \
         ([NEW_NAME] --image=IMAGE | -f FILE)
 
 {{% /capture %}}
@@ -50,7 +50,7 @@ Rolling updates are initiated with the `kubectl rolling-update` command:
 To initiate a rolling update using a configuration file, pass the new file to
 `kubectl rolling-update`:
 
-    $ kubectl rolling-update NAME -f FILE
+    kubectl rolling-update NAME -f FILE
 
 The configuration file must:
 
@@ -66,17 +66,17 @@ Replication controller configuration files are described in
 ### Examples
 
     // Update pods of frontend-v1 using new replication controller data in frontend-v2.json.
-    $ kubectl rolling-update frontend-v1 -f frontend-v2.json
+    kubectl rolling-update frontend-v1 -f frontend-v2.json
 
     // Update pods of frontend-v1 using JSON data passed into stdin.
-    $ cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
+    cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
 
 ## Updating the container image
 
 To update only the container image, pass a new image name and tag with the
 `--image` flag and (optionally) a new controller name:
 
-    $ kubectl rolling-update NAME [NEW_NAME] --image=IMAGE:TAG
+    kubectl rolling-update NAME [NEW_NAME] --image=IMAGE:TAG
 
 The `--image` flag is only supported for single-container pods. Specifying
 `--image` with multi-container pods returns an error.
@@ -95,10 +95,10 @@ Moreover, the use of `:latest` is not recommended, see
 ### Examples
 
     // Update the pods of frontend-v1 to frontend-v2
-    $ kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
+    kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
 
     // Update the pods of frontend, keeping the replication controller name
-    $ kubectl rolling-update frontend --image=image:v2
+    kubectl rolling-update frontend --image=image:v2
 
 ## Required and optional fields
 
@@ -165,14 +165,18 @@ spec:
 To update to version 1.9.1, you can use [`kubectl rolling-update --image`](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) to specify the new image:
 
 ```shell
-$ kubectl rolling-update my-nginx --image=nginx:1.9.1
+kubectl rolling-update my-nginx --image=nginx:1.9.1
+```
+```
 Created my-nginx-ccba8fbd8cc8160970f63f9a2696fc46
 ```
 
 In another window, you can see that `kubectl` added a `deployment` label to the pods, whose value is a hash of the configuration, to distinguish the new pods from the old:
 
 ```shell
-$ kubectl get pods -l app=nginx -L deployment
+kubectl get pods -l app=nginx -L deployment
+```
+```
 NAME                                              READY     STATUS    RESTARTS   AGE       DEPLOYMENT
 my-nginx-ccba8fbd8cc8160970f63f9a2696fc46-k156z   1/1       Running   0          1m        ccba8fbd8cc8160970f63f9a2696fc46
 my-nginx-ccba8fbd8cc8160970f63f9a2696fc46-v95yh   1/1       Running   0          35s       ccba8fbd8cc8160970f63f9a2696fc46
@@ -199,7 +203,9 @@ replicationcontroller "my-nginx" rolling updated
 If you encounter a problem, you can stop the rolling update midway and revert to the previous version using `--rollback`:
 
 ```shell
-$ kubectl rolling-update my-nginx --rollback
+kubectl rolling-update my-nginx --rollback
+```
+```
 Setting "my-nginx" replicas to 1
 Continuing update with existing controller my-nginx.
 Scaling up nginx from 1 to 1, scaling down my-nginx-ccba8fbd8cc8160970f63f9a2696fc46 from 1 to 0 (keep 1 pods available, don't exceed 2 pods)
@@ -239,7 +245,9 @@ spec:
 and roll it out:
 
 ```shell
-$ kubectl rolling-update my-nginx -f ./nginx-rc.yaml
+kubectl rolling-update my-nginx -f ./nginx-rc.yaml
+```
+```
 Created my-nginx-v4
 Scaling up my-nginx-v4 from 0 to 5, scaling down my-nginx from 4 to 0 (keep 4 pods available, don't exceed 5 pods)
 Scaling my-nginx-v4 up to 1

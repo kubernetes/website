@@ -2,6 +2,9 @@
 title: 쿠버네티스 API
 content_template: templates/concept
 weight: 30
+card:
+  name: concepts
+  weight: 30
 ---
 
 {{% capture overview %}}
@@ -13,7 +16,7 @@ API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/docs/referen
 API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/reference/access-authn-authz/controlling-access/)에서 논의되었다.
 
 쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. 
-[kubectl](/docs/reference/kubectl/overview/) 명령줄 도구를 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
+[kubectl](/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
 
 쿠버네티스는 또한 API 리소스에 대해 직렬화된 상태를 (현재는 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)에) 저장한다. 
 
@@ -33,10 +36,9 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 ## OpenAPI 및 Swagger 정의
 
-완전한 API 상세 내용은 [Swagger v1.2](http://swagger.io/) 및 [OpenAPI](https://www.openapis.org/)를 활용해서 문서화했다. ("마스터"로 알려진) 쿠버네티스 apiserver는 `/swaggerapi`에서 Swagger v1.2 쿠버네티스 API 규격을 조회할 수 있는 API를 노출한다.
+완전한 API 상세 내용은 [OpenAPI](https://www.openapis.org/)를 활용해서 문서화했다. 
 
-쿠버네티스 1.10부터, OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다. 형식이 구분된 엔드포인트(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)는 더 이상 사용하지 않고(deprecated) 쿠버네티스 1.14에서 제거될 예정이다.
-
+쿠버네티스 1.10부터, OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다. 
 요청 형식은 HTTP 헤더에 명시해서 설정할 수 있다.
 
 헤더   | 가능한 값
@@ -44,7 +46,9 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (기본 content-type은 `*/*`에 대해 `application/json`이거나 이 헤더를 전달하지 않음)
 Accept-Encoding | `gzip` (이 헤더를 전달하지 않아도 됨)
 
-**OpenAPI 규격을 조회하는 예제**:
+1.14 이전 버전에서 형식이 구분된 엔드포인트(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)는 OpenAPI 스펙을 다른 포맷으로 제공한다. 이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거될 예정이다.
+
+**OpenAPI 규격을 조회하는 예제**
 
 1.10 이전 | 쿠버네티스 1.10 이상
 ----------- | -----------------------------
@@ -52,8 +56,11 @@ GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
 GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
 
-
 쿠버네티스는 주로 클러스터 내부 통신용 API를 위해 대안적인 Protobuf에 기반한 직렬화 형식을 구현한다. 해당 API는 [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) 문서와 IDL 파일에 문서화되어 있고 각각의 스키마를 담고 있는 IDL 파일은 API 오브젝트를 정의하는 Go 패키지에 들어있다.
+
+1.14 이전 버전에서 쿠버네티스 apiserver는 `/swaggerapi`에서 [Swagger v1.2](http://swagger.io/) 
+쿠버네티스 API 스펙을 검색하는데 사용할 수 있는 API도 제공한다. 
+이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거될 예정이다.
 
 ## API 버전 규칙
 
@@ -123,6 +130,6 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 데몬셋, 디플로이먼트, HorizontalPodAutoscaler, 인그레스, 잡 및 레플리카셋이 기본적으로 활성화되어 있다.
 다른 확장 리소스는 apiserver의 `--runtime-config`를 설정해서 활성화 시킬 수 있다.
 `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어 디플로이먼트와 인그레스를 비활성화 시키려면,
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`와 같이 설정한다.
+`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`와 같이 설정한다.
 
 {{% /capture %}}

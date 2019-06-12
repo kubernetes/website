@@ -36,7 +36,7 @@ process file system. The parameters cover various subsystems such as:
 To get a list of all parameters, you can run
 
 ```shell
-$ sudo sysctl -a
+sudo sysctl -a
 ```
 
 ## Enabling Unsafe Sysctls
@@ -76,14 +76,14 @@ application tuning. _Unsafe_ sysctls are enabled on a node-by-node basis with a
 flag of the kubelet, e.g.:
 
 ```shell
-$ kubelet --allowed-unsafe-sysctls \
+kubelet --allowed-unsafe-sysctls \
   'kernel.msg*,net.ipv4.route.min_pmtu' ...
 ```
 
 For minikube, this can be done via the `extra-config` flag:
 
 ```shell
-$ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
 ```
 
 Only _namespaced_ sysctls can be enabled this way.

@@ -139,25 +139,25 @@ LIST and WATCH operations may specify label selectors to filter the sets of obje
 Both label selector styles can be used to list or watch resources via a REST client. For example, targeting `apiserver` with `kubectl` and using _equality-based_ one may write:
 
 ```shell
-$ kubectl get pods -l environment=production,tier=frontend
+kubectl get pods -l environment=production,tier=frontend
 ```
 
 or using _set-based_ requirements:
 
 ```shell
-$ kubectl get pods -l 'environment in (production),tier in (frontend)'
+kubectl get pods -l 'environment in (production),tier in (frontend)'
 ```
 
 As already mentioned _set-based_ requirements are more expressive.  For instance, they can implement the _OR_ operator on values:
 
 ```shell
-$ kubectl get pods -l 'environment in (production, qa)'
+kubectl get pods -l 'environment in (production, qa)'
 ```
 
 or restricting negative matching via _exists_ operator:
 
 ```shell
-$ kubectl get pods -l 'environment,environment notin (frontend)'
+kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
 ### Set references in API objects

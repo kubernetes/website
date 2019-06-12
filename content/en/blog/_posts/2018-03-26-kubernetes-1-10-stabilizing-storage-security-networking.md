@@ -61,14 +61,14 @@ providers, vendors, and other platform developers can now release binary
 plugins to handle authentication for specific cloud-provider IAM services, or
 that integrate with in-house authentication systems that aren’t supported
 in-tree, such as Active Directory. This complements the [Cloud Controller
-Manager](https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/)
+Manager](/docs/tasks/administer-cluster/running-cloud-controller/)
 feature added in 1.9.
 
 ## Networking - CoreDNS as a DNS provider (beta)
 
 The ability to [switch the DNS
 service](https://github.com/kubernetes/website/pull/7638) to CoreDNS at
-[install time](https://kubernetes.io/docs/tasks/administer-cluster/coredns/)
+[install time](/docs/tasks/administer-cluster/coredns/)
 is now in beta. CoreDNS has fewer moving parts: it’s a single executable and a
 single process, and supports additional use cases.
 
@@ -83,7 +83,7 @@ notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#11
 Kubernetes 1.10 is available for [download on
 GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.10.0). To get
 started with Kubernetes, check out these i[nteractive
-tutorials](https://kubernetes.io/docs/tutorials/).
+tutorials](/docs/tutorials/).
 
 ## 2 Day Features Blog Series
 

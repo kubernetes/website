@@ -111,7 +111,7 @@ containing the signing certificate, for example
 
 ### Initial bootstrap authentication
 In order for the bootstrapping kubelet to connect to kube-apiserver and request a certificate, it must first authenticate to the server.
-You can use any [authenticator](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) that can authenticate the kubelet.
+You can use any [authenticator](/docs/reference/access-authn-authz/authentication/) that can authenticate the kubelet.
 
 While any authentication strategy can be used for the kubelet's initial
 bootstrap credentials, the following two authenticators are recommended for ease

@@ -184,7 +184,7 @@ spec:
            path: cfg/game.properties
       restartPolicy: Never
 ```
-In the above example, the Deployment uses keys of the ConfigMap via two of the different mechanisms available. The property-like keys of the ConfigMap are used as environment variables to the single container in the Deployment template, and the file-like keys populate a volume. For more details, please see the [ConfigMap docs](http://kubernetes.io/docs/user-guide/configmap/).  
+In the above example, the Deployment uses keys of the ConfigMap via two of the different mechanisms available. The property-like keys of the ConfigMap are used as environment variables to the single container in the Deployment template, and the file-like keys populate a volume. For more details, please see the [ConfigMap docs](/docs/user-guide/configmap/).  
 
 We hope that these basic primitives are easy to use and look forward to seeing what people build with ConfigMaps. Thanks to the community members that provided feedback about this feature. Special thanks also to Tamer Tas who made a great contribution to the proposal and implementation of ConfigMap.  
 

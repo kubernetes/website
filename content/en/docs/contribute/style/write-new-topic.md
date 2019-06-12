@@ -53,7 +53,7 @@ has filename `http-proxy-access-api.md`. You don't need to put
 "kubernetes" in the filename, because "kubernetes" is already in the
 URL for the topic, for example:
 
-       http://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/
+       /docs/tasks/access-kubernetes-api/http-proxy-access-api/
 
 ## Adding the topic title to the front matter
 
@@ -176,5 +176,3 @@ image format is SVG.
 * Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {{% /capture %}}
-
-

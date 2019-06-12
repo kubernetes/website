@@ -56,9 +56,46 @@ The output contains a section similar to this:
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 {{< /note >}}
 
-## Create a Secret in the cluster that holds your authorization token
+## Create a Secret based on existing Docker credentials {#registry-secret-existing-credentials}
 
-A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate with a container registry to pull a private image.
+A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate with
+a container registry to pull a private image.
+
+If you already ran `docker login`, you can copy that credential into Kubernetes:
+
+```shell
+kubectl create secret generic regcred \
+    --from-file=.dockerconfigjson=<path/to/.docker/config.json> \
+    --type=kubernetes.io/dockerconfigjson
+```
+
+If you need more control (for example, to set a namespace or a label on the new
+secret) then you can customise the Secret before storing it.
+Be sure to:
+
+- set the name of the data item to `.dockerconfigjson`
+- base64 encode the docker file and paste that string, unbroken
+  as the value for field `data[".dockerconfigjson"]`
+- set `type` to `kubernetes.io/dockerconfigjson`
+
+Example:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: myregistrykey
+  namespace: awesomeapps
+data:
+  .dockerconfigjson: UmVhbGx5IHJlYWxseSByZWVlZWVlZWVlZWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGx5eXl5eXl5eXl5eXl5eXl5eXl5eSBsbGxsbGxsbGxsbGxsbG9vb29vb29vb29vb29vb29vb29vb29vb29vb25ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubmdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2cgYXV0aCBrZXlzCg==
+type: kubernetes.io/dockerconfigjson
+```
+
+If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
+If you get an error message like `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`, it means
+the base64 encoded string in the data was successfully decoded, but could not be parsed as a `.docker/config.json` file.
+
+## Create a Secret by providing credentials on the command line
 
 Create this Secret, naming it `regcred`:
 
@@ -74,6 +111,13 @@ where:
 * `<your-email>` is your Docker email.
 
 You have successfully set your Docker credentials in the cluster as a Secret called `regcred`.
+
+{{< note >}}
+Typing secrets on the command line may store them in your shell history unprotected, and
+those secrets might also be visible to other users on your PC during the time that
+`kubectl` is running.
+{{< /note >}}
+
 
 ## Inspecting the Secret `regcred`
 
@@ -152,7 +196,7 @@ The `imagePullSecrets` field in the configuration file specifies that Kubernetes
 Create a Pod that uses your Secret, and verify that the Pod is running:
 
 ```shell
-kubectl create -f my-private-reg-pod.yaml
+kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 

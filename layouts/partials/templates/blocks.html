@@ -1,10 +1,10 @@
 {{ .ctx.Scratch.Set "sections" slice }}
 <ul id="markdown-toc">
 {{ range .ctx.Scratch.Get "blocks" }}
-{{ if .content }}
-{{ $.ctx.Scratch.Set "section" .content }}
-{{ else}}
+{{ if .block }}
 {{ $.ctx.Scratch.Set "section" (partial "templates/block" .) }}
+{{ else}}
+{{ $.ctx.Scratch.Set "section" .content }}
 {{ end }}
 {{ $section := $.ctx.Scratch.Get "section" }}
 {{ $headers := findRE "<h2.*?>(.|\n)*?</h2>" $section }}

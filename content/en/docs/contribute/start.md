@@ -3,6 +3,9 @@ title: Start contributing
 slug: start
 content_template: templates/concept
 weight: 10
+card:
+  name: contribute
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -133,10 +136,11 @@ The SIG Docs team communicates using the following mechanisms:
   introduce yourself!
 - [Join the `kubernetes-sig-docs` mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   where broader discussions take place and official decisions are recorded.
-- Participate in the weekly SIG Docs video meeting, which is announced on the
-  Slack channel and the mailing list. Currently, these meetings take place on
-  Zoom, so you'll need to download the [Zoom client](https://zoom.us/download)
-  or dial in using a phone.
+- Participate in the [weekly SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) video meeting, which is announced on the Slack channel and the mailing list. Currently, these meetings take place on Zoom, so you'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
+
+{{< note >}}
+You can also check the SIG Docs weekly meeting on the [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
+{{< /note >}}
 
 ## Improve existing content
 
@@ -196,11 +200,9 @@ attend a weekly SIG Docs meeting to get clarity.
 Follow these steps to submit a pull request to improve the Kubernetes
 documentation.
 
-1.  On the page where you see the issue, click the pencil icon at the top left.
-    A new page appears, with some help text.
-2.  Click the first blue button, which has the text **Edit &lt;page name&gt;**.
-    
-    If you have never created a fork of the Kubernetes documentation
+1.  On the page where you see the issue, click the pencil icon at the top right.
+    A new Github page appears, with some help text.
+2.  If you have never created a fork of the Kubernetes documentation
     repository, you are prompted to do so. Create the fork under your Github
     username, rather than another organization you may be a member of. The
     fork usually has a URL such as `https://github.com/<username>/website`,

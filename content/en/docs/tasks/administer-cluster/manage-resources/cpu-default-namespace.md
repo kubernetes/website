@@ -40,7 +40,7 @@ a default CPU request and a default CPU limit.
 Create the LimitRange in the default-cpu-example namespace:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --namespace=default-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --namespace=default-cpu-example
 ```
 
 Now if a Container is created in the default-cpu-example namespace, and the
@@ -56,7 +56,7 @@ does not specify a CPU request and limit.
 Create the Pod.
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults-pod.yaml --namespace=default-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod.yaml --namespace=default-cpu-example
 ```
 
 View the Pod's specification:
@@ -91,7 +91,7 @@ Create the Pod:
 
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
 ```
 
 View the Pod specification:
@@ -121,7 +121,7 @@ specifies a CPU request, but not a limit:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
 ```
 
 View the Pod specification:

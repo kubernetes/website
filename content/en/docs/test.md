@@ -344,7 +344,7 @@ Warnings point out something that could cause harm if ignored.
 To add shortcodes to includes.
 
 {{< note >}}
-{{< include "federation-current-state.md" >}}
+{{< include "task-tutorial-prereqs.md" >}}
 {{< /note >}}
 
 ## Katacoda Embedded Live Environment

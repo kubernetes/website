@@ -47,7 +47,7 @@ file for the Pod defines a command and two arguments:
 1. Create a Pod based on the YAML configuration file:
 
     ```shell
-    kubectl create -f https://k8s.io/examples/pods/commands.yaml
+    kubectl apply -f https://k8s.io/examples/pods/commands.yaml
     ```
 
 1. List the running Pods:

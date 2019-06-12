@@ -51,10 +51,9 @@ You can also specify timeout values when connecting to the server and enable or
 disable debugging, by specifying `timeout` or `debug` values in the configuration
 file or using the `--timeout` and `--debug` command-line flags.
 
-To view or edit the current configuration, view or edit the contents of
-`/etc/crictl.yaml`.
+To view or edit the current configuration, view or edit the contents of `/etc/crictl.yaml`.
 
-```sh
+```shell
 cat /etc/crictl.yaml
 runtime-endpoint: unix:///var/run/dockershim.sock
 image-endpoint: unix:///var/run/dockershim.sock
@@ -76,10 +75,12 @@ general purpose workflow tool, but a tool that is useful for debugging.
 
 List all pods:
 
-```bash
+```shell
 crictl pods
 ```
-```none
+The output is similar to this:
+
+```
 POD ID              CREATED              STATE               NAME                         NAMESPACE           ATTEMPT
 926f1b5a1d33a       About a minute ago   Ready               sh-84d7dcf559-4r2gq          default             0
 4dccb216c4adb       About a minute ago   Ready               nginx-65899c769f-wv2gp       default             0
@@ -89,20 +90,24 @@ a86316e96fa89       17 hours ago         Ready               kube-proxy-gblk4   
 
 List pods by name:
 
-```bash
+```shell
 crictl pods --name nginx-65899c769f-wv2gp
 ```
-```none
+The output is similar to this:
+
+```
 POD ID              CREATED             STATE               NAME                     NAMESPACE           ATTEMPT
 4dccb216c4adb       2 minutes ago       Ready               nginx-65899c769f-wv2gp   default             0
 ```
 
 List pods by label:
 
-```bash
+```shell
 crictl pods --label run=nginx
 ```
-```none
+The output is similar to this:
+
+```
 POD ID              CREATED             STATE               NAME                     NAMESPACE           ATTEMPT
 4dccb216c4adb       2 minutes ago       Ready               nginx-65899c769f-wv2gp   default             0
 ```
@@ -111,10 +116,12 @@ POD ID              CREATED             STATE               NAME                
 
 List all images:
 
-```bash
+```shell
 crictl images
 ```
-```none
+The output is similar to this:
+
+```
 IMAGE                                     TAG                 IMAGE ID            SIZE
 busybox                                   latest              8c811b4aec35f       1.15MB
 k8s-gcrio.azureedge.net/hyperkube-amd64   v1.10.3             e179bbfe5d238       665MB
@@ -124,20 +131,24 @@ nginx                                     latest              cd5239a0906a6     
 
 List images by repository:
 
-```bash
+```shell
 crictl images nginx
 ```
-```none
+The output is similar to this:
+
+```
 IMAGE               TAG                 IMAGE ID            SIZE
 nginx               latest              cd5239a0906a6       109MB
 ```
 
 Only list image IDs:
 
-```bash
+```shell
 crictl images -q
 ```
-```none
+The output is similar to this:
+
+```
 sha256:8c811b4aec35f259572d0f79207bc0678df4c736eeec50bc9fec37ed936a472a
 sha256:e179bbfe5d238de6069f3b03fccbecc3fb4f2019af741bfff1233c4d7b2970c5
 sha256:da86e6ba6ca197bf6bc5e9d900febd906b133eaa4750e6bed647b0fbe50ed43e
@@ -148,10 +159,12 @@ sha256:cd5239a0906a6ccf0562354852fae04bc5b52d72a2aff9a871ddb6bd57553569
 
 List all containers:
 
-```bash
+```shell
 crictl ps -a
 ```
-```none
+The output is similar to this:
+
+```
 CONTAINER ID        IMAGE                                                                                                             CREATED             STATE               NAME                       ATTEMPT
 1f73f2d81bf98       busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47                                   7 minutes ago       Running             sh                         1
 9c5951df22c78       busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47                                   8 minutes ago       Exited              sh                         0
@@ -161,10 +174,12 @@ CONTAINER ID        IMAGE                                                       
 
 List running containers:
 
-```bash
+```
 crictl ps
 ```
-```none
+The output is similar to this:
+
+```
 CONTAINER ID        IMAGE                                                                                                             CREATED             STATE               NAME                       ATTEMPT
 1f73f2d81bf98       busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47                                   6 minutes ago       Running             sh                         1
 87d3992f84f74       nginx@sha256:d0a8828cccb73397acb0073bf34f4d7d8aa315263f1e7806bf8c55d8ac139d5f                                     7 minutes ago       Running             nginx                      0
@@ -173,10 +188,12 @@ CONTAINER ID        IMAGE                                                       
 
 ### Execute a command in a running container
 
-```bash
+```shell
 crictl exec -i -t 1f73f2d81bf98 ls
 ```
-```none
+The output is similar to this:
+
+```
 bin   dev   etc   home  proc  root  sys   tmp   usr   var
 ```
 
@@ -184,10 +201,12 @@ bin   dev   etc   home  proc  root  sys   tmp   usr   var
 
 Get all container logs:
 
-```bash
+```shell
 crictl logs 87d3992f84f74
 ```
-```none
+The output is similar to this:
+
+```
 10.240.0.96 - - [06/Jun/2018:02:45:49 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 10.240.0.96 - - [06/Jun/2018:02:45:50 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 10.240.0.96 - - [06/Jun/2018:02:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
@@ -195,10 +214,12 @@ crictl logs 87d3992f84f74
 
 Get only the latest `N` lines of logs:
 
-```bash
+```shell
 crictl logs --tail=1 87d3992f84f74
 ```
-```none
+The output is similar to this:
+
+```
 10.240.0.96 - - [06/Jun/2018:02:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 ```
 
@@ -226,7 +247,7 @@ deleted by the Kubelet.
 
 2.  Use the `crictl runp` command to apply the JSON and run the sandbox.
 
-      ```bash
+      ```shell
       crictl runp pod-config.json
       ```
 
@@ -240,7 +261,7 @@ deleted by the Kubelet.
 
 1.  Pull a busybox image
 
-      ```bash
+      ```shell
       crictl pull busybox
       Image is up to date for busybox@sha256:141c253bc4c3fd0a201d32dc1f493bcf3fff003b6df416dea4f41046e0f37d47
       ```
@@ -284,17 +305,19 @@ deleted by the Kubelet.
     container config file, and the pod config file. The ID of the container is
     returned.
 
-      ```bash
+      ```shell
       crictl create f84dd361f8dc51518ed291fbadd6db537b0496536c1d2d6c05ff943ce8c9a54f container-config.json pod-config.json
       ```
 
 4.  List all containers and verify that the newly-created container has its
     state set to `Created`.
 
-      ```bash
+      ```shell
       crictl ps -a
       ```
-      ```none
+      The output is similar to this:
+      
+      ```
       CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
       3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
       ```
@@ -303,19 +326,23 @@ deleted by the Kubelet.
 
 To start a container, pass its ID to `crictl start`:
 
-```bash
+```shell
 crictl start 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
 ```
-```none
+The output is similar to this:
+
+```
 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
 ```
 
 Check the container has its state set to `Running`.
 
-```bash
+```shell
 crictl ps
 ```
-```none
+The output is similar to this:
+
+```
 CONTAINER ID        IMAGE               CREATED              STATE               NAME                ATTEMPT
 3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
 ```

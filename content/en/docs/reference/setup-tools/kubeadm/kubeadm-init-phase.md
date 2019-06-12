@@ -79,7 +79,17 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 {{< /tabs >}}
 
 
-## kubeadm init phase mark-control-plane {#cmd-phase-control-plane}
+## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
+
+Use the following phase to upload control-plane certificates to the cluster.
+By default the certs and encryption key expire after two hours.
+
+{{< tabs name="tab-upload-certs" >}}
+{{< tab name="upload-certs" include="generated/kubeadm_init_phase_upload-certs.md" />}}
+{{< /tabs >}}
+
+
+## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
 Use the following phase to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
 

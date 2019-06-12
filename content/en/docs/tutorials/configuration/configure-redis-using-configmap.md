@@ -14,9 +14,10 @@ This page provides a real world example of how to configure Redis using a Config
 
 {{% capture objectives %}}
 
-* Create a ConfigMap.
-* Create a pod specification using the ConfigMap.
-* Create the pod.
+* Create a `kustomization.yaml` file containing:
+  * a ConfigMap generator
+  * a Pod resource config using the ConfigMap
+* Apply the directory by running `kubectl apply -k ./`
 * Verify that the configuration was correctly applied.
 
 {{% /capture %}}
@@ -24,6 +25,7 @@ This page provides a real world example of how to configure Redis using a Config
 {{% capture prerequisites %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* The example shown on this page works with `kubectl` 1.14 and above.
 * Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 {{% /capture %}}
@@ -35,49 +37,48 @@ This page provides a real world example of how to configure Redis using a Config
 
 You can follow the steps below to configure a Redis cache using data stored in a ConfigMap.
 
-First create a ConfigMap from the `redis-config` file:
+First create a `kustomization.yaml` containing a ConfigMap from the `redis-config` file:
 
 {{< codenew file="pods/config/redis-config" >}}
 
 ```shell
 curl -OL https://k8s.io/examples/pods/config/redis-config
-kubectl create configmap example-redis-config --from-file=redis-config
+
+cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: example-redis-config
+  files:
+  - redis-config
+EOF
 ```
 
-```shell
-configmap/example-redis-config created
-```
-
-Examine the created ConfigMap:
-
-```shell
-kubectl get configmap example-redis-config -o yaml
-```
-
-```yaml
-apiVersion: v1
-data:
-  redis-config: |
-    maxmemory 2mb
-    maxmemory-policy allkeys-lru
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-03-30T18:14:41Z
-  name: example-redis-config
-  namespace: default
-  resourceVersion: "24686"
-  selfLink: /api/v1/namespaces/default/configmaps/example-redis-config
-  uid: 460a2b6e-f6a3-11e5-8ae5-42010af00002
-```
-
-Now create a pod specification that uses the config data stored in the ConfigMap:
+Add the pod resource config to the `kustomization.yaml`:
 
 {{< codenew file="pods/config/redis-pod.yaml" >}}
 
-Create the pod:
+```shell
+curl -OL https://k8s.io/examples/pods/config/redis-pod.yaml
+
+cat <<EOF >>./kustomization.yaml
+resources:
+- redis-pod.yaml
+EOF
+```
+
+Apply the kustomization directory to create both the ConfigMap and Pod objects:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/config/redis-pod.yaml
+kubectl apply -k .
+```
+
+Examine the created objects by
+```shell
+> kubectl get -k .
+NAME                                        DATA   AGE
+configmap/example-redis-config-dgh9dg555m   1      52s
+
+NAME        READY   STATUS    RESTARTS   AGE
+pod/redis   1/1     Running   0          52s
 ```
 
 In the example, the config volume is mounted at `/redis-master`.

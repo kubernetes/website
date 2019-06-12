@@ -107,7 +107,7 @@ We are focused on stability and usability improvements as our next steps.
 - Usability:
 
   - Improve the user experience of [_crictl_](https://github.com/kubernetes-incubator/cri-tools/blob/master/docs/crictl.md). Crictl is a portable command line tool for all CRI container runtimes. The goal here is to make it easy to use for debug and development scenarios.
-  - Integrate cri-containerd with [_kube-up.sh_](https://kubernetes.io/docs/getting-started-guides/gce/), to help users bring up a production quality Kubernetes cluster using cri-containerd and containerd.
+  - Integrate cri-containerd with [_kube-up.sh_](/docs/getting-started-guides/gce/), to help users bring up a production quality Kubernetes cluster using cri-containerd and containerd.
   - Improve our documentation for users and admins alike.
 
 We plan to release our v1.0.0-beta.0 by the end of 2017.

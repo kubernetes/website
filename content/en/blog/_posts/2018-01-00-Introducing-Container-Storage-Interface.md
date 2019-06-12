@@ -5,7 +5,7 @@ slug: introducing-container-storage-interface
 url: /blog/2018/01/Introducing-Container-Storage-Interface
 ---
 
-One of the key differentiators for Kubernetes has been a powerful [volume plugin system](https://kubernetes.io/docs/concepts/storage/volumes/) that enables many different types of storage systems to:  
+One of the key differentiators for Kubernetes has been a powerful [volume plugin system](/docs/concepts/storage/volumes/) that enables many different types of storage systems to:  
 
 1. Automatically create storage when required.
 2. Make storage available to containers wherever they’re scheduled.

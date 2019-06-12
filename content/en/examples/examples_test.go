@@ -184,16 +184,16 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.ObjectMeta.Name = "skip-for-good"
 		}
 		errors = job.Strategy.Validate(nil, t)
-	case *extensions.DaemonSet:
+	case *apps.DaemonSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = ext_validation.ValidateDaemonSet(t)
-	case *extensions.Deployment:
+		errors = apps_validation.ValidateDaemonSet(t)
+	case *apps.Deployment:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = ext_validation.ValidateDeployment(t)
+		errors = apps_validation.ValidateDeployment(t)
 	case *extensions.Ingress:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -201,11 +201,11 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		errors = ext_validation.ValidateIngress(t)
 	case *policy.PodSecurityPolicy:
 		errors = policy_validation.ValidatePodSecurityPolicy(t)
-	case *extensions.ReplicaSet:
+	case *apps.ReplicaSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = ext_validation.ValidateReplicaSet(t)
+		errors = apps_validation.ValidateReplicaSet(t)
 	case *batch.CronJob:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -298,12 +298,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"namespace-prod": {&api.Namespace{}},
 		},
 		"admin/cloud": {
-			"ccm-example":            {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
-			"pvl-initializer-config": {&admissionregistration.InitializerConfiguration{}},
+			"ccm-example": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &apps.DaemonSet{}},
 		},
 		"admin/dns": {
 			"busybox":                   {&api.Pod{}},
-			"dns-horizontal-autoscaler": {&extensions.Deployment{}},
+			"dns-horizontal-autoscaler": {&apps.Deployment{}},
 		},
 		"admin/logging": {
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
@@ -337,42 +336,42 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-objects-pvc":        {&api.PersistentVolumeClaim{}},
 			"quota-objects-pvc-2":      {&api.PersistentVolumeClaim{}},
 			"quota-pod":                {&api.ResourceQuota{}},
-			"quota-pod-deployment":     {&extensions.Deployment{}},
+			"quota-pod-deployment":     {&apps.Deployment{}},
 		},
 		"admin/sched": {
-			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
 		},
 		"application": {
-			"deployment":         {&extensions.Deployment{}},
-			"deployment-patch":   {&extensions.Deployment{}},
-			"deployment-scale":   {&extensions.Deployment{}},
-			"deployment-update":  {&extensions.Deployment{}},
-			"nginx-app":          {&api.Service{}, &extensions.Deployment{}},
-			"nginx-with-request": {&extensions.Deployment{}},
+			"deployment":         {&apps.Deployment{}},
+			"deployment-patch":   {&apps.Deployment{}},
+			"deployment-scale":   {&apps.Deployment{}},
+			"deployment-update":  {&apps.Deployment{}},
+			"nginx-app":          {&api.Service{}, &apps.Deployment{}},
+			"nginx-with-request": {&apps.Deployment{}},
 			"shell-demo":         {&api.Pod{}},
-			"simple_deployment":  {&extensions.Deployment{}},
-			"update_deployment":  {&extensions.Deployment{}},
+			"simple_deployment":  {&apps.Deployment{}},
+			"update_deployment":  {&apps.Deployment{}},
 		},
 		"application/cassandra": {
 			"cassandra-service":     {&api.Service{}},
 			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 		},
 		"application/guestbook": {
-			"frontend-deployment":     {&extensions.Deployment{}},
+			"frontend-deployment":     {&apps.Deployment{}},
 			"frontend-service":        {&api.Service{}},
-			"redis-master-deployment": {&extensions.Deployment{}},
+			"redis-master-deployment": {&apps.Deployment{}},
 			"redis-master-service":    {&api.Service{}},
-			"redis-slave-deployment":  {&extensions.Deployment{}},
+			"redis-slave-deployment":  {&apps.Deployment{}},
 			"redis-slave-service":     {&api.Service{}},
 		},
 		"application/hpa": {
 			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
 		},
 		"application/nginx": {
-			"nginx-deployment": {&extensions.Deployment{}},
+			"nginx-deployment": {&apps.Deployment{}},
 			"nginx-svc":        {&api.Service{}},
 		},
 		"application/job": {
@@ -389,7 +388,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"application/mysql": {
 			"mysql-configmap":   {&api.ConfigMap{}},
-			"mysql-deployment":  {&api.Service{}, &extensions.Deployment{}},
+			"mysql-deployment":  {&api.Service{}, &apps.Deployment{}},
 			"mysql-pv":          {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":    {&api.Service{}, &api.Service{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},
@@ -399,34 +398,38 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"web-parallel": {&api.Service{}, &apps.StatefulSet{}},
 		},
 		"application/wordpress": {
-			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
-			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &apps.Deployment{}},
+			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &apps.Deployment{}},
 		},
 		"application/zookeeper": {
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
+		"configmap": {
+			"configmaps":            {&api.ConfigMap{}, &api.ConfigMap{}},
+			"configmap-multikeys":   {&api.ConfigMap{}},
+		},
 		"controllers": {
-			"daemonset":        {&extensions.DaemonSet{}},
-			"frontend":         {&extensions.ReplicaSet{}},
+			"daemonset":        {&apps.DaemonSet{}},
+			"frontend":         {&apps.ReplicaSet{}},
 			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
 			"job":              {&batch.Job{}},
-			"replicaset":       {&extensions.ReplicaSet{}},
+			"replicaset":       {&apps.ReplicaSet{}},
 			"replication":      {&api.ReplicationController{}},
-			"nginx-deployment": {&extensions.Deployment{}},
+			"nginx-deployment": {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
-			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
+			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
-			"fluentd-gcp-ds":                  {&extensions.DaemonSet{}},
-			"node-problem-detector":           {&extensions.DaemonSet{}},
-			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
+			"fluentd-gcp-ds":                  {&apps.DaemonSet{}},
+			"node-problem-detector":           {&apps.DaemonSet{}},
+			"node-problem-detector-configmap": {&apps.DaemonSet{}},
 			"termination":                     {&api.Pod{}},
 		},
 		"federation": {
-			"policy-engine-deployment":    {&extensions.Deployment{}},
+			"policy-engine-deployment":    {&apps.Deployment{}},
 			"policy-engine-service":       {&api.Service{}},
-			"replicaset-example-policy":   {&extensions.ReplicaSet{}},
+			"replicaset-example-policy":   {&apps.ReplicaSet{}},
 			"scheduling-policy-admission": {&api.ConfigMap{}},
 		},
 		"podpreset": {
@@ -441,19 +444,28 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"preset":            {&settings.PodPreset{}},
 			"proxy":             {&settings.PodPreset{}},
 			"replicaset-merged": {&api.Pod{}},
-			"replicaset":        {&extensions.ReplicaSet{}},
+			"replicaset":        {&apps.ReplicaSet{}},
 		},
 		"pods": {
-			"commands":                {&api.Pod{}},
-			"init-containers":         {&api.Pod{}},
-			"lifecycle-events":        {&api.Pod{}},
-			"pod-nginx":               {&api.Pod{}},
-			"pod-with-node-affinity":  {&api.Pod{}},
-			"pod-with-pod-affinity":   {&api.Pod{}},
-			"private-reg-pod":         {&api.Pod{}},
-			"share-process-namespace": {&api.Pod{}},
-			"simple-pod":              {&api.Pod{}},
-			"two-container-pod":       {&api.Pod{}},
+			"commands":                            {&api.Pod{}},
+			"init-containers":                     {&api.Pod{}},
+			"lifecycle-events":                    {&api.Pod{}},
+			"pod-configmap-env-var-valueFrom":     {&api.Pod{}},
+			"pod-configmap-envFrom":               {&api.Pod{}},
+			"pod-configmap-volume":                {&api.Pod{}},
+			"pod-configmap-volume-specific-key":   {&api.Pod{}},
+			"pod-multiple-configmap-env-variable": {&api.Pod{}},
+			"pod-nginx-specific-node":             {&api.Pod{}},
+			"pod-nginx":                           {&api.Pod{}},
+			"pod-projected-svc-token":             {&api.Pod{}},
+			"pod-rs":                              {&api.Pod{}, &api.Pod{}},
+			"pod-single-configmap-env-variable":   {&api.Pod{}},
+			"pod-with-node-affinity":              {&api.Pod{}},
+			"pod-with-pod-affinity":               {&api.Pod{}},
+			"private-reg-pod":                     {&api.Pod{}},
+			"share-process-namespace":             {&api.Pod{}},
+			"simple-pod":                          {&api.Pod{}},
+			"two-container-pod":                   {&api.Pod{}},
 		},
 		"pods/config": {
 			"redis-pod": {&api.Pod{}},
@@ -513,24 +525,24 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-service": {&api.Service{}},
 		},
 		"service/access": {
-			"frontend":      {&api.Service{}, &extensions.Deployment{}},
+			"frontend":      {&api.Service{}, &apps.Deployment{}},
 			"hello-service": {&api.Service{}},
-			"hello":         {&extensions.Deployment{}},
+			"hello":         {&apps.Deployment{}},
 		},
 		"service/networking": {
-			"curlpod":          {&extensions.Deployment{}},
+			"curlpod":          {&apps.Deployment{}},
 			"custom-dns":       {&api.Pod{}},
 			"hostaliases-pod":  {&api.Pod{}},
 			"ingress":          {&extensions.Ingress{}},
-			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
+			"nginx-secure-app": {&api.Service{}, &apps.Deployment{}},
 			"nginx-svc":        {&api.Service{}},
-			"run-my-nginx":     {&extensions.Deployment{}},
+			"run-my-nginx":     {&apps.Deployment{}},
 		},
 		"windows": {
 			"configmap-pod":       {&api.ConfigMap{}, &api.Pod{}},
-			"daemonset":           {&extensions.DaemonSet{}},
-			"deploy-hyperv":       {&extensions.Deployment{}},
-			"deploy-resource":     {&extensions.Deployment{}},
+			"daemonset":           {&apps.DaemonSet{}},
+			"deploy-hyperv":       {&apps.Deployment{}},
+			"deploy-resource":     {&apps.Deployment{}},
 			"emptydir-pod":        {&api.Pod{}},
 			"hostpath-volume-pod": {&api.Pod{}},
 			"secret-pod":          {&api.Secret{}, &api.Pod{}},

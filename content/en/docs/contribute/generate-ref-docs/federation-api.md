@@ -73,10 +73,10 @@ repository.
 These files are published at
 [kubernetes.io/docs/reference](/docs/reference/):
 
-* [Federation API v1 Operations](https://kubernetes.io/docs/reference/federation/v1/operations/)
-* [Federation API v1 Definitions](https://kubernetes.io/docs/reference/federation/v1/definitions/)
-* [Federation API extensions/v1beta1 Operations](https://kubernetes.io/docs/reference/federation/extensions/v1beta1/operations/)
-* [Federation API extensions/v1beta1 Definitions](https://kubernetes.io/docs/reference/federation/extensions/v1beta1/definitions/)
+* [Federation API v1 Operations](/docs/reference/federation/v1/operations/)
+* [Federation API v1 Definitions](/docs/reference/federation/v1/definitions/)
+* [Federation API extensions/v1beta1 Operations](/docs/reference/federation/extensions/v1beta1/operations/)
+* [Federation API extensions/v1beta1 Definitions](/docs/reference/federation/extensions/v1beta1/definitions/)
 
 {{% /capture %}}
 
@@ -87,6 +87,3 @@ These files are published at
 * [Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
 
 {{% /capture %}}
-
-
-

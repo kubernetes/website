@@ -8,7 +8,7 @@ date:   2018-07-27
 
 ## What is KubeVirt?
 
-[KubeVirt](https://github.com/kubevirt/kubevirt) is a Kubernetes addon that provides users the ability to schedule traditional virtual machine workloads side by side with container workloads. Through the use of [Custom Resource Definitions](https://Kubernetes.io/docs/concepts/extend-Kubernetes/api-extension/custom-resources/) (CRDs) and other Kubernetes features, KubeVirt seamlessly extends existing Kubernetes clusters to provide a set of virtualization APIs that can be used to manage virtual machines.
+[KubeVirt](https://github.com/kubevirt/kubevirt) is a Kubernetes addon that provides users the ability to schedule traditional virtual machine workloads side by side with container workloads. Through the use of [Custom Resource Definitions](/docs/concepts/extend-Kubernetes/api-extension/custom-resources/) (CRDs) and other Kubernetes features, KubeVirt seamlessly extends existing Kubernetes clusters to provide a set of virtualization APIs that can be used to manage virtual machines.
 
 ## Why Use CRDs Over an Aggregated API Server?
 
@@ -44,7 +44,7 @@ One of the responsibilities of the Kubernetes API server is to intercept and val
 
 This validation occurs during a process called admission control. Until recently, it was not possible to extend the default Kubernetes admission controllers without altering code and compiling/deploying an entirely new Kubernetes API server. This meant that if we wanted to perform admission control on KubeVirt’s CRD objects while they are posted to the cluster, we’d have to build our own version of the Kubernetes API server and convince our users to use that instead. That was not a viable solution for us.
 
-Using the new [Dynamic Admission Control](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) feature that first landed in Kubernetes 1.9, we now have a path for performing custom validation on KubeVirt API through the use of a [ValidatingAdmissionWebhook](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#external-admission-webhooks). This feature allows KubeVirt to dynamically register an HTTPS webhook with Kubernetes at KubeVirt install time. After registering the custom webhook, all requests related to KubeVirt API objects are forwarded from the Kubernetes API server to our HTTPS endpoint for validation. If our endpoint rejects a request for any reason, the object will not be persisted into etcd and the client receives our response outlining the reason for the rejection.
+Using the new [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/) feature that first landed in Kubernetes 1.9, we now have a path for performing custom validation on KubeVirt API through the use of a [ValidatingAdmissionWebhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#external-admission-webhooks). This feature allows KubeVirt to dynamically register an HTTPS webhook with Kubernetes at KubeVirt install time. After registering the custom webhook, all requests related to KubeVirt API objects are forwarded from the Kubernetes API server to our HTTPS endpoint for validation. If our endpoint rejects a request for any reason, the object will not be persisted into etcd and the client receives our response outlining the reason for the rejection.
 
 For example, if someone posts a malformed VirtualMachine object, they’ll receive an error indicating what the problem is. 
 
@@ -57,7 +57,7 @@ In the example output above, that error response is coming directly from KubeVir
 
 ## CRD OpenAPIv3 Validation
 
-In addition to the validating webhook, KubeVirt also uses the ability to provide an [OpenAPIv3 validation schema](https://kubernetes.io/docs/tasks/access-kubernetes-API/extend-api-custom-resource-definitions/#advanced-topics) when registering a CRD with the cluster. While the OpenAPIv3 schema does not let us express some of the more advanced validation checks that the validation webhook provides, it does offer the ability to enforce simple validation checks involving things like required fields, max/min value lengths, and verifying that values are formatted in a way that matches a regular expression string.
+In addition to the validating webhook, KubeVirt also uses the ability to provide an [OpenAPIv3 validation schema](/docs/tasks/access-kubernetes-API/extend-api-custom-resource-definitions/#advanced-topics) when registering a CRD with the cluster. While the OpenAPIv3 schema does not let us express some of the more advanced validation checks that the validation webhook provides, it does offer the ability to enforce simple validation checks involving things like required fields, max/min value lengths, and verifying that values are formatted in a way that matches a regular expression string.
 
 ## Dynamic Webhooks for “PodPreset Like” Behavior
 
@@ -93,7 +93,7 @@ One thing worth noting is that in Kubernetes 1.10 a very basic form of CRD subre
 
 ## CRD Finalizers
 
-A [CRD finalizer](https://kubernetes.io/docs/tasks/access-kubernetes-API/extend-api-custom-resource-definitions/#advanced-topics) is a feature that lets us provide a pre-delete hook in order to perform actions before allowing a CRD object to be removed from persistent storage. In KubeVirt, we use finalizers to guarantee a virtual machine has completely terminated before we allow the corresponding VMI object to be removed from etcd.
+A [CRD finalizer](/docs/tasks/access-kubernetes-API/extend-api-custom-resource-definitions/#advanced-topics) is a feature that lets us provide a pre-delete hook in order to perform actions before allowing a CRD object to be removed from persistent storage. In KubeVirt, we use finalizers to guarantee a virtual machine has completely terminated before we allow the corresponding VMI object to be removed from etcd.
 
 ## API Versioning for CRDs
 
@@ -104,4 +104,3 @@ Prior to Kubernetes 1.11, CRDs did not have support for multiple versions. This 
 That strategy was not exactly a viable option for us.
 
 Fortunately thanks to some recent [work to rectify this issue in Kubernetes](https://github.com/kubernetes/features/issues/544), the latest Kubernetes v1.11 now supports [CRDs with multiple versions](https://github.com/kubernetes/kubernetes/pull/63830). Note however that this initial multi version support is limited. While a CRD can now have multiple versions, the feature does not currently contain a path for performing conversions between versions. In KubeVirt, the lack of conversion makes it difficult us to evolve our API as we progress versions. Luckily, support for conversions between versions is underway and we look forward to taking advantage of that feature once it lands in a future Kubernetes release.
-

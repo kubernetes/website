@@ -24,8 +24,8 @@ Without further ado, let’s start playing around with Deployments!
 ### Getting started
 If you want to try this example, basically you’ll need 3 things:  
 
-1. **A running Kubernetes cluster** : If you don’t already have one, check the [Getting Started guides](http://kubernetes.io/docs/getting-started-guides/) for a list of solutions on a range of platforms, from your laptop, to VMs on a cloud provider, to a rack of bare metal servers.
-2. **Kubectl, the Kubernetes CLI** : If you see a URL response after running kubectl cluster-info, you’re ready to go. Otherwise, follow the [instructions](http://kubernetes.io/docs/user-guide/prereqs/) to install and configure kubectl; or the [instructions for hosted solutions](https://cloud.google.com/container-engine/docs/before-you-begin) if you have a Google Container Engine cluster.
+1. **A running Kubernetes cluster** : If you don’t already have one, check the [Getting Started guides](/docs/getting-started-guides/) for a list of solutions on a range of platforms, from your laptop, to VMs on a cloud provider, to a rack of bare metal servers.
+2. **Kubectl, the Kubernetes CLI** : If you see a URL response after running kubectl cluster-info, you’re ready to go. Otherwise, follow the [instructions](/docs/user-guide/prereqs/) to install and configure kubectl; or the [instructions for hosted solutions](https://cloud.google.com/container-engine/docs/before-you-begin) if you have a Google Container Engine cluster.
 3. The [configuration files for this demo](https://github.com/kubernetes/kubernetes.github.io/tree/master/docs/user-guide/update-demo).
 If you choose not to run this example yourself, that’s okay. Just watch this [video](https://youtu.be/eigalYy0v4w) to see what’s going on in each step.  
 
@@ -99,7 +99,7 @@ deployment "update-demo" rolled back
 
 Everything’s back to normal, phew!  
 
-To learn more about rollback, visit [rolling back a Deployment](http://kubernetes.io/docs/user-guide/deployments/#rolling-back-a-deployment).   
+To learn more about rollback, visit [rolling back a Deployment](/docs/user-guide/deployments/#rolling-back-a-deployment).   
 
 ### Updating your application (for real)
 After a while, we finally figure that the right image tag is “kitten”, instead of “kitty”. Now change .spec.template.spec.containers[0].image tag from “nautilus“ to “kitten“.  
@@ -119,7 +119,7 @@ $ kubectl describe deployment/update-demo
 
 [![](https://1.bp.blogspot.com/-3U1OTNqdz1s/Vv7Kfw4uGYI/AAAAAAAAChU/CgF6Mv5J6b8_lANXkpEIFytRGo9x0Bn_A/s640/deployment-API-6.png)](https://1.bp.blogspot.com/-3U1OTNqdz1s/Vv7Kfw4uGYI/AAAAAAAAChU/CgF6Mv5J6b8_lANXkpEIFytRGo9x0Bn_A/s1600/deployment-API-6.png)
 
-From the events section, you’ll find that the Deployment is managing another resource called [Replica Set](http://kubernetes.io/docs/user-guide/replicasets/), each controls the number of replicas of a different pod template. The Deployment enables progressive rollout by scaling up and down Replica Sets of new and old pod templates.   
+From the events section, you’ll find that the Deployment is managing another resource called [Replica Set](/docs/user-guide/replicasets/), each controls the number of replicas of a different pod template. The Deployment enables progressive rollout by scaling up and down Replica Sets of new and old pod templates.   
 
 ### Conclusion
 Now, you’ve learned the basic use of Deployment objects:  
@@ -127,7 +127,7 @@ Now, you’ve learned the basic use of Deployment objects:
 1. Deploy an app with a Deployment, using kubectl run
 2. Updating the app by updating the Deployment with kubectl edit
 3. Rolling back to a previously deployed app with kubectl rollout undo
-But there’s so much more in Deployment that this article didn’t cover! To discover more, continue reading [Deployment’s introduction](http://kubernetes.io/docs/user-guide/deployments/).  
+But there’s so much more in Deployment that this article didn’t cover! To discover more, continue reading [Deployment’s introduction](/docs/user-guide/deployments/).  
 
 **_Note:_**  _In Kubernetes 1.2, Deployment (beta release) is now feature-complete and enabled by default. For those of you who have tried Deployment in Kubernetes 1.1, please **delete all Deployment 1.1 resources** (including the Replication Controllers and Pods they manage) before trying out Deployments in 1.2. This is necessary because we made some non-backward-compatible changes to the API._  
 

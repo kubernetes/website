@@ -77,6 +77,6 @@ flag, which provides the object to be submitted to the cluster.
 
 ### `kubectl apply`
 
-* You can use `kubectl apply` to create or update resources. However, to update a resource you should have created the resource by using `kubectl apply` or `kubectl create --save-config`. For more information about using kubectl apply to update resources, see [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply).
+* You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
 {{% /capture %}}

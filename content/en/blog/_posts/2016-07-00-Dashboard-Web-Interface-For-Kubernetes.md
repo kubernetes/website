@@ -13,7 +13,7 @@ _Editor’s note: this post is part of a [series of in-depth articles](https://k
 
 Thanks to a large number of contributions from the community and project members, we were able to deliver many new features for [Kubernetes 1.3 release](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads). We have been carefully listening to all the great feedback we have received from our users (see the [summary infographics](http://static.lwy.io/img/kubernetes_dashboard_infographic.png)) and addressed the highest priority requests and pain points.  
 
-The Dashboard UI now handles all workload resources. This means that no matter what workload type you run, it is visible in the web interface and you can do operational changes on it. For example, you can modify your stateful MySQL installation with [Pet Sets](http://kubernetes.io/docs/user-guide/petset/), do a rolling update of your web server with Deployments or install cluster monitoring with DaemonSets.&nbsp;  
+The Dashboard UI now handles all workload resources. This means that no matter what workload type you run, it is visible in the web interface and you can do operational changes on it. For example, you can modify your stateful MySQL installation with [Pet Sets](/docs/user-guide/petset/), do a rolling update of your web server with Deployments or install cluster monitoring with DaemonSets.&nbsp;  
 
 
 

@@ -93,5 +93,5 @@ feedback](https://github.com/grpc-ecosystem/grpc-health-probe/).
 ## Further reading
 
 - Protocol: [GRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/v1.15.0/doc/health-checking.md) ([health.proto](https://github.com/grpc/grpc/blob/v1.15.0/src/proto/grpc/health/v1/health.proto))
-- Documentation: [Kubernetes liveness and readiness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
+- Documentation: [Kubernetes liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 - Article: [Advanced Kubernetes Health Check Patterns](https://ahmet.im/blog/advanced-kubernetes-health-checks/)

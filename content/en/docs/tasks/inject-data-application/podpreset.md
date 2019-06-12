@@ -36,13 +36,15 @@ Preset.
 Create the PodPreset:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/preset.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/preset.yaml
 ```
 
 Examine the created PodPreset:
 
 ```shell
-$ kubectl get podpreset
+kubectl get podpreset
+```
+```
 NAME             AGE
 allow-database   1m
 ```
@@ -54,13 +56,15 @@ The new PodPreset will act upon any pod that has label `role: frontend`.
 Create a pod:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
+kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
 ```
 
 List the running Pods:
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 website   1/1       Running   0          4m
 ```
@@ -72,7 +76,7 @@ website   1/1       Running   0          4m
 To see above output, run the following command:
 
 ```shell
-$ kubectl get pod website -o yaml
+kubectl get pod website -o yaml
 ```
 
 ## Pod Spec with ConfigMap Example
@@ -157,7 +161,9 @@ when there is a conflict.
 **If we run `kubectl describe...` we can see the event:**
 
 ```shell
-$ kubectl describe ...
+kubectl describe ...
+```
+```
 ....
 Events:
   FirstSeen             LastSeen            Count   From                    SubobjectPath               Reason      Message
@@ -169,7 +175,9 @@ Events:
 Once you don't need a pod preset anymore, you can delete it with `kubectl`:
 
 ```shell
-$ kubectl delete podpreset allow-database
+kubectl delete podpreset allow-database
+```
+```
 podpreset "allow-database" deleted
 ```
 

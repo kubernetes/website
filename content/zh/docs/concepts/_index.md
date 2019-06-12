@@ -28,7 +28,7 @@ weight: 40
 
 <!-- To work with Kubernetes, you use *Kubernetes API objects* to describe your cluster's *desired state*: what applications or other workloads you want to run, what container images they use, the number of replicas, what network and disk resources you want to make available, and more. You set your desired state by creating objects using the Kubernetes API, typically via the command-line interface, `kubectl`. You can also use the Kubernetes API directly to interact with the cluster and set or modify your desired state. -->
 
-要使用 Kubernetes，你需要用 *Kubernetes API 对象*来描述集群的*预期状态（desired state）*：包括你需要运行的应用或者负载，它们使用的镜像、副本数，以及所需网络和磁盘资源等等。你可以使用命令行工具 `kubectl`  来调用 Kubernetes API 创建对象，通过所创建的这些对象来配置预期状态。你也可以直接调用 Kubernetes API 和集群进行交互，设置或者修改预期状态。
+要使用 Kubernetes，你需要用 *Kubernetes API 对象* 来描述集群的*预期状态（desired state）* ：包括你需要运行的应用或者负载，它们使用的镜像、副本数，以及所需网络和磁盘资源等等。你可以使用命令行工具 `kubectl`  来调用 Kubernetes API 创建对象，通过所创建的这些对象来配置预期状态。你也可以直接调用 Kubernetes API 和集群进行交互，设置或者修改预期状态。
 
 <!-- Once you've set your desired state, the *Kubernetes Control Plane* works to make the cluster's current state match the desired state. To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster:  -->
 
@@ -63,7 +63,7 @@ Kubernetes 包含若干抽象用来表示系统状态，包括：已部署的容
 
 <!-- In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include: -->
 
-另外，Kubernetes 包含大量的被称作*控制器（controllers）*的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
+另外，Kubernetes 包含大量的被称作*控制器（controllers）* 的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)

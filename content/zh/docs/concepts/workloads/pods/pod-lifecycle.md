@@ -98,6 +98,13 @@ PodSpec 中有一个 `restartPolicy` 字段，可能的值为 Always、OnFailure
 
 存活探针由 kubelet 来执行，因此所有的请求都在 kubelet 的网络命名空间中进行。
 
+<!--
+        # when "host" is not defined, "PodIP" will be used
+        # host: my-host
+        # when "scheme" is not defined, "HTTP" scheme will be used. Only "HTTP" and "HTTPS" are allowed
+        # scheme: HTTPS
+-->
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -112,9 +119,9 @@ spec:
     image: k8s.gcr.io/liveness
     livenessProbe:
       httpGet:
-        # when "host" is not defined, "PodIP" will be used
+        # 当没有定义 "host" 时，使用 "PodIP"
         # host: my-host
-        # when "scheme" is not defined, "HTTP" scheme will be used. Only "HTTP" and "HTTPS" are allowed
+        # 当没有定义 "scheme" 时，使用 "HTTP" scheme 只允许 "HTTP" 和 "HTTPS"
         # scheme: HTTPS
         path: /healthz
         port: 8080

@@ -43,7 +43,7 @@ Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
 
 1. Create the pod `nginx` on your cluster:
 
-        kubectl create -f https://k8s.io/examples/pods/share-process-namespace.yaml
+        kubectl apply -f https://k8s.io/examples/pods/share-process-namespace.yaml
 
 1. Attach to the `shell` container and run `ps`:
 

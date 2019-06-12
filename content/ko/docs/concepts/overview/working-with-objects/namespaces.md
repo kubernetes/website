@@ -41,7 +41,9 @@ weight: 30
 사용중인 클러스터의 현재 네임스페이스를 나열할 수 있다.
 
 ```shell
-$ kubectl get namespaces
+kubectl get namespaces
+```
+```
 NAME          STATUS    AGE
 default       Active    1d
 kube-system   Active    1d

@@ -31,7 +31,7 @@ is a Pod that has one container:
 Create the Deployment:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/deployment-patch.yaml
+kubectl apply -f https://k8s.io/examples/application/deployment-patch.yaml
 ```
 
 View the Pods associated with your Deployment:

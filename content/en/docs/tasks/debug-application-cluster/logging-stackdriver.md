@@ -97,7 +97,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-configmap.yaml
+    kubectl apply -f https://k8s.io/examples/debug/fluentd-gcp-configmap.yaml
     ```
 
     The command creates the `ConfigMap` in the `default` namespace. You can download the file
@@ -106,7 +106,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-ds.yaml
+    kubectl apply -f https://k8s.io/examples/debug/fluentd-gcp-ds.yaml
     ```
 
     You can download and edit this file before using it as well.
@@ -135,17 +135,19 @@ synthetic log generator pod specification [counter-pod.yaml](/examples/debug/cou
 {{< codenew file="debug/counter-pod.yaml" >}}
 
 This pod specification has one container that runs a bash script
-that writes out the value of a counter and the date once per
+that writes out the value of a counter and the datetime once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 ```
 
 You can observe the running pod:
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+```
 NAME                                           READY     STATUS    RESTARTS   AGE
 counter                                        1/1       Running   0          5m
 ```
@@ -155,7 +157,9 @@ has to download the container image first. When the pod status changes to `Runni
 you can use the `kubectl logs` command to view the output of this counter pod.
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
+```
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -169,21 +173,27 @@ if the pod is evicted from the node, log files are lost. Let's demonstrate this
 by deleting the currently running counter container:
 
 ```shell
-$ kubectl delete pod counter
+kubectl delete pod counter
+```
+```
 pod "counter" deleted
 ```
 
 and then recreating it:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+```
+```
 pod/counter created
 ```
 
 After some time, you can access logs from the counter pod again:
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
+```
+```
 0: Mon Jan  1 00:01:00 UTC 2001
 1: Mon Jan  1 00:01:01 UTC 2001
 2: Mon Jan  1 00:01:02 UTC 2001
@@ -226,7 +236,9 @@ It uses Stackdriver Logging [filtering syntax](https://cloud.google.com/logging/
 to query specific logs. For example, you can run the following command:
 
 ```none
-$ gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --format json | jq '.[].textPayload'
+gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --format json | jq '.[].textPayload'
+```
+```
 ...
 "2: Mon Jan  1 00:01:02 UTC 2001\n"
 "1: Mon Jan  1 00:01:01 UTC 2001\n"
@@ -329,7 +341,7 @@ by running the following command:
 kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-configmap.yaml
 ```
 
-Then in the value for the key `containers.input.conf` insert a new filter right after
+Then in the value of the key `containers.input.conf` insert a new filter right after
 the `source` section.
 
 {{< note >}}

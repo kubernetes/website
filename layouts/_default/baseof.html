@@ -3,7 +3,7 @@
 	<head>
 		{{ partial "head.html" . }}
 	</head>
-	<body>
+	<body class="page">
 		{{ partial "header.html" . }}
 		{{ block "hero" . }}
 		<!--  HERO  -->
@@ -18,7 +18,11 @@
 		</section>
 		{{ block "post-hero" . }}{{ end }}
 		{{ end }}
-		{{ block "main" . }}{{ end }}
+    
+    <article class="page-content">
+      {{ block "main" . }}{{ end }}
+    </article>
+
 		{{ partialCached "footer.html" . }}
 		{{ partialCached "footer-scripts.html" . }}
 	</body>

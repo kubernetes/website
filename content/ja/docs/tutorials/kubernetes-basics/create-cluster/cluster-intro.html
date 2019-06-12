@@ -1,0 +1,108 @@
+---
+title: Minikubeを使ったクラスタの作成
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <h3>目標</h3>
+                <ul>
+                    <li>Kubernetesクラスタとは何かを学ぶ</li>
+                    <li>Minikubeとは何かを学ぶ</li>
+                    <li>Kubernetesクラスタを、オンラインのターミナルを使って動かす</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Kubernetesクラスタ</h3>
+                <p>
+                <b>Kubernetesは、単一のユニットとして機能するように接続された、可用性の高いコンピュータのクラスタをまとめあげます。</b>Kubernetesの抽象化により、コンテナ化されたアプリケーションを個々のマシンに特に結び付けることなくクラスタにデプロイできます。この新しいデプロイモデルを利用するには、アプリケーションを個々のホストから切り離す方法でアプリケーションをパッケージ化(つまり、コンテナ化)する必要があります。コンテナ化されたアプリケーションは、アプリケーションがホストに深く統合されたパッケージとして特定のマシンに直接インストールされていた従来のデプロイモデルよりも柔軟で、より迅速に利用可能です。<b>Kubernetesはより効率的な方法で、クラスタ全体のアプリケーションコンテナの配布とスケジューリングを自動化します。</b>Kubernetesは<a href="https://github.com/kubernetes/kubernetes">オープンソース</a>のプラットフォームであり、プロダクションレディです。
+                </p>
+                <p>Kubernetesクラスタは以下の2種類のリソースで構成されています:
+                    <ul>
+                        <li><b>マスター</b>がクラスタを管理する</li>
+                        <li><b>Node</b>がアプリケーションを動かすワーカーとなる</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>まとめ:</h3>
+                    <ul>
+                        <li>Kubernetesクラスタ</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Kubernetesは、コンピュータクラスタ内およびコンピュータクラスタ間でのアプリケーションコンテナの配置(スケジューリング)および実行を調整する、プロダクショングレードのオープンソースプラットフォームです。
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">クラスタダイアグラム</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>マスターはクラスタの管理を担当します。</b>マスターは、アプリケーションのスケジューリング、望ましい状態の維持、アプリケーションのスケーリング、新しい更新のロールアウトなど、クラスタ内のすべての動作をまとめあげます。</p>
+                <p><b>Nodeは、Kubernetesクラスタのワーカーマシンとして機能するVMまたは物理マシンです。</b>各NodeにはKubeletがあり、これはNodeを管理し、Kubernetesマスターと通信するためのエージェントです。Nodeには<a href="https://www.docker.com/">Docker</a>や<a href="https://coreos.com/rkt/">rkt</a>などのコンテナ操作を処理するためのツールもあるはずです。プロダクションのトラフィックを処理するKubernetesクラスタには、最低3つのNodeが必要です。</p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> マスターはクラスタを管理するために、Nodeは実行中のアプリケーションをホストするために使用されます。  </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Kubernetesにアプリケーションをデプロイするときは、マスターにアプリケーションコンテナを起動するように指示します。マスターはコンテナがクラスタのNodeで実行されるようにスケジュールします。<b>Nodeは、マスターが公開しているKubernetes APIを使用してマスターと通信します。</b>エンドユーザーは、Kubernetes APIを直接使用して対話することもできます。</p>
+
+                <p>Kubernetesクラスタは、物理マシンまたは仮想マシンのどちらにも配置できます。Kubernetes開発を始めるために<a href="https://github.com/kubernetes/minikube">Minikube</a>を使うことができます。Minikubeは、ローカルマシン上にVMを作成し、1つのNodeのみを含む単純なクラスタをデプロイする軽量なKubernetes実装です。Minikubeは、Linux、macOS、およびWindowsシステムで利用可能です。Minikube CLIは、起動、停止、ステータス、削除など、クラスタを操作するための基本的なブートストラップ操作を提供します。ただし、このチュートリアルでは、Minikubeがプリインストールされた状態で提供されているオンラインのターミナルを使用します。</p>
+
+                <p>Kubernetesが何であるかがわかったので、オンラインチュートリアルに行き、最初のクラスタを動かしましょう！</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">対話型のチュートリアルを始める <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

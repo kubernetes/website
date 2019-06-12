@@ -48,19 +48,7 @@ For this example, for simplicity, we will start a single instance of Redis.
 See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guestbook) for an example
 of deploying Redis scalably and redundantly.
 
-If you are working from the website source tree, you can go to the following
-directory and start a temporary Pod running Redis and a service so we can find it.
-
-```shell
-$ cd content/en/examples/application/job/redis
-$ kubectl create -f ./redis-pod.yaml
-pod/redis-master created
-$ kubectl create -f ./redis-service.yaml
-service/redis created
-```
-
-If you're not working from the source tree, you could also download the following
-files directly:
+You could also download the following files directly:
 
 - [`redis-pod.yaml`](/examples/application/job/redis/redis-pod.yaml)
 - [`redis-service.yaml`](/examples/application/job/redis/redis-service.yaml)
@@ -78,7 +66,7 @@ printed.
 Start a temporary interactive pod for running the Redis CLI.
 
 ```shell
-$ kubectl run -i --tty temp --image redis --command "/bin/sh"
+kubectl run -i --tty temp --image redis --command "/bin/sh"
 Waiting for pod default/redis2-c7h78 to be running, status is Pending, pod ready: false
 Hit enter for command prompt
 ```
@@ -138,9 +126,7 @@ client library to get work.  Here it is:
 
 {{< codenew language="python" file="application/job/redis/worker.py" >}}
 
-If you are working from the source tree, change directory to the
-`content/en/examples/application/job/redis/` directory.
-Otherwise, download [`worker.py`](/examples/application/job/redis/worker.py),
+You could also download [`worker.py`](/examples/application/job/redis/worker.py),
 [`rediswq.py`](/examples/application/job/redis/rediswq.py), and
 [`Dockerfile`](/examples/application/job/redis/Dockerfile) files, then build
 the image:
@@ -196,13 +182,13 @@ too.
 So, now run the Job:
 
 ```shell
-kubectl create -f ./job.yaml
+kubectl apply -f ./job.yaml
 ```
 
 Now wait a bit, then check on the job.
 
 ```shell
-$ kubectl describe jobs/job-wq-2
+kubectl describe jobs/job-wq-2
 Name:             job-wq-2
 Namespace:        default
 Selector:         controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
@@ -229,7 +215,7 @@ Events:
   33s          33s         1        {job-controller }                Normal      SuccessfulCreate  Created pod: job-wq-2-lglf8
 
 
-$ kubectl logs pods/job-wq-2-7r7b2
+kubectl logs pods/job-wq-2-7r7b2
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False
 Working on banana
@@ -249,7 +235,7 @@ If running a queue service or modifying your containers to use a work queue is i
 want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
 
 If you have a continuous stream of background processing work to run, then
-consider running your background workers with a `replicationController` instead,
+consider running your background workers with a `ReplicaSet` instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
 

@@ -11,7 +11,7 @@ The admission stage of API server processing is one of the most powerful tools f
 
 
 ## What is Admission?
-[Admission](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#what-are-they) is the phase of [handling an API server request](https://blog.openshift.com/kubernetes-deep-dive-api-server-part-1/) that happens before a resource is persisted, but after authorization. Admission gets access to the same information as authorization (user, URL, etc) and the complete body of an API request (for most requests).  
+[Admission](/docs/reference/access-authn-authz/admission-controllers/#what-are-they) is the phase of [handling an API server request](https://blog.openshift.com/kubernetes-deep-dive-api-server-part-1/) that happens before a resource is persisted, but after authorization. Admission gets access to the same information as authorization (user, URL, etc) and the complete body of an API request (for most requests).  
 
 [![](https://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s640/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png)](https://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s1600/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png)  
 

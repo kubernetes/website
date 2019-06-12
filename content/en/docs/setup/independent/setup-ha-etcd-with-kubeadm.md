@@ -257,7 +257,7 @@ this example.
 
 {{% capture whatsnext %}}
 
-Once your have a working 3 member etcd cluster, you can continue setting up a
+Once you have a working 3 member etcd cluster, you can continue setting up a
 highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/).
 

@@ -12,7 +12,7 @@ In this post, I discuss some of the challenges of running HPC workloads with Kub
 
 ## HPC workloads unique challenges
 
-In Kubernetes, the base unit of scheduling is a Pod: one or more Docker containers scheduled to a cluster host. Kubernetes assumes that workloads are containers. While Kubernetes has the notion of [Cron Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) and [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) that run to completion, applications deployed on Kubernetes are typically long-running services, like web servers, load balancers or data stores and while they are highly dynamic with pods coming and going, they differ greatly from HPC application patterns.
+In Kubernetes, the base unit of scheduling is a Pod: one or more Docker containers scheduled to a cluster host. Kubernetes assumes that workloads are containers. While Kubernetes has the notion of [Cron Jobs](/docs/concepts/workloads/controllers/cron-jobs/) and [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) that run to completion, applications deployed on Kubernetes are typically long-running services, like web servers, load balancers or data stores and while they are highly dynamic with pods coming and going, they differ greatly from HPC application patterns.
 
 Traditional HPC applications often exhibit different characteristics:
 
@@ -44,7 +44,7 @@ For sites running traditional HPC workloads, another approach is to use existing
 
 - Use native job scheduling features in Kubernetes
 
-Sites less invested in existing HPC applications can use existing scheduling facilities in Kubernetes for [jobs that run to completion](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/). While this is an option, it may be impractical for many HPC users. HPC applications are often either optimized towards massive throughput or large scale parallelism. In both cases startup and teardown latencies have a discriminating impact. Latencies that appear to be acceptable for containerized microservices today would render such applications unable to scale to the required levels.
+Sites less invested in existing HPC applications can use existing scheduling facilities in Kubernetes for [jobs that run to completion](/docs/concepts/workloads/controllers/jobs-run-to-completion/). While this is an option, it may be impractical for many HPC users. HPC applications are often either optimized towards massive throughput or large scale parallelism. In both cases startup and teardown latencies have a discriminating impact. Latencies that appear to be acceptable for containerized microservices today would render such applications unable to scale to the required levels.
 
 All of these solutions involve tradeoffs. The first option doesn’t allow resources to be shared (increasing costs) and the second and third options require customers to pick a single scheduler, constraining future flexibility.
 

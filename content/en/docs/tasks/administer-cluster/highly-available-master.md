@@ -42,7 +42,7 @@ Set the following flag:
 The following sample command sets up a HA-compatible cluster in the GCE zone europe-west1-b:
 
 ```shell
-$ MULTIZONE=true KUBE_GCE_ZONE=europe-west1-b  ENABLE_ETCD_QUORUM_READS=true ./cluster/kube-up.sh
+MULTIZONE=true KUBE_GCE_ZONE=europe-west1-b  ENABLE_ETCD_QUORUM_READS=true ./cluster/kube-up.sh
 ```
 
 Note that the commands above create a cluster with one master;
@@ -65,7 +65,7 @@ as those are inherited from when you started your HA-compatible cluster.
 The following sample command replicates the master on an existing HA-compatible cluster:
 
 ```shell
-$ KUBE_GCE_ZONE=europe-west1-c KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
+KUBE_GCE_ZONE=europe-west1-c KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
 ```
 
 ## Removing a master replica
@@ -82,7 +82,7 @@ If empty: any replica from the given zone will be removed.
 The following sample command removes a master replica from an existing HA cluster:
 
 ```shell
-$ KUBE_DELETE_NODES=false KUBE_GCE_ZONE=europe-west1-c ./cluster/kube-down.sh
+KUBE_DELETE_NODES=false KUBE_GCE_ZONE=europe-west1-c ./cluster/kube-down.sh
 ```
 
 ## Handling master replica failures
@@ -94,13 +94,13 @@ The following sample commands demonstrate this process:
 1. Remove the broken replica:
 
 ```shell
-$ KUBE_DELETE_NODES=false KUBE_GCE_ZONE=replica_zone KUBE_REPLICA_NAME=replica_name ./cluster/kube-down.sh
+KUBE_DELETE_NODES=false KUBE_GCE_ZONE=replica_zone KUBE_REPLICA_NAME=replica_name ./cluster/kube-down.sh
 ```
 
 <ol start="2"><li>Add a new replica in place of the old one:</li></ol>
 
 ```shell
-$ KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
+KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
 ```
 
 ## Best practices for replicating masters for HA clusters

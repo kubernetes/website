@@ -10,7 +10,7 @@
 {{ define "docs-browse-section" }}
 {{ $pages := .page.Pages }}
 {{ $sections := .page.Sections }}
-{{ with $.ctx.Site.Params.language_alternatives }}
+{{ with site.Params.language_alternatives }}
   {{ range . }} 
     {{ with (where $.page.Translations ".Lang" . ) }}
     {{ $p := index . 0 }}

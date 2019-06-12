@@ -22,14 +22,14 @@ Worse, these deployments are so tied to the clusters they have been deployed to 
 To address these concerns, we’re announcing the creation of the Kubeflow project, a new open source Github repo dedicated to making using ML stacks on Kubernetes easy, fast and extensible. This repository contains:  
 
 - JupyterHub to create & manage interactive Jupyter notebooks
-- A Tensorflow [Custom Resource](https://kubernetes.io/docs/concepts/api-extension/custom-resources/) (CRD) that can be configured to use CPUs or GPUs, and adjusted to the size of a cluster with a single setting
+- A Tensorflow [Custom Resource](/docs/concepts/api-extension/custom-resources/) (CRD) that can be configured to use CPUs or GPUs, and adjusted to the size of a cluster with a single setting
 - A TF Serving container
 Because this solution relies on Kubernetes, it runs wherever Kubernetes runs. Just spin up a cluster and go!
 
 
 
 ## Using Kubeflow
-Let's suppose you are working with two different Kubernetes clusters: a local [minikube](https://github.com/kubernetes/minikube) cluster; and a [GKE cluster with GPUs](https://docs.google.com/forms/d/1JNnoUe1_3xZvAogAi16DwH6AjF2eu08ggED24OGO7Xc/viewform?edit_requested=true); and that you have two [kubectl contexts](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#define-clusters-users-and-contexts) defined named minikube and gke.
+Let's suppose you are working with two different Kubernetes clusters: a local [minikube](https://github.com/kubernetes/minikube) cluster; and a [GKE cluster with GPUs](https://docs.google.com/forms/d/1JNnoUe1_3xZvAogAi16DwH6AjF2eu08ggED24OGO7Xc/viewform?edit_requested=true); and that you have two [kubectl contexts](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#define-clusters-users-and-contexts) defined named minikube and gke.
 
 
 

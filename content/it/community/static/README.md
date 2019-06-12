@@ -1,2 +1,2 @@
-The files in this directory have been imported from other sources. Do not
-edit them directly, except by replacing them with new versions.
+I file in questa directory sono stati importati da altre fonti. Non
+modificali direttamente, tranne sostituendoli con nuove versioni.

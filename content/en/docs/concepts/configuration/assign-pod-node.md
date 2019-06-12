@@ -69,7 +69,7 @@ Then add a nodeSelector like so:
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
-When you then run `kubectl create -f https://k8s.io/examples/pods/pod-nginx.yaml`,
+When you then run `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`,
 the Pod will get scheduled on the node that you attached the label to. You can
 verify that it worked by running `kubectl get pods -o wide` and looking at the
 "NODE" that the Pod was assigned to.
@@ -83,8 +83,8 @@ with a standard set of labels. As of Kubernetes v1.4 these labels are
 * `failure-domain.beta.kubernetes.io/zone`
 * `failure-domain.beta.kubernetes.io/region`
 * `beta.kubernetes.io/instance-type`
-* `beta.kubernetes.io/os`
-* `beta.kubernetes.io/arch`
+* `kubernetes.io/os`
+* `kubernetes.io/arch`
 
 {{< note >}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -256,6 +256,7 @@ be co-located in the same defined topology, eg., the same node.
 ##### Always co-located in the same node
 
 In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
+
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml

@@ -9,7 +9,7 @@ _Editor's note: Today’s post is by Bernard Van De Walle, Kubernetes Lead Engin
 
 **Kubernetes Network Policies&nbsp;**  
 
-Kubernetes supports a [new API for network policies](http://kubernetes.io/docs/user-guide/networkpolicies/) that provides a sophisticated model for isolating applications and reducing their attack surface. This feature, which came out of the [SIG-Network group](https://github.com/kubernetes/community/wiki/SIG-Network), makes it very easy and elegant to define network policies by using the built-in labels and selectors Kubernetes constructs.  
+Kubernetes supports a [new API for network policies](/docs/user-guide/networkpolicies/) that provides a sophisticated model for isolating applications and reducing their attack surface. This feature, which came out of the [SIG-Network group](https://github.com/kubernetes/community/wiki/SIG-Network), makes it very easy and elegant to define network policies by using the built-in labels and selectors Kubernetes constructs.  
 
 Kubernetes has left it up to third parties to implement these network policies and does not provide a default implementation.  
 
@@ -28,7 +28,7 @@ The authentication and authorization function in Trireme is overlaid on the TCP 
 
  ![](https://lh3.googleusercontent.com/PhkJ4eoRc50gm6oSTZbw138l3jzVKjjQrn2mNHjys9Cu7RG-q2X-f5PX07ZY6xjbIQT0ud8oMSX6yNwjDpmDq3a3lYWcc_gBYJBjvBLP8PIHZaTW54fJppDze9pYxOmZY-JNqQ1Y)
 
-The Trireme implementation talks directly to the Kubernetes master without an external controller and receives notifications on policy updates and pod instantiations so that it can maintain a local cache of the policy and update the authorization rules as needed. There is no requirement for any shared state between Trireme components that needs to be synchronized. Trireme can be deployed either as a standalone process in every worker or by using [Daemon Sets](http://kubernetes.io/docs/admin/daemons/). In the latter case, Kubernetes takes ownership of the lifecycle of the Trireme pods.&nbsp;  
+The Trireme implementation talks directly to the Kubernetes master without an external controller and receives notifications on policy updates and pod instantiations so that it can maintain a local cache of the policy and update the authorization rules as needed. There is no requirement for any shared state between Trireme components that needs to be synchronized. Trireme can be deployed either as a standalone process in every worker or by using [Daemon Sets](/docs/admin/daemons/). In the latter case, Kubernetes takes ownership of the lifecycle of the Trireme pods.&nbsp;  
 
 Trireme's simplicity is derived from the separation of security policy from network transport. Policy enforcement is linked directly to the labels present on the connection, irrespective of the networking scheme used to make the pods communicate. This identity linkage enables tremendous flexibility to operators to use any networking scheme they like without tying security policy enforcement to network implementation details. Also, the implementation of security policy across the federated clusters becomes simple and viable.  
 

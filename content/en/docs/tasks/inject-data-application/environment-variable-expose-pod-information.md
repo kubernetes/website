@@ -55,7 +55,7 @@ Container in the Pod.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
 ```
 
 Verify that the Container in the Pod is running:
@@ -130,7 +130,7 @@ from Container fields.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-container.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-envars-container.yaml
 ```
 
 Verify that the Container in the Pod is running:

@@ -16,13 +16,13 @@ This blog post is one of a number of efforts to make client-go more accessible t
 
 The following API group promotions are part of Kubernetes 1.9:  
 
-- Workload objects (Deployments, DaemonSets, ReplicaSets, and StatefulSets) have been [promoted to the apps/v1 API group in Kubernetes 1.9](https://kubernetes.io/docs/reference/workloads-18-19/). client-go follows this transition and allows developers to use the latest version by importing the k8s.io/api/apps/v1 package instead of k8s.io/api/apps/v1beta1 and by using Clientset.AppsV1().
-- Admission Webhook Registration has been promoted to the admissionregistration.k8s.io/v1beta1 API group in Kubernetes 1.9. The former ExternalAdmissionHookConfiguration type has been replaced by the incompatible ValidatingWebhookConfiguration and MutatingWebhookConfiguration types. Moreover, the webhook admission payload type AdmissionReview in admission.k8s.io has been promoted to v1beta1. Note that versioned objects are now passed to webhooks. Refer to the admission webhook [documentation](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) for details.
+- Workload objects (Deployments, DaemonSets, ReplicaSets, and StatefulSets) have been [promoted to the apps/v1 API group in Kubernetes 1.9](/docs/reference/workloads-18-19/). client-go follows this transition and allows developers to use the latest version by importing the k8s.io/api/apps/v1 package instead of k8s.io/api/apps/v1beta1 and by using Clientset.AppsV1().
+- Admission Webhook Registration has been promoted to the admissionregistration.k8s.io/v1beta1 API group in Kubernetes 1.9. The former ExternalAdmissionHookConfiguration type has been replaced by the incompatible ValidatingWebhookConfiguration and MutatingWebhookConfiguration types. Moreover, the webhook admission payload type AdmissionReview in admission.k8s.io has been promoted to v1beta1. Note that versioned objects are now passed to webhooks. Refer to the admission webhook [documentation](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) for details.
 
 
 
 ## Validation for CustomResources
-In Kubernetes 1.8 we introduced CustomResourceDefinitions (CRD) [pre-persistence schema validation](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) as an alpha feature. With 1.9, the feature got promoted to beta and will be enabled by default. As a client-go user, you will find the API types at k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1.  
+In Kubernetes 1.8 we introduced CustomResourceDefinitions (CRD) [pre-persistence schema validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) as an alpha feature. With 1.9, the feature got promoted to beta and will be enabled by default. As a client-go user, you will find the API types at k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1.  
 
 The [OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) can be defined in the CRD spec as:  
 
@@ -84,12 +84,12 @@ spec.version in body should be one of [v1.0.0 v1.0.1]
 
 
 
-Note that with [Admission Webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks), Kubernetes 1.9 provides another beta feature to validate objects before they are created or updated. Starting with 1.9, these webhooks also allow mutation of objects (for example, to set defaults or to inject values). Of course, webhooks work with CRDs as well. Moreover, webhooks can be used to implement validations that are not easily expressible with CRD validation. Note that webhooks are harder to implement than CRD validation, so for many purposes, CRD validation is the right tool.
+Note that with [Admission Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks), Kubernetes 1.9 provides another beta feature to validate objects before they are created or updated. Starting with 1.9, these webhooks also allow mutation of objects (for example, to set defaults or to inject values). Of course, webhooks work with CRDs as well. Moreover, webhooks can be used to implement validations that are not easily expressible with CRD validation. Note that webhooks are harder to implement than CRD validation, so for many purposes, CRD validation is the right tool.
 
 
 
 ## Creating namespaced informers
-Often objects in one namespace or only with certain labels are to be processed in a controller. Informers [now allow](https://github.com/kubernetes/kubernetes/pull/54660) you to tweak the ListOptions used to query the API server to list and watch objects. Uninitialized objects (for consumption by [initializers](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-initializers)) can be made visible by setting IncludeUnitialized to true. All this can be done using the new NewFilteredSharedInformerFactory constructor for shared informers:  
+Often objects in one namespace or only with certain labels are to be processed in a controller. Informers [now allow](https://github.com/kubernetes/kubernetes/pull/54660) you to tweak the ListOptions used to query the API server to list and watch objects. Uninitialized objects (for consumption by [initializers](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-initializers)) can be made visible by setting IncludeUnitialized to true. All this can be done using the new NewFilteredSharedInformerFactory constructor for shared informers:  
 
 ```
 
@@ -251,7 +251,7 @@ It’s finally possible to have dots in Go package names. In this section’s ex
 ## Example projects
 Kubernetes 1.9 includes a number of example projects which can serve as a blueprint for your own projects:  
 
-- [k8s.io/sample-apiserver](https://github.com/kubernetes/sample-apiserver) is a simple user-provided API server that is integrated into a cluster via [API aggregation](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/).
+- [k8s.io/sample-apiserver](https://github.com/kubernetes/sample-apiserver) is a simple user-provided API server that is integrated into a cluster via [API aggregation](/docs/concepts/api-extension/apiserver-aggregation/).
 - [k8s.io/sample-controller](https://github.com/kubernetes/sample-controller) is a full-featured [controller](https://github.com/kubernetes/community/blob/master/contributors/devel/controllers.md) (also called an operator) with shared informers and a workqueue to process created, changed or deleted objects. It is based on CustomResourceDefinitions and uses [k8s.io/code-generator](https://github.com/kubernetes/code-generator) to generate deepcopy functions, typed clientsets, informers, and listers.
 
 

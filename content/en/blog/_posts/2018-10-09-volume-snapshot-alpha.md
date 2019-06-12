@@ -55,7 +55,7 @@ Similar to the API for managing Kubernetes Persistent Volumes, Kubernetes Volume
 * `VolumeSnapshotClass`
   * Created by cluster administrators to describe how snapshots should be created. including the driver information, the secrets to access the snapshot, etc.
 
-It is important to note that unlike the core Kubernetes Persistent Volume objects, these Snapshot objects are defined as [CustomResourceDefinitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions). The Kubernetes project is moving away from having resource types pre-defined in the API server, and is moving towards a model where the API server is independent of the API objects. This allows the API server to be reused for projects other than Kubernetes, and consumers (like Kubernetes) can simply install the resource types they require as CRDs.
+It is important to note that unlike the core Kubernetes Persistent Volume objects, these Snapshot objects are defined as [CustomResourceDefinitions (CRDs)](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions). The Kubernetes project is moving away from having resource types pre-defined in the API server, and is moving towards a model where the API server is independent of the API objects. This allows the API server to be reused for projects other than Kubernetes, and consumers (like Kubernetes) can simply install the resource types they require as CRDs.
 
 [CSI Drivers](https://kubernetes-csi.github.io/docs/Drivers.html) that support snapshots will automatically install the required CRDs. Kubernetes end users only need to verify that a CSI driver that supports snapshots is deployed on their Kubernetes cluster.
 

@@ -89,7 +89,7 @@ toc:
 - title: Monitor, Log, and Debug
   landing_page: /docs/tasks/debug-application-cluster/resource-usage-monitoring/
   section:
-  - docs/tasks/debug-application-cluster/core-metrics-pipeline.md
+  - docs/tasks/debug-application-cluster/resource-metrics-pipeline.md
   - docs/tasks/debug-application-cluster/resource-usage-monitoring.md
   - docs/tasks/debug-application-cluster/get-shell-running-container.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md

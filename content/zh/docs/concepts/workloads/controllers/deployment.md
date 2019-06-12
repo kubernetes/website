@@ -197,7 +197,7 @@ In a future version of Kubernetes, the defaults will change from 1-1 to 25%-25%.
 For example, if you look at the above Deployment closely, you will see that it first created a new Pod,
 then deleted some old Pods and created new ones. It does not kill old Pods until a sufficient number of
 new Pods have come up, and does not create new Pods until a sufficient number of old Pods have been killed.
-It makes sure that number of available Pods is at least 2 and the number of total Pods is at most 4.
+It makes sure that the number of available Pods is at least 2 and the number of total Pods is at most 4.
 
 ```shell
 $ kubectl describe deployments
@@ -398,7 +398,7 @@ $ kubectl rollout undo deployment/nginx-deployment
 deployment "nginx-deployment" rolled back
 ```
 
-Alternatively, you can rollback to a specific revision by specify that in `--to-revision`:
+Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
 ```shell
 $ kubectl rollout undo deployment/nginx-deployment --to-revision=2

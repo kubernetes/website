@@ -167,7 +167,7 @@ In Kubernetes version 1.10 and later, kubeadm supports automatic translation of 
 
 ## Kube-dns
 
-Kube-dns is now available as a optional DNS server since CoreDNS is now the default.
+Kube-dns is now available as an optional DNS server since CoreDNS is now the default.
 The running DNS Pod holds 3 containers:
 
 - "`kubedns`": watches the Kubernetes master for changes

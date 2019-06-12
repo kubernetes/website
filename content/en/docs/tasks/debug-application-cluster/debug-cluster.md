@@ -36,20 +36,20 @@ of the relevant log files.  (note that on systemd-based systems, you may need to
 
 ### Master
 
-   * /var/log/kube-apiserver.log - API Server, responsible for serving the API
-   * /var/log/kube-scheduler.log - Scheduler, responsible for making scheduling decisions
-   * /var/log/kube-controller-manager.log - Controller that manages replication controllers
+   * `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
+   * `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
+   * `/var/log/kube-controller-manager.log` - Controller that manages replication controllers
 
 ### Worker Nodes
 
-   * /var/log/kubelet.log - Kubelet, responsible for running containers on the node
-   * /var/log/kube-proxy.log - Kube Proxy, responsible for service load balancing
+   * `/var/log/kubelet.log` - Kubelet, responsible for running containers on the node
+   * `/var/log/kube-proxy.log` - Kube Proxy, responsible for service load balancing
 
 ## A general overview of cluster failure modes
 
 This is an incomplete list of things that could go wrong, and how to adjust your cluster setup to mitigate the problems.
 
-Root causes:
+### Root causes:
 
   - VM(s) shutdown
   - Network partition within cluster, or between cluster and users
@@ -57,7 +57,7 @@ Root causes:
   - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
   - Operator error, e.g. misconfigured Kubernetes software or application software
 
-Specific scenarios:
+### Specific scenarios:
 
   - Apiserver VM shutdown or apiserver crashing
     - Results
@@ -91,7 +91,7 @@ Specific scenarios:
       - users unable to read API
       - etc.
 
-Mitigations:
+### Mitigations:
 
 - Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
   - Mitigates: Apiserver VM shutdown or apiserver crashing

@@ -77,7 +77,7 @@ To verify this connection, use the `--kubelet-certificate-authority` flag to
 provide the apiserver with a root certificate bundle to use to verify the
 kubelet's serving certificate.
 
-If that is not possible, use [SSH tunneling](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
 between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 
@@ -94,5 +94,16 @@ provided by the HTTPS endpoint nor provide client credentials so while the
 connection will be encrypted, it will not provide any guarantees of integrity.
 These connections **are not currently safe** to run over untrusted and/or
 public networks.
+
+### SSH Tunnels
+
+Kubernetes supports SSH tunnels to protect the Master -> Cluster communication
+paths. In this configuration, the apiserver initiates an SSH tunnel to each node
+in the cluster (connecting to the ssh server listening on port 22) and passes
+all traffic destined for a kubelet, node, pod, or service through the tunnel.
+This tunnel ensures that the traffic is not exposed outside of the network in
+which the nodes are running.
+
+SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. A replacement for this communication channel is being designed.
 
 {{% /capture %}}

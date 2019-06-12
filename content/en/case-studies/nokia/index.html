@@ -1,0 +1,93 @@
+---
+title: Nokia Case Study
+linkTitle: Nokia
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+logo: nokia_featured_logo.png
+---
+
+
+<div class="banner1" style="background-image: url('/images/CaseStudy_nokia_banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/nokia_logo.png" class="header_logo" style="width:20%;margin-bottom:-2.2%"><br> <div class="subhead" style="margin-top:1%">Nokia: Enabling 5G and DevOps at a Telecom Company with Kubernetes
+
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>Nokia</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Espoo, Finland
+</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Telecommunications</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="width:100%"">
+    <h2>Challenge</h2>
+    <a href="https://www.nokia.com/en_int">Nokia</a>’s core business is building telecom networks end-to-end; its main products are related to the infrastructure, such as antennas, switching equipment, and routing equipment. "As telecom vendors, we have to deliver our software to several telecom operators and put the software into their infrastructure, and each of the operators have a bit different infrastructure," says Gergely Csatari, Senior Open Source Engineer. "There are operators who are running on bare metal. There are operators who are running on virtual machines. There are operators who are running on <a href="https://cloud.vmware.com/">VMware Cloud</a> and <a href="https://www.openstack.org/">OpenStack</a> Cloud. We want to run the same product on all of these different infrastructures without changing the product itself."
+
+    <h2>Solution</h2>
+    The company decided that moving to cloud native technologies would allow teams to have infrastructure-agnostic behavior in their products. Teams at Nokia began experimenting with Kubernetes in pre-1.0 versions. "The simplicity of the label-based scheduling of Kubernetes was a sign that showed us this architecture will scale, will be stable, and will be good for our purposes," says Csatari. The first Kubernetes-based product, the <a href="https://networks.nokia.com/products/telecom-application-server">Nokia Telephony Application Server</a>, went live in early 2018. "Now, all the products are doing some kind of re-architecture work, and they’re moving to Kubernetes."
+<br>
+<h2>Impact</h2>
+    Kubernetes has enabled Nokia’s foray into 5G. "When you develop something that is part of the operator’s infrastructure, you have to develop it for the future, and Kubernetes and containers are the forward-looking technologies," says Csatari. The teams using Kubernetes are already seeing clear benefits. "By separating the infrastructure and the application layer, we have less dependencies in the system, which means that it’s easier to implement features in the application layer," says Csatari. And because teams can test the exact same binary artifact independently of the target execution environment, "we find more errors in early phases of the testing, and we do not need to run the same tests on different target environments, like VMware, OpenStack, or bare metal," he adds. As a result, "we save several hundred hours in every release."
+
+</div>
+
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    "When people are picking up their phones and making a call on Nokia networks, they are creating containers in the background with Kubernetes."
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Gergely Csatari, Senior Open Source Engineer, Nokia</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <h2>Nokia was the first name in mobile phones when they were becoming ubiquitous in the late 1990s and early 2000s. But by 2014, the company had sold off its mobile device division and was focusing its core business not on the handhelds used for calls, but on the networks.</h2>
+  Today, Nokia is building telecom networks end-to-end—from antennas to switching and routing equipment—serving operators in more than 120 countries. "As telecom vendors, we have to deliver our software to several telecom operators and put the software into their infrastructure, and each of the operators have a bit different infrastructure," says Gergely Csatari, Senior Open Source Engineer at Nokia. "There are operators who are running on bare metal. There are operators who are running on virtual machines. There are operators who are running on VMware Cloud and OpenStack Cloud. We want to run the same product on all of these different infrastructures without changing the product itself."<br><br>
+  Looking for a way to allow its teams to build products with infrastructure-agnostic behavior, the company decided to embrace containerization, Kubernetes, and other cloud native technologies, a move that is being made across the telecom industry. Since early 2018, "when people are picking up their phones and making a call on Nokia networks, they are creating containers in the background with Kubernetes," says Csatari. "Now, all the products are doing some kind of re-architecture work, and they’re moving to Kubernetes."
+
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_nokia_banner3.jpg')">
+  <div class="banner3text">
+    "Having the community and CNCF around Kubernetes is not only important for having a connection to other companies who are using Kubernetes and a forum where you can ask or discuss features of Kubernetes. But as a company who would like to contribute to Kubernetes, it was very important to have a CLA (Contributors License Agreement) which is connected to the CNCF and not to a particular company. That was a critical step for us to start contributing to Kubernetes and Helm."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Gergely Csatari, Senior Open Source Engineer, Nokia</span>
+
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  Nokia’s cloud native journey began about two years ago, when Csatari’s team was building the company’s Telephony Application Server (TAS). "We wanted to have a service execution engine in the product, which was a totally separate function from all other parts," he says. "There, we had the possibility to think about new architectures and new tools that we could use. We created this particular product based on Kubernetes, and we liked the work, so we started to talk about cloud native and containers and all of these things. We did a very extensive research of different container orchestration tools. We knew that we have some, let’s say, strange or different requirements because of the special environment that our software is running on."<br><br>
+  For one thing, Nokia’s software serves millions of people, and is required to have the carrier-grade "five nines" availability: to be up 99.999% of the time. "If you turn it to minutes, this means we’re allowed to have only 10 minutes of downtime in a whole year," says Csatari. "Downtime here means that you are not able to serve the person to full capacity, which means that we cannot fail. This includes software upgrades, everything, because when you call 911, you’re using our software, and you expect that it will work."<br><br>
+  That meant that they needed to be able to set affinity and anti-affinity rules in their orchestration tools. "You cannot put all of the functions to the same physical host because physical hosts are failing," Csatari explains. "If you fail with one physical host, then you lose all of the core processing processes. Then there are no calls going through. So we have to divide them among the different physical hosts. At that time, only Kubernetes was able to provide these features. The simplicity of the label-based scheduling of Kubernetes was a sign that showed us this architecture will scale, will be stable, and will be good for our purposes."
+
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_nokia_banner4.jpg')" style="width:100%">
+  <div class="banner4text">
+  "Kubernetes opened the window to all of these open source projects instead of implementing everything in house. Our engineers can focus more on the application level, which is actually the thing what we are selling, and not on the infrastructure level. For us, the most important thing about Kubernetes is it allows us to focus on value creation of our business." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Gergely Csatari, Senior Open Source Engineer, Nokia</span>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  The TAS went live in early 2018, and now Kubernetes is also enabling Nokia’s foray into 5G. The company is introducing microservices architecture and Kubernetes while adding 5G features to existing products. And all new 5G product development will be on top of Kubernetes. "When you develop something that is part of the operator’s infrastructure, you have to develop it for the future, and Kubernetes and containers are the forward-looking technologies," says Csatari. <br><br>
+  There have been real time savings thanks to Kubernetes. "By separating the infrastructure and the application layer, we have less dependencies in the system, which means that it’s easier to implement features in the application layer," says Csatari. Because teams can test the exact same binary artifact independently of the target execution environment, "we find more errors in early phases of the testing, and we do not need to run the same tests on different target environments, like VMware, OpenStack or bare metal," he adds. As a result, "we save several hundred hours in every release."<br><br>
+  Moving from Nokia’s legacy cluster management system, which had been built in-house more than thirty years ago, to a Kubernetes platform also meant that "we started using Linux as a base operating system, so we just opened the window to all of these open source projects instead of implementing everything in house," says Csatari. (From CNCF’s ecosystem, the team is already using <a href="https://helm.sh/">Helm</a>, <a href="https://grpc.io/">gRPC</a>, <a href="https://github.com/containernetworking">CNI</a>, <a href="https://prometheus.io/">Prometheus</a>, and <a href="https://www.envoyproxy.io/">Envoy</a>, and plans to implement <a href="https://coredns.io/">CoreDNS</a>.) "Our engineers can focus more on the application level, which is actually the thing what we are selling, and not on the infrastructure level. For us, the most important thing about Kubernetes is it allows us to focus on value creation of our business."
+
+</div>
+
+<div class="banner5" style="width:100%">
+  <div class="banner5text">
+"I had some discussions at KubeCon with people from the networking SIG and the resource management working group, to work together on our requirements, and that’s very exciting for me and my colleagues,"<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Gergely Csatari, Senior Open Source Engineer, Nokia</span></div>
+</div>
+
+<div class="fullcol">
+  The company has a long-term goal of moving the entire product portfolio into the Kubernetes platform. To that end, Nokia teams are working together with other companies to add the features needed to use Kubernetes with the real-time, nanosecond-sensitive applications close to the edge of the radio network. <br><br>
+  And the CNCF community is proving to be a great forum for that collaboration. "I had some discussions at KubeCon with people from the networking SIG and the resource management working group, to work together on our requirements, and that’s very exciting for me and my colleagues," says Csatari. "Previously, everybody had the same problem, but everybody just did it in his own, and now we are trying to solve the same problem together."<br><br>
+  Perhaps the biggest impact that Kubernetes is having on Nokia, Csatari believes, is that people are starting to think about how a telecom company can do DevOps. "We are building a DevOps pipeline, which reaches from the actual developer to the customers, and thinking about new ways how can we digitally deliver our software to our customers and get feedback from the customers right to the engineers," he says. "This is something that will fundamentally change how telecom companies are delivering software, and how quickly can we develop new features. This is because of the usage of containers and, of course, the usage of Kubernetes."
+
+</div>
+</section>

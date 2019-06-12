@@ -6,7 +6,7 @@ url: /blog/2017/02/Postgresql-Clusters-Kubernetes-Statefulsets
 ---
 _Editor’s note: Today’s guest post is by Jeff McCormick, a developer at Crunchy Data, showing how to build a PostgreSQL cluster using the new Kubernetes StatefulSet feature._  
 
-In an earlier [post](https://kubernetes.io/blog/2016/09/creating-postgresql-cluster-using-helm), I described how to deploy a PostgreSQL cluster using [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager. The following example provides the steps for building a PostgreSQL cluster using the new Kubernetes [StatefulSets](https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/) feature.   
+In an earlier [post](https://kubernetes.io/blog/2016/09/creating-postgresql-cluster-using-helm), I described how to deploy a PostgreSQL cluster using [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager. The following example provides the steps for building a PostgreSQL cluster using the new Kubernetes [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) feature.   
 
 **StatefulSets Example**  
 
@@ -14,7 +14,7 @@ In an earlier [post](https://kubernetes.io/blog/2016/09/creating-postgresql-clus
 
 StatefulSets is a new feature implemented in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) (prior versions it was known as PetSets). As a result, running this example will require an environment based on Kubernetes 1.5.0 or above.    
 
-The example in this blog deploys on Centos7 using [kubeadm](https://kubernetes.io/docs/admin/kubeadm/). Some instructions on what kubeadm provides and how to deploy a Kubernetes cluster is located [here](http://linoxide.com/containers/setup-kubernetes-kubeadm-centos).  
+The example in this blog deploys on Centos7 using [kubeadm](/docs/admin/kubeadm/). Some instructions on what kubeadm provides and how to deploy a Kubernetes cluster is located [here](http://linoxide.com/containers/setup-kubernetes-kubeadm-centos).  
 
 **Step 2** - Install NFS  
 
@@ -177,7 +177,7 @@ PostgreSQL replicas are configured to connect to the master database via a Servi
 
 
 
-During the container initialization, a master container will use a [Service Account](https://kubernetes.io/docs/user-guide/service-accounts/) (pgset-sa) to change it’s container label value to match the master Service selector.  Changing the label is important to enable traffic destined to the master database to reach the correct container within the Stateful Set.  All other pods in the set assume the replica Service label by default.
+During the container initialization, a master container will use a [Service Account](/docs/user-guide/service-accounts/) (pgset-sa) to change it’s container label value to match the master Service selector.  Changing the label is important to enable traffic destined to the master database to reach the correct container within the Stateful Set.  All other pods in the set assume the replica Service label by default.
 
 
 

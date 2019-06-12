@@ -108,7 +108,6 @@ Another widely used example is the `includes` bundle. It sets `headless: true` i
 en/includes
 ├── default-storage-class-prereqs.md
 ├── federated-task-tutorial-prereqs.md
-├── federation-content-moved.md
 ├── index.md
 ├── partner-script.js
 ├── partner-style.css

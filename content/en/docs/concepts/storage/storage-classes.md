@@ -151,6 +151,11 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * All of the above
 * [Local](#local)
 
+{{< feature-state state="beta" for_k8s_version="1.14" >}}
+[CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
+and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
+to see its supported topology keys and examples. The `CSINodeInfo` feature gate must be enabled.
+
 ### Allowed Topologies
 
 When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
@@ -739,7 +744,7 @@ references it.
 
 ### Local
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 ```yaml
 kind: StorageClass
@@ -750,7 +755,7 @@ provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
 
-Local volumes do not support dynamic provisioning yet, however a StorageClass
+Local volumes do not currently support dynamic provisioning, however a StorageClass
 should still be created to delay volume binding until pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 

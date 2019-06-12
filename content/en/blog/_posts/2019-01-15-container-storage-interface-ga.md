@@ -11,7 +11,7 @@ slug: container-storage-interface-ga
 
 The Kubernetes implementation of the [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) has been promoted to GA in the Kubernetes v1.13 release. Support for CSI was [introduced as alpha](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html) in Kubernetes v1.9 release, and [promoted to beta](https://kubernetes.io/blog/2018/04/10/container-storage-interface-beta/) in the Kubernetes v1.10 release.
 
-The GA milestone indicates that Kubernetes users may depend on the feature and its API without fear of backwards incompatible changes in future causing regressions. GA features are protected by the [Kubernetes deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/).
+The GA milestone indicates that Kubernetes users may depend on the feature and its API without fear of backwards incompatible changes in future causing regressions. GA features are protected by the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/).
 
 ## Why CSI?
 
@@ -30,7 +30,7 @@ With the promotion to GA, the Kubernetes implementation of CSI introduces the fo
   - There were breaking changes between the CSI spec v0.1 and v0.2, so very old drivers implementing CSI 0.1 must be updated to be at least 0.2 compatible before use with Kubernetes v1.10.0+.
 - The Kubernetes `VolumeAttachment` object (introduced in v1.9 in the storage v1alpha1 group, and added to the v1beta1 group in v1.10) has been added to the storage v1 group in v1.13.
 - The Kubernetes `CSIPersistentVolumeSource` volume type has been promoted to GA.
-- The [Kubelet device plugin registration mechanism](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-registration), which is the means by which kubelet discovers new CSI drivers, has been promoted to GA in Kubernetes v1.13.
+- The [Kubelet device plugin registration mechanism](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-registration), which is the means by which kubelet discovers new CSI drivers, has been promoted to GA in Kubernetes v1.13.
 
 ## How to deploy a CSI driver?
 
@@ -38,7 +38,7 @@ Kubernetes users interested in how to deploy or manage an existing CSI driver on
 
 ## How to use a CSI volume?
 
-Assuming a CSI storage plugin is already deployed on a Kubernetes cluster, users can use CSI volumes through the familiar Kubernetes storage API objects: `PersistentVolumeClaims`, `PersistentVolumes`, and `StorageClasses`. Documented [here](https://kubernetes.io/docs/concepts/storage/volumes/#csi).
+Assuming a CSI storage plugin is already deployed on a Kubernetes cluster, users can use CSI volumes through the familiar Kubernetes storage API objects: `PersistentVolumeClaims`, `PersistentVolumes`, and `StorageClasses`. Documented [here](/docs/concepts/storage/volumes/#csi).
 
 Although the Kubernetes implementation of CSI is a GA feature in Kubernetes v1.13, it may require the following flag:
 
@@ -143,7 +143,7 @@ spec:
 
 When the pod referencing a CSI volume is scheduled, Kubernetes will trigger the appropriate operations against the external CSI plugin (`ControllerPublishVolume`, `NodeStageVolume`, `NodePublishVolume`, etc.) to ensure the specified volume is attached, mounted, and ready to use by the containers in the pod.
 
-For more details please see the CSI implementation [design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) and [documentation](https://kubernetes.io/docs/concepts/storage/volumes/#csi).
+For more details please see the CSI implementation [design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) and [documentation](/docs/concepts/storage/volumes/#csi).
 
 ## How to write a CSI Driver?
 
@@ -154,13 +154,13 @@ The [kubernetes-csi](https://kubernetes-csi.github.io/) site details how to deve
 - [external-provisioner](https://github.com/kubernetes-csi/external-provisioner)
   - Watches Kubernetes `PersistentVolumeClaim` objects and triggers `CreateVolume` and `DeleteVolume` operations against a CSI endpoint.
 - [node-driver-registrar](https://github.com/kubernetes-csi/node-driver-registrar)
-  - Registers the CSI driver with kubelet using the [Kubelet device plugin mechanism](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-registration).
+  - Registers the CSI driver with kubelet using the [Kubelet device plugin mechanism](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-registration).
 - [cluster-driver-registrar](https://github.com/kubernetes-csi/cluster-driver-registrar) (Alpha)
   - Registers a CSI Driver with the Kubernetes cluster by creating a `CSIDriver` object which enables the driver to customize how Kubernetes interacts with it.
 - [external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter) (Alpha)
   - Watches Kubernetes `VolumeSnapshot` CRD objects and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint.
 - [livenessprobe](https://github.com/kubernetes-csi/livenessprobe)
-  - May be included in a CSI plugin pod to enable the [Kubernetes Liveness Probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) mechanism.
+  - May be included in a CSI plugin pod to enable the [Kubernetes Liveness Probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) mechanism.
 
 Storage vendors can build Kubernetes deployments for their plugins using these components, while leaving their CSI driver completely unaware of Kubernetes.
 

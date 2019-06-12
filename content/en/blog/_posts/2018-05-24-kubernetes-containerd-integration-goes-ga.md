@@ -60,7 +60,7 @@ _crictl_ is a tool providing a similar experience to the Docker CLI for Kubernet
 The scope of _crictl_ is limited to troubleshooting, it is not a replacement to docker or kubectl. Docker's CLI provides a rich set of commands, making it a very useful development tool. But it is not the best fit for troubleshooting on Kubernetes nodes. Some Docker commands are not useful to Kubernetes, such as _docker network_ and _docker build_; and some may even break the system, such as _docker rename_. _crictl_ provides just enough commands for node troubleshooting, which is arguably safer to use on production nodes.
 
 ## Kubernetes Oriented
-_crictl_ offers a more kubernetes-friendly view of containers. Docker CLI lacks core Kubernetes concepts, e.g. _pod_ and _[namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)_, so it can't provide a clear view of containers and pods. One example is that _docker ps_ shows somewhat obscure, long Docker container names, and shows pause containers and application containers together:
+_crictl_ offers a more kubernetes-friendly view of containers. Docker CLI lacks core Kubernetes concepts, e.g. _pod_ and _[namespace](/docs/concepts/overview/working-with-objects/namespaces/)_, so it can't provide a clear view of containers and pods. One example is that _docker ps_ shows somewhat obscure, long Docker container names, and shows pause containers and application containers together:
 
 <img src="/images/blog/2018-05-24-kubernetes-containerd-integration-goes-ga/docker-ps.png" width="100%" alt="docker ps" />
 

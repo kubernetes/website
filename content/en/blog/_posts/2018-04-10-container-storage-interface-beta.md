@@ -24,7 +24,7 @@ With the promotion to beta CSI is now enabled by default on standard Kubernetes 
 The move of the Kubernetes implementation of CSI to beta also means:
 * Kubernetes is compatible with [v0.2](https://github.com/container-storage-interface/spec/releases/tag/v0.2.0) of the CSI spec (instead of [v0.1](https://github.com/container-storage-interface/spec/releases/tag/v0.1.0))
   * There were breaking changes between the CSI spec v0.1 and v0.2, so existing CSI drivers must be updated to be 0.2 compatible before use with Kubernetes 1.10.0+.
-* [Mount propagation](https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation), a feature that allows bidirectional mounts between containers and host (a requirement for containerized CSI drivers), has also moved to beta.
+* [Mount propagation](/docs/concepts/storage/volumes/#mount-propagation), a feature that allows bidirectional mounts between containers and host (a requirement for containerized CSI drivers), has also moved to beta.
 * The Kubernetes `VolumeAttachment` object, introduced in v1.9 in the storage v1alpha1 group, has been added to the storage v1beta1 group.
 * The Kubernetes `CSIPersistentVolumeSource` object has been promoted to beta.
 A `VolumeAttributes` field was added to Kubernetes `CSIPersistentVolumeSource` object (in alpha this was passed around via annotations).
@@ -161,7 +161,7 @@ As part of the suggested deployment process, the Kubernetes team provides the fo
 * [driver-registrar](https://github.com/kubernetes-csi/driver-registrar)
   * registers the CSI driver with kubelet (in the future) and adds the drivers custom `NodeId` (retrieved via `GetNodeID` call against the CSI endpoint) to an annotation on the Kubernetes Node API Object
 * [livenessprobe](https://github.com/kubernetes-csi/livenessprobe)
-  * can be included in a CSI plugin pod to enable the [Kubernetes Liveness Probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) mechanism
+  * can be included in a CSI plugin pod to enable the [Kubernetes Liveness Probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) mechanism
 
 Storage vendors can build Kubernetes deployments for their plugins using these components, while leaving their CSI driver completely unaware of Kubernetes.
 

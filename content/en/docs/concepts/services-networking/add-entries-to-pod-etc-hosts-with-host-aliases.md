@@ -107,10 +107,8 @@ fe00::2	ip6-allrouters
 10.200.0.5	hostaliases-pod
 
 # Entries added by HostAliases.
-127.0.0.1	foo.local
-127.0.0.1	bar.local
-10.1.2.3	foo.remote
-10.1.2.3	bar.remote
+127.0.0.1	foo.local	bar.local
+10.1.2.3	foo.remote	bar.remote
 ```
 
 With the additional entries specified at the bottom.

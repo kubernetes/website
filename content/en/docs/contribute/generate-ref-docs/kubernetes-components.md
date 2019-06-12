@@ -126,7 +126,7 @@ directory. The tool performs the following steps:
 
 When the Markdown files are in your local clone of the `kubernetes/website`
 repository, you can submit them in a
-[pull request](https://kubernetes.io/docs/home/contribute/create-pull-request/)
+[pull request](/docs/home/contribute/create-pull-request/)
 to `kubernetes/website`.
 
 ## Customizing the config file

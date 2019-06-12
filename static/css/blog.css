@@ -17,17 +17,12 @@ html body .region-inner {
   width: auto;
 }
 
-a:link {
-  text-decoration:none;
-  color: #2288bb;
+div a:link {
+color: #326DE6;
 }
-a:visited {
-  text-decoration:none;
-  color: #888888;
-}
-a:hover {
-  text-decoration:underline;
-  color: #33aaff;
+
+div a.widget-link {
+color: #326DE6;
 }
 
 /* Header
@@ -305,13 +300,6 @@ h3.post-title {
   font-size: 30px;
   color: #326DE6;
 }
-* a:link,
-* a:visited,
-* a:hover,
-* a:active {
-  color: #326DE6;
-}
-
 
 div.post-footer {
   display: none;
@@ -323,12 +311,11 @@ div.post-footer {
 }
 
 body {
-  min-width: 1200px;
+  width: 100%;
 }
 .content-outer, .content-fauxcolumn-outer, .region-inner {
-  min-width: 1200px;
+  width: 100%;
   max-width: 1200px;
-  _width: 1200px;
   padding-left: 15px;
 }
 .main-inner .columns {
@@ -392,6 +379,11 @@ body {
     background-color: #3371e3;
     text-decoration: none;
   }
+
+div a.button {
+  font-size: 16px;
+}
+
 
  a:link.button {
     color: #ffffff;

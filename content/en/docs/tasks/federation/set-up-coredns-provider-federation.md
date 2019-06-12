@@ -1,13 +1,14 @@
 ---
 title: Set up CoreDNS as DNS provider for Cluster Federation
 content_template: templates/tutorial
+weight: 130
 ---
 
 {{% capture overview %}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This page shows how to configure and deploy CoreDNS to be used as the
 DNS provider for Cluster Federation.

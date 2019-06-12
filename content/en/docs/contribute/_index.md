@@ -47,7 +47,7 @@ This is not an exhaustive list of ways you can contribute to the Kubernetes
 documentation, but it should help you get started.
 
 - [Anyone](/docs/contribute/start/)
-  - File actionable bugs
+  - Open actionable issues
 - [Member](/docs/contribute/start/)
   - Improve existing docs
   - Bring up ideas for improvement on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)

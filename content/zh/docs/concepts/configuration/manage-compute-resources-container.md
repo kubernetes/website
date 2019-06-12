@@ -14,9 +14,9 @@ content_template: templates/concept
 
 ## 资源类型
 
-*CPU* 和 *内存* 都是 *资源类型*。资源类型具有基本单位。CPU 的单位是 core，内存的单位是 byte。
+*CPU* 和 *内存* 都是 *资源类型* 。资源类型具有基本单位。CPU 的单位是 core，内存的单位是 byte。
 
-CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/api/) 不同。 API 资源（如 Pod 和 [Service](/docs/user-guide/services)）是可通过 Kubernetes API server 读取和修改的对象。
+CPU和内存统称为*计算资源* ，也可以称为*资源* 。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/api/) 不同。 API 资源（如 Pod 和 [Service](/docs/user-guide/services)）是可通过 Kubernetes API server 读取和修改的对象。
 
 ## Pod 和 容器的资源请求和限制
 
@@ -226,7 +226,7 @@ Kubernetes 1.5 版本中引入不透明整型资源。不透明的整数资源�
 
 **注意：** 不透明整型资源在 kubernetes 1.5 中还是 Alpha 版本。只实现了资源计量，节点级别的隔离还处于积极的开发阶段。
 
-不透明整型资源是以 `pod.alpha.kubernetes.io/opaque-int-resource-` 为前缀的资源。API server 将限制这些资源的数量为整数。*有效* 数量的例子有 `3`、`3000m` 和 `3Ki`。*无效*数量的例子有 `0.5` 和 `1500m`。
+不透明整型资源是以 `pod.alpha.kubernetes.io/opaque-int-resource-` 为前缀的资源。API server 将限制这些资源的数量为整数。*有效* 数量的例子有 `3`、`3000m` 和 `3Ki`。*无效* 数量的例子有 `0.5` 和 `1500m`。
 
 申请使用不透明整型资源需要两步。首先，集群运维人员必须在一个或多个节点上通告每个节点不透明的资源。然后，用户必须在 Pod 中请求不透明资源。
 

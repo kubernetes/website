@@ -26,7 +26,7 @@ Kubernetes 垃圾收集器的角色是删除指定的对象，这些对象曾经
 ## Owner 和 Dependent
 
 某些 Kubernetes 对象是其它一些对象的 Owner。例如，一个 ReplicaSet 是一组 Pod 的 Owner。
-具有 Owner 的对象被称为是 Owner 的 *Dependent*。
+具有 Owner 的对象被称为是 Owner 的 *Dependent* 。
 每个 Dependent 对象具有一个指向其所属对象的 `metadata.ownerReferences` 字段。
 
 有时，Kubernetes 会自动设置 `ownerReference` 的值。
@@ -73,10 +73,10 @@ metadata:
 ## 控制垃圾收集器删除 Dependent
 
 当删除对象时，可以指定是否该对象的 Dependent 也自动删除掉。
-自动删除 Dependent 也称为 *级联删除*。
+自动删除 Dependent 也称为 *级联删除* 。
 Kubernetes 中有两种 *级联删除* 的模式：*background* 模式和 *foreground* 模式。
 
-如果删除对象时，不自动删除它的 Dependent，这些 Dependent 被称作是原对象的 *孤儿*。
+如果删除对象时，不自动删除它的 Dependent，这些 Dependent 被称作是原对象的 *孤儿* 。
 
 
 
@@ -99,7 +99,7 @@ Kubernetes 中有两种 *级联删除* 的模式：*background* 模式和 *foreg
 
 
 
-注意，在 “foreground 删除” 模式下，只有设置了 `ownerReference.blockOwnerDeletion` 值得 Dependent 才能阻止删除 Owner 对象。
+注意，在 “foreground 删除” 模式下，只有设置了 `ownerReference.blockOwnerDeletion` 值的 Dependent 才能阻止删除 Owner 对象。
 在 Kubernetes 1.7 版本中将增加许可控制器（Admission Controller），基于 Owner 对象上的删除权限来控制用户去设置 `blockOwnerDeletion` 的值为 true，所以未授权的 Dependent 不能够延迟 Owner 对象的删除。
 
 如果一个对象的 `ownerReferences` 字段被一个 Controller（例如 Deployment 或 ReplicaSet）设置，`blockOwnerDeletion` 会被自动设置，不需要手动修改这个字段。

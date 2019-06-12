@@ -162,7 +162,7 @@ Service Configuration file.
 
 ### Feature availability
 
-| k8s version | Feature support |
+| K8s version | Feature support |
 | :---------: |:-----------:|
 | 1.7+ | Supports the full API fields |
 | 1.5 - 1.6 | Supports Beta Annotations |

@@ -73,14 +73,14 @@ If you have a DNS Deployment, your scale target is:
 
     Deployment/<your-deployment-name>
 
-where <dns-deployment-name> is the name of your DNS Deployment. For example, if
+where `<your-deployment-name>` is the name of your DNS Deployment. For example, if
 your DNS Deployment name is coredns, your scale target is Deployment/coredns.
 
 If you have a DNS ReplicationController, your scale target is:
 
     ReplicationController/<your-rc-name>
 
-where <your-rc-name> is the name of your DNS ReplicationController. For example,
+where `<your-rc-name>` is the name of your DNS ReplicationController. For example,
 if your DNS ReplicationController name is kube-dns-v20, your scale target is
 ReplicationController/kube-dns-v20.
 
@@ -98,7 +98,7 @@ In the file, replace `<SCALE_TARGET>` with your scale target.
 Go to the directory that contains your configuration file, and enter this
 command to create the Deployment:
 
-    kubectl create -f dns-horizontal-autoscaler.yaml
+    kubectl apply -f dns-horizontal-autoscaler.yaml
 
 The output of a successful command is:
 
@@ -145,7 +145,7 @@ There are other supported scaling patterns. For details, see
 
 ## Disable DNS horizontal autoscaling
 
-There are a few options for turning DNS horizontal autoscaling. Which option to
+There are a few options for tuning DNS horizontal autoscaling. Which option to
 use depends on different conditions.
 
 ### Option 1: Scale down the dns-autoscaler deployment to 0 replicas
@@ -183,8 +183,8 @@ The output is:
 ### Option 3: Delete the dns-autoscaler manifest file from the master node
 
 This option works if dns-autoscaler is under control of the
-[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)'s
-control, and you have write access to the master node.
+[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md),
+and you have write access to the master node.
 
 Sign in to the master node and delete the corresponding manifest file.
 The common path for this dns-autoscaler is:
@@ -238,6 +238,3 @@ is under consideration as a future development.
 Learn more about the
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 {{% /capture %}}
-
-
-

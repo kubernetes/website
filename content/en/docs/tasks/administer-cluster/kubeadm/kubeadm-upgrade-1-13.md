@@ -223,7 +223,7 @@ A possible workaround is described [here](https://github.com/kubernetes/kubeadm/
     {{% /tab %}}
     {{< /tabs >}}
 
-## Ugrade kubectl on all nodes
+## Upgrade kubectl on all nodes
 
 1.  Upgrade kubectl on all nodes:
 

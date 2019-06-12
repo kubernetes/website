@@ -55,14 +55,18 @@ This example ReplicationController config runs three copies of the nginx web ser
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/controllers/replication.yaml
+kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
+```
+```
 replicationcontroller/nginx created
 ```
 
 Check on the status of the ReplicationController using this command:
 
 ```shell
-$ kubectl describe replicationcontrollers/nginx
+kubectl describe replicationcontrollers/nginx
+```
+```
 Name:        nginx
 Namespace:   default
 Selector:    app=nginx
@@ -97,8 +101,10 @@ Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 To list all the pods that belong to the ReplicationController in a machine readable form, you can use a command like this:
 
 ```shell
-$ pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
+pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
 echo $pods
+```
+```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 

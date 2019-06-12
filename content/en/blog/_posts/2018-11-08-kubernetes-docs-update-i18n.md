@@ -51,7 +51,7 @@ We're looking forward to the [doc sprint in Shanghai](https://kccncchina2018engl
 
 We're excited to continue supporting the Japanese and Korean l10n teams, who are making excellent progress.
 
-If you're interested in localizing Kubernetes for your own language or region, check out our [guide to localizing Kubernetes docs](https://kubernetes.io/docs/contribute/localization/) and reach out to a [SIG Docs chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) for support.
+If you're interested in localizing Kubernetes for your own language or region, check out our [guide to localizing Kubernetes docs](/docs/contribute/localization/) and reach out to a [SIG Docs chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) for support.
 
 ### Get involved with SIG Docs 
 

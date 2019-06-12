@@ -2,6 +2,9 @@
 title: Install Minikube
 content_template: templates/task
 weight: 20
+card:
+  name: tasks
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -12,7 +15,10 @@ This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a
 
 {{% capture prerequisites %}}
 
-VT-x or AMD-v virtualization must be enabled in your computer's BIOS.
+VT-x or AMD-v virtualization must be enabled in your computer's BIOS.  To check this on Linux run the following and verify the output is non-empty:
+```shell
+egrep --color 'vmx|svm' /proc/cpuinfo
+```
 
 {{% /capture %}}
 
@@ -56,7 +62,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 Here's an easy way to add the Minikube executable to your path:
 
 ```shell
-sudo cp minikube /usr/local/bin && rm minikube
+sudo mv minikube /usr/local/bin
 ```
 
 ### Linux
@@ -108,4 +114,19 @@ To install Minikube manually on windows using [Windows Installer](https://docs.m
 
 {{% /capture %}}
 
+## Cleanup everything to start fresh
 
+If you have previously installed minikube, and run:
+```shell
+minikube start
+```
+
+And this command returns an error:
+```shell
+machine does not exist
+```
+
+You need to wipe the configuration files:
+```shell
+rm -rf ~/.minikube
+```

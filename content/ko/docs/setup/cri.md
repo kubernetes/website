@@ -1,52 +1,84 @@
 ---
-reviewers:
-- vincepri
-- bart0sh
 title: CRI 설치
 content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
-v1.6.0에서부터, 쿠버네티스는 CRI(컨테이너 런타임 인터페이스) 사용을 기본으로 지원한다.
+{{< feature-state for_k8s_version="v1.6" state="stable" >}}
+파드에서 컨테이너를 실행하기 위해 쿠버네티스는 컨테이너 런타임을 사용한다.
 이 페이지는 다양한 런타임들에 대한 설치 지침을 담고 있다.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-다음의 커맨드들은 사용자의 운영체제에 따라 root로서 실행하길 바란다.
-각 호스트에 SSH 접속 후 `sudo -i` 실행을 통해서 root 사용자가 될 수 있을 것이다.
+{{< caution >}}
+컨테이너를 실행할 때 runc가 시스템 파일 디스크립터를 처리하는 방식에서 결함이 발견되었다.
+악성 컨테이너는 이 결함을 사용하여 runc 바이너리의 내용을 덮어쓸 수 있으며 
+따라서 컨테이너 호스트 시스템에서 임의의 명령을 실행할 수 있다.
+
+이 문제에 대한 자세한 내용은 
+[cve-2019-5736 : runc 취약점 ] (https://access.redhat.com/security/cve/cve-2019-5736) 참고하자.
+{{< /caution >}}
+
+### 적용 가능성
+
+{{< note >}}
+이 문서는 Linux에 CRI를 설치하는 사용자를 위해 작성되었다.
+다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
+{{< /note >}}
+
+이 가이드의 모든 명령은 `root`로 실행해야 한다.
+예를 들어,`sudo`로 접두사를 붙이거나, `root` 사용자가 되어 명령을 실행한다.
+
+### Cgroup 드라이버
+
+Linux 배포판의 init 시스템이 systemd인 경우, init 프로세스는 
+root control group(`cgroup`)을 생성 및 사용하는 cgroup 관리자로 작동한다. 
+Systemd는 cgroup과의 긴밀한 통합을 통해 프로세스당 cgroup을 할당한다. 
+컨테이너 런타임과 kubelet이 `cgroupfs`를 사용하도록 설정할 수 있다. 
+systemd와 함께`cgroupfs`를 사용하면 두 개의 서로 다른 cgroup 관리자가 존재하게 된다는 뜻이다.
+
+Control group은 프로세스에 할당된 리소스를 제한하는데 사용된다. 
+단일 cgroup 관리자는 할당된 리소스가 무엇인지를 단순화하고, 
+기본적으로 사용가능한 리소스와 사용중인 리소스를 일관성있게 볼 수 있다. 
+관리자가 두 개인 경우, 이런 리소스도 두 개의 관점에서 보게 된다. kubelet과 Docker는 
+`cgroupfs`를 사용하고 나머지 프로세스는 
+`systemd`를 사용하도록 노드가 설정된 경우, 
+리소스가 부족할 때 불안정해지는 사례를 본 적이 있다.
+
+컨테이너 런타임과 kubelet이 `systemd`를 cgroup 드라이버로 사용하도록 설정을 변경하면
+시스템이 안정화된다. 아래의 Docker 설정에서 `native.cgroupdriver=systemd` 옵션을 확인하라.
 
 ## Docker
 
 각 머신들에 대해서, Docker를 설치한다.
-버전 18.06이 추천된다. 그러나 1.11, 1.12, 1.13, 그리고 17.03도 동작하는 것으로 알려져 있다. 
+버전 18.06.2가 추천된다. 그러나 1.11, 1.12, 1.13, 17.03 그리고 18.09도 동작하는 것으로 알려져 있다. 
 쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 Docker 버전의 지속적인 파악이 필요하다.
 
 시스템에 Docker를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# Ubuntu 저장소를 통한 Docker 설치:
-apt-get update
-apt-get install -y docker.io
+# Docker CE 설치
+## 저장소 설정
+### apt 패키지 인덱스 업데이트
+    apt-get update
 
-# 또는 Docker 저장소를 통한 Ubuntu 또는 Debian 용 Docker CE 18.06 설치:
+### apt가 HTTPS 저장소를 사용할 수 있도록 해주는 패키지 설치
+    apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
-## 선행 조건들 설치.
-apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+### Docker의 공식 GPG 키 추가
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-## GPG 키 다운로드.
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+### Docker apt 저장소 추가.
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
 
-## Docker apt 저장소 추가.
-add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-## Docker 설치.
-apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
+## Docker ce 설치.
+apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # 데몬 설정.
 cat > /etc/docker/daemon.json <<EOF
@@ -68,21 +100,18 @@ systemctl restart docker
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# CentOS/RHEL 저장소를 통한 Docker 설치:
-yum install -y docker
+# Docker CE 설치
+## 저장소 설정
+### 필요한 패키지 설치.
+    yum install yum-utils device-mapper-persistent-data lvm2
 
-# 또는 Docker의 CentOS 저장소를 통한 Docker CE 18.06 설치:
-
-## 선행 조건들 설치.
-yum install yum-utils device-mapper-persistent-data lvm2
-
-## Docker 저장소 추가.
+### Docker 저장소 추가
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## Docker 설치.
-yum update && yum install docker-ce-18.06.1.ce
+## Docker ce 설치.
+yum update && yum install docker-ce-18.06.2.ce
 
 ## /etc/docker 디렉토리 생성.
 mkdir /etc/docker
@@ -222,8 +251,8 @@ tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd6
 systemctl start containerd
 ```
 
-## 다른 CRI 런타임: rktlet과 frakti
+## 다른 CRI 런타임: frakti
 
-자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart) 및 [Rktlet 시작하기 가이드](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md)를 참고한다.
+자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart)를 참고한다.
 
 {{% /capture %}}

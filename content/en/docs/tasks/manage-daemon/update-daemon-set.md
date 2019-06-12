@@ -56,7 +56,7 @@ If you haven't created the DaemonSet in the system, check your DaemonSet
 manifest with the following command instead:
 
 ```shell
-kubectl create -f ds.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
+kubectl apply -f ds.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
 ```
 
 The output from both commands should be:
@@ -76,7 +76,7 @@ step 3.
 After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
 
 ```shell
-kubectl create -f ds.yaml
+kubectl apply -f ds.yaml
 ```
 
 Alternatively, use `kubectl apply` to create the same DaemonSet if you plan to

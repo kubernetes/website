@@ -19,10 +19,16 @@ To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/re
 docker:
 
 ```shell
-$ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
+docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
+```
+```
 55c103fa129692154a7652490236fee9be47d70a8dd562281ae7d2f9a339a6db
+```
 
-$ docker ps
+```shell
+docker ps
+```
+```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 55c103fa1296        nginx               "nginx -g 'daemon of…"   9 seconds ago       Up 9 seconds        0.0.0.0:80->80/tcp   nginx-app
 ```
@@ -31,7 +37,9 @@ kubectl:
 
 ```shell
 # start the pod running nginx
-$ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
+kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
+```
+```
 deployment "nginx-app" created
 ```
 
@@ -41,7 +49,9 @@ deployment "nginx-app" created
 
 ```shell
 # expose a port through with a service
-$ kubectl expose deployment nginx-app --port=80 --name=nginx-http
+kubectl expose deployment nginx-app --port=80 --name=nginx-http
+```
+```
 service "nginx-http" exposed
 ```
 
@@ -66,7 +76,9 @@ To list what is currently running, see [kubectl get](/docs/reference/generated/k
 docker:
 
 ```shell
-$ docker ps -a
+docker ps -a
+```
+```
 CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                     PORTS                NAMES
 14636241935f        ubuntu:16.04        "echo test"              5 seconds ago        Exited (0) 5 seconds ago                        cocky_fermi
 55c103fa1296        nginx               "nginx -g 'daemon of…"   About a minute ago   Up About a minute          0.0.0.0:80->80/tcp   nginx-app
@@ -75,7 +87,9 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 kubectl:
 
 ```shell
-$ kubectl get po
+kubectl get po
+```
+```
 NAME                        READY     STATUS      RESTARTS   AGE
 nginx-app-8df569cb7-4gd89   1/1       Running     0          3m
 ubuntu                      0/1       Completed   0          20s
@@ -88,22 +102,30 @@ To attach a process that is already running in a container, see [kubectl attach]
 docker:
 
 ```shell
-$ docker ps
+docker ps
+```
+```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 55c103fa1296        nginx               "nginx -g 'daemon of…"   5 minutes ago       Up 5 minutes        0.0.0.0:80->80/tcp   nginx-app
+```
 
-$ docker attach 55c103fa1296
+```shell
+docker attach 55c103fa1296
 ...
 ```
 
 kubectl:
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+```
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
+```
 
-$ kubectl attach -it nginx-app-5jyvm
+```shell
+kubectl attach -it nginx-app-5jyvm
 ...
 ```
 
@@ -116,22 +138,33 @@ To execute a command in a container, see [kubectl exec](/docs/reference/generate
 docker:
 
 ```shell
-$ docker ps
+docker ps
+```
+```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 55c103fa1296        nginx               "nginx -g 'daemon of…"   6 minutes ago       Up 6 minutes        0.0.0.0:80->80/tcp   nginx-app
-
-$ docker exec 55c103fa1296 cat /etc/hostname
+```
+```shell
+docker exec 55c103fa1296 cat /etc/hostname
+```
+```
 55c103fa1296
 ```
 
 kubectl:
 
 ```shell
-$ kubectl get po
+kubectl get po
+```
+```
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
+```
 
-$ kubectl exec nginx-app-5jyvm -- cat /etc/hostname
+```shell
+kubectl exec nginx-app-5jyvm -- cat /etc/hostname
+```
+```
 nginx-app-5jyvm
 ```
 
@@ -141,14 +174,14 @@ To use interactive commands.
 docker:
 
 ```shell
-$ docker exec -ti 55c103fa1296 /bin/sh
+docker exec -ti 55c103fa1296 /bin/sh
 # exit
 ```
 
 kubectl:
 
 ```shell
-$ kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
+kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
 # exit
 ```
 
@@ -162,7 +195,9 @@ To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/r
 docker:
 
 ```shell
-$ docker logs -f a9e
+docker logs -f a9e
+```
+```
 192.168.9.1 - - [14/Jul/2015:01:04:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.35.0" "-"
 192.168.9.1 - - [14/Jul/2015:01:04:03 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.35.0" "-"
 ```
@@ -170,7 +205,9 @@ $ docker logs -f a9e
 kubectl:
 
 ```shell
-$ kubectl logs -f nginx-app-zibvs
+kubectl logs -f nginx-app-zibvs
+```
+```
 10.240.63.110 - - [14/Jul/2015:01:09:01 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
@@ -178,7 +215,9 @@ $ kubectl logs -f nginx-app-zibvs
 There is a slight difference between pods and containers; by default pods do not terminate if their processes exit. Instead the pods restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 
 ```shell
-$ kubectl logs --previous nginx-app-zibvs
+kubectl logs --previous nginx-app-zibvs
+```
+```
 10.240.63.110 - - [14/Jul/2015:01:09:01 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
@@ -192,32 +231,53 @@ To stop and delete a running process, see [kubectl delete](/docs/reference/gener
 docker:
 
 ```shell
-$ docker ps
+docker ps
+```
+```
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of"  22 hours ago        Up 22 hours         0.0.0.0:80->80/tcp, 443/tcp   nginx-app
+```
 
-$ docker stop a9ec34d98787
+```shell
+docker stop a9ec34d98787
+```
+```
 a9ec34d98787
+```
 
-$ docker rm a9ec34d98787
+```shell
+docker rm a9ec34d98787
+```
+```
 a9ec34d98787
 ```
 
 kubectl:
 
 ```shell
-$ kubectl get deployment nginx-app
+kubectl get deployment nginx-app
+```
+```
 NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-app   1         1         1            1           2m
+```
 
-$ kubectl get po -l run=nginx-app
+```shell
+kubectl get po -l run=nginx-app
+```
+```
 NAME                         READY     STATUS    RESTARTS   AGE
 nginx-app-2883164633-aklf7   1/1       Running   0          2m
-
-$ kubectl delete deployment nginx-app
+```
+```shell
+kubectl delete deployment nginx-app
+```
+```
 deployment "nginx-app" deleted
+```
 
-$ kubectl get po -l run=nginx-app
+```shell
+kubectl get po -l run=nginx-app
 # Return nothing
 ```
 
@@ -236,7 +296,9 @@ To get the version of client and server, see [kubectl version](/docs/reference/g
 docker:
 
 ```shell
-$ docker version
+docker version
+```
+```
 Client version: 1.7.0
 Client API version: 1.19
 Go version (client): go1.4.2
@@ -252,7 +314,9 @@ OS/Arch (server): linux/amd64
 kubectl:
 
 ```shell
-$ kubectl version
+kubectl version
+```
+```
 Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
 ```
@@ -264,7 +328,9 @@ To get miscellaneous information about the environment and configuration, see [k
 docker:
 
 ```shell
-$ docker info
+docker info
+```
+```
 Containers: 40
 Images: 168
 Storage Driver: aufs
@@ -286,7 +352,9 @@ WARNING: No swap limit support
 kubectl:
 
 ```shell
-$ kubectl cluster-info
+kubectl cluster-info
+```
+```
 Kubernetes master is running at https://108.59.85.141
 KubeDNS is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
 kubernetes-dashboard is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy

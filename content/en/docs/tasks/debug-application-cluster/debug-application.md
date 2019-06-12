@@ -31,7 +31,7 @@ your Service?
 The first step in debugging a Pod is taking a look at it.  Check the current state of the Pod and recent events with the following command:
 
 ```shell
-$ kubectl describe pods ${POD_NAME}
+kubectl describe pods ${POD_NAME}
 ```
 
 Look at the state of the containers in the pod.  Are they all `Running`?  Have there been recent restarts?
@@ -68,19 +68,19 @@ First, take a look at the logs of
 the current container:
 
 ```shell
-$ kubectl logs ${POD_NAME} ${CONTAINER_NAME}
+kubectl logs ${POD_NAME} ${CONTAINER_NAME}
 ```
 
 If your container has previously crashed, you can access the previous container's crash log with:
 
 ```shell
-$ kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
+kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
 ```
 
 Alternately, you can run commands inside that container with `exec`:
 
 ```shell
-$ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
+kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
 ```
 
 {{< note >}}
@@ -90,7 +90,7 @@ $ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${
 As an example, to look at the logs from a running Cassandra pod, you might run
 
 ```shell
-$ kubectl exec cassandra -- cat /var/log/cassandra/system.log
+kubectl exec cassandra -- cat /var/log/cassandra/system.log
 ```
 
 If none of these approaches work, you can find the host machine that the pod is running on and SSH into that host,
@@ -107,7 +107,7 @@ For example, if you misspelled `command` as `commnd` then the pod will be create
 will not use the command line you intended it to use.
 
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
-For example, run `kubectl create --validate -f mypod.yaml`.
+For example, run `kubectl apply --validate -f mypod.yaml`.
 If you misspelled `command` as `commnd` then will give an error like this:
 
 ```shell
@@ -145,7 +145,7 @@ First, verify that there are endpoints for the service. For every Service object
 You can view this resource with:
 
 ```shell
-$ kubectl get endpoints ${SERVICE_NAME}
+kubectl get endpoints ${SERVICE_NAME}
 ```
 
 Make sure that the endpoints match up with the number of containers that you expect to be a member of your service.
@@ -168,7 +168,7 @@ spec:
 You can use:
 
 ```shell
-$ kubectl get pods --selector=name=nginx,type=frontend
+kubectl get pods --selector=name=nginx,type=frontend
 ```
 
 to list pods that match this selector.  Verify that the list matches the Pods that you expect to provide your Service.

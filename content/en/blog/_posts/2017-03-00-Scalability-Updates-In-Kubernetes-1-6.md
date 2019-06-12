@@ -69,7 +69,7 @@ We want to emphasize that the optimization work we have done during the last few
 
 **What’s next?**  
 
-People frequently ask how far we are going to go in improving Kubernetes scalability. Currently we do not have plans to increase scalability beyond 5000-node clusters (within our SLOs) in the next few releases. If you need clusters larger than 5000 nodes, we recommend to use [federation](https://kubernetes.io/docs/concepts/cluster-administration/federation/) to aggregate multiple Kubernetes clusters.  
+People frequently ask how far we are going to go in improving Kubernetes scalability. Currently we do not have plans to increase scalability beyond 5000-node clusters (within our SLOs) in the next few releases. If you need clusters larger than 5000 nodes, we recommend to use [federation](/docs/concepts/cluster-administration/federation/) to aggregate multiple Kubernetes clusters.  
 
 However, that doesn’t mean we are going to stop working on scalability and performance. As we mentioned at the beginning of this post, our top priority is to refine our two existing SLOs and introduce new ones that will cover more parts of the system, e.g. networking. This effort has already started within the Scalability SIG. We have made significant progress on how we would like to define performance SLOs, and this work should be finished in the coming month.  
 

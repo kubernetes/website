@@ -12,15 +12,15 @@ _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/
 This `kubectl` command selects all Pods for which the value of the [`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 
 ```shell
-$ kubectl get pods --field-selector status.phase=Running
+kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
 Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the following `kubectl` queries equivalent:
 
 ```shell
-$ kubectl get pods
-$ kubectl get pods --field-selector ""
+kubectl get pods
+kubectl get pods --field-selector ""
 ```
 {{< /note >}}
 
@@ -29,7 +29,9 @@ $ kubectl get pods --field-selector ""
 Supported field selectors vary by Kubernetes resource type. All resource types support the `metadata.name` and `metadata.namespace` fields. Using unsupported field selectors produces an error. For example:
 
 ```shell
-$ kubectl get ingress --field-selector foo.bar=baz
+kubectl get ingress --field-selector foo.bar=baz
+```
+```
 Error from server (BadRequest): Unable to find "ingresses" that match label selector "", field selector "foo.bar=baz": "foo.bar" is not a known field selector: only "metadata.name", "metadata.namespace"
 ```
 
@@ -38,7 +40,7 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==` mean the same thing). This `kubectl` command, for example, selects all Kubernetes Services that aren't in the `default` namespace:
 
 ```shell
-$ kubectl get services --field-selector metadata.namespace!=default
+kubectl get services --field-selector metadata.namespace!=default
 ```
 
 ## Chained selectors
@@ -46,7 +48,7 @@ $ kubectl get services --field-selector metadata.namespace!=default
 As with [label](/docs/concepts/overview/working-with-objects/labels) and other selectors, field selectors can be chained together as a comma-separated list. This `kubectl` command selects all Pods for which the `status.phase` does not equal `Running` and the `spec.restartPolicy` field equals `Always`:
 
 ```shell
-$ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Always
+kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Always
 ```
 
 ## Multiple resource types
@@ -54,5 +56,5 @@ $ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alw
 You use field selectors across multiple resource types. This `kubectl` command selects all Statefulsets and Services that are not in the `default` namespace:
 
 ```shell
-$ kubectl get statefulsets,services --field-selector metadata.namespace!=default
+kubectl get statefulsets,services --field-selector metadata.namespace!=default
 ```

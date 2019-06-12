@@ -37,7 +37,7 @@ to match the observed average CPU utilization to the target specified by user.
 
 The Horizontal Pod Autoscaler is implemented as a control loop, with a period controlled
 by the controller manager's `--horizontal-pod-autoscaler-sync-period` flag (with a default
-value of 30 seconds).
+value of 15 seconds).
 
 During each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
@@ -71,7 +71,7 @@ or the custom metrics API (for all other metrics).
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
 `custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is usually provided by
 metrics-server, which needs to be launched separately. See
-[metrics-server](https://kubernetes.io/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)
+[metrics-server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)
 for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
 
 {{< note >}}
@@ -161,7 +161,7 @@ from the metrics APIs), scaling is skipped.
 
 Finally, just before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization-window` flag, which defaults to 5 minutes.
+highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
 
@@ -216,7 +216,7 @@ the global HPA settings exposed as flags for the `kube-controller-manager` compo
 Starting from v1.12, a new algorithmic update removes the need for the
 upscale delay.
 
-- `--horizontal-pod-autoscaler-downscale-delay`: The value for this option is a
+- `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
   duration that specifies how long the autoscaler has to wait before another
   downscale operation can be performed after the current one has completed.
   The default value is 5 minutes (`5m0s`).
@@ -249,7 +249,7 @@ Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal P
 You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta2` API.
 Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
-See [Support for metrics APIs](#support-for-metrics-APIs) for the requirements.
+See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 
 ## Support for metrics APIs
 
