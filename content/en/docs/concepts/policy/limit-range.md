@@ -179,7 +179,7 @@ kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[2].re
 ```
 
 -  The `busybox-cnt03` Container inside `busybox1` Pod defined `limits.cpu=500m` and `limits.memory=200Mi` but no `requests` for cpu and memory.
--  The container do not define a request section, the defaultRequest defined in the limit-mem-cpu-per-container LimitRange is not used to fill its limits section but the limits defined by the container are set as requests `limits.cpu=500m` and `limits.memory=900Mi`.
+-  The container do not define a request section, the defaultRequest defined in the limit-mem-cpu-per-container LimitRange is not used to fill its limits section but the limits defined by the container are set as requests `limits.cpu=500m` and `limits.memory=200Mi`.
 -  `100m <= 500m <= 800m` , The container cpu limit (500m) falls inside the authorized CPU limit range.  
 -  `99Mi <= 200Mi <= 1Gi` , The container memory limit (200Mi) falls inside the authorized Memory limit range. 
 -  No request/limits ratio  set , thus the container is valid and created.
