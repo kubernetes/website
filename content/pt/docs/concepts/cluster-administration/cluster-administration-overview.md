@@ -1,7 +1,7 @@
 ---
 reviewers:
-- jcjesus
-- femrtnz
+- davidopp
+- lavalamp
 title: Visão Geral da Administração de Cluster
 content_template: templates/concept
 weight: 10
