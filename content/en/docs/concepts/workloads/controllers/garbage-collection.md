@@ -45,7 +45,7 @@ kubectl get pods --output=yaml
 
 The output shows that the Pod owner is a ReplicaSet named `my-repset`:
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -124,8 +124,8 @@ Here's an example that deletes dependents in background:
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
+  -H "Content-Type: application/json"
 ```
 
 Here's an example that deletes dependents in foreground:
@@ -133,8 +133,8 @@ Here's an example that deletes dependents in foreground:
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
+  -H "Content-Type: application/json"
 ```
 
 Here's an example that orphans dependents:
@@ -142,8 +142,8 @@ Here's an example that orphans dependents:
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
+  -H "Content-Type: application/json"
 ```
 
 kubectl also supports cascading deletion.
