@@ -553,3 +553,37 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 
 /docs/admin/high-availability/building/     /docs/setup/independent/high-availability/ 301
 /code-of-conduct/     /community/code-of-conduct/   301
+
+/docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
+
+/docs/setup/minikube/     /docs/setup/learning-environment/minikube/   301
+/docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
+/docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
+/docs/setup/independent/troubleshooting-kubeadm/     /docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/   301
+/docs/setup/independent/create-cluster-kubeadm/     /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/   301
+/docs/setup/independent/control-plane-flags/     /docs/setup/production-environment/tools/kubeadm/control-plane-flags/   301
+/docs/setup/independent/ha-topology/     /docs/setup/production-environment/tools/kubeadm/ha-topology/   301
+/docs/setup/independent/high-availability/     /docs/setup/production-environment/tools/kubeadm/high-availability/   301
+/docs/setup/independent/setup-ha-etcd-with-kubeadm/     /docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/   301
+/docs/setup/independent/kubelet-integration/     /docs/setup/production-environment/tools/kubeadm/kubelet-integration/   301
+/docs/setup/custom-cloud/kops/     /docs/setup/production-environment/tools/kops/   301
+/docs/setup/custom-cloud/kubespray/     /docs/setup/production-environment/tools/kubespray/   301
+/docs/setup/on-premises-metal/krib/     /docs/setup/production-environment/tools/krib/   301
+/docs/setup/turnkey/aws/     /docs/setup/production-environment/turnkey/aws/   301
+/docs/setup/turnkey/alibaba-cloud/     /docs/setup/production-environment/turnkey/alibaba-cloud/   301
+/docs/setup/turnkey/azure/     /docs/setup/production-environment/turnkey/azure/   301
+/docs/setup/turnkey/clc/     /docs/setup/production-environment/turnkey/clc/   301
+/docs/setup/turnkey/gce/     /docs/setup/production-environment/turnkey/gce/   301
+/docs/setup/turnkey/icp/     /docs/setup/production-environment/turnkey/icp/   301
+/docs/setup/turnkey/stackpoint/     /docs/setup/production-environment/turnkey/stackpoint/   301
+/docs/setup/on-premises-vm/cloudstack/     /docs/setup/production-environment/on-premises-vm/cloudstack/   301
+/docs/setup/on-premises-vm/dcos/     /docs/setup/production-environment/on-premises-vm/dcos/   301
+/docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301
+/docs/setup/windows/intro-windows-in-kubernetes/     /docs/setup/production-environment/windows/intro-windows-in-kubernetes/   301
+/docs/setup/windows/user-guide-windows-nodes/     /docs/setup/production-environment/windows/user-guide-windows-nodes/   301
+/docs/setup/windows/user-guide-windows-containers/     /docs/setup/production-environment/windows/user-guide-windows-containers/   301
+/docs/setup/multiple-zones/     /docs/setup/best-practices/multiple-zones/   301
+/docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
+/docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
+/docs/setup/certificates/     /docs/setup/best-practices/certificates/   301      
+

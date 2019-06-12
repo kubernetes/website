@@ -115,7 +115,7 @@ to the behavior when the RuntimeClass feature is disabled.
 
 ### CRI Configuration
 
-For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/cri/).
+For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/production-environment/container-runtimes/).
 
 #### dockershim
 

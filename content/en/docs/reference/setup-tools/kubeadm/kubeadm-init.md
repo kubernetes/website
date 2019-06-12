@@ -136,7 +136,7 @@ For information about enabling IPVS mode with kubeadm see:
 ### Passing custom flags to control plane components {#control-plane-flags}
 
 For information about passing flags to control plane components see:
-- [control-plane-flags](/docs/setup/independent/control-plane-flags/)
+- [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 ### Using custom images {#custom-images}
 
@@ -231,7 +231,7 @@ using an external CRI implementation.
 ### Setting the node name
 
 By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `--node-name`flag.
-The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) 
+The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options)
 to the kubelet.
 
 Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
@@ -304,7 +304,7 @@ don't require an `-${ARCH}` suffix.
 ### Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/setup/independent/create-cluster-kubeadm/), you can parallelize the
+in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), you can parallelize the
 token distribution for easier automation. To implement this automation, you must
 know the IP address that the control-plane node will have after it is started.
 
