@@ -45,4 +45,4 @@ Both old and new contributors on our Docs Team will spend a day both improving o
 
 ### Before you attend
 
-Regardless of where you participate, everyone at the Contributor Summit should [sign the Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement) before coming to the conference. You should also bring a laptop suitable for working on documentation or code development.
+Regardless of where you participate, everyone at the Contributor Summit should [sign the Kubernetes Contributor License Agreement](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement) (CLA) before coming to the conference. You should also bring a laptop suitable for working on documentation or code development.
