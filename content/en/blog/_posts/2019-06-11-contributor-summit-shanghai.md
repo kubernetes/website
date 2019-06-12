@@ -41,7 +41,7 @@ If you have not contributed to Kubernetes before, or have only done one or two t
 
 ### Documentation Sprints
 
-Both old and new contributors on our Docs Team will spend a day both improving our documentation and translating it into other languages. If you are interested in having better documentation, fully internationalized into Chinese and other languages, please [sign up](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) to help with the Doc Sprints.
+Both old and new contributors on our Docs Team will spend a day both improving our documentation and translating it into other languages. If you are interested in having better documentation, fully localized into Chinese and other languages, please [sign up](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) to help with the Doc Sprints.
 
 ### Before you attend
 
