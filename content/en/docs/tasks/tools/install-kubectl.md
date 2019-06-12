@@ -179,11 +179,15 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
 
 2. Add the binary in to your PATH.
-3. Test to ensure the version you installed is up-to-date:
+3. Test to ensure the version of `kubectl` is the same as downloaded:
 
     ```
     kubectl version
     ```
+{{< note >}}
+[Docker for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
+If you have installed Docker before, you may need to place your PATH entry before the one added by Docker installer or remove the Docker's `kubectl`.
+{{< /note >}}
 
 ### Install with Powershell from PSGallery
 
