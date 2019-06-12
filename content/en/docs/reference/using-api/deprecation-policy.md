@@ -87,13 +87,13 @@ no less than:**
    * **Beta: 9 months or 3 releases (whichever is longer)**
    * **Alpha: 0 releases**
 
-This covers the [maximum supported version skew of 2 releases](/docs/setup/version-skew-policy/).
+This covers the [maximum supported version skew of 2 releases](/docs/setup/release/version-skew-policy/).
 
 {{< note >}}
 Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
-resolved, no API versions that have been persisted to storage may be removed. 
-Serving REST endpoints for those versions may be disabled (subject to the 
-deprecation timelines in this document), but the API server must remain capable 
+resolved, no API versions that have been persisted to storage may be removed.
+Serving REST endpoints for those versions may be disabled (subject to the
+deprecation timelines in this document), but the API server must remain capable
 of decoding/converting previously persisted data from storage.
 {{< /note >}}
 
@@ -365,54 +365,54 @@ This applies only to significant, user-visible behaviors which impact the
 correctness of applications running on Kubernetes or that impact the
 administration of Kubernetes clusters, and which are being removed entirely.
 
-An exception to the above rule is _feature gates_. Feature gates are key=value 
+An exception to the above rule is _feature gates_. Feature gates are key=value
 pairs that allow for users to enable/disable experimental features.
 
-Feature gates are intended to cover the development life cycle of a feature - they 
-are not intended to be long-term APIs. As such, they are expected to be deprecated 
-and removed after a feature becomes GA or is dropped. 
+Feature gates are intended to cover the development life cycle of a feature - they
+are not intended to be long-term APIs. As such, they are expected to be deprecated
+and removed after a feature becomes GA or is dropped.
 
-As a feature moves through the stages, the associated feature gate evolves. 
+As a feature moves through the stages, the associated feature gate evolves.
 The feature life cycle matched to its corresponding feature gate is:
 
   * Alpha: the feature gate is disabled by default and can be enabled by the user.
   * Beta: the feature gate is enabled by default and can be disabled by the user.
-  * GA: the feature gate is deprecated (see ["Deprecation"](#deprecation)) and becomes 
+  * GA: the feature gate is deprecated (see ["Deprecation"](#deprecation)) and becomes
   non-operational.
-  * GA, deprecation window complete: the feature gate is removed and calls to it are 
+  * GA, deprecation window complete: the feature gate is removed and calls to it are
   no longer accepted.
 
 ### Deprecation
 
-Features can be removed at any point in the life cycle prior to GA. When features are 
+Features can be removed at any point in the life cycle prior to GA. When features are
 removed prior to GA, their associated feature gates are also deprecated.
 
-When an invocation tries to disable a non-operational feature gate, the call fails in order 
+When an invocation tries to disable a non-operational feature gate, the call fails in order
 to avoid unsupported scenarios that might otherwise run silently.
 
-In some cases, removing pre-GA features requires considerable time. Feature gates can remain 
-operational until their associated feature is fully removed, at which point the feature gate 
-itself can be deprecated. 
+In some cases, removing pre-GA features requires considerable time. Feature gates can remain
+operational until their associated feature is fully removed, at which point the feature gate
+itself can be deprecated.
 
-When removing a feature gate for a GA feature also requires considerable time, calls to 
-feature gates may remain operational if the feature gate has no effect on the feature, 
+When removing a feature gate for a GA feature also requires considerable time, calls to
+feature gates may remain operational if the feature gate has no effect on the feature,
 and if the feature gate causes no errors.
 
-Features intended to be disabled by users should include a mechanism for disabling the 
+Features intended to be disabled by users should include a mechanism for disabling the
 feature in the associated feature gate.
 
 Versioning for feature gates is different from the previously discussed components,
 therefore the rules for deprecation are as follows:
 
-**Rule #8: Feature gates must be deprecated when the corresponding feature they control 
+**Rule #8: Feature gates must be deprecated when the corresponding feature they control
 transitions a lifecycle stage as follows. Feature gates must function for no less than:**
 
    * **Beta feature to GA: 6 months or 2 releases (whichever is longer)**
    * **Beta feature to EOL: 3 months or 1 release (whichever is longer)**
    * **Alpha feature to EOL: 0 releases**
 
-**Rule #9: Deprecated feature gates must respond with a warning when used. When a feature gate 
-is deprecated it must be documented in both in the release notes and the corresponding CLI help. 
+**Rule #9: Deprecated feature gates must respond with a warning when used. When a feature gate
+is deprecated it must be documented in both in the release notes and the corresponding CLI help.
 Both warnings and documentation must indicate whether a feature gate is non-operational.**
 
 ## Exceptions
