@@ -1,9 +1,0 @@
-# Owned by Kubernetes Blog reviewers.
-options:
-  no_parent_owners: false
-reviewers:
-  -
-approvers:
-  -
-  -
-  -
