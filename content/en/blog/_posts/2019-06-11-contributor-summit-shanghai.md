@@ -21,7 +21,7 @@ While we do not yet have a full schedule up, the topics covered in the current c
 * Codebase and repository review
 * Local Build & Test troubleshooting session
 * Guide to Non-Code Contribution opportunities
-* SIG-Azure face-to-face
+* SIG-Azure face-to-face meeting
 * SIG-Scheduling face-to-face meeting
 * Other SIG face-to-face meetings as we confirm them
 
