@@ -33,7 +33,7 @@ If your SIG wants to have a face-to-face meeting at Kubecon Shanghai, please con
 
 Students at [last year's New Contributor Workshop](/blog/2018/12/05/new-contributor-workshop-shanghai/) (NCW) found it to be extremely valuable, and the event helped to orient a few of the many Asian and Pacific developers looking to participate in the Kubernetes community.
 
-> "It's a one-stop-shop for becoming familiar with the community," said one participant.
+> "It's a one-stop-shop for becoming familiar with the community." said one participant.
 
 If you have not contributed to Kubernetes before, or have only done one or two things, please consider [enrolling](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) in the NCW.
 
