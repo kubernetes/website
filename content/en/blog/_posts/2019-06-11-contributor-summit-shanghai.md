@@ -17,7 +17,7 @@ After last year's Contributor Day, our team received feedback that many of our c
 
 While we do not yet have a full schedule up, the topics covered in the current contributor track will include:
 
-* How to write a KEP
+* How to write a KEP (Kubernetes Enhancement Proposal)
 * Codebase and repository review
 * Local Build & Test troubleshooting session
 * Guide to Non-Code Contribution opportunities
