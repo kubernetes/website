@@ -4,9 +4,9 @@ reviewers:
 - erictune
 - mikedanese
 no_issue: true
-title: Setup
+title: Getting started
 main_menu: true
-weight: 30
+weight: 20
 content_template: templates/concept
 card:
   name: setup
@@ -40,7 +40,7 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 
 |Community           |Ecosystem     |
 | ------------       | --------     |
-| [Minikube](/docs/setup/minikube/) | [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) |
+| [Minikube](/docs/setup/learning-environment/minikube/) | [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) |
 | [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
 | [Kubernetes IN Docker](https://github.com/kubernetes-sigs/kind) | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
