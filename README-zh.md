@@ -142,7 +142,7 @@ make serve
 <!--
 This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
  -->
-这将在端口 1313 上启动本地 Hugo 服务器。打开浏览器访问 http://localhost:1313 查看网站。当您对源文件进行更改时，Hugo 会更新网站并强制刷新浏览器。
+这将在 1313 端口上启动本地 Hugo 服务器。打开浏览器访问 http://localhost:1313 查看网站。当您对源文件进行更改时，Hugo 会更新网站并强制刷新浏览器。
 
 <!--
 ## Community, discussion, contribution, and support
