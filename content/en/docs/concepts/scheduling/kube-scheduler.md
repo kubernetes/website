@@ -100,19 +100,8 @@ for more details.
 - `NoDiskConflict`: Evaluates if a Pod can fit on a Node due to the volumes it requests,
    and those that are already mounted.
 
-- `MaxAzureDiskVolumeCount`: Ensures that the number of attached Azure Disk volumes
-  does not exceed a maximum value. This predicate only applies for Azure clusters.
-
-- `MaxEBSVolumeCount`: Ensures that the number of attached ElasticBlockStore volumes
-  does not exceed a maximum value. This predicate only applies for AWS clusters.
-
-- `MaxGCEPDVolumeCount`: Ensures that the number of attached GCE PersistentDisk
-  volumes does not exceed a maximum value. This predicate only applies for GCE clusters.
-
 - `MaxCSIVolumeCount`: Decides how many {{< glossary_tooltip text="CSI" term_id="csi" >}}
   volumes should be attached, and whether that's over a configured limit.
-
-- `GeneralPred`: Checks whether nonCriticalPredicates and essentialPredicates pass.
 
 - `CheckNodeMemoryPressure`: If a Node is reporting memory pressure, and there's no
   configured exception, the Pod won't be scheduled there.
