@@ -98,7 +98,7 @@ The recommended way to run the Kubernetes website locally is to run a specialize
 <!--
 If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
  -->
-如果您已经[安装运行](https://www.docker.com/get-started)了 Docker，使用 `kubernetes-hugo` 命令在本地创建 Docker 镜像：
+如果您已经[安装运行](https://www.docker.com/get-started)了 Docker，使用以下命令在本地构建 `kubernetes-hugo` Docker 镜像：
 
 ```bash
 make docker-image
