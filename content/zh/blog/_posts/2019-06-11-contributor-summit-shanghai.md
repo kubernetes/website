@@ -63,11 +63,11 @@ date: 2019-06-11
 如果您的 SIG 想要在 Kubecon Shanghai 上进行面对面的交流，请联系 [Josh Berkus](mailto:jberkus@redhat.com)。
 
 <!-- ### New Contributor Workshop -->
-### 新开发者工作坊
+### 新贡献者工作坊
 
 <!-- Students at [last year's New Contributor Workshop](/blog/2018/12/05/new-contributor-workshop-shanghai/) (NCW) found it to be extremely valuable, and the event helped to orient a few of the many Asian and Pacific developers looking to participate in the Kubernetes community. -->
 
-参与过[去年新开发者工作坊（NCW）](/blog/2018/12/05/new-contributor-workshop-shanghai/)的学生觉得这项活动非常的有价值，
+参与过[去年新贡献者工作坊（NCW）](/blog/2018/12/05/new-contributor-workshop-shanghai/)的学生觉得这项活动非常的有价值，
 这项活动也帮助、引导了很多亚洲和大洋洲的开发者更多地参与到 Kubernetes 社区之中。
 
 <!-- > "It's a one-stop-shop for becoming familiar with the community," said one participant. -->
@@ -76,7 +76,7 @@ date: 2019-06-11
 
 <!-- If you have not contributed to Kubernetes before, or have only done one or two things, please consider [enrolling](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) in the NCW. -->
 
-如果您之前从没有参与过 Kubernetes 的贡献，或者只是做过一次或两次贡献，都请考虑[注册参加](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)新开发者工作坊。
+如果您之前从没有参与过 Kubernetes 的贡献，或者只是做过一次或两次贡献，都请考虑[注册参加](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)新贡献者工作坊。
 
 <!-- > "Got to know the process from signing CLA to PR and made friends with other contributors." said another. -->
 
