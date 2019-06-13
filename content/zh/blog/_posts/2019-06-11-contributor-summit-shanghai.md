@@ -38,12 +38,12 @@ date: 2019-06-11
 
 尽管我们还没有一个完整的时间安排，下面是当前贡献者主题所会包含的话题：
 
-<!-- * How to write a KEP
+<!-- * How to write a KEP (Kubernetes Enhancement Proposal)
 * Codebase and repository review
 * Local Build & Test troubleshooting session
 * Guide to Non-Code Contribution opportunities
-* SIG-Azure face-to-face
-* SIG-Scheduling face-to-face
+* SIG-Azure face-to-face meeting
+* SIG-Scheduling face-to-face meeting
 * Other SIG face-to-face meetings as we confirm them -->
 
 * 如何撰写 Kubernetes 改进议案 (KEP)
@@ -70,7 +70,7 @@ date: 2019-06-11
 参与过[去年新贡献者工作坊（NCW）](/blog/2018/12/05/new-contributor-workshop-shanghai/)的学生觉得这项活动非常的有价值，
 这项活动也帮助、引导了很多亚洲和大洋洲的开发者更多地参与到 Kubernetes 社区之中。
 
-<!-- > "It's a one-stop-shop for becoming familiar with the community," said one participant. -->
+<!-- > "It's a one-stop-shop for becoming familiar with the community." said one participant. -->
 
 > “这次活动可以让人一次快速熟悉社区。”其中的一位参与者提到。
 
@@ -86,7 +86,7 @@ date: 2019-06-11
 
 ### 文档小组活动
 
-<!-- Both old and new contributors on our Docs Team will spend a day both improving our documentation and translating it into other languages. If you are interested in having better documentation, fully internationalized into Chinese and other languages, please [sign up](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) to help with the Doc Sprints. -->
+<!-- Both old and new contributors on our Docs Team will spend a day both improving our documentation and translating it into other languages. If you are interested in having better documentation, fully localized into Chinese and other languages, please [sign up](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) to help with the Doc Sprints. -->
 
 文档小组的新老贡献者都会聚首一天，讨论如何提升文档质量，以及将文档翻译成更多的语言。
 如果您对翻译文档，将这些知识和信息翻译成中文和其他语言感兴趣的话，请在这里[注册](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)，报名参加文档小组活动。
@@ -95,7 +95,7 @@ date: 2019-06-11
 
 ### 参与之前
 
-<!-- Regardless of where you participate, everyone at the Contributor Summit should [sign the Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement) before coming to the conference. You should also bring a laptop suitable for working on documentation or code development. -->
+<!-- Regardless of where you participate, everyone at the Contributor Summit should [sign the Kubernetes Contributor License Agreement](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement) (CLA) before coming to the conference. You should also bring a laptop suitable for working on documentation or code development. -->
 
 不论您参与的是哪一项活动，所有人都需要在到达贡献者峰会前签署 [Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement)。
 您也同时需要考虑带一个合适的笔记本电脑，帮助文档写作或是编程开发。
