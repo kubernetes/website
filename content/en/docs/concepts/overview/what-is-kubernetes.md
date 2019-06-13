@@ -33,7 +33,7 @@ Virtualization allows better utilization of resources in a physical server and a
 
 Each VM is a full machine running all the components, including its own operating system, on top of the virtualized hardware.
 
-**Container deployment era:** Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, it has its own filesystem, CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
+**Container deployment era:** Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, a container has its own filesystem, CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
 
 Containers are becoming popular because they have many benefits. Some of the container benefits are listed below:
 
@@ -52,12 +52,12 @@ Containers are becoming popular because they have many benefits. Some of the con
 
 Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to restart. Wouldn't it be easier if this behavior was handled by a system?
 
-That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed system resiliently. It takes care of your scaling requirements, failover, deployment patterns, and more. For example, Kubernetes can easily manage a canary deployment for your system.
+That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of your scaling requirements, failover, deployment patterns, and more. For example, Kubernetes can easily manage a canary deployment for your system.
 
 Kubernetes provides you with:
 
 * **Service discovery and load balancing**  
-Kubernetes can expose containers using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
+Kubernetes can expose a container using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
 * **Storage orchestration**  
 Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
 * **Automated rollouts and rollbacks**  
@@ -67,7 +67,7 @@ Kubernetes allows you to specify how much CPU and memory (RAM) each container ne
 * **Self-healing**  
 Kubernetes restarts containers that fail, replaces containers, kills containers that don’t respond to your user-defined health check, and doesn’t advertise them to clients until they are ready to serve.
 * **Secret and configuration management**  
-Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. You can deploy and update secrets and application configuration without rebuilding your image, and without exposing secrets in your stack configuration.
+Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
 
 ## What Kubernetes is not
 
