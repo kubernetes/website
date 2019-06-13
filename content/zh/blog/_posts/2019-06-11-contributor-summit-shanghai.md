@@ -72,7 +72,7 @@ date: 2019-06-11
 
 <!-- > "It's a one-stop-shop for becoming familiar with the community," said one participant. -->
 
-> “这有点一站式购物，全面了解 Kubernetes 社区，”其中的一位参与者提到。
+> “这次活动可以让人一次快速熟悉社区。”其中的一位参与者提到。
 
 <!-- If you have not contributed to Kubernetes before, or have only done one or two things, please consider [enrolling](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) in the NCW. -->
 
