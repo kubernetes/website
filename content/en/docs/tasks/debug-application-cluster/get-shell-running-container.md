@@ -39,7 +39,7 @@ kubectl apply -f https://k8s.io/examples/application/shell-demo.yaml
 Verify that the Container is running:
 
 ```shell
-kubectl get pod shell-demo
+kubectl get pods shell-demo
 ```
 
 Get a shell to the running Container:
