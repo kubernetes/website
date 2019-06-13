@@ -21,7 +21,7 @@ date: 2019-06-11
 <!-- For the second year, we will have [a Contributor Summit event](https://www.lfasiallc.com/events/contributors-summit-china-2019/) the day before [KubeCon China](https://events.linuxfoundation.cn/events/kubecon-cloudnativecon-china-2019/) in Shanghai. If you already contribute to Kubernetes or would like to contribute, please consider attending and [register](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/). The Summit will be held June 24th, at the Shanghai Expo Center (the same location where KubeCon will take place), and will include a Current Contributor Day as well as the New Contributor Workshop and the Documentation Sprints. -->
 
 连续第二年，我们将在 [KubeCon China](https://events.linuxfoundation.cn/events/kubecon-cloudnativecon-china-2019/) 之前举行一天的 [贡献者峰会](https://www.lfasiallc.com/events/contributors-summit-china-2019/)。
-不管你是否已经是一名 Kubernetes 贡献者，还是想要加入社区队伍，贡献一份力量，都请考虑[注册](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)参加这次活动。
+不管您是否已经是一名 Kubernetes 贡献者，还是想要加入社区队伍，贡献一份力量，都请考虑[注册](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)参加这次活动。
 这次峰会将于六月 24 号，在上海会展中心（和 KubeCon 的举办地点相同）举行，
 一天的活动将包含“当前贡献者节”，以及“新贡献者工作坊”和“文档小组活动”。
 
@@ -60,7 +60,7 @@ date: 2019-06-11
 
 <!-- If your SIG wants to have a face-to-face meeting at Kubecon Shanghai, please contact [Josh Berkus](mailto:jberkus@redhat.com). -->
 
-如果你的 SIG 想要在 Kubecon Shanghai 上进行面对面的交流，请联系 [Josh Berkus](mailto:jberkus@redhat.com)。
+如果您的 SIG 想要在 Kubecon Shanghai 上进行面对面的交流，请联系 [Josh Berkus](mailto:jberkus@redhat.com)。
 
 <!-- ### New Contributor Workshop -->
 ### 新开发者工作坊
@@ -76,7 +76,7 @@ date: 2019-06-11
 
 <!-- If you have not contributed to Kubernetes before, or have only done one or two things, please consider [enrolling](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) in the NCW. -->
 
-如果你之前从没有参与过 Kubernetes 的贡献，或者只是做过一次或两次贡献，都请考虑[注册参加](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)新开发者工作坊。
+如果您之前从没有参与过 Kubernetes 的贡献，或者只是做过一次或两次贡献，都请考虑[注册参加](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)新开发者工作坊。
 
 <!-- > "Got to know the process from signing CLA to PR and made friends with other contributors." said another. -->
 
@@ -89,7 +89,7 @@ date: 2019-06-11
 <!-- Both old and new contributors on our Docs Team will spend a day both improving our documentation and translating it into other languages. If you are interested in having better documentation, fully internationalized into Chinese and other languages, please [sign up](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/) to help with the Doc Sprints. -->
 
 文档小组的新老贡献者都会聚首一天，讨论如何提升文档质量，以及将文档翻译成更多的语言。
-如果你对翻译文档，将这些知识和信息翻译成中文和其他语言感兴趣的话，请在这里[注册](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)，报名参加文档小组活动。
+如果您对翻译文档，将这些知识和信息翻译成中文和其他语言感兴趣的话，请在这里[注册](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)，报名参加文档小组活动。
 
 <!-- ### Before you attend -->
 
@@ -98,4 +98,4 @@ date: 2019-06-11
 <!-- Regardless of where you participate, everyone at the Contributor Summit should [sign the Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement) before coming to the conference. You should also bring a laptop suitable for working on documentation or code development. -->
 
 不论您参与的是哪一项活动，所有人都需要在到达贡献者峰会前签署 [Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement)。
-你也同时需要考虑带一个合适的笔记本电脑，帮助文档写作或是编程开发。
+您也同时需要考虑带一个合适的笔记本电脑，帮助文档写作或是编程开发。
