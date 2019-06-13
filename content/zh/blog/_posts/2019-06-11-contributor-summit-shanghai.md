@@ -32,7 +32,7 @@ date: 2019-06-11
 <!-- After last year's Contributor Day, our team received feedback that many of our contributors in Asia and Oceania would like content for current contributors as well. As such, we have added a Current Contributor track to the schedule. -->
 
 去年的贡献者节之后，我们的团队收到了很多反馈意见，很多亚洲和大洋洲的贡献者也想要针对当前贡献者的峰会内容。
-有鉴于此，我们在今年的安排中加入了当前工作者的主题。
+有鉴于此，我们在今年的安排中加入了当前贡献者的主题。
 
 <!-- While we do not yet have a full schedule up, the topics covered in the current contributor track will include: -->
 
