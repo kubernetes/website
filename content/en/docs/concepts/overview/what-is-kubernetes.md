@@ -86,6 +86,6 @@ Kubernetes:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-*   Take a look at the [Kubernetes Components](docs/concepts/overview/components/)
+*   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 *   Ready to [Get Started](/docs/setup/)?
 {{% /capture %}}
