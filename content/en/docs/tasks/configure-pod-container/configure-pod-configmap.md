@@ -412,7 +412,7 @@ configmap/game-config-5-m67dt67794 created
 
 #### Generate ConfigMaps from Literals
 To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
-you can specify the ConfigMap generator in `kusotmization.yaml` as
+you can specify the ConfigMap generator in `kustomization.yaml` as
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
 cat <<EOF >./kustomization.yaml
