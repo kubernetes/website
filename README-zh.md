@@ -35,7 +35,7 @@ Reviewers will do their best to provide feedback in a timely fashion but respons
  -->
 创建拉取请求后，Kubernetes 审核人员将负责提供清晰且可操作的反馈。作为拉取请求的所有者，**您有责任修改拉取请求以解决 Kubernetes 审核者提供给您的反馈。**
 另请注意，您最终可能收到多个 Kubernetes 审核人员为您提供反馈，或者您可能会收到 Kubernetes 审核人员最终的反馈与最初的反馈不尽相同。
-此外，在某些情况下，您的一位评审员可能会在需要时要求 [Kubernetes 技术评审员](https://github.com/kubernetes/website/wiki/Tech-reviewers) 进行技术评审。
+此外，在某些情况下，您的某位评审员可能会在需要时要求 [Kubernetes 技术评审员](https://github.com/kubernetes/website/wiki/Tech-reviewers) 进行技术评审。
 审稿人将尽最大努力及时提供反馈，但响应时间可能因情况而异。
 
 <!--
