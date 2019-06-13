@@ -152,7 +152,7 @@ This will start the local Hugo server on port 1313. Open up your browser to http
 <!--
 Learn how to engage with the Kubernetes community on the [community page](http://kubernetes.io/community/).
  -->
-了解如何在[社区页面](http://kubernetes.io/community/)上与 Kubernetes 社区互动。
+在[社区页面](http://kubernetes.io/community/)了解如何与 Kubernetes 社区互动。
 
 <!--
 You can reach the maintainers of this project at:
