@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-Cette page montre comment allouer une mémoire *request* et une mémoire *limit* à un conteneur. Un conteneur est garanti d'avoir autant de mémoire qu'il le demande, mais n'est pas autorisé à consommer plus de mémoire que sa limite.
+Cette page montre comment assigner une mémoire *request* et une mémoire *limit* à un conteneur. Un conteneur est garanti d'avoir autant de mémoire qu'il le demande, mais n'est pas autorisé à consommer plus de mémoire que sa limite.
 
 {{% /capture %}}
 
@@ -26,14 +26,13 @@ Si vous utilisez Minikube, exécutez la commande suivante pour activer metrics-s
 minikube addons enable metrics-server
 ```
 
-Pour voir si le metrics-server fonctionne, ou un autre fournisseur de métriques de ressources
-API (`metrics.k8s.io`), exécutez la commande suivante:
+Pour voir si le metrics-server fonctionne, ou un autre fournisseur de l'API des métriques de ressources (`metrics.k8s.io`), exécutez la commande suivante:
 
 ```shell
 kubectl get apiservices
 ```
 
-Si l'API de métriques de ressources est disponible, la sortie inclura une référence à `metrics.k8s.k8s.io'.
+Si l'API des métriques de ressources est disponible, la sortie inclura une référence à `metrics.k8s.io'.
 
 ```shell
 NAME      
