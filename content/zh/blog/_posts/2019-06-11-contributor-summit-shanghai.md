@@ -23,11 +23,11 @@ date: 2019-06-11
 连续第二年，我们将在 [KubeCon China](https://events.linuxfoundation.cn/events/kubecon-cloudnativecon-china-2019/) 之前举行一天的 [贡献者峰会](https://www.lfasiallc.com/events/contributors-summit-china-2019/)。
 不管您是否已经是一名 Kubernetes 贡献者，还是想要加入社区队伍，贡献一份力量，都请考虑[注册](https://www.lfasiallc.com/events/contributors-summit-china-2019/register/)参加这次活动。
 这次峰会将于六月 24 号，在上海会展中心（和 KubeCon 的举办地点相同）举行，
-一天的活动将包含“当前贡献者节”，以及“新贡献者工作坊”和“文档小组活动”。
+一天的活动将包含“现有贡献者活动”，以及“新贡献者工作坊”和“文档小组活动”。
 
 <!-- ### Current Contributor Day -->
 
-### 当前贡献者节
+### 现有贡献者活动
 
 <!-- After last year's Contributor Day, our team received feedback that many of our contributors in Asia and Oceania would like content for current contributors as well. As such, we have added a Current Contributor track to the schedule. -->
 
