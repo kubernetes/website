@@ -33,7 +33,7 @@ Also, note that you may end up having more than one Kubernetes reviewer provide 
 Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.
 Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
  -->
-创建拉取请求后，Kubernetes 审核人员将负责提供清晰且可操作的反馈。作为拉取请求的所有者，**您有责任修改拉取请求以解决 Kubernetes 审核者提供给您的反馈。**
+创建 pull request 后，Kubernetes 审核人员将负责提供清晰且可操作的反馈。作为 pull request 的所有者，**您有责任修改 pull request 以解决 Kubernetes 审核者提供给您的反馈。**
 另请注意，您最终可能会收到多个 Kubernetes 审核人员为您提供的反馈，也可能出现后面 Kubernetes 审核人员的反馈与前面审核人员的反馈不尽相同的情况。
 此外，在某些情况下，您的某位评审员可能会在需要时要求 [Kubernetes 技术评审员](https://github.com/kubernetes/website/wiki/Tech-reviewers) 进行技术评审。
 审稿人将尽最大努力及时提供反馈，但响应时间可能因情况而异。
