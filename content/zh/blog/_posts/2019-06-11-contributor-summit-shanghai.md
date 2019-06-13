@@ -97,5 +97,5 @@ date: 2019-06-11
 
 <!-- Regardless of where you participate, everyone at the Contributor Summit should [sign the Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement) before coming to the conference. You should also bring a laptop suitable for working on documentation or code development. -->
 
-不过你是参与那一项同场活动，所有峰会的贡献者都需要在参会之前，完成 [Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement)。
+不论你是参与那一项同场活动，所有峰会的贡献者都需要在参会之前，完成 [Kubernetes CLA](https://git.k8s.io/community/CLA.md#the-contributor-license-agreement)。
 你也同时需要考虑带一个合适的笔记本电脑，帮助文档写作或是编程开发。
