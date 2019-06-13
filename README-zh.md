@@ -127,7 +127,7 @@ Open up your browser to http://localhost:1313 to view the website. As you make c
 See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions.
 Make sure to install the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
  -->
-有关 Hugo 安装说明，请参阅 [Hugo 官方文档](https://gohugo.io/getting-started/installing/)。
+有关 Hugo 的安装说明，请参阅 [Hugo 官方文档](https://gohugo.io/getting-started/installing/)。
 确保在 Hugo 的安装版本由 [`netlify.toml`](netlify.toml#L9) 文件中的 `HUGO_VERSION`环境变量进行指定。
 
 <!--
