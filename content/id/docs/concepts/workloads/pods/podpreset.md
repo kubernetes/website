@@ -32,7 +32,7 @@ Kubernetes menyediakan sebuah _admission controller_ (`PodPreset`) dimana, ketik
 Tiap Pod akan bisa dipasangkan oleh nol atau lebih PodPreset; dan tiap PodPreset bisa diterapkan ke nol atau lebih Pod. Ketika sebuah PodPreset diterapkan ke satu atau lebih Pod, Kubernetes memodifikasi Pod Spec. Untuk perubahan terhadap `Env`,`EnvFrom`, dan `VolumeMount`, Kubernetes memodifikasi spesifikasi kontainer untuk semua kontainer di dalam Pod; Untuk perubahan terhadap `Volume`, Kubernetes memodifikasi Pod Spec.
 
 {{< note >}}
-Catatan: Sebuah Pod Preset mampu memodifikasi kolom `.spec.containers` pada sebuah Pod Spec jika sesuai. Tidak ada definisi resource dari Pod Preset yang akan diterapkan kepada kolom `initContainer`.
+Sebuah Pod Preset mampu memodifikasi kolom `.spec.containers` pada sebuah Pod Spec jika sesuai. Tidak ada definisi resource dari Pod Preset yang akan diterapkan kepada kolom `initContainer`.
 {{< /note >}}
 
 ### Menonaktifkan Pod Preset untuk sebuah Pod Spesifik
