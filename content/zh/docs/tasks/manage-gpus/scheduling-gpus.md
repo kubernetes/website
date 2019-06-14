@@ -1,10 +1,9 @@
 ---
-approvers:
+reviewers:
 - vishh
 title: 调度 GPU
 content_template: templates/task
 ---
-
 <!--
 ---
 reviewers:
@@ -12,7 +11,7 @@ reviewers:
 content_template: templates/concept
 title: Schedule GPUs
 ---
--->
+--->
 
 {{% capture overview %}}
 
@@ -26,8 +25,7 @@ v1.9 via [device plugin](#deploying-amd-gpu-device-plugin).
 This page describes how users can consume GPUs across different Kubernetes versions
 and the current limitations.
 
--->
-
+--->
 
 Kubernetes 支持对节点上的 AMD 和 NVIDA GPU 进行管理，目前处于**实验**状态。对 NVIDIA GPU 的支持在 v1.6 中加入，已经经历了多次不向后兼容的迭代。而对 AMD GPU 的支持则在 v1.9 中通过 [device plugin](#deploying-amd-gpu-device-plugin) 加入。
 
@@ -53,15 +51,15 @@ Then you have to install GPU drivers from the corresponding vendor on the nodes
 and run the corresponding device plugin from the GPU vendor
 ([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)).
 
--->
+--->
 
 ## 从 v1.8 起
 
 **从 1.8 版本开始，我们推荐通过 [设备插件](/docs/concepts/cluster-administration/device-plugins) 的方式来使用 GPU。**
 
-在 1.10 版本之前，为了通过设备插件开启 GPU 的支持，我们需要在系统中将 `DevicePlugins` 这一特性门控显式地设置为 true：`--feature-gates="DevicePlugins=true"`。不过，从 1.10 版本开始，我们就不需要这一步骤了。
+在 1.10 版本之前，为了通过设备插件开启 GPU 的支持，我们需要在系统中将 `DevicePlugins` 这一特性开关显式地设置为 true：`--feature-gates="DevicePlugins=true"`。不过，从 1.10 版本开始，我们就不需要这一步骤了。
 
-接着你需要在主机节点上安装对应厂商的 GPU 驱动 并运行对应厂商的 device plugin [AMD](#%E9%83%A8%E7%BD%B2-amd-gpu-device-plugin)、[NVIDIA](#%E9%83%A8%E7%BD%B2-nvidia-gpu-device-plugin)。
+接着你需要在主机节点上安装对应厂商的 GPU 驱动并运行对应厂商的 device plugin [AMD](#%E9%83%A8%E7%BD%B2-amd-gpu-device-plugin)、[NVIDIA](#%E9%83%A8%E7%BD%B2-nvidia-gpu-device-plugin)。
 
 <!--
 
@@ -85,7 +83,7 @@ when using GPUs:
 
 Here's an example:
 
--->
+--->
 
 当上面的条件都满足，Kubernetes 将会暴露 `nvidia.com/gpu` 或 `amd.com/gpu` 来作为一种可调度的资源。
 
@@ -138,7 +136,7 @@ kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device
 
 Report issues with this device plugin to [RadeonOpenCompute/k8s-device-plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin).
 
--->
+--->
 
 ### 部署 AMD GPU device plugin
 
@@ -188,7 +186,7 @@ kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.
 
 Report issues with this device plugin to [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
 
--->
+--->
 
 ### 部署 NVIDIA GPU device plugin
 
@@ -240,7 +238,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/releas
 
 Report issues with this device plugin and installation method to [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators).
 
--->
+--->
 
 #### GKE/GCE 中使用的 NVIDIA GPU device plugin
 
@@ -277,10 +275,7 @@ For example:
 kubectl label nodes <node-with-k80> accelerator=nvidia-tesla-k80
 kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 ```
-
-Specify the GPU type in the pod spec:
-
--->
+--->
 
 ## 集群内存在不同类型的 NVIDIA GPU
 
@@ -293,6 +288,77 @@ Specify the GPU type in the pod spec:
 kubectl label nodes <node-with-k80> accelerator=nvidia-tesla-k80
 kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 ```
+
+<!--
+
+For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller), which automatically labels your nodes with GPU properties. Currently supported properties:
+
+* Device ID (-device-id)
+* VRAM Size (-vram)
+* Number of SIMD (-simd-count)
+* Number of Compute Unit (-cu-count)
+* Firmware and Feature Versions (-firmware)
+* GPU Family, in two letters acronym (-family)
+  * SI - Southern Islands
+  * CI - Sea Islands
+  * KV - Kaveri
+  * VI - Volcanic Islands
+  * CZ - Carrizo
+  * AI - Arctic Islands
+  * RV - Raven
+Example result:
+
+    $ kubectl describe node cluster-node-23
+    Name:               cluster-node-23
+    Roles:              <none>
+    Labels:             beta.amd.com/gpu.cu-count.64=1
+                        beta.amd.com/gpu.device-id.6860=1
+                        beta.amd.com/gpu.family.AI=1
+                        beta.amd.com/gpu.simd-count.256=1
+                        beta.amd.com/gpu.vram.16G=1
+                        beta.kubernetes.io/arch=amd64
+                        beta.kubernetes.io/os=linux
+                        kubernetes.io/hostname=cluster-node-23
+    Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                        node.alpha.kubernetes.io/ttl: 0
+    ......
+
+Specify the GPU type in the pod spec:
+
+--->
+
+对于 AMD GPU，您可以部署[Node Labeller]（https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller），它会自动给节点打上 GPU 属性标签。目前支持的属性：
+
+* 设备 ID (-device-id)
+* VRAM 大小 (-vram)
+* SIMD 数量(-simd-count)
+* 计算单位(-cu-count)
+* 固件和特性版本 (-firmware)
+* GPU 系列，两个字母的首字母缩写(-family)
+  * SI - Southern Islands
+  * CI - Sea Islands
+  * KV - Kaveri
+  * VI - Volcanic Islands
+  * CZ - Carrizo
+  * AI - Arctic Islands
+  * RV - Raven
+
+示例:
+
+    $ kubectl describe node cluster-node-23
+    Name:               cluster-node-23
+    Roles:              <none>
+    Labels:             beta.amd.com/gpu.cu-count.64=1
+                        beta.amd.com/gpu.device-id.6860=1
+                        beta.amd.com/gpu.family.AI=1
+                        beta.amd.com/gpu.simd-count.256=1
+                        beta.amd.com/gpu.vram.16G=1
+                        beta.kubernetes.io/arch=amd64
+                        beta.kubernetes.io/os=linux
+                        kubernetes.io/hostname=cluster-node-23
+    Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                        node.alpha.kubernetes.io/ttl: 0
+    ......
 
 在 pod 的 spec 字段中指定 GPU 的类型：
 
@@ -317,6 +383,6 @@ spec:
 <!--
 This will ensure that the pod will be scheduled to a node that has the GPU type
 you specified.
--->
+--->
 
 这能够保证 pod 能够被调度到拥有你所指定类型的 GPU 的节点上去。
