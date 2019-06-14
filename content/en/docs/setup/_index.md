@@ -48,6 +48,7 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 |                     | [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)|
 |                     | [k3s](https://k3s.io)|
 |                     | [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/)|
+|                     | [kind k8s IN Docker](https://github.com/kubernetes-sigs/kind)|
 
 
 ## Production environment
