@@ -27,7 +27,7 @@ The `kubelet` can proactively monitor for and prevent total starvation of a
 compute resource. In those cases, the `kubelet` can reclaim the starved
 resource by proactively failing one or more Pods. When the `kubelet` fails
 a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
-If the evicated Pod is part of e.g. a Deployment, another Pod will be created and 
+If the evicted Pod is part of e.g. a Deployment, the Deployment will create another Pod to be
 scheduled by kubernetes.
 
 ### Eviction Signals
