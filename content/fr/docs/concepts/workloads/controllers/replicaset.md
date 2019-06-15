@@ -1,8 +1,4 @@
 ---
-reviewers:
-- Kashomon
-- bprashanth
-- madhusudancs
 title: ReplicaSet
 content_template: templates/concept
 weight: 10
