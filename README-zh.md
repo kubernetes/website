@@ -24,7 +24,7 @@ This copy is called a *fork*. Make any changes you want in your fork,
 and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
  -->
 您可以点击屏幕右上方的 **Fork** 按钮，在您的 GitHub 账户下创建一份本仓库的副本。这个副本叫做 *fork*。您可以对 fork 副本进行任意修改，
-当准备好把变更提交给我们时，您可以通过创建一个 pull request 来通知我们。
+当准备好把修改提交给我们时，您可以通过创建一个 pull request 来告知我们。
 
 <!--
 Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.
