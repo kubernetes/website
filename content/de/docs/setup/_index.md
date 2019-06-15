@@ -27,7 +27,7 @@ Sie sollten eine lokale Lösung auswählen, wenn Sie:
 * Zum ausprobieren oder wenn Sie etwas über Kubernetes lernen möchten
 * Cluster lokal entwickeln und testen
 
-Wählen Sie eine [lokale Lösung](/docs/setup/pick-right-solution/#local-machine-solutions) aus.
+Wählen Sie eine [lokale Lösung](/de/docs/setup/) aus.
 
 ## Gehostete Lösungen
 
@@ -41,7 +41,7 @@ Sie sollten eine gehostete Lösung auswählen, wenn Sie:
 * Sie haben kein dediziertes Site-Reliability-Engineering-Team (SRE), möchten jedoch eine hohe Verfügbarkeit
 * Sie haben keine Ressourcen zum Hosten und Überwachen Ihrer Cluster
 
-Wählen Sie eine [gehostete Lösung](/docs/setup/pick-right-solution/#hosted-solutions) aus.
+Wählen Sie eine [gehostete Lösung](/de/docs/setup/) aus.
 
 ## Schlüsselfertige Cloud-Lösungen
 
@@ -54,7 +54,7 @@ Sie sollten eine schlüsselfertige Cloud-Lösung auswählen, wenn Sie:
 * Mehr Kontrolle über Ihre Cluster haben möchten, als die gehosteten Lösungen zulassen
 * Mehr operative Verantwortung übernehmen Möchten
 
-Wählen Sie eine [schlüsselfertige Cloud-Lösung](/docs/setup/pick-right-solution/#turnkey-cloud-solutions) aus.
+Wählen Sie eine [schlüsselfertige Cloud-Lösung](/de/docs/setup/) aus.
 
 ## Schlüsselfertige On-Premises-Lösungen
 
@@ -66,17 +66,17 @@ Sie sollten eine schlüsselfertige lokal betriebene Cloud-Lösung auswählen, we
 * Ein engagiertes SRE-Team haben
 * Über die Ressourcen zum Hosten und Überwachen Ihrer Cluster verfügen
 
-Wählen Sie eine [schlüsselfertige On-Premises-Lösung](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions) aus.
+Wählen Sie eine [schlüsselfertige On-Premises-Lösung](/de/docs/setup/) aus.
 
 ## Individuelle Lösungen
 
 Individuelle Lösungen geben Ihnen die größte Freiheit in Ihren Clustern, erfordern jedoch das meiste Know-how.
 Diese Lösungen reichen von Bare-Metal-Anbietern bis hin zu Cloud-Anbietern mit unterschiedlichen Betriebssystemen.
 
-Wählen Sie eine [individuelle Lösung](/docs/setup/pick-right-solution/#custom-solutions) aus.
+Wählen Sie eine [individuelle Lösung](/de/docs/setup/) aus.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Gehen Sie zu [Auswählen der richtigen Lösung](/docs/setup/pick-right-solution/) für eine vollständige Liste der möglichen Lösungen.
+Gehen Sie zu [Auswählen der richtigen Lösung](/de/docs/setup/) für eine vollständige Liste der möglichen Lösungen.
 {{% /capture %}}
