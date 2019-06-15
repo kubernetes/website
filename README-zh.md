@@ -72,6 +72,7 @@ You can reach the maintainers of Korean localization at:
 
 可以通过以下方式联系中文本地化的维护人员：
 
+* Rui Chen ([GitHub - @chenrui333](https://github.com/chenrui333))
 * He Xiaolong ([GitHub - @markthink](https://github.com/markthink))
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-zh)
 
