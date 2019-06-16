@@ -276,6 +276,9 @@ containerd config default > /etc/containerd/config.toml
 
 # Restart containerd
 systemctl restart containerd
+
+# Enable containerd to start at every restart
+systemctl enable containerd
 {{< /tab >}}
 {{< /tabs >}}
 
