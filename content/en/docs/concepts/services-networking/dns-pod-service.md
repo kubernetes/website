@@ -234,7 +234,7 @@ in its `/etc/resolv.conf` file:
 
 ```
 nameserver 1.2.3.4
-search ns1.svc.cluster.local my.dns.search.suffix
+search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
 
@@ -243,7 +243,7 @@ For IPv6 setup, search path and name server should be setup like this:
 ```
 $ kubectl exec -it dns-example -- cat /etc/resolv.conf
 nameserver fd00:79:30::a
-search default.svc.cluster.local svc.cluster.local cluster.local
+search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
 
