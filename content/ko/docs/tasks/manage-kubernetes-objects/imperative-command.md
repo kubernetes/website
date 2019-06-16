@@ -1,7 +1,7 @@
 ---
 title: 명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기
-content_template: templates/concept
-weight: 20
+content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}
@@ -10,7 +10,14 @@ weight: 20
 이를 사용하여 활성 오브젝트를 어떻게 관리하는 지에 대해 설명한다.
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture prerequisites %}}
+[`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## 트레이드 오프
 
@@ -20,7 +27,7 @@ weight: 20
 * 명령형 오브젝트 구성
 * 선언형 오브젝트 구성
 
-각 종류별 오브젝트 관리의 장점과 단점에 대한 논의는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/object-management-kubectl/overview/)
+각 종류별 오브젝트 관리의 장점과 단점에 대한 논의는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)
 를 참고한다.
 
 ## 오브젝트 생성 방법
@@ -155,8 +162,8 @@ kubectl create --edit -f /tmp/srv.yaml
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-- [오브젝트 구성을 이용하여 쿠베네티스 관리하기(명령형)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [오브젝트 구성을 이용하여 쿠버네티스 관리하기(선언형)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl/)
-- [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [오브젝트 구성을 이용하여 쿠버네티스 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [오브젝트 구성을 이용하여 쿠버네티스 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl/)
+* [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}

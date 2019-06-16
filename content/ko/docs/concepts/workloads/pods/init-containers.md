@@ -152,8 +152,8 @@ spec:
 아래의 yaml file은 `mydb`와 `myservice` 서비스의 개요를 보여준다.
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: myservice
 spec:
@@ -162,8 +162,8 @@ spec:
     port: 80
     targetPort: 9376
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: mydb
 spec:
@@ -313,7 +313,8 @@ myapp-pod   1/1       Running   0          9m
 있다.
 
 * 사용자가 초기화 컨테이너 이미지의 변경을 일으키는 파드 스펙 업데이트를 수행했다. 
-  앱 컨테이너 이미지의 변경은 앱 컨테이너만 재시작시킨다. 
+  Init Container 이미지를 변경하면 파드가 다시 시작된다. 앱 컨테이너 
+  이미지의 변경은 앱 컨테이너만 재시작시킨다. 
 * 파드 인프라스트럭처 컨테이너가 재시작되었다. 이는 일반적인 상황이 아니며 노드에 
   대해서 root 접근 권한을 가진 누군가에 의해서 수행됐을 것이다.
 * 파드 내의 모든 컨테이너들이, 재시작을 강제하는 `restartPolicy`이 항상으로 설정되어 있는, 
