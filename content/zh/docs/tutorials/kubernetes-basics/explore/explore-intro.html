@@ -1,5 +1,5 @@
 ---
-title: 查看 pod 和节点
+title: 查看 pod 和工作节点
 weight: 10
 ---
 
@@ -29,9 +29,9 @@ weight: 10
           <li>Learn about Kubernetes Nodes.</li>
           <li>Troubleshoot deployed applications.</li>
 -->
-          <li>了解 Kubernetes Pod.</li>
-          <li>了解 Kubernetes Node.</li>
-          <li>对已部署的应用故障排除</li>
+          <li>了解 Kubernetes Pod。</li>
+          <li>了解 Kubernetes 工作节点。</li>
+          <li>对已部署的应用故障排除。</li>
         </ul>
       </div>
 
@@ -39,7 +39,7 @@ weight: 10
 <!--
         <h2>Kubernetes Pods</h2>
 -->
-        <h2> Kubernetes Pods </h2>
+        <h2>Kubernetes Pods</h2>
 <!--
         <p>When you created a Deployment in Module <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:</p>
 -->
@@ -59,11 +59,11 @@ weight: 10
     <!--
         <p>A Pod models an application-specific "logical host" and can contain different application containers which are relatively tightly coupled. For example, a Pod might include both the container with your Node.js app as well as a different container that feeds the data to be published by the Node.js webserver. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
     -->
-        <p>Pod 为特定于应用程序的“逻辑主机”建模，并且可以包含相对紧耦合的不同应用容器。例如，Pod 可能既包含带有 Node.js 应用的容器，也包含另一个不同的容器，用于提供 Node.js 网络服务器要发布的数据。Pod 中的容器共享 IP 地址和端口，始终位于同一位置并且共同调度，并在同一节点上的共享上下文中运行。</p>
+        <p>Pod 为特定于应用程序的“逻辑主机”建模，并且可以包含相对紧耦合的不同应用容器。例如，Pod 可能既包含带有 Node.js 应用的容器，也包含另一个不同的容器，用于提供 Node.js 网络服务器要发布的数据。Pod 中的容器共享 IP 地址和端口，始终位于同一位置并且共同调度，并在同一工作节点上的共享上下文中运行。</p>
 <!--
         <p>Pods are the atomic unit on the Kubernetes platform. When we create a Deployment on Kubernetes, that Deployment creates Pods with containers inside them (as opposed to creating containers directly). Each Pod is tied to the Node where it is scheduled, and remains there until termination (according to restart policy) or deletion. In case of a Node failure, identical Pods are scheduled on other available Nodes in the cluster.</p>
 -->
-        <p>Pod是 Kubernetes 平台上的最小单元。 当我们在 Kubernetes 上创建 Deployment 时，该 Deployment 会在其中创建包含容器的 Pod （而不是直接创建容器）。每个 Pod 都与调度它的节点绑定，并保持在那里直到终止（根据重启策略）或删除。 如果节点发生故障，则会在群集中的其他可用节点上调度相同的 Pod。</p>
+        <p>Pod是 Kubernetes 平台上的原子单元。 当我们在 Kubernetes 上创建 Deployment 时，该 Deployment 会在其中创建包含容器的 Pod （而不是直接创建容器）。每个 Pod 都与调度它的工作节点绑定，并保持在那里直到终止（根据重启策略）或删除。 如果工作节点发生故障，则会在群集中的其他可用工作节点上调度相同的 Pod。</p>
 
       </div>
       <div class="col-md-4">
@@ -74,7 +74,7 @@ weight: 10
           <h3>总结:</h3>
           <ul>
             <li>Pods</li>
-            <li>Nodes</li>
+            <li>工作节点</li>
 <!--
             <li>Kubectl main commands</li>
 -->
@@ -123,10 +123,10 @@ weight: 10
           <li>A container runtime (like Docker, rkt) responsible for pulling the container image from a registry, unpacking the container, and running the application.</li>
         </ul>
 -->
-        <h2>节点</h2>
-        <p>一个 pod 总是运行在 <b>Node</b>。 Node 是 Kubernetes 中的参与计算的机器，可以是虚拟机或物理计算机，具体取决于集群。每个节点由主节点管理。节点可以有多个 pod ，Kubernetes 主节点会自动处理在群集中的节点上调度 pod 。 主节点的自动调度考量了每个节点上的可用资源。</p>
+        <h2>工作节点</h2>
+        <p>一个 pod 总是运行在 <b>工作节点</b>。工作节点是 Kubernetes 中的参与计算的机器，可以是虚拟机或物理计算机，具体取决于集群。每个工作节点由主节点管理。工作节点可以有多个 pod ，Kubernetes 主节点会自动处理在群集中的工作节点上调度 pod 。 主节点的自动调度考量了每个工作节点上的可用资源。</p>
 
-        <p>每个 Kubernetes 节点至少运行:</p>
+        <p>每个 Kubernetes 工作节点至少运行:</p>
         <ul>
           <li>Kubelet，负责 Kubernetes 主节点和工作节点之间通信的过程; 它管理 Pod 和机器上运行的容器。</li>
           <li>容器运行时（如 Docker ，rkt ）负责从仓库中提取容器镜像，解压缩容器以及运行应用程序。</li>
@@ -149,7 +149,7 @@ weight: 10
 <!--
         <h2 style="color: #3771e3;">Node overview</h2>
 -->
-        <h2 style="color: #3771e3;">节点概览</h2>
+        <h2 style="color: #3771e3;">工作节点概览</h2>
       </div>
     </div>
 
@@ -199,7 +199,7 @@ weight: 10
 <!--
           <p><i> A node is a worker machine in Kubernetes and may be a VM or physical machine, depending on the cluster. Multiple Pods can run on one Node. </i></p>
 -->
-          <p><i>工作节点是 Kubernetes 中的负责计算的机器，可能是VM或物理计算机，具体取决于群集。多个 Pod 可以在一个节点上运行。 </i></p>
+          <p><i>工作节点是 Kubernetes 中的负责计算的机器，可能是VM或物理计算机，具体取决于群集。多个 Pod 可以在一个工作节点上运行。 </i></p>
         </div>
       </div>
     </div>
