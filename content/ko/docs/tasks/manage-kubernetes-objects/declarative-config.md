@@ -1,7 +1,7 @@
 ---
 title: 구성 파일을 이용한 쿠버네티스 오브젝트의 선언형 관리
-content_template: templates/concept
-weight: 40
+content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -13,7 +13,15 @@ weight: 40
 `apply`가 어떠한 변경사항을 이루어질지에 대한 프리뷰를 제공한다.
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture prerequisites %}}
+
+[`kubectl`](/docs/tasks/tools/install-kubectl/)를 설치한다.
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## 트레이드 오프
 
@@ -23,17 +31,17 @@ weight: 40
 * 명령형 오브젝트 구성
 * 선언형 오브젝트 구성
 
-오브젝트 관리 방식의 종류별 장단점에 대한 논의는 [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)를
+오브젝트 관리 방식의 종류별 장단점에 대한 논의는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를
 참고한다.
 
-## 시작하기 전에
+## 개요
 
 선언형 오브젝트 구성은 쿠버네티스 오브젝트 정의와
 구성에 대한 확실한 이해가 필요하다. 아직 그렇지 못하다면,
 먼저 다음 문서를 읽고 이해한다.
 
-- [명령형 커맨드를 사용한 쿠버네티스 오브젝트 관리하기](/ko/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [구성 파일을 사용한 쿠버네티스 오브젝트 명령형 관리](/ko/docs/concepts/overview/object-management-kubectl/imperative-config/)
+- [명령형 커맨드를 사용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [구성 파일을 사용한 쿠버네티스 오브젝트 명령형 관리](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 다음은 이 문서에서 사용되는 용어에 대한 정의이다.
 
@@ -130,7 +138,7 @@ spec:
   # ...
 ```
 
-## How to update objects
+## 오브젝트 업데이트 방법
 
 또한 오브젝트가 기존에 존재하더라도 디렉터리 내 정의된 모든 오브젝트를 업데이트하기 위해 `kubectl apply`를
 사용할 수 있다. 이러한 접근방식은 다음을 수행할 수 있게 해준다.
@@ -278,18 +286,18 @@ kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 
 `kubectl get`을 사용하여 활성 구성을 출력한다.
 
-```
+```shell
 kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 출력은 활성 구성에 다음의 변경사항을 보여준다.
 
-- `replicas` 필드는 `kubectl scale`에 의해 설정된 값 2를 유지한다.  
+* `replicas` 필드는 `kubectl scale`에 의해 설정된 값 2를 유지한다.  
   이는 구성 파일에서 생략되었기 때문에 가능하다.
-- `image` 필드는 `nginx:1.7.9`에서 `nginx:1.11.9`로 업데이트되었다.
-- `last-applied-configuration` 어노테이션은 새로운 이미지로 업데이트되었다.
-- `minReadySeconds` 필드는 지워졌다.
-- `last-applied-configuration` 어노테이션은 더 이상 `minReadySeconds` 필드를 포함하지 않는다.
+* `image` 필드는 `nginx:1.7.9`에서 `nginx:1.11.9`로 업데이트되었다.
+* `last-applied-configuration` 어노테이션은 새로운 이미지로 업데이트되었다.
+* `minReadySeconds` 필드는 지워졌다.
+* `last-applied-configuration` 어노테이션은 더 이상 `minReadySeconds` 필드를 포함하지 않는다.
 
 ```yaml
 apiVersion: apps/v1
@@ -983,8 +991,8 @@ template:
 ```
 
 {{% capture whatsnext %}}
-- [명령형 커맨드 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [구성 파일 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl/)
-- [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [명령형 커맨드 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [구성 파일 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl/)
+* [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
