@@ -51,6 +51,10 @@ kubectl logs counter
 
 You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
 
+When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
+the basic logging example, the kubelet on the node handles the request and
+reads directly from the log file, returning the contents in the response.
+
 ## Logging at the node level
 
 ![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
@@ -67,30 +71,64 @@ An important consideration in node-level logging is implementing log rotation,
 so that logs don't consume all available storage on the node. Kubernetes
 currently is not responsible for rotating logs, but rather a deployment tool
 should set up a solution to address that.
-For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
-there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
-tool configured to run each hour. You can also set up a container runtime to
-rotate application's logs automatically, e.g. by using Docker's `log-opt`.
-In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
-and the former approach is used in any other environment. In both cases, by
-default rotation is configured to take place when log file exceeds 10MB.
 
-As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
+### `logrotate`
 
-When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
-the basic logging example, the kubelet on the node handles the request and
-reads directly from the log file, returning the contents in the response.
+The [`logrotate`](https://linux.die.net/man/8/logrotate) tool can be configured
+on the host system to rotate logs periodically or when log files reach a
+certain size.
+
+Here's an example `logrotate` configuration file that can be placed in the
+`/etc/logrotate.d/` directory that would ensure no more than 5 log files of a
+maximum size of 5MB for each Pod on the Node.
+
+```
+/var/log/pods/*/*.log {
+    rotate 5
+    copytruncate
+    missingok
+    notifempty
+    compress
+    maxsize 5M
+    daily
+    dateext
+    dateformat -%Y%m%d-%s
+    create 0644 root root
+}
+```
+
+{{< note >}}
+By default, Kubernetes will store a Pod's logs in
+`/var/log/pods/{NAMESPACE_NAME_UID}/{POD}.log`. Kubernetes Services, in
+contrast, are stored by default in `/var/log/{SERVICE_NAME}.log`.
+{{< /note >}}
+
+### Use container runtime logging rotation
+
+You can also set up a container runtime to rotate an application's logs
+automatically, e.g. by using Docker's `log-opt`.
+
+For example, to configure log rotation in Docker for a maximum 5 log files per
+container of a maximum size of 5MB per log file, add the following to
+`/etc/docker/daemon.json`:
+
+```
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "5m",
+    "max-file": "5",
+  }
+}
+```
 
 {{< note >}}
 Currently, if some external system has performed the rotation,
 only the contents of the latest log file will be available through
-`kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
+`kubectl logs`. e.g. if there's a 10MB file, `logrotate` performs
 the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
 {{< /note >}}
-
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
 
 ### System component logs
 
