@@ -1,7 +1,7 @@
 ---
 title: 구성파일을 이용한 명령형 쿠버네티스 오브젝트 관리
-content_template: templates/concept
-weight: 30
+content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -10,7 +10,15 @@ weight: 30
 이 문서는 구성파일을 이용하여 어떻게 오브젝트를 정의하고 관리할 수 있는지에 대해 설명한다.
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture prerequisites %}}
+
+[`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## 트레이드 오프
 
@@ -29,7 +37,7 @@ weight: 30
 보다 상세한 정보는 [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)를
 참조한다.
 
-- `kubectl create -f <파일명|url>`
+* `kubectl create -f <파일명|url>`
 
 ## 오브젝트 업데이트 방법
 
@@ -46,21 +54,21 @@ weight: 30
 구성파일에 따라 활성 오브젝트를 업데이트하기 위해 `kubectl replace -f`
 를 사용할 수 있다.
 
-- `kubectl replace -f <파일명|url>`
+* `kubectl replace -f <파일명|url>`
 
 ## 오브젝트 삭제 방법
 
 구성파일에 정의한 오브젝트를 삭제하기 위해 `kubectl delete -f`를
 사용할 수 있다.
 
-- `kubectl delete -f <파일명|url>`
+* `kubectl delete -f <파일명|url>`
 
-## 오브젝트 삭제 방법
+## 오브젝트 확인 방법
 
 구성파일에 정의한 오브젝트에 관한 정보 확인을 위해 `kubectl get -f`
 명령을 사용할 수 있다.
 
-- `kubectl get -f <파일명|url> -o yaml`
+* `kubectl get -f <파일명|url> -o yaml`
 
 `-o yaml` 플래그는 전체 오브젝트 구성이 출력되도록 정의한다. 옵션의 리스트를 확인하기
 위해서는 `kubectl get -h`를 사용한다.
@@ -90,7 +98,7 @@ weight: 30
 구성을 변경할 수 있다. 이는 독자가 수정할 수 있는 구성파일을
 가르키는 튜토리얼과 작업에 특히 유용하다.
 
-```sh
+```shell
 kubectl create -f <url> --edit
 ```
 
@@ -100,14 +108,14 @@ kubectl create -f <url> --edit
 몇 가지 수동 단계를 포함한다.
 
 1. 다음과 같이 활성 오브젝트를 로컬 오브젝트 구성파일로 내보낸다.
-```sh
-kubectl get <종류>/<이름> -o yaml --export > <종류>_<이름>.yaml
+```shell
+kubectl get <종류>/<이름> -o yaml > <종류>_<이름>.yaml
 ```
 
 1. 수동으로 오브젝트 구성파일에서 상태 필드를 제거한다.
 
 1. 이후 오브젝트 관리를 위해, `replace`만 사용한다.
-```sh
+```shell
 kubectl replace -f <종류>_<이름>.yaml
 ```
 
@@ -136,8 +144,8 @@ template:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-- [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [오브젝트 구성을 이용하여 쿠버네티스 오브젝트 관리하기 (선언형)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl 커멘드 참조](/docs/reference/generated/kubectl/kubectl/)
-- [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [오브젝트 구성을 이용하여 쿠버네티스 오브젝트 관리하기 (선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Kubectl 커멘드 참조](/docs/reference/generated/kubectl/kubectl/)
+* [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}

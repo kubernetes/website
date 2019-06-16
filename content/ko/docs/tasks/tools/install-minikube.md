@@ -95,7 +95,7 @@ sudo mv minikube /usr/local/bin
 ### 리눅스 {#linux}
 
 {{< note >}}
-이 문서는 Minikube를 리눅스에 정적 바이너리를 사용해서 설치하는 방법을 설명한다. 리눅스에 설치에 다른 방법은 공식 Minikube GitHub 저장소의 [다른 방법으로 설치하기](https://github.com/kubernetes/minikube#other-ways-to-install)를 참조한다.
+이 문서는 Minikube를 리눅스에 정적 바이너리를 사용해서 설치하는 방법을 설명한다.
 {{< /note >}}
 
 정적 바이너리를 내려받아서 리눅스에 Minikube를 설치할 수 있다.
