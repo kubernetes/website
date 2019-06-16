@@ -7,8 +7,7 @@ weight: 10
 {{% capture overview %}}
 
 Un ReplicaSet a pour but de maintenir un ensemble stable de Pods à un moment donné.
-C'est donc souvent utilisé pour garantir la disponibilité d'un certain nombre identique de Pods.
-
+Cet objet est souvent utilisé pour garantir la disponibilité d'un certain nombre identique de Pods. 
 
 {{% /capture %}}
 
@@ -23,13 +22,13 @@ nouveaux Pods que le replicatSet va créer jusqu'au nombre de replicas demandé.
 Un ReplicaSet va atteindre son objectif en créant et supprimant des Pods pour atteindre le nombre de réplicas désirés.
 Quand un ReplicaSet a besoin de créer de nouveaux Pods, il utilise alors son Pod template.
 
-Le lien d'un ReplicaSet à ses Pods est fait par le champ Pods' [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents), 
-qui spécifie la ressource de de l'objet par lequel il est détenu. Tous les Pods acquis par un ReplicaSet ont leurs propres informations d'identification de leur Replicaset, avec leur propre champ ownerReferences. C'est par ce lien que le ReplicaSet connait l'état des Pods qu'il maintient et agit en fonction de ces derniers.
+Le lien d'un ReplicaSet à ses Pods est fait par le champ [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents), 
+qui spécifie la ressource de l'objet par lequel il est détenu. Tous les Pods acquis par un ReplicaSet ont leurs propres informations d'identification de leur Replicaset, avec leur propre champ ownerReferences. C'est par ce lien que le ReplicaSet connait l'état des Pods qu'il maintient et agit en fonction de ces derniers.
 
 Un ReplicaSet identifie des nouveaux Pods à acquérir en utilisant son selecteur.
-Si il y a un Pod qui n'a pas de OwnerReference ou que OwnerReference n'est pas un controller et que il correspond à un sélecteur de ReplicaSet, il va immédiatement être acquis par ce ReplicaSet.
+Si il y a un Pod qui n'a pas de OwnerReference ou que OwnerReference n'est pas un controller et qu'il correspond à un sélecteur de ReplicaSet, il va immédiatement être acquis par ce ReplicaSet.
 
-## Quand utiliser un ReplicaSet
+## Quand utiliser un ReplicaSet ?
 
 Un ReplicaSet garantit qu’un nombre spécifié de réplicas de Pod soient exécutés à un moment donné.
 Cependant, un Deployment est un concept de plus haut niveau qui gère les ReplicaSets et
@@ -238,7 +237,7 @@ matchLabels:
 	tier: frontend
 ```
 
-Dans le ReplicaSet, `.spec.template.metadata.labels` doit correspondre à `spec.selector`, ou sinon il sera rejecté par l'API.
+Dans le ReplicaSet, `.spec.template.metadata.labels` doit correspondre à `spec.selector`, ou sinon il sera rejeté par l'API.
 
 {{< note >}}
 Pour 2 ReplicaSets spécifiant le même `.spec.selector` mais différents `.spec.template.metadata.labels` et `.spec.template.spec`, chaque ReplicaSet ignore les pods créés par l'autre ReplicaSet.
@@ -292,7 +291,7 @@ pour le débogage, récupération de données, etc. Les pods ainsi supprimés se
 
 ### Scaling d'un ReplicaSet
 
-Un ReplicaSet peut facilement être scaler en mettant simplement à jour le champ `.spec.replicas`. Le contrôleur ReplicaSet
+Un ReplicaSet peut facilement être scalé en mettant simplement à jour le champ `.spec.replicas`. Le contrôleur ReplicaSet
 garantit que le nombre souhaité de pods avec un sélecteur de label correspondant soient disponibles et opérationnels.
 
 ### ReplicaSet en tant que Horizontal Pod Autoscaler Target
@@ -324,10 +323,6 @@ kubectl autoscale rs frontend --max=10
 ### Deployment (recommandé)
 
 Le [`Deployment`](/docs/concepts/workloads/controllers/deployment/) est un object qui peut posséder les ReplicaSets et les mettres à jour ainsi que leurs Pods de façon déclarative, côté serveur et avec des rolling updates.
-While ReplicaSets can be used independently, today they're  mainly used by Deployments as a mechanism to orchestrate Pod
-creation, deletion and updates. When you use Deployments you don’t have to worry about managing the ReplicaSets that
-they create. Deployments own and manage their ReplicaSets.
-As such, it is recommended to use Deployments when you want ReplicaSets.
 
 Alors que les ReplicaSets peuvent être utilisés indépendamment, ils sont principalement utilisés aujourd'hui par Deployments comme mécanisme pour orchestrer la création, suppresion et mises à jour des Pods.
 Lorsque vous utilisez des Deployments, vous n’aurez plus à vous soucier de la gestion des ReplicaSets ainsi créés.
@@ -345,12 +340,7 @@ Utilisez un [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) au 
 
 ### DaemonSet
 
-Use a [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) instead of a ReplicaSet for Pods that provide a
-machine-level function, such as machine monitoring or machine logging.  These Pods have a lifetime that is tied
-to a machine lifetime: the Pod needs to be running on the machine before other Pods start, and are
-safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
-
-Utilisez un [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) au lieu d’un ReplicaSet pour les pods qui fournissent un
+Utilisez un [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) au lieu d’un ReplicaSet pour les pods qui fournissent une
 fonction au niveau du noeud, comme le monitoring ou la gestion des logs de ce noeud. Ces pods ont une durée de vie qui est liée
 durée de vie d’une machine : le pod doit être en cours d’exécution sur la machine avant le démarrage des autres Pods et sont 
 sûrs de se terminer lorsque la machine est prête à être redémarrée/arrêtée.
