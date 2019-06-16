@@ -198,7 +198,7 @@ import (
 
 <!-- If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod). -->
 
-如果该应用程序部署为集群中的一个 Pod，请参阅 [下一节](#accessing-the-api-from-a-pod)。
+如果该应用程序部署为集群中的一个 Pod，请参阅 [下一节](#从-pod-中访问-api)。
 
 <!-- #### Python client -->
 
