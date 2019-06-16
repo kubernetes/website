@@ -51,7 +51,7 @@ kube-public   Active    11d
 
 <!-- Kubernetes starts with three initial namespaces: -->
 
-Kubernetes 以三个初始命名空间开头：
+初始状态下，Kubernetes 具有三个名字空间：
 
 <!--    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
