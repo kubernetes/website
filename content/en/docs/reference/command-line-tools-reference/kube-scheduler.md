@@ -36,12 +36,6 @@ kube-scheduler [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">DEPRECATED: the IP address on which to listen for the --port port (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces). See --bind-address instead.</td>
     </tr>
-    <tr>
-      <td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "0.0.0.0"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank, all interfaces will be used (0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces).</td>
-    </tr>
 
     <tr>
       <td colspan="2">--algorithm-provider string</td>
@@ -76,6 +70,13 @@ kube-scheduler [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The duration to cache responses from the webhook token authenticator.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--authentication-tolerate-lookup-failure&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, failures to look up missing authentication configuration from the cluster are not considered fatal. Note that this can result in authentication that treats all requests as anonymous.</td>
     </tr>
 
     <tr>
@@ -317,13 +318,6 @@ kube-scheduler [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--secure-port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10259</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The port on which to serve HTTPS with authentication and authorization. If 0, don't serve HTTPS at all.</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--profiling</td>
     </tr>
     <tr>
@@ -439,7 +433,7 @@ kube-scheduler [flags]
       <td colspan="2">-v, --v Level</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">log level for V logs</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">number for the log level verbosity</td>
     </tr>
 
     <tr>

@@ -27,7 +27,7 @@
 				{{ end }}
 			{{ end }}
 		{{ else}}
-		{{ $path := path.Join $.Page.Dir .include }}
+		{{ $path := path.Join $.Page.File.Dir .include }}
 		{{ $page := site.GetPage "page" $path }}
 		{{ with $page }}
 			{{ .Content }}

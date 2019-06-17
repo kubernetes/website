@@ -9,7 +9,7 @@ content_template: templates/task
 {{% capture overview %}}
 This page explains how to configure your DNS Pod and customize the
 DNS resolution process. In Kubernetes version 1.11 and later, CoreDNS is at GA
-and is installed by default with kubeadm. See [Configuring CoreDNS](#config-coredns) 
+and is installed by default with kubeadm. See [CoreDNS ConfigMap options](#coredns-configmap-options) 
 and [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/).
 {{% /capture %}}
 
@@ -162,7 +162,7 @@ During translation, all FQDN nameservers will be omitted from the CoreDNS config
 
 ## Kube-dns
 
-Kube-dns is now available as a optional DNS server since CoreDNS is now the default.
+Kube-dns is now available as an optional DNS server since CoreDNS is now the default.
 The running DNS Pod holds 3 containers:
 
 - "`kubedns`": watches the Kubernetes master for changes

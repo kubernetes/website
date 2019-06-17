@@ -14,7 +14,7 @@ This page explains the certificates that your cluster requires.
 
 {{% capture body %}}
 
-## あなたのクラスタではどのように証明書が使われているのか
+## クラスタではどのように証明書が使われているのか
 
 Kubernetes requires PKI for the following operations:
 
@@ -43,7 +43,7 @@ If you don't want kubeadm to generate the required certificates, you can create 
 
 ### 単一ルート認証局
 
-You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself. 
+You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself.
 
 Required CAs:
 
@@ -55,7 +55,7 @@ Required CAs:
 
 ### 全ての証明書
 
-If you don't wish to copy these private keys to your API servers, you can generate all certificates yourself. 
+If you don't wish to copy these private keys to your API servers, you can generate all certificates yourself.
 
 Required certificates:
 
@@ -85,14 +85,15 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 | Default CN                   | recommend key path           | recommended cert path       | command        | key argument                 | cert argument                             |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
 | etcd-ca                      |                              | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
-| etcd-client                  | apiserver-etcd-client.crt    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-certfile              | --etcd-keyfile                            |
-| kubernetes-ca                |                              | ca.crt                      | kube-apiserver | --client-ca-file             |                                           |
-| kube-apiserver               | apiserver.crt                | apiserver.key               | kube-apiserver | --tls-cert-file              | --tls-private-key                         |
-| apiserver-kubelet-client     | apiserver-kubelet-client.crt |                             | kube-apiserver | --kubelet-client-certificate |                                           |
-| front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver | --proxy-client-cert-file     | --proxy-client-key-file                   |
+| etcd-client                  | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |
+| kubernetes-ca                |                              | ca.crt                      | kube-apiserver |                              | --client-ca-file                          |
+| kube-apiserver               | apiserver.key                | apiserver.crt               | kube-apiserver | --tls-private-key-file       | --tls-cert-file                           |
+| apiserver-kubelet-client     |                              | apiserver-kubelet-client.crt| kube-apiserver |                              | --kubelet-client-certificate              |
+| front-proxy-ca               |                              | front-proxy-ca.crt          | kube-apiserver |                              | --requestheader-client-ca-file            |
+| front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver | --proxy-client-key-file      | --proxy-client-cert-file                  |
 |                              |                              |                             |                |                              |                                           |
 | etcd-ca                      |                              | etcd/ca.crt                 | etcd           |                              | --trusted-ca-file, --peer-trusted-ca-file |
-| kube-etcd                    |                              | etcd/server.crt             | etcd           |                              | --cert-file                               |
+| kube-etcd                    | etcd/server.key              | etcd/server.crt             | etcd           | --key-file                   | --cert-file                               |
 | kube-etcd-peer               | etcd/peer.key                | etcd/peer.crt               | etcd           | --peer-key-file              | --peer-cert-file                          |
 | etcd-ca                      |                              | etcd/ca.crt                 | etcdctl[2]     |                              | --cacert                                  |
 | kube-etcd-healthcheck-client | etcd/healthcheck-client.key  | etcd/healthcheck-client.crt | etcdctl[2]     | --key                        | --cert                                    |
@@ -101,14 +102,18 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 
 ## ユーザアカウント用に証明書を設定する
 
-You must manually configure these administrator account and service accounts: 
+You must manually configure these administrator account and service accounts:
 
 | filename                | credential name            | Default CN                     | O (in Subject) |
 |-------------------------|----------------------------|--------------------------------|----------------|
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodename>`        | system:nodes   |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
 | scheduler.conf          | default-manager            | system:kube-scheduler          |                |
+
+{{< note >}}
+The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
+{{< /note >}}
 
 1. For each config, generate an x509 cert/key pair with the given CN and O.
 

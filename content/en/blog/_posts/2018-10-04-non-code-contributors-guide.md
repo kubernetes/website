@@ -10,7 +10,7 @@ It was May 2018 in Copenhagen, and the Kubernetes community was enjoying the con
 
 **This all led to an effort called the [Non-Code Contributor’s Guide](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md).**
 
-Now, it’s important to note that Kubernetes is rare, if not unique, in the open source world, in that it was defined very early on as both a project and a community. While the project itself is focused on the codebase, it is the community of people driving it forward that makes the project successful. The community works together with an explicit set of [community values](https://github.com/kubernetes/steering/blob/master/values.md), guiding the day-to-day behavior of contributors whether on GitHub, Slack, Discourse, or sitting together over tea or coffee.
+Now, it’s important to note that Kubernetes is rare, if not unique, in the open source world, in that it was defined very early on as both a project and a community. While the project itself is focused on the codebase, it is the community of people driving it forward that makes the project successful. The community works together with an explicit set of [community values](https://git.k8s.io/community/values.md), guiding the day-to-day behavior of contributors whether on GitHub, Slack, Discourse, or sitting together over tea or coffee.
 
 By having a community that values people first, and explicitly values a diversity of people, the Kubernetes project is building a product to serve people with diverse needs. The different backgrounds of the contributors bring different approaches to the problem solving, with different methods of collaboration, and all those different viewpoints ultimately create a better project.
 
@@ -28,7 +28,7 @@ Some of the ways that you can contribute to the Kubernetes community without wri
 - Project, program, and [product management](https://github.com/kubernetes/community/blob/master/sig-pm/README.md)
 - And many more!
 
-The guide to get started with Kubernetes project contribution is [documented on Github](https://github.com/kubernetes/community/tree/master/contributors/guide), and as the Non-Code Contributors Guide is a part of that Kubernetes Contributors Guide, it can be found [here](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md). As stated earlier, this list is not exhaustive and will continue to be a work in progress.   
+The guide to get started with Kubernetes project contribution is [documented on GitHub](https://github.com/kubernetes/community/tree/master/contributors/guide), and as the Non-Code Contributors Guide is a part of that Kubernetes Contributors Guide, it can be found [here](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md). As stated earlier, this list is not exhaustive and will continue to be a work in progress.   
 
 To date, the typical Non-Code contributions fall into the following categories:
 

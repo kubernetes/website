@@ -9,7 +9,8 @@ content_template: templates/task
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 This document describes how to configure and use kernel parameters within a
-Kubernetes cluster using the sysctl interface.
+Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
+interface.
 
 {{% /capture %}}
 
@@ -80,7 +81,7 @@ kubelet --allowed-unsafe-sysctls \
   'kernel.msg*,net.ipv4.route.min_pmtu' ...
 ```
 
-For minikube, this can be done via the `extra-config` flag:
+For {{< glossary_tooltip term_id="minikube" >}}, this can be done via the `extra-config` flag:
 
 ```shell
 minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.ipv4.route.min_pmtu"...

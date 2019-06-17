@@ -48,8 +48,6 @@ CCM은 쿠버네티스 컨트롤러 매니저(KCM)의 기능 일부를 독립시
 * 라우트 컨트롤러
 * 서비스 컨트롤러
 
-추가적으로, PersistentVolumeLabels 컨트롤러라 불리는 다른 컨트롤러를 작동시킨다. 이 컨트롤러는 GCP와 AWS 클라우드 내 생성된 PersistentVolumes 상에 영역과 지역 레이블을 설정하는 책임을 가진다.
-
 {{< note >}}
 볼륨 컨트롤러는 의도적으로 CCM의 일부가 되지 않도록 선택되었다. 연관된 복잡성 때문에 그리고 벤더 특유의 볼륨 로직 개념을 일반화 하기 위한 기존의 노력때문에, 볼륨 컨트롤러는 CCM으로 이전되지 않도록 결정되었다.
 {{< /note >}}
@@ -69,7 +67,6 @@ CCM의 주요 기능은 KCM으로부터 파생된다. 이전 섹션에서 언급
 * 노드 컨트롤러
 * 라우트 컨트롤러
 * 서비스 컨트롤러
-* PersistentVolumeLabels 컨트롤러
 
 #### 노드 컨트롤러
 
@@ -86,25 +83,13 @@ CCM의 주요 기능은 KCM으로부터 파생된다. 이전 섹션에서 언급
 
 #### 서비스 컨트롤러
 
-서비스 컨트롤러는 서비스 생성, 업데이트, 그리고 이벤트 삭제에 대한 책임을 가진다. 쿠버네티스 내 서비스의 현재 상태를 근거로, 쿠버네티스 내 서비스의 상태를 나타내기 위해 클라우드 로드 밸런서(ELB  또는 구글 LB와 같은)를 구성해준다. 추가적으로, 클라우드 로드 밸런서를 위한 서비스 백엔드가 최신화 되도록 보장해 준다.
-
-#### PersistentVolumeLabels 컨트롤러
-
-PersistentVolumeLabels 컨트롤러는 AWS EBS/GCE PD 볼륨이 생성되는 시점에 레이블을 적용한다. 이로써 사용자가 수동으로 이들 볼륨에 레이블을 설정할 필요가 없어진다.
-
-이들 볼륨은 오직 그것들이 속한 지역/영역 내에서만 동작되도록 제한되므로 파드 스케줄에 필수적이다. 이들 볼륨을 이용하는 모든 파드는 동일한 지역/영역 내에서 스케줄 되어야 한다.  
-
-PersistentVolumeLabels 컨트롤러는 특별하게 CCM을 위해 생성되었다. 즉, CCM이 생성되기 전에는 없었다. 쿠버네티스 API 서버의 PV에 레이블을 붙이는 로직(어드미션 컨트롤러였다)을 CCM에 옮겨서 그렇게 만들었다.  
+서비스 컨트롤러는 서비스 생성, 업데이트, 그리고 이벤트 삭제에 대한 책임을 가진다. 쿠버네티스 내 서비스의 현재 상태를 근거로, 쿠버네티스 내 서비스의 상태를 나타내기 위해 클라우드 로드 밸런서(ELB, Google LB, Oracle Cloud Infrastrucutre LB와 같은)를 구성해준다. 추가적으로, 클라우드 로드 밸런서를 위한 서비스 백엔드가 최신화 되도록 보장해 준다.
 
 ### 2. Kubelet
 
 노드 컨트롤러는 kubelet의 클라우드 종속적인 기능을 포함한다. CCM이 도입되기 이전에는, kubelet 이 IP 주소, 지역/영역 레이블 그리고 인스턴스 타입 정보와 같은 클라우드 특유의 세부사항으로 노드를 초기화하는 책임을 가졌다. CCM의 도입으로 kubelet에서 CCM으로 이 초기화 작업이 이전되었다.
 
 이 새로운 모델에서, kubelet은 클라우드 특유의 정보 없이 노드를 초기화 해준다. 그러나, kubelet은 새로 생성된 노드에 taint를 추가해서 CCM이 클라우드에 대한 정보를 가지고 노드를 초기화하기 전까지는 스케줄되지 않도록 한다. 그러고 나서 이 taint를 제거한다.  
-
-### 3. 쿠버네티스 API 서버
-
-PersistentVolumeLabels 컨트롤러는 이전 섹션에서 기술한 바와 같이, 쿠버네티스 API 서버의 클라우드 종속적인 기능을 CCM으로 이전한다.
 
 ## 플러그인 메커니즘
 
@@ -154,17 +139,6 @@ v1/Service:
 - Get
 - Watch
 - Patch
-- Update
-
-### PersistentVolumeLabels 컨트롤러
-
-PersistentVolumeLabels 컨트롤러는 PersistentVolume(PV) 생성 이벤트에 대해 귀기울이고 그것을 업데이트 한다. 이 컨트롤러는 PV를 get 하고 update 하기 위한 접근을 요한다.
-
-v1/PersistentVolume:
-
-- Get
-- List
-- Watch
 - Update
 
 ### 그 외의 것들
@@ -251,10 +225,11 @@ rules:
 
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
-* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
-* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
+* [Linode](https://github.com/linode/linode-cloud-controller-manager)
 
 ## 클러스터 관리
 

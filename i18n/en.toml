@@ -1,7 +1,7 @@
 # i18n strings for the English (main) site.
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see "
+other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
 
 [deprecation_file_warning]
 other = "Deprecated"
@@ -61,7 +61,7 @@ other = "Read more"
 other = "Interested in hacking on the core Kubernetes code base?"
 
 [main_github_view_on]
-other = "View On Github"
+other = "View On GitHub"
 
 [main_github_create_an_issue]
 other = "Create an Issue"
@@ -118,7 +118,63 @@ other = "Users"
 [docs_label_i_am]
 other = "I AM..."
 
+# layouts > blog > pager
 
+[layouts_blog_pager_prev]
+other = "<< Prev"
+
+[layouts_blog_pager_next]
+other = "Next >>"
+
+# layouts > blog > list
+
+[layouts_case_studies_list_tell]
+other = "Tell your story"
+
+# layouts > docs > glossary
+
+[layouts_docs_glossary_description]
+other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to K8s, as well as more general terms that provide useful context."
+
+[layouts_docs_glossary_filter]
+other = "Filter terms according to their tags"
+
+[layouts_docs_glossary_select_all]
+other = "Select all"
+
+[layouts_docs_glossary_deselect_all]
+other = "Deselect all"
+
+[layouts_docs_glossary_aka]
+other = "Also known as"
+
+[layouts_docs_glossary_click_details_before]
+other = "Click on the"
+
+[layouts_docs_glossary_click_details_after]
+other = "indicators below to get a longer explanation for any particular term."
+
+# layouts > docs > search
+
+[layouts_docs_search_fetching]
+other = "Fetching results.."
+
+# layouts > partial > feedback
+
+[layouts_docs_partials_feedback_thanks]
+other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+
+[layouts_docs_partials_feedback_issue]
+other = "Open an issue in the GitHub repo if you want to "
+
+[layouts_docs_partials_feedback_problem]
+other = "report a problem"
+
+[layouts_docs_partials_feedback_or]
+other = "or"
+
+[layouts_docs_partials_feedback_improvement]
+other = "suggest an improvement"
 
 # Community links
 [community_twitter_name]

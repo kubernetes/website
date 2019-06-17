@@ -135,8 +135,6 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-      ```yaml    
-        ---
         apiVersion: extensions/v1beta1
         kind: Ingress
         metadata:
@@ -152,7 +150,6 @@ The following file is an Ingress resource that sends traffic to your Service via
                backend:
                  serviceName: web
                  servicePort: 8080
-      ```
 
 1. Create the Ingress resource by running the following command:
     
@@ -232,12 +229,12 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Edit the existing `example-ingress.yaml` and add the following lines:  
 
-      ```yaml
-        - path: /v2/*
-          backend:
-            serviceName: web2
-            servicePort: 8080
-      ```
+    ```yaml
+         - path: /v2/*
+           backend:
+             serviceName: web2
+             servicePort: 8080
+    ```
 
 1. Apply the changes:
 

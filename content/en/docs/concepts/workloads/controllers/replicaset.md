@@ -54,7 +54,7 @@ Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes clus
 create the defined ReplicaSet and the Pods that it manages.
 
 ```shell
-kubectl apply -f http://k8s.io/examples/controllers/frontend.yaml
+kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 You can then get the current ReplicaSets deployed:
@@ -162,7 +162,7 @@ Suppose you create the Pods after the frontend ReplicaSet has been deployed and 
 fulfill its replica count requirement:
 
 ```shell
-kubectl apply -f http://k8s.io/examples/pods/pod-rs.yaml
+kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
 The new Pods will be acquired by the ReplicaSet, and then immediately terminated as the ReplicaSet would be over
@@ -184,12 +184,12 @@ pod2             0/1     Terminating   0          4s
 
 If you create the Pods first:
 ```shell
-kubectl apply -f http://k8s.io/examples/pods/pod-rs.yaml
+kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
 And then create the ReplicaSet however:
 ```shell
-kubectl apply -f http://k8s.io/examples/controllers/frontend.yaml
+kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 You shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
@@ -215,7 +215,7 @@ For ReplicaSets, the kind is always just ReplicaSet.
 In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
 Refer to the first lines of the `frontend.yaml` example for guidance.
 
-A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
@@ -281,7 +281,8 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 Once the original is deleted, you can create a new ReplicaSet to replace it.  As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old Pods.
 However, it will not make any effort to make existing Pods match a new, different pod template.
-To update Pods to a new spec in a controlled way, use a [rolling update](#rolling-updates).
+To update Pods to a new spec in a controlled way, use a 
+[Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment), as ReplicaSets do not support a rolling update directly.
 
 ### Isolating Pods from a ReplicaSet
 
