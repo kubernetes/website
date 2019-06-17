@@ -68,8 +68,8 @@ _Pod_ menggunakan klaim sebagai volume. Kluster menginspeksi klaim untuk menemuk
 
 Ketika pengguna memiliki klaim dan klaim tersebut telah terikat, PV yang terikat menjadi hak penggunanya selama yang dibutuhkan. Pengguna menjadwalkan _pod_ dan mengakses PV yang sudah diklaim dengan menambahkan `persistentVolumeClaim` pada blok volume pada _Pod_ miliknya. [Lihat pranala di bawah untuk detail-detail mengenai sintaks](#claims-as-volumes).
 
-### Object _Storage_ dalam Perlindungan Penggunaan
-Tujuan dari Objek _Storage_ dalam Perlindungan Penggunan adalah untuk memastikan _Persistent Volume Claim_ (PVC) yang sedang aktif digunakan oleh sebuah _pod_ dan _Persistent Volume_ (PV) yang terikat pada PVC tersebut tidak dihapus dari sistem karena hal ini dapat menyebabkan kehilangan data.
+### Object Penyimpanan dalam Perlindungan Penggunaan
+Tujuan dari Objek Penyimpanan dalam Perlindungan Penggunan adalah untuk memastikan _Persistent Volume Claim_ (PVC) yang sedang aktif digunakan oleh sebuah _pod_ dan _Persistent Volume_ (PV) yang terikat pada PVC tersebut tidak dihapus dari sistem karena hal ini dapat menyebabkan kehilangan data.
 
 {{< note >}}
 PVC dikatakan aktif digunakan oleh sebuah _pod_ ketika sebuah objek _pod_ ada yang menggunakan PVC tersebut.
