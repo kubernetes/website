@@ -55,9 +55,11 @@ In this example:
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
     {{< note >}}
-    The `matchLabels` is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
-    is equivalent to an element of `matchExpressions`, whose key field is "key", the operator is "In",
-    and the values array contains only "value". The requirements are ANDed.
+    The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
+    is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
+    and the values array contains only "value".
+    All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be
+    satisfied in order to match.
     {{< /note >}}
 
 * The `template` field contains the following sub-fields:
@@ -192,12 +194,7 @@ Follow the steps given below to update your deployment:
 
 Get more details on your updated deployment:
 
-* After the rollout succeeds, you may want to `get` the Deployment:
-
-    ```shell
-    kubectl get deployments
-    ```
-
+* After the rollout succeeds, you can view the Deployment by running `kubectl get deployments`.
     The output is similar to this:
     ```
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -307,9 +304,9 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
 ### Rollover (aka multiple updates in-flight)
 
 Each time a new Deployment is observed by the Deployment controller, a ReplicaSet is created to bring up
-the desired Pods if there is no existing ReplicaSet doing so. Existing ReplicaSet controlling Pods whose labels
+the desired Pods. If the Deployment is updated, the existing ReplicaSet that controls Pods whose labels
 match `.spec.selector` but whose template does not match `.spec.template` are scaled down. Eventually, the new
-ReplicaSet will be scaled to `.spec.replicas` and all old ReplicaSets will be scaled to 0.
+ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 
 If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
 as per the update and start scaling that up, and rolls over the ReplicaSet that it was scaling up previously
