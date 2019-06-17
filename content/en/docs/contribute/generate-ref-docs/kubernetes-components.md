@@ -97,13 +97,13 @@ Open `<web-base>/update-imported-docs/reference.yml` for editing.
 Do not change the content for the `generate-command` entry unless you understand
 what it is doing and need to change the specified release branch.
 
-```shell
+```yaml
 repos:
 - name: reference-docs
   remote: https://github.com/kubernetes-incubator/reference-docs.git
   # This and the generate-command below needs a change when reference-docs has
   # branches properly defined
-  branch: master  
+  branch: master
   generate-command: |
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
@@ -138,7 +138,7 @@ to the same destination directory, you can use wildcards in the value given to
 `src` and you can just provide the directory name as the value for `dst`.
 For example:
 
-```shell
+```yaml
   files:
   - src: gen-compdocs/build/kubeadm*.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/
@@ -196,7 +196,7 @@ topics will be visible in the
 
 {{% capture whatsnext %}}
 
-* [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/) 
+* [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
 * [Generating Reference Documentation for the Kubernetes API](/docs/home/contribute/generated-reference/kubernetes-api/)
 * [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 * [Contributing to the Upstream Kubernetes Project for Documentation](/docs/contribute/gen-ref-docs/contribute-upstream)
