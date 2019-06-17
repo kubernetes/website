@@ -506,7 +506,7 @@ kebutuhan tersebut akan digabungkan dengan operasi AND bersama: hanya PV dari ke
 label yang diminta yang dapat terikat ke PVC.
 
 {{< note >}}
-Saat ini, sebuah PVC dengan `selector` yang tak kosong tidak dapat memiliki PV yang disediakan secara dinmais untuknya.
+Saat ini, sebuah PVC dengan `selector` yang tak kosong tidak dapat memiliki PV yang disediakan secara dinamis untuknya.
 {{< /note >}}
 
 Dahulu, anotasi `volume.beta.kubernetes.io/storage-class` digunakan sebagai ganti
