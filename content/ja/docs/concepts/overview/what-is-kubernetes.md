@@ -2,9 +2,6 @@
 title: Kubernetesとは何か？
 content_template: templates/concept
 weight: 10
-card: 
-  name: concepts
-  weight: 10
 ---
 
 {{% capture overview %}}

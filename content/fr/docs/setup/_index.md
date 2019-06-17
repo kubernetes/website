@@ -6,8 +6,7 @@ reviewers:
 - awkif
 - yastij
 no_issue: true
-title: Installation
-description: Panorama de solution Kubernetes
+title: Setup
 main_menu: true
 weight: 30
 content_template: templates/concept
@@ -16,9 +15,11 @@ content_template: templates/concept
 
 Utilisez cette page pour trouver le type de solution qui correspond le mieux à vos besoins.
 
-Le choix de distribution Kubernetes dépend des ressources dont vous disposez et de la flexibilité dont vous avez besoin. 
-Vous pouvez exécuter Kubernetes presque partout, de votre ordinateur portable aux machines virtuelles d'un fournisseur de cloud jusqu'à un rack de serveurs en bare metal.
-Vous pouvez également mettre en place un cluster entièrement géré en exécutant une seule commande ou bien créer votre propre cluster personnalisé sur vos serveurs bare-metal.
+Le choix de l'emplacement de Kubernetes dépend des ressources dont vous disposez 
+et de la flexibilité dont vous avez besoin. Vous pouvez executer Kubernetes presque partout, 
+de votre ordinateur portable aux machines virtuelles d'un fournisseur de cloud jusqu'à un rack de serveurs en bare metal.
+Vous pouvez également mettre en place un cluster entièrement géré en exécutant une seule commande ou bien créer 
+votre propre cluster personnalisé sur vos serveurs bare-metal.
 
 {{% /capture %}}
 
@@ -49,7 +50,7 @@ Vous devriez choisir une solution hébergée si vous :
 * N'avez pas d'équipe de Site Reliability Engineering (SRE) dédiée, mais que vous souhaitez une haute disponibilité.
 * Vous n'avez pas les ressources pour héberger et surveiller vos clusters 
 
-Choisissez une [solution hébergée] (/fr/docs/setup/pick-right-solution/#hosted-solutions).
+Choisissez une [solution hébergée] (/docs/setup/pick-right-solution/#hosted-solutions).
 
 ## Solutions cloud clés en main
 
@@ -80,7 +81,7 @@ Choisissez une [solution clé en main sur site] (/docs/setup/pick-right-solution
 
 ## Solutions personnalisées
 
-Les solutions personnalisées vous offrent le maximum de liberté sur vos clusters, mais elles nécessitent plus  
+Les solutions personnalisées vous offrent le maximum de liberté sur vos clusters, mais elles nécessitent le plus  
 d'expertise. Ces solutions vont du bare-metal aux fournisseurs de cloud sur 
 différents systèmes d'exploitation.
 
@@ -89,5 +90,5 @@ Choisissez une [solution personnalisée] (/docs/setup/pick-right-solution/#custo
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Allez à [Choisir la bonne solution] (/docs/setup/pick-right-solution/) pour une liste complète de solutions.
+Allez à [Choisir la bonne solution] (/docs/setup/pick-right-solution/) pour une list complète de solutions.
 {{% /capture %}}

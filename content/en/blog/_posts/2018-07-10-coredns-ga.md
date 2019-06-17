@@ -167,10 +167,10 @@ You can find out more on the [CoreDNS Blog](https://coredns.io/blog).
 
 CoreDNS is an incubated [CNCF](https:://cncf.io) project.
 
-We're most active on Slack (and GitHub):
+We're most active on Slack (and Github):
 
 - Slack: #coredns on <https://slack.cncf.io>
-- GitHub: <https://github.com/coredns/coredns>
+- Github: <https://github.com/coredns/coredns>
 
 More resources can be found:
 

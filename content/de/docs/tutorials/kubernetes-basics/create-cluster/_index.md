@@ -1,4 +1,4 @@
 ---
-title: Einen Cluster erstellen
+title: Erstellen Sie einen Cluster
 weight: 10
 ---

@@ -1,5 +1,5 @@
 ---
-title: Déployer des clusters avec kubeadm
-description: Déploiement cluster Kubernetes kubeadm 
+title: "Déployer des clusters avec kubeadm"
 weight: 30
 ---
+

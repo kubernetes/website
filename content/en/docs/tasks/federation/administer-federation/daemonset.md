@@ -21,8 +21,8 @@ across all the clusters in federation.
 {{% capture prerequisites %}}
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
-* You should also have a basic
-[working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
+* You are also expected to have a basic
+[working knowledge of Kubernetes](/docs/setup/pick-right-solution/) in
 general and [DaemonSets](/docs/concepts/workloads/controllers/daemonset/) in particular.
 
 {{% /capture %}}

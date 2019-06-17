@@ -17,12 +17,17 @@ html body .region-inner {
   width: auto;
 }
 
-div a:link {
-color: #326DE6;
+a:link {
+  text-decoration:none;
+  color: #2288bb;
 }
-
-div a.widget-link {
-color: #326DE6;
+a:visited {
+  text-decoration:none;
+  color: #888888;
+}
+a:hover {
+  text-decoration:underline;
+  color: #33aaff;
 }
 
 /* Header
@@ -300,6 +305,13 @@ h3.post-title {
   font-size: 30px;
   color: #326DE6;
 }
+* a:link,
+* a:visited,
+* a:hover,
+* a:active {
+  color: #326DE6;
+}
+
 
 div.post-footer {
   display: none;

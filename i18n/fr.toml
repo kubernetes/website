@@ -58,7 +58,7 @@ other = "Autres ressources"
 other = "Souhaitez vous contribuer au code de Kubernetes ?"
 
 [main_github_view_on]
-other = "Voir sur GitHub"
+other = "Voir sur Github"
 
 [main_github_create_an_issue]
 other = "Ouvrez un ticket"

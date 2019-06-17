@@ -13,11 +13,12 @@ we're happy to have your help! Anyone can contribute, whether you're new to the
 project or you've been around a long time, and whether you self-identify as a
 developer, an end user, or someone who just can't stand seeing typos.
 
+For more ways to get involved in the Kubernetes community or to learn about us, visit the [Kubernetes community site](/community/). 
 For information on the Kubernetes documentation style guide, see the [style guide](/docs/contribute/style/style-guide/).
 
 {{% capture body %}}
 
-## Types of docs contributors
+## Types of contributors
 
 - A _member_ of the Kubernetes organization who has [signed the CLA](/docs/contribute/start#sign-the-cla)
   and contributed some time and effort to the project. See
@@ -25,7 +26,7 @@ For information on the Kubernetes documentation style guide, see the [style guid
   for specific criteria for membership.
 - A SIG Docs _reviewer_ is a member of the Kubernetes organization who has
   expressed interest in reviewing documentation pull requests and who has been
-  added to the appropriate GitHub group and `OWNERS` files in the GitHub
+  added to the appropriate Github group and `OWNERS` files in the Github
   repository, by a SIG Docs Approver.
 - A SIG Docs _approver_ is a member in good standing who has shown a continued
   commitment to the project. An approver can merge pull requests
@@ -34,7 +35,7 @@ For information on the Kubernetes documentation style guide, see the [style guid
   Some of the duties of a SIG Docs approver, such as coordinating a release,
   require a significant time commitment.
 
-## Ways to contribute to documentation
+## Ways to contribute
 
 This list is divided into things anyone can do, things Kubernetes organization
 members can do, and things that require a higher level of access and familiarity
@@ -46,7 +47,7 @@ This is not an exhaustive list of ways you can contribute to the Kubernetes
 documentation, but it should help you get started.
 
 - [Anyone](/docs/contribute/start/)
-  - Open actionable issues
+  - File actionable bugs
 - [Member](/docs/contribute/start/)
   - Improve existing docs
   - Bring up ideas for improvement on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
@@ -68,11 +69,5 @@ documentation, but it should help you get started.
   - Propose improvements to the style guide
   - Propose improvements to docs tests
   - Propose improvements to the Kubernetes website or other tooling
-
-
-## Additional ways to contribute
-
-- To contribute to the Kubernetes community through online forums like Twitter or Stack Overflow, or learn about local meetups and Kubernetes events, visit the [Kubernetes community site](/community/).
-- To contribute to feature development, read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get started.
 
 {{% /capture %}}

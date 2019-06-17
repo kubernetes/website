@@ -499,7 +499,7 @@ mounts an empty directory and clones a git repository into it for your Pod to
 use.  In the future, such volumes may be moved to an even more decoupled model,
 rather than extending the Kubernetes API for every such use case.
 
-Here is an example of gitRepo volume:
+Here is an example for gitRepo volume:
 
 ```yaml
 apiVersion: v1
@@ -641,7 +641,7 @@ be able to run. Applications using local volumes must be able to tolerate this
 reduced availability, as well as potential data loss, depending on the
 durability characteristics of the underlying disk.
 
-The following is an example of PersistentVolume spec using a `local` volume and
+The following is an example PersistentVolume spec using a `local` volume and
 `nodeAffinity`:
 
 ```yaml
@@ -953,7 +953,7 @@ You must have an existing ScaleIO cluster already setup and
 running with the volumes created before you can use them.
 {{< /caution >}}
 
-The following is an example of Pod configuration with ScaleIO:
+The following is an example Pod configuration with ScaleIO:
 
 ```yaml
 apiVersion: v1
@@ -980,7 +980,7 @@ spec:
       fsType: xfs
 ```
 
-For further detail, please see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
+For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
 
 ### secret {#secret}
 
@@ -1065,7 +1065,7 @@ A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The con
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
 
 {{< caution >}}
-You must create VMDK using one of the following methods before using with Pod.
+You must create VMDK using one of the following method before using with Pod.
 {{< /caution >}}
 
 #### Creating a VMDK volume

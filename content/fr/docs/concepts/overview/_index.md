@@ -1,5 +1,4 @@
 ---
-title: Vue d'ensemble
-description: Vue d'ensemble Kubernetes
+title: "Vue d'ensemble"
 weight: 20
 ---
