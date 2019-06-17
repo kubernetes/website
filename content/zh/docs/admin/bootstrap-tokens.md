@@ -15,8 +15,8 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 启动引导令牌被定义成一个特定类型的 secrets(`bootstrap.kubernetes.io/token`)，并存在于
 `kube-system` 命名空间中。然后这些 secrets 会被 API 服务器上的启动引导的认证器读取。
-控制器管理器中的控制器TokenCleaner能够删除过期的令牌。在节点发现的过程中Kubernetes会使用特殊的ConfigMap对象。
-控制器管理器中的BootstrapSigner控制器也会使用启动引导令牌为这类对象生成签名信息。
+控制器管理器中的控制器 TokenCleaner 能够删除过期的令牌。在节点发现的过程中 Kubernetes 会使用特殊的 ConfigMap 对象。
+控制器管理器中的 BootstrapSigner 控制器也会使用启动引导令牌为这类对象生成签名信息。
 
 目前，启动引导令牌处于 **alpha** 阶段，但是预期也不会有大的突破性变化。
 
@@ -26,7 +26,7 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 更加规范地说，它们必须符合正则表达式 `[a-z0-9]{6}\.[a-z0-9]{16}`。
 
 令牌的第一部分是 "Token ID" ，它是公共信息。用于引用某个令牌，并确保不会泄露认证所使用的秘密信息。
-第二部分是 "令牌秘密（Token Secret）"，它应该被共享给收信的第三方。
+第二部分是“令牌秘密（Token Secret）”，它应该被共享给收信的第三方。
 
 ## 启用启动引导令牌
 
@@ -82,19 +82,19 @@ TokenCleaner 控制器会删除过期的令牌。
 
 ## 使用 `kubeadm` 管理令牌
 
-你可以使用 `kubeadm` 工具管理正在运行集群的令牌。它会从 `kubeadm` 创建的集群(`/etc/kubernetes/admin.conf`)
+你可以使用 `kubeadm` 工具管理正在运行集群的令牌。它会从 `kubeadm` 创建的集群（`/etc/kubernetes/admin.conf`）
 自动抓取默认管理员密码。你可以通过参数 `--kubeconfig` 对下面命令指定一个另外的 kubeconfig 文件抓取密码。
 
 * `kubeadm token list` 列举了令牌，同时显示了它们的过期时间和用途。
 * `kubeadm token create` 创建一个新令牌。
     * `--description` 设置新令牌的描述。
-    * `--ttl duration` 设置令牌从 "现在" 起到过期时间的差值。
+    * `--ttl duration` 设置令牌从“现在”起到过期时间的差值。
       默认是 0 ，也就是不过期。
     * `--usages` 设置令牌被使用的方式。默认是 `signing,authentication`。用途在上面已经描述。
 * `kubeadm token delete <token id>|<token id>.<token secret>` 删除令牌。
   令牌可以只用 ID 来确认，也可以用整个令牌的值。如果只用 ID 的情况下，密文不匹配的令牌也会被删除。
 
-### ConfigMap签名
+### ConfigMap 签名
 
 除了认证之外，令牌可以用于签名 ConfigMap。这在集群启动过程的早期，在客户端信任 API 服务器之前被使用。
 被签名的 ConfigMap 可以通过共享令牌被认证。
@@ -131,6 +131,6 @@ ConfigMap 的 `kubeconfig` 成员是一个填好了集群信息的配置文件�
 这里主要交换的信息是 `certificate-authority-data`。在将来可能会有扩展。
 
 签名是一个 JWS 签名，使用了 "detached" 模式。为了检验签名，用户应该按照 JWS 规则
-(base64 编码而忽略结尾的 `=`)对 `kubeconfig` 的载荷进行编码。完成编码的载荷会被通过插入 JWS 并存在于两个点的中间
+（base64 编码而忽略结尾的 `=`）对 `kubeconfig` 的载荷进行编码。完成编码的载荷会被通过插入 JWS 并存在于两个点的中间
 ，用于形成一个完整的 JWS。可以使用令牌的完整信息（比如 `07401b.f395accd246ae52d`）作为共享密钥，
 通过 `HS256` 方式 (HMAC-SHA256) 对 JWS 进行校验。 用户 _必须_ 确保使用了 HS256。

@@ -1,15 +1,16 @@
-﻿<!--
+﻿---
+title: 访问集群
+weight: 20
+content_template: templates/concept
+---
+
+<!--
 ---
 title: Accessing Clusters
 weight: 20
 content_template: templates/concept
 ---
 -->
----
-title: 访问集群
-weight: 20
-content_template: templates/concept
----
 
 {{% capture overview %}}
 

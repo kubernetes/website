@@ -57,7 +57,7 @@ kubectl create deployment nginx --image nginx
 
 在命令式对象配置中，`kubectl` 命令指定操作(创建，替换等)，可选标志和至少一个文件名称。指定的文件必须包含对象的完整定义以 YAML 或 JSON 格式。
 
-请参阅[参考资源](https://kubernetes.io/docs/resources-reference/v1.6/)
+请参阅[参考资源](/docs/resources-reference/v1.6/)
 查看有关对象定义的更多细节。
 
 **警告:** 命令式 `replace` 命令用新提供的命令替换现有资源规格，将对配置文件中缺少的对象的所有更改都丢弃。这种方法不应更新与配置文件无关的资源类型。例如，`LoadBalancer` 类型的服务使其 `externalIPs` 字段与集群的配置无关。
@@ -149,5 +149,3 @@ kubectl apply -R -f configs/
  {{< comment >}}
  {{< /comment >}}
  {{% /capture %}}
-
- 

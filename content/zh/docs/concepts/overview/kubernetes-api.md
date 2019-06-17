@@ -2,11 +2,11 @@
 
 [API协议文档](https://git.k8s.io/community/contributors/devel/api-conventions.md)描述了主系统和API概念。
 
-[API参考文档](https://kubernetes.io/docs/reference)描述了API整体规范。
+[API参考文档](/docs/reference)描述了API整体规范。
 
-[访问文档](https://kubernetes.io/docs/admin/accessing-the-api)讨论了通过远程访问API的相关问题。
+[访问文档](/docs/admin/accessing-the-api)讨论了通过远程访问API的相关问题。
 
-Kubernetes API是系统描述性配置的基础。 [Kubectl](https://kubernetes.io/docs/user-guide/kubectl/) 命令行工具被用于创建、更新、删除、获取API对象。
+Kubernetes API是系统描述性配置的基础。 [Kubectl](/docs/user-guide/kubectl/) 命令行工具被用于创建、更新、删除、获取API对象。
 
 Kubernetes 通过API资源存储自己序列化状态(现在存储在[etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/))。
 
@@ -77,11 +77,11 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 1. 核心组（通常被称为遗留组）位于REST路径 **`/api/v1`** 并使用 **`apiVersion：v1`**。
 
-1. 指定的组位于REST路径 **`/apis/$GROUP_NAME/$VERSION`**，并使用 **`apiVersion：$GROUP_NAME/$VERSION`**（例如 **`apiVersion：batch/v1`**）。 在[Kubernetes API参考](https://kubernetes.io/docs/reference/)中可以看到支持的API组的完整列表。
+1. 指定的组位于REST路径 **`/apis/$GROUP_NAME/$VERSION`**，并使用 **`apiVersion：$GROUP_NAME/$VERSION`**（例如 **`apiVersion：batch/v1`**）。 在[Kubernetes API参考](/docs/reference/)中可以看到支持的API组的完整列表。
 
-社区支持使用以下两种方式来提供自定义资源对API进行扩展[自定义资源](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)：
+社区支持使用以下两种方式来提供自定义资源对API进行扩展[自定义资源](/docs/concepts/api-extension/custom-resources/)：
 
-1. [CustomResourceDefinition](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)适用于具有非常基本的CRUD需求的用户。
+1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)适用于具有非常基本的CRUD需求的用户。
 
 1. 即将推出：需要全套Kubernetes API语义的用户可以实现自己的apiserver，并使用[聚合器](https://git.k8s.io/community/contributors/design-proposals/api-machinery/aggregated-api-servers.md)为客户提供无缝的服务。
 
