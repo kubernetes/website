@@ -174,11 +174,7 @@ For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenComput
 
 Example result:
 
-```console
-kubectl describe node cluster-node-23
-```
-The output is similar to:
-
+    $ kubectl describe node cluster-node-23
     Name:               cluster-node-23
     Roles:              <none>
     Labels:             beta.amd.com/gpu.cu-count.64=1

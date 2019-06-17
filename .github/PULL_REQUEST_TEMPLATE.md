@@ -1,16 +1,16 @@
 >^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> Remember to delete this note before submitting your pull request.
+> Please delete this note before submitting the pull request.
 >
-> For pull requests on 1.15 Features: set Milestone to 1.15 and Base Branch to dev-1.15
+> For 1.14 Features: set Milestone to 1.14 and Base Branch to dev-1.14
 > 
-> For pull requests on Chinese localization, set Base Branch to release-1.14
+> For Chinese localization, base branch to release-1.12
 >
-> For pull requests on Korean Localization: set Base Branch to dev-1.14-ko.\<latest team milestone>
+> For Korean Localization: set Base Branch to dev-1.13-ko.<latest team milestone>
 >
-> If you need Help on editing and submitting pull requests, visit:
+> Help editing and submitting pull requests:
 > https://kubernetes.io/docs/contribute/start/#improve-existing-content.
 >
-> If you need Help on choosing which branch to use, visit:
+> Help choosing which branch to use:
 > https://kubernetes.io/docs/contribute/start#choose-which-git-branch-to-use.
 >^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >

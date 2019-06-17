@@ -1,6 +1,5 @@
 ---
 title: Conventions d'utilisation de kubectl
-description: kubectl conventions
 content_template: templates/concept
 ---
 

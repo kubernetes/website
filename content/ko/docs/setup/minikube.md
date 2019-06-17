@@ -5,7 +5,8 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Minikube는 쿠버네티스를 로컬에서 쉽게 실행하는 도구이다. Minikube는 매일 쿠버네티스를 사용하거나 개발하려는 사용자들을 위해 VM 이나 노트북에서 단일 노드 쿠버네티스 클러스터를 실행한다.
+Minikube는 쿠버네티스를 로컬에서 쉽게 실행하는 도구이다.
+Minikube는 매일 쿠버네티스를 사용하거나 개발하려는 사용자들을 위해 VM 이나 노트북에서 단일 노드 쿠버네티스 클러스터를 실행한다.
 
 {{% /capture %}}
 
@@ -29,67 +30,42 @@ Minikube는 쿠버네티스를 로컬에서 쉽게 실행하는 도구이다. Mi
 ## 빠른 시작
 
 여기부터는 Minikube 사용에 대한 간단한 데모이다.
-VM 드라이버를 바꾸기 원하면 적절한 `--vm-driver=xxx` 플래그를 `minikube start`에 추가한다.
-Minikube는 다음의 드라이버를 지원한다.
+VM 드라이버를 바꾸기 원하면 적절한 `--vm-driver=xxx` 플래그를 `minikube start`에 추가한다. Minikube는 다음의 드라이버를 지원한다.
 
 * virtualbox
 * vmwarefusion
 * kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
-아래 나오는 IP주소는 동적이고 변할 수 있음을 알린다. 이는 `minikube ip` 명령으로 확인할 수 있다.
-* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))	
 * none (쿠버네티스 구성요소는 VM이 아닌 호스트상에서 동작한다. 이 드라이버를 사용하기 위해서는 Docker ([docker 설치](https://docs.docker.com/install/linux/docker-ce/ubuntu/))와 리눅스 환경)이 필요하다.
 
 ```shell
-minikube start
-```
-```
+$ minikube start
 Starting local Kubernetes cluster...
 Running pre-create checks...
 Creating machine...
 Starting local Kubernetes cluster...
-```
-```shell
-kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-```
-```
+
+$ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 deployment.apps/hello-minikube created
-```
-
-```shell
-kubectl expose deployment hello-minikube --type=NodePort
-```
-```
+$ kubectl expose deployment hello-minikube --type=NodePort
 service/hello-minikube exposed
-```
 
-에코 서버 파드를 실행했지만 노출된 서비스를 통해 curl 등의 접근하기 전에
-파드가 올라갈 때까지 기다려야 한다.
-파드가 실행 중인지 확인하기 위해 다음을 이용할 수 있다.
-
-```
-kubectl get pod
-```
-```
+# We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
+# via the exposed service.
+# To check whether the pod is up and running we can use the following:
+$ kubectl get pod
 NAME                              READY     STATUS              RESTARTS   AGE
 hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-```
-
-이 파드는 ContainerCreating 상태임을 알 수 있다.
-kubectl get pod
-
-```
+# We can see that the pod is still being created from the ContainerCreating status
+$ kubectl get pod
 NAME                              READY     STATUS    RESTARTS   AGE
 hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-```
+# We can see that the pod is now Running and we will now be able to curl it:
+$ curl $(minikube service hello-minikube --url)
 
-이제 파드가 Running 상태이므로 curl를 실행해 볼 수 있다.
-
-```
-curl $(minikube service hello-minikube --url)
-```
-```
 
 Hostname: hello-minikube-7c77b68cff-8wdzq
 
@@ -115,26 +91,13 @@ Request Headers:
 
 Request Body:
 	-no body in request-
-```
 
-```shell
-kubectl delete services hello-minikube
-```
-```
+
+$ kubectl delete services hello-minikube
 service "hello-minikube" deleted
-```
-
-```shell
-kubectl delete deployment hello-minikube
-```
-```
+$ kubectl delete deployment hello-minikube
 deployment.extensions "hello-minikube" deleted
-```
-
-```shell
-minikube stop
-```
-```
+$ minikube stop
 Stopping local Kubernetes cluster...
 Stopping "minikube"...
 ```
@@ -146,7 +109,7 @@ Stopping "minikube"...
 [containerd](https://github.com/containerd/containerd)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```bash
-minikube start \
+$ minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --container-runtime=containerd \
@@ -156,7 +119,7 @@ minikube start \
 혹은 확장 버전을 사용할 수 있다.
 
 ```bash
-minikube start \
+$ minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
@@ -170,7 +133,7 @@ minikube start \
 [CRI-O](https://github.com/kubernetes-incubator/cri-o)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```bash
-minikube start \
+$ minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --container-runtime=cri-o \
@@ -180,7 +143,7 @@ minikube start \
 혹은 확장 버전을 사용할 수 있다.
 
 ```bash
-minikube start \
+$ minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
@@ -194,7 +157,7 @@ minikube start \
 [rkt](https://github.com/rkt/rkt)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```shell
-minikube start \
+$ minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --container-runtime=rkt
@@ -204,19 +167,22 @@ minikube start \
 
 ### 드라이버 플러그인
 
-지원하는 드라이버 상세 정보와 설치방법은 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 살펴보자
-꼭 필요하다면 말이다.
+지원하는 드라이버 상세 정보와 설치방법은 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 살펴보자 꼭 필요하다면 말이다.
 
 ### Docker 데몬 재사용
 
-쿠버네티스 단일 VM을 사용하면 Minikube에 내장된 Docker 데몬을 재사용하기에 매우 간편하다. 이 경우는 호스트 장비에 Docker 레지스트리를 설치하고 이미지를 푸시할 필요가 없다. 또 로컬에서 빠르게 실행할 수 있는데 이는 Minikube와 동일한 Docker 데몬 안에서 이미지를 빌드하기 때문이다. Docker 이미지를 'latest'가 아닌 다른 태그로 태그했는지 확인하고 이미지를 풀링할 때에는 그 태그를 이용한다. 혹시 이미지 태그 버전을 지정하지 않았다면, 기본값은 `:latest`이고 이미지 풀링 정책은 `Always`가 가정하나, 만약 기본 Docker 레지스트리(보통 DockerHub)에 해당 Docker 이미지 버전이 없다면 `ErrImagePull`의 결과가 나타날 것이다.
+쿠버네티스 단일 VM을 사용하면 Minikube에 내장된 Docker 데몬을 재사용하기에 매우 간편하다.
+이 경우는 호스트 장비에 Docker 레지스트리를 설치하고 이미지를 푸시할 필요가 없다.
+또 로컬에서 빠르게 실행할 수 있는데 이는 Minikube와 동일한 Docker 데몬 안에서 이미지를 빌드하기 때문이다.
+Docker 이미지를 'latest'가 아닌 다른 태그로 태그했는지 확인하고 이미지를 풀링할 때에는 그 태그를 이용한다.
+혹시 이미지 태그 버전을 지정하지 않았다면, 기본값은 `:latest`이고 이미지 풀링 정책은 `Always`가 가정하나,
+만약 기본 Docker 레지스트리(보통 DockerHub)에 해당 Docker 이미지 버전이 없다면 `ErrImagePull`의 결과가 나타날 것이다.
 
 맥이나 리눅스 호스트의 Docker 데몬에서 이 작업이 가능하게 하려면 `docker-env command`를 쉘에서 사용해야 한다.
 
 ```shell
 eval $(minikube docker-env)
 ```
-
 맥이나 리눅스 호스트에서 Minikube VM안에 Docker 데몬과 통신하도록 Docker를 명령행에서 사용할 수 있어야 한다.
 
 ```shell
@@ -260,10 +226,10 @@ https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docke
 Minikube는 또한 "minikube" 컨텍스트를 생성하고, kubectl의 기본값으로 설정한다.
 나중에 이 컨택스트를 변경하려면, `kubectl config use-context minikube` 명령을 실행하자.
 
+
 #### 쿠버네티스 버전 지정
 
-Minikube에서 사용할 쿠버네티스 버전은 `--kubernetes-version` 문자열을
-`minikube start` 명령에 추가하여 지정할 수 있다.
+Minikube에서 사용할 쿠버네티스 버전은 `--kubernetes-version` 문자열을 `minikube start` 명령에 추가하여 지정할 수 있다.
 예를 들어, `v1.7.3`을 이용한다면 아래처럼 할 수 있다.
 
 ```
@@ -277,8 +243,7 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 
 이 플래그는 여러번 쓸 수 있어 여러 옵션 설정을 전달 할 수 있다.
 
-이 플래그는 `component.key=value`형식의 문자열로,
-앞에 `component`는 아래 목록에 하나의 문자열이며 `key`는 configuration struct의 값이고 `value`는 설정할 값이다(역주: key는 struct의 맴버명).
+이 플래그는 `component.key=value`형식의 문자열로, 앞에 `component`는 아래 목록에 하나의 문자열이며 `key`는 configuration struct의 값이고 `value`는 설정할 값이다(역주: key는 struct의 맴버명).
 
 올바른 키들은 각 컴포넌트의 쿠버네티스 `componentconfigs` 문서에서 찾아 볼 수 있다.
 다음은 각각의 지원하는 설정에 대한 문서이다.
@@ -314,9 +279,7 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 `minikube start` 명령어는 Minikube로 부르는 "[kubectl 컨텍스트](/docs/reference/generated/kubectl/kubectl-commands/#-em-set-context-em-)" 를 생성한다. 
 이 컨텍스트는 Minikube 클러스터와 통신하는 설정을 포함한다.
 
-Minikube는 이 컨텍스트를 자동적으로 기본으로 설정한다. 만약 미래에 이것을 바꾸고 싶다면 
-
-`kubectl config use-context minikube`을 실행하자.
+Minikube는 이 컨텍스트를 자동적으로 기본으로 설정한다. 만약 미래에 이것을 바꾸고 싶다면 `kubectl config use-context minikube`을 실행하자.
 
 혹은 각 명령어를 `kubectl get pods --context=minikube`처럼 컨텍스트를 전달하십시오.
 
@@ -353,7 +316,7 @@ Minikube VM은 tmpfs에서 부트하는데, 매우 많은 디렉터리가 재부
 그러나, Minikube는 다음의 호스트 디렉터리 아래 파일은 유지하도록 설정되어 있다.
 
 * `/data`
-* `/var/lib/minikube`
+* `/var/lib/rinikube`
 * `/var/lib/docker`
 
 이것은 `/data` 디렉터리에 데이터를 보존하도록 한 퍼시스턴트 볼륨 환경설정의 예이다.
@@ -373,7 +336,7 @@ spec:
 ```
 
 ## 호스트 폴더 마운트
-어떤 드라이버는 VM 안에 호스트 폴더를 마운트하여 VM과 호스트 사이에 쉽게 파일을 공유할 수 있게 한다. 이들은 지금 설정할 수 없고 사용하는 드라이버나 운영체제에 따라 다르다.
+몇몇 드라이버는 VM 안에 호스트 폴더를 마운트하여 VM과 호스트 사이에 쉽게 파일을 공유할 수 있게 한다. 이들은 지금 설정할 수 없고 사용하는 드라이버나 운영체제에 따라 다르다.
 
 {{< note >}}
 호스트 폴더 공유는 KVM 드라이버에서 아직 구현되어 있지 않다.
@@ -397,8 +360,7 @@ spec:
 
 Minikube에서 커스텀 애드온을 적절히 시작하고 재시작할 수 있으려면, 
 Minikube와 함께 시작하려는 애드온을 `~/.minikube/addons` 디렉터리에 두자.
-폴더 내부의 애드온은 Minikube VM으로 이동되어
-Minikube가 시작하거나 재시작될 때에 함께 실행된다.
+폴더 내부의 애드온은 Minikube VM으로 이동되어 Minikube가 시작하거나 재시작될 때에 함께 실행된다.
 
 ## HTTP 프록시 환경에서 Minikube 사용
 
@@ -411,7 +373,7 @@ HTTP 프록시 내부라면, Docker에서 프록시 설정을 해야 한다.
 예를 들어:
 
 ```shell
-minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
+$ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
                  --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
@@ -419,7 +381,7 @@ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
 이 IP 주소에 대해 프록시 설정을 지나치게 하려면 no_proxy 설정을 수정해야 한다. 다음과 같이 할 수 있다.
 
 ```shell
-export no_proxy=$no_proxy,$(minikube ip)
+$ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## 알려진 이슈

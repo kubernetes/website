@@ -1,5 +1,4 @@
 ---
-title: Les conteneurs
-description: Conteneurs Kubernetes
+title: "Les conteneurs"
 weight: 40
 ---

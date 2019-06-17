@@ -1,6 +1,5 @@
 ---
 title: Aide-mémoire kubectl
-description: Cheatsheet kubectl aide-mémoire
 content_template: templates/concept
 card:
   name: reference

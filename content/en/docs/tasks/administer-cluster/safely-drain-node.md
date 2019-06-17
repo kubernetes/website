@@ -4,12 +4,13 @@ reviewers:
 - mml
 - foxish
 - kow3ns
-title: Safely Drain a Node while Respecting the PodDisruptionBudget
+title: Safely Drain a Node while Respecting Application SLOs
 content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to safely drain a machine, respecting the PodDisruptionBudget you have defined.
+This page shows how to safely drain a machine, respecting the application-level
+disruption SLOs you have specified using PodDisruptionBudget.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -45,10 +46,11 @@ documentation for more details.
 
 When `kubectl drain` returns successfully, that indicates that all of
 the pods (except the ones excluded as described in the previous paragraph)
-have been safely evicted (respecting the desired graceful termination period,
-and respecting the PodDisruptionBudget you have defined). It is then safe to
-bring down the node by powering down its physical machine or, if running on a
-cloud platform, deleting its virtual machine.
+have been safely evicted (respecting the desired graceful
+termination period, and without violating any application-level
+disruption SLOs). It is then safe to bring down the node by powering
+down its physical machine or, if running on a cloud platform, deleting its
+virtual machine.
 
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
 

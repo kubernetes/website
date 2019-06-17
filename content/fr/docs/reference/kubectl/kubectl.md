@@ -1,6 +1,5 @@
 ---
 title: kubectl
-description: Référence kubectl
 notitle: true
 ---
 ## kubectl
@@ -10,9 +9,9 @@ kubectl contrôle le manager d'un cluster Kubernetes
 ### Synopsis
 
 
-kubectl contrôle le manager d'un cluster Kubernetes.
+kubectl contrôle le manager d'un cluster Kubernetes. 
 
-Vous trouverez plus d'informations ici : https://kubernetes.io/fr/docs/reference/kubectl/overview/
+Vous trouverez plus d'informations ici : https://kubernetes.io/docs/reference/kubectl/overview/
 
 ```
 kubectl [flags]
@@ -312,3 +311,4 @@ kubectl [flags]
 * [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - Marque un nœud comme assignable (schedulable)
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Affiche les informations de version du client et du serveur
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Expérimental : Attend une condition particulière sur une ou plusieurs ressources
+

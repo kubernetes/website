@@ -13,10 +13,7 @@ tags:
 ---
  Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
 
-<!--more-->
+<!--more--> 
 
-If your Kubernetes cluster uses etcd as its backing store, make sure you have a
-[back up](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) plan
-for those data.
+Always have a backup plan for etcd's data for your Kubernetes cluster. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
 
-You can find in-depth information about etcd in the offical [documentation](https://etcd.io/docs/).

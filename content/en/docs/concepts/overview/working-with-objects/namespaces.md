@@ -25,9 +25,7 @@ teams, or projects.  For clusters with a few to tens of users, you should not
 need to create or think about namespaces at all.  Start using namespaces when you
 need the features they provide.
 
-Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes 
-resource can only be in one namespace.
+Namespaces provide a scope for names.  Names of resources need to be unique within a namespace, but not across namespaces.
 
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 
@@ -48,7 +46,7 @@ for namespaces](/docs/admin/namespaces).
 You can list the current namespaces in a cluster using:
 
 ```shell
-kubectl get namespace
+kubectl get namespaces
 ```
 ```
 NAME          STATUS    AGE

@@ -1,6 +1,7 @@
 **/.DS_Store
 **/desktop.ini
 _site/**
+.sass-cache/**
 CNAME
 .travis.yml
 .idea/

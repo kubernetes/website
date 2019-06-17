@@ -1,6 +1,5 @@
 ---
 title: Support de JSONPath
-description: JSONPath kubectl Kubernetes
 content_template: templates/concept
 weight: 25
 ---

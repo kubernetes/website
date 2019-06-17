@@ -1,5 +1,5 @@
 ---
-title: 이미지
+title: Images
 content_template: templates/concept
 weight: 10
 ---
@@ -202,7 +202,7 @@ Docker는 프라이빗 레지스트리를 위한 키를 `$HOME/.dockercfg` 또�
 프라이빗 이미지를 사용하는 파드를 생성하여 검증한다. 예를 들면 다음과 같다.
 
 ```yaml
-kubectl apply -f - <<EOF
+kubectl create -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -275,19 +275,8 @@ GCE 및 자동 노드 교체를 수행하는 다른 클라우드 제공자에 �
 대문자 값을 적절히 대체하여, 다음 커맨드를 실행한다.
 
 ```shell
-cat <<EOF > ./kustomization.yaml
-secretGenerator:
-- name: myregistrykey
-  type: docker-registry
-  literals:
-  - docker-server=DOCKER_REGISTRY_SERVER
-  - docker-username=DOCKER_USER
-  - docker-password=DOCKER_PASSWORD
-  - docker-email=DOCKER_EMAIL
-EOF
-
-kubectl apply -k .
-secret/myregistrykey-66h7d4d986 created
+kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+secret/myregistrykey created.
 ```
 
 만약 Docer 자격 증명 파일이 이미 존재한다면, 위의 명령을 사용하지 않고, 
@@ -307,8 +296,7 @@ secret/myregistrykey-66h7d4d986 created
 이제, `imagePullSecrets` 섹션을 파드의 정의에 추가함으로써 해당 시크릿을 
 참조하는 파드를 생성할 수 있다.
 
-```shell
-cat <<EOF > pod.yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -320,12 +308,6 @@ spec:
       image: janedoe/awesomeapp:v1
   imagePullSecrets:
     - name: myregistrykey
-EOF
-
-cat <<EOF >> ./kustomization.yaml
-resources:
-- pod.yaml
-EOF
 ```
 
 이것은 프라이빗 레지스트리를 사용하는 각 파드에 대해서 수행될 필요가 있다.

@@ -118,7 +118,7 @@ kube-proxy [flags]
       <td colspan="2">--healthz-bind-address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0:10256</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address for the health check server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address and port for the health check server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces)</td>
     </tr>
 
     <tr>
@@ -244,14 +244,7 @@ kube-proxy [flags]
       <td colspan="2">--metrics-bind-address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 127.0.0.1:10249</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address for the metrics server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces)</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--metrics-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10249</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The port to bind the metrics server. Use 0 to disable.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address and port for the metrics server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces)</td>
     </tr>
 
     <tr>

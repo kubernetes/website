@@ -1,24 +1,22 @@
 ---
-title: Workloads
-id: workloads
-date: 2019-02-13
+title: Workload
+id: workload
+date: 2019-02-12
 full_link: /docs/concepts/workloads/
 short_description: >
-   Workloads are objects you use to manage and run your containers on the cluster.
+  A set of applications for processing information to serve a purpose that is valuable to a single user or group of users.
 
-aka: 
+aka:
 tags:
-- fundamental
-- core-object
 - workload
 ---
-  Workloads are objects you use to manage and run your containers on the cluster.
+A workload consists of a system of services or applications that can run to fulfill a
+task or carry out a business process.
 
-<!--more--> 
+<!--more-->
 
-Kubernetes performs the 
-deployment and updates the workload with the current state of the application.
-Workloads include the DaemonSet, Deployments, Jobs, Pods, ReplicaSet, ReplicationController, and StatefulSet objects.
+Alongside the computer code that runs to carry out the task, a workload also entails
+the infrastructure resources that actually run that code.
 
 For example, a workload that has a web element and a database element might run the
 database in one {{< glossary_tooltip term_id="StatefulSet" >}} of
@@ -26,3 +24,5 @@ database in one {{< glossary_tooltip term_id="StatefulSet" >}} of
 a {{< glossary_tooltip term_id="Deployment" >}} that consists of many web app
 {{< glossary_tooltip text="pods" term_id="pod" >}}, all alike.
 
+The organisation running this workload may well have other workloads that together
+provide a valuable outcome to its users.

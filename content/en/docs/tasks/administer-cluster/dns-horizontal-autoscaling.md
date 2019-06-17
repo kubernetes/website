@@ -12,8 +12,6 @@ Kubernetes cluster.
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* This guide assumes your nodes use the AMD64 or Intel 64 CPU architecture
-
 * Make sure the [DNS feature](/docs/concepts/services-networking/dns-pod-service/) itself is enabled.
 
 * Kubernetes version 1.4.0 or later is recommended.
@@ -24,12 +22,9 @@ Kubernetes cluster.
 
 ## Determining whether DNS horizontal autoscaling is already enabled
 
-List the {{< glossary_tooltip text="Deployments" term_id="deployment" >}}
-in your cluster in the kube-system namespace:
+List the Deployments in your cluster in the kube-system namespace:
 
-```shell
-kubectl get deployment --namespace=kube-system
-```
+    kubectl get deployment --namespace=kube-system
 
 The output is similar to this:
 
@@ -46,9 +41,7 @@ already enabled, and you can skip to
 
 List the Deployments in your cluster in the kube-system namespace:
 
-```shell
-kubectl get deployment --namespace=kube-system
-```
+    kubectl get deployment --namespace=kube-system
 
 The output is similar to this:
 
@@ -65,9 +58,7 @@ ReplicationController instead of a Deployment. So if you don't see kube-dns,
 or a similar name, in the preceding output, list the ReplicationControllers in
 your cluster in the kube-system namespace:
 
-```shell
-kubectl get rc --namespace=kube-system
-```
+    kubectl get rc --namespace=kube-system
 
 The output is similar to this:
 
@@ -107,9 +98,7 @@ In the file, replace `<SCALE_TARGET>` with your scale target.
 Go to the directory that contains your configuration file, and enter this
 command to create the Deployment:
 
-```shell
-kubectl apply -f dns-horizontal-autoscaler.yaml
-```
+    kubectl apply -f dns-horizontal-autoscaler.yaml
 
 The output of a successful command is:
 
@@ -119,11 +108,9 @@ DNS horizontal autoscaling is now enabled.
 
 ## Tuning autoscaling parameters
 
-Verify that the dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} exists:
+Verify that the dns-autoscaler ConfigMap exists:
 
-```shell
-kubectl get configmap --namespace=kube-system
-```
+    kubectl get configmap --namespace=kube-system
 
 The output is similar to this:
 
@@ -134,15 +121,11 @@ The output is similar to this:
 
 Modify the data in the ConfigMap:
 
-```shell
-kubectl edit configmap dns-autoscaler --namespace=kube-system
-```
+    kubectl edit configmap dns-autoscaler --namespace=kube-system
 
 Look for this line:
 
-```yaml
-linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
-```
+    linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 
 Modify the fields according to your needs. The "min" field indicates the
 minimal number of DNS backends. The actual number of backends number is
@@ -169,9 +152,7 @@ use depends on different conditions.
 
 This option works for all situations. Enter this command:
 
-```shell
-kubectl scale deployment --replicas=0 dns-autoscaler --namespace=kube-system
-```
+    kubectl scale deployment --replicas=0 dns-autoscaler --namespace=kube-system
 
 The output is:
 
@@ -179,9 +160,7 @@ The output is:
 
 Verify that the replica count is zero:
 
-```shell
-kubectl get deployment --namespace=kube-system
-```
+    kubectl get deployment --namespace=kube-system
 
 The output displays 0 in the DESIRED and CURRENT columns:
 
@@ -195,9 +174,7 @@ The output displays 0 in the DESIRED and CURRENT columns:
 This option works if dns-autoscaler is under your own control, which means
 no one will re-create it:
 
-```shell
-kubectl delete deployment dns-autoscaler --namespace=kube-system
-```
+    kubectl delete deployment dns-autoscaler --namespace=kube-system
 
 The output is:
 
@@ -205,7 +182,7 @@ The output is:
 
 ### Option 3: Delete the dns-autoscaler manifest file from the master node
 
-This option works if dns-autoscaler is under control of the (deprecated)
+This option works if dns-autoscaler is under control of the
 [Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md),
 and you have write access to the master node.
 
@@ -258,6 +235,6 @@ is under consideration as a future development.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn more about the
+Learn more about the
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 {{% /capture %}}

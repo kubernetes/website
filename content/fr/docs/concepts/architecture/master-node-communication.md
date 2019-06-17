@@ -1,7 +1,8 @@
 ---
+reviewers:
+- sieben
 title: Communication Master-Node
 content_template: templates/concept
-description: Communication Master-Node Kubernetes
 weight: 20
 ---
 

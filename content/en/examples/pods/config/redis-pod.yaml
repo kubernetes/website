@@ -5,10 +5,7 @@ metadata:
 spec:
   containers:
   - name: redis
-    image: redis:5.0.4
-    command:
-      - redis-server
-      - "/redis-master/redis.conf"
+    image: kubernetes/redis:v1
     env:
     - name: MASTER
       value: "true"

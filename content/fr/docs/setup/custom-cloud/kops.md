@@ -1,6 +1,5 @@
 ---
 title: Installer Kubernetes sur AWS avec kops
-description: Installation Kubernetes avec kops sur AWS
 content_template: templates/concept
 ---
 

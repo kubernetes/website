@@ -1,5 +1,5 @@
 ---
-title: Télécharger Kubernetes
-description: Téléchargement Kubernetes release
+title: "Télécharger Kubernetes"
 weight: 20
 ---
+
