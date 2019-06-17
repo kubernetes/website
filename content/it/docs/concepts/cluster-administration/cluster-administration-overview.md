@@ -10,9 +10,10 @@ Presuppone una certa dimestichezza con i core Kubernetes [concetti](/docs/concep
 {{% /capture %}}
 
 {{% capture body %}}
-## Progettare un cluster
+## Planning a cluster
 
-Consulta le guide di [Setup](/docs/setup) per avere degli esempi su come pianificare, impostare e configurare cluster Kubernetes. Le soluzioni elencate in questo articolo sono chiamate *distribuzioni*.
+Consulta le guide in [Scelta della soluzione giusta](/docs/setup/pick-right-solution/) per esempio su come pianificare, 
+impostare e configurare i cluster di Kubernetes. Le soluzioni elencate in questo articolo sono chiamate *distros*.
 
 Prima di scegliere una guida, ecco alcune considerazioni:
 

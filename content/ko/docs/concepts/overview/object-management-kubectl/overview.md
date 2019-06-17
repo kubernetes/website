@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스 오브젝트 관리
 content_template: templates/concept
-weight: 15
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -176,10 +176,9 @@ kubectl apply -R -f configs/
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-- [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기 (명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기 (선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Kustomize를 사용한 쿠버네티스 오브젝트 관리하기 (선언형)](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [명령형 명령어를 이용한 쿠버네티스 오브젝트 관리하기](/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기 (명령형)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+- [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기 (선언형)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl 서적](https://kubectl.docs.kubernetes.io)
 - [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
