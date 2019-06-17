@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-Un ReplicaSet a pour but de maintenir un ensemble stable de Pods à un moment donné.
+Un ReplicaSet (ensemble de réplicas en français) a pour but de maintenir un ensemble stable de Pods à un moment donné.
 Cet objet est souvent utilisé pour garantir la disponibilité d'un certain nombre identique de Pods. 
 
 {{% /capture %}}
@@ -65,7 +65,6 @@ Vous pouvez également vérifier l'état du ReplicaSet :
 kubectl describe rs/frontend
 ```
 
-And you will see output similar to:
 Et vous verrez une sortie similaire à :
 ```shell
 Name:		frontend
@@ -256,7 +255,7 @@ Si vous ne spécifiez pas `.spec.replicas`, la valeur par défaut est 1.
 
 Pour supprimer un ReplicaSet et tous ses pods, utilisez [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). The [Garbage collector](/docs/concepts/workloads/controllers/garbage-collection/) supprime automatiquement tous les pods associés par défaut.
 
-Lors de l’utilisation de l’API REST ou de la bibliothèque `client-go`, vous devez définir` propagationPolicy` sur `Background` ou` Foreground` dans
+Lors de l’utilisation de l’API REST ou de la bibliothèque `client-go`, vous devez définir `propagationPolicy` sur `Background` ou `Foreground` dans
 l'option -d.
 Par exemple :
 ```shell
