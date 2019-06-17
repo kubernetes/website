@@ -61,7 +61,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 
 Starting from v1.13, you can migrate a service account volume to a projected volume when
 the `BoundServiceAccountTokenVolume` feature gate is enabled.
-The service account token will expire after 1 hour or the pod is deleted. See more details about [projected volume](docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection).
+The service account token will expire after 1 hour or the pod is deleted. See more details about [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 
 ### Token Controller
 

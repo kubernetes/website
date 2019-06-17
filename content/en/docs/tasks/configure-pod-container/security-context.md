@@ -79,15 +79,15 @@ kubectl exec -it security-context-demo -- sh
 In your shell, list the running processes:
 
 ```shell
-ps aux
+ps
 ```
 
 The output shows that the processes are running as user 1000, which is the value of `runAsUser`:
 
 ```shell
-USER   PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
-1000     1  0.0  0.0   4336   724 ?     Ss   18:16   0:00 /bin/sh -c node server.js
-1000     5  0.2  0.6 772124 22768 ?     Sl   18:16   0:00 node server.js
+PID   USER     TIME  COMMAND
+    1 1000      0:00 sleep 1h
+    6 1000      0:00 sh
 ...
 ```
 

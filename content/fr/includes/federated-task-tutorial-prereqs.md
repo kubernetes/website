@@ -1,0 +1,3 @@
+Ce guide suppose que vous avez une installation en cours de Kubernetes Cluster Federation.
+Sinon, consultez le [guide d'administration de fédération](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) pour apprendre à créer une fédération de cluster (ou demandez à votre administrateur de cluster de le faire pour vous).
+D'autres didacticiels, tels que le [didacticiel Federated Kubernetes de Kelsey Hightower](https://github.com/kelseyhightower/kubernetes-cluster-federation), peuvent également vous aider à créer un cluster fédéré Kubernetes.

@@ -140,7 +140,7 @@ The `kubelet` has the following default hard eviction threshold:
 
 The `kubelet` evaluates eviction thresholds per its configured housekeeping interval.
 
-* `housekeeping-interval` is the interval between container housekeepings.
+* `housekeeping-interval` is the interval between container housekeepings which defaults to `10s`.
 
 ### Node Conditions
 

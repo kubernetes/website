@@ -536,7 +536,7 @@ as described in the
 
 ## Removing a cluster from a federation
 
-To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/admin/kubefed_unjoin/)
+To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/reference/setup-tools/kubefed/kubefed_unjoin/)
 command with the cluster name and the federation's
 `--host-cluster-context`:
 

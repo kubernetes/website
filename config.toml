@@ -212,3 +212,46 @@ contentDir = "content/de"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+
+[languages.es]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Español"
+weight = 9
+contentDir = "content/es"
+
+[languages.es.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+[languages.pt]
+title = "Kubernetes"
+description = "Orquestração de contêineres em nível de produção"
+languageName ="Português"
+weight = 9
+contentDir = "content/pt"
+
+[languages.pt.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+[languages.id]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Bahasa Indonesia"
+weight = 10
+contentDir = "content/id"
+
+[languages.id.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+[languages.hi]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Hindi"
+weight = 11
+contentDir = "content/hi"

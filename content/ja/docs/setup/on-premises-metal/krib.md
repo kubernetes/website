@@ -8,7 +8,7 @@ author: Rob Hirschfeld (zehicle)
 
 This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision) using only its Content packages and *kubeadm*. 
 
-Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform. While [DRP can be used to invoke](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
+Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform. While [DRP can be used to invoke](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](/docs/setup/custom-cloud/kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
 
 {{< note >}}
 KRIB is not a _stand-alone_ installer: Digital Rebar templates drive a standard *[kubeadm](/docs/admin/kubeadm/)* configuration that manages the Kubernetes installation with the [Digital Rebar cluster pattern](https://provision.readthedocs.io/en/tip/doc/arch/cluster.html#rs-cluster-pattern) to elect leaders _without external supervision_.
@@ -92,4 +92,4 @@ When running the reset Workflow, be sure not to accidentally target your product
 ## フィードバック
 
 * Slack Channel: [#community](https://rackn.slack.com/messages/community/)
-* [GitHub Issues](https://github.com/digital/provision/issues)
+* [GitHub Issues](https://github.com/digitalrebar/provision/issues)

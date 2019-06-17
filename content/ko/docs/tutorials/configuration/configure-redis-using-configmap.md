@@ -11,16 +11,18 @@ content_template: templates/tutorial
 
 {{% capture objectives %}}
 
-* 컨피그 맵을 생성한다.
-* 컨피그 맵을 사용해서 파드 명세를 생성한다.
-* 파드를 생성한다.
-* 설정이 올바르게 적용되었는지 검증한다.
+* 다음을 포함하는 `kustomization.yaml` 파일을 생성한다.
+  * 컨피그 맵 생성자
+  * 컨피그 맵을 사용하는 파드 리소스
+* `kubectl apply -k ./`를 실행하여 작업한 디렉토리를 적용한다.
+* 구성이 잘 적용되었는지 확인한다.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* 예시는 `kubectl` 1.14 이상 버전에서 동작한다.
 * [컨피그 맵을 사용해서 컨테이너 설정하기](/docs/tasks/configure-pod-container/configure-pod-configmap/)를 이해한다.
 
 {{% /capture %}}
@@ -32,49 +34,48 @@ content_template: templates/tutorial
 
 아래의 단계를 통해서 컨피그 맵에 저장된 데이터를 사용해서 Redis 캐시를 설정할 수 있다.
 
-첫째, `redis-config` 파일에서 컨피그 맵을 생성한다.
+첫째, `redis-config` 파일에서 컨피그 맵을 포함한 `kustomization.yaml`를 생성한다.
 
 {{< codenew file="pods/config/redis-config" >}}
 
 ```shell
 curl -OL https://k8s.io/examples/pods/config/redis-config
-kubectl create configmap example-redis-config --from-file=redis-config
+
+cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: example-redis-config
+  files:
+  - redis-config
+EOF
 ```
 
-```shell
-configmap/example-redis-config created
-```
-
-생성된 컨피그 맵을 점검한다.
-
-```shell
-kubectl get configmap example-redis-config -o yaml
-```
-
-```yaml
-apiVersion: v1
-data:
-  redis-config: |
-    maxmemory 2mb
-    maxmemory-policy allkeys-lru
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-03-30T18:14:41Z
-  name: example-redis-config
-  namespace: default
-  resourceVersion: "24686"
-  selfLink: /api/v1/namespaces/default/configmaps/example-redis-config
-  uid: 460a2b6e-f6a3-11e5-8ae5-42010af00002
-```
-
-이제, 컨피그 맵에 저장된 설정 데이터를 사용하는 파드 명세를 생성한다.
+`kustomization.yaml`에 파드 리소스 구성을 추가한다.
 
 {{< codenew file="pods/config/redis-pod.yaml" >}}
 
-파드를 생성한다.
+```shell
+curl -OL https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
+
+cat <<EOF >>./kustomization.yaml
+resources:
+- redis-pod.yaml
+EOF
+```
+
+컨피그 맵과 파드 개체를 생성하도록 kustomization 디렉토리를 적용한다.
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/config/redis-pod.yaml
+kubectl apply -k .
+```
+
+생성된 오브젝트를 확인한다.
+```shell
+> kubectl get -k .
+NAME                                        DATA   AGE
+configmap/example-redis-config-dgh9dg555m   1      52s
+
+NAME        READY   STATUS    RESTARTS   AGE
+pod/redis   1/1     Running   0          52s
 ```
 
 이 예제에서는 설정 볼륨이 `/redis-master`에 마운트되어 있다.
@@ -82,7 +83,8 @@ kubectl create -f https://k8s.io/examples/pods/config/redis-pod.yaml
 따라서, Redis 설정을 위한 파일 경로는 `/redis-master/redis.conf`이다.
 이곳이 이미지가 Redis 마스터를 위한 설정 파일을 찾는 곳이다.
 
-설정이 올바르게 적용되었는지 확인하기 위해서, `kubectl exec`를 사용해 파드 속에서 `redis-cli` 툴을 실행해 본다.
+설정이 올바르게 적용되었는지 확인하기 위해서,
+`kubectl exec`를 사용해 파드 속에서 `redis-cli` 툴을 실행해 본다.
 
 ```shell
 kubectl exec -it redis redis-cli

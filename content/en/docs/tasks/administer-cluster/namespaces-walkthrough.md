@@ -273,8 +273,12 @@ kubectl get deployment
 ```
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 cattle    5         5         5            5           10s
+```
 
+```shell
 kubectl get pods -l run=cattle
+```
+```
 NAME                      READY     STATUS    RESTARTS   AGE
 cattle-2263376956-41xy6   1/1       Running   0          34s
 cattle-2263376956-kw466   1/1       Running   0          34s

@@ -3,6 +3,7 @@ Register the new control-plane node into the ClusterStatus maintained in the kub
 
 ### Synopsis
 
+
 Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
 
 ```
@@ -22,7 +23,22 @@ kubeadm join phase control-plane-join update-status [flags]
 
 ### Options inherited from parent commands
 
-```
-      --rootfs string   [EXPERIMENTAL] The path to the 'real' host root filesystem.
-```
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 

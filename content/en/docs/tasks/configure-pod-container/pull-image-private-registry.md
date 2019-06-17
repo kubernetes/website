@@ -131,13 +131,13 @@ The output is similar to this:
 
 ```yaml
 apiVersion: v1
-data:
-  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
 kind: Secret
 metadata:
   ...
   name: regcred
   ...
+data:
+  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
 type: kubernetes.io/dockerconfigjson
 ```
 
@@ -153,7 +153,7 @@ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base
 The output is similar to this:
 
 ```json
-{"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
+{"auths":{"your.private.registry.example.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 ```
 
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
@@ -187,7 +187,7 @@ wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yam
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
 
 ```none
-janedoe/jdoe-private:v1
+your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
 To pull the image from the private registry, Kubernetes needs credentials.
@@ -206,6 +206,7 @@ kubectl get pod private-reg
 
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn more about [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
+* Learn more about [adding image pull secrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * See [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
 * See [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core).
 * See the `imagePullSecrets` field of [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).

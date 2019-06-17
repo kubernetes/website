@@ -4,14 +4,14 @@ reviewers:
 title: The Kubernetes API
 content_template: templates/concept
 weight: 30
-card: 
+card:
   name: concepts
   weight: 30
 ---
 
 {{% capture overview %}}
 
-Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md).
+Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
 API endpoints, resource types and samples are described in [API Reference](/docs/reference).
 
@@ -32,7 +32,7 @@ Kubernetes itself is decomposed into multiple components, which interact through
 
 In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following the [API deprecation policy](/docs/reference/using-api/deprecation-policy/).
 
-What constitutes a compatible change and how to change the API are detailed by the [API change document](https://git.k8s.io/community/contributors/devel/api_changes.md).
+What constitutes a compatible change and how to change the API are detailed by the [API change document](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md).
 
 ## OpenAPI and Swagger definitions
 
@@ -47,7 +47,7 @@ Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+
 Accept-Encoding | `gzip` (not passing this header is acceptable)
 
 Prior to 1.14, format-separated endpoints (`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)
-serve the OpenAPI spec in different formats. These endpoints are deprecated, and will be removed in Kubernetes 1.14.
+serve the OpenAPI spec in different formats. These endpoints are deprecated, and are removed in Kubernetes 1.14.
 
 **Examples of getting OpenAPI spec**:
 
@@ -59,7 +59,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
-Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve 
+Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve
 the [Swagger v1.2](http://swagger.io/) Kubernetes API spec at `/swaggerapi`.
 This endpoint is deprecated, and will be removed in Kubernetes 1.14.
 
@@ -69,7 +69,7 @@ To make it easier to eliminate fields or restructure resource representations, K
 multiple API versions, each at a different API path, such as `/api/v1` or
 `/apis/extensions/v1beta1`.
 
-We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
+We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-life and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
 
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and
@@ -77,7 +77,7 @@ software versioning.
 
 
 Different API versions imply different levels of stability and support.  The criteria for each level are described
-in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
+in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
 
 - Alpha level:
   - The version names contain `alpha` (e.g. `v1alpha1`).

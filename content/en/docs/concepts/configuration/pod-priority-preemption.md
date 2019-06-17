@@ -34,7 +34,7 @@ Kubernetes Version | Priority and Preemption State | Enabled by default
 1.9                | alpha                         | no
 1.10               | alpha                         | no
 1.11               | beta                          | yes
-1.14               | GA                            | yes
+1.14               | stable                        | yes
 
 {{< warning >}}In a cluster where not all users are trusted, a
 malicious user could create pods at the highest possible priorities, causing
@@ -143,7 +143,7 @@ cluster when they should use this PriorityClass.
 ### Example PriorityClass
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1beta1
+apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
   name: high-priority
@@ -334,9 +334,8 @@ preempted. Here's an example:
 If Pod Q were removed from its Node, the Pod anti-affinity violation would be
 gone, and Pod P could possibly be scheduled on Node N.
 
-We may consider adding cross Node preemption in future versions if we find an
-algorithm with reasonable performance. We cannot promise anything at this point,
-and cross Node preemption will not be considered a blocker for Beta or GA.
+We may consider adding cross Node preemption in future versions if there is
+enough demand and if we find an algorithm with reasonable performance.
 
 ## Debugging Pod Priority and Preemption
 

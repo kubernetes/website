@@ -15,5 +15,5 @@ tags:
 
 <!--more--> 
 
-쿠버네티스 클러스터 정보를 담고 있는 etcd 데이터에 대한 백업 계획은 필수이다. etcd에 대해 자세히 알아보려면 [etcd 문서](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)를 참고하라.
+쿠버네티스 클러스터 정보를 담고 있는 etcd 데이터에 대한 백업 계획은 필수이다. etcd에 대한 자세한 정보는, [etcd 문서](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)를 참고한다.
 
