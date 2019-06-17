@@ -126,7 +126,7 @@ $ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
 
 <!-- Save the following contents into file [`namespace-prod.json`](/examples/admin/namespace-prod.json) which describes a production namespace: -->
 
-将下列的内容保存到文件 [`namespace-prod.json`](/examples/admin/namespace-prod.json) 中，这些内容是对 development 命名空间的描述：
+将下列的内容保存到文件 [`namespace-prod.json`](/examples/admin/namespace-prod.json) 中，这些内容是对 production 命名空间的描述：
 
 {{< codenew language="json" file="admin/namespace-prod.json" >}}
 
