@@ -38,7 +38,7 @@ following steps:
 
 1. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
-   an additional static Pod manifest are generated for etcd.
+   an additional static Pod manifest is generated for etcd.
 
    Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
    watches this directory for Pods to create on startup.
@@ -69,8 +69,8 @@ following steps:
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
-   To install kube-dns instead of CoreDNS, the DNS addon has to configured in the kubeadm `ClusterConfiguration`. For more information about the configuration see the section
-   `Using kubeadm init with a configuration file` bellow.
+   To install kube-dns instead of CoreDNS, the DNS addon has to be configured in the kubeadm `ClusterConfiguration`. For more information about the configuration see the section
+   `Using kubeadm init with a configuration file` below.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
 ### Using init phases with kubeadm {#init-phases}
@@ -135,7 +135,7 @@ For information about enabling IPVS mode with kubeadm see:
 ### Passing custom flags to control plane components {#control-plane-flags}
 
 For information about passing flags to control plane components see:
-- [control-plane-flags](/docs/setup/independent/control-plane-flags/)
+- [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 ### Using custom images {#custom-images}
 
@@ -319,7 +319,7 @@ don't require an `-${ARCH}` suffix.
 ### Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/setup/independent/create-cluster-kubeadm/), you can parallelize the
+in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), you can parallelize the
 token distribution for easier automation. To implement this automation, you must
 know the IP address that the control-plane node will have after it is started.
 

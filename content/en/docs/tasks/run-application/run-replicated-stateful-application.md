@@ -59,11 +59,11 @@ and a StatefulSet.
 
 Create the ConfigMap from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
 configuration on the MySQL master and slaves.
@@ -79,11 +79,11 @@ based on information provided by the StatefulSet controller.
 
 Create the Services from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-services.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-services.yaml" >}}
 
 The Headless Service provides a home for the DNS entries that the StatefulSet
 controller creates for each Pod that's part of the set.
@@ -105,11 +105,11 @@ writes.
 
 Finally, create the StatefulSet from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
 
 You can watch the startup progress by running:
 
@@ -141,8 +141,8 @@ ordinal index.
 It waits until each Pod reports being Ready before starting the next one.
 
 In addition, the controller assigns each Pod a unique, stable name of the form
-`<statefulset-name>-<ordinal-index>`.
-In this case, that results in Pods named `mysql-0`, `mysql-1`, and `mysql-2`.
+`<statefulset-name>-<ordinal-index>`, which results in Pods named `mysql-0`,
+`mysql-1`, and `mysql-2`.
 
 The Pod template in the above StatefulSet manifest takes advantage of these
 properties to perform orderly startup of MySQL replication.

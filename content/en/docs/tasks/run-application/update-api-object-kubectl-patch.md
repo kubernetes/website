@@ -330,11 +330,9 @@ and
 
 {{% capture whatsnext %}}
 
-* [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/declarative-config/)
+* [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
+* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 
 {{% /capture %}}
-
-

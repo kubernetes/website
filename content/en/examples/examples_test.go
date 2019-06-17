@@ -89,9 +89,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	// Enable CustomPodDNS for testing
 	utilfeature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
-	case *admissionregistration.InitializerConfiguration:
-		// cluster scope resource
-		errors = ar_validation.ValidateInitializerConfiguration(t)
 	case *api.ConfigMap:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -320,6 +317,12 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"cpu-defaults-pod":         {&api.Pod{}},
 			"cpu-defaults-pod-2":       {&api.Pod{}},
 			"cpu-defaults-pod-3":       {&api.Pod{}},
+			"limit-mem-cpu-container":  {&api.LimitRange{}},
+			"limit-mem-cpu-pod":        {&api.LimitRange{}},
+			"limit-range-pod-1":        {&api.Pod{}},
+			"limit-range-pod-2":        {&api.Pod{}},
+			"limit-range-pod-3":        {&api.Pod{}},
+			"limit-memory-ratio-pod":   {&api.LimitRange{}},
 			"memory-constraints":       {&api.LimitRange{}},
 			"memory-constraints-pod":   {&api.Pod{}},
 			"memory-constraints-pod-2": {&api.Pod{}},
@@ -329,6 +332,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"memory-defaults-pod":      {&api.Pod{}},
 			"memory-defaults-pod-2":    {&api.Pod{}},
 			"memory-defaults-pod-3":    {&api.Pod{}},
+			"pvc-limit-lower":          {&api.PersistentVolumeClaim{}},
+			"pvc-limit-greater":        {&api.PersistentVolumeClaim{}},
 			"quota-mem-cpu":            {&api.ResourceQuota{}},
 			"quota-mem-cpu-pod":        {&api.Pod{}},
 			"quota-mem-cpu-pod-2":      {&api.Pod{}},
@@ -337,6 +342,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-objects-pvc-2":      {&api.PersistentVolumeClaim{}},
 			"quota-pod":                {&api.ResourceQuota{}},
 			"quota-pod-deployment":     {&apps.Deployment{}},
+			"storagelimits":            {&api.LimitRange{}},
 		},
 		"admin/sched": {
 			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
@@ -405,17 +411,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 		"configmap": {
-			"configmaps":            {&api.ConfigMap{}, &api.ConfigMap{}},
-			"configmap-multikeys":   {&api.ConfigMap{}},
+			"configmaps":          {&api.ConfigMap{}, &api.ConfigMap{}},
+			"configmap-multikeys": {&api.ConfigMap{}},
 		},
 		"controllers": {
-			"daemonset":        {&apps.DaemonSet{}},
-			"frontend":         {&apps.ReplicaSet{}},
-			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":              {&batch.Job{}},
-			"replicaset":       {&apps.ReplicaSet{}},
-			"replication":      {&api.ReplicationController{}},
-			"nginx-deployment": {&apps.Deployment{}},
+			"daemonset":               {&apps.DaemonSet{}},
+			"frontend":                {&apps.ReplicaSet{}},
+			"hpa-rs":                  {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":                     {&batch.Job{}},
+			"replicaset":              {&apps.ReplicaSet{}},
+			"replication":             {&api.ReplicationController{}},
+			"replication-nginx-1.7.9": {&api.ReplicationController{}},
+			"replication-nginx-1.9.2": {&api.ReplicationController{}},
+			"nginx-deployment":        {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
@@ -517,9 +525,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis":     {&api.Pod{}},
 		},
 		"policy": {
-			"privileged-psp": {&policy.PodSecurityPolicy{}},
-			"restricted-psp": {&policy.PodSecurityPolicy{}},
-			"example-psp":    {&policy.PodSecurityPolicy{}},
+			"privileged-psp":                                 {&policy.PodSecurityPolicy{}},
+			"restricted-psp":                                 {&policy.PodSecurityPolicy{}},
+			"example-psp":                                    {&policy.PodSecurityPolicy{}},
+			"zookeeper-pod-disruption-budget-maxunavailable": {&policy.PodDisruptionBudget{}},
+			"zookeeper-pod-disruption-budget-minunavailable": {&policy.PodDisruptionBudget{}},
 		},
 		"service": {
 			"nginx-service": {&api.Service{}},

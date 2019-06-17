@@ -27,7 +27,7 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
@@ -88,7 +88,7 @@ The purpose of the Storage Object in Use Protection feature is to ensure that Pe
 PVC is in active use by a pod when a pod object exists that is using the PVC.
 {{< /note >}}
 
-If a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is no longer no bound to a PVC.
+If a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is no longer bound to a PVC.
 
 You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
 
@@ -198,8 +198,8 @@ the following types of volumes:
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
 ``` yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gluster-vol-default
 provisioner: kubernetes.io/glusterfs
@@ -247,7 +247,7 @@ uses the PVC before the expansion can complete.
 Similar to other volume types - FlexVolume volumes can also be expanded when in-use by a pod.
 
 {{< note >}}
-**Note:** FlexVolume resize is possible only when the underlying driver supports resize.
+FlexVolume resize is possible only when the underlying driver supports resize.
 {{< /note >}}
 
 {{< note >}}
@@ -263,6 +263,7 @@ Expanding EBS volumes is a time consuming operation. Also, there is a per-volume
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
+* CSI
 * FC (Fibre Channel)
 * Flexvolume
 * Flocker
@@ -338,27 +339,28 @@ In the CLI, the access modes are abbreviated to:
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
-| Volume Plugin        | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
-| :---                 |     :---:    |    :---:    |    :---:     |
-| AWSElasticBlockStore | &#x2713;     | -           | -            |
-| AzureFile            | &#x2713;     | &#x2713;    | &#x2713;     |
-| AzureDisk            | &#x2713;     | -           | -            |
-| CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
-| Cinder               | &#x2713;     | -           | -            |
-| FC                   | &#x2713;     | &#x2713;    | -            |
-| Flexvolume           | &#x2713;     | &#x2713;    | depends on the driver |
-| Flocker              | &#x2713;     | -           | -            |
-| GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
-| Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
-| HostPath             | &#x2713;     | -           | -            |
-| iSCSI                | &#x2713;     | &#x2713;    | -            |
-| Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
-| NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
-| RBD                  | &#x2713;     | &#x2713;    | -            |
-| VsphereVolume        | &#x2713;     | -           | - (works when pods are collocated)  |
-| PortworxVolume       | &#x2713;     | -           | &#x2713;     |
-| ScaleIO              | &#x2713;     | &#x2713;    | -            |
-| StorageOS            | &#x2713;     | -           | -            |
+| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
+| :---                 | :---:                  | :---:                 | :---:        |
+| AWSElasticBlockStore | &#x2713;               | -                     | -            |
+| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;     |
+| AzureDisk            | &#x2713;               | -                     | -            |
+| CephFS               | &#x2713;               | &#x2713;              | &#x2713;     |
+| Cinder               | &#x2713;               | -                     | -            |
+| CSI                  | &depends on the driver | depends on the driver | depends on the driver |
+| FC                   | &#x2713;               | &#x2713;              | -            |
+| Flexvolume           | &#x2713;               | &#x2713;              | depends on the driver |
+| Flocker              | &#x2713;               | -                     | -            |
+| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -            |
+| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;     |
+| HostPath             | &#x2713;               | -                     | -            |
+| iSCSI                | &#x2713;               | &#x2713;              | -            |
+| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;     |
+| NFS                  | &#x2713;               | &#x2713;              | &#x2713;     |
+| RBD                  | &#x2713;               | &#x2713;              | -            |
+| VsphereVolume        | &#x2713;               | -                     | - (works when pods are collocated)  |
+| PortworxVolume       | &#x2713;               | -                     | &#x2713;     |
+| ScaleIO              | &#x2713;               | &#x2713;              | -            |
+| StorageOS            | &#x2713;               | -                     | -            |
 
 ### Class
 
@@ -437,8 +439,8 @@ The CLI will show the name of the PVC bound to the PV.
 Each PVC contains a spec and status, which is the specification and status of the claim.
 
 ```yaml
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: myclaim
 spec:
@@ -526,8 +528,8 @@ it won't be supported in a future Kubernetes release.
 Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: mypod
 spec:

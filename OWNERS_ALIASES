@@ -20,9 +20,11 @@ aliases:
     - dixudx
   sig-docs-de-owners: # Admins for German content
     - bene2k1
+    - mkorbi
     - rlenferink
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
+    - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
     - bradamant3
@@ -32,6 +34,7 @@ aliases:
     - jaredbhatti
     - jimangel
     - kbarnard10
+    - makoscafee
     - mistyhacks
     - rajakavitha1
     - ryanmcginnis
@@ -48,11 +51,18 @@ aliases:
     - stewart-yu
     - xiangpengzhao
     - zhangxiaoyu-zidif
+  sig-docs-es-owners: # Admins for Spanish content
+    - raelga
+    - alexbrand
+  sig-docs-es-reviews: # PR reviews for Spanish content
+    - raelga
+    - alexbrand
+    - glo-pena
+    - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
-    - sieben
+    - remyleone
     - perriea
     - rekcah78
-    - lledru
     - yastij
     - smana
     - rbenzair
@@ -62,10 +72,9 @@ aliases:
     - awkif
     - oussemos
   sig-docs-fr-reviews: # PR reviews for French content
-    - sieben
+    - remyleone
     - perriea
     - rekcah78
-    - lledru
     - yastij
     - smana
     - rbenzair
@@ -74,20 +83,34 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+  sig-docs-hi-owners: # Admins for Hindi content
+    - avidLearnerInProgress
+    - daminisatya
+    - mittalyashu
+    - Rajakavitha1
+  sig-docs-hi-reviews: # PR reviews for Hindi content
+    - avidLearnerInProgress
+    - daminisatya
+    - mittalyashu
+    - Rajakavitha1
+  sig-docs-id-owners: # Admins for Indonesian content
+    - girikuncoro
+    - irvifa
+  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - girikuncoro
+    - irvifa
   sig-docs-it-owners: # Admins for Italian content
     - rlenferink
-    - lledru
     - micheleberardi
   sig-docs-it-reviews: # PR reviews for Italian content
     - rlenferink
-    - lledru
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content 
     - cstoku
     - nasa9084
     - tnir
     - zacharysarah
-  sig-docs-ja-reviews: # PR reviews for Italian content 
+  sig-docs-ja-reviews: # PR reviews for Japanese content 
     - cstoku
     - makocchi-git
     - MasayaAoyama
@@ -102,6 +125,7 @@ aliases:
     - ClaudiaJKang
     - gochist
     - ianychoi
+    - seokho-son
   sig-docs-maintainers: # Website maintainers
     - bradamant3
     - chenopis
@@ -140,4 +164,9 @@ aliases:
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
-  
+  sig-docs-pt-owners: # Admins for Portuguese content
+    - femrtnz
+    - jcjesus
+  sig-docs-pt-reviews: # PR reviews for Portugese content
+    - femrtnz
+    - jcjesus

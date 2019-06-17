@@ -1,3 +1,4 @@
+{{ $_hugo_config := `{ "version": 1 }`}}
 {{- $id := .Get 0 -}}
 {{- if not $id -}}
 {{- errorf "missing id in capture" -}}

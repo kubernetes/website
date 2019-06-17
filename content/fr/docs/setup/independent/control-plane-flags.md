@@ -1,5 +1,6 @@
 ---
 title: Personnalisation de la configuration du control plane avec kubeadm
+description: Personnalisation de la configuration du control plane avec kubeadm
 content_template: templates/concept
 weight: 40
 ---
@@ -30,10 +31,9 @@ Pour plus de détails sur chaque champ de la configuration, vous pouvez accéder
 
 {{% capture body %}}
 
-## Paramètres pour l'API Server 
+## Paramètres pour l'API Server
 
-Pour plus de détails, voir la 
-[documentation de référence pour kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
+Pour plus de détails, voir la  [documentation de référence pour kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 
 Exemple d'utilisation:
 ```yaml
@@ -70,8 +70,7 @@ controllerManager:
 
 ## Paramètres pour le Scheduler
 
-Pour plus de détails, voir la 
-[documentation de référence pour kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
+Pour plus de détails, voir la [documentation de référence pour kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 Example usage:
 ```yaml

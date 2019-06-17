@@ -1,13 +1,17 @@
 ---
-titre : Hello Minikube
-content_template : templates/tutorial
-poids : 5
-menu :
-  principal :
-    titre : "Démarrer"
-    poids : 10
-    poste : >
-      <p>Prêt à vous salir les mains ? Créez un cluster Kubernetes simple qui exécute "Hello World" pour Node.js.</p>>.
+title: Hello Minikube
+content_template: templates/tutorial
+weight: 5
+description: Tutoriel Minikube
+menu:
+  main:
+    title: "Démarrer"
+    weight: 10
+    post: >
+      <p>Prêt à mettre les mains dans le cambouis ? Créez un cluster Kubernetes simple qui exécute "Hello World" avec Node.js.</p>>.
+card: 
+  name: tutorials
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -37,7 +41,7 @@ Ce tutoriel fournit une image de conteneur construite à partir des fichiers sui
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-Pour plus d'informations sur la commande `docker build`, lisez la documentation de[Docker](https://docs.docker.com/engine/reference/commandline/build/).
+Pour plus d'informations sur la commande `docker build`, lisez la documentation de [Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
 {{% /capture %}}
 
@@ -65,7 +69,7 @@ Pour plus d'informations sur la commande `docker build`, lisez la documentation 
 
 Un [*Pod*](/docs/concepts/workloads/pods/pods/pod/) Kubernetes est un groupe d'un ou plusieurs conteneurs, liés entre eux à des fins d'administration et de mise en réseau.
 Dans ce tutoriel, le Pod n'a qu'un seul conteneur.
-Un [*Déploiement*](/docs/concepts/concepts/charges de travail/contrôleurs/déploiement/) Kubernetes vérifie l'état de santé de votre Pod et redémarre le conteneur du Pod s'il se termine.
+Un [*Déploiement*](/docs/concepts/workloads/controllers/deployment/) Kubernetes vérifie l'état de santé de votre Pod et redémarre le conteneur du Pod s'il se termine.
 Les déploiements sont le moyen recommandé pour gérer la création et la mise à l'échelle des Pods.
 
 1. Utilisez la commande `kubectl create` pour créer un déploiement qui gère un Pod. Le
@@ -78,7 +82,7 @@ Pod utilise un conteneur basé sur l'image Docker fournie.
 2. Affichez le déploiement :
 
     ```shell
-    Déploiements de kubectl
+    kubectl get deployments
     ```
 
     Sortie :
@@ -116,11 +120,10 @@ Pod utilise un conteneur basé sur l'image Docker fournie.
 
 ## Créer un service
 
-Par défaut, le Pod n'est accessible que par son adresse IP interne dans le
-Kubernetes cluster.
-Pour rendre le conteneur `hello-node` accessible de l'extérieur du réseau virtuel Kubernetes, vous devez exposer le Pod comme un [*Service*](/docs/concepts/services-networking/service/) Kubernetes.
+Par défaut, le Pod n'est accessible que par son adresse IP interne dans le cluster Kubernetes.
+Pour rendre le conteneur `hello-node` accessible depuis l'extérieur du réseau virtuel Kubernetes, vous devez exposer le Pod comme un [*Service*](/docs/concepts/services-networking/service/) Kubernetes.
 
-1. Exposez le Pod à l'Internet public en utilisant la commande `kubectl expose` :
+1. Exposez le Pod à internet en utilisant la commande `kubectl expose` :
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
@@ -149,7 +152,7 @@ Pour rendre le conteneur `hello-node` accessible de l'extérieur du réseau virt
 3. Exécutez la commande suivante :
 
     ```shell
-    minikube service hello-node hello-node
+    minikube service hello-node
     ```
 
 4. Environnement Katacoda seulement : Cliquez sur le signe plus, puis cliquez sur **Sélectionner le port pour afficher sur l'hôte 1**.
@@ -158,11 +161,11 @@ Pour rendre le conteneur `hello-node` accessible de l'extérieur du réseau virt
 
     Cela ouvre une fenêtre de navigateur qui sert votre application et affiche le message `Hello World`.
 
-## Activer les addons
+## Activer les extensions
 
-Minikube dispose d'un ensemble d'addons intégrés qui peuvent être activés, désactivés et ouverts dans l'environnement Kubernetes local.
+Minikube dispose d'un ensemble d'extensions intégrées qui peuvent être activées, désactivées et ouvertes dans l'environnement Kubernetes local.
 
-1. Énumérer les addons actuellement pris en charge :
+1. Énumérer les extensions actuellement pris en charge :
 
     ```shell
     minikube addons list
@@ -188,7 +191,7 @@ Minikube dispose d'un ensemble d'addons intégrés qui peuvent être activés, d
     storage-provisioner: enabled
     ```
 
-2. Activez un addon, par exemple, `heapster` :
+2. Activez une extension, par exemple, `heapster` :
 
     ```shell
     minikube addons enable heapster
@@ -252,7 +255,7 @@ Si nécessaire, arrêtez la machine virtuelle Minikube (VM) :
 minikube stop
 ```
 
-Si nécessaire, effacez le Minikube VM :
+Si nécessaire, effacez la VM Minikube :
 
 ```shell
 minikube delete

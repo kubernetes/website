@@ -1,9 +1,9 @@
 ---
 title: Certificats
 content_template: templates/concept
+description: Certifications cluster Kubernetes
 weight: 20
 ---
-
 
 {{% capture overview %}}
 

@@ -26,8 +26,8 @@ architecture design doc for more details.
 A node's status contains the following information:
 
 * [Addresses](#addresses)
-* [Condition](#condition)
-* [Capacity](#capacity)
+* [Conditions](#condition)
+* [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
 Each section is described in detail below.
@@ -41,9 +41,9 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
 
 
-### Condition
+### Conditions {#condition}
 
-The `conditions` field describes the status of all `Running` nodes.
+The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
 
 | Node Condition | Description |
 |----------------|-------------|
@@ -60,7 +60,11 @@ The node condition is represented as a JSON object. For example, the following r
 "conditions": [
   {
     "type": "Ready",
-    "status": "True"
+    "status": "True",
+    "reason": "KubeletReady",
+    "message": "kubelet is posting ready status",
+    "lastHeartbeatTime": "2019-06-05T18:38:35Z",
+    "lastTransitionTime": "2019-06-05T11:41:27Z"
   }
 ]
 ```
@@ -88,10 +92,18 @@ Enabling this feature creates a small delay between the
 time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
 {{< /caution >}}
 
-### Capacity
+### Capacity and Allocatable {#capacity}
 
 Describes the resources available on the node: CPU, memory and the maximum
 number of pods that can be scheduled onto the node.
+
+The fields in the capacity block indicate the total amount of resources that a
+Node has. The allocatable block indicates the amount of resources that on a
+Node that are available to be consumed by normal Pods.
+
+You may read more about capacity and allocatable resources while learning how
+to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+on a Node.
 
 ### Info
 

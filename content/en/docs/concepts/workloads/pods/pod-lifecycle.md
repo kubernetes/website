@@ -39,9 +39,6 @@ Value | Description
 `Succeeded` | All Containers in the Pod have terminated in success, and will not be restarted.
 `Failed` | All Containers in the Pod have terminated, and at least one Container has terminated in failure. That is, the Container either exited with non-zero status or was terminated by the system.
 `Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
-`Completed` | The pod has run to completion as there's nothing to keep it running eg. Completed Jobs.
-`CrashLoopBackOff` | This means that one of the containers in the pod has exited unexpectedly, and perhaps with a non-zero error code even after restarting due to [restart policy](#restart-policy).
-
 
 ## Pod conditions
 
@@ -71,7 +68,7 @@ array has six possible fields:
   * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
     have started successfully;
   * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
-    due to lacking of resources or other constraints;
+    due to lack of resources or other constraints;
   * `ContainersReady`: all containers in the Pod are ready.
 
 
@@ -179,7 +176,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
    ...
    ```   
        
-* `Terminated`:  Indicates that the container completed its execution and has stopped running.A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
+* `Terminated`:  Indicates that the container completed its execution and has stopped running. A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
   
    ```yaml
    ...
@@ -196,7 +193,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 In order to add extensibility to Pod readiness by enabling the injection of
-extra feedbacks or signals into `PodStatus`, Kubernetes 1.11 introduced a
+extra feedback or signals into `PodStatus`, Kubernetes 1.11 introduced a
 feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
 You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
 conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
@@ -212,7 +209,7 @@ spec:
 status:
   conditions:
     - type: Ready  # this is a builtin PodCondition
-      status: "True"
+      status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
     - type: "www.example.com/feature-1"   # an extra PodCondition

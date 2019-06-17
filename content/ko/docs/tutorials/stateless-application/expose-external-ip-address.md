@@ -66,8 +66,8 @@ weight: 10
 
     결과는 아래와 같은 형태로 나타난다.
 
-        NAME         TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
-        my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
+        NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
+        my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
     참고: 만약 외부 IP 주소가 \<pending\>으로 표시되면 잠시 기다린 다음, 동일한 명령어를 다시 입력한다.
 

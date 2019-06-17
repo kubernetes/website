@@ -17,21 +17,21 @@ This page provides an overview of `Pod`, the smallest deployable object in the K
 {{% capture body %}}
 ## Understanding Pods
 
-A *Pod* is the basic building block of Kubernetes--the smallest and simplest unit in the Kubernetes object model that you create or deploy. A Pod represents a running process on your cluster.
+A *Pod* is the basic execution unit of a Kubernetes application--the smallest and simplest unit in the Kubernetes object model that you create or deploy. A Pod represents processes running on your {{< glossary_tooltip term_id="cluster" >}}.
 
-A Pod encapsulates an application container (or, in some cases, multiple containers), storage resources, a unique network IP, and options that govern how the container(s) should run. A Pod represents a unit of deployment: *a single instance of an application in Kubernetes*, which might consist of either a single container or a small number of containers that are tightly coupled and that share resources.
+A Pod encapsulates an application's container (or, in some cases, multiple containers), storage resources, a unique network IP, and options that govern how the container(s) should run. A Pod represents a unit of deployment: *a single instance of an application in Kubernetes*, which might consist of either a single {{< glossary_tooltip text="container" term_id="container" >}} or a small number of containers that are tightly coupled and that share resources.
 
-> [Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other container runtimes as well.
+[Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other container runtimes as well.
+
 
 Pods in a Kubernetes cluster can be used in two main ways:
 
 * **Pods that run a single container**. The "one-container-per-Pod" model is the most common Kubernetes use case; in this case, you can think of a Pod as a wrapper around a single container, and Kubernetes manages the Pods rather than the containers directly.
 * **Pods that run multiple containers that need to work together**. A Pod might encapsulate an application composed of multiple co-located containers that are tightly coupled and need to share resources. These co-located containers might form a single cohesive unit of service--one container serving files from a shared volume to the public, while a separate "sidecar" container refreshes or updates those files. The Pod wraps these containers and storage resources together as a single manageable entity.
-
 The [Kubernetes Blog](http://kubernetes.io/blog) has some additional information on Pod use cases. For more information, see:
 
-* [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
-* [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
+  * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
+  * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
 Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
 
@@ -41,7 +41,9 @@ Pods are designed to support multiple cooperating processes (as containers) that
 
 Note that grouping multiple co-located and co-managed containers in a single Pod is a relatively advanced use case. You should use this pattern only in specific instances in which your containers are tightly coupled. For example, you might have a container that acts as a web server for files in a shared volume, and a separate "sidecar" container that updates those files from a remote source, as in the following diagram:
 
-{{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" alt="example pod diagram" width="50%" >}}
+
+Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. Init containers run and complete before the app containers are started.
 
 Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
 
@@ -51,11 +53,11 @@ Each Pod is assigned a unique IP address. Every container in a Pod shares the ne
 
 #### Storage
 
-A Pod can specify a set of shared storage *volumes*. All containers in the Pod can access the shared volumes, allowing those containers to share data. Volumes also allow persistent data in a Pod to survive in case one of the containers within needs to be restarted. See [Volumes](/docs/concepts/storage/volumes/) for more information on how Kubernetes implements shared storage in a Pod.
+A Pod can specify a set of shared storage {{< glossary_tooltip text="Volumes" term_id="volume" >}}. All containers in the Pod can access the shared volumes, allowing those containers to share data. Volumes also allow persistent data in a Pod to survive in case one of the containers within needs to be restarted. See [Volumes](/docs/concepts/storage/volumes/) for more information on how Kubernetes implements shared storage in a Pod.
 
 ## Working with Pods
 
-You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a Node in your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, the pod is *evicted* for lack of resources, or the Node fails.
+You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a {{< glossary_tooltip term_id="node" >}} in your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, the Pod is *evicted* for lack of resources, or the Node fails.
 
 {{< note >}}
 Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
@@ -102,7 +104,8 @@ Rather than specifying the current desired state of all replicas, pod templates 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+* Learn more about [Pods](/docs/concepts/workloads/pods/pod/)
 * Learn more about Pod behavior:
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
-  * [Pod Lifecycle](../pod-lifecycle)
+  * [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/)
 {{% /capture %}}

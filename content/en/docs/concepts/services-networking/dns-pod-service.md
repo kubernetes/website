@@ -64,14 +64,6 @@ of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
 
 ## Pods
 
-### A Records
-
-When enabled, pods are assigned a DNS A record in the form of
-"`pod-ip-address.my-namespace.pod.cluster.local`".
-
-For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name
-of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
-
 ### Pod's hostname and subdomain fields
 
 Currently when a pod is created, its hostname is the Pod's `metadata.name` value.
@@ -149,7 +141,11 @@ The Endpoints object can specify the `hostname` for any endpoint addresses,
 along with its IP.
 
 {{< note >}}
-Because A records are not created for Pod names, `hostname` is required for the Pod's A record to be created. A Pod with no `hostname` but with `subdomain` only will only create the A record for the headless service (`default-subdomain.my-namespace.svc.cluster.local`), pointing to the Pod's IP address.
+Because A records are not created for Pod names, `hostname` is required for the Pod's A
+record to be created. A Pod with no `hostname` but with `subdomain` will only create the
+A record for the headless service (`default-subdomain.my-namespace.svc.cluster.local`),
+pointing to the Pod's IP address. Also, Pod needs to become ready in order to have a
+record unless `publishNotReadyAddresses=True` is set on the Service.
 {{< /note >}}
 
 ### Pod's DNS Policy
@@ -244,8 +240,11 @@ options ndots:2 edns0
 
 For IPv6 setup, search path and name server should be setup like this:
 
+```shell
+kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
-$ kubectl exec -it dns-example -- cat /etc/resolv.conf
+The output is similar to this:
+```shell
 nameserver fd00:79:30::a
 search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5

@@ -262,12 +262,12 @@ For example:
 
 ### Linux
 ```shell
-export  KUBECONFIG_SAVED=$KUBECONFIG
+export KUBECONFIG_SAVED=$KUBECONFIG
 ```
 ### Windows PowerShell
 ```shell
- $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
- ```
+$Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
+```
  The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
 colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you have
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
@@ -277,7 +277,7 @@ Temporarily append two paths to your `KUBECONFIG` environment variable. For exam
 
 ### Linux
 ```shell
-export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
+export KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
 ### Windows PowerShell
 ```shell
@@ -344,7 +344,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
 ### Windows Powershell
 ```shell
- $Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
+$Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
 ```
 
 View configuration information merged from all the files that are now listed
@@ -363,7 +363,7 @@ export KUBECONFIG=$KUBECONFIG_SAVED
 ```
 Windows PowerShell
 ```shell
- $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
+$Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
 {{% /capture %}}

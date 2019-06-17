@@ -1,30 +1,31 @@
 ---
 title: Création d'un Cluster a master unique avec kubeadm
+description: Création d'un Cluster a master unique avec kubeadm
 content_template: templates/task
 weight: 30
 ---
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum, 
-viable et conforme aux meilleures pratiques. Avec kubeadm, votre cluster 
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
+viable et conforme aux meilleures pratiques. Avec kubeadm, votre cluster
 doit passer les [tests de Conformance Kubernetes](https://kubernetes.io/blog/2017/10/software-conformance-certification).
- Kubeadm prend également en charge d'autres fonctions du cycle de vie, telles que les mises 
- à niveau, la rétrogradation et la gestion des 
- [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
+ Kubeadm prend également en charge d'autres fonctions du cycle de vie, telles que les mises
+ à niveau, la rétrogradation et la gestion des
+ [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
 
-Comme vous pouvez installer kubeadm sur différents types de machines (par exemple, un ordinateur 
+Comme vous pouvez installer kubeadm sur différents types de machines (par exemple, un ordinateur
 portable, un serveur,
 Raspberry Pi, etc.), il est parfaitement adapté à l'intégration avec des systèmes d'approvisionnement
 comme Terraform ou Ansible.
 
 La simplicité de kubeadm lui permet d'être utilisé dans une large gamme de cas d'utilisation:
 
-- Les nouveaux utilisateurs peuvent commencer par kubeadm pour essayer Kubernetes pour la première 
+- Les nouveaux utilisateurs peuvent commencer par kubeadm pour essayer Kubernetes pour la première
 fois.
-- Les utilisateurs familiarisés avec Kubernetes peuvent créer des clusters avec kubeadm et tester 
+- Les utilisateurs familiarisés avec Kubernetes peuvent créer des clusters avec kubeadm et tester
 leurs applications.
-- Les projets plus importants peuvent inclure kubeadm en tant que brique de base dans un système 
+- Les projets plus importants peuvent inclure kubeadm en tant que brique de base dans un système
 plus complexe pouvant également inclure d'autres outils d'installation.
 
 Kubeadm est conçu pour être un moyen simple pour les nouveaux utilisateurs de commencer à essayer
@@ -35,7 +36,7 @@ portée.
 
 Vous pouvez installer très facilement _kubeadm_ sur des systèmes d'exploitation prenant en charge
 l'installation des paquets deb ou rpm. Le SIG responsable de kubeadm,
-[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), 
+[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle),
 fournit ces paquets pré-construits pour vous,
 mais vous pouvez également les construire à partir des sources pour d'autres systèmes d'exploitation.
 
@@ -53,7 +54,7 @@ mais vous pouvez également les construire à partir des sources pour d'autres s
 | DynamicKubeletConfig      | alpha              |
 | Self-hosting              | alpha              |
 
-Les fonctionnalités globales de kubeadm sont **GA**. Quelques sous-fonctionnalités, comme 
+Les fonctionnalités globales de kubeadm sont **GA**. Quelques sous-fonctionnalités, comme
 la configuration, les API de fichiers sont toujours en cours de développement. L'implémentation de la création du cluster
 peut changer légèrement au fur et à mesure que l'outil évolue, mais la mise en œuvre globale devrait être assez stable.
 Toutes les commandes sous `kubeadm alpha` sont par définition prises en charge au niveau alpha.
@@ -85,14 +86,14 @@ problème de sécurité est trouvé. Voici les dernières versions de Kubernetes
 - 2 Go ou plus de RAM par machine. Si vous essayez moins cela laissera trop peu de place pour vos applications.
 - 2 processeurs ou plus sur le master
 - Connectivité réseau entre toutes les machines du cluster, qu'il soit public ou privé.
- 
+
 {{% /capture %}}
 
 {{% capture steps %}}
 
 ## Objectifs
 
-* Installer un cluster Kubernetes à master unique ou un 
+* Installer un cluster Kubernetes à master unique ou un
 [cluster à haute disponibilité](/docs/setup/independent/high-availability/)
 * Installez un réseau de pods sur le cluster afin que vos pods puissent se parler
 
@@ -106,7 +107,7 @@ Voir ["Installation de kubeadm"](/docs/setup/independent/install-kubeadm/).
 Si vous avez déjà installé kubeadm, lancez `apt-get update &&
 apt-get upgrade` ou `yum update` pour obtenir la dernière version de kubeadm.
 
-Lorsque vous effectuez une mise à niveau, la kubelet redémarre plusieurs fois au bout de quelques 
+Lorsque vous effectuez une mise à niveau, la kubelet redémarre plusieurs fois au bout de quelques
 secondes car elle attend dans une boucle de blocage
 kubeadm pour lui dire quoi faire. Ce fonctionnement est normal.
 Une fois que vous avez initialisé votre master, la kubelet s'exécute normalement.
@@ -123,7 +124,7 @@ fournisseur tiers que vous choisissez, vous devrez peut-être définir le `--pod
 une valeur spécifique au fournisseur. Voir [Installation d'un add-on réseau de pod](#pod-network).
 1. (Facultatif) Sauf indication contraire, kubeadm utilise l'interface réseau associée
 avec la passerelle par défaut pour annoncer l’IP du master. Pour utiliser une autre
-interface réseau, spécifiez l'option `--apiserver-advertise-address=<ip-address>` 
+interface réseau, spécifiez l'option `--apiserver-advertise-address=<ip-address>`
 à `kubeadm init`. Pour déployer un cluster Kubernetes en utilisant l’adressage IPv6, vous devez
  spécifier une adresse IPv6, par exemple `--apiserver-advertise-address=fd00::101`
 1. (Optional) Lancez `kubeadm config images pull` avant de faire `kubeadm init` pour vérifier la
@@ -132,19 +133,19 @@ connectivité aux registres gcr.io.
 Maintenant, lancez:
 
 ```bash
-kubeadm init <args> 
+kubeadm init <args>
 ```
 
 ### Plus d'information
 
-Pour plus d'informations sur les arguments de `kubeadm init`, voir le 
+Pour plus d'informations sur les arguments de `kubeadm init`, voir le
 [guide de référence kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/).
 
-Pour une liste complète des options de configuration, voir la 
+Pour une liste complète des options de configuration, voir la
 [documentation du fichier de configuration](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
-Pour personnaliser les composants du control plane, y compris l'affectation facultative d'IPv6 
-à la sonde liveness, pour les composants du control plane et du serveur etcd, fournissez des arguments 
+Pour personnaliser les composants du control plane, y compris l'affectation facultative d'IPv6
+à la sonde liveness, pour les composants du control plane et du serveur etcd, fournissez des arguments
 supplémentaires à chaque composant, comme indiqué dans les [arguments personnalisés](/docs/admin/kubeadm#custom-args).
 
 Pour lancer encore une fois `kubeadm init`, vous devez d'abord [détruire le cluster](#tear-down).
@@ -155,7 +156,7 @@ Déploiement ou DaemonSet pour `kube-proxy` et` kube-dns` sur le nœud. C’est 
 
 `kubeadm init` exécute d’abord une série de vérifications préalables pour s’assurer que la machine
 est prête à exécuter Kubernetes. Ces vérifications préalables exposent des avertissements et se terminent
- en cas d'erreur. Ensuite `kubeadm init` télécharge et installe les composants du control plane du cluster. 
+ en cas d'erreur. Ensuite `kubeadm init` télécharge et installe les composants du control plane du cluster.
 Cela peut prendre plusieurs minutes. l'output devrait ressembler à:
 
 ```none
@@ -218,7 +219,7 @@ To start using your cluster, you need to run the following as a regular user:
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+  https://kubernetes.io/fr/docs/concepts/cluster-administration/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -256,31 +257,31 @@ créés et supprimés avec la commande `kubeadm token`. Voir le
 Cette section contient des informations importantes sur l’ordre d’installation et de déploiement. Lisez-la attentivement avant de continuer.
 {{< /caution >}}
 
-Vous devez installer un add-on réseau pour pod afin que vos pods puissent communiquer les uns 
+Vous devez installer un add-on réseau pour pod afin que vos pods puissent communiquer les uns
 avec les autres.
 
-**Le réseau doit être déployé avant toute application. De plus, CoreDNS ne démarrera pas avant 
+**Le réseau doit être déployé avant toute application. De plus, CoreDNS ne démarrera pas avant
 l’installation d’un réseau.
-kubeadm ne prend en charge que les réseaux basés sur un CNI (et ne prend pas 
+kubeadm ne prend en charge que les réseaux basés sur un CNI (et ne prend pas
 en charge kubenet).**
 
 Plusieurs projets fournissent des réseaux de pod Kubernetes utilisant CNI, dont certains
-supportent les [network policies](/docs/concepts/services-networking/networkpolicies/). 
-Allez voir la [page des add-ons](/docs/concepts/cluster-administration/addons/) pour une liste complète 
+supportent les [network policies](/docs/concepts/services-networking/networkpolicies/).
+Allez voir la [page des add-ons](/docs/concepts/cluster-administration/addons/) pour une liste complète
 des add-ons réseau disponibles.
-- Le support IPv6 a été ajouté dans [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
-- [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) et 
-[local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) 
+- Le support IPv6 a été ajouté dans [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
+- [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) et
+[local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md)
 sont les seuls plug-ins de réseau IPv6 pris en charge dans Kubernetes version 1.9.
 
-Notez que kubeadm configure un cluster sécurisé par défaut et impose l’utilisation de 
+Notez que kubeadm configure un cluster sécurisé par défaut et impose l’utilisation de
 [RBAC](/docs/reference/access-authn-authz/rbac/).
 Assurez-vous que votre manifeste de réseau prend en charge RBAC.
 
-Veuillez également à ce que votre réseau Pod ne se superpose à aucun des réseaux hôtes, 
+Veuillez également à ce que votre réseau Pod ne se superpose à aucun des réseaux hôtes,
 car cela pourrait entraîner des problèmes.
-Si vous constatez une collision entre le réseau de pod de votre plug-in de réseau et certains 
-de vos réseaux hôtes, 
+Si vous constatez une collision entre le réseau de pod de votre plug-in de réseau et certains
+de vos réseaux hôtes,
 vous devriez penser à un remplacement de CIDR approprié et l'utiliser lors de `kubeadm init` avec
 ` --pod-network-cidr` et en remplacement du YAML de votre plugin réseau.
 Vous pouvez installer un add-on réseau de pod avec la commande suivante:
@@ -293,38 +294,38 @@ Vous ne pouvez installer qu'un seul réseau de pod par cluster.
 
 {{< tabs name="tabs-pod-install" >}}
 {{% tab name="Choisissez-en un..." %}}
-Sélectionnez l'un des onglets pour consulter les instructions d'installation du fournisseur 
+Sélectionnez l'un des onglets pour consulter les instructions d'installation du fournisseur
 de réseau de pods.{{% /tab %}}
 
 {{% tab name="Calico" %}}
-Pour plus d'informations sur l'utilisation de Calico, voir 
-[Guide de démarrage rapide de Calico sur Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), 
+Pour plus d'informations sur l'utilisation de Calico, voir
+[Guide de démarrage rapide de Calico sur Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/),
 [Installation de Calico pour les netpols ( network policies ) et le réseau](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), ainsi que d'autres resources liées à ce sujet.
 
-Pour que Calico fonctionne correctement, vous devez passer `--pod-network-cidr = 192.168.0.0 / 16` 
-à` kubeadm init` ou mettre à jour le fichier `calico.yml` pour qu'il corresponde à votre réseau de Pod. 
+Pour que Calico fonctionne correctement, vous devez passer `--pod-network-cidr = 192.168.0.0 / 16`
+à` kubeadm init` ou mettre à jour le fichier `calico.yml` pour qu'il corresponde à votre réseau de Pod.
 Notez que Calico fonctionne uniquement sur `amd64`,` arm64`, `ppc64le` et` s390x`.
+
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
 ```
 
 {{% /tab %}}
 {{% tab name="Canal" %}}
-Canal utilise Calico pour les netpols et Flannel pour la mise en réseau. Reportez-vous à la 
+Canal utilise Calico pour les netpols et Flannel pour la mise en réseau. Reportez-vous à la
 documentation Calico pour obtenir le [guide de démarrage officiel](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
 
 Pour que Canal fonctionne correctement, `--pod-network-cidr = 10.244.0.0 / 16` doit être passé à
 ` kubeadm init`. Notez que Canal ne fonctionne que sur `amd64`.
+
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
 ```
 
 {{% /tab %}}
 
 {{% tab name="Cilium" %}}
-Pour plus d'informations sur l'utilisation de Cilium avec Kubernetes, voir 
+Pour plus d'informations sur l'utilisation de Cilium avec Kubernetes, voir
 [Guide d'installation de Kubernetes pour Cilium](https://docs.cilium.io/en/stable/kubernetes/).
 
 Ces commandes déploieront Cilium avec son propre etcd géré par l'opérateur etcd.
@@ -354,12 +355,12 @@ cilium-drxkl   1/1     Running   0          18m
 Pour que `flannel` fonctionne correctement, vous devez passer` --pod-network-cidr = 10.244.0.0 / 16` à `kubeadm init`.
 Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant
 ` sysctl net.bridge.bridge-nf-call-iptables = 1`
-passez le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI 
+passez le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI
 fonctionnent, pour plus d'informations
-allez voir [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Notez que `flannel` fonctionne sur` amd64`, `arm`,` arm64`, `ppc64le` et` s390x` sous Linux.
-Windows (`amd64`) est annoncé comme supporté dans la v0.11.0 mais son utilisation n’est pas 
+Windows (`amd64`) est annoncé comme supporté dans la v0.11.0 mais son utilisation n’est pas
 documentée.
 
 ```shell
@@ -369,28 +370,28 @@ Pour plus d’informations sur `flannel`, voir [le dépôt CoreOS sur GitHub](ht
 {{% /tab %}}
 
 {{% tab name="Kube-router" %}}
-Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant 
+Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant
 `sysctl net.bridge.bridge-nf-call-iptables = 1`
-Cette commande indiquera de passer le trafic IPv4 bridgé à iptables. 
+Cette commande indiquera de passer le trafic IPv4 bridgé à iptables.
 Ceci est nécessaire pour que certains plugins CNI fonctionnent, pour plus d'informations
-s'il vous plaît allez voir [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+s'il vous plaît allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-Kube-router s'appuie sur kube-controller-manager pour allouer le pod CIDR aux nœuds. Par conséquent, 
+Kube-router s'appuie sur kube-controller-manager pour allouer le pod CIDR aux nœuds. Par conséquent,
 utilisez `kubeadm init` avec l'option` --pod-network-cidr`.
 
-Kube-router fournit un réseau de pod, une stratégie réseau et un proxy de service basé sur un 
+Kube-router fournit un réseau de pod, une stratégie réseau et un proxy de service basé sur un
 IP Virtual Server (IPVS) / Linux Virtual Server (LVS) hautement performant.
 
-Pour plus d'informations sur la configuration du cluster Kubernetes avec Kube-router à l'aide de kubeadm, 
+Pour plus d'informations sur la configuration du cluster Kubernetes avec Kube-router à l'aide de kubeadm,
 veuillez consulter le [guide d'installation](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
 {{% /tab %}}
 
 {{% tab name="Romana" %}}
-Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à` 1` en exécutant 
+Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à` 1` en exécutant
 `sysctl net.bridge.bridge-nf-call-iptables = 1`
-Cette commande indiquera de passer le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI fonctionnent, 
+Cette commande indiquera de passer le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI fonctionnent,
 pour plus d'informations
-veuillez consulter la documentation [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+veuillez consulter la documentation [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Le guide d'installation officiel de Romana est [ici](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -404,7 +405,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {{% tab name="Weave Net" %}}
 Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant` sysctl net.bridge.bridge-nf-call-iptables = 1`
 Cette commande indiquera de passer le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI fonctionnent, pour plus d'informations
-s'il vous plaît allez voir [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+s'il vous plaît allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Le guide de configuration officiel de Weave Net est [ici](https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -485,7 +486,7 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
                                                                                            default-node-token
 ```
 
-Par défaut, les jetons expirent après 24 heures. Si vous joignez un nœud au cluster après 
+Par défaut, les jetons expirent après 24 heures. Si vous joignez un nœud au cluster après
 l’expiration du jeton actuel,
 vous pouvez créer un nouveau jeton en exécutant la commande suivante sur le nœud maître:
 ``` bash
@@ -497,7 +498,7 @@ L'output est similaire à ceci:
 5didvk.d09sbcov8ph2amjw
 ```
 
-Si vous n'avez pas la valeur `--discovery-token-ca-cert-hash`, vous pouvez l'obtenir en 
+Si vous n'avez pas la valeur `--discovery-token-ca-cert-hash`, vous pouvez l'obtenir en
 exécutant la suite de commande suivante sur le nœud master:
 ``` bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
@@ -510,7 +511,7 @@ L'output est similaire à ceci:
 ```
 
 {{< note >}}
-Pour spécifier un tuple IPv6 pour `<maître-ip>: <maître-port>`, l'adresse IPv6 doit être placée 
+Pour spécifier un tuple IPv6 pour `<maître-ip>: <maître-port>`, l'adresse IPv6 doit être placée
 entre crochets, par exemple: `[fd00 :: 101]: 2073`.{{< /note >}}
 
 Le resultat devrait ressembler à quelque chose comme:
@@ -549,10 +550,10 @@ et `scp` en utilisant cet autre utilisateur à la place.
 Le fichier `admin.conf` donne à l'utilisateur _superuser_ des privilèges sur le cluster.
 Ce fichier doit être utilisé avec parcimonie. Pour les utilisateurs normaux, il est recommandé de
 générer une information d'identification unique pour laquelle vous ajoutez des privilèges à la liste blanche
- (whitelist). 
-Vous pouvez faire ceci avec `kubeadm alpha kubeconfig utilisateur --nom-client <CN>`. 
+ (whitelist).
+Vous pouvez faire ceci avec `kubeadm alpha kubeconfig utilisateur --nom-client <CN>`.
 Le resultat de cette commande génèrera un fichier KubeConfig qui sera envoyé sur STDOUT, que vous
-devrez enregistrer dans un fichier et donner à votre utilisateur. Après cela, créez la whitelist des 
+devrez enregistrer dans un fichier et donner à votre utilisateur. Après cela, créez la whitelist des
 privilèges en utilisant `kubectl create (cluster) rolebinding.`
 {{< /note >}}
 
@@ -570,8 +571,8 @@ Vous pouvez maintenant accéder à l'API server localement à `http://localhost:
 
 ## Destruction {#tear-down}
 
-Pour annuler ce que kubeadm a fait, vous devez d’abord 
-[drainer le nœud](/docs/reference/generated/kubectl/kubectl-commands#drain) 
+Pour annuler ce que kubeadm a fait, vous devez d’abord
+[drainer le nœud](/docs/reference/generated/kubectl/kubectl-commands#drain)
 et assurez-vous que le nœud est vide avant de l'arrêter.
 En communiquant avec le master en utilisant les informations d'identification appropriées, exécutez:
 ```bash
@@ -584,7 +585,7 @@ Ensuite, sur le nœud en cours de suppression, réinitialisez l'état de tout ce
 kubeadm reset
 ```
 
-Le processus de réinitialisation ne réinitialise pas et ne nettoie pas les règles iptables ni les 
+Le processus de réinitialisation ne réinitialise pas et ne nettoie pas les règles iptables ni les
 tables IPVS. Si vous souhaitez réinitialiser iptables, vous devez le faire manuellement:
 ```bash
 iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
@@ -602,29 +603,29 @@ Plus d'options et d'informations sur la
 
 ## Maintenir un cluster {#lifecycle}
 
-Vous trouverez des instructions pour la maintenance des clusters kubeadm (mises à niveau, 
+Vous trouverez des instructions pour la maintenance des clusters kubeadm (mises à niveau,
 rétrogradation, etc.) [ici](/docs/tasks/administer-cluster/kubeadm)
 
 ## Explorer les autres add-ons {#other-addons}
 
 Parcourez la [liste des add-ons](/docs/concepts/cluster-administration/addons/),
-y compris des outils pour la journalisation, la surveillance, la stratégie réseau, la visualisation 
+y compris des outils pour la journalisation, la surveillance, la stratégie réseau, la visualisation
 et le contrôle de votre cluster Kubernetes.
 
 ## Et après ? {#whats-next}
 
 * Vérifiez que votre cluster fonctionne correctement avec [Sonobuoy](https://github.com/heptio/sonobuoy)
-* En savoir plus sur l'utilisation avancée de kubeadm dans la 
+* En savoir plus sur l'utilisation avancée de kubeadm dans la
 [documentation de référence de kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm)
 * En savoir plus sur Kubernetes [concepts](/docs/concepts/) et [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Configurez la rotation des logs. Vous pouvez utiliser **logrotate** pour cela. Lorsque vous utilisez Docker,
  vous pouvez spécifier des options de rotation des logs pour le démon Docker, par exemple
-  `--log-driver = fichier_json --log-opt = taille_max = 10m --log-opt = fichier_max = 5`. 
+  `--log-driver = fichier_json --log-opt = taille_max = 10m --log-opt = fichier_max = 5`.
   Consultez [Configurer et dépanner le démon Docker](https://docs.docker.com/engine/admin/) pour plus de détails.
 
 ## Feedback {#feedback}
 
-* Pour les bugs, visitez [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* Pour les bugs, visitez [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * Pour le support, rendez vous sur le Channel Slack kubeadm:
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * Le Channel Slack: General SIG Cluster Lifecycle Development:
@@ -635,24 +636,24 @@ et le contrôle de votre cluster Kubernetes.
 
 ## Politique de compatibilité de versions {#version-skew-policy}
 
-L'outil CLI kubeadm de la version vX.Y peut déployer des clusters avec un control 
+L'outil CLI kubeadm de la version vX.Y peut déployer des clusters avec un control
 plane de la version vX.Y ou vX. (Y-1).
 kubeadm CLI vX.Y peut également mettre à niveau un cluster existant créé par kubeadm
  de la version vX. (Y-1).
 
-Pour cette raison, nous ne pouvons pas voir plus loin, kubeadm CLI vX.Y peut ou pas être 
+Pour cette raison, nous ne pouvons pas voir plus loin, kubeadm CLI vX.Y peut ou pas être
 en mesure de déployer des clusters vX. (Y + 1).
 
-Exemple: kubeadm v1.8 peut déployer des clusters v1.7 et v1.8 et mettre à niveau des 
+Exemple: kubeadm v1.8 peut déployer des clusters v1.7 et v1.8 et mettre à niveau des
 clusters v1.7 créés par kubeadm vers
 v1.8.
 
-Ces ressources fournissent plus d'informations sur le saut de version pris en 
-charge entre les kubelets et le control plane, ainsi que sur d'autres composants Kubernetes: 
+Ces ressources fournissent plus d'informations sur le saut de version pris en
+charge entre les kubelets et le control plane, ainsi que sur d'autres composants Kubernetes:
 
 * [politique de compatibilité de versions](/docs/setup/version-skew-policy/) de Kubernetes
-* [Guide d'installation](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) 
-spécifique à Kubeadm 
+* [Guide d'installation](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+spécifique à Kubeadm
 
 ## kubeadm fonctionne sur plusieurs plates-formes {#multi-platform}
 
@@ -669,19 +670,15 @@ prend en charge votre plate-forme.
 
 Remarque: kubeadm évolue continuellement et ces limitations seront résolues en temps voulu.
 
-* Le cluster créé ici a un seul master, avec une seule base de données etcd. Cela signifie que 
-si le master est irrécupérable, votre cluster peut perdre ses données et peut avoir besoin d'être recréé à 
-partir de zéro. L'ajout du support HA (plusieurs serveurs etcd, plusieurs API servers, etc.) 
+* Le cluster créé ici a un seul master, avec une seule base de données etcd. Cela signifie que
+si le master est irrécupérable, votre cluster peut perdre ses données et peut avoir besoin d'être recréé à
+partir de zéro. L'ajout du support HA (plusieurs serveurs etcd, plusieurs API servers, etc.)
 à kubeadm est encore en cours de developpement.
 
-   Contournement: régulièrement [sauvegarder etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). 
+   Contournement: régulièrement [sauvegarder etcd](https://coreos.com/etcd/docs/latest/admin_guide.html).
 le répertoire des données etcd configuré par kubeadm se trouve dans `/var/lib/etcd` sur le master.
 
 ## Diagnostic {#troubleshooting}
 
 Si vous rencontrez des difficultés avec kubeadm, veuillez consulter nos
  [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-

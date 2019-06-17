@@ -1,5 +1,6 @@
 ---
 title: Aperçu de kubectl
+description: kubectl référence
 content_template: templates/concept
 weight: 20
 card:

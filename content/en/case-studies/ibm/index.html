@@ -6,10 +6,7 @@ case_study_styles: true
 cid: caseStudies
 css: /css/style_case_studies.css
 logo: ibm_featured_logo.svg
-featured: true
-weight: 2
-quote: >
-   We see CNCF as a safe haven for cloud native open source, providing stability, longevity, and expected maintenance for member projects—no matter the originating vendor or project.
+featured: false
 ---
 
 <div class="banner1" style="background-image: url('/images/CaseStudy_ibm_banner1.jpg')">
@@ -34,7 +31,7 @@ quote: >
       </div>
 
 <div class="col2" style="width:95%">
- 
+
 
 <h2>Impact</h2>
      IBM's intention in offering a managed Kubernetes container service and image registry is to provide a fully secure end-to-end platform for its enterprise customers. "Image signing is one key part of that offering, and our container registry team saw Notary as the de facto way to implement that capability in the current Docker and container ecosystem," Hough says. The company had not been offering image signing before, and Notary is the tool it used to implement that capability. "We had a multi-tenant Docker Registry with private image hosting," Hough says. "The Docker Registry uses hashes to ensure that image content is correct, and data is encrypted both in flight and at rest. But it does not provide any guarantees of who pushed an image. We used Notary to enable users to sign images in their private registry namespaces if they so choose."

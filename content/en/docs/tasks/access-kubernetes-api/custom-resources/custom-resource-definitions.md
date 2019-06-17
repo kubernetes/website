@@ -156,6 +156,7 @@ from the yaml you used to create it:
 
 ```console
 apiVersion: v1
+kind: List
 items:
 - apiVersion: stable.example.com/v1
   kind: CronTab
@@ -170,7 +171,6 @@ items:
   spec:
     cronSpec: '* * * * */5'
     image: my-awesome-cron-image
-kind: List
 metadata:
   resourceVersion: ""
   selfLink: ""
