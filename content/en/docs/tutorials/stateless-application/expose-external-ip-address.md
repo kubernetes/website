@@ -91,9 +91,9 @@ The preceding command creates a
 
         Name:           my-service
         Namespace:      default
-        Labels:         app=load-balancer-example
+        Labels:         app.kubernetes.io/name=load-balancer-example
         Annotations:    <none>
-        Selector:       app=load-balancer-example
+        Selector:       app.kubernetes.io/name=load-balancer-example
         Type:           LoadBalancer
         IP:             10.3.245.137
         LoadBalancer Ingress:   104.198.205.71
