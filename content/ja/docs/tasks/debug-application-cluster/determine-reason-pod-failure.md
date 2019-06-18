@@ -28,19 +28,19 @@ content_template: templates/task
 
 {{< codenew file="debug/termination.yaml" >}}
 
-1. YAML設定ファイルに基づいてPodを作成する:
+1. YAML設定ファイルに基づいてPodを作成します:
 
         kubectl apply -f https://k8s.io/examples/debug/termination.yaml
 
     YAMLファイルの`cmd`フィールドと`args`フィールドで、コンテナーが10秒間スリープしてから`/dev/termination-log`ファイルに「Sleep expired」と書いているのがわかります。コンテナが「Sleep expired」メッセージを書き込んだ後、コンテナは終了します。
 
-1. Podに関する情報を表示する:
+1. Podに関する情報を表示します:
 
         kubectl get pod termination-demo
 
     Podが実行されなくなるまで、上記のコマンドを繰り返します。
 
-1. Podに関する詳細情報を表示する:
+1. Podに関する詳細情報を表示します:
 
         kubectl get pod --output=yaml
 
