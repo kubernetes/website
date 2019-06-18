@@ -14,7 +14,7 @@ Cette page montre comment assigner une mémoire *request* et une mémoire *limit
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-EChaque nœud de votre cluster doit avoir au moins 300 MiB de mémoire.
+Chaque nœud de votre cluster doit avoir au moins 300 MiB de mémoire.
 
 Pour quelques étapes de cette page, vous devez lancer 
 [metrics-server] (https://github.com/kubernetes-incubator/metrics-server)
@@ -32,7 +32,7 @@ Pour voir si le metrics-server fonctionne, ou un autre fournisseur de l'API des 
 kubectl get apiservices
 ```
 
-Si l'API des métriques de ressources est disponible, la sortie inclura une référence à `metrics.k8s.io'.
+Si l'API des métriques de ressources est disponible, la sortie inclura une référence à `metrics.k8s.io`.
 
 ```shell
 NAME      
@@ -45,7 +45,7 @@ v1beta1.metrics.k8s.io
 
 ## Créer un namespace
 
-Créez un namespace de manière à ce que les ressources que vous créez dans cet exercice soient isolés du reste de votre cluster.
+Créez un namespace de manière à ce que les ressources que vous créez dans cet exercice soient isolées du reste de votre cluster.
 
 ```shell
 kubectl create namespace mem-example
@@ -124,7 +124,7 @@ Voici le fichier de configuration d'un Pod qui contient un conteneur avec une de
 
 {{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
-Dans la section `args' du fichier de configuration, vous pouvez voir que le conteneur
+Dans la section `args` du fichier de configuration, vous pouvez voir que le conteneur
 tentera d'allouer 250 MiB de mémoire, ce qui est bien au-dessus de la limite de 100 MiB.
 
 Créez le Pod:
@@ -264,7 +264,7 @@ Events:
 
 ## Unités de mémoire
 
-La ressource mémoire est mesurée en bytes. Vous pouvez exprimer la mémoire sous la forme d'un nombre entier simple ou d'un nombre avec l'un de ces suffixes : E, P, T, T, G, M, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
+La ressource mémoire est mesurée en bytes. Vous pouvez exprimer la mémoire sous la forme d'un nombre entier simple ou d'un nombre avec l'un de ces suffixes : E, P, T, G, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
 Par exemple, les valeurs suivantes représentent approximativement la même valeur:
 
 ```shell
