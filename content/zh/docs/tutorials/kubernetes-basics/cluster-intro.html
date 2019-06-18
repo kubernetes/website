@@ -10,7 +10,7 @@
 
     <main class="content">
 
-      <div class="row">
+        <div class="row">
 
       <div class="col-md-8">
           <!-- <h3>Objectives</h3> -->
@@ -82,15 +82,15 @@
         <div class="row">
             <div class="col-md-8">
                 <!-- <p><b>The Master is responsible for managing the cluster.</b> The master coordinates all activities in your cluster, such as scheduling applications, maintaining applications' desired state, scaling applications, and rolling out new updates.</p> -->
-                <p><b>主节点负责管理集群</b>主节点负责协调集群中的所有活动，例如调度应用程序，维护应用程序的所需状态，扩展应用程序以及回滚更新。</p>
+                <p><b> 主节点负责管理集群</b> 主节点负责协调集群中的所有活动，例如调度应用程序，维护应用程序的所需状态，扩展应用程序以及回滚更新。</p>
                 <!-- <p><b>A node is a VM or a physical computer that serves as a worker machine in a Kubernetes cluster.</b> Each node has a Kubelet, which is an agent for managing the node and communicating with the Kubernetes master. The node should also have tools for handling container operations, such as Docker or rkt. A Kubernetes cluster that handles production traffic should have a minimum of three nodes.</p> -->
-                <p><b>工作节点是虚拟机或物理机，充当 Kubernetes 集群中的计算节点。</b>每个节点都有一个 Kubelet ，它是一个管理节点并与 Kubernetes master 节点通信的代理。该节点还应具有用于处理容器操作的工具，例如 Docker 或 rkt 。应用于生产的 Kubernetes 集群应至少有三个节点。</p>
+                <p><b> 工作节点是虚拟机或物理机，充当 Kubernetes 集群中的计算节点。</b>每个节点都有一个 Kubelet ，它是一个管理节点并与 Kubernetes 主节点通信的代理。该节点还应具有用于处理容器操作的工具，例如 Docker 或 rkt 。应用于生产的 Kubernetes 集群应至少有三个节点。</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
                     <!-- <p><i>Masters manage the cluster and the nodes are used to host the running applications.</i></p> -->
-                    <p><i>主节点管理集群，Node 节点用于承载运行的应用程序。</i></p>
+                    <p><i> 主节点管理集群，工作节点用于承载运行的应用程序。</i></p>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
         <div class="row">
             <div class="col-md-8">
                 <!-- <p>When you deploy applications on Kubernetes, you tell the master to start the application containers. The master schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the master using the Kubernetes API</b>, which the master exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p> -->
-                <p>在 Kubernetes 上部署应用程序时，您可以与主节点交互启动应用容器。 主节点调度容器以在集群的工作节点上运行。 <b>工作节点使用主节点公开的 Kubernetes API </b>与主节点进行通信。最终用户还可以直接使用 Kubernetes API 与群集进行交互。</p>
+                <p>在 Kubernetes 上部署应用程序时，您可以与主节点交互启动应用容器。 master 节点调度容器以在集群的工作节点上运行。 <b> 工作节点使用主节点公开的 Kubernetes API </b>与主节点进行通信。最终用户还可以直接使用 Kubernetes API 与群集进行交互。</p>
 
                 <!-- <p>A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube.  Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete. For this tutorial, however, you'll use a provided online terminal with Minikube pre-installed.</p> -->
                 <p> Kubernetes 集群可以部署在物理机或虚拟机上。要使用 Kubernetes ，您可以使用 Minikube 。 Minikube 是一种轻量级的 Kubernetes ，可以在本地机器上创建虚拟机并部署只有一个节点的简单集群。 Minikube 使用与 Linux， macOS 和 Windows 系统。Minikube CLI 提供了与集群一起使用的基本引导操作，包括启动，停止，状态和删除。但是对于本教程，您将使用预先安装了 Minikube 的在线终端。</p>
