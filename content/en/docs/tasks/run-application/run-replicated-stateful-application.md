@@ -363,7 +363,7 @@ The Node name should show up in the last column:
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE       IP            NODE
-mysql-2   2/2       Running   0          15m       10.244.5.27   kubernetes-minion-group-9l2t
+mysql-2   2/2       Running   0          15m       10.244.5.27   kubernetes-node-9l2t
 ```
 
 Then drain the Node by running the following command, which cordons it so
@@ -387,14 +387,14 @@ It should look something like this:
 
 ```
 NAME      READY   STATUS          RESTARTS   AGE       IP            NODE
-mysql-2   2/2     Terminating     0          15m       10.244.1.56   kubernetes-minion-group-9l2t
+mysql-2   2/2     Terminating     0          15m       10.244.1.56   kubernetes-node-9l2t
 [...]
-mysql-2   0/2     Pending         0          0s        <none>        kubernetes-minion-group-fjlm
-mysql-2   0/2     Init:0/2        0          0s        <none>        kubernetes-minion-group-fjlm
-mysql-2   0/2     Init:1/2        0          20s       10.244.5.32   kubernetes-minion-group-fjlm
-mysql-2   0/2     PodInitializing 0          21s       10.244.5.32   kubernetes-minion-group-fjlm
-mysql-2   1/2     Running         0          22s       10.244.5.32   kubernetes-minion-group-fjlm
-mysql-2   2/2     Running         0          30s       10.244.5.32   kubernetes-minion-group-fjlm
+mysql-2   0/2     Pending         0          0s        <none>        kubernetes-node-fjlm
+mysql-2   0/2     Init:0/2        0          0s        <none>        kubernetes-node-fjlm
+mysql-2   0/2     Init:1/2        0          20s       10.244.5.32   kubernetes-node-fjlm
+mysql-2   0/2     PodInitializing 0          21s       10.244.5.32   kubernetes-node-fjlm
+mysql-2   1/2     Running         0          22s       10.244.5.32   kubernetes-node-fjlm
+mysql-2   2/2     Running         0          30s       10.244.5.32   kubernetes-node-fjlm
 ```
 
 And again, you should see server ID `102` disappear from the
