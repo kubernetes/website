@@ -1,5 +1,5 @@
 ---
-title: Application Architect
+title: Architecte d'Application
 id: application-architect
 date: 2018-04-12
 full_link:
