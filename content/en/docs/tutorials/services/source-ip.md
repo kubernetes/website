@@ -67,13 +67,13 @@ kubectl get nodes
 The output is similar to this:
 ```
 NAME                           STATUS     ROLES    AGE     VERSION
-kubernetes-minion-group-6jst   Ready      <none>   2h      v1.13.0
-kubernetes-minion-group-cx31   Ready      <none>   2h      v1.13.0
-kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.13.0
+kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
+kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
+kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
 ```
 Get the proxy mode on one of the node
 ```console
-kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
+kubernetes-node-6jst $ curl localhost:10249/proxyMode
 ```
 The output is:
 ```
@@ -326,18 +326,18 @@ kubectl get pod -o wide -l run=source-ip-app
 The output is similar to this:
 ```
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
-source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-minion-group-6jst
+source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-node-6jst
 ```
 Curl the `/healthz` endpoint on different nodes.
 ```console
-kubernetes-minion-group-6jst $ curl localhost:32122/healthz
+kubernetes-node-6jst $ curl localhost:32122/healthz
 ```
 The output is similar to this:
 ```
 1 Service Endpoints found
 ```
 ```console
-kubernetes-minion-group-jj1t $ curl localhost:32122/healthz
+kubernetes-node-jj1t $ curl localhost:32122/healthz
 ```
 The output is similar to this:
 ```
