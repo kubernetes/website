@@ -67,7 +67,6 @@ In this example:
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
   * Create one container and name it `nginx` using the `name` field.
-  * Run the `nginx` image at version `1.7.9`.
   * Open port `80` so that the container can send and accept traffic.
 
 To create this Deployment, run the following command:
@@ -841,7 +840,7 @@ attributes to the Deployment's `.status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 {{< note >}}
 Kubernetes will take no action on a stalled Deployment other than to report a status condition with
@@ -975,13 +974,13 @@ can create multiple Deployments, one for each release, following the canary patt
 
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and `metadata` fields.
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
-configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/object-management-kubectl/overview/) documents.
+configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
-A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
-The `.spec.template` is the only required field of the `.spec`.
+The `.spec.template` and `.spec.selector` are the only required field of the `.spec`.
 
 The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an
 `apiVersion` or `kind`.
@@ -998,7 +997,7 @@ allowed, which is the default if not specified.
 
 ### Selector
 
-`.spec.selector` is an optional field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)
+`.spec.selector` is an required field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)
 for the Pods targeted by this deployment.
 
 `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by the API.

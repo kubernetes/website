@@ -34,7 +34,7 @@ in the Kubernetes source directory for a canonical example.
 
 Package your scheduler binary into a container image. For the purposes of this example,
 let's just use the default scheduler (kube-scheduler) as our second scheduler as well.
-Clone the [Kubernetes source code from Github](https://github.com/kubernetes/kubernetes)
+Clone the [Kubernetes source code from GitHub](https://github.com/kubernetes/kubernetes)
 and build the source.
 
 ```shell

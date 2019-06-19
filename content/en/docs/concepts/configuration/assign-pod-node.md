@@ -256,6 +256,7 @@ be co-located in the same defined topology, eg., the same node.
 ##### Always co-located in the same node
 
 In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
+
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
@@ -339,7 +340,10 @@ If we create the above two deployments, our three node cluster should look like 
 As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
 
 ```
-$ kubectl get pods -o wide
+kubectl get pods -o wide
+```
+The output is similar to this:
+```
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
 redis-cache-1450370735-j2j96   1/1       Running   0          8m        10.192.2.2   kube-node-1

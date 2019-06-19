@@ -1,9 +1,9 @@
 ---
 title: Kubernetes 文档
-layout: docsportal_home
 noedit: true
+cid: docsHome
+layout: docsportal_home
 class: gridPage
-display_browse_numbers: true
 linkTitle: "主页"
 main_menu: true
 weight: 10
@@ -14,11 +14,9 @@ menu:
     weight: 20
     post: >
       <p>通过演练，示例和参考文档了解如何使用 Kubernetes。你甚至可以<a href="/editdocs/" data-auto-burger-exclude>帮助贡献文档</a>！</p>
-
 overview: >
   <!-- Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>). -->
   Kubernetes 是一个开源容器编排引擎，用于容器化应用的自动化部署、扩展和管理。该项目托管在 <a href="https://www.cncf.io/about">CNCF</a>。
-
 <!-- cards:
 - name: concepts
   title: "Understand the basics"
@@ -56,7 +54,6 @@ overview: >
 - name: about
   title: About the documentation
   description: This website contains documentation for the current and previous 4 versions of Kubernetes. -->
-
 cards:
 - name: concepts
   title: "了解基本知识"
@@ -95,27 +92,3 @@ cards:
   title: 关于文档
   description: 该网站包含了当前版本以及前 4 个版本的 Kubernetes 文档。
 ---
-
-<!--
----
-approvers:
-- chenopis
-title: Kubernetes Documentation
-layout: docsportal_home
-noedit: true
-cid: userJourneys
-css: /css/style_user_journeys.css
-js: /js/user-journeys/home.js, https://use.fontawesome.com/4bcc658a89.js
-display_browse_numbers: true
-linkTitle: "Home"
-main_menu: true
-weight: 10
-hide_feedback: true
-menu:
-  main:
-    title: "Documentation"
-    weight: 20
-    post: >
-      <p>Learn how to use Kubernetes with the use of walkthroughs, samples, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude>help contribute to the docs</a>!</p>
----
--->

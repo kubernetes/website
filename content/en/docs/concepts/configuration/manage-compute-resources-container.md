@@ -3,7 +3,7 @@ title: Managing Compute Resources for Containers
 content_template: templates/concept
 weight: 20
 feature:
-  title: Automatic binpacking
+  title: Automatic bin packing
   description: >
     Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
 ---
@@ -212,10 +212,10 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-kubectl describe nodes e2e-test-minion-group-4lw4
+kubectl describe nodes e2e-test-node-pool-4lw4
 ```
 ```
-Name:            e2e-test-minion-group-4lw4
+Name:            e2e-test-node-pool-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
  cpu:                               2

@@ -188,7 +188,7 @@ submit-queue   610995
 ```
 
 ### 排序列表对象
-要将对象输出到终端窗口中的排序列表，可以将该`--sort-by`标志添加到支持的`kubectl`命令中。通过使用`--sort-by`标志指定任何数字或字符串字段来对对象进行排序。要指定一个字段，请使用[jsonpath](/docs/user-guide/jsonpath)表达式。
+要将对象列表在终端窗口中排序输出，可以将该`--sort-by`标志添加到支持的`kubectl`命令中。通过使用`--sort-by`标志指定任何数字或字符串字段来对对象进行排序。要指定一个字段，请使用[jsonpath](/docs/user-guide/jsonpath)表达式。
 
 #### 语法
 

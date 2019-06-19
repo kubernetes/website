@@ -2,6 +2,7 @@
 reviewers:
 - sieben
 title: Noeuds
+description: Concept Noeud Kubernetes
 content_template: templates/concept
 weight: 10
 ---
@@ -181,7 +182,7 @@ Pour l'auto-enregistrement (self-registration en anglais), le kubelet est lancé
   - `--kubeconfig` - Chemin d'accès aux informations d'identification pour s'authentifier auprès de l'apiserver.
   - `--cloud-provider` - Comment lire les métadonnées d'un fournisseur de cloud sur lui-même.
   - `--register-node` - Enregistrement automatique avec le serveur API.
-  - `--register-with-taints` - Enregistrez le noeud avec la liste donnée de marques (comma separated `<key>=<value>:<effect>`). Sans effet si `register-node` est à false.
+  - `--register-with-taints` - Enregistrez le noeud avec la liste donnée de marques (séparés par des virgules `<key>=<value>:<effect>`). Sans effet si `register-node` est à false.
   - `--node-ip` - Adresse IP du noeud.
   - `--node-labels` - Labels à ajouter lors de l’enregistrement du noeud dans le cluster (voir Restrictions des labels appliquées par le [plugin NodeRestriction admission](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) dans les versions 1.13+).
   - `--node-status-update-frequency` - Spécifie la fréquence à laquelle kubelet publie le statut de nœud sur master.

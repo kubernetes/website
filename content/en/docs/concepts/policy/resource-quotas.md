@@ -66,10 +66,8 @@ The following resource types are supported:
 
 | Resource Name | Description |
 | --------------------- | ----------------------------------------------------------- |
-| `cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `limits.cpu` | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value. |
 | `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
-| `memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 | `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 
@@ -200,11 +198,6 @@ You can control a pod's consumption of system resources based on a pod's priorit
 field in the quota spec.
 
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
-
-{{< note >}}
-You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
-per PriorityClass.
-{{< /note >}}
 
 This example creates a quota object and matches it with pods at specific priorities. The example
 works as follows:
@@ -537,7 +530,7 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 It may be desired that pods at a particular priority, eg. "cluster-services", should be allowed in a namespace, if and only if, a matching quota object exists.
 
-With this mechanism, operators will be able to restrict usage of certain high priority classes to a limited number of namespaces and not every namespaces will be able to consume these priority classes by default.
+With this mechanism, operators will be able to restrict usage of certain high priority classes to a limited number of namespaces and not every namespace will be able to consume these priority classes by default.
 
 To enforce this, kube-apiserver flag `--admission-control-config-file` should be used to pass path to the following configuration file:
 

@@ -17,7 +17,7 @@ content_template: templates/concept
 ## 规划集群
 
 
-查阅 [选择正确解决方案](/docs/setup/pick-right-solution/) 中的指导，获取如何规划、建立以及配置 Kubernetes 集群的示例。本文所列的文章称为*发行版* 。
+查阅 [安装](/docs/setup/) 中的指导，获取如何规划、建立以及配置 Kubernetes 集群的示例。本文所列的文章称为*发行版* 。
 
 
 在选择一个指南前，有一些因素需要考虑：

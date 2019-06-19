@@ -52,24 +52,32 @@ index.php는 CPU 과부하 연산을 수행한다.
 첫 번째 단계로, 실행 중인 이미지의 디플로이먼트를 시작하고 서비스로 노출시킨다.
 
 ```shell
-$ kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+```
+```
 service/php-apache created
 deployment.apps/php-apache created
 ```
 
 ## Horizontal Pod Autoscaler 생성
 
-이제 서비스가 동작중이므로, [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_autoscale.md)를 사용하여 오토스케일러를 생성한다. 다음 명령어는 첫 번째 단계에서 만든 php-apache 디플로이먼트 파드의 개수를 1부터 10 사이로 유지하는 Horizontal Pod Autoscaler를 생성한다.
+이제 서비스가 동작중이므로, [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)를 
+사용하여 오토스케일러를 생성한다. 다음 명령어는 첫 번째 단계에서 만든 php-apache 디플로이먼트 파드의 개수를 1부터 10 사이로 유지하는 Horizontal Pod Autoscaler를 생성한다.
 간단히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 레플리카의 개수를 늘리고 줄인다. ([kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md)으로 각 파드는 200 밀리코어까지 요청할 수 있고, 따라서 여기서 말하는 평균 CPU 사용은 100 밀리코어를 말한다.) 이에 대한 자세한 알고리즘은 [여기](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm)를 참고하기 바란다.
 
 ```shell
-$ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+```
+```
 horizontalpodautoscaler.autoscaling/php-apache autoscaled
 ```
 
 실행 중인 오토스케일러의 현재 상태를 확인해본다.
+
 ```shell
-$ kubectl get hpa
+kubectl get hpa
+```
+```
 NAME         REFERENCE                     TARGET    MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1          18s
 
@@ -83,17 +91,19 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-$ kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run -i --tty load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
-$ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 ```
 
 실행 후, 약 1분 정도 후에 CPU 부하가 올라가는 것을 볼 수 있다.
 
 ```shell
-$ kubectl get hpa
+kubectl get hpa
+```
+```
 NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
 
@@ -102,7 +112,9 @@ php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10   
 CPU 소비가 305%까지 증가하였다. 결과적으로, 디플로이먼트의 레플리카 개수는 7개까지 증가하였다.
 
 ```shell
-$ kubectl get deployment php-apache
+kubectl get deployment php-apache
+```
+```
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
@@ -117,11 +129,17 @@ php-apache   7         7         7            7           19m
 `busybox` 컨테이너를 띄운 터미널에서, `<Ctrl> + C`로 부하 발생을 중단시킨다. 그런 다음 (몇 분 후에) 결과를 확인한다.
 
 ```shell
-$ kubectl get hpa
+kubectl get hpa
+```
+```
 NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
+```
 
-$ kubectl get deployment php-apache
+```shell
+kubectl get deployment php-apache
+```
+```
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   1         1         1            1           27m
 ```
@@ -143,7 +161,7 @@ CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮
 첫 번째로, `autoscaling/v2beta2` 형식으로 HorizontalPodAutoscaler YAML 파일을 생성한다.
 
 ```shell
-$ kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
+kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
 ```
 
 에디터로 `/tmp/hpa-v2.yaml` 파일을 열면, 다음과 같은 YAML을 확인할 수 있다.
@@ -213,7 +231,7 @@ object:
   metric:
     name: requests-per-second
   describedObject:
-    apiVersion: extensions/v1beta1
+    apiVersion: networking.k8s.io/v1beta1
     kind: Ingress
     name: main-route
   target:
@@ -255,7 +273,7 @@ spec:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       target:
@@ -278,7 +296,7 @@ status:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       current:
@@ -332,7 +350,9 @@ HorizontalPodAutoscaler의 `autoscaling/v2beta2` 형식을 사용하면, Horizon
 이 조건은 `status.conditions`에 나타난다. HorizontalPodAutoscaler에 영향을 주는 조건을 보기 위해 `kubectl describe hpa`를 사용할 수 있다.
 
 ```shell
-$ kubectl describe hpa cm-test
+kubectl describe hpa cm-test
+```
+```shell
 Name:                           cm-test
 Namespace:                      prom
 Labels:                         <none>
@@ -370,7 +390,9 @@ HorizontalPodAutoscaler를 생성하기 위해 `kubectl autoscale` 명령어를 
 다음 명령어를 실행하여 오토스케일러를 생성할 것이다.
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
+kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
+```
+```
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
 

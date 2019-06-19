@@ -12,21 +12,51 @@ card:
 ---
 
 {{% capture overview %}}
-Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
+The Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), allows you to run commands against Kubernetes clusters. You can use kubectl to deploy applications, inspect and manage cluster resources, and view logs. For a complete list of kubectl operations, see [Overview of kubectl](/docs/reference/kubectl/overview/).
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
 {{% /capture %}}
 
-
 {{% capture steps %}}
 
-## Install kubectl
+## Install kubectl on Linux
 
-Here are a few methods to install kubectl.
+### Install kubectl binary with curl on Linux
 
-## Install kubectl binary using native package management
+1. Download the latest release with the command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on Linux, type:
+    
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+4. Test to ensure the version you installed is up-to-date:
+
+    ```
+    kubectl version
+    ```
+
+### Install using native package management
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
@@ -50,9 +80,9 @@ yum install -y kubectl
 {{< /tabs >}}
 
 
-## Install with snap on Ubuntu
+### Install with snap
 
-If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. Switch to the snap user and run the installation command:
 
@@ -60,13 +90,48 @@ If you are on Ubuntu or one of other Linux distributions that support [snap](htt
     sudo snap install kubectl --classic
     ```
 
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
     ```
 
-## Install with Homebrew on macOS
+## Install kubectl on macOS
+
+### Install kubectl binary with curl on macOS
+
+1. Download the latest release:
+
+    ```		 
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on macOS, type:
+		  
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+4. Test to ensure the version you installed is up-to-date:
+
+    ```
+    kubectl version
+    ```
+
+### Install with Homebrew on macOS
 
 If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install kubectl with Homebrew.
 
@@ -76,13 +141,13 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
     brew install kubernetes-cli
     ```
 
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
     ```
 
-## Install with Macports on macOS
+### Install with Macports on macOS
 
 If you are on macOS and using [Macports](https://macports.org/) package manager, you can install kubectl with Macports.
 
@@ -93,13 +158,38 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     sudo port install kubectl
     ```
     
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
     ```
 
-## Install with Powershell from PSGallery
+## Install kubectl on Windows
+
+### Install kubectl binary with curl on Windows
+
+1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+
+    Or if you have `curl` installed, use this command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    ```
+
+    To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+
+2. Add the binary in to your PATH.
+3. Test to ensure the version of `kubectl` is the same as downloaded:
+
+    ```
+    kubectl version
+    ```
+{{< note >}}
+[Docker for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
+If you have installed Docker before, you may need to place your PATH entry before the one added by Docker installer or remove the Docker's `kubectl`.
+{{< /note >}}
+
+### Install with Powershell from PSGallery
 
 If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with Powershell.
 
@@ -114,7 +204,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     
     The installer creates `$HOME/.kube` and instructs it to create a config file
 
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
@@ -122,9 +212,9 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 
     {{< note >}}Updating the installation is performed by rerunning the two commands listed in step 1.{{< /note >}}
 
-## Install on Windows using Chocolatey or scoop
+### Install on Windows using Chocolatey or Scoop
 
-To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [scoop](https://scoop.sh) command-line installer.
+To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
 {{< tabs name="kubectl_win_install" >}}
 {{% tab name="choco" %}}
 
@@ -137,7 +227,7 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
 
 {{% /tab %}}
 {{< /tabs >}}
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
@@ -179,93 +269,16 @@ You can install kubectl as part of the Google Cloud SDK.
     gcloud components install kubectl
     ```
     
-3. Test to ensure the version you installed is sufficiently up-to-date:
+3. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
     ```
 
-## Install kubectl binary using curl
+## Verifying kubectl configuration 
 
-{{< tabs name="kubectl_install_curl" >}}
-{{% tab name="macOS" %}}
-1. Download the latest release:
+In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using `kube-up.sh` or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
 
-    ```		 
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
-    ```
-
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
-
-    For example, to download version {{< param "fullversion" >}} on macOS, type:
-		  
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
-    ```
-
-2. Make the kubectl binary executable.
-
-    ```
-    chmod +x ./kubectl
-    ```
-
-3. Move the binary in to your PATH.
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-{{% /tab %}}
-{{% tab name="Linux" %}}
-
-1. Download the latest release with the command:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    ```
-
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
-
-    For example, to download version {{< param "fullversion" >}} on Linux, type:
-    
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
-    ```
-
-2. Make the kubectl binary executable.
-
-    ```
-    chmod +x ./kubectl
-    ```
-
-3. Move the binary in to your PATH.
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-{{% /tab %}}
-{{% tab name="Windows" %}}
-1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
-
-    Or if you have `curl` installed, use this command:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
-    ```
-
-    To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
-
-2. Add the binary in to your PATH.
-{{% /tab %}}
-{{< /tabs >}}
-
-
-
-## Configure kubectl
-
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/setup/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
-By default, kubectl configuration is located at `~/.kube/config`.
-
-## Check the kubectl configuration
 Check that kubectl is properly configured by getting the cluster state:
 
 ```shell
@@ -273,13 +286,13 @@ kubectl cluster-info
 ```
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
-If you see a message similar to the following, kubectl is not correctly configured or not able to connect to a Kubernetes cluster.
+If you see a message similar to the following, kubectl is not configured correctly or is not able to connect to a Kubernetes cluster.
 
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like minikube to be installed first and then re-run the commands stated above.
+For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like Minikube to be installed first and then re-run the commands stated above.
 
 If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
 
@@ -287,9 +300,11 @@ If kubectl cluster-info returns the url response but you can't access your clust
 kubectl cluster-info dump
 ```
 
-## Enabling shell autocompletion
+## Optional kubectl configurations
 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing!
+### Enabling shell autocompletion
+
+kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash (including the difference between Linux and macOS) and Zsh.
 
@@ -344,40 +359,42 @@ Both approaches are equivalent. After reloading your shell, kubectl autocompleti
 
 {{% tab name="Bash on macOS" %}}
 
-{{< warning>}}
-macOS includes Bash 3.2 by default. The kubectl completion script requires Bash 4.1+ and doesn't work with Bash 3.2. A possible way around this is to install a newer version of Bash on macOS (see instructions [here](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The below instructions only work if you are using Bash 4.1+.
-{{< /warning >}}
 
 ### Introduction
 
-The kubectl completion script for Bash can be generated with the command `kubectl completion bash`. Sourcing the completion script in your shell enables kubectl autocompletion.
+The kubectl completion script for Bash can be generated with `kubectl completion bash`. Sourcing this script in your shell enables kubectl completion.
 
-However, the completion script depends on [**bash-completion**](https://github.com/scop/bash-completion), which means that you have to install this software first (you can test if you have bash-completion already installed by running `type _init_completion`).
+However, the kubectl completion script depends on [**bash-completion**](https://github.com/scop/bash-completion) which you thus have to previously install.
+
+{{< warning>}}
+there are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion script **doesn't work** correctly with bash-completion v1 and Bash 3.2. It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to correctly use kubectl completion on macOS, you have to install and use Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The following instructions assume that you use Bash 4.1+ (that is, any Bash version of 4.1 or newer).
+{{< /warning >}}
+
 
 ### Install bash-completion
 
-You can install bash-completion with Homebrew:
+{{< note >}}
+As mentioned, these instructions assume you use Bash 4.1+, which means you will install bash-completion v2 (in contrast to Bash 3.2 and bash-completion v1, in which case kubectl completion won't work).
+{{< /note >}}
+
+You can test if you have bash-completion v2 already installed with `type _init_completion`. If not, you can install it with Homebrew:
 
 ```shell
 brew install bash-completion@2
 ```
 
-{{< note >}}
-The `@2` stands for bash-completion 2, which is required by the kubectl completion script (it doesn't work with bash-completion 1). In turn, bash-completion 2 requires Bash 4.1+, that's why you needed to upgrade Bash.
-{{< /note >}}
-
-As stated in the output of `brew install` ("Caveats" section), add the following lines to your `~/.bashrc` or `~/.bash_profile` file:
+As stated in the output of this command, add the following to your `~/.bashrc` file:
 
 ```shell
-export BASH_COMPLETION_COMPAT_DIR=/usr/local/etc/bash_completion.d
-[[ -r /usr/local/etc/profile.d/bash_completion.sh ]] && . /usr/local/etc/profile.d/bash_completion.sh
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 ```
 
-Reload your shell and verify that bash-completion is correctly installed by typing `type _init_completion`.
+Reload your shell and verify that bash-completion v2 is correctly installed with `type _init_completion`.
 
 ### Enable kubectl autocompletion
 
-You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways in which you can do this:
+You now have to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways to achieve this:
 
 - Source the completion script in your `~/.bashrc` file:
 
@@ -386,19 +403,19 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
 
     ```
 
-- Add the completion script to `/usr/local/etc/bash_completion.d`:
+- Add the completion script to the `/usr/local/etc/bash_completion.d` directory:
 
     ```shell
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
-- If you installed kubectl with Homebrew (as explained [here](#install-with-homebrew-on-macos)), then the completion script was automatically installed to `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
+- If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 
 {{< note >}}
-bash-completion (if installed with Homebrew) sources all the completion scripts in the directory that is set in the `BASH_COMPLETION_COMPAT_DIR` environment variable.
+the Homebrew installation of bash-completion v2 sources all the files in the `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
 {{< /note >}}
 
-All approaches are equivalent. After reloading your shell, kubectl autocompletion should be working.
+In any case, after reloading your shell, kubectl completion should be working.
 {{% /tab %}}
 
 {{% tab name="Zsh" %}}
@@ -425,6 +442,9 @@ compinit
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-[Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* [Install Minikube](/docs/tasks/tools/install-minikube/)
+* See the [getting started guides](/docs/setup/) for more about creating clusters. 
+* [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
 {{% /capture %}}
-

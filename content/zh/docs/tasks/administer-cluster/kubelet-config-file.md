@@ -49,45 +49,28 @@ it simplifies node deployment and configuration management.
 --->
 ## 创建配置文件
 
-<!--
-The subset of the Kubelet's configuration that can be configured via a file
-is defined by the `KubeletConfiguration` struct
-[here (v1beta1)](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/pkg/kubelet/apis/config/types.go).
---->
-`KubeletConfiguration` 结构体定义了可以通过文件配置的 Kubelet 配置子集，该结构体在 [这里（v1beta1）](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/pkg/kubelet/apis/config/types.go) 可以找到。
 
-<!--
-The configuration file must be a JSON or YAML representation of the parameters
-in this struct. Make sure the Kubelet has read permissions on the file.
---->
-配置文件必须是这个结构体中参数的 JSON 或 YAML 表现形式。确保 Kubelet 可以读取该文件。
+`KubeletConfiguration` 结构体定义了可以通过文件配置的 Kubelet 配置子集，该结构体在 [这里（v1beta1）](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go) 可以找到, 配置文件必须是这个结构体中参数的 JSON 或 YAML 表现形式。
 
-<!--
-Here is an example of what this file might look like:
---->
-下面的示例是这个文件的结构
+
+在单独的文件夹中创建一个名为 `kubelet` 的文件，并保证 Kubelet 可以读取该文件夹及文件。您应该在这个 `kubelet` 文件中编写 Kubelet 配置。
+
+这是一个 Kubelet 配置文件示例：
+
+
 ```
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
 evictionHard:
     memory.available:  "200Mi"
 ```
-<!--
-In the example, the Kubelet is configured to evict Pods when available memory drops below 200Mi.
-All other Kubelet configuration values are left at their built-in defaults, unless overridden
-by flags. Command line flags which target the same value as a config file will override that value.
---->
-在该示例中，Kubelet 的配置是当可用内存低于 200Mi 时驱逐 Pods。除非被参数覆盖，否则其他 Kubelet 配置值都保留其内置默认值。命令行参数与配置文件有相同的值时，将会覆盖配置文件中的该值。
+在这个示例中, 当可用内存低于200Mi 时, Kubelet 将会开始驱逐 Pods。 没有声明的其余配置项都将使用默认值, 命令行中的 flags 将会覆盖配置文件中的对应值。
 
-<!--
-For a trick to generate a configuration file from a live node, see
-[Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet).
---->
-有关从活动节点生成配置文件的技巧，请参阅 [重新配置活动集群节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet)。
 
-<!--
-## Start a Kubelet process configured via the config file
---->
+作为一个小技巧，您可以从活动节点生成配置文件，相关方法请查看 [重新配置活动集群节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet)。
+
+
+
 ## 启动通过配置文件配置的 Kubelet 进程
 
 <!--
