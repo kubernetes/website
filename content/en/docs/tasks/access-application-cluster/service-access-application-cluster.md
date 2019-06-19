@@ -34,9 +34,16 @@ provides load balancing for an application that has two running instances.
 ## Creating a service for an application running in two pods
 
 1. Run a Hello World application in your cluster:
-   ```shell
-   kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
-   ```   
+    Here is the configuration file for the application Deployment:
+
+    {{< codenew file="service/access/hello-application.yaml" >}}
+
+    Create the application Deployment:
+
+    ```shell
+    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
+    ```
+
     The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
     object and an associated
