@@ -53,7 +53,7 @@ the container starts.
 
 1. Display detailed information about the Pod:
 
-        kubectl get pod --output=yaml
+        kubectl get pod termination-demo --output=yaml
 
     The output includes the "Sleep expired" message:
 

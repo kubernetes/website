@@ -42,9 +42,14 @@ external IP address.
 
 1. Run a Hello World application in your cluster:
 
-        kubectl run hello-world --replicas=5 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+{{< codenew file="service/load-balancer-example.yaml" >}}
 
-    The preceding command creates a
+```shell
+kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
+```
+
+
+The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
     object and an associated
     [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
@@ -86,9 +91,9 @@ external IP address.
 
         Name:           my-service
         Namespace:      default
-        Labels:         run=load-balancer-example
+        Labels:         app.kubernetes.io/name=load-balancer-example
         Annotations:    <none>
-        Selector:       run=load-balancer-example
+        Selector:       app.kubernetes.io/name=load-balancer-example
         Type:           LoadBalancer
         IP:             10.3.245.137
         LoadBalancer Ingress:   104.198.205.71
