@@ -485,8 +485,10 @@ spec:
 minimum value of the first range as the default. Validates against all ranges.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
 `runAsUser` or have the `USER` directive defined (using a numeric UID) in the
-image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
-recommended with this strategy.
+image. Pods which have specified neither `runAsNonRoot` nor `runAsUser` settings
+will be mutated to set `runAsNonRoot=true`, thus requiring a defined non-zero 
+numeric `USER` directive in the container. No default provided. Setting 
+`allowPrivilegeEscalation=false` is strongly recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
 **RunAsGroup** - Controls which primary group ID the containers are run with.

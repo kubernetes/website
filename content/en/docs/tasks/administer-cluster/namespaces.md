@@ -83,18 +83,23 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
 
 1. Create a new YAML file called `my-namespace.yaml` with the contents:
 
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: <insert-namespace-name-here>
-```
+    ```yaml
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: <insert-namespace-name-here>
+    ```
+    Then run:
+   
+    ```
+    kubectl create -f ./my-namespace.yaml
+    ```
 
-Then run:
+2. Alternatively, you can create namespace using below command:
 
-```shell
-kubectl create -f ./my-namespace.yaml
-```
+    ```
+    kubectl create namespace <insert-namespace-name-here>
+    ``` 
 
 Note that the name of your namespace must be a DNS compatible label.
 
