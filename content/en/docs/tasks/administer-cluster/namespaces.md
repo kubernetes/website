@@ -96,6 +96,12 @@ Then run:
 kubectl create -f ./my-namespace.yaml
 ```
 
+2. Alternatively, you can create namespace using below command:
+
+```shell
+kubectl create namespace <insert-namespace-name-here>
+``` 
+
 Note that the name of your namespace must be a DNS compatible label.
 
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
