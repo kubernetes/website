@@ -41,11 +41,11 @@ For more up-to-date specification, see
 ### A records
 
 "Normal" (not headless) Services are assigned a DNS A record for a name of the
-form `my-svc.my-namespace.svc.cluster.local`.  This resolves to the cluster IP
+form `my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
 of the Service.
 
 "Headless" (without a cluster IP) Services are also assigned a DNS A record for
-a name of the form `my-svc.my-namespace.svc.cluster.local`.  Unlike normal
+a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
 Services, this resolves to the set of IPs of the pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
@@ -55,12 +55,12 @@ selection from the set.
 SRV Records are created for named ports that are part of normal or [Headless
 Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
-`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
+`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
 For a regular service, this resolves to the port number and the domain name:
-`my-svc.my-namespace.svc.cluster.local`.
+`my-svc.my-namespace.svc.cluster-domain.example`.
 For a headless service, this resolves to multiple answers, one for each pod
 that is backing the service, and contains the port number and the domain name of the pod
-of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
+of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ## Pods
 
@@ -76,7 +76,7 @@ the hostname of the pod. For example, given a Pod with `hostname` set to
 The Pod spec also has an optional `subdomain` field which can be used to specify
 its subdomain. For example, a Pod with `hostname` set to "`foo`", and `subdomain`
 set to "`bar`", in namespace "`my-namespace`", will have the fully qualified
-domain name (FQDN) "`foo.bar.my-namespace.svc.cluster.local`".
+domain name (FQDN) "`foo.bar.my-namespace.svc.cluster-domain.example`".
 
 Example:
 
@@ -133,7 +133,7 @@ record for the Pod's fully qualified hostname.
 For example, given a Pod with the hostname set to "`busybox-1`" and the subdomain set to
 "`default-subdomain`", and a headless Service named "`default-subdomain`" in
 the same namespace, the pod will see its own FQDN as
-"`busybox-1.default-subdomain.my-namespace.svc.cluster.local`". DNS serves an
+"`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`". DNS serves an
 A record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
 "`busybox2`" can have their distinct A records.
 
@@ -143,7 +143,7 @@ along with its IP.
 {{< note >}}
 Because A records are not created for Pod names, `hostname` is required for the Pod's A
 record to be created. A Pod with no `hostname` but with `subdomain` will only create the
-A record for the headless service (`default-subdomain.my-namespace.svc.cluster.local`),
+A record for the headless service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
 pointing to the Pod's IP address. Also, Pod needs to become ready in order to have a
 record unless `publishNotReadyAddresses=True` is set on the Service.
 {{< /note >}}
@@ -234,7 +234,7 @@ in its `/etc/resolv.conf` file:
 
 ```
 nameserver 1.2.3.4
-search ns1.svc.cluster.local my.dns.search.suffix
+search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
 
@@ -246,7 +246,7 @@ kubectl exec -it dns-example -- cat /etc/resolv.conf
 The output is similar to this:
 ```shell
 nameserver fd00:79:30::a
-search default.svc.cluster.local svc.cluster.local cluster.local
+search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
 
