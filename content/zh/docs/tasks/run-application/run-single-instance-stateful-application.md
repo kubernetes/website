@@ -35,7 +35,7 @@ content_template: templates/tutorial
 
 通过创建Kubernetes Deployment并使用PersistentVolumeClaim将其连接到现已存在的PersistentVolume上来运行一个有状态的应用.  例如, 下面这个YAML文件描述了一个运行MySQL
 并引用PersistentVolumeClaim的Deployment. 该文件定义了一个volume其挂载目录为/var/lib/mysql, 然后创建一个大小为20G的卷的PersistentVolumeClaim. 此申领可以通过任
-何符合需求的卷来满足, 在本例中满足上面创建的卷.
+何符合需求的已有卷来满足, 或者被动态分配.
 
 
 注意: 在配置的yaml文件中定义密码的做法是不安全的. 具体安全解决方案请参考
