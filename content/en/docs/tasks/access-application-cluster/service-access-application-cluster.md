@@ -39,10 +39,8 @@ provides load balancing for an application that has two running instances.
     {{< codenew file="service/access/hello-application.yaml" >}}
 
     Create the application Deployment:
-
-    ```shell
-    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
-    ```
+    
+        kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
 
     The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
