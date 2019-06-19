@@ -66,10 +66,8 @@ The following resource types are supported:
 
 | Resource Name | Description |
 | --------------------- | ----------------------------------------------------------- |
-| `cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `limits.cpu` | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value. |
 | `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
-| `memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 | `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 
