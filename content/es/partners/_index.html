@@ -1,0 +1,91 @@
+---
+title: Partners
+bigheader: Kubernetes Partners
+abstract: Expandiendo el ecosistema de Kubernetes.
+class: gridPage
+cid: partners
+---
+
+<section id="users">
+    <main>
+        <h5>Kubernetes trabaja con socios para crear una base de código sólida y vibrante que admita un espectro de plataformas complementarias.</h5>
+        <div class="col-container">
+          <div class="col-nav">
+            <center>
+              <h5>
+                <b>Kubernetes Certified Service Providers</b>
+              </h5>
+              <br>Proveedores de servicios con amplia experiencia ayudando a las empresas a adoptar Kubernetes con éxito.
+              <br><br><br>
+              <button id="kcsp" class="button" onClick="updateSrc(this.id)">See KCSP Partners</button>
+              <br><br>Conviértete en <a href="https://www.cncf.io/certification/kcsp/">KCSP</a>
+            </center>
+          </div>
+          <div class="col-nav">
+            <center>
+              <h5>
+                <b>Certified Kubernetes Distributions, Hosted Platforms, and Installers</b>
+              </h5>La conformidad del software garantiza que la versión de Kubernetes de cada proveedor sea compatible con las API requeridas.
+              <br><br><br>
+              <button id="conformance" class="button" onClick="updateSrc(this.id)">See Conformance Partners</button>
+              <br><br>Conviértete en <a href="https://www.cncf.io/certification/software-conformance/">Certified Kubernetes</a>
+            </center>
+          </div>
+          <div class="col-nav">
+            <center>
+              <h5><b>Kubernetes Training Partners</b></h5>
+              <br>Partners de formación que ofrecen cursos de alta calidad y con una amplia experiencia en formación de tecnologías nativas de la nube.
+              <br><br><br><br>
+              <button id="ktp" class="button" onClick="updateSrc(this.id)">See KTP Partners</button>
+              <br><br>Conviértete en <a href="https://www.cncf.io/certification/training/">KTP</a>
+            </center>
+          </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
+			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
+      var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
+
+      function updateSrc(buttonId) {
+      	if (buttonId == "kcsp") {
+        		$("#landscape").attr("src",defaultLink);
+            window.location.hash = "#kcsp";
+        }
+        if (buttonId == "conformance") {
+         		$("#landscape").attr("src",firstLink);
+            window.location.hash = "#conformance";
+        }
+        if (buttonId == "ktp") {
+        		$("#landscape").attr("src",secondLink);
+            window.location.hash = "#ktp";
+        }
+      }
+
+      // Automatically load the correct iframe based on the URL fragment
+      document.addEventListener('DOMContentLoaded', function() {
+        var showContent = "kcsp";
+        if (window.location.hash) {
+          console.log('hash is:', window.location.hash.substring(1));
+          showContent = window.location.hash.substring(1);
+        }
+        updateSrc(showContent);
+      });
+</script>
+<body>
+    <div id="frameHolder">
+      <iframe id="landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src=""></iframe>
+      <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+    </div>
+</body>
+    </main>
+</section>
+
+<style>
+    {{< include "partner-style.css" >}}
+</style>
+
+<script>
+    {{< include "partner-script.js" >}}
+</script>

@@ -1,0 +1,1 @@
+La funcionalidad está *obsoleta*. Para más información sobre este estado, consulta la [Política de Obsolescencia en Kubernetes](/docs/reference/deprecation-policy/).

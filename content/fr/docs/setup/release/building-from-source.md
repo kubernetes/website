@@ -1,6 +1,7 @@
 ---
 title: Construire une release
 content_template: templates/concept
+description: Construire une release de la documentation Kubernetes
 card:
   name: download
   weight: 20

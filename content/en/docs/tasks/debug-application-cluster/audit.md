@@ -345,8 +345,8 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
 
 1. create a config file for fluentd
 
-    ```none
-    $ cat <<'EOF' > /etc/fluentd/config
+    ```
+    cat <<'EOF' > /etc/fluentd/config
     # fluentd conf runs in the same host with kube-apiserver
     <source>
         @type tail
@@ -401,7 +401,7 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
 1. start fluentd
 
     ```shell
-    $ fluentd -c /etc/fluentd/config  -vv
+    fluentd -c /etc/fluentd/config  -vv
     ```
 
 1. start kube-apiserver with the following options:
@@ -419,10 +419,11 @@ we will use logstash to collect audit events from webhook backend, and save even
 different users into different files.
 
 1. install [logstash][logstash_install_doc]
+
 1. create config file for logstash
 
-    ```none
-    $ cat <<EOF > /etc/logstash/config
+    ```
+    cat <<EOF > /etc/logstash/config
     input{
         http{
             #TODO, figure out a way to use kubeconfig file to authenticate to logstash
@@ -454,13 +455,14 @@ different users into different files.
 1. start logstash
 
     ```shell
-    $ bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
+    bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
     ```
 
 1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
 
-        $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+        cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
         apiVersion: v1
+        kind: Config
         clusters:
         - cluster:
             server: http://<ip_of_logstash>:8888
@@ -471,7 +473,6 @@ different users into different files.
             user: ""
           name: default-context
         current-context: default-context
-        kind: Config
         preferences: {}
         users: []
         EOF

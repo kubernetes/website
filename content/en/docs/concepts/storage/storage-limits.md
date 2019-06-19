@@ -52,7 +52,7 @@ The limit applies to the entire cluster, so it affects all Nodes.
 Kubernetes 1.11 introduced support for dynamic volume limits based on Node type as an Alpha feature.
 In Kubernetes 1.12 this feature is graduating to Beta and will be enabled by default.
 
-Dynamic volume limits is supported for following volume types.
+Dynamic volume limits are supported for following volume types.
 
 - Amazon EBS
 - Google Persistent Disk

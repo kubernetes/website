@@ -14,12 +14,12 @@
     };
     (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src=('https:'==document.location.protocol)?'https://polldaddy.com/js/rating/rating.js':'http://i0.poll.fm/js/rating/rating.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-rating-js'));
     </script>
-    <a href="" onclick="window.open('https://github.com/kubernetes/website/issues/new?title=Issue%20with%20' +
+    <a href="" onclick="window.open('https://github.com/kubernetes/website/issues/new?template=bug-report.md&title=Issue%20with%20' +
     'k8s.io'+window.location.pathname)" class="button issue">{{ T "main_github_create_an_issue" }}</a>
     {{ end }}
     {{ end }}
     {{ if not .Params.noedit }}
-    <a href="https://github.com/kubernetes/website/edit/master/content/{{ site.Language.Lang }}/{{ .File.Path }}" class="button issue">{{ T "main_edit_this_page" }}</a>
+    {{ if .File }}<a href="https://github.com/kubernetes/website/edit/master/content/{{ site.Language.Lang }}/{{ .File.Path }}" class="button issue">{{ T "main_edit_this_page" }}</a>{{ end }}
     {{ end }}
   </div>
   {{ if and (not .Params.showcommit) $.GitInfo }}

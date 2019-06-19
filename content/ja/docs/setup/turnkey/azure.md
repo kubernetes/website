@@ -10,18 +10,18 @@ Azure Kubernetes Serviceを利用してAzure上にKubernetesクラスターを�
 
 **[Microsoft Azure Kubernetes Service](https://docs.microsoft.com/ja-jp/azure/aks/intro-kubernetes)**
 
-## デプロイのカスタマイズ: ACS-Engine
+## デプロイのカスタマイズ: AKS-Engine
 
-Azure Kubernetes Serviceのコア部分は**オープンソース**であり、コミュニティのためにGitHub上で公開され、利用およびコントリビュートすることができます: **[ACS-Engine](https://github.com/Azure/acs-engine)**.
+Azure Kubernetes Serviceのコア部分は**オープンソース**であり、コミュニティのためにGitHub上で公開され、利用およびコントリビュートすることができます: **[AKS-Engine](https://github.com/Azure/aks-engine)**。レガシーな [ACS-Engine](https://github.com/Azure/acs-engine) のコードベースはAKS-engineのために廃止となりました。
 
-ACS-Engineは、Azure Kubernetes Serviceが公式にサポートしている機能を超えてデプロイをカスタマイズしたい場合に適した選択肢です。
+AKS-Engineは、Azure Kubernetes Serviceが公式にサポートしている機能を超えてデプロイをカスタマイズしたい場合に適した選択肢です。
 既存の仮想ネットワークへのデプロイや、複数のagent poolを利用するなどのカスタマイズをすることができます。
-コミュニティによるACS-Engineへのコントリビュートが、Azure Kubernetes Serviceに組み込まれる場合もあります。
+コミュニティによるAKS-Engineへのコントリビュートが、Azure Kubernetes Serviceに組み込まれる場合もあります。
 
-ACS-Engineへの入力は、Azure Kubernetes Serviceを使用してクラスターを直接デプロイすることに利用されるARMテンプレートの構文に似ています。
-処理結果はAzure Resource Managerテンプレートとして出力され、ソース管理に組み込んだり、AzureにKubernetesクラスターをデプロイするために使うことができます。
+AKS-Engineへの入力は、Kubernetesクラスターを記述するapimodelのJSONファイルです。これはAzure Kubernetes Serviceを使用してクラスターを直接デプロイするために使用されるAzure Resource Manager (ARM) のテンプレート構文と似ています。
+処理結果はARMテンプレートとして出力され、ソース管理に組み込んだり、AzureにKubernetesクラスターをデプロイするために使うことができます。
 
-**[ACS-Engine Kubernetes Walkthrough](https://github.com/Azure/acs-engine/blob/master/docs/kubernetes.md)** を参照して、すぐに始めることができます。
+**[AKS-Engine Kubernetes Tutorial](https://github.com/Azure/aks-engine/blob/master/docs/tutorials/README.md)** を参照して始めることができます。
 
 ## Azure上でCoreOS Tectonicを動かす
 

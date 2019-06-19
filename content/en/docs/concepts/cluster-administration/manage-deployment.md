@@ -307,7 +307,7 @@ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
 ```shell
-apiversion: v1
+apiVersion: v1
 kind: pod
 metadata:
   annotations:
@@ -366,7 +366,6 @@ This command will compare the version of the configuration that you're pushing w
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```shell
 deployment.apps/my-nginx configured
 ```
 

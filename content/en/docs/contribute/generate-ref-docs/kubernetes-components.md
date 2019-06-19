@@ -19,19 +19,15 @@ reference documentation for tools and components in the
 * You need to have this software installed:
 
     * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-
     * [Golang](https://golang.org/doc/install) version 1.9 or later
-
     * [make](https://www.gnu.org/software/make/)
-
     * [gcc compiler/linker](https://gcc.gnu.org/)
 
 * Your `$GOPATH` environment variable must be set.
 
 * You need to know how to create a pull request to a GitHub repository.
 Typically, this involves creating a fork of the repository. For more
-information, see
-[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
+information, see [Creating a Documentation Pull Request](/docs/contribute/start/).
 
 {{% /capture %}}
 
@@ -68,47 +64,14 @@ For example, if you followed the preceding step to get the repository,
 your base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
 The remaining steps refer to your base directory as `<k8s-base>`.
 
+The reference documentation for the Kubernetes components and tools is automatically
+generated from the Kubernetes source code. If you want to change the reference documentation,
+please follow [this guide](/docs/contribute/gen-ref-docs/contribute-upstream).
+
 {{< note >}}
 If you only need to generate, but not change, the reference docs, you don't need to
 manually get the `kubernetes/kubernetes` repository. When you run the `update-imported-docs`
 tool, it automatically clones the `kubernetes/kubernetes` repository.
-{{< /note >}}
-
-## Editing the Kubernetes source code
-
-The reference documentation for the Kubernetes components and tools is automatically
-generated from the Kubernetes source code. If you want to change the reference documentation,
-the first step is to change one or more comments in the Kubernetes source code. Make the
-change in your local kubernetes/kubernetes repository, and then submit a pull request to
-the master branch of
-[github.com/kubernetes/kubernetes](https://github.com/kubernetes/kubernetes).
-
-[PR 56942](https://github.com/kubernetes/kubernetes/pull/56942)
-is an example of a pull request that makes changes to comments in the Kubernetes
-source code.
-
-Monitor your pull request, and respond to reviewer comments. Continue to monitor
-your pull request until it is merged into the master branch of the
-`kubernetes/kubernetes` repository.
-
-## Cherry picking your change into a release branch
-
-Your change is now in the master branch, which is used for development of the next
-Kubernetes release. If you want your change to appear in the docs for a Kubernetes
-version that has already been released, you need to propose that your change be cherry
-picked into the release branch.
-
-For example, suppose the master branch is being used to develop Kubernetes 1.10, and
-you want to backport your change to the release-1.9 branch. For instructions on how
-to do this, see
-[Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/cherry-picks.md).
-
-Monitor your cherry-pick pull request until it is merged into the release branch.
-
-{{< note >}}
-Proposing a cherry pick requires that you have permission to set a label
-and a milestone in your pull request. If you don’t have those permissions, you will
-need to work with someone who can set the label and milestone for you.
 {{< /note >}}
 
 ## Overview of update-imported-docs
@@ -125,8 +88,7 @@ directory. The tool performs the following steps:
    repository under locations specified in the configuration file.
 
 When the Markdown files are in your local clone of the `kubernetes/website`
-repository, you can submit them in a
-[pull request](/docs/home/contribute/create-pull-request/)
+repository, you can submit them in a [pull request](/docs/contribute/start/)
 to `kubernetes/website`.
 
 ## Customizing the config file
@@ -135,13 +97,13 @@ Open `<web-base>/update-imported-docs/reference.yml` for editing.
 Do not change the content for the `generate-command` entry unless you understand
 what it is doing and need to change the specified release branch.
 
-```shell
+```yaml
 repos:
 - name: reference-docs
   remote: https://github.com/kubernetes-incubator/reference-docs.git
   # This and the generate-command below needs a change when reference-docs has
   # branches properly defined
-  branch: master  
+  branch: master
   generate-command: |
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
@@ -176,7 +138,7 @@ to the same destination directory, you can use wildcards in the value given to
 `src` and you can just provide the directory name as the value for `dst`.
 For example:
 
-```shell
+```yaml
   files:
   - src: gen-compdocs/build/kubeadm*.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/
@@ -234,8 +196,8 @@ topics will be visible in the
 
 {{% capture whatsnext %}}
 
-* [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/) 
+* [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
 * [Generating Reference Documentation for the Kubernetes API](/docs/home/contribute/generated-reference/kubernetes-api/)
 * [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
-
+* [Contributing to the Upstream Kubernetes Project for Documentation](/docs/contribute/gen-ref-docs/contribute-upstream)
 {{% /capture %}}

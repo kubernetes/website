@@ -30,15 +30,15 @@ it simplifies node deployment and configuration management.
 
 The subset of the Kubelet's configuration that can be configured via a file
 is defined by the `KubeletConfiguration` struct
-[here (v1beta1)](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/pkg/kubelet/apis/config/types.go).
+[here (v1beta1)](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
 
 The configuration file must be a JSON or YAML representation of the parameters
 in this struct. Make sure the Kubelet has read permissions on the file.
 
 Here is an example of what this file might look like:
 ```
-kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
 evictionHard:
     memory.available:  "200Mi"
 ```

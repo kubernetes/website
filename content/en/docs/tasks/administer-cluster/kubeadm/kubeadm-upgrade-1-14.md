@@ -228,9 +228,9 @@ are merged into a single document.
     {{< tabs name="k8s_install_kubelet" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.14.x-00 with the latest patch version
-    apt-mark unhold kubelet && \
+    apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.14.x-00 kubectl=1.14.x-00 && \
-    apt-mark hold kubelet
+    apt-mark hold kubelet kubectl
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.14.x-0 with the latest patch version
@@ -260,7 +260,7 @@ sudo kubeadm upgrade apply
 
 Also `sudo kubeadm upgrade plan` is not needed.
 
-## Ugrade worker nodes
+## Upgrade worker nodes
 
 The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
 without compromising the minimum required capacity for running your workloads.
@@ -290,16 +290,12 @@ without compromising the minimum required capacity for running your workloads.
     kubectl drain $NODE --ignore-daemonsets
     ```
 
-   You should see output similar to this:
+    You should see output similar to this:
 
     ```shell
-    kubectl drain ip-172-31-85-18
-    node "ip-172-31-85-18" cordoned
-    error: unable to drain node "ip-172-31-85-18", aborting command...
-
-    There are pending nodes to be drained:
-    ip-172-31-85-18
-    error: DaemonSet-managed pods (use --ignore-daemonsets to ignore): calico-node-5798d, kube-proxy-thjp9
+    node/ip-172-31-85-18 cordoned
+    WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-proxy-dj7d7, kube-system/weave-net-z65qx
+    node/ip-172-31-85-18 drained
     ```
 
 ### Upgrade the kubelet config

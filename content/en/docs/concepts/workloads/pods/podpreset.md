@@ -51,9 +51,9 @@ Pods, Kubernetes modifies the Pod Spec. For changes to `Env`, `EnvFrom`, and
 the Pod; for changes to `Volume`, Kubernetes modifies the Pod Spec.
 
 {{< note >}}
-A Pod Preset is capable of modifying the `.spec.containers` field in a
-Pod spec when appropriate. *No* resource definition from the Pod Preset will be
-applied to the `initContainers` field.
+A Pod Preset is capable of modifying the following fields in a Pod spec when appropriate:
+- The `.spec.containers` field.
+- The `initContainers` field (requires Kubernetes version 1.14.0 or later).
 {{< /note >}}
 
 ### Disable Pod Preset for a Specific Pod
@@ -74,7 +74,7 @@ In order to use Pod Presets in your cluster you must ensure the following:
 1.  You have enabled the admission controller `PodPreset`. One way to doing this
     is to include `PodPreset` in the `--enable-admission-plugins` option value specified
     for the API server. In minikube add this flag
-    `--extra-config=apiserver.enable-admission-plugins=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset`
+    `--extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset`
     while starting the cluster.
 1.  You have defined your Pod Presets by creating `PodPreset` objects in the
     namespace you will use.

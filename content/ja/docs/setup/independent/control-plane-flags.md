@@ -6,6 +6,8 @@ weight: 40
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="1.12" state="stable" >}}
+
 kubeadmの`ClusterConfiguration`オブジェクトはAPIServer、ControllerManager、およびSchedulerのようなコントロールプレーンの構成要素に渡されたデフォルトのフラグを上書きすることができる `extraArgs`の項目があります。
 その構成要素は次の項目で定義されています。
 

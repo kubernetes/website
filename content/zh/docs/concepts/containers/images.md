@@ -94,7 +94,7 @@ Kubelet会获取并且定期刷新ECR的凭证。它需要以下权限
 
 ### 使用 Azure Container Registry (ACR)
 当使用[Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)时，可以使用admin user或者service principal认证。
-任何一种情况，认证都通过标准的Dokcer authentication完成。本指南假设使用[azure-cli](https://github.com/azure/azure-cli)
+任何一种情况，认证都通过标准的Docker authentication完成。本指南假设使用[azure-cli](https://github.com/azure/azure-cli)
 命令行工具。
 
 首先，需要创建仓库并获取凭证，完整的文档请参考
