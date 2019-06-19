@@ -6,7 +6,7 @@ weight: 110
 
 {{% capture overview %}}
 
-This page shows how to configure liveness and readiness probes for Containers.
+This page shows how to configure health probes for Containers.
 
 The [kubelet](/docs/admin/kubelet/) uses liveness probes to know when to
 restart a Container. For example, liveness probes could catch a deadlock,
@@ -18,6 +18,12 @@ The kubelet uses readiness probes to know when a Container is ready to start
 accepting traffic. A Pod is considered ready when all of its Containers are ready.
 One use of this signal is to control which Pods are used as backends for Services.
 When a Pod is not ready, it is removed from Service load balancers.
+
+The kubelet uses startup probes to know when a Container application has started.
+If such a probe is configured, it disables liveness and readiness checks until
+it succeeds, making sure those probes don't interfere with the application startup.
+It can be used to adopt liveness checks on slow starting containers, avoiding them
+getting killed by the kubelet before they are up and running.
 
 {{% /capture %}}
 
@@ -230,6 +236,46 @@ livenessProbe:
     path: /healthz
     port: liveness-port
 ```
+
+## Protect slow starting containers with startup probes
+
+Sometimes, you have to deal with legacy applications that might require
+an additional startup time on their first initialization.
+In such cases, it can be tricky to setup liveness probe parameters without
+compromising the fast response to deadlocks that motivated such a probe.
+The trick is to setup a startup probe with the same command, HTTP or TCP
+check, with a `failureThreshold * periodSeconds` long enough to cover the
+worse case startup time.
+
+So, the previous example would become:
+
+```yaml
+ports:
+- name: liveness-port
+  containerPort: 8080
+  hostPort: 8080
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: liveness-port
+  failureThreshold: 1
+  periodSeconds: 10
+
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: liveness-port
+  failureThreshold: 30
+  periodSeconds: 10
+```
+
+Thanks to the startup probe, the application will have a maximum of 5 minutes
+(30 * 10 = 300s) to finish its startup.
+Once the startup probe has succeeded once, the liveness probe takes over to
+provide a fast response to container deadlocks.
+If the startup probe never succeeds, the container is killed after 300s and
+subject to the pod's `restartPolicy`.
 
 ## Define readiness probes
 

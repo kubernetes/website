@@ -136,6 +136,7 @@ different Kubernetes components.
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `StartupProbeEnabled` | `false` | Alpha | 1.15 | |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
 | `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
@@ -313,6 +314,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/api-concepts/#server-side-apply) path at the API Server.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if annotated with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key.
+- `StartupProbeEnabled`: Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
   PersistentVolumeClaim objects if they are still being used.
 - `StreamingProxyRedirects`: Instructs the API server to intercept (and follow)
