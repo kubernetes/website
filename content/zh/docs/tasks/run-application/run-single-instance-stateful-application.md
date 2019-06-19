@@ -168,7 +168,7 @@ kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
 运行MySQL客户端以连接到服务器:
 
 ```
-kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h <pod-ip> -p <password>
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
 此命令在集群内创建一个新的Pod并运行MySQL客户端,并通过服务将其连接到服务器.如果连接成功,你就知道有状态的MySQL database正处于运行状态.
