@@ -41,14 +41,14 @@ You can create the following resources using `kubectl run` with the `--generator
 |---------------------------------|---------------------------------------------------|
 | Pod                             | `kubectl run --generator=run-pod/v1`              |
 | Replication controller          | `kubectl run --generator=run/v1`                  |
-| Deployment                      | `kubectl run --generator=extensions/v1beta1`      |
+| Deployment                      | `kubectl run --generator=deployment/v1beta1`      |
 |  -for an endpoint (default)     | `kubectl run --generator=deployment/v1beta1`      |
-| Deployment                      | `kubectl run --generator=apps/v1beta1`            |
+| Deployment                      | `kubectl run --generator=deployment/apps.v1beta1` |
 |  -for an endpoint (recommended) | `kubectl run --generator=deployment/apps.v1beta1` |
 | Job                             | `kubectl run --generator=job/v1`                  |
-| CronJob                         | `kubectl run --generator=batch/v1beta1`           |
+| CronJob                         | `kubectl run --generator=cronjob/v1beta1`         |
 |  -for an endpoint (default)     | `kubectl run --generator=cronjob/v1beta1`         |
-| CronJob                         | `kubectl run --generator=batch/v2alpha1`          |
+| CronJob                         | `kubectl run --generator=cronjob/v2alpha1`        |
 |  -for an endpoint (deprecated)  | `kubectl run --generator=cronjob/v2alpha1`        |
 
 If you do not specify a generator flag, other flags prompt you to use a specific generator. The following table lists the flags that force you to use specific generators, depending on the version of the cluster:
