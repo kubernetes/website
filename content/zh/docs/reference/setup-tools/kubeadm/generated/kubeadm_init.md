@@ -1,13 +1,13 @@
 
 <!-- Run this command in order to set up the Kubernetes master. -->
-运行这个命令来搭建Kubernetes master节点
+运行此命令来搭建 Kubernetes master 节点
 
 <!-- ### Synopsis -->
 ### 简介
 
 
 <!-- Run this command in order to set up the Kubernetes master. -->
-运行这个命令来搭建Kubernetes主节点。
+运行此命令来搭建 Kubernetes 主节点。
 
 ```
 kubeadm init [flags]
@@ -28,7 +28,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API Server will advertise it's listening on. Specify '0.0.0.0' to use the address of the default network interface.</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">API Server将要广播的监听地址。如指定为 `0.0.0.0` 将使用缺省的网卡地址。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">API Server 将要广播的监听地址。如指定为 `0.0.0.0` 将使用缺省的网卡地址。</td>
     </tr>
 
     <tr>
@@ -37,7 +37,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Port for the API Server to bind to.</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">API Server绑定的端口</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">API Server 绑定的端口</td>
     </tr>
 
     <tr>
@@ -62,7 +62,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental.</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm配置文件的路径。警告：配置文件的功能是实验性的。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。警告：配置文件的功能是实验性的。</td>
     </tr>
 
     <tr>
@@ -71,7 +71,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify the CRI socket to connect to.</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">指明要连接的CRI socket文件</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">指明要连接的 CRI socket 文件</td>
     </tr>
 
     <tr>
@@ -87,7 +87,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">键值对的集合，用来控制各种功能的开关。可选项有:<br/>Auditing=true|false (当前为ALPHA状态 - 缺省值=false)<br/>CoreDNS=true|false (缺省值=true)<br/>DynamicKubeletConfig=true|false (当前为BETA状态 - 缺省值=false)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">键值对的集合，用来控制各种功能的开关。可选项有:<br/>Auditing=true|false (当前为 ALPHA 状态 - 缺省值=false)<br/>CoreDNS=true|false (缺省值=true)<br/>DynamicKubeletConfig=true|false (当前为 BETA 状态 - 缺省值=false)</td>
     </tr>
 
     <tr>
@@ -95,7 +95,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">help for init</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">获取init命令的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">获取 init 命令的帮助信息</td>
     </tr>
 
     <tr>
@@ -112,7 +112,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a specific Kubernetes version for the control plane.</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">为control plane选择一个特定的Kubernetes版本。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">为 control plane 选择一个特定的 Kubernetes 版本。</td>
     </tr>
 
     <tr>
@@ -128,7 +128,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">指明pod网络可以使用的IP地址段。 如果设置了这个参数，control plane将会为每一个节点自动分配CIDRs。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">指明 pod 网络可以使用的IP地址段。 如果设置了这个参数，control plane 将会为每一个节点自动分配 CIDRs。</td>
     </tr>
 
     <tr>
@@ -137,7 +137,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Use alternative range of IP address for service VIPs.</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">为service的虚拟IP地址另外指定IP地址段</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">为 service 的虚拟IP地址另外指定IP地址段</td>
     </tr>
 
     <tr>
@@ -146,7 +146,7 @@ kubeadm init [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Use alternative domain for services, e.g. "myorg.internal".</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">为services另外指定域名, 例如： "myorg.internal".</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">为 services 另外指定域名, 例如： "myorg.internal".</td>
     </tr>
 
     <tr>

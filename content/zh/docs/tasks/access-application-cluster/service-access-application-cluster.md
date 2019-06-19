@@ -1,3 +1,9 @@
+---
+title: 使用服务来访问集群中的应用
+content_template: templates/tutorial
+weight: 60
+---
+
 <!--
 ---
 title: Use a Service to Access an Application in a Cluster
@@ -5,11 +11,6 @@ content_template: templates/tutorial
 weight: 60
 ---
 -->
----
-title: 使用服务来访问集群中的应用
-content_template: templates/tutorial
-weight: 60
----
 
 {{% capture overview %}}
 
