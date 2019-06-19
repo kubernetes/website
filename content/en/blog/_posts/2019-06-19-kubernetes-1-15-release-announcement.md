@@ -2,7 +2,7 @@
 layout: blog
 title: "Kubernetes 1.15: Extensibility and Continuous Improvement"
 date: 2019-06-19
-slug: k8s-115
+slug: kubernetes-1-15-release-announcement
 ---
 
 **Kubernetes 1.15: Extensibility and Continuous Improvement**
@@ -68,7 +68,7 @@ Work on making Kubernetes installation, upgrade and configuration even more robu
 
 **kubeadm**, the cluster lifecycle building block, continues to receive features and stability work required for bootstrapping production clusters efficiently. kubeadm has promoted high availability (HA) capability to beta, allowing users to use the familiar `kubeadm init` and `kubeadm join` commands to [configure and deploy an HA control plane](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/). An entire new test suite has been created specifically for ensuring these features will stay stable over time.
 
-Certificate management has become more robust in 1.15, with kubeadm now seamlessly rotating all your certificates (on upgrades) before they expire. Check the [kubeadm documentation](https://github.com/kubernetes/website/blob/dev-1.15/content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md)\_ \_for information on how to manage your certificates.
+Certificate management has become more robust in 1.15, with kubeadm now seamlessly rotating all your certificates (on upgrades) before they expire. Check the [kubeadm documentation](https://github.com/kubernetes/website/blob/dev-1.15/content/en/docs/reference/setup-tools/kubeadm/kubeadm-alpha.md) for information on how to manage your certificates.
 
 The kubeadm configuration file API is moving from v1beta1 to v1beta2 in 1.15.
 
