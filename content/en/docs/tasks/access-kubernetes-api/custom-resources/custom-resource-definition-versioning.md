@@ -29,6 +29,8 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 ## Overview
 
+{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
+
 The CustomResourceDefinition API supports a `versions` field that you can use to
 support multiple versions of custom resources that you have developed. Versions
 can have different schemas with a conversion webhook to convert custom resources between versions.
@@ -147,9 +149,11 @@ the version.
 
 ## Webhook conversion
 
+{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
+
 {{< note >}}
-Webhook conversion is introduced in Kubernetes 1.13 as an alpha feature. To use it, the
-`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
+`CustomResourceWebhookConversion` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
 The above example has a None conversion between versions which only sets the `apiVersion` field
@@ -181,6 +185,10 @@ authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers).
 {{< /note >}}
+
+#### Permissible mutations
+
+A conversion webhook must not mutate anything inside of `metadata` of the converted object other than `labels` and `annotations`. Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request which caused the conversion. All other changes are just ignored.  
 
 ### Deploy the conversion webhook service
 
@@ -242,7 +250,6 @@ spec:
       service:
         namespace: default
         name: example-conversion-webhook-server
-        # path is the url the API server will call. It should match what the webhook is serving at. The default is '/'.
         path: /crdconvert
       caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
   # either Namespaced or Cluster
@@ -259,11 +266,6 @@ spec:
     - ct
 ```
 
-{{< note >}}
-When using `clientConfig.service`, the server cert must be valid for
-`<svc_name>.<svc_namespace>.svc`.
-{{< /note >}}
-
 You can save the CustomResourceDefinition in a YAML file, then use
 `kubectl apply` to apply it.
 
@@ -272,6 +274,82 @@ kubectl apply -f my-versioned-crontab-with-conversion.yaml
 ```
 
 Make sure the conversion service is up and running before applying new changes.
+
+### Contacting the webhook
+
+Once the API server has determined a request should be sent to a conversion webhook,
+it needs to know how to contact the webhook. This is specified in the `webhookClientConfig`
+stanza of the webhook configuration.
+
+Conversion webhooks can either be called via a URL or a service reference,
+and can optionally include a custom CA bundle to use to verify the TLS connection.
+
+### URL
+
+`url` gives the location of the webhook, in standard URL form
+(`scheme://host:port/path`).
+
+The `host` should not refer to a service running in the cluster; use
+a service reference by specifying the `service` field instead.
+The host might be resolved via external DNS in some apiservers
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+be a layering violation). `host` may also be an IP address.
+
+Please note that using `localhost` or `127.0.0.1` as a `host` is
+risky unless you take great care to run this webhook on all hosts
+which run an apiserver which might need to make calls to this
+webhook. Such installs are likely to be non-portable, i.e., not easy
+to turn up in a new cluster.
+
+The scheme must be "https"; the URL must begin with "https://".
+
+Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Fragments ("#...") and query parameters ("?...") are also not allowed.
+
+Here is an example of a conversion webhook configured to call a URL
+(and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+...
+spec:
+  ...
+  conversion:
+    strategy: Webhook
+    webhookClientConfig:
+      url: "https://my-webhook.example.com:9443/my-webhook-path"
+...
+```
+
+### Service Reference
+
+The `service` stanza inside `webhookClientConfig` is a reference to the service for a conversion webhook.
+If the webhook is running within the cluster, then you should use `service` instead of `url`.
+The service namespace and name are required. The port is optional and defaults to 443.
+The path is optional and defaults to "/".
+
+Here is an example of a webhook that is configured to call a service on port "1234"
+at the subpath "/my-path", and to verify the TLS connection against the ServerName
+`my-service-name.my-service-namespace.svc` using a custom CA bundle.
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+...
+spec:
+  ...
+  conversion:
+    strategy: Webhook
+    webhookClientConfig:
+      service:
+        namespace: my-service-namespace
+        name: my-service-name
+        path: /my-path
+        port: 1234
+      caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
+...
+```
 
 ## Writing, reading, and updating versioned CustomResourceDefinition objects
 
