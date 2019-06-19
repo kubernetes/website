@@ -226,15 +226,9 @@ CSI volume expansion requires enabling `ExpandCSIVolumes` feature gate and also 
 
 You can only resize volumes containing a file system if the file system is XFS, Ext3, or Ext4.
 
-When a volume contains a file system, the file system is only resized when a new Pod is started using
-the `PersistentVolumeClaim` in ReadWrite mode. Therefore, if a pod or deployment is using a volume and
-you want to expand it, you need to delete or recreate the pod after the volume has been expanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
-
-```
-kubectl describe pvc <pvc_name>
-```
-
-If the `PersistentVolumeClaim` has the status `FileSystemResizePending`, it is safe to recreate the pod using the PersistentVolumeClaim.
+When a volume contains a file system, the file system is only resized when a new Pod is using
+the `PersistentVolumeClaim` in ReadWrite mode. File system expansion is either done when Pod is starting up
+or is done when Pod is running and underlying file system supports online expansion. 
 
 FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true. 
 The FlexVolume can be resized on pod restart. 
@@ -243,14 +237,15 @@ The FlexVolume can be resized on pod restart.
 
 #### Resizing an in-use PersistentVolumeClaim
 
-Expanding in-use PVCs is an alpha feature. To use it, enable the `ExpandInUsePersistentVolumes` feature gate.
+Expanding in-use PVCs is a beta feature and is enabled by default via `ExpandInUsePersistentVolumes` feature gate.
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod which
 uses the PVC before the expansion can complete.
 
-Expanding in-use PVCs for FlexVolumes is added in release 1.13. To enable this feature use  `ExpandInUsePersistentVolumes` and `ExpandPersistentVolumes` feature gates. The `ExpandPersistentVolumes` feature gate is already enabled by default. If the `ExpandInUsePersistentVolumes` is set, FlexVolume can be resized online without pod restart. 
- 
+
+Similar to other volume types - FlexVolume volumes can also be expanded when in-use by a pod.
+
 {{< note >}}
 FlexVolume resize is possible only when the underlying driver supports resize.
 {{< /note >}}
@@ -675,6 +670,33 @@ spec:
     name: new-snapshot-test
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+## Volume Cloning
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+Volume clone feature was added to support CSI Volume Plugins only. For details, see [volume cloning](/docs/concepts/storage/volume-pvc-datasource/).
+
+To enable support for cloning a volume from a pvc data source, enable the
+`VolumePVCDataSource` feature gate on the apiserver and controller-manager.
+
+### Create Persistent Volume Claim from an existing pvc
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cloned-pvc
+spec:
+  storageClassName: my-csi-plugin
+  dataSource:
+    name: existing-src-pvc-name
+    kind: PersistentVolumeClaim
   accessModes:
     - ReadWriteOnce
   resources:

@@ -18,7 +18,7 @@ weight: 10
 
 No need to modify your application to use an unfamiliar service discovery mechanism.
 Kubernetes gives pods their own IP addresses and a single DNS name for a set of pods,
-and can load-balance across them.
+:wqaand can load-balance across them.
 
 {{% /capture %}}
 
@@ -805,15 +805,11 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # A list of additional security groups to be added to the ELB
 ```
 
-#### Network Load Balancer support on AWS [alpha] {#aws-nlb-support}
+#### Network Load Balancer support on AWS
 
-{{< warning >}}
-This is an alpha feature and is not yet recommended for production clusters.
-{{< /warning >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
-Starting from Kubernetes v1.9.0, you can use AWS Network Load Balancer (NLB) with Services. To
-use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type`
-with the value set to `nlb`.
+To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type` with the value set to `nlb`.
 
 ```yaml
     metadata:
