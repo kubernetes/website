@@ -530,3 +530,10 @@ $(function() {
         $('#hero').addClass('no-sub');
     }
 });
+
+var url = "https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=kubernetes";
+$.get(url, function(data){
+    var table = $(data).find("#TableWithRules");
+    var cvetable = $(table).find("tr")
+    $("#cve-hub").html(cvetable)
+})
