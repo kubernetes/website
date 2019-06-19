@@ -64,10 +64,10 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.14"
+latest = "v1.15"
 
-fullversion = "v1.14.0"
-version = "v1.14"
+fullversion = "v1.15.0"
+version = "v1.15"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -77,10 +77,10 @@ githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 [[params.versions]]
-fullversion = "v1.14.0"
-version = "v1.14"
-githubbranch = "v1.14.0"
-docsbranch = "release-1.14"
+fullversion = "v1.15.0"
+version = "v1.15"
+githubbranch = "v1.15.0"
+docsbranch = "release-1.15"
 url = "https://kubernetes.io"
 
 [params.pushAssets]
@@ -95,32 +95,32 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.13.4"
+fullversion = "v1.14.3"
+version = "v1.14"
+githubbranch = "v1.14.3"
+docsbranch = "release-1.14"
+url = "https://v1-14.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.13.7"
 version = "v1.13"
-githubbranch = "v1.13.4"
+githubbranch = "v1.13.7"
 docsbranch = "release-1.13"
 url = "https://v1-13.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.12.6"
+fullversion = "v1.12.9"
 version = "v1.12"
-githubbranch = "v1.12.6"
+githubbranch = "v1.12.9"
 docsbranch = "release-1.12"
 url = "https://v1-12.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.11.8"
+fullversion = "v1.11.10"
 version = "v1.11"
-githubbranch = "v1.11.8"
+githubbranch = "v1.11.10"
 docsbranch = "release-1.11"
 url = "https://v1-11.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.10.13"
-version = "v1.10"
-githubbranch = "v1.10.13"
-docsbranch = "release-1.10"
-url = "https://v1-10.docs.kubernetes.io"
 
 # Language definitions.
 
