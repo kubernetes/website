@@ -23,54 +23,36 @@ content_template: templates/tutorial
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* 为了数据持久性我们将在环境上通过磁盘创建一个持久卷. 环境支持的类型见这里[here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes). 本篇文档将介绍 `GCEPersistentDisk` . `GCEPersistentDisk`卷只能工作在Google Compute Engine平台上.
+* {{< include "default-storage-class-prereqs.md" >}}
 
 {{% /capture %}}
 
 
 {{% capture lessoncontent %}}
 
-## 在环境中设置一个磁盘
-
-你可以为有状态的应用使用任何类型的持久卷. 有关支持环境的磁盘列表，请参考持久卷类型[Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes). 对于Google Compute Engine, 请运行:
-
-```
-gcloud compute disks create --size=20GB mysql-disk
-```
-
-
-接下来创建一个指向刚创建的 `mysql-disk`磁盘的PersistentVolume. 下面是一个PersistentVolume的配置文件，它指向上面创建的Compute Engine磁盘:
-
-{{< code file="gce-volume.yaml" >}}
-
-注意`pdName: mysql-disk` 这行与Compute Engine环境中的磁盘名称相匹配. 有关为其
-他环境编写PersistentVolume配置文件的详细信息，请参见持久卷[Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
-
-
-创建持久卷:
-
-```
-kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
-```
-
-
 
 ## 部署MySQL
 
 通过创建Kubernetes Deployment并使用PersistentVolumeClaim将其连接到现已存在的PersistentVolume上来运行一个有状态的应用.  例如, 下面这个YAML文件描述了一个运行MySQL
-并引用PersistentVolumeClaim的Deployment. 该文件定义了一个volume其挂载目录为/var/lib/mysql, 然后创建一个内存为20G的卷的PersistentVolumeClaim. 此申领可以通过任
+并引用PersistentVolumeClaim的Deployment. 该文件定义了一个volume其挂载目录为/var/lib/mysql, 然后创建一个大小为20G的卷的PersistentVolumeClaim. 此申领可以通过任
 何符合需求的卷来满足, 在本例中满足上面创建的卷.
 
 
 注意: 在配置的yaml文件中定义密码的做法是不安全的. 具体安全解决方案请参考
 [Kubernetes Secrets](/docs/concepts/configuration/secret/).
 
-{{< code file="mysql-deployment.yaml" >}}
+{{< codenew file="application/mysql/mysql-deployment.yaml" >}}
+{{< codenew file="application/mysql/mysql-pv.yaml" >}}
+
+
+1. 部署YAML文件中定义的PV和PVC:
+
+       kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 
 
 1. 部署YAML文件中定义的内容:
 
-       kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
+       kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 
 
 1. 展示Deployment相关信息:
@@ -116,45 +98,26 @@ kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
 
 1. 列举出Deployment创建的pods:
 
-       kubectl get pods -l app=mysql
+        kubectl get pods -l app=mysql
 
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
 
-
-1. 查看持久卷:
-
-       kubectl describe pv mysql-pv
-
-        Name:            mysql-pv
-        Labels:          <none>
-        Status:          Bound
-        Claim:           default/mysql-pv-claim
-        Reclaim Policy:  Retain
-        Access Modes:    RWO
-        Capacity:        20Gi
-        Message:
-        Source:
-            Type:        GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
-            PDName:      mysql-disk
-            FSType:      ext4
-            Partition:   0
-            ReadOnly:    false
-        No events.
-
-
 1. 查看PersistentVolumeClaim:
 
-       kubectl describe pvc mysql-pv-claim
+        kubectl describe pvc mysql-pv-claim
 
         Name:         mysql-pv-claim
         Namespace:    default
+        StorageClass:
         Status:       Bound
-        Volume:       mysql-pv
+        Volume:       mysql-pv-volume
         Labels:       <none>
+        Annotations:    pv.kubernetes.io/bind-completed=yes
+                        pv.kubernetes.io/bound-by-controller=yes
         Capacity:     20Gi
         Access Modes: RWO
-        No events.
+        Events:       <none>
 
 
 ## 访问MySQL实例
@@ -171,7 +134,7 @@ kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
-此命令在集群内创建一个新的Pod并运行MySQL客户端,并通过服务将其连接到服务器.如果连接成功,你就知道有状态的MySQL database正处于运行状态.
+此命令在集群内创建一个新的Pod并运行MySQL客户端,并通过Service将其连接到服务器.如果连接成功,你就知道有状态的MySQL database正处于运行状态.
 
 ```
 Waiting for pod default/mysql-client-274442439-zyp6i to be running, status is Pending, pod ready: false
@@ -200,14 +163,11 @@ Deployment中镜像或其他部分同往常一样可以通过 `kubectl apply` �
 ```
 kubectl delete deployment,svc mysql
 kubectl delete pvc mysql-pv-claim
-kubectl delete pv mysql-pv
+kubectl delete pv mysql-pv-volume
 ```
 
-如果使用Compute Engine磁盘，也可以使用如下命令:
-
-```
-gcloud compute disks delete mysql-disk
-```
+如果通过手动的方式分配PersistentVolume, 那么也需要手动的删除它，以及释放下层资源。
+如果是用过动态分配PersistentVolume的方式，在删除PersistentVolumeClaim后PersistentVolume将被自动的删除. 一些存储服务(比如EBS和PD)也会在PersistentVolume被删除时自动回收下层资源.
 
 {{% /capture %}}
 
@@ -218,7 +178,7 @@ gcloud compute disks delete mysql-disk
 
 * 了解更多Deployment应用请参考 [Deploying applications](/docs/user-guide/deploying-applications/)
 
-* kubectl run文档请参考[kubectl run documentation](/docs/user-guide/kubectl/v1.6/#run)
+* kubectl run文档请参考[kubectl run documentation](/docs/reference/generated/kubectl/kubectl-commands/#run)
 
 * 卷和持久卷请参考[Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 
