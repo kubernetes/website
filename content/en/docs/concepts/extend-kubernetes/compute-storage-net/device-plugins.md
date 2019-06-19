@@ -125,8 +125,8 @@ must be mounted as a
 in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Kubernetes device plugin support is still in alpha. As development continues, its API version can
-change in incompatible ways. We recommend that device plugin developers do the following:
+Kubernetes device plugin support is in beta. As development continues, its API version can
+change. We recommend that device plugin developers do the following:
 
 * Watch for changes in future releases.
 * Support multiple versions of the device plugin API for backward/forward compatibility.
@@ -148,16 +148,16 @@ The kubelet provides a gRPC service to enable discovery of in-use devices, and t
 for these devices:
 
 ```gRPC
-// PodResources is a service provided by the kubelet that provides information about the
+// PodResourcesLister is a service provided by the kubelet that provides information about the
 // node resources consumed by pods and containers on the node
-service PodResources {
+service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
 }
 ```
 
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`. 
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet. 
-The cannonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring 
+The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring 
 agents must run in a privileged security context.  If a device monitoring agent is running as a 
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a 
 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
@@ -179,6 +179,7 @@ For examples of device plugin implementations, see:
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU, FPGA and QuickAssist devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
 
 {{% /capture %}}
 

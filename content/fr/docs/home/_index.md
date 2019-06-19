@@ -2,11 +2,12 @@
 approvers:
 - chenopis
 title: Documentation de Kubernetes
+description: Documentation francophone de Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage
-linkTitle: "Home"
+linkTitle: "Accueil"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -24,17 +25,17 @@ cards:
   description: "En savoir plus sur Kubernetes et ses concepts fondamentaux."
   button: "Apprendre les concepts"
   button_path: "/docs/concepts"
-- name: tutoriels
+- name: tutorials
   title: "Essayez Kubernetes"
   description: "Suivez les tutoriels pour apprendre à déployer des applications dans Kubernetes."
   button: "Voir les tutoriels"
   button_path: "/docs/tutorials"
-- name: installer
+- name: setup
   title: "Mettre en place un cluster"
   description: "Faites fonctionner Kubernetes en fonction de vos ressources et de vos besoins."
   button: "Installer Kubernetes"
   button_path: "/docs/setup"
-- name: Tâches
+- name: tasks
   title: "Apprenez à utiliser Kubernetes"
   description: "Recherchez des tâches courantes et leur exécution en suivant une courte séquence d'étapes."
   button: "Voir les tâches"
@@ -46,7 +47,7 @@ cards:
   button_path: /docs/reference
 - name: contribute
   title: Contribuer à la documentation
-  description: Tout le monde peut contribuer, que vous soyez nouveau dans le projet ou experimenté.
+  description: Tout le monde peut contribuer, que vous soyez nouveau dans le projet ou expérimenté.
   button: Contribuer à la documentation
   button_path: /docs/contribute
 - name: download

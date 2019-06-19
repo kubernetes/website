@@ -156,7 +156,6 @@ After a request is authorized, if it is a write operation, it also goes through 
 
 *   The [Image Policy webhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
 *   To make arbitrary admission control decisions, a general [Admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
-*   [Initializers](/docs/reference/access-authn-authz/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Initializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
 
 ## Infrastructure Extensions
 
@@ -210,7 +209,3 @@ the nodes chosen for a pod.
   * [List of Operators](https://github.com/operator-framework/awesome-operators)
 
 {{% /capture %}}
-
-
-
-

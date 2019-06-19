@@ -1,0 +1,137 @@
+---
+title: Durchführen eines Rolling-Updates
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Objectives</h3>
+                <ul>
+                    <li>Führen Sie ein Rolling-Update mit kubectl durch.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>Anwendung aktualisieren</h3>
+
+            <p>Anwender erwarten, dass Anwendungen jederzeit verfügbar sind, und Entwickler haben das Bedürfnis mehrmals täglich neue Versionen davon bereitstellen. In Kubernetes geschieht dies mit laufenden Aktualisierungen. <b> Rolling Updates</b> ermöglichen die Aktualisierung von Deployments ohne Ausfallzeit, indem Pod-Instanzen inkrementell mit neuen aktualisiert werden. Die neuen Pods werden auf Nodes mit verfügbaren Ressourcen geplant.</p>
+
+            <p>Im vorherigen Modul haben wir unsere Anwendung so skaliert, dass mehrere Instanzen ausgeführt werden können. Dies ist eine Voraussetzung, um Aktualisierungen durchzuführen, ohne die Anwendungsverfügbarkeit zu beeinträchtigen. Standardmäßig ist die maximale Anzahl von Pods, die während der Aktualisierung nicht verfügbar sein kann, und die maximale Anzahl neuer Pods, die erstellt werden können, 1. Beide Optionen können entweder nach Zahlen oder Prozentsätzen (von Pods) konfiguriert werden.
+            In Kubernetes werden Updates versioniert und jedes Deployment-Update kann auf die vorherige (stabile) Version zurückgesetzt werden.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Zusammenfassung:</h3>
+                    <ul>
+                        <li>App aktualisieren</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>Rolling Updates ermöglichen die Aktualisierung der Deployments ohne Ausfallzeit, indem Pod-Instanzen inkrementell mit neuen aktualisiert werden. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Rolling Updates - Übersicht</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Vorherige</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Nächste</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Ähnlich wie bei der Anwendungsskalierung wird der Datenverkehr, wenn ein Deployment öffentlich verfügbar gemacht wird, während der Aktualisierung auf die verfügbaren Pods lastverteilt. Ein verfügbarer Pod ist eine Instanz, die den Benutzern der Anwendung zur Verfügung steht.</p>
+
+                <p>Rolling Updates ermöglichen die folgenden Aktionen:</p>
+                <ul>
+                    <li>Heraufstufen einer Anwendung von einer Umgebung in eine andere (über Aktualisierungen der Container-Images)</li>
+                    <li>Rollback auf frühere Versionen</li>
+                    <li>Kontinuierliche Integration und kontinuierliche Bereitstellung von Anwendungen ohne Ausfallzeiten</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Wenn ein Deployment öffentlich verfügbar gemacht wird, wird der Verkehr während des Updates nur auf verfügbare Pods verteilt. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p> Im folgenden interaktiven Tutorial werden wir unsere Anwendung auf eine neue Version aktualisieren und auch einen Rollback durchführen.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">Interaktives Lernprogramm starten <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
