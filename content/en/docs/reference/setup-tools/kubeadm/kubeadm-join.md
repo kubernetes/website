@@ -98,8 +98,11 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 For control-plane nodes:
 
 ```shell
-kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef --experimental-control-plane 1.2.3.4:6443
+kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef --control-plane 1.2.3.4:6443
 ```
+
+You can also call `join` for a control-plane node with `--certificate-key` to copy certificates to this node,
+if the `kubeadm init` command was called with `--upload-certs`.
 
 **Advantages:**
 

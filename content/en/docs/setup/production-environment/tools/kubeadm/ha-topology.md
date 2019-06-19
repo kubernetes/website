@@ -43,7 +43,7 @@ plane instance are lost, and redundancy is compromised. You can mitigate this ri
 You should therefore run a minimum of three stacked control plane nodes for an HA cluster.
 
 This is the default topology in kubeadm. A local etcd member is created automatically
-on control plane nodes when using `kubeadm init` and `kubeadm join --experimental-control-plane`.
+on control plane nodes when using `kubeadm init` and `kubeadm join --control-plane`.
 
 ![Stacked etcd topology](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
 

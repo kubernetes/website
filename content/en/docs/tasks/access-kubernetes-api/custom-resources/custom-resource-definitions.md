@@ -65,6 +65,20 @@ spec:
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
     - ct
+  preserveUnknownFields: false
+  validation:
+    openAPIV3Schema:
+      type: object
+      properties:
+        spec:
+          type: object
+          properties:
+            cronSpec:
+              type: string
+            image:
+              type: string
+            replicas:
+              type: integer
 ```
 
 And create it:
@@ -178,6 +192,315 @@ Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontab
 
 If you later recreate the same CustomResourceDefinition, it will start out empty.
 
+## Specifying a structural schema
+
+{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
+
+CustomResources traditionally store arbitrary JSON (next to `apiVersion`, `kind` and `metadata`, which is validated by the API server implicitly). With [OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
+
+With `apiextensions.k8s.io/v1` the definition of a structural schema will be mandatory for CustomResourceDefinitions, while in `v1beta1` this is still optional.
+
+A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) which:
+
+1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node (via `items` in OpenAPI), with the exception of:
+   * a node with `x-kubernetes-int-or-string: true`
+   * a node with `x-kubernetes-preserve-unknown-fields: true`
+2. for each each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`, `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
+3. does not set `description`, `type`, `default`, `additionProperties`, `nullable` within an `allOf`, `anyOf`, `oneOf` or `not`, with the exception of the two pattern for `x-kubernetes-int-or-string: true` (see below).
+4. if `metadata` is specified, then only restrictions on `metadata.name` and `metadata.generateName` are allowed. 
+
+
+Non-Structural Example 1: 
+```yaml
+allOf:
+- properties:
+    foo:
+      ...
+```
+conflicts with rule 2. The following would be correct:
+```yaml
+properties:
+  foo:
+    ...
+allOf:
+- properties:
+    foo:
+      ...
+```
+
+Non-Structural Example 2:
+```yaml
+allOf:
+- items:
+    properties:
+      foo:
+        ...
+```
+conflicts with rule 2. The following would be correct:
+```yaml
+items:
+  properties:
+    foo:
+      ...
+allOf:
+- items:
+    properties:
+      foo:
+        ...
+``` 
+
+Non-Structural Example 3:
+```yaml
+properties:
+  foo:
+    pattern: "abc"
+  metadata:
+    type: object
+    properties:
+      name:
+        type: string
+        pattern: "^a"
+      finalizers:
+        type: array
+        items:
+          type: string
+          pattern: "my-finalizer"
+anyOf:
+- properties:
+    bar:
+      type: integer
+      minimum: 42
+  required: ["bar"]
+  description: "foo bar object"
+```
+is not a structural schema because of the following violations:
+
+* the type at the root is missing (rule 1).
+* the type of `foo` is missing (rule 1).
+* `bar` inside of `anyOf` is not specified outside (rule 2). 
+* `bar`'s `type` is within `anyOf` (rule 3).
+* the description is set within `anyOf` (rule 3).
+* `metadata.finalizer` might not be restricted (rule 4). 
+
+In contrast, the following, corresponding schema is structural:
+```yaml
+type: object
+description: "foo bar object"
+properties:
+  foo:
+    type: string
+    pattern: "abc"
+  bar:
+    type: integer
+  metadata:
+    type: object
+    properties:
+      name:
+        type: string
+        pattern: "^a"
+anyOf:
+- properties:
+    bar:
+      minimum: 42
+  required: ["bar"]
+```
+
+Violations of the structural schema rules are reported in the `NonStructural` condition in the CustomResourceDefinition.
+
+Not being structural disables the following features:
+
+* [Validation Schema Publishing](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
+* [Webhook Conversion](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/#webhook-conversion)
+* [Validation Schema Defaulting](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting)
+* [Pruning](#preserving-unknown-fields)
+
+and possibly more features in the future.
+
+### Pruning versus preserving unknown fields
+
+{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
+
+CustomResourceDefinitions traditionally store any (possibly validated) JSON as is in etcd. This means that unspecified fields (if there is a [OpenAPI v3.0 validation schema](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) at all) are persisted. This is in contrast to native Kubernetes resources like e.g. a pod where unknown fields are dropped before being persisted to etcd. We call this "pruning" of unknown fields.
+ 
+If a [structural OpenAPI v3 validation schema](#specifying-a-structural-schema) is defined (either in the global `spec.validation.openAPIV3Schema` or for each version) in a CustomResourceDefinition, pruning can be enabled by setting `spec.preserveUnknownFields` to `false`. Then unspecified fields on creation and on update are dropped.
+
+Compare the CustomResourceDefinition `crontabs.stable.example.com` above. It has pruning enabled. Hence, if you save the following YAML to `my-crontab.yaml`:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  cronSpec: "* * * * */5"
+  image: my-awesome-cron-image
+  someRandomField: 42
+```
+
+and create it:
+
+```shell
+kubectl create --validate=false -f my-crontab.yaml -o yaml
+```
+
+you should get:
+
+```console
+apiVersion: stable.example.com/v1
+kind: CronTab
+metadata:
+  creationTimestamp: 2017-05-31T12:56:35Z
+  generation: 1
+  name: my-new-cron-object
+  namespace: default
+  resourceVersion: "285"
+  selfLink: /apis/stable.example.com/v1/namespaces/default/crontabs/my-new-cron-object
+  uid: 9423255b-4600-11e7-af6a-28d2447dc82b
+spec:
+  cronSpec: '* * * * */5'
+  image: my-awesome-cron-image
+```
+
+The field `someRandomField` has been pruned.
+
+Note that the `kubectl create` call uses `--validate=false` to skip client-side validation. Because the [OpenAPI validation schemas are also published](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2) to kubectl, it will also check for unknown fields and reject those objects long before they are sent to the API server.
+
+In `apiextensions.k8s.io/v1beta1`, pruning is disabled by default, i.e. `spec.preserveUnknownFields` defaults to `true`. In `apiextensions.k8s.io/v1` no new CustomResourceDefinitions with `spec.preserveUnknownFields: true` will be allowed to be created.
+
+### Controlling pruning
+
+With `spec.preserveUnknownField: false` in the CustomResourceDefinition, pruning is enabled for all custom resources of that type and in all versions. It is possible though to opt-out of that for JSON sub-trees via `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema):
+
+```yaml
+type: object
+properties:
+  json:
+    x-kubernetes-preserve-unknown-fields: true
+```
+
+The field `json` can store any JSON value, without anything being pruned.
+
+It is possible to partially specify the permitted JSON, e.g.:
+
+```yaml
+type: object
+properties:
+  json:
+    x-kubernetes-preserve-unknown-fields: true
+    type: object
+    description: this is arbitrary JSON
+```
+
+With this only object type values are allowed.
+
+Pruning is enabled again for each specified property (or `additionalProperties`):
+
+```yaml
+type: object
+properties:
+  json:
+    x-kubernetes-preserve-unknown-fields: true
+    type: object
+    properties:
+      spec:
+        type: object
+        properties:
+          foo:
+            type: string
+          bar:
+            type: string
+```
+
+With this, the value:
+
+```yaml
+json:
+  spec:
+    foo: abc
+    bar: def
+    something: x
+  status:
+    something: x
+```
+
+is pruned to:
+
+```yaml
+json:
+  spec:
+    foo: abc
+    bar: def
+  status:
+    something: x
+```
+
+This means that the `something` field in the specified `spec` object is pruned, but everything outside is not.
+
+### IntOrString
+
+Nodes in a schema with `x-kubernetes-int-or-string: true` are excluded from rule 1, such that the following is structural:
+
+```yaml
+type: object
+properties:
+  foo:
+    x-kubernetes-int-or-string: true
+``` 
+ 
+Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed (exactly those, without variations in order to additional fields):
+
+```yaml
+x-kubernetes-int-or-string: true
+anyOf:
+- type: integer
+- type: string
+...
+``` 
+
+and
+
+```yaml
+x-kubernetes-int-or-string: true
+allOf:
+- anyOf:
+  - type: integer
+  - type: string
+- ... # zero or more
+...
+``` 
+
+With one of those specification, both an integer and a string validate.
+
+In [Validation Schema Publishing](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2), `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
+
+### RawExtension
+
+RawExtensions (as in `runtime.RawExtension` defined in [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94)) holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
+
+It is possible to specify those embedded objects (both completely without constraints or partially specified) by setting `x-kubernetes-embedded-resource: true`. For example:
+
+```yaml
+type: object
+properties:
+  foo:
+    x-kubernetes-embedded-resource: true
+    x-kubernetes-preserve-unknown-fields: true
+```
+
+Here, the field `foo` holds a complete object, e.g.:
+
+```yaml
+foo:
+  apiVersion: v1
+  kind: Pod
+  spec:
+    ...
+```
+
+Because `x-kubernetes-preserve-unknown-fields: true` is specified alongside, nothing is pruned. The use of `x-kubernetes-preserve-unknown-fields: true` is optional though.
+
+With `x-kubernetes-embedded-resource: true`, the `apiVersion`, `kind` and `metadata` are implicitly specified and validated.
+
 ## Serving multiple versions of a CRD
 
 See [Custom resource definition versioning](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/)
@@ -231,17 +554,31 @@ Validation of custom objects is possible via
 [OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) or [validatingadmissionwebhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 Additionally, the following restrictions are applied to the schema:
 
-- The fields `default`, `nullable`, `discriminator`, `readOnly`, `writeOnly`, `xml`,
-`deprecated` and `$ref` cannot be set.
+- These fields cannot be set:
+  - `definitions`,
+  - `dependencies`,
+  - `deprecated`,
+  - `discriminator`, 
+  - `id`,
+  - `patternProperties`,
+  - `readOnly`, 
+  - `writeOnly`,
+  - `xml`,
+  - `$ref`.
 - The field `uniqueItems` cannot be set to true.
 - The field `additionalProperties` cannot be set to false.
+- The field `additionalProperties` is mutually exclusive with `properties`.
 
-You can disable this feature using the `CustomResourceValidation` feature gate on
-the [kube-apiserver](/docs/admin/kube-apiserver):
+These fields can only be set with specific features enabled:
 
-```
---feature-gates=CustomResourceValidation=false
-```
+- `default`: the `CustomResourceDefaulting` feature gate must be enabled, compare [Validation Schema Defaulting](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting).
+
+Note: compare with [structural schemas](#specifying-a-structural-schema) for further restriction required for certain CustomResourceDefinition features.
+
+{{< note >}}
+OpenAPI v3 validation is available as beta. The
+`CustomResourceValidation` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+{{< /note >}}
 
 The schema is defined in the CustomResourceDefinition. In the following example, the
 CustomResourceDefinition applies the following validations on the custom object:
@@ -273,8 +610,10 @@ spec:
   validation:
    # openAPIV3Schema is the schema for validating custom objects.
     openAPIV3Schema:
+      type: object
       properties:
         spec:
+          type: object
           properties:
             cronSpec:
               type: string
@@ -347,25 +686,106 @@ kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
 
+### Defaulting
+
+{{< feature-state state="alpha" for_kubernetes_version="1.15" >}}
+
+{{< note >}}
+Defaulting is available as alpha since 1.15. It is disabled by default and can be enabled via the `CustomResourceDefaulting` feature gate. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+
+Defaulting also requires a structural schema and pruning. 
+{{< /note >}}
+
+Defaulting allows to specify default values in the [OpenAPI v3 validation schema](#validation):
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.stable.example.com
+spec:
+  group: stable.example.com
+  versions:
+    - name: v1
+      served: true
+      storage: true
+  version: v1
+  scope: Namespaced
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+    shortNames:
+    - ct
+  preserveUnknownFields: false
+  validation:
+   # openAPIV3Schema is the schema for validating custom objects.
+    openAPIV3Schema:
+      type: object
+      properties:
+        spec:
+          type: object
+          properties:
+            cronSpec:
+              type: string
+              pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+              default: "5 0 * * *"
+            image:
+              type: string
+            replicas:
+              type: integer
+              minimum: 1
+              maximum: 10
+              default: 1
+```
+
+With this both `cronSpec` and `replicas` are defaulted:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  image: my-awesome-cron-image
+```
+
+leads to
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  cronSpec: "5 0 * * *"
+  image: my-awesome-cron-image
+  replaces: 1
+```
+
+Note that defaulting happens on the object
+ 
+* in the request to the API server using the request version defaults
+* when reading from etcd using the storage version defaults
+* after mutating admission plugins with non-empty patches using the admission webhook object version defaults.
+
+Note that defaults applied when reading data from etcd are not automatically written back to etcd. An update request via the API is required to persist those defaults back into etcd.
+
 ### Publish Validation Schema in OpenAPI v2
 
-{{< feature-state state="alpha" for_kubernetes_version="1.14" >}}
+{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
 
-Starting with Kubernetes 1.14, [custom resource validation schema](#validation) can be published as part
-of [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from
-Kubernetes API server.
+{{< note >}}
+OpenAPI v2 Publishing is available as beta since 1.15, and as alpha since 1.14. The
+`CustomResourcePublishOpenAPI` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+{{< /note >}}
 
-[kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation
-(`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources.
-The published schema can be consumed for other purposes. The feature is Alpha in 1.14 and disabled by default.
-You can enable the feature using the `CustomResourcePublishOpenAPI` feature gate on the
-[kube-apiserver](/docs/admin/kube-apiserver):
+With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) are published as part
+of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
-```
---feature-gates=CustomResourcePublishOpenAPI=true
-```
+[kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation. 
 
-Custom resource validation schema will be converted to OpenAPI v2 schema, and
+The OpenAPI v3 validation schema is converted to OpenAPI v2 schema, and
 show up in `definitions` and `paths` fields in the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
 The following modifications are applied during the conversion to keep backwards compatiblity with
 kubectl in previous 1.13 version. These modifications prevent kubectl from being over-strict and rejecting
@@ -373,31 +793,8 @@ valid OpenAPI schemas that it doesn't understand. The conversion won't modify th
 and therefore won't affect [validation](#validation) in the API server.
 
 1. The following fields are removed as they aren't supported by OpenAPI v2 (in future versions OpenAPI v3 will be used without these restrictions)
-   - The fields `oneOf`, `anyOf` and `not` are removed
-2. The following fields are removed as they aren't allowed by kubectl in
-   previous 1.13 version
-   - For a schema with a `$ref`
-      - the fields `properties` and `type` are removed
-      - if the `$ref` is outside of the `definitions`, the field `$ref` is removed
-   - For a schema of a primitive data type (which means the field `type` has two elements: one type and one format)
-      - if any one of the two elements is `null`, the field `type` is removed
-      - otherwise, the fields `type` and `properties` are removed
-   - For a schema of more than two types
-      - the fields `type` and `properties` are removed
-   - For a schema of `null` type
-      - the field `type` is removed
-   - For a schema of `array` type
-      - if the schema doesn't have exactly one item, the fields `type` and `items` are
-        removed
-   - For a schema with no type specified
-      - the field `properties` is removed
-3. The following fields are removed as they aren't supported by the OpenAPI protobuf implementation
-   - The fields `id`, `schema`, `definitions`, `additionalItems`, `dependencies`,
-     and `patternProperties` are removed
-   - For a schema with a `externalDocs`
-      - if the `externalDocs` has `url` defined, the field `externalDocs` is removed
-   - For a schema with `items` defined
-      - if the field `items` has multiple schemas, the field `items` is removed
+   - The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
+2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
 
 ### Additional printer columns
 
@@ -569,9 +966,10 @@ the status replica value in the `/scale` subresource will default to 0.
 
   - It is an optional value.
   - It must be set to work with HPA.
-  - Only JSONPaths under `.status` and with the dot notation are allowed.
+  - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `LabelSelectorPath` in the custom resource,
 the status selector value in the `/scale` subresource will default to the empty string.
+  - The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form.
 
 In the following example, both status and scale subresources are enabled.
 
@@ -659,6 +1057,8 @@ crontabs "my-new-cron-object" scaled
 kubectl get crontabs my-new-cron-object -o jsonpath='{.spec.replicas}'
 5
 ```
+
+You can use a [PodDisruptionBudget](docs/tasks/run-application/configure-pdb/) to protect custom resources that have the scale subresource enabled.
 
 ### Categories
 
