@@ -7,16 +7,16 @@ weight: 10
 
 {{% capture overview %}}
 
-Replicasetの目的は、どのような時でも安定したレプリカPodのセットを維持することです。これは、理想的なレプリカ数のPodが利用可能であることを保証するものとして使用されます。
+ReplicaSetの目的は、どのような時でも安定したレプリカPodのセットを維持することです。これは、理想的なレプリカ数のPodが利用可能であることを保証するものとして使用されます。
 
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Replicasetがどのように動くか
+## ReplicaSetがどのように動くか
 
-Replicasetは、ReplicaSetが対象とするPodをどう特定するかを示すためのセレクターや、稼働させたいPodのレプリカ数、Podテンプレート(理想のレプリカ数の条件を満たすために作成される新しいPodのデータを指定するために用意されるもの)といったフィールドとともに定義されます。ReplicaSetは、指定された理想のレプリカ数にするためにPodの作成と削除を行うことにより、その目的を達成します。ReplicaSetが新しいPodを作成するとき、ReplicaSetはそのPodテンプレートを使用します。
+ReplicaSetは、ReplicaSetが対象とするPodをどう特定するかを示すためのセレクターや、稼働させたいPodのレプリカ数、Podテンプレート(理想のレプリカ数の条件を満たすために作成される新しいPodのデータを指定するために用意されるもの)といったフィールドとともに定義されます。ReplicaSetは、指定された理想のレプリカ数にするためにPodの作成と削除を行うことにより、その目的を達成します。ReplicaSetが新しいPodを作成するとき、ReplicaSetはそのPodテンプレートを使用します。
 
 ReplicaSetがそのPod群と連携するためのリンクは、Podの[metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)というフィールド(現在のオブジェクトが所有されているリソースを指定する)を介して作成されます。ReplicaSetによって所持された全てのPodは、それらの`ownerReferences`フィールドにReplicaSetを特定する情報を保持します。このリンクを通じて、ReplicaSetは管理しているPodの状態を把握したり、その後の実行計画を立てます。
 
@@ -24,7 +24,7 @@ ReplicaSetは、そのセレクターを使用することにより、所有す�
 
 ## ReplicaSetを使うとき
 
-ReplicaSetはどんな時でも指定された数のPodのレプリカが稼働することを保証します。しかし、DeploymentはReplicaSetを管理する、より上位レベルの概念で、Deploymentはその他の多くの有益な機能をと共に、宣言的なPodのアップデート機能を提供します。それゆえ、我々はユーザーが独自のアップデートオーケストレーションを必要としたり、アップデートを全く必要としないような場合を除いて、ReplicaSetを直接使うよりも代わりにDeploymentを使うことを推奨します。
+ReplicaSetはどんな時でも指定された数のPodのレプリカが稼働することを保証します。しかし、DeploymentはReplicaSetを管理する、より上位レベルの概念で、Deploymentはその他の多くの有益な機能と共に、宣言的なPodのアップデート機能を提供します。それゆえ、我々はユーザーが独自のアップデートオーケストレーションを必要としたり、アップデートを全く必要としないような場合を除いて、ReplicaSetを直接使うよりも代わりにDeploymentを使うことを推奨します。
 
 これは、ユーザーがReplicaSetのオブジェクトを操作する必要が全く無いことを意味します。
 代わりにDeploymentを使用して、`spec`セクションにユーザーのアプリケーションを定義してください。
@@ -129,7 +129,7 @@ metadata:
 
 ## テンプレートなしのPodの所有
 
-ユーザーが問題なくベアPod(Bare Pod: ここではPodテンプレート無しのPodのこと)を作成しているとき、そのベアPodがユーザーのReplicaSetの中のどれかのセレクターとマッチしないことを確認することを強く推奨します。
+ユーザーが問題なくベアPod(Bare Pod: ここではPodテンプレート無しのPodのこと)を作成しているとき、そのベアPodがユーザーのReplicaSetの中のいずれのセレクターともマッチしないことを確認することを強く推奨します。
 この理由として、ReplicaSetは、所有対象のPodがReplicaSetのテンプレートによって指定されたPodのみに限定されていないからです(ReplicaSetは前のセクションで説明した方法によって他のPodも所有できます)。
 
 前のセクションで取り上げた`frontend`ReplicaSetと、下記のマニフェストのPodをみてみます。
@@ -200,11 +200,11 @@ Kubernetes1.9において、ReplicaSetに関しては`apps/v1`というAPIバー
 `.spec.template`はラベルを持つことが必要な[Pod テンプレート](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
 他のコントローラーがこのPodを所有しようとしないためにも、他のコントローラーのセレクターでラベルを上書きしないように注意してください。
 
-テンプレートの[再起動ポリシー](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてデフォルト値となります。
+テンプレートの[再起動ポリシー](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
 
 ### Pod セレクター
 
-`.spec.selector`フィールドは[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/)の値となります。
+`.spec.selector`フィールドは[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/)です。
 [先ほど](#how-a-replicaset-works)議論したように、ReplicaSetが所有するPodを指定するためにそのラベルが使用されます。
 先ほどの`frontend.yaml`の例では、そのセレクターは下記のようになっていました
 ```shell
@@ -232,7 +232,7 @@ ReplicaSetとそれが所有する全てのPod削除したいときは、[`kubec
 [ガーベージコレクター](/docs/concepts/workloads/controllers/garbage-collection/)がデフォルトで自動的に全ての依存するPodを削除します。
 
 REST APIもしくは`client-go`ライブラリーを使用するとき、ユーザーは`-d`オプションで`propagationPolicy`を`Background`か`Foreground`と指定しなくてはなりません。
-例えば下記のようになります。
+例えば下記のように実行します。
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
@@ -251,7 +251,7 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 > -H "Content-Type: application/json"
 ```
 
-一度元のReplicaSetが削除されると、ユーザーは新しいものに置き換えるため新しいReplicaSetを作ることができます。新旧のReplicaSetの`.spec.selector`の値が同じである間、新しいReplicaSetは古いReplicaSetで稼働していたPodを採用します。
+一度元のReplicaSetが削除されると、ユーザーは新しいものに置き換えるため新しいReplicaSetを作ることができます。新旧のReplicaSetの`.spec.selector`の値が同じである間、新しいReplicaSetは古いReplicaSetで稼働していたPodを取り入れます。
 しかし、存在するPodが新しく異なるPodテンプレートとマッチさせようとするとき、この仕組みは機能しません。
 ユーザーのコントロール下において新しいspecのPodをアップデートしたい場合は、[ローリングアップデート](#rolling-updates)を使用してください。
 
@@ -294,7 +294,7 @@ ReplicaSetは単独で使用可能ですが、現在では、ReplicaSetは主に
 
 ### ベアPod(Bare Pods)
 
-ユーザーがPodを直接するケースとは異なり、ReplicaSetはNodeの故障やカーネルのアップグレードといった破壊的なNodeのメンテナンスなど、どのような理由に限らず削除または停止されたPodを置き換えます。
+ユーザーがPodを直接作成するケースとは異なり、ReplicaSetはNodeの故障やカーネルのアップグレードといった破壊的なNodeのメンテナンスなど、どのような理由に限らず削除または停止されたPodを置き換えます。
 このため、我々はもしユーザーのアプリケーションが単一のPodのみ必要とする場合でもReplicaSetを使用することを推奨します。プロセスのスーパーバイザーについても同様に考えると、それは単一Node上での独立したプロセスの代わりに複数のNodeにまたがった複数のPodを監視します。
 ReplicaSetは、Node上のいくつかのエージェント(例えば、KubeletやDocker）に対して、ローカルのコンテナ再起動を移譲します。
 
