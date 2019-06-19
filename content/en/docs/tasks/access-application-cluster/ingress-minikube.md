@@ -178,6 +178,8 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Add the following line to the bottom of the `/etc/hosts` file. 
 
+    {{< note >}}If you are running Minikube locally, use `minikube ip` to get the external IP. The IP address displayed within the ingress list will be the internal IP.{{< /note >}}
+
     ```
     172.17.0.15 hello-world.info
     ```
