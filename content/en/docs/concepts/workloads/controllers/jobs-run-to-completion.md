@@ -230,12 +230,13 @@ allows you to still view the logs of completed pods to check for errors, warning
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
 
-By default, a Job will run uninterrupted unless a Pod fails, at which point the Job defers to the
-`.spec.backoffLimit` described above. Another way to terminate a Job is by setting an active deadline.
-Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
+By default, a Job will run uninterrupted unless a Pod fails (`restartPolicy=Never`) or a Container exits in error (`restartPolicy=OnFailure`), at which point the Job defers to the
+`.spec.backoffLimit` described above. Once `.spec.backoffLimit` has been reached the Job will be marked as failed and any running Pods will be terminated.
 
+Another way to terminate a Job is by setting an active deadline.
+Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
 The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
-Once a Job reaches `activeDeadlineSeconds`, all of its Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded`.
+Once a Job reaches `activeDeadlineSeconds`, all of its running Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded`.
 
 Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`. Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
 
