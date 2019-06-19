@@ -22,7 +22,7 @@ Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extensi
 There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA. 
 
 {{< caution >}}
-Reusing the same CA for different client types can negatively impact the cluster's ability to function. For more information, see ["CA Reusage and Conflicts"][ca-reusage-and-conflicts].
+Reusing the same CA for different client types can negatively impact the cluster's ability to function. For more information, see [CA Reusage and Conflicts](#ca-reusage-and-conflicts).
 {{< /caution >}}
 {{< /note >}}
 
@@ -38,8 +38,8 @@ This section describes how the authentication and authorization flows work, and 
 
 The high-level flow is as follows:
 
-1. Kubenetes apiserver: authenticate the requesting user and authorize their rights to the requested API path.
-2. Kubenetes apiserver: proxy the request to the extension apiserver
+1. Kubernetes apiserver: authenticate the requesting user and authorize their rights to the requested API path.
+2. Kubernetes apiserver: proxy the request to the extension apiserver
 3. Extension apiserver: authenticate the request from the Kubernetes apiserver
 4. Extension apiserver: authorize the request from the original user
 5. Extension apiserver: execute

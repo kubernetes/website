@@ -102,8 +102,8 @@ A cluster role needs to be defined for each GMSA credential spec resource. This 
 
 ```
 #Create the Role to read the credspec
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: webapp1-role
 rules:
@@ -117,8 +117,8 @@ rules:
 A service account (that pods will be configured with) needs to be bound to the cluster role create above. This authorizes the service account to "use" the desired GMSA credential spec resource. The following shows the default service account being bound to a cluster role `webapp1-role` to use `gmsa-WebApp1` credential spec resource created above. 
 
 ```
-kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
 metadata:
   name: allow-default-svc-account-read-on-gmsa-WebApp1
   namespace: default

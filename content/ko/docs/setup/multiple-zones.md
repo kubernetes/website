@@ -185,10 +185,10 @@ kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0      
 Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
 ```json
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 {
-  "kind": "PersistentVolumeClaim",
   "apiVersion": "v1",
+  "kind": "PersistentVolumeClaim",
   "metadata": {
     "name": "claim1",
     "annotations": {
@@ -236,7 +236,7 @@ Because GCE PDs / AWS EBS volumes cannot be attached across zones,
 this means that this pod can only be created in the same zone as the volume:
 
 ```yaml
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 kind: Pod
 apiVersion: v1
 metadata:
@@ -303,7 +303,7 @@ kubectl get nodes --show-labels
 Create the guestbook-go example, which includes an RC of size 3, running a simple web app:
 
 ```shell
-find kubernetes/examples/guestbook-go/ -name '*.json' | xargs -I {} kubectl create -f {}
+find kubernetes/examples/guestbook-go/ -name '*.json' | xargs -I {} kubectl apply -f {}
 ```
 
 The pods should be spread across all 3 zones:

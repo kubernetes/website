@@ -67,7 +67,7 @@ username.txt:    5 bytes
 
 请注意，默认情况下，`get` 和 `describe` 命令都不会显示文件的内容。这是为了防止将 secret 中的内容被意外暴露给从终端日志记录中刻意寻找它们的人。
 
-请参阅 [解码 secret](#decoding-a-secret) 了解如何查看它们的内容。
+请参阅 [解码 secret](#解码-secret) 了解如何查看它们的内容。
 
 #### 手动创建 Secret
 

@@ -1,5 +1,11 @@
 {{ define "content" }}
-	 {{ with .Content }}
+    {{ $hasContent := false }}
+    {{ with .File }}
+    {{ if ne .Filename "" }}
+    {{ $hasContent =  (ge (len $.RawContent) 100) }}
+    {{ end }}
+    {{ end }}
+	 {{ if $hasContent }}
 	 {{ partial "docs/content-page" (dict "ctx" $ "page" $ ) }}
 	 {{ else }}
     {{ if ge (len .Pages) 1 }}

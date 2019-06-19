@@ -76,7 +76,7 @@ Don&#39;t forget: keeping these logs inside the cluster is a security threat in 
 
 **Centralising authentication and authorisation across an organisation (aka Single Sign On) helps onboarding, offboarding, and consistent permissions for users**.
 
-Integrating Kubernetes with third party auth providers (like Google or Github) uses the remote platform&#39;s identity guarantees (backed up by things like 2FA) and prevents administrators having to reconfigure the Kubernetes API server to add or remove users.
+Integrating Kubernetes with third party auth providers (like Google or GitHub) uses the remote platform&#39;s identity guarantees (backed up by things like 2FA) and prevents administrators having to reconfigure the Kubernetes API server to add or remove users.
 
 [Dex](https://github.com/coreos/dex) is an OpenID Connect Identity (OIDC) and OAuth 2.0 provider with pluggable connectors. Pusher takes this a stage further with [some custom tooling](https://thenewstack.io/kubernetes-single-sign-one-less-identity/), and there are some [other](https://github.com/negz/kuberos) [helpers](https://github.com/micahhausler/k8s-oidc-helper) available with slightly different use cases.
 

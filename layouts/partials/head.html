@@ -22,20 +22,21 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
 <meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
+<meta name="twitter:image" content="https://kubernetes.io/images/favicon.png" />
 <!-- Alt text for the site image -->
-<meta name="twitter:image:alt"   content="{{ site.Title }}">
+<meta name="twitter:image:alt" content="{{ site.Title }}">
 {{ if $isBlogPost }}
 {{ with findRE "<img.*?>" .Content 1 }}
 <meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
 {{ end }}
 {{ else }}
-<meta property="og:image" content="{{ "images/kubernetes-horizontal-color.png" | relURL }}">
+<meta property="og:image" content="{{ "/images/kubernetes-horizontal-color.png" | relURL }}">
 {{ end }}
 <meta property="og:type" content="{{ $ogType }}">
 <script src="{{ "js/anchor-4.1.1.min.js" | relURL }}"></script>
 <script src="{{ "js/jquery-3.2.1.min.js" | relURL }}"></script>
 <script src="{{ "js/jquery-ui-1.12.1.min.js" | relURL }}"></script>
-<script src="{{ "js/bootstrap-3.3.7.min.js" | relURL }}"></script>
+<script src="{{ "js/bootstrap-4.3.1.min.js" | relURL }}"></script>
 <script src="{{ "js/sweetalert-1.1.3.min.js" | relURL }}"></script>
 <script src="{{ "js/script.js" | relURL }}"></script>
 <script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>

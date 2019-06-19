@@ -1,3 +1,3 @@
 <blockquote class="note">
-  <div><strong>{{ T "note" }}</strong> {{ .Inner | markdownify }}</div>
+  <div><strong>{{ T "note" }}</strong> {{ trim .Inner " \n" | markdownify }}</div>
 </blockquote>

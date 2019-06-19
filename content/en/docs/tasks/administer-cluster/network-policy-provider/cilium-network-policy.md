@@ -45,7 +45,7 @@ DaemonSet configurations for Cilium, and the necessary configurations to connect
 to the etcd instance deployed in minikube as well as appropriate RBAC settings:
 
 ```shell
-kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.4/examples/kubernetes/1.13/cilium-minikube.yaml
+kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/kubernetes/1.14/cilium-minikube.yaml
 ```
 ```
 configmap/cilium-config created

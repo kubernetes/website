@@ -175,7 +175,7 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 results wrapped in `ConversionResponse`. Note that the request
 contains a list of custom resources that need to be converted independently without
 changing the order of objects.
-The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file]((https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/converter/framework.go)) that leaves only [one function]((https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/converter/example-converter.go#L29-L80)) to be implemented for different conversions.
+The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file](https://github.com/kubernetes/kubernetes/tree/v1.14.0/test/images/crd-conversion-webhook/converter/framework.go) that leaves only [one function](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80) to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field
