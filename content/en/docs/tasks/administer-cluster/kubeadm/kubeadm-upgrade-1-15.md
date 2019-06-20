@@ -314,8 +314,9 @@ without compromising the minimum required capacity for running your workloads.
     {{< tabs name="k8s_kubelet_and_kubectl" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.15.x-00 with the latest patch version
-    apt-get update
-    apt-get install -y kubelet=1.15.x-00 kubectl=1.15.x-00
+    apt-mark unhold kubelet kubectl && \
+    apt-get update && apt-get install -y kubelet=1.15.x-00 kubectl=1.15.x-00 && \
+    apt-mark hold kubelet kubectl
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.15.x-0 with the latest patch version
