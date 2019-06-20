@@ -61,7 +61,8 @@ deployment.apps/php-apache created
 
 ## Horizontal Pod Autoscaler 생성
 
-이제 서비스가 동작중이므로, [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_autoscale.md)를 사용하여 오토스케일러를 생성한다. 다음 명령어는 첫 번째 단계에서 만든 php-apache 디플로이먼트 파드의 개수를 1부터 10 사이로 유지하는 Horizontal Pod Autoscaler를 생성한다.
+이제 서비스가 동작중이므로, [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)를 
+사용하여 오토스케일러를 생성한다. 다음 명령어는 첫 번째 단계에서 만든 php-apache 디플로이먼트 파드의 개수를 1부터 10 사이로 유지하는 Horizontal Pod Autoscaler를 생성한다.
 간단히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 레플리카의 개수를 늘리고 줄인다. ([kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md)으로 각 파드는 200 밀리코어까지 요청할 수 있고, 따라서 여기서 말하는 평균 CPU 사용은 100 밀리코어를 말한다.) 이에 대한 자세한 알고리즘은 [여기](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm)를 참고하기 바란다.
 
 ```shell
@@ -230,7 +231,7 @@ object:
   metric:
     name: requests-per-second
   describedObject:
-    apiVersion: extensions/v1beta1
+    apiVersion: networking.k8s.io/v1beta1
     kind: Ingress
     name: main-route
   target:
@@ -272,7 +273,7 @@ spec:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       target:
@@ -295,7 +296,7 @@ status:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       current:

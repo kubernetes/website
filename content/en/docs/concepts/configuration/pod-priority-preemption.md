@@ -77,6 +77,13 @@ when a cluster is under resource pressure. For this reason, it is not
 recommended to disable preemption.
 {{< /note >}}
 
+{{< note >}}
+In Kubernetes 1.15 and later,
+if the feature `NonPreemptingPriority` is enabled,
+PriorityClasses have the option to set `preemptionPolicy: Never`.
+This will prevent pods of that PriorityClass from preempting other pods.
+{{< /note >}}
+
 In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag
 `disablePreemption`, which is set to `false` by default.
 If you want to disable preemption despite the above note, you can set
@@ -143,6 +150,55 @@ metadata:
 value: 1000000
 globalDefault: false
 description: "This priority class should be used for XYZ service pods only."
+```
+
+### Non-preempting PriorityClasses (alpha) {#non-preempting-priority-class}
+
+1.15 adds the `PreemptionPolicy` field as an alpha feature.
+It is disabled by default in 1.15,
+and requires the `NonPreemptingPriority`[feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/
+) to be enabled.
+
+Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
+ahead of lower-priority pods,
+but they cannot preempt other pods.
+A non-preempting pod waiting to be scheduled will stay in the scheduling queue,
+until sufficient resources are free,
+and it can be scheduled.
+Non-preempting pods,
+like other pods,
+are subject to scheduler back-off.
+This means that if the scheduler tries these pods and they cannot be scheduled,
+they will be retried with lower frequency,
+allowing other pods with lower priority to be scheduled before them.
+
+Non-preempting pods may still be preempted by other,
+high-priority pods.
+
+`PreemptionPolicy` defaults to `PreemptLowerPriority`,
+which will allow pods of that PriorityClass to preempt lower-priority pods
+(as is existing default behavior).
+If `PreemptionPolicy` is set to `Never`,
+pods in that PriorityClass will be non-preempting.
+
+An example use case is for data science workloads.
+A user may submit a job that they want to be prioritized above other workloads,
+but do not wish to discard existing work by preempting running pods.
+The high priority job with `PreemptionPolicy: Never` will be scheduled
+ahead of other queued pods,
+as soon as sufficient cluster resources "naturally" become free.
+
+#### Example Non-preempting PriorityClass
+
+```yaml
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority-nonpreempting
+value: 1000000
+preemptionPolicy: Never
+globalDefault: false
+description: "This priority class will not cause other pods to be preempted."
 ```
 
 ## Pod priority

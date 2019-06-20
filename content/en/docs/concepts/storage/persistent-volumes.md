@@ -27,7 +27,7 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
@@ -198,8 +198,8 @@ the following types of volumes:
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
 ``` yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gluster-vol-default
 provisioner: kubernetes.io/glusterfs
@@ -226,15 +226,9 @@ CSI volume expansion requires enabling `ExpandCSIVolumes` feature gate and also 
 
 You can only resize volumes containing a file system if the file system is XFS, Ext3, or Ext4.
 
-When a volume contains a file system, the file system is only resized when a new Pod is started using
-the `PersistentVolumeClaim` in ReadWrite mode. Therefore, if a pod or deployment is using a volume and
-you want to expand it, you need to delete or recreate the pod after the volume has been expanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
-
-```
-kubectl describe pvc <pvc_name>
-```
-
-If the `PersistentVolumeClaim` has the status `FileSystemResizePending`, it is safe to recreate the pod using the PersistentVolumeClaim.
+When a volume contains a file system, the file system is only resized when a new Pod is using
+the `PersistentVolumeClaim` in ReadWrite mode. File system expansion is either done when Pod is starting up
+or is done when Pod is running and underlying file system supports online expansion. 
 
 FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true. 
 The FlexVolume can be resized on pod restart. 
@@ -243,16 +237,17 @@ The FlexVolume can be resized on pod restart.
 
 #### Resizing an in-use PersistentVolumeClaim
 
-Expanding in-use PVCs is an alpha feature. To use it, enable the `ExpandInUsePersistentVolumes` feature gate.
+Expanding in-use PVCs is a beta feature and is enabled by default via `ExpandInUsePersistentVolumes` feature gate.
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod which
 uses the PVC before the expansion can complete.
 
-Expanding in-use PVCs for FlexVolumes is added in release 1.13. To enable this feature use  `ExpandInUsePersistentVolumes` and `ExpandPersistentVolumes` feature gates. The `ExpandPersistentVolumes` feature gate is already enabled by default. If the `ExpandInUsePersistentVolumes` is set, FlexVolume can be resized online without pod restart. 
- 
+
+Similar to other volume types - FlexVolume volumes can also be expanded when in-use by a pod.
+
 {{< note >}}
-**Note:** FlexVolume resize is possible only when the underlying driver supports resize.
+FlexVolume resize is possible only when the underlying driver supports resize.
 {{< /note >}}
 
 {{< note >}}
@@ -268,6 +263,7 @@ Expanding EBS volumes is a time consuming operation. Also, there is a per-volume
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
+* CSI
 * FC (Fibre Channel)
 * Flexvolume
 * Flocker
@@ -343,27 +339,28 @@ In the CLI, the access modes are abbreviated to:
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
-| Volume Plugin        | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
-| :---                 |     :---:    |    :---:    |    :---:     |
-| AWSElasticBlockStore | &#x2713;     | -           | -            |
-| AzureFile            | &#x2713;     | &#x2713;    | &#x2713;     |
-| AzureDisk            | &#x2713;     | -           | -            |
-| CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
-| Cinder               | &#x2713;     | -           | -            |
-| FC                   | &#x2713;     | &#x2713;    | -            |
-| Flexvolume           | &#x2713;     | &#x2713;    | depends on the driver |
-| Flocker              | &#x2713;     | -           | -            |
-| GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
-| Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
-| HostPath             | &#x2713;     | -           | -            |
-| iSCSI                | &#x2713;     | &#x2713;    | -            |
-| Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
-| NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
-| RBD                  | &#x2713;     | &#x2713;    | -            |
-| VsphereVolume        | &#x2713;     | -           | - (works when pods are collocated)  |
-| PortworxVolume       | &#x2713;     | -           | &#x2713;     |
-| ScaleIO              | &#x2713;     | &#x2713;    | -            |
-| StorageOS            | &#x2713;     | -           | -            |
+| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
+| :---                 | :---:                  | :---:                 | :---:        |
+| AWSElasticBlockStore | &#x2713;               | -                     | -            |
+| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;     |
+| AzureDisk            | &#x2713;               | -                     | -            |
+| CephFS               | &#x2713;               | &#x2713;              | &#x2713;     |
+| Cinder               | &#x2713;               | -                     | -            |
+| CSI                  | &depends on the driver | depends on the driver | depends on the driver |
+| FC                   | &#x2713;               | &#x2713;              | -            |
+| Flexvolume           | &#x2713;               | &#x2713;              | depends on the driver |
+| Flocker              | &#x2713;               | -                     | -            |
+| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -            |
+| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;     |
+| HostPath             | &#x2713;               | -                     | -            |
+| iSCSI                | &#x2713;               | &#x2713;              | -            |
+| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;     |
+| NFS                  | &#x2713;               | &#x2713;              | &#x2713;     |
+| RBD                  | &#x2713;               | &#x2713;              | -            |
+| VsphereVolume        | &#x2713;               | -                     | - (works when pods are collocated)  |
+| PortworxVolume       | &#x2713;               | -                     | &#x2713;     |
+| ScaleIO              | &#x2713;               | &#x2713;              | -            |
+| StorageOS            | &#x2713;               | -                     | -            |
 
 ### Class
 
@@ -442,8 +439,8 @@ The CLI will show the name of the PVC bound to the PV.
 Each PVC contains a spec and status, which is the specification and status of the claim.
 
 ```yaml
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: myclaim
 spec:
@@ -531,8 +528,8 @@ it won't be supported in a future Kubernetes release.
 Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: mypod
 spec:
@@ -673,6 +670,33 @@ spec:
     name: new-snapshot-test
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+## Volume Cloning
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+Volume clone feature was added to support CSI Volume Plugins only. For details, see [volume cloning](/docs/concepts/storage/volume-pvc-datasource/).
+
+To enable support for cloning a volume from a pvc data source, enable the
+`VolumePVCDataSource` feature gate on the apiserver and controller-manager.
+
+### Create Persistent Volume Claim from an existing pvc
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cloned-pvc
+spec:
+  storageClassName: my-csi-plugin
+  dataSource:
+    name: existing-src-pvc-name
+    kind: PersistentVolumeClaim
   accessModes:
     - ReadWriteOnce
   resources:

@@ -61,7 +61,7 @@ other = "Weiterlesen"
 other = "Interested in hacking on the core Kubernetes code base?"
 
 [main_github_view_on]
-other = "Auf Github ansehen"
+other = "Auf GitHub ansehen"
 
 [main_github_create_an_issue]
 other = "Problem berichten"

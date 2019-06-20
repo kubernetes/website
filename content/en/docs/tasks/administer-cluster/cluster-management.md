@@ -26,8 +26,6 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 
 The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
-* [Upgrading to 1.6](/docs/admin/upgrade-1-6)
-
 ### Upgrading an Azure Kubernetes Service (AKS) cluster
 
 Azure Kubernetes Service enables easy self-service upgrades of the control plane and nodes in your cluster. The process is
@@ -79,13 +77,15 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
+To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the [Skewed versions](docs/setup/version-skew-policy/#supported-component-upgrade-order) page.
+
 ## Resizing a cluster
 
 If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/docs/admin/node/#self-registration-of-nodes).
 If you're using GCE or Google Kubernetes Engine it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
-gcloud compute instance-groups managed resize kubernetes-minion-group --size=42 --zone=$ZONE
+gcloud compute instance-groups managed resize kubernetes-node-pool --size=42 --zone=$ZONE
 ```
 
 Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
@@ -219,3 +219,5 @@ kubectl convert -f pod.yaml --output-version v1
 ```
 
 For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) command.
+
+{{% /capture %}}

@@ -58,7 +58,7 @@ URL for the topic, for example:
 ## Adding the topic title to the front matter
 
 In your topic, put a `title` field in the
-[front matter](https://jekyllrb.com/docs/frontmatter/).
+[front matter](https://gohugo.io/content-management/front-matter/).
 The front matter is the YAML block that is between the
 triple-dashed lines at the top of the page. Here's an example:
 

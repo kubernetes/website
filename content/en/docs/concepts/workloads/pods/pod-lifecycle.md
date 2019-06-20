@@ -176,7 +176,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
    ...
    ```   
        
-* `Terminated`:  Indicates that the container completed its execution and has stopped running.A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
+* `Terminated`:  Indicates that the container completed its execution and has stopped running. A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
   
    ```yaml
    ...
@@ -193,7 +193,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 In order to add extensibility to Pod readiness by enabling the injection of
-extra feedbacks or signals into `PodStatus`, Kubernetes 1.11 introduced a
+extra feedback or signals into `PodStatus`, Kubernetes 1.11 introduced a
 feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
 You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
 conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
@@ -209,7 +209,7 @@ spec:
 status:
   conditions:
     - type: Ready  # this is a builtin PodCondition
-      status: "True"
+      status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
     - type: "www.example.com/feature-1"   # an extra PodCondition

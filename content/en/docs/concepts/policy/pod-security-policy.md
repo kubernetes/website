@@ -44,7 +44,7 @@ administrator to control the following:
 | The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedprocmounttypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
-| The sysctl profile used by containers               | [annotations](#sysctl)                      |
+| The sysctl profile used by containers               | [`forbiddenSysctls`,`allowedUnsafeSysctls`](#sysctl)                      |
 
 
 ## Enabling Pod Security Policies
@@ -87,8 +87,8 @@ First, a `Role` or `ClusterRole` needs to grant access to `use` the desired
 policies. The rules to grant access look like this:
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: <role name>
 rules:
@@ -102,8 +102,8 @@ rules:
 Then the `(Cluster)Role` is bound to the authorized user(s):
 
 ```yaml
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: <binding name>
 roleRef:
@@ -485,18 +485,18 @@ spec:
 minimum value of the first range as the default. Validates against all ranges.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
 `runAsUser` or have the `USER` directive defined (using a numeric UID) in the
-image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
-recommended with this strategy.
+image. Pods which have specified neither `runAsNonRoot` nor `runAsUser` settings
+will be mutated to set `runAsNonRoot=true`, thus requiring a defined non-zero 
+numeric `USER` directive in the container. No default provided. Setting 
+`allowPrivilegeEscalation=false` is strongly recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
 **RunAsGroup** - Controls which primary group ID the containers are run with.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
-- *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
-`runAsUser` or have the `USER` directive defined (using a numeric GID) in the
-image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
-recommended with this strategy.
+- *MayRunAs* - Does not require that RunAsGroup be specified. However, when RunAsGroup
+is specified, they have to fall in the defined range.
 - *RunAsAny* - No default provided. Allows any `runAsGroup` to be specified.
 
 
@@ -595,7 +595,9 @@ are:
 
 - `unconfined` - Seccomp is not applied to the container processes (this is the
   default in Kubernetes), if no alternative is provided.
-- `docker/default` - The Docker default seccomp profile is used.
+- `runtime/default` - The default container runtime profile is used.
+- `docker/default` - The Docker default seccomp profile is used. Deprecated as of
+  Kubernetes 1.11. Use `runtime/default` instead.
 - `localhost/<path>` - Specify a profile as a file on the node located at
   `<seccomp_root>/<path>`, where `<seccomp_root>` is defined via the
   `--seccomp-profile-root` flag on the Kubelet.
@@ -608,7 +610,12 @@ default cannot be changed.
 
 ### Sysctl
 
-Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
+By default, all safe sysctls are allowed. 
+
+- `forbiddenSysctls` - excludes specific sysctls. You can forbid a combination of safe and unsafe sysctls in the list. To forbid setting any sysctls, use `*` on its own.
+- `allowedUnsafeSysctls` - allows specific sysctls that had been disallowed by the default list, so long as these are not listed in `forbiddenSysctls`.
+
+Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
 {{% /capture %}}

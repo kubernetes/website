@@ -209,7 +209,8 @@ described [above](#deployment-and-scaling-guarantees).
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and to not wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod.
+Pod. This option only affects the behavior for scaling operations. Updates are not
+affected.
 
 ## Update Strategies
 

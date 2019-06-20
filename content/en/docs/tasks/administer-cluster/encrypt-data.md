@@ -33,8 +33,8 @@ The alpha version of the encryption feature prior to 1.13 used the `--experiment
 ## Understanding the encryption at rest configuration.
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets
@@ -92,13 +92,23 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
 
+__Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture, compared to no encryption.
+Please use `kms` provider for additional security.__ By default, the `identity` provider is used to protect secrets in etcd, which
+provides no encryption. `EncryptionConfiguration` was introduced to encrypt secrets locally, with a locally managed key.
+Encrypting secrets with a locally managed key protects against an etcd compromise, but it fails to protect against a host compromise.
+Since the encryption keys are stored on the host in the EncryptionConfig YAML file, a skilled attacker can access that file and
+extract the encryption keys. This was a stepping stone in development to the `kms` provider, introduced in 1.10, and beta since 1.12. Envelope encryption
+creates dependence on a separate key, not stored in Kubernetes. In this case, an attacker would need to compromise etcd, the
+kubeapi-server, and the third-party KMS provider to retrieve the plaintext values, providing a higher level of security than
+locally-stored encryption keys.
+
 ## Encrypting your data
 
 Create a new encryption config file:
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets
@@ -190,8 +200,8 @@ With a single `kube-apiserver`, step 2 may be skipped.
 To disable encryption at rest place the `identity` provider as the first entry in the config:
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets

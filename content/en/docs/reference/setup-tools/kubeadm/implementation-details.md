@@ -108,7 +108,7 @@ In any case the user can skip specific preflight checks (or eventually all prefl
 - [warning] if extra arg flags for API server, controller manager,  scheduler contains some invalid options
 - [warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
 - [warning] if connection to services subnet goes through proxy (only first address checked)
-- [warning] if connection to Pods subnet goes through proxy (only first address checked)  
+- [warning] if connection to Pods subnet goes through proxy (only first address checked)
 - If external etcd is provided:
   - [Error] if etcd version less than 3.0.14
   - [Error] if etcd certificates or keys are specified, but not provided
@@ -235,7 +235,6 @@ Other API server flags that are set unconditionally are:
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
-    - [`Initializers`](/docs/reference/access-authn-authz/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
     - [`NamespaceLifecycle`](/docs/reference/access-authn-authz/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of
       system reserved namespaces
     - [`LimitRanger`](/docs/reference/access-authn-authz/admission-controllers/#limitranger) and [`ResourceQuota`](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) to enforce limits on namespaces
@@ -379,7 +378,7 @@ existing cluster; for more details see also [design proposal](https://github.com
 setting API server and controller flags as already described in previous paragraphs.
 Please note that:
 
-1. TLS bootstrapping for nodes can be configured with the [`kubeadm init phase bootstrap-token`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-bootstrap-token)  
+1. TLS bootstrapping for nodes can be configured with the [`kubeadm init phase bootstrap-token`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-bootstrap-token)
    command, executing all the configuration steps described in following paragraphs; alternatively, each step can be invoked individually
 
 #### Create a bootstrap token
@@ -465,26 +464,6 @@ Deploy the `kube-dns` Deployment and Service:
 
 - It's the upstream CoreDNS deployment relatively unmodified
 - The `kube-dns` ServiceAccount is bound to the privileges in the `system:kube-dns` ClusterRole
-
-### Optional self-hosting
-
-To enable self hosting on an existing static Pod control-plane use `kubeadm alpha selfhosting pivot`.
-
-Self hosting basically replaces static Pods for control plane components with DaemonSets; this is achieved by executing
-following procedure for API server, scheduler and controller manager static Pods:
-
-- Load the static Pod specification from disk
-- Extract the PodSpec from static Pod manifest file
-- Mutate the PodSpec to be compatible with self-hosting, and more in detail:
-  - Add node selector attribute targeting nodes with `node-role.kubernetes.io/master=""` label,
-  - Add a toleration for `node-role.kubernetes.io/master:NoSchedule` taint,
-  - Set `spec.DNSPolicy` to `ClusterFirstWithHostNet`
-- Build a new DaemonSet object for the self-hosted component in question. Use the above mentioned PodSpec
-- Create the DaemonSet resource in `kube-system` namespace. Wait until the Pods are running.
-- Remove the static Pod manifest file. The kubelet will stop the original static Pod-hosted component that was running
-
-Please note that self hosting is not yet resilient to node restarts; this can be fixed with external checkpointing or with kubelet checkpointing
-   for the control plane Pods. See [self-hosting](/docs/reference/setup-tools/kubeadm/kubeadm-init/#self-hosting) for more details.
 
 ## kubeadm join phases internal design
 

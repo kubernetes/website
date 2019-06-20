@@ -253,10 +253,9 @@ For one, we had to take into account the hardware profiles of the nodes in our
 Kubernetes cluster. For example, how many local disks would each node cluster
 have? How would they be partitioned?
 
-The local static provisioner
-[README](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/#best-practices)
-provides guidance to help answer these
-questions. It’s best to be able to dedicate a full disk to each local volume
+The local static provisioner provides 
+[guidance](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/best-practices.md)
+to help answer these questions. It’s best to be able to dedicate a full disk to each local volume
 (for IO isolation) and a full partition per-volume (for capacity isolation).
 This was easier in our cloud environments where we could mix and match local
 disks. However, if using local volumes on-prem, hardware constraints may be a

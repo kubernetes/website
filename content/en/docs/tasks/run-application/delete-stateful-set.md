@@ -12,7 +12,7 @@ weight: 60
 
 {{% capture overview %}}
 
-This task shows you how to delete a StatefulSet.
+This task shows you how to delete a {{< glossary_tooltip term_id="StatefulSet" >}}.
 
 {{% /capture %}}
 

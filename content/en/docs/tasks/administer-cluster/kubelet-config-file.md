@@ -37,8 +37,8 @@ in this struct. Make sure the Kubelet has read permissions on the file.
 
 Here is an example of what this file might look like:
 ```
-kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
 evictionHard:
     memory.available:  "200Mi"
 ```

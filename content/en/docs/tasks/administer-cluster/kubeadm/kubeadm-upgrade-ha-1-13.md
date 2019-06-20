@@ -9,7 +9,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page explains how to upgrade a highly available (HA) Kubernetes cluster created with `kubeadm` from version 1.12.x to version 1.13.y. In addition to upgrading, you must also follow the instructions in [Creating HA clusters with kubeadm](/docs/setup/independent/high-availability/).
+This page explains how to upgrade a highly available (HA) Kubernetes cluster created with `kubeadm` from version 1.12.x to version 1.13.y. In addition to upgrading, you must also follow the instructions in [Creating HA clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 
 {{% /capture %}}
 

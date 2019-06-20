@@ -56,17 +56,23 @@ echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~
 kubectl config view # 병합된 kubeconfig 설정을 표시한다.
 
 # 동시에 여러 kubeconfig 파일을 사용하고 병합된 구성을 확인한다
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
+
+kubectl config view
 
 # e2e 사용자의 암호를 확인한다
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # 사용자 리스트 조회
-kubectl config current-context              # 현재 컨텍스트 확인
+kubectl config get-contexts                          # 컨텍스트 리스트 출력
+kubectl config current-context              # 현재 컨텍스트 출력
 kubectl config use-context my-cluster-name  # my-cluster-name를 기본 컨텍스트로 설정
 
 # 기본 인증을 지원하는 새로운 클러스터를 kubeconf에 추가한다
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
+
+# 해당 컨텍스트에서 모든 후속 kubectl 커맨드에 대한 네임스페이스를 영구적으로 저장한다
+kubectl config set-context --current --namespace=ggckad-s2
 
 # 특정 사용자와 네임스페이스를 사용하는 컨텍스트 설정
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
@@ -84,15 +90,15 @@ kubectl config unset users.foo                       # foo 사용자 삭제
 , `.yml`, `.json` 이 사용된다.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # 리소스(들) 생성
-kubectl create -f ./my1.yaml -f ./my2.yaml     # 여러 파일로 부터 생성
-kubectl create -f ./dir                        # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
-kubectl create -f https://git.io/vPieo         # url로부터 리소스(들) 생성
+kubectl apply -f ./my-manifest.yaml           # 리소스(들) 생성
+kubectl apply -f ./my1.yaml -f ./my2.yaml     # 여러 파일로 부터 생성
+kubectl apply -f ./dir                        # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
+kubectl apply -f https://git.io/vPieo         # url로부터 리소스(들) 생성
 kubectl create deployment nginx --image=nginx  # nginx 단일 인스턴스를 시작
 kubectl explain pods,svc                       # 파드와 서비스 매니페스트 문서를 조회
 
 # stdin으로 다수의 YAML 오브젝트 생성
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -119,7 +125,7 @@ spec:
 EOF
 
 # 여러 개의 키로 시크릿 생성
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -141,6 +147,8 @@ kubectl get pods --all-namespaces             # 모든 네임스페이스 내 �
 kubectl get pods -o wide                      # 네임스페이스 내 모든 파드의 상세 목록 조회
 kubectl get deployment my-dep                 # 특정 디플로이먼트의 목록 조회
 kubectl get pods --include-uninitialized      # 초기화되지 않은 것을 포함하여 네임스페이스 내 모든 파드의 목록 조회
+kubectl get pod my-pod -o yaml                # 파드의 YAML 조회
+kubectl get pod my-pod -o yaml --export       # 클러스터 명세 없이 파드의 YAML 조회
 
 # 상세 출력을 위한 Describe 커맨드
 kubectl describe nodes my-node
@@ -259,17 +267,22 @@ kubectl delete pod,service baz foo                                        # "baz
 kubectl delete pods,services -l name=myLabel                              # name=myLabel 라벨을 가진 파드와 서비스 삭제
 kubectl delete pods,services -l name=myLabel --include-uninitialized      # 초기화되지 않은 것을 포함하여, name=myLabel 라벨을 가진 파드와 서비스 삭제
 kubectl -n my-ns delete po,svc --all                                      # 초기화되지 않은 것을 포함하여, my-ns 네임스페이스 내 모든 파드와 서비스 삭제
+# awk pattern1 또는 pattern2에 매칭되는 모든 파드 삭제
+kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
 ## 실행 중인 파드와 상호 작용
 
 ```bash
 kubectl logs my-pod                                 # 파드 로그(stdout) 덤프
+kubectl logs -l name=myLabel                        # name이 myLabel인 파드 로그 덤프 (stdout)
 kubectl logs my-pod --previous                      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그(stdout) 덤프
 kubectl logs my-pod -c my-container                 # 파드 로그(stdout, 멀티-컨테이너 경우) 덤프
+kubectl logs -l name=myLabel -c my-container        # name이 myLabel인 파드 로그 덤프 (stdout)
 kubectl logs my-pod -c my-container --previous      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그(stdout, 멀티-컨테이너 경우) 덤프
 kubectl logs -f my-pod                              # 실시간 스트림 파드 로그(stdout)
 kubectl logs -f my-pod -c my-container              # 실시간 스트림 파드 로그(stdout, 멀티-컨테이너 경우)
+kubectl logs -f -l name=myLabel --all-containers    # name이 myLabel인 모든 파드의 로그 스트리밍 (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # 대화형 셸로 파드를 실행
 kubectl attach my-pod -i                            # 실행중인 컨테이너에 연결
 kubectl port-forward my-pod 5000:6000               # 로컬 머신의 5000번 포트를 리스닝하고, my-pod의 6000번 포트로 전달
