@@ -1,6 +1,6 @@
 ---
 title: 여러 영역에서 구동
-weight: 90
+weight: 10
 content_template: templates/concept
 ---
 
