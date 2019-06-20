@@ -233,5 +233,5 @@ Any new feature for CRDs starting from Kubernetes 1.15 will require to have a st
 * CRD defaulting (beta in Kubernetes 1.15)
 * Server-side apply (alpha in Kubernetes 1.15, CRD support pending).
 
-Of course [structural schemas](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#specifying-a-structural-schema) are also described in the Kubernetes documentation for the 1.15 release.
+Of course [structural schemas](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#specifying-a-structural-schema) are also described in the Kubernetes documentation for the 1.15 release.
 
