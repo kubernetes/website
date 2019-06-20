@@ -112,3 +112,10 @@ kubectl api-resources --namespaced=false
 ```
 
 {{% /capture %}}
+
+{{% capture whatsnext %}}
+* Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
+* Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
+
+{{% /capture %}}
+
