@@ -4,7 +4,7 @@ title: "Kubernetes 1.15: Extensibility and Continuous Improvement"
 date: 2019-06-19
 slug: kubernetes-1-15-release-announcement
 ---
-**Authors:** The 1.15 [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.15/release_team.md)
+**Authors:** The 1.15 [Release Team](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)
 
 We’re pleased to announce the delivery of Kubernetes 1.15, our second release of 2019! Kubernetes 1.15 consists of 25 enhancements: 2 moving to stable, 13 in beta, and 10 in alpha. The main themes of this release are:
 
@@ -105,7 +105,7 @@ If you’re interested in exploring these features more in depth, check back thi
 
 **Release team**
 
-This release is made possible through the efforts of hundreds of individuals who contributed both technical and non-technical content. Special thanks to the [release team](https://bit.ly/k8s114-team) led by Claire Laurence, Senior Technical Program Manager at Pivotal Software. The 38 individuals on the release team coordinated many aspects of the release, from documentation to testing, validation, and feature completeness.
+This release is made possible through the efforts of hundreds of individuals who contributed both technical and non-technical content. Special thanks to the [release team](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md) led by Claire Laurence, Senior Technical Program Manager at Pivotal Software. The 38 individuals on the release team coordinated many aspects of the release, from documentation to testing, validation, and feature completeness.
 
 As the Kubernetes community has grown, our release process represents an amazing demonstration of collaboration in open source software development. Kubernetes continues to gain new users at a rapid clip. This growth creates a positive feedback cycle where more contributors commit code creating a more vibrant ecosystem. Kubernetes has had over [32,000 individual contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) to date and an active community of more than 66,000 people.
 
