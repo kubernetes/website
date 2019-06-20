@@ -42,7 +42,6 @@ Here is the configuration file for the application Deployment:
    ```shell
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
-
    The preceding command creates a
    [Deployment](/docs/concepts/workloads/controllers/deployment/)
    object and an associated
