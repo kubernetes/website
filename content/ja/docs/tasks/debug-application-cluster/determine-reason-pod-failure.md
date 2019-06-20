@@ -42,7 +42,7 @@ content_template: templates/task
 
 1. Podに関する詳細情報を表示します:
 
-        kubectl get pod --output=yaml
+        kubectl get pod termination-demo --output=yaml
 
     出力には「Sleep expired」メッセージが含まれています:
 
