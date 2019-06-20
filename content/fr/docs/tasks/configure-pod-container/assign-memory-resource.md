@@ -20,13 +20,13 @@ Pour quelques étapes de cette page, vous devez lancer
 [metrics-server] (https://github.com/kubernetes-incubator/metrics-server)
 dans votre cluster. Si vous avez déjà metrics-server vous pouvez sauter ces étapes.
 
-Si vous utilisez Minikube, exécutez la commande suivante pour activer metrics-server:
+Si vous utilisez Minikube, exécutez la commande suivante pour activer metrics-server :
 
 ```shell
 minikube addons enable metrics-server
 ```
 
-Pour voir si le metrics-server fonctionne, ou un autre fournisseur de l'API des métriques de ressources (`metrics.k8s.io`), exécutez la commande suivante:
+Pour voir si le metrics-server fonctionne, ou un autre fournisseur de l'API des métriques de ressources (`metrics.k8s.io`), exécutez la commande suivante :
 
 ```shell
 kubectl get apiservices
@@ -57,7 +57,7 @@ Pour spécifier une demande de mémoire pour un conteneur, incluez le champ `res
 dans le manifeste des ressources du conteneur. Pour spécifier une limite de mémoire, incluez `resources:limits`.
 
 Dans cet exercice, vous créez un pod qui possède un seul conteneur. Le conteneur dispose d'une demande de mémoire de 100 MiB et une limite de mémoire de 200 MiB. Voici le fichier de configuration
-pour le Pod:
+pour le Pod :
 
 {{< codenew file="pods/resource/memory-request-limit.yaml" >}}
 
@@ -70,13 +70,13 @@ Créez le Pod:
 kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
 ```
 
-Vérifiez que le Pod fonctionne:
+Vérifiez que le Pod fonctionne :
 
 ```shell
 kubectl get pod memory-demo --namespace=mem-example
 ```
 
-Consultez des informations détaillées sur le Pod:
+Consultez des informations détaillées sur le Pod :
 
 ```shell
 kubectl get pod memory-demo --output=yaml --namespace=mem-example
@@ -95,7 +95,7 @@ resources:
 ...
 ```
 
-Exécutez `kubectl top` pour récupérer les métriques du pod:
+Exécutez `kubectl top` pour récupérer les métriques du pod :
 
 ```shell
 kubectl top pod memory-demo --namespace=mem-example
@@ -108,7 +108,7 @@ NAME                        CPU(cores)   MEMORY(bytes)
 memory-demo                 <something>  162856960
 ```
 
-Supprimez votre Pod:
+Supprimez votre Pod :
 
 ```shell
 kubectl delete pod memory-demo --namespace=mem-example
@@ -120,39 +120,39 @@ Un conteneur peut dépasser sa demande de mémoire si le nœud dispose de la mé
 Si un conteneur terminé peut être redémarré, le kubelet le redémarre, comme pour tout autre type d'échec d'exécution.
 
 Dans cet exercice, vous créez un Pod qui tente d'allouer plus de mémoire que sa limite.
-Voici le fichier de configuration d'un Pod qui contient un conteneur avec une demande de mémoire de 50 MiB et une limite de mémoire de 100 MiB:
+Voici le fichier de configuration d'un Pod qui contient un conteneur avec une demande de mémoire de 50 MiB et une limite de mémoire de 100 MiB :
 
 {{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
 Dans la section `args` du fichier de configuration, vous pouvez voir que le conteneur
 tentera d'allouer 250 MiB de mémoire, ce qui est bien au-dessus de la limite de 100 MiB.
 
-Créez le Pod:
+Créez le Pod :
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
 ```
 
-Consultez des informations détaillées sur le Pod:
+Consultez des informations détaillées sur le Pod :
 
 ```shell
 kubectl get pod memory-demo-2 --namespace=mem-example
 ```
 
-A ce niveau, le conteneur est soit en train de tourner, soit tué. Répétez la commande précédente jusqu'à ce que le conteneur soit tué:
+A ce niveau, le conteneur est soit en train de tourner, soit stoppé. Répétez la commande précédente jusqu'à ce que le conteneur soit terminé :
 
 ```shell
 NAME            READY     STATUS      RESTARTS   AGE
 memory-demo-2   0/1       OOMKilled   1          24s
 ```
 
-Obtenez une vue plus détaillée de l'état du conteneur:
+Obtenez une vue plus détaillée de l'état du conteneur :
 
 ```shell
 kubectl get pod memory-demo-2 --output=yaml --namespace=mem-example
 ```
 
-La sortie indique que le conteneur a été tué suite à un manque de mémoire (OOM):
+La sortie indique que le conteneur a été stoppé suite à un manque de mémoire (OOM) :
 
 ```shell
 lastState:
@@ -165,13 +165,13 @@ lastState:
 ```
 
 Le conteneur dans cet exercice pourra être redémarré, ainsi le kubelet le redémarre. Répéter
-cette commande plusieurs fois pour s'assurer que le conteneur est tué et redémarré d'une manière répététive:
+cette commande plusieurs fois pour s'assurer que le conteneur est stoppé et redémarré d'une manière répététive :
 
 ```shell
 kubectl get pod memory-demo-2 --namespace=mem-example
 ```
 
-La sortie permet de voir que le conteneur est tué, redémarré, tué à nouveau, redémarré, et ainsi de suite:
+La sortie permet de voir que le conteneur est stoppé, redémarré, stoppé à nouveau, redémarré, et ainsi de suite :
 
 ```
 kubectl get pod memory-demo-2 --namespace=mem-example
@@ -185,32 +185,32 @@ NAME            READY     STATUS    RESTARTS   AGE
 memory-demo-2   1/1       Running   2          40s
 ```
 
-Affichez des informations détaillées sur l'historique du Pod:
+Affichez des informations détaillées sur l'historique du Pod :
 
 ```
 kubectl describe pod memory-demo-2 --namespace=mem-example
 ```
 
-La sortie indique que le conteneur se démarre et échoue continuellement:
+La sortie indique que le conteneur se démarre et échoue continuellement :
 
 ```
 ... Normal  Created   Created container with id 66a3a20aa7980e61be4922780bf9d24d1a1d8b7395c09861225b0eba1b1f8511
 ... Warning BackOff   Back-off restarting failed container
 ```
 
-Affichez des informations détaillées sur les nœuds de votre cluster:
+Affichez des informations détaillées sur les nœuds de votre cluster :
 
 ```
 kubectl describe nodes
 ```
 
-La sortie inclut un enregistrement de la mise à mort du conteneur suite à une condition hors mémoire:
+La sortie inclut un enregistrement de la mise à mort du conteneur suite à une condition hors mémoire :
 
 ```
 Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
 ```
 
-Supprimez votre Pod:
+Supprimez votre Pod :
 
 ```shell
 kubectl delete pod memory-demo-2 --namespace=mem-example
@@ -227,19 +227,19 @@ Dans cet exercice, vous allez créer un Pod dont la demande de mémoire est si i
 
 {{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
-Créez le Pod:
+Créez le Pod :
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
 ```
 
-Affichez l'état du Pod:
+Affichez l'état du Pod :
 
 ```shell
 kubectl get pod memory-demo-3 --namespace=mem-example
 ```
 
-La sortie indique que l'état du Pod est PENDING. En d'autres termes, le Pod n'est pas programmé pour tourner sur aucun Nœud, et il restera indéfiniment dans l'état PENDING:
+La sortie indique que l'état du Pod est PENDING. En d'autres termes, le Pod n'est pas programmé pour tourner sur aucun Nœud, et il restera indéfiniment dans l'état PENDING :
 
 ```
 kubectl get pod memory-demo-3 --namespace=mem-example
@@ -247,13 +247,13 @@ NAME            READY     STATUS    RESTARTS   AGE
 memory-demo-3   0/1       Pending   0          25s
 ```
 
-Affichez des informations détaillées sur le Pod, y compris les événements:
+Affichez des informations détaillées sur le Pod, y compris les événements :
 
 ```shell
 kubectl describe pod memory-demo-3 --namespace=mem-example
 ```
 
-La sortie indique que le conteneur ne peut pas être planifié par manque de mémoire sur les nœuds:
+La sortie indique que le conteneur ne peut pas être planifié par manque de mémoire sur les nœuds :
 
 ```shell
 Events:
@@ -265,13 +265,13 @@ Events:
 ## Unités de mémoire
 
 La ressource mémoire est mesurée en bytes. Vous pouvez exprimer la mémoire sous la forme d'un nombre entier simple ou d'un nombre avec l'un de ces suffixes : E, P, T, G, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
-Par exemple, les valeurs suivantes représentent approximativement la même valeur:
+Par exemple, les valeurs suivantes représentent approximativement la même valeur :
 
 ```shell
 128974848, 129e6, 129M , 123Mi
 ```
 
-Supprimez votre Pod:
+Supprimez votre Pod :
 
 ```shell
 kubectl delete pod memory-demo-3 --namespace=mem-example
@@ -279,10 +279,10 @@ kubectl delete pod memory-demo-3 --namespace=mem-example
 
 ## Si vous ne spécifiez pas de limite de mémoire
 
-Si vous ne spécifiez pas de limite de mémoire pour un conteneur, l'une des situations suivantes s'applique:
+Si vous ne spécifiez pas de limite de mémoire pour un conteneur, l'une des situations suivantes s'applique :
 
 * Le conteneur n'a pas de limite maximale quant à la quantité de mémoire qu'il utilise. Le conteneur
-pourrait utiliser toute la mémoire disponible sur le nœud où il est en cours d'exécution, ce qui pourrait à son tour invoquer le OOM killer. De plus, dans le cas d'un OOM Kill, un conteneur sans limite de ressources aura plus de chance d'être tué.
+pourrait utiliser toute la mémoire disponible sur le nœud où il est en cours d'exécution, ce qui pourrait à son tour invoquer le OOM killer. De plus, dans le cas d'un OOM Kill, un conteneur sans limite de ressources aura plus de chance d'être stoppé.
 
 * Le conteneur s'exécute dans un namespace qui a une limite de mémoire par défaut, d'ou le conteneur est automatiquement affecté cette limite par defaut. Les administrateurs du cluster peuvent utiliser un [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
 pour spécifier une valeur par défaut pour la limite de mémoire.
@@ -290,14 +290,14 @@ pour spécifier une valeur par défaut pour la limite de mémoire.
 ## Motivation pour les demandes et les limites de mémoire
 
 En configurant les demandes de mémoire et les limites pour les conteneurs qui s'exécutent dans votre cluster.
-vous pouvez utiliser efficacement les ressources mémoire disponibles sur les noeuds de votre cluster. En gardant la demande de mémoire d'un Pod basse, vous donnez au Pod une bonne chance d'être schedulé. En ayant une limite de mémoire supérieure à la demande de mémoire, vous accomplissez deux choses:
+vous pouvez utiliser efficacement les ressources mémoire disponibles sur les noeuds de votre cluster. En gardant la demande de mémoire d'un Pod basse, vous donnez au Pod une bonne chance d'être schedulé. En ayant une limite de mémoire supérieure à la demande de mémoire, vous accomplissez deux choses :
 
 * Le Pod peut avoir des éclats d'activités où il fait usage de la mémoire qui se trouve être disponible. 
 * La quantité de mémoire qu'un Pod peut utiliser pendant un  éclat d'activité est limitée à une quantité raisonnable.
 
 ## Clean up
 
-Supprimez votre namespace. Ceci va supprimer tous les Pods que vous avez créés dans cet exercice:
+Supprimez votre namespace. Ceci va supprimer tous les Pods que vous avez créés dans cet exercice :
 
 ```shell
 kubectl delete namespace mem-example
