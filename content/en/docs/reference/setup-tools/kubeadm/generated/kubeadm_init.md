@@ -12,7 +12,7 @@ kubelet-start              Write kubelet settings and (re)start the kubelet
 certs                      Certificate generation
   /etcd-ca                   Generate the self-signed CA to provision identities for etcd
   /apiserver-etcd-client     Generate the certificate the apiserver uses to access etcd
-  /etcd-healthcheck-client   Generate the certificate for liveness probes to healtcheck etcd
+  /etcd-healthcheck-client   Generate the certificate for liveness probes to healthcheck etcd
   /etcd-server               Generate the certificate for serving etcd
   /etcd-peer                 Generate the certificate for etcd nodes to communicate with each other
   /ca                        Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components

@@ -1,9 +1,9 @@
 
-Generate the certificate for liveness probes to healtcheck etcd
+Generate the certificate for liveness probes to healthcheck etcd
 
 ### Synopsis
 
-Generate the certificate for liveness probes to healtcheck etcd, and save them into etcd/healthcheck-client.cert and etcd/healthcheck-client.key files. 
+Generate the certificate for liveness probes to healthcheck etcd, and save them into etcd/healthcheck-client.cert and etcd/healthcheck-client.key files. 
 
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 

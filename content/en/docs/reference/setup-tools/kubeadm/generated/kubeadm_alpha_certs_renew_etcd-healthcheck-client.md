@@ -1,9 +1,9 @@
 
-Renew the certificate for liveness probes to healtcheck etcd
+Renew the certificate for liveness probes to healthcheck etcd
 
 ### Synopsis
 
-Renew the certificate for liveness probes to healtcheck etcd. 
+Renew the certificate for liveness probes to healthcheck etcd. 
 
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them. 
 
