@@ -21,7 +21,7 @@ The theme of the new developments around CustomResourceDefinitions is data consi
 
 In this direction, we have rethought our OpenAPI based validation schemas in CRDs and from 1.15 on we check each schema against a restriction called “structural schema”. This basically enforces non-polymorphic and complete typing of each field in a CustomResource. We are going to require structural schemas in the future, especially for all new features including those listed below, and list violations in a `NonStructural` condition. Non-structural schemas keep working for the time being in the v1beta1 API group. But any serious CRD application is urged to migrate to structural schemas in the foreseeable future.
 
-Details about what makes a schema structural will be published in a blog post on kubernetes.io later this week, and it is of course [documented in the Kubernetes documentation](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#specifying-a-structural-schema).
+Details about what makes a schema structural will be published in a blog post on kubernetes.io later this week, and it is of course [documented in the Kubernetes documentation](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
 
 **beta: CustomResourceDefinition Webhook Conversion**
 
