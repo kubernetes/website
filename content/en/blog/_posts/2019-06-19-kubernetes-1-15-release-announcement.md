@@ -105,7 +105,7 @@ If you’re interested in exploring these features more in depth, check back thi
 
 **Release team**
 
-This release is made possible through the efforts of hundreds of individuals who contributed both technical and non-technical content. Special thanks to the [release team](https://bit.ly/k8s114-team) led by Claire Laurence, Senior Technical Program Manager at Pivotal Software. The 38 individuals on the release team coordinated many aspects of the release, from documentation to testing, validation, and feature completeness.
+This release is made possible through the efforts of hundreds of individuals who contributed both technical and non-technical content. Special thanks to the [release team](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md) led by Claire Laurence, Senior Technical Program Manager at Pivotal Software. The 38 individuals on the release team coordinated many aspects of the release, from documentation to testing, validation, and feature completeness.
 
 As the Kubernetes community has grown, our release process represents an amazing demonstration of collaboration in open source software development. Kubernetes continues to gain new users at a rapid clip. This growth creates a positive feedback cycle where more contributors commit code creating a more vibrant ecosystem. Kubernetes has had over [32,000 individual contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) to date and an active community of more than 66,000 people.
 
