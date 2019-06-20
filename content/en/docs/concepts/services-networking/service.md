@@ -18,7 +18,7 @@ weight: 10
 
 No need to modify your application to use an unfamiliar service discovery mechanism.
 Kubernetes gives pods their own IP addresses and a single DNS name for a set of pods,
-:wqaand can load-balance across them.
+and can load-balance across them.
 
 {{% /capture %}}
 
