@@ -396,6 +396,9 @@ running_, using `kubectl delete jobs/old --cascade=false`.
 Before deleting it, you make a note of what selector it uses:
 
 ```
+kubectl get job old -o yaml
+```
+```
 kind: Job
 metadata:
   name: old
@@ -403,12 +406,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      job-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
 Then you create a new Job with name `new` and you explicitly specify the same selector.
-Since the existing Pods have label `job-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`,
+Since the existing Pods have label `controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`,
 they are controlled by Job `new` as well.
 
 You need to specify `manualSelector: true` in the new Job since you are not using
@@ -423,7 +426,7 @@ spec:
   manualSelector: true
   selector:
     matchLabels:
-      job-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
