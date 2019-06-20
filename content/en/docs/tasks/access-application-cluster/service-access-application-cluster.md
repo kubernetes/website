@@ -34,21 +34,21 @@ provides load balancing for an application that has two running instances.
 ## Creating a service for an application running in two pods
 
 1. Run a Hello World application in your cluster:
-    Here is the configuration file for the application Deployment:
+   Here is the configuration file for the application Deployment:
 
-    {{< codenew file="service/access/hello-application.yaml" >}}
+   {{< codenew file="service/access/hello-application.yaml" >}}
 
-    Create the application Deployment:
+   Create the application Deployment:
     
-        kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
+       kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
 
-    The preceding command creates a
-    [Deployment](/docs/concepts/workloads/controllers/deployment/)
-    object and an associated
-    [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-    object. The ReplicaSet has two
-    [Pods](/docs/concepts/workloads/pods/pod/),
-    each of which runs the Hello World application.
+   The preceding command creates a
+   [Deployment](/docs/concepts/workloads/controllers/deployment/)
+   object and an associated
+   [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+   object. The ReplicaSet has two
+   [Pods](/docs/concepts/workloads/pods/pod/),
+   each of which runs the Hello World application.
 
 1. Display information about the Deployment:
    ```shell
