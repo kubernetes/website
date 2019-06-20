@@ -1,4 +1,4 @@
----
+﻿---
 layout: blog
 title: Get started with Kubernetes (using Python)
 date:  
@@ -97,7 +97,7 @@ This will perform those seven steps listed above and create the image. To verify
 ```
 docker image ls
 ```
-<img src="./images/blog/docker-image-ls.png" alt="Docker image listing" />
+<img src="/images/blog/get-started-with-kubernetes-using-python/docker-image-ls.png" alt="Docker image listing" />
 
 The application is now containerized, which means it can now run in Docker and Kubernetes!
 
@@ -183,7 +183,7 @@ You can see the pods are running if you execute the following command:
 ```
 kubectl get pods
 ```
-<img src="./images/blog/kubectl-get-pods.png" alt="Pod listing" />
+<img src="/images/blog/get-started-with-kubernetes-using-python/kubectl-get-pods.png" alt="Pod listing" />
 
 Now navigate to http://localhost:6001, and you should see the “Hello form Python!” message. 
 
@@ -210,8 +210,8 @@ If you are just getting started and this walk-through was useful to you, then th
 ## How to enable Kubernetes in Docker Desktop
 Once you have Docker Desktop installed, open the Settings:
 
-<img src="./images/blog/docker-settings-menu.png" alt="Docker settings menu" />
+<img src="/images/blog/get-started-with-kubernetes-using-python/docker-settings-menu.png" alt="Docker settings menu" />
 
 Select the **Kubernetes** menu item on the left and verify that the **Enable Kubernetes** is checked. If it isn’t, **check it** and click the **Apply** button at the bottom right:
 
-<img src="./images/blog/kubernetes-tab.png" alt="Kubernetes tab" />
+<img src="/images/blog/get-started-with-kubernetes-using-python/kubernetes-tab.png" alt="Kubernetes tab" />
