@@ -283,6 +283,12 @@ You can install only one pod network per cluster.
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {{% /tab %}}
 
+{{% tab name="AWS VPC" %}}
+AWS VPC CNI provides native AWS VPC networking to Kubernetes clusters.
+
+For installation, please refer to the [AWS VPC CNI setup guide](https://github.com/aws/amazon-vpc-cni-k8s#setup).
+{{% /tab %}}
+
 {{% tab name="Calico" %}}
 For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
@@ -336,6 +342,16 @@ cilium-drxkl   1/1     Running   0          18m
 ```
 
 {{% /tab %}}
+
+{{% tab name="Contiv-VPP" %}}
+[Contiv-VPP](https://contivpp.io/) employs a programmable CNF vSwitch based on [FD.io VPP](https://fd.io/),
+offering feature-rich & high-performance cloud-native networking and services.
+
+It implements k8s services and network policies in the user space (on VPP).
+
+Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
+{{% /tab %}}
+
 {{% tab name="Flannel" %}}
 
 For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
@@ -357,6 +373,16 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
 ](https://github.com/coreos/flannel).
+{{% /tab %}}
+
+{{% tab name="JuniperContrail/TungstenFabric" %}}
+Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
+simultaneous overlay-underlay support, network policy enforcement, network isolation,
+service chaining and flexible load balancing.
+
+There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
+
+Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
 {{% /tab %}}
 
 {{% tab name="Kube-router" %}}
@@ -399,25 +425,6 @@ if they don't know their PodIP.
 ```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
-{{% /tab %}}
-
-{{% tab name="JuniperContrail/TungstenFabric" %}}
-Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
-simultaneous overlay-underlay support, network policy enforcement, network isolation,
-service chaining and flexible load balancing.
-
-There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
-
-Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
-{{% /tab %}}
-
-{{% tab name="Contiv-VPP" %}}
-[Contiv-VPP](https://contivpp.io/) employs a programmable CNF vSwitch based on [FD.io VPP](https://fd.io/),
-offering feature-rich & high-performance cloud-native networking and services.
-
-It implements k8s services and network policies in the user space (on VPP).
-
-Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
 {{% /tab %}}
 
 {{< /tabs >}}
