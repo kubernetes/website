@@ -10,7 +10,7 @@ aka:
 tags:
 - tool
 ---
-A tool that lets you use OCI container runtimes witk Kubernetes CRI.
+A tool that lets you use OCI container runtimes with Kubernetes CRI.
 
 <!--more-->
 
