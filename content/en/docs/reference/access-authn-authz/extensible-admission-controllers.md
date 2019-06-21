@@ -752,12 +752,13 @@ and mutating webhooks can specify a `reinvocationPolicy` to control whether they
 * `Never`: the webhook must not be called more than once in a single admission evaluation
 * `IfNeeded`: the webhook may be called again as part of the admission evaluation if the object
 being admitted is modified by other admission plugins after the initial webhook call.
-    {{< note >}}
-    * the number of additional invocations is not guaranteed to be exactly one.
-    * if additional invocations result in further modifications to the object, webhooks are not guaranteed to be invoked again.
-    * webhooks that use this option may be reordered to minimize the number of additional invocations.
-    * to validate an object after all mutations are guaranteed complete, use a validating admission webhook instead (recommended for webhooks with side-effects).
-    {{< /note >}}
+
+The important elements to note are:
+
+* The number of additional invocations is not guaranteed to be exactly one.
+* If additional invocations result in further modifications to the object, webhooks are not guaranteed to be invoked again.
+* Webhooks that use this option may be reordered to minimize the number of additional invocations.
+* To validate an object after all mutations are guaranteed complete, use a validating admission webhook instead (recommended for webhooks with side-effects).
 
 Here is an example of a mutating webhook opting into being re-invoked if later admission plugins modify the object:
 
