@@ -32,11 +32,7 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
 * F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508)
   for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest).
 * [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io) which offers API Gateway functionality with enterprise support from [solo.io](https://www.solo.io).  
-* [HAProxy](http://www.haproxy.org/) based ingress controller
-  [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) which is mentioned on the blog post
-  [HAProxy Ingress Controller for Kubernetes](https://www.haproxy.com/blog/haproxy_ingress_controller_for_kubernetes/).
-  [HAProxy Technologies](https://www.haproxy.com/) offers support and maintenance for HAProxy Enterprise and
-  the ingress controller [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress).
+* [HAProxy Technologies](https://www.haproxy.com/) offers support and maintenance for the [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress). See the [official documentation](https://www.haproxy.com/documentation/hapee/1-9r1/traffic-management/kubernetes-ingress-controller/).
 * [Istio](https://istio.io/) based ingress controller
   [Control Ingress Traffic](https://istio.io/docs/tasks/traffic-management/ingress/).
 * [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or
