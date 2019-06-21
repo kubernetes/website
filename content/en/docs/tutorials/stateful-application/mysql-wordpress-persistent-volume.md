@@ -93,7 +93,7 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
-The following manifest describes a single-instance WordPress Deployment. The wordpress container mounts the PersistentVolume at /var/www/html for website data file. The `WORDPRESS_DB_HOST` environment variable sets the Service name of MySQL defined above, and wordpress will access the database by Service. The `WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated. 
+The following manifest describes a single-instance WordPress Deployment. The WordPress container mounts the PersistentVolume at /var/www/html for a website data file. The `WORDPRESS_DB_HOST` environment variable sets the Service name of MySQL defined above, and WordPress will access the database by Service. The `WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated. 
 
 {{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
