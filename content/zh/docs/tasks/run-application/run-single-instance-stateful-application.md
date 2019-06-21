@@ -47,75 +47,75 @@ content_template: templates/tutorial
 
 1. 部署 YAML 文件中定义的 PV 和 PVC:
 
-    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
+        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 
 1. 部署 YAML 文件中定义的内容:
 
-    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
+        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 
 1. 展示 Deployment 相关信息:
 
-    kubectl describe deployment mysql
+        kubectl describe deployment mysql
 
-    Name:                 mysql
-    Namespace:            default
-    CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
-    Labels:               app=mysql
-    Annotations:          deployment.kubernetes.io/revision=1
-    Selector:             app=mysql
-    Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
-    StrategyType:         Recreate
-    MinReadySeconds:      0
-    Pod Template:
-      Labels:       app=mysql
-      Containers:
-       mysql:
-        Image:      mysql:5.6
-        Port:       3306/TCP
-        Environment:
-          MYSQL_ROOT_PASSWORD:      password
-        Mounts:
-          /var/lib/mysql from mysql-persistent-storage (rw)
-      Volumes:
-       mysql-persistent-storage:
-        Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
-        ClaimName:  mysql-pv-claim
-        ReadOnly:   false
-        Conditions:
-          Type          Status  Reason
-          ----          ------  ------
-          Available     False   MinimumReplicasUnavailable
-          Progressing   True    ReplicaSetUpdated
-        OldReplicaSets:       <none>
-        NewReplicaSet:        mysql-63082529 (1/1 replicas created)
-        Events:
-          FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-          ---------    --------    -----    ----                -------------    --------    ------            -------
-          33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
+        Name:                 mysql
+        Namespace:            default
+        CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
+        Labels:               app=mysql
+        Annotations:          deployment.kubernetes.io/revision=1
+        Selector:             app=mysql
+        Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+        StrategyType:         Recreate
+        MinReadySeconds:      0
+        Pod Template:
+          Labels:       app=mysql
+          Containers:
+           mysql:
+            Image:      mysql:5.6
+            Port:       3306/TCP
+            Environment:
+              MYSQL_ROOT_PASSWORD:      password
+            Mounts:
+              /var/lib/mysql from mysql-persistent-storage (rw)
+          Volumes:
+           mysql-persistent-storage:
+            Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+            ClaimName:  mysql-pv-claim
+            ReadOnly:   false
+            Conditions:
+              Type          Status  Reason
+              ----          ------  ------
+              Available     False   MinimumReplicasUnavailable
+              Progressing   True    ReplicaSetUpdated
+            OldReplicaSets:       <none>
+            NewReplicaSet:        mysql-63082529 (1/1 replicas created)
+            Events:
+              FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+              ---------    --------    -----    ----                -------------    --------    ------            -------
+              33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
 
 
 1. 列举出 Deployment 创建的 pods:
 
-    kubectl get pods -l app=mysql
+        kubectl get pods -l app=mysql
 
-    NAME                   READY     STATUS    RESTARTS   AGE
-    mysql-63082529-2z3ki   1/1       Running   0          3m
+        NAME                   READY     STATUS    RESTARTS   AGE
+        mysql-63082529-2z3ki   1/1       Running   0          3m
 
 1. 查看 PersistentVolumeClaim:
 
-    kubectl describe pvc mysql-pv-claim
+        kubectl describe pvc mysql-pv-claim
 
-    Name:         mysql-pv-claim
-    Namespace:    default
-    StorageClass:
-    Status:       Bound
-    Volume:       mysql-pv-volume
-    Labels:       <none>
-    Annotations:    pv.kubernetes.io/bind-completed=yes
-                    pv.kubernetes.io/bound-by-controller=yes
-    Capacity:     20Gi
-    Access Modes: RWO
-    Events:       <none>
+        Name:         mysql-pv-claim
+        Namespace:    default
+        StorageClass:
+        Status:       Bound
+        Volume:       mysql-pv-volume
+        Labels:       <none>
+        Annotations:    pv.kubernetes.io/bind-completed=yes
+                        pv.kubernetes.io/bound-by-controller=yes
+        Capacity:     20Gi
+        Access Modes: RWO
+        Events:       <none>
 
 ## 访问 MySQL 实例
 
