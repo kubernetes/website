@@ -124,7 +124,7 @@ the `networking` object of `ClusterConfiguration`.
     ```sh
     sudo kubeadm init --config=kubeadm-config.yaml --upload-certs
     ```
-    - The `--experimental-upload-certs` flag is used to upload the certificates that should be shared
+    - The `--upload-certs` flag is used to upload the certificates that should be shared
     across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
     control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
     certificate distribution](#manual-certs) section bellow.
