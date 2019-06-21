@@ -30,26 +30,24 @@ card:
 -->
 
 {{% capture overview %}}
-
 <!--
 This tutorial shows you how to run a simple Hello World Node.js app
 on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
-
-{{< note >}}
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
-{{< /note >}}
 -->
 本教程向您展示如何使用 [Minikube](/docs/getting-started-guides/minikube) 和 Katacoda 在 Kubernetes 上运行一个简单的 “Hello World” Node.js 应用程序。Katacoda 提供免费的浏览器内 Kubernetes 环境。
 
 {{< note >}}
+<!--
+You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+-->
 如果您已在本地安装 [Minikube](/docs/tasks/tools/install-minikube/)，也可以按照本教程操作。
+
 {{< /note >}}
 
 {{% /capture %}}
 
 {{% capture objectives %}}
-
 <!--
 * Deploy a hello world application to Minikube.
 * Run the app.
@@ -61,29 +59,18 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 
 {{% /capture %}}
 
+{{% capture prerequisites %}}
 <!--
-{{% capture prerequisites %}}
-
 This tutorial provides a container image built from the following files:
-
-{{< codenew language="js" file="minikube/server.js" >}}
-
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
-
-For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
-
-{{% /capture %}}
-
-{{% capture lessoncontent %}}
 -->
-{{% capture prerequisites %}}
-
 本教程提供了从以下文件构建的容器镜像：
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
-
+<!--
+For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
+-->
 有关 `docker build` 命令的更多信息，请参阅 [Docker 文档](https://docs.docker.com/engine/reference/commandline/build/)。
 
 {{% /capture %}}
