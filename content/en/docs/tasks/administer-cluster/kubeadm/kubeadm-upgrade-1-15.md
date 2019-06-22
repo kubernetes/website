@@ -279,7 +279,7 @@ without compromising the minimum required capacity for running your workloads.
     {{% /tab %}}
     {{< /tabs >}}
 
-### Cordon the node
+### Drain the node
 
 1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads. Run:
 
