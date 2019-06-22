@@ -86,12 +86,12 @@ content_template: templates/tutorial
               ----          ------  ------
               Available     False   MinimumReplicasUnavailable
               Progressing   True    ReplicaSetUpdated
-            OldReplicaSets:       <none>
-            NewReplicaSet:        mysql-63082529 (1/1 replicas created)
-            Events:
-              FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-              ---------    --------    -----    ----                -------------    --------    ------            -------
-              33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
+              OldReplicaSets:       <none>
+              NewReplicaSet:        mysql-63082529 (1/1 replicas created)
+              Events:
+                FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+                ---------    --------    -----    ----                -------------    --------    ------            -------
+                33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
 
 
 1. 列举出 Deployment 创建的 pods:
