@@ -93,7 +93,7 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-Ada sintaksis baru pada Kubernetes 1.6, walaupun sintaksis anotasi yang lama tetap akan bekerja untuk versi 1.6 dan 1.7. Sintaksis yang baru harus digunakan untuk versi 1.8 keatas. Deklarasi Init Container dipindahkan ke dalam `spec`:
+Ada sintaksis baru pada Kubernetes 1.6, walaupun sintaksis anotasi yang lama tetap akan bekerja untuk versi 1.6 dan 1.7. Sintaksis yang baru harus digunakan untuk versi 1.8 ke atas. Deklarasi Init Container dipindahkan ke dalam `spec`:
 
 ```yaml
 apiVersion: v1
@@ -201,8 +201,8 @@ Events:
 ```
 
 ```shell
-kubectl logs myapp-pod -c init-myservice # Inspect the first init container
-kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
+kubectl logs myapp-pod -c init-myservice # Memeriksa Init Container pertama
+kubectl logs myapp-pod -c init-mydb      # Memeriksa Init Container kedua
 ```
 
 Saat kita menjalankan Service `mydb` dan `myservice`, kita dapat melihat Init Container telah selesai dan `myapp-pod` pun dibuat:
@@ -247,11 +247,11 @@ Nama setiap Container aplikasi dan Init Container pada sebuah Pod haruslah unik;
 Karena eksekusi Init Container yang berurutan, aturan-aturan untuk sumber daya berlaku sebagai berikut:
 
 * Yang tertinggi antara `request` atau `limit` sumber daya yang didefinisikan pada **semua Init Container** adalah **`request`/`limit` inisialisasi yang berlaku**.
-* _`request`/`limit`_ sumber daya Pod yang berlaku adalah yang paling besar diantara:
+* `request`/`limit` sumber daya Pod yang berlaku adalah yang paling besar diantara:
   * Jumah `request`/`limit` semua Container aplikasi untuk suatu sumber daya.
   * `request`/`limit` inisialisasi yang berlaku untuk suatu sumber daya.
 * Penjadwalan dilakukan berdasarkan `request`/`limit` (Pod) yang berlaku, yang berarti bahwa Init Container dapat mengambil sumber daya inisialisasi yang tidak digunakan selama umur Pod tersebut.
-* _Tingkat QoS yang berlaku_ milik Pod adalah sama dengan tingkat QoS untuk Init Container dan Container aplikasi.
+* **Tingkat QoS yang berlaku** milik Pod adalah sama dengan tingkat QoS untuk Init Container dan Container aplikasi.
 
 `ResourceQuota` dan `limitedResources` diberlakukan berdasarkan `request` dan `limit` Pod yang berlaku.
 
@@ -267,9 +267,9 @@ Pod dapat diulang kembali, yang berakibat pada diulangnya eksekusi Init Containe
 
 ## Dukungan dan kompatibilitas
 
-Sebuah kluster dengan versi Apiserver 1.6.0 keatas mendukung Init Container melalui kolom `.spec.initContainers`. Versi-versi sebelumnya mendukung Init Container melalui anotasi _alpha_ atau _beta_. Kolom `.spec.initContainers` juga diduplikasikan dalam bentuk anotasi `alpha` dan `beta` agar Kubelet versi 1.3.0 keatas dapat menjalankan Init Container, dan agar Apiserver versi 1.6 dapat dengan aman dikembalikan ke versi 1.5.x tanpa kehilangan fungsionalitas Pod-pod yang telah dibuat sebelumnya.
+Sebuah kluster dengan versi Apiserver 1.6.0 ke atas mendukung Init Container melalui kolom `.spec.initContainers`. Versi-versi sebelumnya mendukung Init Container melalui anotasi _alpha_ atau _beta_. Kolom `.spec.initContainers` juga diduplikasikan dalam bentuk anotasi _alpha_ dan _beta_ agar Kubelet versi 1.3.0 ke atas dapat menjalankan Init Container, dan agar Apiserver versi 1.6 dapat dengan aman dikembalikan ke versi 1.5.x tanpa kehilangan fungsionalitas Pod-pod yang telah dibuat sebelumnya.
 
-Pada Apiserver dan Kubelet versi 1.8.0 keatas, dukungan untuk anotasi `alpha` dan `beta` telah dihapus, sehingga dibutuhkan konversi (manual) dari anotasi yang telah kedaluarsa tersebut ke dalam bentuk kolom `.spec.initContainers`.
+Pada Apiserver dan Kubelet versi 1.8.0 ke atas, dukungan untuk anotasi _alpha_ dan _beta_ telah dihapus, sehingga dibutuhkan konversi (manual) dari anotasi yang telah kedaluarsa tersebut ke dalam bentuk kolom `.spec.initContainers`.
 
 {{% /capture %}}
 
