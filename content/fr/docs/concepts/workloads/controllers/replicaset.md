@@ -33,7 +33,7 @@ Si il y a un Pod qui n'a pas de OwnerReference ou que OwnerReference n'est pas u
 Un ReplicaSet garantit qu’un nombre spécifié de réplicas de Pod soient exécutés à un moment donné.
 Cependant, un Deployment est un concept de plus haut niveau qui gère les ReplicaSets et
 fournit des mises à jour déclaratives aux Pods ainsi que de nombreuses autres fonctionnalités utiles.
-Par conséquent, nous vous recommandons d’utiliser des Deployments au lieu d’utiliser directement ReplicaSets, sauf si
+Par conséquent, nous vous recommandons d’utiliser des Deployments au lieu d’utiliser directement des ReplicaSets, sauf si
 vous avez besoin d'une orchestration personnalisée des mises à jour ou si vous n'avez pas besoin de mises à jour.
 
 Cela signifie qu'il est possible que vous n'ayez jamais besoin de manipuler des objets ReplicaSet :
@@ -137,16 +137,10 @@ metadata:
 ...
 ```
 
-## Non-Template Pod acquisitions
+## Acquisitions de Pod en dehors du template
 
-While you can create bare Pods with no problems, it is strongly recommended to make sure that the bare Pods do not have
-labels which match the selector of one of your ReplicaSets. The reason for this is because a ReplicaSet is not limited
-to owning Pods specified by its template-- it can acquire other Pods in the manner specified in the previous sections.
-
-Take the previous frontend ReplicaSet example, and the Pods specified in the  following manifest:
-
-Bien que vous puissiez créer des pods manuellement sans problème, il est fortement recommandé de s’assurer que ces pods n’ont pas
-labels correspondant au sélecteur de l’un de vos ReplicaSets. C'est car un ReplicaSet n’est pas limité
+Bien que vous puissiez créer des pods manuellement sans problème, il est fortement recommandé de s’assurer que ces pods n'ont pas de
+labels correspondant au sélecteur de l’un de vos ReplicaSets. Car un ReplicaSet n’est pas limité
 à posséder les pods spécifiés par son modèle - il peut acquérir d’autres pods de la manière spécifiée dans les sections précédentes.
 
 Prenez l'exemple précédent de ReplicaSet, ainsi que les pods spécifiés dans le manifeste suivant :
@@ -154,9 +148,6 @@ Prenez l'exemple précédent de ReplicaSet, ainsi que les pods spécifiés dans 
 {{< codenew file="pods/pod-rs.yaml" >}}
 
 Ces pods n’ayant pas de contrôleur (ni d’objet) en tant que référence propriétaire, ils correspondent au sélecteur de du ReplicaSet frontend, ils seront donc immédiatement acquis par ce ReplicaSet.
-
-Suppose you create the Pods after the frontend ReplicaSet has been deployed and has set up its initial Pod replicas to
-fulfill its replica count requirement:
 
 Supposons que vous créiez les pods une fois le ReplicaSet frontend déployé et qui a déjà déployé ses replicas de Pods initiaux afin de
 remplir son exigence de nombre de replicas :
@@ -226,7 +217,7 @@ Il faut faire attention à ne pas avoir des selecteurs que d'autres controllers 
 Pour le champ [restart policy](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy),
 `.spec.template.spec.restartPolicy`, la seule valeur autorisée est `Always`, qui est la valeur par défaut.
 
-### Pod Selector
+### Sélecteur de Pod
 
 Le champ `.spec.selector` est un [label selector](/docs/concepts/overview/working-with-objects/labels/). Tel que discuté
 [précédemment](#how-a-replicaset-works), ce sont les labels utilisés pour identifier les Pods potentiels à acquérir. Dans notre
