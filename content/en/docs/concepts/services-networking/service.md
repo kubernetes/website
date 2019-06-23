@@ -94,7 +94,7 @@ spec:
 This specification creates a new Service object named “my-service”, which
 targets TCP port 9376 on any Pod with the `app=MyApp` label.
 
-This Service also assigns an IP address (sometimes called the "cluster IP"),
+Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
 which is used by the Service proxies
 (see [Virtual IPs and service proxies](#virtual-ips-and-service-proxies) below).
 
@@ -113,7 +113,7 @@ Port definitions in Pods have names, and you can reference these names in the
 of Pods in the Service using a single configured name, with the same network
 protocol available via different port numbers.
 This offers a lot of flexibility for deploying and evolving your Services.
-For example, you can change the port number the Pods are exposed in the next
+For example, you can change the port numbers that Pods expose in the next
 version of your backend software, without breaking clients.
 
 The default protocol for Services is TCP; you can also use any other
@@ -237,7 +237,7 @@ By default, kube-proxy in userspace mode chooses a backend via a round-robin alg
 In this mode, kube-proxy watches the Kubernetes control plane for the addition and
 removal of Service and Endpoint objects. For each Service, it installs
 iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
-and redirects that traffic to one of the Service's
+and redirect that traffic to one of the Service's
 backend sets.  For each Endpoint object, it installs iptables rules which
 select a backend Pod.
 
@@ -408,7 +408,7 @@ Services by their DNS name.
 
 For example, if you have a Service called `"my-service"` in a Kubernetes
 Namespace `"my-ns"`, the control plane and the DNS Service acting together
-creates a DNS record for `"my-service.my-ns"`. Pods in the `"my-ns"` Namespace
+create a DNS record for `"my-service.my-ns"`. Pods in the `"my-ns"` Namespace
 should be able to find it by simply doing a name lookup for `my-service`
 (`"my-service.my-ns"` would also work).
 
