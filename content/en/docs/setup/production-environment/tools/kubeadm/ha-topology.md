@@ -30,7 +30,7 @@ kubeadm that run control plane components.
 Each control plane node runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`.
 The `kube-apiserver` is exposed to worker nodes using a load balancer.
 
-Each control plane node creates a local etcd member and this etcd member communicate only with
+Each control plane node creates a local etcd member and this etcd member communicates only with
 the `kube-apiserver` of this node. The same applies to the local `kube-controller-manager`
 and `kube-scheduler` instances.
 
