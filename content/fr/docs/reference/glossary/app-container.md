@@ -14,5 +14,5 @@ tags:
 
 <!--more-->
 
-Un conteneur d'initialisation vous permet de séparer les détails d'initialisation importants pour l'ensemble de la {{< glossary_tooltip text="workload" term_id="workload" >}}, et qui n'ont pas besoin de continuer à fonctionner une fois que le conteneur d'application est démarré.
+Un conteneur d'initialisation vous permet de séparer les détails d'initialisation importants pour l'ensemble du workload {{< glossary_tooltip text="workload" term_id="workload" >}}, et qui n'ont pas besoin de continuer à fonctionner une fois que le conteneur d'application est démarré.
 Si un pod n'a pas d'init conteneurs configurés, tous les conteneurs de ce pod sont des conteneurs d'application.
