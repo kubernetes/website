@@ -346,7 +346,7 @@ In the CLI, the access modes are abbreviated to:
 | AzureDisk            | &#x2713;               | -                     | -            |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;     |
 | Cinder               | &#x2713;               | -                     | -            |
-| CSI                  | &depends on the driver | depends on the driver | depends on the driver |
+| CSI                  | depends on the driver  | depends on the driver | depends on the driver |
 | FC                   | &#x2713;               | &#x2713;              | -            |
 | Flexvolume           | &#x2713;               | &#x2713;              | depends on the driver |
 | Flocker              | &#x2713;               | -                     | -            |
