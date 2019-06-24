@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-Un architecte s'assure que l'implémentation d'une application lui permet d'interagir avec ses composants environnants, de manière maintenable et déployable à grande échelle. Les composants environnants comprennent les bases de données, les infrastructures de logging et autres micro-prestations.
+Un architecte s'assure que l'implémentation d'une application lui permet d'interagir avec ses composants environnants, de manière maintenable et déployable à grande échelle. Les composants environnants comprennent les bases de données, les infrastructures de logging et autres micro-services.
