@@ -658,8 +658,7 @@ The default is `ClusterIP`.
      load balancer will route, are automatically created.
    * [`ExternalName`](#externalname): Maps the service to the contents of the
      `externalName` field (e.g. `foo.bar.example.com`), by returning a `CNAME` record
-     with its value. No proxying of any kind is set up. This requires version 1.7 or
-     higher of `kube-dns`.
+     with its value. No proxying of any kind is set up. 
 -->
 
 ## 发布服务 —— 服务类型
@@ -676,7 +675,11 @@ Kubernetes `ServiceTypes` 允许指定一个需要的类型的 Service，默认�
 * `NodePort`：通过每个 Node 上的 IP 和静态端口（`NodePort`）暴露服务。`NodePort` 服务会路由到 `ClusterIP` 服务，这个 `ClusterIP` 服务会自动创建。通过请求 `<NodeIP>:<NodePort>`，可以从集群的外部访问一个 `NodePort` 服务。
 * `LoadBalancer`：使用云提供商的负载局衡器，可以向外部暴露服务。外部的负载均衡器可以路由到 `NodePort` 服务和 `ClusterIP` 服务。
 * `ExternalName`：通过返回 `CNAME` 和它的值，可以将服务映射到 `externalName` 字段的内容（例如， `foo.bar.example.com`）。
-    没有任何类型代理被创建，这只有 Kubernetes 1.7 或更高版本的 `kube-dns` 才支持。
+    没有任何类型代理被创建。
+
+{{< note >}}
+您需要 CoreDNS 1.7 或更高版本才能使用`ExternalName`类型。
+{{< /note >}}
 
 <!--
 ### Type NodePort {#nodeport}
