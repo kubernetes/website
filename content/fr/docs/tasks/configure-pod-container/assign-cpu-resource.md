@@ -6,7 +6,7 @@ weight: 20
 
 {{% capture overview %}}
 
-Cette page montre comment assigner une *request* de CPU et une *limite* de CPU à un conteneur.
+Cette page montre comment assigner une *demande* (request en anglais) de CPU et une *limite* de CPU à un conteneur.
 Un conteneur est garanti d'avoir autant de CPU qu'il le demande, mais n'est pas autorisé à utiliser plus de CPU que sa limite.
 
 
@@ -65,7 +65,7 @@ Dans cet exercice, vous allez créer un Pod qui a un seul conteneur. Le conteneu
 
 {{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
 
-La section `args` du fichier de configuration fournit des arguments pour le conteneur lorsqu'il démarre. L'argument `-cpus "2"` demande au conteneur d'utiliser 2 CPU.
+La section `args` du fichier de configuration fournit des arguments pour le conteneur lorsqu'il démarre. L'argument `-cpus "2"` demande au conteneur d'utiliser 2 CPUs.
 
 Créez le Pod:
 
@@ -110,10 +110,10 @@ NAME                        CPU(cores)   MEMORY(bytes)
 cpu-demo                    974m         <something>
 ```
 
-Souvenez-vous qu'en réglant `-cpu "2"`, vous avez configuré le conteneur pour faire en sorte qu'il utilise 2 CPU, mais que le conteneur ne peut utiliser qu'environ 1 CPU. L'utilisation du CPU du conteneur est étranglé, car le conteneur tente d'utiliser plus de ressources CPU que sa limite.
+Souvenez-vous qu'en réglant `-cpu "2"`, vous avez configuré le conteneur pour faire en sorte qu'il utilise 2 CPU, mais que le conteneur ne peut utiliser qu'environ 1 CPU. L'utilisation du CPU du conteneur est entravée, car le conteneur tente d'utiliser plus de ressources CPU que sa limite.
 
 {{< note >}}
-Une autre explication possible de l'étranglement du CPU est que le Node pourrait ne pas avoir
+Une autre explication possible de la la restriction du CPU est que le Nœud pourrait ne pas avoir
 suffisamment de ressources CPU disponibles. Rappelons que les conditions préalables à cet exercice exigent que chacun de vos Nœuds doit avoir au moins 1 CPU. 
 Si votre conteneur fonctionne sur un nœud qui n'a qu'un seul CPU, le conteneur ne peut pas utiliser plus que 1 CPU, quelle que soit la limite de CPU spécifiée pour le conteneur.
 {{< /note >}}
@@ -125,7 +125,7 @@ La ressource CPU est mesurée en unités *CPU*. Un CPU, à Kubernetes, est équi
 * 1 AWS vCPU
 * 1 GCP Core
 * 1 Azure vCore
-* 1 Hyperthread on a bare-metal Intel processor with Hyperthreading
+* 1 Hyperthread sur un serveur physique avec un processeur Intel qui a de l'hyperthreading.
 
 Les valeurs fractionnelles sont autorisées. Un conteneur qui demande 0,5 CPU est garanti deux fois moins CPU par rapport à un conteneur qui demande 1 CPU. Vous pouvez utiliser le suffixe m pour signifier milli. Par exemple 100m CPU, 100 milliCPU, et 0.1 CPU sont tous égaux. Une précision plus fine que 1m n'est pas autorisée.
 
@@ -141,7 +141,7 @@ kubectl delete pod cpu-demo --namespace=cpu-example
 
 Les demandes et limites de CPU sont associées aux conteneurs, mais il est utile de réfléchir à la demande et à la limite de CPU d'un pod. La demande de CPU pour un Pod est la somme des demandes de CPU pour tous les conteneurs du Pod. De même, la limite de CPU pour les un Pod est la somme des limites de CPU pour tous les conteneurs du Pod.
 
-L'ordonnancement des pods est basé sur les demandes. Un Pod est schedulé pour se lancer sur un Nœud uniquement si le nœud dispose de suffisamment de ressources CPU pour satisfaire la demande de CPU du Pod.
+L'ordonnancement des pods est basé sur les demandes. Un Pod est prévu pour se lancer sur un Nœud uniquement si le nœud dispose de suffisamment de ressources CPU pour satisfaire la demande de CPU du Pod.
 
 Dans cet exercice, vous allez créer un Pod qui a une demande de CPU si importante qu'elle dépassera la capacité de n'importe quel nœud de votre cluster. Voici le fichier de configuration d'un Pod
 qui a un seul conteneur. Le conteneur nécessite 100 CPU, ce qui est susceptible de dépasser la capacité de tous les nœuds de votre cluster.
@@ -200,7 +200,7 @@ Si vous ne spécifiez pas de limite CPU pour un conteneur, une de ces situations
 * Le conteneur n'a pas de limite maximale quant aux ressources CPU qu'il peut utiliser. Le conteneur
 pourrait utiliser toutes les ressources CPU disponibles sur le nœud où il est lancé.
 
-* Le conteneur est lancé dans un namespace qui a une limite par défaut de CPU, d'ou le conteneur est automatiquement affecté à cette limite par défaut. Les administrateurs du cluster peuvent utiliser un
+* Le conteneur est lancé dans un namespace qui a une limite par défaut de CPU, ainsi le conteneur reçoit automatiquement cette limite par défaut. Les administrateurs du cluster peuvent utiliser un
 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
 pour spécifier une valeur par défaut pour la limite de CPU.
 
@@ -208,13 +208,13 @@ pour spécifier une valeur par défaut pour la limite de CPU.
 
 En configurant les demandes et les limites de CPU des conteneurs qui se lancent sur votre cluster, 
 vous pouvez utiliser efficacement les ressources CPU disponibles sur les Nœuds de votre cluster. 
-En gardant une demande faible de CPU de pod, vous donnez au Pod une bonne chance d'être schedulé. 
+En gardant une demande faible de CPU de pod, vous donnez au Pod une bonne chance d'être ordonnancé. 
 En ayant une limite CPU supérieure à la demande de CPU, vous accomplissez deux choses :
 
-* Le Pod peut avoir des éclats d'activité où il utilise les ressources CPU qui se sont déjà disponible.
-* La quantité de ressources CPU qu'un Pod peut utiliser pendant un éclat d'activité est limitée à une quantité raisonnable.
+* Le Pod peut avoir des pics d'activité où il utilise les ressources CPU qui se sont déjà disponible.
+* La quantité de ressources CPU qu'un Pod peut utiliser pendant une pic d'activité est limitée à une quantité raisonnable.
 
-## Clean up
+## Nettoyage
 
 Supprimez votre namespace :
 
@@ -227,13 +227,13 @@ kubectl delete namespace cpu-example
 {{% capture whatsnext %}}
 
 
-### For app developers
+### Pour les développeurs d'applications
 
 * [Allocation des ressources mémoire aux conteneurs et aux pods](/fr/docs/tasks/configure-pod-container/assign-memory-resource/)
 
 * [Configuration de la qualité de service pour les pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-### For cluster administrators
+### Pour les administrateurs de cluster
 
 * [Configuration des demandes et des limites de mémoire par défaut pour un Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
 
