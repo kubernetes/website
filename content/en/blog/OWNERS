@@ -8,10 +8,11 @@ options:
 approvers:
   - kbarnard10
   - zacharysarah
+  - castrojo
 
 reviewers:
   - vonguard
-  - castrojo
+  - onlydole
   - mrbobbytables
   - cody-clark
   - parispittman
