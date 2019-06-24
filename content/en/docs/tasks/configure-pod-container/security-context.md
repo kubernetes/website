@@ -53,7 +53,7 @@ Here is a configuration file for a Pod that has a `securityContext` and an `empt
 
 In the configuration file, the `runAsUser` field specifies that for any Containers in
 the Pod, all processes run with user ID 1000. The `runAsGroup` field specifies the primary group ID of 3000 for 
-all processes within any containers of the Pod. If this field is ommitted, the primary group ID of the containers 
+all processes within any containers of the Pod. If this field is omitted, the primary group ID of the containers
 will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified. 
 Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000. 
 The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000. 
@@ -130,7 +130,7 @@ Run the following command:
 $ id
 uid=1000 gid=3000 groups=2000
 ```
-You will see that gid is 3000 which is same as `runAsGroup` field. If the `runAsGroup` was ommitted the gid would
+You will see that gid is 3000 which is same as `runAsGroup` field. If the `runAsGroup` was omitted the gid would
 remain as 0(root) and the process will be able to interact with files that are owned by root(0) group and that have 
 the required group permissions for root(0) group.
 
