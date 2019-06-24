@@ -21,9 +21,6 @@ but there are some circumstances where you may want more control on a node where
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same failure zone.
 
-You can find all the [files for these examples](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/) in the Kubernetes documentation repository. You can also download them directly from the
-link by each example.
-
 {{% /capture %}}
 
 {{% capture body %}}
