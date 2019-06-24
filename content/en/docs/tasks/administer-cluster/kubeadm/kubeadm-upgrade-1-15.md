@@ -279,7 +279,7 @@ without compromising the minimum required capacity for running your workloads.
     {{% /tab %}}
     {{< /tabs >}}
 
-### Cordon the node
+### Drain the node
 
 1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads. Run:
 
@@ -287,16 +287,12 @@ without compromising the minimum required capacity for running your workloads.
     kubectl drain $NODE --ignore-daemonsets
     ```
 
-   You should see output similar to this:
+    You should see output similar to this:
 
     ```shell
-    kubectl drain ip-172-31-85-18
-    node "ip-172-31-85-18" cordoned
-    error: unable to drain node "ip-172-31-85-18", aborting command...
-
-    There are pending nodes to be drained:
-    ip-172-31-85-18
-    error: DaemonSet-managed pods (use --ignore-daemonsets to ignore): calico-node-5798d, kube-proxy-thjp9
+    node/ip-172-31-85-18 cordoned
+    WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-proxy-dj7d7, kube-system/weave-net-z65qx
+    node/ip-172-31-85-18 drained
     ```
 
 ### Upgrade the kubelet configuration
