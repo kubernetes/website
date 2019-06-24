@@ -27,7 +27,7 @@ Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
 
 名字空间通过以下方式实现这点：
 
-1. 为[名字](/docs/concepts/overview/working-with-objects/names/) 设置作用域.
+1. 为[名字](/docs/concepts/overview/working-with-objects/names/)设置作用域.
 2. 为集群中的部分资源关联鉴权和策略的机制。
 
 <!-- Use of multiple namespaces is optional. -->
