@@ -17,7 +17,7 @@ content_template: templates/task
 <!-- Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
 help different projects, teams, or customers to share a Kubernetes cluster. -->
 
-Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
+Kubernetes {{< glossary_tooltip text="命名空间" term_id="namespace" >}}
 有助于不同的项目、团队或客户去共享 Kubernetes 集群。
 
 <!-- It does this by providing the following:
