@@ -65,13 +65,13 @@ Kubernetes starts with three initial namespaces:
 
 ### Setting the namespace for a request
 
-To temporarily set the namespace for a request, use the `--namespace` flag.
+To set the namespace for a current request, use the `--namespace` flag.
 
 For example:
 
 ```shell
-kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
-kubectl --namespace=<insert-namespace-name-here> get pods
+kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
+kubectl get pods --namespace=<insert-namespace-name-here>
 ```
 
 ### Setting the namespace preference
