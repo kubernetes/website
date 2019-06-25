@@ -12,11 +12,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#archive" href="#collapse-{{ .Key }}">
+      <a data-toggle="collapse" data-parent="#blog-archive" href="#collapse-{{ .Key }}">
       {{ .Key }}</a>
       </h4>
     </div>
-    <div id="collapse-{{ .Key }}" class="panel-collapse collapse{{ if eq $i 0 }} in{{ end }}">
+    <div id="collapse-{{ .Key }}" class="panel-collapse collapse{{ if eq $i 0 }} show{{ end }}">
       <div class="panel-body">
         <ul class="list-group">
           {{ range .Pages }}
