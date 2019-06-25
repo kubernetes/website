@@ -97,38 +97,9 @@ and the [Production Pods guide](/docs/tasks/configure-pod-container/configure-po
 
 ### Init Containers in use
 
-The following yaml file for Kubernetes 1.5 outlines a simple Pod which has two Init Containers.
+The following yaml file outlines a simple Pod which has two Init Containers.
 The first waits for `myservice` and the second waits for `mydb`. Once both
 containers complete, the Pod will begin.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: myapp-pod
-  labels:
-    app: myapp
-  annotations:
-    pod.beta.kubernetes.io/init-containers: '[
-        {
-            "name": "init-myservice",
-            "image": "busybox:1.28",
-            "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
-        },
-        {
-            "name": "init-mydb",
-            "image": "busybox:1.28",
-            "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
-        }
-    ]'
-spec:
-  containers:
-  - name: myapp-container
-    image: busybox:1.28
-    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
-```
-
-There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works for 1.6 and 1.7.  The new syntax must be used for 1.8 or greater. We have moved the declaration of Init Containers to `spec`:
 
 ```yaml
 apiVersion: v1
@@ -150,8 +121,6 @@ spec:
     image: busybox:1.28
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
-
-1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, Init Containers were made a field in the API. The beta annotation is still respected in 1.6 and 1.7, but is not supported in 1.8 or greater.
 
 Yaml file below outlines the `mydb` and `myservice` services:
 
@@ -326,19 +295,6 @@ reasons:
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
   forcing a restart, and the Init Container completion record has been lost due
   to garbage collection.
-
-## Support and compatibility
-
-A cluster with Apiserver version 1.6.0 or greater supports Init Containers
-using the `.spec.initContainers` field. Previous versions support Init Containers
-using the alpha or beta annotations. The `.spec.initContainers` field is also mirrored
-into alpha and beta annotations so that Kubelets version 1.3.0 or greater can execute
-Init Containers, and so that a version 1.6 apiserver can safely be rolled back to version
-1.5.x without losing Init Container functionality for existing created pods.
-
-In Apiserver and Kubelet versions 1.8.0 or greater, support for the alpha and beta annotations
-is removed, requiring a conversion from the deprecated annotations to the
-`.spec.initContainers` field.
 
 {{% /capture %}}
 
