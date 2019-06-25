@@ -158,12 +158,16 @@ also be used to provide default values for many of the fields that it
 controls. When multiple policies are available, the pod security policy
 controller selects policies according to the following criteria:
 
-1. If any policies successfully validate the pod without altering it, they are
-   used.
-2. If it is a pod creation request, then the first valid policy in alphabetical
-   order is used.
-3. Otherwise, if it is a pod update request, an error is returned, because pod mutations
-   are disallowed during update operations.
+1. PodSecurityPolicies which allow the pod as-is, without changing defaults or
+   mutating the pod, are preferred.  The order of these non-mutating
+   PodSecurityPolicies doesn't matter.
+2. If the pod must be defaulted or mutated, the first PodSecurityPolicy
+   (ordered by name) to allow the pod is selected.
+
+{{< note >}}
+During update operations (during which mutations to pod specs are disallowed)
+only non-mutating PodSecurityPolicies are used to validate the pod.
+{{< /note >}}
 
 ## Example
 
