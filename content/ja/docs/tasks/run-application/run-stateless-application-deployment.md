@@ -30,7 +30,7 @@ weight: 10
 
 {{% capture lessoncontent %}}
 
-## nginx deploymentの作成と検討
+## nginx deploymentの作成と探検
 
 Kubernetes Deploymentオブジェクトを作成することでアプリケーションを実行できます。また、YAMLファイルでDeploymentを記述できます。例えば、このYAMLファイルはnginx:1.7.9 Dockerイメージを実行するデプロイメントを記述しています:
 
