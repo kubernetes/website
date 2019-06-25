@@ -80,7 +80,7 @@ You can permanently save the namespace for all subsequent kubectl commands in th
 context.
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # Validate it
 kubectl config view | grep namespace:
 ```
