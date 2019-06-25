@@ -8,7 +8,7 @@ weight: 20
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a standalone tool
 to customize Kubernetes objects
-through a [kustomization file](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/kustomization.yaml).
+through a [kustomization file](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization).
 
 Since 1.14, Kubectl also
 supports the management of Kubernetes objects using a kustomization file.
