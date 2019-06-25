@@ -342,7 +342,7 @@ reasons:
 
 {{% capture whatsnext %}}
 
-* [Creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
-* [Debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+* Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
 {{% /capture %}}
