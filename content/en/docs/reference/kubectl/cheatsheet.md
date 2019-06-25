@@ -173,6 +173,12 @@ kubectl get pods --field-selector=status.phase=Running
 # Get ExternalIPs of all nodes
 kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
+# Get InternalIps of Master nodes whose status is not NotReady
+kubectl get nodes --selector='node-role.kubernetes.io/master'  -o json | jq -r  '.items[] | select(.status.conditions[4].type=="NotReady") |  .status .addresses[] | select(.type=="InternalIP") | .address'
+
+# Get the Resource quota for each node
+kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
+
 # List Names of Pods that belong to Particular RC
 # "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
