@@ -1,6 +1,6 @@
 ---
 title: CGroups
-id: cgroups
+id: cgroup
 date: 2019-06-25
 full_link:
 short_description: >
