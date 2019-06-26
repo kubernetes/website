@@ -20,7 +20,7 @@ A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts
 You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
 {{< note >}}
-You should not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
+Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 {{< /note >}}
 
 {{% /capture %}}
@@ -58,8 +58,7 @@ In this example:
     The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
     is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
     and the values array contains only "value".
-    All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be
-    satisfied in order to match.
+    All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
     {{< /note >}}
 
 * The `template` field contains the following sub-fields:
@@ -73,7 +72,7 @@ In this example:
 
   Before you begin, make sure your Kubernetes cluster is up and running.
 
-  1. Create the Deployment, run the following command:
+  1. Create the Deployment by running the following command:
 
       {{< note >}}
       You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection.
@@ -84,7 +83,7 @@ In this example:
     kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     ```
 
-  2. Next, let's run `kubectl get deployments` to check if the Deployment is created. If the Deployment is still being created, the output is similar to the following :
+  2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
     ```shell
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         0         0            0           1s
