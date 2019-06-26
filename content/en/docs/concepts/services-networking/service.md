@@ -244,7 +244,7 @@ select a backend Pod.
 By default, kube-proxy in iptables mode chooses a backend at random.
 
 Using iptables to handle traffic has a lower system overhead, because traffic
-is handled by Linux netfilter. It removes the need to switch between userspace and the
+is handled by Linux netfilter without the need switch between userspace and the
 kernel space. This approach is also likely to be more reliable.
 
 If kube-proxy is running in iptables mode and the first Pod that's selected
@@ -293,8 +293,8 @@ To run kube-proxy in IPVS mode, you must make the IPVS Linux available on
 the node before you starting kube-proxy.
 
 When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
-kernel modules are available, and if those are not detected, then kube-proxy
-fall back to running in iptables proxy mode.
+kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
+falls back to running in iptables proxy mode.
 {{< /note >}}
 
 ![Services overview diagram for IPVS proxy](/images/docs/services-ipvs-overview.svg)
