@@ -77,7 +77,7 @@ root@shell-demo:/# ps aux | grep nginx
 Podの設定ファイルを再度確認します。Podは`emptyDir`ボリュームを持ち、
 コンテナは`/usr/share/nginx/html`ボリュームをマウントします。
 
-シェル内で、`/usr/share/nginx/html`ディレクトリに`index.htnml`を作成します。
+シェル内で、`/usr/share/nginx/html`ディレクトリに`index.html`を作成します。
 
 ```shell
 root@shell-demo:/# echo Hello shell demo > /usr/share/nginx/html/index.html
