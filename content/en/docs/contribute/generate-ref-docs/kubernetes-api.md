@@ -40,8 +40,12 @@ information, see
 
 ## Set up the local repositories
 
+
 ```shell
-export GOPATH=$HOME/<your-local-dir>
+
+mkdir -p $HOME/<workspace> # make sure the directory exists
+
+export GOPATH=$HOME/<workspace>
 
 go get -u github.com/kubernetes/website
 go get -u github.com/kubernetes/kubernetes
@@ -158,7 +162,7 @@ git status
 
 The output shows the modified files:
 
-```shell
+```
 static/docs/reference/generated/kubernetes-api/v1.15/css/bootstrap.min.css
 static/docs/reference/generated/kubernetes-api/v1.15/css/font-awesome.min.css
 static/docs/reference/generated/kubernetes-api/v1.15/css/stylesheet.css
