@@ -10,7 +10,7 @@ aka:
 tags:
 - community
 ---
- Conditions en vertu desquelles un contributeur {{< glossary_tooltip text="contributor" term_id="contributor" >}} accorde une licence à un projet open source pour ses contributions.
+ Conditions en vertu desquelles un {{< glossary_tooltip text="contributeur" term_id="contributor" >}} accorde une licence à un projet open source pour ses contributions.
 
 <!--more-->
 
