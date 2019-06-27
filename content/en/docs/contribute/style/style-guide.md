@@ -29,8 +29,10 @@ and representing feature state.
 
 ## Language
 
-Kubernetes documentations are now available in multiple languages, see [here](https://github.com/kubernetes/website/blob/master/README.md#localization-readmemds).
-And US English is considered as the authoritative source.
+Kubernetes documentation has been translated into multiple languages
+(see [here](https://github.com/kubernetes/website/blob/master/README.md#localization-readmemds)).
+
+The English-language documentation uses U.S. English spelling and grammar.
 
 ## Documentation formatting standards
 
