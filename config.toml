@@ -24,7 +24,9 @@ pygmentsStyle = "emacs"
 enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
-disableLanguages = ["hi", "no"]
+# Hindi is disabled because it's currently in development.
+# Italian is disabled until it meets minimum standards for quality.
+disableLanguages = ["hi", "it", "no"]
 
 [blackfriday]
 hrefTargetBlank = true
