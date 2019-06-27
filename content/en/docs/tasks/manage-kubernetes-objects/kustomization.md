@@ -153,7 +153,7 @@ secretGenerator:
 - name: example-secret-2
   literals:
   - username=admin
-  - password=secert
+  - password=secret
 EOF
 ```
 
@@ -162,7 +162,7 @@ The generated Secret is as follows:
 ```yaml
 apiVersion: v1
 data:
-  password: c2VjZXJ0
+  password: c2VjcmV0
   username: YWRtaW4=
 kind: Secret
 metadata:
