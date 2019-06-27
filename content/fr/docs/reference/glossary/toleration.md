@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-Tolérances et {{< glossary_tooltip text="teintes" term_id="taint" >}} fonctionnent ensemble pour s'assurer que les modules ne sont pas programmés sur des nœuds inappropriés. Une ou plusieurs tolérances sont appliquées à un {{< glossary_tooltip text="pod" term_id="pod" >}}. Une tolérance indique que le {{< glossary_tooltip text="pod" term_id="pod" >}} est autorisé à (mais non obligé de) être programmé sur les nœuds ou groupes de nœuds avec une {{< glossary_tooltip text="teinte" term_id="taint" >}} compatible.
+Tolérances et {{< glossary_tooltip text="teintes" term_id="taint" >}} fonctionnent ensemble pour s'assurer que les pods ne sont pas programmés sur des nœuds inappropriés. Une ou plusieurs tolérances sont appliquées à un {{< glossary_tooltip text="pod" term_id="pod" >}}. Une tolérance indique que le {{< glossary_tooltip text="pod" term_id="pod" >}} est autorisé à (mais non obligé de) être programmé sur les nœuds ou groupes de nœuds avec une {{< glossary_tooltip text="teinte" term_id="taint" >}} compatible.
