@@ -69,3 +69,5 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
 {{% /capture %}}
+Shago7932/Master
+Hello World .
