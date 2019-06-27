@@ -4,7 +4,7 @@ id: taint
 date: 2019-01-11
 full_link: /docs/concepts/configuration/taint-and-toleration/
 short_description: >
-  Un objet de base composé de trois caractéristiques requises : clé, valeur et effet. Les teintes empêchent l'ordonnacement des pods sur les nœuds ou les groupes de nœuds.
+  Un objet de base composé de trois caractéristiques requises : clé, valeur et effet. Les marquages empêchent l'ordonnacement des pods sur les nœuds ou les groupes de nœuds.
 
 aka:
 tags:
