@@ -14,4 +14,4 @@ Docker (spécifiquement, Docker Engine) est un logiciel fournissant une virtuali
 
 <!--more-->
 
-Docker utilise les fonctionnalités d'isolation des ressources du noyau Linux telles que les groupes de ressources et les espaces de noms du noyau, ainsi qu'un système de fichiers compatible union comme OverlayFS et d'autres pour permettre aux conteneurs de fonctionner indépendamment dans une seule instance Linux, évitant ainsi le démarrage et la maintenance des machines virtuelles (VMs).
+Docker utilise les fonctionnalités d'isolation du kernel Linux telles que les cgroups et les kernel namespaces, ainsi qu'un système de fichiers compatible union comme OverlayFS et d'autres pour permettre aux conteneurs de fonctionner indépendamment dans une seule instance Linux, évitant ainsi le démarrage et la maintenance des machines virtuelles (VMs).
