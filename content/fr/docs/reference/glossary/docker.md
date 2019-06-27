@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
-Docker (spécifiquement, Docker Engine) est un logiciel fournissant une virtualisation au niveau du système d'exploitation également connue sous le nom {{< glossary_tooltip text="containers" term_id="container" >}}}.
+Docker (spécifiquement, Docker Engine) est un logiciel fournissant une virtualisation au niveau du système d'exploitation également connue sous le nom {{< glossary_tooltip text="conteneurs" term_id="container" >}}}.
 
 <!--more-->
 
