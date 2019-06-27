@@ -15,5 +15,5 @@ tags:
 
 <!--more-->
 
-Containerd est un environnement d'exécution de {{< glossary_tooltip text="container" term_id="container" >}}
+Containerd est un environnement d'exécution de {{< glossary_tooltip text="conteneur" term_id="container" >}}
 qui fonctionne comme un daemon sous Linux ou Windows. Containerd s'occupe de la récupération et du stockage d'images de conteneurs, de l'exécution de conteneurs, et de l'accès au réseau, etc.
