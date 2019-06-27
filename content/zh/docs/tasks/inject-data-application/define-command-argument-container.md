@@ -34,33 +34,26 @@ content_template: templates/task
 {{< code file="commands.yaml" >}}
 
 1. 基于YAML文件创建一个Pod：
-    
-    ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
-    ```
+   ```shell
+   kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+   ```
  
 2. List the running Pods:
-
    获取正在运行的 pod
-   
-    ```shell
-    kubectl get pods
-    ```
-
-    查询结果显示在command-demo这个Pod下运行的容器已经启动完成
+   ```shell
+   kubectl get pods
+   ```
+   查询结果显示在command-demo这个Pod下运行的容器已经启动完成
 
 3. 如果要获取容器启动时执行命令的输出结果，可以通过Pod的日志进行查看
-
-    ```shell
-    kubectl logs command-demo
-    ```
-
-    日志中显示了HOSTNAME 与KUBERNETES_PORT 这两个环境变量的值：
-    
-    ```shell
-    command-demo
-    tcp://10.3.240.1:443
-    ```
+   ```shell
+   kubectl logs command-demo
+   ```
+   日志中显示了HOSTNAME 与KUBERNETES_PORT 这两个环境变量的值：
+   ```shell
+   command-demo
+   tcp://10.3.240.1:443
+   ```
 	
 ## 使用环境变量来设置入参
 
