@@ -1,7 +1,7 @@
 ---
-title: CRI 설치
+title: 컨테이너 런타임
 content_template: templates/concept
-weight: 100
+weight: 10
 ---
 {{% capture overview %}}
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
@@ -181,7 +181,7 @@ add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
 # CRI-O 설치
-apt-get install cri-o-1.11
+apt-get install cri-o-1.13
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
@@ -281,7 +281,7 @@ systemctl restart containerd
 
 `systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`의 `plugins.cri.systemd_cgroup = true`을 설정한다.
 kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
-[cgroup driver for kubelet](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)을 
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)을 
 설정해준다.
 
 ## 다른 CRI 런타임: frakti
