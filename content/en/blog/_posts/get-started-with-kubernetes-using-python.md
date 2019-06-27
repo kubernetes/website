@@ -16,7 +16,7 @@ This walk-through assumes you are a developer or at least comfortable with the c
 3. Create a deployment and run the application in Kubernetes
 
 ## Prerequisites
-* [Docker Desktop with Kubernetes](https://www.docker.com/products/kubernetes) installed (see end of blog for enabling Kubernetes)
+* A Kubernetes service - I'm using [Docker Desktop with Kubernetes](https://www.docker.com/products/kubernetes) in this walkthrough, but you can use one of the others. See [Getting Started](https://kubernetes.io/docs/setup/) for a full listing.
 * [Python 3.7](https://www.python.org/) installed
 * [Git](https://git-scm.com/downloads) installed
 
@@ -51,6 +51,8 @@ if __name__ == "__main__":
 
 The requirements.txt file contains the list of packages needed by the main.py and will be used by [pip](https://pip.pypa.io/en/stable/) to install the Flask library.
 
+> Note: when you start writing more advanced Python, you'll find its not always recommended to use ```pip install``` and may want to use ```virtualenv``` (or ```pyenv```) to install your dependencies in a virtual environment.
+
 ### Run locally
 Manually run the installer and application using the following commands:
 ```
@@ -83,7 +85,7 @@ This file is a set of instructions Docker will use to build the image. For this 
 3. Set the working directory to that new app directory.
 4. Copy the local directory’s contents to that new folder into the image.
 5. Run the pip installer (just like we did earlier) to pull the requirements into the image.
-6. Configure port 5000 to be open.
+6. Inform Docker the container listens on port 5000.
 7. Configure the starting command to use when the container starts.
 
 ### Create an image
@@ -91,6 +93,9 @@ At your command line or shell, in the hello-python/app directory, build the imag
 ```
 docker build -f Dockerfile -t hello-python:latest .
 ```
+
+> Note: I'm using the :latest tag in this example, if you are not familiar with what it is you may want to read [Docker: The latest Confusion](https://container-solutions.com/docker-latest-confusion/).
+
 
 This will perform those seven steps listed above and create the image. To verify the image was created, run the following command:
 
@@ -124,7 +129,7 @@ kubectl version
 
 If you don’t see a reply with a Client and Server version, you’ll need to [install](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and configure it.
 
-Make sure it is using the Docker for Desktop context by running the following:
+If you are running on Windows or Mac, make sure it is using the Docker for Desktop context by running the following:
 ```
 kubectl config use-context docker-for-desktop
 ```
@@ -136,7 +141,7 @@ kubectl get nodes
 
 Now let’s have it run the application. Create a file named deployment.yaml and add the following contents to it and then save it:
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -151,7 +156,7 @@ spec:
   type: LoadBalancer
 
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-python
@@ -185,7 +190,7 @@ kubectl get pods
 ```
 <img src="/images/blog/get-started-with-kubernetes-using-python/kubectl-get-pods.png" alt="Pod listing" />
 
-Now navigate to http://localhost:6001, and you should see the “Hello form Python!” message. 
+Now navigate to http://localhost:6000, and you should see the “Hello form Python!” message. 
 
 That’s it! The application is now running in Kubernetes!
 
