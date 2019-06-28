@@ -21,9 +21,14 @@ The `extraArgs` field consist of `key: value` pairs. To override a flag for a co
 
 1.  Add the appropriate fields to your configuration.
 2.  Add the flags to override to the field.
+3.  Run `kubeadm init` with `--config <YOUR CONFIG YAML>`.
 
 For more details on each field in the configuration you can navigate to our
 [API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration).
+
+{{< note >}}
+You can get default `ClusterConfiguration` object by `kubeadm config print init-defaults`.
+{{< /note >}}
 
 {{% /capture %}}
 
