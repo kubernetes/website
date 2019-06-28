@@ -47,7 +47,6 @@ weight: 30
 * 실행 중인 쿠버네티스 클러스터를 소유
 
 {{< note >}}
-아직 클러스터가 없다면 [시작하기](/ko/docs/tutorials/stateful-application/cassandra)를 읽도록 하자.
 아직 클러스터가 없다면 [설치](/docs/setup/)를 읽도록 하자.
 {{< /note >}}
 
