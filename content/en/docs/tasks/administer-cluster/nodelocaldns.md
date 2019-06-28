@@ -10,7 +10,13 @@ content_template: templates/task
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 {{% /capture %}}
 
-{{% capture body %}}
+
+{{% capture prerequisites %}}
+
+ {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{% /capture %}}
+
+ {{% capture steps %}}
 
 ## Introduction
 
@@ -36,7 +42,8 @@ Having a local cache will help improve the latency in such scenarios.
 
 This is the path followed by DNS Queries after NodeLocal DNSCache is enabled: 
 
-![ ](nodelocaldns.jpg  "NodeLocal DNSCache")
+
+{{< figure src="/images/docs/nodelocaldns.jpg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCahe handles DNS queries." >}}
 
 ## Configuration
 
@@ -45,6 +52,7 @@ This feature can be enabled using the command:
 `KUBE_ENABLE_NODELOCAL_DNS=true go run hack/e2e.go -v --up`
 
 This works for e2e clusters created on GCE. On all other environments, the following steps will setup NodeLocal DNSCache:
+
 * A yaml similar to [this](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) can be applied using `kubectl create -f` command.
 * --cluster-dns flag to kubelet needs to be modified to use the LOCAL_DNS IP that NodeLocal DNSCache is listening on (169.254.20.10 by default)
 
@@ -58,3 +66,5 @@ The addon can be applied using the yaml specified above in any k8s version. The 
 | :---------: |:-----------:|
 | 1.15 | Beta(Not enabled by default) |
 | 1.13 | Alpha(Not enabled by default) |
+
+ {{% /capture %}}
