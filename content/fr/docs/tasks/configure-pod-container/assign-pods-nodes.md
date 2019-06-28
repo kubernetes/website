@@ -5,7 +5,7 @@ weight: 120
 ---
 
 {{% capture overview %}}
-Cette page montre comment assigner un Kubernetes Pod à un nœud particulier dans un cluster Kubernetes.
+Cette page montre comment assigner un Pod à un nœud particulier dans un cluster Kubernetes.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -32,7 +32,7 @@ Cette page montre comment assigner un Kubernetes Pod à un nœud particulier dan
     worker1   Ready     <none>    1d      v1.13.0
     worker2   Ready     <none>    1d      v1.13.0
     ```
-1. Choisissez l'un de vos nœuds et ajoutez-y un label :
+2. Choisissez l'un de vos nœuds et ajoutez-y un label :
 
     ```shell
     kubectl label nodes <your-node-name> disktype=ssd
@@ -40,7 +40,7 @@ Cette page montre comment assigner un Kubernetes Pod à un nœud particulier dan
 
     où `<your-node-name>` est le nom du noeud que vous avez choisi.
 
-1. Vérifiez que le nœud que vous avez choisi a le label `disktype=ssd` :
+3. Vérifiez que le nœud que vous avez choisi a le label `disktype=ssd` :
 
     ```shell
     kubectl get nodes --show-labels
@@ -69,7 +69,7 @@ Le fichier de configuration de pod décrit un pod qui possède un selector de n�
     kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml
     ```
 
-1. Vérifiez que le pod fonctionne sur le nœud que vous avez choisi :
+2. Vérifiez que le pod fonctionne sur le nœud que vous avez choisi :
 
     ```shell
     kubectl get pods --output=wide
