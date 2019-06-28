@@ -27,7 +27,7 @@ For more details on each field in the configuration you can navigate to our
 [API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration).
 
 {{< note >}}
-You can get default `ClusterConfiguration` object by `kubeadm config print init-defaults`.
+You can get a starting point ClusterConfiguration by running `kubeadm config print init-defaults` and saving the output to a file of your choice.
 {{< /note >}}
 
 {{% /capture %}}
