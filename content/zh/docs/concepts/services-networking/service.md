@@ -678,7 +678,7 @@ Kubernetes `ServiceTypes` 允许指定一个需要的类型的 Service，默认�
     没有任何类型代理被创建。
 
 {{< note >}}
-您需要 CoreDNS 1.7 或更高版本才能使用`ExternalName`类型。
+您需要 CoreDNS 1.7 或更高版本才能使用 `ExternalName` 类型。
 {{< /note >}}
 
 <!--
