@@ -465,26 +465,6 @@ Deploy the `kube-dns` Deployment and Service:
 - It's the upstream CoreDNS deployment relatively unmodified
 - The `kube-dns` ServiceAccount is bound to the privileges in the `system:kube-dns` ClusterRole
 
-### Optional self-hosting
-
-To enable self hosting on an existing static Pod control-plane use `kubeadm alpha selfhosting pivot`.
-
-Self hosting basically replaces static Pods for control plane components with DaemonSets; this is achieved by executing
-following procedure for API server, scheduler and controller manager static Pods:
-
-- Load the static Pod specification from disk
-- Extract the PodSpec from static Pod manifest file
-- Mutate the PodSpec to be compatible with self-hosting, and more in detail:
-  - Add node selector attribute targeting nodes with `node-role.kubernetes.io/master=""` label,
-  - Add a toleration for `node-role.kubernetes.io/master:NoSchedule` taint,
-  - Set `spec.DNSPolicy` to `ClusterFirstWithHostNet`
-- Build a new DaemonSet object for the self-hosted component in question. Use the above mentioned PodSpec
-- Create the DaemonSet resource in `kube-system` namespace. Wait until the Pods are running.
-- Remove the static Pod manifest file. The kubelet will stop the original static Pod-hosted component that was running
-
-Please note that self hosting is not yet resilient to node restarts; this can be fixed with external checkpointing or with kubelet checkpointing
-   for the control plane Pods. See [self-hosting](/docs/reference/setup-tools/kubeadm/kubeadm-init/#self-hosting) for more details.
-
 ## kubeadm join phases internal design
 
 Similarly to `kubeadm init`, also `kubeadm join` internal workflow consists of a sequence of atomic work tasks to perform.

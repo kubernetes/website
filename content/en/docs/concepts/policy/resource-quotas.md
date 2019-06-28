@@ -66,10 +66,8 @@ The following resource types are supported:
 
 | Resource Name | Description |
 | --------------------- | ----------------------------------------------------------- |
-| `cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `limits.cpu` | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value. |
 | `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
-| `memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 | `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 
@@ -135,6 +133,9 @@ Here is an example set of resources users may want to put under object count quo
 * `count/jobs.batch`
 * `count/cronjobs.batch`
 * `count/deployments.extensions`
+
+The 1.15 release added support for custom resources using the same syntax.
+For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
 
 When using `count/*` resource quota, an object is charged against the quota if it exists in server storage.
 These types of quotas are useful to protect against exhaustion of storage resources.  For example, you may

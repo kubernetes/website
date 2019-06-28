@@ -340,7 +340,10 @@ If we create the above two deployments, our three node cluster should look like 
 As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
 
 ```
-$ kubectl get pods -o wide
+kubectl get pods -o wide
+```
+The output is similar to this:
+```
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
 redis-cache-1450370735-j2j96   1/1       Running   0          8m        10.192.2.2   kube-node-1

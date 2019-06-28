@@ -1,10 +1,9 @@
 
-Joins a machine as a control plane instance
+Join a machine as a control plane instance
 
 ### Synopsis
 
-
-Joins a machine as a control plane instance
+Join a machine as a control plane instance
 
 ```
 kubeadm join phase control-plane-join [flags]

@@ -4,9 +4,9 @@ reviewers:
 - erictune
 - mikedanese
 no_issue: true
-title: Setup
+title: Getting started
 main_menu: true
-weight: 30
+weight: 20
 content_template: templates/concept
 card:
   name: setup
@@ -40,7 +40,7 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 
 |Community           |Ecosystem     |
 | ------------       | --------     |
-| [Minikube](/docs/setup/minikube/) | [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) |
+| [Minikube](/docs/setup/learning-environment/minikube/) | [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) |
 | [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
 | [Kubernetes IN Docker](https://github.com/kubernetes-sigs/kind) | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
@@ -81,15 +81,15 @@ The following production environment solutions table lists the providers and the
 | [Docker Enterprise](https://www.docker.com/products/docker-enterprise) |       |&#x2714;  | &#x2714;     |  |     | &#x2714;
 | [Fedora (Multi Node)](https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)     |      |  |      | |    &#x2714;       | &#x2714;
 | [Fedora (Single Node)](https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/)     |      |  |      | |           | &#x2714;
-| [Gardner](https://gardener.cloud/)       |              |&#x2714;  |         | &#x2714;   |          |
+| [Gardener](https://gardener.cloud/)       |              |&#x2714;  |         | &#x2714;   |          |
 | [Giant Swarm](https://giantswarm.io/)     | &#x2714;       | &#x2714; |   &#x2714;    |     |
 | [Google](https://cloud.google.com/)           |  [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/)       | [Google Compute Engine (GCE)](https://cloud.google.com/compute/)|[GKE On-Prem](https://cloud.google.com/gke-on-prem/)       |  |  |     |  |      |       |  |
 | [IBM](https://www.ibm.com/in-en/cloud)        | [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster)| |[IBM Cloud Private](https://www.ibm.com/in-en/cloud/private) | |
 | [Kontena Pharos](https://www.kontena.io/pharos/)          |    |&#x2714;|    &#x2714;    |        |         |
 | [Kubermatic](https://www.loodse.com/)         |     &#x2714;  | &#x2714; | &#x2714;     |     |  |
 | [KubeSail](https://kubesail.com/)    | &#x2714;       |  |      |     |        |
-| [Kubespray](https://kubespray.io/#/)       |       |    |       |&#x2714;  |  |  |
-| [Kublr](https://kublr.com/)        |&#x2714; | &#x2714;  |&#x2714;       |&#x2714;  | |  |
+| [Kubespray](https://kubespray.io/#/)       |       |    |       |&#x2714;  | &#x2714; | &#x2714; |
+| [Kublr](https://kublr.com/)        |&#x2714; | &#x2714;  |&#x2714;       |&#x2714;  |&#x2714; |&#x2714; |
 | [Microsoft Azure](https://azure.microsoft.com)    |  [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/)     |  |     |        |    |
 | [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)    |       |  | &#x2714; |  |    |
 | [Nirmata](https://www.nirmata.com/)          |              |   &#x2714;     | &#x2714;            |      |          |
@@ -97,7 +97,7 @@ The following production environment solutions table lists the providers and the
 | [OpenShift](https://www.openshift.com)          |[OpenShift Dedicated](https://www.openshift.com/products/dedicated/) and [OpenShift Online](https://www.openshift.com/products/online/)              |        | [OpenShift Container Platform](https://www.openshift.com/products/container-platform/)            |      |  [OpenShift Container Platform](https://www.openshift.com/products/container-platform/)        |[OpenShift Container Platform](https://www.openshift.com/products/container-platform/)
 | [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.cloud.oracle.com/iaas/Content/ContEng/Concepts/contengoverview.htm)          | &#x2714;             |   &#x2714;     |             |      |          |
 | [oVirt](https://www.ovirt.org/)         |              |        |             |     | &#x2714;          |
-| [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)         |              | &#x2714;       | &#x2714;           |      |          |
+| [Pivotal](https://pivotal.io/) | | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service) | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service)           |      |          |
 | [Platform9](https://platform9.com/)         | &#x2714;             | &#x2714;      | &#x2714;            |      |   &#x2714;       |&#x2714;
 | [Rancher](https://rancher.com/)         |              |   [Rancher 2.x](https://rancher.com/docs/rancher/v2.x/en/)     |             |  [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/)    |          | [k3s](https://k3s.io/)
 | [StackPoint](https://stackpoint.io/)          | &#x2714;            |  &#x2714;      |             |      |          |

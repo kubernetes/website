@@ -4,7 +4,6 @@ Run this on any machine you wish to join an existing cluster
 ### Synopsis
 
 
-
 When joining a kubeadm initialized cluster, we need to establish
 bidirectional trust. This is split into discovery (having the Node
 trust the Kubernetes Control Plane) and TLS bootstrap (having the
@@ -50,13 +49,13 @@ Often times the same token is used for both parts. In this case, the
 The "join [api-server-endpoint]" command executes the following phases:
 ```
 preflight              Run join pre-flight checks
-control-plane-prepare  Prepares the machine for serving a control plane.
-  /download-certs        [EXPERIMENTAL] Downloads certificates shared among control-plane nodes from the kubeadm-certs Secret
-  /certs                 Generates the certificates for the new control plane components
-  /kubeconfig            Generates the kubeconfig for the new control plane components
-  /control-plane         Generates the manifests for the new control plane components
-kubelet-start          Writes kubelet settings, certificates and (re)starts the kubelet
-control-plane-join     Joins a machine as a control plane instance
+control-plane-prepare  Prepare the machine for serving a control plane
+  /download-certs        [EXPERIMENTAL] Download certificates shared among control-plane nodes from the kubeadm-certs Secret
+  /certs                 Generate the certificates for the new control plane components
+  /kubeconfig            Generate the kubeconfig for the new control plane components
+  /control-plane         Generate the manifests for the new control plane components
+kubelet-start          Write kubelet settings, certificates and (re)start the kubelet
+control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
   /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
   /mark-control-plane    Mark a node as a control-plane
@@ -69,148 +68,29 @@ kubeadm join [api-server-endpoint] [flags]
 
 ### Options
 
-<table style="width: 100%; table-layout: fixed;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
-
-    <tr>
-      <td colspan="2">--apiserver-advertise-address string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">If the node should host a new control plane instance, the port for the API Server to bind to.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--certificate-key string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Use this key to decrypt the certificate secrets uploaded by init.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--config string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--cri-socket string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--discovery-file string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">For file-based discovery, a file or URL from which to load cluster information.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--discovery-token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">For token-based discovery, the token used to validate cluster information fetched from the API server.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--discovery-token-ca-cert-hash stringSlice</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--discovery-token-unsafe-skip-ca-verification</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--experimental-control-plane</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for join</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--ignore-preflight-errors stringSlice</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--node-name string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify the node name.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--skip-phases stringSlice</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">List of phases to be skipped</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--tls-bootstrap-token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.</td>
-    </tr>
-
-  </tbody>
-</table>
-
-
+```
+      --apiserver-advertise-address string            If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+      --apiserver-bind-port int32                     If the node should host a new control plane instance, the port for the API Server to bind to. (default 6443)
+      --certificate-key string                        Use this key to decrypt the certificate secrets uploaded by init.
+      --config string                                 Path to kubeadm config file.
+      --control-plane                                 Create a new control plane instance on this node
+      --cri-socket string                             Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
+      --discovery-file string                         For file-based discovery, a file or URL from which to load cluster information.
+      --discovery-token string                        For token-based discovery, the token used to validate cluster information fetched from the API server.
+      --discovery-token-ca-cert-hash strings          For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
+      --discovery-token-unsafe-skip-ca-verification   For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
+      --experimental-control-plane                    Create a new control plane instance on this node
+  -h, --help                                          help for join
+      --ignore-preflight-errors strings               A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+      --node-name string                              Specify the node name.
+      --skip-phases strings                           List of phases to be skipped
+      --tls-bootstrap-token string                    Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.
+      --token string                                  Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
+```
 
 ### Options inherited from parent commands
 
-<table style="width: 100%; table-layout: fixed;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
-
-    <tr>
-      <td colspan="2">--rootfs string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
-    </tr>
-
-  </tbody>
-</table>
-
-
+```
+      --rootfs string   [EXPERIMENTAL] The path to the 'real' host root filesystem.
+```
 
