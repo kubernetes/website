@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-Les fournisseurs de cloud, parfois appelés Fournisseurs de Services Cloud (Cloud Service Providers), mettent à disposition des plate-formes de cloud computing. Ils peuvent offrir des services tels qu'une Infrastructure en tant que Service (Iaas, de l'anglais Infrastructure as a Service) ou une Plate-forme en tant que Service (Paas, de l'anglais Platform as a Service). Les fournisseurs de cloud hébergent le cluster Kubernetes et fournissent également des services qui interagissent avec le cluster, tels que des loads balancers, des classes de stockages, etc.
+Les fournisseurs de cloud, parfois appelés Fournisseurs de Services Cloud (Cloud Service Providers), mettent à disposition des plate-formes de cloud computing. Ils peuvent offrir des services tels qu'une Infrastructure en tant que Service (IaaS, de l'anglais Infrastructure as a Service) ou une Plate-forme en tant que Service (PaaS, de l'anglais Platform as a Service). Les fournisseurs de cloud hébergent le cluster Kubernetes et fournissent également des services qui interagissent avec le cluster, tels que des loads balancers, des classes de stockages, etc.
