@@ -18,7 +18,7 @@ scheduling "core" simple and maintainable. Refer to the [design proposal of the
 scheduling framework][kep] for more technical information on the design of the
 framework.
 
-[kep]: (https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md)
+[kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md
 
 {{% /capture %}}
 
@@ -54,7 +54,7 @@ equivalent to "Predicate" and "Scoring" is equivalent to "Priority function".
 One plugin may register at multiple extension points to perform more complex or
 stateful tasks.
 
-{{< figure src="/images/docs/scheduling-framework.png" title="scheduling framework extension points" >}}
+{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" >}}
 
 ### Queue sort
 
@@ -274,7 +274,7 @@ calling default plugins is desired, default plugins must be `disabled` and
 `enabled` in the desired order.
 
 Assuming there is a default plugin called `foo` at `reserve` and we are adding
-pluing `bar` that we want to be invoked before `foo`, we should disable `foo`
+plugin `bar` that we want to be invoked before `foo`, we should disable `foo`
 and enable `bar` and `foo` in order. The following example shows the
 configuration that achieves this:
 
