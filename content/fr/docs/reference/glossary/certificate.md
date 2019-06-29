@@ -1,5 +1,5 @@
 ---
-title: Certificate
+title: Certificat
 id: certificate
 date: 2018-04-12
 full_link: /docs/tasks/tls/managing-tls-in-a-cluster/
@@ -10,8 +10,8 @@ aka:
 tags:
 - security
 ---
- Fichier cryptograhpiquement sécurisé utilisé pour valider l'accès au cluster Kubernetes.
+ Fichier cryptographiquement sécurisé utilisé pour valider l'accès au cluster Kubernetes.
 
 <!--more-->
 
-Les certificats permettent aux applications d'un cluster Kubernetes d'accéder à l'API Kubernetes en toute sécurité. Les certificats attestent que les clients sont autorisés à accéder à l'API. 
+Les certificats permettent aux applications d'un cluster Kubernetes d'accéder à l'API Kubernetes en toute sécurité. Les certificats attestent que les clients sont autorisés à accéder à l'API.
