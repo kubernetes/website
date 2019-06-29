@@ -48,64 +48,69 @@ information, see
 
 {{% capture steps %}}
 
-## Getting three repositories
+## Setting up the local repositories
 
-If you don't already have the kubernetes/kubernetes repository, get it now:
+Create a workspace to clone the local repositories and set your `GOPATH`.
 
 ```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes/kubernetes
+mkdir -p $HOME/<workspace> # make sure the directory exists
+
+export GOPATH=$HOME/<workspace>
 ```
 
-Determine the base directory of your clone of the
-[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
-The remaining steps refer to your base directory as `<k8s-base>`.
+To build the kubectl command reference guide, you need to have a local clone
+of the following repositories:
+
+```
+go get -u github.com/spf13/pflag
+go get -u github.com/spf13/cobra
+go get -u gopkg.in/yaml.v2
+go get -u kubernetes-incubator/reference-docs
+go get -u k8s.io/kubernetes
+```
+
+Manually remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor`.
+
+The k8s.io/kubernetes repository provides access to the kubectl and kustomize source code.
 
 If you don't already have the kubernetes/website repository, get it now:
 
 ```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes/website
+git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
 ```
 
-Determine the base directory of your clone of the
+* Determine the base directory of your clone of the
+[k8s.io/kubernetes](https://github.com/k8s.io/kubernetes) repository.
+For example, if you followed the preceding step to get the repository, your
+base directory is `$GOPATH/src/github.com/k8s.io/kubernetes.`
+The remaining steps refer to your base directory as `<k8s-base>`.
+
+* Determine the base directory of your clone of the
 [kubernetes/website](https://github.com/kubernetes/website) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes/website.`
+base directory is `$GOPATH/src/github.com/<your-username>/website.`
 The remaining steps refer to your base directory as `<web-base>`.
 
-If you don't already have the kubernetes-incubator/reference-docs repository, get it now:
-
-```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes-incubator/reference-docs
-```
-
-Determine the base directory of your clone of the
+* Determine the base directory of your clone of the
 [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs) repository.
 For example, if you followed the preceding step to get the repository, your
 base directory is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
-In your local kubernetes/kubernetes repository, check out the branch of interest,
+In your local k8s.io/kubernetes repository, check out the branch of interest,
 and make sure it is up to date. For example, if you want to generate docs for
-Kubernetes 1.9, you could use these commands:
+Kubernetes 1.15, you could use these commands:
 
 ```shell
 cd <k8s-base>
-git checkout release-1.9
-git pull https://github.com/kubernetes/kubernetes release-1.9
+git checkout release-1.15
+git pull https://github.com/kubernetes/kubernetes release-1.15
 ```
 
 ## Editing the kubectl source code
 
-The reference documentation for the kubectl commands is automatically generated from
-kubectl source code. If you want to change the reference documentation, the first step
+The kubectl command reference documentation is automatically generated from
+the kubectl source code. If you want to change the reference documentation, the first step
 is to change one or more comments in the kubectl source code. Make the change in your
 local kubernetes/kubernetes repository, and then submit a pull request to the master branch of
 [github.com/kubernetes/kubernetes](https://github.com/kubernetes/kubernetes).
@@ -138,68 +143,54 @@ need to work with someone who can set the label and milestone for you.
 
 ## Editing Makefile
 
-Go to `<rdocs-base>`, and open `Makefile` for editing:
+Go to `<rdocs-base>`, and open the `Makefile` for editing:
 
-Set `K8SROOT` to the base directory of your local kubernetes/kubernetes
-repository. Set `WEBROOT` to the base directory of your local kubernetes/website repository.
-Set `MINOR_VERSION` to the minor version of the docs you want to build. For example,
-if you want to build docs for Kubernetes 1.9, set `MINOR_VERSION` to 9. Save and close `Makefile`.
-
-## Building the brodocs image
-
-The doc generation code requires the `pwittrock/brodocs` Docker image.
-
-This command creates the `pwittrock/brodocs` Docker image. It also tries to push the image to
-DockerHub, but it's OK if that step fails. As long as you have the image locally, the code generation
-can succeed.
-
-
-```shell
-make brodocs
-```
-
-Verify that you have the brodocs image:
-
-```shell
-docker images
-```
-
-The output shows `pwittrock/brodocs` as one of the available images:
-
-```shell
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-pwittrock/brodocs   latest              999d34a50d56        5 weeks ago         714MB
-```
+* Set `K8SROOT` to `<k8s-base>`.
+* Set `WEBROOT` to `<web-base>`.
+* Set `MINOR_VERSION` to the minor version of the docs you want to build. For example,
+if you want to build docs for Kubernetes 1.15, set `MINOR_VERSION` to 15. Save and close the `Makefile`.
 
 ## Creating a version directory
 
-In the `gen-kubectldocs/generators` directory, if you do not already
-have a directory named `v1_MINOR_VERSION`, create one now by copying the directory
+In the `<rdocs-base>/gen-kubectldocs/generators` directory, if you do not already
+have a directory named `v1_<MINOR_VERSION>`, create one now by copying the directory
 for the previous version. For example, suppose you want to generate docs for
-Kubernetes 1.9, but you don't already have a `v1_9` directory. Then you could
-create and populate a `v1_9` directory by running these commands:
+Kubernetes 1.15, but you don't already have a `v1_15` directory. Then you could
+create and populate a `v1_15` directory by running these commands:
 
 ```shell
-mkdir gen-kubectldocs/generators/v1_9
-cp -r gen-kubectldocs/generators/v1_8/* gen-kubectldocs/generators/v1_9
+mkdir gen-kubectldocs/generators/v1_15
+cp -r gen-kubectldocs/generators/v1_14/* gen-kubectldocs/generators/v1_15
 ```
 
-## Checking out a branch in kubernetes/kubernetes
+The version directory is a staging area for the kubectl command reference build.
+The YAML files are used to create the structure and navigation for the new reference.
 
-In you local kubernetes/kubernetes repository, checkout the branch that has
+## Checking out a branch in k8s.io/kubernetes
+
+In your local <k8s-base> repository, checkout the branch that has
 the version of Kubernetes that you want to document. For example, if you want
-to generate docs for Kubernetes 1.9, checkout the release-1.9 branch. Make sure
+to generate docs for Kubernetes 1.15, checkout the release-1.15 branch. Make sure
 you local branch is up to date.
+
+```shell
+cd <k8s-base>
+git checkout release-1.15
+git pull https://github.com/k8s.io/kubernetes release-1.15
+```
 
 ## Running the doc generation code
 
-In you local kubernetes-incubator/reference-docs repository, build and run the
-doc generation code. You might need to run the command as root:
+In your local kubernetes-incubator/reference-docs repository, build and run the
+kubectl command reference generation code. You might need to run the command as root:
 
 ```shell
 cd <rdocs-base>
-make cli
+make copycli
 ```
+
+The `copycli` command will clean the staging directories, generate the kubectl command files,
+and copy the collated html page and assets to `<web-base>`.
 
 ## Locate the generated files
 
@@ -208,20 +199,22 @@ These two files are the primary output of a successful build. Verify that they e
 * `<rdocs-base>/gen-kubectldocs/generators/build/index.html`
 * `<rdocs-base>/gen-kubectldocs/generators/build/navData.js`
 
-## Copying files to the kubernetes/website repository
+## Locally test the documentation
 
-Copy the generated files from your local kubernetes-incubator/reference-docs
-repository to your local kubernetes/website repository.
+Build the Kubernetes documentation in your local `<web-base>`.
 
 ```shell
-cd <rdocs-base>
-make copycli
+cd <web-base>
+make docker-serve
 ```
+
+View the [local preview](/docs/reference/generated/kubectl/kubectl-cmds/) of the reference from:
+
+`https://localhost:1313`
 
 ## Adding and committing changes in kubernetes/website
 
-List the files that were generated and copied to the `kubernetes/website`
-repository:
+List the files that were generated and copied to the `<web-base>`:
 
 ```
 cd <web-base>
@@ -258,6 +251,3 @@ topics will be visible in the
 * [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 
 {{% /capture %}}
-
-
-
