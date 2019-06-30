@@ -61,7 +61,7 @@ For more information on the `docker build` command, read the [Docker documentati
     minikube dashboard
     ```
 
-3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
+3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **View HTTP port 80 on Host 1**.
 
 4. Katacoda environment only: Type `30000`, and then click **Display Port**. 
 
