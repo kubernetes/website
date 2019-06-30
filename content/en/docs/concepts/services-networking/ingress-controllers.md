@@ -43,6 +43,8 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
   ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket), and it also comes with commercial
   support by [Containous](https://containo.us/services).
+* [Tyk Technologies](https://tyk.io/) offers a full-featured [Kubernetes Ingress Controller](https://github.com/TykTechnologies/tyk-helm-chart)
+  for both it's Open Source API Gateway and Enterprise API Management Platform.
 
 ## Using multiple Ingress controllers
 
