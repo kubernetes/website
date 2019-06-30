@@ -249,6 +249,22 @@ plugins:
 ...
 ```
 
+Alternatively, you can embed the configuration directly in the file:
+
+```yaml
+apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
+plugins:
+- name: ImagePolicyWebhook
+  configuration:
+    imagePolicy:
+      kubeConfigFile: /path/to/file
+      allowTTL: 50
+      denyTTL: 50
+      retryBackoff: 500
+      defaultAllow: true
+```
+
 The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
