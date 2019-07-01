@@ -56,5 +56,5 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 You use field selectors across multiple resource types. This `kubectl` command selects all Statefulsets and Services that are not in the `default` namespace:
 
 ```shell
-kubectl get statefulsets,services --field-selector metadata.namespace!=default
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
 ```
