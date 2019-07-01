@@ -37,19 +37,19 @@ information, see
 
 {{% capture steps %}}
 
-## Set up the local repositories
+## Setting up the local repositories
 
-Create a workspace for your local repositories.
+Create a local workspace and set your `GOPATH`.
 
 ```shell
-mkdir -p $HOME/<workspace> # make sure the directory exists
+mkdir -p $HOME/<workspace>
+
 export GOPATH=$HOME/<workspace>
 ```
 
-Get the following repositories to build the API reference.
+Get a local clone of the following repositories:
 
 ```shell
-go get -u github.com/kubernetes/kubernetes
 go get -u github.com/kubernetes-incubator/reference-docs
 
 go get -u github.com/go-openapi/loads
@@ -62,9 +62,15 @@ If you don't already have the kubernetes/website repository, get it now:
 git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
 ```
 
+Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes:
+
+```shell
+git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
+```
+
 * The base directory of your clone of the
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
-`$GOPATH/src/github.com/kubernetes/kubernetes.`
+`$GOPATH/src/k8s.io/kubernetes.`
 The remaining steps refer to your base directory as `<k8s-base>`.
 
 * The base directory of your clone of the
@@ -78,26 +84,25 @@ repository is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
 
-## Generate the API reference docs
+## Generating the API reference docs
 
 This section shows how to generate the
 [published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
-### Modify the Makefile
+### Modifying the Makefile
 
 Go to `<rdocs-base>`, and open the `Makefile` for editing:
 
-* Set `K8SROOT` to the base directory of your local kubernetes/kubernetes
-  repository.
-* Set `WEBROOT` to the base directory of your local kubernetes/website repository.
+* Set `K8SROOT` to `<k8s-base>`.
+* Set `WEBROOT` to `<web-base>`.
 * Set `MINOR_VERSION` to the minor version of the docs you want to build. For example,
-  if you want to build docs for Kubernetes 1.15, set `MINOR_VERSION` to 15. Save and close the `Makefile`.
+if you want to build docs for Kubernetes 1.15, set `MINOR_VERSION` to 15. Save and close the `Makefile`.
 
 For example, update the following variables:
 
-```bash
+```
 WEBROOT=$(GOPATH)/src/github.com/<your-username>/website
-K8SROOT=$(GOPATH)/src/github.com/kubernetes/kubernetes
+K8SROOT=$(GOPATH)/src/k8s.io/kubernetes
 MINOR_VERSION=15
 ```
 
@@ -112,7 +117,7 @@ make updateapispec
 The output shows that the file was copied:
 
 ```shell
-cp ~/src/github.com/kubernetes/kubernetes/api/openapi-spec/swagger.json gen-apidocs/generators/openapi-spec/swagger.json
+cp ~/src/k8s.io/kubernetes/api/openapi-spec/swagger.json gen-apidocs/generators/openapi-spec/swagger.json
 ```
 
 ### Building the API reference docs
@@ -125,9 +130,10 @@ make api
 
 Verify that these two files have been generated:
 
-* [ -e "<rdocs-base>/gen-apidocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
-* [ -e "<rdocs-base>/gen-apidocs/generators/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
-
+```shell
+[ -e "<rdocs-base>/gen-apidocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
+[ -e "<rdocs-base>/gen-apidocs/generators/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
+```
 
 ### Creating directories for published docs
 
