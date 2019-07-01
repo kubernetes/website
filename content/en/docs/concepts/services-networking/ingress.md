@@ -111,7 +111,7 @@ Each HTTP rule contains the following information:
   load balancer directs traffic to the referenced Service.
 * A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/). HTTP (and HTTPS) requests to the
-  Ingress that matches the host and path of the rule is sent to the listed backend.
+  Ingress that matches the host and path of the rule are sent to the listed backend.
 
 A default backend is often configured in an Ingress controller to service any request that do not
 match a path in the spec.
@@ -397,7 +397,7 @@ Events:
 kubectl edit ingress test
 ```
 
-This popS up an editor with the existing configuration in YAML format.
+This pops up an editor with the existing configuration in YAML format.
 Modify it to include the new Host:
 
 ```yaml
