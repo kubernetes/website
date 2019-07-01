@@ -10,7 +10,6 @@ The Kubernetes API reference documentation is built from the
 [Kubernetes OpenAPI spec](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json)
 and tools from [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
 
-
 If you find bugs in the generated documentation, you need to
 [fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
 
@@ -40,14 +39,16 @@ information, see
 
 ## Set up the local repositories
 
+Create a workspace for your local repositories.
 
 ```shell
-
 mkdir -p $HOME/<workspace> # make sure the directory exists
-
 export GOPATH=$HOME/<workspace>
+```
 
-go get -u github.com/kubernetes/website
+Get the following repositories to build the API reference.
+
+```shell
 go get -u github.com/kubernetes/kubernetes
 go get -u github.com/kubernetes-incubator/reference-docs
 
@@ -55,34 +56,27 @@ go get -u github.com/go-openapi/loads
 go get -u github.com/go-openapi/spec
 ```
 
-The base directory of your clone of the
-[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
-`$GOPATH/src/github.com/kubernetes/kubernetes.`
-The remaining steps refer to your base directory as `<k8s-base>`.
-
-The base directory of your clone of the
-[kubernetes/website](https://github.com/kubernetes/website) repository is
-`$GOPATH/src/github.com/kubernetes/website.`
-The remaining steps refer to your base directory as `<web-base>`.
-
-The base directory of your clone of the
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs)
-repository is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
-The remaining steps refer to your base directory as `<rdocs-base>`.
-
-
-Clone your fork of the kubernetes/website or create a local branch in `<web-base>`
-to submit the generated API reference files.
+If you don't already have the kubernetes/website repository, get it now:
 
 ```shell
 git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
 ```
-Or
 
-```shell
-cd <web-base>
-git checkout -b <new-branch-name> upstream/master
-```
+* The base directory of your clone of the
+[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
+`$GOPATH/src/github.com/kubernetes/kubernetes.`
+The remaining steps refer to your base directory as `<k8s-base>`.
+
+* The base directory of your clone of the
+[kubernetes/website](https://github.com/kubernetes/website) repository is
+`$GOPATH/src/github.com/<your username>/website.`
+The remaining steps refer to your base directory as `<web-base>`.
+
+* The base directory of your clone of the
+[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs)
+repository is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
+The remaining steps refer to your base directory as `<rdocs-base>`.
+
 
 ## Generate the API reference docs
 
@@ -97,12 +91,12 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
   repository.
 * Set `WEBROOT` to the base directory of your local kubernetes/website repository.
 * Set `MINOR_VERSION` to the minor version of the docs you want to build. For example,
-  if you want to build docs for Kubernetes 1.9, set `MINOR_VERSION` to 9. Save and close the `Makefile`.
+  if you want to build docs for Kubernetes 1.15, set `MINOR_VERSION` to 15. Save and close the `Makefile`.
 
 For example, update the following variables:
 
 ```bash
-WEBROOT=$(GOPATH)/src/github.com/kubernetes/website
+WEBROOT=$(GOPATH)/src/github.com/<your-username>/website
 K8SROOT=$(GOPATH)/src/github.com/kubernetes/kubernetes
 MINOR_VERSION=15
 ```
@@ -137,6 +131,8 @@ Verify that these two files have been generated:
 
 ### Creating directories for published docs
 
+Create the directories in `<web-base>` for the generated API reference files:
+
 ```shell
 mkdir -p <web-base>/static/docs/reference/generated/kubernetes-api/v1.<minor-version>
 mkdir -p <web-base>/static/docs/reference/generated/kubernetes-api/v1.<minor-version>/css
@@ -152,7 +148,7 @@ your local kubernetes/website repository:
 make copyapi
 ```
 
-Go to the base of your local kubernetes/website repository, and 
+Go to the base of your local kubernetes/website repository, and
 see which files have been modified:
 
 ```shell
@@ -197,9 +193,10 @@ static/docs/reference/generated/kubernetes-api/v1.15/scroll.js
    There should be five links to the most recent API references.
 
 
-## Locally test the documentation
+## Locally test the API reference
 
-Build the Kubernetes documentation and verify the local preview.
+Publish a local version of the API reference.
+Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.15/).
 
 ```shell
 cd <web-base>
