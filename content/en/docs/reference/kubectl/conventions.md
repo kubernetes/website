@@ -1,7 +1,6 @@
 ---
 title: kubectl Usage Conventions
 reviewers:
-- bgrant0607
 - janetkuo
 content_template: templates/concept
 ---

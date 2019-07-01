@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - mikedanese
 title: Install and Set Up kubectl
 content_template: templates/task

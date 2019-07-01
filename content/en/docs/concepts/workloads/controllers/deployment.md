@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - janetkuo
 title: Deployments
 feature:

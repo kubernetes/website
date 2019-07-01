@@ -1,6 +1,5 @@
 ---
 approvers:
-- bgrant0607
 - brendandburns
 - thockin
 title: Docker 用户使用 kubectl 命令指南
