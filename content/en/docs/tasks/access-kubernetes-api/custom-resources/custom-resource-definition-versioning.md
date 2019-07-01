@@ -34,8 +34,8 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 The CustomResourceDefinition API supports a `versions` field that you can use to
 support multiple versions of custom resources that you have developed. Versions
 can have different schemas with a conversion webhook to convert custom resources between versions.
-Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md) wherever applicable.
-Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) for a set of useful gotchas and suggestions.
+Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md) wherever applicable.
+Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md) for a set of useful gotchas and suggestions.
 
 {{< note >}}
 Earlier iterations included a `version` field instead of `versions`. The
