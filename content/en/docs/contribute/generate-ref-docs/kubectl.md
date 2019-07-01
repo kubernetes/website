@@ -50,28 +50,22 @@ information, see
 
 ## Setting up the local repositories
 
-Create a workspace to clone the local repositories and set your `GOPATH`.
+Create a local workspace and set your `GOPATH`.
 
 ```shell
-mkdir -p $HOME/<workspace> # make sure the directory exists
+mkdir -p $HOME/<workspace>
 
 export GOPATH=$HOME/<workspace>
 ```
 
-To build the kubectl command reference guide, you need to have a local clone
-of the following repositories:
+Get a local clone of the following repositories:
 
-```
+```shell
 go get -u github.com/spf13/pflag
 go get -u github.com/spf13/cobra
 go get -u gopkg.in/yaml.v2
 go get -u kubernetes-incubator/reference-docs
-go get -u k8s.io/kubernetes
 ```
-
-Manually remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor`.
-
-The k8s.io/kubernetes repository provides access to the kubectl and kustomize source code.
 
 If you don't already have the kubernetes/website repository, get it now:
 
@@ -79,10 +73,25 @@ If you don't already have the kubernetes/website repository, get it now:
 git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
 ```
 
+Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes:
+
+```shell
+git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
+```
+
+Remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor/github.com`.
+
+```shell
+rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/github.com/spf13
+```
+
+The kubernetes/kubernetes repository provides access to the kubectl and kustomize source code.
+
+
 * Determine the base directory of your clone of the
-[k8s.io/kubernetes](https://github.com/k8s.io/kubernetes) repository.
+[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/k8s.io/kubernetes.`
+base directory is `$GOPATH/src/k8s.io/kubernetes.`
 The remaining steps refer to your base directory as `<k8s-base>`.
 
 * Determine the base directory of your clone of the
@@ -107,6 +116,8 @@ git checkout release-1.15
 git pull https://github.com/kubernetes/kubernetes release-1.15
 ```
 
+If you do not need to edit the kubectl source code, follow the instructions to [Edit the Makefile](#editing-makefile).
+
 ## Editing the kubectl source code
 
 The kubectl command reference documentation is automatically generated from
@@ -129,7 +140,7 @@ version that has already been released, you need to propose that your change be
 cherry picked into the release branch.
 
 For example, suppose the master branch is being used to develop Kubernetes 1.10,
-and you want to backport your change to the release-1.9 branch. For instructions
+and you want to backport your change to the release-1.15 branch. For instructions
 on how to do this, see
 [Propose a Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
 
@@ -150,7 +161,19 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 * Set `MINOR_VERSION` to the minor version of the docs you want to build. For example,
 if you want to build docs for Kubernetes 1.15, set `MINOR_VERSION` to 15. Save and close the `Makefile`.
 
+For example, update the following variables:
+
+```
+WEBROOT=$(GOPATH)/src/github.com/<your-username>/website
+K8SROOT=$(GOPATH)/src/k8s.io/kubernetes
+MINOR_VERSION=15
+```
+
 ## Creating a version directory
+
+The version directory is a staging area for the kubectl command reference build.
+The YAML files in this directory are used to create the structure and navigation
+of the kubectl command reference.
 
 In the `<rdocs-base>/gen-kubectldocs/generators` directory, if you do not already
 have a directory named `v1_<MINOR_VERSION>`, create one now by copying the directory
@@ -163,9 +186,6 @@ mkdir gen-kubectldocs/generators/v1_15
 cp -r gen-kubectldocs/generators/v1_14/* gen-kubectldocs/generators/v1_15
 ```
 
-The version directory is a staging area for the kubectl command reference build.
-The YAML files are used to create the structure and navigation for the new reference.
-
 ## Checking out a branch in k8s.io/kubernetes
 
 In your local <k8s-base> repository, checkout the branch that has
@@ -176,7 +196,7 @@ you local branch is up to date.
 ```shell
 cd <k8s-base>
 git checkout release-1.15
-git pull https://github.com/k8s.io/kubernetes release-1.15
+git pull https://github.com/kubernetes/kubernetes release-1.15
 ```
 
 ## Running the doc generation code
@@ -190,14 +210,45 @@ make copycli
 ```
 
 The `copycli` command will clean the staging directories, generate the kubectl command files,
-and copy the collated html page and assets to `<web-base>`.
+and copy the collated kubectl reference HTML page and assets to `<web-base>`.
 
 ## Locate the generated files
 
-These two files are the primary output of a successful build. Verify that they exist:
+Verify that these two files have been generated:
 
-* `<rdocs-base>/gen-kubectldocs/generators/build/index.html`
-* `<rdocs-base>/gen-kubectldocs/generators/build/navData.js`
+```shell
+[ -e "<rdocs-base>/gen-kubectldocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
+[ -e "<rdocs-base>/gen-kubectldocs/generators/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
+```
+
+## Locate the copied files
+
+Verify that all generated files have been copied to your `<web-base>`:
+
+```shell
+cd <web-base>
+git status
+```
+
+The output should include the modified files:
+
+```
+static/docs/reference/generated/kubectl/kubectl-commands.html
+static/docs/reference/generated/kubectl/navData.js
+```
+
+Additionally, the output might show the modified files:
+
+```
+static/docs/reference/generated/kubectl/scroll.js
+static/docs/reference/generated/kubectl/stylesheet.css
+static/docs/reference/generated/kubectl/tabvisibility.js
+static/docs/reference/generated/kubectl/node_modules/bootstrap/dist/css/bootstrap.min.css
+static/docs/reference/generated/kubectl/node_modules/highlight.js/styles/default.css
+static/docs/reference/generated/kubectl/node_modules/jquery.scrollto/jquery.scrollTo.min.js
+static/docs/reference/generated/kubectl/node_modules/jquery/dist/jquery.min.js
+static/docs/reference/generated/kubectl/node_modules/font-awesome/css/font-awesome.min.css
+```
 
 ## Locally test the documentation
 
@@ -208,26 +259,9 @@ cd <web-base>
 make docker-serve
 ```
 
-View the [local preview](/docs/reference/generated/kubectl/kubectl-cmds/) of the reference from:
-
-`https://localhost:1313`
+View the [local preview](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).
 
 ## Adding and committing changes in kubernetes/website
-
-List the files that were generated and copied to the `<web-base>`:
-
-```
-cd <web-base>
-git status
-```
-
-The output shows the new and modified files. For example, the output
-might look like this:
-
-```shell
-modified: docs/reference/generated/kubectl/kubectl-commands.html
-modified: docs/reference/generated/kubectl/navData.js
-```
 
 Run `git add` and `git commit` to commit the files.
 
