@@ -243,7 +243,7 @@ select a backend Pod.
 By default, kube-proxy in iptables mode chooses a backend at random.
 
 Using iptables to handle traffic has a lower system overhead, because traffic
-is handled by Linux netfilter without the need switch between userspace and the
+is handled by Linux netfilter without the need to switch between userspace and the
 kernel space. This approach is also likely to be more reliable.
 
 If kube-proxy is running in iptables mode and the first Pod that's selected
