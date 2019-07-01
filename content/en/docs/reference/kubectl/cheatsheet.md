@@ -72,7 +72,7 @@ kubectl config use-context my-cluster-name           # set the default context t
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
 # permanently save the namespace for all subsequent kubectl commands in that context.
-kubectl config set-context --current --namespace=ggckad-s2
+kubectl config set-context $(kubectl config current-context) --namespace=ggckad-s2
 
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
