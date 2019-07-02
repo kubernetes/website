@@ -8,6 +8,8 @@ weight: 10
 
 {{% capture overview %}}
 
+NO CONFLICT HERE
+
 By default, containers run with unbounded [compute resources](/docs/user-guide/compute-resources) on a Kubernetes cluster.
 With Resource quotas, cluster administrators can restrict the resource consumption and creation on a namespace basis.
 Within a namespace, a Pod or Container can consume as much CPU and memory as defined by the namespace's resource quota. There is a concern that one Pod or Container could monopolize all of the resources. Limit Range is a policy to constrain resource  by Pod or Container in a namespace.
