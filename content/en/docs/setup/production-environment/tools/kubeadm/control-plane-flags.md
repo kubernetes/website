@@ -43,12 +43,10 @@ Example usage:
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
 apiServer:
   extraArgs:
     advertise-address: 192.168.0.103
-    anonymous-auth: false
+    anonymous-auth: "false"
     enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
     audit-log-path: /home/johndoe/audit.log
 ```
@@ -62,13 +60,11 @@ Example usage:
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
 controllerManager:
   extraArgs:
     cluster-signing-key-file: /home/johndoe/keys/ca.key
     bind-address: 0.0.0.0
-    deployment-controller-sync-period: 50
+    deployment-controller-sync-period: "50"
 ```
 
 ## Scheduler flags
@@ -80,8 +76,6 @@ Example usage:
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
 scheduler:
   extraArgs:
     address: 0.0.0.0
