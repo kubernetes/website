@@ -113,7 +113,7 @@ Each HTTP rule contains the following information:
   [Service doc](/docs/concepts/services-networking/service/). HTTP (and HTTPS) requests to the
   Ingress that matches the host and path of the rule are sent to the listed backend.
 
-A default backend is often configured in an Ingress controller to service any request that do not
+A default backend is often configured in an Ingress controller to service any requests that do not
 match a path in the spec.
 
 ### Default Backend
