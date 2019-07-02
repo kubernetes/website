@@ -6,7 +6,7 @@ date: 2019-05-22
 slug: OPA-Gatekeeper-Policy-and-Governance-for-Kubernetes 
 ---
 
-**Authors:** Rita Zhang (Microsoft), Max Smythe (Google), Tim Hinrichs (Styra), Lachie Evenson (Microsoft), Torin Sandall (Styra)
+**Authors:** Rita Zhang (Microsoft), Max Smythe (Google), Craig Hooper (Commonwealth Bank AU), Tim Hinrichs (Styra), Lachie Evenson (Microsoft), Torin Sandall (Styra)
 
 In this post, we will walk through the goals, history, and current state of the [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) project, and how you can leverage it to help enforce policies and strengthen governance in your Kubernetes environment. 
 
@@ -34,7 +34,7 @@ Before we dive into the current state of Gatekeeper, let’s take a look at how 
 
 * Gatekeeper v1.0 - Uses OPA as the admission controller with the kube-mgmt sidecar enforcing configmap-based policies. It provides validating and mutating admission control. Donated by Styra. 
 * Gatekeeper v2.0 - Uses Kubernetes policy controller as the admission controller with OPA and kube-mgmt sidecars enforcing configmap-based policies. It provides validating and mutating admission control and audit functionality. Donated by Microsoft. 
- * Gatekeeper v3.0 - The admission controller is integrated with the [OPA constraint framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint) to enforce CRD-based policies and allow declaratively configured policies to be reliably shareable. Built with kubebuilder, it provides validating and, eventually, mutating (to be implemented) admission control and audit functionality. This enables the creation of policy templates for [Rego](https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/) policies, creation of policies as CRDs, and storage of audit results on policy CRDs. This project is a collaboration between Google, Microsoft, Red Hat, and Styra.
+ * Gatekeeper v3.0 - The admission controller is integrated with the [OPA Constraint Framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint) to enforce CRD-based policies and allow declaratively configured policies to be reliably shareable. Built with kubebuilder, it provides validating and, eventually, mutating (to be implemented) admission control and audit functionality. This enables the creation of policy templates for [Rego](https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/) policies, creation of policies as CRDs, and storage of audit results on policy CRDs. This project is a collaboration between Google, Microsoft, Red Hat, and Styra.
 
 ![](/images/blog/2019-05-22-opa-gatekeeper/v3.png)
  
@@ -50,11 +50,11 @@ During the validation process, Gatekeeper acts as a bridge between the API serve
 
 ### Policies and Constraints 
 
-With the integration of the OPA Constraint Framework, a constraint is a declaration that its author wants a system to meet a given set of requirements. Each constraint is written with [Rego](https://www.openpolicyagent.org/docs/v0.10.7/how-do-i-write-policies/), a declarative query language used by OPA to enumerate instances of data that violate the expected state of the system. All constraints are evaluated as a logical AND. If one constraint is not satisfied, then the whole request is rejected. 
+With the integration of the OPA Constraint Framework, a Constraint is a declaration that its author wants a system to meet a given set of requirements. Each Constraint is written with Rego, a declarative query language used by OPA to enumerate instances of data that violate the expected state of the system. All Constraints are evaluated as a logical AND. If one Constraint is not satisfied, then the whole request is rejected. 
 
-Before defining a constraint, you need to create a Constraint Template that allows people to declare new constraints. Each template describes both the [Rego](https://www.openpolicyagent.org/docs/v0.10.7/how-do-i-write-policies/) logic that enforces the constraint and the schema for the constraint, which includes the schema of the CRD and the parameters that can be passed into a constraint, much like arguments to a function. 
+Before defining a Constraint, you need to create a Constraint Template that allows people to declare new Constraints. Each template describes both the Rego logic that enforces the Constraint and the schema for the Constraint, which includes the schema of the CRD and the parameters that can be passed into a Constraint, much like arguments to a function. 
 
-For example, here is a constraint template CRD that requires certain labels to be present on an arbitrary object. 
+For example, here is a Constraint template CRD that requires certain labels to be present on an arbitrary object. 
 
 ```yaml
 apiVersion: templates.gatekeeper.sh/v1alpha1
@@ -90,7 +90,7 @@ spec:
         }
 ```
 
-Once a constraint template has been deployed in the cluster, an admin can now create individual constraint CRDs as defined by the constraint template. For example, here is a constraint CRD that requires the label `hr` to be present on all namespaces. 
+Once a Constraint template has been deployed in the cluster, an admin can now create individual Constraint CRDs as defined by the Constraint template. For example, here is a Constraint CRD that requires the label `hr` to be present on all namespaces. 
 
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1alpha1
@@ -106,7 +106,7 @@ spec:
     labels: ["hr"]
 ```
 
-Similarly, another constraint CRD that requires the label `finance` to be present on all namespaces can easily be created from the same constraint template. 
+Similarly, another Constraint CRD that requires the label `finance` to be present on all namespaces can easily be created from the same Constraint template. 
 
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1alpha1
@@ -122,11 +122,11 @@ spec:
     labels: ["finance"]
 ```
 
-As you can see, with the Constraint framework, we can reliably share Regos via the constraint templates, define the scope of enforcement with the match field, and provide user-defined parameters to the constraints to create customized behavior for each constraint. 
+As you can see, with the Constraint framework, we can reliably share Regos via the Constraint templates, define the scope of enforcement with the match field, and provide user-defined parameters to the Constraints to create customized behavior for each Constraint. 
 
 ### Audit 
 
-The audit functionality enables periodic evaluations of replicated resources against the constraints enforced in the cluster to detect pre-existing misconfigurations. Audit results are stored as violations listed in the status field of the constraint CRD.  
+The audit functionality enables periodic evaluations of replicated resources against the Constraints enforced in the cluster to detect pre-existing misconfigurations. Gatekeeper stores audit results as `violations` listed in the `status` field of the relevant Constraint.  
 
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1alpha1
@@ -141,7 +141,7 @@ spec:
   parameters:
     labels: ["hr"]
 status:
-  auditTimestamp: "2019-05-22T01:46:13Z"
+  auditTimestamp: "2019-07-03T01:46:13Z"
   enforced: true
   violations:
   - kind: Namespace
@@ -160,7 +160,7 @@ status:
 
 ### Data Replication 
 
-Audit requires replication of Kubernetes resources into OPA before they can be evaluated against the enforced constraints. Data replication is also required by constraints that need access to objects in the cluster other than the object under evaluation. For example, a constraint that enforces uniqueness of ingress hostname must have access to all other ingresses in the cluster. 
+Audit requires replication of Kubernetes resources into OPA before they can be evaluated against the enforced Constraints. Data replication is also required by Constraints that need access to objects in the cluster other than the object under evaluation. For example, a Constraint that enforces uniqueness of ingress hostname must have access to all other ingresses in the cluster. 
 
 To configure Kubernetes data to be replicated, create a sync config resource with the resources to be replicated into OPA. For example, the below configuration replicates all namespace and pod resources to OPA. 
 
@@ -183,6 +183,6 @@ spec:
 
 ## Planned for Future 
 
-Post KubeCon EU, the community behind the Gatekeeper project will be focusing on providing mutating admission control to support mutation scenarios (for example: annotate objects automatically with departmental information when creating a new resource), support external data to inject context external to the cluster into the admission decisions, support dry run to see impact of a policy on existing resources in the cluster before enforcing it, and more audit functionalities.  
+The community behind the Gatekeeper project will be focusing on providing mutating admission control to support mutation scenarios (for example: annotate objects automatically with departmental information when creating a new resource), support external data to inject context external to the cluster into the admission decisions, support dry run to see impact of a policy on existing resources in the cluster before enforcing it, and more audit functionalities.  
 
 If you are interested in learning more about the project, check out the [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) repo. If you are interested to help define the direction of Gatekeeper, join the [#kubernetes-policy](https://openpolicyagent.slack.com/messages/CDTN970AX) channel on OPA Slack, and join our [weekly meetings](https://docs.google.com/document/d/1A1-Q-1OMw3QODs1wT6eqfLTagcGmgzAJAjJihiO3T48/edit) to discuss development, issues, use cases, etc.  
