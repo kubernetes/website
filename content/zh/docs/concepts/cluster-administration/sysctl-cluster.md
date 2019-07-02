@@ -34,7 +34,10 @@ $ sudo sysctl -a
 - `kernel.msg*`（内核中SystemV消息队列相关参数），
 - `kernel.sem`（内核中信号量参数），
 - `fs.mqueue.*`（内核中POSIX消息队列相关参数），
-- `net.*`（内核中网络配置项相关参数）。
+- `net.*`（内核中网络配置项相关参数），如果它可以在容器命名空间里被更改。然而，也有一些特例
+  (例如，`net.netfilter.nf_conntrack_max` 和
+  `net.netfilter.nf_conntrack_expect_max`
+  可以在容器命名空间里被更改，但它们是非命名空间的)。
 
 Sysctls中非命名空间级的被称为 _节点级_ ，其必须由集群管理员手动设置，要么通过节点的底层Linux分布方式(例如，通过 `/etc/sysctls.conf`)，亦或在特权容器中使用Daemonset。
 
@@ -71,7 +74,7 @@ Sysctls被分为 _安全的_ 和 _不安全的_ sysctls。同一节点上的pods
 sysctls。 _不安全的_ sysctls 会打上kubelet标识，在逐节点的基础上被启用，例如：
 
 ```shell
-$ kubelet --experimental-allowed-unsafe-sysctls 'kernel.msg*,net.ipv4.route.min_pmtu' ...
+$ kubelet --experimental-allowed-unsafe-sysctls 'kernel.msg*,net.core.somaxconn' ...
 ```
 
 只有 _命名空间级_ sysctls 可以使用该方法启用。
@@ -89,7 +92,7 @@ metadata:
   name: sysctl-example
   annotations:
     security.alpha.kubernetes.io/sysctls: kernel.shm_rmid_forced=1
-    security.alpha.kubernetes.io/unsafe-sysctls: net.ipv4.route.min_pmtu=1000,kernel.msgmax=1 2 3
+    security.alpha.kubernetes.io/unsafe-sysctls: net.core.somaxconn=1024,kernel.msgmax=1 2 3
 spec:
   ...
 ```
