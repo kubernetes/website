@@ -23,14 +23,14 @@ L'architecture de journalisation des évènements au niveau du cluster est décr
 
 ## Journalisation simple d'évènements dans Kubernetes
 
-Dans cette section, nous allons voir un exemple simple de journalisation d'évènements avec le flux de sortie standard. Cette démonstration utilise un [manifeste pour un Pod](/examples/debug/counter-pod.yaml) qui contient un conteneur qui écrit du texte sur le flux de sortie standard chaque seconde.
+Dans cette section, nous allons voir un exemple simple de journalisation d'évènements avec le flux de sortie standard. Cette démonstration utilise un un manifeste pour un Pod qui contient un conteneur qui écrit du texte sur le flux de sortie standard chaque seconde.
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
 Pour lancer ce Pod, on utilise la commande suivante:
 
 ```shell
-kubectl apply -f https://k8s.io/fr/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 pod/counter created
 ```
 
@@ -44,7 +44,7 @@ kubectl logs counter
 ...
 ```
 
-On peut utilisez `kubectl logs` pour récupérer les évènements de l'instanciation précédente d'un Pod en utilisant l'option `--previous` quand par exemple le conteneur à crashé.
+On peut utilisez `kubectl logs` pour récupérer les évènements de l'instanciation précédente d'un Pod en utilisant l'option `--previous` quand par exemple le conteneur a crashé.
 
 Si le Pod a plusieurs conteneurs, il faut spécifier le nom du conteneur dont on veut récupérer le journal d'évènement. Dans notre exemple le conteneur s'appelle `count` donc on peut utiliser `kubectl logs counter count`. Plus de détails dans la [documentation de `kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)
 
@@ -52,7 +52,7 @@ Si le Pod a plusieurs conteneurs, il faut spécifier le nom du conteneur dont on
 
 ![Journalisation d'évènements au niveau du nœud](/images/docs/user-guide/logging/logging-node-level.png)
 
-Tout ce qu'une application conteneurisée écrit sur `stdout` ou `stderr` est pris en compte et redirigé par l'environment d'exécution des conteneurs. Par exemple, Docker redirige ces deux flux à un [driver de journalisation (EN)](https://docs.docker.com/engine/admin/logging/overview) qui est configuré dans Kubernetes pour écrire dans a fichier au format json.
+Tout ce qu'une application conteneurisée écrit sur `stdout` ou `stderr` est pris en compte et redirigé par l'environment d'exécution des conteneurs. Par exemple, Docker redirige ces deux flux à un [driver de journalisation (EN)](https://docs.docker.com/config/containers/logging/configure/) qui est configuré dans Kubernetes pour écrire dans un fichier au format json.
 
 {{< note >}}
 Le driver json de Docker traite chaque ligne comme un message différent. Avec ce driver il n'y a pas de support direct pour des messages multi-lignes. Il faut donc traiter les messages multi-lignes au niveau de l'agent de journalisation ou plus haut.
@@ -63,7 +63,7 @@ Par défaut quand un conteneur redémarre, le kubelet ne conserve le journal que
 Quand on utilise la journalisation d'évènements au niveau du nœud, il faut prendre garde à mettre en place une politique de rotation des journaux adéquate afin qu'ils n'utilisent pas tout l'espace de stockage du nœud. Kubernetes n'a pas en charge la rotation des journaux cette rotation, c'est à l'outil de déploiement de le prendre en compte.
 
 Par exemple, dans les clusters Kubernetes déployés avec le script `kube-up.sh` [`logrotate`](https://linux.die.net/man/8/logrotate) est configuré pour s'exécuter toutes les heures. Il est aussi possible de configurer l'environnement d'exécution des conteneurs pour que la rotation des journaux s'exécute automatiquement, e.g. en utilisant le paramètre `log-opt` de Docker.
-Dans le script `kube-up.sh`, c'est cette méthode qui est utilisés pour des images COS sur GCP et sinon c'est la première méthode dans tous les autres cas. Avec les deux méthodes la rotation par défaut est configurée quand la taille d'un journal atteint 10MO.
+Dans le script `kube-up.sh`, c'est cette méthode qui est utilisés pour des images COS sur GCP et sinon c'est la première méthode dans tous les autres cas. Quelquesoit la méthode choisie par `kube-up.sh` la rotation est configurée par defaut quand la taille d'un journal atteint 10MO.
 
 Ce [script][cosConfigureHelper] montre de manière détaillée comment `kube-up.sh` met en place la journalisation d'évènement pour des images COS sur GCP.
 
