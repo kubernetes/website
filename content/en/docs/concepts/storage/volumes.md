@@ -1379,7 +1379,7 @@ drivers. Flexvolume driver binaries must be installed in a pre-defined volume
 plugin path on each node (and in some cases master).
 
 Pods interact with Flexvolume drivers through the `flexvolume` in-tree plugin.
-More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
+More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
 
 ## Mount propagation
 
