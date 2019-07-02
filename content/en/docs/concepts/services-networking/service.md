@@ -387,7 +387,7 @@ REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 {{< note >}}
-When you have a Pod that needs to acccess a Service, and you are using
+When you have a Pod that needs to access a Service, and you are using
 the environment variable method to publish the port and cluster IP to the client
 Pods, you must create the Service *before* the client Pods come into existence.
 Otherwise, those client Pods won't have their environment variables populated.
