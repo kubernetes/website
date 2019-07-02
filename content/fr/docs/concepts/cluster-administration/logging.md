@@ -2,47 +2,39 @@
 reviewers:
 - piosz
 - x13n
-title: Architecture de Journalisation (logging)
+title: Architecture de Journalisation d'évènements (logging)
 content_template: templates/concept
 weight: 60
 ---
 
 {{% capture overview %}}
 
-La journalisation des événements systèmes et applicatifs peuvent vous aider à comprendre ce qui se passe dans votre cluster. Les journaux sont particulierement utiles pour debogguer les problèmes et surveiller l'activité du cluster. La plupart des application modernes ont un mécanisme de journalisation d'evenements, et la plupart des environnements d'exécution de conteneur ont été désigné pour supporter la journalisation des événements. La méthode de journalisation la plus facile et la plus répandues pour des applications dans un conteneur est d'écrire dans les flux de sortie standard et de sortie d'erreur.
-... The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
+La journalisation des évènements systèmes et d'applications peuvent aider à comprendre ce qui se passe dans un cluster. Les journaux sont particulièrement utiles pour débogguer les problèmes et surveiller l'activité du cluster. La plupart des application modernes ont un mécanisme de journalisation d'évènements, et la plupart des environnements d'exécution de conteneur ont été désigné pour supporter la journalisation des évènements. La méthode de journalisation la plus facile et la plus répandue pour des applications conteneurisées est d'écrire dans les flux de sortie standard et d'erreur standard (`stdout` et `stderr`).
 
-Malgré celà, la fonctionalite de journalisation fournie nstivement par l'environnement d'éxécution de conteneurs n'est généralement pas sufisante pour une solution complete de journalisation. Même quand un conteneur crash, quand un pod est expulsé ou quand un node disparaît, il est toujours utile de pouvoir acceder au journal d'événemtn applicatifs. C'est pourquoi les journaux doivent avoir leur propre espace de stockage et gestion de vie indépendantes des nodes, pods ou conteneurs. Ce concept est appalé _cluster-level-logging_ journalisation des événements au niveau du cluster.
+Malgré cela, la fonctionnalité de journalisation fournie nativement par l'environnement d'exécution de conteneur n'est pas suffisante comme solution complète de journalisation. Quand un conteneur crash, quand un Pod est expulsé ou quand un nœud disparaît, il est utile de pouvoir accéder au journal d'événement de l'application. C'est pourquoi les journaux doivent avoir leur propre espace de stockage et cycle de vie indépendamment des nœuds, Pods ou conteneurs. Ce concept est appelé _journalisation des évènements au niveau du cluster_ (cluster-level-logging). Un backend dédié pour stocker, analyser et faire des requêtes est alors nécessaire. Kubernetes n'offre pas nativement de solution de stockage pour les journaux mais il est possible d'intégrer de nombreuses solutions de journalisation d'évènements dans un cluster Kubernetes.
 
-However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-Cluster-level logging architectures are described in assumption that
-a logging backend is present inside or outside of your cluster. If you're
-not interested in having cluster-level logging, you might still find
-the description of how logs are stored and handled on the node to be useful.
+L'architecture de journalisation des évènements au niveau du cluster est décrite en considérant qu'un backend de journalisation est présent a l'intérieur ou à l'extérieur du cluster. Même sans avoir l'intention de journaliser les évènements au niveau du cluster, il est intéressant de savoir comment les journaux sont conservés et gérés au niveau d'un nœud.
 
-## Basic logging in Kubernetes
+## Journalisation simple d'évènements dans Kubernetes
 
-In this section, you can see an example of basic logging in Kubernetes that
-outputs data to the standard output stream. This demonstration uses
-a [pod specification](/examples/debug/counter-pod.yaml) with
-a container that writes some text to standard output once per second.
+Dans cette section, nous allons voir un exemple simple de journalisation d'évènements avec le flux de sortie standard. Cette démonstration utilise un [manifeste pour un Pod](/examples/debug/counter-pod.yaml) qui contient un conteneur qui écrit du texte sur le flux de sortie standard chaque seconde.
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
-To run this pod, use the following command:
+Pour lancer ce Pod, on utilise la commande suivante:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/fr/examples/debug/counter-pod.yaml
 pod/counter created
 ```
 
-To fetch the logs, use the `kubectl logs` command, as follows:
+Pour récupérer les événements du conteneur d'un pod, on utilise la commande `kubectl logs` de la manière suivante:
 
 ```shell
 kubectl logs counter
@@ -52,45 +44,33 @@ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+On peut utilisez `kubectl logs` pour récupérer les évènements de l'instanciation précédente d'un Pod en utilisant l'option `--previous` quand par exemple le conteneur à crashé.
 
-## Logging at the node level
+Si le Pod a plusieurs conteneurs, il faut spécifier le nom du conteneur dont on veut récupérer le journal d'évènement. Dans notre exemple le conteneur s'appelle `count` donc on peut utiliser `kubectl logs counter count`. Plus de détails dans la [documentation de `kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)
 
-![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
+## Journalisation d'évènements au niveau du nœud
 
-Everything a containerized application writes to `stdout` and `stderr` is handled and redirected somewhere by a container engine. For example, the Docker container engine redirects those two streams to [a logging driver](https://docs.docker.com/engine/admin/logging/overview), which is configured in Kubernetes to write to a file in json format.
+![Journalisation d'évènements au niveau du nœud](/images/docs/user-guide/logging/logging-node-level.png)
+
+Tout ce qu'une application conteneurisée écrit sur `stdout` ou `stderr` est pris en compte et redirigé par l'environment d'exécution des conteneurs. Par exemple, Docker redirige ces deux flux à un [driver de journalisation (EN)](https://docs.docker.com/engine/admin/logging/overview) qui est configuré dans Kubernetes pour écrire dans a fichier au format json.
 
 {{< note >}}
-The Docker json logging driver treats each line as a separate message. When using the Docker logging driver, there is no direct support for multi-line messages. You need to handle multi-line messages at the logging agent level or higher.
+Le driver json de Docker traite chaque ligne comme un message différent. Avec ce driver il n'y a pas de support direct pour des messages multi-lignes. Il faut donc traiter les messages multi-lignes au niveau de l'agent de journalisation ou plus haut.
 {{< /note >}}
 
-By default, if a container restarts, the kubelet keeps one terminated container with its logs. If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
+Par défaut quand un conteneur redémarre, le kubelet ne conserve le journal que d'un seul conteneur terminé. Quand un Pod est expulsé d'un nœud, tous ses conteneurs sont aussi expulsés avec leurs journaux d'évènements.
 
-An important consideration in node-level logging is implementing log rotation,
-so that logs don't consume all available storage on the node. Kubernetes
-currently is not responsible for rotating logs, but rather a deployment tool
-should set up a solution to address that.
-For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
-there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
-tool configured to run each hour. You can also set up a container runtime to
-rotate application's logs automatically, e.g. by using Docker's `log-opt`.
-In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
-and the former approach is used in any other environment. In both cases, by
-default rotation is configured to take place when log file exceeds 10MB.
+Quand on utilise la journalisation d'évènements au niveau du nœud, il faut prendre garde à mettre en place une politique de rotation des journaux adéquate afin qu'ils n'utilisent pas tout l'espace de stockage du nœud. Kubernetes n'a pas en charge la rotation des journaux cette rotation, c'est à l'outil de déploiement de le prendre en compte.
 
-As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
+Par exemple, dans les clusters Kubernetes déployés avec le script `kube-up.sh` [`logrotate`](https://linux.die.net/man/8/logrotate) est configuré pour s'exécuter toutes les heures. Il est aussi possible de configurer l'environnement d'exécution des conteneurs pour que la rotation des journaux s'exécute automatiquement, e.g. en utilisant le paramètre `log-opt` de Docker.
+Dans le script `kube-up.sh`, c'est cette méthode qui est utilisés pour des images COS sur GCP et sinon c'est la première méthode dans tous les autres cas. Avec les deux méthodes la rotation par défaut est configurée quand la taille d'un journal atteint 10MO.
 
-When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
-the basic logging example, the kubelet on the node handles the request and
-reads directly from the log file, returning the contents in the response.
+Ce [script][cosConfigureHelper] montre de manière détaillée comment `kube-up.sh` met en place la journalisation d'évènement pour des images COS sur GCP.
+
+Quand [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) s'exécute comme dans le premier exemple de journalisation simple le kubelet du nœud gère la requête et lit directement depuis le fichier de journal et retourne son contenu dans la réponse.
 
 {{< note >}}
-Currently, if some external system has performed the rotation,
-only the contents of the latest log file will be available through
-`kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
-the rotation and there are two files, one 10MB in size and one empty,
-`kubectl logs` will return an empty response.
+À l'heure actuelle, si un système externe a effectué la rotation des journaux, seul le contenu du dernier fichier journal sera disponible avec `kubectl logs`. Par exemple quand le journal atteint 10MO, `logrotate` effectue une rotation, il y a alors 2 fichers, un de 10MO et un de vide, à ce moment là `kubectl logs` retournera une réponse vide.
 {{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
