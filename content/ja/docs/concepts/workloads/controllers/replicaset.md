@@ -146,12 +146,12 @@ kubectl apply -f http://k8s.io/examples/pods/pod-rs.yaml
 
 新しいPodはそのReplicaSetによって所有され、そのReplicaSetのレプリカ数が、設定された理想のレプリカ数を超えた場合すぐにそれらのPodは削除されます。
 
-Podの取得は下記のようになります。
+下記のコマンドでPodを取得できます。
 ```shell
 kubectl get Pods
 ```
 
-その表示結果にて、新しいPodがすでに削除済みか、削除中のステータスになっているのを確認できます。
+その表示結果で、新しいPodがすでに削除済みか、削除中のステータスになっているのを確認できます。
 ```shell
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-9si5l   1/1     Running       0          1m
@@ -177,7 +177,6 @@ kubectl get Pods
 ```
 
 取得結果は下記のようになります。
-Will reveal in its output:
 ```shell
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-pxj4r   1/1     Running   0          5s
@@ -190,10 +189,10 @@ pod2             1/1     Running   0          13s
 ## ReplicaSetのマニフェストを記述する。
 
 他の全てのKubernetes APIオブジェクトのように、ReplicaSetは`apiVersion`、`kind`と`metadata`フィールドを必要とします。
-ReplicaSetにおいては、その`kind`フィールドの値は`ReplicaSet`となります。
-Kubernetes1.9において、ReplicaSetに関しては`apps/v1`というAPIバージョンが現在のバージョンで、デフォルトで有効となります。`apps/v1beta2`というAPIバージョンは廃止されています。先ほど作成した`frontend.yaml`ファイルの最初の行を参考にしてください。
+ReplicaSetでは、`kind`フィールドの値は`ReplicaSet`です。
+Kubernetes1.9において、ReplicaSetは`apps/v1`というAPIバージョンが現在のバージョンで、デフォルトで有効です。`apps/v1beta2`というAPIバージョンは廃止されています。先ほど作成した`frontend.yaml`ファイルの最初の行を参考にしてください。
 
-また、ReplicaSetは[`.spec` セクション](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)も必須となります。
+また、ReplicaSetは[`.spec` セクション](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)も必須です。
 
 ### Pod テンプレート
 
