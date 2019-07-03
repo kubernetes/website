@@ -238,7 +238,7 @@ decode and process the configuration.
 
 The following example shows a scheduler configuration that enables some
 plugins at `reserve` and `preBind` extension points and disables a plugin. It
-also provides a configuration to plugin `foo`. 
+also provides a configuration to plugin `foo`.
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1alpha1
