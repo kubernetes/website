@@ -13,8 +13,8 @@ content_template: templates/task
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* [Init Container](/docs/concepts/abstractions/init-containers/)の基本に精通しているべきです。
-* [Init Containerを設定](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)しているべきです。
+* [Init Container](/docs/concepts/abstractions/init-containers/)の基本を理解しておきましょう。
+* [Init Containerを設定](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)しておきましょう。
 
 {{% /capture %}}
 
