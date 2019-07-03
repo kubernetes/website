@@ -690,7 +690,7 @@ or the server could power off before persisting the object.
 
 Additionally, webhooks with side effects should skip those side-effects when `dryRun: true` admission requests are handled.
 A webhook must explicitly indicate that it will not have side-effects when run with `dryRun`,
-or the dry-run request will not be sent to the webhook and the API request fill fail instead.
+or the dry-run request will not be sent to the webhook and the API request will fail instead.
 
 Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration.
 `sideEffects` may be set to `Unknown`, `None`, `Some`, `NoneOnDryRun`. The default is `Unknown`.
