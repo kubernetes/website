@@ -1,5 +1,5 @@
 ---
-title: 다중 클러스터 액세스 구성
+title: 다중 클러스터 접근 구성
 content_template: templates/task
 weight: 30
 card:
@@ -10,13 +10,13 @@ card:
 
 {{% capture overview %}}
 
-이 페이지에서는 구성 파일을 사용하여 다수의 클러스터에 액세스할 수 있도록 
+이 페이지에서는 구성 파일을 사용하여 다수의 클러스터에 접근할 수 있도록 
 설정하는 방식을 보여준다. 클러스터, 사용자, 컨텍스트가 하나 이상의 
 구성 파일에 정의된 다음 `kubectl config use-context` 커맨드를 
 사용하여 클러스터를 빠르게 변경할 수 있다.
 
 {{< note >}}
-클러스터에 액세스할 수 있도록 설정하는데 사용되는 파일은 종종 *kubeconfig file* 이라고 
+클러스터에 접근할 수 있도록 설정하는데 사용되는 파일은 종종 *kubeconfig file* 이라고 
 불린다. 이는 구성 파일을 참조하는 일반적인 방식으로 `kubeconfig`라는 이름을 가진 파일이 
 반드시 존재해야 한다는 것을 의미하는 것은 아니다.
 {{< /note >}}
@@ -37,8 +37,8 @@ card:
 `development` 클러스터에서는 프런트 엔드 개발자들이 `frontend`라는 네임스페이스에서 
 작업을 하고 있고, 스토리지 개발자들은 `storage`라는 네임스페이스에서 작업을 하고 있다. 
 `scratch` 클러스터에서는 개발자들이 default 네임스페이스에서 개발하거나 필요에 따라 보조 
-네임스페이스들을 생성하고 있다. development 클러스터에 액세스하려면 인증서로 인증을 해야 하고, 
-scratch 클러스터에 액세스하려면 사용자네임과 패스워드로 인증을 해야 한다.
+네임스페이스들을 생성하고 있다. development 클러스터에 접근하려면 인증서로 인증을 해야 하고, 
+scratch 클러스터에 접근하려면 사용자네임과 패스워드로 인증을 해야 한다.
 
 `config-exercise`라는 디렉토리를 생성한다. `config-exercise` 디렉토리에 
 다음 내용을 가진 `config-demo`라는 파일을 생성한다.
@@ -70,7 +70,7 @@ contexts:
 구성 파일은 클러스터들, 사용자들, 컨텍스트들을 기술한다. `config-demo` 파일은 두 클러스터들과 
 두 사용자들, 세 컨텍스트들을 기술하기 위한 프레임워크를 가진다.
 
-`config-exercise` 디렉토리로 이동한다. 그리고 다음 명령어들을 실행하여 구성 파일에 클러스터의 
+`config-exercise` 디렉토리로 이동한다. 그리고 다음 커맨드들을 실행하여 구성 파일에 클러스터의 
 세부사항들을 추가한다.
 
 ```shell
@@ -89,7 +89,7 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 `kubectl config unset users.<name>`을 실행하여 사용자를 삭제할 수 있다.
 {{< /note >}}
 
-컨텍스트 세부사항들을 configuration file에 추가한다.
+컨텍스트 세부사항들을 구성 파일에 추가한다.
 
 ```shell
 kubectl config --kubeconfig=config-demo set-context dev-frontend --cluster=development --namespace=frontend --user=developer
@@ -98,13 +98,13 @@ kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratc
 ```
 
 `config-demo` 파일을 열어서 세부사항들이 추가되었는지 확인한다. `config-demo` 파일을 열어보는 
-것 대신에 `config view` 명령어를 사용할 수도 있다.
+것 대신에 `config view` 커맨드를 사용할 수도 있다.
 
 ```shell
 kubectl config --kubeconfig=config-demo view
 ```
 
-두 클러스터, 두 사용자, 세 컨텍스트들이 출력결과로 나온다.
+두 클러스터, 두 사용자, 세 컨텍스트들이 출력 결과로 나온다.
 
 ```shell
 apiVersion: v1
@@ -152,7 +152,7 @@ users:
 당신의 환경에 맞게 이들을 실제 인증서 경로로 변경해줘야 한다.
 
 만약 당신이 인증서 파일들의 경로 대신에 base64로 인코딩된 데이터를 여기에 사용하려고 한다면 
-키에 `-data` 접미사를 추가해야 한다. 예를들면 `certificate-authority-data`, 
+키에 `-data` 접미사를 추가해야 한다. 예를 들면 `certificate-authority-data`, 
 `client-certificate-data`, `client-key-data` 같이 사용할 수 있다.
 
 컨텍스트는 세 가지(클러스터, 사용자, 네임스페이스) 요소들로 이뤄진다. 예를 들어 
@@ -165,8 +165,8 @@ users:
 kubectl config --kubeconfig=config-demo use-context dev-frontend
 ```
 
-이제 당신이 `kubectl` 명령어를 입력할 때마다 `dev-frontend` 컨텍스트에 명시된 클러스터와 
-네임스페이스 상에서 동작하게 될 것이다. 그리고 명령어는 `dev-frontend` 컨텍스트 내에 명시된 
+이제 당신이 `kubectl` 커맨드를 입력할 때마다 `dev-frontend` 컨텍스트에 명시된 클러스터와 
+네임스페이스 상에서 동작하게 될 것이다. 그리고 커맨드는 `dev-frontend` 컨텍스트 내에 명시된 
 사용자 자격증명을 사용할 것이다.
 
 현재 컨텍스트에 관련된 구성 정보만을 보려면 
@@ -176,7 +176,7 @@ kubectl config --kubeconfig=config-demo use-context dev-frontend
 kubectl config --kubeconfig=config-demo view --minify
 ```
 
-`dev-frontend` 컨텍스트에 관련된 구성 정보가 출력결과로 표시될 것이다.
+`dev-frontend` 컨텍스트에 관련된 구성 정보가 출력 결과로 표시될 것이다.
 
 ```shell
 apiVersion: v1
@@ -209,7 +209,7 @@ users:
 kubectl config --kubeconfig=config-demo use-context exp-scratch
 ```
 
-이제 당신이 실행하는 모든 `kubectl` 명령어는 `scratch` 클러스터의 
+이제 당신이 실행하는 모든 `kubectl` 커맨드는 `scratch` 클러스터의 
 default 네임스페이스에 적용되며 `exp-scratch` 컨텍스트에 나열된 
 사용자의 자격증명을 사용할 것이다.
 
@@ -270,8 +270,8 @@ $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
 `KUBECONFIG` 환경 변수는 구성 파일들의 경로의 리스트이다. 이 리스트는 
 Linux와 Mac에서는 콜론으로 구분되며 Windows에서는 세미콜론으로 구분된다. 
-당신이 `KUBECONFIG` 환경 변수에 친숙하다면 구성 파일들의 
-리스트를 알아보자.
+`KUBECONFIG` 환경 변수를 가지고 있다면, 리스트에 포함된 구성 파일들에  
+익숙해지길 바란다.
 
 다음 예와 같이 임시로 `KUBECONFIG` 환경 변수에 두 개의 경로들을 덧붙여보자.<br>
 
@@ -284,16 +284,16 @@ export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 $Env:KUBECONFIG=("config-demo;config-demo-2")
 ```
 
-`config-exercise` 디렉토리에서 다음 명령어를 입력한다.
+`config-exercise` 디렉토리에서 다음 커맨드를 입력한다.
 
 ```shell
 kubectl config view
 ```
 
-당신의 `KUBECONFIG` 환경 변수에 나열된 모든 파일들이 합쳐진 정보가 출력결과로 
+당신의 `KUBECONFIG` 환경 변수에 나열된 모든 파일들이 합쳐진 정보가 출력 결과로 
 표시될 것이다. 특히, 합쳐진 정보가 `config-demo-2` 파일의 `dev-ramp-up` 
 컨텍스트와 `config-demo` 파일의 세 개의 컨텍스트들을 
-가지고 있다는 것에 주목하라.
+가지고 있다는 것에 주목하길 바란다.
 
 ```shell
 contexts:
@@ -320,7 +320,7 @@ contexts:
 ```
 
 kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는 
-[Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)를 참조하라.
+[kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)를 참조한다.
 
 ## $HOME/.kube 디렉토리 탐색
 
@@ -348,7 +348,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
 
 이제 `KUBECONFIG` 환경 변수에 리스트에 포함된 모든 파일들이 합쳐진 구성 정보를 보자. 
-config-exercise 디렉토리에서 다음 명령어를 실행한다.
+config-exercise 디렉토리에서 다음 커맨드를 실행한다.
 
 ```shell
 kubectl config view
@@ -370,7 +370,7 @@ Windows PowerShell
 
 {{% capture whatsnext %}}
 
-* [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands/)
 
 {{% /capture %}}
