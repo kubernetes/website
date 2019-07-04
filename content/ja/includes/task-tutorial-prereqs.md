@@ -1,8 +1,6 @@
-You need to have a Kubernetes cluster, and the kubectl command-line tool must
-be configured to communicate with your cluster. If you do not already have a
-cluster, you can create one by using
-[Minikube](/docs/setup/minikube),
-or you can use one of these Kubernetes playgrounds:
+Kubernetesクラスターが必要、かつそのクラスターと通信するためにkubectlコマンドラインツールが設定されている必要があります。
+まだクラスターがない場合、[Minikube](/ja/docs/setup/minikube)を使って作成するか、
+以下のいずれかのKubernetesプレイグラウンドも使用できます:
 
 * [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
 * [Play with Kubernetes](http://labs.play-with-k8s.com/)
