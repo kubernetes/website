@@ -490,7 +490,7 @@ You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expos
 ### Type NodePort {#nodeport}
 
 If you set the `type` field to `NodePort`, the Kubernetes control plane
-allocateS a port from a range specified by `--service-node-port-range` flag (default: 30000-32767).
+allocates a port from a range specified by `--service-node-port-range` flag (default: 30000-32767).
 Each node proxies that port (the same port number on every Node) into your Service.
 Your Service reports the allocated port in its `.spec.ports[*].nodePort` field.
 
