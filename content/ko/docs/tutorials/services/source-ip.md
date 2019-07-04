@@ -71,7 +71,7 @@ kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
 kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
 ```
-한 노드의 프락시 모드를 확인한다.
+한 노드의 프록시 모드를 확인한다.
 ```console
 kubernetes-node-6jst $ curl localhost:10249/proxyMode
 ```

@@ -73,13 +73,13 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다. 이 드라이버를 사용하기 위해서는 하이퍼바이저가 아닌 [Docker](https://www.docker.com/products/docker-desktop)와 리눅스 환경을 필요로 한다.
+Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다. 이 드라이버를 사용하기 위해서는 하이퍼바이저가 아닌 [도커](https://www.docker.com/products/docker-desktop)와 리눅스 환경을 필요로 한다.
 {{< /note >}}
 
 ### 패키지를 이용하여 Minikube 설치
 
 Minikube를 위한 *실험적인* 패키지가 있다.
-리눅스 (AMD64) 패키지는 GitHub의 Minikube의 [릴리즈](https://github.com/kubernetes/minikube/releases)에서 찾을 수 있다.
+리눅스 (AMD64) 패키지는 GitHub의 Minikube의 [릴리스](https://github.com/kubernetes/minikube/releases)에서 찾을 수 있다.
 
 적절한 패키지를 설치하기 위해 리눅스 배포판의 패키지 도구를 사용한다.
 
