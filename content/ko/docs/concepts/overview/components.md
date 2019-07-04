@@ -16,7 +16,7 @@ card:
 ## 마스터 컴포넌트
 
 마스터 컴포넌트는 클러스터의 컨트롤 플레인을 제공한다. 마스터 컴포넌트는 클러스터에 관한 전반적인 결정
-(예를 들어, 스케줄링)을 수행하고 클러스터 이벤트(레플리케이션 컨트롤러의 `replicas` 필드가 요구조건을 충족되지 않을 경우 새로운 파드를 구동 시키는 것)를 감지하고 반응한다.
+(예를 들어, 스케줄링)을 수행하고 클러스터 이벤트(예를 들어, 레플리케이션 컨트롤러의 `replicas` 필드가 요구조건을 충족되지 않을 경우 새로운 파드를 구동 시키는 것)를 감지하고 반응한다.
 
 마스터 컴포넌트는 클러스터 내 어떠한 머신에서든지 동작 될 수 있다. 그러나,
 간결성을 위하여, 구성 스크립트는 보통 동일 머신 상에 모든 마스터 컴포넌트를 구동시키고,
@@ -72,13 +72,11 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 
 ### kube-proxy
 
-[kube-proxy](/docs/admin/kube-proxy/)는 호스트 상에서 네트워크 규칙을 유지하고 연결에 대한 포워딩을 수행함으로서
- 쿠버네티스 서비스 추상화가 가능하도록 해준다.
+{{< glossary_definition term_id="kube-proxy" length="all" >}}
 
 ### 컨테이너 런타임
 
-컨테이너 런타임은 컨테이너의 동작을 책임지는 소프트웨어다.
-쿠버네티스는 몇몇의 런타임을 지원하는데 [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) 그리고 [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)를 구현한 모든 런타임이다.
+{{< glossary_definition term_id="container-runtime" length="all" >}}
 
 ## 애드온
 

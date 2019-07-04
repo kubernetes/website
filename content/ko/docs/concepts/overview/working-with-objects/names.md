@@ -17,13 +17,28 @@ weight: 20
 
 {{% capture body %}}
 
-## Names
+## 이름 {#names}
 
 {{< glossary_definition term_id="name" length="all" >}}
 
 관례에 따라, 쿠버네티스 리소스의 이름은 최대 253자까지 허용되고 소문자 알파벳과 숫자(alphanumeric), `-`, 그리고 `.`로 구성되며 특정 리소스는 보다 구체적인 제약을 갖는다.
 
-## UIDs
+다음은 이름이 `nginx-demo`이고 컨테이너 이름이 `nginx`인 파드의 구성 파일 예시이다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-demo
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80
+```
+
+## UID {#uids}
 
 {{< glossary_definition term_id="uid" length="all" >}}
 
