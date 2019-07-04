@@ -207,8 +207,8 @@ for i in ret.items:
 ```
 
 #### Other languages
-
-There are [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
+content/en/docs/reference/using-api/client-libraries.md
+There are [client libraries](/website/content/en/docs/reference/using-api/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
 
 ### Accessing the API from a Pod
 
