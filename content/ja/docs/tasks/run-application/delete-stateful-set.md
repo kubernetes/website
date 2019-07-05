@@ -42,7 +42,7 @@ kubectlを使ってStatefulSetを削除すると0にスケールダウンされ�
 kubectl delete -f <file.yaml> --cascade=false
 ```
 
-`--cascade=false`を`kubectl delete`に渡すことで、StatefulSetオブジェクト自身が削除された後でも、StatefulSetによって管理されるPodは残ります。Podに`app=myapp`というラベルが付いている場合は、次のようにして削除できます:
+`--cascade=false`を`kubectl delete`に渡すことで、StatefulSetオブジェクト自身が削除された後でも、StatefulSetによって管理されていたPodは残ります。Podに`app=myapp`というラベルが付いている場合は、次のようにして削除できます:
 
 ```shell
 kubectl delete pods -l app=myapp
