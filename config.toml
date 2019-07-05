@@ -261,3 +261,14 @@ contentDir = "content/hi"
 [languages.hi.params]
 time_format_blog = "01.02.2006"
 language_alternatives = ["en"]
+
+[languages.ru]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "Русский"
+weight = 12
+contentDir = "content/ru"
+
+[languages.ru.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
