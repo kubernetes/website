@@ -20,7 +20,7 @@ weight: 60
 
 ## StatefulSetの削除
 
-Kubernetesで他のリソースを削除するのと同じ方法でStatefulSetを削除することができます:`kubectl delete`コマンドを使い、StatefulSetをファイルまたは名前で指定します。
+Kubernetesで他のリソースを削除するのと同じ方法でStatefulSetを削除することができます。つまり、`kubectl delete`コマンドを使い、StatefulSetをファイルまたは名前で指定します。
 
 ```shell
 kubectl delete -f <file.yaml>
