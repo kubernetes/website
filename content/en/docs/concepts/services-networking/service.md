@@ -969,7 +969,7 @@ worth understanding.
 One of the primary philosophies of Kubernetes is that you should not be
 exposed to situations that could cause your actions to fail through no fault
 of your own. For the design of the Service resource, this means not making
-you choose your own port number for a if that choice might collide with
+you choose your own port number for a Service if that choice might collide with
 someone else's choice.  That is an isolation failure.
 
 In order to allow you to choose a port number for your Services, we must
