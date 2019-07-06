@@ -24,7 +24,7 @@ content_template: templates/task
 ## 終了メッセージの書き込みと読み取り
 
 この課題では、1つのコンテナを実行するPodを作成します。
-設定ファイルは、コンテナーの開始時に実行されるコマンドを指定します。
+設定ファイルには、コンテナの開始時に実行されるコマンドを指定します。
 
 {{< codenew file="debug/termination.yaml" >}}
 
@@ -32,7 +32,7 @@ content_template: templates/task
 
         kubectl apply -f https://k8s.io/examples/debug/termination.yaml
 
-    YAMLファイルの`cmd`フィールドと`args`フィールドで、コンテナーが10秒間スリープしてから`/dev/termination-log`ファイルに「Sleep expired」と書いているのがわかります。コンテナが「Sleep expired」メッセージを書き込んだ後、コンテナは終了します。
+    YAMLファイルの`cmd`フィールドと`args`フィールドで、コンテナが10秒間スリープしてから`/dev/termination-log`ファイルに「Sleep expired」と書いているのがわかります。コンテナが「Sleep expired」メッセージを書き込んだ後、コンテナは終了します。
 
 1. Podに関する情報を表示します:
 
