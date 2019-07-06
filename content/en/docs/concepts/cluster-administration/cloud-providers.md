@@ -336,10 +336,10 @@ should appear in the `[Metadata]` section of the `cloud.conf` file:
   both configuration drive and metadata service though and only one or the other
   may be available which is why the default is to check both.
 
-##### Router
+##### Route
 
 These configuration options for the OpenStack provider pertain to the [kubenet]
-Kubernetes network plugin and should appear in the `[Router]` section of the
+Kubernetes network plugin and should appear in the `[Route]` section of the
 `cloud.conf` file:
 
 * `router-id` (Optional): If the underlying cloud's Neutron deployment supports
