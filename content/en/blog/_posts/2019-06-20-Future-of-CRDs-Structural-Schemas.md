@@ -209,7 +209,7 @@ Because we want CRDs to make use of these types as well, we introduce the follow
 
 * `x-kubernetes-preserve-unknown-fields: true` — specifies that the pruning algorithm should not prune any field. This can be combined with `x-kubernetes-embedded-resource`. Note that within a nested `properties` or `additionalProperties` OpenAPI schema the pruning starts again.
   
-  One can use `x-kubernetes-preserve-unknown-fields: true` at the root of the schema (and inside any `properties`, `additionalProperties`) to get the traditional CRD behaviour that nothing is prune, despite being `spec.preserveUnknownProperties: false` is set.
+  One can use `x-kubernetes-preserve-unknown-fields: true` at the root of the schema (and inside any `properties`, `additionalProperties`) to get the traditional CRD behaviour that nothing is pruned, despite setting `spec.preserveUnknownProperties: false`.
 
 ## Conclusion
 
