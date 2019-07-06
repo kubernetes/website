@@ -29,7 +29,7 @@ and representing feature state.
 
 ## Language
 
-Kubernetes documentation uses US English.
+Kubernetes documentations are available in multiple languages. US English is considered to be the authoritative source.
 
 ## Documentation formatting standards
 
