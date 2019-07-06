@@ -17,7 +17,7 @@ card:
 
 이 튜토리얼에서는 [Minikube](/docs/getting-started-guides/minikube)와 Katacoda를 이용하여 
 쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
-Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
+Katacoda는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{< note >}}
 [로컬에서 Minikube](/ko/docs/tasks/tools/install-minikube/)를 설치했다면 이 튜토리얼도 따라할 수 있다.
