@@ -340,14 +340,14 @@ the Apiserver. The generators
 should be specified in a `kustomization.yaml` inside a directory.
 
 #### Generate ConfigMaps from files
-For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
+For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-4
   files:
-  - configure-pod-container/configmap/kubectl/game.properties
+  - configure-pod-container/configmap/game.properties
 EOF
 ```
 
@@ -391,7 +391,7 @@ new ConfigMap is generated each time the content is modified.
 
 #### Define the key to use when generating a ConfigMap from a file
 You can define a key other than the file name to use in the ConfigMap generator.
-For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
+For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
 with the key `game-special-key`
 
 ```shell
@@ -400,7 +400,7 @@ cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
   files:
-  - game-special-key=configure-pod-container/configmap/kubectl/game.properties
+  - game-special-key=configure-pod-container/configmap/game.properties
 EOF
 ```
 
@@ -412,7 +412,7 @@ configmap/game-config-5-m67dt67794 created
 
 #### Generate ConfigMaps from Literals
 To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
-you can specify the ConfigMap generator in `kusotmization.yaml` as
+you can specify the ConfigMap generator in `kustomization.yaml` as
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
 cat <<EOF >./kustomization.yaml
