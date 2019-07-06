@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
 content_template: templates/concept

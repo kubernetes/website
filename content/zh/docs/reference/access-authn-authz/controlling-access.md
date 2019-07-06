@@ -1,6 +1,5 @@
 ---
 approvers:
-- bgrant0607
 - erictune
 - lavalamp
 title: Kubernetes API访问控制
