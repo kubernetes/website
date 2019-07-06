@@ -1,7 +1,6 @@
 ---
 title: kubectl Cheat Sheet
 reviewers:
-- bgrant0607
 - erictune
 - krousey
 - clove
