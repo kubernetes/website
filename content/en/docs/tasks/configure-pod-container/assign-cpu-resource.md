@@ -7,7 +7,7 @@ weight: 20
 {{% capture overview %}}
 
 This page shows how to assign a CPU *request* and a CPU *limit* to
-a dontainer. Containers cannot use more CPU than the configured limit.
+a container. Containers cannot use more CPU than the configured limit.
 Provided the system has CPU time free, a container is guaranteed to be
 allocated as much CPU as it requests.
 
