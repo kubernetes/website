@@ -292,15 +292,15 @@ An example request body:
         "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":[
+    "annotations":{
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
-    ],
+    },
     "namespace":"mynamespace"
   }
 }
 ```
 
-The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
+The remote service is expected to fill the `ImageReviewStatus` field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
 
 ```json
 {
@@ -337,7 +337,7 @@ Examples of information you might put here are:
  * a ticket number from a ticket system that documents the break-glass request
  * provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 
-In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of ImageReviewSpec.
+In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of `ImageReviewSpec`.
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 

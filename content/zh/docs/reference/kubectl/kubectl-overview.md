@@ -1,6 +1,5 @@
 ---
 approvers:
-- bgrant0607
 - hw-qiaolei
 title: kubectl概述
 ---

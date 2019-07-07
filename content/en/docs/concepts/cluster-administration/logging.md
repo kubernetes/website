@@ -105,7 +105,7 @@ systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
 bypassing the default logging mechanism. They use the [klog][klog]
 logging library. You can find the conventions for logging severity for those
-components in the [development docs on logging](https://git.k8s.io/community/contributors/devel/logging.md).
+components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Similarly to the container logs, system component logs in the `/var/log`
 directory should be rotated. In Kubernetes clusters brought up by

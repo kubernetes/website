@@ -1,6 +1,5 @@
 ---
 approvers:
-- bgrant0607
 - janetkuo
 title: Deployments
 content_template: templates/concept
