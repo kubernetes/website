@@ -295,7 +295,7 @@ For more information about using Calico, see [Quickstart for Calico on Kubernete
 For Calico to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init` or update the `calico.yml` file to match your Pod network. Note that Calico works on `amd64`, `arm64`, and `ppc64le` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
 
 {{% /tab %}}
