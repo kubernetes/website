@@ -78,7 +78,7 @@ To remove the taint added by the command above, you can run:
 -->
 想删除上述命令添加的 taint ，您可以运行：
 ```shell
-kubectl taint nodes kube11 key:NoSchedule-
+kubectl taint nodes node1 key:NoSchedule-
 ```
 
 ```yaml
