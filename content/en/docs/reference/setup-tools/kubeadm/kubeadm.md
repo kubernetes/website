@@ -17,7 +17,7 @@ Instead, we expect higher-level and more tailored tooling to be built on top of 
 
 ## How to install
 
-To install kubeadm see the [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm)
+To install kubeadm, see the [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
 
 ## What's next
 
