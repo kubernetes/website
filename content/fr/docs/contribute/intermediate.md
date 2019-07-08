@@ -42,50 +42,48 @@ Pour être ajouté à cette liste, assistez à la réunion hebdomadaire du SIG D
 si vous n'êtes pas planifié pour la semaine en cours, vous pouvez toujours consulter les Pull Requests
 (PRs) qui ne sont pas encore en cours de vérification.
 
-In addition to the rotation, an automated system comments on each new PR and
-suggests reviewers and approvers for the PR, based on the list of approvers and
-reviewers in the affected files. The PR author is expected to follow the
-guidance of the bot, and this also helps PRs to get reviewed quickly.
+En plus de la rotation, un système automatisé commente chaque nouvelle PR et
+propose des examinateurs et des approbateurs pour la PR, en fonction de la liste des approbateurs et
+les examinateurs des dossiers touchés. L’auteur de la PR doit suivre
+les recommandations du robot, ce qui aide également les PRs à être examinées rapidement.
 
-We want to get pull requests (PRs) merged and published as quickly as possible.
-To ensure the docs are accurate and up to date, each PR needs to be reviewed by
-people who understand the content, as well as people with experience writing
-great documentation.
+Nous voulons que les demandes de PRs soient fusionnées et publiées le plus rapidement possible.
+Pour s’assurer que les documents sont exacts et à jour, chaque PR doit être examiné par
+les personnes qui comprennent le contenu, ainsi que les personnes ayant de l’expérience en rédaction
+de documentation.
 
-Reviewers and approvers need to provide actionable and constructive feedback to
-keep contributors engaged and help them to improve. Sometimes helping a new
-contributor get their PR ready to merge takes more time than just rewriting it
-yourself, but the project is better in the long term when we have a diversity of
-active participants.
+Les examinateurs et les approbateurs doivent fournir un retour constructif pour
+maintenir l’engagement des contributeurs et les aider à s’améliorer. Parfois, aider un nouveau
+contributeur à obtenir leur PR prêtes à fusionner prend plus de temps que simplement la réécrire
+vous-même
 
-Before you start reviewing PRs, make sure you are familiar with the
+Avant de commencer à examiner les PRs, assurez-vous de bien connaître le
 [Documentation Style Guide](/docs/contribute/style/style-guide/)
-and the [code of conduct](/community/code-of-conduct/)
+ [code de conduite](/community/code-of-conduct/)
 
-### Find a PR to review
+### Trouver une PR à examiner
 
-To see all open PRs, go to the **Pull Requests** tab in the Github repository.
-A PR is eligible for review when it meets all of the following criteria:
+Pour voir toutes les PRs ouvertes, allez à l’onglet **Pull Requests** du dépôt Github.
+Une PR est admissible à un examen lorsqu’elle répond à tous les critères suivants :
 
-- Has the `cnf-cla:yes` tag
-- Does not have WIP in the description
-- Does not a have tag including the phrase `do-not-merge`
-- Has no merge conflicts
-- Is based against the correct branch (usually `master` unless the PR relates to
-  a feature that has not yet been released)
-- Is not being actively reviewed by another docs person (other technical
-  reviewers are fine), unless that person has explicitly asked for your help. In
-  particular, leaving lots of new comments after other review cycles have
-  already been completed on a PR can be discouraging and counter-productive.
+- A l’étiquette « cnf-cla:yes »
+- N’a pas de WIP dans la description
+- N’a pas d’étiquette incluant l’expression « do-not-merge »
+- N’a pas de conflit de fusion
+- Est fondé sur la bonne branche (habituellement « master », à moins que la PR ne porte sur :
+une fonctionnalité qui n’a pas encore été diffusée)
+- N’est pas examiné activement par une autre personne (les autres examinateurs sont très bien), à moins que cette personne ait explicitement demandé votre aide. En
+particulier, en laissant beaucoup de nouveaux commentaires après que d’autres cycles d’examen ont
+déjà été terminé sur une PR peut être décourageant et contre-productif.
 
-If a PR is not eligible to merge, leave a comment to let the author know about
-the problem and offer to help them fix it. If they've been informed and have not
-fixed the problem in several weeks or months, eventually their PR will be closed
-without merging.
+Si une PR n’est pas admissible à la fusion, laissez un commentaire pour informer l’auteur du
+problème et offrir de l'aider à le régler. S’ils ont été informés et n’ont pas
+réglé le problème en plusieurs semaines ou mois, éventuellement leur PR sera fermé
+sans être fusionner.
 
-If you're new to reviewing, or you don't have a lot of bandwidth, look for PRs
-with the `size/XS` or `size/S` tag set. The size is automatically determined by
-the number of lines the PR changes.
+Si vous êtes nouveau examinateur, ou si vous n’avez pas beaucoup de bande passante, recherchez des PRs
+avec le jeu de balises size/XS ou size/S. La taille est automatiquement déterminée par
+le nombre de lignes que la PR change.
 
 #### Reviewers and approvers
 
