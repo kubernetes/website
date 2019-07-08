@@ -9,18 +9,18 @@ weight: 60
 
 {{% capture overview %}}
 
-La journalisation des évènements systèmes et d'applications peuvent aider à
+La journalisation des évènements systèmes et d'applications peut aider à
 comprendre ce qui se passe dans un cluster. Les journaux sont particulièrement
 utiles pour débogguer les problèmes et surveiller l'activité du cluster. La
 plupart des application modernes ont un mécanisme de journalisation
-d'évènements, et la plupart des environnements d'exécution de conteneur ont été
-désigné pour supporter la journalisation des évènements. La méthode de
+d'évènements, et la plupart des environnements d'exécution de conteneurs ont été
+conçus pour supporter la journalisation des évènements. La méthode de
 journalisation la plus facile et la plus répandue pour des applications
 conteneurisées est d'écrire dans les flux de sortie standard et d'erreur
 standard (`stdout` et `stderr`).
 
 Malgré cela, la fonctionnalité de journalisation fournie nativement par
-l'environnement d'exécution de conteneur n'est pas suffisante comme solution
+l'environnement d'exécution de conteneurs n'est pas suffisante comme solution
 complète de journalisation. Quand un conteneur crash, quand un Pod est expulsé
 ou quand un nœud disparaît, il est utile de pouvoir accéder au journal
 d'événement de l'application. C'est pourquoi les journaux doivent avoir leur
@@ -38,7 +38,7 @@ nombreuses solutions de journalisation d'évènements dans un cluster Kubernetes
 {{% capture body %}}
 
 L'architecture de journalisation des évènements au niveau du cluster est décrite
-en considérant qu'un backend de journalisation est présent a l'intérieur ou à
+en considérant qu'un backend de journalisation est présent à l'intérieur ou à
 l'extérieur du cluster. Même sans avoir l'intention de journaliser les
 évènements au niveau du cluster, il est intéressant de savoir comment les
 journaux sont conservés et gérés au niveau d'un nœud.
@@ -62,7 +62,7 @@ Le résultat est :
 pod/counter created
 ```
 
-Pour récupérer les événements du conteneur d'un pod, on utilisez la commande
+Pour récupérer les événements du conteneur d'un pod, utilisez la commande
 `kubectl logs` de la manière suivante :
 
 ```shell
@@ -117,7 +117,7 @@ Par exemple, dans les clusters Kubernetes déployés avec le script `kube-up.sh`
 s'exécuter toutes les heures. Il est aussi possible de configurer
 l'environnement d'exécution des conteneurs pour que la rotation des journaux
 s'exécute automatiquement, e.g. en utilisant le paramètre `log-opt` de Docker.
-Dans le script `kube-up.sh`, c'est cette méthode qui est utilisés pour des
+Dans le script `kube-up.sh`, c'est cette méthode qui est utilisée pour des
 images COS sur GCP et sinon c'est la première méthode dans tous les autres cas.
 Quelquesoit la méthode choisie par `kube-up.sh` la rotation est configurée par
 defaut quand la taille d'un journal atteint 10 Mo.
@@ -251,12 +251,12 @@ dans le même journal en redirigeant les évènements dans le flux de sortie
 conteneurs side-car, un pour chaque type de journaux. Chaque conteneur side-car
 suit un des fichiers et renvoie les évènements sur son propre `stdout`.
 
-Ci dessous se trouve le manifeste pour un Pod avec deux conteneurs side-car.
+Ci-dessous se trouve le manifeste pour un Pod avec deux conteneurs side-car.
 
 {{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml"
 >}}
 
-Quand ce Pod s'exécute, chaque journal peut être diffuser séparément en
+Quand ce Pod s'exécute, chaque journal peut être diffusé séparément en
 utilisant les commandes suivantes :
 
 ```shell
@@ -291,7 +291,7 @@ l'espace disque utilisé. Quand une application écrit dans un seul fichier de
 journal il est préférable de configurer `/dev/stdout` comme destination plutôt
 que d'implémenter un conteneur side-car diffusant.
 
-Les conteneurs side-car peuvent être utiliser pour faire la rotation des
+Les conteneurs side-car peuvent être utilisés pour faire la rotation des
 journaux quand l'application n'en est pas capable elle même. Un exemple serait
 un petit conteneur side-car qui effectuerait cette rotation périodiquement.
 Toutefois il est recommandé d'utiliser `stdout` et `stderr` directement et de
@@ -316,7 +316,7 @@ kubelet.
 
 Comme exemple, vous pouvez utiliser
 [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/) où
- fluentd est l'agent de journalisation. Ci-dessous se trouve deux
+ fluentd est l'agent de journalisation. Ci-dessous se trouvent deux
 configurations qui implémentent cette méthode.
 
 Le premier fichier contient un
@@ -340,7 +340,7 @@ configuration.
 Apres quelques minutes, les évènements apparaîtront dans l'interface de
 Stackdriver.
 
-Ce n'est qu'un exemple et vous pouvez remplacer fluentd para n'importe quel
+Ce n'est qu'un exemple et vous pouvez remplacer fluentd par n'importe quel
 agent de journalisation qui lit depuis n'importe quelle source de votre
 application.
 
