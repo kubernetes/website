@@ -39,7 +39,7 @@ kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 
 ### StatefulSetのインプレースアップデート
 
-コマンドライン上でレプリカ数を変更する代わりに、StatefulSetに[インプレースアップデート](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources)可能です。
+コマンドライン上でレプリカ数を変更する代わりに、StatefulSetに[インプレースアップデート](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources)が可能です。
 
 StatefulSetが最初に `kubectl apply`で作成されたのなら、StatefulSetマニフェストの`.spec.replicas`を更新してから、`kubectl apply`を実行します:
 
