@@ -10,13 +10,19 @@ weight: 70
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
-Kube-scheduler is the Kubernetes default scheduler. It is responsible for
-placement of Pods on Nodes in a cluster. Nodes in a cluster that meet the
-scheduling requirements of a Pod are called "feasible" Nodes for the Pod. The
-scheduler finds feasible Nodes for a Pod and then runs a set of functions to
-score the feasible Nodes and picks a Node with the highest score among the
-feasible ones to run the Pod. The scheduler then notifies the API server about
-this decision in a process called "Binding".
+[kube-scheduler](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
+is the Kubernetes default scheduler. It is responsible for placement of Pods
+on Nodes in a cluster.
+
+Nodes in a cluster that meet the scheduling requirements of a Pod are
+called _feasible_ Nodes for the Pod. The scheduler finds feasible Nodes
+for a Pod and then runs a set of functions to score the feasible Nodes,
+picking a Node with the highest score among the feasible ones to run
+the Pod. The scheduler then notifies the API server about this decision
+in a process called _Binding_.
+
+This page explains performance tuning optimizations that are relevant for
+large Kubernetes clusters.
 
 {{% /capture %}}
 
@@ -37,7 +43,7 @@ size of the cluster if it is not specified in the configuration. It uses a
 linear formula which yields 50% for a 100-node cluster. The formula yields 10%
 for a 5000-node cluster. The lower bound for the automatic value is 5%. In other
 words, the scheduler always scores at least 5% of the cluster no matter how
-large the cluster is, unless the user provides the config option with a value 
+large the cluster is, unless the user provides the config option with a value
 smaller than 5.
 
 Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
