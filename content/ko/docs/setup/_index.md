@@ -25,7 +25,7 @@ content_template: templates/concept
 * 쿠버네티스를 써 보거나 배우기 시작하려고 함
 * 내부적으로 클러스터를 개발하거나 테스트하려고 함
 
-[로컬 머신 솔루션](/docs/setup/pick-right-solution/#local-machine-solutions) 중 하나를 선택하길 바란다.
+[로컬 머신 솔루션](/ko/docs/setup/) 중 하나를 선택하길 바란다.
 
 ## 호스트 된(Hosted) 솔루션
 
@@ -38,7 +38,7 @@ content_template: templates/concept
 * 지정된 사이트 신뢰성 엔지니어링(SRE) 팀은 없지만 고가용성을 원함
 * 클러스터를 호스팅하고 모니터할 자원이 없음 
 
-[호스트 된 솔루션](/docs/setup/pick-right-solution/#hosted-solutions) 중 하나를 선택하길 바란다.
+[호스트 된 솔루션](/ko/docs/setup/) 중 하나를 선택하길 바란다.
 
 ## 턴키(Turnkey) – 클라우드 솔루션
 
@@ -49,7 +49,7 @@ content_template: templates/concept
 * 호스트 된 솔루션이 허용하는 것보다는 클러스터에 대한 더 높은 제어권을 원함
 * 운영에 대한 더 큰 소유권을 가지고 싶음 
 
-[턴키 클라우드 솔루션](/docs/setup/pick-right-solution/#turnkey-cloud-solutions) 중 하나를 선택하길 바란다.
+[턴키 클라우드 솔루션](/ko/docs/setup/) 중 하나를 선택하길 바란다.
 
 ## 턴키(Turnkey) – 온-프레미스(On-Premise) 솔루션
 
@@ -61,16 +61,16 @@ content_template: templates/concept
 * 지정된 사이트 신뢰성 엔지니어링(SRE) 팀을 보유함
 * 클러스터를 호스팅하고 모니터할 수 있는 자원을 보유함
 
-[온-프레미스 턴키 클라우드 솔루션](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions) 중 하나를 선택하길 바란다.
+[온-프레미스 턴키 클라우드 솔루션](/ko/docs/setup/) 중 하나를 선택하길 바란다.
 
 ## 사용자 지정(Custom) 솔루션
 
 사용자 지정 솔루션들은 클러스터에 대해서 가장 큰 자유를 제공하지만, 그 대신 높은 전문성을 필요로 한다. 이 솔루션들은 서로 다른 운영체제들에 대해서 베어메탈부터 클라우드 프로바이더들까지의 지원을 포함한다. 
 
-[사용자 지정 솔루션](/docs/setup/pick-right-solution/#custom-solutions) 중 하나를 선택하길 바란다.
+[사용자 지정 솔루션](/ko/docs/setup/) 중 하나를 선택하길 바란다.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-완전한 솔루션 리스트를 확인하기 위해서는 [올바른 솔루션 선택하기](/docs/setup/pick-right-solution/)로 가길 바란다.
+완전한 솔루션 리스트를 확인하기 위해서는 [올바른 솔루션 선택하기](/ko/docs/setup/)로 가길 바란다.
 {{% /capture %}}
