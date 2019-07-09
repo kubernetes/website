@@ -159,7 +159,7 @@ kubectl get services --sort-by=.metadata.name # List Services Sorted by Name
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Get the version label of all pods with label app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Get all worker nodes (use a selector to exclude results that have a label
