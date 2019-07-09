@@ -119,7 +119,7 @@ l'environnement d'exécution des conteneurs pour que la rotation des journaux
 s'exécute automatiquement, e.g. en utilisant le paramètre `log-opt` de Docker.
 Dans le script `kube-up.sh`, c'est cette méthode qui est utilisée pour des
 images COS sur GCP et sinon c'est la première méthode dans tous les autres cas.
-Quelquesoit la méthode choisie par `kube-up.sh` la rotation est configurée par
+Quel que soit la méthode choisie par `kube-up.sh` la rotation est configurée par
 defaut quand la taille d'un journal atteint 10 Mo.
 
 Ce [script][cosConfigureHelper] montre de manière détaillée comment `kube-up.sh`
@@ -141,7 +141,7 @@ retournera une réponse vide. {{< /note >}}
 
 ### Journalisation des évènements des composants système
 
-Il y a deux type de composants système selon si ils s'exécutent dans un
+Il y a deux types de composants système selon qu'ils s'exécutent dans un
 conteneur ou pas.
 
 Par exemple :
@@ -175,7 +175,7 @@ Kubernetes ne fournit pas de solution native pour la journalisation des
 évènements au niveau du cluster. Mais il y a différentes approches qui peuvent
 être considérées :
 
-* Utiliser un agent de journalisation au niveau du nœud sur chaque des nœuds.
+* Utiliser un agent de journalisation au niveau du nœud sur chacun des nœuds.
 * Inclure un conteneur side-car pour journaliser les évènements du Pod
 applicatif.
 * Envoyer les évènements directement a un backend depuis l'application.
@@ -202,7 +202,7 @@ Mais cette approche _ne fonctionne correctement que pour les flux standard de
 sortie et d'erreurs des applications_.
 
 Kubernetes ne définit pas d'agent de journalisation, mais deux agents de
-journalisation optionnels sont fournit avec la version de Kubernetes :
+journalisation optionnels sont fournis avec la version de Kubernetes :
 [Stackdriver (EN)](/docs/user-guide/logging/stackdriver) pour utiliser sur
 Google Cloud Platform, et [Elasticsearch
 (EN)](/docs/user-guide/logging/elasticsearch). Les deux utilisent
@@ -235,7 +235,7 @@ parties de votre application même si elles ne supportent pas d'écrire sur
 `stdout` ou `stderr`. La logique de rediriger les journaux est minime et
 le surcoût est non significatif. De plus comme les flux standards `stdout` et
 `stderr` sont gérés par kubelet, les outils natifs comme `kubectl logs` peuvent
-être utiliser.
+être utilisés.
 
 Regardez l'exemple qui suit.
 
