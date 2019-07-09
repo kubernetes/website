@@ -100,7 +100,7 @@ Untuk informasi lebih lanjut mengenai pengembangan _plugin_, lihat [Mengembangka
 
 ## Otorisasi
 
-Bagian ini merinci akses yang dibutuhkan oleh CCM terhadap berbagai objek API untuk melakukan tugas-tugasnya.
+Bagian ini memerinci akses yang dibutuhkan oleh CCM terhadap berbagai objek API untuk melakukan tugas-tugasnya.
 
 ### Akses untuk Node Controller
 
