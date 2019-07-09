@@ -29,7 +29,7 @@ can request a certificate signing using the `certificates.k8s.io` API using a
 protocol that is similar to the
 [ACME draft](https://github.com/ietf-wg-acme/acme/).
 -->
-每个 Kubernetes 集群都有一个集群根证书颁发机构（CA）。集群中的组件通常使用 CA 来验证 API server 的证书，由API服务器验证 kubelet 客户端证书等。为了支持这一点，CA 证书包被分发到集群中的每个节点，并作为一个 secret 附加分发到默认 service account 上。 或者，您的工作负载可以使用此 CA 建立信任。您的应用程序可以使用类似于 [ACME 草案](https://github.com/ietf-wg-acme/acme/)的协议，使用 `certificates.k8s.io` API 请求证书签名。
+每个 Kubernetes 集群都有一个集群根证书颁发机构（CA）。集群中的组件通常使用 CA 来验证 API server 的证书，由 API 服务器验证 kubelet 客户端证书等。为了支持这一点，CA 证书包被分发到集群中的每个节点，并作为一个 secret 附加分发到默认 service account 上。 或者，您的工作负载可以使用此 CA 建立信任。您的应用程序可以使用类似于 [ACME 草案](https://github.com/ietf-wg-acme/acme/)的协议，使用 `certificates.k8s.io` API 请求证书签名。
 
 {{% /capture %}}
 
@@ -78,7 +78,7 @@ This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://
 以下部分演示如何为通过 DNS 访问的 Kubernetes 服务创建 TLS 证书。
 
 {{< note >}}
-本教程使用 CFSSL：Cloudflare's PKI 和 TLS 工具包[点击此处](https://blog.cloudflare.com/introducing-cfssl/) 了解更多信息。
+本教程使用 CFSSL：Cloudflare's PKI 和 TLS 工具包[点击此处](https://blog.cloudflare.com/introducing-cfssl/)了解更多信息。
 {{< /note >}}
 
 <!--
@@ -89,7 +89,7 @@ The cfssl tools used in this example can be downloaded at
 -->
 ## 下载并安装 CFSSL
 
-本例中使用的 cfssl 工具可以在[https://pkg.cfssl.org/](https://pkg.cfssl.org/) 下载。
+本例中使用的 cfssl 工具可以在 [https://pkg.cfssl.org/](https://pkg.cfssl.org/) 下载。
 
 <!--
 ## Create a Certificate Signing Request
@@ -220,7 +220,7 @@ Subject Alternative Names:
 Events: <none>
 ```
 -->
-## 创建证书签名请求对象以发送到 Kubernetes API
+## 创建证书签名请求对象发送到 Kubernetes API
 
 使用以下命令创建 CSR yaml 文件，并发送到 API server：
 
@@ -241,7 +241,7 @@ spec:
 EOF
 ```
 
-请注意，在步骤1中创建的 `server.csr` 文件是 base64 编码并存储在 `.spec.request` 字段中的，我们还要求提供 “数字签名”，“密钥加密” 和 “服务器身份验证” 密钥用途的证书。我们 [这里](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)支持列出的所有关键用途和扩展的关键用途，以便您可以使用相同的 API 请求客户端证书和其他证书。
+请注意，在步骤1中创建的 `server.csr` 文件是 base64 编码并存储在 `.spec.request` 字段中的，我们还要求提供 “数字签名”，“密钥加密” 和 “服务器身份验证” 密钥用途的证书。我们[这里](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)支持列出的所有关键用途和扩展的关键用途，以便您可以使用相同的 API 请求客户端证书和其他证书。
 
 在 API server 中可以看到这些 CSR 处于 pending 状态。执行下面的命令您将可以看到：
 
