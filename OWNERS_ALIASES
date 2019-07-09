@@ -38,6 +38,7 @@ aliases:
     - mistyhacks
     - rajakavitha1
     - ryanmcginnis
+    - shavidissa
     - steveperry-53
     - stewart-yu
     - tengqm
@@ -167,6 +168,8 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
     - jcjesus
+    - devlware
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
+    - devlware

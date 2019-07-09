@@ -29,7 +29,7 @@ KRIB features:
 
 ## Creating a cluster
 
-Review [Digital Rebar documentation](https://https://provision.readthedocs.io/en/tip/README.html) for details about installing the platform.
+Review [Digital Rebar documentation](https://provision.readthedocs.io/en/tip/README.html) for details about installing the platform.
 
 The Digital Rebar Provision Golang binary should be installed on a Linux-like system with 16 GB of RAM or larger (Packet.net Tiny and Rasberry Pi are also acceptable).
 

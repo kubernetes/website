@@ -29,7 +29,14 @@ and representing feature state.
 
 ## Language
 
-Kubernetes documentation uses US English.
+Kubernetes documentation has been translated into multiple languages
+(see [Localization READMEs](https://github.com/kubernetes/website/blob/master/README.md#localization-readmemds)).
+
+The way of localizing the docs for a different language is described in [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/).
+
+The English-language documentation uses U.S. English spelling and grammar.
+
+{{< comment >}}[If you're localizing this page, you can omit the point about US English.]{{< /comment >}}
 
 ## Documentation formatting standards
 
