@@ -189,7 +189,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     ```
 
     {{< note >}}
-    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using "docker pull mcr.microsoft.com/k8s/core/pause:1.0.0". The DOCKERFILE is available at https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile.
+    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using "docker pull mcr.microsoft.com/k8s/core/pause:1.2.0". The DOCKERFILE is available at https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat.
     {{< /note >}}
 
 1. Prepare a Windows directory for Kubernetes
