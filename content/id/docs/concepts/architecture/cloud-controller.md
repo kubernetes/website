@@ -5,7 +5,7 @@ weight: 30
 ---
 
 {{% capture overview %}}
-Konsep _Cloud Controller Manager_/CCM (jangan tertukar dengan program biner kube-controller manager) awalnya dibuat untuk memungkinkan kode vendor _cloud_ spesifik dan kode inti Kubernetes untuk berkembang secara independen satu sama lainnya. CCM berjalan bersama dengan komponen  Master lainnya seperti Kubernetes Controller Manager, API Server, dan Scheduler. CCM juga dapat dijalankan sebagai Kubernetes Addon (tambahan fungsi terhadap Kubernetes), yang akan berjalan di atas kluster Kubernetes.
+Konsep _Cloud Controller Manager_/CCM (jangan tertukar dengan program biner kube-controller-manager) awalnya dibuat untuk memungkinkan kode vendor _cloud_ spesifik dan kode inti Kubernetes untuk berkembang secara independen satu sama lainnya. CCM berjalan bersama dengan komponen  Master lainnya seperti Kubernetes Controller Manager, API Server, dan Scheduler. CCM juga dapat dijalankan sebagai Kubernetes Addon (tambahan fungsi terhadap Kubernetes), yang akan berjalan di atas kluster Kubernetes.
 
 Desain CCM didasarkan pada mekanisme _plugin_ yang memungkinkan penyedia layanan _cloud_ untuk berintegrasi dengan Kubernetes dengan mudah dengan menggunakan _plugin_. Sudah ada rencana untuk pengenalan penyedia layanan _cloud_ baru pada Kubernetes, dan memindahkan penyedia layanan _cloud_ yang sudah ada dari model yang lama ke model CCM.
 
@@ -53,7 +53,7 @@ Volume Controller secara sengaja tidak dipilih sebagai bagian dari CCM. Hal ini 
 
 Rencana awal untuk mendukung volume menggunakan CCM adalah dengan menggunakan Flexvolume untuk mendukung penambahan volume secara _pluggable_. Namun, ada sebuah usaha lain yang diberi nama Container Storage Interface (CSI) yang sedang berlangsung untuk menggantikan Flexvolume.
 
-Mempertimbangkan dinamika tersebut, kami memutuskan untuk mengambil tidakan sementara hingga CSI siap digunakan.
+Mempertimbangkan dinamika tersebut, kami memutuskan untuk mengambil tindakan sementara hingga CSI siap digunakan.
 
 ## Fungsi-fungsi CCM
 
@@ -142,8 +142,7 @@ v1/Service:
 
 ### Akses Lainnya
 
-Implementasi dari inti CCM membutuhkan akses untuk membuat Event, dan untuk memastikan operasi yang aman, dibutuhkan akses untuk membuat ServicAccount.
-The implementation of the core of CCM requires access to create events, and to ensure secure operation, it requires access to create ServiceAccounts.
+Implementasi dari inti CCM membutuhkan akses untuk membuat Event, dan untuk memastikan operasi yang aman, dibutuhkan akses untuk membuat ServiceAccount.
 
 v1/Event:
 
