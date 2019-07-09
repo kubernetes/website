@@ -49,9 +49,9 @@ weight: 50
 수정한다. `Volume` 변경에 대해서는, 쿠버네티스는 해당 파드의 스펙을 수정한다.
 
 {{< note >}}
-파드 프리셋은 적절한 경우 파드 스펙의 `.spec.containers` 필드를
-수정할 수도 있다. 파드 프리셋으로부터의 리소스 정의 *없음* 은 `initContainers`
-필드에 적용될 것이다.
+파드 프리셋은 적절한 경우 파드 스펙의 다음 필드를 수정할 수도 있다.
+- `.spec.containers` 필드
+- `initContainers` 필드(쿠버네티스 버전 1.14.0 이후에서 필요)
 {{< /note >}}
 
 ### 특정 파드의 파드 프리셋 비활성화하기
@@ -65,10 +65,12 @@ weight: 50
 클러스터에서 파드 프리셋을 사용하기 위해서는 다음 사항이 반드시 이행되어야 한다.
 
 1.  API 타입 `settings.k8s.io/v1alpha1/podpreset`을 활성화하였다.
-    예를 들면, 이것은 API 서버의 `--runtime-config` 옵션에  `settings.k8s.io/v1alpha1=true`을 포함하여 완료할 수 있다.
-    minikube에서는 클러스터가 시작할 때 `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`
+    예를 들면, 이것은 API 서버의 `--runtime-config` 옵션에 `settings.k8s.io/v1alpha1=true`을 포함하여 완료할 수 있다.
+    minikube에서는 클러스터가 시작할 때
+    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`
     플래그를 추가한다.
-1.  어드미션 컨트롤러 `PodPreset`을 활성화하였다. 이것을 이루는 방법 중 하나는
+1.  어드미션 컨트롤러 `PodPreset`을 활성화하였다.
+    이것을 이루는 방법 중 하나는
     API 서버를 위해서 명시된 `--enable-admission-plugins` 옵션에 `PodPreset`을 포함하는 것이다.
     minikube에서는 클러스터가 시작할 때 `--extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset`
     플래그를 추가한다.
