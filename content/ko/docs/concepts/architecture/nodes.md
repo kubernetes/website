@@ -17,14 +17,14 @@ weight: 10
 
 노드의 상태는 다음의 정보를 포함한다.
 
-* [주소](#주소)
-* [컨디션](#컨디션)
-* [용량](#용량)
-* [정보](#정보)
+* [주소](#addresses)
+* [컨디션](#condition)
+* [용량과 할당가능](#capacity)
+* [정보](#info)
 
 각 섹션은 아래 상세하게 기술되었다.
 
-### 주소
+### 주소 {#addresses}
 
 이 필드의 용법은 클라우드 제공사업자 또는 베어메탈 구성에 따라 다양하다.
 
@@ -33,9 +33,9 @@ weight: 10
 * InternalIP: 일반적으로 노드의 IP 주소는 클러스터 내에서만 라우트 가능하다.
 
 
-### 컨디션
+### 컨디션 {#condition}
 
-`conditions` 필드는 모든 `Running` 노드의 상태를 기술한다.
+`conditions` 필드는 모든 `Running` 노드의 상태를 기술한다. 컨디션의 예로 다음을 포함한다.
 
 | Node Condition | Description |
 |----------------|-------------|
@@ -52,7 +52,11 @@ weight: 10
 "conditions": [
   {
     "type": "Ready",
-    "status": "True"
+    "status": "True",
+    "reason": "KubeletReady",
+    "message": "kubelet is posting ready status",
+    "lastHeartbeatTime": "2019-06-05T18:38:35Z",
+    "lastTransitionTime": "2019-06-05T11:41:27Z"
   }
 ]
 ```
@@ -70,11 +74,19 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 이 기능을 활성화 하면 조건이 관찰되고 taint가 생성되는 시간 사이에 다소 지연이 발생한다. 이 지연은 보통 1초 미만이지만, 성공적으로 스케줄은 되나 kubelet에 의해 거부되는 파드의 수가 증가할 수 있다.
 {{< /caution >}}
 
-### 용량
+### 용량과 할당가능 {#capacity}
 
 노드 상에 사용 가능한 리소스를 나타낸다. 리소스에는 CPU, 메모리 그리고 노드 상으로 스케줄 되어질 수 있는 최대 파드 수가 있다.
 
-### 정보
+용량 블록의 필드는 노드에 있는 리소스의 총량을 나타낸다.
+할당가능 블록은 일반 파드에서 사용할 수 있는
+노드의 리소스 양을 나타낸다.
+
+노드에서
+[컴퓨팅 리소스 예약](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)하는 방법을
+배우는 동안 용량 및 할당가능 리소스에 대해 자세히 읽어보자.
+
+### 정보 {#info}
 
 커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), (사용하는 경우) Docker 버전, OS 이름과 같은 노드에 대한 일반적인 정보이다. 정보는 Kubelet에 의해 노드로부터 수집된다.
 

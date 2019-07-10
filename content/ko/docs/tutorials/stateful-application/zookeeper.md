@@ -823,9 +823,9 @@ for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo "";
 `zk` `스테이트풀셋`에 모든 파드는 다른 노드에 배포된다.
 
 ```shell
-kubernetes-minion-group-cxpk
-kubernetes-minion-group-a5aq
-kubernetes-minion-group-2g2d
+kubernetes-node-cxpk
+kubernetes-node-a5aq
+kubernetes-node-2g2d
 ```
 
 이는 `zk` `스테이트풀셋`의 파드에 `파드안티어피니티(PodAntiAffinity)`를 지정했기 때문이다.
@@ -897,9 +897,9 @@ kubectl get pods -w -l app=zk
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 
-kubernetes-minion-group-pb41
-kubernetes-minion-group-ixsl
-kubernetes-minion-group-i4c4
+kubernetes-node-pb41
+kubernetes-node-ixsl
+kubernetes-node-i4c4
 ```
 
 `zk-0`파드가 스케쥴되는 노드를 통제하기 위해
@@ -907,11 +907,11 @@ kubernetes-minion-group-i4c4
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
-node "kubernetes-minion-group-pb41" cordoned
+node "kubernetes-node-group-pb41" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-pb41, kube-proxy-kubernetes-minion-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-group-pb41, kube-proxy-kubernetes-node-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
 pod "zk-0" deleted
-node "kubernetes-minion-group-pb41" drained
+node "kubernetes-node-group-pb41" drained
 ```
 
 클러스터에 4개 노드가 있기 때문에 `kubectl drain`이 성공하여
@@ -938,11 +938,11 @@ zk-0      1/1       Running   0         1m
 `zk-1` 이 스케쥴된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-minion-group-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-ixsl, kube-proxy-kubernetes-minion-group-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
-node "kubernetes-minion-group-ixsl" drained
+node "kubernetes-node-ixsl" drained
 ```
 
 `zk-1` 파드는 스케쥴되지 않는데 이는 `zk` `스테이트풀셋`이 오직 2개 노드가 스케쥴되도록 파드를 위치시키는 것을 금하는 `파드안티어피니티` 규칙을 포함하였기 때문이고 그 파드는 Pending 상태로 남을 것이다.
@@ -977,10 +977,10 @@ zk-1      0/1       Pending   0         0s
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
-node "kubernetes-minion-group-i4c4" cordoned
+node "kubernetes-node-i4c4" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
-WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
+WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4
 There are pending pods when an error occurred: Cannot evict pod as it would violate the pod's disruption budget.
 pod/zk-2
 ```
@@ -1017,9 +1017,9 @@ numChildren = 0
 [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon) 이용하여 첫 노드의 통제를 풀자.
 
 ```shell
-kubectl uncordon kubernetes-minion-group-pb41
+kubectl uncordon kubernetes-node-pb41
 
-node "kubernetes-minion-group-pb41" uncordoned
+node "kubernetes-node-pb41" uncordoned
 ```
 
 `zk-1`은 이 노드에서 재스케쥴된다. `zk-1`이 Running과 Ready가 될 때까지 기다리자.
@@ -1062,11 +1062,11 @@ kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-dae
 출력은
 
 ```
-node "kubernetes-minion-group-i4c4" already cordoned
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
+node "kubernetes-node-i4c4" already cordoned
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
 pod "heapster-v1.2.0-2604621511-wht1r" deleted
 pod "zk-2" deleted
-node "kubernetes-minion-group-i4c4" drained
+node "kubernetes-node-i4c4" drained
 ```
 
 이번엔 `kubectl drain` 이 성공한다.
@@ -1074,11 +1074,11 @@ node "kubernetes-minion-group-i4c4" drained
 `zk-2`가 재스케줄되도록 두번째 노드의 통제를 풀어보자.
 
 ```shell
-kubectl uncordon kubernetes-minion-group-ixsl
+kubectl uncordon kubernetes-node-ixsl
 ```
 
 ```
-node "kubernetes-minion-group-ixsl" uncordoned
+node "kubernetes-node-ixsl" uncordoned
 ```
 
 `kubectl drain`을 `PodDisruptionBudget`과 결합하면 유지보수중에도 서비스를 가용하게 할 수 있다. drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인하기 전에 파드를 추출하기 위해 사용한다면 서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다. 파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.

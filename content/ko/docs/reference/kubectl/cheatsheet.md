@@ -6,11 +6,6 @@ card:
   weight: 30
 ---
 
-
-
-
-
-
 {{% capture overview %}}
 
 참고 항목: [Kubectl 개요](/docs/reference/kubectl/overview/)와 [JsonPath 가이드](/docs/reference/kubectl/jsonpath).
@@ -182,6 +177,9 @@ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name
 # 마찬가지로 "jq"를 사용
 for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
 
+# 혹은 이 명령어를 파드와 연관된 모든 레이블을 조회하는데 사용할 수 있다.
+kubectl get pods --show-labels
+
 # 어떤 노드가 준비됐는지 확인
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
@@ -229,7 +227,7 @@ kubectl autoscale deployment foo --min=2 --max=10                # 디플로이�
 ```bash
 kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # 노드를 부분적으로 업데이트
 
-# 컨테이너의 이미지를 업데이트. 병합(merge) 키이므로, spec.containers[*].name이 필요.  
+# 컨테이너의 이미지를 업데이트. 병합(merge) 키이므로, spec.containers[*].name이 필요.
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
 
 # 위치 배열을 이용한 json 패치를 사용하여, 컨테이너의 이미지를 업데이트.
