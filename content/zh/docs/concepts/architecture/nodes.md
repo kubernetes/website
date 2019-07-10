@@ -61,8 +61,8 @@ redirect_from:
 | ---------------- | ---------------------------------------- |
 | `OutOfDisk`      | `True` 表示 node 的空闲空间不足以用于添加新 pods, 否则为 `False` |
 | `Ready`          | `True` 表示 node 是健康的并已经准备好接受 pods；`False` 表示 node 不健康而且不能接受 pods；`Unknown` 表示 node 控制器在最近 40 秒内没有收到 node 的消息 |
-| `MemoryPressure` | `True` 表示 node 不存在内存压力 -- 即 node 内存用量低, 否则为 `False`       |
-| `DiskPressure`   | `True` 表示 node 不存在磁盘压力 -- 即磁盘用量低, 否则为 `False`       |
+| `MemoryPressure` | `True` 表示 node 存在内存压力 -- 即 node 内存用量低, 否则为 `False`       |
+| `DiskPressure`   | `True` 表示 node 存在磁盘压力 -- 即磁盘用量低, 否则为 `False`       |
 
 
 Node 条件使用一个 JSON 对象表示。例如，下面的响应描述了一个健康的 node。
