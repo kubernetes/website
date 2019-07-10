@@ -107,11 +107,15 @@ To deploy the NVIDIA device plugin once your cluster is running and the above
 requirements are satisfied:
 
 ```
-# For Kubernetes v1.8
+# For Kubernetes v1.8	
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.8/nvidia-device-plugin.yml
 
 # For Kubernetes v1.9
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.9/nvidia-device-plugin.yml
+
+# For kubernetes >= v1.10
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta/nvidia-device-plugin.yml
+
 ```
 
 Report issues with this device plugin to [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
