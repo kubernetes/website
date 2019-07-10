@@ -1,6 +1,4 @@
 ---
-reviewers:
-- erictune
 title: Initコンテナ(Init Containers)
 content_template: templates/concept
 weight: 40
@@ -91,7 +89,7 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-古いアノテーション構文がKubernetes1.6と1.7において有効ですが、1.6では新しい構文にも対応しています。新しい構文は、Kubernetes1.8以降では必須です。KubernetesではInitコンテナの宣言を`spec`に移行させました。
+古いアノテーション構文がKubernetes1.6と1.7において有効ですが、1.6では新しい構文にも対応しています。Kubernetes1.8以降では新しい構文はを使用する必要があります。KubernetesではInitコンテナの宣言を`spec`に移行させました。
 
 ```yaml
 apiVersion: v1
@@ -199,7 +197,7 @@ kubectl logs myapp-pod -c init-myservice # 1つ目のInitコンテナを調査�
 kubectl logs myapp-pod -c init-mydb      # 2つ目のInitコンテナを調査する
 ```
 
-一度`mydq`と`myservice`Serviceを起動させると、Initコンテナが完了して`myapp-pod`が作成されるのを確認できます。
+一度`mydq`と`myservice` Serviceを起動させると、Initコンテナが完了して`myapp-pod`が作成されるのを確認できます。
 
 ```shell
 kubectl apply -f services.yaml
@@ -215,7 +213,7 @@ NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
 
-この例は非常にシンプルですが、ユーザー独自のInitコンテナを作成するためにはいくつかのインスピレーションを提供しなくてはなりません。
+この例は非常にシンプルですが、ユーザー独自のInitコンテナを作成するためのインスピレーションを提供するでしょう。
 
 ## Initコンテナのふるまいに関する詳細
 
@@ -234,7 +232,7 @@ Initコンテナはアプリケーションコンテナの全てのフィール�
 
 Initコンテナがずっと失敗し続けたままの状態を防ぐために、Podに`activeDeadlineSeconds`、コンテナに`livenessProbe`の設定をそれぞれ使用してください。`activeDeadlineSeconds`の設定はInitコンテナにも適用されます。
 
-あるPod内の各アプリケーションコンテナとInitコンテナの名前はユニークである必要があります。他のコンテナと同じ名前を共有していた場合、バリデーションエラーがスローされます。
+あるPod内の各アプリケーションコンテナとInitコンテナの名前はユニークである必要があります。他のコンテナと同じ名前を共有していた場合、バリデーションエラーが返されます。
 
 ### リソース
 
@@ -262,7 +260,7 @@ Podレベルのcgroupsは、スケジューラーと同様に、有効なPodリ�
 ## サポートと互換性
 
 ApiServerのバージョン1.6.0かそれ以上のバージョンのクラスターは、`.spec.initContainers`フィールドを使ったInitコンテナの機能をサポートしています。  
-それ以前のバージョンでは、α版かβ版のアノテーションを使ってInitコンテナを使用できます。また、`.spec.initContainers`フィールドは、Kubernetes1.3.0かそれ以上のバージョンでInitコンテナを使用できるようにするのと、ApiServerバージョン1.6において、1.5.xなどの古いバージョンにロールバックできるようにするために、α版かβ版のアノテーションにミラーされ、存在するPodのInitコンテナの機能が失われることが無いように安全にロールバックできるようにします。
+それ以前のバージョンでは、α版かβ版のアノテーションを使ってInitコンテナを使用できます。また、`.spec.initContainers`フィールドは、Kubernetes1.3.0かそれ以上のバージョンでInitコンテナを使用できるようにするためと、ApiServerバージョン1.6において、1.5.xなどの古いバージョンにロールバックできるようにするために、α版かβ版のアノテーションにミラーされ、存在するPodのInitコンテナの機能が失われることが無いように安全にロールバックできるようにします。
 
 ApiServerとKubeletバージョン1.8.0かそれ以上のバージョンでは、α版とβ版のアノテーションは削除されており、廃止されたアノテーションは`.spec.initContainers`フィールドへの移行が必須となります。
 
