@@ -1,26 +1,18 @@
 ---
-reviewers:
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
-title: Run a Replicated Stateful Application
+title: レプリカを持つステートフルアプリケーションを実行する
 content_template: templates/tutorial
 weight: 30
 ---
 
 {{% capture overview %}}
 
-This page shows how to run a replicated stateful application using a
-[StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
-The example is a MySQL single-master topology with multiple slaves running
-asynchronous replication.
+このページでは、[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
+コントローラーを使用して、レプリカを持つステートフルアプリケーションを実行する方法を説明します。
+ここでの例は、非同期レプリケーションを行う複数のスレーブを持つ、単一マスターのMySQLです。
 
-Note that **this is not a production configuration**.
-In particular, MySQL settings remain on insecure defaults to keep the focus
-on general patterns for running stateful applications in Kubernetes.
+**この例は本番環境向けの構成ではない**ことに注意してください。
+具体的には、MySQLの設定が安全ではないデフォルトのままとなっています。
+これはKubernetesでステートフルアプリケーションを実行するための一般的なパターンに焦点を当てるためです。
 
 {{% /capture %}}
 
@@ -28,36 +20,35 @@ on general patterns for running stateful applications in Kubernetes.
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * {{< include "default-storage-class-prereqs.md" >}}
-* This tutorial assumes you are familiar with
-  [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-  and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
-  as well as other core concepts like [Pods](/docs/concepts/workloads/pods/pod/),
-  [Services](/docs/concepts/services-networking/service/), and
-  [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
-* Some familiarity with MySQL helps, but this tutorial aims to present
-  general patterns that should be useful for other systems.
+* このチュートリアルは、あなたが[PersistentVolume](/docs/concepts/storage/persistent-volumes/)
+  と[StatefulSet](/docs/concepts/workloads/controllers/statefulset/)、
+  さらには[Pod](/docs/concepts/workloads/pods/pod/)、
+  [Service](/docs/concepts/services-networking/service/)、
+  [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)などの
+  他のコアな概念に精通していることを前提としています。
+* MySQLに関する知識は記事の理解に役立ちますが、
+  このチュートリアルは他のシステムにも役立つ一般的なパターンを提示することを目的としています。
 
 {{% /capture %}}
 
 {{% capture objectives %}}
 
-* Deploy a replicated MySQL topology with a StatefulSet controller.
-* Send MySQL client traffic.
-* Observe resistance to downtime.
-* Scale the StatefulSet up and down.
+* StatefulSetコントローラーを使用して、レプリカを持つMySQLトポロジーをデプロイします。
+* MySQLクライアントトラフィックを送信します。
+* ダウンタイムに対する耐性を観察します。
+* StatefulSetをスケールアップおよびスケールダウンします。
 
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
-## Deploy MySQL
+## MySQLをデプロイする
 
-The example MySQL deployment consists of a ConfigMap, two Services,
-and a StatefulSet.
+このMySQLのデプロイの例は、1つのConfigMap、2つのService、および1つのStatefulSetから構成されます。
 
 ### ConfigMap
 
-Create the ConfigMap from the following YAML configuration file:
+次のYAML設定ファイルからConfigMapを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
@@ -65,19 +56,18 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 
 {{< codenew file="application/mysql/mysql-configmap.yaml" >}}
 
-This ConfigMap provides `my.cnf` overrides that let you independently control
-configuration on the MySQL master and slaves.
-In this case, you want the master to be able to serve replication logs to slaves
-and you want slaves to reject any writes that don't come via replication.
+このConfigMapは、MySQLマスターとスレーブの設定を独立して制御するために、
+それぞれの`my.cnf`を上書きする内容を提供します。
+この場合、マスターはスレーブにレプリケーションログを提供するようにし、
+スレーブはレプリケーション以外の書き込みを拒否するようにします。
 
-There's nothing special about the ConfigMap itself that causes different
-portions to apply to different Pods.
-Each Pod decides which portion to look at as it's initializing,
-based on information provided by the StatefulSet controller.
+ConfigMap自体に特別なことはありませんが、ConfigMapの各部分は異なるPodに適用されます。
+各Podは、StatefulSetコントローラーから提供される情報に基づいて、
+初期化時にConfigMapのどの部分を見るかを決定します。
 
 ### Services
 
-Create the Services from the following YAML configuration file:
+以下のYAML設定ファイルからServiceを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
@@ -85,25 +75,22 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 
 {{< codenew file="application/mysql/mysql-services.yaml" >}}
 
-The Headless Service provides a home for the DNS entries that the StatefulSet
-controller creates for each Pod that's part of the set.
-Because the Headless Service is named `mysql`, the Pods are accessible by
-resolving `<pod-name>.mysql` from within any other Pod in the same Kubernetes
-cluster and namespace.
+ヘッドレスサービスは、StatefulSetコントローラーが
+StatefulSetの一部であるPodごとに作成するDNSエントリーのベースエントリーを提供します。
+この例ではヘッドレスサービスの名前は`mysql`なので、同じKubernetesクラスタの
+同じ名前空間内の他のPodは、`<pod-name>.mysql`を名前解決することでPodにアクセスできます。
 
-The Client Service, called `mysql-read`, is a normal Service with its own
-cluster IP that distributes connections across all MySQL Pods that report
-being Ready. The set of potential endpoints includes the MySQL master and all
-slaves.
+`mysql-read`と呼ばれるクライアントサービスは、独自のクラスタIPを持つ通常のServiceであり、
+Ready状態のすべてのMySQL Podに接続を分散します。
+Serviceのエンドポイントには、MySQLマスターとすべてのスレーブが含まれる可能性があります。
 
-Note that only read queries can use the load-balanced Client Service.
-Because there is only one MySQL master, clients should connect directly to the
-MySQL master Pod (through its DNS entry within the Headless Service) to execute
-writes.
+読み込みクエリーのみが、負荷分散されるクライアントサービスを使用できることに注意してください。
+MySQLマスターは1つしかいないため、クライアントが書き込みを実行するためには、
+(ヘッドレスサービス内のDNSエントリーを介して)MySQLのマスターPodに直接接続する必要があります。
 
 ### StatefulSet
 
-Finally, create the StatefulSet from the following YAML configuration file:
+最後に、次のYAML設定ファイルからStatefulSetを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
@@ -111,13 +98,13 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yam
 
 {{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
 
-You can watch the startup progress by running:
+次のコマンドを実行して起動の進行状況を確認できます。
 
 ```shell
 kubectl get pods -l app=mysql --watch
 ```
 
-After a while, you should see all 3 Pods become Running:
+しばらくすると、3つのPodすべてがRunning状態になるはずです。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -126,104 +113,86 @@ mysql-1   2/2       Running   0          1m
 mysql-2   2/2       Running   0          1m
 ```
 
-Press **Ctrl+C** to cancel the watch.
-If you don't see any progress, make sure you have a dynamic PersistentVolume
-provisioner enabled as mentioned in the [prerequisites](#before-you-begin).
+**Ctrl+C**を押してウォッチをキャンセルします。
+起動が進行しない場合は、[始める前に](#始める前に)で説明されているように、
+PersistentVolumeの動的プロビジョニング機能が有効になっていることを確認してください。
 
-This manifest uses a variety of techniques for managing stateful Pods as part of
-a StatefulSet. The next section highlights some of these techniques to explain
-what happens as the StatefulSet creates Pods.
+このマニフェストでは、StatefulSetの一部としてステートフルなPodを管理するためにさまざまな手法を使用しています。
+次のセクションでは、これらの手法のいくつかに焦点を当て、StatefulSetがPodを作成するときに何が起こるかを説明します。
 
-## Understanding stateful Pod initialization
+## ステートフルなPodの初期化を理解する
 
-The StatefulSet controller starts Pods one at a time, in order by their
-ordinal index.
-It waits until each Pod reports being Ready before starting the next one.
+StatefulSetコントローラーは、序数インデックスの順にPodを一度に1つずつ起動します。
+各PodがReady状態を報告するまで待機してから、その次のPodの起動が開始されます。
 
-In addition, the controller assigns each Pod a unique, stable name of the form
-`<statefulset-name>-<ordinal-index>`.
-In this case, that results in Pods named `mysql-0`, `mysql-1`, and `mysql-2`.
+さらに、コントローラーは各Podに `<statefulset-name>-<ordinal-index>`という形式の一意で不変の名前を割り当てます。
+この例の場合、Podの名前は`mysql-0`、`mysql-1`、そして`mysql-2`となります。
 
-The Pod template in the above StatefulSet manifest takes advantage of these
-properties to perform orderly startup of MySQL replication.
+上記のStatefulSetマニフェスト内のPodテンプレートは、これらのプロパティーを利用して、
+MySQLレプリケーションの起動を順序正しく実行します。
 
-### Generating configuration
+### 構成を生成する
 
-Before starting any of the containers in the Pod spec, the Pod first runs any
-[Init Containers](/docs/concepts/workloads/pods/init-containers/)
-in the order defined.
+Podスペック内のコンテナを起動する前に、Podは最初に
+[初期化コンテナ](/docs/concepts/workloads/pods/init-containers/)を定義された順序で実行します。
 
-The first Init Container, named `init-mysql`, generates special MySQL config
-files based on the ordinal index.
+最初の初期化コンテナは`init-mysql`という名前で、序数インデックスに基づいて特別なMySQL設定ファイルを生成します。
 
-The script determines its own ordinal index by extracting it from the end of
-the Pod name, which is returned by the `hostname` command.
-Then it saves the ordinal (with a numeric offset to avoid reserved values)
-into a file called `server-id.cnf` in the MySQL `conf.d` directory.
-This translates the unique, stable identity provided by the StatefulSet
-controller into the domain of MySQL server IDs, which require the same
-properties.
+スクリプトは、`hostname`コマンドによって返されるPod名の末尾から抽出することによって、自身の序数インデックスを特定します。
+それから、序数を(予約された値を避けるために数値オフセット付きで)MySQLの`conf.d`ディレクトリーの`server-id.cnf`というファイルに保存します。
+これは、StatefulSetコントローラーによって提供される一意で不変のIDを、同じ特性を必要とするMySQLサーバーIDの領域に変換します。
 
-The script in the `init-mysql` container also applies either `master.cnf` or
-`slave.cnf` from the ConfigMap by copying the contents into `conf.d`.
-Because the example topology consists of a single MySQL master and any number of
-slaves, the script simply assigns ordinal `0` to be the master, and everyone
-else to be slaves.
-Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
-this ensures the MySQL master is Ready before creating slaves, so they can begin
-replicating.
+さらに、`init-mysql`コンテナ内のスクリプトは、`master.cnf`または`slave.cnf`のいずれかを、
+ConfigMapから内容を`conf.d`にコピーすることによって適用します。
+このトポロジー例は単一のMySQLマスターと任意の数のスレーブで構成されているため、
+スクリプトは単に序数の`0`がマスターになるように、それ以外のすべてがスレーブになるように割り当てます。
+StatefulSetコントローラーによる
+[デプロイ順序の保証](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/)と組み合わせると、
+スレーブが作成される前にMySQLマスターがReady状態になるため、スレーブはレプリケーションを開始できます。
 
-### Cloning existing data
+### 既存データをクローンする
 
-In general, when a new Pod joins the set as a slave, it must assume the MySQL
-master might already have data on it. It also must assume that the replication
-logs might not go all the way back to the beginning of time.
-These conservative assumptions are the key to allow a running StatefulSet
-to scale up and down over time, rather than being fixed at its initial size.
+一般に、新しいPodがセットにスレーブとして参加するときは、
+MySQLマスターにはすでにデータがあるかもしれないと想定する必要があります。
+また、レプリケーションログが期間の先頭まで全て揃っていない場合も想定する必要があります。
+これらの控えめな仮定は、実行中のStatefulSetのサイズを初期サイズに固定するのではなく、
+時間の経過とともにスケールアップまたはスケールダウンできるようにするために重要です。
 
-The second Init Container, named `clone-mysql`, performs a clone operation on
-a slave Pod the first time it starts up on an empty PersistentVolume.
-That means it copies all existing data from another running Pod,
-so its local state is consistent enough to begin replicating from the master.
+2番目の初期化コンテナは`clone-mysql`という名前で、スレーブPodが空のPersistentVolumeで最初に起動したときに、
+クローン操作を実行します。
+つまり、実行中の別のPodから既存のデータをすべてコピーするので、
+そのローカル状態はマスターから複製を開始するのに十分な一貫性があります。
 
-MySQL itself does not provide a mechanism to do this, so the example uses a
-popular open-source tool called Percona XtraBackup.
-During the clone, the source MySQL server might suffer reduced performance.
-To minimize impact on the MySQL master, the script instructs each Pod to clone
-from the Pod whose ordinal index is one lower.
-This works because the StatefulSet controller always ensures Pod `N` is
-Ready before starting Pod `N+1`.
+MySQL自体はこれを行うためのメカニズムを提供していないため、この例ではPercona XtraBackupという人気のあるオープンソースツールを使用しています。
+クローンの実行中は、ソースとなるMySQLサーバーのパフォーマンスが低下する可能性があります。
+MySQLマスターへの影響を最小限に抑えるために、スクリプトは各Podに序数インデックスが自分より1低いPodから複製するように指示します。
+StatefulSetコントローラーは、`N+1`のPodを開始する前には必ず`N`のPodがReady状態であることを保証するので、この方法が機能します。
 
-### Starting replication
+### レプリケーションを開始する
 
-After the Init Containers complete successfully, the regular containers run.
-The MySQL Pods consist of a `mysql` container that runs the actual `mysqld`
-server, and an `xtrabackup` container that acts as a
-[sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
+初期化コンテナが正常に完了すると、通常のコンテナが実行されます。
+MySQLのPodは実際に`mysqld`サーバーを実行する`mysql`コンテナと、
+[サイドカー](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
+として機能する`xtrabackup`コンテナから成ります。
 
-The `xtrabackup` sidecar looks at the cloned data files and determines if
-it's necessary to initialize MySQL replication on the slave.
-If so, it waits for `mysqld` to be ready and then executes the
-`CHANGE MASTER TO` and `START SLAVE` commands with replication parameters
-extracted from the XtraBackup clone files.
+`xtrabackup`サイドカーはクローンされたデータファイルを見て、
+スレーブ上でMySQLレプリケーションを初期化する必要があるかどうかを決定します。
+もし必要がある場合、`mysqld`が準備できるのを待ってから、
+XtraBackupクローンファイルから抽出された複製パラメータで`CHANGE MASTER TO`と`START SLAVE`コマンドを実行します。
 
-Once a slave begins replication, it remembers its MySQL master and
-reconnects automatically if the server restarts or the connection dies.
-Also, because slaves look for the master at its stable DNS name
-(`mysql-0.mysql`), they automatically find the master even if it gets a new
-Pod IP due to being rescheduled.
+スレーブがレプリケーションを開始すると、スレーブはMySQLマスターを記憶し、
+サーバーが再起動した場合または接続が停止した場合に、自動的に再接続します。
+また、スレーブはその不変のDNS名(`mysql-0.mysql`)でマスターを探すため、
+再スケジュールされたために新しいPod IPを取得したとしても、自動的にマスターを見つけます。
 
-Lastly, after starting replication, the `xtrabackup` container listens for
-connections from other Pods requesting a data clone.
-This server remains up indefinitely in case the StatefulSet scales up, or in
-case the next Pod loses its PersistentVolumeClaim and needs to redo the clone.
+最後に、レプリケーションを開始した後、`xtrabackup`コンテナはデータのクローンを要求する他のPodからの接続を待ち受けます。
+StatefulSetがスケールアップした場合や、次のPodがPersistentVolumeClaimを失ってクローンをやり直す必要がある場合に備えて、
+このサーバーは無期限に起動したままになります。
 
-## Sending client traffic
+## クライアントトラフィックを送信する
 
-You can send test queries to the MySQL master (hostname `mysql-0.mysql`)
-by running a temporary container with the `mysql:5.7` image and running the
-`mysql` client binary.
+テストクエリーをMySQLマスター(ホスト名 `mysql-0.mysql`)に送信するには、
+`mysql:5.7`イメージを使って一時的なコンテナーを実行し、`mysql`クライアントバイナリーを実行します。
 
 ```shell
 kubectl run mysql-client --image=mysql:5.7 -i --rm --restart=Never --\
@@ -234,15 +203,14 @@ INSERT INTO test.messages VALUES ('hello');
 EOF
 ```
 
-Use the hostname `mysql-read` to send test queries to any server that reports
-being Ready:
+Ready状態を報告したいずれかのサーバーにテストクエリーを送信するには、ホスト名`mysql-read`を使用します。
 
 ```shell
 kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
   mysql -h mysql-read -e "SELECT * FROM test.messages"
 ```
 
-You should get output like this:
+次のような出力が得られるはずです。
 
 ```
 Waiting for pod default/mysql-client to be running, status is Pending, pod ready: false
@@ -254,16 +222,16 @@ Waiting for pod default/mysql-client to be running, status is Pending, pod ready
 pod "mysql-client" deleted
 ```
 
-To demonstrate that the `mysql-read` Service distributes connections across
-servers, you can run `SELECT @@server_id` in a loop:
+`mysql-read`サービスがサーバー間で接続を分散させることを実証するために、
+ループで`SELECT @@server_id`を実行することができます。
 
 ```shell
 kubectl run mysql-client-loop --image=mysql:5.7 -i -t --rm --restart=Never --\
   bash -ic "while sleep 1; do mysql -h mysql-read -e 'SELECT @@server_id,NOW()'; done"
 ```
 
-You should see the reported `@@server_id` change randomly, because a different
-endpoint might be selected upon each connection attempt:
+接続の試行ごとに異なるエンドポイントが選択される可能性があるため、
+報告される`@@server_id`はランダムに変更されるはずです。
 
 ```
 +-------------+---------------------+
@@ -283,107 +251,101 @@ endpoint might be selected upon each connection attempt:
 +-------------+---------------------+
 ```
 
-You can press **Ctrl+C** when you want to stop the loop, but it's useful to keep
-it running in another window so you can see the effects of the following steps.
+ループを止めたいときは**Ctrl+C**を押すことができますが、別のウィンドウで実行したままにしておくことで、
+次の手順の効果を確認できます。
 
-## Simulating Pod and Node downtime
+## PodとNodeのダウンタイムをシミュレーションする
 
-To demonstrate the increased availability of reading from the pool of slaves
-instead of a single server, keep the `SELECT @@server_id` loop from above
-running while you force a Pod out of the Ready state.
+単一のサーバーではなくスレーブのプールから読み取りを行うことによって可用性が高まっていることを実証するため、
+Podを強制的にReadyではない状態にする間、上記の`SELECT @@server_id`ループを実行したままにしてください。
 
-### Break the Readiness Probe
+### Readiness Probeを壊す
 
-The [readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes)
-for the `mysql` container runs the command `mysql -h 127.0.0.1 -e 'SELECT 1'`
-to make sure the server is up and able to execute queries.
+`mysql`コンテナに対する
+[readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes)
+は、`mysql -h 127.0.0.1 -e 'SELECT 1'`コマンドを実行することで、サーバーが起動していてクエリーが実行できることを確認します。
 
-One way to force this readiness probe to fail is to break that command:
+このreadiness probeを失敗させる1つの方法は、そのコマンドを壊すことです。
 
 ```shell
 kubectl exec mysql-2 -c mysql -- mv /usr/bin/mysql /usr/bin/mysql.off
 ```
 
-This reaches into the actual container's filesystem for Pod `mysql-2` and
-renames the `mysql` command so the readiness probe can't find it.
-After a few seconds, the Pod should report one of its containers as not Ready,
-which you can check by running:
+ここでは、`mysql-2` Podの実際のコンテナのファイルシステムにアクセスし、
+`mysql`コマンドの名前を変更してreadiness probeがコマンドを見つけられないようにしています。
+数秒後、Podはそのコンテナの1つがReadyではないと報告するはずです。以下を実行して確認できます。
 
 ```shell
 kubectl get pod mysql-2
 ```
 
-Look for `1/2` in the `READY` column:
+`READY`列の`1/2`を見てください。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 mysql-2   1/2       Running   0          3m
 ```
 
-At this point, you should see your `SELECT @@server_id` loop continue to run,
-although it never reports `102` anymore.
-Recall that the `init-mysql` script defined `server-id` as `100 + $ordinal`,
-so server ID `102` corresponds to Pod `mysql-2`.
+この時点で、`SELECT @@server_id`ループは実行され続け、しかしもう`102`が報告されないことが確認できるはずです。
+`init-mysql`スクリプトが`server-id`を`100+$ordinal`として定義したことを思い出して下さい。
+そのため、サーバーID`102`はPodの`mysql-2`に対応します。
 
-Now repair the Pod and it should reappear in the loop output
-after a few seconds:
+それではPodを修復しましょう。すると数秒後にループ出力に再び現れるはずです。
 
 ```shell
 kubectl exec mysql-2 -c mysql -- mv /usr/bin/mysql.off /usr/bin/mysql
 ```
 
-### Delete Pods
+### Podを削除する
 
-The StatefulSet also recreates Pods if they're deleted, similar to what a
-ReplicaSet does for stateless Pods.
+StatefulSetは、Podが削除された場合にPodを再作成します。
+これはReplicaSetがステートレスなPodに対して行うのと同様です。
 
 ```shell
 kubectl delete pod mysql-2
 ```
 
-The StatefulSet controller notices that no `mysql-2` Pod exists anymore,
-and creates a new one with the same name and linked to the same
-PersistentVolumeClaim.
-You should see server ID `102` disappear from the loop output for a while
-and then return on its own.
+StatefulSetコントローラーは`mysql-2` Podがもう存在しないことに気付き、
+同じ名前で同じPersistentVolumeClaimにリンクされた新しいPodを作成します。
+サーバーID`102`がしばらくの間ループ出力から消えて、また元に戻るのが確認できるはずです。
 
-### Drain a Node
+### ノードをdrainする
 
-If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
-(such as when Nodes are upgraded) by issuing a
-[drain](/docs/reference/generated/kubectl/kubectl-commands/#drain).
+Kubernetesクラスタに複数のノードがある場合は、
+[drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)を発行して
+ノードのダウンタイム(例えばノードのアップグレード時など)をシミュレートできます。
 
-First determine which Node one of the MySQL Pods is on:
+まず、あるMySQL Podがどのノード上にいるかを確認します。
 
 ```shell
 kubectl get pod mysql-2 -o wide
 ```
 
-The Node name should show up in the last column:
+ノード名が最後の列に表示されるはずです。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE       IP            NODE
 mysql-2   2/2       Running   0          15m       10.244.5.27   kubernetes-minion-group-9l2t
 ```
 
-Then drain the Node by running the following command, which cordons it so
-no new Pods may schedule there, and then evicts any existing Pods.
-Replace `<node-name>` with the name of the Node you found in the last step.
+その後、次のコマンドを実行してノードをdrainします。
+これにより、新しいPodがそのノードにスケジュールされないようにcordonされ、そして既存のPodは強制退去されます。
+`<node-name>`は前のステップで確認したノードの名前に置き換えてください。
 
-This might impact other applications on the Node, so it's best to
-**only do this in a test cluster**.
+この操作はノード上の他のアプリケーションに影響を与える可能性があるため、
+**テストクラスタでのみこの操作を実行**するのが最善です。
 
 ```shell
 kubectl drain <node-name> --force --delete-local-data --ignore-daemonsets
 ```
 
-Now you can watch as the Pod reschedules on a different Node:
+Podが別のノードに再スケジュールされる様子を確認しましょう。
 
 ```shell
 kubectl get pod mysql-2 -o wide --watch
 ```
 
-It should look something like this:
+次のような出力が見られるはずです。
 
 ```
 NAME      READY   STATUS          RESTARTS   AGE       IP            NODE
@@ -397,35 +359,33 @@ mysql-2   1/2     Running         0          22s       10.244.5.32   kubernetes-
 mysql-2   2/2     Running         0          30s       10.244.5.32   kubernetes-minion-group-fjlm
 ```
 
-And again, you should see server ID `102` disappear from the
-`SELECT @@server_id` loop output for a while and then return.
+また、サーバーID`102`が`SELECT @@server_id`ループの出力からしばらくの消えて、
+そして戻ることが確認できるはずです。
 
-Now uncordon the Node to return it to a normal state:
+それでは、ノードをuncordonして正常な状態に戻しましょう。
 
 ```shell
 kubectl uncordon <node-name>
 ```
 
-## Scaling the number of slaves
+## スレーブの数をスケーリングする
 
-With MySQL replication, you can scale your read query capacity by adding slaves.
-With StatefulSet, you can do this with a single command:
+MySQLレプリケーションでは、スレーブを追加することで読み取りクエリーのキャパシティーをスケールできます。
+StatefulSetを使用している場合、単一のコマンドでこれを実行できます。
 
 ```shell
 kubectl scale statefulset mysql  --replicas=5
 ```
 
-Watch the new Pods come up by running:
+次のコマンドを実行して、新しいPodが起動してくるのを確認します。
 
 ```shell
 kubectl get pods -l app=mysql --watch
 ```
 
-Once they're up, you should see server IDs `103` and `104` start appearing in
-the `SELECT @@server_id` loop output.
+新しいPodが起動すると、サーバーID`103`と`104`が`SELECT @@server_id`ループの出力に現れます。
 
-You can also verify that these new servers have the data you added before they
-existed:
+また、これらの新しいサーバーが、これらのサーバーが存在する前に追加したデータを持っていることを確認することもできます。
 
 ```shell
 kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
@@ -442,25 +402,24 @@ Waiting for pod default/mysql-client to be running, status is Pending, pod ready
 pod "mysql-client" deleted
 ```
 
-Scaling back down is also seamless:
+元の状態へのスケールダウンもシームレスに可能です。
 
 ```shell
 kubectl scale statefulset mysql --replicas=3
 ```
 
-Note, however, that while scaling up creates new PersistentVolumeClaims
-automatically, scaling down does not automatically delete these PVCs.
-This gives you the choice to keep those initialized PVCs around to make
-scaling back up quicker, or to extract data before deleting them.
+ただし、スケールアップすると新しいPersistentVolumeClaimが自動的に作成されますが、
+スケールダウンしてもこれらのPVCは自動的には削除されないことに注意して下さい。
+このため、初期化されたPVCをそのまま置いておいくことで再スケールアップを速くしたり、
+PVを削除する前にデータを抽出するといった選択が可能になります。
 
-You can see this by running:
+次のコマンドを実行してこのことを確認できます。
 
 ```shell
 kubectl get pvc -l app=mysql
 ```
 
-Which shows that all 5 PVCs still exist, despite having scaled the
-StatefulSet down to 3:
+StatefulSetを3にスケールダウンしたにもかかわらず、5つのPVCすべてがまだ存在しています。
 
 ```
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -471,7 +430,7 @@ data-mysql-3   Bound     pvc-50043c45-b1c5-11e6-93fa-42010a800002   10Gi       R
 data-mysql-4   Bound     pvc-500a9957-b1c5-11e6-93fa-42010a800002   10Gi       RWO           2m
 ```
 
-If you don't intend to reuse the extra PVCs, you can delete them:
+もし余分なPVCを再利用するつもりがない場合は、それらを削除できます。
 
 ```shell
 kubectl delete pvc data-mysql-3
@@ -482,44 +441,42 @@ kubectl delete pvc data-mysql-4
 
 {{% capture cleanup %}}
 
-1. Cancel the `SELECT @@server_id` loop by pressing **Ctrl+C** in its terminal,
-   or running the following from another terminal:
+1. `SELECT @@server_id`ループを実行している端末で**Ctrl+C**を押すか、
+   別の端末から次のコマンドを実行して、ループをキャンセルします。
 
    ```shell
    kubectl delete pod mysql-client-loop --now
    ```
 
-1. Delete the StatefulSet. This also begins terminating the Pods.
+1. StatefulSetを削除します。これによってPodの終了も開始されます。
 
    ```shell
    kubectl delete statefulset mysql
    ```
 
-1. Verify that the Pods disappear.
-   They might take some time to finish terminating.
+1. Podが消えたことを確認します。
+   Podが終了処理が完了するのには少し時間がかかるかもしれません。
 
    ```shell
    kubectl get pods -l app=mysql
    ```
 
-   You'll know the Pods have terminated when the above returns:
+   上記のコマンドから以下の出力が戻れば、Podが終了したことがわかります。
 
    ```
    No resources found.
    ```
 
-1. Delete the ConfigMap, Services, and PersistentVolumeClaims.
+1. ConfigMap、Services、およびPersistentVolumeClaimを削除します。
 
    ```shell
    kubectl delete configmap,service,pvc -l app=mysql
    ```
 
-1. If you manually provisioned PersistentVolumes, you also need to manually
-   delete them, as well as release the underlying resources.
-   If you used a dynamic provisioner, it automatically deletes the
-   PersistentVolumes when it sees that you deleted the PersistentVolumeClaims.
-   Some dynamic provisioners (such as those for EBS and PD) also release the
-   underlying resources upon deleting the PersistentVolumes.
+1. PersistentVolumeを手動でプロビジョニングした場合は、それらを手動で削除し、
+   また、下層にあるリソースも解放する必要があります。
+   動的プロビジョニング機能を使用した場合は、PersistentVolumeClaimを削除すれば、自動的にPersistentVolumeも削除されます。
+   一部の動的プロビジョナー(EBSやPDなど)は、PersistentVolumeを削除すると同時に下層にあるリソースも解放します。
 
 {{% /capture %}}
 
