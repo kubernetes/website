@@ -4,7 +4,7 @@ id: csi
 date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#csi
 short_description: >
-    L'Interface de Stockage de Conteneurs (CSI, de l'anglais Container Storage Interface) définit une interface normalisée pour exposer  les systèmes de stockage aux conteneurs.
+    L'Interface de Stockage de Conteneurs (CSI, de l'anglais Container Storage Interface) définit une interface normalisée pour exposer les systèmes de stockage aux conteneurs.
 
 
 aka:
