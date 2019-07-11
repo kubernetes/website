@@ -195,8 +195,10 @@ cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kube
 Translation tools can speed up the translation process. For example, some editors offers plugins to quickly translate text. 
 
 {{< caution >}}
-Use translation tools with care. Their output is not always accurate.
+Machine-generated translation alone does not meet the minimum standard of quality and requires extensive human review to meet that standard. 
 {{< /caution >}}
+
+To ensure accuracy in grammar and meaning, members of your localization team should carefully review all machine-generated translations before publishing.
 
 ### Source files
 
