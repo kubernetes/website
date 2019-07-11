@@ -65,11 +65,8 @@ option. Your cluster requirements may need a different configuration.
 
 1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
 
-    - In a cloud environment you should place your control plane nodes behind a TCP
-      forwarding load balancer. This load balancer distributes traffic to all
-      healthy control plane nodes in its target list. The health check for
-      an apiserver is a TCP check on the port the kube-apiserver listens on
-      (default value `:6443`).
+    - In a cloud environment, use the load balancer infrastructure provided by the cloud provider.
+      In an environment without a built-in load balancer (i.e. bare metal), you can use a TCP forwarding proxy,such as HAProxy, however you need to take steps to make that load balancer highly available. Otherwise your load balancer becomes a single point of failure. The health check for an apiserver is a TCP check on the port the kube-apiserver listens on (default value `:6443`).
 
     - It is not recommended to use an IP address directly in a cloud environment.
 
