@@ -36,13 +36,13 @@ content_template: templates/task
 1. 基于YAML文件创建一个Pod：
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/pods/commands.yaml
+    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
     ```
 
 2. List the running Pods:
 
    获取正在运行的 pod
-   
+
     ```shell
     kubectl get pods
     ```
