@@ -1,5 +1,5 @@
 ---
-title: ネームスペース(名前空間)
+title: Namespace(名前空間)
 content_template: templates/concept
 weight: 30
 ---
@@ -7,35 +7,35 @@ weight: 30
 {{% capture overview %}}
 
 Kubernetesは、同一の物理クラスター上で複数の仮想クラスターの動作をサポートします。  
-この仮想クラスターをネームスペースと呼びます。  
+この仮想クラスターをNamespaceと呼びます。  
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-## 複数のネームスペースを使う時
+## 複数のNamespaceを使う時
 
-ネームスペースは、複数のチーム・プロジェクトにまたがる多くのユーザーがいる環境での使用を目的としています。  
-数ユーザーから数十人のユーザーがいるクラスターに対して、あなたはネームスペースを作成したり、考えるべきではありません。  
-Kubernetesが提供するネームスペースの機能が必要となった時に、ネームスペースの使用を始めてください。  
+Namespaceは、複数のチーム・プロジェクトにまたがる多くのユーザーがいる環境での使用を目的としています。  
+数人から数十人しかユーザーのいないクラスターに対して、あなたはNamespaceを作成したり、考える必要は全くありません。
+Kubernetesが提供するNamespaceの機能が必要となった時に、Namespaceの使用を始めてください。  
 
-ネームスペースは名前空間のスコープを提供します。リソース名は単一のネームスペース内ではユニークである必要がありますが、ネームスペース全体ではその必要はありません。  
+Namespaceは名前空間のスコープを提供します。リソース名は単一のNamespace内ではユニークである必要がありますが、Namespace全体ではその必要はありません。  
 
-ネームスペースは、複数のユーザーの間でクラスターリソースを分割する方法です。(これは[リソースクォータ](/docs/concepts/policy/resource-quotas/)を介して分割します。)  
+Namespaceは、複数のユーザーの間でクラスターリソースを分割する方法です。(これは[リソースクォータ](/docs/concepts/policy/resource-quotas/)を介して分割します。)  
 
-Kubernetesの将来的なバージョンにおいて、同一のネームスペース内のオブジェクトは、デフォルトで同一のアクセスコントロールポリシーが適用されます。
+Kubernetesの将来的なバージョンにおいて、同一のNamespace内のオブジェクトは、デフォルトで同一のアクセスコントロールポリシーが適用されます。
 
-同じアプリケーションの異なるバージョンなど、少し違うリソースをただ分割するだけに、複数のネームスペースを使う必要はありません。  
-同一のネームスペース内でリソースを区別するためには[ラベル](/docs/user-guide/labels)を使用してください。  
+同じアプリケーションの異なるバージョンなど、少し違うリソースをただ分割するだけに、複数のNamespaceを使う必要はありません。  
+同一のNamespace内でリソースを区別するためには[ラベル](/docs/user-guide/labels)を使用してください。  
 
-## ネームスペースを利用する
+## Namespaceを利用する
 
-ネームスペースの作成と削除方法は[ネームスペースの管理ガイドドキュメント](/docs/admin/namespaces)に記載されています。  
+Namespaceの作成と削除方法は[Namespaceの管理ガイドドキュメント](/docs/admin/namespaces)に記載されています。  
 
-### ネームスペースの表示
+### Namespaceの表示
 
-ユーザーは、以下の方法で単一クラスター内の現在のネームスペースの一覧を表示できます。  
+ユーザーは、以下の方法で単一クラスター内の現在のNamespaceの一覧を表示できます。  
 
 ```shell
 kubectl get namespaces
@@ -47,16 +47,16 @@ kube-system   Active    1d
 kube-public   Active    1d
 ```
 
-Kubernetesの起動時には3つの初期ネームスペースが作成されています。
+Kubernetesの起動時には3つの初期Namespaceが作成されています。
 
-   * `default` 他にネームスペースを持っていないオブジェクトのためのデフォルトネームスペース  
-   * `kube-system` Kubernetesシステムによって作成されたオブジェクトのためのネームスペース  
-   * `kube-public` このネームスペースは自動的に作成され、全てのユーザーから読み取り可能です。(認証されていないユーザーも含みます。)   
-    このネームスペースは、リソースをクラスター全体を通じてパブリックに表示・読み取り可能にするため、ほとんどクラスターによって使用される用途で予約されます。 このネームスペースのパブリックな側面は単なる慣例であり、要件ではありません。
+   * `default` 他にNamespaceを持っていないオブジェクトのためのデフォルトNamespace  
+   * `kube-system` Kubernetesシステムによって作成されたオブジェクトのためのNamespace  
+   * `kube-public` このNamespaceは自動的に作成され、全てのユーザーから読み取り可能です。(認証されていないユーザーも含みます。)   
+    このNamespaceは、リソースをクラスター全体を通じてパブリックに表示・読み取り可能にするため、ほとんどクラスターによって使用される用途で予約されます。 このNamespaceのパブリックな側面は単なる慣例であり、要件ではありません。
 
-### ネームスペースの設定
+### Namespaceの設定
 
-一時的な要求のためにネームスペースを設定したい場合、`--namespace`フラグを使用します。  
+一時的な要求のためにNamespaceを設定したい場合、`--namespace`フラグを使用します。  
 例:
 
 ```shell
@@ -64,9 +64,9 @@ kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
 kubectl --namespace=<insert-namespace-name-here> get pods
 ```
 
-### ネームスペース設定の永続化
+### Namespace設定の永続化
 
-ユーザーはあるコンテキストのその後のコマンドで使うために、コンテキスト内で永続的にネームスペースを保存できます。  
+ユーザーはあるコンテキストのその後のコマンドで使うために、コンテキスト内で永続的にNamespaceを保存できます。  
 
 ```shell
 kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
@@ -74,27 +74,26 @@ kubectl config set-context $(kubectl config current-context) --namespace=<insert
 kubectl config view | grep namespace:
 ```
 
-## ネームスペースとDNS
+## NamespaceとDNS
 
 ユーザーが[Service](/docs/user-guide/services)を作成するとき、Serviceは対応する[DNSエントリ](/docs/concepts/services-networking/dns-pod-service/)を作成します。  
-このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式になり,これはもしあるコンテナがただ`<service-name>`を指定していた場合、ネームスペース内のローカルのServiceに対して名前解決されます。  
-これはデベロップメント、ステージング、プロダクションといって複数のネームスペースをまたいで同じ設定を使う時に効果的です。  
-もしユーザーがネームスペースをまたいでアクセスしたい時、 完全修飾ドメイン名(FQDN)を指定する必要があります。  
+このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式になり,これはもしあるコンテナがただ`<service-name>`を指定していた場合、Namespace内のローカルのServiceに対して名前解決されます。  
+これはデベロップメント、ステージング、プロダクションといって複数のNamespaceをまたいで同じ設定を使う時に効果的です。  
+もしユーザーがNamespaceをまたいでアクセスしたい時、 完全修飾ドメイン名(FQDN)を指定する必要があります。  
 
-## すべてのオブジェクトはネームスペースに属していない。  
+## すべてのオブジェクトはNamespaceに属しているとは限らない
 
-ほとんどのKubernetesリソース(例えば、Pod、Service、ReplicationControllerなど)はいくつかのネームスペースにあります。  
-しかしネームスペースのリソースそれ自体は単一のネームスペース内にありません。  
-そして[Node](/docs/admin/node)のようなローレベルのリソースと、パーシステントボリュームはどのネームスペースにも属していません。 
+ほとんどのKubernetesリソース(例えば、Pod、Service、ReplicationControllerなど)はいくつかのNamespaceにあります。  
+しかしNamespaceのリソースそれ自体は単一のNamespace内にありません。  
+そして[Node](/docs/admin/node)やPersistentVolumeのような低レベルのリソースはどのNamespaceにも属していません。 
 
-どのKubernetesリソースがネームスペースに属しているか、属していないかを見るためには、以下のコマンドで確認できます。  
-To see which Kubernetes resources are and aren't in a namespace:
+どのKubernetesリソースがNamespaceに属しているか、属していないかを見るためには、以下のコマンドで確認できます。  
 
 ```shell
-# ネームスペースに属しているもの
+# Namespaceに属しているもの
 kubectl api-resources --namespaced=true
 
-# ネームスペースに属していないもの
+# Namespaceに属していないもの
 kubectl api-resources --namespaced=false
 ```
 
