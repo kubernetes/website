@@ -1,6 +1,7 @@
 ---
-title: Kops로 AWS에 쿠버네티스 설치하기
+title: Kops로 쿠버네티스 설치하기
 content_template: templates/concept
+weight: 20
 ---
 
 {{% capture overview %}}
