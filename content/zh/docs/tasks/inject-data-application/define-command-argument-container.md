@@ -41,11 +41,11 @@ content_template: templates/task
 
 2. List the running Pods:
 
-   获取正在运行的 pod
+	获取正在运行的 pod
 
-    ```shell
-    kubectl get pods
-    ```
+	```shell
+	kubectl get pods
+	```
 
     查询结果显示在command-demo这个Pod下运行的容器已经启动完成
 
