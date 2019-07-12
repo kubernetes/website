@@ -167,14 +167,3 @@
          url('../fonts/roboto-v18-latin-900italic.ttf') format('truetype'), /* Safari, Android, iOS */
          url('../fonts/roboto-v18-latin-900italic.svg#Roboto') format('svg'); /* Legacy iOS */
   }
-@font-face {
-  font-family: 'kubernetes-docs-icons';
-  font-weight: normal;
-  font-style: normal;
-  src:  url('../fonts/kubernetes-docs-icons.eot?fv39rl');
-  src:  url('../fonts/kubernetes-docs-icons.eot?fv39rl#iefix') format('embedded-opentype'),
-    url('../fonts/kubernetes-docs-icons.ttf?fv39rl') format('truetype'),
-    url('../fonts/kubernetes-docs-icons.woff?fv39rl') format('woff'),
-    url('../fonts/kubernetes-docs-icons.svg?fv39rl#kubernetes-docs-icons') format('svg');
-
-}
