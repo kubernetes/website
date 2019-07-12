@@ -430,7 +430,7 @@ data-mysql-3   Bound     pvc-50043c45-b1c5-11e6-93fa-42010a800002   10Gi       R
 data-mysql-4   Bound     pvc-500a9957-b1c5-11e6-93fa-42010a800002   10Gi       RWO           2m
 ```
 
-もし余分なPVCを再利用するつもりがない場合は、それらを削除できます。
+余分なPVCを再利用するつもりがないのであれば、削除することができます。
 
 ```shell
 kubectl delete pvc data-mysql-3
