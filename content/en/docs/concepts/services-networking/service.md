@@ -432,7 +432,8 @@ specifying `"None"` for the cluster IP (`.spec.clusterIP`).
 
 You can use a headless Service to interface with other service discovery mechanisms,
 without being tied to Kubernetes' implementation. For example, you could implement
-a custom [Operator](https://coreos.com/operators/) to be built on the API.
+a custom {{< glossary_tooltip term_id="operator-pattern" text="Operator" >}} upon
+this API.
 
 For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
 these Services, and there is no load balancing or proxying done by the platform
