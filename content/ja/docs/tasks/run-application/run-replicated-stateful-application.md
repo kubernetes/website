@@ -482,7 +482,6 @@ kubectl delete pvc data-mysql-4
 
 {{% capture whatsnext %}}
 
-* Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
 * その他のステートフルなアプリケーションの例は、[Helm Charts repository](https://github.com/kubernetes/charts)を見てください。
 
 {{% /capture %}}
