@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'kubernetes-docs-icons';
-  src:  url('fonts/kubernetes-docs-icons.eot?aukczh');
-  src:  url('fonts/kubernetes-docs-icons.eot?aukczh#iefix') format('embedded-opentype'),
-    url('fonts/kubernetes-docs-icons.ttf?aukczh') format('truetype'),
-    url('fonts/kubernetes-docs-icons.woff?aukczh') format('woff'),
-    url('fonts/kubernetes-docs-icons.svg?aukczh#kubernetes-docs-icons') format('svg');
+  src:  url('../fonts/kubernetes-docs-icons.eot?orwszt');
+  src:  url('../fonts/kubernetes-docs-icons.eot?orwszt#iefix') format('embedded-opentype'),
+    url('../fonts/kubernetes-docs-icons.ttf?orwszt') format('truetype'),
+    url('../fonts/kubernetes-docs-icons.woff?orwszt') format('woff'),
+    url('../fonts/kubernetes-docs-icons.svg?orwszt#kubernetes-docs-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -41,5 +41,4 @@
 }
 .icon-slack:before {
   content: "\e900";
-  color: #000;
 }

@@ -35,6 +35,8 @@ What you do here really depends on what change you're trying to make. To add a n
 1. Copy `selection.json` into `static/fonts/` too
 1. Copy `style.css` into `static/css/` and rename the file to `icons.css`
 
+    Note: At the top of the file, add `../` to the start of all of the font paths. Unfortunately, there is no way to customize the font directory when exporting from IcoMoon.
+
 ## Use the icons on the site
 
 Render an icon anywhere by adding the `icon` class and the `icon-<glphy>` class to any element you want to put an icon in.
