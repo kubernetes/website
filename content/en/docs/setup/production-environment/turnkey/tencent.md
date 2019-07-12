@@ -8,6 +8,6 @@
 
 ### Custom Deployment
 
-The core of Tencent Kubernetes Engine is open source and available [on GitHub](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager/).
+ The core of Tencent Kubernetes Engine is open source and available [on GitHub](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager/).
 
-When using TKE to create a Kubernetes cluster, you can choose managed mode or independent deployment mode. In addition, you can customize the deployment as needed; for example, you can choose an existing CVM instance for cluster creation or enable Kube-proxy IPVS.
+ When using TKE to create a Kubernetes cluster, you can choose managed mode or independent deployment mode. In addition, you can customize the deployment as needed; for example, you can choose an existing CVM instance for cluster creation or enable Kube-proxy IPVS.
