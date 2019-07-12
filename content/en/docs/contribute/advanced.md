@@ -176,7 +176,7 @@ Responsibilities include:
 - Learn and set best practices for the SIG by updating contribution guidelines
 - Schedule and run SIG meetings: weekly status updates, quarterly retro/planning sessions, and others as needed
 - Schedule and run doc sprints at KubeCon events and other conferences
-- - Recruit for and advocate on behalf of SIG Docs with the CNCF and its platinum partners, including Google, Oracle, Azure, IBM, and Huawei
+- Recruit for and advocate on behalf of SIG Docs with the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} and its platinum partners, including Google, Oracle, Azure, IBM, and Huawei
 - Keep the SIG running smoothly
 
 ### Running effective meetings
@@ -190,7 +190,7 @@ To schedule and run effective meetings, these guidelines show what to do, how to
 **Set a clear agenda**:
 
 - Set a clear agenda of topics
-- Publish the agenda in advance 
+- Publish the agenda in advance
 
 For weekly meetings, copypaste the previous week's notes into the "Past meetings" section of the notes
 
