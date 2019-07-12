@@ -285,6 +285,6 @@ You can also help add or improve content to an existing localization. Join the [
 Once a localization meets requirements for workflow and minimum output, SIG docs will:
 
 - Enable language selection on the website
-- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
+- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
 
 {{% /capture %}}
