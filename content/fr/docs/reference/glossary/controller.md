@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-Parmis les contrôleurs livrés aujourd'hui avec Kubernetes se trouvent le contrôleur de réplication, le contrôleur d'endpoints, de namespace et de serviceacounts.
+Parmis les contrôleurs livrés aujourd'hui avec Kubernetes se trouvent le contrôleur de réplication, le contrôleur d'endpoints, de namespace et de serviceaccounts.
