@@ -82,11 +82,13 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 ## Addons
 
-Addons are pods and services that implement cluster features. The pods may be managed
-by Deployments, ReplicationControllers, and so on. Namespaced addon objects are created in
-the `kube-system` namespace.
+Addons use Kubernetes resources ({{< glossary_tooltip term_id="daemonset" >}},
+{{< glossary_tooltip term_id="deployment" >}}, etc)
+to implement cluster features. Because these are providing cluster-level features, namespaced resources
+for addons belong within the `kube-system` namespace.
 
-Selected addons are described below, for an extended list of available addons please see [Addons](/docs/concepts/cluster-administration/addons/).
+Selected addons are described below; for an extended list of available addons, please
+see [Addons](/docs/concepts/cluster-administration/addons/).
 
 ### DNS
 
