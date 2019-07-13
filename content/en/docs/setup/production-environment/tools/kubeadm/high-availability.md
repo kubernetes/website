@@ -63,27 +63,13 @@ There are many configurations for load balancers. The following example is only 
 option. Your cluster requirements may need a different configuration.
 {{< /note >}}
 
-1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
+1.  Create a kube-apiserver load balancer, and setup a name in DNS which resolves to it. This load balancer should transparently distribute traffic to all
+  healthy control plane nodes. As a result, the load balancer must be able to accept connections on the apiserver port, and  communicate with all control plane nodes on the apiserver port.  
 
-    - In a cloud environment you should place your control plane nodes behind a TCP
-      forwarding load balancer. This load balancer distributes traffic to all
-      healthy control plane nodes in its target list. The health check for
-      an apiserver is a TCP check on the port the kube-apiserver listens on
-      (default value `:6443`).
-
-    - It is not recommended to use an IP address directly in a cloud environment.
-
-    - The load balancer must be able to communicate with all control plane nodes
-      on the apiserver port. It must also allow incoming traffic on its
-      listening port.
-
-    - [HAProxy](http://www.haproxy.org/) can be used as a load balancer.
-
-    - Make sure the address of the load balancer always matches
-      the address of kubeadm's `ControlPlaneEndpoint`.
+  Check if your deployment environment has a highly available load balancer, and use that if possible. Otherwise, setup a TCP forwarding load balancer (such as [HAProxy](http://www.haproxy.org/)). Make sure to follow the documentation to properly setup this load balancer in a highly-available configuration. Otherwise your load balancer becomes a single point of failure.
 
 1.  Add the first control plane nodes to the load balancer and test the
-    connection:
+    connection using:
 
     ```sh
     nc -v LOAD_BALANCER_IP PORT
