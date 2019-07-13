@@ -38,7 +38,7 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 
 > Windows上で環境を作る場合は[Chocolatey](https://chocolatey.org)を使ってインストール可能な追加のツールが必要になります。 `choco install make`
 
-> Dockerを使わずに環境を構築したい場合は、[Running the website locally using Hugo](#running-the-site-locally-using-hugo)をご覧ください。
+> Dockerを使わずに環境を構築したい場合は、[Hugoをローカル環境で動かす](#running-the-site-locally-using-hugo)をご覧ください。
 
 既にDocker [up and running](https://www.docker.com/get-started)が動いている環境であれば、以下のコマンドを使って`kubernetes-hugo`イメージをローカルで動かします:
 
