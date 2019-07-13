@@ -63,7 +63,7 @@ make serve
 
 本プロジェクトのメンテナーには以下の方法で連絡することができます:
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Slack](https://kubernetes.slack.com/messages/kubernetes-docs-ja)
 - [メーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 ### 行動規範
