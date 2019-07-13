@@ -82,8 +82,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: myservice
-    app.kubernetes.io/instance: myservice-abcxzy
+    app.kubernetes.io/name: mydeployment
+    app.kubernetes.io/instance: mydeployment-abcxzy
 ...
 ```
 
