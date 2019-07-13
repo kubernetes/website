@@ -227,7 +227,7 @@ See the documentation on [node selection](/docs/concepts/configuration/assign-po
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn more about [labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+* Learn more about [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 * Learn more about [different ways to use labels](/docs/concepts/overview/working-with-objects/common-labels/#examples).
 * Learn more about [node selector](/docs/concepts/configuration/assign-pod-node/#nodeselector).
 
