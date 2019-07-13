@@ -1,6 +1,4 @@
 ---
-reviewers:
-- janetkuo
 title: 도구들
 content_template: templates/concept
 ---
@@ -36,7 +34,7 @@ content_template: templates/concept
 
 ## Helm
 
-[`Kubernetes Helm`](https://github.com/kubernetes/helm) 사전 구성된 쿠버네티스 리소스들을 관리하기위한 도구이며 
+[`Kubernetes Helm`](https://github.com/kubernetes/helm)은 사전 구성된 쿠버네티스 리소스들을 관리하기위한 도구이며 
 또한 Helm의 쿠버네티스 차트라고도합니다.
 
 Helm 의 사용
@@ -49,7 +47,7 @@ Helm 의 사용
 
 ## Kompose
 
-[`Kompose`](https://github.com/kubernetes-incubator/kompose) 도커 컴포즈(Docker Compose) 유저들을 쿠버네티스로 마이그레이션하는데 도움이 되는 도구이다.
+[`Kompose`](https://github.com/kubernetes-incubator/kompose)는 도커 컴포즈(Docker Compose) 유저들을 쿠버네티스로 마이그레이션하는데 도움이 되는 도구이다.
 
 Kompose 의 사용
 
