@@ -49,7 +49,7 @@ make docker-serve
 
 Hugoのインストール方法については[Hugoの公式ドキュメント](https://gohugo.io/getting-started/installing/)をご覧ください。このとき、[`netlify.toml`](netlify.toml#L9)ファイルに記述されている`HUGO_VERSION`と同じバージョンをインストールするようにしてください。
 
-Hugoがインストールできたら、以下のコマンドを使ってWebサイトを動かすことができます:
+Hugoがインストールできたら、以下のコマンドを使ってWebサイトをローカル上で動かすことができます:
 
 ```bash
 make serve
