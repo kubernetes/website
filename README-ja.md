@@ -17,20 +17,11 @@ Pull Requestの所有者は作成者であるため、**ご自身で作成した
 
 Kubernetesのドキュメントへの貢献に関する詳細については以下のページをご覧ください:
 
-* [Start contributing](https://kubernetes.io/docs/contribute/start/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
-
-## Localization `README.md`'s
-|  |  |
-|---|---|
-|[French README](README-fr.md)|[Korean README](README-ko.md)|
-|[German README](README-de.md)|[Portuguese README](README-pt.md)|
-|[Hindi README](README-hi.md)|[Spanish README](README-es.md)|
-|[Indonesian README](README-id.md)|[Chinese README](README-zh.md)|
-|[Japanese README](README-ja.md)||
+* [貢献のはじめかた](https://kubernetes.io/docs/contribute/start/)
+* [ドキュメントの変更をステージする](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [ページテンプレートの使い方](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [ドキュメントのスタイルガイド](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Kubernetesドキュメントの翻訳方法](https://kubernetes.io/docs/contribute/localization/)
 
 ## Dockerを使ってローカル環境でWebサイトを動かす
 
@@ -56,7 +47,7 @@ make docker-serve
 
 ## Hugoをローカル環境で動かす
 
-Hugoのインストール方法については[Hugoの公式ドキュメントp](https://gohugo.io/getting-started/installing/)をご覧ください。このとき、[`netlify.toml`](netlify.toml#L9)ファイルに記述されている`HUGO_VERSION`と同じバージョンをインストールするようにしてください。
+Hugoのインストール方法については[Hugoの公式ドキュメント](https://gohugo.io/getting-started/installing/)をご覧ください。このとき、[`netlify.toml`](netlify.toml#L9)ファイルに記述されている`HUGO_VERSION`と同じバージョンをインストールするようにしてください。
 
 Hugoがインストールできたら、以下のコマンドを使ってWebサイトを動かすことができます:
 
@@ -68,16 +59,16 @@ make serve
 
 ## コミュニティ内での議論、貢献、サポートなどについて
 
-[community page](http://kubernetes.io/community/)をご覧になることで、Kubernetesコミュニティとの関わり方を学ぶことができます。
+[コミュニティのページ](http://kubernetes.io/community/)をご覧になることで、Kubernetesコミュニティとの関わり方を学ぶことができます。
 
 本プロジェクトのメンテナーには以下の方法で連絡することができます:
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
-- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+- [メーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 ### 行動規範
 
-Kubernetesコミュニティへの参加については、[Kubernetes Code of Conduct](code-of-conduct.md)によって管理されています。
+Kubernetesコミュニティへの参加については、[Kubernetesの行動規範](code-of-conduct.md)によって管理されています。
 
 ## ありがとうございます！
 
