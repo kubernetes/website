@@ -63,7 +63,7 @@ active participants.
 
 Before you start reviewing PRs, make sure you are familiar with the
 [Documentation Style Guide](/docs/contribute/style/style-guide/)
-and the [code of conduct](/community/code-of-conduct/)
+and the [code of conduct](/community/code-of-conduct/).
 
 ### Find a PR to review
 
@@ -101,7 +101,7 @@ more information about the responsibilities of reviewers and approvers, see
   indicates that a PR is technically accurate by leaving a `/lgtm` comment on
   the PR.
 
-    {{< note >}}Don't add an `/lgtm` unless you are confident in the technical
+    {{< note >}}Don't add a `/lgtm` unless you are confident in the technical
     accuracy of the documentation modified or introduced in the PR.{{< /note >}}
 
 - An approver reviews pull request content for docs quality and adherence to
@@ -112,7 +112,7 @@ more information about the responsibilities of reviewers and approvers, see
   approve a PR. To approve a PR, leave an `/approve` comment on the PR.
 
 A PR is merged when it has both a `/lgtm` comment from anyone in the Kubernetes
-organization and an `/approved` comment from an approver in the
+organization and an `/approve` comment from an approver in the
 `sig-docs-maintainers` group, as long as it is not on hold and the PR author
 has signed the CLA.
 
@@ -178,9 +178,9 @@ The ["Participating"](/docs/contribute/participating/#approvers) section contain
             provide technical review.
           - To prevent the PR from being merged, add `/hold`. This sets the
             label `do-not-merge/hold`.
-          - If a PR has no conflicts and has the `lgtm` and `approved` label but
+          - If a PR has no conflicts and has the `lgtm` and `approve` labels but
             no `hold` label, it is merged automatically.
-          - If a PR has the `lgtm` and/or `approved` labels and new changes are
+          - If a PR has the `lgtm` and/or `approve` labels and new changes are
             detected, these labels are removed automatically.
 
             See
