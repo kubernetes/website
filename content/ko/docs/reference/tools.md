@@ -55,5 +55,5 @@ Kompose 의 사용
 
 * 도커 컴포즈 파일을 쿠버네티스 오브젝트로 변환
 * 애플리케이션 개발을 로컬 도커 환경에서 쿠버네티스로 전환
-* V1 또는 V2 도커 컴포즈(Docker Compose) `yaml` 파일들 또는 배포가능한 애플리케니션 번들 [분산 애플리케이션 번들](https://docs.docker.com/compose/bundles/) 을 변환
+* V1 또는 V2 도커 컴포즈(Docker Compose) `yaml` 파일들 또는 [분산 애플리케이션 번들](https://docs.docker.com/compose/bundles/) 을 변환
 {{% /capture %}}
