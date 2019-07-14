@@ -155,7 +155,7 @@ kubectl get services --sort-by=.metadata.name # Name으로 정렬된 서비스�
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # app=cassandra 레이블을 가진 모든 파드의 레이블 버전 조회
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # 모든 워커 노드 조회 (셀렉터를 사용하여 'node-role.kubernetes.io/master'

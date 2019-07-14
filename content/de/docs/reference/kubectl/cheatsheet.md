@@ -145,7 +145,7 @@ kubectl get services --sort-by=.metadata.name # Listen Sie Dienste nach Namen so
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Erhalten Sie die Versionsbezeichnung aller Pods mit der Bezeichnung app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Alle Worker-Knoten abrufen (verwenden Sie einen Selektor, um Ergebnisse auszuschließen,
