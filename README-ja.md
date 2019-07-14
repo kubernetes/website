@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-ようこそ！このリポジトリには、[Kubernetesのウェブサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
+ようこそ！このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
 
 ## ドキュメントに貢献する
 
@@ -72,4 +72,4 @@ Kubernetesコミュニティへの参加については、[Kubernetesの行動�
 
 ## ありがとうございます！
 
-Kubernetesはコミュニティの参加によって成長しています。ウェブサイトおよびドキュメンテーションへの皆さんの貢献に感謝します！
+Kubernetesはコミュニティの参加によって成長しています。Webサイトおよびドキュメンテーションへの皆さんの貢献に感謝します！
