@@ -418,7 +418,9 @@ kubectl apply -f <add-on.yaml>
 {{< tabs name="tabs-Pod-install" >}}
 {{% tab name="Choose one..." %}}
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
-{{% /tab %}} -->
+{{% /tab %}}
+{{< /tabs >}} -->
+
 
 您仅可以给任何一个集群安装一个网络插件。
 
