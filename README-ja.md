@@ -17,7 +17,7 @@ Pull Requestの所有者は作成者であるため、**ご自身で作成した
 
 Kubernetesのドキュメントへの貢献に関する詳細については以下のページをご覧ください:
 
-* [貢献のはじめかた](https://kubernetes.io/docs/contribute/start/)
+* [貢献のはじめ方](https://kubernetes.io/docs/contribute/start/)
 * [ドキュメントの変更をステージする](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [ページテンプレートの使い方](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [ドキュメントのスタイルガイド](http://kubernetes.io/docs/contribute/style/style-guide/)
