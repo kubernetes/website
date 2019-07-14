@@ -307,7 +307,7 @@ Pour que Calico fonctionne correctement, vous devez passer `--pod-network-cidr =
 Notez que Calico fonctionne uniquement sur `amd64`,` arm64`, `ppc64le` et` s390x`.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
 
 {{% /tab %}}
