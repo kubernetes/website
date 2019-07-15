@@ -173,7 +173,7 @@ The `weight` field in `preferredDuringSchedulingIgnoredDuringExecution` is in th
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on
 labels on pods that are already running on the node* rather than based on labels on nodes. The rules are of the form
 "this pod should (or, in the case of anti-affinity, should not) run in an X if that X is already running one or more pods that meet rule Y".
-Y is expressed as a LabelSelector with an associated list of namespaces; unlike nodes, because pods are namespaced
+Y is expressed as a LabelSelector with an optional associated list of namespaces; unlike nodes, because pods are namespaced
 (and therefore the labels on pods are implicitly namespaced),
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
