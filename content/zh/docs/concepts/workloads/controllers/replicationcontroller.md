@@ -338,7 +338,7 @@ Pods may be removed from a ReplicationController's target set by changing their 
 -->
 ### 从 ReplicationController 中隔离 pod
 
-通过更改 Pods 的标签，可以从 ReplicationController 的目标中删除 pod。
+通过更改 Pod 的标签，可以从 ReplicationController 的目标中删除 pod。
 此技术可用于从服务中删除 pod 以进行调试、数据恢复等。以这种方式删除的 pod 将自动替换（假设复制副本的数量也没有更改）。
 
 <!--
@@ -512,7 +512,7 @@ Unlike in the case where a user directly created pods, a ReplicationController r
 -->
 ### Bare Pod
 
-与用户直接创建 pods 的情况不同，ReplicationController 替换因某些原因被删除或被终止的 pod ，例如在节点故障或中断节点维护的情况下，例如内核升级。
+与用户直接创建 pod 的情况不同，ReplicationController 替换因某些原因被删除或被终止的 pod ，例如在节点故障或中断节点维护的情况下，例如内核升级。
 因此，我们建议您使用一个 ReplicationController，即使您的应用程序只需要一个 pod。
 可以将其看作类似于进程管理器，它只管理跨多个节点的多个 pod ，而不是单个节点上的单个进程。
 ReplicationController 将本地容器重启委托给节点上的某个代理(例如，Kubelet 或 Docker)。
