@@ -319,7 +319,7 @@ Pour que Canal fonctionne correctement, `--pod-network-cidr = 10.244.0.0 / 16` d
 ` kubeadm init`. Notez que Canal ne fonctionne que sur `amd64`.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 {{% /tab %}}

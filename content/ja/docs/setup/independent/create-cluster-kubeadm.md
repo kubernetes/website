@@ -292,7 +292,7 @@ Canal uses Calico for policy and Flannel for networking. Refer to the Calico doc
 For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 {{% /tab %}}
