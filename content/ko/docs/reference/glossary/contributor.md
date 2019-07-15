@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-기부에는 풀 리퀘스트 (PRs), 이슈, 피드백, {{< glossary_tooltip text="special interest groups (SIG)" term_id="sig" >}} 참여 또는 조직 커뮤니티 행사가 포함됩니다.
+기부에는 풀 리퀘스트 (PRs), 이슈, 피드백, {{< glossary_tooltip text="special interest groups (SIG)" term_id="sig" >}} 또는 조직 커뮤니티 행사 참여가 포함됩니다.
