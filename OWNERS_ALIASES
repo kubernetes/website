@@ -107,17 +107,16 @@ aliases:
   sig-docs-it-reviews: # PR reviews for Italian content
     - rlenferink
     - micheleberardi
-  sig-docs-ja-owners: # Admins for Japanese content 
+  sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - nasa9084
-    - tnir
     - zacharysarah
-  sig-docs-ja-reviews: # PR reviews for Japanese content 
+  sig-docs-ja-reviews: # PR reviews for Japanese content
     - cstoku
+    - inductor
     - makocchi-git
     - MasayaAoyama
     - nasa9084
-    - tnir
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
