@@ -48,7 +48,7 @@ Containers are becoming popular because they have many benefits. Some of the con
 * Resource isolation: predictable application performance.
 * Resource utilization: high efficiency and density.
 
-## Why do I need Kubernetes and what can it do
+## Why you need Kubernetes and what can it do
 
 Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?
 
