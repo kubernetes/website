@@ -1,4 +1,5 @@
 ---
+layout: blog
 title: 'The Future of Cloud Providers in Kubernetes'
 date: 2019-04-17
 ---
