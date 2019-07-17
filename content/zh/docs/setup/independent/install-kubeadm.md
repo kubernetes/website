@@ -154,7 +154,7 @@ Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface
 The container runtime used by default is Docker, which is enabled through the built-in
 `dockershim` CRI implementation inside of the `kubelet`. 
 -->
-从 v1.6.0 起，Kubernetes 开始允许使用 CRI，容器运行时接口。默认的容器运行时是 Docker，这是由 `kubelet` 内置的 CRI 实现 `dockershim` 开启的。
+从 v1.6.0 起，Kubernetes 开始允许使用 CRI，容器运行环境接口。默认的容器运行环境是 Docker，这是由 `kubelet` 内置的 CRI 实现 `dockershim` 开启的。
 
 <!-- 
 Other CRI-based runtimes include:
@@ -164,7 +164,7 @@ Other CRI-based runtimes include:
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet) 
 -->
-其他的容器运行时有：
+其他的容器运行环境有：
 
 - [containerd](https://github.com/containerd/cri) (containerd 的内置 CRI 插件)
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
@@ -306,7 +306,7 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 <!-- 
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)) 
 -->
-安装 crictl (kubeadm / Kubelet 的容器运行时接口 (CRI) 要求) 
+安装 crictl (kubeadm / Kubelet 的容器运行环境接口 (CRI) 要求) 
 
 ```bash
 CRICTL_VERSION="v1.11.1"
