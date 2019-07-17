@@ -10,7 +10,7 @@ aka:
 tags:
 - community
 ---
- {{< glossary_tooltip text="컨트리뷰터" term_id="contributor" >}}가 오픈 소스 프로젝트에 기여할 수 있는 라이센스를 부여하는 조건.
+ {{< glossary_tooltip text="컨트리뷰터" term_id="contributor" >}}가 기여한 것에 대한 사용권을 오픈 소스 프로젝트에 허락하는 계약 조건.하는 조건.
 
 <!--more-->
 
