@@ -779,7 +779,7 @@ in an object could already exist in the user-provided object, but it is essentia
 ### Failure policy
 
 `failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`. Defaults to `Ignore` in v1beta1.
+are handled. Allowed values are `Ignore` or `Fail`. Defaults to `Ignore` in v1beta1, and v1 has changed the default to `Fail`.
 
 * `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
 * `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
