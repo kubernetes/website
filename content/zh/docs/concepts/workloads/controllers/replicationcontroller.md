@@ -1,7 +1,4 @@
 <!--
-reviewers:
-- bprashanth
-- janetkuo
 title: ReplicationController
 feature:
   title: Self-healing
@@ -13,9 +10,6 @@ content_template: templates/concept
 weight: 20
 -->
 ---
-reviewers:
-- bprashanth
-- janetkuo
 title: ReplicationController
 feature:
   title: 自我修复
@@ -33,7 +27,7 @@ weight: 20
 <!--
 A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
 -->
-现在推荐使用配置 [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) 的 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) 来设置 replication。
+现在推荐使用配置 [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) 的 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) 来建立副本管理机制。
 {{< /note >}}
 
 <!--
