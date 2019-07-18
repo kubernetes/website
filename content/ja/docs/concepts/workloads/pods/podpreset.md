@@ -6,7 +6,7 @@ weight: 50
 ---
 
 {{% capture overview %}}
-このページではPodPresetについて概観します。PodPresetとは、Podの作成時にPodに対して情報を注入するためのオブジェクトです。  
+このページではPodPresetについて概観します。PodPresetとは、PodPresetとは、Podの作成時にそのPodに対して、Secret、Volume、VolumeMountや環境変数など、特定の情報を注入するためのオブジェクトです。  
 その情報はSecret、Volume、VolumeMountや環境変数などを含むことができます。
 {{% /capture %}}
 
@@ -46,7 +46,7 @@ PodPresetによるPodの変更を受け付けたくないようなインスタ�
 
 ## PodPresetを有効にする
 
-ユーザーのクラスター内でPodPresetを使うために、ユーザは下記の項目を保証しなくてはなりません。
+ユーザーのクラスター内でPodPresetを使うためには、クラスター内の以下の項目をご確認ください。
 
 1.  `settings.k8s.io/v1alpha1/podpreset`というAPIを有効にします。例えば、これはAPI Serverの `--runtime-config`オプションに`settings.k8s.io/v1alpha1=true`を含むことで可能になります。Minikubeにおいては、クラスターの起動時に`--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`をつけることで可能です。
 1.  `PodPreset`に対する管理コントローラーを有効にします。これを行うための1つの方法として、API Serverの`--enable-admission-plugins`オプションの値に`PodPreset`を含む方法があります。Minikubeにおいては、クラスターの起動時に`--extra-config=apiserver.enable-admission-plugins=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset`を追加することで可能になります。
