@@ -2,8 +2,6 @@
 
 reviewers:
 - sftim
-- mikedanese
-- brendandburns
 title: Running Kubernetes on Tencent Kubernetes Engine
 content_template: templates/task
 
