@@ -63,16 +63,16 @@ service, such as web servers.
 -->
 ## ReplicationController 如何工作
 
-如果有太多的 pod，ReplicationController 将终止额外的 pod。如果数量太少，ReplicationController 将启动更多的 pod。
-与手动创建的 pod 不同，由 ReplicationController 创建的 pod 如果它们失败、被删除或被终止时，会被自动替换。
+当 pods 数量过多时，ReplicationController 会终止多余的 pods。当 pods 数量太少时，ReplicationController 将会启动新的 pods。
+与手动创建的 pod 不同，由 ReplicationController 创建的 pods 在失败、被删除或被终止时会被自动替换。
 例如，在中断性维护（如内核升级）之后，您的 pod 会在节点上重新创建。
 因此，即使您的应用程序只需要一个 pod，您也应该使用一个 ReplicationController。
-ReplicationController 类似于进程管理器，但是 ReplicationController 不是监控单个节点上的单个进程，而是监控多个 pod 跨多个节点。
+ReplicationController 类似于进程管理器，但是 ReplicationController 不是监控单个节点上的单个进程，而是监控跨多个节点的多个 pods。
 
 在讨论中，ReplicationController 通常缩写为 "rc" 或 "rcs"，并作为 kubectl 命令的快捷方式。
 
 一个简单的例子是创建一个 ReplicationController 对象来可靠地无限期地运行 Pod 的一个实例。
-更复杂的用例是运行一个复制服务的多个相同的副本，比如 web 服务器。
+更复杂的用例是运行一个多副本服务（如 web 服务器）的若干相同副本。
 
 <!--
 ## Running an example ReplicationController
@@ -88,7 +88,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 <!--
 Run the example job by downloading the example file and then running this command:
 -->
-通过下载示例文件运行示例任务，然后运行以下命令:
+通过下载示例文件并运行以下命令来运行示例任务:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
@@ -219,7 +219,7 @@ different, and the `.metadata.labels` do not affect the behavior of the Replicat
 ReplicationController 本身可以有标签 （`.metadata.labels`）。
 通常，您可以将这些设置为 `.spec.template.metadata.labels`； 
 如果没有指定 `.metadata.labels` 那么它默认为 `.spec.template.metadata.labels`。  
-但是，允许它们是不同的，`.metadata.labels` 不会影响 ReplicationController 的行为。
+但是，Kubernetes 允许它们是不同的，`.metadata.labels` 不会影响 ReplicationController 的行为。
 
 <!--
 ### Pod Selector
@@ -244,18 +244,18 @@ will have to manage the deletion yourself (see [below](#working-with-replication
 ### Pod 选择器
 
 `.spec.selector` 字段是一个[标签选择器](/docs/concepts/overview/working-with-objects/labels/#label-selectors)。 
-ReplicationController 使用与选择器匹配的标签管理所有 pod。
+ReplicationController 管理标签与选择器匹配的所有 Pods。
 它不区分它创建或删除的 pod 以及另一个人或进程创建或删除的 pod。
 这允许在不影响正在运行的 pod 的情况下替换 ReplicationController。
 
 如果指定了 `.spec.template.metadata.labels`，它必须和 `.spec.selector` 相同，否则它将被 API 拒绝。
 如果没有指定 `.spec.selector`，它将默认为 `.spec.template.metadata.labels`。
 
-此外，通常不应创建标签与此选择器匹配的任何 pod，无论是直接与另一个 ReplicationController 匹配，还是与另一个控制器（如 Job ）匹配。
-如果这样做， ReplicationController 会认为它创建了其他 pod。
+此外，用户通常不应创建标签与此选择器匹配的任何其他 Pods，无论是直接创建、使用另一个 ReplicationController 来创建或者别的控制器（如 Job ）来创建，都是不允许的。
+如果这样做， ReplicationController 会认为这些 Pods 是由它自己创建的。
 Kubernetes 并没有阻止你这样做。
 
-如果您最终使用了多个具有重叠选择器的控制器，那么您将不得不自己管理删除操作(参考[下面](#使用-replicationcontrollers))。
+如果您的确创建了多个控制器并且其选择器之间存在重叠，那么您将不得不自己管理删除操作（参考[后文](#使用-replicationcontrollers)）。
 
 <!--
 ### Multiple Replicas
@@ -269,8 +269,8 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 -->
 ### 多个副本
 
-你可以通过设置 `.spec.replicas` 为希望同时运行的 pod 的数量来指定应该同时运行多少个 pod。
-任何时候运行的数字都可能更高或者更低，比如副本只是增加或减少了，或者一个 pod 是优雅的关机，并提前开始替换。
+你可以通过设置 `.spec.replicas` 来指定应该同时运行多少个 Pods。
+在任何时候，处于运行状态的 Pods 个数都可能高于或者低于设定值。例如，副本个数刚刚被增加或减少时，或者一个 pod 处于体面终止过程中而其替代副本已经提前开始创建时。
 
 如果你没有指定 `.spec.replicas` ，那么它默认是1。
 
@@ -296,7 +296,7 @@ When using the REST API or go client library, you need to do the steps explicitl
 Kubectl 将 ReplicationController 缩放为0并等待以便在删除 ReplicationController 本身之前删除每个 pod。
 如果这个 kubectl 命令被中断，可以重新启动它。
 
-当使用 REST API 或 go 客户端库时，您需要明确地执行这些步骤（缩放副本为0， 等等 pod 删除，然后删除 ReplicationController）。
+当使用 REST API 或 go 客户端库时，您需要明确地执行这些步骤（缩放副本为0、 等待 Pod 删除，之后删除 ReplicationController 资源）。
 
 <!--
 ### Deleting just a ReplicationController
@@ -312,7 +312,7 @@ as the old and new `.spec.selector` are the same, then the new one will adopt th
 However, it will not make any effort to make existing pods match a new, different pod template.
 To update pods to a new spec in a controlled way, use a [rolling update](#rolling-updates).
 -->
-### 只删除一个 ReplicationController
+### 只删除 ReplicationController
 
 你可以删除一个 ReplicationController 而不影响它的任何 pod。
 
@@ -320,10 +320,10 @@ To update pods to a new spec in a controlled way, use a [rolling update](#rollin
 
 当使用 REST API 或 go 客户端库时， 只需删除 ReplicationController 对象。
 
-一旦原始文件被删除，你可以创建一个新的 ReplicationController 来替换它。
-只要新的和旧的 `.spec.selector` 相同，那么新的将领养旧的 pod。
+一旦原始对象被删除，你可以创建一个新的 ReplicationController 来替换它。
+只要新的和旧的 `.spec.selector` 相同，那么新的控制器将领养旧的 Pods。
 但是，它不会做出任何努力使现有的 pod 匹配新的、不同的 pod 模板。
-以受控方式将 pod 更新为新 spec，使用一次[滚动更新](#滚动更新)。
+如果希望以受控方式更新 Pods 以使用新的 spec，请执行[滚动更新](#滚动更新)操作。
 
 <!--
 ### Isolating pods from a ReplicationController
@@ -353,9 +353,9 @@ As mentioned above, whether you have 1 pod you want to keep running, or 1000, a 
 
 The ReplicationController makes it easy to scale the number of replicas up or down, either manually or by an auto-scaling control agent, by simply updating the `replicas` field.
 -->
-### 扩容
+### 扩缩容
 
-通过简单地更新 `replicas` 字段，ReplicationController 可以方便地纵向扩容或缩容副本的数量，或手动或通过自动缩放控制代理。
+通过简单地更新 `replicas` 字段，ReplicationController 可以方便地横向扩容或缩容副本的数量，或手动或通过自动缩放控制代理。
 
 <!--
 ### Rolling updates
@@ -375,9 +375,9 @@ Rolling update is implemented in the client tool
 
 ReplicationController 的设计目的是通过逐个替换 pod 以方便滚动更新服务。
 
-如[#1353](http://issue.k8s.io/1353)所述，建议的方法是使用1个副本创建一个新的 ReplicationController，逐个缩放新的（+1）和旧的（-1）控制器，然后在旧的控制器达到0个副本后将其删除。这可预见地更新 pod 集，而不考虑意外失败。
+如[#1353](http://issue.k8s.io/1353)所述，建议的方法是使用1个副本创建一个新的 ReplicationController，逐个缩放新的（+1）和旧的（-1）控制器，然后在旧的控制器达到0个副本后将其删除。这一方法能够实现可控的 Pods 集合更新，即使存在意外失效的状况。
 
-理想情况下，滚动更新控制器将考虑应用程序准备情况，并确保在任何给定时间都有足够数量的 pod 有效地提供服务。
+理想情况下，滚动更新控制器将考虑应用程序的就绪情况，并确保在任何给定时间都有足够数量的 Pods 有效地提供服务。
 
 这两个 ReplicationController 将需要创建至少具有一个不同标签的 pod，比如 pod 主要容器的镜像标签，因为通常是镜像更新触发滚动更新。
 
