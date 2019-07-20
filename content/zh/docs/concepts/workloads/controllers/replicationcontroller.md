@@ -35,7 +35,7 @@ A _ReplicationController_ ensures that a specified number of pod replicas are ru
 time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is
 always up and available.
 -->
-_ReplicationController_ 确保在任何时候运行特定数量的 pod 副本。
+_ReplicationController_ 确保在任何时候都有特定数量的 pod 副本处于运行状态。
 换句话说，ReplicationController 确保一个 pod 或一组同类的 pod 总是可用的。
 {{% /capture %}}
 
