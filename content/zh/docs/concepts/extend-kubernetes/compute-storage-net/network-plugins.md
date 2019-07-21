@@ -1,13 +1,13 @@
-<!--
-title: Network Plugins
-content_template: templates/concept
-weight: 10
--->
 ---
 title: 网络插件
 content_template: templates/concept
 weight: 10
 ---
+<!--
+title: Network Plugins
+content_template: templates/concept
+weight: 10
+-->
 
 
 {{% capture overview %}}
@@ -48,7 +48,7 @@ kubelet 有一个单独的默认网络插件，以及一个对整个集群通用
 在使用插件时，需要记住两个 Kubelet 命令行参数：
 
 * `cni-bin-dir`： Kubelet 在启动时探测这个目录中的插件
-* `network-plugin`： 要使用的网络插件来自 `cni-bin-dir`。它必须与从插件目录探测到的插件报告的名称匹配。对于 CNI 插件，它简称 "cni"。
+* `network-plugin`： 要使用的网络插件来自 `cni-bin-dir`。它必须与从插件目录探测到的插件报告的名称匹配。对于 CNI 插件，其值为 "cni"。
 
 <!--
 ## Network Plugin Requirements
@@ -212,7 +212,7 @@ The plugin requires a few things:
 
 Kubenet 是一个非常基本的、简单的网络插件，仅适用于 Linux。
 它本身并不实现更高级的功能，如跨节点网络或网络策略。
-它通常与云提供商一起使用，云提供商为节点之间或单节点环境中的通信设置路由规则。
+它通常与云驱动一起使用，云驱动为节点间或单节点环境中的通信设置路由规则。
 
 Kubenet 创建名为 `cbr0` 的网桥，并为每个 pod 创建了一个 veth 对，每个 pod 的主机端都连接到 `cbr0`。
 这个 veth 对的 pod 端会被分配一个 IP 地址，该 IP 地址隶属于节点所被分配的 IP 地址范围内。节点的 IP 地址范围则通过配置或控制器管理器来设置。
