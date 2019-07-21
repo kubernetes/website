@@ -414,17 +414,17 @@ A ReplicationController will never terminate on its own, but it isn't expected t
 
 一个 ReplicationController 永远不会自行终止，但它不会像服务那样长寿。
 服务可以由多个 ReplicationController 控制的 pod 组成，并且在服务的生命周期内（例如，为了执行 pod 更新而运行服务），可以创建和销毁许多 ReplicationController。
-服务本身和它们的客户端都应该对维护服务 pod 的 ReplicationController 保持遗忘。
+服务本身和它们的客户端都应该忽略负责维护服务 Pod 的 ReplicationController 的存在。
 
 <!--
 ## Writing programs for Replication
 
 Pods created by a ReplicationController are intended to be fungible and semantically identical, though their configurations may become heterogeneous over time. This is an obvious fit for replicated stateless servers, but ReplicationControllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the [RabbitMQ work queues](https://www.rabbitmq.com/tutorials/tutorial-two-python.html), as opposed to static/one-time customization of the configuration of each pod, which is considered an anti-pattern. Any pod customization performed, such as vertical auto-sizing of resources (for example, cpu or memory), should be performed by another online controller process, not unlike the ReplicationController itself.
 -->
-## 为 Replication 编写程序
+## 编写多副本的应用
 
 由 ReplicationController 创建的 Pod 是可替换的，语义上是相同的，尽管随着时间的推移，它们的配置可能会变得异构。
-这显然适合于复制的无状态服务器，但是 ReplicationController 也可以用于维护主选、分片和工作池应用程序的可用性。
+这显然适合于多副本的无状态服务器，但是 ReplicationController 也可以用于维护主选、分片和工作池应用程序的可用性。
 这样的应用程序应该使用动态的工作分配机制，例如 [RabbitMQ工作队列](https://www.rabbitmq.com/tutorials/tutorial-two-python.html)，而不是静态的/一次性定制每个 pod 的配置，这被认为是一种反模式。
 执行的任何 pod 定制，例如资源的垂直自动调整大小(例如，cpu 或内存)，都应该由另一个在线控制器进程执行，这与 ReplicationController 本身没什么不同。
 
@@ -444,8 +444,8 @@ ReplicationController 只需确保所需的 pod 数量与其标签选择器匹�
 未来，可能会考虑系统提供的[就绪状态](http://issue.k8s.io/620)和其他信息，我们可能会对替换策略添加更多控制，我们计划发出事件，这些事件可以被外部客户端用来实现任意复杂的替换和/或缩减策略。
 
 ReplicationController 永远被限制在这个狭隘的职责范围内。
-它本身既不执行 readiness ，也不执行 liveness 探测。
-它不是执行自动缩放，而是由外部自动缩放器控制（如[#492](http://issue.k8s.io/492)中所述），这将更改其 `replicas` 字段。
+它本身既不执行就绪态探测，也不执行活跃性探测。
+它不负责执行自动缩放，而是由外部自动缩放器控制（如[#492](http://issue.k8s.io/492)中所述），后者负责更改其 `replicas` 字段取值。
 我们不会向 ReplicationController 添加调度策略(例如，[spreading](http://issue.k8s.io/367#issuecomment-48428019))。
 它也不应该验证所控制的 pod 是否与当前指定的模板匹配，因为这会阻碍自动调整大小和其他自动化过程。
 类似地，完成期限、整理依赖关系、配置扩展和其他特性也属于其他地方。
@@ -484,8 +484,8 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 ### ReplicaSet
 
 [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) 是下一代 ReplicationController ，支持新的[基于集合的标签选择器](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement)。
-它主要被 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) 用来作为一种编排 pod 创建、删除以及跟更新的机制。
-请注意，我们推荐使用 Deployment 而不是直接使用 Replica Set，除非您需要自定义更新编排或根本不需要更新。
+它主要被 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) 用来作为一种编排 pod 创建、删除及更新的机制。
+请注意，我们推荐使用 Deployment 而不是直接使用 ReplicaSet，除非您需要自定义更新编排或根本不需要更新。
 
 <!--
 ### Deployment (Recommended)
@@ -496,7 +496,7 @@ because unlike `kubectl rolling-update`, they are declarative, server-side, and 
 -->
 ### Deployment （推荐）
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象，它以类似于 `kubectl rolling-update` 的方式更新其底层 Replica Set 及其 Pod。
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象，它以类似于 `kubectl rolling-update` 的方式更新其底层 ReplicaSet 及其 Pod。
 如果您想要这种滚动更新功能，那么推荐使用 Deployment，因为与 `kubectl rolling-update` 不同，它们是声明式的、服务端的，并且具有其它特性。
 
 <!--
@@ -504,10 +504,10 @@ because unlike `kubectl rolling-update`, they are declarative, server-side, and 
 
 Unlike in the case where a user directly created pods, a ReplicationController replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicationController even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node.  A ReplicationController delegates local container restarts to some agent on the node (for example, Kubelet or Docker).
 -->
-### Bare Pod
+### 裸 Pods
 
-与用户直接创建 pod 的情况不同，ReplicationController 替换因某些原因被删除或被终止的 pod ，例如在节点故障或中断节点维护的情况下，例如内核升级。
-因此，我们建议您使用一个 ReplicationController，即使您的应用程序只需要一个 pod。
+与用户直接创建 pod 的情况不同，ReplicationController 能够替换因某些原因被删除或被终止的 pod ，例如在节点故障或中断节点维护的情况下，例如内核升级。
+因此，我们建议您使用 ReplicationController，即使您的应用程序只需要一个 pod。
 可以将其看作类似于进程管理器，它只管理跨多个节点的多个 pod ，而不是单个节点上的单个进程。
 ReplicationController 将本地容器重启委托给节点上的某个代理(例如，Kubelet 或 Docker)。
 
@@ -531,8 +531,8 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 -->
 ### DaemonSet
 
-对于提供机器级功能(例如机器监控或机器日志记录)的 pod ，使用 [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) 而不是 ReplicationController。
-这些 pod 有一个与机器存在期绑定的存在期：它们需要在其他 pod 启动之前在机器上运行，并且在机器准备重新启动/关闭时可以安全地终止。
+对于提供机器级功能（例如机器监控或机器日志记录）的 pod ，使用 [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) 而不是 ReplicationController。
+这些 pod 的生命期与机器的生命期绑定：它们需要在其他 pod 启动之前在机器上运行，并且在机器准备重新启动/关闭时安全地终止。
 
 <!--
 ## For more information
@@ -541,6 +541,6 @@ Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-applica
 -->
 ## 更多信息
 
-请阅读[运行无状态的 AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/)。
+请阅读[运行无状态的 Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/)。
 
 {{% /capture %}}
