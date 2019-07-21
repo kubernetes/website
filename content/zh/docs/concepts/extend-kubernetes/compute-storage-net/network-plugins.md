@@ -79,7 +79,7 @@ In addition to the CNI plugin specified by the configuration file, Kubernetes re
 
 通过给 Kubelet 传递 `--network-plugin=cni` 命令行选项来选择 CNI 插件。
 Kubelet 从 `--cni-conf-dir` （默认是 `/etc/cni/net.d`） 读取文件并使用该文件中的 CNI 配置来设置每个 pod 的网络。
-CNI 配置文件必须与 [CNI 规范](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration)匹配，并且配置引用的任何所需的 CNI 插件都必须存在于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）。
+CNI 配置文件必须与 [CNI 规约](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration)匹配，并且配置引用的任何所需的 CNI 插件都必须存在于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）。
 
 如果这个目录中有多个 CNI 配置文件，则使用按文件名的字典顺序排列的第一个配置文件。
 
@@ -143,10 +143,10 @@ If you want to enable traffic shaping support, you must add a `bandwidth` plugin
 #### 支持流量整形
 
 CNI 网络插件还支持 pod 入口和出口流量整形。
-您可以使用 CNI 插件团队提供的[bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)插件，
+您可以使用 CNI 插件团队提供的 [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth) 插件，
 也可以使用您自己的具有带宽控制功能的插件。
 
-如果您想要启用流量整形支持，你必须将`bandwidth`插件添加到 CNI 配置文件
+如果您想要启用流量整形支持，你必须将 `bandwidth` 插件添加到 CNI 配置文件
 （默认是 `/etc/cni/net.d`）。
 
 ```json
