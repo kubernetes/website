@@ -58,10 +58,10 @@ For the external etcd cluster only, you also need:
 
 ### Create load balancer for kube-apiserver
 
-1.  Create a kube-apiserver load balancer, and setup a name in DNS which resolves to it. This load balancer should transparently distribute traffic to all
-  healthy control plane nodes. As a result, the load balancer must be able to accept connections on the apiserver port, and communicate with all control plane nodes on the apiserver port.
+1. Check if your deployment environment has a highly available load balancer, and use that if possible. Otherwise select a TCP forwarding proxy implementation to setup (such as [HAProxy](http://www.haproxy.org/)).
 
-  - Check if your deployment environment has a highly available load balancer, and use that if possible. Otherwise, setup a TCP forwarding load balancer (such as [HAProxy](http://www.haproxy.org/)). Make sure to follow the documentation to properly setup this load balancer in a highly-available configuration. Otherwise, your load balancer becomes a single point of failure.
+  - Create a load balancer for the kube-apiserver with it's own name in DNS. This load balancer should transparently distribute traffic to all
+  healthy control plane nodes. As a result, the load balancer must be able to accept connections on the apiserver port, and communicate with all control plane nodes on the apiserver port.
 
 1.  Add the first control plane nodes to the load balancer and test the
     connection using:
