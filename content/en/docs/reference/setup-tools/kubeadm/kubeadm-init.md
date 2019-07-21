@@ -206,11 +206,11 @@ point to the CA certificate and key.
 
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
 
-The kubeadm package ships with configuration for how the kubelet should
-be run. Note that the `kubeadm` CLI command never touches this drop-in file.
-This drop-in file belongs to the kubeadm deb/rpm package.
+The `kubeadm` package ships with configuration for how the `kubelet` should
+be run by `systemd`. Note that the `kubeadm` CLI command never touches this drop-in file.
+This drop-in file belongs to the `kubeadm` DEB/RPM package.
 
-This is what it looks like:
+This is what it looks like (from [`10-kubeadm.conf` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf), resp. [`10-kubeadm.conf` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf)), which augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service))):
 
 
 ```
