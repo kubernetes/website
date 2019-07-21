@@ -60,9 +60,9 @@ By default if no kubelet network plugin is specified, the `noop` plugin is used,
 ## 网络插件要求
 
 除了提供[`NetworkPlugin` 接口](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/dockershim/network/plugins.go)来配置和清理 pod 网络之外，该插件还可能需要对 kube-proxy 的特定支持。
-iptables 代理显然依赖于 iptables，插件可能需要确保容器通信对 iptables 可用。
+iptables 代理显然依赖于 iptables，插件可能需要确保 iptables 能够监控容器的网络通信。
 例如，如果插件将容器连接到 Linux 网桥，插件必须将 `net/bridge/bridge-nf-call-iptables` 系统参数设置为`1`，以确保 iptables 代理正常工作。
-如果插件不使用 Linux 网桥（而是类似于 Open vSwitch 获取其它一些机制），它应该确保为代理正确路由了容器流量。
+如果插件不使用 Linux 网桥（而是类似于 Open vSwitch 或者其它一些机制），它应该确保为代理对容器通信执行正确的路由。
 
 默认情况下，如果未指定 kubelet 网络插件，则使用 `noop` 插件，该插件设置 `net/bridge/bridge-nf-call-iptables=1`，以确保简单的配置（如带网桥的 Docker ）与 iptables 代理正常工作。
 
@@ -140,13 +140,13 @@ plugin offered by the CNI plugin team or use your own plugin with bandwidth cont
 If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
 (default `/etc/cni/net.d`).
 -->
-#### Support 流量整形
+#### 支持流量整形
 
 CNI 网络插件还支持 pod 入口和出口流量整形。
-您可以使用 CNI 插件团队提供的[宽带](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)插件，
+您可以使用 CNI 插件团队提供的[bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)插件，
 也可以使用您自己的具有带宽控制功能的插件。
 
-如果您想要启用流量整形支持，你必须将`宽带`插件添加到 CNI 配置文件
+如果您想要启用流量整形支持，你必须将`bandwidth`插件添加到 CNI 配置文件
 （默认是 `/etc/cni/net.d`）。
 
 ```json
@@ -214,16 +214,16 @@ Kubenet 是一个非常基本的、简单的网络插件，仅适用于 Linux。
 它本身并不实现更高级的功能，如跨节点网络或网络策略。
 它通常与云提供商一起使用，云提供商为节点之间或单节点环境中的通信设置路由规则。
 
-Kubenet 创建了一个名为 `cbr0` 的网桥，并为每个 pod 创建了一个 veth 对，每个 pod 的主机端都连接到 `cbr0`。
-这个 veth 对的 pod 端会被分配一个 IP 地址，该 IP 地址通过配置或 controller-manager 从分配的节点范围中分配。
+Kubenet 创建名为 `cbr0` 的网桥，并为每个 pod 创建了一个 veth 对，每个 pod 的主机端都连接到 `cbr0`。
+这个 veth 对的 pod 端会被分配一个 IP 地址，该 IP 地址隶属于节点所被分配的 IP 地址范围内。节点的 IP 地址范围则通过配置或控制器管理器来设置。
 `cbr0` 被分配一个 MTU，该 MTU 匹配主机上已启用的正常接口的最小 MTU。
 
-这个插件需要做一些事情：
+使用此插件还需要一些其他条件：
 
 * 需要标准的 CNI `bridge`、`lo` 以及 `host-local` 插件，最低版本是0.2.0。Kubenet 首先在 `/opt/cni/bin` 中搜索它们。 指定 `cni-bin-dir` 以提供其它的搜索路径。首次找到的匹配将生效。
 * Kubelet 必须和 `--network-plugin=kubenet` 参数一起运行，才能启用该插件。
-* Kubelet 还应该和 `--non-masquerade-cidr=<clusterCidr>` 参数一起运行，以确保超出此范围的 IP 流量将使用 IP masquerade。
-* 节点必须被分配一个 IP 子网，通过 `--pod-cidr` kubelet 命令行选项或 `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager 命令行选项.
+* Kubelet 还应该和 `--non-masquerade-cidr=<clusterCidr>` 参数一起运行，以确保超出此范围的 IP 流量将使用 IP 伪装。
+* 节点必须被分配一个 IP 子网，通过kubelet 命令行的 `--pod-cidr` 选项或控制器管理器的命令行选项 `--allocate-node-cidrs=true --cluster-cidr=<cidr>` 来设置。
 
 <!--
 ### Customizing the MTU (with kubenet)
@@ -242,16 +242,16 @@ This option is provided to the network-plugin; currently **only kubenet supports
 -->
 ### 自定义 MTU（使用 kubenet）
 
-MTU应始终正确配置，以获得最佳的网络性能。
+要获得最佳的网络性能，必须确保 MTU 的取值配置正确。
 网络插件通常会尝试推断出一个合理的 MTU，但有时候这个逻辑不会产生一个最优的 MTU。
 例如，如果 Docker 网桥或其他接口有一个小的 MTU, kubenet 当前将选择该 MTU。
-或者如果您正在使用 IPSEC 封装，则必须减少 MTU，并且这种计算超出了大多数网络插件的范围。
+或者如果您正在使用 IPSEC 封装，则必须减少 MTU，并且这种计算超出了大多数网络插件的能力范围。
 
 如果需要，您可以使用 `network-plugin-mtu` kubelet 选项显式的指定 MTU。
 例如：在 AWS 上 `eth0` MTU 通常是 9001，因此您可以指定 `--network-plugin-mtu=9001`。
 如果您正在使用 IPSEC ，您可以减少它以允许封装开销，例如 `--network-plugin-mtu=8873`。
 
-此选项提供给网络插件； 当前 **仅 kubenet 支持 `network-plugin-mtu`**。
+此选项会传递给网络插件； 当前 **仅 kubenet 支持 `network-plugin-mtu`**。
 
 <!--
 ## Usage Summary
@@ -262,8 +262,8 @@ MTU应始终正确配置，以获得最佳的网络性能。
 -->
 ## 使用总结
 
-* `--network-plugin=cni` 指定了我们使用的 `cni` 网络插件， 实际的 CNI 插件二进制位于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）， CNI 插件配置位于 `--cni-conf-dir`（默认是 `/etc/cni/net.d`）。
-* `--network-plugin=kubenet` 指定了我们使用的 `kubenet` 网络插件，CNI `bridge` 和 `host-local` 插件位于 `/opt/cni/bin` 或 `cni-bin-dir` 中。
+* `--network-plugin=cni` 用来表明我们要使用 `cni` 网络插件，实际的 CNI 插件可执行文件位于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）下， CNI 插件配置位于 `--cni-conf-dir`（默认是 `/etc/cni/net.d`）下。
+* `--network-plugin=kubenet` 用来表明我们要使用 `kubenet` 网络插件，CNI `bridge` 和 `host-local` 插件位于 `/opt/cni/bin` 或 `cni-bin-dir` 中。
 * `--network-plugin-mtu=9001` 指定了我们使用的 MTU，当前仅被 `kubenet` 网络插件使用。
 
 {{% /capture %}}
