@@ -1,14 +1,3 @@
-<!--
-title: ReplicationController
-feature:
-  title: Self-healing
-  anchor: How a ReplicationController Works
-  description: >
-    Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
-
-content_template: templates/concept
-weight: 20
--->
 ---
 title: ReplicationController
 feature:
@@ -20,6 +9,17 @@ feature:
 content_template: templates/concept
 weight: 20
 ---
+<!--
+title: ReplicationController
+feature:
+  title: Self-healing
+  anchor: How a ReplicationController Works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
+
+content_template: templates/concept
+weight: 20
+-->
 
 {{% capture overview %}}
 
