@@ -3,7 +3,7 @@ title: 필드 셀렉터
 weight: 60
 ---
 
-_필드 셀렉터_ 는 한 개 이상의 리소스 필드 값에 따라 [쿠버네티스 리소스를 선택](/docs/concepts/overview/working-with-objects/kubernetes-objects)하기 위해 사용된다. 필드 셀렉터 쿼리의 예시는 다음과 같다.
+_필드 셀렉터_ 는 한 개 이상의 리소스 필드 값에 따라 [쿠버네티스 리소스를 선택](/docs/concepts/overview/working-with-objects/kubernetes-objects)하기 위해 사용된다. 필드 셀렉터 쿼리의 예시는 다음과 같다.
 
 * `metadata.name=my-service`
 * `metadata.namespace!=default`
