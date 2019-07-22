@@ -30,9 +30,15 @@ The application can simply use it as a service.
 
 ## Architecture
 
-Service Catalog uses the [Open service broker API](https://github.com/openservicebrokerapi/servicebroker) to communicate with service brokers, acting as an intermediary for the Kubernetes API Server to negotiate the initial provisioning and retrieve the credentials necessary for the application to use a managed service.
+Service Catalog uses the [Open service broker API](https://github.com/openservicebrokerapi/servicebroker) to communicate with service brokers, 
+acting as an intermediary for the Kubernetes API Server to negotiate the initial provisioning and retrieve the credentials necessary 
+for the application to use a managed service.
 
-It is implemented as an extension API server and a controller, using etcd for storage. It also uses the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
+Service Catalog has two basic building blocks: a Webhook Server and a controller.
+The Webhook Server uses [Admission Webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 
+to manage custom resources. 
+The Service Catalog controller implements the behaviors of the service-catalog API. It monitors the API resources (by watching the stream of events from the
+API server) and takes the appropriate actions to reconcile the current state with the user's desired end state.
 
 <br>
 
@@ -95,7 +101,10 @@ The following is a sequence diagram illustrating the steps involved in listing m
 
 ![List Services](/images/docs/service-catalog-list.svg)
 
-1. Once the `ClusterServiceBroker` resource is added to Service Catalog, it triggers a call to the external service broker for a list of available services.
+
+1. The `ClusterServiceBroker` resource is added.
+1. Controller monitors the API resources by watching the stream of events.
+1. Controller makes a call to the external service broker for a list of available services.
 1. The service broker returns a list of available managed services and a list of Service Plans, which are cached locally as `ClusterServiceClass` and `ClusterServicePlan` resources respectively.
 1. A cluster operator can then get the list of available managed services using the following command:
 
@@ -144,7 +153,7 @@ The following sequence diagram illustrates the steps involved in provisioning a 
 
 ![Provision a Service](/images/docs/service-catalog-provision.svg)
 
-1. When the `ServiceInstance` resource is created, Service Catalog initiates a call to the external service broker to provision an instance of the service.
+1. When the `ServiceInstance` resource is created, Service Catalog Controller initiates a call to the external service broker to provision an instance of the service.
 1. The service broker creates a new instance of the managed service and returns an HTTP response.
 1. A cluster operator can then check the status of the instance to see if it is ready.
 
@@ -173,7 +182,7 @@ The following sequence diagram illustrates the steps involved in binding to a ma
 
 ![Bind to a managed service](/images/docs/service-catalog-bind.svg)
 
-1. After the `ServiceBinding` is created, Service Catalog makes a call to the external service broker requesting the information necessary to bind with the service instance.
+1. After the `ServiceBinding` is created, Service Catalog Controller makes a call to the external service broker requesting the information necessary to bind with the service instance.
 1. The service broker enables the application permissions/roles for the appropriate service account.
 1. The service broker returns the information necessary to connect and access the managed service instance. This is provider and service-specific so the information returned may differ between Service Providers and their managed services.
 
