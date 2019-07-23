@@ -117,7 +117,7 @@ Note that the Kubernetes Node name must match the Azure VM name.
 
 ## CloudStack
 
-If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
+The Apache project releases their own cloud provider, which is available from [apache/cloudstack-kubernetes-provider](https://github.com/apache/cloudstack-kubernetes-provider)
 
 ### Node Name
 
