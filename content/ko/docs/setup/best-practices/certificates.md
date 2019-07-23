@@ -1,6 +1,7 @@
 ---
 title: PKI 인증서 및 요구 조건
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -84,15 +85,15 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
 | 기본 CN                      | 권고되는 키 파일 경로         | 권고하는 인증서 파일 경로   | 명령어         | 키 파라미터                  | 인증서 파라미터                           |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
-| etcd-ca                      |                              | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
+| etcd-ca                      |     etcd/ca.key                         | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
 | etcd-client                  | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |
-| kubernetes-ca                |                              | ca.crt                      | kube-apiserver |                              | --client-ca-file                          |
+| kubernetes-ca                |    ca.key                          | ca.crt                      | kube-apiserver |                              | --client-ca-file                          |
 | kube-apiserver               | apiserver.key                | apiserver.crt               | kube-apiserver | --tls-private-key-file       | --tls-cert-file                           |
-| apiserver-kubelet-client     |                              | apiserver-kubelet-client.crt| kube-apiserver |                              | --kubelet-client-certificate              |
-| front-proxy-ca               |                              | front-proxy-ca.crt          | kube-apiserver |                              | --requestheader-client-ca-file            |
+| apiserver-kubelet-client     |     apiserver-kubelet-client.key                         | apiserver-kubelet-client.crt| kube-apiserver |                              | --kubelet-client-certificate              |
+| front-proxy-ca               |     front-proxy-ca.key                         | front-proxy-ca.crt          | kube-apiserver |                              | --requestheader-client-ca-file            |
 | front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver | --proxy-client-key-file      | --proxy-client-cert-file                  |
 |                              |                              |                             |                |                              |                                           |
-| etcd-ca                      |                              | etcd/ca.crt                 | etcd           |                              | --trusted-ca-file, --peer-trusted-ca-file |
+| etcd-ca                      |         etcd/ca.key                     | etcd/ca.crt                 | etcd           |                              | --trusted-ca-file, --peer-trusted-ca-file |
 | kube-etcd                    | etcd/server.key              | etcd/server.crt             | etcd           | --key-file                   | --cert-file                               |
 | kube-etcd-peer               | etcd/peer.key                | etcd/peer.crt               | etcd           | --peer-key-file              | --peer-cert-file                          |
 | etcd-ca                      |                              | etcd/ca.crt                 | etcdctl[2]     |                              | --cacert                                  |
@@ -128,12 +129,12 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 
 이 파일들은 다음과 같이 사용된다.
 
-| 파일명                | 명령어                  | 설명                                                                  | 
+| 파일명                   | 명령어                  | 설명                                                                   |
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
-| admin.conf              | kubectl                 | 클러스터 관리자를 설정한다.                                           |
-| kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                                     |
+| admin.conf              | kubectl                 | 클러스터 관리자를 설정한다.                                              |
+| kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                            |
 | controller-manager.conf | kube-controller-manager | 반드시 매니페스트를 `manifests/kube-controller-manager.yaml`에 추가해야한다. |
-| scheduler.conf | kube-scheduler | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야한다. |
+| scheduler.conf          | kube-scheduler          | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야한다.          |
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
