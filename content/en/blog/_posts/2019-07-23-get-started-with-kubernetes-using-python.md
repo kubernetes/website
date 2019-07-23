@@ -1,7 +1,7 @@
 ﻿---
 layout: blog
-title: Get started with Kubernetes (using Python)
-date: 2019-06-20
+title: "Get started with Kubernetes (using Python)"
+date: 2019-07-23
 ---
 
 **Author**: Jason Haley (Independent Consultant)
