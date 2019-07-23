@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-வரவேற்பு! இக்களஞ்சிம்தான் [குபேர்ண்ட்ஸ் இணையதளம் மற்றும் ஆவணங்களின்](https://kubernetes.io/) இருப்பிடமாக உள்ளது! நீங்கள் பங்களிக்க விரும்புவதில் நாங்கள் மகிழ்ச்சியடைகிறோம்!
+வரவேற்பு! இக்களஞ்சிம்தான் [குபேர்ண்ட்ஸ் வலைத்தளம் மற்றும் ஆவணங்களின்](https://kubernetes.io/) இருப்பிடமாக உள்ளது! நீங்கள் பங்களிக்க விரும்புவதில் நாங்கள் மகிழ்ச்சியடைகிறோம்!
 
 ## ஆவணங்களுடன் பங்களிக்க
 
