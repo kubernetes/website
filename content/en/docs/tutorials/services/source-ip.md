@@ -29,7 +29,7 @@ This document makes use of the following terms:
 
 ## Prerequisites
 
-You must have a working Kubernetes 1.5 cluster to run the examples in this
+You must have a working Kubernetes 1.15 cluster to run the examples in this
 document. The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
