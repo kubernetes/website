@@ -255,6 +255,7 @@ This section contains important information about installation and deployment or
 
 You must install a pod network add-on so that your pods can communicate with
 each other.
+#Note - This need to be done only on the Control-Plane / on the Master Node
 
 **The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
 kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
