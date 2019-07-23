@@ -56,7 +56,9 @@ The upgrade workflow at high level is the following:
     {{% /tab %}}
     {{< /tabs >}}
 
-## Upgrade the first control plane node
+## Upgrading control plane nodes
+
+### Upgrade the first control plane node
 
 1.  On your first control plane node, upgrade kubeadm:
 
@@ -220,7 +222,27 @@ The upgrade workflow at high level is the following:
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
     find your CNI provider and see whether additional upgrade steps are required.
 
-1.  Upgrade the kubelet and kubectl on the control plane node:
+    This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
+
+### Upgrade additional control plane nodes
+
+1.  Same as the first control plane node but use:
+
+```
+sudo kubeadm upgrade node
+```
+
+instead of:
+
+```
+sudo kubeadm upgrade apply
+```
+
+Also `sudo kubeadm upgrade plan` is not needed.
+
+### Upgrade kubelet and kubectl
+
+1.  Upgrade the kubelet and kubectl on all control plane nodes:
 
     {{< tabs name="k8s_install_kubelet" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -240,22 +262,6 @@ The upgrade workflow at high level is the following:
     ```shell
     sudo systemctl restart kubelet
     ```
-
-## Upgrade additional control plane nodes
-
-1.  Same as the first control plane node but use:
-
-```
-sudo kubeadm upgrade node
-```
-
-instead of:
-
-```
-sudo kubeadm upgrade apply
-```
-
-Also `sudo kubeadm upgrade plan` is not needed.
 
 ## Upgrade worker nodes
 
@@ -305,7 +311,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the Kubernetes package version by running the Linux package manager for your distribution:
+1.  Upgrade the kubelet and kubectl on all worker nodes:
 
     {{< tabs name="k8s_kubelet_and_kubectl" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}

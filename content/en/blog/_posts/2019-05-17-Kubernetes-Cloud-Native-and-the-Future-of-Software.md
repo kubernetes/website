@@ -1,4 +1,5 @@
 ---
+layout: blog
 title: 'Kubernetes, Cloud Native, and the Future of Software'
 date: 2019-05-17
 ---
