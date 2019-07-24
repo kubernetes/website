@@ -215,7 +215,7 @@ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
 At this point, those init containers will be waiting to discover Services named
-`mydb` and `myservices`.
+`mydb` and `myservice`.
 
 Here's a configuration you can use to make those Services appear:
 
