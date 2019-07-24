@@ -47,9 +47,7 @@ RuntimeClassの設定は、RuntimeClassによって参照される`ハンドラ�
 
 #### 2. 対応するRuntimeClassリソースを作成する
 
-ステップ1行う設定のセットアップでは、各設定は関連する`ハンドラー` 名をもちます。それはどの設定かを指定するものです。各ハンドラーにおいて、対応するRuntimeClassオブジェクトが作成されます。
-The configurations setup in step 1 should each have an associated `handler` name, which identifies
-the configuration. For each handler, create a corresponding RuntimeClass object.
+ステップ1にて設定する各項目は、関連する`ハンドラー` 名を持ちます。それはどの設定かを指定するものです。各ハンドラーにおいて、対応するRuntimeClassオブジェクトが作成されます。
 
 そのRuntimeClassリソースは現時点で2つの重要なフィールドを持ちます。それはRuntimeClassの名前(`metadata.name`)とハンドラー(`handler`)です。そのオブジェクトの定義は下記のようになります。
 
