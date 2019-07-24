@@ -72,7 +72,12 @@ weight: 50
 1.  어드미션 컨트롤러 `PodPreset`을 활성화하였다.
     이것을 이루는 방법 중 하나는
     API 서버를 위해서 명시된 `--enable-admission-plugins` 옵션에 `PodPreset`을 포함하는 것이다.
-    minikube에서는 클러스터가 시작할 때 `--extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset`
+    minikube에서는 클러스터가 시작할 때
+
+    ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+
     플래그를 추가한다.
 1.  사용할 네임스페이스 안에서 `PodPreset` 오브젝트를 생성하여
     파드 프리셋을 정의하였다.
