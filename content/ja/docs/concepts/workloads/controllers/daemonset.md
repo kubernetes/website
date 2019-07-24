@@ -7,7 +7,7 @@ weight: 50
 
 {{% capture overview %}}
 
-_DaemonSet_ は全て(またはいくつかの)Nodeが単一のPodのコピーを稼働させることを保証します。Nodeがクラスターに追加されるとき、PodがNode上に追加されます。Nodeがクラスターから削除されたとき、それらのPodはガーベージコレクターにより除去されます。DaemonSetの削除により、DaemonSetが作成したPodもクリーンアップします。
+_DaemonSet_ は全て(またはいくつか)のNodeが単一のPodのコピーを稼働させることを保証します。Nodeがクラスターに追加されるとき、PodがNode上に追加されます。Nodeがクラスターから削除されたとき、それらのPodはガーベージコレクターにより除去されます。DaemonSetの削除により、DaemonSetが作成したPodもクリーンアップします。
 
 DaemonSetのいくつかの典型的な使用例は以下の通りです。
 
@@ -16,8 +16,8 @@ DaemonSetのいくつかの典型的な使用例は以下の通りです。
 - [Prometheus Node Exporter](
   https://github.com/prometheus/node_exporter)や`collectd`、[Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/)、 [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes)、 [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/)、 [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration)、Gangliaの`gmond`やInstana agentなどのようなNodeのモニタリングデーモンを各Node上で稼働させる。
 
-シンプルなケースとして、全てのNodeをカバーする1つのDaemonSetが各タイプのデーモンに対して使用するケースがあります。
-さらに複雑な設定では、単一のタイプのデーモンの用ですが、異なるフラグや、異なるハードウェアタイプに対するメモリー、CPUリクエストを要求する複数のDaemonSetを使用するケースもあります。
+シンプルなケースとして、各タイプのデーモンにおいて、全てのNodeをカバーする1つのDaemonSetが使用されるケースがあります。
+さらに複雑な設定では、単一のタイプのデーモン用ですが、異なるフラグや、異なるハードウェアタイプに対するメモリー、CPUリクエストを要求する複数のDaemonSetを使用するケースもあります。
 
 {{% /capture %}}
 
@@ -53,11 +53,11 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 Podに対する必須のフィールドに加えて、DaemonSet内のPodテンプレートは適切なラベルを指定しなくてはなりません([Podセレクター](#pod-selector)の項目を参照ください)。
 
-DaemonSet内のPodテンプレートは[`RestartPolicy`](/docs/user-guide/pod-states)フィールドが`Always`でなくてはならないか、もし指定されていなければ、デフォルトで`Always`が採用されます。
+DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/docs/user-guide/pod-states)フィールドを指定せずにデフォルトの`Always`を使用するか、明示的に`Always`を設定するかのどちらかである必要があります。
 
 ### Podセレクター
 
-`.spec.selector`フィールドはPodセレクターとなります。これは[Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)の`.spec.selector`と同じものとなります。
+`.spec.selector`フィールドはPodセレクターとなります。これは[Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)の`.spec.selector`と同じものです。
 
 Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッチするPodセレクターを指定しなくてはいけません。Podセレクターは、値を空のままにしてもデフォルト設定にならなくなりました。セレクターのデフォルト化は`kubectl apply`と互換性はありません。また、一度DaemonSetが作成されると、その`.spec.selector`は変更不可能になります。Podセレクターの変更は、意図しないPodの孤立を引き起こし、ユーザーにとってやっかいなものとなります。
 
@@ -70,8 +70,8 @@ Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッ
 
 もし`spec.selector`が指定されたとき、`.spec.template.metadata.labels`とマッチしなければなりません。この2つの値がマッチしない設定をした場合、APIによってリジェクトされます。
 
-また、ユーザーは通常、他のDaemonSetやReplicaSetのような他のコントローラーを介したり、直接このセレクターとマッチするラベルを持つPodを作成すべきではありません。
-さもないと、DaemonSetコントローラーが、それらのPodがDaemonSetによって作成されたものと扱われてしまいます。Kubernetesはユーザーがこれを行うことを止めることはありません。ユーザーがこれを行いたい1つのケースとしては、テストのためにNode上に異なる値をもったPodを手動で作成するような場合です。
+また、ユーザーは通常、DaemonSetやReplicaSetのような他のコントローラーを使用するか直接かによらず、このセレクターとマッチするラベルを持つPodを作成すべきではありません。
+さもないと、DaemonSetコントローラーが、それらのPodがDaemonSetによって作成されたものと扱われてしまいます。Kubernetesはユーザーがこれを行うことを止めることはありません。ユーザーがこれを行いたい1つのケースとしては、テストのためにNode上に異なる値をもったPodを手動で作成するような場合があります。
 
 ### 特定のいくつかのNode上のみにPodを稼働させる
 
@@ -96,7 +96,7 @@ selector](/docs/concepts/configuration/assign-pod-node/)にマッチするPodを
 {{< feature-state state="beta" for-kubernetes-version="1.12" >}}
 
 DaemonSetは全ての利用可能なNodeが単一のPodのコピーを稼働させることを保証します。通常、Podが稼働するNodeはKubernetesスケジューラーによって選択されます。しかし、DaemonSetのPodは代わりにDaemonSetコントローラーによって作成され、スケジューリングされます。   
-下記のイシューについて説明します:
+下記の問題について説明します:
 
  * 矛盾するPodのふるまい: スケジューリングされるのを待っている通常のPodは、作成されているが`Pending`状態となりますが、DaemonSetのPodは`Pending`状態で作成されません。これはユーザーにとって困惑するものです。
  * [Podプリエンプション(Pod preemption)](/docs/concepts/configuration/pod-priority-preemption/)はデフォルトスケジューラーによってハンドルされます。もしプリエンプションが有効な場合、そのDaemonSetコントローラーはPodの優先順位とプリエンプションを考慮することなくスケジューリングの判断を行います。
@@ -175,6 +175,6 @@ DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアン�
 DaemonSetは、Podの作成し、そのPodが停止されることのないプロセスを持つことにおいて[Deployment](/docs/concepts/workloads/controllers/deployment/)と同様です(例: webサーバー、ストレージサーバー)。
 
 フロントエンドのようなServiceのように、どのホスト上にPodが稼働するか制御するよりも、レプリカ数をスケールアップまたはスケールダウンしたりローリングアップデートする方が重要であるような、状態をもたないServiceに対してDeploymentを使ってください。
-Podのコピーが全てまたは特定のホスト上で常に稼働していることが重要な場合や、他のPodの前に起動させる必要があるときにDeploymentを使ってください。
+Podのコピーが全てまたは特定のホスト上で常に稼働していることが重要な場合や、他のPodの前に起動させる必要があるときにDaemonSetを使ってください。
 
 {{% /capture %}}
