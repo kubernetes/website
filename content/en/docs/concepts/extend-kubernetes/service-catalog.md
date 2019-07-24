@@ -9,7 +9,7 @@ weight: 40
 {{% capture overview %}}
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
 
-A service broker, as defined by the [Open service broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of managed services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
+A service broker, as defined by the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of managed services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
 Some examples of managed services are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application.
 
 Using Service Catalog, a {{< glossary_tooltip text="cluster operator" term_id="cluster-operator" >}} can browse the list of managed services offered by a service broker, provision an instance of a managed service, and bind with it to make it available to an application in the Kubernetes cluster.
@@ -30,14 +30,14 @@ The application can simply use it as a service.
 
 ## Architecture
 
-Service Catalog uses the [Open service broker API](https://github.com/openservicebrokerapi/servicebroker) to communicate with service brokers, 
+Service Catalog uses the [Open Service Broker API](https://github.com/openservicebrokerapi/servicebroker) to communicate with service brokers, 
 acting as an intermediary for the Kubernetes API Server to negotiate the initial provisioning and retrieve the credentials necessary 
 for the application to use a managed service.
 
-Service Catalog has two basic building blocks: a Webhook Server and a controller.
+Service Catalog has two basic building blocks: a Webhook Server and a Controller.
 The Webhook Server uses [Admission Webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 
 to manage custom resources. 
-The Service Catalog controller implements the behaviors of the service-catalog API. It monitors the API resources (by watching the stream of events from the
+The Service Catalog Controller implements the behaviors of the Service Catalog API. It monitors the API resources (by watching the stream of events from the
 API server) and takes the appropriate actions to reconcile the current state with the user's desired end state.
 
 <br>
@@ -52,14 +52,14 @@ Service Catalog installs the `servicecatalog.k8s.io` API and provides the follow
 * `ClusterServiceBroker`: An in-cluster representation of a service broker, encapsulating its server connection details.
 These are created and managed by cluster operators who wish to use that broker server to make new types of managed services available within their cluster.
 * `ClusterServiceClass`: A managed service offered by a particular service broker.
-When a new `ClusterServiceBroker` resource is added to the cluster, the Service Catalog controller connects to the service broker to obtain a list of available managed services. It then creates a new `ClusterServiceClass` resource corresponding to each managed service.
+When a new `ClusterServiceBroker` resource is added to the cluster, the Service Catalog Controller connects to the service broker to obtain a list of available managed services. It then creates a new `ClusterServiceClass` resource corresponding to each managed service.
 * `ClusterServicePlan`: A specific offering of a managed service. For example, a managed service may have different plans available, such as a free tier or paid tier, or it may have different configuration options, such as using SSD storage or having more resources. Similar to `ClusterServiceClass`, when a new `ClusterServiceBroker` is added to the cluster, Service Catalog creates a new `ClusterServicePlan` resource corresponding to each Service Plan available for each managed service.
 * `ServiceInstance`: A provisioned instance of a `ClusterServiceClass`.
 These are created by cluster operators to make a specific instance of a managed service available for use by one or more in-cluster applications.
-When a new `ServiceInstance` resource is created, the Service Catalog controller connects to the appropriate service broker and instruct it to provision the service instance.
+When a new `ServiceInstance` resource is created, the Service Catalog Controller connects to the appropriate service broker and instruct it to provision the service instance.
 * `ServiceBinding`: Access credentials to a `ServiceInstance`.
 These are created by cluster operators who want their applications to make use of a `ServiceInstance`.
-Upon creation, the Service Catalog controller creates a Kubernetes `Secret` containing connection details and credentials for the Service Instance, which can be mounted into Pods.
+Upon creation, the Service Catalog Controller creates a Kubernetes `Secret` containing connection details and credentials for the Service Instance, which can be mounted into Pods.
 
 ### Authentication
 
