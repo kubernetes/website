@@ -145,7 +145,7 @@ Um den "Hallo-Welt"-Container außerhalb des virtuellen Netzwerks von Kubernetes
     ```
 
     Bei Cloud-Anbietern, die Load-Balancer unterstützen, wird eine externe IP-Adresse für den Zugriff auf den Dienst bereitgestellt.
-    Bei Minikube ermöglicht der Typ `LoadBalancer` den Dienst über den Befehl `minikube service` verfuügbar zu machen.
+    Bei Minikube ermöglicht der Typ `LoadBalancer` den Dienst über den Befehl `minikube service` verfügbar zu machen.
 
 
 3. Führen Sie den folgenden Befehl aus:
