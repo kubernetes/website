@@ -4,7 +4,7 @@ id: pod-priority
 date: 2019-01-31
 full_link: /docs/concepts/configuration/pod-priority-preemption/#pod-priority
 short_description: >
-  Pod Priority indica la importancia de un Pod con relación a otros Pods. 
+  Pod Priority indica la importancia de un {{< glossary_tooltip text="Pod" term_id="pod" >}} con relación a otros {{< glossary_tooltip text="Pods" term_id="pod" >}}. 
 
 aka:
 tags:
