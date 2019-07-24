@@ -114,6 +114,9 @@ The control-plane node is the machine where the control plane components run, in
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
+1. (Recommended) If you have plans to upgrade this single control-plane kubeadm cluster
+to high availability you should specify the `--control-plane-endpoint` to set the shared endpoint
+for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
 1. Choose a pod network add-on, and verify whether it requires any arguments to
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
@@ -123,18 +126,41 @@ by using a list of well known domain socket paths. To use different container ru
 if there are more than one installed on the provisioned node, specify the `--cri-socket`
 argument to `kubeadm init`. See [Installing runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
-with the default gateway to advertise the master's IP. To use a different
-network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
+with the default gateway to set the advertise address for this particular control-plane node's API server.
+To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
 1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
-connectivity to gcr.io registries.   
+connectivity to gcr.io registries.
 
-Now run:
+To initialize the control-plane node run:
 
 ```bash
 kubeadm init <args>
 ```
+
+### Considerations about apiserver-advertise-address and ControlPlaneEndpoint
+
+While `--apiserver-advertise-address` can be used to set the advertise address for this particular
+control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
+for all control-plane nodes.
+
+`--control-plane-endpoint` allows IP addresses but also DNS names that can map to IP addresses.
+Please contact your network administrator to evaluate possible solutions with respect to such mapping.
+
+Here is an example mapping:
+
+```
+192.168.0.102 cluster-endpoint
+```
+
+Where `192.168.0.102` is the IP address of this node and `cluster-endpoint` is a custom DNS name that maps to this IP.
+This will allow you to pass `--control-plane-endpoint=cluster-endpoint` to `kubeadm init` and pass the same DNS name to
+`kubeadm join`. Later you can modify `cluster-endpoint` to point to the address of your load-balancer in an
+high availability scenario.
+
+Turning a single control plane cluster created without `--control-plane-endpoint` into a highly available cluster
+is not supported by kubeadm.
 
 ### More information
 
