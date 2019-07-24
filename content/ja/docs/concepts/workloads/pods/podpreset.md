@@ -6,7 +6,7 @@ weight: 50
 ---
 
 {{% capture overview %}}
-このページではPodPresetについて概観します。PodPresetとは、PodPresetとは、Podの作成時にそのPodに対して、Secret、Volume、VolumeMountや環境変数など、特定の情報を注入するためのオブジェクトです。  
+このページではPodPresetについて概観します。PodPresetは、Podの作成時にそのPodに対して、Secret、Volume、VolumeMountや環境変数など、特定の情報を注入するためのオブジェクトです。  
 {{% /capture %}}
 
 
