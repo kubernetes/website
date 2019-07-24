@@ -10,7 +10,7 @@ aka:
 tags:
 - operation
 ---
- Pod Priority indica la importancia de un Pod con relación a otros Pods.
+ Pod Priority indica la importancia de un {{< glossary_tooltip text="Pod" term_id="pod" >}} con relación a otros {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 <!--more-->
 
