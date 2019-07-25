@@ -1,18 +1,18 @@
 ---
-title: ガーベージコレクション
+title: ガベージコレクション
 content_template: templates/concept
 weight: 60
 ---
 
 {{% capture overview %}}
 
-Kubernetesのガーベージコレクターの役割は、かつてオーナーがいたが、現時点でもはやオーナーがいないようなオブジェクトの削除を行うことです。
+Kubernetesのガベージコレクターの役割は、かつてオーナーがいたが、現時点でもはやオーナーがいないようなオブジェクトの削除を行うことです。
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-## オーナーとその従属オブジェクトOwners and dependents
+## オーナーとその従属オブジェクト
 
 いくつかのKubernetesオブジェクトは他のオブジェクトのオーナーとなります。例えば、ReplicaSetはPodのセットに対するオーナーです。オーナーによって所有されたオブジェクトは、オーナーオブジェクトの*従属オブジェクト(Dependents)* と呼ばれます。全ての従属オブジェクトは、オーナーオブジェクトを指し示す`metadata.ownerReferences`というフィールドを持ちます。
 
@@ -54,7 +54,7 @@ metadata:
 2) クラスターのスコープ内の従属オブジェクトは、クラスターのスコープ内のオーナーオブジェクトのみ指定でき、ネームスペース内のスコープのオーナーオブジェクトは指定できません。
 {{< /note >}}
 
-## ガーベージコレクターがどのように従属オブジェクトの削除をするかを制御する
+## ガベージコレクターがどのように従属オブジェクトの削除をするかを制御する
 
 ユーザーがオブジェクトを削除するとき、それに紐づく従属オブジェクトも自動で削除するか指定できます。従属オブジェクトの自動削除は、*カスケード削除(Cascading deletion)* と呼ばれます。*カスケード削除* には2つのモードがあり、*バックグラウンド* と*フォアグラウンド* があります。
 
@@ -68,23 +68,23 @@ metadata:
  * そのオブジェクトの`deletionTimestamp`がセットされます。
  * そのオブジェクトの`metadata.finalizers`フィールドは、`foregroundDeletion`という値を含みます。
 
-一度"削除処理中"状態に遷移すると、そのガーベージコレクターはオブジェクトの従属オブジェクトを削除します。一度そのガーベージコレクターが全ての”ブロッキングしている”従属オブジェクトを削除すると(`ownerReference.blockOwnerDeletion=true`という値を持つオブジェクト)、それはオーナーのオブジェクトも削除します。
+一度"削除処理中"状態に遷移すると、そのガベージコレクターはオブジェクトの従属オブジェクトを削除します。一度そのガベージコレクターが全ての”ブロッキングしている”従属オブジェクトを削除すると(`ownerReference.blockOwnerDeletion=true`という値を持つオブジェクト)、それはオーナーのオブジェクトも削除します。
 
 注意点として、"フォアグラウンドのカスケード削除"において、`ownerReference.blockOwnerDeletion`フィールドを持つ従属オブジェクトのみ、そのオーナーオブジェクトの削除をブロックします。
-Kubernetes1.7では、認証されていない従属オブジェクトがオーナーオブジェクトの削除を遅らせることができないようにするために[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#ownerreferencespermissionenforcement)が追加され、それは、オーナーオブジェクトの削除パーミッションに基づいて`blockOwnerDeletion`の値がtrueにセットされます。
+Kubernetes1.7では、認証されていない従属オブジェクトがオーナーオブジェクトの削除を遅らせることができないようにするために[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#ownerreferencespermissionenforcement)が追加され、それは、オーナーオブジェクトの削除パーミッションに基づいて`blockOwnerDeletion`の値がtrueに設定してユーザーアクセスをコントロールします。
 
-もしオブジェクトの`ownerReferences`フィールドがコントローラー(DeploymentやReplicaSetなど)によってセットされている場合、`blockOwnerDeletion`は自動的にセットされ、ユーザーはこのフィールドを手動で修正する必要がありません。
+もしオブジェクトの`ownerReferences`フィールドがコントローラー(DeploymentやReplicaSetなど)によってセットされている場合、`blockOwnerDeletion`は自動的にセットされ、ユーザーはこのフィールドを手動で修正する必要はありません。
 
 ### バックグラウンドのカスケード削除
 
-*バックグラウンドのカスケード削除* において、Kubernetesはそのオーナーオブジェクトを即座に削除し、ガーベージコレクションはその従属オブジェクトをバックグラウンドで削除します。
+*バックグラウンドのカスケード削除* において、Kubernetesはそのオーナーオブジェクトを即座に削除し、ガベージコレクションはその従属オブジェクトをバックグラウンドで削除します。
 
-### カスケード削除ポリシーの設定Setting the cascading deletion policy
+### カスケード削除ポリシーの設定
 
-カスケード削除ポリシーを制御するためには、`deleteOptions`引数上の`propagationPolicy`フィールドをオブジェクトの削除するときにセットしてください。設定可能な値は`Orphan`、`Foreground`、もしくは`Background`のどれかです。
+カスケード削除ポリシーを制御するためには、オブジェクトをいつ設定するか`deleteOptions`引数上の`propagationPolicy`フィールドに設定してください。設定可能な値は`Orphan`、`Foreground`、もしくは`Background`のどれかです。
 
-Kubernetes1.9以前では多くのコントローラーにおけるデフォルトのガーベージコレクションポリシーは`orphan`でした。
-この対象のコントローラーはReplicationController、ReplicaSet、StatefulSet、DaemonSetとDeploymentを含みます。`extensions/v1beta1`、`apps/v1beta1`、`apps/v1beta2`のグループバージョンにおいては、もしユーザーがガーベージコレクションに他の値を設定しない限り、デフォルトで従属オブジェクトはみなしご(orphaned)になります。
+Kubernetes1.9以前では多くのコントローラーにおけるデフォルトのガベージコレクションポリシーは`orphan`でした。
+この対象のコントローラーはReplicationController、ReplicaSet、StatefulSet、DaemonSetとDeploymentを含みます。`extensions/v1beta1`、`apps/v1beta1`、`apps/v1beta2`のグループバージョンに含まれるオブジェクト種においては、もしユーザーがガベージコレクションに他の値を設定しない限り、デフォルトで従属オブジェクトはみなしご(orphaned)になります。
 Kubernetes1.9において、`apps/v1`というグループバージョンにおいて、従属オブジェクトはデフォルトで削除されます。
 
 下記のコマンドは従属オブジェクトをバックグラウンドで削除する例です。
@@ -127,10 +127,10 @@ kubectl delete replicaset my-repset --cascade=false
 
 ### Deploymentsに関する追記事項
 
-Kubernetes1.7以前では、Deployementに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの_propagationPolicy_ が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。  
+Kubernetes1.7以前では、Deploymentに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの_propagationPolicy_ が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。  
 さらなる詳細に関しては[kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613)を参照してください。
 
-## 既知のイシューについて　Known issues
+## 既知の問題について
 
 [#26120](https://github.com/kubernetes/kubernetes/issues/26120)にてイシューがトラックされています。
 
