@@ -34,7 +34,7 @@ Service Catalog uses the [Open Service Broker API](https://github.com/openservic
 acting as an intermediary for the Kubernetes API Server to negotiate the initial provisioning and retrieve the credentials necessary 
 for the application to use a managed service.
 
-Service Catalog has two basic building blocks: a Webhook Server and a Controller.
+Service Catalog has two basic building blocks: a Webhook Server and a {{< glossary_tooltip text="Controller" term_id="controller" >}}.
 The Webhook Server uses [Admission Webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 
 to manage custom resources. 
 The Service Catalog {{< glossary_tooltip text="Controller" term_id="controller" >}} implements the behaviors of the Service Catalog API. It monitors the API resources (by watching the stream of events from the
