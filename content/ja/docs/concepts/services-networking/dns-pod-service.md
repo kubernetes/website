@@ -14,7 +14,7 @@ weight: 20
 
 KubernetesのDNSはクラスター上でDNS PodとServiceをスケジュールし、DNSの名前解決をするために各コンテナに対してDNS ServiceのIPを使うようにKubeletを設定します。
 
-### 何がDNS名を取得するか What things get DNS names?
+### 何がDNS名を取得するか
 
 クラスター内(DNSサーバーそれ自体も含む)で定義された全てのServiceはDNS名を割り当てられます。デフォルトでは、クライアントPodのDNSサーチリストはPod自身のネームスペースと、クラスターのデフォルトドメインを含みます。  
 下記の例でこの仕組みを説明します。
@@ -114,9 +114,9 @@ spec:
 AレコードはPodの名前に対して作成されないため、`hostname`はPodのAレコードが作成されるために必須となります。`hostname`を持たないが`subdomain`を持つようなPodは、そのPodのIPアドレスを指し示すHeadless Service(`default-subdomain.my-namespace.svc.cluster.local`)に対するAレコードのみ作成します。
 {{< /note >}}
 
-### PodのDNSポリシーPod's DNS Policy
+### PodのDNSポリシー
 
-DNSポリシーはポッド毎に設定できます。現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。これらのポリシーはPod Specの`dnsPolicy`フィールドで指定されます。
+DNSポリシーはPod毎に設定できます。現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。これらのポリシーはPod Specの`dnsPolicy`フィールドで指定されます。
 
 - "`Default`": そのPodはPodが稼働しているNodeから名前解決の設定を継承します。詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)を参照してください。
 - "`ClusterFirst`": "`www.kubernetes.io`"のようなクラスタードメインのサフィックスにマッチしないようなDNSクエリーは、Nodeから継承された上流のネームサーバーにフォワーディングされます。クラスター管理者は、追加のstubドメインと上流のDNSサーバーを設定できます。
