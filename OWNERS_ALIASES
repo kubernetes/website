@@ -127,6 +127,12 @@ aliases:
     - gochist
     - ianychoi
     - seokho-son
+  sig-docs-ta-owners: # Admins for Tamil content
+    - kittenking
+    - shaileshsharan98
+  sig-docs-ta-reviews: # PR reviews for Tamil content
+    - kittenking
+    - shaileshsharan98
   sig-docs-maintainers: # Website maintainers
     - bradamant3
     - chenopis

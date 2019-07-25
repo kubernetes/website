@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the localization project for Hindi.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-ta-reviews
+
+approvers:
+- sig-docs-ta-owners
+
+labels:
+- language/ta
