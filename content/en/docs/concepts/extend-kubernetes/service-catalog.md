@@ -37,7 +37,7 @@ for the application to use a managed service.
 Service Catalog has two basic building blocks: a Webhook Server and a Controller.
 The Webhook Server uses [Admission Webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 
 to manage custom resources. 
-The Service Catalog Controller implements the behaviors of the Service Catalog API. It monitors the API resources (by watching the stream of events from the
+The Service Catalog {{< glossary_tooltip text="Controller" term_id="controller" >}} implements the behaviors of the Service Catalog API. It monitors the API resources (by watching the stream of events from the
 API server) and takes the appropriate actions to reconcile the current state with the user's desired end state.
 
 <br>
