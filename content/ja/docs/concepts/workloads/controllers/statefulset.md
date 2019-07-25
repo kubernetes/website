@@ -1,6 +1,6 @@
 ---
 reviewers:
-title: StatefulSets
+title: StatefulSet
 content_template: templates/concept
 weight: 40
 ---
