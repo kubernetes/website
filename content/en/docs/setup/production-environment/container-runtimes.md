@@ -215,7 +215,7 @@ Use the following commands to install Containerd on your system:
 ### Prerequisites
 
 ```shell
-cat >> /etc/modules <<EOF
+cat > /etc/modules-load.d/containerd.conf <<EOF
 overlay
 br_netfilter
 EOF
