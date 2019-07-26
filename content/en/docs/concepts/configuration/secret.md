@@ -471,7 +471,7 @@ Kubelet is checking whether the mounted secret is fresh on every periodic sync.
 However, it is using its local cache for getting the current value of the Secret.
 The type of the cache is configurable using the  (`ConfigMapAndSecretChangeDetectionStrategy` field in
 [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
-It can be either propagated via watch (default), ttl-based, or simply redirecting
+It can be either propagated via watch, ttl-based (default), or simply redirecting
 all requests to directly kube-apiserver.
 As a result, the total delay from the moment when the Secret is updated to the moment
 when new keys are projected to the Pod can be as long as kubelet sync period + cache
