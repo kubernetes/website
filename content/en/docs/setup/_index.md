@@ -106,6 +106,7 @@ The following production environment solutions table lists the providers and the
 | [Supergiant](https://supergiant.io/)         |              |&#x2714;        |             |      |          |
 | [SUSE](https://www.suse.com/)        |              | &#x2714;       |             |      |          |
 | [SysEleven](https://www.syseleven.io/)         | &#x2714;             |        |             |      |          |
+| [Tencent Cloud](https://intl.cloud.tencent.com/)  | [Tencent Kubernetes Engine](https://intl.cloud.tencent.com/product/tke) |   &#x2714;   |   &#x2714; |    |      |   &#x2714;  |
 | [VEXXHOST](https://vexxhost.com/)         | &#x2714;             | &#x2714;      |             |      |          |
 | [VMware](https://cloud.vmware.com/) | [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)              |[VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)        |   [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)          | [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)      |          |[VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)
 
