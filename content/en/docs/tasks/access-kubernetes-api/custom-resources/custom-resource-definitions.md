@@ -541,7 +541,7 @@ object. When all finalizers have been executed, the resource is deleted.
 The value of `metadata.deletionGracePeriodSeconds` controls the interval between
 polling updates.
 
-It is the responsibility of each controller to removes its finalizer from the list.
+It is the responsibility of each controller to remove its finalizer from the list.
 
 Kubernetes only finally deletes the object if the list of finalizers is empty,
 meaning all finalizers have been executed.
