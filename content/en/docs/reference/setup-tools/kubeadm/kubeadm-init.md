@@ -206,8 +206,9 @@ point to the CA certificate and key.
 
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
 
-See the [setup of the kubelet drop-in file for systemd](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)
-section for details about how the kubeadm package ships with configuration for how the kubelet should be run.
+The `kubeadm` package ships with a configuration file for running the `kubelet` by `systemd`. Note that the kubeadm CLI never touches this drop-in file. This drop-in file is part of the kubeadm DEB/RPM package.  This drop-in file is part of the `kubeadm` DEB/RPM package.
+
+* For further information, see [Managing the kubeadm drop-in file for systemd](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd).
 
 ### Use kubeadm with CRI runtimes
 
