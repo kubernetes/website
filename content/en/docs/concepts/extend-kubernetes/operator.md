@@ -6,8 +6,9 @@ weight: 30
 
 {{% capture overview %}}
 
-Operators are software extensions to Kubernetes that make use of third-party
-resources to manage applications and their components. Operators follow
+Operators are software extensions to Kubernetes that make use of [custom
+resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+to manage applications and their components. Operators follow
 Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-control-plane).
 
 {{% /capture %}}
