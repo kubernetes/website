@@ -161,7 +161,7 @@ kubeadm ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
 
 This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) is written to
-`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by `systemd`.
+`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
 It augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service))):
 
 ```none
