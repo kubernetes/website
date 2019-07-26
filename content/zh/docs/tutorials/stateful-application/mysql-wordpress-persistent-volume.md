@@ -137,8 +137,8 @@ kubectl create -f $KUBE_REPO/mysql-wordpress-pd/gce-volumes.yaml
 使用一个 [Secret](http://kubernetes.io/docs/user-guide/secrets/) 对象存储 MySQL 密码。首先，创建一个名为 `password.txt` 的文件(和 wordpress 示例文件在相同的文件夹)，并且将你的密码保存于其中。请确保密码文件的结尾没有空行。如果你的编辑器添加了一个，开始的 `tr` 命令将会删除这个空行。然后，创建这个 Secret 对象。
 
 ```shell
-tr --delete '\n' <password.txt >.strippedpassword.txt && mv .strippedpassword.txt password.txt
-kubectl create secret generic mysql-pass --from-file=password.txt
+tr --delete '\n' <password.txt >.strippedpassword.txt && mv .strippedpassword.txt password
+kubectl create secret generic mysql-pass --from-file=password
 ```
 
 
