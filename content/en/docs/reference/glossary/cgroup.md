@@ -1,5 +1,5 @@
 ---
-title: cgroup
+title: control group
 id: cgroup
 date: 2019-06-25
 full_link:
@@ -14,4 +14,4 @@ A group of Linux processes with optional resource isolation, accounting and limi
 
 <!--more--> 
 
-cgroup (abbreviated from control group) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network) for a collection of processes.
+cgroup is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network) for a collection of processes.
