@@ -73,5 +73,6 @@ To fix relative links within your imported files, set the repo config's
 See Hindi localization of this README and more details on [Hindi README](https://github.com/kubernetes/website/blob/master/update-imported-docs/README-hi.md) page.
 
 You can reach the maintainers of Hindi localization at:
-   - [Chirag Shah](https://github.com/avidLearnerInProgress)  
+   - [Chirag Shah](https://github.com/avidLearnerInProgress)
+   - [Yashu Mittal](https://github.com/mittalyashu)
    - [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-hi)
