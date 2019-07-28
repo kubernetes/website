@@ -40,6 +40,7 @@ For both methods you need this infrastructure:
   the masters
 - Three machines that meet [kubeadm's minimum
   requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for the workers
+- A highly available load balancer that operates at Layer 4 (such as one provided by a cloud provider, or [HAProxy](http://www.haproxy.org/)) with it's own name in DNS. The load balancer should be configured to forward the apiserver port (default: 6443) on the load balancer to the apiserver port on all control plane nodes. Before using a cloud provider provided load balancer, double check the documentation for [NAT hairpinning](https://en.wikipedia.org/wiki/Hairpinning) support.
 - Full network connectivity between all machines in the cluster (public or
   private network)
 - sudo privileges on all machines
@@ -53,29 +54,6 @@ For the external etcd cluster only, you also need:
 {{% /capture %}}
 
 {{% capture steps %}}
-
-## First steps for both methods
-
-### Create load balancer for kube-apiserver
-
-1. Check if your deployment environment has a highly available load balancer, and use that if possible. Otherwise select a TCP forwarding proxy implementation to setup (such as [HAProxy](http://www.haproxy.org/)).
-
-  - Create a load balancer for the kube-apiserver with it's own name in DNS. This load balancer should transparently distribute traffic to all
-  healthy control plane nodes. As a result, the load balancer must be able to accept connections on the apiserver port, and communicate with all control plane nodes on the apiserver port.
-
-1.  Add the first control plane nodes to the load balancer and test the
-    connection using:
-
-    ```sh
-    nc -v LOAD_BALANCER_IP PORT
-    ```
-
-    - A connection refused error is expected because the apiserver is not yet
-      running. A timeout, however, means the load balancer cannot communicate
-      with the control plane node. If a timeout occurs, reconfigure the load
-      balancer to communicate with the control plane node.
-
-1.  Add the remaining control plane nodes to the load balancer target group.
 
 ## Stacked control plane and etcd nodes
 
