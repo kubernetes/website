@@ -865,7 +865,7 @@ EOF
 Apply all those objects on the Apiserver by
 
 ```shell
-kubectl apply --k .
+kubectl apply -k .
 ```
 
 Both containers will have the following files present on their filesystems with the values for each container's environment:
