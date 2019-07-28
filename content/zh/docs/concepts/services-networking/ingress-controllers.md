@@ -23,7 +23,7 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
 为了让 Ingress 资源工作，集群必须有一个正在运行的 Ingress 控制器。
 
 与其他类型的控制器不同，它们是作为 `kube-controller-manager` 二进制文件的一部分运行的，而 Ingress 控制器不是随集群自动启动的。
-通过此页面可选择最适合您的集群的 ingress 控制器实现.
+通过此页面可选择最适合您的集群的 ingress 控制器实现。
 
 Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/ingress-gce/README.md) 和
   [nginx](https://git.k8s.io/ingress-nginx/README.md) 控制器。
