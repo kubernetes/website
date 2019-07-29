@@ -22,8 +22,8 @@ StatefulSetはKubernetes1.9において利用可能(GA)です。
 
 StatefulSetは下記の1つ以上の項目を要求するアプリケーションにおいて最適です。
 
-* ステーブルでユニークなネットワーク識別子。
-* ステーブルで永続的なストレージ。
+* ステーブルでユニークなネットワーク識別子
+* ステーブルで永続的なストレージ
 * 規則的で安全なデプロイとスケーリング
 * 規則的で自動化されたローリングアップデート
 
@@ -118,7 +118,7 @@ StatefulSetは、Podのドメインをコントロールするために[Headless
 このHeadless Serviceによって管理されたドメインは`$(Service名).$(ネームスペース).svc.cluster.local`形式となり、"cluster.local"というのはそのクラスターのドメインとなります。  
 各Podが作成されると、Podは`$(Pod名).$(管理するServiceドメイン名)`にマッチするDNSサブドメインを取得し、管理するServiceはStatefulSetの`serviceName`で定義されます。
 
-[制限事項](#limitations)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を作成する責任があります。
+[制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を作成する責任があります。
 
 ここで、クラスタードメイン、Service名、StatefulSet名の選択と、それらがStatefulSetのPodのDNS名にどう影響するかの例をあげます。
 
@@ -160,7 +160,7 @@ Kubernetes1.7とそれ以降のバージョンでは、StatefulSetは`.spec.podM
 
 #### OrderedReadyなPod管理
 
-`OrderedReady`なPod管理はStatefulSetにおいてデフォルトです。これは[デプロイとスケーリングの保証](#deployment-and-scaling-guarantees)に記載されいている項目のふるまいを実装します。
+`OrderedReady`なPod管理はStatefulSetにおいてデフォルトです。これは[デプロイとスケーリングの保証](#deployment-and-scaling-guarantees)に記載されている項目の振る舞いを実装します。
 
 #### 並行なPod管理Parallel Pod Management
 `並行`なPod管理は、StatefulSetコントローラーに対して、他のPodが起動や停止される前にそのPodが完全に起動し準備完了になるか停止するのを待つことなく、Podが並行に起動もしくは停止するように指示します。
@@ -171,7 +171,7 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 
 ### On Delete
 
-`OnDelete`というアップデートストラテジーは、レガシー(Kubernetes1.6以前)のふるまいとなります。StatefulSetの`.spec.updateStrategy.type`が`OnDelete`にセットされていたとき、そのStatefulSetコントローラーはStatefulSet内でPodを自動的に更新しません。StatefulSetの`.spec.template`項目の修正を反映した新しいPodの作成をコントローラーに支持するためには、ユーザーは手動でPodを削除しなければなりません。
+`OnDelete`というアップデートストラテジーは、レガシー(Kubernetes1.6以前)の振る舞いとなります。StatefulSetの`.spec.updateStrategy.type`が`OnDelete`にセットされていたとき、そのStatefulSetコントローラーはStatefulSet内でPodを自動的に更新しません。StatefulSetの`.spec.template`項目の修正を反映した新しいPodの作成をコントローラーに支持するためには、ユーザーは手動でPodを削除しなければなりません。
 
 ### ローリングアップデート
 
