@@ -169,11 +169,11 @@ Kubernetes1.7とそれ以降のバージョンでは、StatefulSetは`.spec.podM
 
 Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spec.updateStarategy`フィールドで、コンテナの自動のローリングアップデートの設定やラベル、リソースのリクエストとリミットや、StatefulSet内のPodのアノテーションを指定できます。
 
-### On Delete
+### OnDelete
 
 `OnDelete`というアップデートストラテジーは、レガシー(Kubernetes1.6以前)の振る舞いとなります。StatefulSetの`.spec.updateStrategy.type`が`OnDelete`にセットされていたとき、そのStatefulSetコントローラーはStatefulSet内でPodを自動的に更新しません。StatefulSetの`.spec.template`項目の修正を反映した新しいPodの作成をコントローラーに支持するためには、ユーザーは手動でPodを削除しなければなりません。
 
-### ローリングアップデート
+### RollinUpdate
 
 `RollinUpdate`というアップデートストラテジーは、StatefulSet内のPodに対する自動化されたローリングアップデートの機能を実装します。これは`.spec.updateStrategy`フィールドが未指定の場合のデフォルトのストラテジーです。StatefulSetの`.spec.updateStrategy.type`が`RollingUpdate`にセットされたとき、そのStatefulSetコントローラーは、StatefulSet内のPodを削除し、再作成します。これはPodの停止(Podの番号の降順)と同じ順番で、一度に1つのPodを更新します。コントローラーは、その前のPodの状態がRunningかつReady状態になるまで次のPodの更新を待ちます。
 
