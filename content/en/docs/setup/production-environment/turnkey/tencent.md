@@ -1,7 +1,5 @@
 ---
-
 title: Running Kubernetes on Tencent Kubernetes Engine
-
 ---
 
 
