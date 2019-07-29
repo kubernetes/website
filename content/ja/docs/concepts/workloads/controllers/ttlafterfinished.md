@@ -12,7 +12,7 @@ weight: 65
 TTLコントローラーは実行を終えたリソースオブジェクトのライフタイムを制御するためのTTL機構を提供します。  
 TTLコントローラーは現在[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のみ扱っていて、将来的にPodやカスタムリソースなど、他のリソースの実行終了を扱えるように拡張される予定です。
 
-α版の免責事項: この機能は現在α版の機能となり、[Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)の`TTLAfterFinished`を有効にすることで使用可能です。
+α版の免責事項: この機能は現在α版の機能で、[Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)の`TTLAfterFinished`を有効にすることで使用可能です。
 
 {{% /capture %}}
 
@@ -37,13 +37,13 @@ TTL秒はいつでもセット可能です。下記はJobの`.spec.ttlSecondsAf
 
 ### TTL秒の更新
 
-注意点として、Jobの`.spec.ttlSecondsAfterFinished`フィールドといったTTLピリオドはリソースが作成された後、もしくは終了した後に変更できます。しかし、一度Jobが削除可能(TTLの期限が切れたとき)になると、それがたとえTTLを伸ばすような更新に対してAPIのレスポンスで成功したと返されたとしても、そのシステムはJobが稼働し続けることをもはや保証しません。
+注意点として、Jobの`.spec.ttlSecondsAfterFinished`フィールドといったTTL期間はリソースが作成された後、もしくは終了した後に変更できます。しかし、一度Jobが削除可能(TTLの期限が切れたとき)になると、それがたとえTTLを伸ばすような更新に対してAPIのレスポンスで成功したと返されたとしても、そのシステムはJobが稼働し続けることをもはや保証しません。
 
-### タイムスキュー(Time Skew)
+### タイムスキュー(Time Skew:時刻のずれ)
 
-TTLコントローラーが、TTL値が期限切れかそうでないかを決定するためにKubernetesリソース内に保存されたタイムスタンプを使うため、この機能はクラスター内のタイムスキューに対してセンシティブとなります。タイムスキューは、誤った時間にTTLコントローラーに対してリソースオブジェクトのクリーンアップしてしまうことを引き起こすものです。
+TTLコントローラーが、TTL値が期限切れかそうでないかを決定するためにKubernetesリソース内に保存されたタイムスタンプを使うため、この機能はクラスター内のタイムスキュー(時刻のずれ)に対してセンシティブとなります。タイムスキューは、誤った時間にTTLコントローラーに対してリソースオブジェクトのクリーンアップしてしまうことを引き起こすものです。
 
-Kubernetseにおいて、タイムスキューを避けるために、全てのNode上でNTPの稼働を必須とします([#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058)を参照してください)。クロックは常に正しいものではありませんが、Node間におけるその差はとても小さいものとなります。TTLに0でない値をセットするときにこのリスクに対して注意してください。
+Kubernetseにおいて、タイムスキュー(時刻のずれ) を避けるために、全てのNode上でNTPの稼働を必須とします([#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058)を参照してください)。クロックは常に正しいものではありませんが、Node間におけるその差はとても小さいものとなります。TTLに0でない値をセットするときにこのリスクに対して注意してください。
 
 {{% /capture %}}
 
