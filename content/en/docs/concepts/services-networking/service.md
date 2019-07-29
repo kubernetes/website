@@ -688,7 +688,7 @@ In the above example, if the Service contained three ports, `80`, `443`, and
 be proxied HTTP.
 
 From Kubernetes v1.9 onwrds you can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
-To see which policies are available for use, you can the `aws` command line tool:
+To see which policies are available for use, you can use the `aws` command line tool:
 
 ```bash
 aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
