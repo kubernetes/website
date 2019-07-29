@@ -8,7 +8,7 @@ weight: 40
 {{% capture overview %}}
 
 ボリュームの動的プロビジョニングにより、ストレージ用のボリュームをオンデマンドに作成することができます。
-動的プロビジョニングなしでは、クラスター管理者はクラウドプロバイダーまたはストレージプロバイダーに対して新規のストレージ用のボリュームと[`PersistentVolume`オブジェクト](/docs/concepts/storage/persistent-volumes/)を作成するように手動で指示しないといけません。動的プロビジョニングの機能によって、クラスター管理者がストレージを事前にプロビジョンする必要がなくなります。その代わりに、ユーザーによってリクエストされたときに自動でストレージをプロビジョンします。
+動的プロビジョニングなしでは、クラスター管理者はクラウドプロバイダーまたはストレージプロバイダーに対して新規のストレージ用のボリュームと[`PersistentVolume`オブジェクト](/docs/concepts/storage/persistent-volumes/)を作成するように手動で指示しなければなりません。動的プロビジョニングの機能によって、クラスター管理者がストレージを事前にプロビジョンする必要がなくなります。その代わりに、ユーザーによってリクエストされたときに自動でストレージをプロビジョンします。
 
 {{% /capture %}}
 
@@ -51,7 +51,7 @@ parameters:
 
 ## 動的プロビジョニングの使用
 
-ユーザーは`PersistentVolumeClaim`リソース内でStorageClassを含むことで、動的にプロビジョンされたStorageをリクエストできます。Kubernetes v1.6以前では、この機能は`volume.beta.kubernetes.io/storage-class`アノテーションを介して使うことができました。しかしこのアノテーションではv1.6から廃止になりました。その代わりユーザーは現在では`PersistentVolumeClaim`オブジェクトの`storageClassName`を使う必要があります。このフィールドの値は、管理者によって設定された`StorageClass`の名前とマッチしなくてはなりません([下記](#enabling-dynamic-provisioning)のセクションも参照ください)。
+ユーザーは`PersistentVolumeClaim`リソース内でStorageClassを含むことで、動的にプロビジョンされたStorageをリクエストできます。Kubernetes v1.6以前では、この機能は`volume.beta.kubernetes.io/storage-class`アノテーションを介して使うことができました。しかしこのアノテーションではv1.6から廃止になりました。その代わりユーザーは現在では`PersistentVolumeClaim`オブジェクトの`storageClassName`を使う必要があります。このフィールドの値は、管理者によって設定された`StorageClass`の名前と一致しなくてはなりません([下記](#enabling-dynamic-provisioning)のセクションも参照ください)。
 
 "fast"というStorageClassを選択するために、例としてユーザーは下記の`PersistentVolumeClaim`を作成します。
 
@@ -69,9 +69,9 @@ spec:
       storage: 30Gi
 ```
 
-このリソースによってでSSDライクな永続化ディスクが自動的にプロビジョンされます。このリソースが削除された時、そのボリュームは削除されます。
+このリソースによってでSSDのような永続化ディスクが自動的にプロビジョンされます。このリソースが削除された時、そのボリュームは削除されます。
 
-## デフォルトのふるまい
+## デフォルトの挙動
 
 動的プロビジョニングは、もしStorageClassが1つも指定されていないときに全てのPersistentVolumeClaimが動的にプロビジョンされるようにクラスター上で有効にできます。クラスター管理者は、下記を行うことによりこのふるまいを有効にできます。
 
@@ -81,7 +81,7 @@ spec:
 管理者は`StorageClass`に対して`storageclass.kubernetes.io/is-default-class`アノテーションをつけることで、デフォルトのStorageClassとしてマーキングできます。
 デフォルトの`StorageClass`がクラスター内で存在し、かつユーザーが`PersistentVolumeClaim`リソースで`storageClassName`を指定しなかった場合、`DefaultStorageClass`という管理コントローラーは`storageClassName`フィールドの値をデフォルトのStorageClassを指し示すように自動で追加します。
 
-注意点として、クラスター上では最大1つしか*デフォルト* のStorageClassが指定できないか、または`storageClassName`を明示的に指定しない`PersistentVolumeClaim`は作成することができません。
+注意点として、クラスター上では最大1つしか*デフォルト* のStorageClassが指定できません、または`storageClassName`を明示的に指定しない`PersistentVolumeClaim`は作成することができません。
 
 ## トポロジーに関する注意
 
