@@ -2,21 +2,24 @@
 title: kube-proxy
 id: kube-proxy
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-proxy
+full_link: /docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
   `kube-proxy` is a network proxy that runs on each node in the cluster.
 
-aka: 
+aka:
 tags:
 - fundamental
-- core-object
+- networking
 ---
- `kube-proxy` is a network proxy that runs on each node in the cluster.
+ [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) is a
+network proxy that runs on each node in your cluster, implementing part of
+the Kubernetes {{< glossary_tooltip term_id="service">}} concept.
 
-It enables the Kubernetes service abstraction by maintaining network rules on
-the host and performing connection forwarding.
+<!--more-->
 
-<!--more--> 
+kube-proxy maintains network rules on nodes. These network rules allow
+network communication to your Pods from network sessions inside or outside
+of your cluster.
 
-`kube-proxy` is responsible for request forwarding. `kube-proxy` allows TCP and UDP stream forwarding or round robin TCP and UDP forwarding across a set of backend functions.
-
+kube-proxy uses the operating system packet filtering layer if there is one
+and it's available. Otherwise, kube-proxy forwards the traffic itself.
