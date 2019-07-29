@@ -40,7 +40,7 @@ For both methods you need this infrastructure:
   the masters
 - Three machines that meet [kubeadm's minimum
   requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for the workers
-- A highly available load balancer that operates at Layer 4 (such as one provided by a cloud provider, or [HAProxy](http://www.haproxy.org/)) with it's own name in DNS. The load balancer should be configured to forward the apiserver port (default: 6443) on the load balancer to the apiserver port on all control plane nodes. Before using a cloud provider provided load balancer, double check the documentation for [NAT hairpinning](https://en.wikipedia.org/wiki/Hairpinning) support.
+- A highly available load balancer that operates at Layer 4 (such as one provided by a cloud provider, or [HAProxy](http://www.haproxy.org/)) with its own name in DNS. The load balancer should be configured to forward the apiserver port (default: 6443) on the load balancer to the apiserver port on all control plane nodes. Before using a cloud provider provided load balancer, double check the documentation for [NAT hairpinning](https://en.wikipedia.org/wiki/Hairpinning) support.
 - Full network connectivity between all machines in the cluster (public or
   private network)
 - sudo privileges on all machines
