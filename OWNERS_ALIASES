@@ -174,3 +174,26 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+  sig-docs-l10n-owners: # Owners for localization projects
+    - alexbrand # Spanish
+    - bene2k1 # German
+    - bradamant3 # English
+    - claudiajkang # Korean
+    - cstoku # Japanese
+    - daminisatya # Hindi
+    - femrtnz # Portuguese
+    - girikuncoro # Indonesian
+    - gochist # Korean
+    - hanjiayao # Chinese
+    - irvifa # Indonesian
+    - jaredbhatti # English
+    - jcjesus # Portuguese
+    - chenrui # Chinese
+    - micheleberardi # Italian
+    - raelga # Spanish
+    - remyleone # French
+    - Rajakavitha1 # Hindi
+    - rlenferink # German, Italian
+    - tnir # Japanese
+    - zacharysarah # English
+
