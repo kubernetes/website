@@ -763,4 +763,8 @@ Delaying volume binding allows the scheduler to consider all of a pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
 
+### Note
+
+You should only have one default storage class in your cluster at any given time. Kubernetes does not technically prevent you from having more than one, but it will behave as if there is no default storage class at all.
+
 {{% /capture %}}
