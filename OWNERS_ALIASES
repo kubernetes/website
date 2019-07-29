@@ -18,6 +18,16 @@ aliases:
     - chuckha
     - detiber
     - dixudx
+  sig-docs-blog-owners: # Approvers for blog content
+    - castrojo
+    - kbarnard10
+    - zacharysarah
+  sig-docs-blog-reviewers: # Reviewers for blog content
+    - cody-clark
+    - mrbobbytables
+    - onlydole
+    - parispittman
+    - vonguard
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
