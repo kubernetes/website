@@ -455,8 +455,7 @@ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## Known Issues
-* Features that require a Cloud Provider will not work in Minikube. These include:
-  * LoadBalancers
+
 * Features that require multiple nodes. These include:
   * Advanced scheduling policies
 
