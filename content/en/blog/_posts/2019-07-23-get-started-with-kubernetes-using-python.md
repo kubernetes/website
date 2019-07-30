@@ -51,7 +51,11 @@ if __name__ == "__main__":
 
 The requirements.txt file contains the list of packages needed by the main.py and will be used by [pip](https://pip.pypa.io/en/stable/) to install the Flask library.
 
-> Note: when you start writing more advanced Python, you'll find its not always recommended to use ```pip install``` and may want to use ```virtualenv``` (or ```pyenv```) to install your dependencies in a virtual environment.
+{{< note >}}
+
+When you start writing more advanced Python, you'll find it's not always recommended to use `pip install` and may want to use `virtualenv` (or `pyenv`) to install your dependencies in a virtual environment.
+
+{{< /note >}}
 
 ### Run locally
 Manually run the installer and application using the following commands:
@@ -94,7 +98,11 @@ At your command line or shell, in the hello-python/app directory, build the imag
 docker build -f Dockerfile -t hello-python:latest .
 ```
 
-> Note: I'm using the :latest tag in this example, if you are not familiar with what it is you may want to read [Docker: The latest Confusion](https://container-solutions.com/docker-latest-confusion/).
+{{< note >}}
+
+I'm using the :latest tag in this example, if you are not familiar with what it is you may want to read [Docker: The latest Confusion](https://container-solutions.com/docker-latest-confusion/).
+
+{{< /note >}}
 
 
 This will perform those seven steps listed above and create the image. To verify the image was created, run the following command:
