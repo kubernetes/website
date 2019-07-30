@@ -456,8 +456,7 @@ export no_proxy=$no_proxy,$(minikube ip)
 
 ## Known Issues
 
-* Features that require multiple nodes. These include:
-  * Advanced scheduling policies
+Features that require multiple nodes will not work in Minikube.
 
 ## Design
 
