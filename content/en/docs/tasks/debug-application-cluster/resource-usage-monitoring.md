@@ -84,11 +84,11 @@ solutions. Sysdig is built on Open Source. [Sysdig and Sysdig Inspect](https://s
 ability to freely perform troubleshooting, performance analyis and forensics. 
 
 ### Instana
-[Instana](https://www.instana.com) offers a monitoring and performance insights platform which is highly integrated with the Kubernetes environment.
+[Instana](https://www.instana.com) offers a monitoring and performance insights platform, which is highly integrated with the Kubernetes environment.
 
 After installing the agent as a daemonset, the Instana Agent automatically gathers the running containers and the technology stack inside of them. Using Instana AutoTrace technology, instrumentation of the already running services is done automatically for the most commonly used programming languages and frameworks.
 
-Apart from the automatic instrumentation of applications and services, Instana captures infrastructure and cluster changes, Kubernetes events, container starts and stops and more. Using this data Instana builds out a comprehensive picture of the Kubernetes cluster and the services running inside of it, with an unprecidented level of automation and insight.
+Apart from the automatic instrumentation of applications and services, Instana captures infrastructure and cluster changes, Kubernetes events, container starts and stops and more. Using this data, Instana builds out a comprehensive picture of the Kubernetes cluster and the services running inside of it, with an unprecidented level of automation and insight.
 
 ### Google Cloud Monitoring
 
