@@ -216,7 +216,7 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 
     ```
     {{</* note */>}}
-    No need to include a prefix; the shortcode automatically provides on (Note:, Caution:, etc.).
+    No need to include a prefix; the shortcode automatically provides one. (Note:, Caution:, etc.)
     {{</* /note */>}}
     ```
 
