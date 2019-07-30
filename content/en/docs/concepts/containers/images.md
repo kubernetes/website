@@ -60,7 +60,7 @@ Credentials can be provided in several ways:
     - Per-cluster
     - automatically configured on Google Compute Engine or Google Kubernetes Engine
     - all pods can read the project's private registry
-  - Using AWS EC2 Container Registry (ECR)
+  - Using Amazon Elastic Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
   - Using Oracle Cloud Infrastructure Registry (OCIR)
@@ -93,10 +93,9 @@ Google service account.  The service account on the instance
 will have a `https://www.googleapis.com/auth/devstorage.read_only`,
 so it can pull from the project's GCR, but not push.
 
-### Using AWS EC2 Container Registry
+### Using Amazon Elastic Container Registry
 
-Kubernetes has native support for the [AWS EC2 Container
-Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
+Kubernetes has native support for the [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
 
 Simply use the full image name (e.g. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
 in the Pod definition.
