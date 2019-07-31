@@ -23,7 +23,7 @@ Windows applications constitute a large portion of the services and applications
 ## Before you begin
 
 * Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](../user-guide-windows-nodes)
-* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/ja/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
+* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows container
 
@@ -96,7 +96,7 @@ Port mapping is also supported, but for simplicity in this example the container
     * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
-    * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)
+    * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
     * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
     * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 
@@ -106,7 +106,7 @@ Windows container hosts are not able to access the IP of services scheduled on t
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
-Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/ja/docs/tasks/configure-pod-container/configure-gmsa/).
+Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
 
 ## Taints and Tolerations
 
