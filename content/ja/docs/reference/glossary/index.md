@@ -1,7 +1,4 @@
 ---
-approvers:
-- chenopis
-- abiogenesis-now
 title: Standardized Glossary
 layout: glossary
 noedit: true
