@@ -28,7 +28,7 @@ kubeadmの`ClusterConfiguration`オブジェクトはAPIServer、ControllerManag
 
 ## APIServerフラグ
 
-詳細は[kube-apiserverのリファレンスドキュメント](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
+詳細は[kube-apiserverのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
 
 Example usage:
 ```yaml
@@ -45,7 +45,7 @@ apiServer:
 
 ## ControllerManagerフラグ
 
-詳細は[kube-controller-managerのリファレンスドキュメント](/ja/docs/reference/command-line-tools-reference/kube-controller-manager/)を参照してください。
+詳細は[kube-controller-managerのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-controller-manager/)を参照してください。
 
 Example usage:
 ```yaml
@@ -61,7 +61,7 @@ controllerManager:
 
 ## Schedulerフラグ
 
-詳細は[kube-schedulerのリファレンスドキュメント](/ja/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
+詳細は[kube-schedulerのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
 
 Example usage:
 ```yaml

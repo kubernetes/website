@@ -21,7 +21,7 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
   * openSUSE Leap 42.3/Tumbleweed
 * continuous integration tests
 
-To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/ja/docs/admin/kubeadm/) and [kops](../kops).
+To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](../kops).
 
 {{% /capture %}}
 

@@ -70,7 +70,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
 | TCP      | Inbound   | 30000-32767 | NodePort Services**   | All                     |
 
-** Default port range for [NodePort Services](/ja/docs/concepts/services-networking/service/).
+** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
 
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open.
@@ -133,12 +133,12 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
-For information about installing `kubectl`, see [Install and set up kubectl](/ja/docs/tasks/tools/install-kubectl/).
+For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/install-kubectl/).
 
 {{< warning >}}
 These instructions exclude all Kubernetes packages from any system upgrades.
 This is because kubeadm and Kubernetes require
-[special attention to upgrade](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
+[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
 {{</ warning >}}
 
 For more information on version skews, see:

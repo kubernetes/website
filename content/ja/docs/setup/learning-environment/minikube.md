@@ -24,7 +24,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 
 ## インストール
 
-[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/) を参照
+[Minikubeのインストール](/docs/tasks/tools/install-minikube/) を参照
 
 ## クイックスタート
 
@@ -242,7 +242,7 @@ imagePullPolicy:Alwaysをオフにすることを忘れないでください: �
 
 `minikube start` コマンドはクラスターを起動することができます。
 このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
-また、このクラスターと通信する [kubectl](/ja/docs/user-guide/kubectl-overview/) のインストールも設定します。
+また、このクラスターと通信する [kubectl](/docs/user-guide/kubectl-overview/) のインストールも設定します。
 
 もしWebプロキシーを通している場合、そのプロキシー情報を `minikube start` コマンドに渡す必要があります:
 
@@ -306,7 +306,7 @@ Kubeletの `MaxPods` 設定を5に変更するには、このフラグを渡し�
 
 ### Kubectl
 
-`minikube start` コマンドは "minikube" という[kubectl context](/ja/docs/reference/generated/kubectl/kubectl-commands#-em-set-context-em-)を作成します。
+`minikube start` コマンドは "minikube" という[kubectl context](/docs/reference/generated/kubectl/kubectl-commands#-em-set-context-em-)を作成します。
 このコンテキストはMinikubeクラスターと通信するための設定が含まれています。
 
 Minikubeはこのコンテキストを自動的にデフォルトに設定しますが、将来的に設定を切り戻す場合には次のコマンドを実行してください:
@@ -317,7 +317,7 @@ Minikubeはこのコンテキストを自動的にデフォルトに設定しま
 
 ### ダッシュボード
 
-[Kubernetes Dashboard](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)にアクセスするには、Minikubeを起動してアドレスを取得した後、シェルでこのコマンドを実行してください:
+[Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/)にアクセスするには、Minikubeを起動してアドレスを取得した後、シェルでこのコマンドを実行してください:
 
 ```shell
 minikube dashboard
@@ -341,7 +341,7 @@ NodePort上では、 `NodePort` タイプのどのサービスもそのIPアド�
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## 永続化ボリューム
-Minikubeは `hostPath` タイプの[PersistentVolumes](/ja/docs/concepts/storage/persistent-volumes/)をサポートします。
+Minikubeは `hostPath` タイプの[PersistentVolumes](/docs/concepts/storage/persistent-volumes/)をサポートします。
 このPersistentVolumesはMinikubeのVM内のディレクトリーにマッピングされます。
 
 MinikubeのVMはtmpfsで起動するため、ほとんどのディレクトリーは再起動しても持続しません (`minikube stop`)。
@@ -384,7 +384,7 @@ spec:
 
 ## プライベートコンテナレジストリ
 
-プライベートコンテナレジストリにアクセスするには、[このページ](/ja/docs/concepts/containers/images/)の手順に従ってください。
+プライベートコンテナレジストリにアクセスするには、[このページ](/docs/concepts/containers/images/)の手順に従ってください。
 
 `ImagePullSecrets` を使用することをおすすめしますが、MinikubeのVM内でアクセス設定したい場合には、`/home/docker` ディレクトリに `.dockercfg` を置くか、または `/home/docker/.docker` ディレクトリに `config.json` を置いてください。
 

@@ -17,7 +17,7 @@ weight: 60
 
 alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.13で削除されたことに留意してください。
 
-[高可用性クラスターのアップグレード](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13)も参照してください。
+[高可用性クラスターのアップグレード](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13)も参照してください。
 
 {{< caution >}}
 このページはクラウド上でクラスターを構築することには対応していません。ここで説明されているどちらのアプローチも、クラウド上で、LoadBalancerタイプのServiceオブジェクトや、動的なPersistentVolumeを利用して動かすことはできません。

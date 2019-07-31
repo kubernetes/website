@@ -112,7 +112,7 @@ Heapster's resource limits are set dynamically based on the initial size of your
 and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
 out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
 
-For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/ja/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting).
+For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting).
 
 In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
 We welcome PRs that implement those features.

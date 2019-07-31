@@ -250,7 +250,7 @@ kubectl cluster-info
 
 ### プログラムでクラスターへアクセス
 
-It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/ja/docs/reference/using-api/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice.
+It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/using-api/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice.
 
 To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master apiserver via https:
 
@@ -266,7 +266,7 @@ distributed with macOS.
 
 ### ブラウザーを使ったクラスターへのアクセス
 
-We install [the kubernetes dashboard](/ja/docs/tasks/web-ui-dashboard/). When you
+We install [the kubernetes dashboard](/docs/tasks/web-ui-dashboard/). When you
 create a cluster, the script should output URLs for these interfaces like this:
 
 kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
@@ -320,7 +320,7 @@ Then, you can access urls like ```http://127.0.0.1:8001/api/v1/namespaces/kube-s
 
 These are the known items that don't work on CenturyLink cloud but do work on other cloud providers:
 
-- At this time, there is no support services of the type [LoadBalancer](/ja/docs/tasks/access-application-cluster/create-external-load-balancer/). We are actively working on this and hope to publish the changes sometime around April 2016.
+- At this time, there is no support services of the type [LoadBalancer](/docs/tasks/access-application-cluster/create-external-load-balancer/). We are actively working on this and hope to publish the changes sometime around April 2016.
 
 - At this time, there is no support for persistent storage volumes provided by
   CenturyLink Cloud. However, customers can bring their own persistent storage

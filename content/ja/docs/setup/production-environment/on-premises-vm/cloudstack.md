@@ -113,8 +113,6 @@ e9af8293...    <node #2 IP>   role=node
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-CloudStack           | Ansible      | CoreOS | flannel     | [docs](/ja/docs/setup/on-premises-vm/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
-
-For support level information on all solutions, see the [Table of solutions](/ja/docs/setup/pick-right-solution/#table-of-solutions) chart.
+CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/setup/production-environment/on-premises-vm/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
 
 {{% /capture %}}

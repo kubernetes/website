@@ -7,7 +7,7 @@ weight: 40
 {{% capture overview %}}
 
 Kubernetes requires PKI certificates for authentication over TLS.
-If you install Kubernetes with [kubeadm](/ja/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
+If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
 You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
 This page explains the certificates that your cluster requires.
 
@@ -29,7 +29,7 @@ Kubernetes requires PKI for the following operations:
 * Client and server certificates for the [front-proxy][proxy]
 
 {{< note >}}
-`front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/ja/docs/tasks/access-kubernetes-api/setup-extension-api-server/).
+`front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/).
 {{< /note >}}
 
 etcd also implements mutual TLS to authenticate clients and peers.
@@ -113,7 +113,7 @@ You must manually configure these administrator account and service accounts:
 | scheduler.conf          | default-manager            | system:kube-scheduler          |                |
 
 {{< note >}}
-The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/ja/docs/reference/access-authn-authz/node/).
+The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
 {{< /note >}}
 
 1. For each config, generate an x509 cert/key pair with the given CN and O.

@@ -111,7 +111,7 @@ Right after `kubeadm init` there should not be any pods in these states.
 ## `coredns`(もしくは`kube-dns`)が`Pending`状態でスタックする
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
-should [install the pod network solution](/ja/docs/concepts/cluster-administration/addons/)
+should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
 before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 
@@ -126,11 +126,11 @@ Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/ja/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
 
 ## サービスIP経由でPodにアクセスすることができない
 
-- Many network add-ons do not yet enable [hairpin mode](/ja/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.

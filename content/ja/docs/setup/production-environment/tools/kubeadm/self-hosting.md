@@ -10,12 +10,12 @@ weight: 100
 
 As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control
 plane. This means that key components such as the API server, controller
-manager, and scheduler run as [DaemonSet pods](/ja/docs/concepts/workloads/controllers/daemonset/)
-configured via the Kubernetes API instead of [static pods](/ja/docs/tasks/administer-cluster/static-pod/)
+manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
 configured in the kubelet via static files.
 
 To create a self-hosted cluster see the
-[kubeadm alpha selfhosting pivot](/ja/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting) command.
+[kubeadm alpha selfhosting pivot](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting) command.
 
 {{% /capture %}}
 
@@ -33,7 +33,7 @@ to manage you cluster any longer. This includes `kubeadm upgrade`.
   without manual intervention.
 
 1. By default, self-hosted control plane Pods rely on credentials loaded from
-  [`hostPath`](/ja/docs/concepts/storage/volumes/#hostpath)
+  [`hostPath`](/docs/concepts/storage/volumes/#hostpath)
   volumes. Except for initial creation, these credentials are not managed by
   kubeadm.
 

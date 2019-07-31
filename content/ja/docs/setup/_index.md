@@ -43,7 +43,7 @@ Kubernetesについて学んでいる場合、Dockerベースのソリューシ�
 |                     | [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) |
 |                     | [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)|
 |                     | [k3s](https://k3s.io)|
-|                     | [Ubuntu on LXD](/ja/docs/getting-started-guides/ubuntu/)|
+|                     | [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/)|
 
 
 ## 本番環境

@@ -153,7 +153,7 @@ for production clusters!
 
 ### 他のアドオンの参照
 
-See the [list of add-ons](/ja/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
 
 ## クリーンアップ
 
@@ -168,7 +168,7 @@ See the [list of add-ons](/ja/docs/concepts/cluster-administration/addons/) to e
 
 {{% capture whatsnext %}}
 
-* Learn more about Kubernetes [concepts](/ja/docs/concepts/) and [`kubectl`](/ja/docs/user-guide/kubectl-overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
 * See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
 
