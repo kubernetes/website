@@ -86,9 +86,9 @@ spec:
   selector:
     app: MyApp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 This specification creates a new Service object named “my-service”, which
@@ -146,9 +146,9 @@ metadata:
   name: my-service
 spec:
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 Because this Service has no selector, the corresponding Endpoint object is *not*
@@ -328,14 +328,14 @@ spec:
   selector:
     app: MyApp
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 9376
-  - name: https
-    protocol: TCP
-    port: 443
-    targetPort: 9377
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 9377
 ```
 
 {{< note >}}
@@ -532,16 +532,16 @@ spec:
   selector:
     app: MyApp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
   clusterIP: 10.0.171.239
   loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-    - ip: 146.148.47.155
+      - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
@@ -863,7 +863,7 @@ specify `loadBalancerSourceRanges`.
 ```yaml
 spec:
   loadBalancerSourceRanges:
-  - "143.231.0.0/16"
+    - "143.231.0.0/16"
 ```
 
 {{< note >}}
@@ -931,12 +931,12 @@ spec:
   selector:
     app: MyApp
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 9376
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
   externalIPs:
-  - 80.11.12.10
+    - 80.11.12.10
 ```
 
 ## Shortcomings
