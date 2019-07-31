@@ -57,7 +57,7 @@ Before defining a Constraint, you need to create a Constraint Template that allo
 For example, here is a Constraint template CRD that requires certain labels to be present on an arbitrary object. 
 
 ```yaml
-apiVersion: templates.gatekeeper.sh/v1alpha1
+apiVersion: templates.gatekeeper.sh/v1beta1
 kind: ConstraintTemplate
 metadata:
   name: k8srequiredlabels
@@ -83,7 +83,7 @@ spec:
 
         deny[{"msg": msg, "details": {"missing_labels": missing}}] {
           provided := {label | input.review.object.metadata.labels[label]}
-          required := {label | label := input.constraint.spec.parameters.labels[_]}
+          required := {label | label := input.parameters.labels[_]}
           missing := required - provided
           count(missing) > 0
           msg := sprintf("you must provide labels: %v", [missing])
@@ -93,7 +93,7 @@ spec:
 Once a Constraint template has been deployed in the cluster, an admin can now create individual Constraint CRDs as defined by the Constraint template. For example, here is a Constraint CRD that requires the label `hr` to be present on all namespaces. 
 
 ```yaml
-apiVersion: constraints.gatekeeper.sh/v1alpha1
+apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequiredLabels
 metadata:
   name: ns-must-have-hr
@@ -109,7 +109,7 @@ spec:
 Similarly, another Constraint CRD that requires the label `finance` to be present on all namespaces can easily be created from the same Constraint template. 
 
 ```yaml
-apiVersion: constraints.gatekeeper.sh/v1alpha1
+apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequiredLabels
 metadata:
   name: ns-must-have-finance
@@ -129,7 +129,7 @@ As you can see, with the Constraint framework, we can reliably share Regos via t
 The audit functionality enables periodic evaluations of replicated resources against the Constraints enforced in the cluster to detect pre-existing misconfigurations. Gatekeeper stores audit results as `violations` listed in the `status` field of the relevant Constraint.  
 
 ```yaml
-apiVersion: constraints.gatekeeper.sh/v1alpha1
+apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequiredLabels
 metadata:
   name: ns-must-have-hr
@@ -141,19 +141,25 @@ spec:
   parameters:
     labels: ["hr"]
 status:
-  auditTimestamp: "2019-07-03T01:46:13Z"
-  enforced: true
+  auditTimestamp: "2019-08-03T01:46:13Z"
+  byPod:
+  - enforced: true
+    id: gatekeeper-controller-manager-0
   violations:
-  - kind: Namespace
+  - enforcementAction: deny
+    kind: Namespace
     message: 'you must provide labels: {"hr"}'
     name: default
-  - kind: Namespace
+  - enforcementAction: deny
+    kind: Namespace
     message: 'you must provide labels: {"hr"}'
     name: gatekeeper-system
-  - kind: Namespace
+  - enforcementAction: deny
+    kind: Namespace
     message: 'you must provide labels: {"hr"}'
     name: kube-public
-  - kind: Namespace
+  - enforcementAction: deny
+    kind: Namespace
     message: 'you must provide labels: {"hr"}'
     name: kube-system
 ```
