@@ -35,7 +35,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 请注意，API版本控制和软件版本控制只有间接相关性。 [API和发行版本建议](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)描述了API版本与软件版本之间的关系。
 
-不同的API版本名称意味着不同级别的软件稳定性和支持程度。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
+不同的API版本名称意味着不同级别的软件稳定性和支持程度。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
 
 * Alpha 测试版本：
 
