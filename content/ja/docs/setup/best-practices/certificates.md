@@ -118,7 +118,7 @@ The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value 
 
 1. For each config, generate an x509 cert/key pair with the given CN and O.
 
-2. Run `kubectl` as follows for each config:
+1. Run `kubectl` as follows for each config:
 
 ```shell
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs

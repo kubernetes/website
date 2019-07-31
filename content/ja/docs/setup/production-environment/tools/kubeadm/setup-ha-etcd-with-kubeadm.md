@@ -59,7 +59,7 @@ this example.
     systemctl restart kubelet
     ```
 
-2. Create configuration files for kubeadm.
+1. Create configuration files for kubeadm.
 
     Generate one kubeadm configuration file for each host that will have an etcd
     member running on it using the following script.
@@ -100,7 +100,7 @@ this example.
     done
     ```
 
-3. Generate the certificate authority
+1. Generate the certificate authority
 
     If you already have a CA then the only action that is copying the CA's `crt` and
     `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
@@ -119,7 +119,7 @@ this example.
     - `/etc/kubernetes/pki/etcd/ca.crt`
     - `/etc/kubernetes/pki/etcd/ca.key`
 
-4. Create certificates for each member
+1. Create certificates for each member
 
     ```sh
     kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
@@ -148,7 +148,7 @@ this example.
     find /tmp/${HOST1} -name ca.key -type f -delete
     ```
 
-5. Copy certificates and kubeadm configs
+1. Copy certificates and kubeadm configs
 
     The certificates have been generated and now they must be moved to their
     respective hosts.
@@ -163,7 +163,7 @@ this example.
      root@HOST $ mv pki /etc/kubernetes/
      ```
 
-6. Ensure all expected files exist
+1. Ensure all expected files exist
 
     The complete list of required files on `$HOST0` is:
 
@@ -223,7 +223,7 @@ this example.
         └── server.key
     ```
 
-7. Create the static pod manifests
+1. Create the static pod manifests
 
     Now that the certificates and configs are in place it's time to create the
     manifests. On each host run the `kubeadm` command to generate a static manifest
@@ -235,7 +235,7 @@ this example.
     root@HOST2 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
     ```
 
-8. Optional: Check the cluster health
+1. Optional: Check the cluster health
 
     ```sh
     docker run --rm -it \

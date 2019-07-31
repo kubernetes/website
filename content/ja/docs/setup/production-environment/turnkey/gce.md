@@ -23,13 +23,13 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 ### 前提条件
 
 1. You need a Google Cloud Platform account with billing enabled. Visit the [Google Developers Console](https://console.cloud.google.com) for more details.
-2. Install `gcloud` as necessary. `gcloud` can be installed as a part of the [Google Cloud SDK](https://cloud.google.com/sdk/).
-3. Enable the [Compute Engine Instance Group Manager API](https://console.developers.google.com/apis/api/replicapool.googleapis.com/overview) in the [Google Cloud developers console](https://console.developers.google.com/apis/library).
-4. Make sure that gcloud is set to use the Google Cloud Platform project you want. You can check the current project using `gcloud config list project` and change it via `gcloud config set project <project-id>`.
-5. Make sure you have credentials for GCloud by running `gcloud auth login`.
-6. (Optional)  In order to make API calls against GCE, you must also run `gcloud auth application-default login`.
-7. Make sure you can start up a GCE VM from the command line.  At least make sure you can do the [Create an instance](https://cloud.google.com/compute/docs/instances/#startinstancegcloud) part of the GCE Quickstart.
-8. Make sure you can SSH into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
+1. Install `gcloud` as necessary. `gcloud` can be installed as a part of the [Google Cloud SDK](https://cloud.google.com/sdk/).
+1. Enable the [Compute Engine Instance Group Manager API](https://console.developers.google.com/apis/api/replicapool.googleapis.com/overview) in the [Google Cloud developers console](https://console.developers.google.com/apis/library).
+1. Make sure that gcloud is set to use the Google Cloud Platform project you want. You can check the current project using `gcloud config list project` and change it via `gcloud config set project <project-id>`.
+1. Make sure you have credentials for GCloud by running `gcloud auth login`.
+1. (Optional)  In order to make API calls against GCE, you must also run `gcloud auth application-default login`.
+1. Make sure you can start up a GCE VM from the command line.  At least make sure you can do the [Create an instance](https://cloud.google.com/compute/docs/instances/#startinstancegcloud) part of the GCE Quickstart.
+1. Make sure you can SSH into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
 
 {{% /capture %}}
 

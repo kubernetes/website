@@ -1,6 +1,4 @@
 ---
-reviewers:
-- sig-cluster-lifecycle
 title: kubeadmを使用したクラスター内の各kubeletの設定
 content_template: templates/concept
 weight: 80
