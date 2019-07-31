@@ -37,7 +37,7 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-    For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/ja/docs/getting-started-guides/aws/).
+    For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/getting-started-guides/aws/).
 
 
 ## GCE
@@ -66,7 +66,7 @@ To create a Kubernetes cluster on GCE, you will need the Service Account JSON Da
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-    For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](/ja/docs/getting-started-guides/gce/).
+    For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](/docs/getting-started-guides/gce/).
 
 
 ## Google Kubernetes Engine
@@ -153,7 +153,7 @@ To create a Kubernetes cluster on Microsoft Azure, you will need an Azure Subscr
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-    For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](/ja/docs/getting-started-guides/azure/).
+    For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](/docs/getting-started-guides/azure/).
 
 
 ## Packet

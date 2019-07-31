@@ -106,13 +106,13 @@ Pre-requisites:
 * The `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` instances that communicate with this server are at version **1.n** (this ensures they are not newer than the existing API server version, and are within 1 minor version of the new API server version)
 * `kubelet` instances on all nodes are at version **1.n** or **1.(n-1)** (this ensures they are not newer than the existing API server version, and are within 2 minor versions of the new API server version)
 * Registered admission webhooks are able to handle the data the new `kube-apiserver` instance will send them:
-  * `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects are updated to include any new versions of REST resources added in **1.(n+1)** (or use the [`matchPolicy: Equivalent` option](/ja/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy) available in v1.15+)
+  * `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects are updated to include any new versions of REST resources added in **1.(n+1)** (or use the [`matchPolicy: Equivalent` option](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy) available in v1.15+)
   * The webhooks are able to handle any new versions of REST resources that will be sent to them, and any new fields added to existing versions in **1.(n+1)**
 
 Upgrade `kube-apiserver` to **1.(n+1)**
 
 {{< note >}}
-Project policies for [API deprecation](/ja/docs/reference/using-api/deprecation-policy/) and
+Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}

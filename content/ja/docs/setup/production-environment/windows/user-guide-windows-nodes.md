@@ -28,7 +28,7 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 
 ### Plan IP Addressing
 
-Kubernetes cluster management requires careful planning of your IP addresses so that you do not inadvertently cause network collision. This guide assumes that you are familiar with the [Kubernetes networking concepts](/ja/docs/concepts/cluster-administration/networking/).
+Kubernetes cluster management requires careful planning of your IP addresses so that you do not inadvertently cause network collision. This guide assumes that you are familiar with the [Kubernetes networking concepts](/docs/concepts/cluster-administration/networking/).
 
 In order to deploy your cluster you need the following address spaces:
 

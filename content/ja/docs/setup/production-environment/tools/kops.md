@@ -18,7 +18,7 @@ kops is an opinionated provisioning system:
 * High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/high_availability.md)
 * Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
-If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/ja/docs/admin/kubeadm/) as
+If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
 a building block.  kops builds on the kubeadm work.
 
 {{% /capture %}}
@@ -31,7 +31,7 @@ a building block.  kops builds on the kubeadm work.
 
 #### 要件
 
-You must have [kubectl](/ja/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
+You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
 
 #### インストール
 
