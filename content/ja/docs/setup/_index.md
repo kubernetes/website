@@ -50,9 +50,9 @@ Kubernetesについて学んでいる場合、Dockerベースのソリューシ�
 
 本番環境用のソリューションを評価する際には、Kubernetesクラスター(または抽象レイヤ)の運用においてどの側面を自分で管理するのか、またはプロバイダーに任せるのかを検討してください。
 
-Kubernetesクラスタにおける抽象レイヤには {{< glossary_tooltip text="アプリケーション" term_id="applications" >}}, {{< glossary_tooltip text="データプレーン" term_id="data-plane" >}}, {{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}, {{< glossary_tooltip text="クラスターインフラ" term_id="cluster-infrastructure" >}}, {{< glossary_tooltip text="そして、クラスター運用" term_id="cluster-operations" >}}があります。
+Kubernetesクラスタにおける抽象レイヤには {{< glossary_tooltip text="アプリケーション" term_id="applications" >}}、 {{< glossary_tooltip text="データプレーン" term_id="data-plane" >}}、 {{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}、 {{< glossary_tooltip text="クラスターインフラ" term_id="cluster-infrastructure" >}}、 {{< glossary_tooltip text="そして、クラスター運用" term_id="cluster-operations" >}}があります。
 
-次の図では、Kubernetesクラスターの抽象レイヤ一覧と、それぞれの抽象レイヤを自分で管理するのか、プロバイダによって管理されているのかを示しています。
+次の図は、Kubernetesクラスターの抽象レイヤ一覧と、それぞれの抽象レイヤを自分で管理するのか、プロバイダによって管理されているのかを示しています。
 
 本番環境のソリューション![Production environment solutions](/images/docs/KubernetesSolutions.svg)
 
