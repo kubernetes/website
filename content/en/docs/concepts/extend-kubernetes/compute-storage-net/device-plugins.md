@@ -138,13 +138,14 @@ ensure the continuous functioning of the device allocations during the upgrade.
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
-In order to monitor resources provided by device plugins, monitoring agents need to be able to 
-discover the set of devices that are in-use on the node and obtain metadata to describe which 
-container the metric should be associated with.  Prometheus metrics exposed by device monitoring 
-agents should follow the 
-[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md), 
-which requires identifying containers using `pod`, `namespace`, and `container` prometheus labels.  
-The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata 
+In order to monitor resources provided by device plugins, monitoring agents need to be able to
+discover the set of devices that are in-use on the node and obtain metadata to describe which
+container the metric should be associated with. [Prometheus](https://prometheus.io/) metrics
+exposed by device monitoring agents should follow the
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md),
+identifying containers using `pod`, `namespace`, and `container` prometheus labels.
+
+The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata
 for these devices:
 
 ```gRPC
