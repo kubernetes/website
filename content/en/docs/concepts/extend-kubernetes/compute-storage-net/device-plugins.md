@@ -14,9 +14,9 @@ for vendors to advertise their resources to the {{< glossary_tooltip term_id="ku
 without changing Kubernetes core code.
 
 Instead of writing custom Kubernetes code, vendors can implement a device plugin that can
-be deployed manually or as a DaemonSet. The targeted devices include GPUs,
-High-performance NICs, FPGAs, InfiniBand, and other similar computing resources
-that may require vendor specific initialization and setup.
+be deployed manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
+The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters, and
+other similar computing resources that may require vendor specific initialization and setup.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -119,8 +119,7 @@ Otherwise, an extra mechanism is needed to recover from device plugin failures.
 The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
 so a device plugin must run in a privileged security context.
 If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
-must be mounted as a
-[Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
+must be mounted as a {{< glossary_tooltip term_id="volume" >}}
 in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
@@ -156,13 +155,12 @@ service PodResourcesLister {
 }
 ```
 
-The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`. 
-Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet. 
-The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring 
-agents must run in a privileged security context.  If a device monitoring agent is running as a 
-DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a 
-[Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
-in the plugin's
+The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
+Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
+The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
+agents must run in a privileged security context.  If a device monitoring agent is running as a
+DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
+{{< glossary_tooltip term_id="volume" >}} in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 Support for the "PodResources service" is in beta, and is enabled by default.
