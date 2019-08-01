@@ -38,7 +38,8 @@ Choose an IP range that is *NOT* part of the public IP address range.
 Add the configuration to the etcd server on fed-master.
 
 ```shell
-etcdctl set /coreos.com/network/config < flannel-config.json
+if the etcd server version 3.x, and as flanneld does not supoort etcd v3.x yet
+ETCDCTL_API=2 etcdctl set /coreos.com/network/config < flannel-config.json
 ```
 
 * Verify that the key exists in the etcd server on fed-master.
