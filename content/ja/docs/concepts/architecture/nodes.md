@@ -65,7 +65,7 @@ NodeのconditionはJSONオブジェクトで表現されます。例えば、健
 ]
 ```
 
-Ready conditionが`pod-eviction-timeout`に設定された時間を超えても`Unknown`や`False`のままになっている場合、[kube-controller-manager](/docs/admin/kube-controller-manager/)に引数が渡され、該当Node上にあるPodはNodeコントローラーによって削除がスケジュールされます。デフォルトのevictionタイムアウトの時間は**5分**です。Nodeが到達不能ないくつかの場合においては、APIサーバーが該当Nodeのkubeletと疎通できない状態になっています。その場合、APIサーバーがkubeletと再び通信を確立するまでの間、Podの削除を行うことはできません。削除がスケジュールされるまでの間、削除対象のPodたちは切り離されたNodeの上で稼働を続けることになります。
+Ready conditionが`pod-eviction-timeout`に設定された時間を超えても`Unknown`や`False`のままになっている場合、[kube-controller-manager](/docs/admin/kube-controller-manager/)に引数が渡され、該当Node上にあるPodはNodeコントローラーによって削除がスケジュールされます。デフォルトの退役のタイムアウトの時間は**5分**です。Nodeが到達不能ないくつかの場合においては、APIサーバーが該当Nodeのkubeletと疎通できない状態になっています。その場合、APIサーバーがkubeletと再び通信を確立するまでの間、Podの削除を行うことはできません。削除がスケジュールされるまでの間、削除対象のPodたちは切り離されたNodeの上で稼働を続けることになります。
 
 バージョン1.5よりも前のKubernetesでは、NodeコントローラーはAPIサーバーから到達不能なそれらのPodを[強制削除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)していました。しかしながら、1.5以降では、Nodeコントローラーはクラスター内でPodが停止するのを確認するまでは強制的に削除しないようになりました。到達不能なNode上で動いているPodは`Terminating`または`Unknown`のステータスになります。Kubernetesが基盤となるインフラストラクチャーを推定できない場合、クラスター管理者は手動でNodeオブジェクトを削除する必要があります。KubernetesからNodeオブジェクトを削除すると、そのNodeで実行されているすべてのPodオブジェクトがAPIサーバーから削除され、それらの名前が解放されます。
 
