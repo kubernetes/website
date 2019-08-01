@@ -155,7 +155,7 @@ Zusammenfassung der Container-Vorteile:
 
 ## Was bedeutet Kubernetes? K8s?
 
-Der Name **Kubernetes** stammt aus dem Griechischen, beteutet *Steuermann* oder
+Der Name **Kubernetes** stammt aus dem Griechischen, bedeutet *Steuermann* oder
 *Pilot*, und ist der Ursprung von *Gouverneur* und
 [cybernetic](http://www.etymonline.com/index.php?term=cybernetics). *K8s*
 ist eine Abkürzung, die durch Ersetzen der 8 Buchstaben "ubernete" mit "8" abgeleitet wird.
