@@ -169,7 +169,7 @@ Si vous êtes sur MacOS et que vous utilisez le gestionnaire de paquets [Macport
 
 ### Installer le binaire kubectl avec curl sur Windows
 
-1. Téléchargez la dernière release {{< param "fullversion" >}} depuis [ce lien](https://storage.googleapis.com/kubernetes-release/release/{{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Téléchargez la dernière release {{< param "fullversion" >}} depuis [ce lien](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
     Ou si vous avez `curl` installé, utilisez cette commande:
 
