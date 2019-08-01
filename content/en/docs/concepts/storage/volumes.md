@@ -149,7 +149,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration 
+#### CSI Migration
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -208,7 +208,7 @@ writers simultaneously.
 You must have your own Ceph server running with the share exported before you can use it.
 {{< /caution >}}
 
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
 
 ### cinder {#cinder}
 
@@ -241,7 +241,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration 
+#### CSI Migration
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -534,7 +534,7 @@ simultaneously.
 You must have your own GlusterFS installation running before you can use it.
 {{< /caution >}}
 
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) for more details.
 
 ### hostPath {#hostpath}
 
@@ -618,7 +618,7 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) for more details.
 
 ### local {#local}
 
@@ -938,7 +938,7 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) for more details.
 
 ### scaleIO {#scaleio}
 
@@ -1052,7 +1052,7 @@ spec:
 ```
 
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
-[StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
+[StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 
 ### vsphereVolume {#vspherevolume}
 
@@ -1359,16 +1359,16 @@ documentation](https://kubernetes-csi.github.io/docs/)
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
 The CSI Migration feature, when enabled, directs operations against existing in-tree
-plugins to corresponding CSI plugins (which are expected to be installed and configured). 
-The feature implements the necessary translation logic and shims to re-route the 
-operations in a seamless fashion. As a result, operators do not have to make any 
-configuration changes to existing Storage Classes, PVs or PVCs (referring to 
+plugins to corresponding CSI plugins (which are expected to be installed and configured).
+The feature implements the necessary translation logic and shims to re-route the
+operations in a seamless fashion. As a result, operators do not have to make any
+configuration changes to existing Storage Classes, PVs or PVCs (referring to
 in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
 
-In the alpha state, the operations and features that are supported include 
+In the alpha state, the operations and features that are supported include
 provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 
-In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
+In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented
 are listed in the "Types of Volumes" section above.
 
 ### Flexvolume {#flexVolume}
