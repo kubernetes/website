@@ -120,30 +120,21 @@ Kubernetesは無効なNodeのためにオブジェクトを保存し、それを
 このプロセスを停止するには、Nodeオブジェクトを明示的に削除する必要があります。
 {{< /note >}}
 
-現在、KubernetesNodeインタフェースと相互作用する3つのコンポーネントがあります。Nodeコントローラ、kubelet、およびkubectlです。
+現在、KubernetesのNodeインタフェースと相互作用する3つのコンポーネントがあります。Nodeコントローラ、kubelet、およびkubectlです。
 
 ### Nodeコントローラー
 
-The node controller is a Kubernetes master component which manages various
-aspects of nodes.
+Nodeコントローラは、Nodeのさまざまな側面を管理するKubernetesのマスターコンポーネントです。
 
-The node controller has multiple roles in a node's life. The first is assigning a
-CIDR block to the node when it is registered (if CIDR assignment is turned on).
+Nodeコントローラは、Nodeの存続期間中に複数の役割を果たします。1つ目は、Nodeが登録されたときにCIDRブロックをNodeに割り当てることです（CIDR割り当てがオンになっている場合）。
 
-The second is keeping the node controller's internal list of nodes up to date with
-the cloud provider's list of available machines. When running in a cloud
-environment, whenever a node is unhealthy, the node controller asks the cloud
-provider if the VM for that node is still available. If not, the node
-controller deletes the node from its list of nodes.
+2つ目は、Nodeコントローラの内部Nodeリストをクラウドの利用可能なマシンのリストと一致させることです。
+クラウド環境で実行している場合、Nodeに異常があると、NodeコントローラはクラウドプロバイダにそのNodeのVMがまだ使用可能かどうかを問い合わせます。
+使用可能でない場合、NodeコントローラはNodeのリストから該当Nodeを削除します。
 
-The third is monitoring the nodes' health. The node controller is
-responsible for updating the NodeReady condition of NodeStatus to
-ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
-receiving heartbeats for some reason, e.g. due to the node being down), and then later evicting
-all the pods from the node (using graceful termination) if the node continues
-to be unreachable. (The default timeouts are 40s to start reporting
-ConditionUnknown and 5m after that to start evicting pods.) The node controller
-checks the state of each node every `--node-monitor-period` seconds.
+3つ目は、Nodeの状態を監視することです。
+Nodeが到達不能(例えば、NodeコントローラーがNodeがダウンしているなどので理由でハートビートの受信を停止した場合)になると、Nodeコントローラーは、NodeStatusのNodeReady conditionをConditionUnknownに変更する役割があります。その後も該当Nodeが到達不能のままであった場合、Graceful Terminationを使って全てのPodを退役させます。デフォルトのタイムアウトは、ConditionUnknownの報告を開始するまで40秒、その後Podの追い出しを開始するまで5分に設定されています。
+Nodeコントローラは、`--node-monitor-period`に設定された秒数ごとに各Nodeの状態をチェックします。
 
 In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
 node. Starting from Kubernetes 1.13, node lease feature is introduced as an
