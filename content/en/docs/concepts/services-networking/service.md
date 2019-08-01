@@ -431,14 +431,12 @@ this case, you can create what are termed “headless” Services, by explicitly
 specifying `"None"` for the cluster IP (`.spec.clusterIP`).
 
 You can use a headless Service to interface with other service discovery mechanisms,
-without being tied to Kubernetes' implementation. For example, you could implement
-a custom {{< glossary_tooltip term_id="operator-pattern" text="Operator" >}} upon
-this API.
+without being tied to Kubernetes' implementation.
 
-For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
+For headless `Services`, a cluster IP is not allocated, kube-proxy does not handle
 these Services, and there is no load balancing or proxying done by the platform
 for them. How DNS is automatically configured depends on whether the Service has
-selectors defined.
+selectors defined:
 
 ### With selectors
 
