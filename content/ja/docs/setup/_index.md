@@ -48,7 +48,7 @@ Kubernetesについて学んでいる場合、Dockerベースのソリューシ�
 
 ## 本番環境
 
-本番環境用のソリューションを評価する際には、Kubernetesクラスター(または抽象レイヤ)の運用においてどの側面を自分で管理するのか、またはプロバイダーに任せるのかを検討してください。
+本番環境用のソリューションを評価する際には、Kubernetesクラスター(または抽象レイヤ)の運用においてどの部分を自分で管理し、どの部分をプロバイダーに任せるのかを考慮してください。
 
 Kubernetesクラスタにおける抽象レイヤには {{< glossary_tooltip text="アプリケーション" term_id="applications" >}}、 {{< glossary_tooltip text="データプレーン" term_id="data-plane" >}}、 {{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}、 {{< glossary_tooltip text="クラスターインフラ" term_id="cluster-infrastructure" >}}、 {{< glossary_tooltip text="そして、クラスター運用" term_id="cluster-operations" >}}があります。
 
