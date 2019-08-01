@@ -81,7 +81,7 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 ## 애드온
 
 애드온은 쿠버네티스 리소스({{< glossary_tooltip text="데몬셋" term_id="daemonset" >}},
-{{< glossary_tooltip text="디플로이먼트" term_id="deployment" >} 등)를
+{{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}} 등)를
 이용하여 클러스터 기능을 구현한다. 이들은 클러스터 단위의 기능을 제공하기 때문에
 애드온에 대한 네임스페이스 리소스는 `kube-system` 네임스페이스에 속한다.
 
