@@ -98,7 +98,7 @@ CapacityとAllocatableについて深く知りたい場合は、Node上でどの
 
 ## Management
 
-[Pod](/docs/concepts/workloads/pods/pod/)や[Service](/docs/concepts/services-networking/service/)と違い、Nodeは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、KubernetesがNodeを作成すると、そのNodeを表すオブジェクトが作成されます。作成後、KubernetesはそのNodeが有効かどうかを確認します。 たとえば、次の内容からノードを作成しようとしたとします:
+[Pod](/docs/concepts/workloads/pods/pod/)や[Service](/docs/concepts/services-networking/service/)と違い、Nodeは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、KubernetesがNodeを作成すると、そのNodeを表すオブジェクトが作成されます。作成後、KubernetesはそのNodeが有効かどうかを確認します。 たとえば、次の内容からNodeを作成しようとしたとします:
 
 ```json
 {
@@ -113,7 +113,7 @@ CapacityとAllocatableについて深く知りたい場合は、Node上でどの
 }
 ```
 
-Kubernetesは内部的にNodeオブジェクトを作成し、 `metadata.name`フィールドに基づくヘルスチェックによってNodeを検証します。Nodeが有効な場合、つまり必要なサービスがすべて実行されている場合は、Podを実行する資格があります。それ以外の場合、該当ノードが有効になるまではいかなるクラスターの活動に対しても無視されます。
+Kubernetesは内部的にNodeオブジェクトを作成し、 `metadata.name`フィールドに基づくヘルスチェックによってNodeを検証します。Nodeが有効な場合、つまり必要なサービスがすべて実行されている場合は、Podを実行する資格があります。それ以外の場合、該当Nodeが有効になるまではいかなるクラスターの活動に対しても無視されます。
 
 {{< note >}}
 Kubernetesは無効なNodeのためにオブジェクトを保存し、それをチェックし続けます。
@@ -136,128 +136,87 @@ Nodeコントローラは、Nodeの存続期間中に複数の役割を果たし
 Nodeが到達不能(例えば、NodeコントローラーがNodeがダウンしているなどので理由でハートビートの受信を停止した場合)になると、Nodeコントローラーは、NodeStatusのNodeReady conditionをConditionUnknownに変更する役割があります。その後も該当Nodeが到達不能のままであった場合、Graceful Terminationを使って全てのPodを退役させます。デフォルトのタイムアウトは、ConditionUnknownの報告を開始するまで40秒、その後Podの追い出しを開始するまで5分に設定されています。
 Nodeコントローラは、`--node-monitor-period`に設定された秒数ごとに各Nodeの状態をチェックします。
 
-In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
-node. Starting from Kubernetes 1.13, node lease feature is introduced as an
-alpha feature (feature gate `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
-When node lease feature is enabled, each node has an associated `Lease` object in
-`kube-node-lease` namespace that is renewed by the node periodically, and both
-NodeStatus and node lease are treated as heartbeats from the node. Node leases
-are renewed frequently while NodeStatus is reported from node to master only
-when there is some change or enough time has passed (default is 1 minute, which
-is longer than the default timeout of 40 seconds for unreachable nodes). Since
-node lease is much more lightweight than NodeStatus, this feature makes node
-heartbeat significantly cheaper from both scalability and performance
-perspectives.
+バージョン1.13よりも前のKubernetesにおいて、NodeStatusはNodeからのハートビートでした。Kubernetes 1.13から、NodeLeaseがアルファ機能として導入されました（Feature Gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)）。
 
-In Kubernetes 1.4, we updated the logic of the node controller to better handle
-cases when a large number of nodes have problems with reaching the master
-(e.g. because the master has networking problem). Starting with 1.4, the node
-controller looks at the state of all nodes in the cluster when making a
-decision about pod eviction.
+NodeLeaseが有効になっている場合、各Nodeは `kube-node-lease`ネームスペースに関連付けられた`Lease`オブジェクトを持ち、Nodeによって定期的に更新されます。NodeStatusとNodeLeaseの両方がNodeからのハートビートとして扱われます。NodeLeaseは頻繁に更新されますが、NodeStatusはNodeからマスターへの変更があるか、または十分な時間が経過した場合にのみ報告されます（デフォルトは1分で、到達不能の場合のデフォルトタイムアウトである40秒よりも長いです）。NodeLeaseはNodeStatusよりもはるかに軽量であるため、スケーラビリティとパフォーマンスの両方の観点においてNodeのハートビートのコストを下げます。
 
-In most cases, node controller limits the eviction rate to
-`--node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
-from more than 1 node per 10 seconds.
+Kubernetes 1.4では、マスターに問題が発生した場合の対処方法を改善するように、Nodeコントローラのロジックをアップデートしています（マスターがネットワークに問題があるため）
+バージョン1.4以降、Nodeコントローラは、Podの退役について決定する際に、クラスタ内のすべてのNodeの状態を調べます。
 
-The node eviction behavior changes when a node in a given availability zone
-becomes unhealthy. The node controller checks what percentage of nodes in the zone
-are unhealthy (NodeReady condition is ConditionUnknown or ConditionFalse) at
-the same time. If the fraction of unhealthy nodes is at least
-`--unhealthy-zone-threshold` (default 0.55) then the eviction rate is reduced:
-if the cluster is small (i.e. has less than or equal to
-`--large-cluster-size-threshold` nodes - default 50) then evictions are
-stopped, otherwise the eviction rate is reduced to
-`--secondary-node-eviction-rate` (default 0.01) per second. The reason these
-policies are implemented per availability zone is because one availability zone
-might become partitioned from the master while the others remain connected. If
-your cluster does not span multiple cloud provider availability zones, then
-there is only one availability zone (the whole cluster).
+ほとんどの場合、排除の速度は1秒あたり`--node-eviction-rate`に設定された数値（デフォルトは秒間0.1）です。つまり、10秒間に1つ以上のPodをNodeから追い出すことはありません。
 
-A key reason for spreading your nodes across availability zones is so that the
-workload can be shifted to healthy zones when one entire zone goes down.
-Therefore, if all nodes in a zone are unhealthy then node controller evicts at
-the normal rate `--node-eviction-rate`.  The corner case is when all zones are
-completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
-case, the node controller assumes that there's some problem with master
-connectivity and stops all evictions until some connectivity is restored.
+特定のアベイラビリティーゾーン内のNodeのステータスが異常になると、Node排除の挙動が変わります。Nodeコントローラは、ゾーン内のNodeの何%が異常（NodeReady条件がConditionUnknownまたはConditionFalseである）であるかを同時に確認します。
+異常なNodeの割合が少なくとも `--healthy-zone-threshold`に設定した値を下回る場合（デフォルトは0.55）であれば、退役率は低下します。クラスタが小さい場合（すなわち、 `--large-cluster-size-threshold`の設定値よりもNode数が少ない場合。デフォルトは50）、退役は停止し、そうでない場合、退役率は秒間で`--secondary-node-eviction-rate`の設定値（デフォルトは0.01）に減少します。
+これらのポリシーがアベイラビリティーゾーンごとに実装されているのは、1つのアベイラビリティーゾーンがマスターから分割される一方、他のアベイラビリティーゾーンは接続されたままになる可能性があるためです。
+クラスターが複数のクラウドプロバイダーのアベイラビリティーゾーンにまたがっていない場合、アベイラビリティーゾーンは1つだけです（クラスター全体）。
 
-Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
-pods that are running on nodes with `NoExecute` taints, when the pods do not tolerate
-the taints. Additionally, as an alpha feature that is disabled by default, the
-NodeController is responsible for adding taints corresponding to node problems like
-node unreachable or not ready. See [this documentation](/docs/concepts/configuration/taint-and-toleration/)
-for details about `NoExecute` taints and the alpha feature.
+Nodeを複数のアベイラビリティゾーンに分散させる主な理由は、1つのゾーン全体が停止したときにワークロードを正常なゾーンに移動できることです。
+したがって、ゾーン内のすべてのNodeが異常である場合、Nodeコントローラは通常のレート `--node-eviction-rate`で退役します。
+コーナーケースは、すべてのゾーンが完全に不健康である（すなわち、クラスタ内に健全なNodeがない）場合です。
+このような場合、Nodeコントローラはマスター接続に問題があると見なし、接続が回復するまですべての退役を停止します。
 
-Starting in version 1.8, the node controller can be made responsible for creating taints that represent
-Node conditions. This is an alpha feature of version 1.8.
+Kubernetes 1.6以降では、Nodeコントローラーは、Podがtaintを許容しない場合、 `NoExecute`のtaintを持つNode上で実行されているPodを排除する責務もあります。
+さらに、デフォルトで無効になっているアルファ機能として、NodeコントローラーはNodeに到達できない、または準備ができていないなどのNodeの問題に対応するtaintを追加する責務があります。
+`NoExecute`のtaint及び上述のアルファ機能に関する詳細は、[こちらのドキュメント](/docs/concepts/configuration/taint-and-toleration/)をご覧ください。
 
-### Self-Registration of Nodes
+バージョン1.8以降、Nodeコントローラに対してNodeの状態を表すtaintを作成する責務を持たせることができます。これはバージョン1.8のアルファ機能です。
 
-When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
-register itself with the API server.  This is the preferred pattern, used by most distros.
+### Nodeの自己登録
 
-For self-registration, the kubelet is started with the following options:
+kubeletのフラグ `--register-node`がtrue（デフォルト）のとき、kubeletは自分自身をAPIサーバーに登録しようとします。これはほとんどのディストリビューションで使用されている推奨パターンです。
 
-  - `--kubeconfig` - Path to credentials to authenticate itself to the apiserver.
-  - `--cloud-provider` - How to talk to a cloud provider to read metadata about itself.
-  - `--register-node` - Automatically register with the API server.
-  - `--register-with-taints` - Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `register-node` is false.
-  - `--node-ip` - IP address of the node.
-  - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
-  - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
+自己登録については、kubeletは以下のオプションを伴って起動されます:
 
-When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
-[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
-kubelets are only authorized to create/modify their own Node resource.
+  - `--kubeconfig` - 自分自身をAPIサーバーに対して認証するための資格情報へのパス
+  - `--cloud-provider` - 自身に関するメタデータを読むためにクラウドプロバイダーと会話する方法
+  - `--register-node` - 自身をAPIサーバーに自動的に登録
+  - `--register-with-taints` - 与えられたtaintのリストでNodeを登録します (カンマ区切りの `<key>=<value>:<effect>`). `register-node`がfalseの場合、このオプションは機能しません
+  - `--node-ip` - NodeのIPアドレス
+  - `--node-labels` - Nodeをクラスターに登録するときに追加するラベル（1.13以降の[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)によって適用されるラベルの制限を参照）
+  - `--node-status-update-frequency` - kubeletがNodeのステータスをマスターにPOSTする頻度の指定
 
-#### Manual Node Administration
+[Node認証モード](/docs/reference/access-authn-authz/node/)および[NodeRestriction許可プラグイン]/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっている場合、kubeletは自分自身のNodeリソースを作成/変更することのみ許可されています。
 
-A cluster administrator can create and modify node objects.
+#### 手動によるNode管理 {#manual-node-administration}
 
-If the administrator wishes to create node objects manually, set the kubelet flag
-`--register-node=false`.
+クラスター管理者はNodeオブジェクトを作成および変更できます。
 
-The administrator can modify node resources (regardless of the setting of `--register-node`).
-Modifications include setting labels on the node and marking it unschedulable.
+管理者が手動でNodeオブジェクトを作成したい場合は、kubeletフラグ `--register-node = false`を設定してください。
 
-Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
-e.g. to constrain a pod to only be eligible to run on a subset of the nodes.
+管理者は`--register-node`の設定に関係なくNodeリソースを変更することができます。
+変更には、Nodeにラベルを設定し、それをunschedulableとしてマークすることが含まれます。
 
-Marking a node as unschedulable prevents new pods from being scheduled to that
-node, but does not affect any existing pods on the node. This is useful as a
-preparatory step before a node reboot, etc. For example, to mark a node
-unschedulable, run this command:
+Node上のラベルは、スケジューリングを制御するためにPod上のNodeセレクタと組み合わせて使用できます。
+例えば、PodをNodeのサブセットでのみ実行する資格があるように制限します。
+
+Nodeをunschedulableとしてマークすると、新しいPodがそのNodeにスケジュールされるのを防ぎますが、Node上の既存のPodには影響しません。
+これは、Nodeの再起動などの前の準備ステップとして役立ちます。たとえば、Nodeにスケジュール不可能のマークを付けるには、次のコマンドを実行します:
 
 ```shell
 kubectl cordon $NODENAME
 ```
 
 {{< note >}}
-Pods created by a DaemonSet controller bypass the Kubernetes scheduler
-and do not respect the unschedulable attribute on a node. This assumes that daemons belong on
-the machine even if it is being drained of applications while it prepares for a reboot.
+DaemonSetコントローラーによって作成されたPodはKubernetesスケジューラーをバイパスし、Node上のunschedulable属性を考慮しません。
+これは、再起動の準備中にアプリケーションからアプリケーションが削除されている場合でも、デーモンがマシンに属していることを前提としているためです。
 {{< /note >}}
 
-### Node capacity
+### Nodeのキャパシティ
 
-The capacity of the node (number of cpus and amount of memory) is part of the node object.
-Normally, nodes register themselves and report their capacity when creating the node object. If
-you are doing [manual node administration](#manual-node-administration), then you need to set node
-capacity when adding a node.
+Nodeのキャパシティ（CPUの数とメモリの量）はNodeオブジェクトの一部です。
+通常、Nodeは自分自身を登録し、Nodeオブジェクトを作成するときにキャパシティを報告します。
+[手動によるNode管理](#manual-node-administration)を実行している場合は、Nodeを追加するときにキャパシティを設定する必要があります。
 
-The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
-checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
-includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
+Kubernetesスケジューラは、Node上のすべてのPodに十分なリソースがあることを確認します。
+Node上のコンテナが要求するリソースの合計がNodeキャパシティ以下であることを確認します。
+これは、kubeletによって開始されたすべてのコンテナを含みますが、[コンテナランタイム](/docs/concepts/overview/components/#node-components)によって直接開始されたコンテナやコンテナの外で実行されているプロセスは含みません。
 
-If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
-[reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
+Pod以外のプロセス用にリソースを明示的に予約したい場合は、このチュートリアルに従って[Systemデーモン用にリソースを予約](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)してください。
 
 
-## API Object
+## APIオブジェクト
 
-Node is a top-level resource in the Kubernetes REST API. More details about the
-API object can be found at:
-[Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+NodeはKubernetesのREST APIにおけるトップレベルのリソースです。APIオブジェクトに関する詳細は以下の記事にてご覧いただけます:
+[Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
 {{% /capture %}}
