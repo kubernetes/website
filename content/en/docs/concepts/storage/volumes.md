@@ -479,7 +479,7 @@ spec:
 
 #### CSI Migration
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 The CSI Migration feature for GCE PD, when enabled, shims all plugin operations
 from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
