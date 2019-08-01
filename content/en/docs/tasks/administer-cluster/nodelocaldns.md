@@ -5,7 +5,7 @@ reviewers:
 title: Using NodeLocal DNSCache in Kubernetes clusters
 content_template: templates/task
 ---
-
+ 
 {{% capture overview %}}
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 {{% /capture %}}
@@ -20,13 +20,13 @@ This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 
 ## Introduction
 
-NodeLocal DNSCache improves Cluster DNS performance by running a dns caching agent on cluster nodes as a Daemonset. In today's architecture, pods in ClusterFirst DNS mode reach out to a kube-dns serviceIP for DNS queries. This is translated to a kube-dns/CoreDNS endpoint via iptables rules added by kube-proxy. With this new architecture, pods will reach out to the dns caching agent running on the same node, thereby avoiding iptables DNAT rules and connection tracking. The local caching agent will query kube-dns service for cache misses of cluster hostnames(cluster.local suffix by default).
+NodeLocal DNSCache improves Cluster DNS performance by running a dns caching agent on cluster nodes as a DaemonSet. In today's architecture, Pods in ClusterFirst DNS mode reach out to a kube-dns serviceIP for DNS queries. This is translated to a kube-dns/CoreDNS endpoint via iptables rules added by kube-proxy. With this new architecture, Pods will reach out to the dns caching agent running on the same node, thereby avoiding iptables DNAT rules and connection tracking. The local caching agent will query kube-dns service for cache misses of cluster hostnames(cluster.local suffix by default).
 
 
 ## Motivation
 
-* With the current DNS architecture, it is possible that pods with the highest DNS QPS have to reach out to a different node, if there is no local kube-dns/CoreDNS instance.  
-Having a local cache will help improve the latency in such scenarios. 
+* With the current DNS architecture, it is possible that Pods with the highest DNS QPS have to reach out to a different node, if there is no local kube-dns/CoreDNS instance.  
+Having a local cache will help improve the latency in such scenarios.
 
 * Skipping iptables DNAT and connection tracking will help reduce [conntrack races](https://github.com/kubernetes/kubernetes/issues/56903) and avoid UDP DNS entries filling up conntrack table.
 
@@ -40,7 +40,7 @@ Having a local cache will help improve the latency in such scenarios.
 
 ## Architecture Diagram
 
-This is the path followed by DNS Queries after NodeLocal DNSCache is enabled: 
+This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 
 
 {{< figure src="/images/docs/nodelocaldns.jpg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCahe handles DNS queries." >}}
@@ -56,7 +56,7 @@ This works for e2e clusters created on GCE. On all other environments, the follo
 * A yaml similar to [this](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) can be applied using `kubectl create -f` command.
 * --cluster-dns flag to kubelet needs to be modified to use the LOCAL_DNS IP that NodeLocal DNSCache is listening on (169.254.20.10 by default)
 
-Once enabled, node-local-dns pods will run in the kube-system namespace on each of the cluster nodes. This pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
+Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
 
 ### Feature availability
 
