@@ -70,7 +70,7 @@ Credentials can be provided in several ways:
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
-  - Pre-pulling Images
+  - Pre-pulled Images
     - all pods can use any images cached on a node
     - requires root access to all nodes to setup
   - Specifying ImagePullSecrets on a Pod
@@ -103,7 +103,7 @@ in the Pod definition.
 All users of the cluster who can create pods will be able to run pods that use any of the
 images in the ECR registry.
 
-The kubelet will fetch and periodically refresh ECR credentials.  It needs the following permissions to do this:
+The kubelet eill fetch and periodically refresh ECR credentials.  It needs the following permissions to do this:
 
 - `ecr:GetAuthorizationToken`
 - `ecr:BatchCheckLayerAvailability`
