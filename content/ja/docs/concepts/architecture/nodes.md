@@ -207,7 +207,7 @@ Nodeのキャパシティ（CPUの数とメモリの量）はNodeオブジェク
 通常、Nodeは自分自身を登録し、Nodeオブジェクトを作成するときにキャパシティを報告します。
 [手動によるNode管理](#manual-node-administration)を実行している場合は、Nodeを追加するときにキャパシティを設定する必要があります。
 
-Kubernetesスケジューラは、Node上のすべてのPodに十分なリソースがあることを確認します。
+Kubernetesスケジューラーは、Node上のすべてのPodに十分なリソースがあることを確認します。
 Node上のコンテナが要求するリソースの合計がNodeキャパシティ以下であることを確認します。
 これは、kubeletによって開始されたすべてのコンテナを含みますが、[コンテナランタイム](/docs/concepts/overview/components/#node-components)によって直接開始されたコンテナやコンテナの外で実行されているプロセスは含みません。
 
