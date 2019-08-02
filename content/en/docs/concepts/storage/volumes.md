@@ -208,7 +208,7 @@ writers simultaneously.
 You must have your own Ceph server running with the share exported before you can use it.
 {{< /caution >}}
 
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
 
 ### cinder {#cinder}
 
