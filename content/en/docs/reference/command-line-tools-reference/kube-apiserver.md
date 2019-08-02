@@ -42,13 +42,6 @@ kube-apiserver [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--allow-privileged</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, allow privileged containers. [default=false]</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--alsologtostderr</td>
     </tr>
     <tr>
