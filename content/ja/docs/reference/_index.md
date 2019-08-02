@@ -40,7 +40,7 @@ content_template: templates/concept
 * [kubeadm](/docs/admin/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
 * [kubefed](/docs/admin/kubefed/) - 連合型クラスターを管理するのに役立つCLIツールです。
 
-## Configリファレンス
+## 設定リファレンス
 
 * [kubelet](/docs/admin/kubelet/) - 各ノード上で動作する主要なノードエージェントです。kubeletは一通りのPodSpecを受け取り、コンテナーが実行中で正常であることを確認します。
 * [kube-apiserver](/docs/admin/kube-apiserver/) - Pod、Service、Replication ControllerなどのAPIオブジェクトのデータを検証および設定するREST APIです。
