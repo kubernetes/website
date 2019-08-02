@@ -42,8 +42,8 @@ content_template: templates/concept
 
 ## 設定リファレンス
 
-* [kubelet](/docs/admin/kubelet/) - 各ノード上で動作する主要なノードエージェントです。kubeletは一通りのPodSpecを受け取り、コンテナーが実行中で正常であることを確認します。
-* [kube-apiserver](/docs/admin/kube-apiserver/) - Pod、Service、Replication ControllerなどのAPIオブジェクトのデータを検証および設定するREST APIです。
+* [kubelet](/docs/admin/kubelet/) - 各ノード上で動作する最も重要なノードエージェントです。kubeletは一通りのPodSpecを受け取り、コンテナーが実行中で正常であることを確認します。
+* [kube-apiserver](/docs/admin/kube-apiserver/) - Pod、Service、Replication Controller等、APIオブジェクトのデータを検証・設定するREST APIサーバーです。
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - Kubernetesに同梱された、コアのコントロールループを埋め込むデーモンです。
 * [kube-proxy](/docs/admin/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でTCP/UDPのラウンドロビンでのフォワーディングを実行できます。
 * [kube-scheduler](/docs/admin/kube-scheduler/) - 可用性、パフォーマンス、およびキャパシティを管理するスケジューラーです。
