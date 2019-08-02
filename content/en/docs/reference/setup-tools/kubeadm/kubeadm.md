@@ -15,6 +15,10 @@ kubeadm performs the actions necessary to get a minimum viable cluster up and ru
 
 Instead, we expect higher-level and more tailored tooling to be built on top of kubeadm, and ideally, using kubeadm as the basis of all deployments will make it easier to create conformant clusters.
 
+## How to install
+
+To install kubeadm, see the [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
+
 ## What's next
 
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) to bootstrap a Kubernetes control-plane node

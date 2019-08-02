@@ -94,7 +94,7 @@ old-style command line options. Below is a sample component config to disable
 preemption:
 
 ```yaml
-apiVersion: componentconfig/v1alpha1
+apiVersion: kubescheduler.config.k8s.io/v1alpha1
 kind: KubeSchedulerConfiguration
 algorithmSource:
   provider: DefaultProvider

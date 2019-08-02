@@ -690,7 +690,7 @@ or the server could power off before persisting the object.
 
 Additionally, webhooks with side effects should skip those side-effects when `dryRun: true` admission requests are handled.
 A webhook must explicitly indicate that it will not have side-effects when run with `dryRun`,
-or the dry-run request will not be sent to the webhook and the API request fill fail instead.
+or the dry-run request will not be sent to the webhook and the API request will fail instead.
 
 Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration.
 `sideEffects` may be set to `Unknown`, `None`, `Some`, `NoneOnDryRun`. The default is `Unknown`.
@@ -779,7 +779,7 @@ in an object could already exist in the user-provided object, but it is essentia
 ### Failure policy
 
 `failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`. Defaults to `Ignore` in v1beta1.
+are handled. Allowed values are `Ignore` or `Fail`. Defaults to `Ignore` in v1beta1, and v1 has changed the default to `Fail`.
 
 * `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
 * `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.

@@ -162,7 +162,7 @@ Finally, add the same parameters into the API server start parameters.
           }
         }
 1.  Create a JSON config file for CA certificate signing request (CSR), for example,
-    `ca-csr.json`. Be sure the replace the values marked with angle brackets with
+    `ca-csr.json`. Be sure to replace the values marked with angle brackets with
     real values you want to use.
 
         {
