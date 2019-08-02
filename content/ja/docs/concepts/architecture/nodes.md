@@ -1,5 +1,5 @@
 ---
-title: Nodes
+title: Node
 content_template: templates/concept
 weight: 10
 ---
