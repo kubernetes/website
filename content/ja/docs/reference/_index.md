@@ -45,7 +45,7 @@ content_template: templates/concept
 * [kubelet](/docs/admin/kubelet/) - 各ノード上で動作する主要なノードエージェントです。kubeletは一通りのPodSpecを受け取り、コンテナーが実行中で正常であることを確認します。
 * [kube-apiserver](/docs/admin/kube-apiserver/) - Pod、Service、Replication ControllerなどのAPIオブジェクトのデータを検証および設定するREST APIです。
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - Kubernetesに同梱された、コアのコントロールループを埋め込むデーモンです。
-* [kube-proxy](/docs/admin/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でのラウンドロビンTCP/UDPのフォワーディングを実行できます。
+* [kube-proxy](/docs/admin/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でTCP/UDPのラウンドロビンでのフォワーディングを実行できます。
 * [kube-scheduler](/docs/admin/kube-scheduler/) - 可用性、パフォーマンス、およびキャパシティを管理するスケジューラーです。
 * [federation-apiserver](/docs/admin/federation-apiserver/) - 連合クラスターのためのAPIサーバーです。
 * [federation-controller-manager](/docs/admin/federation-controller-manager/) - 連合Kubernetesクラスターに同梱された、コアのコントロールループを埋め込むデーモンです。
