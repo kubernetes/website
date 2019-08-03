@@ -17,7 +17,7 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 * [conjure-up](/docs/getting-started-guides/ubuntu/)はUbuntu上でネイティブなAWSインテグレーションを用いてKubernetesクラスターを作成するオープンソースのインストーラーです。
 
-* [Kubernetes Operations](https://github.com/kubernetes/kops) - プロダクショングレードなインストール、アップグレード、マネジメントが可能です。AWS上のDebian、Ubuntu, CentOS, RHELをサポートします。
+* [Kubernetes Operations](https://github.com/kubernetes/kops) - プロダクショングレードなKubernetesのインストール、アップグレード、管理が可能です。AWS上のDebian、Ubuntu、CentOS、RHELをサポートします。
 
 * [CoreOS Tectonic](https://coreos.com/tectonic/)はAWS上のContainer Linuxノードを含むKubernetesクラスターを作成できる、オープンソースの[Tectonic Installer](https://github.com/coreos/tectonic-installer)を含みます。
 
