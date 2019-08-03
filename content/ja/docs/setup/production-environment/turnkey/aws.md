@@ -33,7 +33,7 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 ### コマンドライン管理ツール: kubectl
 
-クラスターの起動スクリプトによってワークステーション上に`kubernetes`ディレクトリが作成されます。もしくは、Kubernetesの最新リリースを[こちら](https://github.com/kubernetes/kubernetes/releases)からダウンロードできます。
+クラスターの起動スクリプトによってワークステーション上に`kubernetes`ディレクトリが作成されます。もしくは、Kubernetesの最新リリースを[こちら](https://github.com/kubernetes/kubernetes/releases)からダウンロードすることも可能です。
 
 次に、kubectlにアクセスするために`PATH`へ適切なバイナリフォルダーを追加します:
 
