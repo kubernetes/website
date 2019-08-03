@@ -5,7 +5,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-このページでは、AWS上へKubernetesクラスターをインストールする方法について説明します。
+このページでは、AWS上でKubernetesクラスターをインストールする方法について説明します。
 
 {{% /capture %}}
 
