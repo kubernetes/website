@@ -23,7 +23,7 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 * CoreOSから生まれ、Kubernetes IncubatorがメンテナンスしているCLIツール[kube-aws](https://github.com/kubernetes-incubator/kube-aws)は、AWSツール(EC2、CloudFormation、Auto Scaling) を使用して[Container Linux](https://coreos.com/why/)ノードを含むKubernetesクラスターを作成および管理できます。
 
-* [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
+* [KubeOne](https://github.com/kubermatic/kubeone)は可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
 
 {{% /capture %}}
 
@@ -52,20 +52,19 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
 ### 例
 
-See [a simple nginx example](/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
+新しいクラスターを試すには、[簡単なnginxの例](/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。
 
-The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
+"Guestbook"アプリケーションは、Kubernetesを始めるもう一つのポピュラーな例です: [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)
+より完全なアプリケーションについては、[examplesディレクトリ](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)を参照してください。
 
 ## クラスターのスケーリング
 
-Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the [Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
+`kubectl`を通したノードの追加および削除はサポートしていません。インストール中に作成された[Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html)内の'Desired'および'Max'プロパティを手動で調整することで、ノード数をスケールさせることができます。
 
 ## クラスターの解体
 
-Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
-`kubernetes` directory:
+クラスターのプロビジョニングに使用した環境変数がexportされていることを確認してから、`kubernetes`ディレクトリ内で以下のスクリプトを実行してください:
 
 ```shell
 cluster/kube-down.sh
@@ -74,16 +73,15 @@ cluster/kube-down.sh
 ## サポートレベル
 
 
-IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
--------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
-AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
-AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
+IaaS プロバイダー    | 構成管理     | OS            | ネットワーク  | ドキュメント                                  | 適合     | サポートレベル
+-------------------- | ------------ | ------------- | ------------  | --------------------------------------------- | ---------| ----------------------------
+AWS                  | kops         | Debian        | k8s (VPC)     | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
+AWS                  | CoreOS       | CoreOS        | flannel       | [docs](/docs/getting-started-guides/aws)      |          | Community
 AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | [docs](/docs/getting-started-guides/ubuntu)      | 100%     | Commercial, Community
 AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weavenet     | [docs](https://github.com/kubermatic/kubeone)      | 100%    | Commercial, Community
 
 ## 参考文献
 
-Please see the [Kubernetes docs](/ja/docs/) for more details on administering
-and using a Kubernetes cluster.
+Kubernetesクラスターの利用と管理に関する詳細は、[Kubernetesドキュメント](/ja/docs/)を参照してください。
 
 {{% /capture %}}
