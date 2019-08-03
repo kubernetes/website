@@ -5,23 +5,23 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page describes how to install a Kubernetes cluster on AWS.
+このページでは、AWS上へKubernetesクラスターをインストールする方法について説明します。
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
+AWS上でKubernetesクラスターを作成するには、AWSからアクセスキーIDおよびシークレットアクセスキーを入手する必要があります。
 
 ### サポートされているプロダクショングレードのツール
 
-* [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
+* [conjure-up](/docs/getting-started-guides/ubuntu/)はUbuntu上でネイティブなAWSインテグレーションを用いてKubernetesクラスターを作成するオープンソースのインストーラーです。
 
-* [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
+* [Kubernetes Operations](https://github.com/kubernetes/kops) - プロダクショングレードなインストール、アップグレード、マネジメントが可能です。AWS上のDebian、Ubuntu, CentOS, RHELをサポートします。
 
-* [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
+* [CoreOS Tectonic](https://coreos.com/tectonic/)はAWS上のContainer Linuxノードを含むKubernetesクラスターを作成できる、オープンソースの[Tectonic Installer](https://github.com/coreos/tectonic-installer)を含みます。
 
-* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, kube-aws](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
+* CoreOSから生まれKubernetes IncubatorがメンテナンスしているCLIツール[kube-aws](https://github.com/kubernetes-incubator/kube-aws)は、AWSツール (EC2, CloudFormation, Auto Scaling) を使用し[Container Linux](https://coreos.com/why/)ノードを含むKubernetesクラスターを作成および管理できます。
 
 * [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
 
@@ -33,10 +33,9 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 ### コマンドライン管理ツール: kubectl
 
-The cluster startup script will leave you with a `kubernetes` directory on your workstation.
-Alternately, you can download the latest Kubernetes release from [this page](https://github.com/kubernetes/kubernetes/releases).
+クラスターの起動スクリプトによってワークステーション上に`kubernetes`ディレクトリが作成されます。もしくは、Kubernetesの最新リリースを[こちら](https://github.com/kubernetes/kubernetes/releases)からダウンロードできます。
 
-Next, add the appropriate binary folder to your `PATH` to access kubectl:
+次に、kubectlにアクセスするために`PATH`へ適切なバイナリフォルダーを追加します:
 
 ```shell
 # macOS
@@ -46,10 +45,10 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
-An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl/)
+ツールに関する最新のドキュメントページはこちらです: [kubectl manual](/docs/user-guide/kubectl/)
 
-By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
-For more information, please read [kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+デフォルトでは、`kubectl`はクラスターの起動中に生成された`kubeconfig`ファイルをAPIに対する認証に使用します。
+詳細な情報は、[kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください。
 
 ### 例
 
