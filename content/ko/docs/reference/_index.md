@@ -16,7 +16,7 @@ content_template: templates/concept
 
 ## API 레퍼런스
 
-* [쿠버네티스 API 개요](/docs/reference/using-api/api-overview/) - 쿠버네티스 API에 대한 개요
+* [쿠버네티스 API 개요](/ko/docs/reference/using-api/api-overview/) - 쿠버네티스 API에 대한 개요
 * 쿠버네티스 API 버전
   * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
   * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
