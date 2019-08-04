@@ -29,7 +29,7 @@ title: 리소스 모니터링 도구
   에 의해서 수집되며 `metrics.k8s.io` API를 통해 노출된다. `metrics-server`는 클러스터 
   상의 모든 노드를 발견하고 각 노드의 
   [Kubelet](/docs/reference/command-line-tools-reference/kubelet)에 CPU와 메모리 
-  사용량을 질의한다.Kubelet은 [cAdvisor](https://github.com/google/cadvisor)에서 
+  사용량을 질의한다. Kubelet은 [cAdvisor](https://github.com/google/cadvisor)에서 
   데이터를 가져온다. `metrics-server`는 경량의 단기 인메모리 저장소이다.
   
 - 프로메테우스 같이 [**완전한 메트릭 파이프라인**](#완전한-메트릭-파이프라인)은 보다 풍부한 
@@ -44,7 +44,7 @@ title: 리소스 모니터링 도구
 
 ### Kubelet
 
-Kubelet은 쿠버네티스 마스터와 노드들 사이의 다리 역활을 한다. 이는 머신 상에서 실행되는 파드들과 컨테이너들을 관리한다. Kubelet은 각 파드를 이를 구성하는 컨테이너들로 변환하며 컨테이너 런타임 인터페이스를 통해 컨테이너 런타임에서 개별 컨테이너의 사용량 통계를 가져온다. 레거시 docker 통합에서는 cAdvisor에서 이 정보를 가져왔다. 그런 다음 Kubelet 리소스 메트릭 API를 통해 집계된 파드 리소스 사용량 통계를 노출한다. 이 API는 Kubelet의 인증되고 읽기 전용의 포트들 상에서 `/metrics/resource/v1alpha1`으로 제공된다.
+Kubelet은 쿠버네티스 마스터와 노드들 사이의 다리 역할을 한다. 이는 머신 상에서 실행되는 파드들과 컨테이너들을 관리한다. Kubelet은 각 파드를 이를 구성하는 컨테이너들로 변환하며 컨테이너 런타임 인터페이스를 통해 컨테이너 런타임에서 개별 컨테이너의 사용량 통계를 가져온다. 레거시 도커 통합에서는 cAdvisor에서 이 정보를 가져온다. 그런 다음 Kubelet 리소스 메트릭 API를 통해 집계된 파드 리소스 사용량 통계를 노출한다. 이 API는 Kubelet의 인증되고 읽기 전용의 포트들 상에서 `/metrics/resource/v1alpha1`으로 제공된다.
 
 ### cAdvisor
 
@@ -52,7 +52,7 @@ cAdvisor는 오픈 소스 컨테이너 자원 사용률/성능 분석 에이전�
 
 Kubelet은 기본 포트 4194를 통해 머신의 컨테이너에 대한 단순한 cAdvisor UI를 노출한다.
 아래 그림은 전체 머신의 사용량을 예제로 보여준다. 하지만, 이 기능은 v1.10에서는 사용 중단(deprecated)으로 
-표시되었으며, v1.12에서는 완전히 제거된다.
+표시되었으며, v1.12에서는 완전히 제거되었다.
 
 ![cAdvisor](/images/docs/cadvisor.png)
 
@@ -86,13 +86,13 @@ Sysdig는 오픈 소스로 만들어졌다. [Sysdig와 Sysdig Inspect](https://s
 구글 클라우드 모니터링은 호스팅 모니터링 서비스로 애플리케이션의 
 중요한 메트릭을 시각화하고 경고하는데 사용할 수 있으며, 
 쿠버네티스에서 메트릭을 수집하고 
-[Cloud Monitoring Console](https://app.google.stackdriver.com/)를 
+[Cloud Monitoring Console](https://app.google.stackdriver.com/)을 
 통해 이 메트릭들에 접근할 수 있다. 대시보드를 만들고 사용자 정의하여 쿠버네티스 클러스터에서 
 수집한 데이터를 시각화할 수 있다.
 
 이 동영상은 힙스터(Heapster)를 기반으로 구글 클라우드 모니터링을 구성하고 실행하는 방법을 보여준다.
 
-[![힙스터(Heapster)를 기반으로 구글 클라우드 모니터링을 구성하고 실행하는 방법](https://img.youtube.com/vi/xSMNR2fcoLs/0.jpg)](https://www.youtube.com/watch?v=xSMNR2fcoLs)
+[![힙스터를 기반으로 구글 클라우드 모니터링을 구성하고 실행하는 방법](https://img.youtube.com/vi/xSMNR2fcoLs/0.jpg)](https://www.youtube.com/watch?v=xSMNR2fcoLs)
 
 
 {{< figure src="/images/docs/gcm.png" alt="구글 클라우드 모니터링 대시보드 예제" title="구글 클라우드 모니터링 대시보드 예제" caption="대시보드는 클러스터 전역의 리소스 사용량을 보여준다." >}}
