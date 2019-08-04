@@ -433,7 +433,7 @@ For more information about using Calico, see [Quickstart for Calico on Kubernete
 For Calico to work correctly, you need to pass `--Pod-network-cidr=192.168.0.0/16` to `kubeadm init` or update the `calico.yml` file to match your Pod network. Note that Calico works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
 -->
 
@@ -444,7 +444,7 @@ kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
 或者根据您的网络方案更新 `calico.yml` 。注意 Calico 只适用于 `amd64` 架构。
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
 
 {{% /tab %}}
@@ -455,7 +455,7 @@ Canal uses Calico for policy and Flannel for networking. Refer to the Calico doc
 For Canal to work correctly, `--Pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 -->
 
@@ -466,7 +466,7 @@ Canal 使用 Calico 提供的网络策略和 Flannel 提供的网络功能。请
 为了 Canal 可以正确运行，`kubeadm init` 运行时需要设置`--Pod-network-cidr=10.244.0.0/16`，同时注意它只适用于 `amd64` 架构。
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 {{% /tab %}}

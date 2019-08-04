@@ -26,7 +26,7 @@ check-headers-file:
 
 production-build: check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: test-examples check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
+non-production-build: check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
 
 serve: ## Boot the development server.

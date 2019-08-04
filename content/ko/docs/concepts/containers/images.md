@@ -60,6 +60,8 @@ Docker *18.06 또는 그 이상* 을 사용하길 바란다. 더 낮은 버전�
   - AWS EC2 컨테이너 레지스트리(ECR) 사용
     - IAM 역할 및 정책을 사용하여 ECR 저장소에 접근을 제어함
     - ECR 로그인 자격 증명은 자동으로 갱신됨
+  - Oracle 클라우드 인프라스트럭처 레지스트리(OCIR) 사용
+    - IAM 역할과 정책을 사용하여 OCIR 저장소에 접근을 제어함
   - Azure 컨테이너 레지스트리(ACR) 사용
   - IBM 클라우드 컨테이너 레지스트리 사용
   - 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
@@ -275,19 +277,7 @@ GCE 및 자동 노드 교체를 수행하는 다른 클라우드 제공자에 �
 대문자 값을 적절히 대체하여, 다음 커맨드를 실행한다.
 
 ```shell
-cat <<EOF > ./kustomization.yaml
-secretGenerator:
-- name: myregistrykey
-  type: docker-registry
-  literals:
-  - docker-server=DOCKER_REGISTRY_SERVER
-  - docker-username=DOCKER_USER
-  - docker-password=DOCKER_PASSWORD
-  - docker-email=DOCKER_EMAIL
-EOF
-
-kubectl apply -k .
-secret/myregistrykey-66h7d4d986 created
+kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
 만약 Docer 자격 증명 파일이 이미 존재한다면, 위의 명령을 사용하지 않고, 

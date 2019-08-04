@@ -2,7 +2,6 @@
 title: kubectl for Docker Users
 content_template: templates/concept
 reviewers:
-- bgrant0607
 - brendandburns
 - thockin
 ---
