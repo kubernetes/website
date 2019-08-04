@@ -809,7 +809,7 @@ Migrasi dari pengelolaan objek dengan perintah imperatif ke pengelolaan objek de
 1. Ekspor objek *live* ke *file* konfigurasi lokal:
 
      ```shell
-     kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+     kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
      ```
 
 1. Hapus secara manual *field* `status` dari *file* konfigurasi.
