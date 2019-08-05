@@ -21,7 +21,7 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 * [CoreOS Tectonic](https://coreos.com/tectonic/)はAWS上のContainer Linuxノードを含むKubernetesクラスターを作成できる、オープンソースの[Tectonic Installer](https://github.com/coreos/tectonic-installer)を含みます。
 
-* CoreOSから生まれ、Kubernetes IncubatorがメンテナンスしているCLIツール[kube-aws](https://github.com/kubernetes-incubator/kube-aws)は、AWSツール(EC2、CloudFormation、Auto Scaling) を使用して[Container Linux](https://coreos.com/why/)ノードを含むKubernetesクラスターを作成および管理できます。
+* CoreOSから生まれ、Kubernetes IncubatorがメンテナンスしているCLIツール[kube-aws](https://github.com/kubernetes-incubator/kube-aws)は、[Container Linux](https://coreos.com/why/)ノードを使用したAWSツール(EC2、CloudFormation、Auto Scaling)によるKubernetesクラスターを作成および管理できます。
 
 * [KubeOne](https://github.com/kubermatic/kubeone)は可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
 
