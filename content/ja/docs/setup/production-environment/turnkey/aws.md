@@ -60,7 +60,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
 ## クラスターのスケーリング
 
-`kubectl`を通したノードの追加および削除はサポートしていません。インストール中に作成された[Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html)内の'Desired'および'Max'プロパティを手動で調整することで、ノード数をスケールさせることができます。
+`kubectl`を使用したノードの追加および削除はサポートしていません。インストール中に作成された[Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html)内の'Desired'および'Max'プロパティを手動で調整することで、ノード数をスケールさせることができます。
 
 ## クラスターの解体
 
