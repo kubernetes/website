@@ -346,6 +346,7 @@ rolled back.
     ```shell
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
     ```
+<<<<<<< HEAD
 
     The output is similar to this:
     ```
@@ -358,6 +359,20 @@ rolled back.
     kubectl rollout status deployment.v1.apps/nginx-deployment
     ```
 
+=======
+
+    The output is similar to this:
+    ```
+    deployment.apps/nginx-deployment image updated
+    ```
+
+* The rollout gets stuck. You can verify it by checking the rollout status:
+
+    ```shell
+    kubectl rollout status deployment.v1.apps/nginx-deployment
+    ```
+
+>>>>>>> upstream/master
     The output is similar to this:
     ```
     Waiting for rollout to finish: 1 out of 3 new replicas have been updated...
@@ -658,6 +673,7 @@ In our example above, 3 replicas are added to the old ReplicaSet and 2 replicas 
 new ReplicaSet. The rollout process should eventually move all replicas to the new ReplicaSet, assuming
 the new replicas become healthy. To confirm this, run:  
 
+<<<<<<< HEAD
     ```shell
     kubectl get deploy
     ```
@@ -678,6 +694,28 @@ the new replicas become healthy. To confirm this, run:
     nginx-deployment-1989198191   7         7         0         7m
     nginx-deployment-618515232    11        11        11        7m
     ```
+=======
+```shell
+kubectl get deploy
+```
+
+The output is similar to this: 
+```
+NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment     15        18        7            8           7m
+```
+The rollout status confirms how the replicas were added to each ReplicaSet.
+```shell
+kubectl get rs
+```
+
+The output is similar to this:
+```
+NAME                          DESIRED   CURRENT   READY     AGE
+nginx-deployment-1989198191   7         7         0         7m
+nginx-deployment-618515232    11        11        11        7m
+```
+>>>>>>> upstream/master
 
 ## Pausing and Resuming a Deployment
 
