@@ -32,13 +32,14 @@ The Kubernetes documentation is written in Markdown and processed and deployed u
 You can file issues, edit content, and review changes from others, all from the
 GitHub website. You can also use GitHub's embedded history and search tools.
 
-Not all tasks can be done in the GitHub UI, but these are discussed in the 
+Not all tasks can be done in the GitHub UI, but these are discussed in the
 [intermediate](/docs/contribute/intermediate/) and
 [advanced](/docs/contribute/advanced/) docs contribution guides.
 
 ### Participating in SIG Docs
 
-The Kubernetes documentation is maintained by a Special Interest Group (SIG)
+The Kubernetes documentation is maintained by a
+{{< glossary_tooltip text="Special Interest Group" term_id="sig" >}} (SIG)
 called SIG Docs. We communicate using a Slack channel, a mailing list, and
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
@@ -68,9 +69,9 @@ We make use of the standard Hugo shortcodes, as well as a few that are custom to
 the Kubernetes documentation. See [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) for
 information about how to use them.
 
-### Multiple languages 
+### Multiple languages
 
-Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`. 
+Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`.
 
 For more information about contributing to documentation in multiple languages, see ["Localize content"](/docs/contribute/intermediate#localize-content) in the intermediate contributing guide.
 
@@ -158,7 +159,7 @@ upcoming Kubernetes release, your process is a bit different. See
 process guidelines and information about deadlines.
 {{< /note >}}
 
-### Sign the CLA
+### Sign the CNCF CLA {#sign-the-cla}
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
 the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and
@@ -299,7 +300,7 @@ conventions and etiquette and get used to the workflow.
     PR, and if applicable, also look at any linked issues. If you see a problem
     or room for improvement, hover over the line and click the `+` symbol that
     appears.
-    
+
       You can type a comment, and either choose **Add single comment** or **Start
       a review**. Typically, starting a review is better because it allows you to
       leave multiple comments and notifies the PR owner only when you have
@@ -342,7 +343,7 @@ or follow the steps below.
 
 Case studies highlight how organizations are using Kubernetes to solve
 real-world problems. They are written in collaboration with the Kubernetes
-marketing team, which is handled by the CNCF.
+marketing team, which is handled by the {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
 
 Have a look at the source for the
 [existing case studies](https://github.com/kubernetes/website/tree/master/content/en/case-studies).

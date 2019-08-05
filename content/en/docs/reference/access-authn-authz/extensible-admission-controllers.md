@@ -690,7 +690,7 @@ or the server could power off before persisting the object.
 
 Additionally, webhooks with side effects should skip those side-effects when `dryRun: true` admission requests are handled.
 A webhook must explicitly indicate that it will not have side-effects when run with `dryRun`,
-or the dry-run request will not be sent to the webhook and the API request fill fail instead.
+or the dry-run request will not be sent to the webhook and the API request will fail instead.
 
 Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration.
 `sideEffects` may be set to `Unknown`, `None`, `Some`, `NoneOnDryRun`. The default is `Unknown`.
@@ -752,12 +752,13 @@ and mutating webhooks can specify a `reinvocationPolicy` to control whether they
 * `Never`: the webhook must not be called more than once in a single admission evaluation
 * `IfNeeded`: the webhook may be called again as part of the admission evaluation if the object
 being admitted is modified by other admission plugins after the initial webhook call.
-    {{< note >}}
-    * the number of additional invocations is not guaranteed to be exactly one.
-    * if additional invocations result in further modifications to the object, webhooks are not guaranteed to be invoked again.
-    * webhooks that use this option may be reordered to minimize the number of additional invocations.
-    * to validate an object after all mutations are guaranteed complete, use a validating admission webhook instead (recommended for webhooks with side-effects).
-    {{< /note >}}
+
+The important elements to note are:
+
+* The number of additional invocations is not guaranteed to be exactly one.
+* If additional invocations result in further modifications to the object, webhooks are not guaranteed to be invoked again.
+* Webhooks that use this option may be reordered to minimize the number of additional invocations.
+* To validate an object after all mutations are guaranteed complete, use a validating admission webhook instead (recommended for webhooks with side-effects).
 
 Here is an example of a mutating webhook opting into being re-invoked if later admission plugins modify the object:
 
@@ -778,7 +779,7 @@ in an object could already exist in the user-provided object, but it is essentia
 ### Failure policy
 
 `failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`. Defaults to `Ignore` in v1beta1.
+are handled. Allowed values are `Ignore` or `Fail`. Defaults to `Ignore` in v1beta1, and v1 has changed the default to `Fail`.
 
 * `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
 * `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.

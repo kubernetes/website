@@ -15,8 +15,7 @@ API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/docs/referen
 
 API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/reference/access-authn-authz/controlling-access/)에서 논의되었다.
 
-쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. 
-[kubectl](/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
+쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. [kubectl](/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
 
 쿠버네티스는 또한 API 리소스에 대해 직렬화된 상태를 (현재는 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)에) 저장한다. 
 
@@ -24,7 +23,6 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -36,9 +34,9 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 ## OpenAPI 및 Swagger 정의
 
-완전한 API 상세 내용은 [OpenAPI](https://www.openapis.org/)를 활용해서 문서화했다. 
+완전한 API 상세 내용은 [OpenAPI](https://www.openapis.org/)를 활용해서 문서화했다.
 
-쿠버네티스 1.10부터, OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다. 
+쿠버네티스 1.10부터, OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다.
 요청 형식은 HTTP 헤더에 명시해서 설정할 수 있다.
 
 헤더   | 가능한 값
@@ -46,7 +44,8 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (기본 content-type은 `*/*`에 대해 `application/json`이거나 이 헤더를 전달하지 않음)
 Accept-Encoding | `gzip` (이 헤더를 전달하지 않아도 됨)
 
-1.14 이전 버전에서 형식이 구분된 엔드포인트(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)는 OpenAPI 스펙을 다른 포맷으로 제공한다. 이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거될 예정이다.
+1.14 이전 버전에서 형식이 구분된 엔드포인트(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)는 OpenAPI 스펙을 다른 포맷으로 제공한다.
+이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거됬다.
 
 **OpenAPI 규격을 조회하는 예제**
 
@@ -58,21 +57,25 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 쿠버네티스는 주로 클러스터 내부 통신용 API를 위해 대안적인 Protobuf에 기반한 직렬화 형식을 구현한다. 해당 API는 [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) 문서와 IDL 파일에 문서화되어 있고 각각의 스키마를 담고 있는 IDL 파일은 API 오브젝트를 정의하는 Go 패키지에 들어있다.
 
-1.14 이전 버전에서 쿠버네티스 apiserver는 `/swaggerapi`에서 [Swagger v1.2](http://swagger.io/) 
-쿠버네티스 API 스펙을 검색하는데 사용할 수 있는 API도 제공한다. 
+1.14 이전 버전에서 쿠버네티스 apiserver는 `/swaggerapi`에서 [Swagger v1.2](http://swagger.io/)
+쿠버네티스 API 스펙을 검색하는데 사용할 수 있는 API도 제공한다.
 이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거될 예정이다.
 
 ## API 버전 규칙
 
-필드를 없애거나 리소스 표현을 재구성하기 쉽도록, 쿠버네티스는 `/api/v1`이나 
-`/apis/extensions/v1beta1`과 같이 각각 다른 API 경로에서 복수의 API 버전을 지원한다.
+필드를 없애거나 리소스 표현을 재구성하기 쉽도록,
+쿠버네티스는 `/api/v1`이나 `/apis/extensions/v1beta1`과 같이
+각각 다른 API 경로에서 복수의 API 버전을 지원한다.
 
 리소스나 필드 수준보다는 API 수준에서 버전을 선택했는데, API가 명료하고, 시스템 리소스와 행위 관점에서 일관성있으며, 더 이상 사용되지 않는 API나 실험적인 API에 접근을 제어할 수 있도록 하기 위함이다. 스키마 변경에 대해서 JSON과 Protobuf 직렬화 스키마 모두 동일한 가이드라인을 따른다. 다음에 이어지는 설명 모두는 이 두 가지 형식에 모두 해당한다.
 
-API 버전 규칙과 소프트웨어 버전 규칙은 간접적으로 연관되어 있음을 알아두자. [API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)에는 API 버전 규칙과 소프트웨어 버전 규칙 간의 관계가 기술되어 있다.
+API 버전 규칙과 소프트웨어 버전 규칙은 간접적으로 연관되어 있음을 알아두자.
+[API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)에는
+API 버전 규칙과 소프트웨어 버전 규칙 간의 관계가 기술되어 있다.
 
 
-API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르다는 것을 암시한다. 각각의 수준에 대한 조건은 [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)에서 상세히 다룬다. 요약하자면 다음과 같다.
+API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르다는 것을 암시한다.
+각각의 수준에 대한 조건은 [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)에서 상세히 다룬다. 요약하자면 다음과 같다.
 
 - 알파(Alpha) 수준:
   - 버전 이름에 `alpha`가 포함된다. (예: `v1alpha1`)
@@ -87,7 +90,8 @@ API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르
   - 오브젝트에 대한 스키마나 문법이 다음 베타 또는 안정화 릴리스에서 호환되지 않는 방식으로 바뀔 수도 있다. 이런 경우,
     다음 버전으로 이관할 수 있는 가이드를 제공할 것이다. 
     이 때 API 오브젝트의 삭제, 편집 또는 재생성이 필요할 수도 있다. 편집 절차는 좀 생각해볼 필요가 있다. 이 기능에 의존하고 있는 애플리케이션은 다운타임이 필요할 수도 있다.
-  - 다음 릴리스에서 호환되지 않을 수도 있으므로 사업적으로 중요하지 않은 용도로만 사용하기를 권장한다. 복수의 클러스터를 가지고 있어서 독립적으로 업그레이드할 수 있다면 이런 제약에서 안심이 될 수도 있겠다.
+  - 다음 릴리스에서 호환되지 않을 수도 있으므로 사업적으로 중요하지 않은 용도로만 사용하기를 권장한다.
+    복수의 클러스터를 가지고 있어서 독립적으로 업그레이드할 수 있다면 이런 제약에서 안심이 될 수도 있겠다.
   - **베타 기능을 사용하고 피드백을 주기를 바란다! 일단 베타가 끝나면, 실질적으로 더 많은 변경이 어렵다.**
 - 안정화(stable) 수준:
   - 버전 이름이 `vX`이고 `X` 는 정수다.
@@ -95,8 +99,7 @@ API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르
 
 ## API 그룹
 
-쿠버네티스 API를 보다 쉽게 확장하기 위해서, 
-[*API 그룹*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)을 구현했다.
+쿠버네티스 API를 보다 쉽게 확장하기 위해서, [*API 그룹*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)을 구현했다.
 API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명시된다.
 
 현재 다양한 API 그룹이 사용되고 있다.
@@ -111,8 +114,9 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 
 1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)은 아주 기본적인
    CRUD 요구를 갖는 사용자에게 적합하다.
-1. 쿠버네티스 API 의미론의 전체 셋을 가지고 사용자만의 apiserver를 만들고자하는 사용자는 [aggregator](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)를 사용해서 클라이언트 입장에서 매끄럽게 동작하도록
-  만들 수 있다.
+1. 쿠버네티스 API 의미론의 전체 셋을 가지고, 사용자만의 apiserver를 만들고자하는 사용자는
+   [aggregator](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)를 사용해서 클라이언트 입장에서 매끄럽게 동작하도록
+   만들 수 있다.
 
 
 ## API 그룹 활성화 시키기
@@ -122,7 +126,7 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 `--runtime-config=batch/v1=false`와 같이 설정하고, batch/v2alpha1을 활성화 시키려면 `--runtime-config=batch/v2alpha1`을
 설정한다. 이 플래그는 apiserver의 런타임 설정에 쉼표로 분리된 키=값 쌍의 집합을 허용한다.
 
-중요: 그룹이나 리소스를 활성화 또는 비활성화 시키기 위해서는 apiserver와 controller-manager를 재시작해서 
+중요: 그룹이나 리소스를 활성화 또는 비활성화 시키기 위해서는 apiserver와 controller-manager를 재시작해서
 `--runtime-config` 변경을 반영시켜야 한다.
 
 ## 그룹 내 리소스 활성화 시키기

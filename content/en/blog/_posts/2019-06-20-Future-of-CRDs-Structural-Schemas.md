@@ -58,7 +58,7 @@ The **core of a structural schema** is an OpenAPI v3 schema made out of
 
 In addition, all types must be non-empty, and in each sub-schema only one of `properties`, `additionalProperties` or `items` may be used.
 
-Here is an example of our `MaintenanceJob`:
+Here is an example of our `MaintenanceNightlyJob`:
 
 ```yaml
 type: object
@@ -110,12 +110,12 @@ Some notable restrictions for these additional value validations:
 
 As you can see also logical constraints using `oneOf`, `allOf`, `anyOf`, `not` are allowed.
 
-To sum up, an OpenAPI schema is structural if 
-1. it has the core as defined above out of `properties`, `items`, `additionalProperties`, `type`, `nullable`, `title`, `description`,
-2. all types are defined,
-3. the core is extended with value validation following the constraints:
-   1. inside of value validations no `additionalProperties`, `type`, `nullable`, `title`, `description`,
-   2. all fields mentioned in value validation are specified in the core.
+To sum up, an OpenAPI schema is structural if<br/><br/>
+1. it has the core as defined above out of `properties`, `items`, `additionalProperties`, `type`, `nullable`, `title`, `description`,<br/>
+2. all types are defined,<br/>
+3. the core is extended with value validation following the constraints:<br/>
+   (i) inside of value validations no `additionalProperties`, `type`, `nullable`, `title`, `description`<br/>
+   (ii) all fields mentioned in value validation are specified in the core.
 
 Let us modify our example spec slightly, to make it non-structural:
 
@@ -169,11 +169,12 @@ spec:
 Pruning can only be enabled if the global schema or the schemas of all versions are structural.
 
 If pruning is enabled, the pruning algorithm
+
 * assumes that the schema is complete, i.e. every field is mentioned and not-mentioned fields can be dropped
-* is run on 
-  * data received via an API request
-  * after conversion and admission requests
-  * when reading from etcd (using the schema version of the data in etcd).
+* is run on<br/> 
+  (i) data received via an API request<br/> 
+  (ii) after conversion and admission requests<br/> 
+  (iii) when reading from etcd (using the schema version of the data in etcd).
 
 As we don’t specify `privileged` in our structural example schema, the malicious field is pruned from before persisting to etcd:
 
@@ -181,7 +182,9 @@ As we don’t specify `privileged` in our structural example schema, the malicio
 apiVersion: operations/v1
 kind: MaintenanceNightlyJob
 spec:
-  command: grep backdoor /etc/passwd || echo “backdoor:76asdfh76:/bin/bash” >> /etc/passwd || true
+  shell: >
+    grep backdoor /etc/passwd || 
+    echo “backdoor:76asdfh76:/bin/bash” >> /etc/passwd || true
   machines: [“az1-master1”,”az1-master2”,”az2-master3”]
   # pruned: privileged: true
 ```
@@ -192,7 +195,8 @@ While most Kubernetes-like APIs can be expressed with a structural schema, there
 
 Because we want CRDs to make use of these types as well, we introduce the following OpenAPI vendor extensions to the permitted core constructs:
 
-* `x-kubernetes-embedded-resource: true` — specifies that this is an `runtime.RawExtensions-like field, with a Kubernetes resource with apiVersion, kind and metadata. The consequence is that those 3 fields are not pruned and are automatically validated.
+* `x-kubernetes-embedded-resource: true` — specifies that this is an `runtime.RawExtension`-like field, with a Kubernetes resource with apiVersion, kind and metadata. The consequence is that those 3 fields are not pruned and are automatically validated.
+
 * `x-kubernetes-int-or-string: true` — specifies that this is either an integer or a string. No types must be specified, but
   
   ```yaml
@@ -202,9 +206,10 @@ Because we want CRDs to make use of these types as well, we introduce the follow
   ```
 
   is permitted, though optional.
+
 * `x-kubernetes-preserve-unknown-fields: true` — specifies that the pruning algorithm should not prune any field. This can be combined with `x-kubernetes-embedded-resource`. Note that within a nested `properties` or `additionalProperties` OpenAPI schema the pruning starts again.
   
-  One can use `x-kubernetes-preserve-unknown-fields: true` at the root of the schema (and inside any `properties`, `additionalProperties`) to get the traditional CRD behaviour that nothing is prune, despite being `spec.preserveUnknownProperties: false` is set.
+  One can use `x-kubernetes-preserve-unknown-fields: true` at the root of the schema (and inside any `properties`, `additionalProperties`) to get the traditional CRD behaviour that nothing is pruned, despite setting `spec.preserveUnknownProperties: false`.
 
 ## Conclusion
 
@@ -227,8 +232,8 @@ Any new feature for CRDs starting from Kubernetes 1.15 will require to have a st
 
 * publishing of OpenAPI validation schemas and therefore support for kubectl client-side validation, and `kubectl explain` support (beta in Kubernetes 1.15)
 * CRD conversion (beta in Kubernetes 1.15)
-* CRD defaulting (beta in Kubernetes 1.15)
+* CRD defaulting (alpha in Kubernetes 1.15)
 * Server-side apply (alpha in Kubernetes 1.15, CRD support pending).
 
-Of course [structural schemas](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#specifying-a-structural-schema) are also described in the Kubernetes documentation for the 1.15 release.
+Of course [structural schemas](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#specifying-a-structural-schema) are also described in the Kubernetes documentation for the 1.15 release.
 
