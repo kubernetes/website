@@ -69,7 +69,7 @@ kubectl create namespace limitrange-demo
 To avoid passing the target limitrange-demo in your kubectl commands, change your context with the following command 
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=limitrange-demo
+kubectl config set-context --current --namespace=limitrange-demo
 ```
 
 Here is the configuration file for a LimitRange object:

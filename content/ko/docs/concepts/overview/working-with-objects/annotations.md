@@ -69,8 +69,29 @@ _어노테이션_ 은 키/값 쌍이다. 유효한 어노테이션 키에는 두
 
 `kubernetes.io/`와 `k8s.io/` 접두사는 쿠버네티스 핵심 구성 요소를 위해 예약되어 있다.
 
+다음은 `imageregistry: https://hub.docker.com/` 어노테이션이 있는 파드의 구성 파일 예시이다.
+
+```yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotations-demo
+  annotations:
+    imageregistry: "https://hub.docker.com/"
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80
+
+```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 [레이블과 셀렉터](/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
 {{% /capture %}}
+
+

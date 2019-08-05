@@ -26,6 +26,7 @@ For more information about contributing to the Kubernetes documentation, see:
 |[German README](README-de.md)|[Portuguese README](README-pt.md)|
 |[Hindi README](README-hi.md)|[Spanish README](README-es.md)|
 |[Indonesian README](README-id.md)|[Chinese README](README-zh.md)|
+|[Japanese README](README-ja.md)||
 |||
 
 ## Running the website locally using Docker
@@ -52,7 +53,7 @@ Open up your browser to http://localhost:1313 to view the website. As you make c
 
 ## Running the website locally using Hugo
 
-See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions. Make sure to install the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
+See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions. Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
 
 To run the website locally when you have Hugo installed:
 

@@ -208,7 +208,7 @@ writers simultaneously.
 You must have your own Ceph server running with the share exported before you can use it.
 {{< /caution >}}
 
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
 
 ### cinder {#cinder}
 
@@ -534,7 +534,7 @@ simultaneously.
 You must have your own GlusterFS installation running before you can use it.
 {{< /caution >}}
 
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) for more details.
 
 ### hostPath {#hostpath}
 
@@ -618,7 +618,7 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) for more details.
 
 ### local {#local}
 
@@ -938,7 +938,7 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) for more details.
 
 ### scaleIO {#scaleio}
 
@@ -1052,7 +1052,7 @@ spec:
 ```
 
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
-[StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
+[StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 
 ### vsphereVolume {#vspherevolume}
 
@@ -1313,6 +1313,43 @@ feature gates which must be enabled for this feature are `BlockVolume` and
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
+#### CSI ephemeral volumes
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
+
+Example:
+
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: my-csi-app
+spec:
+  containers:
+    - name: my-frontend
+      image: busybox
+      volumeMounts:
+      - mountPath: "/data"
+        name: my-csi-inline-vol
+      command: [ "sleep", "1000000" ]
+  volumes:
+    - name: my-csi-inline-vol
+      csi:
+        driver: inline.storage.kubernetes.io
+        volumeAttributes:
+              foo: bar
+```
+
+This feature requires CSIInlineVolume feature gate to be enabled:
+
+```
+--feature-gates=CSIInlineVolume=true
+```
+
+CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
+
 # Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
@@ -1342,7 +1379,7 @@ drivers. Flexvolume driver binaries must be installed in a pre-defined volume
 plugin path on each node (and in some cases master).
 
 Pods interact with Flexvolume drivers through the `flexvolume` in-tree plugin.
-More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
+More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
 
 ## Mount propagation
 

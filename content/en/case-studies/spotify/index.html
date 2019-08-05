@@ -1,6 +1,6 @@
 ---
 title: Spotify study Case Study
-linkTitle: cern
+linkTitle: Spotify
 case_study_styles: true
 cid: caseStudies
 css: /css/style_case_studies.css
@@ -33,6 +33,7 @@ quote: >
 <br><br>
     <h2>Solution</h2>
     "We saw the amazing community that had grown up around Kubernetes, and we wanted to be part of that," says Chakrabarti. Kubernetes was more feature-rich than Helios. Plus, "we wanted to benefit from added velocity and reduced cost, and also align with the rest of the industry on best practices and tools." At the same time, the team wanted to contribute its expertise and influence in the flourishing Kubernetes community. The migration, which would happen in parallel with Helios running, could go smoothly because "Kubernetes fit very nicely as a complement and now as a replacement to Helios," says Chakrabarti.
+<br><br>
 <h2>Impact</h2>
     The team spent much of 2018 addressing the core technology issues required for a migration, which started late that year and is a big focus for 2019. "A small percentage of our fleet has been migrated to Kubernetes, and some of the things that we’ve heard from our internal teams are that they have less of a need to focus on manual capacity provisioning and more time to focus on delivering features for Spotify," says Chakrabarti. The biggest service currently running on Kubernetes takes about 10 million requests per second as an aggregate service and benefits greatly from autoscaling, says Site Reliability Engineer James Wen. Plus, he adds, "Before, teams would have to wait for an hour to create a new service and get an operational host to run it in production, but with Kubernetes, they can do that on the order of seconds and minutes." In addition, with Kubernetes’s bin-packing and multi-tenancy capabilities, CPU utilization has improved on average two- to threefold.
 
@@ -48,7 +49,7 @@ quote: >
 <section class="section2">
 <div class="fullcol">
   <h2>"Our goal is to empower creators and enable a really immersive listening experience for all of the consumers that we have today—and hopefully the consumers we’ll have in the future," says Jai Chakrabarti, Director of Engineering, Infrastructure and Operations at Spotify. Since the audio-streaming platform launched in 2008, it has already grown to over 200 million monthly active users around the world, and for Chakrabarti’s team, the goal is solidifying Spotify’s infrastructure to support all those future consumers too.</h2>
-  "Our goal is to empower creators and enable a really immersive listening experience for all of the consumers that we have today—and hopefully the consumers we’ll have in the future," says Jai Chakrabarti, Director of Engineering, Infrastructure and Operations at Spotify. Since the audio-streaming platform launched in 2008, it has already grown to over 200 million monthly active users around the world, and for Chakrabarti’s team, the goal is solidifying Spotify’s infrastructure to support all those future consumers too.<br><br>
+  <br><br>
   An early adopter of microservices and Docker, Spotify had containerized microservices running across its fleet of VMs since 2014. The company used an open source, homegrown container orchestration system called Helios, and in 2016-17 completed a migration from on premise data centers to Google Cloud. Underpinning these decisions, "We have a culture around autonomous teams, over 200 autonomous engineering squads who are working on different pieces of the pie, and they need to be able to iterate quickly," Chakrabarti says. "So for us to have developer velocity tools that allow squads to move quickly is really important."<br><br>
   But by late 2017, it became clear that "having a small team working on the <a href="https://github.com/spotify/helios">Helios</a> features was just not as efficient as adopting something that was supported by a much bigger community," says Chakrabarti. "We saw the amazing community that had grown up around Kubernetes, and we wanted to be part of that. We wanted to benefit from added velocity and reduced cost, and also align with the rest of the industry on best practices and tools." At the same time, the team wanted to contribute its expertise and influence in the flourishing Kubernetes community.
 

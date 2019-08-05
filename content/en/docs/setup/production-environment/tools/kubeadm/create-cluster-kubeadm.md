@@ -8,7 +8,7 @@ weight: 30
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
 
 Because you can install kubeadm on various types of machine (e.g. laptop, server,
@@ -295,7 +295,7 @@ Make sure that your network manifest supports RBAC.
 Also, beware, that your Pod network must not overlap with any of the host networks as this can cause issues.
 If you find a collision between your network plugin’s preferred Pod network and some of your host networks, you should think of a suitable CIDR replacement and use that during `kubeadm init` with `--pod-network-cidr` and as a replacement in your network plugin’s YAML.
 
-You can install a pod network add-on with the following command:
+You can install a pod network add-on with the following command on the control-plane node or a node that has the kubeconfig credentials:
 
 ```bash
 kubectl apply -f <add-on.yaml>
@@ -308,13 +308,19 @@ You can install only one pod network per cluster.
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {{% /tab %}}
 
+{{% tab name="AWS VPC" %}}
+AWS VPC CNI provides native AWS VPC networking to Kubernetes clusters.
+
+For installation, please refer to the [AWS VPC CNI setup guide](https://github.com/aws/amazon-vpc-cni-k8s#setup).
+{{% /tab %}}
+
 {{% tab name="Calico" %}}
 For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
 For Calico to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init` or update the `calico.yml` file to match your Pod network. Note that Calico works on `amd64`, `arm64`, and `ppc64le` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
 
 {{% /tab %}}
@@ -324,7 +330,7 @@ Canal uses Calico for policy and Flannel for networking. Refer to the Calico doc
 For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 {{% /tab %}}
@@ -361,6 +367,16 @@ cilium-drxkl   1/1     Running   0          18m
 ```
 
 {{% /tab %}}
+
+{{% tab name="Contiv-VPP" %}}
+[Contiv-VPP](https://contivpp.io/) employs a programmable CNF vSwitch based on [FD.io VPP](https://fd.io/),
+offering feature-rich & high-performance cloud-native networking and services.
+
+It implements k8s services and network policies in the user space (on VPP).
+
+Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
+{{% /tab %}}
+
 {{% tab name="Flannel" %}}
 
 For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
@@ -382,6 +398,16 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
 ](https://github.com/coreos/flannel).
+{{% /tab %}}
+
+{{% tab name="JuniperContrail/TungstenFabric" %}}
+Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
+simultaneous overlay-underlay support, network policy enforcement, network isolation,
+service chaining and flexible load balancing.
+
+There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
+
+Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
 {{% /tab %}}
 
 {{% tab name="Kube-router" %}}
@@ -424,25 +450,6 @@ if they don't know their PodIP.
 ```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
-{{% /tab %}}
-
-{{% tab name="JuniperContrail/TungstenFabric" %}}
-Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
-simultaneous overlay-underlay support, network policy enforcement, network isolation,
-service chaining and flexible load balancing.
-
-There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
-
-Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
-{{% /tab %}}
-
-{{% tab name="Contiv-VPP" %}}
-[Contiv-VPP](https://contivpp.io/) employs a programmable CNF vSwitch based on [FD.io VPP](https://fd.io/),
-offering feature-rich & high-performance cloud-native networking and services.
-
-It implements k8s services and network policies in the user space (on VPP).
-
-Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
 {{% /tab %}}
 
 {{< /tabs >}}

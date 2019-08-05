@@ -30,6 +30,10 @@ A node's status contains the following information:
 * [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
+Node status and other details about a node can be displayed using below command:
+```shell
+kubectl describe node <insert-node-name-here>
+```
 Each section is described in detail below.
 
 ### Addresses

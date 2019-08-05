@@ -359,6 +359,38 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
+#### Editing a Secret
+
+An existing secret may be edited with the following command:
+
+```shell
+kubectl edit secrets mysecret
+```
+
+This will open the default configured editor and allow for updating the base64 encoded secret values in the `data` field:
+
+```
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
+kind: Secret
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: { ... }
+  creationTimestamp: 2016-01-22T18:41:56Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "164619"
+  selfLink: /api/v1/namespaces/default/secrets/mysecret
+  uid: cfee02d6-c137-11e5-8d73-42010af00002
+type: Opaque
+```
+
 ## Using Secrets
 
 Secrets can be mounted as data volumes or be exposed as
@@ -833,7 +865,7 @@ EOF
 Apply all those objects on the Apiserver by
 
 ```shell
-kubectl apply --k .
+kubectl apply -k .
 ```
 
 Both containers will have the following files present on their filesystems with the values for each container's environment:

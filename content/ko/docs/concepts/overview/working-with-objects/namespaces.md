@@ -76,7 +76,7 @@ kubectl --namespace=<insert-namespace-name-here> get pods
 영구적으로 저장할 수 있다.
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # 확인하기
 kubectl config view | grep namespace:
 ```

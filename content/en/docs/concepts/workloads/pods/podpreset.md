@@ -74,7 +74,11 @@ In order to use Pod Presets in your cluster you must ensure the following:
 1.  You have enabled the admission controller `PodPreset`. One way to doing this
     is to include `PodPreset` in the `--enable-admission-plugins` option value specified
     for the API server. In minikube add this flag
-    `--extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset`
+    
+    ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+    
     while starting the cluster.
 1.  You have defined your Pod Presets by creating `PodPreset` objects in the
     namespace you will use.
