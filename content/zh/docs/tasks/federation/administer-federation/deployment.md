@@ -46,7 +46,7 @@ Some features
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [Deployments](/docs/concepts/workloads/controllers/deployment/) in particular.
 -->
-* 通常您还应当拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是在 [Deployments](/docs/concepts/workloads/controllers/deployment/) 方面。 
+* 您还应当拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是在 [Deployments](/docs/concepts/workloads/controllers/deployment/) 方面。 
 
 {{% /capture %}}
 
