@@ -47,14 +47,21 @@ Kubernetes reviews only the following API request attributes:
  * **extra** - A map of arbitrary string keys to string values, provided by the authentication layer.
  * **API** - Indicates whether the request is for an API resource.
  * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz`.
- * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see [Determine the request verb](/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
- * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
+ * **API request verb** - API verbs like `get`, `list`, `create`, `update`, `patch`, `watch`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see [Determine the request verb](/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
+ * **HTTP request verb** - Lowercased HTTP methods like `get`, `post`, `put`, and `delete` are used for non-resource requests.
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
  * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
 
 ## Determine the Request Verb
+
+**Non-resource requests**
+Requests to endpoints other than `/api/v1/...` or `/apis/<group>/<version>/...`
+are considered "non-resource requests", and use the lower-cased HTTP method of the request as the verb.
+For example, a `GET` request to endpoints like `/api` or `/healthz` would use `get` as the verb.
+
+**Resource requests**
 To determine the request verb for a resource API endpoint, review the HTTP verb
 used and whether or not the request acts on an individual resource or a
 collection of resources:
@@ -62,20 +69,25 @@ collection of resources:
 HTTP verb | request verb
 ----------|---------------
 POST      | create
-GET, HEAD | get (for individual resources), list (for collections)
+GET, HEAD | get (for individual resources), list (for collections, including full object content), watch (for watching an individual resource or collection of resources)
 PUT       | update
 PATCH     | patch
 DELETE    | delete (for individual resources), deletecollection (for collections)
 
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 
-* [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `policy` API group.
-* [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
-of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
-* [Authentication](/docs/reference/access-authn-authz/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
+* [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)
+  * `use` verb on `podsecuritypolicies` resources in the `policy` API group.
+* [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
+  * `bind` and `escalate` verbs on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
+* [Authentication](/docs/reference/access-authn-authz/authentication/)
+  * `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
 
-## Authorization Modules
- * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
+## Authorization Modes {#authorization-modules}
+
+The Kubernetes API server may authorize a request using one of several authorization modes:
+
+ * **Node** - A special-purpose authorization mode that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
  * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/reference/access-authn-authz/abac/).
  * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/reference/access-authn-authz/rbac/)
    * When specified RBAC (Role-Based Access Control) uses the `rbac.authorization.k8s.io` API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.

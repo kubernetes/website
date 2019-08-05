@@ -21,9 +21,14 @@ The `extraArgs` field consist of `key: value` pairs. To override a flag for a co
 
 1.  Add the appropriate fields to your configuration.
 2.  Add the flags to override to the field.
+3.  Run `kubeadm init` with `--config <YOUR CONFIG YAML>`.
 
 For more details on each field in the configuration you can navigate to our
 [API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration).
+
+{{< note >}}
+You can generate a `ClusterConfiguration` object with default values by running `kubeadm config print init-defaults` and saving the output to a file of your choice.
+{{< /note >}}
 
 {{% /capture %}}
 
@@ -38,12 +43,10 @@ Example usage:
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
 apiServer:
   extraArgs:
     advertise-address: 192.168.0.103
-    anonymous-auth: false
+    anonymous-auth: "false"
     enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
     audit-log-path: /home/johndoe/audit.log
 ```
@@ -57,13 +60,11 @@ Example usage:
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
 controllerManager:
   extraArgs:
     cluster-signing-key-file: /home/johndoe/keys/ca.key
     bind-address: 0.0.0.0
-    deployment-controller-sync-period: 50
+    deployment-controller-sync-period: "50"
 ```
 
 ## Scheduler flags
@@ -75,8 +76,6 @@ Example usage:
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
-metadata:
-  name: 1.13-sample
 scheduler:
   extraArgs:
     address: 0.0.0.0

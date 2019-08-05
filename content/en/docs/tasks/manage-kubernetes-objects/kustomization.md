@@ -8,7 +8,7 @@ weight: 20
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a standalone tool
 to customize Kubernetes objects
-through a [kustomization file](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/kustomization.yaml).
+through a [kustomization file](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization).
 
 Since 1.14, Kubectl also
 supports the management of Kubernetes objects using a kustomization file.
@@ -153,7 +153,7 @@ secretGenerator:
 - name: example-secret-2
   literals:
   - username=admin
-  - password=secert 
+  - password=secret
 EOF
 ```
 
@@ -162,7 +162,7 @@ The generated Secret is as follows:
 ```yaml
 apiVersion: v1
 data:
-  password: c2VjZXJ0
+  password: c2VjcmV0
   username: YWRtaW4=
 kind: Secret
 metadata:
@@ -206,7 +206,7 @@ metadata:
 
 ### Setting cross-cutting fields
 
-It is quite common to set cross-cutting fields for all Kubernetes resources in a project. 
+It is quite common to set cross-cutting fields for all Kubernetes resources in a project.
 Some use cases for setting cross-cutting fields:
 
 * setting the same namespace for all Resource
@@ -283,8 +283,8 @@ spec:
 ### Composing and Customizing Resources
 
 It is common to compose a set of Resources in a project and manage them inside
-the same file or directory. 
-Kustomize offers composing Resources from different files and applying patches or other customization to them. 
+the same file or directory.
+Kustomize offers composing Resources from different files and applying patches or other customization to them.
 
 #### Composing
 
@@ -465,7 +465,7 @@ EOF
 cat <<EOF > patch.yaml
 - op: replace
   path: /spec/replicas
-  value: 3 
+  value: 3
 EOF
 
 # Create a kustomization.yaml
@@ -479,7 +479,7 @@ patchesJson6902:
     version: v1
     kind: Deployment
     name: my-nginx
-  path: patch.yaml  
+  path: patch.yaml
 EOF
 ```
 
@@ -707,6 +707,7 @@ cat <<EOF > base/kustomization.yaml
 resources:
 - deployment.yaml
 - service.yaml
+EOF
 ```
 
 This base can be used in multiple overlays. You can add different `namePrefix` or other cross-cutting fields
@@ -730,7 +731,7 @@ EOF
 
 ## How to apply/view/delete objects using Kustomize
 
-Use `--kustomize` or `-k` in `kubectl` commands to recognize Resources managed by `kustomization.yaml`. 
+Use `--kustomize` or `-k` in `kubectl` commands to recognize Resources managed by `kustomization.yaml`.
 Note that `-k` should point to a kustomization directory, such as
 
 ```shell
@@ -804,12 +805,12 @@ deployment.apps "dev-my-nginx" deleted
 | namespace             | string                                                                                                       | add namespace to all resources                                                     |
 | namePrefix            | string                                                                                                       | value of this field is prepended to the names of all resources                     |
 | nameSuffix            | string                                                                                                       | value of this field is appended to the names of all resources                      |
-| commonlabels          | map[string]string                                                                                            | labels to add to all resources and selectors                                       |
+| commonLabels          | map[string]string                                                                                            | labels to add to all resources and selectors                                       |
 | commonAnnotations     | map[string]string                                                                                            | annotations to add to all resources                                                |
 | resources             | []string                                                                                                     | each entry in this list must resolve to an existing resource configuration file    |
 | configmapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/kustomization.go#L195)  | Each entry in this list generates a ConfigMap                                      |
 | secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/kustomization.go#L201)     | Each entry in this list generates a Secret                                         |
-| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/kustomization.go#L239) | Modify behaviors of all ConfigMap and Secret generatos                             |
+| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/kustomization.go#L239) | Modify behaviors of all ConfigMap and Secret generator                             |
 | bases                 | []string                                                                                                     | Each entry in this list should resolve to a directory containing a kustomization.yaml file |
 | patchesStrategicMerge | []string                                                                                                     | Each entry in this list should resolve a strategic merge patch of a Kubernetes object |
 | patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/patch/json6902.go#L23)             | Each entry in this list should resolve to a Kubernetes object and a Json Patch     |

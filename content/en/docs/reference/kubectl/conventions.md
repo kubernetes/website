@@ -1,7 +1,6 @@
 ---
 title: kubectl Usage Conventions
 reviewers:
-- bgrant0607
 - janetkuo
 content_template: templates/concept
 ---
@@ -37,15 +36,19 @@ For `kubectl run` to satisfy infrastructure as code:
 
 You can create the following resources using `kubectl run` with the `--generator` flag:
 
-| Resource                        | api group          | kubectl command                                   |
-|---------------------------------|--------------------|---------------------------------------------------|
-| Pod                             | v1                 | `kubectl run --generator=run-pod/v1`              |
-| Replication controller          | v1                 | `kubectl run --generator=run/v1`                  |
-| Deployment (deprecated)         | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
-| Deployment (deprecated)         | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
-| Job (deprecated)                | batch/v1           | `kubectl run --generator=job/v1`                  |
-| CronJob (default)               | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
-| CronJob (deprecated)            | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
+| Resource                            | api group          | kubectl command                                   |
+|-------------------------------------|--------------------|---------------------------------------------------|
+| Pod                                 | v1                 | `kubectl run --generator=run-pod/v1`              |
+| Replication controller (deprecated) | v1                 | `kubectl run --generator=run/v1`                  |
+| Deployment (deprecated)             | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
+| Deployment (deprecated)             | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
+| Job (deprecated)                    | batch/v1           | `kubectl run --generator=job/v1`                  |
+| CronJob (deprecated)                | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
+| CronJob (deprecated)                | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
+
+{{< note >}}
+`kubectl run --generator` except for `run-pod/v1` is deprecated in v1.12.
+{{< /note >}}
 
 If you do not specify a generator flag, other flags prompt you to use a specific generator. The following table lists the flags that force you to use specific generators, depending on the version of the cluster:
 

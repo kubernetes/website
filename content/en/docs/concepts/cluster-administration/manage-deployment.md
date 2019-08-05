@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - janetkuo
 - mikedanese
 title: Managing Resources

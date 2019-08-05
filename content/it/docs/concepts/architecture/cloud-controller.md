@@ -254,9 +254,9 @@ I seguenti fornitori di cloud hanno implementato CCM:
 
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
-* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
-* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 
 ## Cluster Administration

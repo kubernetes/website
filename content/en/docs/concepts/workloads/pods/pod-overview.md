@@ -21,7 +21,7 @@ A *Pod* is the basic execution unit of a Kubernetes application--the smallest an
 
 A Pod encapsulates an application's container (or, in some cases, multiple containers), storage resources, a unique network IP, and options that govern how the container(s) should run. A Pod represents a unit of deployment: *a single instance of an application in Kubernetes*, which might consist of either a single {{< glossary_tooltip text="container" term_id="container" >}} or a small number of containers that are tightly coupled and that share resources.
 
-[Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other container runtimes as well.
+[Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other [container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) as well.
 
 
 Pods in a Kubernetes cluster can be used in two main ways:

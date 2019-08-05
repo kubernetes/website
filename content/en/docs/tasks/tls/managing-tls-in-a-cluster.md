@@ -9,15 +9,19 @@ reviewers:
 
 {{% capture overview %}}
 
-Every Kubernetes cluster has a cluster root Certificate Authority (CA). The CA
-is generally used by cluster components to validate the API server's
-certificate, by the API server to validate kubelet client certificates, etc. To
-support this, the CA certificate bundle is distributed to every node in the
-cluster and is distributed as a secret attached to default service accounts.
-Optionally, your workloads can use this CA to establish trust. Your application
-can request a certificate signing using the `certificates.k8s.io` API using a
-protocol that is similar to the
-[ACME draft](https://github.com/ietf-wg-acme/acme/).
+Kubernetes provides a `certificates.k8s.io` API, which lets you provision TLS
+certificates signed by a Certificate Authority (CA) that you control. These CA
+and certificates can be used by your workloads to establish trust.
+
+`certificates.k8s.io` API uses a protocol that is similar to the [ACME
+draft](https://github.com/ietf-wg-acme/acme/).
+
+{{< note >}}
+Certificates created using the `certificates.k8s.io` API are signed by a
+dedicated CA. It is possible to configure your cluster to use the cluster root
+CA for this purpose, but you should never rely on this. Do not assume that
+these certificates will validate against the cluster root CA.
+{{< /note >}}
 
 {{% /capture %}}
 
@@ -32,17 +36,16 @@ protocol that is similar to the
 
 ## Trusting TLS in a Cluster
 
-Trusting the cluster root CA from an application running as a pod usually
-requires some extra application configuration. You will need to add the CA
-certificate bundle to the list of CA certificates that the TLS client or server
-trusts. For example, you would do this with a golang TLS config by parsing the
-certificate chain and adding the parsed certificates to the `RootCAs` field
-in the [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
+Trusting the custom CA from an application running as a pod usually requires
+some extra application configuration. You will need to add the CA certificate
+bundle to the list of CA certificates that the TLS client or server trusts. For
+example, you would do this with a golang TLS config by parsing the certificate
+chain and adding the parsed certificates to the `RootCAs` field in the
+[`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
-The CA certificate bundle is automatically mounted into pods using the default
-service account at the path `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`.
-If you are not using the default service account, ask a cluster administrator to
-build a configmap containing the certificate bundle that you have access to use.
+You can distribute the CA certificate as a
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-config) that your
+pods have access to use.
 
 ## Requesting a Certificate
 
@@ -205,13 +208,11 @@ the CSR and otherwise should deny the CSR.
 
 ## A Word of Warning on the Approval Permission
 
-The ability to approve CSRs decides who trusts who within the cluster. This
-includes who the Kubernetes API trusts. The ability to approve CSRs should
-not be granted broadly or lightly. The requirements of the challenge
-noted in the previous section and the repercussions of issuing a specific
-certificate should be fully understood before granting this permission. See
-[here](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for information on how
-certificates interact with authentication.
+The ability to approve CSRs decides who trusts who within your environment. The
+ability to approve CSRs should not be granted broadly or lightly. The
+requirements of the challenge noted in the previous section and the
+repercussions of issuing a specific certificate should be fully understood
+before granting this permission.
 
 ## A Note to Cluster Administrators
 
