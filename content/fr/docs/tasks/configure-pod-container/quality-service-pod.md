@@ -231,7 +231,7 @@ kubectl delete namespace qos-example
 
 ### Pour les développeurs d'applications
 
-* [Allocation des ressources CPU aux conteneurs et pods](/fr/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Allocation des ressources CPU aux conteneurs et pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [Allocation des ressources mémoire aux conteneurs et pods](/fr/docs/tasks/configure-pod-container/assign-memory-resource/)
 
