@@ -81,7 +81,7 @@ pod/redis   1/1     Running   0          52s
 この例では、設定ファイルのボリュームは`/redis-master`にマウントされています。
 `path`を使って`redis-config`キーを`redis.conf`という名前のファイルに追加します。
 したがって、redisコンフィグのファイルパスは`/redis-master/redis.conf`です。
-ここが、コンテナイメージがredisマスターの設定ファイルを探す場所になります。
+ここが、コンテナイメージがredisマスターの設定ファイルを探す場所です。
 
 `kubectl exec`を使ってポッドに入り、`redis-cli`ツールを実行して設定が正しく適用されたことを確認してください:
 
