@@ -26,7 +26,7 @@ Le lien d'un ReplicaSet à ses Pods est fait par le champ [metadata.ownerReferen
 qui spécifie la ressource de l'objet par lequel il est détenu. Tous les Pods acquis par un ReplicaSet ont leurs propres informations d'identification de leur Replicaset, avec leur propre champ ownerReferences. C'est par ce lien que le ReplicaSet connait l'état des Pods qu'il maintient et agit en fonction de ces derniers.
 
 Un ReplicaSet identifie des nouveaux Pods à acquérir en utilisant son selecteur.
-Si il y a un Pod qui n'a pas de OwnerReference ou que OwnerReference n'est pas un controller et qu'il correspond à un sélecteur de ReplicaSet, il va immédiatement être acquis par ce ReplicaSet.
+S'il y a un Pod qui n'a pas de OwnerReference ou que OwnerReference n'est pas un controller et qu'il correspond à un sélecteur de ReplicaSet, il va immédiatement être acquis par ce ReplicaSet.
 
 ## Quand utiliser un ReplicaSet ?
 
