@@ -99,7 +99,7 @@ kubectl exec -it redis redis-cli
 
 {{% capture whatsnext %}}
 
-* [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)について学ぶ.
+* [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)について学ぶ
 
 {{% /capture %}}
 
