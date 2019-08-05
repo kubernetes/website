@@ -109,7 +109,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 Here, the selector is the same as the selector for the ReplicationController (seen in the
-`kubectl describe` output, and in a different form in `replication.yaml`.  The `--output=jsonpath` option
+`kubectl describe` output), and in a different form in `replication.yaml`.  The `--output=jsonpath` option
 specifies an expression that just gets the name from each pod in the returned list.
 
 

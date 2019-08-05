@@ -68,7 +68,7 @@ are merged into a single document.
     {{< tabs name="k8s_install_kubeadm_first_cp" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.14.x-00 with the latest patch version
-    apt-mark unhold kubeadm && \
+    apt-mark unhold kubeadm kubelet && \
     apt-get update && apt-get install -y kubeadm=1.14.x-00 && \
     apt-mark hold kubeadm
     {{% /tab %}}
@@ -272,7 +272,7 @@ without compromising the minimum required capacity for running your workloads.
     {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.14.x-00 with the latest patch version
-    apt-mark unhold kubeadm && \
+    apt-mark unhold kubeadm kubelet && \
     apt-get update && apt-get install -y kubeadm=1.14.x-00 && \
     apt-mark hold kubeadm
     {{% /tab %}}

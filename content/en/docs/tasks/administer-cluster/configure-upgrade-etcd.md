@@ -39,9 +39,9 @@ content_template: templates/task
 
 Operating etcd with limited resources is suitable only for testing purposes. For deploying in production, advanced hardware configuration is required. Before deploying etcd in production, see [resource requirement reference documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#example-hardware-configurations).
 
-## Starting Kubernetes API server
+## Starting etcd clusters
 
-This section covers starting a Kubernetes API server with an etcd cluster in the deployment.
+This section covers starting a single-node and multi-node etcd cluster.
 
 ### Single-node etcd cluster
 

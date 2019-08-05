@@ -18,6 +18,16 @@ aliases:
     - chuckha
     - detiber
     - dixudx
+  sig-docs-blog-owners: # Approvers for blog content
+    - castrojo
+    - kbarnard10
+    - zacharysarah
+  sig-docs-blog-reviewers: # Reviewers for blog content
+    - cody-clark
+    - mrbobbytables
+    - onlydole
+    - parispittman
+    - vonguard
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -34,10 +44,12 @@ aliases:
     - jaredbhatti
     - jimangel
     - kbarnard10
+    - kbhawkey
     - makoscafee
     - mistyhacks
     - rajakavitha1
     - ryanmcginnis
+    - shavidissa
     - steveperry-53
     - stewart-yu
     - tengqm
@@ -48,6 +60,7 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - jimangel
     - rajakavitha1
+    - sftim
     - stewart-yu
     - xiangpengzhao
     - zhangxiaoyu-zidif
@@ -105,21 +118,21 @@ aliases:
   sig-docs-it-reviews: # PR reviews for Italian content
     - rlenferink
     - micheleberardi
-  sig-docs-ja-owners: # Admins for Japanese content 
+  sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - nasa9084
-    - tnir
     - zacharysarah
-  sig-docs-ja-reviews: # PR reviews for Japanese content 
+  sig-docs-ja-reviews: # PR reviews for Japanese content
     - cstoku
+    - inductor
     - makocchi-git
     - MasayaAoyama
     - nasa9084
-    - tnir
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
     - ianychoi
+    - seokho-son
     - zacharysarah
   sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang

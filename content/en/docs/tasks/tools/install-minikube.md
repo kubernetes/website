@@ -158,14 +158,14 @@ Hyper-V can run on three versions of Windows 10: Windows 10 Enterprise, Windows 
 The easiest way to install Minikube on Windows is using [Chocolatey](https://chocolatey.org/) (run as an administrator):
 
 ```shell
-choco install minikube kubernetes-cli
+choco install minikube
 ```
 
 After Minikube has finished installing, close the current CLI session and restart. Minikube should have been added to your path automatically.
 
 ### Install Minikube using an installer executable
 
-To install Minikube manually on Windows using [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), download [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/minikube-installer.exe) and execute the installer.
+To install Minikube manually on Windows using [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), download [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe) and execute the installer.
 
 ### Install Minikube via direct download
 

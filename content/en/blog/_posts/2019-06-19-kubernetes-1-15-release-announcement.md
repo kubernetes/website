@@ -21,7 +21,7 @@ The theme of the new developments around CustomResourceDefinitions is data consi
 
 In this direction, we have rethought our OpenAPI based validation schemas in CRDs and from 1.15 on we check each schema against a restriction called “structural schema”. This basically enforces non-polymorphic and complete typing of each field in a CustomResource. We are going to require structural schemas in the future, especially for all new features including those listed below, and list violations in a `NonStructural` condition. Non-structural schemas keep working for the time being in the v1beta1 API group. But any serious CRD application is urged to migrate to structural schemas in the foreseeable future.
 
-Details about what makes a schema structural will be published in a blog post on kubernetes.io later this week, and it is of course [documented in the Kubernetes documentation](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#specifying-a-structural-schema).
+Details about what makes a schema structural will be published in a blog post on kubernetes.io later this week, and it is of course [documented in the Kubernetes documentation](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
 
 **beta: CustomResourceDefinition Webhook Conversion**
 
@@ -63,7 +63,7 @@ There are more smaller changes to admission webhook, notably `objectSelector` to
 
 Work on making Kubernetes installation, upgrade and configuration even more robust has been a major focus for this cycle for SIG Cluster Lifecycle (see our last [Community Update](https://docs.google.com/presentation/d/1QUOsQxfEfHlMq4lPjlK2ewQHsr9peEKymDw5_XwZm8Q/edit?usp=sharing)). Bug fixes across bare metal tooling and production-ready user stories, such as the high availability use cases have been given priority for 1.15.
 
-**kubeadm**, the cluster lifecycle building block, continues to receive features and stability work required for bootstrapping production clusters efficiently. kubeadm has promoted high availability (HA) capability to beta, allowing users to use the familiar `kubeadm init` and `kubeadm join` commands to [configure and deploy an HA control plane](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/). An entire new test suite has been created specifically for ensuring these features will stay stable over time.
+**kubeadm**, the cluster lifecycle building block, continues to receive features and stability work required for bootstrapping production clusters efficiently. kubeadm has promoted high availability (HA) capability to beta, allowing users to use the familiar `kubeadm init` and `kubeadm join` commands to [configure and deploy an HA control plane](/docs/setup/production-environment/tools/kubeadm/high-availability/). An entire new test suite has been created specifically for ensuring these features will stay stable over time.
 
 Certificate management has become more robust in 1.15, with kubeadm now seamlessly rotating all your certificates (on upgrades) before they expire. Check the [kubeadm documentation](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) for information on how to manage your certificates.
 
@@ -147,5 +147,3 @@ The simplest way to get involved with Kubernetes is by joining one of the many [
 - Join the community on [Slack](http://slack.k8s.io/)
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
 - Share your Kubernetes [story](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
-
-<!-- Docs to Markdown version 1.0β17 -->

@@ -64,5 +64,5 @@ Kamu dapat menggunakan selektor-selektor *field* dengan beberapa tipe *resource*
 dan Service yang tidak terdapat pada *namespace* `default`:
 
 ```shell
-kubectl get statefulsets,services --field-selector metadata.namespace!=default
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
 ```
