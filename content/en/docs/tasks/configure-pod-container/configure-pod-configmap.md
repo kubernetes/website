@@ -340,14 +340,14 @@ the Apiserver. The generators
 should be specified in a `kustomization.yaml` inside a directory.
 
 #### Generate ConfigMaps from files
-For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
+For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-4
   files:
-  - configure-pod-container/configmap/kubectl/game.properties
+  - configure-pod-container/configmap/game.properties
 EOF
 ```
 
@@ -391,7 +391,7 @@ new ConfigMap is generated each time the content is modified.
 
 #### Define the key to use when generating a ConfigMap from a file
 You can define a key other than the file name to use in the ConfigMap generator.
-For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
+For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
 with the key `game-special-key`
 
 ```shell
@@ -400,7 +400,7 @@ cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
   files:
-  - game-special-key=configure-pod-container/configmap/kubectl/game.properties
+  - game-special-key=configure-pod-container/configmap/game.properties
 EOF
 ```
 
@@ -412,7 +412,7 @@ configmap/game-config-5-m67dt67794 created
 
 #### Generate ConfigMaps from Literals
 To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
-you can specify the ConfigMap generator in `kusotmization.yaml` as
+you can specify the ConfigMap generator in `kustomization.yaml` as
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
 cat <<EOF >./kustomization.yaml
@@ -593,7 +593,7 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 
 ### Mounted ConfigMaps are updated automatically
 
-When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period + ttl of ConfigMaps cache in kubelet.
+When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period (1 minute by default) + ttl of ConfigMaps cache (1 minute by default) in kubelet.
 
 {{< note >}}
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.

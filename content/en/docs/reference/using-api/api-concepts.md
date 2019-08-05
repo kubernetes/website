@@ -1,7 +1,6 @@
 ---
 title: Kubernetes API Concepts
 reviewers:
-- bgrant0607
 - smarterclayton
 - lavalamp
 - liggitt

@@ -165,7 +165,7 @@ After Minikube has finished installing, close the current CLI session and restar
 
 ### Install Minikube using an installer executable
 
-To install Minikube manually on Windows using [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), download [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/minikube-installer.exe) and execute the installer.
+To install Minikube manually on Windows using [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), download [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe) and execute the installer.
 
 ### Install Minikube via direct download
 

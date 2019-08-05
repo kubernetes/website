@@ -13,7 +13,7 @@ Kubernetes Security (and security in general) is an immense topic that has many
 highly interrelated parts. In today's era where open source software is
 integrated into many of the systems that help web applications run,
 there are some overarching concepts that can help guide your intuition about how you can
-think about security holistically. This guide will define a mental model for
+think about security holistically. This guide will define a mental model
 for some general concepts surrounding Cloud Native Security. The mental model is completely arbitrary
 and you should only use it if it helps you think about where to secure your software
 stack.

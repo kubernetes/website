@@ -939,7 +939,7 @@ configuration involves several manual steps:
 1. Export the live object to a local configuration file:
 
      ```shell
-     kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+     kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
      ```
 
 1. Manually remove the `status` field from the configuration file.

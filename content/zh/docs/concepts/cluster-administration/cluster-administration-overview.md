@@ -25,7 +25,7 @@ content_template: templates/concept
  - 你是打算在你的电脑上尝试 Kubernetes，还是要构建一个高可用的多节点集群？请选择最适合你需求的发行版。
  - **如果你正在设计一个高可用集群**，请了解[在多个 zones 中配置集群](/docs/admin/multi-cluster)。
  - 你的集群是在**本地**还是**云（IaaS）**上？Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
- - **如果你在本地配置 Kubernetes**，需要考虑哪种[网络模型](/docs/admin/networking)最适合。一种自定义网络的选项是 [*OpenVSwitch GRE/VxLAN 网络*](/docs/admin/ovs-networking/)，它使用 OpenVSwitch 在跨 Kubernetes 节点的 pods 之间建立起网络。
+ - **如果你在本地配置 Kubernetes**，需要考虑哪种[网络模型](/docs/admin/networking)最适合。
  - 你的 Kubernetes 在 **裸金属硬件** 还是 **虚拟机（VMs）**上运行？
  - 你**只想运行一个集群**，还是打算**活动开发 Kubernetes 项目代码**？如果是后者，请选择一个活动开发的发行版。某些发行版只提供二进制发布版，但提供更多的选择。
  - 让你自己熟悉运行一个集群所需的[组件](/docs/admin/cluster-components) 。

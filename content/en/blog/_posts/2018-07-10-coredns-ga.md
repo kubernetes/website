@@ -148,7 +148,7 @@ You can also filter by namespaces or a label selector. This can allow you to run
 
 In addition to the features described above, CoreDNS is easily extended. It is possible to build custom versions
 of CoreDNS that include your own features. For example, this ability has been used to extend CoreDNS to do recursive resolution
-with the [unbound plugin](https://https://coredns.io/explugins/unbound), to server records directly from a database with the [pdsql plugin](https://coredns.io/explugins/pdsql), and to allow multiple CoreDNS instances to share a common level 2 cache with the [redisc plugin](https://coredns.io/explugins/redisc).
+with the [unbound plugin](https://coredns.io/explugins/unbound), to server records directly from a database with the [pdsql plugin](https://coredns.io/explugins/pdsql), and to allow multiple CoreDNS instances to share a common level 2 cache with the [redisc plugin](https://coredns.io/explugins/redisc).
 
 Many other interesting extensions have been added, which you will find on the [External Plugins](https://coredns.io/explugins/) page of the CoreDNS site. One that is really interesting for Kubernetes and Istio users is the [kubernetai plugin](https://coredns.io/explugins/kubernetai), which allows a single CoreDNS instance to connect to multiple Kubernetes clusters and provide service discovery across all of them.
 

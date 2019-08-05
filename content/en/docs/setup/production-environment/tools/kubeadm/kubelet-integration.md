@@ -138,7 +138,7 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 
 ### Workflow when using `kubeadm join`
 
-When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential perform
+When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential to perform
 a TLS bootstrap, which fetches the credential needed to download the
 `kubelet-config-1.X` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`. The dynamic
 environment file is generated in exactly the same way as `kubeadm init`.
