@@ -56,5 +56,5 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 Puedes usar los selectores de campo entre múltiples tipos de recursos. Este comando de `kubectl` selecciona todos los Statefulsets y Services que no están en el espacio de nombres `default`:
 
 ```shell
-kubectl get statefulsets,services --field-selector metadata.namespace!=default
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
 ```

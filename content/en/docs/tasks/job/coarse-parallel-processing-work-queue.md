@@ -46,14 +46,14 @@ cluster and reuse it for many jobs, as well as for long-running services.
 Start RabbitMQ as follows:
 
 ```shell
-kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.3/examples/celery-rabbitmq/rabbitmq-service.yaml
 ```
 ```
 service "rabbitmq-service" created
 ```
 
 ```shell
-kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.3/examples/celery-rabbitmq/rabbitmq-controller.yaml
 ```
 ```
 replicationcontroller "rabbitmq-controller" created

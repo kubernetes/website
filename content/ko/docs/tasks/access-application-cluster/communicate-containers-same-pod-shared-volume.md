@@ -6,8 +6,8 @@ weight: 110
 
 {{% capture overview %}}
 
-이 페이지는 동일한 파드(Pod)에서 실행 중인 두 개의 컨테이너 간에 통신할 때에, 어떻게 볼륨(Volume)을 이용하는지
-살펴본다.
+이 페이지에서는 동일한 파드(Pod)에서 실행 중인 두 개의 컨테이너 간에 통신할 때에, 어떻게 볼륨(Volume)을 이용하는지
+살펴본다. 컨테이너 간에 [프로세스 네임스페이스 공유하기](/docs/tasks/configure-pod-container/share-process-namespace/)를 통해 통신할 수 있는 방법을 참고하자.
 
 {{% /capture %}}
 
@@ -135,11 +135,13 @@ Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 �
 * [합성 컨테이너(composite container) 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)에 관하여
 더 공부한다.
 
-* [모듈 구조를 위한 컴포지트 컨테이너](http://www.slideshare.net/Docker/slideshare-burns)에 관하여
-공부한다.
+* [모듈 구조를 위한 합성 컨테이너 구조](http://www.slideshare.net/Docker/slideshare-burns)에 관하여
+더 공부한다.
 
-* [저장소로 볼륨을 사용하는 파드 구성 방법](/docs/tasks/configure-pod-container/configure-volume-storage/)을
-참고한다.
+* [파드에서 저장소로 볼룸을 사용하도록 구성하기](/docs/tasks/configure-pod-container/configure-volume-storage/)에 관하여
+확인한다.
+
+* [파드에서 컨테이너 간에 프로세스 네임스페이스를 공유하는 파드 구성하는 방법](/docs/tasks/configure-pod-container/share-process-namespace/)을 참고한다.
 
 * [볼륨](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)을 확인한다.
 

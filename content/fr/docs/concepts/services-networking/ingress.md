@@ -72,7 +72,7 @@ Assurez-vous de consulter la documentation de votre contrôleur d’Ingress pour
 Exemple de ressource Ingress minimale :
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: test-ingress
@@ -126,7 +126,7 @@ Il existe des concepts Kubernetes qui vous permettent d’exposer un seul servic
 
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: test-ingress
@@ -166,7 +166,7 @@ foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
 ceci nécessitera un Ingress défini comme suit :
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: simple-fanout-example
@@ -233,7 +233,7 @@ bar.foo.com --|                 |-> bar.foo.com s2:80
 L’ingress suivant indique au load-balancer de router les requêtes en fonction de [En-tête du hôte](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -256,7 +256,7 @@ spec:
 Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, tout trafic Web à destination de l'adresse IP de votre contrôleur d'Ingress peut être mis en correspondance sans qu'un hôte virtuel basé sur le nom ne soit requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -300,7 +300,7 @@ type: kubernetes.io/tls
 Référencer ce secret dans un ingress indiquera au contrôleur d'ingress de sécuriser le canal du client au load-balancer à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un CN pour `sslexample.foo.com`.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: tls-example-ingress

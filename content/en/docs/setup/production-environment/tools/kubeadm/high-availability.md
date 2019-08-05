@@ -105,10 +105,13 @@ option. Your cluster requirements may need a different configuration.
     ```sh
     sudo kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs
     ```
+<<<<<<< HEAD
 
     - You can use the `--kubernetes-version` flag to set the Kubernetes version to use.
     It is recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
     - The `--control-plane-endpoint` flag should be set to the address or DNS and port of the load balancer.
+=======
+>>>>>>> upstream/master
     - The `--upload-certs` flag is used to upload the certificates that should be shared
     across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
     control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual

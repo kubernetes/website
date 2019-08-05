@@ -56,7 +56,9 @@ The upgrade workflow at high level is the following:
     {{% /tab %}}
     {{< /tabs >}}
 
-## Upgrade the first control plane node
+## Upgrading control plane nodes
+
+### Upgrade the first control plane node
 
 1.  On your first control plane node, upgrade kubeadm:
 
@@ -220,28 +222,9 @@ The upgrade workflow at high level is the following:
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
     find your CNI provider and see whether additional upgrade steps are required.
 
-1.  Upgrade the kubelet and kubectl on the control plane node:
+    This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
-    {{< tabs name="k8s_install_kubelet" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.15.x-00 with the latest patch version
-    apt-mark unhold kubelet && \
-    apt-get update && apt-get install -y kubelet=1.15.x-00 kubectl=1.15.x-00 && \
-    apt-mark hold kubelet
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.15.x-0 with the latest patch version
-    yum install -y kubelet-1.15.x-0 kubectl-1.15.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
-
-1. Restart the kubelet
-
-    ```shell
-    sudo systemctl restart kubelet
-    ```
-
-## Upgrade additional control plane nodes
+### Upgrade additional control plane nodes
 
 1.  Same as the first control plane node but use:
 
@@ -256,6 +239,29 @@ sudo kubeadm upgrade apply
 ```
 
 Also `sudo kubeadm upgrade plan` is not needed.
+
+### Upgrade kubelet and kubectl
+
+1.  Upgrade the kubelet and kubectl on all control plane nodes:
+
+    {{< tabs name="k8s_install_kubelet" >}}
+    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+    # replace x in 1.15.x-00 with the latest patch version
+    apt-mark unhold kubelet kubectl && \
+    apt-get update && apt-get install -y kubelet=1.15.x-00 kubectl=1.15.x-00 && \
+    apt-mark hold kubelet kubectl
+    {{% /tab %}}
+    {{% tab name="CentOS, RHEL or Fedora" %}}
+    # replace x in 1.15.x-0 with the latest patch version
+    yum install -y kubelet-1.15.x-0 kubectl-1.15.x-0 --disableexcludes=kubernetes
+    {{% /tab %}}
+    {{< /tabs >}}
+
+1. Restart the kubelet
+
+    ```shell
+    sudo systemctl restart kubelet
+    ```
 
 ## Upgrade worker nodes
 
@@ -279,7 +285,7 @@ without compromising the minimum required capacity for running your workloads.
     {{% /tab %}}
     {{< /tabs >}}
 
-### Cordon the node
+### Drain the node
 
 1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads. Run:
 
@@ -287,16 +293,12 @@ without compromising the minimum required capacity for running your workloads.
     kubectl drain $NODE --ignore-daemonsets
     ```
 
-   You should see output similar to this:
+    You should see output similar to this:
 
     ```shell
-    kubectl drain ip-172-31-85-18
-    node "ip-172-31-85-18" cordoned
-    error: unable to drain node "ip-172-31-85-18", aborting command...
-
-    There are pending nodes to be drained:
-    ip-172-31-85-18
-    error: DaemonSet-managed pods (use --ignore-daemonsets to ignore): calico-node-5798d, kube-proxy-thjp9
+    node/ip-172-31-85-18 cordoned
+    WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-proxy-dj7d7, kube-system/weave-net-z65qx
+    node/ip-172-31-85-18 drained
     ```
 
 ### Upgrade the kubelet configuration
@@ -309,7 +311,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the Kubernetes package version by running the Linux package manager for your distribution:
+1.  Upgrade the kubelet and kubectl on all worker nodes:
 
     {{< tabs name="k8s_kubelet_and_kubectl" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}

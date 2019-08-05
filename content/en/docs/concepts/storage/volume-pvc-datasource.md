@@ -52,8 +52,11 @@ metadata:
     name: clone-of-pvc-1
     namespace: myns
 spec:
-  capacity:
-    storage: 10Gi
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
   dataSource:
     kind: PersistentVolumeClaim
     name: pvc-1

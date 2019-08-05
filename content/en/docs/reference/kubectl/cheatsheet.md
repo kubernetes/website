@@ -1,7 +1,6 @@
 ---
 title: kubectl Cheat Sheet
 reviewers:
-- bgrant0607
 - erictune
 - krousey
 - clove
@@ -160,7 +159,7 @@ kubectl get services --sort-by=.metadata.name # List Services Sorted by Name
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Get the version label of all pods with label app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Get all worker nodes (use a selector to exclude results that have a label
@@ -349,7 +348,7 @@ Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an inte
 
 Verbosity | Description
 --------------| -----------
-`--v=0` | Generally useful for this to ALWAYS be visible to an operator.
+`--v=0` | Generally useful for this to *always* be visible to a cluster operator.
 `--v=1` | A reasonable default log level if you don't want verbosity.
 `--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
 `--v=3` | Extended information about changes.
