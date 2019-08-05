@@ -121,8 +121,8 @@ on Federated Deployment.
 -->
 ### 在底层集群中分布副本
 
-默认情况下，副本会被平均分布到所有的底层集群中。例如：如果您有3个注册的集群并且创建了一个副本数为 9(`spec.replicas = 9`) 的联邦 Deployment，那么这 3 个集群中的每个 Deployment 都将有 3 个副本 (`spec.replicas=3`)。
-为修改每个集群中的 副本数，您可以在联邦 Deployment 中以注解的形式指定 [FederatedReplicaSetPreference](https://github.com/kubernetes/federation/blob/{{< param "githubbranch" >}}/apis/federation/types.go)，其中注解的键为 `federation.kubernetes.io/deployment-preferences`。  
+默认情况下，副本会被平均分布到所有的底层集群中。例如：如果您有 3 个注册的集群并且创建了一个副本数为 9(`spec.replicas = 9`) 的联邦 Deployment，那么这 3 个集群中的每个 Deployment 都将有 3 个副本 (`spec.replicas=3`)。
+为修改每个集群中的副本数，您可以在联邦 Deployment 中以注解的形式指定 [FederatedReplicaSetPreference](https://github.com/kubernetes/federation/blob/{{< param "githubbranch" >}}/apis/federation/types.go)，其中注解的键为 `federation.kubernetes.io/deployment-preferences`。  
 
 
 <!--
