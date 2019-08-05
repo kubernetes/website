@@ -1,13 +1,13 @@
 {{ $glossaryBundle := site.GetPage "page" "docs/reference/glossary" }}
 {{- if $glossaryBundle -}}
-	{{ $pages := $glossaryBundle.Resources.ByType "page" }}
-	{{- range site.Params.language_alternatives -}}
-		{{- with (where $glossaryBundle.Translations ".Lang" . ) -}}
-		{{ $p := (index . 0) }}
-		{{ $pages = $pages | lang.Merge ($p.Resources.ByType "page") }}
-		{{ end }}
-	{{ end }}
-	{{- $.Scratch.Set "glossary_items"  $pages -}}
+  {{ $pages := $glossaryBundle.Resources.ByType "page" }}
+  {{- range site.Params.language_alternatives -}}
+    {{- with (where $glossaryBundle.Translations ".Lang" . ) -}}
+    {{ $p := (index . 0) }}
+    {{ $pages = $pages | lang.Merge ($p.Resources.ByType "page") }}
+    {{ end }}
+  {{ end }}
+  {{- $.Scratch.Set "glossary_items"  $pages -}}
 {{- else -}}
 {{- errorf "[%s] Glossary Bundle not found for language. Create at least an index.md file inside docs/reference/glossary" site.Language.Lang -}}
 {{- end -}}

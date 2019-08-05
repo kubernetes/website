@@ -46,7 +46,7 @@ Traffic routing is controlled by rules defined on the Ingress resource.
    [ Services ]
 ```
 
-An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+An Ingress can be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
 uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
@@ -56,14 +56,14 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 
 You must have an [ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
 
-You may need to deploy an ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). There are a number of
-[ingress controllers](/docs/concepts/services-networking/ingress-controllers) you may choose from.
+You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). You can choose from a number of
+[Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
 
-Ideally, all ingress controllers should fit the reference specification. In reality, the various ingress
+Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress
 controllers operate slightly differently.
 
 {{< note >}}
-Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
+Make sure you review your Ingress controller's documentation to understand the caveats of choosing it.
 {{< /note >}}
 
 ## The Ingress Resource
@@ -101,19 +101,19 @@ for directing HTTP traffic.
 
 ### Ingress rules
 
-Each http rule contains the following information:
+Each HTTP rule contains the following information:
 
 * An optional host. In this example, no host is specified, so the rule applies to all inbound
   HTTP traffic through the IP address specified. If a host is provided (for example,
   foo.bar.com), the rules apply to that host.
-* a list of paths (for example, `/testpath`), each of which has an associated backend defined with a `serviceName`
+* A list of paths (for example, `/testpath`), each of which has an associated backend defined with a `serviceName`
   and `servicePort`. Both the host and path must match the content of an incoming request before the
-  load balancer will direct traffic to the referenced service.
-* A backend is a combination of service and port names as described in the
-  [services doc](/docs/concepts/services-networking/service/). HTTP (and HTTPS) requests to the
-  Ingress matching the host and path of the rule will be sent to the listed backend.
+  load balancer directs traffic to the referenced Service.
+* A backend is a combination of Service and port names as described in the
+  [Service doc](/docs/concepts/services-networking/service/). HTTP (and HTTPS) requests to the
+  Ingress that matches the host and path of the rule are sent to the listed backend.
 
-A default backend is often configured in an Ingress controller that will service any requests that do not
+A default backend is often configured in an Ingress controller to service any requests that do not
 match a path in the spec.
 
 ### Default Backend
@@ -151,12 +151,12 @@ this Ingress.
 
 {{< note >}}
 Ingress controllers and load balancers may take a minute or two to allocate an IP address.
-Until that time you will often see the address listed as `<pending>`.
+Until that time, you often see the address listed as `<pending>`.
 {{< /note >}}
 
 ### Simple fanout
 
-A fanout configuration routes traffic from a single IP address to more than one service,
+A fanout configuration routes traffic from a single IP address to more than one Service,
 based on the HTTP URI being requested. An Ingress allows you to keep the number of load balancers
 down to a minimum. For example, a setup like:
 
@@ -189,7 +189,7 @@ spec:
           servicePort: 8080
 ```
 
-When you create the ingress with `kubectl apply -f`:
+When you create the Ingress with `kubectl apply -f`:
 
 ```shell
 kubectl describe ingress simple-fanout-example
@@ -215,7 +215,7 @@ Events:
 ```
 
 The Ingress controller provisions an implementation-specific load balancer
-that satisfies the Ingress, as long as the services (`s1`, `s2`) exist.
+that satisfies the Ingress, as long as the Services (`s1`, `s2`) exist.
 When it has done so, you can see the address of the load balancer at the
 Address field.
 
@@ -299,11 +299,11 @@ spec:
 You can secure an Ingress by specifying a {{< glossary_tooltip term_id="secret" >}}
 that contains a TLS private key and certificate. Currently the Ingress only
 supports a single TLS port, 443, and assumes TLS termination. If the TLS
-configuration section in an Ingress specifies different hosts, they will be
+configuration section in an Ingress specifies different hosts, they are
 multiplexed on the same port according to the hostname specified through the
 SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret
 must contain keys named `tls.crt` and `tls.key` that contain the certificate
-and private key to use for TLS, e.g.:
+and private key to use for TLS. For example:
 
 ```yaml
 apiVersion: v1
@@ -317,7 +317,7 @@ data:
 type: kubernetes.io/tls
 ```
 
-Referencing this secret in an Ingress will tell the Ingress controller to
+Referencing this secret in an Ingress tells the Ingress controller to
 secure the channel from the client to the load balancer using TLS. You need to make
 sure the TLS secret you created came from a certificate that contains a CN
 for `sslexample.foo.com`.
@@ -397,7 +397,7 @@ Events:
 kubectl edit ingress test
 ```
 
-This should pop up an editor with the existing configuration in yaml format.
+This pops up an editor with the existing configuration in YAML format.
 Modify it to include the new Host:
 
 ```yaml
@@ -420,7 +420,7 @@ spec:
 ..
 ```
 
-After you save your changes, kubectl will update the resource in the API server, which should tell the
+After you save your changes, kubectl updates the resource in the API server, which tells the
 Ingress controller to reconfigure the load balancer.
 
 Verify this:
@@ -449,7 +449,7 @@ Events:
   Normal   ADD     45s                loadbalancer-controller  default/test
 ```
 
-You can achieve the same outcome by invoking `kubectl replace -f` on a modified Ingress yaml file.
+You can achieve the same outcome by invoking `kubectl replace -f` on a modified Ingress YAML file.
 
 ## Failing across availability zones
 

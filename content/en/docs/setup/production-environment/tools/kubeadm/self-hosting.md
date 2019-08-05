@@ -16,13 +16,18 @@ manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controll
 configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
 configured in the kubelet via static files.
 
-To create a self-hosted cluster see the `kubeadm alpha selfhosting pivot` command.
+To create a self-hosted cluster see the
+[kubeadm alpha selfhosting pivot](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting) command.
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 #### Caveats
 
 {{< caution >}}
 This feature pivots your cluster into an unsupported state, rendering kubeadm unable
-to manage you cluster any longer. This includes `kubeadm upagrade`.
+to manage you cluster any longer. This includes `kubeadm upgrade`.
 {{< /caution >}}
 
 1. Self-hosting in 1.8 and later has some important limitations. In particular, a
@@ -30,7 +35,7 @@ to manage you cluster any longer. This includes `kubeadm upagrade`.
   without manual intervention.
 
 1. By default, self-hosted control plane Pods rely on credentials loaded from
-  [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
+  [`hostPath`](/docs/concepts/storage/volumes/#hostpath)
   volumes. Except for initial creation, these credentials are not managed by
   kubeadm.
 
@@ -61,3 +66,5 @@ In summary, `kubeadm alpha selfhosting` works as follows:
 
   1. When the original static control plane stops, the new self-hosted control
     plane is able to bind to listening ports and become active.
+
+{{% /capture %}}

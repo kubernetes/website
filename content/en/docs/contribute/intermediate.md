@@ -63,7 +63,7 @@ active participants.
 
 Before you start reviewing PRs, make sure you are familiar with the
 [Documentation Style Guide](/docs/contribute/style/style-guide/)
-and the [code of conduct](/community/code-of-conduct/)
+and the [code of conduct](/community/code-of-conduct/).
 
 ### Find a PR to review
 
@@ -101,7 +101,7 @@ more information about the responsibilities of reviewers and approvers, see
   indicates that a PR is technically accurate by leaving a `/lgtm` comment on
   the PR.
 
-    {{< note >}}Don't add an `/lgtm` unless you are confident in the technical
+    {{< note >}}Don't add a `/lgtm` unless you are confident in the technical
     accuracy of the documentation modified or introduced in the PR.{{< /note >}}
 
 - An approver reviews pull request content for docs quality and adherence to
@@ -109,12 +109,18 @@ more information about the responsibilities of reviewers and approvers, see
   [style guide](/docs/contribute/style/style-guide). Only people listed as
   approvers in the
   [`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS) file can
-  approve a PR. To approve a PR, leave an `/approved` comment on the PR.
+  approve a PR. To approve a PR, leave an `/approve` comment on the PR.
 
 A PR is merged when it has both a `/lgtm` comment from anyone in the Kubernetes
-organization and an `/approved` comment from an approver in the
+organization and an `/approve` comment from an approver in the
 `sig-docs-maintainers` group, as long as it is not on hold and the PR author
 has signed the CLA.
+
+{{< note >}}
+
+The ["Participating"](/docs/contribute/participating/#approvers) section contains more information for reviewers and approvers, including specific responsibilities for approvers.
+
+{{< /note >}}
 
 ### Review a PR
 
@@ -172,9 +178,9 @@ has signed the CLA.
             provide technical review.
           - To prevent the PR from being merged, add `/hold`. This sets the
             label `do-not-merge/hold`.
-          - If a PR has no conflicts and has the `lgtm` and `approved` label but
+          - If a PR has no conflicts and has the `lgtm` and `approve` labels but
             no `hold` label, it is merged automatically.
-          - If a PR has the `lgtm` and/or `approved` labels and new changes are
+          - If a PR has the `lgtm` and/or `approve` labels and new changes are
             detected, these labels are removed automatically.
 
             See
@@ -575,45 +581,15 @@ These guidelines are not set in stone and are subject to change.
     not be assigned automatically. A bug is a problem with existing content or
     functionality, and a feature is a request for new content or functionality.
     The `kind/documentation` label is not currently in use.
-  - Priority labels: define the relative severity of the issue. These do not
-    conform to those outlined in the
-    [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority), and can be one of `P1`, `P2`, or `P3`, if set.
-- To add a label, you can use GitHub's **Labels** widget if you are a Sig Docs
-  approver. Anyone who is a member of the Kubernetes organization can add a
-  label by leaving a comment like `/label <label-to-add>`. The label must
+  - Priority labels: define the relative severity of the issue, as outlined in the
+    [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority).
+- To add a label, leave a comment like `/label <label-to-add>`. The label must
   already exist. If you try to add a label that does not exist, the command is
   silently ignored.
 
-### Priorities
-
-An issue's priority influences how quickly it is addressed. For documentation,
-here are the guidelines for setting a priority on an issue:
-
-#### P1
-
-- Major content errors affecting more than 1 page
-- Broken code sample on a heavily trafficked page
-- Errors on a “getting started” page
-- Well known or highly publicized customer pain points
-- Automation issues
-
-#### P2
-
-This is the default for new issues and pull requests.
-
-- Broken code for sample that is not heavily used
-- Minor content issues in a heavily trafficked page
-- Major content issues on a lower-trafficked page
-
-#### P3
-
-- Typos and broken anchor links
-- Documentation feature requests
-- "Nice to have" items
-
 ### Handling special issue types
 
-We've encountered the following types of issues often enough to document how
+We encounter the following types of issues often enough to document how
 to handle them.
 
 #### Duplicate issues
@@ -629,8 +605,8 @@ same problem.
 
 Depending on where the dead link is reported, different actions are required to
 resolve the issue. Dead links in the API and Kubectl docs are automation issues
-and should be assigned a P1 until the problem can be fully understood. All other
-dead links are issues that need to be manually fixed and can be assigned a P3.
+and should be assigned `/priority critical-urgent` until the problem can be fully understood. All other
+dead links are issues that need to be manually fixed and can be assigned `/priority important-longterm`.
 
 #### Blog issues
 

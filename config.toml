@@ -24,7 +24,9 @@ pygmentsStyle = "emacs"
 enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
-disableLanguages = ["no"]
+# Hindi is disabled because it's currently in development.
+# Italian is disabled until it meets minimum standards for quality.
+disableLanguages = ["hi", "it", "no"]
 
 [blackfriday]
 hrefTargetBlank = true
@@ -252,6 +254,10 @@ language_alternatives = ["en"]
 [languages.hi]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Hindi"
+languageName = "Hindi"
 weight = 11
 contentDir = "content/hi"
+
+[languages.hi.params]
+time_format_blog = "01.02.2006"
+language_alternatives = ["en"]

@@ -22,7 +22,7 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 
 * Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to configure the Windows node that hosts Windows containers. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
 
-* Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Getting Started from Scratch](https://github.com/kubernetes/kubernetes/tree/master/build/), [kubeadm/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/).
+* Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/).
 
 ## Getting Started: Adding a Windows Node to Your Cluster
 
@@ -189,7 +189,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     ```
 
     {{< note >}}
-    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using "docker pull mcr.microsoft.com/k8s/core/pause:1.0.0". The DOCKERFILE is available at https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile.
+    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using "docker pull mcr.microsoft.com/k8s/core/pause:1.2.0". The DOCKERFILE is available at https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat.
     {{< /note >}}
 
 1. Prepare a Windows directory for Kubernetes

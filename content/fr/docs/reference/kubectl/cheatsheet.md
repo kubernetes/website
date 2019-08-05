@@ -140,7 +140,7 @@ kubectl get services --sort-by=.metadata.name # Liste les services classés par 
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Affiche la version des labels de tous les pods ayant un label app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Affiche tous les noeuds, en utilisant un sélecteur pour exclure ceux ayant un label 'node-role.kubernetes.io/master'

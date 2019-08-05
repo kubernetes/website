@@ -86,7 +86,7 @@ ability to freely perform troubleshooting, performance analyis and forensics.
 ### Google Cloud Monitoring
 
 Google Cloud Monitoring is a hosted monitoring service you can use to
-visualize and alert on important metrics in your application. can collect
+visualize and alert on important metrics in your application. You can collect
 metrics from Kubernetes, and you can access them
 using the [Cloud Monitoring Console](https://app.google.stackdriver.com/).
 You can create and customize dashboards to visualize the data gathered
