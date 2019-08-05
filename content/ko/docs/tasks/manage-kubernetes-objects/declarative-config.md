@@ -937,7 +937,7 @@ fields to the annotation, and instead.  Then add this bullet point.
 1. 활성 오브젝트를 로컬 구성 파일로 내보낸다.
 
      ```shell
-     kubectl get <종류>/<이름> -o yaml --export > <종류>_<이름>.yaml
+     kubectl get <종류>/<이름> -o yaml > <종류>_<이름>.yaml
      ```
 
 1. 구성 파일에서 수동으로 `status` 필드를 제거한다.
