@@ -69,9 +69,14 @@ spec:
 
 Patch your Deployment:
 
-```shell
+{{< tabs name="kubectl_patch_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
 kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
-```
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment patch-demo --patch $(cat patch-file-containers.yaml)
+{{< /tab >}}}
+{{< /tabs >}}
 
 View the patched Deployment:
 
