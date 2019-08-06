@@ -74,7 +74,7 @@ weight: 40
 ### 예제
 초기화 컨테이너를 사용하는 방법에 대한 몇 가지 아이디어는 다음과 같다.
 
-* 다음과 같은 쉘 커맨드로,
+* 다음과 같은 셸 커맨드로,
   {{< glossary_tooltip text="서비스" term_id="service">}}가 생성될 때까지 기다리기.
   ```shell
   for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
