@@ -69,13 +69,17 @@ spec:
 
 Patch your Deployment:
 
-```shell
+{{< tabs name="kubectl_patch_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
 kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
-```
-
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment patch-demo --patch $(cat patch-file-containers.yaml)
 {{< note >}}
-In case you are using `PowerShell`, do not add quotes around command substitution. `kubectl patch deployment patch-demo --patch $(cat patch-file-containers.yaml)`. Else, `PowerShell` will remove new lines from yaml file and `kubectl` will not be able to convert the yaml into json at runtime. 
+Kindly note the missing quotes around command substitution. These need to be removed else `PowerShell` will remove new lines from yaml file and `kubectl` will not be able to convert the yaml into json at runtime.
 {{< /note >}}
+{{< /tab >}}}
+{{< /tabs >}}
 
 View the patched Deployment:
 
