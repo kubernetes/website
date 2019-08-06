@@ -75,9 +75,6 @@ kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
 {{< /tab >}}
 {{< tab name="PowerShell" codelang="posh" >}}
 kubectl patch deployment patch-demo --patch $(cat patch-file-containers.yaml)
-{{< note >}}
-Kindly note the missing quotes around command substitution. These need to be removed else `PowerShell` will remove new lines from yaml file and `kubectl` will not be able to convert the yaml into json at runtime.
-{{< /note >}}
 {{< /tab >}}}
 {{< /tabs >}}
 
