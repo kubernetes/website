@@ -16,5 +16,5 @@ tags:
 
 <!--more-->
 
-각 복제본(replica)은 {{< glossary_tooltip text="파드" term_id="pod" >}}로 표현되며, 파드는 클러스터의 노드에 분산된다.
+각 레플리카는 {{< glossary_tooltip text="파드" term_id="pod" >}}로 표현되며, 파드는 클러스터의 노드에 분산된다.
 
