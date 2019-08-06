@@ -73,7 +73,7 @@ If you do not already have a hypervisor installed, install one of these now:
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.
+Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor. It is recommended to use the apt installation of docker from ([Docker](https://www.docker.com/products/docker-desktop), when using the none driver. The snap installation of docker does not work with minikube.
 {{< /note >}}
 
 ### Install Minikube using a package
