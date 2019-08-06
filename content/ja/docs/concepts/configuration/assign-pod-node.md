@@ -3,13 +3,18 @@ reviewers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
-title: Assigning Pods to Nodes
+title: Node上へのPodのスケジューリング
 content_template: templates/concept
 weight: 30
 ---
 
 
 {{% capture overview %}}
+
+[Pod](/docs/concepts/workloads/pods/pod/)が稼働する[Node](/docs/concepts/architecture/nodes/)を特定のものに指定したり、優先条件を指定して制限することができます。
+これを実現するためにはいくつかの方法がありますが、推奨されている方法は[label selectors](/docs/concepts/overview/working-with-objects/labels/)です。
+スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
+SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な設定が必要なこともあります。
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/architecture/nodes/) or to prefer to
 run on particular nodes. There are several ways to do this, and the recommended approaches all use
@@ -19,6 +24,8 @@ Generally such constraints are unnecessary, as the scheduler will automatically 
 but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
+
+これらの例は[こちら](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/)で確認することができます。
 
 You can find all the files for these examples [in our docs
 repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/).
