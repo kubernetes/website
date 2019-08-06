@@ -16,7 +16,7 @@ related:
  - container
 
 ---
-  네임스페이스 내에 {{< glossary_tooltip text="컨테이너" term_id="container" >}}나 {{< glossary_tooltip text="파드" term_id="pod" >}}당 리소스 소비를 한정하는 제약조건을 제공한다.
+  네임스페이스 내에 {{< glossary_tooltip text="컨테이너" term_id="container" >}}나 {{< glossary_tooltip text="파드" term_id="pod" >}}당 리소스 소비를 한정하는 제약 조건을 제공한다.
 
 <!--more-->
 범위 제한은 타입별로 만들 수 있는 오브젝트의 개수와
