@@ -35,7 +35,7 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 クラスターの起動スクリプトによってワークステーション上に`kubernetes`ディレクトリが作成されます。もしくは、Kubernetesの最新リリースを[こちら](https://github.com/kubernetes/kubernetes/releases)からダウンロードすることも可能です。
 
-次に、kubectlにアクセスするために`PATH`へ適切なバイナリフォルダーを追加します:
+次に、kubectlにアクセスするために適切なバイナリフォルダーを`PATH`へ追加します:
 
 ```shell
 # macOS
