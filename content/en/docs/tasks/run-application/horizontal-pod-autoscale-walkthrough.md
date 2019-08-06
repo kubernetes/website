@@ -65,7 +65,7 @@ It defines an index.php page which performs some CPU intensive computations:
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
 ```
 ```
 service/php-apache created
