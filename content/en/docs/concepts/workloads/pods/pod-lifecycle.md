@@ -55,7 +55,7 @@ array has six possible fields:
 
 * The `message` field is a human-readable message indicating details
   about the transition.
-  
+
 * The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition.
 
 * The `status` field is a string, with possible values "`True`", "`False`", and "`Unknown`".
@@ -166,18 +166,18 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
        Reason:       ErrImagePull
 	  ...
    ```
-   
+
 * `Running`: Indicates that the container is executing without issues. Once a container enters into Running, `postStart` hook (if any) is executed. This state also displays the time when the container entered Running state.  
-   
+
    ```yaml
    ...
       State:          Running
        Started:      Wed, 30 Jan 2019 16:46:38 +0530
    ...
    ```   
-       
+
 * `Terminated`:  Indicates that the container completed its execution and has stopped running. A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
-  
+
    ```yaml
    ...
       State:          Terminated
@@ -186,7 +186,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
         Started:      Wed, 30 Jan 2019 11:45:26 +0530
         Finished:     Wed, 30 Jan 2019 11:45:26 +0530
     ...
-   ``` 
+   ```
 
 ## Pod readiness gate
 
@@ -197,7 +197,7 @@ extra feedback or signals into `PodStatus`, Kubernetes 1.11 introduced a
 feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
 You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
 conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
-condition in the `status.conditions` field of a Pod, the status of the condition 
+condition in the `status.conditions` field of a Pod, the status of the condition
 is default to "`False`". Below is an example:
 
 ```yaml
@@ -369,6 +369,12 @@ spec:
      * Node controller sets Pod `phase` to Failed.
      * If running under a controller, Pod is recreated elsewhere.
 
+
+## Container Lifecycle
+Alpha 1.16
+
+Sidecars docs will go here?
+
 {{% /capture %}}
 
 
@@ -383,6 +389,3 @@ spec:
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
 {{% /capture %}}
-
-
-
