@@ -40,7 +40,7 @@ Metrics API를 통해 주어진 노드나 파드에서 현재 사용중인
 쿠버네티스 1.8 부터 `kube-up.sh` 스크립트에 의해 생성된 클러스터에는 기본적으로 Metrics server가 
 디플로이먼트 오브젝트로 배포된다. 만약 다른 쿠버네티스 설치 메커니즘을 사용한다면, 제공된 
 [배포 yaml들](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy)을 사용하여 Metrics server를 배포할 수 있다.
-이 방식은 쿠버네티스 1.7 이상을 지원한다.(상세사항은 아래를 참조)
+이 방식은 쿠버네티스 1.7 이상에서 지원된다. (상세 사항은 아래를 참조)
 
 Metric server는 각 노드에서 [Kubelet](/docs/admin/kubelet/)에 의해 노출된 Summary API에서 메트릭을 수집한다.
 
