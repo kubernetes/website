@@ -149,7 +149,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration 
+#### CSI Migration
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -241,7 +241,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration 
+#### CSI Migration
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -1359,16 +1359,16 @@ documentation](https://kubernetes-csi.github.io/docs/)
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
 The CSI Migration feature, when enabled, directs operations against existing in-tree
-plugins to corresponding CSI plugins (which are expected to be installed and configured). 
-The feature implements the necessary translation logic and shims to re-route the 
-operations in a seamless fashion. As a result, operators do not have to make any 
-configuration changes to existing Storage Classes, PVs or PVCs (referring to 
+plugins to corresponding CSI plugins (which are expected to be installed and configured).
+The feature implements the necessary translation logic and shims to re-route the
+operations in a seamless fashion. As a result, operators do not have to make any
+configuration changes to existing Storage Classes, PVs or PVCs (referring to
 in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
 
-In the alpha state, the operations and features that are supported include 
+In the alpha state, the operations and features that are supported include
 provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 
-In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
+In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented
 are listed in the "Types of Volumes" section above.
 
 ### Flexvolume {#flexVolume}
