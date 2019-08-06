@@ -2,15 +2,15 @@
 ---
 layout: blog
 title: "OPA Gatekeeper: Policy and Governance for Kubernetes"
-date: 2019-05-22
+date: 2019-08-06
 slug: OPA-Gatekeeper-Policy-and-Governance-for-Kubernetes 
 ---
 
 **Authors:** Rita Zhang (Microsoft), Max Smythe (Google), Craig Hooper (Commonwealth Bank AU), Tim Hinrichs (Styra), Lachie Evenson (Microsoft), Torin Sandall (Styra)
 
-In this post, we will walk through the goals, history, and current state of the [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) project, and how you can leverage it to help enforce policies and strengthen governance in your Kubernetes environment. 
+The [Open Policy Agent Gatekeeper](https://github.com/open-policy-agent/gatekeeper) project can be leveraged to help enforce policies and strengthen governance in your Kubernetes environment. In this post, we will walk through the goals, history, and current state of the project.
 
-You can also check out recordings from the following Kubecon EU 2019 sessions:
+The following recordings from the Kubecon EU 2019 sessions are a great starting place in working with Gatekeeper:
 
 * [Intro: Open Policy Agent Gatekeeper](https://youtu.be/Yup1FUc2Qn0)
 * [Deep Dive: Open Policy Agent](https://youtu.be/n94_FNhuzy4)
@@ -36,7 +36,7 @@ Before we dive into the current state of Gatekeeper, let’s take a look at how 
 * Gatekeeper v2.0 - Uses Kubernetes policy controller as the admission controller with OPA and kube-mgmt sidecars enforcing configmap-based policies. It provides validating and mutating admission control and audit functionality. Donated by Microsoft. 
  * Gatekeeper v3.0 - The admission controller is integrated with the [OPA Constraint Framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint) to enforce CRD-based policies and allow declaratively configured policies to be reliably shareable. Built with kubebuilder, it provides validating and, eventually, mutating (to be implemented) admission control and audit functionality. This enables the creation of policy templates for [Rego](https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/) policies, creation of policies as CRDs, and storage of audit results on policy CRDs. This project is a collaboration between Google, Microsoft, Red Hat, and Styra.
 
-![](/images/blog/2019-05-22-opa-gatekeeper/v3.png)
+![](/images/blog/2019-08-06-opa-gatekeeper/v3.png)
  
 ## Gatekeeper v3.0 Features 
 
@@ -141,7 +141,7 @@ spec:
   parameters:
     labels: ["hr"]
 status:
-  auditTimestamp: "2019-08-03T01:46:13Z"
+  auditTimestamp: "2019-08-06T01:46:13Z"
   byPod:
   - enforced: true
     id: gatekeeper-controller-manager-0
@@ -191,4 +191,4 @@ spec:
 
 The community behind the Gatekeeper project will be focusing on providing mutating admission control to support mutation scenarios (for example: annotate objects automatically with departmental information when creating a new resource), support external data to inject context external to the cluster into the admission decisions, support dry run to see impact of a policy on existing resources in the cluster before enforcing it, and more audit functionalities.  
 
-If you are interested in learning more about the project, check out the [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) repo. If you are interested to help define the direction of Gatekeeper, join the [#kubernetes-policy](https://openpolicyagent.slack.com/messages/CDTN970AX) channel on OPA Slack, and join our [weekly meetings](https://docs.google.com/document/d/1A1-Q-1OMw3QODs1wT6eqfLTagcGmgzAJAjJihiO3T48/edit) to discuss development, issues, use cases, etc.  
+If you are interested in learning more about the project, check out the [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) repo. If you are interested in helping define the direction of Gatekeeper, join the [#kubernetes-policy](https://openpolicyagent.slack.com/messages/CDTN970AX) channel on OPA Slack, and join our [weekly meetings](https://docs.google.com/document/d/1A1-Q-1OMw3QODs1wT6eqfLTagcGmgzAJAjJihiO3T48/edit) to discuss development, issues, use cases, etc.  
