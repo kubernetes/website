@@ -290,6 +290,11 @@ You can remove Pods from a ReplicaSet by changing their labels. This technique m
 from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (
 assuming that the number of replicas is not also changed).
 
+Change the label name in the POD YAML definition:
+```shell
+kubectl edit POD <POD NAME>
+```
+
 ### Scaling a ReplicaSet
 
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
