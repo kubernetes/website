@@ -1,5 +1,4 @@
 ---
-title: "Kubernetesのダウンロード"
-weight: 20
+title: "Release notes and version skew"
+weight: 10
 ---
-
