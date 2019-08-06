@@ -213,7 +213,7 @@ GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-adm
 
     질문이 생기거나 확실하지 않다면 자유롭게 추가 리뷰를 요청한다.
 
-- PR을 `/approve' 하기 전에 Netlify 테스트 결과를 검토한다.
+- PR을 `/approve` 하기 전에 Netlify 테스트 결과를 검토한다.
 
     <img src="/images/docs/contribute/netlify-pass.png" width="75%" alt="승인 전에 반드시 Netlify 테스트를 통과해야 한다" />
 
