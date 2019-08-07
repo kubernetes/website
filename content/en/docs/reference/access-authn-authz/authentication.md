@@ -71,7 +71,7 @@ can be accomplished using an [authenticating proxy](#authenticating-proxy) or th
 ### X509 Client Certs
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
-option to API server. The referenced file must contain one or more certificates authorities
+option to API server. The referenced file must contain one or more certificate authorities
 to use to validate client certificates presented to the API server. If a client certificate
 is presented and verified, the common name of the subject is used as the user name for the
 request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
