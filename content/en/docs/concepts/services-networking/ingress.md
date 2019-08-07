@@ -215,7 +215,7 @@ Events:
 ```
 
 The Ingress controller provisions an implementation-specific load balancer
-that satisfies the Ingress, as long as the Services (`s1`, `s2`) exist.
+that satisfies the Ingress, as long as the Services (`service1`, `service2`) exist.
 When it has done so, you can see the address of the load balancer at the
 Address field.
 
@@ -230,9 +230,9 @@ you are using, you may need to create a default-http-backend
 Name-based virtual hosts support routing HTTP traffic to multiple host names at the same IP address.
 
 ```none
-foo.bar.com --|                 |-> foo.bar.com s1:80
+foo.bar.com --|                 |-> foo.bar.com service1:80
               | 178.91.123.132  |
-bar.foo.com --|                 |-> bar.foo.com s2:80
+bar.foo.com --|                 |-> bar.foo.com service2:80
 ```
 
 The following Ingress tells the backing load balancer to route requests based on
@@ -384,7 +384,7 @@ Rules:
   Host         Path  Backends
   ----         ----  --------
   foo.bar.com
-               /foo   s1:80 (10.8.0.90:80)
+               /foo   service1:80 (10.8.0.90:80)
 Annotations:
   nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
@@ -407,14 +407,14 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: s1
+          serviceName: service1
           servicePort: 80
         path: /foo
   - host: bar.baz.com
     http:
       paths:
       - backend:
-          serviceName: s2
+          serviceName: service2
           servicePort: 80
         path: /foo
 ..
@@ -438,9 +438,9 @@ Rules:
   Host         Path  Backends
   ----         ----  --------
   foo.bar.com
-               /foo   s1:80 (10.8.0.90:80)
+               /foo   service1:80 (10.8.0.90:80)
   bar.baz.com
-               /foo   s2:80 (10.8.0.91:80)
+               /foo   service2:80 (10.8.0.91:80)
 Annotations:
   nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
