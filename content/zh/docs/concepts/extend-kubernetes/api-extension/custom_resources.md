@@ -32,7 +32,7 @@ A *resource* is an endpoint in the [Kubernetes API](/docs/reference/using-api/ap
 <!--
 A *custom resource* is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. It represents a customization of a particular Kubernetes installation. However, many core Kubernetes functions are now built using custom resources, making Kubernetes more modular.
 -->
-*自定义资源*是 Kubernetes API 的扩展，在 Kubernetes 的默认安装中不一定可用。它使 Kubernetes 具备可定制化安装的能力。但是，很多核心 Kubernetes 函数现在都使用自定义资源构建，使 Kubernetes 模块更加合理。
+*自定义资源* 是 Kubernetes API 的扩展，在 Kubernetes 的默认安装中不一定可用。它使 Kubernetes 具备可定制化安装的能力。但是，很多核心 Kubernetes 函数现在都使用自定义资源构建，使 Kubernetes 模块更加合理。
 
 <!--
 Custom resources can appear and disappear in a running cluster through dynamic registration, and cluster admins can update custom resources independently of the cluster itself. Once a custom resource is installed, users can create and access its objects using
@@ -51,7 +51,7 @@ On their own, custom resources simply let you store and retrieve structured data
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 -->
-自定义资源可以存储和检索结构化数据。将自定义资源和自定义控制器结合时，自定义资源提供一个真正_被声明过的API_。
+自定义资源可以存储和检索结构化数据。将自定义资源和自定义控制器结合时，自定义资源提供一个真正 _被声明过的API_ 。
 
 <!--
 A [declarative API](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)
@@ -75,7 +75,7 @@ for specific applications into an extension of the Kubernetes API.
 <!--
 ## Should I add a custom resource to my Kubernetes Cluster?
 -->
-## 是否需要向Kubernetes 集群添加自定义资源？
+## 是否需要向 Kubernetes 集群添加自定义资源？
 
 <!--
 When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/api-extension/apiserver-aggregation/) or let your API stand alone.
@@ -95,11 +95,11 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 -->
 | 如果考虑将 API 聚合:                                         | 如果首选独立 API :                                           |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| API 具有 [声明性](#declarative-apis).                        | API 不适合 [声明性](#declarative-apis) 模型.                 |
-| 你希望新类型可读且可使用 `kubectl`进行拼写。                 | `不需要kubectl` 支持                                         |
-| 你希望在Kubernetes 使用界面里看到你的新类型，比如dashboard，以及内置类型。 | 不需要Kubernetes使用界面支持。                               |
-| 你正在新建一个 API。                                         | 你已经有一个运行良好的为你的API 服务的程序。                 |
-| 你愿意接受Kubernetes对REST资源路径的格式限制，例如API组和命名空间。 (参照 [API 概述](/docs/concepts/overview/kubernetes-api/).) | 你需要有一个特定的REST路径来兼容已经定义的REST API。         |
+| API 具有[声明性](#declarative-apis).                        | API 不适合[声明性](#declarative-apis)模型.                 |
+| 你希望新类型可读且可使用 `kubectl` 进行拼写。                 | 不需要 `kubectl` 支持                                         |
+| 你希望在 Kubernetes 使用界面里看到你的新类型，比如 dashboard，以及内置类型。 | 不需要 Kubernetes 使用界面支持。                               |
+| 你正在新建一个 API。                                         | 你已经有一个运行良好的为你的 API 服务的程序。                 |
+| 你愿意接受Kubernetes对REST资源路径的格式限制，例如 API 组和命名空间。 (参照 [API 概述](/docs/concepts/overview/kubernetes-api/).) | 你需要有一个特定的 REST 路径来兼容已经定义的 REST API 。         |
 | 你的资源被自然限定到一个集群或者一个集群的命名空间。         | 集群或者命名空间作用域资源不合适；你需要通过路径资源的细节来控制。 |
 | 你希望重用 [Kubernetes API 的支持功能](#common-features).    | 你不需要这些功能。                                           |
 
@@ -111,7 +111,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 <!--
 In a Declarative API, typically:
 -->
-在声明性API中，通常：
+在声明性 API 中，通常：
 
 <!--
  - Your API consists of a relatively small number of relatively small objects (resources).
@@ -125,14 +125,14 @@ In a Declarative API, typically:
  - 对象定义了应用或基础设施的配置项。
  - 对象更新相对较少。
  - 用户经常需要读取和写入对象。
- - 对象上的主要操作是CRUD（创建，读取，更新和删除）。
- - 不需要跨对象的事务：API表示一个所需的状态，而不是一个确切的状态。
+ - 对象上的主要操作是 CRUD（创建，读取，更新和删除）。
+ - 不需要跨对象的事务：API 表示一个所需的状态，而不是一个确切的状态。
 
 <!--
 Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
 -->
-命令式API不是声明性的。API不是声明性的特点包括：
+命令式 API 不是声明性的。API 不是声明性的特点包括：
 
 <!--
  - The client says "do this", and then gets a synchronous response back when it is done.
@@ -146,11 +146,11 @@ Signs that your API might not be declarative include:
  - You chose to represent pending operations with an operation ID or an operation object.
 -->
  - 客户端说“执行此操作”，然后在完成时获取同步响应。
- - 客户端说“执行此操作”，然后获取一个操作ID，并且为了确认请求的完成，必须检查单独的操作对象。
+ - 客户端说“执行此操作”，然后获取一个操作 ID ，并且为了确认请求的完成，必须检查单独的操作对象。
  - 说的是远程过程调用（RPCs）。
  - 直接存储大量数据（例如，每个对象几kB，或1000个对象）。
  - 需要高带宽访问（每秒持续的10个请求）
- - 存储业务用户数据（如图像、PII等）或者其他由应用程序处理的大规模数据。
+ - 存储业务用户数据（如图像、PII 等）或者其他由应用程序处理的大规模数据。
  - 对于对象的自然操作不是 CRUD。
  - API 不容易建模成对象。
  -你选择使用操作ID或者操作对象来表示待解决的操作。
@@ -172,7 +172,7 @@ Use a ConfigMap if any of the following apply:
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
 * You want to perform rolling updates via Deployment, etc, when the file is updated.
 -->
-* 存在一种记录良好的配置文件格式，，例如`mysql.cnf`或者`pom.xml`。
+* 存在一种记录良好的配置文件格式，，例如 `mysql.cnf` 或者 `pom.xml` 。
 * 你想把所有的配置文件都放进 configMap 的一个键中。
 * 配置文件的作用就是，让运行在集群中 Pod 的程序配置自身环境。
 * 文件使用者更倾向于使用通过 Pod 中的文件或 Pod 中的环境变量，而不是使用 Kubernetes API。
@@ -204,7 +204,7 @@ Use a custom resource (CRD or Aggregated API) if most of the following apply:
 * 你希望从 kubectl 得到顶级支持（比如：`kubectl get my-object object-name`）。
 * 你希望新建一个自动化以监视新对象的更新，然后监视 CRUD 其他对象，反之亦然。
 * 你希望编写处理对象更新的自动化。
-* 你想要使用Kubernetes API约定，比如像`.spec`，`.status`，和`.metadata`。
+* 你想要使用 Kubernetes API约定，比如像 `.spec` ， `.status` ，和 `.metadata` 。
 * 你希望对象是受控资源集合的抽象，或者是其他资源的汇总。
 
 <!--
@@ -221,8 +221,8 @@ Kubernetes 提供了两种将自定义资源添加到集群的方法：
 - CRDs are simple and can be created without any programming.
 - [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
 -->
-- CustomResourceDefinition非常简单，无需任何编程即可创建。
-- [API集合](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)需要编程，但允许对API行为进行更多控制，比如数据的存储方式和 API 版本之间的转换。
+- CustomResourceDefinition 非常简单，无需任何编程即可创建。
+- [API集合](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)需要编程，但允许对 API 行为进行更多控制，比如数据的存储方式和 API 版本之间的转换。
 
 <!--
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
@@ -232,17 +232,17 @@ Kubernetes 提供了两个选项来满足不同使用者的需要，因此无论
 <!--
 Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 -->
-API集合是位于主API服务器后面的从属API服务器，用来充当代理。这种安排被称作[API集合](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) （AA）。对于用户来说，Kubernetes API 似乎只是扩展了。
+API 集合是位于主API服务器后面的从属 API 服务器，用来充当代理。这种安排被称作[API集合](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) （AA）。对于用户来说，Kubernetes API 似乎只是扩展了。
 
 <!--
 CRDs allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
 -->
-CustomResourceDefinition允许用户在不添加其他 API 服务器的情况下创建新类型的资源。您无需了解 API 集合就可以使用 CustomResourceDefinition 。
+CustomResourceDefinition 允许用户在不添加其他 API 服务器的情况下创建新类型的资源。您无需了解 API 集合就可以使用 CustomResourceDefinition 。
 
 <!--
 Regardless of how they are installed, the new resources are referred to as Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
 -->
-无论如何安装，新资源都被称为自定义资源，已将其与内置的Kubernetes（如 Pod ）资源区分开。
+无论如何安装，新资源都被称为自定义资源，已将其与内置的 Kubernetes（如 Pod ）资源区分开。
 
 <!--
 ## CustomResourceDefinitions
@@ -252,7 +252,7 @@ Regardless of how they are installed, the new resources are referred to as Custo
 <!--
 The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) API resource allows you to define custom resources. Defining a CRD object creates a new custom resource with a name and schema that you specify. The Kubernetes API serves and handles the storage of your custom resource.
 -->
-[CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) API资源允许你去定义自定义资源。定义 CustomResourceDefinition 对象创建了一个新的自定义资源，该资源具有您指定的名称和架构。Kubernetes API 提供并处理自定义资源的存储。
+[CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) API 资源允许你去定义自定义资源。定义 CustomResourceDefinition 对象创建了一个新的自定义资源，该资源具有您指定的名称和架构。Kubernetes API 提供并处理自定义资源的存储。
 
 <!--
 This frees you from writing your own API server to handle the custom resource,
@@ -303,7 +303,7 @@ CustomResourceDefinition 更易于使用。API 集合更加灵活。选择更能
 <!--
 Typically, CRDs are a good fit if:
 -->
-通常，CustomResourceDefinition更适合以下几个方面：
+通常，CustomResourceDefinition 更适合以下几个方面：
 
 <!--
 * You have a handful of fields
@@ -334,7 +334,7 @@ CustomResourceDefinition 比 API 集合更容易创建。
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 不需要编程。用户可以为 CRD 控制器选择任何语言。                | 需要在 Go 中编程并构建二进制和镜像。用户可以为CRD控制器选择任何语言。 |
 | 无需运行其他服务; CR 由 API 服务器处理。                         | 要创建其他服务，并可以会失败。                               |
-| 一旦CRD创建，无需后续支持。任何错误修复都是正常 Kubernetes Master 升级的一部分。 | 可能需要定期从上游拾取错误修复，并重建和更新 API 集合服务器。  |
+| 一旦 CRD 创建，无需后续支持。任何错误修复都是正常 Kubernetes Master 升级的一部分。 | 可能需要定期从上游拾取错误修复，并重建和更新 API 集合服务器。  |
 | 无需处理 API 的多个版本。例如：当您控制此资源的客户端时，可以将其与 API 同步升级。 | 你需要处理 API 的多个版本，例如：当开发一个扩展，与世界分享时。 |
 
 <!--
@@ -345,7 +345,7 @@ CustomResourceDefinition 比 API 集合更容易创建。
 <!--
 Aggregated APIs offer more advanced API features and customization of other features, for example: the storage layer.
 -->
-API集合提供更高级的API特性以及其他功能的自定义，例如：存储层。
+API 集合提供更高级的API特性以及其他功能的自定义，例如：存储层。
 
 <!--
 | Feature | Description | CRDs | Aggregated API |
@@ -372,9 +372,9 @@ API集合提供更高级的API特性以及其他功能的自定义，例如：�
 | Scale 子资源 | 允许 HorizontalPodAutoscaler 和 PodDisruptionBudget 与您的新资源进行互换 | [是的](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource)  | 是的 |
 | Status 子资源 | <ul><li>细粒度访问控制：用户写入规范部分，控制器写入状态部分。</li><li>允许递增对象在自定义资源数据突变上 Generation (需要资源中的单独规范和状态部分)</li></ul> | [是的](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | 是的 |
 | 其他子资源| 添加 CRUD 以外的操作,如"日志"或"执行"。 | 不是 | 是的 |
-| 战略-合并-补丁 | 新的端点支持具有 `Content-Type: application/strategic-merge-patch+json`的 PATCH . 可用于更新可在本地和服务器修改的对象。更多信息，请参阅["使用 kubectl 修补程序更新API对象"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | 不是 | 是的 |
+| 战略-合并-补丁 | 新的端点支持具有 `Content-Type: application/strategic-merge-patch+json` 的 PATCH . 可用于更新可在本地和服务器修改的对象。更多信息，请参阅["使用 kubectl 修补程序更新API对象"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | 不是 | 是的 |
 | 协议缓冲区 | 新资源支持希望使用协议缓冲区的客户端 | 不是 | 是的 |
-| OpenAPI 架构 | 是否有可从服务器动态提取类型的 OpenAPI (swagger)架构？用户通过确保只设置允许的字段来避免拼写错误的字段名称是否被设置？ 是否是强制执行类型 (换句话说，不要在 `string` 字段中放置 `int` ?) | 不，但有计划 | 是的 |
+| OpenAPI 架构 | 是否有可从服务器动态提取类型的 OpenAPI (swagger) 架构？用户通过确保只设置允许的字段来避免拼写错误的字段名称是否被设置？ 是否是强制执行类型 (换句话说，不要在 `string` 字段中放置 `int` ?) | 不，但有计划 | 是的 |
 
 <!--
 ### Common Features
@@ -407,11 +407,11 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 
 | 功能 | 作用 |
 | ------- | ------------ |
-| CRUD | 通过HTTP和`kubectl`，新的端点通过 HTTP 和 kubectl 支持 CRUD 基本操作|
+| CRUD | 通过HTTP和 `kubectl` ，新的端点通过 HTTP 和 kubectl 支持 CRUD 基本操作|
 | Watch | 新的端点通过 HTTP 支持 Kubernetes 监视功能 |
 | 发现 | 如 Kubectl 和 dashboard 客户端会自动提供资源上的列表、显示和字段编辑操作 |
-| json-patch | 新的端点支持打上 `Content-Type: application/json-patch+json`的 PATCH  |
-| merge-patch | 新的端点支持打上 `Content-Type: application/merge-patch+json`的 PATCH |
+| json-patch | 新的端点支持打上 `Content-Type: application/json-patch+json` 的 PATCH  |
+| merge-patch | 新的端点支持打上 `Content-Type: application/merge-patch+json` 的 PATCH |
 | HTTPS | 新的端点使用 HTTPS |
 | 内置身份验证 | 对扩展的访问使用核心API服务（聚合层）进行身份认证 |
 | 内置授权 | 对扩展的访问可以重用被核心API服务使用的授权（例如，基于角色的访问控制 role-based access control） |
@@ -515,10 +515,11 @@ When you add a custom resource, you can access it using:
 * Learn how to [Extend the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 -->
 * 了解如何使用[聚合层扩展 Kubernetes API](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
+
 <!--
 * Learn how to [Extend the Kubernetes API with CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
 -->
-* 了解如何使用[CustomResourceDefinition 扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)。
+* 了解如何使用 [CustomResourceDefinition 扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)。
 
 {{% /capture %}}
 
