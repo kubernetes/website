@@ -101,7 +101,7 @@ Each probe has one of three results:
 * Failure: The Container failed the diagnostic.
 * Unknown: The diagnostic failed, so no action should be taken.
 
-The kubelet can optionally perform and react to two kinds of probes on running
+The kubelet can optionally perform and react to three kinds of probes on running
 Containers:
 
 * `livenessProbe`: Indicates whether the Container is running. If
@@ -115,7 +115,15 @@ Containers:
    state of readiness before the initial delay is `Failure`. If a Container does
    not provide a readiness probe, the default state is `Success`.
 
-### When should you use liveness or readiness probes?
+* `startupProbe`: Indicates whether the application within the Container is started.
+   All other probes are disabled if a startup probe is provided, until it succeeds.
+   If the startup probe fails, the kubelet kills the Container, and the Container
+   is subjected to its [restart policy](#restart-policy). If a Container does not
+   provide a startup probe, the default state is `Success`.
+
+### When should you use a liveness probe?
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 If the process in your Container is able to crash on its own whenever it
 encounters an issue or becomes unhealthy, you do not necessarily need a liveness
@@ -124,6 +132,10 @@ with the Pod's `restartPolicy`.
 
 If you'd like your Container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
+
+### When should you use a readiness probe?
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 If you'd like to start sending traffic to a Pod only when a probe succeeds,
 specify a readiness probe. In this case, the readiness probe might be the same
@@ -141,6 +153,13 @@ you do not necessarily need a readiness probe; on deletion, the Pod automaticall
 puts itself into an unready state regardless of whether the readiness probe exists.
 The Pod remains in the unready state while it waits for the Containers in the Pod
 to stop.
+
+### When should you use a startup probe?
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+If your Container usually starts in more than `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a startup probe that checks the same endpoint as the liveness probe. The default for `periodSeconds` is 30s.
+You should then set its `failureThreshold` high enough to allow the Container to start, without changing the default values of the liveness probe. This helps to protect against deadlocks.
 
 For more information about how to set up a liveness or readiness probe, see
 [Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
