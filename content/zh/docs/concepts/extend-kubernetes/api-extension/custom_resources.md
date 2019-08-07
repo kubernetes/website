@@ -1,4 +1,3 @@
-<!--
 ---
 title: Custom Resources
 reviewers:
@@ -7,22 +6,13 @@ reviewers:
 content_template: templates/concept
 weight: 20
 ---
--->
----
-标题: 自定义资源
-评审:
-- enisoc
-- deads2k
-内容模版: 模版/概念
-重量: 20
----
 
 {{% capture overview %}}
 
 <!--
 *Custom resources* are extensions of the Kubernetes API. This page discusses when to add a custom resource to your Kubernetes cluster and when to use a standalone service. It describes the two methods for adding custom resources and how to choose between them.
 -->
-*自定义资源*是 Kubernetes API 的扩展。本页讨论何时向 Kubernetes 群集添加自定义资源以及何时使用独立服务。它描述了添加自定义资源的两种方法以及如何在它们之间进行选择。
+*自定义资源* 是 Kubernetes API 的扩展。本页讨论何时向 Kubernetes 群集添加自定义资源以及何时使用独立服务。它描述了添加自定义资源的两种方法以及如何在它们之间进行选择。
 
 {{% /capture %}}
 
@@ -36,7 +26,7 @@ weight: 20
 A *resource* is an endpoint in the [Kubernetes API](/docs/reference/using-api/api-overview/) that stores a collection of
 [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of a certain kind. For example, the built-in *pods* resource contains a collection of Pod objects.
 -->
-*资源*是[Kubernetes API](/docs/reference/using-api/api-overview/)中的端点，用于存储
+*资源* 是[Kubernetes API](/docs/reference/using-api/api-overview/)中的端点，用于存储
 某种[API 对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)的集合。例如,内置 *Pod* 资源包含 Pod 对象的集合。
 
 <!--
@@ -484,7 +474,7 @@ CustomResourceDefinition 始终使用与 API 服务器内置资源相同的身�
 <!--
 If you use RBAC for authorization, most RBAC roles will not grant access to the new resources (except the cluster-admin role or any role created with wildcard rules). You'll need to explicitly grant access to the new resources. CRDs and Aggregated APIs often come bundled with new role definitions for the types they add.
 -->
-如果使用RBAC进行授权，大多数 RBAC （基于角色的访问控制）的角色不会授予对新资源的访问权限（除了集群管理员角色或任何通配符规则创建的角色）。您需要明确授予对新资源的访问权限。CustomResourceDefinition 和 API集合 通常与他们添加类型的新角色定义捆绑。
+如果使用 RBAC 进行授权，大多数 RBAC （基于角色的访问控制）的角色不会授予对新资源的访问权限（除了集群管理员角色或任何通配符规则创建的角色）。您需要明确授予对新资源的访问权限。CustomResourceDefinition 和 API集合 通常与他们添加类型的新角色定义捆绑。
 
 <!--
 Aggregated API servers may or may not use the same authentication, authorization, and auditing as the primary API server.
