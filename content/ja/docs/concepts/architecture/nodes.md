@@ -24,7 +24,7 @@ Nodeのステータスには以下のような情報が含まれます:
 
 Nodeのステータスや、Nodeに関するその他の詳細は、下記のコマンドを使うことで表示できます:
 ```shell
-kubectl describe node <insert-node-name-here>
+kubectl describe node <ノード名>
 ```
 各セクションについては、下記で説明します。
 
@@ -41,7 +41,7 @@ kubectl describe node <insert-node-name-here>
 
 `conditions`フィールドは全ての`Running`なNodeのステータスを表します。例として、以下のような状態を含みます:
 
-| Node Condition | Description |
+| Node Condition | 概要 |
 |----------------|-------------|
 | `OutOfDisk`    | 新しいPodを追加するために必要なディスク容量が足りない場合に`True`になります。それ以外のときは`False`です。 |
 | `Ready`        | Nodeの状態が健康でPodを配置可能な場合に`True`になります。Nodeの状態に問題があり、Podが配置できない場合に`False`になります。Nodeコントローラーが、`node-monitor-grace-period`で設定された時間内(デフォルトでは40秒)に該当Nodeと疎通できない場合、`Unknown`になります。 |
@@ -96,7 +96,7 @@ CapacityとAllocatableについて深く知りたい場合は、Node上でどの
 カーネルのバージョン、Kubernetesのバージョン（kubeletおよびkube-proxyのバージョン）、（使用されている場合）Dockerのバージョン、OS名など、Nodeに関する一般的な情報です。
 この情報はNodeからkubeletを通じて取得されます。
 
-## Management
+## 管理 {#management}
 
 [Pod](/docs/concepts/workloads/pods/pod/)や[Service](/docs/concepts/services-networking/service/)と違い、Nodeは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、KubernetesがNodeを作成すると、そのNodeを表すオブジェクトが作成されます。作成後、KubernetesはそのNodeが有効かどうかを確認します。 たとえば、次の内容からNodeを作成しようとしたとします:
 
@@ -193,7 +193,7 @@ Nodeをunschedulableとしてマークすると、新しいPodがそのNodeに�
 これは、Nodeの再起動などの前の準備ステップとして役立ちます。たとえば、Nodeにスケジュール不可能のマークを付けるには、次のコマンドを実行します:
 
 ```shell
-kubectl cordon $NODENAME
+kubectl cordon $ノード名
 ```
 
 {{< note >}}
