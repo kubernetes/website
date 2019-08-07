@@ -7,10 +7,10 @@ weight: 40
 {{% capture overview %}}
 
 Penyediaan volume dinamis memungkinkan volume penyimpanan untuk dibuat sesuai permintaan (_on-demand_).
-Tanpa adanya penyediaan dinamis (_dynamic provisioning_), untuk membuat volume penyimpanan baru, admin kluster haruslah secara manual
+Tanpa adanya penyediaan dinamis (_dynamic provisioning_), untuk membuat volume penyimpanan baru, admin kluster secara manual harus
 memanggil penyedia layanan cloud atau layanan penyimpanan, dan kemudian membuat [objek PersistentVolume](/docs/concepts/storage/persistent-volumes/)
 sebagai representasi di Kubernetes. Fitur penyediaan dinamis menghilangkan kebutuhan admin kluster untuk menyediakan
-penyimpanan sebelumnya (_pre-provision_). Namun, penyimpanan akan tersedia secara otomatis
+penyimpanan sebelumnya (_pre-provision_). Dengan demikian, penyimpanan akan tersedia secara otomatis
 ketika diminta oleh pengguna.
 
 {{% /capture %}}
@@ -28,8 +28,8 @@ diteruskan oleh _provisioner_ ketika proses penyediaan.
 
 Seorang kluster admin dapat mendefinisikan dan mengekspos berbagai templat penyimpanan
 (dari sistem penyimpanan yang sama maupun berbeda) di dalam kluster, masing-masing dengan
-kumpulan parameter tertentu. Desain ini memastikan bahwa pengguna tidak perlu merisaukan
-rumitnya bagaimana sebuah penyimpanan tersediakan, tapi tetap memiliki kemampuan untuk
+kumpulan parameter tertentu. Desain ini memastikan bahwa pengguna tidak perlu khawatir betapa
+rumitnya mekanisme penyediaan penyimpanan, tapi tetap memiliki kemampuan untuk
 memilih berbagai macam pilihan penyimpanan.
 
 Info lebih lanjut mengenai _storage class_ dapat dilihat [di sini](/docs/concepts/storage/storage-classes/).
