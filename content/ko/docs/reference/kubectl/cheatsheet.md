@@ -340,7 +340,7 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 
 ### Kubectl 출력 로그 상세 레벨(verbosity)과 디버깅
 
-Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 레벨을 나타내는 정수로 제어된다. 일반적인 쿠버네티스 로깅 규칙과 관련 로그 레벨이 [여기](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md)에 설명되어 있다.
+Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 레벨을 나타내는 정수로 제어된다. 일반적인 쿠버네티스 로깅 규칙과 관련 로그 레벨이 [여기](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)에 설명되어 있다.
 
 로그 레벨 | 세부 사항
 --------------| -----------
