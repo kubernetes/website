@@ -24,7 +24,7 @@ weight: 20
 たとえば、GKEのデフォルト設定では、kubeletに提供されるクライアント認証情報はクライアント証明書の形式です。
 kubeletのクライアント証明書を自動プロビジョニングする方法については、[kubelet TLSブートストラッピング](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)を参照してください。
 
-API Serverに接続したいポッドは、サービスアカウントを利用することで接続を安全にすることができます。そうすることで、ポッドが作成されたときにKubernetesがパブリックなルート証明書と有効なBearer Tokenをポッドに自動的に挿入します。
+API Serverに接続したいPodは、サービスアカウントを利用することで接続を安全にすることができます。そうすることで、Podが作成されたときにKubernetesがパブリックなルート証明書と有効なBearer TokenをPodに自動的に挿入します。
 
 `kubernetes`サービスには（すべてのネームスペースで）、APIサーバー上のHTTPSエンドポイントに（kube-proxy経由で）リダイレクトされる仮想IPアドレスが設定されています。
 
