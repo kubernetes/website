@@ -440,7 +440,7 @@ To update to version 1.9.1, simply change `.spec.template.spec.containers[0].ima
 kubectl edit deployment/my-nginx
 ```
 
-That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
+That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, see [Deployment](/docs/concepts/workloads/deployment/)
 
 {{% /capture %}}
 

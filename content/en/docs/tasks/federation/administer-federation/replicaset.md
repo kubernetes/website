@@ -13,7 +13,7 @@ This guide explains how to use ReplicaSets in the Federation control plane.
 
 ReplicaSets in the federation control plane (referred to as "federated ReplicaSets" in
 this guide) are very similar to the traditional [Kubernetes
-ReplicaSets](/docs/concepts/workloads/controllers/replicaset/), and provide the same functionality.
+ReplicaSets](/docs/concepts/workloads/replicaset/), and provide the same functionality.
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 {{% /capture %}}
@@ -23,7 +23,7 @@ replicas exist across the registered clusters.
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * You should also have a basic
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
-general and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) in particular.
+general and [ReplicaSets](/docs/concepts/workloads/replicaset/) in particular.
 {{% /capture %}}
 
 {{% capture steps %}}

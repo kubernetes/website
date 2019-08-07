@@ -68,7 +68,7 @@ Key Kubernetes elements work the same way in Windows as they do in Linux. In thi
   * EmptyDir
   * Named pipe host mounts
   * Resource limits
-* [Controllers](/docs/concepts/workloads/controllers/)
+* [Controllers](/docs/reference/controllers/)
 
     Kubernetes controllers handle the desired state of Pods. The following workload controllers are supported with Windows containers:
 

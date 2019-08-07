@@ -13,7 +13,7 @@ This guide explains how to use Deployments in the Federation control plane.
 
 Deployments in the federation control plane (referred to as "Federated Deployments" in
 this guide) are very similar to the traditional [Kubernetes
-Deployment](/docs/concepts/workloads/controllers/deployment/) and provide the same functionality.
+Deployment](/docs/concepts/workloads/deployment/) and provide the same functionality.
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 
@@ -28,7 +28,7 @@ Some features
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * You should also have a basic
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
-general and [Deployments](/docs/concepts/workloads/controllers/deployment/) in particular.
+general and [Deployments](/docs/concepts/workloads/deployment/) in particular.
 
 {{% /capture %}}
 

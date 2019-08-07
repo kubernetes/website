@@ -1,7 +1,7 @@
 ---
 title: Concepts Underlying the Cloud Controller Manager
 content_template: templates/concept
-weight: 30
+weight: 40
 ---
 
 {{% capture overview %}}

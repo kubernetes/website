@@ -13,7 +13,7 @@ This guide explains how to use DaemonSets in a federation control plane.
 
 DaemonSets in the federation control plane ("Federated Daemonsets" in
 this guide) are very similar to the traditional Kubernetes
-[DaemonSets](/docs/concepts/workloads/controllers/daemonset/) and provide the same functionality.
+[DaemonSets](/docs/concepts/workloads/daemonset/) and provide the same functionality.
 Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 {{% /capture %}}
@@ -23,7 +23,7 @@ across all the clusters in federation.
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * You should also have a basic
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
-general and [DaemonSets](/docs/concepts/workloads/controllers/daemonset/) in particular.
+general and [DaemonSets](/docs/concepts/workloads/daemonset/) in particular.
 
 {{% /capture %}}
 

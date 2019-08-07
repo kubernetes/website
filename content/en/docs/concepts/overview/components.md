@@ -41,7 +41,7 @@ the same machine, and do not run user containers on this machine. See
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-These controllers include:
+[Built-in controllers](/docs/reference/controllers/built-in/) include:
 
   * Node Controller: Responsible for noticing and responding when nodes go down.
   * Replication Controller: Responsible for maintaining the correct number of pods for every replication

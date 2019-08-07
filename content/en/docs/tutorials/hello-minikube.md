@@ -67,12 +67,11 @@ For more information on the `docker build` command, read the [Docker documentati
 
 ## Create a Deployment
 
-A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
+A Kubernetes {{< glossary_tooltip term_id="pod" >}} is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
-tutorial has only one Container. A Kubernetes
-[*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
-Pod and restarts the Pod's Container if it terminates. Deployments are the
-recommended way to manage the creation and scaling of Pods.
+tutorial has only one Container. A Kubernetes {{< glossary_tooltip term_id="deployment" >}}
+checks on the health of your Pod and restarts the Pod's Container if it terminates.
+Deployments are the recommended way to manage the creation and scaling of Pods.
 
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image. 
@@ -271,8 +270,8 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+* Learn more about [Deployment](/docs/concepts/workloads/deployment/) objects.
+* Learn more about [Service](/docs/concepts/services-networking/service/) objects.
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
-* Learn more about [Service objects](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}

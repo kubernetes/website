@@ -329,7 +329,7 @@ Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
 nodes. There are lots of ways to setup the profiles though, such as:
 
-* Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
+* Through a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
   [here](https://git.k8s.io/kubernetes/test/images/apparmor-loader).
 * At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or

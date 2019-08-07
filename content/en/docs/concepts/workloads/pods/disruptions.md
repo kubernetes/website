@@ -134,7 +134,7 @@ Pods which are deleted or unavailable due to a rolling upgrade to an application
 against the disruption budget, but controllers (like deployment and stateful-set)
 are not limited by PDBs when doing rolling upgrades -- the handling of failures
 during application updates is configured in the controller spec.
-(Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
+(Learn about [updating a deployment](/docs/concepts/workloads/deployment/#updating-a-deployment).)
 
 When a pod is evicted using the eviction API, it is gracefully terminated (see
 `terminationGracePeriodSeconds` in [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).)

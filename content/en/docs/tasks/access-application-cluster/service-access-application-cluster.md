@@ -43,9 +43,9 @@ Here is the configuration file for the application Deployment:
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
    The preceding command creates a
-   [Deployment](/docs/concepts/workloads/controllers/deployment/)
+   [Deployment](/docs/concepts/workloads/deployment/)
    object and an associated
-   [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+   [ReplicaSet](/docs/concepts/workloads/replicaset/)
    object. The ReplicaSet has two
    [Pods](/docs/concepts/workloads/pods/pod/),
    each of which runs the Hello World application.

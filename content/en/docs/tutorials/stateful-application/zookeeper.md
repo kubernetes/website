@@ -14,7 +14,7 @@ weight: 40
 
 {{% capture overview %}}
 This tutorial demonstrates running [Apache Zookeeper](https://zookeeper.apache.org) on
-Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
+Kubernetes using [StatefulSets](/docs/concepts/workloads/statefulset/),
 [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget),
 and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature).
 {{% /capture %}}
@@ -29,7 +29,7 @@ Kubernetes concepts.
 -   [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 -   [PersistentVolumes](/docs/concepts/storage/volumes/)
 -   [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
--   [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
+-   [StatefulSets](/docs/concepts/workloads/statefulset/)
 -   [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 -   [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
 -   [kubectl CLI](/docs/user-guide/kubectl/)
@@ -74,7 +74,7 @@ The manifest below contains a
 [Headless Service](/docs/concepts/services-networking/service/#headless-services),
 a [Service](/docs/concepts/services-networking/service/),
 a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
-and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+and a [StatefulSet](/docs/concepts/workloads/statefulset/).
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 

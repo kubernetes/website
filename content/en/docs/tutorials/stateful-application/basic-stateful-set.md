@@ -13,7 +13,7 @@ weight: 10
 
 {{% capture overview %}}
 This tutorial provides an introduction to managing applications with
-[StatefulSets](/docs/concepts/workloads/controllers/statefulset/). It 
+[StatefulSets](/docs/concepts/workloads/statefulset/). It 
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 {{% /capture %}}
 
@@ -26,7 +26,7 @@ following Kubernetes concepts.
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
+* [StatefulSets](/docs/concepts/workloads/statefulset/)
 * [kubectl CLI](/docs/user-guide/kubectl/)
 
 This tutorial assumes that your cluster is configured to dynamically provision 
@@ -54,9 +54,7 @@ After this tutorial, you will be familiar with the following.
 {{% capture lessoncontent %}}
 ## Creating a StatefulSet 
 
-Begin by creating a StatefulSet using the example below. It is similar to the 
-example presented in the
-[StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept. 
+Begin by creating a StatefulSet using the example below.
 It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
@@ -135,7 +133,7 @@ web-1     1/1       Running   0          1m
 
 ```
 
-As mentioned in the [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) 
+As mentioned in the [StatefulSets](/docs/concepts/workloads/statefulset/) 
 concept, the Pods in a StatefulSet have a sticky, unique identity. This identity 
 is based on a unique ordinal index that is assigned to each Pod by the 
 StatefulSet controller. The Pods' names take the form 

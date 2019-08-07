@@ -80,7 +80,7 @@ The deploy wizard expects that you provide the following information:
 
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.
 
-  A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to maintain the desired number of Pods across your cluster.
+  A [Deployment](/docs/concepts/workloads/deployment/) will be created to maintain the desired number of Pods across your cluster.
 
 - **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
 

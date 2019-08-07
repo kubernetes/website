@@ -1,0 +1,74 @@
+---
+title: Ingress controllers
+content_template: templates/concept
+---
+
+{{% capture overview %}}
+
+{{< feature-state for_k8s_version="v1.1" state="beta" >}}
+
+In order for the Ingress resource to work, the cluster must have at least
+one ingress {{< glossary_tooltip term_id="controller" text="controller">}} running.
+
+Unlike the controllers which run as part of the `kube-controller-manager` binary, Ingress controllers
+are not started automatically with a cluster. Use this page to choose the ingress controller implementation(s)
+that best fit your cluster.
+
+The Kubernetes project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
+  [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers.
+
+{{% /capture %}}
+
+{{% capture body %}}
+
+## Third-party ingress controllers {#additional-controllers}
+
+* [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
+  controller with [community](https://www.getambassador.io/docs) or
+  [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
+* [Citrix Kubernetes Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for use with with Citrix hardware (MPX), virtualized (VPX) and free [containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html). You can use it for [bare metal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) or [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
+* [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller.
+* [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest) from
+  [F5 Networks](https://f5.com/).
+* [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io) which offers API Gateway functionality. You can get enterprise support for Gloo from [solo.io](https://www.solo.io).
+* [HAProxy Technologies](https://www.haproxy.com/) offers support and maintenance for
+  the [HAProxy Ingress Controller for
+Kubernetes](https://github.com/haproxytech/kubernetes-ingress).
+  See the [official documentation](https://www.haproxy.com/documentation/hapee/1-9r1/traffic-management/kubernetes-ingress-controller/).
+* [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller). You can choose
+  either the [community](https://discuss.konghq.com/c/kubernetes) or
+  [commercial](https://konghq.com/kong-enterprise/) support and maintenance.
+* [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
+  from [NGINX, Inc.](https://www.nginx.com/)
+* [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/): HTTP router and reverse proxy for service composition, including use cases like Kubernetes Ingress, designed as a library to build your custom proxy.
+* [Traefik](https://traefik.io/) is a fully featured ingress controller
+  ([Let's Encrypt](https://letsencrypt.org), secrets, http2, WebSockets). You can use a [community edition](https://traefik.io/#community) or choose commercial support from by [Containous](https://containo.us/services).
+* [Voyager](https://appscode.com/products/voyager/) is based on [HAProxy](http://www.haproxy.org/). You can get support from [AppsCode Inc.](https://appscode.com)
+
+If you use Istio, you can use it to [control ingress traffic](https://istio.io/docs/tasks/traffic-management/ingress/) via Istio's custom resources.
+The outcome you'll get is broadly equivalent to deploying a suitable Ingress controller.
+
+## Using multiple Ingress controllers
+
+You may deploy [any number of ingress controllers](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers)
+within a cluster. When you create an ingress, you should annotate each ingress with the appropriate
+[`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)
+to indicate which ingress controller should be used if more than one exists within your cluster.
+
+If you do not define a class, your cloud provider may use a default ingress provider.
+
+Ideally, all ingress controllers should fulfill this specification, but the various ingress
+controllers operate slightly differently.
+
+{{< note >}}
+Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
+{{< /note >}}
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+* Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
+* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
+
+{{% /capture %}}

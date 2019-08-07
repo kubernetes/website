@@ -26,7 +26,7 @@
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/cluster-management/ 301
 /docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
-/docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
+/docs/admin/daemons/     /docs/concepts/workloads/daemonset/ 301
 /docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
 /docs/admin/dns/     /docs/concepts/services-networking/dns-pod-service/ 301
 /docs/admin/etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
@@ -76,8 +76,8 @@
 /docs/api-reference/v1/definitions.html /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/api-reference/v1/operations/     /docs/reference/generated/kubernetes-api/v1.10/ 301
 
-/docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
-/docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
+/docs/concepts/abstractions/controllers/garbage-collection/     /docs/reference/controllers/garbage-collection/ 301
+/docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/statefulset/ 301
 /docs/concepts/abstractions/init-containers/     /docs/concepts/workloads/pods/init-containers/ 301
 /docs/concepts/abstractions/overview/     /docs/concepts/overview/working-with-objects/kubernetes-objects/ 301
 /docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/pod-overview/ 301
@@ -105,8 +105,8 @@
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling/scheduler-perf-tuning/    301
 /docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
-/docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
-/docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/cron-jobs/ 301
+/docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
@@ -127,12 +127,21 @@
 /docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
 /docs/concepts/overview/object-management-kubectl/kustomization/         /docs/tasks/manage-kubernetes-objects/kustomization/ 301
-/docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
+/docs/concepts/services-networking/ingress-controllers/     /docs/reference/controllers/ingress/ 307
+/docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/cron-job/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
-/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
-/docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
+/docs/concepts/workloads/controllers/cron-jobs/     /docs/concepts/workloads/cron-job/ 301
+/docs/concepts/workloads/controllers/daemonset/     /docs/concepts/workloads/daemonset/ 301
+/docs/concepts/workloads/controllers/deployment/     /docs/concepts/workloads/deployment/ 301
+/docs/concepts/workloads/controllers/garbage-collection/     /docs/reference/controllers/garbage-collection/ 301
+/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/job/ 301
+/docs/concepts/workloads/controllers/jobs-run-to-completion/     /docs/concepts/workloads/job/ 301
+/docs/concepts/workloads/controllers/replicaset/     /docs/concepts/controllers/replicaset/ 301
+/docs/concepts/workloads/controllers/replicationcontroller/     /docs/reference/controllers/replicationcontroller/ 301
+/docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/statefulset/ 301
+/docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/statefulset/ 301
+/docs/concepts/workloads/controllers/ttlafterfinished/     /docs/concepts/controllers/ttl-after-finished/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
 
 /docs/consumer-guideline/pod-security-coverage/     /docs/concepts/policy/pod-security-policy/ 301
@@ -318,7 +327,7 @@
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
 /docs/tasks/federation/set-up-cluster-federation-kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
-/docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/tasks/job/work-queue-1/     /docs/concepts/workload/job/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/tasks/kubectl/install/     /docs/tasks/tools/install-kubectl/ 301
 /docs/tasks/kubectl/list-all-running-container-images/     /docs/tasks/access-application-cluster/list-all-running-container-images/ 301
@@ -391,11 +400,11 @@
 /docs/user-guide/connecting-to-applications-proxy/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
 /docs/user-guide/container-environment/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/user-guide/containers/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
-/docs/user-guide/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
+/docs/user-guide/cron-jobs/     /docs/concepts/workloads/cron-job/ 301
 /docs/user-guide/debugging-pods-and-replication-controllers/     /docs/tasks/debug-application-cluster/debug-pod-replication-controller/ 301
 /docs/user-guide/debugging-services/     /docs/tasks/debug-application-cluster/debug-service/ 301
 /docs/user-guide/deploying-applications/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
-/docs/user-guide/deployments/     /docs/concepts/workloads/controllers/deployment/ 301
+/docs/user-guide/deployments/     /docs/concepts/workloads/deployment/ 301
 /docs/user-guide/docker-cli-to-kubectl/     /docs/reference/kubectl/docker-cli-to-kubectl/
 /docs/user-guide/downward-api/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/downward-api/README/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
@@ -416,8 +425,8 @@
 /docs/user-guide/federation/namespaces/     /docs/tasks/administer-federation/namespaces/ 301
 /docs/user-guide/federation/replicasets/     /docs/tasks/administer-federation/replicaset/ 301
 /docs/user-guide/federation/secrets/     /docs/tasks/administer-federation/secret/ 301
-/docs/user-guide/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
-/docs/user-guide/garbage-collector/*     /docs/concepts/workloads/controllers/garbage-collection/ 301
+/docs/user-guide/garbage-collection/     /docs/concepts/workloads/architecture/garbage-collection/ 301
+/docs/user-guide/garbage-collector/*     /docs/concepts/workloads/architecture/garbage-collection/ 301
 /docs/user-guide/getting-into-containers/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/user-guide/gpus/     /docs/tasks/manage-gpus/scheduling-gpus/ 301
 /docs/user-guide/horizontal-pod-autoscaler/*     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
@@ -430,7 +439,7 @@
 /docs/user-guide/ingress.md     /docs/concepts/services-networking/ingress/ 301
 /docs/user-guide/introspection-and-debugging/     /docs/tasks/debug-application-cluster/debug-application-introspection/ 301
 /docs/user-guide/jsonpath/     /docs/reference/kubectl/jsonpath/
-/docs/user-guide/jobs/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/user-guide/jobs/     /docs/concepts/workloads/job/ 301
 /docs/user-guide/jobs/expansions/     /docs/tasks/job/parallel-processing-expansion/ 301
 /docs/user-guide/jobs/work-queue-1/     /docs/tasks/job/coarse-parallel-processing-work-queue/ 301
 /docs/user-guide/jobs/work-queue-2/     /docs/tasks/job/fine-parallel-processing-work-queue/ 301
@@ -474,12 +483,12 @@
 /docs/user-guide/production-pods/     /docs/tasks/ 301
 /docs/user-guide/projected-volume/     /docs/tasks/configure-pod-container/configure-projected-volume-storage/ 301
 /docs/user-guide/quick-start/     /docs/tasks/access-application-cluster/service-access-application-cluster/ 301
-/docs/user-guide/replicasets/     /docs/concepts/workloads/controllers/replicaset/ 301
-/docs/user-guide/replication-controller/     /docs/concepts/workloads/controllers/replicationcontroller/ 301
-/docs/user-guide/replication-controller/operations/     /docs/concepts/workloads/controllers/replicationcontroller/ 301
-/docs/user-guide/resizing-a-replication-controller/     /docs/concepts/workloads/controllers/replicationcontroller/ 301
+/docs/user-guide/replicasets/     /docs/concepts/workloads/replicaset/ 301
+/docs/user-guide/replication-controller/     /docs/reference/controllers/replicationcontroller/ 301
+/docs/user-guide/replication-controller/operations/     /docs/reference/controllers/replicationcontroller/ 301
+/docs/user-guide/resizing-a-replication-controller/     /docs/reference/controllers/replicationcontroller/ 301
 /docs/user-guide/rolling-updates/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
-/docs/user-guide/scheduled-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
+/docs/user-guide/scheduled-jobs/     /docs/concepts/workloads/cron-job/ 301
 /docs/user-guide/secrets/     /docs/concepts/configuration/secret/ 301
 /docs/user-guide/secrets/walkthrough/     /docs/tasks/inject-data-application/distribute-credentials-secure/ 301
 /docs/user-guide/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
@@ -490,7 +499,7 @@
 /docs/user-guide/services/operations/     /docs/tasks/access-application-cluster/connecting-frontend-backend/ 301
 /docs/user-guide/sharing-clusters/     /docs/tasks/administer-cluster/share-configuration/ 301
 /docs/user-guide/simple-nginx/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
-/docs/user-guide/StatefulSet/     /docs/concepts/workloads/controllers/statefulset/ 301
+/docs/user-guide/StatefulSet/     /docs/concepts/workloads/statefulset/ 301
 /docs/user-guide/thirdpartyresources/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
 /docs/user-guide/ui/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 /docs/user-guide/ui-access/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301

@@ -182,7 +182,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### Set references in API objects
 
-Some Kubernetes objects, such as [`services`](/docs/user-guide/services) and [`replicationcontrollers`](/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
+Some Kubernetes objects, such as [`services`](/docs/concepts/services-networking/service/) and [`deployments`](/docs/concepts/workloads/deployment/), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
 
 #### Service and ReplicationController
 
@@ -206,7 +206,7 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 #### Resources that support set-based requirements
 
-Newer resources, such as [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`Replica Set`](/docs/concepts/workloads/controllers/replicaset/), and [`Daemon Set`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/concepts/workloads/job/), [`Deployment`](/docs/concepts/workloads/deployment/), [`ReplicaSet`](/docs/concepts/workloads/replicaset/), and [`DaemonSet`](/docs/concepts/workloads/daemonset/), support _set-based_ requirements as well.
 
 ```yaml
 selector:

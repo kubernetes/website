@@ -2,18 +2,19 @@
 title: ReplicaSet
 id: replica-set
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/replicaset/
+full_link: /docs/concepts/workloads/replicaset/
 short_description: >
-  ReplicaSet is the next-generation Replication Controller.
+  A ReplicaSet maintains a configured number of replicas of a Pod
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
 - workload
 ---
- ReplicaSet is the next-generation Replication Controller.
+ A ReplicaSet’s purpose is to maintain a stable set of replica {{< glossary_tooltip text="Pods" term_id="pod" >}} running at any given time. As such, it is often used to guarantee the availability of a specified number of identical Pods.
 
-<!--more--> 
+<!--more-->
 
-ReplicaSet, like ReplicationController, ensures that a specified number of pods replicas are running at one time. ReplicaSet supports the new set-based selector requirements as described in the labels user guide, whereas a Replication Controller only supports equality-based selector requirements.
+ReplicaSets are often created automatically when you add a {{< glossary_tooltip term_id="deployment" >}};
+this is more common than configuring a ReplicaSet directly.

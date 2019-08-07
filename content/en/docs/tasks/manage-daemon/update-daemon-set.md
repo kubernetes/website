@@ -40,8 +40,8 @@ DaemonSet has two update strategy types:
 To enable the rolling update feature of a DaemonSet, you must set its
 `.spec.updateStrategy.type` to `RollingUpdate`.
 
-You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) (default
-to 1) and [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) as well.
+You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/deployment/#max-unavailable) (default
+to 1) and [`.spec.minReadySeconds`](/docs/concepts/workloads/deployment/#min-ready-seconds) (default to 0) as well.
 
 
 ### Step 1: Checking DaemonSet `RollingUpdate` update strategy
@@ -189,8 +189,8 @@ progress.
 
 {{% capture whatsnext %}}
 
+* Read about [DaemonSet](/docs/concepts/workloads/daemonset/)
 * See [Task: Performing a rollback on a
   DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
-* See [Concepts: Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 
 {{% /capture %}}

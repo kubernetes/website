@@ -603,7 +603,8 @@ This admission controller will observe the incoming request and ensure that it d
 enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
 objects in your Kubernetes deployment, you MUST use this admission controller to enforce quota constraints.
 
-See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
+You can learn more in the [ResourceQuota controller](/docs/reference/controllers/resource-quota) reference
+documentation.
 
 
 ### SecurityContextDeny {#securitycontextdeny}

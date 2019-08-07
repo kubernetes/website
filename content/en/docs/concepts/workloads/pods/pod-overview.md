@@ -71,17 +71,17 @@ A Controller can create and manage multiple Pods for you, handling replication a
 
 Some examples of Controllers that contain one or more pods include:
 
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [Deployment](/docs/reference/controllers/deployment/)
+* [StatefulSet](/docs/reference/controllers/statefulset/)
+* [DaemonSet](/docs/reference/controllers/daemonset/)
 
 In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
 
 ## Pod Templates
 
 Pod templates are pod specifications which are included in other objects, such as
-[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
-[DaemonSets](/docs/concepts/workloads/controllers/daemonset/).  Controllers use Pod Templates to make actual pods.
+[ReplicaSet](/docs/concepts/workloads/replicset/), [Job](/docs/concepts/workloads/job/), and
+[DaemonSet](/docs/concepts/workloads/daemonset/).  Controllers use Pod Templates to make actual pods.
 The sample below is a simple manifest for a Pod which contains a container that prints
 a message.
 

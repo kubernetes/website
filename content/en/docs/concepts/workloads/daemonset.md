@@ -12,19 +12,27 @@ weight: 50
 
 {{% capture overview %}}
 
-A _DaemonSet_ ensures that all (or some) Nodes run a copy of a Pod.  As nodes are added to the
-cluster, Pods are added to them.  As nodes are removed from the cluster, those Pods are garbage
-collected.  Deleting a DaemonSet will clean up the Pods it created.
+{{< glossary_definition term_id="daemonset" length="short" >}}
+
+DaemonSets usually match every node; however, you can choose to run a DaemonSet
+only on specific nodes.
+
+As nodes are added to the cluster, the
+[DaemonSet controller](/docs/reference/controllers/daemonset/) checks if it should add
+Pods to them for any DaemonSet. If it should, the controller adds those Pods.
+As nodes are removed from the cluster, those Pods are garbage collected.
+Deleting a DaemonSet will clean up the Pods it created.
 
 Some typical uses of a DaemonSet are:
 
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
-- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Sysdig Agent](https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/).
+- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
+  https://github.com/prometheus/node_exporter), [Sysdig Agent](https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [SignalFx Agent](https://docs.signalfx.com/en/latest/integrations/agent/kubernetes-setup.html), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or Instana agent.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
-different flags and/or different memory and cpu requests for different hardware types.
+different flags and/or different memory and CPU requests for different hardware types.
 
 {{% /capture %}}
 
@@ -77,7 +85,7 @@ unintentional orphaning of Pods, and it was found to be confusing to users.
 
 The `.spec.selector` is an object consisting of two fields:
 
-* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
+* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/reference/controllers/replicationcontroller/).
 * `matchExpressions` - allows to build more sophisticated selectors by specifying key,
   list of values and an operator that relates the key and values.
 
@@ -98,60 +106,6 @@ create Pods on nodes which match that [node
 selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`,
 then DaemonSet controller will create Pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create Pods on all nodes.
-
-## How Daemon Pods are Scheduled
-
-### Scheduled by DaemonSet controller (disabled by default since 1.12)
-
-Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
-created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
-when the Pod is created, so it is ignored by the scheduler).  Therefore:
-
- - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
-   by the DaemonSet controller.
- - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
-   bootstrap.
-
-
-### Scheduled by default scheduler (enabled by default since 1.12)
-
-{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
-
-A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
-node that a Pod runs on is selected by the Kubernetes scheduler. However,
-DaemonSet pods are created and scheduled by the DaemonSet controller instead.
-That introduces the following issues:
-
- * Inconsistent Pod behavior: Normal Pods waiting to be scheduled are created
-   and in `Pending` state, but DaemonSet pods are not created in `Pending`
-   state. This is confusing to the user.
- * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
-   is handled by default scheduler. When preemption is enabled, the DaemonSet controller
-   will make scheduling decisions without considering pod priority and preemption.
-
-`ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
-scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
-to the DaemonSet pods, instead of the `.spec.nodeName` term. The default
-scheduler is then used to bind the pod to the target host. If node affinity of
-the DaemonSet pod already exists, it is replaced. The DaemonSet controller only
-performs these operations when creating or modifying DaemonSet pods, and no
-changes are made to the `spec.template` of the DaemonSet.
-
-```yaml
-nodeAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-    - matchFields:
-      - key: metadata.name
-        operator: In
-        values:
-        - target-host-name
-```
-
-In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
-automatically to DaemonSet Pods. The default scheduler ignores
-`unschedulable` Nodes when scheduling DaemonSet Pods.
-
 
 ### Taints and Tolerations
 
@@ -234,7 +188,7 @@ in cluster bootstrapping cases.  Also, static Pods may be deprecated in the futu
 
 ### Deployments
 
-DaemonSets are similar to [Deployments](/docs/concepts/workloads/controllers/deployment/) in that
+DaemonSets are similar to [Deployments](/docs/concepts/workloads/deployment/) in that
 they both create Pods, and those Pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 
@@ -243,4 +197,7 @@ number of replicas and rolling out updates are more important than controlling e
 the Pod runs on.  Use a DaemonSet when it is important that a copy of a Pod always run on
 all or certain hosts, and when it needs to start before other Pods.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* Read about the [DaemonSet controller](/docs/reference/controllers/daemonset/)
 {{% /capture %}}

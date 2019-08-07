@@ -474,6 +474,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn about [ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
+* Learn about [ingress controllers](/docs/reference/controllers/ingress/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
 {{% /capture %}}

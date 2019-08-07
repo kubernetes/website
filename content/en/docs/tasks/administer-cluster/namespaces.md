@@ -12,7 +12,7 @@ This page shows how to view, work in, and delete {{< glossary_tooltip text="name
 
 {{% capture prerequisites %}}
 * Have an [existing Kubernetes cluster](/docs/setup/).
-* Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
+* Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/deployment/)_.
 {{% /capture %}}
 
 {{% capture steps %}}

@@ -257,30 +257,30 @@ once bound to a node, a Pod will never be rebound to another node.
 
 ## Pod lifetime
 
-In general, Pods do not disappear until someone destroys them. This might be a
-human or a controller. The only exception to
+In general, Pods do not disappear until something destroys them. This might be a
+human or a {{< glossary_tooltip term_id="controller" >}}. The only exception to
 this rule is that Pods with a `phase` of Succeeded or Failed for more than some
 duration (determined by `terminated-pod-gc-threshold` in the master) will expire and be automatically destroyed.
 
-Three types of controllers are available:
+There are three main kinds of resource you can use to have Pods created for you:
 
 - Use a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) for Pods that are expected to terminate,
   for example, batch computations. Jobs are appropriate only for Pods with
   `restartPolicy` equal to OnFailure or Never.
 
-- Use a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
-  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or
-  [Deployment](/docs/concepts/workloads/controllers/deployment/)
+- Use a [ReplicationController](/docs/reference/controllers/replicationcontroller/),
+  [ReplicaSet](/docs/concepts/workloads/replicaset/), or
+  [Deployment](/docs/concepts/workloads/deployment/)
   for Pods that are not expected to terminate, for example, web servers.
   ReplicationControllers are appropriate only for Pods with a `restartPolicy` of
   Always.
 
-- Use a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) for Pods that need to run one per
+- Use a [DaemonSet](/docs/concepts/workloads/daemonset/) for Pods that need to run one per
   machine, because they provide a machine-specific system service.
 
-All three types of controllers contain a PodTemplate. It
-is recommended to create the appropriate controller and let
-it create Pods, rather than directly create Pods yourself. That is because Pods
+All three types of resource contain a PodTemplate. You should typically
+create the appropriate resource and let its associated controller create Pods
+for you, rather than directly create Pods yourself. That is because Pods
 alone are not resilient to machine failures, but controllers are.
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes

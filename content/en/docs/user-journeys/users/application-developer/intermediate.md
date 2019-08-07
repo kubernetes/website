@@ -63,7 +63,7 @@ Like Deployments, these API objects run indefinitely on a cluster until they are
 
 In contrast to Deployments, these API objects are finite. They stop once the specified number of Pods have completed successfully.
 
-* **{{< glossary_tooltip text="Jobs" term_id="job" >}}** - You can use these for one-off tasks like running a script or setting up a work queue. These tasks can be executed sequentially or in parallel. These tasks should be relatively independent, as Jobs do not support closely communicating parallel processes. {{< link text="Read more about Job patterns" url="/docs/concepts/workloads/controllers/jobs-run-to-completion/#job-patterns" >}}.
+* **{{< glossary_tooltip text="Jobs" term_id="job" >}}** - You can use these for one-off tasks like running a script or setting up a work queue. These tasks can be executed sequentially or in parallel. These tasks should be relatively independent, as Jobs do not support closely communicating parallel processes. {{< link text="Read more about Job patterns" url="/docs/concepts/workloads/job/#job-patterns" >}}.
 
 * **{{< glossary_tooltip text="CronJobs" term_id="cronjob" >}}** - These are similar to Jobs, but allow you to schedule their execution for a specific time or for periodic recurrence. You might use CronJobs to send reminder emails or to run backup jobs. They are set up with a similar syntax as *crontab*.
 

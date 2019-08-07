@@ -2,7 +2,7 @@
 reviewers:
 - erictune
 - soltysh
-title: Jobs - Run to Completion
+title: Job
 content_template: templates/concept
 feature:
   title: Batch execution
@@ -13,7 +13,7 @@ weight: 70
 
 {{% capture overview %}}
 
-A Job creates one or more Pods and ensures that a specified number of them successfully terminate.
+A _Job_ creates one or more Pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
 the Pods it created.
@@ -234,9 +234,16 @@ By default, a Job will run uninterrupted unless a Pod fails (`restartPolicy=Neve
 `.spec.backoffLimit` described above. Once `.spec.backoffLimit` has been reached the Job will be marked as failed and any running Pods will be terminated.
 
 Another way to terminate a Job is by setting an active deadline.
-Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
-The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
+You can do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
+ The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
 Once a Job reaches `activeDeadlineSeconds`, all of its running Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded`.
+
+By default, a Job will run uninterrupted unless a Pod fails, at which point the Job defers to the
+`.spec.backoffLimit` described above. Another way to terminate a Job is by setting an active deadline.
+Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
+
+The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
+Once a Job reaches `activeDeadlineSeconds`, all of its Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded`.
 
 Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`. Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
 
@@ -266,7 +273,7 @@ Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads
 Finished Jobs are usually no longer needed in the system. Keeping them around in
 the system will put pressure on the API server. If the Jobs are managed directly
 by a higher level controller, such as
-[CronJobs](/docs/concepts/workloads/controllers/cron-jobs/), the Jobs can be
+[CronJobs](/docs/concepts/workloads/cronjob/), the Jobs can be
 cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### TTL Mechanism for Finished Jobs
@@ -274,12 +281,12 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
-automatically is to use a TTL mechanism provided by a
-[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
+automatically is to use a TTL mechanism available via the
+[TTL-after-finished controller](/docs/reference/controllers/ttlafterfinished/) for
 finished resources, by specifying the `.spec.ttlSecondsAfterFinished` field of
 the Job.
 
-When the TTL controller cleans up the Job, it will delete the Job cascadingly,
+When the TTL-after-finished controller cleans up the Job, it will delete the Job cascadingly,
 i.e. delete its dependent objects, such as Pods, together with the Job. Note
 that when the Job is deleted, its lifecycle guarantees, such as finalizers, will
 be honored.
@@ -309,10 +316,14 @@ If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
 
-Note that this TTL mechanism is alpha, with feature gate `TTLAfterFinished`. For
-more information, see the documentation for
-[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
-finished resources.
+{{< note >}}
+
+This Time-To_Live mechanism is alpha, with feature gate `TTLAfterFinished`. For
+more information, see the
+[TTL-after-finished controller](/docs/references/controllers/ttlafterfinished/)
+reference documentation.
+
+{{< /note >}}
 
 ## Job Patterns
 
@@ -396,9 +407,6 @@ running_, using `kubectl delete jobs/old --cascade=false`.
 Before deleting it, you make a note of what selector it uses:
 
 ```
-kubectl get job old -o yaml
-```
-```
 kind: Job
 metadata:
   name: old
@@ -406,12 +414,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      job-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
 Then you create a new Job with name `new` and you explicitly specify the same selector.
-Since the existing Pods have label `controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`,
+Since the existing Pods have label `job-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`,
 they are controlled by Job `new` as well.
 
 You need to specify `manualSelector: true` in the new Job since you are not using
@@ -426,7 +434,7 @@ spec:
   manualSelector: true
   selector:
     matchLabels:
-      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      job-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
@@ -445,9 +453,10 @@ requires only a single Pod.
 
 ### Replication Controller
 
-Jobs are complementary to [Replication Controllers](/docs/user-guide/replication-controller).
-A Replication Controller manages Pods which are not expected to terminate (e.g. web servers), and a Job
-manages Pods that are expected to terminate (e.g. batch tasks).
+Jobs are complementary to [Deployments](/docs/concepts/workloads/deployment).
+A Deployment uses a ReplicaSet to manage Pods that are not expected to terminate
+(e.g. web servers), and a Job manages Pods that are expected to terminate
+(e.g. batch tasks).
 
 As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` is *only* appropriate
 for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
@@ -468,6 +477,13 @@ object, but complete control over what Pods are created and how work is assigned
 
 ## Cron Jobs {#cron-jobs}
 
-You can use a [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) to create a Job that will run at specified times/dates, similar to the Unix tool `cron`.
+You can use a [`CronJob`](/docs/concepts/workloads/cronjob/) to create a Job that will run at specified
+times/dates, similar to the Unix tool `cron`.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* Read about CronJob(/docs/concepts/workloads/cronjob/). You can use a
+  CronJob to create a Job that will run at specified times/dates, similar to
+  the Unix tool `cron`
+* Read the [Job controller](/docs/reference/controllers/job/) reference documentation
 {{% /capture %}}

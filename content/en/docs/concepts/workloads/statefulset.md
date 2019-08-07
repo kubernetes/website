@@ -6,20 +6,15 @@ reviewers:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: StatefulSets
+title: StatefulSet
 content_template: templates/concept
 weight: 40
 ---
 
 {{% capture overview %}}
 
-StatefulSet is the workload API object used to manage stateful applications.
-
-{{< note >}}
-StatefulSets are stable (GA) in 1.9.
-{{< /note >}}
-
 {{< glossary_definition term_id="statefulset" length="all" >}}
+
 {{% /capture %}}
 
 {{% capture body %}}
@@ -35,15 +30,15 @@ following.
 * Ordered, automated rolling updates.
 
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
-If an application doesn't require any stable identifiers or ordered deployment,
-deletion, or scaling, you should deploy your application with a controller that
-provides a set of stateless replicas. Controllers such as
-[Deployment](/docs/concepts/workloads/controllers/deployment/) or
-[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
+
+If your application doesn't require any stable identifiers or ordered deployment,
+deletion, or scaling, you should deploy your application using a mechanism that
+provides a set of stateless replicas. You may find that a
+[Deployment](/docs/concepts/workloads/deployment/) or
+[ReplicaSet](/docs/concepts/workloads/replicaset/) is be better suited to stateless workloads.
 
 ## Limitations
 
-* StatefulSet was a beta resource prior to 1.9 and not available in any Kubernetes release prior to 1.5.
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
@@ -52,6 +47,7 @@ provides a set of stateless replicas. Controllers such as
   [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
   it's possible to get into a broken state that requires
   [manual intervention to repair](#forced-rollback).
+* StatefulSet was a beta resource prior to 1.9 and not available in any Kubernetes release prior to 1.5.
 
 ## Components
 The example below demonstrates the components of a StatefulSet.
@@ -169,8 +165,8 @@ This must be done manually.
 
 ### Pod Name Label
 
-When the StatefulSet controller creates a Pod, it adds a label, `statefulset.kubernetes.io/pod-name`, 
-that is set to the name of the Pod. This label allows you to attach a Service to a specific Pod in 
+When the StatefulSet controller creates a Pod, it adds a label, `statefulset.kubernetes.io/pod-name`,
+that is set to the name of the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
 
 ## Deployment and Scaling Guarantees
@@ -271,6 +267,7 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
+* Read the [StatefulSet controller](/docs/reference/controllers/statefulset/) reference documentation
 
 {{% /capture %}}
 

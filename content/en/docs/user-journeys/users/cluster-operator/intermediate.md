@@ -32,10 +32,10 @@ Storage: Volumes and PersistentVolumes
 
 Workloads
 
-* [DaemonSets](/docs/concepts/workloads/controllers/daemonset/)
-* [Stateful Sets](/docs/concepts/workloads/controllers/statefulset/)
-* [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
-* [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
+* [DaemonSets](/docs/concepts/workloads/daemonset/)
+* [Stateful Sets](/docs/concepts/workloads/statefulset/)
+* [Jobs](/docs/concepts/workloads/job/)
+* [CronJobs](/docs/concepts/workloads/cronjob/)
 
 Pods
 

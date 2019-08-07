@@ -1,18 +1,31 @@
 ---
-title: Garbage Collection
+title: Garbage Collector
 content_template: templates/concept
-weight: 60
 ---
 
 {{% capture overview %}}
 
-The role of the Kubernetes garbage collector is to delete certain objects
-that once had an owner, but no longer have an owner.
+The Kubernetes garbage collector is a built-in controller. It deletes certain
+objects that once had an owner, but no longer have an owner.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
+
+## Controller behavior
+
+This controller watches for changes to objects that have dependencies, and
+spots objects that are eligible for garbage collection. Once identified these
+are queued for (attempts at) deletion.
+
+Other controllers can rely on this behavior to take care of cascading deletion
+of objects via parent-child relationships.
+
+For example: if you remove a {{< glossary_tooltip term_id="deployment" >}}
+that relies on a {{< glossary_tooltip term_id="replica-set" >}} to ensure
+the right number of {{< glossary_tooltip text="Pods" term_id="pod" >}} are
+running, removing that Deployment will schedule removal of the ReplicaSet.
 
 ## Owners and dependents
 
@@ -45,7 +58,7 @@ kubectl get pods --output=yaml
 
 The output shows that the Pod owner is a ReplicaSet named `my-repset`:
 
-```yaml
+```shell
 apiVersion: v1
 kind: Pod
 metadata:
@@ -61,7 +74,7 @@ metadata:
 ```
 
 {{< note >}}
-Cross-namespace owner references are disallowed by design. This means:
+Cross-namespace owner references is disallowed by design. This means:
 1) Namespace-scoped dependents can only specify owners in the same namespace,
 and owners that are cluster-scoped.
 2) Cluster-scoped dependents can only specify cluster-scoped owners, but not
@@ -157,27 +170,12 @@ Here's an example that orphans the dependents of a ReplicaSet:
 kubectl delete replicaset my-repset --cascade=false
 ```
 
-### Additional note on Deployments
-
-Prior to 1.7, When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
-to delete not only the ReplicaSets created, but also their Pods. If this type of _propagationPolicy_
-is not used, only the ReplicaSets will be deleted, and the Pods will be orphaned.
-See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) for more information.
-
-## Known issues
-
-Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
-
 {{% /capture %}}
-
 
 {{% capture whatsnext %}}
 
-[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
+* Read [Garbage collection design document 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
-[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
+* Read [Garbage collection design document 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
 {{% /capture %}}
-
-
-

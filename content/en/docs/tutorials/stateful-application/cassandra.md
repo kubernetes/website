@@ -9,7 +9,7 @@ weight: 30
 {{% capture overview %}}
 This tutorial shows you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this example, a custom Cassandra *SeedProvider* enables Cassandra to discover new Cassandra nodes as they join the cluster.
 
-*StatefulSets* make it easier to deploy stateful applications within a clustered environment. For more information on the features used in this tutorial, see the [*StatefulSet*](/docs/concepts/workloads/controllers/statefulset/) documentation.
+{{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} make it easier to deploy stateful applications within a clustered environment. See [StatefulSet](/docs/concepts/workloads/statefulset/) for more information.
 
 **Cassandra on Docker**
 
@@ -31,14 +31,14 @@ By using environment variables you can change values that are inserted into `cas
 
 {{% capture objectives %}}
 * Create and validate a Cassandra headless [*Service*](/docs/concepts/services-networking/service/).
-* Use a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) to create a Cassandra ring.
-* Validate the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
-* Modify the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
-* Delete the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) and its [Pods](/docs/concepts/workloads/pods/pod/).
+* Use a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} to create a Cassandra ring.
+* Validate the StatefulSet.
+* Modify the StatefulSet.
+* Delete the StatefulSet and its {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-To complete this tutorial, you should already have a basic familiarity with [Pods](/docs/concepts/workloads/pods/pod/), [Services](/docs/concepts/services-networking/service/), and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
+To complete this tutorial, you should already have a basic familiarity with [Pods](/docs/concepts/workloads/pods/pod/), [Services](/docs/concepts/services-networking/service/), and [StatefulSets](/docs/concepts/workloads/statefulset/). In addition, you should:
 
 * [Install and Configure](/docs/tasks/tools/install-kubectl/) the *kubectl* command-line tool
 

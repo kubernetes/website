@@ -13,7 +13,7 @@ This guide explains how to use jobs in the federation control plane.
 
 Jobs in the federation control plane (referred to as "federated jobs" in
 this guide) are similar to the traditional [Kubernetes
-jobs](/docs/concepts/workloads/controllers/job/), and provide the same functionality.
+jobs](/docs/concepts/workloads/job/), and provide the same functionality.
 Creating jobs in the federation control plane ensures that the desired number of
 parallelism and completions exist across the registered clusters.
 {{% /capture %}}
@@ -23,7 +23,7 @@ parallelism and completions exist across the registered clusters.
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * You should also have a basic
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
-general and [jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) in particular.
+general and [jobs](/docs/concepts/workloads/job/) in particular.
 {{% /capture %}}
 
 {{% capture steps %}}

@@ -59,7 +59,7 @@ policy) or deletion. If a {{< glossary_tooltip term_id="node" >}} dies, the Pods
 scheduled for deletion, after a timeout period. A given Pod (as defined by a UID) is not
 "rescheduled" to a new node; instead, it can be replaced by an identical Pod,
 with even the same name if desired, but with a new UID (see [replication
-controller](/docs/concepts/workloads/controllers/replicationcontroller/) for more details).
+controller](/docs/concepts/workloads/architecture/replicationcontroller/) for more details).
 
 When something is said to have the same lifetime as a Pod, such as a volume,
 that means that it exists as long as that Pod (with that UID) exists. If that
@@ -147,11 +147,11 @@ simplified management.
 Pods aren't intended to be treated as durable entities. They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
 
 In general, users shouldn't need to create Pods directly. They should almost
-always use controllers even for singletons, for example,
-[Deployments](/docs/concepts/workloads/controllers/deployment/).
+always use controllers even for singletons; for example,
+[Deployments](/docs/reference/controllers/deployment/).
 Controllers provide self-healing with a cluster scope, as well as replication
 and rollout management.
-Controllers like [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
+Controllers like [StatefulSet](/docs/reference/controllers/statefulset.md)
 can also provide support to stateful Pods.
 
 The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), and [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).

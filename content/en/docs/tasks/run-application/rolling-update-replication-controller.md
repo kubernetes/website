@@ -20,7 +20,7 @@ For more information, see
 To update a service without an outage, `kubectl` supports what is called [rolling update](/docs/reference/generated/kubectl/kubectl-commands/#rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) for more information.
 
 Note that `kubectl rolling-update` only supports Replication Controllers. However, if you deploy applications with Replication Controllers,
-consider switching them to [Deployments](/docs/concepts/workloads/controllers/deployment/). A Deployment is a higher-level controller that automates rolling updates
+consider switching them to [Deployments](/docs/concepts/workloads/deployment/). Deployment works at a higher-level with a controller that automates rolling updates
 of applications declaratively, and therefore is recommended. If you still want to keep your Replication Controllers and use `kubectl rolling-update`, keep reading:
 
 A rolling update applies changes to the configuration of pods being managed by

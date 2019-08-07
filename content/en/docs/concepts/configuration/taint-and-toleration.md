@@ -265,7 +265,7 @@ problems is detected is maintained.
 The two default tolerations are added by the [DefaultTolerationSeconds
 admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
 
-[DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
+[DaemonSet](/docs/concepts/workloads/daemonset/) pods are created with
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
   * `node.kubernetes.io/unreachable`

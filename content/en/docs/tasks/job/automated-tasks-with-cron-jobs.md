@@ -8,7 +8,7 @@ weight: 10
 
 {{% capture overview %}}
 
-You can use [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) to run jobs on a time-based schedule.
+You can use [CronJobs](/docs/concepts/workloads/cronjob/) to run jobs on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
 
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
@@ -23,7 +23,7 @@ Examples in this document use `batch/v1beta1` in all examples.
 Cron jobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs.
 Therefore, jobs should be idempotent.
-For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
+For more limitations, see [CronJob](/docs/concepts/workloads/cronjob/).
 
 {{% /capture %}}
 
@@ -137,7 +137,7 @@ kubectl delete cronjob hello
 ```
 
 Deleting the cron job removes all the jobs and pods it created and stops it from creating additional jobs.
-You can read more about removing jobs in [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
+You can read more about removing jobs in [garbage collection](/docs/reference/controllers/garbage-collection/).
 
 ## Writing a Cron Job Spec
 
@@ -172,8 +172,8 @@ A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, t
 ### Job Template
 
 The `.spec.jobTemplate` is the template for the job, and it is required.
-It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), except that it is nested and does not have an `apiVersion` or `kind`.
-For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
+It has exactly the same schema as a [Job](/docs/concepts/workloads/job/), except that it is nested and does not have an `apiVersion` or `kind`.
+For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/job/#writing-a-job-spec).
 
 ### Starting Deadline
 
