@@ -5,7 +5,7 @@ weight: 30
 ---
 
 {{% capture overview %}}
-Das Konzept des Cloud Controller Managers (CCM) (nicht zu verwechseln mit der Binärdatei) wurde ursprünglich entwickelt, um Cloud-spezifischen Anbieter-Code und den Kubernetes Kern unabhängig voneinander entwickeln zu können. Der Cloud Controller Manager läuft zusammen mit anderen Master-Komponenten wie dem Kubernetes Controller Manager, dem API-Server und dem Scheduler auf dem Host. Es kann auch als Kubernetes-Addon gestartet werden, in diesem Fall läuft er auf Kubernetes.
+Das Konzept des Cloud Controller Managers (CCM) (nicht zu verwechseln mit der Binärdatei) wurde ursprünglich entwickelt, um Cloud-spezifischen Anbieter Code und den Kubernetes Kern unabhängig voneinander entwickeln zu können. Der Cloud Controller Manager läuft zusammen mit anderen Master Komponenten wie dem Kubernetes Controller Manager, dem API-Server und dem Scheduler auf dem Host. Es kann auch als Kubernetes Addon gestartet werden, in diesem Fall läuft er auf Kubernetes.
 
 Das Design des Cloud Controller Managers basiert auf einem Plugin Mechanismus, der es neuen Cloud Anbietern ermöglicht, sich mit Kubernetes einfach über Plugins zu integrieren. Es gibt Pläne für die Einbindung neuer Cloud Anbieter auf Kubernetes und für die Migration von Cloud Anbietern vom alten Modell auf das neue CCM-Modell.
 
@@ -32,9 +32,9 @@ CCM konsolidiert die gesamte Abhängigkeit der Cloud Logik von den drei vorherge
 
 ![CCM Kube Arch](/images/docs/post-ccm-arch.png)
 
-## Components of the CCM
+## Komponenten des CCM
 
-Der CCM löst einen Teil der Funktionalität des Kubernetes Controller Managers (KCM) ab und führt ihn als separaten Prozess aus. Konkret trennt es die Cloud abhängigen Controller im KCM. Das KCM verfügt über die folgenden Cloud abhängigen Steuerungsschleifen:
+Der CCM löst einen Teil der Funktionalität des Kubernetes Controller Managers (KCM) ab und führt ihn als separaten Prozess aus. Konkret trennt es die Cloud abhängigen Controller im KCM. Der KCM verfügt über die folgenden Cloud abhängigen Steuerungsschleifen:
 
  * Node Controller
  * Volume Controller
@@ -48,16 +48,16 @@ In der Version 1.9 führt der CCM die folgenden Controller aus der vorhergehende
 * Service Controller
 
 {{< note >}}
-Der Volume Controller wurde bewusst nicht als Teil des CCM gewählt. Aufgrund der Komplexität und der bestehenden Bemühungen, herstellerspezifische Volumelogik zu abstrahieren, wurde entschieden, dass der Volumecontroller nicht zum CCM verschoben wird.
+Der Volume Controller wurde bewusst nicht als Teil des CCM gewählt. Aufgrund der Komplexität und der bestehenden Bemühungen, herstellerspezifische Volume Logik zu abstrahieren, wurde entschieden, dass der Volume Controller nicht zum CCM verschoben wird.
 {{< /note >}}
 
-Der ursprüngliche Plan, Volumes mit CCM zu unterstützen, war die Verwendung von Flex-Volumes zur Unterstützung von austauschbaren Volumes. Allerdings ist eine konkurrierende Initiative namens CSI geplant, um Flex zu ersetzen.
+Der ursprüngliche Plan, Volumes mit CCM zu integrieren, sah die Verwendung von Flex-Volumes vor welche austauschbare Volumes unterstützt. Allerdings ist eine konkurrierende Initiative namens CSI geplant, um Flex zu ersetzen.
 
 In Anbetracht dieser Dynamik haben wir uns entschieden, eine Zwischenstopp durchzuführen um die Unterschiede zu beobachten , bis das CSI bereit ist.
 
 ## Funktionen des CCM
 
-Das CCM erbt seine Funktionen von Komponenten des Kubernetes, die von einem Cloud Provider abhängig sind. Dieser Abschnitt ist auf der Grundlage dieser Komponenten strukturiert.
+Der CCM erbt seine Funktionen von Komponenten des Kubernetes, die von einem Cloud Provider abhängig sind. Dieser Abschnitt ist auf der Grundlage dieser Komponenten strukturiert.
 
 ### 1. Kubernetes Controller Manager
 
@@ -69,7 +69,7 @@ Die meisten Funktionen des CCM stammen aus dem KCM. Wie im vorherigen Abschnitt 
 
 #### Node Controller
 
-Der Node Controller ist für die Initialisierung eines Knotens verantwortlich, indem er Informationen über die im Cluster laufenden Knoten vom CloudmProvider erhält. Der Node Controller führt die folgenden Funktionen aus:
+Der Node Controller ist für die Initialisierung eines Knotens verantwortlich, indem er Informationen über die im Cluster laufenden Knoten vom Cloud Provider erhält. Der Node Controller führt die folgenden Funktionen aus:
 
 1. Initialisierung eines Knoten mit Cloud-spezifischen Zonen-/Regionen Labels.
 2. Initialisieren von Knoten mit Cloud-spezifischen Instanzdetails, z.B. Typ und Größe.
@@ -89,13 +89,13 @@ Der Service Controller ist verantwortlich für das Abhören von Ereignissen zum 
 
 Der Node Controller enthält die Cloud-abhängige Funktionalität des Kubelets. Vor der Einführung des CCM war das Kubelet für die Initialisierung eines Knotens mit cloudspezifischen Details wie IP-Adressen, Regions-/Zonenbezeichnungen und Instanztypinformationen verantwortlich. Mit der Einführung des CCM wurde diese Initialisierungsoperation aus dem Kubelet in das CCM verschoben.
 
-In diesem neuen Modell initialisiert das Kubelet einen Knoten ohne cloudspezifische Informationen. Es fügt jedoch dem neu angelegten Knoten einen Taint hinzu, der den Knoten nicht planbar macht, bis der CCM den Knoten mit cloudspezifischen Informationen initialisiert. Dann wird der Taint entfernt.
+In diesem neuen Modell initialisiert das Kubelet einen Knoten ohne cloudspezifische Informationen. Es fügt jedoch dem neu angelegten Knoten einen Taint hinzu, der den Knoten nicht verplanbar macht, bis der CCM den Knoten mit cloudspezifischen Informationen initialisiert. Dann wird der Taint entfernt.
 
 ## Plugin Mechanismus
 
-Der Cloud Controller Manager verwendet die Go Schnittstellen, um Implementierungen aus jeder Cloud einzubinden. Konkret verwendet dieser das CloudProvider Interface, das[hier](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62) definiert ist.
+Der Cloud Controller Manager verwendet die Go Schnittstellen, um Implementierungen aus jeder Cloud einzubinden. Konkret verwendet dieser das CloudProvider Interface, das [hier](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62) definiert ist.
 
-Die Implementierung der vier oben genannten geteiltent Controllern und einigen Scaffolding sowie die gemeinsame Cloudprovider Schnittstelle bleiben im Kubernetes Kern. Cloud Provider spezifische Implementierungen werden außerhalb des Kerns aufgebaut und implementieren im Kern definierte Schnittstellen. 
+Die Implementierung der vier oben genannten geteiltent Controllern und einigen Scaffolding sowie die gemeinsame CloudProvider Schnittstelle bleiben im Kubernetes Kern. Cloud Provider spezifische Implementierungen werden außerhalb des Kerns aufgebaut und implementieren im Kern definierte Schnittstellen. 
 
 Weitere Informationen zur Entwicklung von Plugins findest du im Bereich [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
 
@@ -233,6 +233,6 @@ Die folgenden Cloud Anbieter haben CCMs implementiert:
 
 ## Cluster Administration
 
-Eine vollständige Anleitung zur Konfiguration und zum Betrieb des CCM finden Sie [hier](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
+Eine vollständige Anleitung zur Konfiguration und zum Betrieb des CCM findest du [hier](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
 {{% /capture %}}
