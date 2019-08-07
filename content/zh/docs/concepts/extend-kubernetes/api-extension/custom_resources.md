@@ -276,7 +276,7 @@ and use a controller to handle events.
 <!--
 Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CRDs](#customresourcedefinitions).
 -->
-通常，Kubernetes API 中的每个资源都需要代码来处理 REST 请求和管理对象的持续存储。主 Kubernetes API服务器处理像 *Pod* 和 *services* 的内置资源，还可以通过[CustomResourceDefinition](#customresourcedefinitions)以通用的方式处理自定义资源。
+通常，Kubernetes API 中的每个资源都需要代码来处理 REST 请求和管理对象的持续存储。主 Kubernetes API服务器处理像 *Pod* 和 *services* 的内置资源，还可以通过 [CustomResourceDefinition](#customresourcedefinitions) 以通用的方式处理自定义资源。
 
 <!--
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
@@ -384,7 +384,7 @@ API 集合提供更高级的API特性以及其他功能的自定义，例如：�
 <!--
 When you create a custom resource, either via a CRDs or an AA, you get many features for your API, compared to implementing it outside the Kubernetes platform:
 -->
-与在Kubernetes平台之外实现它相比，当通过 CustomResourceDefinition 或 AA 创建自定义资源时，您可以获得 API 的许多功能：
+与在 Kubernetes 平台之外实现它相比，当通过 CustomResourceDefinition 或 AA 创建自定义资源时，您可以获得 API 的许多功能：
 
 <!--
 | Feature | What it does |
