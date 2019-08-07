@@ -1,5 +1,5 @@
 ---
-title: Concepts Underlying the Cloud Controller Manager
+title: Zugrunde liegende Konzepte des Cloud Controller Manager
 content_template: templates/concept
 weight: 30
 ---
