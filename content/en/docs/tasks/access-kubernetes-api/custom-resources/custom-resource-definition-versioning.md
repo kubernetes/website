@@ -228,6 +228,7 @@ spec:
     # schema is defined.
     schema:
       openAPIV3Schema:
+        type: object
         properties:
           hostPort:
             type: string
@@ -236,6 +237,7 @@ spec:
     storage: false
     schema:
       openAPIV3Schema:
+        type: object
         properties:
           host:
             type: string
