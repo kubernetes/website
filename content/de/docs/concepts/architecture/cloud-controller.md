@@ -97,7 +97,7 @@ Der Cloud Controller Manager verwendet die Go Schnittstellen, um Implementierung
 
 Die Implementierung der vier oben genannten geteiltent Controllern und einigen Scaffolding sowie die gemeinsame CloudProvider Schnittstelle bleiben im Kubernetes Kern. Cloud Provider spezifische Implementierungen werden außerhalb des Kerns aufgebaut und implementieren im Kern definierte Schnittstellen. 
 
-Weitere Informationen zur Entwicklung von Plugins findest du im Bereich [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+Weitere Informationen zur Entwicklung von Plugins findest du im Bereich [Entwickeln von Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
 
 ## Autorisierung
 
