@@ -198,7 +198,6 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
       name: cassandra
       namespace: default
       resourceVersion: "323"
-      selfLink: /apis/apps/v1/namespaces/default/statefulsets/cassandra
       uid: 7a219483-6185-11e6-a910-42010a8a0fc0
     spec:
       replicas: 3
