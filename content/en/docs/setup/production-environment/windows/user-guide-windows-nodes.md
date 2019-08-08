@@ -179,7 +179,12 @@ In this section we'll cover configuring a Windows node from scratch to join a cl
 All code snippets in Windows sections are to be run in a PowerShell environment with elevated permissions (Admin).
 {{< /note >}}
 
-1. Install Docker (requires a system reboot)
+1. Pull down the [SIG Windows tools](https://github.com/kubernetes-sigs/sig-windows-tools) repository 
+   ```PowerShell
+   git clone https://github.com/kubernetes-sigs/sig-windows-tools.git
+   ```
+
+2. Install Docker (requires a system reboot)
 
     Kubernetes uses [Docker](https://www.docker.com/) as its container engine, so we need to install it. You can follow the [official Docs instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), the [Docker instructions](https://store.docker.com/editions/enterprise/docker-ee-server-windows), or try the following *recommended* steps:
 
@@ -228,7 +233,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using "docker pull mcr.microsoft.com/k8s/core/pause:1.2.0". The DOCKERFILE is available at https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat.
     {{< /note >}}
 
-1. Prepare a Windows directory for Kubernetes
+3. Prepare a Windows directory for Kubernetes
 
     Create a "Kubernetes for Windows" directory to store Kubernetes binaries as well as any deployment scripts and config files.
 
@@ -236,13 +241,13 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     mkdir c:\k
     ```
 
-1. Copy Kubernetes certificate
+4. Copy Kubernetes certificate
 
     Copy the Kubernetes certificate file `$HOME/.kube/config` [from the Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
 
     Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php), or this [PowerShell wrapper for WinSCP](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0) to transfer the config file between nodes.
 
-1. Download Kubernetes binaries
+5. Download Kubernetes binaries
 
     To be able to run Kubernetes, you first need to download the `kubelet` and `kube-proxy` binaries. You download these from the Node Binaries links in the CHANGELOG.md file of the [latest releases](https://github.com/kubernetes/kubernetes/releases/). For example 'kubernetes-node-windows-amd64.tar.gz'. You may also optionally download `kubectl` to run on Windows which you can find under Client Binaries.
 
