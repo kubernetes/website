@@ -36,7 +36,7 @@ If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
-For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
+For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
 
 ````
 Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
