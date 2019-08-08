@@ -52,16 +52,14 @@ Kubernetes может быть запущен различных платфор�
 
 ### Ecosystem Tools
 
-* [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) supports a nine-instance deployment on localhost with LXD containers.
+* [CDK на LXD](https://www.ubuntu.com/kubernetes/docs/install-local) осуществляет поддержку развёртывания на девяти инстансах на локалхосте с LXD контейнерами.
 
-* [Docker Desktop](https://www.docker.com/products/docker-desktop) is an
-easy-to-install application for your Mac or Windows environment that enables you to
-start coding and deploying in containers in minutes on a single-node Kubernetes
-cluster.
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) - простое в установке приложение для вашего окружения Mac или Windows, позволяющее за минуты начать разработку и развёртывание в котейнере в кластере Kubernetes с одним инстансом.
 
-* [Minishift](https://docs.okd.io/latest/minishift/) installs the community version of the Kubernetes enterprise platform OpenShift for local development & testing.  It offers an all-in-one VM (`minishift start`) for Windows, macOS, and Linux. The container start is based on `oc cluster up` (Linux only). You can also install [the included add-ons](https://github.com/minishift/minishift-addons/tree/master/add-ons).
+* [Minishift](https://docs.okd.io/latest/minishift/)
+ производит установку общественной версии промышленной платформы Openshift для локальной разработки и тестирования. Сервис предлагает единую виртуальную машину (`minishift start`) для Windows, macOS, and Linux. Запуск контейнера происходит с использованием `oc cluster up` (только для Linux). Также вы можете установить [встроенные дополнения](https://github.com/minishift/minishift-addons/tree/master/add-ons).
 
-* [MicroK8s](https://microk8s.io/) provides a single command installation of the latest Kubernetes release on a local machine for development and testing. Setup is quick, fast (~30 sec) and supports many plugins including Istio with a single command.
+* [MicroK8s](https://microk8s.io/) предоставляет возможность установки с использованием одной команды последней версии Kubernetes на локальную машину для разработки и тестирования. Настройка происходит быстро (~30 сек) и поддерживает большое количество плагинов, включая Istio, подключаемых с помощью одной команды.
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 

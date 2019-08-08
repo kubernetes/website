@@ -64,84 +64,74 @@ Katacoda предоставляес бесплатное внутрибрауз�
 
 4. Только для окружения Katacoda: Type `30000`, and then click **Display Port**. 
 
-## Create a Deployment
+## Создание Deployment
 
-A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
-tied together for the purposes of administration and networking. The Pod in this
-tutorial has only one Container. A Kubernetes
-[*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
-Pod and restarts the Pod's Container if it terminates. Deployments are the
-recommended way to manage the creation and scaling of Pods.
+[*Под*](/docs/concepts/workloads/pods/pod/) Kubernetes - это группа из одного или более контейнеров, связанных друг с другом с целью адмистрирования и организации сети. В данном тьюториале под включает в себя один контейнер. [*Deployment*](/docs/concepts/workloads/controllers/deployment/) в Kubernetes проверяет здоровье пода и перезагружает контейнер пода в случае его отказа. Deployment-ы являются рекоммендуемым способом организации создания и масштабирования подов.
 
-1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image. 
+1. Используйте команду `kubectl create` для создание деплоймента для управления подом. Под запускает контейнер на основе предоставленного Docker образа.
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
     ```
 
-2. View the Deployment:
+2. Посмотреть информацию о Deployment:
 
     ```shell
     kubectl get deployments
     ```
 
-    Output:
+    Вывод:
 
     ```shell
     NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1         1         1            1           1m
     ```
 
-3. View the Pod:
+3. Посмотреть информацию о поде:
 
     ```shell
     kubectl get pods
     ```
-    Output:
+    Вывод:
 
     ```shell
     NAME                          READY     STATUS    RESTARTS   AGE
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. View cluster events:
+4. Посмотреть события кластера:
 
     ```shell
     kubectl get events
     ```
 
-5. View the `kubectl` configuration:
+5. Посмотреть конфигурацию `kubectl`:
 
     ```shell
     kubectl config view
     ```
   
-    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
+    {{< note >}}Больше информации о командах `kubectl` можно найти по ссылке [обзор kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
-## Create a Service
+## Создание сервиса
 
-By default, the Pod is only accessible by its internal IP address within the
-Kubernetes cluster. To make the `hello-node` Container accessible from outside the
-Kubernetes virtual network, you have to expose the Pod as a
-Kubernetes [*Service*](/docs/concepts/services-networking/service/).
+По-умолчанию под доступен только при обращении по его внутреннему IP адресу внутри кластера Kubernetes. Чтобы сделать контейнер `hello-node` доступным вне виртульной сети Kubernetes, необходимо представить под как [*сервис*](/docs/concepts/services-networking/service/) Kubernetes.
 
-1. Expose the Pod to the public internet using the `kubectl expose` command:
+1. Представить под для видимости в публичной сети Интернет можно с помощью команды `kubectl expose`:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
-    The `--type=LoadBalancer` flag indicates that you want to expose your Service
-    outside of the cluster.
+  
+    Флаг `--type=LoadBalancer` показывает, что сервис должен быть виден вне кластера.
 
-2. View the Service you just created:
+2. Посмотреть только что созданный сервис:
 
     ```shell
     kubectl get services
     ```
 
-    Output:
+    Вывод:
 
     ```shell
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
@@ -149,34 +139,31 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    On cloud providers that support load balancers,
-    an external IP address would be provisioned to access the Service. On Minikube,
-    the `LoadBalancer` type makes the Service accessible through the `minikube service`
-    command.
+    Для облачных провайдеров, поддерживающих балансировщики нагрузки, для доступа к сервису будет предоставлен внешний IP адрес. В Minikube тип `LoadBalancer` делает сервис доступным при обращении с помощью команды `minikube service`.
 
-3. Run the following command:
+3. Выполните следующую команду:
 
     ```shell
     minikube service hello-node
     ```
 
-4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
+4. Только для окружения Katacoda: Нажмите на знак "Плюс", затем нажмите **Select port to view on Host 1**.
 
-5. Katacoda environment only: Type `30369` (see port opposite to `8080` in services output), and then click
+5. Только для окружения Katacoda: Введите `30369` (порт указан рядом с `8080` в выводе сервиса), затем нажмите ???. 
 
-    This opens up a browser window that serves your app and shows the "Hello World" message.
+    Откроется окно браузера, в котором запущено ваше приложение и будет отображено сообщение "Hello World".
 
-## Enable addons
+## Добавление аддонов
 
-Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
+В Minikube есть набор встроенных аддонов, которые могут быть включены, выключены и открыты в локальном окружении Kubernetes.
 
-1. List the currently supported addons:
+1. Отобразить текущие поддерживаемые аддоны:
 
     ```shell
     minikube addons list
     ```
 
-    Output:
+    Вывод:
 
     ```shell
     addon-manager: enabled
@@ -196,25 +183,25 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     storage-provisioner: enabled
     ```
    
-2. Enable an addon, for example, `heapster`:
+2. Включите аллон, например `heapster`:
 
     ```shell
     minikube addons enable heapster
     ```
   
-    Output:
+    Вывод:
 
     ```shell
     heapster was successfully enabled
     ```
 
-3. View the Pod and Service you just created:
+3. Посмотрите только что созданные под и сервис:
 
     ```shell
     kubectl get pod,svc -n kube-system
     ```
 
-    Output:
+    Вывод:
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
@@ -233,34 +220,34 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Disable `heapster`:
+4. Выключите `heapster`:
 
     ```shell
     minikube addons disable heapster
     ```
   
-    Output:
+    Вывод:
 
     ```shell
     heapster was successfully disabled
     ```
 
-## Clean up
+## Освобождение ресурсов
 
-Now you can clean up the resources you created in your cluster:
+Теперь вы можете освоодить ресурсы созданного вами кластера:
 
 ```shell
 kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, stop the Minikube virtual machine (VM):
+Остановите выполнение виртуальной машины Minikube (опционально):
 
 ```shell
 minikube stop
 ```
 
-Optionally, delete the Minikube VM:
+Удалите виртуальную машину Minikube (опционально):
 
 ```shell
 minikube delete
@@ -270,8 +257,8 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
-* Learn more about [Service objects](/docs/concepts/services-networking/service/).
+* Больше об [объекте(ах?) деплоймента](/docs/concepts/workloads/controllers/deployment/).
+* Большо о [развёртывании приложения](/docs/user-guide/deploying-applications/).
+* Больше об [объектах сервиса](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}
