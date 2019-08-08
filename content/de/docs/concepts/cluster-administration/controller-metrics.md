@@ -12,7 +12,7 @@ Controller Manager Metriken liefern wichtige Erkenntnisse über die Leistung und
 {{% capture body %}}
 ## Was sind Controller Manager Metriken
 
-Die Kennzahlen des Controllermanagers liefern wichtige Erkenntnisse über die Leistung und den Zustand des Controller Managers.
+Die Kennzahlen des Controller Managers liefert wichtige Erkenntnisse über die Leistung und den Zustand des Controller Managers.
 Diese Metriken beinhalten gängige Go Language Laufzeitmetriken wie go_routine count und controller-spezifische Metriken wie z.B.
 etcd Request Latenzen oder Cloud Provider (AWS, GCE, OpenStack) API Latenzen, die verwendet werden können um den Zustand eines Clusters zu messen.
 
