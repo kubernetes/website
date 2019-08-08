@@ -99,6 +99,11 @@ This video shows how to configure and run a Google Cloud Monitoring backed Heaps
 
 {{< figure src="/images/docs/gcm.png" alt="Google Cloud Monitoring dashboard example" title="Google Cloud Monitoring dashboard example" caption="This dashboard shows cluster-wide resource usage." >}}
 
+### ManageEngine Applications Manager
+[ManageEngine Applications Manager](https://www.manageengine.com/products/applications_manager/) is a single console monitoring tool for databases, VMs, servers, web applications and many more. Applications Manager's Kubernetes monitor gathers data on various key attributes and presents the user with a coherent dashboard that is easily comprehensible. You'll be track and monitor your Kubernetes nodes, namespaces, deployments, replica sets, services, pods, and containers, and generate intelligent reports based on the aggregated data. 
+
+Learn more about monitoring Kubernetes with Applications Manager [here](https://www.manageengine.com/products/applications_manager/kubernetes-monitoring.html).
+
 ## CronJob monitoring
 
 ### Kubernetes Job Monitor
