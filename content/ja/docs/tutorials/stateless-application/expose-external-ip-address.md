@@ -94,7 +94,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
     Serviceによって公開された外部IPアドレス(`LoadBalancer Ingress`)を記録しておいてください。
     この例では、外部IPアドレスは104.198.205.71です。
     また、`Port`および`NodePort`の値も控えてください。
-    この例では、`Port`は8080、`NodePort`は32377となります。
+    この例では、`Port`は8080、`NodePort`は32377です。
 
 1. 先ほどの出力にて、Serviceにはいくつかのエンドポイントがあることを確認できます: 10.0.0.6:8080、
    10.0.1.6:8080、10.0.1.7:8080、その他2つです。
