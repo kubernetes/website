@@ -120,7 +120,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
     `<port>`はServiceの詳細出力における`Port`となります。minikubeを使用している場合、`minikube service my-service`を実行することでHello Worldアプリケーションをブラウザで自動的に
     開かれます。
 
-    正常なリクエストに対するレスポンスは、helloメッセージになります:
+    正常なリクエストに対するレスポンスは、helloメッセージです:
 
         Hello Kubernetes!
 
