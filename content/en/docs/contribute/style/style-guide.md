@@ -38,29 +38,25 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 {{< comment >}}[If you're localizing this page, you can omit the point about US English.]{{< /comment >}}
 
-## Documentation content standards
+## What Kubernetes documentation does and doesn't contain
 
-Kubernetes documentation does not host certain types of content:
+Kubernetes documentation only hosts content from projects within the
+ `kubernetes` or `kubernetes-sigs` GitHub organizations or from current CNCF
+  projects.
 
-* Vendor, provider, or project-specific content from projects that are not:
-
-    * Inside the kubernetes or kubernetes-sigs GitHub organizations
-    * Inside the CNCF
-
-* Identical content hosted in multiple locations ("dual-sourced" content)
+Kubernetes documentation does not host identical content sourced from
+ multiple locations ("dual-sourced" content).
 
 For example:
 
-| Allowed |                           Action                          |                                                    Reason                                                   |
-|:-------:|:----------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-|    Y    | Linking to Kubernetes in Docker (KinD) docs from k8s docs | The KinD project resides in github.com/kubernetes-sigs.                                                     |
-|    N    | Hosting KinD docs in k8s website                          | Dual-sourced content requires duplicated effort from maintainers and tends to go stale/rotten more quickly. |
-|    Y    | Linking to Prometheus docs from k8s docs                  | Prometheus is a CNCF project.                                                                                |
-|    N    | Linking to rkt docs from k8s docs                         | rkt is an (almost) archived CNCF project.                                                                    |
-|    N    | Tutorial on using a specific product to monitor Kubernetes | Third-party product-specific content not allowed; this type of content belongs in the third-party product's documentation. |
-|    Y    | Linking to vendor-specific product docs when listing third-party products such as Ingress controllers, load-balancing products, monitoring tools, and device plugins | Avoids dual-sourced content
-|    Y    | Linking to an online training course                      |  Avoids dual-sourced content                                                                                  |
-
+| Allowed |                           Action                                              |                                                    Reason                                                   |
+|:-------:|:------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
+|    Yes  | Linking to Kubernetes in Docker (KinD) docs from k8s docs                     | The KinD project resides in `kubernetes-sigs` GitHub organization.                                                     |
+|    No   | Hosting KinD docs in k8s website                                              | Dual-sourced content requires duplicated effort from project maintainers and tends to go stale/rotten more quickly. |
+|    Yes  | Linking to Prometheus docs from k8s docs                                      | Prometheus is a CNCF project.                                                                                |
+|    No   | Linking to rkt docs from k8s docs                                             | rkt is an archived CNCF project and no longer current.                                                                    |
+|    No   | Hosting a tutorial for a specific product, whether inside or outside the CNCF | Dual-sourced content isn't allowed. |
+|    No   | Linking to an online training course                                          | Kubernetes Docs does not control third-party content. 
 
 ## Documentation formatting standards
 
