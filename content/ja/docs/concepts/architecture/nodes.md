@@ -72,7 +72,7 @@ Ready conditionが`pod-eviction-timeout`に設定された時間を超えても`
 バージョン1.12において、`TaintNodesByCondition`機能がBetaに昇格し、それによってノードのライフサイクルコントローラーがconditionを表した[taint](/docs/concepts/configuration/taint-and-toleration/)を自動的に生成するようになりました。
 同様に、スケジューラーがPodを配置するノードを検討する際、ノードのtaintとPodのtolerationsを見るかわりにconditionを無視するようになりました。
 
-ユーザーは、古いスケジューリングモデルと新しく、より柔軟なスケジューリングモデルのどちらかを選択できるようになりました。
+ユーザーは、古いスケジューリングモデルか、新しくてより柔軟なスケジューリングモデルのどちらかを選択できるようになりました。
 上記のtolerationがないPodは古いスケジュールモデルに従ってスケジュールされます。しかし、特定のノードのtaintを許容するPodについては、条件に合ったノードにスケジュールすることができます。
 
 {{< caution >}}
