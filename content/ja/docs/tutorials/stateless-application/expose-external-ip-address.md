@@ -117,7 +117,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
         curl http://<external-ip>:<port>
 
     ここで、`<external-ip>`はServiceの外部IPアドレス(`LoadBalancer Ingress`)で、
-    `<port>`はServiceの詳細出力における`Port`となります。minikubeを使用している場合、`minikube service my-service`を実行することでHello Worldアプリケーションをブラウザで自動的に
+    `<port>`はServiceの詳細出力における`Port`です。minikubeを使用している場合、`minikube service my-service`を実行することでHello Worldアプリケーションをブラウザで自動的に
     開かれます。
 
     正常なリクエストに対するレスポンスは、helloメッセージです:
