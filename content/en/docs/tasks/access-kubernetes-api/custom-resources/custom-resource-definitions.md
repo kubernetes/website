@@ -166,14 +166,12 @@ items:
     name: my-new-cron-object
     namespace: default
     resourceVersion: "285"
-    selfLink: /apis/stable.example.com/v1/namespaces/default/crontabs/my-new-cron-object
     uid: 9423255b-4600-11e7-af6a-28d2447dc82b
   spec:
     cronSpec: '* * * * */5'
     image: my-awesome-cron-image
 metadata:
   resourceVersion: ""
-  selfLink: ""
 ```
 
 ## Delete a CustomResourceDefinition
@@ -354,7 +352,6 @@ metadata:
   name: my-new-cron-object
   namespace: default
   resourceVersion: "285"
-  selfLink: /apis/stable.example.com/v1/namespaces/default/crontabs/my-new-cron-object
   uid: 9423255b-4600-11e7-af6a-28d2447dc82b
 spec:
   cronSpec: '* * * * */5'
@@ -658,7 +655,7 @@ kubectl apply -f my-crontab.yaml
 you will get an error:
 
 ```console
-The CronTab "my-new-cron-object" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"stable.example.com/v1", "kind":"CronTab", "metadata":map[string]interface {}{"name":"my-new-cron-object", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(*int64)(nil), "creationTimestamp":"2017-09-05T05:20:07Z", "uid":"e14d79e7-91f9-11e7-a598-f0761cb232d1", "selfLink":"", "clusterName":""}, "spec":map[string]interface {}{"cronSpec":"* * * *", "image":"my-awesome-cron-image", "replicas":15}}:
+The CronTab "my-new-cron-object" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"stable.example.com/v1", "kind":"CronTab", "metadata":map[string]interface {}{"name":"my-new-cron-object", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(*int64)(nil), "creationTimestamp":"2017-09-05T05:20:07Z", "uid":"e14d79e7-91f9-11e7-a598-f0761cb232d1", "clusterName":""}, "spec":map[string]interface {}{"cronSpec":"* * * *", "image":"my-awesome-cron-image", "replicas":15}}:
 validation failure list:
 spec.cronSpec in body should match '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
 spec.replicas in body should be less than or equal to 10

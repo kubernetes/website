@@ -122,7 +122,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "164619"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 ```

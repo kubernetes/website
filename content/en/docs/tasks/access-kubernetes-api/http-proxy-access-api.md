@@ -59,7 +59,6 @@ Get a list of pods:
       "kind": "PodList",
       "apiVersion": "v1",
       "metadata": {
-        "selfLink": "/api/v1/namespaces/default/pods",
         "resourceVersion": "33074"
       },
       "items": [
@@ -68,7 +67,6 @@ Get a list of pods:
             "name": "kubernetes-bootcamp-2321272333-ix8pt",
             "generateName": "kubernetes-bootcamp-2321272333-",
             "namespace": "default",
-            "selfLink": "/api/v1/namespaces/default/pods/kubernetes-bootcamp-2321272333-ix8pt",
             "uid": "ba21457c-6b1d-11e6-85f7-1ef9f1dab92b",
             "resourceVersion": "33003",
             "creationTimestamp": "2016-08-25T23:43:30Z",
