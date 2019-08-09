@@ -132,7 +132,6 @@ nginx-2040093540-s8vzu   1/1       Running   0          11s
 ```shell
 $ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
   resourceVersion: "57"
-  selfLink: /api/v1/namespaces/limit-example/pods/nginx-2040093540-ivimu
   uid: 67b20741-f53b-11e5-b066-64510658e388
 spec:
   containers:

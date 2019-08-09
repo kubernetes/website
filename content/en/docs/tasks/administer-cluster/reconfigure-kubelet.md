@@ -155,7 +155,6 @@ metadata:
   name: my-node-config-gkt4c2m4b2
   namespace: kube-system
   resourceVersion: "119980"
-  selfLink: /api/v1/namespaces/kube-system/configmaps/my-node-config-gkt4c2m4b2
   uid: 946d785e-998a-11e7-a8dd-42010a800006
 data:
   kubelet: |

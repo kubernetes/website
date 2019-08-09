@@ -312,7 +312,6 @@ kubectl get service hostnames -o json
     "metadata": {
         "name": "hostnames",
         "namespace": "default",
-        "selfLink": "/api/v1/namespaces/default/services/hostnames",
         "uid": "428c8b6c-24bc-11e5-936d-42010af0a9bc",
         "resourceVersion": "347189",
         "creationTimestamp": "2015-07-07T15:24:29Z",
