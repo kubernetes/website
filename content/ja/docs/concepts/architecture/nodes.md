@@ -175,7 +175,7 @@ kubeletのフラグ `--register-node`がtrue（デフォルト）のとき、kub
   - `--node-labels` - ノードをクラスターに登録するときに追加するラベル（1.13以降の[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)によって適用されるラベルの制限を参照）
   - `--node-status-update-frequency` - kubeletがノードのステータスをマスターにPOSTする頻度の指定
 
-[ノード認証モード](/docs/reference/access-authn-authz/node/)および[NodeRestriction許可プラグイン]/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっている場合、kubeletは自分自身のノードリソースを作成/変更することのみ許可されています。
+[ノード認証モード](/docs/reference/access-authn-authz/node/)および[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっている場合、kubeletは自分自身のノードリソースを作成/変更することのみ許可されています。
 
 #### 手動によるノード管理 {#manual-node-administration}
 
