@@ -134,7 +134,7 @@ Kubernetesは無効なノードのためにオブジェクトを保存し、そ�
 
 3つ目は、ノードの状態を監視することです。
 ノードが到達不能(例えば、ノードがダウンしているなどので理由で、ノードコントローラーがハートビートの受信を停止した場合)になると、ノードコントローラーは、NodeStatusのNodeReady conditionをConditionUnknownに変更する役割があります。その後も該当ノードが到達不能のままであった場合、Graceful Terminationを使って全てのPodを退役させます。デフォルトのタイムアウトは、ConditionUnknownの報告を開始するまで40秒、その後Podの追い出しを開始するまで5分に設定されています。
-ノードコントローラは、`--node-monitor-period`に設定された秒数ごとに各ノードの状態をチェックします。
+ノードコントローラーは、`--node-monitor-period`に設定された秒数ごとに各ノードの状態をチェックします。
 
 バージョン1.13よりも前のKubernetesにおいて、NodeStatusはノードからのハートビートでした。Kubernetes 1.13から、NodeLeaseがアルファ機能として導入されました（Feature Gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)）。
 
