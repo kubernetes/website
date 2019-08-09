@@ -1,5 +1,5 @@
 ---
-title: Certificates
+title: Sertifikasi
 content_template: templates/concept
 weight: 20
 ---
