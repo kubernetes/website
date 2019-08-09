@@ -57,7 +57,7 @@ Kubernetes 贡献社区在每周四 10:00 PT 开会,通过视频会议讨论项�
     * eBay 目前正在 OpenStack 上运行 Kubernetes
     * eBay 的目标是管理带有 k8s 的 OpenStack 控制平面。目标是实现升级。
     * OpenStack Kolla 为控制平面创建容器。使用 Ansible+Docker 来管理容器。
-    * 致力于 k8s 控制计划管理 - Saltstack 被证明是他们想运营的规模的管理挑战。寻找 k8s 控制平面的自动化管理。* 
+    * 致力于 k8s 控制计划管理 - Saltstack 被证明是他们想运营的规模的管理挑战。寻找 k8s 控制平面的自动化管理。
 <!--
 * SIG Report
 * Testing update [Jeff, Joe, and Erick]
