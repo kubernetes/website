@@ -2,6 +2,7 @@
 reviewers:
 - jsafrane
 title: Create static Pods
+weight: 170
 content_template: templates/task
 ---
 
