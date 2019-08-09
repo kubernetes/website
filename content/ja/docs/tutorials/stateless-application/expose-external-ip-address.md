@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-このページでは、外部IPアドレスを公開するKubernetesのServiceオブジェクトに関する作成方法を示します。
+このページでは、外部IPアドレスを公開するKubernetesのServiceオブジェクトを作成する方法を示します。
 
 {{% /capture %}}
 
