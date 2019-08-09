@@ -243,7 +243,11 @@ your fork's repository. The GitHub website will prompt you to create the
 pull request if it detects that you pushed a new branch to your fork.
 {{< /note >}}
     
-5.  The **Open a pull request** screen appears. The subject of the pull request
+5.  {{< note >}}
+    Please limit pull requests to one language per PR. For example, if you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language. 
+    {{< /note >}}
+
+    The **Open a pull request** screen appears. The subject of the pull request
     is the same as the commit summary, but you can change it if needed. The
     body is populated by your extended commit message (if present) and some
     template text. Read the template text and fill out the details it asks for,
