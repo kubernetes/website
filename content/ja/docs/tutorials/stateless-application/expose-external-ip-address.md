@@ -1,5 +1,5 @@
 ---
-title: クラスタ内のアプリケーションにアクセスするために外部IPアドレスを公開する
+title: クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する
 content_template: templates/tutorial
 weight: 10
 ---
