@@ -83,7 +83,7 @@ pod/redis   1/1     Running   0          52s
 したがって、redisコンフィグのファイルパスは`/redis-master/redis.conf`です。
 ここが、コンテナイメージがredisマスターの設定ファイルを探す場所です。
 
-`kubectl exec`を使ってポッドに入り、`redis-cli`ツールを実行して設定が正しく適用されたことを確認してください:
+`kubectl exec`を使ってPodに入り、`redis-cli`ツールを実行して設定が正しく適用されたことを確認してください:
 
 ```shell
 kubectl exec -it redis redis-cli
