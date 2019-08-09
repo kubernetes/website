@@ -6,6 +6,7 @@ redirect_from:
 - "/docs/admin/cluster-components/"
 - "/docs/admin/cluster-components.html"
 content_template: templates/concept
+weight: 20
 ---
 {{% capture overview %}}
 本文档概述了 Kubernetes 所需的各种二进制组件, 用于提供齐全的功能。
