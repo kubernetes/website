@@ -17,7 +17,7 @@ weight: 10
 
  * Kubernetesクラスターを作成する際に、Google Kubernetes EngineやAmazon Web Servicesのようなクラウドプロバイダーを使用します。このチュートリアルでは、クラウドプロバイダーを必要とする[外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を作成します。
 
- * Kubernetes APIサーバと通信するために、`kubectl`を設定してください。手順については、各クラウドプロバイダーのドキュメントを参照してください。
+ * Kubernetes APIサーバーと通信するために、`kubectl`を設定してください。手順については、各クラウドプロバイダーのドキュメントを参照してください。
 
 {{% /capture %}}
 
