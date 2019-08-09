@@ -5,25 +5,25 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page describes how to install a Kubernetes cluster on AWS.
+このページでは、AWS上でKubernetesクラスターをインストールする方法について説明します。
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
+AWS上でKubernetesクラスターを作成するには、AWSからアクセスキーIDおよびシークレットアクセスキーを入手する必要があります。
 
 ### サポートされているプロダクショングレードのツール
 
-* [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
+* [conjure-up](/docs/getting-started-guides/ubuntu/)はUbuntu上でネイティブなAWSインテグレーションを用いてKubernetesクラスターを作成するオープンソースのインストーラーです。
 
-* [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
+* [Kubernetes Operations](https://github.com/kubernetes/kops) - プロダクショングレードなKubernetesのインストール、アップグレード、管理が可能です。AWS上のDebian、Ubuntu、CentOS、RHELをサポートしています。
 
-* [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
+* [CoreOS Tectonic](https://coreos.com/tectonic/)はAWS上のContainer Linuxノードを含むKubernetesクラスターを作成できる、オープンソースの[Tectonic Installer](https://github.com/coreos/tectonic-installer)を含みます。
 
-* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, kube-aws](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
+* CoreOSから生まれ、Kubernetes IncubatorがメンテナンスしているCLIツール[kube-aws](https://github.com/kubernetes-incubator/kube-aws)は、[Container Linux](https://coreos.com/why/)ノードを使用したAWSツール(EC2、CloudFormation、Auto Scaling)によるKubernetesクラスターを作成および管理できます。
 
-* [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
+* [KubeOne](https://github.com/kubermatic/kubeone)は可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
 
 {{% /capture %}}
 
@@ -33,10 +33,9 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 ### コマンドライン管理ツール: kubectl
 
-The cluster startup script will leave you with a `kubernetes` directory on your workstation.
-Alternately, you can download the latest Kubernetes release from [this page](https://github.com/kubernetes/kubernetes/releases).
+クラスターの起動スクリプトによってワークステーション上に`kubernetes`ディレクトリが作成されます。もしくは、Kubernetesの最新リリースを[こちら](https://github.com/kubernetes/kubernetes/releases)からダウンロードすることも可能です。
 
-Next, add the appropriate binary folder to your `PATH` to access kubectl:
+次に、kubectlにアクセスするために適切なバイナリフォルダーを`PATH`へ追加します:
 
 ```shell
 # macOS
@@ -46,27 +45,26 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
-An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl/)
+ツールに関する最新のドキュメントページはこちらです: [kubectl manual](/docs/user-guide/kubectl/)
 
-By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
-For more information, please read [kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+デフォルトでは、`kubectl`はクラスターの起動中に生成された`kubeconfig`ファイルをAPIに対する認証に使用します。
+詳細な情報は、[kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください。
 
 ### 例
 
-See [a simple nginx example](/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
+新しいクラスターを試すには、[簡単なnginxの例](/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。
 
-The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
+"Guestbook"アプリケーションは、Kubernetesを始めるもう一つのポピュラーな例です: [guestbookの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)
+より完全なアプリケーションについては、[examplesディレクトリ](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)を参照してください。
 
 ## クラスターのスケーリング
 
-Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the [Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
+`kubectl`を使用したノードの追加および削除はサポートしていません。インストール中に作成された[Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html)内の'Desired'および'Max'プロパティを手動で調整することで、ノード数をスケールさせることができます。
 
 ## クラスターの解体
 
-Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
-`kubernetes` directory:
+クラスターのプロビジョニングに使用した環境変数がexportされていることを確認してから、`kubernetes`ディレクトリ内で以下のスクリプトを実行してください:
 
 ```shell
 cluster/kube-down.sh
@@ -75,16 +73,15 @@ cluster/kube-down.sh
 ## サポートレベル
 
 
-IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
--------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
-AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
-AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
+IaaS プロバイダー    | 構成管理     | OS            | ネットワーク  | ドキュメント                                  | 適合     | サポートレベル
+-------------------- | ------------ | ------------- | ------------  | --------------------------------------------- | ---------| ----------------------------
+AWS                  | kops         | Debian        | k8s (VPC)     | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
+AWS                  | CoreOS       | CoreOS        | flannel       | [docs](/docs/getting-started-guides/aws)      |          | Community
 AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | [docs](/docs/getting-started-guides/ubuntu)      | 100%     | Commercial, Community
 AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weavenet     | [docs](https://github.com/kubermatic/kubeone)      | 100%    | Commercial, Community
 
 ## 参考文献
 
-Please see the [Kubernetes docs](/ja/docs/) for more details on administering
-and using a Kubernetes cluster.
+Kubernetesクラスターの利用と管理に関する詳細は、[Kubernetesドキュメント](/ja/docs/)を参照してください。
 
 {{% /capture %}}
