@@ -12,7 +12,7 @@ content_template: templates/tutorial
 {{% capture objectives %}}
 
 * 以下の要素を含む`kustomization.yaml`ファイルを作成する:
-  * ConfigMapジェネレーター
+  * ConfigMapGenerator
   * ConfigMapを使ったPodリソースの設定
 * `kubectl apply -k ./`コマンドにてディレクトリ全体を適用する
 * 設定が正しく反映されていることを確認する
