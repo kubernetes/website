@@ -1,11 +1,21 @@
 ---
-题目: 自定义资源
+title: 自定义资源
 reviewers:
 - enisoc
 - deads2k
 content_template: templates/concept
 weight: 20
 ---
+<!--
+---
+title: Custom Resources
+reviewers:
+- enisoc
+- deads2k
+content_template: templates/concept
+weight: 20
+---
+-->
 
 {{% capture overview %}}
 
