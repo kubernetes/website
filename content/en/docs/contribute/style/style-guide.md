@@ -38,25 +38,30 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 {{< comment >}}[If you're localizing this page, you can omit the point about US English.]{{< /comment >}}
 
-## What Kubernetes documentation does and doesn't contain
+## Guidelines for Contributing content
 
 Kubernetes documentation only hosts content from projects within the
  `kubernetes` or `kubernetes-sigs` GitHub organizations or from current CNCF
-  projects.
+  projects ([Graduated/Incubating](https://www.cncf.io/projects/), [Sandbox](https://www.cncf.io/sandbox-projects/)).
+The CNCF doesn't maintain a list of archived projects. However, you can
+ search the CNCF Technical Oversight Committee GitHub 
+ [pull requests](https://github.com/cncf/toc/labels/archive) to find proposals to archive projects.
 
-Kubernetes documentation does not host identical content sourced from
+Kubernetes documentation does not host duplicate content sourced from
  multiple locations ("dual-sourced" content).
 
-For example:
+Examples of content that is and is not allowed:
 
+{{< table caption="Examples of content that is and is not allowed" >}}
 | Allowed |                           Action                                              |                                                    Reason                                                   |
 |:-------:|:------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-|    Yes  | Linking to Kubernetes in Docker (KinD) docs from k8s docs                     | The KinD project resides in `kubernetes-sigs` GitHub organization.                                                     |
-|    No   | Hosting KinD docs in k8s website                                              | Dual-sourced content requires duplicated effort from project maintainers and tends to go stale/rotten more quickly. |
-|    Yes  | Linking to Prometheus docs from k8s docs                                      | Prometheus is a CNCF project.                                                                                |
+|    Yes  | Linking to Kubernetes in Docker (KinD) [docs](https://kind.sigs.k8s.io/docs/user/quick-start) from k8s docs | The KinD [project](https://github.com/kubernetes-sigs/kind) resides in `kubernetes-sigs` GitHub organization.                                                     |
+|    No   | Embedding/hosting KinD documentation in the k8s website    | Dual-sourced content requires duplicated effort from project maintainers and tends to go stale/rotten more quickly. |
+|    Yes  | Linking to Prometheus [docs](https://prometheus.io/docs/introduction/overview/) from k8s docs | Prometheus is a CNCF project.                                                                                |
 |    No   | Linking to rkt docs from k8s docs                                             | rkt is an archived CNCF project and no longer current.                                                                    |
-|    No   | Hosting a tutorial for a specific product, whether inside or outside the CNCF | Dual-sourced content isn't allowed. |
-|    No   | Linking to an online training course                                          | Kubernetes Docs does not control third-party content. 
+|    No   | Hosting a tutorial for a specific product, whether inside or outside the CNCF | Dual-sourced and vendor-specific content isn't allowed. |
+|    No   | Linking to an online training course    | k8s docs does not control third-party content. Course names change, courses are no longer offered , etc. |
+ {{< /table >}}
 
 ## Documentation formatting standards
 
