@@ -37,7 +37,7 @@ across all the clusters in federation.
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * 您还需要具备基本的 [Kubernetes 工作知识](/docs/tutorials/ Kubernetes -basics/)，
-特别是[名称空间](/docs/concepts/overview/working- objects/ Namespaces /)。
+特别是[命名空间](/docs/concepts/overview/working- objects/ Namespaces /)。
 
 <!--
 You are also expected to have a basic
