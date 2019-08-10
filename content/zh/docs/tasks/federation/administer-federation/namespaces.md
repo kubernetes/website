@@ -1,11 +1,11 @@
 ---
-title: Federated Namespaces
+title: 联邦命名空间
 content_template: templates/task
 ---
 
 <!--
 ---
-title: 联邦命名空间
+title: Federated Namespaces
 content_template: templates/task
 ---
 -->
