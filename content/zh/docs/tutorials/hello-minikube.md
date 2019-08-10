@@ -388,9 +388,9 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
 -->
 ## 启用 addons
 
-Minikube 有一组内置的 addons，可以在本地 Kubernetes 环境中启用、禁用和打开。
+Minikube 有一组内置的插件，可以在本地 Kubernetes 环境中启用、禁用和打开。
 
-1. 列出当前支持的 addons：
+1. 列出当前支持的插件：
 
     ```shell
     minikube addons list
@@ -416,7 +416,7 @@ Minikube 有一组内置的 addons，可以在本地 Kubernetes 环境中启用�
     storage-provisioner: enabled
     ```
 
-2. 启用 addon，例如 `heapster`：
+2. 启用插件，例如 `heapster`：
 
     ```shell
     minikube addons enable heapster
