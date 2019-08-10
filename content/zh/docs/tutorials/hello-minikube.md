@@ -386,7 +386,7 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     heapster was successfully disabled
     ```
 -->
-## 启用 addons
+## 启用插件
 
 Minikube 有一组内置的插件，可以在本地 Kubernetes 环境中启用、禁用和打开。
 
