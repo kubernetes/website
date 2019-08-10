@@ -120,7 +120,7 @@ on the federated job.
 -->
 默认情况下，并行性和完成数在所有底层集群中平均分布。例如：
 如果你有 3 个已注册的集群，并且创建了一个联邦 job
-spec.parallelism = 9` 和 `spec.completions = 18`，那么 3 个集群中的每个 job 都有 `spec.parallelism = 3` 和 `spec.completions = 6`。
+`spec.parallelism = 9` 和 `spec.completions = 18`，那么 3 个集群中的每个 job 都有 `spec.parallelism = 3` 和 `spec.completions = 6`。
 要修改每个集群中的并行性和完成数，可以指定 [ReplicaAllocationPreferences](https://github.com/kubernetes/federation/blob/{{< param "githubbranch" >}}/apis/federation/types.go)
 作为 `federation.kubernetes.io/job-preferences` 联邦 job 上的 key 的注释。
 
