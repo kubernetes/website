@@ -25,7 +25,7 @@ There are multiple ways to run a Kubernetes cluster with Ubuntu on public and pr
 <!--
 [CDK](https://www.ubuntu.com/cloud/kubernetes) is a distribution of Kubernetes packaged as a bundle of *charms* for Juju, the open source application modeller.
 -->
-[CDK](https://www.ubuntu.com/cloud/kubernetes)是 Kubernetes 的一个发行版，作为开源应用程序建模器 Juju 的一组 *charms*。
+[CDK](https://www.ubuntu.com/cloud/kubernetes) 是 Kubernetes 的一个发行版，作为开源应用程序建模器 Juju 的一组 *charms*。
 
 <!--
 CDK is the latest version of Kubernetes with upstream binaries, packaged in a format which makes it fast and easy to deploy. It supports various public and private clouds including AWS, GCE, Azure, Joyent, OpenStack, VMware, Bare Metaland localhost deployments.
