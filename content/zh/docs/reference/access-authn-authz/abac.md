@@ -137,7 +137,7 @@ A property set to `"*"` will match any value of the corresponding attribute.
 <!--
 The tuple of attributes is checked for a match against every policy in thepolicy file. If at least one line matches the request attributes, then the request is authorized (but may fail later validation).
 -->
-检查属性元组是否与策略文件中的每个策略匹配。如果至少有一行匹配请求属性，则请求被授权（但稍后可能会验证失败）。
+属性元组与策略文件中的各个策略逐一比较，以寻找匹配项。如果至少有一行匹配请求属性，则请求被授权（但稍后可能会验证失败）。
 
 <!--
 To permit any authenticated user to do something, write a policy with the group property set to `"system:authenticated"`.
