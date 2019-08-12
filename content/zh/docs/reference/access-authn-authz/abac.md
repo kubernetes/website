@@ -186,7 +186,7 @@ kubectl --v=8 version
 <!--
 ## Examples
 -->
-## 示例
+## 示例 {#examples}
 
 <!--
 1. Alice can do anything to all resources:
