@@ -5,6 +5,7 @@ redirect_from:
 - "/docs/concepts/abstractions/overview/"
 - "/docs/concepts/abstractions/overview.html"
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}

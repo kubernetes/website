@@ -2,9 +2,6 @@
 
 # Owned by Kubernetes Blog reviewers
 
-options:
-  no_parent_owners: false
-
 approvers:
   - sig-docs-blog-owners # Defined in OWNERS_ALIASES
 
