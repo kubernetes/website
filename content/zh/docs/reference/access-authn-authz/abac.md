@@ -287,7 +287,7 @@ For example, if you wanted to grant the default service account (in the `kube-sy
 <!--
 The apiserver will need to be restarted to pickup the new policy lines.
 -->
-需要重新启动 apiserver 以生效新的策略行。
+需要重新启动 apiserver 以使新的策略行生效。
 
 {{% /capture %}}
 
