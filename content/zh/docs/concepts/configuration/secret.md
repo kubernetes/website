@@ -147,7 +147,7 @@ Secret 可以作为数据卷被挂载，或作为环境变量暴露出来以供 
 3. 将 `spec.containers[].volumeMounts[]` 加到需要用到该 secret 的容器中。指定 `spec.containers[].volumeMounts[].readOnly = true` 和 `spec.containers[].volumeMounts[].mountPath` 为您想要该 secret 出现的尚未使用的目录。
 4. 修改您的镜像并且／或者命令行让程序从该目录下寻找文件。Secret 的 `data` 映射中的每一个键都成为了 `mountPath` 下的一个文件名。
 
-这是一个在 pod 中使用 volume 挂在 secret 的例子：
+这是一个在 pod 中使用 volume 挂载 secret 的例子：
 
 ```yaml
 apiVersion: v1
