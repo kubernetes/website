@@ -3,7 +3,7 @@ reviewers:
 - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
 content_template: templates/task
-weight: 170
+weight: 200
 ---
 
 {{% capture overview %}}

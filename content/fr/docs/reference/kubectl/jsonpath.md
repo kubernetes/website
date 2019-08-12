@@ -67,18 +67,18 @@ En plus de la syntaxe de modèle JSONPath originale, les fonctions et syntaxes s
 }
 ```
 
-Fonction          | Description                | Exemple                                                       | Résultat
-------------------|----------------------------|---------------------------------------------------------------|------------------
-text              | le texte en clair          | le type est {.kind}                                           | le type est List
-@                 | l'objet courant            | {@}                                                           | identique à l'entrée
-. or []           | opérateur fils             | {.kind} ou {['kind']}                                         | List
-..                | descente récursive         | {..name}                                                      | 127.0.0.1 127.0.0.2 myself e2e
-\*                | joker. Tous les objets     | {.items[*].metadata.name}                                     | [127.0.0.1 127.0.0.2]
-[start:end :step] | opérateur d'indice         | {.users[0].name}                                              | myself
-[,]               | opérateur d'union          | {.items[*]['metadata.name', 'status.capacity']}               | 127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]
-?()               | filtre                     | {.users[?(@.name=="e2e")].user.password}                      | secret
-range, end        | itération de liste         | {range .items[*]}[{.metadata.name}, {.status.capacity}] {end} | [127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]
-''                | protège chaîne interprétée | {range .items[*]}{.metadata.name}{'\t'}{end}                  | 127.0.0.1    127.0.0.2
+Fonction            | Description                | Exemple                                                         | Résultat
+--------------------|----------------------------|-----------------------------------------------------------------|------------------
+`text`              | le texte en clair          | `le type est {.kind}`                                           | `le type est List`
+`@`                 | l'objet courant            | `{@}`                                                           | identique à l'entrée
+`.` ou `[]`         | opérateur fils             | `{.kind}` ou `{['kind']}`                                       | `List`
+`..`                | descente récursive         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
+`*`                 | joker. Tous les objets     | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
+`[start:end :step]` | opérateur d'indice         | `{.users[0].name}`                                              | `myself`
+`[,]`               | opérateur d'union          | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
+`?()`               | filtre                     | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
+`range`, `end`      | itération de liste         | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
+`''`                | protège chaîne interprétée | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1    127.0.0.2`
 
 Exemples utilisant `kubectl` et des expressions JSONPath :
 
