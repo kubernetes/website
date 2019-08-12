@@ -127,7 +127,7 @@ A request has attributes which correspond to the properties of a policy object.
 <!--
 When a request is received, the attributes are determined.  Unknown attributesare set to the zero value of its type (e.g. empty string, 0, false).
 -->
-当收到请求时，确定属性。未知属性设置为其类型的零值（例如空字符串，0，false）。
+当 kubernetes 收到请求时，确定各属性的取值。未知属性会被设置为其对应类型的零值（例如空字符串，0，false）。
 
 <!--
 A property set to `"*"` will match any value of the corresponding attribute.
