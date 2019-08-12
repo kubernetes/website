@@ -49,7 +49,7 @@ To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `
 <!--
 The file format is [one JSON object per line](http://jsonlines.org/).  There should be no enclosing list or map, just one map per line.
 -->
-文件格式是[每行一个 JSON 对象](http://jsonlines.org/)。不应该有半开的 list 或 map，每一行只有一个 map 。
+文件格式是[每行一个 JSON 对象](http://jsonlines.org/)。不允许存在内嵌的 list 或 map，每一行只能有一个 map 。
 
 <!--
 Each line is a "policy object", where each such object is a map with the following properties:
