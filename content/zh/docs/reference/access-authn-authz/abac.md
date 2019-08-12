@@ -110,7 +110,7 @@ Each line is a "policy object", where each such object is a map with the followi
 <!--
 An unset property is the same as a property set to the zero value for its type(e.g. empty string, 0, false). However, unset should be preferred for readability. In the future, policies may be expressed in a JSON format, and managed via aREST interface.
 -->
-未设置的属性与为其类型设置为零值的属性相同（例如，空字符串，0，false）。为了可读性，应该首选不重复设置保持默认值的内容。将来，策略可以用 JSON 格式表示，并通过一个 REST 接口进行管理。
+未设置的属性与为属性设置为对应类型之零值（例如，空字符串，0，false）的效果相同。为了可读性，应尽量采用不设置的方式。将来，策略可能会用 JSON 格式表示，并通过 REST 接口管理。
 
 {{< /note >}}
 
