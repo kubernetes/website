@@ -260,7 +260,7 @@ kubectl --v=8 version
 <!--
 Every service account has a corresponding ABAC username, and that service account's user name is generated according to the naming convention:
 -->
-每个服务帐户都有一个相应的 ABAC 用户名，该服务帐户的用户名是根据命名约定生成的：
+每个服务帐户都有一个相应的 ABAC 用户名，该服务帐户的用户名是根据下面的命名规则生成的：
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
