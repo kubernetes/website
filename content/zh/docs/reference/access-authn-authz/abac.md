@@ -82,7 +82,7 @@ Each line is a "policy object", where each such object is a map with the followi
 每一行都是一个“策略对象”，其中每个这样的对象都是具有以下属性的 map：
 
 - 版本属性：
-    - `apiVersion`， 字符串类型，有效值是 "abac.authorization.kubernetes.io/v1beta1"。 允许版本化和转换策略格式。
+    - `apiVersion`， 字符串类型，有效值是 "abac.authorization.kubernetes.io/v1beta1"。 用来支持策略格式的版本化和转换。
     - `kind`，字符串类型，有效值是 "Policy"。 用来支持策略格式的版本化和转换。
   - `spec` 属性设置为具有以下属性的 map：
     - 用户匹配属性：
