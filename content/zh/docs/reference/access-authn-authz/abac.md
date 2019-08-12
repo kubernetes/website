@@ -83,7 +83,7 @@ Each line is a "policy object", where each such object is a map with the followi
 
 - 版本属性：
     - `apiVersion`， 字符串类型，有效值是 "abac.authorization.kubernetes.io/v1beta1"。 允许版本化和转换策略格式。
-    - `kind`，字符串类型，有效值是 "Policy"。 允许版本化和转换策略格式。
+    - `kind`，字符串类型，有效值是 "Policy"。 用来支持策略格式的版本化和转换。
   - `spec` 属性设置为具有以下属性的 map：
     - 用户匹配属性：
       - `user`，字符串类型，来自 `--token-auth-file` 的用户字符串。 如果您指定 `user`，它必须与经过身份验证的用户的用户名匹配。
