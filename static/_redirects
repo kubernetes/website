@@ -296,6 +296,7 @@
 /docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
+/docs/tasks/administer-cluster/static-pod/ /docs/tasks/configure-pod-container/static-pod/ 301
 /docs/tasks/administer-cluster/upgrade-1-6/      /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 /docs/tasks/administer-cluster/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/ 301
 /docs/tasks/configure-pod-container/apply-resource-quota-limit/     /docs/tasks/administer-cluster/apply-resource-quota-limit/ 301

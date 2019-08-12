@@ -157,15 +157,19 @@ has finished performing the TLS Bootstrap.
 
 ##  The kubelet drop-in file for systemd
 
-The configuration file installed by the kubeadm DEB or RPM package is written to
+kubeadm ships with configuration for how systemd should run the kubelet. 
+Note that the kubeadm CLI command never touches this drop-in file.
+
+This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) is written to
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
+It augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service))):
 
 ```none
 [Service]
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf
 --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
-# This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating
+# This is a file that "kubeadm init" and "kubeadm join" generate at runtime, populating
 the KUBELET_KUBEADM_ARGS variable dynamically
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
 # This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably,
