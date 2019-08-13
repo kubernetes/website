@@ -94,10 +94,9 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
 
 1. In the `net-conf.json` section of your `kube-flannel.yml`, double-check:
     1. The cluster subnet (e.g. "10.244.0.0/16") is set as per your IP plan.
-        * VNI 4096 is set in the backend
-        * Port 4789 is set in the backend
-    2. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to `vxlan0`.
-
+      * VNI 4096 is set in the backend
+      * Port 4789 is set in the backend
+    1. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to `vxlan0`.
 
     Your `cni-conf.json` should look as follows:
 
@@ -143,7 +142,18 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
     kubectl get pods --all-namespaces
     ```
 
-    ![alt_text](../flannel-master-kubeclt-get-pods.png "flannel master kubectl get pods screen capture")
+    The output looks like as follows:
+
+    ```
+    NAMESPACE     NAME                                      READY        STATUS    RESTARTS   AGE
+    kube-system   etcd-flannel-master                       1/1          Running   0          1m
+    kube-system   kube-apiserver-flannel-master             1/1          Running   0          1m
+    kube-system   kube-controller-manager-flannel-master    1/1          Running   0          1m
+    kube-system   kube-dns-86f4d74b45-hcx8x                 3/3          Running   0          12m
+    kube-system   kube-flannel-ds-54954                     1/1          Running   0          1m
+    kube-system   kube-proxy-Zjlxz                          1/1          Running   0          1m
+    kube-system   kube-scheduler-flannel-master             1/1          Running   0          1m
+    ```
 
     Verify that the Flannel DaemonSet has the NodeSelector applied.
 
@@ -151,13 +161,20 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
     kubectl get ds -n kube-system
     ```
 
-    ![alt_text](../flannel-master-kubectl-get-ds.png "flannel master kubectl get ds screen capture")
+    The output looks like as follows. The NodeSelector `beta.kubernetes.io/os=linux` is applied.
+
+    ```
+    NAME              DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR                                               AGE
+    kube-flannel-ds   2         2         2       2            2           beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux   21d
+    kube-proxy        2         2         2       2            2           beta.kubernetes.io/os=linux                                 26d
+    ```
 
 #### Join Windows Worker
 
 In this section we'll cover configuring a Windows node from scratch to join a cluster on-prem. If your cluster is on a cloud you'll likely want to follow the cloud specific guides in the next section.
 
 #### Preparing a Windows Node
+
 {{< note >}}
 All code snippets in Windows sections are to be run in a PowerShell environment with elevated permissions (Admin).
 {{< /note >}}
@@ -180,9 +197,28 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
     ```
 
-    If after reboot you see the following error, you need to restart the docker service manually
+    After reboot, you can verify that the docker service is ready with the command below.
 
-    ![alt_text](../windows-docker-error.png "windows docker error screen capture")    
+    ```PowerShell
+    docker version
+    ```
+
+    If you see error message like the following, you need to start the docker service manually.
+
+    ```
+    Client:
+     Version: 17.06.2-ee-11
+     API version: 1.30
+     Go version: go1.8.7
+     Git commit: 06fc007
+     Built: Thu May 17 06:14:39 2018
+     OS/Arch: windows / amd64
+    error during connect: Get http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.30/version: open //./pipe/docker_engine: The system c
+    annot find the file specified. In the default daemon configuration on Windows, the docker client must be run elevated to
+    connect. This error may also indicate that the docker daemon is not running.
+    ```
+
+    You can start the docker service manually like below.
 
     ```PowerShell
     Start-Service docker
@@ -229,7 +265,13 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 {{< /note >}}
 
 ```PowerShell
-.\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay  -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
+cd c:\k
+.\start.ps1 -ManagementIP <Windows Node IP> `
+  -NetworkMode overlay `
+  -ClusterCIDR <Cluster CIDR> `
+  -ServiceCIDR <Service CIDR> `
+  -KubeDnsServiceIP <Kube-dns Service IP> `
+  -LogDir <Log directory>
 ```
 
 | Parameter | Default Value | Notes |
