@@ -120,7 +120,7 @@ Kubernetes 也为其他硬件体系结构的系统提供了节点一致性测试
 <!--
 ## Running Selected Test
 -->
-## 运行选定的测试
+## 运行特定的测试
 
 <!--
 To run specific tests, overwrite the environment variable `FOCUS` with theregular expression of tests you want to run.
