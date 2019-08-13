@@ -14,7 +14,7 @@ weight: 90
 ## kubeadm alpha certs renew {#cmd-certs-renew}
 
 You can renew all Kubernetes certificates using the `all` subcommand or renew them selectively.
-For more details about certificate expiration and renewal see the [certificate management documentation](docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+For more details about certificate expiration and renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
 
 {{< tabs name="tab-certs-renew" >}}
 {{< tab name="renew" include="generated/kubeadm_alpha_certs_renew.md" />}}
@@ -44,7 +44,7 @@ to enable the automatic copy of certificates when joining additional control-pla
 ## kubeadm alpha certs check-expiration {#cmd-certs-check-expiration}
 
 This command checks expiration for the certificates in the local PKI managed by kubeadm.
-For more details about certificate expiration and renewal see the [certificate management documentation](docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+For more details about certificate expiration and renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
 
 {{< tabs name="tab-certs-check-expiration" >}}
 {{< tab name="check-expiration" include="generated/kubeadm_alpha_certs_check-expiration.md" />}}
@@ -75,7 +75,7 @@ to enable the DynamicKubeletConfiguration feature.
 
 The subcommand `pivot` can be used to convert a static Pod-hosted control plane into a self-hosted one.
 
-[Documentation](/docs/setup/independent/self-hosting)
+[Documentation](/docs/setup/production-environment/tools/kubeadm/self-hosting/)
 
 {{< tabs name="selfhosting" >}}
 {{< tab name="selfhosting" include="generated/kubeadm_alpha_selfhosting.md" />}}
