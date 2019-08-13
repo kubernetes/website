@@ -105,7 +105,7 @@ match it.
 -->
 ## 更新联邦 Daemonset
 
-您可以像更新 Kubernetes Daemonset 一样更新联邦 Daemonset。但是，对于联邦 Daemonset，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。联邦控制平面会确保每当联邦 Daemonset 更新时，它会更新所有底层集群中的 Daemonset 来和更新后的内容保持一致
+您可以像更新 Kubernetes Daemonset 一样更新联邦 Daemonset。但是，对于联邦 Daemonset，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。联邦控制平面会确保每当联邦 Daemonset 更新时，它会更新所有底层集群中的 Daemonset 来和更新后的内容保持一致。
 
 <!--
 ## Deleting a Federated Daemonset
