@@ -69,7 +69,7 @@ controllerManager:
 
 자세한 내용은 [kube-scheduler에 대한 참고 문서](/docs/reference/command-line-tools-reference/kube-scheduler/)를 보자.
 
-사용예
+사용 예:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
