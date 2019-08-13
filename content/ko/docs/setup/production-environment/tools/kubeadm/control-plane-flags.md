@@ -67,7 +67,7 @@ controllerManager:
 
 ## 스케줄러 플래그
 
-자세한 내용은 [kube-scheduler에 대한 참고 문서](/docs/reference/command-line-tools-reference/kube-scheduler/)를 보자.
+자세한 내용은 [kube-scheduler에 대한 참고 문서](/docs/reference/command-line-tools-reference/kube-scheduler/)를 확인한다.
 
 사용 예:
 ```yaml
