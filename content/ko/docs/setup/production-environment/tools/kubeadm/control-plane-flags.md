@@ -51,7 +51,7 @@ apiServer:
 
 ## 컨트롤러 플래그
 
-자세한 내용은 [kube-controller-manager에 대한 참고 문서](/docs/reference/command-line-tools-reference/kube-controller-manager/)를 보자
+자세한 내용은 [kube-controller-manager에 대한 참고 문서](/docs/reference/command-line-tools-reference/kube-controller-manager/)를 확인한다.
 
 사용 예:
 ```yaml
