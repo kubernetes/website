@@ -21,7 +21,7 @@ kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러매니
 2.  필드에 대체할 플래그를 추가한다.
 3.  `kubeadm init`에 `--config <YOUR CONFIG YAML>` 파라미터를 추가해서 실행한다.
 
-구성에서 각 필드의 자세한 정보를 보려면,
+각 필드의 구성에서 자세한 정보를 보려면,
 [API 참고 문서](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)에서 확인해 볼 수 있다.
 
 {{< note >}}
