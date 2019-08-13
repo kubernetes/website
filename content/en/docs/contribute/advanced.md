@@ -177,7 +177,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve a term
 Approvers must meet the following requirements to be a co-chair:
 
 - Have been a SIG Docs approver for at least 6 months
-- Have [led a Kubernetes docs release][/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release] or shadowed two releases
+- Have [led a Kubernetes docs release](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) or shadowed two releases
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs workflow, including: [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs), plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture). 
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
