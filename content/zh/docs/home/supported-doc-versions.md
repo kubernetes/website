@@ -9,8 +9,6 @@ card:
 
 {{% capture overview %}}
 
-This website contains documentation for the current version of Kubernetes
-and the four previous versions of Kubernetes.
 本网站包含了当前最新版本和之前四个版本的 Kubernetes.
 
 {{% /capture %}}
