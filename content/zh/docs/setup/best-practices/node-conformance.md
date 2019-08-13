@@ -158,7 +158,7 @@ By default, it runs all conformance tests.
 <!--
 Theoretically, you can run any node e2e test if you configure the container andmount required volumes properly. But **it is strongly recommended to only run conformance test**, because it requires much more complex configuration to run non-conformance test.
 -->
-理论上，只要合理地配置容器和挂载所需的卷，就可以运行任何的节点 e2e 测试用例。 但是这里**强烈建议只运行一致性测试**，因为运行非一致性测试需要很多复杂的配置。
+理论上，只要合理地配置容器和挂载所需的卷，就可以运行任何的节点端到端测试用例。 但是这里**强烈建议只运行一致性测试**，因为运行非一致性测试需要很多复杂的配置。
 
 <!--
 ## Caveats
