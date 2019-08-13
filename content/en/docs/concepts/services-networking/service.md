@@ -356,7 +356,7 @@ that are configured for a specific IP address and difficult to re-configure.
 The IP address that you choose must be a valid IPv4 or IPv6 address from within the
 `service-cluster-ip-range` CIDR range that is configured for the API server.
 If you try to create a Service with an invalid clusterIP address value, the API
-server will returns a 422 HTTP status code to indicate that there's a problem.
+server will return a 422 HTTP status code to indicate that there's a problem.
 
 ## Discovering services
 
