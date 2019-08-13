@@ -36,7 +36,7 @@ kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러매니
 
 자세한 내용은 [kube-apiserver에 대한 참고 문서](/docs/reference/command-line-tools-reference/kube-apiserver/)를 확인한다.
 
-사용예
+사용 예:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
