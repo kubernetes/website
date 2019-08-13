@@ -1,7 +1,7 @@
 ---
 reviewers:
 - Random-Liu
-title: 节点设置校验
+title: 校验节点设置
 weight: 30
 ---
 <!--
