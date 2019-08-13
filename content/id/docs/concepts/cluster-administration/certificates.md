@@ -1,5 +1,5 @@
 ---
-title: Sertifikasi
+title: Sertifikat
 content_template: templates/concept
 weight: 20
 ---
@@ -16,7 +16,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 
 ### easyrsa
 
-**easyrsa** secara manual dapat menghasilkan sertifikat untuk kluster kamu.
+**easyrsa** dapat digunakan untuk menghasilkan sertifikat kluster kamu secara manual.
 
 1. Unduh, buka paket, dan inisialisasi versi tambal easyrsa3.
 
@@ -24,17 +24,17 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
-1. Hasilkan CA. (`--batch` atur mode otomatis. `--req-cn` _default_ CN untuk digunakan.)
+1. Hasilkan CA. (`--batch` untuk atur mode otomatis. `--req-cn` untuk menggunakan _default_ CN.)
 
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 1. Hasilkan sertifikat dan kunci _server_.
-    Argumen `--subject-alt-name` menetapkan IP yang mungkin dan nama DNS yang akan diakses
-    oleh _server_ API. `MASTER_CLUSTER_IP` biasanya merupakan IP pertama dari layanan CIDR
-    yang ditentukan sebagai argumen` --service-cluster-ip-range` untuk _server_ API dan
-    komponen manajer pengontrol. Argumen `--days` digunakan untuk mengatur jumlah hari setelah
-    sertifikat berakhir.
-    Sampel di bawah ini juga mengasumsikan bahwa kamu menggunakan `cluster.local` sebagai standar
-    nama ranah DNS.
+    Argumen `--subject-alt-name` digunakan untuk mengatur alamat IP dan nama DNS yang dapat diakses
+    oleh _server_ API. `MASTER_CLUSTER_IP` biasanya merupakan IP pertama dari CIDR _service cluster_
+    yang diset dengan argumen` --service-cluster-ip-range` untuk _server_ API dan
+    komponen manajer pengontrol. Argumen `--days` digunakan untuk mengatur jumlah hari
+    masa berlaku sertifikat.
+    Sampel di bawah ini juga mengasumsikan bahwa kamu menggunakan `cluster.local` sebagai nama
+    _domain_ DNS _default_.
 
         ./easyrsa --subject-alt-name="IP:${MASTER_IP},"\
         "IP:${MASTER_CLUSTER_IP},"\
@@ -59,7 +59,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 1.  Hasilkan ca.key dengan 2048bit:
 
         openssl genrsa -out ca.key 2048
-1.  Dari ca.key menghasilkan ca.crt (gunakan -days untuk mengatur waktu efektif sertifikat):
+1.  Hasilkan ca.crt berdasarkan ca.key (gunakan -days untuk mengatur waktu efektif sertifikat):
 
         openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
 1. Hasilkan server.key dengan 2048bit:
@@ -71,7 +71,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
     Perhatikan bahwa nilai `MASTER_CLUSTER_IP` adalah layanan IP kluster untuk
     _server_ API seperti yang dijelaskan dalam subbagian sebelumnya.
     Sampel di bawah ini juga mengasumsikan bahwa kamu menggunakan `cluster.local`
-    sebagai standar nama ranah DNS.
+    sebagai nama _domain_ DNS _default_.
 
         [ req ]
         default_bits = 2048
@@ -106,7 +106,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
         keyUsage=keyEncipherment,dataEncipherment
         extendedKeyUsage=serverAuth,clientAuth
         subjectAltName=@alt_names
-1. Hasilkan permintaan penandatanganan sertifikat berdasarkan file konfigurasi:
+1. Hasilkan permintaan penandatanganan sertifikat berdasarkan _file_ konfigurasi:
 
         openssl req -new -key server.key -out server.csr -config csr.conf
 1. Hasilkan sertifikat _server_ menggunakan ca.key, ca.crt dan server.csr:
@@ -186,7 +186,7 @@ Terakhir, tambahkan parameter yang sama ke dalam parameter mulai _server_ API.
     dengan nilai sebenarnya yang ingin kamu gunakan. `MASTER_CLUSTER_IP` adalah layanan
     kluster IP untuk _server_ API seperti yang dijelaskan dalam subbagian sebelumnya.
     Sampel di bawah ini juga mengasumsikan bahwa kamu menggunakan `cluster.local` sebagai
-    standar nama ranah DNS.
+    nama _domain_ DNS _default_.
 
         {
           "CN": "kubernetes",
@@ -220,7 +220,7 @@ Terakhir, tambahkan parameter yang sama ke dalam parameter mulai _server_ API.
         server-csr.json | ../cfssljson -bare server
 
 
-## Distributing Self-Signed CA Certificate
+## Distribusi Sertifikat _Self-Signed_ CA
 
 _Node_ klien dapat menolak untuk mengakui sertifikat CA yang ditandatangani sendiri sebagai valid.
 Untuk _deployment_ non-produksi, atau untuk _deployment_ yang berjalan di belakang _firewall_ perusahaan,
@@ -241,10 +241,10 @@ Running hooks in /etc/ca-certificates/update.d....
 done.
 ```
 
-## Certificates API
+## Sertifikat API
 
 Kamu dapat menggunakan API `Certificate.k8s.io` untuk menyediakan
 sertifikat x509 yang digunakan untuk autentikasi seperti yang didokumentasikan
-[disini](/docs/tasks/tls/managing-tls-in-a-cluster).
+[di sini](/docs/tasks/tls/managing-tls-in-a-cluster).
 
 {{% /capture %}}
