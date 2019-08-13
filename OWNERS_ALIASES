@@ -114,11 +114,13 @@ aliases:
     - girikuncoro
     - irvifa
   sig-docs-it-owners: # Admins for Italian content
-    - rlenferink
+    - mattiaperi
     - micheleberardi
+    - rlenferink
   sig-docs-it-reviews: # PR reviews for Italian content
-    - rlenferink
+    - mattiaperi
     - micheleberardi
+    - rlenferink
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - nasa9084
