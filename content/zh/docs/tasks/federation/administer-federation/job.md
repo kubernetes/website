@@ -27,7 +27,7 @@ parallelism and completions exist across the registered clusters.
 -->
 本指南解释了如何在联邦控制平面中使用 job。
 
-联邦控制平面中的 Job（在本指南中称为“联邦 job”）类似于传统的 [Kubernetes job](/docs/concepts/workloads/controllers/job/)，并且提供相同的功能。
+联邦控制平面中的一次性任务（在本指南中称为“联邦一次性任务”）类似于传统的 [Kubernetes 一次性任务](/docs/concepts/workloads/controllers/job/)，并且提供相同的功能。
 在联邦控制平面中创建 job 可以确保在已注册的集群中存在所需的并行性和完成数。
 
 {{% /capture %}}
@@ -73,7 +73,7 @@ The `--context=federation-cluster` flag tells kubectl to submit the
 request to the federation API server instead of sending it to a Kubernetes
 cluster.
 -->
-`--context=federation-cluster` 参数告诉 kubectl 将请求提交到联邦 API server，而不是发送到 Kubernetes 集群。
+`--context=federation-cluster` 参数告诉 kubectl 将请求提交到联邦 API 服务器，而不是发送到 Kubernetes 集群。
 
 <!--
 Once a federated job is created, the federation control plane creates
@@ -138,7 +138,7 @@ The federation control plane ensures that whenever the federated job is
 updated, it updates the corresponding job in all underlying clusters to
 match it.
 -->
-可以像更新 Kubernetes job 一样更新联邦 job；但是，对于联邦 job，必须将请求发送到联邦 API server，不是发送到指定的 Kubernetes 集群。
+可以像更新 Kubernetes job 一样更新联邦 job；但是，对于联邦 job，必须将请求发送到联邦 API 服务器，不是发送到指定的 Kubernetes 集群。
 联邦控制平面确保无论何时更新联邦 job，它都会更新所有集群底层中的相应 job 以匹配它。
 
 <!--
@@ -161,7 +161,7 @@ You can delete a federated job as you would delete a Kubernetes
 job; however, for a federated job, you must send the request to
 the federation API server instead of sending it to a specific Kubernetes cluster.
 -->
-可以删除联邦 job，就像删除 Kubernetes job 一样;但是，对于联邦 job，必须将请求发送到联邦 API server，不是发送到指定的 Kubernetes 集群。
+可以删除联邦 job，就像删除 Kubernetes job 一样;但是，对于联邦 job，必须将请求发送到联邦 API 服务器，不是发送到指定的 Kubernetes 集群。
 
 <!--
 For example, with kubectl:
