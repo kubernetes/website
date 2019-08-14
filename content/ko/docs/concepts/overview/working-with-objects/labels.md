@@ -222,6 +222,6 @@ selector:
 #### 노드 셋 선택
 
 레이블로 선택하는 한 가지 방법은 파드가 스케줄할 수 있는 노드 셋을 제한하는 것이다.
-자세한 내용은 [노드 선택](/docs/concepts/configuration/assign-pod-node/) 문서를 참조하라.
+자세한 내용은 [노드 선택](/docs/concepts/configuration/assign-pod-node/) 문서를 참조한다.
 
 {{% /capture %}}
