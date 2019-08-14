@@ -131,7 +131,7 @@ metadata:
 ...
 ```
 
-MySQL은 `StateFilSet`에 MySQL의 소속과 상위 애플리케이션에 대한 메타데이터가 포함되어 노출된다.
+MySQL은 `StatefulSet`에 MySQL의 소속과 상위 애플리케이션에 대한 메타데이터가 포함되어 노출된다.
 
 ```yaml
 apiVersion: apps/v1
