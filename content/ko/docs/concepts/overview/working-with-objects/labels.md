@@ -106,7 +106,7 @@ tier != frontend
 `environment=production,tier!=frontend` 처럼 쉼표를 통해 한 문장으로 `frontend`를 제외한 `production`을 필터링할 수 있다. 
 
 균등-기반 레이블의 요건에 대한 하나의 이용 시나리오는 파드가 노드를 선택하는 기준을 지정하는 것이다.
-예를 들어 다음 샘플에서는 파드가 "`accelerator=nvidia-tesla-p100`" 레이블을 가진 노드를 선택한다.
+예를 들어, 아래 샘플 파드는 "`accelerator=nvidia-tesla-p100`" 레이블을 가진 노드를 선택한다.
 
 
 
