@@ -247,7 +247,7 @@ Windowsへkubectlをインストールするために、[Chocolatey](https://cho
     cd .kube
     ```
 
-6. リモートKubernetesクラスターを使うために、kubectlを設定してください:
+6. リモートのKubernetesクラスターを使うために、kubectlを設定してください:
 
     ```
     New-Item config -type file
