@@ -82,7 +82,7 @@ yum install -y kubectl
 
 Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートしているLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして利用することもできます。
 
-1. snapユーザに切り替えて、インストールコマンドを実行してください:
+1. snapユーザーに切り替えて、インストールコマンドを実行してください:
 
     ```
     sudo snap install kubectl --classic
