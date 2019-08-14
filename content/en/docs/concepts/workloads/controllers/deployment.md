@@ -158,11 +158,11 @@ Follow the steps given below to update your Deployment:
     ```shell
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
     ```
-   or simply use the following command : 
+   or simply use the following command: 
     
-      ```shell
-       kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
-       ```
+    ```shell
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
+    ```
   
   The output is similar to this:
     ```
