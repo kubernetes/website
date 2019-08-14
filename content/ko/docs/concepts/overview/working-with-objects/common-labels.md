@@ -38,7 +38,7 @@ kubectl과 대시보드와 같은 도구들을 통해 쿠버네티스 오브젝�
 | `app.kubernetes.io/part-of`         | 이 애플리케이션의 전체 이름 | `wordpress` | 문자열 |
 | `app.kubernetes.io/managed-by`  | 애플리케이션의 작동을 관리하는데 사용되는 도구 | `helm` | 문자열 |
 
-위의 레이블을 실제로 적용한다면 StatefulSet 오브젝트를 고려한다.
+위의 레이블을 실제로 적용한다면 스테이트풀셋 오브젝트를 고려한다.
 
 ```yaml
 apiVersion: apps/v1
