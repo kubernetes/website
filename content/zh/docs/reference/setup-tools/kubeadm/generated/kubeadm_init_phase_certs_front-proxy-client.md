@@ -16,11 +16,11 @@ If both files already exist, kubeadm skips the generation step and existing file
 
 Alpha Disclaimer: this command is currently alpha.
 -->
-为前端代理生成客户端，并将其保存到 front-proxy-client.cert 和 front-proxy-client.key 中。
+为前端代理生成客户端，并将其保存到 front-proxy-client.cert 文件和 front-proxy-client.key 文件中。
 
 如果两个文件都已存在，kubeadm 将跳过生成步骤并将使用现有文件。
 
-Alpha 免责声明：此命令目前是 alpha 阶段
+Alpha 免责声明：此命令目前是 alpha 阶段。
 
 ```
 kubeadm init phase certs front-proxy-client [flags]
@@ -51,7 +51,7 @@ kubeadm init phase certs front-proxy-client [flags]
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认："/etc/kubernetes/pki"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">保存和存储证书的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">存储证书的路径。</td>
     </tr>
 
 <!--
