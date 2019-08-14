@@ -2,10 +2,12 @@
 title: kubeadm join phase
 weight: 90
 ---
+<!--
 ---
 title: kubeadm join phase
 weight: 90
 ---
+-->
 
 <!--
 In v1.14.0, kubeadm introduces the `kubeadm join phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the join process.
@@ -92,9 +94,7 @@ Using this phase you can join a node as a control-plane instance.
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
 
-<!--
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
--->
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 要还原 `kubeadm init` 或 `kubeadm join` 对主机所做的任何更改，请执行
+* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) 尝试实验功能
