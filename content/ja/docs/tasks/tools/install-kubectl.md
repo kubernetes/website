@@ -333,13 +333,13 @@ source /usr/share/bash-completion/bash_completion
 
 すべてのシェルセッションにてkubectlの補完スクリプトをsourceできるようにしなければなりません。これを行うには2つの方法があります:
 
-- 補完スクリプトを`~/.bashrc`内でsourceする:
+- 補完スクリプトを`~/.bashrc`内でsourceしてください:
 
     ```shell
     echo 'source <(kubectl completion bash)' >>~/.bashrc
     ```
 
-- 補完スクリプトを`/etc/bash_completion.d`ディレクトリに追加する:
+- 補完スクリプトを`/etc/bash_completion.d`ディレクトリに追加してください:
 
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
