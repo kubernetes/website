@@ -252,6 +252,10 @@ If you are using a different CRI, you have to modify the file
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 ```
+{{< warning >}}
+Flag --cgroup-driver has been deprecated, This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.
+{{</ warning >}}
+
 
 This file will be used by `kubeadm init` and `kubeadm join` to source extra
 user defined arguments for the kubelet.

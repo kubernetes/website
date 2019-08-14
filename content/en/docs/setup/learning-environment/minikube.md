@@ -55,13 +55,6 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```shell
     kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
     ```
-    {{< note >}}
-    kubectl run --generator=deployment/apps.v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead. e.g.
-
-    ```shell
-    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
-    ```
-    {{< /note >}}
     The output is similar to this:
     ```
     deployment.apps/hello-minikube created
