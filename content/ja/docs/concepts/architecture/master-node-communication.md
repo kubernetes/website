@@ -51,7 +51,7 @@ APIサーバーからkubeletへの接続は以下の目的で使用されます:
 
 この接続を検証するには、`--kubelet-certificate-authority`フラグを使用して、kubeletが提供する証明書を確認するために使用するルート証明書バンドルをAPIサーバーに提供します。
 
-それができない場合は、信頼できないネットワークやパブリックなネットワークを介した接続を回避するために、必要に応じてAPI Serverとkubeletの間でSSHトンネリングを使用してください。
+それができない場合は、信頼できないネットワークやパブリックなネットワークを介した接続を回避するために、必要に応じてAPIサーバーとkubeletの間でSSHトンネリングを使用してください。
 
 最後に、kubeletのAPIを保護するために[kubeletの認証認可](/docs/admin/kubelet-authentication-authorization/)を有効にする必要があります。
 
