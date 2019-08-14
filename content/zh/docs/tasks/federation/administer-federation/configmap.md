@@ -106,7 +106,11 @@ match it.
 -->
 ## 更新联邦 ConfigMap
 
-您可以像更新 Kubernetes ConfigMap 一样更新联邦 ConfigMap。但是对于联邦 ConfigMap，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。联邦控制平面会确保每当联邦 ConfigMap 更新时，它会更新所有底层集群中的 ConfigMap 来和更新后的内容保持一致。
+您可以像更新 Kubernetes ConfigMap 一样更新联邦 ConfigMap。
+
+但是对于联邦 ConfigMap，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。
+
+联邦控制平面会确保每当联邦 ConfigMap 更新时，它会更新所有底层集群中的 ConfigMap 来和更新后的内容保持一致。
 
 <!--
 ## Deleting a Federated ConfigMap
@@ -123,7 +127,9 @@ kubectl --context=federation-cluster delete configmap
 -->
 ## 删除联邦 ConfigMap
 
-您可以像删除 Kubernetes ConfigMap 一样删除联邦 ConfigMap。但是，对于联邦 ConfigMap，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。
+您可以像删除 Kubernetes ConfigMap 一样删除联邦 ConfigMap。
+
+但是，对于联邦 ConfigMap，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。
 
 例如，您可以使用 kubectl 运行下面的命令来删除联邦 ConfigMap：
 
