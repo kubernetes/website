@@ -155,7 +155,7 @@ LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 객체 
   * _불균등-기반_ 요건: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
   * _세트-기반_ 요건: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 
-두가지 레이블 셀렉터 스타일은 모두 REST 클라이언트를 통해 리소스를 확인하거나 목록을 볼 수 있다. 예를들어 `kubectl`로 `apiserver`에 _불균등-기반_으로 하는 명령어를 다음과 같이 사용할 수 있다.
+두가지 레이블 셀렉터 스타일은 모두 REST 클라이언트를 통해 리소스를 확인하거나 목록을 볼 수 있다. 예를 들어, `kubectl`로 `apiserver`에 _불균등-기반_으로 하는 명령어를 다음과 같이 사용할 수 있다.
 
 ```shell
 kubectl get pods -l environment=production,tier=frontend
