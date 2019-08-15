@@ -36,8 +36,8 @@ across all the clusters in federation.
 {{% capture prerequisites %}}
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
-* 您还需要具备基本的 [Kubernetes 工作知识](/docs/tutorials/ Kubernetes -basics/)，
-特别是[命名空间](/docs/concepts/overview/working- objects/ Namespaces /)。
+* 您还需要具备基本的 [Kubernetes 工作知识](/docs/tutorials/Kubernetes-basics/)，
+特别是[命名空间](/docs/concepts/overview/working-objects/Namespaces/)。
 
 <!--
 You are also expected to have a basic
@@ -148,7 +148,7 @@ Namespace from the federation control plane.
 <!--
 At this point, deleting a federated Namespace will not delete the corresponding Namespace, or resources in those Namespaces, from underlying clusters. Users must delete them manually. We intend to fix this in the future.
 -->
-此时，删除联邦命名空间不会从底层集群中删除相应的命名空间或这些命名空间中的资源。用户必须手动删除它们。我们打算将来解决这个问题。
+此时，删除联邦命名空间，不会从底层集群中删除相应的命名空间或这些命名空间中的资源。用户必须手动删除它们。我们打算将来解决这个问题。
 
 {{< /note >}}
 
