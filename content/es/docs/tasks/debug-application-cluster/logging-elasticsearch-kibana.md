@@ -8,7 +8,7 @@ title: Escribiendo Logs con Elasticsearch y Kibana
 En la plataforma Google Compute Engine (GCE), el soporte por defecto a la escritura de logs hace uso de
 [Stackdriver Logging](https://cloud.google.com/logging/), el cual se describe en detalle en [Logging con Stackdriver Logging](/docs/user-guide/logging/stackdriver).
 
-Este artículo describe cómo configurar un clúster para la injesta de logs en 
+Este artículo describe cómo configurar un clúster para la ingesta de logs en 
 [Elasticsearch](https://www.elastic.co/products/elasticsearch) y su posterior visualización 
 con [Kibana](https://www.elastic.co/products/kibana), a modo de alternativa a 
 Stackdriver Logging cuando se utiliza la plataforma GCE. 
@@ -112,7 +112,7 @@ Aquí se muestra una vista típica de logs desde el visor de Kibana:
 
 {{% capture whatsnext %}}
 
-¡Kibana te permite todo tipo de potentes opciones para explorar tus logs! Puedes encontrar
+¡Kibana te permite todo tipo de opciones potentes para explorar tus logs! Puedes encontrar
 algunas ideas para profundizar en el tema en la [documentación de Kibana](https://www.elastic.co/guide/en/kibana/current/discover.html).
 
 {{% /capture %}}
