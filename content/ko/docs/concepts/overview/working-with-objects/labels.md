@@ -161,7 +161,7 @@ LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 오브�
 kubectl get pods -l environment=production,tier=frontend
 ```
 
-또는 _세트-기반_ 요건을 사용하면
+또는 _집합성 기준_ 요건을 사용하면
 
 ```shell
 kubectl get pods -l 'environment in (production),tier in (frontend)'
