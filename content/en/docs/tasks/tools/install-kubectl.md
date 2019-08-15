@@ -76,6 +76,10 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 EOF
 yum install -y kubectl
 {{< /tab >}}
+{{< tab name="OpenSUSE Tumbleweed or Leap 15.0" codelang="bash" >}}
+sudo zypper refresh
+sudo zypper in -y kubectl
+{{< /tab >}}
 {{< /tabs >}}
 
 
