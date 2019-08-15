@@ -150,7 +150,7 @@ _집합성 기준_ 요건은 _일치성 기준_ 요건과 조합해서 사용할
 
 ### LIST와 WATCH 필터링
 
-LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 객체 집합을 필터링하기 위해 레이블 셀럭터를 지정할 수 있다. 다음의 2가지 요건 모두 허용된다(URL 쿼리 문자열을 그대로 표기함).
+LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 오브젝트 집합을 필터링하기 위해 레이블 셀럭터를 지정할 수 있다. 다음의 2가지 요건 모두 허용된다(URL 쿼리 문자열을 그대로 표기함).
 
   * _불균등-기반_ 요건: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
   * _세트-기반_ 요건: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
