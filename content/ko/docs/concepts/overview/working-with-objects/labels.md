@@ -173,7 +173,7 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-또는 _존재_ 연산자로 불일치한 것을 찾아 제한할 수 있다. 
+또는 _exists_ 연산자에 불일치한 것으로 제한할 수 있다.
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'
