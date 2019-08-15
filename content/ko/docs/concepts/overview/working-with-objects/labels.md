@@ -167,7 +167,7 @@ kubectl get pods -l environment=production,tier=frontend
 kubectl get pods -l 'environment in (production),tier in (frontend)'
 ```
 
-앞서 안내한 것처럼 _세트-기반_ 요건은 더 보여준다. 예시에서 다음과 같이 OR 연산자를 구현할 수 있다.
+앞서 안내한 것처럼 _집합성 기준_ 요건은 더 보여준다. 예시에서 다음과 같이 OR 연산자를 구현할 수 있다.
 
 ```shell
 kubectl get pods -l 'environment in (production, qa)'
