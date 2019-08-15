@@ -22,10 +22,11 @@ ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/) and pr
 Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 -->
-本指南介绍了如何在联邦控制平面中使用 ConfigMap。
+本指南介绍如何在联邦控制平面中使用 ConfigMap。
 
 联邦 ConfigMap 与传统 [Kubernetes
-ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 非常相似且提供相同的功能。在联邦控制平面中创建它们可以确保它们在联邦的所有集群中同步。
+ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 非常相似且提供相同的功能。
+在联邦控制平面中创建它们可以确保它们在联邦的所有集群中同步。
 
 {{% /capture %}}
 
@@ -37,7 +38,8 @@ ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 非常�
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/) in particular.
 -->
-* 通常我们还期望您拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 相关的应用知识。
+* 通常我们还期望您拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，
+特别是 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 相关的应用知识。
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -75,7 +77,6 @@ These ConfigMaps in underlying clusters will match the Federated ConfigMap.
 ## 创建联邦 ConfigMap
 
 联邦 ConfigMap 的 API 100% 兼容传统 Kubernetes ConfigMap 的 API。您可以通过向联邦 apiserver 发送请求来创建 ConfigMap。
-
 您可以通过使用 [kubectl](/docs/user-guide/kubectl/) 运行下面的指令来创建联邦 ConfigMap：
 
 ``` shell
@@ -84,7 +85,8 @@ kubectl --context=federation-cluster create -f myconfigmap.yaml
 
 `--context=federation-cluster` 参数告诉 kubectl 将请求提交到联邦 apiserver 而不是发送给某一个 Kubernetes 集群。
 
-一旦联邦 ConfigMap 被创建，联邦控制平面就会在所有底层 Kubernetes 集群中创建匹配的 ConfigMap。您可以通过检查底层每个集群来对其进行验证，例如：
+一旦联邦 ConfigMap 被创建，联邦控制平面就会在所有底层 Kubernetes 集群中创建匹配的 ConfigMap。
+您可以通过检查底层每个集群来对其进行验证，例如：
 
 ``` shell
 kubectl --context=gce-asia-east1a get configmap myconfigmap
@@ -107,9 +109,7 @@ match it.
 ## 更新联邦 ConfigMap
 
 您可以像更新 Kubernetes ConfigMap 一样更新联邦 ConfigMap。
-
 但是对于联邦 ConfigMap，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。
-
 联邦控制平面会确保每当联邦 ConfigMap 更新时，它会更新所有底层集群中的 ConfigMap 来和更新后的内容保持一致。
 
 <!--
@@ -128,9 +128,7 @@ kubectl --context=federation-cluster delete configmap
 ## 删除联邦 ConfigMap
 
 您可以像删除 Kubernetes ConfigMap 一样删除联邦 ConfigMap。
-
 但是，对于联邦 ConfigMap，您必须发送请求到联邦 apiserver 而不是某个特定的 Kubernetes 集群。
-
 例如，您可以使用 kubectl 运行下面的命令来删除联邦 ConfigMap：
 
 ```shell
