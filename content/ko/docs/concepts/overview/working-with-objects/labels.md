@@ -144,7 +144,7 @@ partition
 마찬가지로 쉼표는 _AND_ 연산자로 작동한다. 따라서 `partition,environment notin (qa)`와 같이 사용하면 값과 상관없이 키가 `partition`인 것과 키가 `environment`이고 값이 `qa`와 다른 리소스를 필터링할 수 있다.
 _집합성 기준_ 레이블 셀렉터는 일반적으로 `environment=production` 과 `environment in (production)`를 같은 것으로 본다. 유사하게는 `!=`과 `notin`을 같은 것으로 본다.
 
-_세트-기반_ 의 요건은 _균등-기반_ 요건과 조합해서 사용할 수 있다. 예를 들어 `partition in (customerA, customerB),environment!=qa`
+_집합성 기준_ 요건은 _일치성 기준_ 요건과 조합해서 사용할 수 있다. 예를 들어 `partition in (customerA, customerB),environment!=qa`
 
 ## API
 
