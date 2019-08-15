@@ -16,19 +16,7 @@ weight: 30
 スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
 SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な設定が必要なこともあります。
 
-You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/architecture/nodes/) or to prefer to
-run on particular nodes. There are several ways to do this, and the recommended approaches all use
-[label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
-Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
-(e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
-but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
-that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
-services that communicate a lot into the same availability zone.
-
 これらの例は[こちら](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/)で確認することができます。
-
-You can find all the files for these examples [in our docs
-repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/).
 
 {{% /capture %}}
 
@@ -36,28 +24,34 @@ repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}
 
 ## nodeSelector
 
-`nodeSelector` is the simplest recommended form of node selection constraint.
-`nodeSelector` is a field of PodSpec. It specifies a map of key-value pairs. For the pod to be eligible
-to run on a node, the node must have each of the indicated key-value pairs as labels (it can have
-additional labels as well). The most common usage is one key-value pair.
+`nodeSelector`は、Nodeを選択するための最も簡単で推奨されている方法です。
+`nodeSelector`はPodSpecのフィールドです。これはkey-valueペアのマップを特定します。
+あるノードでPodを稼働させるためには、そのノードがラベルとして指定されたkey-valueペアを保持している必要があります(複数のラベルを保持することも可能です)。
+最も一般的な使用方法は、1つのkey-valueペアを付与する方法です。
 
-Let's walk through an example of how to use `nodeSelector`.
+以下に、`nodeSelector`の使用例を紹介します。
 
-### Step Zero: Prerequisites
+### ステップ0: 前提条件
 
-This example assumes that you have a basic understanding of Kubernetes pods and that you have [turned up a Kubernetes cluster](https://github.com/kubernetes/kubernetes#documentation).
+この例は、KubernetesのPodに関して基本的な知識を有していることと、[Kubernetesクラスターを操作](https://github.com/kubernetes/kubernetes#documentation)したことがあることを前提としています。
 
-### Step One: Attach label to the node
+### スッテプ1: Nodeへのラベルの付与
 
-Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the one that you want to add a label to, and then run `kubectl label nodes <node-name> <label-key>=<label-value>` to add a label to the node you've chosen. For example, if my node name is 'kubernetes-foo-node-1.c.a-robinson.internal' and my desired label is 'disktype=ssd', then I can run `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`.
+`kubectl get nodes`コマンドで、クラスタのノードの名前を取得してください。
+そして、ラベルを付与するNodeを選び、`kubectl label nodes <node-name> <label-key>=<label-value>`コマンドで選択したNodeにラベルを付与します。
+例えば、Nodeの名前が'kubernetes-foo-node-1.c.a-robinson.internal'、付与するラベルが'disktype=ssd'の場合、`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`コマンドによってラベルが付与されます。
 
-If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
+<!-- 該当箇所なし -->
+"invalid command"エラーによって失敗した場合には、`label`コマンドに対応していない古いバージョンのkubectlを使用している可能性があります。
+その場合は、ガイドの[previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md)から、手動でNodeにラベルを付与する手順を参照してください。
 
-You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label. You can also use `kubectl describe node "nodename"` to see the full list of labels of the given node.
+`kubectl get nodes --show-labels`コマンドによって、ノードにラベルが付与されたかを確認することができます。
+また、`kubectl describe node "nodename"`コマンドから、そのNodeの全てのラベルを表示することもできます。
 
-### Step Two: Add a nodeSelector field to your pod configuration
+### ステップ2: PodへのnodeSelectorフィールドの付与
 
-Take whatever pod config file you want to run, and add a nodeSelector section to it, like this. For example, if this is my pod config:
+該当のPodのconfigファイルに、nodeSelectorのセクションを追加します。
+例として以下のconfigファイルを扱います。
 
 ```yaml
 apiVersion: v1
@@ -72,14 +66,12 @@ spec:
     image: nginx
 ```
 
-Then add a nodeSelector like so:
+nodeSelectorを以下のように追加します:
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
-When you then run `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`,
-the Pod will get scheduled on the node that you attached the label to. You can
-verify that it worked by running `kubectl get pods -o wide` and looking at the
-"NODE" that the Pod was assigned to.
+`kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`コマンドにより、Podは先ほどラベルを付与したNodeへスケジュールされます。
+`kubectl get pods -o wide`コマンドで表示される"NODE"の列からPodがデプロイされているNodeを確認することができます。
 
 ## Interlude: built-in node labels
 
