@@ -217,7 +217,7 @@ selector:
     - {key: environment, operator: NotIn, values: [dev]}
 ```
 
-`matchLables`는 `{key,value}`의 쌍과 매칭된다. `matchLables`에 매칭된 단일 `{key,value}`는 `matchExpressions`의 요소와 같으며 `key` 필드는 "key"로, `operator`는 "In" 그리고 `values`에는 "value"만 나열되어 있다. `matchExpressions`는 파드 셀렉터의 요건 목록이다. 유효한 연산자에는 In, NotIn, Exists 및 DoNotExist가 포함된다. In 및 NotIn은 설정된 값이 있어야 한다. `matchLabels` 과 `matchExpressions` 모두 AND로 되어있어 일치하기 위해서는 모든 요건을 만족해야한다.
+matchLabels`는 `{key,value}`의 쌍과 매칭된다. `matchLabels`에 매칭된 단일 `{key,value}`는 `matchExpressions`의 요소와 같으며 `key` 필드는 "key"로, `operator`는 "In" 그리고 `values`에는 "value"만 나열되어 있다. `matchExpressions`는 파드 셀렉터의 요건 목록이다. 유효한 연산자에는 In, NotIn, Exists 및 DoNotExist가 포함된다. In 및 NotIn은 설정된 값이 있어야 한다. `matchLabels`과 `matchExpressions` 모두 AND로 되어있어 일치하기 위해서는 모든 요건을 만족해야 한다.
 
 #### 노드 셋 선택
 
