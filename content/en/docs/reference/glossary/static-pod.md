@@ -11,9 +11,8 @@ tags:
 - fundamental
 ---
 
-A pod managed directly by the kubelet on a specific node.
-
+A {{< glossary_tooltip text="pod" term_id="pod" >}} managed directly by the kubelet
+ daemon on a specific node,
 <!--more-->
 
-A {{< glossary_tooltip text="pod" term_id="pod" >}} managed directly by the kubelet
- daemon on a specific node, without the API server observing it.
+without the API server observing it.
