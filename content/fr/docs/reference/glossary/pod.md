@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-Un Pod est généralement configuré pour faire fonctionner un seul conteneur primaire. Il peut également exécuter des conteneurs side-car optionnels qui ajoutent des fonctions supplémentaires comme le logging. Les Pods sont généralement gérés par un {{< glossary_tooltip="déploiement" term_id="deployment" >}}.
+Un Pod est généralement configuré pour faire fonctionner un seul conteneur primaire. Il peut également exécuter des conteneurs side-car optionnels qui ajoutent des fonctions supplémentaires comme le logging. Les Pods sont généralement gérés par un {{< glossary_tooltip="Deployment" term_id="deployment" >}}.
