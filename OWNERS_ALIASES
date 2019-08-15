@@ -183,6 +183,8 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
     - jcjesus
+    - devlware
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
+    - devlware
