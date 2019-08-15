@@ -179,7 +179,7 @@ kubectl get pods -l 'environment in (production, qa)'
 kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
-### API 객체에서 참조 설정
+### API 오브젝트에서 참조 설정
 
 [`서비스`](/docs/user-guide/services) 와 [`레플리케이션 컨트롤러`](/docs/user-guide/replication-controller)와 같은 일부 쿠버네티스 오브젝트는 레이블 셀렉터를 사용해서 [`파드`](/docs/user-guide/pods)와 같은 다른 리소스 집합을 선택한다.
 
