@@ -598,7 +598,7 @@ For more information, see the [docs](https://cloud.google.com/kubernetes-engine/
 metadata:
     name: my-service
     annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 [...]
 ```
 {{% /tab %}}
