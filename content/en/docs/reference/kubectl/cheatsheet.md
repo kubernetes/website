@@ -205,8 +205,11 @@ As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
+kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision 
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
+kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+
 
 # deprecated starting version 1.11
 kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
