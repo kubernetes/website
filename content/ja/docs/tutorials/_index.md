@@ -29,7 +29,7 @@ content_template: templates/concept
 
 ## ステートレスアプリケーション
 
-* [クラスタ内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/docs/tutorials/stateless-application/guestbook/)
 
@@ -53,7 +53,7 @@ content_template: templates/concept
 
 * [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
 
-## クラスタ
+## クラスター
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
