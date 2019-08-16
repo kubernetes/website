@@ -120,67 +120,63 @@ Node affinityは`nodeSelector`(上述の2つのメリットがあります)に�
 
 `nodeSelector`は問題なく使用することができますが、Node affinityは`nodeSelector`で指定できる条件を全て実現できるため、将来的には推奨されなくなります。
 
-### Node affinity (beta feature)
+### Node Affinity (β機能)
 
-Node affinity was introduced as alpha in Kubernetes 1.2.
-Node affinity is conceptually similar to `nodeSelector` -- it allows you to constrain which nodes your
-pod is eligible to be scheduled on, based on labels on the node.
+Node Affinityはα機能としてKubernetesのv1.2から導入されました。
+Node Affinityは概念的にはNodeのラベルによってPodがどのNodeにスケジュールされるかを制限する`nodeSelector`と同様です。
 
-There are currently two types of node affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
-`preferredDuringSchedulingIgnoredDuringExecution`. You can think of them as "hard" and "soft" respectively,
-in the sense that the former specifies rules that *must* be met for a pod to be scheduled onto a node (just like
-`nodeSelector` but using a more expressive syntax), while the latter specifies *preferences* that the scheduler
-will try to enforce but will not guarantee. The "IgnoredDuringExecution" part of the names means that, similar
-to how `nodeSelector` works, if labels on a node change at runtime such that the affinity rules on a pod are no longer
-met, the pod will still continue to run on the node. In the future we plan to offer
-`requiredDuringSchedulingRequiredDuringExecution` which will be just like `requiredDuringSchedulingIgnoredDuringExecution`
-except that it will evict pods from nodes that cease to satisfy the pods' node affinity requirements.
+現在は2種類のNode Affinityがあり、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`です。
+前者はNodeにスケジュールされるPodが条件を満たすことが必須(`nodeSelector`に似ていますが、より柔軟に条件を指定できます)であり、後者は優先的に考慮されます。
+"IgnoredDuringExecution"の意味するところは、`nodeSelector`の機能と同様であり、Nodeのラベルが変更され、Podがその条件を満たさなくなった場合でも
+PodはそのNodeで稼働し続けるということです。
+将来的には、`requiredDuringSchedulingIgnoredDuringExecution`に、PodのNode Affinityに記された必須要件を満たさなくなったNodeからそのPodを退避させることができる機能を供えた`requiredDuringSchedulingRequiredDuringExecution`が提供される予定です。
 
-Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "only run the pod on nodes with Intel CPUs"
-and an example `preferredDuringSchedulingIgnoredDuringExecution` would be "try to run this set of pods in availability
-zone XYZ, but if it's not possible, then allow some to run elsewhere".
+それぞれの使用例として、
+`requiredDuringSchedulingIgnoredDuringExecution` は、"インテルCPUを供えたNode上でPodを稼働させる"、
+`preferredDuringSchedulingIgnoredDuringExecution`は、"Podを優先的にアベイラビリティゾーンXYZで稼働させるが、実現不可能な場合には他のNodeで稼働させる"
+といった方法が挙げられます。
 
-Node affinity is specified as field `nodeAffinity` of field `affinity` in the PodSpec.
+Node Affinityは、PodSpecの`affinity`フィールドにある`nodeAffinity`フィールドで特定します。
 
-Here's an example of a pod that uses node affinity:
+Node Affinityを使用したPodの例を以下に示します:
 
 {{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
-This node affinity rule says the pod can only be placed on a node with a label whose key is
-`kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
-among nodes that meet that criteria, nodes with a label whose key is `another-node-label-key` and whose
-value is `another-node-label-value` should be preferred.
+このNode Affinityでは、Podはキーが`kubernetes.io/e2e-az-name`、バリューが`e2e-az1`または`e2e-az2`のラベルが付与されたNodeにしか配置されません。
+加えて、キーが`another-node-label-key`、バリューが`another-node-label-value`のラベルが付与されたNodeが優先されます。
 
-You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
-You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, or use
-[node taints](/docs/concepts/configuration/taint-and-toleration/) to repel pods from specific nodes.
+この例ではオペレータ`In`が使われています。
+Node Affinityでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`のオペレータが使用できます。
+`NotIn`と`DoesNotExist`はNode Anti-Affinity、またはPodを特定のNodeにスケジュールさせない場合に使われる[Taints](/docs/concepts/configuration/taint-and-toleration/)に使用します。
 
-If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
-to be scheduled onto a candidate node.
+`nodeSelector`と`nodeAffinity`の両方を指定した場合、Podは**両方の**条件を満たすNodeにスケジュールされます。
 
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of** the `nodeSelectorTerms` is satisfied.
+`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**どちらかの**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
 
-If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
+`nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**全ての**`matchExpressions`を満たしたNodeへスケジュールされます。
 
-If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
+PodがスケジュールされたNodeのラベルを削除しても、Podは削除されません。
+言い換えると、AffinityはPodをスケジュールする際にのみ考慮されます。
 
-The `weight` field in `preferredDuringSchedulingIgnoredDuringExecution` is in the range 1-100. For each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), the scheduler will compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding MatchExpressions. This score is then combined with the scores of other priority functions for the node. The node(s) with the highest total score are the most preferred.
+`preferredDuringSchedulingIgnoredDuringExecution`内の`weight`フィールドは、1から100の範囲で指定します。
+全ての必須条件(リソースやRequiredDuringScheduling Affinity等)を満たしたNodeに対して、スケジューラーは、そのNodeがMatchExpressionsを満たした場合に、このフィルードの"weight"を加算して合計を計算します。
+このスコアがNodeの他の優先機能のスコアと組み合わせれ、最も高いスコアを有したNodeが優先されます。
 
-For more information on node affinity, see the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
+Node Affinityに関する詳細な情報は
+[デザインドック](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
+を参照してください。
 
-### Inter-pod affinity and anti-affinity (beta feature)
+### Inter-Pod AffinityとAnti-Affinity (β版)
 
-Inter-pod affinity and anti-affinity were introduced in Kubernetes 1.4.
-Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on
-labels on pods that are already running on the node* rather than based on labels on nodes. The rules are of the form "this pod should (or, in the case of
-anti-affinity, should not) run in an X if that X is already running one or more pods that meet rule Y". Y is expressed
-as a LabelSelector with an associated list of namespaces; unlike nodes, because pods are namespaced
-(and therefore the labels on pods are implicitly namespaced),
-a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
-like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
-key for the node label that the system uses to denote such a topology domain, e.g. see the label keys listed above
-in the section [Interlude: built-in node labels](#interlude-built-in-node-labels).
+Inter-Pod AffinityとAnti-Affinityは、Kubernetes 1.4から導入されました。
+これらは、Nodeのラベルではなく、すでにNodeで稼働しているPodのラベルに従ってPodがスケジュールされるNodeを制限します。
+このポリシーは、"XにてルールYを満たすPodがすでに稼働している場合、このPodもXで稼働させる(Anti-Affinityの場合は、稼働させない)"という形式です。
+Yはnamespaceのリストで指定したLabelSelectorで表されます。
+Nodeと異なり、Podはnamespaceで区切られているため(それゆえPodのラベルも暗黙的にnamespaceで区切られます)、Podのラベルを指定する label selectorはどのnamespaceにselectorを適用するかを指定する必要があります。
+概念的に、XはNodeや、ラック、クラウドプロバイダゾーン、クラウドプロバイダのリージョン等を表すトポロジードメインです。
+これらを表すためにシステムが使用するNode Labelのキーである`topologyKey`を使うことで、トポロジードメインを指定することができます。
+先述のセクション[補足: ビルトインNodeラベル](#interlude-built-in-node-labels)にてLabelのキーの例が紹介されています。
+
 
 {{< note >}}
 Inter-pod affinity and anti-affinity require substantial amount of
