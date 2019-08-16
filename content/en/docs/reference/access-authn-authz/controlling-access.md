@@ -61,9 +61,18 @@ While Kubernetes uses `usernames` for access control decisions and in request lo
 it does not have a `user` object nor does it store usernames or other information about
 users in its object store.
 
+## Prioritization and fairness
+
+After the request is authenticated as coming from a specific user, the
+request is subject to prioritization and fairness if the
+RequestManagement feature is enabled.  This needs to be inserted
+between steps **1** and **2** in the diagram.
+
 ## Authorization
 
-After the request is authenticated as coming from a specific user, the request must be authorized. This is shown as step **2** in the diagram. 
+After the request is authenticated as coming from a specific user, and
+reeleased from queuing for priority and fairness if that feature is
+enabled, the request must be authorized. This is shown as step **2** in the diagram. 
 
 A request must include the username of the requester, the requested action, and the object affected by the action. The request is authorized if an existing policy declares that the user has permissions to complete the requested action. 
 
