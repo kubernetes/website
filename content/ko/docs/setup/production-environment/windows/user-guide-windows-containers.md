@@ -1,6 +1,6 @@
 ---
 reviewers:
-title: 쿠버네티스에서 윈도우 컨테이너 스케쥴링을 위한 가이드
+title: 쿠버네티스에서 윈도우 컨테이너 스케줄링을 위한 가이드
 content_template: templates/concept
 weight: 75
 ---
