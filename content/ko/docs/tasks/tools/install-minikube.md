@@ -167,7 +167,7 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 
 ### 인스톨러 실행파일을 통한 Minikube 설치
 
-윈도우에서 수동으로 [Windows 인스톨러](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal)로 설치하려면, [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe)를 다운로드 받고, 이 인스톨러를 실행한다.
+[윈도우 인스톨러](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal)를 사용하여 윈도우에 Minikube를 수동으로 설치하려면, [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe)를 다운로드 받고, 이 인스톨러를 실행한다.
 
 ### 직접 다운로드하여 Minikube 설치
 
