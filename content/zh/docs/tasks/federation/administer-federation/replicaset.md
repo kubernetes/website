@@ -37,7 +37,8 @@ ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 很相似，提供
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) in particular.
 -->
-* 通常我们还期望您拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) 相关的应用知识。
+* 你还应该具备基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) 相关的应用知识。
+
 {{% /capture %}}
 
 {{% capture steps %}}
