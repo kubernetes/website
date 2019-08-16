@@ -139,7 +139,7 @@ _컨테이너의 어피니티(affinity) 기반 공동 스케줄링을 지원하�
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)과 같은 컨트롤러는 상태를 저장하는 파드에도
 위와 같은 기능 제공을 할 수 있다.
 
-사용자 지향적으로 선정된 API를 사용하는 것은 [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)와 [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)를 비롯한 클러스터 스케줄링 시스템에서 비교적 일반적이다.
+사용자 지향적으로 선정된 API를 사용하는 것은 [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)와 [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)를 비롯한 클러스터 스케줄링 시스템에서 비교적 일반적이다.
 
 
 파드는 아래와 같은 사항들을 용이하게 하기 위해 노출이 된다:

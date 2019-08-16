@@ -43,7 +43,7 @@ API 버전 규칙과 소프트웨어 버전 규칙은 간접적으로 연관된�
 [API와 릴리스 버전 부여에 관한 제안](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)에는 API 버전 규칙과 소프트웨어 버전 규칙 간의 관계가 기술되어 있다.
 {{< /note >}}
 
-API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다. [API 변경 문서](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)에서 각 수준의 기준에 대한 더 많은 정보를 찾을 수 있다.
+API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다. [API 변경 문서](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)에서 각 수준의 기준에 대한 더 많은 정보를 찾을 수 있다.
 
 아래는 각 수준의 기준에 대한 요약이다.
 
