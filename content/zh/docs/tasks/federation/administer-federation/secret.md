@@ -27,7 +27,7 @@ across all the clusters in federation.
 -->
 本指南解释了如何在联邦控制平面中使用 secret。
 
-联邦控制平面中的 Secret（在本指南中称为“联合 secret”）与提供相同功能的传统 [Kubernetes Secrets](/docs/concepts/configuration/secret/) 非常相似。
+联邦控制平面中的 Secret（在本指南中称为“联邦 secret”）与提供相同功能的传统 [Kubernetes Secret](/docs/concepts/configuration/secret/) 非常相似。
 在联邦控制平面中创建它们可以确保它们跨联邦中的所有集群同步。
 
 {{% /capture %}}
