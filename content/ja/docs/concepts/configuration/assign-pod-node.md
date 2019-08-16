@@ -73,10 +73,11 @@ nodeSelectorを以下のように追加します:
 `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`コマンドにより、Podは先ほどラベルを付与したNodeへスケジュールされます。
 `kubectl get pods -o wide`コマンドで表示される"NODE"の列からPodがデプロイされているNodeを確認することができます。
 
-## Interlude: built-in node labels
+## 補足: ビルトインNodeラベル
+<!-- Interlude -->
 
-In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
-with a standard set of labels. As of Kubernetes v1.4 these labels are
+明示的に[付与](#step-one-attach-label-to-the-node)するラベルの他に、事前にNodeへ付与されているものもあります。
+Kubernetes v1.4 の時点では、以下のようなラベルが該当します。
 
 * `kubernetes.io/hostname`
 * `failure-domain.beta.kubernetes.io/zone`
@@ -86,44 +87,38 @@ with a standard set of labels. As of Kubernetes v1.4 these labels are
 * `kubernetes.io/arch`
 
 {{< note >}}
-The value of these labels is cloud provider specific and is not guaranteed to be reliable.
-For example, the value of `kubernetes.io/hostname` may be the same as the Node name in some environments
-and a different value in other environments.
+これらのラベルは、クラウドプロバイダ固有であり、確実なものではありません。
+例えば、`kubernetes.io/hostname`の値はNodeの名前と同じである環境もあれば、異なる環境もあります。
 {{< /note >}}
 
-## Node isolation/restriction
+## Nodeの隔離や制限
+<!-- 難しい -->
+Nodeにラベルを付与することで、Podが特定のNodeやNodeグループにスケジュールされます。
+これにより、特定のPodを、確かな隔離性や安全性、特性を持ったNodeで稼働させることができます。
+この目的でラベルを使用する際に、Node上のkubeletのプロセスに上書きされないラベルキーを選択することが強く推奨されています。
+これは、安全性が損なわれたNodeがkubeletの認証情報をNodeのオブジェクトに設定したり、スケジューラーがそのようなNodeにデプロイするのを防ぎます。
 
-Adding labels to Node objects allows targeting pods to specific nodes or groups of nodes.
-This can be used to ensure specific pods only run on nodes with certain isolation, security, or regulatory properties.
-When using labels for this purpose, choosing label keys that cannot be modified by the kubelet process on the node is strongly recommended.
-This prevents a compromised node from using its kubelet credential to set those labels on its own Node object,
-and influencing the scheduler to schedule workloads to the compromised node.
+`NodeRestriction`プラグインは接頭辞`node-restriction.kubernetes.io/`を付与することで、kubeletがラベルを設定したり書き換えることを防ぎます。
+Nodeの隔離にラベルの接頭辞を使用するためには、以下の2点を確認してください。
 
-The `NodeRestriction` admission plugin prevents kubelets from setting or modifying labels with a `node-restriction.kubernetes.io/` prefix.
-To make use of that label prefix for node isolation:
+1. [Node authorizer](/docs/reference/access-authn-authz/node/)を使用していることと、[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっていること。
+2. Nodeに`node-restriction.kubernetes.io/` のラベルを付与し、そのラベルがnode selectorに指定されていること。
+例えば、`example.com.node-restriction.kubernetes.io/fips=true` または `example.com.node-restriction.kubernetes.io/pci-dss=true`のようなラベルです。
 
-1. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have enabled the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
-2. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
-For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
+## Affinity と Anti-Affinity
 
-## Affinity and anti-affinity
+`nodeSelector`はPodの稼働を特定のラベルが付与されたNodeに制限する最も簡単な方法です。
+Affinity/Anti-Affinityでは、より詳細な指定方法が提供されています。
+拡張機能は以下の通りです。
 
-`nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
-feature, currently in beta, greatly expands the types of constraints you can express. The key enhancements are
+1. 様々な指定方法がある ("AND"条件に限らない)
+2. 必須条件ではなく優先条件を指定でき、条件を満たさない場合でもPodをスケジュールさせることができる
+3. Node自体のラベルではなく、Node(または他のトポロジカルドメイン)上で稼働しているPodのラベルに対して条件を指定することができ、そのPodと同じ、または異なるドメインで稼働させることができる
 
-1. the language is more expressive (not just "AND of exact match")
-2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
-   can't satisfy it, the pod will still be scheduled
-3. you can constrain against labels on other pods running on the node (or other topological domain),
-   rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
+Affinityは"Node affinity"と"Inter-Pod Affinity/Anti-Affinity"の2種類から成ります。
+Node affinityは`nodeSelector`(上述の2つのメリットがあります)によって利用可能ですが、Inter-Pod Affinity/Anti-Affinityは、上記の3番目の機能に記載している通り、NodeのラベルではなくPodのラベルに対して制限をかけます。
 
-The affinity feature consists of two types of affinity, "node affinity" and "inter-pod affinity/anti-affinity".
-Node affinity is like the existing `nodeSelector` (but with the first two benefits listed above),
-while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
-described in the third item listed above, in addition to having the first and second properties listed above.
-
-`nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
-everything that `nodeSelector` can express.
+`nodeSelector`は問題なく使用することができますが、Node affinityは`nodeSelector`で指定できる条件を全て実現できるため、将来的には推奨されなくなります。
 
 ### Node affinity (beta feature)
 
