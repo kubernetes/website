@@ -37,8 +37,8 @@ card:
 |커뮤니티              |생태계     |
 | ------------       | --------     |
 | [Minikube](/docs/setup/learning-environment/minikube/) | [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) |
-| [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
-| [Kubernetes IN Docker](https://github.com/kubernetes-sigs/kind) | [Minishift](https://docs.okd.io/latest/minishift/)|
+| [kind (Kubernetes IN Docker)](https://github.com/kubernetes-sigs/kind) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
+|                     | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
 |                     | [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) |
 |                     | [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)|
@@ -71,14 +71,14 @@ card:
 | [Cisco Container Platform](https://cisco.com/go/containers)     |       |  | &#x2714;  |  | |
 | [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)       |     |  |   | &#x2714; |&#x2714; |
 | [CloudStack](https://cloudstack.apache.org/)           |      |  |   | | &#x2714;|
-| [Canonical](https://www.ubuntu.com/kubernetes/docs/quickstart)      |              | &#x2714;       |             | &#x2714;     |&#x2714;  | &#x2714;
+| [Canonical](https://ubuntu.com/kubernetes)      |       &#x2714;       | &#x2714;       |      &#x2714;       | &#x2714;     |&#x2714;  | &#x2714;
 | [Containership](https://containership.io/containership-platform)            | &#x2714;       |&#x2714;  |     |     |                   |
 | [Digital Rebar](https://provision.readthedocs.io/en/tip/README.html)            |        |  |      |     |  | &#x2714;
 | [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)        | &#x2714;      |  |      |     |            |
 | [Docker Enterprise](https://www.docker.com/products/docker-enterprise) |       |&#x2714;  | &#x2714;     |  |     | &#x2714;
 | [Fedora (멀티 노드)](https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)     |      |  |      | |    &#x2714;       | &#x2714;
 | [Fedora (단일 노드)](https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/)     |      |  |      | |           | &#x2714;
-| [Gardner](https://gardener.cloud/)       |              |&#x2714;  |         | &#x2714;   |          |
+| [Gardener](https://gardener.cloud/)       |              |&#x2714;  |         | &#x2714;   |          |
 | [Giant Swarm](https://giantswarm.io/)     | &#x2714;       | &#x2714; |   &#x2714;    |     |
 | [Google](https://cloud.google.com/)           |  [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/)       | [Google Compute Engine (GCE)](https://cloud.google.com/compute/)|[GKE On-Prem](https://cloud.google.com/gke-on-prem/)       |  |  |     |  |      |       |  |
 | [IBM](https://www.ibm.com/in-en/cloud)        | [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster)| |[IBM Cloud Private](https://www.ibm.com/in-en/cloud/private) | |
