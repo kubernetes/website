@@ -4,7 +4,7 @@ id: cgroup
 date: 2019-06-25
 full_link:
 short_description: >
-  선택적인 리소스 격리, 관리, 제한하는 Linux 프로세스의 그룹.
+  선택적으로 리소스를 격리, 관리, 제한하는 리눅스 프로세스의 그룹.
 
 aka:
 tags:
