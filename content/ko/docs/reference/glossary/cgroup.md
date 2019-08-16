@@ -1,5 +1,5 @@
 ---
-title: cgroup (제어 그룹)
+title: cgroup
 id: cgroup
 date: 2019-06-25
 full_link:
