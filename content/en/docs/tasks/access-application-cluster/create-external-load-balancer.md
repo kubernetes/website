@@ -118,19 +118,19 @@ service spec (supported in GCE/Google Kubernetes Engine environments):
 
 * `service.spec.externalTrafficPolicy` - denotes if this Service desires to route
 external traffic to node-local or cluster-wide endpoints. There are two available
-options: "Cluster" (default) and "Local". "Cluster" obscures the client source
+options: Cluster (default) and Local. Cluster obscures the client source
 IP and may cause a second hop to another node, but should have good overall
-load-spreading. "Local" preserves the client source IP and avoids a second hop
+load-spreading. Local preserves the client source IP and avoids a second hop
 for LoadBalancer and NodePort type services, but risks potentially imbalanced
 traffic spreading.
 * `service.spec.healthCheckNodePort` - specifies the healthcheck nodePort
-(numeric port number) for the service. If not specified, healthCheckNodePort is
-created by the service API backend with the allocated nodePort. It will use the
-user-specified nodePort value if specified by the client. It only has an
-effect when type is set to "LoadBalancer" and externalTrafficPolicy is set
-to "Local".
+(numeric port number) for the service. If not specified, `healthCheckNodePort` is
+created by the service API backend with the allocated `nodePort`. It will use the
+user-specified `nodePort` value if specified by the client. It only has an
+effect when type is set to LoadBalancer and `externalTrafficPolicy` is set
+to Local.
 
-This feature can be activated by setting `externalTrafficPolicy` to "Local" in the
+This feature can be activated by setting `externalTrafficPolicy` to Local in the
 Service Configuration file.
 
 ```yaml
@@ -166,8 +166,8 @@ after v1.7. Please update existing applications to use the fields directly.
 `service.beta.kubernetes.io/external-traffic` annotation has a different set of values
 compared to the `service.spec.externalTrafficPolicy` field. The values match as follows:
 
-* "OnlyLocal" for annotation <-> "Local" for field
-* "Global" for annotation <-> "Cluster" for field
+* OnlyLocal for annotation <-> Local for field
+* Global for annotation <-> Cluster for field
 
 {{< note >}}
 This feature is not currently implemented for all cloudproviders/environments.
@@ -205,7 +205,7 @@ enabling the [feature gate](/docs/reference/command-line-tools-reference/feature
 
 It is important to note that the datapath for this functionality is provided by a load balancer external to the Kubernetes cluster.
 
-When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes pods. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
+When the service type is set to LoadBalancer, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes pods. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
 
 ## Caveats and Limitations when preserving source IPs
 
