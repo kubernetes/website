@@ -38,7 +38,7 @@ across all the clusters in federation.
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [DaemonSets](/docs/concepts/workloads/controllers/daemonset/) in particular.
 -->
-* 通常我们还期望您拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 相关的应用知识。
+* 你还应该具备基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 相关的应用知识。
 
 {{% /capture %}}
 
