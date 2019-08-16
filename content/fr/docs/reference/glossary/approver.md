@@ -1,5 +1,5 @@
 ---
-title: Approver
+title: Approbateur
 id: approver
 date: 2018-04-12
 full_link:
