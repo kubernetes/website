@@ -35,30 +35,24 @@ documentation.
 To create an external load balancer, add the following line to your
 [service configuration file](/docs/concepts/services-networking/service/#loadbalancer):
 
-```json
-    "type": "LoadBalancer"
+```yaml
+    type: LoadBalancer
 ```
 
 Your configuration file might look like:
 
-```json
-    {
-      "kind": "Service",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "example-service"
-      },
-      "spec": {
-        "ports": [{
-          "port": 8765,
-          "targetPort": 9376
-        }],
-        "selector": {
-          "app": "example"
-        },
-        "type": "LoadBalancer"
-      }
-    }
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  selector:
+    app: example
+  ports:
+    - port: 8765
+      targetPort: 9376
+  type: LoadBalancer
 ```
 
 ## Using kubectl
@@ -139,25 +133,19 @@ to "Local".
 This feature can be activated by setting `externalTrafficPolicy` to "Local" in the
 Service Configuration file.
 
-```json
-    {
-      "kind": "Service",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "example-service"
-      },
-      "spec": {
-        "ports": [{
-          "port": 8765,
-          "targetPort": 9376
-        }],
-        "selector": {
-          "app": "example"
-        },
-        "type": "LoadBalancer",
-        "externalTrafficPolicy": "Local"
-      }
-    }
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  selector:
+    app: example
+  ports:
+    - port: 8765
+      targetPort: 9376
+  externalTrafficPolicy: Local
+  type: LoadBalancer
 ```
 
 ### Feature availability
@@ -238,5 +226,3 @@ Once the external load balancers provide weights, this functionality can be adde
 Internal pod to pod traffic should behave similar to ClusterIP services, with equal probability across all pods.
 
 {{% /capture %}}
-
-
