@@ -23,7 +23,7 @@ HA 클러스터를 구성하기 전에 각 토플로지의 장단점을 주의 �
 ## 중첩된 etcd 토플로지
 
 중첩된 HA 클러스터는 etcd에서 제공하는 분산 데이터 저장소 클러스터를,
-컨트롤 플레인 구성요소를 실행하며 kubeadm으로 관리되는 노드로 형성된 클러스터 상단에
+컨트롤 플레인 구성 요소를 실행하는 kubeadm으로 관리되는 노드에 의해서 형성된 클러스터 상단에
 중첩하는 [토플로지](https://en.wikipedia.org/wiki/Network_topology)이다.
 
 각 컨트롤 플레인 노드는 `kube-apiserver`, `kube-scheduler`, `kube-controller-manager` 인스턴스를 운영한다.
