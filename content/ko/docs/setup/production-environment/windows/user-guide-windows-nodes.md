@@ -151,7 +151,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
     ![alt_text](../flannel-master-kubectl-get-ds.png "플라넬 마스터에서 kubectl get ds 스크린 캡춰")
 
-#### 윈도우 워커 노드 가입
+#### 윈도우 워커 조인
 
 이번 단원은 맨 땅에서부터 온프레미스 클러스터에 가입하기까지 윈도우 노드 구성을 다룬다. 클러스터가 클라우드상에 있다면, 다음 단원에 있는 클라우드에 특정한 가이드를 따르도록 된다.
 
