@@ -18,7 +18,7 @@ weight: 70
 
 ## 시작하기 전에
 
-* 윈도우 컨테이너를 호스트하는 윈도우 노드를 구성하려면 [윈도우 서버 라이선스](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)를 소유해야 한다. 클러스터를 위한 소속 기관의 라이선스를 사용하거나, 윈도우 서버를 운영하는 가상머신을 프로비저닝하여 마이크로소프트, 리셀러 또는 GCP, AWS, Azure 같은 주요 클라우드 제공자를 통해 라이선스를 취득할 수 있다. [사용시간이 제한된 시험판](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial)도 제공된다.
+* 윈도우 컨테이너를 호스트하는 윈도우 노드를 구성하려면 [윈도우 서버 라이선스](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)를 소유해야 한다. 클러스터를 위해서 소속 기관의 라이선스를 사용하거나, Microsoft, 리셀러로 부터 취득할 수 있으며, GCP, AWS, Azure와 같은 주요 클라우드 제공자의 마켓플레이스를 통해 윈도우 서버를 운영하는 가상머신을 프로비저닝하여 취득할 수도 있다. [사용시간이 제한된 시험판](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial)도 활용 가능하다.
 
 * 컨트롤 플레인에 접근할 수 있는 리눅스 기반의 쿠버네티스 클러스터를 구축한다.(몇 가지 예시는 [kubeadm으로 단일 컨트롤플레인 클러스터 만들기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/)를 포함한다)
 
