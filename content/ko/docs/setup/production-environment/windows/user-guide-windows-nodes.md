@@ -208,7 +208,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
     쿠버네티스르 운영을 가능하게 하기 위해 먼저 `kubelet`과 `kube-proxy` 바이너리를 다운로드해야 한다. 이 바이너리를 [최신 릴리스](https://github.com/kubernetes/kubernetes/releases/)의 CHANGELOG.md 파일에 노드 바이너리 링크에서 다운로드 한다. 예를 들어 'kubernetes-node-windows-amd64.tar.gz'. 또한 클라이언트 바이너리 항목에서 찾을 수 있는 윈도우에서 실행되는 `kubectl`을 선택적으로 다운로드 받을 수 있다.
 
-    압축 파일을 풀고, `C:\k`로 바이너리를 위치하기 위해 [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) 파워쉘 명령어를 이용할 수 있다.
+    압축 파일을 풀고, `C:\k`로 바이너리를 위치하기 위해 [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) 파워쉘 커맨드를 이용할 수 있다.
 
 #### 윈도우 노드를 플라넬 클러스터에 가입하기
 
