@@ -157,7 +157,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 #### 윈도우 노드 준비하기
 {{< note >}}
-윈도우 단원에서 모든 코드 부분은 높은(Admin) 권한으로 파워쉘(PowerShell) 환경에서 구동한다.
+윈도우 단원에서 모든 코드 부분은 높은 권한(Admin)으로 파워쉘(PowerShell) 환경에서 구동한다.
 {{< /note >}}
 
 1. 도커(Docker) 설치(시스템 리부팅 필요)
