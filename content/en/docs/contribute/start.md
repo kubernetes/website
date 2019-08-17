@@ -40,7 +40,7 @@ Not all tasks can be done in the GitHub UI, but these are discussed in the
 
 The Kubernetes documentation is maintained by a
 {{< glossary_tooltip text="Special Interest Group" term_id="sig" >}} (SIG)
-called SIG Docs. We communicate using a Slack channel, a mailing list, and
+called SIG Docs. We [communicate](#participate-in-sig-docs-discussions) using a Slack channel, a mailing list, and
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
 
@@ -52,7 +52,7 @@ formatting, and typographic conventions. Look over the style guide before you
 make your first contribution, and use it when you have questions.
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
-or addition, [add it to the agenda](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
+or addition, [add it to the agenda](https://docs.google.com/document/d/1zg6By77SGg90EVUrhDIhopjZlSDg2jCebU-Ks9cYx0w/edit#) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion. See the [advanced contribution](/docs/contribute/advanced/) topic for more
 information.
 
@@ -247,8 +247,10 @@ pull request if it detects that you pushed a new branch to your fork.
     is the same as the commit summary, but you can change it if needed. The
     body is populated by your extended commit message (if present) and some
     template text. Read the template text and fill out the details it asks for,
-    then delete the extra template text. Leave the
-    **Allow edits from maintainers** checkbox selected. Click
+    then delete the extra template text. If you add to the description `fixes #<000000>` 
+    or `closes #<000000>`, where `#<000000>` is the number of an associated issue,
+    GitHub will automatically close the issue when the PR merges. 
+    Leave the **Allow edits from maintainers** checkbox selected. Click
     **Create pull request**.
     
     Congratulations! Your pull request is available in
