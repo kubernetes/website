@@ -1,6 +1,6 @@
 ---
 reviewers:
-title: 고가용성 토플로지 선택
+title: 고가용성 토폴로지 선택
 content_template: templates/concept
 weight: 50
 ---
