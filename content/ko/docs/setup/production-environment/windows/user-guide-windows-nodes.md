@@ -129,7 +129,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
     kubectl apply -f kube-flannel.yml
     ```
 
-    다음은 플라넬 파드는 리눅스 기반이라 [여기](https://github.com/Microsoft/SDN/blob/1d5c055bb195fecba07ad094d2d7c18c188f9d2d/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml)나온 `NodeSelector` 패치를 플라넬 데몬셋 파드에 적용한다.
+    다음은 플라넬 파드는 리눅스 기반이라 [여기](https://github.com/Microsoft/SDN/blob/1d5c055bb195fecba07ad094d2d7c18c188f9d2d/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml) 나온 노드 셀렉터 패치를 플라넬 데몬셋 파드에 적용한다.
 
     ```bash
     kubectl patch ds/kube-flannel-ds-amd64 --patch "$(cat node-selector-patch.yml)" -n=kube-system
