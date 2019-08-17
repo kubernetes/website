@@ -178,7 +178,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
     [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
     ```
 
-    리부팅 후에 다음 오류를 보게되면, 도커 서비스를 수동을 재시작해야 한다.
+    리부팅 후에 다음 오류를 보게되면, 도커 서비스를 수동으로 재시작해야 한다.
 
     ![alt_text](../windows-docker-error.png "윈도우 도커 에러 스크린 캡춰")
 
