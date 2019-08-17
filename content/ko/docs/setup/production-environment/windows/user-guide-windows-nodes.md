@@ -143,7 +143,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
     ![alt_text](../flannel-master-kubectl-get-pods.png "플라넬 마스터에서 kubectl get pods 스크린 캡춰")
 
-    플라넬 데몬셋에 `NodeSelector`가 적용되었음을 확인한다.
+    플라넬 데몬셋에 노드 셀렉터가 적용되었음을 확인한다.
 
     ```bash
     kubectl get ds -n kube-system
