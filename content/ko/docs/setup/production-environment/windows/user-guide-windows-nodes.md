@@ -223,7 +223,7 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 ```
 
 {{< note >}}
-[start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1)은 [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1)을 참고하는데, 이는 사용자를 위해 `flanneld` 실행 파일같은 추가 파일과 [인프라스트럭처 파드를 위한 Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile)을 다운로드하고 설치한다. 오버레이 네트워킹 방식에서 [방화벽](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111)은 지역 UDP 4789 포트에 대해 열려있다. 여러 파워쉘 윈도우가 열렸다 닫히며, 포드 네트워크를 위한 새로운 외부 vSwitch가 처음 생성되는 동안 몇 초간은 네트워크가 중단된다. 아래 지정한 인수를 사용하여 스크립트를 실행하자.
+[start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1)은 [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1)을 참고하는데, 이는 사용자를 위해 `flanneld` 실행 **파일 같은** 추가 파일과 [인프라스트럭처 파드를 위한 Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile)을 다운로드하고 설치한다. 오버레이 네트워킹 방식에서 [방화벽](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111)은 지역 UDP 4789 포트에 대해 열려있다. 여러 파워쉘 윈도우가 열렸다 닫히며, 포드 네트워크를 위한 새로운 외부 vSwitch가 처음 생성되는 동안 몇 초간은 네트워크가 중단된다. 아래 지정한 인수를 사용하여 스크립트를 실행하자.
 {{< /note >}}
 
 ```PowerShell
