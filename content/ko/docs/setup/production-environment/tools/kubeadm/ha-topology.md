@@ -41,7 +41,7 @@ HA 클러스터를 구성하기 전에 각 토플로지의 장단점을 주의 �
 
 그러므로 HA 클러스터를 위해 최소 3개인 중첩된 컨트롤 플레인 노드를 운영해야 한다.
 
-이는 kubeadm의 기본 토플로지이다. 지역 etcd 맴버는 자동으로
+이는 kubeadm의 기본 토플로지이다. 지역 etcd 맴버는
 `kubeadm init`와 `kubeadm join --control-plane` 을 이용할 때에 컨트롤 플레인 노드에 자동으로 생성된다.
 
 ![중첩된 etcd 토플로지](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
