@@ -48,7 +48,7 @@ HA 클러스터를 구성하기 전에 각 토플로지의 장단점을 주의 �
 
 ## 외부 etcd 토플로지
 
-외부 etcd인 HA 클러스터는 etcd에서 제공하는 분산된 데이터 스토리지 클러스터를 컨트롤 플레인 컴포넌트를 운영하는 노드로 형성된 클러스터 외부에 위치한 [토플로지](https://en.wikipedia.org/wiki/Network_topology)이다.
+외부 etcd인 HA 클러스터는 etcd에서 제공하는 분산된 데이터 스토리지 클러스터를 컨트롤 플레인 구성 요소를 운영하는 노드로 형성된 클러스터 외부에 위치한 [토플로지](https://en.wikipedia.org/wiki/Network_topology)이다.
 
 중첩된 etcd 토플로지와 유사하게, 외부 etcd 토플로지에 각 컨트롤 플레인 노드는 `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`의 인스턴스를 운영한다. 그리고 `kube-apiserver`는 로드 밸런서를 이용하여 워커노드에 노출한다. 그러나 etcd 맴버는 분리된 호스트에서 운영되고, 각 etcd 호스트는 각 컨트롤 플레인 노드의 `kube-apiserver`와 통신한다.
 
