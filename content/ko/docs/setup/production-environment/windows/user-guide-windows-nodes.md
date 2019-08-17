@@ -57,7 +57,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 1. 플라넬을 위해 쿠버네티스 마스터를 준비한다.
 
-    클러스터의 쿠버네티스 마스터에서 사소한 준비를 권장한다. 플라넬을 사용할 때에 iptables 체인으로 IPv4 트래픽을 브릿지할 수 있게 하는 것은 추천한다. 이는 다음 명령어를 이용하여 수행할 수 있다.
+    클러스터의 쿠버네티스 마스터에서 사소한 준비를 권장한다. 플라넬을 사용할 때에 iptables 체인으로 IPv4 트래픽을 브릿지할 수 있게 하는 것은 추천한다. 이는 다음 커맨드를 이용하여 수행할 수 있다.
 
     ```bash
     sudo sysctl net.bridge.bridge-nf-call-iptables=1
