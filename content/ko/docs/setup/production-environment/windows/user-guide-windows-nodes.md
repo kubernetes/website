@@ -87,7 +87,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
         }
     ```
 
-    {{< note >}}리눅스의 플라넬과 윈도우의 플라넬이 상호운용하기 위해서 `VNI`는 반드시 4096이고, `Port`는 4789여야 한다. 다른 VNI는 곧 지원한다. [VXLAN 문서](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)에서
+    {{< note >}}리눅스의 플라넬과 윈도우의 플라넬이 상호운용하기 위해서 `VNI`는 반드시 4096이고, `Port`는 4789여야 한다. 다른 VNI는 곧 지원될 예정이다. [VXLAN 문서](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)에서
      이 필드의 설명 부분을 보자.{{< /note >}}
 
 1. `kube-flannel.yml`의 `net-conf.json` 부분을 거듭 확인하자.
