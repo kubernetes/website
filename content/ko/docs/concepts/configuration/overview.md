@@ -19,7 +19,7 @@ weight: 10
 
 - JSON보다는 YAML을 사용해 구성 파일을 작성한다. 비록 이러한 포맷들은 대부분의 모든 상황에서 통용되어 사용될 수 있지만, YAML이 좀 더 사용자 친화적인 성향을 가진다.
 
-- 이치에 합당할 때마다 연관된 오브젝트들을 하나의 파일에 모아 놓는다. 때로는 여러 개의 파일보다 하나의 파일이 더 관리하기 쉽다. 이 문법의 예시로서 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml)파일을 참고한다.
+- 의미상 맞다면 가능한 연관된 오브젝트들을 하나의 파일에 모아 놓는다. 때로는 여러 개의 파일보다 하나의 파일이 더 관리하기 쉽다. 이 문법의 예시로서 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml)파일을 참고한다.
 
 - 많은 `kubectl` 커맨드들은 디렉터리에 대해 호출될 수 있다. 예를 들어, 구성 파일들의 디렉터리에 대해 `kubectl apply`를 호출할 수 있다.
 
@@ -62,7 +62,7 @@ services) (`ClusterIP`의 값을 `None`으로 가지는) 를 사용한다.
 
 ## 레이블 사용하기
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }` 처럼 애플리케이션이나 디플로이면트의 __속성에 대한 의미__ 를 식별하는 [레이블](/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 사용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해볼 수 있다. 이 접근 방법의 예시는 [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이면트의 __속성에 대한 의미__를 식별하는 [레이블](/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
 
 릴리즈에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)는 생성되어 있는 서비스를 다운타임 없이 수정하기 쉽도록 만든다.
 
@@ -100,8 +100,8 @@ services) (`ClusterIP`의 값을 `None`으로 가지는) 를 사용한다.
 
 - `kubectl apply -f <디렉터리>`를 사용한다. 이 명령어는 `<디렉터리>` 내부의 모든 `.yaml`, `.yml`, 그리고 `.json` 쿠버네티스 구성 파일을 찾아 `apply`에 전달한다.
 
-- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)와 [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
+- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/#label-selectors)와 [효율적으로 레이블 사용하기](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
 
-- 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl run`와 `kubectl expose`를 사용한다. [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.
+- 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl run`와 `kubectl expose`를 사용한다. [클러스터 내부의 애플리케이션에 접근하기 위한 서비스 사용](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.
 
 {{% /capture %}}
