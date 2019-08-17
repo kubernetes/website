@@ -47,7 +47,7 @@ weight: 70
 3. kubectl (선택적)
 4. 컨테이너 런타임
 
-v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases)에서 받아온다.  kubeadm, kubectl, kubelet, kube-proxy의 Windows-amd64 바이너리는 CHANGELOG 링크에서 찾아볼 수 있다.
+v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases)에서 받아온다. kubeadm, kubectl, kubelet, kube-proxy의 Windows-amd64 바이너리는 CHANGELOG 링크에서 찾아볼 수 있다.
 
 ### 네트워크 구성
 
