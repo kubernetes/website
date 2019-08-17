@@ -238,7 +238,7 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 | -ServiceCIDR | 10.96.0.0/12 | 클러스터 IP 설계을 참고한다. |
 | -KubeDnsServiceIP | 10.96.0.10 | |
 | -InterfaceName | Ethernet | 윈도우 호스트의 네트워크 인터페이스 이름. 이 값을 찾기 위해 <code>ipconfig</code> 이용할 수 있다. |
-| -LogDir | C:\k | Kubelet과 Kube-proxy가 각각의 로그 출력 파일을 리다렉션하는 디렉터리이다. |
+| -LogDir | C:\k | Kubelet과 Kube-proxy가 각각의 로그 출력 파일을 리다이렉션하는 디렉터리이다. |
 
 이제 다음을 실행하여 사용자 클러스터 내에 윈도우 노드를 볼 수 있다.
 
