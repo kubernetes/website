@@ -1,6 +1,4 @@
 ---
-reviewers:
-- mikedanese
 title: 구성 모범 사례
 content_template: templates/concept
 weight: 10
@@ -17,22 +15,22 @@ weight: 10
 
 - 구성을 정의할 때, 가장 최근에 안정된 API 버전을 명시한다.
 
-- 구성 파일들은 클러스터에 적용되기 전에 버전 컨트롤에 저장되어 있어야 한다. 이는 만약 필요하다면 설정의 변경 사항을 빠르게 되돌릴 수 있도록 해준다. 이는 또한 클러스터의 재생성과 복원을 도와준다.
+- 구성 파일들은 클러스터에 적용되기 전에 버전 컨트롤에 저장되어 있어야 한다. 이는 만약 필요하다면 구성의 변경 사항을 빠르게 되돌릴 수 있도록 해준다. 이는 또한 클러스터의 재-생성과 복원을 도와준다.
 
 - JSON보다는 YAML을 사용해 구성 파일을 작성한다. 비록 이러한 포맷들은 대부분의 모든 상황에서 통용되어 사용될 수 있지만, YAML이 좀 더 사용자 친화적인 성향을 가진다.
 
-- 이치에 합당할 때마다 연관된 오브젝트들을 하나의 파일에 모아 놓는다. 때로는 여러 개의 파일보다 하나의 파일이 더 관리하기 쉽다. 이 문법의 예시로서 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml) 파일을 참고할 수 있다.
+- 이치에 합당할 때마다 연관된 오브젝트들을 하나의 파일에 모아 놓는다. 때로는 여러 개의 파일보다 하나의 파일이 더 관리하기 쉽다. 이 문법의 예시로서 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml)파일을 참고한다.
 
-- 많은 `kubectl` 커맨드들은 디렉터리에 대해 호출될 수 있다. 예를 들어, 설정 파일들의 디렉터리에 대해 `kubectl apply`를 호출할 수 있다.
+- 많은 `kubectl` 커맨드들은 디렉터리에 대해 호출될 수 있다. 예를 들어, 구성 파일들의 디렉터리에 대해 `kubectl apply`를 호출할 수 있다.
 
 - 불필요하게 기본 값을 명시하지 않는다: 간단하고 최소한의 설정은 에러를 덜 발생시킨다.
 
 - 오브젝트 스스로의 정보를 잘 나타낼 수 있도록, 어노테이션에 오브젝트의 설명을 넣는다.
 
 
-## "단일" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡
+## "단독(Naked)" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡
 
-- 가능하다면 단일 파드 (즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드) 를 사용하지 않는다. 단일 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
+- 가능하다면 단독 파드 (즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드) 를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
 
   명백하게 [`restartPolicy: Never`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)를 사용하는 상황을 제외한다면, 의도한 파드의 수가 항상 사용 가능한 상태를 유지하는 레플리카 셋을 생성하고, 파드를 교체하는 전략 ([롤링 업데이트](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)와 같은)을 명시하는 디플로이먼트는 파드를 직접 생성하기 위해 항상 선호되는 방법이다. [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 또한 적절할 수 있다.
 
@@ -107,5 +105,3 @@ services) (`ClusterIP`의 값을 `None`으로 가지는) 를 사용한다.
 - 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl run`와 `kubectl expose`를 사용한다. [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.
 
 {{% /capture %}}
-
-
