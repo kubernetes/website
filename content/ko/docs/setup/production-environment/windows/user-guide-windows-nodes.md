@@ -93,7 +93,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 1. `kube-flannel.yml`의 `net-conf.json` 부분을 거듭 확인하자.
     1. 클러스터 서브넷(예, "10.244.0.0/16")은 IP 주소 설계에 따라 설정되어야 한다.
         * VNI 4096 은 벡엔드에 설정한다.
-        * Port 4789 은 벡엔드에 설정한다.
+        * Port 4789 는 벡엔드에 설정한다.
     2. `kube-flannel.yml`의 `cni-conf.json` 부분에서 네트워크 이름을 `vxlan0`로 바꾼다.
 
 
