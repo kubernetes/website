@@ -187,7 +187,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
     ```
 
 {{< note >}}
-`pause`(인프라스트럭처) 이미지는 마이크로소프트 컨테이너 레지스트리(MCR)에 등록되어 있다. `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`로 접근할 수 있다. `DOCKERFILE`은 https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat 에 있다.
+`pause`(인프라스트럭처) 이미지는 Microsoft 컨테이너 레지스트리(MCR)에 등록되어 있다. `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`로 접근할 수 있다. `DOCKERFILE`은 https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat 에 있다.
 {{< /note >}}
 
 1. 쿠버네티스를 위한 윈도우 디렉터리 준비하기
