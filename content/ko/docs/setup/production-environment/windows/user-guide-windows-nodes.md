@@ -162,7 +162,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 1. 도커(Docker) 설치 (시스템 리부팅 필요)
 
-    쿠버네티스는 [도커](https://www.docker.com/)를 컨테이너 엔진으로 사용하기에 설치해야 한다. [공식 문서 설치 요령](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), [도커 명령](https://store.docker.com/editions/enterprise/docker-ee-server-windows)을 따라 해보거나 다음의 *권장하는* 단계를 시도하자.
+    쿠버네티스는 [도커](https://www.docker.com/)를 컨테이너 엔진으로 사용하므로, 도커를 설치해야 한다. [공식 문서 설치 요령](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), [도커 명령](https://store.docker.com/editions/enterprise/docker-ee-server-windows)을 따라 해보거나 다음의 *권장하는* 단계를 시도하자.
 
     ```PowerShell
     Enable-WindowsOptionalFeature -FeatureName Containers
