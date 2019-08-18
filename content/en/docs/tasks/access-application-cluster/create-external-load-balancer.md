@@ -9,6 +9,10 @@ weight: 80
 
 This page shows how to create an External Load Balancer.
 
+{{< note >}}
+This feature is only available for cloud providers or environments which support external load balancers.
+{{< /note >}}
+
 When creating a service, you have the option of automatically creating a
 cloud network load balancer. This provides an externally-accessible IP address
 that sends traffic to the correct port on your cluster nodes
@@ -147,40 +151,6 @@ spec:
   externalTrafficPolicy: Local
   type: LoadBalancer
 ```
-
-### Feature availability
-
-| K8s version | Feature support |
-| :---------: |:-----------:|
-| 1.7+ | Supports the full API fields |
-| 1.5 - 1.6 | Supports Beta Annotations |
-| <1.5 | Unsupported |
-
-Below you could find the deprecated Beta annotations used to enable this feature
-prior to its stable version. Newer Kubernetes versions may stop supporting these
-after v1.7. Please update existing applications to use the fields directly.
-
-* `service.beta.kubernetes.io/external-traffic` annotation <-> `service.spec.externalTrafficPolicy` field
-* `service.beta.kubernetes.io/healthcheck-nodeport` annotation <-> `service.spec.healthCheckNodePort` field
-
-`service.beta.kubernetes.io/external-traffic` annotation has a different set of values
-compared to the `service.spec.externalTrafficPolicy` field. The values match as follows:
-
-* OnlyLocal for annotation <-> Local for field
-* Global for annotation <-> Cluster for field
-
-{{< note >}}
-This feature is not currently implemented for all cloudproviders/environments.
-{{< /note >}}
-
-Known issues:
-
-* AWS: [kubernetes/kubernetes#35758](https://github.com/kubernetes/kubernetes/issues/35758)
-* Weave-Net: [weaveworks/weave/#2924](https://github.com/weaveworks/weave/issues/2924)
-
-{{% /capture %}}
-
-{{% capture discussion %}}
 
 ## Garbage Collecting Load Balancers
 
