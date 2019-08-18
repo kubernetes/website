@@ -38,7 +38,7 @@ minikube version: v0.33.1
 minikube start --network-plugin=cni --memory=4096
 ```
 
-Minikube에서 시리움의 데몬셋 구성과 Minikube에 배포된 etcd 인스턴스로 접속하는데 필요한 구성 뿐만 아니라
+Minikube에서 실리움의 데몬셋 구성과 Minikube에 배포된 etcd 인스턴스로 접속하는데 필요한 구성 뿐만 아니라
 RBAC 설정을 포함하는 필요한 구성을
 이 간단한 ``올인원`` YAML 파일로 배포할 수 있다.
 
