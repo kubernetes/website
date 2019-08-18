@@ -1,12 +1,12 @@
 ---
 reviewers:
-title: 네트워크 정책으로 실리움(Cilium) 사용하기
+title: 네트워크 폴리시로 실리움(Cilium) 사용하기
 content_template: templates/task
 weight: 20
 ---
 
 {{% capture overview %}}
-이 페이지는 어떻게 네트워크 정책(NetworkPolicy)으로 실리움(Cilium)를 사용하는지 살펴본다.
+이 페이지는 어떻게 네트워크 폴리시(NetworkPolicy)로 실리움(Cilium)를 사용하는지 살펴본다.
 
 실리움의 배경에 대해서는 [실리움 소개](https://cilium.readthedocs.io/en/stable/intro)를 읽어보자.
 {{% /capture %}}
@@ -87,7 +87,7 @@ cilium-6rxbd    1/1     Running   0          1m
 알고 있어야 할 두 가지 주요 구성요소는 다음과 같다.
 
 - 먼저는 `cilium` 파드가 클러스터의 각 노드에서 운영되고,
-노드의 파드로 보내고/받는 트래픽을 리눅스 BPF를 이용하여 네트워크 정책을 적용한다.
+노드의 파드로 보내고/받는 트래픽을 리눅스 BPF를 이용하여 네트워크 폴리시를 적용한다.
 - 실 서비스에 배포하는 경우 실리움은 키-값 저장소(예, etcd)를 활용해야 한다.
 [실리움 쿠버네티스 설치 안내](https://cilium.readthedocs.io/en/stable/kubernetes/intro/)에서
 키-값 저장소를 설치하는 방법과 실리움에서 이를 구성하는 필수 단계를
@@ -97,8 +97,8 @@ cilium-6rxbd    1/1     Running   0          1m
 
 {{% capture whatsnext %}}
 클러스터가 동작하면,
-실리움으로 쿠버네티스 네트워크 정책을 시도하기 위해
-[네트워크 정책 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
+실리움으로 쿠버네티스 네트워크 폴리시를 시도하기 위해
+[네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
 재미있게 즐기고, 질문이 있다면
 [실리움 슬랙 채널](https://cilium.herokuapp.com/)을 이용하여 연락한다.
 {{% /capture %}}
