@@ -1,6 +1,6 @@
 ---
 reviewers:
-title: 네트워크 정책으로 캘리코(Calico) 사용하기
+title: 네트워크 폴리시로 캘리코(Calico) 사용하기
 content_template: templates/task
 weight: 10
 ---
@@ -47,7 +47,7 @@ Kubeadm을 이용해서 15분 이내에 지역 단일 호스트 캘리코 클러
 
 
 {{% capture whatsnext %}}
-클러스터가 동작하면, 쿠버네티스 네트워크 정책(NetworkPolicy)을 시도하기 위해
-[네트워크 정책 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
+클러스터가 동작하면, 쿠버네티스 네트워크 폴리시(NetworkPolicy)를 시도하기 위해
+[네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
 {{% /capture %}}
 
