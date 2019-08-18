@@ -112,7 +112,7 @@ minikube service example-service --url
 ## Preserving the client source IP
 
 Due to the implementation of this feature, the source IP seen in the target
-container will *not be the original source IP* of the client. To enable
+container is *not the original source IP* of the client. To enable
 preservation of the client IP, the following fields can be configured in the
 service spec (supported in GCE/Google Kubernetes Engine environments):
 
@@ -123,15 +123,15 @@ IP and may cause a second hop to another node, but should have good overall
 load-spreading. Local preserves the client source IP and avoids a second hop
 for LoadBalancer and NodePort type services, but risks potentially imbalanced
 traffic spreading.
-* `service.spec.healthCheckNodePort` - specifies the healthcheck nodePort
+* `service.spec.healthCheckNodePort` - specifies the health check nodePort
 (numeric port number) for the service. If not specified, `healthCheckNodePort` is
 created by the service API backend with the allocated `nodePort`. It will use the
 user-specified `nodePort` value if specified by the client. It only has an
-effect when type is set to LoadBalancer and `externalTrafficPolicy` is set
+effect when `type` is set to LoadBalancer and `externalTrafficPolicy` is set
 to Local.
 
-This feature can be activated by setting `externalTrafficPolicy` to Local in the
-Service Configuration file.
+Setting `externalTrafficPolicy` to Local in the Service configuration file
+activates this feature.
 
 ```yaml
 apiVersion: v1
@@ -191,7 +191,7 @@ associated Service is deleted. Finalizer Protection for Service LoadBalancers wa
 introduced to prevent this from happening. By using finalizers, a Service resource
 will never be deleted until the correlating load balancer resources are also deleted.
 
-Specifically, if a Service has Type=LoadBalancer, the service controller will attach
+Specifically, if a Service has `type` LoadBalancer, the service controller will attach
 a finalizer named `service.kubernetes.io/load-balancer-cleanup`.
 The finalizer will only be removed after the load balancer resource is cleaned up.
 This prevents dangling load balancer resources even in corner cases such as the
@@ -205,14 +205,18 @@ enabling the [feature gate](/docs/reference/command-line-tools-reference/feature
 
 It is important to note that the datapath for this functionality is provided by a load balancer external to the Kubernetes cluster.
 
-When the service type is set to LoadBalancer, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes pods. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
+When the Service `type` is set to LoadBalancer, Kubernetes provides functionality equivalent to `type` equals ClusterIP to pods
+within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes
+pods. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed),
+firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service
+object.
 
 ## Caveats and Limitations when preserving source IPs
 
 GCE/AWS load balancers do not provide weights for their target pools. This was not an issue with the old LB
 kube-proxy rules which would correctly balance across all endpoints.
 
-With the new functionality, the external traffic will not be equally load balanced across pods, but rather
+With the new functionality, the external traffic is not equally load balanced across pods, but rather
 equally balanced at the node level (because GCE/AWS and other external LB implementations do not have the ability
 for specifying the weight per node, they balance equally across all target nodes, disregarding the number of
 pods on each node).
