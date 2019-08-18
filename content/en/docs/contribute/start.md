@@ -261,6 +261,10 @@ pull request if it detects that you pushed a new branch to your fork.
     link for the `deploy/netlify` test, near the bottom of the page. It opens in
     the same browser window by default.
 
+    {{< note >}}
+    Please limit pull requests to one language per PR. For example, if you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language. 
+    {{< /note >}}
+
 6.  Wait for review. Generally, reviewers are suggested by the `k8s-ci-robot`.
     If a reviewer asks you to make changes, you can go to the **Files changed**
     tab and click the pencil icon on any files that have been changed by the
