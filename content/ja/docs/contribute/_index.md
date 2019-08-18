@@ -1,6 +1,6 @@
 ---
 content_template: templates/concept
-title: Contribute to Kubernetes docs
+title: ドキュメントにのコントリビュートする
 linktitle: Contribute
 main_menu: true
 weight: 80
@@ -17,57 +17,43 @@ Kubernetesドキュメントのスタイルガイドに関する詳細は、[ス
 ## ドキュメントコントリビューターの種類
 
 - Kubernetesオーガナイゼーションの _メンバー_ は、[CLAに署名](/docs/contribute/start#sign-the-cla)を行っていて、プロジェクトにコントリビュートを何回かしたことがある人のことです。具体的な基準については[コミュニティメンバーシップ](https://github.com/kubernetes/community/blob/master/community-membership.md)をご覧ください。
--SIG Docsの _レビュアー_ は、Kubernetesオーガナイゼーションのメンバーの中で、ドキュメントのPull Requestへのレビューに興味を示した人で、
-- A SIG Docs _reviewer_ is a member of the Kubernetes organization who has
-  expressed interest in reviewing documentation pull requests and who has been
-  added to the appropriate GitHub group and `OWNERS` files in the GitHub
-  repository, by a SIG Docs Approver.
-- A SIG Docs _approver_ is a member in good standing who has shown a continued
-  commitment to the project. An approver can merge pull requests
-  and publish content on behalf of the Kubernetes organization.
-  Approvers can also represent SIG Docs in the larger Kubernetes community.
-  Some of the duties of a SIG Docs approver, such as coordinating a release,
-  require a significant time commitment.
+- SIG Docsの _レビュアー_ は、Kubernetesオーガナイゼーションのメンバーの中でも、ドキュメントのPull Requestへのレビューへの興味を表明し、SIG Docsの承認者によって適切なGitHubグループ内の`OWNERS`ファイル内に名前が追加されている人のことを言います。
+- SIG Docsの _承認者_ は、プロジェクトに対して継続的に貢献してきた優秀なメンバーです。承認者は、KubernetesのOrganizationに代わってPull Requestをマージし、コンテンツを公開できます。また、より大きなKubernetesコミュニティにおいてSIG Docsを代表することもできます。SIG Docsにおける承認者の職務の一部は、リリースの調整など、かなりの時間を要するものもあります。
 
-## Ways to contribute to documentation
+## ドキュメントへのコントリビュートの仕方
 
-This list is divided into things anyone can do, things Kubernetes organization
-members can do, and things that require a higher level of access and familiarity
-with SIG Docs processes. Contributing consistently over time can help you
-understand some of the tooling and organizational decisions that have already
-been made.
+このリストでは、コントリビュートするにあたってどなたでもできること、Kubernetes Organizationのメンバーができることに加え、より高いレベルのアクセスと、SIG Docsの周辺知識を必要とすることをそれぞれ分類しています。
+時間をかけて一貫してコントリビュートすることは、ツールやすでに方針が示された組織の決定の一部を理解するのに役立ちます。
 
-This is not an exhaustive list of ways you can contribute to the Kubernetes
-documentation, but it should help you get started.
+こちらは、Kubernetesのドキュメントに貢献できる方法の完全なリストではありませんが、開始にあたっては役に立つはずです。
 
-- [Anyone](/docs/contribute/start/)
-  - Open actionable issues
-- [Member](/docs/contribute/start/)
-  - Improve existing docs
-  - Bring up ideas for improvement on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
-  - Improve docs accessibility
-  - Provide non-binding feedback on PRs
-  - Write a blog post or case study
-- [Reviewer](/docs/contribute/intermediate/)
-  - Document new features
-  - Triage and categorize issues
-  - Review PRs
-  - Create diagrams, graphics assets, and embeddable screencasts / videos
-  - Localization
-  - Contribute to other repos as a docs representative
-  - Edit user-facing strings in code
-  - Improve code comments, Godoc
-- [Approver](/docs/contribute/advanced/)
-  - Publish contributor content by approving and merging PRs
-  - Participate in a Kubernetes release team as a docs representative
-  - Propose improvements to the style guide
-  - Propose improvements to docs tests
-  - Propose improvements to the Kubernetes website or other tooling
+- [全員](/docs/contribute/start/)
+  - 対応内容が明確なIssueを建てる
+- [メンバー](/docs/contribute/start/)
+  - 既存のドキュメントを改善する
+  - 改善のアイデアを[Slack](http://slack.k8s.io/)や[SIG docsのメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)で提起する
+  - ドキュメントのアクセシビリティを改善する
+  - Pull Requestに対して提案レベルのフィードバックを提供する
+  - ブログやケーススタディの記事を書く
+- [レビュアー](/docs/contribute/intermediate/)
+  - 新しい機能のドキュメントを作成する
+  - Issueの分類と優先度を付ける
+  - Pull Reqeustをレビューする
+  - ダイアグラム、画像アセット、ドキュメントに組み込むスクリーンキャストや動画を作成する
+  - ローカライゼーション
+  - Docsの代表者として他リポジトリへのコントリビュートを行う
+  - コード中のUI部分の文字列などを修正する
+  - コード中のコメントやGodocなどを改善する
+- [承認者](/docs/contribute/advanced/)
+  - Pull Reqeustを承認、マージしてコントリビュートされたコンテンツの公開を行う
+  - Docsの代表者としてKubernetesのリリースチームに参加する
+  - スタイルガイドに改善の提案をする
+  - Docsのテストに改善の提案をする
+  - KubernetesのWebサイトや周辺ツールに改善の提案をする
 
+## コントリビュートするための追加の方法
 
-## Additional ways to contribute
-
-- To contribute to the Kubernetes community through online forums like Twitter or Stack Overflow, or learn about local meetups and Kubernetes events, visit the [Kubernetes community site](/community/).
-- To contribute to feature development, read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get started.
+- TwitterやStack Overflowのようなオンラインのフォーラムを通じてKubernetesコミュニティにコントリビュートしたり、各地域のローカルミートアップやKubernetesに関するイベントについて学ぶには、[Kubernetesコミュニティサイト](/community/)をご覧ください。
+- 機能開発にコントリビュートを開始する場合は、[コントリビューターチートシート](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)をご覧ください。
 
 {{% /capture %}}
