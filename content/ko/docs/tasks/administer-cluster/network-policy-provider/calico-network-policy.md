@@ -22,7 +22,7 @@ weight: 10
 
     **문법**
     ```shell
-    gcloud container clusters create [클러스터 이름] --enable-network-policy
+    gcloud container clusters create [클러스터_이름] --enable-network-policy
     ```
 
     **예시**
