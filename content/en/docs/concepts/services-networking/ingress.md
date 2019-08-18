@@ -71,7 +71,7 @@ Make sure you review your Ingress controller's documentation to understand the c
 A minimal Ingress resource example:
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: test-ingress
