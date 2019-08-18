@@ -21,7 +21,7 @@ Master 组件可以在集群中的任何节点上运行。然而，为了简单�
 
 ### API服务器
 
-[kube-apiserver](/docs/admin/kube-apiserver)对外暴露了Kubernetes API。它是的 Kubernetes 前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。请参阅[构建高可用性群集](/docs/admin/high-availability).
+[kube-apiserver](/docs/admin/kube-apiserver)对外暴露了Kubernetes API。它是 Kubernetes 的前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。请参阅[构建高可用性群集](/docs/admin/high-availability).
 
 ### etcd
 
