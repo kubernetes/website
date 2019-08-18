@@ -334,6 +334,3 @@ spec:
 * [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/) について更に学ぶ。
 
 {{% /capture %}}
-
-
-
