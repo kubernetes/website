@@ -112,7 +112,7 @@ Federation control plane will ensure that whenever the federated Namespace is
 updated, it updates the corresponding Namespaces in all underlying clusters to
 match it.
 -->
-您可以像更新 Kubernetes 命名空间一样更新联邦命名空间，只需将请求发送到联邦身份验证程序，而不是将其发送到指定的 Kubernetes 群集。
+您可以像更新 Kubernetes 命名空间一样更新联邦命名空间，只需将请求发送到联邦身份验证程序，而不是将其发送到指定的 Kubernetes 集群。
 联邦控制平面将确保每当更新联邦命名空间时，它都会更新所有基础集群中的相应命名空间以与其匹配。
 
 <!--
