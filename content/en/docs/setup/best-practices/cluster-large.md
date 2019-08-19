@@ -119,13 +119,3 @@ For directions on how to detect if addon containers are hitting resource limits,
 
 In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
 We welcome PRs that implement those features.
-
-### Allowing minor node failure at startup
-
-For various reasons (see [#18969](https://github.com/kubernetes/kubernetes/issues/18969) for more details) running
-`kube-up.sh` with a very large `NUM_NODES` may fail due to a very small number of nodes not coming up properly.
-Currently you have two choices: restart the cluster (`kube-down.sh` and then `kube-up.sh` again), or before
-running `kube-up.sh` set the environment variable `ALLOWED_NOTREADY_NODES` to whatever value you feel comfortable
-with. This will allow `kube-up.sh` to succeed with fewer than `NUM_NODES` coming up. Depending on the
-reason for the failure, those additional nodes may join later or the cluster may remain at a size of
-`NUM_NODES - ALLOWED_NOTREADY_NODES`.
