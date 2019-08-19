@@ -179,25 +179,22 @@ Nodeと異なり、Podはnamespaceで区切られているため(それゆえPod
 
 
 {{< note >}}
-Inter-pod affinity and anti-affinity require substantial amount of
-processing which can slow down scheduling in large clusters significantly. We do
-not recommend using them in clusters larger than several hundred nodes.
+Inter-Pod AffinityとAnti-Affinityは、大規模なクラスタ上にてスケジューリングを遅くする恐れのある多くのプロセスを要します。
+そのため、数百台以上のNodeから成るクラスタでは使用することを推奨しません。
 {{< /note >}}
 
 {{< note >}}
-Pod anti-affinity requires nodes to be consistently labelled, i.e. every node in the cluster must have an appropriate label matching `topologyKey`. If some or all nodes are missing the specified `topologyKey` label, it can lead to unintended behavior.
+Pod Anti-Affinityは、Nodeに必ずラベルが付与されている必要があります。
+例えば、クラスタの全てのNodeが、`topologyKey`で指定されたものに合致する適切なラベルが必要になります。
+それらが付与されていないNodeが存在する場合、意図しない挙動を示すことがあります。
 {{< /note >}}
 
-As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
-`preferredDuringSchedulingIgnoredDuringExecution` which denote "hard" vs. "soft" requirements.
-See the description in the node affinity section earlier.
-An example of `requiredDuringSchedulingIgnoredDuringExecution` affinity would be "co-locate the pods of service A and service B
-in the same zone, since they communicate a lot with each other"
-and an example `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity would be "spread the pods from this service across zones"
-(a hard requirement wouldn't make sense, since you probably have more pods than zones).
+Node Affinityと同様に、Pod AffinityとPod Anti-Affinityにも必須条件と優先条件を示す`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`があります。
+上述のNode Affinityのセクションを参照してください。
+`requiredDuringSchedulingIgnoredDuringExecution`を指定するAffinityの使用例は、"Service AのPodとService BのPodが密に通信する際、それらを同じゾーンで稼働させる場合"です。
+また、`preferredDuringSchedulingIgnoredDuringExecution`を指定するAnti-Affinityの使用例は、"ゾーンをまたいでPodのサービスを稼働させる場合"(Podの数はゾーンの数よりも多いため、必須条件を指定すると合理的ではありません)です。
 
-Inter-pod affinity is specified as field `podAffinity` of field `affinity` in the PodSpec.
-And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `affinity` in the PodSpec.
+Inter-Pod Affinityは、PodSpecの`affinity`フィールド内に`podAffinity`で指定し、Inter-Pod Anti-Affinityは、`podAntiAffinity`で指定します。
 
 #### An example of a pod that uses pod affinity:
 
