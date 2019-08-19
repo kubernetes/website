@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: 레이블과 셀렉터
 content_template: templates/concept
 weight: 40
