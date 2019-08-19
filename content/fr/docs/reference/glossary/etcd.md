@@ -4,7 +4,7 @@ id: etcd
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
+  Base de données clé-valeur consistante et hautement disponible utilisée comme mémoire de sauvegarde pour toutes les données du cluster.
 
 aka: 
 tags:
