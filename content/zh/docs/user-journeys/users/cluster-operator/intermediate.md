@@ -39,7 +39,7 @@ If you are a cluster operator looking to expand your grasp of Kubernetes, this p
 <!--
 Introductions to Kubernetes typically discuss simple stateless applications. As you move into more complex development, testing, and production environments, you need to consider more complex cases:
 -->
-Kubernetes的介绍通常讨论简单的无状态应用程序。当您进入更复杂的开发，测试和生产环境时，您需要考虑更复杂的情况：
+Kubernetes 的介绍通常讨论简单的无状态应用程序。当您进入更复杂的开发，测试和生产环境时，您需要考虑更复杂的情况：
 
 <!--
 Communication: Ingress and Networking
@@ -107,7 +107,7 @@ And how Pods work with scheduling, priority, disruptions:
 * [Pod 和优先级](/docs/concepts/configuration/pod-priority-preemption/)
 * [中断](/docs/concepts/workloads/pods/disruptions/)
 * [分配 Pod 到 Node](/docs/concepts/configuration/assign-pod-node/)
-* [管理容器的计算机资源](/docs/concepts/configuration/manage-compute-resources-container/)
+* [管理容器的计算资源](/docs/concepts/configuration/manage-compute-resources-container/)
 * [配置最佳实践](/docs/concepts/configuration/overview/)
 
 <!--
@@ -145,7 +145,7 @@ You should create Secrets to hold sensitive data such as passwords, tokens, or k
 * [授权概述](/docs/reference/access-authn-authz/authorization/)
 * [使用 RBAC 授权](/docs/reference/access-authn-authz/rbac/)
 
-您应该创建 Secrets 来保存敏感数据，例如密码，令牌或者密钥。但请注意，Secret可以提供的保护存在限制。请参阅 [Secrets 文档中的风险部分](/docs/concepts/configuration/secret/#risks)。
+您应该创建 Secrets 来保存敏感数据，例如密码，令牌或者密钥。但请注意，Secret 可以提供的保护存在限制。请参阅 [Secrets 文档中的风险部分](/docs/concepts/configuration/secret/#risks)。
 
 <!-- TODO: Other security content? -->
 
@@ -157,7 +157,7 @@ You should create Secrets to hold sensitive data such as passwords, tokens, or k
 <!--
 Monitoring the health and state of your cluster is important. Collecting metrics, logging, and providing access to that information are common needs. Kubernetes provides some basic logging structure, and you may want to use additional tools to help aggregate and analyze log data.
 -->
-监控集群的健康和状态非常重要。收集指标，记录，并提供对这些信息的访问是常见的需求。Kubernetes 提供了一些基本的日志记录结构，您可能需要使用其他工具来帮助汇总和分析日志数据。
+监控集群的健康和状态非常重要。收集指标，日志，并提供对这些信息的访问是常见的需求。Kubernetes 提供了一些基本的日志记录结构，您可能需要使用其他工具来帮助汇总和分析日志数据。
 
 <!--
 Start with the [basics on Kubernetes logging](/docs/concepts/cluster-administration/logging/) to understand how containers do logging and common patterns. Cluster operators often want to add something to gather and aggregate those logs. See the following topics:
@@ -192,7 +192,7 @@ As of Kubernetes 1.11, Heapster is deprecated, as per [sig-instrumentation](http
 <!--
 Hosted monitoring, APM, or data analytics services such as [Datadog](https://docs.datadoghq.com/integrations/kubernetes/) or [Instana](https://www.instana.com/supported-integrations/kubernetes-monitoring/) also offer Kubernetes integration.
 -->
-托管监控，APM 或数据分析服务，例如[Datadog](https://docs.datadoghq.com/integrations/kubernetes/) 或者 [Instana](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 也提供 Kubernetes  集成。
+托管监控，APM 或数据分析服务，例如[Datadog](https://docs.datadoghq.com/integrations/kubernetes/) 或者 [Instana](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 也提供 Kubernetes 集成。
 
 <!--
 ## Additional resources
