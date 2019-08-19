@@ -7,7 +7,7 @@ weight: 40
 
 {{% capture overview %}}
 
-The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your cluster, and helps you obtain a deeper understanding of how Kubernetes works.
+コンセプトセクションでは、Kubernetes システムの各パーツと、Kubernetes がクラスタを表現するために使用する抽象について学びます。これは Kubernetes の仕組みをより深く理解する助けとなります。
 
 {{% /capture %}}
 
@@ -15,27 +15,27 @@ The Concepts section helps you learn about the parts of the Kubernetes system an
 
 ## 概要
 
-To work with Kubernetes, you use *Kubernetes API objects* to describe your cluster's *desired state*: what applications or other workloads you want to run, what container images they use, the number of replicas, what network and disk resources you want to make available, and more. You set your desired state by creating objects using the Kubernetes API, typically via the command-line interface, `kubectl`. You can also use the Kubernetes API directly to interact with the cluster and set or modify your desired state.
+Kubernetes を機能させるには、*Kubernetes API オブジェクト* を使用して、次のようなクラスタの *desired state* （望ましい状態）を記述します：実行したいアプリケーションやその他のワークロード、使用するコンテナイメージ、レプリカ（複製）の数、どんなネットワークやディスクリソースを利用可能にするか、等。desired sate（望ましい状態）をセットするには、Kubernetes API を使用してオブジェクトを作成します。通常はコマンドラインインターフェイス `kubectl` を用いて Kubernetes API を操作しますが、Kubernetes API を直接使用してクラスタと対話し、desired state（望ましい状態）を設定、または変更することもできます。
 
-Once you've set your desired state, the *Kubernetes Control Plane* works to make the cluster's current state match the desired state. To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster: 
+一旦 desired state（望ましい状態）を設定すると *Kubernetes コントロールプレーン* が働き、クラスタの現在の状態を desired state（望ましい状態）に一致させます。そのために Kubernetes はさまざまなタスクを自動的に実行します。たとえば、コンテナの起動または再起動、特定アプリケーションのレプリカ数のスケーリング（増減）等です。Kubernetes コントロールプレーンは、クラスタで実行されている以下のプロセスで構成されています。
 
-* The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
-* Each individual non-master node in your cluster runs two processes:
-  * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
-  * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
+* **Kubernetes Master** ：次に示す 3 プロセスの集合です。 [kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/)、[kube-scheduler](/docs/admin/kube-scheduler/) 。これらのプロセスはクラスタ内の一つのノード上で実行されます。実行ノードはマスターノードとして指定します。
+* クラスタ内の個々の非マスターノードは、それぞれ 2 つのプロセスを実行します。
+  * **[kubelet](/docs/admin/kubelet/)**, Kubernetes マスターと通信します。
+  * **[kube-proxy](/docs/admin/kube-proxy/)**, 各ノードの Kubernetes ネットワークサービスを反映するネットワークプロキシです。
 
-## Kubernetesオブジェクト
+## Kubernetes オブジェクト
 
-Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API; see the [Kubernetes Objects overview](/docs/concepts/abstractions/overview/) for more details. 
+Kubernetes には、システムの状態を表現する、次のような抽象が含まれています： デプロイ済みのコンテナ化されたアプリケーションやワークロード、関連するネットワークとディスクリソース、クラスタが何をしているかに関するその他の情報。これらの抽象は、Kubernetes API のオブジェクトによって表現されます。詳細については、[Kubernetes Objects overview](/docs/concepts/abstractions/overview/) をご覧ください。
 
-The basic Kubernetes objects include:
+基本 Kubernetes オブジェクトは次のとおりです。
 
 * [Pod](/docs/concepts/workloads/pods/pod-overview/)
 * [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
-In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include:
+上記に加え、Kubernetes にはコントローラーと呼ばれる多くの高レベルの抽象が含まれています。コントローラーは基本オブジェクトに基づいて構築され、追加の機能と便利な機能を提供します。 以下が含まれます：
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -45,19 +45,19 @@ In addition, Kubernetes contains a number of higher-level abstractions called Co
 
 ## Kubernetesコントロールプレーン
 
-The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
+Kubernetes マスターや kubelet プロセスといった Kubernetes コントロールプレーンのさまざまなパーツは、Kubernetes がクラスタと、どのように通信するかを統制します。コントロールプレーンは、システム内のすべての Kubernetes オブジェクトの記録を保持し、それらのオブジェクトの状態を管理するために継続的制御ループを実行します。常に、コントロールプレーンの制御ループはクラスタの変更に反応し、システム内のすべてのオブジェクトの実際の状態が、指定した状態に一致するように動作します。
 
-For example, when you use the Kubernetes API to create a Deployment object, you provide a new desired state for the system. The Kubernetes Control Plane records that object creation, and carries out your instructions by starting the required applications and scheduling them to cluster nodes--thus making the cluster's actual state match the desired state.
+たとえば、Kubernetes API を使用して Deployment オブジェクトを作成する場合、システムには新しい desired state（望ましい状態）が提供されます。 Kubernetes コントロールプレーンは、そのオブジェクトの作成を記録します。そして、要求されたアプリケーションの開始、およびクラスタノードへのスケジューリングにより指示を完遂します。このようにしてクラスタの実際の状態を望ましい状態に一致させます。
 
 ### Kubernetesマスター
 
-The Kubernetes master is responsible for maintaining the desired state for your cluster. When you interact with Kubernetes, such as by using the `kubectl` command-line interface, you're communicating with your cluster's Kubernetes master.
+Kubernetes マスターには、クラスタの望ましい状態を維持する責任があります。`kubectl` コマンドラインインターフェイスを使用するなどして Kubernetes とやり取りするとき、実際にはクラスタの Kubernetes マスターと通信しています。
 
-> The "master" refers to a collection of processes managing the cluster state.  Typically these processes are all run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundancy.
+>「マスター」とは、クラスタ状態を管理するプロセスの集合を指します。通常これらのプロセスは、すべてクラスタ内の単一ノードで実行されます。このノードはマスターとも呼ばれます。マスターは、可用性と冗長性のために複製することもできます。
 
-### Kubernetesノード
+### Kubernetes ノード
 
-The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
+クラスタのノードは、アプリケーションとクラウドワークフローを実行するマシン（VM、物理サーバーなど）です。 Kubernetes マスターは各ノードを制御します。ノードと直接対話することはほとんどありません。
 
 #### オブジェクトメタデータ
 
