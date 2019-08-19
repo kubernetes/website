@@ -9,7 +9,7 @@ weight: 20
 ---
 
 {{% capture overview %}}
-This page describes common concepts in the Kubernetes API. 
+This page describes common concepts in the Kubernetes API.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -29,17 +29,17 @@ Kubernetes generally leverages standard RESTful terminology to describe the API 
 
 All resource types are either scoped by the cluster (`/apis/GROUP/VERSION/*`) or to a namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped resource type will be deleted when its namespace is deleted and access to that resource type is controlled by authorization checks on the namespace scope. The following paths are used to retrieve collections and resources:
 
-* Cluster-scoped resources: 
+* Cluster-scoped resources:
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
-* Namespace-scoped resources: 
+* Namespace-scoped resources:
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 
 Since a namespace is a cluster-scoped resource type, you can retrieve the list of all namespaces with `GET /api/v1/namespaces` and details about a particular namespace with `GET /api/v1/namespaces/NAME`.
 
-Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH, and DELETE. Kubernetes uses the term **list** to describe returning a collection of resources to distinguish from retrieving a single resource which is usually called a **get**. 
+Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH, and DELETE. Kubernetes uses the term **list** to describe returning a collection of resources to distinguish from retrieving a single resource which is usually called a **get**.
 
 Some resource types will have one or more sub-resources, represented as sub paths below the resource:
 
@@ -114,7 +114,7 @@ To mitigate the impact of short history window, we introduced a concept of `book
 
 On large clusters, retrieving the collection of some resource types may result in very large responses that can impact the server and client. For instance, a cluster may have tens of thousands of pods, each of which is 1-2kb of encoded JSON. Retrieving all pods across all namespaces may result in a very large response (10-20MB) and consume a large amount of server resources. Starting in Kubernetes 1.9 the server supports the ability to break a single large collection request into many smaller chunks while preserving the consistency of the total request. Each chunk can be returned sequentially which reduces both the total size of the request and allows user-oriented clients to display results incrementally to improve responsiveness.
 
-To retrieve a single list in chunks, two new parameters `limit` and `continue` are supported on collection requests and a new field `continue` is returned from all list operations in the list `metadata` field. A client should specify the maximum results they wish to receive in each chunk with `limit` and the server will return up to `limit` resources in the result and include a `continue` value if there are more resources in the collection. The client can then pass this `continue` value to the server on the next request to instruct the server to return the next chunk of results. By continuing until the server returns an empty `continue` value the client can consume the full set of results. 
+To retrieve a single list in chunks, two new parameters `limit` and `continue` are supported on collection requests and a new field `continue` is returned from all list operations in the list `metadata` field. A client should specify the maximum results they wish to receive in each chunk with `limit` and the server will return up to `limit` resources in the result and include a `continue` value if there are more resources in the collection. The client can then pass this `continue` value to the server on the next request to instruct the server to return the next chunk of results. By continuing until the server returns an empty `continue` value the client can consume the full set of results.
 
 Like a watch operation, a `continue` token will expire after a short amount of time (by default 5 minutes) and return a `410 Gone` if more results cannot be returned. In this case, the client will need to start from the beginning or omit the `limit` parameter.
 
@@ -341,12 +341,12 @@ Some values of an object are typically generated before the object is persisted.
 
 ## Server Side Apply
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, the `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
+{{< feature-state for_k8s_version="v1.16" state="beta" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, the `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
 
-### Enable the Server Side Apply alpha feature
+### Disabling the Server Side Apply beta feature
 
-Server Side Apply is an alpha feature, so it is disabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates) on,
-you need to include the `--feature-gates ServerSideApply=true` flag when starting `kube-apiserver`.
+Server Side Apply is a beta feature, so it is enabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates) off,
+you need to include the `--feature-gates ServerSideApply=false` flag when starting `kube-apiserver`.
 If you have multiple `kube-apiserver` replicas, all should have the same flag setting.
 
 ### Field Management
