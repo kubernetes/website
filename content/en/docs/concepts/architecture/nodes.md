@@ -21,7 +21,7 @@ architecture design doc for more details.
 
 {{% capture body %}}
 
-## Node Status
+### Node Status
 
 A node's status contains the following information:
 
