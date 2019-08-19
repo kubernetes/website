@@ -44,7 +44,7 @@ Ces contrôleurs incluent :
 
   * Node Controller : Responsable de détecter et apporter une réponse lorsqu'un nœud tombe en panne.
   * Replication Controller : Responsable de maintenir le bon nombre de pods pour chaque objet
-  "replication controller" dans le système.
+  ReplicationController dans le système.
   * Endpoints Controller : Remplit les objets Endpoints (c'est-à-dire joint les Services et Pods).
   * Service Account & Token Controllers : Créent des comptes par défaut et des jetons d'accès à l'API 
   pour les nouveaux namespaces.
