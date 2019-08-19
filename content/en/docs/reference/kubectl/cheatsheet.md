@@ -145,7 +145,6 @@ kubectl get services                          # List all services in the namespa
 kubectl get pods --all-namespaces             # List all pods in all namespaces
 kubectl get pods -o wide                      # List all pods in the namespace, with more details
 kubectl get deployment my-dep                 # List a particular deployment
-kubectl get pods --include-uninitialized      # List all pods in the namespace, including uninitialized ones
 kubectl get pod my-pod -o yaml                # Get a pod's YAML
 kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster specific information
 
