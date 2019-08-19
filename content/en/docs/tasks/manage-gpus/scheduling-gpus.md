@@ -152,6 +152,52 @@ kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 
 ## Automatic node labelling {#node-labeller}
 
+### NVIDIA
+
+The [NVIDIA GPU Feature Discovery](https://github.com/NVIDIA/gpu-feature-discovery) project allows you to automatically generate labels depending on the GPUs available on your nodes. It uses the [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery) project from Kubernetes to label nodes.
+
+The currently available labels are:
+
+| Label Name                     | Value Type | Meaning                                  |
+| -------------------------------| ---------- | ---------------------------------------- |
+| nvidia.com/cuda.runtime.major  | Integer    | Major of the version of CUDA             |
+| nvidia.com/cuda.runtime.minor  | Integer    | Minor of the version of CUDA             |
+| nvidia.com/cuda.driver.major   | Integer    | Major of the version of NVIDIA driver    |
+| nvidia.com/cuda.driver.minor   | Integer    | Minor of the version of NVIDIA driver    |
+| nvidia.com/cuda.driver.rev     | Integer    | Revision of the version of NVIDIA driver |
+| nvidia.com/gpu.family          | String     | Architecture family of the GPU           |
+| nvidia.com/gpu.machine         | String     | Machine type                             |
+| nvidia.com/gpu.product         | String     | Model of the GPU                         |
+| nvidia.com/gpu.memory          | Integer    | Memory of the GPU in Mb                  |
+| nvidia.com/gpu.compute.major   | Integer    | Major of the compute capabilities        |
+| nvidia.com/gpu.compute.minor   | Integer    | Minor of the compute capabilities        |
+| nvidia.com/gfd.timestamp       | Integer    | Timestamp of the generated labels        |
+
+With the GPU Feature Discovery in use, you can specify the GPU type in the Pod spec:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda-vector-add
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: cuda-vector-add
+      # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
+      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+  nodeSelector:
+    nvidia.com/gpu.product: tesla-p100 # or tesla-k80 etc.
+```
+
+This will ensure that the Pod will be scheduled to a node that has the GPU type
+you specified.
+
+### AMD
+
 If you're using AMD GPU devices, you can deploy
 [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller).
 Node Labeller is a {{< glossary_tooltip text="controller" term_id="controller" >}} that automatically
@@ -192,28 +238,5 @@ kubectl describe node cluster-node-23
                         node.alpha.kubernetes.io/ttl: 0
     …
 ```
-
-With the Node Labeller in use, you can specify the GPU type in the Pod spec:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: cuda-vector-add
-spec:
-  restartPolicy: OnFailure
-  containers:
-    - name: cuda-vector-add
-      # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
-      resources:
-        limits:
-          nvidia.com/gpu: 1
-  nodeSelector:
-    accelerator: nvidia-tesla-p100 # or nvidia-tesla-k80 etc.
-```
-
-This will ensure that the Pod will be scheduled to a node that has the GPU type
-you specified.
 
 {{% /capture %}}
