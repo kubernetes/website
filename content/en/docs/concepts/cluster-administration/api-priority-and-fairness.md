@@ -1,5 +1,5 @@
 ---
-title: Priority and Fairness in Handling Requests
+title: API priority and fairness
 content_template: templates/concept
 weight: 20
 ---
@@ -31,21 +31,22 @@ general version of that earlier functionality.
 
 ## Outline
 
-Each apiserver independently applies prioritization and fariness,
+Each apiserver independently applies prioritization and fairness,
 based on API objects that configure this feature.  This involves two
 concepts: priority level and flow schema.
 
 ### Priority level
 
-Each apiserver has an aggregate concurrency limit and divides it ---
-without examining the request load --- among several priority levels.
-The priority levels operate independently of each other.  That is, the
-apiserver classifies a given request to exactly one priority level
-and, for a given priority level, handles at most the corresponding
-number of requests at any given time.  One special priority level ---
-used for meta-requests and other top-priority traffic --- imposes no
-limit.  This priority level and the requests mapped to it are
-described as "exempt", because of the lack of concurrency limitation.
+Each apiserver has an aggregate concurrency limit and divides
+it&emdash;without examining the request load&emdash;among several
+priority levels.  The priority levels operate independently of each
+other.  That is, the apiserver classifies a given request to exactly
+one priority level and, for a given priority level, handles at most
+the corresponding number of requests at any given time.  One special
+priority level&emdash;used for meta-requests and other top-priority
+traffic&emdash;imposes no limit.  This priority level and the requests
+mapped to it are described as "exempt", because of the lack of
+concurrency limitation.
 
 For a non-exempt request, if it is not allowed to be handled
 immediately then the apiserver will either reject the request or hold
@@ -63,8 +64,8 @@ that request to a _flow_ according to a configured collection of _flow
 schemas_.  The flow schemas are considered in order, according to each
 flow schema's _matching precedence_ (which is a number).  A flow
 schema has rules that describe which requests match that schema.
-Matching takes into account (a) the requested operation --- as
-identified by the HTTP request verb and URI --- and (b) if the request
+Matching takes into account (a) the requested operation&emdash;as
+identified by the HTTP request verb and URI&emdash;and (b) if the request
 arrived through a secured port then the authenticated user attributes
 otherwise just the UserAgent.  Among the schemas that match the
 request, one with the logically highest matching precedence wins.
@@ -102,14 +103,15 @@ apiserver will not add a request to a queue that is already at or
 exceeding its length limit; rather, the request is immediately
 rejected.  Second, each apiserver is configured with a limit on how
 long a request can wait in a queue.  If that limit expires before the
-request can be handled then the request is rejected.  Rejection uses
-HTTP status code 429 "Too Many Requests".
+request can be handled then the request is rejected.  When rejecting
+requests, the apiserver responds using HTTP status code 429 "Too Many
+Requests".
 
 ## Configuration
 
 Configuration is mainly through API objects of kinds
-`PriorityLevelConfiguration` and `FlowSchema`, in the APIGroup
-`flowcontrol.apiserver.k8s.io`.
+`PriorityLevelConfiguration` and `FlowSchema` in the
+`flowcontrol.apiserver.k8s.io` API group.
 
 The apiserver's aggregate concurrency limit is the sum of the two
 limits applied by the older simpler functionality: the limit on the
@@ -117,7 +119,7 @@ number of mutating requests being handled at one time and the limit on
 the number of readonly requests being handled at a time.
 
 An apiserver's limit on how long a request can wait in a queue is one
-quarter of the apiserer's handling timeout for non-long-running
-requests.
+quarter of the time that an apiserver allows itself for handling a
+request.
 
 {{% /capture %}}
