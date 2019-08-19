@@ -44,7 +44,7 @@ Ces contrôleurs incluent :
 
   * Node Controller : Responsable de détecter et apporter une réponse lorsqu'un nœud tombe en panne.
   * Replication Controller : Responsable de maintenir le bon nombre de pods pour chaque objet
-  "replication controller" dans le système.
+  ReplicationController dans le système.
   * Endpoints Controller : Remplit les objets Endpoints (c'est-à-dire joint les Services et Pods).
   * Service Account & Token Controllers : Créent des comptes par défaut et des jetons d'accès à l'API 
   pour les nouveaux namespaces.
@@ -67,7 +67,7 @@ Les contrôleurs suivants ont des dépendances vers des fournisseurs cloud :
   * Node Controller : Pour vérifier le fournisseur de cloud afin de déterminer si un nœud a été supprimé dans le cloud après avoir cessé de répondre
   * Route Controller : Pour mettre en place des routes dans l'infrastructure cloud sous-jacente
   * Service Controller : Pour créer, mettre à jour et supprimer les load balancers des fournisseurs cloud
-  * Volume Controller : Pour créer, attacher et monter des volumes, et interagir avec le fournisseur cloud pour orchestrer les volumes.
+  * Volume Controller : Pour créer, attacher et monter des Volumes, et interagir avec le fournisseur cloud pour orchestrer les volumes.
 
 ## Composants de nœud
 
