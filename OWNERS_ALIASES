@@ -51,12 +51,12 @@ aliases:
     - rajakavitha1
     - ryanmcginnis
     - shavidissa
+    - simplytunde
     - steveperry-53
     - stewart-yu
     - tengqm
     - tfogo
     - zacharysarah
-    - zhangxiaoyu-zidif
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - jimangel
@@ -183,6 +183,8 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
     - jcjesus
+    - devlware
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
+    - devlware
