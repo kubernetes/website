@@ -44,7 +44,7 @@ card:
 {{% capture lessoncontent %}}
 
 ## 레디스를 이용한 PHP 방명록 시작
-이 튜토리얼은 [레디스를 이용한 PHP 방명록](../guestbook)을 기반으로 한다. 실행 중인 이 방명록 애플리케이션을 가지고 있다면, 모니터링할 수 있다. 그렇지않았다면 다음 방법을 따라 방명록을 배포하고 **정리하기** 단계는 수행하지 말자. 실행 중인 방명록을 갖게 되면 이 페이지로 돌아오자.
+이 튜토리얼은 [레디스를 이용한 PHP 방명록](../guestbook)을 기반으로 한다. 방명록 애플리케이션을 실행 중이라면, 이를 모니터링할 수 있다. 실행되지 않은 경우라면 지침을 따라 방명록을 배포하고 **정리하기** 단계는 수행하지 말자. 방명록을 실행할 때 이 페이지로 돌아오자.
 
 ## 클러스터 롤 바인딩 추가
 [클러스터 단위 롤 바인딩](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)을 생성하여, 클러스터 수준(kube-system 안에)으로 kube-state-metrics와 비트를 배포할 수 있게 하자.
