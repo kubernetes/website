@@ -57,7 +57,7 @@ weight: 60
 만약 자발적인 중단을 일으킬 수 있는 원인이 없다면 Pod Disruption Budget의 생성을 넘길 수 있다.
 
 {{< caution >}}
-모든 자발적인 장애는 Pod Disruption Budget에 연관되는 것은 아니다.
+모든 자발적인 중단이 Pod Disruption Budget에 연관되는 것은 아니다.
 예를 들어 디플로이먼트 또는 파드의 삭제는 Pod Disruption Budget를 무시한다.
 {{< /caution >}}
 
