@@ -1,5 +1,5 @@
 ---
-title: 장애
+title: 중단(disruption)
 content_template: templates/concept
 weight: 60
 ---
