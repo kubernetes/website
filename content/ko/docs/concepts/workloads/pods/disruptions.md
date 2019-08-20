@@ -116,7 +116,7 @@ PDB는 [불가피한 장애](#voluntary-and-involuntary-disruptions)가 발생�
 애플리케이션의 롤링 업그레이드로 파드가 삭제되거나 사용할 수 없는 경우 장애 버짓에 영향을 준다.
 그러나 컨트롤러(디플로이먼트, 스테리트풀 셋)는 롤링 업데이트시 PDB의 제한을 받지 않는다.
 애플리케이션 업데이트 진행 중 발생하는 장애 처리는 컨트롤러 사양에 구성되어있다.
-([디플이먼트 업데이트](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)에 대해 알아보기.)
+([디플로이먼트 업데이트](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)에 대해 알아보기.)
 
 파드를 Eviction API로 제거하면 정상적으로 종료된다.
 ([파드사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서 `terminationGracePeriodSeconds`를 참조.)
