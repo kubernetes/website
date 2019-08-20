@@ -45,7 +45,7 @@ weight: 60
 
 클러스터 관리자의 작업:
 
-- 복구 또는 업그레이드를 위한 [노드 드레이닝](/docs/tasks/administer-cluster/safely-drain-node/)
+- 복구 또는 업그레이드를 위한 [노드 드레이닝](/docs/tasks/administer-cluster/safely-drain-node/).
 - 클러스터의 스케일 축소를위한 노드 드레이닝([클러스터 오토스케일링](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)에 대해 알아보기).
 - 노드에 다른 무언가를 추가하기 위해 파드를 제거.
 
