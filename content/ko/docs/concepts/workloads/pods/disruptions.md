@@ -67,7 +67,7 @@ weight: 60
 
 - 파드가 필요로 하는 [리소스를 요청](/docs/tasks/configure-pod-container/assign-cpu-ram-container)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다. (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및 [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/)애플리케이션에 대해 알아보기.)
-- 복제한 애플리케이션의 구동시 훨씬 더 높은 가용성을 위해 랙 전체([안티어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 이용) 또는 
+- 복제한 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체([안티-어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 이용) 또는 
 영역간(또는 [다중 영역 클러스터](/docs/setup/multiple-zones)를 이용한다.)에 
 애플리에키션을 분산해야 한다.
 
