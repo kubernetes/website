@@ -69,7 +69,7 @@ weight: 60
 - 고가용성이 필요한 경우 애플리케이션을 복제한다. (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및 [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/)애플리케이션에 대해 알아보기.)
 - 복제한 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체([안티-어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 이용) 또는 
 영역 간(또는 [다중 영역 클러스터](/docs/setup/multiple-zones)를 이용한다.)에 
-애플리에키션을 분산해야 한다.
+애플리케이션을 분산해야 한다.
 
 자발적 장애의 빈도와 유형은 다양하다. 기본적으로 쿠버네티스 클러스터에서는 자발적인 운영 중단이 전혀 없다.
 그러나 클러스터 관리자 또는 호스팅 공급자가 일부 서비스를 추가하는 작업시에 자발적 장애가 발생할 수 있다.
