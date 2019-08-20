@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-このページでは[Minikube](/ja/docs/tutorials/hello-minikube)のインストール方法を説明し、あなたのコンピューターの仮想マシン上で単一nodeのKubernetesクラスターを実行します。
+このページでは[Minikube](/ja/docs/tutorials/hello-minikube)のインストール方法を説明し、コンピューターの仮想マシン上で単一nodeのKubernetesクラスターを実行します。
 
 {{% /capture %}}
 
