@@ -577,7 +577,7 @@ A second class of rules tracks resources being created or destroyed, including:
 
 The final class of rules simply displays any Audit Event received by Falco. This rule is disabled by default, as it can be quite noisy.
 
-For further details refer to the this [Falco documentation page][falco_ka_docs].
+For further details, see [Kubernetes Audit Events][falco_ka_docs] in the Falco documentation.
 
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
