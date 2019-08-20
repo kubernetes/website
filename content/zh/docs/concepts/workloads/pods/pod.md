@@ -16,22 +16,23 @@ Pod是可以创建和管理 Kubernetes 计算的最小可部署的单元。
 
 ## Pod 是什么?
 
-Pod 就像是豌豆荚一样，是一组由一个或多个
+ Pod 就像是豌豆荚一样，是一组由一个或多个
 {{< glossary_tooltip text="容器" term_id="container" >}} (例如
-Docker 容器)组成，它们共享容器的存储、网络和运行配置项。 Pod 中的容器总是被同时调度，有共同的运行环境。  一个 Pod 相当于是一个特定应用的“逻辑主机” - 其中运行着一个或者多个紧密磨合的应用容器 &mdash;
+Docker 容器)组成，它们共享容器的存储、网络和运行配置项。 Pod 中的容器总是被同时调度，有共同的运行环境。
+一个 Pod 相当于是一个特定应用的“逻辑主机” - 其中运行着一个或者多个紧密相关的应用容器 &mdash;
 在容器技术出现之前，在同一个逻辑主机上运行意味着它们是运行在相同的物理机或者虚拟机上。
 
-尽管 Kubernetes 支持多种容器运行时而不只是 Docker，Docker 依然是最常用的运行时环境。我们可以使用 Docker 的术语和规则来定义 Pod。
+尽管 Kubernetes 支持多种容器运行时而不只是 Docker， Docker 依然是最常用的运行时环境。我们可以使用 Docker 的术语和规则来定义 Pod 。
 
-Pod 中共享的环境包括 Linux 的 namespace ，cgroup 和
+ Pod 中共享的环境包括 Linux 的 namespace ，cgroup 和
 其他可能的隔绝环境 - 这一点和 Docker 容器一致。在 Pod 的上下文环境中，
 每个应用中可能有更小的子隔离环境。
 
-Pod 的容器中共享IP地址和端口号，它们之间可以通过localhost互相发现。它们之间可以通过像 SystemV 信号量或者
+ Pod 的容器中共享IP地址和端口号，它们之间可以通过localhost互相发现。它们之间可以通过像 SystemV 信号量或者
 POSIX 共享内存的方式进行进程间通信。 不同Pod之间的容器具有不同的IP地址，不能直接通过没有[特殊配置](/docs/concepts/policy/pod-security-policy/)的IPC通信。
 这些容器通常通过 Pod 的IP地址通信。
 
-Pod 中的容器也有访问共享 {{< glossary_tooltip text="volume" term_id="volume" >}}的权限，这些 volume 会被定义成 Pod
+ Pod 中的容器也有访问共享 {{< glossary_tooltip text="volume" term_id="volume" >}}的权限，这些 volume 会被定义成 Pod
 的一部分并被挂载到应用容器的文件系统中。
 
 在 [Docker](https://www.docker.com/) 的术语中，Pod 可以看做一组共享 namespace 和文件系统 volume的 Docker 容器。
