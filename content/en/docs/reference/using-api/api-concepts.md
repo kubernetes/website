@@ -86,6 +86,11 @@ For example:
         ...
 
 A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
+
+### Watch bookmarks
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
 To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to pass an information that all changes up to a given `resourceVersion` client is requesting has already been send. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
 
         GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
@@ -103,7 +108,7 @@ To mitigate the impact of short history window, we introduced a concept of `book
           "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "12746"} }
         }
 
-`Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event. As of 1.15 release, it is an Alpha feature.
+`Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event. Since version 1.16, watch bookmarks feature is enabled by default.
 
 ## Retrieving large results sets in chunks
 
