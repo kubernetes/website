@@ -54,7 +54,7 @@ Pour les clusters de plus grande taille, vous voudrez peut-être déterminer si 
 
 À partir de la version 1.8, le cloud-controller-manager peut implémenter:
 
-* contrôleur de noeud - responsable de la mise à jour des noeuds kubernetes à l’aide des API de cloud et de la suppression des noeuds kubernetes supprimés sur votre cloud.
+* contrôleur de nœud - responsable de la mise à jour des nœud kubernetes à l’aide des API de cloud et de la suppression des nœud kubernetes supprimés sur votre cloud.
 * contrôleur de service - responsable des loadbalancers sur votre cloud vers des services de type LoadBalancer.
 * contrôleur de route - responsable de la configuration des routes réseau sur votre cloud
 * toute autre fonctionnalité que vous voudriez implémenter si vous exécutez en dehors de l'arborescence de Kubernetes.
