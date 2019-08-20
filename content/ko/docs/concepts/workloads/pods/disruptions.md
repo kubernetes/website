@@ -65,7 +65,7 @@ weight: 60
 
 비자발적인 중단으로 인한 영향을 경감하기 위한 몇 가지 방법은 다음과 같다.
 
-- 파드가 [필요한 리소스](/docs/tasks/configure-pod-container/assign-cpu-ram-container)가 있는지 확인한다.
+- 파드가 필요로 하는 [리소스를 요청](/docs/tasks/configure-pod-container/assign-cpu-ram-container)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다. (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및 [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/)애플리케이션에 대해 알아보기.)
 - 복제한 애플리케이션의 구동시 훨씬 더 높은 가용성을 위해 랙 전체([안티어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 이용) 또는 
 영역간(또는 [다중 영역 클러스터](/docs/setup/multiple-zones)를 이용한다.)에 
