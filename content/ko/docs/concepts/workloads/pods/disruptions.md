@@ -63,7 +63,7 @@ weight: 60
 
 ## 중단 다루기
 
-불가피한 장애를 최소화하기 위한 몇 가지 방법은 다음과 같다.
+비자발적인 중단으로 인한 영향을 경감하기 위한 몇 가지 방법은 다음과 같다.
 
 - 파드가 [필요한 리소스](/docs/tasks/configure-pod-container/assign-cpu-ram-container)가 있는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다. (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및 [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/)애플리케이션에 대해 알아보기.)
