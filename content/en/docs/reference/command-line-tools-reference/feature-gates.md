@@ -183,7 +183,8 @@ different Kubernetes components.
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
-| `WatchBookmark` | `false` | Alpha | 1.15 | |
+| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
+| `WatchBookmark` | `true` | Beta | 1.16 | |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
 
 ## Using a Feature
