@@ -770,7 +770,7 @@ Note that defaults applied when reading data from etcd are not automatically wri
 
 ### Publish Validation Schema in OpenAPI v2
 
-{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
+{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
 
 {{< note >}}
 OpenAPI v2 Publishing is available as beta since 1.15, and as alpha since 1.14. The
