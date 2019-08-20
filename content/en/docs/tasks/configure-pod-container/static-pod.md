@@ -15,7 +15,6 @@ observing them.
 Unlike Pods that are managed by the control plane (eg, a
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}};
 instead, the kubelet watches each static Pod (and restarts it if it crashes).
-There are no health checks for the containers in a static Pod.
 
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
 
