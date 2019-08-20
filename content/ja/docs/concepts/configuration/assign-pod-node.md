@@ -196,9 +196,17 @@ Node Affinityと同様に、Pod AffinityとPod Anti-Affinityにも必須条件�
 
 Inter-Pod Affinityは、PodSpecの`affinity`フィールド内に`podAffinity`で指定し、Inter-Pod Anti-Affinityは、`podAntiAffinity`で指定します。
 
-#### An example of a pod that uses pod affinity:
+#### Pod Affinityを使用したPodの例
 
 {{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+
+このPodのAffifnityは、Pod AffinityとPod Anti-Affinityを1つずつ定義しています。
+この例では、`podAffinity`に`requiredDuringSchedulingIgnoredDuringExecution`、`podAntiAffinity`に`preferredDuringSchedulingIgnoredDuringExecution`が設定されています。
+Pod Affinityは、「キーが"security"、バリューが"S1"のラベルが付与されたPodが少なくとも1つは稼働しているノードが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、Node Nが`failure-domain.beta.kubernetes.io/zone`というキーを保持しており、キーが"security"、バリューが"S1"のラベルが付与されたPodを稼働させているバリューVが付与されたNodeがある場合、)。
+PodはNode Nで動く資格がある
+Node　Nがキーfailure-domain.beta.kubernetes.io/zone`、バリューVのラベルを持つ場合に
+キーが`failure-domain.beta.kubernetes.io/zone`、バリューが、キーが"security"、バリューが"S1"のラベルが付与されたPodを稼働さしているノードのラベル(ここではV)
+
 
 The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. In this example, the
 `podAffinity` is `requiredDuringSchedulingIgnoredDuringExecution`
