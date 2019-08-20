@@ -30,7 +30,7 @@ weight: 60
 - 클라우드 공급자 또는 하이퍼바이저의 오류로 인한 VM 장애
 - 커널 패닉
 - 클러스터 네트워크 파티션이 클러스터에 발생해서 노드가 사라짐
-- 노드의 [리소스 부족](/docs/tasks/administer-cluster/out-of-resource/)으로 파드가 제거됨
+- 노드의 [리소스 부족](/docs/tasks/administer-cluster/out-of-resource/)으로 파드가 축출됨
 
 리소스 부족을 제외한 나머지 조건은 쿠버네티스에만 특정되지 않으며,
 대부분의 사용자가 익숙해야 한다.
