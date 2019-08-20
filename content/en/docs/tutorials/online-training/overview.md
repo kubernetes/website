@@ -66,4 +66,6 @@ Here are some of the sites that offer online training for Kubernetes:
 * [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
 * [Self-paced Kubernetes online course (Learnk8s Academy)](https://learnk8s.io/academy)
+
+* [Platzi Kubernetes Course (Spanish)](https://platzi.com/cursos/k8s/)
 {{% /capture %}}
