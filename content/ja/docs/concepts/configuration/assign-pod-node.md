@@ -202,32 +202,21 @@ Inter-Pod Affinityは、PodSpecの`affinity`フィールド内に`podAffinity`�
 
 このPodのAffifnityは、Pod AffinityとPod Anti-Affinityを1つずつ定義しています。
 この例では、`podAffinity`に`requiredDuringSchedulingIgnoredDuringExecution`、`podAntiAffinity`に`preferredDuringSchedulingIgnoredDuringExecution`が設定されています。
-Pod Affinityは、「キーが"security"、バリューが"S1"のラベルが付与されたPodが少なくとも1つは稼働しているノードが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、Node Nが`failure-domain.beta.kubernetes.io/zone`というキーを保持しており、キーが"security"、バリューが"S1"のラベルが付与されたPodを稼働させているバリューVが付与されたNodeがある場合、)。
-PodはNode Nで動く資格がある
-Node　Nがキーfailure-domain.beta.kubernetes.io/zone`、バリューVのラベルを持つ場合に
-キーが`failure-domain.beta.kubernetes.io/zone`、バリューが、キーが"security"、バリューが"S1"のラベルが付与されたPodを稼働さしているノードのラベル(ここではV)
+Pod Affinityは、「キーが"security"、バリューが"S1"のラベルが付与されたPodが少なくとも1つは稼働しているノードが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、バリューが"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、バリューがVであるNodeが少なくとも1つはある状態で、
+Node　Nがキー`failure-domain.beta.kubernetes.io/zone`、バリューVのラベルを持つ場合に、PodはNode Nで稼働させることができます)。
+Pod Anti-Affinityは、「あるNode上ですでに、キーが"security"、バリューが"S2"であるPodが稼働している場合に、Podを可能な限りそのNode上で稼働させない」という条件を指定しています
+(`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、バリューが"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
+Pod AffinityとPod Anti-Affinityや、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`に関する他の使用例は[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
 
+Pod AffinityとPod Anti-Affinityで使用できるオペレータは、`In`、`NotIn`、 `Exists`、 `DoesNotExist`です。
 
-The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. In this example, the
-`podAffinity` is `requiredDuringSchedulingIgnoredDuringExecution`
-while the `podAntiAffinity` is `preferredDuringSchedulingIgnoredDuringExecution`. The
-pod affinity rule says that the pod can be scheduled onto a node only if that node is in the same zone
-as at least one already-running pod that has a label with key "security" and value "S1". (More precisely, the pod is eligible to run
-on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V
-such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
-value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
-rule says that the pod prefers not to be scheduled onto a node if that node is already running a pod with label
-having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
-it would mean that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
-label having key "security" and value "S2".) See the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
-for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
-flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
+原則として、`topologyKey`には任意のラベルとキーが使用できます。
+しかし、パフォーマンスやセキュリティの観点から、以下の制約があります:
 
-The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
-
-In principle, the `topologyKey` can be any legal label-key. However,
-for performance and security reasons, there are some constraints on topologyKey:
+1. Affinityと、`requiredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`topologyKey`を指定しないことは許可されていません。
+2. `requiredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`kubernetes.io/hostname`の`topologyKey`を制限するためアドミッションコントローラ`LimitPodHardAntiAffinityTopology`が導入されました。
+トポロジーをカスタマイズする場合には、アドミッションコントローラを修正または無効化する必要があります。
+3. `preferredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、空の`topologyKey`は"全てのロポロジー"と解釈されます("全てのロポロジー"とは、ここでは`kubernetes.io/hostname`、`failure-domain.beta.kubernetes.io/zone`、`failure-domain.beta.kubernetes.io/region`を合わせたものを意味します)。
 
 1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
 empty `topologyKey` is not allowed.
