@@ -36,7 +36,7 @@ Pod の各フェーズの値と意味は厳重に守られています。
 ## Pod conditions
 
 Pod には PodStatus があり、それは Pod が成功した、また成功していないしていない [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core) の配列です。
-PodCondition配列の各要素には、次の6つの可能なフィールドがあります: 
+PodCondition配列の各要素には、次の6つのフィールドがあります: 
 
 * `lastProbeTime` は、 Pod Condition が最後に確認されたときのタイムスタンプが表示されます。
 
