@@ -71,7 +71,7 @@ KUBE_GCE_ZONE=europe-west1-c KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-
 
 다음 플래그가 있는 `kube-down` 스크립트를 사용하여 HA 클러스터에서 마스터 복제본을 제거할 수 있다.
 
-* `KUBE_DELETE_NODES=false` - kubelet을 삭제하지 않기 위함.
+* `KUBE_DELETE_NODES=false` - kubelet을 삭제하지 않기 위한 것이다.
 
 * `KUBE_GCE_ZONE=zone` - 마스터 복제본이 제거될 존.
 
