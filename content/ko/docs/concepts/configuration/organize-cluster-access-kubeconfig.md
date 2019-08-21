@@ -1,5 +1,5 @@
 ---
-title: kubeconfig 파일을 사용하여 클러스터 사용 구성하기
+title: kubeconfig 파일을 사용하여 클러스터 접근 구성하기
 content_template: templates/concept
 weight: 60
 ---
