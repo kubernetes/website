@@ -94,7 +94,7 @@ Kubelet は2種類の Probe を実行中のコンテナで行い、また反応�
 ### livenessProbe と readinessProbe をいつ使うべきか?
 
 コンテナ自体が、問題に直面したり状態が悪くなった際に、クラッシュすることができれば、
-livenessProbe は不要です; この場合 kubelet が自動で Pod の `restartPolicy` に基づいたアクションを実行します。
+livenessProbe は不要です。この場合 kubelet が自動で Pod の `restartPolicy` に基づいたアクションを実行します。
 
 Probe に失敗したときに、コンテナを殺したり再起動させたりするには、
 livenessProbe を設定し、`restartPolicy` を Always または OnFailure にします。
