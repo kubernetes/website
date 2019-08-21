@@ -17,7 +17,7 @@ weight: 30
 
 Podの `status` 項目は[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)オブジェクトで、それは `phase` のフィールドがあります。
 
-Pod のフェーズは、 Pod がそのライフサイクルのどの状態にあるかを、簡単かつ高レベルにまとめたものです。
+Podのフェーズは、そのPodがライフサイクルのどの状態にあるかを、簡単かつ高レベルにまとめたものです。
 このフェーズはコンテナやPodの状態を包括的にまとめることを目的としたものではなく、また包括的なステートマシンでもありません。
 
 Pod の各フェーズの値と意味は厳重に守られています。
