@@ -102,7 +102,7 @@ livenessProbe を設定し、`restartPolicy` を Always または OnFailure に�
 Probe が成功したときにのみ Pod にトラフィックを送信したい場合は、readinessProbe を指定します。 
 この場合、 readinessProbe は livenessProbeと同じになる可能性がありますが、
 readinessProbe が存在するということは、 Pod がトラフィックを受けずに開始され、 Probe 成功が開始した後でトラフィックを受け始めることになります。
-コンテナが起動時に大きなデータ、構成ファイル、またはマイグレーションをロードする必要がある場合は、 readinessProbe を指定します。
+コンテナが起動時に大きなデータ、構成ファイル、またはマイグレーションを読み込む必要がある場合は、 readinessProbe を指定します。
 
 コンテナがメンテナンスのために停止できるようにするには、
 livenessProbe とは異なる、特定のエンドポイントを確認する readinessProbe を指定することができます。
