@@ -189,7 +189,7 @@ apt-get install cri-o-1.13
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
 # Install prerequisites
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-311-candidate/x86_64/os/
+yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
 
 # Install CRI-O
 yum install --nogpgcheck cri-o
@@ -215,6 +215,11 @@ Use the following commands to install Containerd on your system:
 ### Prerequisites
 
 ```shell
+cat > /etc/modules-load.d/containerd.conf <<EOF
+overlay
+br_netfilter
+EOF
+
 modprobe overlay
 modprobe br_netfilter
 

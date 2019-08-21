@@ -760,7 +760,7 @@ metadata:
 spec:
   cronSpec: "5 0 * * *"
   image: my-awesome-cron-image
-  replaces: 1
+  replicas: 1
 ```
 
 Note that defaulting happens on the object

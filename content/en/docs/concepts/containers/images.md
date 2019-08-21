@@ -70,7 +70,7 @@ Credentials can be provided in several ways:
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
-  - Pre-pulling Images
+  - Pre-pulled Images
     - all pods can use any images cached on a node
     - requires root access to all nodes to setup
   - Specifying ImagePullSecrets on a Pod
@@ -243,7 +243,7 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 
-### Pre-pulling Images
+### Pre-pulled Images
 
 {{< note >}}
 If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.

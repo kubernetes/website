@@ -126,7 +126,7 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 세 번째는 노드의 동작 상태를 모니터링 하는 것이다. 노드 컨트롤러는 노드가 접근 불가할 경우 (즉 노드 컨트롤러가 어떠한 사유로 하트비트 수신을 중지하는 경우, 예를 들어 노드 다운과 같은 경우이다.) NodeStatus의 NodeReady 컨디션을 ConditionUnknown으로 업데이트 하는 책임을 지고, 노드가 계속 접근 불가할 경우 나중에 노드로부터 (정상적인 종료를 이용하여) 모든 파드를 축출시킨다. (ConditionUnknown을 알리기 시작하는 기본 타임아웃 값은 40초 이고, 파드를 축출하기 시작하는 값은 5분이다.) 노드 컨트롤러는 매 `--node-monitor-period` 초 마다 각 노드의 상태를 체크한다.
 
 쿠버네티스 1.13 이전 버전에서, NodeStatus는 노드로부터의 하트비트가 된다. 쿠버네티스 1.13을 시작으로 node lease 기능이 알파 기능으로 (기능 게이트 `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)) 소개되었다. node lease 기능이 활성화 되면, 각 노드는 주기적으로 노드에 의해 갱신되는 `kube-node-lease` 네임스페이스 내 연관된 `Lease` 오브젝트를 가지고 NodeStatus와 node lease는 둘다 노드로부터의 하트비트로 취급된다. NodeStatus가 오직 일부 변경사항이 있거나 충분한 시간이 지난 경우에만 (기본 1분으로, 접근 불가한 노드에 대한 기본 타임아웃 40초 보다 길다.) 노드에서 마스터로 보고 되는 반면에, Node lease는 자주 갱신된다. 노드 리스가 NodeStatus 보다 더 경량이므로, 이 기능은 확장성과 성능 두 가지 측면에서 노드 하트비트를 상당히 경제적이도록 해준다.
+[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)) 소개되었다. node lease 기능이 활성화 되면, 각 노드는 주기적으로 노드에 의해 갱신되는 `kube-node-lease` 네임스페이스 내 연관된 `Lease` 오브젝트를 가지고 NodeStatus와 node lease는 둘다 노드로부터의 하트비트로 취급된다. NodeStatus가 오직 일부 변경사항이 있거나 충분한 시간이 지난 경우에만 (기본 1분으로, 접근 불가한 노드에 대한 기본 타임아웃 40초 보다 길다.) 노드에서 마스터로 보고 되는 반면에, Node lease는 자주 갱신된다. 노드 리스가 NodeStatus 보다 더 경량이므로, 이 기능은 확장성과 성능 두 가지 측면에서 노드 하트비트를 상당히 경제적이도록 해준다.
 
 쿠버네티스 1.4에서, 대량의 노드들이 마스터 접근에 문제를 지닐 경우 (예를 들어 마스터에 네트워크 문제가 발생했기 때문에) 더 개선된 문제 해결을 하도록 노드 컨트롤러의 로직을 업데이트 했다. 1.4를 시작으로, 노드 컨트롤러는 파드 축출에 대한 결정을 내릴 경우 클러스터 내 모든 노드를 살핀다.
 
