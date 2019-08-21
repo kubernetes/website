@@ -9,7 +9,7 @@ foundational:
 intermediate:
   - label: "Learn about the Kubernetes Enhancement Proposal (KEP) process"
     icon: fa-upload
-    url: "https://github.com/kubernetes/community/blob/master/keps/0001-kubernetes-enhancement-proposal-process.md"
+    url: "https://github.com/kubernetes/enhancements/blob/master/keps/0001-kubernetes-enhancement-proposal-process.md"
   - label: "Understand the API conventions"
     icon: fa-map-o
     url: "https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md"

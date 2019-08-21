@@ -150,7 +150,7 @@ Example:
 
 ```bash
 # create a plugin
-echo '#!/bin/bash\n\necho "My first command-line argument was $1"' > kubectl-foo-bar-baz
+echo -e '#!/bin/bash\n\necho "My first command-line argument was $1"' > kubectl-foo-bar-baz
 sudo chmod +x ./kubectl-foo-bar-baz
 
 # "install" our plugin by placing it on our PATH
@@ -185,7 +185,7 @@ Example:
 
 ```bash
 # create a plugin containing an underscore in its filename
-echo '#!/bin/bash\n\necho "I am a plugin with a dash in my name"' > ./kubectl-foo_bar
+echo -e '#!/bin/bash\n\necho "I am a plugin with a dash in my name"' > ./kubectl-foo_bar
 sudo chmod +x ./kubectl-foo_bar
 
 # move the plugin into your PATH

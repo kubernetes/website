@@ -80,11 +80,13 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 
 ## 애드온
 
-애드온은 클러스터 기능을 이행하는 파드와 서비스다.
-이 파드는 디플로이먼트, 레플리케이션 컨트롤러, 기타 등등에 의해 관리될 수도 있다.
-네임스페이스를 갖는 애드온 오브젝트는 `kube-system` 네임스페이스 내에서 생성되어 진다.
+애드온은 쿠버네티스 리소스({{< glossary_tooltip text="데몬셋" term_id="daemonset" >}},
+{{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}} 등)를
+이용하여 클러스터 기능을 구현한다. 이들은 클러스터 단위의 기능을 제공하기 때문에
+애드온에 대한 네임스페이스 리소스는 `kube-system` 네임스페이스에 속한다.
 
-선택된 일부 애드온이 아래에 설명되었으며, 사용가능한 전체 확장 애드온 리스트는 [애드온](/docs/concepts/cluster-administration/addons/)을 참조한다.
+선택된 일부 애드온은 아래에 설명하였고, 사용가능한 전체 확장 애드온 리스트는
+[애드온](/docs/concepts/cluster-administration/addons/)을 참조한다.
 
 ### DNS
 

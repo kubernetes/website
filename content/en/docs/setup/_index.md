@@ -75,7 +75,7 @@ The following production environment solutions table lists the providers and the
 | [Cisco Container Platform](https://cisco.com/go/containers)     |       |  | &#x2714;  |  | |
 | [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)       |     |  |   | &#x2714; |&#x2714; |
 | [CloudStack](https://cloudstack.apache.org/)           |      |  |   | | &#x2714;|
-| [Canonical](https://www.ubuntu.com/kubernetes/docs/quickstart)      |              | &#x2714;       |             | &#x2714;     |&#x2714;  | &#x2714;
+| [Canonical](https://ubuntu.com/kubernetes)      |       &#x2714;       | &#x2714;       |      &#x2714;       | &#x2714;     |&#x2714;  | &#x2714;
 | [Containership](https://containership.io/containership-platform)            | &#x2714;       |&#x2714;  |     |     |                   |
 | [Digital Rebar](https://provision.readthedocs.io/en/tip/README.html)            |        |  |      |     |  | &#x2714;
 | [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)        | &#x2714;      |  |      |     |            |
