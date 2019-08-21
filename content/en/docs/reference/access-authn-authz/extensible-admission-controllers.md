@@ -5,7 +5,6 @@ reviewers:
 - caesarxuchao
 - deads2k
 - liggitt
-- mbohlool
 - jpbetz
 title: Dynamic Admission Control
 content_template: templates/concept
@@ -45,14 +44,15 @@ In the following, we describe how to quickly experiment with admission webhooks.
 
 ### Prerequisites
 
-* Ensure that the Kubernetes cluster is at least as new as v1.9.
+* Ensure that the Kubernetes cluster is at least as new as v1.16 (to use `admissionregistration.k8s.io/v1`),
+  or v1.9 (to use `admissionregistration.k8s.io/v1beta1`).
 
 * Ensure that MutatingAdmissionWebhook and ValidatingAdmissionWebhook
   admission controllers are enabled.
   [Here](/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
   is a recommended set of admission controllers to enable in general.
 
-* Ensure that the admissionregistration.k8s.io/v1beta1 API is enabled.
+* Ensure that the `admissionregistration.k8s.io/v1` or `admissionregistration.k8s.io/v1beta1` API is enabled.
 
 ### Write an admission webhook server
 
@@ -76,51 +76,75 @@ how to [authenticate apiservers](#authenticate-apiservers).
 ### Deploy the admission webhook service
 
 The webhook server in the e2e test is deployed in the Kubernetes cluster, via
-the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1beta1-apps).
+the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
 The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/e2e/apimachinery/webhook.go#L227).
+[code](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/e2e/apimachinery/webhook.go#L301).
 
 You may also deploy your webhooks outside of the cluster. You will need to update
-your [webhook client configurations](https://github.com/kubernetes/kubernetes/blob/v1.13.0/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L247) accordingly.
+your webhook configurations accordingly.
 
 ### Configure admission webhooks on the fly
 
 You can dynamically configure what resources are subject to what admission
 webhooks via
-[ValidatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhookconfiguration-v1beta1-admissionregistration-k8s-io)
+[ValidatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhookconfiguration-v1-admissionregistration-k8s-io)
 or
-[MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1beta1-admissionregistration-k8s-io).
+[MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io).
 
-The following is an example `validatingWebhookConfiguration`, a mutating webhook
-configuration is similar. See the [webhook configuration](#webhook-configuration) section for details about each config field.
+The following is an example `ValidatingWebhookConfiguration`, a mutating webhook configuration is similar.
+See the [webhook configuration](#webhook-configuration) section for details about each config field.
 
+{{< tabs name="ValidatingWebhookConfiguration_example_1" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: "pod-policy.example.com"
+webhooks:
+- name: "pod-policy.example.com"
+  rules:
+  - apiGroups:   [""]
+    apiVersions: ["v1"]
+    operations:  ["CREATE"]
+    resources:   ["pods"]
+    scope:       "Namespaced"
+  clientConfig:
+    service:
+      namespace: "example-namespace"
+      name: "example-service"
+    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+  admissionReviewVersions: ["v1", "v1beta1"]
+  sideEffects: None
+  timeoutSeconds: 5
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 metadata:
-  name: <name of this configuration object>
+  name: "pod-policy.example.com"
 webhooks:
-- name: <webhook name, e.g., pod-policy.example.io>
+- name: "pod-policy.example.com"
   rules:
-  - apiGroups:
-    - ""
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    resources:
-    - pods
-    scope: "Namespaced"
+  - apiGroups:   [""]
+    apiVersions: ["v1"]
+    operations:  ["CREATE"]
+    resources:   ["pods"]
+    scope:       "Namespaced"
   clientConfig:
     service:
-      namespace: <namespace of the front-end service>
-      name: <name of the front-end service>
-    caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
-  admissionReviewVersions:
-  - v1beta1
-  timeoutSeconds: 1
+      namespace: "example-namespace"
+      name: "example-service"
+    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+  admissionReviewVersions: ["v1beta1"]
+  timeoutSeconds: 5
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The scope field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
 resources ("Namespaced") will match this rule. "*" means that there are no scope restrictions.
@@ -131,8 +155,9 @@ When using `clientConfig.service`, the server cert must be valid for
 {{< /note >}}
 
 {{< note >}}
-Default timeout for a webhook call is 30 seconds but starting in kubernetes 1.14 you
-can set the timeout and it is encouraged to use a very small timeout for webhooks.
+Default timeout for a webhook call is 10 seconds for webhooks registered created using `admissionregistration.k8s.io/v1`,
+and 30 seconds for webhooks created using `admissionregistration.k8s.io/v1beta1`. Starting in kubernetes 1.14 you
+can set the timeout and it is encouraged to use a small timeout for webhooks.
 If the webhook call times out, the request is handled according to the webhook's 
 failure policy.
 {{< /note >}}
@@ -167,12 +192,12 @@ plugins:
   configuration:
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
-    kubeConfigFile: <path-to-kubeconfig-file>
+    kubeConfigFile: "<path-to-kubeconfig-file>"
 - name: MutatingAdmissionWebhook
   configuration:
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
-    kubeConfigFile: <path-to-kubeconfig-file>
+    kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
 
 The schema of `admissionConfiguration` is defined
@@ -214,17 +239,17 @@ users:
 #
 - name: 'webhook1.ns1.svc'
   user:
-    client-certificate-data: <pem encoded certificate>
-    client-key-data: <pem encoded key>
+    client-certificate-data: "<pem encoded certificate>"
+    client-key-data: "<pem encoded key>"
 # The `name` supports using * to wildcard-match prefixing segments.
 - name: '*.webhook-company.org'
   user:
-    password: <password>
-    username: <name>
+    password: "<password>"
+    username: "<name>"
 # '*' is the default match.
 - name: '*'
   user:
-    token: <token>
+    token: "<token>"
 ```
 
 Of course you need to set up the webhook server to handle these authentications.
@@ -240,7 +265,26 @@ serialized to JSON as the body.
 Webhooks can specify what versions of `AdmissionReview` objects they accept
 with the `admissionReviewVersions` field in their configuration:
 
+{{< tabs name="ValidatingWebhookConfiguration_admissionReviewVersions" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  admissionReviewVersions: ["v1", "v1beta1"]
+  ...
+```
+
+`admissionReviewVersions` is a required field when creating 
+`admissionregistration.k8s.io/v1` webhook configurations.
+Webhooks are required to support at least one `AdmissionReview`
+version understood by the current and previous API server.
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -252,6 +296,8 @@ webhooks:
 
 If no `admissionReviewVersions` are specified, the default when creating 
 `admissionregistration.k8s.io/v1beta1` webhook configurations is `v1beta1`.
+{{% /tab %}}
+{{< /tabs >}}
 
 API servers send the first `AdmissionReview` version in the `admissionReviewVersions` list they support.
 If none of the versions in the list are supported by the API server, the configuration will not be allowed to be created.
@@ -261,78 +307,154 @@ versions the API server knows how to send, attempts to call to the webhook will 
 This example shows the data contained in an `AdmissionReview` object
 for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
 
-```json
+
+{{< tabs name="AdmissionReview_request" >}}
+{{% tab name="admission.k8s.io/v1" %}}
+```yaml
 {
-  "apiVersion": "admission.k8s.io/v1beta1",
+  "apiVersion": "admission.k8s.io/v1",
   "kind": "AdmissionReview",
   "request": {
-    // Random uid uniquely identifying this admission call
+    # Random uid uniquely identifying this admission call
     "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
 
-    // Fully-qualified group/version/kind of the incoming object
+    # Fully-qualified group/version/kind of the incoming object
     "kind": {"group":"autoscaling","version":"v1","kind":"Scale"},
-    // Fully-qualified group/version/kind of the resource being modified
+    # Fully-qualified group/version/kind of the resource being modified
     "resource": {"group":"apps","version":"v1","resource":"deployments"},
-    // subresource, if the request is to a subresource
+    # subresource, if the request is to a subresource
     "subResource": "scale",
 
-    // Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-    // This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the 
-    // original request to the API server was converted to a version the webhook registered for.
-    // Only sent by v1.15+ API servers.
+    # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the 
+    # original request to the API server was converted to a version the webhook registered for.
     "requestKind": {"group":"autoscaling","version":"v1","kind":"Scale"},
-    // Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-    // This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the 
-    // original request to the API server was converted to a version the webhook registered for.
-    // Only sent by v1.15+ API servers.
+    # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # original request to the API server was converted to a version the webhook registered for.
     "requestResource": {"group":"apps","version":"v1","resource":"deployments"},
-    // subresource, if the request is to a subresource
-    // This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the 
-    // original request to the API server was converted to a version the webhook registered for.
-    // Only sent by v1.15+ API servers.
+    # subresource, if the request is to a subresource
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # original request to the API server was converted to a version the webhook registered for.
     "requestSubResource": "scale",
 
-    // Name of the resource being modified
+    # Name of the resource being modified
     "name": "my-deployment",
-    // Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
+    # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
     "namespace": "my-namespace",
 
-    // operation can be CREATE, UPDATE, DELETE, or CONNECT
+    # operation can be CREATE, UPDATE, DELETE, or CONNECT
     "operation": "UPDATE",
 
     "userInfo": {
-      // Username of the authenticated user making the request to the API server
+      # Username of the authenticated user making the request to the API server
       "username": "admin",
-      // UID of the authenticated user making the request to the API server
+      # UID of the authenticated user making the request to the API server
       "uid": "014fbff9a07c",
-      // Group memberships of the authenticated user making the request to the API server
+      # Group memberships of the authenticated user making the request to the API server
       "groups": ["system:authenticated","my-admin-group"],
-      // Arbitrary extra info associated with the user making the request to the API server.
-      // This is populated by the API server authentication layer and should be included
-      // if any SubjectAccessReview checks are performed by the webhook.
+      # Arbitrary extra info associated with the user making the request to the API server.
+      # This is populated by the API server authentication layer and should be included
+      # if any SubjectAccessReview checks are performed by the webhook.
       "extra": {
         "some-key":["some-value1", "some-value2"]
       }
     },
 
-    // object is the new object being admitted.
-    // It is null for DELETE operations.
+    # object is the new object being admitted.
+    # It is null for DELETE operations.
     "object": {"apiVersion":"autoscaling/v1","kind":"Scale",...},
-    // oldObject is the existing object.
-    // It is null for CREATE and CONNECT operations (and for DELETE operations in API servers prior to v1.15.0)
+    # oldObject is the existing object.
+    # It is null for CREATE and CONNECT operations.
     "oldObject": {"apiVersion":"autoscaling/v1","kind":"Scale",...},
-    // options contains the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions, UpdateOptions, or DeleteOptions.
-    // It is null for CONNECT operations.
-    // Only sent by v1.15+ API servers.
+    # options contains the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions, UpdateOptions, or DeleteOptions.
+    # It is null for CONNECT operations.
     "options": {"apiVersion":"meta.k8s.io/v1","kind":"UpdateOptions",...},
 
-    // dryRun indicates the API request is running in dry run mode and will not be persisted.
-    // Webhooks with side effects should avoid actuating those side effects when dryRun is true.
-    // See http://k8s.io/docs/reference/using-api/api-concepts/#make-a-dry-run-request for more details.
+    # dryRun indicates the API request is running in dry run mode and will not be persisted.
+    # Webhooks with side effects should avoid actuating those side effects when dryRun is true.
+    # See http://k8s.io/docs/reference/using-api/api-concepts/#make-a-dry-run-request for more details.
     "dryRun": false
   }
 }
 ```
+{{% /tab %}}
+{{% tab name="admission.k8s.io/v1beta1" %}}
+```yaml
+{
+  # Deprecated in v1.16 in favor of admission.k8s.io/v1
+  "apiVersion": "admission.k8s.io/v1beta1",
+  "kind": "AdmissionReview",
+  "request": {
+    # Random uid uniquely identifying this admission call
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
+
+    # Fully-qualified group/version/kind of the incoming object
+    "kind": {"group":"autoscaling","version":"v1","kind":"Scale"},
+    # Fully-qualified group/version/kind of the resource being modified
+    "resource": {"group":"apps","version":"v1","resource":"deployments"},
+    # subresource, if the request is to a subresource
+    "subResource": "scale",
+
+    # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the 
+    # original request to the API server was converted to a version the webhook registered for.
+    # Only sent by v1.15+ API servers.
+    "requestKind": {"group":"autoscaling","version":"v1","kind":"Scale"},
+    # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # original request to the API server was converted to a version the webhook registered for.
+    # Only sent by v1.15+ API servers.
+    "requestResource": {"group":"apps","version":"v1","resource":"deployments"},
+    # subresource, if the request is to a subresource
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # original request to the API server was converted to a version the webhook registered for.
+    # Only sent by v1.15+ API servers.
+    "requestSubResource": "scale",
+
+    # Name of the resource being modified
+    "name": "my-deployment",
+    # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
+    "namespace": "my-namespace",
+
+    # operation can be CREATE, UPDATE, DELETE, or CONNECT
+    "operation": "UPDATE",
+
+    "userInfo": {
+      # Username of the authenticated user making the request to the API server
+      "username": "admin",
+      # UID of the authenticated user making the request to the API server
+      "uid": "014fbff9a07c",
+      # Group memberships of the authenticated user making the request to the API server
+      "groups": ["system:authenticated","my-admin-group"],
+      # Arbitrary extra info associated with the user making the request to the API server.
+      # This is populated by the API server authentication layer and should be included
+      # if any SubjectAccessReview checks are performed by the webhook.
+      "extra": {
+        "some-key":["some-value1", "some-value2"]
+      }
+    },
+
+    # object is the new object being admitted.
+    # It is null for DELETE operations.
+    "object": {"apiVersion":"autoscaling/v1","kind":"Scale",...},
+    # oldObject is the existing object.
+    # It is null for CREATE and CONNECT operations (and for DELETE operations in API servers prior to v1.15.0)
+    "oldObject": {"apiVersion":"autoscaling/v1","kind":"Scale",...},
+    # options contains the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions, UpdateOptions, or DeleteOptions.
+    # It is null for CONNECT operations.
+    # Only sent by v1.15+ API servers.
+    "options": {"apiVersion":"meta.k8s.io/v1","kind":"UpdateOptions",...},
+
+    # dryRun indicates the API request is running in dry run mode and will not be persisted.
+    # Webhooks with side effects should avoid actuating those side effects when dryRun is true.
+    # See http://k8s.io/docs/reference/using-api/api-concepts/#make-a-dry-run-request for more details.
+    "dryRun": false
+  }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Response
 
@@ -345,6 +467,20 @@ At a minimum, the `response` stanza must contain the following fields:
 * `allowed`, either set to `true` or `false`
 
 Example of a minimal response from a webhook to allow a request:
+{{< tabs name="AdmissionReview_response_allow" >}}
+{{% tab name="admission.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": true
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="admission.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "admission.k8s.io/v1beta1",
@@ -355,8 +491,24 @@ Example of a minimal response from a webhook to allow a request:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Example of a minimal response from a webhook to forbid a request:
+{{< tabs name="AdmissionReview_response_forbid_minimal" >}}
+{{% tab name="admission.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": false
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="admission.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "admission.k8s.io/v1beta1",
@@ -367,11 +519,31 @@ Example of a minimal response from a webhook to forbid a request:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When rejecting a request, the webhook can customize the http code and message returned to the user using the `status` field.
 The specified status object is returned to the user.
-See [API documentation](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#status-v1-meta) for details about the status type.
+See the [API documentation](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#status-v1-meta) for details about the status type.
 Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
+{{< tabs name="AdmissionReview_response_forbid_details" >}}
+{{% tab name="admission.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": false,
+    "status": {
+      "code": 403,
+      "message": "You cannot do this because it is Tuesday and your name starts with A"
+    }
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="admission.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "admission.k8s.io/v1beta1",
@@ -386,6 +558,8 @@ Example of a response to forbid a request, customizing the HTTP status code and 
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 When allowing a request, a mutating admission webhook may optionally modify the incoming object as well.
 This is done using the `patch` and `patchType` fields in the response.
@@ -398,6 +572,22 @@ As an example, a single patch operation that would set `spec.replicas` would be 
 Base64-encoded, this would be `W3sib3AiOiAiYWRkIiwgInBhdGgiOiAiL3NwZWMvcmVwbGljYXMiLCAidmFsdWUiOiAzfV0=`
 
 So a webhook response to add that label would be:
+{{< tabs name="AdmissionReview_response_modify" >}}
+{{% tab name="admission.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": true,
+    "patchType": "JSONPatch",
+    "patch": "W3sib3AiOiAiYWRkIiwgInBhdGgiOiAiL3NwZWMvcmVwbGljYXMiLCAidmFsdWUiOiAzfV0="
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="admission.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "admission.k8s.io/v1beta1",
@@ -410,11 +600,19 @@ So a webhook response to add that label would be:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Webhook configuration
 
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
-Each configuration can contain one or more webhooks. Each webhook defines the following things.
+
+Each configuration can contain one or more webhooks.
+If multiple webhooks are specified in a single configuration, each should be given a unique name.
+This is required in `admissionregistration.k8s.io/v1`, but strongly recommended when using `admissionregistration.k8s.io/v1beta1`,
+in order to make resulting audit logs and metrics easier to match up to active configurations.
+
+Each webhook defines the following things.
 
 ### Matching requests: rules
 
@@ -440,7 +638,26 @@ Here are other examples of rules that could be used to specify which resources s
 
 Match `CREATE` or `UPDATE` requests to `apps/v1` and `apps/v1beta1` `deployments` and `replicasets`:
 
+{{< tabs name="ValidatingWebhookConfiguration_rules_1" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  rules:
+  - operations: ["CREATE", "UPDATE"] 
+    apiGroups: ["apps"]
+    apiVersions: ["v1", "v1beta1"]
+    resources: ["deployments", "replicasets"]
+    scope: "Namespaced"
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -454,10 +671,31 @@ webhooks:
     scope: "Namespaced"
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match create requests for all resources (but not subresources) in all API groups and versions:
 
+{{< tabs name="ValidatingWebhookConfiguration_rules_2" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*"]
+    scope: "*"
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -471,10 +709,31 @@ webhooks:
     scope: "*"
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Match update requests for all `status` subresources in all API groups and versions:
 
+{{< tabs name="ValidatingWebhookConfiguration_rules_3" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  rules:
+  - operations: ["UPDATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*/status"]
+    scope: "*"
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -488,6 +747,8 @@ webhooks:
     scope: "*"
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Matching requests: objectSelector
 
@@ -504,7 +765,29 @@ Use the object selector only if the webhook is opt-in, because end users may ski
 
 This example shows a mutating webhook that would match a `CREATE` of any resource with the label `foo: bar`:
 
+{{< tabs name="ValidatingWebhookConfiguration_example_1" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  objectSelector:
+    matchLabels:
+      foo: bar
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*"]
+    scope: "*"
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 ...
@@ -521,6 +804,8 @@ webhooks:
     scope: "*"
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 
@@ -537,7 +822,31 @@ If the object is a cluster scoped resource other than a Namespace, `namespaceSel
 This example shows a mutating webhook that matches a `CREATE` of any namespaced resource inside a namespace
 that does not have a "runlevel" label of "0" or "1":
 
+{{< tabs name="MutatingWebhookConfiguration_namespaceSelector_1" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  namespaceSelector:
+    matchExpressions:
+    - key: runlevel
+      operator: NotIn
+      values: ["0","1"]
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*"]
+    scope: "Namespaced"
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 ...
@@ -556,11 +865,37 @@ webhooks:
     scope: "Namespaced"
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 This example shows a validating webhook that matches a `CREATE` of any namespaced resource inside a namespace
 that is associated with the "environment" of "prod" or "staging":
 
+{{< tabs name="ValidatingWebhookConfiguration_namespaceSelector_2" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  namespaceSelector:
+    matchExpressions:
+    - key: environment
+      operator: In
+      values: ["prod","staging"]
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*"]
+    scope: "Namespaced"
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -579,6 +914,8 @@ webhooks:
     scope: "Namespaced"
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 
@@ -593,7 +930,7 @@ and a request was made to modify the resource via another API group/version (lik
 the request would not be sent to the webhook.
 
 In v1.15+, `matchPolicy` lets a webhook define how its `rules` are used to match incoming requests.
-Allowed values are `Exact` or `Equivalent`. The default in `v1beta1` is `Exact`.
+Allowed values are `Exact` or `Equivalent`.
 
 * `Exact` means a request should be intercepted only if it exactly matches a specified rule.
 * `Equivalent` means a request should be intercepted if modifies a resource listed in `rules`, even via another API group or version.
@@ -614,7 +951,29 @@ for stable versions of resources.
 This example shows a validating webhook that intercepts modifications to deployments (no matter the API group or version),
 and is always sent an `apps/v1` `Deployment` object:
 
+{{< tabs name="ValidatingWebhookConfiguration_matchPolicy" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  matchPolicy: Equivalent
+  rules:
+  - operations: ["CREATE","UPDATE","DELETE"]
+    apiGroups: ["apps"]
+    apiVersions: ["v1"]
+    resources: ["deployments"]
+    scope: "Namespaced"
+  ...
+```
+
+Admission webhooks created using `admissionregistration.k8s.io/v1` default to `Equivalent`.
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -629,6 +988,10 @@ webhooks:
     scope: "Namespaced"
   ...
 ```
+
+Admission webhooks created using `admissionregistration.k8s.io/v1beta1` default to `Exact`.
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Contacting the webhook
 
@@ -663,7 +1026,23 @@ Fragments ("#...") and query parameters ("?...") are also not allowed.
 
 Here is an example of a mutating webhook configured to call a URL
 (and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
+
+{{< tabs name="MutatingWebhookConfiguration_url" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  clientConfig:
+    url: "https://my-webhook.example.com:9443/my-webhook-path"
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 ...
@@ -673,6 +1052,8 @@ webhooks:
     url: "https://my-webhook.example.com:9443/my-webhook-path"
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Service reference
 
@@ -685,14 +1066,16 @@ Here is an example of a mutating webhook configured to call a service on port "1
 at the subpath "/my-path", and to verify the TLS connection against the ServerName
 `my-service-name.my-service-namespace.svc` using a custom CA bundle:
 
+{{< tabs name="MutatingWebhookConfiguration_service" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 ...
 webhooks:
 - name: my-webhook.example.com
   clientConfig:
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
     service:
       namespace: my-service-namespace
       name: my-service-name
@@ -700,6 +1083,26 @@ webhooks:
       port: 1234
   ...
 ```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  clientConfig:
+    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    service:
+      namespace: my-service-namespace
+      name: my-service-name
+      path: /my-path
+      port: 1234
+  ...
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Side effects
 
@@ -713,13 +1116,11 @@ This is because a call to an admission webhook does not guarantee the admitted o
 Later webhooks can modify the content of the object, a conflict could be encountered while writing to storage,
 or the server could power off before persisting the object.
 
-Additionally, webhooks with side effects should skip those side-effects when `dryRun: true` admission requests are handled.
+Additionally, webhooks with side effects must skip those side-effects when `dryRun: true` admission requests are handled.
 A webhook must explicitly indicate that it will not have side-effects when run with `dryRun`,
 or the dry-run request will not be sent to the webhook and the API request will fail instead.
 
-Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration.
-`sideEffects` may be set to `Unknown`, `None`, `Some`, `NoneOnDryRun`. The default is `Unknown`.
-
+Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration:
 * `Unknown`: no information is known about the side effects of calling the webhook.
 If a request with `dryRun: true` would trigger a call to this webhook, the request will instead fail, and the webhook will not be called.
 * `None`: calling the webhook will have no side effects.
@@ -728,8 +1129,27 @@ If a request with the dry-run attribute would trigger a call to this webhook, th
 * `NoneOnDryRun`: calling the webhook will possibly have side effects,
 but if a request with `dryRun: true` is sent to the webhook, the webhook will suppress the side effects (the webhook is `dryRun`-aware).
 
+Allowed values:
+* In `admissionregistration.k8s.io/v1beta1`, `sideEffects` may be set to `Unknown`, `None`, `Some`, or `NoneOnDryRun`, and defaults to `Unknown`.
+* In `admissionregistration.k8s.io/v1`, `sideEffects` must be set to `None` or `NoneOnDryRun`.
+
 Here is an example of a validating webhook indicating it has no side effects on `dryRun: true` requests:
+
+{{< tabs name="ValidatingWebhookConfiguration_sideEffects" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  sideEffects: NoneOnDryRun
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -738,6 +1158,8 @@ webhooks:
   sideEffects: NoneOnDryRun
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Timeouts
 
@@ -748,10 +1170,27 @@ before treating the call as a failure.
 If the timeout expires before the webhook responds, the webhook call will be ignored or 
 the API call will be rejected based on the [failure policy](#failure-policy).
 
-The timeout value must be between 1 and 30 seconds, and defaults to 30 seconds.
+The timeout value must be between 1 and 30 seconds.
 
 Here is an example of a validating webhook with a custom timeout of 2 seconds:
+
+{{< tabs name="ValidatingWebhookConfiguration_timeoutSeconds" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  timeoutSeconds: 2
+  ...
+```
+
+Admission webhooks created using `admissionregistration.k8s.io/v1` default timeouts to 10 seconds.
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 ...
@@ -760,6 +1199,10 @@ webhooks:
   timeoutSeconds: 2
   ...
 ```
+
+Admission webhooks created using `admissionregistration.k8s.io/v1` default timeouts to 30 seconds.
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Reinvocation policy
 
@@ -787,7 +1230,21 @@ The important elements to note are:
 
 Here is an example of a mutating webhook opting into being re-invoked if later admission plugins modify the object:
 
+{{< tabs name="MutatingWebhookConfiguration_reinvocationPolicy" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  reinvocationPolicy: IfNeeded
+  ...
+```
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 ...
@@ -796,6 +1253,8 @@ webhooks:
   reinvocationPolicy: IfNeeded
   ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Mutating webhooks must be idempotent, able to successfully process an object they have already admitted
 and potentially modified. This is true for all mutating admission webhooks, since any change they can make
@@ -804,14 +1263,30 @@ in an object could already exist in the user-provided object, but it is essentia
 ### Failure policy
 
 `failurePolicy` defines how unrecognized errors and timeout errors from the admission webhook
-are handled. Allowed values are `Ignore` or `Fail`. Defaults to `Ignore` in v1beta1, and v1 has changed the default to `Fail`.
+are handled. Allowed values are `Ignore` or `Fail`.
 
 * `Ignore` means that an error calling the webhook is ignored and the API request is allowed to continue.
 * `Fail` means that an error calling the webhook causes the admission to fail and the API request to be rejected.
 
 Here is a mutating webhook configured to reject an API request if errors are encountered calling the admission webhook:
 
+{{< tabs name="MutatingWebhookConfiguration_failurePolicy" >}}
+{{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+...
+webhooks:
+- name: my-webhook.example.com
+  failurePolicy: Fail
+  ...
+```
+
+Admission webhooks created using `admissionregistration.k8s.io/v1` default `failurePolicy` to `Fail`.
+{{% /tab %}}
+{{% tab name="admissionregistration.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of admissionregistration.k8s.io/v1
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 ...
@@ -820,5 +1295,9 @@ webhooks:
   failurePolicy: Fail
   ...
 ```
+
+Admission webhooks created using `admissionregistration.k8s.io/v1beta1` default `failurePolicy` to `Ignore`.
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% /capture %}}
