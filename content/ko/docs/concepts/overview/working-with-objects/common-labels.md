@@ -4,24 +4,24 @@ content_template: templates/concept
 ---
 
 {{% capture overview %}}
-kubectl과 대시보드와 같은 도구들을 통해 쿠버네티스 오브젝트를 시각화하고 관리할 수 있다.
-일반적인 레이블 세트는 도구들이 상호 운용 가능하도록 하며
-모든 도구가 오브젝트를 식별할 수 있도록 한다.
+kubectl과 대시보드와 같은 많은 도구들로 쿠버네티스 오브젝트를 시각화 하고 관리할 수 있다.
+공통 레이블 셋은 모든 도구들이 이해할 수 있는 공통의 방식으로 오브젝트를 식별하고
+도구들이 상호 운용 적으로 구작동할 수 있도록 한다.
 
-지원도구 이외에 권장 레이블은 응용프로그램을 쿼리를 이용해서 애플리케이션을 식별하게 한다.
+권장 레이블은 지원 도구 외에도 쿼리하는 방식으로 애플리케이션을 식별하게 한다.
 {{% /capture %}}
 
 {{% capture body %}}
 메타데이터는 _애플리케이션_ 의 개념을 중심으로 정리된다.
-쿠버네티스는 플랫폼 서비스(PaaS)가 아니며 애플리케이션에 대한 일반적인 개념이 없거나 적용되지 않는다.
+쿠버네티스는 플랫폼 서비스(PaaS)가 아니며 애플리케이션에 대해 공식적인 개념이 없거나 강요하지 않는다.
 대신 애플리케이션은 비공식적이며 메타데이터로 설명된다.
 애플리케이션에 포함된 정의는 유연하다.
 
 {{< note >}}
-메타데이터는 권장 레이블이다. 응용프로그램을 쉽게 관리할 수 있지만 코어 도구에는 필요하지 않다.
+메타데이터들은 권장하는 레이블이다. 애플리케이션을 보다 쉽게 관리할 수 있지만 코어 도구에는 필요하지 않다.
 {{< /note >}}
 
-공유 레이블과 주석에는 공통 접두사인 `app.kubernetes.io`가 있다.
+공유 레이블과 주석에는 공통 접두사인 `app.kubernetes.io` 가 있다.
 접두사가 없는 레이블은 사용자 전용이다.
 공유 접두사는 임의의 사용자 레이블을 공유 레이블이 방해하지 않도록 한다.
 
@@ -38,7 +38,7 @@ kubectl과 대시보드와 같은 도구들을 통해 쿠버네티스 오브젝�
 | `app.kubernetes.io/part-of`         | 이 애플리케이션의 전체 이름 | `wordpress` | 문자열 |
 | `app.kubernetes.io/managed-by`  | 애플리케이션의 작동을 관리하는데 사용되는 도구 | `helm` | 문자열 |
 
-위의 레이블을 실제로 적용한다면 스테이트풀셋 오브젝트를 고려한다.
+위 레이블의 실제 예시는 다음 스테이트풀셋 오브젝트를 고려한다.
 
 ```yaml
 apiVersion: apps/v1
@@ -59,20 +59,20 @@ metadata:
 예를 들어 워드프레스는 다른 워드프레스가 설치되어있는 웹사이트에 한번 한번 또는 그 이상 설치할 수 있다.
 
 애플리케이션의 이름과 인스턴스 이름은 별도로 기록된다.
-예를 들어 워드프레스는 `app.kubernetes.io/name`에 `wordpress`를 가지며 인스턴스 이름으로는 
-`app.kubernetes.io/instance`에 `wordpress-abcxzy`의 값을 가진다.
+예를 들어 워드프레스는 `app.kubernetes.io/name` 에 `wordpress` 를 가지며 인스턴스 이름으로는 
+`app.kubernetes.io/instance` 에 `wordpress-abcxzy` 의 값을 가진다.
 이를 통해 애플리케이션과 애플리케이션 인스턴스를 식별할 수 있다.
 모든 애플리케이션 인스턴스는 고유한 이름을 가져야 한다.
 
 ## 예시
 
-위와 같은 레이블을 이용하는 것과는 다르게 예시는 다양하고 복잡하다.
+위 레이블을 사용하는 다른 방식에 대한 예시는 다양한 복잡성이 있다.
 
 ### 단순한 스테이트리스 서비스
 
-`Deployment`와 `Service` 오브젝트를 통해 배포된 단순한 스테이트리스 서비스의 경우를 보자. 다음 두 식별자는 레이블을 가장 간단한 형태로 사용하는 방법을 나타낸다.
+`Deployment` 와 `Service` 오브젝트를 통해 배포된 단순한 스테이트리스 서비스의 경우를 보자. 다음 두 식별자는 레이블을 가장 간단한 형태로 사용하는 방법을 나타낸다.
 
-`Deployment`는 애플리케이션을 실행하는 파드를 감시하는데 사용한다.
+`Deployment` 는 애플리케이션을 실행하는 파드를 감시하는데 사용한다.
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -83,7 +83,7 @@ metadata:
 ...
 ```
 
-`Service`는 응용프로그램을 노출하기 위해 사용한다.
+`Service`는 애플리케이션을 노출하기 위해 사용한다.
 ```yaml
 apiVersion: v1
 kind: Service
@@ -99,7 +99,7 @@ metadata:
 Helm을 이용해서 데이터베이스(MySQL)을 이용하는 웹 애플리케이션(WordPress)을 설치한 것과 같이 좀 더 복잡한 애플리케이션을 고려할 수 있다.
 다음 식별자는 이 애플리케이션을 배포하는데 사용하는 오브젝트의 시작을 보여준다.
 
-WordPress를 배포하는데 다음과 같이 `Deployment`로 시작한다.
+WordPress를 배포하는데 다음과 같이 `Deployment` 로 시작한다.
 
 ```yaml
 apiVersion: apps/v1
@@ -115,7 +115,7 @@ metadata:
 ...
 ```
 
-`Service`는 응용프로그램을 노출하기 위해 사용한다.
+`Service` 는 애플리케이션을 노출하기 위해 사용한다.
 
 ```yaml
 apiVersion: v1
@@ -131,7 +131,7 @@ metadata:
 ...
 ```
 
-MySQL은 `StatefulSet`에 MySQL의 소속과 상위 애플리케이션에 대한 메타데이터가 포함되어 노출된다.
+MySQL은 `StatefulSet` 에 MySQL의 소속과 상위 애플리케이션에 대한 메타데이터가 포함되어 노출된다.
 
 ```yaml
 apiVersion: apps/v1
@@ -147,7 +147,7 @@ metadata:
 ...
 ```
 
-`Service`는 WordPress의 일부로 MySQL을 노출하는데 이용한다.
+`Service` 는 WordPress의 일부로 MySQL을 노출하는데 이용한다.
 
 ```yaml
 apiVersion: v1
@@ -163,6 +163,6 @@ metadata:
 ...
 ```
 
-MySQL `StatefulSet`과 `Service`로 MySQL과 WordPress가 더 큰 범위의 애플리케이션에 포함되어 있는 것을 알게 된다.
+MySQL `StatefulSet` 과 `Service` 로 MySQL과 WordPress가 더 큰 범위의 애플리케이션에 포함되어 있는 것을 알게 된다.
 
 {{% /capture %}}
