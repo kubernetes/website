@@ -29,7 +29,7 @@ content_template: templates/task
 * `MULTIZONE=true` - 서버의 기본 존(zone)과 다른 존에서 마스터 복제본의 kubelet이 제거되지 않도록 한다.
 다른 존에서 마스터 복제본을 실행하려는 경우에 권장하고 필요하다.
 
-* `ENABLE_ETCD_QUORUM_READ=true` - 모든 API 서버에서 읽은 내용이 최신 데이터를 반환하도록 하기 위함.
+* `ENABLE_ETCD_QUORUM_READ=true` - 모든 API 서버에서 읽은 내용이 최신 데이터를 반환하도록 하기 위한 것이다.
 true인 경우, Etcd의 리더 복제본에서 읽는다.
 이 값을 true로 설정하는 것은 선택 사항이다. 읽기는 더 안정적이지만 느리게 된다.
 
