@@ -522,11 +522,12 @@ parameters:
   Default is "default".
 * `adminSecretName`: secret that holds information about the Quobyte user and
   the password to authenticate against the API server. The provided secret
-  must have type "kubernetes.io/quobyte", e.g. created in this way:
+  must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
+  e.g. created in this way:
 
     ```shell
     kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
       --namespace=kube-system
     ```
 
