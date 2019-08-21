@@ -64,7 +64,7 @@ Windows는 세미콜론(;)으로 구분한다. `KUBECONFIG` 환경변수가 필�
 `kubectl`은 기본 kubeconfig 파일인 `$HOME/.kube/config`를 사용한다.
 
 `KUBECONFIG` 환경 변수가 존재하면, `kubectl`은
-`KUBECONFIG` 환경 변수에 나열된 파일을 병합한 결과인
+`KUBECONFIG` 환경 변수에 나열된 파일을 병합한 결과 형태의
 효과적인 구성을 이용한다.
 
 ## kubeconfig 파일 병합
