@@ -124,7 +124,7 @@ Pod ステータスとして報告される情報は、現在の [ContainerState
 
 Pod がスケジューラによって Node に割り当てられると、 
 kubelet はコンテナのランタイムを使用してコンテナの作成を開始します。
-コンテナの状態は Waiting、 Running そして Terminated の3ついづれかです。
+コンテナの状態は Waiting、 Running そして Terminated の3ついずれかです。
 コンテナの状態を確認するには `kubectl describe pod [POD_NAME]` のコマンドを使用します。
 Pod 内のコンテナごとに State の項目として表示されます。
 
