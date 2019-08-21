@@ -69,7 +69,7 @@ Windows는 세미콜론(;)으로 구분한다. `KUBECONFIG` 환경변수가 필�
 
 ## kubeconfig 파일 병합
 
-구성을 보려면, 다음 명령어를 입력한다.
+구성을 보려면, 다음 커맨드를 입력한다.
 
 ```shell
 kubectl config view
