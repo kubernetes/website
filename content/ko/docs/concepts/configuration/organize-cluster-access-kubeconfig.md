@@ -80,7 +80,7 @@ kubectl config view
 
 다음은 kubeconfig 파일을 병합할 때에 `kubectl`에서 사용하는 규칙이다.
 
-1. `--kubeconfig`플래그를 설정했으면, 지정한 파일만 사용한다. 병합하지 않는다.
+1. `--kubeconfig` 플래그를 설정했으면, 지정한 파일만 사용한다. 병합하지 않는다.
    이 플래그는 오직 한 개 인스턴스만 허용한다.
 
    그렇지 않고, `KUBECONFIG` 환경 변수를 설정하였다면
