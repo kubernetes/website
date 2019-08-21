@@ -1,5 +1,4 @@
 ---
-reviewers:
 - mml
 - wojtek-t
 title: 为 Kubernetes 运行 etcd 集群
