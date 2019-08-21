@@ -50,21 +50,18 @@ aliases:
     - mistyhacks
     - rajakavitha1
     - ryanmcginnis
-    - shavidissa
     - simplytunde
     - steveperry-53
     - stewart-yu
     - tengqm
     - tfogo
+    - xiangpengzhao
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
-    - jimangel
     - rajakavitha1
     - sftim
     - stewart-yu
-    - xiangpengzhao
-    - zhangxiaoyu-zidif
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
@@ -144,11 +141,8 @@ aliases:
     - seokho-son
   sig-docs-maintainers: # Website maintainers
     - bradamant3
-    - chenopis
-    - jaredbhatti
     - jimangel
     - kbarnard10
-    - mistyhacks
     - pwittrock
     - steveperry-53
     - tengqm
