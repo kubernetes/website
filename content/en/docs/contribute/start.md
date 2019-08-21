@@ -269,7 +269,10 @@ pull request if it detects that you pushed a new branch to your fork.
     If a reviewer asks you to make changes, you can go to the **Files changed**
     tab and click the pencil icon on any files that have been changed by the
     pull request. When you save the changed file, a new commit is created in
-    the branch being monitored by the pull request.
+    the branch being monitored by the pull request. If you are waiting on a 
+    reviewer to review the changes, proactively reach out to the reviewer 
+    once every 7 days. You can also drop into #sig-docs Slack channel, 
+    which is a good place to ask for help regarding PR reviews.
 
 7.  If your change is accepted, a reviewer merges your pull request, and the
     change is live on the Kubernetes website a few minutes later.
