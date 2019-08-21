@@ -48,7 +48,7 @@ PodCondition配列の各要素には、次の6つの可能なフィールドが�
 
 * `status` は `True` と `False` 、`Unknown` のうちのどれかです。
 
-* `type` 次の値を取る、文字列です:
+* `type` 次の値を取る文字列です:
 
   * `PodScheduled`: Pod が Node にスケジュールされました;
   * `Ready`: Pod はリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます;
