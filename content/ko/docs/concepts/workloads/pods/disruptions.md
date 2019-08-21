@@ -29,7 +29,7 @@ weight: 60
 - 클러스터 관리자의 실수로 VM(인스턴스) 삭제
 - 클라우드 공급자 또는 하이퍼바이저의 오류로 인한 VM 장애
 - 커널 패닉
-- 클러스터 네트워크 파티션이 발생해서 클러스터에서 노드가 사라짐
+- 클러스터 네트워크 파티션의 발생으로 클러스터에서 노드가 사라짐
 - 노드의 [리소스 부족](/docs/tasks/administer-cluster/out-of-resource/)으로 파드가 축출됨
 
 리소스 부족을 제외한 나머지 조건은 대부분의 사용자가 익숙할 것이다.
@@ -67,7 +67,7 @@ weight: 60
 
 - 파드가 필요로 하는 [리소스를 요청](/docs/tasks/configure-pod-container/assign-cpu-ram-container)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다. (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및 [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/)애플리케이션에 대해 알아보기.)
-- 복제한 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체([안티-어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 이용) 또는 
+- 복제된 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체([안티-어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 이용) 또는 
 영역 간(또는 [다중 영역 클러스터](/docs/setup/multiple-zones)를 이용한다.)에 
 애플리케이션을 분산해야 한다.
 
@@ -79,7 +79,7 @@ weight: 60
 
 쿠버네티스는 자주 발생하는 자발적 중단에도 고가용성 애플리케이션을
 실행 할 수 있는 기능을 제공한다. 
-우리는 이 기능을 *Disruption Budgets*이라 부른다.
+우리는 이 기능을 *Disruption Budgets* 이라 부른다.
 
 ## Disruption Budgets의 작동 방식
 
@@ -101,14 +101,14 @@ PDB는 자발적 중단으로 일시에 중지되는 복제된 애플리케이�
 실행 시간이 초과할 때까지 주기적으로 모든 실패된 요청을 다시 시도한다.
 
 PDB는 애플리케이션이 필요로 하는 레플리카의 수에 비례해서 이용가능한 레플리카의 수를 지정한다.
-예를 들어 `.spec.replicas: 5`로 디플로이먼트가 되는 경우 실행 시간동안 5개의 파드가 지원되야 한다.
+예를 들어 `.spec.replicas: 5` 로 디플로이먼트가 되는 경우 실행 시간동안 5개의 파드가 지원되야 한다.
 만약 PDB가 실행시간 동안 파드를 4개 허용한다면, Eviction API는 한번에 2개의 파드가 아닌, 1개의 파드에 자발적인 중단을 허용한다.
 
 파드 그룹은 레이블 셀렉터를 사용해서 지정한 애플리케이션으로 구성되며 
 애플리케이션 컨트롤러(디플로이먼트, 스테이트풀 셋 등)를 사용한 것과 같다.
 
-파드의 "의도"하는 수량은 파드 컨트롤러의 `.spec.replicas`를 기반으로 계산한다.
-컨트롤러는 오브젝트의 `.metadata.ownerReferences`를 사용해서 파드를 발견한다.
+파드의 "의도"하는 수량은 파드 컨트롤러의 `.spec.replicas` 를 기반으로 계산한다.
+컨트롤러는 오브젝트의 `.metadata.ownerReferences` 를 사용해서 파드를 발견한다.
 
 PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)가 발생하는 것을 막을 수는 없지만,
 버짓에 영향을 준다.
@@ -119,13 +119,13 @@ PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)가 발생
 ([디플로이먼트 업데이트](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)에 대해 알아보기.)
 
 파드를 Eviction API로 제거하면 정상적으로 종료된다.
-([파드사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서 `terminationGracePeriodSeconds`를 참조.)
+([파드사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서 `terminationGracePeriodSeconds` 를 참조.)
 
 ## PDB 예시
 
-`node-1` 부터 `node-3`까지 3개의 노드가 있는 클러스터가 있다.
+`node-1` 부터 `node-3` 까지 3개의 노드가 있는 클러스터가 있다.
 클러스터에는 여러 애플리케이션을 실행하고 있다. 
-여러 애플리케이션 중 하나는 `pod-a`, `pod-b`, `pod-c`로 부르는 3개의 레플리카가 있다. 여기에 `pod-x`라고 부르는 PDB와 무관한 파드가 보인다.
+여러 애플리케이션 중 하나는 `pod-a`, `pod-b`, `pod-c` 로 부르는 3개의 레플리카가 있다. 여기에 `pod-x` 라고 부르는 PDB와 무관한 파드가 보인다.
 초기에 파드는 다음과 같이 배치된다.
 
 |       node-1         |       node-2        |       node-3       |
@@ -136,8 +136,8 @@ PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)가 발생
 전체 3개 파드는 디플로이먼트의 일부분으로 항상 3개의 파드 중 2개의 파드를 사용할 수 있도록 PDB를 가지고 있다.
 
 예를 들어, 클러스터 관리자가 커널 버그를 수정하기위해 새 커널 버전으로 재부팅하려는 경우를 가정해보자.
-클러스터 관리자는 첫째로 `node-1`을 `kubectl drain` 명령어를 사용해서 드레이닝할 것이다.
-`kubectl`은 `pod-a`과 `pod-x`를 드레이닝 하려고 한다. 드레이닝은 즉시 성공한다.
+클러스터 관리자는 첫째로 `node-1` 을 `kubectl drain` 명령어를 사용해서 드레이닝할 것이다.
+`kubectl` 은 `pod-a` 과 `pod-x` 를 드레이닝 하려고 한다. 드레이닝은 즉시 성공한다.
 두 파드는 동시에 `terminating` 상태로 진입한다.
 이렇게 하면 클러스터는 다음의 상태가 된다.
 
@@ -146,12 +146,12 @@ PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)가 발생
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* |                     |                    |
 
-디플로이먼트는 한개의 파드가 중지되는 것을 알게되고, `pod-d`라는 대체 파드를 생성한다.
-`node-1`은 차단되어 있어 다른 노드에 위치한다. 
-`pod-x`의 대체 파드로 `pod-y`도 생성한다.
+디플로이먼트는 한개의 파드가 중지되는 것을 알게되고, `pod-d` 라는 대체 파드를 생성한다.
+`node-1` 은 차단되어 있어 다른 노드에 위치한다. 
+`pod-x` 의 대체 파드로 `pod-y` 도 생성한다.
 
-(참고: 스테이트풀 셋은 `pod-a`와 유사한 `pod-1`을
-교체하기 전에 완전히 중지해야 하며, `pod-1`로 불리지만, 다른 UID로 생성된다.
+(참고: 스테이트풀 셋은 `pod-a` 와 유사한 `pod-1` 을
+교체하기 전에 완전히 중지해야 하며, `pod-1` 로 불리지만, 다른 UID로 생성된다.
 그렇지 않으면 이 예시는 스테이트풀 셋에도 적용된다.)
 
 이제 클러스터는 다음과 같은 상태이다.
@@ -168,9 +168,9 @@ PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)가 발생
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *starting*    | pod-y              |
 
-이 시점에서 만약 성급한 클러스터 관리자가 `node-2` 또는 `node-3`을 
+이 시점에서 만약 성급한 클러스터 관리자가 `node-2` 또는 `node-3` 을 
 드레이닝 하려는 경우 디플로이먼트에 사용가능한 파드가 2개이고, 
-PDB에 필요한 최소 파드는 2개이기 때문에 드레이닝 명령이 차단된다. 약간의 시간이 지나면 `pod-d`를 이용할 수 있다.
+PDB에 필요한 최소 파드는 2개이기 때문에 드레이닝 명령이 차단된다. 약간의 시간이 지나면 `pod-d` 를 이용할 수 있다.
 
 이제 클러스터는 다음과 같은 상태이다.
 
@@ -179,14 +179,14 @@ PDB에 필요한 최소 파드는 2개이기 때문에 드레이닝 명령이 �
 |                      | pod-b *available*   | pod-c *available*  |
 |                      | pod-d *available*   | pod-y              |
 
-이제 클러스터 관리자는 `node-2`를 드레이닝 하려고 한다.
-드레이닝 명령어는 `pod-b`에서 `pod-d`의 순서로 드레이닝 하려 할 것이다. 
-드레이닝 명령어는 `pod-b`를 드레이닝 하는데 성공한다.
-그러나 드레이닝 명령어가 `pod-d`를 드레이닝 하려하는 경우 
+이제 클러스터 관리자는 `node-2` 를 드레이닝 하려고 한다.
+드레이닝 명령어는 `pod-b` 에서 `pod-d` 의 순서로 드레이닝 하려 할 것이다. 
+드레이닝 명령어는 `pod-b` 를 드레이닝 하는데 성공한다.
+그러나 드레이닝 명령어가 `pod-d` 를 드레이닝 하려하는 경우 
 디플로이먼트에 이용할 수 있는 파드는 1개로 드레이닝 명령어는 거부된다.
 
-디플로이먼트는`pod-d`를 대체할 `pod-e`를 생성한다.
-클러스터에 `pod-e`를 스케쥴하기위한 충분한 리소스가 없기 때문에 
+디플로이먼트는`pod-d` 를 대체할 `pod-e` 를 생성한다.
+클러스터에 `pod-e` 를 스케쥴하기위한 충분한 리소스가 없기 때문에 
 드레이닝 명령어는 차단된다.
 클러스터는 다음 상태로 끝나게 된다.
 
@@ -245,7 +245,7 @@ Pod Disruption Budgets를 사용할 필요가 없다.
 
 {{% capture whatsnext %}}
 
-* [Pod Disruption Budget 설정하기](/docs/tasks/run-application/configure-pdb/)를 구성해서 애플리케이션의 보호하는 방법을 참고하라
+* [Pod Disruption Budget 설정하기](/docs/tasks/run-application/configure-pdb/)를 구성해서 애플리케이션의 보호하는 방법을 참고한다.
 
 * [노드 드레이닝](/docs/tasks/administer-cluster/safely-drain-node/)에 대해 자세히 알아보기
 
