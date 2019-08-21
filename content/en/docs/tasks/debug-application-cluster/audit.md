@@ -262,7 +262,7 @@ and can optionally include a custom CA bundle to use to verify the TLS connectio
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
 The host might be resolved via external DNS in some apiservers
-(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 
 Please note that using `localhost` or `127.0.0.1` as a `host` is
@@ -493,16 +493,16 @@ plugin which supports full-text search and analytics.
 
 ### Use Falco to collect audit events
 
-[Falco](falco_website) is an open source project for intrusion and abnormality detection for Cloud Native platforms.
+[Falco][falco_website] is an open source project for intrusion and abnormality detection for Cloud Native platforms.
 This section describes how to set up Falco, how to send audit events to the Kubernetes Audit endpoint exposed by Falco, and how Falco applies a set of rules to automatically detect suspicious behavior.
 
 #### Install Falco
 
 Install Falco by using one of the following methods:
 
-- [Standalone Falco](falco_installation)
-- [Kubernetes DaemonSet](falco_installation)
-- [Falco Helm Chart](falco_helm_chart)
+- [Standalone Falco][falco_installation]
+- [Kubernetes DaemonSet][falco_installation]
+- [Falco Helm Chart][falco_helm_chart]
 
 Once Falco is installed make sure it is configured to expose the Audit webhook. To do so, use the following configuration:
 
@@ -521,26 +521,24 @@ This configuration is typically found in the `/etc/falco/falco.yaml` file. If Fa
 
 1. Create a [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) for the [kube-apiserver][kube-apiserver] webhook audit backend.
 
-    ```shell
-    cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
-    apiVersion: v1
-    kind: Config
-    clusters:
-    - cluster:
-        server: http://<ip_of_falco>:8765/k8s_audit
-      name: falco
-    contexts:
-    - context:
-        cluster: falco
-        user: ""
-      name: default-context
-    current-context: default-context
-    preferences: {}
-    users: []
-    EOF
-    ```
+        cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+        apiVersion: v1
+        kind: Config
+        clusters:
+        - cluster:
+            server: http://<ip_of_falco>:8765/k8s_audit
+          name: falco
+        contexts:
+        - context:
+            cluster: falco
+            user: ""
+          name: default-context
+        current-context: default-context
+        preferences: {}
+        users: []
+        EOF
 
-2. Start [kube-apiserver][kube-apiserver] with the following options:
+1. Start [kube-apiserver][kube-apiserver] with the following options:
 
     ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
@@ -579,7 +577,7 @@ A second class of rules tracks resources being created or destroyed, including:
 
 The final class of rules simply displays any Audit Event received by Falco. This rule is disabled by default, as it can be quite noisy.
 
-For further details refer to the this [Falco documentation page](falco_ka_docs).
+For further details, see [Kubernetes Audit Events][falco_ka_docs] in the Falco documentation.
 
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
