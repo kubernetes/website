@@ -50,15 +50,15 @@ content_template: templates/task
 -->
 ## 先决条件
 
-* 运行的 etcd 集群有奇数个成员。
+* 运行的 etcd 集群个数成员为奇数。
 
-* etcd 是一个 leader-based 分布式系统。确保领导定期向所有追随者发送心跳，以保持集群稳定。
+* etcd 是一个 leader-based 分布式系统。确保主节点定期向所有从节点发送心跳，以保持集群稳定。
 
 * 确保不发生资源不足。
   
-  集群的性能和稳定性对网络和磁盘 IO 非常敏感。任何资源饥饿都会导致心跳超时，从而导致集群的不稳定。不稳定的情况表明没有选出任何领导人。在这种情况下，集群不能对其当前状态进行任何更改，这意味着不能调度新的 pod。
+  集群的性能和稳定性对网络和磁盘 IO 非常敏感。任何资源匮乏都会导致心跳超时，从而导致集群的不稳定。不稳定的情况表明没有选出任何主节点。在这种情况下，集群不能对其当前状态进行任何更改，这意味着不能调度新的 pod。
 
-* 保持稳定的 etcd 集群对 Kubernetes 集群的稳定性至关重要。因此，请在专用机器或隔离环境上运行 etcd 集群，以满足[所需资源保证](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations)。
+* 保持稳定的 etcd 集群对 Kubernetes 集群的稳定性至关重要。因此，请在专用机器或隔离环境上运行 etcd 集群，以满足[所需资源需求](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations)。
 
 * 在生产中运行的 etcd 的最低推荐版本是 `3.2.10+`。
   
@@ -104,7 +104,7 @@ Use a single-node etcd cluster only for testing purpose.
     ./etcd --listen-client-urls=http://$PRIVATE_IP:2379 --advertise-client-urls=http://$PRIVATE_IP:2379
     ```
 
-2. 使用标志 `--etcd-servers=$PRIVATE_IP:2379` 启动 Kubernetes API 服务器。
+2. 使用参数 `--etcd-servers=$PRIVATE_IP:2379` 启动 Kubernetes API 服务器。
 
     使用您 etcd 客户端 IP 替换 `PRIVATE_IP`。
 
@@ -131,7 +131,7 @@ For an example, consider a five-member etcd cluster running with the following c
 
 为了耐用性和高可用性，在生产中将以多节点集群的方式运行 etcd，并且定期备份。建议在生产中使用五个成员的集群。有关该内容的更多信息，请参阅[常见问题文档](https://github.com/coreos/etcd/blob/master/Documentation/faq.md#what-is-failure-tolerance)。
 
-可以通过静态成员信息或动态发现的方式配置 etcd 集群。有关集群的详细信息，请参阅[etcd 集群文档](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md)。
+可以通过静态成员信息或动态发现的方式配置 etcd 集群。有关集群的详细信息，请参阅 [etcd 集群文档](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md)。
 
 例如，考虑运行以下客户端 URL 的五个成员的 etcd 集群：`http://$IP1:2379`，`http://$IP2:2379`，`http://$IP3:2379`，`http://$IP4:2379` 和 `http://$IP5:2379`。要启动 Kubernetes API 服务器：
 
@@ -141,7 +141,7 @@ For an example, consider a five-member etcd cluster running with the following c
     ./etcd --listen-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379 --advertise-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379
     ```
 
-2. 使用标志 `--etcd-servers=$IP1:2379, $IP2:2379, $IP3:2379, $IP4:2379, $IP5:2379` 启动 Kubernetes API 服务器。
+2. 使用参数 `--etcd-servers=$IP1:2379, $IP2:2379, $IP3:2379, $IP4:2379, $IP5:2379` 启动 Kubernetes API 服务器。
 
     使用您 etcd 客户端 IP 地址替换 `IP`。
 
@@ -161,7 +161,7 @@ To run a load balancing etcd cluster:
 
 1. 建立一个 etcd 集群。
 2. 在 etcd 集群前面配置负载均衡器。例如，让负载均衡器的地址为 `$LB`。
-3. 使用标志 `--etcd-servers=$LB:2379` 启动 Kubernetes API 服务器。
+3. 使用参数 `--etcd-servers=$LB:2379` 启动 Kubernetes API 服务器。
 
 <!--
 ## Securing etcd clusters
@@ -186,9 +186,9 @@ Similarly, to configure etcd with secure client communication, specify flags `--
 -->
 ### 安全通信
 
-若要使用安全对等通信对 etcd 进行配置，请指定标志 `--peer-key-file=peer.key` 和 `--peer-cert-file=peer.cert`，并使用 https 作为 URL 模式。
+若要使用安全对等通信对 etcd 进行配置，请指定参数 `--peer-key-file=peer.key` 和 `--peer-cert-file=peer.cert`，并使用 https 作为 URL 模式。
 
-类似地，要使用安全客户端通信对 etcd 进行配置，请指定标志 `--key-file=k8sclient.key` 和 `--cert-file=k8sclient.cert`，并使用 https 作为 URL 模式。
+类似地，要使用安全客户端通信对 etcd 进行配置，请指定参数 `--key-file=k8sclient.key` 和 `--cert-file=k8sclient.cert`，并使用 https 作为 URL 模式。
 
 <!--
 ### Limiting access of etcd clusters
@@ -207,10 +207,10 @@ etcd authentication is not currently supported by Kubernetes. For more informati
 
 配置安全通信后，将 etcd 集群的访问限制在 Kubernetes API 服务器上。使用 TLS 身份验证来完成此任务。
 
-例如，考虑由 CA `etcd.ca` 信任的密钥对 `k8sclient.key` 和 `k8sclient.cert`。当 etcd 配置为 `--client-cert-auth` 和 TLS 时，它使用系统 CA 或由 `--trusted-ca-file` 标志传入的 CA 验证来自客户端的证书。
-指定标志 `--client-cert-auth=true` 和 `--trusted-ca-file=etcd.ca` 将限制对具有证书 `k8sclient.cert` 的客户端的访问。
+例如，考虑由 CA `etcd.ca` 信任的密钥对 `k8sclient.key` 和 `k8sclient.cert`。当 etcd 配置为 `--client-cert-auth` 和 TLS 时，它使用系统 CA 或由 `--trusted-ca-file` 参数传入的 CA 验证来自客户端的证书。
+指定参数 `--client-cert-auth=true` 和 `--trusted-ca-file=etcd.ca` 将限制对具有证书 `k8sclient.cert` 的客户端的访问。
 
-一旦正确配置了 etcd，只有具有有效证书的客户端才能访问它。要让 Kubernetes API 服务器访问，可以使用标志 `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` 和 `--etcd-cafile=ca.cert` 配置它。
+一旦正确配置了 etcd，只有具有有效证书的客户端才能访问它。要让 Kubernetes API 服务器访问，可以使用参数 `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` 和 `--etcd-cafile=ca.cert` 配置它。
 
 {{< note >}}
 Kubernetes 目前不支持 etcd 身份验证。想要了解更多信息，请参阅相关的问题[支持 etcd v2 的基本认证](https://github.com/kubernetes/kubernetes/issues/23398)。
@@ -304,7 +304,7 @@ etcd 集群通过容忍少数成员故障实现高可用性。但是，要改善
 
 5. 做以下事情之一：
 
-   1. 更新其 `--etcd-servers` 标志，使 Kubernetes 知道配置进行了更改，然后重新启动 Kubernetes API 服务器。
+   1. 更新其 `--etcd-servers` 参数，使 Kubernetes 知道配置进行了更改，然后重新启动 Kubernetes API 服务器。
    2. 如果在 deployment 中使用了负载均衡，更新负载均衡配置。
 
 有关集群重新配置的详细信息，请参阅 [etcd 重构文档](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/runtime-configuration.md#remove-a-member)。
@@ -374,7 +374,7 @@ A reasonable scaling is to upgrade a three-member cluster to a five-member one, 
 -->
 ### 卷快照
 
-如果 etcd 运行在支持备份的存储卷（如 Amazon 弹性块存储）上，则可以通过获取存储卷的快照来备份 etcd 数据。
+如果 etcd 运行在支持备份的存储卷（如 Amazon Elastic Block 存储）上，则可以通过获取存储卷的快照来备份 etcd 数据。
 
 ## 扩展 etcd 集群
 
@@ -401,7 +401,7 @@ etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的
 有关从快照文件还原集群的详细信息和示例，请参阅 [etcd 灾难恢复文档](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/recovery.md#restoring-a-cluster)。
 
 如果还原的集群的访问 URL 与前一个集群不同，则必须相应地重新配置 Kubernetes API 服务器。
-在本例中，使用标志 `--etcd-servers=$NEW_ETCD_CLUSTER` 而不是标志 `--etcd-servers=$OLD_ETCD_CLUSTER` 重新启动 Kubernetes API 服务器。
+在本例中，使用参数 `--etcd-servers=$NEW_ETCD_CLUSTER` 而不是参数 `--etcd-servers=$OLD_ETCD_CLUSTER` 重新启动 Kubernetes API 服务器。
 用相应的 IP 地址替换 `$NEW_ETCD_CLUSTER` 和 `$OLD_ETCD_CLUSTER`。如果在 etcd 集群前面使用负载平衡，则可能需要更新负载均衡器。
 
 如果大多数 etcd 成员永久失败，则认为 etcd 集群失败。在这种情况下，Kubernetes 不能对其当前状态进行任何更改。
