@@ -17,7 +17,7 @@ kubeconfig 파일들을 사용하여 클러스터, 사용자, 네임스페이스
 `kubeconfig`라는 이름의 파일이 있다는 의미는 아니다.
 {{< /note >}}
 
-기본적으로 `kubectl`은 `$HOME/.kube` 디렉터리에서 `config`라 이름한 파일을 찾는다.
+기본적으로 `kubectl`은 `$HOME/.kube` 디렉터리에서 `config`라는 이름의 파일을 찾는다.
 `KUBECONFIG` 환경변수를 설정하거나
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) 플래그를 지정해서
 다른 kubeconfig 파일을 사용할 수 있다.
