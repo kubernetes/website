@@ -76,7 +76,7 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 secret "db-user-pass" created
 ```
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. The easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
 ```
 kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
