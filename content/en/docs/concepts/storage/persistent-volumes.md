@@ -98,7 +98,7 @@ Name:          hostpath
 Namespace:     default
 StorageClass:  example-hostpath
 Status:        Terminating
-Volume:        
+Volume:
 Labels:        <none>
 Annotations:   volume.beta.kubernetes.io/storage-class=example-hostpath
                volume.beta.kubernetes.io/storage-provisioner=example.com/hostpath
@@ -116,15 +116,15 @@ Annotations:     <none>
 Finalizers:      [kubernetes.io/pv-protection]
 StorageClass:    standard
 Status:          Available
-Claim:           
+Claim:
 Reclaim Policy:  Delete
 Access Modes:    RWO
 Capacity:        1Gi
-Message:         
+Message:
 Source:
     Type:          HostPath (bare host directory volume)
     Path:          /tmp/data
-    HostPathType:  
+    HostPathType:
 Events:            <none>
 ```
 
@@ -228,10 +228,10 @@ You can only resize volumes containing a file system if the file system is XFS, 
 
 When a volume contains a file system, the file system is only resized when a new Pod is using
 the `PersistentVolumeClaim` in ReadWrite mode. File system expansion is either done when Pod is starting up
-or is done when Pod is running and underlying file system supports online expansion. 
+or is done when Pod is running and underlying file system supports online expansion.
 
-FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true. 
-The FlexVolume can be resized on pod restart. 
+FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true.
+The FlexVolume can be resized on pod restart.
 
 #### Resizing an in-use PersistentVolumeClaim
 
@@ -682,7 +682,7 @@ spec:
 
 ## Volume Cloning
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 Volume clone feature was added to support CSI Volume Plugins only. For details, see [volume cloning](/docs/concepts/storage/volume-pvc-datasource/).
 
