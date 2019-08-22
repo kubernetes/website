@@ -37,7 +37,8 @@
 <script src="{{ "js/jquery-3.2.1.min.js" | relURL }}"></script>
 <script src="{{ "js/jquery-ui-1.12.1.min.js" | relURL }}"></script>
 <script src="{{ "js/bootstrap-4.3.1.min.js" | relURL }}"></script>
-<script src="{{ "js/sweetalert-1.1.3.min.js" | relURL }}"></script>
+<script src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
+
 <script src="{{ "js/script.js" | relURL }}"></script>
 <script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
