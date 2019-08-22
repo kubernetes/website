@@ -120,7 +120,7 @@ Open up your browser to http://localhost:1313 to view the website. As you make c
 <!--
 ## Running the website locally using Hugo
  -->
-## 使用 Hugo 在本地运行网站
+## Запуск сайта локально с помощью Hugo
 
 <!--
 See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions.
@@ -178,5 +178,5 @@ Kubernetes thrives on community participation, and we appreciate your contributi
  -->
 ## Спасибо！
 
-Kubernetes процветает благодаря участию сообщества, и мы ценим ваш вклад в наш веб-сайт и нашу документацию!
+Kubernetes процветает благодаря вашему участию в сообществе, и мы ценим ваш вклад в наш веб-сайт и нашу документацию!
 
