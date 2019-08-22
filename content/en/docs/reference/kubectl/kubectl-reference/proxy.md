@@ -8,7 +8,7 @@ Creates a proxy server or application-level gateway between localhost and the Ku
 
 ### Usage
 
-`$ proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]`
+`proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]`
 
 
 ### Example
@@ -105,4 +105,14 @@ kubectl proxy --api-prefix=/k8s-api
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

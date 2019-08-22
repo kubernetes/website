@@ -10,7 +10,7 @@ Creates an autoscaler that automatically chooses and sets the number of pods tha
 
 ### Usage
 
-`$ autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]`
+`autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]`
 
 
 ### Example
@@ -89,4 +89,14 @@ kubectl autoscale rc foo --max=5 --cpu-percent=80
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

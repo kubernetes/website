@@ -12,7 +12,7 @@ Convert config files between different API versions. Both YAML and JSON formats 
 
 ### Usage
 
-`$ convert -f FILENAME`
+`convert -f FILENAME`
 
 
 ### Example
@@ -82,4 +82,14 @@ kubectl convert -f . | kubectl create -f -
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

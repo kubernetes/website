@@ -18,7 +18,7 @@ Edit a resource from the default editor.
 
 ### Usage
 
-`$ edit (RESOURCE/NAME | -f FILENAME)`
+`edit (RESOURCE/NAME | -f FILENAME)`
 
 
 ### Example
@@ -103,4 +103,14 @@ kubectl edit deployment/mydeployment -o yaml --save-config
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

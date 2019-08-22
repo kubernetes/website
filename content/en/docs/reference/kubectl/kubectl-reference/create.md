@@ -10,7 +10,7 @@ Create a resource from a file or from stdin.
 
 ### Usage
 
-`$ create -f FILENAME`
+`create -f FILENAME`
 
 
 ### Example
@@ -106,7 +106,7 @@ Create a ClusterRole.
 
 ### Usage
 
-`$ clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run]`
+`clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run]`
 
 
 ### Example
@@ -151,7 +151,7 @@ kubectl create clusterrole monitoring --aggregation-rule="rbac.example.com/aggre
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -210,7 +210,7 @@ Create a ClusterRoleBinding for a particular ClusterRole.
 
 ### Usage
 
-`$ clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]`
+`clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]`
 
 
 ### Example
@@ -225,7 +225,7 @@ kubectl create clusterrolebinding cluster-admin --clusterrole=cluster-admin --us
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -287,7 +287,7 @@ Create a configmap based on a file, directory, or specified literal value.
 
 ### Usage
 
-`$ configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run]`
+`configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run]`
 
 
 ### Example
@@ -326,7 +326,7 @@ kubectl create configmap my-config --from-env-file=path/to/bar.env
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -385,7 +385,7 @@ Create a cronjob with the specified name.
 
 ### Usage
 
-`$ cronjob NAME --image=image --schedule='0/5 * * * ?' -- [COMMAND] [args...]`
+`cronjob NAME --image=image --schedule='0/5 * * * ?' -- [COMMAND] [args...]`
 
 
 ### Example
@@ -412,7 +412,7 @@ kubectl create cronjob test-job --image=busybox --schedule="*/1 * * * *"
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -465,7 +465,7 @@ Create a deployment with the specified name.
 
 ### Usage
 
-`$ deployment NAME --image=image [--dry-run]`
+`deployment NAME --image=image [--dry-run]`
 
 
 ### Example
@@ -480,7 +480,7 @@ kubectl create deployment my-dep --image=busybox
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -530,7 +530,7 @@ Create a job with the specified name.
 
 ### Usage
 
-`$ job NAME --image=image [--from=cronjob/name] -- [COMMAND] [args...]`
+`job NAME --image=image [--from=cronjob/name] -- [COMMAND] [args...]`
 
 
 ### Example
@@ -557,7 +557,7 @@ kubectl create job test-job --from=cronjob/a-cronjob
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -607,7 +607,7 @@ Create a namespace with the specified name.
 
 ### Usage
 
-`$ namespace NAME [--dry-run]`
+`namespace NAME [--dry-run]`
 
 
 ### Example
@@ -622,7 +622,7 @@ kubectl create namespace my-namespace
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -669,7 +669,7 @@ Create a pod disruption budget with the specified name, selector, and desired mi
 
 ### Usage
 
-`$ poddisruptionbudget NAME --selector=SELECTOR --min-available=N [--dry-run]`
+`poddisruptionbudget NAME --selector=SELECTOR --min-available=N [--dry-run]`
 
 
 ### Example
@@ -690,7 +690,7 @@ kubectl create pdb my-pdb --selector=app=nginx --min-available=50%
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -746,7 +746,7 @@ Create a priorityclass with the specified name, value, globalDefault and descrip
 
 ### Usage
 
-`$ priorityclass NAME --value=VALUE --global-default=BOOL [--dry-run]`
+`priorityclass NAME --value=VALUE --global-default=BOOL [--dry-run]`
 
 
 ### Example
@@ -773,7 +773,7 @@ kubectl create priorityclass high-priority --value=1000 --description="high prio
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -832,7 +832,7 @@ Create a resourcequota with the specified name, hard limits and optional scopes
 
 ### Usage
 
-`$ quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=bool]`
+`quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=bool]`
 
 
 ### Example
@@ -853,7 +853,7 @@ kubectl create quota best-effort --hard=pods=100 --scopes=BestEffort
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -906,7 +906,7 @@ Create a role with single rule.
 
 ### Usage
 
-`$ role NAME --verb=verb --resource=resource.group/subresource [--resource-name=resourcename] [--dry-run]`
+`role NAME --verb=verb --resource=resource.group/subresource [--resource-name=resourcename] [--dry-run]`
 
 
 ### Example
@@ -939,7 +939,7 @@ kubectl create role foo --verb=get,list,watch --resource=pods,pods/status
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -992,7 +992,7 @@ Create a RoleBinding for a particular Role or ClusterRole.
 
 ### Usage
 
-`$ rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]`
+`rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]`
 
 
 ### Example
@@ -1007,7 +1007,7 @@ kubectl create rolebinding admin --clusterrole=admin --user=user1 --user=user2 -
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1066,7 +1066,7 @@ Create a secret using specified subcommand.
 
 ### Usage
 
-`$ secret`
+`secret`
 
 
 
@@ -1094,7 +1094,7 @@ Create a new secret for use with Docker registries.
 
 ### Usage
 
-`$ docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-literal=key1=value1] [--dry-run]`
+`docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-literal=key1=value1] [--dry-run]`
 
 
 ### Example
@@ -1109,7 +1109,7 @@ kubectl create secret docker-registry my-secret --docker-server=DOCKER_REGISTRY_
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1180,7 +1180,7 @@ Create a secret based on a file, directory, or specified literal value.
 
 ### Usage
 
-`$ generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run]`
+`generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run]`
 
 
 ### Example
@@ -1219,7 +1219,7 @@ kubectl create secret generic my-secret --from-env-file=path/to/bar.env
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1283,7 +1283,7 @@ Create a TLS secret from the given public/private key pair.
 
 ### Usage
 
-`$ tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run]`
+`tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run]`
 
 
 ### Example
@@ -1298,7 +1298,7 @@ kubectl create secret tls tls-secret --cert=path/to/tls.cert --key=path/to/tls.k
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1354,7 +1354,7 @@ Create a service using specified subcommand.
 
 ### Usage
 
-`$ service`
+`service`
 
 
 
@@ -1371,7 +1371,7 @@ Create a ClusterIP service with the specified name.
 
 ### Usage
 
-`$ clusterip NAME [--tcp=<port>:<targetPort>] [--dry-run]`
+`clusterip NAME [--tcp=<port>:<targetPort>] [--dry-run]`
 
 
 ### Example
@@ -1392,7 +1392,7 @@ kubectl create service clusterip my-cs --clusterip="None"
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1447,7 +1447,7 @@ Create an ExternalName service with the specified name.
 
 ### Usage
 
-`$ externalname NAME --external-name external.name [--dry-run]`
+`externalname NAME --external-name external.name [--dry-run]`
 
 
 ### Example
@@ -1462,7 +1462,7 @@ kubectl create service externalname my-ns --external-name bar.com
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1515,7 +1515,7 @@ Create a LoadBalancer service with the specified name.
 
 ### Usage
 
-`$ loadbalancer NAME [--tcp=port:targetPort] [--dry-run]`
+`loadbalancer NAME [--tcp=port:targetPort] [--dry-run]`
 
 
 ### Example
@@ -1530,7 +1530,7 @@ kubectl create service loadbalancer my-lbs --tcp=5678:8080
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1580,7 +1580,7 @@ Create a NodePort service with the specified name.
 
 ### Usage
 
-`$ nodeport NAME [--tcp=port:targetPort] [--dry-run]`
+`nodeport NAME [--tcp=port:targetPort] [--dry-run]`
 
 
 ### Example
@@ -1595,7 +1595,7 @@ kubectl create service nodeport my-ns --tcp=5678:8080
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1648,7 +1648,7 @@ Create a service account with the specified name.
 
 ### Usage
 
-`$ serviceaccount NAME [--dry-run]`
+`serviceaccount NAME [--dry-run]`
 
 
 ### Example
@@ -1663,7 +1663,7 @@ kubectl create serviceaccount my-service-account
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -1699,4 +1699,14 @@ kubectl create serviceaccount my-service-account
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

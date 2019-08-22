@@ -12,7 +12,7 @@ Output shell completion code for the specified shell (bash or zsh). The shell co
 
 ### Usage
 
-`$ completion SHELL`
+`completion SHELL`
 
 
 ### Example
@@ -72,4 +72,14 @@ kubectl completion zsh > "${fpath[1]}/_kubectl"
 
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

@@ -8,7 +8,7 @@ Display addresses of the master and services with label kubernetes.io/cluster-se
 
 ### Usage
 
-`$ cluster-info`
+`cluster-info`
 
 
 ### Example
@@ -36,7 +36,7 @@ Dumps cluster info out suitable for debugging and diagnosing cluster problems.  
 
 ### Usage
 
-`$ dump`
+`dump`
 
 
 ### Example
@@ -69,7 +69,7 @@ kubectl cluster-info dump --namespaces default,kube-system --output-directory=/p
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -105,4 +105,14 @@ kubectl cluster-info dump --namespaces default,kube-system --output-directory=/p
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

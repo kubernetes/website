@@ -10,7 +10,7 @@ Configure application resources
 
 ### Usage
 
-`$ set SUBCOMMAND`
+`set SUBCOMMAND`
 
 
 
@@ -35,7 +35,7 @@ Update environment variables on a pod template.
 
 ### Usage
 
-`$ env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N`
+`env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N`
 
 
 ### Example
@@ -110,7 +110,7 @@ env | grep RAILS_ | kubectl set env -e - deployment/registry
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -194,7 +194,7 @@ Update existing container image(s) of resources.
 
 ### Usage
 
-`$ image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N`
+`image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N`
 
 
 ### Example
@@ -227,7 +227,7 @@ kubectl set image -f path/to/file.yaml nginx=nginx:1.9.1 --local -o yaml
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -293,7 +293,7 @@ Specify compute resource requirements (cpu, memory) for any resource that define
 
 ### Usage
 
-`$ resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS & --requests=REQUESTS]`
+`resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS & --requests=REQUESTS]`
 
 
 ### Example
@@ -326,7 +326,7 @@ kubectl set resources -f path/to/file.yaml --limits=cpu=200m,memory=512Mi --loca
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -399,7 +399,7 @@ Set the selector on a resource. Note that the new selector will overwrite the ol
 
 ### Usage
 
-`$ selector (-f FILENAME | TYPE NAME) EXPRESSIONS [--resource-version=version]`
+`selector (-f FILENAME | TYPE NAME) EXPRESSIONS [--resource-version=version]`
 
 
 ### Example
@@ -415,7 +415,7 @@ kubectl create deployment my-dep -o yaml --dry-run | kubectl label --local -f - 
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -475,7 +475,7 @@ Update ServiceAccount of pod template resources.
 
 ### Usage
 
-`$ serviceaccount (-f FILENAME | TYPE NAME) SERVICE_ACCOUNT`
+`serviceaccount (-f FILENAME | TYPE NAME) SERVICE_ACCOUNT`
 
 
 ### Example
@@ -496,7 +496,7 @@ kubectl set sa -f nginx-deployment.yaml serviceaccount1 --local --dry-run -o yam
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -555,7 +555,7 @@ Update User, Group or ServiceAccount in a RoleBinding/ClusterRoleBinding.
 
 ### Usage
 
-`$ subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]`
+`subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]`
 
 
 ### Example
@@ -582,7 +582,7 @@ kubectl create rolebinding admin --role=admin --user=admin -o yaml --dry-run | k
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -636,4 +636,14 @@ kubectl create rolebinding admin --role=admin --user=admin -o yaml --dry-run | k
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

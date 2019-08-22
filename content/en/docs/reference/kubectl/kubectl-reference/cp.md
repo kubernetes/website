@@ -8,7 +8,7 @@ Copy files and directories to and from containers.
 
 ### Usage
 
-`$ cp <file-spec-src> <file-spec-dest>`
+`cp <file-spec-src> <file-spec-dest>`
 
 
 ### Example
@@ -63,4 +63,14 @@ kubectl cp <some-namespace>/<some-pod>:/tmp/foo /tmp/bar
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

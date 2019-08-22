@@ -12,7 +12,7 @@ Apply a configuration to a resource by filename or stdin. The resource name must
 
 ### Usage
 
-`$ apply (-f FILENAME | -k DIRECTORY)`
+`apply (-f FILENAME | -k DIRECTORY)`
 
 
 ### Example
@@ -161,7 +161,7 @@ Edit the latest last-applied-configuration annotations of resources from the def
 
 ### Usage
 
-`$ edit-last-applied (RESOURCE/NAME | -f FILENAME)`
+`edit-last-applied (RESOURCE/NAME | -f FILENAME)`
 
 
 ### Example
@@ -182,7 +182,7 @@ kubectl apply edit-last-applied -f deploy.yaml -o json
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -235,7 +235,7 @@ Set the latest last-applied-configuration annotations by setting it to match the
 
 ### Usage
 
-`$ set-last-applied -f FILENAME`
+`set-last-applied -f FILENAME`
 
 
 ### Example
@@ -262,7 +262,7 @@ kubectl apply set-last-applied -f deploy.yaml --create-annotation=true
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -308,7 +308,7 @@ View the latest last-applied-configuration annotations by type/name or file.
 
 ### Usage
 
-`$ view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAME)`
+`view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAME)`
 
 
 ### Example
@@ -329,7 +329,7 @@ kubectl apply view-last-applied -f deploy.yaml -o json
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -362,4 +362,14 @@ kubectl apply view-last-applied -f deploy.yaml -o json
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

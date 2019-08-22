@@ -10,7 +10,7 @@ Update field(s) of a resource using strategic merge patch, a JSON merge patch, o
 
 ### Usage
 
-`$ patch (-f FILENAME | TYPE NAME) -p PATCH`
+`patch (-f FILENAME | TYPE NAME) -p PATCH`
 
 
 ### Example
@@ -98,4 +98,14 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

@@ -12,7 +12,7 @@ Display Resource (CPU/Memory/Storage) usage.
 
 ### Usage
 
-`$ top`
+`top`
 
 
 
@@ -31,7 +31,7 @@ Display Resource (CPU/Memory/Storage) usage of nodes.
 
 ### Usage
 
-`$ node [NAME | -l label]`
+`node [NAME | -l label]`
 
 
 ### Example
@@ -52,7 +52,7 @@ kubectl top node NODE_NAME
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -103,7 +103,7 @@ Display Resource (CPU/Memory/Storage) usage of pods.
 
 ### Usage
 
-`$ pod [NAME | -l label]`
+`pod [NAME | -l label]`
 
 
 ### Example
@@ -136,7 +136,7 @@ kubectl top pod -l name=myLabel
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -178,4 +178,14 @@ kubectl top pod -l name=myLabel
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

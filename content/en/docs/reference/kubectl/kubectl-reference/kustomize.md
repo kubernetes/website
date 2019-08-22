@@ -12,7 +12,7 @@ Print a set of API resources generated from instructions in a kustomization.yaml
 
 ### Usage
 
-`$ kustomize <dir>`
+`kustomize <dir>`
 
 
 ### Example
@@ -39,4 +39,14 @@ kubectl kustomize github.com/kubernetes-sigs/kustomize.git/examples/helloWorld?r
 
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

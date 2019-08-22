@@ -8,7 +8,7 @@ Print the client and server version information for the current context
 
 ### Usage
 
-`$ version`
+`version`
 
 
 ### Example
@@ -48,4 +48,14 @@ kubectl version
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

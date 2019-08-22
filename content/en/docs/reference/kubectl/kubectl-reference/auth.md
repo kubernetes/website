@@ -8,7 +8,7 @@ Inspect authorization
 
 ### Usage
 
-`$ auth`
+`auth`
 
 
 
@@ -27,7 +27,7 @@ Check whether an action is allowed.
 
 ### Usage
 
-`$ can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]`
+`can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]`
 
 
 ### Example
@@ -78,7 +78,7 @@ kubectl auth can-i --list --namespace=foo
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -127,7 +127,7 @@ Reconciles rules for RBAC Role, RoleBinding, ClusterRole, and ClusterRole bindin
 
 ### Usage
 
-`$ reconcile -f FILENAME`
+`reconcile -f FILENAME`
 
 
 ### Example
@@ -142,7 +142,7 @@ kubectl auth reconcile -f my-rbac-rules.yaml
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -184,4 +184,14 @@ kubectl auth reconcile -f my-rbac-rules.yaml
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

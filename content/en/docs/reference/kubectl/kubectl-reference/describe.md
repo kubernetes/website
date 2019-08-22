@@ -16,7 +16,7 @@ Use "kubectl api-resources" for a complete list of supported resources.
 
 ### Usage
 
-`$ describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME)`
+`describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME)`
 
 
 ### Example
@@ -98,4 +98,14 @@ kubectl describe pods frontend
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

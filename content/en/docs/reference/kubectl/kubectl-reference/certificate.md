@@ -8,7 +8,7 @@ Modify certificate resources.
 
 ### Usage
 
-`$ certificate SUBCOMMAND`
+`certificate SUBCOMMAND`
 
 
 
@@ -29,14 +29,14 @@ Approve a certificate signing request.
 
 ### Usage
 
-`$ approve (-f FILENAME | NAME)`
+`approve (-f FILENAME | NAME)`
 
 
 
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -85,14 +85,14 @@ Deny a certificate signing request.
 
 ### Usage
 
-`$ deny (-f FILENAME | NAME)`
+`deny (-f FILENAME | NAME)`
 
 
 
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -128,4 +128,14 @@ Deny a certificate signing request.
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

@@ -12,7 +12,7 @@ Set a new size for a Deployment, ReplicaSet, Replication Controller, or Stateful
 
 ### Usage
 
-`$ scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)`
+`scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)`
 
 
 ### Example
@@ -106,4 +106,14 @@ kubectl scale --replicas=3 statefulset/web
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

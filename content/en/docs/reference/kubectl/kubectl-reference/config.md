@@ -14,7 +14,7 @@ Modify kubeconfig files using subcommands like "kubectl config set current-conte
 
 ### Usage
 
-`$ config SUBCOMMAND`
+`config SUBCOMMAND`
 
 
 
@@ -31,7 +31,7 @@ Displays the current-context
 
 ### Usage
 
-`$ current-context`
+`current-context`
 
 
 ### Example
@@ -56,7 +56,7 @@ Delete the specified cluster from the kubeconfig
 
 ### Usage
 
-`$ delete-cluster NAME`
+`delete-cluster NAME`
 
 
 ### Example
@@ -81,7 +81,7 @@ Delete the specified context from the kubeconfig
 
 ### Usage
 
-`$ delete-context NAME`
+`delete-context NAME`
 
 
 ### Example
@@ -106,7 +106,7 @@ Display clusters defined in the kubeconfig.
 
 ### Usage
 
-`$ get-clusters`
+`get-clusters`
 
 
 ### Example
@@ -131,7 +131,7 @@ Displays one or many contexts from the kubeconfig file.
 
 ### Usage
 
-`$ get-contexts [(-o|--output=)name)]`
+`get-contexts [(-o|--output=)name)]`
 
 
 ### Example
@@ -152,7 +152,7 @@ kubectl config get-contexts my-context
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -190,7 +190,7 @@ Renames a context from the kubeconfig file.
 
 ### Usage
 
-`$ rename-context CONTEXT_NAME NEW_NAME`
+`rename-context CONTEXT_NAME NEW_NAME`
 
 
 ### Example
@@ -221,7 +221,7 @@ Sets an individual value in a kubeconfig file
 
 ### Usage
 
-`$ set PROPERTY_NAME PROPERTY_VALUE`
+`set PROPERTY_NAME PROPERTY_VALUE`
 
 
 ### Example
@@ -254,7 +254,7 @@ kubectl config set users.cluster-admin.client-key-data cert_data_here --set-raw-
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -285,7 +285,7 @@ Sets a cluster entry in kubeconfig.
 
 ### Usage
 
-`$ set-cluster NAME [--server=server] [--certificate-authority=path/to/certificate/authority] [--insecure-skip-tls-verify=true]`
+`set-cluster NAME [--server=server] [--certificate-authority=path/to/certificate/authority] [--insecure-skip-tls-verify=true]`
 
 
 ### Example
@@ -312,7 +312,7 @@ kubectl config set-cluster e2e --insecure-skip-tls-verify=true
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -343,7 +343,7 @@ Sets a context entry in kubeconfig
 
 ### Usage
 
-`$ set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]`
+`set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]`
 
 
 ### Example
@@ -358,7 +358,7 @@ kubectl config set-context gce --user=cluster-admin
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -400,7 +400,7 @@ Sets a user entry in kubeconfig
 
 ### Usage
 
-`$ set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value] [--exec-command=exec_command] [--exec-api-version=exec_api_version] [--exec-arg=arg] [--exec-env=key=value]`
+`set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value] [--exec-command=exec_command] [--exec-api-version=exec_api_version] [--exec-arg=arg] [--exec-env=key=value]`
 
 
 ### Example
@@ -469,7 +469,7 @@ kubectl config set-credentials cluster-admin --exec-env=var-to-remove-
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -518,7 +518,7 @@ Unsets an individual value in a kubeconfig file
 
 ### Usage
 
-`$ unset PROPERTY_NAME`
+`unset PROPERTY_NAME`
 
 
 ### Example
@@ -549,7 +549,7 @@ Sets the current-context in a kubeconfig file
 
 ### Usage
 
-`$ use-context CONTEXT_NAME`
+`use-context CONTEXT_NAME`
 
 
 ### Example
@@ -576,7 +576,7 @@ Display merged kubeconfig settings or a specified kubeconfig file.
 
 ### Usage
 
-`$ view`
+`view`
 
 
 ### Example
@@ -603,7 +603,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -639,4 +639,14 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

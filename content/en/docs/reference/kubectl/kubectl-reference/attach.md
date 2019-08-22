@@ -8,7 +8,7 @@ Attach to a process that is already running inside an existing container.
 
 ### Usage
 
-`$ attach (POD | TYPE/NAME) -c CONTAINER`
+`attach (POD | TYPE/NAME) -c CONTAINER`
 
 
 ### Example
@@ -69,4 +69,14 @@ kubectl attach rs/nginx
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

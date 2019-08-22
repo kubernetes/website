@@ -16,7 +16,7 @@ Delete resources by filenames, stdin, resources and names, or by resources and l
 
 ### Usage
 
-`$ delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])`
+`delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])`
 
 
 ### Example
@@ -137,4 +137,14 @@ kubectl delete pods --all
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

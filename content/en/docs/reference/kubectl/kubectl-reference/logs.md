@@ -8,7 +8,7 @@ Print the logs for a container in a pod or specified resource. If the pod has on
 
 ### Usage
 
-`$ logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]`
+`logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]`
 
 
 ### Example
@@ -132,4 +132,14 @@ kubectl logs deployment/nginx -c nginx-1
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

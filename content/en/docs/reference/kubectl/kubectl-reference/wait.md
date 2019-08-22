@@ -14,7 +14,7 @@ Experimental: Wait for a specific condition on one or many resources.
 
 ### Usage
 
-`$ wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available]`
+`wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available]`
 
 
 ### Example
@@ -88,4 +88,14 @@ kubectl wait --for=delete pod/busybox1 --timeout=60s
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

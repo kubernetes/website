@@ -10,7 +10,7 @@ Create and run a particular image, possibly replicated.
 
 ### Usage
 
-`$ run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...]`
+`run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...]`
 
 
 ### Example
@@ -224,4 +224,14 @@ kubectl run pi --schedule="0/5 * * * ?" --image=perl --restart=OnFailure -- perl
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

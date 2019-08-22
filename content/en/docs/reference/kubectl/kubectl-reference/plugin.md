@@ -10,7 +10,7 @@ Provides utilities for interacting with plugins.
 
 ### Usage
 
-`$ plugin [flags]`
+`plugin [flags]`
 
 
 
@@ -29,14 +29,14 @@ List all available plugin files on a user's PATH.
 
 ### Usage
 
-`$ list`
+`list`
 
 
 
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -54,4 +54,14 @@ List all available plugin files on a user's PATH.
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

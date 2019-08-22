@@ -14,7 +14,7 @@ Manage the rollout of a resource.
 
 ### Usage
 
-`$ rollout SUBCOMMAND`
+`rollout SUBCOMMAND`
 
 
 ### Example
@@ -46,7 +46,7 @@ View previous rollout revisions and configurations.
 
 ### Usage
 
-`$ history (TYPE NAME | TYPE/NAME) [flags]`
+`history (TYPE NAME | TYPE/NAME) [flags]`
 
 
 ### Example
@@ -67,7 +67,7 @@ kubectl rollout history daemonset/abc --revision=3
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -116,7 +116,7 @@ Mark the provided resource as paused
 
 ### Usage
 
-`$ pause RESOURCE`
+`pause RESOURCE`
 
 
 ### Example
@@ -131,7 +131,7 @@ kubectl rollout pause deployment/nginx
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -177,7 +177,7 @@ Restart a resource.
 
 ### Usage
 
-`$ restart RESOURCE`
+`restart RESOURCE`
 
 
 ### Example
@@ -198,7 +198,7 @@ kubectl rollout restart daemonset/abc
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -244,7 +244,7 @@ Resume a paused resource
 
 ### Usage
 
-`$ resume RESOURCE`
+`resume RESOURCE`
 
 
 ### Example
@@ -259,7 +259,7 @@ kubectl rollout resume deployment/nginx
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -305,7 +305,7 @@ Show the status of the rollout.
 
 ### Usage
 
-`$ status (TYPE NAME | TYPE/NAME) [flags]`
+`status (TYPE NAME | TYPE/NAME) [flags]`
 
 
 ### Example
@@ -320,7 +320,7 @@ kubectl rollout status deployment/nginx
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -364,7 +364,7 @@ Rollback to a previous rollout.
 
 ### Usage
 
-`$ undo (TYPE NAME | TYPE/NAME) [flags]`
+`undo (TYPE NAME | TYPE/NAME) [flags]`
 
 
 ### Example
@@ -391,7 +391,7 @@ kubectl rollout undo --dry-run=true deployment/abc
 
 ### Flags
 
-<div class="table-responsive"><table class="table table-bordered">
+<div class="table-responsive kubectl-flags-table"><table class="table table-bordered">
 <thead class="thead-light">
 <tr>
             <th>Name</th>
@@ -430,4 +430,14 @@ kubectl rollout undo --dry-run=true deployment/abc
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

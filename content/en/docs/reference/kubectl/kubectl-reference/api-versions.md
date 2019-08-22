@@ -8,7 +8,7 @@ Print the supported API versions on the server, in the form of "group/version"
 
 ### Usage
 
-`$ api-versions`
+`api-versions`
 
 
 ### Example
@@ -23,4 +23,14 @@ kubectl api-versions
 
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 

@@ -8,7 +8,7 @@ Execute a command in a container.
 
 ### Usage
 
-`$ exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]`
+`exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]`
 
 
 ### Example
@@ -81,4 +81,14 @@ kubectl exec svc/myservice date
 </table></div>
 
 
+
+
+<hr>
+
+
+### Version
+<div class="kubectl-reference-copyright">
+
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+</div>
 
