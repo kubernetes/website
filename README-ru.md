@@ -127,7 +127,7 @@ See the [official Hugo documentation](https://gohugo.io/getting-started/installi
 Make sure to install the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
  -->
 См. [Официальную документацию Hugo] (https://gohugo.io/getting-started/install/) для получения инструкций по установке Hugo.
-Обязательно установите версию Hugo, указанную в переменной среды `HUGO_VERSION` в файле [` netlify.toml`] (netlify.toml # L9).
+Обязательно установите версию Hugo, указанную в переменной среды `HUGO_VERSION` в файле [`netlify.toml`](netlify.toml#L9).
 
 <!--
 To run the website locally when you have Hugo installed:
