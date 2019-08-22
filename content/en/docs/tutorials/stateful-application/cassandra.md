@@ -48,7 +48,7 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 * Have a supported Kubernetes cluster running
 
 {{< note >}}
-Please read the [getting started guides](/docs/setup/pick-right-solution/) if you do not already have a cluster.
+Please read the [setup](/docs/setup/) if you do not already have a cluster.
 {{< /note >}}
 
 ### Additional Minikube Setup Instructions

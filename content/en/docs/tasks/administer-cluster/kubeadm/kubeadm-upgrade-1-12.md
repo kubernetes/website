@@ -233,8 +233,10 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     {{< tabs name="k8s_upgrade" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace "x" with the latest patch version
+    apt-mark unhold kubelet kubeadm
     apt-get update
     apt-get upgrade -y kubelet=1.12.x-00 kubeadm=1.12.x-00
+    apt-mark hold kubelet kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace "x" with the latest patch version
@@ -267,6 +269,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     ```shell
     kubectl uncordon $NODE
     ```
+
 
 1.  After the kubelet is upgraded on all nodes, verify that all nodes are available again by running the following command from anywhere kubectl can access the cluster:
 

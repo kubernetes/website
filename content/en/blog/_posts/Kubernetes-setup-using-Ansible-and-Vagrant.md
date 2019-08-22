@@ -47,6 +47,9 @@ Vagrant.configure("2") do |config|
         master.vm.hostname = "k8s-master"
         master.vm.provision "ansible" do |ansible|
             ansible.playbook = "kubernetes-setup/master-playbook.yml"
+            ansible.extra_vars = {
+                node_ip: "192.168.50.10",
+            }
         end
     end
 
@@ -57,6 +60,9 @@ Vagrant.configure("2") do |config|
             node.vm.hostname = "node-#{i}"
             node.vm.provision "ansible" do |ansible|
                 ansible.playbook = "kubernetes-setup/node-playbook.yml"
+                ansible.extra_vars = {
+                    node_ip: "192.168.50.#{i + 10}",
+                }
             end
         end
     end
@@ -162,6 +168,17 @@ We will be installing the following packages, and then adding a user named “va
         - kubelet 
         - kubeadm 
         - kubectl
+
+  - name: Configure node ip
+    lineinfile:
+      path: /etc/default/kubelet
+      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+
+  - name: Restart kubelet
+    service:
+      name: kubelet
+      daemon_reload: yes
+      state: restarted
 ```
 
 #### Step 2.3: Initialize the Kubernetes cluster with kubeadm using the below code (applicable only on master node).

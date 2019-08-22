@@ -8,6 +8,9 @@ menu:
     weight: 10
     post: >
       <p>手を動かす準備はできていますか？本チュートリアルでは、Node.jsを使った簡単な"Hello World"を実行するKubernetesクラスタをビルドします。</p>
+card: 
+  name: tutorials
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -58,7 +61,7 @@ menu:
 
 3. Katacoda環境のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
 
-4. Katacoda環境のみ：30000を入力し、**Display Port**をクリックしてください。 
+4. Katacoda環境のみ：`30000`を入力し、**Display Port**をクリックしてください。 
 
 ## Deploymentの作成
 
@@ -67,7 +70,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
 1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
+    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
     ```
 
 2. Deploymentを確認します:
@@ -116,7 +119,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
 1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
     ```shell
-    kubectl expose deployment hello-node --type=LoadBalancer
+    kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
     
     `--type=LoadBalancer`フラグはServiceをクラスタ外部に公開したいことを示しています。
@@ -146,7 +149,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
 
 4. Katacoda環境のみ：ターミナル画面上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
 
-5. Katacoda環境のみ：8080を入力し、**Display Port**をクリックしてください。 
+5. Katacoda環境のみ：`30369`(Service出力に表示されている`8080`の反対側のポートを参照)を入力し、クリックしてください。
 
     "Hello World"メッセージが表示されるアプリケーションのブラウザウィンドウが開きます。
 

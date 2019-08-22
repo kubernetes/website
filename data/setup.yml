@@ -131,7 +131,7 @@ toc:
   path: /docs/admin/cluster-large/
 
 - title: Running in Multiple Zones
-  path: /docs/setup/multiple-zones/
+  path: /docs/setup/best-practices/multiple-zones/
 
 - title: Building High-Availability Clusters
   path: /docs/admin/high-availability/building/

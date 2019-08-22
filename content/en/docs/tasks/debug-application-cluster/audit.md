@@ -392,6 +392,7 @@ different users into different files.
 
         cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
         apiVersion: v1
+        kind: Config
         clusters:
         - cluster:
             server: http://<ip_of_logstash>:8888
@@ -402,7 +403,6 @@ different users into different files.
             user: ""
           name: default-context
         current-context: default-context
-        kind: Config
         preferences: {}
         users: []
         EOF

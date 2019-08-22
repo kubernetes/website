@@ -27,7 +27,7 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
@@ -268,6 +268,7 @@ Expanding EBS volumes is a time consuming operation. Also, there is a per-volume
 * AWSElasticBlockStore
 * AzureFile
 * AzureDisk
+* CSI
 * FC (Fibre Channel)
 * Flexvolume
 * Flocker
@@ -343,27 +344,28 @@ In the CLI, the access modes are abbreviated to:
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
-| Volume Plugin        | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
-| :---                 |     :---:    |    :---:    |    :---:     |
-| AWSElasticBlockStore | &#x2713;     | -           | -            |
-| AzureFile            | &#x2713;     | &#x2713;    | &#x2713;     |
-| AzureDisk            | &#x2713;     | -           | -            |
-| CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
-| Cinder               | &#x2713;     | -           | -            |
-| FC                   | &#x2713;     | &#x2713;    | -            |
-| Flexvolume           | &#x2713;     | &#x2713;    | depends on the driver |
-| Flocker              | &#x2713;     | -           | -            |
-| GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
-| Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
-| HostPath             | &#x2713;     | -           | -            |
-| iSCSI                | &#x2713;     | &#x2713;    | -            |
-| Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
-| NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
-| RBD                  | &#x2713;     | &#x2713;    | -            |
-| VsphereVolume        | &#x2713;     | -           | - (works when pods are collocated)  |
-| PortworxVolume       | &#x2713;     | -           | &#x2713;     |
-| ScaleIO              | &#x2713;     | &#x2713;    | -            |
-| StorageOS            | &#x2713;     | -           | -            |
+| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
+| :---                 | :---:                  | :---:                 | :---:        |
+| AWSElasticBlockStore | &#x2713;               | -                     | -            |
+| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;     |
+| AzureDisk            | &#x2713;               | -                     | -            |
+| CephFS               | &#x2713;               | &#x2713;              | &#x2713;     |
+| Cinder               | &#x2713;               | -                     | -            |
+| CSI                  | &depends on the driver | depends on the driver | depends on the driver |
+| FC                   | &#x2713;               | &#x2713;              | -            |
+| Flexvolume           | &#x2713;               | &#x2713;              | depends on the driver |
+| Flocker              | &#x2713;               | -                     | -            |
+| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -            |
+| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;     |
+| HostPath             | &#x2713;               | -                     | -            |
+| iSCSI                | &#x2713;               | &#x2713;              | -            |
+| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;     |
+| NFS                  | &#x2713;               | &#x2713;              | &#x2713;     |
+| RBD                  | &#x2713;               | &#x2713;              | -            |
+| VsphereVolume        | &#x2713;               | -                     | - (works when pods are collocated)  |
+| PortworxVolume       | &#x2713;               | -                     | &#x2713;     |
+| ScaleIO              | &#x2713;               | &#x2713;              | -            |
+| StorageOS            | &#x2713;               | -                     | -            |
 
 ### Class
 

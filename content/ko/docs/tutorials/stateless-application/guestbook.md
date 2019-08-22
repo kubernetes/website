@@ -18,11 +18,11 @@ card:
 {{% /capture %}}
 
 {{% capture objectives %}}
-* Redis 마스터를 실행한다.
-* Redis 슬레이브를 실행한다.
-* 방명록 프론트엔드를 실행한다.
-* 프론트엔드 서비스를 노출시키고 확인한다.
-* 제거한다.
+* Redis 마스터를 시작
+* Redis 슬레이브를 시작
+* 방명록 프론트엔드를 시작
+* 프론트엔드 서비스를 노출시키고 확인
+* 정리 하기
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -359,9 +359,10 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [쿠버네티스 기초](/docs/tutorials/kubernetes-basics/) 튜토리얼을 완료한다.
-* [MySQL과 Wordpress을 위한 퍼시스턴트 볼륨 사용하기](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)를 통해 블로그를 만들어본다.
-* [애플리케이션 접속](/docs/concepts/services-networking/connect-applications-service/)에 대해 더 알아본다.
-* [자원 관리](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)에 대해 더 알아본다.
+* [ELK 로깅과 모니터링](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)을 방명록 애플리케이션에 추가하기
+* [쿠버네티스 기초](/docs/tutorials/kubernetes-basics/) 튜토리얼을 완료
+* [MySQL과 Wordpress을 위한 퍼시스턴트 볼륨](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)을 사용하여 블로그 생성하는데 쿠버네티스 이용하기
+* [애플리케이션 접속](/docs/concepts/services-networking/connect-applications-service/)에 대해 더 알아보기
+* [자원 관리](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)에 대해 더 알아보기
 {{% /capture %}}
 

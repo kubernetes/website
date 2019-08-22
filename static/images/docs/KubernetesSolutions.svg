@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 338.66666 190.50001"
+   height="720"
+   width="1280"
+   sodipodi:docname="KubernetesSolutions.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview4127"
+     showgrid="false"
+     inkscape:zoom="0.2234375"
+     inkscape:cx="445.31469"
+     inkscape:cy="360"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient1539">
+      <stop
+         id="stop1535"
+         offset="0"
+         style="stop-color:#4473c5;stop-opacity:1;" />
+      <stop
+         id="stop1537"
+         offset="1"
+         style="stop-color:#4473c5;stop-opacity:0;" />
+    </linearGradient>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.98903974,0,0,2.1399628,2.2514091,-219.69706)"
+       r="40.673607"
+       fy="193.43451"
+       fx="212.31218"
+       cy="193.43451"
+       cx="212.31218"
+       id="radialGradient1543"
+       xlink:href="#linearGradient1539" />
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-106.49998)"
+     id="layer1">
+    <rect
+       ry="1.156058"
+       y="107.25518"
+       x="0.83084208"
+       height="173.9808"
+       width="80.35672"
+       id="rect816"
+       style="fill:#e7e5e6;fill-opacity:1;stroke:#4473c5;stroke-width:0.19810541;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.156058"
+       y="107.25518"
+       x="86.444542"
+       height="173.9808"
+       width="80.35672"
+       id="rect816-4"
+       style="fill:#e7e5e6;fill-opacity:1;stroke:#4473c5;stroke-width:0.0990527;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.156058"
+       y="107.25518"
+       x="172.05823"
+       height="173.9808"
+       width="80.35672"
+       id="rect816-4-3"
+       style="fill:#e7e5e6;fill-opacity:1;stroke:url(#radialGradient1543);stroke-width:0.0990527;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.156058"
+       y="107.2552"
+       x="257.67197"
+       height="173.9808"
+       width="80.35672"
+       id="rect816-4-3-2"
+       style="fill:#e7e5e6;fill-opacity:1;stroke:#2473c5;stroke-width:0.0990527;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="126.85211"
+       x="7.559844"
+       height="28.155817"
+       width="65.794693"
+       id="rect863"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="156.74693"
+       x="7.559844"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-9"
+       style="fill:#000080;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="216.61005"
+       x="7.5598369"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7"
+       style="fill:#000080;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="186.71524"
+       x="7.559844"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-4"
+       style="fill:#000080;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="246.50487"
+       x="7.5598369"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7-3"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="127.14603"
+       x="93.765831"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-6"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="157.04086"
+       x="93.765831"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-9-9"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="216.90399"
+       x="93.765831"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7-4"
+       style="fill:#000080;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="187.00917"
+       x="93.765831"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-4-2"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="246.79875"
+       x="93.765831"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7-3-9"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="127.43178"
+       x="179.44847"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-6-8"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="157.3266"
+       x="179.44847"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-9-9-7"
+       style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0" />
+    <rect
+       ry="1.4141665"
+       y="217.18974"
+       x="179.44847"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7-4-6"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="187.29491"
+       x="179.44847"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-4-2-7"
+       style="fill:#000080;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="247.08452"
+       x="179.44847"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7-3-9-4"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="127.43178"
+       x="265.13113"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-6-8-0"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="157.3266"
+       x="265.13113"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-9-9-7-4"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="217.18974"
+       x="265.13113"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7-4-6-5"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="187.29491"
+       x="265.13113"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-4-2-7-8"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       ry="1.4141665"
+       y="247.08452"
+       x="265.13113"
+       height="28.155817"
+       width="65.794693"
+       id="rect863-7-3-9-4-6"
+       style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="text990"
+       y="120.38295"
+       x="22.067225"
+       style="font-style:normal;font-weight:normal;font-size:8.23534203px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       xml:space="preserve"><tspan
+         style="font-size:6.86278534px;stroke-width:0.25735444"
+         y="120.38295"
+         x="22.067225"
+         id="tspan988">Managed</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="text990-9"
+       y="120.43149"
+       x="98.75853"
+       style="font-style:normal;font-weight:normal;font-size:8.23534203px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       xml:space="preserve"><tspan
+         style="font-size:6.86278534px;stroke-width:0.25735444"
+         y="120.43149"
+         x="98.75853"
+         id="tspan988-2">Turnkey Cloud</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="text990-1"
+       y="120.43147"
+       x="208.92929"
+       style="font-style:normal;font-weight:normal;font-size:8.23534203px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       xml:space="preserve"><tspan
+         id="tspan1018"
+         style="font-size:6.86278534px;text-align:center;text-anchor:middle;stroke-width:0.25735444"
+         y="120.43147"
+         x="208.92929">On-prem Datacenter</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="text1022"
+       y="119.94173"
+       x="277.28937"
+       style="font-style:normal;font-weight:normal;font-size:8.23534203px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       xml:space="preserve"><tspan
+         style="font-size:6.86278534px;stroke-width:0.25735444"
+         y="119.94173"
+         x="277.28937"
+         id="tspan1020">Custom</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="text1026"
+       y="144.94185"
+       x="19.93486"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.25735444"
+         y="144.94185"
+         x="19.93486"
+         id="tspan1024"><tspan
+   id="tspan1028"
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.17650652px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444">Application</tspan> </tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="use1038"
+       y="175.30972"
+       x="22.508406"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         y="175.30972"
+         x="22.508406"
+         id="tspan1042">Data Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="use1038-6"
+       y="175.81094"
+       x="107.50922"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         y="175.81094"
+         x="107.50922"
+         id="tspan1042-9">Data Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="use1038-5"
+       y="176.32565"
+       x="191.40685"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         y="176.32565"
+         x="191.40685"
+         id="tspan1042-5">Data Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="use1038-5-1"
+       y="176.32573"
+       x="275.81915"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;vector-effect:none;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.25735444;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         y="176.32573"
+         x="275.81915"
+         id="tspan1042-5-3">Data Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="105.03703"
+       y="145.56401"
+       id="text1036-7"><tspan
+         id="tspan1034-9"
+         x="105.03703"
+         y="145.56401"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.25735444"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.17650652px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444"
+   id="tspan1032-5">Application</tspan> </tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="189.08171"
+       y="145.37096"
+       id="text1036-7-1"><tspan
+         id="tspan1034-9-2"
+         x="189.08171"
+         y="145.37096"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.25735444"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.17650652px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444"
+   id="tspan1032-5-2">Application</tspan> </tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="40.13612"
+       y="233.13803"
+       id="text1036-7-1-3"><tspan
+         id="tspan1034-9-2-2"
+         x="41.07439"
+         y="233.13803"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">C<tspan
+   id="tspan1313"
+   style="text-align:center;text-anchor:middle;stroke-width:0.25735444">luster </tspan></tspan><tspan
+         id="tspan1309"
+         x="40.13612"
+         y="240.00082"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Infrastructure</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="273.42053"
+       y="145.78461"
+       id="text1036-7-1-6"><tspan
+         id="tspan1034-9-2-1"
+         x="273.42053"
+         y="145.78461"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.25735444"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.17650652px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444"
+   id="tspan1032-5-2-5">Application</tspan> </tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="18.933584"
+       y="206.00557"
+       id="text1036-7-1-5"><tspan
+         id="tspan1034-9-2-6"
+         x="18.933584"
+         y="206.00557"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444">Control Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="103.1781"
+       y="206.09862"
+       id="text1036-7-1-5-9"><tspan
+         id="tspan1034-9-2-6-1"
+         x="103.1781"
+         y="206.09862"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444">Control Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="188.17805"
+       y="206.981"
+       id="text1036-7-1-5-9-9"><tspan
+         id="tspan1034-9-2-6-1-4"
+         x="188.17805"
+         y="206.981"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444">Control Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="272.07605"
+       y="207.05444"
+       id="text1036-7-1-5-9-9-7"><tspan
+         id="tspan1034-9-2-6-1-4-2"
+         x="272.07605"
+         y="207.05444"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ececec;stroke-width:0.25735444">Control Plane</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="124.95668"
+       y="233.77568"
+       id="text1036-7-1-3-5"><tspan
+         id="tspan1034-9-2-2-7"
+         x="125.89495"
+         y="233.77568"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">C<tspan
+   id="tspan1313-1"
+   style="text-align:center;text-anchor:middle;stroke-width:0.25735444">luster </tspan></tspan><tspan
+         id="tspan1309-8"
+         x="124.95668"
+         y="240.63847"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Infrastructure</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="208.48659"
+       y="233.62892"
+       id="text1036-7-1-3-5-6"><tspan
+         id="tspan1034-9-2-2-7-8"
+         x="209.42487"
+         y="233.62892"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">C<tspan
+   id="tspan1313-1-8"
+   style="text-align:center;text-anchor:middle;stroke-width:0.25735444">luster </tspan></tspan><tspan
+         id="tspan1309-8-3"
+         x="208.48659"
+         y="240.49171"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Infrastructure</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="292.89917"
+       y="234.14348"
+       id="text1036-7-1-3-5-6-9"><tspan
+         id="tspan1034-9-2-2-7-8-3"
+         x="293.83743"
+         y="234.14348"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">C<tspan
+   id="tspan1313-1-8-2"
+   style="text-align:center;text-anchor:middle;stroke-width:0.25735444">luster </tspan></tspan><tspan
+         id="tspan1309-8-3-1"
+         x="292.89917"
+         y="241.00627"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Infrastructure</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="39.662098"
+       y="263.26117"
+       id="text1036-7-1-3-5-6-8"><tspan
+         id="tspan1309-8-3-9"
+         x="39.662098"
+         y="263.26117"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Minimal Cluster</tspan><tspan
+         id="tspan1402"
+         x="39.662098"
+         y="270.12396"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Operations</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="123.40543"
+       y="263.41229"
+       id="text1036-7-1-3-5-6-8-0"><tspan
+         id="tspan1402-6"
+         x="123.40543"
+         y="263.41229"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Normal Cluster</tspan><tspan
+         id="tspan1427"
+         x="123.40543"
+         y="270.27509"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Operations</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="208.56821"
+       y="263.55933"
+       id="text1036-7-1-3-5-6-8-0-3"><tspan
+         id="tspan1427-7"
+         x="208.56821"
+         y="263.55933"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Extensive Cluster</tspan><tspan
+         id="tspan1452"
+         x="208.56821"
+         y="270.42212"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Operations</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       x="292.745"
+       y="263.70645"
+       id="text1036-7-1-3-5-6-8-0-3-4"><tspan
+         id="tspan1427-7-0"
+         x="292.745"
+         y="263.70645"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Extensive Cluster</tspan><tspan
+         id="tspan1452-5"
+         x="292.745"
+         y="270.56924"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.49022865px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ececec;stroke-width:0.25735444">Operations</tspan></text>
+    <rect
+       ry="1.2108709"
+       y="283.7858"
+       x="11.447711"
+       height="11.248759"
+       width="11.215004"
+       id="rect1479"
+       style="opacity:1;vector-effect:none;fill:#000080;fill-opacity:1;stroke:none;stroke-width:0.26207691;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       ry="1.2108709"
+       y="283.63574"
+       x="121.5043"
+       height="11.248759"
+       width="11.215004"
+       id="rect1479-5"
+       style="opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.26207691;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="text1026-7"
+       y="295.85086"
+       x="26.801298"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.25735444"
+         y="295.85086"
+         x="26.801298"
+         id="tspan1024-1">Managed by Providers</tspan></text>
+    <text
+       transform="scale(1.0168211,0.98345717)"
+       id="text1026-7-9"
+       y="295.87323"
+       x="136.97598"
+       style="font-style:normal;font-weight:normal;font-size:5.49022865px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25735444"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.25735444"
+         y="295.87323"
+         x="136.97598"
+         id="tspan1024-1-5">Self-Managed</tspan></text>
+  </g>
+</svg>

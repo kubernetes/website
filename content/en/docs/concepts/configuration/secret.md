@@ -75,11 +75,11 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 ```
 secret "db-user-pass" created
 ```
-{{< note >}}	
-Special characters such as `$`, `\*`, and `!` require escaping.	
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:	
-     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb	
- You do not need to escape special characters in passwords from files (`--from-file`).	
+{{< note >}}
+Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
+ You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 You can check that the secret was created like this:
@@ -261,9 +261,9 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 `-w` option is not available.
 
 #### Creating a Secret from Generator
-Kubectl supports [managing objects using Kustomize](/docs/concepts/overview/object-management-kubectl/kustomization/)
+Kubectl supports [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 since 1.14. With this new feature,
-you can also create a Secret from generators and then apply it to create the object on 
+you can also create a Secret from generators and then apply it to create the object on
 the Apiserver. The generators
 should be specified in a `kustomization.yaml` inside a directory.
 

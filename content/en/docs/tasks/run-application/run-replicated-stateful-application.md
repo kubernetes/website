@@ -59,11 +59,11 @@ and a StatefulSet.
 
 Create the ConfigMap from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
 configuration on the MySQL master and slaves.
@@ -79,11 +79,11 @@ based on information provided by the StatefulSet controller.
 
 Create the Services from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-services.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-services.yaml" >}}
 
 The Headless Service provides a home for the DNS entries that the StatefulSet
 controller creates for each Pod that's part of the set.
@@ -105,11 +105,11 @@ writes.
 
 Finally, create the StatefulSet from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
 
 You can watch the startup progress by running:
 
@@ -141,8 +141,8 @@ ordinal index.
 It waits until each Pod reports being Ready before starting the next one.
 
 In addition, the controller assigns each Pod a unique, stable name of the form
-`<statefulset-name>-<ordinal-index>`.
-In this case, that results in Pods named `mysql-0`, `mysql-1`, and `mysql-2`.
+`<statefulset-name>-<ordinal-index>`, which results in Pods named `mysql-0`,
+`mysql-1`, and `mysql-2`.
 
 The Pod template in the above StatefulSet manifest takes advantage of these
 properties to perform orderly startup of MySQL replication.
@@ -363,7 +363,7 @@ The Node name should show up in the last column:
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE       IP            NODE
-mysql-2   2/2       Running   0          15m       10.244.5.27   kubernetes-minion-group-9l2t
+mysql-2   2/2       Running   0          15m       10.244.5.27   kubernetes-node-9l2t
 ```
 
 Then drain the Node by running the following command, which cordons it so
@@ -387,14 +387,14 @@ It should look something like this:
 
 ```
 NAME      READY   STATUS          RESTARTS   AGE       IP            NODE
-mysql-2   2/2     Terminating     0          15m       10.244.1.56   kubernetes-minion-group-9l2t
+mysql-2   2/2     Terminating     0          15m       10.244.1.56   kubernetes-node-9l2t
 [...]
-mysql-2   0/2     Pending         0          0s        <none>        kubernetes-minion-group-fjlm
-mysql-2   0/2     Init:0/2        0          0s        <none>        kubernetes-minion-group-fjlm
-mysql-2   0/2     Init:1/2        0          20s       10.244.5.32   kubernetes-minion-group-fjlm
-mysql-2   0/2     PodInitializing 0          21s       10.244.5.32   kubernetes-minion-group-fjlm
-mysql-2   1/2     Running         0          22s       10.244.5.32   kubernetes-minion-group-fjlm
-mysql-2   2/2     Running         0          30s       10.244.5.32   kubernetes-minion-group-fjlm
+mysql-2   0/2     Pending         0          0s        <none>        kubernetes-node-fjlm
+mysql-2   0/2     Init:0/2        0          0s        <none>        kubernetes-node-fjlm
+mysql-2   0/2     Init:1/2        0          20s       10.244.5.32   kubernetes-node-fjlm
+mysql-2   0/2     PodInitializing 0          21s       10.244.5.32   kubernetes-node-fjlm
+mysql-2   1/2     Running         0          22s       10.244.5.32   kubernetes-node-fjlm
+mysql-2   2/2     Running         0          30s       10.244.5.32   kubernetes-node-fjlm
 ```
 
 And again, you should see server ID `102` disappear from the

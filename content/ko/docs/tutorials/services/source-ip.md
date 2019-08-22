@@ -34,7 +34,10 @@ content_template: templates/tutorial
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```console
-$ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+```
+출력은 다음과 같다.
+```
 deployment.apps/source-ip-app created
 ```
 
@@ -59,23 +62,38 @@ deployment.apps/source-ip-app created
 Kube-proxy는 이 모드를 `proxyMode` 엔드포인트를 통해 노출한다.
 
 ```console
-$ kubectl get nodes
+kubectl get nodes
+```
+출력은 다음과 유사하다
+```
 NAME                           STATUS     ROLES    AGE     VERSION
 kubernetes-minion-group-6jst   Ready      <none>   2h      v1.13.0
 kubernetes-minion-group-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.13.0
-
+```
+한 노드의 프록시 모드를 확인한다.
+```console
 kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
+```
+출력은 다음과 같다.
+```
 iptables
 ```
 
 소스 IP 애플리케이션을 통해 서비스를 생성하여 소스 IP 주소 보존 여부를 테스트할 수 있다.
 
 ```console
-$ kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+```
+출력은 다음과 같다.
+```
 service/clusterip exposed
-
-$ kubectl get svc clusterip
+```
+```console
+kubectl get svc clusterip
+```
+출력은 다음과 같다.
+```
 NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 ```
@@ -83,7 +101,10 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 그리고 동일한 클러스터의 파드에서 `클러스터IP`를 치면:
 
 ```console
-$ kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox --restart=Never --rm
+```
+The output is similar to this:
+```
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
 
@@ -115,20 +136,28 @@ client_address는 클라이언트 파드와 서버 파드가 같은 노드 또�
 소스 NAT가 기본으로 적용된다. `NodePort` 서비스를 생성하여 이것을 테스트할 수 있다.
 
 ```console
-$ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
+kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
+```
+출력은 다음과 같다.
+```
 service/nodeport exposed
-
-$ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
 ```
 
-클라우드 공급자 상에서 실행한다면, 
+```console
+NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+```
+
+클라우드 공급자 상에서 실행한다면,
 위에 보고된 `nodes:nodeport`를 위한 방화벽 규칙을 열어주어야 한다.
 이제 위에 노드 포트로 할당받은 포트를 통해 클러스터 외부에서
 서비스에 도달할 수 있다.
 
 ```console
-$ for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
+for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
+```
+출력은 다음과 같다.
+```
 client_address=10.180.1.1
 client_address=10.240.0.5
 client_address=10.240.0.3
@@ -170,14 +199,20 @@ client_address=10.240.0.3
 다음과 같이 `service.spec.externalTrafficPolicy` 필드를 설정하자.
 
 ```console
-$ kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+```
+출력은 다음과 같다.
+```
 service/nodeport patched
 ```
 
 이제 다시 테스트를 실행해보자.
 
 ```console
-$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
+for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
+```
+출력은 다음과 같다.
+```
 client_address=104.132.1.79
 ```
 
@@ -190,7 +225,6 @@ client_address=104.132.1.79
 * 패킷은 버려진다.
 * 클라이언트는 패킷을 엔드포인트를 가진 `node1:nodePort` 보낸다.
 * node1은 패킷을 올바른 소스 IP 주소로 엔드포인트로 라우팅 한다.
-
 
 시각적으로
 
@@ -220,14 +254,28 @@ client_address=104.132.1.79
 로드밸런서를 통해 source-ip-app을 노출하여 테스트할 수 있다.
 
 ```console
-$ kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
+kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
+```
+다음과 같이 출력된다.
+```
 service/loadbalancer exposed
+```
 
-$ kubectl get svc loadbalancer
+서비스의 IP를 출력한다.
+```console
+kubectl get svc loadbalancer
+```
+다음과 같이 출력된다.
+```
 NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
 loadbalancer   LoadBalancer   10.0.65.118   104.198.149.140   80/TCP    5m
+```
 
-$ curl 104.198.149.140
+```console
+curl 104.198.149.140
+```
+다음과 같이 출력된다.
+```
 CLIENT VALUES:
 client_address=10.240.0.5
 ...
@@ -255,29 +303,44 @@ health check --->   node 1   node 2 <--- health check
 이것은 어노테이션을 설정하여 테스트할 수 있다.
 
 ```console
-$ kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
 
 쿠버네티스에 의해 `service.spec.healthCheckNodePort` 필드가
 즉각적으로 할당되는 것을 봐야 한다.
 
 ```console
-$ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
+kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
+```
+다음과 같이 출력된다.
+```
   healthCheckNodePort: 32122
 ```
 
 `service.spec.healthCheckNodePort` 필드는 `/healthz`에서 헬스 체크를 제공하는
 모든 노드의 포트를 가르킨다. 이것을 테스트할 수 있다.
 
+```console
+kubectl get pod -o wide -l run=source-ip-app
 ```
-$ kubectl get pod -o wide -l run=source-ip-app
+다음과 같이 출력된다.
+```
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
 source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-minion-group-6jst
-
+```
+다른 노드에서`/healthz` 엔드포인트로 curl 명령을 수행한다.
+```console
 kubernetes-minion-group-6jst $ curl localhost:32122/healthz
+```
+다음과 같이 출력된다.
+```
 1 Service Endpoints found
-
+```
+```console
 kubernetes-minion-group-jj1t $ curl localhost:32122/healthz
+```
+다음과 같이 출력된다.
+```
 No Service Endpoints Found
 ```
 
@@ -287,7 +350,10 @@ No Service Endpoints Found
 로드밸런서 IP 주소로 curl 하자.
 
 ```console
-$ curl 104.198.149.140
+curl 104.198.149.140
+```
+다음과 같이 출력된다.
+```
 CLIENT VALUES:
 client_address=104.132.1.79
 ...
@@ -310,7 +376,7 @@ __크로스 플랫폼 지원__
 
 첫 번째 범주의 로드밸런서는 진짜 클라이언트 IP를 통신하기 위해
 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 헤더나
-[프록시 프로토콜](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)같이 로드밸런서와 
+[프록시 프로토콜](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)같이 로드밸런서와
 백엔드 간에 합의된 프로토콜을 사용해야 한다.
 두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
 간단한 HTTP 헬스 체크를 생성하여
@@ -323,13 +389,13 @@ HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 헤더나
 서비스를 삭제하자.
 
 ```console
-$ kubectl delete svc -l run=source-ip-app
+kubectl delete svc -l run=source-ip-app
 ```
 
 디플로이먼트와 리플리카 셋과 파드를 삭제하자.
 
 ```console
-$ kubectl delete deployment source-ip-app
+kubectl delete deployment source-ip-app
 ```
 
 {{% /capture %}}

@@ -38,8 +38,6 @@ Deberías elegir una solución de este tipo si buscas:
 * Probar o empezar a aprender sobre Kubernetes.
 * Desarrollar y testear clústeres localmente.
 
-Elige una [solución de máquina local](/docs/setup/pick-right-solution/#local-machine-solutions).
-
 ## Soluciones gestionadas
 
 Una solución gestionada es la forma más conveniente de crear y gestionar un
@@ -53,14 +51,12 @@ Deberías elegir una solución de este tipo si:
 * No tienes un equipo dedicado de operaciones pero quieres alta disponibilidad.
 * No tienes recursos para alojar y monitorizar sus clústeres.
 
-Elige una [solución gestionada](/docs/setup/pick-right-solution/#hosted-solutions).
-
 ## Soluciones sobre IaaS en la nube
 
 Un solución sobre IaaS en la nube permite crear clústeres Kubernetes con solo
 unos pocos comandos, se encuentran en desarrollo activo, tienen el apoyo de la
 comunidad y algunas de ellas forman parte del proyecto Kubernetes.
-Se pueden desplegar en la infaestructura como servicio (IaaS) proporcionada por
+Se pueden desplegar en la infraestructura como servicio (IaaS) proporcionada por
 los proveedores en la nube y ofrecen más flexibilidad que las soluciones
 gestionadas, pero requieren más conocimientos para ponerlos en marcha y más
 esfuerzo para operarlos.
@@ -69,8 +65,6 @@ Deberías elegir una solución de este tipo si:
 
 * Necesitas más control que el permitido en las soluciones gestionadas.
 * Quieres responsabilizarte de la operativa de los clústeres.
-
-Elige una [solución sobre IaaS en la nube](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
 
 ## Soluciones sobre virtualización On-Premises
 
@@ -83,20 +77,9 @@ Deberías elegir una solución de este tipo si:
 * Tienes un equipo de operaciones para desplegar y operar el clúster.
 * Tienes los recursos necesarios para ejecutar y monitorizar el clúster.
 
-Elige una [solución sobre virtualización On-Premises](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
-
 ## Soluciones personalizadas
 
 Una solución personalizadas proporciona total libertad sobre los clústeres
-pero requiere mucho más conocimiento y experiencia. Este tipo de soluciones se
-pueden desplegar tanto en servidores físicos (_bare-metal_) como en instancias
-virtualizadas con diferentes sistemas operativos, en on-premises o en el cloud.
+pero requiere más conocimiento y experiencia. 
 
-Selecciona una [solución personalizada](/docs/setup/pick-right-solution/#custom-solutions).
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-Para una lista completa de soluciones, consulta la sección
-[Escoge la solución correcta](/docs/setup/pick-right-solution/).
 {{% /capture %}}

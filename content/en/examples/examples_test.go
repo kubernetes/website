@@ -89,9 +89,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	// Enable CustomPodDNS for testing
 	utilfeature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
-	case *admissionregistration.InitializerConfiguration:
-		// cluster scope resource
-		errors = ar_validation.ValidateInitializerConfiguration(t)
 	case *api.ConfigMap:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -418,13 +415,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"configmap-multikeys": {&api.ConfigMap{}},
 		},
 		"controllers": {
-			"daemonset":        {&apps.DaemonSet{}},
-			"frontend":         {&apps.ReplicaSet{}},
-			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":              {&batch.Job{}},
-			"replicaset":       {&apps.ReplicaSet{}},
-			"replication":      {&api.ReplicationController{}},
-			"nginx-deployment": {&apps.Deployment{}},
+			"daemonset":               {&apps.DaemonSet{}},
+			"frontend":                {&apps.ReplicaSet{}},
+			"hpa-rs":                  {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":                     {&batch.Job{}},
+			"replicaset":              {&apps.ReplicaSet{}},
+			"replication":             {&api.ReplicationController{}},
+			"replication-nginx-1.7.9": {&api.ReplicationController{}},
+			"replication-nginx-1.9.2": {&api.ReplicationController{}},
+			"nginx-deployment":        {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
@@ -526,9 +525,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis":     {&api.Pod{}},
 		},
 		"policy": {
-			"privileged-psp": {&policy.PodSecurityPolicy{}},
-			"restricted-psp": {&policy.PodSecurityPolicy{}},
-			"example-psp":    {&policy.PodSecurityPolicy{}},
+			"privileged-psp":                                 {&policy.PodSecurityPolicy{}},
+			"restricted-psp":                                 {&policy.PodSecurityPolicy{}},
+			"example-psp":                                    {&policy.PodSecurityPolicy{}},
+			"zookeeper-pod-disruption-budget-maxunavailable": {&policy.PodDisruptionBudget{}},
+			"zookeeper-pod-disruption-budget-minunavailable": {&policy.PodDisruptionBudget{}},
 		},
 		"service": {
 			"nginx-service": {&api.Service{}},

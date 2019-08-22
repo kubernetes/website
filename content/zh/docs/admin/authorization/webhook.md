@@ -29,10 +29,10 @@ WebHook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通�
 clusters:
   - name: name-of-remote-authz-service
     cluster:
-      certificate-authority: /path/to/ca.pem      # 对远程服务进行身份认证的CA。
+      certificate-authority: /path/to/ca.pem      # 对远程服务进行身份认证的 CA。
       server: https://authz.example.com/authorize # 远程服务的查询 URL. 必须使用 'https'。
 
-# users 代表 API 服务器的 webhook 配置.
+# users 代表 API 服务器的 webhook 配置 .
 users:
   - name: name-of-api-server
     user:
@@ -55,7 +55,7 @@ contexts:
 
 需要注意的是 webhook API 对象与其他 Kubernetes API 对象一样都同样都服从 [版本兼容规则](/docs/api/) 。
 实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段以确保能被正确地反序列化。
-此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组(`--runtime-config=authorization.k8s.io/v1beta1=true`)。
+此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
 
 一个请求内容的例子：

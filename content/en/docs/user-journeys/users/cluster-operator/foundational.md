@@ -30,8 +30,8 @@ If you have not already done so, start your understanding by reading through [Wh
 
 Kubernetes is quite flexible, and a cluster can be run in a wide variety of places. You can interact with Kubernetes entirely on your own laptop or local development machine with it running within a virtual machine. Kubernetes can also run on virtual machines hosted either locally or in a cloud provider, and you can run a Kubernetes cluster on bare metal.
 
-A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine. 
-If there is more than one node in your cluster then the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/). 
+A cluster is made up of one or more [Nodes](/docs/concepts/architecture/nodes/); where a node is a physical or virtual machine.
+If there is more than one node in your cluster then the nodes are connected with a [cluster network](/docs/concepts/cluster-administration/networking/).
 Regardless of how many nodes, all Kubernetes clusters generally have the same components, which are described in [Kubernetes Components](/docs/concepts/overview/components).
 
 
@@ -66,7 +66,7 @@ These resources are covered in a number of articles within the Kubernetes docume
 As a cluster operator you may not need to use all these resources, although you should be familiar with them to understand how the cluster is being used.
 There are a number of additional resources that you should be aware of, some listed under [Intermediate Resources](/docs/user-journeys/users/cluster-operator/intermediate#section-1).
 You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/)
-and [supported versions and version skew between cluster components](/docs/setup/version-skew-policy/).
+and [supported versions and version skew between cluster components](/docs/setup/release/version-skew-policy/).
 
 ## Get information about your cluster
 
@@ -94,5 +94,3 @@ Some additional resources for getting information about your cluster and how it 
   * [Expose an External IP address to access an application](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 {{% /capture %}}
-
-

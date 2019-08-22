@@ -175,8 +175,8 @@ PersistentVolume.
 
 Use the `pv.beta.kubernetes.io/gid` annotation as follows:
 ```yaml
-kind: PersistentVolume
 apiVersion: v1
+kind: PersistentVolume
 metadata:
   name: pv1
   annotations:

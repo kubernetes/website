@@ -11,7 +11,7 @@ css: /css/community.css
 Kubernetes follows the
 <a href="https://github.com/cncf/foundation/blob/master/code-of-conduct.md">CNCF Code of Conduct</a>.
 The text of the CNCF CoC is replicated below, as of
-<a href="https://github.com/cncf/foundation/blob/0ce4694e5103c0c24ca90c189da81e5408a46632/code-of-conduct.md">commit 0ce4694</a>.
+<a href="https://github.com/cncf/foundation/blob/214585e24aab747fb85c2ea44fbf4a2442e30de6/code-of-conduct.md">commit 214585e</a>.
 If you notice that this is out of date, please
 <a href="https://github.com/kubernetes/website/issues/new">file an issue</a>.
 

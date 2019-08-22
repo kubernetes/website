@@ -20,7 +20,7 @@ federation api-server.
 {{% capture prerequisites %}}
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
-* You should also have a basic [working knowledge of Kubernetes](/docs/setup/pick-right-solution/) in
+* You should also have a basic [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general.
 
 {{% /capture %}}
@@ -85,7 +85,7 @@ kubectl --context=rivendell label cluster gondor key1=value1 key2=value2
 
 ## ClusterSelector Annotation
 
-Starting in Kubernetes 1.7, there is alpha support for directing objects across the federated clusters with the annotation `federation.alpha.kubernetes.io/cluster-selector`. The *ClusterSelector* is conceptually similar to `nodeSelector`, but instead of selecting against labels on nodes, it selects against labels on federated clusters.
+You can use a (deprecated) annotation for directing objects across the federated clusters: `federation.alpha.kubernetes.io/cluster-selector`. The *ClusterSelector* is conceptually similar to `nodeSelector`, but instead of selecting against labels on nodes, it selects against labels on federated clusters.
 
 The annotation value must be JSON formatted and must be parsable into the [ClusterSelector API type](/docs/reference/federation/v1beta1/definitions/#_v1beta1_clusterselector). For example: `[{"key": "load", "operator": "Lt", "values": ["10"]}]`. Content that doesn't parse correctly will throw an error and prevent distribution of the object to any federated clusters. Objects of type ConfigMap, Secret, Daemonset, Service and Ingress are included in the alpha implementation.
 

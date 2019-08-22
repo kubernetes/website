@@ -19,16 +19,14 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 
-## `README.md`'s Localizing Kubernetes Documentation
-
-### Korean
-
-See translation of `README.md` and more detail guidance for Korean contributors on the [Korean README](README-ko.md) page.
-
-You can reach the maintainers of Korean localization at:
-
-* June Yi ([GitHub - @gochist](https://github.com/gochist))
-* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+## Localization `README.md`'s
+|  |  |
+|---|---|
+|[French README](README-fr.md)|[Korean README](README-ko.md)|
+|[German README](README-de.md)|[Portuguese README](README-pt.md)|
+|[Hindi README](README-hi.md)|[Spanish README](README-es.md)|
+|[Indonesian README](README-id.md)|
+|||
 
 ## Running the website locally using Docker
 

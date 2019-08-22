@@ -228,6 +228,10 @@ other = "ICH BIN..."
 
 Localizing site strings lets you customize site-wide text and features: for example, the legal copyright text in the footer on each page.
 
+### Language specific style guide and glossary
+
+Some language teams have their own language-specific style guide and glossary. For example, see the [Korean Localization Guide](/ko/docs/contribute/localization_ko/).
+
 ## Branching strategy
 
 Because localization projects are highly collaborative efforts, we encourage teams to work in shared development branches.
