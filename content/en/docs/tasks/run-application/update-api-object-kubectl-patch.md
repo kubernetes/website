@@ -311,7 +311,7 @@ The following commands are equivalent:
 
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
+kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
 kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
 
 kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
