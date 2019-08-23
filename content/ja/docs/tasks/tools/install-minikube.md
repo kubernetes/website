@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-このページでは[Minikube](/ja/docs/tutorials/hello-minikube)のインストール方法を説明し、コンピューターの仮想マシン上で単一nodeのKubernetesクラスターを実行します。
+このページでは[Minikube](/ja/docs/tutorials/hello-minikube)のインストール方法を説明し、コンピューターの仮想マシン上で単一ノードのKubernetesクラスターを実行します。
 
 {{% /capture %}}
 
@@ -26,7 +26,7 @@ egrep --color 'vmx|svm' /proc/cpuinfo
 
 ## ハイパーバイザーのインストール
 
-ハイパーバイザーがインストールされていたら、OSにいずれかをインストールしてください。
+ハイパーバイザーがインストールされていなかったら、OSにいずれかをインストールしてください。
 
 Operating system | サポートしているハイパーバイザー
 :----------------|:---------------------
@@ -121,7 +121,7 @@ Windowsに手動でMinikubeをダウンロードする場合、[`minikube-window
 minikube start
 ```
 
-このエラーが返ってきます
+このエラーが返ってきます。
 ```shell
 machine does not exist
 ```
