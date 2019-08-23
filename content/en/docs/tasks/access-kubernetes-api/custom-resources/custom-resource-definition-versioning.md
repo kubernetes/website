@@ -31,9 +31,53 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 {{< feature-state state="beta" for_kubernetes_version="1.15" >}}
 
-The CustomResourceDefinition API supports a `versions` field that you can use to
-support multiple versions of custom resources that you have developed. Versions
-can have different schemas with a conversion webhook to convert custom resources between versions.
+The CustomResourceDefinition API provides a workflow for introducing and upgrading
+to new versions of a CustomResourceDefinition.
+
+When a CustomResourceDefinition is first created, the first version is set at
+an appropriate stability level and an version number. For example `v1beta1`
+would indicate that the first version is not yet stable. All custom resource objects
+will initially be stored at this version.
+
+Once the CustomResourceDefinition is created, clients may begin using the
+`v1beta1` API.
+
+Later it might be necessary to add new version such as `v1`.
+
+When adding a version to the CustomResourceDefiition, custom resource objects
+will need to be served at both versions. This means that they will sometimes be
+served at a different version they are stored at. In order for this to be
+possible, the custom resource objects must sometimes be converted between the
+version they are stored at and the version they are served at. How custom
+resource objects are converted is determined CustomResourceDefinition's
+conversion strategy. If the conversion involves schema changes and requires
+custom logic, a conversion webhook should be used. Once a conversion strategy
+decided on, and all conversion webhooks are deployed, the
+CustomResourceDefinition can be updated to serve both the old and new versions.
+
+Once there are two versions, the storage version may be change to the new
+version at any time to begin the migration of stored custom resource objects to
+the new version. Changes to the storage version are "lazy" and Custom resources
+will continue be stored at the old version until they are next written to.
+
+Next, clients may incrementally migrated to the `v1` new version. It is perfectly
+safe for some clients to use `v1beta` while others use `v1`.
+
+Eventually the old version may need to be removed. Before removing a version,
+first ensure all clients are fully migrated to the new version and that the
+CustomResourceDefinition is configured to store custom resource objects at the
+new version. Next, make sure all stored custom resource objects have be migrated
+to a new version, either by using the [Storage Version
+Migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator) or
+by manually writing to each custom resource object at least once.
+
+Finally, old version can then be removed and converter support for the old
+version can be removed.
+
+## Specify multiple versions
+
+The CustomResourceDefinition API `versions` field can be used to support multiple versions of custom resources that you
+have developed. Versions can have different schemas, and conversion webhooks can convert custom resources between versions.
 Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md) wherever applicable.
 Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md) for a set of useful gotchas and suggestions.
 
@@ -42,8 +86,6 @@ Earlier iterations included a `version` field instead of `versions`. The
 `version` field is deprecated and optional, but if it is not empty, it must
 match the first item in the `versions` field.
 {{< /note >}}
-
-## Specify multiple versions
 
 This example shows a CustomResourceDefinition with two versions. For the first
 example, the assumption is all versions share the same schema with no conversion
