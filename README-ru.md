@@ -10,7 +10,7 @@
 Welcome! This repository houses all of the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/).
 We're glad that you want to contribute!
  -->
-Добро Пожаловать! Эта репозитория содержит все необходимое для того чтобы улучшить [Kubernetes вебсайт и документацию](https://kubernetes.io/)
+Добро пожаловать! Этот репозиторий содержит все исходники, необходимые для работы веб-сайта и документации Kubernetes [Kubernetes вебсайт и документацию](https://kubernetes.io/)
 Мы счастливы, что хотите помочь нам!
 
 <!--
@@ -25,7 +25,7 @@ and when you are ready to send those changes to us, go to your fork and create a
  -->
 Вы можете кликнуть на **Fork** кнопку в верхнем левом углу для этого чтобы создать копию этой репозитории в вашем GitHub аккаунте.
 Эта копия называетая *fork*. Вы можете делать любые изменения в вашем fork,
-и когда вы готовы отправить эти изменения нам, ввойдите в ваш форк и поздайте pull request для того чтобы дать нам знать об этом.
+и когда вы готовы отправить эти изменения нам, ввойдите в ваш форк и cоздайте pull request, для того чтобы мы узнали об этом.
 
 <!--
 Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.
@@ -34,9 +34,9 @@ Also, note that you may end up having more than one Kubernetes reviewer provide 
 Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.
 Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
  -->
-Как только ваш  pull request сделан，Kubernetes ревьюер будет отвественен обеспечить четкую обратную связь. Вы как владелец данного pull request, **Это ваша отвественность модифицировать ваш pull request, для того чтобы адресовать обратную связь вашему Kubernetes ревьюеру.**
-Кроме того, обратите внимание, что у вас может оказаться, более одного Kubernetes ревьюера которые предоставят вам обратную связь, или вы можете в конечном итоге получить отзыв от ревьюера Kubernetes, который отличается от того, который изначально был назначен для предоставления вам обратной связи.
-Кроме того, в некоторых случаях один из ваших ревьюеров может запросить техническую рецензию у [Kubernetes технического рецензента] (https://github.com/kubernetes/website/wiki/Tech-reviewers) при необходимости.
+Как только ваш  pull request сделан，Kubernetes ревьюер будет отвественен обеспечить четкую обратную связь. Вы, как владелец, данного pull request, **Отвественны модифицировать ваш pull request, для того чтобы адресовать обратную связь вашему Kubernetes ревьюеру.**
+Кроме того, обратите внимание, что у вас может оказаться, более одного Kubernetes ревьюера, которые предоставят вам обратную связь, или вы можете в конечном итоге получить отзыв от ревьюера Kubernetes, который отличается от того, который изначально был назначен для предоставления вам обратной связи.
+Кроме того, в некоторых случая, один из ваших ревьюеров может запросить техническую рецензию у [Kubernetes технического ревьюера] (https://github.com/kubernetes/website/wiki/Tech-reviewers) при необходимости.
 
 <!--
 For more information about contributing to the Kubernetes documentation, see:
@@ -47,10 +47,10 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
  -->
-Для большей информации для помощи в Kubernetes документацию，смотрите：
+Для большей информации для вклада в Kubernetes документацию，смотрите：
 
 * [Начать Вкад](https://kubernetes.io/docs/contribute/start/)
-* [Начать Ваш Вклад в Документации](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Начать Ваш Вклад в Документацию](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [Использовать Шаблоны Страниц](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [Документация по Стиль Гайду](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Локализировать Kubernetes Документацию](https://kubernetes.io/docs/contribute/localization/)
