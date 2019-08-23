@@ -34,7 +34,7 @@ If you are a cluster operator looking to expand your grasp of Kubernetes, this p
 <!--
 ## Work with ingress, networking, storage, and workloads
 -->
-## 使用入口，网络，存储和工作负载
+## 使用 ingress，网络，存储和工作负载
 
 <!--
 Introductions to Kubernetes typically discuss simple stateless applications. As you move into more complex development, testing, and production environments, you need to consider more complex cases:
@@ -103,7 +103,7 @@ And how Pods work with scheduling, priority, disruptions:
 -->
 以及 Pod 如何处理调度，优先级，中断：
 
-* [Taints 和 Tolerations](/docs/concepts/configuration/taint-and-toleration/)
+* [污点和容忍度](/docs/concepts/configuration/taint-and-toleration/)
 * [Pod 和优先级](/docs/concepts/configuration/pod-priority-preemption/)
 * [中断](/docs/concepts/workloads/pods/disruptions/)
 * [分配 Pod 到 Node](/docs/concepts/configuration/assign-pod-node/)
@@ -140,7 +140,7 @@ You also configure authorization. That is, you determine not just how users and 
 
 You should create Secrets to hold sensitive data such as passwords, tokens, or keys. Be aware, however, that there are limitations to the protections that a Secret can provide. See [the Risks section of the Secrets documentation](/docs/concepts/configuration/secret/#risks).
 -->
-您还可以配置授权。也就是说，您不仅可以决定用户和服务如何向 API server 进行身份认证，或者确定他们是否可以访问，还可以决定他们有权访问哪些资源。基于角色的访问控制（RBAC）是控制对 Kubernetes 资源授权的推荐机制。其他授权模式可以用于更具体的使用场景。
+您还可以配置授权。也就是说，您不仅可以决定用户和服务如何向 API 服务器进行身份认证，或者确定他们是否可以访问，还可以决定他们有权访问哪些资源。基于角色的访问控制（RBAC）是控制对 Kubernetes 资源授权的推荐机制。其他授权模式可以用于更具体的使用场景。
 
 * [授权概述](/docs/reference/access-authn-authz/authorization/)
 * [使用 RBAC 授权](/docs/reference/access-authn-authz/rbac/)
@@ -174,12 +174,12 @@ Start with the [basics on Kubernetes logging](/docs/concepts/cluster-administrat
 Like log aggregation, many clusters utilize additional software to help capture metrics and display them. There is an overview of tools at [Tools for Monitoring Compute, Storage, and Network Resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/).
 Kubernetes also supports a [resource metrics pipeline](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/) which can be used by Horizontal Pod Autoscaler with custom metrics.
 -->
-与日志聚合一样，许多集群使用其他软件来帮助捕获 metrics 并显示它们。这里是相关工具的概述：[用于监视计算，存储和网络资源的工具](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)。Kubernetes 还支持[资源 metrics 管道](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)，还可以在水平 Pod 自动伸缩器（Horizontal Pod Autoscaler）中使用自定义 metrics。
+与日志聚合一样，许多集群使用其他软件来帮助捕获 metrics 并显示它们。这里是相关工具的概述：[用于监视计算，存储和网络资源的工具](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)。Kubernetes 还支持[资源指标管道](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)，还可以在水平 Pod 自动伸缩器（Horizontal Pod Autoscaler）中使用自定义 metrics。
 
 <!--
 [Prometheus](https://prometheus.io/), which is another CNCF project, is a common choice to support capture and temporary collection of metrics. There are several options for installing Prometheus, including using the [stable/prometheus](https://github.com/kubernetes/charts/tree/master/stable/prometheus) [helm](https://helm.sh/) chart, and CoreOS provides a [prometheus operator](https://github.com/coreos/prometheus-operator) and [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus), which adds on Grafana dashboards and common configurations.
 -->
-[Prometheus](https://prometheus.io/)是另一个 CNCF 项目，它是支持捕获和临时收集 metrics 的常用选择。安装 Prometheus 有几种方式，包括使用[stable/prometheus](https://github.com/kubernetes/charts/tree/master/stable/prometheus) [helm](https://helm.sh/) 图表，CoreOS 提供的[prometheus operator](https://github.com/coreos/prometheus-operator) 和 [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus)，增加了 Grafana 仪表板和常用配置。
+[Prometheus](https://prometheus.io/)是另一个 CNCF 项目，它是支持捕获和临时收集指标的常用选择。安装 Prometheus 有几种方式，包括使用[stable/prometheus](https://github.com/kubernetes/charts/tree/master/stable/prometheus) [helm](https://helm.sh/)chart，CoreOS 提供的[prometheus operator](https://github.com/coreos/prometheus-operator) 和 [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus)，增加了 Grafana 仪表板和常用配置。
 
 <!--
 A common configuration on [Minikube](https://github.com/kubernetes/minikube) and some Kubernetes clusters uses [Heapster](https://github.com/kubernetes/heapster)
@@ -187,7 +187,7 @@ A common configuration on [Minikube](https://github.com/kubernetes/minikube) and
 There is a [walkthrough of how to install this configuration in your cluster](https://blog.kublr.com/how-to-utilize-the-heapster-influxdb-grafana-stack-in-kubernetes-for-monitoring-pods-4a553f4d36c9).
 As of Kubernetes 1.11, Heapster is deprecated, as per [sig-instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation).  See [Prometheus vs. Heapster vs. Kubernetes Metrics APIs](https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/) for more information alternatives.
 -->
-[Minikube](https://github.com/kubernetes/minikube) 和某些 Kubernetes 集群的通常配置是[与  InfluxDB 和 Grafana 一起](https://github.com/kubernetes/heapster/blob/master/docs/influxdb.md)使用[Heapster](https://github.com/kubernetes/heapster)。这里有一个[如何在集群中安装这个配置的参考](https://blog.kublr.com/how-to-utilize-the-heapster-influxdb-grafana-stack-in-kubernetes-for-monitoring-pods-4a553f4d36c9)。截止 Kubernetes 1.11，根据[sig-instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation)，Heapster 已经弃用。更多信息，请参阅 [Prometheus vs. Heapster vs. Kubernetes Metrics APIs](https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/) 。
+[Minikube](https://github.com/kubernetes/minikube) 和某些 Kubernetes 集群的通常配置是[与 InfluxDB 和 Grafana 一起](https://github.com/kubernetes/heapster/blob/master/docs/influxdb.md)使用[Heapster](https://github.com/kubernetes/heapster)。这里有一个[如何在集群中安装这个配置的参考](https://blog.kublr.com/how-to-utilize-the-heapster-influxdb-grafana-stack-in-kubernetes-for-monitoring-pods-4a553f4d36c9)。截止 Kubernetes 1.11，根据[sig-instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation)，Heapster 已经弃用。更多信息，请参阅 [Prometheus vs. Heapster vs. Kubernetes Metrics APIs](https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/) 。
 
 <!--
 Hosted monitoring, APM, or data analytics services such as [Datadog](https://docs.datadoghq.com/integrations/kubernetes/) or [Instana](https://www.instana.com/supported-integrations/kubernetes-monitoring/) also offer Kubernetes integration.
