@@ -106,7 +106,7 @@ And how Pods work with scheduling, priority, disruptions:
 * [污点和容忍度](/docs/concepts/configuration/taint-and-toleration/)
 * [Pod 和优先级](/docs/concepts/configuration/pod-priority-preemption/)
 * [中断](/docs/concepts/workloads/pods/disruptions/)
-* [分配 Pod 到 Node](/docs/concepts/configuration/assign-pod-node/)
+* [分配 Pod 到工作节点](/docs/concepts/configuration/assign-pod-node/)
 * [管理容器的计算资源](/docs/concepts/configuration/manage-compute-resources-container/)
 * [配置最佳实践](/docs/concepts/configuration/overview/)
 
