@@ -176,7 +176,7 @@ checks the state of each node every `--node-monitor-period` seconds.
 In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
 node. Starting from Kubernetes 1.13, node lease feature is introduced as an
 alpha feature (feature gate `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 When node lease feature is enabled, each node has an associated `Lease` object in
 `kube-node-lease` namespace that is renewed by the node periodically, and both
 NodeStatus and node lease are treated as heartbeats from the node. Node leases

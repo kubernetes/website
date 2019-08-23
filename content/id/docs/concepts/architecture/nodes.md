@@ -138,7 +138,7 @@ Kontroler node memeriksa <i>state</i> masing-masing node untuk durasi yang diten
 
 Pada versi Kubernetes sebelum 1.13, `NodeStatus` adalah <i>heartbeat</i> yang diberikan oleh node.
 Setelah versi 1.13, fitur <i>node lease</i> diperkenalkan sebagai fitur alpha (fitur gate `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 Ketika fitur <i>node lease</i> diaktifasi, setiap node terhubung dengan obyek `Lease` di dalam <i>namespace</i> `kube-node-lease` yang terus diperbarui secara berkala.
 Kemudian, `NodeStatus` dan <i>node lease</i> keduanya dijadikan sebagai <i>heartbeat</i> dari node.
 Semua <i>node lease</i> diperbarui sesering mungkin, sedangkan `NodeStatus` dilaporkan dari node untuk master hanya ketika ada perubahan atau telah melewati periode waktu tertentu (<i>default</i>-nya 1 menit, lebih lama daripada <i>default timeout</i> node-node yang terputus jaringannya).

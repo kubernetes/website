@@ -452,3 +452,26 @@ Another difference is that an applier using Client Side Apply is unable to chang
 ### Custom Resources
 
 Server Side Apply currently treats all custom resources as unstructured data. All keys are treated the same as struct fields, and all lists are considered atomic. In the future, it will use the validation field in Custom Resource Definitions to allow Custom Resource authors to define how to how to merge their own objects.
+
+### Clearing ManagedFields
+
+It is possible to strip all managedFields from an object by overwriting them using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every non-apply operation.
+This can be done by overwriting the managedFields field with an empty entry. Two examples are:
+
+```json
+PATCH /api/v1/namespaces/default/configmaps/example-cm
+Content-Type: application/merge-patch+json
+Accept: application/json
+Data: {"metadata":{"managedFields": [{}]}}
+```
+
+```json
+PATCH /api/v1/namespaces/default/configmaps/example-cm
+Content-Type: application/json-patch+json
+Accept: application/json
+Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
+```
+
+This will overwrite the managedFields with a list containing a single empty entry that then results in the managedFields being stripped entirely from the object. Note that just setting the managedFields to an empty list will not reset the field. This is on purpose, so managedFields never get stripped by clients not aware of the field.
+
+In cases where the reset operation is combined with changes to other fields than the managedFields, this will result in the managedFields being reset first and the other changes being processed afterwards. As a result the applier takes ownership of any fields updated in the same request.
