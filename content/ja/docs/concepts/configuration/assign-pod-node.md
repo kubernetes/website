@@ -216,20 +216,14 @@ Pod AffinityとPod Anti-Affinityで使用できるオペレータは、`In`、`N
 1. Affinityと、`requiredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`topologyKey`を指定しないことは許可されていません。
 2. `requiredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`kubernetes.io/hostname`の`topologyKey`を制限するためアドミッションコントローラ`LimitPodHardAntiAffinityTopology`が導入されました。
 トポロジーをカスタマイズする場合には、アドミッションコントローラを修正または無効化する必要があります。
-3. `preferredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、空の`topologyKey`は"全てのロポロジー"と解釈されます("全てのロポロジー"とは、ここでは`kubernetes.io/hostname`、`failure-domain.beta.kubernetes.io/zone`、`failure-domain.beta.kubernetes.io/region`を合わせたものを意味します)。
+3. `preferredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、空の`topologyKey`は"全てのトポロジー"と解釈されます("全てのトポロジー"とは、ここでは`kubernetes.io/hostname`、`failure-domain.beta.kubernetes.io/zone`、`failure-domain.beta.kubernetes.io/region`を合わせたものを意味します)。
+4. 上記の場合を除き、`topologyKey` は任意のラベルとキーを指定することができあます。
 
-1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
-empty `topologyKey` is not allowed.
-2. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
-3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
-4. Except for the above cases, the `topologyKey` can be any legal label-key.
+`labelSelector`と`topologyKey`に加え、`labelSelector`が合致すべき`namespaces`のリストを特定することも可能です(これは`labelSelector`と`topologyKey`を定義することと同等です)。
+省略した場合や空の場合は、AffinityとAnti-Affinityが定義されたPodのnamespaceがデフォルトで設定されます。
 
-In addition to `labelSelector` and `topologyKey`, you can optionally specify a list `namespaces`
-of namespaces which the `labelSelector` should match against (this goes at the same level of the definition as `labelSelector` and `topologyKey`).
-If omitted or empty, it defaults to the namespace of the pod where the affinity/anti-affinity definition appears.
+`requiredDuringSchedulingIgnoredDuringExecution`が指定されたAffinityとAnti-Affinityでは、`matchExpressions`に記載された全ての条件が満たされるNodeにPodがスケジュールされます。 
 
-All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
-must be satisfied for the pod to be scheduled onto a node.
 
 #### More Practical Use-cases
 
