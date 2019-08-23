@@ -72,11 +72,11 @@ probably debugging your own `Service` you can substitute your own details, or yo
 can follow along and get a second data point.
 
 ```shell
-kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
-                        --labels=app=hostnames \
+kubectl run mypod --image=k8s.gcr.io/serve_hostname \
+                        --labels=app=mypod \
                         --port=9376 \
                         --replicas=3
-deployment.apps/hostnames created
+deployment.apps/mypod created
 ```
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
@@ -87,19 +87,19 @@ This is the same as if you started the `Deployment` with the following YAML:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hostnames
+  name: mypod
 spec:
   selector:
     matchLabels:
-      app: hostnames
+      app: mypod
   replicas: 3
   template:
     metadata:
       labels:
-        app: hostnames
+        app: mypod
     spec:
       containers:
-      - name: hostnames
+      - name: mypod
         image: k8s.gcr.io/serve_hostname
         ports:
         - containerPort: 9376
@@ -110,11 +110,11 @@ spec:
 Confirm your `Pods` are running:
 
 ```shell
-kubectl get pods -l app=hostnames
+kubectl get pods -l app=mypod
 NAME                        READY     STATUS    RESTARTS   AGE
-hostnames-632524106-bbpiw   1/1       Running   0          2m
-hostnames-632524106-ly40y   1/1       Running   0          2m
-hostnames-632524106-tlaok   1/1       Running   0          2m
+mypod-632524106-bbpiw   1/1       Running   0          2m
+mypod-632524106-ly40y   1/1       Running   0          2m
+mypod-632524106-tlaok   1/1       Running   0          2m
 ```
 
 ## Does the Service exist?
@@ -128,33 +128,33 @@ have another `Pod` that consumes this `Service` by name you would get something
 like:
 
 ```shell
-u@pod$ wget -O- hostnames
-Resolving hostnames (hostnames)... failed: Name or service not known.
-wget: unable to resolve host address 'hostnames'
+u@pod$ wget -O- mypod
+Resolving mypod (mypod)... failed: Name or service not known.
+wget: unable to resolve host address 'mypod'
 ```
 
 So the first thing to check is whether that `Service` actually exists:
 
 ```shell
-kubectl get svc hostnames
+kubectl get svc mypod
 No resources found.
-Error from server (NotFound): services "hostnames" not found
+Error from server (NotFound): services "mypod" not found
 ```
 
 So we have a culprit, let's create the `Service`.  As before, this is for the
 walk-through - you can use your own `Service`'s details here.
 
 ```shell
-kubectl expose deployment hostnames --port=80 --target-port=9376
-service/hostnames exposed
+kubectl expose deployment mypod --port=80 --target-port=9376
+service/mypod exposed
 ```
 
 And read it back, just to be sure:
 
 ```shell
-kubectl get svc hostnames
+kubectl get svc mypod
 NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
+mypod   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 ```
 
 As before, this is the same as if you had started the `Service` with YAML:
@@ -163,10 +163,10 @@ As before, this is the same as if you had started the `Service` with YAML:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hostnames
+  name: mypod
 spec:
   selector:
-    app: hostnames
+    app: mypod
   ports:
   - name: default
     protocol: TCP
@@ -181,22 +181,22 @@ Now you can confirm that the `Service` exists.
 From a `Pod` in the same `Namespace`:
 
 ```shell
-u@pod$ nslookup hostnames
+u@pod$ nslookup mypod
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
-Name:      hostnames
-Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
+Name:      mypod
+Address 1: 10.0.1.175 mypod.default.svc.cluster.local
 ```
 
 If this fails, perhaps your `Pod` and `Service` are in different
 `Namespaces`, try a namespace-qualified name:
 
 ```shell
-u@pod$ nslookup hostnames.default
+u@pod$ nslookup mypod.default
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
-Name:      hostnames.default
-Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
+Name:      mypod.default
+Address 1: 10.0.1.175 mypod.default.svc.cluster.local
 ```
 
 If this works, you'll need to adjust your app to use a cross-namespace name, or
@@ -204,11 +204,11 @@ run your app and `Service` in the same `Namespace`.  If this still fails, try a
 fully-qualified name:
 
 ```shell
-u@pod$ nslookup hostnames.default.svc.cluster.local
+u@pod$ nslookup mypod.default.svc.cluster.local
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
-Name:      hostnames.default.svc.cluster.local
-Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
+Name:      mypod.default.svc.cluster.local
+Address 1: 10.0.1.175 mypod.default.svc.cluster.local
 ```
 
 Note the suffix here: "default.svc.cluster.local".  The "default" is the
@@ -223,11 +223,11 @@ You can also try this from a `Node` in the cluster:
 {{< /note >}}
 
 ```shell
-u@node$ nslookup hostnames.default.svc.cluster.local 10.0.0.10
+u@node$ nslookup mypod.default.svc.cluster.local 10.0.0.10
 Server:         10.0.0.10
 Address:        10.0.0.10#53
 
-Name:   hostnames.default.svc.cluster.local
+Name:   mypod.default.svc.cluster.local
 Address: 10.0.1.175
 ```
 
@@ -284,13 +284,13 @@ IP (from `kubectl get` above).
 
 ```shell
 u@node$ curl 10.0.1.175:80
-hostnames-0uton
+mypod-0uton
 
 u@node$ curl 10.0.1.175:80
-hostnames-yp2kp
+mypod-yp2kp
 
 u@node$ curl 10.0.1.175:80
-hostnames-bvc05
+mypod-bvc05
 ```
 
 If your `Service` is working, you should get correct responses.  If not, there
@@ -303,21 +303,21 @@ It might sound silly, but you should really double and triple check that your
 and verify it:
 
 ```shell
-kubectl get service hostnames -o json
+kubectl get service mypod -o json
 ```
 ```json
 {
     "kind": "Service",
     "apiVersion": "v1",
     "metadata": {
-        "name": "hostnames",
+        "name": "mypod",
         "namespace": "default",
-        "selfLink": "/api/v1/namespaces/default/services/hostnames",
+        "selfLink": "/api/v1/namespaces/default/services/mypod",
         "uid": "428c8b6c-24bc-11e5-936d-42010af0a9bc",
         "resourceVersion": "347189",
         "creationTimestamp": "2015-07-07T15:24:29Z",
         "labels": {
-            "app": "hostnames"
+            "app": "mypod"
         }
     },
     "spec": {
@@ -331,7 +331,7 @@ kubectl get service hostnames -o json
             }
         ],
         "selector": {
-            "app": "hostnames"
+            "app": "mypod"
         },
         "clusterIP": "10.0.1.175",
         "type": "ClusterIP",
@@ -360,32 +360,32 @@ actually being selected by the `Service`.
 Earlier we saw that the `Pods` were running.  We can re-check that:
 
 ```shell
-kubectl get pods -l app=hostnames
+kubectl get pods -l app=mypod
 NAME              READY     STATUS    RESTARTS   AGE
-hostnames-0uton   1/1       Running   0          1h
-hostnames-bvc05   1/1       Running   0          1h
-hostnames-yp2kp   1/1       Running   0          1h
+mypod-0uton   1/1       Running   0          1h
+mypod-bvc05   1/1       Running   0          1h
+mypod-yp2kp   1/1       Running   0          1h
 ```
 
 The "AGE" column says that these `Pods` are about an hour old, which implies that
 they are running fine and not crashing.
 
-The `-l app=hostnames` argument is a label selector - just like our `Service`
+The `-l app=mypod` argument is a label selector - just like our `Service`
 has.  Inside the Kubernetes system is a control loop which evaluates the
 selector of every `Service` and saves the results into an `Endpoints` object.
 
 ```shell
-kubectl get endpoints hostnames
+kubectl get endpoints mypod
 NAME        ENDPOINTS
-hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
+mypod   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
 
 This confirms that the endpoints controller has found the correct `Pods` for
 your `Service`.  If the `hostnames` row is blank, you should check that the
 `spec.selector` field of your `Service` actually selects for `metadata.labels`
 values on your `Pods`.  A common mistake is to have a typo or other error, such
-as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
-`app=hostnames`.
+as the `Service` selecting for `run=mypod`, but the `Deployment` specifying
+`app=mypod`.
 
 ## Are the Pods working?
 
@@ -399,13 +399,13 @@ These commands use the `Pod` port (9376), rather than the `Service` port (80).
 
 ```shell
 u@pod$ wget -qO- 10.244.0.5:9376
-hostnames-0uton
+mypod-0uton
 
 pod $ wget -qO- 10.244.0.6:9376
-hostnames-bvc05
+mypod-bvc05
 
 u@pod$ wget -qO- 10.244.0.7:9376
-hostnames-yp2kp
+mypod-yp2kp
 ```
 
 We expect each `Pod` in the `Endpoints` list to return its own hostname.  If
@@ -418,11 +418,11 @@ Another thing to check is that your `Pods` are not crashing or being restarted.
 Frequent restarts could lead to intermittent connectivity issues.
 
 ```shell
-kubectl get pods -l app=hostnames
+kubectl get pods -l app=mypod
 NAME                        READY     STATUS    RESTARTS   AGE
-hostnames-632524106-bbpiw   1/1       Running   0          2m
-hostnames-632524106-ly40y   1/1       Running   0          2m
-hostnames-632524106-tlaok   1/1       Running   0          2m
+mypod-632524106-bbpiw   1/1       Running   0          2m
+mypod-632524106-ly40y   1/1       Running   0          2m
+mypod-632524106-tlaok   1/1       Running   0          2m
 ```
 
 If the restart count is high, read more about how to [debug
@@ -486,9 +486,9 @@ should see one of the following cases.
 #### Userspace
 
 ```shell
-u@node$ iptables-save | grep hostnames
--A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
--A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
+u@node$ iptables-save | grep mypod
+-A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/mypod:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
+-A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/mypod:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
 ```
 
 There should be 2 rules for each port on your `Service` (just one in this
@@ -502,17 +502,17 @@ more time on it here.
 #### Iptables
 
 ```shell
-u@node$ iptables-save | grep hostnames
--A KUBE-SEP-57KPRZ3JQVENLNBR -s 10.244.3.6/32 -m comment --comment "default/hostnames:" -j MARK --set-xmark 0x00004000/0x00004000
--A KUBE-SEP-57KPRZ3JQVENLNBR -p tcp -m comment --comment "default/hostnames:" -m tcp -j DNAT --to-destination 10.244.3.6:9376
--A KUBE-SEP-WNBA2IHDGP2BOBGZ -s 10.244.1.7/32 -m comment --comment "default/hostnames:" -j MARK --set-xmark 0x00004000/0x00004000
--A KUBE-SEP-WNBA2IHDGP2BOBGZ -p tcp -m comment --comment "default/hostnames:" -m tcp -j DNAT --to-destination 10.244.1.7:9376
--A KUBE-SEP-X3P2623AGDH6CDF3 -s 10.244.2.3/32 -m comment --comment "default/hostnames:" -j MARK --set-xmark 0x00004000/0x00004000
--A KUBE-SEP-X3P2623AGDH6CDF3 -p tcp -m comment --comment "default/hostnames:" -m tcp -j DNAT --to-destination 10.244.2.3:9376
--A KUBE-SERVICES -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames: cluster IP" -m tcp --dport 80 -j KUBE-SVC-NWV5X2332I4OT4T3
--A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/hostnames:" -m statistic --mode random --probability 0.33332999982 -j KUBE-SEP-WNBA2IHDGP2BOBGZ
--A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/hostnames:" -m statistic --mode random --probability 0.50000000000 -j KUBE-SEP-X3P2623AGDH6CDF3
--A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/hostnames:" -j KUBE-SEP-57KPRZ3JQVENLNBR
+u@node$ iptables-save | grep mypod
+-A KUBE-SEP-57KPRZ3JQVENLNBR -s 10.244.3.6/32 -m comment --comment "default/mypod:" -j MARK --set-xmark 0x00004000/0x00004000
+-A KUBE-SEP-57KPRZ3JQVENLNBR -p tcp -m comment --comment "default/mypod:" -m tcp -j DNAT --to-destination 10.244.3.6:9376
+-A KUBE-SEP-WNBA2IHDGP2BOBGZ -s 10.244.1.7/32 -m comment --comment "default/mypod:" -j MARK --set-xmark 0x00004000/0x00004000
+-A KUBE-SEP-WNBA2IHDGP2BOBGZ -p tcp -m comment --comment "default/mypod:" -m tcp -j DNAT --to-destination 10.244.1.7:9376
+-A KUBE-SEP-X3P2623AGDH6CDF3 -s 10.244.2.3/32 -m comment --comment "default/mypod:" -j MARK --set-xmark 0x00004000/0x00004000
+-A KUBE-SEP-X3P2623AGDH6CDF3 -p tcp -m comment --comment "default/mypod:" -m tcp -j DNAT --to-destination 10.244.2.3:9376
+-A KUBE-SERVICES -d 10.0.1.175/32 -p tcp -m comment --comment "default/mypod: cluster IP" -m tcp --dport 80 -j KUBE-SVC-NWV5X2332I4OT4T3
+-A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/mypod:" -m statistic --mode random --probability 0.33332999982 -j KUBE-SEP-WNBA2IHDGP2BOBGZ
+-A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/mypod:" -m statistic --mode random --probability 0.50000000000 -j KUBE-SEP-X3P2623AGDH6CDF3
+-A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/mypod:" -j KUBE-SEP-57KPRZ3JQVENLNBR
 ```
 
 There should be 1 rule in `KUBE-SERVICES`, 1 or 2 rules per endpoint in
@@ -534,7 +534,7 @@ TCP  10.0.1.175:80 rr
 ...
 ```
 
-IPVS proxy will create a virtual server for each service address(e.g. Cluster IP, External IP, NodePort IP, Load Balancer IP etc.) and some corresponding real servers for endpoints of the service, if any. In this example, service hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`) and you'll get results similar to above.
+IPVS proxy will create a virtual server for each service address(e.g. Cluster IP, External IP, NodePort IP, Load Balancer IP etc.) and some corresponding real servers for endpoints of the service, if any. In this example, service mypod(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`) and you'll get results similar to above.
 
 ### Is kube-proxy proxying?
 
@@ -542,7 +542,7 @@ Assuming you do see the above rules, try again to access your `Service` by IP:
 
 ```shell
 u@node$ curl 10.0.1.175:80
-hostnames-0uton
+mypod-0uton
 ```
 
 If this fails and you are using the userspace proxy, you can try accessing the
@@ -554,13 +554,13 @@ examples it is "48577".  Now connect to that:
 
 ```shell
 u@node$ curl localhost:48577
-hostnames-yp2kp
+mypod-yp2kp
 ```
 
 If this still fails, look at the `kube-proxy` logs for specific lines like:
 
 ```shell
-Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376]
+Setting endpoints for default/mypod:default to [10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376]
 ```
 
 If you don't see those, try restarting `kube-proxy` with the `-v` flag set to 4, and
