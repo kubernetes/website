@@ -44,7 +44,7 @@ chain and adding the parsed certificates to the `RootCAs` field in the
 [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
 You can distribute the CA certificate as a
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-config) that your
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your
 pods have access to use.
 
 ## Requesting a Certificate
