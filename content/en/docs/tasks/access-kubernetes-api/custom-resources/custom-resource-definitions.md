@@ -8,6 +8,8 @@ content_template: templates/task
 weight: 20
 ---
 
+TODO: Update CRD documentation to include CRD v1 API and promote usage of v1 over v1beta1.
+
 {{% capture overview %}}
 This page shows how to install a
 [custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
