@@ -23,7 +23,7 @@ Minikube supports the following Kubernetes features:
 * NodePorts
 * ConfigMaps and Secrets
 * Dashboards
-* Container Runtime: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o), and [containerd](https://github.com/containerd/containerd)
+* Container Runtime: Docker, [CRI-O](https://github.com/kubernetes-incubator/cri-o), and [containerd](https://github.com/containerd/containerd)
 * Enabling CNI (Container Network Interface)
 * Ingress
 
@@ -251,16 +251,6 @@ minikube start \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
     --bootstrapper=kubeadm
 ```
-{{% /tab %}}
-{{% tab name="rkt container engine" %}}
-To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
-```shell
-minikube start \
-    --network-plugin=cni \
-    --enable-default-cni \
-    --container-runtime=rkt
-```
-This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
 {{% /tab %}}
 {{< /tabs >}}
 

@@ -3,9 +3,7 @@
   {{ $pages := $glossaryBundle.Resources.ByType "page" }}
   {{- range site.Params.language_alternatives -}}
     {{- with (where $glossaryBundle.Translations ".Lang" . ) -}}
-    {{ $p := (index . 0) }}
-    {{ $pages = $pages | lang.Merge ($p.Resources.ByType "page") }}
-    {{ end }}
+    {{ $p := (index . 0) }}{{ $pages = $pages | lang.Merge ($p.Resources.ByType "page") }}{{ end }}
   {{ end }}
   {{- $.Scratch.Set "glossary_items"  $pages -}}
 {{- else -}}
