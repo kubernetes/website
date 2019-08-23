@@ -155,7 +155,7 @@ You can always import an existing snapshot to Kubernetes by manually creating a 
 
 A `VolumeSnapshotContent` object should be created with the following fields to represent a pre-provisioned snapshot:
 
-* `csiVolumeSnapshotSource` - Snapshot identifying information.
+* `csi` - Snapshot identifying information.
   * `snapshotHandle` - name/identifier of the snapshot. This field is required.
   * `driver` - CSI driver used to handle this volume. This field is required. It must match the snapshotter name in the snapshot controller.
   * `creationTime` and `restoreSize` - these fields are not required for pre-provisioned volumes. The external-snapshotter controller will automatically update them after creation.
@@ -170,7 +170,7 @@ kind: VolumeSnapshotContent
 metadata:
   name: static-snapshot-content
 spec:
-  csiVolumeSnapshotSource:
+  csi:
     driver: com.example.csi-driver
     snapshotHandle: snapshotcontent-example-id
   volumeSnapshotRef:
