@@ -25,20 +25,20 @@ weight: 80
 
 ## ドキュメントへの貢献方法
 
-以下に挙げたものは、どなたでも可能なこと、Kubernetes organization メンバーであれば可能なこと、SIG Docs のプロセスにアクセスでき、かつ慣れている必要のあることにわかれています。
+以下に挙げたものは、どなたでも可能なこと、Kubernetes organization メンバーであれば可能なこと、SIG Docs のプロセスにアクセスでき、かつ慣れていないとできないことにわかれています。
 継続的に貢献していけば、ノウハウや組織的決断を理解する手助けとなるでしょう。
 
 これが Kubernetes ドキュメントへ貢献する方法の全てではないですが、始めるときの手助けにはなるでしょう。
 
-- [Anyone](/docs/contribute/start/)
+- [どなたでも](/docs/contribute/start/)
   - issue を作成する
-- [Member](/docs/contribute/start/)
+- [メンバー](/docs/contribute/start/)
   - 既存のドキュメントを改善する
   - 改善のアイデアを [Slack](http://slack.k8s.io/) もしくは [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) に投げる
   - ドキュメントのアクセシビリティを改善する
   - PR にフィードバックをする
   - 事例やブロクを書く
-- [Reviewer](/docs/contribute/intermediate/)
+- [レビュアー](/docs/contribute/intermediate/)
   - 新機能のドキュメントを作成する
   - issue の選別、分類をする
   - PR をレビューする
@@ -47,7 +47,7 @@ weight: 80
   - ドキュメントの代表者として別のレポジトリに貢献する
   - コード内にある、ユーザが使う文字列を編集する
   - コードのコメントや Godoc を改善する
-- [Approver](/docs/contribute/advanced/)
+- [承認者](/docs/contribute/advanced/)
   - PR を承認、マージすることでコントリビューターが作成したコンテンツを公開する
   - Kubernetes のリリースチームに、ドキュメントを代表して参加する
   - スタイルガイドの改善を提案する
