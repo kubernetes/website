@@ -115,7 +115,7 @@ Hay dos rutas soportadas para extender la API con [recursos personalizados](/doc
 
 Ciertos recursos y grupos de API están activados por defecto. Pueden activarse o desactivarse con la opción `--runtime-config` en `apiserver`. `--runtime-config` acepta valores separados por coma. Por ejemplo, para desactivar `batch/v1`, use la opción
 `--runtime-config=batch/v1=false`. Para activar `batch/v2alpha1`, pase la opción `--runtime-config=batch/v2alpha1`.
-Esta opción acepta pares de clave=valor separados por coma que describen la configuración operativa del `apiserver`.
+Esta opción acepta pares de `clave=valor` separados por coma que describen la configuración operativa del `apiserver`.
 
 **IMPORTANTE:** Activar o desactivar grupos o recursos requiere reiniciar el `apiserver` y el controller-manager para que estos reconozcan los cambios a `--runtime-config`.
 
