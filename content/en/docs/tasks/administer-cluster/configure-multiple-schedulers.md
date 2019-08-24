@@ -48,7 +48,7 @@ to build the image:
 
 ```docker
 FROM busybox
-ADD ./_output/dockerized/bin/linux/amd64/kube-scheduler /usr/local/bin/kube-scheduler
+ADD ./_output/local/bin/linux/amd64/kube-scheduler /usr/local/bin/kube-scheduler
 ```
 
 Save the file as `Dockerfile`, build the image and push it to a registry. This example
