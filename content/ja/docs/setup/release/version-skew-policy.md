@@ -125,10 +125,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 
 {{< warning >}}
 `kube-apiserver`と2つのマイナーバージョンの`kubelet`インスタンスを使用してクラスターを実行させることは推奨されません:
-Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` is not recommended:
 
 * コントロールプレーンをアップグレードする前に、インスタンスを`kube-apiserver`の1つのマイナーバージョン内にアップグレードさせる必要があります
 * メンテナンスされている3つのマイナーリリースよりも古いバージョンの`kubelet`を実行する可能性が高まります
-* they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
-* it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 {{</ warning >}}
