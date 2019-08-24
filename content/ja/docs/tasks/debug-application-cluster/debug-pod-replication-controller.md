@@ -103,7 +103,7 @@ kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
 kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
 ```
 
-{{< note >}
+{{< note >}}
 `-c ${CONTAINER_NAME}`はオプションです。単一のコンテナのみを含むPodの場合は省略できます。
 {{< /note >}}
 
