@@ -225,17 +225,20 @@ Pod AffinityとPod Anti-Affinityで使用できるオペレータは、`In`、`N
 `requiredDuringSchedulingIgnoredDuringExecution`が指定されたAffinityとAnti-Affinityでは、`matchExpressions`に記載された全ての条件が満たされるNodeにPodがスケジュールされます。 
 
 
-#### More Practical Use-cases
+#### 実際的なユースケース
 
-Interpod Affinity and AntiAffinity can be even more useful when they are used with higher
-level collections such as ReplicaSets, StatefulSets, Deployments, etc.  One can easily configure that a set of workloads should
-be co-located in the same defined topology, eg., the same node.
+Inter-Pod AffinityとAnti-Affinityは、ReplicaSet、StatefulSet、Deploymentなどのより高レベルなコレクションと併せて使用するとされに有用です。
+Workloadが、Node等の定義された同じトポロジーに共存させるよう、簡単に設定できます。
 
-##### Always co-located in the same node
 
-In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
+##### 常に同じNodeに共存させる場合
 
-Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
+３つのNodeから成るクラスタでは、ウェブアプリケーションはredisのようにインメモリキャッシュを保持しています。
+このような場合、ウェブサーバーは可能な限りキャッシュと共存させることが望ましいです。
+
+ラベル`app=store`を付与した、3つのレプリカから成るredisのdeploymentを記述したyamlファイルを示します。
+deploymentには、1つのNodeにレプリカを共存させないために`PodAntiAffinity`を付与しています。
+
 
 ```yaml
 apiVersion: apps/v1
@@ -267,7 +270,10 @@ spec:
         image: redis:3.2-alpine
 ```
 
-The below yaml snippet of the webserver deployment has `podAntiAffinity` and `podAffinity` configured. This informs the scheduler that all its replicas are to be co-located with pods that have selector label `app=store`. This will also ensure that each web-server replica does not co-locate on a single node.
+ウェブサーバーのdeploymentを記載した以下のyamlファイルには、`podAntiAffinity` と`podAffinity`が設定されています。
+全てのレプリカが`app=store`のラベルが付与されたPodと共存されるよう、スケジューラーに設定されます。
+また、それぞれのウェブサーバーは1つのノードに共存しません。
+
 
 ```yaml
 apiVersion: apps/v1
@@ -308,19 +314,19 @@ spec:
         image: nginx:1.12-alpine
 ```
 
-If we create the above two deployments, our three node cluster should look like below.
+上記2つのdeploymentが生成されると、3つのノードは以下のようになります。
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
-As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
+このように、3つの`web-server`は予期した通り自動的にキャッシュと共存しています。
 
 ```
 kubectl get pods -o wide
 ```
-The output is similar to this:
+出力は以下のようになります:
 ```
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
@@ -331,39 +337,29 @@ web-server-1287567482-6f7v5    1/1       Running   0          7m        10.192.4
 web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3.2   kube-node-2
 ```
 
-##### Never co-located in the same node
+##### 同じNodeに共存させない場合
 
-The above example uses `PodAntiAffinity` rule with `topologyKey: "kubernetes.io/hostname"` to deploy the redis cluster so that
-no two instances are located on the same host.
-See [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
-for an example of a StatefulSet configured with anti-affinity for high availability, using the same technique.
+上記の例では `PodAntiAffinity`を`topologyKey: "kubernetes.io/hostname"`と合わせて指定することで、redisクラスタ内の2つのインスタンスが同じホストにデプロイされない場合を扱いました。
+Anti-Affinityを使用した同様の方法で、高可用性を実現したStatefulSetの設定例は[ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)を参照してください。
 
-For more information on inter-pod affinity/anti-affinity, see the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
+Inter-pod affinity/anti-affinityに関する詳細は、[Design Doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
 
-You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
-as well, which allow a *node* to *repel* a set of pods.
+また、Nodeに特定のPodがデプロイされないような指定を行う[Taints](/docs/concepts/configuration/taint-and-toleration/)も確認してください。
 
 ## nodeName
 
-`nodeName` is the simplest form of node selection constraint, but due
-to its limitations it is typically not used.  `nodeName` is a field of
-PodSpec.  If it is non-empty, the scheduler ignores the pod and the
-kubelet running on the named node tries to run the pod.  Thus, if
-`nodeName` is provided in the PodSpec, it takes precedence over the
-above methods for node selection.
+`nodeName`はNodeの選択を制限する最も簡単な方法ですが、制約があることからあまり使用されません。
+`nodeName`はPodSpecのフィールドです。
+ここに値が設定されると、schedulerはPodを無視し、その名前が付与されているNodeのkubeletはPodを稼働させようとします。
+それため、PodSpecに`nodeName`が指定されると、上記のNodeの選択方法よりも優先されます。
 
-Some of the limitations of using `nodeName` to select nodes are:
+ `nodeName`を使用することによる制約は以下の通りです:
 
--   If the named node does not exist, the pod will not be run, and in
-    some cases may be automatically deleted.
--   If the named node does not have the resources to accommodate the
-    pod, the pod will fail and its reason will indicate why,
-    e.g. OutOfmemory or OutOfcpu.
--   Node names in cloud environments are not always predictable or
-    stable.
+-   その名前のNodeが存在しない場合、Podは起動されす、自動的に削除される場合があります。
+-   その名前のNodeにPodを稼働させるためのリソースがない場合、Podの起動は失敗し、理由はOutOfmemoryやOutOfcpuになります。
+-   クラウド上のNodeの名前は予期できず、変更される可能性がある。
 
-Here is an example of a pod config file using the `nodeName` field:
+`nodeName`を指定したPodの設定ファイルの例を示します:
 
 ```yaml
 apiVersion: v1
@@ -377,7 +373,7 @@ spec:
   nodeName: kube-01
 ```
 
-The above pod will run on the node kube-01.
+上記のPodはkube-01という名前のNodeで稼働します。
 
 {{% /capture %}}
 
