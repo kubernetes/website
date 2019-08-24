@@ -59,7 +59,7 @@ servían la especificación OpenAPI en distintos formatos. Estos endpoints se co
 | GET /swagger-2.0.0.pb-v1    | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf                           |
 | GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip |
 
-Kubernetes implementa un formato alternativo de serialización basado en Protobuf diseñado principalmente para las comunicaciones dentro del clúster. Este formato está documentado en su [propuesta de diseño](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) y los archivos IDL de cada esquema se encuentran en los paquetes de Go que definen los objetos de la API.
+Kubernetes implementa un formato alternativo de serialización basado en [Protocol Buffer (_Protobuf_)](https://developers.google.com/protocol-buffers/) diseñado principalmente para las comunicaciones dentro del clúster. Este formato está documentado en su [propuesta de diseño](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) y los archivos IDL de cada esquema se encuentran en los paquetes de Go que definen los objetos de la API.
 
 Antes de 1.14, el `apiserver` de Kubernetes ofrecía una API para obtener la especificación [Swagger v1.2](http://swagger.io/) de la API de Kubernetes en `/swaggerapi`. Este endpoint se considera obsoleto y será removido en Kubernetes 1.14.
 
