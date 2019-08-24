@@ -1,14 +1,12 @@
 ---
-title: Assign Memory Resources to Containers and Pods
+title: コンテナおよびPodへのメモリリソースの割り当て
 content_template: templates/task
 weight: 10
 ---
 
 {{% capture overview %}}
 
-This page shows how to assign a memory *request* and a memory *limit* to a
-Container. A Container is guaranteed to have as much memory as it requests,
-but is not allowed to use more memory than its limit.
+このページでは、メモリの *要求* と *制限* をコンテナに割り当てる方法について示します。コンテナは要求されたメモリを確保することを保証しますが、その制限を超えるメモリの使用は許可されません。
 
 {{% /capture %}}
 
@@ -17,32 +15,26 @@ but is not allowed to use more memory than its limit.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Each node in your cluster must have at least 300 MiB of memory.
+クラスターの各ノードには、少なくとも300MiBのメモリが必要になります。
 
-A few of the steps on this page require you to run the
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you have the metrics-server
-running, you can skip those steps.
+このページのいくつかの手順では、クラスターにて[metrics-server](https://github.com/kubernetes-incubator/metrics-server)サービスを実行する必要があります。すでにmetrics-serverが動作している場合、これらの手順をスキップできます。
 
-If you are running Minikube, run the following command to enable the
-metrics-server:
+Minikubeを動作させている場合、以下のコマンドによりmetrics-serverを有効にできます:
 
 ```shell
 minikube addons enable metrics-server
 ```
 
-To see whether the metrics-server is running, or another provider of the resource metrics
-API (`metrics.k8s.io`), run the following command:
+metrics-serverが実行されているか、もしくはリソースメトリクスAPI (`metrics.k8s.io`) の別のプロバイダが実行されていることを確認するには、以下のコマンドを実行してください:
 
 ```shell
 kubectl get apiservices
 ```
 
-If the resource metrics API is available, the output includes a
-reference to `metrics.k8s.io`.
+リソースメトリクスAPIが利用可能であれば、出力には `metrics.k8s.io` への参照が含まれます。
 
 ```shell
-NAME      
+NAME
 v1beta1.metrics.k8s.io
 ```
 
@@ -50,50 +42,43 @@ v1beta1.metrics.k8s.io
 
 {{% capture steps %}}
 
-## Create a namespace
+## namespaceの作成
 
-Create a namespace so that the resources you create in this exercise are
-isolated from the rest of your cluster.
+この練習で作成するリソースがクラスター内で分離されるよう、namespaceを作成します。
 
 ```shell
 kubectl create namespace mem-example
 ```
 
-## Specify a memory request and a memory limit
+## メモリの要求と制限を指定する
 
-To specify a memory request for a Container, include the `resources:requests` field
-in the Container's resource manifest. To specify a memory limit, include `resources:limits`.
+コンテナにメモリの要求を指定するには、コンテナのリソースマニフェストに`resources:requests`フィールドを追記します。メモリの制限を指定するには、`resources:limits`を追記します。
 
-In this exercise, you create a Pod that has one Container. The Container has a memory
-request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
-for the Pod:
+この練習では、一つのコンテナをもつPodを作成します。コンテナに100MiBのメモリ要求と200MiBのメモリ制限を与えます。Podの設定ファイルは次のようになります:
 
 {{< codenew file="pods/resource/memory-request-limit.yaml" >}}
 
-The `args` section in the configuration file provides arguments for the Container when it starts.
-The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
+設定ファイルの`args`セクションでは、コンテナ起動時の引数を与えます。`"--vm-bytes", "150M"`という引数では、コンテナに150MiBのメモリを割り当てます。
 
-Create the Pod:
+Podを作成してください:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
 ```
 
-Verify that the Pod Container is running:
+Podのコンテナが起動していることを検証してください:
 
 ```shell
 kubectl get pod memory-demo --namespace=mem-example
 ```
 
-View detailed information about the Pod:
+Podの詳細な情報を確認してください:
 
 ```shell
 kubectl get pod memory-demo --output=yaml --namespace=mem-example
 ```
 
-The output shows that the one Container in the Pod has a memory request of 100 MiB
-and a memory limit of 200 MiB.
-
+この出力では、Pod内の一つのコンテナに100MiBのメモリ要求と200MiBのメモリ制限があることを示しています。
 
 ```yaml
 ...
@@ -105,70 +90,61 @@ resources:
 ...
 ```
 
-Run `kubectl top` to fetch the metrics for the pod:
+`kubectl top`を実行し、Podのメトリクスを取得してください:
 
 ```shell
 kubectl top pod memory-demo --namespace=mem-example
 ```
 
-The output shows that the Pod is using about 162,900,000 bytes of memory, which
-is about 150 MiB. This is greater than the Pod's 100 MiB request, but within the
-Pod's 200 MiB limit.
+この出力では、Podが約162,900,000バイト（約150MiB）のメモリを使用していることを示しています。Podの100MiBの要求を超えていますが、200MiBの制限には収まっています。
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
 memory-demo                 <something>  162856960
 ```
 
-Delete your Pod:
+Podを削除してください:
 
 ```shell
 kubectl delete pod memory-demo --namespace=mem-example
 ```
 
-## Exceed a Container's memory limit
+## コンテナのメモリ制限を超える
 
-A Container can exceed its memory request if the Node has memory available. But a Container
-is not allowed to use more than its memory limit. If a Container allocates more memory than
-its limit, the Container becomes a candidate for termination. If the Container continues to
-consume memory beyond its limit, the Container is terminated. If a terminated Container can be
-restarted, the kubelet restarts it, as with any other type of runtime failure.
+ノードに利用可能なメモリがある場合、コンテナはメモリ要求を超えることができます。しかしながら、メモリ制限を超えて使用することは許可されません。コンテナが制限を超えてメモリを確保しようとした場合、そのコンテナは終了候補となります。コンテナが制限を超えてメモリを消費し続ける場合、コンテナは終了されます。終了したコンテナを再起動できる場合、ほかのランタイムの失敗時と同様に、kubeletがコンテナを再起動させます。
 
-In this exercise, you create a Pod that attempts to allocate more memory than its limit.
-Here is the configuration file for a Pod that has one Container with a
-memory request of 50 MiB and a memory limit of 100 MiB:
+この練習では、制限を超えてメモリを確保しようとするPodを作成します。以下に50MiBのメモリ要求と100MiBのメモリ制限を与えたコンテナを持つ、Podの設定ファイルを示します:
 
 {{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
-In the `args` section of the configuration file, you can see that the Container
-will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limit.
+設定ファイルの`args`セクションでは、コンテナに250MiBのメモリを割り当てており、これは100MiBの制限を十分に超えています。
 
-Create the Pod:
+Podを作成してください:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
 ```
 
-View detailed information about the Pod:
+Podの詳細な情報を確認してください:
 
 ```shell
 kubectl get pod memory-demo-2 --namespace=mem-example
 ```
 
-At this point, the Container might be running or killed. Repeat the preceding command until the Container is killed:
+この時点で、コンテナは起動中か強制終了されているでしょう。コンテナが強制終了されるまで上記のコマンドをくり返し実行してください:
 
 ```shell
 NAME            READY     STATUS      RESTARTS   AGE
 memory-demo-2   0/1       OOMKilled   1          24s
 ```
 
-Get a more detailed view of the Container status:
+コンテナステータスの詳細な情報を取得してください:
 
 ```shell
 kubectl get pod memory-demo-2 --output=yaml --namespace=mem-example
 ```
 
-The output shows that the Container was killed because it is out of memory (OOM):
+この出力では、コンテナがメモリ不足 (OOM) により強制終了されたことを示しています。
 
 ```shell
 lastState:
@@ -180,14 +156,13 @@ lastState:
      startedAt: null
 ```
 
-The Container in this exercise can be restarted, so the kubelet restarts it. Repeat
-this command several times to see that the Container is repeatedly killed and restarted:
+この練習のコンテナはkubeletによって再起動されます。次のコマンドを数回くり返し実行し、コンテナが強制終了と再起動を続けていることを確認してください:
 
 ```shell
 kubectl get pod memory-demo-2 --namespace=mem-example
 ```
 
-The output shows that the Container is killed, restarted, killed again, restarted again, and so on:
+この出力では、コンテナが強制終了され、再起動され、再度強制終了および再起動が続いていることを示しています:
 
 ```
 kubectl get pod memory-demo-2 --namespace=mem-example
@@ -201,67 +176,59 @@ NAME            READY     STATUS    RESTARTS   AGE
 memory-demo-2   1/1       Running   2          40s
 ```
 
-View detailed information about the Pod history:
+Podの履歴について詳細な情報を確認してください:
 
 ```
 kubectl describe pod memory-demo-2 --namespace=mem-example
 ```
 
-The output shows that the Container starts and fails repeatedly:
+この出力では、コンテナの開始とその失敗が繰り返されていることを示しています:
 
 ```
 ... Normal  Created   Created container with id 66a3a20aa7980e61be4922780bf9d24d1a1d8b7395c09861225b0eba1b1f8511
 ... Warning BackOff   Back-off restarting failed container
 ```
 
-View detailed information about your cluster's Nodes:
+クラスターのノードの詳細な情報を確認してください:
 
 ```
 kubectl describe nodes
 ```
 
-The output includes a record of the Container being killed because of an out-of-memory condition:
+この出力には、メモリ不足の状態のためコンテナが強制終了された記録が含まれます:
 
 ```
 Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
 ```
 
-Delete your Pod:
+Podを削除してください:
 
 ```shell
 kubectl delete pod memory-demo-2 --namespace=mem-example
 ```
 
-## Specify a memory request that is too big for your Nodes
+## ノードよりも大きいメモリ要求を指定する
 
-Memory requests and limits are associated with Containers, but it is useful to think
-of a Pod as having a memory request and limit. The memory request for the Pod is the
-sum of the memory requests for all the Containers in the Pod. Likewise, the memory
-limit for the Pod is the sum of the limits of all the Containers in the Pod.
+メモリ要求と制限はコンテナと関連づけられていますが、Podにメモリ要求と制限が与えられていると考えるとわかりやすいでしょう。Podのメモリ要求は、Pod内のすべてのコンテナのメモリ要求の合計となります。同様に、Podのメモリ制限は、Pod内のすべてのコンテナのメモリ制限の合計となります。
 
-Pod scheduling is based on requests. A Pod is scheduled to run on a Node only if the Node
-has enough available memory to satisfy the Pod's memory request.
+Podのスケジューリングは要求に基づいています。Podはノード上で動作するうえで、そのメモリ要求に対してノードに十分利用可能なメモリがある場合のみスケジュールされます。
 
-In this exercise, you create a Pod that has a memory request so big that it exceeds the
-capacity of any Node in your cluster. Here is the configuration file for a Pod that has one
-Container with a request for 1000 GiB of memory, which likely exceeds the capacity
-of any Node in your cluster.
+この練習では、クラスター内のノードのキャパシティを超える大きさのメモリ要求を与えたPodを作成します。以下に1000GiBのメモリ要求を与えた一つのコンテナを持つ、Podの設定ファイルを示します。これは、クラスター内のノードのキャパシティを超える可能性があります。
 
 {{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
-Create the Pod:
+Podを作成してください:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
 ```
-
-View the Pod status:
+Podの状態を確認してください:
 
 ```shell
 kubectl get pod memory-demo-3 --namespace=mem-example
 ```
 
-The output shows that the Pod status is PENDING. That is, the Pod is not scheduled to run on any Node, and it will remain in the PENDING state indefinitely:
+この出力では、Podのステータスが待機中であることを示しています。つまり、Podがどのノードに対しても実行するようスケジュールされておらず、いつまでも待機状態のままであることを表しています:
 
 ```
 kubectl get pod memory-demo-3 --namespace=mem-example
@@ -269,13 +236,13 @@ NAME            READY     STATUS    RESTARTS   AGE
 memory-demo-3   0/1       Pending   0          25s
 ```
 
-View detailed information about the Pod, including events:
+イベントを含むPodの詳細な情報を確認してください:
 
 ```shell
 kubectl describe pod memory-demo-3 --namespace=mem-example
 ```
 
-The output shows that the Container cannot be scheduled because of insufficient memory on the Nodes:
+この出力では、ノードのメモリ不足のためコンテナがスケジュールされないことを示しています:
 
 ```shell
 Events:
@@ -284,47 +251,38 @@ Events:
   ...  FailedScheduling  No nodes are available that match all of the following predicates:: Insufficient memory (3).
 ```
 
-## Memory units
+## メモリの単位
 
-The memory resource is measured in bytes. You can express memory as a plain integer or a
-fixed-point integer with one of these suffixes: E, P, T, G, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
-For example, the following represent approximately the same value:
+メモリリソースはバイト単位で示されます。メモリをE、P、T、G、M、K、Ei、Pi、Ti、Gi、Mi、Kiという接尾辞とともに、整数型または固定小数点整数で表現できます。たとえば、以下はおおよそ同じ値を表します:
 
 ```shell
 128974848, 129e6, 129M , 123Mi
 ```
 
-Delete your Pod:
+Podを削除してください:
 
 ```shell
 kubectl delete pod memory-demo-3 --namespace=mem-example
 ```
 
-## If you do not specify a memory limit
+## メモリ制限を指定しない場合
 
-If you do not specify a memory limit for a Container, one of the following situations applies:
+コンテナのメモリ制限を指定しない場合、次のいずれかの状態となります:
 
-* The Container has no upper bound on the amount of memory it uses. The Container
-could use all of the memory available on the Node where it is running which in turn could invoke the OOM Killer. Further, in case of an OOM Kill, a container with no resource limits will have a greater chance of being killed.
+* コンテナのメモリ使用量に上限がない状態となります。コンテナは実行中のノードで利用可能なすべてのメモリを使用でき、その後OOM Killerが呼び出される可能性があります。さらに、OOM killの場合、リソース制限のないコンテナは強制終了される可能性が高くなります。
 
-* The Container is running in a namespace that has a default memory limit, and the
-Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
-to specify a default value for the memory limit.
+* メモリ制限を与えられたnamespaceでコンテナを実行されると、コンテナにはデフォルトの制限値が自動的に指定されます。クラスターの管理者は[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)によってメモリ制限のデフォルト値を指定できます。
 
-## Motivation for memory requests and limits
+## メモリ要求と制限のモチベーション
 
-By configuring memory requests and limits for the Containers that run in your
-cluster, you can make efficient use of the memory resources available on your cluster's
-Nodes. By keeping a Pod's memory request low, you give the Pod a good chance of being
-scheduled. By having a memory limit that is greater than the memory request, you accomplish two things:
+クラスターで動作するコンテナにメモリ要求と制限を設定することで、クラスターのノードで利用可能なメモリリソースを効率的に使用することができます。Podのメモリ要求を低く保つことで、Podがスケジュールされやすくなります。メモリ要求よりも大きい制限を与えることで、次の2つを実現できます:
 
-* The Pod can have bursts of activity where it makes use of memory that happens to be available.
-* The amount of memory a Pod can use during a burst is limited to some reasonable amount.
+* Podは利用可能なメモリを、突発的な活動（バースト）に使用することができます。
+* バースト中のPodのメモリ使用量は、適切な量に制限されます。
 
-## Clean up
+## クリーンアップ
 
-Delete your namespace. This deletes all the Pods that you created for this task:
+namespaceを削除してください。これにより、今回のタスクで作成したすべてのPodが削除されます:
 
 ```shell
 kubectl delete namespace mem-example
@@ -334,27 +292,27 @@ kubectl delete namespace mem-example
 
 {{% capture whatsnext %}}
 
-### For app developers
+### アプリケーション開発者向け
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナとPodにCPUリソースを割り当てる](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [PodのQuality of Serviceを設定する](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-### For cluster administrators
+### クラスター管理者向け
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Namespaceにメモリ要求および制限のデフォルト値を設定する](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [NamespaceにCPU要求および制限のデフォルト値を設定する](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Namespaceに最小および最大メモリ量の制約を設定する](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [Namespaceに最小および最大のCPU使用量の制約を設定する](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [NamespaceにメモリおよびCPUのクォータを設定する](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [NamespaceにPodのクォータを設定する](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [APIオブジェクトのクォータを設定する](/docs/tasks/administer-cluster/quota-api-object/)
 
 {{% /capture %}}
 
