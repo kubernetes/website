@@ -65,7 +65,7 @@ Antes de 1.14, el `apiserver` de Kubernetes ofrecía una API para obtener la esp
 
 ## Versionado de la API
 
-Para facilitar la remoción de propiedades o reestructurar la representación de un recurso, Kubernetes soporta múltiples versiones de la API en distintas rutas como `/api/v1` or `/apis/extensions/v1beta1`.
+Para facilitar la eliminación de propiedades o reestructurar la representación de un recurso, Kubernetes soporta múltiples versiones de la API en distintas rutas como `/api/v1` or `/apis/extensions/v1beta1`.
 
 Elegimos versionar a nivel de la API en vez de a nivel de los recursos o propiedades para asegurarnos de que la API presenta una visión clara y consistente de los recursos y el comportamiento del sistema, y para controlar el acceso a las APIs experimentales o que estén terminando su ciclo de vida. Los esquemas de serialización JSON y Protobuf siguen los mismos lineamientos para los cambios, es decir, estas descripciones cubren ambos formatos.
 
