@@ -14,6 +14,7 @@ Namun, fungsionalitas bawaan dari mesin kontainer atau _runtime_ biasanya tidak 
 
 {{% /capture %}}
 
+
 {{% capture body %}}
 
 Arsitektur _cluster-level-logging_ yang akan dijelaskan berikut mengasumsikan bahwa sebuah _logging backend_ telah tersedia baik di dalam maupun di luar klustermu. Meskipun kamu tidak tertarik menggunakan _cluster-level-logging_, penjelasan tentang bagaimana log disimpan dan ditangani pada _node_ di bawah ini mungkin dapat berguna untukmu.
