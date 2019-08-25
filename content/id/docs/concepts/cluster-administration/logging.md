@@ -2,7 +2,7 @@
 reviewers:
 - piosz
 - x13n
-title: Arsitektur _Logging_
+title: Arsitektur Logging
 content_template: templates/concept
 weight: 60
 ---
