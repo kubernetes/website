@@ -4,28 +4,26 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to enable and configure autoscaling of the DNS service in a
-Kubernetes cluster.
+This page shows how to enable and configure autoscaling of the DNS service in
+your Kubernetes cluster.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* This guide assumes your nodes use the AMD64 or Intel 64 CPU architecture
+* This guide assumes your nodes use the AMD64 or Intel 64 CPU architecture.
 
-* Make sure the [DNS feature](/docs/concepts/services-networking/dns-pod-service/) itself is enabled.
-
-* Kubernetes version 1.4.0 or later is recommended.
+* Make sure [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) is enabled.
 
 {{% /capture %}}
 
 {{% capture steps %}}
 
-## Determining whether DNS horizontal autoscaling is already enabled
+## Determine whether DNS horizontal autoscaling is already enabled {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
 
 List the {{< glossary_tooltip text="Deployments" term_id="deployment" >}}
-in your cluster in the kube-system namespace:
+in your cluster in the kube-system {{< glossary_tooltip text="namespace" term_id="namespace" >}}:
 
 ```shell
 kubectl get deployment --namespace=kube-system
@@ -42,12 +40,12 @@ If you see "dns-autoscaler" in the output, DNS horizontal autoscaling is
 already enabled, and you can skip to
 [Tuning autoscaling parameters](#tuning-autoscaling-parameters).
 
-## Getting the name of your DNS Deployment or ReplicationController
+## Get the name of your DNS Deployment {#find-scaling-target}
 
-List the Deployments in your cluster in the kube-system namespace:
+List the DNS deployments in your cluster in the kube-system namespace:
 
 ```shell
-kubectl get deployment --namespace=kube-system
+kubectl get deployment -l k8s-app=kube-dns --namespace=kube-system
 ```
 
 The output is similar to this:
@@ -57,45 +55,31 @@ The output is similar to this:
     coredns      2         2         2            2           ...
     ...
 
-
-In Kubernetes versions earlier than 1.12, the DNS Deployment was called "kube-dns".
-
-In Kubernetes versions earlier than 1.5 DNS was implemented using a
-ReplicationController instead of a Deployment. So if you don't see kube-dns,
-or a similar name, in the preceding output, list the ReplicationControllers in
-your cluster in the kube-system namespace:
+If you don't see a Deployment for DNS services, you can also look for it by name:
 
 ```shell
-kubectl get rc --namespace=kube-system
+kubectl get deployment --namespace=kube-system
 ```
 
-The output is similar to this:
+and look for a deployment named `coredns` or `kube-dns`.
 
-    NAME            DESIRED   CURRENT   READY     AGE
-    ...
-    kube-dns-v20    1         1         1         ...
-    ...
 
-## Determining your scale target
-
-If you have a DNS Deployment, your scale target is:
+Your scale target is
 
     Deployment/<your-deployment-name>
 
 where `<your-deployment-name>` is the name of your DNS Deployment. For example, if
-your DNS Deployment name is coredns, your scale target is Deployment/coredns.
+the name of your Deployment for DNS is coredns, your scale target is Deployment/coredns.
 
-If you have a DNS ReplicationController, your scale target is:
+{{< note >}}
+CoreDNS is the default DNS service for Kubernetes. CoreDNS sets the label
+`k8s-app=kube-dns` so that it can work in clusters that originally used
+kube-dns.
+{{< /note >}}
 
-    ReplicationController/<your-rc-name>
+## Enable DNS horizontal autoscaling {#enablng-dns-horizontal-autoscaling}
 
-where `<your-rc-name>` is the name of your DNS ReplicationController. For example,
-if your DNS ReplicationController name is kube-dns-v20, your scale target is
-ReplicationController/kube-dns-v20.
-
-## Enabling DNS horizontal autoscaling
-
-In this section, you create a Deployment. The Pods in the Deployment run a
+In this section, you create a new Deployment. The Pods in the Deployment run a
 container based on the `cluster-proportional-autoscaler-amd64` image.
 
 Create a file named `dns-horizontal-autoscaler.yaml` with this content:
@@ -117,7 +101,7 @@ The output of a successful command is:
 
 DNS horizontal autoscaling is now enabled.
 
-## Tuning autoscaling parameters
+## Tune DNS autoscaling parameters {#tuning-autoscaling-parameters}
 
 Verify that the dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} exists:
 
@@ -148,7 +132,7 @@ Modify the fields according to your needs. The "min" field indicates the
 minimal number of DNS backends. The actual number of backends number is
 calculated using this equation:
 
-    replicas = max( ceil( cores * 1/coresPerReplica ) , ceil( nodes * 1/nodesPerReplica ) )
+    replicas = max( ceil( cores × 1/coresPerReplica ) , ceil( nodes × 1/nodesPerReplica ) )
 
 Note that the values of both `coresPerReplica` and `nodesPerReplica` are
 integers.
@@ -242,22 +226,10 @@ the autoscaler Pod.
 * The autoscaler provides a controller interface to support two control
 patterns: *linear* and *ladder*.
 
-## Future enhancements
-
-Control patterns, in addition to linear and ladder, that consider custom metrics
-are under consideration as a future development.
-
-Scaling of DNS backends based on DNS-specific metrics is under consideration as
-a future development. The current implementation, which uses the number of nodes
-and cores in cluster, is limited.
-
-Support for custom metrics, similar to that provided by
-[Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/),
-is under consideration as a future development.
-
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+* Read about [Guaranteed Scheduling For Critical Add-On Pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 * Learn more about the
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 {{% /capture %}}
