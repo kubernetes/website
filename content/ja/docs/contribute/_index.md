@@ -1,7 +1,7 @@
 ---
 content_template: templates/concept
 title: ドキュメントに貢献する
-linktitle: コントリビュート
+linktitle: 貢献
 main_menu: true
 weight: 80
 ---
