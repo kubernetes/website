@@ -187,7 +187,7 @@ apt-get install cri-o-1.13
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
 # 선행 조건 설치
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-311-candidate/x86_64/os/
+yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
 
 # CRI-O 설치
 yum install --nogpgcheck cri-o
