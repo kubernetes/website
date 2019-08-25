@@ -12,11 +12,9 @@ weight: 30
 {{% capture overview %}}
 
 [Pod](/docs/concepts/workloads/pods/pod/)が稼働する[Node](/docs/concepts/architecture/nodes/)を特定のものに指定したり、優先条件を指定して制限することができます。
-これを実現するためにはいくつかの方法がありますが、推奨されている方法は[label selectors](/docs/concepts/overview/working-with-objects/labels/)です。
-スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
-SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な設定が必要なこともあります。
-
-これらの例は[こちら](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/)で確認することができます。
+これを実現するためにはいくつかの方法がありますが、推奨されている方法は[ラベルでの選択](/docs/concepts/overview/working-with-objects/labels/)です。
+スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、複数のPodを別々のNodeへデプロイしたり、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
+SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な制御が必要なこともあります。
 
 {{% /capture %}}
 
@@ -24,7 +22,7 @@ SSDが搭載されているNodeにPodをデプロイしたり、同じアベイ�
 
 ## nodeSelector
 
-`nodeSelector`は、Nodeを選択するための最も簡単で推奨されている方法です。
+`nodeSelector`は、Nodeを選択するための、最も簡単で推奨されている手法です。
 `nodeSelector`はPodSpecのフィールドです。これはkey-valueペアのマップを特定します。
 あるノードでPodを稼働させるためには、そのノードがラベルとして指定されたkey-valueペアを保持している必要があります(複数のラベルを保持することも可能です)。
 最も一般的な使用方法は、1つのkey-valueペアを付与する方法です。
@@ -33,25 +31,21 @@ SSDが搭載されているNodeにPodをデプロイしたり、同じアベイ�
 
 ### ステップ0: 前提条件
 
-この例は、KubernetesのPodに関して基本的な知識を有していることと、[Kubernetesクラスターを操作](https://github.com/kubernetes/kubernetes#documentation)したことがあることを前提としています。
+この例では、KubernetesのPodに関して基本的な知識を有していることと、[Kubernetesクラスターのセットアップ](https://github.com/kubernetes/kubernetes#documentation)がされていることが前提となっています。
 
-### スッテプ1: Nodeへのラベルの付与
+### ステップ1: Nodeへのラベルの付与
 
-`kubectl get nodes`コマンドで、クラスタのノードの名前を取得してください。
-そして、ラベルを付与するNodeを選び、`kubectl label nodes <node-name> <label-key>=<label-value>`コマンドで選択したNodeにラベルを付与します。
-例えば、Nodeの名前が'kubernetes-foo-node-1.c.a-robinson.internal'、付与するラベルが'disktype=ssd'の場合、`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`コマンドによってラベルが付与されます。
+`kubectl get nodes`で、クラスタのノードの名前を取得してください。
+そして、ラベルを付与するNodeを選び、`kubectl label nodes <node-name> <label-key>=<label-value>`で選択したNodeにラベルを付与します。
+例えば、Nodeの名前が'kubernetes-foo-node-1.c.a-robinson.internal'、付与するラベルが'disktype=ssd'の場合、`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`によってラベルが付与されます。
 
-<!-- 該当箇所なし -->
-"invalid command"エラーによって失敗した場合には、`label`コマンドに対応していない古いバージョンのkubectlを使用している可能性があります。
-その場合は、ガイドの[previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md)から、手動でNodeにラベルを付与する手順を参照してください。
+`kubectl get nodes --show-labels`によって、ノードにラベルが付与されたかを確認することができます。
+また、`kubectl describe node "nodename"`から、そのNodeの全てのラベルを表示することもできます。
 
-`kubectl get nodes --show-labels`コマンドによって、ノードにラベルが付与されたかを確認することができます。
-また、`kubectl describe node "nodename"`コマンドから、そのNodeの全てのラベルを表示することもできます。
+### ステップ2: PodへのnodeSelectorフィールドの追加
 
-### ステップ2: PodへのnodeSelectorフィールドの付与
-
-該当のPodのconfigファイルに、nodeSelectorのセクションを追加します。
-例として以下のconfigファイルを扱います。
+該当のPodのconfigファイルに、nodeSelectorのセクションを追加します:
+例として以下のconfigファイルを扱います:
 
 ```yaml
 apiVersion: v1
@@ -70,14 +64,13 @@ nodeSelectorを以下のように追加します:
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
-`kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`コマンドにより、Podは先ほどラベルを付与したNodeへスケジュールされます。
-`kubectl get pods -o wide`コマンドで表示される"NODE"の列からPodがデプロイされているNodeを確認することができます。
+`kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`により、Podは先ほどラベルを付与したNodeへスケジュールされます。
+`kubectl get pods -o wide`で表示される"NODE"の列から、PodがデプロイされているNodeを確認することができます。
 
 ## 補足: ビルトインNodeラベル
-<!-- Interlude -->
 
 明示的に[付与](#step-one-attach-label-to-the-node)するラベルの他に、事前にNodeへ付与されているものもあります。
-Kubernetes v1.4 の時点では、以下のようなラベルが該当します。
+以下のようなラベルが該当します。
 
 * `kubernetes.io/hostname`
 * `failure-domain.beta.kubernetes.io/zone`
@@ -88,8 +81,10 @@ Kubernetes v1.4 の時点では、以下のようなラベルが該当します�
 
 {{< note >}}
 これらのラベルは、クラウドプロバイダ固有であり、確実なものではありません。
-例えば、`kubernetes.io/hostname`の値はNodeの名前と同じである環境もあれば、異なる環境もあります。
+例えば、`kubernetes.io/hostname`のバリューはNodeの名前と同じである環境もあれば、異なる環境もあります。
 {{< /note >}}
+
+<!-- here -->
 
 ## Nodeの隔離や制限
 <!-- 難しい -->
