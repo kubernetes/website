@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-Deux hooks sont exposés aux conteneurs : PostStart qui s'exécute immédiatement après la création d'un conteneur et PreStop qui se bloque et est appelé immédiatement avant qu'un conteneur soit clôturé.
+Deux hooks sont exposés aux conteneurs : PostStart qui s'exécute immédiatement après la création d'un conteneur et PreStop qui est appelé immédiatement avant qu'un conteneur soit clôturé.
