@@ -26,7 +26,7 @@ weight: 50
 ## Podのボリュームを構成する
 
 この演習では、1つのコンテナを実行するPodを作成します。
-このPodには、コンテナが終了して再起動した場合でも、Podの寿命が続く[emptyDir](/docs/concepts/storage/volumes/#emptydir)タイプのボリュームがあります。
+今回作成するPodには、コンテナが終了して再起動した場合でもPodの寿命が続く[emptyDir](/docs/concepts/storage/volumes/#emptydir)タイプのボリュームがあります。
 これがPodの設定ファイルです:
 
 {{< codenew file="pods/storage/redis.yaml" >}}
