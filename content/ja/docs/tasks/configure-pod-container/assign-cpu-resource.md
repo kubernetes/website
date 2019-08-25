@@ -1,15 +1,12 @@
 ---
-title: Assign CPU Resources to Containers and Pods
+title: コンテナおよびPodへのCPUリソースの割り当て
 content_template: templates/task
 weight: 20
 ---
 
 {{% capture overview %}}
 
-This page shows how to assign a CPU *request* and a CPU *limit* to
-a container. Containers cannot use more CPU than the configured limit.
-Provided the system has CPU time free, a container is guaranteed to be
-allocated as much CPU as it requests.
+このページでは、CPUの *要求* と *制限* をコンテナに割り当てる方法について示します。コンテナは設定された制限を超えてCPUを使用することはできません。システムにCPUの空き時間がある場合、コンテナには要求されたCPUを割り当てられます。
 
 {{% /capture %}}
 
@@ -18,30 +15,23 @@ allocated as much CPU as it requests.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Each node in your cluster must have at least 1 CPU.
+クラスターの各ノードには、少なくとも1つ以上のCPUが必要になります。
 
-A few of the steps on this page require you to run the
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you have the metrics-server
-running, you can skip those steps.
+このページのいくつかの手順では、クラスターにて[metrics-server](https://github.com/kubernetes-incubator/metrics-server)サービスを実行する必要があります。すでにmetrics-serverが動作している場合、これらの手順をスキップできます。
 
-If you are running {{< glossary_tooltip term_id="minikube" >}}, run the
-following command to enable metrics-server:
+{{< glossary_tooltip term_id="minikube" >}}を動作させている場合、以下のコマンドによりmetrics-serverを有効にできます:
 
 ```shell
 minikube addons enable metrics-server
 ```
 
-To see whether metrics-server (or another provider of the resource metrics
-API, `metrics.k8s.io`) is running, type the following command:
+metrics-serverが実行されているか、もしくはリソースメトリクスAPI (`metrics.k8s.io`) の別のプロバイダが実行されていることを確認するには、以下のコマンドを実行してください:
 
 ```shell
 kubectl get apiservices
 ```
 
-If the resource metrics API is available, the output will include a
-reference to `metrics.k8s.io`.
-
+リソースメトリクスAPIが利用可能であれば、出力には `metrics.k8s.io` への参照が含まれます。
 
 ```
 NAME
@@ -53,48 +43,43 @@ v1beta1.metrics.k8s.io
 
 {{% capture steps %}}
 
-## Create a namespace
+## namespaceの作成
 
-Create a {{< glossary_tooltip term_id="namespace" >}} so that the resources you
-create in this exercise are isolated from the rest of your cluster.
+この練習で作成するリソースがクラスター内で分離されるよう、{{< glossary_tooltip term_id="namespace" >}}を作成します。
 
 ```shell
 kubectl create namespace cpu-example
 ```
 
-## Specify a CPU request and a CPU limit
+## CPUの要求と制限を指定する
 
-To specify a CPU request for a container, include the `resources:requests` field
-in the Container resource manifest. To specify a CPU limit, include `resources:limits`.
+コンテナにCPUの要求を指定するには、コンテナのリソースマニフェストに`resources:requests`フィールドを追記します。CPUの制限を指定するには、`resources:limits`を追記します。
 
-In this exercise, you create a Pod that has one container. The container has a request
-of 0.5 CPU and a limit of 1 CPU. Here is the configuration file for the Pod:
+この練習では、一つのコンテナをもつPodを作成します。コンテナに0.5 CPUの要求と1 CPUの制限を与えます。Podの設定ファイルは次のようになります:
 
 {{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
 
-The `args` section of the configuration file provides arguments for the container when it starts.
-The `-cpus "2"` argument tells the Container to attempt to use 2 CPUs.
+設定ファイルの`args`セクションでは、コンテナ起動時の引数を与えます。`-cpus "2"`という引数では、コンテナに2 CPUを割り当てます。
 
-Create the Pod:
+Podを作成してください:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
 ```
 
-Verify that the Pod is running:
+Podのコンテナが起動していることを検証してください:
 
 ```shell
 kubectl get pod cpu-demo --namespace=cpu-example
 ```
 
-View detailed information about the Pod:
+Podの詳細な情報を確認してください:
 
 ```shell
 kubectl get pod cpu-demo --output=yaml --namespace=cpu-example
 ```
 
-The output shows that the one container in the Pod has a CPU request of 500 milliCPU
-and a CPU limit of 1 CPU.
+この出力では、Pod内の一つのコンテナに500ミリCPUの要求と1 CPUの制限があることを示しています。
 
 ```yaml
 resources:
@@ -104,83 +89,67 @@ resources:
     cpu: 500m
 ```
 
-Use `kubectl top` to fetch the metrics for the pod:
+`kubectl top`を実行し、Podのメトリクスを取得してください:
 
 ```shell
 kubectl top pod cpu-demo --namespace=cpu-example
 ```
 
-This example output shows that the Pod is using 974 milliCPU, which is
-just a bit less than the limit of 1 CPU specified in the Pod configuration.
+この出力では、Podが974ミリCPUを使用していることを示しています。Podの設定で指定した1 CPUの制限よりわずかに小さい値です。
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
 cpu-demo                    974m         <something>
 ```
 
-Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 CPUs, but the Container is only being allowed to use about 1 CPU. The container's CPU use is being throttled, because the container is attempting to use more CPU resources than its limit.
+`-cpu "2"`を設定することで、コンテナが2 CPU利用しようとすることを思い出してください。しかしながら、コンテナは約1 CPUしか使用することができません。コンテナが制限よりも多くのCPUリソースを利用しようとしているため、コンテナのCPUの利用が抑制されています。
 
 {{< note >}}
-Another possible explanation for the CPU use being below 1.0 is that the Node might not have
-enough CPU resources available. Recall that the prerequisites for this exercise require each of
-your Nodes to have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
-cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
+CPUの使用量が1.0未満である理由の可能性して、ノードに利用可能なCPUリソースが十分にないことが挙げられます。この練習における必要条件として、各ノードに少なくとも1 CPUが必要であることを思い出してください。1 CPUのノード上でコンテナを実行させる場合、指定したコンテナのCPU制限にかかわらず、コンテナは1 CPU以上使用することはできません。
 {{< /note >}}
 
-## CPU units
+## CPUの単位
 
-The CPU resource is measured in *CPU* units. One CPU, in Kubernetes, is equivalent to:
+CPUリソースは *CPU* の単位で示されます。Kubernetesにおいて1つのCPUは次に等しくなります:
 
 * 1 AWS vCPU
-* 1 GCP Core
+* 1 GCPコア
 * 1 Azure vCore
-* 1 Hyperthread on a bare-metal Intel processor with Hyperthreading
+* ハイパースレッディングを使用するベアメタルIntelプロセッサーの1ハイパースレッド
 
-Fractional values are allowed. A Container that requests 0.5 CPU is guaranteed half as much
-CPU as a Container that requests 1 CPU. You can use the suffix m to mean milli. For example
-100m CPU, 100 milliCPU, and 0.1 CPU are all the same. Precision finer than 1m is not allowed.
+小数値も利用可能です。0.5 CPUを要求するコンテナには、1 CPUを要求するコンテナの半分のCPUが与えられます。mというミリを表す接尾辞も使用できます。たとえば、100m CPU、100 milliCPU、0.1 CPUはすべて同じです。1m以上の精度は指定できません。
 
-CPU is always requested as an absolute quantity, never as a relative quantity; 0.1 is the same
-amount of CPU on a single-core, dual-core, or 48-core machine.
+CPUはつねに絶対量として要求され、決して相対量としては要求されません。0.1はシングルコア、デュアルコア、48コアCPUのマシンで同じ量となります。
 
-Delete your Pod:
+Podを削除してください:
 
 ```shell
 kubectl delete pod cpu-demo --namespace=cpu-example
 ```
 
-## Specify a CPU request that is too big for your Nodes
+## ノードよりも大きいCPU要求を指定する
 
-CPU requests and limits are associated with Containers, but it is useful to think
-of a Pod as having a CPU request and limit. The CPU request for a Pod is the sum
-of the CPU requests for all the Containers in the Pod. Likewise, the CPU limit for
-a Pod is the sum of the CPU limits for all the Containers in the Pod.
+CPU要求と制限はコンテナと関連づけられていますが、PodにCPU要求と制限が与えられていると考えるとわかりやすいでしょう。PodのCPU要求は、Pod内のすべてのコンテナのCPU要求の合計となります。同様に、PodのCPU制限は、Pod内のすべてのコンテナのCPU制限の合計となります。
 
-Pod scheduling is based on requests. A Pod is scheduled to run on a Node only if
-the Node has enough CPU resources available to satisfy the Pod CPU request.
+Podのスケジューリングは要求に基づいています。Podはノード上で動作するうえで、そのCPU要求に対してノードに十分利用可能なCPUリソースがある場合のみスケジュールされます。
 
-In this exercise, you create a Pod that has a CPU request so big that it exceeds
-the capacity of any Node in your cluster. Here is the configuration file for a Pod
-that has one Container. The Container requests 100 CPU, which is likely to exceed the
-capacity of any Node in your cluster.
+この練習では、クラスター内のノードのキャパシティを超える大きさのCPU要求を与えたPodを作成します。以下に100 CPUの要求を与えた一つのコンテナを持つ、Podの設定ファイルを示します。これは、クラスター内のノードのキャパシティを超える可能性があります。
 
 {{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
 
-Create the Pod:
+Podを作成してください:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit-2.yaml --namespace=cpu-example
 ```
 
-View the Pod status:
+Podの状態を確認してください:
 
 ```shell
 kubectl get pod cpu-demo-2 --namespace=cpu-example
 ```
 
-The output shows that the Pod status is Pending. That is, the Pod has not been
-scheduled to run on any Node, and it will remain in the Pending state indefinitely:
-
+この出力では、Podのステータスが待機中であることを示しています。つまり、Podがどのノードに対しても実行するようスケジュールされておらず、いつまでも待機状態のままであることを表しています:
 
 ```shell
 kubectl get pod cpu-demo-2 --namespace=cpu-example
@@ -190,15 +159,15 @@ NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m
 ```
 
-View detailed information about the Pod, including events:
+イベントを含むPodの詳細な情報を確認してください:
 
 
 ```shell
 kubectl describe pod cpu-demo-2 --namespace=cpu-example
 ```
 
-The output shows that the Container cannot be scheduled because of insufficient
-CPU resources on the Nodes:
+
+この出力では、ノードのCPU不足のためコンテナがスケジュールされないことを示しています:
 
 
 ```
@@ -208,37 +177,31 @@ Events:
   FailedScheduling      No nodes are available that match all of the following predicates:: Insufficient cpu (3).
 ```
 
-Delete your Pod:
+Podを削除してください:
 
 ```shell
 kubectl delete pod cpu-demo-2 --namespace=cpu-example
 ```
 
-## If you do not specify a CPU limit
+## CPU制限を指定しない場合
 
-If you do not specify a CPU limit for a Container, then one of these situations applies:
+コンテナのCPU制限を指定しない場合、次のいずれかの状態となります:
 
-* The Container has no upper bound on the CPU resources it can use. The Container
-could use all of the CPU resources available on the Node where it is running.
+* コンテナのCPUリソースの使用量に上限がない状態となります。コンテナは実行中のノードで利用可能なすべてのCPUを使用できます。
 
-* The Container is running in a namespace that has a default CPU limit, and the
-Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
-to specify a default value for the CPU limit.
+* CPU制限を与えられたnamespaceでコンテナを実行されると、コンテナにはデフォルトの制限値が自動的に指定されます。クラスターの管理者は[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)によってCPU制限のデフォルト値を指定できます。
 
-## Motivation for CPU requests and limits
+## CPU要求と制限のモチベーション
 
-By configuring the CPU requests and limits of the Containers that run in your
-cluster, you can make efficient use of the CPU resources available on your cluster
-Nodes. By keeping a Pod CPU request low, you give the Pod a good chance of being
-scheduled. By having a CPU limit that is greater than the CPU request, you accomplish two things:
+クラスターで動作するコンテナにCPU要求と制限を設定することで、クラスターのノードで利用可能なCPUリソースを効率的に使用することができます。PodのCPU要求を低く保つことで、Podがスケジュールされやすくなります。CPU要求よりも大きい制限を与えることで、次の2つを実現できます:
 
-* The Pod can have bursts of activity where it makes use of CPU resources that happen to be available.
-* The amount of CPU resources a Pod can use during a burst is limited to some reasonable amount.
+* Podは利用可能なCPUリソースを、突発的な活動（バースト）に使用することができます。
+* バースト中のPodのCPUリソース量は、適切な量に制限されます。
 
-## Clean up
 
-Delete your namespace:
+## クリーンアップ
+
+namespaceを削除してください:
 
 ```shell
 kubectl delete namespace cpu-example
@@ -249,26 +212,26 @@ kubectl delete namespace cpu-example
 {{% capture whatsnext %}}
 
 
-### For app developers
+### アプリケーション開発者向け
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナとPodにメモリーリソースを割り当てる](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [PodのQuality of Serviceを設定する](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-### For cluster administrators
+### クラスター管理者向け
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Namespaceにメモリー要求および制限のデフォルト値を設定する](/docs/tasks/administer-cluster/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [NamespaceにCPU要求および制限のデフォルト値を設定する](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Namespaceに最小および最大メモリー量の制約を設定する](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [Namespaceに最小および最大のCPU使用量の制約を設定する](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [NamespaceにメモリーおよびCPUのクォータを設定する](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [NamespaceにPodのクォータを設定する](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [APIオブジェクトのクォータを設定する](/docs/tasks/administer-cluster/quota-api-object/)
 
 {{% /capture %}}
