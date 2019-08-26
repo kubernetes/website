@@ -7,7 +7,7 @@ weight: 40
 
 {{% capture overview %}}
 
-コンセプトセクションでは、Kubernetesシステムの各パーツと、Kubernetesがクラスターを表現するために使用する抽象について学びます。これはKubernetesの仕組みをより深く理解する助けとなります。
+本セクションは、Kubernetesシステムの各パートと、クラスターを表現するためにKubernetesが使用する抽象概念について学習し、Kubernetesの仕組みをより深く理解するのに役立ちます。
 
 {{% /capture %}}
 
