@@ -22,7 +22,7 @@ Kubernetesを機能させるには、*Kubernetes API オブジェクト* を使�
 * **Kubernetes Master** :[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/)、[kube-scheduler](/docs/admin/kube-scheduler/) の3プロセスの集合です。これらのプロセスはクラスター内の一つのノード上で実行されます。実行ノードはマスターノードとして指定します。
 * クラスター内の個々の非Master Nodeは、それぞれ2つのプロセスを実行します。
   * **[kubelet](/docs/admin/kubelet/)**, Kubernetes Masterと通信します。
-  * **[kube-proxy](/docs/admin/kube-proxy/)**, 各NodeのKubernetesネットワークサービスを反映するネットワークプロキシです。
+  * **[kube-proxy](/docs/admin/kube-proxy/)**, 各ノードのKubernetesネットワークサービスを反映するネットワークプロキシです。
 
 ## Kubernetesオブジェクト
 
