@@ -51,7 +51,7 @@ Kubernetesマスターや kubeletプロセスといったKubernetesコントロ�
 
 ### Kubernetes Master
 
-Kubernetes Masterには、クラスターの望ましい状態を維持する責任があります。`kubectl` コマンドラインインターフェイスを使用するなどしてKubernetesとやり取りするとき、実際にはクラスターのKubernetes Masterと通信しています。
+Kubernetes Masterには、クラスターの望ましい状態を維持する責務を持ちます。`kubectl` コマンドラインインターフェイスを使用するなどしてKubernetesとやり取りするとき、実際にはクラスターのKubernetes Masterと通信しています。
 
 「マスター」とは、クラスター状態を管理するプロセスの集合を指します。通常これらのプロセスは、すべてクラスター内の単一ノードで実行されます。このノードはマスターとも呼ばれます。マスターは、可用性と冗長性のために複製することもできます。
 
