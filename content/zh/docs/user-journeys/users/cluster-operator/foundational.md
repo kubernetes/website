@@ -105,7 +105,7 @@ Kubernetes 文档中的许多文章都涵盖了这些资源。
 * [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/)
   * [Namespaces Walkthrough](/docs/tasks/administer-cluster/namespaces-walkthrough/)
 * [Services](/docs/concepts/services-networking/service/)
-* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+* [注解](/docs/concepts/overview/working-with-objects/annotations/)
 * [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 * [Secrets](/docs/concepts/configuration/secret/)
 -->
@@ -114,7 +114,7 @@ Kubernetes 文档中的许多文章都涵盖了这些资源。
   * [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/)
   * [Deployments](/docs/concepts/workloads/controllers/deployment/)
   * [垃圾收集](/docs/concepts/workloads/controllers/garbage-collection/)
-  * [容器图片](/docs/concepts/containers/images/)
+  * [容器镜像](/docs/concepts/containers/images/)
   * [容器环境变量](/docs/concepts/containers/container-environment-variables/)
 * [标签和选择器](/docs/concepts/overview/working-with-objects/labels/)
 * [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/)
