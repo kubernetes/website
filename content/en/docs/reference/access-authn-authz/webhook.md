@@ -108,7 +108,13 @@ the request and respond to either allow or disallow access. The response body's
 }
 ```
 
-To disallow access, the remote service would return:
+For disallowing access there are two methods.
+
+The first method is preferred in most cases, and indicates the authorization
+webhook does not allow, or has "no opinion" about the request, but if other 
+authorizers are configured, they are given a chance to allow the request. 
+If there are no other authorizers, or none of them allow the request, the 
+request is forbidden. The webhook would return:
 
 ```json
 {
@@ -116,6 +122,23 @@ To disallow access, the remote service would return:
   "kind": "SubjectAccessReview",
   "status": {
     "allowed": false,
+    "reason": "user does not have read access to the namespace"
+  }
+}
+```
+
+The second method denies immediately, short-circuiting evaluation by other 
+configured authorizers. This should only be used by webhooks that have 
+detailed knowledge of the full authorizer configuration of the cluster. 
+The webhook would return:
+
+```json
+{
+  "apiVersion": "authorization.k8s.io/v1beta1",
+  "kind": "SubjectAccessReview",
+  "status": {
+    "allowed": false,
+    "denied": true,
     "reason": "user does not have read access to the namespace"
   }
 }
