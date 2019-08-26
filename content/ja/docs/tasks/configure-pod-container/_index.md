@@ -1,5 +1,5 @@
 ---
-title: "Configure Pods and Containers"
+title: "コンテナおよびPodへのメモリリソースの割り当て"
 weight: 20
 ---
 
