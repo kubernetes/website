@@ -59,7 +59,9 @@ volumeBindingMode: Immediate
 
 ### Default Storage Class
 
-Typically, each Kubernetes cluster should have a default storage class defined, which would be used by the user who make a storage request without implicitly specifying a StorageClass in his/her PersistentVolumeClaim.  This is useful for Administrators to provide easy management of a storage volume without having to set up or communicate specialized storage classes across the cluster.
+Typically, each Kubernetes cluster should have a default storage class defined, which would be used by the user who make a storage request without implicitly specifying a StorageClass in his/her PersistentVolumeClaim.  Kubernetes clusters on different cloud providers may already have default storageclasses defined.  By having a default storage classs defined, this allows users to request storage through a PersistentVolumeClaim without explicitly setting a StorageClassName.
+
+There can only be one default storage class in the cluster.  Dynamic provisioning will fail if there are multiple default storage classes set.
 
 Refer to [Change Default Storage Class](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) on how to set the default storage class.
 
@@ -671,7 +673,3 @@ specified by the `WaitForFirstConsumer` volume binding mode.
 Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
-
-### Note
-
-You should only have one default storage class in your cluster at any given time. Kubernetes does not technically prevent you from having more than one storage class; however, requests for persistent volume claims will fail when there are multiple default storage classes.
