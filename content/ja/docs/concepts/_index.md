@@ -20,7 +20,7 @@ Kubernetesを機能させるには、*Kubernetes API オブジェクト* を使�
 一旦desired state (望ましい状態)を設定すると、*Kubernetes コントロールプレーン* が働き、クラスターの現在の状態をdesired state (望ましい状態)に一致させます。そのためにKubernetesはさまざまなタスク(たとえば、コンテナの起動または再起動、特定アプリケーションのレプリカ数のスケーリング等)を自動的に実行します。Kubernetesコントロールプレーンは、クラスターで実行されている以下のプロセスで構成されています。
 
 * **Kubernetes Master** :[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/)、[kube-scheduler](/docs/admin/kube-scheduler/) の3プロセスの集合です。これらのプロセスはクラスター内の一つのノード上で実行されます。実行ノードはマスターノードとして指定します。
-* クラスター内の個々の非Master Nodeは、それぞれ2つのプロセスを実行します。
+* クラスター内の個々の非マスターノードは、それぞれ2つのプロセスを実行します。
   * **[kubelet](/docs/admin/kubelet/)**, Kubernetes Masterと通信します。
   * **[kube-proxy](/docs/admin/kube-proxy/)**, 各ノードのKubernetesネットワークサービスを反映するネットワークプロキシです。
 
