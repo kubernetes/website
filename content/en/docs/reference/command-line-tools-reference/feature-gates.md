@@ -74,6 +74,7 @@ different Kubernetes components.
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | |
 | `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
 | `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | |
 | `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.11 |
@@ -266,6 +267,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
+- `CustomResourceDefaulting`: Enable CRD support for default values in OpenAPI v3 validation schemas.
 - `CustomResourcePublishOpenAPI`: Enables publishing of CRD OpenAPI specs.
 - `CustomResourceSubresources`: Enable `/status` and `/scale` subresources
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
