@@ -84,51 +84,50 @@ nodeSelectorを以下のように追加します:
 例えば、`kubernetes.io/hostname`のバリューはNodeの名前と同じである環境もあれば、異なる環境もあります。
 {{< /note >}}
 
-<!-- here -->
 
 ## Nodeの隔離や制限
-<!-- 難しい -->
-Nodeにラベルを付与することで、Podが特定のNodeやNodeグループにスケジュールされます。
+Nodeにラベルを付与することで、Podは特定のNodeやNodeグループにスケジュールされます。
 これにより、特定のPodを、確かな隔離性や安全性、特性を持ったNodeで稼働させることができます。
-この目的でラベルを使用する際に、Node上のkubeletのプロセスに上書きされないラベルキーを選択することが強く推奨されています。
-これは、安全性が損なわれたNodeがkubeletの認証情報をNodeのオブジェクトに設定したり、スケジューラーがそのようなNodeにデプロイするのを防ぎます。
+この目的でラベルを使用する際に、Node上のkubeletプロセスに上書きされないラベルキーを選択することが強く推奨されています。
+これは、安全性が損なわれたNodeがkubeletの認証情報をNodeのオブジェクトに設定したり、スケジューラーがそのようなNodeにデプロイすることを防ぎます。
 
-`NodeRestriction`プラグインは接頭辞`node-restriction.kubernetes.io/`を付与することで、kubeletがラベルを設定したり書き換えることを防ぎます。
-Nodeの隔離にラベルの接頭辞を使用するためには、以下の2点を確認してください。
+`NodeRestriction`プラグインは、kubeletが接頭辞`node-restriction.kubernetes.io/`ラベルの設定や上書きを防ぎます。
+Nodeの隔離にラベルの接頭辞を使用するためには、以下の３点を確認してください。
 
-1. [Node authorizer](/docs/reference/access-authn-authz/node/)を使用していることと、[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっていること。
-2. Nodeに`node-restriction.kubernetes.io/` のラベルを付与し、そのラベルがnode selectorに指定されていること。
+1. NodeRestrictionを使用するため、Kubernetesのバージョンがv1.11以上であること。
+2. [Node authorizer](/docs/reference/access-authn-authz/node/)を使用していることと、[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっていること。
+3. Nodeに`node-restriction.kubernetes.io/` のラベルを付与し、そのラベルがnode selectorに指定されていること。
 例えば、`example.com.node-restriction.kubernetes.io/fips=true` または `example.com.node-restriction.kubernetes.io/pci-dss=true`のようなラベルです。
 
 ## Affinity と Anti-Affinity
 
 `nodeSelector`はPodの稼働を特定のラベルが付与されたNodeに制限する最も簡単な方法です。
-Affinity/Anti-Affinityでは、より詳細な指定方法が提供されています。
+Affinity/Anti-Affinityでは、より柔軟な指定方法が提供されています。
 拡張機能は以下の通りです。
 
-1. 様々な指定方法がある ("AND"条件に限らない)
+1. 様々な指定方法がある ("AND条件"に限らない)
 2. 必須条件ではなく優先条件を指定でき、条件を満たさない場合でもPodをスケジュールさせることができる
-3. Node自体のラベルではなく、Node(または他のトポロジカルドメイン)上で稼働しているPodのラベルに対して条件を指定することができ、そのPodと同じ、または異なるドメインで稼働させることができる
+3. Node自体のラベルではなく、Node(または他のトポロジカルドメイン)上で稼働している他のPodのラベルに対して条件を指定することができ、そのPodと同じ、または異なるドメインで稼働させることができる
 
-Affinityは"Node affinity"と"Inter-Pod Affinity/Anti-Affinity"の2種類から成ります。
-Node affinityは`nodeSelector`(上述の2つのメリットがあります)によって利用可能ですが、Inter-Pod Affinity/Anti-Affinityは、上記の3番目の機能に記載している通り、NodeのラベルではなくPodのラベルに対して制限をかけます。
+Affinityは"Node Affinity"と"Inter-Pod Affinity/Anti-Affinity"の2種類から成ります。
+Node affinityは`nodeSelector`(上述の2つのメリットがあります)に似ていますが、Inter-Pod Affinity/Anti-Affinityは、上記の3番目の機能に記載している通り、NodeのラベルではなくPodのラベルに対して制限をかけます。
 
 `nodeSelector`は問題なく使用することができますが、Node affinityは`nodeSelector`で指定できる条件を全て実現できるため、将来的には推奨されなくなります。
 
-### Node Affinity (β機能)
+### Node Affinity
 
 Node Affinityはα機能としてKubernetesのv1.2から導入されました。
-Node Affinityは概念的にはNodeのラベルによってPodがどのNodeにスケジュールされるかを制限する`nodeSelector`と同様です。
+Node Affinityは概念的には、NodeのラベルによってPodがどのNodeにスケジュールされるかを制限する`nodeSelector`と同様です。
 
 現在は2種類のNode Affinityがあり、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`です。
-前者はNodeにスケジュールされるPodが条件を満たすことが必須(`nodeSelector`に似ていますが、より柔軟に条件を指定できます)であり、後者は優先的に考慮されます。
+前者はNodeにスケジュールされるPodが条件を満たすことが必須(`nodeSelector`に似ていますが、より柔軟に条件を指定できます)であり、後者は条件を指定できますが保証されるわけではなく、優先的に考慮されます。
 "IgnoredDuringExecution"の意味するところは、`nodeSelector`の機能と同様であり、Nodeのラベルが変更され、Podがその条件を満たさなくなった場合でも
 PodはそのNodeで稼働し続けるということです。
-将来的には、`requiredDuringSchedulingIgnoredDuringExecution`に、PodのNode Affinityに記された必須要件を満たさなくなったNodeからそのPodを退避させることができる機能を供えた`requiredDuringSchedulingRequiredDuringExecution`が提供される予定です。
+将来的には、`requiredDuringSchedulingIgnoredDuringExecution`に、PodのNode Affinityに記された必須要件を満たさなくなったNodeからそのPodを退避させることができる機能を備えた`requiredDuringSchedulingRequiredDuringExecution`が提供される予定です。
 
 それぞれの使用例として、
 `requiredDuringSchedulingIgnoredDuringExecution` は、"インテルCPUを供えたNode上でPodを稼働させる"、
-`preferredDuringSchedulingIgnoredDuringExecution`は、"Podを優先的にアベイラビリティゾーンXYZで稼働させるが、実現不可能な場合には他のNodeで稼働させる"
+`preferredDuringSchedulingIgnoredDuringExecution`は、"ゾーンXYZでPodの稼働を試みますが、実現不可能な場合には他の場所で稼働させる"
 といった方法が挙げられます。
 
 Node Affinityは、PodSpecの`affinity`フィールドにある`nodeAffinity`フィールドで特定します。
@@ -136,6 +135,8 @@ Node Affinityは、PodSpecの`affinity`フィールドにある`nodeAffinity`フ
 Node Affinityを使用したPodの例を以下に示します:
 
 {{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+
+<!-- here -->
 
 このNode Affinityでは、Podはキーが`kubernetes.io/e2e-az-name`、バリューが`e2e-az1`または`e2e-az2`のラベルが付与されたNodeにしか配置されません。
 加えて、キーが`another-node-label-key`、バリューが`another-node-label-value`のラベルが付与されたNodeが優先されます。
