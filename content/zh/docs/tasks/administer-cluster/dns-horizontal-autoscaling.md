@@ -1,5 +1,5 @@
 ---
-title: 集群 DNS Service Autoscale
+title: 集群 DNS 服务自动伸缩
 content_template: templates/task
 ---
 <!--
@@ -14,7 +14,7 @@ content_template: templates/task
 This page shows how to enable and configure autoscaling of the DNS service in a
 Kubernetes cluster.
 -->
-本页展示了如何在集群中启用和配置 DNS Service 的 autoscaling 功能。
+本页展示了如何在集群中启用和配置 DNS 服务的自动伸缩功能。
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -59,7 +59,7 @@ If you see "dns-autoscaler" in the output, DNS horizontal autoscaling is
 already enabled, and you can skip to
 [Tuning autoscaling parameters](#tuning-autoscaling-parameters).
 -->
-## 确定是否 DNS 水平 autoscaling 特性已经启用
+## 确定是否 DNS 水平 水平自动伸缩特性已经启用
 
 在 kube-system 命名空间中列出集群中的 {{< glossary_tooltip text="Deployments" term_id="deployment" >}} ：
 
@@ -74,7 +74,7 @@ kubectl get deployment --namespace=kube-system
     dns-autoscaler        1         1         1            1           ...
     ...
 
-如果在输出中看到 “dns-autoscaler”，说明 DNS 水平 autoscaling 已经启用，可以跳到 [调优 autoscaling 参数](#tuning-autoscaling-parameters)。
+如果在输出中看到 “dns-autoscaler”，说明 DNS 水平自动伸缩已经启用，可以跳到 [调优自动伸缩参数](#tuning-autoscaling-parameters)。
 
 <!--
 ## Getting the name of your DNS Deployment or ReplicationController
@@ -159,19 +159,19 @@ where `<your-rc-name>` is the name of your DNS ReplicationController. For exampl
 if your DNS ReplicationController name is kube-dns-v20, your scale target is
 ReplicationController/kube-dns-v20.
 -->
-## 确定 scale 目标
+## 确定伸缩目标
 
-如果有一个 DNS Deployment，scale 目标是：
+如果有一个 DNS Deployment，伸缩目标是：
 
     Deployment/<your-deployment-name>
 
 其中 `<your-deployment-name>` 是 DNS 部署的名称。例如，如果您的 DNS 部署名称是 coredns，则您的扩展目标是 Deployment/coredns。
 
-如果有一个 DNS ReplicationController，那么 scale 目标为：
+如果有一个 DNS ReplicationController，那么伸缩目标为：
 
     ReplicationController/<your-rc-name>
 
-这里 `<your-rc-name>` 是 DNS ReplicationController 的名称。 例如，DNS ReplicationController 的名称是 kube-dns-v20，则 scale 目标为 ReplicationController/kube-dns-v20。
+这里 `<your-rc-name>` 是 DNS ReplicationController 的名称。 例如，DNS ReplicationController 的名称是 kube-dns-v20，则伸缩目标为 ReplicationController/kube-dns-v20。
 
 <!--
 ## Enabling DNS horizontal autoscaling
@@ -198,7 +198,7 @@ The output of a successful command is:
 
 DNS horizontal autoscaling is now enabled.
 -->
-## 启用 DNS 水平 autoscaling
+## 启用 DNS 水平自动伸缩
 
 在本段，我们创建一个 Deployment。Deployment 中的 Pod 运行一个基于 `cluster-proportional-autoscaler-amd64` 镜像的容器。
 
@@ -218,7 +218,7 @@ kubectl apply -f dns-horizontal-autoscaler.yaml
 
     deployment.apps/kube-dns-autoscaler created
 
-DNS 水平 autoscaling 现在已经启用了。
+DNS 水平自动伸缩在已经启用了。
 
 <!--
 ## Tuning autoscaling parameters
@@ -264,7 +264,7 @@ cores, `nodesPerReplica` dominates.
 There are other supported scaling patterns. For details, see
 [cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 -->
-## 调优 autoscaling 参数
+## 调优自动伸缩参数
 
 验证 dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 是否存在：
 
@@ -299,7 +299,7 @@ linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 
 想法是，当一个集群使用具有很多核心的节点时，由 `coresPerReplica` 来控制。 当一个集群使用具有较少核心的节点时，由 `nodesPerReplica` 来控制。
 
-其它的 scaling 模式也是支持的，详情查看 [cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler)。
+其它的伸缩模式也是支持的，详情查看 [cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler)。
 
 <!--
 ## Disable DNS horizontal autoscaling
@@ -307,9 +307,9 @@ linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 There are a few options for tuning DNS horizontal autoscaling. Which option to
 use depends on different conditions.
 -->
-## 禁用 DNS 水平 autoscaling
+## 禁用 DNS 水平自动伸缩
 
-有几个 DNS 水平 autoscaling 的选项。具体使用哪个选项因环境而异。
+有几个 DNS 水平自动伸缩的选项。具体使用哪个选项因环境而异。
 
 <!--
 ### Option 1: Scale down the dns-autoscaler deployment to 0 replicas
@@ -440,17 +440,17 @@ the autoscaler Pod.
 * The autoscaler provides a controller interface to support two control
 patterns: *linear* and *ladder*.
 -->
-## 理解 DNS 水平 autoscaling 工作原理
+## 理解 DNS 水平自动伸缩工作原理
 
 * cluster-proportional-autoscaler 应用独立于 DNS service 部署。
 
 * autoscaler Pod 运行一个客户端，它通过轮询 Kubernetes API server 获取集群中节点和核心的数量。
 
-* 一个期望的副本数会被计算，并根据当前可调度的节点、核心数、给定 scale 参数，被应用到 DNS 后端。
+* 一个期望的副本数会被计算，并根据当前可调度的节点、核心数、给定伸缩参数，被应用到 DNS 后端。
 
-* scale 参数和数据点会基于一个 ConfigMap 来提供给 autoscaler，它会在每次轮询时刷新它的参数表，以与最近期望的 scaling 参数保持一致。
+* 伸缩参数和数据点会基于一个 ConfigMap 来提供给 autoscaler，它会在每次轮询时刷新它的参数表，以与最近期望的伸缩参数保持一致。
 
-* 允许对 scaling 参数进行修改，而不需要重建或重启 autoscaler Pod。
+* 允许对伸缩参数进行修改，而不需要重建或重启 autoscaler Pod。
 
 * autoscaler 提供了一个控制器接口来支持两种控制模式：*linear* 和 *ladder*。
 
@@ -472,9 +472,9 @@ is under consideration as a future development.
 
 控制模式，除了 linear 和 ladder，正在考虑未来将开发自定义 metric。
 
-基于 DNS 特定 metric 的 DNS 后端的 scaling，考虑未来会开发。当前实现是使用集群中节点和核心的数量是受限制的。
+基于 DNS 特定 metric 的 DNS 后端的伸缩，考虑未来会开发。当前实现是使用集群中节点和核心的数量是受限制的。
 
-支持自定义 metric，类似于 [Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/) 所提供的，考虑未来进行开发。
+支持自定义 metric，类似于 [Horizontal Pod 自动伸缩](/docs/tasks/run-application/horizontal-pod-autoscale/) 所提供的，考虑未来进行开发。
 
 {{% /capture %}}
 
