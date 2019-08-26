@@ -35,7 +35,7 @@ Kubernetesには、デプロイ済みのコンテナ化されたアプリケー�
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
-上記に加え、Kubernetesにはコントローラーと呼ばれる多くの高レベルの抽象が含まれています。コントローラーは基本オブジェクトに基づいて構築され、追加の機能と便利な機能を提供します。以下が含まれます。
+上記に加え、Kubernetesにはコントローラーと呼ばれる多くの高レベルの抽象概念が含まれています。コントローラーは基本オブジェクトに基づいて構築され、以下のような追加の機能と便利な機能を提供します。
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
