@@ -29,7 +29,7 @@ Kubernetesプロジェクトでは、最新の3つのマイナーリリースに
 例:
 
 * 最新の`kube-apiserver`が**1.13**であるとします
-* ほかの`kube-apiserver`インスタンスは**1.13**および**1.12**をサポートします
+* ほかの`kube-apiserver`インスタンスは**1.13**および**1.12**がサポートされます
 
 ### kubelet
 
@@ -38,7 +38,7 @@ Kubernetesプロジェクトでは、最新の3つのマイナーリリースに
 例:
 
 * `kube-apiserver`が**1.13**であるとします
-* `kubelet`は**1.13**、**1.12**および**1.11**をサポートします
+* `kubelet`は**1.13**、**1.12**および**1.11**がサポートされます
 
 {{< note >}}
 HAクラスター内の`kube-apiserver`間にバージョンの差異がある場合、有効な`kubelet`のバージョンは少なくなります。
@@ -47,7 +47,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 例:
 
 * `kube-apiserver`インスタンスが**1.13**および**1.12**であるとします
-* `kubelet`は**1.12**および**1.11**をサポートします（**1.13**はバージョン**1.12**の`kube-apiserver`よりも新しくなるためサポートされません)
+* `kubelet`は**1.12**および**1.11**がサポートされます（**1.13**はバージョン**1.12**の`kube-apiserver`よりも新しくなるためサポートされません)
 
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
 
@@ -56,7 +56,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 例:
 
 * `kube-apiserver`が**1.13**であるとします
-* `kube-controller-manager`、`kube-scheduler`および`cloud-controller-manager`は**1.13**および**1.12**をサポートします
+* `kube-controller-manager`、`kube-scheduler`および`cloud-controller-manager`は**1.13**および**1.12**がサポートされます
 
 {{< note >}}
 HAクラスター内の`kube-apiserver`間にバージョンの差異があり、これらのコンポーネントがクラスター内のいずれかの`kube-apiserver`と通信する場合（たとえばロードバランサーを経由して）、コンポーネントの有効なバージョンは少なくなります。
@@ -65,7 +65,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異があり�
 例:
 
 * `kube-apiserver`インスタンスが**1.13**および**1.12**であるとします
-* いずれかの`kube-apiserver`インスタンスへ配信するロードバランサーと通信する`kube-controller-manager`、`kube-scheduler`および`cloud-controller-manager`は**1.12**をサポートします（**1.13**はバージョン**1.12**の`kube-apiserver`よりも新しくなるためサポートされません）
+* いずれかの`kube-apiserver`インスタンスへ配信するロードバランサーと通信する`kube-controller-manager`、`kube-scheduler`および`cloud-controller-manager`は**1.12**がサポートされます（**1.13**はバージョン**1.12**の`kube-apiserver`よりも新しくなるためサポートされません）
 
 ### kubectl
 
@@ -74,7 +74,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異があり�
 例:
 
 * `kube-apiserver`が**1.13**であるとします
-* `kubectl`は**1.14**、**1.13**および**1.12**をサポートします
+* `kubectl`は**1.14**、**1.13**および**1.12**がサポートされます
 
 {{< note >}}
 HAクラスター内の`kube-apiserver`間にバージョンの差異がある場合、有効な`kubectl`バージョンは少なくなります。
@@ -83,7 +83,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 例:
 
 * `kube-apiserver`インスタンスが**1.13**および**1.12**であるとします
-* `kubectl`は**1.13**および**1.12**をサポートします（ほかのバージョンでは、ある`kube-apiserver`コンポーネントからマイナーバージョンが2つ以上離れる可能性があります）
+* `kubectl`は**1.13**および**1.12**がサポートされます（ほかのバージョンでは、ある`kube-apiserver`コンポーネントからマイナーバージョンが2つ以上離れる可能性があります）
 
 ## サポートされるコンポーネントのアップグレード順序
 
