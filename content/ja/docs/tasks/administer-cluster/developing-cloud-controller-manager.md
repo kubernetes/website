@@ -34,7 +34,7 @@ Kubernetesには登録されていない独自のクラウドプロバイダー�
 2. Kubernetesのコアにある[cloud-controller-managerのmain.go]((https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go))をあなたのmain.goのテンプレートとして利用します。上で述べたように、唯一の違いはインポートされるクラウドパッケージのみです。
 3. クラウドパッケージを `main.go` にインポートし、パッケージに [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go) を実行するための `init` ブロックがあることを確認します。
 
-既存の独自クラウドプロバイダーの実装例を利用すると役立つでしょう。独自クラウドプロバイダーの実装例のリストは[ここ](/docs/tasks/administer-cluster/running-cloud-controller.md#examples)にあります。
+既存の独自クラウドプロバイダーの実装例を利用すると役立つでしょう。独自クラウドプロバイダーの実装例のリストは[こちら](/docs/tasks/administer-cluster/running-cloud-controller.md#examples)にあります。
 
 ### Kubernetesに登録されているクラウドプロバイダー
 
