@@ -15,7 +15,7 @@ weight: 40
 
 ## Terminology
 
-For the sake of clarity, this guide defines the following terms:
+For clarity, this guide defines the following terms:
 
 Node
 : A worker machine in Kubernetes, part of a cluster.
