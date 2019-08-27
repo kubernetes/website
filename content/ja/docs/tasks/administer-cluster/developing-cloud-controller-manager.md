@@ -1,8 +1,4 @@
 ---
-reviewers:
-- luxas
-- thockin
-- wlan0
 title: Cloud Controller Managerの開発
 content_template: templates/concept
 ---
