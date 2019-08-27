@@ -91,12 +91,12 @@ Nodeにラベルを付与することで、Podは特定のNodeやNodeグルー�
 この目的でラベルを使用する際に、Node上のkubeletプロセスに上書きされないラベルキーを選択することが強く推奨されています。
 これは、安全性が損なわれたNodeがkubeletの認証情報をNodeのオブジェクトに設定したり、スケジューラーがそのようなNodeにデプロイすることを防ぎます。
 
-`NodeRestriction`プラグインは、kubeletが接頭辞`node-restriction.kubernetes.io/`ラベルの設定や上書きを防ぎます。
-Nodeの隔離にラベルの接頭辞を使用するためには、以下の３点を確認してください。
+`NodeRestriction`プラグインは、kubeletが`node-restriction.kubernetes.io/`プレフィックスを有するラベルの設定や上書きを防ぎます。
+Nodeの隔離にラベルのプレフィックスを使用するためには、以下の３点を確認してください。
 
 1. NodeRestrictionを使用するため、Kubernetesのバージョンがv1.11以上であること。
 2. [Node authorizer](/docs/reference/access-authn-authz/node/)を使用していることと、[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっていること。
-3. Nodeに`node-restriction.kubernetes.io/` のラベルを付与し、そのラベルがnode selectorに指定されていること。
+3. Nodeに`node-restriction.kubernetes.io/` プレフィックスのラベルを付与し、そのラベルがnode selectorに指定されていること。
 例えば、`example.com.node-restriction.kubernetes.io/fips=true` または `example.com.node-restriction.kubernetes.io/pci-dss=true`のようなラベルです。
 
 ## Affinity と Anti-Affinity
@@ -110,7 +110,7 @@ Affinity/Anti-Affinityでは、より柔軟な指定方法が提供されてい�
 3. Node自体のラベルではなく、Node(または他のトポロジカルドメイン)上で稼働している他のPodのラベルに対して条件を指定することができ、そのPodと同じ、または異なるドメインで稼働させることができる
 
 Affinityは"Node Affinity"と"Inter-Pod Affinity/Anti-Affinity"の2種類から成ります。
-Node affinityは`nodeSelector`(上述の2つのメリットがあります)に似ていますが、Inter-Pod Affinity/Anti-Affinityは、上記の3番目の機能に記載している通り、NodeのラベルではなくPodのラベルに対して制限をかけます。
+Node affinityは`nodeSelector`(前述の2つのメリットがあります)に似ていますが、Inter-Pod Affinity/Anti-Affinityは、上記の3番目の機能に記載している通り、NodeのラベルではなくPodのラベルに対して制限をかけます。
 
 `nodeSelector`は問題なく使用することができますが、Node affinityは`nodeSelector`で指定できる条件を全て実現できるため、将来的には推奨されなくなります。
 
@@ -136,8 +136,6 @@ Node Affinityを使用したPodの例を以下に示します:
 
 {{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
-<!-- here -->
-
 このNode Affinityでは、Podはキーが`kubernetes.io/e2e-az-name`、バリューが`e2e-az1`または`e2e-az2`のラベルが付与されたNodeにしか配置されません。
 加えて、キーが`another-node-label-key`、バリューが`another-node-label-value`のラベルが付与されたNodeが優先されます。
 
@@ -147,36 +145,31 @@ Node Affinityでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`�
 
 `nodeSelector`と`nodeAffinity`の両方を指定した場合、Podは**両方の**条件を満たすNodeにスケジュールされます。
 
-`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**どちらかの**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
+`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**いずれかの**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
 
 `nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**全ての**`matchExpressions`を満たしたNodeへスケジュールされます。
 
-PodがスケジュールされたNodeのラベルを削除しても、Podは削除されません。
+PodがスケジュールされたNodeのラベルを削除したり変更しても、Podは削除されません。
 言い換えると、AffinityはPodをスケジュールする際にのみ考慮されます。
 
 `preferredDuringSchedulingIgnoredDuringExecution`内の`weight`フィールドは、1から100の範囲で指定します。
-全ての必須条件(リソースやRequiredDuringScheduling Affinity等)を満たしたNodeに対して、スケジューラーは、そのNodeがMatchExpressionsを満たした場合に、このフィルードの"weight"を加算して合計を計算します。
+全ての必要条件(リソースやRequiredDuringScheduling Affinity等)を満たしたNodeに対して、スケジューラーはそのNodeがMatchExpressionsを満たした場合に、このフィルードの"weight"を加算して合計を計算します。
 このスコアがNodeの他の優先機能のスコアと組み合わせれ、最も高いスコアを有したNodeが優先されます。
 
-Node Affinityに関する詳細な情報は
-[デザインドック](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
-を参照してください。
+### Inter-Pod Affinity/Anti-Affinity
 
-### Inter-Pod AffinityとAnti-Affinity (β版)
-
-Inter-Pod AffinityとAnti-Affinityは、Kubernetes 1.4から導入されました。
-これらは、Nodeのラベルではなく、すでにNodeで稼働しているPodのラベルに従ってPodがスケジュールされるNodeを制限します。
-このポリシーは、"XにてルールYを満たすPodがすでに稼働している場合、このPodもXで稼働させる(Anti-Affinityの場合は、稼働させない)"という形式です。
+Inter-Pod AffinityとAnti-Affinityは、Nodeのラベルではなく、すでにNodeで稼働しているPodのラベルに従ってPodがスケジュールされるNodeを制限します。
+このポリシーは、"XにてルールYを満たすPodがすでに稼働している場合、このPodもXで稼働させる(Anti-Affinityの場合は稼働させない)"という形式です。
 Yはnamespaceのリストで指定したLabelSelectorで表されます。
-Nodeと異なり、Podはnamespaceで区切られているため(それゆえPodのラベルも暗黙的にnamespaceで区切られます)、Podのラベルを指定する label selectorはどのnamespaceにselectorを適用するかを指定する必要があります。
+Nodeと異なり、Podはnamespaceで区切られているため(それゆえPodのラベルも暗黙的にnamespaceで区切られます)、Podのラベルを指定するlabel selectorは、どのnamespaceにselectorを適用するかを指定する必要があります。
 概念的に、XはNodeや、ラック、クラウドプロバイダゾーン、クラウドプロバイダのリージョン等を表すトポロジードメインです。
 これらを表すためにシステムが使用するNode Labelのキーである`topologyKey`を使うことで、トポロジードメインを指定することができます。
-先述のセクション[補足: ビルトインNodeラベル](#interlude-built-in-node-labels)にてLabelのキーの例が紹介されています。
+先述のセクション[補足: ビルトインNodeラベル](#interlude-built-in-node-labels)にてラベルの例が紹介されています。
 
 
 {{< note >}}
-Inter-Pod AffinityとAnti-Affinityは、大規模なクラスタ上にてスケジューリングを遅くする恐れのある多くのプロセスを要します。
-そのため、数百台以上のNodeから成るクラスタでは使用することを推奨しません。
+Inter-Pod AffinityとAnti-Affinityは、大規模なクラスタ上で使用する際にスケジューリングを非常に遅くする恐れのある多くの処理を要します。
+そのため、数百台以上のNodeから成るクラスタでは使用することを推奨されません。
 {{< /note >}}
 
 {{< note >}}
@@ -186,7 +179,7 @@ Pod Anti-Affinityは、Nodeに必ずラベルが付与されている必要が�
 {{< /note >}}
 
 Node Affinityと同様に、Pod AffinityとPod Anti-Affinityにも必須条件と優先条件を示す`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`があります。
-上述のNode Affinityのセクションを参照してください。
+前述のNode Affinityのセクションを参照してください。
 `requiredDuringSchedulingIgnoredDuringExecution`を指定するAffinityの使用例は、"Service AのPodとService BのPodが密に通信する際、それらを同じゾーンで稼働させる場合"です。
 また、`preferredDuringSchedulingIgnoredDuringExecution`を指定するAnti-Affinityの使用例は、"ゾーンをまたいでPodのサービスを稼働させる場合"(Podの数はゾーンの数よりも多いため、必須条件を指定すると合理的ではありません)です。
 
@@ -198,11 +191,11 @@ Inter-Pod Affinityは、PodSpecの`affinity`フィールド内に`podAffinity`�
 
 このPodのAffifnityは、Pod AffinityとPod Anti-Affinityを1つずつ定義しています。
 この例では、`podAffinity`に`requiredDuringSchedulingIgnoredDuringExecution`、`podAntiAffinity`に`preferredDuringSchedulingIgnoredDuringExecution`が設定されています。
-Pod Affinityは、「キーが"security"、バリューが"S1"のラベルが付与されたPodが少なくとも1つは稼働しているノードが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、バリューが"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、バリューがVであるNodeが少なくとも1つはある状態で、
-Node　Nがキー`failure-domain.beta.kubernetes.io/zone`、バリューVのラベルを持つ場合に、PodはNode Nで稼働させることができます)。
-Pod Anti-Affinityは、「あるNode上ですでに、キーが"security"、バリューが"S2"であるPodが稼働している場合に、Podを可能な限りそのNode上で稼働させない」という条件を指定しています
+Pod Affinityは、「キーが"security"、バリューが"S1"のラベルが付与されたPodが少なくとも1つは稼働しているNodeが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、バリューが"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、バリューがVであるNodeが少なくとも1つはある状態で、
+Node Nがキー`failure-domain.beta.kubernetes.io/zone`、バリューVのラベルを持つ場合に、PodはNode Nで稼働させることができます)。
+Pod Anti-Affinityは、「すでにあるNode上で、キーが"security"、バリューが"S2"であるPodが稼働している場合に、Podを可能な限りそのNode上で稼働させない」という条件を指定しています
 (`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、バリューが"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
-Pod AffinityとPod Anti-Affinityや、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`に関する他の使用例は[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
+Pod AffinityとPod Anti-Affinityや、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`に関する他の使用例は[デザインドック](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
 
 Pod AffinityとPod Anti-Affinityで使用できるオペレータは、`In`、`NotIn`、 `Exists`、 `DoesNotExist`です。
 
@@ -210,15 +203,17 @@ Pod AffinityとPod Anti-Affinityで使用できるオペレータは、`In`、`N
 しかし、パフォーマンスやセキュリティの観点から、以下の制約があります:
 
 1. Affinityと、`requiredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`topologyKey`を指定しないことは許可されていません。
-2. `requiredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`kubernetes.io/hostname`の`topologyKey`を制限するためアドミッションコントローラ`LimitPodHardAntiAffinityTopology`が導入されました。
-トポロジーをカスタマイズする場合には、アドミッションコントローラを修正または無効化する必要があります。
-3. `preferredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、空の`topologyKey`は"全てのトポロジー"と解釈されます("全てのトポロジー"とは、ここでは`kubernetes.io/hostname`、`failure-domain.beta.kubernetes.io/zone`、`failure-domain.beta.kubernetes.io/region`を合わせたものを意味します)。
+2. `requiredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`kubernetes.io/hostname`の`topologyKey`を制限するため、アドミッションコントローラー`LimitPodHardAntiAffinityTopology`が導入されました。
+トポロジーをカスタマイズする場合には、アドミッションコントローラーを修正または無効化する必要があります。
+3. `preferredDuringSchedulingIgnoredDuringExecution`を指定したPod Anti-Affinityでは、`topologyKey`を指定しなかった場合、"全てのトポロジー"と解釈されます("全てのトポロジー"とは、ここでは`kubernetes.io/hostname`、`failure-domain.beta.kubernetes.io/zone`、`failure-domain.beta.kubernetes.io/region`を合わせたものを意味します)。
 4. 上記の場合を除き、`topologyKey` は任意のラベルとキーを指定することができあます。
 
 `labelSelector`と`topologyKey`に加え、`labelSelector`が合致すべき`namespaces`のリストを特定することも可能です(これは`labelSelector`と`topologyKey`を定義することと同等です)。
 省略した場合や空の場合は、AffinityとAnti-Affinityが定義されたPodのnamespaceがデフォルトで設定されます。
 
 `requiredDuringSchedulingIgnoredDuringExecution`が指定されたAffinityとAnti-Affinityでは、`matchExpressions`に記載された全ての条件が満たされるNodeにPodがスケジュールされます。 
+
+<!-- here -->
 
 
 #### 実際的なユースケース
