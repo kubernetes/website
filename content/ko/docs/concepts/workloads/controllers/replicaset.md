@@ -46,7 +46,8 @@ OwnerReference가 컨트롤러가 아니고 레플리카셋의 셀렉터와 일�
 
 {{< codenew file="controllers/frontend.yaml" >}}
 
-이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어있는 레플리카셋이 생성되고 레플리카셋이 관리하는 파드가 생성된다.
+이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어있는 레플리카셋이 
+생성되고 레플리카셋이 관리하는 파드가 생성된다.
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
