@@ -213,22 +213,20 @@ Pod AffinityとPod Anti-Affinityで使用できるオペレータは、`In`、`N
 
 `requiredDuringSchedulingIgnoredDuringExecution`が指定されたAffinityとAnti-Affinityでは、`matchExpressions`に記載された全ての条件が満たされるNodeにPodがスケジュールされます。 
 
-<!-- here -->
-
 
 #### 実際的なユースケース
 
-Inter-Pod AffinityとAnti-Affinityは、ReplicaSet、StatefulSet、Deploymentなどのより高レベルなコレクションと併せて使用するとされに有用です。
+Inter-Pod AffinityとAnti-Affinityは、ReplicaSet、StatefulSet、Deploymentなどのより高レベルなコレクションと併せて使用すると更に有用です。
 Workloadが、Node等の定義された同じトポロジーに共存させるよう、簡単に設定できます。
 
 
-##### 常に同じNodeに共存させる場合
+##### 常に同じNodeで稼働させる場合
 
-３つのNodeから成るクラスタでは、ウェブアプリケーションはredisのようにインメモリキャッシュを保持しています。
+３つのノードから成るクラスタでは、ウェブアプリケーションはredisのようにインメモリキャッシュを保持しています。
 このような場合、ウェブサーバーは可能な限りキャッシュと共存させることが望ましいです。
 
-ラベル`app=store`を付与した、3つのレプリカから成るredisのdeploymentを記述したyamlファイルを示します。
-deploymentには、1つのNodeにレプリカを共存させないために`PodAntiAffinity`を付与しています。
+ラベル`app=store`を付与した3つのレプリカから成るredisのdeploymentを記述したyamlファイルを示します。
+Deploymentには、1つのNodeにレプリカを共存させないために`PodAntiAffinity`を付与しています。
 
 
 ```yaml
@@ -261,9 +259,9 @@ spec:
         image: redis:3.2-alpine
 ```
 
-ウェブサーバーのdeploymentを記載した以下のyamlファイルには、`podAntiAffinity` と`podAffinity`が設定されています。
-全てのレプリカが`app=store`のラベルが付与されたPodと共存されるよう、スケジューラーに設定されます。
-また、それぞれのウェブサーバーは1つのノードに共存しません。
+ウェブサーバーのDeploymentを記載した以下のyamlファイルには、`podAntiAffinity` と`podAffinity`が設定されています。
+全てのレプリカが`app=store`のラベルが付与されたPodと同じゾーンで稼働するよう、スケジューラーに設定されます。
+また、それぞれのウェブサーバーは1つのノードで稼働されないことも保証されます。
 
 
 ```yaml
@@ -305,14 +303,14 @@ spec:
         image: nginx:1.12-alpine
 ```
 
-上記2つのdeploymentが生成されると、3つのノードは以下のようになります。
+上記2つのDeploymentが生成されると、3つのノードは以下のようになります。
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
-このように、3つの`web-server`は予期した通り自動的にキャッシュと共存しています。
+このように、3つの`web-server`は期待通り自動的にキャッシュと共存しています。
 
 ```
 kubectl get pods -o wide
@@ -331,11 +329,10 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 ##### 同じNodeに共存させない場合
 
 上記の例では `PodAntiAffinity`を`topologyKey: "kubernetes.io/hostname"`と合わせて指定することで、redisクラスタ内の2つのインスタンスが同じホストにデプロイされない場合を扱いました。
-Anti-Affinityを使用した同様の方法で、高可用性を実現したStatefulSetの設定例は[ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)を参照してください。
+同様の方法で、Anti-Affinityを用いて高可用性を実現したStatefulSetの使用例は[ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)を参照してください。
 
-Inter-pod affinity/anti-affinityに関する詳細は、[Design Doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
+<!-- here -->
 
-また、Nodeに特定のPodがデプロイされないような指定を行う[Taints](/docs/concepts/configuration/taint-and-toleration/)も確認してください。
 
 ## nodeName
 
