@@ -65,8 +65,12 @@ users in its object store.
 
 After the request is authenticated as coming from a specific user, the
 request is subject to prioritization and fairness if the
-RequestManagement feature is enabled.  This needs to be inserted
-between steps **1** and **2** in the diagram.
+RequestManagement feature is enabled.  _Some more words need to go
+here, and the diagram needs to be updated to show where this
+functionality goes, which is between current steps 1 and 2_ .  Also we
+need a link to
+[the reference page](/docs/reference/access-authn-authz/using-api-priority-and-fairness/)
+
 
 ## Authorization
 
