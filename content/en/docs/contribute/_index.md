@@ -13,7 +13,9 @@ we're happy to have your help! Anyone can contribute, whether you're new to the
 project or you've been around a long time, and whether you self-identify as a
 developer, an end user, or someone who just can't stand seeing typos.
 
-For information on the Kubernetes documentation style guide, see the [style guide](/docs/contribute/style/style-guide/).
+For information on the Kubernetes documentation
+ content and style, see the 
+ [Documentation style overview](/docs/contribute/style/style/).
 
 {{% capture body %}}
 

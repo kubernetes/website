@@ -23,7 +23,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular tur
 
 The PR wrangler’s duties include:
 
-- Review [open pull requests](https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
+- Review [open pull requests](https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [Style](/docs/contribute/style/style-guide/) and [Content](/docs/contribute/style/content-guide/) guides.
     - Review the smallest PRs (`size/XS`) first, then iterate towards the largest (`size/XXL`).
     - Review as many PRs as you can.
 - Ensure that the CLA is signed by each contributor.
@@ -78,11 +78,11 @@ An automated service, [`fejta-bot`](https://github.com/fejta-bot) automatically 
 
 ## Propose improvements
 
-SIG Docs
-[members](/docs/contribute/participating/#members) can propose improvements.
+SIG Docs [members](/docs/contribute/participating/#members) can propose improvements.
 
 After you've been contributing to the Kubernetes documentation for a while, you
-may have ideas for improvement to the style guide, the toolchain used to build
+may have ideas for improvement to the [Style Guide](/docs/contribute/style/style-guide/) 
+, the [Content Guide](/docs/contribute/style/content-guide/), the toolchain used to build
 the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
 these types of proposals need to be discussed in a SIG Docs meeting or on the
