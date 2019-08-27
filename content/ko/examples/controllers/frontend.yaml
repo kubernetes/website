@@ -6,7 +6,7 @@ metadata:
     app: guestbook
     tier: frontend
 spec:
-  # modify replicas according to your case
+  # 케이스에 따라 레플리카를 수정한다.
   replicas: 3
   selector:
     matchLabels:
