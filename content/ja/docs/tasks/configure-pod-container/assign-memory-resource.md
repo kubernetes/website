@@ -1,12 +1,12 @@
 ---
-title: コンテナおよびPodへのメモリリソースの割り当て
+title: コンテナおよびPodへのメモリーリソースの割り当て
 content_template: templates/task
 weight: 10
 ---
 
 {{% capture overview %}}
 
-このページでは、メモリの *要求* と *制限* をコンテナに割り当てる方法について示します。コンテナは要求されたメモリを確保することを保証しますが、その制限を超えるメモリの使用は許可されません。
+このページでは、メモリーの *要求* と *制限* をコンテナに割り当てる方法について示します。コンテナは要求されたメモリーを確保することを保証しますが、その制限を超えるメモリーの使用は許可されません。
 
 {{% /capture %}}
 
@@ -15,7 +15,7 @@ weight: 10
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-クラスターの各ノードには、少なくとも300MiBのメモリが必要になります。
+クラスターの各ノードには、少なくとも300MiBのメモリーが必要になります。
 
 このページのいくつかの手順では、クラスターにて[metrics-server](https://github.com/kubernetes-incubator/metrics-server)サービスを実行する必要があります。すでにmetrics-serverが動作している場合、これらの手順をスキップできます。
 
@@ -50,15 +50,15 @@ v1beta1.metrics.k8s.io
 kubectl create namespace mem-example
 ```
 
-## メモリの要求と制限を指定する
+## メモリーの要求と制限を指定する
 
-コンテナにメモリの要求を指定するには、コンテナのリソースマニフェストに`resources:requests`フィールドを追記します。メモリの制限を指定するには、`resources:limits`を追記します。
+コンテナにメモリーの要求を指定するには、コンテナのリソースマニフェストに`resources:requests`フィールドを追記します。メモリーの制限を指定するには、`resources:limits`を追記します。
 
-この練習では、一つのコンテナをもつPodを作成します。コンテナに100MiBのメモリ要求と200MiBのメモリ制限を与えます。Podの設定ファイルは次のようになります:
+この練習では、一つのコンテナをもつPodを作成します。コンテナに100MiBのメモリー要求と200MiBのメモリー制限を与えます。Podの設定ファイルは次のようになります:
 
 {{< codenew file="pods/resource/memory-request-limit.yaml" >}}
 
-設定ファイルの`args`セクションでは、コンテナ起動時の引数を与えます。`"--vm-bytes", "150M"`という引数では、コンテナに150MiBのメモリを割り当てます。
+設定ファイルの`args`セクションでは、コンテナ起動時の引数を与えます。`"--vm-bytes", "150M"`という引数では、コンテナに150MiBのメモリーを割り当てます。
 
 Podを作成してください:
 
@@ -78,7 +78,7 @@ Podの詳細な情報を確認してください:
 kubectl get pod memory-demo --output=yaml --namespace=mem-example
 ```
 
-この出力では、Pod内の一つのコンテナに100MiBのメモリ要求と200MiBのメモリ制限があることを示しています。
+この出力では、Pod内の一つのコンテナに100MiBのメモリー要求と200MiBのメモリー制限があることを示しています。
 
 ```yaml
 ...
@@ -96,7 +96,7 @@ resources:
 kubectl top pod memory-demo --namespace=mem-example
 ```
 
-この出力では、Podが約162,900,000バイト（約150MiB）のメモリを使用していることを示しています。Podの100MiBの要求を超えていますが、200MiBの制限には収まっています。
+この出力では、Podが約162,900,000バイト（約150MiB）のメモリーを使用していることを示しています。Podの100MiBの要求を超えていますが、200MiBの制限には収まっています。
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
@@ -109,15 +109,15 @@ Podを削除してください:
 kubectl delete pod memory-demo --namespace=mem-example
 ```
 
-## コンテナのメモリ制限を超える
+## コンテナのメモリー制限を超える
 
-ノードに利用可能なメモリがある場合、コンテナはメモリ要求を超えることができます。しかしながら、メモリ制限を超えて使用することは許可されません。コンテナが制限を超えてメモリを確保しようとした場合、そのコンテナは終了候補となります。コンテナが制限を超えてメモリを消費し続ける場合、コンテナは終了されます。終了したコンテナを再起動できる場合、ほかのランタイムの失敗時と同様に、kubeletがコンテナを再起動させます。
+ノードに利用可能なメモリーがある場合、コンテナはメモリー要求を超えることができます。しかしながら、メモリー制限を超えて使用することは許可されません。コンテナが制限を超えてメモリーを確保しようとした場合、そのコンテナは終了候補となります。コンテナが制限を超えてメモリーを消費し続ける場合、コンテナは終了されます。終了したコンテナを再起動できる場合、ほかのランタイムの失敗時と同様に、kubeletがコンテナを再起動させます。
 
-この練習では、制限を超えてメモリを確保しようとするPodを作成します。以下に50MiBのメモリ要求と100MiBのメモリ制限を与えたコンテナを持つ、Podの設定ファイルを示します:
+この練習では、制限を超えてメモリーを確保しようとするPodを作成します。以下に50MiBのメモリー要求と100MiBのメモリー制限を与えたコンテナを持つ、Podの設定ファイルを示します:
 
 {{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
-設定ファイルの`args`セクションでは、コンテナに250MiBのメモリを割り当てており、これは100MiBの制限を十分に超えています。
+設定ファイルの`args`セクションでは、コンテナに250MiBのメモリーを割り当てており、これは100MiBの制限を十分に超えています。
 
 Podを作成してください:
 
@@ -144,7 +144,7 @@ memory-demo-2   0/1       OOMKilled   1          24s
 kubectl get pod memory-demo-2 --output=yaml --namespace=mem-example
 ```
 
-この出力では、コンテナがメモリ不足 (OOM) により強制終了されたことを示しています。
+この出力では、コンテナがメモリー不足 (OOM) により強制終了されたことを示しています。
 
 ```shell
 lastState:
@@ -195,7 +195,7 @@ kubectl describe pod memory-demo-2 --namespace=mem-example
 kubectl describe nodes
 ```
 
-この出力には、メモリ不足の状態のためコンテナが強制終了された記録が含まれます:
+この出力には、メモリー不足の状態のためコンテナが強制終了された記録が含まれます:
 
 ```
 Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
@@ -207,13 +207,13 @@ Podを削除してください:
 kubectl delete pod memory-demo-2 --namespace=mem-example
 ```
 
-## ノードよりも大きいメモリ要求を指定する
+## ノードよりも大きいメモリー要求を指定する
 
-メモリ要求と制限はコンテナと関連づけられていますが、Podにメモリ要求と制限が与えられていると考えるとわかりやすいでしょう。Podのメモリ要求は、Pod内のすべてのコンテナのメモリ要求の合計となります。同様に、Podのメモリ制限は、Pod内のすべてのコンテナのメモリ制限の合計となります。
+メモリー要求と制限はコンテナと関連づけられていますが、Podにメモリー要求と制限が与えられていると考えるとわかりやすいでしょう。Podのメモリー要求は、Pod内のすべてのコンテナのメモリー要求の合計となります。同様に、Podのメモリー制限は、Pod内のすべてのコンテナのメモリー制限の合計となります。
 
-Podのスケジューリングは要求に基づいています。Podはノード上で動作するうえで、そのメモリ要求に対してノードに十分利用可能なメモリがある場合のみスケジュールされます。
+Podのスケジューリングは要求に基づいています。Podはノード上で動作するうえで、そのメモリー要求に対してノードに十分利用可能なメモリーがある場合のみスケジュールされます。
 
-この練習では、クラスター内のノードのキャパシティを超える大きさのメモリ要求を与えたPodを作成します。以下に1000GiBのメモリ要求を与えた一つのコンテナを持つ、Podの設定ファイルを示します。これは、クラスター内のノードのキャパシティを超える可能性があります。
+この練習では、クラスター内のノードのキャパシティを超える大きさのメモリー要求を与えたPodを作成します。以下に1000GiBのメモリー要求を与えた一つのコンテナを持つ、Podの設定ファイルを示します。これは、クラスター内のノードのキャパシティを超える可能性があります。
 
 {{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
@@ -242,7 +242,7 @@ memory-demo-3   0/1       Pending   0          25s
 kubectl describe pod memory-demo-3 --namespace=mem-example
 ```
 
-この出力では、ノードのメモリ不足のためコンテナがスケジュールされないことを示しています:
+この出力では、ノードのメモリー不足のためコンテナがスケジュールされないことを示しています:
 
 ```shell
 Events:
@@ -251,9 +251,9 @@ Events:
   ...  FailedScheduling  No nodes are available that match all of the following predicates:: Insufficient memory (3).
 ```
 
-## メモリの単位
+## メモリーの単位
 
-メモリリソースはバイト単位で示されます。メモリをE、P、T、G、M、K、Ei、Pi、Ti、Gi、Mi、Kiという接尾辞とともに、整数型または固定小数点整数で表現できます。たとえば、以下はおおよそ同じ値を表します:
+メモリーリソースはバイト単位で示されます。メモリーをE、P、T、G、M、K、Ei、Pi、Ti、Gi、Mi、Kiという接尾辞とともに、整数型または固定小数点整数で表現できます。たとえば、以下はおおよそ同じ値を表します:
 
 ```shell
 128974848, 129e6, 129M , 123Mi
@@ -265,20 +265,20 @@ Podを削除してください:
 kubectl delete pod memory-demo-3 --namespace=mem-example
 ```
 
-## メモリ制限を指定しない場合
+## メモリー制限を指定しない場合
 
-コンテナのメモリ制限を指定しない場合、次のいずれかの状態となります:
+コンテナのメモリー制限を指定しない場合、次のいずれかの状態となります:
 
-* コンテナのメモリ使用量に上限がない状態となります。コンテナは実行中のノードで利用可能なすべてのメモリを使用でき、その後OOM Killerが呼び出される可能性があります。さらに、OOM killの場合、リソース制限のないコンテナは強制終了される可能性が高くなります。
+* コンテナのメモリー使用量に上限がない状態となります。コンテナは実行中のノードで利用可能なすべてのメモリーを使用でき、その後OOM Killerが呼び出される可能性があります。さらに、OOM killの場合、リソース制限のないコンテナは強制終了される可能性が高くなります。
 
-* メモリ制限を与えられたnamespaceでコンテナを実行されると、コンテナにはデフォルトの制限値が自動的に指定されます。クラスターの管理者は[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)によってメモリ制限のデフォルト値を指定できます。
+* メモリー制限を与えられたnamespaceでコンテナを実行されると、コンテナにはデフォルトの制限値が自動的に指定されます。クラスターの管理者は[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)によってメモリー制限のデフォルト値を指定できます。
 
-## メモリ要求と制限のモチベーション
+## メモリー要求と制限のモチベーション
 
-クラスターで動作するコンテナにメモリ要求と制限を設定することで、クラスターのノードで利用可能なメモリリソースを効率的に使用することができます。Podのメモリ要求を低く保つことで、Podがスケジュールされやすくなります。メモリ要求よりも大きい制限を与えることで、次の2つを実現できます:
+クラスターで動作するコンテナにメモリー要求と制限を設定することで、クラスターのノードで利用可能なメモリーリソースを効率的に使用することができます。Podのメモリー要求を低く保つことで、Podがスケジュールされやすくなります。メモリー要求よりも大きい制限を与えることで、次の2つを実現できます:
 
-* Podは利用可能なメモリを、突発的な活動（バースト）に使用することができます。
-* バースト中のPodのメモリ使用量は、適切な量に制限されます。
+* Podは利用可能なメモリーを、突発的な活動（バースト）に使用することができます。
+* バースト中のPodのメモリー使用量は、適切な量に制限されます。
 
 ## クリーンアップ
 
@@ -300,15 +300,15 @@ kubectl delete namespace mem-example
 
 ### クラスター管理者向け
 
-* [Namespaceにメモリ要求および制限のデフォルト値を設定する](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Namespaceにメモリー要求および制限のデフォルト値を設定する](/docs/tasks/administer-cluster/memory-default-namespace/)
 
 * [NamespaceにCPU要求および制限のデフォルト値を設定する](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
-* [Namespaceに最小および最大メモリ量の制約を設定する](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Namespaceに最小および最大メモリー量の制約を設定する](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
 * [Namespaceに最小および最大のCPU使用量の制約を設定する](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-* [NamespaceにメモリおよびCPUのクォータを設定する](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [NamespaceにメモリーおよびCPUのクォータを設定する](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
 * [NamespaceにPodのクォータを設定する](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
