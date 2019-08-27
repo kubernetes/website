@@ -1,12 +1,12 @@
 ---
-title: Cloud Controller Managerの開発
+title: クラウドコントローラーマネージャーの開発
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
-今後のリリースで、Cloud Controller ManagerはKubernetesを任意のクラウドと統合するための良い方法となります。これによりクラウドプロバイダーはKubernetesのコアリリースサイクルから独立して機能を開発できるようになります。
+今後のリリースで、クラウドコントローラーマネージャーはKubernetesを任意のクラウドと統合するための良い方法となります。これによりクラウドプロバイダーはKubernetesのコアリリースサイクルから独立して機能を開発できるようになります。
 
 {{< feature-state for_k8s_version="1.8" state="alpha" >}}
 
@@ -34,6 +34,6 @@ Kubernetesには登録されていない独自のクラウドプロバイダー�
 
 ### Kubernetesに登録されているクラウドプロバイダー
 
-Kubernetesに登録されているクラウドプロバイダーであれば、[Daemonset](https://kubernetes.io/examples/admin/cloud/ccm-example.yaml) を使ってあなたのクラスターで動かすことができます。詳細については[Kubernetes Cloud Controller Manager ドキュメント](/docs/tasks/administer-cluster/running-cloud-controller/)を参照してください。
+Kubernetesに登録されているクラウドプロバイダーであれば、[Daemonset](https://kubernetes.io/examples/admin/cloud/ccm-example.yaml) を使ってあなたのクラスターで動かすことができます。詳細については[Kubernetesクラウドコントローラーマネージャードキュメント](/docs/tasks/administer-cluster/running-cloud-controller/)を参照してください。
 
 {{% /capture %}}
