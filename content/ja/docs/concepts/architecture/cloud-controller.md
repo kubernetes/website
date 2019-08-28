@@ -105,8 +105,7 @@ CCMの大半の機能は、KCMから派生しています。前セクション�
 
 ### ノードコントローラー
 
-ノードコントローラーはNode objectのみを処理します。Node objectについて、get、list、create、update、patch、watch、そしてdeleteの全権限が必要です。
-
+ノードコントローラーはNode objectのみに対して働きます。Node objectに対して、get、list、create、update、patch、watch、そしてdeleteの全権限が必要です。
 
 v1/Node:
 
