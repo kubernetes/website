@@ -143,8 +143,9 @@ metadata:
 
 ## 템플릿을 사용하지 않는 파드의 획득
 
-단독(bare) 파드를 생성하는 것에는 문제가 없지만, 단독 파드가 레플리카셋의 셀렉터와 일치하는 레이블을 가지지 않도록 하는 것을 강력하게 권장한다.
-그 이유는 레플리카셋이 소유하는 파드가 템플릿에 명시된 파드에만 국한되지 않고, 이전 섹션에서 명시된 방식에 의해서도 다른 파드의 획득이 가능하기 때문이다.
+단독(bare) 파드를 생성하는 것에는 문제가 없지만, 단독 파드가 레플리카셋의 셀렉터와 일치하는 레이블을 가지지
+않도록 하는 것을 강력하게 권장한다. 그 이유는 레플리카셋이 소유하는 파드가 템플릿에 명시된 파드에만 국한되지 않고, 
+이전 섹션에서 명시된 방식에 의해서도 다른 파드의 획득이 가능하기 때문이다.
 
 이전 프런트엔드 레플리카셋 예제와 다음의 매니페스트에 명시된 파드를 가져와 참조한다.
 
@@ -153,7 +154,8 @@ metadata:
 기본 파드는 소유자 관련 정보에 컨트롤러(또는 오브젝트)를 가지지 않기 때문에 프런트엔드 
 레플리카셋의 셀렉터와 일치하면 즉시 레플리카셋에 소유된다.
 
-프런트엔드 레플리카셋이 배치되고 초기 파드 레플리카가 셋업된 이후에, 레플리카 수 요구 사항을 충족시키기 위해서 신규 파드를 생성한다고 가정해보자.
+프런트엔드 레플리카셋이 배치되고 초기 파드 레플리카가 셋업된 이후에, 레플리카 수 요구 사항을 충족시키기 위해서 
+신규 파드를 생성한다고 가정해보자.
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
@@ -186,8 +188,8 @@ kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
-레플리카셋이 해당 파드를 소유한 것을 볼 수 있으며 새 파드 및 기존 파드의 수가 레플리카셋이 필요로 하는 수와 일치할 때까지 사양에 따라 신규 파드만 생성한다.
-파드를 가져온다.
+레플리카셋이 해당 파드를 소유한 것을 볼 수 있으며 새 파드 및 기존 파드의 수가 
+레플리카셋이 필요로 하는 수와 일치할 때까지 사양에 따라 신규 파드만 생성한다. 파드를 가져온다.
 ```shell
 kubectl get Pods
 ```
@@ -213,7 +215,7 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 
 ### 파드 템플릿
 
-`.spec.template`은 레이블을 붙이도록 되어있는 [파드 템플릿](/docs/concepts/workloads/Pods/pod-overview/#pod-templates)이다.
+`.spec.template`은 레이블을 붙이도록 되어있는 [파드 템플릿](/ko/docs/concepts/workloads/pods/pod-overview/#파드-템플릿)이다.
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
@@ -278,7 +280,6 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 컨트롤 방식으로 파드를 새로운 사양으로 업데이트 하기 위해서는 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)를 이용하면 된다. 
 이는 레플리카셋이 롤링 업데이트를 직접적으로 지원하지 않기 때문이다.
 
-
 ### 레플리카셋에서 파드 격리
 
 레이블을 변경하면 레플리카셋에서 파드를 제거할 수 있다. 이 방식은 디버깅과 데이터 복구 등을 
@@ -293,14 +294,15 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 ### 레플리카셋을 Horizontal Pod Autoscaler 대상으로 설정
 
 레플리카 셋은 
-[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/)의 대상이 될 수 있다.
+[Horizontal Pod Autoscalers (HPA)](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)의 대상이 될 수 있다.
 즉, 레플리카셋은 HPA에 의해 오토스케일될 수 있다.
 다음은 이전에 만든 예시에서 만든 레플리카셋을 대상으로 하는 HPA 예시이다.
 
 {{< codenew file="controllers/hpa-rs.yaml" >}}
 
-이 매니페스트를 `hpa-rs.yaml`로 저장한 다음 쿠버네티스 클러스터에 적용하면 
-CPU 사용량에 따라 파드가 복제되는 오토스케일 레플리카 셋 HPA가 생성된다.
+이 매니페스트를 `hpa-rs.yaml`로 저장한 다음 쿠버네티스 
+클러스터에 적용하면 CPU 사용량에 따라 파드가 복제되는 
+오토스케일 레플리카 셋 HPA가 생성된다.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
@@ -341,8 +343,7 @@ kubectl autoscale rs frontend --max=10
 머신의 재부팅/종료가 준비되었을 때, 해당 파드를 종료하는 것이 안전하다.
 
 ### 레플리케이션 컨트롤러
-
-레플리카셋은 [_레플리케이션 컨트롤러_](/docs/concepts/workloads/controllers/replicationcontroller/)를 계승하였다.
+레플리카셋은 [_레플리케이션 컨트롤러_](/ko/docs/concepts/workloads/controllers/replicationcontroller/)를 계승하였다.
 이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/docs/concepts/overview/working-with-objects/labels/#label-selectors)에 
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
