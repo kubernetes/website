@@ -87,7 +87,7 @@ Kubeletは2種類のProbeを実行中のコンテナで行い、また反応す�
    コンテナにlivenessProbeが設定されていない場合、デフォルトの状態は`Success`です。
 
 * `readinessProbe`: コンテナがServiceのリクエストを受けることができるかを示します。
-   readinessProbeに失敗すると、エンドポイントコントローラーにより、Podが該当するすべてのサービスからPodのIPアドレスが削除されます。
+   readinessProbeに失敗すると、エンドポイントコントローラーにより、Podが該当するすべてのServiceからPodのIPアドレスが削除されます。
    initial delay前のデフォルトのreadinessProbeの初期値は`Failure`です。
    コンテナにreadinessProbeが設定されていない場合、デフォルトの状態は`Success`です。
 
@@ -116,9 +116,9 @@ livenessProbeまたはreadinessProbeを設定する方法の詳細について�
 
 ## Pod and Container status
 
-Pod Container Statusについての詳細の情報は [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)と
+PodとContainerのステータスについての詳細の情報は、それぞれ[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)と
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)を参照してください。
-Pod ステータスとして報告される情報は、現在の[ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)に依存しています。
+Podのステータスとして報告される情報は、現在の[ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)に依存しています。
 
 ## Container States
 
