@@ -87,7 +87,7 @@ static-web-my-node1        1/1       Running   0          2m
 
 静态pod的标签会传递给镜像Pod，可以用来过滤或筛选。
 
-需要注意的是，我们不能通过API服务器来删除静态pod（例如，通过 [`kubectl`](/docs/user-guide/kubectl/) 命令），kebelet不会删除它。
+需要注意的是，我们不能通过API服务器来删除静态pod（例如，通过 [`kubectl`](/docs/user-guide/kubectl/) 命令），kubelet不会删除它。
 
 ```shell
 [joe@my-master ~] $ kubectl delete pod static-web-my-node1
