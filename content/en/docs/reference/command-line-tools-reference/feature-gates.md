@@ -69,6 +69,8 @@ different Kubernetes components.
 | `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigration` | `false` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
+| `CSIMigrationAWS` | `false` | Beta | 1.17 | |
+| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
