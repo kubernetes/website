@@ -93,7 +93,7 @@ Kubeletは2種類のProbeを実行中のコンテナで行い、また反応す�
 
 ### livenessProbeとreadinessProbeをいつ使うべきか?
 
-コンテナ自体が、問題に直面したり状態が悪くなった際に、クラッシュすることができれば、
+コンテナ自体に問題が発生した場合や状態が悪くなった際に、クラッシュすることができれば、
 livenessProbeは不要です。この場合kubeletが自動でPodの`restartPolicy`に基づいたアクションを実行します。
 
 Probeに失敗したときに、コンテナを殺したり再起動させたりするには、
@@ -107,8 +107,8 @@ readinessProbeが存在するということは、Podがトラフィックを受
 コンテナがメンテナンスのために停止できるようにするには、
 livenessProbeとは異なる、特定のエンドポイントを確認するreadinessProbeを指定することができます。
 
-Podが削除されたときに、リクエストを来ないようにするためには、必ずしもreadinessProbeが必要というわけではありません;
-削除時には、readinessProbeが存在するかどうかに関係なく、Podは自動的に自身をunhealthyにします。
+Podが削除されたときに、リクエストを来ないようにするためには、必ずしもreadinessProbeが必要というわけではありません。
+Podの削除時にはreadinessProbeが存在するかどうかに関係なく、Podは自動的に自身をunhealthyにします。
 Pod内のコンテナが停止するのを待つ間、Podはunhealthyのままです。
 
 livenessProbeまたはreadinessProbeを設定する方法の詳細については、
@@ -313,7 +313,7 @@ spec:
      * Podの`phase`はFailedになります。
      * Podがコントローラで作成されていた場合は、別の場所で再作成されます。
 
-   * Podが実行中ですが、そしてNodeが切り離されました。
+   * Podが実行中ですが、Nodeが切り離されました。
      * Nodeコントローラがタイムアウトを待ちます。
      * NodeコントローラがPodの`phase`をFailedにします。
      * Podがコントローラで作成されていた場合は、別の場所で再作成されます。
@@ -323,12 +323,10 @@ spec:
 
 {{% capture whatsnext %}}
 
-* ハンズオンをやってみる
-  [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
+* [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
 
-* ハンズオンをやってみる
-  [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)。
+* [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)のハンズオンをやってみる
 
-* [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)について更に学ぶ。
+* [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
 
 {{% /capture %}}
