@@ -68,6 +68,8 @@ properties:
     properties
       command:
         type: string
+      shell:
+        type: string
       machines:
         type: array
         items:
@@ -92,14 +94,14 @@ properties:
       shell:
         type: string
         minLength: 1                          # value validation
-      oneOf:                                  # value validation
-      - required: [“command”]                 # value validation
-      - required: [“shell”]                   # value validation
       machines:
         type: array
         items:
           type: string
           pattern: “^[a-z0-9]+(-[a-z0-9]+)*$” # value validation
+    oneOf:                                    # value validation
+    - required: [“command”]                   # value validation
+    - required: [“shell”]                     # value validation
 required: [“spec”]                            # value validation
 ```
 
@@ -130,16 +132,20 @@ properties:
       shell:
         type: string
         minLength: 1
-      oneOf:
-      - type: string
-        required: [“command”]
-      - type: string
-        required: [“shell”]
       machines:
         type: array
         items:
           type: string
           pattern: “^[a-z0-9]+(-[a-z0-9]+)*$”
+    oneOf:
+    - properties:
+        command:
+          type: string
+      required: [“command”]
+    - properties:
+        shell:
+          type: string
+      required: [“shell”]
     not:
       properties:
         privileged: {}

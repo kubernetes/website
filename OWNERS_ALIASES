@@ -50,21 +50,18 @@ aliases:
     - mistyhacks
     - rajakavitha1
     - ryanmcginnis
-    - shavidissa
+    - simplytunde
     - steveperry-53
     - stewart-yu
     - tengqm
     - tfogo
+    - xiangpengzhao
     - zacharysarah
-    - zhangxiaoyu-zidif
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
-    - jimangel
     - rajakavitha1
     - sftim
     - stewart-yu
-    - xiangpengzhao
-    - zhangxiaoyu-zidif
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
@@ -114,11 +111,13 @@ aliases:
     - girikuncoro
     - irvifa
   sig-docs-it-owners: # Admins for Italian content
-    - rlenferink
+    - mattiaperi
     - micheleberardi
+    - rlenferink
   sig-docs-it-reviews: # PR reviews for Italian content
-    - rlenferink
+    - mattiaperi
     - micheleberardi
+    - rlenferink
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - nasa9084
@@ -142,11 +141,8 @@ aliases:
     - seokho-son
   sig-docs-maintainers: # Website maintainers
     - bradamant3
-    - chenopis
-    - jaredbhatti
     - jimangel
     - kbarnard10
-    - mistyhacks
     - pwittrock
     - steveperry-53
     - tengqm
@@ -181,6 +177,8 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
     - jcjesus
+    - devlware
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
+    - devlware

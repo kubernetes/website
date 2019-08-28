@@ -140,13 +140,13 @@ The following file is an Ingress resource that sends traffic to your Service via
         metadata:
           name: example-ingress
           annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: /
+            nginx.ingress.kubernetes.io/rewrite-target: /$1
         spec:
          rules:
          - host: hello-world.info
            http:
              paths:
-             - path: /*
+             - path: /(.+)
                backend:
                  serviceName: web
                  servicePort: 8080

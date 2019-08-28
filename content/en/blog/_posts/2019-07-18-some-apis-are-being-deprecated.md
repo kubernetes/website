@@ -34,8 +34,8 @@ from **extensions/v1beta1**, **apps/v1beta1**, or **apps/v1beta2** in **v1.16**.
   * Migrate to the apps/v1 API, available since v1.9. Existing persisted data
     can be retrieved/updated via the apps/v1 API.
 * Ingress: will no longer be served from **extensions/v1beta1** in **v1.18**.
-  * Migrate to the networking.k8s.io/v1beta1 API. Existing persisted data can be
-    retrieved/updated via the networking.k8s.io/v1beta1 API.
+  * Migrate to the networking.k8s.io/v1beta1 API, serving Ingress since v1.14.
+    Existing persisted data can be retrieved/updated via the networking.k8s.io/v1beta1 API.
 
 # What To Do
 

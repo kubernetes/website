@@ -63,7 +63,7 @@ case you can try several things:
     information:
 
     ```shell
-    kubectl get nodes -o yaml | egrep '\sname:\|cpu:\|memory:'
+    kubectl get nodes -o yaml | egrep '\sname:|cpu:|memory:'
     kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
     ```
 
