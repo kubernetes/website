@@ -365,19 +365,22 @@ parameters:
   volume apakah yang akan digunakan. 
   
   Sebagai contoh:
-    * Volume replika: `volumetype: replicate:3` dimana '3' merupakan jumlah replika.
-    * Persebaran (_Disperse_)/EC volume: `volumetype: disperse:4:2` dimana'4' merupakan data dan '2' merupakan jumlah redundansi.
-    * Distribusi volume: `volumetype: none`
+  
+  * Volume replika: `volumetype: replicate:3` dimana '3' merupakan jumlah replika.
+  
+  * Persebaran (_Disperse_)/EC volume: `volumetype: disperse:4:2` dimana'4' merupakan data dan '2' merupakan jumlah redundansi.
+  
+  * Distribusi volume: `volumetype: none`
 
-    Untuk tipe volume apa saja yang tersedia dan berbagai opsi administrasi yang ada, kamu dapat membaca 
-    [Petunjuk Administrasi](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+  Untuk tipe volume apa saja yang tersedia dan berbagai opsi administrasi yang ada, kamu dapat membaca 
+  [Petunjuk Administrasi](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
 
-    Untuk informasi lebih lanjut, kamu dapat membaca
-    [Bagaimana Cara Mengatur Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
+  Untuk informasi lebih lanjut, kamu dapat membaca
+  [Bagaimana Cara Mengatur Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
 
-    Ketika PersistentVolume di-_provisioning_ secara dinamis, plugin Gluster secara otomatis 
-    akan membuat _endpoint_ serta sebuah servis _headless_ dengan nama `gluster-dynamic-<claimname>`. 
-    _Endpoint_ dinamis dan servis secara otomatis akan dihapus ketika PVC dihapus.
+  Ketika PersistentVolume di-_provisioning_ secara dinamis, plugin Gluster secara otomatis 
+  akan membuat _endpoint_ serta sebuah servis _headless_ dengan nama `gluster-dynamic-<claimname>`. 
+  _Endpoint_ dinamis dan servis secara otomatis akan dihapus ketika PVC dihapus.
 
 ### OpenStack Cinder
 
