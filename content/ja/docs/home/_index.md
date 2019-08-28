@@ -19,11 +19,11 @@ overview: >
 cards:
 - name: concepts
   title: "基本を理解する"
-  description: "Kubernetesに基本的なコンセプトについて学びます。"
+  description: "Kubernetesとその基本的なコンセプトを学びます。"
   button: "コンセプトを学ぶ"
   button_path: "/ja/docs/concepts"
 - name: tutorials
-  title: "Kubernetesを試用する"
+  title: "Kubernetesを試す"
   description: "チュートリアルに沿って、Kubernetesにアプリケーションをデプロイする方法を学びます。"
   button: "チュートリアルを見る"
   button_path: "/ja/docs/tutorials"
@@ -52,5 +52,5 @@ cards:
   description: Kubernetesをインストールする場合や最新バージョンにアップグレードする場合は、現在のリリースノートを参照してください。
 - name: about
   title: ドキュメントについて
-  description: このWebサイトには、Kubernetesの現在および以前の4つのバージョンに関するドキュメントが含まれています。
+  description: このWebサイトには、Kubernetesの最新バージョンと過去4世代のドキュメントが含まれています。
 ---
