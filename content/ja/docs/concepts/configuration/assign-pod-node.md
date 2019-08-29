@@ -331,21 +331,19 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 上記の例では `PodAntiAffinity`を`topologyKey: "kubernetes.io/hostname"`と合わせて指定することで、redisクラスタ内の2つのインスタンスが同じホストにデプロイされない場合を扱いました。
 同様の方法で、Anti-Affinityを用いて高可用性を実現したStatefulSetの使用例は[ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)を参照してください。
 
-<!-- here -->
-
 
 ## nodeName
 
 `nodeName`はNodeの選択を制限する最も簡単な方法ですが、制約があることからあまり使用されません。
 `nodeName`はPodSpecのフィールドです。
-ここに値が設定されると、schedulerはPodを無視し、その名前が付与されているNodeのkubeletはPodを稼働させようとします。
-それため、PodSpecに`nodeName`が指定されると、上記のNodeの選択方法よりも優先されます。
+ここに値が設定されると、schedulerはそのPodを考慮しなくなり、その名前が付与されているNodeのkubeletはPodを稼働させようとします。
+そのため、PodSpecに`nodeName`が指定されると、上述のNodeの選択方法よりも優先されます。
 
  `nodeName`を使用することによる制約は以下の通りです:
 
 -   その名前のNodeが存在しない場合、Podは起動されす、自動的に削除される場合があります。
 -   その名前のNodeにPodを稼働させるためのリソースがない場合、Podの起動は失敗し、理由はOutOfmemoryやOutOfcpuになります。
--   クラウド上のNodeの名前は予期できず、変更される可能性がある。
+-   クラウド上のNodeの名前は予期できず、変更される可能性があります。
 
 `nodeName`を指定したPodの設定ファイルの例を示します:
 
@@ -366,5 +364,14 @@ spec:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+
+<!-- here -->
+
+
+[Taints](/docs/concepts/configuration/taint-and-toleration/) allow a Node to *repel* a set of Pods.
+
+The design documents for
+[node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
+and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
 
 {{% /capture %}}
