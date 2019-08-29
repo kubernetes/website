@@ -13,7 +13,7 @@ weight: 30
 
 {{% capture body %}}
 
-## Podのphase
+## PodのPhase
 
 Podの`status`項目は[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)オブジェクトで、それは`phase`のフィールドがあります。
 
@@ -57,7 +57,7 @@ PodCondition配列の各要素には、次の6つのフィールドがありま�
   * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
 
 
-## ContainerのProbe
+## コンテナのProbe
 
 [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) は [kubelet](/docs/admin/kubelet/) により定期的に実行されるコンテナの診断です。
 診断を行うために、kubeletはコンテナに実装された [ハンドラー](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler)を呼びます。
@@ -114,13 +114,13 @@ Pod内のコンテナが停止するのを待つ間Podはunhealthyのままで�
 livenessProbeまたはreadinessProbeを設定する方法の詳細については、
 [Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)を参照してください
 
-## PodとContainerのステータス
+## Podとコンテナのステータス
 
 PodとContainerのステータスについての詳細の情報は、それぞれ[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)と
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)を参照してください。
 Podのステータスとして報告される情報は、現在の[ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)に依存しています。
 
-## Containerのステータス
+## コンテナのステータス
 
 PodがスケジューラによってNodeに割り当てられると、
 kubeletはコンテナのランタイムを使用してコンテナの作成を開始します。
