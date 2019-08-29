@@ -106,8 +106,11 @@ kubectl replace --force -f ./pod.json
 
 
 ### Version
+
 <div class="kubectl-reference-copyright">
 
-<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs version 1.15 &#xa9;Copyright 2019 The Kubernetes Authors</a>
+<a href="https://github.com/kubernetes/kubernetes">Kubectl Reference Docs  
+{{< param "fullversion" >}}   &#xa9;Copyright 2019 The Kubernetes Authors</a>
+
 </div>
 
