@@ -16,12 +16,12 @@ This page explains how EvenPodsSpread feature works and the mechanics under the 
 
 ## EvenPodsSpread
 
-`EvenPodsSpread` feature gives users more fine-grained control on the pods' distribution across the cluster among failure-domains such as regions, zones, nodes, and racks. This can help to achieve high availability as well as efficient resource utilization.
+`EvenPodsSpread` feature gives users more fine-grained control on the pods' distribution across the cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
 ## Motivation
 
 In Kubernetes, "Affinity" related directives are aimed to control how pods are
-scheduled - more packed or more scattering. But right now only limited options
+scheduled - more packed or more scattered. But right now only limited options
 are offered: for `PodAffinity`, infinite pods can be stacked onto qualifying
 topology domain(s); for `PodAntiAffinity`, only one pod can be scheduled onto a
 single topology domain.
@@ -60,7 +60,7 @@ So the cluster is logically viewed as below:
 +-------+-------+-------+-------+
 ```
 
-Instead of manually applying labels, you can also reuse the [standardized Kubernetes labels](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/) which are created automatically along with the cluster provisioning.
+Instead of manually applying labels, you can also reuse the [standardized Kubernetes labels](/docs/reference/kubernetes-api/labels-annotations-taints/) which are created and populated automatically by most cluster providers.
 
 ## Usage
 
@@ -81,14 +81,14 @@ spec:
     labelSelector: <object>
 ```
 
-You can define one or multiple `topologySpreadConstraint` to instruct the kube-scheduler to how to place the incoming pod with existing pods across the cluster. In particular, the fields are explained as below:
+You can define one or multiple `topologySpreadConstraint` to instruct the kube-scheduler how to place the incoming pod with existing pods across the cluster. In particular, the fields are explained as below:
 
-- **maxSkew** describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type.
+- **maxSkew** describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type. It must be greater than zero.
 - **topologyKey** is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put a balanced number of pods into each bucket.
 - **whenUnsatisfiable** indicates how to deal with a pod if it doesn't satisfy the spread constraint:
-    - `DoNotSchedule` (default) tells the scheduler not to schedule it
-    - `ScheduleAnyway` tells the scheduler to still schedule it
-- **labelSelector** is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+    - `DoNotSchedule` (default) tells the scheduler not to schedule it.
+    - `ScheduleAnyway` tells the scheduler to still schedule it in the manner of prioritizing nodes that minimize the skew.
+- **labelSelector** is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain. See [Lable Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
 
 Detailed API explanation can also be found via `kubectl explain pod.spec.topologySpreadConstraints`.
 
@@ -145,12 +145,6 @@ We can tweak the pod spec to meet various kinds of requirements:
 - Change `maxSkew` to a bigger value like "2" so that the incoming pod can be placed onto "zoneA" as well.
 - Change `topologyKey` to "node" so as to distribute the pods evenly across nodes instead of zones. In the above example, if `maxSkew` remains "1", the incoming pod can only be placed onto "node4".
 - Change `whenUnsatisfiable: DoNotSchedule` to `whenUnsatisfiable: ScheduleAnyway` to ensure the incoming pod to be always schedulable (suppose other scheduling APIs are satisfied). However, it’s preferred to be placed onto the topology domain which has fewer matching pods. (Be aware that this preferability is jointly normalized with other internal scheduling priorities like resource usage ratio, etc.)
-
-There are some implicit conventions worth noting here:
-
-- Only the pods holding the same namespace as the incoming pod can be matching candidates.
-- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed - i.e. the pods located on those nodes being disregarded. In the above example, suppose a node5 carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key `zone`.
-- Be aware of a "tricky" situation if the incomingPod’s  `topologySpreadConstraints[*].labelSelector` doesn’t match its own labels. In the above example, if we remove the incoming pod’s labels, it can still be placed onto "zoneB" since the constraints are respected well. However, after the placement, the degree of imbalance of the cluster remains unchanged - it’s still zoneA having 2 pods which hold label {foo:bar}, and zoneB having 1 pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload’s `topologySpreadConstraints[*].labelSelector` to match its own labels.
 
 ### Example: Multiple TopologySpreadConstraints
 
@@ -210,50 +204,59 @@ If we apply "mypod.yaml" to this cluster, you will notice "mypod" stays in `Pend
 
 To overcome this situation, you can either increase the `maxSkew` or modify one of the constraints to use `whenUnsatisfiable: ScheduleAnyway`.
 
-### Example: Respecting NodeSelecor and NodeAffinity
+### Conventions
 
-Suppose we have a 5-node cluster ranging from zoneA to zoneC:
+There are some implicit conventions worth noting here:
 
-```
-+---------------+---------------+-------+
-|     zoneA     |     zoneB     | zoneC |
-+-------+-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 | node5 |
-+-------+-------+-------+-------+-------+
-|   P   |   P   |   P   |       |       |
-+-------+-------+-------+-------+-------+
-```
+- Only the pods holding the same namespace as the incoming pod can be matching candidates.
 
-If we’re clear that zoneC must be excluded, we can compose the spec like this:
+- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed - i.e. the pods located on those nodes being disregarded. In the above example, suppose a node5 carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key `zone`.
 
-```
-kind: Pod
-apiVersion: v1
-metadata:
-  name: mypod
-  labels:
-    foo: bar
-spec:
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: zone
-    whenUnsatisfiable: DoNotSchedule
-    labelSelector:
-      matchLabels:
+- Be aware of what happends if the incomingPod’s `topologySpreadConstraints[*].labelSelector` doesn’t match its own labels. In the above example, if we remove the incoming pod’s labels, it can still be placed onto "zoneB" since the constraints are respected well. However, after the placement, the degree of imbalance of the cluster remains unchanged - it’s still zoneA having 2 pods which hold label {foo:bar}, and zoneB having 1 pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload’s `topologySpreadConstraints[*].labelSelector` to match its own labels.
+
+- If the incoming pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed.
+
+    Suppose we have a 5-node cluster ranging from zoneA to zoneC:
+
+    ```
+    +---------------+---------------+-------+
+    |     zoneA     |     zoneB     | zoneC |
+    +-------+-------+-------+-------+-------+
+    | node1 | node2 | node3 | node4 | node5 |
+    +-------+-------+-------+-------+-------+
+    |   P   |   P   |   P   |       |       |
+    +-------+-------+-------+-------+-------+
+    ```
+
+    If we’re clear that zoneC must be excluded, we can compose the spec like this:
+
+    ```
+    kind: Pod
+    apiVersion: v1
+    metadata:
+      name: mypod
+      labels:
         foo: bar
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: zone
-            operator: NotIn
-            values:
-            - zoneC
-...
-```
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: zone
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            foo: bar
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: zone
+                operator: NotIn
+                values:
+                - zoneC
+    ...
 
-So that "mypod" will be placed onto zoneB instead of zoneC. Similarly `spec.nodeSelector` is also respected.
+    So that "mypod" will be placed onto zoneB instead of zoneC. Similarly `spec.nodeSelector` is also respected.
 
 ## Known Limitations
 
