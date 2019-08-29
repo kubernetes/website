@@ -64,7 +64,7 @@ controller](/docs/concepts/workloads/controllers/replicationcontroller/) for mor
 When something is said to have the same lifetime as a Pod, such as a volume,
 that means that it exists as long as that Pod (with that UID) exists. If that
 Pod is deleted for any reason, even if an identical replacement is created, the
-related thing (e.g. volume) is also destroyed and created anew.
+related thing (e.g., volume) is also destroyed and created anew.
 
 {{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
 
@@ -79,7 +79,7 @@ Pods are a model of the pattern of multiple cooperating processes which form a
 cohesive unit of service.  They simplify application deployment and management
 by providing a higher-level abstraction than the set of their constituent
 applications. Pods serve as unit of deployment, horizontal scaling, and
-replication. Colocation (co-scheduling), shared fate (e.g. termination),
+replication. Colocation (co-scheduling), shared fate (e.g., termination),
 coordinated replication, resource sharing, and dependency management are
 handled automatically for containers in a Pod.
 
@@ -167,7 +167,7 @@ Pod is exposed as a primitive in order to facilitate:
 
 ## Termination of Pods
 
-Because Pods represent running processes on nodes in the cluster, it is important to allow those processes to gracefully terminate when they are no longer needed (vs being violently killed with a KILL signal and having no chance to clean up). Users should be able to request deletion and know when processes terminate, but also be able to ensure that deletes eventually complete. When a user requests deletion of a Pod, the system records the intended grace period before the Pod is allowed to be forcefully killed, and a TERM signal is sent to the main process in each container. Once the grace period has expired, the KILL signal is sent to those processes, and the Pod is then deleted from the API server. If the Kubelet or the container manager is restarted while waiting for processes to terminate, the termination will be retried with the full grace period.
+Because Pods represent running processes on nodes in the cluster, it is important to allow those processes to gracefully terminate when they are no longer needed (vs. being violently killed with a KILL signal and having no chance to clean up). Users should be able to request deletion and know when processes terminate, but also be able to ensure that deletes eventually complete. When a user requests deletion of a Pod, the system records the intended grace period before the Pod is allowed to be forcefully killed, and a TERM signal is sent to the main process in each container. Once the grace period has expired, the KILL signal is sent to those processes, and the Pod is then deleted from the API server. If the Kubelet or the container manager is restarted while waiting for processes to terminate, the termination will be retried with the full grace period.
 
 An example flow:
 
