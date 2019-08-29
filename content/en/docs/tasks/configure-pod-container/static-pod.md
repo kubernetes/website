@@ -31,6 +31,8 @@ Pods to run a Pod on every node, you should probably be using a
 instead.
 {{< /note >}}
 
+A good use case for static Pods would be to have kubelet run the control plane as a set of pods on each node, which can be useful in HA deployments.
+
 {{% /capture %}}
 
 {{% capture prerequisites %}}
