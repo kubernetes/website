@@ -10,7 +10,7 @@ weight: 100
 
 ### Self-hosting the Kubernetes control plane {#self-hosting}
 
-As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control
+kubeadm allows you to experimentally create a _self-hosted_ Kubernetes control
 plane. This means that key components such as the API server, controller
 manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
