@@ -58,6 +58,6 @@ weight: 80
 ## その他の貢献方法
 
 - TwitterやStack Overflowといったオンラインフォーラムを通してKubernetesコミュニティに貢献したい方、または各地のミートアップやイベントについて知りたい方は[Kubernetes community site](/community/)へ。
-- 機能開発に貢献したい方は、まずはじめに[contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)を読んでください。
+- 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
 
 {{% /capture %}}
