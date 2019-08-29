@@ -117,7 +117,7 @@ Note that the Kubernetes Node name must match the Azure VM name.
 
 ## CloudStack
 
-If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
+If you wish to use the external cloud provider, its repository is [apache/cloudstack-kubernetes-provider](https://github.com/apache/cloudstack-kubernetes-provider)
 
 ### Node Name
 
@@ -136,6 +136,8 @@ Note that the first segment of the Kubernetes Node name must match the GCE insta
 ## OpenStack
 This section describes all the possible configurations which can
 be used when using OpenStack with Kubernetes.
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
 
 ### Node Name
 
