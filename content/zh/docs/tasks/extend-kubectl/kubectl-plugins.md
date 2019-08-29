@@ -377,14 +377,25 @@ error: one plugin warning was found
 <!--
 In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells us that this plugin will never be executed. Instead, the executable that appears first in our PATH, `/usr/local/bin/plugins/kubectl-foo`, will always be found and executed first by the `kubectl` plugin mechanism.
 -->
+在上面的场景中 `/usr/local/bin/moreplugins/kubectl-foo` 下的警告告诉我们这个插件永远不会被执行。相反，首先出现在我们路径中的可执行文件 `/usr/local/bin/plugins/kubectl-foo` 总是首先被 `kubectl` 插件机制找到并执行。
 
 <!--
 A way to resolve this issue is to ensure that the location of the plugin that you wish to use with `kubectl` always comes first in your PATH. For example, if we wanted to always use `/usr/local/bin/moreplugins/kubectl-foo` anytime that the `kubectl` command `kubectl foo` was invoked, we would simply change the value of our PATH to be `PATH=/usr/local/bin/moreplugins:/usr/local/bin/plugins`.
 -->
+解决这个问题的一种方法是你确保你希望与 `kubectl` 一起使用的插件的位置总是在你的路径中首先出现。
+例如，如果我们总是想使用 `/usr/local/bin/moreplugins/kubectl foo`，那么在调用 `kubectl` 命令 `kubectl foo` 时，我们只需将路径的值更改为 `PATH=/usr/local/bin/moreplugins:/usr/local/bin/plugins`。
 
+
+<!--
 #### Invocation of the longest executable filename
+-->
 
+#### 调用最长的可执行文件名
+
+<!--
 There is another kind of overshadowing that can occur with plugin filenames. Given two plugins present in a user's PATH `kubectl-foo-bar` and `kubectl-foo-bar-baz`, the `kubectl` plugin mechanism will always choose the longest possible plugin name for a given user command. Some examples below, clarify this further:
+-->
+对于插件文件名而言还有另一种弊端，给定用户路径中的两个插件 `kubectl-foo-bar` 和 `kubectl-foo-bar-baz` ，`kubectl` 插件机制总是为给定的用户命令选择尽可能长的插件名称。下面的一些例子进一步的说明了这一点：
 
 ```bash
 # for a given kubectl command, the plugin with the longest possible filename will always be preferred
@@ -415,7 +426,10 @@ kubectl foo bar buz
 Plugin kubectl-foo-bar is executed, with "buz" as its first argument
 ```
 
+<!--
 This design choice ensures that plugin sub-commands can be implemented across multiple files, if needed, and that these sub-commands can be nested under a "parent" plugin command:
+-->
+这种设计选择确保插件子命令可以跨多个文件实现，如果需要，这些子命令可以嵌套在"父"插件命令下：
 
 ```bash
 ls ./plugin_command_tree
@@ -426,9 +440,16 @@ kubectl-parent-subcommand
 kubectl-parent-subcommand-subsubcommand
 ```
 
+<!--
 ### Checking for plugin warnings
+-->
 
+### 检查插件警告
+
+<!--
 You can use the aforementioned `kubectl plugin list` command to ensure that your plugin is visible by `kubectl`, and verify that there are no warnings preventing it from being called as a `kubectl` command.
+-->
+你可以使用前面提到的 `kubectl plugin list` 命令来确保你的插件可以被 `kubectl` 看到，并且验证没有警告防止它被称为 `kubectl` 命令。
 
 ```bash
 kubectl plugin list
@@ -445,16 +466,32 @@ plugins/kubectl-invalid
 error: 2 plugin warnings were found
 ```
 
+<!--
 ### Using the command line runtime package
+-->
 
+### 使用命令行 runtime 包
+
+<!--
 As part of the plugin mechanism update in the v1.12.0 release, an additional set of utilities have been made available to plugin authors. These utilities
 exist under the [k8s.io/cli-runtime](https://github.com/kubernetes/cli-runtime) repository, and can be used by plugins written in Go to parse and update
 a user's KUBECONFIG file, obtain REST clients to talk to the API server, and automatically bind flags associated with configuration and printing.
+-->
+作为 v1.12.0 版本中插件机制更新的一部分，插件作者可以使用另外一组实用程序。这些实用程序在，
+[k8s.io/cli-runtime](https://github.com/kubernetes/cli-runtime) 存储库，并且可以被编写在 Go 中的插件用来解析和更新，
+用户的 KUBECONFIG 文件，获取 REST 客户端与 API 服务器通信，并自动绑定与配置和打印相关的参数。
 
+<!--
 Plugins *do not* have to be written in Go in order to be recognized as valid plugins by `kubectl`, but they do have to use Go in order to take advantage of
 the tools and utilities in the CLI Runtime repository.
+-->
+插件*不*必须用 Go 编写才能被 `kubectl` 识别为有效的插件，但是它们必须使用 Go 才能使用的 CLI Runtime 存储库中的工具和实用程序。
 
+<!--
 See the [Sample CLI Plugin](https://github.com/kubernetes/sample-cli-plugin) for an example usage of the tools provided in the CLI Runtime repo.
+-->
+参见 [CLI 插件示例](https://github.com/kubernetes/sample-cli-plugin)了解 CLI Runtime 存储库中提供的工具的使用示例。
+
 
 {{% /capture %}}
 
