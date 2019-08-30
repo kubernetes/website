@@ -365,13 +365,11 @@ spec:
 
 {{% capture whatsnext %}}
 
-<!-- here -->
 
+[Taints](/docs/concepts/configuration/taint-and-toleration/)を使うことで、NodeはPodを追い出すことができます。
 
-[Taints](/docs/concepts/configuration/taint-and-toleration/) allow a Node to *repel* a set of Pods.
-
-The design documents for
-[node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
-and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
+[Node Affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)と
+[Inter-Pod Affinity/Anti-Affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
+には、Taintsの要点に関して様々な背景が紹介されています。
 
 {{% /capture %}}
