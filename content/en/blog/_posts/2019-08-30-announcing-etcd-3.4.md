@@ -3,7 +3,7 @@
 layout: blog
 title: "Announcing etcd 3.4"
 date: 2019-08-30
-slug: Announcing-etcd-3.4
+slug: announcing-etcd-3-4
 ---
 
 **Authors:** Gyuho Lee (Amazon Web Services, @[gyuho](https://github.com/gyuho)), Jingyi Hu (Google, @[jingyih](https://github.com/jingyih))
