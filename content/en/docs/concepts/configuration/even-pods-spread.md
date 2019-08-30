@@ -22,12 +22,12 @@ This page explains how EvenPodsSpread feature works and the mechanics under the 
 
 In Kubernetes, "Affinity" related directives are aimed to control how pods are
 scheduled - more packed or more scattered. But right now only limited options
-are offered: for `PodAffinity`, infinite pods can be stacked onto qualifying
-topology domain(s); for `PodAntiAffinity`, only one pod can be scheduled onto a
+are offered: for `PodAffinity`, infinite pods can be packed into qualifying
+topology domain(s); for `PodAntiAffinity`, only one pod can be scheduled into a
 single topology domain.
 
-This is not an ideal situation if users want to put pods evenly across different
-topology domains - for the sake of high availability or cost-saving. And
+This is not an ideal situation if users want to distribute pods evenly across different
+topology domains - to achieve high availability or cost-saving. And
 regular rolling upgrade or scaling out replicas can also be problematic.
 
 ## Set up
@@ -39,7 +39,7 @@ in 1.16). See [Feature Gates](/docs/reference/command-line-tools-reference/featu
 
 ### Apply Labels to Worker Nodes
 
-This feature requires the nodes to be applied with topological key-value pairs via `kubectl label node <node_name> <key1=val1> <key2=val2> ...`. For example, the following 4-node cluster is tagged with {node: node_name>, zone: zone_name}:
+This feature requires the nodes to be labelled with topological key-value pairs via `kubectl label node <node_name> <key1=val1> <key2=val2> ...`. For example, the following 4-node cluster is tagged with {node: node_name>, zone: zone_name}:
 
 ```
 $ kubectl get node --show-labels
@@ -87,14 +87,14 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
 - **topologyKey** is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put a balanced number of pods into each bucket.
 - **whenUnsatisfiable** indicates how to deal with a pod if it doesn't satisfy the spread constraint:
     - `DoNotSchedule` (default) tells the scheduler not to schedule it.
-    - `ScheduleAnyway` tells the scheduler to still schedule it in the manner of prioritizing nodes that minimize the skew.
+    - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
 - **labelSelector** is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain. See [Lable Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) for more details.
 
 Detailed API explanation can also be found via `kubectl explain pod.spec.topologySpreadConstraints`.
 
 ### Example: One TopologySpreadConstraint
 
-Suppose we have a 4-node cluster where 3 pods labeled `foo:bar` are located from node1 to node3 respectively (`P` represents Pod):
+Suppose we have a 4-node cluster where 3 pods labeled `foo:bar` are located in node1, node2 and node3 respectively (`P` represents Pod):
 
 ```
 +---------------+---------------+
@@ -210,9 +210,11 @@ There are some implicit conventions worth noting here:
 
 - Only the pods holding the same namespace as the incoming pod can be matching candidates.
 
-- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed - i.e. the pods located on those nodes being disregarded. In the above example, suppose a node5 carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key `zone`.
+- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed. It implies that:
+    1. the pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 pods will be disregarded, hence the incomingPod will be scheduled into "zoneA".
+    2. the incoming pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
 
-- Be aware of what happends if the incomingPod’s `topologySpreadConstraints[*].labelSelector` doesn’t match its own labels. In the above example, if we remove the incoming pod’s labels, it can still be placed onto "zoneB" since the constraints are respected well. However, after the placement, the degree of imbalance of the cluster remains unchanged - it’s still zoneA having 2 pods which hold label {foo:bar}, and zoneB having 1 pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload’s `topologySpreadConstraints[*].labelSelector` to match its own labels.
+- Be aware of what will happen if the incomingPod’s `topologySpreadConstraints[*].labelSelector` doesn’t match its own labels. In the above example, if we remove the incoming pod’s labels, it can still be placed onto "zoneB" since the constraints are still satisfied. However, after the placement, the degree of imbalance of the cluster remains unchanged - it’s still zoneA having 2 pods which hold label {foo:bar}, and zoneB having 1 pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload’s `topologySpreadConstraints[*].labelSelector` to match its own labels.
 
 - If the incoming pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed.
 
