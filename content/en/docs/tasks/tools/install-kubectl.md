@@ -30,7 +30,7 @@ You must use a kubectl version that is within one minor version difference of yo
     curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+    To download a specific version, replace the `curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt` portion of the command with the specific version.
 
     For example, to download version {{< param "fullversion" >}} on Linux, type:
     
@@ -102,10 +102,10 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
 1. Download the latest release:
 
     ```		 
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/darwin/amd64/kubectl
     ```
 
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+    To download a specific version, replace the ``curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`` portion of the command with the specific version.
 
     For example, to download version {{< param "fullversion" >}} on macOS, type:
 		  
