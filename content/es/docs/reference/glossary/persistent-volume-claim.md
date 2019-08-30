@@ -15,5 +15,4 @@ tags:
 
 <!--more--> 
 
-Especifica la capacidad de almacenamiento, cómo acceder a él (sólo lectura, lectura y escritura y/o exclusivo) y qué hacer una vez eliminemos el PersistentVolumeClaim (mantener, reciclar o eliminar). Los detalles sobre almacenamiento están disponibles en la especificación de PersistentVolume.
-
+Especifica la cantidad de almacenamiento, cómo acceder a él (sólo lectura, lectura y escritura y/o exclusivo) y qué hacer una vez eliminemos el PersistentVolumeClaim (mantener, reciclar o eliminar). Los detalles sobre almacenamiento están disponibles en la especificación de PersistentVolume.
