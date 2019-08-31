@@ -298,20 +298,20 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 {{< feature-state state="alpha" >}}
 {{< warning >}}Kubernetes' implementation of dual-stack networking is in flux. You may well find that the design is changed in future releases.{{< /warning >}}
 
-IPv4/IPv6 dual stack enabled Kubernetes clusters allow the assignment of both IPv4 and IPv6 addresses simultaneously which enables the following capabilities:
+If you enable IPv4/IPv6 dual stack networking for you Kubernetes cluster, the cluster will support simultaneous assignment of both IPv4 and IPv6 addresses. Building on that, you get extra capabilities:
 
    * Awareness of multiple IPv4/IPv6 address assignments per Pod
-   * Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster
+   * Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within your cluster
 
 Details on the implementation of this feature may be found in the [IPv4/IPv6 dual stack KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/20180612-ipv4-ipv6-dual-stack.md)
 
 ### Supported Features
 
-Enabling IPv4/IPv6 dual stack on a Kubernetes cluster enables the following features:
+Enabling IPv4/IPv6 dual stack on your Kubernetes cluster provides the following features:
 
    * Dual stack Pod networking (multi-IP Pod)
    * Kubenet multi address family support (IPv4 and IPv6)
-   * Egress Pod Internet routing via IPv4/IPv6 addresses
+   * Pod egress routing to the internet via IPv4 and IPv6
 
 ### Prerequisites
 
@@ -322,7 +322,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual stack 
 
 ### Enable IPv4/IPv6 dual stack
 
-To enable IPv4/IPv6 dual stack, the following flags must added to these cluster components:
+To enable IPv4/IPv6 dual stack, enable the `IPv6DualStack` [feature gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/] for the relevant components of your cluster, and set dual-stack cluster network assignments:
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
