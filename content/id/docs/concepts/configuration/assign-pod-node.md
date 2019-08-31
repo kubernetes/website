@@ -52,7 +52,7 @@ spec:
 
 Kemudian tambahkan sebuah nodeSelector seperti berikut:
 
-{{< codenew file="pods/pod-nginx.yaml" >}}n
+{{< codenew file="pods/pod-nginx.yaml" >}}
 
 Ketika Anda kemudian menjalankan `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`, pod tersebut akan dijadwalkan pada node yang memiliki label yang dirinci. Anda dapat memastikan penambahan nodeSelector berhasil dengan menjalankan `kubectl get pods -o wide` dan melihat "NODE" tempat Pod ditugaskan.
 
