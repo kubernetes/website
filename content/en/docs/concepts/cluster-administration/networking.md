@@ -296,14 +296,11 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 ## IPv4/IPv6 dual stack
 
 {{< feature-state state="alpha" >}}
-{{< warning >}}Kubernetes' implementation of dual-stack networking is in flux. You may well find that the design is changed in future releases.{{< /warning >}}
 
 If you enable IPv4/IPv6 dual stack networking for you Kubernetes cluster, the cluster will support simultaneous assignment of both IPv4 and IPv6 addresses. Building on that, you get extra capabilities:
 
    * Awareness of multiple IPv4/IPv6 address assignments per Pod
    * Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within your cluster
-
-Details on the implementation of this feature may be found in the [IPv4/IPv6 dual stack KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/20180612-ipv4-ipv6-dual-stack.md)
 
 ### Supported Features
 
@@ -364,6 +361,9 @@ a00:100::4
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
    * Masquerading is done via Kubenet not kube-proxy. Modifying kube-proxy to work with multi IP is scheduled for BETA stage (v1.16)
 
+### What's Next
+
+Details on the implementation of this feature may be found in the [IPv4/IPv6 dual stack] KEP(https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/20180612-ipv4-ipv6-dual-stack.md)
 
 {{% /capture %}}
 
