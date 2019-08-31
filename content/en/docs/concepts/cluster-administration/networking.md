@@ -297,73 +297,115 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 
 {{< feature-state state="alpha" >}}
 
-If you enable IPv4/IPv6 dual stack networking for you Kubernetes cluster, the cluster will support simultaneous assignment of both IPv4 and IPv6 addresses. Building on that, you get extra capabilities:
-
-   * Awareness of multiple IPv4/IPv6 address assignments per Pod
-   * Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within your cluster
+If you enable IPv4/IPv6 dual stack networking for you Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 
 ### Supported Features
 
 Enabling IPv4/IPv6 dual stack on your Kubernetes cluster provides the following features:
 
-   * Dual stack Pod networking (multi-IP Pod)
+   * Dual stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
+   * IPv4 and IPv6 enabled Services (must be only of a single address family)
    * Kubenet multi address family support (IPv4 and IPv6)
-   * Pod egress routing to the internet via IPv4 and IPv6
+   * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 
 ### Prerequisites
 
 The following prerequisites are needed in order to utilize IPv4/IPv6 dual stack Kubernetes clusters:
 
+   * Kubernetes 1.16 or later
    * Provider support for dual stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
    * Kubenet network plugin
+   * Kube-proxy running in mode IPVS
 
 ### Enable IPv4/IPv6 dual stack
 
-To enable IPv4/IPv6 dual stack, enable the `IPv6DualStack` [feature gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/] for the relevant components of your cluster, and set dual-stack cluster network assignments:
+To enable IPv4/IPv6 dual stack, enable the `IPv6DualStack` [feature gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/24`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
+   * kube-proxy:
+      * `--proxy-mode=ipvs`
+      * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>` 
+      * `--feature-gates="IPv6DualStack=true"`
 
-### Validate IPv4/IPv6 dual stack
+{{< note >}}
+An IPv6 CIDR specificed via the `--cluster-cidr` flag larger than /24 will fail
+{{< /note >}}
 
-Validate IPv4/IPv6 Pod CIDRs have been assigned on a dual stack enabled node by running the following command. There should be a single IPv4 and IPv6 CIDR allocated (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0):
+### Services
 
-```shell
-kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .spec.podCIDRs}}{{printf "%s\n" .}}{{end}}'
-10.244.1.0/24
-a00:100::/24
+The IPv4/IPv6 dual stack enhancement includes the capability for Services to be created with either an IPv4 or an IPv6 address. The `Service.Spec.IPFamily` field has been added to Services to enable users to designate which address family to use for the Service IP. The `Service.Spec.IPFamily` is an immutable field. The default value of this field is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag on kube-controller manager.
+
+Possible values of this field are as follows:
+
+   * IPv4: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
+   * IPv6: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
+
+The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  ipFamily: IPv6
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
-There should be a single IPv4 and IPv6 CIDR allocated
 
+For comparison, the following Service specification will be assigned an IPV4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 
-Validate that the node has an IPv4 and IPv6 interface detected (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0): 
-```shell
-kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
-Hostname: k8s-linuxpool1-34450317-0
-InternalIP: 10.240.0.5
-InternalIP: 2001:1234:5678:9abc::5
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  ipFamily: IPv4
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
-Validate that a Pod has an IPv4 and IPv6 address assigned. (replace Pod name with a valid Pod on the cluster. In this example the node name is n01-79845568c8-jm9sq)
-```shell
-kubectl get pods n01-79845568c8-jm9sq -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
-10.244.1.4
-a00:100::4
-```
+#### Type LoadBalancer
+
+On cloud providers which support IPv6 enabled external load balancers, setting the `type` field to `LoadBalancer` provisions a cloud load balancer for your Service.
+
+### Egress Traffic
+
+In enable IPv6 Pod routing to off-cluster destinations (eg. the Internet) the IPv6 Pod interface must be masqueraded before egressing the node. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual stack aware and may be used to manage IP masquerading on dual stack enabled clusters.
+
+### Provisioning a dual stack enabled cluster
+
+The following open source tooling supports the delivery of a dual stack enabled Kubernetes cluster
+
+   * [AKS Engine](https://github.com/Azure/aks-engine/tree/master/examples/dualstack)
+
+### Ecosystem tooling
+
+The dual stack enhancement is supported in Kubernetes core. Ecosystem tooling and projects including CoreDNS and CNI plugins may choose to implement dual stack capabilities. 
 
 ### Known Issues
 
-   * Cluster IPv6 CIDR mask larger than /24 will fail
    * IPv6 network block assignment is using the default IPv4 cidr block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
-   * Masquerading is done via Kubenet not kube-proxy. Modifying kube-proxy to work with multi IP is scheduled for BETA stage (v1.16)
+   * Dual stack will not function if `EndpointSlice` enhancement is enabled.
 
 ### What's Next
 
-Details on the implementation of this feature may be found in the [IPv4/IPv6 dual stack] KEP(https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/20180612-ipv4-ipv6-dual-stack.md)
+Details on the implementation of this feature may be found in the [IPv4/IPv6 dual stack](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/20180612-ipv4-ipv6-dual-stack.md) KEP.
 
 {{% /capture %}}
 
