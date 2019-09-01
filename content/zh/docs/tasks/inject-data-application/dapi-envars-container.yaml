@@ -27,11 +27,13 @@ spec:
             resourceFieldRef:
               containerName: test-container
               resource: requests.cpu
+              divisor: "1m"
         - name: MY_CPU_LIMIT
           valueFrom:
             resourceFieldRef:
               containerName: test-container
               resource: limits.cpu
+              divisor: "1m"
         - name: MY_MEM_REQUEST
           valueFrom:
             resourceFieldRef:

@@ -131,8 +131,8 @@ kubectl logs dapi-envars-resourcefieldref
 输出信息显示了所选择的环境变量的值：
 
 ```
-1
-1
+125
+250
 33554432
 67108864
 ```

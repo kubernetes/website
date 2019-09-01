@@ -148,8 +148,8 @@ kubectl logs dapi-envars-resourcefieldref
 The output shows the values of selected environment variables:
 
 ```
-1
-1
+125
+250
 33554432
 67108864
 ```
