@@ -168,7 +168,7 @@ Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/
 --->
 静态 pod 的标签会传递给镜像 Pod，可以用来过滤或筛选。
 
-需要注意的是，我们不能通过 API 服务器来删除静态 pod(例如，通过 [`kubectl`](/docs/user-guide/kubectl/) 命令)，kebelet 不会删除它。
+需要注意的是，我们不能通过 API 服务器来删除静态 pod(例如，通过 [`kubectl`](/docs/user-guide/kubectl/) 命令)，kubelet 不会删除它。
 
 <!--
 {{< note >}}
