@@ -1,23 +1,16 @@
 ---
 title: 案例研究：Ygrene
 
-linkTitle: Ygrene
 case_study_styles: true
 cid: caseStudies
-css: /css/style_case_studies.css
-logo: ygrene_featured_logo.png
-featured: true
-weight: 48
-quote: >
-  <!-- We had to change some practices and code, and the way things were built, but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That’s very fast for a finance company. -->
-我们必须改变一些做法和代码，以及事物的构建方式，但我们能够在一个月左右的时间内将主要系统引入 Kubernetes，然后在两个月内投入生产。这对一家金融公司来说非常快。
+css: /css/style_ygrene.css
 ---
 
 <!-- <div class="banner1 desktop" style="background-image: url('/images/CaseStudy_ygrene_banner1.jpg')">
   <h1> CASE STUDY:<img src="/images/ygrene_logo.png" style="margin-bottom:-1%" class="header_logo"><br> <div class="subhead">Ygrene: Using Cloud Native to Bring Security and Scalability to the Finance Industry
 
 </div></h1> -->
-<div class="banner1 desktop" style="background-image: url('/images/CaseStudy_ygrene_banner1.jpg')">
+<div class="banner1">
   <h1> 案例研究:<img src="/images/ygrene_logo.png" style="margin-bottom:-1%" class="header_logo"><br> <div class="subhead">Ygrene: 使用原生云为金融行业带来安全性和可扩展性
 
 </div></h1>
@@ -27,7 +20,8 @@ quote: >
 
 <!-- <div class="details">
     Company &nbsp;<b>Ygrene</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Petaluma, Calif.</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Clean energy financing</b>
-</div> --><div class="details">
+</div> -->
+<div class="details">
     公司 &nbsp;<b>Ygrene</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位置 &nbsp;<b>佩塔卢马，加利福尼亚州</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行业 &nbsp;<b>清洁能源融资</b>
 </div>
 
@@ -75,7 +69,7 @@ quote: >
 到 2017 年，部署和可扩展性已成为痛点。该公司已经使用了大量服务器，“我们刚刚达到能够垂直扩展的极限，”他说。迁移到 AWS Elastic Beanstalk 并不能解决问题：“Scala 服务需要来自主 Ruby on Rails 服务和不同供应商提供的大量数据，因此他们要求从我们的 Ruby 服务以一种服务器无法承受的速率获取信息。在 Elastic Beanstalk 上我们也有许多配置与应用不匹配。这仅仅是一个开始，我们也意识到我们这个系统非常不稳定。”
 </div>
 </section>
-<div class="banner3" style="background-image: url('/images/CaseStudy_ygrene_banner3.jpg')">
+<div class="banner3">
   <div class="banner3text">
     <!-- "CNCF has been an amazing incubator for so many projects. Now we look at its webpage regularly to find out if there are any new, awesome, high-quality projects we can implement into our stack. It’s actually become a hub for us for knowing what software we need to be looking at to make our systems more secure or more scalable."<span style="font-size:14px;letter-spacing:0.12em;padding-top:20px;text-transform:uppercase;line-height:14px"><br><br>— Austin Adams, Development Manager, Ygrene Energy Fund</span> -->
 “CNCF 是众多项目惊人的孵化器。现在，我们定期查看其网页，了解是否有任何新的、可敬的高质量项目可以应用到我们的系统中。它实际上已成为我们了解自身需要什么样的软件以使我们的系统更加安全和具有可伸缩性的信息中心。”<span style="font-size:14px;letter-spacing:0.12em;padding-top:20px;text-transform:uppercase;line-height:14px"><br><br>— Austin Adams, Ygrene 能源基金会开发经理</span>
@@ -96,14 +90,14 @@ Adams 说，尤其 Notary 简直就是“天赐之物”。“我们要清楚，
 
 </div>
 </section>
-<div class="banner4" style="background-image: url('/images/CaseStudy_ygrene_banner4.jpg')">
+<div class="banner4">
   <div class="banner4text">
 <!-- "We had to change some practices and code, and the way things were built," Adams says, "but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That’s very fast for a finance company." -->
 “我们必须改变一些实现和代码，以及系统的构建方式，” Adams 说，“但我们已经能够在一个月左右的时间内将主要系统引入 Kubernetes，然后在两个月内投入生产。对于一家金融公司来说，这已经非常快了。”
   </div>
 </div>
 
-<section class="section5" style="padding:0px !important">
+<section class="section4">
 <div class="fullcol">
  <!-- By using the kops project, Ygrene was able to move from Elastic Beanstalk to running its Kubernetes clusters on AWS EC2 Spot, at a tenth of the previous cost. "In order to scale before, we would need to up our instance sizes, incurring high cost for low value," says Adams. "Now with Kubernetes and kops, we are able to scale horizontally on Spot with multiple instance groups."<br><br> -->
 通过使用 kops 项目，Ygrene 能够用以前成本的十分之一从 Elastic Beanstalk 迁移到 AWS EC2 Spot 上运行其 Kubernetes 群集。Adams 说：“以前为了扩展，我们需要增加实例大小，导致高成本产出低价值。现在，借助 Kubernetes 和 kops，我们能够在具有多个实例组的 Spot 上水平缩放。”<br><br>
@@ -113,7 +107,7 @@ Adams 说，尤其 Notary 简直就是“天赐之物”。“我们要清楚，
 因此，团队现在可以在一天中的任何时间传输代码。阿诺德说：“以前这样做是很危险的，因为它会拖慢整个贷款管理软件。”“但现在，我们可以在白天安全部署。”
 
 </div>
-
+</section>
 <div class="banner5">
   <div class="banner5text">
  <!-- "In order to scale before, we would need to up our instance sizes, incurring high cost for low value," says Adams. "Now with Kubernetes and kops, we are able to scale horizontally on Spot with multiple instance groups." -->
@@ -121,6 +115,7 @@ Adams 说：“以前为了扩展，我们需要增加实例大小，导致高�
   </div>
 </div>
 
+<section class="section5">
 <div class="fullcol">
  <!-- Before, deployments typically took three to four hours, and two or three months’ worth of work would be deployed at low-traffic times every week or two weeks. Now, they take five minutes for Kubernetes, and an hour for an overall deploy with smoke testing. And "we’re able to deploy three or four times a week, with just one week’s or two days’ worth of work," Adams says. "We’re deploying during the work week, in the daytime and without any downtime. We had to ask for business approval to take the systems down for 30 minutes to an hour, even in the middle of the night, because people could be doing loans. Now we can deploy, ship code, and migrate databases, all without taking the system down. The company gets new features without worrying that some business will be lost or delayed."<br><br> -->
 以前，部署通常需要三到四个小时，而且每周或每两周要把一些两三个月工作量的任务在系统占用低的时候进行部署。现在，他们用5分钟来配置 Kubernetes，然后用一个小时进行整体部署与烟雾测试。Adams 说：“我们每周可以部署三到四次，只需一周或两天的工作量。”“我们在工作周、白天的任意时间进行部署，甚至不需要停机。以前我们不得不请求企业批准，以关闭系统，因为即使在半夜，人们也可能正在访问服务。现在，我们可以部署、上传代码和迁移数据库，而无需关闭系统。公司增加新项目，而不必担心某些业务会丢失或延迟。”<br><br>
