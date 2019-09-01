@@ -285,7 +285,7 @@ HorizontalPodAutoscaler는 각 메트릭에 대해 제안된 레플리카 개수
 `kubectl edit` 명령어를 이용하여 다음과 같이 정의를 업데이트 할 수 있다.
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
