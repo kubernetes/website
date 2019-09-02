@@ -5,16 +5,16 @@ weight: 30
 ---
 
 {{% capture overview %}}
-이 페이지는 다양한 언어에서 쿠버네티스 API를 사용하기 위한
-개요를 포함하고 있다.
+이 페이지는 다양한 프로그래밍 언어에서 쿠버네티스 API를 사용하기 위한
+클라이언트 라이브러리에 대한 개요를 포함하고 있다.
 {{% /capture %}}
 
 {{% capture body %}}
 [쿠버네티스 REST API](/ko/docs/reference/using-api/api-overview/)를 사용해 애플리케이션을 작성하기 위해
-API 호출 또는 요청/응답 타입을 직접 구현할 필요가 없다.
+API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 사용하고 있는 프로그래밍 언어를 위한 클라이언트 라이브러리를 사용하면 된다.
 
-클라이언트 라이브러리는 당신을 위해 인증 같은 공통의 태스크를 대체로 처리한다.
+클라이언트 라이브러리는 대체로 인증과 같은 공통의 태스크를 처리한다.
 대부분의 클라이언트 라이브러리들은 API 클라이언트가 쿠버네티스 클러스터 내부에서 동작하는 경우 인증
 또는 [kubeconfig 파일](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) 포맷을 통해
 자격증명과 API 서버 주소를 읽을 수 있게
