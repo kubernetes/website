@@ -5,7 +5,7 @@ title: Creating your own Secrets
 
 {{% capture overview %}}
 
-This page describes how users can create their own secrets. See [Secrets](/docs/concepts/configuration/secret/) for more information.
+This page shows you how to create new Secrets. See [Secrets](/docs/concepts/configuration/secret/) for more information.
 
 {{% /capture %}}
 

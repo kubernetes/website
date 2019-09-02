@@ -777,6 +777,6 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 
 {{% capture whatsnext %}}
 
-* [Creating your own Secrets](/docs/tasks/manage-secrets/creating-your-own-secrets)
+* Read [Creating your own Secrets](/docs/tasks/manage-secrets/creating-your-own-secrets)
 
 {{% /capture %}}
