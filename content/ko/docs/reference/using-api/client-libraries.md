@@ -28,12 +28,12 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 
 | 언어      | 클라이언트 라이브러리 | 예제 프로그램 |
 |----------|----------------|-----------------|
-| Go       | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [browse](https://github.com/kubernetes/client-go/tree/master/examples)
-| Python       | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [browse](https://github.com/kubernetes-client/python/tree/master/examples)
-| Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [browse](https://github.com/kubernetes-client/java#installation)
-| dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [browse](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
-| JavaScript   | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [browse](https://github.com/kubernetes-client/javascript/tree/master/examples)
-| Haskell  | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) | [browse](https://github.com/kubernetes-client/haskell/tree/master/kubernetes-client/example)
+| Go       | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [둘러보기](https://github.com/kubernetes/client-go/tree/master/examples)
+| Python       | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [둘러보기](https://github.com/kubernetes-client/python/tree/master/examples)
+| Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [둘러보기](https://github.com/kubernetes-client/java#installation)
+| dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [둘러보기](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
+| JavaScript   | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [둘러보기](https://github.com/kubernetes-client/javascript/tree/master/examples)
+| Haskell  | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) | [둘러보기](https://github.com/kubernetes-client/haskell/tree/master/kubernetes-client/example)
 
 
 ## 커뮤니티에 의해 관리되는 클라이언트 라이브러리
