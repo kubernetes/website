@@ -107,7 +107,7 @@ pemeriksaan _readiness_ atau tidak. Pod tetap ada pada _state unready_ selama me
 kontainer dalam Pod berhenti.
 
 Untuk informasi lebih lanjut mengenai pengaturan pemeriksaan _liveness_ atau _readiness_, lihat bagian
-[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+[Konfigurasi _Liveness_ dan _Readiness_ _Probe_](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
 ## Status Pod dan Kontainer 
 
@@ -120,12 +120,12 @@ Mohon diperhatikan, informasi tentang status Pod bergantung pada
 
 ## State Kontainer
 
-Ketika Pod sudah ditempatkan pada suatu _node_ oleh scheduler, kubelet mulai membuat kontainer menggunakan container runtime. 
+Ketika Pod sudah ditempatkan pada suatu _node_ oleh scheduler, kubelet mulai membuat kontainer menggunakan _runtime_ kontainer. 
 Ada tiga kemungkinan _state_ untuk suatu kontainer, yaitu Waiting, Running, dan Terminated.
 Untuk mengecek _state_ suatu kontainer, kamu bisa menggunakan perintah `kubectl describe pod [NAMA_POD]`.
 _State_ akan ditampilkan untuk masing-masing kontainer dalam Pod tersebut.
 
-* `Waiting`: Merupakan _default state_ dari kontainer. Jika _state_ kontainer bukan Running atau Terminated, berarti dalam _Wating state_. 
+* `Waiting`: Merupakan _state_ default dari kontainer. Jika _state_ kontainer bukan Running atau Terminated, berarti dalam _Wating state_. 
 Suatu kontainer dalam Waiting _state_ akan tetap menjalan operasi-operasi yang dibutuhkan, misalnya mengunduh _images_, mengaplikasikan Secrets, dsb. 
 Bersamaan dengan _state_ ini, sebuah pesan dan alasan tentang _state_ akan ditampilkan untuk memberi informasi lebih.
 
@@ -145,7 +145,7 @@ Bersamaan dengan _state_ ini, sebuah pesan dan alasan tentang _state_ akan ditam
    ...
    ```   
        
-* `Terminated`:  Menandakan kontainer telah menyelesaikan eksekusi dan telah berhenti berjalan. Kontainer akan menjadi _state_ ini ketika telah menyelesaikan eksekusi atau terjadi kesalahan. Terlepas dari itu, sebuah alasan dan _exit code_ akan ditampilkan, bersama dengan waktu kontainer mulai dijalankan dan waktu berhenti. Sebelum kontainer masuk ke _state_ Terminated, jika terdapat `preStop` _hook_ maka akan dijalankan.
+* `Terminated`:  Menandakan kontainer telah menyelesaikan "tugasnya". Kontainer akan menjadi _state_ ini ketika telah menyelesaikan eksekusi atau terjadi kesalahan. Terlepas dari itu, sebuah alasan dan _exit code_ akan ditampilkan, bersama dengan waktu kontainer mulai dijalankan dan waktu berhenti. Sebelum kontainer masuk ke _state_ Terminated, jika terdapat `preStop` _hook_ maka akan dijalankan.
 
    ```yaml
    ...
@@ -192,7 +192,7 @@ status:
 ```
 
 Kondisi Pod yang baru harus memenuhi [format label](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) pada Kubernetes.
-Sejak perintah `kubectl patch` belum mendukung perubahan status obyek, kondisi Pod yang baru harus mengubah melalui aksi `PATCH` dengan menggunakan
+Sejak perintah `kubectl patch` belum mendukung perubahan status objek, kondisi Pod yang baru harus mengubah melalui aksi `PATCH` dengan menggunakan
 salah satu dari [KubeClient _libraries_](/docs/reference/using-api/client-libraries/).
 
 Dengan diperkenalkannya kondisi Pod yang baru, sebuah Pod akan dianggap siap hanya jika memenuhi dua syarat berikut:
@@ -246,14 +246,14 @@ Ketiga tipe pengontrol ini memiliki sebuah PodTemplate. Direkomdasikan untuk mem
 pengontrol yang sesuai dan membiarkan ini membuat Pod, daripada membuat Pod sendiri secara langsung.
 Karena Pod itu sendiri tidak tahan terhadap gagalnya suatu mesin, namun pengontrol tahan.
 
-Jika _node_ mati atau sambungannya terputus dari _cluster_, Kubernetes mengatur
-`phase` dari semua Pod pada _node_ yang mati untuk menjadi Failed.
+Jika node mati atau sambungannya terputus dari kluster, Kubernetes mengatur
+`phase` dari semua Pod pada node yang mati untuk menjadi Failed.
 
 ## Contoh
 
-### Contoh Liveness Probe tingkat lanjut
+### Contoh _Liveness Probe_ tingkat lanjut
 
-_Liveness probes_ dieksekusi oleh kubelet, jadi semua permintaan akan dilakukan 
+_Liveness probe_ dieksekusi oleh kubelet, jadi semua permintaan akan dilakukan 
 di dalam _namespace_ jaringan kubelet.
 
 
@@ -285,7 +285,7 @@ spec:
     name: liveness
 ```
 
-### Contoh _states_
+### Contoh _State_
 
 
   * Pod sedang berjalan dan memiliki sebuah kontainer. Kontainer berhenti dengan sukses.
