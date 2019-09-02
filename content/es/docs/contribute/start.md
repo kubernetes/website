@@ -52,7 +52,7 @@ Los cambios en la guía de estilos se hacen desde el SIG Docs como grupo. Para a
 
 ### Plantillas para páginas
 
-Se usan plantillas para las páginas de documentación con el objeto de que todas tengan la misma presentación. Asegurate de entender como funcionan estas plantillas y revisa el apartado [Uso de plantillas para páginas](/docs/contribute/style/page-templates/)
+Se usan plantillas para las páginas de documentación con el objeto de que todas tengan la misma presentación. Asegúrate de entender como funcionan estas plantillas y revisa el apartado [Uso de plantillas para páginas](/docs/contribute/style/page-templates/). Si tienes alguna consulta, no dudes en ponerte en contacto con el resto del equipo en Slack.
 
 ### Hugo shortcodes
 
@@ -74,13 +74,13 @@ Cualquier persona con una cuenta de GitHub puede reportar una incidencia en la d
 
 - **En una página existente**
 
-    Si ves un problema en una página existente en la [documentación de Kuberenetes](/docs/) ve al final de la página y haz clic en el botón **Abrir un Issue**. Si no estas autenticado en GitHub hazlo, un formulario de nueva incidencia aparecerá con contenido pre-cargado.
+    Si ves un problema en una página existente en la [documentación de Kuberenetes](/docs/) ve al final de la página y haz clic en el botón **Abrir un Issue**. Si no estas autenticado en GitHub, te pedirá que te identifiques y posteriormente un formulario de nueva incidencia aparecerá con contenido pre-cargado.
 
     Utilizando formato Markdown completa todos los detalles que sea posible. En los lugares en que haya corchetes (`[ ]`) pon una `x` en medio de los corchetes para representar la elección de una opción. Si tienes una posible solución al problema añádela.
 
 - **Solicitar una nueva página**
 
-    Si crees que un contenido debería añadirse, pero no estás seguro de donde debería añadirse o si crees que no encaja en las páginas que ya existen, puedes crear un incidente. También puedes elegir una página ya existente donde pienses que pudiera encajar y crear el incidente desde esa página, o ir directamente a [https://github.com/kubernetes/website/issues/new/](https://github.com/kubernetes/website/issues/new/) y crear un nuevo incidente directamente desde allí.
+    Si crees que un contenido debería añadirse, pero no estás seguro de donde debería añadirse o si crees que no encaja en las páginas que ya existen, puedes crear un incidente. También puedes elegir una página ya existente donde pienses que pudiera encajar y crear el incidente desde esa página, o ir directamente a [https://github.com/kubernetes/website/issues/new/](https://github.com/kubernetes/website/issues/new/) y crearlo desde allí.
 
 ### Cómo reportar correctamente incidencias
 
@@ -88,17 +88,17 @@ Para estar seguros que tu incidencia se entiende y se puede procesar ten en cuen
 
 - Usa la plantilla de incidencia y aporta detalles, cuantos más es mejor.
 - Explica de forma clara el impacto de la incidencia en los usuarios.
-- Mantén el alcance de una incidencia a una unidad de trabajo razonable. Para problemas con un alcance muy amplio divídela en incidencias más pequeñas.
+- Mantén el alcance de una incidencia a una cantidad de trabajo razonable. Para problemas con un alcance muy amplio divídela en incidencias más pequeñas.
 
     Por ejemplo, "Arreglar la documentación de seguridad" no es una incidencia procesable, pero "Añadir detalles en el tema 'Restringir acceso a la red'" si lo es.
 - Si la incidencia está relacionada con otra o con una petición de cambio puedes referirte a ella tanto por la URL como con el número de la incidencia o petición de cambio con el carácter `#` delante. Por ejemplo `Introducido por #987654`.
-- Se respetuoso y evite desahogarse. Por ejemplo, "La documentación sobre X apesta" no es útil o una critica constructiva. El [Código de conducta](/community/code-of-conduct/) también aplica para las interacciones en los repositorios de Kubernetes en GitHub.
+- Se respetuoso y evita desahogarte. Por ejemplo, "La documentación sobre X apesta" no es útil o una critica constructiva. El [Código de conducta](/community/code-of-conduct/) también aplica para las interacciones en los repositorios de Kubernetes en GitHub.
 
 ## Participa en las discusiones de SIG Docs
 
 El equipo de SIG Docs se comunica por las siguientes vías:
 
-- [Únete a la instancia Slack de Kubernetes](http://slack.k8s.io/), entonces únete al canal `#sig-docs`, Donde discutimos sobre las incidencias de documentación en tiempo real. Asegurate de presentarte!
+- [Únete a la instancia Slack de Kubernetes](http://slack.k8s.io/) y entra al canal `#sig-docs` o `#kubernetes-docs-es` para la documentación en castellano. En Slack, discutimos sobre las incidencias de documentación en tiempo real, nos coordinamos y hablamos de temas relacionados con la documentación. No olvides presentarte cuando entres en el canal para que podamos saber un poco más de ti!
 - [Únete a la lista de correo `kubernetes-sig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs), donde tienen lugar las discusiones más amplias y se registras las decisiones oficiales.
 - Participa en la video-conferencia [semanal de SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs), ésta se anuncia en el canal de Slack y la lista de correo. Actualmente esta reunión tiene lugar usando Zoom, por lo que necesitas descargar el [cliente Zoom](https://zoom.us/download) o llamar usando un teléfono.
 
@@ -108,7 +108,7 @@ Puedes revisar la reunión semanal de SIG Docs en el [Calendario de reuniones de
 
 ## Mejorar contenido existente
 
-Para mejorar contenido existente crea una _pull request(PR)_ después de crear un _fork_. Estos términos son [específicos de GitHub](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/). No es necesario conocer todo sobre estos términos porque todo se realiza a traves del navegador web. Cuando continúes con la [guía de contribución de documentación intermedia](/docs/contribute/intermediate/) entonces necesitaras un poco más de conocimiento de la metodología Git.
+Para mejorar contenido existente crea una _pull request(PR)_ después de crear un _fork_. Estos términos son [específicos de GitHub](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/). No es necesario conocer todo sobre estos términos porque todo se realiza a través del navegador web. Cuando continúes con la [guía de contribución de documentación intermedia](/docs/contribute/intermediate/) entonces necesitarás un poco más de conocimiento de la metodología Git.
 
 {{< note >}}
 **Desarrolladores de código de Kubernetes**: Si estás documentando una nueva característica para una versión futura de Kubernetes, entonces el proceso es un poco diferente. Mira el proceso y pautas en [Documentar una característica](/docs/contribute/intermediate/#sig-members-documenting-new-features) así como información sobre plazos.
@@ -116,7 +116,7 @@ Para mejorar contenido existente crea una _pull request(PR)_ después de crear u
 
 ### Firma el CNCF CLA {#firma-el-cla}
 
-Antes de poder contribuir o documentar en Kubernetes **debes** leer [Guía del contribuidor](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) y [firmar el `Contributor License Agreement` (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md). No te preocupes esto no lleva mucho tiempo!
+Antes de poder contribuir o documentar en Kubernetes **es necesario** leer [Guía del contribuidor](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) y [firmar el `Contributor License Agreement` (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md). No te preocupes esto no lleva mucho tiempo!
 
 ### Busca algo con lo que trabajar
 
@@ -140,17 +140,17 @@ Sigue estos pasos para enviar una petición de cambio y mejorar la documentació
 
 1.  En la página que hayas visto una incidencia haz clic en el icono del lápiz arriba a la derecha.
     Una nueva página de GitHub aparecerá con algunos textos de ayuda.
-2.  Si nunca has creado un copia del repositorio de documentación de Kubernetes le pedirá que lo haga.
+2.  Si nunca has creado un copia del repositorio de documentación de Kubernetes te pedirá que lo haga.
     Crea la copia bajo tu usuario de GitHub en lugar de otra organización de la que seas miembro. La copia generalmente tiene una URL como `https://github.com/<username>/website`, a menos que ya tengas un repositorio con un nombre en conflicto con este.
 
-    La razón por la que se pide crear una copia del repositorio es porque tu no tienes permisos para subir cambios directamente a rama en el repositorio definitivo de Kubernetes.
+    La razón por la que se pide crear una copia del repositorio es porque no tienes permisos para subir cambios directamente a rama en el repositorio original de Kubernetes.
 3.  Aparecerá el editor Markdown de GitHub con el fichero Markdown fuente cargado. Realiza tus cambios. Debajo del editor completa el formulario  **Propose file change**. El primer campo es el resumen del mensaje de tu commit y no debe ser más largo de 50 caracteres. El segundo campo es opcional, pero puede incluir más información y detalles si procede.
 
     {{< note >}}
     No incluyas referencias a otras incidencias o peticiones de cambio de GitHub en el mensaje de los commits. Esto lo puedes añadir después en la descripción de la petición de cambio.
 {{< /note >}}
 
-    Haz clic en **Propose file change**. El cambio se guarda en como un commit en una nueva rama de tu copia, automáticamente se llamara algo como `patch-1`.
+    Haz clic en **Propose file change**. El cambio se guarda como un commit en una nueva rama de tu copia, automáticamente se le asignará un nombre estilo `patch-1`.
 
 4.  La siguiente pantalla resume los cambios que has hecho pudiendo comparar la nueva rama (la **head fork** y cajas de selección **compare**) con el estado actual del **base fork** y la rama **base** (`master` en el repositorio por defecto `kubernetes/website`). Puedes cambiar cualquiera de las cajas de selección, pero no lo hagas ahora. Hecha un vistazo a las distintas vistas en la parte baja de la pantalla y si todo parece correcto haz clic en **Create pull request**.
 
@@ -164,9 +164,9 @@ Sigue estos pasos para enviar una petición de cambio y mejorar la documentació
 
     Después de unos minutos ya podrás pre-visualizar la página con los cambios de tu PR aplicados. Ve a la pestaña de **Conversation** en tu PR y haz clic en el enlace **Details** para ver el test `deploy/netlify`, localizado casi al final de la página. Se abrirá en la misma ventana del navegado por defecto.
 
-6.  Espera una revisión. Generalmente `k8s-ci-robot`sugiere unos revisores. Si un revisor te pide que hagas cambios puedes ir a la pestaña **FilesChanged** y hacer clic en el icono del lápiz para hacer tus cambios en cualquiera de los ficheros en la petición de cambio. Cuando guardes los cambios se creará un commit en la rama asociada a la petición de cambio.
+6.  Espera una revisión. Generalmente `k8s-ci-robot` sugiere unos revisores. Si un revisor te pide que hagas cambios puedes ir a la pestaña **FilesChanged** y hacer clic en el icono del lápiz para hacer tus cambios en cualquiera de los ficheros en la petición de cambio. Cuando guardes los cambios se creará un commit en la rama asociada a la petición de cambio.
 
-7.  Si tu cambio es aceptado, un revisor fusionará tu petición de cambio y tus cambios serán visibles en uno pocos minutos en la el website de Kubernetes.
+7.  Si tu cambio es aceptado, un revisor fusionará tu petición de cambio y tus cambios serán visibles en uno pocos minutos en la web de [kubernetes.io](https://kubernetes.io).
 
 Esta es solo una forma de mandar una petición de cambio. Si eres un usuario de Git y GitHub avanzado puedes usar una aplicación GUI local o la linea de comandos con el cliente Git en lugar de usar la UI de GitHub. Algunos conceptos básicos sobre el uso de la línea de comandos Git
 cliente se discuten en la guía de documentación [intermedia](/docs/contribute/intermediate/).
@@ -181,7 +181,7 @@ Las personas que aun no son aprobadores o revisores todavía pueden revisar peti
 
 3.  Ve a la pestaña **Files changed**. Mira los cambios introducidos en la PR, y si aplica, mira también los incidentes enlazados. Si ves un algún problema o posibilidad de mejora pasa el cursor sobre la linea y haz clic en el símbolo `+` que aparece.
 
-    Puedes entonces dejar un comentario seleccionando **Add single comment** o **Start a review**. Normalmente empezar una revisión es mejor porque te permite hacer varios comentarios y avisar a propietario de la PR solo cuando tu revisión este completada, en lugar de notificar cada comentario.
+    Puedes entonces dejar un comentario seleccionando **Add single comment** o **Start a review**. Normalmente empezar una revisión es la forma recomendada, ya que te permite hacer varios comentarios y avisar a propietario de la PR solo cuando tu revisión este completada, en lugar de notificar cada comentario.
 
 4.  Cuando has acabado, haz clic en **Review changes** en la parte superior de la página. Puedes ver un resumen de la revisión y puedes elegir entre comentar, aprobar o solicitar cambios. Los nuevos contribuidores siempre deben elegir **Comment**.
 
@@ -197,8 +197,8 @@ Para enviar un artículo al blog puedes hacerlo también usando el formulario [K
 2.  Revisa el formato Markdown en los artículos del blog existentes en el [repositorio website](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts).
 3.  Escribe tu artículo usando el editor de texto que prefieras.
 4.  En el mismo enlace que el paso 2 haz clic en botón **Create new file**. Pega el contenido de tu editor. Nombra el fichero para que coincida con el título del artículo, pero no pongas la fecha en el nombre. Los revisores del blog trabajarán contigo en el nombre final del fichero y la fecha en la que será publicado.
-5.  Cuando guardes el fichero GitHub te guiará en el proceso de petición de cambio.
-6.  Un revisor de artículos del blog revisará tu envío y trabajará contigo aportando comentarios y los detalles finales. Cuando el artículo sea aprobado se establecerá una fecha de publicación.
+5.  Cuando guardes el fichero, GitHub te guiará en el proceso de petición de cambio.
+6.  Un revisor de artículos del blog revisará tu envío y trabajará contigo aportando comentarios y los detalles finales. Cuando el artículo sea aprobado, se establecerá una fecha de publicación.
 
 ## Envía un caso de estudio
 
