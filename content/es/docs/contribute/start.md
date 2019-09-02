@@ -38,8 +38,7 @@ se discute en las guías de contribución a la documentación
 
 ### Participar en la documentación de los SIG
 
-La documentación de Kubernetes es mantenida por el
-{{< glossary_tooltip text="Special Interest Group" term_id="sig" >}} (SIG) denominado SIG Docs. Nos comunicamos usando un canal de Slack, una lista de correo
+La documentación de Kubernetes es mantenida por el {{< glossary_tooltip text="Special Interest Group" term_id="sig" >}} (SIG) denominado SIG Docs. Nos comunicamos usando un canal de Slack, una lista de correo
 y una reunión semana por video-conferencia. Siempre son bienvenidos nuevos
 participantes al grupo. Para más información ver
 [Participar en SIG Docs](/docs/contribute/participating/).
