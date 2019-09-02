@@ -18,7 +18,7 @@ Halaman ini menjelaskan siklus hidup sebuah Pod
 
 ## Fase Pod
 
-_Field_ `status` dari sebuah Pod merupakan sebuah obyek [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core), yang memiliki sebuah _field_ `phase`.
+_Field_ `status` dari sebuah Pod merupakan sebuah objek [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core), yang memiliki sebuah _field_ `phase`.
 
 Fase dari sebuah Pod adalah sesuatu yang sederhana, ringkasan yang lebih tinggi tentang Pod dalam siklus hidupnya. Fase ini tidak ditujukan sebagai sebuah kesimpulan yang luas dari observasi suatu kontainer atau _state_ suatu Pod, serta tidak ditujukan sebagai _state machine_ yang luas.
 
@@ -29,7 +29,7 @@ Berikut adalah nilai yang mungkin diberikan untuk suatu `phase`:
 Nilai | Deskripsi
 :-----|:-----------
 `Pending` | Pod telah disetujui oleh sistem Kubernetes, tapi ada satu atau lebih _image_ kontainer yang belum terbuat. Ini termasuk saat sebelum dijadwalkan dan juga saat mengunduh _image_ melalui jaringan, yang mungkin butuh beberapa waktu.
-`Running` | Pod telah terikat ke suatu _node_, dan semua kontainer telah terbuat. Setidaknya ada 1 kontainer yang masih berjalan, atau dalam proses memulai atau _restart_.
+`Running` | Pod telah terikat ke suatu node, dan semua kontainer telah terbuat. Setidaknya ada 1 kontainer yang masih berjalan, atau dalam proses memulai atau _restart_.
 `Succeeded` | Semua kontainer di dalam Pod sudah berhasil dihentikan, dan tidak akan dilakukan _restart_. 
 `Failed` | Semua kontainer dalan suatu Pod telah dihentikan, dan setidaknya ada satu kontainer yang terhenti karena kegagalan. Itu merupakan kontainer yang keluar dengan kode status bukan 0 atau dihentikan oleh sistem.
 `Unknown` | _State_ suatu Pod tidak dapat diperoleh karena suatu alasan, biasanya karena kesalahan dalam komunikasi dengan _host_ yang digunakan Pod tersebut.
@@ -50,7 +50,7 @@ Suatu Pod memiliki sebuah PodStatus, yang merupakan _array_ dari [PodConditions]
 
 * _Field_ `type` adalah sebuah kata yang memiliki kemungkinan nilai sebagai berikut: 
 
-  * `PodScheduled`: Pod telah dijadwalkan masuk ke _node_; 
+  * `PodScheduled`: Pod telah dijadwalkan masuk ke node; 
   * `Ready`: Pod sudah mampu menerima _request_ masuk dan seharusnya sudah ditambahkan ke daftar pembagian beban kerja untuk servis yang sama;
   * `Initialized`:  Semua [init containers](/docs/concepts/workloads/pods/init-containers) telah berjalan sempurna. 
   * `Unschedulable`: _scheduler_ belum dapat menjadwalkan Pod saat ini, sebagai contoh karena kekurangan _resources_ atau ada batasan-batasan lain.
@@ -59,7 +59,7 @@ Suatu Pod memiliki sebuah PodStatus, yang merupakan _array_ dari [PodConditions]
 
 ## Pemeriksaan Kontainer 
 
-Sebuah [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) adalah sebuah diagnosa yang dilakukan secara berkala oleh [kubelet](/docs/admin/kubelet/) dalam suatu kontainer. Untuk melakukan diagnosa, _kubelet_ memanggil sebuah [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) yang diimplementasikan oleh kontainer. Ada 3 tipe _Handler_ yang tersedia, yaitu:
+Sebuah [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) adalah sebuah diagnosa yang dilakukan secara berkala oleh [kubelet](/docs/admin/kubelet/) dalam suatu kontainer. Untuk melakukan diagnosa, kubelet memanggil sebuah [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) yang diimplementasikan oleh kontainer. Ada 3 tipe _Handler_ yang tersedia, yaitu:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core): Mengeksekusi perintah tertentu di dalam kontainer. Diagnosa dikatakan berhasil jika perintah selesai dengan kode status 0.
 
@@ -75,7 +75,7 @@ Setiap pemeriksaan akan menghasilkan salah satu dari tiga hasil berikut:
 
 _Kubelet_ dapat secara optimal melakukan dan bereaksi terhadap dua jenis pemeriksaan yang sedang berjalan pada kontainer, yaitu:
 
-* `livenessProbe`: Ini menunjukkan apakah kontainer sedang berjalan. Jika tidak berhasil melakukan pemeriksaan terhadap _liveness_ dari kontainer, maka _kubelet_ akan mematikan kontainer, dan kontainer akan mengikuti aturan dari [_restart policy_](#restart-policy). Jika kontainer tidak menyediakan pemeriksaan terhadap _liveness_, maka nilai dari _state_ adalah `Success`.
+* `livenessProbe`: Ini menunjukkan apakah kontainer sedang berjalan. Jika tidak berhasil melakukan pemeriksaan terhadap _liveness_ dari kontainer, maka kubelet akan mematikan kontainer, dan kontainer akan mengikuti aturan dari [_restart policy_](#restart-policy). Jika kontainer tidak menyediakan pemeriksaan terhadap _liveness_, maka nilai dari _state_ adalah `Success`.
 
 * `readinessProbe`: Ini menunjukan apakah kontainer sudah siap melayani _request_. Jika tidak berhasil melakukan pemeriksaan terhadap kesiapan dari kontainer, maka _endpoints controller_ akan menghapus alamat IP Pod dari daftar semua _endpoint_ untuk servis yang sama dengan Pod. Nilai awal _state_ sebelum jeda awal adalah `Failure`. Jika kontainer tidak menyediakan pemeriksaan terhadap _readiness_, maka nilai awal _state_ adalah `Success`.
 
@@ -83,7 +83,7 @@ _Kubelet_ dapat secara optimal melakukan dan bereaksi terhadap dua jenis pemerik
 
 Jika proses dalam kontainer mungkin gagal yang dikarenakan menghadapi suatu masalah 
 atau menjadi tidak sehat, maka pemeriksaan terhadap _liveness_ tidak diperlukan.
- _kubelet_ akan secara otomatis melakukan aksi yang tepat mengikuti `restartPolicy` dari Pod.
+Kubelet akan secara otomatis melakukan aksi yang tepat mengikuti `restartPolicy` dari Pod.
 
 Jika kamu ingin kontainer bisa dimatikan dan dijalankan ulang ketika gagal melakukan 
 pemeriksaan, maka tentukan pemeriksaan _liveness_ dan tentukan nilai `restartPolicy` sebagai `Always` atau `OnFailure`.
@@ -120,7 +120,7 @@ Mohon diperhatikan, informasi tentang status Pod bergantung pada
 
 ## State Kontainer
 
-Ketika Pod sudah ditempatkan pada suatu _node_ oleh scheduler, kubelet mulai membuat kontainer menggunakan _runtime_ kontainer. 
+Ketika Pod sudah ditempatkan pada suatu node oleh scheduler, kubelet mulai membuat kontainer menggunakan _runtime_ kontainer. 
 Ada tiga kemungkinan _state_ untuk suatu kontainer, yaitu Waiting, Running, dan Terminated.
 Untuk mengecek _state_ suatu kontainer, kamu bisa menggunakan perintah `kubectl describe pod [NAMA_POD]`.
 _State_ akan ditampilkan untuk masing-masing kontainer dalam Pod tersebut.
@@ -329,9 +329,9 @@ spec:
 	* Nilai `phase` Pod menjadi Failed.
 	* Jika berjalan menggunakan pengontrol, maka Pod akan dibuat ulang di tempat lain.
 
-  * Pod sedang berjalan, dan _node_ mengalami _segmented out_.
-    * _Node_ pengontrol menunggu sampai suatu batas waktu.
-	* _Node_ pengontrol mengisi nilai `phase` Pod menjadi Failed.
+  * Pod sedang berjalan, dan node mengalami _segmented out_.
+    * Node pengontrol menunggu sampai suatu batas waktu.
+	* Node pengontrol mengisi nilai `phase` Pod menjadi Failed.
 	* Jika berjalan menggunakan pengontrol, maka Pod akan dibuat ulang di tempat lain.
 
 {{% /capture %}}
