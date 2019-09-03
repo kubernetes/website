@@ -7,7 +7,7 @@ weight: 30
 {{% capture overview %}}
 
 {{< comment >}}Pembaruan: 4/14/2015{{< /comment >}}
-{{< comment >}}Diubah dan dipindahkan ke bagian _Concepts_: 2/2/17{{< /comment >}}
+{{< comment >}}Diubah dan dipindahkan ke bagian konsep: 2/2/17{{< /comment >}}
 
 Halaman ini menjelaskan siklus hidup sebuah Pod
 
