@@ -297,7 +297,7 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 
 {{< feature-state state="alpha" >}}
 
-If you enable IPv4/IPv6 dual-stack networking for you Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
+If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 
 ### Supported Features
 
@@ -347,8 +347,8 @@ The default address family for your cluster is the address family of the first s
 
 You can set `.spec.ipFamily` to either:
 
-   * `IPv4`: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
-   * `IPv6`: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
+   * `IPv4`: The API server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
+   * `IPv6`: The API server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
 
 The following Service specification does not include the `ipFamily` field. Kubernetes will assign an IP address (also known as a "cluster IP") from the first configured `service-cluster-ip-range` to this Service.
 
