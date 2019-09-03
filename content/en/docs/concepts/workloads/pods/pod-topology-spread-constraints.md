@@ -1,5 +1,5 @@
 ---
-title: Even Pods Spread
+title: Pod Topology Spread Constraints
 content_template: templates/concept
 weight: 50
 ---
