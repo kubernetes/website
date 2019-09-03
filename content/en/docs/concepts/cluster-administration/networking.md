@@ -343,8 +343,8 @@ You can only set this field when creating a new Service. The default address fam
 
 You can set `.spec.ipFamily` to either:
 
-   * IPv4: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
-   * IPv6: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
+   * `IPv4`: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
+   * `IPv6`: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
 
 The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 
@@ -382,31 +382,17 @@ spec:
 
 #### Type LoadBalancer
 
-On cloud providers which support IPv6 enabled external load balancers, setting the `type` field to `LoadBalancer` provisions a cloud load balancer for your Service.
+On cloud providers which support IPv6 enabled external load balancers, setting the `type` field to `LoadBalancer` in additional to setting `ipFamily` field to `IPv6` provisions a cloud load balancer for your Service.
 
 ### Egress Traffic
 
-Kubernetes does not support using globally-reachable IPv6 addresses for Pods. If you have a Pod that uses IPv6 and want that Pod to readoff-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
-
-### Provisioning a dual stack enabled cluster
-
-The following open source tooling supports the delivery of a dual stack enabled Kubernetes cluster
-
-   * [AKS Engine](https://github.com/Azure/aks-engine/tree/master/examples/dualstack)
-
-### Ecosystem tooling
-
-The dual stack enhancement is supported in Kubernetes core. Ecosystem tooling and projects including CoreDNS and CNI plugins may choose to implement dual stack capabilities. 
+Kubernetes does not support using globally-reachable IPv6 addresses for Pods. If you have a Pod that uses IPv6 and want that Pod to read off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
 
 ### Known Issues
 
    * IPv6 network block assignment is using the default IPv4 cidr block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
    * Dual stack will not function if `EndpointSlice` enhancement is enabled.
-
-### What's Next
-
-Details on the implementation of this feature may be found in the [IPv4/IPv6 dual stack](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/20180612-ipv4-ipv6-dual-stack.md) KEP.
 
 {{% /capture %}}
 
