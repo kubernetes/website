@@ -267,7 +267,7 @@ On the Windows node you target, this step will:
     ```
 
 #### Join the Windows Node to the Kubernetes cluster
-In this section we'll cover how to join a [Windows Node with Kubernetes installed](#preparing-a-windows-node) with an existing Linux control-plane ("Master") node to form a cluster.
+This section covers how to join a [Windows Node with Kubernetes installed](#preparing-a-windows-node) with an existing (Linux) control plane, to form a cluster.
 
 Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) script to join the Windows node to the cluster:
 
