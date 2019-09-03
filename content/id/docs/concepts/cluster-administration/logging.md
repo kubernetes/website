@@ -1,7 +1,4 @@
 ---
-reviewers:
-- piosz
-- x13n
 title: Arsitektur Logging
 content_template: templates/concept
 weight: 60
@@ -9,16 +6,16 @@ weight: 60
 
 {{% capture overview %}}
 
-Log aplikasi dan sistem dapat membantu kamu untuk memahami apa yang terjadi di dalam klustermu. Log berguna untuk mengidentifikasi dan menyelesaikan masalah serta memonitor aktivitas kluster. Hampir semua aplikasi modern mempunyai sejenis mekanisme log sehingga hampir semua mesin kontainer didesain untuk mendukung suatu mekanisme _logging_. Metode _logging_ yang paling mudah untuk aplikasi dalam bentuk kontainer adalah menggunakan _standard output_ dan _standard error_.
+Log aplikasi dan sistem dapat membantu kamu untuk memahami apa yang terjadi di dalam kluster kamu. Log berguna untuk mengidentifikasi dan menyelesaikan masalah serta memonitor aktivitas kluster. Hampir semua aplikasi modern mempunyai sejenis mekanisme log sehingga hampir semua mesin kontainer didesain untuk mendukung suatu mekanisme _logging_. Metode _logging_ yang paling mudah untuk aplikasi dalam bentuk kontainer adalah menggunakan _standard output_ dan _standard error_.
 
-Namun, fungsionalitas bawaan dari mesin kontainer atau _runtime_ biasanya tidak cukup memadai sebagai solusi log. Contohnya, jika sebuah kontainer gagal, sebuah pod dihapus, atau suatu _node_ mati, kamu biasanya tetap menginginkan untuk mengakses log dari aplikasimu. Oleh sebab itu, log sebaiknya berada pada penyimpanan dan _lifecyle_ yang terpisah dari _node_, pod, atau kontainer. Konsep ini dinamakan sebagai _cluster-level-logging_. _Logging_ pada level kluster ini membutuhkan _backend_ yang terpisah untuk menyimpan, menganalisis, dan mengkueri log. Kubernetes tidak menyediakan solusi bawaan untuk penyimpanan data log, namun kamu dapat mengintegrasikan beragam solusi _logging_ yang telah ada ke dalam kluster Kubernetesmu.
+Namun, fungsionalitas bawaan dari mesin kontainer atau _runtime_ biasanya tidak cukup memadai sebagai solusi log. Contohnya, jika sebuah kontainer gagal, sebuah pod dihapus, atau suatu _node_ mati, kamu biasanya tetap menginginkan untuk mengakses log dari aplikasimu. Oleh sebab itu, log sebaiknya berada pada penyimpanan dan _lifecyle_ yang terpisah dari node, pod, atau kontainer. Konsep ini dinamakan sebagai _logging_ pada level kluster. _Logging_ pada level kluster ini membutuhkan _backend_ yang terpisah untuk menyimpan, menganalisis, dan mengkueri log. Kubernetes tidak menyediakan solusi bawaan untuk penyimpanan data log, namun kamu dapat mengintegrasikan beragam solusi _logging_ yang telah ada ke dalam kluster Kubernetes kamu.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-Arsitektur _cluster-level-logging_ yang akan dijelaskan berikut mengasumsikan bahwa sebuah _logging backend_ telah tersedia baik di dalam maupun di luar klustermu. Meskipun kamu tidak tertarik menggunakan _cluster-level-logging_, penjelasan tentang bagaimana log disimpan dan ditangani pada _node_ di bawah ini mungkin dapat berguna untukmu.
+Arsitektur _logging_ pada level kluster yang akan dijelaskan berikut mengasumsikan bahwa sebuah _logging backend_ telah tersedia baik di dalam maupun di luar klustermu. Meskipun kamu tidak tertarik menggunakan _logging_ pada level kluster, penjelasan tentang bagaimana log disimpan dan ditangani pada node di bawah ini mungkin dapat berguna untukmu.
 
 ## Hal dasar _logging_ pada Kubernetes
 
