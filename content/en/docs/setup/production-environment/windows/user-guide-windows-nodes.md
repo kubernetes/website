@@ -251,7 +251,7 @@ Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-si
   ![alt_text](../kubecluster.ps1-install.gif "KubeCluster.ps1 install output")
 
 
-This step will perform the following actions on a targeted Windows node:
+On the Windows node you target, this step will:
   * Enable Windows Server containers role (and reboot)
   * Download and install the chosen container runtime
   * Download Kubernetes binaries and add them to the $PATH environment variable
