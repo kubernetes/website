@@ -90,7 +90,7 @@ Kubespray fournit le moyen de vérifier la connectivité inter-pods ainsi que la
 Les pods netchecker-agents s'assurent que la résolution DNS (services Kubernetes) ainsi que le ping entre les pods fonctionnent correctement.
 Ces pods reproduisent un comportement similaire à celui des autres applications et offrent un indicateur de santé du cluster.
 
-## Opérations sur le clutser
+## Opérations sur le cluster
 
 Kubespray fournit des playbooks supplémentaires qui permettent de gérer votre cluster: _scale_ et _upgrade_.
 
