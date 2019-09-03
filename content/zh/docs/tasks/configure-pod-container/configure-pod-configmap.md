@@ -20,7 +20,7 @@ card:
 <!--
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 -->
-ConfigMaps 允许你将配置构件与镜像内容解耦，保持容器化应用程序的可移植性，
+ConfigMap 允许你将配置构件与镜像内容解耦，保持容器化应用程序的可移植性，
 这个页面提供了一系列使用示例，演示如何使用 configmap 存储的数据创建 configmap 和配置 pod。
 
 {{% /capture %}}
@@ -86,7 +86,7 @@ about a ConfigMap.
 #### Create ConfigMaps from directories
 -->
 
-#### 从目录创建一个 ConfigMaps
+#### 从目录创建一个 ConfigMap
 
 <!--
 You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
@@ -892,13 +892,13 @@ A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#usi
 The ConfigMap API resource stores configuration data as key-value pairs. The data can be consumed in pods or provide the configurations for system components such as controllers. ConfigMap is similar to [Secrets](/docs/concepts/configuration/secret/), but provides a means of working with strings that don't contain sensitive information. Users and system components alike can store configuration data in ConfigMap.
 -->
 
-## 理解 configmap 和 Pod
+## 理解 Configmap 和 Pod
 
 ConfigMap API 资源将配置数据存储为键值对。数据可以在 pod 中使用，也可以为系统组件（如控制器）提供配置。ConfigMap 类似于 [Secrets](/docs/concepts/configuration/secret/)，但是它提供了一种处理不包含敏感信息的字符串的方法，用户和系统组件都可以在 ConfigMap 中存储配置数据。
 
 {{< note >}}
 
-<<!--
+<!--
 ConfigMaps should reference properties files, not replace them. Think of the ConfigMap as representing something similar to the Linux `/etc` directory and its contents. For example, if you create a [Kubernetes Volume](/docs/concepts/storage/volumes/) from a ConfigMap, each data item in the ConfigMap is represented by an individual file in the volume.
 -->
 ConfigMap 应该引用属性文件，不是替换它们，可以将 ConfigMap 看作表示类似于 Linux `/etc` 目录及其内容的东西。
@@ -933,7 +933,7 @@ data:
 ### Restrictions
 -->
 
-## 限制
+### 限制
 
 <!--
 - You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMap that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
@@ -943,7 +943,7 @@ data:
 
 - 在 Pod 规范中引用 ConfigMap 之前，必须创建一个 ConfigMap（除非将 ConfigMap 标记为 “optional”）。如果引用不存在的 ConfigMap, Pod 将不会启动。同样，对 ConfigMap 中不存在的键的引用将阻止 pod 启动。
 
-- 如果使用 `envFrom` 来定义 ConfigMaps 中的环境变量，则会跳过被认为无效的键。pod 将被允许启动，但是无效的名称将记录在事件日志中（“InvalidVariableNames”）。日志消息列出了每个跳过的键。例如：
+- 如果使用 `envFrom` 来定义 ConfigMap 中的环境变量，则会跳过被认为无效的键。pod 将被允许启动，但是无效的名称将记录在事件日志中（“InvalidVariableNames”）。日志消息列出了每个跳过的键。例如：
 
    ```shell
    kubectl get events
