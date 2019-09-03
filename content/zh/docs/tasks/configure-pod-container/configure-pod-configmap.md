@@ -556,10 +556,15 @@ new ConfigMap is generated each time the content is modified.
 -->
 注意，生成的 ConfigMap 名称通过散列内容来添加后缀。这确保每次修改内容时都会生成一个新的 ConfigMap。
 
+<!--
 #### Define the key to use when generating a ConfigMap from a file
 You can define a key other than the file name to use in the ConfigMap generator.
 For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
 with the key `game-special-key`
+-->
+
+#### 定义从文件生成 ConfigMap 时要使用的键
+你可以定义一个键，而不是在 ConfigMap 生成器中使用文件名，例如，要从带有键 `game-special-key` 的 `configure-pod-container/configmap/kubectl/game.properties` 文件生成 ConfigMap。
 
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
@@ -571,15 +576,24 @@ configMapGenerator:
 EOF
 ```
 
+<!--
 Apply the kustomization directory to create the ConfigMap object.
+-->
+应用 kustomization 目录创建 ConfigMap 对象。
+
 ```shell
 kubectl apply -k .
 configmap/game-config-5-m67dt67794 created
 ```
 
+<!--
 #### Generate ConfigMaps from Literals
 To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
 you can specify the ConfigMap generator in `kusotmization.yaml` as
+-->
+#### 从字面值生成 ConfigMap
+要从文字 `special.type=charm` 和 `special.how=very` 生成 ConfigMap，可以在 `kusotmization.yaml` 中指定 ConfigMap 生成器。
+
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
 cat <<EOF >./kustomization.yaml
@@ -590,116 +604,213 @@ configMapGenerator:
   - special.type=charm
 EOF
 ```
+
+<!--
 Apply the kustomization directory to create the ConfigMap object.
+-->
+应用 kustomization 目录创建 ConfigMap 对象。
+
 ```shell
 kubectl apply -k .
 configmap/special-config-2-c92b5mmcf2 created
 ```
 
+<!--
 ## Define container environment variables using ConfigMap data
 
 ### Define a container environment variable with data from a single ConfigMap
+-->
 
+## 使用 ConfigMap 数据定义容器环境变量
+
+### 使用单个 ConfigMap 中的数据定义容器环境变量
+
+<!--
 1.  Define an environment variable as a key-value pair in a ConfigMap:
+-->
+1. 将环境变量定义为 ConfigMap 中的键值对：
 
     ```shell
     kubectl create configmap special-config --from-literal=special.how=very
     ```
 
+<!--
 2.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+-->
+2. 将 ConfigMap 中定义的 `special.how` 值分配给 Pod 规范中的 `SPECIAL_LEVEL_KEY` 环境变量。
 
    {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
 
+<!--
    Create the Pod:
+-->
+
+   创建 pod：
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
  ```
 
+<!--
    Now, the Pod's output includes environment variable `SPECIAL_LEVEL_KEY=very`.
+-->
+   现在，Pod 的输出包括环境变量 `SPECIAL_LEVEL_KEY=very`。
 
+<!--
 ### Define container environment variables with data from multiple ConfigMaps
+-->
 
+### 使用来自多个 ConfigMap 的数据定义容器环境变量 
+
+<!--
  * As with the previous example, create the ConfigMaps first.
+-->
+ * 与前面的示例一样，首先创建 ConfigMap。
+
 
    {{< codenew file="configmap/configmaps.yaml" >}}
 
+<!--
    Create the ConfigMap:
-
+-->
+   创建 ConfigMap：
+  
  ```shell
  kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
  ```
 
+<!--
 * Define the environment variables in the Pod specification.
+-->
+
+* 在 Pod 规范中定义环境变量。
 
   {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
 
+<!--
   Create the Pod:
+-->
+  创建 Pod：
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
  ```
 
+<!--
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`.
+-->
+  现在，Pod 的输出包括环境变量 `SPECIAL_LEVEL_KEY=very` 和 `LOG_LEVEL=INFO`。
 
+<!--
 ## Configure all key-value pairs in a ConfigMap as container environment variables
+-->
+
+## 将 ConfigMap 中的所有键值对配置为容器环境变量
 
 {{< note >}}
+
+<!--
 This functionality is available in Kubernetes v1.6 and later.
+-->
+该功能在 Kubernetes v1.6 及更高版本中可用。
+
 {{< /note >}}
 
+<!--
 * Create a ConfigMap containing multiple key-value pairs.
+-->
+* 创建一个包含多个键值对的 ConfigMap。
 
   {{< codenew file="configmap/configmap-multikeys.yaml" >}}
 
+<!--
   Create the ConfigMap:
+-->
+  创建 ConfigMap：
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
  ```
 
+<!--
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+-->
+* 使用 `envFrom` 将 ConfigMap 的所有数据定义为容器环境变量，ConfigMap 中的键成为 Pod 中的环境变量名。
 
  {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
 
+<!--
  Create the Pod:
+-->
+  创建 pod：
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
  ```
 
+<!--
  Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
+-->
+ 现在，Pod 的输出包括环境变量 `SPECIAL_LEVEL=very` 和 `SPECIAL_TYPE=charm`。
 
-
+<!--
 ## Use ConfigMap-defined environment variables in Pod commands
+-->
 
+## 在 Pod 命令中使用 Configmap 定义的环境变量
+
+<!--
 You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
+-->
+您可以使用 `$(VAR_NAME)` Kubernetes 替换语法，在 Pod 规范的 `command` 部分中使用 Configmap 定义的环境变量。
 
+<!--
 For example, the following Pod specification
+-->
+例如，以下 Pod 规范
 
 {{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
 
+<!--
 created by running
+-->
+创建运行
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
 ```
 
+<!--
 produces the following output in the `test-container` container:
+-->
+在 `test-container` 容器中生成以下输出:
 
 ```shell
 very charm
 ```
 
+<!--
 ## Add ConfigMap data to a Volume
+-->
 
+## 在卷中添加 ConfigMap 数据
+
+<!--
 As explained in [Create ConfigMaps from files](#create-configmaps-from-files), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value.
+-->
+正如在[从文件中创建 ConfigMap](#create-configmaps-from-files) 中所解释的，当您使用 ``--from-file`` 创建 ConfigMap 时，文件名将成为存储在ConfigMap `data` 部分中的键，文件内容成为键的值。
 
+<!--
 The examples in this section refer to a ConfigMap named special-config, shown below.
+-->
+
 
 {{< codenew file="configmap/configmap-multikeys.yaml" >}}
 
+<!--
 Create the ConfigMap:
+-->
+创建 ConfigMap：
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
