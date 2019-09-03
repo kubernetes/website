@@ -41,7 +41,7 @@ Administrators can specify a default `VolumeSnapshotClass` just for VolumeSnapsh
 that don't request any particular class to bind to.
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1alpha1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass

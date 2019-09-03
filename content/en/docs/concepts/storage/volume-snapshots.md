@@ -79,7 +79,7 @@ Deletion removes both the `VolumeSnapshotContent` object from the Kubernetes API
 Each VolumeSnapshotContent contains a spec, which is the specification of the volume snapshot.
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1alpha1
 kind: VolumeSnapshotContent
 metadata:
   name: new-snapshot-content-test
@@ -110,7 +110,7 @@ to VolumeSnapshots that request no particular class.
 Each VolumeSnapshot contains a spec and a status, which is the specification and status of the volume snapshot.
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1alpha1
 kind: VolumeSnapshot
 metadata:
   name: new-snapshot-test
