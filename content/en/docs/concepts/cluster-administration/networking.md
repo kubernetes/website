@@ -338,9 +338,10 @@ An IPv6 CIDR specificed via the `--cluster-cidr` flag larger than /24 will fail
 
 ### Services
 
-The IPv4/IPv6 dual stack enhancement includes the capability for Services to be created with either an IPv4 or an IPv6 address. The `Service.Spec.IPFamily` field has been added to Services to enable users to designate which address family to use for the Service IP. The `Service.Spec.IPFamily` is an immutable field. The default value of this field is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag on kube-controller manager.
+If your cluster has IPv4/IPv6 dual-stack networking enabled, you can create {{< glossary_tooltip text="Services" term_id="service" >}} with either an IPv4 or an IPv6 address. You can choose the address family for the Service's cluster IP by setting a field, `.spec.ipFamily`, on that Service.
+You can only set this field when creating a new Service. The default address family for your cluster is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag to the kube-controller- manager.
 
-Possible values of this field are as follows:
+You can set `.spec.ipFamily` to either:
 
    * IPv4: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
    * IPv6: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
@@ -385,7 +386,7 @@ On cloud providers which support IPv6 enabled external load balancers, setting t
 
 ### Egress Traffic
 
-In enable IPv6 Pod routing to off-cluster destinations (eg. the Internet) the IPv6 Pod interface must be masqueraded before egressing the node. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual stack aware and may be used to manage IP masquerading on dual stack enabled clusters.
+Kubernetes does not support using globally-reachable IPv6 addresses for Pods. If you have a Pod that uses IPv6 and want that Pod to readoff-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
 
 ### Provisioning a dual stack enabled cluster
 
