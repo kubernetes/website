@@ -293,33 +293,33 @@ Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-pl
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
-## IPv4/IPv6 dual stack
+## IPv4/IPv6 dual-stack
 
 {{< feature-state state="alpha" >}}
 
-If you enable IPv4/IPv6 dual stack networking for you Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
+If you enable IPv4/IPv6 dual-stack networking for you Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 
 ### Supported Features
 
-Enabling IPv4/IPv6 dual stack on your Kubernetes cluster provides the following features:
+Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 
-   * Dual stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
+   * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
    * IPv4 and IPv6 enabled Services (must be only of a single address family)
    * Kubenet multi address family support (IPv4 and IPv6)
    * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 
 ### Prerequisites
 
-The following prerequisites are needed in order to utilize IPv4/IPv6 dual stack Kubernetes clusters:
+The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack Kubernetes clusters:
 
    * Kubernetes 1.16 or later
-   * Provider support for dual stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
+   * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
    * Kubenet network plugin
    * Kube-proxy running in mode IPVS
 
-### Enable IPv4/IPv6 dual stack
+### Enable IPv4/IPv6 dual-stack
 
-To enable IPv4/IPv6 dual stack, enable the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
+To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
@@ -339,12 +339,32 @@ An IPv6 CIDR specificed via the `--cluster-cidr` flag larger than /24 will fail
 ### Services
 
 If your cluster has IPv4/IPv6 dual-stack networking enabled, you can create {{< glossary_tooltip text="Services" term_id="service" >}} with either an IPv4 or an IPv6 address. You can choose the address family for the Service's cluster IP by setting a field, `.spec.ipFamily`, on that Service.
-You can only set this field when creating a new Service. The default address family for your cluster is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag to the kube-controller- manager.
+You can only set this field when creating a new Service. Setting the `.spec.ipFamily` field is optional and should only be used if you plan to enable IPv4 and IPv6 {{< glossary_tooltip text="Services" term_id="service" >}} and {{< glossary_tooltip text="Ingresses" term_id="ingress" >}} on your cluster. The configuration of this field not a requirement for [egress](#egress-traffic) traffic.
+
+{{< note >}}
+The default address family for your cluster is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag to the kube-controller-manager.
+{{< /note >}}
 
 You can set `.spec.ipFamily` to either:
 
    * `IPv4`: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
    * `IPv6`: api-server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
+
+The following Service specification does not include the `ipFamily` field. Kubernetes will assign an IP address (also known as a "cluster IP") from the first configured `service-cluster-ip-range` to this Service.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+```
 
 The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 
@@ -386,13 +406,13 @@ On cloud providers which support IPv6 enabled external load balancers, setting t
 
 ### Egress Traffic
 
-Kubernetes does not support using globally-reachable IPv6 addresses for Pods. If you have a Pod that uses IPv6 and want that Pod to read off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
+The use of publicly routable and non-publicly routable IPv6 address blocks is accecptable provided the underlaying CNI provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
 
 ### Known Issues
 
    * IPv6 network block assignment is using the default IPv4 cidr block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
-   * Dual stack will not function if `EndpointSlice` enhancement is enabled.
+   * Dual-stack will not function if `EndpointSlice` enhancement is enabled.
 
 {{% /capture %}}
 

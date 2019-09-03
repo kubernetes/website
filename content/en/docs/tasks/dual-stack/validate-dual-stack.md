@@ -2,21 +2,21 @@
 reviewers:
 - lachie83
 - khenidak
-title: Validate IPv4/IPv6 dual stack
+title: Validate IPv4/IPv6 dual-stack
 content_template: templates/task
 ---
 
 {{% capture overview %}}
-This document shares how to validate IPv4/IPv6 dual stack enabled Kubernetes clusters.
+This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clusters.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
 * Kubernetes 1.16 or later
-* Provider support for dual stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
+* Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
 * Kubenet network plugin
 * Kube-proxy running in mode IPVS
-* [Dual stack enabled](/docs/concepts/cluster-administration/networking/#enable-ipv4-ipv6-dual-stack) cluster
+* [Dual-stack enabled](/docs/concepts/cluster-administration/networking/#enable-ipv4-ipv6-dual-stack) cluster
 
 {{% /capture %}}
 
@@ -24,7 +24,7 @@ This document shares how to validate IPv4/IPv6 dual stack enabled Kubernetes clu
 
 ## Validate Pod and Node addressing
 
-Validate IPv4/IPv6 Pod CIDRs have been assigned on a dual stack enabled node by running the following command. There should be a single IPv4 and IPv6 CIDR allocated (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0):
+Validate IPv4/IPv6 Pod CIDRs have been assigned on a dual-stack enabled node by running the following command. There should be a single IPv4 and IPv6 CIDR allocated (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0):
 
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .spec.podCIDRs}}{{printf "%s\n" .}}{{end}}'
@@ -49,6 +49,54 @@ a00:100::4
 ```
 
 ## Validate Services
+
+Create the following Service without the `ipFamily` field set. When this field is not set, the Service gets an IP from the first configured range via `--service-cluster-ip-range` flag on the kube-controller-manager.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  labels:
+    app: MyApp
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+```
+
+By viewing the YAML for the Service you can observe that the Service has the `ipFamily` field has set to reflect the address family of the first configured range set via `--service-cluster-ip-range` flag on kube-controller-manager.
+
+```yaml
+kubectl get svc my-service -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2019-09-03T20:45:13Z"
+  labels:
+    app: MyApp
+  name: my-service
+  namespace: default
+  resourceVersion: "485836"
+  selfLink: /api/v1/namespaces/default/services/my-service
+  uid: b6fa83ef-fe7e-47a3-96a1-ac212fa5b030
+spec:
+  clusterIP: 10.0.29.179
+  ipFamily: IPv4
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 9376
+  selector:
+    app: MyApp
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+```
 
 Create the following Service with the `ipFamily` field set to `IPv6`.
 
