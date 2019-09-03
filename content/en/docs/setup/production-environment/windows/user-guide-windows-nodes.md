@@ -258,7 +258,7 @@ On the Windows node you target, this step will:
   * Download CNI plugins based on the selection made in the Kubernetes Configuration file
   * (Optionally) Generate a new SSH key which is required to connect to the control-plane ("Master") node during joining
       {{< note >}}
-      For the final step where a new ssh key is generated, the public key also needs to be added to the `authorized_keys` list file on the Linux control-plane node. This action only needs to be performed once. Steps for this are printed by the script itself at the end.  
+      For the SSH key generation step, you also need to add the generated public SSH key to the `authorized_keys` file on your (Linux) control plane node. You only need to do this once. The script prints out the steps you can follow to do this, at the end of its output.
       {{< /note >}}
 
     ```PowerShell
