@@ -283,7 +283,7 @@ Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-si
 {{< /note >}}
 
 This step will perform the following actions:
-  * Establish SSH session with the Kubernetes control-plane ("Master") node to retrieve the [Kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) for cluster access 
+  * Connect to the control plane ("Master") host via SSH, to retrieve the [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) file.
   * Register Kubelet as a Windows service
   * Configure CNI network plugins
   * Create a HNS network on top of the chosen network interface
