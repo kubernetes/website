@@ -351,7 +351,7 @@ If you are behind a proxy, the following PowerShell environment variables must b
   ```
 
 
-#### What is the "pause" container image?
+### `pause` container
   The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
 
 {{% /capture %}}
