@@ -254,7 +254,7 @@ Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-si
 On the Windows node you target, this step will:
   * Enable Windows Server containers role (and reboot)
   * Download and install the chosen container runtime
-  * Download Kubernetes binaries and add them to the $PATH environment variable
+  * Download Kubernetes binaries and add them to the `$PATH` environment variable
   * Download CNI plugins based on the selection made in the Kubernetes Configuration file
   * (Optionally) Generate a new SSH key which is required to connect to the control-plane ("Master") node during joining
       {{< note >}}
