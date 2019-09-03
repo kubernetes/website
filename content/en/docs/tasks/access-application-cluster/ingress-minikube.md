@@ -189,7 +189,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Verify that the Ingress controller is directing traffic:
 
     ```shell
-    curl hello-world.info
+    curl hello-world.info/v1
     ```
 
     Output:
@@ -254,7 +254,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Access the 1st version of the Hello World app.
 
     ```shell
-    curl hello-world.info
+    curl hello-world.info/v1
     ```
 
     Output:
