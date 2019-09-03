@@ -341,7 +341,7 @@ Kubeadm is becoming the de facto standard for users to deploy a Kubernetes clust
 
 Now that you've configured a Windows worker in your cluster to run Windows containers you may want to add one or more Linux nodes as well to run Linux containers. You are now ready to schedule Windows containers on your cluster.
 
-### FAQs
+### Troubleshooting
 
 #### My Kubernetes installation is failing because my Windows Server node is behind a proxy 
 If you are behind a proxy, the following PowerShell environment variables must be defined:
