@@ -122,7 +122,7 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
         }
     ```
 
-1. Apply the Flannel yaml and validate
+1. Apply the Flannel manifest and validate
 
     Let's apply the Flannel configuration:
 
