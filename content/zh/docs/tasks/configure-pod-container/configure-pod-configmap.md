@@ -39,7 +39,7 @@ You can use either `kubectl create configmap` or a ConfigMap generator in `kusto
 -->
 
 ## 创建 ConfigMap
-您可以使用 `kubectl create configmap` 或 `kustomization` 中的 configmap 生成器。创建一个 ConfigMap。注意自 1.14 `kubectl` 开始支持 `kustomization.yaml。
+您可以使用 `kubectl create configmap` 或 `kustomization` 中的 configmap 生成器。创建一个 ConfigMap。注意自 1.14 `kubectl` 开始支持 `kustomization.yaml`。
 
 <!--
 ### Create a ConfigMap Using kubectl create configmap
