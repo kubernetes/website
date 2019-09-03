@@ -22,7 +22,7 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 
 * Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to configure the Windows node that hosts Windows containers. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
 
-* Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/).
+* Build a Linux-based Kubernetes cluster in which you have access to the control-plane (some examples include [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/).
 
 ## Getting Started: Adding a Windows Node to Your Cluster
 
@@ -42,7 +42,7 @@ Review the networking options supported in 'Intro to Windows containers in Kuber
 
 ### Components that run on Windows
 
-While the Kubernetes control plane runs on your Linux node(s), the following components are configured and run on your Windows node(s).
+While the Kubernetes control-plane runs on your Linux node(s), the following components are configured and run on your Windows node(s).
 
 1. kubelet
 2. kube-proxy
@@ -55,7 +55,7 @@ Get the latest binaries from [https://github.com/kubernetes/kubernetes/releases]
 
 Once you have a Linux-based Kubernetes master node you are ready to choose a networking solution. This guide illustrates using Flannel in VXLAN mode for simplicity.
 
-#### Configuring Flannel in VXLAN mode on the Linux controller
+#### Configuring Flannel in VXLAN mode on the Linux control-plane
 
 1. Prepare Kubernetes master for Flannel
 
@@ -213,14 +213,14 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
         },
         "InterfaceName" : "Ethernet"  // Designated network interface name on Windows node to use as container network
     },
-    "Kubernetes" : {  // Contains values for Kubernetes Node binaries
-        "Source" : {  // Contains values for Kubernetes Node binaries 
-            "Release" : "1.15.0",  // Version of Kubernetes Node binaries
-            "Url" : "https://dl.k8s.io/v1.15.0/kubernetes-node-windows-amd64.tar.gz"  // Direct URL pointing to Kubernetes Node binaries tarball
+    "Kubernetes" : {  // Contains values for Kubernetes node binaries
+        "Source" : {  // Contains values for Kubernetes node binaries 
+            "Release" : "1.15.0",  // Version of Kubernetes node binaries
+            "Url" : "https://dl.k8s.io/v1.15.0/kubernetes-node-windows-amd64.tar.gz"  // Direct URL pointing to Kubernetes node binaries tarball
         },
-        "ControlPlane" : {  // Contains values associated with Kubernetes control plane ("Master") Node
-            "IpAddress" : "kubemasterIP",  // IP address of control plane ("Master") Node
-            "Username" : "localadmin",  // Username on control plane ("Master") Node with remote SSH access  
+        "ControlPlane" : {  // Contains values associated with Kubernetes control-plane ("Master") node
+            "IpAddress" : "kubemasterIP",  // IP address of control-plane ("Master") node
+            "Username" : "localadmin",  // Username on control-plane ("Master") node with remote SSH access  
             "KubeadmToken" : "token",  // Kubeadm bootstrap token
             "KubeadmCAHash" : "discovery-token-ca-cert-hash"  // Kubeadm CA key hash
         },
@@ -232,8 +232,8 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
             "ClusterCidr" : "10.244.0.0/16"  // Cluster IP subnet used by Pods in CIDR notation 
         }
     },
-    "Install" : {  // Contains values and configurations for Windows Node installation
-        "Destination" : "C:\\ProgramData\\Kubernetes"  // Absolute DOS path where Kubernetes will be installed on the Windows Node
+    "Install" : {  // Contains values and configurations for Windows node installation
+        "Destination" : "C:\\ProgramData\\Kubernetes"  // Absolute DOS path where Kubernetes will be installed on the Windows node
     }
 }
   ```
@@ -244,9 +244,13 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
 Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) script to install Kubernetes on the Windows Server container host:
 
   ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile Kubeclustervxlan.json -install 
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install 
   ```
-  where `-ConfigFile` points to the path of the Kubernetes configuration file.
+    where `-ConfigFile` points to the path of the Kubernetes configuration file.
+
+{{< note >}}
+In the example below, we are using overlay networking mode. This requires Windows Server version 2019 with [KB4489899](https://support.microsoft.com/help/4489899) and at least Kubernetes v1.14 or above. Users that cannot meet this requirement must use  `L2bridge` networking instead by selecting `bridge` as the [plugin](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclusterbridge.json#L18) in the configuration file.  
+{{< /note >}}
 
   ![alt_text](../kubecluster.ps1-install.gif "KubeCluster.ps1 install output")
 
@@ -258,23 +262,19 @@ On the Windows node you target, this step will:
   * Download CNI plugins based on the selection made in the Kubernetes Configuration file
   * (Optionally) Generate a new SSH key which is required to connect to the control-plane ("Master") node during joining
       {{< note >}}
-      For the SSH key generation step, you also need to add the generated public SSH key to the `authorized_keys` file on your (Linux) control plane node. You only need to do this once. The script prints out the steps you can follow to do this, at the end of its output.
+      For the SSH key generation step, you also need to add the generated public SSH key to the `authorized_keys` file on your (Linux) control-plane node. You only need to do this once. The script prints out the steps you can follow to do this, at the end of its output.
       {{< /note >}}
 
-    ```PowerShell
-    [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
-    [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
-    ```
 
 #### Join the Windows Node to the Kubernetes cluster
-This section covers how to join a [Windows Node with Kubernetes installed](#preparing-a-windows-node) with an existing (Linux) control plane, to form a cluster.
+This section covers how to join a [Windows node with Kubernetes installed](#preparing-a-windows-node) with an existing (Linux) control-plane, to form a cluster.
 
 Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) script to join the Windows node to the cluster:
 
     ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
+      .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
     ```
-    where `-ConfigFile` points to the path of the Kubernetes configuration file.
+      where `-ConfigFile` points to the path of the Kubernetes configuration file.
 
 ![alt_text](../kubecluster.ps1-join.gif "KubeCluster.ps1 join output")
 
@@ -283,16 +283,16 @@ Should the script fail during the bootstrap or joining procedure for whatever re
 {{< /note >}}
 
 This step will perform the following actions:
-  * Connect to the control plane ("Master") host via SSH, to retrieve the [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) file.
-  * Register Kubelet as a Windows service
+  * Connect to the control-plane ("Master") node via SSH, to retrieve the [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) file.
+  * Register kubelet as a Windows service
   * Configure CNI network plugins
   * Create a HNS network on top of the chosen network interface
       {{< note >}}
       This may cause a network blip for a few seconds while the vSwitch is being created.
       {{< /note >}}
   * (If vxlan plugin is selected) Open up inbound firewall UDP port 4789 for overlay traffic
-  * Register FlannelD as a Windows service
-  * Register Kube-proxy as a Windows service
+  * Register flanneld as a Windows service
+  * Register kube-proxy as a Windows service
 
 Now you can view the Windows nodes in your cluster by running the following:
 
@@ -316,7 +316,7 @@ This step will perform the following actions on the targeted Windows node:
   * Delete the Windows node from the Kubernetes cluster
   * Stop all running containers and remove all container images
   * Remove all container networking (HNS) resources
-  * Unregister all Kubernetes services (FlannelD, Kubelet, Kube-proxy) 
+  * Unregister all Kubernetes services (flanneld, kubelet, kube-proxy) 
   * Delete all Kubernetes binaries (kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)
   * Delete all CNI network plugins binaries
   * Delete [Kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) used to access the Kubernetes cluster
@@ -340,18 +340,5 @@ Kubeadm is becoming the de facto standard for users to deploy a Kubernetes clust
 ### Next Steps
 
 Now that you've configured a Windows worker in your cluster to run Windows containers you may want to add one or more Linux nodes as well to run Linux containers. You are now ready to schedule Windows containers on your cluster.
-
-### Troubleshooting
-
-#### My Kubernetes installation is failing because my Windows Server node is behind a proxy 
-If you are behind a proxy, the following PowerShell environment variables must be defined:
-  ```PowerShell
-  [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
-  [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
-  ```
-
-
-### `pause` container
-  The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
 
 {{% /capture %}}
