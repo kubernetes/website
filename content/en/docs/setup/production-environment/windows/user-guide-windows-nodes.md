@@ -279,7 +279,7 @@ Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-si
 ![alt_text](../kubecluster.ps1-join.gif "KubeCluster.ps1 join output")
 
 {{< note >}}
- Should the script fail during the bootstrap or joining procedure for whatever reason, consecutive join attempts should be done in a fresh Powershell window.  
+Should the script fail during the bootstrap or joining procedure for whatever reason, start a new PowerShell session before starting each consecutive join attempt.
 {{< /note >}}
 
 This step will perform the following actions:
