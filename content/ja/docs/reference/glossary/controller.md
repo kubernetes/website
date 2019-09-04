@@ -4,16 +4,17 @@ id: controller
 date: 2018-04-12
 full_link: /docs/admin/kube-controller-manager/
 short_description: >
-  クラスターの状態をAPIサーバーから取得、見張る制御ループで、現在の状態を望ましい状態に移行するように更新します。
+  apiserverを介してクラスターの共有された状態を監視し、現在の状態をdesired state (望ましい状態)に向けて変更しようとする制御ループ。
 
 aka: 
 tags:
 - architecture
 - fundamental
 ---
- クラスターの状態を{{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}から取得、見張る制御ループで、現在の状態を望ましい状態に移行するように更新します。
+ {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}を介してクラスターの共有された状態を監視し、現在の状態をdesired state (望ましい状態)に向けて変更しようとする制御ループ。
 
 <!--more--> 
 
-今日、Kubernetesで提供されるコントローラーの例として、レプリケーションコントローラー、エンドポイントコントローラー、名前空間コントローラー、またサービスアカウントコントローラーがあります。
+現在Kubernetesに同梱されているコントローラーの例には、レプリケーションコントローラー、エンドポイントコントローラー、名前空間コントローラー、およびサービスアカウントコントローラーがあります。
+
 

@@ -233,11 +233,14 @@ or is done when Pod is running and underlying file system supports online expans
 FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true. 
 The FlexVolume can be resized on pod restart. 
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
-
 #### Resizing an in-use PersistentVolumeClaim
 
-Expanding in-use PVCs is a beta feature and is enabled by default via `ExpandInUsePersistentVolumes` feature gate.
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+
+{{< note >}}
+Expanding in-use PVCs is available as beta since 1.15, and as alpha since Kubernetes 1.11. The `ExpandInUsePersistentVolumes` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+{{< /note >}}
+
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod which

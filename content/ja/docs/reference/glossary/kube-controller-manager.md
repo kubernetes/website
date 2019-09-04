@@ -4,16 +4,17 @@ id: kube-controller-manager
 date: 2018-04-12
 full_link: /docs/reference/generated/kube-controller-manager/
 short_description: >
-  マスター上で動く、コントローラー群を動かすコンポーネントです。
+  Master上に存在し、コントローラーを実行するコンポーネント。
 
 aka: 
 tags:
 - architecture
 - fundamental
 ---
- マスター上で動く、{{< glossary_tooltip text="controllers" term_id="controller" >}}を動かすコンポーネントです。
+ Master上に存在し、{{< glossary_tooltip text="コントローラー" term_id="controller" >}}を実行するコンポーネント。
 
 <!--more--> 
 
-論理的には、各{{< glossary_tooltip text="controller" term_id="controller" >}}は、それぞれ別のプロセスですが、複雑になるのを避けるため、一つの実行ファイルにまとめてコンパイルされ、単一のプロセスとして動きます。
+論理的には各{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は個別のプロセスですが、複雑さを軽減するために、すべて単一のバイナリにコンパイルされ、単一のプロセスで実行されます。
+
 
