@@ -36,7 +36,7 @@ weight: 90
 1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 각 노드에서 실행한다.
-    - UDP, TCP, SCTP를 이용하여 프락시
+    - UDP, TCP, SCTP를 이용하여 프락시 한다.
     - HTTP는 이해하지 못한다.
     - 로드 밸런싱을 제공한다.
     - 단지 서비스에 도달하는데 사용한다.
