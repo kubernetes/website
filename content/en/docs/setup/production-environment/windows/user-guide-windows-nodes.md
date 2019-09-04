@@ -246,7 +246,7 @@ Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-si
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install 
   ```
-    where `-ConfigFile` points to the path of the Kubernetes configuration file.
+  where `-ConfigFile` points to the path of the Kubernetes configuration file.
 
 {{< note >}}
 In the example below, we are using overlay networking mode. This requires Windows Server version 2019 with [KB4489899](https://support.microsoft.com/help/4489899) and at least Kubernetes v1.14 or above. Users that cannot meet this requirement must use  `L2bridge` networking instead by selecting `bridge` as the [plugin](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclusterbridge.json#L18) in the configuration file.  
@@ -256,11 +256,12 @@ In the example below, we are using overlay networking mode. This requires Window
 
 
 On the Windows node you target, this step will:
-  * Enable Windows Server containers role (and reboot)
-  * Download and install the chosen container runtime
-  * Download Kubernetes binaries and add them to the `$PATH` environment variable
-  * Download CNI plugins based on the selection made in the Kubernetes Configuration file
-  * (Optionally) Generate a new SSH key which is required to connect to the control-plane ("Master") node during joining
+  1. Enable Windows Server containers role (and reboot)
+  1. Download and install the chosen container runtime
+  1. Download all needed container images
+  1. Download Kubernetes binaries and add them to the `$PATH` environment variable
+  1. Download CNI plugins based on the selection made in the Kubernetes Configuration file
+  1. (Optionally) Generate a new SSH key which is required to connect to the control-plane ("Master") node during joining
       {{< note >}}
       For the SSH key generation step, you also need to add the generated public SSH key to the `authorized_keys` file on your (Linux) control-plane node. You only need to do this once. The script prints out the steps you can follow to do this, at the end of its output.
       {{< /note >}}
@@ -271,10 +272,10 @@ This section covers how to join a [Windows node with Kubernetes installed](#prep
 
 Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) script to join the Windows node to the cluster:
 
-    ```PowerShell
-      .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
-    ```
-      where `-ConfigFile` points to the path of the Kubernetes configuration file.
+  ```PowerShell
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
+  ```
+  where `-ConfigFile` points to the path of the Kubernetes configuration file.
 
 ![alt_text](../kubecluster.ps1-join.gif "KubeCluster.ps1 join output")
 
@@ -283,16 +284,16 @@ Should the script fail during the bootstrap or joining procedure for whatever re
 {{< /note >}}
 
 This step will perform the following actions:
-  * Connect to the control-plane ("Master") node via SSH, to retrieve the [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) file.
-  * Register kubelet as a Windows service
-  * Configure CNI network plugins
-  * Create a HNS network on top of the chosen network interface
+  1. Connect to the control-plane ("Master") node via SSH, to retrieve the [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) file.
+  1. Register kubelet as a Windows service
+  1. Configure CNI network plugins
+  1. Create a HNS network on top of the chosen network interface
       {{< note >}}
       This may cause a network blip for a few seconds while the vSwitch is being created.
       {{< /note >}}
-  * (If vxlan plugin is selected) Open up inbound firewall UDP port 4789 for overlay traffic
-  * Register flanneld as a Windows service
-  * Register kube-proxy as a Windows service
+  1. (If vxlan plugin is selected) Open up inbound firewall UDP port 4789 for overlay traffic
+  1. Register flanneld as a Windows service
+  1. Register kube-proxy as a Windows service
 
 Now you can view the Windows nodes in your cluster by running the following:
 
@@ -308,18 +309,18 @@ Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-si
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset 
   ```
-    where `-ConfigFile` points to the path of the Kubernetes configuration file.
+  where `-ConfigFile` points to the path of the Kubernetes configuration file.
 
 ![alt_text](../kubecluster.ps1-reset.gif "KubeCluster.ps1 reset output")
 
 This step will perform the following actions on the targeted Windows node:
-  * Delete the Windows node from the Kubernetes cluster
-  * Stop all running containers and remove all container images
-  * Remove all container networking (HNS) resources
-  * Unregister all Kubernetes services (flanneld, kubelet, kube-proxy) 
-  * Delete all Kubernetes binaries (kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)
-  * Delete all CNI network plugins binaries
-  * Delete [Kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) used to access the Kubernetes cluster
+  1. Delete the Windows node from the Kubernetes cluster
+  1. Stop all running containers and remove all container images
+  1. Remove all container networking (HNS) resources
+  1. Unregister all Kubernetes services (flanneld, kubelet, kube-proxy) 
+  1. Delete all Kubernetes binaries (kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)
+  1. Delete all CNI network plugins binaries
+  1. Delete [Kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) used to access the Kubernetes cluster
 
 
 ### Public Cloud Providers
