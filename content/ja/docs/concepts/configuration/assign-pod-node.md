@@ -365,7 +365,6 @@ spec:
 
 {{% capture whatsnext %}}
 
-
 [Taints](/docs/concepts/configuration/taint-and-toleration/)を使うことで、NodeはPodを追い出すことができます。
 
 [Node Affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)と
