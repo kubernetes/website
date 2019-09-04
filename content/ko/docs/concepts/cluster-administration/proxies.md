@@ -25,7 +25,7 @@ weight: 90
 
 1.  [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
 
-    - API 서버에 내장된 요새 호스트(bastion)이다.
+    - API 서버에 내장된 요새(bastion)이다.
     - 클러스터 외부의 사용자가 도달할 수 없는 클러스터 IP 주소로 연결한다.
     - API 서버 프로세스에서 실행한다.
     - 클라이언트로 프락시는 HTTPS(또는 API서버에서 HTTP로 구성된 경우는 HTTP)를 사용한다.
