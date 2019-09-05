@@ -464,7 +464,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
     ```
 
-    `CHANGE-CAUSE` 는 수정 생성시 디플로이먼트 주석인 `kubernetes.io/change-cause` 에서 복사한다.     다음에 대해 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
+    `CHANGE-CAUSE` 는 수정 생성시 디플로이먼트 주석인 `kubernetes.io/change-cause` 에서 복사한다. 다음에 대해 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
 
     * 디플로이먼트에 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"` 로 주석을 단다.
     * `kubectl` 명령어 이용시 `--record` 플래그를 추가해서 리소스 변경을 저장한다.
@@ -493,7 +493,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     ```
 
 ### 이전 수정 버전으로 롤백
-다음 단계에 따라 디플로이먼트를 현재 버전에서 이전버전인 버전 2로 롤백한다.
+다음 단계에 따라 디플로이먼트를 현재 버전에서 이전 버전인 버전 2로 롤백한다.
 
 1. 이제 현재 롤아웃의 실행 취소 및 이전 수정 버전으로 롤백 하기로 결정했다.
     ```shell
@@ -517,8 +517,8 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
     롤아웃 관련 명령에 대한 자세한 내용은 [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)을 참조한다.
 
-    이제 디플로이먼트가 이전 안정 수정 버전으로 롤백 된다. 보시다시피 버전 2로 롤백하기 위해 `DeploymentRollback` 이벤트가 
-    디플로이먼트 컨트롤러에서 생성된다.
+    이제 디플로이먼트가 이전 안정 수정 버전으로 롤백 된다. 버전 2로 롤백하기 위해 `DeploymentRollback` 이벤트가 
+    디플로이먼트 컨트롤러에서 생성되는 것을 볼 수 있다.
 
 2. 만약 롤백에 성공하고, 디플로이먼트가 예상대로 실행되는지 확인하려면 다음을 실행한다.
     ```shell
