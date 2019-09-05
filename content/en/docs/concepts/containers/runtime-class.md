@@ -57,10 +57,9 @@ implementation dependent. See the corresponding documentation ([below](#cri-conf
 CRI implementation for how to configure.
 
 {{< note >}}
-RuntimeClass currently assumes a homogeneous node configuration across the cluster (which means that
-all nodes are configured the same way with respect to container runtimes). Any heterogeneity
-(varying configurations) must be managed independently of RuntimeClass through scheduling features
-(see [Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/)).
+RuntimeClass assumes a homogeneous node configuration across the cluster by default (which means
+that all nodes are configured the same way with respect to container runtimes). To support
+heterogenous node configurations, see [Scheduling](#scheduling) below.
 {{< /note >}}
 
 The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
@@ -147,6 +146,30 @@ table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#
 See cri-o's config documentation for more details:
 https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 
+### Scheduling
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+As of Kubernetes v1.16, RuntimeClass includes support for heterogenous clusters through its
+`scheduling` fields. Through the use of these fields, you can ensure that pods running with this
+RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
+the RuntimeClass [admission controller][] enabled (the default, as of 1.16).
+
+To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
+common label which is then selected by the `runtimeclass.scheduling.nodeSelector` field. The
+RuntimeClass's nodeSelector is merged with the pod's nodeSelector in admission, effectively taking
+the intersection of the set of nodes selected by each. If there is a conflict, the pod will be
+rejected.
+
+If the supported nodes are tainted to prevent other RuntimeClass pods from running on the node, you
+can add `tolerations` to the RuntimeClass. As with the `nodeSelector`, the tolerations are merged
+with the pod's tolerations in admission, effectively taking the union of the set of nodes tolerated
+by each.
+
+To learn more about configuring the node selector and tolerations, see [Assigning Pods to
+Nodes](/docs/concepts/configuration/assign-pod-node/).
+
+[admission controller]: /docs/reference/access-authn-authz/admission-controllers/
 
 ### Upgrading RuntimeClass from Alpha to Beta
 
@@ -174,5 +197,10 @@ RuntimeClass feature to the beta version:
 - Alpha RuntimeClasses with an unspecified or empty `runtimeHandler` or those using a `.` character
   in the handler are no longer valid, and must be migrated to a valid handler configuration (see
   above).
+
+### Further Reading
+
+- [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
+- [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
 
 {{% /capture %}}
