@@ -217,9 +217,9 @@ new `PersistentVolume` is never created to satisfy the claim. Instead, an existi
 
 #### CSI Volume expansion
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-CSI volume expansion requires enabling `ExpandCSIVolumes` feature gate and also requires specific CSI driver to support volume expansion. Please refer to documentation of specific CSI driver for more information.
+Support for expanding CSI volumes is enabled by default but it also requires specific CSI driver to support volume expansion. Please refer to documentation of specific CSI driver for more information.
 
 
 #### Resizing a volume containing a file system
