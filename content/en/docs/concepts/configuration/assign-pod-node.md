@@ -120,9 +120,6 @@ Node affinity is like the existing `nodeSelector` (but with the first two benefi
 while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
 described in the third item listed above, in addition to having the first and second properties listed above.
 
-`nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
-everything that `nodeSelector` can express.
-
 ### Node affinity
 
 Node affinity is conceptually similar to `nodeSelector` -- it allows you to constrain which nodes your
