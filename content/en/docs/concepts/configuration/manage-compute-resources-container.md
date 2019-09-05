@@ -142,7 +142,7 @@ When using Docker:
 - The `spec.containers[].resources.requests.cpu` is converted to its core value,
   which is potentially fractional, and multiplied by 1024. The greater of this number
   or 2 is used as the value of the
-  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
+  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
   flag in the `docker run` command.
 
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
