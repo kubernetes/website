@@ -309,7 +309,7 @@ The Horizontal Pod Autoscaler is an API resource in the Kubernetes `autoscaling`
 The current stable version, which only includes support for CPU autoscaling,
 can be found in the `autoscaling/v1` API version.
 -->
-Horizontal Pod Autoscaler 是 Kubernetes `autoscaling` API 组的资源。
+HorizontalPodAutoscaler 是 Kubernetes `autoscaling` API 组的资源。
 在当前稳定版本（`autoscaling/v1`）中只支持基于CPU指标的缩放。
 
 <!--
