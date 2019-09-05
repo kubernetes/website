@@ -1,0 +1,22 @@
+{{ define "content" }}
+
+<div class="container-fluid td-outer flex-1" style="display:flex">
+<!-- content -->
+<div class="col-12 col-md-9 col-xl-8 pl-md-5 td-content" style="flex-grow:1;max-width:66.66%;top:4rem;float:left;min-height:1px;order:1">
+
+{{ partial "ref-content-page.html" (dict "ctx" . "page" .) }}
+</div>
+
+<!-- inner toc-->
+<div class="order-2 col-12 col-md-9 col-xl-8 pl-md-5 td-toc" style="overflow-y:bottom:100px;list-style-type:none;font-size:.875rem;width:20%;right:0;position:fixed;border:1;top:265px;order:2;padding-left:1rem;padding-right:1rem;border-left-style:solid;border-left-width:1px;border-color:#ccc">
+{{ .TableOfContents }}
+</div>
+</div>
+{{ end }}
+
+
+{{ define "side-menu" }}
+<div class="td-sidebar" style="display:block;width:20%;order:0"> 
+    {{ partial "docs/side-menu.html" . }}
+</div>
+{{ end }}

@@ -1,6 +1,7 @@
 ---
 title: rolling-update
-content_template: templates/tool-reference
+noedit: true
+layout: kuberef
 ---
 
 ### Overview

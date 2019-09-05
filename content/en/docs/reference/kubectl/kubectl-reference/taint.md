@@ -1,6 +1,7 @@
 ---
 title: taint
-content_template: templates/tool-reference
+noedit: true
+layout: kuberef
 ---
 
 ### Overview
