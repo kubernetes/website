@@ -268,7 +268,7 @@ Expanding EBS volumes is a time consuming operation. Also, there is a per-volume
 * AzureDisk
 * CSI
 * FC (Fibre Channel)
-* Flexvolume
+* FlexVolume
 * Flocker
 * NFS
 * iSCSI

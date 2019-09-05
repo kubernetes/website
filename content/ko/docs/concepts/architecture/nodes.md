@@ -22,6 +22,10 @@ weight: 10
 * [용량과 할당가능](#capacity)
 * [정보](#info)
 
+노드의 상태와 상세 정보는 다음 커맨드를 통해 확인할 수 있다. 
+```shell
+kubectl describe node <insert-node-name-here>
+```
 각 섹션은 아래 상세하게 기술되었다.
 
 ### 주소 {#addresses}
@@ -88,7 +92,8 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 ### 정보 {#info}
 
-커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), (사용하는 경우) Docker 버전, OS 이름과 같은 노드에 대한 일반적인 정보이다. 정보는 Kubelet에 의해 노드로부터 수집된다.
+커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), (사용하는 경우) Docker 버전, OS 이름과 같은노드에 대한 일반적인 정보를 보여준다.
+이 정보는 Kubelet에 의해 노드로부터 수집된다.
 
 ## 관리
 

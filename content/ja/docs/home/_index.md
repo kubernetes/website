@@ -1,4 +1,5 @@
 ---
+approvers:
 title: Kubernetesドキュメント
 noedit: true
 cid: docsHome
@@ -15,42 +16,42 @@ menu:
     post: >
       <p>チュートリアル、サンプルやドキュメントのリファレンスを使って Kubernetes の利用方法を学んでください。あなたは<a href="/editdocs/" data-auto-burger-exclude>ドキュメントへコントリビュートをする</a>こともできます!</p>
 overview: >
-  Kubernetesは、自動デプロイ、スケーリング、およびコンテナ化されたアプリケーションの管理を行うための、オープンソースのコンテナオーケストレーションエンジンです。本オープンソースプロジェクトは、Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).によって管理されています。
+  Kubernetesは、コンテナ化されたアプリケーションの展開、スケーリング、また管理を自動化するためのオープンソースコンテナプラットフォームです。このオープンソースプロジェクトは、Cloud Native Computing Foundationによってホストされています（<a href="https://www.cncf.io/about">CNCF</a>）。
 cards:
 - name: concepts
   title: "基本を理解する"
-  description: "Kubernetesに基本的なコンセプトについて学びます。"
+  description: "Kubernetesとその基本的なコンセプトを学びます。"
   button: "コンセプトを学ぶ"
-  button_path: "/ja/docs/concepts"
+  button_path: "/docs/concepts"
 - name: tutorials
-  title: "Kubernetesを試用する"
-  description: "チュートリアルに沿って、Kubernetesにアプリケーションをデプロイする方法を学びます。"
+  title: "Kubernetesを試す"
+  description: "Kubernetesにどのようにアプリケーションを展開するかを、チュートリアルから学びます。"
   button: "チュートリアルを見る"
-  button_path: "/ja/docs/tutorials"
+  button_path: "/docs/tutorials"
 - name: setup
-  title: "クラスターを立ち上げる"
-  description: "ご自身のリソースや要件に合わせたKubernetes環境を動かしてみましょう。"
-  button: "Kubernetesをセットアップする"
-  button_path: "/ja/docs/setup"
+  title: "クラスターを構築する"
+  description: "リソースと要求に基づいて、Kubernetesを実行します。"
+  button: "Kubernetesを構築する"
+  button_path: "/docs/setup"
 - name: tasks
   title: "Kubernetesの使い方を学ぶ"
-  description: "一般的な使い方と、それらを実行するための短い手順を調べます。"
-  button: "View Tasks"
-  button_path: "/ja/docs/tasks"
+  description: "一般的なタスク、そのタスクを短い手順でどのように実行するかを見てみます。"
+  button: "タスクを見る"
+  button_path: "/docs/tasks"
 - name: reference
-  title: 参考情報を探す
-  description: 用語、コマンドラインの構文、APIのリソースタイプ、およびセットアップツールのドキュメントを参照します。
-  button: View Reference
-  button_path: /ja/docs/reference
+  title: "リファレンス情報を調べる"
+  description: "用語、コマンドラインの構文、APIリソースタイプ、そして構築ツールのドキュメントを見て回ります。"
+  button: "リファレンスを見る"
+  button_path: /docs/reference
 - name: contribute
-  title: ドキュメントに貢献する
-  description: 本プロジェクトに不慣れな方でも、久しぶりの方も、どなたでも貢献することができます。
-  button: ドキュメントに貢献する
-  button_path: /ja/docs/contribute
+  title: "ドキュメントにコントリビュートする"
+  description: "プロジェクトに不慣れでも、長い間関わっていたとしても、誰でもコントリビュートすることが出来ます。"
+  button: "ドキュメントにコントリビュートする"
+  button_path: /docs/contribute
 - name: download
-  title: Kubernetesをダウンロードする
-  description: Kubernetesをインストールする場合や最新バージョンにアップグレードする場合は、現在のリリースノートを参照してください。
+  title: "Kubernetesをダウンロードする"
+  description: "もしKubernetesをインストールする、また最新バージョンにアップグレードする場合、最新のリリースノートを参照してください。"
 - name: about
-  title: ドキュメントについて
-  description: このWebサイトには、Kubernetesの現在および以前の4つのバージョンに関するドキュメントが含まれています。
+  title: "ドキュメントについて"
+  description: "このサイトは、Kubernetesの最新バージョンと過去４世代のドキュメントを含んでいます。"
 ---

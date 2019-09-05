@@ -161,51 +161,10 @@
 /docs/federation/api-reference/federation/v1beta1/operations.html  /docs/reference/generated/federation/extensions/v1beta1/operations/ 301
 /docs/federation/api-reference/README/     /docs/reference/generated/federation/ 301
 
-/docs/getting-started-guide/*     /docs/setup/ 301
-/docs/getting-started-guides/     /docs/setup/pick-right-solution/ 301
-/docs/getting-started-guides/binary_release/    /docs/setup/release/building-from-source/ 301
-/docs/getting-started-guides/cloudstack/     /docs/setup/on-premises-vm/cloudstack/ 301
-/docs/getting-started-guides/dcos/     /docs/setup/on-premises-vm/dcos/ 301
-/docs/getting-started-guides/ovirt/     /docs/setup/on-premises-vm/ovirt/ 301
-/docs/getting-started-guides/coreos/     /docs/setup/custom-cloud/coreos/ 301
-/docs/getting-started-guides/kops/     /docs/setup/custom-cloud/kops/ 301
-/docs/getting-started-guides/kubespray/     /docs/setup/custom-cloud/kubespray/ 301
-/docs/getting-started-guides/coreos/azure/     /docs/getting-started-guides/coreos/ 301
-/docs/getting-started-guides/coreos/bare_metal_calico/     /docs/getting-started-guides/coreos/ 301
-/docs/getting-started-guides/docker-multinode/*     /docs/setup/independent/create-cluster-kubeadm/ 301
-/docs/getting-started-guides/juju/     /docs/getting-started-guides/ubuntu/installation/ 301
-/docs/getting-started-guides/kargo/     /docs/getting-started-guides/kubespray/ 301
-/docs/getting-started-guides/kubeadm/     /docs/setup/independent/create-cluster-kubeadm/ 301
-/docs/getting-started-guides/kubectl/     /docs/reference/kubectl/overview/ 301
-/docs/getting-started-guides/logging/     /docs/concepts/cluster-administration/logging/ 301
-/docs/getting-started-guides/logging-elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
-/docs/getting-started-guides/meanstack/     https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d/ 301
-/docs/getting-started-guides/minikube/     /docs/setup/minikube/ 301
-/docs/getting-started-guides/network-policy/calico/     /docs/tasks/administer-cluster/calico-network-policy/ 301
-/docs/getting-started-guides/network-policy/romana/     /docs/tasks/administer-cluster/romana-network-policy/ 301
-/docs/getting-started-guides/network-policy/walkthrough/     /docs/tasks/administer-cluster/declare-network-policy/ 301
-/docs/getting-started-guides/network-policy/weave/     /docs/tasks/administer-cluster/weave-network-policy/ 301
-/docs/getting-started-guides/rackspace/     /docs/setup/pick-right-solution/ 301
-/docs/getting-started-guides/running-cloud-controller/     /docs/tasks/administer-cluster/running-cloud-controller/ 301
-/docs/getting-started-guides/scratch/     /docs/setup/release/building-from-source/ 301
-/docs/getting-started-guides/ubuntu-calico/     /docs/getting-started-guides/ubuntu/ 301
-/docs/getting-started-guides/ubuntu/automated/     /docs/getting-started-guides/ubuntu/ 301
-/docs/getting-started-guides/ubuntu/calico/     /docs/getting-started-guides/ubuntu/ 301
-/docs/getting-started-guides/vagrant/     /docs/getting-started-guides/alternatives/ 301
-/docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
-/docs/getting-started-guides/windows/While/     /docs/setup/windows/ 301
-/docs/getting-started-guides/windows/     /docs/setup/windows/ 301
-/docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
-/docs/getting-started-guides/alibaba-cloud/ /docs/setup/turnkey/alibaba-cloud/ 301
-/docs/getting-started-guides/aws/ /docs/setup/turnkey/aws/ 301
-/docs/getting-started-guides/azure/ /docs/setup/turnkey/azure/ 301
-/docs/getting-started-guides/clc/ /docs/setup/turnkey/clc/ 301
-/docs/getting-started-guides/gce/ /docs/setup/turnkey/gce/ 301
-/docs/getting-started-guides/stackpoint/ /docs/setup/turnkey/stackpoint/ 301
+/docs/getting-started-guides/*     /docs/setup/ 301
 
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/home/contribute/stage-documentation-changes/     /docs/home/contribute/create-pull-request/ 301
-/docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
 /docs/home/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
 /docs/home/contribute/  /docs/contribute/ 301
@@ -344,13 +303,6 @@
 /docs/tutorials/federation/set-up-cluster-federation-kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 /docs/tutorials/federation/set-up-coredns-provider-federation/     /docs/tasks/federation/set-up-coredns-provider-federation/ 301
 /docs/tutorials/federation/set-up-placement-policies-federation/     /docs/tasks/federation/set-up-placement-policies-federation/ 301
-/docs/tutorials/getting-started/cluster-intro/     /docs/tutorials/kubernetes-basics/cluster-intro/ 301
-/docs/tutorials/getting-started/create-cluster/     /docs/tutorials/kubernetes-basics/cluster-intro/ 301
-/docs/tutorials/getting-started/expose-intro/     /docs/tutorials/kubernetes-basics/expose-intro/ 301
-/docs/tutorials/getting-started/scale-app/     /docs/tutorials/kubernetes-basics/scale-interactive/ 301
-/docs/tutorials/getting-started/scale-intro/     /docs/tutorials/kubernetes-basics/scale-intro/ 301
-/docs/tutorials/getting-started/update-interactive/     /docs/tutorials/kubernetes-basics/update-interactive/ 301
-/docs/tutorials/getting-started/update-intro/     /docs/tutorials/kubernetes-basics/ 301
 /docs/tutorials/kubernetes-basics/cluster-interactive/     /docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/ 301
 /docs/tutorials/kubernetes-basics/cluster-intro/     /docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/ 301
 /docs/tutorials/kubernetes-basics/deploy-interactive/     /docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/ 301
@@ -418,7 +370,6 @@
 /docs/user-guide/federation/secrets/     /docs/tasks/administer-federation/secret/ 301
 /docs/user-guide/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/user-guide/garbage-collector/*     /docs/concepts/workloads/controllers/garbage-collection/ 301
-/docs/user-guide/getting-into-containers/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/user-guide/gpus/     /docs/tasks/manage-gpus/scheduling-gpus/ 301
 /docs/user-guide/horizontal-pod-autoscaler/*     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
 /docs/user-guide/horizontal-pod-autoscaling/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
@@ -501,7 +452,6 @@
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301
-/gettingstarted/     /docs/home/ 301
 /horizontal-pod-autoscaler/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
 /kubernetes/     /docs/ 301
 /kubernetes-bootcamp/*     /docs/tutorials/kubernetes-basics/ 301
@@ -515,7 +465,6 @@
 /swagger-spec/*     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
 /third_party/swagger-ui/*     /docs/reference/ 301
 /v1.1/docs/admin/networking.html     /docs/concepts/cluster-administration/networking/     301
-/v1.1/docs/getting-started-guides/     /docs/tutorials/kubernetes-basics/ 301
 
 https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:splat 301
 
@@ -587,5 +536,5 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/setup/multiple-zones/     /docs/setup/best-practices/multiple-zones/   301
 /docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
 /docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
-/docs/setup/certificates/     /docs/setup/best-practices/certificates/   301      
+/docs/setup/certificates/     /docs/setup/best-practices/certificates/   301
 
