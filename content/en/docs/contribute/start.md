@@ -339,7 +339,7 @@ commercial in nature and should consist of content that will apply broadly to
 the Kubernetes community.
 
 To submit a blog post, you can either submit it using the
-[Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSch_phFYMTYlrTDuYziURP6nLMijoXx_f7sLABEU5gWBtxJHQ/viewform),
+[Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSdMpMoSIrhte5omZbTE7nB84qcGBy8XnnXhDFoW0h7p2zwXrw/viewform),
 or follow the steps below.
 
 1.  [Sign the CLA](#sign-the-cla) if you have not yet done so.
