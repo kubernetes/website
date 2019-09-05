@@ -34,10 +34,11 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 The CustomResourceDefinition API provides a workflow for introducing and upgrading
 to new versions of a CustomResourceDefinition.
 
-When a CustomResourceDefinition is first created, the first version is set at
-an appropriate stability level and a version number. For example `v1beta1`
-would indicate that the first version is not yet stable. All custom resource objects
-will initially be stored at this version.
+When a CustomResourceDefinition is first created, the first version is set in
+the CustomResourceDefinition `spec.versions` list to an appropriate stability
+level and a version number. For example `v1beta1` would indicate that the first
+version is not yet stable. All custom resource objects will initially be stored
+at this version.
 
 Once the CustomResourceDefinition is created, clients may begin using the
 `v1beta1` API.
@@ -45,7 +46,7 @@ Once the CustomResourceDefinition is created, clients may begin using the
 Later it might be necessary to add new version such as `v1`.
 
 Adding a new version:
-1. Select a conversion strategy. Since custom resource objects need to be able
+1. Pick a conversion strategy. Since custom resource objects need to be able
    to be served at both versions, that they will sometimes be served at a
    different version they are stored at. In order for this to be possible, the
    custom resource objects must sometimes be converted between the version they
@@ -55,37 +56,29 @@ Adding a new version:
    may be used.
 2. If using conversion webhooks, create and deploy the conversion webhook. See
    the [Webhook conversion](#webhook-conversion) for more details.
-3. Update the CustomResourceDefinition to serve both the old and new versions
-   and to use the selected conversion strategy. If using a conversion webhook,
-   also set the webhook configuration.
+3. Update the CustomResourceDefinition to include the new version in the
+   `spec.versions` list.  Also, set `spec.conversion` field to the selected
+   conversion strategy. If using a conversion webhook, configure
+   `spec.conversion.webhookClientConfig` field for the webhook.
 
-Once the new version is added, clients may be incrementally migrated to the new
+Once the new version is added, clients may incrementally migrate to the new
 version. It is perfectly safe for some clients to use the old version while
 others use the new version.
 
-Storage Migration:
-1. Update the version the custom resources objects are stored at in the
-   CustomResourceDefinition to the new version. Changes to the storage version
-   take effect for each custom resource instance the next time that resource is
-   written.
-1. Complete the storage migration
-  - Option 1: Use [Storage Version Migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-  - Option 2: Write to each custom resource object at least once. A get followed by a put of the identical
-    content is sufficient. No modification of the data is required.
+Migrate existing objects to the new version:
+1. See the [upgrade existing objects to a new stored version](#upgrade-existing-objects-to-a-new-stored-version) section.
 
 It is safe for clients to use both the old and new version before, during and
-after the storage migration.
+after upgrading the objects to a new stored version.
 
 Removing an old version:
 1. Ensure all clients are fully migrated to the new version. The kube-apiserver
    logs can reviewed to help identify any clients that are still accessing via the
    old version.
-1. Ensure CustomResourceDefinition is configured to store custom resource objects at the new version
-1. Ensure the storage migration, described above, has been completed. If using a
-   conversion webhook, check if it is recieving any conversions requests when
-   making list requests for custom resources at the old version. If not, all
-   custom resource objects have been converted.
-1. Remove the old version from the CustomResourceDefinition
+1. Ensure CustomResourceDefinition is configured to store custom resource objects at the new version.
+1. Ensure the [upgrade existing objects to a new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
+1. Ensure the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
+1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks
 
 ## Specify multiple versions
@@ -450,16 +443,23 @@ can exist in storage at a version that has never been a storage version.
 
 ## Upgrade existing objects to a new stored version
 
-When deprecating versions and dropping support, devise a storage upgrade
-procedure. The following is an example procedure to upgrade from `v1beta1`
-to `v1`.
+When deprecating versions and dropping support, select a storage upgrade
+procedure. 
+
+*Option 1:* Use the Storage Version Migrator
+
+1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+
+*Option 2:* Manually upgrade the existing objects to a new stored version
+
+The following is an example procedure to upgrade from `v1beta1` to `v1`.
 
 1.  Set `v1` as the storage in the CustomResourceDefinition file and apply it
     using kubectl. The `storedVersions` is now `v1beta1, v1`.
 2.  Write an upgrade procedure to list all existing objects and write them with
     the same content. This forces the backend to write objects in the current
     storage version, which is `v1`.
-3.  Update the CustomResourceDefinition `Status` by removing `v1beta1` from
-    `storedVersions` field.
+2. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
 {{% /capture %}}
