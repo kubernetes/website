@@ -115,6 +115,7 @@ different Kubernetes components.
 | `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
+| `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha| 1.15 | |
@@ -122,6 +123,7 @@ different Kubernetes components.
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | |
+| `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
@@ -303,11 +305,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
 - `KubeletPodResources`: Enable the kubelet's pod resources grpc endpoint.
    See [Support Device Monitoring](https://git.k8s.io/community/keps/sig-node/compute-device-assignment.md) for more details.
+- `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the feature-specific labels.
 - `LocalStorageCapacityIsolation`: Enable the consumption of [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and also the `sizeLimit` property of an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`: When `LocalStorageCapacityIsolation` is enabled for [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and the backing filesystem for [emptyDir volumes](/docs/concepts/storage/volumes/#emptydir) supports project quotas and they are enabled, use project quotas to monitor [emptyDir volume](/docs/concepts/storage/volumes/#emptydir) storage consumption rather than filesystem walk for better performance and accuracy.
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
+- `NodeDisruptionExclusion`: Enable use of the node label `node.kubernetes.io/exclude-disruption` which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
 - `NonPreemptingPriority`: Enable NonPreempting option for PriorityClass and Pod. 
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
@@ -337,7 +341,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/api-concepts/#server-side-apply) path at the API Server.
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
-  A node is eligible for exclusion if annotated with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key.
+  A node is eligible for exclusion if labelled with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key (when `LegacyNodeRoleBehavior` is on) or `node.kubernetes.io/exclude-from-external-load-balancers`.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
   PersistentVolumeClaim objects if they are still being used.
 - `StorageVersionHash`: Allow apiservers to expose the storage version hash in the discovery.
