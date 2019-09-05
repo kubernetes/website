@@ -363,7 +363,6 @@ spec:
 
 {{% /capture %}}
 
-
 {{% capture whatsnext %}}
 
 [Taints](/docs/concepts/configuration/taint-and-toleration/)を使うことで、NodeはPodを追い出すことができます。
