@@ -494,6 +494,8 @@ plugin which supports full-text search and analytics.
 
 {{% capture whatsnext %}}
 
-Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco) 
+Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
+
+Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 
 {{% /capture %}}
