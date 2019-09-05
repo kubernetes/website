@@ -181,7 +181,7 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 
 {{% capture whatsnext %}}
 
-* [Minikube로 로컬에서 쿠버네티스 실행하기](/docs/setup/minikube/)
+* [Minikube로 로컬에서 쿠버네티스 실행하기](ko/docs/setup/minikube/)
 
 {{% /capture %}}
 
