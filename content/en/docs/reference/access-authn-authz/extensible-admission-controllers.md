@@ -185,13 +185,38 @@ See the [webhook configuration](#webhook-configuration) section for details abou
 apiVersion: v1
 kind: Config
 users:
-# DNS name of webhook service, i.e., <service name>.<namespace>.svc, or the URL
-# of the webhook server.
+# name should be set to the DNS name of the service or the host (including port) of the URL the webhook is configured to speak to.
+# If a non-443 port is used for services, it must be included in the name when configuring 1.16+ API servers.
+#
+# For a webhook configured to speak to a service on the default port (443), specify the DNS name of the service:
+# - name: webhook1.ns1.svc
+#   user: ...
+#
+# For a webhook configured to speak to a service on non-default port (e.g. 8443), specify the DNS name and port of the service in 1.16+:
+# - name: webhook1.ns1.svc:8443
+#   user: ...
+# and optionally create a second stanza using only the DNS name of the service for compatibility with 1.15 API servers:
+# - name: webhook1.ns1.svc
+#   user: ...
+#
+# For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
+# A webhook with `url: https://www.example.com`:
+# - name: www.example.com 
+#   user: ...
+#
+# A webhook with `url: https://www.example.com:443`:
+# - name: www.example.com:443
+#   user: ...
+#
+# A webhook with `url: https://www.example.com:8443`:
+# - name: www.example.com:8443
+#   user: ...
+#
 - name: 'webhook1.ns1.svc'
   user:
     client-certificate-data: <pem encoded certificate>
     client-key-data: <pem encoded key>
-# The `name` supports using * to wildmatch prefixing segments.
+# The `name` supports using * to wildcard-match prefixing segments.
 - name: '*.webhook-company.org'
   user:
     password: <password>
