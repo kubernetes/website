@@ -62,7 +62,8 @@ yourself, but the project is better in the long term when we have a diversity of
 active participants.
 
 Before you start reviewing PRs, make sure you are familiar with the
-[Documentation Style Guide](/docs/contribute/style/style-guide/)
+[Documentation Content Guide](/docs/contribute/style/content-guide/), the 
+[Documentation Style Guide](/docs/contribute/style/style-guide/),
 and the [code of conduct](/community/code-of-conduct/).
 
 ### Find a PR to review

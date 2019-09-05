@@ -139,7 +139,7 @@ _컨테이너의 어피니티(affinity) 기반 공동 스케줄링을 지원하�
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)과 같은 컨트롤러는 상태를 저장하는 파드에도
 위와 같은 기능 제공을 할 수 있다.
 
-사용자 지향적으로 선정된 API를 사용하는 것은 [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)와 [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)를 비롯한 클러스터 스케줄링 시스템에서 비교적 일반적이다.
+사용자 지향적으로 선정된 API를 사용하는 것은 [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)와 [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)를 비롯한 클러스터 스케줄링 시스템에서 비교적 일반적이다.
 
 
 파드는 아래와 같은 사항들을 용이하게 하기 위해 노출이 된다:
@@ -176,7 +176,7 @@ _컨테이너의 어피니티(affinity) 기반 공동 스케줄링을 지원하�
 
 ### 파드 강제 삭제
 
-파드 강제 삭제는 클러스터 및 etcd에서 즉시 삭제하는 것으로 정의된다. 강제 삭제가 수행되면, apiserver는 kubelet에서 실행중이던 노드에서 파드가 종료되었다는 확인을 기다리지 않는다.
+파드 강제 삭제는 클러스터 및 etcd에서 즉시 삭제하는 것으로 정의된다. 강제 삭제가 수행되면, API 서버는 kubelet에서 실행중이던 노드에서 파드가 종료되었다는 확인을 기다리지 않는다.
 API에서 파드를 즉시 제거하므로 동일한 이름으로 새 파드를 만들 수 있다.
 노드에서 즉시 종결되도록 설정된 파드에는 강제 삭제되기 전에 짧은 유예 기간이 주어진다.
 
