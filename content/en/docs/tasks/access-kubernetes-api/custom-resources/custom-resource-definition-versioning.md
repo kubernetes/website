@@ -217,6 +217,8 @@ metadata:
 spec:
   # group name to use for REST API: /apis/<group>/<version>
   group: example.com
+  # prunes object fields that are not specified in OpenAPI schemas below.
+  preserveUnknownFields: false
   # list of versions supported by this CustomResourceDefinition
   versions:
   - name: v1beta1
@@ -228,6 +230,7 @@ spec:
     # schema is defined.
     schema:
       openAPIV3Schema:
+        type: object
         properties:
           hostPort:
             type: string
@@ -236,6 +239,7 @@ spec:
     storage: false
     schema:
       openAPIV3Schema:
+        type: object
         properties:
           host:
             type: string
