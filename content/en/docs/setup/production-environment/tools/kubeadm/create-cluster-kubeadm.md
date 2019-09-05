@@ -35,17 +35,6 @@ but you may also build them from source for other OSes.
 
 ### kubeadm maturity
 
-| Area                      | Maturity Level |
-|---------------------------|--------------- |
-| Command line UX           | GA             |
-| Implementation            | GA             |
-| Config file API           | Beta           |
-| CoreDNS                   | GA             |
-| kubeadm alpha subcommands | Alpha          |
-| High availability         | Beta           |
-| DynamicKubeletConfig      | Alpha          |
-
-
 kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
 file API are still under active development. The implementation of creating the cluster
 may change slightly as the tool evolves, but the overall implementation should be pretty stable.
@@ -61,16 +50,10 @@ timeframe; which also applies to `kubeadm`.
 
 | Kubernetes version | Release month  | End-of-life-month |
 |--------------------|----------------|-------------------|
-| v1.6.x             | March 2017     | December 2017     |
-| v1.7.x             | June 2017      | March 2018        |
-| v1.8.x             | September 2017 | June 2018         |
-| v1.9.x             | December 2017  | September 2018    |
-| v1.10.x            | March 2018     | December 2018     |
-| v1.11.x            | June 2018      | March 2019        |
-| v1.12.x            | September 2018 | June 2019         |
 | v1.13.x            | December 2018  | September 2019    |
 | v1.14.x            | March 2019     | December 2019     |
 | v1.15.x            | June 2019      | March 2020        |
+| v1.16.x            | September 2019 | June 2020         |
 
 {{% /capture %}}
 
