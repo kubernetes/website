@@ -197,7 +197,7 @@ Pod Anti-Affinityは、「すでにあるNode上で、キーが"security"、バ�
 (`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、バリューが"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
 Pod AffinityとPod Anti-Affinityや、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`に関する他の使用例は[デザインドック](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
 
-Pod AffinityとPod Anti-Affinityで使用できるオペレータは、`In`、`NotIn`、 `Exists`、 `DoesNotExist`です。
+Pod AffinityとPod Anti-Affinityで使用できるオペレーターは、`In`、`NotIn`、 `Exists`、 `DoesNotExist`です。
 
 原則として、`topologyKey`には任意のラベルとキーが使用できます。
 しかし、パフォーマンスやセキュリティの観点から、以下の制約があります:
