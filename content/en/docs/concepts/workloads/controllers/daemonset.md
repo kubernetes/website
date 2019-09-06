@@ -196,7 +196,8 @@ time a node (even with the same name) is created.
 
 You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
 will be left on the nodes.  If you subsequently create a new DaemonSet with the same selector,
-the existing pods will be adopted by the new DaemonSet and replaced according to its `updateStrategy`.
+the new DaemonSet adopts the existing Pods. If any Pods need replacing the DaemonSet replaces
+them according to its `updateStrategy`.
 
 In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
