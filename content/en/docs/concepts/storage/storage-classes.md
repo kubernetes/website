@@ -588,6 +588,7 @@ parameters:
   it must reside in the same resource group as the cluster, and `location` is
   ignored. If a storage account is not provided, a new storage account will be
   created in the same resource group as the cluster.
+  * `resourceGroup`: Specify the resource group in which Azure disk will be created. It must be an existing resource group name. If it is unspecified, the disk will be placed in the the same resource group as current Kubernetes cluster.
 
 #### New Azure Disk Storage Class (starting from v1.7.2)
 
