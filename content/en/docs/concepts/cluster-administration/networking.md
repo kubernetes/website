@@ -304,7 +304,7 @@ If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the c
 Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 
    * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
-   * IPv4 and IPv6 enabled Services (must be only of a single address family)
+   * IPv4 and IPv6 enabled Services (each Service must be for a single address family)
    * Kubenet multi address family support (IPv4 and IPv6)
    * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 
