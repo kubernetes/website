@@ -26,7 +26,7 @@ Different Kubernetes solutions meet different requirements: ease of maintenance,
 
 You can deploy a Kubernetes cluster on a local machine, cloud, on-prem datacenter; or choose a managed Kubernetes cluster. You can also create custom solutions across a wide range of cloud providers, or bare metal environments.
 
-More simply, you can create a Kubernetes cluster in learning and production environments.
+More simply, you can create a Kubernetes cluster in either learning or production environments.
 
 {{% /capture %}}
 
