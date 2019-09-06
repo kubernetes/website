@@ -175,7 +175,8 @@ different Kubernetes components.
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
-| `VolumePVCDataSource` | `false` | Alpha | 1.15 | |
+| `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
+| `VolumePVCDataSource` | `true` | Beta | 1.16 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | |
@@ -309,7 +310,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
-- `NonPreemptingPriority`: Enable NonPreempting option for PriorityClass and Pod. 
+- `NonPreemptingPriority`: Enable NonPreempting option for PriorityClass and Pod.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
