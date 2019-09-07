@@ -588,7 +588,7 @@ parameters:
   it must reside in the same resource group as the cluster, and `location` is
   ignored. If a storage account is not provided, a new storage account will be
   created in the same resource group as the cluster.
-  * `resourceGroup`: Specify the resource group in which the Azure disk will be created. It must be an existing resource group name. If it is unspecified, the disk will be placed in the the same resource group as the current Kubernetes cluster.
+
 
 #### New Azure Disk Storage Class (starting from v1.7.2)
 
@@ -611,6 +611,7 @@ parameters:
   unmanaged disk in the same resource group as the cluster. When `kind` is 
   `managed`, all managed disks are created in the same resource group as 
   the cluster.
+* `resourceGroup`: Specify the resource group in which the Azure disk will be created. It must be an existing resource group name. If it is unspecified, the disk will be placed in the the same resource group as the current Kubernetes cluster.
 
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard
   VM can only attach Standard_LRS disks.
