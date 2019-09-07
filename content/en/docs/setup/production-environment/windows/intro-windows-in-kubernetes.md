@@ -102,14 +102,32 @@ Pods, Controllers and Services are critical elements to managing Windows workloa
 
 Docker EE-basic 18.09 is required on Windows Server 2019 / 1809 nodes for Kubernetes. This works with the dockershim code included in the kubelet. Additional runtimes such as CRI-ContainerD may be supported in later Kubernetes versions.
 
-#### Storage
+#### Persistent Storage
 
-Kubernetes Volumes enable complex applications with data persistence and Pod volume sharing requirements to be deployed on Kubernetes. Kubernetes on Windows supports the following types of [volumes](/docs/concepts/storage/volumes/):
+Kubernetes [volumes](/docs/concepts/storage/volumes/) enable complex applications, with data persistence and Pod volume sharing requirements, to be deployed on Kubernetes. Management of persistent volumes associated with a specific storage back-end or protocol includes actions such as: provisioning/de-provisioning/resizing of volumes, attaching/detaching a volume to/from a Kubernetes node and mounting/dismounting a volume to/from individual containers in a pod that needs to persist data. The code implementing these volume management actions for a specific storage back-end or protocol is shipped in the form of a Kubernetes volume [plugin](/docs/concepts/storage/volumes/#types-of-volumes). The following broad classes of Kubernetes volume plugins are supported on Windows:
 
-* FlexVolume out-of-tree plugin with [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows) support
+##### In-tree Volume Plugins
+Code associated with in-tree volume plugins ship as part of the core Kubernetes code base. Deployment of in-tree volume plugins do not require installation of additional scripts or deployment of separate containerized plugin components. These plugins can handle: provisioning/de-provisioning and resizing of volumes in the storage backend, attaching/detaching of volumes to/from a Kubernetes node and mounting/dismounting a volume to/from individual containers in a pod. The following in-tree plugins support Windows nodes:
+
 * [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
 * [azureFile](/docs/concepts/storage/volumes/#azurefile)
 * [gcePersistentDisk](/docs/concepts/storage/volumes/#gcepersistentdisk)
+* [awsElasticBlockStore](/docs/concepts/storage/volumes/#awselasticblockstore)
+* [vsphereVolume](/docs/concepts/storage/volumes/#vspherevolume)
+
+##### FlexVolume Plugins
+Code associated with [FlexVolume](/docs/concepts/storage/volumes/#flexVolume) plugins ship as out-of-tree scripts or binaries that need to be deployed directly on the host. FlexVolume plugins handle attaching/detaching of volumes to/from a Kubernetes node and mounting/dismounting a volume to/from individual containers in a pod. Provisioning/De-provisioning of persistent volumes associated with FlexVolume plugins may be handled through an external provisioner that is typically separate from the FlexVolume plugins. The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows), deployed as powershell scripts on the host, support Windows nodes:
+
+* [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
+* [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
+
+##### CSI Plugins
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+Code associated with {{< glossary_tooltip text="CSI" term_id="csi" >}} plugins ship as out-of-tree scripts and binaries that are typically distributed as container images and deployed using standard Kubernetes constructs like DaemonSets and StatefulSets. CSI plugins handle a wide range of volume management actions in Kubernetes: provisioning/de-provisioning/resizing of volumes, attaching/detaching of volumes to/from a Kubernetes node and mounting/dismounting a volume to/from individual containers in a pod, backup/restore of persistent data using snapshots and cloning. CSI plugins typically consist of node plugins (that run on each node as a DaemonSet) and controller plugins.
+
+CSI node plugins (especially those associated with persistent volumes exposed as either block devices or over a shared file-system) need to perform various privileged operations like scanning of disk devices, mounting of file systems, etc. These operations differ for each host operating system. For Linux worker nodes, containerized CSI node plugins are typically deployed as privileged containers. For Windows worker nodes, privileged operations for containerized CSI node plugins is supported using [csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed, stand-alone binary that needs to be pre-installed on each Windows node. Please refer to the deployment guide of the CSI plugin you wish to deploy for further details.
 
 #### Networking
 
@@ -218,7 +236,6 @@ As a result, the following storage functionality is not supported on Windows nod
 * Read-only root filesystem. Mapped volumes still support readOnly
 * Block device mapping
 * Memory as the storage medium
-* CSI plugins which require privileged containers
 * File system features like uui/guid, per-user Linux filesystem permissions
 * NFS based storage/volume support
 * Expanding the mounted volume (resizefs)
