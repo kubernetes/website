@@ -30,17 +30,17 @@ Kubernetesには、デプロイ済みのコンテナ化されたアプリケー�
 
 基本的なKubernetesのオブジェクトは次のとおりです。
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
+* [Pod](/ja/docs/concepts/workloads/pods/pod-overview/)
 * [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Namespace](/ja/docs/concepts/overview/working-with-objects/namespaces/)
 
 上記に加え、Kubernetesにはコントローラーと呼ばれる多くの高レベルの抽象概念が含まれています。コントローラーは基本オブジェクトに基づいて構築され、以下のような追加の機能と便利な機能を提供します。
 
-* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+* [ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)
 * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## Kubernetesコントロールプレーン
@@ -62,7 +62,7 @@ Kubernetesのマスターは、クラスターの望ましい状態を維持す�
 #### オブジェクトメタデータ
 
 
-* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+* [Annotations](/ja/docs/concepts/overview/working-with-objects/annotations/)
 
 {{% /capture %}}
 
