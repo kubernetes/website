@@ -96,23 +96,7 @@ Suppose you have a 4-node cluster where 3 Pods labeled `foo:bar` are located in 
 
 If we want an incoming Pod to be evenly spread with existing Pods across zones, the spec can be given as:
 
-```yaml
-kind: Pod
-apiVersion: v1
-metadata:
-  name: mypod
-  labels:
-    foo: bar
-spec:
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: zone
-    whenUnsatisfiable: DoNotSchedule
-    labelSelector:
-      matchLabels:
-        foo: bar
-...
-```
+{{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
 
 `topologyKey: zone` implies the even distribution will only be applied to the nodes which have label pair "zone:<any value>" present. `whenUnsatisfiable: DoNotSchedule` tells the scheduler to let it stay pending if the incoming Pod can’t satisfy the constraint.
 
@@ -150,29 +134,7 @@ This builds upon the previous example. Suppose you have a 4-node cluster where 3
 
 You can use 2 TopologySpreadConstraints to control the Pods spreading on both zone and node:
 
-```yaml
-kind: Pod
-apiVersion: v1
-metadata:
-  name: mypod
-  labels:
-    foo: bar
-spec:
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: zone
-    whenUnsatisfiable: DoNotSchedule
-    labelSelector:
-      matchLabels:
-        foo: bar
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    labelSelector:
-      matchLabels:
-        foo: bar
-...
-```
+{{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
 
 In this case, to match the first constraint, the incoming Pod can only be placed onto "zoneB"; while in terms of the second constraint, the incoming Pod can only be placed onto "node4". Then the results of 2 constraints are ANDed, so the only viable option is to place on "node4".
 
@@ -188,7 +150,7 @@ Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster ac
 +-------+-------+-------+
 ```
 
-If you apply "mypod.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put to "node2". Then a joint result of "zoneB" and "node2" returns nothing.
+If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put to "node2". Then a joint result of "zoneB" and "node2" returns nothing.
 
 To overcome this situation, you can either increase the `maxSkew` or modify one of the constraints to use `whenUnsatisfiable: ScheduleAnyway`.
 
@@ -218,35 +180,9 @@ There are some implicit conventions worth noting here:
     +-------+-------+-------+-------+-------+
     ```
 
-    and you know that "zoneC" must be excluded. In this case, you can compose the spec like this:
+    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
-    ```yaml
-    kind: Pod
-    apiVersion: v1
-    metadata:
-      name: mypod
-      labels:
-        foo: bar
-    spec:
-      topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: zone
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            foo: bar
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: zone
-                operator: NotIn
-                values:
-                - zoneC
-    ...
-
-    So that "mypod" will be placed onto zoneB instead of zoneC. Similarly `spec.nodeSelector` is also respected.
+    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 ## Comparison with PodAffinity/PodAntiAffinity
 
