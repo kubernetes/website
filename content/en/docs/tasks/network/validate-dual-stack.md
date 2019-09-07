@@ -26,7 +26,7 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 ### Validate node addressing
 
-Each dual-stack Node should have a single IPv4 block and a single IPv6 block allocated. Validate that IPv4/IPv6 Pod address ranges by running the following command. Replace the sample node name with a valid dual-stack Node from your cluster. In this example, the Node's name is `k8s-linuxpool1-34450317-0`:
+Each dual-stack Node should have a single IPv4 block and a single IPv6 block allocated. Validate that IPv4/IPv6 Pod address ranges are configured by running the following command. Replace the sample node name with a valid dual-stack Node from your cluster. In this example, the Node's name is `k8s-linuxpool1-34450317-0`:
 
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .spec.podCIDRs}}{{printf "%s\n" .}}{{end}}'
@@ -118,7 +118,7 @@ Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address 
 ```
  kubectl get svc -l app=MyApp
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S)        AGE
-my-service   ClusterIP   fe80:20d::d06b   2a01:111:f100:4002::9d37:c0d7   80:31868/TCP   30s
+my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:31868/TCP   30s
 ```
 
 {{% /capture %}}
