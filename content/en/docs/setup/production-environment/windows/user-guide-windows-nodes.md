@@ -3,26 +3,36 @@ reviewers:
 - michmike
 - patricklang
 title: Guide for adding Windows Nodes in Kubernetes
-content_template: templates/concept
+min-kubernetes-server-version: v1.14
+content_template: templates/tutorial
 weight: 70
 ---
 
 {{% capture overview %}}
 
-The Kubernetes platform can now be used to run both Linux and Windows containers. One or more Windows nodes can be registered to a cluster. This guide shows how to:
-
-* Register a Windows node to the cluster
-* Configure networking so pods on Linux and Windows can communicate
+The Kubernetes platform can now be used to run both Linux and Windows containers. This page shows how one or more Windows nodes can be registered to a cluster.
 
 {{% /capture %}}
 
-{{% capture body %}}
 
-## Before you begin
+{{% capture prerequisites %}}
 
-* Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to configure the Windows node that hosts Windows containers. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
+* Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)  (or higher) in order to configure the Windows node that hosts Windows containers. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
 
 * Build a Linux-based Kubernetes cluster in which you have access to the control-plane (some examples include [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/).
+
+{{% /capture %}}
+
+
+{{% capture objectives %}}
+
+* Register a Windows node to the cluster
+* Configure networking so Pods and Services on Linux and Windows can communicate with each other
+
+{{% /capture %}}
+
+
+{{% capture lessoncontent %}}
 
 ## Getting Started: Adding a Windows Node to Your Cluster
 
@@ -53,7 +63,7 @@ Get the latest binaries from [https://github.com/kubernetes/kubernetes/releases]
 
 ### Networking Configuration
 
-Once you have a Linux-based Kubernetes master node you are ready to choose a networking solution. This guide illustrates using Flannel in VXLAN mode for simplicity.
+Once you have a Linux-based Kubernetes control-plane ("Master") node you are ready to choose a networking solution. This guide illustrates using Flannel in VXLAN mode for simplicity.
 
 #### Configuring Flannel in VXLAN mode on the Linux control-plane
 
@@ -171,9 +181,9 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
 
 
 
-#### Join Windows Worker
+### Join Windows Worker Node
 
-In this section we'll cover configuring a Windows node from scratch to join a cluster on-prem. If your cluster is on a cloud you'll likely want to follow the cloud specific guides in the next section.
+In this section we'll cover configuring a Windows node from scratch to join a cluster on-prem. If your cluster is on a cloud you'll likely want to follow the cloud specific guides in the [public cloud providers section](#public-cloud-providers).
 
 #### Preparing a Windows Node
 
@@ -238,6 +248,9 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
 }
   ```
 
+{{< note >}}
+Users can generate values for the `ControlPlane.KubeadmToken` and `ControlPlane.KubeadmCAHash` fields by running  `kubeadm token create --print-join-command` on the Kubernetes control-plane ("Master") node.
+{{< /note >}}
 
 1. Install containers and Kubernetes (requires a system reboot)
 
@@ -256,16 +269,17 @@ In the example below, we are using overlay networking mode. This requires Window
 
 
 On the Windows node you target, this step will:
-  1. Enable Windows Server containers role (and reboot)
-  1. Download and install the chosen container runtime
-  1. Download all needed container images
-  1. Download Kubernetes binaries and add them to the `$PATH` environment variable
-  1. Download CNI plugins based on the selection made in the Kubernetes Configuration file
-  1. (Optionally) Generate a new SSH key which is required to connect to the control-plane ("Master") node during joining
-      {{< note >}}
-      For the SSH key generation step, you also need to add the generated public SSH key to the `authorized_keys` file on your (Linux) control-plane node. You only need to do this once. The script prints out the steps you can follow to do this, at the end of its output.
-      {{< /note >}}
 
+1. Enable Windows Server containers role (and reboot)
+1. Download and install the chosen container runtime
+1. Download all needed container images
+1. Download Kubernetes binaries and add them to the `$PATH` environment variable
+1. Download CNI plugins based on the selection made in the Kubernetes Configuration file
+1. (Optionally) Generate a new SSH key which is required to connect to the control-plane ("Master") node during joining
+
+      {{< note >}}For the SSH key generation step, you also need to add the generated public SSH key to the `authorized_keys` file on your (Linux) control-plane node. You only need to do this once. The script prints out the steps you can follow to do this, at the end of its output.{{< /note >}}
+
+Once installation is complete, any of the generated configuration files or binaries can be modified before joining the Windows node. 
 
 #### Join the Windows Node to the Kubernetes cluster
 This section covers how to join a [Windows node with Kubernetes installed](#preparing-a-windows-node) with an existing (Linux) control-plane, to form a cluster.
@@ -284,16 +298,17 @@ Should the script fail during the bootstrap or joining procedure for whatever re
 {{< /note >}}
 
 This step will perform the following actions:
-  1. Connect to the control-plane ("Master") node via SSH, to retrieve the [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) file.
-  1. Register kubelet as a Windows service
-  1. Configure CNI network plugins
-  1. Create a HNS network on top of the chosen network interface
-      {{< note >}}
-      This may cause a network blip for a few seconds while the vSwitch is being created.
-      {{< /note >}}
-  1. (If vxlan plugin is selected) Open up inbound firewall UDP port 4789 for overlay traffic
-  1. Register flanneld as a Windows service
-  1. Register kube-proxy as a Windows service
+
+1. Connect to the control-plane ("Master") node via SSH, to retrieve the [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) file.
+1. Register kubelet as a Windows service
+1. Configure CNI network plugins
+1. Create an HNS network on top of the chosen network interface
+    {{< note >}}
+    This may cause a network blip for a few seconds while the vSwitch is being created.
+    {{< /note >}}
+1. (If vxlan plugin is selected) Open up inbound firewall UDP port 4789 for overlay traffic
+1. Register flanneld as a Windows service
+1. Register kube-proxy as a Windows service
 
 Now you can view the Windows nodes in your cluster by running the following:
 
@@ -314,13 +329,14 @@ Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-si
 ![alt_text](../kubecluster.ps1-reset.gif "KubeCluster.ps1 reset output")
 
 This step will perform the following actions on the targeted Windows node:
-  1. Delete the Windows node from the Kubernetes cluster
-  1. Stop all running containers and remove all container images
-  1. Remove all container networking (HNS) resources
-  1. Unregister all Kubernetes services (flanneld, kubelet, kube-proxy) 
-  1. Delete all Kubernetes binaries (kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)
-  1. Delete all CNI network plugins binaries
-  1. Delete [Kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) used to access the Kubernetes cluster
+
+1. Delete the Windows node from the Kubernetes cluster
+1. Stop all running containers
+1. Remove all container networking (HNS) resources
+1. Unregister all Kubernetes services (flanneld, kubelet, kube-proxy)
+1. Delete all Kubernetes binaries (kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)
+1. Delete all CNI network plugins binaries
+1. Delete [Kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) used to access the Kubernetes cluster
 
 
 ### Public Cloud Providers
@@ -343,3 +359,4 @@ Kubeadm is becoming the de facto standard for users to deploy a Kubernetes clust
 Now that you've configured a Windows worker in your cluster to run Windows containers you may want to add one or more Linux nodes as well to run Linux containers. You are now ready to schedule Windows containers on your cluster.
 
 {{% /capture %}}
+
