@@ -182,5 +182,6 @@ kube-scheduler has a default set of scheduling policies.
 {{% capture whatsnext %}}
 * Read about [scheduler performance tuning](/docs/concepts/scheduling/scheduler-perf-tuning/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Learn about [configuring multiple schedulers](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}
