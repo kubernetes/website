@@ -26,7 +26,7 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 ### Validate node addressing
 
-Validate IPv4/IPv6 Pod CIDRs have been assigned on a dual-stack enabled node by running the following command. There should be a single IPv4 and IPv6 CIDR allocated (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0):
+Each dual-stack Node should have a single IPv4 block and a single IPv6 block allocated. Validate that IPv4/IPv6 Pod address ranges by running the following command. Replace the sample node name with a valid dual-stack Node from your cluster. In this example, the Node's name is `k8s-linuxpool1-34450317-0`:
 
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .spec.podCIDRs}}{{printf "%s\n" .}}{{end}}'
@@ -35,7 +35,7 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 10.244.1.0/24
 a00:100::/24
 ```
-There should be a single IPv4 and IPv6 CIDR allocated.
+There should be one IPv4 block and one IPv6 block allocated.
 
 Validate that the node has an IPv4 and IPv6 interface detected (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0): 
 ```shell
@@ -108,7 +108,7 @@ NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
 my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
 ```
 
-### type LoadBalancer
+### Create a dual-stack load balanced Service
 
 If the cloud provider supports the provisioning of IPv6 enabled external load balancer, create the following Service with both the `ipFamily` field set to `IPv6` and the `type` field set to `LoadBalancer`
 

@@ -100,12 +100,12 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 
    * IPv6 network block assignment is using the default IPv4 CIDR block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
-   * Dual-stack will not function if `EndpointSlice` enhancement is enabled.
+   * Dual-stack networking does not function if the `EndpointSlice` feature gate is enabled.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack)
+* [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 
 {{% /capture %}}
