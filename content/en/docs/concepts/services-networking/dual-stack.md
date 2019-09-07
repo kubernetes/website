@@ -58,9 +58,9 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](https:
       * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>` 
       * `--feature-gates="IPv6DualStack=true"`
 
-{{< note >}}
-An IPv6 CIDR specified via the `--cluster-cidr` flag larger than /24 will fail
-{{< /note >}}
+{{< caution >}}
+If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on the command line, that assignment will fail.
+{{< /caution >}}
 
 ## Services
 
@@ -98,7 +98,7 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 
 ## Known Issues
 
-   * IPv6 network block assignment is using the default IPv4 CIDR block size (/24)
+   * IPv6 network block assignment uses the default IPv4 CIDR block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
    * Dual-stack networking does not function if the `EndpointSlice` feature gate is enabled.
 
