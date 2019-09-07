@@ -16,7 +16,8 @@ weight: 70
 {{% capture overview %}}
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
-{{< glossary_definition term_id="dual-stack" length="short" >}}
+
+ IPv4/IPv6 dual-stack enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
 
 If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 
@@ -58,7 +59,7 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](https:
       * `--feature-gates="IPv6DualStack=true"`
 
 {{< note >}}
-An IPv6 CIDR specificed via the `--cluster-cidr` flag larger than /24 will fail
+An IPv6 CIDR specified via the `--cluster-cidr` flag larger than /24 will fail
 {{< /note >}}
 
 ## Services
@@ -77,53 +78,15 @@ You can set `.spec.ipFamily` to either:
 
 The following Service specification does not include the `ipFamily` field. Kubernetes will assign an IP address (also known as a "cluster IP") from the first configured `service-cluster-ip-range` to this Service.
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app: MyApp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-```
+{{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
 The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  ipFamily: IPv6
-  selector:
-    app: MyApp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-```
+{{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
 For comparison, the following Service specification will be assigned an IPV4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  ipFamily: IPv4
-  selector:
-    app: MyApp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-```
+{{< codenew file="service/networking/dual-stack-ipv4-svc.yaml" >}}
 
 ### Type LoadBalancer
 
@@ -131,11 +94,11 @@ On cloud providers which support IPv6 enabled external load balancers, setting t
 
 ## Egress Traffic
 
-The use of publicly routable and non-publicly routable IPv6 address blocks is accecptable provided the underlaying CNI provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
+The use of publicly routable and non-publicly routable IPv6 address blocks is acceptable provided the underlying CNI provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
 
 ## Known Issues
 
-   * IPv6 network block assignment is using the default IPv4 cidr block size (/24)
+   * IPv6 network block assignment is using the default IPv4 CIDR block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
    * Dual-stack will not function if `EndpointSlice` enhancement is enabled.
 
