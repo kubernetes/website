@@ -1,5 +1,5 @@
 ---
-title: Serviceを利用したクラスター内のアプリケーションへのアクセス 
+title: Serviceを利用したクラスター内のアプリケーションへのアクセス
 content_template: templates/tutorial
 weight: 60
 ---
@@ -35,13 +35,13 @@ weight: 60
 1. クラスタでHello Worldアプリケーションを稼働させます:
    ```shell
    kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
-   ```   
+   ```
     このコマンドは
     [Deployment](/docs/concepts/workloads/controllers/deployment/)
     オブジェクトとそれに紐付く
-    [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+    [ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)
     オブジェクトを作成します。ReplicaSetは、Hello Worldアプリケーションが稼働している2つの
-    [Pod](/docs/concepts/workloads/pods/pod/)
+    [Pod](/ja/docs/concepts/workloads/pods/pod/)
     から構成されます。
 
 1. Deploymentの情報を表示します:
