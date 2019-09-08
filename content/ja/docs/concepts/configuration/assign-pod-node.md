@@ -328,7 +328,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 ##### 同じNodeに共存させない場合
 
-上記の例では `PodAntiAffinity`を`topologyKey: "kubernetes.io/hostname"`と合わせて指定することで、redisクラスタ内の2つのインスタンスが同じホストにデプロイされない場合を扱いました。
+上記の例では `PodAntiAffinity`を`topologyKey: "kubernetes.io/hostname"`と合わせて指定することで、redisクラスター内の2つのインスタンスが同じホストにデプロイされない場合を扱いました。
 同様の方法で、Anti-Affinityを用いて高可用性を実現したStatefulSetの使用例は[ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)を参照してください。
 
 
