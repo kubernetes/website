@@ -168,7 +168,7 @@ Nodeと異なり、Podはnamespaceで区切られているため(それゆえPod
 
 
 {{< note >}}
-Inter-Pod AffinityとAnti-Affinityは、大規模なクラスタ上で使用する際にスケジューリングを非常に遅くする恐れのある多くの処理を要します。
+Inter-Pod AffinityとAnti-Affinityは、大規模なクラスター上で使用する際にスケジューリングを非常に遅くする恐れのある多くの処理を要します。
 そのため、数百台以上のNodeから成るクラスターでは使用することを推奨されません。
 {{< /note >}}
 
