@@ -35,7 +35,7 @@ SSDが搭載されているNodeにPodをデプロイしたり、同じアベイ�
 
 ### ステップ1: Nodeへのラベルの付与
 
-`kubectl get nodes`で、クラスタのノードの名前を取得してください。
+`kubectl get nodes`で、クラスターのノードの名前を取得してください。
 そして、ラベルを付与するNodeを選び、`kubectl label nodes <node-name> <label-key>=<label-value>`で選択したNodeにラベルを付与します。
 例えば、Nodeの名前が'kubernetes-foo-node-1.c.a-robinson.internal'、付与するラベルが'disktype=ssd'の場合、`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`によってラベルが付与されます。
 
