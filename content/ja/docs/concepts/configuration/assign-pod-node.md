@@ -139,7 +139,7 @@ Node Affinityを使用したPodの例を以下に示します:
 このNode Affinityでは、Podはキーが`kubernetes.io/e2e-az-name`、バリューが`e2e-az1`または`e2e-az2`のラベルが付与されたNodeにしか配置されません。
 加えて、キーが`another-node-label-key`、バリューが`another-node-label-value`のラベルが付与されたNodeが優先されます。
 
-この例ではオペレータ`In`が使われています。
+この例ではオペレーター`In`が使われています。
 Node Affinityでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`のオペレータが使用できます。
 `NotIn`と`DoesNotExist`はNode Anti-Affinity、またはPodを特定のNodeにスケジュールさせない場合に使われる[Taints](/docs/concepts/configuration/taint-and-toleration/)に使用します。
 
