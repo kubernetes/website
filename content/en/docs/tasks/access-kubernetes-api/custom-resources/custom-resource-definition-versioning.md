@@ -55,9 +55,9 @@ Adding a new version:
    webhook should be used. If there are no schema changes, the default `None`
    conversion strategy may be used and only the `apiVersion` field will be
    modified when serving different versions.
-2. If using conversion webhooks, create and deploy the conversion webhook. See
+1. If using conversion webhooks, create and deploy the conversion webhook. See
    the [Webhook conversion](#webhook-conversion) for more details.
-3. Update the CustomResourceDefinition to include the new version in the
+1. Update the CustomResourceDefinition to include the new version in the
    `spec.versions` list with `served:true`.  Also, set `spec.conversion` field
    to the selected conversion strategy. If using a conversion webhook, configure
    `spec.conversion.webhookClientConfig` field to call the webhook.
@@ -82,8 +82,8 @@ Removing an old version:
    If this occurs, set `served` to `true`, migrate the clients to the new version and
    repeat this step.
 1. Ensure the [upgrade existing objects to a new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-  1. Verify that the `stored` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
-  1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
+    1. Verify that the `stored` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+    1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
 
