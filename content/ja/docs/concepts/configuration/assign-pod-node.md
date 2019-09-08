@@ -174,7 +174,7 @@ Inter-Pod AffinityとAnti-Affinityは、大規模なクラスタ上で使用す�
 
 {{< note >}}
 Pod Anti-Affinityは、Nodeに必ずラベルが付与されている必要があります。
-例えば、クラスタの全てのNodeが、`topologyKey`で指定されたものに合致する適切なラベルが必要になります。
+例えば、クラスターの全てのNodeが、`topologyKey`で指定されたものに合致する適切なラベルが必要になります。
 それらが付与されていないNodeが存在する場合、意図しない挙動を示すことがあります。
 {{< /note >}}
 
