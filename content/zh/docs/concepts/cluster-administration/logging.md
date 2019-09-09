@@ -359,7 +359,7 @@ container.
 <!-- ### Exposing logs directly from the application -->
 ### 直接从应用程序暴露日志
 
-![Exposing logs directly from the application](/images/docs/user-guide/logging/logging-from-application.png)
+![直接从应用程序暴露日志](/images/docs/user-guide/logging/logging-from-application.png)
 
 <!-- You can implement cluster-level logging by exposing or pushing logs directly from
 every application; however, the implementation for such a logging mechanism
