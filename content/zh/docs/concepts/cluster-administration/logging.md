@@ -135,7 +135,7 @@ that do not run in a container. For example: -->
 系统组件有两种类型：在容器中运行的和不在容器中运行的。例如：
 
 <!-- * The Kubernetes scheduler and kube-proxy run in a container. -->
-* 在容器中运行的 kubernetes scheduler 和kube-proxy。
+* 在容器中运行的 kube-scheduler 和kube-proxy。
 <!-- * The kubelet and container runtime, for example Docker, do not run in containers. -->
 * 不在容器中运行的 kubelet 和容器运行时（例如Docker）。
 
