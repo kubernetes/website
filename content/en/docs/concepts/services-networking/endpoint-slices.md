@@ -15,7 +15,6 @@ weight: 10
 {{% capture overview %}}
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
-{{< glossary_definition term_id="endpoint-slice" length="short" >}}
 
 _Endpoint Slices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
