@@ -165,7 +165,7 @@ Sigue estos pasos para enviar una petición de cambio y mejorar la documentació
 
 6.  Espera una revisión. Generalmente `k8s-ci-robot` sugiere unos revisores. Si un revisor te pide que hagas cambios puedes ir a la pestaña **FilesChanged** y hacer clic en el icono del lápiz para hacer tus cambios en cualquiera de los ficheros en la petición de cambio. Cuando guardes los cambios se creará un commit en la rama asociada a la petición de cambio.
 
-7.  Si tu cambio es aceptado, un revisor fusionará tu petición de cambio y tus cambios serán visibles en uno pocos minutos en la web de [kubernetes.io](https://kubernetes.io).
+7.  Si tu cambio es aceptado, un revisor fusionará tu petición de cambio y tus cambios serán visibles en pocos minutos en la web de [kubernetes.io](https://kubernetes.io).
 
 Esta es solo una forma de mandar una petición de cambio. Si eres un usuario de Git y GitHub avanzado puedes usar una aplicación GUI local o la linea de comandos con el cliente Git en lugar de usar la UI de GitHub. Algunos conceptos básicos sobre el uso de la línea de comandos Git
 cliente se discuten en la guía de documentación [intermedia](/docs/contribute/intermediate/).
@@ -182,7 +182,7 @@ Las personas que aun no son aprobadores o revisores todavía pueden revisar peti
 
     Puedes entonces dejar un comentario seleccionando **Add single comment** o **Start a review**. Normalmente empezar una revisión es la forma recomendada, ya que te permite hacer varios comentarios y avisar a propietario de la PR solo cuando tu revisión este completada, en lugar de notificar cada comentario.
 
-4.  Cuando has acabado, haz clic en **Review changes** en la parte superior de la página. Puedes ver un resumen de la revisión y puedes elegir entre comentar, aprobar o solicitar cambios. Los nuevos contribuidores siempre deben elegir **Comment**.
+4.  Cuando hayas acabado de revisar, haz clic en **Review changes** en la parte superior de la página. Puedes ver un resumen de la revisión y puedes elegir entre comentar, aprobar o solicitar cambios. Los nuevos contribuidores siempre deben elegir **Comment**.
 
 Gracias por revisar una petición de cambio! Cuando eres nuevo en un proyecto es buena idea solicitar comentarios y opiniones en las revisiones de una petición de cambio. Otro buen lugar para solicitar comentarios es en la canal de Slack `#sig-docs`.
 
@@ -209,6 +209,6 @@ Revisa el código fuente para ver los [casos de estudio existentes](https://gith
 
 {{% capture whatsnext %}}
 
-Cuando tengas claras las tareas mostradas en este tema y quieras formar parte del equipo de documentación de Kubernetes de una forma más activa lee la [guía intermedia de contribución](/docs/contribute/intermediate/).
+Cuando entiendas mejor las tareas mostradas en este tema y quieras formar parte del equipo de documentación de Kubernetes de una forma más activa lee la [guía intermedia de contribución](/docs/contribute/intermediate/).
 
 {{% /capture %}}
