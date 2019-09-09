@@ -46,6 +46,7 @@ Once the CustomResourceDefinition is created, clients may begin using the
 Later it might be necessary to add new version such as `v1`.
 
 Adding a new version:
+
 1. Pick a conversion strategy. Since custom resource objects need to be able to
    be served at both versions, that means they will sometimes be served at a
    different version than their storage version. In order for this to be
@@ -67,12 +68,14 @@ version. It is perfectly safe for some clients to use the old version while
 others use the new version.
 
 Migrate stored objects to the new version:
+
 1. See the [upgrade existing objects to a new stored version](#upgrade-existing-objects-to-a-new-stored-version) section.
 
 It is safe for clients to use both the old and new version before, during and
 after upgrading the objects to a new stored version.
 
 Removing an old version:
+
 1. Ensure all clients are fully migrated to the new version. The kube-apiserver
    logs can reviewed to help identify any clients that are still accessing via
    the old version.
