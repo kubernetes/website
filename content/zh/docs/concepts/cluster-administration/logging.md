@@ -175,7 +175,7 @@ the `logrotate` tool daily or once the size exceeds 100MB.
 <!-- ### Using a node logging agent -->
 ### 使用节点日志记录代理
 
-![Using a node level logging agent](/images/docs/user-guide/logging/logging-with-node-agent.png)
+![使用节点日志记录代理](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
 <!-- You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a backend. Commonly, the logging agent is a container that has access to a directory with log files from all of the application containers on that node. -->
 您可以通过在每个节点上使用 _节点级的日志记录代理_ 来实现群集级日志记录。日志记录代理是一种用于暴露日志或将日志推送到后端的专用工具。通常，日志记录代理程序是一个容器，它可以访问包含该节点上所有应用程序容器的日志文件的目录。
