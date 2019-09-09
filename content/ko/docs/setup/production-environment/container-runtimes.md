@@ -213,6 +213,11 @@ Containerd를 시스템에 설치하기 위해서 다음의 커맨드들을 사�
 ### 선행 조건
 
 ```shell
+cat > /etc/modules-load.d/containerd.conf <<EOF
+overlay
+br_netfilter
+EOF
+
 modprobe overlay
 modprobe br_netfilter
 
