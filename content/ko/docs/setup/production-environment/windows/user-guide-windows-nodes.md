@@ -92,10 +92,9 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 1. `kube-flannel.yml`의 `net-conf.json` 부분을 거듭 확인하자.
     1. 클러스터 서브넷(예, "10.244.0.0/16")은 IP 주소 설계에 따라 설정되어야 한다.
-        * VNI 4096 은 벡엔드에 설정한다.
-        * Port 4789 는 벡엔드에 설정한다.
-    2. `kube-flannel.yml`의 `cni-conf.json` 부분에서 네트워크 이름을 `vxlan0`로 바꾼다.
-
+      * VNI 4096 은 벡엔드에 설정한다.
+      * Port 4789 는 벡엔드에 설정한다.
+    1. `kube-flannel.yml`의 `cni-conf.json` 부분에서 네트워크 이름을 `vxlan0`로 바꾼다.
 
     `cni-conf.json`는 다음과 같다.
 
@@ -141,7 +140,18 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
     kubectl get pods --all-namespaces
     ```
 
-    ![alt_text](../flannel-master-kubectl-get-pods.png "플라넬 마스터에서 kubectl get pods 스크린 캡춰")
+    결과는 다음과 같다.
+
+    ```
+    NAMESPACE     NAME                                      READY        STATUS    RESTARTS   AGE
+    kube-system   etcd-flannel-master                       1/1          Running   0          1m
+    kube-system   kube-apiserver-flannel-master             1/1          Running   0          1m
+    kube-system   kube-controller-manager-flannel-master    1/1          Running   0          1m
+    kube-system   kube-dns-86f4d74b45-hcx8x                 3/3          Running   0          12m
+    kube-system   kube-flannel-ds-54954                     1/1          Running   0          1m
+    kube-system   kube-proxy-Zjlxz                          1/1          Running   0          1m
+    kube-system   kube-scheduler-flannel-master             1/1          Running   0          1m
+    ```
 
     플라넬 데몬셋에 노드 셀렉터가 적용되었음을 확인한다.
 
@@ -149,13 +159,20 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
     kubectl get ds -n kube-system
     ```
 
-    ![alt_text](../flannel-master-kubectl-get-ds.png "플라넬 마스터에서 kubectl get ds 스크린 캡춰")
+    결과는 다음과 같다. 노드 셀렉터 `beta.kubernetes.io/os=linux`가 적용되었다.
+
+    ```
+    NAME              DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR                                               AGE
+    kube-flannel-ds   2         2         2       2            2           beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux   21d
+    kube-proxy        2         2         2       2            2           beta.kubernetes.io/os=linux                                 26d
+    ```
 
 #### 윈도우 워커 조인
 
 이번 단원은 맨 땅에서부터 온프레미스 클러스터에 가입하기까지 윈도우 노드 구성을 다룬다. 클러스터가 클라우드상에 있다면, 다음 단원에 있는 클라우드에 특정한 가이드를 따르도록 된다.
 
 #### 윈도우 노드 준비하기
+
 {{< note >}}
 윈도우 단원에서 모든 코드 부분은 높은 권한(Admin)으로 파워쉘(PowerShell) 환경에서 구동한다.
 {{< /note >}}
@@ -180,7 +197,26 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
     리부팅 후에 다음 오류를 보게되면, 도커 서비스를 수동으로 재시작해야 한다.
 
-    ![alt_text](../windows-docker-error.png "윈도우 도커 에러 스크린 캡춰")
+    ```PowerShell
+    docker version
+    ```
+
+    만약 다음과 같은 에러 메시지를 보게되면, 도커 서비스를 수동으로 시작해야 한다.
+
+    ```
+    Client:
+     Version: 17.06.2-ee-11
+     API version: 1.30
+     Go version: go1.8.7
+     Git commit: 06fc007
+     Built: Thu May 17 06:14:39 2018
+     OS/Arch: windows / amd64
+    error during connect: Get http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.30/version: open //./pipe/docker_engine: The system c
+    annot find the file specified. In the default daemon configuration on Windows, the docker client must be run elevated to
+    connect. This error may also indicate that the docker daemon is not running.
+    ```
+
+    다음과 같이 도커 서비스를 수동으로 시작할 수 있다. 
 
     ```PowerShell
     Start-Service docker
@@ -227,7 +263,13 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 {{< /note >}}
 
 ```PowerShell
-.\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay  -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
+cd c:\k
+.\start.ps1 -ManagementIP <Windows Node IP> `
+  -NetworkMode overlay `
+  -ClusterCIDR <Cluster CIDR> `
+  -ServiceCIDR <Service CIDR> `
+  -KubeDnsServiceIP <Kube-dns Service IP> `
+  -LogDir <Log directory>
 ```
 
 | 파라미터 | 기본값 | 비고 |
