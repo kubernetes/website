@@ -1315,7 +1315,7 @@ Learn how to
 
 #### CSI ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
 
@@ -1342,11 +1342,8 @@ spec:
               foo: bar
 ```
 
-This feature requires CSIInlineVolume feature gate to be enabled:
-
-```
---feature-gates=CSIInlineVolume=true
-```
+This feature requires CSIInlineVolume feature gate to be enabled. It
+is enabled by default starting with Kubernetes 1.16.
 
 CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
 
