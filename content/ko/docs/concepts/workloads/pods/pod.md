@@ -20,7 +20,7 @@ _파드_ 는 (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지
 컨테이너 이전의 세상에서 같은 물리적 또는 가상의 머신에서 실행되는 것은
 같은 논리적 호스트에서 실행되고 있는 것을 의미한다.
 
-쿠버네티스는는 도커 이외에도 많은 컨테이너 런타임을 지원하지만,
+쿠버네티스는 도커 이외에도 많은 컨테이너 런타임을 지원하지만,
 도커는 가장 일반적으로 알려진 런타임이므로 도커 용어로 파드를 설명하는 것이 도움이 된다.
 
 파드의 공유 컨텍스트는 Linux 네임 스페이스, 컨트롤 그룹(cgroup) 및
@@ -189,7 +189,7 @@ API에서 파드를 즉시 제거하므로 동일한 이름으로 새 파드를 
 Kubernetes v1.1부터, 파드의 모든 컨테이너는 컨테이너 스펙의 `SecurityContext`의 `privileged` 플래그를 사용하여 특권 모드를 사용할 수 있다. 이것은 네트워크 스택을 조작하고 장치에 액세스하는 것과 같은 Linux 기능을 사용하려는 컨테이너에 유용하다. 컨테이너 내의 프로세스는 컨테이너 외부의 프로세스에서 사용할 수 있는 거의 동일한 권한을 갖는다. 특권 모드를 사용하면 네트워크 및 볼륨 플러그인을 kubelet에 컴파일 할 필요가 없는 별도의 파드로 쉽게 만들 수 있다.
 
 마스터가 Kubernetes v1.1 이상에서 실행 중이고, 노드가 v1.1 보다 낮은 버전을 실행중인 경우 새 권한이 부여 된 파드는 api-server에 의해 승인되지만 시작되지는 않는다. 이것들은 pending 상태가 될 것이다.
-사용자가 `kubectl describe pod FooPodName` 을 호출하면 사용자는 파드가 사용자가 `kubectl describe pod FooPodName` 을 호출하면 사용자는 파드가 pending 상태에 있는 이유를 볼 수 있다. describe 명령 출력의 이벤트 테이블은 다음과 같다.
+사용자가 `kubectl describe pod FooPodName` 을 호출하면 사용자는 파드가 pending 상태에 있는 이유를 볼 수 있다. describe 명령 출력의 이벤트 테이블은 다음과 같다.
 `Error validating pod "FooPodName"."FooPodNamespace" from api, ignoring: spec.containers[0].securityContext.privileged: forbidden '<*>(0xc2089d3248)true'`
 
 마스터가 v1.1보다 낮은 버전에서 실행중인 경우 특권을 갖는 파드를 만들 수 없다. 유저가 특권을 갖는 컨테이너가 있는 파드를 만들려고 하면 다음과 같은 오류가 발생한다.
