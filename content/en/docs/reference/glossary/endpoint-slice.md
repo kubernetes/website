@@ -15,5 +15,5 @@ tags:
 <!--more-->
 
 A scalable and extensible way to group network endpoints together. These can be
-used as by {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} to
+used by {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} to
 establish network routes on each {{< glossary_tooltip text="node" term_id="node" >}}.
