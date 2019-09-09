@@ -128,6 +128,7 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | |
+| `PodOverhead` | `false` | Alpha | 1.16 | - |
 | `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
 | `PodPriority` | `true` | Beta | 1.11 | 1.13 |
 | `PodPriority` | `true` | GA | 1.14 | |
@@ -315,6 +316,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NonPreemptingPriority`: Enable NonPreempting option for PriorityClass and Pod.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
+- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/configuration/pod-overhead/) feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
   Pod readiness evaluation.
