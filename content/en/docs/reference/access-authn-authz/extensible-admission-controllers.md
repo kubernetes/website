@@ -1256,7 +1256,7 @@ webhooks:
 {{% /tab %}}
 {{< /tabs >}}
 
-Mutating webhooks must be idempotent, able to successfully process an object they have already admitted
+Mutating webhooks must be [idempotent](#idempotence), able to successfully process an object they have already admitted
 and potentially modified. This is true for all mutating admission webhooks, since any change they can make
 in an object could already exist in the user-provided object, but it is essential for webhooks that opt into reinvocation.
 
@@ -1457,5 +1457,104 @@ apiserver_admission_webhook_rejection_count{error_type="calling_webhook_error",n
 apiserver_admission_webhook_rejection_count{error_type="calling_webhook_error",name="invalid-admission-response-webhook.example.com",operation="CREATE",rejection_code="0",type="validating"} 1
 apiserver_admission_webhook_rejection_count{error_type="no_error",name="deny-unwanted-configmap-data.example.com",operation="CREATE",rejection_code="400",type="validating"} 13
 ```
+
+## Best practices and warnings
+
+### Idempotence
+
+An idempotent mutating admission webhook is able to successfully process an object it has already admitted
+and potentially modified. The admission can be applied multiple times without changing the result beyond
+the initial application.
+
+#### Example of idempotent mutating admission webhooks:
+
+1. For a `CREATE` pod request, set the field `.spec.securityContext.runAsNonRoot` of the
+   pod to true, to enforce security best practices.
+
+2. For a `CREATE` pod request, if the field `.spec.containers[].resources.limits`
+   of a container is not set, set default resource limits.
+
+3. For a `CREATE` pod request, inject a sidecar container with name `foo-sidecar` if no container with the name `foo-sidecar` already exists.
+
+In the cases above, the webhook can be safely reinvoked, or admit an object that already has the fields set.
+
+#### Example of non-idempotent mutating admission webhooks:
+
+1. For a `CREATE` pod request, inject a sidecar container with name `foo-sidecar`
+   suffixed with the current timestamp (e.g. `foo-sidecar-19700101-000000`).
+
+2. For a `CREATE`/`UPDATE` pod request, reject if the pod has label `"env"` set,
+   otherwise add an `"env": "prod"` label to the pod.
+
+3. For a `CREATE` pod request, blindly append a sidecar container named
+   `foo-sidecar` without looking to see if there is already a `foo-sidecar`
+   container in the pod.
+
+In the first case above, reinvoking the webhook can result in the same sidecar being injected multiple times to a pod, each time
+with a different container name. Similarly the webhook can inject duplicated containers if the sidecar already exists in
+a user-provided pod.
+
+In the second case above, reinvoking the webhook will result in the webhook failing on its own output.
+
+In the third case above, reinvoking the webhook will result in duplicated containers in the pod spec, which makes
+the request invalid and rejected by the API server.
+
+### Intercepting all versions of an object
+
+It is recommended that admission webhooks should always intercept all versions of an object by setting `.webhooks[].matchPolicy`
+to `Equivalent`. It is also recommended that admission webhooks should prefer registering for stable versions of resources.
+Failure to intercept all versions of an object can result in admission policies not being enforced for requests in certain
+versions. See [Matching requests: matchPolicy](#matching-requests-matchpolicy) for examples.
+
+### Availability
+
+It is recommended that admission webhooks should evaluate as quickly as possible (typically in milliseconds), since they add to API request latency.
+It is encouraged to use a small timeout for webhooks. See [Timeouts](#timeouts) for more detail.
+
+It is recommended that admission webhooks should leverage some format of load-balancing, to provide high availability and
+performance benefits. If a webhook is running within the cluster, you can run multiple webhook backends behind a service
+to leverage the load-balancing that service supports.
+
+### Guaranteeing the final state of the object is seen
+
+Admission webhooks that need to guarantee they see the final state of the object in order to enforce policy
+should use a validating admission webhook, since objects can be modified after being seen by mutating webhooks.
+
+For example, a mutating admission webhook is configured to inject a sidecar container with name "foo-sidecar" on every
+`CREATE` pod request. If the sidecar *must* be present, a validating admisson webhook should also be configured to intercept `CREATE` pod requests, and validate
+that a container with name "foo-sidecar" with the expected configuration exists in the to-be-created object.
+
+### Avoiding deadlocks in self-hosted webhooks
+
+A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
+to intercept resources required to start its own pods.
+
+For example, a mutating admission webhook is configured to admit `CREATE` pod requests only if a certain label is set in the
+pod (e.g. `"env": "prod"`). The webhook server runs in a deployment which doesn't set the `"env"` label.
+When a node that runs the webhook server pods
+becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
+get rejected by the existing webhook server since the `"env"` label is unset, and the migration cannot happen.
+
+It is recommended to exclude the namespace where your webhook is running with a [namespaceSelector](#matching-requests-namespaceselector).
+
+### Side effects
+
+It is recommended that admission webhooks should avoid side effects if possible, which means the webhooks operate only on the
+content of the `AdmissionReview` sent to them, and do not make out-of-band changes. The `.webhooks[].sideEffects` field should
+be set to `None` if a webhook doesn't have any side effect.
+
+If side effects are required during the admission evaluation, they must be suppressed when processing an
+`AdmissionReview` object with `dryRun` set to `true`, and the `.webhooks[].sideEffects` field should be
+set to `NoneOnDryRun`. See [Side effects](#side-effects) for more detail.
+
+### Avoiding operating on the kube-system namespace
+
+The `kube-system` namespace contains objects created by the Kubernetes system,
+e.g. service accounts for the control plane components, pods like `kube-dns`.
+Accidentally mutating or rejecting requests in the `kube-system` namespace may
+cause the control plane components to stop functioning or introduce unknown behavior.
+If your admission webhooks don't intend to modify the behavior of the Kubernetes control
+plane, exclude the `kube-system` namespace from being intercepted using a
+[`namespaceSelector`](#matching-requests-namespaceselector).
 
 {{% /capture %}}
