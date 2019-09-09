@@ -397,4 +397,8 @@ The design documents for
 [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
 and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
 
+Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
+The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can take part in node-level
+resource allocation decisions. 
+
 {{% /capture %}}

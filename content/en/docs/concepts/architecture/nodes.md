@@ -290,6 +290,13 @@ includes all containers started by the kubelet, but not containers started direc
 If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 
+## Node topology
+
+{{< feature-state state="alpha" >}}
+
+If you have enabled the `TopologyManager`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
+the kubelet can use topology hints when making resource assignment decisions.
 
 ## API Object
 
@@ -297,4 +304,8 @@ Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* Read about [node components](https://kubernetes.io/docs/concepts/overview/components/#node-components)
+* Read about node-level topology: [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}
