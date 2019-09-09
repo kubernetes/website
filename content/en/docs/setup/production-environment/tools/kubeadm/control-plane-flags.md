@@ -42,7 +42,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
+kubernetesVersion: v1.16.0
 apiServer:
   extraArgs:
     advertise-address: 192.168.0.103
@@ -59,7 +59,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
+kubernetesVersion: v1.16.0
 controllerManager:
   extraArgs:
     cluster-signing-key-file: /home/johndoe/keys/ca.key
@@ -75,7 +75,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
+kubernetesVersion: v1.16.0
 scheduler:
   extraArgs:
     address: 0.0.0.0
