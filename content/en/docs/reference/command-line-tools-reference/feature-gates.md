@@ -58,7 +58,8 @@ different Kubernetes components.
 | `CSIBlockVolume` | `true` | Beta | 1.14 | |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
-| `CSIInlineVolume` | `false` | Alpha | 1.15 | - |
+| `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
+| `CSIInlineVolume` | `true` | Beta | 1.16 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
