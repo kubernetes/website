@@ -71,7 +71,7 @@ kubectl logs counter
 <!-- ## Logging at the node level -->
 ## 节点级别的日志记录
 
-![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
+![节点级别的日志记录](/images/docs/user-guide/logging/logging-node-level.png)
 <!--
 Everything a containerized application writes to `stdout` and `stderr` is handled and redirected somewhere by a container engine. For example, the Docker container engine redirects those two streams to [a logging driver](https://docs.docker.com/engine/admin/logging/overview), which is configured in Kubernetes to write to a file in json format.
 -->
