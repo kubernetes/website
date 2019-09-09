@@ -126,6 +126,11 @@ toc:
   - docs/tasks/tls/managing-tls-in-a-cluster.md
   - docs/tasks/tls/certificate-rotation.md
 
+- title: Network
+  landing_page: tasks/network/validate-dual-stack/
+  section:
+  - docs/tasks/network/validate-dual-stack.md
+
 - title: Administer a Cluster
   landing_page: /docs/tasks/administer-cluster/memory-default-namespace/
   section:
