@@ -184,4 +184,5 @@ kube-scheduler has a default set of scheduling policies.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
 * Learn about [configuring multiple schedulers](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
 {{% /capture %}}
