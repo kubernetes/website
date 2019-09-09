@@ -341,7 +341,7 @@ information about configuring fluentd, see the
 The second file describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.
 -->
-第二个文件描述了一个运行了fluentd的边车容器的pod。该pod映射了一个卷，fluentd可以从中获取其配置数据。
+第二个文件描述了一个运行了fluentd的sidecar容器的pod。该pod映射了一个卷，fluentd可以从中获取其配置数据。
 
 {{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
 
