@@ -82,7 +82,6 @@ different Kubernetes components.
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
 | `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
 | `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | |
-| `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DryRun` | `true` | Beta | 1.13 | |
@@ -93,6 +92,7 @@ different Kubernetes components.
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
+| `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
 | `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
@@ -135,7 +135,7 @@ different Kubernetes components.
 | `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
 | `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
 | `PodReadinessGates` | `true` | GA | 1.14 | - |
-| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
+| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
@@ -278,7 +278,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceWebhookConversion`: Enable webhook-based conversion
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
-- `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to
   troubleshoot a running Pod.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
@@ -289,6 +288,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature is superceded by the `VolumeScheduling` feature completely in v1.12.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
+- `EphemeralContainers`: Enable the ability to add {{< glossary_tooltip text="ephemeral containers"
+  term_id="ephemeral-container" >}} to running pods.
 - `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Even Pods Spread](/docs/concepts/configuration/even-pods-spread).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
@@ -319,8 +320,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/configuration/pod-overhead/) feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
-  Pod readiness evaluation.
-  For more details, please see [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate).
+  Pod readiness evaluation.  See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
+  for more details.
+- `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
+  a single process namespace between containers running in a pod.  More details can be found in
+  [Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
 - `ProcMountType`: Enables control over ProcMountType for containers.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
