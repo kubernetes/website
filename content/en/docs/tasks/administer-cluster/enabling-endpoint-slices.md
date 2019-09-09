@@ -49,7 +49,3 @@ EndpointSlice resources for each Endpoints resource. In addition to supporting
 existing Endpoints functionality, Endpoint Slices should include new bits of
 information such as topology. They will allow for greater scalability and
 extensibility of network endpoints in your cluster.
-
-### Feature availability
-
-Kubernetes 1.16 or newer is required to use Endpoint Slices.
