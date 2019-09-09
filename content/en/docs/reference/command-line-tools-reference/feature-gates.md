@@ -93,6 +93,7 @@ different Kubernetes components.
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
+| `EndpointSlice` | `false` | Alpha | 1.16 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
@@ -301,6 +302,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
    host mounts, or containers that are privileged or using specific non-namespaced
    capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled
    if user namespace remapping is enabled in the Docker daemon.
+- `EndpointSlice`: Enables Endpoint Slices for more scalable and extensible
+   network endpoints. Requires corresponding API and Controller to be enabled.
+   See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices/).
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
