@@ -297,7 +297,7 @@ and retention policies to the kubelet.
 Sidecar容器还可用于旋转应用程序本身无法旋转的日志文件。这种方法的一个例子是定期运行logrotate的小容器。但是，建议直接使用`stdout`和`stderr`，并将轮换和保留策略保留给kubelet。
 
 <!-- #### Sidecar container with a logging agent -->
-#### 带有日志记录代理的Sidecar容器
+#### 带有日志记录代理的sidecar容器
 
 ![带有日志记录代理的sidecar容器](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 
