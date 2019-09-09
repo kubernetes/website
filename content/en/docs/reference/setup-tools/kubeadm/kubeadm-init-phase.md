@@ -2,7 +2,9 @@
 title: kubeadm init phase
 weight: 90
 ---
-In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of making kubeadm more modular. In v1.13.0 this command graduated to `kubeadm init phase`. This modularity enables you to invoke atomic sub-steps of the bootstrap process. Hence, you can let kubeadm do some parts and fill in yourself where you need customizations.
+`kubeadm init phase` enables you to invoke atomic steps of the bootstrap process.
+Hence, you can let kubeadm do some of the work and you can fill in the gaps
+if you wish to apply customization.
 
 `kubeadm init phase` is consistent with the [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.

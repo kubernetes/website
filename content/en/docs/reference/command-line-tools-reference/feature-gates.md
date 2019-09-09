@@ -83,7 +83,6 @@ different Kubernetes components.
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
 | `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
 | `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | |
-| `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DryRun` | `true` | Beta | 1.13 | |
@@ -94,6 +93,7 @@ different Kubernetes components.
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
+| `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
 | `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
@@ -101,6 +101,7 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
+| `EvenPodsSpread` | `false` | Alpha | 1.16 | |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
@@ -130,13 +131,14 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | |
+| `PodOverhead` | `false` | Alpha | 1.16 | - |
 | `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
 | `PodPriority` | `true` | Beta | 1.11 | 1.13 |
 | `PodPriority` | `true` | GA | 1.14 | |
 | `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
 | `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
 | `PodReadinessGates` | `true` | GA | 1.14 | - |
-| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
+| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
@@ -154,6 +156,7 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `StartupProbe` | `false` | Alpha | 1.16 | |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
@@ -177,7 +180,9 @@ different Kubernetes components.
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
-| `VolumePVCDataSource` | `false` | Alpha | 1.15 | |
+| `TopologyManager` | `false` | Alpha | 1.16 | |
+| `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
+| `VolumePVCDataSource` | `true` | Beta | 1.16 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | |
@@ -278,7 +283,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceWebhookConversion`: Enable webhook-based conversion
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
-- `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to
   troubleshoot a running Pod.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
@@ -289,6 +293,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature is superceded by the `VolumeScheduling` feature completely in v1.12.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
+- `EphemeralContainers`: Enable the ability to add {{< glossary_tooltip text="ephemeral containers"
+  term_id="ephemeral-container" >}} to running pods.
+- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Even Pods Spread](/docs/concepts/configuration/even-pods-spread).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalCriticalPodAnnotation`: Enable annotating specific pods as *critical* so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
@@ -314,13 +321,17 @@ Each feature gate is designed for enabling/disabling a specific feature:
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
 - `NodeDisruptionExclusion`: Enable use of the node label `node.kubernetes.io/exclude-disruption` which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
-- `NonPreemptingPriority`: Enable NonPreempting option for PriorityClass and Pod. 
+- `NonPreemptingPriority`: Enable NonPreempting option for PriorityClass and Pod.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
+- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/configuration/pod-overhead/) feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
-  Pod readiness evaluation.
-  For more details, please see [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate).
+  Pod readiness evaluation.  See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
+  for more details.
+- `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
+  a single process namespace between containers running in a pod.  More details can be found in
+  [Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
 - `ProcMountType`: Enables control over ProcMountType for containers.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
@@ -343,6 +354,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if labelled with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key (when `LegacyNodeRoleBehavior` is on) or `node.kubernetes.io/exclude-from-external-load-balancers`.
+- `StartupProbe`: Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
   PersistentVolumeClaim objects if they are still being used.
 - `StorageVersionHash`: Allow apiservers to expose the storage version hash in the discovery.
