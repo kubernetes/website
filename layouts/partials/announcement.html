@@ -1,0 +1,11 @@
+{{ if .Param "announcement"}}
+  <section id="announcement">
+    <main>
+      <div class="content announcement">
+        <h3>
+          {{ .Param "announcement_message" | markdownify }}
+        </h3>
+      </div>
+    </main>
+  </section>
+{{ end }}
