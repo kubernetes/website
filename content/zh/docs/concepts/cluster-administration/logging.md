@@ -299,7 +299,7 @@ Sidecar容器还可用于旋转应用程序本身无法旋转的日志文件。�
 <!-- #### Sidecar container with a logging agent -->
 #### 带有日志记录代理的Sidecar容器
 
-![Sidecar container with a logging agent](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
+![带有日志记录代理的sidecar容器](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 
 <!--
 If the node-level logging agent is not flexible enough for your situation, you
