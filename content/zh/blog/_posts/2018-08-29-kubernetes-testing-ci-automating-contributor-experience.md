@@ -62,7 +62,7 @@ Further experience revealed other areas where machines could do the work for us:
   -->
 
 * PR工作流程
-   *贡献者是否签署了我们的CLA？
+   *贡献者是否签署了我们的 CLA？
    * PR通过测试吗？
    * PR合并吗？
    *合并提交是否通过了测试？
