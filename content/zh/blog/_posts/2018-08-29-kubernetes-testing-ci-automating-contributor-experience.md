@@ -38,7 +38,7 @@ This strategy worked. It worked so well that the project quickly scaled past its
 Initially, we focused on the fact that we needed to support the sheer volume of tests mandated by a complex distributed system such as Kubernetes. Real world failure scenarios had to be exercised via end-to-end (e2e) tests to ensure proper functionality. Unfortunately, e2e tests were susceptible to flakes (random failures) and took anywhere from an hour to a day to complete.
 -->
 
-最初，我们关注的是我们需要支持由Kubernetes等复杂分布式系统强制执行的大量测试。 必须通过端到端（e2e）测试来实现真实世界的故障情况，以确保正常的功能。 不幸的是，e2e测试容易受到薄片（随机故障）的影响，并且需要花费一个小时到一天才能完成。
+最初，我们关注的事实是，我们需要支持复杂的分布式系统（如 Kubernetes）所要求的大量测试。 真实世界中的故障场景必须通过端到端（e2e）测试来执行，确保正确的功能。 不幸的是，e2e 测试容易受到薄片（随机故障）的影响，并且需要花费一个小时到一天才能完成。
 
 <!--
 Further experience revealed other areas where machines could do the work for us:
