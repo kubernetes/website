@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Architecture"
+title: "Cluster Architecture"
 weight: 30
 ---
 
