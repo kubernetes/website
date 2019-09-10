@@ -126,9 +126,9 @@ Prow 让我们做以下事情：
 -->
 
 * 允许我们的社区通过评论诸如“/ priority critical-urgent”，“/ assign mary”或“/ close”之类的命令对 issues/Pull Requests 进行分类
-* 根据用户更改的代码数量或创建的文件自动标记Pull Requests
+* 根据用户更改的代码数量或创建的文件自动标记 Pull Requests
 * 标出长时间保持不活动状态 issues/Pull Requests
-* 自动合并符合我们PR工作流程要求的Pull Requests
+* 自动合并符合我们PR工作流程要求的 Pull Requests
 * 运行定义为[Knative Builds]（https://github.com/knative/build），Kubernetes Podsv或vvJenkinsvvv工作的 CI 工作
 * 实施组织范围和重构 GitHub 仓库策略，如[Knative Builds]（https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector）和[GitHub labels]（https://github.com/kubernetes/test-infra/tree/master/label_sync）
 
