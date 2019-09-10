@@ -20,7 +20,7 @@ _”大型项目有很多不那么令人兴奋，但却很辛苦的工作。比�
 Like many open source projects, Kubernetes is hosted on GitHub. We felt the barrier to participation would be lowest if the project lived where developers already worked, using tools and processes developers already knew. Thus the project embraced the service fully: it was the basis of our workflow, our issue tracker, our documentation, our blog platform, our team structure, and more.
 -->
 
-像许多开源项目一样，Kubernetes托管在GitHub上。 如果项目生活在开发人员已经工作的地方，使用开发人员已经知道的工具和流程，我们认为参与的障碍最低。 因此，该项目完全接受了这项服务：它是我们工作流程，问题跟踪器，文档，博客平台，团队结构等的基础。
+像许多开源项目一样，Kubernetes 托管在 GitHub上。 如果项目位于在开发人员已经工作的地方，使用的开发人员已经知道的工具和流程，那么参与的障碍将是最低的。 因此，该项目完全接受了这项服务：它是我们工作流程，问题跟踪，文档，博客平台，团队结构等的基础。
 
 <!--
 This strategy worked. It worked so well that the project quickly scaled past its contributors’ capacity as humans. What followed was an incredible journey of automation and innovation. We didn’t just need to rebuild our airplane mid-flight without crashing, we needed to convert it into a rocketship and launch into orbit. We needed machines to do the work.
