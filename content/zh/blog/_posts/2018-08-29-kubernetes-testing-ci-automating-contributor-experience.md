@@ -87,7 +87,7 @@ As we developed automation to improve our situation, we followed a few guiding p
 * Eat our own dogfood and avoid reinventing wheels
 -->
 
-*遵循适用于Kubernetes的推/拉控制循环模式
+* 遵循适用于 Kubernetes 的推送/拉取控制循环模式
 *首选无状态松散耦合服务
 *更倾向于授权整个社区以及赋予少数核心贡献者权力
 *开发自己的产品，避免重新发明轮子
