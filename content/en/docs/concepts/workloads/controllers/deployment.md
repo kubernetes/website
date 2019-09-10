@@ -117,7 +117,7 @@ In this example:
     nginx-deployment-75675f5897   3         3         3       18s
     ```
     Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
-    	randomly generated and uses the pod-template-hash as a seed.
+      randomly generated and uses the pod-template-hash as a seed.
 
   6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`. The following output is returned:
     ```shell
@@ -1075,11 +1075,11 @@ the rolling update process.
 ##### Max Unavailable
 
 `.spec.strategy.rollingUpdate.maxUnavailable` is an optional field that specifies the maximum number
-of Pods that can be unavailable during the update process. The value can be an absolute number (for example, 5)
-or a percentage of desired Pods (for example, 10%). The absolute number is calculated from percentage by
+of Pods that can be unavailable during the update process. The value can be an absolute number (for example, `5`)
+or a percentage of desired Pods (for example, `"10%"`). The absolute number is calculated from percentage by
 rounding down. The value cannot be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. The default value is 25%.
 
-For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
+For example, when this value is set to `"30%"`, the old ReplicaSet can be scaled down to 70% of desired
 Pods immediately when the rolling update starts. Once new Pods are ready, old ReplicaSet can be scaled
 down further, followed by scaling up the new ReplicaSet, ensuring that the total number of Pods available
 at all times during the update is at least 70% of the desired Pods.
@@ -1087,11 +1087,11 @@ at all times during the update is at least 70% of the desired Pods.
 ##### Max Surge
 
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
-that can be created over the desired number of Pods. The value can be an absolute number (for example, 5) or a
-percentage of desired Pods (for example, 10%). The value cannot be 0 if `MaxUnavailable` is 0. The absolute number
+that can be created over the desired number of Pods. The value can be an absolute number (for example, `5`) or a
+percentage of desired Pods (for example, `"10%"`). The value cannot be 0 if `MaxUnavailable` is 0. The absolute number
 is calculated from the percentage by rounding up. The default value is 25%.
 
-For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
+For example, when this value is set to `"30%"`, the new ReplicaSet can be scaled up immediately when the
 rolling update starts, such that the total number of old and new Pods does not exceed 130% of desired
 Pods. Once old Pods have been killed, the new ReplicaSet can be scaled up further, ensuring that the
 total number of Pods running at any time during the update is at most 130% of desired Pods.
