@@ -30,7 +30,7 @@ content_template: templates/concept
 
 ## 구성
 
-* [컨피그 맵을 사용해서 Redis 설정휴ㅏ기](/ko/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [컨피그 맵을 사용해서 Redis 설정하기](/ko/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## 상태 유지를 하지 않는(stateless) 애플리케이션
 
