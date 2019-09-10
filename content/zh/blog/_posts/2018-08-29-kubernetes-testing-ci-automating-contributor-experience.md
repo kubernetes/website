@@ -10,8 +10,8 @@ date:   2018-08-29
 
 ---
 布局：博客
-标题：'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
-日期：2018-08-29
+标题： 'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
+日期：  2018-08-29
 ---
 
 **作者**：Aaron Crickenberger（谷歌）和 Benjamin Elder（谷歌）
@@ -20,7 +20,7 @@ date:   2018-08-29
 _“Large projects have a lot of less exciting, yet, hard work. We value time spent automating repetitive work more highly than toil. Where that work cannot be automated, it is our culture to recognize and reward all types of contributions. However, heroism is not sustainable.”_ - [Kubernetes Community Values](https://git.k8s.io/community/values.md#automation-over-process)
 -->
 
-_”大型项目有很多不那么令人兴奋，但却很辛苦的工作。比起辛苦工作，我们更重视把时间花在自动化重复性工作上，如果这项工作无法实现自动化，我们的文化就是承认并奖励所有类型的贡献。然而，英雄主义是不可持续的。“_ - [Kubernetes 社区价值观](https://git.k8s.io/community/values.md#automation-over-process)
+_”大型项目有很多不那么令人兴奋，但却很辛苦的工作。比起辛苦工作，我们更重视把时间花在自动化重复性工作上，如果这项工作无法实现自动化，我们的文化就是承认并奖励所有类型的贡献。然而，英雄主义是不可持续的。“_ - [Kubernetes Community Values](https://git.k8s.io/community/values.md#automation-over-process)
 
 <!--
 Like many open source projects, Kubernetes is hosted on GitHub. We felt the barrier to participation would be lowest if the project lived where developers already worked, using tools and processes developers already knew. Thus the project embraced the service fully: it was the basis of our workflow, our issue tracker, our documentation, our blog platform, our team structure, and more.
@@ -94,9 +94,9 @@ As we developed automation to improve our situation, we followed a few guiding p
 -->
 
 * 遵循适用于 Kubernetes 的推送/拉取控制循环模式
-*首选无状态松散耦合服务
-*更倾向于授权整个社区以及赋予少数核心贡献者权力
-*开发自己的产品，避免重新发明轮子
+* 首选无状态松散耦合服务
+* 更倾向于授权整个社区以及赋予少数核心贡献者权力
+* 开发自己的产品，避免重新发明轮子
 
 <!--
 ## Enter Prow
