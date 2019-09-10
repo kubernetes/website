@@ -78,7 +78,7 @@ Further experience revealed other areas where machines could do the work for us:
 As we developed automation to improve our situation, we followed a few guiding principles:
 -->
 
-在我们开发自动化以改善我们的情况时，我们遵循了一些指导原则：
+当我们开发自动化来改善我们的情况时，我们遵循了以下几个指导原则：
 
 <!--
 * Follow the push/pull control loop patterns that worked well for Kubernetes
