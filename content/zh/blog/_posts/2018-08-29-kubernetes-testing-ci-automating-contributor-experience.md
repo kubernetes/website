@@ -1,12 +1,18 @@
+<!--
 ---
 layout: blog
 title:  'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
 date:   2018-08-29
 ---
 
-<!--
 **Author**: Aaron Crickenberger (Google) and Benjamin Elder (Google)
 -->
+
+---
+布局：博客
+标题：'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
+日期：2018-08-29
+---
 
 **作者**：Aaron Crickenberger（谷歌）和 Benjamin Elder（谷歌）
 
@@ -14,13 +20,13 @@ date:   2018-08-29
 _“Large projects have a lot of less exciting, yet, hard work. We value time spent automating repetitive work more highly than toil. Where that work cannot be automated, it is our culture to recognize and reward all types of contributions. However, heroism is not sustainable.”_ - [Kubernetes Community Values](https://git.k8s.io/community/values.md#automation-over-process)
 -->
 
-_”大型项目有很多不那么令人兴奋，但却很辛苦的工作。比起辛苦工作，我们更重视把时间花在自动化重复性工作上，如果这项工作无法实现自动化，我们的文化就是承认并奖励所有类型的贡献。然而，英雄主义是不可持续的。“_ - [Kubernetes 社区价值观 ](https://git.k8s.io/community/values.md#automation-over-process)
+_”大型项目有很多不那么令人兴奋，但却很辛苦的工作。比起辛苦工作，我们更重视把时间花在自动化重复性工作上，如果这项工作无法实现自动化，我们的文化就是承认并奖励所有类型的贡献。然而，英雄主义是不可持续的。“_ - [Kubernetes 社区价值观](https://git.k8s.io/community/values.md#automation-over-process)
 
 <!--
 Like many open source projects, Kubernetes is hosted on GitHub. We felt the barrier to participation would be lowest if the project lived where developers already worked, using tools and processes developers already knew. Thus the project embraced the service fully: it was the basis of our workflow, our issue tracker, our documentation, our blog platform, our team structure, and more.
 -->
 
-像许多开源项目一样，Kubernetes 托管在 GitHub上。 如果项目位于在开发人员已经工作的地方，使用的开发人员已经知道的工具和流程，那么参与的障碍将是最低的。 因此，该项目完全接受了这项服务：它是我们工作流程，问题跟踪，文档，博客平台，团队结构等的基础。
+像许多开源项目一样，Kubernetes 托管在 GitHub 上。 如果项目位于在开发人员已经工作的地方，使用的开发人员已经知道的工具和流程，那么参与的障碍将是最低的。 因此，该项目完全接受了这项服务：它是我们工作流程，问题跟踪，文档，博客平台，团队结构等的基础。
 
 <!--
 This strategy worked. It worked so well that the project quickly scaled past its contributors’ capacity as humans. What followed was an incredible journey of automation and innovation. We didn’t just need to rebuild our airplane mid-flight without crashing, we needed to convert it into a rocketship and launch into orbit. We needed machines to do the work.
@@ -61,18 +67,18 @@ Further experience revealed other areas where machines could do the work for us:
   * What should we be paying attention to?
   -->
 
-* PR工作流程
-   *贡献者是否签署了我们的 CLA？
-   * PR通过测试吗？
-   * PR合并吗？
-   *合并提交是否通过了测试？
-*分诊
-   *谁应该审查PR？
-   *是否有足够的信息将问题发送给合适的人？
-   *问题是否仍然相关？
-*项目健康
-   *项目中发生了什么？
-   *我们应该注意什么？
+* Pull Request 工作流程
+  * 贡献者是否签署了我们的 CLA？
+  * Pull Request 通过测试吗？
+  * Pull Request 合并吗？
+  * 合并提交是否通过了测试？
+* 鉴别分类
+  * 谁应该审查 Pull Request？
+  * 是否有足够的信息将问题发送给合适的人？
+  * 合并提交是否通过了测试？
+* 项目健康
+  * 项目中发生了什么？
+  * 我们应该注意什么？
 
 <!--
 As we developed automation to improve our situation, we followed a few guiding principles:
@@ -102,13 +108,13 @@ As we developed automation to improve our situation, we followed a few guiding p
 This led us to create [Prow](https://git.k8s.io/test-infra/prow) as the central component for our automation. Prow is sort of like an [If This, Then That](https://ifttt.com/) for GitHub events, with a built-in library of [commands](https://prow.k8s.io/command-help), [plugins](https://prow.k8s.io/plugins), and utilities. We built Prow on top of Kubernetes to free ourselves from worrying about resource management and scheduling, and ensure a more pleasant operational experience.
 -->
 
-这促使我们创建[Prow]（https://git.k8s.io/test-infra/prow）作为我们自动化的核心组件。 Prow有点像[If This，Then That]（https://ifttt.com/），用于GitHub事件，内置[commands]库（https://prow.k8s.io/command-） 帮助），[plugins]（https://prow.k8s.io/plugins）和实用程序。 我们在Kubernetes之上建立了Prow，让我们不必担心资源管理和日程安排，并确保更愉快的运营体验。
+这促使我们创建 [Prow](https://git.k8s.io/test-infra/prow) 作为我们自动化的核心组件。 Prow有点像 [If This, Then That](https://ifttt.com/) 用于 GitHub 事件， 内置 [commands](https://prow.k8s.io/command-help)， [plugins](https://prow.k8s.io/plugins)， 和实用程序。 我们在  Kubernetes 之上建立了 Prow，让我们不必担心资源管理和日程安排，并确保更愉快的运营体验。
 
 <!--
 Prow lets us do things like:
 -->
 
-Prow让我们做以下事情：
+Prow 让我们做以下事情：
 
 <!--
 * Allow our community to triage issues/PRs by commenting commands such as “/priority critical-urgent”, “/assign mary” or “/close”
@@ -119,24 +125,24 @@ Prow让我们做以下事情：
 * Enforce org-wide and per-repo GitHub policies like [branch protection](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector) and [GitHub labels](https://github.com/kubernetes/test-infra/tree/master/label_sync)
 -->
 
-*允许我们的社区通过评论诸如“/ priority critical-urgent”，“/ assign mary”或“/ close”之类的命令对 issues/PR 进行分类
-*根据用户更改的代码数量或创建的文件自动标记PR
-*标出长时间保持不活动状态 issues/PR
-*自动合并符合我们PR工作流程要求的PR
-*运行定义为[Knative Builds]（https://github.com/knative/build），Kubernetes Pods或Jenkins工作的 CI 工作
-*实施组织范围和每回购GitHub策略，如[Knative Builds]（https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector）和[GitHub labels]（https：//github.com/kubernetes/test-infra/tree/master/label_sync）
+* 允许我们的社区通过评论诸如“/ priority critical-urgent”，“/ assign mary”或“/ close”之类的命令对 issues/Pull Requests 进行分类
+* 根据用户更改的代码数量或创建的文件自动标记Pull Requests
+* 标出长时间保持不活动状态 issues/Pull Requests
+* 自动合并符合我们PR工作流程要求的Pull Requests
+* 运行定义为[Knative Builds]（https://github.com/knative/build），Kubernetes Podsv或vvJenkinsvvv工作的 CI 工作
+* 实施组织范围和重构 GitHub 仓库策略，如[Knative Builds]（https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector）和[GitHub labels]（https://github.com/kubernetes/test-infra/tree/master/label_sync）
 
 <!--
 Prow was initially developed by the engineering productivity team building Google Kubernetes Engine, and is actively contributed to by multiple members of Kubernetes SIG Testing. Prow has been adopted by several other open source projects, including Istio, JetStack, Knative and OpenShift. [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md) takes a Kubernetes cluster and `kubectl apply starter.yaml` (running pods on a Kubernetes cluster).
 -->
 
-Prow最初由构建Google Kubernetes Engine的工程生产力团队开发，并由Kubernetes SIG Testing的多个成员积极贡献。 Prow已被其他几个开源项目采用，包括Istio，JetStack，Knative和OpenShift。 [Getting started with Prow]（https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md）需要一个Kubernetes集群和`kubectl apply starter.yaml`（在Kubernetes集群上运行pod））。
+Prow最初由构建 Google Kubernetes Engine 的工程生产力团队开发，并由 Kubernetes SIG Testing 的多个成员积极贡献。 Prow 已被其他几个开源项目采用，包括 Istio，JetStack，Knative 和 OpenShift。 [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md)需要一个 Kubernetes 集群和 `kubectl apply starter.yaml`（在 Kubernetes 集群上运行 pod）。
 
 <!--
 Once we had Prow in place, we began to hit other scaling bottlenecks, and so produced additional tooling to support testing at the scale required by Kubernetes, including:
 -->
 
-一旦我们安装了Prow，我们就开始遇到其他的问题，因此需要额外的工具以支持Kubernetes所需的规模测试，包括：
+一旦我们安装了 Prow，我们就开始遇到其他的问题，因此需要额外的工具以支持 Kubernetes 所需的规模测试，包括：
 
 <!--
 - [Boskos](https://github.com/kubernetes/test-infra/tree/master/boskos): manages job resources (such as GCP projects) in pools, checking them out for jobs and cleaning them up automatically ([with monitoring](http://velodrome.k8s.io/dashboard/db/boskos-dashboard?orgId=1))
@@ -146,11 +152,11 @@ Once we had Prow in place, we began to hit other scaling bottlenecks, and so pro
 - [Tide](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/tide): allows us to merge PRs selected via GitHub queries rather than ordered in a queue, allowing for significantly higher merge velocity in tandem with splice
 -->
 
- -  [Boskos]（https://github.com/kubernetes/test-infra/tree/master/boskos）：管理池中的作业资源（例如GCP项目），检查它们是否有工作并自动清理它们[with monitoring]（http://velodrome.k8s.io/dashboard/db/boskos-dashboard?orgId=1)）
- -  [ghProxy]（https://github.com/kubernetes/test-infra/tree/master/ghproxy）：优化用于GitHub API的反向代理HTTP缓存，以确保我们的令牌使用不会达到API限制（[with monitoring]（http://velodrome.k8s.io/dashboard/db/github-cache?refresh=1m&orgId=1)）
- -  [Greenhouse]（https://github.com/kubernetes/test-infra/tree/master/greenhouse）：允许我们使用远程bazel缓存为PR提供更快的构建和测试结果（[with monitoring]（http ：//velodrome.k8s.io/dashboard/db/bazel-cache ORGID = 1））
- -  [Splice]（https://github.com/kubernetes/test-infra/tree/master/prow/cmd/splice）：允许我们批量测试和合并PR，确保我们的合并速度不仅限于我们的测试速度
- -  [Tide]（https://github.com/kubernetes/test-infra/tree/master/prow/cmd/tide）：允许我们合并通过GitHub查询选择的PR，而不是在队列中排序，允许显着更高合并速度与拼接一起
+- [Boskos](https://github.com/kubernetes/test-infra/tree/master/boskos): 管理池中的作业资源（例如 GCP 项目），检查它们是否有工作并自动清理它们 ([with monitoring](http://velodrome.k8s.io/dashboard/db/boskos-dashboard?orgId=1))
+- [ghProxy](https://github.com/kubernetes/test-infra/tree/master/ghproxy): 优化用于 GitHub API 的反向代理 HTTP 缓存，以确保我们的令牌使用不会达到 API 限制 ([with monitoring](http://velodrome.k8s.io/dashboard/db/github-cache?refresh=1m&orgId=1))
+- [Greenhouse](https://github.com/kubernetes/test-infra/tree/master/greenhouse): 允许我们使用远程 bazel 缓存为 Pull requests 提供更快的构建和测试结果 ([with monitoring](http://velodrome.k8s.io/dashboard/db/bazel-cache?orgId=1))
+- [Splice](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/splice): 允许我们批量测试和合并 Pull requests，确保我们的合并速度不仅限于我们的测试速度
+- [Tide](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/tide): 允许我们合并通过 GitHub 查询选择的 Pull requests，而不是在队列中排序，允许显着更高合并速度与拼接一起
 
 <!--
 ## Scaling Project Health
@@ -162,7 +168,7 @@ Once we had Prow in place, we began to hit other scaling bottlenecks, and so pro
 With workflow automation addressed, we turned our attention to project health. We chose to use Google Cloud Storage (GCS) as our source of truth for all test data, allowing us to lean on established infrastructure, and allowed the community to contribute results. We then built a variety of tools to help individuals and the project as a whole make sense of this data, including:
 -->
 
-随着工作流自动化的实施，我们将注意力转向了项目健康。我们选择使用Google Cloud Storage (GCS)作为所有测试数据的真实来源，允许我们依赖已建立的基础设施，并允许社区贡献结果。然后，我们构建了各种工具来帮助个人和整个项目理解这些数据，包括：
+随着工作流自动化的实施，我们将注意力转向了项目健康。我们选择使用 Google Cloud Storage (GCS)作为所有测试数据的真实来源，允许我们依赖已建立的基础设施，并允许社区贡献结果。然后，我们构建了各种工具来帮助个人和整个项目理解这些数据，包括：
 
 <!--
 * [Gubernator](https://github.com/kubernetes/test-infra/tree/master/gubernator): display the results and test history for a given PR
@@ -172,17 +178,17 @@ With workflow automation addressed, we turned our attention to project health. W
 * [Testgrid](https://k8s-testgrid.appspot.com/): display test results for a given job across all runs, summarize test results across groups of jobs
 -->
 
-* [Gubernator]（https://github.com/kubernetes/test-infra/tree/master/gubernator）：显示给定PR的结果和测试历史
-* [Kettle]（https://github.com/kubernetes/test-infra/tree/master/kettle）：将数据从GCS传输到可公开访问的bigquery数据集
-* [PR dashboard]（https://k8s-gubernator.appspot.com/pr）：一个工作流程识别仪表板，允许参与者了解哪些PR需要注意以及为什么
-* [Triage]（https://storage.googleapis.com/k8s-gubernator/triage/index.html）：识别所有作业和测试中发生的常见故障
-* [Testgrid]（https://k8s-testgrid.appspot.com/）：显示所有运行中给定作业的测试结果，汇总各组作业的测试结果
+* [Gubernator](https://github.com/kubernetes/test-infra/tree/master/gubernator): 显示给定 Pull Request 的结果和测试历史
+* [Kettle](https://github.com/kubernetes/test-infra/tree/master/kettle): 将数据从 GCS 传输到可公开访问的 bigquery 数据集
+* [PR dashboard](https://k8s-gubernator.appspot.com/pr): 一个工作流程识别仪表板，允许参与者了解哪些 Pull Request 需要注意以及为什么
+* [Triage](https://storage.googleapis.com/k8s-gubernator/triage/index.html): 识别所有作业和测试中发生的常见故障
+* [Testgrid](https://k8s-testgrid.appspot.com/): 显示所有运行中给定作业的测试结果，汇总各组作业的测试结果
 
 <!--
 We approached the Cloud Native Computing Foundation (CNCF) to develop DevStats to glean insights from our GitHub events such as:
 -->
 
-我们与云计算本地计算基金会（CNCF）联系，开发DevStats，以便从我们的GitHub活动中收集见解，例如：
+我们与云计算本地计算基金会（CNCF）联系，开发 DevStats，以便从我们的 GitHub 活动中收集见解，例如：
 
 <!--
 * [Which prow commands are people most actively using](https://k8s.devstats.cncf.io/d/5/bot-commands-repository-groups?orgId=1)
@@ -190,9 +196,9 @@ We approached the Cloud Native Computing Foundation (CNCF) to develop DevStats t
 * [Time spent in each phase of our PR workflow](https://k8s.devstats.cncf.io/d/44/pr-time-to-approve-and-merge?orgId=1)
 -->
 
-* [最常用的prow命令]（https://k8s.devstats.cncf.io/d/5/bot-commands-repository-groups?orgId=1）
-* [一段时间内由贡献着进行PR reviews]（https://k8s.devstats.cncf.io/d/46/pr-reviews-by-contributor?orgId=1&var-period=d7&var-repo_name=All&var-reviewers=All）
-* [在PR工作流程的每个阶段花费的时间]（https://k8s.devstats.cncf.io/d/44/pr-time-to-approve-and-merge?orgId=1）
+* [Which prow commands are people most actively using](https://k8s.devstats.cncf.io/d/5/bot-commands-repository-groups?orgId=1)
+* [PR reviews by contributor over time](https://k8s.devstats.cncf.io/d/46/pr-reviews-by-contributor?orgId=1&var-period=d7&var-repo_name=All&var-reviewers=All)
+* [Time spent in each phase of our PR workflow](https://k8s.devstats.cncf.io/d/44/pr-time-to-approve-and-merge?orgId=1)
 
 <!--
 ## Into the Beyond
@@ -204,19 +210,19 @@ We approached the Cloud Native Computing Foundation (CNCF) to develop DevStats t
 Today, the Kubernetes project spans over 125 repos across five orgs. There are 31 Special Interests Groups and 10 Working Groups coordinating development within the project. In the last year the project has had [participation from over 13,800 unique developers](https://k8s.devstats.cncf.io/d/13/developer-activity-counts-by-repository-group?orgId=1&var-period_name=Last%20year&var-metric=contributions&var-repogroup_name=All) on GitHub.
 -->
 
-今天，Kubernetes项目跨越了5个组织125个仓库。有31个特殊利益集团和10个工作组在项目内协调发展。在过去的一年里，该项目有[来自13800多名独立开发人员的参与]（https://k8s.devstats.cncf.io/d/13/developer-activity-counts-by-repository-group？github上的orgid=1&var-period_name=last%20year&var metric=contributions&var-repogroup_name=all）。
+今天，Kubernetes 项目跨越了5个组织125个仓库。有31个特殊利益集团和10个工作组在项目内协调发展。在过去的一年里，该项目有 [来自13800多名独立开发人员的参与](https://k8s.devstats.cncf.io/d/13/developer-activity-counts-by-repository-group?orgId=1&var-period_name=Last%20year&var-metric=contributions&var-repogroup_name=All)。
 
 <!--
 On any given weekday our Prow instance [runs over 10,000 CI jobs](http://velodrome.k8s.io/dashboard/db/bigquery-metrics?panelId=10&fullscreen&orgId=1&from=now-6M&to=now); from March 2017 to March 2018 it ran 4.3 million jobs. Most of these jobs involve standing up an entire Kubernetes cluster, and exercising it using real world scenarios. They allow us to ensure all supported releases of Kubernetes work across cloud providers, container engines, and networking plugins. They make sure the latest releases of Kubernetes work with various optional features enabled, upgrade safely, meet performance requirements, and work across architectures.
 -->
 
-在任何给定的工作日，我们的Prow实例[运行超过10,000个CI工作]（http://velodrome.k8s.io/dashboard/db/bigquery-metrics?panelId=10&fullscreen&orgId=1&from=now-6M&to=now）; 从2017年3月到2018年3月，它有430万个工作岗位。 这些工作中的大多数涉及建立整个Kubernetes集群，并使用真实场景来实施它。 它们使我们能够确保所有受支持的Kubernetes版本跨云提供商，容器引擎和网络插件工作。 他们确保最新版本的Kubernetes能够启用各种可选功能，安全升级，满足性能要求，并跨架构工作。
+在任何给定的工作日，我们的 Prow 实例[运行超过10,000个 CI 工作](http://velodrome.k8s.io/dashboard/db/bigquery-metrics?panelId=10&fullscreen&orgId=1&from=now-6M&to=now); 从2017年3月到2018年3月，它有430万个工作岗位。 这些工作中的大多数涉及建立整个 Kubernetes 集群，并使用真实场景来实施它。 它们使我们能够确保所有受支持的 Kubernetes 版本跨云提供商，容器引擎和网络插件工作。 他们确保最新版本的 Kubernetes 能够启用各种可选功能，安全升级，满足性能要求，并跨架构工作。
 
 <!--
 With today’s [announcement from CNCF](https://www.cncf.io/announcement/2018/08/29/cncf-receives-9-million-cloud-credit-grant-from-google) – noting that Google Cloud has begun transferring ownership and management of the Kubernetes project’s cloud resources to CNCF community contributors, we are excited to embark on another journey. One that allows the project infrastructure to be owned and operated by the community of contributors, following the same open governance model that has worked for the rest of the project. Sound exciting to you? Come talk to us at #sig-testing on kubernetes.slack.com.
 -->
 
-今天[来自CNCF的公告]（https://www.cncf.io/announcement/2018/08/29/cncf-receives-9-million-cloud-credit-grant-from-google） - 注意到Google Cloud有开始将Kubernetes项目的云资源的所有权和管理权转让给CNCF社区贡献者，我们很高兴能够开始另一个旅程。 允许项目基础设施由贡献者社区拥有和运营，遵循对项目其余部分有效的相同开放治理模型。 听起来令人兴奋。 请来kubernetes.slack.com上的＃sig-testing与我们联系。
+今天[来自CNCF的公告](https://www.cncf.io/announcement/2018/08/29/cncf-receives-9-million-cloud-credit-grant-from-google) - 注意到    Google Cloud 有开始将 Kubernetes 项目的云资源的所有权和管理权转让给 CNCF 社区贡献者，我们很高兴能够开始另一个旅程。 允许项目基础设施由贡献者社区拥有和运营，遵循对项目其余部分有效的相同开放治理模型。 听起来令人兴奋。 请来 kubernetes.slack.com 上的 #sig-testing on kubernetes.slack.com 与我们联系。
 
 <!--
 Want to find out more? Come check out these resources:
@@ -229,5 +235,5 @@ Want to find out more? Come check out these resources:
 * [Automation and the Kubernetes Contributor Experience](https://www.youtube.com/watch?v=BsIC7gPkH5M)
 -->
 
-* [Prow：前往Kubernetes的方式]（https://bentheelder.io/posts/prow）
-* [自动化和Kubernetes贡献者体验]（https://www.youtube.com/watch?v=BsIC7gPkH5M）
+* [Prow: Testing the way to Kubernetes Next](https://bentheelder.io/posts/prow)
+* [Automation and the Kubernetes Contributor Experience](https://www.youtube.com/watch?v=BsIC7gPkH5M)
