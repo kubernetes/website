@@ -9,6 +9,11 @@ content_template: templates/concept
 weight: 80
 ---
 
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="1.17" >}}
+Authorization mode ABAC is deprecated as of Kubernetes release v1.17.  It will be removed in v1.20.
+{{< /note >}}
+
 {{% capture overview %}}
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
 {{% /capture %}}
