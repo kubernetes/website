@@ -311,9 +311,12 @@ kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 {{% /tab %}}
 
 {{% tab name="Cilium" %}}
-For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
-
 For Cilium to work correctly, you must pass `--pod-network-cidr=10.217.0.0/16` to `kubeadm init`.
+
+Cilium can provide kube-proxy functionality. To disable kube-proxy, pass
+`--skip-phases=addon/kube-proxy` to `kubeadm init`. Afterwards, you will need
+to configure Cilium to enable the BPF NodePort feature and to specify the kube-apiserver
+address, see [Kubernetes without kube-proxy](https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free/).
 
 To deploy Cilium you just need to run:
 
@@ -331,6 +334,8 @@ The output is similar to this:
 NAME           READY   STATUS    RESTARTS   AGE
 cilium-drxkl   1/1     Running   0          18m
 ```
+
+For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
 
 {{% /tab %}}
 
