@@ -567,7 +567,7 @@ kube-controller-manager [flags]
       <td colspan="2">--pod-eviction-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5m0s</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The grace period for deleting pods on failed nodes.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The grace period for deleting pods on failed nodes, only works if you set enable-taint-manager to false.</td>
     </tr>
 
     <tr>
