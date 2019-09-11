@@ -24,7 +24,7 @@ Kubernetes v1.6では`cloud-controller-manager`という新しいバイナリが
 
 * クラウドの認証/認可: クラウドではAPIへのアクセスを許可するためにトークンまたはIAMルールが必要になる場合があります
 * kubernetesの認証/認可: cloud-controller-managerは、kubernetes apiserverと通信するためにRBACルールの設定を必要とする場合があります
-* 高可用性: kube-controller-managerのように、リーダーエレクションを使用したクラウドコントローラーマネージャーの高可用性のセットアップが必要になる場合があります（デフォルトでオンになっています）。
+* 高可用性: kube-controller-managerのように、リーダー選出を使用したクラウドコントローラーマネージャーの高可用性のセットアップが必要になる場合があります（デフォルトでオンになっています）。
 
 ### cloud-controller-managerを動かす
 
