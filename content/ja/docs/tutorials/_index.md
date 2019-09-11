@@ -37,7 +37,7 @@ content_template: templates/concept
 
 * [StatefulSetの基本](/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [例: 永続化ボリュームを使ったWordPressとMySQLのデプロイ](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [例: 永続ボリュームを使ったWordPressとMySQLのデプロイ](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
 * [例: Stateful Setsを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)
 

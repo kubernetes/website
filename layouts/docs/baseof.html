@@ -11,12 +11,13 @@
 			{{ partial "docs/top-menu.html" . }}
 		</section>
 		{{ end }}
+    {{ block "announcement" . }}{{ partial "announcement.html" . }}{{ end }}
 		{{ block "deprecation" . }}{{ partial "deprecation-warning.html" . }}{{ end }}
 		<section id="encyclopedia">
 			{{ block "side-menu" . }}<div id="docsToc" style="display:none;"></div>{{ end }}
 			<div id="{{ block "content-id" . }}docsContent{{ end }}">
         {{ block "content" . }}{{ end }}
-        
+
         {{ partial "feedback.html" . }}
 
         {{ partial "git-info.html" . }}

@@ -28,8 +28,8 @@ The Kubernetes project maintains release branches for the most recent three mino
 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
 Patch releases are cut from those branches at a regular cadence, or as needed.
-This decision is owned by the [patch release manager](https://github.com/kubernetes/sig-release/blob/master/release-team/role-handbooks/patch-release-manager/README.md#release-timing).
-The patch release manager is a member of the [release team for each release](https://github.com/kubernetes/sig-release/tree/master/releases/).
+This decision is owned by the [patch release manager](https://github.com/kubernetes/sig-release/blob/master/release-engineering/role-handbooks/patch-release-manager.md#release-timing).
+The patch release manager is a member of the [release team for each release](https://github.com/kubernetes/sig-release/tree/master/release-team).
 
 Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
 
@@ -37,7 +37,7 @@ Minor releases occur approximately every 3 months, so each minor release branch 
 
 ### kube-apiserver
 
-In [highly-available (HA) clusters](/docs/setup/production-environment/tools/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+In [highly-available (HA) clusters](/docs/setup/production-environment/tools/kubeadm/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
 
 Example:
 
@@ -120,7 +120,7 @@ Upgrade `kube-apiserver` to **1.(n+1)**
 
 {{< note >}}
 Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
-[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
+[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 

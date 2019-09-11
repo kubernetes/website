@@ -44,6 +44,15 @@ called SIG Docs. We [communicate](#participate-in-sig-docs-discussions) using a 
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
 
+### Content guildelines
+
+The SIG Docs community created guidelines about what kind of content is allowed 
+in the Kubernetes documentation. Look over the [Documentation Content 
+Guide](/docs/contribute/style/content-guide/) to determine if the content 
+contribution you want to make is allowed. You can ask questions about allowed 
+content in the [#sig-docs]((#participate-in-sig-docs-discussions)) Slack 
+channel.
+
 ### Style guidelines
 
 We maintain a [style guide](/docs/contribute/style/style-guide/) with information
@@ -269,7 +278,10 @@ pull request if it detects that you pushed a new branch to your fork.
     If a reviewer asks you to make changes, you can go to the **Files changed**
     tab and click the pencil icon on any files that have been changed by the
     pull request. When you save the changed file, a new commit is created in
-    the branch being monitored by the pull request.
+    the branch being monitored by the pull request. If you are waiting on a 
+    reviewer to review the changes, proactively reach out to the reviewer 
+    once every 7 days. You can also drop into #sig-docs Slack channel, 
+    which is a good place to ask for help regarding PR reviews.
 
 7.  If your change is accepted, a reviewer merges your pull request, and the
     change is live on the Kubernetes website a few minutes later.
@@ -327,7 +339,7 @@ commercial in nature and should consist of content that will apply broadly to
 the Kubernetes community.
 
 To submit a blog post, you can either submit it using the
-[Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSch_phFYMTYlrTDuYziURP6nLMijoXx_f7sLABEU5gWBtxJHQ/viewform),
+[Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSdMpMoSIrhte5omZbTE7nB84qcGBy8XnnXhDFoW0h7p2zwXrw/viewform),
 or follow the steps below.
 
 1.  [Sign the CLA](#sign-the-cla) if you have not yet done so.

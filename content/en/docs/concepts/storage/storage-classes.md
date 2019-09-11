@@ -53,6 +53,7 @@ provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
 reclaimPolicy: Retain
+allowVolumeExpansion: true
 mountOptions:
   - debug
 volumeBindingMode: Immediate
@@ -109,6 +110,31 @@ either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
 
 Persistent Volumes that are created manually and managed via a storage class will have
 whatever reclaim policy they were assigned at creation.
+
+### Allow Volume Expansion
+
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+
+Persistent Volumes can be configured to be expandable. This feature when set to `true`, 
+allows the users to resize the volume by editing the corresponding PVC object. 
+
+The following types of volumes support volume expansion, when the underlying
+Storage Class has the field `allowVolumeExpansion` set to true.
+
+* gcePersistentDisk
+* awsElasticBlockStore
+* Cinder
+* glusterfs
+* rbd
+* Azure File
+* Azure Disk
+* Portworx
+* FlexVolumes
+* CSI  {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+{{< note >}}
+This feature cannot be used to shrink volumes.
+{{< /note >}}
 
 ### Mount Options
 
@@ -522,11 +548,12 @@ parameters:
   Default is "default".
 * `adminSecretName`: secret that holds information about the Quobyte user and
   the password to authenticate against the API server. The provided secret
-  must have type "kubernetes.io/quobyte", e.g. created in this way:
+  must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
+  e.g. created in this way:
 
     ```shell
     kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
       --namespace=kube-system
     ```
 
