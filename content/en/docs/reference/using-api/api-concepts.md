@@ -543,10 +543,11 @@ used when merging objects of this type.
 As a developer of a controller, you can use server-side apply as a way to
 simplify the update logic of your controller. The main differences with a
 read-modify-write and/or patch are the following:
-- the applied object must contain all the fields that the controller cares about.
-- there are no way to remove fields that haven't been applied by the controller
+
+* the applied object must contain all the fields that the controller cares about.
+* there are no way to remove fields that haven't been applied by the controller
   before (controller can still send a PATCH/UPDATE for these use-cases).
-- the objet doesn't have to be read beforehand, `resourceVersion` doesn't have
+* the object doesn't have to be read beforehand, `resourceVersion` doesn't have
   to be specified.
 
 It is strongly recommended for controllers to always "force" conflicts, since they
