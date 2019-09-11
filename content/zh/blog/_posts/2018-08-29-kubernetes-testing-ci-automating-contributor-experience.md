@@ -9,9 +9,9 @@ date:   2018-08-29
 -->
 
 ---
-布局：博客
-标题： 'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
-日期：  2018-08-29
+layout: blog
+title: '机器可以完成这项工作，一个关于 kubernetes 测试、CI 和自动化贡献者体验的故事'
+date: 2019-08-29
 ---
 
 **作者**：Aaron Crickenberger（谷歌）和 Benjamin Elder（谷歌）
@@ -70,12 +70,12 @@ Further experience revealed other areas where machines could do the work for us:
 * Pull Request 工作流程
   * 贡献者是否签署了我们的 CLA？
   * Pull Request 通过测试吗？
-  * Pull Request 合并吗？
+  * Pull Request 可以合并吗？
   * 合并提交是否通过了测试？
 * 鉴别分类
   * 谁应该审查 Pull Request？
   * 是否有足够的信息将问题发送给合适的人？
-  * 合并提交是否通过了测试？
+  * 问题是否依旧存在？
 * 项目健康
   * 项目中发生了什么？
   * 我们应该注意什么？
@@ -95,14 +95,14 @@ As we developed automation to improve our situation, we followed a few guiding p
 
 * 遵循适用于 Kubernetes 的推送/拉取控制循环模式
 * 首选无状态松散耦合服务
-* 更倾向于授权整个社区以及赋予少数核心贡献者权力
-* 开发自己的产品，避免重新发明轮子
+* 更倾向于授权整个社区权利，而不是赋予少数核心贡献者权力
+* 做好自己的事，而不要重新造轮子
 
 <!--
 ## Enter Prow
 -->
 
-## Enter Prow
+## 了解 Prow
 
 <!--
 This led us to create [Prow](https://git.k8s.io/test-infra/prow) as the central component for our automation. Prow is sort of like an [If This, Then That](https://ifttt.com/) for GitHub events, with a built-in library of [commands](https://prow.k8s.io/command-help), [plugins](https://prow.k8s.io/plugins), and utilities. We built Prow on top of Kubernetes to free ourselves from worrying about resource management and scheduling, and ensure a more pleasant operational experience.
@@ -125,18 +125,18 @@ Prow 让我们做以下事情：
 * Enforce org-wide and per-repo GitHub policies like [branch protection](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector) and [GitHub labels](https://github.com/kubernetes/test-infra/tree/master/label_sync)
 -->
 
-* 允许我们的社区通过评论诸如“/ priority critical-urgent”，“/ assign mary”或“/ close”之类的命令对 issues/Pull Requests 进行分类
+* 允许我们的社区通过评论诸如“/priority critical-urgent”，“/assign mary”或“/close”之类的命令对 issues/Pull Requests 进行分类
 * 根据用户更改的代码数量或创建的文件自动标记 Pull Requests
 * 标出长时间保持不活动状态 issues/Pull Requests
 * 自动合并符合我们PR工作流程要求的 Pull Requests
-* 运行定义为[Knative Builds]（https://github.com/knative/build），Kubernetes Podsv或vvJenkinsvvv工作的 CI 工作
+* 运行定义为[Knative Builds](https://github.com/knative/build)的 Kubernetes Pods或 Jenkins jobs的 CI 作业
 * 实施组织范围和重构 GitHub 仓库策略，如[Knative Builds]（https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector）和[GitHub labels]（https://github.com/kubernetes/test-infra/tree/master/label_sync）
 
 <!--
 Prow was initially developed by the engineering productivity team building Google Kubernetes Engine, and is actively contributed to by multiple members of Kubernetes SIG Testing. Prow has been adopted by several other open source projects, including Istio, JetStack, Knative and OpenShift. [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md) takes a Kubernetes cluster and `kubectl apply starter.yaml` (running pods on a Kubernetes cluster).
 -->
 
-Prow最初由构建 Google Kubernetes Engine 的工程生产力团队开发，并由 Kubernetes SIG Testing 的多个成员积极贡献。 Prow 已被其他几个开源项目采用，包括 Istio，JetStack，Knative 和 OpenShift。 [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md)需要一个 Kubernetes 集群和 `kubectl apply starter.yaml`（在 Kubernetes 集群上运行 pod）。
+Prow最初由构建 Google Kubernetes Engine 的工程效率团队开发，并由 Kubernetes SIG Testing 的多个成员积极贡献。 Prow 已被其他几个开源项目采用，包括 Istio，JetStack，Knative 和 OpenShift。 [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md)需要一个 Kubernetes 集群和 `kubectl apply starter.yaml`（在 Kubernetes 集群上运行 pod）。
 
 <!--
 Once we had Prow in place, we began to hit other scaling bottlenecks, and so produced additional tooling to support testing at the scale required by Kubernetes, including:
