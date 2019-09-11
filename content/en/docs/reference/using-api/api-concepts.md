@@ -475,7 +475,7 @@ a little differently.
 For instance, only the apply operation fails on conflicts while update does
 not. Also, apply operations are required to identify themselves by providing a
 `fieldManager` query parameter, while the query parameter is optional for update
-operations.
+operations. Finally, when using the apply operation you cannot have `managedFields` in the object that is being applied.
 
 An example object with multiple managers could look like this:
 
