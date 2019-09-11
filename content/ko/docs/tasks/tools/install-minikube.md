@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-이 페이지는 단일 노드 쿠버네티스 클러스터를 노트북의 가상 머신에서 구동하는 도구인 [Minikube](/docs/tutorials/hello-minikube)의 설치 방법을 설명한다.
+이 페이지는 단일 노드 쿠버네티스 클러스터를 노트북의 가상 머신에서 구동하는 도구인 [Minikube](/ko/docs/tutorials/hello-minikube)의 설치 방법을 설명한다.
 
 {{% /capture %}}
 

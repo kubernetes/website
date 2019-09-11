@@ -1063,7 +1063,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 #### 디플로이먼트 재생성
 
-기존의 모든 파드는 `.spec.strategy.type==Recreate` 일면 새 파드가 생성되기 전에 죽는다.
+기존의 모든 파드는 `.spec.strategy.type==Recreate` 이면 새 파드가 생성되기 전에 죽는다.
 
 #### 디플로이먼트 롤링 업데이트
 
