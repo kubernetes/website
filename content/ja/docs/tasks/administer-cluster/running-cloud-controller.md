@@ -23,7 +23,7 @@ Kubernetes v1.6では`cloud-controller-manager`という新しいバイナリが
 すべてのクラウドには動作させるためにそれぞれのクラウドプロバイダーの統合を行う独自の要件があり、`kube-controller-manager`を実行する場合の要件とそれほど違わないようにする必要があります。一般的な経験則として、以下のものが必要です。
 
 * クラウドの認証/認可: クラウドではAPIへのアクセスを許可するためにトークンまたはIAMルールが必要になる場合があります
-* kubernetesの認証/承認: cloud-controller-managerは、kubernetes apiserverと通信するためにRBACルールの設定を必要とする場合があります
+* kubernetesの認証/認可: cloud-controller-managerは、kubernetes apiserverと通信するためにRBACルールの設定を必要とする場合があります
 * 高可用性: kube-controller-managerのように、リーダーエレクションを使用したクラウドコントローラーマネージャーの高可用性のセットアップが必要になる場合があります（デフォルトでオンになっています）。
 
 ### cloud-controller-managerを動かす
