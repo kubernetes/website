@@ -17,6 +17,7 @@ weight: 40
 
 {{% capture overview %}}
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
+
 <!--
 A service broker, as defined by the [Open service broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of managed services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
 Some examples of managed services are Microsoft Azure Cloud Queue, Amazon Simple Queue Service, and Google Cloud Pub/Sub, but they can be any software offering that can be used by an application.
