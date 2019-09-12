@@ -26,7 +26,7 @@ Using Service Catalog, a {{< glossary_tooltip text="cluster operator" term_id="c
 服务代理是由[开放服务代理 API 规范](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md)定义的一组托管服务的终结点，由第三方提供并维护，其中的第三方可以是 AWS，GCP 或 Azure 等云服务提供商。
 托管服务的一些示例是 Microsoft Azure Cloud Queue，Amazon Simple Queue Service 和 Google Cloud Pub/Sub，但它们是可以使用应用程序的任何软件产品。
 
-使用服务目录，{{< glossary_tooltip text="集群操作者" term_id="cluster-operator" >}}可以浏览其提供的托管服务列表，提供托管服务实例并与之绑定，以使其可以被 Kubernetes 集群中的应用程序使用。
+使用服务目录，集群操作者可以浏览其提供的托管服务列表，提供托管服务实例并与之绑定，以使其可以被 Kubernetes 集群中的应用程序使用。
 
 {{% /capture %}}
 
@@ -45,7 +45,7 @@ The application can simply use it as a service.
 -->
 ## 示例用例
 
-{{< glossary_tooltip text="应用开发者" term_id="application-developer" >}}希望使用消息队列作为其在 Kubernetes 集群中运行的应用程序的一部分。
+应用开发者希望使用消息队列作为其在 Kubernetes 集群中运行的应用程序的一部分。
 但是，它们不想承受建立这种服务的开销，也不想自行管理。幸运的是，有一家云服务提供商通过它们的服务代理将消息队列作为托管服务提供。
 
 集群运维人员可以设置服务目录并使用它与云服务提供商的服务代理 通信，以此提供消息队列服务的实例并使其对 Kubernetes 中的应用程序可用。
