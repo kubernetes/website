@@ -19,7 +19,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 * 노드 포트
 * 컨피그 맵과 시크릿
 * 대시보드
-* 컨테이너 런타임: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) 와 [containerd](https://github.com/containerd/containerd)
+* 컨테이너 런타임: Docker, [CRI-O](https://github.com/kubernetes-incubator/cri-o) 와 [containerd](https://github.com/containerd/containerd)
 * CNI(Container Network Interface) 사용
 * 인그레스
 
@@ -228,7 +228,6 @@ minikube start \
 {{% /tab %}}
 {{% tab name="CRI-O" %}}
 [CRI-O](https://github.com/kubernetes-incubator/cri-o)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
-
 ```bash
 minikube start \
     --network-plugin=cni \
@@ -247,17 +246,6 @@ minikube start \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
     --bootstrapper=kubeadm
 ```
-{{% /tab %}}
-{{% tab name="rkt container engine" %}}
-[rkt](https://github.com/rkt/rkt)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
-
-```shell
-minikube start \
-    --network-plugin=cni \
-    --enable-default-cni \
-    --container-runtime=rkt
-```
-이것은 rkt와 Docker와 CNI 네트워킹을 포함하는 대안적인 Minikube ISO 이미지를 이용한다.
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -452,10 +440,8 @@ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## 알려진 이슈
-* 클라우드 공급자를 필요로 하는 기능은 Minikube에서 동작하지 않는다. 여기에는 다음이 포함된다.
-  * 로드밸런서
-* 다중 노드를 위한 기능들이다. 여기에는 다음이 포함된다.
-  * 진보된 스케쥴링 정책
+
+다중 노드가 필요한 기능은 Minukube에서 동작하지 않는다.
 
 ## 설계
 
