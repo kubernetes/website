@@ -132,7 +132,7 @@ If a user deletes a `VolumeSnapshot` API object in active use by a PVC, the `Vol
 
 ## Which volume plugins support Kubernetes Snapshots?
 
-Snapshots are only supported for CSI drivers (not for in-tree or Flexvolume). To use the Kubernetes snapshots feature, ensure that a CSI Driver that implements snapshots is deployed on your cluster.
+Snapshots are only supported for CSI drivers (not for in-tree or FlexVolume). To use the Kubernetes snapshots feature, ensure that a CSI Driver that implements snapshots is deployed on your cluster.
 
 As of the publishing of this blog post, the following CSI drivers support snapshots:
 

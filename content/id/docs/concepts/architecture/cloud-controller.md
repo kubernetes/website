@@ -51,7 +51,7 @@ Pada versi 1.9, CCM menjalankan pengendali-pengendali dari daftar sebelumnya seb
 Volume Controller secara sengaja tidak dipilih sebagai bagian dari CCM. Hal ini adalah karena kerumitan untuk melakukannya, dan mempertimbangkan usaha-usaha yang sedang berlangsung untuk memisahkan logika volume yang spesifik vendor dari KCM, sehingga diputuskan bahwa Volume Contoller tidak akan dipisahkan dari KCM ke CCM.
 {{< /note >}}
 
-Rencana awal untuk mendukung volume menggunakan CCM adalah dengan menggunakan Flexvolume untuk mendukung penambahan volume secara _pluggable_. Namun, ada sebuah usaha lain yang diberi nama Container Storage Interface (CSI) yang sedang berlangsung untuk menggantikan Flexvolume.
+Rencana awal untuk mendukung volume menggunakan CCM adalah dengan menggunakan FlexVolume untuk mendukung penambahan volume secara _pluggable_. Namun, ada sebuah usaha lain yang diberi nama Container Storage Interface (CSI) yang sedang berlangsung untuk menggantikan FlexVolume.
 
 Mempertimbangkan dinamika tersebut, kami memutuskan untuk mengambil tindakan sementara hingga CSI siap digunakan.
 
