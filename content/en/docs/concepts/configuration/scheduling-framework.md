@@ -139,7 +139,7 @@ happens before the scheduler actually binds the Pod to the Node, and it exists
 to prevent race conditions while the scheduler waits for the bind to succeed.
 
 This is the last step in a scheduling cycle. Once a Pod is in the reserved
-state, it will either trigger [Un-reserve](#un-reserve) plugins (on failure) or
+state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
 [Post-bind](#post-bind) plugins (on success) at the end of the binding cycle.
 
 *Note: This concept used to be referred to as "assume".*
@@ -154,13 +154,13 @@ can do one of three things.
 
 1.  **deny** \
     If any permit plugin denies a Pod, it is returned to the scheduling queue.
-    This will trigger [Un-reserve](#un-reserve) plugins.
+    This will trigger [Unreserve](#unreserve) plugins.
 
 1.  **wait** (with a timeout) \
     If a permit plugin returns "wait", then the Pod is kept in the permit phase
     until a [plugin approves it](#frameworkhandle). If a timeout occurs, **wait**
     becomes **deny** and the Pod is returned to the scheduling queue, triggering
-    [un-reserve](#un-reserve) plugins.
+    [Unreserve](#unreserve) plugins.
 
 **Approving a Pod binding**
 
@@ -175,7 +175,7 @@ These plugins are used to perform any work required before a Pod is bound. For
 example, a pre-bind plugin may provision a network volume and mount it on the
 target node before allowing the Pod to run there.
 
-If any pre-bind plugin returns an error, the Pod is [rejected](#un-reserve) and
+If any pre-bind plugin returns an error, the Pod is [rejected](#unreserve) and
 returned to the scheduling queue.
 
 ### Bind
