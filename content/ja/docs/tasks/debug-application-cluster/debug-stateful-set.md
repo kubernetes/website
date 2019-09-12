@@ -33,7 +33,7 @@ Podが長期間`Unknown`または`Terminating`の状態になっていること�
 
 {{% capture whatsnext %}}
 
-[Init Containerのデバッグ](/docs/tasks/debug-application-cluster/debug-init-containers/)の詳細
+[Init Containerのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)の詳細
 
 {{% /capture %}}
 
