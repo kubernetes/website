@@ -16,7 +16,7 @@ weight: 40
 -->
 
 {{% capture overview %}}
-{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
+{{< glossary_definition term_id="service-catalog" length="all" prepend="" >}}  
 
 <!--
 A service broker, as defined by the [Open service broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md), is an endpoint for a set of managed services offered and maintained by a third-party, which could be a cloud provider such as AWS, GCP, or Azure.
@@ -27,7 +27,7 @@ Using Service Catalog, a {{< glossary_tooltip text="cluster operator" term_id="c
 服务代理是由[开放服务代理 API 规范](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md)定义的一组托管服务的终结点，由第三方提供并维护，其中的第三方可以是 AWS，GCP 或 Azure 等云服务提供商。
 托管服务的一些示例是 Microsoft Azure Cloud Queue，Amazon Simple Queue Service 和 Google Cloud Pub/Sub，但它们是可以使用应用程序的任何软件产品。
 
-使用服务目录，集群操作者可以浏览其提供的托管服务列表，提供托管服务实例并与之绑定，以使其可以被 Kubernetes 集群中的应用程序使用。
+使用服务目录，{{< glossary_tooltip text="集群操作者" term_id="cluster-operator" >}}可以浏览其提供的托管服务列表，提供托管服务实例并与之绑定，以使其可以被 Kubernetes 集群中的应用程序使用。
 
 {{% /capture %}}
 
