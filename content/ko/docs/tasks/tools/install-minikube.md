@@ -18,17 +18,19 @@ card:
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="리눅스" %}}
 리눅스에서 가상화 지원 여부를 확인하려면, 아래의 명령을 실행하고 출력이 비어있지 않은지 확인한다.
-```shell
-egrep --color 'vmx|svm' /proc/cpuinfo
+```
+grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
 {{% /tab %}}
+
 {{% tab name="맥OS" %}}
 맥OS에서 가상화 지원 여부를 확인하려면, 아래 명령어를 터미널에서 실행한다.
 ```
-sysctl -a | grep machdep.cpu.features
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
 ```
-만약 출력 중에 `VMX`를 볼 수 있다면 VT-x 기능을 운영체제에서 지원한다.
+만약 출력 중에 (색상으로 강조된) `VMX`를 볼 수 있다면, VT-x 기능이 머신에서 활성화된 것이다.
 {{% /tab %}}
+
 {{% tab name="윈도우" %}}
 윈도우 8 이후 버전에서 가상화 지원 여부를 확인하려면, 다음 명령어를 윈도우 터미널이나 명령 프롬프트에서 실행한다.
 ```
@@ -73,7 +75,7 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다. 이 드라이버를 사용하기 위해서는 하이퍼바이저가 아닌 [도커](https://www.docker.com/products/docker-desktop)와 리눅스 환경을 필요로 한다.
+Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다.
 {{< /note >}}
 
 ### 패키지를 이용하여 Minikube 설치
@@ -158,14 +160,14 @@ Hyper-V는 다음 세 버전의 윈도우 10에서 실행할 수 있다. Windows
 윈도우에서 Minikube를 설치하는 가장 쉬운 방법은 [Chocolatey](https://chocolatey.org/)를 사용하는 것이다(관리자 권한으로 실행).
 
 ```shell
-choco install minikube kubernetes-cli
+choco install minikube
 ```
 
 Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Minikube 실행 파일의 경로는 실행 경로(path)에 자동으로 추가된다.
 
 ### 인스톨러 실행파일을 통한 Minikube 설치
 
-윈도우에서 수동으로 [Windows 인스톨러](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal)로 설치하려면, [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/minikube-installer.exe)를 다운로드 받고, 이 인스톨러를 실행한다.
+[윈도우 인스톨러](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal)를 사용하여 윈도우에 Minikube를 수동으로 설치하려면, [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe)를 다운로드 받고, 이 인스톨러를 실행한다.
 
 ### 직접 다운로드하여 Minikube 설치
 

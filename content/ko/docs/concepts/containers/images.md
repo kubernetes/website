@@ -57,7 +57,7 @@ Docker *18.06 또는 그 이상* 을 사용하길 바란다. 더 낮은 버전�
     - 각 클러스터에 대하여
     - Google 컴퓨트 엔진 또는 Google 쿠버네티스 엔진에서 자동적으로 구성됨
     - 모든 파드는 해당 프로젝트의 프라이빗 레지스트리를 읽을 수 있음
-  - AWS EC2 컨테이너 레지스트리(ECR) 사용
+  - AWS Elastic Container Registry(ECR) 사용
     - IAM 역할 및 정책을 사용하여 ECR 저장소에 접근을 제어함
     - ECR 로그인 자격 증명은 자동으로 갱신됨
   - Oracle 클라우드 인프라스트럭처 레지스트리(OCIR) 사용
@@ -67,7 +67,7 @@ Docker *18.06 또는 그 이상* 을 사용하길 바란다. 더 낮은 버전�
   - 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
     - 모든 파드는 구성된 프라이빗 레지스트리를 읽을 수 있음
     - 클러스터 관리자에 의한 노드 구성 필요
-  - 미리 풀링(pre-pulling)된 이미지
+  - 미리 내려받은(pre-pulled) 이미지
     - 모든 파드는 노드에 캐시된 모든 이미지를 사용 가능
     - 셋업을 위해서는 모든 노드에 대해서 root 접근이 필요
   - 파드에 ImagePullSecrets을 명시
@@ -89,10 +89,9 @@ Kubelet은 해당 인스턴스의 Google 서비스 계정을 이용하여 GCR을
 인스턴스의 서비스 계정은 `https://www.googleapis.com/auth/devstorage.read_only`라서,
 프로젝트의 GCR로부터 풀은 할 수 있지만 푸시는 할 수 없다.
 
-### AWS EC2 컨테이너 레지스트리 사용
+### Amazon Elastic Container Registry 사용
 
-쿠버네티스는 노드가 AWS EC2 인스턴스일 때, [AWS EC2 컨테이너 
-레지스트리](https://aws.amazon.com/ecr/)를 자연스럽게 지원한다.
+쿠버네티스는 노드가 AWS EC2 인스턴스일 때, [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/)를 자연스럽게 지원한다.
 
 간단히 이미지의 전체 이름(예: `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)을 
 파드 정의에 사용하면 된다.
@@ -240,7 +239,7 @@ kubectl describe pods/private-image-test-1 | grep "Failed"
 프라이빗 레지스트리 키가 `.docker/config.json`에 추가되고 나면 모든 파드는 
 프라이빗 레지스트리의 이미지에 읽기 접근 권한을 가지게 될 것이다.
 
-### 미리 풀링(pre-pulling)된 이미지
+### 미리 내려받은 이미지
 
 {{< note >}}
 Google 쿠버네티스 엔진에서 동작 중이라면, 이미 각 노드에 Google 컨테이너 레지스트리에 대한 자격 증명과 함께 `.dockercfg`가 있을 것이다. 그렇다면 이 방법은 쓸 수 없다.
@@ -257,11 +256,11 @@ GCE 및 자동 노드 교체를 수행하는 다른 클라우드 제공자에 �
 로컬 이미지가 사용된다(우선적으로 또는 배타적으로).
 
 레지스트리 인증의 대안으로 미리 풀 된 이미지에 의존하고 싶다면, 
-클러스터의 모든 노드가 동일한 미리 풀 된 이미지를 가지고 있는지 확인해야 한다.
+클러스터의 모든 노드가 동일한 미리 내려받은 이미지를 가지고 있는지 확인해야 한다.
 
 이것은 특정 이미지를 속도를 위해 미리 로드하거나 프라이빗 레지스트리에 대한 인증의 대안으로 사용될 수 있다.
 
-모든 파드는 미리 풀 된 이미지에 대해 읽기 접근 권한을 가질 것이다.
+모든 파드는 미리 내려받은 이미지에 대해 읽기 접근 권한을 가질 것이다.
 
 ### 파드에 ImagePullSecrets 명시
 

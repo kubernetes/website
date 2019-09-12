@@ -61,13 +61,13 @@ kube-public   Active    1d
 
 ### 요청에 네임스페이스 설정하기
 
-임시로 네임스페이스를 요청에 설정하기 위해서는, `--namespace` 플래그를 사용한다.
+네임스페이스를 현재 요청에 설정하기 위해서는, `--namespace` 플래그를 사용한다.
 
 예를 들면,
 
 ```shell
-kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
-kubectl --namespace=<insert-namespace-name-here> get pods
+kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
+kubectl get pods --namespace=<insert-namespace-name-here>
 ```
 
 ### 선호하는 네임스페이스 설정하기
@@ -108,3 +108,10 @@ kubectl api-resources --namespaced=false
 ```
 
 {{% /capture %}}
+
+{{% capture whatsnext %}}
+* [신규 네임스페이스 생성](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)에 대해 더 배우기.
+* [네임스페이스 삭제](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)에 대해 더 배우기.
+
+{{% /capture %}}
+

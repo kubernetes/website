@@ -5,7 +5,6 @@ date: 2019-05-12
 full_link:
 short_description: >
   The layer where various containerized applications run.
-
 aka:
 tags:
 - fundamental
