@@ -1054,13 +1054,13 @@ et pas d'isolation entre les conteneurs ou entre les Pods.
 Dans le futur, il est prévu que les volumes `emptyDir` et `hostPath` soient en mesure de demander une certaine quantité d'espace en utilisant une spécification de [ressource](/docs/user-guide/compute-resources) et de sélectionner un type de support à utiliser, pour les clusters qui ont plusieurs types de support.
 
 ## Plugins de volume Out-of-Tree
-Les plugins de volume Out-of-tree incluent l'interface CSI (Container Storage Interface) et Flexvolume.
+Les plugins de volume Out-of-tree incluent l'interface CSI (Container Storage Interface) et FlexVolume.
 Ils permettent aux fournisseurs de stockage de créer des plugins de stockage personnalisés sans les ajouter au dépôt Kubernetes.
 
-Avant l'introduction de l'interface CSI et Flexvolume, tous les plugins de volume (tels que les types de volume listés plus haut) étaient "in-tree", ce qui signifie qu'ils étaient construits, liés, compilés et livrés avec les binaires de base Kubernetes et étendent l'API Kubernetes de base.
+Avant l'introduction de l'interface CSI et FlexVolume, tous les plugins de volume (tels que les types de volume listés plus haut) étaient "in-tree", ce qui signifie qu'ils étaient construits, liés, compilés et livrés avec les binaires de base Kubernetes et étendent l'API Kubernetes de base.
 Cela signifiait que l'ajout d'un nouveau système de stockage à Kubernetes (un plugin de volume) requérait de vérifier le code dans le dépôt de base de Kubernetes.
 
-CSI et Flexvolume permettent à des plugins de volume d'être développés indépendamment de la base de code Kubernetes et déployés (installés) sur des clusters Kubernetes en tant qu'extensions.
+CSI et FlexVolume permettent à des plugins de volume d'être développés indépendamment de la base de code Kubernetes et déployés (installés) sur des clusters Kubernetes en tant qu'extensions.
 
 Pour les fournisseurs de stockage qui cherchent à créer un plugin de volume "out-of-tree", se référer à [cette FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
@@ -1185,12 +1185,12 @@ Dans l'état alpha, les opérations et fonctionnalités qui sont supportées inc
 
 Les plugins "in-tree" qui supportent la migration CSI et qui ont un pilote CSI correspondant implémenté sont listés dans la section "Types de volumes" au-dessus.
 
-### Flexvolume {#flexVolume}
+### FlexVolume {#flexVolume}
 
-Flexvolume est une interface de plugin "out-of-tree" qui existe dans Kubernetes depuis la version 1.2 (avant CSI).
-Elle utilise un modèle basé sur exec pour s'interfacer avec les pilotes. Les binaires de pilote Flexvolume doivent être installés dans un chemin de volume de plugin prédéfini sur chaque nœud (et dans certains cas le nœud maître).
+FlexVolume est une interface de plugin "out-of-tree" qui existe dans Kubernetes depuis la version 1.2 (avant CSI).
+Elle utilise un modèle basé sur exec pour s'interfacer avec les pilotes. Les binaires de pilote FlexVolume doivent être installés dans un chemin de volume de plugin prédéfini sur chaque nœud (et dans certains cas le nœud maître).
 
-Les Pods interagissent avec les pilotes Flexvolume à travers le plugin "in-tree" `flexvolume`
+Les Pods interagissent avec les pilotes FlexVolume à travers le plugin "in-tree" `flexvolume`
 Plus de détails sont disponibles [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
 
 ## Propagation de montage
@@ -1217,7 +1217,7 @@ Ses valeurs sont :
  * `Bidirectional` - Ce montage de volume se comporte de la même manière que le montage `HostToContainer`.
    De plus, tous les montages de volume créés par le conteneur seront propagés à l'hôte et à tous les conteneurs des autres Pods qui utilisent le même volume.
 
-   Un cas d'utilisation typique pour ce mode est un Pod avec un Flexvolume ou un pilote CSI, ou un Pod qui nécessite de monter quelque chose sur l'hôte en utilisant un volume `hostPath`.
+   Un cas d'utilisation typique pour ce mode est un Pod avec un FlexVolume ou un pilote CSI, ou un Pod qui nécessite de monter quelque chose sur l'hôte en utilisant un volume `hostPath`.
 
    Ce mode est équivalent à une propagation de montage `rshared` tel que décrit dans la
    [documentation du noyau Linux](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
