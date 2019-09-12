@@ -1,9 +1,12 @@
+<!--
 ---
 title: " Managing Kubernetes Pods, Services and Replication Controllers with Puppet "
 date: 2015-12-17
 slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
 url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
 ---
+-->
+
 _Today’s guest post is written by Gareth Rushgrove, Senior Software Engineer at Puppet Labs, a leader in IT automation. Gareth tells us about a new Puppet module that helps manage resources in Kubernetes.&nbsp;_  
 
 People familiar with [Puppet](https://github.com/puppetlabs/puppet)&nbsp;might have used it for managing files, packages and users on host computers. But Puppet is first and foremost a configuration management tool, and config management is a much broader discipline than just managing host-level resources. A good definition of configuration management is that it aims to solve four related problems: identification, control, status accounting and verification and audit. These problems exist in the operation of any complex system, and with the new [Puppet Kubernetes module](https://forge.puppetlabs.com/garethr/kubernetes)&nbsp;we’re starting to look at how we can solve those problems for Kubernetes.  
