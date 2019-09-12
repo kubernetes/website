@@ -351,7 +351,7 @@ In the CLI, the access modes are abbreviated to:
 | Cinder               | &#x2713;               | -                     | -            |
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver |
 | FC                   | &#x2713;               | &#x2713;              | -            |
-| Flexvolume           | &#x2713;               | &#x2713;              | depends on the driver |
+| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver |
 | Flocker              | &#x2713;               | -                     | -            |
 | GCEPersistentDisk    | &#x2713;               | &#x2713;              | -            |
 | Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;     |
