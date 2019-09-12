@@ -13,7 +13,7 @@ weight: 50
 * StatefulSetはKubernetesバージョン1.5以降でのみ利用可能です。
   Kubernetesのバージョンを確認するには、`kubectl version`を実行してください。
 
-* すべてのステートフルアプリケーションがうまくスケールできるわけではありません。StatefulSetがスケールするかどうかわからない場合は、[StatefulSetの概念](/docs/concepts/workloads/controllers/statefulset/)または[StatefulSetのチュートリアル](/docs/tutorials/stateful-application/basic-stateful-set/)を参照してください。
+* すべてのステートフルアプリケーションがうまくスケールできるわけではありません。StatefulSetがスケールするかどうかわからない場合は、[StatefulSetの概念](/ja/docs/concepts/workloads/controllers/statefulset/)または[StatefulSetのチュートリアル](/docs/tutorials/stateful-application/basic-stateful-set/)を参照してください。
 
 * ステートフルアプリケーションクラスターが完全に健全であると確信できる場合にのみ、スケーリングを実行してください。
 
@@ -75,6 +75,6 @@ spec.replicas > 1の場合、Kubernetesは不健康なPodの理由を判断で�
 
 {{% capture whatsnext %}}
 
-* [StatefulSetの削除](/docs/tasks/run-application/delete-stateful-set/)の詳細
+* [StatefulSetの削除](/ja/docs/tasks/run-application/delete-stateful-set/)の詳細
 
 {{% /capture %}}
