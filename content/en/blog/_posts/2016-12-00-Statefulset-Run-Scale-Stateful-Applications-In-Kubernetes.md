@@ -418,7 +418,7 @@ zk-budget   2               1                     2h
 
 
 
-zk-budget indicates that at least two members of the ensemble must be available at all times for the ensemble to be healthy. If you attempt to drain a node prior taking it offline, and if draining it would terminate a Pod that violates the budget, the drain operation will fail. If you use [kubectl drain](/docs/user-guide/kubectl/kubectl_drain/), in conjunction with PodDisruptionBudgets, to cordon your nodes and to evict all Pods prior to maintenance or decommissioning, you can ensure that the procedure won’t be disruptive to your stateful applications.
+zk-budget indicates that at least two members of the ensemble must be available at all times for the ensemble to be healthy. If you attempt to drain a node prior taking it offline, and if draining it would terminate a Pod that violates the budget, the drain operation will fail. If you use [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain), in conjunction with PodDisruptionBudgets, to cordon your nodes and to evict all Pods prior to maintenance or decommissioning, you can ensure that the procedure won’t be disruptive to your stateful applications.
 
 
 
