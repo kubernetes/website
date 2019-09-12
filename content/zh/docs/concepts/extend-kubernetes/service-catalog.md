@@ -45,7 +45,7 @@ The application can simply use it as a service.
 -->
 ## 示例用例
 
-{{< glossary_tooltip text="应用开发者" term_id="application-developer" >}}希望使用消息队列作为其在 Kubernetes 集群中运行的应用程序的一部分。
+{{< glossary_tooltip text="application developer" term_id="application-developer" >}}希望使用消息队列作为其在 Kubernetes 集群中运行的应用程序的一部分。
 但是，它们不想承受建立这种服务的开销，也不想自行管理。幸运的是，有一家云服务提供商通过它们的 服务代理 将消息队列作为 托管服务 提供。
 
 集群运维人员可以设置服务目录并使用它与云服务提供商的服务代理 通信，以此提供消息队列服务的实例并使其对 Kubernetes 中的应用程序可用。
@@ -446,7 +446,7 @@ The following example describes how to map secret values into application enviro
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
 * View [svc-cat.io](https://svc-cat.io/docs/).
 -->
-* 如果您熟悉 {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}，您可以[使用 Helm 将服务目录](/docs/tasks/service-catalog/install-service-catalog-using-helm/)安装到 Kubernetes 集群中。或者，您可以[使用 SC 工具安装服务目录](/docs/tasks/service-catalog/install-service-catalog-using-sc/)。
+* 如果您熟悉{{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}，您可以[使用 Helm 将服务目录](/docs/tasks/service-catalog/install-service-catalog-using-helm/)安装到 Kubernetes 集群中。或者，您可以[使用 SC 工具安装服务目录](/docs/tasks/service-catalog/install-service-catalog-using-sc/)。
 * 查看[服务代理示例](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)。
 * 浏览 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目。
 * 查看 [svc-cat.io](https://svc-cat.io/docs/)。
