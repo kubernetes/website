@@ -61,9 +61,9 @@ Kubernetes может быть запущен различных платфор�
 
 * [MicroK8s](https://microk8s.io/) предоставляет возможность установки с использованием одной команды последней версии Kubernetes на локальную машину для разработки и тестирования. Настройка происходит быстро (~30 сек) и поддерживает большое количество плагинов, включая Istio, подключаемых с помощью одной команды.
 
-* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
+* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) предоставляет возможность использования VirtualBox на вашей машине для развёртывания Kubernetes для разработки и выполнения тестовых сценариев на одну или более виртуальную машину. Может быть масштабировано для использования на многоузловом кластере.
 
-* [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based Infrastructure as Code (IaC) scripts to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
+* [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) - это набор Infrastructure as Code (IaC) скриптов на Terraform/Packer/BASH для создания семиузлового LXD кластера на базе Linux (1 загрузчик, 1 мастер, 1 управляющий узел, 3 воркера).
 
 * [k3s](https://k3s.io) is a lightweight production-grade Kubernetes distribution.  With a super-simple installation process and a binary footprint around 40MB, it is ideal for local-machine development.
 

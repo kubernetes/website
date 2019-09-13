@@ -2,7 +2,7 @@
 reviewers:
 - bgrant0607
 - mikedanese
-title: What is Kubernetes
+title: Что такое Kubernetes
 content_template: templates/concept
 weight: 10
 card: 
@@ -11,68 +11,38 @@ card:
 ---
 
 {{% capture overview %}}
-This page is an overview of Kubernetes.
+На этой странице обзор Kubernetes.
 {{% /capture %}}
 
 {{% capture body %}}
-Kubernetes is a portable, extensible open-source platform for managing
-containerized workloads and services, that facilitates both
-declarative configuration and automation. It has a large, rapidly
-growing ecosystem. Kubernetes services, support, and tools are widely available.
+Kubernetes - это портативная, расширяемая платформа с открытым исходным кодом для управления контейниризированной рабочей нагрузкой и сервисами, обеспечивающая одновременно декларативному конфигурированию и автоматизации. Для Kubernetes есть постоянно развивающаяся, большая экосистема. Сервисы Kubernetes, поддержка и инструменты широко доступны.
 
-Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon
-a [decade and a half of experience that Google has with running
-production workloads at
-scale](https://research.google.com/pubs/pub43438.html), combined with
-best-of-breed ideas and practices from the community.
+Google открыл доступ к исходному коду Kubernetes в 2014 году. Kubernetes создан после [полутора десятилетий опыта, который Google обрёл при работе с масштабированием рабочей нагрузки](https://research.google.com/pubs/pub43438.html), объединённым с лучшими идеями и практиками комьюнити.
 
-## Why do I need Kubernetes and what can it do
+## Зачем мне Kubernetes и что можно сделать с его помощью
 
-Kubernetes has a number of features. It can be thought of as:
+В Kubernetes реализовано большое количество возможностей. Можно обобщить их следующим образом:
 
-- a container platform
-- a microservices platform
-- a portable cloud platform
-and a lot more.
+- платформа для контейнеров
+- платформа для микросервисов
+- портативная облачная платформа
+а также многое другое.
 
-Kubernetes provides a **container-centric** management environment. It
-orchestrates computing, networking, and storage infrastructure on
-behalf of user workloads. This provides much of the simplicity of
-Platform as a Service (PaaS) with the flexibility of Infrastructure as
-a Service (IaaS), and enables portability across infrastructure
-providers.
+Kubernetes предоставляет **контейнеро-ориентированное** окружение для управления. Оно оркестрирует вычислительную и сетевую инфраструктуру, а также инфраструктуру хранения от имени рабочей нагрузки от пользователей. Это позволяет добиться большей простоты Платформы как сервиса (PaaS) не теряя гибкости Инфраструктуры как сервиса (IaaS), а также даёт возможность портативности среди поставщиков инфраструктуры. 
 
-## How Kubernetes is a platform
+## Почему Kubernetes это платформа
 
-Even though Kubernetes provides a lot of functionality, there are
-always new scenarios that would benefit from new
-features. Application-specific workflows can be streamlined to
-accelerate developer velocity. Ad hoc orchestration that is acceptable
-initially often requires robust automation at scale. This is why
-Kubernetes was also designed to serve as a platform for building an
-ecosystem of components and tools to make it easier to deploy, scale,
-and manage applications.
+Не смотря на то, что Kubernetes предоставляет большой спектр возможностей, всегда есть сценарии, требующие новых функций. Последовательности действий, специфичные для конкретного приложения, могут быть оптимизированны для ускорения скорости разработки. Специализированная оркестрация, которая вначале подходила, при масштабировании может требовать надёжной автоматизации. По этим причинам Kubernetes создавался как платформа для создания экосистемы из компонентов и инструментов для облегчения развёртывания, масштабирования и управления приложениями.
 
-[Labels](/docs/concepts/overview/working-with-objects/labels/) empower
-users to organize their resources however they
-please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
-enable users to decorate resources with custom information to
-facilitate their workflows and provide an easy way for management
-tools to checkpoint state.
+[Лейблы](/docs/concepts/overview/working-with-objects/labels/) позволяют пользователям организовывать ресурсы по собственному желанию. [Аннотации](/docs/concepts/overview/working-with-objects/annotations/)
+дают возможность пользователям сопровождать ресурсы дополнительной информацией, чтобы упростить их рабочие процессы и предоставить простой способ управления инструментами для проверки состояния.
 
-Additionally, the [Kubernetes control
-plane](/docs/concepts/overview/components/) is built upon the same
-[APIs](/docs/reference/using-api/api-overview/) that are available to developers
-and users. Users can write their own controllers, such as
-[schedulers](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
-with [their own
-APIs](/docs/concepts/api-extension/custom-resources/)
-that can be targeted by a general-purpose [command-line
-tool](/docs/user-guide/kubectl-overview/).
+Также [панель управления Kubernetes](/docs/concepts/overview/components/) построена на том же [API](/docs/reference/using-api/api-overview/), которое доступно разработчикам и пользователям. Пользователи могут сами разрабатывать контролдеры, например [планировщики](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md), [с собственным 
+API](/docs/concepts/api-extension/custom-resources/), которые могут быть предназначены для [инструментов командной строки](/docs/user-guide/kubectl-overview/) общего назначения.
 
-This
-[design](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)
-has enabled a number of other systems to build atop Kubernetes.
+Такая 
+[конструкция](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)
+позволила создать несколько других систем на базе Kubernetes.
 
 ## What Kubernetes is not
 
