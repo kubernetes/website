@@ -22,22 +22,27 @@ dokumen ini sebagai pengantar apa saja poin dan pola yang ada, untung-rugi dan b
 
 ## Gambaran
 
-Pendekatan kostumisasi secara luas dapat dibagi atas *konfigurasi*, yang hanya melibatkan perubahan tanda, konfigurasi file lokal, atau API sumber;
-dan *ekstensi*, yang melibatkan berjalannya program atau servis tambahan. Dokumen ini utamanya membahas tentang ekstensi.
+Pendekatan kostumisasi secara luas dapat dibagi atas *konfigurasi*, yang hanya melibatkan perubahan bendera, konfigurasi file lokal, atau API sumber;
+dan *ekstensi*, yang melibatkan berjalannya program atau layanan tambahan. Dokumen ini utamanya membahas tentang ekstensi.
 
 ## Konfigurasi
 
-*File Konfigurasi* dan *tanda* are documented in the Reference section of the online documentation, under each binary:
-*Configuration files* and *flags* are documented in the Reference section of the online documentation, under each binary:
+*File Konfigurasi* dan *bendera* terdokumentasi di bagian Referensi dokumentasi online, didalam setiap binary:
 
 * [kubelet](/docs/admin/kubelet/)
 * [kube-apiserver](/docs/admin/kube-apiserver/)
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/).
 
-Flags and configuration files may not always be changeable in a hosted Kubernetes service or a distribution with managed installation. When they are changeable, they are usually only changeable by the cluster administrator. Also, they are subject to change in future Kubernetes versions, and setting them may require restarting processes. For those reasons, they should be used only when there are no other options.
+Bendera dan file konfigurasi mungkin tidak selalu dapat diubah di layanan Kubernetes yang dihosting atau di distribusi dengan instalasi terkelola.
+Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Admin Kluster. Dan juga, mereka dapat berubah dalam versi Kubernetes di masa depan,
+dan mengatur mereka mungkin memerlukan proses restart. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
 
-*Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
+*API kebijakan bawaan*, seperti [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) dan Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), adalah API bawaan Kubernetes.
+API biasanya digunakan oleh layanan Kubernetes yang dihosting dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber lain Kubernetes seperti
+pods, jadi konfigurasi kluster baru dapat diulang-ulang dan dapat diatur dengan cara yang sama dengan aplikasi. 
+Dan, ketika mereka stabil, mereka menyukai [kebijakan pendukung yang ditetapkan](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada
+*konfigurasi file* dan *bendera* yang sesuai.
 
 ## Extensions
 
