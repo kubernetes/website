@@ -109,6 +109,7 @@ Kubernetes [volumes](/docs/concepts/storage/volumes/) enable complex application
 ##### In-tree Volume Plugins
 Code associated with in-tree volume plugins ship as part of the core Kubernetes code base. Deployment of in-tree volume plugins do not require installation of additional scripts or deployment of separate containerized plugin components. These plugins can handle: provisioning/de-provisioning and resizing of volumes in the storage backend, attaching/detaching of volumes to/from a Kubernetes node and mounting/dismounting a volume to/from individual containers in a pod. The following in-tree plugins support Windows nodes:
 
+* [awsElasticBlockStore](/docs/concepts/storage/volumes/#awselasticblockstore)
 * [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
 * [azureFile](/docs/concepts/storage/volumes/#azurefile)
 * [gcePersistentDisk](/docs/concepts/storage/volumes/#gcepersistentdisk)
