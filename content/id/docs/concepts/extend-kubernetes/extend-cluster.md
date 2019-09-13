@@ -55,32 +55,29 @@ akan butuh untuk membuat baru.
 
 ## Pola Ekstensi
 
-Kubernetes is designed to be automated by writing client programs. Any
-program that reads and/or writes to the Kubernetes API can provide useful
-automation. *Automation* can run on the cluster or off it. By following
-the guidance in this doc you can write highly available and robust automation.
-Automation generally works with any Kubernetes cluster, including hosted
-clusters and managed installations.
+Kubernetes didesain untuk dapat diotomasi dengan menuliskan program klien. Program apapun
+yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
 
-There is a specific pattern for writing client programs that work well with
-Kubernetes called the *Controller* pattern. Controllers typically read an
-object's `.spec`, possibly do things, and then update the object's `.status`.
+*Otomasi* dapat berjalan di dalam kluster atau di luar kluster. Dengan mengikuti panduan
+di dalam dokumen ini, Anda dapat menulis otomasi yang sangat tersedia dan kuat.
+Otomasi pada umumnya dapat bekerja dengan berbagai macam kluster Kubernetes, termasuk
+kluster yang terhosting dan instalasi yang diatur.
 
-A controller is a client of Kubernetes. When Kubernetes is the client and
-calls out to a remote service, it is called a *Webhook*. The remote service
-is called a *Webhook Backend*. Like Controllers, Webhooks do add a point of
-failure.
+Ada pola spesifik tertentu untuk menulis program klien yang bekerja baik dengan Kubernetes
+yang disebut pola *Controller*. *Controller* biasanya membaca obyek milik `.spec`, kemungkinan
+melakukan sesuatu, dan kemudian memperbarui obyek milik `.status`.
 
-In the webhook model, Kubernetes makes a network request to a remote service.
-In the *Binary Plugin* model, Kubernetes executes a binary (program).
-Binary plugins are used by the kubelet (e.g. [Flex Volume
-Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
-and [Network
-Plugins](/docs/concepts/cluster-administration/network-plugins/))
-and by kubectl.
+*Controller* adalah klien dari Kubernetes. Ketika Kubernetes adalah klien dan memanggil layanan
+jarak jauh, ini disebut *Webhook*. Layanan jarak jauhnya disebut *Webhook Backend*. Seperti *controller*, Webhooks
+memang menambah poin kegagalan.
 
-Below is a diagram showing how the extensions points interact with the
-Kubernetes control plane.
+Di dalam model *Webhook*, Kubernetes membuat sebuah *network request* kepada sebuah layanan jarak jauh.
+
+Di dalam model *Binary Plugin*, Kubernetes mengeksekusi file binari (program).
+Plugin binari digunakan oleh kubelet (seperti [Flex Volume Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+dan [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
+
+Berikut ini adalah diagram yang menunjukkan bagaimana titik ekstensi berinteraksi dengan bidang kontrol Kubernetes.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
 
