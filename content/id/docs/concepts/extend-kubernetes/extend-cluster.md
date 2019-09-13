@@ -44,16 +44,16 @@ pods, jadi konfigurasi kluster baru dapat diulang-ulang dan dapat diatur dengan 
 Dan, ketika mereka stabil, mereka menyukai [kebijakan pendukung yang ditetapkan](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada
 *konfigurasi file* dan *bendera* yang sesuai.
 
-## Extensions
+## Ekstensi
 
-Extensions are software components that extend and deeply integrate with Kubernetes.
-They adapt it to support new types and new kinds of hardware.
+Ekstensi adalah komponen perangkat lunak yang luas dan terintegrasi secara dalam dengan Kubernetes.
+Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jenis baru.
 
-Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will need to
-install extensions and fewer will need to author new ones.
+Kebanyakan admin kluster akan menggunakan instansi Kubernetes yang terdistribusi atau yang dihosting.
+Sehingga hasilnya adalah, kebanyakan pengguna Kubernetes akan membutuhkan instalasi ekstensi dan beberapa
+akan butuh untuk membuat baru.
 
-## Extension Patterns
+## Pola Ekstensi
 
 Kubernetes is designed to be automated by writing client programs. Any
 program that reads and/or writes to the Kubernetes API can provide useful
