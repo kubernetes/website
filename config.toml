@@ -102,23 +102,23 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.15.1"
+fullversion = "v1.15.3"
 version = "v1.15"
-githubbranch = "v1.15.1"
+githubbranch = "v1.15.3"
 docsbranch = "release-1.15"
 url = "https://v1-15.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.14.4"
+fullversion = "v1.14.6"
 version = "v1.14"
-githubbranch = "v1.14.4"
+githubbranch = "v1.14.6"
 docsbranch = "release-1.14"
 url = "https://v1-14.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.13.8"
+fullversion = "v1.13.10"
 version = "v1.13"
-githubbranch = "v1.13.8"
+githubbranch = "v1.13.10"
 docsbranch = "release-1.13"
 url = "https://v1-13.docs.kubernetes.io"
 
