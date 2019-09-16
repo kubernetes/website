@@ -19,10 +19,10 @@ For information how to create a cluster with kubeadm once you have performed thi
 
 * One or more machines running one of:
   - Ubuntu 16.04+
-  - Debian 9
+  - Debian 9+
   - CentOS 7
-  - RHEL 7
-  - Fedora 25/26 (best-effort)
+  - Red Hat Enterprise Linux (RHEL) 7
+  - Fedora 25+
   - HypriotOS v1.0.1+
   - Container Linux (tested with 1800.6.0)
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
@@ -50,6 +50,34 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
+
+## Ensure iptables tooling does not use the nftables backend
+
+In Linux, nftables is available as a modern replacement for the kernel's iptables subsystem. The
+`iptables` tooling can act as a compatibility layer, behaving like iptables but actually configuring
+nftables. This nftables backend is not compatible with the current kubeadm packages: it causes duplicated
+firewall rules and breaks `kube-proxy`.
+
+If your system's `iptables` tooling uses the nftables backend, you will need to switch the `iptables`
+tooling to 'legacy' mode to avoid these problems. This is the case on at least Debian 10 (Buster),
+Ubuntu 19.04, Fedora 29 and newer releases of these distributions by default. RHEL 8 does not support
+switching to legacy mode, and is therefore incompatible with current kubeadm packages.
+
+{{< tabs name="iptables_legacy" >}}
+{{% tab name="Debian or Ubuntu" %}}
+```bash
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+update-alternatives --set arptables /usr/sbin/arptables-legacy
+update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+```
+{{% /tab %}}
+{{% tab name="Fedora" %}}
+```bash
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Check required ports
 
