@@ -64,8 +64,8 @@ Otomasi pada umumnya dapat bekerja dengan berbagai macam kluster Kubernetes, ter
 kluster yang terhosting dan instalasi yang diatur.
 
 Ada pola spesifik tertentu untuk menulis program klien yang bekerja baik dengan Kubernetes
-yang disebut pola *Controller*. *Controller* biasanya membaca obyek milik `.spec`, kemungkinan
-melakukan sesuatu, dan kemudian memperbarui obyek milik `.status`.
+yang disebut pola *Controller*. *Controller* biasanya membaca objek milik `.spec`, kemungkinan
+melakukan sesuatu, dan kemudian memperbarui objek milik `.status`.
 
 *Controller* adalah klien dari Kubernetes. Ketika Kubernetes adalah klien dan memanggil layanan
 jarak jauh, ini disebut *Webhook*. Layanan jarak jauhnya disebut *Webhook Backend*. Seperti *controller*, Webhooks
@@ -84,38 +84,37 @@ Berikut ini adalah diagram yang menunjukkan bagaimana titik ekstensi berinteraks
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
 
 
-## Extension Points
+## Titik-titik Ekstensi
 
-This diagram shows the extension points in a Kubernetes system.
+Diagram berikut menunjukkan titik-titik ekstensi di sistem Kubernetes.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vSH5ZWUO2jH9f34YHenhnCd14baEb4vT-pzfxeFC7NzdNqRDgdz4DDAVqArtH4onOGqh0bhwMX0zGBb/pub?w=425&h=809">
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
-1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
-2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](/docs/concepts/overview/extending#api-access-extensions) section.
-3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/overview/extending#user-defined-types) section. Custom Resources are often used with API Access Extensions.
-4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) section.
-5.   Much of the behavior of Kubernetes is implemented by programs called Controllers which are clients of the API-Server. Controllers are often used in conjunction with Custom Resources.
-6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
-7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
+1. Pengguna biasa berinteraksi dengan API Kubernetes menggunakan `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas binari kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat menegakkan kebijakan di seluruh situs.
+2. API server menangani semua permintaan. Beberapa tipe titik ekstensi di API server memperbolehkan autentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [API Access Extensions](/docs/concepts/overview/extending#api-access-extensions)
+3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. Anda juga dapat menambahkan sumber yang Anda definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Custom Resources](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Ekstensi API Aksi.
+4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions).
+5. Sebagian besar perilaku Kubernetes diimplementasikan oleh program yang disebut *Controllers* yang merupakan klien dari API-Server. *Controllers* sering digunakan bersama dengan Sumber Daya Kustom.
+6. Kubelet berjalan di server, dan membantu pod terlihat sepreti server virtual dengan IP mereka sendiri di jaringan kluster. [Network Plugins](/docs/concepts/overview/extending#network-plugins) memungkinkan perbedaan implementasi pada jaringan pod.
+7. Kubelet juga melakukan pemasangan dan pelepasan volume untuk kontainer. Tipe penyimpanan baru dapat didukung via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
 
-If you are unsure where to start, this flowchart can help. Note that some solutions may involve several types of extensions.
+Jika Anda tidak yakin untuk memulai darimana, flowchart dibawah ini dapat membantu Anda. Ingat bahwa beberapa solusi mungkin melibatkan beberapa tipe ekstensi.
 
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vRWXNNIVWFDqzDY0CsKZJY3AR8sDeFDXItdc5awYxVH8s0OLherMlEPVUpxPIB1CSUu7GPk7B2fEnzM/pub?w=1440&h=1080">
 
 <!-- image source drawing: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
 
-## API Extensions
-### User-Defined Types
+## Ekstensi API
+### Tipe-tipe yang Ditentukan Pengguna
 
-Consider adding a Custom Resource to Kubernetes if you want to define new controllers, application configuration objects or other declarative APIs, and to manage them using Kubernetes tools, such as `kubectl`.
+Pertimbangkan untuk menambahkan Sumber Daya Kustom ke Kubernetes jika Anda ingin mendefinisikan pengontrol baru, objek konfigurasi aplikasi atau API deklaratif lainnya, dan untuk mengelolanya menggunakan alat Kubernetes, seperti `kubectl`.
 
-Do not use a Custom Resource as data storage for application, user, or monitoring data.
+Jangan menggunakan Sumber Daya Kustom sebagai penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
 
-For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
-
+Untuk lebih jelasnya tentan Sumber Daya Kustom, lihat [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
 
 ### Combining New APIs with Automation
 
