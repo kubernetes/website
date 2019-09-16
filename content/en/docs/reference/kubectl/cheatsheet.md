@@ -1,7 +1,6 @@
 ---
 title: kubectl Cheat Sheet
 reviewers:
-- bgrant0607
 - erictune
 - krousey
 - clove
@@ -159,8 +158,12 @@ kubectl get services --sort-by=.metadata.name # List Services Sorted by Name
 # List pods Sorted by Restart Count
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
+# List pods in test namespace sorted by capacity 
+
+kubectl get pods -n test --sort-by=.spec.capacity.storage  
+
 # Get the version label of all pods with label app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Get all worker nodes (use a selector to exclude results that have a label
@@ -182,6 +185,9 @@ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name
 # Also uses "jq"
 for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
 
+# Or this command can be used as well to get all the labels associated with pods
+kubectl get pods --show-labels
+
 # Check which nodes are ready
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
@@ -199,8 +205,11 @@ As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
+kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision 
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
+kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+
 
 # deprecated starting version 1.11
 kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
@@ -342,11 +351,11 @@ Output format | Description
 
 ### Kubectl output verbosity and debugging
 
-Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
+Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Verbosity | Description
 --------------| -----------
-`--v=0` | Generally useful for this to ALWAYS be visible to an operator.
+`--v=0` | Generally useful for this to *always* be visible to a cluster operator.
 `--v=1` | A reasonable default log level if you don't want verbosity.
 `--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
 `--v=3` | Extended information about changes.

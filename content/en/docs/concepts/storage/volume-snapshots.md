@@ -64,6 +64,12 @@ A user creates, or has already created in the case of dynamic provisioning, a `V
 
 VolumeSnapshots will remain unbound indefinitely if a matching VolumeSnapshotContent does not exist. VolumeSnapshots will be bound as matching VolumeSnapshotContents become available.
 
+### Persistent Volume Claim in Use Protection
+
+The purpose of the Persistent Volume Claim Object in Use Protection feature is to ensure that in-use PVC API objects are not removed from the system (as this may result in data loss).
+
+If a PVC is in active use by a snapshot as a source to create the snapshot, the PVC is in-use. If a user deletes a PVC API object in active use as a snapshot source, the PVC object is not removed immediately. Instead, removal of the PVC object is postponed until the PVC is no longer actively used by any snapshots. A PVC is no longer used as a snapshot source when `ReadyToUse` of the snapshot `Status` becomes `true`.
+
 ### Delete
 
 Deletion removes both the `VolumeSnapshotContent` object from the Kubernetes API, as well as the associated storage asset in the external infrastructure.

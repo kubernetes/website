@@ -40,7 +40,7 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==` mean the same thing). This `kubectl` command, for example, selects all Kubernetes Services that aren't in the `default` namespace:
 
 ```shell
-kubectl get services --field-selector metadata.namespace!=default
+kubectl get services  --all-namespaces --field-selector metadata.namespace!=default
 ```
 
 ## Chained selectors
@@ -56,5 +56,5 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 You use field selectors across multiple resource types. This `kubectl` command selects all Statefulsets and Services that are not in the `default` namespace:
 
 ```shell
-kubectl get statefulsets,services --field-selector metadata.namespace!=default
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
 ```

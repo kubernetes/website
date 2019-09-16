@@ -1,10 +1,9 @@
 
-Writes kubelet settings, certificates and (re)starts the kubelet
+Write kubelet settings, certificates and (re)start the kubelet
 
 ### Synopsis
 
-
-Writes a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)starts kubelet.
+Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
 
 ```
 kubeadm join phase kubelet-start [api-server-endpoint] [flags]

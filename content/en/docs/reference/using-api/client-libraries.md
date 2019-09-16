@@ -35,6 +35,7 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 | Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [browse](https://github.com/kubernetes-client/java#installation)
 | dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [browse](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
 | JavaScript   | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [browse](https://github.com/kubernetes-client/javascript/tree/master/examples)
+| Haskell  | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) | [browse](https://github.com/kubernetes-client/haskell/tree/master/kubernetes-client/example)
 
 
 ## Community-maintained client libraries
@@ -63,6 +64,7 @@ their authors, not the Kubernetes team.
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
+| Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
 | dotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |

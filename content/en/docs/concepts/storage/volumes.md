@@ -149,7 +149,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration 
+#### CSI Migration
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -166,12 +166,34 @@ A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.micro
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
 
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+The CSI Migration feature for azureDisk, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `disk.csi.azure.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
+Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
+Alpha features must be enabled.
+
 ### azureFile {#azurefile}
 
 A `azureFile` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
 into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+The CSI Migration feature for azureFile, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `file.csi.azure.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
+Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
+Alpha features must be enabled.
 
 ### cephfs {#cephfs}
 
@@ -186,7 +208,7 @@ writers simultaneously.
 You must have your own Ceph server running with the share exported before you can use it.
 {{< /caution >}}
 
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
 
 ### cinder {#cinder}
 
@@ -219,7 +241,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration 
+#### CSI Migration
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -512,7 +534,7 @@ simultaneously.
 You must have your own GlusterFS installation running before you can use it.
 {{< /caution >}}
 
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) for more details.
 
 ### hostPath {#hostpath}
 
@@ -596,7 +618,7 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) for more details.
 
 ### local {#local}
 
@@ -916,7 +938,7 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) for more details.
 
 ### scaleIO {#scaleio}
 
@@ -1030,7 +1052,7 @@ spec:
 ```
 
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
-[StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
+[StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 
 ### vsphereVolume {#vspherevolume}
 
@@ -1132,7 +1154,7 @@ spec:
 
 ### Using subPath with expanded environment variables
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 
 Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
@@ -1183,16 +1205,16 @@ several media types.
 
 ## Out-of-Tree Volume Plugins
 The Out-of-tree volume plugins include the Container Storage Interface (CSI)
-and Flexvolume. They enable storage vendors to create custom storage plugins
+and FlexVolume. They enable storage vendors to create custom storage plugins
 without adding them to the Kubernetes repository.
 
-Before the introduction of CSI and Flexvolume, all volume plugins (like
+Before the introduction of CSI and FlexVolume, all volume plugins (like
 volume types listed above) were "in-tree" meaning they were built, linked,
 compiled, and shipped with the core Kubernetes binaries and extend the core
 Kubernetes API. This meant that adding a new storage system to Kubernetes (a
 volume plugin) required checking code into the core Kubernetes code repository.
 
-Both CSI and Flexvolume allow volume plugins to be developed independent of
+Both CSI and FlexVolume allow volume plugins to be developed independent of
 the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
 extensions.
 
@@ -1291,6 +1313,43 @@ feature gates which must be enabled for this feature are `BlockVolume` and
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
+#### CSI ephemeral volumes
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
+
+Example:
+
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: my-csi-app
+spec:
+  containers:
+    - name: my-frontend
+      image: busybox
+      volumeMounts:
+      - mountPath: "/data"
+        name: my-csi-inline-vol
+      command: [ "sleep", "1000000" ]
+  volumes:
+    - name: my-csi-inline-vol
+      csi:
+        driver: inline.storage.kubernetes.io
+        volumeAttributes:
+              foo: bar
+```
+
+This feature requires CSIInlineVolume feature gate to be enabled:
+
+```
+--feature-gates=CSIInlineVolume=true
+```
+
+CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
+
 # Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
@@ -1300,27 +1359,27 @@ documentation](https://kubernetes-csi.github.io/docs/)
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
 The CSI Migration feature, when enabled, directs operations against existing in-tree
-plugins to corresponding CSI plugins (which are expected to be installed and configured). 
-The feature implements the necessary translation logic and shims to re-route the 
-operations in a seamless fashion. As a result, operators do not have to make any 
-configuration changes to existing Storage Classes, PVs or PVCs (referring to 
+plugins to corresponding CSI plugins (which are expected to be installed and configured).
+The feature implements the necessary translation logic and shims to re-route the
+operations in a seamless fashion. As a result, operators do not have to make any
+configuration changes to existing Storage Classes, PVs or PVCs (referring to
 in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
 
-In the alpha state, the operations and features that are supported include 
-provisioning/delete, attach/detach and mount/unmount of volumes with `volumeMode` set to `filesystem`
+In the alpha state, the operations and features that are supported include
+provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 
-In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
+In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented
 are listed in the "Types of Volumes" section above.
 
-### Flexvolume {#flexVolume}
+### FlexVolume {#flexVolume}
 
-Flexvolume is an out-of-tree plugin interface that has existed in Kubernetes
+FlexVolume is an out-of-tree plugin interface that has existed in Kubernetes
 since version 1.2 (before CSI). It uses an exec-based model to interface with
-drivers. Flexvolume driver binaries must be installed in a pre-defined volume
+drivers. FlexVolume driver binaries must be installed in a pre-defined volume
 plugin path on each node (and in some cases master).
 
-Pods interact with Flexvolume drivers through the `flexvolume` in-tree plugin.
-More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
+Pods interact with FlexVolume drivers through the `flexvolume` in-tree plugin.
+More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
 
 ## Mount propagation
 
@@ -1355,7 +1414,7 @@ Its values are:
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a Flexvolume or CSI driver or
+   A typical use case for this mode is a Pod with a FlexVolume or CSI driver or
    a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the

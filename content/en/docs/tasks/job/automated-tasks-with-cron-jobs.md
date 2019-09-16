@@ -114,7 +114,7 @@ The job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items.metadata.name})
+pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items[].metadata.name})
 ```
 Show pod log:
 

@@ -83,18 +83,23 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
 
 1. Create a new YAML file called `my-namespace.yaml` with the contents:
 
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: <insert-namespace-name-here>
-```
+    ```yaml
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: <insert-namespace-name-here>
+    ```
+    Then run:
+   
+    ```
+    kubectl create -f ./my-namespace.yaml
+    ```
 
-Then run:
+2. Alternatively, you can create namespace using below command:
 
-```shell
-kubectl create -f ./my-namespace.yaml
-```
+    ```
+    kubectl create namespace <insert-namespace-name-here>
+    ``` 
 
 Note that the name of your namespace must be a DNS compatible label.
 
@@ -253,7 +258,7 @@ At this point, all requests we make to the Kubernetes cluster from the command l
 Let's create some contents.
 
 ```shell
-kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
+kubectl run snowflake --image=k8s.gcr.io/serve_hostname --replicas=2
 ```
 We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
@@ -293,7 +298,7 @@ kubectl get pods
 Production likes to run cattle, so let's create some cattle pods.
 
 ```shell
-kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
+kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5
 
 kubectl get deployment
 ```

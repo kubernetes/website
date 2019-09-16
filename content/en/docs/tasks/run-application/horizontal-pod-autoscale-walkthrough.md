@@ -25,8 +25,8 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed in the cluster
-to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/turnkey/gce/),
-metrics-server monitoring will be turned-on by default. 
+to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/production-environment/turnkey/gce/),
+metrics-server monitoring will be turned-on by default.
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
@@ -65,7 +65,7 @@ It defines an index.php page which performs some CPU intensive computations:
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
 ```
 ```
 service/php-apache created
@@ -81,7 +81,7 @@ controlled by the php-apache deployment we created in the first step of these in
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
-See [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details on the algorithm.
 
 ```shell
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
@@ -271,7 +271,7 @@ object:
   metric:
     name: requests-per-second
   describedObject:
-    apiVersion: extensions/v1beta1
+    apiVersion: networking.k8s.io/v1beta1
     kind: Ingress
     name: main-route
   target:
@@ -287,7 +287,7 @@ For example, if you had your monitoring system collecting metrics about network 
 you could update the definition above using `kubectl edit` to look like this:
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -316,7 +316,7 @@ spec:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       target:
@@ -339,7 +339,7 @@ status:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       current:

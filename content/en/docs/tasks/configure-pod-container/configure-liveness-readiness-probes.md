@@ -138,7 +138,7 @@ Any code greater than or equal to 200 and less than 400 indicates success. Any
 other code indicates failure.
 
 You can see the source code for the server in
-[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/liveness/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
 
 For the first 10 seconds that the Container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
@@ -286,7 +286,7 @@ to 1 second. Minimum value is 1.
 considered successful after having failed. Defaults to 1. Must be 1 for
 liveness. Minimum value is 1.
 * `failureThreshold`: When a Pod starts and the probe fails, Kubernetes will
-try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
+try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
@@ -309,6 +309,10 @@ Here's one scenario where you would set it. Suppose the Container listens on 127
 and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
 to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
+
+For a probe, the kubelet makes the probe connection at the node, not in the pod, which
+means that you can not use a service name in the `host` parameter since the kubelet is unable
+to resolve it.
 
 {{% /capture %}}
 

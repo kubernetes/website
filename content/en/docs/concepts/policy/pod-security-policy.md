@@ -34,7 +34,7 @@ administrator to control the following:
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| White list of Flexvolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
+| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
@@ -44,7 +44,7 @@ administrator to control the following:
 | The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedprocmounttypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
-| The sysctl profile used by containers               | [annotations](#sysctl)                      |
+| The sysctl profile used by containers               | [`forbiddenSysctls`,`allowedUnsafeSysctls`](#sysctl)                      |
 
 
 ## Enabling Pod Security Policies
@@ -87,8 +87,8 @@ First, a `Role` or `ClusterRole` needs to grant access to `use` the desired
 policies. The rules to grant access look like this:
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: <role name>
 rules:
@@ -102,8 +102,8 @@ rules:
 Then the `(Cluster)Role` is bound to the authorized user(s):
 
 ```yaml
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: <binding name>
 roleRef:
@@ -158,12 +158,16 @@ also be used to provide default values for many of the fields that it
 controls. When multiple policies are available, the pod security policy
 controller selects policies according to the following criteria:
 
-1. If any policies successfully validate the pod without altering it, they are
-   used.
-2. If it is a pod creation request, then the first valid policy in alphabetical
-   order is used.
-3. Otherwise, if it is a pod update request, an error is returned, because pod mutations
-   are disallowed during update operations.
+1. PodSecurityPolicies which allow the pod as-is, without changing defaults or
+   mutating the pod, are preferred.  The order of these non-mutating
+   PodSecurityPolicies doesn't matter.
+2. If the pod must be defaulted or mutated, the first PodSecurityPolicy
+   (ordered by name) to allow the pod is selected.
+
+{{< note >}}
+During update operations (during which mutations to pod specs are disallowed)
+only non-mutating PodSecurityPolicies are used to validate the pod.
+{{< /note >}}
 
 ## Example
 
@@ -416,6 +420,11 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 - secret
 - projected
 
+{{< warning >}}
+PodSecurityPolicy does not limit the types of `PersistentVolume` objects that may be referenced by a `PersistentVolumeClaim`.
+Only trusted users should be granted permission to create `PersistentVolume` objects.
+{{< /warning >}}
+
 **FSGroup** - Controls the supplemental group applied to some volumes.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
@@ -454,12 +463,12 @@ to effectively limit access to the specified `pathPrefix`.
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
 root filesystem (i.e. no writable layer).
 
-### Flexvolume drivers
+### FlexVolume drivers
 
-This specifies a whitelist of Flexvolume drivers that are allowed to be used
+This specifies a whitelist of FlexVolume drivers that are allowed to be used
 by flexvolume. An empty list or nil means there is no restriction on the drivers.
 Please make sure [`volumes`](#volumes-and-file-systems) field contains the
-`flexVolume` volume type; no Flexvolume driver is allowed otherwise.
+`flexVolume` volume type; no FlexVolume driver is allowed otherwise.
 
 For example:
 
@@ -485,18 +494,18 @@ spec:
 minimum value of the first range as the default. Validates against all ranges.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
 `runAsUser` or have the `USER` directive defined (using a numeric UID) in the
-image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
-recommended with this strategy.
+image. Pods which have specified neither `runAsNonRoot` nor `runAsUser` settings
+will be mutated to set `runAsNonRoot=true`, thus requiring a defined non-zero 
+numeric `USER` directive in the container. No default provided. Setting 
+`allowPrivilegeEscalation=false` is strongly recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
 **RunAsGroup** - Controls which primary group ID the containers are run with.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
-- *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
-`runAsUser` or have the `USER` directive defined (using a numeric GID) in the
-image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
-recommended with this strategy.
+- *MayRunAs* - Does not require that RunAsGroup be specified. However, when RunAsGroup
+is specified, they have to fall in the defined range.
 - *RunAsAny* - No default provided. Allows any `runAsGroup` to be specified.
 
 
@@ -595,7 +604,9 @@ are:
 
 - `unconfined` - Seccomp is not applied to the container processes (this is the
   default in Kubernetes), if no alternative is provided.
-- `docker/default` - The Docker default seccomp profile is used.
+- `runtime/default` - The default container runtime profile is used.
+- `docker/default` - The Docker default seccomp profile is used. Deprecated as of
+  Kubernetes 1.11. Use `runtime/default` instead.
 - `localhost/<path>` - Specify a profile as a file on the node located at
   `<seccomp_root>/<path>`, where `<seccomp_root>` is defined via the
   `--seccomp-profile-root` flag on the Kubelet.
@@ -608,7 +619,12 @@ default cannot be changed.
 
 ### Sysctl
 
-Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
+By default, all safe sysctls are allowed. 
+
+- `forbiddenSysctls` - excludes specific sysctls. You can forbid a combination of safe and unsafe sysctls in the list. To forbid setting any sysctls, use `*` on its own.
+- `allowedUnsafeSysctls` - allows specific sysctls that had been disallowed by the default list, so long as these are not listed in `forbiddenSysctls`.
+
+Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
 {{% /capture %}}

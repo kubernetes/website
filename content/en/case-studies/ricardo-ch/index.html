@@ -1,0 +1,98 @@
+---
+title: ricardo.ch Case Study
+linkTitle: ricardo-ch
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+featured: false
+---
+
+<div class="banner1" style="background-image: url('/images/CaseStudy_ricardoch_banner1.png')">
+  <h1> CASE STUDY:<img src="/images/ricardoch_logo.png" class="/images/header_logo" style="width:25%;margin-bottom:-1%"><br> <div class="subhead" style="margin-top:1%">ricardo.ch: How Kubernetes Improved Velocity and DevOps Harmony
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>ricardo.ch</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Zurich, Switzerland  </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>E-commerce</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="width:100%"">
+
+    <h2>Challenge</h2>
+    A Swiss online marketplace, <a href="https://www.ricardo.ch/de/">ricardo.ch</a> was experiencing problems with velocity, as well as a "classic gap" between Development and Operations, with the two sides unable to work well together. "They wanted to, but they didn’t have common ground," says Cedric Meury, Head of Platform Engineering. "This was one of the root causes that slowed us down." The company began breaking down the legacy monolith into microservices, and needed orchestration to support the new architecture in its own data centers—as well as bring together Dev and Ops.
+    <h2>Solution</h2>
+    The company adopted <a href="https://kubernetes.io/">Kubernetes</a> for cluster management, <a href="https://prometheus.io/">Prometheus</a> for monitoring, and <a href="https://www.fluentd.org/">Fluentd</a> for logging. The first cluster was deployed on premise in December 2016, with the first service in production three months later. The migration is about half done, and the company plans to move completely to <a href="https://cloud.google.com/">Google Cloud Platform</a> by the end of 2018.
+<h2>Impact</h2>
+    Splitting up the monolith into microservices "allowed higher velocity, and Kubernetes was crucial to support that," says Meury. The number of deployments to production has gone from fewer than 10 a week to 30-60 per day. Before, "when there was a problem with something in production, tickets or complaints would be thrown over the wall to operations, the classical problem. Now, people have the chance to look into operations and troubleshoot for themselves first because everything is deployed in a standardized way," says Meury. He sees the impact in everyday interactions:  "A couple of weeks ago, I saw a product manager doing a pull request for a JSON file that contains some variables, and someone else accepted it. And it was deployed after a couple of minutes or seconds even, which was unthinkable before. There used to be quite a chain of things that needed to happen, the whole monolith was difficult to understand, even for engineers. So, previously requests would go into large, inefficient Kanban boards and hopefully someone will have done the change after weeks and months." Before, infrastructure- and platform-related projects took months or years to complete; now developers and operators can work together to deploy infrastructure parts via Kubernetes in a matter of weeks and sometimes days. In the long run, the company also expects to notch 50% cost savings going from custom data center and virtual machines to containerized infrastructure and cloud services.
+</div>
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+  "Splitting up the monolith allowed higher velocity, and Kubernetes was crucial to support that. Containerization and orchestration by Kubernetes helped us to drastically reduce the conflict between Dev and Ops and also allowed us to speak the same language on both sides of the aisle."
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— CEDRIC MEURY, HEAD OF PLATFORM ENGINEERING, RICARDO.CH</span>
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  <h2>When Cedric Meury joined ricardo.ch in 2016, he saw a clear divide between Operations and Development. In fact, there was literal distance between them: The engineering team worked in France, while the rest of the org was based in Switzerland.
+ </h2><br><br>
+ "It was a classic gap between those departments and even some anger and frustration here and there," says Meury. "They wanted to work together, but they didn’t have common ground. This was one of the root causes that slowed us down."
+<br><br>
+  That gap was hurting velocity at ricardo.ch, a Swiss online marketplace. The website processes up to 2.6 million searches on a peak day from both web and mobile apps, serving 3.2 million members with its live auctions. The technology team’s main challenge was to make sure that "the bids for items come in the right order, and before the auction is finished, and that this works in a fair way," says Meury. "We have a real-time requirement. We also provide an automated system to bid, and it needs to be accurate and correct. With a distributed system, you have the challenge of making sure that the ordering is right. And that’s one of the things we’re currently dealing with."
+<br><br>
+  To address the velocity issue, ricardo.ch CTO Jeremy Seitz established a new software factory called EPD, which consists of 65 engineers, 7 product managers and 2 designers. "We brought these three departments together so that they can kind of streamline this and talk to each other much more closely," says Meury.
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_ricardoch_banner3.png')">
+  <div class="banner3text">
+    "Being in the End User Community demonstrates that we stand behind these technologies. In Switzerland, if all the companies see that ricardo.ch’s using it, I think that will help adoption. I also like that we’re connected to the other end users, so if there is a really heavy problem, I could go to the Slack channel, and say, ‘Hey, you guys…’ Like Reddit, Github and New York Times or whoever can give a recommendation on what to use here or how to solve that. So that’s kind of a superpower."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— CEDRIC MEURY, HEAD OF PLATFORM ENGINEERING, RICARDO.CH</span>
+
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+
+  The company also began breaking down the legacy monolith into more than 100 microservices, and needed orchestration to support the new architecture in its own data centers. "Splitting up the monolith allowed higher velocity, and Kubernetes was crucial to support that," says Meury. "Containerization and orchestration by Kubernetes helped us to drastically reduce the conflict between Dev and Ops and also allowed us to speak the same language on both sides of the aisle."
+<br><br>
+  Meury put together a platform engineering team to choose the tools—including Fluentd for logging and Prometheus for monitoring, with Grafana visualization—and lay the groundwork for the first Kubernetes cluster, which was installed on premise in December 2016. Within a few weeks, the new platform was available to teams, who were given training sessions and documentation. The platform engineering team then embedded with engineers to help them deploy their applications on the new platform. The first service in production was the ricardo.ch jobs page. "It was an exercise in front-end development, so the developers could experiment with a new stack," says Meury.
+<br><br>
+  Meury estimates that half of the application has been migrated to Kubernetes. And the plan is to move everything to the Google Cloud Platform by the end of 2018. "We are still running some servers in our own data centers, but all of the containerization efforts and describing our services as Kubernetes manifests will allow us to quite easily make that shift," says Meury.
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_ricardoch_banner4.png')" style="width:100%">
+  <div class="banner4text">
+    "One of the core moments was when a front-end developer asked me how to do a port forward from his laptop to a front-end application to debug, and I told him the command. And he was like, ‘Wow, that’s all I need to do?’ He was super excited and happy about it. That showed me that this power in the right hands can just accelerate development."
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- CEDRIC MEURY, HEAD OF PLATFORM ENGINEERING, RICARDO.CH</span>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  The impact has been great. Moving from custom data center and virtual machines to containerized infrastructure and cloud services is expected to result in 50% cost savings for the company. The number of deployments to production has gone from fewer than 10 a week to 30-60 per day. Before, "when there was a problem with something in production, tickets or complaints would be thrown over the wall to operations, the classical problem," says Meury. "Now, people have the chance to look into operations and troubleshoot for themselves first because everything is deployed in a standardized way. That reduces time and uncertainty."
+<br><br>
+  Meury also sees the impact in everyday interactions:  "A couple of weeks ago, I saw a product manager doing a pull request for a JSON file that contains some variables, and someone else accepted it. And it was deployed after a couple of minutes or seconds even, which was unthinkable before. There used to be quite a chain of things that needed to happen, the whole monolith was difficult to understand, even for engineers. So, previously requests would go into large, inefficient Kanban boards and hopefully someone will have done the change after weeks and months."
+<br><br>
+  The divide between Dev and Ops has also diminished. "After a couple of months, I got requests by people saying, ‘Hey, could you help me install the Kubernetes client? I want to actually look at what’s going on,’" says Meury. "People were directly looking at the state of the system, bringing them much, much closer to the operations." Before, infrastructure- and platform-related projects took months or years to complete; now developers and operators can work together to deploy infrastructure parts via Kubernetes in a matter of weeks and sometimes days.
+</div>
+
+<div class="banner5" >
+  <div class="banner5text">
+"One of my colleagues was listening to all the talks at KubeCon, and he was overwhelmed by all the tools, technologies, frameworks out there that are currently lacking on our platform, but at the same time, he’s very happy to know that in the future there is so much that we can still explore and we can improve and we can work on."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- CEDRIC MEURY, HEAD OF PLATFORM ENGINEERING, RICARDO.CH</span></div>
+</div>
+
+<div class="fullcol">
+
+
+  The ability to have insight into the system has extended to other parts of the company, too. "I found out that one of our customer support representatives looks at Grafana metrics to find out whether the system is running fine, which is fantastic," says Meury. "Prometheus is directly hooked into customer care."
+<br><br>
+  The ricardo.ch cloud native journey has perhaps had the most impact on the Ops team. "We have an operations team that comes from a hardware-based background, and right now they are relearning how to operate in a more virtualized and cloud native world, with great success so far," says Meury. "So besides still operating on-site data center firewalls, they learn to code in Go or do some Python scripting at the same time. Former network administrators are writing Go code. It’s just really cool.
+<br><br>
+  For Meury, the journey boils down to this. "One of my colleagues was listening to all the talks at KubeCon, and he was overwhelmed by all the tools, technologies, frameworks out there that are currently lacking on our platform," says Meury. "But at the same time, he’s very happy to know that in the future there is so much that we can still explore and we can improve and we can work on. We’re transitioning from seeing problems everywhere—like, ‘This is broken’ or ‘This is down, and we have to fix it’—more to, ‘How can we actually improve and automate more, and make it nicer for developers and ultimately for the end users?’"
+</div>
+
+</section>

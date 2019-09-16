@@ -60,15 +60,17 @@ Credentials can be provided in several ways:
     - Per-cluster
     - automatically configured on Google Compute Engine or Google Kubernetes Engine
     - all pods can read the project's private registry
-  - Using AWS EC2 Container Registry (ECR)
+  - Using Amazon Elastic Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
+  - Using Oracle Cloud Infrastructure Registry (OCIR)
+    - use IAM roles and policies to control access to OCIR repositories
   - Using Azure Container Registry (ACR)
   - Using IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
-  - Pre-pulling Images
+  - Pre-pulled Images
     - all pods can use any images cached on a node
     - requires root access to all nodes to setup
   - Specifying ImagePullSecrets on a Pod
@@ -91,10 +93,9 @@ Google service account.  The service account on the instance
 will have a `https://www.googleapis.com/auth/devstorage.read_only`,
 so it can pull from the project's GCR, but not push.
 
-### Using AWS EC2 Container Registry
+### Using Amazon Elastic Container Registry
 
-Kubernetes has native support for the [AWS EC2 Container
-Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
+Kubernetes has native support for the [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
 
 Simply use the full image name (e.g. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
 in the Pod definition.
@@ -242,7 +243,7 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 
-### Pre-pulling Images
+### Pre-pulled Images
 
 {{< note >}}
 If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
@@ -279,19 +280,7 @@ Kubernetes supports specifying registry keys on a pod.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-cat <<EOF > ./kustomization.yaml
-secretGenerator:
-- name: myregistrykey
-  type: docker-registry
-  literals:
-  - docker-server=DOCKER_REGISTRY_SERVER
-  - docker-username=DOCKER_USER
-  - docker-password=DOCKER_PASSWORD
-  - docker-email=DOCKER_EMAIL
-EOF
-
-kubectl apply -k .
-secret/myregistrykey-66h7d4d986 created
+kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
 If you already have a Docker credentials file then, rather than using the above

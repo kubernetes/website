@@ -69,9 +69,14 @@ spec:
 
 Patch your Deployment:
 
-```shell
+{{< tabs name="kubectl_patch_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
 kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
-```
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment patch-demo --patch $(cat patch-file-containers.yaml)
+{{< /tab >}}}
+{{< /tabs >}}
 
 View the patched Deployment:
 
@@ -306,7 +311,7 @@ The following commands are equivalent:
 
 
 ```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
+kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
 kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   containers:\n   - name: patch-demo-ctr-2\n     image: redis'
 
 kubectl patch deployment patch-demo --patch "$(cat patch-file.json)"
@@ -330,11 +335,9 @@ and
 
 {{% capture whatsnext %}}
 
-* [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/declarative-config/)
+* [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
+* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 
 {{% /capture %}}
-
-

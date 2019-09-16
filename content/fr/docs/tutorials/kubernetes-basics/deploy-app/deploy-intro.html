@@ -1,0 +1,116 @@
+---
+title: Utiliser kubectl pour créer un déploiement
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <h3>Objectifs</h3>
+                <ul>
+                    <li>En savoir plus sur les déploiements d'applications.</li>
+                    <li>Déployez votre première application sur Kubernetes avec kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Déploiements Kubernetes</h3>
+                <p>
+                Une fois que vous avez un cluster Kubernetes en cours d'exécution, vous pouvez déployer vos applications conteneurisées par dessus.
+                Pour ce faire, vous créez une configuration de <b>Déploiement (Deployments) </b> Kubernetes. Le déploiement instruit Kubernetes
+                de comment créer et mettre à jour des instances de votre application. Une fois que vous avez créé un déploiement, le plannificateur de Kubernetes (kube-scheduler)
+                planifient les instanciations d'application sur des nœuds du cluster.
+                </p>
+
+                <p>Une fois les instances d’application créées, un contrôleur de déploiement Kubernetes surveille en permanence ces instances. Si le nœud hébergeant une instance tombe en panne ou est supprimé, le contrôleur de déploiement remplace l'instance par une instance située sur un autre nœud du cluster. <b> Ceci fournit un mécanisme d'auto-réparation pour faire face aux pannes ou à la maintenance de la machine.</b></p>
+
+                <p>Dans le monde de pré-orchestration, les scripts d'installation étaient souvent utilisés pour démarrer des applications, mais ils ne permettaient pas une récupération après une panne d'ordinateur. En créant et en maintenant vos instances d’application sur plusieurs nœuds, les Déploiements Kubernetes offre une approche fondamentalement différente de la gestion des applications. </p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Sommaire:</h3>
+                    <ul>
+                        <li>Déploiements</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Un déploiement est responsable de la création et de la mise à jour des instances de votre application.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Déploiement de votre première application sur Kubernetes</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Vous pouvez créer et gérer un déploiement à l'aide de l'interface de ligne de commande, <b>Kubectl</b>.</p>
+                <p>Kubectl utilise l'API Kubernetes pour interagir avec le cluster. Dans ce module, vous apprendrez les commandes Kubectl les plus courantes nécessaires à la création de déploiements exécutant vos applications sur un cluster Kubernetes.</p>
+
+                <p>Lorsque vous créez un déploiement, vous devez spécifier l'image de conteneur de votre application et le nombre de réplicas que vous souhaitez exécuter. Vous pouvez modifier ces informations ultérieurement en mettant à jour votre déploiement.; Modules <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> et <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> du bootcamp, expliquez comment vous pouvez faire évoluer et mettre à jour vos déploiements.</p>
+
+
+
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Les applications doivent être regroupées dans l’un des formats de conteneur pris en charge pour pouvoir être déployées sur Kubernetes. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Pour notre premier déploiement, nous utiliserons une application Node.js intégrée dans un conteneur Docker.
+                    Pour créer l'application Node.js et déployer le conteneur Docker, suivez les instructions du
+                    <a href="/fr/docs/tutorials/hello-minikube/">Tutoriel Hello Minikube</a>.</p>
+
+                <p>Maintenant que vous savez ce que sont les déploiements, allons au didacticiel en ligne et déployons notre première application!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">Lancer le didacticiel interactif <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

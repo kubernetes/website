@@ -7,7 +7,7 @@ weight: 30
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
 viable et conforme aux meilleures pratiques. Avec kubeadm, votre cluster
 doit passer les [tests de Conformance Kubernetes](https://kubernetes.io/blog/2017/10/software-conformance-certification).
  Kubeadm prend également en charge d'autres fonctions du cycle de vie, telles que les mises
@@ -305,9 +305,9 @@ Pour plus d'informations sur l'utilisation de Calico, voir
 Pour que Calico fonctionne correctement, vous devez passer `--pod-network-cidr = 192.168.0.0 / 16`
 à` kubeadm init` ou mettre à jour le fichier `calico.yml` pour qu'il corresponde à votre réseau de Pod.
 Notez que Calico fonctionne uniquement sur `amd64`,` arm64`, `ppc64le` et` s390x`.
+
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
 
 {{% /tab %}}
@@ -317,9 +317,9 @@ documentation Calico pour obtenir le [guide de démarrage officiel](https://docs
 
 Pour que Canal fonctionne correctement, `--pod-network-cidr = 10.244.0.0 / 16` doit être passé à
 ` kubeadm init`. Notez que Canal ne fonctionne que sur `amd64`.
+
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 {{% /tab %}}

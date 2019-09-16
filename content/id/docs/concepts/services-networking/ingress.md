@@ -72,7 +72,7 @@ Pastikan kamu sudah terlebih dahulu memahami dokumentasi kontroler Ingress yang 
 Berikut ini merupakan salah satu contoh konfigurasi Ingress yang minimum:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: test-ingress
@@ -167,7 +167,7 @@ foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
 akan memerlukan konfigurasi Ingress seperti:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: simple-fanout-example
@@ -236,7 +236,7 @@ Ingress di bawah ini memberikan perintah pada *loadbalancer* untuk melakukan mek
 [header host](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -264,7 +264,7 @@ dari `first.bar.com` ke `service1`, `second.foo.com` ke `service2`, dan trafik l
 ke alamat IP tanpa *host name* yang didefinisikan di dalam *request* (yang tidak memiliki *request header*) ke `service3`.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -317,7 +317,7 @@ Kamu harus memastikan *secret* TLS yang digunakan memiliki sertifikat yang menga
 CN untuk `sslexample.foo.com`.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: tls-example-ingress

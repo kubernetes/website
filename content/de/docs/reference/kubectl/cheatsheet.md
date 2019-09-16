@@ -145,7 +145,7 @@ kubectl get services --sort-by=.metadata.name # Listen Sie Dienste nach Namen so
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Erhalten Sie die Versionsbezeichnung aller Pods mit der Bezeichnung app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Alle Worker-Knoten abrufen (verwenden Sie einen Selektor, um Ergebnisse auszuschließen,
@@ -322,7 +322,7 @@ Ausgabeformat | Beschreibung
 
 ### Kubectl Ausgabe Ausführlichkeit und Debugging
 
-Die Ausführlichkeit von Kubectl wird mit den Flags `-v` oder `--v ` gesteuert, gefolgt von einer Ganzzahl, die die Protokollebene darstellt. Allgemeine Protokollierungskonventionen für Kubernetes und die zugehörigen Protokollebenen werden [hier](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md) beschrieben.
+Die Ausführlichkeit von Kubectl wird mit den Flags `-v` oder `--v ` gesteuert, gefolgt von einer Ganzzahl, die die Protokollebene darstellt. Allgemeine Protokollierungskonventionen für Kubernetes und die zugehörigen Protokollebenen werden [hier](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) beschrieben.
 
 Ausführlichkeit | Beschreibung
 --------------| -----------

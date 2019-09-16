@@ -75,11 +75,11 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 ```
 secret "db-user-pass" created
 ```
-{{< note >}}	
-Special characters such as `$`, `\*`, and `!` require escaping.	
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:	
-     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb	
- You do not need to escape special characters in passwords from files (`--from-file`).	
+{{< note >}}
+Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
+ You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 You can check that the secret was created like this:
@@ -203,8 +203,6 @@ The output will be similar to:
 
 ```yaml
 apiVersion: v1
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:40:59Z
@@ -214,6 +212,8 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
 If a field is specified in both data and stringData, the value from stringData
@@ -235,8 +235,6 @@ Results in the following secret:
 
 ```yaml
 apiVersion: v1
-data:
-  username: YWRtaW5pc3RyYXRvcg==
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:46:46Z
@@ -246,6 +244,8 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
+data:
+  username: YWRtaW5pc3RyYXRvcg==
 ```
 
 Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
@@ -261,9 +261,9 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 `-w` option is not available.
 
 #### Creating a Secret from Generator
-Kubectl supports [managing objects using Kustomize](/docs/concepts/overview/object-management-kubectl/kustomization/)
+Kubectl supports [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 since 1.14. With this new feature,
-you can also create a Secret from generators and then apply it to create the object on 
+you can also create a Secret from generators and then apply it to create the object on
 the Apiserver. The generators
 should be specified in a `kustomization.yaml` inside a directory.
 
@@ -336,9 +336,6 @@ kubectl get secret mysecret -o yaml
 ```
 ```
 apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -348,6 +345,9 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 ```
 
 Decode the password field:
@@ -357,6 +357,38 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 ```
 1f2d1e2e67df
+```
+
+#### Editing a Secret
+
+An existing secret may be edited with the following command:
+
+```shell
+kubectl edit secrets mysecret
+```
+
+This will open the default configured editor and allow for updating the base64 encoded secret values in the `data` field:
+
+```
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
+kind: Secret
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: { ... }
+  creationTimestamp: 2016-01-22T18:41:56Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "164619"
+  selfLink: /api/v1/namespaces/default/secrets/mysecret
+  uid: cfee02d6-c137-11e5-8d73-42010af00002
+type: Opaque
 ```
 
 ## Using Secrets
@@ -833,7 +865,7 @@ EOF
 Apply all those objects on the Apiserver by
 
 ```shell
-kubectl apply --k .
+kubectl apply -k .
 ```
 
 Both containers will have the following files present on their filesystems with the values for each container's environment:

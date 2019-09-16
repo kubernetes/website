@@ -20,8 +20,7 @@ Some typical uses of a DaemonSet are:
 
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
-- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), [Sysdig Agent] (https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or Instana agent.
+- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Sysdig Agent](https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/).
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -49,7 +48,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
-[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/) documents.
+[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
 A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) section.
 
@@ -195,14 +194,12 @@ You can modify the Pods that a DaemonSet creates.  However, Pods do not allow al
 fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 
-
 You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
-will be left on the nodes.  You can then create a new DaemonSet with a different template.
-The new DaemonSet with the different template will recognize all the existing Pods as having
-matching labels.  It will not modify or delete them despite a mismatch in the Pod template.
-You will need to force new Pod creation by deleting the Pod or deleting the node.
+will be left on the nodes.  If you subsequently create a new DaemonSet with the same selector,
+the new DaemonSet adopts the existing Pods. If any Pods need replacing the DaemonSet replaces
+them according to its `updateStrategy`.
 
-In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
+You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
 ## Alternatives to DaemonSet
 

@@ -57,7 +57,7 @@ Add the pod resource config to the `kustomization.yaml`:
 {{< codenew file="pods/config/redis-pod.yaml" >}}
 
 ```shell
-curl -OL https://k8s.io/examples/pods/config/redis-pod.yaml
+curl -OL https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
 
 cat <<EOF >>./kustomization.yaml
 resources:
@@ -97,6 +97,11 @@ kubectl exec -it redis redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory-policy
 1) "maxmemory-policy"
 2) "allkeys-lru"
+```
+
+Delete the created pod:
+```shell
+kubectl delete pod redis
 ```
 
 {{% /capture %}}

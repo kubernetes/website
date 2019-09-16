@@ -7,7 +7,7 @@ weight: 20
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">Cette page vous
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">Cette page vous
 apprend comment installer la boîte à outils `kubeadm`.
 Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois que vous avez 
 effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour créer un cluster](/docs/setup/independent/create-cluster-kubeadm/).

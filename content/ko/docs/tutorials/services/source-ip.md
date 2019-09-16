@@ -34,7 +34,10 @@ content_template: templates/tutorial
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```console
-$ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+```
+출력은 다음과 같다.
+```
 deployment.apps/source-ip-app created
 ```
 
@@ -59,13 +62,21 @@ deployment.apps/source-ip-app created
 Kube-proxy는 이 모드를 `proxyMode` 엔드포인트를 통해 노출한다.
 
 ```console
-$ kubectl get nodes
+kubectl get nodes
+```
+출력은 다음과 유사하다
+```
 NAME                           STATUS     ROLES    AGE     VERSION
-kubernetes-minion-group-6jst   Ready      <none>   2h      v1.13.0
-kubernetes-minion-group-cx31   Ready      <none>   2h      v1.13.0
-kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.13.0
-
-kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
+kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
+kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
+kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
+```
+한 노드의 프록시 모드를 확인한다.
+```console
+kubernetes-node-6jst $ curl localhost:10249/proxyMode
+```
+출력은 다음과 같다.
+```
 iptables
 ```
 
@@ -119,10 +130,10 @@ $ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-por
 service/nodeport exposed
 
 $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
 ```
 
-클라우드 공급자 상에서 실행한다면, 
+클라우드 공급자 상에서 실행한다면,
 위에 보고된 `nodes:nodeport`를 위한 방화벽 규칙을 열어주어야 한다.
 이제 위에 노드 포트로 할당받은 포트를 통해 클러스터 외부에서
 서비스에 도달할 수 있다.
@@ -272,12 +283,12 @@ $ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 ```
 $ kubectl get pod -o wide -l run=source-ip-app
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
-source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-minion-group-6jst
+source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-node-6jst
 
-kubernetes-minion-group-6jst $ curl localhost:32122/healthz
+kubernetes-node-6jst $ curl localhost:32122/healthz
 1 Service Endpoints found
 
-kubernetes-minion-group-jj1t $ curl localhost:32122/healthz
+kubernetes-node-jj1t $ curl localhost:32122/healthz
 No Service Endpoints Found
 ```
 
@@ -310,7 +321,7 @@ __크로스 플랫폼 지원__
 
 첫 번째 범주의 로드밸런서는 진짜 클라이언트 IP를 통신하기 위해
 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 헤더나
-[프록시 프로토콜](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)같이 로드밸런서와 
+[프록시 프로토콜](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)같이 로드밸런서와
 백엔드 간에 합의된 프로토콜을 사용해야 한다.
 두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
 간단한 HTTP 헬스 체크를 생성하여

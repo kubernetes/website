@@ -29,8 +29,6 @@ No diagrama anterior, o Kubernetes e o provedor de nuvem são integrados atravé
 * Kubernetes controller manager
 * Kubernetes API server
 
-The CCM consolidates all of the cloud-dependent logic from the preceding three components to create a single point of integration with the cloud. The new architecture with the CCM looks like this
-
 O CCM consolida toda a lógica que depende da nuvem dos três componentes anteriores para criar um único ponto de integração com a nuvem. A nova arquitetura com o CCM se parece com isso:
 
 ![CCM Kube Arch](/images/docs/post-ccm-arch.png)
@@ -228,9 +226,9 @@ Os seguintes provedores de nuvem implementaram CCMs:
 
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
-* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
-* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 

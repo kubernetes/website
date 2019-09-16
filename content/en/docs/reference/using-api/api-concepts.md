@@ -1,7 +1,6 @@
 ---
 title: Kubernetes API Concepts
 reviewers:
-- bgrant0607
 - smarterclayton
 - lavalamp
 - liggitt
@@ -87,6 +86,24 @@ For example:
         ...
 
 A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
+To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to pass an information that all changes up to a given `resourceVersion` client is requesting has already been send. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
+
+        GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
+        ---
+        200 OK
+        Transfer-Encoding: chunked
+        Content-Type: application/json
+        {
+          "type": "ADDED",
+          "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10596", ...}, ...}
+        }
+        ...
+        {
+          "type": "BOOKMARK",
+          "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "12746"} }
+        }
+
+`Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event. As of 1.15 release, it is an Alpha feature.
 
 ## Retrieving large results sets in chunks
 
@@ -430,3 +447,26 @@ Another difference is that an applier using Client Side Apply is unable to chang
 ### Custom Resources
 
 Server Side Apply currently treats all custom resources as unstructured data. All keys are treated the same as struct fields, and all lists are considered atomic. In the future, it will use the validation field in Custom Resource Definitions to allow Custom Resource authors to define how to how to merge their own objects.
+
+### Clearing ManagedFields
+
+It is possible to strip all managedFields from an object by overwriting them using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every non-apply operation.
+This can be done by overwriting the managedFields field with an empty entry. Two examples are:
+
+```json
+PATCH /api/v1/namespaces/default/configmaps/example-cm
+Content-Type: application/merge-patch+json
+Accept: application/json
+Data: {"metadata":{"managedFields": [{}]}}
+```
+
+```json
+PATCH /api/v1/namespaces/default/configmaps/example-cm
+Content-Type: application/json-patch+json
+Accept: application/json
+Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
+```
+
+This will overwrite the managedFields with a list containing a single empty entry that then results in the managedFields being stripped entirely from the object. Note that just setting the managedFields to an empty list will not reset the field. This is on purpose, so managedFields never get stripped by clients not aware of the field.
+
+In cases where the reset operation is combined with changes to other fields than the managedFields, this will result in the managedFields being reset first and the other changes being processed afterwards. As a result the applier takes ownership of any fields updated in the same request.
