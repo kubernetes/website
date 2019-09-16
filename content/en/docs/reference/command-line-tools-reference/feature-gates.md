@@ -93,6 +93,7 @@ different Kubernetes components.
 | `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
+| `EnableAggregatedDiscoveryTimeout` | `true` | Deprecated | 1.16 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
 | `EndpointSlice` | `false` | Alpha | 1.16 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
@@ -294,6 +295,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
   This feature is superceded by the `VolumeScheduling` feature completely in v1.12.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
+- `EnableAggregatedDiscoveryTimeout` (*deprecated*): Enable the five second timeout on aggregated discovery calls.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
 - `EphemeralContainers`: Enable the ability to add {{< glossary_tooltip text="ephemeral containers"
   term_id="ephemeral-container" >}} to running pods.
