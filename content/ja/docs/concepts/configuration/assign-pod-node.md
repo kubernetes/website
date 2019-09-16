@@ -1,8 +1,4 @@
 ---
-reviewers:
-- davidopp
-- kevin-wangzefeng
-- bsalamat
 title: Node上へのPodのスケジューリング
 content_template: templates/concept
 weight: 30
@@ -81,7 +77,7 @@ nodeSelectorを以下のように追加します:
 
 {{< note >}}
 これらのラベルは、クラウドプロバイダー固有であり、確実なものではありません。
-例えば、`kubernetes.io/hostname`のバリューはNodeの名前と同じである環境もあれば、異なる環境もあります。
+例えば、`kubernetes.io/hostname`の値はNodeの名前と同じである環境もあれば、異なる環境もあります。
 {{< /note >}}
 
 
@@ -136,8 +132,8 @@ Node Affinityを使用したPodの例を以下に示します:
 
 {{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
-このNode Affinityでは、Podはキーが`kubernetes.io/e2e-az-name`、バリューが`e2e-az1`または`e2e-az2`のラベルが付与されたNodeにしか配置されません。
-加えて、キーが`another-node-label-key`、バリューが`another-node-label-value`のラベルが付与されたNodeが優先されます。
+このNode Affinityでは、Podはキーが`kubernetes.io/e2e-az-name`、値が`e2e-az1`または`e2e-az2`のラベルが付与されたNodeにしか配置されません。
+加えて、キーが`another-node-label-key`、値が`another-node-label-value`のラベルが付与されたNodeが優先されます。
 
 この例ではオペレーター`In`が使われています。
 Node Affinityでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`のオペレーターが使用できます。
@@ -191,10 +187,10 @@ Inter-Pod Affinityは、PodSpecの`affinity`フィールド内に`podAffinity`�
 
 このPodのAffifnityは、Pod AffinityとPod Anti-Affinityを1つずつ定義しています。
 この例では、`podAffinity`に`requiredDuringSchedulingIgnoredDuringExecution`、`podAntiAffinity`に`preferredDuringSchedulingIgnoredDuringExecution`が設定されています。
-Pod Affinityは、「キーが"security"、バリューが"S1"のラベルが付与されたPodが少なくとも1つは稼働しているNodeが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、バリューが"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、バリューがVであるNodeが少なくとも1つはある状態で、
-Node Nがキー`failure-domain.beta.kubernetes.io/zone`、バリューVのラベルを持つ場合に、PodはNode Nで稼働させることができます)。
-Pod Anti-Affinityは、「すでにあるNode上で、キーが"security"、バリューが"S2"であるPodが稼働している場合に、Podを可能な限りそのNode上で稼働させない」という条件を指定しています
-(`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、バリューが"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
+Pod Affinityは、「キーが"security"、値が"S1"のラベルが付与されたPodが少なくとも1つは稼働しているNodeが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、値が"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、値がVであるNodeが少なくとも1つはある状態で、
+Node Nがキー`failure-domain.beta.kubernetes.io/zone`、値Vのラベルを持つ場合に、PodはNode Nで稼働させることができます)。
+Pod Anti-Affinityは、「すでにあるNode上で、キーが"security"、値が"S2"であるPodが稼働している場合に、Podを可能な限りそのNode上で稼働させない」という条件を指定しています
+(`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、値が"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
 Pod AffinityとPod Anti-Affinityや、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`に関する他の使用例は[デザインドック](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
 
 Pod AffinityとPod Anti-Affinityで使用できるオペレーターは、`In`、`NotIn`、 `Exists`、 `DoesNotExist`です。
