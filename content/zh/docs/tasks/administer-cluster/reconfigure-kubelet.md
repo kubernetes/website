@@ -644,32 +644,33 @@ in the Kubelet log for additional details and context about the error.
 <table>
 <table align="left">
 <tr>
-    <th>Error Message</th>
-    <th>Possible Causes</th>
+    <th>错误信息</th>
+    <th>可能的原因</th>
 </tr>
 <tr>
-    <td><p>failed to load config, see Kubelet log for details</p></td>
-    <td><p>The Kubelet likely could not parse the downloaded config payload, or encountered a filesystem error attempting to load the payload from disk.</p></td>
+    <td><p>无法加载配置，请参阅 Kubelet 日志了解详细信息</p></td>
+    <td><p>Kubelet可能无法解析下载配置的有效负载，或者当尝试从磁盘中加载有效负载时，遇到文件系统错误。</p></td>
 </tr>
 <tr>
-    <td><p>failed to validate config, see Kubelet log for details</p></td>
-    <td><p>The configuration in the payload, combined with any command-line flag overrides, and the sum of feature gates from flags, the config file, and the remote payload, was determined to be invalid by the Kubelet.</p></td>
+    <td><p>无法验证配置，请参阅Kubelet日志了解详细信息</p></td>
+    <td><p>有效负载中的配置将任何命令行标志所覆盖的和这些标志的特性们合并，包括配置文件和远程有效负载，
+    它们一起被Kubelet确定为无效。</p></td>
 </tr>
 <tr>
-    <td><p>invalid NodeConfigSource, exactly one subfield must be non-nil, but all were nil</p></td>
-    <td><p>Since Node.Spec.ConfigSource is validated by the API server to contain at least one non-nil subfield, this likely means that the Kubelet is older than the API server and does not recognize a newer source type.</p></td>
+    <td><p>无效的 NodeConfigSource，理应刚好一个子字段必须是非空的，但这些字段都是空的</p></td>
+    <td><p>由 API 服务器验证 Node.Spec.ConfigSource 是否包含至少一个非空子字段，可能原因是 Kubelet 比API 服务器版本低，不识别更新的源类型。</p></td>
 </tr>
 <tr>
-    <td><p>failed to sync: failed to download config, see Kubelet log for details</p></td>
-    <td><p>The Kubelet could not download the config. It is possible that Node.Spec.ConfigSource could not be resolved to a concrete API object, or that network errors disrupted the download attempt. The Kubelet will retry the download when in this error state.</p></td>
+    <td><p>无法同步：无法下载配置，请参阅Kubelet日志了解详细信息</p></td>
+    <td><p>Kubelet无法下载配置。可能是 Node.Spec.ConfigSource 无法解析为具体的API对象，或者网络错误中断了下载。 当处于此错误状态时，Kubelet 将重新下载。</p></td>
 </tr>
 <tr>
-    <td><p>failed to sync: internal failure, see Kubelet log for details</p></td>
-    <td><p>The Kubelet encountered some internal problem and failed to update its config as a result. Examples include filesystem errors and reading objects from the internal informer cache.</p></td>
+    <td><p>无法同步：内部故障，请参阅Kubelet日志了解详细信息</p></td>
+    <td><p>Kubelet遇到了一些内部问题，因此无法更新其配置。 例如包括文件系统错误和从内部函数缓存中读取对象。</p></td>
 </tr>
 <tr>
-    <td><p>internal failure, see Kubelet log for details</p></td>
-    <td><p>The Kubelet encountered some internal problem while manipulating config, outside of the configuration sync loop.</p></td>
+    <td><p>内部故障，请参阅Kubelet日志了解详细信息</p></td>
+    <td><p>在配置同步循环之外操作配置时，Kubelet遇到了一些内部问题。</p></td>
 </tr>
 </table>
 
