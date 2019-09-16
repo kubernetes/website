@@ -116,23 +116,22 @@ Jangan menggunakan Sumber Daya Kustom sebagai penyimpanan data untuk aplikasi, p
 
 Untuk lebih jelasnya tentan Sumber Daya Kustom, lihat [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
 
-### Combining New APIs with Automation
+### Menggabungkan API Baru dengan Otomasi
 
-The combination of a custom resource API and a control loop is called the [Operator pattern](/docs/concepts/extend-kubernetes/operator/). The Operator pattern is used to manage specific, usually stateful, applications. These custom APIs and control loops can also be used to control other resources, such as storage or policies.
+Kombinasi antart API sumber daya kustom dan loop kontrol disebut [Operator pattern](/docs/concepts/extend-kubernetes/operator/). Operator pola digunakan untuk mengatur aplikasi yang spesifik dan biasanya stateful. API kustom dan loop kontrol ini dapt digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan.
 
-### Changing Built-in Resources
+### Mengubah Sumber Daya Bawaan
 
-When you extend the Kubernetes API by adding custom resources, the added resources always fall into a new API Groups. You cannot replace or change existing API groups.
-Adding an API does not directly let you affect the behavior of existing APIs (e.g. Pods), but API Access Extensions do.
+Ketika Anda memperluas API Kubernetes dengan menambahkan sumber daya kustom, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Anda tidak dapat menggantikan atau mengubah API Grup yang sudah ada. Menambahkan sebuah API tidak secara langsung membuat Anda memengaruhi perilaku API yang sudah ada (seperti Pods), tetapi Ekstensi Akses API dapat memengaruhi secara langsung.
 
 
-### API Access Extensions
+### Ekstensi Akses API
 
-When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) for more on this flow.
+Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis Kontrol Penerimaan. Lihat dokumentasi [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
 
-Each of these steps offers extension points.
+Setiap step ini menawarkan titik ekstensi.
 
-Kubernetes has several built-in authentication methods that it supports. It can also sit behind an authenticating proxy, and it can send a token from an Authorization header to a remote service for verification (a webhook). All of these methods are covered in the [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
+Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proxy yang mengotentikasi, dan metode ini dapat mengirim token dari header Otorisasi ke layanan jarak jauh untuk verifikasi (webhook). Semua metode ini tercakup dalam [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
 
 ### Authentication
 
