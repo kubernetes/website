@@ -296,7 +296,8 @@ kubelet [flags]
     </tr>
 
     <tr>
-       <td colspan="2">--cpu-cfs-quota-period duration</tr>
+       <td colspan="2">--cpu-cfs-quota-period duration</td>
+       </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Sets CPU CFS quota period value, cpu.cfs_period_us, defaults to Linux Kernel default (default 100ms) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
     </tr>
@@ -319,7 +320,7 @@ kubelet [flags]
        <td colspan="2">--docker string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">ddocker endpoint (default "unix:///var/run/docker.sock") (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">docker endpoint (default "unix:///var/run/docker.sock") (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
     </tr>
     
     <tr>
@@ -803,7 +804,7 @@ kubelet [flags]
       <td colspan="2">--master-service-namespace string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The namespace from which the kubernetes master services should be injected into pods (default "default") (DEPRECATED: This flag will be removed in a future version.)
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The namespace from which the kubernetes master services should be injected into pods (default "default") (DEPRECATED: This flag will be removed in a future version.)</td>
     </tr>
     
     <tr>
@@ -827,7 +828,6 @@ kubelet [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum number of old instances of containers to retain globally.  Each container takes up some disk space. To disable, set to a negative number. (default -1) (DEPRECATED: Use --eviction-hard or --eviction-soft instead. Will be removed in a future version.)
       --maximum-dead-containers-per-container int32                                                               Maximum number of old instances to retain per container.  Each container takes up some disk space. (default 1) (DEPRECATED: Use --eviction-hard or --eviction-soft instead. Will be removed in a future version.)</td>
     </tr>
-
 
     <tr>
        <td colspan="2">--minimum-container-ttl-duration duration</td>
@@ -997,21 +997,21 @@ kubelet [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node as schedulable. Won't have any effect if register-node is false. (default true) (DEPRECATED: will be removed in a future version)</td>
       </tr>
 
-     <tr>
+    <tr>
        <td colspan="2">--register-with-taints []api.Taint</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node with the given list of taints (comma separated "<key>=<value>:<effect>"). No-op if register-node is false.</td>
     </tr>
 
-     <tr>
+    <tr>
        <td colspan="2">--registry-burst int32</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum size of a bursty pulls, temporarily allows pulls to burst to this number, while still not exceeding registry-qps. Only used if --registry-qps > 0 (default 10) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
     </tr>
 
-     <tr>
+    <tr>
        <td colspan="2">--registry-qps int32</td>
     </tr>
     <tr>
