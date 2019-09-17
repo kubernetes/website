@@ -4,7 +4,7 @@
 other = " документация больше не поддерживается. Версия, которую вы сейчас просматриваете, является статической. Актуальную документацию вы можете найти "
 
 [deprecation_file_warning]
-other = "Устарелая"
+other = "Устаревшая"
 
 [objectives_heading]
 other = "Цели"
@@ -34,10 +34,10 @@ other = "Нет"
 other = "последняя версия."
 
 [version_check_mustbe]
-other = "Ваш Kubernetes сервер должен быть версии "
+other = "Ваш сервер Kubernetes должен быть версии "
 
 [version_check_mustbeorlater]
-other = "Ваш Kubernetes сервер должен быть версии или выше, чем версия "
+other = "Ваш сервер Kubernetes должен быть версии или позже, чем версия "
 
 [version_check_tocheck]
 other = "Чтобы проверить версию, введите "
@@ -55,10 +55,10 @@ other = "Предупреждение:"
 other = "Прочитать о"
 
 [main_read_more]
-other = "Узнать больше"
+other = "Прочитать больше"
 
 [main_github_invite]
-other = "Хотите взломать ядро базы кода Kubernetes?"
+other = "Interested in hacking on the core Kubernetes code base?"
 
 [main_github_view_on]
 other = "Посмотреть на GitHub"
@@ -121,10 +121,10 @@ other = "Я ..."
 # layouts > blog > pager
 
 [layouts_blog_pager_prev]
-other = "<< Prev"
+other = "<< Назад"
 
 [layouts_blog_pager_next]
-other = "Next >>"
+other = "Вперед >>"
 
 # layouts > blog > list
 
@@ -140,7 +140,7 @@ other = "This glossary is intended to be a comprehensive, standardized list of K
 other = "Filter terms according to their tags"
 
 [layouts_docs_glossary_select_all]
-other = "Select all"
+other = "Выделить все"
 
 [layouts_docs_glossary_deselect_all]
 other = "Deselect all"
@@ -157,7 +157,7 @@ other = "indicators below to get a longer explanation for any particular term."
 # layouts > docs > search
 
 [layouts_docs_search_fetching]
-other = "Поиск .."
+other = "Получение результатов.."
 
 # layouts > partial > feedback
 
