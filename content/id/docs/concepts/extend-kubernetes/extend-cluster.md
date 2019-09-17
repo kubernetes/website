@@ -74,8 +74,8 @@ memang menambah poin kegagalan.
 Di dalam model *Webhook*, Kubernetes membuat sebuah *network request* kepada sebuah layanan jarak jauh.
 
 Di dalam model *Binary Plugin*, Kubernetes mengeksekusi file binari (program).
-Plugin binari digunakan oleh kubelet (seperti [Flex Volume Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
-dan [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
+Plugin binari digunakan oleh kubelet (seperti [Plugin Volume Flex](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+dan [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
 
 Berikut ini adalah diagram yang menunjukkan bagaimana titik ekstensi berinteraksi dengan bidang kontrol Kubernetes.
 
@@ -93,12 +93,12 @@ Diagram berikut menunjukkan titik-titik ekstensi di sistem Kubernetes.
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1. Pengguna biasa berinteraksi dengan API Kubernetes menggunakan `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas binari kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat menegakkan kebijakan di seluruh situs.
-2. API server menangani semua permintaan. Beberapa tipe titik ekstensi di API server memperbolehkan autentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [API Access Extensions](/docs/concepts/overview/extending#api-access-extensions)
-3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. Anda juga dapat menambahkan sumber yang Anda definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Custom Resources](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Ekstensi API Aksi.
-4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions).
+2. API server menangani semua permintaan. Beberapa tipe titik ekstensi di API server memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [Ekstensi Akses API](/docs/concepts/overview/extending#api-access-extensions)
+3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. Anda juga dapat menambahkan sumber yang Anda definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya Kustom](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Ekstensi API Aksi.
+4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Ekstensi Penjadwalan](/docs/concepts/overview/extending#scheduler-extensions).
 5. Sebagian besar perilaku Kubernetes diimplementasikan oleh program yang disebut *Controllers* yang merupakan klien dari API-Server. *Controllers* sering digunakan bersama dengan Sumber Daya Kustom.
-6. Kubelet berjalan di server, dan membantu pod terlihat sepreti server virtual dengan IP mereka sendiri di jaringan kluster. [Network Plugins](/docs/concepts/overview/extending#network-plugins) memungkinkan perbedaan implementasi pada jaringan pod.
-7. Kubelet juga melakukan pemasangan dan pelepasan volume untuk kontainer. Tipe penyimpanan baru dapat didukung via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
+6. Kubelet berjalan di server, dan membantu pod terlihat sepreti server virtual dengan IP mereka sendiri di jaringan kluster. [Plugin Jaringan](/docs/concepts/overview/extending#network-plugins) memungkinkan perbedaan implementasi pada jaringan pod.
+7. Kubelet juga melakukan pemasangan dan pelepasan volume untuk kontainer. Tipe penyimpanan baru dapat didukung via [Plugin Penyimpanan](/docs/concepts/overview/extending#storage-plugins).
 
 Jika Anda tidak yakin untuk memulai darimana, flowchart dibawah ini dapat membantu Anda. Ingat bahwa beberapa solusi mungkin melibatkan beberapa tipe ekstensi.
 
@@ -114,11 +114,11 @@ Pertimbangkan untuk menambahkan Sumber Daya Kustom ke Kubernetes jika Anda ingin
 
 Jangan menggunakan Sumber Daya Kustom sebagai penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
 
-Untuk lebih jelasnya tentan Sumber Daya Kustom, lihat [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
+Untuk lebih jelasnya tentan Sumber Daya Kustom, lihat [Panduan Konsep Sumber Daya Kustom](/docs/concepts/api-extension/custom-resources/).
 
 ### Menggabungkan API Baru dengan Otomasi
 
-Kombinasi antart API sumber daya kustom dan loop kontrol disebut [Operator pattern](/docs/concepts/extend-kubernetes/operator/). Operator pola digunakan untuk mengatur aplikasi yang spesifik dan biasanya stateful. API kustom dan loop kontrol ini dapt digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan.
+Kombinasi antart API sumber daya kustom dan loop kontrol disebut [Pola Operator](/docs/concepts/extend-kubernetes/operator/). Operator pola digunakan untuk mengatur aplikasi yang spesifik dan biasanya stateful. API kustom dan loop kontrol ini dapt digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan.
 
 ### Mengubah Sumber Daya Bawaan
 
@@ -127,22 +127,21 @@ Ketika Anda memperluas API Kubernetes dengan menambahkan sumber daya kustom, sum
 
 ### Ekstensi Akses API
 
-Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis Kontrol Penerimaan. Lihat dokumentasi [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
+Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis Kontrol Penerimaan. Lihat dokumentasi [Mengatur Akses ke API Kubernetes](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
 
 Setiap step ini menawarkan titik ekstensi.
 
 Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proxy yang mengotentikasi, dan metode ini dapat mengirim token dari header Otorisasi ke layanan jarak jauh untuk verifikasi (webhook). Semua metode ini tercakup dalam [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
 
-### Authentication
+### Otentikasi
 
-[Authentication](/docs/reference/access-authn-authz/authentication/) maps headers or certificates in all requests to a username for the client making the request.
+[Otentikasi](/docs/reference/access-authn-authz/authentication/) memetakan header atau sertifikat dalam semua permintaan ke username untuk klien yang mebuat permintaan.
 
-Kubernetes provides several built-in authentication methods, and an [Authentication webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) method if those don't meet your needs.
+Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [Webhook Otentikasi](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) jika metode bawaan tersebut tidak mencukupi kebutuhan Anda.
 
+### Otorisasi
 
-### Authorization
-
- [Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah user tertentu dapat membaca, menulis, dan melakukan operasi lainnya ke API sumber daya. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan Anda, [Webhook Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
 
 
 ### Dynamic Admission Control
