@@ -10,32 +10,23 @@ slug: api-deprecations-in-1-16
 As the Kubernetes API evolves, APIs are periodically reorganized or upgraded.
 When APIs evolve, the old API is deprecated and eventually removed.
 
-The 1.16 release will deprecate APIs for four services:
+The **v1.16** release will stop serving the following deprecated API versions in favor of newer and more stable API versions:
 
-* NetworkPolicy
-* PodSecurityPolicy
-* DaemonSet, Deployment, StatefulSet, and ReplicaSet
-* Ingress
+* NetworkPolicy (in the **extensions/v1beta1** API group)
+  * Migrate to use the **networking.k8s.io/v1** API, available since v1.8.
+    Existing persisted data can be retrieved/updated via the **networking.k8s.io/v1** API.
+* PodSecurityPolicy (in the **extensions/v1beta1** API group)
+  * Migrate to use the **policy/v1beta1** API, available since v1.10.
+    Existing persisted data can be retrieved/updated via the **policy/v1beta1** API.
+* DaemonSet, Deployment, StatefulSet, and ReplicaSet (in the **extensions/v1beta1** and **apps/v1beta2** API groups)
+  * Migrate to use the **apps/v1** API, available since v1.9.
+    Existing persisted data can be retrieved/updated via the **apps/v1** API.
 
-None of these resources will be removed from Kubernetes or deprecated in any way.
-However, to continue using these resources, you must use a current version of
-the Kubernetes API.
+The **v1.20** release will stop serving the following deprecated API versions in favor of newer and more stable API versions:
 
-# Migration Details
-
-* NetworkPolicy: will no longer be served from **extensions/v1beta1** in **v1.16**.
-  * Migrate to the networking.k8s.io/v1 API, available since v1.8. Existing persisted
-    data can be retrieved/updated via the networking.k8s.io/v1 API.
-* PodSecurityPolicy: will no longer be served from **extensions/v1beta1** in **v1.16**.
-  * Migrate to the policy/v1beta1 API, available since v1.10. Existing persisted
-    data can be retrieved/updated via the policy/v1beta1 API.
-* DaemonSet, Deployment, StatefulSet, and ReplicaSet:  will no longer be served
-from **extensions/v1beta1**, **apps/v1beta1**, or **apps/v1beta2** in **v1.16**.
-  * Migrate to the apps/v1 API, available since v1.9. Existing persisted data
-    can be retrieved/updated via the apps/v1 API.
-* Ingress: will no longer be served from **extensions/v1beta1** in **v1.18**.
-  * Migrate to the networking.k8s.io/v1beta1 API, serving Ingress since v1.14.
-    Existing persisted data can be retrieved/updated via the networking.k8s.io/v1beta1 API.
+* Ingress (in the **extensions/v1beta1** API group)
+  * Migrate to use the **networking.k8s.io/v1beta1** API, serving Ingress since v1.14.
+    Existing persisted data can be retrieved/updated via the **networking.k8s.io/v1beta1** API.
 
 # What To Do
 
