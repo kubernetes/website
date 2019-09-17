@@ -53,6 +53,7 @@ provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
 reclaimPolicy: Retain
+allowVolumeExpansion: true
 mountOptions:
   - debug
 volumeBindingMode: Immediate
@@ -71,7 +72,7 @@ for provisioning PVs. This field must be specified.
 | CephFS               | -                   | -                                    |
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
 | FC                   | -                   | -                                    |
-| Flexvolume           | -                   | -                                    |
+| FlexVolume           | -                   | -                                    |
 | Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
@@ -91,14 +92,15 @@ alongside Kubernetes). You can also run and specify external provisioners,
 which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
-run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
+run, what volume plugin it uses (including Flex), etc. The repository
+[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 houses a library for writing external provisioners that implements the bulk of
-the specification plus various community-maintained external provisioners.
+the specification. Some external provisioners are listed under the repository
+[kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
 
-For example, NFS doesn't provide an internal provisioner, but an external provisioner
-can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
-There are also cases when 3rd party storage vendors provide their own external
-provisioner.
+For example, NFS doesn't provide an internal provisioner, but an external
+provisioner can be used. There are also cases when 3rd party storage
+vendors provide their own external provisioner.
 
 ### Reclaim Policy
 
@@ -109,6 +111,31 @@ either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
 
 Persistent Volumes that are created manually and managed via a storage class will have
 whatever reclaim policy they were assigned at creation.
+
+### Allow Volume Expansion
+
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+
+Persistent Volumes can be configured to be expandable. This feature when set to `true`, 
+allows the users to resize the volume by editing the corresponding PVC object. 
+
+The following types of volumes support volume expansion, when the underlying
+Storage Class has the field `allowVolumeExpansion` set to true.
+
+* gcePersistentDisk
+* awsElasticBlockStore
+* Cinder
+* glusterfs
+* rbd
+* Azure File
+* Azure Disk
+* Portworx
+* FlexVolumes
+* CSI  {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+{{< note >}}
+This feature cannot be used to shrink volumes.
+{{< /note >}}
 
 ### Mount Options
 
@@ -522,11 +549,12 @@ parameters:
   Default is "default".
 * `adminSecretName`: secret that holds information about the Quobyte user and
   the password to authenticate against the API server. The provided secret
-  must have type "kubernetes.io/quobyte", e.g. created in this way:
+  must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
+  e.g. created in this way:
 
     ```shell
     kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
       --namespace=kube-system
     ```
 
@@ -610,12 +638,24 @@ parameters:
   group are searched to find one that matches `skuName` and `location`. If a
   storage account is provided, it must reside in the same resource group as the
   cluster, and `skuName` and `location` are ignored.
+* `secretNamespace`: the namespace of the secret that contains the Azure Storage 
+  Account Name and Key. Default is the same as the Pod.
+* `secretName`: the name of the secret that contains the Azure Storage Account Name and
+  Key. Default is `azure-storage-account-<accountName>-secret`
+* `readOnly`: a flag indicating whether the storage will be mounted as read only.
+  Defaults to false which means a read/write mount. This setting will impact the 
+  `ReadOnly` setting in VolumeMounts as well.
 
-During provision, a secret is created for mounting credentials. If the cluster
-has enabled both [RBAC](/docs/reference/access-authn-authz/rbac/) and
+During storage provisioning, a secret named by `secretName` is created for the 
+mounting credentials. If the cluster has enabled both 
+[RBAC](/docs/reference/access-authn-authz/rbac/) and 
 [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
 add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
+
+In a multi-tenancy context, it is strongly recommended to set the value for 
+`secretNamespace` explicitly, otherwise the storage account credentials may
+be read by other users.
 
 ### Portworx Volume
 

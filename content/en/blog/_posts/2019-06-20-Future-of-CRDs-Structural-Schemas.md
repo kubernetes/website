@@ -68,6 +68,8 @@ properties:
     properties
       command:
         type: string
+      shell:
+        type: string
       machines:
         type: array
         items:
@@ -92,14 +94,14 @@ properties:
       shell:
         type: string
         minLength: 1                          # value validation
-      oneOf:                                  # value validation
-      - required: [“command”]                 # value validation
-      - required: [“shell”]                   # value validation
       machines:
         type: array
         items:
           type: string
           pattern: “^[a-z0-9]+(-[a-z0-9]+)*$” # value validation
+    oneOf:                                    # value validation
+    - required: [“command”]                   # value validation
+    - required: [“shell”]                     # value validation
 required: [“spec”]                            # value validation
 ```
 
@@ -130,16 +132,20 @@ properties:
       shell:
         type: string
         minLength: 1
-      oneOf:
-      - type: string
-        required: [“command”]
-      - type: string
-        required: [“shell”]
       machines:
         type: array
         items:
           type: string
           pattern: “^[a-z0-9]+(-[a-z0-9]+)*$”
+    oneOf:
+    - properties:
+        command:
+          type: string
+      required: [“command”]
+    - properties:
+        shell:
+          type: string
+      required: [“shell”]
     not:
       properties:
         privileged: {}
@@ -195,7 +201,8 @@ While most Kubernetes-like APIs can be expressed with a structural schema, there
 
 Because we want CRDs to make use of these types as well, we introduce the following OpenAPI vendor extensions to the permitted core constructs:
 
-* `x-kubernetes-embedded-resource: true` — specifies that this is an `runtime.RawExtensions-like field, with a Kubernetes resource with apiVersion, kind and metadata. The consequence is that those 3 fields are not pruned and are automatically validated.
+* `x-kubernetes-embedded-resource: true` — specifies that this is an `runtime.RawExtension`-like field, with a Kubernetes resource with apiVersion, kind and metadata. The consequence is that those 3 fields are not pruned and are automatically validated.
+
 * `x-kubernetes-int-or-string: true` — specifies that this is either an integer or a string. No types must be specified, but
   
   ```yaml
@@ -205,9 +212,10 @@ Because we want CRDs to make use of these types as well, we introduce the follow
   ```
 
   is permitted, though optional.
+
 * `x-kubernetes-preserve-unknown-fields: true` — specifies that the pruning algorithm should not prune any field. This can be combined with `x-kubernetes-embedded-resource`. Note that within a nested `properties` or `additionalProperties` OpenAPI schema the pruning starts again.
   
-  One can use `x-kubernetes-preserve-unknown-fields: true` at the root of the schema (and inside any `properties`, `additionalProperties`) to get the traditional CRD behaviour that nothing is prune, despite being `spec.preserveUnknownProperties: false` is set.
+  One can use `x-kubernetes-preserve-unknown-fields: true` at the root of the schema (and inside any `properties`, `additionalProperties`) to get the traditional CRD behaviour that nothing is pruned, despite setting `spec.preserveUnknownProperties: false`.
 
 ## Conclusion
 

@@ -135,18 +135,18 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
         kind: Ingress
         metadata:
           name: example-ingress
           annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: /
+            nginx.ingress.kubernetes.io/rewrite-target: /$1
         spec:
          rules:
          - host: hello-world.info
            http:
              paths:
-             - path: /*
+             - path: /(.+)
                backend:
                  serviceName: web
                  servicePort: 8080
@@ -160,7 +160,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     Output:
     
     ```shell
-    ingress.extensions/example-ingress created
+    ingress.networking.k8s.io/example-ingress created
     ```
 
 1. Verify the IP address is set: 

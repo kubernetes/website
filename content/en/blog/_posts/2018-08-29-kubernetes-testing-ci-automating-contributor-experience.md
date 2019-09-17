@@ -87,5 +87,5 @@ With today’s [announcement from CNCF](https://www.cncf.io/announcement/2018/08
 
 Want to find out more? Come check out these resources:
 
-* [Prow: Testing the way to Kubernetes Next](https://bentheelder.io/posts/prow)
+* [Prow: Testing the way to Kubernetes Next](https://elder.dev/posts/prow)
 * [Automation and the Kubernetes Contributor Experience](https://www.youtube.com/watch?v=BsIC7gPkH5M)

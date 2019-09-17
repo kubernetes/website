@@ -1,4 +1,10 @@
 {{ $date := now.Format "2006-01-02T15:04:05Z07:00" | querify "timeMin" }}
+
+
+{{/* Setting external resource based on whether hugo is running locally or public */}}
+{{ if .Site.IsServer }}
+{{ $jurl := printf "" $date }}
+{{ else }}
 {{ $jurl := printf "https://www.googleapis.com/calendar/v3/calendars/nt2tcnbtbied3l6gi2h29slvc0%%40group.calendar.google.com/events?orderBy=startTime&singleEvents=true&%s&key=AIzaSyAST-sCyPJzMQJSl6_vRPW9r4DNLPaDIyM" $date }}
 {{ $dataJ := getJSON $jurl }}
 
@@ -8,4 +14,4 @@
   <div class="event"><a href="{{ safeHTML $url }}">{{ .summary }}</a> - {{ .location }} - {{ .start.date }}</div>
 {{ end }}
 
-    
+{{ end }}    

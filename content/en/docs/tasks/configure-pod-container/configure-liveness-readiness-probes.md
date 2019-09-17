@@ -286,7 +286,7 @@ to 1 second. Minimum value is 1.
 considered successful after having failed. Defaults to 1. Must be 1 for
 liveness. Minimum value is 1.
 * `failureThreshold`: When a Pod starts and the probe fails, Kubernetes will
-try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
+try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)

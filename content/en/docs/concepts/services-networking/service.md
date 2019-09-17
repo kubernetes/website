@@ -86,9 +86,9 @@ spec:
   selector:
     app: MyApp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 This specification creates a new Service object named “my-service”, which
@@ -146,9 +146,9 @@ metadata:
   name: my-service
 spec:
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 Because this Service has no selector, the corresponding Endpoint object is *not*
@@ -328,14 +328,14 @@ spec:
   selector:
     app: MyApp
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 9376
-  - name: https
-    protocol: TCP
-    port: 443
-    targetPort: 9377
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 9377
 ```
 
 {{< note >}}
@@ -356,7 +356,7 @@ that are configured for a specific IP address and difficult to re-configure.
 The IP address that you choose must be a valid IPv4 or IPv6 address from within the
 `service-cluster-ip-range` CIDR range that is configured for the API server.
 If you try to create a Service with an invalid clusterIP address value, the API
-server will returns a 422 HTTP status code to indicate that there's a problem.
+server will return a 422 HTTP status code to indicate that there's a problem.
 
 ## Discovering services
 
@@ -431,14 +431,12 @@ this case, you can create what are termed “headless” Services, by explicitly
 specifying `"None"` for the cluster IP (`.spec.clusterIP`).
 
 You can use a headless Service to interface with other service discovery mechanisms,
-without being tied to Kubernetes' implementation. For example, you could implement
-a custom [Operator](
-to be built on the API).
+without being tied to Kubernetes' implementation.
 
-For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
+For headless `Services`, a cluster IP is not allocated, kube-proxy does not handle
 these Services, and there is no load balancing or proxying done by the platform
 for them. How DNS is automatically configured depends on whether the Service has
-selectors defined.
+selectors defined:
 
 ### With selectors
 
@@ -532,16 +530,16 @@ spec:
   selector:
     app: MyApp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
   clusterIP: 10.0.171.239
   loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-    - ip: 146.148.47.155
+      - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
@@ -600,7 +598,7 @@ For more information, see the [docs](https://cloud.google.com/kubernetes-engine/
 metadata:
     name: my-service
     annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 [...]
 ```
 {{% /tab %}}
@@ -687,8 +685,8 @@ In the above example, if the Service contained three ports, `80`, `443`, and
 `8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
 be proxied HTTP.
 
-From Kubernetes v1.9 onwrds you can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
-To see which policies are available for use, you can the `aws` command line tool:
+From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
+To see which policies are available for use, you can use the `aws` command line tool:
 
 ```bash
 aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
@@ -863,7 +861,7 @@ specify `loadBalancerSourceRanges`.
 ```yaml
 spec:
   loadBalancerSourceRanges:
-  - "143.231.0.0/16"
+    - "143.231.0.0/16"
 ```
 
 {{< note >}}
@@ -931,12 +929,12 @@ spec:
   selector:
     app: MyApp
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 9376
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
   externalIPs:
-  - 80.11.12.10
+    - 80.11.12.10
 ```
 
 ## Shortcomings

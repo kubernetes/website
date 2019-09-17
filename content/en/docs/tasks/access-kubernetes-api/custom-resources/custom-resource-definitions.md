@@ -205,7 +205,7 @@ A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/access-ku
 1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node (via `items` in OpenAPI), with the exception of:
    * a node with `x-kubernetes-int-or-string: true`
    * a node with `x-kubernetes-preserve-unknown-fields: true`
-2. for each each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`, `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
+2. for each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`, `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
 3. does not set `description`, `type`, `default`, `additionProperties`, `nullable` within an `allOf`, `anyOf`, `oneOf` or `not`, with the exception of the two pattern for `x-kubernetes-int-or-string: true` (see below).
 4. if `metadata` is specified, then only restrictions on `metadata.name` and `metadata.generateName` are allowed. 
 
@@ -541,7 +541,7 @@ object. When all finalizers have been executed, the resource is deleted.
 The value of `metadata.deletionGracePeriodSeconds` controls the interval between
 polling updates.
 
-It is the responsibility of each controller to removes its finalizer from the list.
+It is the responsibility of each controller to remove its finalizer from the list.
 
 Kubernetes only finally deletes the object if the list of finalizers is empty,
 meaning all finalizers have been executed.
@@ -760,7 +760,7 @@ metadata:
 spec:
   cronSpec: "5 0 * * *"
   image: my-awesome-cron-image
-  replaces: 1
+  replicas: 1
 ```
 
 Note that defaulting happens on the object

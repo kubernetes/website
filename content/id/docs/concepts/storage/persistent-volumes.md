@@ -256,7 +256,7 @@ Tipe-tipe `PersistentVolume` (PV) diimplementasikan sebagai _plugin_.  Kubernete
 * AzureFile
 * AzureDisk
 * FC (Fibre Channel)
-* Flexvolume
+* FlexVolume
 * Flocker
 * NFS
 * iSCSI
@@ -338,7 +338,7 @@ Pada CLI, mode-mode akses tersebut disingkat menjadi:
 | CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
 | Cinder               | &#x2713;     | -           | -            |
 | FC                   | &#x2713;     | &#x2713;    | -            |
-| Flexvolume           | &#x2713;     | &#x2713;    | depends on the driver |
+| FlexVolume           | &#x2713;     | &#x2713;    | depends on the driver |
 | Flocker              | &#x2713;     | -           | -            |
 | GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
 | Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |

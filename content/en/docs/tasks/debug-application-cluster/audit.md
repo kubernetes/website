@@ -262,7 +262,7 @@ and can optionally include a custom CA bundle to use to verify the TLS connectio
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
 The host might be resolved via external DNS in some apiservers
-(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 
 Please note that using `localhost` or `127.0.0.1` as a `host` is
@@ -323,7 +323,7 @@ Administrators should be aware that allowing write access to this feature grants
 
 Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
 
-## Multi-cluster setup
+## Setup for multiple API servers
 
 If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
 set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
@@ -489,6 +489,7 @@ Note that in addition to file output plugin, logstash has a variety of outputs t
 let users route data where they want. For example, users can emit audit events to elasticsearch
 plugin which supports full-text search and analytics.
 
+
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
 [auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
@@ -500,5 +501,11 @@ plugin which supports full-text search and analytics.
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco) 
 
 {{% /capture %}}

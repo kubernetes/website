@@ -65,7 +65,7 @@ It defines an index.php page which performs some CPU intensive computations:
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
 ```
 ```
 service/php-apache created
@@ -287,7 +287,7 @@ For example, if you had your monitoring system collecting metrics about network 
 you could update the definition above using `kubectl edit` to look like this:
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache

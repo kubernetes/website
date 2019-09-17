@@ -48,9 +48,9 @@ Containers are becoming popular because they have many benefits. Some of the con
 * Resource isolation: predictable application performance.
 * Resource utilization: high efficiency and density.
 
-## Why do I need Kubernetes and what can it do
+## Why you need Kubernetes and what can it do
 
-Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to restart. Wouldn't it be easier if this behavior was handled by a system?
+Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?
 
 That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of your scaling requirements, failover, deployment patterns, and more. For example, Kubernetes can easily manage a canary deployment for your system.
 
@@ -81,7 +81,7 @@ Kubernetes:
 * Does not dictate logging, monitoring, or alerting solutions. It provides some integrations as proof of concept, and mechanisms to collect and export metrics.
 * Does not provide nor mandate a configuration language/system (for example, jsonnet). It provides a declarative API that may be targeted by arbitrary forms of declarative specifications.
 * Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
-* Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes is comprised of a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn’t matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
+* Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn’t matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 
 {{% /capture %}}
 

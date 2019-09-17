@@ -1,5 +1,5 @@
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: nginx
 spec:
@@ -9,7 +9,7 @@ spec:
     volumeMounts:
     - mountPath: /var/run/secrets/tokens
       name: vault-token
-  serviceAccountName: acct
+  serviceAccountName: build-robot
   volumes:
   - name: vault-token
     projected:

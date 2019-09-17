@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - janetkuo
 title: Deployments
 feature:
@@ -230,7 +229,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     Next time you want to update these Pods, you only need to update the Deployment's Pod template again.
 
     Deployment ensures that only a certain number of Pods are down while they are being updated. By default,
-    it ensures that at least 25% of the desired number of Pods are up (25% max unavailable).
+    it ensures that at least 75% of the desired number of Pods are up (25% max unavailable).
 
     Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
     By default, it ensures that at most 25% of the desired number of Pods are up (25% max surge).
@@ -659,26 +658,26 @@ In our example above, 3 replicas are added to the old ReplicaSet and 2 replicas 
 new ReplicaSet. The rollout process should eventually move all replicas to the new ReplicaSet, assuming
 the new replicas become healthy. To confirm this, run:  
 
-    ```shell
-    kubectl get deploy
-    ```
+```shell
+kubectl get deploy
+```
 
-    The output is similar to this:
-    ```
-    NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment     15        18        7            8           7m
-    ```
-   The rollout status confirms how the replicas were added to each ReplicaSet.
-    ```shell
-    kubectl get rs
-    ```
+The output is similar to this: 
+```
+NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment     15        18        7            8           7m
+```
+The rollout status confirms how the replicas were added to each ReplicaSet.
+```shell
+kubectl get rs
+```
 
-    The output is similar to this:
-    ```
-    NAME                          DESIRED   CURRENT   READY     AGE
-    nginx-deployment-1989198191   7         7         0         7m
-    nginx-deployment-618515232    11        11        11        7m
-    ```
+The output is similar to this:
+```
+NAME                          DESIRED   CURRENT   READY     AGE
+nginx-deployment-1989198191   7         7         0         7m
+nginx-deployment-618515232    11        11        11        7m
+```
 
 ## Pausing and Resuming a Deployment
 

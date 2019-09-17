@@ -40,6 +40,7 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
   [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller).
 * [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the
   [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
+* [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP router and reverse proxy for service composition, including use cases like Kubernetes Ingress, designed as a library to build your custom proxy
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
   ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket), and it also comes with commercial
   support by [Containous](https://containo.us/services).

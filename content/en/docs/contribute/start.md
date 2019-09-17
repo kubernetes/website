@@ -32,16 +32,26 @@ The Kubernetes documentation is written in Markdown and processed and deployed u
 You can file issues, edit content, and review changes from others, all from the
 GitHub website. You can also use GitHub's embedded history and search tools.
 
-Not all tasks can be done in the GitHub UI, but these are discussed in the 
+Not all tasks can be done in the GitHub UI, but these are discussed in the
 [intermediate](/docs/contribute/intermediate/) and
 [advanced](/docs/contribute/advanced/) docs contribution guides.
 
 ### Participating in SIG Docs
 
-The Kubernetes documentation is maintained by a Special Interest Group (SIG)
-called SIG Docs. We communicate using a Slack channel, a mailing list, and
+The Kubernetes documentation is maintained by a
+{{< glossary_tooltip text="Special Interest Group" term_id="sig" >}} (SIG)
+called SIG Docs. We [communicate](#participate-in-sig-docs-discussions) using a Slack channel, a mailing list, and
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
+
+### Content guildelines
+
+The SIG Docs community created guidelines about what kind of content is allowed 
+in the Kubernetes documentation. Look over the [Documentation Content 
+Guide](/docs/contribute/style/content-guide/) to determine if the content 
+contribution you want to make is allowed. You can ask questions about allowed 
+content in the [#sig-docs]((#participate-in-sig-docs-discussions)) Slack 
+channel.
 
 ### Style guidelines
 
@@ -51,7 +61,7 @@ formatting, and typographic conventions. Look over the style guide before you
 make your first contribution, and use it when you have questions.
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
-or addition, [add it to the agenda](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
+or addition, [add it to the agenda](https://docs.google.com/document/d/1zg6By77SGg90EVUrhDIhopjZlSDg2jCebU-Ks9cYx0w/edit#) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion. See the [advanced contribution](/docs/contribute/advanced/) topic for more
 information.
 
@@ -68,9 +78,9 @@ We make use of the standard Hugo shortcodes, as well as a few that are custom to
 the Kubernetes documentation. See [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) for
 information about how to use them.
 
-### Multiple languages 
+### Multiple languages
 
-Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`. 
+Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`.
 
 For more information about contributing to documentation in multiple languages, see ["Localize content"](/docs/contribute/intermediate#localize-content) in the intermediate contributing guide.
 
@@ -158,7 +168,7 @@ upcoming Kubernetes release, your process is a bit different. See
 process guidelines and information about deadlines.
 {{< /note >}}
 
-### Sign the CLA
+### Sign the CNCF CLA {#sign-the-cla}
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
 the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and
@@ -246,8 +256,10 @@ pull request if it detects that you pushed a new branch to your fork.
     is the same as the commit summary, but you can change it if needed. The
     body is populated by your extended commit message (if present) and some
     template text. Read the template text and fill out the details it asks for,
-    then delete the extra template text. Leave the
-    **Allow edits from maintainers** checkbox selected. Click
+    then delete the extra template text. If you add to the description `fixes #<000000>` 
+    or `closes #<000000>`, where `#<000000>` is the number of an associated issue,
+    GitHub will automatically close the issue when the PR merges. 
+    Leave the **Allow edits from maintainers** checkbox selected. Click
     **Create pull request**.
     
     Congratulations! Your pull request is available in
@@ -258,11 +270,18 @@ pull request if it detects that you pushed a new branch to your fork.
     link for the `deploy/netlify` test, near the bottom of the page. It opens in
     the same browser window by default.
 
+    {{< note >}}
+    Please limit pull requests to one language per PR. For example, if you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language. 
+    {{< /note >}}
+
 6.  Wait for review. Generally, reviewers are suggested by the `k8s-ci-robot`.
     If a reviewer asks you to make changes, you can go to the **Files changed**
     tab and click the pencil icon on any files that have been changed by the
     pull request. When you save the changed file, a new commit is created in
-    the branch being monitored by the pull request.
+    the branch being monitored by the pull request. If you are waiting on a 
+    reviewer to review the changes, proactively reach out to the reviewer 
+    once every 7 days. You can also drop into #sig-docs Slack channel, 
+    which is a good place to ask for help regarding PR reviews.
 
 7.  If your change is accepted, a reviewer merges your pull request, and the
     change is live on the Kubernetes website a few minutes later.
@@ -299,7 +318,7 @@ conventions and etiquette and get used to the workflow.
     PR, and if applicable, also look at any linked issues. If you see a problem
     or room for improvement, hover over the line and click the `+` symbol that
     appears.
-    
+
       You can type a comment, and either choose **Add single comment** or **Start
       a review**. Typically, starting a review is better because it allows you to
       leave multiple comments and notifies the PR owner only when you have
@@ -320,7 +339,7 @@ commercial in nature and should consist of content that will apply broadly to
 the Kubernetes community.
 
 To submit a blog post, you can either submit it using the
-[Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSch_phFYMTYlrTDuYziURP6nLMijoXx_f7sLABEU5gWBtxJHQ/viewform),
+[Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSdMpMoSIrhte5omZbTE7nB84qcGBy8XnnXhDFoW0h7p2zwXrw/viewform),
 or follow the steps below.
 
 1.  [Sign the CLA](#sign-the-cla) if you have not yet done so.
@@ -342,7 +361,7 @@ or follow the steps below.
 
 Case studies highlight how organizations are using Kubernetes to solve
 real-world problems. They are written in collaboration with the Kubernetes
-marketing team, which is handled by the CNCF.
+marketing team, which is handled by the {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
 
 Have a look at the source for the
 [existing case studies](https://github.com/kubernetes/website/tree/master/content/en/case-studies).
