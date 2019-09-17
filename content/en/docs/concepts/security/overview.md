@@ -64,8 +64,8 @@ Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+Oracle Cloud Infrastructure | https://docs.cloud.oracle.com/iaas/Content/Security/Concepts/security.htm |
 VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
-
 
 If you are running on your own hardware or a different cloud provider you will need to
 consult your documentation for security best practices.
