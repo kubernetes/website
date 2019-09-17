@@ -1,0 +1,26 @@
+SIG Scalability: Learning Kubernetes the Hard Way
+By: Alex Handy
+
+There is a strain of thinking in the software development community, that pushes for the most difficult and rigorous possible method of learning a new language or system. These tend to go by the moniker of “Learn __ the Hard Way.” Examples abound: Learn Code the Hard Way, Learn Python the Hard Way, and of course the one that really started the whole movement, Zed Shaw’s courses in the topic.
+
+While there are folks out there who will offer you a “Learn Kubernetes the Hard Way” type experience--most notably Google’s Kelsey Hightower. That particular example is tied to one cloud in particular, however, and in the spirit of this thing, any “Hard Way” project should probably at least attempt to cover every aspect of the platform being taught.
+
+Therefore, the real way to “Learn Kubernetes the Hard Way,” is to join the CNCF and get involved in the project itself. And there is only one SIG that could truly offer a full stack learning experience for Kubernetes: SIG Scalability.
+
+The team behind SIG Scalability is responsible for detecting and dealing with issues that arrise when Kubernetes clusters are working with upwards of a thousand nodes. In fact, said Wojiciech Tyczynski, staff software engineer at Google and member of SIG Scalability, the standard size for a test cluster for this SIG is over 5,000 nodes.
+
+And yet, this SIG is not composed of Ph.D’s in highly scalable systems designs. Many of the folks working with Tyczynski, for example, joined the SIG knowing very little about these types of issues, and often, very little about Kubernetes.
+
+But that’s OK, because joining SIG Scalability is like jumping into the deep end of the pool to learn to swim. Because SIG Scalability is inherently concerned with the entire Kubernetes project and how it functions as a whole at scale, these team members have an impetus to learn about every system and to understand how those systems interact with one another.
+
+While that may sound complicated (And it is!) that doesn’t mean it’s outside the reach of an average developer, tester, or administrator. In fact, Google software developer Matt Matejczyk has only been on the team since the beginning of 2019, and he’s been a valued member of the team since then, ferreting out bugs.
+
+“I am new here,” said Matejczyk. “I joined the team in January of this year. Before that, I worked on AdWords at Google in New York. Why did I join? I knew some guys there, so that was one of the decisions for me to move. I thought at that time that Kubernetes is a unique, cutting edge technology. I thought it’d be cool to work on that.”
+
+Matejczyk was correct about the coolness. “It’s really cool,” he said. “So actually, ramping up on scalability is definitely not easy. There’s a lot of things you need to understand. You need to understand Kubernetes very well. It can use every part of Kubernetes. I am still ramping up after these 8 months.  I think it took me maybe 3 months to get up to decent speed.”
+
+As to what he’s been doing in those 8 months: “Mostly detecting and debugging regressions. This gets really interesting usually, as it takes a lot of time to debug everything from end-to-end, but when you figure out everything, it can ne really rewarding. What is interesting is it looks like everything boils down to memory allocation. That is basically one piece of code, and part of the same binary can affect other code only because it is allocating too much memory.”
+
+Tyczynski said that, “It’s not only debugigng regressions, it’s debugging and finding bottlenecks. In general those can be regressions, but those can be things we can improve. The other significant area is extending what we basically want to guarantee to users. Extending SLA and SLO coverage of the system so users can really rely on what they can expect from the system in terms of performance and scalability. Matt is doing a lot of work is extending our tests to be more representative and cover more Kubernetes concepts.”
+
+The SIG Scalability team is always in need of new members, and if you’re the sort of developer or tester who loves taking on new complex challenges, and perhaps loves learning things the hard way, consider joining this SIG. As the team points out, adding Kubernetes expertise to your resume is never a bad idea, and this is the one SIG where you can learn it all from top to bottom.
