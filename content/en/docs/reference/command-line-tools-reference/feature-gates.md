@@ -24,7 +24,7 @@ To set feature gates for a component, such as kubelet, use the `--feature-gates`
 --feature-gates="...,DynamicKubeletConfig=true"
 ```
 
-The following table is a summary of the feature gates that you can set on
+The following tables are a summary of the feature gates that you can set on
 different Kubernetes components.
 
 - The "Since" column contains the Kubernetes release when a feature is introduced
@@ -32,22 +32,18 @@ different Kubernetes components.
 - The "Until" column, if not empty, contains the last Kubernetes release in which
   you can still use a feature gate.
 
+{{< table caption="Feature gates for features in Alpha or Beta states" >}}
+
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
-| `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
-| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
-| `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
-| `AdvancedAuditing` | `true` | GA | 1.12 | - |
-| `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
-| `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
-| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `AttachVolumeLimit` | `true` | Alpha | 1.11 | 1.11 |
 | `AttachVolumeLimit` | `true` | Beta | 1.12 | |
-| `BlockVolume` | `false` | Alpha | 1.9 | |
+| `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
+| `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
 | `BlockVolume` | `true` | Beta | 1.13 | - |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
@@ -68,17 +64,11 @@ different Kubernetes components.
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | |
-| `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
-| `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
-| `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
-| `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
-| `CustomPodDNS` | `true` | GA | 1.14 | - |
 | `CustomResourceDefaulting` | `false` | Alpha| 1.15 | |
 | `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
 | `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | |
-| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.11 |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.10 |
 | `CustomResourceSubresources` | `true` | Beta | 1.11 | - |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
@@ -86,15 +76,11 @@ different Kubernetes components.
 | `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
+| `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
-| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
-| `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
-| `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
-| `EnableAggregatedDiscoveryTimeout` | `true` | Deprecated | 1.16 | |
-| `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
 | `EndpointSlice` | `false` | Alpha | 1.16 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | |
@@ -102,73 +88,47 @@ different Kubernetes components.
 | `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
-| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `EvenPodsSpread` | `false` | Alpha | 1.16 | |
-| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
-| `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
-| `HugePages` | `false` | Alpha | 1.8 | 1.9 |
-| `HugePages` | `true` | Beta| 1.10 | 1.13 |
-| `HugePages` | `true` | GA | 1.14 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
-| `Initializers` | `false` | Alpha | 1.7 | 1.13 |
-| `Initializers` | - | Deprecated | 1.14 | |
-| `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
-| `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
-| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
-| `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
-| `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha| 1.15 | |
+| `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
-| `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
-| `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
-| `MountPropagation` | `true` | GA | 1.12 | |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
-| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
-| `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
-| `PersistentLocalVolumes` | `true` | GA | 1.14 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
-| `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
-| `PodPriority` | `true` | Beta | 1.11 | 1.13 |
-| `PodPriority` | `true` | GA | 1.14 | |
-| `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
-| `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
-| `PodReadinessGates` | `true` | GA | 1.14 | - |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
-| `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
+| `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
-| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RequestManagement` | `false` | Alpha | 1.15 | |
+| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
+| `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
 | `RuntimeClass` | `true` | Beta | 1.14 | |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
+| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | |
-| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
-| `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
-| `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
-| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
-| `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
-| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
-| `SupportIPVSProxyMode` | `true` | GA | 1.11 | |
+| `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
+| `StreamingProxyRedirects` | `true` | Beta | 1.6 | |
 | `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
 | `SupportNodePidsLimit` | `true` | Beta | 1.15 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
@@ -184,19 +144,86 @@ different Kubernetes components.
 | `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | |
+| `ValidateProxyRedirects` | `false` | Alpha | 1.10 | 1.13 |
+| `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | |
-| `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
-| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
-| `VolumeScheduling` | `true` | GA | 1.13 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
 | `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
-| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
+| `WinDSR` | `false` | Alpha | 1.14 | |
+| `WinOverlay` | `false` | Alpha | 1.14 | |
+{{< /table >}}
+
+The following table contains feature gates for graduated or deprecated features.
+
+{{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
+
+| Feature | Default | Stage | Since | Until |
+|---------|---------|-------|-------|-------|
+| `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
+| `Accelerators` | - | Deprecated | 1.11 | - |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
+| `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
+| `AdvancedAuditing` | `true` | GA | 1.12 | - |
+| `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
+| `AffinityInAnnotations` | - | Deprecated | 1.8 | - |
+| `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
+| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+| `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
+| `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
+| `CSIPersistentVolume` | `true` | GA | 1.13 | - |
+| `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
+| `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
+| `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
+| `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
+| `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
+| `DynamicVolumeProvisioning` | `true` | GA | 1.8 | - |
+| `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | 1.14 |
+| `EnableEquivalenceClassCache` | - | Deprecated | 1.15 | - |
+| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
+| `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | - |
+| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
+| `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
+| `HugePages` | `false` | Alpha | 1.8 | 1.9 |
+| `HugePages` | `true` | Beta| 1.10 | 1.13 |
+| `HugePages` | `true` | GA | 1.14 | - |
+| `Initializers` | `false` | Alpha | 1.7 | 1.13 |
+| `Initializers` | - | Deprecated | 1.14 | - |
+| `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
+| `KubeletConfigFile` | - | Deprecated | 1.10 | - |
+| `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
+| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
+| `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
+| `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
+| `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
+| `MountPropagation` | `true` | GA | 1.12 | - |
+| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
+| `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
+| `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
+| `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
+| `PodPriority` | `true` | Beta | 1.11 | 1.13 |
+| `PodPriority` | `true` | GA | 1.14 | - |
+| `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
+| `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
+| `PodReadinessGates` | `true` | GA | 1.14 | - |
+| `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
+| `PVCProtection` | - | Deprecated | 1.10 | - |
+| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
+| `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
+| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
+| `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
+| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
+| `SupportIPVSProxyMode` | `true` | GA | 1.11 | - |
+| `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
+| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
+| `VolumeScheduling` | `true` | GA | 1.13 | - |
+| `VolumeSubpath` | `true` | GA | 1.13 | - |
+{{< /table >}}
 
 ## Using a Feature
 
@@ -251,6 +278,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
    See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits) for more details.
+- `BalanceAttachedNodeVolumes`: Include volume count on node to be considered for balanced resource allocation
+  while scheduling. A node which has closer CPU, memory utilization, and volume count is favored by the scheduler
+  while making decisions.
 - `BlockVolume`: Enable the definition and consumption of raw block devices in Pods.
    See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
    for more details.
@@ -289,7 +319,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   troubleshoot a running Pod.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
-- `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests.
+- `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
+  so that validation, merging, and mutation can be tested without committing.
 - `DynamicAuditing`: Enable [dynamic auditing](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
@@ -303,6 +334,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalCriticalPodAnnotation`: Enable annotating specific pods as *critical* so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+  This feature is deprecated by Pod Priority and Preemption as of v1.13.
 - `ExperimentalHostUserNamespaceDefaultingGate`: Enabling the defaulting user
    namespace to host. This is for containers that are using other host namespaces,
    host mounts, or containers that are privileged or using specific non-namespaced
@@ -343,6 +375,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
   More details can be found [here](/docs/tasks/administer-cluster/storage-object-in-use-protection/).
+- `QOSReserved`: Allows resource reservations at the QoS level preventing pods at lower QoS levels from
+  bursting into resources requested at higher QoS levels (memory only for now).
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
   assigns a lowest possible score of 1 to a node that satisfies at least one of
   the input Pod's cpu and memory limits. The intent is to break ties between
@@ -389,5 +423,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment variables into a `subPath`.
 - `WatchBookmark`: Enable support for watch bookmark events.
 - `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
+- `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
+- `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
 {{% /capture %}}
