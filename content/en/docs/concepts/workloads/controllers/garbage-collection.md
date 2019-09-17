@@ -39,13 +39,13 @@ If you create the ReplicaSet and then view the Pod metadata, you can see
 OwnerReferences field:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/replicaset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/replicaset.yaml
 kubectl get pods --output=yaml
 ```
 
 The output shows that the Pod owner is a ReplicaSet named `my-repset`:
 
-```shell
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -59,6 +59,14 @@ metadata:
     uid: d9607e19-f88f-11e6-a518-42010a800195
   ...
 ```
+
+{{< note >}}
+Cross-namespace owner references are disallowed by design. This means:
+1) Namespace-scoped dependents can only specify owners in the same namespace,
+and owners that are cluster-scoped.
+2) Cluster-scoped dependents can only specify cluster-scoped owners, but not
+namespace-scoped owners.
+{{< /note >}}
 
 ## Controlling how the garbage collector deletes dependents
 
@@ -81,12 +89,12 @@ the following things are true:
 
 Once the "deletion in progress" state is set, the garbage
 collector deletes the object's dependents. Once the garbage collector has deleted all
-"blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it delete
+"blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it deletes
 the owner object.
 
 Note that in the "foregroundDeletion", only dependents with
 `ownerReference.blockOwnerDeletion` block the deletion of the owner object.
-Kubernetes version 1.7 added an [admission controller](/docs/admin/admission-controllers/#ownerreferencespermissionenforcement) that controls user access to set
+Kubernetes version 1.7 added an [admission controller](/docs/reference/access-authn-authz/admission-controllers/#ownerreferencespermissionenforcement) that controls user access to set
 `blockOwnerDeletion` to true based on delete permissions on the owner object, so that
 unauthorized dependents cannot delay deletion of an owner object.
 
@@ -116,8 +124,8 @@ Here's an example that deletes dependents in background:
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
+  -H "Content-Type: application/json"
 ```
 
 Here's an example that deletes dependents in foreground:
@@ -125,8 +133,8 @@ Here's an example that deletes dependents in foreground:
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
+  -H "Content-Type: application/json"
 ```
 
 Here's an example that orphans dependents:
@@ -134,8 +142,8 @@ Here's an example that orphans dependents:
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
--d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
--H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
+  -H "Content-Type: application/json"
 ```
 
 kubectl also supports cascading deletion.
@@ -151,7 +159,7 @@ kubectl delete replicaset my-repset --cascade=false
 
 ### Additional note on Deployments
 
-When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
+Prior to 1.7, When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
 to delete not only the ReplicaSets created, but also their Pods. If this type of _propagationPolicy_
 is not used, only the ReplicaSets will be deleted, and the Pods will be orphaned.
 See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) for more information.

@@ -3,6 +3,7 @@ title: Extend the Kubernetes API with CustomResourceDefinitions
 reviewers:
 - deads2k
 - enisoc
+- sttts
 content_template: templates/task
 weight: 20
 ---
@@ -69,7 +70,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 Then a new namespaced RESTful API endpoint is created at:
@@ -111,7 +112,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 You can then manage your CronTab objects using kubectl. For example:
@@ -141,14 +142,13 @@ from the yaml you used to create it:
 
 ```console
 apiVersion: v1
+kind: List
 items:
 - apiVersion: stable.example.com/v1
   kind: CronTab
   metadata:
-    clusterName: ""
     creationTimestamp: 2017-05-31T12:56:35Z
-    deletionGracePeriodSeconds: null
-    deletionTimestamp: null
+    generation: 1
     name: my-new-cron-object
     namespace: default
     resourceVersion: "285"
@@ -157,7 +157,6 @@ items:
   spec:
     cronSpec: '* * * * */5'
     image: my-awesome-cron-image
-kind: List
 metadata:
   resourceVersion: ""
   selfLink: ""
@@ -174,7 +173,7 @@ kubectl get crontabs
 ```
 
 ```console
-Error from server (NotFound): Unable to list "crontabs": the server could not find the requested resource (get crontabs.stable.example.com)
+Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not find the requested resource (get crontabs.stable.example.com)
 ```
 
 If you later recreate the same CustomResourceDefinition, it will start out empty.
@@ -208,25 +207,28 @@ metadata:
 Finalizers are arbitrary string values, that when present ensure that a hard delete
 of a resource is not possible while they exist.
 
-The first delete request on an object with finalizers merely sets a value for the
-`metadata.deletionTimestamp` field instead of deleting it. Once this value is set,
+The first delete request on an object with finalizers sets a value for the
+`metadata.deletionTimestamp` field but does not delete it. Once this value is set,
 entries in the `finalizer` list can only be removed.
 
-This triggers controllers watching the object to execute any finalizers they handle.
-This will be represented via polling update requests for that 
-object, until all finalizers have been removed and the resource is deleted.
+When the `metadata.deletionTimestamp` field is set, controllers watching the object
+execute any finalizers they handle, by polling update requests for that
+object. When all finalizers have been executed, the resource is deleted.
 
-The time period of polling update can be controlled by `metadata.deletionGracePeriodSeconds`.
+The value of `metadata.deletionGracePeriodSeconds` controls the interval between
+polling updates.
 
 It is the responsibility of each controller to removes its finalizer from the list.
 
-Kubernetes will only finally delete the object if the list of finalizers is empty,
-meaning all finalizers are done.
+Kubernetes only finally deletes the object if the list of finalizers is empty,
+meaning all finalizers have been executed.
 
 ### Validation
 
+{{< feature-state state="beta" for_kubernetes_version="1.9" >}}
+
 Validation of custom objects is possible via
-[OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject).
+[OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) or [validatingadmissionwebhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 Additionally, the following restrictions are applied to the schema:
 
 - The fields `default`, `nullable`, `discriminator`, `readOnly`, `writeOnly`, `xml`,
@@ -234,11 +236,10 @@ Additionally, the following restrictions are applied to the schema:
 - The field `uniqueItems` cannot be set to true.
 - The field `additionalProperties` cannot be set to false.
 
-This feature is __beta__ in v1.9.
 You can disable this feature using the `CustomResourceValidation` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
 
-``` 		  
+```
 --feature-gates=CustomResourceValidation=false
 ```
 
@@ -287,7 +288,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 A request to create a custom object of kind `CronTab` will be rejected if there are invalid values in its fields.
@@ -312,7 +313,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 you will get an error:
@@ -342,14 +343,164 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
 
+### Publish Validation Schema in OpenAPI v2
+
+{{< feature-state state="alpha" for_kubernetes_version="1.14" >}}
+
+Starting with Kubernetes 1.14, [custom resource validation schema](#validation) can be published as part
+of [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from
+Kubernetes API server.
+
+[kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation
+(`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources.
+The published schema can be consumed for other purposes. The feature is Alpha in 1.14 and disabled by default.
+You can enable the feature using the `CustomResourcePublishOpenAPI` feature gate on the
+[kube-apiserver](/docs/admin/kube-apiserver):
+
+```
+--feature-gates=CustomResourcePublishOpenAPI=true
+```
+
+Custom resource validation schema will be converted to OpenAPI v2 schema, and
+show up in `definitions` and `paths` fields in the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
+The following modifications are applied during the conversion to keep backwards compatiblity with
+kubectl in previous 1.13 version. These modifications prevent kubectl from being over-strict and rejecting
+valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
+and therefore won't affect [validation](#validation) in the API server.
+
+1. The following fields are removed as they aren't supported by OpenAPI v2 (in future versions OpenAPI v3 will be used without these restrictions)
+   - The fields `oneOf`, `anyOf` and `not` are removed
+2. The following fields are removed as they aren't allowed by kubectl in
+   previous 1.13 version
+   - For a schema with a `$ref`
+      - the fields `properties` and `type` are removed
+      - if the `$ref` is outside of the `definitions`, the field `$ref` is removed
+   - For a schema of a primitive data type (which means the field `type` has two elements: one type and one format)
+      - if any one of the two elements is `null`, the field `type` is removed
+      - otherwise, the fields `type` and `properties` are removed
+   - For a schema of more than two types
+      - the fields `type` and `properties` are removed
+   - For a schema of `null` type
+      - the field `type` is removed
+   - For a schema of `array` type
+      - if the schema doesn't have exactly one item, the fields `type` and `items` are
+        removed
+   - For a schema with no type specified
+      - the field `properties` is removed
+3. The following fields are removed as they aren't supported by the OpenAPI protobuf implementation
+   - The fields `id`, `schema`, `definitions`, `additionalItems`, `dependencies`,
+     and `patternProperties` are removed
+   - For a schema with a `externalDocs`
+      - if the `externalDocs` has `url` defined, the field `externalDocs` is removed
+   - For a schema with `items` defined
+      - if the field `items` has multiple schemas, the field `items` is removed
+
+### Additional printer columns
+
+Starting with Kubernetes 1.11, kubectl uses server-side printing. The server decides which
+columns are shown by the `kubectl get` command. You can customize these columns using a
+CustomResourceDefinition. The following example adds the `Spec`, `Replicas`, and `Age`
+columns.
+
+1.  Save the CustomResourceDefinition to `resourcedefinition.yaml`.
+      ```yaml
+      apiVersion: apiextensions.k8s.io/v1beta1
+      kind: CustomResourceDefinition
+      metadata:
+        name: crontabs.stable.example.com
+      spec:
+        group: stable.example.com
+        version: v1
+        scope: Namespaced
+        names:
+          plural: crontabs
+          singular: crontab
+          kind: CronTab
+          shortNames:
+          - ct
+        additionalPrinterColumns:
+        - name: Spec
+          type: string
+          description: The cron spec defining the interval a CronJob is run
+          JSONPath: .spec.cronSpec
+        - name: Replicas
+          type: integer
+          description: The number of jobs launched by the CronJob
+          JSONPath: .spec.replicas
+        - name: Age
+          type: date
+          JSONPath: .metadata.creationTimestamp
+      ```
+
+2.  Create the CustomResourceDefinition:
+
+      ```shell
+      kubectl apply -f resourcedefinition.yaml
+      ```
+
+3.  Create an instance using the `my-crontab.yaml` from the previous section.
+
+4.  Invoke the server-side printing:
+
+      ```shell
+      kubectl get crontab my-new-cron-object
+      ```
+
+      Notice the `NAME`, `SPEC`, `REPLICAS`, and `AGE` columns in the output:
+
+      ```
+      NAME                 SPEC        REPLICAS   AGE
+      my-new-cron-object   * * * * *   1          7s
+      ```
+
+The `NAME` column is implicit and does not need to be defined in the CustomResourceDefinition.
+
+#### Priority
+
+Each column includes a `priority` field for each column. Currently, the priority
+differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
+
+- Columns with priority `0` are shown in standard view.
+- Columns with priority greater than `0` are shown only in wide view.
+
+#### Type
+
+A column's `type` field can be any of the following (compare [OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+
+- `integer` – non-floating-point numbers
+- `number` – floating point numbers
+- `string` – strings
+- `boolean` – true or false
+- `date` – rendered differentially as time since this timestamp.
+
+If the value inside a CustomResource does not match the type specified for the column,
+the value is omitted. Use CustomResource validation to ensure that the value
+types are correct.
+
+#### Format
+
+A column's `format` field can be any of the following:
+
+- `int32`
+- `int64`
+- `float`
+- `double`
+- `byte`
+- `date`
+- `date-time`
+- `password`
+
+The column's `format` controls the style used when `kubectl` prints the value.
+
 ### Subresources
 
+{{< feature-state state="beta" for_kubernetes_version="1.11" >}}
+
 Custom resources support `/status` and `/scale` subresources.
-This feature is __beta__ in v1.11 and enabled by default.
 
 You can disable this feature using the `CustomResourceSubresources` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
@@ -369,8 +520,29 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - `PUT` requests to the `/status` subresource take a custom resource object and ignore changes to anything except the status stanza.
 - `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
 - `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
-- Any changes to the spec stanza increments the value at `.metadata.generation`.
-- `properties`, `required` and `description` are the only constructs allowed in the root of the CRD OpenAPI validation schema.
+- The `.metadata.generation` value is incremented for all changes, except for changes to `.metadata` or `.status`.
+- Only the following constructs are allowed at the root of the CRD OpenAPI validation schema:
+
+  - Description
+  - Example
+  - ExclusiveMaximum
+  - ExclusiveMinimum
+  - ExternalDocs
+  - Format
+  - Items
+  - Maximum
+  - MaxItems
+  - MaxLength
+  - Minimum
+  - MinItems
+  - MinLength
+  - MultipleOf
+  - Pattern
+  - Properties
+  - Required
+  - Title
+  - Type
+  - UniqueItems
 
 #### Scale subresource
 
@@ -389,7 +561,7 @@ the `/scale` subresource will return an error on GET.
 - `StatusReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Replicas`.
 
   - It is a required value.
-  - Only JSONPaths under `.status` and with the dotation are allowed.
+  - Only JSONPaths under `.status` and with the dot notation are allowed.
   - If there is no value under the `StatusReplicasPath` in the custom resource,
 the status replica value in the `/scale` subresource will default to 0.
 
@@ -397,7 +569,7 @@ the status replica value in the `/scale` subresource will default to 0.
 
   - It is an optional value.
   - It must be set to work with HPA.
-  - Only JSONPaths under `.status` and with the dotation are allowed.
+  - Only JSONPaths under `.status` and with the dot notation are allowed.
   - If there is no value under the `LabelSelectorPath` in the custom resource,
 the status selector value in the `/scale` subresource will default to the empty string.
 
@@ -440,7 +612,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 After the CustomResourceDefinition object has been created, you can create custom objects.
@@ -461,7 +633,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 Then new namespaced RESTful API endpoints are created at:
@@ -525,7 +697,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 After the CustomResourceDefinition object has been created, you can create custom objects.
@@ -545,7 +717,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 You can specify the category using `kubectl get`:
@@ -564,10 +736,10 @@ crontabs/my-new-cron-object   3s
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
+
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions-k8s-io).
+
 * Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a
-  CustomResourceDefinition
+  CustomResourceDefinition.
+
 {{% /capture %}}
-
-

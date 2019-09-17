@@ -52,7 +52,7 @@ We’re done with step 1. In my experience it usually takes less than 5 minutes 
 
 
 ## Deploy an Application to Kubernetes
-First go to [Codefresh and create an account using Github, Bitbucket, or Gitlab](https://codefresh.io/kubernetes-deploy/). As mentioned previously, Codefresh is free for both open source and smaller private projects. We’ll use it to create the configuration Yaml necessary to deploy our application to Kubernetes. Then we'll deploy our application and automate the process to happen every time we commit code changes. Here are the steps:  
+First go to [Codefresh and create an account using GitHub, Bitbucket, or Gitlab](https://codefresh.io/kubernetes-deploy/). As mentioned previously, Codefresh is free for both open source and smaller private projects. We’ll use it to create the configuration Yaml necessary to deploy our application to Kubernetes. Then we'll deploy our application and automate the process to happen every time we commit code changes. Here are the steps:  
 
 1. 1.Create a Codefresh account
 2. 2.Connect to Google Cloud (or other cluster)

@@ -42,7 +42,7 @@ Here is the configuration file for a ResourceQuota object:
 Create the ResourceQuota:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-pod.yaml --namespace=quota-pod-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-pod.yaml --namespace=quota-pod-example
 ```
 
 View detailed information about the ResourceQuota:
@@ -74,7 +74,7 @@ In the configuration file, `replicas: 3` tells Kubernetes to attempt to create t
 Create the Deployment:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-pod-deployment.yaml --namespace=quota-pod-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-pod-deployment.yaml --namespace=quota-pod-example
 ```
 
 View detailed information about the Deployment:

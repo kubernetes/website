@@ -33,7 +33,7 @@ runs the nginx image. Here is the configuration file for the Pod:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/shell-demo.yaml
+kubectl apply -f https://k8s.io/examples/application/shell-demo.yaml
 ```
 
 Verify that the Container is running:
@@ -47,6 +47,11 @@ Get a shell to the running Container:
 ```shell
 kubectl exec -it shell-demo -- /bin/bash
 ```
+{{< note >}}
+
+The double dash symbol "--" is used to separate the arguments you want to pass to the command from the kubectl arguments.
+
+{{< /note >}}
 
 In your shell, list the root directory:
 

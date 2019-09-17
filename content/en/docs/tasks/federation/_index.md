@@ -1,5 +1,5 @@
 ---
-title: "Federation - Run an App on Multiple Clusters"
+title: "Federation"
 weight: 120
 ---
 

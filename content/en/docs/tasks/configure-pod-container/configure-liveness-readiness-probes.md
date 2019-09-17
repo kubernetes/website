@@ -62,7 +62,7 @@ code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
 ```
 
 Within 30 seconds, view the Pod events:
@@ -138,7 +138,7 @@ Any code greater than or equal to 200 and less than 400 indicates success. Any
 other code indicates failure.
 
 You can see the source code for the server in
-[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/liveness/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
 
 For the first 10 seconds that the Container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
@@ -163,7 +163,7 @@ checks will fail, and the kubelet will kill and restart the Container.
 To try the HTTP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/http-liveness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 ```
 
 After 10 seconds, view Pod events to verify that liveness probes have failed and
@@ -172,6 +172,12 @@ the Container has been restarted:
 ```shell
 kubectl describe pod liveness-http
 ```
+
+In releases prior to v1.13 (including v1.13), if the environment variable
+`http_proxy` (or `HTTP_PROXY`) is set on the node where a pod is running,
+the HTTP liveness probe uses that proxy.
+In releases after v1.13, local HTTP proxy environment variable settings do not
+affect the HTTP liveness probe.
 
 ## Define a TCP liveness probe
 
@@ -198,7 +204,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
 ```
 
 After 15 seconds, view Pod events to verify that liveness probes:
@@ -229,11 +235,16 @@ livenessProbe:
 
 Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
-files during startup. In such cases, you don't want to kill the application,
+files during startup, or depend on external services after startup.
+In such cases, you don't want to kill the application,
 but you don’t want to send it requests either. Kubernetes provides
 readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
+
+{{< note >}}
+Readiness probes runs on the container during its whole lifecycle.
+{{< /note >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
@@ -298,6 +309,10 @@ Here's one scenario where you would set it. Suppose the Container listens on 127
 and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
 to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
+
+For a probe, the kubelet makes the probe connection at the node, not in the pod, which
+means that you can not use a service name in the `host` parameter since the kubelet is unable
+to resolve it.
 
 {{% /capture %}}
 

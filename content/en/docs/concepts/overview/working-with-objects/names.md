@@ -17,7 +17,6 @@ See the [identifiers design doc](https://git.k8s.io/community/contributors/desig
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -26,6 +25,21 @@ See the [identifiers design doc](https://git.k8s.io/community/contributors/desig
 {{< glossary_definition term_id="name" length="all" >}}
 
 By convention, the names of Kubernetes resources should be up to maximum length of 253 characters and consist of lower case alphanumeric characters, `-`, and `.`, but certain resources have more specific restrictions.
+
+For example, here’s the configuration file with a Pod name as `nginx-demo` and a Container name as `nginx`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-demo
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80
+```
 
 ## UIDs
 

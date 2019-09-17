@@ -25,7 +25,7 @@ Pod fields and Container fields.
 
 There are two ways to expose Pod and Container fields to a running Container:
 
-* [Environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
+* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * DownwardAPIVolumeFiles
 
 Together, these two ways of exposing Pod and Container fields are called the
@@ -49,14 +49,14 @@ The second element specifies that the value of the Pod's `annotations`
 field should be stored in a file named `annotations`.
 
 {{< note >}}
-**Note:** The fields in this example are Pod fields. They are not
+The fields in this example are Pod fields. They are not
 fields of the Container in the Pod.
 {{< /note >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
 Verify that Container in the Pod is running:
@@ -84,7 +84,7 @@ builder="john-doe"
 
 Get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 ```
 
@@ -118,7 +118,7 @@ View the files in the `/etc/podinfo` directory:
 In the output, you can see that the `labels` and `annotations` files
 are in a temporary subdirectory: in this example,
 `..2982_06_02_21_47_53.299460680`. In the `/etc/podinfo` directory, `..data` is
-a symbolic link to the temporary subdirectory. Also in  the `/etc/podinfo` directory,
+a symbolic link to the temporary subdirectory. Also in the `/etc/podinfo` directory,
 `labels` and `annotations` are symbolic links.
 
 ```
@@ -139,7 +139,7 @@ atomically using
 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
 
 {{< note >}}
-**Note:** A container using Downward API as a
+A container using Downward API as a
 [subPath](/docs/concepts/storage/volumes/#using-subpath) volume mount will not
 receive Downward API updates.
 {{< /note >}}
@@ -165,18 +165,19 @@ Look at the `items` array under `downwardAPI`. Each element of the array is a
 DownwardAPIVolumeFile.
 
 The first element specifies that in the Container named `client-container`,
-the value of the `limits.cpu` field
-should be stored in a file named `cpu_limit`.
+the value of the `limits.cpu` field in the format specified by `1m` should be
+stored in a file named `cpu_limit`. The `divisor` field is optional and has the
+default value of `1` which means cores for cpu and bytes for memory.
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
 ```
 
 Get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 ```
 
@@ -198,13 +199,9 @@ The following information is available to containers through environment
 variables and `downwardAPI` volumes:
 
 * Information available via `fieldRef`:
-  * `spec.nodeName` - the node’s name
-  * `status.hostIP` - the node's IP
   * `metadata.name` - the pod’s name
   * `metadata.namespace` - the pod’s namespace
-  * `status.podIP` - the pod’s IP address
-  * `spec.serviceAccountName` - the pod’s service account name
-  * `metadata.uid` - the pod’s UID
+  * `metadata.uid` - the pod’s UID, available since v1.8.0-alpha.2
   * `metadata.labels['<KEY>']` - the value of the pod’s label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
   * `metadata.annotations['<KEY>']` - the value of the pod’s annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
 * Information available via `resourceFieldRef`:
@@ -212,6 +209,8 @@ variables and `downwardAPI` volumes:
   * A Container’s CPU request
   * A Container’s memory limit
   * A Container’s memory request
+  * A Container’s ephemeral-storage limit, available since v1.8.0-beta.0
+  * A Container’s ephemeral-storage request, available since v1.8.0-beta.0
 
 In addition, the following information is available through
 `downwardAPI` volume `fieldRef`:
@@ -219,8 +218,15 @@ In addition, the following information is available through
 * `metadata.labels` - all of the pod’s labels, formatted as `label-key="escaped-label-value"` with one label per line
 * `metadata.annotations` - all of the pod’s annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line
 
+The following information is available through environment variables:
+
+* `status.podIP` - the pod’s IP address
+* `spec.serviceAccountName` - the pod’s service account name, available since v1.4.0-alpha.3
+* `spec.nodeName` - the node’s name, available since v1.4.0-alpha.3
+* `status.hostIP` - the node's IP, available since v1.7.0-alpha.1
+
 {{< note >}}
-**Note:** If CPU and memory limits are not specified for a Container, the
+If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
 {{< /note >}}
 

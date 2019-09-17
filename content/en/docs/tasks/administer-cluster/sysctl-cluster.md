@@ -6,10 +6,11 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 This document describes how to configure and use kernel parameters within a
-Kubernetes cluster using the sysctl interface.
+Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
+interface.
 
 {{% /capture %}}
 
@@ -36,7 +37,7 @@ process file system. The parameters cover various subsystems such as:
 To get a list of all parameters, you can run
 
 ```shell
-$ sudo sysctl -a
+sudo sysctl -a
 ```
 
 ## Enabling Unsafe Sysctls
@@ -58,7 +59,7 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_syncookies`.
 
 {{< note >}}
-**Note**: The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
 {{< /note >}}
 
 This list will be extended in future Kubernetes versions when the kubelet
@@ -76,14 +77,14 @@ application tuning. _Unsafe_ sysctls are enabled on a node-by-node basis with a
 flag of the kubelet, e.g.:
 
 ```shell
-$ kubelet --allowed-unsafe-sysctls \
+kubelet --allowed-unsafe-sysctls \
   'kernel.msg*,net.ipv4.route.min_pmtu' ...
 ```
 
-For minikube, this can be done via the `extra-config` flag:
+For {{< glossary_tooltip term_id="minikube" >}}, this can be done via the `extra-config` flag:
 
 ```shell
-$ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
 ```
 
 Only _namespaced_ sysctls can be enabled this way.
@@ -141,7 +142,7 @@ spec:
 {{% capture discussion %}}
 
 {{< warning >}}
-**Warning**: Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
+Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
 is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
 {{< /warning >}}
@@ -184,7 +185,7 @@ Do not configure these two fields such that there is overlap, meaning that a
 given sysctl is both allowed and forbidden.
 
 {{< warning >}}
-**Warning**: If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
+If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
 in a PodSecurityPolicy, any pod using such a sysctl will fail to start
 if the sysctl is not whitelisted via the `--allowed-unsafe-sysctls` kubelet
 flag as well on that node.

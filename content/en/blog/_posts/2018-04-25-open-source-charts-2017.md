@@ -6,7 +6,7 @@ slug: open-source-charts-2017
 
 2017 was a huge year for Kubernetes, and GitHub’s latest [Octoverse report](https://octoverse.github.com) illustrates just how much attention this project has been getting.
 
-Kubernetes, an [open source platform for running application containers](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/), provides a consistent interface that enables developers and ops teams to automate the deployment, management, and scaling of a wide variety of applications on just about any infrastructure.
+Kubernetes, an [open source platform for running application containers](/docs/concepts/overview/what-is-kubernetes/), provides a consistent interface that enables developers and ops teams to automate the deployment, management, and scaling of a wide variety of applications on just about any infrastructure.
 
 Solving these shared challenges by leveraging a wide community of expertise and industrial experience, as Kubernetes does, helps engineers focus on building their own products at the top of the stack, rather than needlessly duplicating work that now exists as a standard part of the “cloud native” toolkit.
 

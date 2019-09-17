@@ -33,7 +33,7 @@ documentation.
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/concepts/services-networking/service/#type-loadbalancer):
+[service configuration file](/docs/concepts/services-networking/service/#loadbalancer):
 
 ```json
     "type": "LoadBalancer"
@@ -97,7 +97,7 @@ which should produce output like this:
     Selector:               app=example
     Type:                   LoadBalancer
     IP:                     10.67.252.103
-    LoadBalancer Ingress:   123.45.678.9
+    LoadBalancer Ingress:   192.0.2.89
     Port:                   <unnamed> 80/TCP
     NodePort:               <unnamed> 32445/TCP
     Endpoints:              10.64.0.4:80,10.64.1.5:80,10.64.2.4:80
@@ -108,8 +108,9 @@ which should produce output like this:
 The IP address is listed next to `LoadBalancer Ingress`.
 
 {{< note >}}
-**Note**: If you are running your service on Minikube, you can find the assigned IP address and port with:
+If you are running your service on Minikube, you can find the assigned IP address and port with:
 {{< /note >}}
+
 ```bash
 minikube service example-service --url
 ```
@@ -161,7 +162,7 @@ Service Configuration file.
 
 ### Feature availability
 
-| k8s version | Feature support |
+| K8s version | Feature support |
 | :---------: |:-----------:|
 | 1.7+ | Supports the full API fields |
 | 1.5 - 1.6 | Supports Beta Annotations |
@@ -180,7 +181,9 @@ compared to the `service.spec.externalTrafficPolicy` field. The values match as 
 * "OnlyLocal" for annotation <-> "Local" for field
 * "Global" for annotation <-> "Cluster" for field
 
-**Note that this feature is not currently implemented for all cloudproviders/environments.**
+{{< note >}}
+This feature is not currently implemented for all cloudproviders/environments.
+{{< /note >}}
 
 Known issues:
 

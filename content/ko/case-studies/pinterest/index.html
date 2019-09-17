@@ -1,0 +1,108 @@
+---
+title: Pinterest Case Study
+linkTitle: Pinterest
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+featured: false
+weight: 30
+quote: >
+  We are in the position to run things at scale, in a public cloud environment, and test things out in way that a lot of people might not be able to do.
+---
+
+
+<div class="banner1 desktop" style="background-image: url('/images/CaseStudy_pinterest_banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/pinterest_logo.png" style="margin-bottom:-1%" class="header_logo"><br> <div class="subhead">Pinning Its Past, Present, and Future on Cloud Native
+
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>Pinterest</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>San Francisco, California</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Web and Mobile App</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1">
+<br><br>
+    <h2>Challenge</h2>
+    After eight years in existence, Pinterest had grown into 1,000 microservices and multiple layers of infrastructure and diverse set-up tools and platforms. In 2016 the company launched a roadmap towards a new compute platform, led by the vision of creating the fastest path from an idea to production, without making engineers worry about the underlying infrastructure.
+
+<br><br>
+
+ <h2>Solution</h2>
+    The first phase involved moving services to Docker containers. Once these services went into production in early 2017, the team began looking at orchestration to help create efficiencies and manage them in a decentralized way. After an evaluation of various solutions, Pinterest went with Kubernetes.
+
+<br><br>
+
+<h2>Impact</h2>
+  "By moving to Kubernetes the team was able to build on-demand scaling and new failover policies, in addition to simplifying the overall deployment and management of a complicated piece of infrastructure such as Jenkins," says Micheal Benedict, Product Manager for the Cloud and the Data Infrastructure Group at Pinterest. "We not only saw reduced build times but also huge efficiency wins. For instance, the team reclaimed over 80 percent of capacity during non-peak hours. As a result, the Jenkins Kubernetes cluster now uses 30 percent less instance-hours per-day when compared to the previous static cluster."
+
+</div>
+</div>
+
+</section>
+<div class="banner2" style="text-align:center">
+  <iframe width="500" height="260" src="https://www.youtube.com/embed/I36NNJH1xQY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="banner2text"><br><br>
+"So far it’s been good, especially the elasticity around how we can configure our Jenkins workloads on that Kubernetes shared cluster. That is the win we&nbsp;were&nbsp;pushing&nbsp;for." <span style="font-size:14px;letter-spacing:0.12em;padding-top:20px;text-transform:uppercase;line-height:14px"><br><br>— Micheal Benedict, Product Manager for the Cloud and the Data Infrastructure Group at Pinterest</span>
+
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+ <h2></h2>Pinterest was born on the cloud—running on <a href="https://aws.amazon.com/">AWS</a> since day one in 2010—but even cloud native companies can experience some growing pains.</h2> Since its launch, Pinterest has become a household name, with more than 200 million active monthly users and 100 billion objects saved. Underneath the hood, there are 1,000 microservices running and hundreds of thousands of data jobs.<br><br>
+With such growth came layers of infrastructure and diverse set-up tools and platforms for the different workloads, resulting in an inconsistent and complex end-to-end developer experience, and ultimately less velocity to get to production.
+So in 2016, the company launched a roadmap toward a new compute platform, led by the vision of having the fastest path from an idea to production, without making engineers worry about the underlying infrastructure. <br><br>
+The first phase involved moving to Docker. "Pinterest has been heavily running on virtual machines, on EC2 instances directly, for the longest time," says Micheal Benedict, Product Manager for the Cloud and the Data Infrastructure Group. "To solve the problem around packaging software and not make engineers own portions of the fleet and those kinds of challenges, we standardized the packaging mechanism and then moved that to the container on top of the VM. Not many drastic changes. We didn’t want to boil the ocean at that point."
+
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_pinterest_banner3.jpg')">
+  <div class="banner3text">
+    "Though Kubernetes lacked certain things we wanted, we realized that by the time we get to productionizing many of those things, we’ll be able to leverage what the community is doing." <span style="font-size:14px;letter-spacing:0.12em;padding-top:20px;text-transform:uppercase;line-height:14px"><br><br>— MICHEAL BENEDICT, PRODUCT MANAGER FOR THE CLOUD AND THE DATA INFRASTRUCTURE GROUP AT PINTEREST</span>
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+
+The first service that was migrated was the monolith API fleet that powers most of Pinterest. At the same time, Benedict’s infrastructure governance team built chargeback and capacity planning systems to analyze how the company uses its virtual machines on AWS. "It became clear that running on VMs is just not sustainable with what we’re doing," says Benedict. "A lot of resources were underutilized. There were efficiency efforts, which worked fine at a certain scale, but now you have to move to a more decentralized way of managing that. So orchestration was something we thought could help solve that piece."<br><br>
+That led to the second phase of the roadmap. In July 2017, after an eight-week evaluation period, the team chose Kubernetes over other orchestration platforms. "Kubernetes lacked certain things at the time—for example, we wanted Spark on Kubernetes," says Benedict. "But we realized that the dev cycles we would put in to even try building that is well worth the outcome, both for Pinterest as well as the community. We’ve been in those conversations in the Big Data SIG. We realized that by the time we get to productionizing many of those things, we’ll be able to leverage what the community is doing."<br><br>
+At the beginning of 2018, the team began onboarding its first use case into the Kubernetes system: Jenkins workloads. "Although we have builds happening during a certain period of the day, we always need to allocate peak capacity," says Benedict. "They don’t have any auto-scaling capabilities, so that capacity stays constant. It is difficult to speed up builds because ramping up takes more time. So given those kind of concerns, we thought that would be a perfect use case for us to work on."
+
+
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_pinterest_banner4.jpg')">
+  <div class="banner4text">
+"So far it’s been good, especially the elasticity around how we can configure our Jenkins workloads on Kubernetes shared cluster. That is the win we were pushing for." <span style="font-size:14px;letter-spacing:0.12em;padding-top:20px;text-transform:uppercase;line-height:14px"><br><br>— MICHEAL BENEDICT, PRODUCT MANAGER FOR THE CLOUD AND THE DATA INFRASTRUCTURE GROUP AT PINTEREST</span>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+ They ramped up the cluster, and working with a team of four people, got the Jenkins Kubernetes cluster ready for production. "We still have our static Jenkins cluster," says Benedict, "but on Kubernetes, we are doing similar builds, testing the entire pipeline, getting the artifact ready and just doing the comparison to see, how much time did it take to build over here. Is the SLA okay, is the artifact generated correct, are there issues there?" <br><br>
+"So far it’s been good," he adds, "especially the elasticity around how we can configure our Jenkins workloads on Kubernetes shared cluster. That is the win we were pushing for."<br><br>
+By the end of Q1 2018, the team successfully migrated Jenkins Master to run natively on Kubernetes and also collaborated on the <a href="https://github.com/jenkinsci/kubernetes-plugin">Jenkins Kubernetes Plugin</a> to manage the lifecycle of workers. "We’re currently building the entire Pinterest JVM stack (one of the larger monorepos at Pinterest which was recently bazelized) on this new cluster," says Benedict. "At peak, we run thousands of pods on a few hundred nodes. Overall, by moving to Kubernetes the team was able to build on-demand scaling and new failover policies, in addition to simplifying the overall deployment and management of a complicated piece of infrastructure such as Jenkins. We not only saw reduced build times but also huge efficiency wins. For instance, the team reclaimed over 80 percent of capacity during non-peak hours. As a result, the Jenkins Kubernetes cluster now uses 30 percent less instance-hours per-day when compared to the previous static cluster."
+
+
+</div>
+
+<div class="banner5">
+  <div class="banner5text">
+ "We are in the position to run things at scale, in a public cloud environment, and test things out in way that a lot of people might not be able to do." <span style="font-size:14px;letter-spacing:0.12em;padding-top:20px;text-transform:uppercase;line-height:14px"><br><br>— MICHEAL BENEDICT, PRODUCT MANAGER FOR THE CLOUD AND THE DATA INFRASTRUCTURE GROUP AT PINTEREST</span>
+  </div>
+</div>
+
+<div class="fullcol">
+ Benedict points to a "pretty robust roadmap" going forward. In addition to the Pinterest big data team’s experiments with Spark on Kubernetes, the company collaborated with Amazon’s EKS team on an ENI/CNI plug in. <br><br>
+Once the Jenkins cluster is up and running out of dark mode, Benedict hopes to establish best practices, including having governance primitives established—including integration with the chargeback system—before moving on to migrating the next service. "We have a healthy pipeline of use-cases to be on-boarded. After Jenkins, we want to enable support for Tensorflow and Apache Spark. At some point, we aim to move the company’s monolithic API service. If we move that and understand the complexity around that, it builds our confidence," says Benedict. "It sets us up for migration of all our other services."<br><br>
+After years of being a cloud native pioneer, Pinterest is eager to share its ongoing journey. "We are in the position to run things at scale, in a public cloud environment, and test things out in way that a lot of people might not be able to do," says Benedict. "We’re in a great position to contribute back some of those learnings."
+
+
+
+</div>
+
+</section>

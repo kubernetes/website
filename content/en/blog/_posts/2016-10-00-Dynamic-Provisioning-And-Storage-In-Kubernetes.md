@@ -13,11 +13,11 @@ The alpha version of dynamic provisioning only allowed a single, hard-coded prov
 
 Although the alpha version of the feature was limited in utility, it allowed us to “get some miles” on the idea, and helped determine the direction we wanted to take.  
 
-The beta version of dynamic provisioning, new in Kubernetes 1.4, introduces a [new API object](http://kubernetes.io/docs/user-guide/persistent-volumes/#storageclasses), StorageClass. Multiple StorageClass objects can be defined each specifying a volume plugin (aka provisioner) to use to provision a volume and the set of parameters to pass to that provisioner when provisioning. This design allows cluster administrators to define and expose multiple flavors of storage (from the same or different storage systems) within a cluster, each with a custom set of parameters. This design also ensures that end users don’t have to worry about the complexity and nuances of how storage is provisioned, but still have the ability to select from multiple storage options.  
+The beta version of dynamic provisioning, new in Kubernetes 1.4, introduces a [new API object](/docs/user-guide/persistent-volumes/#storageclasses), StorageClass. Multiple StorageClass objects can be defined each specifying a volume plugin (aka provisioner) to use to provision a volume and the set of parameters to pass to that provisioner when provisioning. This design allows cluster administrators to define and expose multiple flavors of storage (from the same or different storage systems) within a cluster, each with a custom set of parameters. This design also ensures that end users don’t have to worry about the complexity and nuances of how storage is provisioned, but still have the ability to select from multiple storage options.  
 
 **How Do I use It?**  
 
-Below is an example of how a cluster administrator would expose two tiers of storage, and how a user would select and use one. For more details, see the [reference](http://kubernetes.io/docs/user-guide/persistent-volumes/#storageclasses) and [example](https://github.com/kubernetes/kubernetes/tree/release-1.4/examples/experimental/persistent-volume-provisioning) docs.  
+Below is an example of how a cluster administrator would expose two tiers of storage, and how a user would select and use one. For more details, see the [reference](/docs/user-guide/persistent-volumes/#storageclasses) and [example](https://github.com/kubernetes/kubernetes/tree/release-1.4/examples/experimental/persistent-volume-provisioning) docs.  
 
 **Admin Configuration**  
 

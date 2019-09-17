@@ -15,7 +15,6 @@ However, the native functionality provided by a container engine or runtime is u
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -36,14 +35,14 @@ a container that writes some text to standard output once per second.
 To run this pod, use the following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
-pod "counter" created
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
+pod/counter created
 ```
 
 To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -58,7 +57,9 @@ You can use `kubectl logs` to retrieve logs from a previous instantiation of a c
 
 Everything a containerized application writes to `stdout` and `stderr` is handled and redirected somewhere by a container engine. For example, the Docker container engine redirects those two streams to [a logging driver](https://docs.docker.com/engine/admin/logging/overview), which is configured in Kubernetes to write to a file in json format.
 
-**Note:** The Docker json logging driver treats each line as a separate message. When using the Docker logging driver, there is no direct support for multi-line messages. You need to handle multi-line messages at the logging agent level or higher.
+{{< note >}}
+The Docker json logging driver treats each line as a separate message. When using the Docker logging driver, there is no direct support for multi-line messages. You need to handle multi-line messages at the logging agent level or higher.
+{{< /note >}}
 
 By default, if a container restarts, the kubelet keeps one terminated container with its logs. If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
 
@@ -75,18 +76,19 @@ and the former approach is used in any other environment. In both cases, by
 default rotation is configured to take place when log file exceeds 10MB.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script]
-[cosConfigureHelper].
+up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
 
-**Note:** Currently, if some external system has performed the rotation,
+{{< note >}}
+Currently, if some external system has performed the rotation,
 only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
 the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
+{{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
 
@@ -101,7 +103,7 @@ that do not run in a container. For example:
 On machines with systemd, the kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [glog][glog]
+bypassing the default logging mechanism. They use the [klog][klog]
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://git.k8s.io/community/contributors/devel/logging.md).
 
@@ -110,7 +112,7 @@ directory should be rotated. In Kubernetes clusters brought up by
 the `kube-up.sh` script, those logs are configured to be rotated by
 the `logrotate` tool daily or once the size exceeds 100MB.
 
-[glog]: https://godoc.org/github.com/golang/glog
+[klog]: https://github.com/kubernetes/klog
 
 ## Cluster-level logging architectures
 
@@ -176,7 +178,9 @@ Now when you run this pod, you can access each log stream separately by
 running the following commands:
 
 ```shell
-$ kubectl logs counter count-log-1
+kubectl logs counter count-log-1
+```
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -184,7 +188,9 @@ $ kubectl logs counter count-log-1
 ```
 
 ```shell
-$ kubectl logs counter count-log-2
+kubectl logs counter count-log-2
+```
+```
 Mon Jan  1 00:00:00 UTC 2001 INFO 0
 Mon Jan  1 00:00:01 UTC 2001 INFO 1
 Mon Jan  1 00:00:02 UTC 2001 INFO 2
@@ -203,7 +209,7 @@ an application that writes to a single file, it's generally better to set
 container approach.
 
 Sidecar containers can also be used to rotate log files that cannot be
-rotated by the application itself. [An example](https://github.com/samsung-cnct/logrotate)
+rotated by the application itself. An example
 of this approach is a small container running logrotate periodically.
 However, it's recommended to use `stdout` and `stderr` directly and leave rotation
 and retention policies to the kubelet.
@@ -216,10 +222,12 @@ If the node-level logging agent is not flexible enough for your situation, you
 can create a sidecar container with a separate logging agent that you have
 configured specifically to run with your application.
 
-**Note**: Using a logging agent in a sidecar container can lead
+{{< note >}}
+Using a logging agent in a sidecar container can lead
 to significant resource consumption. Moreover, you won't be able to access
 those logs using `kubectl logs` command, because they are not controlled
 by the kubelet.
+{{< /note >}}
 
 As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 which uses fluentd as a logging agent. Here are two configuration files that
@@ -228,9 +236,11 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 
-**Note**: The configuration of fluentd is beyond the scope of this article. For
+{{< note >}}
+The configuration of fluentd is beyond the scope of this article. For
 information about configuring fluentd, see the
 [official fluentd documentation](http://docs.fluentd.org/).
+{{< /note >}}
 
 The second file describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.

@@ -7,6 +7,10 @@ reviewers:
 - jbeda
 content_template: templates/concept
 weight: 10
+card:
+  name: reference
+  weight: 50
+  title: Overview of API
 ---
 
 {{% capture overview %}}
@@ -33,13 +37,14 @@ multiple API versions, each at a different API path. For example: `/api/v1` or
 `/apis/extensions/v1beta1`.
 
 The version is set at the API level rather than at the resource or field level to:
+
 - Ensure that the API presents a clear and consistent view of system resources and behavior.
 - Enable control access to end-of-life and/or experimental APIs.
 
 The JSON and Protobuf serialization schemas follow the same guidelines for schema changes. The following descriptions cover both formats.
 
 {{< note >}}
-**Note:** The API versioning and software versioning are indirectly related.  The [API and release
+The API versioning and software versioning are indirectly related.  The [API and release
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and software versioning.
 {{< /note >}}
 
@@ -63,7 +68,7 @@ Here's a summary of each level:
   - The software is recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases. If you have multiple clusters which can be upgraded independently, you may be able to relax this restriction.
   
  {{< note >}}
-**Note:** Try the beta features and provide feedback. After the features exit beta, it may not be practical to make more changes.
+Try the beta features and provide feedback. After the features exit beta, it may not be practical to make more changes.
  {{< /note >}}
   
 - Stable:
@@ -96,7 +101,7 @@ on the apiserver. `--runtime-config` accepts comma separated values. For example
 The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
 
 {{< note >}}
-**Note:** When you enable or disable groups or resources, you need to restart the apiserver and controller-manager
+When you enable or disable groups or resources, you need to restart the apiserver and controller-manager
 to pick up the `--runtime-config` changes.
 {{< /note >}}
 

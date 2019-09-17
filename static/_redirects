@@ -7,6 +7,13 @@
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/     /docs/home/ 301
+/de/docs/     /de/docs/home/ 301
+/es/docs/     /es/docs/home/ 301
+/fr/docs/     /fr/docs/home/ 301
+/id/docs/     /id/docs/home/ 301
+/ja/docs/     /ja/docs/home/ 301
+/ko/docs/     /ko/docs/home/ 301
+/pt/docs/     /pt/docs/home/ 301
 
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/27/kubernetes-1.10-stabilizing-storage-security-networking/     301
 
@@ -33,6 +40,7 @@
 /docs/admin/high-availability/      /docs/admin/high-availability/building/ 301
 /docs/admin/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
 /docs/admin/kubelet-authentication-authorization/     /docs/reference/command-line-tools-reference/kubelet-authentication-authorization/ 301
+/docs/admin/kubelet-tls-bootstrapping/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
 /docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
@@ -113,6 +121,11 @@
 /docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
+/docs/concepts/overview/object-management-kubetcl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
+/docs/concepts/overview/object-management-kubectl/declarative-config/     /docs/tasks/manage-kubernetes-objects/declarative-config/ 301
+/docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301
+/docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
+/docs/concepts/overview/object-management-kubectl/kustomization/         /docs/tasks/manage-kubernetes-objects/kustomization/ 301
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
@@ -130,9 +143,9 @@
 /docs/contribute/style-guide/     /docs/home/contribute/style-guide/ 301
 
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
-/docs/deprecate/     /docs/reference/deprecation-policy/ 301
-/docs/deprecated/     /docs/reference/deprecation-policy/ 301
-/docs/deprecation-policy/     /docs/reference/deprecation-policy/ 301
+/docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
 /docs/federation/api-reference/     /docs/reference/federation/v1/operations/ 301
 /docs/federation/api-reference/v1/definitions.html    /docs/reference/generated/federation/v1/definitions/ 301
@@ -149,7 +162,7 @@
 
 /docs/getting-started-guide/*     /docs/setup/ 301
 /docs/getting-started-guides/     /docs/setup/pick-right-solution/ 301
-/docs/getting-started-guides/binary_release/    /docs/setup/building-from-source/ 301
+/docs/getting-started-guides/binary_release/    /docs/setup/release/building-from-source/ 301
 /docs/getting-started-guides/cloudstack/     /docs/setup/on-premises-vm/cloudstack/ 301
 /docs/getting-started-guides/dcos/     /docs/setup/on-premises-vm/dcos/ 301
 /docs/getting-started-guides/ovirt/     /docs/setup/on-premises-vm/ovirt/ 301
@@ -173,19 +186,44 @@
 /docs/getting-started-guides/network-policy/weave/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/getting-started-guides/rackspace/     /docs/setup/pick-right-solution/ 301
 /docs/getting-started-guides/running-cloud-controller/     /docs/tasks/administer-cluster/running-cloud-controller/ 301
-/docs/getting-started-guides/scratch/     /docs/setup/scratch/ 301
+/docs/getting-started-guides/scratch/     /docs/setup/release/building-from-source/ 301
 /docs/getting-started-guides/ubuntu-calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/ubuntu/automated/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/ubuntu/calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/vagrant/     /docs/getting-started-guides/alternatives/ 301
 /docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
-/docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
+/docs/getting-started-guides/windows/While/     /docs/setup/windows/ 301
+/docs/getting-started-guides/windows/     /docs/setup/windows/ 301
 /docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
+/docs/getting-started-guides/alibaba-cloud/ /docs/setup/turnkey/alibaba-cloud/ 301
+/docs/getting-started-guides/aws/ /docs/setup/turnkey/aws/ 301
+/docs/getting-started-guides/azure/ /docs/setup/turnkey/azure/ 301
+/docs/getting-started-guides/clc/ /docs/setup/turnkey/clc/ 301
+/docs/getting-started-guides/gce/ /docs/setup/turnkey/gce/ 301
+/docs/getting-started-guides/stackpoint/ /docs/setup/turnkey/stackpoint/ 301
 
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/home/contribute/stage-documentation-changes/     /docs/home/contribute/create-pull-request/ 301
 /docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
 /docs/home/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
+
+/docs/home/contribute/  /docs/contribute/ 301
+/docs/home/contribute/content-organization/ /docs/contribute/style/content-organization/ 301
+/docs/home/contribute/create-pull-request/ /docs/contribute/start/ 301
+/docs/contribute/foundational/ /docs/contribute/start/ 301
+/docs/home/contribute/includes/ /docs/contribute/style/hugo-shortcodes/ 301
+/docs/home/contribute/style-guide/ /docs/contribute/style/style-guide/ 301
+/docs/home/contribute/generated-reference/federation-api/ /docs/contribute/generate-ref-docs/federation-api/ 301
+/docs/home/contribute/generated-reference/kubectl/ /docs/contribute/generate-ref-docs/kubectl/ 301
+/docs/home/contribute/generated-reference/kubernetes-api/ /docs/contribute/generate-ref-docs/kubernetes-api/ 301
+/docs/home/contribute/generated-reference/kubernetes-components/ /docs/contribute/generate-ref-docs/kubernetes-components/ 301
+/docs/home/contribute/localization/ /docs/contribute/localization/ 301
+/docs/home/contribute/page-templates/ /docs/contribute/style/page-templates/ 301
+/docs/home/contribute/participating/ /docs/contribute/participating/ 301
+/docs/home/contribute/review-issues/ /docs/contribute/intermediate/ 301
+/docs/home/contribute/blog-post/ /docs/contribute/start/ 301
+/docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
+
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
@@ -207,6 +245,9 @@
 /docs/reference/generated/kubefed_options/     /docs/reference/setup-tools/kubefed/kubefed-options/ 301
 /docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed-unjoin/ 301
 /docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed-version/ 301
+
+/docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
+
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
 
@@ -218,7 +259,6 @@
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301
-/docs/setup/independent/install-kubeadm/     /docs/tasks/tools/install-kubeadm/ 301
 /docs/stable/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301
@@ -230,7 +270,7 @@
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
 /docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
-/docs/tasks/administer-cluster/certificate-rotation/     /docs/admin/kubelet-tls-bootstrapping/ 301
+/docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
@@ -455,8 +495,6 @@
 /docs/user-guide/update-dem/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/update-demo/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/volumes/     /docs/concepts/storage/volumes/ 301
-/docs/user-guide/walkthrough/     /docs/tutorials/k8s101/ 301
-/docs/user-guide/walkthrough/k8s201/     /docs/tutorials/k8s201/ 301
 /docs/user-guide/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
@@ -498,7 +536,8 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
 
-/editdocs/     /docs/home/contribute/     301
+/editdocs/     /docs/contribute/     301
+/docs/home/editdocs/  /docs/contribute/ 301
 
 /docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
 /docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
@@ -514,3 +553,37 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 
 /docs/admin/high-availability/building/     /docs/setup/independent/high-availability/ 301
 /code-of-conduct/     /community/code-of-conduct/   301
+
+/docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
+
+/docs/setup/minikube/     /docs/setup/learning-environment/minikube/   301
+/docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
+/docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
+/docs/setup/independent/troubleshooting-kubeadm/     /docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/   301
+/docs/setup/independent/create-cluster-kubeadm/     /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/   301
+/docs/setup/independent/control-plane-flags/     /docs/setup/production-environment/tools/kubeadm/control-plane-flags/   301
+/docs/setup/independent/ha-topology/     /docs/setup/production-environment/tools/kubeadm/ha-topology/   301
+/docs/setup/independent/high-availability/     /docs/setup/production-environment/tools/kubeadm/high-availability/   301
+/docs/setup/independent/setup-ha-etcd-with-kubeadm/     /docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/   301
+/docs/setup/independent/kubelet-integration/     /docs/setup/production-environment/tools/kubeadm/kubelet-integration/   301
+/docs/setup/custom-cloud/kops/     /docs/setup/production-environment/tools/kops/   301
+/docs/setup/custom-cloud/kubespray/     /docs/setup/production-environment/tools/kubespray/   301
+/docs/setup/on-premises-metal/krib/     /docs/setup/production-environment/tools/krib/   301
+/docs/setup/turnkey/aws/     /docs/setup/production-environment/turnkey/aws/   301
+/docs/setup/turnkey/alibaba-cloud/     /docs/setup/production-environment/turnkey/alibaba-cloud/   301
+/docs/setup/turnkey/azure/     /docs/setup/production-environment/turnkey/azure/   301
+/docs/setup/turnkey/clc/     /docs/setup/production-environment/turnkey/clc/   301
+/docs/setup/turnkey/gce/     /docs/setup/production-environment/turnkey/gce/   301
+/docs/setup/turnkey/icp/     /docs/setup/production-environment/turnkey/icp/   301
+/docs/setup/turnkey/stackpoint/     /docs/setup/production-environment/turnkey/stackpoint/   301
+/docs/setup/on-premises-vm/cloudstack/     /docs/setup/production-environment/on-premises-vm/cloudstack/   301
+/docs/setup/on-premises-vm/dcos/     /docs/setup/production-environment/on-premises-vm/dcos/   301
+/docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301
+/docs/setup/windows/intro-windows-in-kubernetes/     /docs/setup/production-environment/windows/intro-windows-in-kubernetes/   301
+/docs/setup/windows/user-guide-windows-nodes/     /docs/setup/production-environment/windows/user-guide-windows-nodes/   301
+/docs/setup/windows/user-guide-windows-containers/     /docs/setup/production-environment/windows/user-guide-windows-containers/   301
+/docs/setup/multiple-zones/     /docs/setup/best-practices/multiple-zones/   301
+/docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
+/docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
+/docs/setup/certificates/     /docs/setup/best-practices/certificates/   301      
+

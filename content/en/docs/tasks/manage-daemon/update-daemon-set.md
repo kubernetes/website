@@ -3,6 +3,7 @@ reviewers:
 - janetkuo
 title: Perform a Rolling Update on a DaemonSet
 content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -25,12 +26,12 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 DaemonSet has two update strategy types:
 
-* OnDelete: This is the default update strategy for backward-compatibility. With
-  `OnDelete` update strategy, after you update a DaemonSet template, new
+* OnDelete:  With `OnDelete` update strategy, after you update a DaemonSet template, new
   DaemonSet pods will *only* be created when you manually delete old DaemonSet
   pods. This is the same behavior of DaemonSet in Kubernetes version 1.5 or
   before.
-* RollingUpdate: With `RollingUpdate` update strategy, after you update a
+* RollingUpdate: This is the default update strategy.  
+  With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion.
 
@@ -56,7 +57,7 @@ If you haven't created the DaemonSet in the system, check your DaemonSet
 manifest with the following command instead:
 
 ```shell
-kubectl create -f ds.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
+kubectl apply -f ds.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
 ```
 
 The output from both commands should be:
@@ -76,7 +77,7 @@ step 3.
 After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
 
 ```shell
-kubectl create -f ds.yaml
+kubectl apply -f ds.yaml
 ```
 
 Alternatively, use `kubectl apply` to create the same DaemonSet if you plan to
@@ -94,7 +95,7 @@ update. This can be done with several different `kubectl` commands.
 #### Declarative commands
 
 If you update DaemonSets using
-[configuration files](/docs/concepts/overview/object-management-kubectl/declarative-config/),
+[configuration files](/docs/tasks/manage-kubernetes-objects/declarative-config/),
 use `kubectl apply`:
 
 ```shell
@@ -104,7 +105,7 @@ kubectl apply -f ds-v2.yaml
 #### Imperative commands
 
 If you update DaemonSets using
-[imperative commands](/docs/concepts/overview/object-management-kubectl/imperative-command/),
+[imperative commands](/docs/tasks/manage-kubernetes-objects/imperative-command/),
 use `kubectl edit` or `kubectl patch`:
 
 ```shell
@@ -159,11 +160,13 @@ kubectl get pods -l <daemonset-selector-key>=<daemonset-selector-value> -o wide
 ```
 
 Once you've found those nodes, delete some non-DaemonSet pods from the node to
-make room for new DaemonSet pods. Note that this will cause service disruption
-if the deleted pods are not controlled by any controllers, or if the pods aren't
-replicated. This doesn't respect
-[PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
+make room for new DaemonSet pods.
+
+{{< note >}}
+This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
+replicated. This does not respect [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
 either.
+{{< /note >}}
 
 #### Broken rollout
 

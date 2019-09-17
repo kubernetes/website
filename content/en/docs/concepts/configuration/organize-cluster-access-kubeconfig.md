@@ -12,7 +12,7 @@ find the information it needs to choose a cluster and communicate with the API s
 of a cluster.
 
 {{< note >}}
-**Note:** A file that is used to configure access to clusters is called
+A file that is used to configure access to clusters is called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
@@ -103,7 +103,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 
 1. Determine the context to use based on the first hit in this chain:
 
-    1. Use the `--context` command-line flag if it exits.
+    1. Use the `--context` command-line flag if it exists.
     1. Use the `current-context` from the merged kubeconfig files.
 
    An empty context is allowed at this point.

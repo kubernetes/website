@@ -9,7 +9,7 @@ Once you've become accustomed to running Linux container workloads on Kubernetes
 
 These sorts of workloads are often well-suited to running in virtual machines (VMs), and [KubeVirt](http://www.kubevirt.io/), a virtual machine management add-on for Kubernetes, is aimed at allowing users to run VMs right alongside containers in the their Kubernetes or OpenShift clusters.
 
-KubeVirt extends Kubernetes by adding resource types for VMs and sets of VMs through Kubernetes' [Custom Resource Definitions API](https://kubernetes.io/docs/concepts/api-extension/custom-resources/#customresourcedefinitions) (CRD). KubeVirt VMs run within regular Kubernetes pods, where they have access to standard pod networking and storage, and can be managed using standard Kubernetes tools such as kubectl.
+KubeVirt extends Kubernetes by adding resource types for VMs and sets of VMs through Kubernetes' [Custom Resource Definitions API](/docs/concepts/api-extension/custom-resources/#customresourcedefinitions) (CRD). KubeVirt VMs run within regular Kubernetes pods, where they have access to standard pod networking and storage, and can be managed using standard Kubernetes tools such as kubectl.
 
 Running VMs with Kubernetes involves a bit of an adjustment compared to using something like oVirt or OpenStack, and understanding the basic architecture of KubeVirt is a good place to begin.
 
@@ -21,7 +21,7 @@ In this post, we’ll talk about some of the components that are involved in Kub
 
 ## Custom Resource Definitions
 
-Kubernetes resources are endpoints in the Kubernetes API that store collections of related API objects. For instance, the built-in pods resource contains a collection of Pod objects. The Kubernetes [Custom Resource Definition](https://kubernetes.io/docs/concepts/api-extension/custom-resources/#customresourcedefinitions) API allows users to extend Kubernetes with additional resources by defining new objects with a given name and schema. Once you've applied a custom resource to your cluster, the Kubernetes API server serves and handles the storage of your custom resource.
+Kubernetes resources are endpoints in the Kubernetes API that store collections of related API objects. For instance, the built-in pods resource contains a collection of Pod objects. The Kubernetes [Custom Resource Definition](/docs/concepts/api-extension/custom-resources/#customresourcedefinitions) API allows users to extend Kubernetes with additional resources by defining new objects with a given name and schema. Once you've applied a custom resource to your cluster, the Kubernetes API server serves and handles the storage of your custom resource.
 
 KubeVirt's primary CRD is the VirtualMachine (VM) resource, which contains a collection of VM objects inside the Kubernetes API server. The VM resource defines all the properties of the Virtual machine itself, such as the machine and CPU type, the amount of RAM and vCPUs, and the number and type of NICs available in the VM.
 

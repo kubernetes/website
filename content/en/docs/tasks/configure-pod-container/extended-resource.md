@@ -43,7 +43,7 @@ In the configuration file, you can see that the Container requests 3 dongles.
 Create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/extended-resource-pod.yaml
+kubectl apply -f https://k8s.io/examples/pods/resource/extended-resource-pod.yaml
 ```
 
 Verify that the Pod is running:
@@ -80,7 +80,7 @@ used three of the four available dongles.
 Attempt to create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/extended-resource-pod-2.yaml
+kubectl apply -f https://k8s.io/examples/pods/resource/extended-resource-pod-2.yaml
 ```
 
 Describe the Pod
@@ -120,9 +120,10 @@ extended-resource-demo-2   0/1       Pending   0          6m
 
 ## Clean up
 
-Delete the Pod that you created for this exercise:
+Delete the Pods that you created for this exercise:
 
 ```shell
+kubectl delete pod extended-resource-demo
 kubectl delete pod extended-resource-demo-2
 ```
 

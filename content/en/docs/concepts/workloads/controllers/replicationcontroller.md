@@ -3,6 +3,12 @@ reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
+feature:
+  title: Self-healing
+  anchor: How a ReplicationController Works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
+
 content_template: templates/concept
 weight: 20
 ---
@@ -10,7 +16,7 @@ weight: 20
 {{% capture overview %}}
 
 {{< note >}}
-**NOTE:** A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
 {{< /note >}}
 
 A _ReplicationController_ ensures that a specified number of pod replicas are running at any one
@@ -49,14 +55,18 @@ This example ReplicationController config runs three copies of the nginx web ser
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/controllers/replication.yaml
-replicationcontroller "nginx" created
+kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
+```
+```
+replicationcontroller/nginx created
 ```
 
 Check on the status of the ReplicationController using this command:
 
 ```shell
-$ kubectl describe replicationcontrollers/nginx
+kubectl describe replicationcontrollers/nginx
+```
+```
 Name:        nginx
 Namespace:   default
 Selector:    app=nginx
@@ -91,8 +101,10 @@ Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 To list all the pods that belong to the ReplicationController in a machine readable form, you can use a command like this:
 
 ```shell
-$ pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
+pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
 echo $pods
+```
+```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
@@ -104,9 +116,9 @@ specifies an expression that just gets the name from each pod in the returned li
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
-For general information about working with config files, see [object management ](/docs/concepts/overview/object-management-kubectl/overview/).
+For general information about working with config files, see [object management ](/docs/concepts/overview/working-with-objects/object-management/).
 
-A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
@@ -140,7 +152,7 @@ If specified, the `.spec.template.metadata.labels` must be equal to the `.spec.s
 be rejected by the API.  If `.spec.selector` is unspecified, it will be defaulted to
 `.spec.template.metadata.labels`.
 
-Also you should not normally create any pods whose labels match this selector, either directly, with 
+Also you should not normally create any pods whose labels match this selector, either directly, with
 another ReplicationController, or with another controller such as Job. If you do so, the
 ReplicationController thinks that it created the other pods.  Kubernetes does not stop you
 from doing this.
@@ -277,5 +289,3 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
 
 {{% /capture %}}
-
-

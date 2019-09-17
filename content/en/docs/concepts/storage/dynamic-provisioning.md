@@ -21,7 +21,6 @@ automatically provisions storage when it is requested by users.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -39,7 +38,7 @@ about the complexity and nuances of how storage is provisioned, but still
 have the ability to select from multiple storage options.
 
 More information on storage classes can be found
-[here](/docs/concepts/storage/persistent-volumes/#storageclasses).
+[here](/docs/concepts/storage/storage-classes/).
 
 ## Enabling Dynamic Provisioning
 
@@ -110,7 +109,7 @@ dynamically provisioned if no storage class is specified. A cluster administrato
 can enable this behavior by:
 
 - Marking one `StorageClass` object as *default*;
-- Making sure that the [`DefaultStorageClass` admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
+- Making sure that the [`DefaultStorageClass` admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
   is enabled on the API server.
 
 An administrator can mark a specific `StorageClass` as default by adding the
@@ -124,6 +123,11 @@ Note that there can be at most one *default* storage class on a cluster, or
 a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
 be created.
 
+## Topology Awareness
+
+In [Multi-Zone](/docs/setup/multiple-zones) clusters, Pods can be spread across
+Zones in a Region. Single-Zone storage backends should be provisioned in the Zones where
+Pods are scheduled. This can be accomplished by setting the [Volume Binding
+Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
+
 {{% /capture %}}
-
-

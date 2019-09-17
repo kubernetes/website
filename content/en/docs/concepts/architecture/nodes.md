@@ -9,16 +9,15 @@ weight: 10
 
 {{% capture overview %}}
 
-A `node` is a worker machine in Kubernetes, previously known as a `minion`. A node
-may be a VM or physical machine, depending on the cluster. Each node has
+A node is a worker machine in Kubernetes, previously known as a `minion`. A node
+may be a VM or physical machine, depending on the cluster. Each node contains
 the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the master
-components. The services on a node include Docker, kubelet and kube-proxy. See
+components. The services on a node include the [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -27,8 +26,8 @@ architecture design doc for more details.
 A node's status contains the following information:
 
 * [Addresses](#addresses)
-* [Condition](#condition)
-* [Capacity](#capacity)
+* [Conditions](#condition)
+* [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
 Each section is described in detail below.
@@ -42,9 +41,9 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
 
 
-### Condition
+### Conditions {#condition}
 
-The `conditions` field describes the status of all `Running` nodes.
+The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
 
 | Node Condition | Description |
 |----------------|-------------|
@@ -54,7 +53,6 @@ The `conditions` field describes the status of all `Running` nodes.
 | `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
-| `ConfigOK`    | `True` if the kubelet is correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
@@ -62,39 +60,50 @@ The node condition is represented as a JSON object. For example, the following r
 "conditions": [
   {
     "type": "Ready",
-    "status": "True"
+    "status": "True",
+    "reason": "KubeletReady",
+    "message": "kubelet is posting ready status",
+    "lastHeartbeatTime": "2019-06-05T18:38:35Z",
+    "lastTransitionTime": "2019-06-05T11:41:27Z"
   }
 ]
 ```
 
-If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument is passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/) and all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node.
+If the Status of the Ready condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout`, an argument is passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/) and all the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the apiserver is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
 
 In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)
 these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is
-confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in
-the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has
+confirmed that they have stopped running in the cluster. You can see the pods that might be running on an unreachable node as being in
+the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
-Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
+Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-Version 1.8 introduced an alpha feature that automatically creates
+In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-To enable this behavior, pass an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true`
-to the API server, controller manager, and scheduler.
-When `TaintNodesByCondition` is enabled, the scheduler ignores conditions when considering a Node; instead
+Similarly the scheduler ignores conditions when considering a Node; instead
 it looks at the Node's taints and a Pod's tolerations.
 
 Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
+A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
 tolerates the taints of a particular Node can be scheduled on that Node.
 
-Note that because of small delay, usually less than one second, between time when condition is observed and a taint
-is created, it's possible that enabling this feature will slightly increase number of Pods that are successfully
-scheduled but rejected by the kubelet.
+{{< caution >}}
+Enabling this feature creates a small delay between the
+time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
+{{< /caution >}}
 
-### Capacity
+### Capacity and Allocatable {#capacity}
 
 Describes the resources available on the node: CPU, memory and the maximum
 number of pods that can be scheduled onto the node.
+
+The fields in the capacity block indicate the total amount of resources that a
+Node has. The allocatable block indicates the amount of resources that on a
+Node that are available to be consumed by normal Pods.
+
+You may read more about capacity and allocatable resources while learning how
+to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+on a Node.
 
 ### Info
 
@@ -106,10 +115,10 @@ The information is gathered by Kubelet from the node.
 
 Unlike [pods](/docs/concepts/workloads/pods/pod/) and [services](/docs/concepts/services-networking/service/),
 a node is not inherently created by Kubernetes: it is created externally by cloud
-providers like Google Compute Engine, or exists in your pool of physical or virtual
-machines. What this means is that when Kubernetes creates a node, it is really
-just creating an object that represents the node. After creation, Kubernetes
-will check whether the node is valid or not. For example, if you try to create
+providers like Google Compute Engine, or it exists in your pool of physical or virtual
+machines. So when Kubernetes creates a node, it creates
+an object that represents the node. After creation, Kubernetes
+checks whether the node is valid or not. For example, if you try to create
 a node from the following content:
 
 ```json
@@ -125,13 +134,15 @@ a node from the following content:
 }
 ```
 
-Kubernetes will create a node object internally (the representation), and
-validate the node by health checking based on the `metadata.name` field (we
-assume `metadata.name` can be resolved). If the node is valid, i.e. all necessary
-services are running, it is eligible to run a pod; otherwise, it will be
-ignored for any cluster activity until it becomes valid. Note that Kubernetes
-will keep the object for the invalid node unless it is explicitly deleted by
-the client, and it will keep checking to see if it becomes valid.
+Kubernetes creates a node object internally (the representation), and
+validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
+services are running -- it is eligible to run a pod. Otherwise, it is
+ignored for any cluster activity until it becomes valid.
+
+{{< note >}}
+Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
+You must explicitly delete the Node object to stop this process.
+{{< /note >}}
 
 Currently, there are three components that interact with the Kubernetes node
 interface: node controller, kubelet, and kubectl.
@@ -159,10 +170,24 @@ to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
+In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
+node. Starting from Kubernetes 1.13, node lease feature is introduced as an
+alpha feature (feature gate `NodeLease`,
+[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+When node lease feature is enabled, each node has an associated `Lease` object in
+`kube-node-lease` namespace that is renewed by the node periodically, and both
+NodeStatus and node lease are treated as heartbeats from the node. Node leases
+are renewed frequently while NodeStatus is reported from node to master only
+when there is some change or enough time has passed (default is 1 minute, which
+is longer than the default timeout of 40 seconds for unreachable nodes). Since
+node lease is much more lightweight than NodeStatus, this feature makes node
+heartbeat significantly cheaper from both scalability and performance
+perspectives.
+
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
 (e.g. because the master has networking problem). Starting with 1.4, the node
-controller will look at the state of all nodes in the cluster when making a
+controller looks at the state of all nodes in the cluster when making a
 decision about pod eviction.
 
 In most cases, node controller limits the eviction rate to
@@ -213,11 +238,12 @@ For self-registration, the kubelet is started with the following options:
   - `--register-node` - Automatically register with the API server.
   - `--register-with-taints` - Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `register-node` is false.
   - `--node-ip` - IP address of the node.
-  - `--node-labels` - Labels to add when registering the node in the cluster.
+  - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-Currently, any kubelet is authorized to create/modify any node resource, but in practice it only creates/modifies
-its own. (In the future, we plan to only allow a kubelet to modify its own node resource.)
+When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
+[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
+kubelets are only authorized to create/modify their own Node resource.
 
 #### Manual Node Administration
 
@@ -232,8 +258,8 @@ Modifications include setting labels on the node and marking it unschedulable.
 Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
 e.g. to constrain a pod to only be eligible to run on a subset of the nodes.
 
-Marking a node as unschedulable will prevent new pods from being scheduled to that
-node, but will not affect any existing pods on the node. This is useful as a
+Marking a node as unschedulable prevents new pods from being scheduled to that
+node, but does not affect any existing pods on the node. This is useful as a
 preparatory step before a node reboot, etc. For example, to mark a node
 unschedulable, run this command:
 
@@ -241,9 +267,11 @@ unschedulable, run this command:
 kubectl cordon $NODENAME
 ```
 
-Note that pods which are created by a DaemonSet controller bypass the Kubernetes scheduler,
-and do not respect the unschedulable attribute on a node.  The assumption is that daemons belong on
-the machine even if it is being drained of applications in preparation for a reboot.
+{{< note >}}
+Pods created by a DaemonSet controller bypass the Kubernetes scheduler
+and do not respect the unschedulable attribute on a node. This assumes that daemons belong on
+the machine even if it is being drained of applications while it prepares for a reboot.
+{{< /note >}}
 
 ### Node capacity
 
@@ -254,30 +282,10 @@ capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
 checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
-includes all containers started by the kubelet, but not containers started directly by Docker nor
-processes not in containers.
+includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
 
-If you want to explicitly reserve resources for non-pod processes, you can create a placeholder
-pod. Use the following template:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: resource-reserver
-spec:
-  containers:
-  - name: sleep-forever
-    image: k8s.gcr.io/pause:0.8.0
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-```
-
-Set the `cpu` and `memory` values to the amount of resources you want to reserve.
-Place the file in the manifest directory (`--config=DIR` flag of kubelet).  Do this
-on each kubelet where you want to reserve resources.
+If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
+[reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 
 
 ## API Object

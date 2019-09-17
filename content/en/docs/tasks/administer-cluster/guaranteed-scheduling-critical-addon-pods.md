@@ -16,56 +16,21 @@ A cluster may stop working properly if a critical add-on is evicted (either manu
 and becomes pending (for example when the cluster is highly utilized and either there are other pending pods that schedule into the space
 vacated by the evicted critical add-on pod or the amount of resources available on the node changed for some other reason).
 
+Note that marking a pod as critical is not meant to prevent evictions entirely; it only prevents the pod from becoming permanently unavailable.
+For static pods, this means it can't be evicted, but for non-static pods, it just means they will always be rescheduled.
+
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
-## Rescheduler: guaranteed scheduling of critical add-ons
-**Rescheduler is deprecated as of Kubernetes 1.10 and will be removed in version 1.12 in
-accordance with the [deprecation policy](/docs/reference/deprecation-policy) for beta features.**
 
-**To avoid eviction of critical pods, you must
-[enable priorities in scheduler](/docs/concepts/configuration/pod-priority-preemption/)
-before upgrading to Kubernetes 1.10 or higher.**
+### Marking pod as critical
 
-Rescheduler ensures that critical pods created by DaemonSet controller are always scheduled
-(assuming the cluster has enough resources to run the critical add-on pods in the absence of regular pods).
-If the scheduler determines that no node has enough free resources to run the critical add-on pod
-given the pods that are already running in the cluster
-(indicated by critical add-on pod's pod condition PodScheduled set to false, the reason set to Unschedulable)
-the rescheduler tries to free up space for the DaemonSet critical pod by evicting some pods; then the scheduler will schedule the add-on pod.
+Prior to v1.11, critical pod has to run in the `kube-system` namespace, this restriction was removed after v1.11 and pod in any namespace can be configed as a critical pod by the following either way:
 
-To avoid situation when another pod is scheduled into the space prepared for the critical add-on,
-the chosen node gets a temporary taint "CriticalAddonsOnly" before the eviction(s)
-(see [more details](https://git.k8s.io/community/contributors/design-proposals/scheduling/taint-toleration-dedicated.md)).
-Each critical add-on has to tolerate it,
-while the other pods shouldn't tolerate the taint. The taint is removed once the add-on is successfully scheduled.
+* Ensure the PodPriority [feature gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) is enabled. Have the priorityClassName set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster, the two priority class names available since v1.10+
 
-*Warning:* currently there is no guarantee which node is chosen and which pods are being killed
-in order to schedule critical pods, so if rescheduler is enabled your pods might be occasionally
-killed for this purpose. Please ensure that rescheduler is not enabled along with priorities & preemptions in default-scheduler as rescheduler is oblivious to priorities and it may evict high priority pods, instead of low priority ones.
-
-## Config
-
-Rescheduler doesn't have any user facing configuration (component config) or API.
-
-### Marking pod as critical when using Rescheduler. 
-
-To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
-
-* have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string, and
-* have the PodSpec's `tolerations` field set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`.
-
-The first one marks a pod a critical. The second one is required by Rescheduler algorithm.
-
-A pod could also be considered critical, if its priority is greater than or equal to system-critical-priority.
-
-### Marking pod as critical when priorites are enabled.
-
-To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
-
-* Have the priorityClass set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster and `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too).
+* Alternatively, ensure both PodPriority and ExperimentalCriticalPodAnnotation feature gates are enabled, you could add an annotation `scheduler.alpha.kubernetes.io/critical-pod` as key and empty string as value to your pod, but this annotation is deprecated as of version 1.13 and will be removed in a future release.
 
 {{% /capture %}}

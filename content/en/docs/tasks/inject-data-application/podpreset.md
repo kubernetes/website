@@ -8,13 +8,11 @@ weight: 60
 
 {{% capture overview %}}
 
-You can use a `podpreset` object to inject information like secrets, volume
+You can use a `PodPreset` object to inject information like secrets, volume
 mounts, and environment variables etc into pods at creation time.
 This task shows some examples on using the `PodPreset` resource.
 
 {{% /capture %}}
-
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -27,9 +25,8 @@ Get an overview of PodPresets at
 
 {{% capture steps %}}
 
-## Create a Pod Preset
 
-### Simple Pod Spec Example
+## Simple Pod Spec Example
 
 This is a simple example to show how a Pod spec is modified by the Pod
 Preset.
@@ -39,13 +36,15 @@ Preset.
 Create the PodPreset:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/preset.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/preset.yaml
 ```
 
 Examine the created PodPreset:
 
 ```shell
-$ kubectl get podpreset
+kubectl get podpreset
+```
+```
 NAME             AGE
 allow-database   1m
 ```
@@ -57,13 +56,15 @@ The new PodPreset will act upon any pod that has label `role: frontend`.
 Create a pod:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
+kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
 ```
 
 List the running Pods:
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 website   1/1       Running   0          4m
 ```
@@ -75,10 +76,10 @@ website   1/1       Running   0          4m
 To see above output, run the following command:
 
 ```shell
-$ kubectl get pod website -o yaml
+kubectl get pod website -o yaml
 ```
 
-### Pod Spec with `ConfigMap` Example
+## Pod Spec with ConfigMap Example
 
 This is an example to show how a Pod spec is modified by the Pod Preset
 that defines a `ConfigMap` for Environment Variables.
@@ -99,7 +100,7 @@ that defines a `ConfigMap` for Environment Variables.
 
 {{< codenew file="podpreset/allow-db-merged.yaml" >}}
 
-### ReplicaSet with Pod Spec Example
+## ReplicaSet with Pod Spec Example
 
 The following example shows that only the pod spec is modified by the Pod
 Preset.
@@ -119,7 +120,7 @@ to validate that the PodPreset has been applied.
 
 {{< codenew file="podpreset/replicaset-merged.yaml" >}}
 
-### Multiple PodPreset Example
+## Multiple PodPreset Example
 
 This is an example to show how a Pod spec is modified by multiple Pod
 Injection Policies.
@@ -140,7 +141,7 @@ Injection Policies.
 
 {{< codenew file="podpreset/multi-merged.yaml" >}}
 
-### Conflict Example
+## Conflict Example
 
 This is an example to show how a Pod spec is not modified by the Pod Preset
 when there is a conflict.
@@ -160,7 +161,9 @@ when there is a conflict.
 **If we run `kubectl describe...` we can see the event:**
 
 ```shell
-$ kubectl describe ...
+kubectl describe ...
+```
+```
 ....
 Events:
   FirstSeen             LastSeen            Count   From                    SubobjectPath               Reason      Message
@@ -172,7 +175,9 @@ Events:
 Once you don't need a pod preset anymore, you can delete it with `kubectl`:
 
 ```shell
-$ kubectl delete podpreset allow-database
+kubectl delete podpreset allow-database
+```
+```
 podpreset "allow-database" deleted
 ```
 

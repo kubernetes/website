@@ -53,11 +53,11 @@ for a secure solution.
 
 1. Deploy the PV and PVC of the YAML file:
 
-        kubectl create -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
+        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 
 1. Deploy the contents of the YAML file:
 
-        kubectl create -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
+        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 
 1. Display information about the Deployment:
 

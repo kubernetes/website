@@ -19,7 +19,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 * You must have a Kubernetes cluster with cluster DNS enabled.
     * If you are using a cloud-based Kubernetes cluster or {{< glossary_tooltip text="Minikube" term_id="minikube" >}}, you may already have cluster DNS enabled.
     * If you are using `hack/local-up-cluster.sh`, ensure that the `KUBE_ENABLE_CLUSTER_DNS` environment variable is set, then run the install script.
-* [Install and setup kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
+* [Install and setup kubectl](/docs/tasks/tools/install-kubectl/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
 * Install [Helm](http://helm.sh/) v2.7.0 or newer.
     * Follow the [Helm install instructions](https://github.com/kubernetes/helm/blob/master/docs/install.md).
     * If you already have an appropriate version of Helm installed, execute `helm init` to install Tiller, the server-side component of Helm.
@@ -53,11 +53,19 @@ svc-cat/catalog 0.0.1   service-catalog API server and controller-manag...
 
 Your Kubernetes cluster must have RBAC enabled, which requires your Tiller Pod(s) to have `cluster-admin` access.
 
-If you are using Minikube, run the `minikube start` command with the following flag:
+When using Minikube v0.25 or older, you must run Minikube with RBAC explicitly enabled:
 
 ```shell
 minikube start --extra-config=apiserver.Authorization.Mode=RBAC
 ```
+
+When using Minikube v0.26+, run:
+
+```shell
+minikube start
+```
+
+With Minikube v0.26+, do not specify `--extra-config`. The flag has since been changed to --extra-config=apiserver.authorization-mode and Minikube now uses RBAC by default. Specifying the older flag may cause the start command to hang.
 
 If you are using `hack/local-up-cluster.sh`, set the `AUTHORIZATION_MODE` environment variable with the following values:
 
@@ -68,7 +76,7 @@ AUTHORIZATION_MODE=Node,RBAC hack/local-up-cluster.sh -O
 By default, `helm init` installs the Tiller Pod into the `kube-system` namespace, with Tiller configured to use the `default` service account.
 
 {{< note >}}
-**NOTE:** If you used the `--tiller-namespace` or `--service-account` flags when running `helm init`, the `--serviceaccount` flag in the following command needs to be adjusted to reference the appropriate namespace and ServiceAccount name.
+If you used the `--tiller-namespace` or `--service-account` flags when running `helm init`, the `--serviceaccount` flag in the following command needs to be adjusted to reference the appropriate namespace and ServiceAccount name.
 {{< /note >}}
 
 Configure Tiller to have `cluster-admin` access:
@@ -97,6 +105,3 @@ helm install svc-cat/catalog \
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
 
 {{% /capture %}}
-
-
-

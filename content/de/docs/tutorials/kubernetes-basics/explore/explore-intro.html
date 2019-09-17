@@ -1,0 +1,141 @@
+---
+title: Anzeigen von Pods und Nodes
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Ziele:</h3>
+                <ul>
+                    <li>Erfahren Sie mehr über Kubernetes Pods.</li>
+                    <li>Erfahren Sie mehr über Kubernetes-Nodes.</li>
+                    <li>Beheben Sie Fehler in bereitgestellten Anwendungen.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h2>Kubernetes Pods</h2>
+                <p>Als Sie ein Deployment in Modul <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, hat Kubernetes einen <b>Pod</b> erstellt, der Ihre Anwendungsinstanz hostet. Ein Pod ist eine Kubernetes-Abstraktion, die eine Gruppe von einem oder mehreren Anwendungscontainern (z. B. Docker oder rkt) und einigen gemeinsam genutzten Ressourcen für diese Container darstellt. Diese Ressourcen umfassen:</p>
+                <ul>
+                    <li>Gemeinsamer Speicher, als Volumes</li>
+                    <li>Networking, als eindeutige Cluster-IP-Adresse</li>
+                    <li>Informationen zur Ausführung der einzelnen Container, wie z.B. die Container-Image-Version oder bestimmte Ports, die verwendet werden sollen.</li>
+                </ul>
+                <p>Ein Pod stellt einen anwendungsspezifischen "logischen Host" dar und kann verschiedene Anwendungscontainer enthalten, die relativ eng gekoppelt sind. Ein Pod kann beispielsweise sowohl den Container mit Ihrer Node.js-Applikation als auch einen anderen Container beinhalten, der die vom Webserver Node.js zu veröffentlichenden Daten einspeist. Die Container in einem Pod teilen sich eine IP-Adresse und einen Portbereich, sind immer kolokalisiert und gemeinsam geplant und laufen in einem gemeinsamen Kontext auf demselben Node.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Zusammenfassung:</h3>
+                    <ul>
+                        <li>Pods</li>
+                        <li>Nodes</li>
+                        <li>Kubectl-Hauptbefehle</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                            Ein Pod ist eine Gruppe von einem oder mehreren Anwendungscontainern (z. B. Docker oder rkt) und enthält gemeinsam genutzten Speicher (Volumes), IP-Adresse und Informationen zur Ausführung.
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Pods-Übersicht</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Nodes</h2>
+                <p>Ein Pod läuft immer auf einem <b>Node</b>. Ein Node ist eine Arbeitsmaschine in Kubernetes und kann je nach Cluster entweder eine virtuelle oder eine physische Maschine sein. Jeder Node wird vom Master verwaltet. Ein Node kann über mehrere Pods verfügen, und der Kubernetes-Master übernimmt automatisch die Planung der Pods für die Nodes im Cluster. Die automatische Zeitplanung des Masters berücksichtigt die verfügbaren Ressourcen auf jedem Node.</p>
+
+                <p>Auf jedem Kubernetes Node läuft mindestens:</p>
+                <ul>
+                    <li>Kubelet, ein Prozess, der für die Kommunikation zwischen dem Kubernetes Master und dem Node verantwortlich ist; Er verwaltet die Pods und die auf einer Maschine laufenden Container.</li>
+                    <li>Eine Containerlaufzeit (wie Docker, rkt), die für das Abrufen des Containerabbilds aus einer Registry, das Entpacken des Containers und das Ausführen der Anwendung verantwortlich ist.</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Container sollten nur dann gemeinsam in einem Pod geplant werden, wenn sie eng miteinander verbunden sind und Ressourcen wie Festplatten gemeinsam nutzen müssen. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Node Überblick</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Troubleshooting mit kubectl</h2>
+                <p>In Modul <a href="/docs/tutorials/kubernetes-basics/deploy/deploy-intro/">2</a> erstellt haben, haben Sie die Befehlszeilenschnittstelle von Kubectl verwendet. Sie verwenden sie weiterhin in Modul 3, um Informationen zu den bereitgestellten Anwendungen und ihren Umgebungen zu erhalten. Die häufigsten Operationen können mit den folgenden kubectl-Befehlen ausgeführt werden:</p>
+                <ul>
+                    <li><b>kubectl get</b> - Ressourcen auflisten</li>
+                    <li><b>kubectl describe</b> - Detaillierte Informationen zu einer Ressource anzeigen</li>
+                    <li><b>kubectl logs</b> - Die Logdateien von einem Container in einem Pod anzigen</li>
+                    <li><b>kubectl exec</b> - Einen Befehl für einen Container in einem Pod ausführen</li>
+                </ul>
+
+                <p>Mit diesen Befehlen können Sie sehen, wann Anwendungen bereitgestellt wurden, ihren aktuellen Status anzeigen, sehen wo sie ausgeführt werden und wie sie konfiguriert sind.</p>
+
+                <p>Nun, da wir mehr über unsere Clusterkomponenten und die Befehlszeile wissen, wollen wir unsere Anwendung untersuchen.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Ein Node ist eine Arbeitsmaschine in Kubernetes und kann je nach Cluster eine VM oder eine physische Maschine sein. Auf einem Node können mehrere Pods laufen. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Interaktives Lernprogramm starten <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

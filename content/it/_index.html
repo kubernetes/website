@@ -1,0 +1,62 @@
+---
+title: "Container Orchestration a livello di produzione"
+abstract: "Implementazione, ridimensionamento e gestione automatizzata dei container "
+cid: home
+---
+
+{{< deprecationwarning >}}
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (k8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}})
+
+è un sistema open source per automatizzare la distribuzione il ridimensionamento e la gestione di applicazioni containerizzate.
+
+Raggruppa i contenitori che costituiscono un'applicazione in unità logiche per una piu facile gestione. Kubernetes si basa [su 15 anni di esperienza di Google](http://queue.acm.org/detail.cfm?id=2898444) ,combinando idee e messe in pratica suggerite da una comunità.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Planet Scale
+
+Progettato secondo gli stessi principi che consentono a Google di gestire miliardi di container alla settimana, Kubernetes può scalare senza aumentare il tuo team operativo.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Never Outgrow
+
+Che si tratti di eseguire test localmente o di gestire un'azienda globale, la flessibilità di Kubernetes cresce con te per fornire le tue applicazioni in modo coerente e semplice, indipendentemente dalla complessità delle tue esigenze.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### Run Anywhere
+
+Kubernetes è open source e ti offre la libertà di trarre vantaggio dall'infrastruttura cloud locale, ibrida o pubblica, consentendo di spostare facilmente i carichi di lavoro nel punto in cui è importante per te.
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+    <h2>Le sfide della migrazione di oltre 150 microservizi a Kubernetes</h2>
+    <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Guarda i Video</button>
+    <br>
+    <br>
+    <br>
+    <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2019" button id="desktopKCButton">Attend KubeCon in Barcelona on May 20-23, 2019</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2019" button id="desktopKCButton">Attend KubeCon in Shanghai on June 24-26, 2019</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

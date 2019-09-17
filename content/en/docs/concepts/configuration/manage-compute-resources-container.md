@@ -2,6 +2,10 @@
 title: Managing Compute Resources for Containers
 content_template: templates/concept
 weight: 20
+feature:
+  title: Automatic bin packing
+  description: >
+    Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
 ---
 
 {{% capture overview %}}
@@ -145,7 +149,9 @@ When using Docker:
   multiplied by 100. The resulting value is the total amount of CPU time that a container can use
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 
-  {{< note >}}**Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.{{</ note >}}
+  {{< note >}}
+  The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
+  {{</ note >}}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -183,7 +189,9 @@ unscheduled until a place can be found. An event is produced each time the
 scheduler fails to find a place for the Pod, like this:
 
 ```shell
-$ kubectl describe pod frontend | grep -A 3 Events
+kubectl describe pod frontend | grep -A 3 Events
+```
+```
 Events:
   FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
   36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
@@ -204,8 +212,10 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-$ kubectl describe nodes e2e-test-minion-group-4lw4
-Name:            e2e-test-minion-group-4lw4
+kubectl describe nodes e2e-test-node-pool-4lw4
+```
+```
+Name:            e2e-test-node-pool-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
  cpu:                               2
@@ -254,7 +264,9 @@ whether a Container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
 
 ```shell
-[12:54:41] $ kubectl describe pod simmemleak-hra99
+kubectl describe pod simmemleak-hra99
+```
+```
 Name:                           simmemleak-hra99
 Namespace:                      default
 Image(s):                       saadali/simmemleak
@@ -297,24 +309,25 @@ Container in the Pod was terminated and restarted five times.
 You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
 of previously terminated Containers:
 
-```shell{% raw %}
-[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
+```shell
+kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
+```
+```
 Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
 ```
 
-You can see that the Container was terminated because of `reason:OOM Killed`,
-where `OOM` stands for Out Of Memory.
+You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
 
 ## Local ephemeral storage
 {{< feature-state state="beta" >}}
 
-Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
+Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by Pods via emptyDir volumes, container logs, image layers and container writable layers.
 
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
 {{< note >}}
-**Note:** If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
+If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
 {{< /note >}}
 
 ### Requests and limits setting for local ephemeral storage
@@ -363,15 +376,17 @@ spec:
 ### How Pods with ephemeral-storage requests are scheduled
 
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
+
+The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 
 ### How Pods with ephemeral-storage limits run
 
-For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the pod's EmptyDir volumes exceeds the limit, the pod will be evicted.
+For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the Pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the Pod's emptyDir volumes exceeds the limit, the Pod will be evicted.
 
-## Extended Resources
+## Extended resources
 
-Extended Resources are fully-qualified resource names outside the
+Extended resources are fully-qualified resource names outside the
 `kubernetes.io` domain. They allow cluster operators to advertise and users to
 consume the non-Kubernetes-built-in resources.
 
@@ -398,7 +413,7 @@ operation, the node's `status.capacity` will include a new resource. The
 `status.allocatable` field is updated automatically with the new resource
 asynchronously by the kubelet. Note that because the scheduler uses the	node
 `status.allocatable` value when evaluating Pod fitness, there may be a short
-delay between patching the node capacity with a new resource and the first pod
+delay between patching the node capacity with a new resource and the first Pod
 that requests the resource to be scheduled on that node.
 
 **Example:**
@@ -415,7 +430,7 @@ http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 ```
 
 {{< note >}}
-**Note**: In the preceding request, `~1` is the encoding for the character `/`
+In the preceding request, `~1` is the encoding for the character `/`
 in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 [IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
@@ -424,7 +439,7 @@ JSON-Pointer. For more details, see
 #### Cluster-level extended resources
 
 Cluster-level extended resources are not tied to nodes. They are usually managed
-by scheduler extenders, which handle the resource comsumption, quota and so on.
+by scheduler extenders, which handle the resource consumption and resource quota.
 
 You can specify the extended resources that are handled by scheduler extenders
 in [scheduler policy
@@ -433,12 +448,13 @@ configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/sc
 **Example:**
 
 The following configuration for a scheduler policy indicates that the
-cluster-level extended resource "example.com/foo" is handled by scheduler
+cluster-level extended resource "example.com/foo" is handled by the scheduler
 extender.
- - The scheduler sends a pod to the scheduler extender only if the pod requests
-   "example.com/foo".
- - The `ignoredByScheduler` field specifies that the scheduler does not check
-   the "example.com/foo" resource in its `PodFitsResources` predicate.
+
+- The scheduler sends a Pod to the scheduler extender only if the Pod requests
+     "example.com/foo".
+- The `ignoredByScheduler` field specifies that the scheduler does not check
+     the "example.com/foo" resource in its `PodFitsResources` predicate.
 
 ```json
 {
@@ -461,29 +477,29 @@ extender.
 
 ### Consuming extended resources
 
-Users can consume Extended Resources in Pod specs just like CPU and memory.
+Users can consume extended resources in Pod specs just like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
-The API server restricts quantities of Extended Resources to whole numbers.
+The API server restricts quantities of extended resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m`.
 
 {{< note >}}
-**Note:** Extended Resources replace Opaque Integer Resources.
-Users can use any domain name prefix other than "`kubernetes.io`" which is reserved.
+Extended resources replace Opaque Integer Resources.
+Users can use any domain name prefix other than `kubernetes.io` which is reserved.
 {{< /note >}}
 
-To consume an Extended Resource in a Pod, include the resource name as a key
+To consume an extended resource in a Pod, include the resource name as a key
 in the `spec.containers[].resources.limits` map in the container spec.
 
 {{< note >}}
-**Note:** Extended resources cannot be overcommitted, so request and limit
+Extended resources cannot be overcommitted, so request and limit
 must be equal if both are present in a container spec.
 {{< /note >}}
 
 A Pod is scheduled only if all of the resource requests are satisfied, including
-CPU, memory and any Extended Resources. The Pod remains in the `PENDING` state
+CPU, memory and any extended resources. The Pod remains in the `PENDING` state
 as long as the resource request cannot be satisfied.
 
 **Example:**
@@ -534,11 +550,11 @@ consistency across providers and platforms.
 
 {{% capture whatsnext %}}
 
-* Get hands-on experience [assigning Memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+* Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
-* Get hands-on experience [assigning CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
+* Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* [Container API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
 

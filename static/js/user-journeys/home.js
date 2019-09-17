@@ -200,7 +200,11 @@ $( document ).ready(function() {
       urlParamHash.set("level", null);
 
       // record Google Analytics event
-      ga('send', 'event', 'user-journeys', 'click', 'path', type);
+      try {
+        ga('send', 'event', 'user-journeys', 'click', 'path', type);
+      } catch (ignored) {
+
+      }
 
     }
 
@@ -221,7 +225,11 @@ $( document ).ready(function() {
         urlParamHash.set('persona', persona);
 
         // record Google Analytics event
-        ga('send', 'event', 'user-journeys', 'click', 'persona', persona);
+        try {
+          ga('send', 'event', 'user-journeys', 'click', 'persona', persona);
+        } catch (ignored) {
+
+        }
 
       }
       // Use default level if not specified, in order to display the proper
@@ -250,7 +258,11 @@ $( document ).ready(function() {
         urlParamHash.set('level', level);
 
         // record Google Analytics event
-        ga('send', 'event', 'user-journeys', 'click', 'level', level);
+        try {
+          ga('send', 'event', 'user-journeys', 'click', 'level', level);
+        } catch (ignored) {
+
+        }
 
       }
 

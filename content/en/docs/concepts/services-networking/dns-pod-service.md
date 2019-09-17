@@ -41,11 +41,11 @@ For more up-to-date specification, see
 ### A records
 
 "Normal" (not headless) Services are assigned a DNS A record for a name of the
-form `my-svc.my-namespace.svc.cluster.local`.  This resolves to the cluster IP
+form `my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
 of the Service.
 
 "Headless" (without a cluster IP) Services are also assigned a DNS A record for
-a name of the form `my-svc.my-namespace.svc.cluster.local`.  Unlike normal
+a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
 Services, this resolves to the set of IPs of the pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
@@ -55,22 +55,14 @@ selection from the set.
 SRV Records are created for named ports that are part of normal or [Headless
 Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
-`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
-For a regular service, this resolves to the port number and the CNAME:
-`my-svc.my-namespace.svc.cluster.local`.
+`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
+For a regular service, this resolves to the port number and the domain name:
+`my-svc.my-namespace.svc.cluster-domain.example`.
 For a headless service, this resolves to multiple answers, one for each pod
-that is backing the service, and contains the port number and a CNAME of the pod
-of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
+that is backing the service, and contains the port number and the domain name of the pod
+of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ## Pods
-
-### A Records
-
-When enabled, pods are assigned a DNS A record in the form of
-"`pod-ip-address.my-namespace.pod.cluster.local`".
-
-For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name
-of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
 
 ### Pod's hostname and subdomain fields
 
@@ -84,7 +76,7 @@ the hostname of the pod. For example, given a Pod with `hostname` set to
 The Pod spec also has an optional `subdomain` field which can be used to specify
 its subdomain. For example, a Pod with `hostname` set to "`foo`", and `subdomain`
 set to "`bar`", in namespace "`my-namespace`", will have the fully qualified
-domain name (FQDN) "`foo.bar.my-namespace.svc.cluster.local`".
+domain name (FQDN) "`foo.bar.my-namespace.svc.cluster-domain.example`".
 
 Example:
 
@@ -112,7 +104,7 @@ spec:
   hostname: busybox-1
   subdomain: default-subdomain
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
@@ -128,7 +120,7 @@ spec:
   hostname: busybox-2
   subdomain: default-subdomain
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
@@ -141,12 +133,20 @@ record for the Pod's fully qualified hostname.
 For example, given a Pod with the hostname set to "`busybox-1`" and the subdomain set to
 "`default-subdomain`", and a headless Service named "`default-subdomain`" in
 the same namespace, the pod will see its own FQDN as
-"`busybox-1.default-subdomain.my-namespace.svc.cluster.local`". DNS serves an
+"`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`". DNS serves an
 A record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
 "`busybox2`" can have their distinct A records.
 
 The Endpoints object can specify the `hostname` for any endpoint addresses,
 along with its IP.
+
+{{< note >}}
+Because A records are not created for Pod names, `hostname` is required for the Pod's A
+record to be created. A Pod with no `hostname` but with `subdomain` will only create the
+A record for the headless service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
+pointing to the Pod's IP address. Also, Pod needs to become ready in order to have a
+record unless `publishNotReadyAddresses=True` is set on the Service.
+{{< /note >}}
 
 ### Pod's DNS Policy
 
@@ -166,13 +166,13 @@ following pod-specific DNS policies. These policies are specified in the
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".
-- "`None`": A new option value introduced in Kubernetes v1.9 (Beta in v1.10). It
-  allows a Pod to ignore DNS settings from the Kubernetes environment. All DNS
-  settings are supposed to be provided using the `dnsConfig` field in the Pod Spec.
-  See [DNS config](#dns-config) subsection below.
+- "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
+  environment. All DNS settings are supposed to be provided using the
+  `dnsConfig` field in the Pod Spec.
+  See [Pod's DNS config](#pod-s-dns-config) subsection below.
 
 {{< note >}}
-**NOTE:** "Default" is not the default DNS policy. If `dnsPolicy` is not
+"Default" is not the default DNS policy. If `dnsPolicy` is not
 explicitly specified, then “ClusterFirst” is used.
 {{< /note >}}
 
@@ -188,7 +188,7 @@ metadata:
   namespace: default
 spec:
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
@@ -201,13 +201,7 @@ spec:
 
 ### Pod's DNS Config
 
-Kubernetes v1.9 introduces an Alpha feature (Beta in v1.10) that allows users more
-control on the DNS settings for a Pod. This feature is enabled by default in v1.10.
-To enable this feature in v1.9, the cluster administrator
-needs to enable the `CustomPodDNS` feature gate on the apiserver and the kubelet,
-for example, "`--feature-gates=CustomPodDNS=true,...`".
-When the feature gate is enabled, users can set the `dnsPolicy` field of a Pod
-to "`None`" and they can add a new field `dnsConfig` to a Pod Spec.
+Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
 The `dnsConfig` field is optional and it can work with any `dnsPolicy` settings.
 However, when a Pod's `dnsPolicy` is set to "`None`", the `dnsConfig` field has
@@ -240,18 +234,31 @@ in its `/etc/resolv.conf` file:
 
 ```
 nameserver 1.2.3.4
-search ns1.svc.cluster.local my.dns.search.suffix
+search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
 
 For IPv6 setup, search path and name server should be setup like this:
 
+```shell
+kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
-$ kubectl exec -it busybox -- cat /etc/resolv.conf
+The output is similar to this:
+```shell
 nameserver fd00:79:30::a
-search default.svc.cluster.local svc.cluster.local cluster.local
+search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
+
+### Feature availability
+
+The availability of Pod DNS Config and DNS Policy "`None`"" is shown as below.
+
+| k8s version | Feature support |
+| :---------: |:-----------:|
+| 1.14 | Stable |
+| 1.10 | Beta (on by default)|
+| 1.9 | Alpha |
 
 {{% /capture %}}
 

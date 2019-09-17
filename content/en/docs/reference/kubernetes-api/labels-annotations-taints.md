@@ -1,29 +1,42 @@
 ---
 title: Well-Known Labels, Annotations and Taints
+content_template: templates/concept
+weight: 10
 ---
 
-Kubernetes reserves all labels and annotations in the kubernetes.io namespace.  This document describes
-the well-known kubernetes.io labels and annotations.
-
+{{% capture overview %}}
+Kubernetes reserves all labels and annotations in the kubernetes.io namespace.
+  
 This document serves both as a reference to the values, and as a coordination point for assigning values.
+{{% /capture %}}
 
-## beta.kubernetes.io/arch
+{{% capture body %}}
+## kubernetes.io/arch
 
-Example: `beta.kubernetes.io/arch=amd64`
+Example: `kubernetes.io/arch=amd64`
 
 Used on: Node
 
 Kubelet populates this with `runtime.GOARCH` as defined by Go.  This can be handy if you are mixing arm and x86 nodes,
 for example.
 
-## beta.kubernetes.io/os
+## kubernetes.io/os
 
-Example: `beta.kubernetes.io/os=linux`
+Example: `kubernetes.io/os=linux`
 
 Used on: Node
 
 Kubelet populates this with `runtime.GOOS` as defined by Go.  This can be handy if you are mixing operating systems
-in your cluster (although currently Linux is the only OS supported by Kubernetes).
+in your cluster (e.g., mixing Linux and Windows nodes).
+
+## beta.kubernetes.io/arch (deprecated)
+
+This label has been deprecated. Please use `kubernetes.io/arch` instead.
+
+## beta.kubernetes.io/os (deprecated)
+
+This label has been deprecated. Please use `kubernetes.io/os` instead.
+
 
 ## kubernetes.io/hostname
 
@@ -51,7 +64,7 @@ of requiring a `g2.2xlarge`)
 
 See [failure-domain.beta.kubernetes.io/zone](#failure-domainbetakubernetesiozone).
 
-## failure-domain.beta.kubernetes.io/zone
+## failure-domain.beta.kubernetes.io/zone {#failure-domainbetakubernetesiozone}
 
 Example:
 
@@ -89,8 +102,4 @@ If `PersistentVolumeLabel` does not support automatic labeling of your Persisten
 adding the labels manually (or adding support to `PersistentVolumeLabel`), if you want the scheduler to prevent
 pods from mounting volumes in a different zone.  If your infrastructure doesn't have this constraint, you don't
 need to add the zone labels to the volumes at all.
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/reference/labels-annotations-taints.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
+{{% /capture %}}

@@ -125,8 +125,8 @@ must be mounted as a
 in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Kubernetes device plugin support is still in alpha. As development continues, its API version can
-change in incompatible ways. We recommend that device plugin developers do the following:
+Kubernetes device plugin support is in beta. As development continues, its API version can
+change. We recommend that device plugin developers do the following:
 
 * Watch for changes in future releases.
 * Support multiple versions of the device plugin API for backward/forward compatibility.
@@ -136,17 +136,50 @@ a Kubernetes release with a newer device plugin API version, upgrade your device
 to support both versions before upgrading these nodes to
 ensure the continuous functioning of the device allocations during the upgrade.
 
+## Monitoring Device Plugin Resources
+
+In order to monitor resources provided by device plugins, monitoring agents need to be able to 
+discover the set of devices that are in-use on the node and obtain metadata to describe which 
+container the metric should be associated with.  Prometheus metrics exposed by device monitoring 
+agents should follow the 
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/instrumentation.md), 
+which requires identifying containers using `pod`, `namespace`, and `container` prometheus labels.  
+The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata 
+for these devices:
+
+```gRPC
+// PodResourcesLister is a service provided by the kubelet that provides information about the
+// node resources consumed by pods and containers on the node
+service PodResourcesLister {
+    rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
+}
+```
+
+The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`. 
+Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet. 
+The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring 
+agents must run in a privileged security context.  If a device monitoring agent is running as a 
+DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a 
+[Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
+in the plugin's
+[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+
+Support for the "PodResources service" is still in alpha.
+
 ## Examples
 
 For examples of device plugin implementations, see:
 
 * The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-    * it requires using [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers
-* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
+    * Requires [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers.
+    * A detailed guide on how to [schedule NVIDIA GPUs](/docs/tasks/manage-gpus/scheduling-gpus) on k8s.
+* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
+* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU, FPGA and QuickAssist devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
 
 {{% /capture %}}
 

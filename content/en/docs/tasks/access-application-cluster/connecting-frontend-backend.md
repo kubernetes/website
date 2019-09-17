@@ -8,14 +8,15 @@ weight: 70
 
 This task shows how to create a frontend and a backend
 microservice. The backend microservice is a hello greeter. The
-frontend and backend are connected using a Kubernetes Service object.
+frontend and backend are connected using a Kubernetes
+{{< glossary_tooltip term_id="service" >}} object.
 
 {{% /capture %}}
 
 
 {{% capture objectives %}}
 
-* Create and run a microservice using a Deployment object.
+* Create and run a microservice using a {{< glossary_tooltip term_id="deployment" >}} object.
 * Route traffic to the backend using a frontend.
 * Use a Service object to connect the frontend application to the
   backend application.
@@ -31,7 +32,7 @@ frontend and backend are connected using a Kubernetes Service object.
   [Services with external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/), which
   require a supported environment. If your environment does not
   support this, you can use a Service of type
-  [NodePort](/docs/concepts/services-networking/service/#type-nodeport) instead.
+  [NodePort](/docs/concepts/services-networking/service/#nodeport) instead.
 
 {{% /capture %}}
 
@@ -47,13 +48,13 @@ file for the backend Deployment:
 
 Create the backend Deployment:
 
-```
-kubectl create -f https://k8s.io/examples/service/access/hello.yaml
+```shell
+kubectl apply -f https://k8s.io/examples/service/access/hello.yaml
 ```
 
 View information about the backend Deployment:
 
-```
+```shell
 kubectl describe deployment hello
 ```
 
@@ -99,7 +100,8 @@ Events:
 The key to connecting a frontend to a backend is the backend
 Service. A Service creates a persistent IP address and DNS name entry
 so that the backend microservice can always be reached. A Service uses
-selector labels to find the Pods that it routes traffic to.
+{{< glossary_tooltip text="selectors" term_id="selector" >}} to find
+the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 
@@ -110,8 +112,8 @@ that have the labels `app: hello` and `tier: backend`.
 
 Create the `hello` Service:
 
-```
-kubectl create -f https://k8s.io/examples/service/access/hello-service.yaml
+```shell
+kubectl apply -f https://k8s.io/examples/service/access/hello-service.yaml
 ```
 
 At this point, you have a backend Deployment running, and you have a
@@ -137,59 +139,65 @@ the Service uses the default load balancer of your cloud provider.
 
 Create the frontend Deployment and Service:
 
-```
-kubectl create -f https://k8s.io/examples/service/access/frontend.yaml
+```shell
+kubectl apply -f https://k8s.io/examples/service/access/frontend.yaml
 ```
 
 The output verifies that both resources were created:
 
 ```
-deployment "frontend" created
-service "frontend" created
+deployment.apps/frontend created
+service/frontend created
 ```
 
-**Note**: The nginx configuration is baked into the
-[container image](/examples/service/access/Dockerfile).
-A better way to do this would be to use a
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/), so
-that you can change the configuration more easily.
+{{< note >}}
+The nginx configuration is baked into the [container
+image](/examples/service/access/Dockerfile). A better way to do this would
+be to use a
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+so that you can change the configuration more easily.
+{{< /note >}}
 
 ### Interact with the frontend Service
 
 Once you’ve created a Service of type LoadBalancer, you can use this
 command to find the external IP:
 
-```
-kubectl get service frontend
-```
-
-The external IP field may take some time to populate.  If this is the
-case, the external IP is listed as `<pending>`.
-
-```
-NAME       CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
-frontend   10.51.252.116   <pending>     80/TCP   10s
+```shell
+kubectl get service frontend --watch
 ```
 
-Repeat the same command again until it shows an external IP address:
+This displays the configuration for the `frontend` Service and watches for
+changes. Initially, the external IP is listed as `<pending>`:
 
 ```
-NAME       CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
-frontend   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
+frontend   LoadBalancer   10.51.252.116   <pending>     80/TCP   10s
 ```
+
+As soon as an external IP is provisioned, however, the configuration updates
+to include the new IP under the `EXTERNAL-IP` heading:
+
+```
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
+frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
+```
+
+That IP can now be used to interact with the `frontend` service from outside the
+cluster.
 
 ### Send traffic through the frontend
 
 The frontend and backends are now connected. You can hit the endpoint
 by using the curl command on the external IP of your frontend Service.
 
-```
-curl http://<EXTERNAL-IP>
+```shell
+curl http://${EXTERNAL_IP} # replace this with the EXTERNAL-IP you saw earlier
 ```
 
 The output shows the message generated by the backend:
 
-```
+```json
 {"message":"Hello"}
 ```
 

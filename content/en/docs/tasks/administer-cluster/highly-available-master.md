@@ -14,7 +14,6 @@ This document describes how to use kube-up/down scripts to manage highly availab
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -31,7 +30,7 @@ To create a new HA-compatible cluster, you must set the following flags in your 
 * `MULTIZONE=true` - to prevent removal of master replicas kubelets from zones different than server's default zone.
 Required if you want to run master replicas in different zones, which is recommended.
 
-* `ENABLE_ETCD_QUORUM_READS=true` - to ensure that reads from all API servers will return most up-to-date data.
+* `ENABLE_ETCD_QUORUM_READ=true` - to ensure that reads from all API servers will return most up-to-date data.
 If true, reads will be directed to leader etcd replica.
 Setting this value to true is optional: reads will be more reliable but will also be slower.
 
@@ -43,7 +42,7 @@ Set the following flag:
 The following sample command sets up a HA-compatible cluster in the GCE zone europe-west1-b:
 
 ```shell
-$ MULTIZONE=true KUBE_GCE_ZONE=europe-west1-b  ENABLE_ETCD_QUORUM_READS=true ./cluster/kube-up.sh
+MULTIZONE=true KUBE_GCE_ZONE=europe-west1-b  ENABLE_ETCD_QUORUM_READS=true ./cluster/kube-up.sh
 ```
 
 Note that the commands above create a cluster with one master;
@@ -66,7 +65,7 @@ as those are inherited from when you started your HA-compatible cluster.
 The following sample command replicates the master on an existing HA-compatible cluster:
 
 ```shell
-$ KUBE_GCE_ZONE=europe-west1-c KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
+KUBE_GCE_ZONE=europe-west1-c KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
 ```
 
 ## Removing a master replica
@@ -83,7 +82,7 @@ If empty: any replica from the given zone will be removed.
 The following sample command removes a master replica from an existing HA cluster:
 
 ```shell
-$ KUBE_DELETE_NODES=false KUBE_GCE_ZONE=europe-west1-c ./cluster/kube-down.sh
+KUBE_DELETE_NODES=false KUBE_GCE_ZONE=europe-west1-c ./cluster/kube-down.sh
 ```
 
 ## Handling master replica failures
@@ -95,20 +94,20 @@ The following sample commands demonstrate this process:
 1. Remove the broken replica:
 
 ```shell
-$ KUBE_DELETE_NODES=false KUBE_GCE_ZONE=replica_zone KUBE_REPLICA_NAME=replica_name ./cluster/kube-down.sh
+KUBE_DELETE_NODES=false KUBE_GCE_ZONE=replica_zone KUBE_REPLICA_NAME=replica_name ./cluster/kube-down.sh
 ```
 
 <ol start="2"><li>Add a new replica in place of the old one:</li></ol>
 
 ```shell
-$ KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
+KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
 ```
 
 ## Best practices for replicating masters for HA clusters
 
 * Try to place master replicas in different zones. During a zone failure, all masters placed inside the zone will fail.
 To survive zone failure, also place nodes in multiple zones
-(see [multiple-zones](/docs/setup/multiple-zones/) for details).
+(see [multiple-zones](/docs/setup/best-practices/multiple-zones/) for details).
 
 * Do not use a cluster with two master replicas. Consensus on a two-replica cluster requires both replicas running when changing persistent state.
 As a result, both replicas are needed and a failure of any replica turns cluster into majority failure state.

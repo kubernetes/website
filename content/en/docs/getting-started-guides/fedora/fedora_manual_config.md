@@ -65,8 +65,7 @@ KUBE_MASTER="--master=http://fed-master:8080"
 systemctl mask firewalld.service
 systemctl stop firewalld.service
 
-systemctl disable iptables.service
-systemctl stop iptables.service
+systemctl disable --now iptables.service
 ```
 
 **Configure the Kubernetes services on the master.**
@@ -97,8 +96,7 @@ ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
-    systemctl restart $SERVICES
-    systemctl enable $SERVICES
+    systemctl enable --now $SERVICES
     systemctl status $SERVICES
 done
 ```
@@ -120,12 +118,11 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 KUBELET_HOSTNAME="--hostname-override=fed-node"
 
 # location of the api-server
-KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeconfig.yaml --require-kubeconfig"
-
-# Add your own!
-KUBELET_ARGS=""
+KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeconfig.yaml"
 
 ```
+
+* Edit `/etc/kubernetes/master-kubeconfig.yaml` to contain the following information:
 
 ```yaml
 kind: Config
@@ -146,10 +143,9 @@ current-context: kubelet-context
 * Start the appropriate services on the node (fed-node).
 
 ```shell
-for SERVICES in kube-proxy kubelet docker; do 
-    systemctl restart $SERVICES
-    systemctl enable $SERVICES
-    systemctl status $SERVICES 
+for SERVICES in kube-proxy kubelet docker; do
+    systemctl enable --now $SERVICES
+    systemctl status $SERVICES
 done
 ```
 
@@ -179,6 +175,3 @@ kubectl delete -f ./node.json
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |          | Project
-
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
-

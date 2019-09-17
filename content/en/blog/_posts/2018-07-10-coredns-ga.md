@@ -18,7 +18,7 @@ CoreDNS is a general-purpose, authoritative DNS server that provides a backwards
 
 In this article, you will learn about the differences in the implementations of kube-dns and CoreDNS, and some of the helpful extensions offered by CoreDNS.
 
-## Implemenation differences
+## Implementation differences
 
 In kube-dns, several containers are used within a single pod: `kubedns`, `dnsmasq`, and `sidecar`. The `kubedns`
 container watches the Kubernetes API and serves DNS records based on the [Kubernetes DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), `dnsmasq` provides caching and stub domain support, and `sidecar` provides metrics and health checks.
@@ -42,7 +42,7 @@ primary configuration file that CoreDNS uses for configuration of all of its fea
 Kubernetes related.
 
 When upgrading from kube-dns to CoreDNS using `kubeadm`, your existing ConfigMap will be used to generate the
-customized Corefile for you, including all of the configuration for stub domains, federation, and upstream nameservers. See [Using CoreDNS for Service Discovery](https://kubernetes.io/docs/tasks/administer-cluster/coredns/) for more details.
+customized Corefile for you, including all of the configuration for stub domains, federation, and upstream nameservers. See [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/) for more details.
 
 
 ## Bug fixes and enhancements
@@ -167,10 +167,10 @@ You can find out more on the [CoreDNS Blog](https://coredns.io/blog).
 
 CoreDNS is an incubated [CNCF](https:://cncf.io) project.
 
-We're most active on Slack (and Github):
+We're most active on Slack (and GitHub):
 
 - Slack: #coredns on <https://slack.cncf.io>
-- Github: <https://github.com/coredns/coredns>
+- GitHub: <https://github.com/coredns/coredns>
 
 More resources can be found:
 

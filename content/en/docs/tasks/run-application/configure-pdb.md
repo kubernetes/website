@@ -77,6 +77,22 @@ due to a voluntary disruption.
   - Concern: Job needs to complete in case of voluntary disruption.
     - Possible solution: Do not create a PDB.  The Job controller will create a replacement pod.
 
+### Rounding logic when specifying percentages
+
+Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as a percentage.
+
+- When you specify an integer, it represents a number of Pods. For instance, if you set `minAvailable` to 10, then 10
+  Pods must always be available, even during a disruption.
+- When you specify a percentage by setting the value to a string representation of a percentage (eg. `"50%"`), it represents a percentage of
+  total Pods. For instance, if you set `minUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
+  disruption.
+
+When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
+you set `minAvailable` to `"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
+Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. You can examine the
+[code](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)
+that controls this behavior.
+
 ## Specifying a PodDisruptionBudget
 
 A `PodDisruptionBudget` has three fields: 
@@ -91,7 +107,7 @@ of the number of pods from that set that can be unavailable after the eviction.
 It can be either an absolute number or a percentage.
 
 {{< note >}}
-**Note:** For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
+For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
 object using the `kubectl` command line tool, the `minAvailable` field has a
 default value of 1 if neither `minAvailable` nor `maxUnavailable` is specified.
 {{< /note >}}
@@ -117,12 +133,14 @@ of the desired replicas are unhealthy.
 In typical usage, a single budget would be used for a collection of pods managed by
 a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
 
-**Note:** A disruption budget does not truly guarantee that the specified
+{{< note >}}
+A disruption budget does not truly guarantee that the specified
 number/percentage of pods will always be up.  For example, a node that hosts a
 pod from the collection may fail when the collection is at the minimum size
 specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
+{{< /note >}}
 
 A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
 number of replicas) may block node drains entirely. This is permitted as per the 
@@ -133,31 +151,11 @@ You can find examples of pod disruption budgets defined below. They match pods w
 
 Example PDB Using minAvailable:
 
-```yaml
-apiVersion: policy/v1beta1
-kind: PodDisruptionBudget
-metadata:
-  name: zk-pdb
-spec:
-  minAvailable: 2
-  selector:
-    matchLabels:
-      app: zookeeper
-```
+{{< codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" >}}
 
 Example PDB Using maxUnavailable (Kubernetes 1.7 or higher):
 
-```yaml
-apiVersion: policy/v1beta1
-kind: PodDisruptionBudget
-metadata:
-  name: zk-pdb
-spec:
-  maxUnavailable: 1
-  selector:
-    matchLabels:
-      app: zookeeper
-```
+{{< codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" >}}
 
 For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both
 specifications have the exact same meaning. The use of `maxUnavailable` is recommended as it
@@ -165,7 +163,7 @@ automatically responds to changes in the number of replicas of the corresponding
 
 ## Create the PDB object
 
-You can create the PDB object with a command like `kubectl create -f mypdb.yaml`.
+You can create the PDB object with a command like `kubectl apply -f mypdb.yaml`.
 
 You cannot update PDB objects.  They must be deleted and re-created.
 
@@ -177,7 +175,9 @@ Assuming you don't actually have pods matching `app: zookeeper` in your namespac
 then you'll see something like this:
 
 ```shell
-$ kubectl get poddisruptionbudgets
+kubectl get poddisruptionbudgets
+```
+```
 NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
 zk-pdb    2               0                     7s
 ```
@@ -185,25 +185,29 @@ zk-pdb    2               0                     7s
 If there are matching pods (say, 3), then you would see something like this:
 
 ```shell
-$ kubectl get poddisruptionbudgets
+kubectl get poddisruptionbudgets
+```
+```
 NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
 zk-pdb    2               1                     7s
 ```
 
 The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
-counted the matching pods, and update the status of the PDB.
+counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
 
 ```shell
-$ kubectl get poddisruptionbudgets zk-pdb -o yaml
+kubectl get poddisruptionbudgets zk-pdb -o yaml
+```
+```yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   creationTimestamp: 2017-08-28T02:38:26Z
   generation: 1
   name: zk-pdb
-...
+…
 status:
   currentHealthy: 3
   desiredHealthy: 3

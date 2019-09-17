@@ -8,15 +8,15 @@ url: /blog/2017/09/Kubernetes-Statefulsets-Daemonsets
 Editor's note: today's post is by Janet Kuo and Kenneth Owens, Software Engineers at Google.
 
 
-This post talks about recent updates to the [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) and [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) API objects for Kubernetes. We explore these features using [Apache ZooKeeper](https://zookeeper.apache.org/) and [Apache Kafka](https://kafka.apache.org/) StatefulSets and a [Prometheus node exporter](https://github.com/prometheus/node_exporter) DaemonSet.
+This post talks about recent updates to the [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) and [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) API objects for Kubernetes. We explore these features using [Apache ZooKeeper](https://zookeeper.apache.org/) and [Apache Kafka](https://kafka.apache.org/) StatefulSets and a [Prometheus node exporter](https://github.com/prometheus/node_exporter) DaemonSet.
 
 
 
-In Kubernetes 1.6, we added the [RollingUpdate](https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/) update strategy to the DaemonSet API Object. Configuring your DaemonSets with the RollingUpdate strategy causes the DaemonSet controller to perform automated rolling updates to the Pods in your DaemonSets when their spec.template are updated.
+In Kubernetes 1.6, we added the [RollingUpdate](/docs/tasks/manage-daemon/update-daemon-set/) update strategy to the DaemonSet API Object. Configuring your DaemonSets with the RollingUpdate strategy causes the DaemonSet controller to perform automated rolling updates to the Pods in your DaemonSets when their spec.template are updated.
 
 
 
-In Kubernetes 1.7, we enhanced the DaemonSet controller to track a history of revisions to the PodTemplateSpecs of DaemonSets. This allows the DaemonSet controller to roll back an update. We also added the [RollingUpdate](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies) strategy to the [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) API Object, and implemented revision history tracking for the StatefulSet controller. Additionally, we added the [Parallel](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management) pod management policy to support stateful applications that require Pods with unique identities but not ordered Pod creation and termination.
+In Kubernetes 1.7, we enhanced the DaemonSet controller to track a history of revisions to the PodTemplateSpecs of DaemonSets. This allows the DaemonSet controller to roll back an update. We also added the [RollingUpdate](/docs/concepts/workloads/controllers/statefulset/#update-strategies) strategy to the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) API Object, and implemented revision history tracking for the StatefulSet controller. Additionally, we added the [Parallel](/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management) pod management policy to support stateful applications that require Pods with unique identities but not ordered Pod creation and termination.
 
 # StatefulSet rolling update and Pod management policy
 
@@ -59,7 +59,7 @@ The manifest creates an ensemble of three ZooKeeper servers using a StatefulSet,
 
 
 
-If you use kubectl get to watch Pod creation in another terminal you will see that, in contrast to the [OrderedReady](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) strategy (the default policy that implements the full version of the StatefulSet guarantees), all of the Pods in the zk StatefulSet are created in parallel.
+If you use kubectl get to watch Pod creation in another terminal you will see that, in contrast to the [OrderedReady](/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) strategy (the default policy that implements the full version of the StatefulSet guarantees), all of the Pods in the zk StatefulSet are created in parallel.
 
 
 
@@ -627,7 +627,7 @@ By design, the StatefulSet controller does not delete any persistent volume clai
 
 # DaemonSet rolling update, history, and rollback
 
-In this section, we’re going to show you how to perform a rolling update on a DaemonSet, look at its history, and then perform a rollback after a bad rollout. We will use a DaemonSet to deploy a [Prometheus node exporter](https://github.com/prometheus/node_exporter) on each Kubernetes node in the cluster. These node exporters export node metrics to the Prometheus monitoring system. For the sake of simplicity, we’ve omitted the installation of the [Prometheus server](https://github.com/prometheus/prometheus) and the service for [communication with DaemonSet pods](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/#communicating-with-daemon-pods) from this blogpost.
+In this section, we’re going to show you how to perform a rolling update on a DaemonSet, look at its history, and then perform a rollback after a bad rollout. We will use a DaemonSet to deploy a [Prometheus node exporter](https://github.com/prometheus/node_exporter) on each Kubernetes node in the cluster. These node exporters export node metrics to the Prometheus monitoring system. For the sake of simplicity, we’ve omitted the installation of the [Prometheus server](https://github.com/prometheus/prometheus) and the service for [communication with DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/#communicating-with-daemon-pods) from this blogpost.
 
 ## Prerequisites
 

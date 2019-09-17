@@ -43,7 +43,7 @@ Here is the configuration file for a ResourceQuota object:
 Create the ResourceQuota:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-objects.yaml --namespace=quota-object-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-objects.yaml --namespace=quota-object-example
 ```
 
 View detailed information about the ResourceQuota:
@@ -77,7 +77,7 @@ Here is the configuration file for a PersistentVolumeClaim object:
 Create the PersistentVolumeClaim:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-objects-pvc.yaml --namespace=quota-object-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-objects-pvc.yaml --namespace=quota-object-example
 ```
 
 Verify that the PersistentVolumeClaim was created:
@@ -102,7 +102,7 @@ Here is the configuration file for a second PersistentVolumeClaim:
 Attempt to create the second PersistentVolumeClaim:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-objects-pvc-2.yaml --namespace=quota-object-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-objects-pvc-2.yaml --namespace=quota-object-example
 ```
 
 The output shows that the second PersistentVolumeClaim was not created,

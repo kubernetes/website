@@ -19,7 +19,7 @@ Instead, applications are informal and described with metadata. The definition o
 what an application contains is loose.
 
 {{< note >}}
-**Note:** These are recommended labels. They make it easier to manage applications
+These are recommended labels. They make it easier to manage applications
 but aren't required for any core tooling.
 {{< /note >}}
 
@@ -144,7 +144,7 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
@@ -160,7 +160,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress

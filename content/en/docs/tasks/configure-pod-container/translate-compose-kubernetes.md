@@ -14,7 +14,6 @@ More information can be found on the Kompose website at [http://kompose.io](http
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -28,19 +27,19 @@ More information can be found on the Kompose website at [http://kompose.io](http
 
 We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
 
-### GitHub release
+## GitHub release
 
 Kompose is released via GitHub on a three-week cycle, you can see all current releases on the [GitHub release page](https://github.com/kubernetes/kompose/releases).
 
 ```sh
-# Linux 
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-linux-amd64 -o kompose
+# Linux
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -48,7 +47,7 @@ sudo mv ./kompose /usr/local/bin/kompose
 
 Alternatively, you can download the [tarball](https://github.com/kubernetes/kompose/releases).
 
-### Go
+## Go
 
 Installing using `go get` pulls from the master branch with the latest development changes.
 
@@ -56,7 +55,7 @@ Installing using `go get` pulls from the master branch with the latest developme
 go get -u github.com/kubernetes/kompose
 ```
 
-### CentOS
+## CentOS
 
 Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
 If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running  `sudo yum install epel-release`
@@ -67,14 +66,16 @@ If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, 
 sudo yum -y install kompose
 ```
 
-### Fedora
+## Fedora
+
 Kompose is in Fedora 24, 25 and 26 repositories. You can install it just like any other package.
 
 ```bash
 sudo dnf -y install kompose
 ```
 
-### macOS
+## macOS
+
 On macOS you can install latest release via [Homebrew](https://brew.sh):
 
 ```bash
@@ -96,12 +97,12 @@ you need is an existing `docker-compose.yml` file.
       services:
 
         redis-master:
-          image: k8s.gcr.io/redis:e2e 
+          image: k8s.gcr.io/redis:e2e
           ports:
             - "6379"
 
         redis-slave:
-          image: gcr.io/google_samples/gb-redisslave:v1
+          image: gcr.io/google_samples/gb-redisslave:v3
           ports:
             - "6379"
           environment:
@@ -122,8 +123,8 @@ you need is an existing `docker-compose.yml` file.
 
       ```bash
       $ kompose up
-      We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. 
-      If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead. 
+      We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application.
+      If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
       INFO Successfully created Service: redis          
       INFO Successfully created Service: web            
@@ -134,7 +135,7 @@ you need is an existing `docker-compose.yml` file.
       ```
 
 3.  To convert the `docker-compose.yml` file to files that you can use with
-    `kubectl`, run `kompose convert` and then `kubectl create -f <output file>`.
+    `kubectl`, run `kompose convert` and then `kubectl apply -f <output file>`.
 
       ```bash
       $ kompose convert                           
@@ -147,15 +148,15 @@ you need is an existing `docker-compose.yml` file.
       ```
 
       ```bash
-      $ kubectl create -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
-      service "frontend" created
-      service "redis-master" created
-      service "redis-slave" created
-      deployment "frontend" created
-      deployment "redis-master" created
-      deployment "redis-slave" created
+      $ kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+      service/frontend created
+      service/redis-master created
+      service/redis-slave created
+      deployment.apps/frontend created
+      deployment.apps/redis-master created
+      deployment.apps/redis-slave created
       ```
-      
+
       Your deployments are running in Kubernetes.
 
 4.  Access your application.
@@ -176,7 +177,7 @@ you need is an existing `docker-compose.yml` file.
       Selector:               service=frontend
       Type:                   LoadBalancer
       IP:                     10.0.0.183
-      LoadBalancer Ingress:   123.45.67.89
+      LoadBalancer Ingress:   192.0.2.89
       Port:                   80      80/TCP
       NodePort:               80      31144/TCP
       Endpoints:              172.17.0.4:80
@@ -188,7 +189,7 @@ you need is an existing `docker-compose.yml` file.
       If you're using a cloud provider, your IP will be listed next to `LoadBalancer Ingress`.
 
       ```sh
-      $ curl http://123.45.67.89
+      $ curl http://192.0.2.89
       ```
 
 {{% /capture %}}
@@ -250,7 +251,7 @@ INFO Kubernetes file "redis-slave-service.yaml" created
 INFO Kubernetes file "frontend-deployment.yaml" created      
 INFO Kubernetes file "mlbparks-deployment.yaml" created      
 INFO Kubernetes file "mongodb-deployment.yaml" created       
-INFO Kubernetes file "mongodb-claim0-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "mongodb-claim0-persistentvolumeclaim.yaml" created
 INFO Kubernetes file "redis-master-deployment.yaml" created  
 INFO Kubernetes file "redis-slave-deployment.yaml" created   
 
@@ -259,10 +260,10 @@ mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave
 frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
 frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
 redis-master-deployment.yaml
-``` 
+```
 
 When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be over ridden by subsequent file.
- 
+
 ### OpenShift
 
 ```sh
@@ -288,14 +289,16 @@ It also supports creating buildconfig for build directive in a service. By defau
 
 ```sh
 $ kompose --provider openshift --file buildconfig/docker-compose.yml convert
-WARN [foo] Service cannot be created because of missing port. 
-INFO OpenShift Buildconfig using git@github.com:rtnpro/kompose.git::master as source. 
+WARN [foo] Service cannot be created because of missing port.
+INFO OpenShift Buildconfig using git@github.com:rtnpro/kompose.git::master as source.
 INFO OpenShift file "foo-deploymentconfig.yaml" created     
 INFO OpenShift file "foo-imagestream.yaml" created          
-INFO OpenShift file "foo-buildconfig.yaml" created 
+INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
-**Note**: If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+{{< note >}}
+If you are manually pushing the OpenShift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
+{{< /note >}}
 
 ## `kompose up`
 
@@ -306,7 +309,7 @@ Kompose supports a straightforward way to deploy your "composed" application to 
 ```sh
 $ kompose --file ./examples/docker-guestbook.yml up
 We are going to create Kubernetes deployments and services for your Dockerized application.
-If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.
+If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
 INFO Successfully created service: redis-master   
 INFO Successfully created service: redis-slave    
@@ -318,25 +321,27 @@ INFO Successfully created deployment: frontend
 Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details.
 
 $ kubectl get deployment,svc,pods
-NAME                               DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
-deploy/frontend                    1             1             1            1           4m
-deploy/redis-master                1             1             1            1           4m
-deploy/redis-slave                 1             1             1            1           4m
+NAME                                              DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
+deployment.extensions/frontend                    1             1             1            1           4m
+deployment.extensions/redis-master                1             1             1            1           4m
+deployment.extensions/redis-slave                 1             1             1            1           4m
 
-NAME                               CLUSTER-IP    EXTERNAL-IP   PORT(S)      AGE
-svc/frontend                       10.0.174.12   <none>        80/TCP       4m
-svc/kubernetes                     10.0.0.1      <none>        443/TCP      13d
-svc/redis-master                   10.0.202.43   <none>        6379/TCP     4m
-svc/redis-slave                    10.0.1.85     <none>        6379/TCP     4m
+NAME                         TYPE               CLUSTER-IP    EXTERNAL-IP   PORT(S)      AGE
+service/frontend             ClusterIP          10.0.174.12   <none>        80/TCP       4m
+service/kubernetes           ClusterIP          10.0.0.1      <none>        443/TCP      13d
+service/redis-master         ClusterIP          10.0.202.43   <none>        6379/TCP     4m
+service/redis-slave          ClusterIP          10.0.1.85     <none>        6379/TCP     4m
 
-NAME                               READY         STATUS        RESTARTS     AGE
-po/frontend-2768218532-cs5t5       1/1           Running       0            4m
-po/redis-master-1432129712-63jn8   1/1           Running       0            4m
-po/redis-slave-2504961300-nve7b    1/1           Running       0            4m
+NAME                                READY         STATUS        RESTARTS     AGE
+pod/frontend-2768218532-cs5t5       1/1           Running       0            4m
+pod/redis-master-1432129712-63jn8   1/1           Running       0            4m
+pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 ```
-Note:
+
+**Note**:
+
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
-- Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.
+- Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the `kompose convert` and `kubectl apply -f` commands instead.
 
 ### OpenShift
 ```sh
@@ -371,7 +376,8 @@ is/redis-master    172.30.12.200:5000/fff/redis-master
 is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1  
 ```
 
-Note:
+**Note**:
+
 - You must have a running OpenShift cluster with a pre-configured `oc` context (`oc login`)
 
 ## `kompose down`
@@ -387,7 +393,9 @@ INFO Successfully deleted deployment: redis-slave
 INFO Successfully deleted service: frontend       
 INFO Successfully deleted deployment: frontend
 ```
-Note:
+
+**Note**:
+
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
 
 ## Build and Push Docker Images
@@ -412,15 +420,15 @@ Using `kompose up` with a `build` key:
 
 ```none
 $ kompose up
-INFO Build key detected. Attempting to build and push image 'docker.io/foo/bar' 
-INFO Building image 'docker.io/foo/bar' from directory 'build' 
-INFO Image 'docker.io/foo/bar' from directory 'build' built successfully 
-INFO Pushing image 'foo/bar:latest' to registry 'docker.io' 
-INFO Attempting authentication credentials 'https://index.docker.io/v1/ 
-INFO Successfully pushed image 'foo/bar:latest' to registry 'docker.io' 
-INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead. 
- 
-INFO Deploying application in "default" namespace 
+INFO Build key detected. Attempting to build and push image 'docker.io/foo/bar'
+INFO Building image 'docker.io/foo/bar' from directory 'build'
+INFO Image 'docker.io/foo/bar' from directory 'build' built successfully
+INFO Pushing image 'foo/bar:latest' to registry 'docker.io'
+INFO Attempting authentication credentials 'https://index.docker.io/v1/
+INFO Successfully pushed image 'foo/bar:latest' to registry 'docker.io'
+INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
+
+INFO Deploying application in "default" namespace
 INFO Successfully created Service: foo            
 INFO Successfully created Deployment: foo         
 
@@ -439,7 +447,7 @@ $ kompose up --provider openshift --build build-config
 
 ## Alternative Conversions
 
-The default `kompose` transformation will generate Kubernetes [Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [Services](http://kubernetes.io/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Daemon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
+The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
 
 ```sh
 $ kompose convert -j
@@ -473,7 +481,7 @@ The `*-daemonset.yaml` files contain the Daemon Set objects
 If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) simply do:
 
 ```sh
-$ kompose convert -c 
+$ kompose convert -c
 INFO Kubernetes file "web-svc.yaml" created
 INFO Kubernetes file "redis-svc.yaml" created
 INFO Kubernetes file "web-deployment.yaml" created
@@ -497,13 +505,13 @@ The chart structure is aimed at providing a skeleton for building your Helm char
 
 `kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly define a service's behavior upon conversion.
 
-- kompose.service.type defines the type of service to be created.
+- `kompose.service.type` defines the type of service to be created.
 
 For example:
 
 ```yaml
 version: "2"
-services: 
+services:
   nginx:
     image: nginx
     dockerfile: foobar
@@ -511,13 +519,13 @@ services:
     cap_add:
       - ALL
     container_name: foobar
-    labels: 
+    labels:
       kompose.service.type: nodeport
 ```
 
-- kompose.service.expose defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
-    - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
-    - For the OpenShift provider, a route is created.
+- `kompose.service.expose` defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
+  - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
+  - For the OpenShift provider, a route is created.
 
 For example:
 
@@ -545,7 +553,9 @@ The currently supported options are:
 | kompose.service.type | nodeport / clusterip / loadbalancer |
 | kompose.service.expose| true / hostname |
 
-**Note**: `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
+{{< note >}}
+The `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
+{{< /note >}}
 
 ## Restart
 
@@ -558,7 +568,9 @@ If you want to create normal pods without controllers you can use `restart` cons
 | `on-failure`               | Pod               | `OnFailure`         |
 | `no`                       | Pod               | `Never`             |
 
-**Note**: controller object could be `deployment` or `replicationcontroller`, etc.
+{{< note >}}
+The controller object could be `deployment` or `replicationcontroller`, etc.
+{{< /note >}}
 
 For e.g. `pival` service will become pod down here. This container calculated value of `pi`.
 
@@ -572,7 +584,7 @@ services:
     restart: "on-failure"
 ```
 
-#### Warning about Deployment Config's
+### Warning about Deployment Config's
 
 If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time.
 

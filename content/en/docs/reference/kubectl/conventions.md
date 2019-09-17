@@ -3,17 +3,22 @@ title: kubectl Usage Conventions
 reviewers:
 - bgrant0607
 - janetkuo
+content_template: templates/concept
 ---
 
-{{< toc >}}
+{{% capture overview %}}
+Recommended usage conventions for `kubectl`.
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Using `kubectl` in Reusable Scripts
 
 For a stable output in a script:
 
-* Request one of the machine-oriented output forms, such as `-o name`, `-o json`, `-o yaml`, `-o go-template`, or `-o jsonpath`
-* Specify `--output-version`, because the output forms use a particular API version to output the resource with the exception of `-o name` output form
-* Specify `--generator` to pin to a specific behavior forever when you use generator-based commands such as `kubectl run` or `kubectl expose`
+* Request one of the machine-oriented output forms, such as `-o name`, `-o json`, `-o yaml`, `-o go-template`, or `-o jsonpath`.
+* Fully-qualify the version. For example, `jobs.v1.batch/myjob`. This will ensure that kubectl does not use its default version that can change over time.
+* Specify the `--generator` flag to pin to a specific behavior when you use generator-based commands such as `kubectl run` or `kubectl expose`.
 * Don't rely on context, preferences, or other implicit states.
 
 ## Best Practices
@@ -30,15 +35,17 @@ For `kubectl run` to satisfy infrastructure as code:
 
 #### Generators
 
-You can generate the following resources in `kubectl run`using `--generator` flag:
+You can create the following resources using `kubectl run` with the `--generator` flag:
 
-* Pod - use `run-pod/v1`.
-* Replication controller - use `run/v1`.
-* Deployment - use `extensions/v1beta1` and for an endpoint - use `deployment/v1beta1` (default).
-* Deployment - use `apps/v1beta1` and for an endpoint - use `deployment/apps.v1beta1` (recommended).
-* Job - use `job/v1`.
-* CronJob - use `batch/v1beta1`and for an endpoint - use `cronjob/v1beta1`(default).
-* CronJob - use`batch/v2alpha1` and for an endpoint - use `cronjob/v2alpha1` (deprecated).
+| Resource                        | api group          | kubectl command                                   |
+|---------------------------------|--------------------|---------------------------------------------------|
+| Pod                             | v1                 | `kubectl run --generator=run-pod/v1`              |
+| Replication controller          | v1                 | `kubectl run --generator=run/v1`                  |
+| Deployment (deprecated)         | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
+| Deployment (deprecated)         | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
+| Job (deprecated)                | batch/v1           | `kubectl run --generator=job/v1`                  |
+| CronJob (default)               | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
+| CronJob (deprecated)            | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
 
 If you do not specify a generator flag, other flags prompt you to use a specific generator. The following table lists the flags that force you to use specific generators, depending on the version of the cluster:
 
@@ -50,19 +57,22 @@ If you do not specify a generator flag, other flags prompt you to use a specific
 | Job                    | `--restart=OnFailure`  | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
 | Cron Job               | `--schedule=<cron>`    | N/A                   | N/A                                        | N/A                                        |
 
-**Note:** These flags use a default generator only when you have not specified
-any flag.  This means that when you combine `--generator` with other flags the generator that you specified later does not change. For example, in a cluster v1.4, if you initially specify
+{{< note >}}
+These flags use a default generator only when you have not specified any flag.
+This means that when you combine `--generator` with other flags the generator that you specified later does not change. For example, in a cluster v1.4, if you initially specify
 `--restart=Always`, a Deployment is created; if you later specify `--restart=Always`
 and `--generator=run/v1`, a Replication Controller is created.
 This enables you to pin to a specific behavior with the generator,
 even when the default generator is changed later.
+{{< /note >}}
 
-The flags set the generator in the following order: first the schedule flag then restart policy and finally the generator.
+The flags set the generator in the following order: first the `--schedule` flag, then the `--restart` policy flag, and finally the `--generator` flag.
 
-To check the final resource that was created, use `--dry-run`
+To check the final resource that was created, use the `--dry-run`
 flag, which provides the object to be submitted to the cluster.
-
 
 ### `kubectl apply`
 
-* You can use `kubectl apply` to create or update resources. However, to update a resource you should have created the resource by using `kubectl apply` or `kubectl create --save-config`. For more information about using kubectl apply to update resources, see [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply).
+* You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
+
+{{% /capture %}}

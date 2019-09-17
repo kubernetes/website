@@ -13,7 +13,7 @@ On October 12th, Google and partners [announced](https://cloudplatform.googleblo
 Grafeas allows build, auditing and compliance tools to exchange comprehensive metadata on container images using a central API. This allows enforcing policies that provide central control over the software supply process.  
 
 
-[![](https://2.bp.blogspot.com/-TDD4slMA7gg/WfzDeKVLr2I/AAAAAAAAAGw/dhfWOrCMdmogSNhGr5RrA2ovr02K5nn8ACK4BGAYYCw/s400/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.13%2BPM.png)](http://2.bp.blogspot.com/-TDD4slMA7gg/WfzDeKVLr2I/AAAAAAAAAGw/dhfWOrCMdmogSNhGr5RrA2ovr02K5nn8ACK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.13%2BPM.png)  
+[![](https://2.bp.blogspot.com/-TDD4slMA7gg/WfzDeKVLr2I/AAAAAAAAAGw/dhfWOrCMdmogSNhGr5RrA2ovr02K5nn8ACK4BGAYYCw/s400/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.13%2BPM.png)](https://2.bp.blogspot.com/-TDD4slMA7gg/WfzDeKVLr2I/AAAAAAAAAGw/dhfWOrCMdmogSNhGr5RrA2ovr02K5nn8ACK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.13%2BPM.png)  
 
 
 ## Example application: PaymentProcessor
@@ -24,13 +24,13 @@ Let’s consider a simple application, _PaymentProcessor_, that retrieves, proce
 Due to the sensitive nature of the payment data, the developers and DevOps team really want to make sure that the code meets certain security and compliance requirements, with detailed records on the provenance of this code. There are CI/CD stages that validate the quality of the PaymentProcessor release, but there is no easy way to centrally view/manage this information:
 
 
-[![](https://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)](http://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)  
+[![](https://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)](https://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)  
 
 
 ## Visibility and governance over the PaymentProcessor Code
 Grafeas provides an API for customers to centrally manage metadata created by various CI/CD components and enables deploy time policy enforcement through a Kritis implementation.  
 
-[![](https://4.bp.blogspot.com/-SRMfm5z606M/WfzDpHqlz-I/AAAAAAAAAHA/y2suaInhr9E0hU0u78PacBT_kZj2D7DKgCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.34%2BPM.png)](http://4.bp.blogspot.com/-SRMfm5z606M/WfzDpHqlz-I/AAAAAAAAAHA/y2suaInhr9E0hU0u78PacBT_kZj2D7DKgCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.34%2BPM.png)  
+[![](https://4.bp.blogspot.com/-SRMfm5z606M/WfzDpHqlz-I/AAAAAAAAAHA/y2suaInhr9E0hU0u78PacBT_kZj2D7DKgCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.34%2BPM.png)](https://4.bp.blogspot.com/-SRMfm5z606M/WfzDpHqlz-I/AAAAAAAAAHA/y2suaInhr9E0hU0u78PacBT_kZj2D7DKgCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.34%2BPM.png)  
 
 
 Let’s consider a basic example of how Grafeas can provide deploy time control for the PaymentProcessor app using a demo verification pipeline.  

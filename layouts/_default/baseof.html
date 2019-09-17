@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html id="{{ .Params.cid }}" lang="en" class="{{ .Params.class }}">
+<html id="{{ .Params.cid }}" lang="{{ .Language }}" class="{{ .Params.class }}">
 	<head>
 		{{ partial "head.html" . }}
 	</head>
-	<body>
-		{{ partialCached "header.html" . "default" }}
+	<body class="page">
+		{{ partial "header.html" . }}
 		{{ block "hero" . }}
 		<!--  HERO  -->
 		<section id="hero" class="light-text">
@@ -18,7 +18,11 @@
 		</section>
 		{{ block "post-hero" . }}{{ end }}
 		{{ end }}
-		{{ block "main" . }}{{ end }}
+    
+    <article class="page-content">
+      {{ block "main" . }}{{ end }}
+    </article>
+
 		{{ partialCached "footer.html" . }}
 		{{ partialCached "footer-scripts.html" . }}
 	</body>

@@ -6,11 +6,11 @@ url: /blog/2016/12/Statefulset-Run-Scale-Stateful-Applications-In-Kubernetes
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
 
-In the latest release, [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.  
+In the latest release, [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.  
 
 **When is StatefulSet the Right Choice for my Storage Application?**  
 
-[Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [ReplicaSets](http://kubernetes.io/docs/user-guide/replicasets/) are a great way to run stateless replicas of an application on Kubernetes, but their semantics aren’t really right for deploying stateful applications. The purpose of StatefulSet is to provide a controller with the correct semantics for deploying a wide range of stateful workloads. However, moving your storage application onto Kubernetes isn’t always the correct choice. Before you go all in on converging your storage tier and your orchestration framework, you should ask yourself a few questions.  
+[Deployments](/docs/user-guide/deployments/) and [ReplicaSets](/docs/user-guide/replicasets/) are a great way to run stateless replicas of an application on Kubernetes, but their semantics aren’t really right for deploying stateful applications. The purpose of StatefulSet is to provide a controller with the correct semantics for deploying a wide range of stateful workloads. However, moving your storage application onto Kubernetes isn’t always the correct choice. Before you go all in on converging your storage tier and your orchestration framework, you should ask yourself a few questions.  
 
 **Can your application run using remote storage or does it require local storage media?**  
 
@@ -34,10 +34,10 @@ If you run your storage application on high-end hardware or extra-large instance
 
 **A Practical Example - ZooKeeper**  
 
-[ZooKeeper](https://zookeeper.apache.org/doc/current/) is an interesting use case for StatefulSet for two reasons. First, it demonstrates that StatefulSet can be used to run a distributed, strongly consistent storage application on Kubernetes. Second, it's a prerequisite for running workloads like [Apache Hadoop](http://hadoop.apache.org/) and [Apache Kakfa](https://kafka.apache.org/) on Kubernetes. An [in-depth tutorial](http://kubernetes.io/docs/tutorials/stateful-application/zookeeper/) on deploying a ZooKeeper ensemble on Kubernetes is available in the Kubernetes documentation, and we’ll outline a few of the key features below.  
+[ZooKeeper](https://zookeeper.apache.org/doc/current/) is an interesting use case for StatefulSet for two reasons. First, it demonstrates that StatefulSet can be used to run a distributed, strongly consistent storage application on Kubernetes. Second, it's a prerequisite for running workloads like [Apache Hadoop](http://hadoop.apache.org/) and [Apache Kakfa](https://kafka.apache.org/) on Kubernetes. An [in-depth tutorial](/docs/tutorials/stateful-application/zookeeper/) on deploying a ZooKeeper ensemble on Kubernetes is available in the Kubernetes documentation, and we’ll outline a few of the key features below.  
 
 **Creating a ZooKeeper Ensemble**  
-Creating an ensemble is as simple as using [kubectl create](http://kubernetes.io/docs/user-guide/kubectl/kubectl_create/) to generate the objects stored in the manifest.  
+Creating an ensemble is as simple as using [kubectl create](/docs/user-guide/kubectl/kubectl_create/) to generate the objects stored in the manifest.  
 
 
 ```
@@ -297,7 +297,7 @@ zk-0      0/1       Terminating   0         15m
 
 
 
-You can use [kubectl apply](http://kubernetes.io/docs/user-guide/kubectl/kubectl_apply/) to recreate the zk StatefulSet and redeploy the ensemble.
+You can use [kubectl apply](/docs/user-guide/kubectl/kubectl_apply/) to recreate the zk StatefulSet and redeploy the ensemble.
 
 
 
@@ -355,7 +355,7 @@ You should always provision headroom capacity for critical processes in your clu
 
 
 
-If the SLAs for your service preclude even brief outages due to a single node failure, you should use a [PodAntiAffinity](http://kubernetes.io/docs/user-guide/node-selection/) annotation. The manifest used to create the ensemble contains such an annotation, and it tells the Kubernetes Scheduler to not place more than one Pod from the zk StatefulSet on the same node.
+If the SLAs for your service preclude even brief outages due to a single node failure, you should use a [PodAntiAffinity](/docs/user-guide/node-selection/) annotation. The manifest used to create the ensemble contains such an annotation, and it tells the Kubernetes Scheduler to not place more than one Pod from the zk StatefulSet on the same node.
 
 
 
@@ -366,7 +366,7 @@ If the SLAs for your service preclude even brief outages due to a single node fa
 
 
 
-The manifest used to create the ZooKeeper ensemble also creates a [PodDistruptionBudget](http://kubernetes.io/docs/admin/disruptions/), zk-budget. The zk-budget informs Kubernetes about the upper limit of disruptions (unhealthy Pods) that the service can tolerate.
+The manifest used to create the ZooKeeper ensemble also creates a [PodDistruptionBudget](/docs/admin/disruptions/), zk-budget. The zk-budget informs Kubernetes about the upper limit of disruptions (unhealthy Pods) that the service can tolerate.
 
 
 
@@ -418,7 +418,7 @@ zk-budget   2               1                     2h
 
 
 
-zk-budget indicates that at least two members of the ensemble must be available at all times for the ensemble to be healthy. If you attempt to drain a node prior taking it offline, and if draining it would terminate a Pod that violates the budget, the drain operation will fail. If you use [kubectl drain](http://kubernetes.io/docs/user-guide/kubectl/kubectl_drain/), in conjunction with PodDisruptionBudgets, to cordon your nodes and to evict all Pods prior to maintenance or decommissioning, you can ensure that the procedure won’t be disruptive to your stateful applications.
+zk-budget indicates that at least two members of the ensemble must be available at all times for the ensemble to be healthy. If you attempt to drain a node prior taking it offline, and if draining it would terminate a Pod that violates the budget, the drain operation will fail. If you use [kubectl drain](/docs/user-guide/kubectl/kubectl_drain/), in conjunction with PodDisruptionBudgets, to cordon your nodes and to evict all Pods prior to maintenance or decommissioning, you can ensure that the procedure won’t be disruptive to your stateful applications.
 
 
 

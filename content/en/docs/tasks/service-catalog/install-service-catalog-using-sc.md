@@ -8,7 +8,11 @@ content_template: templates/task
 {{% capture overview %}}
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
 
-Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation) tool to easily install or uninstall Service Catalog on your Kubernetes cluster. This CLI tool is installed as `sc` in your local environment.
+You can use the GCP [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation)
+tool to easily install or uninstall Service Catalog on your Kubernetes cluster, linking it to
+Google Cloud projects.
+
+Service Catalog itself can work with any kind of managed service, not just Google Cloud.
 
 {{% /capture %}}
 
@@ -18,7 +22,7 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 * Install [Go 1.6+](https://golang.org/dl/) and set the `GOPATH`.
 * Install the [cfssl](https://github.com/cloudflare/cfssl) tool needed for generating SSL artifacts.
 * Service Catalog requires Kubernetes version 1.7+.
-* [Install and setup kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) so that it is configured to connect to a Kubernetes v1.7+ cluster.
+* [Install and setup kubectl](/docs/tasks/tools/install-kubectl/) so that it is configured to connect to a Kubernetes v1.7+ cluster.
 * The kubectl user must be bound to the *cluster-admin* role for it to install Service Catalog. To ensure that this is true, run the following command:
 
         kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
@@ -29,13 +33,15 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 {{% capture steps %}}
 ## Install `sc` in your local environment
 
-Install the `sc` CLI tool using the `go get` command:
+The installer runs on your local computer as a CLI tool named `sc`.
 
-```Go
+Install using `go get`:
+
+```shell
 go get github.com/GoogleCloudPlatform/k8s-service-catalog/installer/cmd/sc
 ```
 
-After running the above command, `sc` should be installed in your `GOPATH/bin` directory.
+`sc` should now be installed in your `GOPATH/bin` directory.
 
 ## Install Service Catalog in your Kubernetes cluster
 
@@ -73,6 +79,3 @@ sc uninstall
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
 
 {{% /capture %}}
-
-
-
