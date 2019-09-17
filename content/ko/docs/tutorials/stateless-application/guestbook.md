@@ -359,9 +359,9 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [ELK 로깅과 모니터링](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)을 방명록 애플리케이션에 추가하기
-* [쿠버네티스 기초](/docs/tutorials/kubernetes-basics/) 튜토리얼을 완료
-* [MySQL과 Wordpress을 위한 퍼시스턴트 볼륨](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)을 사용하여 블로그 생성하는데 쿠버네티스 이용하기
+* [ELK 로깅과 모니터링](/ko/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)을 방명록 애플리케이션에 추가하기
+* [쿠버네티스 기초](/ko/docs/tutorials/kubernetes-basics/) 튜토리얼을 완료
+* [MySQL과 Wordpress을 위한 퍼시스턴트 볼륨](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)을 사용하여 블로그 생성하는데 쿠버네티스 이용하기
 * [애플리케이션 접속](/docs/concepts/services-networking/connect-applications-service/)에 대해 더 알아보기
 * [자원 관리](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)에 대해 더 알아보기
 {{% /capture %}}
