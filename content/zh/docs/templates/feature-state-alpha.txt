@@ -1,0 +1,17 @@
+该功能目前处于 *alpha* 状态，意味着：
+
+* 版本名称包含 alpha（例如 v1alpha1）。
+* 可能存在问题，启用该功能可能会暴露 bug。默认情况下被禁用。
+* 对该功能的支持可能在任何时候被取消，而不另行通知。
+* API 可能会在以后的软件版本中以不兼容的方式被更改，而不另行通知。
+* 建议仅在短期测试集群中使用该功能，这是因为使用该功能会增加出现 bug 的风险，而且缺乏长期支持。
+
+<!--
+This feature is currently in a *alpha* state, meaning:
+
+* The version names contain alpha (e.g. v1alpha1).
+* Might be buggy. Enabling the feature may expose bugs. Disabled by default.
+* Support for feature may be dropped at any time without notice.
+* The API may change in incompatible ways in a later software release without notice.
+* Recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of long-term support.
+-->
