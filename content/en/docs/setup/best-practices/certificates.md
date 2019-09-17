@@ -56,23 +56,36 @@ Required CAs:
 | etcd/ca.crt,key        | etcd-ca                   | For all etcd-related functions   |
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy][proxy] |
 
+On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
+
 ### All certificates
 
-If you don't wish to copy these private keys to your API servers, you can generate all certificates yourself.
+If you don't wish to copy the CA private keys to your cluster, you can generate all certificates yourself.
+
+{{< note >}}
+The scenario where you are providing CA certificates without keys is referred as external CA in the kubeadm documentation. Please note that
+when using kubeadm you can potentially choose to not provide the keys for the `kubernetes-ca` and/or the `kubernetes-front-proxy-ca`. Instead, you always have to 
+provide the private key for the `etcd-ca`.
+{{< /note >}}
 
 Required certificates:
 
 | Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
-| kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
-| kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
+| kube-etcd [1]                    | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
+| kube-etcd-peer [1]                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd-healthcheck-client [1]  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
-| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]` |
+| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[2]`, `[3]` |
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`, `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`
+[1]: `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates are required by kubeadm in case you are delegating to such tool the installation of a local etcd cluster
+(this approach is referred also as stacked etcd in some kubeadm documents). If instead you are providing an external etcd cluster, such certificates are not required.
+
+[2]: `controlPlaneEndpoint`, that is the load balancer stable IP and/or DNS name, if any.
+
+[3]: `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`, `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`
 
 where `kind` maps to one or more of the [x509 key usage][usage] types:
 
@@ -80,6 +93,10 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 |--------|---------------------------------------------------------------------------------|
 | server | digital signature, key encipherment, server auth                                |
 | client | digital signature, key encipherment, client auth                                |
+
+{{< note >}}
+Hosts/SAN listed above are the recommended ones for getting a working cluster; if required by a specific setup, it is possible to add additional SANs on all the server certificates.
+{{< /note >}}
 
 ### Certificate paths
 
@@ -90,22 +107,28 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 | etcd-ca                      |     etcd/ca.key                         | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
 | etcd-client                  | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |
 | kubernetes-ca                |    ca.key                          | ca.crt                      | kube-apiserver |                              | --client-ca-file                          |
+| kubernetes-ca                |    ca.key                          | ca.crt                      | kube-controller-manager | --cluster-signing-key-file      | --client-ca-file, --root-ca-file, --cluster-signing-cert-file  |
 | kube-apiserver               | apiserver.key                | apiserver.crt               | kube-apiserver | --tls-private-key-file       | --tls-cert-file                           |
-| apiserver-kubelet-client     |     apiserver-kubelet-client.key                         | apiserver-kubelet-client.crt| kube-apiserver |                              | --kubelet-client-certificate              |
+| apiserver-kubelet-client     |     apiserver-kubelet-client.key                         | apiserver-kubelet-client.crt| kube-apiserver | --kubelet-client-key | --kubelet-client-certificate              |
 | front-proxy-ca               |     front-proxy-ca.key                         | front-proxy-ca.crt          | kube-apiserver |                              | --requestheader-client-ca-file            |
+| front-proxy-ca               |     front-proxy-ca.key                         | front-proxy-ca.crt          | kube-controller-manager |                              | --requestheader-client-ca-file |
 | front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver | --proxy-client-key-file      | --proxy-client-cert-file                  |
-|                              |                              |                             |                |                              |                                           |
 | etcd-ca                      |         etcd/ca.key                     | etcd/ca.crt                 | etcd           |                              | --trusted-ca-file, --peer-trusted-ca-file |
 | kube-etcd                    | etcd/server.key              | etcd/server.crt             | etcd           | --key-file                   | --cert-file                               |
 | kube-etcd-peer               | etcd/peer.key                | etcd/peer.crt               | etcd           | --peer-key-file              | --peer-cert-file                          |
-| etcd-ca                      |                              | etcd/ca.crt                 | etcdctl[2]     |                              | --cacert                                  |
-| kube-etcd-healthcheck-client | etcd/healthcheck-client.key  | etcd/healthcheck-client.crt | etcdctl[2]     | --key                        | --cert                                    |
+| etcd-ca                      |                              | etcd/ca.crt                 | etcdctl    |                              | --cacert                                  |
+| kube-etcd-healthcheck-client | etcd/healthcheck-client.key  | etcd/healthcheck-client.crt | etcdctl     | --key                        | --cert                                    |
 
-[2]: For a liveness probe, if self-hosted
+Same considerations apply for the service account key pair:
+
+| private key path             | public key path             | command                 | argument                             |
+|------------------------------|-----------------------------|-------------------------|--------------------------------------|
+|  sa.key                      |                             | kube-controller-manager | service-account-private              |
+|                              | sa.pub                      | kube-apiserver          | service-account-key                  |
 
 ## Configure certificates for user accounts
 
-You must manually configure these administrator account and service accounts:
+If you don't wish to copy the CA private keys to your cluster, you must manually configure these administrator account and service accounts:
 
 | filename                | credential name            | Default CN                     | O (in Subject) |
 |-------------------------|----------------------------|--------------------------------|----------------|
