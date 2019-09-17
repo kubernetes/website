@@ -53,7 +53,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
-    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    kubectl run hello-minikube --generator=run-pod/v1 --image=k8s.gcr.io/echoserver:1.10 --port=8080
     ```
     The output is similar to this:
     ```
