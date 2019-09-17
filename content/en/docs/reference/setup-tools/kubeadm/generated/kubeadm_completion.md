@@ -1,7 +1,6 @@
 
-Output shell completion code for the specified shell (bash or zsh)
-
 ### Synopsis
+
 
 
 Output shell completion code for the specified shell (bash or zsh).
@@ -20,7 +19,7 @@ following line to the .bash_profile
 If bash-completion is not installed on Linux, please install the 'bash-completion' package
 via your distribution's package manager.
 
-Note for zsh users: [1] zsh completions are only supported in versions of zsh >= 5.2
+Note for zsh users: [1] zsh completions are only supported in versions of zsh &gt;= 5.2
 
 ```
 kubeadm completion SHELL [flags]
@@ -49,13 +48,47 @@ source <(kubeadm completion zsh)
 
 ### Options
 
-```
-  -h, --help   help for completion
-```
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for completion</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
 
 ### Options inherited from parent commands
 
-```
-      --rootfs string   [EXPERIMENTAL] The path to the 'real' host root filesystem.
-```
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+SEE ALSO
+
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
 
