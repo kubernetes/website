@@ -185,7 +185,11 @@ aliases:
   sig-docs-ru-owners: # Admins for Russian content
     - msheldyakov
     - aisonaku
+    - potapy4
+    - dianaabv
   sig-docs-ru-reviews: # PR reviews for Russian content
     - msheldyakov
     - aisonaku
+    - potapy4
+    - dianaabv
 
