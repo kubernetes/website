@@ -102,7 +102,6 @@ metadata:
   name: game-config
   namespace: default
   resourceVersion: "516"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config
   uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 data:
   game.properties: |
@@ -217,7 +216,6 @@ metadata:
   name: game-config-env-file
   namespace: default
   resourceVersion: "809965"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file
   uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
 data:
   allowed: '"true"'
@@ -252,7 +250,6 @@ metadata:
   name: config-multi-env-files
   namespace: default
   resourceVersion: "810136"
-  selfLink: /api/v1/namespaces/default/configmaps/config-multi-env-files
   uid: 252c4572-eb35-11e7-887b-42010a8002b8
 data:
   color: purple
@@ -290,7 +287,6 @@ metadata:
   name: game-config-3
   namespace: default
   resourceVersion: "530"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-3
   uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 data:
   game-special-key: |
@@ -326,7 +322,6 @@ metadata:
   name: special-config
   namespace: default
   resourceVersion: "651"
-  selfLink: /api/v1/namespaces/default/configmaps/special-config
   uid: dadce046-d673-11e5-8cd0-68f728db1985
 data:
   special.how: very

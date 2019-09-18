@@ -1,7 +1,6 @@
 
-Use this command to invoke single phase of the join workflow
-
 ### Synopsis
+
 
 Use this command to invoke single phase of the join workflow
 
@@ -46,4 +45,12 @@ Use this command to invoke single phase of the join workflow
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm join](kubeadm_join.md)	 - Run this on any machine you wish to join an existing cluster
+* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance
+* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - Prepare the machine for serving a control plane
+* [kubeadm join phase kubelet-start](kubeadm_join_phase_kubelet-start.md)	 - Write kubelet settings, certificates and (re)start the kubelet
+* [kubeadm join phase preflight](kubeadm_join_phase_preflight.md)	 - Run join pre-flight checks
 
