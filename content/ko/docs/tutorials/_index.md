@@ -8,11 +8,11 @@ content_template: templates/concept
 {{% capture overview %}}
 
 쿠버네티스 문서의 본 섹션은 튜토리얼을 포함하고 있다.
-튜토리얼은 개별 [작업](/docs/tasks) 단위보다 더 큰 목표를 달성하기
+튜토리얼은 개별 [작업](/ko/docs/tasks) 단위보다 더 큰 목표를 달성하기
 위한 방법을 보여준다. 일반적으로 튜토리얼은 각각 순차적 단계가 있는 여러
 섹션으로 구성된다.
 각 튜토리얼을 따라하기 전에, 나중에 참조할 수 있도록
-[표준 용어집](/docs/reference/glossary/) 페이지를 북마크하기를 권한다.
+[표준 용어집](/ko/docs/reference/glossary/) 페이지를 북마크하기를 권한다.
 
 {{% /capture %}}
 
@@ -30,23 +30,23 @@ content_template: templates/concept
 
 ## 구성
 
-* [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [컨피그 맵을 사용해서 Redis 설정하기](/ko/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## 상태 유지를 하지 않는(stateless) 애플리케이션
 
-* [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [외부 IP 주소를 노출하여 클러스터의 애플리케이션에 접속하기](/ko/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
+* [예시: Redis를 사용한 PHP 방명록 애플리케이션 배포하기](/ko/docs/tutorials/stateless-application/guestbook/)
 
 ## 상태 유지가 필요한(stateful) 애플리케이션
 
-* [스테이트풀셋 기본](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [스테이트풀셋 기본](/ko/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [예시: WordPress와 MySQL을 퍼시스턴트 볼륨에 배포하기](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
-* [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
+* [예시: 카산드라를 스테이트풀셋으로 배포하기](/ko/docs/tutorials/stateful-application/cassandra/)
 
-* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
+* [분산 시스템 코디네이터 ZooKeeper 실행하기](/ko/docs/tutorials/stateful-application/zookeeper/)
 
 ## CI/CD 파이프라인
 
@@ -60,11 +60,11 @@ content_template: templates/concept
 
 ## 클러스터
 
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
+* [AppArmor](/ko/docs/tutorials/clusters/apparmor/)
 
 ## 서비스
 
-* [Using Source IP](/docs/tutorials/services/source-ip/)
+* [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
 
 {{% /capture %}}
 

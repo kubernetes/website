@@ -323,7 +323,7 @@ Administrators should be aware that allowing write access to this feature grants
 
 Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
 
-## Multi-cluster setup
+## Setup for multiple API servers
 
 If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
 set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the

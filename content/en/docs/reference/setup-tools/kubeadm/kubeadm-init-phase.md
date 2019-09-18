@@ -39,7 +39,7 @@ Can be used to create all required certificates by kubeadm.
 
 ## kubeadm init phase kubeconfig {#cmd-phase-kubeconfig}
 
-You can create all required kubeconfig files by calling the `all` subcommand or call then individually.
+You can create all required kubeconfig files by calling the `all` subcommand or call them individually.
 
 {{< tabs name="tab-kubeconfig" >}}
 {{< tab name="kubeconfig" include="generated/kubeadm_init_phase_kubeconfig.md" />}}
