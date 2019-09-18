@@ -143,62 +143,46 @@ Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [Web
 
 [Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah user tertentu dapat membaca, menulis, dan melakukan operasi lainnya ke API sumber daya. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan Anda, [Webhook Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
 
+### Kontrol Admisi Dinamik
 
-### Dynamic Admission Control
+Setalah permintaan diotorisasi, jika ini operasi penulisan, permintaan ini akan melalui step [Kontrol Admisi](/docs/reference/access-authn-authz/admission-controllers/). Sebagai tambahan untuk step bawaan, ada beberapa ekstensi:
 
-After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/reference/access-authn-authz/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
+* [Webhook Kebijakan Gambar](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) membatasi gambar mana saja yang dapat berjalan di kontainer.
+* Untuk membuat keputusan kontrol admisi sembarang, [Webhook Admisi](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) umum dapat digunakan. Webhook Admisi dapat menolak pembuatan baru atau pembaruan.
 
-*   The [Image Policy webhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
-*   To make arbitrary admission control decisions, a general [Admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
+## Ekstensi Infrastruktur
 
-## Infrastructure Extensions
+### Plugin Penyimpanan
 
+[Volume Flex](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe volume tanpa dukungan bawaan dengan cara Kubelet memanggil sebuah Plugin Binari untuk memasang volume.
 
-### Storage Plugins
+### Plugin Perangkat
 
-[Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
-) allow users to mount volume types without built-in support by having the
-Kubelet call a Binary Plugin to mount the volume.
+Plugin perangkat memungkinkan sebuah node untuk menemukan sumber daya Node baru (sebagai tambahan dari bawaannya seperti cpu dan memori) via [Plugin Perangkat](/docs/concepts/cluster-administration/device-plugins/).
 
+### Plugin Jaringan
 
-### Device Plugins
+Struktur jaringan yang berbeda dapat di dukung via node-level [Plugin Jaringan](/docs/admin/network-plugins/)
 
-Device plugins allow a node to discover new Node resources (in addition to the
-builtin ones like cpu and memory) via a [Device
-Plugin](/docs/concepts/cluster-administration/device-plugins/).
+### Ekstensi Penjadwal
 
+Penjadwal adalah jenis kontroler spesial yang mengawasi pod, dan menugaskan pod ke node. Penjadwal standar dapat digantikan seluruhnya, sementara  terus menggunakan komponen Kubernetes lainnya, atau [penjadwal ganda](/docs/tasks/administer-cluster/configure-multiple-schedulers/) dapat berjalan dalam waktu yang bersamaan.
 
-### Network Plugins
+Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal.
 
-Different networking fabrics can be supported via node-level [Network Plugins](/docs/admin/network-plugins/).
-
-### Scheduler Extensions
-
-The scheduler is a special type of controller that watches pods, and assigns
-pods to nodes. The default scheduler can be replaced entirely, while
-continuing to use other Kubernetes components, or [multiple
-schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
-can run at the same time.
-
-This is a significant undertaking, and almost all Kubernetes users find they
-do not need to modify the scheduler.
-
-The scheduler also supports a
-[webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)
-that permits a webhook backend (scheduler extension) to filter and prioritize
-the nodes chosen for a pod.
+Penjadwal juga mendukung [webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah webhook backend (ekstensi penjadwal) untuk menyaring dan memprioritaskan node yang terpilih untuk sebuah pod.
 
 {{% /capture %}}
 
 
 {{% capture whatsnext %}}
 
-* Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
-* Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-* Learn more about Infrastructure extensions
-  * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
-  * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)
-* Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
-* Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
+* Pelajari lanjut tentang [Sumber Daya Kustom](/docs/concepts/api-extension/custom-resources/)
+* Pelajari tentang [Kontrol Admisi Dinamis](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+* Pelajari lebih lanjut tentang ekstensi Infrastruktur
+  * [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)
+  * [Plugin Perangkat](/docs/concepts/cluster-administration/device-plugins/)
+* Pelajari tentang [Plugin kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
+* Pelajari tentang [Operator Pola](/docs/concepts/extend-kubernetes/operator/)
 
 {{% /capture %}}
