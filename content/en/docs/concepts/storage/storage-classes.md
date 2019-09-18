@@ -72,7 +72,7 @@ for provisioning PVs. This field must be specified.
 | CephFS               | -                   | -                                    |
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
 | FC                   | -                   | -                                    |
-| Flexvolume           | -                   | -                                    |
+| FlexVolume           | -                   | -                                    |
 | Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
@@ -92,14 +92,15 @@ alongside Kubernetes). You can also run and specify external provisioners,
 which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
-run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
+run, what volume plugin it uses (including Flex), etc. The repository
+[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 houses a library for writing external provisioners that implements the bulk of
-the specification plus various community-maintained external provisioners.
+the specification. Some external provisioners are listed under the repository
+[kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
 
-For example, NFS doesn't provide an internal provisioner, but an external provisioner
-can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
-There are also cases when 3rd party storage vendors provide their own external
-provisioner.
+For example, NFS doesn't provide an internal provisioner, but an external
+provisioner can be used. There are also cases when 3rd party storage
+vendors provide their own external provisioner.
 
 ### Reclaim Policy
 
