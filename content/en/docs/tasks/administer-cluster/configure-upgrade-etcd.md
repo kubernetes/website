@@ -203,7 +203,7 @@ If the majority of etcd members have permanently failed, the etcd cluster is con
 
 As of Kubernetes v1.13.0, etcd2 is no longer supported as a storage backend for
 new or existing Kubernetes clusters. The timeline for Kubernetes support for
-etcd2 and etcd3 is as follows: 
+etcd2 and etcd3 is as follows:
 
 - Kubernetes v1.0: etcd2 only
 - Kubernetes v1.5.1: etcd3 support added, new clusters still default to etcd2
@@ -219,11 +219,23 @@ v1.13.x, etcd v2 data MUST by migrated to the v3 storage backend, and
 kube-apiserver invocations changed to use `--storage-backend=etcd3`.
 
 The process for migrating from etcd2 to etcd3 is highly dependent on how the
-etcd cluster was deployed and configured, as well as how the Kubernetes 
+etcd cluster was deployed and configured, as well as how the Kubernetes
 cluster was deployed and configured. We recommend that you consult your cluster
 provider's documentation to see if there is a predefined solution.
 
 If your cluster was created via `kube-up.sh` and is still using etcd2 as its
 storage backend, please consult the [Kubernetes v1.12 etcd cluster upgrade docs](https://v1-12.docs.kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#upgrading-and-rolling-back-etcd-clusters)
+
+## Known issue: etcd client balancer with secure endpoints
+
+The etcd v3 client, released in etcd v3.3.13 or earlier, has a [critical bug](https://github.com/kubernetes/kubernetes/issues/72102) which affects the kube-apiserver and HA deployments. The etcd client balancer failover does not properly work against secure endpoints. As a result, etcd servers may fail or disconnect briefly from the kube-apiserver. This affects kube-apiserver HA deployments.
+
+The fix was made in [etcd v3.4](https://github.com/etcd-io/etcd/pull/10911) (and backported to v3.3.14 or later): the new client now creates its own credential bundle to correctly set authority target in dial function.
+
+Because the fix requires gRPC dependency upgrade (to v1.23.0), downstream Kubernetes [did not backport etcd upgrades](https://github.com/kubernetes/kubernetes/issues/72102#issuecomment-526645978). Which means the [etcd fix in kube-apiserver](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab) is only available from Kubernetes 1.16.
+
+To urgently fix this bug for Kubernetes 1.15 or earlier, build a custom kube-apiserver. You can make local changes to [`vendor/google.golang.org/grpc/credentials/credentials.go`](https://github.com/kubernetes/kubernetes/blob/7b85be021cd2943167cd3d6b7020f44735d9d90b/vendor/google.golang.org/grpc/credentials/credentials.go#L135) with [etcd@db61ee106](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab).
+
+See ["kube-apiserver 1.13.x refuses to work when first etcd-server is not available"](https://github.com/kubernetes/kubernetes/issues/72102).
 
 {{% /capture %}}
