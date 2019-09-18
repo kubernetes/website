@@ -125,7 +125,7 @@ kubectl apply -f project/k8s/development
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
-Solusinya, tambahkan argumen `--recursive` atau `-R` bersama dengan `--filename,-f` seperti:
+Solusinya, tambahkan argumen `--recursive` atau `-R` bersama dengan `--filename,-f`, seperti:
 
 ```shell
 kubectl apply -f project/k8s/development --recursive
