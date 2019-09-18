@@ -209,7 +209,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "7225"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
 data:
@@ -241,7 +240,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "7579"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
 data:
@@ -342,7 +340,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "164619"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 data:
@@ -386,7 +383,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "164619"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 ```

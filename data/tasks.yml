@@ -126,6 +126,11 @@ toc:
   - docs/tasks/tls/managing-tls-in-a-cluster.md
   - docs/tasks/tls/certificate-rotation.md
 
+- title: Network
+  landing_page: tasks/network/validate-dual-stack/
+  section:
+  - docs/tasks/network/validate-dual-stack.md
+
 - title: Administer a Cluster
   landing_page: /docs/tasks/administer-cluster/memory-default-namespace/
   section:
@@ -189,6 +194,7 @@ toc:
   - docs/tasks/administer-cluster/dns-debugging-resolution.md
   - docs/tasks/administer-cluster/pvc-protection.md
   - docs/tasks/administer-cluster/storage-object-in-use-protection.md
+  - docs/tasks/administer-cluster/endpoint-slices.md
 
 - title: Federation - Run an App on Multiple Clusters
   landing_page: /docs/tasks/federation/set-up-cluster-federation-kubefed/

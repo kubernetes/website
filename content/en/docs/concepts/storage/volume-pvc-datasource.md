@@ -11,7 +11,7 @@ weight: 30
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}} 
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
 
 This feature requires VolumePVCDataSource feature gate to be enabled:
@@ -32,7 +32,7 @@ The {{< glossary_tooltip text="CSI" term_id="csi" >}} Volume Cloning feature add
 
 A Clone is defined as a duplicate of an existing Kubernetes Volume that can be consumed as any standard Volume would be.  The only difference is that upon provisioning, rather than creating a "new" empty Volume, the back end device creates an exact duplicate of the specified Volume.
 
-The implementation of cloning, from the perspective of the Kubernetes API simply adds the ability to specify an existing unbound PVC as a dataSource during new pvc creation. 
+The implementation of cloning, from the perspective of the Kubernetes API simply adds the ability to specify an existing unbound PVC as a dataSource during new pvc creation.
 
 Users need to be aware of the following when using this feature:
 
@@ -40,6 +40,10 @@ Users need to be aware of the following when using this feature:
 * Cloning support is only available for dynamic provisioners.
 * CSI drivers may or may not have implemented the volume cloning functionality.
 * You can only clone a PVC when it exists in the same namespace as the destination PVC (source and destination must be in the same namespace).
+* Cloning is only supported within the same Storage Class.
+    - Destination volume must be the same storage class as the source
+    - Default storage class can be used and storageClassName omitted in the spec
+
 
 ## Provisioning
 
@@ -54,6 +58,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
+  storageClassName: cloning
   resources:
     requests:
       storage: 5Gi

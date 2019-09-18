@@ -8,7 +8,7 @@ content_template: templates/concept
 weight: 60
 ---
 {{% capture overview %}}
-This command reverts any changes made by `kubeadm init` or `kubeadm join`.
+Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join`.
 {{% /capture %}}
 
 {{% capture body %}}

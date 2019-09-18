@@ -35,17 +35,6 @@ but you may also build them from source for other OSes.
 
 ### kubeadm maturity
 
-| Area                      | Maturity Level |
-|---------------------------|--------------- |
-| Command line UX           | GA             |
-| Implementation            | GA             |
-| Config file API           | Beta           |
-| CoreDNS                   | GA             |
-| kubeadm alpha subcommands | Alpha          |
-| High availability         | Beta           |
-| DynamicKubeletConfig      | Alpha          |
-
-
 kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
 file API are still under active development. The implementation of creating the cluster
 may change slightly as the tool evolves, but the overall implementation should be pretty stable.
@@ -61,16 +50,10 @@ timeframe; which also applies to `kubeadm`.
 
 | Kubernetes version | Release month  | End-of-life-month |
 |--------------------|----------------|-------------------|
-| v1.6.x             | March 2017     | December 2017     |
-| v1.7.x             | June 2017      | March 2018        |
-| v1.8.x             | September 2017 | June 2018         |
-| v1.9.x             | December 2017  | September 2018    |
-| v1.10.x            | March 2018     | December 2018     |
-| v1.11.x            | June 2018      | March 2019        |
-| v1.12.x            | September 2018 | June 2019         |
 | v1.13.x            | December 2018  | September 2019    |
 | v1.14.x            | March 2019     | December 2019     |
 | v1.15.x            | June 2019      | March 2020        |
+| v1.16.x            | September 2019 | June 2020         |
 
 {{% /capture %}}
 
@@ -89,7 +72,7 @@ timeframe; which also applies to `kubeadm`.
 
 ## Objectives
 
-* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+* Install a single control-plane Kubernetes cluster or [high-availability cluster](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -105,7 +88,7 @@ apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
-After you initialize your master, the kubelet runs normally.
+After you initialize your control-plane, the kubelet runs normally.
 {{< /note >}}
 
 ### Initializing your control-plane node
@@ -114,6 +97,9 @@ The control-plane node is the machine where the control plane components run, in
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
+1. (Recommended) If you have plans to upgrade this single control-plane kubeadm cluster
+to high availability you should specify the `--control-plane-endpoint` to set the shared endpoint
+for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
 1. Choose a pod network add-on, and verify whether it requires any arguments to
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
@@ -123,18 +109,41 @@ by using a list of well known domain socket paths. To use different container ru
 if there are more than one installed on the provisioned node, specify the `--cri-socket`
 argument to `kubeadm init`. See [Installing runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
-with the default gateway to advertise the master's IP. To use a different
-network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
+with the default gateway to set the advertise address for this particular control-plane node's API server.
+To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
 1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
-connectivity to gcr.io registries.   
+connectivity to gcr.io registries.
 
-Now run:
+To initialize the control-plane node run:
 
 ```bash
 kubeadm init <args>
 ```
+
+### Considerations about apiserver-advertise-address and ControlPlaneEndpoint
+
+While `--apiserver-advertise-address` can be used to set the advertise address for this particular
+control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
+for all control-plane nodes.
+
+`--control-plane-endpoint` allows IP addresses but also DNS names that can map to IP addresses.
+Please contact your network administrator to evaluate possible solutions with respect to such mapping.
+
+Here is an example mapping:
+
+```
+192.168.0.102 cluster-endpoint
+```
+
+Where `192.168.0.102` is the IP address of this node and `cluster-endpoint` is a custom DNS name that maps to this IP.
+This will allow you to pass `--control-plane-endpoint=cluster-endpoint` to `kubeadm init` and pass the same DNS name to
+`kubeadm join`. Later you can modify `cluster-endpoint` to point to the address of your load-balancer in an
+high availability scenario.
+
+Turning a single control plane cluster created without `--control-plane-endpoint` into a highly available cluster
+is not supported by kubeadm.
 
 ### More information
 
@@ -146,9 +155,8 @@ To customize control plane components, including optional IPv6 assignment to liv
 
 To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 
-If you join a node with a different architecture to your cluster, create a separate
-Deployment or DaemonSet for `kube-proxy` and `kube-dns` on the node. This is because the Docker images for these
-components do not currently support multi-architecture.
+If you join a node with a different architecture to your cluster, make sure that your deployed DaemonSets
+have container image support for this architecture.
 
 `kubeadm init` first runs a series of prechecks to ensure that the machine
 is ready to run Kubernetes. These prechecks expose warnings and exit on errors. `kubeadm init`
@@ -167,14 +175,14 @@ The output should look like:
 [certs] Using certificateDir folder "/etc/kubernetes/pki"
 [certs] Generating "etcd/ca" certificate and key
 [certs] Generating "etcd/server" certificate and key
-[certs] etcd/server serving cert is signed for DNS names [kubeadm-master localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
+[certs] etcd/server serving cert is signed for DNS names [kubeadm-cp localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
 [certs] Generating "etcd/healthcheck-client" certificate and key
 [certs] Generating "etcd/peer" certificate and key
-[certs] etcd/peer serving cert is signed for DNS names [kubeadm-master localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
+[certs] etcd/peer serving cert is signed for DNS names [kubeadm-cp localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
 [certs] Generating "apiserver-etcd-client" certificate and key
 [certs] Generating "ca" certificate and key
 [certs] Generating "apiserver" certificate and key
-[certs] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
+[certs] apiserver serving cert is signed for DNS names [kubeadm-cp kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
 [certs] Generating "apiserver-kubelet-client" certificate and key
 [certs] Generating "front-proxy-ca" certificate and key
 [certs] Generating "front-proxy-client" certificate and key
@@ -193,9 +201,9 @@ The output should look like:
 [apiclient] All control plane components are healthy after 31.501735 seconds
 [uploadconfig] storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
 [kubelet] Creating a ConfigMap "kubelet-config-X.Y" in namespace kube-system with the configuration for the kubelets in the cluster
-[patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "kubeadm-master" as an annotation
-[mark-control-plane] Marking the node kubeadm-master as control-plane by adding the label "node-role.kubernetes.io/master=''"
-[mark-control-plane] Marking the node kubeadm-master as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "kubeadm-cp" as an annotation
+[mark-control-plane] Marking the node kubeadm-cp as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node kubeadm-cp as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
 [bootstrap-token] Using token: <token>
 [bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
 [bootstraptoken] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
@@ -205,7 +213,7 @@ The output should look like:
 [addons] Applied essential addon: CoreDNS
 [addons] Applied essential addon: kube-proxy
 
-Your Kubernetes master has initialized successfully!
+Your Kubernetes control-plane has initialized successfully!
 
 To start using your cluster, you need to run the following as a regular user:
 
@@ -220,7 +228,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+  kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 To make kubectl work for your non-root user, run these commands, which are
@@ -467,7 +475,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 * Run the command that was output by `kubeadm init`. For example:
 
 ``` bash
-kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 If you do not have the token, you can get it by running the following command on the control-plane node:
@@ -513,7 +521,7 @@ The output is similar to this:
 ```
 
 {{< note >}}
-To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<control-plane-host>:<control-plane-ip>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
 {{< /note >}}
 
 The output should look something like:
@@ -524,11 +532,11 @@ The output should look something like:
 ... (log output of join workflow) ...
 
 Node join complete:
-* Certificate signing request sent to master and response
+* Certificate signing request sent to control-plane and response
   received.
 * Kubelet informed of new secure connection details.
 
-Run 'kubectl get nodes' on the master to see this machine join.
+Run 'kubectl get nodes' on control-plane to see this machine join.
 ```
 
 A few seconds later, you should notice this node in the output from `kubectl get
@@ -541,7 +549,7 @@ cluster, you need to copy the administrator kubeconfig file from your control-pl
 to your workstation like this:
 
 ``` bash
-scp root@<master ip>:/etc/kubernetes/admin.conf .
+scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
 
@@ -565,7 +573,7 @@ If you want to connect to the API Server from outside the cluster you can use
 `kubectl proxy`:
 
 ```bash
-scp root@<master ip>:/etc/kubernetes/admin.conf .
+scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf proxy
 ```
 

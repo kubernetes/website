@@ -2,8 +2,9 @@
 title: kubeadm reset phase
 weight: 90
 ---
-In v1.15.0, kubeadm introduces the `kubeadm reset phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the reset process.
-Hence, you can let kubeadm do some parts and fill in yourself where you need customizations.
+`kubeadm reset phase` enables you to invoke atomic steps of the node reset process.
+Hence, you can let kubeadm do some of the work and you can fill in the gaps
+if you wish to apply customization.
 
 `kubeadm reset phase` is consistent with the [kubeadm reset workflow](/docs/reference/setup-tools/kubeadm/kubeadm-reset/#reset-workflow),
 and behind the scene both use the same code.
