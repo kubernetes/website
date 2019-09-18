@@ -1,7 +1,13 @@
 ---
+title: IP Masquerade Agent 用户指南
+content_template: templates/task
+---
+<!--
+---
 title: IP Masquerade Agent User Guide
 content_template: templates/task
 ---
+-->
 
 {{% capture overview %}}
 <!--
