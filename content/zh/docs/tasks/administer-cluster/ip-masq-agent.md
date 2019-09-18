@@ -48,7 +48,7 @@ ip-masq-agent 配置 iptables 规则以隐藏位于集群节点 IP 地址后面�
 *   **CIDR (Classless Inter-Domain Routing)**
     Based on the variable-length subnet masking, allows specifying arbitrary-length prefixes. CIDR introduced a new method of representation for IP addresses, now commonly known as **CIDR notation**, in which an address or routing prefix is written with a suffix indicating the number of bits of the prefix, such as 192.168.2.0/24.
 -->
-*   **CIDR (无类别域内路由)**
+*   **CIDR (无类别域间路由)**
     基于可变长度子网掩码，允许指定任意长度的前缀。CIDR 引入了一种新的 IP 地址表示方法，现在通常称为**CIDR表示法**，其中地址或路由前缀后添加一个后缀，用来表示前缀的位数，例如 192.168.2.0/24。
 <!--
 *   **Link Local**
