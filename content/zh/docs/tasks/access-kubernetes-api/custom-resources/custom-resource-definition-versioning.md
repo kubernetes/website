@@ -1,5 +1,5 @@
 ---
-title: Versions of CustomResourceDefinitions
+title: CustomResourceDefinitions 的版本
 reviewers:
 - mbohlool
 - sttts
@@ -9,7 +9,7 @@ weight: 30
 ---
 <!--
 ---
-title: CustomResourceDefinitions 的版本
+title: Versions of CustomResourceDefinitions
 reviewers:
 - mbohlool
 - sttts
