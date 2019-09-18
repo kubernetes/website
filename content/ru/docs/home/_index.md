@@ -6,7 +6,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage
-linkTitle: "Домой"
+linkTitle: "Главная"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -20,9 +20,9 @@ overview: >
   Kubernetes - это открытое програмное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями. Проект с открытым исходным кодом размещён на серверах Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
-  title: "Изучи основы"
+  title: "Основы"
   description: "Узнайте о Kubernetes и его фундаментальных понятиях."
-  button: "Изучить понятия"
+  button: "Начать"
   button_path: "/docs/concepts"
 - name: tutorials
   title: "Попробуйте Kubernetes"
@@ -32,7 +32,7 @@ cards:
 - name: setup
   title: "Настройка кластера"
   description: Получить Kubernetes, запущенный с учётом ваших потребностей и ресурсов."
-  button: "Настроить Kubernetes"
+  button: "Настройка Kubernetes"
   button_path: "/docs/setup"
 - name: tasks
   title: "Узнайте как использовать Kubernetes"
