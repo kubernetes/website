@@ -350,6 +350,12 @@ To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-
 minikube dashboard
 ```
 
+Under the hood above command proxies internal cluster resources onto local host and appends dashboard API path:
+
+```shell
+kubectl proxy --port=0
+```
+
 ### Services
 
 To access a Service exposed via a node port, run this command in a shell after starting Minikube to get the address:
