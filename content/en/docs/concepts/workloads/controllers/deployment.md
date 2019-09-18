@@ -229,7 +229,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     Next time you want to update these Pods, you only need to update the Deployment's Pod template again.
 
     Deployment ensures that only a certain number of Pods are down while they are being updated. By default,
-    it ensures that at least 25% of the desired number of Pods are up (25% max unavailable).
+    it ensures that at least 75% of the desired number of Pods are up (25% max unavailable).
 
     Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
     By default, it ensures that at most 25% of the desired number of Pods are up (25% max surge).

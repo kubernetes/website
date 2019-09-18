@@ -28,9 +28,9 @@ weight: 10
 			<div class="col-md-8">
 			<h3>쿠버네티스 서비스들에 대한 개요</h3>
 
-			<p>쿠버네티스 <a href="/ko/docs/concepts/workloads/pods/pod-overview/">파드들</a> 은 언젠가는 죽게된다. 실제 파드들은  <a href="/docs/concepts/workloads/pods/pod-lifecycle/">생명주기</a>를 갖는다. 워커 노드가 죽으면, 노드 상에서 동작하는 파드들 또한 종료된다. <a href="/docs/concepts/workloads/controllers/replicaset/">레플리카 셋</a>은 여러분의 애플리케이션이 지속적으로 동작할 수 있도록 새로운 파드들의 생성을 통해 동적으로 클러스터를 미리 지정해 둔 상태로 되돌려 줄 수도 있다. 또 다른 예시로서, 3개의 복제본을 갖는 이미지 처리용 백엔드를 고려해 보자. 그 복제본들은 교체 가능한 상태이다. 그래서 프론트엔드 시스템은 하나의 파드가 소멸되어 재생성이 되더라도, 백엔드 복제본들에 의한 영향을 받아서는 안된다. 즉, 동일 노드 상의 파드들이라 할지라도, 쿠버네티스 클러스터 내 각 파드는 유일한 IP 주소를 가지며, 여러분의 애플리케이션들이 지속적으로 기능할 수 있도록 파드들 속에서 발생하는 변화에 대해 자동으로 조정해 줄 방법이 있어야 한다.</p>
+			<p>쿠버네티스 <a href="/ko/docs/concepts/workloads/pods/pod-overview/">파드들</a> 은 언젠가는 죽게된다. 실제 파드들은  <a href="/ko/docs/concepts/workloads/pods/pod-lifecycle/">생명주기</a>를 갖는다. 워커 노드가 죽으면, 노드 상에서 동작하는 파드들 또한 종료된다. <a href="/ko/docs/concepts/workloads/controllers/replicaset/">레플리카 셋</a>은 여러분의 애플리케이션이 지속적으로 동작할 수 있도록 새로운 파드들의 생성을 통해 동적으로 클러스터를 미리 지정해 둔 상태로 되돌려 줄 수도 있다. 또 다른 예시로서, 3개의 복제본을 갖는 이미지 처리용 백엔드를 고려해 보자. 그 복제본들은 교체 가능한 상태이다. 그래서 프론트엔드 시스템은 하나의 파드가 소멸되어 재생성이 되더라도, 백엔드 복제본들에 의한 영향을 받아서는 안된다. 즉, 동일 노드 상의 파드들이라 할지라도, 쿠버네티스 클러스터 내 각 파드는 유일한 IP 주소를 가지며, 여러분의 애플리케이션들이 지속적으로 기능할 수 있도록 파드들 속에서 발생하는 변화에 대해 자동으로 조정해 줄 방법이 있어야 한다.</p>
 
-			<p>쿠버네티스에서 서비스는 하나의 논리적인 파드 셋과 그 파드들에 접근할 수 있는 정책을 정의하는 추상적 개념이다. 서비스는 종속적인 파드들 사이를 느슨하게 결합되도록 해준다. 서비스는 모든 쿠버네티스 오브젝트들과 같이 YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(보다 선호하는)</a> 또는 JSON을 이용하여 정의된다. 서비스가 대상으로 하는 파드 셋은 보통 <i>LabelSelector</i>에 의해 결정된다 (여러분이 왜 스펙에 <code>selector</code>가 포함되지 않은 서비스를 필요로 하게 될 수도 있는지에 대해 아래에서 확인해 보자).</p>
+			<p>쿠버네티스에서 서비스는 하나의 논리적인 파드 셋과 그 파드들에 접근할 수 있는 정책을 정의하는 추상적 개념이다. 서비스는 종속적인 파드들 사이를 느슨하게 결합되도록 해준다. 서비스는 모든 쿠버네티스 오브젝트들과 같이 YAML <a href="/ko/docs/concepts/configuration/overview/#일반적인-구성-팁">(보다 선호하는)</a> 또는 JSON을 이용하여 정의된다. 서비스가 대상으로 하는 파드 셋은 보통 <i>LabelSelector</i>에 의해 결정된다 (여러분이 왜 스펙에 <code>selector</code>가 포함되지 않은 서비스를 필요로 하게 될 수도 있는지에 대해 아래에서 확인해 보자).</p>
 
 			<p>비록 각 파드들이 고유의 IP를 갖고 있기는 하지만, 그 IP들은 서비스의 도움없이 클러스터 외부로 노출되어질 수 없다. 서비스들은 여러분의 애플리케이션들에게 트래픽이 실릴 수 있도록 허용해준다. 서비스들은 ServiceSpec에서 <code>type</code>을 지정함으로써 다양한 방식들로 노출시킬 수 있다:</p>
 			<ul>
@@ -39,7 +39,7 @@ weight: 10
 				<li><i>LoadBalancer</i> - (지원 가능한 경우) 기존 클라우드에서 외부용 로드밸런서를 생성하고 서비스에 고정된 공인 IP를 할당해준다. NodePort의 상위 집합이다. </li>
 				<li><i>ExternalName</i> - 이름으로 CNAME 레코드를 반환함으로써 임의의 이름(스펙에서 <code>externalName</code>으로 명시)을 이용하여 서비스를 노출시켜준다. 프록시는 사용되지 않는다. 이 방식은 <code>kube-dns</code> 버전 1.7 이상에서 지원 가능하다.</li>
 			</ul>
-			<p>다른 서비스 타입들에 대한 추가 정보는 <a href="/docs/tutorials/services/source-ip/">소스 IP 이용하기</a>  튜토리얼에서 확인 가능하다. 또한 <a href="/docs/concepts/services-networking/connect-applications-service">서비스들로 애플리케이션에 접속하기</a>도 참고해 보자.</p>
+			<p>다른 서비스 타입들에 대한 추가 정보는 <a href="/ko/docs/tutorials/services/source-ip/">소스 IP 이용하기</a>  튜토리얼에서 확인 가능하다. 또한 <a href="/docs/concepts/services-networking/connect-applications-service">서비스들로 애플리케이션에 접속하기</a>도 참고해 보자.</p>
 			<p>부가적으로, spec에 <code>selector</code>를 정의하지 않고 말아넣은 서비스들의 몇 가지 유즈케이스들이 있음을 주의하자. <code>selector</code> 없이 생성된 서비스는 상응하는 엔드포인트 오브젝트들 또한 생성하지 않는다. 이로써 사용자들로 하여금 하나의 서비스를 특정한 엔드포인트에 매핑 시킬수 있도록 해준다. selector를 생략하게 되는 또 다른 가능성은 여러분이 <code>type: ExternalName</code>을 이용하겠다고 확고하게 의도하는 경우이다.</p>
 			</div>
 			<div class="col-md-4">
@@ -73,7 +73,7 @@ weight: 10
 		<div class="row">
 			<div class="col-md-8">
 				<p>서비스는 파드 셋에 걸쳐서 트래픽을 라우트한다. 여러분의 애플리케이션에 영향을 주지 않으면서 쿠버네티스에서 파드들이 죽게도 하고, 복제가 되게도 해주는 추상적 개념이다. 종속적인 파드들 사이에서의 디스커버리와 라우팅은 (하나의 애플리케이션에서 프로트엔드와 백엔드 컴포넌트와 같은) 쿠버네티스 서비스들에 의해 처리된다.</p>
-				<p>서비스는 쿠버네티스의 객체들에 대해 논리 연산을 허용해주는 기본 그룹핑 단위인, <a href="/docs/concepts/overview/working-with-objects/labels">레이블과 셀렉터</a>를 이용하여 파드 셋과 매치시킨다. 레이블은 오브젝트들에 붙여진 키/밸류 쌍으로 다양한 방식으로 이용 가능하다:</p>
+				<p>서비스는 쿠버네티스의 객체들에 대해 논리 연산을 허용해주는 기본 그룹핑 단위인, <a href="/ko/docs/concepts/overview/working-with-objects/labels">레이블과 셀렉터</a>를 이용하여 파드 셋과 매치시킨다. 레이블은 오브젝트들에 붙여진 키/밸류 쌍으로 다양한 방식으로 이용 가능하다:</p>
 				<ul>
 					<li>개발, 테스트, 그리고 상용환경에 대한 객체들의 지정</li>
 					<li>임베디드된 버전 태그들</li>
