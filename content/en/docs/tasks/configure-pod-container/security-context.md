@@ -353,6 +353,17 @@ label given to all Containers in the Pod as well as the Volumes.
 After you specify an MCS label for a Pod, all Pods with the same label can access the Volume. If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
 {{< /warning >}}
 
+## Clean up
+
+Delete the Pod:
+
+```shell
+kubectl delete pod security-context-demo
+kubectl delete pod security-context-demo-2
+kubectl delete pod security-context-demo-3
+kubectl delete pod security-context-demo-4
+```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
