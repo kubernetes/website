@@ -6,7 +6,7 @@ weight: 40
 
 {{% capture overview %}}
 
-Kamu telah melakukan deploy pada aplikasimu dan mengeksposnya melalui sebuah service. Lalu? Kubernetes menyediakan berbagai peralatan untuk membantu mengatur deploy aplikasi, termasuk pengaturan kapasitas dan pembaruan. Diantara fitur yang akan didiskusikan lebih mendalam yaitu [berkas konfigurasi](/docs/concepts/configuration/overview/) dan [label](/docs/concepts/overview/working-with-objects/labels/).
+Kamu telah melakukan deploy pada aplikasimu dan mengeksposnya melalui sebuah _service_. Lalu? Kubernetes menyediakan berbagai peralatan untuk membantu mengatur deploy aplikasi, termasuk pengaturan kapasitas dan pembaruan. Diantara fitur yang akan didiskusikan lebih mendalam yaitu [berkas konfigurasi](/docs/concepts/configuration/overview/) dan [label](/docs/concepts/overview/working-with-objects/labels/).
 
 {{% /capture %}}
 
@@ -19,7 +19,7 @@ Banyak aplikasi memerlukan beberapa _resource_, seperti Deployment dan Service. 
 
 {{< codenew file="application/nginx-app.yaml" >}}
 
-Beberapa _resource_ dapat dibuat seperti satu _resource_:
+Beberapa _resource_ dapat dibuat seolah-olah satu _resource_:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx-app.yaml
@@ -30,7 +30,7 @@ service/my-nginx-svc created
 deployment.apps/my-nginx created
 ```
 
-_Resource_ akan dibuat dalam urutan seperti pada berkas. Oleh karena itu, lebih baik menspecify _service_ dahulu agar menjamin _scheduler_ dapat membagikan _pod_ yang terkait _service_ selagi pod dibangkitkan oleh controller, such as Deployment.
+_Resource_ akan dibuat dalam urutan seperti pada berkas. Oleh karena itu, lebih baik menyalakan _service_ lebih dahulu agar menjamin _scheduler_ dapat menyebar _pod_ yang terkait _service_ selagi _pod_ dibangkitkan oleh _controller_, such as Deployment.
 
 `kubectl apply` juga dapat menerima beberapa argumen `-f`:
 
@@ -44,11 +44,11 @@ Selain berkas, kita dapat juga memasukkan direktori sebagai argumen:
 kubectl apply -f https://k8s.io/examples/application/nginx/
 ```
 
-`kubectl` akan membaca berkass apapun yang berakhiran `.yaml`, `.yml`, or `.json`.
+`kubectl` akan membaca berkas apapun yang berakhiran `.yaml`, `.yml`, or `.json`.
 
-Disarankan untuk meletakkan _resource_ yang terkait _microservice_ atau application tier yang sama dalam satu berkas, dan mengelompokkan semua berkas associated dengan aplikasi anda dalam satu direktori. Jika tiers of your aplikasi bind to each other using DNS, maka anda dapat saja deploy semua komponen stack bersamaan.
+Sangat disarankan untuk meletakkan _resource_ yang ada dalam _microservice_ atau _tier_ aplikasi yang sama dalam satu berkas, dan mengelompokkan semua berkas terkait aplikasimu dalam satu direktori. Jika _tier_ masing-masing aplikasi terikat dengan DNS, maka kamu dapat melakukan _deploy_ semua komponen _stack_ bersama-sama.
 
-Lokasi konfigurasi dapat juga diberikan dalam bentuk URL yang berguna ketika ingin menjalankan berkas konfigurasi dari github:
+Lokasi konfigurasi dapat juga diberikan dalam bentuk URL. Ini berguna ketika ingin menjalankan berkas konfigurasi dari _github_:
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
@@ -60,7 +60,7 @@ deployment.apps/my-nginx created
 
 ## Operasi majemuk dalam kubectl
 
-Pembuatan _resource_ bukanlah satu-satunya operasi yang bisa dijalankan `kubectl` secara majemuk. Dia juga dapat mengekstrak nama _resource_ dari berkas konfigurasi untuk menjalankan operasi lainnya, khususnya untuk menghapus _resource_ yang telah dibuat:
+Pembuatan _resource_ bukanlah satu-satunya operasi yang bisa dijalankan `kubectl` secara majemuk. Contoh lainnya adalah mengekstrak nama _resource_ dari berkas konfigurasi untuk menjalankan operasi lainnya, seperti untuk menghapus _resource_ yang telah dibuat:
 
 ```shell
 kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
@@ -71,13 +71,13 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-Pada kasus dua _resource_, mudah untuk menspecify keduanya pada command line menggunakan sintaks _resource_/nama:
+Pada kasus dua _resource_, mudah untuk memasukkan keduanya pada _command line_ menggunakan sintaks _resource_/nama:
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
 ```
 
-Namun, untuk jumlah yang lebih besar, akan sangat memudahkan untuk menspecify selektor (label query) menggunakan `-l` atau `--selector` untuk memfilter _resource_ berdasarkan label:
+Namun, untuk _resource_ yang lebih banyak, memasukkan selektor (_label query_) menggunakan `-l` atau `--selector` untuk memfilter _resource_ berdasarkan label akan lebih mudah:
 
 ```shell
 kubectl delete deployment,services -l app=nginx
@@ -99,11 +99,11 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-Dengan perintah di atas, pertama kita buat resource di dalam `examples/application/nginx/`, lalu tampilkan resources yang terbentuk dengan format keluaran `-o name` (menampilkan tiap resource dalam format resource/nama). Kemudian lakukan `grep` hanya pada "service", dan tampilkan dengan `kubectl get`.
+Dengan perintah di atas, pertama kita buat resource di dalam `examples/application/nginx/`. Lalu tampilkan resources yang terbentuk dengan format keluaran `-o name` (menampilkan tiap resource dalam format resource/nama). Kemudian lakukan `grep` hanya pada "service", dan tampilkan dengan `kubectl get`.
 
-Untuk dapat menggunakan perintah di atas pada direktori yang bertingkat, kamu dapat memberi argumen `--recursive` atau `-R` bersamaan dengan argumen `--filename,-f`.
+Untuk dapat menggunakan perintah di atas pada direktori yang bertingkat, kamu dapat memberi argumen `--recursive` atau `-R` bersama dengan argumen `--filename,-f`.
 
-Misalnya ada sebuah direktori `project/k8s/development` memuat semua manifests yang berkaitan development environment. Manifest akan tersusun oleh tipe resource:
+Misalnya ada sebuah direktori `project/k8s/development` memuat semua manifests yang berkaitan dengan _development environment_. Manifest akan tersusun berdasarkan tipe resource:
 
 ```
 project/k8s/development
@@ -115,7 +115,7 @@ project/k8s/development
     └── my-pvc.yaml
 ```
 
-Secara _default_, menjalankan operasi majemuk pada `project/k8s/development` hanya akan terbatas pada direktori teratas tanpa menelusuri lebih dalam. Sehingga ketika kita menjalankan operasi pembuatan dengan perintah berikut, kita akan mendapatkan pesan kesalahan:
+Secara _default_, menjalankan operasi majemuk pada `project/k8s/development` hanya akan terbatas pada direktori terluar saja. Sehingga ketika kita menjalankan operasi pembuatan dengan perintah berikut, kita akan mendapatkan pesan kesalahan:
 
 ```shell
 kubectl apply -f project/k8s/development
@@ -157,9 +157,9 @@ Jika anda tertarik mempelajari lebih lanjut tentang `kubectl`, silahkan baca [Ik
 
 ## Memakai label secara efektif
 
-Contoh yang kita lihat sejauh ini hanya menggunakan paling banyak satu label pada _resource_ apapun. Ada banyak skenario ketika membutuhkan beberapa label untuk membedakan sebuah kelompok dari yang lainnya.
+Contoh yang kita lihat sejauh ini hanya menggunakan paling banyak satu label pada _resource_. Ada banyak skenario ketika membutuhkan beberapa label untuk membedakan sebuah kelompok dari yang lainnya.
 
-Sebagai contoh, different applications would use different values for the `app` label, tapi pada aplikasi multitier, seperti pada [contoh buku tamu](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), tiap tier perlu dibedakan. Untuk menandai tier frontend bisa menggunakan label:
+Sebagai contoh, different applications would use different values for the `app` label, tapi pada aplikasi _multitier_, seperti pada [contoh buku tamu](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), tiap _tier_ perlu dibedakan. Misal untuk menandai _tier frontend_ bisa menggunakan label:
 
 ```yaml
      labels:
@@ -167,7 +167,7 @@ Sebagai contoh, different applications would use different values for the `app` 
         tier: frontend
 ```
 
-seperti halnya Redis master dan slave memiliki label `tier` yang berbeda, atau bahkan label tambahan `role`:
+sementara itu Redis _master_ dan _slave_ memiliki label `tier` yang berbeda. Bisa juga menggunakan label tambahan `role`:
 
 ```yaml
      labels:
@@ -215,9 +215,9 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
 
 ## Deploy dengan Canary
 
-Skenario lain yang menggunakan beberapa label yaitu saat membedakan deployment komponen yang sama namun dengan rilis atau konfigurasi yang berbeda. Adalah praktik yang umum untuk mendeploy sebuah *canary* dari rilis aplikasi yang baru (berdasarkan tag image dalam templat pod) bersamaan dengan rilis sebelumnya sehingga rilis yang baru dapat menerima live traffic sebelum benar-benar roll out -- bekerja?.
+Skenario lain yang menggunakan beberapa label yaitu saat membedakan deployment komponen yang sama namun dengan rilis atau konfigurasi yang berbeda. Adalah praktik yang umum untuk mendeploy sebuah *canary* dari rilis aplikasi yang baru (berdasarkan _tag image_ dalam templat _pod_) bersamaan dengan rilis sebelumnya. Ini memungkinkan rilis yang baru dapat menerima _live traffic_ sebelum benar-benar menggantikan rilis yang lama.
 
-Sebagai contoh, kamu dapat memakai label `track` untuk membedakan antar rilis.
+Salah satu alternatif yaitu kamu dapat memakai label `track` untuk membedakan antar rilis.
 
 Rilis primer dan stabil akan memiliki label `track` yang berisi `stable`:
 
@@ -233,7 +233,7 @@ Rilis primer dan stabil akan memiliki label `track` yang berisi `stable`:
      image: gb-frontend:v3
 ```
 
-kemudian kamu buat lagi rilis frontend buku tamu yang membawa label `track` yang berbeda (misal `canary`), sehingga pod dalam kedua rilis tidak overlap:
+kemudian kamu buat lagi rilis _frontend_ buku tamu yang membawa label `track` yang berbeda (misal `canary`), sehingga _pod_ dalam kedua rilis tidak beririsan:
 
 ```yaml
      name: frontend-canary
@@ -247,7 +247,7 @@ kemudian kamu buat lagi rilis frontend buku tamu yang membawa label `track` yang
      image: gb-frontend:v4
 ```
 
-Servis frontend akan meliputi kedua set replika dengan menentukan subset bersama dari label-labelnya (i.e. menghapus label `track`) sehingga traffic akan diarahkan ke kedua aplikasi:
+Servis _frontend_ akan meliputi kedua set replika dengan menentukan subset bersama dari para labelnya (tanpa `track`). Sehingga _traffic_ akan diarahkan ke kedua aplikasi:
 
 ```yaml
   selector:
@@ -255,15 +255,15 @@ Servis frontend akan meliputi kedua set replika dengan menentukan subset bersama
      tier: frontend
 ```
 
-Anda dapat mengatur jumlah replika rilis stable dan canary untuk menentukan rasio dari tiap rilis yang akan menerima _traffic_ _production_ _live_ (dalam kasus ini 3:1).
-Ketika telah yakin, kamu dapat mengganti track stable ke rilis baru dan menghapus canary.
+Anda dapat mengatur jumlah replika rilis _stable_ dan _canary_ untuk menentukan rasio dari tiap rilis yang akan menerima _traffic production live_ (dalam kasus ini 3:1).
+Ketika telah yakin, kamu dapat memindahkan _track stable_ ke rilis baru dan menghapus _canary_.
 
-Untuk contoh yang lebih jelas, cek pada [tutorial of deploying Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
+Untuk contoh yang lebih jelas, silahkan cek [tutorial melakukan deploy Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
 
 ## Memperbarui label
 
-Kadang, pod dan resource lain yang sudah ada harus dilabeli ulang sebelum membuat resource baru. Hal ini dapat dilakukan dengan perintah `kubectl label`.
-Contohnya jika kamu ingin melabeli ulang semua pod nginx sebagai frontend tier, tinggal jalankan:
+Kadang, _pod_ dan _resource_ lain yang sudah ada harus dilabeli ulang sebelum membuat _resource_ baru. Hal ini dapat dilakukan dengan perintah `kubectl label`.
+Contohnya jika kamu ingin melabeli ulang semua _pod_ nginx sebagai _frontend tier_, tinggal jalankan:
 
 ```shell
 kubectl label pods -l app=nginx tier=fe
@@ -275,8 +275,8 @@ pod/my-nginx-2035384211-u2c7e labeled
 pod/my-nginx-2035384211-u3t6x labeled
 ```
 
-Perintah ini melakukan filter pada semua pod dengan label "app=nginx", lalu melabelinya dengan "tier=fe".
-Untuk melihat pod yang telah dilabeli, jalankan:
+Perintah ini melakukan filter pada semua _pod_ dengan label "app=nginx", lalu melabelinya dengan "tier=fe".
+Untuk melihat _pod_ yang telah dilabeli, jalankan:
 
 ```shell
 kubectl get pods -l app=nginx -L tier
@@ -288,13 +288,13 @@ my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
 my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 ```
 
-Akan muncul semua pod dengan "app=nginx" dan sebuah kolom label tambahan yaitu tier (ditentukan dengan `-L` atau `--label-columns`).
+Akan muncul semua _pod_ dengan "app=nginx" dan sebuah kolom label tambahan yaitu tier (ditentukan dengan `-L` atau `--label-columns`).
 
 Untuk informasi lebih lanjut, silahkan baca [label](/docs/concepts/overview/working-with-objects/labels/) dan [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
 
 ## Memperbarui anotasi
 
-Kadang resource perlu ditambahkan anotasi. Anotasi adalah metadata sembarang yang tidak identifying, seperti tools, libraries, etc. Ini dapat dilakukan dengan `kubectl annotate`. Sebagai contoh:
+Kadang resource perlu ditambahkan anotasi. Anotasi adalah metadata sembarang yang tidak unik, seperti _tools, libraries_, dsb yang digunakan oleh klien API . Ini dapat dilakukan dengan `kubectl annotate`. Sebagai contoh:
 
 ```shell
 kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
@@ -311,9 +311,9 @@ metadata:
 
 Untuk informasi lebih lanjut, silahkan lihat laman [annotations](/docs/concepts/overview/working-with-objects/annotations/) dan [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate).
 
-## Mengatur kapasitas aplikasi anda
+## Memperbesar dan memperkecil aplikasi anda
 
-Saat beban aplikasi naik maupun turun, mudah untuk mengubah kapasitas dengan `kubectl`. Contohnya, untuk menurunkan kapasitas replika nginx dari 3 ke 1, lakukan:
+Saat beban aplikasi naik maupun turun, mudah untuk mengubah kapasitas dengan `kubectl`. Contohnya, untuk menurunkan jumlah replika nginx dari 3 ke 1, lakukan:
 
 ```shell
 kubectl scale deployment/my-nginx --replicas=1
@@ -322,7 +322,7 @@ kubectl scale deployment/my-nginx --replicas=1
 deployment.extensions/my-nginx scaled
 ```
 
-Sekarang anda hanya memiliki satu pod yang dikelola oleh deployment.
+Sekarang anda hanya memiliki satu _pod_ yang dikelola oleh deployment.
 
 ```shell
 kubectl get pods -l app=nginx
@@ -341,20 +341,18 @@ kubectl autoscale deployment/my-nginx --min=1 --max=3
 horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 ```
 
-Sekarang kapasitas replika nginx akan secara otomatis naik dan turun sesuai kebutuhan.
+Sekarang jumlah replika nginx akan secara otomatis naik dan turun sesuai kebutuhan.
 
-Informasi tambahan dapat dilihat pada dokumen [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale), [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) dan [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/).
+Informasi tambahan dapat dilihat pada dokumen [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale), [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) dan [horizontal _pod_ autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 
 ## Pembaruan resource di tempat
 
-Kadang kita perlu membuat pembaruan kecil, non-disruptif pada resource yang telah dibuat.
+Kadang kita perlu membuat pembaruan kecil, yang tidak mengganggu pada _resource_ yang telah dibuat.
 
 ### kubectl apply
 
-Disarankan untuk menyimpan berkas-berkas konfigurasi dalam source control (lihat [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)).
-Sehingga dapat dipelihara dan diversion bersamaan dengan kode for the resources they configure.
-Kemudian, kamu dapat menggunakan [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) untuk membarui perubahan konfigurasi ke cluster.
+Disarankan untuk menyimpan berkas-berkas konfigurasi dalam _source control_ (lihat [konfigurasi sebagai kode](http://martinfowler.com/bliki/InfrastructureAsCode.html)). Sehingga berkas dapat dipelihara dan diatur dalam versi bersama dengan kode milik _resource_ yang diatur oleh konfigurasi tersebut. Berikutnya, kamu dapat menggunakan [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) untuk membarui perubahan konfigurasi ke kluster.
 
 Perintah ini akan membandingkan versi konfigurasi yang disuplai dengan versi sebelumnya yang telah berjalan dan memasang perubahan yang kamu buat tanpa mengganti properti yang tidak berubah sama sekali.
 
@@ -363,11 +361,11 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 deployment.apps/my-nginx configured
 ```
 
-Perhatikan bahwa `kubectl apply` memasang anotasi pada resource untuk menentukan perubahan pada konfigurasi since the previous invocation. Ketika dijalankan, `kubectl apply` melakukan a three-way diff antara konfigurasi sebelumnya, masukan yang disuplai, dan konfigurasi resource sekarang, untuk dapat menentukan cara memodifkasi resource.
+Perhatikan bahwa `kubectl apply` memasang anotasi pada _resource_ untuk menentukan perubahan pada konfigurasi sejak terakhir dipanggil. Ketika dijalankan, `kubectl apply` melakukan pembandingan _three-way_ antara konfigurasi sebelumnya, masukan yang disuplai, dan konfigurasi _resource_ sekarang, untuk dapat menentukan cara memodifikasi _resource_.
 
-Sekarang, resource dibuat tanpa ada anotasi. Jadi pemanggilan pertama pada `kubectl apply` akan kembali pada two-way diff antara masukan pengguna dan konfigurasi resource sekarang. Saat itu, tidak ada penghapusan set properti yang terdeteksi saat resource dibuat. Sehingga, tidak ada yang dihapus.
+Saat ini, _resource_ dibuat tanpa ada anotasi. Jadi pemanggilan pertama pada `kubectl apply` akan dikembalikan pada perbandingan _two-way_ antara masukan pengguna dan konfigurasi _resource_ sekarang. Saat pemanggilan pertama ini, tidak ada penghapusan set properti yang terdeteksi saat _resource_ dibuat. Sehingga, tidak ada yang dihapus.
 
-Tiap `kubectl apply`, atau perintah lain yang memodifikasi konfigurasi seperti `kubectl replace` dan `kubectl edit` dijalankan, anotasi akan diperbarui. Sehingga memungkinkan operasi `kubectl apply` untuk mendeteksi dan melakukan penghapusan secara three-way diff.
+Tiap `kubectl apply`, atau perintah lain yang memodifikasi konfigurasi seperti `kubectl replace` dan `kubectl edit` dijalankan, anotasi akan diperbarui. Sehingga memungkinkan operasi `kubectl apply` untuk mendeteksi dan melakukan penghapusan secara perbandingan _three-way_.
 
 ### kubectl edit
 
@@ -377,7 +375,7 @@ Sebagai alternatif, kamu juga dapat membarui resource dengan `kubectl edit`:
 kubectl edit deployment/my-nginx
 ```
 
-Ini sama dengan melakukan `get` pada resource dahulu, mengubahnya di text editor, kemudian menjalankan`apply` pada resource dengan versi terkini:
+Ini sama dengan melakukan `get` pada _resource_, mengubahnya di text editor, kemudian menjalankan`apply` pada _resource_ dengan versi terkini:
 
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
@@ -396,15 +394,14 @@ Untuk informasi tambahan, silahkan lihat laman [kubectl edit](/docs/reference/ge
 
 ### kubectl patch
 
-Kamu dapat menggunakan `kubectl patch` untuk membarui obyek API di tempat. Perintah ini mendukung patch JSON,
-patch gabungan JSON, dan strategic merge patch. Lihat
+Kamu dapat menggunakan `kubectl patch` untuk membarui obyek API di tempat. Perintah ini mendukung patch JSON, _patch_ gabungan JSON, dan _strategic merge patch_. Lihat
 [Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
 dan
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
 ## Pembaruan disruptif
 
-Pada kasus tertentu, kamu mungkin perlu memperbarui field resource yang tidak dapat diperbarui setelah diinisiasi atau kamu ingin membuat perubahan rekursif segera, seperti memperbaiki pod yang rusak saat menjalankan Deployment. Untuk mengubah field seperti itu, gunakan `replace --force` yang akan menghapus dan membuat ulang resource. Dalam kasus ini kamu dapat mengubah berkas konfigurasi awalnya:
+Pada kasus tertentu, kamu mungkin perlu memperbarui field resource yang tidak dapat diperbarui setelah diinisiasi atau kamu ingin membuat perubahan rekursif segera, seperti memperbaiki _pod_ yang rusak saat menjalankan Deployment. Untuk mengubah field seperti itu, gunakan `replace --force` yang akan menghapus dan membuat ulang resource. Dalam kasus ini kamu dapat mengubah berkas konfigurasi awalnya:
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
@@ -414,9 +411,9 @@ deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
 ```
 
-## Membarui aplikasi tanpa outage servis
+## Membarui aplikasi tanpa memadamkan servis
 
-Suatu saat, kamu akan perlu untuk membarui aplikasi yang telah terdeploy, biasanya dengan mengganti image atau tag sebagaimana dalam skenario canary deployment di atas. `kubectl` mendukung beberapa operasi pembaruan, masing-masing dapat digunakan pada skenario berbeda.
+Suatu saat, kamu akan perlu untuk membarui aplikasi yang telah terdeploy, biasanya dengan mengganti _image_ atau _tag_ sebagaimana dalam skenario _canary deployment_ di atas. `kubectl` mendukung beberapa operasi pembaruan, masing-masing dapat digunakan pada skenario berbeda.
 
 Kami akan memandumu untuk membuat dan membarui aplikasi melalui Deployment.
 
@@ -441,7 +438,7 @@ Selesai! Deployment akan memperbarui aplikasi nginx yang terdeploy secara berang
 
 {{% capture whatsnext %}}
 
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-- [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
+- [Pelajari tentang bagaimana memakai `kubectl` untuk memeriksa dan _debug_ aplikasi.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
+- [Praktik Terbaik dan Tips Konfigurasi](/docs/concepts/configuration/overview/)
 
 {{% /capture %}}
