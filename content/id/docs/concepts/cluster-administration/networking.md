@@ -36,3 +36,17 @@ Kubernetes mengambil pendekatan yang berbeda.
 
 ## Model jaringan Kubernetes
 
+Setiap `_Pod_` mendapatkan alamat IP sendiri. Ini berarti kamu tidak perlu secara langsung membuat tautan antara `_Pods_` dan kamu hampir tidak perlu berurusan dengan memetakan _port_ kontainer ke _host port_. Ini menciptakan model yang bersih, kompatibel dengan yang sebelumnya di mana `_Pods_` dapat diperlakukan seperti halnya VM atau _host_ fisik dari perspektif alokasi _port_, penamaan, _service discovery_, _load balancing_, konfigurasi aplikasi, dan migrasi.
+
+Kubernetes memberlakukan persyaratan mendasar berikut pada setiap implementasi jaringan (kecuali kebijakan segmentasi jaringan yang disengaja):
+
+   * _pod_ pada suatu _node_ dapat berkomunikasi dengan semua _pod_ pada semua _node_ tanpa NAT
+   * agen pada suatu simpul (mis. _daemon_ sistem, kubelet) dapat berkomunikasi dengan semua pod pada _node_ itu
+
+Catatan: Untuk platform yang mendukung `_Pods_` yang berjalan di jaringan _host_ (mis. Linux):
+
+   * _pod_ di jaringan _host_ dari sebuah _node_ dapat berkomunikasi dengan semua _pod_ pada semua _node_ tanpa NAT
+
+Model ini tidak hanya sedikit kompleks secara keseluruhan, tetapi pada prinsipnya kompatibel dengan keinginan Kubernetes untuk memungkinkan _low-friction porting_ dari aplikasi dari VM ke kontainer. Jika pekerjaan kamu sebelumnya dijalankan dalam VM, VM kamu memiliki IP dan dapat berbicara dengan VM lain di proyek yang sama. Ini adalah model dasar yang sama.
+
+Alamat IP Kubernetes ada di lingkup `_Pod_` - kontainer dalam `_Pod_` berbagi jaringan _namespaces_ mereka - termasuk alamat IP mereka. Ini berarti bahwa kontainer dalam `Pod` semua dapat mencapai port satu sama lain di `_localhost_`. Ini juga berarti bahwa kontainer dalam `Pod` harus mengoordinasikan penggunaan _port_, tetapi ini tidak berbeda dari proses di VM. Ini disebut model "IP-per-pod".
