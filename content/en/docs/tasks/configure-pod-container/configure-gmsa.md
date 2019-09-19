@@ -6,15 +6,11 @@ weight: 20
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 This page shows how to configure [Group Managed Service Accounts](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA) for pods and containers that will run on Windows nodes. Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers.
 
-In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as custom resources. Windows pods, as well as individual containers within a pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services. As of v1.14, the only container runtime interface that supports GMSA for Windows workloads is Dockershim. Implementation of GMSA through CRI and other runtimes is planned for the future.
-
-{{< note >}}
-Currently this feature is in alpha state. While the overall goals and functionality will not change, the way in which the GMSA credspec references are specified in pod specs may change from annotations to API fields. Please take this into consideration when testing or adopting this feature.
-{{< /note >}}
+In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as custom resources. Windows pods, as well as individual containers within a pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services. As of v1.16, Dockershim and the Docker runtime supports GMSA for Windows workloads.
 
 {{% /capture %}}
 
@@ -22,8 +18,8 @@ Currently this feature is in alpha state. While the overall goals and functional
 
 You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads requiring GMSA credentials will get scheduled. This section covers a set of initial steps required once for each cluster:
 
-### Enable the WindowsGMSA feature gate
-In the alpha state, the `WindowsGMSA` feature gate needs to be enabled on kubelet on Windows nodes. This is required to pass down the GMSA credential specs from the cluster scoped configurations to the container runtime. See [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates. Please make sure `--feature-gates=WindowsGMSA=true` parameter exists in the kubelet.exe command line.
+### WindowsGMSA feature gate
+In the beta state, the `WindowsGMSA` feature gate (required to pass down GMSA credential specs from the pod specs to the container runtime) is enabled by default on the API server and Kubelet. See [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates in prior releases.
 
 ### Install the GMSACredentialSpec CRD
 A [CustomResourceDefinition](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) (CRD) for GMSA credential spec resources needs to be configured on the cluster to define the custom resource type `GMSACredentialSpec`. Download the GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) and save it as gmsa-crd.yaml.
@@ -133,7 +129,7 @@ roleRef:
 ```
 
 ## Configure GMSA credential spec reference in pod spec
-In the alpha stage of the feature, the pod spec field `securityContext.windowsOptions.gmsaCredentialSpecName` is used to specify references to desired GMSA credential spec custom resources in pod specs. This configures all containers in the pod spec to use the specified GMSA. A sample pod spec with the annotation populated to refer to `gmsa-WebApp1`:
+The pod spec field `securityContext.windowsOptions.gmsaCredentialSpecName` is used to specify references to desired GMSA credential spec custom resources in pod specs. This configures all containers in the pod spec to use the specified GMSA. A sample pod spec with the annotation populated to refer to `gmsa-WebApp1`:
 
 ```
 apiVersion: apps/v1beta1
@@ -195,7 +191,7 @@ spec:
         beta.kubernetes.io/os: windows
 ```
 
-As pod specs with GMSA annotations (as described above) are applied in a cluster configured for GMSA, the following sequence of events take place:
+As pod specs with GMSA fields populated (as described above) are applied in a cluster, the following sequence of events take place:
 
 1. The mutating webhook resolves and expands all references to GMSA credential spec resources to the contents of the GMSA credential spec.
 
