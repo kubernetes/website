@@ -133,7 +133,7 @@ behind a Service and you don't intend to increase the number of Pods.
 Run a MySQL client to connect to the server:
 
 ```
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -p password
 ```
 
 This command creates a new Pod in the cluster running a MySQL client
