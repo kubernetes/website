@@ -31,7 +31,7 @@ This page shows how to configure and enable the ip-masq-agent.
 <!--
 The ip-masq-agent configures iptables rules to hide a pod's IP address behind the cluster node's IP address. This is typically done when sending traffic to destinations outside the cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range.
 -->
-ip-masq-agent 配置 iptables 规则以隐藏位于集群节点 IP 地址后面的 pod 的 IP 地址。 这通常在将流量发送到集群的 pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) 范围之外的目的地时使用。
+ip-masq-agent 配置 iptables 规则以隐藏位于集群节点 IP 地址后面的 pod 的 IP 地址。 这通常在将流量发送到集群的 pod [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1) 范围之外的目的地时使用。
 
 <!--
 ### **Key Terms**
@@ -66,7 +66,7 @@ ip-masq-agent 配置 iptables 规则以隐藏位于集群节点 IP 地址后面�
 <!--
 The ip-masq-agent configures iptables rules to handle masquerading node/pod IP addresses when sending traffic to destinations outside the cluster node's IP and the Cluster IP range.  This essentially hides pod IP addresses behind the cluster node's IP address.  In some environments, traffic to "external" addresses must come from a known machine address. For example, in Google Cloud, any traffic to the internet must come from a VM's IP.  When containers are used, as in Google Kubernetes Engine, the Pod IP will be rejected for egress. To avoid this, we must hide the Pod IP behind the VM's own IP address - generally known as "masquerade". By default, the agent is configured to treat the three private IP ranges specified by [RFC 1918](https://tools.ietf.org/html/rfc1918) as non-masquerade [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).  These ranges are 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16. The agent will also treat link-local (169.254.0.0/16) as a non-masquerade CIDR by default.  The agent is configured to reload its configuration from the location */etc/config/ip-masq-agent* every 60 seconds, which is also configurable.
 -->
-ip-masq-agent 配置 iptables 规则，以便在将流量发送到集群节点的IP和集群IP范围之外的目标时处理伪装节点/pod 的 IP 地址。这基本上隐藏了集群节点 IP 地址后面的pod IP地址。在某些环境中，去往“外部”地址的流量必须从已知的机器地址发出。例如，在 Google Cloud 中，任何到互联网的流量都必须来自 VM 的 IP。使用容器时，如 Google Kubernetes Engine，从Pod IP 发出的流量将被拒绝出出站。为了避免这种情况，我们必须将 Pod IP 隐藏在 VM 自己的IP地址后面 - 通常称为“伪装”。默认情况下，代理配置为将[RFC 1918](https://tools.ietf.org/html/rfc1918)指定的三个私有IP范围视为非伪装[CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)。这些范围是 10.0.0.0/8,172.16.0.0/12 和 192.168.0.0/16。默认情况下，代理还将链路本地地址(169.254.0.0/16)视为非伪装 CIDR。代理程序配置为每隔60秒从*/etc/config/ip-masq-agent*重新加载其配置，这也是可修改的。
+ip-masq-agent 配置 iptables 规则，以便在将流量发送到集群节点的IP和集群IP范围之外的目标时处理伪装节点/pod 的 IP 地址。这基本上隐藏了集群节点 IP 地址后面的pod IP地址。在某些环境中，去往“外部”地址的流量必须从已知的机器地址发出。例如，在 Google Cloud 中，任何到互联网的流量都必须来自 VM 的 IP。使用容器时，如 Google Kubernetes Engine，从Pod IP 发出的流量将被拒绝出出站。为了避免这种情况，我们必须将 Pod IP 隐藏在 VM 自己的IP地址后面 - 通常称为“伪装”。默认情况下，代理配置为将[RFC 1918](https://tools.ietf.org/html/rfc1918)指定的三个私有IP范围视为非伪装[CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)。这些范围是 10.0.0.0/8,172.16.0.0/12 和 192.168.0.0/16。默认情况下，代理还将链路本地地址(169.254.0.0/16)视为非伪装 CIDR。代理程序配置为每隔60秒从*/etc/config/ip-masq-agent*重新加载其配置，这也是可修改的。
 
 ![masq/non-masq example](/images/docs/ip-masq.png)
 
@@ -78,7 +78,7 @@ The agent configuration file must be written in YAML or JSON syntax, and may con
 <!--
 *   **nonMasqueradeCIDRs:** A list of strings in [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation that specify the non-masquerade ranges.
 -->
-*   **nonMasqueradeCIDRs:** [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) 表示法中的字符串列表，用于指定不需伪装的地址范围。
+*   **nonMasqueradeCIDRs:** [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1) 表示法中的字符串列表，用于指定不需伪装的地址范围。
 <!--
 *   **masqLinkLocal:** A Boolean (true / false) which indicates whether to masquerade traffic to the link local prefix 169.254.0.0/16. False by default.
 -->
