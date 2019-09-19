@@ -23,6 +23,24 @@ Kubernetes has previously made extensive use of a global metrics registry to reg
 
 There are quite a few enhancements in this release that pertain to volumes and volume modifications. Volume resizing support in CSI specs is moving to beta which allows for any CSI spec volume plugin to be resizable.
 
+# Significant Changes to the Kubernetes API
+
+As the Kubernetes API has evolved, we have promoted some API resources to _stable_, others have been reorganized to different groups. We deprecate older versions of a resource and make newer versions available in accordance with the [API versioning policy](https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-versioning).
+
+An example of this is the [`Deployment`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) resource. This was introduced under the `extensions/v1beta1` group in 1.6 and as the project changed has been promoted to `extensions/v1beta2`, `apps/v1beta2` and finally promoted to `stable` and moved to `apps/v1` in 1.9.
+
+It's important to note that until this release the project has not stopped serving any of the previous versions of the any of the deprecated resources.
+
+This means that folks interacting with the Kubernetes API have not been _required_ to move to the new version of any of the deprecated API objects.
+
+In 1.16 if you submit a `Deployment` to the API server and specify `extensions/v1beta1` as the API group it will be rejected with:
+
+```
+error: unable to recognize "deployment": no matches for kind "Deployment" in version "extensions/v1beta1"
+```
+
+With this release we are taking a very important step in the maturity of the Kubernetes API, and are longer serving the deprecated APIs. Our earlier post [Deprecated APIs Removed In 1.16: Here’s What You Need To Know](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/) tells you more, including which resources are affected.
+
 # Additional Enhancements
 
 ## Custom Resources Reach General Availability
@@ -119,7 +137,6 @@ The Kubernetes documentation has a lot more information about Endpoint Slices. T
 - [Topology Manager](https://github.com/kubernetes/enhancements/issues/693), a new Kubelet component, aims to co-ordinate resource assignment decisions to provide optimized resource allocations.
 - [IPv4/IPv6 dual-stack](https://kubernetes.io/docs//concepts/services-networking/dual-stack/) enables the allocation of both IPv4 and IPv6 addresses to Pods and Services.
 - [Extensions](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/20190422-cloud-controller-manager-migration.md) for Cloud Controller Manager Migration.
-- Continued deprecation of extensions/v1beta1, apps/v1beta1, and apps/v1beta2 APIs. These extensions are now retired in 1.16!
 
 ## Availability
 
