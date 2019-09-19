@@ -204,7 +204,7 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 <!--
 By default, the link local range (169.254.0.0/16) is also handled by the ip-masq agent, which sets up the appropriate iptables rules.  To have the ip-masq-agent ignore link local, you can set *masqLinkLocal*  to true in the config map.
 -->
-默认情况下，本地链路范围 (169.254.0.0/16) 也由 ip-masq agent 处理，该代理设置适当的 iptables 规则。 要使 ip-masq-agent 忽略本地链路，可以在配置映射中将 *masqLinkLocal*设置为true。
+默认情况下，本地链路范围 (169.254.0.0/16) 也由 ip-masq agent 处理，该代理设置适当的 iptables 规则。 要使 ip-masq-agent 忽略本地链路，可以在配置映射中将 *masqLinkLocal* 设置为true。
 
 ```
 nonMasqueradeCIDRs:
