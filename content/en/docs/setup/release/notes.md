@@ -221,7 +221,7 @@ The main themes of this release are:
 
 - Removed cadvisor metric labels `pod_name` and `container_name` to match instrumentation guidelines. Any Prometheus queries that match `pod_name` and `container_name` labels (e.g. cadvisor or kubelet probe metrics) must be updated to use `pod` and `container` instead. ([#80376](https://github.com/kubernetes/kubernetes/pull/80376), [@ehashman](https://github.com/ehashman))
 
-### Depreciated/changed metrics
+### Deprecated/changed metrics
 
 - kube-controller-manager and cloud-controller-manager metrics are now marked as with the ALPHA stability level. ([#81624](https://github.com/kubernetes/kubernetes/pull/81624), [@logicalhan](https://github.com/logicalhan))
 - kube-proxy metrics are now marked as with the ALPHA stability level. ([#81626](https://github.com/kubernetes/kubernetes/pull/81626), [@logicalhan](https://github.com/logicalhan))
