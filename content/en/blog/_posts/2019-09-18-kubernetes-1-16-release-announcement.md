@@ -39,7 +39,7 @@ In 1.16 if you submit a `Deployment` to the API server and specify `extensions/v
 error: unable to recognize "deployment": no matches for kind "Deployment" in version "extensions/v1beta1"
 ```
 
-With this release we are taking a very important step in the maturity of the Kubernetes API, and are longer serving the deprecated APIs. Our earlier post [Deprecated APIs Removed In 1.16: Here’s What You Need To Know](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/) tells you more, including which resources are affected.
+With this release we are taking a very important step in the maturity of the Kubernetes API, and are no longer serving the deprecated APIs. Our earlier post [Deprecated APIs Removed In 1.16: Here’s What You Need To Know](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/) tells you more, including which resources are affected.
 
 # Additional Enhancements
 
