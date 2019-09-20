@@ -1,5 +1,5 @@
 ---
-title: Configure Liveness and Readiness Probes
+title: Configure Liveness, Readiness and Startup Probes
 content_template: templates/task
 weight: 110
 ---
