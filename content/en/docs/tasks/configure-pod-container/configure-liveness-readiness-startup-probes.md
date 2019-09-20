@@ -6,7 +6,7 @@ weight: 110
 
 {{% capture overview %}}
 
-This page shows how to configure liveness and readiness probes for Containers.
+This page shows how to configure liveness, readiness and startup probes for Containers.
 
 The [kubelet](/docs/admin/kubelet/) uses liveness probes to know when to
 restart a Container. For example, liveness probes could catch a deadlock,
