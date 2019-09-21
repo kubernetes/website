@@ -1029,70 +1029,139 @@ These guidelines are not set in stone and are subject to change.
     可以是一个P1，P2或者P3。
 - 要添加标签，如果您是Sig Docs批准者，则可以使用GitHub的Labels小部件。Kubernetes组织的任何人都可以通过添加评论来添加标签/label <label-to-add>。标签必须已经存在。如果您尝试添加不存在的标签，该命令将被静默忽略。
 
+<!--
 ### Priorities
+-->
+### 优先级
 
+<!--
 An issue's priority influences how quickly it is addressed. For documentation,
 here are the guidelines for setting a priority on an issue:
+-->
+问题的优先级会影响问题的解决速度。对于文档，以下是设置问题优先级的准则：
 
 #### P1
 
+<!--
 - Major content errors affecting more than 1 page
 - Broken code sample on a heavily trafficked page
 - Errors on a “getting started” page
 - Well known or highly publicized customer pain points
 - Automation issues
+-->
+- 影响超过1页的主要内容错误
+- 大量访问的页面上的代码示例损坏
+- “入门”页面上的错误
+- 众所周知或广为宣传的客户痛点
+- 自动化问题
 
 #### P2
 
+<!--
 This is the default for new issues and pull requests.
+这是新问题和拉取请求的默认设置。
+-->
 
+<!--
 - Broken code for sample that is not heavily used
 - Minor content issues in a heavily trafficked page
 - Major content issues on a lower-trafficked page
+-->
+- 不经常使用的示例代码损坏
+- 页面流量过大的次要内容问题
+- 流量较低的页面上的主要内容问题
+
 
 #### P3
 
+<!--
 - Typos and broken anchor links
 - Documentation feature requests
 - "Nice to have" items
+-->
+- 错别字和损坏的链接
+- 文档功能要求
+- “有了更好（没有也问题不大）”项目
 
+<!--
 ### Handling special issue types
+-->
+### 处理特殊问题类型
 
+<!--
 We've encountered the following types of issues often enough to document how
 to handle them.
+-->
+我们经常遇到以下类型的问题，有必要记录如何处理它们。
 
+<!--
 #### Duplicate issues
+-->
+#### 重复的问题
 
+<!--
 If a single problem has one or more issues open for it, the problem should be
 consolidated into a single issue. You should decide which issue to keep open (or
 open a new issue), port over all relevant information, link related issues, and
 close all the other issues that describe the same problem. Only having a single
 issue to work on will help reduce confusion and avoid duplicating work on the
 same problem.
+-->
+如果单个问题可以解决一个或多个问题，则应将该问题合并为一个问题。
+您应该决定哪个问题保持打开状态（或打开一个新问题），移植所有相关信息，链接相关问题，
+并关闭描述同一问题的所有其他问题。只处理一个问题将有助于减少混乱并避免重复处理同一问题。
 
+<!--
 #### Dead link issues
+-->
+#### 无效链接问题
 
+<!--
 Depending on where the dead link is reported, different actions are required to
 resolve the issue. Dead links in the API and Kubectl docs are automation issues
 and should be assigned a P1 until the problem can be fully understood. All other
 dead links are issues that need to be manually fixed and can be assigned a P3.
+-->
+根据报告无效链接的位置，需要采取不同的措施来解决此问题。
+API和Kubectl文档中的无效链接是自动化问题，应分配为P1，直到可以完全解决该问题为止。
+所有其他无效链接都是需要手动修复的问题，可以将其分配为P3。
 
+<!--
 #### Blog issues
+-->
+#### 博客问题
 
+<!--
 [Kubernetes Blog](https://kubernetes.io/blog/) entries are expected to become
 outdated over time, so we maintain only blog entries that are less than one year old. 
 If an issue is related to a blog entry that is more than one year old, it should be closed
 without fixing. 
+-->
+随着时间的流逝，Kubernetes博客条目预计会过时，
+因此我们仅保留不到一年的博客条目。
+如果某个问题与存在超过一年的博客条目有关，则应将其关闭而不进行修复。
 
+<!--
 #### Support requests or code bug reports
+-->
+#### 支持请求或代码错误报告
 
+<!--
 Some issues opened for docs are instead issues with the underlying code, or
 requests for assistance when something (like a tutorial) didn’t work. For issues
 unrelated to docs, close the issue with a comment directing the requester to
 support venues (Slack, Stack Overflow) and, if relevant, where to file an issue
 for bugs with features (kubernetes/kubernetes is a great place to start).
+-->
+相反，为文档带来的一些问题是底层代码的问题，
+或者在某些内容（例如教程）不起作用时请求帮助。
+对于与文档无关的问题，请关闭issue并指示请求者正确的支持场所（Slack，Stack Overflow），
+并在适当的地方针对具有功能缺陷的问题提出问题（可以从kubernetes/kubernetes开始）。
 
+<!--
 Sample response to a request for support:
+-->
+对支持请求的响应示例：
 
 ```none
 This issue sounds more like a request for support and less
@@ -1109,7 +1178,10 @@ You can also open issues for Kubernetes functionality in
 If this is a documentation issue, please re-open this issue.
 ```
 
+<!--
 Sample code bug report response:
+-->
+示例代码错误报告响应：
 
 ```none
 This sounds more like an issue with the code than an issue with
@@ -1119,18 +1191,31 @@ https://github.com/kubernetes/kubernetes/issues.
 If this is a documentation issue, please re-open this issue.
 ```
 
+<!--
 ## Document new features
+-->
+## 记录新功能
 
+<!--
 Each major Kubernetes release includes new features, and many of them need
 at least a small amount of documentation to show people how to use them.
+-->
+每个主要的Kubernetes版本都包含新功能，其中许多功能至少需要少量文档才能向人们展示如何使用它们。
 
+<!--
 Often, the SIG responsible for a feature submits draft documentation for the
 feature as a pull request to the appropriate release branch of
 `kubernetes/website` repository, and someone on the SIG Docs team provides
 editorial feedback or edits the draft directly.
+-->
+通常，负责功能的SIG负责对`kubernetes/website`存储库的相应release分支发起PR，
+提交该功能的文档草稿 ，并且由SIG Docs团队中的某人提供编辑反馈或直接编辑草稿。
 
+<!--
 ### Find out about upcoming features
+### 了解即将推出的功能
 
+<!--
 To find out about upcoming features, attend the weekly sig-release meeting (see
 the [community](https://kubernetes.io/community/) page for upcoming meetings)
 and monitor the release-specific documentation
@@ -1138,7 +1223,14 @@ in the [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
 repository. Each release has a sub-directory under the [/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
 directory. Each sub-directory contains a release schedule, a draft of the release
 notes, and a document listing each person on the release team.
+-->
+要了解即将发布的功能，请参加每周一次的sig-release会议
+（请参阅[社区](https://kubernetes.io/community/)页面以获取即将举行的会议，
+并在[kubernetes/sig-release](https://github.com/kubernetes/sig-release/) 存储库中监视特定于发行版的文档。
+每个发行版在[/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
+ 目录下都有一个子目录。每个子目录包含一个发布计划，一个发布说明草稿以及一个列出发布团队中每个人的文档。
 
+<!--
 - The release schedule contains links to all other documents, meetings,
   meeting minutes, and milestones relating to the release. It also contains
   information about the goals and timeline of the release, and any special
@@ -1155,6 +1247,18 @@ notes, and a document listing each person on the release team.
 - The release notes draft is a good place to find out a little more about
   specific features, changes, deprecations, and more about the release. The
   content is not finalized until late in the release cycle, so use caution.
+-->
+- 发布时间表包含与发布有关的所有其他文档，会议，会议记录和里程碑的链接。
+  它还包含有关该发行版的目标和时间表的信息，以及此发行版的任何特殊流程。
+  在文档底部附近，定义了几个与发布相关的术语。
+  
+    本文档还包含**Feature tracking sheet**的链接，这是查找排定要发布的所有新功能的正式方法。
+  
+- 发布团队文档列出了负责每个发布角色的人员。
+  如果不清楚要与谁谈论某个特定功能或问题，请参加发布会议询问您的问题，
+  或者与发布负责人联系，以便他们可以重定向您。
+- 发行说明草稿是了解更多有关特定功能，更改，不推荐使用以及更多有关发行版本的好地方。
+  该内容要到发布周期的后期才能最终确定，因此请谨慎使用。
 
 #### The feature tracking sheet
 
