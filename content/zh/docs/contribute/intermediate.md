@@ -1260,8 +1260,12 @@ notes, and a document listing each person on the release team.
 - 发行说明草稿是了解更多有关特定功能，更改，不推荐使用以及更多有关发行版本的好地方。
   该内容要到发布周期的后期才能最终确定，因此请谨慎使用。
 
+<!--
 #### The feature tracking sheet
+-->
+#### 功能跟踪表
 
+<!--
 The feature tracking sheet
 [for a given Kubernetes release](https://github.com/kubernetes/sig-release/tree/master/releases) lists each feature that is planned for a release.
 Each line item includes the name of the feature, a link to the feature's main
@@ -1269,7 +1273,12 @@ GitHub issue, its stability level (Alpha, Beta, or Stable), the SIG and
 individual responsible for implementing it, whether it
 needs docs, a draft release note for the feature, and whether it has been
 merged. Keep the following in mind:
+-->
+给定Kubernetes版本的功能跟踪表 列出了计划发布的每个功能。
+每个订单项都包含功能名称，功能主要GitHub问题的链接，其稳定性级别（Alpha，Beta或Stable），
+SIG和负责实施此功能的人员，是否需要文档，发布说明草稿功能，以及是否已合并。请记住以下几点：
 
+<!--
 - Beta and Stable features are generally a higher documentation priority than
   Alpha features.
 - It's hard to test (and therefore, document) a feature that hasn't been merged,
@@ -1277,35 +1286,71 @@ merged. Keep the following in mind:
 - Determining whether a feature needs documentation is a manual process and
   just because a feature is not marked as needing docs doesn't mean it doesn't
   need them.
+-->
+- Beta和稳定功能通常比Alpha功能具有更高的文档优先级。
+- 很难测试（因此要文档记录）尚未合并的功能，或者至少在其PR中被认为功能完整的功能。
+- 确定某个功能是否需要文档是一个手动过程，并且仅仅因为某个功能未标记为需要文档并不意味着它就不需要它们。
 
+<!--
 ### Document a feature
+-->
+### 记录功能
 
+<!--
 As stated above, draft content for new features is usually submitted by the SIG
 responsible for implementing the new feature. This means that your role may be
 more of a shepherding role for a given feature than developing the documentation
 from scratch.
+-->
+如上所述，新功能的草案内容通常由负责实施新功能的SIG提交。
+这意味着您的角色可能更像是给定功能的牧羊人角色。
 
+<!--
 After you've chosen a feature to document/shepherd, ask about it in the `#sig-docs`
 Slack channel, in a weekly sig-docs meeting, or directly on the PR filed by the
 feature SIG. If you're given the go-ahead, you can edit into the PR using one of
 the techniques described in
 [Commit into another person's PR](#commit-into-another-persons-pr).
+-->
+选择要记录/跟踪的功能后，请在 `#sig-docs` Slack频道，
+每周一次的sig-docs会议中或直接在功能SIG提交的PR上询问有关功能。
+如果得到批准，则可以使用[提交到别人的PR](#commit-into-another-persons-pr)
+中介绍的技术来编辑 PR。
 
+<!--
 If you need to write a new topic, the following links are useful:
+-->
+如果您需要编写新主题，则以下链接很有用：
 
+<!--
 - [Writing a New Topic](/docs/contribute/style/write-new-topic/)
 - [Using Page Templates](/docs/contribute/style/page-templates/)
 - [Documentation Style Guide](/docs/contribute/style/style-guide/)
+-->
+- [撰写新主题](/docs/contribute/style/write-new-topic/)
+- [使用页面模板](/docs/contribute/style/page-templates/)
+- [文档样式指南](/docs/contribute/style/style-guide/)
 
+<!--
 ### SIG members documenting new features
+-->
+SIG成员记录了新功能
 
+<!--
 If you are a member of a SIG developing a new feature for Kubernetes, you need
 to work with SIG Docs to be sure your feature is documented in time for the
 release. Check the
 [feature tracking spreadsheet](https://github.com/kubernetes/sig-release/tree/master/releases)
 or check in the #sig-release Slack channel to verify scheduling details and
 deadlines. Some deadlines related to documentation are:
+-->
+如果您是Kubernetes开发新功能的SIG成员，则需要一并更新SIG文档，
+以确保在发布该功能时及时记录了您的功能。
+查看 [功能跟踪电子表格](https://github.com/kubernetes/sig-release/tree/master/releases)，
+ 或在 #sig-release Slack频道中查看验证计划详细信息和截止日期。
+ 与文档相关的一些截止日期是：
 
+<!--
 - **Docs deadline - Open placeholder PRs**: Open a pull request against the
   `release-X.Y` branch in the `kubernetes/website` repository, with a small
   commit that you will amend later. Use the Prow command `/milestone X.Y` to
@@ -1326,34 +1371,77 @@ deadlines. Some deadlines related to documentation are:
   docs person managing the release to get it in. If your feature needs
   documentation and the docs are not ready, the feature may be removed from the
   milestone.
+-->
+- **文档截止期限-打开占位PR** ：针对`kubernetes/website`仓库中的`release-X.Y`分支提交一个PR，
+  稍作修改(占位)，稍后您将继续修改。使用Prow命令`/milestone X.Y`将PR分配给相关的里程碑。
+  这会提醒管理此版本的文档人员功能文档即将发布。
+  如果您的功能不需要任何文档更改，请在#sig-release Slack频道中说一下，
+  以确保sig-release团队知道这一点。
+  如果该功能确实需要文档，但未创建PR，则该功能可能已从里程碑中删除。
+- **文档截止日期-PR审核**：您的PR现在需要包含功能文档的初稿。不必担心格式或修饰。
+  只需描述该功能的用途以及使用方法即可。管理发行版的文档人员将与您合作，使内容成形以进行发布。
+  如果您的功能需要文档且未收到第一稿内容，则该功能可能已从里程碑中删除。
+- **文档完成-PR已审核，准备合并**：如果您的PR尚未在`release-X.Y`此期限之前合并到分支中，
+  请与管理发行版的文档人员一起合作帮助它合入。
+  如果您的功能需要文档且文档尚未准备好，该功能可能会从里程碑中删除。
 
+<!--
 If your feature is an Alpha feature and is behind a feature gate, make sure you
 add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 as part of your pull request. If your feature is moving out of Alpha, make sure to
 remove it from that file.
+-->
+如果您的功能是Alpha功能并且由[功能开关](/docs/reference/command-line-tools-reference/feature-gates/)
+控制，请确保将其作为PR的一部分添加到功能开关。
+如果您的功能要移出Alpha，请确保将其从该文件中删除。
 
+<!--
 ## Contribute to other repos
+-->
+## 贡献其他仓库
 
+<!--
 The [Kubernetes project](https://github.com/kubernetes) contains more than 50
 individual repositories. Many of these repositories contain code or content that
 can be considered documentation, such as user-facing help text, error messages,
 user-facing text in API references, or even code comments.
+-->
+该Kubernetes项目包含超过50个仓库。
+这些存储库中许多都包含可以视为文档的代码或内容，例如面向用户的帮助文本，错误消息，
+API参考中的面向用户的文本，甚至是代码注释。
 
+<!--
 If you see text and you aren't sure where it comes from, you can use GitHub's
 search tool at the level of the Kubernetes organization to search through all
 repositories for that text. This can help you figure out where to submit your
 issue or PR.
+-->
+如果您看到文本并且不确定其来源，则可以在Kubernetes组织级别使用GitHub的搜索工具在所有存储库中搜索该文本。
+这可以帮助您确定将问题或PR提交到哪里。
 
+<!--
 Each repository may have its own processes and procedures. Before you file an
 issue or submit a PR, read that repository's `README.md`, `CONTRIBUTING.md`, and
 `code-of-conduct.md`, if they exist.
+-->
+每个存储库可能都有自己的流程和过程。
+在您提交的问题或提交PR，查看存储库的`README.md`，`CONTRIBUTING.md`以及 `code-of-conduct.md`。
 
+<!--
 Most repositories use issue and PR templates. Have a look through some open
 issues and PRs to get a feel for that team's processes. Make sure to fill out
 the templates with as much detail as possible when you file issues or PRs.
+-->
+大多数存储库使用issue和PR模板。
+浏览一些未解决的问题和PR，以了解该团队的流程。
+提交问题或PR时，​​请确保尽可能详细地填写模板。
 
+<!--
 ## Localize content
+-->
+## 本地化内容
 
+<!--
 The Kubernetes documentation is written in English first, but we want people to
 be able to read it in their language of choice. If you are comfortable
 writing in another language, especially in the software domain, you can help
@@ -1361,11 +1449,24 @@ localize the Kubernetes documentation or provide feedback on existing localized
 content. See [Localization](/docs/contribute/localization/) and ask on the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 or in `#sig-docs` on Slack if you are interested in helping out.
+-->
+Kubernetes文档首先是用英语编写的，但是我们希望人们能够使用他们选择的语言来阅读它。
+如果您愿意用另一种语言编写，尤其是在软件领域，则可以帮助本地化Kubernetes文档
+或提供有关现有本地化内容的反馈。
+请参阅[本地化](/docs/contribute/localization/) ，
+并在[kubernetes-sig-docs邮件列表][kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) #sig-docs上询问，或者在Slack上询问是否有帮助的兴趣。
 
+<!--
 ### Working with localized content
+-->
+### 参与本地化工作
 
+<!--
 Follow these guidelines for working with localized content:
+-->
+请遵循以下准则来使用本地化内容：
 
+<!--
 - Limit PRs to a single language. 
 
    Each language has its own reviewers and approvers.
@@ -1373,13 +1474,24 @@ Follow these guidelines for working with localized content:
 - Reviewers, verify that PRs contain changes to only one language.
 
    If a PR contains changes to source in more than one language, ask the PR contributor to open separate PRs for each language.
+-->
+- 将PR限制为一种语言。
+
+    每种语言都有其自己的审阅者和批准者。
+    
+- 审阅者，请验证PR是否仅对一种语言进行了更改。
+  
+    如果PR包含对一种以上源语言的更改，请PR贡献者为每种语言打开单独的PR。
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
+<!--
 When you are comfortable with all of the tasks discussed in this topic and you
 want to engage with the Kubernetes docs team in even deeper ways, read the
 [advanced docs contributor](/docs/contribute/advanced/) topic.
-
+-->
+如果您熟悉本主题中讨论的所有任务，并且想与Kubernetes文档小组进行更深入的接触，
+请阅读[高级文档贡献者](/docs/contribute/advanced/)主题。
 {{% /capture %}}
