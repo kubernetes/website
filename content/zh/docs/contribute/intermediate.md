@@ -107,11 +107,19 @@ and the [code of conduct](/community/code-of-conduct/)
 在开始评审PR之前，请确保熟悉[文档风格指南](/docs/contribute/style/style-guide/)
 和[行为准则](/community/code-of-conduct/)。
 
+<!--
 ### Find a PR to review
+-->
+## 找一个PR来评审
 
+<!--
 To see all open PRs, go to the **Pull Requests** tab in the GitHub repository.
 A PR is eligible for review when it meets all of the following criteria:
+-->
+要查看所有打开的PR，请转到GitHub仓库中的**Pull Requests**选项卡。
+当符合以下所有条件时，PR才有资格进行评审：
 
+<!--
 - Has the `cncf-cla:yes` tag
 - Does not have WIP in the description
 - Does not a have tag including the phrase `do-not-merge`
@@ -122,23 +130,45 @@ A PR is eligible for review when it meets all of the following criteria:
   reviewers are fine), unless that person has explicitly asked for your help. In
   particular, leaving lots of new comments after other review cycles have
   already been completed on a PR can be discouraging and counter-productive.
+-->
+- 拥有 `cncf-cla:yes` 标签
+- 描述中没有WIP
+- 没有包含`do-not-merge`字样的标签
+- 没有合并冲突
+- 基于正确的分支(通常为“master”，除非PR与某个未发布的功能相关)
+- 没有被其他文档人员（或其他技术领域的评审人）评审，除非你被显式的请求参与评审。
+  需要说明的是，如果其他评审已经结束的情况下，你再留下很多新的意见，会让人感到沮丧，这适得其反。
 
+<!--
 If a PR is not eligible to merge, leave a comment to let the author know about
 the problem and offer to help them fix it. If they've been informed and have not
 fixed the problem in several weeks or months, eventually their PR will be closed
 without merging.
+-->
+如果PR不符合合并的条件，请留下评论，让作者知道问题所在，并帮助他们解决问题。
+如果他们被告知并在几周或几个月内没有解决问题，最终他们的PR将被关闭而不会合并。
 
+<!--
 If you're new to reviewing, or you don't have a lot of bandwidth, look for PRs
 with the `size/XS` or `size/S` tag set. The size is automatically determined by
 the number of lines the PR changes.
+-->
+如果您是新手，或者您没有太多的带宽，请寻找具有 `size/XS` 或 `size/S` 标记集的PR。
+大小由PR更改的行数自动设置。
 
-#### Reviewers and approvers
+#### 评审人员和批准人员
 
+<!--
 The Kubernetes website repo operates differently than some of the Kubernetes
 code repositories when it comes to the roles of reviewers and approvers. For
 more information about the responsibilities of reviewers and approvers, see
 [Participating](/docs/contribute/participating/). Here's an overview.
+-->
+Kubernetes网站仓库与Kubernetes的一些代码仓库在涉及审核者和审批者角色时的操作方式不同。
+有关评审人员和批准人员职责的更多信息，请参见[参与](/docs/contribute/participating/)。
+这里只做一个概述。
 
+<!--
 - A reviewer reviews pull request content for technical accuracy. A reviewer
   indicates that a PR is technically accurate by leaving a `/lgtm` comment on
   the PR.
@@ -152,14 +182,30 @@ more information about the responsibilities of reviewers and approvers, see
   approvers in the
   [`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS) file can
   approve a PR. To approve a PR, leave an `/approved` comment on the PR.
+-->
+- 当评审人员以评审PR的技术准确性时，评审人员发表一个 `/lgtm` 评论表示技术上是无误的。
 
+    {{< note >}}如果你对技术准确性不确信，不要在涉及文档修改的PR中回复 `/lgtm`。  {{< /note >}}
+    
+- 批准者审核有关文档修改的内容时，注重质量和相关规范（比如[风格规范](/docs/contribute/style/style-guide)）。
+  只有在[`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS)文件中列出的
+  人才可以批准PR。批准PR时，需要回复一个`/approved`评论。
+
+<!--
 A PR is merged when it has both a `/lgtm` comment from anyone in the Kubernetes
 organization and an `/approved` comment from an approver in the
 `sig-docs-maintainers` group, as long as it is not on hold and the PR author
 has signed the CLA.
+-->
+如果PR拥有来自Kubernetes社区的任何人的`/lgtm`评论和来自`sig-docs-maintainers`组的`/approved`评论，
+只要它没有被hold并且作者已签署了CLA，PR就会被合并。
 
+<!--
 ### Review a PR
+-->
+### 审核PR
 
+<!--   
 1.  Read the PR description and read any attached issues or links, if
     applicable. "Drive-by reviewing" is sometimes more harmful than helpful, so
     make sure you have the right knowledge to provide a meaningful review.
@@ -167,7 +213,7 @@ has signed the CLA.
 2.  If someone else is the best person to review this particular PR, let them
     know by adding a comment with `/assign @<github-username>`. If you have
     asked a non-docs person for technical review but still want to review the PR
-    from a docs point of view, keep going.
+    from a docs point of view, keep going.    
 
 3.  Go to the **Files changed** tab. Look over all the changed lines. Removed
     content has a red background, and those lines also start with a `-` symbol.
@@ -228,22 +274,84 @@ has signed the CLA.
       **Files changed** tab or at the bottom of the **Conversation** tab. Be
       sure to add the `/approve` tag and assign technical reviewers if necessary,
       so that the PR can be merged.
+-->
 
+   
+1.  阅读PR描述，并阅读任何附加的问题或链接，如果有的话。
+    “快速评审”有时弊大于利，所以确保你有正确的知识来提供有意义的评审。
+
+2.  如果其他人是审核这个PR的最佳人选，请通过添加`/assign @<github-username>`的评论让他们知道。
+    如果你要求一个非文档人员进行技术评审，但仍然想从文档的角度来评审PR，那就继续吧。    
+
+3.  转到 **Files changed** 选项卡。查看所有的修改行。删除的内容具有红色背景，这些行也以 `-` 符号开头。
+    添加的内容具有绿色背景，这些行也以 `+` 符号开始。在一行中，实际修改的内容的背景颜色比该行的其余部分略深一些。
+
+      - 特别是如果PR使用复杂的格式或更改CSS、Javascript或其他站点范围内的元素，您可以使用PR预览网站。
+        转到 **Conversation** 选项卡，单击页面底部附近的 `deploy/netlify` 测试的 **Details** 链接。
+        默认情况下，它会在同一个浏览器窗口中打开，所以在一个新窗口中打开它，这样你就不会丢失你的部分评论。
+        切换回 **Files changed** 选项卡以继续您的审阅。
+      - 确保PR符合文档[风格指南](/docs/contribute/style/style-guide/)，
+        如果不符合，请将作者链接到风格指南的相关部分。
+      - 如果您对给定的更改有疑问、评论或其他反馈，请将鼠标悬停在一行上，然后单击出现的蓝白相间的 `+` 号。
+        键入您的评论并单击 **Start a review**。
+        
+      - 如果你有更多的评论，请以同样的方式留下评论。
+      - 按照惯例，如果您看到一个与PR的主要目的无关的小问题，比如一个打印错误或空格错误，
+        您可以将它指出来，并在注释前加上nit:以便作者知道您认为它是无关紧要的。
+        他们仍然应该解决这个问题。
+      - 当您查看完所有内容，或者没有任何评论时，回到页面顶部并单击 **Review changes**。
+        选择**Comment** 或**Request Changes**。添加评审摘要，
+        并在评审摘要字段中另起一行添加适当的[Prow 命令](https://prow.k8s.io/command-help)。
+        SIG Docs 遵循[Kubernetes代码审查流程](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)。
+        您所有的意见将在一个单一的评论中发送给PR作者。
+
+          - 如果您认为PR已经准备好合并，请将文本 `/approve` 添加到摘要中。
+          - 如果PR不需要额外的技术审查，也可以同时添加文本 `/lgtm` 。
+          - 如果PR *确实* 需要额外的技术审查，使用 `/assign` + GitHub 用户名添加需要提供技术审查的人。
+            查看上面出现的 Markdown 文件中的`reviewers`字段，看看谁可以提供技术审阅。
+          - 如果需要阻止PR被合并，加上 `/hold` ，就会设置 `do-not-merge/hold` 标签。
+          - 如果PR没有冲突、有 `lgtm` 和 `approved` 标签且没有 `hold` 标签，它就会自动合并。 
+          - 如果PR拥有 `lgtm` 和 `approved` 后再有新的变更，那么这些标签会自动清除。
+
+            PR中可能用到的命令，参阅
+            [斜线命令列表](https://prow.k8s.io/command-help)。
+
+    - 如果您以前选择了**Request changes** ，并且PR作者已经处理了您的关注点，
+      那么您可以在**Files changed** 选项卡或 **Conversation** 选项卡底部更改您的审阅状态。
+      确保添加 `/approve` 标签，并在必要时指派技术审阅人员，以便合并PR。
+
+<!--
 ### Commit into another person's PR
+-->
+### 提交到别人的PR
 
+<!--
 Leaving PR comments is helpful, but there may be times when you need to commit
 into another person's PR, rather than just leaving a review.
+-->
+留下评论是有帮助的，但有时你需要把自己的想法融入到其他人的PR中，而不仅仅是留下评论。
 
+<!--
 Resist the urge to "take over" for another person unless they explicitly ask
 you to, or you want to resurrect a long-abandoned PR. While it may be faster
 in the short term, it deprives the person of the chance to contribute.
+-->
+除非对方明确要求你“接手”，或者你想重新建立一个长期被抛弃的PR，否则不要急于“接手”。
+虽然短期内这样做可能更快，但会剥夺这个人做出贡献的机会。
 
+<!--
 The process you use depends on whether you need to edit a file that is already
 in the scope of the PR or a file that the PR has not yet touched.
+-->
+您的做法（接手）取决于您是需要编辑已经在PR范围内的文件，还是PR尚未触及的文件。
 
+<!--
 You can't commit into someone else's PR if either of the following things is
 true:
+-->
+如果以下任何一件事是符合的，你就不能提交到某人的PR:
 
+<!--
 - If the PR author pushed their branch directly to the
   [https://github.com/kubernetes/website/](https://github.com/kubernetes/website/)
   repository, only a reviewer with push access can commit into their PR.
@@ -251,34 +359,64 @@ true:
   opening the PR.
 - If the PR author explicitly disallowed edits from approvers, you can't
   commit into their PR unless they change this setting.
+-->
+- 如果PR作者将他们的分支直接推入https://github.com/kubernetes/website/ repository，
+  那么只有具有push访问权限的审阅者才能提交到他们的PR中。
+- 如果PR作者明确禁止审批者进行编辑，那么除非他们更改此设置，否则您无法提交到他们的PR中。
 
+<!--
 #### If the file is already changed by the PR
+-->
+#### 文件已在PR中修改
 
+<!--
 This method uses the GitHub UI. If you prefer, you can use the command line
 even if the file you want to change is part of the PR, if you are more
 comfortable working that way.
+-->
+这个方法使用GitHub UI。如果您愿意，您可以使用命令行，即使您想更改的文件是PR的一部分，如果您更愿意这样工作的话。
 
+<!--
 1.  Click the **Files changed** tab.
 2.  Scroll down to the file you want to edit, and click the pencil icon for
     that file.
 3.  Make your changes, add a commit message in the field below the editor, and
     click **Commit changes**.
+-->
+    
+1.  点击 **Files changed** 选项卡。
+2.  向下找到你想要编辑的文件，点击铅笔图标。
+3.  修改并在下面添加提交记录，点击 **Commit changes**。
 
+<!--
 Your commit is now pushed to the branch the PR represents (probably on the
 author's fork) and now shows up in the PR and your changes are reflected in
 the **Files changed** tab. Leave a comment letting the PR author know you
 changed the PR.
+-->
+您的提交现在被推送到PR对应的分支(可能在作者的分支上)，
+在PR中，您的更改反映在 **Files changed** 选项卡中。
+留下评论，让PR作者知道你修改了PR。
 
+<!--
 If the author is using the command line rather than the GitHub UI to work on
 this PR, they need to fetch their fork's changes and rebase their local branch
 on the branch in their fork, before doing additional work on the PR.
+-->
+如果作者使用命令行而不是GitHub UI来处理这个PR，那么在处理PR之前，
+他们需要获取fork的更改并将本地分支重新建立在fork中的分支上。
 
-#### If the file has not yet been changed by the PR
+#### 如果文件没有被PR修改
 
+<!--
 If changes need to be made to a file that is not yet included in the PR, you
 need to use the command line. You can always use this method, if you prefer it
 to the GitHub UI.
+-->
+如果需要更改尚未包含在PR中的文件，则需要使用命令行。
+如果您喜欢使用这个方法而不喜欢使用GitHub UI，那么您总是可以使用这个方法。
 
+<!--
 1.  Get the URL for the author's fork. You can find it near the bottom of the
     **Conversation** tab. Look for the text **Add more commits by pushing to**.
     The first link after this phrase is to the branch, and the second link is
@@ -317,24 +455,77 @@ to the GitHub UI.
 
 7.  Go back to the GitHub IU and refresh the PR. Your changes appear. Leave the
     PR author a comment letting them know you changed the PR.
+  -->
+1.  获取作者的fork的URL。你可以在**Conversation** 标签的底部找到它。
+    查找文本 **Add more commits by pushing to** 。
+    这个短语后面的第一个链接是到分支的，第二个链接是到fork的。
+    复制第二个链接。稍后会用到分支的名称。
 
+2.  要给远程设置一个名称(比如作者的GitHub用户名)，然后使用以下语法添加远程：
+
+      ```bash
+      git remote add <name> <url-of-fork>
+      ```
+
+3.  获取远程。这不会更改任何本地文件，但会更新克隆的远程对象的概念(如分支和标记)及其当前状态。
+
+      ```bash
+      git remote fetch <name>
+      ```
+
+4.  拉取远程分支。如果已经有同名的本地分支，则此命令将失败。
+
+      ```bash
+      git checkout <branch-from-PR>
+      ```
+
+5.  进行更改，使用 `git add` 添加更改，然后提交更改。
+
+6.  将您的更改推到作者的远程。
+
+      ```bash
+      git push <remote-name> <branch-name>
+      ```
+
+7.  回到GitHub UI并刷新PR。给PR作者留言，让他们知道你修改了公关。
+
+<!--
 If the author is using the command line rather than the GitHub UI to work on
 this PR, they need to fetch their fork's changes and rebase their local branch
 on the branch in their fork, before doing additional work on the PR.
+-->
+如果作者使用命令行而不是GitHub UI来处理这个PR，那么在处理PR之前，
+他们需要获取fork的更改并将本地分支重新建立在fork中的分支上。
 
+<!--
 ## Work from a local clone
+-->
+## 使用本地克隆
 
+<!--
 For changes that require multiple files or changes that involve creating new
 files or moving files around, working from a local Git clone makes more sense
 than relying on the GitHub UI. These instructions use the `git` command and
 assume that you have it installed locally. You can adapt them to use a local
 graphical Git client instead.
+-->
+对于需要多个文件的更改，或者涉及创建新文件或移动文件的更改，
+使用本地Git克隆比依赖GitHub UI更有意义。
+这些指令使用git命令，并假设您已经在本地安装了它。
+您可以将它们调整为使用本地图形化Git客户机。
 
+<!--
 ### Clone the repository
+-->
+### 克隆仓库
 
+<!--
 You only need to clone the repository once per physical system where you work
 on the Kubernetes documentation.
+-->
+对于处理Kubernetes文档的每个物理机，只需要克隆存储库一次。
 
+<!--
 1.  In a terminal window, use `git clone` to clone the repository. You do not
     need any credentials to clone the repository.
 
@@ -367,13 +558,48 @@ on the Kubernetes documentation.
       ```bash
       git remote add origin <FORK-URL>
       ```
+-->
 
+1.  在终端中使用 `git clone` 来克隆仓库。你不需要指定任何证书。
+
+      ```bash
+      git clone https://github.com/kubernetes/website
+      ```
+      新目录 `website` 会在当前目录中创建并包含该仓库的内容。
+
+2.  进入 `website` 目录，将默认的 `origin` 重命名为远端 `upstream`。
+
+      ```bash
+      cd website
+
+      git remote rename origin upstream
+      ```
+
+3.  如果还没有这样做，请在GitHub上创建存储库的分支。
+    在您的web浏览器中，访问[https://github.com/kubernetes/website](https://github.com/kubernetes/website)
+    并单击Fork按钮。几秒钟后，您将被重定向到您的fork的URL，它通常类似于`https://github.com/<username>/website` ，
+    除非您已经有一个名为 `website`的存储库。复制这个网址。
+
+4.  在你的fork中增加另一个远端 `origin`:
+
+      ```bash
+      git remote add origin <FORK-URL>
+      ```
+
+<!--
 ### Work on the local repository
+-->
+### 使用本地仓库
 
+<!--
 Before you start a new unit of work on your local repository, you need to figure
 out which branch to base your work on. The answer depends on what you are doing,
 but the following guidelines apply:
+-->
+在本地存储库上启动新的工作单元之前，您需要确定将工作基于哪个分支。
+答案取决于你在做什么，但是下面的指导方针是适用的：
 
+<!--
 - For general improvements to existing content, start from `master`.
 - For new content that is about features that already exist in a released
   version of Kubernetes, start from `master`.
@@ -382,14 +608,27 @@ but the following guidelines apply:
   effort.
 - For new content that relates to upcoming but unreleased Kubernetes versions,
   use the pre-release feature branch created for that Kubernetes version.
+-->
+- 对于现有内容的一般改进，可以从 `master` 开始。
+- 对于关于Kubernetes发布版本中已经存在的特性的新内容，请从 `master` 开始。
+- 对于多个SIG Docs贡献者将协作的长期工作，例如内容重组，使用为该工作创建的特定功能分支。
+- 对于与即将发布但尚未发布的Kubernetes版本相关的新内容，请使用为该Kubernetes版本创建的预发布特性分支。
 
+<!--
 For more guidance, see
 [Choose which branch to use](/docs/contribute/start/#choose-which-git-branch-to-use).
+-->
+更多指导，请参考[选择分支](/docs/contribute/start/#choose-which-git-branch-to-use)。
 
+<!--
 After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
 most up-to-date version of that branch.
+-->
+在您决定要使用哪个分支之后(或者用Git术语来说，基于它)，
+使用以下工作流来确保您的工作基于该分支的最新版本。
 
+    <!--
 1.  Fetch both the `upstream` and `origin` remotes. This updates your local
     notion of what those branches contain, but does not change your local
     branches at all.
@@ -398,7 +637,17 @@ most up-to-date version of that branch.
       git fetch upstream
       git fetch origin
       ```
+    -->
 
+1. 拉取 `upstream` 和 `origin` 远端。
+   这将更新您对这些分支所包含内容的本地概念，但不会更改您的本地分支。
+
+      ```bash
+      git fetch upstream
+      git fetch origin
+      ```
+
+<!--
 2.  Create a new tracking branch based on the branch you decided is the most
     appropriate. This example assumes you are using `master`.
 
@@ -408,39 +657,66 @@ most up-to-date version of that branch.
 
       This new branch is based on `upstream/master`, not your local `master`.
       It tracks `upstream/master`.
+-->
+2.  基于你选择的分支创建一个新的跟踪分支。以你使用master为例：
 
+      ```bash
+      git checkout -b <my_new_branch> upstream/master
+      ```
+
+      新分支基于 `upstream/master`, 而不是你本地的 `master`。
+      它跟踪 `upstream/master`.
+
+<!--
 3.  With your new branch checked out, make your changes using a text editor.
     At any time, use the `git status` command to see what you've changed.
+-->  
+3.  在检出的分支上使用编辑器修改。
+    你可以随时使用 `git status` 命令来查看你的更改。
 
+        <!--
 4.  When you are ready to submit a pull request, commit your changes. First
     use `git status` to see what changes need to be added to the changeset.
     There are two important sections: `Changes staged for commit` and
     `Changes not staged for commit`. Any files that show up in the latter
     section under `modified` or `untracked` need to be added if you want them to
     be part of this commit. For each file that needs to be added, use `git add`.
+        -->
+4.  当您准备提交pull request时，提交您的更改。
+    首先使用git status查看需要向变更集中添加哪些更改。
+    有两个重要的部分:`Changes staged for commit`和`Changes not staged for commit`。
+    如果您希望将后一节中显示的`modified` 或 `untracked` 文件添加到提交中，你需要使用`git add`。
 
       ```bash
       git add example-file.md
       ```
 
+      <!--
       When all your intended changes are included, create a commit, using the
       `git commit` command:
+      -->
+      当所有文件准备好时，使用 `git commit` 命令提交：
 
       ```bash
       git commit -m "Your commit message"
       ```
 
       {{< note >}}
+      <!--
       Do not reference a GitHub issue or pull request by ID or URL in the
       commit message. If you do, it will cause that issue or pull request to get
       a notification every time the commit shows up in a new Git branch. You can
       link issues and pull requests together later, in the GitHub UI.
+      -->不要在提交消息中引用GitHub issue 或 PR(通过ID或URL)。如果您这样做了，那么每当提交出现在新的Git分支中时，就会导致该issue或PR获得通知。稍后，您可以在GitHub UI中链接问题并将请求拉到一起。
       {{< /note >}}
-
+<!--
 5.  Optionally, you can test your change by staging the site locally using the
     `hugo` command. See [View your changes locally](#view-your-changes-locally).
     You'll be able to view your changes after you submit the pull request, as
     well.
+-->    
+5.  您还可以选择使用hugo命令在本地暂存站点来测试您的更改。[时间看本地更改](#view-your-changes-locally)。
+    您还可以在提交PR后查看更改。
 
 6.  Before you can create a pull request which includes your local commit, you
     need to push the branch to your fork, which is the endpoint for the `origin`
