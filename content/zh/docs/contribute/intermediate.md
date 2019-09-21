@@ -416,78 +416,69 @@ to the GitHub UI.
 如果需要更改尚未包含在PR中的文件，则需要使用命令行。
 如果您喜欢使用这个方法而不喜欢使用GitHub UI，那么您总是可以使用这个方法。
 
-<!--
-1.  Get the URL for the author's fork. You can find it near the bottom of the
+
+1.  <!--
+    Get the URL for the author's fork. You can find it near the bottom of the
     **Conversation** tab. Look for the text **Add more commits by pushing to**.
     The first link after this phrase is to the branch, and the second link is
     to the fork. Copy the second link. Note the name of the branch for later.
-
-2.  Add the fork as a remote. In your terminal, go to your clone of the
-    repository. Decide on a name to give the remote (such as the author's
-    GitHub username), and add the remote using the following syntax:
-
-      ```bash
-      git remote add <name> <url-of-fork>
-      ```
-
-3.  Fetch the remote. This doesn't change any local files, but updates your
-    clone's notion of the remote's objects (such as branches and tags) and
-    their current state.
-
-      ```bash
-      git remote fetch <name>
-      ```
-
-4.  Check out the remote branch. This command will fail if you already have a
-    local branch with the same name.
-
-      ```bash
-      git checkout <branch-from-PR>
-      ```
-
-5.  Make your changes, use `git add` to add them, and commit them.
-
-6.  Push your changes to the author's remote.
-
-      ```bash
-      git push <remote-name> <branch-name>
-      ```
-
-7.  Go back to the GitHub IU and refresh the PR. Your changes appear. Leave the
-    PR author a comment letting them know you changed the PR.
-  -->
-1.  获取作者的fork的URL。你可以在**Conversation** 标签的底部找到它。
+    -->
+    获取作者的fork的URL。你可以在**Conversation** 标签的底部找到它。
     查找文本 **Add more commits by pushing to** 。
     这个短语后面的第一个链接是到分支的，第二个链接是到fork的。
     复制第二个链接。稍后会用到分支的名称。
 
-2.  要给远程设置一个名称(比如作者的GitHub用户名)，然后使用以下语法添加远程：
-
-      ```bash
+2.  <!--
+    Add the fork as a remote. In your terminal, go to your clone of the
+    repository. Decide on a name to give the remote (such as the author's
+    GitHub username), and add the remote using the following syntax:
+    -->
+    要给远程设置一个名称(比如作者的GitHub用户名)，然后使用以下语法添加远程：
+    
+      ```
       git remote add <name> <url-of-fork>
       ```
-
-3.  获取远程。这不会更改任何本地文件，但会更新克隆的远程对象的概念(如分支和标记)及其当前状态。
-
-      ```bash
+      
+3.  <!--
+    Fetch the remote. This doesn't change any local files, but updates your
+    clone's notion of the remote's objects (such as branches and tags) and
+    their current state.
+    -->
+    获取远程。这不会更改任何本地文件，但会更新克隆的远程对象的概念(如分支和标记)及其当前状态。
+          
+      ```
       git remote fetch <name>
       ```
 
-4.  拉取远程分支。如果已经有同名的本地分支，则此命令将失败。
+4.  <!--
+    Check out the remote branch. This command will fail if you already have a
+    local branch with the same name.
+    -->
+    拉取远程分支。如果已经有同名的本地分支，则此命令将失败。
+    
+    ```
+    git checkout <branch-from-PR>
+    ```
 
-      ```bash
-      git checkout <branch-from-PR>
+5.  <!--
+    Make your changes, use `git add` to add them, and commit them.
+    -->
+    进行更改，使用 `git add` 添加更改，然后提交更改。
+
+6.  <!--
+    Push your changes to the author's remote.
+    -->
+    将您的更改推到作者的远程。
+
       ```
-
-5.  进行更改，使用 `git add` 添加更改，然后提交更改。
-
-6.  将您的更改推到作者的远程。
-
-      ```bash
       git push <remote-name> <branch-name>
       ```
 
-7.  回到GitHub UI并刷新PR。给PR作者留言，让他们知道你修改了公关。
+7.  <!--
+    Go back to the GitHub IU and refresh the PR. Your changes appear. Leave the
+    PR author a comment letting them know you changed the PR.
+    -->
+    回到GitHub UI并刷新PR。给PR作者留言，让他们知道你修改了PR。
 
 <!--
 If the author is using the command line rather than the GitHub UI to work on
@@ -529,7 +520,7 @@ on the Kubernetes documentation.
 1.  In a terminal window, use `git clone` to clone the repository. You do not
     need any credentials to clone the repository.
 
-      ```bash
+      ```
       git clone https://github.com/kubernetes/website
       ```
 
@@ -539,7 +530,7 @@ on the Kubernetes documentation.
 2.  Change to the new `website` directory. Rename the default `origin` remote
     to `upstream`.
 
-      ```bash
+      ```
       cd website
 
       git remote rename origin upstream
@@ -555,21 +546,21 @@ on the Kubernetes documentation.
 
 4.  Add your fork as a second remote, called `origin`:
 
-      ```bash
+      ```
       git remote add origin <FORK-URL>
       ```
 -->
 
 1.  在终端中使用 `git clone` 来克隆仓库。你不需要指定任何证书。
 
-      ```bash
+      ```
       git clone https://github.com/kubernetes/website
       ```
       新目录 `website` 会在当前目录中创建并包含该仓库的内容。
 
 2.  进入 `website` 目录，将默认的 `origin` 重命名为远端 `upstream`。
 
-      ```bash
+      ```
       cd website
 
       git remote rename origin upstream
@@ -582,7 +573,7 @@ on the Kubernetes documentation.
 
 4.  在你的fork中增加另一个远端 `origin`:
 
-      ```bash
+      ```
       git remote add origin <FORK-URL>
       ```
 
@@ -628,66 +619,57 @@ most up-to-date version of that branch.
 在您决定要使用哪个分支之后(或者用Git术语来说，基于它)，
 使用以下工作流来确保您的工作基于该分支的最新版本。
 
-    <!--
-1.  Fetch both the `upstream` and `origin` remotes. This updates your local
+
+1.  <!--
+    Fetch both the `upstream` and `origin` remotes. This updates your local
     notion of what those branches contain, but does not change your local
     branches at all.
-
-      ```bash
-      git fetch upstream
-      git fetch origin
-      ```
     -->
+    拉取 `upstream` 和 `origin` 远端。
+    这将更新您对这些分支所包含内容的本地概念，但不会更改您的本地分支。
 
-1. 拉取 `upstream` 和 `origin` 远端。
-   这将更新您对这些分支所包含内容的本地概念，但不会更改您的本地分支。
-
-      ```bash
+      ```
       git fetch upstream
       git fetch origin
       ```
 
-<!--
-2.  Create a new tracking branch based on the branch you decided is the most
+2.  <!--
+    Create a new tracking branch based on the branch you decided is the most
     appropriate. This example assumes you are using `master`.
+    -->
+    基于你选择的分支创建一个新的跟踪分支。以你使用master为例：
 
-      ```bash
+      ```
       git checkout -b <my_new_branch> upstream/master
       ```
 
+      <!--
       This new branch is based on `upstream/master`, not your local `master`.
       It tracks `upstream/master`.
--->
-2.  基于你选择的分支创建一个新的跟踪分支。以你使用master为例：
+      -->
+      新分支基于 `upstream/master`, 而不是你本地的 `master`。它跟踪 `upstream/master`。
 
-      ```bash
-      git checkout -b <my_new_branch> upstream/master
-      ```
-
-      新分支基于 `upstream/master`, 而不是你本地的 `master`。
-      它跟踪 `upstream/master`.
-
-<!--
-3.  With your new branch checked out, make your changes using a text editor.
+3.  <!--With your new branch checked out, make your changes using a text editor.
     At any time, use the `git status` command to see what you've changed.
--->  
-3.  在检出的分支上使用编辑器修改。
+    -->  
+    在检出的分支上使用编辑器修改。
     你可以随时使用 `git status` 命令来查看你的更改。
 
-        <!--
-4.  When you are ready to submit a pull request, commit your changes. First
+        
+4.  <!--
+    When you are ready to submit a pull request, commit your changes. First
     use `git status` to see what changes need to be added to the changeset.
     There are two important sections: `Changes staged for commit` and
     `Changes not staged for commit`. Any files that show up in the latter
     section under `modified` or `untracked` need to be added if you want them to
     be part of this commit. For each file that needs to be added, use `git add`.
-        -->
-4.  当您准备提交pull request时，提交您的更改。
+    -->
+    当您准备提交pull request时，提交您的更改。
     首先使用git status查看需要向变更集中添加哪些更改。
     有两个重要的部分:`Changes staged for commit`和`Changes not staged for commit`。
     如果您希望将后一节中显示的`modified` 或 `untracked` 文件添加到提交中，你需要使用`git add`。
 
-      ```bash
+      ```
       git add example-file.md
       ```
 
@@ -697,7 +679,7 @@ most up-to-date version of that branch.
       -->
       当所有文件准备好时，使用 `git commit` 命令提交：
 
-      ```bash
+      ```
       git commit -m "Your commit message"
       ```
 
@@ -709,87 +691,120 @@ most up-to-date version of that branch.
       link issues and pull requests together later, in the GitHub UI.
       -->不要在提交消息中引用GitHub issue 或 PR(通过ID或URL)。如果您这样做了，那么每当提交出现在新的Git分支中时，就会导致该issue或PR获得通知。稍后，您可以在GitHub UI中链接问题并将请求拉到一起。
       {{< /note >}}
-<!--
-5.  Optionally, you can test your change by staging the site locally using the
+
+5.  <!--
+    Optionally, you can test your change by staging the site locally using the
     `hugo` command. See [View your changes locally](#view-your-changes-locally).
     You'll be able to view your changes after you submit the pull request, as
     well.
--->    
-5.  您还可以选择使用hugo命令在本地暂存站点来测试您的更改。[时间看本地更改](#view-your-changes-locally)。
+    -->
+    您还可以选择使用hugo命令在本地暂存站点来测试您的更改。[时间看本地更改](#view-your-changes-locally)。
     您还可以在提交PR后查看更改。
 
-6.  Before you can create a pull request which includes your local commit, you
+6.  <!--
+    Before you can create a pull request which includes your local commit, you
     need to push the branch to your fork, which is the endpoint for the `origin`
     remote.
+    -->
+    在创建包含本地提交的PR之前，需要将分支推到fork，也就是`origin`端点。
 
-      ```bash
+      ```
       git push origin <my_new_branch>
       ```
-
+      <!--
       Technically, you can omit the branch name from the `push` command, but
       the behavior in that case depends upon the version of Git you are using.
       The results are more repeatable if you include the branch name.
+      -->
+      从技术上讲，您可以从push命令中省略分支名称，但是这种情况下的行为取决于您使用的Git版本。
+      如果包含分支名称，结果将更加可重复。
 
-7.  At this point, if you go to https://github.com/kubernetes/website in your
+
+7.  <!--
+    At this point, if you go to https://github.com/kubernetes/website in your
     web browser, GitHub detects that you pushed a new branch to your fork and
     offers to create a pull request. Fill in the pull request template.
+    -->
+    此时，如果您在web浏览器中访问https://github.com/kubernetes/website, GitHub会检测到您将一个新的分支推送到您的fork，并提供创建一个pull请求。填写pull request模板。
 
-      - The title should be no more than 50 characters and summarize the intent
-        of the change.
-      - The long-form description should contain more information about the fix,
+      - <!--The title should be no more than 50 characters and summarize the intent
+        of the change.-->标题不应超过50个字符，并总结更改的意图。
+      - <!--
+        The long-form description should contain more information about the fix,
         including a line like `Fixes #12345` if the pull request fixes a GitHub
         issue. This will cause the issue to be closed automatically when the
         pull request is merged.
-      - You can add labels or other metadata and assign reviewers. See
+        -->
+        长表单描述应该包含关于修复的更多信息，如果PR修复了GitHub issue，
+        则应该包含类似`Fixes #12345`这样的行。
+        这将导致在合并PR时自动关闭该问题。
+      - <!--
+        You can add labels or other metadata and assign reviewers. See
         [Triage and categorize issues](#triage-and-categorize-issues) for the
         syntax.
+        -->
+        您可以添加标签或其他元数据并分配审阅人员。有关语法，请参见[分类和分类问题](#triage-and-categorize-issues)。
 
-      Click **Create pull request**.
+      <!--Click **Create pull request**.--> 点击 **Create pull request**
 
-8.  Several automated tests will run against the state of the website with your
+8.  <!--Several automated tests will run against the state of the website with your
     changes applied. If any of the tests fail, click the **Details** link for
     more information. If the Netlify test completes successfully, its
     **Details** link goes to a staged version of the Kubernetes website with
-    your changes applied. This is how reviewers will check your changes.
+    your changes applied. This is how reviewers will check your changes.-->
+    几个自动化测试将运行与您所应用的更改的网站状态。
+    如果任何测试失败，请单击**Details**链接获取更多信息。
+    如果Netlify测试成功完成，它的**Details**链接将转到Kubernetes网站的阶段性版本，
+    其中应用了您的更改。
+    这是审阅人员检查更改的方式。
 
-9.  If you notice that more changes need to be made, or if reviewers give you
+9.  <!--If you notice that more changes need to be made, or if reviewers give you
     feedback, address the feedback locally, then repeat step 4 - 6 again,
     creating a new commit. The new commit is added to your pull request and the
-    tests run again, including re-staging the Netlify staged site.
+    tests run again, including re-staging the Netlify staged site.-->
+    如果您注意到需要进行更多的更改，或者评审人员给了您反馈，请在本地处理反馈，
+    然后再次重复步骤4 - 6，创建一个新的提交。新的提交被添加到您的pull请求中，
+    测试再次运行，包括Netlify。
 
-10. If a reviewer adds changes to your pull request, you need to fetch those
+10. <!--If a reviewer adds changes to your pull request, you need to fetch those
     changes from your fork before you can add more changes. Use the following
-    commands to do this, assuming that your branch is currently checked out.
+    commands to do this, assuming that your branch is currently checked out.-->
+    如果审查员将更改添加到您的pull请求中，您需要从fork获取这些更改，然后才能添加更多的更改。
+    假设您的分支当前已签出，请使用以下命令来完成此操作。
 
-      ```bash
+      ```
       git fetch origin
       git rebase origin/<your-branch-name>
       ```
 
-      After rebasing, you need to add the `-f` flag to force-push new changes to
-      the branch to your fork.
+      <!--After rebasing, you need to add the `-f` flag to force-push new changes to
+      the branch to your fork.-->在rebasing之后，您需要添加`-f`标志来强制推送分支。
 
-      ```bash
+      ```
       git push -f origin <your-branch-name>
       ```
 
-11. If someone else's change is merged into the branch your work is based on,
+11. <!--If someone else's change is merged into the branch your work is based on,
     and you have made changes to the same parts of the same files, a conflict
     might occur. If the pull request shows that there are conflicts to resolve,
-    you can resolve them using the GitHub UI or you can resolve them locally.
+    you can resolve them using the GitHub UI or you can resolve them locally.-->
+    如果其他人的更改合并到您工作所基于的分支中，并且您对相同文件的相同部分进行了更改，
+    则可能会发生冲突。如果pull请求显示有需要解决的冲突，您可以使用GitHub UI解决它们，
+    或者在本地解决它们。
 
-      First, do step 10 to be sure that your fork and your local branch are in
-      the same state.
+      <!--First, do step 10 to be sure that your fork and your local branch are in
+      the same state.-->首先执行第10步，确保你的fork仓库与你本地分支一致。
 
-      Next, fetch `upstream` and rebase your branch on the branch it was
-      originally based on, like `upstream/master`.
+      <!--Next, fetch `upstream` and rebase your branch on the branch it was
+      originally based on, like `upstream/master`.-->
+      接着，拉取 `upstream` 并 rebase 你的分支。 
 
-      ```bash
+      ```
       git fetch upstream
       git rebase upstream/master
       ```
 
-      If there are conflicts Git can't automatically resolve, you can see the
+      <!--If there are conflicts Git can't automatically resolve, you can see the
       conflicted files using the `git status` command. For each conflicted file,
       edit it and look for the conflict markers `>>>`, `<<<`, and `===`. Resolve
       the conflict and remove the conflict markers. Then add the changes to the
@@ -798,12 +813,22 @@ most up-to-date version of that branch.
       no more conflicts, `git status` will show that you are not in a rebase and
       there are no changes that need to be committed. At that point, force-push
       the branch to your fork, and the pull request should no longer show any
-      conflicts.
+      conflicts.-->
+      如果存在Git无法自动解决的冲突，可以使用`git status`命令查看冲突文件。
+      对于每个冲突文件，编辑它并查找冲突标记`>>>`，`<<<`，and `===`。
+      解决冲突并删除冲突标记。然后使用`git add <filename>`，
+      并使用`git rebase --continue`继续将更改添加到更改集中。
+      当所有提交都已应用，并且没有更多冲突时，`git status`将显示您不在rebase中，
+      并且不需要提交任何更改。此时，强制将分支推到fork, pull请求应该不再显示任何冲突。
 
+<!--
 If you're having trouble resolving conflicts or you get stuck with
 anything else related to your pull request, ask for help on the `#sig-docs`
 Slack channel or the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+-->
+如果您在解决冲突方面遇到困难，或者您被与pull请求相关的任何其他事情卡住，
+请在`#sig-docs` Slack通道或[kubernet-sig-docs邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)中寻求帮助。
 
 ### View your changes locally
 
@@ -813,13 +838,13 @@ serve it locally.
 
 1.  Build the image locally:
 
-      ```bash
+      ```
       make docker-image
       ```
 
 2.  Once the `kubernetes-hugo` image has been built locally, you can build and serve the site:
 
-      ```bash
+      ```
       make docker-serve
       ```
 
@@ -836,7 +861,7 @@ Alternatively, you can install and use the `hugo` command on your development ma
 2.  In a terminal, go to the root directory of your clone of the Kubernetes
     docs, and enter this command:
 
-      ```bash
+      ```
       hugo server
       ```
 
