@@ -1,5 +1,5 @@
 ---
-title: Intermediate contributing
+title: 中级贡献
 slug: intermediate
 content_template: templates/concept
 weight: 20
@@ -10,33 +10,54 @@ card:
 
 {{% capture overview %}}
 
+<!--
 This page assumes that you've read and mastered the tasks in the
 [start contributing](/docs/contribute/start/) topic and are ready to
 learn about more ways to contribute.
+-->
+本文假定你已经阅读并掌握了[开始贡献](/docs/contribute/start/)中介绍的内容，
+想要了解更多关于贡献的内容。
+
 
 {{< note >}}
+<!--
 Some tasks require you to use the Git command line client and other tools.
+-->有些任务需要使用Git命令行客户端和其他工具。
 {{< /note >}}
 
 {{% /capture %}}
 
 {{% capture body %}}
 
+<!--
 Now that you've gotten your feet wet and helped out with the Kubernetes docs in
 the ways outlined in the [start contributing](/docs/contribute/start/) topic,
 you may feel ready to do more. These tasks assume that you have, or are willing
 to gain, deeper knowledge of the following topic areas:
+-->
+现在，您已经熟悉了Kubernetes文档，并按照[开始贡献](/docs/contribute/start/)文章中介绍的方式进行了贡献，
+您可能已经准备好做更多的工作。这些任务假设您已经或愿意获得以下主题领域的更深入的知识:
 
+<!--
 - Kubernetes concepts
 - Kubernetes documentation workflows
 - Where and how to find information about upcoming Kubernetes features
 - Strong research skills in general
+-->
+- Kubernetes概念
+- Kubernetes文档工作流
+- 在哪里和如何找到即将推出的Kubernetes功能的信息
+- 较强的研究能力
 
+<!--
 These tasks are not as sequential as the beginner tasks. There is no expectation
 that one person does all of them all of the time.
+-->
+这些任务不像初学者的任务那样是顺序的。没有人期望一个人会一直做所有的事情。
 
-## Review pull requests
+## 评审 pull request
 
+<!--
 In any given week, a specific docs approver volunteers to do initial triage
 and review of [pull requests and issues](#triage-and-categorize-issues). This
 person is the "PR Wrangler" for the week. The schedule is maintained using the
@@ -44,26 +65,47 @@ person is the "PR Wrangler" for the week. The schedule is maintained using the
 To be added to this list, attend the weekly SIG Docs meeting and volunteer. Even
 if you are not on the schedule for the current week, you can still review pull
 requests (PRs) that are not already under active review.
+-->
+通常，每周都会有一个特定的文档审核志愿者对[pull requests 和 issues](#triage-and-categorize-issues)
+进行分类和审核。这个人就是本周的“PR 牧马人”。排班计划在[PR 牧马人排班](https://github.com/kubernetes/website/wiki/PR-Wranglers)维护。
+如果想要加入排班计划，需要参加每周的 SIG Docs 会议并志愿申请。
+尽管你不在本周的排班计划中，你也可以审核那些还未开始检视的PR。
 
+<!--
 In addition to the rotation, an automated system comments on each new PR and
 suggests reviewers and approvers for the PR, based on the list of approvers and
 reviewers in the affected files. The PR author is expected to follow the
 guidance of the bot, and this also helps PRs to get reviewed quickly.
+-->
+除了轮换之外，自动化系统（机器人）会根据修改的文件自动推荐相应的 approver 和 reviewer。
+PR作者应该遵循机器人的指导，这也有助于PR得到快速审查。
 
+<!--
 We want to get pull requests (PRs) merged and published as quickly as possible.
 To ensure the docs are accurate and up to date, each PR needs to be reviewed by
 people who understand the content, as well as people with experience writing
 great documentation.
+-->
+我们希望尽快合并和发布pull requests。
+为了确保文档是准确的和最新的，每个PR都需要由理解内容的人以及具有编写优秀文档经验的人来评审。
 
+<!--
 Reviewers and approvers need to provide actionable and constructive feedback to
 keep contributors engaged and help them to improve. Sometimes helping a new
 contributor get their PR ready to merge takes more time than just rewriting it
 yourself, but the project is better in the long term when we have a diversity of
 active participants.
+-->
+评审人员和批准人员需要提供可操作的和建设性的反馈，以保持贡献者的参与并帮助他们改进。
+有时候，帮助一个新的贡献者把他们的PR准备好合并比你自己重写它需要更多的时间，
+但是从长远来看，当我们有不同的积极参与者时，这个项目会更好。
 
 Before you start reviewing PRs, make sure you are familiar with the
 [Documentation Style Guide](/docs/contribute/style/style-guide/)
 and the [code of conduct](/community/code-of-conduct/)
+
+在开始评审PR之前，请确保熟悉[文档风格指南](/docs/contribute/style/style-guide/)
+和[行为准则](/community/code-of-conduct/)。
 
 ### Find a PR to review
 
