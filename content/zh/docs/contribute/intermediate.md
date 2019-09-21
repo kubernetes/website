@@ -830,12 +830,21 @@ Slack channel or the
 如果您在解决冲突方面遇到困难，或者您被与pull请求相关的任何其他事情卡住，
 请在`#sig-docs` Slack通道或[kubernet-sig-docs邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)中寻求帮助。
 
+<!--
 ### View your changes locally
+-->
+### 本地查看更改
 
+<!--
 If you aren't ready to create a pull request but you want to see what your
 changes look like, you can build and run a docker image to generate all the documentation and 
 serve it locally.
+-->
+如果您还没有准备好创建一个pull请求，
+但是您希望看到您的更改是什么样子的，
+那么您可以构建并运行一个docker映像来生成所有文档并在本地提供它。
 
+<!--
 1.  Build the image locally:
 
       ```
@@ -869,20 +878,82 @@ Alternatively, you can install and use the `hugo` command on your development ma
 
 4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
+-->
+1.  本地构建镜像:
 
+      ```
+      make docker-image
+      ```
+
+2.  `kubernetes-hugo` 镜像构建完成后，可以构建并启动网站：
+
+      ```
+      make docker-serve
+      ```
+
+3.  在浏览器地址栏输入 `localhost:1313`。Hugo将监视文件系统的更改，并根据需要重新构建站点。
+
+4.  如果想停掉本地Hugo实例，只需要在命令行中键入`Ctrl+C`来关闭命令行窗口。
+
+<!--
+Alternatively, you can install and use the `hugo` command on your development machine:
+-->
+或者，您可以在您的开发机器上安装并使用hugo命令：
+
+1.  <!--
+    [Install Hugo](https://gohugo.io/getting-started/installing/) version {{< hugoVersion >}} or later.
+    -->
+    [安装 Hugo](https://gohugo.io/getting-started/installing/) 版本 {{< hugoVersion >}} 或更新版本.
+
+2.  <!--
+    In a terminal, go to the root directory of your clone of the Kubernetes
+    docs, and enter this command:
+    -->
+    在终端中，转到您克隆的Kubernetes文档的根目录，并输入以下命令：
+
+      ```
+      hugo server
+      ```
+
+3.  <!--
+    In your browser’s address bar, enter `localhost:1313`.
+    -->
+    在浏览器地址栏中输入 `localhost:1313`。
+
+4.  <!--
+    To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
+    or just close the terminal window.
+    -->
+    如果想停掉本地Hugo实例，只需要在命令行中键入`Ctrl+C`来关闭命令行窗口。
+
+<!--
 ## Triage and categorize issues
+-->
+## 问题归类
 
+<!--
 In any given week, a specific docs approver volunteers to do initial
 [triage and review of pull requests](#review-pull-requests) and issues. To get
 on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review PRs.
+-->
+在任何给定的一周内，一个特定的文档审批者会自愿对pull请求和问题进行初步分类和审查。
+要进入这个名单，参加每周的团体文档会议和志愿者。
+即使你不在这周的时间表上，你仍然可以审核PR。
 
+<!--
 People in SIG Docs are responsible only for triaging and categorizing
 documentation issues. General website issues are also filed in the
 `kubernetes/website` repository.
+-->
+SIG文档人员只负责对文档问题进行分类和分类。一般的网站问题也归档在`kubernetes/website` 资源库中。
 
+<!--
 When you triage an issue, you:
+-->
+当你对一个问题进行分类时：
 
+<!--
 - Assess whether the issue has merit. Some issues can be closed quickly by
   answering a question or pointing the reporter to a resource.
 - Ask the reporter for more information if the issue doesn't have enough
@@ -891,15 +962,32 @@ When you triage an issue, you:
   Projects and milestones are not heavily used by the SIG Docs team.
 - At your discretion, taking ownership of an issue and submitting a PR for it
   (especially if it is quick or relates to work you were already doing).
+-->
+- 评估这个问题是否有价值。有些问题可以通过回答问题或向作者指出资源来迅速解决。
+- 如果问题没有足够的细节可以采取行动，或者模板没有填好，询问作者更多的信息。
+- 向问题添加标签(有时称为标签)、项目或里程碑。SIG文档团队并没有大量使用项目和里程碑。
+- 根据您的判断，对某个问题拥有所有权并为其提交PR(特别是如果它是快速的或与您已经在做的工作相关的)。
 
+<!--
 If you have questions about triaging an issue, ask in `#sig-docs` on Slack or
 the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+-->
+如果你针对问题分类有疑问，请在Slack `#sig-docs` 频道或
+[kubernetes-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+中询问。
 
+<!--
 ### More about labels
+-->
+### 有关标签的更多信息
 
+<!--
 These guidelines are not set in stone and are subject to change.
+-->
+这些准则并非一成不变，可能会发生变化。
 
+<!--
 - An issue can have multiple labels.
 - Some labels use slash notation for grouping, which can be thought of like
   "sub-labels". For instance, many `sig/` labels exist, such as `sig/cli` and
@@ -926,6 +1014,20 @@ These guidelines are not set in stone and are subject to change.
   label by leaving a comment like `/label <label-to-add>`. The label must
   already exist. If you try to add a label that does not exist, the command is
   silently ignored.
+-->
+- 一个问题可以有多个标签。
+- 一些标签使用斜杠符号进行分组，可以将其视为“子标签”。例如，`sig/`存在许多标签，例如 `sig/cli` 和 `sig/api-machinery`。
+- 系统会根据问题所涉及文件中的元数据，问题注释中使用的斜杠命令或问题文本中的信息，自动添加一些标签。
+- 由负责问题分类的人员（或报告问题的人员，如果他们是SIG文档批准者）手动添加一些标签。
+  - `Actionable`：似乎有足够的信息可以解决或解决此问题。
+  - `good first issue`：Kubernetes或SIG Docs经验有限的人也有可能可以解决此问题。
+  - `kind/bug`, `kind/feature`, and `kind/documentation`：
+    如果提出问题的人未正确填写模板，则可能不会自动分配这些标签。
+    错误是现有内容或功能的问题，功能是对新内容或功能的请求。`kind/documentation`标签当前未使用。
+  - 优先级标签：定义问题的相对严重性。
+    这些并没有在[Kubernetes贡献者指导](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)中，
+    可以是一个P1，P2或者P3。
+- 要添加标签，如果您是Sig Docs批准者，则可以使用GitHub的Labels小部件。Kubernetes组织的任何人都可以通过添加评论来添加标签/label <label-to-add>。标签必须已经存在。如果您尝试添加不存在的标签，该命令将被静默忽略。
 
 ### Priorities
 
