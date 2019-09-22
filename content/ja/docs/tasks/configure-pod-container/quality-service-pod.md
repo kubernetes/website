@@ -138,7 +138,7 @@ kubectl delete pod qos-demo-2 --namespace=qos-example
 
 PodにBestEffort QoSクラスを与えるには、Pod内のコンテナにはメモリーやCPUの制限や要求を指定してはなりません。
 
-以下に一つのコンテナをもつPodの設定ファイルを示します。コンテナにはメモリーやCPUの制限や要求がありません:
+以下に1つのコンテナをもつPodの設定ファイルを示します。コンテナにはメモリーやCPUの制限や要求がありません:
 
 {{< codenew file="pods/qos/qos-pod-3.yaml" >}}
 
