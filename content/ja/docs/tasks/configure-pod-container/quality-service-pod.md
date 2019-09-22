@@ -95,7 +95,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 * PodがGuaranteed QoSクラスの基準に満たない場合。
 * Pod内の1つ以上のコンテナがメモリーまたはCPUの要求を与えられている場合。
 
-以下に一つのコンテナをもつPodの設定ファイルを示します。コンテナには200MiBのメモリー制限と100MiBのメモリー要求を与えます。
+以下に1つのコンテナをもつPodの設定ファイルを示します。コンテナには200MiBのメモリー制限と100MiBのメモリー要求を与えます。
 
 {{< codenew file="pods/qos/qos-pod-2.yaml" >}}
 
