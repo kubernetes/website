@@ -9,6 +9,7 @@ card:
 ---
 
 {{% capture overview %}}
+
 대시보드는 웹 기반 쿠버네티스 유저 인터페이스이다. 대시보드를 통해 컨테이너화 된 애플리케이션을 쿠버네티스 클러스터에 배포할 수 있고, 컨테이너화 된 애플리케이션을 트러블슈팅 할 수 있으며, 클러스터 리소스들을 관리할 수 있다. 대시보드를 통해 클러스터에서 동작중인 애플리케이션의 정보를 볼 수 있고, 개별적인 쿠버네티스 리소스들을(예를 들면 디플로이먼트, 잡, 데몬셋 등) 생성하거나 수정할 수 있다. 예를 들면, 디플로이먼트를 스케일하거나, 롤링 업데이트를 초기화하거나, 파드를 재시작하거나 또는 배포 마법사를 이용해 새로운 애플리케이션을 배포할 수 있다.
 
 또한 대시보드는 클러스터 내 쿠버네티스 리소스들의 상태와 발생하는 모든 에러 정보를 제공한다.
@@ -25,7 +26,7 @@ card:
 대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 동작한다.
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
 ```
 
 ## 대시보드 UI 접근
@@ -160,6 +161,7 @@ track=stable
 
 {{% capture whatsnext %}}
 
-더 많은 정보는 [쿠버네티스 대시보드 프로젝트 페이지](https://github.com/kubernetes/dashboard)를 참고한다.
+더 많은 정보는 
+[쿠버네티스 대시보드 프로젝트 페이지](https://github.com/kubernetes/dashboard)를 참고한다.
 
 {{% /capture %}}
