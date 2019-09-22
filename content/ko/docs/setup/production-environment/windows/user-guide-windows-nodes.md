@@ -1,26 +1,35 @@
 ---
 reviewers:
 title: 쿠버네티스에서 윈도우 노드 추가 가이드
-content_template: templates/concept
+min-kubernetes-server-version: v1.14
+content_template: templates/tutorial
 weight: 70
 ---
 
 {{% capture overview %}}
 
-쿠버네티스 플랫폼은 이제 리눅스와 윈도우 컨테이너 모두 운영할 수 있다. 윈도우 노드도 클러스터에 등록할 수 있다. 이 가이드는 다음을 어떻게 하는지 보여준다.
+쿠버네티스 플랫폼은 이제 리눅스와 윈도우 컨테이너 모두 운영할 수 있다. 윈도우 노드도 클러스터에 등록할 수 있다. 이 페이지에서는 어떻게 하나 또는 그 이상의 윈도우 노드를 클러스터에 등록할 수 있는지 보여준다.
+{{% /capture %}}
 
-* 윈도우 노드를 클러스터에 등록하기
-* 리눅스와 윈도우에서 동작하는 파드가 상호 간에 통신할 수 있게 네트워크를 구성하기
+
+{{% capture prerequisites %}}
+
+* 윈도우 컨테이너를 호스트하는 윈도우 노드를 구성하려면 [윈도우 서버 2019 라이선스](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)를 소유해야 한다. 클러스터를 위해서 소속 기관의 라이선스를 사용하거나, Microsoft, 리셀러로 부터 취득할 수 있으며, GCP, AWS, Azure와 같은 주요 클라우드 제공자의 마켓플레이스를 통해 윈도우 서버를 운영하는 가상머신을 프로비저닝하여 취득할 수도 있다. [사용시간이 제한된 시험판](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial)도 활용 가능하다.
+
+* 컨트롤 플레인에 접근할 수 있는 리눅스 기반의 쿠버네티스 클러스터를 구축한다.(몇 가지 예시는 [kubeadm으로 단일 컨트롤플레인 클러스터 만들기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/)를 포함한다)
 
 {{% /capture %}}
 
-{{% capture body %}}
 
-## 시작하기 전에
+{{% capture objectives %}}
 
-* 윈도우 컨테이너를 호스트하는 윈도우 노드를 구성하려면 [윈도우 서버 라이선스](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)를 소유해야 한다. 클러스터를 위해서 소속 기관의 라이선스를 사용하거나, Microsoft, 리셀러로 부터 취득할 수 있으며, GCP, AWS, Azure와 같은 주요 클라우드 제공자의 마켓플레이스를 통해 윈도우 서버를 운영하는 가상머신을 프로비저닝하여 취득할 수도 있다. [사용시간이 제한된 시험판](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial)도 활용 가능하다.
+* 윈도우 노드를 클러스터에 등록하기
+* 리눅스와 윈도우에서 동작하는 파드와 서비스가 상호 간에 통신할 수 있게 네트워크를 구성하기
 
-* 컨트롤 플레인에 접근할 수 있는 리눅스 기반의 쿠버네티스 클러스터를 구축한다.(몇 가지 예시는 [kubeadm으로 단일 컨트롤플레인 클러스터 만들기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/)를 포함한다)
+{{% /capture %}}
+
+
+{{% capture lessoncontent %}}
 
 ## 시작하기: 사용자 클러스터에 윈도우 노드 추가하기
 
@@ -51,9 +60,9 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 ### 네트워크 구성
 
-리눅스 기반의 쿠버네티스 마스터 노드를 가지고 있다면 네트워킹 솔루션을 선택할 준비가 된 것이다. 이 가이드는 단순화를 위해 VXLAN 방식의 플라넬(Flannel)을 사용하여 설명한다.
+리눅스 기반의 쿠버네티스 컨트롤 플레인("마스터") 노드를 가지고 있다면 네트워킹 솔루션을 선택할 준비가 된 것이다. 이 가이드는 단순화를 위해 VXLAN 방식의 플라넬(Flannel)을 사용하여 설명한다.
 
-#### 리눅스 컨트롤러에서 VXLAN 방식으로 플라넬 구성하기
+#### 리눅스 컨트롤 플레인에서 VXLAN 방식으로 플라넬 구성하기
 
 1. 플라넬을 위해 쿠버네티스 마스터를 준비한다.
 
@@ -120,7 +129,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
         }
     ```
 
-1. 플라넬 yaml 을 적용하고 확인하기
+1. 플라넬 매니페스트를 적용하고 확인하기
 
     플라넬 구성을 적용하자.
 
@@ -167,132 +176,168 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
     kube-proxy        2         2         2       2            2           beta.kubernetes.io/os=linux                                 26d
     ```
 
-#### 윈도우 워커 조인
 
-이번 단원은 맨 땅에서부터 온프레미스 클러스터에 가입하기까지 윈도우 노드 구성을 다룬다. 클러스터가 클라우드상에 있다면, 다음 단원에 있는 클라우드에 특정한 가이드를 따르도록 된다.
+
+### 윈도우 워커 노드 추가하기
+
+이번 단원은 맨 땅에서부터 온프레미스 클러스터에 가입하기까지 윈도우 노드 구성을 다룬다. 클러스터가 클라우드상에 있다면, [퍼블릭 클라우드 제공자 단원](#퍼블릭-클라우드-제공자)에 있는 클라우드에 특정한 가이드를 따르도록 된다.
 
 #### 윈도우 노드 준비하기
 
 {{< note >}}
-윈도우 단원에서 모든 코드 부분은 높은 권한(Admin)으로 파워쉘(PowerShell) 환경에서 구동한다.
+윈도우 단원에서 모든 코드 부분은 윈도우 워커 노드에서 높은 권한(Administrator)으로 파워쉘(PowerShell) 환경에서 구동한다.
 {{< /note >}}
 
-1. 도커(Docker) 설치(시스템 리부팅 필요)
+1. 설치 및 참여(join) 스크립트가 포함된 [SIG Windows tools](https://github.com/kubernetes-sigs/sig-windows-tools) 리포지터리를 내려받는다.
+   ```PowerShell
+   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+   Start-BitsTransfer https://github.com/kubernetes-sigs/sig-windows-tools/archive/master.zip
+   tar -xvf .\master.zip --strip-components 3 sig-windows-tools-master/kubeadm/v1.15.0/*
+   Remove-Item .\master.zip
+   ```
 
-    쿠버네티스는 [도커](https://www.docker.com/)를 컨테이너 엔진으로 사용하므로, 도커를 설치해야 한다. [공식 문서 설치 요령](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), [도커 명령](https://store.docker.com/editions/enterprise/docker-ee-server-windows)을 따라 해보거나 다음의 *권장하는* 단계를 시도하자.
-
-    ```PowerShell
-    Enable-WindowsOptionalFeature -FeatureName Containers
-    Restart-Computer -Force
-    Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
-    Install-Package -Name Docker -ProviderName DockerMsftProvider
-    ```
-
-    네트워크 프록시 안쪽에서 작업한다면 다음 파워쉘 환경 변수를 반드시 정의하자.
-
-    ```PowerShell
-    [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
-    [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
-    ```
-
-    리부팅 후에 다음 오류를 보게되면, 도커 서비스를 수동으로 재시작해야 한다.
-
-    ```PowerShell
-    docker version
-    ```
-
-    만약 다음과 같은 에러 메시지를 보게되면, 도커 서비스를 수동으로 시작해야 한다.
+1. 쿠버네티스 [구성 파일](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclustervxlan.json)을 커스터마이즈한다. 
 
     ```
-    Client:
-     Version: 17.06.2-ee-11
-     API version: 1.30
-     Go version: go1.8.7
-     Git commit: 06fc007
-     Built: Thu May 17 06:14:39 2018
-     OS/Arch: windows / amd64
-    error during connect: Get http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.30/version: open //./pipe/docker_engine: The system c
-    annot find the file specified. In the default daemon configuration on Windows, the docker client must be run elevated to
-    connect. This error may also indicate that the docker daemon is not running.
-    ```
-
-    다음과 같이 도커 서비스를 수동으로 시작할 수 있다. 
-
-    ```PowerShell
-    Start-Service docker
-    ```
+    {
+    "Cri" : {  // Contains values for container runtime and base container setup
+        "Name" : "dockerd", // Container runtime name
+        "Images" : {
+            "Pause" : "mcr.microsoft.com/k8s/core/pause:1.2.0",  // Infrastructure container image
+            "Nanoserver" : "mcr.microsoft.com/windows/nanoserver:1809",  // Base Nanoserver container image
+            "ServerCore" : "mcr.microsoft.com/windows/servercore:ltsc2019"  // Base ServerCore container image
+        }
+    },
+    "Cni" : {  // Contains values for networking executables
+        "Name" : "flannel",  // Name of network fabric
+        "Source" : [{ // Contains array of objects containing values for network daemon(s)
+            "Name" : "flanneld",  // Name of network daemon
+            "Url" : "https://github.com/coreos/flannel/releases/download/v0.11.0/flanneld.exe"  // Direct URL pointing to network daemon executable
+            }
+        ],
+        "Plugin" : {  // Contains values for CNI network plugin
+            "Name": "vxlan" // Backend network mechanism to use: ["vxlan" | "bridge"]
+        },
+        "InterfaceName" : "Ethernet"  // Designated network interface name on Windows node to use as container network
+    },
+    "Kubernetes" : {  // Contains values for Kubernetes node binaries
+        "Source" : {  // Contains values for Kubernetes node binaries 
+            "Release" : "1.15.0",  // Version of Kubernetes node binaries
+            "Url" : "https://dl.k8s.io/v1.15.0/kubernetes-node-windows-amd64.tar.gz"  // Direct URL pointing to Kubernetes node binaries tarball
+        },
+        "ControlPlane" : {  // Contains values associated with Kubernetes control-plane ("Master") node
+            "IpAddress" : "kubemasterIP",  // IP address of control-plane ("Master") node
+            "Username" : "localadmin",  // Username on control-plane ("Master") node with remote SSH access  
+            "KubeadmToken" : "token",  // Kubeadm bootstrap token
+            "KubeadmCAHash" : "discovery-token-ca-cert-hash"  // Kubeadm CA key hash
+        },
+        "KubeProxy" : {  // Contains values for Kubernetes network proxy configuration
+            "Gates" : "WinOverlay=true"  // Comma-separated key-value pairs passed to kube-proxy feature gate flag
+        },
+        "Network" : {  // Contains values for IP ranges in CIDR notation for Kubernetes networking
+            "ServiceCidr" : "10.96.0.0/12",  // Service IP subnet used by Services in CIDR notation
+            "ClusterCidr" : "10.244.0.0/16"  // Cluster IP subnet used by Pods in CIDR notation 
+        }
+    },
+    "Install" : {  // Contains values and configurations for Windows node installation
+        "Destination" : "C:\\ProgramData\\Kubernetes"  // Absolute DOS path where Kubernetes will be installed on the Windows node
+    }
+}
+  ```
 
 {{< note >}}
-`pause`(인프라스트럭처) 이미지는 Microsoft 컨테이너 레지스트리(MCR)에 등록되어 있다. `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`로 접근할 수 있다. `DOCKERFILE`은 https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat 에 있다.
+사용자는 쿠버네티스 컨트롤 플레인("마스터") 노드에서 `kubeadm token create --print-join-command`를 실행해서 `ControlPlane.KubeadmToken`과 `ControlPlane.KubeadmCAHash` 필드를 위한 값을 생성할 수 있다.
 {{< /note >}}
 
-1. 쿠버네티스를 위한 윈도우 디렉터리 준비하기
+1. 컨테이너와 쿠버네티스를 설치 (시스템 재시작 필요)
 
-    쿠버네티스 바이너리와 배포 스크립트와 구성 파일을 저장할 "윈도우를 위한 쿠버네티스" 디렉터리를 생성한다.
+기존에 내려받은[KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 쿠버네티스를 윈도우 서버 컨테이너 호스트에 설치한다.
 
-    ```PowerShell
-    mkdir c:\k
-    ```
-
-1. 쿠버네티스 인증서 복사하기
-
-    쿠버네티스 인증서 파일인 `$HOME/.kube/config`을 [리눅스 컨트롤러](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information)에서 윈도우 노드의 새로운 `C:\k` 디렉터리로 복사한다.
-
-    팁: 노드 간에 구성 파일 전송을 위해 [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php)나 [WinSCP 파워쉘 래퍼](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0)같은 도구를 이용할 수 있다.
-
-1. 쿠버네티스 바이너리 다운로드 하기
-
-    쿠버네티스르 운영을 가능하게 하기 위해 먼저 `kubelet`과 `kube-proxy` 바이너리를 다운로드해야 한다. 이 바이너리를 [최신 릴리스](https://github.com/kubernetes/kubernetes/releases/)의 CHANGELOG.md 파일에 노드 바이너리 링크에서 다운로드 한다. 예를 들어 'kubernetes-node-windows-amd64.tar.gz'. 또한 클라이언트 바이너리 항목에서 찾을 수 있는 윈도우에서 실행되는 `kubectl`을 선택적으로 다운로드 받을 수 있다.
-
-    압축 파일을 풀고, `C:\k`로 바이너리를 위치하기 위해 [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) 파워쉘 커맨드를 이용할 수 있다.
-
-#### 윈도우 노드를 플라넬 클러스터에 가입하기
-
-플라넬 오버레이 배포 스크립트와 문서는 [이 리포지터리](https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel/overlay)에 있다. 다음 단계는 그곳에 있는 자세한 요령을 따라서 단순히 진행하는 것이다.
-
-[Flannel start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1) 스크립트를 다운로드받고, 그 내용을 `C:\k`에 풀어 넣자.
-
-```PowerShell
-cd c:\k
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/start.ps1 -o c:\k\start.ps1
-```
+  ```PowerShell
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install 
+  ```
+  이 때 `-ConfigFile`는 쿠버네티스 구성 파일의 경로를 가리킨다.
 
 {{< note >}}
-[start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1)은 [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1)을 참고하는데, 이는 사용자를 위해 `flanneld` 실행 **파일 같은** 추가 파일과 [인프라스트럭처 파드를 위한 Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile)을 다운로드하고 설치한다. 오버레이 네트워킹 방식에서 [방화벽](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111)은 지역 UDP 4789 포트에 대해 열려있다. 여러 파워쉘 윈도우가 열렸다 닫히며, 포드 네트워크를 위한 새로운 외부 vSwitch가 처음 생성되는 동안 몇 초간은 네트워크가 중단된다. 아래 지정한 인수를 사용하여 스크립트를 실행하자.
+아래 예제에서, 우리는 오버레이 네트워킹 모드를 사용한다. 이는 [KB4489899](https://support.microsoft.com/help/4489899)를 포함한 윈도우 서버 버전 2019와 최소 쿠버네티스 v1.14 이상이 필요하다. 이 요구사항을 만족시키기 어려운 사용자는 구성 파일의 [플러그인](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclusterbridge.json#L18)으로 `bridge`를 선택하지 말고 `L2bridge` 네트워킹을 사용해야만 한다.
 {{< /note >}}
 
-```PowerShell
-cd c:\k
-.\start.ps1 -ManagementIP <Windows Node IP> `
-  -NetworkMode overlay `
-  -ClusterCIDR <Cluster CIDR> `
-  -ServiceCIDR <Service CIDR> `
-  -KubeDnsServiceIP <Kube-dns Service IP> `
-  -LogDir <Log directory>
-```
+  ![alt_text](../kubecluster.ps1-install.gif "KubeCluster.ps1 install output")
 
-| 파라미터 | 기본값 | 비고 |
-| --- | --- | --- |
-| -ManagementIP | N/A (필요함) | 윈도우 노드에 할당할 IP 주소. 이 값을 찾기 위해 `ipconfig` 이용할 수 있다. |
-| -NetworkMode | l2bridge | 여기서는 `overlay`를 사용한다. |
-| -ClusterCIDR | 10.244.0.0/16 | 클러스터 IP 설계을 참고한다. |
-| -ServiceCIDR | 10.96.0.0/12 | 클러스터 IP 설계을 참고한다. |
-| -KubeDnsServiceIP | 10.96.0.10 | |
-| -InterfaceName | Ethernet | 윈도우 호스트의 네트워크 인터페이스 이름. 이 값을 찾기 위해 <code>ipconfig</code> 이용할 수 있다. |
-| -LogDir | C:\k | Kubelet과 Kube-proxy가 각각의 로그 출력 파일을 리다이렉션하는 디렉터리이다. |
 
-이제 다음을 실행하여 사용자 클러스터 내에 윈도우 노드를 볼 수 있다.
+대상으로 하는 윈도우 노드에서, 본 단계는
+
+1. 윈도우 서버 컨테이너 역할을 활성화(및 재시작) 한다.
+1. 선택된 컨테이너 런타임을 내려받아 설치한다.
+1. 필요한 컨테이너 이미지를 모두 내려받는다.
+1. 쿠버네티스 바이너리를 내려받아서 `$PATH` 환경 변수에 추가한다.
+1. 쿠버네티스 구성 파일에서 선택한 내용을 기반으로 CNI 플러그인을 내려받는다.
+1. (선택적으로) 참여(join) 중에 컨트롤 플레인("마스터") 노드에 접속하기 위한 새로운 SSH 키를 생성한다.
+
+      {{< note >}}또한, SSH 키 생성 단계에서 생성된 공개 SSH 키를 (리눅스) 컨트롤 플레인 노드의 `authorized_keys` 파일에 추가해야 한다. 이는 한 번만 수행하면 된다. 스크립트가 출력물의 마지막 부분에 이를 따라 할 수 있도록 단계를 출력해 준다.{{< /note >}}
+
+일단 설치가 완료되면, 생성된 모든 구성 파일이나 바이너리는 윈도우 노드가 참여하기 전에 수정될 수 있다.
+
+#### 윈도우 노드를 쿠버네티스 클러스터에 참여시키기
+
+이 섹션에서는 클러스터를 구성하기 위해서 [쿠버네티스가 설치된 윈도우 노드](#윈도우-노드-준비하기)를 기존의 (리눅스) 컨트롤 플레인에 참여시키는 방법을 다룬다.
+
+앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 윈도우 노드를 클러스터에 참여시킨다.
+
+  ```PowerShell
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
+  ```
+  이 때 `-ConfigFile` 쿠버네티스 구성 파일의 경로를 가리킨다.
+
+![alt_text](../kubecluster.ps1-join.gif "KubeCluster.ps1 join output")
+
+{{< note >}}
+어떤 이유에서든 부트스트랩 동안이나 참여 과정에서 스크립트가 실패하면, 뒤따르는 참여 시도를 시작하기 전에 신규 PowerShell 세션을 시작해야한다.
+{{< /note >}}
+
+본 단계는 다음의 행위를 수행한다.
+
+1. 컨트롤 플레인("마스터") 노드에 SSH로 접속해서 [Kubeconfig 파일](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 얻어온다.
+1. kubelet을 윈도우 서비스로 등록한다.
+1. CNI 네트워크 플러그인을 구성한다.
+1. 선택된 네트워크 인터페이스 상에서 HNS 네트워크를 생성한다.
+    {{< note >}}
+    이는 vSwitch가 생성되는 동안 몇 초간의 네트워크 순단현상을 야기할 수 있다. 
+    {{< /note >}}
+1. (vxlan 플러그인을 선택한 경우) 오버레이 트래픽을 위해서 인바운드(inbound) 방화벽의 UDP 포트 4789를 열어준다.
+1. flanneld를 윈도우 서비스로 등록한다.
+1. kube-proxy를 윈도우 서비스로 등록한다.
+
+이제 클러스터에서 다음의 명령을 실행해서 윈도우 노드를 볼 수 있다.
 
 ```bash
 kubectl get nodes
 ```
 
-{{< note >}}
-Kubelet, kueb-proxy 같은 윈도우 노드 구성요소를 윈도우 서비스로 구성할 수 있다. 추가적인 방법은 [문제 해결](#troubleshooting)의 서비스와 백그라운드 프로세스 단원을 보자. 노드의 구성요소를 서비스로 실행하면 로그 수집하는 것이 문제 해결에 있어 중요한 부분이 된다. 추가 지침으로 기여 가이드에서 [로그 수집하기](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs) 단원을 보자.
-{{< /note >}}
+#### 윈도우 노드를 쿠버네티스 클러스터에서 제거하기
+이 섹션에서는 윈도우 노드를 쿠버네티스 클러스터에서 제거하는 방법을 다룬다.
 
-### 공개 클라우드 제공자
+앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 클러스터에서 윈도우 노드를 제거한다.
+
+  ```PowerShell
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset 
+  ```
+  이 때 `-ConfigFile` 쿠버네티스 구성 파일의 경로를 가리킨다.
+
+![alt_text](../kubecluster.ps1-reset.gif "KubeCluster.ps1 reset output")
+
+본 단계는 다음의 행위를 대상이되는 윈도우 노드에서 수행한다.
+
+1. 윈도우 노드를 쿠버네티스 클러스터에서 삭제한다.
+1. 구동 중인 모든 컨테이너를 중지시킨다.
+1. 모든 컨테이너 네트워킹(HNS) 자원을 삭제한다.
+1. 등록된 모든 쿠버네티스 서비스(flanneld, kubelet, kube-proxy)를 해지한다.
+1. 쿠버네티스 바이너리(kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)를 모두 삭제한다.
+1. CNI 네트워크 플러그인 바이너리를 모두 삭제한다.
+1. 쿠버네티스 클러스터에 접근하기 위한 [Kubeconfig 파일](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 삭제한다.
+
+
+### 퍼블릭 클라우드 제공자
 
 #### Azure
 
@@ -304,10 +349,12 @@ AKS-Engine은 완전하고, 맞춤 설정이 가능한 쿠버네티스 클러스
 
 #### kubeadm과 클러스터 API로 배포하기
 
-Kubeadm은 쿠버네티스 클러스터를 배포하는 사용자에게 산업 표준이 되었다. Kubeadm에서 윈도우 노드 지원은 미래 릴리스에 나올 것이다. 또한 윈도우 노드가 올바르게 프로비저닝되도록 클러스터 API에 투자하고 있다.
+Kubeadm은 쿠버네티스 클러스터를 배포하는 사용자에게 산업 표준이 되었다. Kubeadm에서 윈도우 노드 지원은 쿠버네티스 v1.16 이후 부터 알파 기능이다. 또한 윈도우 노드가 올바르게 프로비저닝되도록 클러스터 API에 투자하고 있다. 보다 자세한 내용은, [Windows KEP를 위한 kubeadm](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cluster-lifecycle/kubeadm/20190424-kubeadm-for-windows.md)을 통해 상담하도록 하자.
+
 
 ### 다음 단계
 
 이제 클러스터 내에 윈도우 컨테이너를 실행하도록 윈도우 워커를 구성했으니, 리눅스 컨테이너를 실행할 리눅스 노드를 1개 이상 추가할 수 있다. 이제 윈도우 컨테이너를 클러스터에 스케줄링할 준비가 됬다.
 
 {{% /capture %}}
+
