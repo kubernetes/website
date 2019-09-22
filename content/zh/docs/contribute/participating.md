@@ -51,10 +51,13 @@ SIG Docs 负责维护 Kubernetes 最面向公众的方面之一—— Kubernetes
 -->
 ## 角色和责任
 
+<!--
 When a pull request is merged to the branch used to publish content (currently
 `master`), that content is published and available to the world. To ensure that
 the quality of our published content is high, we limit merging pull requests to
 SIG Docs approvers. Here's how it works.
+-->
+
 当一个 pull 请求被合并到用于发布内容的分支(当前为“master”)，该内容将发布并向全世界开放。
 为了确保发布内容的质量较高，每个 pull 请求需要 SIG Docs 的 approver 审批。
 它是这样工作的。
@@ -77,11 +80,13 @@ SIG Docs approvers. Here's how it works.
 - 只有 SIG Docs 的 approver 可以在评论中回复 `/approve` 并触发合并。 
   某些 approver 还兼具其他角色，比如 [PR Wrangler](#pr-wrangler) 或 [SIG Docs chairperson](#sig-docs-chairperson)。
 
+<!--
 For more information about expectations and differences between the roles of
 Kubernetes organization member and SIG Docs approvers, see
 [Types of contributor](/docs/contribute#types-of-contributor). The following
 sections cover more details about these roles and how they work within
 SIG Docs.
+-->
 关于 Kubernetes 组织成员和 SIG Docs approver 的区别，请参考 [Types of contributor](/docs/contribute#types-of-contributor)。
 以下部分将详细介绍这些角色及其内部的工作方式。
 
