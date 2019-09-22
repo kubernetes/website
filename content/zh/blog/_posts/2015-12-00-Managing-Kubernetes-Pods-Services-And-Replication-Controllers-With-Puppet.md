@@ -1,3 +1,10 @@
+---
+title: " 使用 Puppet 管理 Kubernetes Pods，Services 和 Replication Controllers "
+date: 2015-12-17
+slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
+url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
+---
+
 <!--
 ---
 title: " Managing Kubernetes Pods, Services and Replication Controllers with Puppet "
@@ -6,11 +13,6 @@ slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
 url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
 ---
 -->
-
-title: " 使用 Puppet 管理 Kubernetes Pods，Services 和 Replication Controllers "
-date: 2015-12-17
-slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
-url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
 
 <!--
 _Today’s guest post is written by Gareth Rushgrove, Senior Software Engineer at Puppet Labs, a leader in IT automation. Gareth tells us about a new Puppet module that helps manage resources in Kubernetes.&nbsp;_  
@@ -158,5 +160,5 @@ It’s safe to say that Kubernetes provides an excellent set of primitives on wh
 可以肯定地说，Kubernetes提供了一组优秀的组件来构建云原生系统。使用 Puppet，您可以解决在生产中运行任何复杂系统所带来的一些操作和配置管理问题。[告诉我们](mailto:gareth@puppetlabs.com)如果您试用了该模块，您会有什么想法，以及您希望在将来看到哪些支持。
 
 
-
 Gareth Rushgrove，Puppet Labs 高级软件工程师
+
