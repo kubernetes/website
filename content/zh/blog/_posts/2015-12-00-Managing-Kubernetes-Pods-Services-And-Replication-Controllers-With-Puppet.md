@@ -1,3 +1,10 @@
+---
+title: " 使用 Puppet 管理 Kubernetes Pods，Services 和 Replication Controllers "
+date: 2015-12-17
+slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
+url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
+---
+
 <!--
 ---
 title: " Managing Kubernetes Pods, Services and Replication Controllers with Puppet "
@@ -7,10 +14,6 @@ url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers
 ---
 -->
 
-title: " 使用 Puppet 管理 Kubernetes Pods，Services 和 Replication Controllers "
-date: 2015-12-17
-slug: managing-kubernetes-pods-services-and-replication-controllers-with-puppet
-url: /blog/2015/12/Managing-Kubernetes-Pods-Services-And-Replication-Controllers-With-Puppet
 
 <!--
 _Today’s guest post is written by Gareth Rushgrove, Senior Software Engineer at Puppet Labs, a leader in IT automation. Gareth tells us about a new Puppet module that helps manage resources in Kubernetes.&nbsp;_  
