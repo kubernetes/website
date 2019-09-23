@@ -264,6 +264,7 @@
 /docs/tasks/configure-pod-container/cilium-network-policy/     /docs/tasks/administer-cluster/cilium-network-policy/ 301
 /docs/tasks/configure-pod-container/communicate-containers-same-pod/     /docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/ 301
 /docs/tasks/configure-pod-container/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
+/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
 /docs/tasks/configure-pod-container/declare-network-policy/     /docs/tasks/administer-cluster/declare-network-policy/ 301
 /docs/tasks/configure-pod-container/define-command-argument-container/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/tasks/configure-pod-container/define-environment-variable-container/     /docs/tasks/inject-data-application/define-environment-variable-container/ 301
@@ -396,7 +397,7 @@
 /docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
-/docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-probes/ 301
+/docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
 /docs/user-guide/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/user-guide/logging/elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
