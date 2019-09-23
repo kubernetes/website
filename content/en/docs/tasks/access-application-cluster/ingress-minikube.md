@@ -146,7 +146,7 @@ The following file is an Ingress resource that sends traffic to your Service via
          - host: hello-world.info
            http:
              paths:
-             - path: /(.+)
+             - path: /|/(.+)
                backend:
                  serviceName: web
                  servicePort: 8080

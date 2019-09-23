@@ -9,7 +9,7 @@ weight: 20
 ---
 
 {{% capture overview %}}
-This page describes common concepts in the Kubernetes API. 
+This page describes common concepts in the Kubernetes API.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -29,17 +29,17 @@ Kubernetes generally leverages standard RESTful terminology to describe the API 
 
 All resource types are either scoped by the cluster (`/apis/GROUP/VERSION/*`) or to a namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped resource type will be deleted when its namespace is deleted and access to that resource type is controlled by authorization checks on the namespace scope. The following paths are used to retrieve collections and resources:
 
-* Cluster-scoped resources: 
+* Cluster-scoped resources:
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
-* Namespace-scoped resources: 
+* Namespace-scoped resources:
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 
 Since a namespace is a cluster-scoped resource type, you can retrieve the list of all namespaces with `GET /api/v1/namespaces` and details about a particular namespace with `GET /api/v1/namespaces/NAME`.
 
-Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH, and DELETE. Kubernetes uses the term **list** to describe returning a collection of resources to distinguish from retrieving a single resource which is usually called a **get**. 
+Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH, and DELETE. Kubernetes uses the term **list** to describe returning a collection of resources to distinguish from retrieving a single resource which is usually called a **get**.
 
 Some resource types will have one or more sub-resources, represented as sub paths below the resource:
 
@@ -86,6 +86,11 @@ For example:
         ...
 
 A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
+
+### Watch bookmarks
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
 To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to pass an information that all changes up to a given `resourceVersion` client is requesting has already been send. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
 
         GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
@@ -103,13 +108,13 @@ To mitigate the impact of short history window, we introduced a concept of `book
           "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "12746"} }
         }
 
-`Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event. As of 1.15 release, it is an Alpha feature.
+`Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event. Since version 1.16, watch bookmarks feature is enabled by default.
 
 ## Retrieving large results sets in chunks
 
 On large clusters, retrieving the collection of some resource types may result in very large responses that can impact the server and client. For instance, a cluster may have tens of thousands of pods, each of which is 1-2kb of encoded JSON. Retrieving all pods across all namespaces may result in a very large response (10-20MB) and consume a large amount of server resources. Starting in Kubernetes 1.9 the server supports the ability to break a single large collection request into many smaller chunks while preserving the consistency of the total request. Each chunk can be returned sequentially which reduces both the total size of the request and allows user-oriented clients to display results incrementally to improve responsiveness.
 
-To retrieve a single list in chunks, two new parameters `limit` and `continue` are supported on collection requests and a new field `continue` is returned from all list operations in the list `metadata` field. A client should specify the maximum results they wish to receive in each chunk with `limit` and the server will return up to `limit` resources in the result and include a `continue` value if there are more resources in the collection. The client can then pass this `continue` value to the server on the next request to instruct the server to return the next chunk of results. By continuing until the server returns an empty `continue` value the client can consume the full set of results. 
+To retrieve a single list in chunks, two new parameters `limit` and `continue` are supported on collection requests and a new field `continue` is returned from all list operations in the list `metadata` field. A client should specify the maximum results they wish to receive in each chunk with `limit` and the server will return up to `limit` resources in the result and include a `continue` value if there are more resources in the collection. The client can then pass this `continue` value to the server on the next request to instruct the server to return the next chunk of results. By continuing until the server returns an empty `continue` value the client can consume the full set of results.
 
 Like a watch operation, a `continue` token will expire after a short amount of time (by default 5 minutes) and return a `410 Gone` if more results cannot be returned. In this case, the client will need to start from the beginning or omit the `limit` parameter.
 
@@ -336,21 +341,57 @@ Some values of an object are typically generated before the object is persisted.
 
 ## Server Side Apply
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, the `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-### Enable the Server Side Apply alpha feature
+### Introduction
 
-Server Side Apply is an alpha feature, so it is disabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates) on,
-you need to include the `--feature-gates ServerSideApply=true` flag when starting `kube-apiserver`.
-If you have multiple `kube-apiserver` replicas, all should have the same flag setting.
+Server Side Apply helps users and controllers manage their resources via
+declarative configurations. It allows them to create and/or modify their
+objects declaratively, simply by sending their fully specified intent.
+
+A fully specified intent is a partial object that only includes the fields and
+values for which the user has an opinion. That intent either creates a new
+object or is [combined](#merge-strategy), by the server, with the existing object.
+
+The system supports multiple appliers collaborating on a single object.
+
+This model of specifying intent makes it difficult to remove existing fields.
+When a field is removed from one's config and applied, the value will be kept
+(the system assumes that you don't care about that value anymore). If an item is
+removed from a list or a map, it will be removed if no other appliers care about
+its presence.
+
+Changes to an object's fields are tracked through a "[field management](#field-management)"
+mechanism. When a field's value changes, ownership moves from its current
+manager to the manager making the change. When trying to apply an object, fields
+that have a different value and are owned by another manager will result in a
+[conflict](#conflicts). This is done in order to signal that the operation might undo another
+collaborator's changes. Conflicts can be forced, in which case the value will be
+overriden, and the ownership will be transfered.
+
+It is meant both as a replacement for the original `kubectl apply` and as a
+simpler mechanism to write controllers.
 
 ### Field Management
 
-Compared to the `last-applied` annotation managed by `kubectl`, Server Side Apply uses a more declarative approach, which tracks a user's field management, rather than a user's last applied state. This means that as a side effect of using Server Side Apply, information about which field manager manages each field in an object also becomes available.
+Compared to the `last-applied` annotation managed by `kubectl`, Server Side
+Apply uses a more declarative approach, which tracks a user's field management,
+rather than a user's last applied state. This means that as a side effect of
+using Server Side Apply, information about which field manager manages each
+field in an object also becomes available.
 
-For a user to manage a field, in the Server Side Apply sense, means that the user relies on and expects the value of the field not to change. The user who last made an assertion about the value of a field will be recorded as the current field manager. This can be done either by changing the value with `POST`, `PUT`, or non-apply `PATCH`, or by including the field in a config sent to the Server Side Apply endpoint. Any applier that tries to change the field which is managed by someone else will get its request rejected (if not forced, see the Conflicts section below).
+For a user to manage a field, in the Server Side Apply sense, means that the
+user relies on and expects the value of the field not to change. The user who
+last made an assertion about the value of a field will be recorded as the
+current field manager. This can be done either by changing the value with
+`POST`, `PUT`, or non-apply `PATCH`, or by including the field in a config sent
+to the Server Side Apply endpoint. When using Server-Side Apply, trying to
+change a field which is managed by someone else will result in a rejected
+request (if not forced, see [Conflicts](#conflicts)).
 
-Field management is stored in a newly introduced `managedFields` field that is part of an object's [`metadata`](/docs/reference/generated/kubernetes-api/v1.14/#objectmeta-v1-meta).
+Field management is stored in a newly introduced `managedFields` field that is
+part of an object's
+[`metadata`](/docs/reference/generated/kubernetes-api/v1.16/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
 
@@ -366,7 +407,9 @@ metadata:
   - manager: kubectl
     operation: Apply
     apiVersion: v1
-    fields:
+    time: "2010-10-10T0:00:00Z"
+    fieldsType: FieldsV1
+    fieldsV1:
       f:metadata:
         f:labels:
           f:test-label: {}
@@ -376,17 +419,63 @@ data:
   key: some value
 ```
 
-The above object contains a single manager in `metadata.managedFields`. The manager consists of basic information about the managing entity itself, like operation type, api version, and the fields managed by it.
+The above object contains a single manager in `metadata.managedFields`. The
+manager consists of basic information about the managing entity itself, like
+operation type, api version, and the fields managed by it.
 
-{{< note >}} This field is managed by the apiserver and should not be changed by the user. {{< /note >}}
+{{< note >}} This field is managed by the apiserver and should not be changed by
+the user. {{< /note >}}
 
-Nevertheless it is possible to change `metadata.managedFields` through an `Update` operation. Doing so is highly discouraged, but might be a reasonable option to try if, for example, the `managedFields` get into an inconsistent state (which clearly should not happen).
+Nevertheless it is possible to change `metadata.managedFields` through an
+`Update` operation. Doing so is highly discouraged, but might be a reasonable
+option to try if, for example, the `managedFields` get into an inconsistent
+state (which clearly should not happen).
 
-### Operations
+The format of the `managedFields` is described in the [API](/docs/reference/generated/kubernetes-api/v1.16/#fieldsv1-v1-meta).
 
-The two operation types considered by this feature are `Apply` (`PATCH` with content type `application/apply-patch+yaml`) and `Update` (all other operations which modify the object). Both operations update the `managedFields`, but behave a little differently.
+### Conflicts
 
-For instance, only the apply operation fails on conflicts while update does not. Also, apply operations are required to identify themselves by providing a `fieldManager` query parameter, while the query parameter is optional for update operations.
+A conflict is a special status error that occurs when an `Apply` operation tries
+to change a field, which another user also claims to manage. This prevents an
+applier from unintentionally overwriting the value set by another user. When
+this occurs, the applier has 3 options to resolve the conflicts:
+
+* **Overwrite value, become sole manager:** If overwriting the value was
+  intentional (or if the applier is an automated process like a controller) the
+  applier should set the `force` query parameter to true and make the request
+  again. This forces the operation to succeed, changes the value of the field,
+  and removes the field from all other managers' entries in managedFields.
+* **Don't overwrite value, give up management claim:** If the applier doesn't
+  care about the value of the field anymore, they can remove it from their
+  config and make the request again. This leaves the value unchanged, and causes
+  the field to be removed from the applier's entry in managedFields.
+* **Don't overwrite value, become shared manager:** If the applier still cares
+  about the value of the field, but doesn't want to overwrite it, they can
+  change the value of the field in their config to match the value of the object
+  on the server, and make the request again. This leaves the value unchanged,
+  and causes the field's management to be shared by the applier and all other
+  field managers that already claimed to manage it.
+
+
+### Managers
+
+Managers identify distinct workflows that are modifying the object (especially
+useful on conflicts!), and can be specified through the `fieldManager` query
+parameter as part of a modifying request. It is required for the apply endpoint,
+though kubectl will default it to `kubectl`. For other updates, its default is
+computed from the user-agent.
+
+### Apply and Update
+
+The two operation types considered by this feature are `Apply` (`PATCH` with
+content type `application/apply-patch+yaml`) and `Update` (all other operations
+which modify the object). Both operations update the `managedFields`, but behave
+a little differently.
+
+For instance, only the apply operation fails on conflicts while update does
+not. Also, apply operations are required to identify themselves by providing a
+`fieldManager` query parameter, while the query parameter is optional for update
+operations. Finally, when using the apply operation you cannot have `managedFields` in the object that is being applied.
 
 An example object with multiple managers could look like this:
 
@@ -417,41 +506,84 @@ data:
   key: new value
 ```
 
-In this example, a second operation was run as an `Update` by the manager called `kube-controller-manager`. The update changed a value in the data field which caused the field's management to change to the `kube-controller-manager`.
-{{< note >}}If this update would have been an `Apply` operation, the operation would have failed due to conflicting ownership.{{< /note >}}
+In this example, a second operation was run as an `Update` by the manager called
+`kube-controller-manager`. The update changed a value in the data field which
+caused the field's management to change to the `kube-controller-manager`.
 
-### Merge Strategy
+{{< note >}}If this update would have been an `Apply` operation, the operation
+would have failed due to conflicting ownership.{{< /note >}}
 
-The merging strategy, implemented with Server Side Apply, provides a generally more stable object lifecycle.
-Server Side Apply tries to merge fields based on the fact who manages them instead of overruling just based on values.
-This way it is intended to make it easier and more stable for multiple actors updating the same object by causing less unexpected interference.
+### Merge strategy
 
-When a user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified in both places. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed. For more information about how an object's schema is used to make decisions when merging, see [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
+The merging strategy, implemented with Server Side Apply, provides a generally
+more stable object lifecycle. Server Side Apply tries to merge fields based on
+the fact who manages them instead of overruling just based on values. This way
+it is intended to make it easier and more stable for multiple actors updating
+the same object by causing less unexpected interference.
 
-### Conflicts
-
-A conflict is a special status error that occurs when an `Apply` operation tries to change a field, which another user also claims to manage. This prevents an applier from unintentionally overwriting the value set by another user. When this occurs, the applier has 3 options to resolve the conflicts:
-
-* **Overwrite value, become sole manager:** If overwriting the value was intentional (or if the applier is an automated process like a controller) the applier should set the `force` query parameter to true and make the request again. This forces the operation to succeed, changes the value of the field, and removes the field from all other managers' entries in managedFields.
-* **Don't overwrite value, give up management claim:** If the applier doesn't care about the value of the field anymore, they can remove it from their config and make the request again. This leaves the value unchanged, and causes the field to be removed from the applier's entry in managedFields.
-* **Don't overwrite value, become shared manager:** If the applier still cares about the value of the field, but doesn't want to overwrite it, they can change the value of the field in their config to match the value of the object on the server, and make the request again. This leaves the value unchanged, and causes the field's management to be shared by the applier and all other field managers that already claimed to manage it.
-
-### Comparison with Client Side Apply
-
-A consequence of the conflict detection and resolution implemented by Server Side Apply is that an applier always has up to date field values in their local state. If they don't, they get a conflict the next time they apply. Any of the three options to resolve conflicts results in the applied config being an up to date subset of the object on the server's fields.
-
-This is different from Client Side Apply, where outdated values which have been overwritten by other users are left in an applier's local config. These values only become accurate when the user updates that specific field, if ever, and an applier has no way of knowing whether their next apply will overwrite other users' changes.
-
-Another difference is that an applier using Client Side Apply is unable to change the API version they are using, but Server Side Apply supports this use case.
+When a user sends a "fully-specified intent" object to the Server Side Apply
+endpoint, the server merges it with the live object favoring the value in the
+applied config if it is specified in both places. If the set of items present in
+the applied config is not a superset of the items applied by the same user last
+time, each missing item not managed by any other appliers is removed. For
+more information about how an object's schema is used to make decisions when
+merging, see
+[sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
 ### Custom Resources
 
-Server Side Apply currently treats all custom resources as unstructured data. All keys are treated the same as struct fields, and all lists are considered atomic. In the future, it will use the validation field in Custom Resource Definitions to allow Custom Resource authors to define how to how to merge their own objects.
+By default, Server Side Apply treats custom resources as unstructured data. All
+keys are treated the same as struct fields, and all lists are considered atomic.
+If the validation field is specified in the Custom Rseource Definition, it is
+used when merging objects of this type.
+
+
+### Using Server-Side Apply in a controller
+
+As a developer of a controller, you can use server-side apply as a way to
+simplify the update logic of your controller. The main differences with a
+read-modify-write and/or patch are the following:
+
+* the applied object must contain all the fields that the controller cares about.
+* there are no way to remove fields that haven't been applied by the controller
+  before (controller can still send a PATCH/UPDATE for these use-cases).
+* the object doesn't have to be read beforehand, `resourceVersion` doesn't have
+  to be specified.
+
+It is strongly recommended for controllers to always "force" conflicts, since they
+might not be able to resolve or act on these conflicts.
+
+### Comparison with Client Side Apply
+
+A consequence of the conflict detection and resolution implemented by Server
+Side Apply is that an applier always has up to date field values in their local
+state. If they don't, they get a conflict the next time they apply. Any of the
+three options to resolve conflicts results in the applied config being an up to
+date subset of the object on the server's fields.
+
+This is different from Client Side Apply, where outdated values which have been
+overwritten by other users are left in an applier's local config. These values
+only become accurate when the user updates that specific field, if ever, and an
+applier has no way of knowing whether their next apply will overwrite other
+users' changes.
+
+Another difference is that an applier using Client Side Apply is unable to
+change the API version they are using, but Server Side Apply supports this use
+case.
+
+### API Endpoint
+
+With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
+additional `application/apply-patch+yaml` content type. Users of Server Side
+Apply can send partially specified objects to this endpoint. An applied config
+should always include every field that the applier has an opinion about.
 
 ### Clearing ManagedFields
 
-It is possible to strip all managedFields from an object by overwriting them using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every non-apply operation.
-This can be done by overwriting the managedFields field with an empty entry. Two examples are:
+It is possible to strip all managedFields from an object by overwriting them
+using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every
+non-apply operation. This can be done by overwriting the managedFields field
+with an empty entry. Two examples are:
 
 ```json
 PATCH /api/v1/namespaces/default/configmaps/example-cm
@@ -467,6 +599,21 @@ Accept: application/json
 Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
 ```
 
-This will overwrite the managedFields with a list containing a single empty entry that then results in the managedFields being stripped entirely from the object. Note that just setting the managedFields to an empty list will not reset the field. This is on purpose, so managedFields never get stripped by clients not aware of the field.
+This will overwrite the managedFields with a list containing a single empty
+entry that then results in the managedFields being stripped entirely from the
+object. Note that just setting the managedFields to an empty list will not reset
+the field. This is on purpose, so managedFields never get stripped by clients
+not aware of the field.
 
-In cases where the reset operation is combined with changes to other fields than the managedFields, this will result in the managedFields being reset first and the other changes being processed afterwards. As a result the applier takes ownership of any fields updated in the same request.
+In cases where the reset operation is combined with changes to other fields than
+the managedFields, this will result in the managedFields being reset first and
+the other changes being processed afterwards. As a result the applier takes
+ownership of any fields updated in the same request.
+
+### Disabling the feature
+
+Server Side Apply is a beta feature, so it is enabled by default. To turn this
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates) off,
+you need to include the `--feature-gates ServerSideApply=false` flag when
+starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
+should have the same flag setting.

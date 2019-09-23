@@ -47,7 +47,7 @@ For control-plane nodes additional steps are performed:
 
 ### Using join phases with kubeadm {#join-phases}
 
-Kubeadm allows you join a node to the cluster in phases. The `kubeadm join phase` command was added in v1.14.0.
+Kubeadm allows you join a node to the cluster in phases using `kubeadm join phase`.
 
 To view the ordered list of phases and sub-phases you can call `kubeadm join --help`. The list will be located
 at the top of the help screen and each phase will have a description next to it.
@@ -76,7 +76,7 @@ security expectations you have about your network and node lifecycles.
 
 #### Token-based discovery with CA pinning
 
-This is the default mode in Kubernetes 1.8 and above. In this mode, kubeadm downloads
+This is the default mode in kubeadm. In this mode, kubeadm downloads
 the cluster configuration (including root CA) and validates it using the token
 as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
@@ -117,15 +117,14 @@ if the `kubeadm init` command was called with `--upload-certs`.
  - The CA hash is not normally known until the control-plane node has been provisioned,
    which can make it more difficult to build automated provisioning tools that
    use kubeadm. By generating your CA in beforehand, you may workaround this
-   limitation though.
+   limitation.
 
 #### Token-based discovery without CA pinning
 
-_This was the default in Kubernetes 1.7 and earlier_, but comes with some
-important caveats. This mode relies only on the symmetric token to sign
+This mode relies only on the symmetric token to sign
 (HMAC-SHA256) the discovery information that establishes the root of trust for
-the control-plane. It's still possible in Kubernetes 1.8 and above using the
-`--discovery-token-unsafe-skip-ca-verification` flag, but you should consider
+the control-plane. To use the mode the joining nodes must skip the hash validation of the
+CA public key, using `--discovery-token-unsafe-skip-ca-verification`. You should consider
 using one of the other modes if possible.
 
 **Example `kubeadm join` command:**
@@ -150,9 +149,13 @@ kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-ve
    tradeoff in your environment.
 
 #### File or HTTPS-based discovery
+
 This provides an out-of-band way to establish a root of trust between the control-plane node
-and bootstrapping nodes.   Consider using this mode if you are building automated provisioning
-using kubeadm.
+and bootstrapping nodes. Consider using this mode if you are building automated provisioning
+using kubeadm. The format of the discovery file is a regular Kubernetes
+[kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) file.
+
+In case the discovery file does not contain credentials, the TLS discovery token will be used.
 
 **Example `kubeadm join` commands:**
 
@@ -215,7 +218,7 @@ NAME                                                   AGE       REQUESTOR      
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
 ```
 
-Only after `kubectl certificate approve` has been run, `kubeadm join` can proceed.
+This forces the workflow that `kubeadm join` will only succeed if `kubectl certificate approve` has been run.
 
 #### Turning off public access to the cluster-info ConfigMap
 
