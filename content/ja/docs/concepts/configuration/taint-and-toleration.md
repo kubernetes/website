@@ -72,10 +72,7 @@ tolerations:
 ```
 {{< /note >}}
 
-The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
-This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
-pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
-`NoExecute`, described later.
+上記の例では、`NoSchedule`の`effect`が使われます。かわりに`PreferNoSchedule`を使うこともできます。これは`NoSchedule`を「ソフトにした」バージョンで、システムはノード上にある該当のtaintを許容しないPodを配置*しようとします*が、必須の条件にはなりません。3つ目の`effect`には`NoExecute`がありますが、これは後で説明します。
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
 The way Kubernetes processes multiple taints and tolerations is like a filter: start
