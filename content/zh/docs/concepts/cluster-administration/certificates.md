@@ -182,7 +182,7 @@ title: 证书
             "ST": "<state>",
             "L": "<city>",
             "O": "<organization>",
-            "OU": "<organization unit>",
+            "OU": "<organization unit>"
           }]
         }
 1.  生成 CA 密钥（`ca-key.pem`）和证书（`ca.pem`）：
