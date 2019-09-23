@@ -192,7 +192,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py):
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
 
 ```python
 from kubernetes import client, config
@@ -239,11 +239,14 @@ at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
 From within a Pod, the recommended ways to connect to the Kubernetes API are:
 
-  - Use one of the official [client libraries](/docs/reference/using-api/client-libraries/)
-    as they handle API host discovery and authentication automatically.
-    For Go client, the `rest.InClusterConfig()` function assists with this.
+  - For a Go client, use the official [Go client library](https://github.com/kubernetes/client-go/).
+    The `rest.InClusterConfig()` function handles API host discovery and authentication automatically.
     See [an example here](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go).
 
+  - For a Python client, use the official [Python client library](https://github.com/kubernetes-client/python/).
+    The `config.load_incluster_config()` function handles API host discovery and authentication automatically.
+    See [an example here](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
+    
   - If you would like to query the API without an official client library, you can run `kubectl proxy`
     as the [command](/docs/tasks/inject-data-application/define-command-argument-container/)
     of a new sidecar container in the Pod. This way, `kubectl proxy` will authenticate
