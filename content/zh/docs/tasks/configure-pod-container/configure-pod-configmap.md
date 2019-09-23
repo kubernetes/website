@@ -803,7 +803,7 @@ As explained in [Create ConfigMaps from files](#create-configmaps-from-files), w
 <!--
 The examples in this section refer to a ConfigMap named special-config, shown below.
 -->
-
+本节中的示例引用一个名为 special-config 的 ConfigMap，如下所示。
 
 {{< codenew file="configmap/configmap-multikeys.yaml" >}}
 
@@ -816,21 +816,36 @@ Create the ConfigMap:
 kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
 ```
 
+<!--
 ### Populate a Volume with data stored in a ConfigMap
+-->
 
+### 用 ConfigMap 中存储的数据填充一个卷
+
+<!--
 Add the ConfigMap name under the `volumes` section of the Pod specification.
 This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
 The `command` section references the `special.level` item stored in the ConfigMap.
+-->
+在 Pod specification `volume` 部分中添加 ConfigMap 名称。
+将 ConfigMap 数据添加到指定为 `volumeMounts` 的目录中。安装路径（在本例中，`/etc/config`）。
+`command` 部分引用 `special`。存储在 ConfigMap 中的项。
 
 {{< codenew file="pods/pod-configmap-volume.yaml" >}}
 
+<!--
 Create the Pod:
+-->
+创建 pod
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
 ```
 
+<!--
 When the pod runs, the command `ls /etc/config/` produces the output below:
+-->
+当 pod 运行时，命令 `ls /etc/config/` 生成如下输出：
 
 ```shell
 SPECIAL_LEVEL
@@ -838,40 +853,78 @@ SPECIAL_TYPE
 ```
 
 {{< caution >}}
+
+<!--
 If there are some files in the `/etc/config/` directory, they will be deleted.
+-->
+如果 `/etc/config/` 目录中有一些文件，它们将被删除。
+
 {{< /caution >}}
 
+<!--
 ### Add ConfigMap data to a specific path in the Volume
+-->
 
+### 将 ConfigMap 数据添加到卷中的特定路径
+
+<!--
 Use the `path` field to specify the desired file path for specific ConfigMap items.
 In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
+-->
+使用 `path` 字段为特定的 ConfigMap 项指定所需的文件路径。
+在本例中，`SPECIAL_LEVEL` 将安装在 `/etc/config/keys` 处的 `config-volume` 卷中。
 
 {{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
 
+<!--
 Create the Pod:
+-->
+创建 pod：
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume-specific-key.yaml
 ```
 
+<!--
 When the pod runs, the command `cat /etc/config/keys` produces the output below:
+-->
+当 pod 运行时，命令 `cat /etc/config/keys` 生成如下输出：
 
 ```shell
 very
 ```
 
 {{< caution >}}
+<!--
 Like before, all previous files in the `/etc/config/` directory will be deleted.
+-->
+与以前一样，`/etc/config/` 目录中的所有的文件都将被删除。
 {{< /caution >}}
 
+<!--
 ### Project keys to specific paths and file permissions
+-->
 
+### 特定路径和文件权限的项目键
+
+<!--
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) user guide explains the syntax.
+-->
+你可以根据每个文件将密钥映射到特定的路径和特定的权限。
+[Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) 用户指南解释了语法。
 
+<!--
 ### Mounted ConfigMaps are updated automatically
+-->
 
+### 挂载的 ConfigMap 将自动更新
+
+<!--
 When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period + ttl of ConfigMaps cache in kubelet.
+-->
+
+当更新卷中已经使用的 ConfigMap 时，最终也会更新映射键。Kubelet 正在检查挂载的 ConfigMap 是否在每次定期同步时都是新的。但是，它使用基于本地 ttl 的缓存来获取 ConfigMap 的当前值。因此，从 ConfigMap 更新到将新键映射到 pod 的总延迟可以与 kubelet 同步周期 + kubelet 中 ConfigMaps 缓存的 ttl 一样长。
 
 {{< note >}}
 
