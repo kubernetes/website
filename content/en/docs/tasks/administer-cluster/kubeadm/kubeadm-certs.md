@@ -61,7 +61,7 @@ Additionally, kubeadm informs the user if the certificate is externally managed;
 
 ## Automatic certificate renewal
 
-`kubeadm` renews all the certificates during control plane [upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15/).
+`kubeadm` renews all the certificates during control plane [upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 
 This feature is designed for addressing the simplest use cases; 
 if you don't have specific requirements on certificate renewal and perform Kubernetes version upgrades regularly (less than 1 year in between each upgrade), kubeadm will take care of keeping your cluster up to date and reasonably secure.
