@@ -913,7 +913,7 @@ kube-apiserver [flags]
       <td colspan="2">--shutdown-delay-duration duration</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Time to delay the termination. During that time the server keeps serving requests normally and /healthz returns success, but /readzy immediately returns failure. Graceful termination starts after this delay has elapsed. This can be used to allow load balancer to stop sending traffic to this server.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Time to delay the termination. During that time the server keeps serving requests normally and /healthz returns success, but /ready immediately returns failure. Graceful termination starts after this delay has elapsed. This can be used to allow load balancer to stop sending traffic to this server.</td>
     </tr>
 
     <tr>
