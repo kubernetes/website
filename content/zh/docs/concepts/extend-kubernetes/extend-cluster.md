@@ -38,7 +38,7 @@ exist, and their trade-offs and limitations.
 -->
 Kubernetes 是高度可配置和可扩展的。因此，极少需要分发或提交补丁代码给 Kubernetes 项目。
 
-本文档介绍自定义 Kubernetes 集群的选项。本文档的目标读者是希望了解如何使 Kubernetes 集群满足其业务环境需求的{{< glossary_tooltip text="集群运维人员" term_id="cluster-operator" >}}。Kubernetes 项目的{{< glossary_tooltip text="贡献者" term_id="contributor" >}}或潜在的{{< glossary_tooltip text="平台开发人员" term_id="platform-developer" >}}也可以从本文找到有用的信息，如对已存在扩展点和模式的介绍，以及它们的权衡和限制。 
+本文档介绍自定义 Kubernetes 集群的选项。本文档的目标读者是希望了解如何使 Kubernetes 集群满足其业务环境需求的集群运维人员。Kubernetes 项目的贡献者或潜在的平台开发人员也可以从本文找到有用的信息，如对已存在扩展点和模式的介绍，以及它们的权衡和限制。 
 
 {{% /capture %}}
 
@@ -52,7 +52,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 -->
 ## 概述
 
-定制方法可以大致分为*配置*和*扩展*。*配置*只涉及更改标志参数，本地配置文件或 API 资源;*扩展*涉及运行额外的程序或服务。本文档主要内容是关于扩展。
+定制方法可以大致分为 *配置* 和 *扩展*。*配置* 只涉及更改标志参数，本地配置文件或 API 资源; *扩展* 涉及运行额外的程序或服务。本文档主要内容是关于扩展。
 
 <!--
 ## Configuration
