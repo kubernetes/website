@@ -8,7 +8,7 @@ repos:
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    git checkout release-1.14
+    git checkout release-1.16
     make generated_files
     cp -L -R vendor $GOPATH/src
     rm -r vendor
@@ -36,25 +36,25 @@ repos:
   - src: gen-compdocs/build/kubeadm*.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/
 
-- name: federation
-  remote: https://github.com/kubernetes/federation.git
+#- name: federation
+#  remote: https://github.com/kubernetes/federation.git
   # Change this to a release branch when federation has release branches.
-  branch: master
-  generate-command: hack/generate-docs.sh
-  files:
-  - src: docs/admin/federation-apiserver.md
-    dst: content/en/docs/reference/command-line-tools-reference/federation-apiserver.md
-  - src: docs/admin/federation-controller-manager.md
-    dst: content/en/docs/reference/command-line-tools-reference/federation-controller-manager.md
-  - src: docs/admin/kubefed_init.md
-    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_init.md
-  - src: docs/admin/kubefed_join.md
-    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_join.md
-  - src: docs/admin/kubefed.md
-    dst: content/en/docs/reference/setup-tools/kubefed/kubefed.md
-  - src: docs/admin/kubefed_options.md
-    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_options.md
-  - src: docs/admin/kubefed_unjoin.md
-    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_unjoin.md
-  - src: docs/admin/kubefed_version.md
-    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_version.md
+#  branch: master
+#  generate-command: hack/generate-docs.sh
+#  files:
+#  - src: docs/admin/federation-apiserver.md
+#    dst: content/en/docs/reference/command-line-tools-reference/federation-apiserver.md
+#  - src: docs/admin/federation-controller-manager.md
+#    dst: content/en/docs/reference/command-line-tools-reference/federation-controller-manager.md
+#  - src: docs/admin/kubefed_init.md
+#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_init.md
+#  - src: docs/admin/kubefed_join.md
+#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_join.md
+#  - src: docs/admin/kubefed.md
+#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed.md
+#  - src: docs/admin/kubefed_options.md
+#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_options.md
+#  - src: docs/admin/kubefed_unjoin.md
+#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_unjoin.md
+#  - src: docs/admin/kubefed_version.md
+#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_version.md
