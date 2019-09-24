@@ -100,12 +100,13 @@ active participants.
 有时候，帮助一个新的贡献者把他们的PR准备好合并比你自己重写它需要更多的时间，
 但是从长远来看，当我们有不同的积极参与者时，这个项目会更好。
 
+<!--
 Before you start reviewing PRs, make sure you are familiar with the
 [Documentation Style Guide](/docs/contribute/style/style-guide/)
 and the [code of conduct](/community/code-of-conduct/)
-
-在开始评审PR之前，请确保熟悉[文档风格指南](/docs/contribute/style/style-guide/)
-和[行为准则](/community/code-of-conduct/)。
+-->
+在开始评审PR之前，请确保熟悉 [文档风格指南](/docs/contribute/style/style-guide/)
+和 [行为准则](/community/code-of-conduct/)。
 
 <!--
 ### Find a PR to review
@@ -164,7 +165,7 @@ code repositories when it comes to the roles of reviewers and approvers. For
 more information about the responsibilities of reviewers and approvers, see
 [Participating](/docs/contribute/participating/). Here's an overview.
 -->
-Kubernetes网站仓库与Kubernetes的一些代码仓库在涉及审核者和审批者角色时的操作方式不同。
+Kubernetes 网站仓库与 Kubernetes 的一些代码仓库在涉及审核者和审批者角色时的操作方式不同。
 有关评审人员和批准人员职责的更多信息，请参见[参与](/docs/contribute/participating/)。
 这里只做一个概述。
 
@@ -188,7 +189,7 @@ Kubernetes网站仓库与Kubernetes的一些代码仓库在涉及审核者和审
     {{< note >}}如果你对技术准确性不确信，不要在涉及文档修改的PR中回复 `/lgtm`。  {{< /note >}}
     
 - 批准者审核有关文档修改的内容时，注重质量和相关规范（比如[风格规范](/docs/contribute/style/style-guide)）。
-  只有在[`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS)文件中列出的
+  只有在 [`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS) 文件中列出的
   人才可以批准PR。批准PR时，需要回复一个`/approved`评论。
 
 <!--
