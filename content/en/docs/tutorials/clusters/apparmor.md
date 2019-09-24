@@ -178,7 +178,18 @@ k8s-apparmor-example-deny-write (enforce)
 First, we need to load the profile we want to use onto our nodes. The profile we'll use simply
 denies all file writes:
 
-{{< code language="text" file="deny-write.profile" >}}
+```shell
+#include <tunables/global>
+
+profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
+  #include <abstractions/base>
+
+  file,
+
+  # Deny all file writes.
+  deny /** w,
+}
+```
 
 Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
 nodes. For this example we'll just use SSH to install the profiles, but other approaches are
