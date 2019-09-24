@@ -11,7 +11,11 @@ This page explains how to upgrade a Kubernetes cluster created with kubeadm from
 1.15.x to version 1.16.x, and from version 1.16.x to 1.16.y (where `y > x`).
 
 To see information about upgrading clusters created using older versions of kubeadm,
-please pick a Kubernetes version from the drop down menu of this web page.
+please refer to following pages instead:
+
+- [Upgrading kubeadm cluster from 1.14 to 1.15](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15/)
+- [Upgrading kubeadm cluster from 1.13 to 1.14](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/)
+- [Upgrading kubeadm cluster from 1.12 to 1.13](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13/) or [Upgrading kubeadm HA clusters from v1.12 to v1.13](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13/)
 
 The upgrade workflow at high level is the following:
 
