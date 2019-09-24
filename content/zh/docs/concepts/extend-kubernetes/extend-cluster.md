@@ -52,7 +52,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 -->
 ## 概述
 
-定制方法可以大致分为 *配置* 和 *扩展*。*配置* 只涉及更改标志参数，本地配置文件或 API 资源; *扩展* 涉及运行额外的程序或服务。本文档主要内容是关于扩展。
+定制方法可以大致分为 *配置* 和 *扩展* 。*配置* 只涉及更改标志参数，本地配置文件或 API 资源; *扩展* 涉及运行额外的程序或服务。本文档主要内容是关于扩展。
 
 <!--
 ## Configuration
@@ -70,7 +70,7 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 -->
 ## 配置
 
-关于*配置文件*和*标志*的说明文档位于在线文档的参考部分，按照二进制组件各自描述：
+关于 *配置文件* 和 *标志* 的说明文档位于在线文档的参考部分，按照二进制组件各自描述：
 
 * [kubelet](/docs/admin/kubelet/)
 * [kube-apiserver](/docs/admin/kube-apiserver/)
@@ -79,8 +79,8 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 
 在托管的 Kubernetes 服务或受控安装的 Kubernetes 版本中，标志和配置文件可能并不总是可以更改的。而且当它们可以进行更改时，它们通常只能由集群管理员进行更改。此外，标志和配置文件在未来的 Kubernetes 版本中可能会发生变化，并且更改设置后它们可能需要重新启动进程。出于这些原因，只有在没有其他选择的情况下才使用它们。
 
-*内置策略 API*，例如 [ResourceQuota](/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/docs/concepts/services-networking/network-policies/) 和基于角色的权限控制 ([RBAC](/docs/reference/access-authn-authz/rbac/))，是内置的 Kubernetes API。API 通常与托管的 Kubernetes 服务和受控的 Kubernetes 安装一起使用。
-它们是声明性的，并使用与其他 Kubernetes 资源（如 Pod ）相同的约定，所以新的集群配置可以重复使用，并以与应用程序相同的方式进行管理。而且，当他们变稳定后，他们和其他 Kubernetes API 一样享受[定义支持政策](/docs/reference/deprecation-policy/)。出于这些原因，在合适的情况下它们优先于*配置文件*和*标志*被使用。
+*内置策略 API* ，例如 [ResourceQuota](/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/docs/concepts/services-networking/network-policies/) 和基于角色的权限控制 ([RBAC](/docs/reference/access-authn-authz/rbac/))，是内置的 Kubernetes API。API 通常与托管的 Kubernetes 服务和受控的 Kubernetes 安装一起使用。
+它们是声明性的，并使用与其他 Kubernetes 资源（如 Pod ）相同的约定，所以新的集群配置可以重复使用，并以与应用程序相同的方式进行管理。而且，当他们变稳定后，他们和其他 Kubernetes API 一样享受[定义支持政策](/docs/reference/deprecation-policy/)。出于这些原因，在合适的情况下它们优先于 *配置文件* 和 *标志* 被使用。
 
 <!--
 ## Extensions
@@ -132,13 +132,13 @@ Kubernetes control plane.
 -->
 ## 扩展模式
 
-Kubernetes 的设计是通过编写客户端程序来实现自动化的。任何读和（或）写 Kubernetes API 的程序都可以提供有用的自动化工作。*自动化*程序可以运行在集群之中或之外。按照本文档的指导，您可以编写出高可用的和健壮的自动化程序。自动化程序通常适用于任何 Kubernetes 集群，包括托管集群和受管理安装的集群。
+Kubernetes 的设计是通过编写客户端程序来实现自动化的。任何读和（或）写 Kubernetes API 的程序都可以提供有用的自动化工作。 *自动化* 程序可以运行在集群之中或之外。按照本文档的指导，您可以编写出高可用的和健壮的自动化程序。自动化程序通常适用于任何 Kubernetes 集群，包括托管集群和受管理安装的集群。
 
-*控制器*模式是编写适合 Kubernetes 的客户端程序的一种特定模式。控制器通常读取一个对象的 `.spec` 字段，可能做出一些处理，然后更新对象的 `.status` 字段。
+*控制器* 模式是编写适合 Kubernetes 的客户端程序的一种特定模式。控制器通常读取一个对象的 `.spec` 字段，可能做出一些处理，然后更新对象的 `.status` 字段。
 
-一个控制器是 Kubernetes 的一个客户端。而当 Kubernetes 作为客户端调用远程服务时，它被称为 *Webhook*，远程服务称为 *Webhook* 后端。 和控制器类似，Webhooks 增加了一个失败点。
+一个控制器是 Kubernetes 的一个客户端。而当 Kubernetes 作为客户端调用远程服务时，它被称为 *Webhook* ，远程服务称为 *Webhook* 后端。 和控制器类似，Webhooks 增加了一个失败点。
 
-在 webhook 模型里，Kubernetes 向远程服务发送一个网络请求。在*二进制插件*模型里，Kubernetes 执行一个二进制（程序）。二进制插件被 kubelet（如 [Flex 卷插件](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)和[网络插件](/docs/concepts/cluster-administration/network-plugins/))和 kubectl 所使用。
+在 webhook 模型里，Kubernetes 向远程服务发送一个网络请求。在 *二进制插件* 模型里，Kubernetes 执行一个二进制（程序）。二进制插件被 kubelet（如 [Flex 卷插件](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)和[网络插件](/docs/concepts/cluster-administration/network-plugins/))和 kubectl 所使用。
 
 下图显示了扩展点如何与 Kubernetes 控制平面进行交互。
 
@@ -177,7 +177,7 @@ If you are unsure where to start, this flowchart can help. Note that some soluti
 -->
 1. 用户通常使用 `kubectl` 与 Kubernetes API 进行交互。[kubectl 插件](/docs/tasks/extend-kubectl/kubectl-plugins/)扩展了 kubectl 二进制程序。它们只影响个人用户的本地环境，因此不能执行站点范围的策略。
 2. apiserver 处理所有请求。apiserver 中的几种类型的扩展点允许对请求进行身份认证或根据其内容对其进行阻止、编辑内容以及处理删除操作。这些内容在[API 访问扩展](/docs/concepts/overview/extending#api-access-extensions)小节中描述。
-3. apiserver 提供各种*资源*。*内置的资源种类*，如 `pods`，由 Kubernetes 项目定义，不能更改。您还可以添加您自己定义的资源或其他项目已定义的资源，称为 自定义资源，如[自定义资源](/docs/concepts/overview/extending#user-defined-types)部分所述。自定义资源通常与 API 访问扩展一起使用。
+3. apiserver 提供各种 *资源* 。 *内置的资源种类* ，如 `pods`，由 Kubernetes 项目定义，不能更改。您还可以添加您自己定义的资源或其他项目已定义的资源，称为 自定义资源，如[自定义资源](/docs/concepts/overview/extending#user-defined-types)部分所述。自定义资源通常与 API 访问扩展一起使用。
 4. Kubernetes 调度器决定将 pod 放置到哪个节点。有几种方法可以扩展调度器。这些内容在 [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) 小节中描述。
 5. Kubernetes 的大部分行为都是由称为控制器的程序实现的，这些程序是 API-Server 的客户端。控制器通常与自定义资源一起使用。
 6. kubelet 在主机上运行，并帮助 pod 看起来就像在集群网络上拥有自己的 IP 的虚拟服务器。[网络插件](/docs/concepts/overview/extending#network-plugins)让您可以实现不同的 pod 网络。
