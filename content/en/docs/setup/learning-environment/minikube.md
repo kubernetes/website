@@ -53,7 +53,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
-    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
     ```
     The output is similar to this:
     ```
@@ -61,7 +61,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```
 3. To access the `hello-minikube` Deployment, expose it as a Service:
     ```shell
-    kubectl expose deployment hello-minikube --type=NodePort
+    kubectl expose deployment hello-minikube --type=NodePort --port=8080
     ```
     The option `--type=NodePort` specifies the type of the Service.
 
