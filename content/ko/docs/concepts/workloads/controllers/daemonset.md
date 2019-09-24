@@ -154,14 +154,14 @@ nodeAffinity:
 관련 기능기능에 따라 자동적으로 데몬셋 파드에 다음과 같이 
 톨러레이션을 추가한다.
 
-| Toleration Key                           | Effect     | Version | Description                                                  |
+| 톨러레이션 키                            | 영향       | 버전    | 설명                                                         |
 | ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+    | 네트워크 파티션과 같은 노드 문제가 발생해도 데몬셋 파드는 축출되지 않는다.                   |
+| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | 네트워크 파티션과 같은 노드 문제가 발생해도 데몬셋 파드는 축출되지 않는다.                   |
 | `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    |                                                              |
 | `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    |                                                              |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler.                                                    |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler.                      |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | 데몬셋 파드는 기본 스케줄러에 의해 예약할수 없는 속성을 허용한다.                                                         |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | 호스트 네트워크를 사용하는 데몬셋 파드는 기본 스케줄러에 의해 이용할 수 없는 네트워크 속성을 허용한다.                    |
 
 
 
