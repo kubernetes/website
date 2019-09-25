@@ -12,7 +12,8 @@ jarang membutuhkan _fork_ atau menambahkan _patch_ ke kode proyek Kubernetes.
 Panduan ini menjelaskan pilihan untuk menyesuaikan kluster Kubernetes.
 Dokumen ini ditujukan kepada {{< glossary_tooltip text="operator kluster" term_id="operator-kluster" >}} yang ingin
 memahami bagaimana menyesuaikan kluster Kubernetes dengan kebutuhan lingkungan kerja mereka.
-Pengembang yang prospektif {{< glossary_tooltip text="Platform Developers" term_id="platform-developer" >}} atau {{< glossary_tooltip text="Contributors" term_id="contributor" >}} Projek Kubernetes juga mendapatkan manfaat dari
+
+Developer yang prospektif {{< glossary_tooltip text="Developer Platform" term_id="developer-platform" >}} atau {{< glossary_tooltip text="Kontributor" term_id="kontributor" >}} Proyek Kubernetes juga mendapatkan manfaat dari
 dokumen ini sebagai pengantar apa saja poin-poin dan pola-pola perluasan yang ada, untung-rugi, dan batasan-batasannya.
 
 {{% /capture %}}
