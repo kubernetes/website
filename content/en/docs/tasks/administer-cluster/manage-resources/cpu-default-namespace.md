@@ -155,6 +155,14 @@ Here are two of the restrictions that a resource quota imposes on a namespace:
 If a Container does not specify its own CPU limit, it is given the default limit, and then
 it can be allowed to run in a namespace that is restricted by a quota.
 
+## Clean up
+
+Delete your namespace:
+
+```shell
+kubectl delete namespace default-cpu-example
+```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
