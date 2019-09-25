@@ -62,7 +62,7 @@ kubectl config view
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config view -o jsonpath='{.users[].name}'    # get a list of users
+kubectl config view -o jsonpath='{.users[*].name}'    # get a list of users
 kubectl config get-contexts                          # display list of contexts 
 kubectl config current-context			               # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
