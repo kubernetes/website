@@ -329,36 +329,17 @@ The following table describes error messages that can occur
 when using Dynamic Kubelet Config. You can search for the identical text
 in the Kubelet log for additional details and context about the error.
 
-<table>
-<table align="left">
-<tr>
-    <th>Error Message</th>
-    <th>Possible Causes</th>
-</tr>
-<tr>
-    <td><p>failed to load config, see Kubelet log for details</p></td>
-    <td><p>The Kubelet likely could not parse the downloaded config payload, or encountered a filesystem error attempting to load the payload from disk.</p></td>
-</tr>
-<tr>
-    <td><p>failed to validate config, see Kubelet log for details</p></td>
-    <td><p>The configuration in the payload, combined with any command-line flag overrides, and the sum of feature gates from flags, the config file, and the remote payload, was determined to be invalid by the Kubelet.</p></td>
-</tr>
-<tr>
-    <td><p>invalid NodeConfigSource, exactly one subfield must be non-nil, but all were nil</p></td>
-    <td><p>Since Node.Spec.ConfigSource is validated by the API server to contain at least one non-nil subfield, this likely means that the Kubelet is older than the API server and does not recognize a newer source type.</p></td>
-</tr>
-<tr>
-    <td><p>failed to sync: failed to download config, see Kubelet log for details</p></td>
-    <td><p>The Kubelet could not download the config. It is possible that Node.Spec.ConfigSource could not be resolved to a concrete API object, or that network errors disrupted the download attempt. The Kubelet will retry the download when in this error state.</p></td>
-</tr>
-<tr>
-    <td><p>failed to sync: internal failure, see Kubelet log for details</p></td>
-    <td><p>The Kubelet encountered some internal problem and failed to update its config as a result. Examples include filesystem errors and reading objects from the internal informer cache.</p></td>
-</tr>
-<tr>
-    <td><p>internal failure, see Kubelet log for details</p></td>
-    <td><p>The Kubelet encountered some internal problem while manipulating config, outside of the configuration sync loop.</p></td>
-</tr>
-</table>
+{{< table caption = "Understanding Node.Status.Config.Error messages" >}}
+
+Error Message | Possible Causes
+:-------------| :--------------
+failed to load config, see Kubelet log for details | The Kubelet likely could not parse the downloaded config payload, or encountered a filesystem error attempting to load the payload from disk.
+failed to validate config, see Kubelet log for details | The configuration in the payload, combined with any command-line flag overrides, and the sum of feature gates from flags, the config file, and the remote payload, was determined to be invalid by the Kubelet.
+invalid NodeConfigSource, exactly one subfield must be non-nil, but all were nil | Since Node.Spec.ConfigSource is validated by the API server to contain at least one non-nil subfield, this likely means that the Kubelet is older than the API server and does not recognize a newer source type.
+failed to sync: failed to download config, see Kubelet log for details | The Kubelet could not download the config. It is possible that Node.Spec.ConfigSource could not be resolved to a concrete API object, or that network errors disrupted the download attempt. The Kubelet will retry the download when in this error state.
+failed to sync: internal failure, see Kubelet log for details | The Kubelet encountered some internal problem and failed to update its config as a result. Examples include filesystem errors and reading objects from the internal informer cache.
+internal failure, see Kubelet log for details | The Kubelet encountered some internal problem while manipulating config, outside of the configuration sync loop. 
+
+{{< /table >}} 
 
 {{% /capture %}}
