@@ -23,38 +23,36 @@ dokumen ini sebagai pengantar apa saja poin-poin dan pola-pola perluasan yang ad
 
 ## Ikhtisar
 
-Pendekatan kostumisasi secara luas dapat dibagi atas *konfigurasi*, yang hanya melibatkan perubahan _flag_, konfigurasi file lokal, atau API sumber;
-dan *ekstensi*, yang melibatkan berjalannya program atau layanan tambahan. Dokumen ini utamanya membahas tentang ekstensi.
+Pendekatan-pendekatan kostumisasi secara umum dapat dibagi atas _konfigurasi_, yang hanya melibatkan perubahan _flag_, konfigurasi berkas lokal, atau objek-objek sumber daya API; dan *perluasan*, yang melibatkan berjalannya program atau layanan tambahan. Dokumen ini sebagian besar membahas tentang perluasan.
 
 ## Konfigurasi
 
-*File Konfigurasi* dan *_flag_* terdokumentasi di bagian Referensi dokumentasi online, didalam setiap binary:
+*berkas Konfigurasi* dan *_flag_* terdokumentasi di bagian Referensi dokumentasi online, didalam setiap binary:
 
 * [kubelet](/docs/admin/kubelet/)
 * [kube-apiserver](/docs/admin/kube-apiserver/)
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/).
 
-_Flag_ dan file konfigurasi mungkin tidak selalu dapat diubah di layanan Kubernetes yang dihosting atau di distribusi dengan instalasi terkelola.
+_Flag_ dan berkas konfigurasi mungkin tidak selalu dapat diubah di layanan Kubernetes yang dihosting atau di distribusi dengan instalasi terkelola.
 Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Admin Kluster. Dan juga, mereka dapat berubah dalam versi Kubernetes di masa depan,
 dan mengatur mereka mungkin memerlukan proses restart. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
 
 *API kebijakan bawaan*, seperti [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) dan Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), adalah API bawaan Kubernetes.
 API biasanya digunakan oleh layanan Kubernetes yang dihosting dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber lain Kubernetes seperti
 pods, jadi konfigurasi kluster baru dapat diulang-ulang dan dapat diatur dengan cara yang sama dengan aplikasi. 
-Dan, ketika mereka stabil, mereka menyukai [kebijakan pendukung yang ditetapkan](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada
-*konfigurasi file* dan *_flag_* yang sesuai.
+Dan, ketika mereka stabil, mereka menyukai [kebijakan pendukung yang ditetapkan](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada _berkas konfigurasi_ dan _flag-flag_ saat mereka cocok dengan situasi yang dibutuhkan.
 
-## Ekstensi
+## Perluasan
 
-Ekstensi adalah komponen perangkat lunak yang luas dan terintegrasi secara dalam dengan Kubernetes.
+Perluasan adalah komponen perangkat lunak yang luas dan terintegrasi secara dalam dengan Kubernetes.
 Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jenis baru.
 
 Kebanyakan admin kluster akan menggunakan instansi Kubernetes yang terdistribusi atau yang dihosting.
-Sehingga hasilnya adalah, kebanyakan pengguna Kubernetes akan membutuhkan instalasi ekstensi dan beberapa
+Sehingga hasilnya adalah, kebanyakan pengguna Kubernetes akan membutuhkan instalasi perluasan dan beberapa
 akan butuh untuk membuat baru.
 
-## Pola Ekstensi
+## Pola Perluasan
 
 Kubernetes didesain untuk dapat diotomasi dengan menuliskan program klien. Program apapun
 yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
@@ -74,41 +72,41 @@ memang menambah poin kegagalan.
 
 Di dalam model *Webhook*, Kubernetes membuat sebuah *network request* kepada sebuah layanan jarak jauh.
 
-Di dalam model *Binary Plugin*, Kubernetes mengeksekusi file binari (program).
+Di dalam model *Binary Plugin*, Kubernetes mengeksekusi berkas binari (program).
 Plugin binari digunakan oleh kubelet (seperti [Plugin Volume Flex](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 dan [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
 
-Berikut ini adalah diagram yang menunjukkan bagaimana titik ekstensi berinteraksi dengan bidang kontrol Kubernetes.
+Berikut ini adalah diagram yang menunjukkan bagaimana titik perluasan berinteraksi dengan bidang kontrol Kubernetes.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
 
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
 
 
-## Titik-titik Ekstensi
+## Titik-titik Perluasan
 
-Diagram berikut menunjukkan titik-titik ekstensi di sistem Kubernetes.
+Diagram berikut menunjukkan titik-titik perluasan di sistem Kubernetes.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vSH5ZWUO2jH9f34YHenhnCd14baEb4vT-pzfxeFC7NzdNqRDgdz4DDAVqArtH4onOGqh0bhwMX0zGBb/pub?w=425&h=809">
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1. Pengguna biasa berinteraksi dengan API Kubernetes menggunakan `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas binari kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat menegakkan kebijakan di seluruh situs.
-2. API server menangani semua permintaan. Beberapa tipe titik ekstensi di API server memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [Ekstensi Akses API](/docs/concepts/overview/extending#api-access-extensions)
-3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber yang kamu definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya Kustom](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Ekstensi API Aksi.
-4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Ekstensi Penjadwalan](/docs/concepts/overview/extending#scheduler-extensions).
+2. API server menangani semua permintaan. Beberapa tipe titik perluasan di API server memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#api-access-extensions)
+3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber yang kamu definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya Kustom](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Perluasan API Aksi.
+4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan Penjadwalan](/docs/concepts/overview/extending#scheduler-extensions).
 5. Sebagian besar perilaku Kubernetes diimplementasikan oleh program yang disebut *Controllers* yang merupakan klien dari API-Server. *Controllers* sering digunakan bersama dengan Sumber Daya Kustom.
 6. Kubelet berjalan di server, dan membantu pod terlihat sepreti server virtual dengan IP mereka sendiri di jaringan kluster. [Plugin Jaringan](/docs/concepts/overview/extending#network-plugins) memungkinkan perbedaan implementasi pada jaringan pod.
 7. Kubelet juga melakukan pemasangan dan pelepasan volume untuk kontainer. Tipe penyimpanan baru dapat didukung via [Plugin Penyimpanan](/docs/concepts/overview/extending#storage-plugins).
 
-Jika kamu tidak yakin untuk memulai darimana, flowchart dibawah ini dapat membantu kamu. Ingat bahwa beberapa solusi mungkin melibatkan beberapa tipe ekstensi.
+Jika kamu tidak yakin untuk memulai darimana, flowchart dibawah ini dapat membantu kamu. Ingat bahwa beberapa solusi mungkin melibatkan beberapa tipe perluasan.
 
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vRWXNNIVWFDqzDY0CsKZJY3AR8sDeFDXItdc5awYxVH8s0OLherMlEPVUpxPIB1CSUu7GPk7B2fEnzM/pub?w=1440&h=1080">
 
 <!-- image source drawing: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
 
-## Ekstensi API
+## Perluasan API
 ### Tipe-tipe yang Ditentukan Pengguna
 
 Pertimbangkan untuk menambahkan Sumber Daya Kustom ke Kubernetes jika kamu ingin mendefinisikan pengontrol baru, objek konfigurasi aplikasi atau API deklaratif lainnya, dan untuk mengelolanya menggunakan alat Kubernetes, seperti `kubectl`.
@@ -123,14 +121,14 @@ Kombinasi antart API sumber daya kustom dan loop kontrol disebut [Pola Operator]
 
 ### Mengubah Sumber Daya Bawaan
 
-Ketika kamu memperluas API Kubernetes dengan menambahkan sumber daya kustom, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Kamu tidak dapat menggantikan atau mengubah API Grup yang sudah ada. Menambahkan sebuah API tidak secara langsung membuat kamu memengaruhi perilaku API yang sudah ada (seperti Pods), tetapi Ekstensi Akses API dapat memengaruhi secara langsung.
+Ketika kamu memperluas API Kubernetes dengan menambahkan sumber daya kustom, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Kamu tidak dapat menggantikan atau mengubah API Grup yang sudah ada. Menambahkan sebuah API tidak secara langsung membuat kamu memengaruhi perilaku API yang sudah ada (seperti Pods), tetapi Perluasan Akses API dapat memengaruhi secara langsung.
 
 
-### Ekstensi Akses API
+### Perluasan Akses API
 
 Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis Kontrol Penerimaan. Lihat dokumentasi [Mengatur Akses ke API Kubernetes](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
 
-Setiap step ini menawarkan titik ekstensi.
+Setiap step ini menawarkan titik perluasan.
 
 Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proxy yang mengotentikasi, dan metode ini dapat mengirim token dari header Otorisasi ke layanan jarak jauh untuk verifikasi (webhook). Semua metode ini tercakup dalam [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
 
@@ -146,12 +144,12 @@ Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [Web
 
 ### Kontrol Admisi Dinamik
 
-Setalah permintaan diotorisasi, jika ini operasi penulisan, permintaan ini akan melalui step [Kontrol Admisi](/docs/reference/access-authn-authz/admission-controllers/). Sebagai tambahan untuk step bawaan, ada beberapa ekstensi:
+Setalah permintaan diotorisasi, jika ini operasi penulisan, permintaan ini akan melalui step [Kontrol Admisi](/docs/reference/access-authn-authz/admission-controllers/). Sebagai tambahan untuk step bawaan, ada beberapa perluasan:
 
 * [Webhook Kebijakan Gambar](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) membatasi gambar mana saja yang dapat berjalan di kontainer.
 * Untuk membuat keputusan kontrol admisi sembarang, [Webhook Admisi](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) umum dapat digunakan. Webhook Admisi dapat menolak pembuatan baru atau pembaruan.
 
-## Ekstensi Infrastruktur
+## Perluasan Infrastruktur
 
 ### Plugin Penyimpanan
 
@@ -165,13 +163,13 @@ Plugin perangkat memungkinkan sebuah node untuk menemukan sumber daya Node baru 
 
 Struktur jaringan yang berbeda dapat di dukung via node-level [Plugin Jaringan](/docs/admin/network-plugins/)
 
-### Ekstensi Penjadwal
+### Perluasan Penjadwal
 
 Penjadwal adalah jenis kontroler spesial yang mengawasi pod, dan menugaskan pod ke node. Penjadwal standar dapat digantikan seluruhnya, sementara  terus menggunakan komponen Kubernetes lainnya, atau [penjadwal ganda](/docs/tasks/administer-cluster/configure-multiple-schedulers/) dapat berjalan dalam waktu yang bersamaan.
 
 Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal.
 
-Penjadwal juga mendukung [webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah webhook backend (ekstensi penjadwal) untuk menyaring dan memprioritaskan node yang terpilih untuk sebuah pod.
+Penjadwal juga mendukung [webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah webhook backend (perluasan penjadwal) untuk menyaring dan memprioritaskan node yang terpilih untuk sebuah pod.
 
 {{% /capture %}}
 
@@ -180,7 +178,7 @@ Penjadwal juga mendukung [webhook](https://github.com/kubernetes/community/blob/
 
 * Pelajari lanjut tentang [Sumber Daya Kustom](/docs/concepts/api-extension/custom-resources/)
 * Pelajari tentang [Kontrol Admisi Dinamis](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-* Pelajari lebih lanjut tentang ekstensi Infrastruktur
+* Pelajari lebih lanjut tentang perluasan Infrastruktur
   * [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)
   * [Plugin Perangkat](/docs/concepts/cluster-administration/device-plugins/)
 * Pelajari tentang [Plugin kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
