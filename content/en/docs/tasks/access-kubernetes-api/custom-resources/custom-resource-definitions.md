@@ -40,7 +40,7 @@ are available to all namespaces.
 For example, if you save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 
 {{< tabs name="CustomResourceDefinition_example_1" >}}
-{{% tab name="admissionregistration.k8s.io/v1" %}}
+{{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
