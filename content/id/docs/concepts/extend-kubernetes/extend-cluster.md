@@ -13,28 +13,28 @@ Panduan ini menjelaskan pilihan untuk menyesuaikan kluster Kubernetes.
 Dokumen ini ditujukan kepada {{< glossary_tooltip text="operator kluster" term_id="operator-kluster" >}} yang ingin
 memahami bagaimana menyesuaikan kluster Kubernetes dengan kebutuhan lingkungan kerja mereka.
 Pengembang yang prospektif {{< glossary_tooltip text="Platform Developers" term_id="platform-developer" >}} atau {{< glossary_tooltip text="Contributors" term_id="contributor" >}} Projek Kubernetes juga mendapatkan manfaat dari
-dokumen ini sebagai pengantar apa saja poin dan pola yang ada, untung-rugi dan batasannya.
+dokumen ini sebagai pengantar apa saja poin-poin dan pola-pola perluasan yang ada, untung-rugi, dan batasan-batasannya.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-## Gambaran
+## Ikhtisar
 
-Pendekatan kostumisasi secara luas dapat dibagi atas *konfigurasi*, yang hanya melibatkan perubahan bendera, konfigurasi file lokal, atau API sumber;
+Pendekatan kostumisasi secara luas dapat dibagi atas *konfigurasi*, yang hanya melibatkan perubahan _flag_, konfigurasi file lokal, atau API sumber;
 dan *ekstensi*, yang melibatkan berjalannya program atau layanan tambahan. Dokumen ini utamanya membahas tentang ekstensi.
 
 ## Konfigurasi
 
-*File Konfigurasi* dan *bendera* terdokumentasi di bagian Referensi dokumentasi online, didalam setiap binary:
+*File Konfigurasi* dan *_flag_* terdokumentasi di bagian Referensi dokumentasi online, didalam setiap binary:
 
 * [kubelet](/docs/admin/kubelet/)
 * [kube-apiserver](/docs/admin/kube-apiserver/)
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/).
 
-Bendera dan file konfigurasi mungkin tidak selalu dapat diubah di layanan Kubernetes yang dihosting atau di distribusi dengan instalasi terkelola.
+_Flag_ dan file konfigurasi mungkin tidak selalu dapat diubah di layanan Kubernetes yang dihosting atau di distribusi dengan instalasi terkelola.
 Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Admin Kluster. Dan juga, mereka dapat berubah dalam versi Kubernetes di masa depan,
 dan mengatur mereka mungkin memerlukan proses restart. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
 
@@ -42,7 +42,7 @@ dan mengatur mereka mungkin memerlukan proses restart. Oleh karena itu, mereka h
 API biasanya digunakan oleh layanan Kubernetes yang dihosting dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber lain Kubernetes seperti
 pods, jadi konfigurasi kluster baru dapat diulang-ulang dan dapat diatur dengan cara yang sama dengan aplikasi. 
 Dan, ketika mereka stabil, mereka menyukai [kebijakan pendukung yang ditetapkan](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada
-*konfigurasi file* dan *bendera* yang sesuai.
+*konfigurasi file* dan *_flag_* yang sesuai.
 
 ## Ekstensi
 
