@@ -205,5 +205,5 @@ DaemonSet 컨트롤러에 의해 생성된 파드는 쿠버네티스 스케줄�
 {{% /capture %}}
 {{% capture whatsnext %}}
 * [노드 컴포넌트](https://kubernetes.io/docs/concepts/overview/components/#node-components)에 대해 읽기
-* 노드 수준 토폴로지에 대해 읽기: [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
+* 노드 수준 토폴로지에 대해 읽기: [노드의 토폴로지 정책 제어하기](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}

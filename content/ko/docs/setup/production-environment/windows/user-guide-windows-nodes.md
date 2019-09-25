@@ -297,7 +297,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 본 단계는 다음의 행위를 수행한다.
 
-1. 컨트롤 플레인("Master") 노드에 SSH로 접속해서 [Kubeconfig 파일](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 얻어온다.
+1. 컨트롤 플레인("마스터") 노드에 SSH로 접속해서 [Kubeconfig 파일](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 얻어온다.
 1. kubelet을 윈도우 서비스로 등록한다.
 1. CNI 네트워크 플러그인을 구성한다.
 1. 선택된 네트워크 인터페이스 상에서 HNS 네트워크를 생성한다.
@@ -349,7 +349,7 @@ AKS-Engine은 완전하고, 맞춤 설정이 가능한 쿠버네티스 클러스
 
 #### kubeadm과 클러스터 API로 배포하기
 
-Kubeadm은 쿠버네티스 클러스터를 배포하는 사용자에게 산업 표준이 되었다. Kubeadm에서 윈도우 노드 지원은 쿠버네티스 v1.16 이후 부터 알파 기능이다. 또한 윈도우 노드가 올바르게 프로비저닝되도록 클러스터 API에 투자하고 있다. 보다 자세한 내용은, [kubeadm for Windows KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cluster-lifecycle/kubeadm/20190424-kubeadm-for-windows.md)를 통해 상담하도록 하자.
+Kubeadm은 쿠버네티스 클러스터를 배포하는 사용자에게 산업 표준이 되었다. Kubeadm에서 윈도우 노드 지원은 쿠버네티스 v1.16 이후 부터 알파 기능이다. 또한 윈도우 노드가 올바르게 프로비저닝되도록 클러스터 API에 투자하고 있다. 보다 자세한 내용은, [Windows KEP를 위한 kubeadm](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cluster-lifecycle/kubeadm/20190424-kubeadm-for-windows.md)을 통해 상담하도록 하자.
 
 
 ### 다음 단계

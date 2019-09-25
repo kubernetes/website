@@ -147,7 +147,7 @@ https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-쿠버네티스 v1.16 부터는, 런타임 클래스는 `scheduling` 필드를 통해 이종의 클러스터 지원을 포함한다.
+쿠버네티스 v1.16 부터, 런타임 클래스는 `scheduling` 필드를 통해 이종의 클러스터 지원을 포함한다.
 이 필드를 사용하면, 이 런타임 클래스를 갖는 파드가 이를 지원하는 노드로 스케줄된다는 것을 보장할 수 있다.
 이 스케줄링 기능을 사용하려면, 런타임 클래스 [어드미션(admission) 컨트롤러][]를 활성화(1.16 부터 기본 값)해야 한다.
 
@@ -209,9 +209,9 @@ https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 
 ### 더 읽기
 
-- [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
-- [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
-- [Pod Overhead](/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
-- [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [런타임 클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
+- [런타임 클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
+- [파드 오버헤드](/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
+- [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
 {{% /capture %}}
