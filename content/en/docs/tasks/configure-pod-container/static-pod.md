@@ -132,18 +132,18 @@ and store it on a web server so that you can pass the URL of that file to the ku
 
 Configure the kubelet on your selected node to use this web manifest by running it with `--manifest-url=<manifest-url>`
 
-    On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 
-    ```
-    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>`
-    ```
+```
+KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>`
+```
 
 Now, restart the kubelet. On Fedora, you would run:
 
-    ```shell
-    # Run this command on the node where the kubelet is running
-    systemctl restart kubelet
-    ```
+```shell
+# Run this command on the node where the kubelet is running
+systemctl restart kubelet
+```
 
 
 
