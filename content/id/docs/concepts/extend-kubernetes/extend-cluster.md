@@ -34,9 +34,7 @@ _Flag-flag_ dan _berkas-berkas konfigurasi_ didokumentasikan di bagian Referensi
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/).
 
-_Flag-flag_ dan berkas-berkas konfigurasi mungkin tidak selalu dapat diubah pada layanan Kubernetes yang _hosted_ atau pada distribusi dengan instalasi yang dikelola.
-Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Admin Kluster. Dan juga, mereka dapat berubah dalam versi Kubernetes di masa depan,
-dan mengatur mereka mungkin memerlukan proses restart. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
+_Flag-flag_ dan berkas-berkas konfigurasi mungkin tidak selalu dapat diubah pada layanan Kubernetes yang _hosted_ atau pada distribusi dengan instalasi yang dikelola. Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Administrator Kluster. Dan juga, mereka dapat sewaktu-waktu diubah dalam versi Kubernetes di masa depan, dan menyetel mereka mungkin memerlukan proses pengulangan kembali. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
 
 *API kebijakan bawaan*, seperti [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) dan Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), adalah API bawaan Kubernetes.
 API biasanya digunakan oleh layanan Kubernetes yang _hosted_ dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber lain Kubernetes seperti
@@ -48,7 +46,7 @@ Dan, ketika mereka stabil, mereka menyukai [kebijakan pendukung yang ditetapkan]
 Perluasan adalah komponen perangkat lunak yang luas dan terintegrasi secara dalam dengan Kubernetes.
 Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jenis baru.
 
-Kebanyakan admin kluster akan menggunakan instansi Kubernetes yang terdistribusi atau yang _hosted_.
+Kebanyakan administrator kluster akan menggunakan instansi Kubernetes yang terdistribusi atau yang _hosted_.
 Sehingga hasilnya adalah, kebanyakan pengguna Kubernetes akan membutuhkan instalasi perluasan dan beberapa
 akan butuh untuk membuat baru.
 
