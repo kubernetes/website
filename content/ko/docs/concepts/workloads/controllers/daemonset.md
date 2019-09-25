@@ -55,13 +55,13 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 데몬셋의 파드 템플릿은 파드의 필수 필드 외에도 적절한 레이블이 명시되어야 
 한다([파드 셀렉터](#파드-셀렉터)를 본다).
 
-데몬셋의 파드 템플릿은 [`재시작 정책`](/ko/docs/concepts/workloads/pods/pod-lifecycle/) 이 `Always` 를 가져야 하며,
- 명시되지 않은 경우 기본은 `Always` 이다.
+데몬셋의 파드 템플릿의 [`재시작 정책`](/ko/docs/concepts/workloads/pods/pod-lifecycle/)은 `Always` 를 가져야 하며,
+ 명시되지 않은 경우 기본으로 `Always`로 된다.
 
 ### 파드 셀렉터
 
 `.spec.selector` 필드는 파드 셀렉터이다. 이것은 
-[잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)의 `.spec.selector` 와 같은 작동을 한다.
+[잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)의 `.spec.selector` 와 같은 동작을 한다.
 
 쿠버네티스 1.8 부터는 레이블이 `.spec.template` 와 일치하는 파드 셀렉터를 명시해야 한다.
 파드 셀렉터는 비워두면 더 이상 기본 설정이 되지 않는다.
