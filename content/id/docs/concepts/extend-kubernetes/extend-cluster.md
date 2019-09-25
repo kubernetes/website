@@ -1,16 +1,16 @@
 ---
-title: Memperluas Kubernetes Cluster Kamu
+title: Memperluas Kluster Kubernetes Kamu
 content_template: templates/concept
 weight: 10
 ---
 
 {{% capture overview %}}
 
-Kubernetes sangat mudah dikonfigurasi dan dikembangkan. Sehingga,
-jarang membutuhkan fork atau menambahkan patches ke kode projek Kubernetes.
+Kubernetes sangat mudah dikonfigurasi dan diperluas. Sehingga,
+jarang membutuhkan _fork_ atau menambahkan _patch_ ke kode proyek Kubernetes.
 
-Panduan ini menjelaskan pilihan untuk menyesuaikan Kubernetes cluster.
-Ini ditujukan kepada {{< glossary_tooltip text="cluster operators" term_id="cluster-operator" >}} yang ingin
+Panduan ini menjelaskan pilihan untuk menyesuaikan kluster Kubernetes.
+Dokumen ini ditujukan kepada {{< glossary_tooltip text="cluster operators" term_id="cluster-operator" >}} yang ingin
 memahami bagaimana menyesuaikan kluster Kubernetes dengan kebutuhan lingkungan kerja mereka.
 Pengembang yang prospektif {{< glossary_tooltip text="Platform Developers" term_id="platform-developer" >}} atau {{< glossary_tooltip text="Contributors" term_id="contributor" >}} Projek Kubernetes juga mendapatkan manfaat dari
 dokumen ini sebagai pengantar apa saja poin dan pola yang ada, untung-rugi dan batasannya.
