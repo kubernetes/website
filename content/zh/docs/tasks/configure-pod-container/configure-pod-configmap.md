@@ -113,6 +113,7 @@ kubectl create configmap game-config --from-file=configure-pod-container/configm
 <!--
 combines the contents of the `configure-pod-container/configmap/` directory
 -->
+
 组合 `configure-pod-container/configmap/` 目录的内容
 
 ```shell
