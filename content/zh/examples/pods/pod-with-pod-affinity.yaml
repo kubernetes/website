@@ -23,7 +23,7 @@ spec:
               operator: In
               values:
               - S2
-          topologyKey: kubernetes.io/hostname
+          topologyKey: failure-domain.beta.kubernetes.io/zone
   containers:
   - name: with-pod-affinity
     image: k8s.gcr.io/pause:2.0
