@@ -106,8 +106,7 @@ more information about the responsibilities of reviewers and approvers, see
     accuracy of the documentation modified or introduced in the PR.{{< /note >}}
 
 - An approver reviews pull request content for docs quality and adherence to
-  SIG Docs guidelines, such as the
-  [style guide](/docs/contribute/style/style-guide). Only people listed as
+  SIG Docs guidelines found in the Content and Style guides. Only people listed as
   approvers in the
   [`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS) file can
   approve a PR. To approve a PR, leave an `/approve` comment on the PR.
@@ -147,9 +146,8 @@ The ["Participating"](/docs/contribute/participating/#approvers) section contain
         the same browser window by default, so open it in a new window so you
         don't lose your partial review. Switch back to the **Files changed** tab
         to resume your review.
-      - Make sure the PR complies with the
-        [Documentation Style Guide](/docs/contribute/style/style-guide/)
-        and link the author to the relevant part of the style guide if not.
+      - Make sure the PR complies with the Content and Style guides; link the
+        author to the relevant part of the guide(s) if it doesn't.
       - If you have a question, comment, or other feedback about a given
         change, hover over a line and click the blue-and-white `+` symbol that
         appears. Type your comment and click **Start a review**.
@@ -724,6 +722,7 @@ If you need to write a new topic, the following links are useful:
 - [Writing a New Topic](/docs/contribute/style/write-new-topic/)
 - [Using Page Templates](/docs/contribute/style/page-templates/)
 - [Documentation Style Guide](/docs/contribute/style/style-guide/)
+- [Documentation Content Guide](/docs/contribute/style/content-guide/)
 
 ### SIG members documenting new features
 

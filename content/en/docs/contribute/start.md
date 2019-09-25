@@ -294,11 +294,14 @@ contribution guide.
 
 ## Review docs pull requests
 
-People who are not yet approvers or reviewers can still review pull requests.
-The reviews are not considered "binding", which means that your review alone
-won't cause a pull request to be merged. However, it can still be helpful. Even
-if you don't leave any review comments, you can get a sense of pull request
-conventions and etiquette and get used to the workflow.
+People who are not yet approvers or reviewers can still review pull requests. 
+The reviews are not considered "binding", which means that your review alone 
+won't cause a pull request to be merged. However, it can still be helpful. Even 
+if you don't leave any review comments, you can get a sense of pull request 
+conventions and etiquette and get used to the workflow. Take a look at the 
+[Content](/docs/contribute/style/content-guide/) and 
+[Style](/docs/contribute/style/style-guide/) guides before you review so you 
+get an idea of what the content should contain and how it should look.
 
 1.  Go to
     [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
