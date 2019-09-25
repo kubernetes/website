@@ -1,5 +1,5 @@
 ---
-title: Memperluas Kubernetes Cluster Anda
+title: Memperluas Kubernetes Cluster Kamu
 content_template: templates/concept
 weight: 10
 ---
@@ -59,7 +59,7 @@ Kubernetes didesain untuk dapat diotomasi dengan menuliskan program klien. Progr
 yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
 
 *Otomasi* dapat berjalan di dalam kluster atau di luar kluster. Dengan mengikuti panduan
-di dalam dokumen ini, Anda dapat menulis otomasi yang sangat tersedia dan kuat.
+di dalam dokumen ini, kamu dapat menulis otomasi yang sangat tersedia dan kuat.
 Otomasi pada umumnya dapat bekerja dengan berbagai macam kluster Kubernetes, termasuk
 kluster yang terhosting dan instalasi yang diatur.
 
@@ -94,13 +94,13 @@ Diagram berikut menunjukkan titik-titik ekstensi di sistem Kubernetes.
 
 1. Pengguna biasa berinteraksi dengan API Kubernetes menggunakan `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas binari kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat menegakkan kebijakan di seluruh situs.
 2. API server menangani semua permintaan. Beberapa tipe titik ekstensi di API server memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [Ekstensi Akses API](/docs/concepts/overview/extending#api-access-extensions)
-3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. Anda juga dapat menambahkan sumber yang Anda definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya Kustom](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Ekstensi API Aksi.
+3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber yang kamu definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya Kustom](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Ekstensi API Aksi.
 4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Ekstensi Penjadwalan](/docs/concepts/overview/extending#scheduler-extensions).
 5. Sebagian besar perilaku Kubernetes diimplementasikan oleh program yang disebut *Controllers* yang merupakan klien dari API-Server. *Controllers* sering digunakan bersama dengan Sumber Daya Kustom.
 6. Kubelet berjalan di server, dan membantu pod terlihat sepreti server virtual dengan IP mereka sendiri di jaringan kluster. [Plugin Jaringan](/docs/concepts/overview/extending#network-plugins) memungkinkan perbedaan implementasi pada jaringan pod.
 7. Kubelet juga melakukan pemasangan dan pelepasan volume untuk kontainer. Tipe penyimpanan baru dapat didukung via [Plugin Penyimpanan](/docs/concepts/overview/extending#storage-plugins).
 
-Jika Anda tidak yakin untuk memulai darimana, flowchart dibawah ini dapat membantu Anda. Ingat bahwa beberapa solusi mungkin melibatkan beberapa tipe ekstensi.
+Jika kamu tidak yakin untuk memulai darimana, flowchart dibawah ini dapat membantu kamu. Ingat bahwa beberapa solusi mungkin melibatkan beberapa tipe ekstensi.
 
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vRWXNNIVWFDqzDY0CsKZJY3AR8sDeFDXItdc5awYxVH8s0OLherMlEPVUpxPIB1CSUu7GPk7B2fEnzM/pub?w=1440&h=1080">
@@ -110,7 +110,7 @@ Jika Anda tidak yakin untuk memulai darimana, flowchart dibawah ini dapat memban
 ## Ekstensi API
 ### Tipe-tipe yang Ditentukan Pengguna
 
-Pertimbangkan untuk menambahkan Sumber Daya Kustom ke Kubernetes jika Anda ingin mendefinisikan pengontrol baru, objek konfigurasi aplikasi atau API deklaratif lainnya, dan untuk mengelolanya menggunakan alat Kubernetes, seperti `kubectl`.
+Pertimbangkan untuk menambahkan Sumber Daya Kustom ke Kubernetes jika kamu ingin mendefinisikan pengontrol baru, objek konfigurasi aplikasi atau API deklaratif lainnya, dan untuk mengelolanya menggunakan alat Kubernetes, seperti `kubectl`.
 
 Jangan menggunakan Sumber Daya Kustom sebagai penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
 
@@ -122,7 +122,7 @@ Kombinasi antart API sumber daya kustom dan loop kontrol disebut [Pola Operator]
 
 ### Mengubah Sumber Daya Bawaan
 
-Ketika Anda memperluas API Kubernetes dengan menambahkan sumber daya kustom, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Anda tidak dapat menggantikan atau mengubah API Grup yang sudah ada. Menambahkan sebuah API tidak secara langsung membuat Anda memengaruhi perilaku API yang sudah ada (seperti Pods), tetapi Ekstensi Akses API dapat memengaruhi secara langsung.
+Ketika kamu memperluas API Kubernetes dengan menambahkan sumber daya kustom, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Kamu tidak dapat menggantikan atau mengubah API Grup yang sudah ada. Menambahkan sebuah API tidak secara langsung membuat kamu memengaruhi perilaku API yang sudah ada (seperti Pods), tetapi Ekstensi Akses API dapat memengaruhi secara langsung.
 
 
 ### Ekstensi Akses API
@@ -137,11 +137,11 @@ Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode i
 
 [Otentikasi](/docs/reference/access-authn-authz/authentication/) memetakan header atau sertifikat dalam semua permintaan ke username untuk klien yang mebuat permintaan.
 
-Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [Webhook Otentikasi](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) jika metode bawaan tersebut tidak mencukupi kebutuhan Anda.
+Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [Webhook Otentikasi](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) jika metode bawaan tersebut tidak mencukupi kebutuhan kamu.
 
 ### Otorisasi
 
-[Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah user tertentu dapat membaca, menulis, dan melakukan operasi lainnya ke API sumber daya. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan Anda, [Webhook Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
+[Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah user tertentu dapat membaca, menulis, dan melakukan operasi lainnya ke API sumber daya. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan kamu, [Webhook Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
 
 ### Kontrol Admisi Dinamik
 
