@@ -35,6 +35,32 @@ to gain, deeper knowledge of the following topic areas:
 These tasks are not as sequential as the beginner tasks. There is no expectation
 that one person does all of them all of the time.
 
+## Learn about Prow
+
+[Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md) is
+the Kubernetes-based CI/CD system that runs jobs against pull requests (PRs). Prow
+enables chatbot-style commands to handle GitHub actions across the Kubernetes
+organization. You can perform a variety of actions such as [adding and removing
+labels](#add-and-remove-labels), closing issues, and assigning an approver. Type
+the Prow command into a comment field using the `/<command-name>` format. Some common
+commands are:
+
+- `/lgtm` (looks good to me): adds the `lgtm` label, signalling that a reviewer has finished reviewing the PR
+- `/approve`: approves a PR so it can merge (approver use only)
+- `/assign`: assigns a person to review or approve a PR
+- `/close`: closes an issue or PR
+- `/hold`: adds the `do-not-merge/hold` label, indicating the PR cannot be automatically merged
+- `/hold cancel`: removes the `do-not-merge/hold` label
+
+{{% note %}}
+Not all commands are available to every user. The Prow bot will tell you if you
+try to execute a command beyond your authorization level.
+{{% /note %}}
+
+Familiarize yourself with the [list of Prow
+commands](https://prow.k8s.io/command-help) before you review PRs or triage issues.
+
+
 ## Review pull requests
 
 In any given week, a specific docs approver volunteers to do initial triage
@@ -62,7 +88,7 @@ yourself, but the project is better in the long term when we have a diversity of
 active participants.
 
 Before you start reviewing PRs, make sure you are familiar with the
-[Documentation Content Guide](/docs/contribute/style/content-guide/), the 
+[Documentation Content Guide](/docs/contribute/style/content-guide/), the
 [Documentation Style Guide](/docs/contribute/style/style-guide/),
 and the [code of conduct](/community/code-of-conduct/).
 
@@ -495,7 +521,7 @@ Slack channel or the
 ### View your changes locally
 
 If you aren't ready to create a pull request but you want to see what your
-changes look like, you can build and run a docker image to generate all the documentation and 
+changes look like, you can build and run a docker image to generate all the documentation and
 serve it locally.
 
 1.  Build the image locally:
@@ -534,57 +560,105 @@ Alternatively, you can install and use the `hugo` command on your development ma
 
 ## Triage and categorize issues
 
-In any given week, a specific docs approver volunteers to do initial
-[triage and review of pull requests](#review-pull-requests) and issues. To get
-on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
-not on the schedule for the current week, you can still review PRs.
-
 People in SIG Docs are responsible only for triaging and categorizing
 documentation issues. General website issues are also filed in the
 `kubernetes/website` repository.
 
 When you triage an issue, you:
 
-- Assess whether the issue has merit. Some issues can be closed quickly by
-  answering a question or pointing the reporter to a resource.
-- Ask the reporter for more information if the issue doesn't have enough
-  detail to be actionable or the template is not filled out adequately.
-- Add labels (sometimes called tags), projects, or milestones to the issue.
-  Projects and milestones are not heavily used by the SIG Docs team.
-- At your discretion, taking ownership of an issue and submitting a PR for it
+- Validate the issue
+    - Make sure the issue is about website documentation. Some issues can be closed quickly by
+      answering a question or pointing the reporter to a resource. See the
+      [Support requests or code bug reports](#support-requests-or-code-bug-reports) section for details.
+    - Assess whether the issue has merit. Add the `triage/needs-information` label if the issue doesn't have enough
+      detail to be actionable or the template is not filled out adequately.
+      Close the issue if it has both the `lifecycle/stale` and `triage/needs-information` labels.
+- Add a priority label (the
+  [Issue Triage Guidelines](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)
+  define Priority labels in detail)
+    - `priority/critical-urgent` - do this right now
+    - `priority/important-soon` - do this within 3 months
+    - `priority/important-longterm` - do this within 6 months
+    - `priority/backlog` - this can be deferred indefinitely; lowest priority;
+      do this when resources are available
+    - `priority/awaiting-more-evidence` - placeholder for a potentially good issue
+       so it doesn't get lost
+- Optionally, add a `help` or `good first issue` label if the issue is suitable
+  for someone with very little Kubernetes or SIG Docs experience. Consult
+  [Help Wanted and Good First Issue Labels](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md)
+  for guidance.
+- At your discretion, take ownership of an issue and submit a PR for it
   (especially if it is quick or relates to work you were already doing).
 
+This GitHub Issue [filter](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)
+finds all the issues that need to be triaged.
+
 If you have questions about triaging an issue, ask in `#sig-docs` on Slack or
-the
-[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+the [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+
+### Add and remove labels
+
+To add a label, leave a comment like `/<label-to-add>` or `/<label-category> <label-to-add>`. The label must
+already exist. If you try to add a label that does not exist, the command is
+silently ignored.
+
+Examples:
+
+- `/triage needs-information`
+- `/priority important-soon`
+- `/language ja`
+- `/help`
+- `/good-first-issue`
+- `/lifecycle frozen`
+
+To remove a label, leave a comment like `/remove-<label-to-remove>` or `/remove-<label-category> <label-to-remove>`.
+
+Examples:
+
+- `/remove-triage needs-information`
+- `/remove-priority important-soon`
+- `/remove-language ja`
+- `/remove-help`
+- `/remove-good-first-issue`
+- `/remove-lifecycle frozen`
+
+The list of all the labels used across Kubernetes is
+[here](https://github.com/kubernetes/kubernetes/labels). Not all labels
+are used by SIG Docs.
 
 ### More about labels
-
-These guidelines are not set in stone and are subject to change.
 
 - An issue can have multiple labels.
 - Some labels use slash notation for grouping, which can be thought of like
   "sub-labels". For instance, many `sig/` labels exist, such as `sig/cli` and
-  `sig/api-machinery`.
+  `sig/api-machinery` ([full list](https://github.com/kubernetes/website/labels?utf8=%E2%9C%93&q=sig%2F)).
 - Some labels are automatically added based on metadata in the files involved
   in the issue, slash commands used in the comments of the issue, or
   information in the issue text.
-- Some labels are manually added by the person triaging the issue (or the person
-  reporting the issue, if they are a SIG Docs approvers).
-  - `Actionable`: There seems to be enough information for the issue to be fixed
-    or acted upon.
-  - `good first issue`: Someone with limited Kubernetes or SIG Docs experience
-    might be able to tackle this issue.
-  - `kind/bug`, `kind/feature`, and `kind/documentation`: If the person who
-    filed the issue did not fill out the template correctly, these labels may
-    not be assigned automatically. A bug is a problem with existing content or
+- Additional labels are manually added by the person triaging the issue (or the person
+  reporting the issue)
+  - `kind/bug`, `kind/feature`, and `kind/documentation`: A bug is a problem with existing content or
     functionality, and a feature is a request for new content or functionality.
-    The `kind/documentation` label is not currently in use.
-  - Priority labels: define the relative severity of the issue, as outlined in the
-    [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority).
-- To add a label, leave a comment like `/label <label-to-add>`. The label must
-  already exist. If you try to add a label that does not exist, the command is
-  silently ignored.
+    The `kind/documentation` label is seldom used.
+  - `language/ja`, `language/ko` and similar [language
+    labels](https://github.com/kubernetes/website/labels?utf8=%E2%9C%93&q=language)
+    if the issue is about localized content.
+
+### Issue lifecycle
+
+Issues are generally opened and closed within a relatively short time span.
+However, sometimes an issue may not have associated activity after it is
+created. Other times, an issue may need to remain open for longer than 90 days.
+
+`lifecycle/stale`: after 90 days with no activity, an issue is automatically
+labeled as stale. The issue will be automatically closed if the lifecycle is not
+manually reverted using the `/remove-lifecycle stale` command.
+
+`lifecycle/frozen`: an issue with this label will not become stale after 90 days
+of inactivity. A user manually adds this label to issues that need to remain
+open for much longer than 90 days, such as those with a
+`priority/important-longterm` label.
+
 
 ### Handling special issue types
 
@@ -595,10 +669,10 @@ to handle them.
 
 If a single problem has one or more issues open for it, the problem should be
 consolidated into a single issue. You should decide which issue to keep open (or
-open a new issue), port over all relevant information, link related issues, and
-close all the other issues that describe the same problem. Only having a single
-issue to work on will help reduce confusion and avoid duplicating work on the
-same problem.
+open a new issue), port over all relevant information and link related issues.
+Finally, label all other issues that describe the same problem with
+`triage/duplicate` and close them. Only having a single issue to work on will
+help reduce confusion and avoid duplicating work on the same problem.
 
 #### Dead link issues
 
@@ -610,17 +684,18 @@ dead links are issues that need to be manually fixed and can be assigned `/prior
 #### Blog issues
 
 [Kubernetes Blog](https://kubernetes.io/blog/) entries are expected to become
-outdated over time, so we maintain only blog entries that are less than one year old. 
+outdated over time, so we maintain only blog entries that are less than one year old.
 If an issue is related to a blog entry that is more than one year old, it should be closed
-without fixing. 
+without fixing.
 
 #### Support requests or code bug reports
 
 Some issues opened for docs are instead issues with the underlying code, or
 requests for assistance when something (like a tutorial) didn’t work. For issues
-unrelated to docs, close the issue with a comment directing the requester to
-support venues (Slack, Stack Overflow) and, if relevant, where to file an issue
-for bugs with features (kubernetes/kubernetes is a great place to start).
+unrelated to docs, close the issue with the `triage/support` label and a comment
+directing the requester to support venues (Slack, Stack Overflow) and, if
+relevant, where to file an issue for bugs with features (kubernetes/kubernetes
+is a great place to start).
 
 Sample response to a request for support:
 
@@ -793,7 +868,7 @@ or in `#sig-docs` on Slack if you are interested in helping out.
 
 Follow these guidelines for working with localized content:
 
-- Limit PRs to a single language. 
+- Limit PRs to a single language.
 
    Each language has its own reviewers and approvers.
 
