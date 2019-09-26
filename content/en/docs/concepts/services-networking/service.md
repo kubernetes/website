@@ -528,7 +528,7 @@ and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in
 ### Type LoadBalancer {#loadbalancer}
 
 On cloud providers which support external load balancers, setting the `type`
-field to `LoadBalancer` provisions a load balancer for your Service.
+field to `LoadBalancer` provisions a load balancer for your Service. 
 The actual creation of the load balancer happens asynchronously, and
 information about the provisioned balancer is published in the Service's
 `.status.loadBalancer` field.
@@ -555,7 +555,7 @@ status:
       - ip: 146.148.47.155
 ```
 
-Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
+Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced. On baremetal clusters you can use an already provisioned appliance such as [Citrix ADC](https://developer-docs.citrix.com/projects/citrix-k8s-ingress-controller/en/latest/network/type_loadbalancer/) to provide support for `type LoadBalancer`. Another solution for baremetal clusters is to use the [MetalLB](https://metallb.universe.tf) project.
 
 
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
@@ -567,6 +567,10 @@ set is ignored.
 {{< note >}}
 If you're using SCTP, see the [caveat](#caveat-sctp-loadbalancer-service-type) below about the
 `LoadBalancer` Service type.
+{{< /note >}}
+
+{{< note >}}
+With the Citrix ADC support for type LoadBalancer, you can choose to use the associated IP address manager (IPAM) to allocate the `loadbalancerIP` field or specify one yourself.
 {{< /note >}}
 
 {{< note >}}
