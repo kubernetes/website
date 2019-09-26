@@ -6,7 +6,7 @@ weight: 40
 
 {{% capture overview %}}
 
-Kamu telah melakukan deploy pada aplikasimu dan mengeksposnya melalui sebuah _service_. Lalu? Kubernetes menyediakan berbagai peralatan untuk membantu mengatur deploy aplikasi, termasuk pengaturan kapasitas dan pembaruan. Diantara fitur yang akan didiskusikan lebih mendalam yaitu [berkas konfigurasi](/docs/concepts/configuration/overview/) dan [label](/docs/concepts/overview/working-with-objects/labels/).
+Kamu telah melakukan _deploy_ pada aplikasimu dan mengeksposnya melalui sebuah _service_. Lalu? Kubernetes menyediakan berbagai peralatan untuk membantu mengatur mekanisme _deploy_ aplikasi, termasuk pengaturan kapasitas dan pembaruan. Diantara fitur yang akan didiskusikan lebih mendalam yaitu [berkas konfigurasi](/docs/concepts/configuration/overview/) dan [label](/docs/concepts/overview/working-with-objects/labels/).
 
 {{% /capture %}}
 
@@ -30,7 +30,7 @@ service/my-nginx-svc created
 deployment.apps/my-nginx created
 ```
 
-_Resource_ akan dibuat dalam urutan seperti pada berkas. Oleh karena itu, lebih baik menyalakan _service_ lebih dahulu agar menjamin _scheduler_ dapat menyebar _pod_ yang terkait _service_ selagi _pod_ dibangkitkan oleh _controller_, such as Deployment.
+_Resource_ akan dibuat dalam urutan seperti pada berkas. Oleh karena itu, lebih baik menyalakan _service_ lebih dahulu agar menjamin _scheduler_ dapat menyebar _pod_ yang terkait _service_ selagi _pod_ dibangkitkan oleh _controller_, seperti Deployment.
 
 `kubectl apply` juga dapat menerima beberapa argumen `-f`:
 
@@ -46,9 +46,9 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 `kubectl` akan membaca berkas apapun yang berakhiran `.yaml`, `.yml`, or `.json`.
 
-Sangat disarankan untuk meletakkan _resource_ yang ada dalam _microservice_ atau _tier_ aplikasi yang sama dalam satu berkas, dan mengelompokkan semua berkas terkait aplikasimu dalam satu direktori. Jika _tier_ masing-masing aplikasi terikat dengan DNS, maka kamu dapat melakukan _deploy_ semua komponen _stack_ bersama-sama.
+Sangat disarankan untuk meletakkan sumber daya yang ada dalam _microservice_ atau _tier_ aplikasi yang sama dalam satu berkas, dan mengelompokkan semua berkas terkait aplikasimu dalam satu direktori. Jika _tier_ masing-masing aplikasi terikat dengan DNS, maka kamu dapat melakukan _deploy_ semua komponen teknologi yang dibutuhkan bersama-sama.
 
-Lokasi konfigurasi dapat juga diberikan dalam bentuk URL. Ini berguna ketika ingin menjalankan berkas konfigurasi dari _github_:
+Lokasi konfigurasi dapat juga diberikan dalam bentuk URL. Ini berguna ketika ingin menjalankan berkas konfigurasi dari Github:
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
@@ -159,7 +159,7 @@ Jika anda tertarik mempelajari lebih lanjut tentang `kubectl`, silahkan baca [Ik
 
 Contoh yang kita lihat sejauh ini hanya menggunakan paling banyak satu label pada _resource_. Ada banyak skenario ketika membutuhkan beberapa label untuk membedakan sebuah kelompok dari yang lainnya.
 
-Sebagai contoh, different applications would use different values for the `app` label, tapi pada aplikasi _multitier_, seperti pada [contoh buku tamu](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), tiap _tier_ perlu dibedakan. Misal untuk menandai _tier frontend_ bisa menggunakan label:
+Sebagai contoh, aplikasi yang berbeda akan menggunakan label `app` yang berbeda, tapi pada aplikasi _multitier_, seperti pada [contoh buku tamu](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), tiap _tier_ perlu dibedakan. Misal untuk menandai _tier frontend_ bisa menggunakan label:
 
 ```yaml
      labels:
