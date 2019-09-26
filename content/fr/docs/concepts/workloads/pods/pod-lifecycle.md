@@ -33,7 +33,7 @@ Voici les valeurs possibles pour `phase` :
 Valeur | Description
 :-----|:-----------
 `Pending` | Le Pod a été accepté par Kubernetes, mais une ou plusieurs images de conteneurs n'ont pas encore été créées. Ceci inclut le temps avant d'être affecté ainsi que le temps à télécharger les images à travers le réseau, ce qui peut prendre un certain temps.
-`Running` | Le pod a été affecté à un noeud et tous les conteneurs ont été créés. Au moins un conteneur est toujours en cours d'exécution, ou est en train de démarrer ou redémarrer.
+`Running` | Le pod a été affecté à un nœud et tous les conteneurs ont été créés. Au moins un conteneur est toujours en cours d'exécution, ou est en train de démarrer ou redémarrer.
 `Succeeded` | Tous les conteneurs du pod ont terminé avec succès et ne seront pas redémarrés.
 `Failed` | Tous les conteneurs d'un pod ont terminé, et au moins un conteneur a terminé en échec : soit le conteneur a terminé avec un status non zéro, soit il a été arrêté par le système.
 `Unknown` | Pour quelque raison l'état du pod ne peut pas être obtenu, en général en cas d'erreur de communication avec l'hôte du Pod.
@@ -60,7 +60,7 @@ du tableau de PodCondition a six champs possibles :
 
 * Le champ `type` est une chaîne de caractères ayant une des valeurs suivantes :
 
-  * `PodScheduled` : le Pod a été affecté à un noeud ;
+  * `PodScheduled` : le Pod a été affecté à un nœud ;
   * `Ready` : le Pod est prêt à servir des requêtes et doit être rajouté aux équilibreurs 
     de charge de tous les Services correspondants ;
   * `Initialized` : tous les [init containers](/docs/concepts/workloads/pods/init-containers)
@@ -156,7 +156,7 @@ Notez que l'information rapportée comme statut d'un Pod dépend du
 
 ## États d'un Conteneur
 
-Une fois que le Pod est assigné à un noeud par le scheduler, kubelet commence
+Une fois que le Pod est assigné à un nœud par le scheduler, kubelet commence
 à créer les conteneurs en utilisant le runtime de conteneurs. Il existe trois états possibles 
 pour les conteneurs : en attente (Waiting), en cours d'exécution (Running) et terminé (Terminated). Pour vérifier l'état d'un conteneur, vous pouvez utiliser `kubectl describe pod [POD_NAME]`. L'état est affiché pour chaque conteneur du Pod.
 
@@ -169,9 +169,9 @@ d'informations.
    ...
       State:          Waiting
        Reason:       ErrImagePull
-	  ...
+   ...
    ```
-   
+
 * `Running` : Indique que le conteneur s'exécute sans problème. Une fois qu'un centeneur est 
 dans l'état Running, le hook `postStart` est exécuté (s'il existe). Cet état affiche aussi
 le moment auquel le conteneur est entré dans l'état Running.  
@@ -182,7 +182,7 @@ le moment auquel le conteneur est entré dans l'état Running.
        Started:      Wed, 30 Jan 2019 16:46:38 +0530
    ...
    ```   
-       
+
 * `Terminated`:  Indique que le conteneur a terminé son exécution et s'est arrêté.
 Un conteneur entre dans cet état lorsqu'il s'est exécuté avec succès ou lorsqu'il a
 échoué pour une raison quelconque. De plus, une raison et un code de retour sont affichés,
@@ -258,12 +258,12 @@ Avec K8s 1.12, la fonctionnalité est activée par défaut.
 La structure PodSpec a un champ `restartPolicy` avec comme valeur possible
 Always, OnFailure et Never. La valeur par défaut est Always.
 `restartPolicy` s'applique à tous les Conteneurs du Pod. `restartPolicy` s'applique
-seulement aux redémarrages des Conteneurs par kubelet sur le même noeud. Des conteneurs
+seulement aux redémarrages des Conteneurs par kubelet sur le même nœud. Des conteneurs
 terminés qui sont redémarrés par kubelet sont redémarrés avec un délai exponentiel
 (10s, 20s, 40s ...) plafonné à cinq minutes, qui est réinitialisé après dix minutes
 d'exécution normale. Comme discuté dans le
 [document sur les Pods](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof),
-une fois attaché à un noeud, un Pod ne sera jamais rattaché à un autre noeud.
+une fois attaché à un nœud, un Pod ne sera jamais rattaché à un autre nœud.
 
 ## Durée de vie d'un Pod
 
@@ -295,8 +295,8 @@ de créer le contrôleur approprié et de le laisser créer les Pods, plutôt qu
 créer directement les Pods vous-même. Ceci car les Pods seuls ne sont pas résilients
 aux pannes machines, alors que les contrôleurs le sont.
 
-Si un noeud meurt ou est déconnecté du reste du cluster, Kubernetes applique
-une politique pour mettre la `phase` de tous les Pods du noeud perdu à Failed.
+Si un nœud meurt ou est déconnecté du reste du cluster, Kubernetes applique
+une politique pour mettre la `phase` de tous les Pods du nœud perdu à Failed.
 
 ## Exemples
 
@@ -376,9 +376,9 @@ spec:
      * La `phase` du Pod devient Failed.
      * Si le Pod s'exécute sous un contrôleur, le Pod est recréé ailleurs.
 
-   * Le Pod est en cours d'exécution et son noeud est segmenté.
-     * Le contrôleur de Noeud attend un certain temps.
-     * Le contrôleur de Noeus passe la `phase` du Pod à Failed.
+   * Le Pod est en cours d'exécution et son nœud est segmenté.
+     * Le contrôleur de Nœud attend un certain temps.
+     * Le contrôleur de Nœud passe la `phase` du Pod à Failed.
      * Si le Pod s'exécute sous un contrôleur, le Pod est recréé ailleurs.
 
 {{% /capture %}}
