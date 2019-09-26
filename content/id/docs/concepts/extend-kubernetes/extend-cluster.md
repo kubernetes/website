@@ -40,12 +40,11 @@ _Flag-flag_ dan berkas-berkas konfigurasi mungkin tidak selalu dapat diubah pada
 
 ## Perluasan
 
-Perluasan adalah komponen perangkat lunak yang luas dan terintegrasi secara dalam dengan Kubernetes.
+Perluasan adalah komponen perangkat lunak yang memperluas dan berintegrasi secara mendalam dengan Kubernetes.
 Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jenis baru.
 
-Kebanyakan administrator kluster akan menggunakan instansi Kubernetes yang terdistribusi atau yang _hosted_.
-Sehingga hasilnya adalah, kebanyakan pengguna Kubernetes akan membutuhkan instalasi perluasan dan beberapa
-akan butuh untuk membuat baru.
+Kebanyakan administrator kluster akan menggunakan instansi Kubernetes yang didistribusikan atau yang _hosted_.
+Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan lebih sedikit akan butuh untuk membuat baru.
 
 ## Pola Perluasan
 
