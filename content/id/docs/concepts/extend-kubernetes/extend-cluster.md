@@ -44,7 +44,7 @@ Perluasan adalah komponen perangkat lunak yang memperluas dan berintegrasi secar
 Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jenis baru.
 
 Kebanyakan administrator kluster akan menggunakan instansi Kubernetes yang didistribusikan atau yang _hosted_.
-Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan lebih sedikit akan butuh untuk membuat baru.
+Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan lebih sedikit yang perlu untuk membuat ekstensi-ekstensi yang baru.
 
 ## Pola Perluasan
 
