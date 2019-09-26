@@ -142,14 +142,14 @@ The following file is an Ingress resource that sends traffic to your Service via
           annotations:
             nginx.ingress.kubernetes.io/rewrite-target: /$1
         spec:
-         rules:
-         - host: hello-world.info
-           http:
-             paths:
-             - path: /|/(.+)
-               backend:
-                 serviceName: web
-                 servicePort: 8080
+          rules:
+          - host: hello-world.info
+            http:
+              paths:
+              - path: /|/(.+)
+                backend:
+                  serviceName: web
+                  servicePort: 8080
 
 1. Create the Ingress resource by running the following command:
     
@@ -232,10 +232,10 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Edit the existing `example-ingress.yaml` and add the following lines:  
 
     ```yaml
-         - path: /v2/*
-           backend:
-             serviceName: web2
-             servicePort: 8080
+          - path: /v2/*
+            backend:
+              serviceName: web2
+              servicePort: 8080
     ```
 
 1. Apply the changes:
