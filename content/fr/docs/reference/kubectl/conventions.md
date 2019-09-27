@@ -35,7 +35,7 @@ Pour que `kubectl run` satisfasse l'infrastructure as code :
 
 Vous pouvez créer les ressources suivantes en utilisant `kubectl run` avec le flag `--generator` :
 
-| Resource                          | api group          | kubectl command                                   |
+| Ressource                         | groupe api         | commande kubectl                                  |
 |-----------------------------------|--------------------|---------------------------------------------------|
 | Pod                               | v1                 | `kubectl run --generator=run-pod/v1`              |
 | Replication controller (déprécié) | v1                 | `kubectl run --generator=run/v1`                  |
