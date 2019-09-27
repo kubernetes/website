@@ -137,6 +137,11 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 1. Run the installation command:
 
     ```
+    brew install kubectl 
+    ```
+    or 
+    
+    ```
     brew install kubernetes-cli
     ```
 
