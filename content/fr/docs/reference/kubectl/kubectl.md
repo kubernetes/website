@@ -29,7 +29,7 @@ kubectl [flags]
       <td colspan="2">--add-dir-header</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, adds the file directory to the header</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Si vrai, ajoute le répertoire du fichier à l'entête</td>
     </tr>
 
     <tr>
