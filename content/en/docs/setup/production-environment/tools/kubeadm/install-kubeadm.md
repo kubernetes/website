@@ -275,7 +275,7 @@ When using Docker, kubeadm will automatically detect the cgroup driver for the k
 and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
 
 If you are using a different CRI, you have to modify the file
-`/etc/default/kubelet` with your `cgroup-driver` value, like so:
+`/etc/default/kubelet` (`/etc/sysconfig/kubelet` for CentOS, RHEL, Fedora) with your `cgroup-driver` value, like so:
 
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
