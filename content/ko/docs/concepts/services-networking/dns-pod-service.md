@@ -27,7 +27,7 @@ weight: 20
 링크를 통해 참조할 수 있다.
 [쿠버네티스 DNS 기반 서비스 디스커버리](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
-## DNS 기반 서비스
+## 서비스
 
 ### A 레코드
 
