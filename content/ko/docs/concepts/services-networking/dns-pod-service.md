@@ -4,7 +4,7 @@ content_template: templates/concept
 weight: 20
 ---
 {{% capture overview %}}
-이 페이지는 쿠버네티스가 지원하는 DNS 개요에 관해 설명한다.
+이 페이지는 쿠버네티스의 DNS 지원에 대한 개요를 설명한다.
 {{% /capture %}}
 
 {{% capture body %}}
