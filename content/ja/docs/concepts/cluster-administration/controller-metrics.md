@@ -35,7 +35,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 クラスターではコントローラーマネージャーの指標はコントローラーマネージャーが実行されているホストの`http://localhost:10252/metrics`から取得可能です。
 
-この指標は[promethuesフォーマット](https://prometheus.io/docs/instrumenting/exposition_formats/)で出力され人間が読める形式になっています。
+この指標は[prometheusフォーマット](https://prometheus.io/docs/instrumenting/exposition_formats/)で出力され人間が読める形式になっています。
 
 本番環境ではこれらの指標を定期的に収集し、なんらかの時系列データベースで使用できるようにprometheusやその他の指標のスクレイパーを構成することが推奨されます。
 
