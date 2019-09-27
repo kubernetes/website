@@ -46,31 +46,27 @@ Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jen
 Kebanyakan administrator kluster akan menggunakan instansi Kubernetes yang didistribusikan atau yang _hosted_.
 Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan lebih sedikit yang perlu untuk membuat ekstensi-ekstensi yang baru.
 
-## Pola Perluasan
+## Pola-pola Perluasan
 
-Kubernetes didesain untuk dapat diotomasi dengan menuliskan program klien. Program apapun
-yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
+Kubernetes didesain untuk dapat diotomasi dengan menulis program-program klien. Program apapun yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
 
 *Otomasi* dapat berjalan di dalam kluster atau di luar kluster. Dengan mengikuti panduan
 di dalam dokumen ini, kamu dapat menulis otomasi yang sangat tersedia dan kuat.
 Otomasi pada umumnya dapat bekerja dengan berbagai macam kluster Kubernetes, termasuk
-kluster yang _hosted_ dan instalasi yang diatur.
+kluster yang _hosted_ dan instalasi yang dikelola.
 
-Ada pola spesifik tertentu untuk menulis program klien yang bekerja baik dengan Kubernetes
-yang disebut pola *Controller*. *Controller* biasanya membaca objek milik `.spec`, kemungkinan
-melakukan sesuatu, dan kemudian memperbarui objek milik `.status`.
+Ada pola spesifik untuk menulis program klien yang bekerja dengan baik bersama Kubernetes yang disebut pola _Controller_. _Controller-controller_ biasanya membaca kolom `.spec` milik sebuah objek, kemungkinan melakukan sesuatu, dan kemudian memperbarui objek milik `.status`.
 
-*Controller* adalah klien dari Kubernetes. Ketika Kubernetes adalah klien dan memanggil layanan
-jarak jauh, ini disebut *Webhook*. Layanan jarak jauhnya disebut *Webhook Backend*. Seperti *controller*, Webhooks
-memang menambah poin kegagalan.
+_Controller_ adalah klien dari Kubernetes. Ketika Kubernetes adalah klien dan memanggil layanan
+terpisah, hal tersebut disebut _Webhook_. Layanan terpisah tersebut disebut sebuah _Webhook Backend_. Seperti _Controller-controller_, _Webhook-webhook_ memang menambah sebuah titik untuk terjadinya kegagalan.
 
-Di dalam model *Webhook*, Kubernetes membuat sebuah *network request* kepada sebuah layanan jarak jauh.
+Di dalam model _Webhook_, Kubernetes membuat sebuah _network request_ kepada sebuah layanan terpisah.
 
-Di dalam model *Binary Plugin*, Kubernetes mengeksekusi berkas binari (program).
-Plugin binari digunakan oleh kubelet (seperti [Plugin Volume Flex](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
-dan [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
+Di dalam model _Binary Plugin_, Kubernetes mengeksekusi sebuah program.
+_Binary Plugin_ digunakan oleh kubelet (misalnya [_Plugin Flex Volume_](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+dan oleh [_Plugin_ Jaringan](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
 
-Berikut ini adalah diagram yang menunjukkan bagaimana titik perluasan berinteraksi dengan bidang kontrol Kubernetes.
+Berikut ini adalah diagram yang menunjukkan bagaimana titik-titik perluasan berinteraksi dengan _control plane_ Kubernetes.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
 
@@ -124,7 +120,7 @@ Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut di
 
 Setiap step ini menawarkan titik perluasan.
 
-Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proxy yang mengotentikasi, dan metode ini dapat mengirim token dari header Otorisasi ke layanan jarak jauh untuk verifikasi (webhook). Semua metode ini tercakup dalam [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
+Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proxy yang mengotentikasi, dan metode ini dapat mengirim token dari header Otorisasi ke layanan terpisah untuk verifikasi (webhook). Semua metode ini tercakup dalam [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
 
 ### Otentikasi
 
