@@ -61,6 +61,10 @@ tolerations:
   effect: "NoSchedule"
 ```
 
+Here’s an example of a pod that uses tolerations:
+
+{{< codenew file="pods/pod-with-toleration.yaml" >}}
+
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
