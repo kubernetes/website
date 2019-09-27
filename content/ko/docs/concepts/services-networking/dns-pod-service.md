@@ -176,7 +176,7 @@ spec:
 `dnsConfig` 필드는 선택적이고, `dnsPolicy` 세팅과 함께 동작한다. 이때,
 파드의 `dnsPolicy`의 값이 "`None`"으로 설정되어 있어야 `dnsConfig` 필드를 지정할 수 있다.
 
-사용자는 `dnsConfig` 필드에서 다음과 같은 속성들을 지정할 수 있다:
+사용자는 `dnsConfig` 필드에서 다음과 같은 속성들을 지정할 수 있다.
 
 - `nameservers`: 파드의 DNS 서버가 사용할 IP 주소들의 목록이다. 파드의 `dnsPolicy`가 "`None`" 으로 
   설정된 경우에는 적어도 하나의 IP 주소가 포함되어야 하며, 그렇지 않으면 이 속성은 생략할 수 있다.
