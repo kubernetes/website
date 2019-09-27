@@ -225,7 +225,7 @@ options ndots:5
 
 {{% capture whatsnext %}}
 
-DNS 구성 관리에 대한 지침은 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인 할 수 있다.
+DNS 구성 관리에 대한 지침은 [DNS 서비스 구성](/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인 할 수 있다.
 
 {{% /capture %}}
 
