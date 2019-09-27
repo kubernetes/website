@@ -64,7 +64,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[*].name}'    # get a list of users
 kubectl config get-contexts                          # display list of contexts 
-kubectl config current-context			               # display the current-context
+kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new cluster to your kubeconf that supports basic auth
@@ -89,10 +89,10 @@ Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml           # create resource(s)
-kubectl apply -f ./my1.yaml -f ./my2.yaml     # create from multiple files
-kubectl apply -f ./dir                        # create resource(s) in all manifest files in dir
-kubectl apply -f https://git.io/vPieo         # create resource(s) from url
+kubectl apply -f ./my-manifest.yaml            # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
+kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
+kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 kubectl explain pods,svc                       # get the documentation for pod and svc manifests
 
@@ -153,14 +153,15 @@ kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-kubectl get services --sort-by=.metadata.name # List Services Sorted by Name
+# List Services Sorted by Name
+kubectl get services --sort-by=.metadata.name
 
 # List pods Sorted by Restart Count
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# List pods in test namespace sorted by capacity 
+# List pods in test namespace sorted by capacity
 
-kubectl get pods -n test --sort-by=.spec.capacity.storage  
+kubectl get pods -n test --sort-by=.spec.capacity.storage
 
 # Get the version label of all pods with label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
@@ -232,7 +233,8 @@ kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a 
 ## Patching Resources
 
 ```bash
-kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # Partially update a node
+# Partially update a node
+kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}'
 
 # Update a container's image; spec.containers[*].name is required because it's a merge key
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
@@ -243,7 +245,7 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 # Disable a deployment livenessProbe using a json patch with positional arrays
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
-# Add a new element to a positional array 
+# Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
