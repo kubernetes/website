@@ -3,13 +3,11 @@ aliases:
     - timothysc
     - lukemarsden
     - luxas
-    - roberthbailey
     - fabriziopandini
   sig-cluster-lifecycle-kubeadm-reviewers: # Reviewing kubeadm documentation
     - timothysc
     - lukemarsden
     - luxas
-    - roberthbailey
     - fabriziopandini
     - kad
     - xiangpengzhao
