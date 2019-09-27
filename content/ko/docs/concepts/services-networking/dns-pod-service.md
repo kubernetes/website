@@ -129,7 +129,7 @@ A 레코드만 생성할 수 있다. (`default-subdomain.my-namespace.svc.cluste
 DNS 정책은 파드별로 설정할 수 있다. 현재 쿠버네티스는 다음과 같은 파드별 DNS 정책을 지원한다. 
 이 정책들은 파드 스펙의 `dnsPolicy` 필드에서 지정할 수 있다.
 
-- "`Default`": 파드는 파드가 실행되고 있는 노드로부터 name resolution 설정을 상속받는다. 
+- "`Default`": 파드는 파드가 실행되고 있는 노드로부터 네임 해석 설정(the name resolution configuration)을 상속받는다. 
   자세한 내용은 [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
   에서 확인할 수 있다.
 - "`ClusterFirst`": "`www.kubernetes.io`"와 같이 클러스터 도메인 suffix 구성과 일치하지 
