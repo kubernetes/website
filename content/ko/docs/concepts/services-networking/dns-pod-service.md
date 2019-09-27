@@ -55,7 +55,7 @@ SRV 레코드는 노멀 서비스 또는 [헤드리스 서비스](/docs/concepts
 `hostname` 필드가 지정되면, 파드의 이름보다 파드의 호스트네임이 우선시된다. 예를 들어 `hostname` 필드가 
 "`my-host`"로 설정된 파드는 호스트네임이 "`my-host`"로 설정된다.
 
-또한, 파드 스펙(Pod spec)에는 선택적 필드인 `subdomain`이 있다. 이 필드는 서브도메인을 지정할 수 있다. 
+또한, 파드 스펙에는 선택적 필드인 `subdomain`이 있다. 이 필드는 서브도메인을 지정할 수 있다. 
 예를 들어 "`my-namespace`" 네임스페이스에서, `hostname` 필드가 "`foo`"로 설정되고, `subdomain` 
 필드가 "`bar`"로 설정된 파드는 전체 주소 도메인 네임 (FQDN)을 가지게 된다: "`foo.bar.my-namespace.svc.cluster-domain.example`".
 
