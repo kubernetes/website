@@ -266,7 +266,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `KubeletPodResources`: kubeletのポッドのリソースgrpcエンドポイントを有効にします。詳細は[デバイスモニタリングのサポート](https://git.k8s.io/community/keps/sig-node/compute-device-assignment.md)で確認できます。
 - `LocalStorageCapacityIsolation`: [ローカルの一時ストレージ](/docs/concepts/configuration/manage-compute-resources-container/)の消費を有効にして、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)の`sizeLimit`プロパティも有効にします。
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`: `LocalStorageCapacityIsolation`が[ローカルの一時ストレージ](/docs/concepts/configuration/manage-compute-resources-container/)で有効になっていて、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)のbacking filesystemがプロジェクトクォータをサポートし有効になっている場合、プロジェクトクォータを使用して、パフォーマンスと精度を向上させるために、ファイルシステムへのアクセスではなく[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)ストレージ消費を監視します。
-- `MountContainers`: ホスト上のユーティリティコンテナーをボリュームマウンターとして使用できるようにします。
+- `MountContainers`: ホスト上のユーティリティコンテナをボリュームマウンターとして使用できるようにします。
 - `MountPropagation`: あるコンテナによってマウントされたボリュームを他のコンテナまたはポッドに共有できるようにします。詳細は[マウントの伝播](/docs/concepts/storage/volumes/#mount-propagation)で確認できます。
 - `NodeLease`: 新しいLease APIを有効にしてノードヘルスシグナルとして使用できるノードのハートビートをレポートします。
 - `NonPreemptingPriority`: PriorityClassとポッドのNonPreemptingオプションを有効にします。
