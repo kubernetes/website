@@ -182,10 +182,6 @@ sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries 
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
 # Show labels for all pods (or any other Kubernetes object that supports labelling)
-# Also uses "jq"
-for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
-
-# Or this command can be used as well to get all the labels associated with pods
 kubectl get pods --show-labels
 
 # Check which nodes are ready
