@@ -126,7 +126,7 @@ A 레코드만 생성할 수 있다. (`default-subdomain.my-namespace.svc.cluste
 
 ### 파드의 DNS 정책
 
-DNS 정책은 파드 별로 설정할 수 있다. 현재 쿠버네티스는 다음과 같은 파드별 DNS 정책을 지원한다. 
+DNS 정책은 파드별로 설정할 수 있다. 현재 쿠버네티스는 다음과 같은 파드별 DNS 정책을 지원한다. 
 이 정책들은 파드 스펙(Pod Spec)의 `dnsPolicy` 필드에서 지정할 수 있다.
 
 - "`Default`": 파드는 파드가 실행되고 있는 노드로부터 name resolution 설정을 상속받는다. 
