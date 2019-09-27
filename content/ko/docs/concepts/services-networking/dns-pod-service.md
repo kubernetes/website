@@ -111,7 +111,7 @@ spec:
 서버는 파드의 전체 주소 호스트네임(fully qualified hostname)인 A 레코드를 반환한다.
 예를 들어 호스트네임이 "`busybox-1`"이고, 서브도메인이 "`default-subdomain`"이고, 
 같은 네임스페이스 내 헤드리스 서비스의 이름이 "`default-subdomain`"이면, 파드는 다음과 같이 자기 자신의 
-FQDN을 얻게 된다: "`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`".
+FQDN을 얻게 된다. "`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`".
 DNS는 위 FQDN에 대해 파드의 IP를 가리키는 A 레코드를 제공한다. "`busybox1`"와 "`busybox2`" 파드 모두 
 각 파드를 구분 가능한 A 레코드를 가지고 있다.
 
