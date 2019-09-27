@@ -50,7 +50,7 @@ SRV 레코드는 노멀 서비스 또는 [헤드리스 서비스](/docs/concepts
 
 ### 파드의 hostname 및 subdomain 필드
 
-파드가 생성되면 호스트네임은 해당 파드의 `metadata.name` 값이 된다.
+파드가 생성되면 hostname은 해당 파드의 `metadata.name` 값이 된다.
 파드 스펙(Pod spec)에는 선택적 필드인 `hostname`이 있다. 이 필드는 파드의 호스트네임을 지정할 수 있다. 
 파드의 이름이 지정되면 파드의 이름보다 파드의 호스트네임이 우선시된다. 예를 들어 `hostname` 필드가 
 "`my-host`"로 설정된 파드는 호스트네임이 "`my-host`"로 설정된다.
