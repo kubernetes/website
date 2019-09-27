@@ -34,7 +34,7 @@ weight: 20
 "노멀"(헤드리스가 아닌) 서비스는 `my-svc.my-namespace.svc.cluster-domain.example` 
 형식의 이름을 가진 DNS A 레코드가 할당된다. 이는 서비스의 클러스터 IP로 해석된다.
 
-클러스터 IP가 없는 "헤드리스" 서비스 또한 `my-svc.my-namespace.svc.cluster-domain.example` 
+"헤드리스"(클러스터 IP가 없는) 서비스 또한 `my-svc.my-namespace.svc.cluster-domain.example` 
 형식의 이름을 가진 DNS A 레코드가 할당된다. 노멀 서비스와는 다르게 이는 서비스에 의해 선택된 파드들의 IP 집합으로 해석된다. 
 클라이언트는 해석된 IP 집합에서 IP를 직접 선택하거나 표준 라운드로빈을 통해 선택할 수 있다.
 
