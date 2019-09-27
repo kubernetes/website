@@ -90,7 +90,7 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-  - name: foo # Actually, no port is needed.
+  - name: foo # 사실 포트는 필요하지 않다.
     port: 1234
     targetPort: 1234
 ---
