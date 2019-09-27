@@ -55,7 +55,7 @@ A `ClusterRole` can be used to grant the same permissions as a `Role`,
 but because they are cluster-scoped, they can also be used to grant access to:
 
 * cluster-scoped resources (like nodes)
-* non-resource endpoints (like "/healthz")
+* non-resource endpoints (like "/healthy")
 * namespaced resources (like pods) across all namespaces (needed to run `kubectl get pods --all-namespaces`, for example)
 
 The following `ClusterRole` can be used to grant read access to secrets in any particular namespace,
