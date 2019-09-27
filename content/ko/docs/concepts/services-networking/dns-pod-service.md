@@ -204,7 +204,7 @@ IPv6 셋업을 위해서 검색 경로와 네임 서버 셋업은 다음과 같�
 ```shell
 kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
-출력은 다음과 같은 형식일 것이다:
+출력은 다음과 같은 형식일 것이다.
 ```shell
 nameserver fd00:79:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
