@@ -42,7 +42,7 @@ weight: 20
 
 SRV 레코드는 노멀 서비스 또는 [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)에 
 속하는 네임드 포트를 위해 만들어졌다. 각각의 네임드 포트에 대해서 SRV 레코드는 다음과 같은 형식을 가질 수 있다. `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
-정규 서비스의 경우, 이는 포트 번호와 도메인 네임으로 해석된다: `my-svc.my-namespace.svc.cluster-domain.example`.
+정규 서비스의 경우, 이는 포트 번호와 도메인 네임으로 해석된다. `my-svc.my-namespace.svc.cluster-domain.example`.
 헤드리스 서비스의 경우, 서비스를 지원하는 각 파드에 대해 하나씩 복수 응답으로 해석되며 이 응답은 파드의 포트 번호와 도메인 이름을 포함한다: `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
 
 
