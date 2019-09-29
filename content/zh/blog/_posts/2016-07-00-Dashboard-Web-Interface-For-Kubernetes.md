@@ -1,3 +1,10 @@
+---
+title: " Dashboard - Kubernetes 的全功能 Web 界面 "
+date: 2016-07-15
+slug: dashboard-web-interface-for-kubernetes
+url: /blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
+---
+
 <!--
 ---
 title: " Dashboard - Full Featured Web Interface for Kubernetes "
@@ -6,13 +13,6 @@ slug: dashboard-web-interface-for-kubernetes
 url: /blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
 ---
 -->
-
----
-title: " Dashboard - Kubernetes 的全功能 Web 界面 "
-date: 2016-07-15
-slug: dashboard-web-interface-for-kubernetes
-url: /blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
----
 
 <!--
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_  
