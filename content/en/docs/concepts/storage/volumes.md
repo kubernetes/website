@@ -1339,7 +1339,7 @@ spec:
       csi:
         driver: inline.storage.kubernetes.io
         volumeAttributes:
-              foo: bar
+          foo: bar
 ```
 
 This feature requires CSIInlineVolume feature gate to be enabled. It
