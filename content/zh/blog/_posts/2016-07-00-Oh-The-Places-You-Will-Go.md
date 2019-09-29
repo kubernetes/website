@@ -1,3 +1,10 @@
+---
+title: " Kubernetes 生日快乐。哦，这是你要去的地方！ "
+date: 2016-07-21
+slug: oh-the-places-you-will-go
+url: /blog/2016/07/Oh-The-Places-You-Will-Go
+---
+
 <!--
 ---
 title: " Happy Birthday Kubernetes. Oh, the places you’ll go! "
@@ -6,13 +13,6 @@ slug: oh-the-places-you-will-go
 url: /blog/2016/07/Oh-The-Places-You-Will-Go
 ---
 -->
-
----
-title: " Kubernetes 生日快乐。哦，这是你要去的地方！ "
-date: 2016-07-21
-slug: oh-the-places-you-will-go
-url: /blog/2016/07/Oh-The-Places-You-Will-Go
----
 
 <!--
 _Editor’s note, Today’s guest post is from an independent Kubernetes contributor, Justin Santa Barbara, sharing his reflection on growth of the project from inception to its future._  
