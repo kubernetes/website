@@ -31,7 +31,7 @@ Kubernetesの{{< glossary_tooltip text="コントローラー" term_id="controll
 
 ## オペレーターの例 {#example}
 
-オペレーターを使い自動化出来るいくつかのことは、下記のようなものがあります:
+オペレーターを使い自動化できるいくつかのことは、下記のようなものがあります:
 
 * 必要に応じてアプリケーションをデプロイします
 * アプリケーションの状態のバックアップを取得、リストアします
@@ -57,7 +57,7 @@ Kubernetesの{{< glossary_tooltip text="コントローラー" term_id="controll
 オペレーターをデプロイする最も一般的な方法は、Custom Resource Definitionとそれに関連するコントローラーをクラスターに追加することです。
 このコントローラーは通常、あなたがコンテナアプリケーションを動かすのと同じように、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}外で動作します。
 
-例えば、コントローラーをDeploymentとしてクラスター内で動かすことが出来ます。
+例えば、コントローラーをDeploymentとしてクラスター内で動かすことができます。
 
 ## オペレーターを利用する {#using-operators}
 
@@ -74,10 +74,10 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
 
 ## 自分でオペレーターを書く {#writing-operator}
 
-必要な振る舞いを実装したオペレーターがエコシステム内に無い場合、自分で作成することが出来ます。
+必要な振る舞いを実装したオペレーターがエコシステム内に無い場合、自分で作成することができます。
 [次の項目](#what-s-next)で、自分でクラウドネイティブオペレーターを作るときに利用できるライブラリやツールのリンクを見つけられます。
 
-オペレーター（すなわち、コントローラー）はどの言語/ランタイムでも実装でき、[Kubernetes APIのクライアント](/docs/reference/using-api/client-libraries/)として機能させることが出来ます。
+オペレーター（すなわち、コントローラー）はどの言語/ランタイムでも実装でき、[Kubernetes APIのクライアント](/docs/reference/using-api/client-libraries/)として機能させることができます。
 
 {{% /capture %}}
 
