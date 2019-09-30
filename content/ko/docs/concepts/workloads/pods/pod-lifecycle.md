@@ -162,7 +162,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 이 때 컨테이너가 활성화 프로브의 기본 값 변경 없이 기동되도록 하려면 `failureThreshold`를 충분히 높게 설정해주어야 한다. 그래야 데드락(deadlocks)을 방지하는데 도움이 된다.
 
 활성, 준비성 및 스타트업 프로브를 설정하는 방법에 대한 추가적인 정보는,
-[활성, 준비성 및  프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
+[활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
 
 ## 파드 및 컨테이너 상태
 
