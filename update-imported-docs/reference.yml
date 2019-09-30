@@ -1,9 +1,9 @@
 repos:
 - name: reference-docs
-  remote: https://github.com/kubernetes-incubator/reference-docs.git
+  remote: https://github.com/kubernetes-sigs/reference-docs.git
   # This and the generate-command below needs a change when reference-docs has
   # branches properly defined
-  branch: master  
+  branch: master
   generate-command: |
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
@@ -13,8 +13,8 @@ repos:
     cp -L -R vendor $GOPATH/src
     rm -r vendor
     cd $GOPATH
-    go get -v github.com/kubernetes-incubator/reference-docs/gen-compdocs
-    cd src/github.com/kubernetes-incubator/reference-docs/
+    go get -v github.com/kubernetes-sigs/reference-docs/gen-compdocs
+    cd src/github.com/kubernetes-sigs/reference-docs/
     make comp
 
   files:
