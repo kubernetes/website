@@ -80,7 +80,7 @@ directory. The tool performs the following steps:
 
 1. Clones the related repositories specified in a configuration file. For the
    purpose of generating reference docs, the repository that is cloned by
-   default is `kubernetes-incubator/reference-docs`.
+   default is `kubernetes-sigs/reference-docs`.
 1. Runs commands under the cloned repositories to prepare the docs generator and
    then generates the Markdown files.
 1. Copies the generated Markdown files to a local clone of the `kubernetes/website`
@@ -100,7 +100,7 @@ what it is doing and need to change the specified release branch.
 ```yaml
 repos:
 - name: reference-docs
-  remote: https://github.com/kubernetes-incubator/reference-docs.git
+  remote: https://github.com/kubernetes-sigs/reference-docs.git
   # This and the generate-command below needs a change when reference-docs has
   # branches properly defined
   branch: master
@@ -113,8 +113,8 @@ repos:
     cp -L -R vendor $GOPATH/src
     rm -r vendor
     cd $GOPATH
-    go get -v github.com/kubernetes-incubator/reference-docs/gen-compdocs
-    cd src/github.com/kubernetes-incubator/reference-docs/
+    go get -v github.com/kubernetes-sigs/reference-docs/gen-compdocs
+    cd src/github.com/kubernetes-sigs/reference-docs/
     make comp
 ```
 
@@ -126,7 +126,7 @@ For example:
 ```yaml
 repos:
 - name: reference-docs
-  remote: https://github.com/kubernetes-incubator/reference-docs.git
+  remote: https://github.com/kubernetes-sigs/reference-docs.git
   files:
   - src: gen-compdocs/build/kube-apiserver.md
     dst: content/en/docs/reference/command-line-tools-reference/kube-apiserver.md
