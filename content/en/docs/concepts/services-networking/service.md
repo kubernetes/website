@@ -913,6 +913,9 @@ forwarding. Should you later decide to move your database into your cluster, you
 can start its Pods, add appropriate selectors or endpoints, and change the
 Service's `type`.
 
+{{< warning >}}
+ExternalName many not work with services protected with TLS SNI and/or HTTPS.
+{{< /warning >}}
 
 {{< note >}}
 This section is indebted to the [Kubernetes Tips - Part
