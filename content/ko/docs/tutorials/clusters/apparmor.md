@@ -177,7 +177,18 @@ k8s-apparmor-example-deny-write (enforce)
 먼저 노드에서 사용하려는 프로파일을 적재해야 한다. 사용할 프로파일은 단순히
 파일 쓰기를 거부할 것이다.
 
-{{< code language="text" file="deny-write.profile" >}}
+```shell
+#include <tunables/global>
+
+profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
+  #include <abstractions/base>
+
+  file,
+
+  # Deny all file writes.
+  deny /** w,
+}
+```
 
 파드를 언제 스케줄할지 알지 못하므로 모든 노드에 프로파일을 적재해야 한다.
 이 예시에서는 SSH를 이용하여 프로파일을 설치할 것이나 다른 방법은
