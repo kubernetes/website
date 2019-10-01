@@ -49,7 +49,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 
     단순한 HTTP 서버인 `echoserver` 이미지를 사용해서 쿠버네티스 디플로이먼트를 만들고 `--port`를 이용해서 8080 포트로 노출해보자.
     ```shell
-    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
     ```
     결과는 다음과 비슷하다.
     ```
@@ -57,7 +57,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     ```
 3. `hello-minikube` 디플로이먼트에 액세스하기 위해, 서비스로 노출시킨다.
     ```shell
-    kubectl expose deployment hello-minikube --type=NodePort
+    kubectl expose deployment hello-minikube --type=NodePort --port=8080
     ```
     `--type=NodePort` 옵션은 서비스 타입을 지정한다.
 

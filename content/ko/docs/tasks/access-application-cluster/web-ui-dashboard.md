@@ -31,7 +31,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-b
 
 ## 대시보드 UI 접근
 
-클러스터 데이터를 보호하기 위해, 대시보드는 기본적으로 최소한의 RBAC 설정을 제공한다. 현재, 대시보드는 Bearer 토큰으로 로그인 하는 방법을 제공한다. 본 시연을 위한 토큰을 생성하기 위해서는, [샘플 사용자 만들기](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user) 가이드를 따른다.
+
+클러스터 데이터를 보호하기 위해, 대시보드는 기본적으로 최소한의 RBAC 설정을 제공한다. 현재, 대시보드는 Bearer 토큰으로 로그인 하는 방법을 제공한다. 본 시연을 위한 토큰을 생성하기 위해서는, [샘플 사용자 만들기](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) 가이드를 따른다.
 
 {{< warning >}}
 시연 중에 생성한 샘플 사용자는 어드민 권한이 부여되며, 이는 교육 목적으로만 사용한다.
