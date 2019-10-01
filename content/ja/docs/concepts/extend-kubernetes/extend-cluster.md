@@ -11,7 +11,7 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 
 このガイドは、Kubernetesクラスターをカスタマイズするための選択肢を記載します。
 管理しているKubernetesクラスターを、動作環境の要件にどのように適合させるべきかを理解したい{{< glossary_tooltip text="クラスター管理者" term_id="cluster-operator" >}}を対象にしています。
-将来の {{< glossary_tooltip text="プラットフォーム開発者" term_id="platform-developer" >}} 、またはKubernetesプロジェクトの{{< glossary_tooltip text="コントリビューター" term_id="contributor" >}}も、どのようなエクステンションポイント、パターンがあるか、そしてそれぞれのトレードオフ、制限事項を学ぶ導入に役に立つでしょう。
+将来の {{< glossary_tooltip text="プラットフォーム開発者" term_id="platform-developer" >}} 、またはKubernetesプロジェクトの{{< glossary_tooltip text="コントリビューター" term_id="contributor" >}}にとっても、どのような拡張のポイントやパターンが存在するのか、また、それぞれのトレードオフや制限事項を学ぶための導入として役立つでしょう。
 
 {{% /capture %}}
 
@@ -19,7 +19,7 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 
 ## 概要
 
-カスタマイズのアプローチは大きく、フラグ、ローカル設定ファイル、またはAPIリソースの変更のみを含んだ *コンフィグレーション* と、稼働しているプログラムまたはサービスも含んだ *エクステンション* に分けられます。この文書では、主にエクステンションについて説明します。
+カスタマイズのアプローチには大きく分けて、フラグ、ローカル設定ファイル、またはAPIリソースの変更のみを含んだ *コンフィグレーション* と、稼働しているプログラムまたはサービスも含んだ *エクステンション* があります。この文書では、主にエクステンションについて説明します。
 
 ## コンフィグレーション
 
@@ -30,24 +30,24 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/)
 
-フラグと設定ファイルは、ホスティングされたKubernetesサービスやマネージドなKubernetesでは、常に変更できるとは限りません。もし変更可能な場合、通常クラスターの管理者のみが変更できます。また、それらは将来のKubernetesバージョンで変更される可能性があり、設定変更にはプロセスの再起動が必要になるかもしれません。これらの理由により、この方法は他の選択肢が無いときにのみ利用するべきです。
+ホスティングされたKubernetesサービスやマネージドなKubernetesでは、フラグと設定ファイルが常に変更できるとは限りません。変更可能な場合でも、通常はクラスターの管理者のみが変更できます。また、それらは将来のKubernetesバージョンで変更される可能性があり、設定変更にはプロセスの再起動が必要になるかもしれません。これらの理由により、この方法は他の選択肢が無いときにのみ利用するべきです。
 
-[ResourceQuota](/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/docs/concepts/services-networking/network-policies/)、そしてRole-based Access Control([RBAC](/docs/reference/access-authn-authz/rbac/))といった *ビルトインポリシーAPI* は、ビルトインのKubernetes APIです。APIは通常、ホスティングされたKubernetesサービスやマネージドなKubernetesで利用されます。それらは宣言的で、Podのような他のKubernetesリソースと同じ慣例に従っています。そのため、新しいクラスターの設定は繰り返し再利用することができ、アプリケーションと同じように管理することが可能です。更に、安定している場合、他のKubernetes APIのような[定義済みのサポートポリシー](/docs/reference/deprecation-policy/)を利用できます。これらの理由により、この方法は、適切な用途の場合、 *設定ファイル* や *フラグ* よりも好まれます。
+[ResourceQuota](/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/docs/concepts/services-networking/network-policies/)、そしてRole-based Access Control([RBAC](/docs/reference/access-authn-authz/rbac/))といった *ビルトインポリシーAPI* は、ビルトインのKubernetes APIです。APIは通常、ホスティングされたKubernetesサービスやマネージドなKubernetesで利用されます。これらは宣言的で、Podのような他のKubernetesリソースと同じ慣例に従っています。そのため、新しいクラスターの設定は繰り返し再利用することができ、アプリケーションと同じように管理することが可能です。更に、安定している場合、他のKubernetes APIのような[定義済みのサポートポリシー](/docs/reference/deprecation-policy/)を利用できます。これらの理由により、この方法は、適切な用途の場合、 *設定ファイル* や *フラグ* よりも好まれます。
 
 ## エクステンション
 
 エクステンションはKubernetesを拡張し、深く統合されたソフトウェアの構成要素です。
 これは新しいタイプと、新しい種類のハードウェアをサポートするために利用されます。
 
-ほとんどのクラスター管理者はホスティングされている、またはディストリビューションとしてのKubernetesを使っているでしょう。
-結果として、ほとんどのKubernetesユーザーは既存のエクステンションを使えばよく、新しいエクステンションを書く必要は無いでしょう。
+ほとんどのクラスター管理者は、ホスティングされている、またはディストリビューションとしてのKubernetesを使っているでしょう。
+結果として、ほとんどのKubernetesユーザーは既存のエクステンションを使えばよいため、新しいエクステンションを書く必要は無いと言えます。
 
 ## エクステンションパターン
 
 Kubernetesは、クライアントのプログラムを書くことで自動化ができるようにデザインされています。
 Kubernetes APIに読み書きをするどのようなプログラムも、役に立つ自動化機能を提供することができます。
 *自動化機能* はクラスター上、またはクラスター外で実行できます。
-このドキュメントの後のガイダンスに従うことで、高い可用性を持ち、頑強な自動化機能を書くことができます。
+このドキュメントに後述のガイダンスに従うことで、高い可用性を持つ頑強な自動化機能を書くことができます。
 自動化機能は通常、ホスティングされているクラスター、マネージドな環境など、どのKubernetesクラスター上でも動きます。
 
 Kubernetes上でうまく動くクライアントプログラムを書くために、*コントローラー* パターンという明確なパターンがあります。
