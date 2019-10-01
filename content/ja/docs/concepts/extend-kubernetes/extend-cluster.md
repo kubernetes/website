@@ -60,22 +60,22 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 *バイナリプラグイン* モデルでは、Kubernetesはバイナリ（プログラム）を実行します。
 バイナリプラグインはkubelet（例、[Flexボリュームプラグイン](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)、[ネットワークプラグイン](/docs/concepts/cluster-administration/network-plugins/)）、またkubectlで利用されています。
 
-下図は、それぞれのエクステンションポイントが、Kubernetesのコントロールプレーンとどのように関わっているかを示しています。
+下図は、それぞれの拡張ポイントが、Kubernetesのコントロールプレーンとどのように関わっているかを示しています。
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
 
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
 
-## エクステンションポイント
+## 拡張ポイント
 
-この図は、Kubernetesにおけるエクステンションポイントを示しています。
+この図は、Kubernetesにおける拡張ポイントを示しています。
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vSH5ZWUO2jH9f34YHenhnCd14baEb4vT-pzfxeFC7NzdNqRDgdz4DDAVqArtH4onOGqh0bhwMX0zGBb/pub?w=425&h=809">
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1.   ユーザーは頻繁に`kubectl`を使って、Kubernetes APIとやり取りをします。[Kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)は、kubectlのバイナリを拡張します。これは個別ユーザーのローカル環境のみに影響を及ぼすため、サイト全体にポリシーを強制することはできません。
-2.   APIサーバーは全てのリクエストを処理します。APIサーバーのいくつかのエクステンションポイントは、リクエストを認可する、コンテキストに基づいてブロックする、リクエストを編集する、そして削除を処理することを可能にします。これらは[APIアクセスエクステンション](/docs/concepts/overview/extending#api-access-extensions)セクションに記載されています。
+2.   APIサーバーは全てのリクエストを処理します。APIサーバーのいくつかの拡張ポイントは、リクエストを認可する、コンテキストに基づいてブロックする、リクエストを編集する、そして削除を処理することを可能にします。これらは[APIアクセスエクステンション](/docs/concepts/overview/extending#api-access-extensions)セクションに記載されています。
 3.   APIサーバーは様々な種類の *リソース* を扱います。`Pod`のような *ビルトインリソース* はKubernetesプロジェクトにより定義され、変更できません。ユーザーも、自身もしくは、他のプロジェクトで定義されたリソースを追加することができます。それは *カスタムリソース* と呼ばれ、[カスタムリソース](/docs/concepts/overview/extending#user-defined-types)セクションに記載されています。カスタムリソースは度々、APIアクセスエクステンションと一緒に使われます。
 4.   KubernetesのスケジューラーはPodをどのノードに配置するかを決定します。スケジューリングを拡張するには、いくつかの方法があります。それらは[スケジューラーエクステンション](/docs/concepts/overview/extending#scheduler-extensions)セクションに記載されています。
 5.   Kubernetesにおける多くの振る舞いは、APIサーバーのクライアントであるコントローラーと呼ばれるプログラムに実装されています。コントローラーは度々、カスタムリソースと共に使われます。
@@ -109,7 +109,7 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 
 リクエストがKubernetes APIサーバーに到達すると、まず最初に認証が行われ、次に認可、その後、様々なAdmission Controlの対象になります。このフローの詳細は[Kubernetes APIへのアクセスをコントロールする](/docs/reference/access-authn-authz/controlling-access/)を参照して下さい。
 
-これらの各ステップごとにエクステンションポイントが用意されています。
+これらの各ステップごとに拡張ポイントが用意されています。
 
 Kubdernetesはいくつかのビルトイン認証方式をサポートしています。それは認証プロキシの後ろに配置することも可能で、認可ヘッダーを通じて（Webhookの）検証のために外部サービスにトークンを送ることもできます。全てのこれらの方法は[認証ドキュメント](/docs/reference/access-authn-authz/authentication/)でカバーされています。
 
