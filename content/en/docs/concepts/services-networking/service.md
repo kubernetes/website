@@ -602,8 +602,6 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.
-For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
 {{% /tab %}}
 {{% tab name="AWS" %}}
 ```yaml
