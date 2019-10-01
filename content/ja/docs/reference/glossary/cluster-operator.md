@@ -1,5 +1,5 @@
 ---
-title: Cluster Operator
+title: クラスター管理者
 id: cluster-operator
 date: 2018-04-12
 full_link: 
@@ -14,9 +14,5 @@ tags:
 
 <!--more--> 
 
-クラスターが稼働させ続けることを主な責務としており、定期的なメンテナンス作業やアップグレードも含まれることもあります。<br>
-
-{{< note >}}
-クラスター管理者は、Kubernetes APIを拡張する[オペレーターパターン](https://coreos.com/operators)とは違うものです。
-{{< /note >}}
+クラスターを稼働させ続けることを主な責務としており、定期的なメンテナンス作業やアップグレード作業も含まれることもあります。<br>
 

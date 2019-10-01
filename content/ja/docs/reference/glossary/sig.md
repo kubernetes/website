@@ -10,7 +10,7 @@ aka:
 tags:
 - community
 ---
- {{< glossary_tooltip text="Community members" term_id="member" >}} who collectively manage an ongoing piece or aspect of the larger Kubernetes open source project.
+  大規模なKubernetesオープンソースプロジェクトにおいて、開発中の部分または側面を集合的に管理する{{< glossary_tooltip text="コミュニティメンバー" term_id="member" >}}
 
 <!--more--> 
 
