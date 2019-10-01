@@ -7,7 +7,7 @@
             {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
             {{ end }}
         </nav>
-        <div class="social">
+        <div class="social" role="region" aria-label="Social hyperlinks">
             <div>
                 <a href="https://twitter.com/kubernetesio" class="twitter"><span>{{ T "community_twitter_name" }}</span></a>
                 <a href="https://github.com/kubernetes/kubernetes" class="github"><span>{{ T "community_github_name" }}</span></a>
