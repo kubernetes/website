@@ -186,10 +186,14 @@ You can attach to the new ephemeral container using `kubectl attach`:
 kubectl attach -it example-pod -c debugger
 ```
 
-If process namespace sharing is enabled, you can see processes from all the containers in that Pod. For example:
+If process namespace sharing is enabled, you can see processes from all the containers in that Pod.
+For example, after attaching, you run `ps` in the debugger container:
 
 ```shell
-/ # ps auxww
+ps auxww
+```
+The output is similar to:
+```
 PID   USER     TIME  COMMAND
     1 root      0:00 /pause
     6 root      0:00 nginx: master process nginx -g daemon off;
