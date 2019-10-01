@@ -11,11 +11,11 @@ card:
 
 Secara keseluruhan standar yang digunakan untuk API dijelaskan di dalam [dokumentasi API standar](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
-<i>Endpoints API</i>, <i>resource types</i> serta contoh penggunaan dijelaskan di dalam [API Reference](/en/docs/reference).
+<i>Endpoints API</i>, <i>resource types</i> serta contoh penggunaan dijelaskan di dalam [API Reference](/docs/reference).
 
-Akses <i>remote</i> penggunaan API dijelaskan di dalam [dokumentasi akses API](/en/docs/reference/access-authn-authz/controlling-access/).
+Akses <i>remote</i> penggunaan API dijelaskan di dalam [dokumentasi akses API](/docs/reference/access-authn-authz/controlling-access/).
 
-API Kubernetes juga berperan sebagai skema konfigurasi yang deklaratif di dalam sistem.. Sementara itu, [kubectl](/en/docs/reference/kubectl/overview/) merupakan <i>command-line</i> yang dapat digunakan untuk membuat, menmperbaharui, menghapus, dan mendapatkan obyek API. 
+API Kubernetes juga berperan sebagai skema konfigurasi yang deklaratif di dalam sistem.. Sementara itu, [kubectl](/docs/reference/kubectl/overview/) merupakan <i>command-line</i> yang dapat digunakan untuk membuat, menmperbaharui, menghapus, dan mendapatkan obyek API.
 
 Kubernetes menyimpan bentuk terserialisasi dari obyek API yang dimilikinya di dalam [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/).
 
