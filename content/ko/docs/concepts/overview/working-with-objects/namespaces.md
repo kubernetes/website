@@ -78,7 +78,7 @@ kubectl get pods --namespace=<insert-namespace-name-here>
 ```shell
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # 확인하기
-kubectl config view | grep namespace:
+kubectl config view --minify | grep namespace:
 ```
 
 ## 네임스페이스와 DNS

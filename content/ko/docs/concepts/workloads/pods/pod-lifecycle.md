@@ -161,8 +161,8 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 컨테이너가 보통 `initialDelaySeconds + failureThreshold × periodSeconds` 이후에 기동된다면, 스타트업 프로브가 활성화 프로브와 같은 엔드포인트를 체크하도록 명시해야 한다. `periodSeconds`의 기본 값은 30s 이다.
 이 때 컨테이너가 활성화 프로브의 기본 값 변경 없이 기동되도록 하려면 `failureThreshold`를 충분히 높게 설정해주어야 한다. 그래야 데드락(deadlocks)을 방지하는데 도움이 된다.
 
-활성 프로브 및 준비성 프로브를 설정하는 방법에 대한 추가적인 정보는,
-[활성 프로브 및 준비성 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
+활성, 준비성 및 스타트업 프로브를 설정하는 방법에 대한 추가적인 정보는,
+[활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
 
 ## 파드 및 컨테이너 상태
 
@@ -398,7 +398,7 @@ spec:
   [컨테이너 라이프사이클 이벤트에 핸들러 부착하기](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Hands-on 경험하기
-  [활성 및 준비성 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+  [활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
 * [컨테이너 라이프사이클 후크(hook)](/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
 
