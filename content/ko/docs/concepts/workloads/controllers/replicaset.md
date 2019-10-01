@@ -219,12 +219,12 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
-템플릿의 [재시작 정책](ko/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) 필드인 
+템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 필드인
 `.spec.template.spec.restartPolicy`는 기본값인 `Always`만 허용된다.
 
 ### 파드 셀렉터
 
-`.spec.selector` 필드는 [레이블 셀렉터](ko/docs/concepts/overview/working-with-objects/labels/)이다.
+`.spec.selector` 필드는 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)이다.
 [앞서](#레플리카-셋의-작동-방식) 논의한 것처럼 이 레이블은 소유될 가능성이 있는 파드를 식별하는데 사용된다.
 우리 `frontend.yaml` 예제에서의 셀렉터는 다음과 같다.
 ```shell
