@@ -17,7 +17,7 @@ weight: 80
 임시 컨테이너는 초기 알파 상태이며, 프로덕션 클러스터에는 
 적합하지 않다. 사용자는 컨테이너 네임스페이스를 대상으로 하는 경우와 
 같은 어떤 상황에서 기능이 작동하지 않을 것으로 예상해야 한다. [쿠버네티스 
-사용중단(deprecation) 폴리시](/docs/reference/using-api/deprecation-policy/)에 따라 이 알파 
+사용중단(deprecation) 정책](/docs/reference/using-api/deprecation-policy/)에 따라 이 알파 
 기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
 {{< /warning >}}
 
@@ -27,10 +27,10 @@ weight: 80
 
 ## 임시 컨테이너 이해하기
 
-{{< glossary_tooltip text="파드" term_id="pod" >}}는 쿠버네티스 애플리케이션의 
+{{< glossary_tooltip text="파드" term_id="pod" >}} 는 쿠버네티스 애플리케이션의 
 기본 구성 요소이다. 파드는 일회용이고, 교체 가능한 것으로 의도되었기 
 때문에, 사용자는 파드가 한번 생성되면, 컨테이너를 추가할 수 없다.
-대신, 사용자는 보통 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}를 
+대신, 사용자는 보통 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}} 를 
 사용해서 제어하는 방식으로 파드를 삭제하고 교체한다.
 
 그러나 때때로 재현하기 어려운 버그의 문제 해결을 위해 
@@ -183,7 +183,7 @@ Ephemeral Containers:
 kubectl attach -it example-pod -c debugger
 ```
 
-만약 프로세스 네임스페이스를 공유를 활성화 하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼수 있다. 예를 들면:
+만약 프로세스 네임스페이스를 공유를 활성화 하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼수 있다. 예를 들면 다음과 같다.
 
 ```shell
 / # ps auxww
