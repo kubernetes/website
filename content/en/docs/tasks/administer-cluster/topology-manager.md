@@ -49,6 +49,7 @@ The Topology Manager currently:
 
  - Works on Nodes with the `static` CPU Manager Policy enabled. See [control CPU Management Policies](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/)
  - Works on Pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+
 If these conditions are met, Topology Manager will align CPU and device requests.
 
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag, `--topology-manager-policy`.
