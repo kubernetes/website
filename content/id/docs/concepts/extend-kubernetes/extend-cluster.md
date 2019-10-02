@@ -83,9 +83,9 @@ Diagram berikut menunjukkan titik-titik perluasan di sistem Kubernetes.
 
 1. Pengguna biasa berinteraksi dengan API Kubernetes menggunakan `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas binari kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat menegakkan kebijakan di seluruh situs.
 2. API server menangani semua permintaan. Beberapa tipe titik perluasan di API server memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#api-access-extensions)
-3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber yang kamu definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya Kustom](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Perluasan API Aksi.
+3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber yang kamu definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya _Custom_](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Perluasan API Aksi.
 4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan Penjadwalan](/docs/concepts/overview/extending#scheduler-extensions).
-5. Sebagian besar perilaku Kubernetes diimplementasikan oleh program yang disebut *Controllers* yang merupakan klien dari API-Server. *Controllers* sering digunakan bersama dengan Sumber Daya Kustom.
+5. Sebagian besar perilaku Kubernetes diimplementasikan oleh program yang disebut *Controllers* yang merupakan klien dari API-Server. *Controllers* sering digunakan bersama dengan Sumber Daya _Custom_.
 6. Kubelet berjalan di server, dan membantu pod terlihat sepreti server virtual dengan IP mereka sendiri di jaringan kluster. [Plugin Jaringan](/docs/concepts/overview/extending#network-plugins) memungkinkan perbedaan implementasi pada jaringan pod.
 7. Kubelet juga melakukan pemasangan dan pelepasan volume untuk kontainer. Tipe penyimpanan baru dapat didukung via [Plugin Penyimpanan](/docs/concepts/overview/extending#storage-plugins).
 
@@ -99,28 +99,28 @@ Jika kamu tidak yakin untuk memulai darimana, flowchart dibawah ini dapat memban
 ## Perluasan API
 ### Tipe-tipe yang Ditentukan Pengguna
 
-Pertimbangkan untuk menambahkan Sumber Daya Kustom ke Kubernetes jika kamu ingin mendefinisikan pengontrol baru, objek konfigurasi aplikasi atau API deklaratif lainnya, dan untuk mengelolanya menggunakan alat Kubernetes, seperti `kubectl`.
+Pertimbangkan untuk menambahkan Sumber Daya _Custom_ ke Kubernetes jika kamu ingin mendefinisikan pengatur baru, objek-objek konfigurasi aplikasi atau API-API deklaratif lainnya, dan untuk mengelolanya menggunakan peralatan Kubernetes, seperti `kubectl`.
 
-Jangan menggunakan Sumber Daya Kustom sebagai penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
+Jangan gunakan Sumber Daya _Custom_ sebagai media penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
 
-Untuk lebih jelasnya tentan Sumber Daya Kustom, lihat [Panduan Konsep Sumber Daya Kustom](/docs/concepts/api-extension/custom-resources/).
+Untuk lebih jelasnya tentang Sumber Daya _Custom_, lihat [Panduan Konsep Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/).
 
 ### Menggabungkan API Baru dengan Otomasi
 
-Kombinasi antart API sumber daya kustom dan loop kontrol disebut [Pola Operator](/docs/concepts/extend-kubernetes/operator/). Operator pola digunakan untuk mengatur aplikasi yang spesifik dan biasanya stateful. API kustom dan loop kontrol ini dapt digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan.
+Kombinasi antara sebuah API sumber daya _custom_ dan _loop_ kontrol disebut [Pola Operator](/docs/concepts/extend-kubernetes/operator/). Pola Operator digunakan untuk mengelola aplikasi yang spesifik dan biasanya _stateful_. API-API _custom_ dan _loop_ kontrol ini dapat digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan-kebijakan.
 
 ### Mengubah Sumber Daya Bawaan
 
-Ketika kamu memperluas API Kubernetes dengan menambahkan sumber daya kustom, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Kamu tidak dapat menggantikan atau mengubah API Grup yang sudah ada. Menambahkan sebuah API tidak secara langsung membuat kamu memengaruhi perilaku API yang sudah ada (seperti Pods), tetapi Perluasan Akses API dapat memengaruhi secara langsung.
+Ketika kamu memperluas API Kubernetes dengan menambahkan sumber daya _custom_, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Kamu tidak dapat mengganti atau mengubah Grup API yang sudah ada. Menambah sebuah API tidak secara langsung membuat kamu memengaruhi perilaku API yang sudah ada (seperti Pod), tetapi Perluasan Akses API dapat memengaruhinya secara langsung.
 
 
-### Perluasan Akses API
+### Perluasan-Perluasan Akses API
 
-Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis Kontrol Penerimaan. Lihat dokumentasi [Mengatur Akses ke API Kubernetes](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
+Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis _Admission Control_. Lihat dokumentasi [Mengatur Akses ke API Kubernetes](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
 
-Setiap step ini menawarkan titik perluasan.
+Setiap langkah berikut menawarkan titik-titik perluasan.
 
-Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proxy yang mengotentikasi, dan metode ini dapat mengirim token dari header Otorisasi ke layanan terpisah untuk verifikasi (webhook). Semua metode ini tercakup dalam [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
+Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proksi yang mengotentikasi, dan metode ini dapat mengirim sebuah token dari _header_ Otorisasi ke layanan terpisah untuk verifikasi (sebuah _webhook_). Semua metode ini tercakup dalam [Dokumentasi Otentikasi](/docs/reference/access-authn-authz/authentication/).
 
 ### Otentikasi
 
@@ -166,7 +166,7 @@ Penjadwal juga mendukung [webhook](https://github.com/kubernetes/community/blob/
 
 {{% capture whatsnext %}}
 
-* Pelajari lanjut tentang [Sumber Daya Kustom](/docs/concepts/api-extension/custom-resources/)
+* Pelajari lanjut tentang [Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/)
 * Pelajari tentang [Kontrol Admisi Dinamis](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Pelajari lebih lanjut tentang perluasan Infrastruktur
   * [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)
