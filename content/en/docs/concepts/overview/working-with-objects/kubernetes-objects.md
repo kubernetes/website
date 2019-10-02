@@ -73,6 +73,7 @@ and the `spec` format for a `Deployment` can be found
 
 {{% capture whatsnext %}}
 * Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
+* Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes
 {{% /capture %}}
 
 

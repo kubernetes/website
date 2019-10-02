@@ -13,10 +13,10 @@ weight: 30
 
 {{% capture overview %}}
 
-A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
+A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
-You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
+You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
 {{< note >}}
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
