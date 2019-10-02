@@ -39,7 +39,9 @@ When a pod creation request occurs, the system does the following:
 1. Attempt to merge the various resources defined by the `PodPreset` into the
    Pod being created.
 1. On error, throw an event documenting the merge error on the pod, and create
-   the pod _without_ any injected resources from the `PodPreset`.
+   the pod _without_ any injected resources from the `PodPreset`. This rule does
+   not work for environment which from secret, since as default, the `optional`
+   key for secret is `false` which would stop pod creatation.
 1. Annotate the resulting modified Pod spec to indicate that it has been
    modified by a `PodPreset`. The annotation is of the form
    `podpreset.admission.kubernetes.io/podpreset-<pod-preset name>: "<resource version>"`.
