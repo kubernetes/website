@@ -8,13 +8,13 @@
 		{{ block "hero" . }}
 		<!--  HERO  -->
 		<section id="hero" class="light-text">
-			<main>
+			<div class="main-section">
 				<div id="headlineWrapper">
 					<h1>{{ block "hero-title" . }}{{ .Params.bigheader | default .Title }}{{ end }}</h1>
 					<h5>{{ .Params.abstract }}</h5>
 				</div>
 				{{ block "hero-more" . }}{{ end }}
-			</main>
+			</div>
 		</section>
 		{{ block "post-hero" . }}{{ end }}
 		{{ end }}
