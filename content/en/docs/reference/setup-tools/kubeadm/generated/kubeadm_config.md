@@ -1,6 +1,4 @@
 
-Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster.
-
 ### Synopsis
 
 
@@ -63,4 +61,12 @@ kubeadm config [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
+* [kubeadm config images](kubeadm_config_images.md)	 - Interact with container images used by kubeadm
+* [kubeadm config migrate](kubeadm_config_migrate.md)	 - Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version
+* [kubeadm config print](kubeadm_config_print.md)	 - Print configuration
+* [kubeadm config view](kubeadm_config_view.md)	 - View the kubeadm configuration stored inside the cluster
 

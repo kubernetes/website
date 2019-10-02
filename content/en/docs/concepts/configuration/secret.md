@@ -76,9 +76,12 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 secret "db-user-pass" created
 ```
 {{< note >}}
-Special characters such as `$`, `\*`, and `!` require escaping.
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
-     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
+Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+
+```
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+```
+
  You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
@@ -209,7 +212,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "7225"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
 data:
@@ -241,7 +243,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "7579"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
 data:
@@ -342,7 +343,6 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "164619"
-  selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 data:
@@ -357,6 +357,37 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 ```
 1f2d1e2e67df
+```
+
+#### Editing a Secret
+
+An existing secret may be edited with the following command:
+
+```shell
+kubectl edit secrets mysecret
+```
+
+This will open the default configured editor and allow for updating the base64 encoded secret values in the `data` field:
+
+```
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
+kind: Secret
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: { ... }
+  creationTimestamp: 2016-01-22T18:41:56Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "164619"
+  uid: cfee02d6-c137-11e5-8d73-42010af00002
+type: Opaque
 ```
 
 ## Using Secrets
@@ -766,14 +797,13 @@ kubectl create secret generic test-db-secret --from-literal=username=testuser --
 secret "test-db-secret" created
 ```
 {{< note >}}
-Special characters such as `$`, `\*`, and `!` require escaping.
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
-```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
+```
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
 ```
 
-You do not need to escape special characters in passwords from files (`--from-file`).
+ You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 Now make the pods:
@@ -833,7 +863,7 @@ EOF
 Apply all those objects on the Apiserver by
 
 ```shell
-kubectl apply --k .
+kubectl apply -k .
 ```
 
 Both containers will have the following files present on their filesystems with the values for each container's environment:

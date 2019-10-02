@@ -1,6 +1,4 @@
 
-Run this on any machine you wish to join an existing cluster
-
 ### Synopsis
 
 
@@ -24,7 +22,7 @@ the connection.
 If you use a shared token for discovery, you should also pass the
 --discovery-token-ca-cert-hash flag to validate the public key of the
 root certificate authority (CA) presented by the Kubernetes Control Plane.
-The value of this flag is specified as "<hash-type>:<hex-encoded-value>",
+The value of this flag is specified as "&lt;hash-type&gt;:&lt;hex-encoded-value&gt;",
 where the supported hash type is "sha256". The hash is calculated over
 the bytes of the Subject Public Key Info (SPKI) object (as in RFC7469).
 This value is available in the output of "kubeadm init" or can be
@@ -50,13 +48,13 @@ Often times the same token is used for both parts. In this case, the
 The "join [api-server-endpoint]" command executes the following phases:
 ```
 preflight              Run join pre-flight checks
-control-plane-prepare  Prepares the machine for serving a control plane.
-  /download-certs        [EXPERIMENTAL] Downloads certificates shared among control-plane nodes from the kubeadm-certs Secret
-  /certs                 Generates the certificates for the new control plane components
-  /kubeconfig            Generates the kubeconfig for the new control plane components
-  /control-plane         Generates the manifests for the new control plane components
-kubelet-start          Writes kubelet settings, certificates and (re)starts the kubelet
-control-plane-join     Joins a machine as a control plane instance
+control-plane-prepare  Prepare the machine for serving a control plane
+  /download-certs        [EXPERIMENTAL] Download certificates shared among control-plane nodes from the kubeadm-certs Secret
+  /certs                 Generate the certificates for the new control plane components
+  /kubeconfig            Generate the kubeconfig for the new control plane components
+  /control-plane         Generate the manifests for the new control plane components
+kubelet-start          Write kubelet settings, certificates and (re)start the kubelet
+control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
   /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
   /mark-control-plane    Mark a node as a control-plane
@@ -105,6 +103,13 @@ kubeadm join [api-server-endpoint] [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--cri-socket string</td>
     </tr>
     <tr>
@@ -140,10 +145,10 @@ kubeadm join [api-server-endpoint] [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-control-plane</td>
+      <td colspan="2">-k, --experimental-kustomize string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
     </tr>
 
     <tr>
@@ -213,4 +218,9 @@ kubeadm join [api-server-endpoint] [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
+* [kubeadm join phase](kubeadm_join_phase.md)	 - Use this command to invoke single phase of the join workflow
 

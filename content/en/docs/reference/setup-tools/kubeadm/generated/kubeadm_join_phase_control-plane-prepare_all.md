@@ -1,10 +1,8 @@
 
-Prepares the machine for serving a control plane.
-
 ### Synopsis
 
 
-Prepares the machine for serving a control plane.
+Prepare the machine for serving a control plane
 
 ```
 kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
@@ -48,6 +46,13 @@ kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--discovery-file string</td>
     </tr>
     <tr>
@@ -76,10 +81,10 @@ kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-control-plane</td>
+      <td colspan="2">-k, --experimental-kustomize string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
     </tr>
 
     <tr>
@@ -135,4 +140,8 @@ kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - Prepare the machine for serving a control plane
 

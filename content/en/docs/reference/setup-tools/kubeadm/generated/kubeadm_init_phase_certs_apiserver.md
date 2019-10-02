@@ -1,14 +1,12 @@
 
-Generates the certificate for serving the Kubernetes API
-
 ### Synopsis
 
 
-Generates the certificate for serving the Kubernetes API, and saves them into apiserver.cert and apiserver.key files.
+Generate the certificate for serving the Kubernetes API, and save them into apiserver.cert and apiserver.key files.
 
-Default SANs are kubernetes, kubernetes.default, kubernetes.default.svc, kubernetes.default.svc.cluster.local, 10.96.0.1, 127.0.0.1 
+Default SANs are kubernetes, kubernetes.default, kubernetes.default.svc, kubernetes.default.svc.cluster.local, 10.96.0.1, 127.0.0.1
 
-If both files already exist, kubeadm skips the generation step and existing files will be used. 
+If both files already exist, kubeadm skips the generation step and existing files will be used.
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -54,6 +52,13 @@ kubeadm init phase certs apiserver [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane-endpoint string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify a stable IP address or DNS name for the control plane.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--csr-dir string</td>
     </tr>
     <tr>
@@ -72,6 +77,13 @@ kubeadm init phase certs apiserver [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for apiserver</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a specific Kubernetes version for the control plane.</td>
     </tr>
 
     <tr>
@@ -113,4 +125,8 @@ kubeadm init phase certs apiserver [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
 

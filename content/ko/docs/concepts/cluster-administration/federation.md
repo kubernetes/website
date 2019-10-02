@@ -170,7 +170,7 @@ zone)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availabi
 
 마지막으로, 클러스터 중 어느 클러스터라도 쿠버네티스 클러스터에서 추천되는 최대 노드 수 보다 더 많은 노드가 필요하다면, 
 더 많은 클러스터가 필요할 것이다. 쿠버네티스 v1.3은 클러스터를 최대 1000노드까지 지원한다. 쿠버네티스 v1.8은 
-클러스터를 최대 5000 노드까지 지원한다. 더 자세한 가이드는 [대규모 클러스터 구축하기](/docs/setup/cluster-large/)에서 확인 가능하다.
+클러스터를 최대 5000 노드까지 지원한다. 더 자세한 가이드는 [대규모 클러스터 구축하기](/docs/setup/best-practices/cluster-large/)에서 확인 가능하다.
 
 {{% /capture %}}
 

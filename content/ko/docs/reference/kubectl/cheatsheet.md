@@ -6,11 +6,6 @@ card:
   weight: 30
 ---
 
-
-
-
-
-
 {{% capture overview %}}
 
 참고 항목: [Kubectl 개요](/docs/reference/kubectl/overview/)와 [JsonPath 가이드](/docs/reference/kubectl/jsonpath).
@@ -159,8 +154,12 @@ kubectl get services --sort-by=.metadata.name # Name으로 정렬된 서비스�
 # 재시작 횟수로 정렬된 파드의 목록 조회
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
+# test 네임스페이스 내 파드 목록을 용량으로 정렬해서 조회
+
+kubectl get pods -n test --sort-by=.spec.capacity.storage
+
 # app=cassandra 레이블을 가진 모든 파드의 레이블 버전 조회
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # 모든 워커 노드 조회 (셀렉터를 사용하여 'node-role.kubernetes.io/master'
@@ -182,6 +181,9 @@ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name
 # 마찬가지로 "jq"를 사용
 for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
 
+# 혹은 이 명령어를 파드와 연관된 모든 레이블을 조회하는데 사용할 수 있다.
+kubectl get pods --show-labels
+
 # 어떤 노드가 준비됐는지 확인
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
@@ -199,8 +201,11 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # "frontend" 디플로이먼트의 "www" 컨테이너 이미지를 업데이트하는 롤링 업데이트
+kubectl rollout history deployment/frontend                      # 현 리비전을 포함한 디플로이먼트의 이력을 체크 
 kubectl rollout undo deployment/frontend                         # 이전 디플로이먼트로 롤백
+kubectl rollout undo deployment/frontend --to-revision=2         # 특정 리비전으로 롤백
 kubectl rollout status -w deployment/frontend                    # 완료될 때까지 "frontend" 디플로이먼트의 롤링 업데이트 상태를 감시
+
 
 # 버전 1.11 부터 사용 중단
 kubectl rolling-update frontend-v1 -f frontend-v2.json           # (사용중단) frontend-v1 파드의 롤링 업데이트
@@ -229,7 +234,7 @@ kubectl autoscale deployment foo --min=2 --max=10                # 디플로이�
 ```bash
 kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # 노드를 부분적으로 업데이트
 
-# 컨테이너의 이미지를 업데이트. 병합(merge) 키이므로, spec.containers[*].name이 필요.  
+# 컨테이너의 이미지를 업데이트. 병합(merge) 키이므로, spec.containers[*].name이 필요.
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
 
 # 위치 배열을 이용한 json 패치를 사용하여, 컨테이너의 이미지를 업데이트.
@@ -342,11 +347,11 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 
 ### Kubectl 출력 로그 상세 레벨(verbosity)과 디버깅
 
-Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 레벨을 나타내는 정수로 제어된다. 일반적인 쿠버네티스 로깅 규칙과 관련 로그 레벨이 [여기](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md)에 설명되어 있다.
+Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 레벨을 나타내는 정수로 제어된다. 일반적인 쿠버네티스 로깅 규칙과 관련 로그 레벨이 [여기](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)에 설명되어 있다.
 
 로그 레벨 | 세부 사항
 --------------| -----------
-`--v=0` | 일반적으로 운영자에게 유용함.
+`--v=0` | 일반적으로 클러스터 운영자(operator)에게 *항상* 보여지게 하기에는 유용함.
 `--v=1` | 자세한 정보를 원하지 않는 경우, 적절한 기본 로그 수준.
 `--v=2` | 서비스와 시스템의 중요한 변화와 관련이있는 중요한 로그 메시지에 대한 유용한 정상 상태 정보. 이는 대부분의 시스템에서 권장되는 기본 로그 수준이다.
 `--v=3` | 변경 사항에 대한 확장 정보.

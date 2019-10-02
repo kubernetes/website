@@ -1,6 +1,4 @@
 
-Create bootstrap tokens on the server.
-
 ### Synopsis
 
 
@@ -114,4 +112,8 @@ kubeadm token create [token]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens
 

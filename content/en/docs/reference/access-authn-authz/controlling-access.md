@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - erictune
 - lavalamp
 title: Controlling Access to the Kubernetes API

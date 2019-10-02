@@ -11,6 +11,7 @@ weight: 20
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 This document describes the current state of `VolumeSnapshots` in Kubernetes. Familiarity with [persistent volumes](/docs/concepts/storage/persistent-volumes/) is suggested.
 
 {{% /capture %}}
@@ -63,6 +64,12 @@ provisioning to occur.
 A user creates, or has already created in the case of dynamic provisioning, a `VolumeSnapshot` with a specific amount of storage requested and with certain access modes. A control loop watches for new VolumeSnapshots, finds a matching VolumeSnapshotContent (if possible), and binds them together. If a VolumeSnapshotContent was dynamically provisioned for a new VolumeSnapshot, the loop will always bind that VolumeSnapshotContent to the VolumeSnapshot. Once bound, `VolumeSnapshot` binds are exclusive, regardless of how they were bound. A VolumeSnapshot to VolumeSnapshotContent binding is a one-to-one mapping.
 
 VolumeSnapshots will remain unbound indefinitely if a matching VolumeSnapshotContent does not exist. VolumeSnapshots will be bound as matching VolumeSnapshotContents become available.
+
+### Persistent Volume Claim in Use Protection
+
+The purpose of the Persistent Volume Claim Object in Use Protection feature is to ensure that in-use PVC API objects are not removed from the system (as this may result in data loss).
+
+If a PVC is in active use by a snapshot as a source to create the snapshot, the PVC is in-use. If a user deletes a PVC API object in active use as a snapshot source, the PVC object is not removed immediately. Instead, removal of the PVC object is postponed until the PVC is no longer actively used by any snapshots. A PVC is no longer used as a snapshot source when `ReadyToUse` of the snapshot `Status` becomes `true`.
 
 ### Delete
 
@@ -122,5 +129,13 @@ A volume snapshot can request a particular class by specifying the name of a
 using the attribute `snapshotClassName`.
 Only VolumeSnapshotContents of the requested class, ones with the same `snapshotClassName`
 as the VolumeSnapshot, can be bound to the VolumeSnapshot.
+
+## Provisioning Volumes from Snapshots
+
+You can provision a new volume, pre-populated with data from a snapshot, by using
+the *dataSource* field in the `PersistentVolumeClaim` object.
+
+For more details, see
+[Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 
 {{% /capture %}}

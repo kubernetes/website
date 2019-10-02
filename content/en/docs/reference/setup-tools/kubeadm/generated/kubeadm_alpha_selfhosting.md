@@ -1,6 +1,4 @@
 
-Makes a kubeadm cluster self-hosted
-
 ### Synopsis
 
 
@@ -47,4 +45,9 @@ This command is not meant to be run on its own. See list of available subcommand
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
+* [kubeadm alpha selfhosting pivot](kubeadm_alpha_selfhosting_pivot.md)	 - Convert a static Pod-hosted control plane into a self-hosted one
 

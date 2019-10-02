@@ -6,5 +6,9 @@ reviewers:
 approvers:
 - sig-docs-en-owners # Defined in OWNERS_ALIASES
 
+emeritus_approvers:
+- chenopis
+- jaredbhatti
+
 labels:
 - sig/docs

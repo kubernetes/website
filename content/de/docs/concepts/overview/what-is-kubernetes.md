@@ -51,7 +51,7 @@ für Managementtools zu bieten, den Status von Kontrollpunkten zu ermitteln.
 Darüber hinaus basiert die [Kubernetes-Steuerungsebene](/docs/concepts/overview/components/) auf den gleichen APIs,
 die Entwicklern und Anwendern zur Verfügung stehen. Benutzer können ihre eigenen Controller, wie z.B. 
 [Scheduler](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md), mit 
-ihren [eigenen APIs](](/docs/concepts/api-extension/custom-resources/) schreiben, die von einem 
+ihren [eigenen APIs](/docs/concepts/api-extension/custom-resources/) schreiben, die von einem 
 universellen [Kommandozeilen-Tool](/docs/user-guide/kubectl-overview/) angesprochen werden können.
 
 Dieses [Design](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) hat es einer Reihe anderer Systeme ermöglicht, auf Kubernetes aufzubauen.
@@ -155,7 +155,7 @@ Zusammenfassung der Container-Vorteile:
 
 ## Was bedeutet Kubernetes? K8s?
 
-Der Name **Kubernetes** stammt aus dem Griechischen, beteutet *Steuermann* oder
+Der Name **Kubernetes** stammt aus dem Griechischen, bedeutet *Steuermann* oder
 *Pilot*, und ist der Ursprung von *Gouverneur* und
 [cybernetic](http://www.etymonline.com/index.php?term=cybernetics). *K8s*
 ist eine Abkürzung, die durch Ersetzen der 8 Buchstaben "ubernete" mit "8" abgeleitet wird.

@@ -140,7 +140,7 @@ kubectl get services --sort-by=.metadata.name # Liste les services classés par 
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Affiche la version des labels de tous les pods ayant un label app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Affiche tous les noeuds, en utilisant un sélecteur pour exclure ceux ayant un label 'node-role.kubernetes.io/master'
@@ -315,7 +315,7 @@ Pour afficher les détails sur votre terminal dans un format spécifique, vous p
 | `-o=yaml`                           | Affiche un objet de l'API formaté en YAML                                                                             |
 ### Verbosité de l'affichage de Kubectl et débogage
 
-La verbosité de Kubectl est contrôlée par une des options `-v` ou `--v` suivie d'un entier représentant le niveau de log. Les conventions générales de logging de Kubernetes et les niveaux de log associés sont décrits [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
+La verbosité de Kubectl est contrôlée par une des options `-v` ou `--v` suivie d'un entier représentant le niveau de log. Les conventions générales de logging de Kubernetes et les niveaux de log associés sont décrits [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 | Verbosité | Description                                                                                                                                                                                                                           |
 |-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

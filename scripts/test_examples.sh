@@ -3,21 +3,18 @@
 set -e
 
 # List files changed in the commit to check
-FILES=`git log -n 2 --name-only --format=""`
+FILES=($( git diff "$( git merge-base --fork-point master )" --name-only ))
 
 TEST_EXAMPLES=No
 
-# Currently examine en directory only, can extend to other lang when neded
-for f in $FILES; do
-  if [[ $f =~ "content/en/examples/" ]]; then
+# Check if examples folders (all locales) change in this branch
+if printf -- '%s\n' "${FILES[@]}" | grep -qE '^"?content/[^/]+/examples/'; then
     TEST_EXAMPLES=Yes
-    break
-  fi
-done
+fi
 
 function install() {
-  if [[ $TEST_EXAMPLES == No ]]; then
-    echo "PR not touching examples, skipping example tests install"
+  if ! [[ $TEST_EXAMPLES == Yes ]]; then
+    echo "PR not touching examples, skipping example tests install" 1>&2
     exit 0
   fi
 
@@ -42,8 +39,8 @@ function install() {
 }
 
 function run_test() {
-  if [[ $TEST_EXAMPLES == No ]]; then
-    echo "PR not touching examples, skipping example tests execution"
+  if ! [[ $TEST_EXAMPLES == Yes ]]; then
+    echo "PR not touching examples, skipping example tests execution" 1>&2
     exit 0
   fi
   go test -v k8s.io/website/content/en/examples

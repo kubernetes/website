@@ -27,6 +27,8 @@ The `kubelet` can proactively monitor for and prevent total starvation of a
 compute resource. In those cases, the `kubelet` can reclaim the starved
 resource by proactively failing one or more Pods. When the `kubelet` fails
 a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
+If the evicted Pod is managed by a Deployment, the Deployment will create another Pod 
+to be scheduled by Kubernetes.
 
 ### Eviction Signals
 
@@ -140,7 +142,7 @@ The `kubelet` has the following default hard eviction threshold:
 
 The `kubelet` evaluates eviction thresholds per its configured housekeeping interval.
 
-* `housekeeping-interval` is the interval between container housekeepings.
+* `housekeeping-interval` is the interval between container housekeepings which defaults to `10s`.
 
 ### Node Conditions
 

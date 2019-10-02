@@ -24,7 +24,9 @@ pygmentsStyle = "emacs"
 enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
-disableLanguages = ["no"]
+# Hindi is disabled because it's currently in development.
+# Italian is disabled until it meets minimum standards for quality.
+disableLanguages = ["hi", "it", "no"]
 
 [blackfriday]
 hrefTargetBlank = true
@@ -64,10 +66,10 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.14"
+latest = "v1.16"
 
-fullversion = "v1.14.0"
-version = "v1.14"
+fullversion = "v1.16.0"
+version = "v1.16"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -76,11 +78,16 @@ nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
+# param for displaying an announcement block on every page; see PR #16210
+announcement = false
+# announcement_message is only displayed when announcement = true; update with your specific message
+announcement_message = "The Kubernetes Documentation team would like your feedback!  Please take a <a href='https://www.surveymonkey.com/r/8R237FN' target='_blank'>short survey</a> so we can improve the Kubernetes online documentation."
+
 [[params.versions]]
-fullversion = "v1.14.0"
-version = "v1.14"
-githubbranch = "v1.14.0"
-docsbranch = "release-1.14"
+fullversion = "v1.16.0"
+version = "v1.16"
+githubbranch = "v1.16.0"
+docsbranch = "release-1.16"
 url = "https://kubernetes.io"
 
 [params.pushAssets]
@@ -95,32 +102,32 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.13.4"
+fullversion = "v1.15.3"
+version = "v1.15"
+githubbranch = "v1.15.3"
+docsbranch = "release-1.15"
+url = "https://v1-15.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.14.6"
+version = "v1.14"
+githubbranch = "v1.14.6"
+docsbranch = "release-1.14"
+url = "https://v1-14.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.13.10"
 version = "v1.13"
-githubbranch = "v1.13.4"
+githubbranch = "v1.13.10"
 docsbranch = "release-1.13"
 url = "https://v1-13.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.12.6"
+fullversion = "v1.12.10"
 version = "v1.12"
-githubbranch = "v1.12.6"
+githubbranch = "v1.12.10"
 docsbranch = "release-1.12"
 url = "https://v1-12.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.11.8"
-version = "v1.11"
-githubbranch = "v1.11.8"
-docsbranch = "release-1.11"
-url = "https://v1-11.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.10.13"
-version = "v1.10"
-githubbranch = "v1.10.13"
-docsbranch = "release-1.10"
-url = "https://v1-10.docs.kubernetes.io"
 
 # Language definitions.
 
@@ -252,6 +259,10 @@ language_alternatives = ["en"]
 [languages.hi]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Hindi"
+languageName = "Hindi"
 weight = 11
 contentDir = "content/hi"
+
+[languages.hi.params]
+time_format_blog = "01.02.2006"
+language_alternatives = ["en"]

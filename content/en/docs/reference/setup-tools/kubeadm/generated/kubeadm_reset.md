@@ -1,10 +1,17 @@
 
-Run this to revert any changes made to this host by 'kubeadm init' or 'kubeadm join'.
-
 ### Synopsis
 
 
-Run this to revert any changes made to this host by 'kubeadm init' or 'kubeadm join'.
+Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
+
+The "reset" command executes the following phases:
+```
+preflight              Run reset pre-flight checks
+update-cluster-status  Remove this node from the ClusterStatus object.
+remove-etcd-member     Remove a local etcd member.
+cleanup-node           Run cleanup node.
+```
+
 
 ```
 kubeadm reset [flags]
@@ -61,6 +68,13 @@ kubeadm reset [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--skip-phases stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">List of phases to be skipped</td>
+    </tr>
+
   </tbody>
 </table>
 
@@ -86,4 +100,9 @@ kubeadm reset [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
+* [kubeadm reset phase](kubeadm_reset_phase.md)	 - Use this command to invoke single phase of the reset workflow
 

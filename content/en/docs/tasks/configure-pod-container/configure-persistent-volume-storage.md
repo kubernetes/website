@@ -160,6 +160,22 @@ hostPath volume:
 
     Hello from Kubernetes storage
 
+## Clean up
+
+Delete the Pod,  the PersistentVolumeClaim and the PersistentVolume:
+
+```shell
+kubectl delete pod task-pv-pod
+kubectl delete pvc task-pv-claim
+kubectl delete pv task-pv-volume
+```
+
+Remove the file:
+
+```shell
+sudo rm -rf /mnt/data
+```
+
 {{% /capture %}}
 
 

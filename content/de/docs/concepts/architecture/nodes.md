@@ -152,7 +152,7 @@ Der Node Controller überprüft den Zustand jedes Nodes alle `--node-monitor-per
 
 
 In Versionen von Kubernetes vor 1.13 ist NodeStatus der Herzschlag des Nodes.
-Ab Kubernetes 1.13 wird das Node-Lease-Feature als Alpha-Feature eingeführt (Feature-Gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+Ab Kubernetes 1.13 wird das Node-Lease-Feature als Alpha-Feature eingeführt (Feature-Gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 
 Wenn die Node Lease Funktion aktiviert ist, hat jeder Node ein zugeordnetes `Lease`-Objekt im `kube-node-lease`-Namespace, das vom Node regelmäßig erneuert wird. 
 Sowohl NodeStatus als auch Node Lease werden als Herzschläge vom Node aus behandelt. 

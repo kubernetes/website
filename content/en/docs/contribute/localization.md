@@ -195,8 +195,10 @@ cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kube
 Translation tools can speed up the translation process. For example, some editors offers plugins to quickly translate text. 
 
 {{< caution >}}
-Use translation tools with care. Their output is not always accurate.
+Machine-generated translation alone does not meet the minimum standard of quality and requires extensive human review to meet that standard. 
 {{< /caution >}}
+
+To ensure accuracy in grammar and meaning, members of your localization team should carefully review all machine-generated translations before publishing.
 
 ### Source files
 
@@ -283,6 +285,6 @@ You can also help add or improve content to an existing localization. Join the [
 Once a localization meets requirements for workflow and minimum output, SIG docs will:
 
 - Enable language selection on the website
-- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
+- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
 
 {{% /capture %}}

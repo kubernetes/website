@@ -1,10 +1,8 @@
 
-Uploads the kubelet component config to a ConfigMap
-
 ### Synopsis
 
 
-Uploads kubelet configuration extracted from the kubeadm InitConfiguration object to a ConfigMap of the form kubelet-config-1.X in the cluster, where X is the minor version of the current (API Server) Kubernetes version.
+Upload kubelet configuration extracted from the kubeadm InitConfiguration object to a ConfigMap of the form kubelet-config-1.X in the cluster, where X is the minor version of the current (API Server) Kubernetes version.
 
 ```
 kubeadm init phase upload-config kubelet [flags]
@@ -13,7 +11,7 @@ kubeadm init phase upload-config kubelet [flags]
 ### Examples
 
 ```
-  # Uploads the kubelet configuration from the kubeadm Config file to a ConfigMap in the cluster.
+  # Upload the kubelet configuration from the kubeadm Config file to a ConfigMap in the cluster.
   kubeadm init phase upload-config kubelet --config kubeadm.yaml
 ```
 
@@ -72,4 +70,8 @@ kubeadm init phase upload-config kubelet [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase upload-config](kubeadm_init_phase_upload-config.md)	 - Upload the kubeadm and kubelet configuration to a ConfigMap
 

@@ -1,6 +1,4 @@
 
-Generates the kube-scheduler static Pod manifest
-
 ### Synopsis
 
 
@@ -31,6 +29,13 @@ kubeadm init phase control-plane scheduler [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
     </tr>
 
     <tr>
@@ -86,4 +91,8 @@ kubeadm init phase control-plane scheduler [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase control-plane](kubeadm_init_phase_control-plane.md)	 - Generate all static Pod manifest files necessary to establish the control plane
 

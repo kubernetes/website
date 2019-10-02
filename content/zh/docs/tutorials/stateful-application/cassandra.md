@@ -387,7 +387,6 @@ metadata:
   name: cassandra
   namespace: default
   resourceVersion: "323"
-  selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/cassandra
   uid: 7a219483-6185-11e6-a910-42010a8a0fc0
 spec:
   replicas: 3
@@ -558,7 +557,6 @@ metadata:
   name: cassandra
   namespace: default
   resourceVersion: "944373"
-  selfLink: /api/v1/namespaces/default/endpoints/cassandra
   uid: a3d6c25f-1865-11e5-a34e-42010af01bcc
 subsets:
 - addresses:

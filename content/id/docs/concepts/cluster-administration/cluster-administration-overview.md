@@ -15,7 +15,7 @@ Diharapkan untuk memahami beberapa [konsep](/docs/concepts/) dasar Kubernetes se
 {{% capture body %}}
 ## Perencanaan Kluster
 
-Lihat panduan di [Memilih Solusi yang Tepat](/docs/setup/pick-right-solution/) untuk mempelajari beberapa contoh tentang bagaimana merencanakan, mengatur dan mengonfigurasi kluster Kubernetes. Solusi yang akan dipaparkan di bawah ini disebut *distro*.
+Lihat panduan di [Persiapan](/docs/setup) untuk mempelajari beberapa contoh tentang bagaimana merencanakan, mengatur dan mengonfigurasi kluster Kubernetes. Solusi yang akan dipaparkan di bawah ini disebut *distro*.
 
 Sebelum memilih panduan, berikut adalah beberapa hal yang perlu dipertimbangkan:
 

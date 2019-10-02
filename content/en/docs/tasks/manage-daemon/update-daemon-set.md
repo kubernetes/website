@@ -77,7 +77,7 @@ step 3.
 After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
 
 ```shell
-kubectl apply -f ds.yaml
+kubectl create -f ds.yaml
 ```
 
 Alternatively, use `kubectl apply` to create the same DaemonSet if you plan to

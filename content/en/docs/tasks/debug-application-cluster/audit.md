@@ -86,8 +86,7 @@ rules:
 - level: Metadata
 ```
 
-The [audit profile used by GCE][gce-audit-profile] should be used as reference by
-admins constructing their own audit profiles.
+The audit profile used by GCE should be used as reference by admins constructing their own audit profiles. You can check the [configure-helper.sh][configure-helper] script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 ## Audit backends
 
@@ -245,6 +244,76 @@ The AuditSink policy differs from the legacy audit runtime policy. This is becau
 
 The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
 
+#### Contacting the webhook
+
+Once the API server has determined a request should be sent to a audit sink webhook,
+it needs to know how to contact the webhook. This is specified in the `clientConfig`
+stanza of the webhook configuration.
+
+Audit sink webhooks can either be called via a URL or a service reference,
+and can optionally include a custom CA bundle to use to verify the TLS connection.
+
+##### URL
+
+`url` gives the location of the webhook, in standard URL form
+(`scheme://host:port/path`).
+
+The `host` should not refer to a service running in the cluster; use
+a service reference by specifying the `service` field instead.
+The host might be resolved via external DNS in some apiservers
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would
+be a layering violation). `host` may also be an IP address.
+
+Please note that using `localhost` or `127.0.0.1` as a `host` is
+risky unless you take great care to run this webhook on all hosts
+which run an apiserver which might need to make calls to this
+webhook. Such installs are likely to be non-portable, i.e., not easy
+to turn up in a new cluster.
+
+The scheme must be "https"; the URL must begin with "https://".
+
+Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Fragments ("#...") and query parameters ("?...") are also not allowed.
+
+Here is an example of a webhook configured to call a URL
+(and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
+
+```yaml
+apiVersion: auditregistration.k8s.io/v1alpha1
+kind: AuditSink
+...
+spec:
+  webhook:
+    clientConfig:
+      url: "https://my-webhook.example.com:9443/my-webhook-path"
+```
+
+##### Service Reference
+
+The `service` stanza inside `clientConfig` is a reference to the service for a audit sink webhook.
+If the webhook is running within the cluster, then you should use `service` instead of `url`.
+The service namespace and name are required. The port is optional and defaults to 443.
+The path is optional and defaults to "/".
+
+Here is an example of a webhook that is configured to call a service on port "1234"
+at the subpath "/my-path", and to verify the TLS connection against the ServerName
+`my-service-name.my-service-namespace.svc` using a custom CA bundle.
+
+```yaml
+apiVersion: auditregistration.k8s.io/v1alpha1
+kind: AuditSink
+...
+spec:
+  webhook:
+    clientConfig:
+      service:
+        namespace: my-service-namespace
+        name: my-service-name
+        path: /my-path
+        port: 1234
+      caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
+```
+
 #### Security
 
 Administrators should be aware that allowing write access to this feature grants read access to all cluster data. Access should be treated as a `cluster-admin` level privilege.
@@ -253,7 +322,7 @@ Administrators should be aware that allowing write access to this feature grants
 
 Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
 
-## Multi-cluster setup
+## Setup for multiple API servers
 
 If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
 set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
@@ -419,10 +488,11 @@ Note that in addition to file output plugin, logstash has a variety of outputs t
 let users route data where they want. For example, users can emit audit events to elasticsearch
 plugin which supports full-text search and analytics.
 
+
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
 [auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
-[gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
+[configure-helper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
 [kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
 [fluentd_install_doc]: https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd
@@ -430,5 +500,13 @@ plugin which supports full-text search and analytics.
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
+
+Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 
 {{% /capture %}}

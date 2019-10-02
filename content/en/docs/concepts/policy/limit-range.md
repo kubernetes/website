@@ -19,7 +19,7 @@ Within a namespace, a Pod or Container can consume as much CPU and memory as def
 
 A limit range, defined by a `LimitRange` object, provides constraints that can:
 
-- Enforce minimun and maximum compute resources usage per Pod or Container in a namespace.
+- Enforce minimum and maximum compute resources usage per Pod or Container in a namespace.
 - Enforce minimum and maximum storage request per PersistentVolumeClaim in a namespace.
 - Enforce a ratio between request and limit for a resource in a namespace.
 - Set default request/limit for compute resources in a namespace and automatically inject them to Containers at runtime.
@@ -69,7 +69,7 @@ kubectl create namespace limitrange-demo
 To avoid passing the target limitrange-demo in your kubectl commands, change your context with the following command 
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=limitrange-demo
+kubectl config set-context --current --namespace=limitrange-demo
 ```
 
 Here is the configuration file for a LimitRange object:
@@ -179,7 +179,7 @@ kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[2].re
 ```
 
 -  The `busybox-cnt03` Container inside `busybox1` Pod defined `limits.cpu=500m` and `limits.memory=200Mi` but no `requests` for cpu and memory.
--  The container do not define a request section, the defaultRequest defined in the limit-mem-cpu-per-container LimitRange is not used to fill its limits section but the limits defined by the container are set as requests `limits.cpu=500m` and `limits.memory=900Mi`.
+-  The container do not define a request section, the defaultRequest defined in the limit-mem-cpu-per-container LimitRange is not used to fill its limits section but the limits defined by the container are set as requests `limits.cpu=500m` and `limits.memory=200Mi`.
 -  `100m <= 500m <= 800m` , The container cpu limit (500m) falls inside the authorized CPU limit range.  
 -  `99Mi <= 200Mi <= 1Gi` , The container memory limit (200Mi) falls inside the authorized Memory limit range. 
 -  No request/limits ratio  set , thus the container is valid and created.

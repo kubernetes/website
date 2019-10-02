@@ -28,7 +28,7 @@ and provides recommendations on overall security.
 As Kubernetes is entirely API driven, controlling and limiting who can access the cluster and what actions
 they are allowed to perform is the first line of defense.
 
-### Use Transport Level Security (TLS) for all API traffic
+### Use Transport Layer Security (TLS) for all API traffic
 
 Kubernetes expects that all API communication in the cluster is encrypted by default with TLS, and the
 majority of installation methods will allow the necessary certificates to be created and distributed to 

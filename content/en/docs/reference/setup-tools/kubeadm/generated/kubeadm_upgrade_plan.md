@@ -1,10 +1,8 @@
 
-Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter.
-
 ### Synopsis
 
 
-Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter.
+Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter
 
 ```
 kubeadm upgrade plan [version] [flags]
@@ -44,7 +42,7 @@ kubeadm upgrade plan [version] [flags]
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -100,4 +98,8 @@ kubeadm upgrade plan [version] [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
 

@@ -14,9 +14,9 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
 
-## Kubeadm 
+## Kubeadm
 
-[`kubeadm`](/docs/setup/independent/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
+[`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
 
 ## Kubefed
 
@@ -29,10 +29,10 @@ to help you administrate your federated clusters.
 easy to run a single-node Kubernetes cluster locally on your workstation for
 development and testing purposes.
 
-## Dashboard 
+## Dashboard
 
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
-to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. 
+to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
 
 ## Helm
 

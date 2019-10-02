@@ -114,7 +114,7 @@ There are four files to edit to create a k8s secret when you are connecting to s
 Set these with the information for your Elasticsearch cluster and your Kibana host.  Here are some examples
 
 #### `ELASTICSEARCH_HOSTS`
-1. A nodeGroup from the Elastic Elasticseach Helm Chart:
+1. A nodeGroup from the Elastic Elasticsearch Helm Chart:
 
     ```shell
     ["http://elasticsearch-master.default.svc.cluster.local:9200"]

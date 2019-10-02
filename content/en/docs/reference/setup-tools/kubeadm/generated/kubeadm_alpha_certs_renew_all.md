@@ -1,10 +1,8 @@
 
-renew all available certificates
-
 ### Synopsis
 
 
-Renews all known certificates necessary to run the control plane. Renewals are run unconditionally, regardless of expiration date. Renewals can also be run individually for more control.
+Renew all known certificates necessary to run the control plane. Renewals are run unconditionally, regardless of expiration date. Renewals can also be run individually for more control.
 
 ```
 kubeadm alpha certs renew all [flags]
@@ -93,4 +91,8 @@ kubeadm alpha certs renew all [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
 

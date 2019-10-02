@@ -52,4 +52,4 @@ I hope some of these tips are useful for you as well. And I wish you all the bes
 
 Besides my fantastic reviewers and the speaker support team already mentioned above, I also would like to thank the people who supported me along this KubeCon journey: Bjoern, Timo, Emad and Steve!
 
-{{< tweet 992409364467200000 >}}
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/KubeCon?src=hash&amp;ref_src=twsrc%5Etfw">#KubeCon</a> <a href="https://twitter.com/embano1?ref_src=twsrc%5Etfw">@embano1</a> is laying down an homage to an earlier <a href="https://twitter.com/thockin?ref_src=twsrc%5Etfw">@thockin</a> presentation in his &quot;Inside K8S Resource Management&quot; session, if you didn&#39;t make it in the door, check out the deck here <a href="https://t.co/4xQq5CQ3aZ">https://t.co/4xQq5CQ3aZ</a> <a href="https://t.co/ObFEuKskhB">pic.twitter.com/ObFEuKskhB</a></p>&mdash; Steve Wong (@cantbewong) <a href="https://twitter.com/cantbewong/status/992400932968288256?ref_src=twsrc%5Etfw">May 4, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 

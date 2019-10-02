@@ -1,10 +1,8 @@
 
-Generates the static Pod manifest file for a local, single-node local etcd instance.
-
 ### Synopsis
 
 
-Generates the static Pod manifest file for a local, single-node local etcd instance.
+Generate the static Pod manifest file for a local, single-node local etcd instance
 
 ```
 kubeadm init phase etcd local [flags]
@@ -46,6 +44,13 @@ kubeadm init phase etcd local [flags]
     </tr>
 
     <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
@@ -84,4 +89,8 @@ kubeadm init phase etcd local [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase etcd](kubeadm_init_phase_etcd.md)	 - Generate static Pod manifest file for local etcd
 

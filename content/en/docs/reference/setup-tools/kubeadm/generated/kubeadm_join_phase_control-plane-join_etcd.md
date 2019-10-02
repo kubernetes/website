@@ -1,6 +1,4 @@
 
-Add a new local etcd member
-
 ### Synopsis
 
 
@@ -34,10 +32,17 @@ kubeadm join phase control-plane-join etcd [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-control-plane</td>
+      <td colspan="2">--control-plane</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
     </tr>
 
     <tr>
@@ -79,4 +84,8 @@ kubeadm join phase control-plane-join etcd [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance
 

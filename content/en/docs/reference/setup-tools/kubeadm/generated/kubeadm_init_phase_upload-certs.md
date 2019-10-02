@@ -1,6 +1,4 @@
 
-Upload certificates to kubeadm-certs
-
 ### Synopsis
 
 
@@ -34,13 +32,6 @@ kubeadm init phase upload-certs [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-upload-certs</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Upload control-plane certificates to the kubeadm-certs Secret.</td>
-    </tr>
-
-    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
@@ -52,6 +43,13 @@ kubeadm init phase upload-certs [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Don't print the key used to encrypt the control-plane certificates.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--upload-certs</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Upload control-plane certificates to the kubeadm-certs Secret.</td>
     </tr>
 
   </tbody>
@@ -79,4 +77,8 @@ kubeadm init phase upload-certs [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
 

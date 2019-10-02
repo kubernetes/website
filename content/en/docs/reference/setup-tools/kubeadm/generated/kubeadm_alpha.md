@@ -1,6 +1,4 @@
 
-Kubeadm experimental sub-commands
-
 ### Synopsis
 
 
@@ -47,4 +45,12 @@ Kubeadm experimental sub-commands
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
+* [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - Commands related to handling kubernetes certificates
+* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - Kubeconfig file utilities
+* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - Commands related to handling the kubelet
+* [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - Make a kubeadm cluster self-hosted
 

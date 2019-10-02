@@ -79,7 +79,7 @@ Puedes indicar de forma permanente el espacio de nombres para todas las llamadas
 en dicho contexto.
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # Validate it
 kubectl config view | grep namespace:
 ```

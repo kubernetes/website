@@ -1,10 +1,10 @@
 
-Print configuration
-
 ### Synopsis
 
 
+
 This command prints configurations for subcommands provided.
+For details, see: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2
 
 ```
 kubeadm config print [flags]
@@ -58,4 +58,10 @@ kubeadm config print [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
+* [kubeadm config print init-defaults](kubeadm_config_print_init-defaults.md)	 - Print default init configuration, that can be used for 'kubeadm init'
+* [kubeadm config print join-defaults](kubeadm_config_print_join-defaults.md)	 - Print default join configuration, that can be used for 'kubeadm join'
 

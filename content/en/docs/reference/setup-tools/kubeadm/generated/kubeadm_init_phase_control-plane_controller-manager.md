@@ -1,6 +1,4 @@
 
-Generates the kube-controller-manager static Pod manifest
-
 ### Synopsis
 
 
@@ -38,6 +36,13 @@ kubeadm init phase control-plane controller-manager [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
     </tr>
 
     <tr>
@@ -93,4 +98,8 @@ kubeadm init phase control-plane controller-manager [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase control-plane](kubeadm_init_phase_control-plane.md)	 - Generate all static Pod manifest files necessary to establish the control plane
 

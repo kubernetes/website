@@ -6,6 +6,9 @@ spec:
   containers:
   - name: redis
     image: redis:5.0.4
+    command:
+      - redis-server
+      - "/redis-master/redis.conf"
     env:
     - name: MASTER
       value: "true"

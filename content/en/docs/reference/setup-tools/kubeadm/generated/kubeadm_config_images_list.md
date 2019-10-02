@@ -1,10 +1,8 @@
 
-Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized.
-
 ### Synopsis
 
 
-Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized.
+Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
 
 ```
 kubeadm config images list [flags]
@@ -23,14 +21,14 @@ kubeadm config images list [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
     </tr>
 
     <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -38,6 +36,13 @@ kubeadm config images list [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for list</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a container registry to pull control plane images from</td>
     </tr>
 
     <tr>
@@ -79,4 +84,8 @@ kubeadm config images list [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm config images](kubeadm_config_images.md)	 - Interact with container images used by kubeadm
 

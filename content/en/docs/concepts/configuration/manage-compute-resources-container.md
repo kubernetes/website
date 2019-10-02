@@ -142,7 +142,7 @@ When using Docker:
 - The `spec.containers[].resources.requests.cpu` is converted to its core value,
   which is potentially fractional, and multiplied by 1024. The greater of this number
   or 2 is used as the value of the
-  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
+  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
   flag in the `docker run` command.
 
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
@@ -212,10 +212,10 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-kubectl describe nodes e2e-test-minion-group-4lw4
+kubectl describe nodes e2e-test-node-pool-4lw4
 ```
 ```
-Name:            e2e-test-minion-group-4lw4
+Name:            e2e-test-node-pool-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
  cpu:                               2
@@ -384,6 +384,70 @@ The scheduler ensures that the sum of the resource requests of the scheduled Con
 
 For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the Pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the Pod's emptyDir volumes exceeds the limit, the Pod will be evicted.
 
+### Monitoring ephemeral-storage consumption
+
+When local ephemeral storage is used, it is monitored on an ongoing
+basis by the kubelet.  The monitoring is performed by scanning each
+emptyDir volume, log directories, and writable layers on a periodic
+basis.  Starting with Kubernetes 1.15, emptyDir volumes (but not log
+directories or writable layers) may, at the cluster operator's option,
+be managed by use of [project
+quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html).
+Project quotas were originally implemented in XFS, and have more
+recently been ported to ext4fs.  Project quotas can be used for both
+monitoring and enforcement; as of Kubernetes 1.15, they are available
+as alpha functionality for monitoring only.
+
+Quotas are faster and more accurate than directory scanning.  When a
+directory is assigned to a project, all files created under a
+directory are created in that project, and the kernel merely has to
+keep track of how many blocks are in use by files in that project.  If
+a file is created and deleted, but with an open file descriptor, it
+continues to consume space.  This space will be tracked by the quota,
+but will not be seen by a directory scan.
+
+Kubernetes uses project IDs starting from 1048576.  The IDs in use are
+registered in `/etc/projects` and `/etc/projid`.  If project IDs in
+this range are used for other purposes on the system, those project
+IDs must be registered in `/etc/projects` and `/etc/projid` to prevent
+Kubernetes from using them.
+
+To enable use of project quotas, the cluster operator must do the
+following:
+
+* Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
+  feature gate in the kubelet configuration.  This defaults to `false`
+  in Kubernetes 1.15, so must be explicitly set to `true`.
+
+* Ensure that the root partition (or optional runtime partition) is
+  built with project quotas enabled.  All XFS filesystems support
+  project quotas, but ext4 filesystems must be built specially.
+
+* Ensure that the root partition (or optional runtime partition) is
+  mounted with project quotas enabled.
+
+#### Building and mounting filesystems with project quotas enabled
+
+XFS filesystems require no special action when building; they are
+automatically built with project quotas enabled.
+
+Ext4fs filesystems must be built with quotas enabled, then they must
+be enabled in the filesystem:
+
+```
+% sudo mkfs.ext4 other_ext4fs_args... -E quotatype=prjquota /dev/block_device
+% sudo tune2fs -O project -Q prjquota /dev/block_device
+
+```
+
+To mount the filesystem, both ext4fs and XFS require the `prjquota`
+option set in `/etc/fstab`:
+
+```
+/dev/block_device	/var/kubernetes_data	defaults,prjquota	0	0
+```
+
+
 ## Extended resources
 
 Extended resources are fully-qualified resource names outside the
@@ -523,27 +587,7 @@ spec:
         example.com/foo: 1
 ```
 
-## Planned Improvements
 
-Kubernetes version 1.5 only allows resource quantities to be specified on a
-Container. It is planned to improve accounting for resources that are shared by
-all Containers in a Pod, such as
-[emptyDir volumes](/docs/concepts/storage/volumes/#emptydir).
-
-Kubernetes version 1.5 only supports Container requests and limits for CPU and
-memory. It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/scheduling/resources.md).
-
-Kubernetes supports overcommitment of resources by supporting multiple levels of
-[Quality of Service](http://issue.k8s.io/168).
-
-In Kubernetes version 1.5, one unit of CPU means different things on different
-cloud providers, and on different machine types within the same cloud providers.
-For example, on AWS, the capacity of a node is reported in
-[ECUs](http://aws.amazon.com/ec2/faqs/), while in GCE it is reported in logical
-cores. We plan to revise the definition of the cpu resource to allow for more
-consistency across providers and platforms.
 
 {{% /capture %}}
 

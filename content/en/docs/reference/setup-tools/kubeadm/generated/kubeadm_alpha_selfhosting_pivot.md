@@ -1,12 +1,10 @@
 
-Converts a static Pod-hosted control plane into a self-hosted one
-
 ### Synopsis
 
 
-Converts static Pod files for control plane components into self-hosted DaemonSets configured via the Kubernetes API. 
+Convert static Pod files for control plane components into self-hosted DaemonSets configured via the Kubernetes API.
 
-See the documentation for self-hosting limitations. 
+See the documentation for self-hosting limitations.
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -17,7 +15,7 @@ kubeadm alpha selfhosting pivot [flags]
 ### Examples
 
 ```
-  # Converts a static Pod-hosted control plane into a self-hosted one.
+  # Convert a static Pod-hosted control plane into a self-hosted one.
   
   kubeadm alpha phase self-hosting convert-from-staticpods
 ```
@@ -98,4 +96,8 @@ kubeadm alpha selfhosting pivot [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - Make a kubeadm cluster self-hosted
 

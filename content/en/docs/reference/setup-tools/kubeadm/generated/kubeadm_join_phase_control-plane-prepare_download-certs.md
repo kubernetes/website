@@ -1,10 +1,8 @@
 
-[EXPERIMENTAL] Downloads certificates shared among control-plane nodes from the kubeadm-certs Secret
-
 ### Synopsis
 
 
-[EXPERIMENTAL] Downloads certificates shared among control-plane nodes from the kubeadm-certs Secret
+[EXPERIMENTAL] Download certificates shared among control-plane nodes from the kubeadm-certs Secret
 
 ```
 kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [flags]
@@ -34,6 +32,13 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--discovery-file string</td>
     </tr>
     <tr>
@@ -59,13 +64,6 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--experimental-control-plane</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
     </tr>
 
     <tr>
@@ -114,4 +112,8 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - Prepare the machine for serving a control plane
 

@@ -4,16 +4,15 @@ id: service
 date: 2018-04-12
 full_link: /docs/concepts/services-networking/service/
 short_description: >
-  An API object that describes how to access applications, such as a set of Pods, and can describe ports and load-balancers.
+  A way to expose an application running on a set of Pods as a network service.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
 ---
- An API object that describes how to access applications, such as a set of {{< glossary_tooltip text="Pods" term_id="pod" >}}, and can describe ports and load-balancers.
+An abstract way to expose an application running on a set of {{< glossary_tooltip text="Pods" term_id="pod" >}} as a network service.
 
-<!--more--> 
+<!--more-->
 
-The access point can be internal or external to the cluster.
-
+ The set of Pods targeted by a Service is (usually) determined by a {{< glossary_tooltip text="selector" term_id="selector" >}}. If more Pods are added or removed, the set of Pods matching the selector will change. The Service makes sure that network traffic can be directed to the current set of Pods for the workload.

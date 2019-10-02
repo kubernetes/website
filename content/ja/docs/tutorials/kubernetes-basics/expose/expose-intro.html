@@ -36,7 +36,7 @@ weight: 10
 			<ul>
 				<li><i>ClusterIP</i> (既定値) - クラスタ内の内部IPでServiceを公開します。この型では、Serviceはクラスタ内からのみ到達可能になります。</li>
 				<li><i>NodePort</i> - NATを使用して、クラスタ内の選択された各Nodeの同じポートにServiceを公開します。<code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>を使用してクラスタの外部からServiceにアクセスできるようにします。これはClusterIPのスーパーセットです。</li>
-				<li><i>LoadBalancer</i> - 現在のクラウドに外部ロードバランサを作成し(サポートされている場合)、Serciceに固定の外部IPを割り当てます。これはNodePortのスーパーセットです。</li>
+				<li><i>LoadBalancer</i> - 現在のクラウドに外部ロードバランサを作成し(サポートされている場合)、Serviceに固定の外部IPを割り当てます。これはNodePortのスーパーセットです。</li>
 				<li><i>ExternalName</i> - 仕様の<code>externalName</code>で指定した名前のCNAMEレコードを返すことによって、任意の名前を使ってServiceを公開します。プロキシは使用されません。このタイプはv1.7以上の<code>kube-dns</code>を必要とします。</li>
 			</ul>
 			<p>さまざまな種類のServiceに関する詳細情報は<a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorialにあります。<a href="/docs/concepts/services-networking/connect-applications-service">アプリケーションとServiceの接続</a>も参照してください。</p>

@@ -1,6 +1,4 @@
 
-Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version.
-
 ### Synopsis
 
 
@@ -8,10 +6,9 @@ Read an older version of the kubeadm configuration API types from a file, and ou
 This command lets you convert configuration objects of older versions to the latest supported version,
 locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
-- kubeadm.k8s.io/v1alpha3
-- kubeadm.k8s.io/v1beta1
+- kubeadm.k8s.io/v1beta2
 
-Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1beta1", but read both types.
+Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1beta2", but read both types.
 So regardless of what version you pass to the --old-config parameter here, the API object will be
 read, deserialized, defaulted, converted, validated, and re-serialized when written to stdout or
 --new-config if specified.
@@ -86,4 +83,8 @@ kubeadm config migrate [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
 

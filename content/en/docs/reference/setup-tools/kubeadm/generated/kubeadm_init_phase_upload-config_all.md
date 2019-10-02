@@ -1,10 +1,8 @@
 
-Uploads all configuration to a config map
-
 ### Synopsis
 
 
-Uploads all configuration to a config map
+Upload all configuration to a config map
 
 ```
 kubeadm init phase upload-config all [flags]
@@ -65,4 +63,8 @@ kubeadm init phase upload-config all [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase upload-config](kubeadm_init_phase_upload-config.md)	 - Upload the kubeadm and kubelet configuration to a ConfigMap
 

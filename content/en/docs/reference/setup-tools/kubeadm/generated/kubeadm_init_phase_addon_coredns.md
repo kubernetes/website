@@ -1,10 +1,8 @@
 
-Installs the CoreDNS addon to a Kubernetes cluster
-
 ### Synopsis
 
 
-Installs the CoreDNS addon components via the API server. Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
+Install the CoreDNS addon components via the API server. Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
 ```
 kubeadm init phase addon coredns [flags]
@@ -30,7 +28,7 @@ kubeadm init phase addon coredns [flags]
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -100,4 +98,8 @@ kubeadm init phase addon coredns [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - Install required addons for passing Conformance tests
 

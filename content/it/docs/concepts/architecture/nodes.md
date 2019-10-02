@@ -161,7 +161,7 @@ controlla lo stato di ogni nodo ogni `--node-monitor-period` secondi.
 Nelle versioni di Kubernetes precedenti alla 1.13, NodeStatus è l'heartbeat di
 nodo. A partire da Kubernetes 1.13, la funzionalità di lease del nodo viene introdotta come un
 funzione alfa (porta caratteristica `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 Quando la funzione di lease del nodo è abilitata, ogni nodo ha un oggetto `Lease` associato in
 spazio dei nomi `kube-node-lease` che viene rinnovato periodicamente dal nodo ed entrambi
 NodeStatus e lease del nodo vengono considerati heartbeat dal nodo. Locazioni di nodi

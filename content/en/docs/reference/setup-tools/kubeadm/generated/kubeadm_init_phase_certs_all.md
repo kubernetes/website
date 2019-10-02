@@ -1,10 +1,8 @@
 
-Generates all certificates
-
 ### Synopsis
 
 
-Generates all certificates
+Generate all certificates
 
 ```
 kubeadm init phase certs all [flags]
@@ -48,10 +46,24 @@ kubeadm init phase certs all [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane-endpoint string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify a stable IP address or DNS name for the control plane.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for all</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a specific Kubernetes version for the control plane.</td>
     </tr>
 
     <tr>
@@ -93,4 +105,8 @@ kubeadm init phase certs all [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
 

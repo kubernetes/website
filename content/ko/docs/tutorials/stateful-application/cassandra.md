@@ -47,7 +47,7 @@ weight: 30
 * 실행 중인 쿠버네티스 클러스터를 소유
 
 {{< note >}}
-아직 클러스터가 없다면 [시작하기](/docs/setup/pick-right-solution/)를 읽도록 하자.
+아직 클러스터가 없다면 [설치](/docs/setup/)를 읽도록 하자.
 {{< /note >}}
 
 ### 추가적인 Minikube 설정 요령
@@ -198,7 +198,6 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
       name: cassandra
       namespace: default
       resourceVersion: "323"
-      selfLink: /apis/apps/v1/namespaces/default/statefulsets/cassandra
       uid: 7a219483-6185-11e6-a910-42010a8a0fc0
     spec:
       replicas: 3

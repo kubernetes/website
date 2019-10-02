@@ -10,8 +10,6 @@ This page shows how to specify extended resources for a Node.
 Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{{< feature-state state="stable" >}}
-
 {{% /capture %}}
 
 
@@ -60,7 +58,7 @@ you call dongles.
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
 
-```
+```shell
 kubectl proxy
 ```
 
@@ -153,7 +151,7 @@ Then a Container could request any number of bytes of special storage, up to 800
 
 Here is a PATCH request that removes the dongle advertisement from a Node.
 
-```shell
+```
 PATCH /api/v1/nodes/<your-node-name>/status HTTP/1.1
 Accept: application/json
 Content-Type: application/json-patch+json
@@ -169,7 +167,7 @@ Host: k8s-master:8080
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
 
-```
+```shell
 kubectl proxy
 ```
 
@@ -188,6 +186,8 @@ Verify that the dongle advertisement has been removed:
 ```
 kubectl describe node <your-node-name> | grep dongle
 ```
+
+(you should not see any output)
 
 {{% /capture %}}
 

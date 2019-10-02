@@ -1,10 +1,8 @@
 
-Generates a kubeconfig file for the controller manager to use
-
 ### Synopsis
 
 
-Generates the kubeconfig file for the controller manager to use and saves it to controller-manager.conf file
+Generate the kubeconfig file for the controller manager to use and save it to controller-manager.conf file
 
 ```
 kubeadm init phase kubeconfig controller-manager [flags]
@@ -48,6 +46,13 @@ kubeadm init phase kubeconfig controller-manager [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane-endpoint string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify a stable IP address or DNS name for the control plane.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
@@ -59,6 +64,13 @@ kubeadm init phase kubeconfig controller-manager [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the kubeconfig file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a specific Kubernetes version for the control plane.</td>
     </tr>
 
   </tbody>
@@ -86,4 +98,8 @@ kubeadm init phase kubeconfig controller-manager [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)	 - Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
 

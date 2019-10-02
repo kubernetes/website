@@ -109,7 +109,7 @@ Der Pod führt einen Container basierend auf dem bereitgestellten Docker-Image a
     kubectl get events
     ```
 
-5. Die Konfiguration von `kubectl` anzigen:
+5. Die Konfiguration von `kubectl` anzeigen:
 
     ```shell
     kubectl config view

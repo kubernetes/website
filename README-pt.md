@@ -19,16 +19,10 @@ Para mais informações sobre como contribuir com a documentação do Kubernetes
 * [Guia de Estilo da Documentação](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizando documentação do Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
-## Documentação do Kubernetes Localizando o `README.md`
+Você pode contactar os mantenedores da localização em Português em:
 
-### coreano
-
-Veja a tradução de `README.md` e mais orientações sobre detalhes para contribuidores coreanos na página [README coreano](README-ko.md).
-
-Você pode alcançar os mantenedores da localização coreana em:
-
-* June Yi ([GitHub - @gochist](https://github.com/gochist))
-* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+* Felipe ([GitHub - @femrtnz](https://github.com/femrtnz))
+* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-pt)
 
 ## Executando o site localmente usando o Docker
 
@@ -68,7 +62,7 @@ Isso iniciará o servidor Hugo local na porta 1313. Abra o navegador para http:/
 
 Aprenda a se envolver com a comunidade do Kubernetes na [página da comunidade](http://kubernetes.io/community/).
 
-Você pode alcançar os mantenedores deste projeto em:
+Você pode falar com os mantenedores deste projeto:
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
@@ -79,4 +73,4 @@ A participação na comunidade Kubernetes é regida pelo [Código de Conduta da 
 
 ## Obrigado!
 
-A Kubernetes prospera com a participação da comunidade e nós realmente apreciamos suas contribuições para o nosso site e nossa documentação!
+O Kubernetes conta com a participação da comunidade e nós realmente agradecemos suas contribuições para o nosso site e nossa documentação!

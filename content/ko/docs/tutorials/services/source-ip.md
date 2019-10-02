@@ -34,7 +34,10 @@ content_template: templates/tutorial
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```console
-$ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+```
+출력은 다음과 같다.
+```
 deployment.apps/source-ip-app created
 ```
 
@@ -59,13 +62,21 @@ deployment.apps/source-ip-app created
 Kube-proxy는 이 모드를 `proxyMode` 엔드포인트를 통해 노출한다.
 
 ```console
-$ kubectl get nodes
+kubectl get nodes
+```
+출력은 다음과 유사하다
+```
 NAME                           STATUS     ROLES    AGE     VERSION
-kubernetes-minion-group-6jst   Ready      <none>   2h      v1.13.0
-kubernetes-minion-group-cx31   Ready      <none>   2h      v1.13.0
-kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.13.0
-
-kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
+kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
+kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
+kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
+```
+한 노드의 프록시 모드를 확인한다.
+```console
+kubernetes-node-6jst $ curl localhost:10249/proxyMode
+```
+출력은 다음과 같다.
+```
 iptables
 ```
 
@@ -272,12 +283,12 @@ $ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 ```
 $ kubectl get pod -o wide -l run=source-ip-app
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
-source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-minion-group-6jst
+source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-node-6jst
 
-kubernetes-minion-group-6jst $ curl localhost:32122/healthz
+kubernetes-node-6jst $ curl localhost:32122/healthz
 1 Service Endpoints found
 
-kubernetes-minion-group-jj1t $ curl localhost:32122/healthz
+kubernetes-node-jj1t $ curl localhost:32122/healthz
 No Service Endpoints Found
 ```
 

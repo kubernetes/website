@@ -42,9 +42,9 @@ sudo sysctl -a
 
 ## Enabling Unsafe Sysctls
 
-Sysctls are grouped into _safe_  and _unsafe_ sysctls. In addition to proper
-namespacing a _safe_ sysctl must be properly _isolated_ between pods on the same
-node. This means that setting a _safe_ sysctl for one pod
+Sysctls are grouped into _safe_ and _unsafe_ sysctls. In addition to proper
+namespacing, a _safe_ sysctl must be properly _isolated_ between pods on the
+same node. This means that setting a _safe_ sysctl for one pod
 
 - must not have any influence on any other pod on the node
 - must not allow to harm the node's health
@@ -78,13 +78,13 @@ flag of the kubelet, e.g.:
 
 ```shell
 kubelet --allowed-unsafe-sysctls \
-  'kernel.msg*,net.ipv4.route.min_pmtu' ...
+  'kernel.msg*,net.core.somaxconn' ...
 ```
 
 For {{< glossary_tooltip term_id="minikube" >}}, this can be done via the `extra-config` flag:
 
 ```shell
-minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.core.somaxconn"...
 ```
 
 Only _namespaced_ sysctls can be enabled this way.
@@ -102,7 +102,10 @@ in future versions of the Linux kernel.
 - `kernel.msg*`,
 - `kernel.sem`,
 - `fs.mqueue.*`,
-- `net.*`.
+- The parameters under `net.*` that can be set in container networking
+  namespace. However, there are exceptions (e.g.,
+  `net.netfilter.nf_conntrack_max` and `net.netfilter.nf_conntrack_expect_max`
+  can be set in container networking namespace but they are unnamespaced).
 
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
 them, you must manually configure them on each node's operating system, or by
@@ -112,8 +115,8 @@ Use the pod securityContext to configure namespaced sysctls. The securityContext
 applies to all containers in the same pod.
 
 This example uses the pod securityContext to set a safe sysctl
-`kernel.shm_rmid_forced` and two unsafe sysctls `net.ipv4.route.min_pmtu` and
-`kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
+`kernel.shm_rmid_forced` and two unsafe sysctls `net.core.somaxconn` and
+`kernel.msgmax`. There is no distinction between _safe_ and _unsafe_ sysctls in
 the specification.
 
 {{< warning >}}
@@ -131,8 +134,8 @@ spec:
     sysctls:
     - name: kernel.shm_rmid_forced
       value: "0"
-    - name: net.ipv4.route.min_pmtu
-      value: "552"
+    - name: net.core.somaxconn
+      value: "1024"
     - name: kernel.msgmax
       value: "65536"
   ...

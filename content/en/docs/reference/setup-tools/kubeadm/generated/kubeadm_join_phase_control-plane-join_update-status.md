@@ -1,6 +1,4 @@
 
-Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
-
 ### Synopsis
 
 
@@ -34,7 +32,7 @@ kubeadm join phase control-plane-join update-status [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-control-plane</td>
+      <td colspan="2">--control-plane</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
@@ -79,4 +77,8 @@ kubeadm join phase control-plane-join update-status [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance
 

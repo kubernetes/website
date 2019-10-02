@@ -1,10 +1,8 @@
 
-Generates a private key for signing service account tokens along with its public key
-
 ### Synopsis
 
 
-Generates the private key for signing service account tokens along with its public key, and saves them into sa.key and sa.pub files. If both files already exist, kubeadm skips the generation step and existing files will be used. 
+Generate the private key for signing service account tokens along with its public key, and save them into sa.key and sa.pub files. If both files already exist, kubeadm skips the generation step and existing files will be used.
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -60,4 +58,8 @@ kubeadm init phase certs sa [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
 

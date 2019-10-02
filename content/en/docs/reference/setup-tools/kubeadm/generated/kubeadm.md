@@ -1,6 +1,4 @@
 
-kubeadm: easily bootstrap a secure Kubernetes cluster
-
 ### Synopsis
 
 
@@ -29,7 +27,7 @@ Example usage:
     ┌──────────────────────────────────────────────────────────┐
     │ On the second machine:                                   │
     ├──────────────────────────────────────────────────────────┤
-    │ worker# kubeadm join <arguments-returned-from-init>      │
+    │ worker# kubeadm join &lt;arguments-returned-from-init&gt;      │
     └──────────────────────────────────────────────────────────┘
 
     You can then repeat the second step on as many other machines as you like.
@@ -63,4 +61,16 @@ Example usage:
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
+* [kubeadm completion](kubeadm_completion.md)	 - Output shell completion code for the specified shell (bash or zsh)
+* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
+* [kubeadm init](kubeadm_init.md)	 - Run this command in order to set up the Kubernetes control plane
+* [kubeadm join](kubeadm_join.md)	 - Run this on any machine you wish to join an existing cluster
+* [kubeadm reset](kubeadm_reset.md)	 - Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
+* [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens
+* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
+* [kubeadm version](kubeadm_version.md)	 - Print the version of kubeadm
 

@@ -17,14 +17,14 @@ kubeadm has configuration options to specify configuration information for cloud
 in-tree cloud provider can be configured using kubeadm as shown below:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 nodeRegistration:
   kubeletExtraArgs:
     cloud-provider: "openstack"
     cloud-config: "/etc/kubernetes/cloud.conf"
 ---
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
 apiServer:
@@ -117,7 +117,7 @@ Note that the Kubernetes Node name must match the Azure VM name.
 
 ## CloudStack
 
-If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
+If you wish to use the external cloud provider, its repository is [apache/cloudstack-kubernetes-provider](https://github.com/apache/cloudstack-kubernetes-provider)
 
 ### Node Name
 
@@ -136,6 +136,8 @@ Note that the first segment of the Kubernetes Node name must match the GCE insta
 ## OpenStack
 This section describes all the possible configurations which can
 be used when using OpenStack with Kubernetes.
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
 
 ### Node Name
 
@@ -336,10 +338,10 @@ should appear in the `[Metadata]` section of the `cloud.conf` file:
   both configuration drive and metadata service though and only one or the other
   may be available which is why the default is to check both.
 
-##### Router
+##### Route
 
 These configuration options for the OpenStack provider pertain to the [kubenet]
-Kubernetes network plugin and should appear in the `[Router]` section of the
+Kubernetes network plugin and should appear in the `[Route]` section of the
 `cloud.conf` file:
 
 * `router-id` (Optional): If the underlying cloud's Neutron deployment supports

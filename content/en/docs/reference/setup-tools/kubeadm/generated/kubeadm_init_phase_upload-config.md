@@ -1,6 +1,4 @@
 
-Uploads the kubeadm and kubelet configuration to a ConfigMap
-
 ### Synopsis
 
 
@@ -51,4 +49,11 @@ kubeadm init phase upload-config [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
+* [kubeadm init phase upload-config all](kubeadm_init_phase_upload-config_all.md)	 - Upload all configuration to a config map
+* [kubeadm init phase upload-config kubeadm](kubeadm_init_phase_upload-config_kubeadm.md)	 - Upload the kubeadm ClusterConfiguration to a ConfigMap
+* [kubeadm init phase upload-config kubelet](kubeadm_init_phase_upload-config_kubelet.md)	 - Upload the kubelet component config to a ConfigMap
 

@@ -2,7 +2,9 @@
 title: kubeadm init phase
 weight: 90
 ---
-In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of making kubeadm more modular. In v1.13.0 this command graduated to `kubeadm init phase`. This modularity enables you to invoke atomic sub-steps of the bootstrap process. Hence, you can let kubeadm do some parts and fill in yourself where you need customizations.
+`kubeadm init phase` enables you to invoke atomic steps of the bootstrap process.
+Hence, you can let kubeadm do some of the work and you can fill in the gaps
+if you wish to apply customization.
 
 `kubeadm init phase` is consistent with the [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.
@@ -32,12 +34,12 @@ Can be used to create all required certificates by kubeadm.
 {{< tab name="etcd-server" include="generated/kubeadm_init_phase_certs_etcd-server.md" />}}
 {{< tab name="front-proxy-ca" include="generated/kubeadm_init_phase_certs_front-proxy-ca.md" />}}
 {{< tab name="front-proxy-client" include="generated/kubeadm_init_phase_certs_front-proxy-client.md" />}}
-{{< tab name="certs_sa" include="generated/kubeadm_init_phase_certs_sa.md" />}}
+{{< tab name="sa" include="generated/kubeadm_init_phase_certs_sa.md" />}}
 {{< /tabs >}}
 
 ## kubeadm init phase kubeconfig {#cmd-phase-kubeconfig}
 
-You can create all required kubeconfig files by calling the `all` subcommand or call then individually.
+You can create all required kubeconfig files by calling the `all` subcommand or call them individually.
 
 {{< tabs name="tab-kubeconfig" >}}
 {{< tab name="kubeconfig" include="generated/kubeadm_init_phase_kubeconfig.md" />}}
@@ -145,18 +147,18 @@ kubeadm config images list/pull --config=someconfig.yaml
 kubeadm upgrade apply --config=someconfig.yaml
 ```
 
-The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1#ClusterConfiguration)
+The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
 and also a type for the addon - `kube-dns` (default value is `CoreDNS`).
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 dns:
   type: "kube-dns"
 ```
 
-For more details on each field in the `v1beta1` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
+For more details on each field in the `v1beta2` configuration you can navigate to our
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
 
 ## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node

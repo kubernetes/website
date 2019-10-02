@@ -1,6 +1,4 @@
 
-Generates the kube-apiserver static Pod manifest
-
 ### Synopsis
 
 
@@ -55,10 +53,24 @@ kubeadm init phase control-plane apiserver [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane-endpoint string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify a stable IP address or DNS name for the control plane.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -114,4 +126,8 @@ kubeadm init phase control-plane apiserver [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase control-plane](kubeadm_init_phase_control-plane.md)	 - Generate all static Pod manifest files necessary to establish the control plane
 

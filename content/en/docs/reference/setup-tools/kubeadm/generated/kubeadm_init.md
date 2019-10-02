@@ -1,47 +1,45 @@
 
-Run this command in order to set up the Kubernetes control plane.
-
 ### Synopsis
 
 
-Run this command in order to set up the Kubernetes control plane.
+Run this command in order to set up the Kubernetes control plane
 
 The "init" command executes the following phases:
 ```
 preflight                  Run pre-flight checks
-kubelet-start              Writes kubelet settings and (re)starts the kubelet
+kubelet-start              Write kubelet settings and (re)start the kubelet
 certs                      Certificate generation
-  /ca                        Generates the self-signed Kubernetes CA to provision identities for other Kubernetes components
-  /apiserver                 Generates the certificate for serving the Kubernetes API
-  /apiserver-kubelet-client  Generates the Client certificate for the API server to connect to kubelet
-  /front-proxy-ca            Generates the self-signed CA to provision identities for front proxy
-  /front-proxy-client        Generates the client for the front proxy
-  /etcd-ca                   Generates the self-signed CA to provision identities for etcd
-  /etcd-server               Generates the certificate for serving etcd
-  /apiserver-etcd-client     Generates the client apiserver uses to access etcd
-  /etcd-peer                 Generates the credentials for etcd nodes to communicate with each other
-  /etcd-healthcheck-client   Generates the client certificate for liveness probes to healtcheck etcd
-  /sa                        Generates a private key for signing service account tokens along with its public key
-kubeconfig                 Generates all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
-  /admin                     Generates a kubeconfig file for the admin to use and for kubeadm itself
-  /kubelet                   Generates a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
-  /controller-manager        Generates a kubeconfig file for the controller manager to use
-  /scheduler                 Generates a kubeconfig file for the scheduler to use
-control-plane              Generates all static Pod manifest files necessary to establish the control plane
+  /ca                        Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components
+  /apiserver                 Generate the certificate for serving the Kubernetes API
+  /apiserver-kubelet-client  Generate the certificate for the API server to connect to kubelet
+  /front-proxy-ca            Generate the self-signed CA to provision identities for front proxy
+  /front-proxy-client        Generate the certificate for the front proxy client
+  /etcd-ca                   Generate the self-signed CA to provision identities for etcd
+  /etcd-server               Generate the certificate for serving etcd
+  /etcd-peer                 Generate the certificate for etcd nodes to communicate with each other
+  /etcd-healthcheck-client   Generate the certificate for liveness probes to healthcheck etcd
+  /apiserver-etcd-client     Generate the certificate the apiserver uses to access etcd
+  /sa                        Generate a private key for signing service account tokens along with its public key
+kubeconfig                 Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
+  /admin                     Generate a kubeconfig file for the admin to use and for kubeadm itself
+  /kubelet                   Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
+  /controller-manager        Generate a kubeconfig file for the controller manager to use
+  /scheduler                 Generate a kubeconfig file for the scheduler to use
+control-plane              Generate all static Pod manifest files necessary to establish the control plane
   /apiserver                 Generates the kube-apiserver static Pod manifest
   /controller-manager        Generates the kube-controller-manager static Pod manifest
   /scheduler                 Generates the kube-scheduler static Pod manifest
-etcd                       Generates static Pod manifest file for local etcd.
-  /local                     Generates the static Pod manifest file for a local, single-node local etcd instance.
-upload-config              Uploads the kubeadm and kubelet configuration to a ConfigMap
-  /kubeadm                   Uploads the kubeadm ClusterConfiguration to a ConfigMap
-  /kubelet                   Uploads the kubelet component config to a ConfigMap
+etcd                       Generate static Pod manifest file for local etcd
+  /local                     Generate the static Pod manifest file for a local, single-node local etcd instance
+upload-config              Upload the kubeadm and kubelet configuration to a ConfigMap
+  /kubeadm                   Upload the kubeadm ClusterConfiguration to a ConfigMap
+  /kubelet                   Upload the kubelet component config to a ConfigMap
 upload-certs               Upload certificates to kubeadm-certs
 mark-control-plane         Mark a node as a control-plane
 bootstrap-token            Generates bootstrap tokens used to join a node to a cluster
-addon                      Installs required addons for passing Conformance tests
-  /coredns                   Installs the CoreDNS addon to a Kubernetes cluster
-  /kube-proxy                Installs the kube-proxy addon to a Kubernetes cluster
+addon                      Install required addons for passing Conformance tests
+  /coredns                   Install the CoreDNS addon to a Kubernetes cluster
+  /kube-proxy                Install the kube-proxy addon to a Kubernetes cluster
 ```
 
 
@@ -101,6 +99,13 @@ kubeadm init [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane-endpoint string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify a stable IP address or DNS name for the control plane.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--cri-socket string</td>
     </tr>
     <tr>
@@ -115,17 +120,17 @@ kubeadm init [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-upload-certs</td>
+      <td colspan="2">-k, --experimental-kustomize string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Upload control-plane certificates to the kubeadm-certs Secret.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
     </tr>
 
     <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -219,6 +224,13 @@ kubeadm init [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--upload-certs</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Upload control-plane certificates to the kubeadm-certs Secret.</td>
+    </tr>
+
   </tbody>
 </table>
 
@@ -244,4 +256,9 @@ kubeadm init [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
+* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
 

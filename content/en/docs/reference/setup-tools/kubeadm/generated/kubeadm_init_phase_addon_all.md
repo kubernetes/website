@@ -1,10 +1,8 @@
 
-Installs all the addons
-
 ### Synopsis
 
 
-Installs all the addons
+Install all the addons
 
 ```
 kubeadm init phase addon all [flags]
@@ -41,10 +39,17 @@ kubeadm init phase addon all [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--control-plane-endpoint string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify a stable IP address or DNS name for the control plane.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -121,4 +126,8 @@ kubeadm init phase addon all [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - Install required addons for passing Conformance tests
 

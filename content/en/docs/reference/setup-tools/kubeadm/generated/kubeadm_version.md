@@ -1,6 +1,4 @@
 
-Print the version of kubeadm
-
 ### Synopsis
 
 
@@ -58,4 +56,8 @@ kubeadm version [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
 

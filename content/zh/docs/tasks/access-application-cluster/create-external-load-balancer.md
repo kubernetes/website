@@ -137,7 +137,7 @@ which should produce output like this:
     Selector:               app=example
     Type:                   LoadBalancer
     IP:                     10.67.252.103
-    LoadBalancer Ingress:   123.45.678.9
+    LoadBalancer Ingress:   192.0.2.89
     Port:                   <unnamed> 80/TCP
     NodePort:               <unnamed> 32445/TCP
     Endpoints:              10.64.0.4:80,10.64.1.5:80,10.64.2.4:80

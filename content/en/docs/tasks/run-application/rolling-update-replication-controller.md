@@ -37,8 +37,12 @@ A rolling update works by:
 
 Rolling updates are initiated with the `kubectl rolling-update` command:
 
-    kubectl rolling-update NAME \
-        ([NEW_NAME] --image=IMAGE | -f FILE)
+```shell
+kubectl rolling-update NAME NEW_NAME --image=IMAGE:TAG
+
+# or read the configuration from a file
+kubectl rolling-update NAME -f FILE
+```
 
 {{% /capture %}}
 
@@ -50,7 +54,9 @@ Rolling updates are initiated with the `kubectl rolling-update` command:
 To initiate a rolling update using a configuration file, pass the new file to
 `kubectl rolling-update`:
 
-    kubectl rolling-update NAME -f FILE
+```shell
+kubectl rolling-update NAME -f FILE
+```
 
 The configuration file must:
 
@@ -65,25 +71,29 @@ Replication controller configuration files are described in
 
 ### Examples
 
-    // Update pods of frontend-v1 using new replication controller data in frontend-v2.json.
-    kubectl rolling-update frontend-v1 -f frontend-v2.json
+```shell
+# Update pods of frontend-v1 using new replication controller data in frontend-v2.json.
+kubectl rolling-update frontend-v1 -f frontend-v2.json
 
-    // Update pods of frontend-v1 using JSON data passed into stdin.
-    cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
+# Update pods of frontend-v1 using JSON data passed into stdin.
+cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
+```
 
 ## Updating the container image
 
 To update only the container image, pass a new image name and tag with the
 `--image` flag and (optionally) a new controller name:
 
-    kubectl rolling-update NAME [NEW_NAME] --image=IMAGE:TAG
+```shell
+kubectl rolling-update NAME NEW_NAME --image=IMAGE:TAG
+```
 
 The `--image` flag is only supported for single-container pods. Specifying
 `--image` with multi-container pods returns an error.
 
-If no `NEW_NAME` is specified, a new replication controller is created with
-a temporary name. Once the rollout is complete, the old controller is deleted,
-and the new controller is updated to use the original name.
+If you didn't specify a new name, this creates a new replication controller
+with a temporary name. Once the rollout is complete, the old controller is
+deleted, and the new controller is updated to use the original name.
 
 The update will fail if `IMAGE:TAG` is identical to the
 current value. For this reason, we recommend the use of versioned tags as
@@ -94,11 +104,13 @@ Moreover, the use of `:latest` is not recommended, see
 
 ### Examples
 
-    // Update the pods of frontend-v1 to frontend-v2
-    kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
+```shell
+# Update the pods of frontend-v1 to frontend-v2
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
 
-    // Update the pods of frontend, keeping the replication controller name
-    kubectl rolling-update frontend --image=image:v2
+# Update the pods of frontend, keeping the replication controller name
+kubectl rolling-update frontend --image=image:v2
+```
 
 ## Required and optional fields
 
@@ -143,24 +155,7 @@ from the [`kubectl` reference](/docs/reference/generated/kubectl/kubectl-command
 
 Let's say you were running version 1.7.9 of nginx:
 
-```yaml
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: my-nginx
-spec:
-  replicas: 5
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.7.9
-        ports:
-        - containerPort: 80
-```
+{{< codenew file="controllers/replication-nginx-1.7.9.yaml" >}}
 
 To update to version 1.9.1, you can use [`kubectl rolling-update --image`](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) to specify the new image:
 
@@ -218,34 +213,13 @@ This is one example where the immutability of containers is a huge asset.
 
 If you need to update more than just the image (e.g., command arguments, environment variables), you can create a new replication controller, with a new name and distinguishing label value, such as:
 
-```yaml
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: my-nginx-v4
-spec:
-  replicas: 5
-  selector:
-    app: nginx
-    deployment: v4
-  template:
-    metadata:
-      labels:
-        app: nginx
-        deployment: v4
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.9.2
-        args: ["nginx", "-T"]
-        ports:
-        - containerPort: 80
-```
+{{< codenew file="controllers/replication-nginx-1.9.2.yaml" >}}
 
 and roll it out:
 
 ```shell
-kubectl rolling-update my-nginx -f ./nginx-rc.yaml
+# Assuming you named the file "my-nginx.yaml"
+kubectl rolling-update my-nginx -f ./my-nginx.yaml
 ```
 ```
 Created my-nginx-v4

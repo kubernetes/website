@@ -201,21 +201,29 @@ If you are approved, request that a current SIG Docs approver add you to the
 GitHub group. Only members of the `kubernetes-website-admins` GitHub group can
 add new members to a GitHub group.
 
-#### Becoming a website admin
+#### Approver responsibilities
 
-Members of the `kubernetes-website-admins` GitHub group can manage GitHub group
-membership and have full administrative rights to the settings of the repository,
-including the ability to add, remove, and troubleshoot webhooks. Not all SIG
-Docs approvers need this level of access.
+Approvers improve the documentation by reviewing and merging pull requests into the website repository. Because this role carries additional privileges, approvers have additional responsibilities:
 
-If you think you need this level of access, talk to an existing website admin or
-ask in the #sig-docs channel on [Kubernetes Slack](https://kubernetes.slack.com).
+- Approvers can use the `/approve` command, which merges PRs into the repo.
+
+    A careless merge can break the site, so be sure that when you merge something, you mean it.
+    
+- Make sure that proposed changes meet the contribution guidelines. 
+
+    If you ever have a question, or you're not sure about something, feel free to call for additional review.
+
+- Verify that netlify tests pass before you `/approve` a PR.
+
+    <img src="/images/docs/contribute/netlify-pass.png" width="75%" alt="Netlify tests must pass before approving" />
+
+- Visit the netlify page preview for a PR to make sure things look good before approving.
 
 #### PR Wrangler
 
-SIG Docs approvers are added to the
+SIG Docs approvers participate in the
 [PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-for weekly rotations. All SIG Docs approvers are expected to take part in this
+for weekly rotations. SIG Docs expects all approvers to participate in this
 rotation. See
 [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 for more details.

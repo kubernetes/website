@@ -1,14 +1,12 @@
 
-Generates the credentials for etcd nodes to communicate with each other
-
 ### Synopsis
 
 
-Generates the credentials for etcd nodes to communicate with each other, and saves them into etcd/peer.cert and etcd/peer.key files.
+Generate the certificate for etcd nodes to communicate with each other, and save them into etcd/peer.cert and etcd/peer.key files.
 
-Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1 
+Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
 
-If both files already exist, kubeadm skips the generation step and existing files will be used. 
+If both files already exist, kubeadm skips the generation step and existing files will be used.
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -60,6 +58,13 @@ kubeadm init phase certs etcd-peer [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for etcd-peer</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a specific Kubernetes version for the control plane.</td>
+    </tr>
+
   </tbody>
 </table>
 
@@ -85,4 +90,8 @@ kubeadm init phase certs etcd-peer [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
 

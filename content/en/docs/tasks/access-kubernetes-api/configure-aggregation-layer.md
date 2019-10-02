@@ -38,8 +38,8 @@ This section describes how the authentication and authorization flows work, and 
 
 The high-level flow is as follows:
 
-1. Kubenetes apiserver: authenticate the requesting user and authorize their rights to the requested API path.
-2. Kubenetes apiserver: proxy the request to the extension apiserver
+1. Kubernetes apiserver: authenticate the requesting user and authorize their rights to the requested API path.
+2. Kubernetes apiserver: proxy the request to the extension apiserver
 3. Extension apiserver: authenticate the request from the Kubernetes apiserver
 4. Extension apiserver: authorize the request from the original user
 5. Extension apiserver: execute
@@ -223,6 +223,55 @@ If you are not running kube-proxy on a host running the API server, then you mus
     --enable-aggregator-routing=true
 
 {{% /capture %}}
+
+### Register APIService objects
+
+You can dynamically configure what client requests are proxied to extension
+apiserver. The following is an example registration:
+
+```yaml
+
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: <name of the registration object>
+spec:
+  group: <API group name this extension apiserver hosts>
+  version: <API version this extension apiserver hosts>
+  groupPriorityMinimum: <priority this APIService for this group, see API documentation>
+  versionPriority: <prioritizes ordering of this version within a group, see API documentation>
+  service:
+    namespace: <namespace of the extension apiserver service>
+    name: <name of the extension apiserver service>
+  caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
+```
+
+#### Contacting the extension apiserver
+
+Once the Kubernetes apiserver has determined a request should be sent to a extension apiserver,
+it needs to know how to contact it.
+
+The `service` stanza is a reference to the service for a extension apiserver.
+The service namespace and name are required. The port is optional and defaults to 443.
+The path is optional and defaults to "/".
+
+Here is an example of an extension apiserver that is configured to be called on port "1234"
+at the subpath "/my-path", and to verify the TLS connection against the ServerName
+`my-service-name.my-service-namespace.svc` using a custom CA bundle.
+
+```yaml
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+...
+spec:
+  ...
+  service:
+    namespace: my-service-namespace
+    name: my-service-name
+    port: 1234
+  caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
+...
+```
 
 {{% capture whatsnext %}}
 

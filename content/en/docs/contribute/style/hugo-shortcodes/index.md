@@ -12,6 +12,7 @@ Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content
 {{% /capture %}}
 
 {{% capture body %}}
+
 ## Feature state
 
 In a markdown page (`.md` file) on this site, you can add a shortcode to display version and state of the documented feature.
@@ -39,9 +40,9 @@ The valid values for `state` are:
 
 The displayed Kubernetes version defaults to that of the page or the site. This can be changed by passing the <code>for_k8s_version</code> shortcode parameter.
 
-````
+```
 {{</* feature-state for_k8s_version="v1.10" state="stable" */>}}
-````
+```
 
 Renders to:
 
@@ -49,20 +50,19 @@ Renders to:
 
 #### Alpha feature
 
-````
-{{</* feature-state feature-state state="alpha" */>}}
-````
+```
+{{</* feature-state state="alpha" */>}}
+```
 
 Renders to:
 
 {{< feature-state state="alpha" >}}
 
-
 #### Beta feature
 
-````
-{{</* feature-state feature-state state="beta" */>}}
-````
+```
+{{</* feature-state state="beta" */>}}
+```
 
 Renders to:
 
@@ -70,9 +70,9 @@ Renders to:
 
 #### Stable feature
 
-````
-{{</* feature-state feature-state state="stable" */>}}
-````
+```
+{{</* feature-state state="stable" */>}}
+```
 
 Renders to:
 
@@ -80,9 +80,9 @@ Renders to:
 
 #### Deprecated feature
 
-````
-{{</* feature-state feature-state state="deprecated" */>}}
-````
+```
+{{</* feature-state state="deprecated" */>}}
+```
 
 Renders to:
 
@@ -99,9 +99,9 @@ The raw data for glossary terms is stored at [https://github.com/kubernetes/webs
 
 For example, the following include within the markdown renders to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
 
-````liquid
+```liquid
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
-````
+```
 
 ## Table captions
 
@@ -235,7 +235,6 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate" />}}
 {{< /tabs >}}
 
-
 {{% /capture %}}
 
 {{% capture whatsnext %}}
@@ -245,4 +244,3 @@ Renders to:
 * Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {{% /capture %}}
-

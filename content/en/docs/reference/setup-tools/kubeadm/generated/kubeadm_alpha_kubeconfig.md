@@ -1,12 +1,10 @@
 
-Kubeconfig file utilities
-
 ### Synopsis
 
 
-Kubeconfig file utilities. 
+Kubeconfig file utilities.
 
-  Alpha Disclaimer: this command is currently alpha.
+Alpha Disclaimer: this command is currently alpha.
 
 ### Options
 
@@ -49,4 +47,9 @@ Kubeconfig file utilities.
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
+* [kubeadm alpha kubeconfig user](kubeadm_alpha_kubeconfig_user.md)	 - Output a kubeconfig file for an additional user
 

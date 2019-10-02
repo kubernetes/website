@@ -21,14 +21,12 @@ Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 
 ## `README.md`'s Localizing Kubernetes Documentation
 
-### Koreanisch
+### Deutsch
+Die Betreuer der deutschen Lokalisierung erreichen Sie unter:
 
-Lesen Sie die Übersetzung von `README.md` und detailliertere Anleitungen für koreanische Mitwirkende auf der Seite [Koreanischen README](README-ko.md).
-
-Sie können die Betreuer der koreanischen Lokalisierung erreichen unter:
-
-* June Yi ([GitHub - @gochist](https://github.com/gochist))
-* [Slack Kanal](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+* Benedikt Rollik ([@bene2k1](https://github.com/bene2k1))
+* Max Körbächer ([@mkorbi](https://github.com/mkorbi))
+* [Slack Kanal](https://kubernetes.slack.com/messages/kubernetes-docs-de)
 
 ## Site lokal mit Docker ausführen
 

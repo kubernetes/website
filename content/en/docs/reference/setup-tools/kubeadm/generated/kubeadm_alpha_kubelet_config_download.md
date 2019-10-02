@@ -1,10 +1,8 @@
 
-Downloads the kubelet configuration from the cluster ConfigMap kubelet-config-1.X, where X is the minor version of the kubelet.
-
 ### Synopsis
 
 
-Downloads the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. Either kubeadm autodetects the kubelet version by exec-ing "kubelet --version" or respects the --kubelet-version parameter. 
+Download the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. Either kubeadm autodetects the kubelet version by exec-ing "kubelet --version" or respects the --kubelet-version parameter.
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -15,11 +13,11 @@ kubeadm alpha kubelet config download [flags]
 ### Examples
 
 ```
-  # Downloads the kubelet configuration from the ConfigMap in the cluster. Autodetects the kubelet version.
+  # Download the kubelet configuration from the ConfigMap in the cluster. Autodetect the kubelet version.
   kubeadm alpha phase kubelet config download
   
-  # Downloads the kubelet configuration from the ConfigMap in the cluster. Uses a specific desired kubelet version.
-  kubeadm alpha phase kubelet config download --kubelet-version 1.14.0
+  # Download the kubelet configuration from the ConfigMap in the cluster. Use a specific desired kubelet version.
+  kubeadm alpha phase kubelet config download --kubelet-version 1.16.0
 ```
 
 ### Options
@@ -77,4 +75,8 @@ kubeadm alpha kubelet config download [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
 

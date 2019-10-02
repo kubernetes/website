@@ -67,7 +67,7 @@ kubectl --namespace=<insert-namespace-name-here> get pods
 Kamu dapat menyimpan konfigurasi *namespace* untuk semua perintah `kubectl` dengan perintah:
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # Cek namespace
 kubectl config view | grep namespace:
 ```

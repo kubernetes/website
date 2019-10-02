@@ -1,10 +1,15 @@
 
-Upgrade commands for a node in the cluster. Currently only supports upgrading the configuration, not the kubelet itself.
-
 ### Synopsis
 
 
-Upgrade commands for a node in the cluster. Currently only supports upgrading the configuration, not the kubelet itself.
+Upgrade commands for a node in the cluster
+
+The "node" command executes the following phases:
+```
+control-plane   Upgrade the control plane instance deployed on this node, if any
+kubelet-config  Upgrade the kubelet configuration for this node
+```
+
 
 ```
 kubeadm upgrade node [flags]
@@ -20,10 +25,59 @@ kubeadm upgrade node [flags]
   <tbody>
 
     <tr>
+      <td colspan="2">--certificate-renewal</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the renewal of certificates used by component changed during upgrades.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--dry-run</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Do not change any state, just output the actions that would be performed.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--etcd-upgrade</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the upgrade of etcd.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for node</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--kubelet-version string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The *desired* version for the kubelet config after the upgrade. If not specified, the KubernetesVersion from the kubeadm-config ConfigMap will be used</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--skip-phases stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">List of phases to be skipped</td>
     </tr>
 
   </tbody>
@@ -51,4 +105,9 @@ kubeadm upgrade node [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
+* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - Use this command to invoke single phase of the node workflow
 

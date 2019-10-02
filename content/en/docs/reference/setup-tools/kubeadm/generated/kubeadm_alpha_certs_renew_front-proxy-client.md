@@ -1,12 +1,14 @@
 
-Generates the client for the front proxy
-
 ### Synopsis
 
 
-Renews the client for the front proxy, and saves them into front-proxy-client.cert and front-proxy-client.key files. 
+Renew the certificate for the front proxy client.
 
-Extra attributes such as SANs will be based on the existing certificates, there is no need to resupply them.
+Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
+
+Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
+
+After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 
 ```
 kubeadm alpha certs renew front-proxy-client [flags]
@@ -95,4 +97,8 @@ kubeadm alpha certs renew front-proxy-client [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
 

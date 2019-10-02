@@ -23,14 +23,12 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular tur
 
 The PR wrangler’s duties include:
 
-- Review [open pull requests](https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
+- Review [open pull requests](https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [Style](/docs/contribute/style/style-guide/) and [Content](/docs/contribute/style/content-guide/) guides.
     - Review the smallest PRs (`size/XS`) first, then iterate towards the largest (`size/XXL`).
     - Review as many PRs as you can.
 - Ensure that the CLA is signed by each contributor.
     - Help new contributors sign the [CLA](https://github.com/kubernetes/community/blob/master/CLA.md).
     - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to automatically remind contributors that haven’t signed the CLA to sign the CLA.
-    - Close any PR where the CLA hasn’t been signed for two weeks. 
-    PR authors can reopen the PR after signing the CLA, so this is a low-risk way to make sure nothing gets merged without a signed CLA.
 - Provide feedback on proposed changes and help facilitate technical reviews from members of other SIGs.
     - Provide inline suggestions on the PR for the proposed content changes.
     - If you need to verify content, comment on the PR and request more details.
@@ -59,13 +57,32 @@ reviewed is usually small. These queries specifically exclude localization PRs, 
   Determine whether any additional changes or updates need to be made for the PR to be merged. If you think the PR is ready to be merged, comment `/approve`.
 - [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release. Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it by adding a comment with `/assign @<meister's_github-username>`. If it's against an old branch, help the PR author figure out whether it's targeted against the best branch.
 
+### When to close Pull Requests
+
+Reviews and approvals are one tool to keep our PR queue short and current. Another tool is closure. 
+
+- Close any PR where the CLA hasn’t been signed for two weeks. 
+PR authors can reopen the PR after signing the CLA, so this is a low-risk way to make sure nothing gets merged without a signed CLA.
+
+- Close any PR where the author has not responded to comments or feedback in 2 or more weeks.
+
+Don't be afraid to close pull requests. Contributors can easily reopen and resume works in progress. Oftentimes a closure notice is what spurs an author to resume and finish their contribution.
+
+To close a pull request, leave a `/close` comment on the PR.
+
+{{< note >}}
+
+An automated service, [`fejta-bot`](https://github.com/fejta-bot) automatically marks issues as stale after 90 days of inactivity, then closes them after an additional 30 days of inactivity when they become rotten. PR wranglers should close issues after 14-30 days of inactivity.
+
+{{< /note >}}
+
 ## Propose improvements
 
-SIG Docs
-[members](/docs/contribute/participating/#members) can propose improvements.
+SIG Docs [members](/docs/contribute/participating/#members) can propose improvements.
 
 After you've been contributing to the Kubernetes documentation for a while, you
-may have ideas for improvement to the style guide, the toolchain used to build
+may have ideas for improvement to the [Style Guide](/docs/contribute/style/style-guide/) 
+, the [Content Guide](/docs/contribute/style/content-guide/), the toolchain used to build
 the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
 these types of proposals need to be discussed in a SIG Docs meeting or on the
@@ -160,7 +177,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve a term
 Approvers must meet the following requirements to be a co-chair:
 
 - Have been a SIG Docs approver for at least 6 months
-- Have [led a Kubernetes docs release][coordinate-docs-for-a-kubernetes-release] or shadowed two releases
+- Have [led a Kubernetes docs release](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) or shadowed two releases
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs workflow, including: [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs), plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture). 
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
@@ -176,7 +193,7 @@ Responsibilities include:
 - Learn and set best practices for the SIG by updating contribution guidelines
 - Schedule and run SIG meetings: weekly status updates, quarterly retro/planning sessions, and others as needed
 - Schedule and run doc sprints at KubeCon events and other conferences
-- - Recruit for and advocate on behalf of SIG Docs with the CNCF and its platinum partners, including Google, Oracle, Azure, IBM, and Huawei
+- Recruit for and advocate on behalf of SIG Docs with the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} and its platinum partners, including Google, Oracle, Azure, IBM, and Huawei
 - Keep the SIG running smoothly
 
 ### Running effective meetings
@@ -190,7 +207,7 @@ To schedule and run effective meetings, these guidelines show what to do, how to
 **Set a clear agenda**:
 
 - Set a clear agenda of topics
-- Publish the agenda in advance 
+- Publish the agenda in advance
 
 For weekly meetings, copypaste the previous week's notes into the "Past meetings" section of the notes
 

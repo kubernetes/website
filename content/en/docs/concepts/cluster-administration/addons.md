@@ -44,6 +44,10 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) is a dashboard web interface for Kubernetes.
 * [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a tool for graphically visualizing your containers, pods, services etc. Use it in conjunction with a [Weave Cloud account](https://cloud.weave.works/) or host the UI yourself.
 
+## Infrastructure
+
+* [KubeVirt](https://kubevirt.io/user-guide/docs/latest/administration/intro.html#cluster-side-add-on-deployment) is an add-on to run virtual machines on Kubernetes. Usually run on bare-metal clusters.
+
 ## Legacy Add-ons
 
 There are several other add-ons documented in the deprecated [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons) directory.

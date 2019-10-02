@@ -1,10 +1,8 @@
 
-Upgrade your Kubernetes cluster to the specified version.
-
 ### Synopsis
 
 
-Upgrade your Kubernetes cluster to the specified version.
+Upgrade your Kubernetes cluster to the specified version
 
 ```
 kubeadm upgrade apply [version]
@@ -34,6 +32,13 @@ kubeadm upgrade apply [version]
     </tr>
 
     <tr>
+      <td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the renewal of certificates used by component changed during upgrades.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
@@ -55,10 +60,17 @@ kubeadm upgrade apply [version]
     </tr>
 
     <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -135,4 +147,8 @@ kubeadm upgrade apply [version]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
 

@@ -1,12 +1,10 @@
 
-Generates the self-signed Kubernetes CA to provision identities for other Kubernetes components
-
 ### Synopsis
 
 
-Generates the self-signed Kubernetes CA to provision identities for other Kubernetes components, and saves them into ca.cert and ca.key files. 
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components, and save them into ca.cert and ca.key files.
 
-If both files already exist, kubeadm skips the generation step and existing files will be used. 
+If both files already exist, kubeadm skips the generation step and existing files will be used.
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -44,6 +42,13 @@ kubeadm init phase certs ca [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for ca</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a specific Kubernetes version for the control plane.</td>
+    </tr>
+
   </tbody>
 </table>
 
@@ -69,4 +74,8 @@ kubeadm init phase certs ca [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
 

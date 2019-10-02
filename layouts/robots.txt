@@ -4,6 +4,6 @@ Disallow: /legacy/
 Disallow: /v1.0/
 Disallow: /v1.1/
 Disallow: /404/
-Disallow: 404.html
+Disallow: /404.html
 
 SITEMAP: {{ "sitemap.xml" | absLangURL }}

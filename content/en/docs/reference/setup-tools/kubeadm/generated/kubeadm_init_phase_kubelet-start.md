@@ -1,10 +1,8 @@
 
-Writes kubelet settings and (re)starts the kubelet
-
 ### Synopsis
 
 
-Writes a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)starts kubelet.
+Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
 
 ```
 kubeadm init phase kubelet-start [flags]
@@ -79,4 +77,8 @@ kubeadm init phase kubelet-start [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
 

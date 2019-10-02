@@ -1,6 +1,4 @@
 
-Generate and print a bootstrap token, but do not create it on the server.
-
 ### Synopsis
 
 
@@ -75,4 +73,8 @@ kubeadm token generate [flags]
 </table>
 
 
+
+SEE ALSO
+
+* [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens
 
