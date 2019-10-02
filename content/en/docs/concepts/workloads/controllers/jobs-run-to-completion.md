@@ -173,10 +173,10 @@ parallelism, for a variety of reasons:
 - For _fixed completion count_ Jobs, the actual number of pods running in parallel will not exceed the number of
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
 - For _work queue_ Jobs, no new Pods are started after any Pod has succeeded -- remaining Pods are allowed to complete, however.
-- If the controller has not had time to react.
-- If the controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
+- If the Job {{< glossary_tooltip term_id="controller" >}} has not had time to react.
+- If the Job controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
   then there may be fewer pods than requested.
-- The controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
+- The Job controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
 - When a Pod is gracefully shut down, it takes time to stop.
 
 ## Handling Pod and Container Failures
