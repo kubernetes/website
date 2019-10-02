@@ -443,7 +443,7 @@ spec:
 status:
   loadBalancer:
     ingress:
-    - ip: 146.148.47.155
+    - ip: 192.0.2.127
 ```
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
