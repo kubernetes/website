@@ -2,7 +2,7 @@
 {{ $file := .Get "file" }}
 {{ $codelang := .Get "language" | default (path.Ext $file | strings.TrimPrefix ".") }} 
 {{ $fileDir := path.Split $file }}
-{{ $bundlePath := path.Join .Page.Dir $fileDir.Dir }}
+{{ $bundlePath := path.Join .Page.File.Dir $fileDir.Dir }}
 {{ $filename := printf "/content/%s/examples/%s" .Page.Lang $file | safeURL }}
 {{ $ghlink := printf "https://%s/master%s" site.Params.githubwebsiteraw $filename | safeURL }}
 {{/* First assume this is a bundle and the file is inside it. */}}
