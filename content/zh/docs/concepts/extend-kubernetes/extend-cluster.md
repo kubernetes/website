@@ -242,7 +242,7 @@ Kubernetes has several built-in authentication methods that it supports. It can 
 
 上述每个步骤都提供了扩展点。
 
-Kubernetes 有几个它支持的内置认证方法。它还可以位于身份验证代理之后，并将授权 header 中的 token 发送给远程服务进行验证（webhook）。所有这些方法都在[身份验证文档](/docs/reference/access-authn-authz/authentication/)中介绍。
+Kubernetes 有几个它支持的内置认证方法。它还可以位于身份验证代理之后，并将授权 header 中的令牌发送给远程服务进行验证（webhook）。所有这些方法都在[身份验证文档](/docs/reference/access-authn-authz/authentication/)中介绍。
 
 <!--
 ### Authentication
