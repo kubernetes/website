@@ -17,7 +17,7 @@ An increasing number of systems leverage a combination of CPUs and hardware acce
 
 In order to extract the best performance, optimizations related to CPU isolation, memory and device locality are required. However, in Kubernetes, these optimizations are handled by a disjoint set of components.
 
-_Topology Manager_ is a Kubelet component that aims to co-ordinate the set of components that are resposible for these optimizations.
+_Topology Manager_ is a Kubelet component that aims to co-ordinate the set of components that are responsible for these optimizations.
  
 {{% /capture %}}
 
@@ -49,6 +49,7 @@ The Topology Manager currently:
 
  - Works on Nodes with the `static` CPU Manager Policy enabled. See [control CPU Management Policies](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/)
  - Works on Pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+
 If these conditions are met, Topology Manager will align CPU and device requests.
 
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag, `--topology-manager-policy`.
