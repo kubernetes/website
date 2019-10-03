@@ -26,6 +26,15 @@ network endpoints, they will be split into multiple smaller Endpoint Slice
 resources instead of a single large Endpoints resource.
 
 ## Enabling Endpoint Slices
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+{{< note >}}
+Although Endpoint Slices may eventually replace Endpoints, many Kubernetes
+components still rely on Endpoints. For now, enabling Endpoint Slices should be
+seen as an addition to Endpoints in a cluster, not a replacement for them.
+{{< /note >}}
+
 As an alpha feature, Endpoint Slices are not enabled by default in Kubernetes.
 Enabling Endpoint Slices requires as many as 3 changes to Kubernetes cluster
 configuration.
