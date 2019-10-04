@@ -44,7 +44,7 @@ Perluasan adalah komponen perangkat lunak yang memperluas dan berintegrasi secar
 Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jenis baru.
 
 Kebanyakan administrator kluster akan menggunakan instansi Kubernetes yang didistribusikan atau yang _hosted_.
-Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan lebih sedikit yang perlu untuk membuat ekstensi-ekstensi yang baru.
+Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan lebih sedikit yang perlu untuk membuat perluasan-perluasan yang baru.
 
 ## Pola-pola Perluasan
 
@@ -75,21 +75,21 @@ Berikut ini adalah diagram yang menunjukkan bagaimana titik-titik perluasan beri
 
 ## Titik-titik Perluasan
 
-Diagram berikut menunjukkan titik-titik perluasan di sistem Kubernetes.
+Diagram berikut menunjukkan titik-titik perluasan di sebuah Kubernetes.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vSH5ZWUO2jH9f34YHenhnCd14baEb4vT-pzfxeFC7NzdNqRDgdz4DDAVqArtH4onOGqh0bhwMX0zGBb/pub?w=425&h=809">
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
-1. Pengguna biasa berinteraksi dengan API Kubernetes menggunakan `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas binari kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat menegakkan kebijakan di seluruh situs.
-2. API server menangani semua permintaan. Beberapa tipe titik perluasan di API server memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten, konten editing, dan penanganan penghapusan mereka. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#api-access-extensions)
-3. API server melayani berbagai macam *resources*, *Built-in resource kinds*, seperti `pods`, didefinisikan oleh projek Kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber yang kamu definisikan sendiri, atau yang projek lain definisikan, memanggil *Custom Resources*, seperti yang dijelaskan di bagian [Sumber Daya _Custom_](/docs/concepts/overview/extending#user-defined-types). Sumber khusus sering digunakan dengan Perluasan API Aksi.
-4. Penjadwal Kubernetes memutuskan node mana yang akan ditempatkan node. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan Penjadwalan](/docs/concepts/overview/extending#scheduler-extensions).
-5. Sebagian besar perilaku Kubernetes diimplementasikan oleh program yang disebut *Controllers* yang merupakan klien dari API-Server. *Controllers* sering digunakan bersama dengan Sumber Daya _Custom_.
-6. Kubelet berjalan di server, dan membantu pod terlihat sepreti server virtual dengan IP mereka sendiri di jaringan kluster. [Plugin Jaringan](/docs/concepts/overview/extending#network-plugins) memungkinkan perbedaan implementasi pada jaringan pod.
-7. Kubelet juga melakukan pemasangan dan pelepasan volume untuk kontainer. Tipe penyimpanan baru dapat didukung via [Plugin Penyimpanan](/docs/concepts/overview/extending#storage-plugins).
+1. Pengguna biasanya berinteraksi dengan API Kubernetes menggunakan `kubectl`. [_Plugin-plugin_ Kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas _binari_ kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat memaksakan kebijakan yang menyeluruh di seluruh situs.
+2. apiserver menangani semua permintaan. Beberapa tipe titik perluasan di apiserver memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten mereka, menyunting konten, dan menangani penghapusan. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#perluasan-akses-api)
+3. apiserver melayani berbagai macam sumber daya, _tipe-tipe sumber daya bawaan_, seperti `pod`, didefinisikan oleh proyek kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber daya yang kamu definisikan sendiri, atau yang proyek lain definisikan, disebut _Custom Resources_, seperti dijelaskan di bagian [Sumber Daya _Custom_](/docs/concepts/overview/extending#tipe-tipe-yang-ditentukan-pengguna). Sumber daya _Custom_ sering digunakan dengan Perluasan Akses API.
+4. Penjadwal Kubernetes memutuskan ke Node mana Pod akan ditempatkan. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan-perluasan Penjadwal](/docs/concepts/overview/extending#perluasan-perluasan-penjadwal).
+5. Sebagian besar perilaku Kubernetes diimplementasi oleh program yang disebut *Controller-controller* yang merupakan klien dari API-Server. *Controller-controller* sering digunakan bersama dengan Sumber Daya _Custom_.
+6. Kubelet berjalan di server, dan membantu Pod-pod  terlihat seperti server virtual dengan IP mereka sendiri di jaringan kluster. [_Plugin_ Jaringan](/docs/concepts/overview/extending#plugin-plugin-jaringan) memungkinkan adanya perbedaan implementasi pada jaringan Pod.
+7. Kubelet juga melakukan penambatan dan pelepasan tambatan volume untuk kontainer. Tipe-tipe penyimpanan baru dapat didukung via [_Plugin_ Penyimpanan](/docs/concepts/overview/extending#plugin-plugin-penyimpanan).
 
-Jika kamu tidak yakin untuk memulai darimana, flowchart dibawah ini dapat membantu kamu. Ingat bahwa beberapa solusi mungkin melibatkan beberapa tipe perluasan.
+Jika kamu tidak yakin untuk memulai dari mana, diagram alir di bawah ini dapat membantu kamu. Ingat lah bahwa beberapa solusi mungkin melibatkan beberapa tipe perluasan.
 
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vRWXNNIVWFDqzDY0CsKZJY3AR8sDeFDXItdc5awYxVH8s0OLherMlEPVUpxPIB1CSUu7GPk7B2fEnzM/pub?w=1440&h=1080">
@@ -99,11 +99,11 @@ Jika kamu tidak yakin untuk memulai darimana, flowchart dibawah ini dapat memban
 ## Perluasan API
 ### Tipe-tipe yang Ditentukan Pengguna
 
-Pertimbangkan untuk menambahkan Sumber Daya _Custom_ ke Kubernetes jika kamu ingin mendefinisikan pengatur baru, objek-objek konfigurasi aplikasi atau API-API deklaratif lainnya, dan untuk mengelolanya menggunakan peralatan Kubernetes, seperti `kubectl`.
+Pertimbangkan untuk menambahkan Sumber Daya _Custom_ ke Kubernetes jika kamu ingin mendefinisikan pengontrol baru, objek konfigurasi aplikasi atau API deklaratif lainnya, dan untuk mengelolanya menggunakan alat Kubernetes, seperti `kubectl`.
 
-Jangan gunakan Sumber Daya _Custom_ sebagai media penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
+Jangan menggunakan Sumber Daya _Custom_ sebagai penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
 
-Untuk lebih jelasnya tentang Sumber Daya _Custom_, lihat [Panduan Konsep Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/).
+Untuk lebih jelasnya tentan Sumber Daya _Custom_, lihat [Panduan Konsep Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/).
 
 ### Menggabungkan API Baru dengan Otomasi
 
