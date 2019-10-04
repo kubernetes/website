@@ -45,7 +45,7 @@ To deploy a Windows container on Kubernetes, you must first create an example ap
         app: win-webserver
       type: NodePort
     ---
-    apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     metadata:
       labels:
