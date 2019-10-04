@@ -103,7 +103,7 @@ Pertimbangkan untuk menambahkan Sumber Daya _Custom_ ke Kubernetes jika kamu ing
 
 Jangan menggunakan Sumber Daya _Custom_ sebagai penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
 
-Untuk lebih jelasnya tentan Sumber Daya _Custom_, lihat [Panduan Konsep Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/).
+Untuk lebih jelasnya tentang Sumber Daya _Custom_, lihat [Panduan Konsep Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/).
 
 ### Menggabungkan API Baru dengan Otomasi
 
