@@ -5,6 +5,7 @@
     "@slack/client": "^4.4.0",
     "babel-loader": "^8.0.2",
     "netlify-lambda": "^0.4.0",
-    "node-fetch": "^2.2.0"
+    "node-fetch": "^2.2.0",
+    "node.js" : "^10.0.0".
   }
 }
