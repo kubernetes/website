@@ -91,7 +91,7 @@ Steering Committee Meetings:
 [@pwittrock]: https://github.com/pwittrock
 
 [CIVS]: https://civs.cs.cornell.edu/
-[backlog items]: https://git.k8s.io/steering/backlog.md
+[backlog items]: https://github.com/kubernetes/steering/projects/1
 [repo]: https://github.com/kubernetes/steering
 [Wednesdays at 8pm UTC]: https://github.com/kubernetes/steering
 [steering@kubernetes.io]: mailto:steering@kubernetes.io
