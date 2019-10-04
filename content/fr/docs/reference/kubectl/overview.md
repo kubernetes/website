@@ -94,7 +94,6 @@ Opération       | Syntaxe    |       Description
 `rolling-update`| `kubectl rolling-update ANCIEN_NOM_CONTROLEUR ([NOUVEAU_NOM_CONTROLEUR] --image=NOUVELLE_IMAGE_CONTENEUR \| -f NOUVELLE_SPEC_CONTROLEUR) [flags]`        | Exécute un rolling update en remplaçant graduellement le replication controller indiqué et ses pods.
 `run`           | `kubectl run NOM --image=image [--env="cle=valeur"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]`        | Exécute dans le cluster l'image indiquée.
 `scale`         | `kubectl scale (-f FICHIER \| TYPE NOM \| TYPE/NOM) --replicas=QUANTITE [--resource-version=version] [--current-replicas=quantité] [flags]`        | Met à jour la taille du replication controller indiqué.
-`stop`          | `kubectl stop`                                                                                                                                           | Déprécié: Voir plutôt `kubectl delete`.
 `version`       | `kubectl version [--client] [flags]`                                                                                                                     | Affiche la version de Kubernetes du serveur et du client.
 
 Rappelez-vous : Pour tout savoir sur les opérations, voir la documentation de référence de [kubectl](/docs/user-guide/kubectl/).
