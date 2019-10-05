@@ -914,7 +914,9 @@ can start its Pods, add appropriate selectors or endpoints, and change the
 Service's `type`.
 
 {{< warning >}}
-ExternalName many not work with services protected with TLS SNI and/or HTTPS.
+You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS. If you use ExternalName then the DNS name seen by clients inside your cluster is different from the name that the ExternalName references.
+
+For protocols that use hostnames this difference may lead to errors or unexpected responses. HTTP requests will have a `Host:` header that the origin server does not recognize; TLS servers will not be able to provide a certificate matching the hostname that the client indicates.
 {{< /warning >}}
 
 {{< note >}}
