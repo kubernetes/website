@@ -50,3 +50,25 @@ Catatan: Untuk platform yang mendukung `_Pods_` yang berjalan di jaringan _host_
 Model ini tidak hanya sedikit kompleks secara keseluruhan, tetapi pada prinsipnya kompatibel dengan keinginan Kubernetes untuk memungkinkan _low-friction porting_ dari aplikasi dari VM ke kontainer. Jika pekerjaan kamu sebelumnya dijalankan dalam VM, VM kamu memiliki IP dan dapat berbicara dengan VM lain di proyek yang sama. Ini adalah model dasar yang sama.
 
 Alamat IP Kubernetes ada di lingkup `_Pod_` - kontainer dalam `_Pod_` berbagi jaringan _namespaces_ mereka - termasuk alamat IP mereka. Ini berarti bahwa kontainer dalam `Pod` semua dapat mencapai port satu sama lain di `_localhost_`. Ini juga berarti bahwa kontainer dalam `Pod` harus mengoordinasikan penggunaan _port_, tetapi ini tidak berbeda dari proses di VM. Ini disebut model "IP-per-pod".
+
+## Bagaimana menerapkan model jaringan Kubernetes
+
+Ada beberapa cara agar model jaringan ini dapat diimplementasikan. Dokumen ini bukan studi lengkap tentang berbagai metode, tetapi semoga berfungsi sebagai pengantar ke berbagai teknologi dan berfungsi sebagai titik awal.
+
+Opsi jaringan berikut ini disortir berdasarkan abjad - urutan tidak menyiratkan status istimewa apa pun.
+
+### ACI
+
+[Infrastruktur Sentral Aplikasi Cisco](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) menawarkan solusi SDN overlay dan underlay terintegrasi yang mendukung kontainer, mesin virtual, dan _bare metal server_. [ACI](https://www.github.com/noironetworks/aci-containers) menyediakan integrasi jaringan kontainer untuk ACI. Tinjauan umum integrasi disediakan [di sini](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf).
+
+### AOS dari Apstra
+
+[AOS](http://www.apstra.com/products/aos/) adalah sistem Jaringan Berbasis Intent yang menciptakan dan mengelola lingkungan pusat data yang kompleks dari platform terintegrasi yang sederhana. AOS memanfaatkan desain terdistribusi sangat _scalable_ untuk menghilangkan pemadaman jaringan sambil meminimalkan biaya.
+
+Desain Referensi AOS saat ini mendukung _host_ yang terhubung dengan Lapis-3 yang menghilangkan masalah peralihan Lapis-2 yang lama. Host Lapis-3 ini bisa berupa _server_ Linux (Debian, Ubuntu, CentOS) yang membuat hubungan tetangga BGP secara langsung dengan _top of rack switches_ (TORs). AOS mengotomatisasi kedekatan perutean dan kemudian memberikan kontrol yang halus atas _route health injections_ (RHI) yang umum dalam _deployment_ Kubernetes.
+
+AOS memiliki banyak kumpulan endpoint REST API yang memungkinkan Kubernetes dengan cepat mengubah kebijakan jaringan berdasarkan persyaratan aplikasi. Peningkatan lebih lanjut akan mengintegrasikan model Grafik AOS yang digunakan untuk desain jaringan dengan penyediaan beban kerja, memungkinkan sistem manajemen ujung ke ujung untuk layanan cloud pribadi dan publik.
+
+AOS mendukung penggunaan peralatan vendor umum dari produsen termasuk Cisco, Arista, Dell, Mellanox, HPE, dan sejumlah besar sistem white-box dan sistem operasi jaringan terbuka seperti Microsoft SONiC, Dell OPX, dan Cumulus Linux.
+
+Detail tentang cara kerja sistem AOS dapat diakses di sini: http://www.apstra.com/products/how-it-works/
