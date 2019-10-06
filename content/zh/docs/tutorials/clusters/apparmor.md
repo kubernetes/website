@@ -246,7 +246,15 @@ k8s-apparmor-example-deny-write (enforce)
 denies all file writes: -->
 首先，我们需要将要使用的配置文件加载到节点上。我们将使用的配置文件仅拒绝所有文件写入：
 
-{{< code language="text" file="deny-write.profile" >}}
+```shell
+#include <tunables/global>
+profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
+  #include <abstractions/base>
+  file,
+  # Deny all file writes.
+  deny /** w,
+}
+```
 
 <!-- Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
 nodes. For this example we'll just use SSH to install the profiles, but other approaches are
