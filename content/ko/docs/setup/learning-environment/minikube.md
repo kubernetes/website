@@ -19,7 +19,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 * 노드 포트
 * 컨피그 맵과 시크릿
 * 대시보드
-* 컨테이너 런타임: Docker, [CRI-O](https://github.com/kubernetes-incubator/cri-o) 와 [containerd](https://github.com/containerd/containerd)
+* 컨테이너 런타임: Docker, [CRI-O](https://cri-o.io/) 와 [containerd](https://github.com/containerd/containerd)
 * CNI(Container Network Interface) 사용
 * 인그레스
 
