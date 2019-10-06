@@ -7,7 +7,7 @@
             {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
             {{ end }}
         </nav>
-        <div class="social">
+        <div class="social" role="region" aria-label="Social hyperlinks">
             <div>
                 <a href="https://twitter.com/kubernetesio" class="twitter"><span>{{ T "community_twitter_name" }}</span></a>
                 <a href="https://github.com/kubernetes/kubernetes" class="github"><span>{{ T "community_github_name" }}</span></a>
@@ -23,13 +23,13 @@
                 <a href="https://git.k8s.io/community/contributors/guide" class="button">{{ T "main_contribute" }}</a>
             </div>
         </div>
-        <div id="miceType" class="center">
+        <div class="miceType center">
             &copy; {{ now.Year }} {{ T "main_documentation_license" | safeHTML }}</a>
         </div>
-        <div id="miceType" class="center">
+        <div class="miceType center">
             Copyright &copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}
         </div>
-        <div id="miceType" class="center">
+        <div class="miceType center">
             ICP license: 京ICP备17074266号-3
         </div>
     </main>
