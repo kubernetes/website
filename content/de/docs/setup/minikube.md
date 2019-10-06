@@ -18,7 +18,7 @@ Minikube ist ein Tool, mit dem Kubernetes lokal einfach ausgeführt werden kann.
   * NodePorts
   * ConfigMaps and Secrets
   * Dashboards
-  * Container Laufzeiumgebungen: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) und [containerd](https://github.com/containerd/containerd)
+  * Container Laufzeiumgebungen: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://cri-o.io/) und [containerd](https://github.com/containerd/containerd)
   * Unterstützung von CNI (Container Network Interface)
   * Ingress
 
@@ -164,7 +164,7 @@ minikube start \
 
 #### CRI-O
 
-Um [CRI-O](https://github.com/kubernetes-incubator/cri-o) als Containerlaufzeitumgebung zu verwenden, führen Sie den folgenden Befehl aus:
+Um [CRI-O](https://cri-o.io/) als Containerlaufzeitumgebung zu verwenden, führen Sie den folgenden Befehl aus:
 
 ```bash
 minikube start \
