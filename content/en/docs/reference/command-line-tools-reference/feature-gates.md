@@ -83,7 +83,8 @@ different Kubernetes components.
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `EndpointSlice` | `false` | Alpha | 1.16 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
-| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | |
+| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
+| `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
 | `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
