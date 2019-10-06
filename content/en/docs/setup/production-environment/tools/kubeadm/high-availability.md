@@ -128,36 +128,36 @@ To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kube
 set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
 {{< /note >}}
 
-    After the command completes you should see something like so:
+After the command completes you should see something like so:
+
+```sh
+...
+You can now join any number of control-plane node by running the following command on each as a root:
+    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+```
+
+- Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
+- When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
+are encrypted and uploaded in the `kubeadm-certs` Secret.
+- To re-upload the certificates and generate a new decryption key, use the following command on a control plane
+node that is already joined to the cluster:
 
     ```sh
-    ...
-    You can now join any number of control-plane node by running the following command on each as a root:
-      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
-
-    Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
-    As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
-
-    Then you can join any number of worker nodes by running the following on each as root:
-      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+    sudo kubeadm init phase upload-certs --upload-certs
     ```
 
-    - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
-    - When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
-    are encrypted and uploaded in the `kubeadm-certs` Secret.
-    - To re-upload the certificates and generate a new decryption key, use the following command on a control plane
-    node that is already joined to the cluster:
+- You can also specify a custom `--certificate-key` during `init` that can later be used by `join`.
+To generate such a key you can use the following command:
 
-      ```sh
-      sudo kubeadm init phase upload-certs --upload-certs
-      ```
-
-    - You can also specify a custom `--certificate-key` during `init` that can later be used by `join`.
-    To generate such a key you can use the following command:
-
-      ```sh
-      kubeadm alpha certs certificate-key
-      ```
+    ```sh
+    kubeadm alpha certs certificate-key
+    ```
 
 {{< note >}}
 The `kubeadm-certs` Secret and decryption key expire after two hours.
