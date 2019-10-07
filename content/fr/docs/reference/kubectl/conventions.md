@@ -35,19 +35,19 @@ Pour que `kubectl run` satisfasse l'infrastructure as code :
 
 Vous pouvez créer les ressources suivantes en utilisant `kubectl run` avec le flag `--generator` :
 
-| Resource                        | commande kubectl                                   |
-|---------------------------------|---------------------------------------------------|
-| Pod                             | `kubectl run --generator=run-pod/v1`              |
-| Replication controller          | `kubectl run --generator=run/v1`                  |
-| Deployment                      | `kubectl run --generator=extensions/v1beta1`      |
-|  -pour un endpoint (défaut)     | `kubectl run --generator=deployment/v1beta1`      |
-| Deployment                      | `kubectl run --generator=apps/v1beta1`            |
-|  -pour un endpoint (recommandé) | `kubectl run --generator=deployment/apps.v1beta1` |
-| Job                             | `kubectl run --generator=job/v1`                  |
-| CronJob                         | `kubectl run --generator=batch/v1beta1`           |
-|  -pour un endpoint (défaut)     | `kubectl run --generator=cronjob/v1beta1`         |
-| CronJob                         | `kubectl run --generator=batch/v2alpha1`          |
-|  -pour un endpoint (déprécié)   | `kubectl run --generator=cronjob/v2alpha1`        |
+| Ressource                         | groupe api         | commande kubectl                                  |
+|-----------------------------------|--------------------|---------------------------------------------------|
+| Pod                               | v1                 | `kubectl run --generator=run-pod/v1`              |
+| Replication controller (déprécié) | v1                 | `kubectl run --generator=run/v1`                  |
+| Deployment (déprécié)             | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
+| Deployment (déprécié)             | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
+| Job (déprécié)                    | batch/v1           | `kubectl run --generator=job/v1`                  |
+| CronJob (déprécié)                | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
+| CronJob (déprécié)                | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
+
+{{< note >}}
+`kubectl run --generator` sauf pour `run-pod/v1` est déprécié depuis v1.12.
+{{< /note >}}
 
 Si vous n'indiquez pas de flag de générateur, d'autres flags vous demandent d'utiliser un générateur spécifique. La table suivante liste les flags qui vous forcent à préciser un générateur spécifique, selon la version du cluster :
 
@@ -71,6 +71,6 @@ Pour vérifier la ressource qui a été finalement créée, utilisez le flag `--
 
 ### `kubectl apply`
 
-* Vous pouvez utiliser `kubectl apply` pour créer ou mettre à jour des ressources. Cependant, pour mettre à jour une ressource, vous devez avoir créé la ressource en utilisant `kubectl apply` ou `kubectl create --save-config`. Pour plus d'informations sur l'utilisation de `kubectl apply` pour la mise à jour de ressources, voir [Gérer les ressources](/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply).
+* Vous pouvez utiliser `kubectl apply` pour créer ou mettre à jour des ressources. Pour plus d'informations sur l'utilisation de `kubectl apply` pour la mise à jour de ressources, voir le [livre Kubectl](https://kubectl.docs.kubernetes.io).
 
 {{% /capture %}}
