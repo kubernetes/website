@@ -65,15 +65,8 @@ different Kubernetes components.
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | |
-| `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
-| `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | |
-| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.10 |
-| `CustomResourceSubresources` | `true` | Beta | 1.11 | - |
-| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
-| `CustomResourceValidation` | `true` | Beta | 1.9 | |
-| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
-| `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | |
+| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
+| `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
@@ -181,6 +174,18 @@ The following table contains feature gates for graduated or deprecated features.
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
+| `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | 1.15 |
+| `CustomResourcePublishOpenAPI` | `true` | GA | 1.16 | - |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.10 |
+| `CustomResourceSubresources` | `true` | Beta | 1.11 | 1.15 |
+| `CustomResourceSubresources` | `true` | GA | 1.16 | - |
+| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
+| `CustomResourceValidation` | `true` | Beta | 1.9 | 1.15 |
+| `CustomResourceValidation` | `true` | GA | 1.16 | - |
+| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
+| `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | 1.15 |
+| `CustomResourceWebhookConversion` | `true` | GA | 1.16 | - |
 | `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
