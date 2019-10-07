@@ -7,7 +7,10 @@ functions = "functions"
 command = "make non-production-build"
 
 [build.environment]
-HUGO_VERSION = "0.53"
+# https://gitmemory.com/kubernetes/website
+# https://www.gitmemory.com/zacharysarah
+# https://github.com/kubernetes/website/pull/16151/files
+HUGO_VERSION = "0.58.3"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
