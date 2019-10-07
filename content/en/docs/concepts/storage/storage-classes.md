@@ -133,14 +133,14 @@ rbd | 1.11
 Azure File | 1.11
 Azure Disk | 1.11
 Portworx | 1.11
-FlexVolumes | 1.13
-CSI | 1.14 ,1.15-alpha ,1.16-beta
+FlexVolume | 1.13
+CSI | 1.14 ,1.15 (alpha) ,1.16 (beta)
 
 {{< /table >}}
 
 
 {{< note >}}
-This feature cannot be used to shrink volumes.
+You can only use the volume expansion feature to grow a Volume, not to shrink it.
 {{< /note >}}
 
 ### Mount Options
