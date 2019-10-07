@@ -170,7 +170,7 @@ kubectl delete pvc task-pv-claim
 kubectl delete pv task-pv-volume
 ```
 
-Remove the file:
+Open the shell to the Node (if you are using minikube, do `minikube ssh`) and remove the file:
 
 ```shell
 sudo rm -rf /mnt/data
