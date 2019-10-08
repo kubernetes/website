@@ -224,7 +224,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `APIResponseCompression`:`LIST`や`GET`リクエストのAPIレスポンスを圧縮します。
 - `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/docs/tutorials/clusters/apparmor/)で確認できます。
 - `AttachVolumeLimit`: ボリュームプラグインを有効にすることでノードにアタッチできるボリューム数の制限を設定できます。
-- `BlockVolume`: ポッドでRawブロックデバイスの定義と使用を有効にします。詳細は[Rawブロックボリュームのサポート](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)で確認できます。
+- `BlockVolume`: PodでRawブロックデバイスの定義と使用を有効にします。詳細は[Rawブロックボリュームのサポート](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)で確認できます。
 - `BoundServiceAccountTokenVolume`: ServiceAccountTokenVolumeProjectionによって構成される計画ボリュームを使用するにはServiceAccountボリュームを移行します。詳細は[Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)で確認できます。
 - `CPUManager`: コンテナレベルのCPUアフィニティサポートを有効します。[CPUマネジメントポリシー](/docs/tasks/administer-cluster/cpu-management-policies/)を見てください。
 - `CRIContainerLogRotation`: criコンテナランタイムのコンテナログローテーションを有効にします。
