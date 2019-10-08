@@ -252,7 +252,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `DynamicAuditing`: [動的監査](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)を有効にします。
 - `DynamicKubeletConfig`: kubeletの動的構成を有効にします。[kubeletの再設定](/docs/tasks/administer-cluster/reconfigure-kubelet/)を参照してください。
 - `DynamicProvisioningScheduling`: デフォルトのスケジューラーを拡張してボリュームトポロジーを認識しPVプロビジョニングを処理します。この機能は、v1.12の`VolumeScheduling`機能に完全に置き換えられました。
-- `DynamicVolumeProvisioning`(*非推奨*): ポッドへの永続ボリュームの[動的プロビジョニング](/docs/concepts/storage/dynamic-provisioning/)を有効にします。
+- `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/docs/concepts/storage/dynamic-provisioning/)を有効にします。
 - `EnableEquivalenceClassCache`: ポッドをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
 - `ExpandInUsePersistentVolumes`: 使用中のPVCのボリューム拡張を有効にします。[使用中のPersistentVolumeClaimのサイズ変更](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)を参照してください。
 - `ExpandPersistentVolumes`: 永続ボリュームの拡張を有効にします。[永続ボリューム要求の拡張](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)を参照してください。
