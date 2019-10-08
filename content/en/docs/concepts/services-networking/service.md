@@ -547,12 +547,11 @@ spec:
       port: 80
       targetPort: 9376
   clusterIP: 10.0.171.239
-  loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-      - ip: 146.148.47.155
+    - ip: 192.0.2.127
 ```
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
