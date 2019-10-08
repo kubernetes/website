@@ -171,9 +171,9 @@ In case the discovery file does not contain credentials, the TLS discovery token
 **Disadvantages:**
 
  - Requires that you have some way to carry the discovery information from
-   the control-plane node to the bootstrapping nodes. This might be possible, for example,
-   via your cloud provider or provisioning tool. The information in this file is
-   not secret, but HTTPS or equivalent is required to ensure its integrity.
+   the control-plane node to the bootstrapping nodes. If the discovery file contains credentials
+   you must keep it secret and transfer it over a secure channel. This might be possible with your
+   cloud provider or provisioning tool.
 
 ### Securing your installation even more {#securing-more}
 
