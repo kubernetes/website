@@ -86,7 +86,7 @@ kube-scheduler has a default set of scheduling policies.
 ### Filtering
 
 - `PodFitsHostPorts`: Checks if a Node has free ports (the network protocol kind)
-  for the Pod ports the the Pod is requesting.
+  for the Pod ports the Pod is requesting.
 
 - `PodFitsHost`: Checks if a Pod specifies a specific Node by it hostname.
 
