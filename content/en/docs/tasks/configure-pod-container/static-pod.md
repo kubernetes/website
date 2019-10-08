@@ -53,7 +53,7 @@ You can configure a static Pod two different ways: either by using configuration
 
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
-The configuration files are just standard Pod definitions in JSON or YAML format in a specific directory. Use `kubelet --pod-manifest-path=<the directory>` to start the kubelet or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
+Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static Pod:
