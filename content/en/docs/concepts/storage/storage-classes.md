@@ -134,7 +134,7 @@ Azure File | 1.11
 Azure Disk | 1.11
 Portworx | 1.11
 FlexVolume | 1.13
-CSI | 1.14 ,1.15 (alpha) ,1.16 (beta)
+CSI | 1.14 (alpha), 1.16 (beta)
 
 {{< /table >}}
 
