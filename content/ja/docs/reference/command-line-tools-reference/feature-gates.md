@@ -246,7 +246,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CustomResourceSubresources`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。
 - `CustomResourceValidation`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースのスキーマによる検証を有効にする。
 - `CustomResourceWebhookConversion`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースのWebhookベースの変換を有効にします。
-- `DebugContainers`: ポッドのネームスペースで「デバッグ」コンテナを実行できるようにして実行中のPodのトラブルシューティングを行います。
+- `DebugContainers`: Podのネームスペースで「デバッグ」コンテナを実行できるようにして実行中のPodのトラブルシューティングを行います。
 - `DevicePlugins`: [device-plugins](/docs/concepts/cluster-administration/device-plugins/)によるノードでのリソースプロビジョニングを有効にします。
 - `DryRun`: サーバーサイドでの[dry run](/docs/reference/using-api/api-concepts/#dry-run)リクエストを有効にします。
 - `DynamicAuditing`: [動的監査](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)を有効にします。
