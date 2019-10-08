@@ -351,7 +351,7 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
-- Should you have an alias for kubectl, completion can can be extended to work for it as well:
+- If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
@@ -419,7 +419,7 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
-- Should you have an alias for kubectl, completion can can be extended to work for it as well:
+- If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
@@ -445,7 +445,7 @@ To do so in all your shell sessions, add the following to your `~/.zshrc` file:
 source <(kubectl completion zsh)
 ```
 
-Should you have an alias for kubectl, completion can can be extended to work for it as well:
+If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
     ```shell
     echo 'alias k=kubectl' >>~/.zshrc
