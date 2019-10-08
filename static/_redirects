@@ -531,7 +531,6 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/setup/turnkey/clc/     /docs/setup/production-environment/turnkey/clc/   301
 /docs/setup/turnkey/gce/     /docs/setup/production-environment/turnkey/gce/   301
 /docs/setup/turnkey/icp/     /docs/setup/production-environment/turnkey/icp/   301
-/docs/setup/turnkey/stackpoint/     /docs/setup/production-environment/turnkey/stackpoint/   301
 /docs/setup/on-premises-vm/cloudstack/     /docs/setup/production-environment/on-premises-vm/cloudstack/   301
 /docs/setup/on-premises-vm/dcos/     /docs/setup/production-environment/on-premises-vm/dcos/   301
 /docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301
