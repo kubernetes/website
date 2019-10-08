@@ -27,6 +27,8 @@ the difference between requests and limits, see
 
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
 CPU is specified in units of cores, and memory is specified in units of bytes.
+Starting from version 1.16, *Hugepages* also can be specified. Typical sizes are 2Mi and 1Gi.
+Unlike CPU and memory, Hugepages do not support overcommit.
 
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
@@ -42,13 +44,16 @@ Each Container of a Pod can specify one or more of the following:
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
+* `spec.containers[].resources.limits.hugepages-<size>`
 * `spec.containers[].resources.requests.cpu`
 * `spec.containers[].resources.requests.memory`
+* `spec.containers[].resources.requests.hugepages-<size>`
 
 Although requests and limits can only be specified on individual Containers, it
 is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
 resource requests/limits of that type for each Container in the Pod.
+
 
 ## Meaning of CPU
 
