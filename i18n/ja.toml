@@ -77,7 +77,7 @@ other = "Kubernetesの機能"
 other = """私達は<a href="https://cncf.io/">CNCF</a> graduated プロジェクトです</p>"""
 
 [main_kubeweekly_baseline]
-other = "最新のkubernetesのニュースを受け取りたいですか？ KubeWeeklyにサインアップしてください。"
+other = "最新のKubernetesのニュースを受け取りたいですか？ KubeWeeklyにサインアップしてください。"
 
 [main_kubernetes_past_link]
 other = "過去のニュースレターを見る"
