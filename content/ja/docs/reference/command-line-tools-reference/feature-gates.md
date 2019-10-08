@@ -299,7 +299,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `TokenRequestProjection`: [投影ボリューム](/docs/concepts/storage/volumes/#projected)を使用したポッドへのサービスアカウントのトークンの注入を有効にします。
 - `TTLAfterFinished`: [TTLコントローラー](/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
 - `VolumePVCDataSource`: 既存のPVCをデータソースとして指定するサポートを有効にします。
-- `VolumeScheduling`: ボリュームトポロジ対応のスケジューリングを有効にし、PersistentVolumeClaim（PVC）バインディングにスケジューリングの決定を認識させます。また`PersistentLocalVolumes`機能ゲートと一緒に使用すると[`local`](/docs/concepts/storage/volumes/#local)ボリュームタイプの使用が可能になります。
+- `VolumeScheduling`: ボリュームトポロジー対応のスケジューリングを有効にし、PersistentVolumeClaim（PVC）バインディングにスケジューリングの決定を認識させます。また`PersistentLocalVolumes`機能ゲートと一緒に使用すると[`local`](/docs/concepts/storage/volumes/#local)ボリュームタイプの使用が可能になります。
 - `VolumeSnapshotDataSource`: ボリュームスナップショットのデータソースサポートを有効にします。
 - `VolumeSubpathEnvExpansion`: 環境変数を`subPath`に展開するための`subPathExpr`フィールドを有効にします。
 - `WatchBookmark`: ブックマークイベントの監視サポートを有効にします。
