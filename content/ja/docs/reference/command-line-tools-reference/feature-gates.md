@@ -230,7 +230,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CRIContainerLogRotation`: criコンテナランタイムのコンテナログローテーションを有効にします。
 - `CSIBlockVolume`: 外部CSIボリュームドライバーを有効にしてブロックストレージをサポートします。詳細は[`csi`Rawブロックボリュームのサポート](/docs/concepts/storage/volumes/#csi-raw-block-volume-support)で確認できます。
 - `CSIDriverRegistry`: csi.storage.k8s.ioのCSIDriver APIオブジェクトに関連するすべてのロジックを有効にします。
-- `CSIInlineVolume`: ポッドのCSIインラインボリュームサポートを有効にします。
+- `CSIInlineVolume`: PodのCSIインラインボリュームサポートを有効にします。
 - `CSIMigration`: シムと変換ロジックを有効にしてボリューム操作をKunbernetesリポジトリー内のプラグインから対応した事前インストール済みのCSIプラグインにルーティングします。
 - `CSIMigrationAWS`: シムと変換ロジックを有効にしてボリューム操作をKunbernetesリポジトリ内のAWS-EBSプラグインからEBS CSIプラグインにルーティングします。
 - `CSIMigrationAzureDisk`: シムと変換ロジックを有効にしてボリューム操作をKunbernetesリポジトリ内のAzure-DiskプラグインからAzure Disk CSIプラグインにルーティングします。
