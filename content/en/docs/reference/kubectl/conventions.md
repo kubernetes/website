@@ -72,7 +72,7 @@ even when the default generator is changed later.
 The flags set the generator in the following order: first the `--schedule` flag, then the `--restart` policy flag, and finally the `--generator` flag.
 
 To check the final resource that was created, use the `--dry-run`
-flag, which provides the object to be submitted to the cluster.
+flag, which only prints the object that would be sent to the cluster without really sending it.
 
 ### `kubectl apply`
 
