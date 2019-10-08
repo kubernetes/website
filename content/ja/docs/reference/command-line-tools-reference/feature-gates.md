@@ -253,7 +253,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `DynamicKubeletConfig`: kubeletの動的構成を有効にします。[kubeletの再設定](/docs/tasks/administer-cluster/reconfigure-kubelet/)を参照してください。
 - `DynamicProvisioningScheduling`: デフォルトのスケジューラーを拡張してボリュームトポロジーを認識しPVプロビジョニングを処理します。この機能は、v1.12の`VolumeScheduling`機能に完全に置き換えられました。
 - `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/docs/concepts/storage/dynamic-provisioning/)を有効にします。
-- `EnableEquivalenceClassCache`: ポッドをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
+- `EnableEquivalenceClassCache`: Podをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
 - `ExpandInUsePersistentVolumes`: 使用中のPVCのボリューム拡張を有効にします。[使用中のPersistentVolumeClaimのサイズ変更](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)を参照してください。
 - `ExpandPersistentVolumes`: 永続ボリュームの拡張を有効にします。[永続ボリューム要求の拡張](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)を参照してください。
 - `ExperimentalCriticalPodAnnotation`: [スケジューリングが保証されるよう](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)に特定のポッドへの *クリティカル* の注釈を加える設定を有効にします。
@@ -269,12 +269,12 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `MountContainers`: ホスト上のユーティリティコンテナをボリュームマウンターとして使用できるようにします。
 - `MountPropagation`: あるコンテナによってマウントされたボリュームを他のコンテナまたはポッドに共有できるようにします。詳細は[マウントの伝播](/docs/concepts/storage/volumes/#mount-propagation)で確認できます。
 - `NodeLease`: 新しいLease APIを有効にしてノードヘルスシグナルとして使用できるノードのハートビートをレポートします。
-- `NonPreemptingPriority`: PriorityClassとポッドのNonPreemptingオプションを有効にします。
+- `NonPreemptingPriority`: PriorityClassとPodのNonPreemptingオプションを有効にします。
 - `PersistentLocalVolumes`: Podsで`local`ボリュームタイプの使用を有効にします。`local`ボリュームを要求する場合、ポッドアフィニティを指定する必要があります。
-- `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてポッドの再スケジューリングとプリエンプションを有効にします。
-- `PodReadinessGates`: ポッドのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[ポッドreadinessゲート](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
+- `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてPodの再スケジューリングとプリエンプションを有効にします。
+- `PodReadinessGates`: Posのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[ポッドreadinessゲート](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
 - `ProcMountType`: コンテナのProcMountTypeの制御を有効にします。
-- `PVCProtection`: 永続ボリューム要求（PVC）がポッドでまだ使用されているときに削除されないようにします。詳細は[ここ](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
+- `PVCProtection`: 永続ボリューム要求（PVC）がPodでまだ使用されているときに削除されないようにします。詳細は[ここ](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
 - `ResourceLimitsPriorityFunction`: 入力したPodのCPU制限とメモリ制限の少なくとも1つを満たすノードに対して最低スコアを1に割り当てるスケジューラー優先機能を有効にします。その目的は同じスコアを持つノード間の関係を断つことです。
 - `RequestManagement`: 各サーバーで優先順位付けと公平性を備えたリクエストの並行性の管理機能を有効にしました。
 - `ResourceQuotaScopeSelectors`: リソース割当のスコープセレクターを有効にします。
@@ -282,7 +282,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `RotateKubeletServerCertificate`: kubeletでサーバーTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
 - `RunAsGroup`: コンテナの初期化プロセスで設定されたプライマリグループIDの制御を有効にします。
 - `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/docs/concepts/containers/runtime-class/)機能を有効にします。
-- `ScheduleDaemonSetPods`: DaemonSetポッドをDaemonSetコントローラーではなく、デフォルトのスケジューラーによってスケジュールされるようにします。
+- `ScheduleDaemonSetPods`: DaemonSetのPodをDaemonSetコントローラーではなく、デフォルトのスケジューラーによってスケジュールされるようにします。
 - `SCTPSupport`: `Service`、`Endpoint`、`NetworkPolicy`、`Pod`の定義で`protocol`の値としてSCTPを使用できるようにします
 - `ServerSideApply`: APIサーバーで[サーバーサイドApply（SSA](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
@@ -291,7 +291,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `StorageVersionHash`: apiserversがディスカバリーでストレージのバージョンハッシュを公開できるようにします。
 - `StreamingProxyRedirects`: ストリーミングリクエストのバックエンド(kubelet)からのリダイレクトをインターセプト（およびフォロー）するようAPIサーバーに指示します。ストリーミングリクエストの例には`exec`、`attach`、`port-forward`リクエストが含まれます。
 - `SupportIPVSProxyMode`: IPVSを使用したクラスター内サービスの負荷分散の提供を有効にします。詳細は[サービスプロキシ](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)で確認できます。
-- `SupportPodPidsLimit`: ポッドのPID制限のサポートを有効にします。
+- `SupportPodPidsLimit`: PodのPID制限のサポートを有効にします。
 - `Sysctls`: 各ポッドに設定できる名前空間付きのカーネルパラメーター(sysctl)のサポートを有効にします。詳細は[sysctls](/docs/tasks/administer-cluster/sysctl-cluster/)で確認できます。
 - `TaintBasedEvictions`: ノードの汚染とポッドの許容に基づいてノードからポッドを排除できるようにします。。詳細は[汚染と許容](/docs/concepts/configuration/taint-and-toleration/)で確認できます。
 - `TaintNodesByCondition`: [ノードの条件](/docs/concepts/architecture/nodes/#condition)に基づいてノードの自動汚染を有効にします。
