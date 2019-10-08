@@ -52,7 +52,7 @@ spec:
 * `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`：用于在 ELB 上启用代理协议。 当前仅接受 `*` 值，也就是在所有 ELB 后端启用代理协议。 将来可能进行调整，只允许特定的后端设置代理协议。
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-ports`：用于在服务中指定一个逗号分隔的端口列表，这些端口会使用 SSL/HTTPS 监听器。 默认为 `*`（全部）
 
-AWS 相关的注解信息取自 [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go) 文件的注释。
+AWS 相关的注解信息取自 [aws.go](https://github.com/kubernetes/cloud-provider-aws/blob/master/pkg/cloudprovider/providers/aws/aws.go) 文件的注释。
 
 # OpenStack
 本节介绍了使用 OpenStack 运行 Kubernetes 时所有可用的配置。
