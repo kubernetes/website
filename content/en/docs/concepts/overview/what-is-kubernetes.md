@@ -1,13 +1,13 @@
 ---
 reviewers:
-- bgrant0607
+- cgrant9596
 - mikedanese
 title: What is Kubernetes
 content_template: templates/concept
-weight: 10
+weight: 01
 card:
   name: concepts
-  weight: 10
+  weight: 01
 ---
 
 {{% capture overview %}}
