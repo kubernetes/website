@@ -272,7 +272,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `NonPreemptingPriority`: PriorityClassとPodのNonPreemptingオプションを有効にします。
 - `PersistentLocalVolumes`: Podsで`local`ボリュームタイプの使用を有効にします。`local`ボリュームを要求する場合、ポッドアフィニティを指定する必要があります。
 - `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてPodの再スケジューリングとプリエンプションを有効にします。
-- `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[ポッドreadinessゲート](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
+- `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
 - `ProcMountType`: コンテナのProcMountTypeの制御を有効にします。
 - `PVCProtection`: 永続ボリューム要求（PVC）がPodでまだ使用されているときに削除されないようにします。詳細は[ここ](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
 - `ResourceLimitsPriorityFunction`: 入力したPodのCPU制限とメモリ制限の少なくとも1つを満たすノードに対して最低スコアを1に割り当てるスケジューラー優先機能を有効にします。その目的は同じスコアを持つノード間の関係を断つことです。
