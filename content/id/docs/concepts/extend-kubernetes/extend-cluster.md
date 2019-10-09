@@ -141,37 +141,37 @@ Setalah permintaan diotorisasi, jika ini adalah operasi penulisan, permintaan in
 
 ## Perluasan Infrastruktur
 
-### Plugin Penyimpanan
+### _Plugin_ Penyimpanan
 
 [Flex Volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe-tipe volume tanpa dukungan bawaan dengan cara membiarkan Kubelet memanggil sebuah _Plugin Binary_ untuk menambatkan volume.
 
-### Plugin Perangkat
+### _Plugin_ Perangkat
 
-Plugin perangkat memungkinkan sebuah node untuk menemukan sumber daya Node baru (sebagai tambahan dari bawaannya seperti cpu dan memori) via [Plugin Perangkat](/docs/concepts/cluster-administration/device-plugins/).
+_Plugin_ perangkat memungkinkan sebuah node untuk menemukan sumber daya Node baru (sebagai tambahan dari bawaannya seperti CPU dan memori) melalui sebuah [_Plugin_ Perangkat](/docs/concepts/cluster-administration/device-plugins/).
 
-### Plugin Jaringan
+### _Plugin_ Jaringan
 
-Struktur jaringan yang berbeda dapat di dukung via node-level [Plugin Jaringan](/docs/admin/network-plugins/)
+Struktur-struktur jaringan yang berbeda dapat didukung melalui [_Plugin_ Jaringan](/docs/admin/network-plugins/) pada tingkat Node.
 
-### Perluasan Penjadwal
+### Perluasan-perluasan Penjadwal
 
-Penjadwal adalah jenis kontroler spesial yang mengawasi pod, dan menugaskan pod ke node. Penjadwal standar dapat digantikan seluruhnya, sementara  terus menggunakan komponen Kubernetes lainnya, atau [penjadwal ganda](/docs/tasks/administer-cluster/configure-multiple-schedulers/) dapat berjalan dalam waktu yang bersamaan.
+Penjadwal adalah jenis pengatur spesial yang mengawasi Pod, dan menempatkan Pod ke Node. Penjadwal bawaan dapat digantikan seluruhnya, sementara  terus menggunakan komponen Kubernetes lainnya, atau [penjadwal ganda](/docs/tasks/administer-cluster/configure-multiple-schedulers/) dapat berjalan dalam waktu yang bersamaan.
 
-Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal.
+Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal tersebut.
 
-Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah _webhook_ backend (perluasan penjadwal) untuk menyaring dan memprioritaskan node yang terpilih untuk sebuah pod.
+Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah _webhook backend_ (perluasan penjadwal) untuk menyaring dan memprioritaskan Node yang terpilih untuk sebuah Pod.
 
 {{% /capture %}}
 
 
 {{% capture whatsnext %}}
 
-* Pelajari lanjut tentang [Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/)
+* Pelajari lebih lanjut tentang [Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/)
 * Pelajari tentang [Kontrol Admisi Dinamis](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Pelajari lebih lanjut tentang perluasan Infrastruktur
-  * [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)
-  * [Plugin Perangkat](/docs/concepts/cluster-administration/device-plugins/)
-* Pelajari tentang [Plugin kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
-* Pelajari tentang [Operator Pola](/docs/concepts/extend-kubernetes/operator/)
+  * [_Plugin_ Jaringan](/docs/concepts/cluster-administration/network-plugins/)
+  * [_Plugin_ Perangkat](/docs/concepts/cluster-administration/device-plugins/)
+* Pelajari tentang [_Plugin_ kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
+* Pelajari tentang [Pola Operator](/docs/concepts/extend-kubernetes/operator/)
 
 {{% /capture %}}
