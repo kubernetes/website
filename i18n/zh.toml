@@ -71,7 +71,7 @@ other = "分享您的故事"
 other = "亦称作"
 
 [layouts_docs_glossary_description]
-other = "此术语表旨在提供Kubernetes术语的完整、标准列表。其中包含特定于 Kubernetes 的技术术语以及能够构造有用的语境的一般性术语。"
+other = "此术语表旨在提供 Kubernetes 术语的完整、标准列表。其中包含特定于 Kubernetes 的技术术语以及能够构造有用的语境的一般性术语。"
 
 [layouts_docs_glossary_deselect_all]
 other = "全不选"
@@ -119,7 +119,7 @@ other = "了解社区"
 other = "贡献"
 
 [main_copyright_notice]
-other = """Linux 基金会&reg;。保留所有权利。Linux Foundation 已注册并使用商标。如需了解 Linux 基金会的商标列表，请访问<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商标使用页面</a>"""
+other = """Linux 基金会&reg;。保留所有权利。Linux 基金会已注册并使用商标。如需了解 Linux 基金会的商标列表，请访问<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商标使用页面</a>"""
 
 [main_documentation_license]
 other = """The Kubernetes 作者 | 文档发布基于 <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> 授权许可"""
@@ -128,7 +128,7 @@ other = """The Kubernetes 作者 | 文档发布基于 <a href="https://git.k8s.i
 other = "修改本页面"
 
 [main_github_create_an_issue]
-other = "创建 GitHub issue"
+other = "报告 GitHub 问题"
 
 [main_github_invite]
 other = "想要修改 Kubernetes 的核心源代码？"
@@ -161,7 +161,7 @@ other = "Read about"
 other = "了解更多"
 
 [note]
-other = "注意:"
+other = "注意："
 
 [objectives_heading]
 other = "教程目标"
@@ -182,7 +182,7 @@ other = "您的 Kubernetes 服务器版本必须不低于版本 "
 other = "要获知版本信息，请输入 "
 
 [warning]
-other = "Warning:"
+other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
