@@ -10,8 +10,11 @@ card:
 ---
 
 {{% capture overview %}}
-This document outlines the various binary components needed to
-deliver a functioning Kubernetes cluster.
+When you deploy Kubernetes, you get a cluster.
+{{< glossary_definition term_id="cluster" length="all" prepend="A cluster is">}}
+
+This document outlines the various components you need to have
+a complete and working Kubernetes cluster.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -109,7 +112,7 @@ about containers in a central database, and provides a UI for browsing that data
 
 ### Cluster-level Logging
 
-A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
+A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
 {{% /capture %}}
