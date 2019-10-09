@@ -78,7 +78,7 @@ To remove the taint added by the command above, you can run:
 -->
 想删除上述命令添加的 taint ，您可以运行：
 ```shell
-kubectl taint nodes kube11 key:NoSchedule-
+kubectl taint nodes node1 key:NoSchedule-
 ```
 
 ```yaml
@@ -357,11 +357,7 @@ based on the Ready NodeCondition is disabled.
 
 {{< note >}}
 <!--
-<<<<<<< HEAD
 To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
-=======
-**Note:** To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
->>>>>>> Update localization guidelines (#10485)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.

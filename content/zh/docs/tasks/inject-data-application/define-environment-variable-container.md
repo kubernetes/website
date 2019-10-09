@@ -30,26 +30,25 @@ content_template: templates/task
 
 1. 基于YAML文件创建一个Pod:
 
-<<<<<<< HEAD
     ```shell
     kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
     ```
-
+       
 1. 获取一下当前正在运行的Pods信息:
 
     ```shell
     kubectl get pods -l purpose=demonstrate-envars
     ```
-
+       
     查询结果应为:
-
-    ```log
+    
+    ```shell
     NAME            READY     STATUS    RESTARTS   AGE
     envar-demo      1/1       Running   0          9s
     ```
-
+      
 1. 进入该Pod下的容器并打开一个命令终端:
-
+    
     ```shell
     kubectl exec -it envar-demo -- /bin/bash
     ```
@@ -59,45 +58,17 @@ content_template: templates/task
     ```shell
     root@envar-demo:/# printenv
     ```
-
+    
     打印结果应为:
-
-    ```log
+    
+    ```shell
     NODE_VERSION=4.4.2
     EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
     HOSTNAME=envar-demo
     ...
     DEMO_GREETING=Hello from the environment
     ```
-=======
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
-
-1. 获取一下当前正在运行的Pods信息:
-
-       kubectl get pods -l purpose=demonstrate-envars
-
-    查询结果应为:
-
-        NAME            READY     STATUS    RESTARTS   AGE
-        envar-demo      1/1       Running   0          9s
-
-1. 进入该Pod下的容器并打开一个命令终端:
-
-       kubectl exec -it envar-demo -- /bin/bash
-
-1. 在命令终端中通过执行`printenv`打印出环境变量。
-
-       root@envar-demo:/# printenv
-
-    打印结果应为:
-
-        NODE_VERSION=4.4.2
-        EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
-        HOSTNAME=envar-demo
-        ...
-        DEMO_GREETING=Hello from the environment
->>>>>>> Update localization guidelines (#10485)
-
+        
 1. 通过键入`exit`退出命令终端。
 
 {{% /capture %}}

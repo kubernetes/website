@@ -148,52 +148,31 @@ The following enumerates the set of defined key/value pairs that are supported t
 
 <!--
 Key | Value
+`api_servers` | (Optional) The IP address / host name where a kubelet can get read-only access to kube-apiserver
+`cbr-cidr` | (Optional) The minion IP address range used for the docker container bridge.
+`cloud` | (Optional) Which IaaS platform is used to host Kubernetes, *gce*, *azure*, *aws*, *vagrant*
+`etcd_servers` | (Optional) Comma-delimited list of IP addresses the kube-apiserver and kubelet use to reach etcd.  Uses the IP of the first machine in the kubernetes_master role, or 127.0.0.1 on GCE.
+`hostnamef` | (Optional) The full host name of the machine, i.e. uname -n
+`node_ip` | (Optional) The IP address to use to address this node
+`hostname_override` | (Optional) Mapped to the kubelet hostname-override
+`network_mode` | (Optional) Networking model to use among nodes: *openvswitch*
+`networkInterfaceName` | (Optional) Networking interface to use to bind addresses, default value *eth0*
+`publicAddressOverride` | (Optional) The IP address the kube-apiserver should use to bind against for external read-only access
+`roles` | (Required) 1. `kubernetes-master` means this machine is the master in the Kubernetes cluster.  2. `kubernetes-pool` means this machine is a kubernetes-node.  Depending on the role, the Salt scripts will provision different resources on the machine.
+
 -->
 键 | 值
 -----------------------------------|----------------------------------------------------------------
-<!--
-`api_servers` | (Optional) The IP address / host name where a kubelet can get read-only access to kube-apiserver
--->
 `api_servers` | （可选） IP 地址/主机名 ，kubelet 用其访问 kube-apiserver
-<!--
-`cbr-cidr` | (Optional) The minion IP address range used for the docker container bridge.
--->
 `cbr-cidr` | （可选） docker 容器网桥分配给 minion 节点的 IP 地址范围
-<!--
-`cloud` | (Optional) Which IaaS platform is used to host Kubernetes, *gce*, *azure*, *aws*, *vagrant*
--->
 `cloud` | （可选） 托管 Kubernetes 的 IaaS 平台， *gce*, *azure*, *aws*, *vagrant*
-<!--
-`etcd_servers` | (Optional) Comma-delimited list of IP addresses the kube-apiserver and kubelet use to reach etcd.  Uses the IP of the first machine in the kubernetes_master role, or 127.0.0.1 on GCE.
--->
 `etcd_servers` | （可选） 以逗号分隔的 IP 地址列表，kube-apiserver 和 kubelet 使用其访问 etcd。kubernetes_master 角色的节点使用第一个机器的 IP ，在 GCE 环境上使用 127.0.0.1。
-<!--
-`hostnamef` | (Optional) The full host name of the machine, i.e. uname -n
--->
 `hostnamef` | （可选） 机器的完整主机名，即：uname -n
-<!--
-`node_ip` | (Optional) The IP address to use to address this node
--->
 `node_ip` | （可选）用于定位本节点的 IP 地址
-<!--
-`hostname_override` | (Optional) Mapped to the kubelet hostname-override
--->
 `hostname_override` | （可选）对应 kubelet 的 hostname-override 参数
-<!--
-`network_mode` | (Optional) Networking model to use among nodes: *openvswitch*
--->
 `network_mode` | （可选）节点间使用的网络模型：*openvswitch*
-<!--
-`networkInterfaceName` | (Optional) Networking interface to use to bind addresses, default value *eth0*
--->
 `networkInterfaceName` | （可选）用于绑定地址的网络接口，默认值 *eth0*
-<!--
-`publicAddressOverride` | (Optional) The IP address the kube-apiserver should use to bind against for external read-only access
--->
 `publicAddressOverride` | （可选）kube-apiserver 用于外部只读访问而绑定的IP地址
-<!--
-`roles` | (Required) 1. `kubernetes-master` means this machine is the master in the Kubernetes cluster.  2. `kubernetes-pool` means this machine is a kubernetes-node.  Depending on the role, the Salt scripts will provision different resources on the machine.
--->
 `roles` | （必选）1、`kubernetes-master` 表示本节点是 Kubernetes 集群的 master。2、`kubernetes-pool` 表示本节点是一个 kubernetes-node。根据角色，Salt 脚本会在机器上提供不同的资源
 
 <!--

@@ -35,7 +35,7 @@ kubectl [command] [TYPE] [NAME] [flags]
         * 要分别指定多种资源类型:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
         例: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
-     使用一个或多个文件指定资源： `-f file1 -f file2 -f file<#>` 使用[YAML而不是JSON](/docs/concepts/configuration/overview/#general-config-tips)，因为YAML往往更加用户友好，特别是对于配置文件。<br/>
+     使用一个或多个文件指定资源： `-f file1 -f file2 -f file<#>` 使用[YAML而不是JSON](/docs/concepts/configuration/overview/#general-configuration-tips)，因为YAML往往更加用户友好，特别是对于配置文件。<br/>
      例：$ kubectl get pod -f ./pod.yaml
 
 * flags：指定可选标志。例如，您可以使用`-s`或`--serverflags`来指定Kubernetes API服务器的地址和端口。
@@ -188,7 +188,7 @@ submit-queue   610995
 ```
 
 ### 排序列表对象
-要将对象输出到终端窗口中的排序列表，可以将该`--sort-by`标志添加到支持的`kubectl`命令中。通过使用`--sort-by`标志指定任何数字或字符串字段来对对象进行排序。要指定一个字段，请使用[jsonpath](/docs/user-guide/jsonpath)表达式。
+要将对象列表在终端窗口中排序输出，可以将该`--sort-by`标志添加到支持的`kubectl`命令中。通过使用`--sort-by`标志指定任何数字或字符串字段来对对象进行排序。要指定一个字段，请使用[jsonpath](/docs/user-guide/jsonpath)表达式。
 
 #### 语法
 

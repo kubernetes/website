@@ -65,7 +65,7 @@ url: /blog/2018/03/Principles-Of-Container-App-Design
 
 — [Bilgin Ibryam][4], 首席架构师, Red Hat
 
-Twitter:  
+Twitter: 
 Blog: [http://www.ofbizian.com][5]
 Linkedin:
 

@@ -67,11 +67,7 @@ username.txt:    5 bytes
 
 请注意，默认情况下，`get` 和 `describe` 命令都不会显示文件的内容。这是为了防止将 secret 中的内容被意外暴露给从终端日志记录中刻意寻找它们的人。
 
-<<<<<<< HEAD
 请参阅 [解码 secret](#解码-secret) 了解如何查看它们的内容。
-=======
-请参阅 [解码 secret](#decoding-a-secret) 了解如何查看它们的内容。
->>>>>>> Update localization guidelines (#10485)
 
 #### 手动创建 Secret
 
@@ -126,10 +122,7 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "164619"
-<<<<<<< HEAD
-=======
   selfLink: /api/v1/namespaces/default/secrets/mysecret
->>>>>>> Update localization guidelines (#10485)
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 ```
@@ -555,13 +548,13 @@ spec:
 
 ### 客户端使用 Secret API
 
-当部署与 secret API 交互的应用程序时，应使用诸如 [RBAC](https://kubernetes.io/docs/admin/authorization/rbac/) 之类的 [授权策略](https://kubernetes.io/docs/admin/authorization/) 来限制访问。
+当部署与 secret API 交互的应用程序时，应使用诸如 [RBAC](/docs/admin/authorization/rbac/) 之类的 [授权策略](/docs/admin/authorization/) 来限制访问。
 
 Secret 中的值对于不同的环境来说重要性可能不同，例如对于 Kubernetes 集群内部（例如 service account 令牌）和集群外部来说就不一样。即使一个应用程序可以理解其期望的与之交互的 secret 有多大的能力，但是同一命名空间中的其他应用程序却可能不这样认为。
 
 由于这些原因，在命名空间中 `watch` 和 `list`  secret 的请求是非常强大的功能，应该避免这样的行为，因为列出 secret 可以让客户端检查所有 secret 是否在该命名空间中。在群集中`watch` 和 `list` 所有 secret 的能力应该只保留给最有特权的系统级组件。
 
-需要访问 secrets API 的应用程序应该根据他们需要的 secret 执行 `get` 请求。这允许管理员限制对所有 secret 的访问，同时设置 [白名单访问](https://kubernetes.io/docs/admin/authorization/rbac/#referring-to-resources) 应用程序需要的各个实例。
+需要访问 secrets API 的应用程序应该根据他们需要的 secret 执行 `get` 请求。这允许管理员限制对所有 secret 的访问，同时设置 [白名单访问](/docs/admin/authorization/rbac/#referring-to-resources) 应用程序需要的各个实例。
 
 为了提高循环获取的性能，客户端可以设计引用 secret 的资源，然后 `watch` 资源，在引用更改时重新请求 secret。此外，还提出了一种 [”批量监控“ API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/bulk_watch.md) 来让客户端 `watch` 每个资源，该功能可能会在将来的 Kubernetes 版本中提供。
 
@@ -590,8 +583,4 @@ Pod 中有多个容器。但是，pod 中的每个容器必须请求其挂载卷
 - 应用程序在从卷中读取 secret 后仍然需要保护 secret 的值，例如不会意外记录或发送给不信任方。
 - 可以创建和使用 secret 的 pod 的用户也可以看到该 secret 的值。即使 API server 策略不允许用户读取 secret 对象，用户也可以运行暴露 secret 的 pod。
 - 如果运行了多个副本，那么这些 secret 将在它们之间共享。默认情况下，etcd 不能保证与 SSL/TLS 的对等通信，尽管可以进行配置。
-<<<<<<< HEAD
 - 目前，任何节点的 root 用户都可以通过模拟 kubelet 来读取 API server 中的任何 secret。只有向实际需要它们的节点发送 secret 才能限制单个节点的根漏洞的影响，该功能还在计划中。
-=======
-- 目前，任何节点的 root 用户都可以通过模拟 kubelet 来读取 API server 中的任何 secret。只有向实际需要它们的节点发送 secret 才能限制单个节点的根漏洞的影响，该功能还在计划中。
->>>>>>> Update localization guidelines (#10485)

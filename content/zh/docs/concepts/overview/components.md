@@ -6,10 +6,6 @@ redirect_from:
 - "/docs/admin/cluster-components/"
 - "/docs/admin/cluster-components.html"
 content_template: templates/concept
-<<<<<<< HEAD
-weight: 20
-=======
->>>>>>> Update localization guidelines (#10485)
 ---
 {{% capture overview %}}
 本文档概述了 Kubernetes 所需的各种二进制组件, 用于提供齐全的功能。
@@ -25,7 +21,7 @@ Master 组件可以在集群中的任何节点上运行。然而，为了简单�
 
 ### API服务器
 
-[kube-apiserver](/docs/admin/kube-apiserver)对外暴露了Kubernetes API。它是的 Kubernetes 前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。请参阅[构建高可用性群集](/docs/admin/high-availability).
+[kube-apiserver](/docs/admin/kube-apiserver)对外暴露了Kubernetes API。它是 Kubernetes 的前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。请参阅[构建高可用性群集](/docs/admin/high-availability).
 
 ### etcd
 

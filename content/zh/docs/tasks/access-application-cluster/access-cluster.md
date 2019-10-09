@@ -1,15 +1,16 @@
-﻿<!--
+﻿---
+title: 访问集群
+weight: 20
+content_template: templates/concept
+---
+
+<!--
 ---
 title: Accessing Clusters
 weight: 20
 content_template: templates/concept
 ---
 -->
----
-title: 访问集群
-weight: 20
-content_template: templates/concept
----
 
 {{% capture overview %}}
 
@@ -133,11 +134,8 @@ In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the
 
 在 Kubernetes 1.3 或更高版本中，`kubectl config view` 不再显示 token。使用 `kubectl describe secret ...` 来获取默认服务帐户的 token，如下所示：
 
-<<<<<<< HEAD
 `grep/cut` 方法实现：
 
-=======
->>>>>>> Update localization guidelines (#10485)
 ```shell
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
 $ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
@@ -156,7 +154,6 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-<<<<<<< HEAD
 `jsonpath` 方法实现：
 
 ```shell
@@ -177,8 +174,6 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-=======
->>>>>>> Update localization guidelines (#10485)
 <!--
 The above examples use the `--insecure` flag.  This leaves it subject to MITM
 attacks.  When kubectl accesses the cluster it uses a stored root certificate

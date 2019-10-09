@@ -40,15 +40,9 @@ metadata:
   namespace: kube-system
 data:
   stubDomains: |
-<<<<<<< HEAD
     {"acme.local": ["1.2.3.4"]}
   upstreamNameservers: |
     ["8.8.8.8", "8.8.4.4"]
-=======
-    {“acme.local”: [“1.2.3.4”]}
-  upstreamNameservers: |
-    [“8.8.8.8”, “8.8.4.4”]
->>>>>>> Update localization guidelines (#10485)
 ```
 
 
@@ -136,7 +130,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-dns
-<<<<<<< HEAD
   namespace: kube-system
 data:
   stubDomains: |
@@ -146,19 +139,6 @@ data:
 注意，集群管理员不希望覆盖节点的上游域名服务器，所以他们不会指定可选的 `upstreamNameservers` 字段。
 
 
-=======
-    namespace: kube-system
-    data:
-      stubDomains: |
-          {“consul.local”: [“10.150.0.1”]}
-```
-
-
-注意，集群管理员不希望覆盖节点的上游域名服务器，所以他们不会指定可选的 `upstreamNameservers` 字段。
-
-
-
->>>>>>> Update localization guidelines (#10485)
 ### 示例：上游域名服务器
 
 在这个示例中，集群管理员不希望显式地强制所有非集群 DNS 查询进入到他们自己的域名服务器 172.16.0.1。
@@ -169,17 +149,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-dns
-<<<<<<< HEAD
   namespace: kube-system
 data:
   upstreamNameservers: |
     ["172.16.0.1"]
-=======
-    namespace: kube-system
-    data:
-      upstreamNameservers: |
-          [“172.16.0.1”]
->>>>>>> Update localization guidelines (#10485)
 ```
 
 {{% /capture %}}

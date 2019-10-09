@@ -55,10 +55,7 @@ content_template: templates/tutorial
      name: example-redis-config
      namespace: default
      resourceVersion: "24686"
-<<<<<<< HEAD
-=======
      selfLink: /api/v1/namespaces/default/configmaps/example-redis-config
->>>>>>> Update localization guidelines (#10485)
      uid: 460a2b6e-f6a3-11e5-8ae5-42010af00002
    ```
 

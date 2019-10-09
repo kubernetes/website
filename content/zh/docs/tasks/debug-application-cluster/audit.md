@@ -79,11 +79,7 @@ Each request can be recorded with an associated "stage". The known stages are:
 
 {{< note >}}
 <!--
-<<<<<<< HEAD
 The audit logging feature increases the memory consumption of the API
-=======
-**Note** The audit logging feature increases the memory consumption of the API
->>>>>>> Update localization guidelines (#10485)
 server because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 -->
@@ -178,11 +174,7 @@ In both cases, audit events structure is defined by the API in the
 
 {{< note >}}
 <!--
-<<<<<<< HEAD
 In case of patches, request body is a JSON array with patch operations, not a JSON object
-=======
-**Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
->>>>>>> Update localization guidelines (#10485)
 with an appropriate Kubernetes API object. For example, the following request body is a valid patch
 request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 -->
@@ -610,7 +602,7 @@ Kubernetes 可能会在创建新的日志文件时删除旧的日志文件; 您�
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
 [auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
-[kubeconfig]: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
+[kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
 [fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
 [logstash]: https://www.elastic.co/products/logstash

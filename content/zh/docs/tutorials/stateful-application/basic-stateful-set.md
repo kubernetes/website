@@ -6,11 +6,7 @@ approvers:
 - janetkuo
 - kow3ns
 - smarterclayton
-<<<<<<< HEAD
 title: StatefulSet 基本使用
-=======
-title: StatefulSet基本使用
->>>>>>> Update localization guidelines (#10485)
 content_template: templates/tutorial
 ---
 
@@ -24,11 +20,7 @@ content_template: templates/tutorial
 在开始本教程之前，你应该熟悉以下 Kubernetes 的概念：
 
 * [Pods](/docs/user-guide/pods/single-container/)
-<<<<<<< HEAD
 * [集群 DNS](/docs/concepts/services-networking/dns-pod-service/)
-=======
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
->>>>>>> Update localization guidelines (#10485)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{< param "githubbranch" >}}/examples/persistent-volume-provisioning/)
@@ -54,17 +46,10 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 
 {{% capture lessoncontent %}}
 
-<<<<<<< HEAD
 ## 创建 StatefulSet
 
 
 作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中的示例相似。它创建了一个  [Headless Service](/docs/user-guide/services/#headless-services)  `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
-=======
-##创建 StatefulSet
-
-
-作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中的示例相似。它创建了一个  [Headless Service](/docs/user-guide/services/#headless-services)  `nginx` 用来发布StatefulSet `web` 中的 Pod 的 IP 地址。
->>>>>>> Update localization guidelines (#10485)
 
 {{< code file="web.yaml" >}}
 
@@ -146,11 +131,7 @@ web-1     1/1       Running   0          1m
 ```
 
 
-<<<<<<< HEAD
 如同 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中所提到的， StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。 Pod 的名称的形式为 `<statefulset name>-<ordinal index>`。`web` StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0` 和 `web-1`。
-=======
-如同 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中所提到的， StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。 Pod 的名称的形式为`<statefulset name>-<ordinal index>`。`web` StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0`和`web-1`。
->>>>>>> Update localization guidelines (#10485)
 
 
 ### 使用稳定的网络身份标识
@@ -467,13 +448,10 @@ kubectl delete pod web-0
 pod "web-0" deleted
 ```
 
-<--
+<!--
 Watch the `web-0` Pod, and wait for it to transition to Running and Ready.
 -->
-<<<<<<< HEAD
 
-=======
->>>>>>> Update localization guidelines (#10485)
 观察 `web-0` Pod， 等待它变成 Running 和 Ready。
 
 ```shell
@@ -500,20 +478,15 @@ web-1   k8s.gcr.io/nginx-slim:0.8
 web-2   k8s.gcr.io/nginx-slim:0.8
 ```
 
-<<<<<<< HEAD
 <!--
 `web-0` has had its image updated, but `web-0` and `web-1` still have the original 
 image. Complete the update by deleting the remaining Pods.
 -->
-`web-0` 已经更新了它的镜像，但是 `web-1` 和 `web-2` 仍保留了原始镜像。
+
+`web-0` 已经更新了它的容器镜像，但 `web-0` 和 `web-1` 仍然是原始版本的镜像。通过删除剩余的 Pod 来完成更新。
+
 
 ```shell
-=======
-`web-0` has had its image updated, but `web-0` and `web-1` still have the original 
-image. Complete the update by deleting the remaining Pods.
-
-​```shell
->>>>>>> Update localization guidelines (#10485)
 kubectl delete pod web-1 web-2
 pod "web-1" deleted
 pod "web-2" deleted
@@ -522,11 +495,7 @@ pod "web-2" deleted
 
 观察 StatefulSet 的 Pod，等待它们全部变成 Running 和 Ready。
 
-<<<<<<< HEAD
 ```shell
-=======
-```
->>>>>>> Update localization guidelines (#10485)
 kubectl get pods -w -l app=nginx
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          8m
@@ -1084,12 +1053,15 @@ web-2     1/1       Running   0         10s
 web-3     1/1       Running   0         26s
 ```
 
-<!
+<!--
 The StatefulSet controller launched two new Pods, and it did not wait for 
 the first to become Running and Ready prior to launching the second.
+-->
 
+<!--
 Keep this terminal open, and in another terminal delete the `web` StatefulSet.
 -->
+
 StatefulSet 控制器启动了两个新的 Pod，而且在启动第二个之前并没有等待第一个变成 Running 和 Ready 状态。
 
 保持这个终端打开，并在另一个终端删除 `web` StatefulSet。

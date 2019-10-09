@@ -46,15 +46,9 @@ _Pod 安全策略_ 是集群级别的资源，它能够控制 Pod 运行的行�
 
 _Pod 安全策略_ 由设置和策略组成，它们能够控制 Pod 访问的安全特征。这些设置分为如下三类：
 
-<<<<<<< HEAD
 - *基于布尔值控制* ：这种类型的字段默认为最严格限制的值。
 - *基于被允许的值集合控制* ：这种类型的字段会与这组值进行对比，以确认值被允许。
 - *基于策略控制* ：设置项通过一种策略提供的机制来生成该值，这种机制能够确保指定的值落在被允许的这组值中。
-=======
-- *基于布尔值控制*：这种类型的字段默认为最严格限制的值。
-- *基于被允许的值集合控制*：这种类型的字段会与这组值进行对比，以确认值被允许。
-- *基于策略控制*：设置项通过一种策略提供的机制来生成该值，这种机制能够确保指定的值落在被允许的这组值中。
->>>>>>> Update localization guidelines (#10485)
 
 
 
@@ -128,11 +122,7 @@ _Pod 安全策略_ 由设置和策略组成，它们能够控制 Pod 访问的�
 
 
 ### 主机网络
-<<<<<<< HEAD
  - *HostPorts* ， 默认为 `empty`。`HostPortRange` 列表通过 `min`(包含) and `max`(包含) 来定义，指定了被允许的主机端口。
-=======
- - *HostPorts*， 默认为 `empty`。`HostPortRange` 列表通过 `min`(包含) and `max`(包含) 来定义，指定了被允许的主机端口。
->>>>>>> Update localization guidelines (#10485)
 
 ### 允许的主机路径
  - *AllowedHostPaths* 是一个被允许的主机路径前缀的白名单。空值表示所有的主机路径都可以使用。
@@ -226,8 +216,4 @@ podsecuritypolicy "permissive" deleted
 
 在 Kubernetes 1.5 或更新版本，可以使用 PodSecurityPolicy 来控制，对基于用户角色和组的已授权容器的访问。访问不同的 PodSecurityPolicy 对象，可以基于认证来控制。基于 Deployment、ReplicaSet 等创建的 Pod，限制访问 PodSecurityPolicy 对象，[Controller Manager](/docs/admin/kube-controller-manager/) 必须基于安全 API 端口运行，并且不能够具有超级用户权限。
 
-<<<<<<< HEAD
 PodSecurityPolicy 认证使用所有可用的策略，包括创建 Pod 的用户，Pod 上指定的服务账户（Service Account）。当 Pod 基于 Deployment、ReplicaSet 创建时，它是创建 Pod 的 Controller Manager，所以如果基于非安全 API 端口运行，允许所有的 PodSecurityPolicy 对象，并且不能够有效地实现细分权限。用户访问给定的 PSP 策略有效，仅当是直接部署 Pod 的情况。更多详情，查看 [PodSecurityPolicy RBAC 示例](https://git.k8s.io/kubernetes/examples/podsecuritypolicy/rbac/README.md)，当直接部署 Pod 时，应用 PodSecurityPolicy 控制基于角色和组的已授权容器的访问 。
-=======
-PodSecurityPolicy 认证使用所有可用的策略，包括创建 Pod 的用户，Pod 上指定的服务账户（Service Acount）。当 Pod 基于 Deployment、ReplicaSet 创建时，它是创建 Pod 的 Controller Manager，所以如果基于非安全 API 端口运行，允许所有的 PodSecurityPolicy 对象，并且不能够有效地实现细分权限。用户访问给定的 PSP 策略有效，仅当是直接部署 Pod 的情况。更多详情，查看 [PodSecurityPolicy RBAC 示例](https://git.k8s.io/kubernetes/examples/podsecuritypolicy/rbac/README.md)，当直接部署 Pod 时，应用 PodSecurityPolicy 控制基于角色和组的已授权容器的访问 。
->>>>>>> Update localization guidelines (#10485)

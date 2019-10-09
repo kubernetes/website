@@ -1,8 +1,9 @@
 ---
-<<<<<<< HEAD
 title: 文档
-=======
+weight: 5
+---
+
+<!-- ---
 title: Home
 weight: 5
->>>>>>> Update localization guidelines (#10485)
----
+--- -->

@@ -165,11 +165,7 @@ Pod 能有多个容器的主要原因是为了支持辅助应用（helper applic
 
 
 * 更多学习内容
-<<<<<<< HEAD
 [混合容器的方式](http://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns.html)。
-=======
-[混合容器的方式](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html)。
->>>>>>> Update localization guidelines (#10485)
 
 
 

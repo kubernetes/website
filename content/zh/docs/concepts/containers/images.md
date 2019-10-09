@@ -94,11 +94,7 @@ Kubelet会获取并且定期刷新ECR的凭证。它需要以下权限
 
 ### 使用 Azure Container Registry (ACR)
 当使用[Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)时，可以使用admin user或者service principal认证。
-<<<<<<< HEAD
 任何一种情况，认证都通过标准的Docker authentication完成。本指南假设使用[azure-cli](https://github.com/azure/azure-cli)
-=======
-任何一种情况，认证都通过标准的Dokcer authentication完成。本指南假设使用[azure-cli](https://github.com/azure/azure-cli)
->>>>>>> Update localization guidelines (#10485)
 命令行工具。
 
 首先，需要创建仓库并获取凭证，完整的文档请参考
@@ -128,13 +124,13 @@ Docker将私有仓库的密钥存放在`$HOME/.dockercfg`或`$HOME/.docker/confi
 
 推荐如下步骤来为node配置私有仓库。以下示例在PC或笔记本电脑中操作
 
-   1.对于想要使用的每一种凭证，运行 `docker login [server]`，它会更新`$HOME/.docker/config.json`。
-   1.使用编辑器查看`$HOME/.docker/config.json`，保证文件中包含了想要使用的凭证
-   1.获取node列表，例如
-     - 如果使用node名称，`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
-	 - 如果使用node IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-   1.将本地的`.docker/config.json`拷贝到每个节点root用户目录下
-     - 例如： `for n in $nodes; do scp ~/.docker/config.json root@$n:/root/.docker/config.json; done`
+   1. 对于想要使用的每一种凭证，运行 `docker login [server]`，它会更新`$HOME/.docker/config.json`。
+   1. 使用编辑器查看`$HOME/.docker/config.json`，保证文件中包含了想要使用的凭证
+   1. 获取node列表，例如
+      - 如果使用node名称，`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
+      - 如果使用node IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
+   1. 将本地的`.docker/config.json`拷贝到每个节点root用户目录下
+      - 例如： `for n in $nodes; do scp ~/.docker/config.json root@$n:/root/.docker/config.json; done`
 	 
 创建使用私有仓库的pod来验证，例如：
 
