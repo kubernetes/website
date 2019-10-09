@@ -44,7 +44,7 @@ called SIG Docs. We [communicate](#participate-in-sig-docs-discussions) using a 
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
 
-### Content guildelines
+### Content guidelines
 
 The SIG Docs community created guidelines about what kind of content is allowed 
 in the Kubernetes documentation. Look over the [Documentation Content 
