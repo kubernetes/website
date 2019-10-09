@@ -132,7 +132,7 @@ The Kubernetes apiserver connects to the extension apiserver over TLS, authentic
 * private key file via `--proxy-client-key-file`
 * signed client certificate file via `--proxy-client-cert-file`
 * certificate of the CA that signed the client certificate file via `--requestheader-client-ca-file`
-* valid Common Names (CN) in the signed client certificate via `--requestheader-allowed-names`
+* valid Common Name values (CNs) in the signed client certificate via `--requestheader-allowed-names`
 
 The Kubernetes apiserver will use the files indicated by `--proxy-client-*-file` to authenticate to the extension apiserver. In order for the request to be considered valid by a compliant extension apiserver, the following conditions must be met:
 
