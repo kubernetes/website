@@ -18,7 +18,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
   * NodePorts
   * ConfigMapsとSecrets
   * ダッシュボード
-  * コンテナランタイム: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o), [containerd](https://github.com/containerd/containerd)
+  * コンテナランタイム: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://cri-o.io/), [containerd](https://github.com/containerd/containerd)
   * CNI (Container Network Interface) の有効化
   * Ingress
 

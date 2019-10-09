@@ -17,7 +17,7 @@ An increasing number of systems leverage a combination of CPUs and hardware acce
 
 In order to extract the best performance, optimizations related to CPU isolation, memory and device locality are required. However, in Kubernetes, these optimizations are handled by a disjoint set of components.
 
-_Topology Manager_ is a Kubelet component that aims to co-ordinate the set of components that are resposible for these optimizations.
+_Topology Manager_ is a Kubelet component that aims to co-ordinate the set of components that are responsible for these optimizations.
  
 {{% /capture %}}
 
@@ -39,7 +39,7 @@ The Topology Manager is a Kubelet component, which acts as a source of truth so 
 
 The Topology Manager provides an interface for components, called *Hint Providers*, to send and receive topology information. Topology Manager has a set of node level policies which are explained below.
 
-The Topology manager receives Topology information from the *Hint Providers* as a bitmask denoting NUMA Nodes available and a preferred allocation indication. The Topology Manager policies preform a set of operations on the hints provided and converge on the hint determined by the policy to give the optimal result, if a undesirable hint is stored the preferred field for the hint will be set to false. In the current policies preferred is the narrowest preferred mask.
+The Topology manager receives Topology information from the *Hint Providers* as a bitmask denoting NUMA Nodes available and a preferred allocation indication. The Topology Manager policies perform a set of operations on the hints provided and converge on the hint determined by the policy to give the optimal result, if an undesirable hint is stored the preferred field for the hint will be set to false. In the current policies preferred is the narrowest preferred mask.
 The selected hint is stored as part of the Topology Manager. Depending on the policy configured the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the resource allocation decisions.
 
@@ -49,6 +49,7 @@ The Topology Manager currently:
 
  - Works on Nodes with the `static` CPU Manager Policy enabled. See [control CPU Management Policies](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/)
  - Works on Pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+
 If these conditions are met, Topology Manager will align CPU and device requests.
 
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag, `--topology-manager-policy`.
@@ -90,9 +91,9 @@ resource allocation decision.
 For each container in a Guaranteed Pod, kubelet, with `single-numa-node` topology 
 management policy, calls each Hint Provider to discover their resource availability.
 Using this information, the Topology Manager determines if a single NUMA Node affinity is possible.
-If it is Topology Manager will store this and the *Hint Providers* can then use this information when making the 
+If it is, Topology Manager will store this and the *Hint Providers* can then use this information when making the 
 resource allocation decision.
-If, however, this is not possible the Topology Manager will reject the pod from the node. This will result in a pod in a `Terminated` state with a pod admission failure.
+If, however, this is not possible then the Topology Manager will reject the pod from the node. This will result in a pod in a `Terminated` state with a pod admission failure.
 
 
 ### Pod Interactions with Topology Manager Policies

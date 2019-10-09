@@ -90,7 +90,7 @@ Le moteur de runtime de conteneur utilisé par défaut est Docker, activé par l
 Les autres runtimes basés sur la CRI incluent:
 
 - [containerd](https://github.com/containerd/cri) (plugin CRI construit dans containerd)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
 Reportez-vous aux [instructions d'installation de la CRI](/docs/setup/cri) pour plus d'informations.

@@ -51,7 +51,7 @@ volume type used.
 To use a volume, a Pod specifies what volumes to provide for the Pod (the
 `.spec.volumes`
 field) and where to mount those into Containers (the
-`.spec.containers.volumeMounts`
+`.spec.containers[*].volumeMounts`
 field).
 
 A process in a container sees a filesystem view composed from their Docker
@@ -1158,7 +1158,7 @@ spec:
 
 
 Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
-Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
+This feature requires the `VolumeSubpathEnvExpansion` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.15.
 The `subPath` and `subPathExpr` properties are mutually exclusive.
 
 In this example, a Pod uses `subPathExpr` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.

@@ -1,7 +1,6 @@
 ---
 reviewers:
 - janetkuo
-- mikedanese
 title: Managing Resources
 content_template: templates/concept
 weight: 40

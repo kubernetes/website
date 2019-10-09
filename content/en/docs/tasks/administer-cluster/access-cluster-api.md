@@ -14,7 +14,7 @@ This page shows how to access clusters using the Kubernetes API.
 
 {{% capture steps %}}
 
-## Accessing the cluster API
+## Accessing the Kubernetes API
 
 ### Accessing for the first time with kubectl
 

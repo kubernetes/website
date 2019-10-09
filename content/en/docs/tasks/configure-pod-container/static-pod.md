@@ -12,14 +12,13 @@ content_template: templates/task
 *Static Pods* are managed directly by the kubelet daemon on a specific node,
 without the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 observing them.
-Unlike Pods that are managed by the control plane (eg, a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}};
+Unlike Pods that are managed by the control plane (for example, a
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}});
 instead, the kubelet watches each static Pod (and restarts it if it crashes).
-There are no health checks for the containers in a static Pod.
 
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
 
-Kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
+The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
@@ -53,7 +52,7 @@ You can configure a static Pod two different ways: either by using configuration
 
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
-The configuration files are just standard Pod definitions in JSON or YAML format in a specific directory. Use `kubelet --pod-manifest-path=<the directory>` to start the kubelet or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
+Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static Pod:

@@ -106,13 +106,13 @@ These are advanced topics for users who need to integrate their organization's c
 ### Set up a signer
 
 The Kubernetes Certificate Authority does not work out of the box.
-You can configure an external signer such as [cert-manager][cert-manager-issuer], or you can use the build-in signer.
+You can configure an external signer such as [cert-manager][cert-manager-issuer], or you can use the built-in signer.
 The built-in signer is part of [`kube-controller-manager`][kcm].
-To activate the build-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
+To activate the built-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
 
 The built-in signer is part of [`kube-controller-manager`][kcm]. 
 
-To activate the build-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
+To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 
 If you're creating a new cluster, you can use a kubeadm [configuration file][config]:
 
