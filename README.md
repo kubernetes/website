@@ -29,6 +29,7 @@ For more information about contributing to the Kubernetes documentation, see:
 |[Japanese README](README-ja.md)|[Vietnamese README](README-vi.md)|
 |[Russian README](README-ru.md)|[Italian README](README-it.md)|
 |[Polish README](README-pl.md)|[Ukrainian README](README-uk.md)|
+|[Japanese README](README-ja.md)|[Arabic README](README-ar.md)|
 |||
 
 ## Running the website locally using Docker
