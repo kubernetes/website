@@ -124,26 +124,26 @@ Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode i
 
 ### Otentikasi
 
-[Otentikasi](/docs/reference/access-authn-authz/authentication/) memetakan header atau sertifikat dalam semua permintaan ke username untuk klien yang mebuat permintaan.
+[Otentikasi](/docs/reference/access-authn-authz/authentication/) memetakan _header_ atau sertifikat dalam semua permintaan ke _username_ untuk klien yang mebuat permintaan.
 
-Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [Webhook Otentikasi](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) jika metode bawaan tersebut tidak mencukupi kebutuhan kamu.
+Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [_Webhook_ Otentikasi](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) jika metode bawaan tersebut tidak mencukupi kebutuhan kamu.
 
 ### Otorisasi
 
-[Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah user tertentu dapat membaca, menulis, dan melakukan operasi lainnya ke API sumber daya. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan kamu, [Webhook Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
+[Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah pengguna tertentu dapat membaca, menulis, dan melakukan operasi lainnya terhadap sumber daya API. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan kamu, [_Webhook_ Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
 
-### Kontrol Admisi Dinamik
+### Kontrol Admisi Dinamis
 
-Setalah permintaan diotorisasi, jika ini operasi penulisan, permintaan ini akan melalui step [Kontrol Admisi](/docs/reference/access-authn-authz/admission-controllers/). Sebagai tambahan untuk step bawaan, ada beberapa perluasan:
+Setalah permintaan diotorisasi, jika ini adalah operasi penulisan, permintaan ini akan melalui langkah [Kontrol Admisi](/docs/reference/access-authn-authz/admission-controllers/). Sebagai tambahan untuk step bawaan, ada beberapa perluasan:
 
-* [Webhook Kebijakan Gambar](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) membatasi gambar mana saja yang dapat berjalan di kontainer.
-* Untuk membuat keputusan kontrol admisi sembarang, [Webhook Admisi](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) umum dapat digunakan. Webhook Admisi dapat menolak pembuatan baru atau pembaruan.
+* [_Webhook_ Kebijakan _Image_](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) membatasi _image_ mana saja yang dapat berjalan di kontainer.
+* Untuk membuat keputusan kontrol admisi sembarang, [_Webhook_ Admisi](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) umum dapat digunakan. _Webhook_ Admisi dapat menolak pembuatan atau pembaruan.
 
 ## Perluasan Infrastruktur
 
 ### Plugin Penyimpanan
 
-[Volume Flex](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe volume tanpa dukungan bawaan dengan cara Kubelet memanggil sebuah Plugin Binari untuk memasang volume.
+[Flex Volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe-tipe volume tanpa dukungan bawaan dengan cara membiarkan Kubelet memanggil sebuah _Plugin Binary_ untuk menambatkan volume.
 
 ### Plugin Perangkat
 
@@ -159,7 +159,7 @@ Penjadwal adalah jenis kontroler spesial yang mengawasi pod, dan menugaskan pod 
 
 Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal.
 
-Penjadwal juga mendukung [webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah webhook backend (perluasan penjadwal) untuk menyaring dan memprioritaskan node yang terpilih untuk sebuah pod.
+Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah _webhook_ backend (perluasan penjadwal) untuk menyaring dan memprioritaskan node yang terpilih untuk sebuah pod.
 
 {{% /capture %}}
 
