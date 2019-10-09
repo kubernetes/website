@@ -128,7 +128,7 @@ option. Your cluster requirements may need a different configuration.
     set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
     {{< /note >}}
 
-    - After the command completes you should see the following:
+    - The output looks similar to:
 
     ```sh
     ...
