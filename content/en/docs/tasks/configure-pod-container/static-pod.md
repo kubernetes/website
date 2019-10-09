@@ -12,14 +12,13 @@ content_template: templates/task
 *Static Pods* are managed directly by the kubelet daemon on a specific node,
 without the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 observing them.
-Unlike Pods that are managed by the control plane (eg, a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}};
+Unlike Pods that are managed by the control plane (for example, a
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}});
 instead, the kubelet watches each static Pod (and restarts it if it crashes).
-There are no health checks for the containers in a static Pod.
 
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
 
-Kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
+The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
