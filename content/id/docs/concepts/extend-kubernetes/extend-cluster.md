@@ -82,7 +82,7 @@ Diagram berikut menunjukkan titik-titik perluasan di sebuah Kubernetes.
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1. Pengguna biasanya berinteraksi dengan API Kubernetes menggunakan `kubectl`. [_Plugin-plugin_ Kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas _binari_ kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat memaksakan kebijakan yang menyeluruh di seluruh situs.
-2. apiserver menangani semua permintaan. Beberapa tipe titik perluasan di apiserver memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten mereka, menyunting konten, dan menangani penghapusan. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#perluasan-akses-api)
+2. apiserver menangani semua permintaan. Beberapa tipe titik perluasan di apiserver memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten mereka, menyunting konten, dan menangani penghapusan. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#perluasan-perluasan-akses-api)
 3. apiserver melayani berbagai macam sumber daya, _tipe-tipe sumber daya bawaan_, seperti `pod`, didefinisikan oleh proyek kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber daya yang kamu definisikan sendiri, atau yang proyek lain definisikan, disebut _Custom Resources_, seperti dijelaskan di bagian [Sumber Daya _Custom_](/docs/concepts/overview/extending#tipe-tipe-yang-ditentukan-pengguna). Sumber daya _Custom_ sering digunakan dengan Perluasan Akses API.
 4. Penjadwal Kubernetes memutuskan ke Node mana Pod akan ditempatkan. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan-perluasan Penjadwal](/docs/concepts/overview/extending#perluasan-perluasan-penjadwal).
 5. Sebagian besar perilaku Kubernetes diimplementasi oleh program yang disebut *Controller-controller* yang merupakan klien dari API-Server. *Controller-controller* sering digunakan bersama dengan Sumber Daya _Custom_.
@@ -141,7 +141,7 @@ Setalah permintaan diotorisasi, jika ini adalah operasi penulisan, permintaan in
 
 ## Perluasan Infrastruktur
 
-### _Plugin_ Penyimpanan
+### _Plugin-plugin_ Penyimpanan
 
 [Flex Volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe-tipe volume tanpa dukungan bawaan dengan cara membiarkan Kubelet memanggil sebuah _Plugin Binary_ untuk menambatkan volume.
 
@@ -149,7 +149,7 @@ Setalah permintaan diotorisasi, jika ini adalah operasi penulisan, permintaan in
 
 _Plugin_ perangkat memungkinkan sebuah node untuk menemukan sumber daya Node baru (sebagai tambahan dari bawaannya seperti CPU dan memori) melalui sebuah [_Plugin_ Perangkat](/docs/concepts/cluster-administration/device-plugins/).
 
-### _Plugin_ Jaringan
+### _Plugin-plugin_ Jaringan
 
 Struktur-struktur jaringan yang berbeda dapat didukung melalui [_Plugin_ Jaringan](/docs/admin/network-plugins/) pada tingkat Node.
 
