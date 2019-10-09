@@ -351,6 +351,12 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
+- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    ```
 
 {{< note >}}
 bash-completion sources all completion scripts in `/etc/bash_completion.d`.
@@ -413,6 +419,13 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
+- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    ```
+    
 - If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 
 {{< note >}}
@@ -432,6 +445,13 @@ To do so in all your shell sessions, add the following to your `~/.zshrc` file:
 source <(kubectl completion zsh)
 ```
 
+If you have an alias for kubectl, you can extend shell completion to work with that alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.zshrc
+    echo 'complete -F __start_kubectl k' >>~/.zshrc
+    ```
+    
 After reloading your shell, kubectl autocompletion should be working.
 
 If you get an error like `complete:13: command not found: compdef`, then add the following to the beginning of your `~/.zshrc` file:
