@@ -284,7 +284,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/docs/concepts/containers/runtime-class/)機能を有効にします。
 - `ScheduleDaemonSetPods`: DaemonSetのPodをDaemonSetコントローラーではなく、デフォルトのスケジューラーによってスケジュールされるようにします。
 - `SCTPSupport`: `Service`、`Endpoint`、`NetworkPolicy`、`Pod`の定義で`protocol`の値としてSCTPを使用できるようにします
-- `ServerSideApply`: APIサーバーで[サーバーサイドApply（SSA](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
+- `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
 - `ServiceNodeExclusion`: クラウドプロバイダーによって作成されたロードバランサーからのノードの除外を有効にします。"`alpha.service-controller.kubernetes.io/exclude-balancer`"キーでラベル付けされている場合ノードは除外の対象となります。
 - `StorageObjectInUseProtection`: PersistentVolumeまたはPersistentVolumeClaimオブジェクトがまだ使用されている場合、それらの削除を延期します。
