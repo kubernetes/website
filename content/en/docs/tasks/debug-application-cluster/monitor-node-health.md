@@ -44,7 +44,7 @@ it to [support other log format](/docs/tasks/debug-application-cluster/monitor-n
 
 ## Enable/Disable in GCE cluster
 
-Node problem detector is [running as a cluster addon](/docs/admin/cluster-large/#addon-resources) enabled by default in the
+Node problem detector is [running as a cluster addon](/docs/setup/best-practices/cluster-large/#addon-resources) enabled by default in the
 gce cluster.
 
 You can enable/disable it by setting the environment variable
@@ -73,7 +73,7 @@ OS distro.***
 * **Step 2:** Start node problem detector with `kubectl`:
 
 ```shell
- kubectl create -f https://k8s.io/examples/debug/node-problem-detector.yaml
+ kubectl apply -f https://k8s.io/examples/debug/node-problem-detector.yaml
 ```
 
 ### Addon Pod
@@ -88,13 +88,13 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 ## Overwrite the Configuration
 
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
-is embedded when building the docker image of node problem detector.
+is embedded when building the Docker image of node problem detector.
 
 However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to overwrite it
 following the steps:
 
 * **Step 1:** Change the config files in `config/`.
-* **Step 2:** Create the ConfigMap `node-problem-detector-config` with `kubectl  create configmap
+* **Step 2:** Create the ConfigMap `node-problem-detector-config` with `kubectl create configmap
 node-problem-detector-config --from-file=config/`.
 * **Step 3:** Change the `node-problem-detector.yaml` to use the ConfigMap:
 
@@ -105,7 +105,7 @@ node-problem-detector-config --from-file=config/`.
 
 ```shell
  kubectl delete -f https://k8s.io/examples/debug/node-problem-detector.yaml # If you have a node-problem-detector running
- kubectl create -f https://k8s.io/examples/debug/node-problem-detector-configmap.yaml
+ kubectl apply -f https://k8s.io/examples/debug/node-problem-detector-configmap.yaml
 ```
 
 ***Notice that this approach only applies to node problem detector started with `kubectl`.***

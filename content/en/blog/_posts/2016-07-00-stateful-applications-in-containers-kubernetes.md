@@ -15,7 +15,7 @@ You may have [heard me say before](https://www.diamanti.com/blog/the-next-great-
 
 Beyond stateless containers like web servers (so-called “cattle” because they are interchangeable), users are increasingly deploying stateful workloads with containers to benefit from “build once, run anywhere” and to improve bare metal efficiency/utilization. These “pets” (so-called because each requires special handling) bring new requirements including longer life cycle, configuration dependencies, stateful failover, and performance sensitivity. Container orchestration must address these needs to successfully deploy and scale apps.  
 
-Enter [Pet Set](http://kubernetes.io/docs/user-guide/petset/), a new object in Kubernetes 1.3 for improved stateful application support. Pet Set sequences through the startup phase of each database replica (for example), ensuring orderly master/slave configuration. Pet Set also simplifies service discovery by leveraging ubiquitous DNS SRV records, a well-recognized and long-understood mechanism.  
+Enter [Pet Set](/docs/user-guide/petset/), a new object in Kubernetes 1.3 for improved stateful application support. Pet Set sequences through the startup phase of each database replica (for example), ensuring orderly master/slave configuration. Pet Set also simplifies service discovery by leveraging ubiquitous DNS SRV records, a well-recognized and long-understood mechanism.  
 
 Diamanti’s [FlexVolume contribution](https://github.com/kubernetes/kubernetes/pull/13840) to Kubernetes enables stateful workloads by providing persistent volumes with low-latency storage and guaranteed performance, including enforced quality-of-service from container to media.  
 
@@ -34,7 +34,7 @@ With interest growing in stateful apps, work has already started to further enha
 Join the conversation and contribute! Here are some places to get started:  
 
 
-- Product Management [group](https://groups.google.com/forum/#!forum/kubernetes-pm)
+- Product Management [group](https://groups.google.com/forum/#!forum/kubernetes-sig-pm)
 - Kubernetes [Storage SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-storage)&nbsp;
 - Kubernetes [Cluster Federation SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-federation)
 

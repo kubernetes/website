@@ -1,0 +1,68 @@
+---
+title: "生产级别的容器编排系统"
+abstract: "自动化的容器部署、扩展和管理"
+cid: "home"
+---
+
+{{< deprecationwarning >}}
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}})
+是一个开源系统，用于容器化应用的自动部署、扩缩和管理。
+
+Kubernetes 将构成应用的容器按逻辑单位进行分组以便于管理和发现。
+Kubernetes 基于 [谷歌公司在运行生产负载上的 15 年经验](http://queue.acm.org/detail.cfm?id=2898444)
+打造，并融合了来自社区的最佳建议与实践。
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### 星际规模
+
+基于一定的规则原理，谷歌公司每周能够运行数十亿的容器；通过遵循相同的设计，
+Kubernetes 能够在保持现有运维团队规模的前提下完成集群的弹性伸缩。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### 永不过时
+
+无论是在本地测试还是支撑全球化企业业务，Kubernetes 的灵活性使得其能够与您一起成长。
+无论您的需求多么复杂，Kubernetes 都能助您始终如一地、轻而易举地交付应用。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### 随处运行
+
+作为一个开源系统，Kubernetes 使您能够自由地获得内部云、混合云或公有云基础设施所提供的便利，
+并根据需要轻松地迁移工作负载。
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>将超过 150 个微服务迁移到 Kubernetes 时遇到的挑战</h2>
+        <p>Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">观看视频</button>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2019" button id="desktopKCButton">参加 2019 年 11 月 18 日的 San Diego KubeCon</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2020/" button id="desktopKCButton">参加 2020 年 3 月 30 日的 Amsterdam KubeCon</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

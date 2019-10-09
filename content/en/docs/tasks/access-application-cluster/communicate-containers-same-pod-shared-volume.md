@@ -7,7 +7,7 @@ weight: 110
 {{% capture overview %}}
 
 This page shows how to use a Volume to communicate between two Containers running
-in the same Pod.
+in the same Pod. See also how to allow processes to communicate by [sharing process namespace](/docs/tasks/configure-pod-container/share-process-namespace/) between containers.
 
 {{% /capture %}}
 
@@ -44,7 +44,7 @@ directory of the nginx server.
 
 Create the Pod and the two Containers:
 
-    kubectl create -f https://k8s.io/examples/pods/two-container-pod.yaml
+    kubectl apply -f https://k8s.io/examples/pods/two-container-pod.yaml
 
 View information about the Pod and the Containers:
 
@@ -140,6 +140,8 @@ the shared Volume is lost.
 
 * See
 [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
+
+* See [Configure a Pod to share process namespace between containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/)
 
 * See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 

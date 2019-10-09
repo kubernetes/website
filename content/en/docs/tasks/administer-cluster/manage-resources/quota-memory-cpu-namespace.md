@@ -44,7 +44,7 @@ Here is the configuration file for a ResourceQuota object:
 Create the ResourceQuota:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
 ```
 
 View detailed information about the ResourceQuota:
@@ -71,7 +71,7 @@ Here is the configuration file for a Pod:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
 ```
 
 Verify that the Pod's Container is running:
@@ -117,7 +117,7 @@ request exceeds the memory request quota. 600 MiB + 700 MiB > 1 GiB.
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
 ```
 
 The second Pod does not get created. The output shows that creating the second Pod

@@ -10,7 +10,7 @@ While Kubernetes is one of the best tools for managing containerized application
 
 For the past several months, several of us from the Kubernetes community have been working to fix this in the [Minikube](http://github.com/kubernetes/minikube) repository on GitHub. Our goal is to build an easy-to-use, high-fidelity Kubernetes distribution that can be run locally on Mac, Linux and Windows workstations and laptops with a single command.  
 
-Thanks to lots of help from members of the community, we're proud to announce the official release of Minikube. This release comes with support for [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), new commands to make interacting with your local cluster easier and experimental drivers for xhyve (on Mac OSX) and KVM (on Linux).  
+Thanks to lots of help from members of the community, we're proud to announce the official release of Minikube. This release comes with support for [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), new commands to make interacting with your local cluster easier and experimental drivers for xhyve (on macOS) and KVM (on Linux).  
 
 **Using Minikube**  
 
@@ -107,8 +107,8 @@ Here's a list of some of the things we're hoping to add to Minikube soon:
 
 
 
-- Native hypervisor support for OSX and Windows
-- We're planning to remove the dependency on Virtualbox, and integrate with the native hypervisors included in OSX and Windows (Hypervisor.framework and Hyper-v, respectively).
+- Native hypervisor support for macOS and Windows
+- We're planning to remove the dependency on Virtualbox, and integrate with the native hypervisors included in macOS and Windows (Hypervisor.framework and Hyper-v, respectively).
 - Improved support for Kubernetes features
 - We're planning to increase the range of supported Kubernetes features, to include things like Ingress.
 - Configurable versions of Kubernetes

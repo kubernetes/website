@@ -11,13 +11,13 @@ Today’s release continues the evolution of an increasingly rich feature set, m
 
 
 ## Workloads API GA
-We’re excited to announce General Availability (GA) of the [apps/v1 Workloads API](https://kubernetes.io/docs/reference/workloads-18-19/), which is now enabled by default. The Apps Workloads API groups the DaemonSet, Deployment, ReplicaSet, and StatefulSet APIs together to form the foundation for long-running stateless and stateful workloads in Kubernetes. Note that the Batch Workloads API (Job and CronJob) is not part of this effort and will have a separate path to GA stability.  
+We’re excited to announce General Availability (GA) of the [apps/v1 Workloads API](/docs/reference/workloads-18-19/), which is now enabled by default. The Apps Workloads API groups the DaemonSet, Deployment, ReplicaSet, and StatefulSet APIs together to form the foundation for long-running stateless and stateful workloads in Kubernetes. Note that the Batch Workloads API (Job and CronJob) is not part of this effort and will have a separate path to GA stability.  
 
 Deployment and ReplicaSet, two of the most commonly used objects in Kubernetes, are now stabilized after more than a year of real-world use and feedback. [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) has applied the lessons from this process to all four resource kinds over the last several release cycles, enabling DaemonSet and StatefulSet to join this graduation. The v1 (GA) designation indicates production hardening and readiness, and comes with the guarantee of long-term backwards compatibility.  
 
 
 ## Windows Support (beta)
-Kubernetes was originally developed for Linux systems, but as our users are realizing the benefits of container orchestration at scale, we are seeing demand for Kubernetes to run Windows workloads. Work to support Windows Server in Kubernetes began in earnest about 12 months ago. [SIG-Windows](https://github.com/kubernetes/community/tree/master/sig-windows)has now promoted this feature to beta status, which means that we can evaluate it for [usage](https://kubernetes.io/docs/getting-started-guides/windows/).
+Kubernetes was originally developed for Linux systems, but as our users are realizing the benefits of container orchestration at scale, we are seeing demand for Kubernetes to run Windows workloads. Work to support Windows Server in Kubernetes began in earnest about 12 months ago. [SIG-Windows](https://github.com/kubernetes/community/tree/master/sig-windows)has now promoted this feature to beta status, which means that we can evaluate it for [usage](/docs/getting-started-guides/windows/).
 
 
 
@@ -46,7 +46,7 @@ Each Special Interest Group (SIG) in the community continues to deliver the most
 
 
 ## Availability
-Kubernetes 1.9 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.9.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/kubernetes-basics/).&nbsp;
+Kubernetes 1.9 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.9.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/kubernetes-basics/).&nbsp;
 
 
 

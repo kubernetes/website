@@ -1,11 +1,13 @@
 ---
 title: kubectl Cheat Sheet
 reviewers:
-- bgrant0607
 - erictune
 - krousey
 - clove
 content_template: templates/concept
+card:
+  name: reference
+  weight: 30
 ---
 
 {{% capture overview %}}
@@ -29,6 +31,13 @@ source <(kubectl completion bash) # setup autocomplete in bash into the current 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
+You can also use a shorthand alias for `kubectl` that also works with completion: 
+
+```bash
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
 ### ZSH
 
 ```bash
@@ -46,21 +55,33 @@ detailed config file information.
 kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
 
-# Get the password for the e2e user
+kubectl config view
+
+# get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # Display the current-context
-kubectl config use-context my-cluster-name  # set the default context to my-cluster-name
+kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
+kubectl config get-contexts                          # display list of contexts 
+kubectl config current-context                       # display the current-context
+kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new cluster to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
+# permanently save the namespace for all subsequent kubectl commands in that context.
+kubectl config set-context --current --namespace=ggckad-s2
+
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+ 
+kubectl config unset users.foo                       # delete user foo
 ```
+
+## Apply
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
 ## Creating Objects
 
@@ -68,15 +89,15 @@ Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # create resource(s)
-kubectl create -f ./my1.yaml -f ./my2.yaml     # create from multiple files
-kubectl create -f ./dir                        # create resource(s) in all manifest files in dir
-kubectl create -f https://git.io/vPieo         # create resource(s) from url
-kubectl run nginx --image=nginx                # start a single instance of nginx
+kubectl apply -f ./my-manifest.yaml            # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
+kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
+kubectl apply -f https://git.io/vPieo          # create resource(s) from url
+kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 kubectl explain pods,svc                       # get the documentation for pod and svc manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -103,15 +124,15 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
   name: mysecret
 type: Opaque
 data:
-  password: $(echo -n "s33msi4" | base64)
-  username: $(echo -n "jane" | base64)
+  password: $(echo -n "s33msi4" | base64 -w0)
+  username: $(echo -n "jane" | base64 -w0)
 EOF
 
 ```
@@ -124,20 +145,31 @@ kubectl get services                          # List all services in the namespa
 kubectl get pods --all-namespaces             # List all pods in all namespaces
 kubectl get pods -o wide                      # List all pods in the namespace, with more details
 kubectl get deployment my-dep                 # List a particular deployment
-kubectl get pods --include-uninitialized      # List all pods in the namespace, including uninitialized ones
+kubectl get pods                              # List all pods in the namespace
+kubectl get pod my-pod -o yaml                # Get a pod's YAML
+kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster specific information
 
 # Describe commands with verbose output
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-kubectl get services --sort-by=.metadata.name # List Services Sorted by Name
+# List Services Sorted by Name
+kubectl get services --sort-by=.metadata.name
 
 # List pods Sorted by Restart Count
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
+# List pods in test namespace sorted by capacity
+
+kubectl get pods -n test --sort-by=.spec.capacity.storage
+
 # Get the version label of all pods with label app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
+
+# Get all worker nodes (use a selector to exclude results that have a label
+# named 'node-role.kubernetes.io/master')
+kubectl get node --selector='!node-role.kubernetes.io/master'
 
 # Get all running pods in the namespace
 kubectl get pods --field-selector=status.phase=Running
@@ -149,6 +181,9 @@ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP
 # "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
+
+# Show labels for all pods (or any other Kubernetes object that supports labelling)
+kubectl get pods --show-labels
 
 # Check which nodes are ready
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
@@ -163,12 +198,23 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Updating Resources
 
+As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), use `rollout` instead.
+
 ```bash
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # Rolling update pods of frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # Change the name of the resource and update the image
-kubectl rolling-update frontend --image=image:v2                 # Update the pods image of frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # Abort existing rollout in progress
-cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
+kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
+kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision 
+kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
+kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
+kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+
+
+# deprecated starting version 1.11
+kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (deprecated) Change the name of the resource and update the image
+kubectl rolling-update frontend --image=image:v2                 # (deprecated) Update the pods image of frontend
+kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (deprecated) Abort existing rollout in progress
+
+cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json
@@ -187,7 +233,8 @@ kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a 
 ## Patching Resources
 
 ```bash
-kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # Partially update a node
+# Partially update a node
+kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}'
 
 # Update a container's image; spec.containers[*].name is required because it's a merge key
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
@@ -198,7 +245,7 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 # Disable a deployment livenessProbe using a json patch with positional arrays
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
-# Add a new element to a positional array 
+# Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
@@ -225,18 +272,29 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multip
 kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
 kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
 kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # Delete pods and services, including uninitialized ones, with label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services, including uninitialized ones, in namespace my-ns,
+kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services in namespace my-ns,
+# Delete all pods matching the awk pattern1 or pattern2
+kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
 ## Interacting with running Pods
 
 ```bash
 kubectl logs my-pod                                 # dump pod logs (stdout)
+kubectl logs -l name=myLabel                        # dump pod logs, with label name=myLabel (stdout)
+kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
 kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
+kubectl logs -l name=myLabel -c my-container        # dump pod logs, with label name=myLabel (stdout)
+kubectl logs my-pod -c my-container --previous      # dump pod container logs (stdout, multi-container case) for a previous instantiation of a container
 kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
+kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
+kubectl run nginx --image=nginx --restart=Never -n 
+mynamespace                                         # Run pod nginx in a specific namespace
+kubectl run nginx --image=nginx --restart=Never     # Run pod nginx and write its spec into a file called pod.yaml
+--dry-run -o yaml > pod.yaml
+
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
@@ -263,24 +321,24 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
-```console
-$ kubectl api-resources
+```bash
+kubectl api-resources
 ```
 
 Other operations for exploring API resources:
 
-```console
-$ kubectl api-resources --namespaced=true      # All namespaced resources
-$ kubectl api-resources --namespaced=false     # All non-namespaced resources
-$ kubectl api-resources -o name                # All resources with simple output (just the resource name)
-$ kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
-$ kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
-$ kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
+```bash
+kubectl api-resources --namespaced=true      # All namespaced resources
+kubectl api-resources --namespaced=false     # All non-namespaced resources
+kubectl api-resources -o name                # All resources with simple output (just the resource name)
+kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
+kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
+kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
 ```
 
 ### Formatting output
 
-To output details to your terminal window in a specific format, you can add either the `-o` or `-output` flags to a supported `kubectl` command.
+To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 Output format | Description
 --------------| -----------
@@ -295,11 +353,11 @@ Output format | Description
 
 ### Kubectl output verbosity and debugging
 
-Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
+Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Verbosity | Description
 --------------| -----------
-`--v=0` | Generally useful for this to ALWAYS be visible to an operator.
+`--v=0` | Generally useful for this to *always* be visible to a cluster operator.
 `--v=1` | A reasonable default log level if you don't want verbosity.
 `--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
 `--v=3` | Extended information about changes.
@@ -318,5 +376,7 @@ Verbosity | Description
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
 * Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
+
+* See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
 {{% /capture %}}

@@ -1,0 +1,139 @@
+# i18n strings for the Indonesian (main) site.
+
+[deprecation_warning]
+other = " dokumentasi sudah tidak dirawat lagi. Versi yang kamu lihat ini hanyalah snapshot statis. Untuk dokumentasi terkini, lihat "
+
+[deprecation_file_warning]
+other = "Sudah usang"
+
+[objectives_heading]
+other = "Tujuan"
+
+[cleanup_heading]
+other = "Bersihkan"
+
+[prerequisites_heading]
+other = "Sebelum mulai"
+
+[whatsnext_heading]
+other = "Selanjutnya"
+
+[feedback_heading]
+other = "Masukan"
+
+[feedback_question]
+other = "Apakah halaman ini berguna?"
+
+[feedback_yes]
+other = "Ya"
+
+[feedback_no]
+other = "Tidak"
+
+[latest_version]
+other = "versi terkini."
+
+[version_check_mustbe]
+other = "Kubernetes servermu harus ada di versi "
+
+[version_check_mustbeorlater]
+other = "Kubernetes servermu harus ada di versi yang sama atau lebih baru "
+
+[version_check_tocheck]
+other = "Untuk melihat versi, tekan "
+
+[caution]
+other = "Perhatian:"
+
+[note]
+other = "Catatan:"
+
+[warning]
+other = "Peringatan:"
+
+[main_read_about]
+other = "Baca tentang"
+
+[main_read_more]
+other = "Baca lebih lanjut"
+
+[main_github_invite]
+other = "Tertarik untuk ulik kode dari Kubernetes?"
+
+[main_github_view_on]
+other = "Lihat di GitHub"
+
+[main_github_create_an_issue]
+other = "Buat isu"
+
+[main_community_explore]
+other = "Jelajahi komunitasnya"
+
+[main_kubernetes_features]
+other = "Fitur kubernetes"
+
+[main_cncf_project]
+other = """Kami merupakan proyek yang lulus dari <a href="https://cncf.io/">CNCF</a></p>"""
+
+[main_kubeweekly_baseline]
+other = "Tertarik untuk dapatkan info terkini tentang Kubernetes? Daftarkan dirimu di buletin KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "Lihat buletin edisi sebelumnya"
+
+[main_kubeweekly_signup]
+other = "Langganan"
+
+[main_contribute]
+other = "Kontribusi"
+
+[main_edit_this_page]
+other = "Ubah halaman ini"
+
+[main_page_history]
+other ="Riwayat halaman"
+
+[main_page_last_modified_on]
+other = "Halaman diubah terakhir kali pada"
+
+[main_by]
+other = "oleh"
+
+[main_documentation_license]
+other = """Para Pencipta Kubernetes | Dokumentasi didistribusikan melalui <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """Linux Foundation &reg;. Hak cipta dilindungi. Linux Foundation telah mendaftarkan merek dagang dan pengunaannya. Perinciannya bisa dilihat pada <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">halaman penggunaan merek dagang</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "Lihat-lihat dokumentasi"
+
+[docs_label_contributors]
+other = "Para kontributor"
+
+[docs_label_users]
+other = "Para pengguna"
+
+[docs_label_i_am]
+other = "AKU ADALAH..."
+
+
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "Forum"
+[community_events_calendar]
+other = "Kalender acara"
+
+# UI elements
+[ui_search_placeholder]
+other = "Cari"

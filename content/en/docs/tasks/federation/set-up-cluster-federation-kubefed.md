@@ -1,12 +1,16 @@
 ---
+title: Set up Cluster Federation with Kubefed
 reviewers:
 - madhusudancs
 content_template: templates/task
-title: Set up Cluster Federation with Kubefed
+weight: 125
 ---
 
 {{% capture overview %}}
-{{< include "federation-current-state.md" >}}
+
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 Kubernetes version 1.5 and above includes a new command line tool called
 [`kubefed`](/docs/admin/kubefed/) to help you administrate your federated
@@ -21,7 +25,6 @@ using `kubefed`.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -39,24 +42,27 @@ for installation instructions for your platform.
 
 ## Getting `kubefed`
 
-Download the client tarball corresponding to the particular release and 
+Download the client tarball corresponding to the particular release and
 extract the binaries in the tarball:
 
-> Note that until kubernetes versions `1.8.x` the federation project was 
-maintained as part of [core kubernetes repo](https://github.com/kubernetes/kubernetes).
-At some point between kubernetes releases `1.8.0` and `1.9.0`, it moved into 
-a separate [federation repo](https://github.com/kubernetes/federation) and is 
-now maintained there. After this move, the federation release information is 
-available at the release page [here](https://github.com/kubernetes/federation/releases).
+{{< note >}}
+Until Kubernetes version `1.8.x` the federation project was
+maintained as part of the [core kubernetes repo](https://github.com/kubernetes/kubernetes).
+Between Kubernetes releases `1.8` and `1.9`, the federation project moved into
+a separate [federation repo](https://github.com/kubernetes/federation), where it is
+now maintained. Consequently, the federation release information is available on the
+[release page](https://github.com/kubernetes/federation/releases).
+{{< /note >}}
 
-### For k8s versions 1.8.x and earlier:
+### For Kubernetes versions 1.8.x and earlier:
 
 ```shell
 curl -LO https://storage.googleapis.com/kubernetes-release/release/${RELEASE-VERSION}/kubernetes-client-linux-amd64.tar.gz
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
 ```
-> Note that the variable `RELEASE-VERSION` should be either appropriately 
-set to or replaced with the actual version needed. 
+{{< note >}}
+The `RELEASE-VERSION` variable should either be set to or replaced with the actual version needed.
+{{< /note >}}
 
 Copy the extracted binary to one of the directories in your `$PATH`
 and set the executable permission on the binary.
@@ -66,15 +72,16 @@ sudo cp kubernetes/client/bin/kubefed /usr/local/bin
 sudo chmod +x /usr/local/bin/kubefed
 ```
 
-### For k8s versions 1.9.x and above:
+### For Kubernetes versions 1.9.x and above:
 
 ```shell
 curl -LO https://storage.cloud.google.com/kubernetes-federation-release/release/${RELEASE-VERSION}/federation-client-linux-amd64.tar.gz
 tar -xzvf federation-client-linux-amd64.tar.gz
 ```
 
-> Note that the variable `RELEASE-VERSION` should be replaced with one of the 
-release versions available at [federation release page](https://github.com/kubernetes/federation/releases). 
+{{< note >}}
+The `RELEASE-VERSION` variable should be replaced with one of the release versions available at [federation release page](https://github.com/kubernetes/federation/releases).
+{{< /note >}}
 
 Copy the extracted binary to one of the directories in your `$PATH`
 and set the executable permission on the binary.
@@ -86,8 +93,8 @@ sudo chmod +x /usr/local/bin/kubefed
 
 ### Install kubectl
 
-You can install a matching version of kubectl using the instructions on 
-the  [kubectl install page](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+You can install a matching version of kubectl using the instructions on
+the  [kubectl install page](/docs/tasks/tools/install-kubectl/).
 
 ## Choosing a host cluster.
 
@@ -171,8 +178,11 @@ without the Google Cloud DNS API scope by default. If you want to use a
 Google Kubernetes Engine cluster as a Federation host, you must create it using the `gcloud`
 command with the appropriate value in the `--scopes` field. You cannot
 modify a Google Kubernetes Engine cluster directly to add this scope, but you can create a
-new node pool for your cluster and delete the old one. *Note that this
-will cause pods in the cluster to be rescheduled.*
+new node pool for your cluster and delete the old one.
+
+{{< note >}}
+This will cause pods in the cluster to be rescheduled.
+{{< /note >}}
 
 To add the new node pool, run:
 
@@ -191,16 +201,18 @@ gcloud container node-pools delete default-pool --cluster gke-cluster
 
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
-local kubeconfig. Note that in the beta release in Kubernetes 1.6,
-`kubefed init` does not automatically set the current context to the
-newly deployed federation. You can set the current context manually by
-running:
+local kubeconfig.
+
+{{< note >}}
+In the beta release of Kubernetes 1.6, `kubefed init` does not automatically set the current context to the
+newly deployed federation. You can set the current context manually by running:
 
 ```shell
 kubectl config use-context fellowship
 ```
 
 where `fellowship` is the name of your federation.
+{{< /note >}}
 
 ### Basic and token authentication support
 
@@ -279,11 +291,11 @@ kubefed init fellowship \
 `kubefed init` exposes the federation API server as a Kubernetes
 [service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
-[load balanced service](/docs/concepts/services-networking/service/#type-loadbalancer).
+[load balanced service](/docs/concepts/services-networking/service/#loadbalancer).
 Most on-premises and bare-metal environments, and some cloud
 environments lack support for load balanced services. `kubefed init`
 allows exposing the federation API server as a
-[`NodePort` service](/docs/concepts/services-networking/service/#type-nodeport) on
+[`NodePort` service](/docs/concepts/services-networking/service/#nodeport) on
 such environments. This can be accomplished by passing
 the `--api-server-service-type=NodePort` flag. You can also specify
 the preferred address to advertise the federation API server by
@@ -426,7 +438,7 @@ Where `<patch-file-name>` is the name of the file you created above.
 
 ## Adding a cluster to a federation
 
-After you've deployed a federation control plane, you'll need to make that control plane aware of the clusters it should manage. 
+After you've deployed a federation control plane, you'll need to make that control plane aware of the clusters it should manage.
 
 To join clusters into the federation:
 
@@ -453,12 +465,13 @@ To join clusters into the federation:
     kubefed join gondor --host-cluster-context=rivendell
     ```
 
-A new context has now been added to your kubeconfig named `fellowship` (after the name of your federation). 
+A new context has now been added to your kubeconfig named `fellowship` (after the name of your federation).
 
 
-> Note: The name that you provide to the `join` command is used as the joining cluster's identity in federation. If this name adheres to the rules described in the [identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
-corresponding to your joining cluster conforms to these rules then you can use the same name in the join command. Otherwise, you will have to choose a different name for your cluster's identity.
-
+{{< note >}}
+The name that you provide to the `join` command is used as the joining cluster's identity in federation. This name should adhere to the rules described in the [identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
+corresponding to your joining cluster conforms to these rules, you can use the same name in the join command. Otherwise, you must choose a different name for your cluster's identity.
+{{< /note >}}
 
 ### Naming rules and customization
 
@@ -504,10 +517,9 @@ running:
 kubefed join noldor --host-cluster-context=rivendell --secret-name=11kingdom
 ```
 
-Note: If your cluster name does not conform to the DNS subdomain name
-specification, all you need to do is supply the secret name via the
-`--secret-name` flag. `kubefed join` automatically creates the secret
-for you.
+{{< note >}}
+If your cluster name does not conform to the DNS subdomain name specification, all you need to do is supply the secret name using the `--secret-name` flag. `kubefed join` automatically creates the secret for you.
+{{< /note >}}
 
 ### `kube-dns` configuration
 
@@ -524,7 +536,7 @@ as described in the
 
 ## Removing a cluster from a federation
 
-To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/admin/kubefed_unjoin/)
+To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/reference/setup-tools/kubefed/kubefed_unjoin/)
 command with the cluster name and the federation's
 `--host-cluster-context`:
 
@@ -545,7 +557,8 @@ namespace by running the following command:
 kubectl delete ns federation-system --context=rivendell
 ```
 
-Note that `rivendell` is the host cluster name, replace that with the
-appropriate name in your configuration.
+{{< note >}}
+`rivendell` is the host cluster name. Replace that name with the appropriate name in your configuration.
+{{< /note >}}
 
 {{% /capture %}}

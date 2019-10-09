@@ -14,7 +14,7 @@ We’ll take a look at some examples of this below, but first...
 
 ###   
 A quick intro to Kubernetes metadata&nbsp;
-Kubernetes metadata is abundant in the form of [_labels_](http://kubernetes.io/docs/user-guide/labels/) and [_annotations_](http://kubernetes.io/docs/user-guide/annotations/). Labels are designed to be identifying metadata for your infrastructure, whereas annotations are designed to be non-identifying. For both, they’re simply generic key:value pairs that look like this:  
+Kubernetes metadata is abundant in the form of [_labels_](/docs/user-guide/labels/) and [_annotations_](/docs/user-guide/annotations/). Labels are designed to be identifying metadata for your infrastructure, whereas annotations are designed to be non-identifying. For both, they’re simply generic key:value pairs that look like this:  
 
 ```
 "labels": {

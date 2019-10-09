@@ -1,0 +1,13 @@
+
+{{ partial "templates/block" (dict "page" .page "block" "overview" "purpose" "provides an overview" "optional" true) }}
+
+{{ .ctx.Scratch.Set "blocks" slice }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "synopsis" "heading" "Synopsis" "purpose" "describes the component") }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "options" "heading" "Options" "purpose" "lists the options for the component") }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "parentoptions" "heading" "Options from Parent Commands" "optional" true ) }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "examples" "heading" "Examples" "optional" true ) }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "body" "purpose" "the body of the page content" "optional" true) }}
+{{ .ctx.Scratch.Add "blocks" (dict "content" .page.Content) }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "seealso" "heading" "See Also" "optional" true ) }}
+
+{{ partial "templates/blocks" . }}

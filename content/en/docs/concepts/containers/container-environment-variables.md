@@ -13,7 +13,6 @@ This page describes the resources available to Containers in the Container envir
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -63,5 +62,3 @@ if [DNS addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addon
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 {{% /capture %}}
-
-

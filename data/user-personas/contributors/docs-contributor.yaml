@@ -14,7 +14,7 @@ foundational:
     url: "/docs/home/contribute/review-issues/"
   - label: "Create a documentation pull request (PR)"
     icon: fa-pencil-square-o
-    url: "/docs/home/contribute/create-pull-request/"
+    url: "/docs/contribute/start/"
   - label: "Stage documentation changes"
     icon: fa-eye
     url: "/docs/home/contribute/stage-documentation-changes/#staging-a-pull-request"

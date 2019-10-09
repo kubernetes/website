@@ -1,6 +1,10 @@
 ---
 title: Supported Versions of the Kubernetes Documentation
 content_template: templates/concept
+card:
+  name: about
+  weight: 10
+  title: Supported Versions of the Documentation
 ---
 
 {{% capture overview %}}

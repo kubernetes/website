@@ -98,7 +98,7 @@ spec:
 
 
 
-In front of the Kubernetes services, load balancing the different canary versions of the service, lives a small cluster of HAProxy pods that get their haproxy.conf from the Kubernetes [ConfigMaps](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/) that looks something like this:
+In front of the Kubernetes services, load balancing the different canary versions of the service, lives a small cluster of HAProxy pods that get their haproxy.conf from the Kubernetes [ConfigMaps](/docs/tasks/configure-pod-container/configmap/) that looks something like this:
 
 
 

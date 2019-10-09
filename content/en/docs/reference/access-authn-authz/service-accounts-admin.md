@@ -23,14 +23,14 @@ incomplete features are referred to in order to better describe service accounts
 Kubernetes distinguishes between the concept of a user account and a service account
 for a number of reasons:
 
-  - User accounts are for humans.  Service accounts are for processes, which
+  - User accounts are for humans. Service accounts are for processes, which
     run in pods.
   - User accounts are intended to be global. Names must be unique across all
     namespaces of a cluster, future user resource will not be namespaced.
     Service accounts are namespaced.
   - Typically, a cluster's User accounts might be synced from a corporate
     database, where new user account creation requires special privileges and
-    is tied to complex business  processes.  Service account creation is intended
+    is tied to complex business processes. Service account creation is intended
     to be more lightweight, allowing cluster users to create service accounts for
     specific tasks (i.e. principle of least privilege).
   - Auditing considerations for humans and service accounts may differ.
@@ -58,6 +58,10 @@ It acts synchronously to modify pods as they are created or updated. When this p
   1. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the `ServiceAccount` are added to the pod.
   1. It adds a `volume` to the pod which contains a token for API access.
   1. It adds a `volumeSource` to each container of the pod mounted at `/var/run/secrets/kubernetes.io/serviceaccount`.
+
+Starting from v1.13, you can migrate a service account volume to a projected volume when
+the `BoundServiceAccountTokenVolume` feature gate is enabled.
+The service account token will expire after 1 hour or the pod is deleted. See more details about [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 
 ### Token Controller
 

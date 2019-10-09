@@ -141,7 +141,7 @@ For the full list of kubectl commands and their options, check out {{< link text
 
 To leverage pre-packaged configurations from the community, you can use **{{< glossary_tooltip text="Helm charts" term_id="helm-chart" >}}**.
 
-Helm charts package up YAML configurations for specific apps like Jenkins and Postgres. You can then  install and run these apps on your cluster with minimal extra configuration. This approach makes the most sense for "off-the-shelf" components which do not require much custom implementation logic.
+Helm charts package up YAML configurations for specific apps like Jenkins and Postgres. You can then install and run these apps on your cluster with minimal extra configuration. This approach makes the most sense for "off-the-shelf" components which do not require much custom implementation logic.
 
 For writing your own Kubernetes app configurations, there is a {{< link text="thriving ecosystem of tools" url="https://docs.google.com/a/heptio.com/spreadsheets/d/1FCgqz1Ci7_VCz_wdh8vBitZ3giBtac_H8SBw4uxnrsE/edit?usp=drive_web" >}} that you may find useful.
 

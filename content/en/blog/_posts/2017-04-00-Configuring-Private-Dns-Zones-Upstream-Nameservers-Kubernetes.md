@@ -6,7 +6,7 @@ url: /blog/2017/04/Configuring-Private-Dns-Zones-Upstream-Nameservers-Kubernetes
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6_  
 
-Many users have existing domain name zones that they would like to integrate into their Kubernetes DNS namespace. For example, hybrid-cloud users may want to resolve their internal “.corp” domain addresses within the cluster. Other users may have a zone populated by a non-Kubernetes service discovery system (like Consul). We’re pleased to announce that, in [Kubernetes 1.6](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale), [kube-dns](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) adds support for configurable private DNS zones (often called “stub domains”) and external upstream DNS nameservers. In this blog post, we describe how to configure and use this feature.  
+Many users have existing domain name zones that they would like to integrate into their Kubernetes DNS namespace. For example, hybrid-cloud users may want to resolve their internal “.corp” domain addresses within the cluster. Other users may have a zone populated by a non-Kubernetes service discovery system (like Consul). We’re pleased to announce that, in [Kubernetes 1.6](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale), [kube-dns](/docs/concepts/services-networking/dns-pod-service/) adds support for configurable private DNS zones (often called “stub domains”) and external upstream DNS nameservers. In this blog post, we describe how to configure and use this feature.  
 
 **Default lookup flow**  
 

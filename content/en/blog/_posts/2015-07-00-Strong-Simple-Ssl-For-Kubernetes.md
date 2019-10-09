@@ -17,7 +17,7 @@ In the spirit of minimum viability, the first version of Jenkins-on-Kubernetes I
 
 Here’s a visual of that first version:
 
-[![](http://1.bp.blogspot.com/-ccmpTmulrng/VaVxOs7gysI/AAAAAAAAAU8/bCEzgGGm-pE/s400/0.png)](http://1.bp.blogspot.com/-ccmpTmulrng/VaVxOs7gysI/AAAAAAAAAU8/bCEzgGGm-pE/s1600/0.png)
+[![](https://1.bp.blogspot.com/-ccmpTmulrng/VaVxOs7gysI/AAAAAAAAAU8/bCEzgGGm-pE/s400/0.png)](https://1.bp.blogspot.com/-ccmpTmulrng/VaVxOs7gysI/AAAAAAAAAU8/bCEzgGGm-pE/s1600/0.png)
 
 
 
@@ -156,7 +156,7 @@ The pod will have a service exposing TCP 80 and 443 to a public load balancer. H
 
 And here’s an overview with the SSL termination proxy in place. Notice that Jenkins is no longer directly exposed to the public Internet:
 
-[![](http://3.bp.blogspot.com/-0B1BEQo_fWc/VaVxVUBkf3I/AAAAAAAAAVE/5yCCnA29C88/s400/0%2B%25281%2529.png)](http://3.bp.blogspot.com/-0B1BEQo_fWc/VaVxVUBkf3I/AAAAAAAAAVE/5yCCnA29C88/s1600/0%2B%25281%2529.png)
+[![](https://3.bp.blogspot.com/-0B1BEQo_fWc/VaVxVUBkf3I/AAAAAAAAAVE/5yCCnA29C88/s400/0%2B%25281%2529.png)](https://3.bp.blogspot.com/-0B1BEQo_fWc/VaVxVUBkf3I/AAAAAAAAAVE/5yCCnA29C88/s1600/0%2B%25281%2529.png)
 
 
 

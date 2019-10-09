@@ -1,0 +1,118 @@
+---
+title: Verwenden von kubectl zum Erstellen eines Deployments
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="de">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <h3>Ziele</h3>
+                <ul>
+                    <li>Erfahren Sie mehr über Anwendungsbereitstellungen.</li>
+                    <li>Stellen Sie Ihre erste App auf Kubernetes mit kubectl bereit.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Kubernetes-Bereitstellungen (Deployments)</h3>
+                <p>
+                Sobald Sie einen Kubernetes-Cluster ausgeführt haben, können Sie Ihre containerisierten Anwendungen darüber bereitstellen.
+                Dazu erstellen Sie eine Kubernetes <b>Deployment</b>-Konfiguration. Das Deployment weist Kubernetes an, wie Instanzen Ihrer 
+                Anwendung erstellt und aktualisiert werden. Nachdem Sie ein Deployment erstellt haben, plant der Kubernetes-Master die genannten 
+                Anwendungsinstanzen für einzelne Nodes im Cluster.
+                </p>
+
+                <p>Sobald die Anwendungsinstanzen erstellt wurden, überwacht ein Kubernetes Deployment Controller diese Instanzen kontinuierlich. Wenn der Node, der eine Instanz hostet, ausfällt oder gelöscht wird, ersetzt der Deployment Controller die Instanz durch eine Instanz auf einem anderen Node im Cluster. <b>Dies bietet einen Selbstheilungsmechanismus, um Maschinenausfälle oder -wartungen zu vermeiden.</b></p>
+
+                <p>In einer Welt vor der Orchestrierung wurden häufig Installationsskripts zum Starten von Anwendungen verwendet, sie erlaubten jedoch keine Wiederherstellung nach einem Maschinenausfall.  
+                    Kubernetes Deployments erstellen Ihre Anwendungsinstanzen und sorgen dafür, dass sie über mehrere Nodes hinweg ausgeführt werden. Dadurch bieten Kubernetes Deployments einen grundlegend anderen Ansatz für die Anwendungsverwaltung.</p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Zusammenfassung:</h3>
+                    <ul>
+                        <li>Deployments</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Eine Bereitstellung (Deployment) ist für das Erstellen und Aktualisieren von Instanzen Ihrer Anwendung verantwortlich
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Erste App auf Kubernetes bereitstellen</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Sie können eine Bereitstellung mithilfe der Kubernetes-Befehlszeilenschnittstelle  <b>Kubectl</b> erstellen und verwalten. 
+                    Kubectl verwendet die Kubernetes-API, um mit dem Cluster zu interagieren.
+                    In diesem Modul lernen Sie die gebräuchlichsten Kubectl-Befehle kennen, die zum Erstellen von Deployments zum Ausführen Ihrer Anwendungen in einem Kubernetes-Cluster erforderlich sind.</p>
+
+                <p>Wenn Sie ein Deployment erstellen, müssen Sie das Container-Image für Ihre Anwendung und die Anzahl der Replikate angeben, die Sie ausführen möchten. Sie können diese Informationen später ändern, indem Sie Ihr Deployment aktualisieren; In den Modulen <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> und <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a>  des Bootcamps wird diskutiert, wie Sie Ihre Deployments skalieren und aktualisieren können.</p>
+
+
+
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Anwendungen müssen in eines der unterstützten Containerformate gepackt werden, um auf Kubernetes bereitgestellt zu werden </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Für unser erstes Deployment verwenden wir eine Node.js-Anwendung, die in einem Docker-Container verpackt ist.
+                        Um die Node.js-Anwendung zu erstellen und den Docker-Container bereitzustellen, folgen Sie den Anweisungen im
+                    <a href="/docs/tutorials/hello-minikube/">Hello Minikube tutorial</a>.</p>
+
+                <p>Nun, da Sie wissen, was Deployments sind, gehen wir zum Online-Tutorial und stellen unsere erste App bereit!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">Interaktives Lernprogramm starten <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

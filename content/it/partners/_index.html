@@ -1,0 +1,91 @@
+---
+title: Partners
+bigheader: Kubernetes Partners
+abstract: Growing the Kubernetes ecosystem.
+class: gridPage
+cid: partners
+---
+
+<section id="users">
+    <main>
+        <h5>Kubernetes collabora con i partner per creare una base di codice forte e vivace che supporti uno spettro di piattaforme complementari.</h5>
+        <div class="col-container">
+          <div class="col-nav">
+            <center>
+              <h5>
+                <b>Fornitori di servizi certificati Kubernetes</b>
+              </h5>
+              <br>Fornitori di servizi con una grande esperienza nell'aiutare le imprese ad adottare con successo Kubernetes.
+              <br><br><br>
+              <button id="kcsp" class="button" onClick="updateSrc(this.id)">Vedi KCSP Partners</button>
+              <br><br>Interessato a diventare un <a href="https://www.cncf.io/certification/kcsp/">KCSP</a>?
+            </center>
+          </div>
+          <div class="col-nav">
+            <center>
+              <h5>
+                <b>Distribuzioni certificate di Kubernetes, piattaforme hosted e installer </b>
+              </h5>La conformità del software garantisce che la versione di Kubernetes di ogni fornitore supporti le API richieste.
+              <br><br><br>
+              <button id="conformance" class="button" onClick="updateSrc(this.id)">vedi le conformita' Partners</button>
+              <br><br>Interessato a diventare un <a href="https://www.cncf.io/certification/software-conformance/">Certificato Kubernetes</a>?
+            </center>
+          </div>
+          <div class="col-nav">
+            <center>
+          <h5><b>Partner di formazione di Kubernetes</b></h5>
+              <br>Fornitori di formazione con esperienza che hanno una profonda esperienza nella formazione della tecnologia cloud nativa.
+              <br><br><br><br>
+              <button id="ktp" class="button" onClick="updateSrc(this.id)">vedi KTP Partners</button>
+              <br><br>Interessato a diventare un  <a href="https://www.cncf.io/certification/training/">KTP</a>?
+            </center>
+          </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
+			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
+      var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
+
+      function updateSrc(buttonId) {
+      	if (buttonId == "kcsp") {
+        		$("#landscape").attr("src",defaultLink);
+            window.location.hash = "#kcsp";
+        }
+        if (buttonId == "conformance") {
+         		$("#landscape").attr("src",firstLink);
+            window.location.hash = "#conformance";
+        }
+        if (buttonId == "ktp") {
+        		$("#landscape").attr("src",secondLink);
+            window.location.hash = "#ktp";
+        }
+      }
+
+      // Automatically load the correct iframe based on the URL fragment
+      document.addEventListener('DOMContentLoaded', function() {
+        var showContent = "kcsp";
+        if (window.location.hash) {
+          console.log('hash is:', window.location.hash.substring(1));
+          showContent = window.location.hash.substring(1);
+        }
+        updateSrc(showContent);
+      });
+</script>
+<body>
+    <div id="frameHolder">
+      <iframe id="landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src=""></iframe>
+      <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+    </div>
+</body>
+    </main>
+</section>
+
+<style>
+    {{< include "partner-style.css" >}}
+</style>
+
+<script>
+    {{< include "partner-script.js" >}}
+</script>

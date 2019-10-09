@@ -55,23 +55,23 @@ array has six possible fields:
 
 * The `message` field is a human-readable message indicating details
   about the transition.
+  
+* The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition.
 
-A Pod has a PodStatus, which has an array of
-[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core). Each element
-of the PodCondition array has a `type` field and a `status` field. The `type`
-field is a string with the following possible values:
+* The `status` field is a string, with possible values "`True`", "`False`", and "`Unknown`".
 
-* `PodScheduled`: the Pod has been scheduled to a node;
-* `Ready`: the Pod is able to serve requests and should be added to the load
-  balancing pools of all matching Services;
-* `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
-  have started successfully;
-* `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
-  due to lacking of resources or other constraints;
-* `ContainersReady`: all containers in the Pod are ready.
+* The `type` field is a string with the following possible values:
 
-The `status` field is a string, with possible values "`True`", "`False`", and
-"`Unknown`".
+  * `PodScheduled`: the Pod has been scheduled to a node;
+  * `Ready`: the Pod is able to serve requests and should be added to the load
+    balancing pools of all matching Services;
+  * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
+    have started successfully;
+  * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
+    due to lack of resources or other constraints;
+  * `ContainersReady`: all containers in the Pod are ready.
+
+
 
 ## Container probes
 
@@ -101,7 +101,7 @@ Each probe has one of three results:
 * Failure: The Container failed the diagnostic.
 * Unknown: The diagnostic failed, so no action should be taken.
 
-The kubelet can optionally perform and react to two kinds of probes on running
+The kubelet can optionally perform and react to three kinds of probes on running
 Containers:
 
 * `livenessProbe`: Indicates whether the Container is running. If
@@ -115,7 +115,15 @@ Containers:
    state of readiness before the initial delay is `Failure`. If a Container does
    not provide a readiness probe, the default state is `Success`.
 
-### When should you use liveness or readiness probes?
+* `startupProbe`: Indicates whether the application within the Container is started.
+   All other probes are disabled if a startup probe is provided, until it succeeds.
+   If the startup probe fails, the kubelet kills the Container, and the Container
+   is subjected to its [restart policy](#restart-policy). If a Container does not
+   provide a startup probe, the default state is `Success`.
+
+### When should you use a liveness probe?
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 If the process in your Container is able to crash on its own whenever it
 encounters an issue or becomes unhealthy, you do not necessarily need a liveness
@@ -125,12 +133,15 @@ with the Pod's `restartPolicy`.
 If you'd like your Container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 
+### When should you use a readiness probe?
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
+
 If you'd like to start sending traffic to a Pod only when a probe succeeds,
 specify a readiness probe. In this case, the readiness probe might be the same
 as the liveness probe, but the existence of the readiness probe in the spec means
 that the Pod will start without receiving any traffic and only start receiving
 traffic after the probe starts succeeding.
-
 If your Container needs to work on loading large data, configuration files, or migrations during startup, specify a readiness probe.
 
 If you want your Container to be able to take itself down for maintenance, you
@@ -143,8 +154,15 @@ puts itself into an unready state regardless of whether the readiness probe exis
 The Pod remains in the unready state while it waits for the Containers in the Pod
 to stop.
 
-For more information about how to set up a liveness or readiness probe, see
-[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+### When should you use a startup probe?
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+If your Container usually starts in more than `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a startup probe that checks the same endpoint as the liveness probe. The default for `periodSeconds` is 30s.
+You should then set its `failureThreshold` high enough to allow the Container to start, without changing the default values of the liveness probe. This helps to protect against deadlocks.
+
+For more information about how to set up a liveness, readiness, startup probe, see
+[Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ## Pod and Container status
 
@@ -155,13 +173,47 @@ and
 Note that the information reported as Pod status depends on the current
 [ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
 
+## Container States
+
+Once Pod is assigned to a node by scheduler, kubelet starts creating containers using container runtime.There are three possible states of containers: Waiting, Running and Terminated. To check state of container, you can use `kubectl describe pod [POD_NAME]`. State is displayed for each container within that Pod.
+
+* `Waiting`: Default state of container. If container is not in either Running or Terminated state, it is in Waiting state. A container in Waiting state still runs its required operations, like pulling images, applying Secrets, etc. Along with this state, a message and reason about the state are displayed to provide more information.
+
+    ```yaml
+   ...
+      State:          Waiting
+       Reason:       ErrImagePull
+	  ...
+   ```
+   
+* `Running`: Indicates that the container is executing without issues. Once a container enters into Running, `postStart` hook (if any) is executed. This state also displays the time when the container entered Running state.  
+   
+   ```yaml
+   ...
+      State:          Running
+       Started:      Wed, 30 Jan 2019 16:46:38 +0530
+   ...
+   ```   
+       
+* `Terminated`:  Indicates that the container completed its execution and has stopped running. A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
+  
+   ```yaml
+   ...
+      State:          Terminated
+        Reason:       Completed
+        Exit Code:    0
+        Started:      Wed, 30 Jan 2019 11:45:26 +0530
+        Finished:     Wed, 30 Jan 2019 11:45:26 +0530
+    ...
+   ``` 
+
 ## Pod readiness gate
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 In order to add extensibility to Pod readiness by enabling the injection of
-extra feedbacks or signals into `PodStatus`, Kubernetes 1.11 introduced a
-feature named [Pod ready++](https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
+extra feedback or signals into `PodStatus`, Kubernetes 1.11 introduced a
+feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
 You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
 conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
 condition in the `status.conditions` field of a Pod, the status of the condition 
@@ -176,12 +228,12 @@ spec:
 status:
   conditions:
     - type: Ready  # this is a builtin PodCondition
-      status: "True"
+      status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
     - type: "www.example.com/feature-1"   # an extra PodCondition
       status: "False"
-      lastProbeTIme: null
+      lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
   containerStatuses:
     - containerID: docker://abcd...
@@ -192,7 +244,7 @@ status:
 The new Pod conditions must comply with Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 Since the `kubectl patch` command still doesn't support patching object status,
 the new Pod conditions have to be injected through the `PATCH` action using
-one of the [KubeClient libraries](/docs/reference/using-api/client-librarie/).
+one of the [KubeClient libraries](/docs/reference/using-api/client-libraries/).
 
 With the introduction of new Pod conditions, a Pod is evaluated to be ready **only**
 when both the following statements are true:
@@ -203,9 +255,11 @@ when both the following statements are true:
 To facilitate this change to Pod readiness evaluation, a new Pod condition
 `ContainersReady` is introduced to capture the old Pod `Ready` condition.
 
-As an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
+In K8s 1.11, as an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
 setting the `PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to True.
+to true.
+
+In K8s 1.12, the feature is enabled by default.
 
 ## Restart policy
 
@@ -343,7 +397,7 @@ spec:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Get hands-on experience
-  [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+  [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 

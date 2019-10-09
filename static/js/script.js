@@ -1,4 +1,12 @@
- //modal close button
+function addAnchorTags() {
+  anchors.options = {
+    visible: 'touch'
+  }
+
+  anchors.add('#docsContent h2, #docsContent h3, #docsContent h4, #docsContent h5, #docsContent h6');
+}
+
+//modal close button
 (function(){
     //π.modalCloseButton = function(closingFunction){
     //	return π.button('pi-modal-close-button', null, null, closingFunction);
@@ -32,13 +40,13 @@ function copyCode(elem){
          try {
              succeed = document.execCommand("copy");
          } catch(e) {
-             sweetAlert("Oh, no...","Sorry, your browser doesn't support document.execCommand('copy'), so we can't copy this code to your clipboard.");
+             swal("Oh, no...","Sorry, your browser doesn't support document.execCommand('copy'), so we can't copy this code to your clipboard.");
              succeed = false;
          }
-         if (succeed) sweetAlert("Copied to clipboard: ",elem);
+         if (succeed) swal("Copied to clipboard: ",elem);
          return succeed;
      } else {
-         sweetAlert("Oops!",elem + " not found when trying to copy code");
+         swal("Oops!",elem + " not found when trying to copy code");
          return false;
      }
  }
@@ -170,6 +178,9 @@ var kub = (function () {
     }
 
     function setHomeHeaderStyles() {
+        if (!quickstartButton[0]) {
+            return;
+        }
         var Y = window.pageYOffset;
         var quickstartBottom = quickstartButton[0].getBoundingClientRect().bottom;
 
@@ -506,11 +517,8 @@ var pushmenu = (function(){
 })();
 
 $(function() {
+  addAnchorTags();
 
-    // Make global nav be active based on pathname
-    if ((location.pathname.split("/")[1]) !== ""){
-        $('.global-nav li a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-    }
 
     // If vendor strip doesn't exist add className
     if ( !$('#vendorStrip').length > 0 ) {

@@ -38,7 +38,7 @@ $ KUBE\_GCE\_ZONE=europe-west1-b ./cluster/kube-up.sh
 
 
 
-Now, we will add two additional pools of worker nodes, each of three nodes, in zones europe-west1-c and europe-west1-d (more details on adding pools of worker nodes can be find [here](http://kubernetes.io/docs/setup/multiple-zones/)):  
+Now, we will add two additional pools of worker nodes, each of three nodes, in zones europe-west1-c and europe-west1-d (more details on adding pools of worker nodes can be find [here](/docs/setup/multiple-zones/)):  
 
 
  ```

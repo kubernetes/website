@@ -4,7 +4,7 @@ date: 2018-04-13
 slug: local-persistent-volumes-beta
 ---
 
-The [Local Persistent Volumes](https://kubernetes.io/docs/concepts/storage/volumes/#local) beta feature in Kubernetes 1.10 makes it possible to leverage local disks in your StatefulSets. You can specify directly-attached local disks as PersistentVolumes, and use them in StatefulSets with the same PersistentVolumeClaim objects that previously only supported remote volume types.
+The [Local Persistent Volumes](/docs/concepts/storage/volumes/#local) beta feature in Kubernetes 1.10 makes it possible to leverage local disks in your StatefulSets. You can specify directly-attached local disks as PersistentVolumes, and use them in StatefulSets with the same PersistentVolumeClaim objects that previously only supported remote volume types.
 
 Persistent storage is important for running stateful applications, and Kubernetes has supported these workloads with StatefulSets, PersistentVolumeClaims and PersistentVolumes. These primitives have supported remote volume types well, where the volumes can be accessed from any node in the cluster, but did not support local volumes, where the volumes can only be accessed from a specific node. The demand for using local, fast SSDs in replicated, stateful workloads has increased with demand to run more workloads in Kubernetes.
 
@@ -129,7 +129,7 @@ kind: StatefulSet
 
 ## Documentation
 
-The Kubernetes website provides full documentation for [local persistent volumes](https://kubernetes.io/docs/concepts/storage/volumes/#local).
+The Kubernetes website provides full documentation for [local persistent volumes](/docs/concepts/storage/volumes/#local).
 
 ## Future enhancements
 
@@ -140,11 +140,11 @@ The local persistent volume beta feature is not complete by far. Some notable en
 
 ## Complementary features
 
-[Pod priority and preemption](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/) is another Kubernetes feature that is complementary to local persistent volumes. When your application uses local storage, it must be scheduled to the specific node where the local volume resides. You can give your local storage workload high priority so if that node ran out of room to run your workload, Kubernetes can preempt lower priority workloads to make room for it.
+[Pod priority and preemption](/docs/concepts/configuration/pod-priority-preemption/) is another Kubernetes feature that is complementary to local persistent volumes. When your application uses local storage, it must be scheduled to the specific node where the local volume resides. You can give your local storage workload high priority so if that node ran out of room to run your workload, Kubernetes can preempt lower priority workloads to make room for it.
 
-[Pod disruption budget](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/) is also very important for those workloads that must maintain quorum. Setting a disruption budget for your workload ensures that it does not drop below quorum due to voluntary disruption events, such as node drains during upgrade.
+[Pod disruption budget](/docs/concepts/workloads/pods/disruptions/) is also very important for those workloads that must maintain quorum. Setting a disruption budget for your workload ensures that it does not drop below quorum due to voluntary disruption events, such as node drains during upgrade.
 
-[Pod affinity and anti-affinity](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature) ensures that your workloads stay either co-located or spread out across failure domains. If you have multiple local persistent volumes available on a single node, it may be preferable to specify an pod anti-affinity policy to spread your workload across nodes. Note that if you want multiple pods to share the same local persistent volume, you do not need to specify a pod affinity policy. The scheduler understands the locality constraints of the local persistent volume and schedules your pod to the correct node.
+[Pod affinity and anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature) ensures that your workloads stay either co-located or spread out across failure domains. If you have multiple local persistent volumes available on a single node, it may be preferable to specify an pod anti-affinity policy to spread your workload across nodes. Note that if you want multiple pods to share the same local persistent volume, you do not need to specify a pod affinity policy. The scheduler understands the locality constraints of the local persistent volume and schedules your pod to the correct node.
 
 ## Getting involved
 

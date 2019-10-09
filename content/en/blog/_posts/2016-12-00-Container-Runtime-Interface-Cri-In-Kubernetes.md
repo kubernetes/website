@@ -100,7 +100,7 @@ Although CRI is still in its early stages, there are already several projects un
 
 
 
-- [cri-o](https://github.com/kubernetes-incubator/cri-o): OCI conformant runtimes.
+- [cri-o](https://cri-o.io/): OCI conformant runtimes.
 - [rktlet](https://github.com/kubernetes-incubator/rktlet): the rkt container runtime.
 - [frakti](https://github.com/kubernetes/frakti): hypervisor-based container runtimes.
 - [docker CRI shim](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/dockershim).

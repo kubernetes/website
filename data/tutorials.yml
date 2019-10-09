@@ -41,10 +41,6 @@ toc:
     path: https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#
 - title: Hello Minikube
   path: /docs/tutorials/stateless-application/hello-minikube/
-- title: Kubernetes 101
-  path: /docs/user-guide/walkthrough/
-- title: Kubernetes 201
-  path: /docs/user-guide/walkthrough/k8s201/
 - title: Configuration
   landing_page: /docs/tutorials/configuration/configure-redis-using-configmap/
   section:

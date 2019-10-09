@@ -2,7 +2,7 @@
 title: Code Contributor
 id: code-contributor
 date: 2018-04-12
-full_link: /docs/imported/community/devel/
+full_link: /docs/community/devel/
 short_description: >
   A person who develops and contributes code to the Kubernetes open source codebase.
 

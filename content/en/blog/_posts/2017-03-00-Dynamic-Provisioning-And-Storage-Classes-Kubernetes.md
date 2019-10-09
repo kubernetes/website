@@ -9,9 +9,9 @@ _Editor’s note: this post is part of a [series of in-depth articles](https://k
 
 
 
-Storage is a critical part of running stateful containers, and Kubernetes offers powerful primitives for managing it. Dynamic volume provisioning, a feature unique to Kubernetes, allows storage volumes to be created on-demand. Before dynamic provisioning, cluster administrators had to manually make calls to their cloud or storage provider to provision new storage volumes, and then create PersistentVolume objects to represent them in Kubernetes. With dynamic provisioning, these two steps are automated, eliminating the need for cluster administrators to pre-provision storage. Instead, the storage resources can be dynamically provisioned using the provisioner specified by the StorageClass object (see [user-guide](https://kubernetes.io/docs/user-guide/persistent-volumes/index#storageclasses)). StorageClasses are essentially blueprints that abstract away the underlying storage provider, as well as other parameters, like disk-type (e.g.; solid-state vs standard disks).  
+Storage is a critical part of running stateful containers, and Kubernetes offers powerful primitives for managing it. Dynamic volume provisioning, a feature unique to Kubernetes, allows storage volumes to be created on-demand. Before dynamic provisioning, cluster administrators had to manually make calls to their cloud or storage provider to provision new storage volumes, and then create PersistentVolume objects to represent them in Kubernetes. With dynamic provisioning, these two steps are automated, eliminating the need for cluster administrators to pre-provision storage. Instead, the storage resources can be dynamically provisioned using the provisioner specified by the StorageClass object (see [user-guide](/docs/user-guide/persistent-volumes/index#storageclasses)). StorageClasses are essentially blueprints that abstract away the underlying storage provider, as well as other parameters, like disk-type (e.g.; solid-state vs standard disks).  
 
-StorageClasses use provisioners that are specific to the storage platform or cloud provider to give Kubernetes access to the physical media being used. Several storage provisioners are provided in-tree (see [user-guide](https://kubernetes.io/docs/user-guide/persistent-volumes/index#provisioner)), but additionally out-of-tree provisioners are now supported (see [kubernetes-incubator](https://github.com/kubernetes-incubator/external-storage)).  
+StorageClasses use provisioners that are specific to the storage platform or cloud provider to give Kubernetes access to the physical media being used. Several storage provisioners are provided in-tree (see [user-guide](/docs/user-guide/persistent-volumes/index#provisioner)), but additionally out-of-tree provisioners are now supported (see [kubernetes-incubator](https://github.com/kubernetes-incubator/external-storage)).  
 
 In the [Kubernetes 1.6 release](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale), **dynamic provisioning has been promoted to stable** (having entered beta in 1.4). This is a big step forward in completing the Kubernetes storage automation vision, allowing cluster administrators to control how resources are provisioned and giving users the ability to focus more on their application. With all of these benefits, **there are a few important user-facing changes (discussed below) that are important to understand before using Kubernetes 1.6**.  
 
@@ -78,7 +78,7 @@ The following table provides more detail on default storage classes pre-installe
 | VMware vSphere | thin | vsphere-volume |
 
 
-While these pre-installed default storage classes are chosen to be “reasonable” for most storage users, [this guide](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class) provides instructions on how to specify your own default.  
+While these pre-installed default storage classes are chosen to be “reasonable” for most storage users, [this guide](/docs/tasks/administer-cluster/change-default-storage-class) provides instructions on how to specify your own default.  
 
 
 
@@ -86,13 +86,13 @@ While these pre-installed default storage classes are chosen to be “reasonable
 
 
 
-All PVs have a reclaim policy associated with them that dictates what happens to a PV once it becomes released from a claim (see [user-guide](https://kubernetes.io/docs/user-guide/persistent-volumes/#reclaiming)). Since the goal of dynamic provisioning is to completely automate the lifecycle of storage resources, the default reclaim policy for dynamically provisioned volumes is “delete”. This means that when a PersistentVolumeClaim (PVC) is released, the dynamically provisioned volume is de-provisioned (deleted) on the storage provider and the data is likely irretrievable. If this is not the desired behavior, the user must change the reclaim policy on the corresponding PersistentVolume (PV) object after the volume is provisioned.
+All PVs have a reclaim policy associated with them that dictates what happens to a PV once it becomes released from a claim (see [user-guide](/docs/user-guide/persistent-volumes/#reclaiming)). Since the goal of dynamic provisioning is to completely automate the lifecycle of storage resources, the default reclaim policy for dynamically provisioned volumes is “delete”. This means that when a PersistentVolumeClaim (PVC) is released, the dynamically provisioned volume is de-provisioned (deleted) on the storage provider and the data is likely irretrievable. If this is not the desired behavior, the user must change the reclaim policy on the corresponding PersistentVolume (PV) object after the volume is provisioned.
 
 
 
 **How do I change the reclaim policy on a dynamically provisioned volume?**
 
-You can change the reclaim policy by editing the PV object and changing the “persistentVolumeReclaimPolicy” field to the desired value. For more information on various reclaim policies see [user-guide](https://kubernetes.io/docs/user-guide/persistent-volumes/#reclaim-policy).
+You can change the reclaim policy by editing the PV object and changing the “persistentVolumeReclaimPolicy” field to the desired value. For more information on various reclaim policies see [user-guide](/docs/user-guide/persistent-volumes/#reclaim-policy).
 
 
 

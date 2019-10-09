@@ -34,6 +34,11 @@ override the default command and arguments provided by the container image.
 If you define args, but do not define a command, the default command is used
 with your new arguments.
 
+{{< note >}}
+The `command` field corresponds to `entrypoint` in some container
+runtimes. Refer to the [Notes](#notes) below.
+{{< /note >}}
+
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 
@@ -41,11 +46,15 @@ file for the Pod defines a command and two arguments:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/examples/pods/commands.yaml
+    ```shell
+    kubectl apply -f https://k8s.io/examples/pods/commands.yaml
+    ```
 
 1. List the running Pods:
 
-        kubectl get pods
+    ```shell
+    kubectl get pods
+    ```
 
     The output shows that the container that ran in the command-demo Pod has
     completed.
@@ -53,13 +62,17 @@ file for the Pod defines a command and two arguments:
 1. To see the output of the command that ran in the container, view the logs
 from the Pod:
 
-        kubectl logs command-demo
+    ```shell
+    kubectl logs command-demo
+    ```
 
     The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
     variables:
 
-        command-demo
-        tcp://10.3.240.1:443
+    ```
+    command-demo
+    tcp://10.3.240.1:443
+    ```
 
 ## Use environment variables to define arguments
 
@@ -67,11 +80,13 @@ In the preceding example, you defined the arguments directly by
 providing strings. As an alternative to providing strings directly,
 you can define arguments by using environment variables:
 
-    env:
-    - name: MESSAGE
-      value: "hello world"
-    command: ["/bin/echo"]
-    args: ["$(MESSAGE)"]
+```yaml
+env:
+- name: MESSAGE
+  value: "hello world"
+command: ["/bin/echo"]
+args: ["$(MESSAGE)"]
+```
 
 This means you can define an argument for a Pod using any of
 the techniques available for defining environment variables, including
@@ -80,7 +95,7 @@ and
 [Secrets](/docs/concepts/configuration/secret/).
 
 {{< note >}}
-**Note:** The environment variable appears in parentheses, `"$(VAR)"`. This is
+The environment variable appears in parentheses, `"$(VAR)"`. This is
 required for the variable to be expanded in the `command` or `args` field.
 {{< /note >}}
 
@@ -90,8 +105,10 @@ In some cases, you need your command to run in a shell. For example, your
 command might consist of several commands piped together, or it might be a shell
 script. To run your command in a shell, wrap it like this:
 
-    command: ["/bin/sh"]
-    args: ["-c", "while true; do echo hello; sleep 10;done"]
+```shell
+command: ["/bin/sh"]
+args: ["-c", "while true; do echo hello; sleep 10;done"]
+```
 
 ## Notes
 
@@ -132,7 +149,6 @@ Here are some examples:
 
 {{% capture whatsnext %}}
 
-* Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring pods and containers](/docs/tasks/).
 * Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 * See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).

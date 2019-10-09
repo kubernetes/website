@@ -1,0 +1,195 @@
+# i18n strings for the Dutch (main) site.
+
+[deprecation_warning]
+other = " documentatie wordt niet langer actief onderhouden. De versie die u momenteel bekijkt is een statische momentopname. Zie voor bijgewerkte documentatie "
+
+[deprecation_file_warning]
+other = "Verouderd"
+
+[objectives_heading]
+other = "Doelen"
+
+[cleanup_heading]
+other = "Opschonen"
+
+[prerequisites_heading]
+other = "Voordat je begint"
+
+[whatsnext_heading]
+other = "Wat nu volgt"
+
+[feedback_heading]
+other = "Feedback"
+
+[feedback_question]
+other = "Was deze pagina nuttig?"
+
+[feedback_yes]
+other = "Ja"
+
+[feedback_no]
+other = "Nee"
+
+[latest_version]
+other = "laatste versie."
+
+[version_check_mustbe]
+other = "Je Kubernetes server moet op de volgende versie zitten "
+
+[version_check_mustbeorlater]
+other = "Je Kubernetes server moet op de volgende of latere versie zitten "
+
+[version_check_tocheck]
+other = "Voer het volgende in om de versie te controleren "
+
+[caution]
+other = "Voorzichtig:"
+
+[note]
+other = "Opmerking:"
+
+[warning]
+other = "Opletten:"
+
+[main_read_about]
+other = "Lees over"
+
+[main_read_more]
+other = "Lees meer"
+
+[main_github_invite]
+other = "Geïnteresseerd om aan de core Kubernetes code base te werken?"
+
+[main_github_view_on]
+other = "Bekijk op GitHub"
+
+[main_github_create_an_issue]
+other = "Maak een Issue"
+
+[main_community_explore]
+other = "Verken de community"
+
+[main_kubernetes_features]
+other = "Kubernetes functies"
+
+[main_cncf_project]
+other = """We zijn een <a href="https://cncf.io/">CNCF</a> project</p>"""
+
+[main_kubeweekly_baseline]
+other = "Wil je het laatste Kubernates nieuws ontvangen? Abonneer je op KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "Eerdere nieuwsbrieven bekijken"
+
+[main_kubeweekly_signup]
+other = "Abonneren"
+
+[main_contribute]
+other = "Bijdragen"
+
+[main_edit_this_page]
+other = "Bewerk deze pagina"
+
+[main_page_history]
+other ="Pagina geschiedenis"
+
+[main_page_last_modified_on]
+other = "Pagina laatst gewijzigd op"
+
+[main_by]
+other = "door"
+
+[main_documentation_license]
+other = """De Kubernetes auteurs | Documentatie verspreid onder <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. Alle rechten voorbehouden. De Linux Foundation heeft handelsmerken geregistreerd en handelsmerken. gebruikt Voor een lijst met handelsmerken van The Linux Foundation raadpleegt u onze<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Handelsmerkgebruikspagina</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "Bladeren door documenten"
+
+[docs_label_contributors]
+other = "Bijdragers"
+
+[docs_label_users]
+other = "Gebruikers"
+
+[docs_label_i_am]
+other = "IK BEN..."
+
+# layouts > blog > pager
+
+[layouts_blog_pager_prev]
+other = "<< Vorige"
+
+[layouts_blog_pager_next]
+other = "Volgende >>"
+
+# layouts > blog > list
+
+[layouts_case_studies_list_tell]
+other = "Vertel jouw verhaal"
+
+# layouts > docs > glossary
+
+[layouts_docs_glossary_description]
+other = "Deze verklarende woordenlijst is bedoeld als een uitgebreide, gestandaardiseerde lijst van Kubernetes-terminologie. Het bevat technische termen die specifiek zijn voor K8s, evenals meer algemene termen die een bruikbare context bieden."
+
+[layouts_docs_glossary_filter]
+other = "Filter termen op basis van hun tags"
+
+[layouts_docs_glossary_select_all]
+other = "Alles selecteren"
+
+[layouts_docs_glossary_deselect_all]
+other = "Alles deselecteren"
+
+[layouts_docs_glossary_aka]
+other = "Ook bekend als"
+
+[layouts_docs_glossary_click_details_before]
+other = "Klik op de"
+
+[layouts_docs_glossary_click_details_after]
+other = "onderstaande indicatoren om een ​​langere verklaring voor een bepaalde term te krijgen."
+
+# layouts > docs > search
+
+[layouts_docs_search_fetching]
+other = "Resultaten ophalen.."
+
+# layouts > partial > feedback
+
+[layouts_docs_partials_feedback_thanks]
+other = "Bedankt voor de feedback. Als je een specifieke vraag hebt, die beantwoord moet worden, over het gebruik van Kubernetes, vraag het dan op"
+
+[layouts_docs_partials_feedback_issue]
+other = "Open een probleem in de GitHub-repo "
+
+[layouts_docs_partials_feedback_problem]
+other = "meld een probleem"
+
+[layouts_docs_partials_feedback_or]
+other = "of"
+
+[layouts_docs_partials_feedback_improvement]
+other = "doe een suggestie voor een verbetering"
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "Forum"
+[community_events_calendar]
+other = "Evenementenkalender"
+
+# UI elements
+[ui_search_placeholder]
+other = "Zoeken"

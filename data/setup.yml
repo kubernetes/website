@@ -6,9 +6,9 @@ toc:
 - docs/setup/pick-right-solution.md
 
 - title: Downloading Kubernetes
-  landing_page: /docs/imported/release/notes/
+  landing_page: /docs/setup/release/notes/
   section:
-  - docs/imported/release/notes.md
+  - docs/setup/release/notes.md
   - docs/setup/building-from-source.md
 
 - title: Version 1.10 Troubleshooting
@@ -38,8 +38,8 @@ toc:
     path: https://cloud.google.com/kubernetes-engine/docs/before-you-begin/
   - title: Running Kubernetes on Azure Container Service
     path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
-  - title: Running Kubernetes on IBM Cloud Container Service
-    path: https://console.bluemix.net/docs/containers/container_index.html
+  - title: Running Kubernetes on IBM Cloud Kubernetes Service
+    path: https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index
 
 - title: Turn-key Cloud Solutions
   landing_page: /docs/getting-started-guides/alibaba-cloud/
@@ -127,14 +127,13 @@ toc:
 - title: Installing Addons
   path: /docs/concepts/cluster-administration/addons/
 
-- title: Configuring Kubernetes with Salt
-  path: /docs/admin/salt/
-
 - title: Building Large Clusters
   path: /docs/admin/cluster-large/
 
 - title: Running in Multiple Zones
-  path: /docs/setup/multiple-zones/
+  path: /docs/setup/best-practices/multiple-zones/
 
 - title: Building High-Availability Clusters
   path: /docs/admin/high-availability/building/
+
+- docs/setup/version-skew-policy.md

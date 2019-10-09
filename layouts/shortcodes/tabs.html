@@ -27,12 +27,12 @@
 				{{ end }}
 			{{ end }}
 		{{ else}}
-		{{ $path := path.Join $.Page.Dir .include }}
-		{{ $page := $.Page.Site.GetPage "page" $path }}
+		{{ $path := path.Join $.Page.File.Dir .include }}
+		{{ $page := site.GetPage "page" $path }}
 		{{ with $page }}
 			{{ .Content }}
 		{{ else }}	
-		{{ errorf "[%s] tabs include not found for path %q" $.Page.Site.Language.Lang $path}}
+		{{ errorf "[%s] tabs include not found for path %q" site.Language.Lang $path}}
 		{{ end }}
 		{{ end }}
 	{{ end }}

@@ -18,7 +18,6 @@ cluster actions, like upgrading and autoscaling clusters.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -64,6 +63,11 @@ Ask your cluster administrator or consult your cloud provider or distribution do
 to determine if any sources of voluntary disruptions are enabled for your cluster.
 If none are enabled, you can skip creating Pod Disruption Budgets.
 
+{{< caution >}}
+Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
+deleting deployments or pods bypasses Pod Disruption Budgets.
+{{< /caution >}}
+
 ## Dealing with Disruptions
 
 Here are some ways to mitigate involuntary disruptions:
@@ -94,7 +98,7 @@ time as frequent voluntary disruptions.  We call this set of features
 ## How Disruption Budgets Work
 
 An Application Owner can create a `PodDisruptionBudget` object (PDB) for each application.
-A PDB limits the number pods of a replicated application that are down simultaneously from
+A PDB limits the number of pods of a replicated application that are down simultaneously from
 voluntary disruptions.  For example, a quorum-based application would
 like to ensure that the number of replicas running is never brought below the
 number needed for a quorum. A web front end might want to
@@ -103,7 +107,7 @@ percentage of the total.
 
 Cluster managers and hosting providers should use tools which
 respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
-instead of directly deleting pods.  Examples are the `kubectl drain` command
+instead of directly deleting pods or deployments.  Examples are the `kubectl drain` command
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 
 When a cluster administrator wants to drain a node
@@ -165,8 +169,8 @@ The deployment notices that one of the pods is terminating, so it creates a repl
 called `pod-d`.  Since `node-1` is cordoned, it lands on another node.  Something has
 also created `pod-y` as a replacement for `pod-x`.
 
-(Note: for a StatefulSet, `pod-a`, which would be called something like `pod-1`, would need
-to terminate completely before its replacement, which is also called `pod-1` but has a
+(Note: for a StatefulSet, `pod-a`, which would be called something like `pod-0`, would need
+to terminate completely before its replacement, which is also called `pod-0` but has a
 different UID, could be created.  Otherwise, the example applies to a StatefulSet as well.)
 
 Now the cluster is in this state:
@@ -245,8 +249,8 @@ If you are a Cluster Administrator, and you need to perform a disruptive action 
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
 
 - Accept downtime during the upgrade.
-- Fail over to another complete replica cluster.
-   -  No downtime, but may be costly both for the duplicated nodes,
+- Failover to another complete replica cluster.
+   -  No downtime, but may be costly both for the duplicated nodes
      and for human effort to orchestrate the switchover.
 - Write disruption tolerant applications and use PDBs.
    - No downtime.
@@ -266,6 +270,3 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
 
 {{% /capture %}}
-
-
-

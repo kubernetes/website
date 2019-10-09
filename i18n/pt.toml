@@ -1,0 +1,139 @@
+# i18n strings for the Portuguese (main) site.
+
+[deprecation_warning]
+other = " a documentação não é mais mantida ativamente. A versão que você está visualizando no momento é uma captura instantânea estática. Para obter documentação atualizada, consulte "
+
+[deprecation_file_warning]
+other = "Descontinuado"
+
+[objectives_heading]
+other = "Objetivos"
+
+[cleanup_heading]
+other = "Limpando"
+
+[prerequisites_heading]
+other = "Antes de você começar"
+
+[whatsnext_heading]
+other = "Qual é o próximo"
+
+[feedback_heading]
+other = "Comentários"
+
+[feedback_question]
+other = "Esta página foi útil?"
+
+[feedback_yes]
+other = "Sim"
+
+[feedback_no]
+other = "Não"
+
+[latest_version]
+other = "última versão."
+
+[version_check_mustbe]
+other = "Seu servidor Kubernetes deve ser versão"
+
+[version_check_mustbeorlater]
+other = "O seu servidor Kubernetes deve estar em ou depois da versão "
+
+[version_check_tocheck]
+other = "Para verificar a versão, digite "
+
+[caution]
+other = "Cuidado:"
+
+[note]
+other = "Nota:"
+
+[warning]
+other = "Aviso:"
+
+[main_read_about]
+other = "Ler sobre"
+
+[main_read_more]
+other = "Consulte Mais informação"
+
+[main_github_invite]
+other = "Interessado em mergulhar na base de código do Kubernetes?"
+
+[main_github_view_on]
+other = "Veja no Github"
+
+[main_github_create_an_issue]
+other = "Abra um bug"
+
+[main_community_explore]
+other = "Explore a comunidade"
+
+[main_kubernetes_features]
+other = "Recursos do Kubernetes"
+
+[main_cncf_project]
+other = """Nós somos uma <a href="https://cncf.io/">CNCF</a> projeto graduado</p>"""
+
+[main_kubeweekly_baseline]
+other = "Interessado em receber as últimas novidades sobre Kubernetes? Inscreva-se no KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "Veja boletins passados"
+
+[main_kubeweekly_signup]
+other = "Se inscrever"
+
+[main_contribute]
+other = "Contribuir"
+
+[main_edit_this_page]
+other = "Edite essa página"
+
+[main_page_history]
+other ="História da página"
+
+[main_page_last_modified_on]
+other = "Última modificação da página em"
+
+[main_by]
+other = "por"
+
+[main_documentation_license]
+other = """Os autores do Kubernetes | Documentação Distribuída sob <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """A Fundação Linux &reg;. Todos os direitos reservados. A Linux Foundation tem marcas registradas e usa marcas registradas. Para uma lista de marcas registradas da The Linux Foundation, por favor, veja nossa <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Página de uso de marca registrada</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "Procurar documentos"
+
+[docs_label_contributors]
+other = "Colaboradores"
+
+[docs_label_users]
+other = "Usuários"
+
+[docs_label_i_am]
+other = "Eu sou..."
+
+
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "Fórum"
+[community_events_calendar]
+other = "Calendário de Eventos"
+
+# UI elements
+[ui_search_placeholder]
+other = "Procurar"

@@ -66,7 +66,7 @@ consensus protocol to replicate a state machine across all servers in the ensemb
 
 The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until that election is complete. Once complete, the ensemble uses Zab to ensure that it replicates all writes to a quorum before it acknowledges and makes them visible to clients. Without respect to weighted quorums, a quorum is a majority component of the ensemble containing the current leader. For instance, if the ensemble has three servers, a component that contains the leader and one other server constitutes a quorum. If the ensemble can not achieve a quorum, the ensemble cannot write data.
 
-ZooKeeper servers keep their entire state machine in memory, and write every mutation to a durable WAL (Write Ahead Log) on storage media. When a server crashes, it can recover its previous state by replaying the WAL. To prevent the WAL from growing without bound, ZooKeeper servers will periodically snapshot their in memory state to storage media. These snapshots can be loaded directly into memory, and all WAL entries that preceded the snapshot may be discarded.
+ZooKeeper servers keep their entire state machine in memory, and write every mutation to a durable WAL (Write Ahead Log) on storage media. When a server crashes, it can recover its previous state by replaying the WAL. To prevent the WAL from growing without bound, ZooKeeper servers will periodically snapshot them in memory state to storage media. These snapshots can be loaded directly into memory, and all WAL entries that preceded the snapshot may be discarded.
 
 ## Creating a ZooKeeper Ensemble
 
@@ -90,10 +90,10 @@ This creates the `zk-hs` Headless Service, the `zk-cs` Service,
 the `zk-pdb` PodDisruptionBudget, and the `zk` StatefulSet.
 
 ```shell
-service "zk-hs" created
-service "zk-cs" created
-poddisruptionbudget "zk-pdb" created
-statefulset "zk" created
+service/zk-hs created
+service/zk-cs created
+poddisruptionbudget.policy/zk-pdb created
+statefulset.apps/zk created
 ```
 
 Use [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the
@@ -103,7 +103,7 @@ StatefulSet controller create the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to  terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -314,7 +314,7 @@ Use the [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#d
 
 ```shell
 kubectl delete statefulset zk
-statefulset "zk" deleted
+statefulset.apps "zk" deleted
 ```
 
 Watch the termination of the Pods in the StatefulSet.
@@ -620,7 +620,7 @@ You can use `kubectl patch` to update the number of `cpus` allocated to the serv
 ```shell
 kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
 
-statefulset "zk" patched
+statefulset.apps/zk patched
 ```
 
 Use `kubectl rollout status` to watch the status of the update.
@@ -658,7 +658,7 @@ Use the `kubectl rollout undo` command to roll back the modification.
 ```shell
 kubectl rollout undo sts/zk
 
-statefulset "zk" rolled back
+statefulset.apps/zk rolled back
 ```
 
 ### Handling Process Failure
@@ -676,7 +676,7 @@ kubectl exec zk-0 -- ps -ef
 ```
 
 The command used as the container's entry point has PID 1, and
-the ZooKeeper process, a child of the entry point, has PID 23.
+the ZooKeeper process, a child of the entry point, has PID 27.
 
 ```shell
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -832,9 +832,9 @@ for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo "";
 All of the Pods in the `zk` `StatefulSet` are deployed on different nodes.
 
 ```shell
-kubernetes-minion-group-cxpk
-kubernetes-minion-group-a5aq
-kubernetes-minion-group-2g2d
+kubernetes-node-cxpk
+kubernetes-node-a5aq
+kubernetes-node-2g2d
 ```
 
 This is because the Pods in the `zk` `StatefulSet` have a `PodAntiAffinity` specified.
@@ -906,9 +906,9 @@ In another terminal, use this command to get the nodes that the Pods are current
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 
-kubernetes-minion-group-pb41
-kubernetes-minion-group-ixsl
-kubernetes-minion-group-i4c4
+kubernetes-node-pb41
+kubernetes-node-ixsl
+kubernetes-node-i4c4
 ```
 
 Use [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain) to cordon and
@@ -916,11 +916,11 @@ drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
-node "kubernetes-minion-group-pb41" cordoned
+node "kubernetes-node-pb41" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-pb41, kube-proxy-kubernetes-minion-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-pb41, kube-proxy-kubernetes-node-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
 pod "zk-0" deleted
-node "kubernetes-minion-group-pb41" drained
+node "kubernetes-node-pb41" drained
 ```
 
 As there are four nodes in your cluster, `kubectl drain`, succeeds and the
@@ -947,11 +947,11 @@ Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node 
 `zk-1` is scheduled.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-minion-group-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-ixsl, kube-proxy-kubernetes-minion-group-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
-node "kubernetes-minion-group-ixsl" drained
+node "kubernetes-node-ixsl" drained
 ```
 
 The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `PodAntiAffinity` rule preventing co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.
@@ -986,10 +986,10 @@ Continue to watch the Pods of the stateful set, and drain the node on which
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
-node "kubernetes-minion-group-i4c4" cordoned
+node "kubernetes-node-i4c4" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
-WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
+WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4
 There are pending pods when an error occurred: Cannot evict pod as it would violate the pod's disruption budget.
 pod/zk-2
 ```
@@ -1025,9 +1025,9 @@ numChildren = 0
 Use [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon) to uncordon the first node.
 
 ```shell
-kubectl uncordon kubernetes-minion-group-pb41
+kubectl uncordon kubernetes-node-pb41
 
-node "kubernetes-minion-group-pb41" uncordoned
+node "kubernetes-node-pb41" uncordoned
 ```
 
 `zk-1` is rescheduled on this node. Wait until `zk-1` is Running and Ready.
@@ -1070,11 +1070,11 @@ kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-dae
 The output:
 
 ```
-node "kubernetes-minion-group-i4c4" already cordoned
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
+node "kubernetes-node-i4c4" already cordoned
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
 pod "heapster-v1.2.0-2604621511-wht1r" deleted
 pod "zk-2" deleted
-node "kubernetes-minion-group-i4c4" drained
+node "kubernetes-node-i4c4" drained
 ```
 
 This time `kubectl drain` succeeds.
@@ -1082,11 +1082,11 @@ This time `kubectl drain` succeeds.
 Uncordon the second node to allow `zk-2` to be rescheduled.
 
 ```shell
-kubectl uncordon kubernetes-minion-group-ixsl
+kubectl uncordon kubernetes-node-ixsl
 ```
 
 ```
-node "kubernetes-minion-group-ixsl" uncordoned
+node "kubernetes-node-ixsl" uncordoned
 ```
 
 You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure that your services remain available during maintenance. If drain is used to cordon nodes and evict pods prior to taking the node offline for maintenance, services that express a disruption budget will have that budget respected. You should always allocate additional capacity for critical services so that their Pods can be immediately rescheduled.

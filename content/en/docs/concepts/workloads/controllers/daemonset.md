@@ -20,8 +20,7 @@ Some typical uses of a DaemonSet are:
 
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
-- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, Datadog agent, New Relic agent, or Ganglia `gmond`.
+- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Sysdig Agent](https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/).
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -29,7 +28,6 @@ different flags and/or different memory and cpu requests for different hardware 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -43,16 +41,16 @@ You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` f
 
 * Create a DaemonSet based on the YAML file:
 ```
-kubectl create -f https://k8s.io/examples/controllers/daemonset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
 
 ### Required Fields
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
-[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/) documents.
+[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
-A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
+A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) section.
 
 ### Pod Template
 
@@ -88,10 +86,10 @@ When the two are specified the result is ANDed.
 If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`. Config with these not matching will be rejected by the API.
 
 Also you should not normally create any Pods whose labels match this selector, either directly, via
-another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the DaemonSet
-controller will think that those Pods were created by it.  Kubernetes will not stop you from doing
-this.  One case where you might want to do this is manually create a Pod with a different value on
-a node for testing.
+another DaemonSet, or via another workload resource such as ReplicaSet.  Otherwise, the DaemonSet
+{{< glossary_tooltip term_id="controller" >}} will think that those Pods were created by it.
+Kubernetes will not stop you from doing this. One case where you might want to do this is manually
+create a Pod with a different value on a node for testing.
 
 ### Running Pods on Only Some Nodes
 
@@ -103,7 +101,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ## How Daemon Pods are Scheduled
 
-### Scheduled by DaemonSet controller (default)
+### Scheduled by DaemonSet controller (disabled by default since 1.12)
 
 Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
 created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
@@ -115,9 +113,9 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
    bootstrap.
 
 
-### Scheduled by default scheduler
+### Scheduled by default scheduler (enabled by default since 1.12)
 
-{{< feature-state state="alpha" for-kubernetes-version="1.11" >}}
+{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,
@@ -130,7 +128,7 @@ That introduces the following issues:
  * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
    is handled by default scheduler. When preemption is enabled, the DaemonSet controller
    will make scheduling decisions without considering pod priority and preemption.
- 
+
 `ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
 scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
 to the DaemonSet pods, instead of the `.spec.nodeName` term. The default
@@ -151,32 +149,25 @@ nodeAffinity:
 ```
 
 In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
-automatically to DaemonSet Pods. The DaemonSet controller ignores
-`unschedulable` Nodes when scheduling DaemonSet Pods. You must enable
-`TaintNodesByCondition` to ensure that the default scheduler behaves the same
-way and schedules DaemonSet pods on `unschedulable` nodes.
-
-When this feature and `TaintNodesByCondition` are enabled together, if DaemonSet
-uses the host network, you must also add the
-`node.kubernetes.io/network-unavailable:NoSchedule toleration`.
+automatically to DaemonSet Pods. The default scheduler ignores
+`unschedulable` Nodes when scheduling DaemonSet Pods.
 
 
 ### Taints and Tolerations
 
 Although Daemon Pods respect
 [taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
-the following tolerations are added to DamonSet Pods automatically according to
+the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
 
-| Toleration Key                           | Effect     | Alpha Features                                               | Version | Description                                                  |
-| ---------------------------------------- | ---------- | ------------------------------------------------------------ | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | when `TaintBasedEvictions`  is enabled,they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | when `TaintBasedEvictions`  is enabled,they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | `TaintNodesByCondition`                                      | 1.8+    |                                                              |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | `TaintNodesByCondition`                                      | 1.8+    |                                                              |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | `ScheduleDaemonSetPods`, `TaintNodesByCondition`             | 1.11+   | When ` ScheduleDaemonSetPods` is enabled, ` TaintNodesByCondition` is necessary to make sure DaemonSet pods tolerate unschedulable attributes by default scheduler. |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | `ScheduleDaemonSetPods`, `TaintNodesByCondition`, hostnework | 1.11+   | When ` ScheduleDaemonSetPods` is enabled, ` TaintNodesByCondition` is necessary to make sure DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler. |
-| `node.kubernetes.io/out-of-disk`         | NoSchedule | `ExperimentalCriticalPodAnnotation` (critical pod only), `TaintNodesByCondition` | 1.8+    |                                                              |
+| Toleration Key                           | Effect     | Version | Description                                                  |
+| ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
+| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    |                                                              |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    |                                                              |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler.                                                    |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler.                      |
 
 
 
@@ -203,14 +194,12 @@ You can modify the Pods that a DaemonSet creates.  However, Pods do not allow al
 fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 
-
 You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
-will be left on the nodes.  You can then create a new DaemonSet with a different template.
-The new DaemonSet with the different template will recognize all the existing Pods as having
-matching labels.  It will not modify or delete them despite a mismatch in the Pod template.
-You will need to force new Pod creation by deleting the Pod or deleting the node.
+will be left on the nodes.  If you subsequently create a new DaemonSet with the same selector,
+the new DaemonSet adopts the existing Pods. If any Pods need replacing the DaemonSet replaces
+them according to its `updateStrategy`.
 
-In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
+You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
 ## Alternatives to DaemonSet
 

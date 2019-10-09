@@ -10,8 +10,6 @@ This page shows how to specify extended resources for a Node.
 Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{{< feature-state state="stable" >}}
-
 {{% /capture %}}
 
 
@@ -60,7 +58,7 @@ you call dongles.
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
 
-```
+```shell
 kubectl proxy
 ```
 
@@ -74,10 +72,12 @@ curl --header "Content-Type: application/json-patch+json" \
 http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
-**Note**: In the preceding request, `~1` is the encoding for the character / in
+{{< note >}}
+In the preceding request, `~1` is the encoding for the character / in
 the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 [IETF RFC 6901](https://tools.ietf.org/html/rfc6901), section 3.
+{{< /note >}}
 
 The output shows that the Node has a capacity of 4 dongles:
 
@@ -110,7 +110,7 @@ number of dongles. See
 ## Discussion
 
 Extended resources are similar to memory and CPU resources. For example,
-just as  a Node has a certain amount of memory and CPU to be shared by all components
+just as a Node has a certain amount of memory and CPU to be shared by all components
 running on the Node, it can have a certain number of dongles to be shared
 by all components running on the Node. And just as application developers
 can create Pods that request a certain amount of memory and CPU, they can
@@ -151,7 +151,7 @@ Then a Container could request any number of bytes of special storage, up to 800
 
 Here is a PATCH request that removes the dongle advertisement from a Node.
 
-```shell
+```
 PATCH /api/v1/nodes/<your-node-name>/status HTTP/1.1
 Accept: application/json
 Content-Type: application/json-patch+json
@@ -167,7 +167,7 @@ Host: k8s-master:8080
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
 
-```
+```shell
 kubectl proxy
 ```
 
@@ -186,6 +186,8 @@ Verify that the dongle advertisement has been removed:
 ```
 kubectl describe node <your-node-name> | grep dongle
 ```
+
+(you should not see any output)
 
 {{% /capture %}}
 

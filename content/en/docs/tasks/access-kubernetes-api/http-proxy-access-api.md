@@ -10,12 +10,14 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* If you do not already have an application running in your cluster, start
-  a Hello world application by entering this command:
+If you do not already have an application running in your cluster, start
+a Hello world application by entering this command:
 
-      kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+```shell
+kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+```
 
 {{% /capture %}}
 
@@ -57,7 +59,6 @@ Get a list of pods:
       "kind": "PodList",
       "apiVersion": "v1",
       "metadata": {
-        "selfLink": "/api/v1/namespaces/default/pods",
         "resourceVersion": "33074"
       },
       "items": [
@@ -66,7 +67,6 @@ Get a list of pods:
             "name": "kubernetes-bootcamp-2321272333-ix8pt",
             "generateName": "kubernetes-bootcamp-2321272333-",
             "namespace": "default",
-            "selfLink": "/api/v1/namespaces/default/pods/kubernetes-bootcamp-2321272333-ix8pt",
             "uid": "ba21457c-6b1d-11e6-85f7-1ef9f1dab92b",
             "resourceVersion": "33003",
             "creationTimestamp": "2016-08-25T23:43:30Z",

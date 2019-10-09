@@ -1,5 +1,5 @@
 ---
-title: Setup an extension API server
+title: Setup an Extension API Server
 reviewers:
 - lavalamp
 - cheftako
@@ -16,14 +16,9 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 
 {{% capture prerequisites %}}
 
-* You need to have a Kubernetes cluster running.
-* You must [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
-
-{{% /capture %}}
-
-{{% capture prerequisites %}}
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+* You must [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
 
 {{% /capture %}}
 

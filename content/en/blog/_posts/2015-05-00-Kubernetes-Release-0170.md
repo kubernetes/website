@@ -140,7 +140,7 @@ Release Notes:
 * Update Exec and Portforward client to use pod subresource [#7715][127] (csrwng)
 * Added NFS to PV structs [#7564][128] (markturansky)
 * Fix environment variable error in Vagrant docs [#7904][129] (posita)
-* Adds a simple release-note builder that scrapes the Github API for recent PRs [#7616][130](brendandburns)
+* Adds a simple release-note builder that scrapes the GitHub API for recent PRs [#7616][130](brendandburns)
 * Scheduler ignores nodes that are in a bad state [#7668][131] (bprashanth)
 * Set GOMAXPROCS for etcd [#7863][132] (fgrzadkowski)
 * Auto-generated conversion methods calling one another [#7556][133] (wojtek-t)
@@ -444,7 +444,7 @@ Simple theme. Powered by [Blogger][385].
 [127]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7715 "Update Exec and Portforward client to use pod subresource"
 [128]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7564 "Added NFS to PV structs"
 [129]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7904 "Fix environment variable error in Vagrant docs"
-[130]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7616 "Adds a simple release-note builder that scrapes the Github API for recent PRs"
+[130]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7616 "Adds a simple release-note builder that scrapes the GitHub API for recent PRs"
 [131]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7668 "Scheduler ignores nodes that are in a bad state"
 [132]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7863 "Set GOMAXPROCS for etcd"
 [133]: https://github.com/GoogleCloudPlatform/kubernetes/pull/7556 "Auto-generated conversion methods calling one another"

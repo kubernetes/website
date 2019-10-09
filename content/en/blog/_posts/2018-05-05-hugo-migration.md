@@ -20,7 +20,7 @@ If you encounter any site weirdness or broken formatting, please [open an issue]
 
 ### Multilingual support is coming
 
-Our initial search focused on finding a language selector that would play well with Jekyll. The  projects we found weren't well-supported, and a prototype of one plugin made it clear that a Jekyll implementation would create technical debt that drained resources away from the quality of the docs.
+Our initial search focused on finding a language selector that would play well with Jekyll. The projects we found weren't well-supported, and a prototype of one plugin made it clear that a Jekyll implementation would create technical debt that drained resources away from the quality of the docs.
 
 We chose Hugo after months of research and conversations with other open source translation projects. (Special thanks to [Andreas Jaeger](https://twitter.com/jaegerandi?lang=da) and his experience at OpenStack). Hugo's [multilingual support](https://gohugo.io/content-management/multilingual/) is built in and easy.
 

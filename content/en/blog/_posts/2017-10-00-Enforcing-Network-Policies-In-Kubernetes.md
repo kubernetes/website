@@ -8,7 +8,7 @@ _**Editor's note: this post is part of a [series of in-depth articles](https://k
 
 
 
-Kubernetes now offers functionality to enforce rules about which pods can communicate with each other using [network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/). This feature is has become stable Kubernetes 1.7 and is ready to use with supported networking plugins. The Kubernetes 1.8 release has added better capabilities to this feature.
+Kubernetes now offers functionality to enforce rules about which pods can communicate with each other using [network policies](/docs/concepts/services-networking/network-policies/). This feature is has become stable Kubernetes 1.7 and is ready to use with supported networking plugins. The Kubernetes 1.8 release has added better capabilities to this feature.
 
 
 ## Network policy: What does it mean?
@@ -19,7 +19,7 @@ If you’re running multiple applications in a Kubernetes cluster or sharing a c
 
 
 ## How do I add Network Policy to my cluster?
-Networking Policies are implemented by networking plugins. These plugins typically install an overlay network in your cluster to enforce the Network Policies configured. A number of networking plugins, including [Calico](https://kubernetes.io/docs/tasks/configure-pod-container/calico-network-policy/), [Romana](https://kubernetes.io/docs/tasks/configure-pod-container/romana-network-policy/) and [Weave Net](https://kubernetes.io/docs/tasks/configure-pod-container/weave-network-policy/), support using Network Policies.  
+Networking Policies are implemented by networking plugins. These plugins typically install an overlay network in your cluster to enforce the Network Policies configured. A number of networking plugins, including [Calico](/docs/tasks/configure-pod-container/calico-network-policy/), [Romana](/docs/tasks/configure-pod-container/romana-network-policy/) and [Weave Net](/docs/tasks/configure-pod-container/weave-network-policy/), support using Network Policies.  
 
 Google Container Engine (GKE) also provides beta support for [Network Policies](https://cloud.google.com/container-engine/docs/network-policy) using the Calico networking plugin when you create clusters with the following command:  
 
@@ -71,7 +71,7 @@ spec:
  ```
 
 
-Once you apply this configuration, only pods with label **app: foo** can talk to the pods with the label **app: nginx**. For a more detailed tutorial, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/).  
+Once you apply this configuration, only pods with label **app: foo** can talk to the pods with the label **app: nginx**. For a more detailed tutorial, see the [Kubernetes documentation](/docs/tasks/administer-cluster/declare-network-policy/).  
 
 
 ## Example: restricting traffic between all pods by default
@@ -111,7 +111,7 @@ In addition to the previous examples, you can make the Network Policy API enforc
 
 ## Learn more
 
-- Read more: [Networking Policy documentation](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+- Read more: [Networking Policy documentation](/docs/concepts/services-networking/network-policies/)
 - Read more: [Unofficial Network Policy Guide](https://ahmet.im/blog/kubernetes-network-policy/)
-- Hands-on: [Declare a Network Policy](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)
+- Hands-on: [Declare a Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 - Try: [Network Policy Recipes](https://github.com/ahmetb/kubernetes-networkpolicy-tutorial)

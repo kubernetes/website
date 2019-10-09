@@ -14,5 +14,4 @@ tags:
 
 <!--more--> 
 
-A worker machine may be a VM or physical machine, depending on the cluster. It has the {{< glossary_tooltip text="Services" term_id="service" >}} necessary to run {{< glossary_tooltip text="Pods" term_id="pod" >}} and is managed by the master components. The {{< glossary_tooltip text="Services" term_id="service" >}} on a node include Docker, kubelet and kube-proxy.
-
+A worker node may be a VM or physical machine, depending on the cluster. It has local daemons or services necessary to run {{< glossary_tooltip text="Pods" term_id="pod" >}} and is managed by the control plane. The daemons on a node include {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}, and a container runtime implementing the {{< glossary_tooltip text="CRI" term_id="cri" >}} such as {{< glossary_tooltip term_id="docker" >}}.

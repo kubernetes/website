@@ -6,13 +6,13 @@ url: /blog/2017/03/Advanced-Scheduling-In-Kubernetes
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6_  
 
-The Kubernetes scheduler’s default behavior works well for most cases -- for example, it ensures that pods are only placed on nodes that have sufficient free resources, it ties to spread pods from the same set ([ReplicaSet](https://kubernetes.io/docs/user-guide/replicasets/), [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/), etc.) across nodes, it tries to balance out the resource utilization of nodes, etc.  
+The Kubernetes scheduler’s default behavior works well for most cases -- for example, it ensures that pods are only placed on nodes that have sufficient free resources, it ties to spread pods from the same set ([ReplicaSet](/docs/user-guide/replicasets/), [StatefulSet](/docs/concepts/workloads/controllers/statefulset/), etc.) across nodes, it tries to balance out the resource utilization of nodes, etc.  
 
 But sometimes you want to control how your pods are scheduled. For example, perhaps you want to ensure that certain pods only schedule on nodes with specialized hardware, or you want to co-locate services that communicate frequently, or you want to dedicate a set of nodes to a particular set of users. Ultimately, you know much more about how your applications should be scheduled and deployed than Kubernetes ever will. So **[Kubernetes 1.6](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale) offers four advanced scheduling features: node affinity/anti-affinity, taints and tolerations, pod affinity/anti-affinity, and custom schedulers**. Each of these features are now in _beta_ in Kubernetes 1.6.  
 
 **Node Affinity/Anti-Affinity**  
 
-[Node Affinity/Anti-Affinity](https://kubernetes.io/docs/user-guide/node-selection/#node-affinity-beta-feature) is one way to set rules on which nodes are selected by the scheduler. This feature is a generalization of the [nodeSelector](https://kubernetes.io/docs/user-guide/node-selection/#nodeselector) feature which has been in Kubernetes since version 1.0. The rules are defined using the familiar concepts of custom labels on nodes and selectors specified in pods, and they can be either required or preferred, depending on how strictly you want the scheduler to enforce them.   
+[Node Affinity/Anti-Affinity](/docs/user-guide/node-selection/#node-affinity-beta-feature) is one way to set rules on which nodes are selected by the scheduler. This feature is a generalization of the [nodeSelector](/docs/user-guide/node-selection/#nodeselector) feature which has been in Kubernetes since version 1.0. The rules are defined using the familiar concepts of custom labels on nodes and selectors specified in pods, and they can be either required or preferred, depending on how strictly you want the scheduler to enforce them.   
 
 Required rules must be met for a pod to schedule on a particular node. If no node matches the criteria (plus all of the other normal criteria, such as having enough free resources for the pod’s resource request), then the pod won’t be scheduled. Required rules are specified in the requiredDuringSchedulingIgnoredDuringExecution field of nodeAffinity.   
 
@@ -91,7 +91,7 @@ Additional use cases for this feature are to restrict scheduling based on nodes�
 
 **Taints and Tolerations**  
 
-A related feature is “[taints and tolerations](https://kubernetes.io/docs/user-guide/node-selection/#taints-and-toleations-beta-feature),” which allows you to mark (“taint”) a node so that no pods can schedule onto it unless a pod explicitly “tolerates” the taint. Marking nodes instead of pods (as in node affinity/anti-affinity) is particularly useful for situations where most pods in the cluster should avoid scheduling onto the node. For example, you might want to mark your master node as schedulable only by Kubernetes system components, or dedicate a set of nodes to a particular group of users, or keep regular pods away from nodes that have special hardware so as to leave room for pods that need the special hardware.  
+A related feature is “[taints and tolerations](/docs/user-guide/node-selection/#taints-and-toleations-beta-feature),” which allows you to mark (“taint”) a node so that no pods can schedule onto it unless a pod explicitly “tolerates” the taint. Marking nodes instead of pods (as in node affinity/anti-affinity) is particularly useful for situations where most pods in the cluster should avoid scheduling onto the node. For example, you might want to mark your master node as schedulable only by Kubernetes system components, or dedicate a set of nodes to a particular group of users, or keep regular pods away from nodes that have special hardware so as to leave room for pods that need the special hardware.  
 
 The kubectl command allows you to set taints on nodes, for example:  
 
@@ -120,7 +120,7 @@ tolerations:
 
 
 
-In addition to moving taints and tolerations to _beta_ in Kubernetes 1.6, we have introduced an _alpha_ feature that uses taints and tolerations to allow you to customize how long a pod stays bound to a node when the node experiences a problem like a network partition instead of using the default five minutes. See [this section](https://kubernetes.io/docs/user-guide/node-selection/#per-pod-configurable-eviction-behavior-when-there-are-node-problems-alpha-feature) of the documentation for more details.
+In addition to moving taints and tolerations to _beta_ in Kubernetes 1.6, we have introduced an _alpha_ feature that uses taints and tolerations to allow you to customize how long a pod stays bound to a node when the node experiences a problem like a network partition instead of using the default five minutes. See [this section](/docs/user-guide/node-selection/#per-pod-configurable-eviction-behavior-when-there-are-node-problems-alpha-feature) of the documentation for more details.
 
 
 
@@ -128,7 +128,7 @@ In addition to moving taints and tolerations to _beta_ in Kubernetes 1.6, we hav
 
 
 
-Node affinity/anti-affinity allows you to constrain which nodes a pod can run on based on the nodes’ labels. But what if you want to specify rules about how pods should be placed relative to one another, for example to spread or pack pods within a service or relative to pods in other services? For that you can use [pod affinity/anti-affinity](https://kubernetes.io/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature), which is also _beta_ in Kubernetes 1.6.
+Node affinity/anti-affinity allows you to constrain which nodes a pod can run on based on the nodes’ labels. But what if you want to specify rules about how pods should be placed relative to one another, for example to spread or pack pods within a service or relative to pods in other services? For that you can use [pod affinity/anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature), which is also _beta_ in Kubernetes 1.6.
 
 
 
@@ -163,7 +163,7 @@ Pod affinity/anti-affinity is very flexible. Imagine you have profiled the perfo
 
 **Custom Schedulers**  
 
-If the Kubernetes scheduler’s various features don’t give you enough control over the scheduling of your workloads, you can delegate responsibility for scheduling arbitrary subsets of pods to your own custom scheduler(s) that run(s) alongside, or instead of, the default Kubernetes scheduler. [Multiple schedulers](https://kubernetes.io/docs/admin/multiple-schedulers/) is _beta_ in Kubernetes 1.6.  
+If the Kubernetes scheduler’s various features don’t give you enough control over the scheduling of your workloads, you can delegate responsibility for scheduling arbitrary subsets of pods to your own custom scheduler(s) that run(s) alongside, or instead of, the default Kubernetes scheduler. [Multiple schedulers](/docs/admin/multiple-schedulers/) is _beta_ in Kubernetes 1.6.  
 
 Each new pod is normally scheduled by the default scheduler. But if you provide the name of your own custom scheduler, the default scheduler will ignore that Pod and allow your scheduler to schedule the Pod to a node. Let’s look at an example.  
 

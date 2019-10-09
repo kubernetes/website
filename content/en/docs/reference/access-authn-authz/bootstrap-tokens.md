@@ -179,7 +179,7 @@ verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g.
 is used.
 
 {{< warning >}}
-**Warning:** Any party with a bootstrapping token can create a valid signature for that
+Any party with a bootstrapping token can create a valid signature for that
 token. When using ConfigMap signing it's discouraged to share the same token with
 many clients, since a compromised client can potentially man-in-the middle another
 client relying on the signature to bootstrap TLS trust.

@@ -124,7 +124,7 @@ With dynamic reconfiguration of the network, the replication mechanics of Kubern
 - Build a load analysis and scaling service (easy, right?)
 - If load patterns match the configured triggers in the scaling service (for example, request rate or volume above certain bounds), issue: kubectl scale --replicas=COUNT rc NAME
 
-This would allow us fine-grained control of autoscaling at the platform level, instead of from the applications themselves – but we’ll also evaluate [**Horizontal Pod Autoscaling**](http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/) in Kubernetes; which may suit our need without a custom service.&nbsp;
+This would allow us fine-grained control of autoscaling at the platform level, instead of from the applications themselves – but we’ll also evaluate [**Horizontal Pod Autoscaling**](/docs/user-guide/horizontal-pod-autoscaling/) in Kubernetes; which may suit our need without a custom service.&nbsp;
 
 
 

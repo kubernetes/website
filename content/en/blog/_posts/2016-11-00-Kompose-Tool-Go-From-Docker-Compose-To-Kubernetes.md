@@ -18,7 +18,7 @@ We see kompose as a terrific way to expose Kubernetes principles to Docker users
 
 Over the summer, Kompose has found a new gear with help from Tomas Kral and Suraj Deshmukh from Red Hat, and Janet Kuo from Google. Together with our own lead kompose developer Nguyen An-Tu they are making kompose even more exciting. We proposed Kompose to the Kubernetes Incubator within the SIG-apps and we received approval from the general Kubernetes community; you can now find kompose in the [Kubernetes Incubator](https://github.com/kubernetes-incubator/kompose).  
 
-Kompose now supports Docker-compose v2 format, persistent volume claims have been added recently, as well as multiple container per pods. It can also be used to target Openshift deployments, by specifying a different provider than the default Kubernetes. Kompose is also now available in Fedora packages and we look forward to see it in CentOS distributions in the coming weeks.  
+Kompose now supports Docker-compose v2 format, persistent volume claims have been added recently, as well as multiple container per pods. It can also be used to target OpenShift deployments, by specifying a different provider than the default Kubernetes. Kompose is also now available in Fedora packages and we look forward to see it in CentOS distributions in the coming weeks.  
 
 kompose is a single Golang binary that you build or install from the [release on GitHub](https://github.com/kubernetes-incubator/kompose). Let’s skip the build instructions and dive straight into an example.  
 

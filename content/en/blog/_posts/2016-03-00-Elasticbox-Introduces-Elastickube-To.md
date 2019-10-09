@@ -28,7 +28,7 @@ Use your existing tools of choice to actually build your containers
 
 Use ElasticKube to run, deploy and manage your containers and services
 
-[![](http://cl.ly/0i3M2L3Q030z/Image%202016-03-11%20at%209.49.12%20AM.png)](http://cl.ly/0i3M2L3Q030z/Image%202016-03-11%20at%209.49.12%20AM.png)
+[![](https://cl.ly/0i3M2L3Q030z/Image%202016-03-11%20at%209.49.12%20AM.png)](http://cl.ly/0i3M2L3Q030z/Image%202016-03-11%20at%209.49.12%20AM.png)
 
 
 

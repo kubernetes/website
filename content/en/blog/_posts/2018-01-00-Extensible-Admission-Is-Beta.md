@@ -11,9 +11,9 @@ The admission stage of API server processing is one of the most powerful tools f
 
 
 ## What is Admission?
-[Admission](https://kubernetes.io/docs/admin/admission-controllers/#what-are-they) is the phase of [handling an API server request](https://blog.openshift.com/kubernetes-deep-dive-api-server-part-1/) that happens before a resource is persisted, but after authorization. Admission gets access to the same information as authorization (user, URL, etc) and the complete body of an API request (for most requests).  
+[Admission](/docs/reference/access-authn-authz/admission-controllers/#what-are-they) is the phase of [handling an API server request](https://blog.openshift.com/kubernetes-deep-dive-api-server-part-1/) that happens before a resource is persisted, but after authorization. Admission gets access to the same information as authorization (user, URL, etc) and the complete body of an API request (for most requests).  
 
-[![](https://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s640/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png)](http://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s1600/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png)  
+[![](https://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s640/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png)](https://2.bp.blogspot.com/-p8WGg2BATsY/WlfywbD_tAI/AAAAAAAAAJw/mDqZV0dB4_Y0gXXQp_1tQ7CtMRSd6lHVwCK4BGAYYCw/s1600/Screen%2BShot%2B2018-01-11%2Bat%2B3.22.07%2BPM.png)  
 
 The admission phase is composed of individual plugins, each of which are narrowly focused and have semantic knowledge of what they are inspecting. Examples include: PodNodeSelector (influences scheduling decisions), PodSecurityPolicy (prevents escalating containers), and ResourceQuota (enforces resource allocation per namespace).  
 
@@ -111,7 +111,7 @@ For the self-hosted category, a cleverly built webhook admission server and topo
 ### Simple, secure, portable, zero-config topology
 If you build your webhook admission server to also be an extension API server, it becomes possible to aggregate it as a normal API server. This has a number of advantages:  
 
-- Your webhook becomes available like any other API under default kube-apiserver service `kubernetes.default.svc` (e.g. [https://kubernetes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews](https://kuberentes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews)). Among other benefits, you can test using `kubectl`.
+- Your webhook becomes available like any other API under default kube-apiserver service `kubernetes.default.svc` (e.g. [https://kubernetes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews](https://kubernetes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews)). Among other benefits, you can test using `kubectl`.
 - Your webhook automatically (without any config) makes use of the in-cluster authentication and authorization provided by kube-apiserver. You can restrict access to your webhook with normal RBAC rules.
 - Your extension API servers and kube-apiserver automatically (without any config) make use of their in-cluster credentials to communicate with the webhook.
 - Extension API servers do not leak their service account token to your webhook because they go through kube-apiserver, which is a secure front proxy.

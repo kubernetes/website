@@ -9,12 +9,12 @@ content_template: templates/task
 {{% capture overview %}}
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-[Dynamic Kubelet Configuration](https://github.com/kubernetes/features/issues/281)
+[Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
 allows you to change the configuration of each Kubelet in a live Kubernetes
 cluster by deploying a ConfigMap and configuring each Node to use it.
 
 {{< warning >}}
-**Warning:** All Kubelet configuration parameters can be changed dynamically,
+All Kubelet configuration parameters can be changed dynamically,
 but this is unsafe for some parameters. Before deciding to change a parameter
 dynamically, you need a strong understanding of how that change will affect your
 cluster's behavior. Always carefully test configuration changes on a small set
@@ -69,7 +69,7 @@ This document only describes a single Node consuming each ConfigMap. Keep in
 mind that it is also valid for multiple Nodes to consume the same ConfigMap.
 
 {{< warning >}}
-**Warning:** While it is *possible* to change the configuration by
+While it is *possible* to change the configuration by
 updating the ConfigMap in-place, this causes all Kubelets configured with
 that ConfigMap to update simultaneously. It is much safer to treat ConfigMaps
 as immutable by convention, aided by `kubectl`'s `--append-hash` option,
@@ -149,17 +149,16 @@ This is an example of a valid response:
 
 ```none
 apiVersion: v1
-data:
-  kubelet: |
-    {...}
 kind: ConfigMap
 metadata:
   creationTimestamp: 2017-09-14T20:23:33Z
   name: my-node-config-gkt4c2m4b2
   namespace: kube-system
   resourceVersion: "119980"
-  selfLink: /api/v1/namespaces/kube-system/configmaps/my-node-config-gkt4c2m4b2
   uid: 946d785e-998a-11e7-a8dd-42010a800006
+data:
+  kubelet: |
+    {...}
 ```
 
 The ConfigMap is created in the `kube-system` namespace because this
@@ -330,36 +329,17 @@ The following table describes error messages that can occur
 when using Dynamic Kubelet Config. You can search for the identical text
 in the Kubelet log for additional details and context about the error.
 
-<table>
-<table align="left">
-<tr>
-    <th>Error Message</th>
-    <th>Possible Causes</th>
-</tr>
-<tr>
-    <td><p>failed to load config, see Kubelet log for details</p></td>
-    <td><p>The Kubelet likely could not parse the downloaded config payload, or encountered a filesystem error attempting to load the payload from disk.</p></td>
-</tr>
-<tr>
-    <td><p>failed to validate config, see Kubelet log for details</p></td>
-    <td><p>The configuration in the payload, combined with any command-line flag overrides, and the sum of feature gates from flags, the config file, and the remote payload, was determined to be invalid by the Kubelet.</p></td>
-</tr>
-<tr>
-    <td><p>invalid NodeConfigSource, exactly one subfield must be non-nil, but all were nil</p></td>
-    <td><p>Since Node.Spec.ConfigSource is validated by the API server to contain at least one non-nil subfield, this likely means that the Kubelet is older than the API server and does not recognize a newer source type.</p></td>
-</tr>
-<tr>
-    <td><p>failed to sync: failed to download config, see Kubelet log for details</p></td>
-    <td><p>The Kubelet could not download the config. It is possible that Node.Spec.ConfigSource could not be resolved to a concrete API object, or that network errors disrupted the download attempt. The Kubelet will retry the download when in this error state.</p></td>
-</tr>
-<tr>
-    <td><p>failed to sync: internal failure, see Kubelet log for details</p></td>
-    <td><p>The Kubelet encountered some internal problem and failed to update its config as a result. Examples include filesystem errors and reading objects from the internal informer cache.</p></td>
-</tr>
-<tr>
-    <td><p>internal failure, see Kubelet log for details</p></td>
-    <td><p>The Kubelet encountered some internal problem while manipulating config, outside of the configuration sync loop.</p></td>
-</tr>
-</table>
+{{< table caption = "Understanding Node.Status.Config.Error messages" >}}
+
+Error Message | Possible Causes
+:-------------| :--------------
+failed to load config, see Kubelet log for details | The Kubelet likely could not parse the downloaded config payload, or encountered a filesystem error attempting to load the payload from disk.
+failed to validate config, see Kubelet log for details | The configuration in the payload, combined with any command-line flag overrides, and the sum of feature gates from flags, the config file, and the remote payload, was determined to be invalid by the Kubelet.
+invalid NodeConfigSource, exactly one subfield must be non-nil, but all were nil | Since Node.Spec.ConfigSource is validated by the API server to contain at least one non-nil subfield, this likely means that the Kubelet is older than the API server and does not recognize a newer source type.
+failed to sync: failed to download config, see Kubelet log for details | The Kubelet could not download the config. It is possible that Node.Spec.ConfigSource could not be resolved to a concrete API object, or that network errors disrupted the download attempt. The Kubelet will retry the download when in this error state.
+failed to sync: internal failure, see Kubelet log for details | The Kubelet encountered some internal problem and failed to update its config as a result. Examples include filesystem errors and reading objects from the internal informer cache.
+internal failure, see Kubelet log for details | The Kubelet encountered some internal problem while manipulating config, outside of the configuration sync loop. 
+
+{{< /table >}} 
 
 {{% /capture %}}

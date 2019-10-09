@@ -10,15 +10,15 @@ In Kubernetes 1.3, we announced Kubernetes Cluster Federation and introduced the
 
 In the latest release, [Kubernetes 1.4](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere), we've extended Cluster Federation to support Replica Sets, Secrets, Namespaces and Ingress objects. This means that you no longer need to deploy and manage these objects individually in each of your federated clusters. Just create them once in the federation, and have its built-in controllers automatically handle that for you.  
 
-[**Federated Replica Sets**](http://kubernetes.io/docs/user-guide/federation/replicasets/) leverage the same configuration as non-federated Kubernetes Replica Sets and automatically distribute Pods across one or more federated clusters. By default, replicas are evenly distributed across all clusters, but for cases where that is not the desired behavior, we've introduced Replica Set preferences, which allow replicas to be distributed across only some clusters, or in non-equal proportions ([define annotations](https://github.com/kubernetes/kubernetes/blob/master/federation/apis/federation/types.go#L114)).   
+[**Federated Replica Sets**](/docs/user-guide/federation/replicasets/) leverage the same configuration as non-federated Kubernetes Replica Sets and automatically distribute Pods across one or more federated clusters. By default, replicas are evenly distributed across all clusters, but for cases where that is not the desired behavior, we've introduced Replica Set preferences, which allow replicas to be distributed across only some clusters, or in non-equal proportions ([define annotations](https://github.com/kubernetes/kubernetes/blob/master/federation/apis/federation/types.go#L114)).   
 
-Starting with Google Cloud Platform (GCP), we’ve introduced [**Federated Ingress**](http://kubernetes.io/docs/user-guide/federation/federated-ingress/) as a Kubernetes 1.4 alpha feature which enables external clients point to a single IP address and have requests sent to the closest cluster with usable capacity in any region, zone of the Federation.   
+Starting with Google Cloud Platform (GCP), we’ve introduced [**Federated Ingress**](/docs/user-guide/federation/federated-ingress/) as a Kubernetes 1.4 alpha feature which enables external clients point to a single IP address and have requests sent to the closest cluster with usable capacity in any region, zone of the Federation.   
 
-[**Federated Secrets**](http://kubernetes.io/docs/user-guide/federation/secrets/) automatically create and manage secrets across all clusters in a Federation, automatically ensuring that these are kept globally consistent and up-to-date, even if some clusters are offline when the original updates are applied.  
+[**Federated Secrets**](/docs/user-guide/federation/secrets/) automatically create and manage secrets across all clusters in a Federation, automatically ensuring that these are kept globally consistent and up-to-date, even if some clusters are offline when the original updates are applied.  
 
-[**Federated Namespaces**](http://kubernetes.io/docs/user-guide/federation/namespaces/) are similar to the traditional [Kubernetes Namespaces](http://kubernetes.io/docs/user-guide/namespaces/) providing the same functionality. Creating them in the Federation control plane ensures that they are synchronized across all the clusters in Federation.  
+[**Federated Namespaces**](/docs/user-guide/federation/namespaces/) are similar to the traditional [Kubernetes Namespaces](/docs/user-guide/namespaces/) providing the same functionality. Creating them in the Federation control plane ensures that they are synchronized across all the clusters in Federation.  
 
-[**Federated Events**](http://kubernetes.io/docs/user-guide/federation/events/) are similar to the traditional Kubernetes Events providing the same functionality. Federation Events are stored only in Federation control plane and are not passed on to the underlying kubernetes clusters.  
+[**Federated Events**](/docs/user-guide/federation/events/) are similar to the traditional Kubernetes Events providing the same functionality. Federation Events are stored only in Federation control plane and are not passed on to the underlying kubernetes clusters.  
 
 Let’s walk through how all this stuff works. We’re going to provision 3 clusters per region, spanning 3 continents (Europe, North America and Asia).   
 
@@ -68,7 +68,7 @@ gce-us-central1-c    Ready     39s
 
 
 
-In our example, we’ll be deploying the service and ingress object using the federated control plane. The [ConfigMap](http://kubernetes.io/docs/user-guide/configmap/) object isn’t currently supported by Federation, so we’ll be deploying it manually in each of the underlying Federation clusters. Our cluster deployment will look as follows:
+In our example, we’ll be deploying the service and ingress object using the federated control plane. The [ConfigMap](/docs/user-guide/configmap/) object isn’t currently supported by Federation, so we’ll be deploying it manually in each of the underlying Federation clusters. Our cluster deployment will look as follows:
 
 
 
@@ -113,7 +113,7 @@ Session Affinity:       None
 
 
 
-Let’s now create a Federated Ingress. Federated Ingresses are created in much that same way as traditional [Kubernetes Ingresses](http://kubernetes.io/docs/user-guide/ingress/): by making an API call which specifies the desired properties of your logical ingress point. In the case of Federated Ingress, this API call is directed to the Federation API endpoint, rather than a Kubernetes cluster API endpoint. The API for Federated Ingress is 100% compatible with the API for traditional Kubernetes Services.
+Let’s now create a Federated Ingress. Federated Ingresses are created in much that same way as traditional [Kubernetes Ingresses](/docs/user-guide/ingress/): by making an API call which specifies the desired properties of your logical ingress point. In the case of Federated Ingress, this API call is directed to the Federation API endpoint, rather than a Kubernetes cluster API endpoint. The API for Federated Ingress is 100% compatible with the API for traditional Kubernetes Services.
 
 
 

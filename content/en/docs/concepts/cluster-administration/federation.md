@@ -6,7 +6,9 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< include "federation-current-state.md" >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This page explains why and how to manage multiple Kubernetes clusters using
 federation.
@@ -37,7 +39,7 @@ why you might want multiple clusters are:
 * Low latency: Having clusters in multiple regions minimises latency by serving
   users from the cluster that is closest to them.
 * Fault isolation: It might be better to have multiple small clusters rather
-  than a single large  cluster for fault isolation (for example: multiple
+  than a single large cluster for fault isolation (for example: multiple
   clusters in different availability zones of a cloud provider).
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
@@ -68,7 +70,7 @@ some caveats:
 
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (e.g. Google Cloud, AWS), and on-premises
-(e.g. on OpenStack). [Kubefed](https://kubernetes.io/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the recommended way to deploy federated clusters.
+(e.g. on OpenStack). [Kubefed](/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the recommended way to deploy federated clusters.
 
 Thereafter, your [API resources](#api-resources) can span different clusters
 and cloud providers.
@@ -168,7 +170,7 @@ users in the event of a cluster failure), then you need to have `R * (U + 1)` cl
 
 Finally, if any of your clusters would need more than the maximum recommended number of nodes for a Kubernetes cluster, then
 you may need even more clusters.  Kubernetes v1.3 supports clusters up to 1000 nodes in size. Kubernetes v1.8 supports
-clusters up to 5000 nodes. See [Building Large Clusters](/docs/setup/cluster-large/) for more guidance.
+clusters up to 5000 nodes. See [Building Large Clusters](/docs/setup/best-practices/cluster-large/) for more guidance.
 
 {{% /capture %}}
 
@@ -178,6 +180,7 @@ clusters up to 5000 nodes. See [Building Large Clusters](/docs/setup/cluster-lar
 * See this [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) for cluster federation.
 * See this [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
 * See this [Kubecon2017 Europe update on federation](https://www.youtube.com/watch?v=kwOvOLnFYck)
+* See this [Kubecon2018 Europe update on sig-multicluster](https://www.youtube.com/watch?v=vGZo5DaThQU)
+* See this [Kubecon2018 Europe Federation-v2 prototype presentation](https://youtu.be/q27rbaX5Jis?t=7m20s)
+* See this [Federation-v2 Userguide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
 {{% /capture %}}
-
-

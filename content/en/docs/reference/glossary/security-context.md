@@ -14,5 +14,4 @@ tags:
 
 <!--more--> 
 
-The securityContext field in a {{< glossary_tooltip term_id="pod" >}} (applying to all containers) or container is used to set the user (runAsUser) and group (fsGroup), capabilities, privilege settings, and security policies (SELinux/AppArmor/Seccomp) that container processes use.
-
+The securityContext field in a {{< glossary_tooltip term_id="pod" >}} (applying to all containers) or container is used to set the user, groups, capabilities, privilege settings, and security policies (SELinux/AppArmor/Seccomp) and more that container processes use.

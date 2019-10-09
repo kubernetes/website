@@ -1,0 +1,101 @@
+---
+title: Squarespace Case Study
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+---
+
+<div class="banner1 desktop" style="background-image: url('/images/CaseStudy_squarespace_banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/squarespace_logo.png" class="header_logo"><br> <div class="subhead">Squarespace: Gaining Productivity and Resilience with Kubernetes
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>Squarespace</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>New York, N.Y.</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Software as a Service, Website-Building Platform</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1">
+    <h2>Challenge</h2>
+    Moving from a monolith to microservices in 2014 "solved a problem on the development side, but it pushed that problem to the infrastructure team," says Kevin Lynch, Staff Engineer on the Site Reliability team at Squarespace. "The infrastructure deployment process on our 5,000 VM hosts was slowing everyone down."
+<br>
+<h2>Solution</h2>
+The team experimented with container orchestration platforms, and found that Kubernetes "answered all the questions that we had," says Lynch. The company began running Kubernetes in its data centers in&nbsp;2016.
+
+      </div>
+
+<div class="col2">
+
+<h2>Impact</h2>
+Since Squarespace moved to Kubernetes, in conjunction with modernizing its networking stack, deployment time has been reduced by almost 85%. Before, their VM deployment would take half an hour; now, says Lynch, "someone can generate a templated application, deploy it within five minutes, and have actual instances containerized, running in our staging environment at that point." Because of that, "productivity time is the big cost saver," he adds. "When we started the Kubernetes project, we had probably a dozen microservices. Today there are twice that in the pipeline being actively worked on." Resilience has also been improved with Kubernetes: "If a node goes down, it’s rescheduled immediately and there’s no performance&nbsp;impact."
+
+</div>
+
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/feQkzJkW-SA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <br><br>"Once you prove that Kubernetes solves one problem, everyone immediately starts solving other problems without you even having to evangelize it."
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— Kevin Lynch, Staff Engineer on the Site Reliability team at Squarespace</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <h2>Since it was started in a dorm room in 2003, Squarespace has made it simple for millions of people to create their own websites.</h2> Behind the scenes, though, the company’s monolithic Java application was making things not so simple for its developers to keep improving the platform. So in 2014, the company decided to "go down the microservices path," says Kevin Lynch, staff engineer on Squarespace’s Site Reliability team. "But we were always deploying our applications in vCenter VMware VMs [in our own data centers]. Microservices solved a problem on the development side, but it pushed that problem to the Infrastructure team. The infrastructure deployment process on our 5,000 VM hosts was slowing everyone down."<br><br>
+  After experimenting with another container orchestration platform and "breaking it in very painful ways," Lynch says, the team began experimenting with Kubernetes in mid-2016 and found that it "answered all the questions that we had." Deploying it in the data center rather than the public cloud was their biggest challenge, and at the time, not a lot of other companies were doing that. "We had to figure out how to deploy this in our infrastructure for ourselves, and we had to integrate it with our other applications," says Lynch.<br><br>
+  At the same time, Squarespace’s Network Engineering team was modernizing its networking stack, switching from a traditional layer-two network to a layer-three spine-and-leaf network. "It mapped beautifully with what we wanted to do with Kubernetes," says Lynch. "It gives us the ability to have our servers communicate directly with the top-of-rack switches. We use Calico for <a href="https://github.com/containernetworking/cnihttps://github.com/containernetworking/cni">CNI networking for Kubernetes</a>, so we can announce all these individual Kubernetes pod IP addresses and have them integrate seamlessly with our other services that are still provisioned in the VMs."
+
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_squarespace_banner3.jpg')">
+  <div class="banner3text">
+    After experimenting with another container orchestration platform and "breaking it in very painful ways," Lynch says, the team began experimenting with Kubernetes in mid-2016 and found that it "answered all the questions that we had."
+
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  Within a couple months, they had a stable cluster for their internal use, and began rolling out Kubernetes for production. They also added Zipkin and CNCF projects <a href="https://prometheus.io/">Prometheus</a> and <a href="https://www.fluentd.org/">fluentd</a> to their cloud native stack. "We switched to Kubernetes, a new world, and we revamped all our other tooling as well," says Lynch. "It allowed us to streamline our process, so we can now easily create an entire microservice project from templates, generate the code and deployment pipeline for that, generate the Docker file, and then immediately just ship a workable, deployable project to Kubernetes." Deployments across Dev/QA/Stage/Prod were also "simplified drastically," Lynch adds. "Now there is little configuration variation."
+<br><br>
+  And the whole process takes only five minutes, an almost 85% reduction in time compared to their VM deployment. "From end to end that probably took half an hour, and that’s not accounting for the fact that an infrastructure engineer would be responsible for doing that, so there’s some business delay in there as well."
+<br><br>
+  With faster deployments, "productivity time is the big cost saver," says Lynch. "We had a team that was implementing a new file storage service, and they just started integrating that with our storage back end without our involvement"—which wouldn’t have been possible before Kubernetes. He adds: "When we started the Kubernetes project, we had probably a dozen microservices. Today there are twice that in the pipeline being actively worked on."
+
+
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_squarespace_banner4.jpg')">
+  <div class="banner4text">
+  "We switched to Kubernetes, a new world....It allowed us to streamline our process, so we can now easily create an entire microservice project from templates," Lynch says. And the whole process takes only five minutes, an almost 85% reduction in time compared to their VM deployment.
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  There’s also been a positive impact on the application’s resilience. "When we’re deploying VMs, we have to build tooling to ensure that a service is spread across racks appropriately and can withstand failure," he says. "Kubernetes just does it. If a node goes down, it’s rescheduled immediately and there’s no performance impact."
+<br><br>
+  Another big benefit is autoscaling. "It wasn’t really possible with the way we’ve been using VMware," says Lynch, "but now we can just add the appropriate autoscaling features via Kubernetes directly, and boom, it’s scaling up as demand increases. And it worked out of the box."
+<br><br>
+  For others starting out with Kubernetes, Lynch says his best advice is to "fail fast": "Once you’ve planned things out, just execute. Kubernetes has been really great for trying something out quickly and seeing if it works or not."
+
+
+</div>
+
+<div class="banner5">
+  <div class="banner5text">
+    "When we’re deploying VMs, we have to build tooling to ensure that a service is spread across racks appropriately and can withstand failure," he says. "Kubernetes just does it. If a node goes down, it’s rescheduled immediately and there’s no performance impact."
+  </div>
+</div>
+
+<div class="fullcol">
+  Lynch and his team are planning to open source some of the tools they’ve developed to extend Kubernetes and use it as an API itself. The first tool injects dependent applications as containers in a pod. "When you ship an application, usually it comes along with a whole bunch of dependent applications that need to be shipped with that, for example, fluentd for logging," he explains. With this tool, the developer doesn’t need to worry about the configurations.
+<br><br>
+  Going forward, all new services at Squarespace are going into Kubernetes, and the end goal is to convert everything it can. About a quarter of existing services have been migrated. "Our monolithic application is going to be the last one, just because it’s so big and complex," says Lynch. "But now I’m seeing other services get moved over, like the file storage service. Someone just did it and it worked—painlessly. So I believe if we tackle it, it’s probably going to be a lot easier than we fear. Maybe I should just take my own advice and fail fast!"
+
+</div>
+
+</section>

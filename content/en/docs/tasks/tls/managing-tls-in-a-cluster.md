@@ -9,19 +9,22 @@ reviewers:
 
 {{% capture overview %}}
 
-Every Kubernetes cluster has a cluster root Certificate Authority (CA). The CA
-is generally used by cluster components to validate the API server's
-certificate, by the API server to validate kubelet client certificates, etc. To
-support this, the CA certificate bundle is distributed to every node in the
-cluster and is distributed as a secret attached to default service accounts.
-Optionally, your workloads can use this CA to establish trust. Your application
-can request a certificate signing using the `certificates.k8s.io` API using a
-protocol that is similar to the
-[ACME draft](https://github.com/ietf-wg-acme/acme/).
+Kubernetes provides a `certificates.k8s.io` API, which lets you provision TLS
+certificates signed by a Certificate Authority (CA) that you control. These CA
+and certificates can be used by your workloads to establish trust.
+
+`certificates.k8s.io` API uses a protocol that is similar to the [ACME
+draft](https://github.com/ietf-wg-acme/acme/).
+
+{{< note >}}
+Certificates created using the `certificates.k8s.io` API are signed by a
+dedicated CA. It is possible to configure your cluster to use the cluster root
+CA for this purpose, but you should never rely on this. Do not assume that
+these certificates will validate against the cluster root CA.
+{{< /note >}}
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -33,17 +36,16 @@ protocol that is similar to the
 
 ## Trusting TLS in a Cluster
 
-Trusting the cluster root CA from an application running as a pod usually
-requires some extra application configuration. You will need to add the CA
-certificate bundle to the list of CA certificates that the TLS client or server
-trusts. For example, you would do this with a golang TLS config by parsing the
-certificate chain and adding the parsed certificates to the `Certificates` field
-in the [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
+Trusting the custom CA from an application running as a pod usually requires
+some extra application configuration. You will need to add the CA certificate
+bundle to the list of CA certificates that the TLS client or server trusts. For
+example, you would do this with a golang TLS config by parsing the certificate
+chain and adding the parsed certificates to the `RootCAs` field in the
+[`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
-The CA certificate bundle is automatically mounted into pods using the default
-service account at the path `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`.
-If you are not using the default service account, ask a cluster administrator to
-build a configmap containing the certificate bundle that you have access to use.
+You can distribute the CA certificate as a
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your
+pods have access to use.
 
 ## Requesting a Certificate
 
@@ -51,7 +53,7 @@ The following section demonstrates how to create a TLS certificate for a
 Kubernetes service accessed through DNS.
 
 {{< note >}}
-**Note:** This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://blog.cloudflare.com/introducing-cfssl/) to know more.
+This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://blog.cloudflare.com/introducing-cfssl/) to know more.
 {{< /note >}}
 
 ## Download and install CFSSL
@@ -64,13 +66,13 @@ The cfssl tools used in this example can be downloaded at
 Generate a private key and certificate signing request (or CSR) by running
 the following command:
 
-```console
-$ cat <<EOF | cfssl genkey - | cfssljson -bare server
+```shell
+cat <<EOF | cfssl genkey - | cfssljson -bare server
 {
   "hosts": [
     "my-svc.my-namespace.svc.cluster.local",
     "my-pod.my-namespace.pod.cluster.local",
-    "172.168.0.24",
+    "192.0.2.24",
     "10.0.34.2"
   ],
   "CN": "my-pod.my-namespace.pod.cluster.local",
@@ -82,7 +84,7 @@ $ cat <<EOF | cfssl genkey - | cfssljson -bare server
 EOF
 ```
 
-Where `172.168.0.24` is the service's cluster IP,
+Where `192.0.2.24` is the service's cluster IP,
 `my-svc.my-namespace.svc.cluster.local` is the service's DNS name,
 `10.0.34.2` is the pod's IP and `my-pod.my-namespace.pod.cluster.local`
 is the pod's DNS name. You should see the following output:
@@ -104,15 +106,13 @@ is still to be created.
 Generate a CSR yaml blob and send it to the apiserver by running the following
 command:
 
-```console
-$ cat <<EOF | kubectl create -f -
+```shell
+cat <<EOF | kubectl apply -f -
 apiVersion: certificates.k8s.io/v1beta1
 kind: CertificateSigningRequest
 metadata:
   name: my-svc.my-namespace
 spec:
-  groups:
-  - system:authenticated
   request: $(cat server.csr | base64 | tr -d '\n')
   usages:
   - digital signature
@@ -132,8 +132,11 @@ same API.
 The CSR should now be visible from the API in a Pending state. You can see
 it by running:
 
-```console
-$ kubectl describe csr my-svc.my-namespace
+```shell
+kubectl describe csr my-svc.my-namespace
+```
+
+```none
 Name:                   my-svc.my-namespace
 Labels:                 <none>
 Annotations:            <none>
@@ -145,7 +148,7 @@ Subject:
         Serial Number:
 Subject Alternative Names:
         DNS Names:      my-svc.my-namespace.svc.cluster.local
-        IP Addresses:   172.168.0.24
+        IP Addresses:   192.0.2.24
                         10.0.34.2
 Events: <none>
 ```
@@ -160,8 +163,11 @@ information on what this involves is covered below.
 
 Once the CSR is signed and approved you should see the following:
 
-```console
-$ kubectl get csr
+```shell
+kubectl get csr
+```
+
+```none
 NAME                  AGE       REQUESTOR               CONDITION
 my-svc.my-namespace   10m       yourname@example.com    Approved,Issued
 ```
@@ -169,9 +175,9 @@ my-svc.my-namespace   10m       yourname@example.com    Approved,Issued
 You can download the issued certificate and save it to a `server.crt` file
 by running the following:
 
-```console
-$ kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
-    | base64 -d > server.crt
+```shell
+kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
+    | base64 --decode > server.crt
 ```
 
 Now you can use `server.crt` and `server-key.pem` as the keypair to start
@@ -200,15 +206,13 @@ to verify that the CSR satisfies two requirements:
 If and only if these two requirements are met, the approver should approve
 the CSR and otherwise should deny the CSR.
 
-## A Word of **Warning** on the Approval Permission
+## A Word of Warning on the Approval Permission
 
-The ability to approve CSRs decides who trusts who within the cluster. This
-includes who the Kubernetes API trusts. The ability to approve CSRs should
-not be granted broadly or lightly. The requirements of the challenge
-noted in the previous section and the repercussions of issuing a specific
-certificate should be fully understood before granting this permission. See
-[here](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for information on how
-certificates interact with authentication.
+The ability to approve CSRs decides who trusts who within your environment. The
+ability to approve CSRs should not be granted broadly or lightly. The
+requirements of the challenge noted in the previous section and the
+repercussions of issuing a specific certificate should be fully understood
+before granting this permission.
 
 ## A Note to Cluster Administrators
 

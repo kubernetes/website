@@ -11,13 +11,13 @@ date: 2018-05-29
 [kustomization]: https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization
 [mailing list]: https://groups.google.com/forum/#!forum/kustomize
 [open an issue]: https://github.com/kubernetes-sigs/kustomize/issues/new
-[subproject]: https://github.com/kubernetes/community/blob/master/keps/sig-cli/0008-kustomize.md
+[subproject]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/0008-kustomize.md
 [SIG-CLI]: https://github.com/kubernetes/community/tree/master/sig-cli
 [workflow]: https://github.com/kubernetes-sigs/kustomize/blob/master/docs/workflows.md
 
 If you run a Kubernetes environment, chances are you’ve
 customized a Kubernetes configuration — you've copied
-some API object YAML files and editted them to suit
+some API object YAML files and edited them to suit
 your needs.
 
 But there are drawbacks to this approach — it can be

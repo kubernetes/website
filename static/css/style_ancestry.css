@@ -57,7 +57,6 @@ h1 {
   font-size:19px;
   letter-spacing:0.03em;
   line-height:28px;
-  float:left;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
@@ -75,7 +74,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background: url('/images/CaseStudy_ancestry_banner3.jpg');
   background-size:100% auto;
 }
@@ -89,7 +87,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background: url('/images/CaseStudy_ancestry_banner4.jpg');
   background-size:100% auto;
 }
@@ -103,7 +100,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
@@ -114,9 +110,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:65%;
-  padding-left:17%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner3text {
@@ -124,8 +119,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:70%;
-  padding-left:15%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner4text {
@@ -133,8 +128,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:70%;
-  padding-left:15%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner5text {
@@ -142,9 +137,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:65%;
-  padding-left:16%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
 
 
@@ -180,15 +174,11 @@ hr {
   border-bottom:0px solid;
   width:100%;
   opacity:0.5;
-  color:#aaaaaa;
+  background-color:#999999;
   height:1px;
 }
 
 .col1 {
-  width: 40%;
-  padding-left:5%;
-  padding-right:8%;
-  float:left;
   font-family:"Roboto", sans-serif;
   font-weight:100;
   color:#606060;
@@ -199,10 +189,8 @@ hr {
 }
 
 .col2 {
-  width: 40%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
   line-height:20px;
   color:#606060;
   letter-spacing:0.03em;
@@ -218,7 +206,6 @@ hr {
   margin-bottom:6%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
   line-height:22px;
   color:#606060;
   letter-spacing:0.03em;
@@ -232,8 +219,6 @@ hr {
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
-
 }
 
 h4 {
@@ -247,197 +232,198 @@ h4 {
 
 @media screen and (max-width: 910px){
 
-h1 {
-  font-family:"Roboto", sans-serif;
-  font-weight:bold;
-  line-height:36px;
-  letter-spacing:0.03em;
-  font-size:30px !important;
-  padding-bottom:0px;
-  width:80%;
-}
+  h1 {
+    font-family:"Roboto", sans-serif;
+    font-weight:bold;
+    line-height:36px;
+    letter-spacing:0.03em;
+    font-size:30px !important;
+    padding-bottom:0px;
+    width:80%;
+  }
 
-.subhead {
-  font-size:18px;
-  font-weight:100;
-  line-height:27px;
-}
+  .subhead {
+    font-size:18px;
+    font-weight:100;
+    line-height:27px;
+  }
 
-.details {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  font-size:16px;
-  color:#3366ff;
-  letter-spacing:0.03em;
-  padding-bottom:2%;
-  line-height:28px;
-  padding-top:4%;
-  padding-left:10%;
-}
+  .details {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    font-size:16px;
+    color:#3366ff;
+    letter-spacing:0.03em;
+    padding-bottom:2%;
+    line-height:28px;
+    padding-top:4%;
+    padding-left:10%;
+  }
 
-.logo {
-    width:8%;
-}
+  .logo {
+      width:8%;
+  }
+  
+  .col1 {
+    width: 90%;
+    padding-left:5%;
+    padding-right:8%;
+    float:left;
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#606060;
+    line-height:20px;
+    letter-spacing:0.03em;
+    font-size:14px;
+  }
 
-.col1 {
-  width: 90%;
-  padding-left:5%;
-  padding-right:8%;
-  float:left;
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#606060;
-  line-height:20px;
-  letter-spacing:0.03em;
-  font-size:14px;
-}
+  .col2 {
+    width: 90%;
+    padding-left:5%;
+    padding-top:5%;
+    padding-bottom:5%;
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    float:left;
+    line-height:20px;
+    color:#606060;
+    letter-spacing:0.03em;
+    font-size:14px;
+  }
 
-.col2 {
-  width: 90%;
-  padding-left:5%;
-  padding-top:5%;
-  padding-bottom:5%;
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  float:left;
-  line-height:20px;
-  color:#606060;
-  letter-spacing:0.03em;
-  font-size:14px;
-}
+  .banner1 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:15%;
+    padding-bottom:2%;
+    padding-left:10%;
+    font-size:18px;
+    background: url('CaseStudy_ancestry_banner1.jpg');
+    background-size:100% auto;
+  }
 
-.banner1 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:15%;
-  padding-bottom:2%;
-  padding-left:10%;
-  font-size:18px;
-  background: url('CaseStudy_ancestry_banner1.jpg');
-  background-size:100% auto;
-}
+  .banner2 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    padding-left:0%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background:none;
+    background-color:#666666;
+  }
 
-.banner2 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:4%;
-  padding-bottom:4%;
-  padding-left:0%;
-  font-size:18px;
-  letter-spacing:0.03em;
-  line-height:24px;
-  width:100%;
-  float:left;
-  background:none;
-  background-color:#666666;
-}
+  .banner3 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:5%;
+    padding-bottom:5%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background: url('CaseStudy_ancestry_banner3.jpg');
+  }
 
-.banner3 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:5%;
-  padding-bottom:5%;
-  font-size:18px;
-  letter-spacing:0.03em;
-  line-height:24px;
-  width:100%;
-  float:left;
-  background: url('CaseStudy_ancestry_banner3.jpg');
-}
+  .banner4 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:5%;
+    padding-bottom:5%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background: url('CaseStudy_ancestry_banner4.jpg');
+  }
 
-.banner4 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:5%;
-  padding-bottom:5%;
-  font-size:18px;
-  letter-spacing:0.03em;
-  line-height:24px;
-  width:100%;
-  float:left;
-  background: url('CaseStudy_ancestry_banner4.jpg');
-}
+  .banner5 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background:none;
+    background-color:#666666;
+  }
 
-.banner5 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:4%;
-  padding-bottom:4%;
-  font-size:18px;
-  letter-spacing:0.03em;
-  line-height:24px;
-  width:100%;
-  float:left;
-  background:none;
-  background-color:#666666;
-}
+  .banner2text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:10%;
+    float:left;
+    text-align:center;
+    color:#ffffff;
+  }
 
-.banner2text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-left:10%;
-  float:left;
-  text-align:center;
-  color:#ffffff;
-}
+  .banner3text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:5%;
+    padding-top:5%;
+    padding-bottom:5%;
+    text-align:center;
+  }
 
-.banner3text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-left:5%;
-  padding-top:5%;
-  padding-bottom:5%;
-  text-align:center;
-}
+  .banner4text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:10%;
+    padding-top:3%;
+    padding-bottom:3%;
+    text-align:center;
+  }
 
-.banner4text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-left:10%;
-  padding-top:3%;
-  padding-bottom:3%;
-  text-align:center;
-}
+  .banner5text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:10%;
+    float:left;
+    text-align:center;
+    color:#ffffff;
+  }
 
-.banner5text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-left:10%;
-  float:left;
-  text-align:center;
-  color:#ffffff;
-}
+  .fullcol {
+    margin-top:6%;
+  }
 
-.fullcol {
-  margin-top:6%;
-}
+  h2 {
+    line-height:26px;
+    font-size:18px;
+  }
 
-h2 {
-  line-height:26px;
-  font-size:18px;
-}
+  .quote {
+    font-size:18px;
+    line-height:24px;
+  }
 
-.quote {
-  font-size:18px;
-  line-height:24px;
-}
-
-.logo {
-  width:35%;
-}
+  .logo {
+    width:35%;
+  }
+} /* End Media 910px */
 
 @media screen and (max-width: 480px){
 
@@ -446,4 +432,5 @@ h2 {
     padding-bottom:5%;
     padding-top:2%;
   }
+
 }

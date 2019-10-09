@@ -19,7 +19,6 @@ you're using.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -71,6 +70,7 @@ There are also many country specific/local language channels. Feel free to join
 these channels for localized support and info:
 
 - China: `#cn-users`, `#cn-events`
+- Finland: `#fi-users`
 - France: `#fr-users`, `#fr-events`
 - Germany: `#de-users`, `#de-events`
 - India: `#in-users`, `#in-events`
@@ -82,16 +82,17 @@ these channels for localized support and info:
 - Poland: `#pl-users`
 - Russia: `#ru-users`
 - Spain: `#es-users`
+- Sweden: `#se-users`
 - Turkey: `#tr-users`, `#tr-events`
 
-### Mailing List
+### Forum
 
-The Kubernetes / Google Kubernetes Engine mailing list is [kubernetes-users@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-users)
+The Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io)
 
 ### Bugs and Feature requests
 
 If you have what looks like a bug, or you would like to make a feature request,
-please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues).
+please use the [GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues).
 
 Before you file an issue, please search existing issues to see if your issue is
 already covered.
