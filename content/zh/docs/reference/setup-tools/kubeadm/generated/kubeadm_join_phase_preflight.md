@@ -39,7 +39,7 @@ Options
 选项
 
     <tr>
-      <td colspan="2">--apiserver-advertise-address string</td>
+      <td colspan="2">--apiserver-advertise-address 字符串</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</td>
