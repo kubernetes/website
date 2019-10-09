@@ -129,7 +129,7 @@ roleRef:
 ```
 
 Finally, a `ClusterRoleBinding` may be used to grant permission at the cluster level and in all
-namespaces. The following `ClusterRoleBinding` allows any user in the group "manager" to read 
+namespaces. The following `ClusterRoleBinding` allows any user in the group "manager" to read
 secrets in any namespace.
 
 ```yaml
@@ -156,10 +156,10 @@ There are two primary reasons for this restriction:
 1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling accidentally modifying just the roleRef 
+the new role (as opposed to enabling accidentally modifying just the roleRef
 without verifying all of the existing subjects should be given the new role's permissions).
 2. Making `roleRef` immutable allows giving `update` permission on an existing binding object
-to a user, which lets them manage the list of subjects, without being able to change the 
+to a user, which lets them manage the list of subjects, without being able to change the
 role that is granted to those subjects.
 
 The `kubectl auth reconcile` command-line utility creates or updates a manifest file containing RBAC objects,
@@ -358,7 +358,7 @@ reserved for Kubernetes system use, and so the admin should ensure
 usernames do not contain this prefix by accident.
 
 Group information in Kubernetes is currently provided by the Authenticator
-modules. Groups, like users, are represented as strings, and that string 
+modules. Groups, like users, are represented as strings, and that string
 has no format requirements, other than that the prefix `system:` is reserved.
 
 [Service Accounts](/docs/tasks/configure-pod-container/configure-service-account/) have usernames with the `system:serviceaccount:` prefix and belong
@@ -459,7 +459,7 @@ and updates default cluster role bindings with any missing subjects.
 This allows the cluster to repair accidental modifications,
 and to keep roles and rolebindings up-to-date as permissions and subjects change in new releases.
 
-To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate` 
+To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate`
 annotation on a default cluster role or rolebinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
 
@@ -634,7 +634,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td><b>system:kubelet-api-admin</b></td>
 <td>None</td>
 <td>Allows full access to the kubelet API.</td>
-</tr>  
+</tr>
 <tr>
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
@@ -658,7 +658,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 The [Kubernetes controller manager](/docs/admin/kube-controller-manager/) runs core control loops.
 When invoked with `--use-service-account-credentials`, each control loop is started using a separate service account.
 Corresponding roles exist for each control loop, prefixed with `system:controller:`.
-If the controller manager is not started with `--use-service-account-credentials`, 
+If the controller manager is not started with `--use-service-account-credentials`,
 it runs all control loops using its own credential, which must be granted all the relevant roles.
 These roles include:
 
@@ -709,7 +709,7 @@ containing that permission. To allow a user to create/update roles:
     * implicitly, by giving them those permissions (if they attempt to create or modify a `Role` or `ClusterRole` with permissions they themselves have not been granted, the API request will be forbidden)
     * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
 
-A user can only create/update a role binding if they already have all the permissions contained in the referenced role 
+A user can only create/update a role binding if they already have all the permissions contained in the referenced role
 (at the same scope as the role binding) *or* if they've been given explicit permission to perform the `bind` verb on the referenced role.
 For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRoleBinding`
 to a role that grants that permission. To allow a user to create/update role bindings:

@@ -104,7 +104,7 @@ The guestbook applications needs to communicate to the Redis master to write its
       ```
 
 {{< note >}}
-This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.   
+This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.
 {{< /note >}}
 
 
@@ -201,7 +201,7 @@ The guestbook application has a web frontend serving the HTTP requests written i
 
 The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 
-If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.  
+If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.
 
 {{< note >}}
 Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`.
@@ -342,7 +342,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       deployment.apps "redis-slave" deleted
       service "redis-master" deleted
       service "redis-slave" deleted
-      deployment.apps "frontend" deleted    
+      deployment.apps "frontend" deleted
       service "frontend" deleted
       ```
 

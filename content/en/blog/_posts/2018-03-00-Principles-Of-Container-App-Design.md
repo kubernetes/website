@@ -7,14 +7,14 @@ url: /blog/2018/03/Principles-Of-Container-App-Design
 
 It's possible nowadays to put almost any application in a container and run it. Creating cloud-native applications, however—containerized applications that are automated and orchestrated effectively by a cloud-native platform such as Kubernetes—requires additional effort. Cloud-native applications anticipate failure; they run and scale reliably even when their infrastructure experiences outages. To offer such capabilities, cloud-native platforms like Kubernetes impose a set of contracts and constraints on applications. These contracts ensure that applications they run conform to certain constraints and allow the platform to automate application management.
 
-I've outlined [seven principles][1]for containerized applications to follow in order to be fully cloud-native.   
+I've outlined [seven principles][1]for containerized applications to follow in order to be fully cloud-native.
 
 | ----- |
 | ![][2]  |
 | Container Design Principles |
 
 
-These seven principles cover both build time and runtime concerns.  
+These seven principles cover both build time and runtime concerns.
 
 ####  Build time
 
@@ -30,15 +30,15 @@ These seven principles cover both build time and runtime concerns.
 * **Runtime Confinement:** Every container must declare its resource requirements and restrict resource use to the requirements indicated.
 The build time principles ensure that containers have the right granularity, consistency, and structure in place. The runtime principles dictate what functionalities must be implemented in order for containerized applications to possess cloud-native function. Adhering to these principles helps ensure that your applications are suitable for automation in Kubernetes.
 
-The white paper is freely available for download:   
+The white paper is freely available for download:
 
 
 To read more about designing cloud-native applications for Kubernetes, check out my [Kubernetes Patterns][3] book.
 
 — [Bilgin Ibryam][4], Principal Architect, Red Hat
 
-Twitter:    
-Blog: [http://www.ofbizian.com][5]  
+Twitter:  
+Blog: [http://www.ofbizian.com][5]
 Linkedin:
 
 Bilgin Ibryam (@bibryam) is a principal architect at Red Hat, open source committer at ASF, blogger, author, and speaker. He is the author of Camel Design Patterns and Kubernetes Patterns books. In his day-to-day job, Bilgin enjoys mentoring, training and leading teams to be successful with distributed systems, microservices, containers, and cloud-native applications in general.

@@ -6,14 +6,14 @@ full_link: /docs/community/devel/
 short_description: >
   A person who develops and contributes code to the Kubernetes open source codebase.
 
-aka: 
+aka:
 tags:
 - community
 - user-type
 ---
  A person who develops and contributes code to the Kubernetes open source codebase.
 
-<!--more--> 
+<!--more-->
 
 They are also an active {{< glossary_tooltip text="community member" term_id="member" >}} who participates in one or more {{< glossary_tooltip text="Special Interest Groups (SIGs)" term_id="sig" >}}.
 

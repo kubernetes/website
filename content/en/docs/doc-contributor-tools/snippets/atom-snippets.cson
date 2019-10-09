@@ -73,7 +73,7 @@
     'body': '{{% capture overview %}}'
   'Insert tutorial prerequisites':
     'prefix': 'tuprereq'
-    'body': '{{% capture prerequisites %}}'  
+    'body': '{{% capture prerequisites %}}'
   'Insert tutorial objectives':
     'prefix': 'tuobjectives'
     'body': '{{% capture objectives %}}'
@@ -93,7 +93,7 @@
       $1
       {{< /note >}}
     """
-  
+
   # Admonitions
   'Insert caution':
     'prefix': 'acaution'
@@ -109,7 +109,7 @@
       $1
       {{< /warning >}}
     """
-  
+
   # Misc one-liners
   'Insert TOC':
     'prefix': 'toc'
@@ -141,13 +141,13 @@
       {{% capture overview %}}
       ${3:"overview-content"}
       {{% /capture %}}
-      
+
       {{< toc >}}
-      
+
       {{% capture body %}}
       ${4:"h2-heading-per-subtopic"}
       {{% /capture %}}
-      
+
       {{% capture whatsnext %}}
       ${5:"next-steps-or-delete"}
       {{% /capture %}}
@@ -167,21 +167,21 @@
       {{% capture overview %}}
       ${3:"overview-content"}
       {{% /capture %}}
-      
+
       {{< toc >}}
-      
+
       {{% capture prerequisites %}}
-      
+
       {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-      
+
       ${4:"additional-prereqs-or-delete"}
-      
+
       {{% /capture %}}
-      
+
       {{% capture steps %}}
       ${5:"h2-heading-per-step"}
       {{% /capture %}}
-      
+
       {{% capture discussion %}}
       ${6:"task-discussion-or-delete"}
       {{% /capture %}}
@@ -200,27 +200,27 @@
       {{% capture overview %}}
       ${3:"overview-content"}
       {{% /capture %}}
-      
+
       {{< toc >}}
-      
+
       {{% capture prerequisites %}}
-      
+
       {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-      
+
       ${4:"additional-prereqs-or-delete"}
-      
+
       {{% /capture %}}
-      
+
       {{% capture objectives %}}
       ${5:"tutorial-objectives"}
       {{% /capture %}}
-      
+
       {{% capture lessoncontent %}}
       ${6:"lesson-content"}
       {{% /capture %}}
-      
+
       {{% capture whatsnext %}}
       ${7:"next-steps-or-delete"}
       {{% /capture %}}
     """
-  
+

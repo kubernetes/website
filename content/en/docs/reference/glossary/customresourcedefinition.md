@@ -6,7 +6,7 @@ full_link: docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitio
 short_description: >
   Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.
 
-aka: 
+aka:
 tags:
 - fundamental
 - operation
@@ -14,7 +14,7 @@ tags:
 ---
  Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.
 
-<!--more--> 
+<!--more-->
 
-Custom Resource Definitions let you extend the Kubernetes API for your environment if the publicly supported API resources can't meet your needs. 
+Custom Resource Definitions let you extend the Kubernetes API for your environment if the publicly supported API resources can't meet your needs.
 

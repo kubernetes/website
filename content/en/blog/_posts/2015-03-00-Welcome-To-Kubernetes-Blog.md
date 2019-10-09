@@ -1,5 +1,5 @@
 ---
-title: Welcome to the Kubernetes Blog! 
+title: Welcome to the Kubernetes Blog!
 date: 2015-03-20
 slug: welcome-to-kubernetes-blog
 url: /blog/2015/03/Welcome-To-Kubernetes-Blog

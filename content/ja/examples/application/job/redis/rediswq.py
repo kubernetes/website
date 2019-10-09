@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-# Based on http://peter-hoffmann.com/2012/python-simple-queue-redis-queue.html 
-# and the suggestion in the redis documentation for RPOPLPUSH, at 
+# Based on http://peter-hoffmann.com/2012/python-simple-queue-redis-queue.html
+# and the suggestion in the redis documentation for RPOPLPUSH, at
 # http://redis.io/commands/rpoplpush, which suggests how to implement a work-queue.
 
- 
+
 import redis
 import uuid
 import hashlib
@@ -25,7 +25,7 @@ class RedisWQ(object):
        """The default connection parameters are: host='localhost', port=6379, db=0
 
        The work queue is identified by "name".  The library may create other
-       keys with "name" as a prefix. 
+       keys with "name" as a prefix.
        """
        self._db = redis.StrictRedis(**redis_kwargs)
        # The session ID will uniquely identify this "worker".
@@ -62,7 +62,7 @@ class RedisWQ(object):
 #        # as the number of active and recently active workers.
 #        processing = self._db.lrange(self._processing_q_key, 0, -1)
 #        for item in processing:
-#          # If the lease key is not present for an item (it expired or was 
+#          # If the lease key is not present for an item (it expired or was
 #          # never created because the client crashed before creating it)
 #          # then move the item back to the main queue so others can work on it.
 #          if not self._lease_exists(item):
@@ -79,7 +79,7 @@ class RedisWQ(object):
         return self._db.exists(self._lease_key_prefix + self._itemkey(item))
 
     def lease(self, lease_secs=60, block=True, timeout=None):
-        """Begin working on an item the work queue. 
+        """Begin working on an item the work queue.
 
         Lease the item for lease_secs.  After that time, other
         workers may consider this client to have crashed or stalled

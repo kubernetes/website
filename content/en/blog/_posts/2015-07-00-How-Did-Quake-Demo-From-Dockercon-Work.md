@@ -20,13 +20,13 @@ External container C/R was demo’d at DockerCon 2015:
 
 
 
-Container C/R offers many benefits including the following:  
+Container C/R offers many benefits including the following:
 
 - Stop and restart the Docker daemon (say for an upgrade) without having to kill the running containers and restarting them from scratch, losing precious work they had done when they were stopped
 - Reboot the system without having to restart the containers from scratch. Same benefits as use case 1 above
 - Speed up the start time of slow-start applications
 - “Forensic debugging" of processes running in a container by examining their checkpoint images (open files, memory segments, etc.)
-- Migrate containers by restoring them on a different machine  
+- Migrate containers by restoring them on a different machine
 
 CRIU
 
@@ -42,7 +42,7 @@ In April 2014, we decided to find out if CRIU could checkpoint and restore Docke
 
 #### Phase 1 - External C/R
 
-The first phase of this effort invoking CRIU directly to dump a process tree running inside a container and determining why the checkpoint or restore operation failed.  There were quite a few issues that caused CRIU failure.  The following three issues were among the more challenging ones.  
+The first phase of this effort invoking CRIU directly to dump a process tree running inside a container and determining why the checkpoint or restore operation failed.  There were quite a few issues that caused CRIU failure.  The following three issues were among the more challenging ones.
 
 #### External Bind Mounts
 
@@ -70,65 +70,65 @@ After checkpointing, the Docker daemon removes the container’s cgroups subdire
 The --manage-cgroups command line option was added to CRIU to dump and restore the process's cgroups along with their properties.
 
 
-The CRIU command lines are a simple container are shown below:  
-```  
-$ docker run -d busybox:latest /bin/sh -c 'i=0; while true; do echo $i \>\> /foo; i=$(expr $i + 1); sleep 3; done'  
+The CRIU command lines are a simple container are shown below:
+```
+$ docker run -d busybox:latest /bin/sh -c 'i=0; while true; do echo $i \>\> /foo; i=$(expr $i + 1); sleep 3; done'
 
-$ docker ps  
-CONTAINER ID  IMAGE           COMMAND           CREATED        STATUS  
-168aefb8881b  busybox:latest  "/bin/sh -c 'i=0; 6 seconds ago  Up 4 seconds  
+$ docker ps
+CONTAINER ID  IMAGE           COMMAND           CREATED        STATUS
+168aefb8881b  busybox:latest  "/bin/sh -c 'i=0; 6 seconds ago  Up 4 seconds
 
-$ sudo criu dump -o dump.log -v4 -t 17810 \  
-        -D /tmp/img/\<container\_id\> \  
-        --root /var/lib/docker/aufs/mnt/\<container\_id\> \  
-        --ext-mount-map /etc/resolv.conf:/etc/resolv.conf \  
-        --ext-mount-map /etc/hosts:/etc/hosts \  
-        --ext-mount-map /etc/hostname:/etc/hostname \  
-        --ext-mount-map /.dockerinit:/.dockerinit \  
-        --manage-cgroups \  
-        --evasive-devices  
+$ sudo criu dump -o dump.log -v4 -t 17810 \
+        -D /tmp/img/\<container\_id\> \
+        --root /var/lib/docker/aufs/mnt/\<container\_id\> \
+        --ext-mount-map /etc/resolv.conf:/etc/resolv.conf \
+        --ext-mount-map /etc/hosts:/etc/hosts \
+        --ext-mount-map /etc/hostname:/etc/hostname \
+        --ext-mount-map /.dockerinit:/.dockerinit \
+        --manage-cgroups \
+        --evasive-devices
 
-$ docker ps -a  
-CONTAINER ID  IMAGE           COMMAND           CREATED        STATUS  
-168aefb8881b  busybox:latest  "/bin/sh -c 'i=0; 6 minutes ago  Exited (-1) 4 minutes ago  
+$ docker ps -a
+CONTAINER ID  IMAGE           COMMAND           CREATED        STATUS
+168aefb8881b  busybox:latest  "/bin/sh -c 'i=0; 6 minutes ago  Exited (-1) 4 minutes ago
 
-$ sudo mount -t aufs -o br=\  
-/var/lib/docker/aufs/diff/\<container\_id\>:\  
-/var/lib/docker/aufs/diff/\<container\_id\>-init:\  
-/var/lib/docker/aufs/diff/a9eb172552348a9a49180694790b33a1097f546456d041b6e82e4d7716ddb721:\  
-/var/lib/docker/aufs/diff/120e218dd395ec314e7b6249f39d2853911b3d6def6ea164ae05722649f34b16:\  
-/var/lib/docker/aufs/diff/42eed7f1bf2ac3f1610c5e616d2ab1ee9c7290234240388d6297bc0f32c34229:\  
-/var/lib/docker/aufs/diff/511136ea3c5a64f264b78b5433614aec563103b4d4702f3ba7d4d2698e22c158:\  
-none /var/lib/docker/aufs/mnt/\<container\_id\>  
+$ sudo mount -t aufs -o br=\
+/var/lib/docker/aufs/diff/\<container\_id\>:\
+/var/lib/docker/aufs/diff/\<container\_id\>-init:\
+/var/lib/docker/aufs/diff/a9eb172552348a9a49180694790b33a1097f546456d041b6e82e4d7716ddb721:\
+/var/lib/docker/aufs/diff/120e218dd395ec314e7b6249f39d2853911b3d6def6ea164ae05722649f34b16:\
+/var/lib/docker/aufs/diff/42eed7f1bf2ac3f1610c5e616d2ab1ee9c7290234240388d6297bc0f32c34229:\
+/var/lib/docker/aufs/diff/511136ea3c5a64f264b78b5433614aec563103b4d4702f3ba7d4d2698e22c158:\
+none /var/lib/docker/aufs/mnt/\<container\_id\>
 
-$ sudo criu restore -o restore.log -v4 -d  
-        -D /tmp/img/\<container\_id\> \  
-        --root /var/lib/docker/aufs/mnt/\<container\_id\> \  
-        --ext-mount-map /etc/resolv.conf:/var/lib/docker/containers/\<container\_id\>/resolv.conf \  
-        --ext-mount-map /etc/hosts:/var/lib/docker/containers/\<container\_id\>/hosts \  
-        --ext-mount-map /etc/hostname:/var/lib/docker/containers/\<container\_id\>/hostname \  
-        --ext-mount-map /.dockerinit:/var/lib/docker/init/dockerinit-1.0.0 \  
-        --manage-cgroups \  
-        --evasive-devices  
+$ sudo criu restore -o restore.log -v4 -d
+        -D /tmp/img/\<container\_id\> \
+        --root /var/lib/docker/aufs/mnt/\<container\_id\> \
+        --ext-mount-map /etc/resolv.conf:/var/lib/docker/containers/\<container\_id\>/resolv.conf \
+        --ext-mount-map /etc/hosts:/var/lib/docker/containers/\<container\_id\>/hosts \
+        --ext-mount-map /etc/hostname:/var/lib/docker/containers/\<container\_id\>/hostname \
+        --ext-mount-map /.dockerinit:/var/lib/docker/init/dockerinit-1.0.0 \
+        --manage-cgroups \
+        --evasive-devices
 
-$ ps -ef | grep /bin/sh  
-root     18580     1  0 12:38 ?        00:00:00 /bin/sh -c i=0; while true; do echo $i \>\> /foo; i=$(expr $i + 1); sleep 3; done  
+$ ps -ef | grep /bin/sh
+root     18580     1  0 12:38 ?        00:00:00 /bin/sh -c i=0; while true; do echo $i \>\> /foo; i=$(expr $i + 1); sleep 3; done
 
-$ docker ps -a  
-CONTAINER ID  IMAGE           COMMAND           CREATED        STATUS  
-168aefb8881b  busybox:latest  "/bin/sh -c 'i=0; 7 minutes ago  Exited (-1) 5 minutes ago  
+$ docker ps -a
+CONTAINER ID  IMAGE           COMMAND           CREATED        STATUS
+168aefb8881b  busybox:latest  "/bin/sh -c 'i=0; 7 minutes ago  Exited (-1) 5 minutes ago
 
 docker\_cr.sh
   ```
 
 Since the command line arguments to CRIU were long, a helper script called docker\_cr.sh was provided in the CRIU source tree to simplify the process.  So, for the above container, one would simply C/R the container as follows (for details see [http://criu.org/Docker](http://criu.org/Docker)):
 
-```  
-$ sudo docker\_cr.sh -c 4397   
-dump successful  
+```
+$ sudo docker\_cr.sh -c 4397
+dump successful
 
-$ sudo docker\_cr.sh -r 4397  
-restore successful  
+$ sudo docker\_cr.sh -r 4397
+restore successful
 ```
 At the end of Phase 1, it was possible to externally checkpoint and restore a Docker 1.0 container using either VFS, AUFS, or UnionFS storage drivers with CRIU v1.3.
 
@@ -150,7 +150,7 @@ Libcontainer is Docker’s native execution driver.  It provides a set of APIs t
 
 #### docker checkpoint, docker restore
 
-With C/R support in libcontainer, the next step was adding checkpoint and restore subcommands to Docker itself. A big challenge in this step was to rebuild the “plumbing” between the container and the daemon.  When the daemon initially starts a container, it sets up individual pipes between itself (parent) and the standard input, output, and error file descriptors of the container (child).  This is how docker logs can show the output of a container.  
+With C/R support in libcontainer, the next step was adding checkpoint and restore subcommands to Docker itself. A big challenge in this step was to rebuild the “plumbing” between the container and the daemon.  When the daemon initially starts a container, it sets up individual pipes between itself (parent) and the standard input, output, and error file descriptors of the container (child).  This is how docker logs can show the output of a container.
 
 When a container exits after being checkpointed, the pipes between it and the daemon are deleted.  During container restore, it’s actually CRIU that is the parent.  Therefore, setting up a pipe between the child (container) and an unrelated process (Docker daemon) required is not a bit of challenge.
 
@@ -171,13 +171,13 @@ In May 2015, the criu branch of libcontainer was merged into master.  Using the 
 
 At the time of this writing, there are two repos on GitHub that have native C/R support in Docker:
 - [Docker 1.5](https://github.com/SaiedKazemi/docker/tree/cr) (old libcontainer, relatively stable)
-- [Docker 1.7](https://github.com/boucher/docker/tree/cr-combined) (newer, less stable)  
+- [Docker 1.7](https://github.com/boucher/docker/tree/cr-combined) (newer, less stable)
 
 Work is underway to merge C/R functionality into Docker.  You can use either of the above repositories to experiment with Docker C/R.  If you are using OverlayFS or your container workload uses AIO, please note the following:
 
 
 
-#### OverlayFS  
+#### OverlayFS
 When OverlayFS support was officially merged into the Linux kernel version 3.18, it became the preferred storage driver (instead of AUFS) .  However, OverlayFS in 3.18 has the following issues:
 - /proc/\<pid\>/fdinfo/\<fd\> contains mnt\_id which isn’t in /proc/\<pid\>/mountinfo
 - /proc/\<pid\>/fd/\<fd\> does not contain an absolute path to the opened file

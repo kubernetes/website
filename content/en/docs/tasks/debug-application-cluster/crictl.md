@@ -316,7 +316,7 @@ deleted by the Kubelet.
       crictl ps -a
       ```
       The output is similar to this:
-      
+
       ```
       CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
       3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0

@@ -312,7 +312,7 @@ Explaining all the various utility methods available in the framework
 is out of scope for this blog post. Reading existing tests and the
 source code of the framework is a good way to get started.
 
-### Vendoring 
+### Vendoring
 
 Vendoring Kubernetes code is still not trivial, even after eliminating
 many of the unnecessary dependencies. `k8s.io/kubernetes` is not meant

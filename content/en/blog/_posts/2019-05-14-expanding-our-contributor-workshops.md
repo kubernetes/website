@@ -45,7 +45,7 @@ learn what exciting areas they can help with, gain mentors, and make friends.
 
 PS - there are also two mentoring sessions DURING KubeCon + CloudNativeCon on
 Thursday, May 23. [Sign up here][mentor]. 60% of the attendees during the
-Seattle event asked contributor questions. 
+Seattle event asked contributor questions.
 
 ## Past Attendee Story - Vallery Lancy, Engineer at Lyft
 
@@ -53,7 +53,7 @@ We talked to a few of our past participants in a series of interviews that we
 will publish throughout the course of the year. In our first two clips, we meet
 Vallery Lancy, an Engineer at Lyft and one of 75 attendees at our recent Seattle
 edition of the workshop. She was poking around in the community for a while to
-see where she could jump in. 
+see where she could jump in.
 
 Watch Vallery talk about her experience here:
 <center><iframe width="560" height="315" src="https://www.youtube.com/embed/uKg5WUcl6WU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></center>

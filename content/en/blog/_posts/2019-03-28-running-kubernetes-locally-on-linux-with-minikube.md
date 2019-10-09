@@ -1,6 +1,6 @@
----                                           
-title: 'Running Kubernetes locally on Linux with Minikube - now with Kubernetes 1.14 support'                                                           
-date: 2019-03-28                                  
+---
+title: 'Running Kubernetes locally on Linux with Minikube - now with Kubernetes 1.14 support'
+date: 2019-03-28
 ---
 **Author**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation
 
@@ -157,7 +157,7 @@ Let’s also check that the Kubernetes pods are correctly provisioned:
 kubectl get pods
 ```
 
-## Screencast 
+## Screencast
 
 <center>[![asciicast](https://asciinema.org/a/237106.svg)](https://asciinema.org/a/237106)</center>
 

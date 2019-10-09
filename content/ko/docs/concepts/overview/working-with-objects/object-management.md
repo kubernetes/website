@@ -7,7 +7,7 @@ weight: 15
 {{% capture overview %}}
 `kubectl` 커맨드라인 툴은 쿠버네티스 오브젝트를 생성하고 관리하기 위한
 몇 가지 상이한 방법을 지원한다. 이 문서는 여러가지 접근법에 대한 개요을
-제공한다. Kubectl으로 오브젝트 관리하기에 대한 자세한 설명은 
+제공한다. Kubectl으로 오브젝트 관리하기에 대한 자세한 설명은
 [Kubectl 서적](https://kubectl.docs.kubernetes.io)에서 확인한다.
 {{% /capture %}}
 

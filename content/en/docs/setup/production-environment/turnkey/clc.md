@@ -248,9 +248,9 @@ kubectl version
 kubectl cluster-info
 ```
 
-### Accessing the cluster programmatically 
+### Accessing the cluster programmatically
 
-It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/using-api/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice. 
+It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/using-api/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice.
 
 To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master apiserver via https:
 
@@ -271,12 +271,12 @@ create a cluster, the script should output URLs for these interfaces like this:
 
 kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
 
-Note on Authentication to the UIs: 
+Note on Authentication to the UIs:
 
 The cluster is set up to use basic authentication for the user _admin_.
-Hitting the url at ```https://${MASTER_IP}:6443``` will 
+Hitting the url at ```https://${MASTER_IP}:6443``` will
 require accepting the self-signed certificate
-from the apiserver, and then presenting the admin 
+from the apiserver, and then presenting the admin
 password written to file at: ```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_```
 
 

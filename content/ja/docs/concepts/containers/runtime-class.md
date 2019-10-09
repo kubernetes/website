@@ -68,7 +68,7 @@ Overview](/docs/reference/access-authn-authz/authorization/)を参照してく�
 
 ### 使用例
 
-一度RuntimeClassがクラスターに対して設定されると、それを使用するのは非常に簡単です。PodSpecの`runtimeClassName`を指定してください。  
+一度RuntimeClassがクラスターに対して設定されると、それを使用するのは非常に簡単です。PodSpecの`runtimeClassName`を指定してください。
 例えば
 
 ```yaml
@@ -103,7 +103,7 @@ Kubernetesのビルトインのdockershim CRIは、ランタイムハンドラ�
 [plugins.cri.containerd.runtimes.${HANDLER_NAME}]
 ```
 
-containerdの設定に関する詳細なドキュメントは下記を参照してください。  
+containerdの設定に関する詳細なドキュメントは下記を参照してください。
 https://github.com/containerd/cri/blob/master/docs/config.md
 
 #### [cri-o](https://cri-o.io/)
@@ -117,7 +117,7 @@ table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-cri-oの設定に関する詳細なドキュメントは下記を参照してください。  
+cri-oの設定に関する詳細なドキュメントは下記を参照してください。
 https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 
 
@@ -133,7 +133,7 @@ RuntimeClassのβ版の機能は、下記の変更点を含みます。
 
 **Action Required:** 次のアクションはRuntimeClassのα版からβ版へのアップグレードにおいて対応が必須です。
 
-- RuntimeClassリソースはKubernetes v1.14にアップグレードされた*後に* 再作成されなくてはなりません。そして`runtimeclasses.node.k8s.io`というCRDは手動で削除されるべきです。  
+- RuntimeClassリソースはKubernetes v1.14にアップグレードされた*後に* 再作成されなくてはなりません。そして`runtimeclasses.node.k8s.io`というCRDは手動で削除されるべきです。
   ```
   kubectl delete customresourcedefinitions.apiextensions.k8s.io runtimeclasses.node.k8s.io
   ```

@@ -4,7 +4,7 @@ date: 2015-04-30
 slug: weekly-kubernetes-community-hangout_29
 url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_29
 ---
-Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.  
+Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.
 
 
 Agenda:

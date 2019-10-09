@@ -243,7 +243,7 @@ For self-registration, the kubelet is started with the following options:
   - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
+When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
 kubelets are only authorized to create/modify their own Node resource.
 

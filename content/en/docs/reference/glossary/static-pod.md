@@ -6,7 +6,7 @@ full_link: /docs/tasks/configure-pod-container/static-pod/
 short_description: >
   A pod managed directly by the kubelet daemon on a specific node.
 
-aka: 
+aka:
 tags:
 - fundamental
 ---

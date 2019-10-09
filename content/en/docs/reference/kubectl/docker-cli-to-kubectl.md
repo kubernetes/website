@@ -180,7 +180,7 @@ docker exec -ti 55c103fa1296 /bin/sh
 kubectl:
 
 ```shell
-kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
+kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 

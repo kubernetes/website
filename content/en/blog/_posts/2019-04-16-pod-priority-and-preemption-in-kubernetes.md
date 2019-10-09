@@ -32,4 +32,4 @@ The non-critical pods fill the “holes” in your cluster resources which impro
 
 ## Get Involved
 
-If you have feedback for this feature or are interested in getting involved with the design and development, join the [Scheduling Special Interest Group](https://github.com/kubernetes/community/tree/master/sig-scheduling). 
+If you have feedback for this feature or are interested in getting involved with the design and development, join the [Scheduling Special Interest Group](https://github.com/kubernetes/community/tree/master/sig-scheduling).

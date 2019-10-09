@@ -4,24 +4,24 @@ date: 2016-11-18
 slug: kubernetes-containers-logging-monitoring-with-sematext
 url: /blog/2016/11/Kubernetes-Containers-Logging-Monitoring-With-Sematext
 ---
-_Editor's note: Today’s post is by Stefan Thies, Developer Evangelist, at Sematext, showing key Kubernetes metrics and log elements to help you troubleshoot and tune Docker and Kubernetes._  
+_Editor's note: Today’s post is by Stefan Thies, Developer Evangelist, at Sematext, showing key Kubernetes metrics and log elements to help you troubleshoot and tune Docker and Kubernetes._
 
 
-Managing microservices in containers is typically done with Cluster Managers and Orchestration tools. Each container platform has a slightly different set of options to deploy containers or schedule tasks on each cluster node. Because we do [container monitoring and logging](http://sematext.com/kubernetes) at Sematext, part of our job is to share our knowledge of these tools, especially as it pertains to container observability and devops. Today we’ll show a tutorial for Container Monitoring and Log Collection on Kubernetes.  
+Managing microservices in containers is typically done with Cluster Managers and Orchestration tools. Each container platform has a slightly different set of options to deploy containers or schedule tasks on each cluster node. Because we do [container monitoring and logging](http://sematext.com/kubernetes) at Sematext, part of our job is to share our knowledge of these tools, especially as it pertains to container observability and devops. Today we’ll show a tutorial for Container Monitoring and Log Collection on Kubernetes.
 
-**Dynamic Deployments Require Dynamic Monitoring**  
+**Dynamic Deployments Require Dynamic Monitoring**
 
-The high level of automation for the container and microservice lifecycle makes the monitoring of Kubernetes more challenging than in more traditional, more static deployments. Any static setup to monitor specific application containers would not work because Kubernetes makes its own decisions according to the defined deployment rules. It is not only the deployed microservices that need to be monitored. It is equally important to watch metrics and logs for Kubernetes core services themselves, such as Kubernetes Master running etcd, controller-manager, scheduler and apiserver and Kubernetes Workers (fka minions) running kubelet and proxy service. Having a centralized place to keep an eye on all these services, their metrics and logs helps one spot problems in the cluster infrastructure. Kubernetes core services could be installed on bare metal, in virtual machines or as containers using Docker. Deploying Kubernetes core services in containers could be helpful with deployment and monitoring operations - tools for container monitoring would cover both core services and application containers. So how does one monitor such a complex and dynamic environment?  
+The high level of automation for the container and microservice lifecycle makes the monitoring of Kubernetes more challenging than in more traditional, more static deployments. Any static setup to monitor specific application containers would not work because Kubernetes makes its own decisions according to the defined deployment rules. It is not only the deployed microservices that need to be monitored. It is equally important to watch metrics and logs for Kubernetes core services themselves, such as Kubernetes Master running etcd, controller-manager, scheduler and apiserver and Kubernetes Workers (fka minions) running kubelet and proxy service. Having a centralized place to keep an eye on all these services, their metrics and logs helps one spot problems in the cluster infrastructure. Kubernetes core services could be installed on bare metal, in virtual machines or as containers using Docker. Deploying Kubernetes core services in containers could be helpful with deployment and monitoring operations - tools for container monitoring would cover both core services and application containers. So how does one monitor such a complex and dynamic environment?
 
-**Agent for Kubernetes Metrics and Logs**  
+**Agent for Kubernetes Metrics and Logs**
 
-There are a number of [open source docker monitoring and logging projects](https://sematext.com/blog/2016/07/19/open-source-docker-monitoring-logging/) one can cobble together to build a monitoring and log collection system (or systems). The advantage is that the code is all free. The downside is that this takes times - both initially when setting it up and later when maintaining. That’s why we built [Sematext Docker Agent](http://sematext.com/docker) - a modern, Docker-aware metrics, events, and log collection agent. It runs as a tiny container on every Docker host and collects logs, metrics and events for all cluster nodes and all containers. It discovers all containers (one pod might contain multiple containers) including containers for Kubernetes core services, if core services are deployed in Docker containers. Let’s see how to deploy this agent.  
+There are a number of [open source docker monitoring and logging projects](https://sematext.com/blog/2016/07/19/open-source-docker-monitoring-logging/) one can cobble together to build a monitoring and log collection system (or systems). The advantage is that the code is all free. The downside is that this takes times - both initially when setting it up and later when maintaining. That’s why we built [Sematext Docker Agent](http://sematext.com/docker) - a modern, Docker-aware metrics, events, and log collection agent. It runs as a tiny container on every Docker host and collects logs, metrics and events for all cluster nodes and all containers. It discovers all containers (one pod might contain multiple containers) including containers for Kubernetes core services, if core services are deployed in Docker containers. Let’s see how to deploy this agent.
 
-**Deploying Agent to all Kubernetes Nodes **  
+**Deploying Agent to all Kubernetes Nodes **
 
-Kubernetes provides [DaemonSets](http://kubernetes.io/v1.1/docs/admin/daemons.html), which ensure pods are added to nodes as nodes are added to the cluster. We can use this to easily deploy Sematext Agent to each cluster node!  
-Configure Sematext Docker Agent for Kubernetes  
-Let’s assume you’ve created an SPM app for your Kubernetes metrics and events, and a Logsene app for your Kubernetes logs, each of which comes with its own token. The Sematext Docker Agent [README](https://github.com/sematext/sematext-agent-docker) lists all configurations (e.g. filter for specific pods/images/containers), but we’ll keep it simple here.  
+Kubernetes provides [DaemonSets](http://kubernetes.io/v1.1/docs/admin/daemons.html), which ensure pods are added to nodes as nodes are added to the cluster. We can use this to easily deploy Sematext Agent to each cluster node!
+Configure Sematext Docker Agent for Kubernetes
+Let’s assume you’ve created an SPM app for your Kubernetes metrics and events, and a Logsene app for your Kubernetes logs, each of which comes with its own token. The Sematext Docker Agent [README](https://github.com/sematext/sematext-agent-docker) lists all configurations (e.g. filter for specific pods/images/containers), but we’ll keep it simple here.
 
 
 - Grab the latest sematext-agent-daemonset.yml (raw plain-text) template (also shown below)
@@ -29,41 +29,41 @@ Let’s assume you’ve created an SPM app for your Kubernetes metrics and event
 - Replace the SPM\_TOKEN and LOGSENE\_TOKEN placeholders with your SPM and Logsene App tokens
 
 ```
-apiVersion: extensions/v1beta1  
-kind: DaemonSet  
-metadata:  
-  name: sematext-agent  
-spec:  
-  template:  
-    metadata:  
-      labels:  
-        app: sematext-agent  
-    spec:  
-      selector: {}  
-      dnsPolicy: "ClusterFirst"  
-      restartPolicy: "Always"  
-      containers:  
-      - name: sematext-agent  
-        image: sematext/sematext-agent-docker:latest  
-        imagePullPolicy: "Always"  
-        env:  
-        - name: SPM\_TOKEN  
-          value: "REPLACE THIS WITH YOUR SPM TOKEN"  
-        - name: LOGSENE\_TOKEN  
-          value: "REPLACE THIS WITH YOUR LOGSENE TOKEN"  
-        - name: KUBERNETES  
-          value: "1"  
-        volumeMounts:  
-          - mountPath: /var/run/docker.sock  
-            name: docker-sock  
-          - mountPath: /etc/localtime  
-            name: localtime  
-      volumes:  
-        - name: docker-sock  
-          hostPath:  
-            path: /var/run/docker.sock  
-        - name: localtime  
-          hostPath:  
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: sematext-agent
+spec:
+  template:
+    metadata:
+      labels:
+        app: sematext-agent
+    spec:
+      selector: {}
+      dnsPolicy: "ClusterFirst"
+      restartPolicy: "Always"
+      containers:
+      - name: sematext-agent
+        image: sematext/sematext-agent-docker:latest
+        imagePullPolicy: "Always"
+        env:
+        - name: SPM\_TOKEN
+          value: "REPLACE THIS WITH YOUR SPM TOKEN"
+        - name: LOGSENE\_TOKEN
+          value: "REPLACE THIS WITH YOUR LOGSENE TOKEN"
+        - name: KUBERNETES
+          value: "1"
+        volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /etc/localtime
+            name: localtime
+      volumes:
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+        - name: localtime
+          hostPath:
             path: /etc/localtime
  ```
 

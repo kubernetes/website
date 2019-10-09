@@ -57,7 +57,7 @@ spec:
         hugepages-2Mi: 100Mi
         memory: 100Mi
       requests:
-        memory: 100Mi      
+        memory: 100Mi
   volumes:
   - name: hugepage
     emptyDir:

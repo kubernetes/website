@@ -10,7 +10,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      k8s-app: node-problem-detector  
+      k8s-app: node-problem-detector
       version: v0.1
       kubernetes.io/cluster-service: "true"
   template:

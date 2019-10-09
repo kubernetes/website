@@ -12,7 +12,7 @@ weight: 10
 
 {{< feature-state for_k8s_version="1.16" state="alpha" >}}
 
-The kube-scheduler can be configured to enable bin packing of resources along with extended resources using `RequestedToCapacityRatioResourceAllocation` priority function. Priority functions can be used to fine-tune the kube-scheduler as per custom needs. 
+The kube-scheduler can be configured to enable bin packing of resources along with extended resources using `RequestedToCapacityRatioResourceAllocation` priority function. Priority functions can be used to fine-tune the kube-scheduler as per custom needs.
 
 {{% /capture %}}
 
@@ -83,7 +83,7 @@ The above arguments give the node a score of 0 if utilization is 0% and 10 for u
             ]
 ```
 
-It can be used to add extended resources as follows: 
+It can be used to add extended resources as follows:
 
 ```yaml
 "resources": [

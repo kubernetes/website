@@ -136,14 +136,14 @@ alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.
     ```sh
     sudo kubeadm init --config=kubeadm-config.yaml
     ```
-    
+
     このような出力がされます:
-    
+
     ```sh
     ...
     You can now join any number of machines by running the following on each node
     as root:
-    
+
     kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
     ```
 

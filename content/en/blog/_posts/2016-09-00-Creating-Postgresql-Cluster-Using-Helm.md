@@ -4,13 +4,13 @@ date: 2016-09-09
 slug: creating-postgresql-cluster-using-helm
 url: /blog/2016/09/Creating-Postgresql-Cluster-Using-Helm
 ---
-_Editor’s note: Today’s guest post is by Jeff McCormick, a developer at Crunchy Data, showing how to deploy a PostgreSQL cluster using Helm, a Kubernetes package manager._  
+_Editor’s note: Today’s guest post is by Jeff McCormick, a developer at Crunchy Data, showing how to deploy a PostgreSQL cluster using Helm, a Kubernetes package manager._
 
-[Crunchy Data](http://www.crunchydata.com/) supplies a set of open source PostgreSQL and PostgreSQL related containers. The Crunchy PostgreSQL Container Suite includes containers that deploy, monitor, and administer the open source PostgreSQL database, for more details view this GitHub [repository](https://github.com/crunchydata/crunchy-containers).   
+[Crunchy Data](http://www.crunchydata.com/) supplies a set of open source PostgreSQL and PostgreSQL related containers. The Crunchy PostgreSQL Container Suite includes containers that deploy, monitor, and administer the open source PostgreSQL database, for more details view this GitHub [repository](https://github.com/crunchydata/crunchy-containers).
 
-In this post we’ll show you how to deploy a PostgreSQL cluster using [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager. For reference, the Crunchy Helm Chart examples used within this post are located [here](https://github.com/CrunchyData/crunchy-containers/tree/master/examples/kubehelm/crunchy-postgres), and the pre-built containers can be found on DockerHub at [this location](https://hub.docker.com/u/crunchydata/dashboard/).   
+In this post we’ll show you how to deploy a PostgreSQL cluster using [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager. For reference, the Crunchy Helm Chart examples used within this post are located [here](https://github.com/CrunchyData/crunchy-containers/tree/master/examples/kubehelm/crunchy-postgres), and the pre-built containers can be found on DockerHub at [this location](https://hub.docker.com/u/crunchydata/dashboard/).
 
-This example will create the following in your Kubernetes cluster:  
+This example will create the following in your Kubernetes cluster:
 
 - postgres master service
 - postgres replica service
@@ -74,10 +74,10 @@ After installing the Helm chart, you will see the following services:
 
 
 ```
-kubectl get services  
-NAME              CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE  
-crunchy-master    10.0.0.171   \<none\>        5432/TCP   1h  
-crunchy-replica   10.0.0.31    \<none\>        5432/TCP   1h  
+kubectl get services
+NAME              CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+crunchy-master    10.0.0.171   \<none\>        5432/TCP   1h
+crunchy-replica   10.0.0.31    \<none\>        5432/TCP   1h
 kubernetes        10.0.0.1     \<none\>        443/TCP    1h
  ```
 
@@ -127,7 +127,7 @@ kubectl scale rc crunchy-replica --replicas=2
  ```
 
 
-It takes 60 seconds for the replica to start and begin replicating from the master.  
+It takes 60 seconds for the replica to start and begin replicating from the master.
 
 
 

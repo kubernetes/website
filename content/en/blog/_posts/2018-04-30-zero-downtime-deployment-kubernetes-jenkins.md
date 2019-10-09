@@ -78,7 +78,7 @@ Container technology offers a stand-alone environment to run the desired service
 - Before the deployment, the infrastructure is prepared like so:
   - Prepare the blue deployment and green deployment with `TOMCAT_VERSION=7` and `TARGET_ROLE` set to blue or green respectively.
 
-```  
+```
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -177,7 +177,7 @@ acsDeploy azureCredentialsId: 'stored-azure-credentials-id',
           containerService: "aks-name | AKS",
           resourceGroupName: "resource-group-name",
           enableConfigSubstitution: true
-```          
+```
 - Verify Staged: verify the deployment to the inactive environment to ensure it is working properly. Again, note this is in the production environment, so be careful not to pollute live application data during tests.
 - Confirm: Optionally, send email notifications for manual user approval to proceed with the actual environment switch.
 - Switch: Switch the frontend service endpoint routing to the inactive environment. This is just another service deployment to the AKS Kubernetes cluster.

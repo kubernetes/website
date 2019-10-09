@@ -84,7 +84,7 @@ environments.
 
 First, a StorageClass should be created that sets `volumeBindingMode:
 WaitForFirstConsumer` to enable [volume topology-aware
-scheduling](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode). 
+scheduling](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode).
 This mode instructs Kubernetes to wait to bind a PVC until a Pod using it is scheduled.
 
 ```
@@ -253,7 +253,7 @@ For one, we had to take into account the hardware profiles of the nodes in our
 Kubernetes cluster. For example, how many local disks would each node cluster
 have? How would they be partitioned?
 
-The local static provisioner provides 
+The local static provisioner provides
 [guidance](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/docs/best-practices.md)
 to help answer these questions. It’s best to be able to dedicate a full disk to each local volume
 (for IO isolation) and a full partition per-volume (for capacity isolation).

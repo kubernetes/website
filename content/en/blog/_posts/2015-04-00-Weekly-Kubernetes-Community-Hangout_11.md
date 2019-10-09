@@ -6,13 +6,13 @@ url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_11
 ---
 Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.
 
-Agenda:  
+Agenda:
 
 * kubectl tooling, rolling update, deployments, imperative commands.
 * Downward API / env. substitution, and maybe preconditions/dependencies.
 
 
-**Notes from meeting:**  
+**Notes from meeting:**
 
 1\. kubectl improvements
 

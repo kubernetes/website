@@ -6,13 +6,13 @@ full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   A key-value pair that is used to attach arbitrary non-identifying metadata to objects.
 
-aka: 
+aka:
 tags:
 - fundamental
 ---
  A key-value pair that is used to attach arbitrary non-identifying metadata to objects.
 
-<!--more--> 
+<!--more-->
 
 The metadata in an annotation can be small or large, structured or unstructured, and can include characters not permitted by labels. Clients such as tools and libraries can retrieve this metadata.
 

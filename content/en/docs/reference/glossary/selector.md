@@ -6,13 +6,13 @@ full_link: /docs/concepts/overview/working-with-objects/labels/
 short_description: >
   Allows users to filter a list of resources based on labels.
 
-aka: 
+aka:
 tags:
 - fundamental
 ---
  Allows users to filter a list of resources based on labels.
 
-<!--more--> 
+<!--more-->
 
 Selectors are applied when querying lists of resources to filter them by {{< glossary_tooltip text="Labels" term_id="label" >}}.
 

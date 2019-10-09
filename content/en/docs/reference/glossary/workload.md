@@ -6,13 +6,13 @@ full_link: /docs/concepts/workloads/
 short_description: >
    A workload is an application running on Kubernetes.
 
-aka: 
+aka:
 tags:
 - fundamental
 ---
    A workload is an application running on Kubernetes.
 
-<!--more--> 
+<!--more-->
 
 Various core objects that represent different types or parts of a workload
 include the DaemonSet, Deployment, Job, ReplicaSet, and StatefulSet objects.

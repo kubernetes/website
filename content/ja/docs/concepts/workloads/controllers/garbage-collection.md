@@ -49,8 +49,8 @@ metadata:
 ```
 
 {{< note >}}
-ネームスペースをまたいだownerReferenceは意図的に許可されていません。これは以下のことを意味します。  
-1) ネームスペース内のスコープの従属オブジェクトは、同一のネームスペース内のオーナーと、クラスターのスコープ内のオーナーのみ指定できます。  
+ネームスペースをまたいだownerReferenceは意図的に許可されていません。これは以下のことを意味します。
+1) ネームスペース内のスコープの従属オブジェクトは、同一のネームスペース内のオーナーと、クラスターのスコープ内のオーナーのみ指定できます。
 2) クラスターのスコープ内の従属オブジェクトは、クラスターのスコープ内のオーナーオブジェクトのみ指定でき、ネームスペース内のスコープのオーナーオブジェクトは指定できません。
 {{< /note >}}
 
@@ -114,7 +114,7 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 -H "Content-Type: application/json"
 ```
 
-kubectlもまたカスケード削除をサポートしています。  
+kubectlもまたカスケード削除をサポートしています。
 kubectlを使って従属オブジェクトを自動的に削除するためには、`--cascade`をtrueにセットしてください。
 従属オブジェクトを削除せず、みなしご状態にするには`--cascade`をfalseにセットしてください。
 `--cascade`オプションのデフォルト値はtrueになります。
@@ -127,7 +127,7 @@ kubectl delete replicaset my-repset --cascade=false
 
 ### Deploymentsに関する追記事項
 
-Kubernetes1.7以前では、Deploymentに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの_propagationPolicy_ が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。  
+Kubernetes1.7以前では、Deploymentに対するカスケード削除において、作成されたReplicaSetだけでなく、それらのPodも削除するためには、ユーザーは`propagationPolicy: Foreground`と指定*しなくてはなりません* 。もしこのタイプの_propagationPolicy_ が使われなかった場合、そのReplicaSetは削除されますが、そのPodは削除されずみなしご状態になります。
 さらなる詳細に関しては[kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613)を参照してください。
 
 ## 既知の問題について

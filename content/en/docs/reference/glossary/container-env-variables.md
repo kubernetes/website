@@ -6,7 +6,7 @@ full_link: /docs/concepts/containers/container-environment-variables/
 short_description: >
   Container environment variables are name=value pairs that provide useful information into containers running in a Pod.
 
-aka: 
+aka:
 tags:
 - fundamental
 ---

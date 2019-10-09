@@ -44,7 +44,7 @@ properties:
     - Non-resource-matching properties:
       - `nonResourcePath`, type string; non-resource request paths.
         - Ex: `/version` or `/apis`
-        - Wildcard: 
+        - Wildcard:
           - `*` matches all non-resource requests.
           - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
@@ -143,7 +143,7 @@ Creating a new namespace leads to the creation of a new service account in the f
 system:serviceaccount:<namespace>:default
 ```
 
-For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
+For example, if you wanted to grant the default service account (in the `kube-system` namespace) full
 privilege to the API using ABAC, you would add this line to your policy file:
 
 ```json

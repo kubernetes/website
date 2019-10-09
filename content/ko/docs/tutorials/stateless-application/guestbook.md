@@ -216,7 +216,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 1. 서비스의 목록을 질의하여 프론트엔드 서비스가 실행 중인지 확인한다.
 
       ```shell
-      kubectl get services 
+      kubectl get services
       ```
 
       결과는 아래와 같은 형태로 나타난다.
@@ -318,7 +318,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       redis-slave-2005841000-fpvqc    1/1       Running   0          1h
       redis-slave-2005841000-phfv9    1/1       Running   0          1h
       ```
-        
+
 {{% /capture %}}
 
 {{% capture cleanup %}}
@@ -340,10 +340,10 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       deployment.apps "redis-slave" deleted
       service "redis-master" deleted
       service "redis-slave" deleted
-      deployment.apps "frontend" deleted    
+      deployment.apps "frontend" deleted
       service "frontend" deleted
       ```
-       
+
 1. 파드의 목록을 질의하여 실행 중인 파드가 없는지 확인한다.
 
       ```shell

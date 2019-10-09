@@ -4,11 +4,11 @@ date: 2016-10-10
 slug: helm-charts-making-it-simple-to-package-and-deploy-apps-on-kubernetes
 url: /blog/2016/10/Helm-Charts-Making-It-Simple-To-Package-And-Deploy-Apps-On-Kubernetes
 ---
-There are thousands of people and companies packaging their applications for deployment on Kubernetes. This usually involves crafting a few different Kubernetes resource definitions that configure the application runtime, as well as defining the mechanism that users and other apps leverage to communicate with the application. There are some very common applications that users regularly look for guidance on deploying, such as databases, CI tools, and content management systems. These types of applications are usually not ones that are developed and iterated on by end users, but rather their configuration is customized to fit a specific use case. Once that application is deployed users can link it to their existing systems or leverage their functionality to solve their pain points.  
+There are thousands of people and companies packaging their applications for deployment on Kubernetes. This usually involves crafting a few different Kubernetes resource definitions that configure the application runtime, as well as defining the mechanism that users and other apps leverage to communicate with the application. There are some very common applications that users regularly look for guidance on deploying, such as databases, CI tools, and content management systems. These types of applications are usually not ones that are developed and iterated on by end users, but rather their configuration is customized to fit a specific use case. Once that application is deployed users can link it to their existing systems or leverage their functionality to solve their pain points.
 
-For best practices on how these applications should be configured, users could look at the many resources available such as: the [examples folder](https://github.com/kubernetes/kubernetes/tree/master/examples) in the Kubernetes repository, the Kubernetes [contrib repository](https://github.com/kubernetes/contrib), the [Helm Charts repository](https://github.com/helm/charts), and the [Bitnami Charts repository](https://github.com/bitnami/charts). While these different locations provided guidance, it was not always formalized or consistent such that users could leverage similar installation procedures across different applications.  
+For best practices on how these applications should be configured, users could look at the many resources available such as: the [examples folder](https://github.com/kubernetes/kubernetes/tree/master/examples) in the Kubernetes repository, the Kubernetes [contrib repository](https://github.com/kubernetes/contrib), the [Helm Charts repository](https://github.com/helm/charts), and the [Bitnami Charts repository](https://github.com/bitnami/charts). While these different locations provided guidance, it was not always formalized or consistent such that users could leverage similar installation procedures across different applications.
 
-So what do you do when there are too many places for things to be found?  
+So what do you do when there are too many places for things to be found?
 
 
 
@@ -18,13 +18,13 @@ So what do you do when there are too many places for things to be found?
 
 
 
-In this case, we’re not creating Yet Another Place for Applications, rather promoting an existing one as the canonical location. As part of the Special Interest Group Apps ([SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps)) work for the [Kubernetes 1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere), we began to provide a home for these Kubernetes deployable applications that provides continuous releases of well documented and user friendly packages. These packages are being created as Helm [**Charts**](https://github.com/kubernetes/helm/blob/master/docs/charts.md) and can be installed using the Helm tool. **[Helm](https://github.com/kubernetes/helm)** allows users to easily templatize their Kubernetes manifests and provide a set of configuration parameters that allows users to customize their deployment.   
+In this case, we’re not creating Yet Another Place for Applications, rather promoting an existing one as the canonical location. As part of the Special Interest Group Apps ([SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps)) work for the [Kubernetes 1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere), we began to provide a home for these Kubernetes deployable applications that provides continuous releases of well documented and user friendly packages. These packages are being created as Helm [**Charts**](https://github.com/kubernetes/helm/blob/master/docs/charts.md) and can be installed using the Helm tool. **[Helm](https://github.com/kubernetes/helm)** allows users to easily templatize their Kubernetes manifests and provide a set of configuration parameters that allows users to customize their deployment.
 
-**Helm is the package manager** (analogous to yum and apt) and **Charts are packages** (analogous to debs and rpms). The home for these Charts is the [Kubernetes Charts repository](https://github.com/kubernetes/charts) which provides continuous integration for pull requests, as well as automated releases of Charts in the master branch.   
+**Helm is the package manager** (analogous to yum and apt) and **Charts are packages** (analogous to debs and rpms). The home for these Charts is the [Kubernetes Charts repository](https://github.com/kubernetes/charts) which provides continuous integration for pull requests, as well as automated releases of Charts in the master branch.
 
-There are two main folders where charts reside. The [stable folder](https://github.com/kubernetes/charts/tree/master/stable) hosts those applications which meet minimum requirements such as proper documentation and inclusion of only Beta or higher Kubernetes resources. The [incubator folder](https://github.com/kubernetes/charts/tree/master/incubator) provides a place for charts to be submitted and iterated on until they’re ready for promotion to stable at which time they will automatically be pushed out to the default repository. For more information on the repository structure and requirements for being in stable, have a look at [this section in the README](https://github.com/kubernetes/charts#repository-structure).  
+There are two main folders where charts reside. The [stable folder](https://github.com/kubernetes/charts/tree/master/stable) hosts those applications which meet minimum requirements such as proper documentation and inclusion of only Beta or higher Kubernetes resources. The [incubator folder](https://github.com/kubernetes/charts/tree/master/incubator) provides a place for charts to be submitted and iterated on until they’re ready for promotion to stable at which time they will automatically be pushed out to the default repository. For more information on the repository structure and requirements for being in stable, have a look at [this section in the README](https://github.com/kubernetes/charts#repository-structure).
 
-The following applications are now available:  
+The following applications are now available:
 
 
 
@@ -42,7 +42,7 @@ The following applications are now available:
 |    | [ZooKeeper](https://github.com/kubernetes/charts/tree/master/incubator/zookeeper) |
 
 
-**Example workflow for a Chart developer**  
+**Example workflow for a Chart developer**
 
 
 1. [Create a chart](https://github.com/kubernetes/helm/blob/master/docs/charts.md)
@@ -53,25 +53,25 @@ The following applications are now available:
 6. Submit a [Pull Request to the Kubernetes Charts repo](https://github.com/kubernetes/charts/pulls). Once tested and reviewed, the PR will be merged.
 7. Once merged to the master branch, the chart will be packaged and released to Helm’s default repository and available for users to install.
 
-**Example workflow for a Chart user**  
+**Example workflow for a Chart user**
 
 
 1. 1.[Install Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-helm)
 2. 2.[Initialize Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-an-example-chart)
-3. 3.[Search for a chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-search-finding-charts)   
+3. 3.[Search for a chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-search-finding-charts)
 
 ```
-$ helm search  
+$ helm search
 NAME VERSION DESCRIPTION stable/drupal 0.3.1 One of the most versatile open source content m...stable/jenkins 0.1.0 A Jenkins Helm chart for Kubernetes. stable/mariadb 0.4.0 Chart for MariaDB stable/mysql 0.1.0 Chart for MySQL stable/redmine 0.3.1 A flexible project management web application. stable/wordpress 0.3.0 Web publishing platform for building blogs and ...
  ```
 
-4. 4.[Install the chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-install-installing-a-package)  
+4. 4.[Install the chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-install-installing-a-package)
 
 ```
 $ helm install stable/jenkins
  ```
 
-5. 5.After the install   
+5. 5.After the install
 
 ```
 Notes:
@@ -104,17 +104,17 @@ For more information on running Jenkins on Kubernetes, visit [here](https://clou
 
 
 
-**Conclusion**  
+**Conclusion**
 
-Now that you’ve seen workflows for both developers and users, we hope that you’ll join us in consolidating the breadth of application deployment knowledge into a more centralized place. Together we can raise the quality bar for both developers and users of Kubernetes applications. We’re always looking for feedback on how we can better our process. Additionally, we’re looking for contributions of new charts or updates to existing ones. Join us in the following places to get engaged:  
+Now that you’ve seen workflows for both developers and users, we hope that you’ll join us in consolidating the breadth of application deployment knowledge into a more centralized place. Together we can raise the quality bar for both developers and users of Kubernetes applications. We’re always looking for feedback on how we can better our process. Additionally, we’re looking for contributions of new charts or updates to existing ones. Join us in the following places to get engaged:
 
 
 - SIG Apps - [Slack Channel](https://kubernetes.slack.com/messages/sig-apps/)
 - SIG Apps - [Weekly Meeting](https://github.com/kubernetes/community/tree/master/sig-apps#meeting)
 - [Submit a Kubernetes Charts Issue](https://github.com/kubernetes/charts/issues)
-A big thank you to the folks at Bitnami, Deis, Google and the [other contributors](https://github.com/kubernetes/charts/graphs/contributors) who have helped get the Charts repository to where it is today. We still have a lot of work to do but it's been wonderful working together as a community to move this effort forward.  
+A big thank you to the folks at Bitnami, Deis, Google and the [other contributors](https://github.com/kubernetes/charts/graphs/contributors) who have helped get the Charts repository to where it is today. We still have a lot of work to do but it's been wonderful working together as a community to move this effort forward.
 
-_--Vic Iglesias, Cloud Solutions Architect, Google_  
+_--Vic Iglesias, Cloud Solutions Architect, Google_
 
 
 - [Download](http://get.k8s.io/) Kubernetes

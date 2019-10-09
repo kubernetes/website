@@ -6,7 +6,7 @@ full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   Manages the deployment and scaling of a set of Pods, *and provides guarantees about the ordering and uniqueness* of these Pods.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
@@ -15,6 +15,6 @@ tags:
 ---
  Manages the deployment and scaling of a set of {{< glossary_tooltip text="Pods" term_id="pod" >}}, *and provides guarantees about the ordering and uniqueness* of these Pods.
 
-<!--more--> 
+<!--more-->
 
 Like a {{< glossary_tooltip term_id="deployment" >}}, a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of their Pods. These pods are created from the same spec, but are not interchangeable&#58; each has a persistent identifier that it maintains across any rescheduling.

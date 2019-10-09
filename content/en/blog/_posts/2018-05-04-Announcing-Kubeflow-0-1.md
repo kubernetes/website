@@ -9,15 +9,15 @@ slug: announcing-kubeflow-0.1
 
 Since the [initial announcement](https://kubernetes.io/blog/2017/12/introducing-kubeflow-composable) of Kubeflow at [the last KubeCon+CloudNativeCon](https://kccncna17.sched.com/event/CU5v/hot-dogs-or-not-at-scale-with-kubernetes-i-vish-kannan-david-aronchick-google), we have been both surprised and delighted by the excitement for building great ML stacks for Kubernetes. In just over five months, the [Kubeflow project](https://github.com/kubeflow) now has:
 
-* 70+ contributors 
+* 70+ contributors
 * 20+ contributing organizations
 * 15 repositories
 * 3100+ GitHub stars
-* 700+ commits 
+* 700+ commits
 
 and already is among the top 2% of GitHub projects **_ever_**.
 
-People are excited to chat about Kubeflow as well! The Kubeflow community has also held meetups, talks and public sessions all around the world with thousands of attendees. With all this help, we’ve started to make substantial in every step of ML, from building your first model all the way to building a production-ready, high-scale deployments. At the end of the day, our mission remains the same: we want to let data scientists and software engineers focus on the things they do well by giving them an easy-to-use, portable and scalable ML stack. 
+People are excited to chat about Kubeflow as well! The Kubeflow community has also held meetups, talks and public sessions all around the world with thousands of attendees. With all this help, we’ve started to make substantial in every step of ML, from building your first model all the way to building a production-ready, high-scale deployments. At the end of the day, our mission remains the same: we want to let data scientists and software engineers focus on the things they do well by giving them an easy-to-use, portable and scalable ML stack.
 
 # Introducing Kubeflow 0.1
 
@@ -28,7 +28,7 @@ Today, we’re proud to announce the availability of Kubeflow 0.1, which provide
 * A **TensorFlow Serving** for hosting
 * **Argo** for workflows
 * **SeldonCore** for complex inference and non TF models
-* **Ambassador** for Reverse Proxy 
+* **Ambassador** for Reverse Proxy
 * Wiring to make it work on any Kubernetes anywhere
 
 To get started, it’s just as easy as it always has been:
@@ -58,7 +58,7 @@ ks generate kubeflow-core kubeflow-core
 ks apply default -c kubeflow-core
 ```
 
-And thats it! JupyterHub is deployed so we can now use Jupyter to begin developing models. Once we have python code to build our model we can build a docker image and train our model using our TFJob operator by running commands like the following: 
+And thats it! JupyterHub is deployed so we can now use Jupyter to begin developing models. Once we have python code to build our model we can build a docker image and train our model using our TFJob operator by running commands like the following:
 ```
 ks generate tf-job my-tf-job --name=my-tf-job --image=gcr.io/my/image:latest
 ks apply default -c my-tf-job
@@ -96,7 +96,7 @@ If you’d like to try out Kubeflow, we have a number of options for you:
 2. You can follow a guided tutorial with existing models from the [examples repository](https://github.com/kubeflow/examples). These include the [GitHub Issue Summarization](https://github.com/kubeflow/examples/tree/master/github_issue_summarization), [MNIST](https://github.com/kubeflow/examples/tree/master/mnist) and [Reinforcement Learning with Agents](https://github.com/kubeflow/examples/tree/master/agents).
 3. You can start a cluster on your own and try your own model. Any Kubernetes conformant cluster will support Kubeflow including those from contributors [Caicloud](https://www.prnewswire.com/news-releases/caicloud-releases-its-kubernetes-based-cluster-as-a-service-product-claas-20-and-the-first-tensorflow-as-a-service-taas-11-while-closing-6m-series-a-funding-300418071.html), [Canonical](https://jujucharms.com/canonical-kubernetes/), [Google](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-container-cluster), [Heptio](https://heptio.com/products/kubernetes-subscription/), [Mesosphere](https://github.com/mesosphere/dcos-kubernetes-quickstart), [Microsoft](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough), [IBM](https://cloud.ibm.com/docs/containers?topic=containers-cs_cluster_tutorial#cs_cluster_tutorial), [Red Hat/Openshift ](https://docs.openshift.com/container-platform/3.3/install_config/install/quick_install.html#install-config-install-quick-install)and [Weaveworks](https://www.weave.works/product/cloud/).
 
-There were also a number of sessions at KubeCon + CloudNativeCon  EU 2018 covering Kubeflow. The links to the talks are here; the associated videos will be posted in the coming days. 
+There were also a number of sessions at KubeCon + CloudNativeCon  EU 2018 covering Kubeflow. The links to the talks are here; the associated videos will be posted in the coming days.
 
 * Wednesday, May 2:
     * [Kubeflow Intro - Michał Jastrzębski & Ala Raddaoui, Intel](http://sched.co/Drmt)

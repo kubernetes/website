@@ -1,13 +1,13 @@
 ---
 layout: "Blog"
 title: "Kubernetes 2018 North American Contributor Summit"
-date: 2018-10-16    
+date: 2018-10-16
 ---
 
 **Authors:**
 [Bob Killen][bob] (University of Michigan)
 [Sahdev Zala][sahdev] (IBM),
-[Ihor Dvoretskyi][ihor] (CNCF) 
+[Ihor Dvoretskyi][ihor] (CNCF)
 
 
 The 2018 North American Kubernetes Contributor Summit to be hosted right before
@@ -22,14 +22,14 @@ Unlike previous Contributor Summits, the event now spans two-days with a more
 relaxed ‘hallway’ track and general Contributor get-together to be hosted from
 5-8pm on Sunday December 9th at the [Garage Lounge and Gaming Hall][garage], just
 a short walk away from the Convention Center. There, contributors can enjoy
-billiards, bowling, trivia and more; accompanied by a variety of food and drink. 
+billiards, bowling, trivia and more; accompanied by a variety of food and drink.
 
-Things pick up the following day, Monday the 10th with three separate tracks: 
+Things pick up the following day, Monday the 10th with three separate tracks:
 
 ### New Contributor Workshop:
 A half day workshop aimed at getting new and first time contributors onboarded
 and comfortable with working within the Kubernetes Community. Staying for the
-duration is required; this is not a workshop you can drop into. 
+duration is required; this is not a workshop you can drop into.
 
 ### Current Contributor Track:
 Reserved for those that are actively engaged with the development of the
@@ -47,7 +47,7 @@ Event Details in GitHub][register]. Please note that registrations are being
 reviewed. If you select the “Current Contributor Track” and are not an active
 contributor, you will be asked to attend the New Contributor Workshop, or asked
 to be put on a waitlist. With thousands of contributors and only 300 spots, we
-need to make sure the right folks are in the room. 
+need to make sure the right folks are in the room.
 
 If you have any questions or concerns, please don’t hesitate to reach out to
 the Contributor Summit Events Team at community@kubernetes.io.

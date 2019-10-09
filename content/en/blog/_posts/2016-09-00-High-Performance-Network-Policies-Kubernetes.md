@@ -4,7 +4,7 @@ date: 2016-09-21
 slug: high-performance-network-policies-kubernetes
 url: /blog/2016/09/High-Performance-Network-Policies-Kubernetes
 ---
-_Editor's note: today’s post is by Juergen Brendel, Pritesh Kothari and Chris Marino co-founders of Pani Networks, the sponsor of the Romana project, the network policy software used for these benchmark tests._  
+_Editor's note: today’s post is by Juergen Brendel, Pritesh Kothari and Chris Marino co-founders of Pani Networks, the sponsor of the Romana project, the network policy software used for these benchmark tests._
 
 
 
@@ -35,21 +35,21 @@ However, prior to network policies, this kind of isolation for containers was no
 
 
 ```
-apiVersion: extensions/v1beta1  
-kind: NetworkPolicy  
-metadata:  
- name: pol1  
-spec:  
- podSelector:  
-   matchLabels:  
-     role: backend  
- ingress:  
- - from:  
-   - podSelector:  
-      matchLabels:  
-       role: frontend  
-   ports:  
-   - protocol: tcp  
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+ name: pol1
+spec:
+ podSelector:
+   matchLabels:
+     role: backend
+ ingress:
+ - from:
+   - podSelector:
+      matchLabels:
+       role: frontend
+   ports:
+   - protocol: tcp
      port: 80
  ```
 

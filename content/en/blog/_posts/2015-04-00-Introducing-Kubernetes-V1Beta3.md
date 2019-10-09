@@ -4,13 +4,13 @@ date: 2015-04-16
 slug: introducing-kubernetes-v1beta3
 url: /blog/2015/04/Introducing-Kubernetes-V1Beta3
 ---
-We've been hard at work on cleaning up the API over the past several months (see&nbsp;[https://github.com/GoogleCloudPlatform/kubernetes/issues/1519](https://github.com/GoogleCloudPlatform/kubernetes/issues/1519)&nbsp;for details). The result is v1beta3, which is considered to be the release candidate for the v1 API.  
+We've been hard at work on cleaning up the API over the past several months (see&nbsp;[https://github.com/GoogleCloudPlatform/kubernetes/issues/1519](https://github.com/GoogleCloudPlatform/kubernetes/issues/1519)&nbsp;for details). The result is v1beta3, which is considered to be the release candidate for the v1 API.
 
-We would like you to move to this new API version as soon as possible. v1beta1 and v1beta2 are deprecated, and will be removed by the end of June, shortly after we introduce the v1 API.  
+We would like you to move to this new API version as soon as possible. v1beta1 and v1beta2 are deprecated, and will be removed by the end of June, shortly after we introduce the v1 API.
 
-As of the latest release, v0.15.0, v1beta3 is the primary, default API. We have changed the&nbsp;default kubectl and client API versions as well as the default storage version (which means objects persisted in etcd will be converted from v1beta1 to v1beta3 as they are rewritten).&nbsp;  
+As of the latest release, v0.15.0, v1beta3 is the primary, default API. We have changed the&nbsp;default kubectl and client API versions as well as the default storage version (which means objects persisted in etcd will be converted from v1beta1 to v1beta3 as they are rewritten).&nbsp;
 
-You can take a look at v1beta3 examples such as:  
+You can take a look at v1beta3 examples such as:
 
 [https://github.com/GoogleCloudPlatform/kubernetes/tree/master/examples/guestbook/v1beta3](https://github.com/GoogleCloudPlatform/kubernetes/tree/master/examples/guestbook/v1beta3)
 
@@ -20,7 +20,7 @@ You can take a look at v1beta3 examples such as:
 
 
 
-To aid the transition, we've also created a conversion&nbsp;[tool](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/cluster_management.md#switching-your-config-files-to-a-new-api-version)&nbsp;and put together a list of important&nbsp;[different API changes](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/api.md#v1beta3-conversion-tips).  
+To aid the transition, we've also created a conversion&nbsp;[tool](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/cluster_management.md#switching-your-config-files-to-a-new-api-version)&nbsp;and put together a list of important&nbsp;[different API changes](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/api.md#v1beta3-conversion-tips).
 
 
 - The resource&nbsp;`id`&nbsp;is now called&nbsp;`name`.

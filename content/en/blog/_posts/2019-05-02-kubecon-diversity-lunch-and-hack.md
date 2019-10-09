@@ -36,4 +36,4 @@ To make this all possible, we need you. Yes, you, to register. As much as we lov
 
 We look forward to seeing you!
 
-_Special thanks to [Leah Petersen](https://www.linkedin.com/in/leahstunts/), [Sarah Conway](https://www.linkedin.com/in/sarah-conway-6166151/) and [Paris Pittman](https://www.linkedin.com/in/parispittman/) for their help in editing this post._ 
+_Special thanks to [Leah Petersen](https://www.linkedin.com/in/leahstunts/), [Sarah Conway](https://www.linkedin.com/in/sarah-conway-6166151/) and [Paris Pittman](https://www.linkedin.com/in/parispittman/) for their help in editing this post._

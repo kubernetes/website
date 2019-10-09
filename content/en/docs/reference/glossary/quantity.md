@@ -6,7 +6,7 @@ full_link:
 short_description: >
   A whole-number representation of small or large numbers using SI suffixes.
 
-aka: 
+aka:
 tags:
 - core-object
 ---

@@ -6,7 +6,7 @@ full_link: /docs/concepts/services-networking/service/
 short_description: >
   네트워크 서비스로 파드 집합에서 실행 중인 애플리케이션을 노출하는 방법
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object

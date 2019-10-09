@@ -108,7 +108,7 @@ spec:
   resources:
     requests:
       storage: 500Gi
-```      
+```
 
 Or in a StatefulSet as a volumeClaimTemplate:
 
@@ -125,7 +125,7 @@ kind: StatefulSet
       resources:
         requests:
           storage: 500Gi
-```          
+```
 
 ## Documentation
 

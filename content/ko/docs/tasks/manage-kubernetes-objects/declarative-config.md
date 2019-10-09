@@ -292,7 +292,7 @@ kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yam
 
 출력은 활성 구성에 다음의 변경사항을 보여준다.
 
-* `replicas` 필드는 `kubectl scale`에 의해 설정된 값 2를 유지한다.  
+* `replicas` 필드는 `kubectl scale`에 의해 설정된 값 2를 유지한다.
   이는 구성 파일에서 생략되었기 때문에 가능하다.
 * `image` 필드는 `nginx:1.7.9`에서 `nginx:1.11.9`로 업데이트되었다.
 * `last-applied-configuration` 어노테이션은 새로운 이미지로 업데이트되었다.
@@ -401,7 +401,7 @@ prune을 사용하여 적용하는 것은 오브젝트 구성 파일을
 
 ## 오브젝트 확인 방법
 
-활성 오브젝트의 구성을 확인하기 위해 `-o yaml`과 함께 `kubectl get`을 사용할 수 있다.  
+활성 오브젝트의 구성을 확인하기 위해 `-o yaml`과 함께 `kubectl get`을 사용할 수 있다.
 
 ```shell
 kubectl get -f <파일명|url> -o yaml
@@ -637,7 +637,7 @@ spec:
 의 각 필드에 대해 정의한다. 맵 리스트를 병합할 때, 주어진 구성요소에 대한 `patchMergeKey`로
 지정한 필드는 해당 구성요소에 대한 맵키와 같이 사용된다.
 
-**예시:** `kubectl apply`를 사용하여 PodSpec에 대한 `containers`필드를 업데이트한다.  
+**예시:** `kubectl apply`를 사용하여 PodSpec에 대한 `containers`필드를 업데이트한다.
 이렇게 하면 각 구성요소가
 `name`별로 키로 되어 있는 맵인 것처럼 리스트를 병합한다.
 
@@ -690,9 +690,9 @@ spec:
 
 - 구성 파일에 "nginx-helper-a"라는 이름을 가진 컨테이너가 나타나지 않았기 때문에
   "nginx-helper-a"라는 컨테이너는 삭제되었다.
-- "nginx-helper-b"라는 컨테이너는 활성 구성에 `args`에  
-  대한 변경사항을 유지했다. `kubectl apply`는  
-  필드 값이 다름에도 불구하고(구성 파일에 `args`가 없음) 활성 구성에  
+- "nginx-helper-b"라는 컨테이너는 활성 구성에 `args`에
+  대한 변경사항을 유지했다. `kubectl apply`는
+  필드 값이 다름에도 불구하고(구성 파일에 `args`가 없음) 활성 구성에
   "nginx-helper-b"가 구성 파일과 동일한
   "nginx-helper-b"임을 식별할 수 있었다. 이것은
   `patchMergeKey` 필드 값(이름)이 둘 다 같았기 때문이다..
@@ -872,7 +872,7 @@ spec:
 2. 서버는 `strategy.type`을 `RollingUpdate`로 기본 설정하고
    `strategy.rollingUpdate`값을 기본 값으로 처리한다.
 3. 사용자가 `strategy.type`를 `Recreate`로 변경한다.
-   서버에서 해당 값이 삭제될 거라 예상하지만 `strategy.rollingUpdate`값은 기본값으로 남아 있다.   
+   서버에서 해당 값이 삭제될 거라 예상하지만 `strategy.rollingUpdate`값은 기본값으로 남아 있다.
    `strategy.rollingUpdate`값이 처음에 구성 파일에서 지정되었다면,
    이것을 삭제해야 한다는 것이 더 분명했을 것이다.
 4. `strategy.rollingUpdate`가 지워지지 않았기 때문에 적용은 실패한다.

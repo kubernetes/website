@@ -9,7 +9,7 @@ weight: 20
 
 {{% capture overview %}}
 
-This page describes the resources available to Containers in the Container environment. 
+This page describes the resources available to Containers in the Container environment.
 
 {{% /capture %}}
 

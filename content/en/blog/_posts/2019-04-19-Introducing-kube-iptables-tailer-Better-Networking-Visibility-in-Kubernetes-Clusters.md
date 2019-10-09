@@ -20,12 +20,12 @@ $ kubectl describe pods --namespace=YOUR_NAMESPACE
 ...
 Events:
  Type     Reason      Age    From                    Message
- ----     ------      ----   ----                    -------    
+ ----     ------      ----   ----                    -------
  Warning  PacketDrop  5s     kube-iptables-tailer    Packet dropped when receiving traffic from example-service-2 (IP: 22.222.22.222).
 
  Warning  PacketDrop  10m    kube-iptables-tailer    Packet dropped when sending traffic to example-service-1 (IP: 11.111.11.111).
  ```
-*\* output of events sent from kube-iptables-tailer to Kubernetes Pods having networking issues* 
+*\* output of events sent from kube-iptables-tailer to Kubernetes Pods having networking issues*
 
 
 ## Process behind kube-iptables-tailer

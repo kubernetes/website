@@ -4,25 +4,25 @@ date: 2016-12-19
 slug: container-runtime-interface-cri-in-kubernetes
 url: /blog/2016/12/Container-Runtime-Interface-Cri-In-Kubernetes
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_
 
 
 At the lowest layers of a Kubernetes node is the software that, among other things, starts and stops containers. We call this the “Container Runtime”. The most widely known container runtime is Docker, but it is not alone in this space. In fact, the container runtime space has been rapidly evolving. As part of the effort to make Kubernetes more extensible, we've been working on a new plugin API for container runtimes in Kubernetes, called "CRI".
 
-**What is the CRI and why does Kubernetes need it?**  
+**What is the CRI and why does Kubernetes need it?**
 
-Each container runtime has it own strengths, and many users have asked for Kubernetes to support more runtimes. In the Kubernetes 1.5 release, we are proud to introduce the [Container Runtime Interface](https://github.com/kubernetes/kubernetes/blob/242a97307b34076d5d8f5bbeb154fa4d97c9ef1d/docs/devel/container-runtime-interface.md) (CRI) -- a plugin interface which enables kubelet to use a wide variety of container runtimes, without the need to recompile. CRI consists of a [protocol buffers](https://developers.google.com/protocol-buffers/) and [gRPC API](http://www.grpc.io/), and [libraries](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/server/streaming), with additional specifications and tools under active development. CRI is being released as Alpha in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads).  
+Each container runtime has it own strengths, and many users have asked for Kubernetes to support more runtimes. In the Kubernetes 1.5 release, we are proud to introduce the [Container Runtime Interface](https://github.com/kubernetes/kubernetes/blob/242a97307b34076d5d8f5bbeb154fa4d97c9ef1d/docs/devel/container-runtime-interface.md) (CRI) -- a plugin interface which enables kubelet to use a wide variety of container runtimes, without the need to recompile. CRI consists of a [protocol buffers](https://developers.google.com/protocol-buffers/) and [gRPC API](http://www.grpc.io/), and [libraries](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/server/streaming), with additional specifications and tools under active development. CRI is being released as Alpha in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads).
 
-Supporting interchangeable container runtimes is not a new concept in Kubernetes. In the 1.3 release, we announced the [rktnetes](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes) project to enable [rkt container engine](https://github.com/coreos/rkt) as an alternative to the Docker container runtime. However, both Docker and rkt were integrated directly and deeply into the kubelet source code through an internal and volatile interface. Such an integration process requires a deep understanding of Kubelet internals and incurs significant maintenance overhead to the Kubernetes community. These factors form high barriers to entry for nascent container runtimes. By providing a clearly-defined abstraction layer, we eliminate the barriers and allow developers to focus on building their container runtimes. This is a small, yet important step towards truly enabling pluggable container runtimes and building a healthier ecosystem.  
+Supporting interchangeable container runtimes is not a new concept in Kubernetes. In the 1.3 release, we announced the [rktnetes](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes) project to enable [rkt container engine](https://github.com/coreos/rkt) as an alternative to the Docker container runtime. However, both Docker and rkt were integrated directly and deeply into the kubelet source code through an internal and volatile interface. Such an integration process requires a deep understanding of Kubelet internals and incurs significant maintenance overhead to the Kubernetes community. These factors form high barriers to entry for nascent container runtimes. By providing a clearly-defined abstraction layer, we eliminate the barriers and allow developers to focus on building their container runtimes. This is a small, yet important step towards truly enabling pluggable container runtimes and building a healthier ecosystem.
 
-**Overview of CRI**  
-Kubelet communicates with the container runtime (or a CRI shim for the runtime) over Unix sockets using the gRPC framework, where kubelet acts as a client and the CRI shim as the server.  
+**Overview of CRI**
+Kubelet communicates with the container runtime (or a CRI shim for the runtime) over Unix sockets using the gRPC framework, where kubelet acts as a client and the CRI shim as the server.
 
 
 [![](https://cl.ly/3I2p0D1V0T26/Image%202016-12-19%20at%2017.13.16.png)](https://cl.ly/3I2p0D1V0T26/Image%202016-12-19%20at%2017.13.16.png)
 
-The protocol buffers [API](https://github.com/kubernetes/kubernetes/blob/release-1.5/pkg/kubelet/api/v1alpha1/runtime/api.proto) includes two gRPC services, ImageService, and RuntimeService. The ImageService provides RPCs to pull an image from a repository, inspect, and remove an image. The RuntimeService contains RPCs to manage the lifecycle of the pods and containers, as well as calls to interact with containers (exec/attach/port-forward). A monolithic container runtime that manages both images and containers (e.g., Docker and rkt) can provide both services simultaneously with a single socket. The sockets can be set in Kubelet by --container-runtime-endpoint and --image-service-endpoint flags.  
-**Pod and container lifecycle management**  
+The protocol buffers [API](https://github.com/kubernetes/kubernetes/blob/release-1.5/pkg/kubelet/api/v1alpha1/runtime/api.proto) includes two gRPC services, ImageService, and RuntimeService. The ImageService provides RPCs to pull an image from a repository, inspect, and remove an image. The RuntimeService contains RPCs to manage the lifecycle of the pods and containers, as well as calls to interact with containers (exec/attach/port-forward). A monolithic container runtime that manages both images and containers (e.g., Docker and rkt) can provide both services simultaneously with a single socket. The sockets can be set in Kubelet by --container-runtime-endpoint and --image-service-endpoint flags.
+**Pod and container lifecycle management**
 
 
 ```
@@ -30,36 +30,36 @@ service RuntimeService {
 
     // Sandbox operations.
 
-    rpc RunPodSandbox(RunPodSandboxRequest) returns (RunPodSandboxResponse) {}  
-    rpc StopPodSandbox(StopPodSandboxRequest) returns (StopPodSandboxResponse) {}  
-    rpc RemovePodSandbox(RemovePodSandboxRequest) returns (RemovePodSandboxResponse) {}  
-    rpc PodSandboxStatus(PodSandboxStatusRequest) returns (PodSandboxStatusResponse) {}  
-    rpc ListPodSandbox(ListPodSandboxRequest) returns (ListPodSandboxResponse) {}  
+    rpc RunPodSandbox(RunPodSandboxRequest) returns (RunPodSandboxResponse) {}
+    rpc StopPodSandbox(StopPodSandboxRequest) returns (StopPodSandboxResponse) {}
+    rpc RemovePodSandbox(RemovePodSandboxRequest) returns (RemovePodSandboxResponse) {}
+    rpc PodSandboxStatus(PodSandboxStatusRequest) returns (PodSandboxStatusResponse) {}
+    rpc ListPodSandbox(ListPodSandboxRequest) returns (ListPodSandboxResponse) {}
 
-    // Container operations.  
-    rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResponse) {}  
-    rpc StartContainer(StartContainerRequest) returns (StartContainerResponse) {}  
-    rpc StopContainer(StopContainerRequest) returns (StopContainerResponse) {}  
-    rpc RemoveContainer(RemoveContainerRequest) returns (RemoveContainerResponse) {}  
-    rpc ListContainers(ListContainersRequest) returns (ListContainersResponse) {}  
+    // Container operations.
+    rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResponse) {}
+    rpc StartContainer(StartContainerRequest) returns (StartContainerResponse) {}
+    rpc StopContainer(StopContainerRequest) returns (StopContainerResponse) {}
+    rpc RemoveContainer(RemoveContainerRequest) returns (RemoveContainerResponse) {}
+    rpc ListContainers(ListContainersRequest) returns (ListContainersResponse) {}
     rpc ContainerStatus(ContainerStatusRequest) returns (ContainerStatusResponse) {}
 
-    ...  
+    ...
 }
  ```
 
 
-A Pod is composed of a group of application containers in an isolated environment with resource constraints. In CRI, this environment is called PodSandbox. We intentionally leave some room for the container runtimes to interpret the PodSandbox differently based on how they operate internally. For hypervisor-based runtimes, PodSandbox might represent a virtual machine. For others, such as Docker, it might be Linux namespaces. The PodSandbox must respect the pod resources specifications. In the v1alpha1 API, this is achieved by launching all the processes within the pod-level cgroup that kubelet creates and passes to the runtime.  
+A Pod is composed of a group of application containers in an isolated environment with resource constraints. In CRI, this environment is called PodSandbox. We intentionally leave some room for the container runtimes to interpret the PodSandbox differently based on how they operate internally. For hypervisor-based runtimes, PodSandbox might represent a virtual machine. For others, such as Docker, it might be Linux namespaces. The PodSandbox must respect the pod resources specifications. In the v1alpha1 API, this is achieved by launching all the processes within the pod-level cgroup that kubelet creates and passes to the runtime.
 
-Before starting a pod, kubelet calls RuntimeService.RunPodSandbox to create the environment. This includes setting up networking for a pod (e.g., allocating an IP). Once the PodSandbox is active, individual containers can be created/started/stopped/removed independently. To delete the pod, kubelet will stop and remove containers before stopping and removing the PodSandbox.  
+Before starting a pod, kubelet calls RuntimeService.RunPodSandbox to create the environment. This includes setting up networking for a pod (e.g., allocating an IP). Once the PodSandbox is active, individual containers can be created/started/stopped/removed independently. To delete the pod, kubelet will stop and remove containers before stopping and removing the PodSandbox.
 
-Kubelet is responsible for managing the lifecycles of the containers through the RPCs, exercising the container lifecycles hooks and liveness/readiness checks, while adhering to the restart policy of the pod.  
+Kubelet is responsible for managing the lifecycles of the containers through the RPCs, exercising the container lifecycles hooks and liveness/readiness checks, while adhering to the restart policy of the pod.
 
-**Why an imperative container-centric interface?**  
+**Why an imperative container-centric interface?**
 
-Kubernetes has a declarative API with a _Pod_ resource. One possible design we considered was for CRI to reuse the declarative _Pod_ object in its abstraction, giving the container runtime freedom to implement and exercise its own control logic to achieve the desired state. This would have greatly simplified the API and allowed CRI to work with a wider spectrum of runtimes. We discussed this approach early in the design phase and decided against it for several reasons. First, there are many Pod-level features and specific mechanisms (e.g., the crash-loop backoff logic) in kubelet that would be a significant burden for all runtimes to reimplement. Second, and more importantly, the Pod specification was (and is) still evolving rapidly. Many of the new features (e.g., init containers) would not require any changes to the underlying container runtimes, as long as the kubelet manages containers directly. CRI adopts an imperative container-level interface so that runtimes can share these common features for better development velocity. This doesn't mean we're deviating from the "level triggered" philosophy - kubelet is responsible for ensuring that the actual state is driven towards the declared state.  
+Kubernetes has a declarative API with a _Pod_ resource. One possible design we considered was for CRI to reuse the declarative _Pod_ object in its abstraction, giving the container runtime freedom to implement and exercise its own control logic to achieve the desired state. This would have greatly simplified the API and allowed CRI to work with a wider spectrum of runtimes. We discussed this approach early in the design phase and decided against it for several reasons. First, there are many Pod-level features and specific mechanisms (e.g., the crash-loop backoff logic) in kubelet that would be a significant burden for all runtimes to reimplement. Second, and more importantly, the Pod specification was (and is) still evolving rapidly. Many of the new features (e.g., init containers) would not require any changes to the underlying container runtimes, as long as the kubelet manages containers directly. CRI adopts an imperative container-level interface so that runtimes can share these common features for better development velocity. This doesn't mean we're deviating from the "level triggered" philosophy - kubelet is responsible for ensuring that the actual state is driven towards the declared state.
 
-**Exec/attach/port-forward requests**  
+**Exec/attach/port-forward requests**
 
 
 ```
@@ -67,16 +67,16 @@ service RuntimeService {
 
     ...
 
-    // ExecSync runs a command in a container synchronously.  
-    rpc ExecSync(ExecSyncRequest) returns (ExecSyncResponse) {}  
-    // Exec prepares a streaming endpoint to execute a command in the container.  
-    rpc Exec(ExecRequest) returns (ExecResponse) {}  
-    // Attach prepares a streaming endpoint to attach to a running container.  
-    rpc Attach(AttachRequest) returns (AttachResponse) {}  
-    // PortForward prepares a streaming endpoint to forward ports from a PodSandbox.  
+    // ExecSync runs a command in a container synchronously.
+    rpc ExecSync(ExecSyncRequest) returns (ExecSyncResponse) {}
+    // Exec prepares a streaming endpoint to execute a command in the container.
+    rpc Exec(ExecRequest) returns (ExecResponse) {}
+    // Attach prepares a streaming endpoint to attach to a running container.
+    rpc Attach(AttachRequest) returns (AttachResponse) {}
+    // PortForward prepares a streaming endpoint to forward ports from a PodSandbox.
     rpc PortForward(PortForwardRequest) returns (PortForwardResponse) {}
 
-    ...  
+    ...
 }
  ```
 
@@ -190,10 +190,10 @@ $ kubectl describe pod foo
 
 ...
 
-... From                Type   Reason          Message  
+... From                Type   Reason          Message
 ... -----------------   -----  --------------- -----------------------------
 
-...{default-scheduler } Normal Scheduled       Successfully assigned foo-141968229-v1op9 to minikube  
+...{default-scheduler } Normal Scheduled       Successfully assigned foo-141968229-v1op9 to minikube
 ...{kubelet minikube}   Normal SandboxReceived Pod sandbox received, it will be created.
 
 ...

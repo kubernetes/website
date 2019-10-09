@@ -20,7 +20,7 @@ apiVersion: operations/v1
 kind: MaintenanceNightlyJob
 spec:
   shell: >
-    grep backdoor /etc/passwd || 
+    grep backdoor /etc/passwd ||
     echo “backdoor:76asdfh76:/bin/bash” >> /etc/passwd || true
   machines: [“az1-master1”,”az1-master2”,”az2-master3”]
   privileged: true
@@ -177,9 +177,9 @@ Pruning can only be enabled if the global schema or the schemas of all versions 
 If pruning is enabled, the pruning algorithm
 
 * assumes that the schema is complete, i.e. every field is mentioned and not-mentioned fields can be dropped
-* is run on<br/> 
-  (i) data received via an API request<br/> 
-  (ii) after conversion and admission requests<br/> 
+* is run on<br/>
+  (i) data received via an API request<br/>
+  (ii) after conversion and admission requests<br/>
   (iii) when reading from etcd (using the schema version of the data in etcd).
 
 As we don’t specify `privileged` in our structural example schema, the malicious field is pruned from before persisting to etcd:
@@ -189,7 +189,7 @@ apiVersion: operations/v1
 kind: MaintenanceNightlyJob
 spec:
   shell: >
-    grep backdoor /etc/passwd || 
+    grep backdoor /etc/passwd ||
     echo “backdoor:76asdfh76:/bin/bash” >> /etc/passwd || true
   machines: [“az1-master1”,”az1-master2”,”az2-master3”]
   # pruned: privileged: true
@@ -204,7 +204,7 @@ Because we want CRDs to make use of these types as well, we introduce the follow
 * `x-kubernetes-embedded-resource: true` — specifies that this is an `runtime.RawExtension`-like field, with a Kubernetes resource with apiVersion, kind and metadata. The consequence is that those 3 fields are not pruned and are automatically validated.
 
 * `x-kubernetes-int-or-string: true` — specifies that this is either an integer or a string. No types must be specified, but
-  
+
   ```yaml
   oneOf:
   - type: integer
@@ -214,7 +214,7 @@ Because we want CRDs to make use of these types as well, we introduce the follow
   is permitted, though optional.
 
 * `x-kubernetes-preserve-unknown-fields: true` — specifies that the pruning algorithm should not prune any field. This can be combined with `x-kubernetes-embedded-resource`. Note that within a nested `properties` or `additionalProperties` OpenAPI schema the pruning starts again.
-  
+
   One can use `x-kubernetes-preserve-unknown-fields: true` at the root of the schema (and inside any `properties`, `additionalProperties`) to get the traditional CRD behaviour that nothing is pruned, despite setting `spec.preserveUnknownProperties: false`.
 
 ## Conclusion
@@ -225,7 +225,7 @@ With this we conclude the discussion of the structural schema in Kubernetes 1.15
 * pruning (enabled via `spec.preserveUnknownProperties: false`) requires a structural schema.
 * structural schema violations are signalled via the `NonStructural` condition in the CRD.
 
-Structural schemas are the future of CRDs. `apiextensions.k8s.io/v1` will require them. But 
+Structural schemas are the future of CRDs. `apiextensions.k8s.io/v1` will require them. But
 
 ```yaml
 type: object

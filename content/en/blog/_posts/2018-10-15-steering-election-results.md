@@ -27,7 +27,7 @@ Steering Committee Meetings:
 
 * [YouTube Playlist](https://www.youtube.com/playlist?list=PL69nYSiGNLP1yP1B_nd9-drjoxp0Q14qM)
 
-Meet Our Contributors Steering AMA’s: 
+Meet Our Contributors Steering AMA’s:
 
 * [Oct  3 2018](https://youtu.be/x6Jm8p0K-IQ)
 * [Sept 5 2018](https://youtu.be/UbxWV12Or58)

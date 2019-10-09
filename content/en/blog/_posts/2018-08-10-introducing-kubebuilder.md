@@ -10,7 +10,7 @@ date:   2018-08-10
 [controller-runtime]: https://github.com/kubernetes-sigs/controller-runtime
 [SIG-APIMachinery]: https://github.com/kubernetes/community/tree/master/sig-api-machinery
 [mailing-list]: https://groups.google.com/forum/#!forum/kubernetes-sig-api-machinery
-[slack-channel]: https://slack.k8s.io/#kubebuilder 
+[slack-channel]: https://slack.k8s.io/#kubebuilder
 [kubebuilder-book]: https://book.kubebuilder.io
 [open-an-issue]: https://github.com/kubernetes-sigs/kubebuilder/issues/new
 
@@ -44,7 +44,7 @@ Whether you are already a Controller aficionado or just want to learn what the b
 
 ### Get Involved
 Kubebuilder is a project under [SIG API Machinery][SIG-APIMachinery] and is being actively developed by contributors from many companies such as Google, Red Hat, VMware, Huawei and others. Get involved by giving us feedback through these channels:
- 
+
  - Kubebuilder [chat room on Slack][slack-channel]
  - SIG [mailing list][mailing-list]
  - [GitHub issues][open-an-issue]

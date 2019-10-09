@@ -42,19 +42,19 @@ url: /blog/2016/01/Kubernetes-Community-Meeting-Notes
 
     * Forward: extending across multiple clouds for test deployments.  Also looking to create split/replicated across bare metal and cloud.
 
-    * Q: secrets?   
+    * Q: secrets?
 A: using ansible playbooks.  Builds own certs and then distributes them.  Wants to abstract them out and push that stuff upstream.
 
-    * Q: Do you support bringing up from real bare metal with PXE boot?   
+    * Q: Do you support bringing up from real bare metal with PXE boot?
 A: yes -- will discover bare metal systems and install OS, install ssh keys, build networking, etc.
-* [from SIG-scalability] Q: What is the status of moving to golang 1.5?  
-A: At HEAD we are 1.5 but will support 1.4 also. Some issues with flakiness but looks like things are stable now.  
+* [from SIG-scalability] Q: What is the status of moving to golang 1.5?
+A: At HEAD we are 1.5 but will support 1.4 also. Some issues with flakiness but looks like things are stable now.
 
     * Also looking to use the 1.5 vendor experiment.  Move away from godep.  But can't do that until 1.5 is the baseline.
 
     * Sarah: one of the things we are working on is rewards for doing stuff like this.  Cloud credits, tshirts, poker chips, ponies.
-* [from SIG-scalability] Q: What is the status of cleaning up the jenkins based submit queue? What can the community do to help out?  
-A: It has been rocky the last few days.  There should be issues associated with each of these. There is a [flake label][1] on those issues.  
+* [from SIG-scalability] Q: What is the status of cleaning up the jenkins based submit queue? What can the community do to help out?
+A: It has been rocky the last few days.  There should be issues associated with each of these. There is a [flake label][1] on those issues.
 
     * Still working on test federation.  More test resources now.  Happening slowly but hopefully faster as new people come up to speed.  Will be great to having lots of folks doing e2e tests on their environments.
 
@@ -89,7 +89,7 @@ A: It has been rocky the last few days.  There should be issues associated with 
     * There is also a big bare metal cluster through the CNCF (from Intel) that will be useful too.  No hard dates yet on that.
 * Notes/video going to be posted on k8s blog. (Video for 20150114 wasn't recorded.  Fail.)
 
-To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation - January 27th, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].    
+To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation - January 27th, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].
 
 
 

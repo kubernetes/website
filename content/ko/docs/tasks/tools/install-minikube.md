@@ -26,7 +26,7 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 {{% tab name="맥OS" %}}
 맥OS에서 가상화 지원 여부를 확인하려면, 아래 명령어를 터미널에서 실행한다.
 ```
-sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 만약 출력 중에 (색상으로 강조된) `VMX`를 볼 수 있다면, VT-x 기능이 머신에서 활성화된 것이다.
 {{% /tab %}}

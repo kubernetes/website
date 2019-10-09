@@ -4,7 +4,7 @@ date: 2015-05-15
 slug: kubernetes-release-0170
 url: /blog/2015/05/Kubernetes-Release-0170
 ---
-Release Notes:  
+Release Notes:
 
 * Cleanups
 

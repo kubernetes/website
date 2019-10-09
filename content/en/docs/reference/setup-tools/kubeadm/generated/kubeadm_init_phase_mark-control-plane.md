@@ -13,7 +13,7 @@ kubeadm init phase mark-control-plane [flags]
 ```
   # Applies control-plane label and taint to the current node, functionally equivalent to what executed by kubeadm init.
   kubeadm init phase mark-control-plane --config config.yml
-  
+
   # Applies control-plane label and taint to a specific node
   kubeadm init phase mark-control-plane --node-name myNode
 ```

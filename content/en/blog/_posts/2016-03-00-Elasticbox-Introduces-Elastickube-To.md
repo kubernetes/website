@@ -32,7 +32,7 @@ Use ElasticKube to run, deploy and manage your containers and services
 
 
 
-Getting Started with Kubernetes and ElasticKube  
+Getting Started with Kubernetes and ElasticKube
 
 
 

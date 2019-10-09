@@ -10,7 +10,7 @@ weight: 10
 
 {{% capture overview %}}
 
-Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
+Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 
 {{% /capture %}}
 
@@ -19,7 +19,7 @@ Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extensi
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA. 
+There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
 
 {{< caution >}}
 Reusing the same CA for different client types can negatively impact the cluster's ability to function. For more information, see [CA Reusage and Conflicts](#ca-reusage-and-conflicts).
@@ -144,7 +144,7 @@ When started with these options, the Kubernetes apiserver will:
 1. Use them to authenticate to the extension apiserver.
 2. Create a configmap in the `kube-system` namespace called `extension-apiserver-authentication`, in which it will place the CA certificate and the allowed CNs. These in turn can be retrieved by extension apiservers to validate requests.
 
-Note that the same client certificate is used by the Kubernetes apiserver to authenticate against _all_ extension apiservers. It does not create a client certificate per extension apiserver, but rather a single one to authenticate as the Kubernetes apiserver. This same one is reused for all extension apiserver requests. 
+Note that the same client certificate is used by the Kubernetes apiserver to authenticate against _all_ extension apiservers. It does not create a client certificate per extension apiserver, but rather a single one to authenticate as the Kubernetes apiserver. This same one is reused for all extension apiserver requests.
 
 #### Original Request Username and Group
 
@@ -177,7 +177,7 @@ In order to have permission to retrieve the configmap, an extension apiserver re
 
 ### Extension Apiserver Authorizes the Request
 
-The extension apiserver now can validate that the user/group retrieved from the headers are authorized to execute the given request. It does so by sending a standard [SubjectAccessReview](/docs/reference/access-authn-authz/authorization/) request to the Kubernetes apiserver. 
+The extension apiserver now can validate that the user/group retrieved from the headers are authorized to execute the given request. It does so by sending a standard [SubjectAccessReview](/docs/reference/access-authn-authz/authorization/) request to the Kubernetes apiserver.
 
 In order for the extension apiserver to be authorized itself to submit the `SubjectAccessReview` request to the Kubernetes apiserver, it needs the correct permissions. Kubernetes includes a default `ClusterRole` named `system:auth-delegator` that has the appropriate permissions. It can be granted to the extension apiserver's service account.
 

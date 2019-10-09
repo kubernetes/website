@@ -4,15 +4,15 @@ date: 2016-08-15
 slug: create-couchbase-cluster-using-kubernetes
 url: /blog/2016/08/Create-Couchbase-Cluster-Using-Kubernetes
 ---
-_Editor’s note: today’s guest post is by Arun Gupta, Vice President Developer Relations at Couchbase, showing how to setup a Couchbase cluster with Kubernetes._  
+_Editor’s note: today’s guest post is by Arun Gupta, Vice President Developer Relations at Couchbase, showing how to setup a Couchbase cluster with Kubernetes._
 
-[Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server) is an open source, distributed NoSQL document-oriented database. It exposes a fast key-value store with managed cache for submillisecond data operations, purpose-built indexers for fast queries and a query engine for executing SQL queries. For mobile and Internet of Things (IoT) environments, [Couchbase Lite](http://developer.couchbase.com/mobile) runs native on-device and manages sync to Couchbase Server.  
+[Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server) is an open source, distributed NoSQL document-oriented database. It exposes a fast key-value store with managed cache for submillisecond data operations, purpose-built indexers for fast queries and a query engine for executing SQL queries. For mobile and Internet of Things (IoT) environments, [Couchbase Lite](http://developer.couchbase.com/mobile) runs native on-device and manages sync to Couchbase Server.
 
-Couchbase Server 4.5 was [recently announced](http://blog.couchbase.com/2016/june/announcing-couchbase-server-4.5), bringing [many new features](http://developer.couchbase.com/documentation/server/4.5/introduction/whats-new.html), including [production certified support for Docker](http://www.couchbase.com/press-releases/couchbase-announces-support-for-docker-containers). Couchbase is supported on a wide variety of orchestration frameworks for Docker containers, such as Kubernetes, Docker Swarm and Mesos, for full details visit [this page](http://couchbase.com/containers).    
+Couchbase Server 4.5 was [recently announced](http://blog.couchbase.com/2016/june/announcing-couchbase-server-4.5), bringing [many new features](http://developer.couchbase.com/documentation/server/4.5/introduction/whats-new.html), including [production certified support for Docker](http://www.couchbase.com/press-releases/couchbase-announces-support-for-docker-containers). Couchbase is supported on a wide variety of orchestration frameworks for Docker containers, such as Kubernetes, Docker Swarm and Mesos, for full details visit [this page](http://couchbase.com/containers).
 
-This blog post will explain how to create a Couchbase cluster using Kubernetes. This setup is tested using Kubernetes 1.3.3, Amazon Web Services, and Couchbase 4.5 Enterprise Edition.  
+This blog post will explain how to create a Couchbase cluster using Kubernetes. This setup is tested using Kubernetes 1.3.3, Amazon Web Services, and Couchbase 4.5 Enterprise Edition.
 
-Like all good things, this post is standing on the shoulder of giants. The design pattern used in this blog was defined in a [Friday afternoon hack](https://twitter.com/arungupta/status/703378246432231424) with [@saturnism](https://twitter.com/saturnism). A working version of the configuration files was [contributed](https://twitter.com/arungupta/status/759059647680552962) by [@r\_schmiddy](http://twitter.com/r_schmiddy).  
+Like all good things, this post is standing on the shoulder of giants. The design pattern used in this blog was defined in a [Friday afternoon hack](https://twitter.com/arungupta/status/703378246432231424) with [@saturnism](https://twitter.com/saturnism). A working version of the configuration files was [contributed](https://twitter.com/arungupta/status/759059647680552962) by [@r\_schmiddy](http://twitter.com/r_schmiddy).
 
 
 
@@ -62,39 +62,39 @@ Configuration files used in this blog are available [here](http://github.com/aru
 Couchbase master RC can be created using the following configuration file:
 
 ```
-apiVersion: v1  
-kind: ReplicationController  
-metadata:  
-  name: couchbase-master-rc  
-spec:  
-  replicas: 1  
-  selector:  
-    app: couchbase-master-pod  
-  template:  
-    metadata:  
-      labels:  
-        app: couchbase-master-pod  
-    spec:  
-      containers:  
-      - name: couchbase-master  
-        image: arungupta/couchbase:k8s  
-        env:  
-          - name: TYPE  
-            value: MASTER  
-        ports:  
-        - containerPort: 8091  
-----  
-apiVersion: v1  
-kind: Service  
-metadata:   
-  name: couchbase-master-service  
-  labels:   
-    app: couchbase-master-service  
-spec:   
-  ports:  
-    - port: 8091  
-  selector:   
-    app: couchbase-master-pod  
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: couchbase-master-rc
+spec:
+  replicas: 1
+  selector:
+    app: couchbase-master-pod
+  template:
+    metadata:
+      labels:
+        app: couchbase-master-pod
+    spec:
+      containers:
+      - name: couchbase-master
+        image: arungupta/couchbase:k8s
+        env:
+          - name: TYPE
+            value: MASTER
+        ports:
+        - containerPort: 8091
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: couchbase-master-service
+  labels:
+    app: couchbase-master-service
+spec:
+  ports:
+    - port: 8091
+  selector:
+    app: couchbase-master-pod
   type: LoadBalancer
  ```
 
@@ -120,8 +120,8 @@ Create Couchbase master RC:
 
 
 ```
-kubectl create -f cluster-master.yml   
-replicationcontroller "couchbase-master-rc" created  
+kubectl create -f cluster-master.yml
+replicationcontroller "couchbase-master-rc" created
 service "couchbase-master-service" created
  ```
 
@@ -130,9 +130,9 @@ service "couchbase-master-service" created
 List all the services:
 
 ```
-kubectl get svc  
-NAME                       CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE  
-couchbase-master-service   10.0.57.201                 8091/TCP   30s  
+kubectl get svc
+NAME                       CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+couchbase-master-service   10.0.57.201                 8091/TCP   30s
 kubernetes                 10.0.0.1      \<none\>        443/TCP    5h
  ```
 
@@ -145,8 +145,8 @@ Output shows that couchbase-master-service is created.
 Get all the pods:
 
 ```
-kubectl get po  
-NAME                        READY     STATUS    RESTARTS   AGE  
+kubectl get po
+NAME                        READY     STATUS    RESTARTS   AGE
 couchbase-master-rc-97mu5   1/1       Running   0          1m
  ```
 
@@ -159,8 +159,8 @@ Check the RC:
 
 
 ```
-kubectl get rc  
-NAME                  DESIRED   CURRENT   AGE  
+kubectl get rc
+NAME                  DESIRED   CURRENT   AGE
 couchbase-master-rc   1         1         1m
  ```
 
@@ -175,18 +175,18 @@ Describe the service:
 
 
 ```
-kubectl describe svc couchbase-master-service  
-Name: couchbase-master-service  
-Namespace: default  
-Labels: app=couchbase-master-service  
-Selector: app=couchbase-master-pod  
-Type: LoadBalancer  
-IP: 10.0.57.201  
-LoadBalancer Ingress: a94f1f286590c11e68e100283628cd6c-1110696566.us-west-2.elb.amazonaws.com  
-Port: \<unset\> 8091/TCP  
-NodePort: \<unset\> 30019/TCP  
-Endpoints: 10.244.2.3:8091  
-Session Affinity: None  
+kubectl describe svc couchbase-master-service
+Name: couchbase-master-service
+Namespace: default
+Labels: app=couchbase-master-service
+Selector: app=couchbase-master-pod
+Type: LoadBalancer
+IP: 10.0.57.201
+LoadBalancer Ingress: a94f1f286590c11e68e100283628cd6c-1110696566.us-west-2.elb.amazonaws.com
+Port: \<unset\> 8091/TCP
+NodePort: \<unset\> 30019/TCP
+Endpoints: 10.244.2.3:8091
+Session Affinity: None
 Events:
 
   FirstSeen LastSeen Count From SubobjectPath Type Reason Message
@@ -229,42 +229,42 @@ Click on Data Buckets to see a sample bucket that was created as part of the ima
  ![](https://lh5.googleusercontent.com/kj-v_sgXzeFTY_Dm6IZyTbZ6QgRKn_zIxqsCmpVqlaykOMvVejgiRvvyAs1qyqDWMJDya58XBtWBQJrd04XHp7VfQ_SdzssmfwzRvodwynIXqqJLT_NPsBbJ7soJSeswynFFUvVk)
 
 
-This shows the travel-sample bucket is created and has 31,591 JSON documents.  
+This shows the travel-sample bucket is created and has 31,591 JSON documents.
 
-**Create Couchbase “worker” Replication Controller**  
+**Create Couchbase “worker” Replication Controller**
 Now, let’s create a worker replication controller. It can be created using the configuration file:
 
 ```
-apiVersion: v1  
-kind: ReplicationController  
-metadata:  
-  name: couchbase-worker-rc  
-spec:  
-  replicas: 1  
-  selector:  
-    app: couchbase-worker-pod  
-  template:  
-    metadata:  
-      labels:  
-        app: couchbase-worker-pod  
-    spec:  
-      containers:  
-      - name: couchbase-worker  
-        image: arungupta/couchbase:k8s  
-        env:  
-          - name: TYPE  
-            value: "WORKER"  
-          - name: COUCHBASE\_MASTER  
-            value: "couchbase-master-service"  
-          - name: AUTO\_REBALANCE  
-            value: "false"  
-        ports:  
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: couchbase-worker-rc
+spec:
+  replicas: 1
+  selector:
+    app: couchbase-worker-pod
+  template:
+    metadata:
+      labels:
+        app: couchbase-worker-pod
+    spec:
+      containers:
+      - name: couchbase-worker
+        image: arungupta/couchbase:k8s
+        env:
+          - name: TYPE
+            value: "WORKER"
+          - name: COUCHBASE\_MASTER
+            value: "couchbase-master-service"
+          - name: AUTO\_REBALANCE
+            value: "false"
+        ports:
         - containerPort: 8091
  ```
 
 
 
-This RC also creates a single replica of Couchbase using the same arungupta/couchbase:k8s image. The key differences here are:  
+This RC also creates a single replica of Couchbase using the same arungupta/couchbase:k8s image. The key differences here are:
 
 - TYPE environment variable is set to WORKER. This adds a worker Couchbase node to be added to the cluster.
 - COUCHBASE\_MASTER environment variable is passed the value of couchbase-master-service. This uses the service discovery mechanism built into Kubernetes for pods in the worker and the master to communicate.
@@ -274,7 +274,7 @@ Let’s create a worker:
 
 
 ```
-kubectl create -f cluster-worker.yml   
+kubectl create -f cluster-worker.yml
 replicationcontroller "couchbase-worker-rc" created
  ```
 
@@ -289,9 +289,9 @@ Check the RC:
 
 
 ```
-kubectl get rc  
-NAME                  DESIRED   CURRENT   AGE  
-couchbase-master-rc   1         1         6m  
+kubectl get rc
+NAME                  DESIRED   CURRENT   AGE
+couchbase-master-rc   1         1         6m
 couchbase-worker-rc   1         1         22s
  ```
 
@@ -306,9 +306,9 @@ A new couchbase-worker-rc is created where the desired and the current number of
 Get all pods:
 
 ```
-kubectl get po  
-NAME                        READY     STATUS    RESTARTS   AGE  
-couchbase-master-rc-97mu5   1/1       Running   0          6m  
+kubectl get po
+NAME                        READY     STATUS    RESTARTS   AGE
+couchbase-master-rc-97mu5   1/1       Running   0          6m
 couchbase-worker-rc-4ik02   1/1       Running   0          46s
  ```
 
@@ -341,7 +341,7 @@ Now, let’s scale the Couchbase cluster by scaling the replicas for worker RC:
 
 
 ```
-kubectl scale rc couchbase-worker-rc --replicas=3  
+kubectl scale rc couchbase-worker-rc --replicas=3
 replicationcontroller "couchbase-worker-rc" scaled
  ```
 
@@ -354,9 +354,9 @@ Updated state of RC shows that 3 worker pods have been created:
 
 
 ```
-kubectl get rc  
-NAME                  DESIRED   CURRENT   AGE  
-couchbase-master-rc   1         1         8m  
+kubectl get rc
+NAME                  DESIRED   CURRENT   AGE
+couchbase-master-rc   1         1         8m
 couchbase-worker-rc   3         3         2m
  ```
 
@@ -367,11 +367,11 @@ couchbase-worker-rc   3         3         2m
 This can be verified again by getting the list of pods:
 
 ```
-kubectl get po  
-NAME                        READY     STATUS    RESTARTS   AGE  
-couchbase-master-rc-97mu5   1/1       Running   0          8m  
-couchbase-worker-rc-4ik02   1/1       Running   0          2m  
-couchbase-worker-rc-jfykx   1/1       Running   0          53s  
+kubectl get po
+NAME                        READY     STATUS    RESTARTS   AGE
+couchbase-master-rc-97mu5   1/1       Running   0          8m
+couchbase-worker-rc-4ik02   1/1       Running   0          2m
+couchbase-worker-rc-jfykx   1/1       Running   0          53s
 couchbase-worker-rc-v8vdw   1/1       Running   0          53s
  ```
 
@@ -401,11 +401,11 @@ Once all the nodes are rebalanced, Couchbase cluster is ready to serve your requ
 
 
 
-In addition to creating a cluster, Couchbase Server supports a range of [high availability and disaster recovery](http://developer.couchbase.com/documentation/server/current/ha-dr/ha-dr-intro.html) (HA/DR) strategies. Most HA/DR strategies rely on a multi-pronged approach of maximizing availability, increasing redundancy within and across data centers, and performing regular backups.  
+In addition to creating a cluster, Couchbase Server supports a range of [high availability and disaster recovery](http://developer.couchbase.com/documentation/server/current/ha-dr/ha-dr-intro.html) (HA/DR) strategies. Most HA/DR strategies rely on a multi-pronged approach of maximizing availability, increasing redundancy within and across data centers, and performing regular backups.
 
-Now that your Couchbase cluster is ready, you can run your first [sample application](http://developer.couchbase.com/documentation/server/current/travel-app/index.html).  
+Now that your Couchbase cluster is ready, you can run your first [sample application](http://developer.couchbase.com/documentation/server/current/travel-app/index.html).
 
-For further information check out the Couchbase [Developer Portal](http://developer.couchbase.com/server) and [Forums](https://forums.couchbase.com/), or see questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/couchbase).  
+For further information check out the Couchbase [Developer Portal](http://developer.couchbase.com/server) and [Forums](https://forums.couchbase.com/), or see questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/couchbase).
 
 
 

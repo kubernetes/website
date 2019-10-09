@@ -160,7 +160,7 @@ A `VolumeSnapshotContent` object should be created with the following fields to 
   * `driver` - CSI driver used to handle this volume. This field is required. It must match the snapshotter name in the snapshot controller.
   * `creationTime` and `restoreSize` - these fields are not required for pre-provisioned volumes. The external-snapshotter controller will automatically update them after creation.
 * `volumeSnapshotRef` - Pointer to the `VolumeSnapshot` object this object should bind to.
-  * `name` and `namespace` -  It specifies the name and namespace of the `VolumeSnapshot` object which the content is bound to.  
+  * `name` and `namespace` -  It specifies the name and namespace of the `VolumeSnapshot` object which the content is bound to.
   * `UID` - these fields are not required for pre-provisioned volumes.The external-snapshotter controller will update the field automatically after binding. If user specifies UID field, he/she must make sure that it matches with the binding snapshot’s UID.  If the specified UID does not match the binding snapshot’s UID, the content is considered an orphan object and the controller will delete it and its associated snapshot.
 * `snapshotClassName` - This field is optional. The external-snapshotter controller will update the field automatically after binding.
 

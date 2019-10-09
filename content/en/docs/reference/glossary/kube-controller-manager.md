@@ -6,7 +6,7 @@ full_link: /docs/reference/command-line-tools-reference/kube-controller-manager/
 short_description: >
   Component on the master that runs controllers.
 
-aka: 
+aka:
 tags:
 - architecture
 - fundamental

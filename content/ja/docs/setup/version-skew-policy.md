@@ -112,8 +112,8 @@ Pre-requisites:
 Upgrade `kube-apiserver` to **1.(n+1)**
 
 {{< note >}}
-Project policies for [API deprecation](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) and 
-[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) 
+Project policies for [API deprecation](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) and
+[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 

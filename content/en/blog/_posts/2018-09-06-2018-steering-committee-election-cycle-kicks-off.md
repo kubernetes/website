@@ -6,7 +6,7 @@ date:   2018-09-06
 
 **Author**: Paris Pittman (Google), Jorge Castro (Heptio), Ihor Dvoretskyi (CNCF)
 
-Having a clear, definable governance model is crucial for the health of open source projects. For one of the highest velocity projects in the open source world, governance is critical especially for one as large and active as Kubernetes, which is one of the most high-velocity projects in the open source world. A clear structure helps users trust that the project will be nurtured and progress forward. Initially, this structure was laid by the former 7 member bootstrap committee composed of founders and senior contributors with a goal to create the foundational governance building blocks.  
+Having a clear, definable governance model is crucial for the health of open source projects. For one of the highest velocity projects in the open source world, governance is critical especially for one as large and active as Kubernetes, which is one of the most high-velocity projects in the open source world. A clear structure helps users trust that the project will be nurtured and progress forward. Initially, this structure was laid by the former 7 member bootstrap committee composed of founders and senior contributors with a goal to create the foundational governance building blocks.
 
 The [initial charter](https://git.k8s.io/steering/charter.md) and establishment of an election process to seat a full Steering Committee was a part of those first building blocks. Last year, the bootstrap committee [kicked off](https://groups.google.com/d/msg/kubernetes-dev/piPuoqFkJwA/mCjwLH81BgAJ) the first Kubernetes Steering Committee election which brought forth 6 new members from the community as voted on by contributors. These new members plus the bootstrap committee formed the [Steering Committee that we know today](https://github.com/kubernetes/steering). This yearly election cycle will continue to ensure that new representatives get cycled through to add different voices and thoughts on the Kubernetes project strategy.
 
@@ -30,7 +30,7 @@ To those who are running:
 
 ### Helpful resources
 
-* [Steering Committee](https://github.com/kubernetes/steering) - who sits on the committee and terms, their projects and meetings info  
+* [Steering Committee](https://github.com/kubernetes/steering) - who sits on the committee and terms, their projects and meetings info
 * [Steering Committee Charter](https://git.k8s.io/steering/charter.md) - this is a great read if you’re interested in running (or assessing for the best candidates!)
 * [Election Process](https://git.k8s.io/steering/elections.md)
 * [Voters Guide!](https://git.k8s.io/community/events/elections/2018) - Updated on a rolling basis. This guide will always have the latest information throughout the election cycle. The complete schedule of events and candidate bios will be housed here.

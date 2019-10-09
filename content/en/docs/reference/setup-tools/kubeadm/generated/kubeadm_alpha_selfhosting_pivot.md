@@ -16,7 +16,7 @@ kubeadm alpha selfhosting pivot [flags]
 
 ```
   # Convert a static Pod-hosted control plane into a self-hosted one.
-  
+
   kubeadm alpha phase self-hosting convert-from-staticpods
 ```
 

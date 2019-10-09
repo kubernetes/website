@@ -6,7 +6,7 @@ full_link: /docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   Manages a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) that runs on a periodic schedule.
 
-aka: 
+aka:
 tags:
 - core-object
 - workload

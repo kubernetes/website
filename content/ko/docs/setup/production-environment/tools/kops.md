@@ -9,7 +9,7 @@ weight: 20
 이곳 빠른 시작에서는 사용자가 얼마나 쉽게 AWS에 쿠버네티스 클러스터를 설치할 수 있는지 보여준다.
 [`kops`](https://github.com/kubernetes/kops)라는 이름의 툴을 이용할 것이다.
 
-kops는 강력한 프로비저닝 시스템인데, 
+kops는 강력한 프로비저닝 시스템인데,
 
 * 완전 자동화된 설치
 * DNS를 통해 클러스터들의 신원 확인
@@ -18,7 +18,7 @@ kops는 강력한 프로비저닝 시스템인데,
 * 고가용성 지원 - [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/high_availability.md) 보기
 * 직접 프로비저닝 하거나 또는 할 수 있도록 terraform 매니페스트를 생성 - [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md) 보기
 
-만약 클러스터를 구축하는데 있어 이런 방법이 사용자의 생각과 다르다면 일종의 블록처럼 [kubeadm](/docs/admin/kubeadm/)를 이용할 수도 있다. 
+만약 클러스터를 구축하는데 있어 이런 방법이 사용자의 생각과 다르다면 일종의 블록처럼 [kubeadm](/docs/admin/kubeadm/)를 이용할 수도 있다.
 kops는 kubeadmin 위에서도 잘 동작한다.
 
 {{% /capture %}}
@@ -58,7 +58,7 @@ mv kops-linux-amd64 /usr/local/bin/kops
 ### (2/5) 클러스터에 사용할 route53 domain 생성
 kops는 디스커버리를 위해 클러스터 내외부에서 DNS를 이용하고 이를 통해 사용자는 쿠버네티스 API서버에 도달할 수 있다.
 
-이런 클러스터 이름에 kops는 명확한 견해을 가지는데: 반드시 유효한 DNS 이름이어야 한다. 이렇게 함으로써 
+이런 클러스터 이름에 kops는 명확한 견해을 가지는데: 반드시 유효한 DNS 이름이어야 한다. 이렇게 함으로써
 사용자는 클러스터를 헷갈리지 않을것이고, 동료들과 혼선없이 공유할 수 있으며, IP를 기억할 필요없이 접근할 수 있다.
 
 그렇게 하고 있겠지만, 클러스터를 구분하기 위해 서브도메인을 활용할 수 있다. 예를 들어 `useast1.dev.example.com`을 이용한다면, API 서버 엔드포인트는 `api.useast1.dev.example.com`가 될 것이다.
@@ -68,7 +68,7 @@ kops는 이것들 모두와 잘 동작하며, 사용자는 보통 조직적인 �
 `example.com`하위에는 그렇지 않을 수 있다).
 
 `dev.example.com`을 hosted zone으로 사용하고 있다고 가정해보자.
-보통 사용자는 [일반적인 방법](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html) 에 따라 생성하거나 
+보통 사용자는 [일반적인 방법](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html) 에 따라 생성하거나
 `aws route53 create-hosted-zone --name dev.example.com --caller-reference 1` 와 같은 커맨드를 이용한다.
 그 후 도메인 내 레코드들을 확인할 수 있도록 상위 도메인내에 NS 레코드를 생성해야 한다. 여기서는, `dev` NS 레코드를 `example.com`에 생성한다. 만약 이것이 루트 도메인 네임이라면 이 NS 레코드들은 도메인 등록기관을 통해서 생성해야 한다(예를 들어, `example.com`는 `example.com`를 구매한 곳에서 설정 할 수 있다).
 
@@ -92,7 +92,7 @@ kops는 설치 이후에도 클러스터를 관리할 수 있다. 이를 위해 
 
 * `aws s3 mb s3://clusters.dev.example.com`를 이용해 S3 버킷을 생성한다.
 
-* `export KOPS_STATE_STORE=s3://clusters.dev.example.com` 하면, kops는 이 위치를 기본값으로 인식할 것이다. 
+* `export KOPS_STATE_STORE=s3://clusters.dev.example.com` 하면, kops는 이 위치를 기본값으로 인식할 것이다.
    이 부분을 bash profile등에 넣어두는것을 권장한다.
 
 ### (4/5) 클러스터 설정 구성

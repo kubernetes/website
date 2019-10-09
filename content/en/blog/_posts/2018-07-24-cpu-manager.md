@@ -47,7 +47,7 @@ spec:
       limits:
         cpu: 2
         memory: "256M"
-```      
+```
 _Pod specification requesting two exclusive CPUs._
 
 ## Hmm … How Does the CPU Manager Work?
@@ -155,6 +155,6 @@ Memory
 OS/Kernel
  Linux 3.10.0-693.21.1.el7.x86_64
 
-Intel, the Intel logo, Xeon are trademarks of Intel Corporation or its subsidiaries in the U.S. and/or other countries.  
+Intel, the Intel logo, Xeon are trademarks of Intel Corporation or its subsidiaries in the U.S. and/or other countries.
 *Other names and brands may be claimed as the property of others.
 © Intel Corporation.

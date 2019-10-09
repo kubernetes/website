@@ -4,25 +4,25 @@ date: 2016-04-22
 slug: introducing-kubernetes-openstack-sig
 url: /blog/2016/04/Introducing-Kubernetes-Openstack-Sig
 ---
-_Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-OpenStack team about their mission to facilitate ideas between the OpenStack and Kubernetes communities.&nbsp;_  
+_Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-OpenStack team about their mission to facilitate ideas between the OpenStack and Kubernetes communities.&nbsp;_
 
 
 
-The community around the Kubernetes project includes a number of Special Interest Groups (SIGs) for the purposes of facilitating focused discussions relating to important subtopics between interested contributors. Today we would like to highlight the [Kubernetes OpenStack SIG](https://github.com/kubernetes/kubernetes/wiki/SIG-Openstack) focused on the interaction between [Kubernetes](http://kubernetes.io/) and [OpenStack](http://www.openstack.org/), the Open Source cloud computing platform.  
+The community around the Kubernetes project includes a number of Special Interest Groups (SIGs) for the purposes of facilitating focused discussions relating to important subtopics between interested contributors. Today we would like to highlight the [Kubernetes OpenStack SIG](https://github.com/kubernetes/kubernetes/wiki/SIG-Openstack) focused on the interaction between [Kubernetes](http://kubernetes.io/) and [OpenStack](http://www.openstack.org/), the Open Source cloud computing platform.
 
-There are two high level scenarios that are being discussed in the SIG:  
+There are two high level scenarios that are being discussed in the SIG:
 
 
 - Using Kubernetes to manage containerized workloads running on top of OpenStack
-- Using Kubernetes to manage containerized OpenStack services themselves  
+- Using Kubernetes to manage containerized OpenStack services themselves
 
-In both cases the intent is to help facilitate the inter-pollination of ideas between the growing Kubernetes and OpenStack communities. The OpenStack community itself includes a number of projects broadly aimed at assisting with both of these use cases including:  
+In both cases the intent is to help facilitate the inter-pollination of ideas between the growing Kubernetes and OpenStack communities. The OpenStack community itself includes a number of projects broadly aimed at assisting with both of these use cases including:
 
 
 - [Kolla](http://governance.openstack.org/reference/projects/kolla.html) - Provides OpenStack service containers and deployment tooling for operating OpenStack clouds.
 - [Kuryr](http://governance.openstack.org/reference/projects/kuryr.html) - Provides bridges between container networking/storage framework models and OpenStack infrastructure services.
 - [Magnum](http://governance.openstack.org/reference/projects/magnum.html) - Provides containers as a service for OpenStack.
-- [Murano](http://governance.openstack.org/reference/projects/murano.html) - Provides an Application Catalog service for OpenStack including support for Kubernetes itself, and for containerized applications, managed by Kubernetes.  
+- [Murano](http://governance.openstack.org/reference/projects/murano.html) - Provides an Application Catalog service for OpenStack including support for Kubernetes itself, and for containerized applications, managed by Kubernetes.
 
 
 There are also a number of example templates available to assist with using the OpenStack Orchestration service ([Heat](http://governance.openstack.org/reference/projects/heat.html)) to deploy and configure either Kubernetes itself or offerings built around Kubernetes such as [OpenShift](https://github.com/redhat-openstack/openshift-on-openstack/). While each of these approaches has their own pros and cons the common theme is the ability, or potential ability, to use Kubernetes and where available leverage deeper integration between it and the OpenStack services themselves.&nbsp;
@@ -49,11 +49,11 @@ Kubernetes community experts will also be on hand in the Container Expert Lounge
 
 
 
-Follow [@kubernetesio](https://twitter.com/kubernetesio) and [#OpenStackSummit](https://twitter.com/search?q=%23openstacksummit) to keep up with the latest updates on Kubernetes at OpenStack Summit throughout the week.  
+Follow [@kubernetesio](https://twitter.com/kubernetesio) and [#OpenStackSummit](https://twitter.com/search?q=%23openstacksummit) to keep up with the latest updates on Kubernetes at OpenStack Summit throughout the week.
 
-**Connect With Us**  
+**Connect With Us**
 
-If you’re interested in Kubernetes and OpenStack, there are several ways to participate:  
+If you’re interested in Kubernetes and OpenStack, there are several ways to participate:
 
 
 - Email us at the [SIG-OpenStack mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-openstack)

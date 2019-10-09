@@ -16,7 +16,7 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
 * SIG Report starter
     * Cluster Ops launch meeting Friday ([doc][2]). [Rob Hirschfeld]
 * Time Zone Discussion [:22]
-    * This timezone does not work for Asia.  
+    * This timezone does not work for Asia.
     * Considering rotation - once per month
     * Likely 5 or 6 PT
     * Rob suggested moving the regular meeting up a little
@@ -33,7 +33,7 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
 * GSoC participation -- deadline 2/19  [Sarah Novotny]
 * March 10th meeting? [Sarah Novotny]
 
-To get involved in the Kubernetes community consider joining our [Slack channel][3], taking a look at the [Kubernetes project][4] on GitHub, or join the [Kubernetes-dev Google group][5]. If you're really excited, you can do all of the above and join us for the next community conversation — February 25th, 2016. Please add yourself or a topic you want to know about to the [agenda][6] and get a calendar invitation by joining [this group][7].    
+To get involved in the Kubernetes community consider joining our [Slack channel][3], taking a look at the [Kubernetes project][4] on GitHub, or join the [Kubernetes-dev Google group][5]. If you're really excited, you can do all of the above and join us for the next community conversation — February 25th, 2016. Please add yourself or a topic you want to know about to the [agenda][6] and get a calendar invitation by joining [this group][7].
 
  "https://youtu.be/L5BgX2VJhlY?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ"
 

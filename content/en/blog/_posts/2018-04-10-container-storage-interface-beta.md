@@ -64,7 +64,7 @@ parameters:
   type: pd-ssd
   csiProvisionerSecretName: mysecret
   csiProvisionerSecretNamespace: mynamespace
-```  
+```
 
 New for beta, the [default CSI external-provisioner](https://github.com/kubernetes-csi/external-provisioner) reserves the parameter keys `csiProvisionerSecretName` and `csiProvisionerSecretNamespace`. If specified, it fetches the secret and passes it to the CSI driver during provisioning.
 

@@ -111,9 +111,9 @@ the request and respond to either allow or disallow access. The response body's
 For disallowing access there are two methods.
 
 The first method is preferred in most cases, and indicates the authorization
-webhook does not allow, or has "no opinion" about the request, but if other 
-authorizers are configured, they are given a chance to allow the request. 
-If there are no other authorizers, or none of them allow the request, the 
+webhook does not allow, or has "no opinion" about the request, but if other
+authorizers are configured, they are given a chance to allow the request.
+If there are no other authorizers, or none of them allow the request, the
 request is forbidden. The webhook would return:
 
 ```json
@@ -127,9 +127,9 @@ request is forbidden. The webhook would return:
 }
 ```
 
-The second method denies immediately, short-circuiting evaluation by other 
-configured authorizers. This should only be used by webhooks that have 
-detailed knowledge of the full authorizer configuration of the cluster. 
+The second method denies immediately, short-circuiting evaluation by other
+configured authorizers. This should only be used by webhooks that have
+detailed knowledge of the full authorizer configuration of the cluster.
 The webhook would return:
 
 ```json

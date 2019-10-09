@@ -63,7 +63,7 @@ Additionally, kubeadm informs the user if the certificate is externally managed;
 
 `kubeadm` renews all the certificates during control plane [upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 
-This feature is designed for addressing the simplest use cases; 
+This feature is designed for addressing the simplest use cases;
 if you don't have specific requirements on certificate renewal and perform Kubernetes version upgrades regularly (less than 1 year in between each upgrade), kubeadm will take care of keeping your cluster up to date and reasonably secure.
 
 {{< note >}}
@@ -110,7 +110,7 @@ You can configure an external signer such as [cert-manager][cert-manager-issuer]
 The built-in signer is part of [`kube-controller-manager`][kcm].
 To activate the built-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
 
-The built-in signer is part of [`kube-controller-manager`][kcm]. 
+The built-in signer is part of [`kube-controller-manager`][kcm].
 
 To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 
@@ -150,7 +150,7 @@ The output is similar to this:
 
 If you set up an external signer, certificate signing requests (CSRs) are automatically approved.
 
-Otherwise, you must manually approve certificates with the [`kubectl certificate`][certs] command. e.g. 
+Otherwise, you must manually approve certificates with the [`kubectl certificate`][certs] command. e.g.
 
 ```shell
 kubectl certificate approve kubeadm-cert-kube-apiserver-ld526

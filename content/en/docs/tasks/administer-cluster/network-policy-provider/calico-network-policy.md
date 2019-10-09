@@ -41,7 +41,7 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 
 ## Creating a local Calico cluster with kubeadm
 
-To get a local single-host Calico cluster in fifteen minutes using kubeadm, refer to the 
+To get a local single-host Calico cluster in fifteen minutes using kubeadm, refer to the
 [Calico Quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/).
 
 {{% /capture %}}

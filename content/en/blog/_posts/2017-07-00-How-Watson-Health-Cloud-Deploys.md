@@ -8,7 +8,7 @@ Today’s post is by [Sandhya Kapoor](https://www.linkedin.com/in/sandhyakapoor/
 
 
 
-For more than a year, Watson Platform for Health at IBM deployed healthcare applications in virtual machines on our cloud platform. Because virtual machines had been a costly, heavyweight solution for us, we were interested to evaluate Kubernetes for our deployments.   
+For more than a year, Watson Platform for Health at IBM deployed healthcare applications in virtual machines on our cloud platform. Because virtual machines had been a costly, heavyweight solution for us, we were interested to evaluate Kubernetes for our deployments.
 
 
 Our design was to set up the application and data containers in the same namespace, along with the required agents using sidecars, to meet security and compliance requirements in the healthcare industry.

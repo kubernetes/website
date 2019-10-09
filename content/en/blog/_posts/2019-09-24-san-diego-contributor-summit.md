@@ -9,21 +9,21 @@ slug: san-diego-contributor-summit
 
 
 
-[Contributor Summit San Diego 2019 Event Page]  
+[Contributor Summit San Diego 2019 Event Page]
 Registration is now open and in record time, we’ve hit capacity for the
 *new contributor workshop* session of the event! Waitlist is now available.
 
-**Sunday, November 17**  
-Evening Contributor Celebration:  
-[QuartYard]*  
-Address: 1301 Market Street, San Diego, CA 92101  
-Time: 6:00PM - 9:00PM  
+**Sunday, November 17**
+Evening Contributor Celebration:
+[QuartYard]*
+Address: 1301 Market Street, San Diego, CA 92101
+Time: 6:00PM - 9:00PM
 
-**Monday, November 18**  
-All Day Contributor Summit:  
-[Marriott Marquis San Diego Marina]  
-Address: 333 W Harbor Dr, San Diego, CA 92101  
-Time: 9:00AM - 5:00PM  
+**Monday, November 18**
+All Day Contributor Summit:
+[Marriott Marquis San Diego Marina]
+Address: 333 W Harbor Dr, San Diego, CA 92101
+Time: 9:00AM - 5:00PM
 
 
 While the Kubernetes project is only five years old, we’re already going into our

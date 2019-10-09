@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 Kubernetes reserves all labels and annotations in the kubernetes.io namespace.
-  
+
 This document serves both as a reference to the values, and as a coordination point for assigning values.
 {{% /capture %}}
 

@@ -73,7 +73,7 @@ When using Romana v2.0, native VPC networking is now available for clusters of a
 ![](https://archive.org/download/hpc-ec2-vpc-2/hpc-ec2-vpc-2.png)
 
 
-The preview release of Romana v2.0 is available [here](http://romana.io/preview). We welcome comments and feedback so we can make EC2 deployments of Kubernetes as fast and reliable as possible.    
+The preview release of Romana v2.0 is available [here](http://romana.io/preview). We welcome comments and feedback so we can make EC2 deployments of Kubernetes as fast and reliable as possible.
 
 
 

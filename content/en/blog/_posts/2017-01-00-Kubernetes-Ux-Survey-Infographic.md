@@ -4,24 +4,24 @@ date: 2017-01-09
 slug: kubernetes-ux-survey-infographic
 url: /blog/2017/01/Kubernetes-Ux-Survey-Infographic
 ---
-_Editor's note: Today’s post is by Dan Romlein, UX Designer at Apprenda and member of the SIG-UI, sharing UX survey results from the Kubernetes community.&nbsp;_  
+_Editor's note: Today’s post is by Dan Romlein, UX Designer at Apprenda and member of the SIG-UI, sharing UX survey results from the Kubernetes community.&nbsp;_
 
-The following infographic summarizes the findings of a survey that the team behind [Dashboard](https://github.com/kubernetes/dashboard), the official web UI for Kubernetes, sent during KubeCon in November 2016. Following the KubeCon launch of the survey, it was promoted on Twitter and various Slack channels over a two week period and generated over 100 responses. We’re delighted with the data it provides us to now make feature and roadmap decisions more in-line with the needs of you, our users.  
+The following infographic summarizes the findings of a survey that the team behind [Dashboard](https://github.com/kubernetes/dashboard), the official web UI for Kubernetes, sent during KubeCon in November 2016. Following the KubeCon launch of the survey, it was promoted on Twitter and various Slack channels over a two week period and generated over 100 responses. We’re delighted with the data it provides us to now make feature and roadmap decisions more in-line with the needs of you, our users.
 
-**Satisfaction with Dashboard**  
+**Satisfaction with Dashboard**
 
 
 [![](https://1.bp.blogspot.com/-aSAimiXhbkw/WHPgEveTIzI/AAAAAAAAA5s/BMa-6jVzW4Ir-JExg-njJJge2tQg6QSOwCLcB/s640/satisfaction-with-dashboard.png)](https://1.bp.blogspot.com/-aSAimiXhbkw/WHPgEveTIzI/AAAAAAAAA5s/BMa-6jVzW4Ir-JExg-njJJge2tQg6QSOwCLcB/s1600/satisfaction-with-dashboard.png)
 
-Less than a year old, Dashboard is still very early in its development and we realize it has a long way to go, but it was encouraging to hear it’s tracking on the axis of MVP and even with its basic feature set is adding value for people. Respondents indicated that they like how quickly the Dashboard project is moving forward and the activity level of its contributors. Specific appreciation was given for the value Dashboard brings to first-time Kubernetes users and encouraging exploration. Frustration voiced around Dashboard centered on its limited capabilities: notably, the lack of RBAC and limited visualization of cluster objects and their relationships.  
+Less than a year old, Dashboard is still very early in its development and we realize it has a long way to go, but it was encouraging to hear it’s tracking on the axis of MVP and even with its basic feature set is adding value for people. Respondents indicated that they like how quickly the Dashboard project is moving forward and the activity level of its contributors. Specific appreciation was given for the value Dashboard brings to first-time Kubernetes users and encouraging exploration. Frustration voiced around Dashboard centered on its limited capabilities: notably, the lack of RBAC and limited visualization of cluster objects and their relationships.
 
-**Respondent Demographics**  
+**Respondent Demographics**
 
 
 [![](https://2.bp.blogspot.com/-f4lRiYxQ6Pg/WHPggSKpt7I/AAAAAAAAA5w/uThW4NAPiokHJ_Av721SRN4FThd2THAIQCLcB/s640/respondent-demographics.png)](https://2.bp.blogspot.com/-f4lRiYxQ6Pg/WHPggSKpt7I/AAAAAAAAA5w/uThW4NAPiokHJ_Av721SRN4FThd2THAIQCLcB/s1600/respondent-demographics.png)
 
 
-**Kubernetes Usage**  
+**Kubernetes Usage**
 
 [![](https://4.bp.blogspot.com/-iQD8MEPL7nA/WHPgEensPbI/AAAAAAAAA5o/nRAVMQpcxmM9llFJyC-pVD16emtagnxgwCEw/s640/kubernetes-usage.png)](https://4.bp.blogspot.com/-iQD8MEPL7nA/WHPgEensPbI/AAAAAAAAA5o/nRAVMQpcxmM9llFJyC-pVD16emtagnxgwCEw/s1600/kubernetes-usage.png)
 
@@ -29,7 +29,7 @@ People are using Dashboard in production, which is fantastic; it’s that settin
 
 
 
-**Feature Priority**  
+**Feature Priority**
 
 [![](https://1.bp.blogspot.com/-gGKQKRwgOto/WHPgEdVMqQI/AAAAAAAAA5k/MiTVQtKLuHkAMmSjpvAsmiBezAdQV4zCwCEw/s640/feature-priority.png)](https://1.bp.blogspot.com/-gGKQKRwgOto/WHPgEdVMqQI/AAAAAAAAA5k/MiTVQtKLuHkAMmSjpvAsmiBezAdQV4zCwCEw/s1600/feature-priority.png)
 

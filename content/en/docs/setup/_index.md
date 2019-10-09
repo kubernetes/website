@@ -15,7 +15,7 @@ card:
   - anchor: "#learning-environment"
     title: Learning environment
   - anchor: "#production-environment"
-    title: Production environment  
+    title: Production environment
 ---
 
 {{% capture overview %}}

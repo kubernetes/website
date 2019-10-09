@@ -67,7 +67,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: web
-spec:   
+spec:
   serviceName: "nginx"
   replicas: 2
   selector:

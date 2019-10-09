@@ -23,7 +23,7 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
 * Use Case (10 min): eBay k8s on OpenStack and OpenStack on k8s [Ashwin Raveendran]
     * eBay is currently running Kubernetes on OpenStack
     * Goal for eBay is to manage the OpenStack control plane w/ k8s.  Goal would be to achieve upgrades
-    * OpenStack Kolla creates containers for the control plane.  Uses Ansible+Docker for management of the containers.  
+    * OpenStack Kolla creates containers for the control plane.  Uses Ansible+Docker for management of the containers.
     * Working on k8s control plan management - Saltstack is proving to be a management challenge at the scale they want to operate.  Looking for automated management of the k8s control plane.
 * SIG Report
 * Testing update [Jeff, Joe, and Erick]
@@ -44,7 +44,7 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
 * CoC [Sarah]
 * GSoC [Sarah]
 
-To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation — February 11th, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].   
+To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation — February 11th, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].
 
  "https://youtu.be/IScpP8Cj0hw?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ"
 

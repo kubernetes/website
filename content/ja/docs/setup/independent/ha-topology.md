@@ -32,7 +32,7 @@ Each control plane node creates a local etcd member and this etcd member communi
 the `kube-apiserver` of this node. The same applies to the local `kube-controller-manager`
 and `kube-scheduler` instances.
 
-This topology couples the control planes and etcd members on the same nodes. It is simpler to set up than a cluster 
+This topology couples the control planes and etcd members on the same nodes. It is simpler to set up than a cluster
 with external etcd nodes, and simpler to manage for replication.
 
 However, a stacked cluster runs the risk of failed coupling. If one node goes down, both an etcd member and a control

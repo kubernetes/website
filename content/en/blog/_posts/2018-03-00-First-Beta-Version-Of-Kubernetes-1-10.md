@@ -10,14 +10,14 @@ The Kubernetes community has released the first beta version of Kubernetes 1.10,
 
 Specifically, Kubernetes 1.10 will include production-ready versions of Kubelet TLS Bootstrapping, API aggregation, and more detailed storage metrics.
 
-Some of these features will look familiar because they emerged at earlier stages in previous releases. Each stage has specific meanings:  
+Some of these features will look familiar because they emerged at earlier stages in previous releases. Each stage has specific meanings:
 
 * **stable**: The same as "generally available",  features in this stage have been thoroughly tested and can be used in production environments.
 * **beta**: The feature has been around long enough that the team is confident that the feature itself is on track to be included as a stable feature, and any API calls aren't going to change. You can use and test these features, but including them in mission-critical production environments is not advised because they are not completely hardened.
 * **alpha**: New features generally come in at this stage. These features are still being explored. APIs and options may change in future versions, or the feature itself may disappear. Definitely not for production environments.
 You can download the latest release of Kubernetes 1.10 from . To give feedback to the development community, [create an issue in the Kubernetes 1.10 milestone][2] and tag the appropriate SIG before March 9.
 
-Here's what to look for, though you should remember that while this is the current plan as of this writing, there's always a possibility that one or more features may be held for a future release. We'll start with authentication.  
+Here's what to look for, though you should remember that while this is the current plan as of this writing, there's always a possibility that one or more features may be held for a future release. We'll start with authentication.
 
 ###  Authentication (SIG-Auth)
 
@@ -64,8 +64,8 @@ Here's what to look for, though you should remember that while this is the curre
 
 1. Deployment (SIG-Cluster Lifecycle): [Support out-of-process and out-of-tree cloud providers][32] (beta): As Kubernetes gains acceptance, more and more cloud providers will want to make it available. To do that more easily, the community is working on extracting provider-specific binaries so that they can be more easily replaced.
 2. Kubernetes on Azure (SIG-Azure): Kubernetes has a cluster-autoscaler that automatically adds nodes to your cluster if you're running too many workloads, but until now it wasn't available on Azure. The [Add Azure support to cluster-autoscaler][33] (alpha) feature aims to fix that. Closely related, the [Add support for Azure Virtual Machine Scale Sets][34] (alpha) feature makes use of Azure's own autoscaling capabilities to make resources available.
-You can download the Kubernetes 1.10 beta from . Again, if you've got feedback (and the community hopes you do) please add an issue to the [1.10 milestone][2] and tag the relevant SIG before March 9.  
-_  
+You can download the Kubernetes 1.10 beta from . Again, if you've got feedback (and the community hopes you do) please add an issue to the [1.10 milestone][2] and tag the relevant SIG before March 9.
+_
 (Many thanks to community members Michelle Au, Jan Šafránek, Eric Chiang, Michał Nasiadka, Radosław Pieczonka, Xing Yang, Daniel Smith, sylvain boily, Leo Sunmo, Michal Masłowski, Fernando Ripoll, ayodele abejide, Brett Kochendorfer, Andrew Randall, Casey Davenport, Duffie Cooley, Bryan Venteicher, Mark Ayers, Christopher Luciano, and Sandor Szuecs for their invaluable help in reviewing this article for accuracy.)_
 
 [1]: https://www.mirantis.com/

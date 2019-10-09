@@ -46,11 +46,11 @@ weekly video meetings. New participants are welcome. For more information, see
 
 ### Content guildelines
 
-The SIG Docs community created guidelines about what kind of content is allowed 
-in the Kubernetes documentation. Look over the [Documentation Content 
-Guide](/docs/contribute/style/content-guide/) to determine if the content 
-contribution you want to make is allowed. You can ask questions about allowed 
-content in the [#sig-docs]((#participate-in-sig-docs-discussions)) Slack 
+The SIG Docs community created guidelines about what kind of content is allowed
+in the Kubernetes documentation. Look over the [Documentation Content
+Guide](/docs/contribute/style/content-guide/) to determine if the content
+contribution you want to make is allowed. You can ask questions about allowed
+content in the [#sig-docs]((#participate-in-sig-docs-discussions)) Slack
 channel.
 
 ### Style guidelines
@@ -106,7 +106,7 @@ you can instead [fix it](#improve-existing-content) without filing a bug first.
     Using Markdown, fill in as many details as you can. In places where you see
     empty square brackets (`[ ]`), put an `x` between the set of brackets that
     represents the appropriate choice. If you have a proposed solution to fix
-    the issue, add it. 
+    the issue, add it.
 
 - **Request a new page**
 
@@ -126,7 +126,7 @@ in mind:
 - Clearly explain the specific impact the issue has on users.
 - Limit the scope of a given issue to a reasonable unit of work. For problems
   with a large scope, break them down into smaller issues.
-  
+
     For instance, "Fix the security docs" is not an actionable issue, but "Add
     details to the 'Restricting network access' topic" might be.
 - If the issue relates to another issue or pull request, you can refer to it
@@ -232,7 +232,7 @@ Do not include references to other GitHub issues or pull
 requests in your commit message. You can add those to the pull request
 description later.
 {{< /note >}}
-      
+
     Click **Propose file change**. The change is saved as a commit in a
     new branch in your fork, which is automatically named something like
     `patch-1`.
@@ -244,24 +244,24 @@ description later.
     selection boxes, but don't do that now. Have a look at the difference
     viewer on the bottom of the screen, and if everything looks right, click
     **Create pull request**.
-    
+
     {{< note >}}
 If you don't want to create the pull request now, you can do it
 later, by browsing to the main URL of the Kubernetes website repository or
 your fork's repository. The GitHub website will prompt you to create the
 pull request if it detects that you pushed a new branch to your fork.
 {{< /note >}}
-    
+
 5.  The **Open a pull request** screen appears. The subject of the pull request
     is the same as the commit summary, but you can change it if needed. The
     body is populated by your extended commit message (if present) and some
     template text. Read the template text and fill out the details it asks for,
-    then delete the extra template text. If you add to the description `fixes #<000000>` 
+    then delete the extra template text. If you add to the description `fixes #<000000>`
     or `closes #<000000>`, where `#<000000>` is the number of an associated issue,
-    GitHub will automatically close the issue when the PR merges. 
+    GitHub will automatically close the issue when the PR merges.
     Leave the **Allow edits from maintainers** checkbox selected. Click
     **Create pull request**.
-    
+
     Congratulations! Your pull request is available in
     [Pull requests](https://github.com/kubernetes/website/pulls).
 
@@ -271,16 +271,16 @@ pull request if it detects that you pushed a new branch to your fork.
     the same browser window by default.
 
     {{< note >}}
-    Please limit pull requests to one language per PR. For example, if you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language. 
+    Please limit pull requests to one language per PR. For example, if you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language.
     {{< /note >}}
 
 6.  Wait for review. Generally, reviewers are suggested by the `k8s-ci-robot`.
     If a reviewer asks you to make changes, you can go to the **Files changed**
     tab and click the pencil icon on any files that have been changed by the
     pull request. When you save the changed file, a new commit is created in
-    the branch being monitored by the pull request. If you are waiting on a 
-    reviewer to review the changes, proactively reach out to the reviewer 
-    once every 7 days. You can also drop into #sig-docs Slack channel, 
+    the branch being monitored by the pull request. If you are waiting on a
+    reviewer to review the changes, proactively reach out to the reviewer
+    once every 7 days. You can also drop into #sig-docs Slack channel,
     which is a good place to ask for help regarding PR reviews.
 
 7.  If your change is accepted, a reviewer merges your pull request, and the
@@ -294,13 +294,13 @@ contribution guide.
 
 ## Review docs pull requests
 
-People who are not yet approvers or reviewers can still review pull requests. 
-The reviews are not considered "binding", which means that your review alone 
-won't cause a pull request to be merged. However, it can still be helpful. Even 
-if you don't leave any review comments, you can get a sense of pull request 
-conventions and etiquette and get used to the workflow. Take a look at the 
-[Content](/docs/contribute/style/content-guide/) and 
-[Style](/docs/contribute/style/style-guide/) guides before you review so you 
+People who are not yet approvers or reviewers can still review pull requests.
+The reviews are not considered "binding", which means that your review alone
+won't cause a pull request to be merged. However, it can still be helpful. Even
+if you don't leave any review comments, you can get a sense of pull request
+conventions and etiquette and get used to the workflow. Take a look at the
+[Content](/docs/contribute/style/content-guide/) and
+[Style](/docs/contribute/style/style-guide/) guides before you review so you
 get an idea of what the content should contain and how it should look.
 
 1.  Go to

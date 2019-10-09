@@ -8,7 +8,7 @@ slug: kubeedge-k8s-based-edge-intro
 
 ## KubeEdge becomes the first Kubernetes Native Edge Computing Platform with both Edge and Cloud components open sourced!
 
-Open source edge computing is going through its most dynamic phase of development in the industry. So many open source platforms, so many consolidations and so many initiatives for standardization! This shows the strong drive to build better platforms to bring cloud computing to the edges to meet ever increasing demand. [KubeEdge](https://github.com/kubeedge/kubeedge), which was announced last year, now brings great news for cloud native computing! It provides a complete edge computing solution based on Kubernetes with separate cloud and edge core modules. Currently, both the cloud and edge modules are open sourced. 
+Open source edge computing is going through its most dynamic phase of development in the industry. So many open source platforms, so many consolidations and so many initiatives for standardization! This shows the strong drive to build better platforms to bring cloud computing to the edges to meet ever increasing demand. [KubeEdge](https://github.com/kubeedge/kubeedge), which was announced last year, now brings great news for cloud native computing! It provides a complete edge computing solution based on Kubernetes with separate cloud and edge core modules. Currently, both the cloud and edge modules are open sourced.
 
 Unlike certain light weight kubernetes platforms available around, KubeEdge is made to build edge computing solutions extending the cloud. The control plane resides in cloud, though scalable and extendable. At the same time, the edge can work in offline mode. Also it is lightweight and containerized, and can support heterogeneous hardware at the edge. With the optimization in edge resource utlization, KubeEdge positions to save significant setup and operation cost for edge solutions. This makes it the most compelling edge computing platform in the world currently, based on Kubernetes!
 
@@ -30,7 +30,7 @@ It started with its v0.1 providing the basic edge computing features. Now, with 
 
 Based on its roadmap and architecture, KubeEdge tries to support all edge nodes, applications, devices and even the cluster management consistent with the Kuberenetes interface. This will help the edge cloud act exactly like a cloud cluster. This can save a lot of time and cost on the edge cloud development deployment based on KubeEdge.
 
-KubeEdge provides a containerized edge computing platform, which is inherently scalable. As it's modular and optimized, it is lightweight (66MB foot print and ~30MB running memory) and could be deployed on low resource devices. Similarly, the edge node can be of different hardware architecture and with different hardware configurations. For the device connectivity, it can support multiple protocols and it uses a standard MQTT-based communication. This helps in scaling the edge clusters with new nodes and devices efficiently. 
+KubeEdge provides a containerized edge computing platform, which is inherently scalable. As it's modular and optimized, it is lightweight (66MB foot print and ~30MB running memory) and could be deployed on low resource devices. Similarly, the edge node can be of different hardware architecture and with different hardware configurations. For the device connectivity, it can support multiple protocols and it uses a standard MQTT-based communication. This helps in scaling the edge clusters with new nodes and devices efficiently.
 
 **<p align="center">You heard it right!</p>**
 **<p align="center">KubeEdge Cloud Core modules are open sourced!</p>**
@@ -39,7 +39,7 @@ By open sourcing both the edge and cloud modules, KubeEdge brings a complete clo
 
 ## KubeEdge Architecture: Building Kuberenetes Native Edge computing!
 
-The core architecture tenet for KubeEdge is to build interfaces that are consistent with Kubernetes, be it on the cloud side or edge side. 
+The core architecture tenet for KubeEdge is to build interfaces that are consistent with Kubernetes, be it on the cloud side or edge side.
 
 <p align="center">
 <img src="/images/blog/2019-03-12-kubeedge-k8s-based-edge-intro/kubeedge-highlevel-arch.png">
@@ -47,7 +47,7 @@ The core architecture tenet for KubeEdge is to build interfaces that are consist
 
 **Edged**: Manages containerized Applications at the Edge.
 
-**EdgeHub**: Communication interface module at the Edge. It is a web socket client responsible for interacting with Cloud Service for edge computing. 
+**EdgeHub**: Communication interface module at the Edge. It is a web socket client responsible for interacting with Cloud Service for edge computing.
 
 **CloudHub**: Communication interface module at the Cloud. A web socket server responsible for watching changes on the cloud side, caching and sending messages to EdgeHub.
 
@@ -61,7 +61,7 @@ The core architecture tenet for KubeEdge is to build interfaces that are consist
 
 Even if you want to add more control plane modules based on the architecture refinement and improvement (for example enhanced security), it is simple as it uses consistent registration and modular communication within these modules.
 
-**<p align="center">KubeEdge provides scalable lightweight Kubernetes Native Edge Computing Platform which can work in offline mode.</p>** 
+**<p align="center">KubeEdge provides scalable lightweight Kubernetes Native Edge Computing Platform which can work in offline mode.</p>**
 
 **<p align="center">It helps simplify edge application development and deployment.</p>**
 
@@ -81,7 +81,7 @@ The installation is simple and can be done in few steps:
 
   1. Setup the pre-requisites Docker, Kubernetes, MQTT and openssl
   2. Clone and Build KubeEdge Cloud and Edge
-  3. Run Cloud  
+  3. Run Cloud
   4. Run Edge
 
 The detailed steps for each are available at [KubeEdge/kubeedge](https://github.com/kubeedge/kubeedge)

@@ -157,7 +157,7 @@ https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 각각에 의해 선택된 노드의 교집합을 취한다. 충돌이 있는 경우, 파드는 거부된다.
 
 지원되는 노드가 테인트(taint)되어서 다른 런타임 클래스 파드가 노드에서 구동되는 것을 막고 있다면,
-`tolerations`를 런타임 클래스에 추가할 수 있다. `nodeSelector`를 사용하면, 어드미션 시 
+`tolerations`를 런타임 클래스에 추가할 수 있다. `nodeSelector`를 사용하면, 어드미션 시
 해당 톨러레이션(toleration)이 파드의 톨러레이션과 병합되어, 실질적으로 각각에 의해 선택된
 노드의 합집합을 취한다.
 

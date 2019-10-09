@@ -5,21 +5,21 @@ slug: kubernetes-and-openstack-at-yahoo-japan
 url: /blog/2016/10/Kubernetes-And-Openstack-At-Yahoo-Japan
 ---
 
-_Editor’s note: today’s post is by the Infrastructure Engineering team at Yahoo! JAPAN, talking about how they run OpenStack on Kubernetes. This post has been translated and edited for context with permission -- originally published on the [Yahoo! JAPAN engineering blog](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/).&nbsp;_  
+_Editor’s note: today’s post is by the Infrastructure Engineering team at Yahoo! JAPAN, talking about how they run OpenStack on Kubernetes. This post has been translated and edited for context with permission -- originally published on the [Yahoo! JAPAN engineering blog](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/).&nbsp;_
 
 
-**Intro**  
-This post outlines how Yahoo! JAPAN, with help from Google and Solinea, built an automation tool chain for “one-click” code deployment to Kubernetes running on OpenStack.&nbsp;  
+**Intro**
+This post outlines how Yahoo! JAPAN, with help from Google and Solinea, built an automation tool chain for “one-click” code deployment to Kubernetes running on OpenStack.&nbsp;
 
-We’ll also cover the basic security, networking, storage, and performance needs to ensure production readiness.&nbsp;  
+We’ll also cover the basic security, networking, storage, and performance needs to ensure production readiness.&nbsp;
 
-Finally, we will discuss the ecosystem tools used to build the CI/CD pipeline, Kubernetes as a deployment platform on VMs/bare metal, and an overview of Kubernetes architecture to help you architect and deploy your own clusters.&nbsp;  
+Finally, we will discuss the ecosystem tools used to build the CI/CD pipeline, Kubernetes as a deployment platform on VMs/bare metal, and an overview of Kubernetes architecture to help you architect and deploy your own clusters.&nbsp;
 
-**Preface**  
-Since our company started using OpenStack in 2012, our internal environment has changed quickly. Our initial goal of virtualizing hardware was achieved with OpenStack. However, due to the progress of cloud and container technology, we needed the capability to launch services on various platforms. This post will provide our example of taking applications running on OpenStack and porting them to Kubernetes.  
+**Preface**
+Since our company started using OpenStack in 2012, our internal environment has changed quickly. Our initial goal of virtualizing hardware was achieved with OpenStack. However, due to the progress of cloud and container technology, we needed the capability to launch services on various platforms. This post will provide our example of taking applications running on OpenStack and porting them to Kubernetes.
 
-**Coding Lifecycle**  
-The goal of this project is to create images for all required platforms from one application code, and deploy those images onto each platform. For example, when code is changed at the code registry, bare metal images, Docker containers and VM images are created by CI (continuous integration) tools, pushed into our image registry, then deployed to each infrastructure platform.  
+**Coding Lifecycle**
+The goal of this project is to create images for all required platforms from one application code, and deploy those images onto each platform. For example, when code is changed at the code registry, bare metal images, Docker containers and VM images are created by CI (continuous integration) tools, pushed into our image registry, then deployed to each infrastructure platform.
 
 
 
@@ -104,7 +104,7 @@ Image Creation. Each image creation workflow is shown in the next diagram.
 
 
 
-Let’s focus on the container workflow to walk through how we use Kubernetes as a deployment platform. This platform architecture is as below.  
+Let’s focus on the container workflow to walk through how we use Kubernetes as a deployment platform. This platform architecture is as below.
 
 
 [![](https://2.bp.blogspot.com/-qiqHdUwASOU/WApsUZF7fRI/AAAAAAAAAxc/26b1XqOnybwWiqDoFUXW9QOxoG3ub7nDACLcB/s400/Untitled%2Bdrawing%2B%25284%2529.png)](https://2.bp.blogspot.com/-qiqHdUwASOU/WApsUZF7fRI/AAAAAAAAAxc/26b1XqOnybwWiqDoFUXW9QOxoG3ub7nDACLcB/s1600/Untitled%2Bdrawing%2B%25284%2529.png)
@@ -168,7 +168,7 @@ Let me explain Kubernetes architecture in some more detail. The architecture dia
 |etcd-proxy |Run on each node and transfer client request to etcd clusters|
 
 
-**Tenant Isolation** To enable multi-tenant usage like OpenStack, we utilize OpenStack Keystone for authentication and authorization.  
+**Tenant Isolation** To enable multi-tenant usage like OpenStack, we utilize OpenStack Keystone for authentication and authorization.
 
 **Authentication** With a Kubernetes plugin, OpenStack Keystone can be used for Authentication. By Adding authURL of Keystone at startup Kubernetes API server, we can use OpenStack OS\_USERNAME and OS\_PASSWORD for Authentication. **Authorization** We currently use the ABAC (Attribute-Based Access Control) mode of Kubernetes Authorization. We worked with a consulting company, Solinea, who helped create a utility to convert OpenStack Keystone user and tenant information to Kubernetes JSON policy file that maps Kubernetes ABAC user and namespace information to OpenStack tenants. We then specify that policy file when launching Kubernetes API Server. This utility also creates namespaces from tenant information. These configurations enable Kubernetes to authenticate with OpenStack Keystone and operate in authorized namespaces. **Volumes and Data Persistence** Kubernetes provides “Persistent Volumes” subsystem which works as persistent storage for Pods. “Persistent Volumes” is capable to support cloud-provider storage, it is possible to utilize OpenStack cinder-volume by using OpenStack as cloud provider. **Networking** Flannel and various networking exists as networking model for Kubernetes, we used Project Calico for this project. Yahoo! JAPAN recommends to build data center with pure L3 networking like redistribute ARP validation or IP CLOS networking, Project Calico matches this direction. When we apply overlay model like Flannel, we cannot access to Pod IP from outside of Kubernetes clusters. But Project Calico makes it possible. We also use Project Calico for Load Balancing we describe later.
 

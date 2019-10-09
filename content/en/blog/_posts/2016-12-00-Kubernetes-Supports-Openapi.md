@@ -4,73 +4,73 @@ date: 2016-12-23
 slug: kubernetes-supports-openapi
 url: /blog/2016/12/Kubernetes-Supports-Openapi
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_
 
-[OpenAPI](https://www.openapis.org/) allows API providers to define their operations and models, and enables developers to automate their tools and generate their favorite language’s client to talk to that API server. Kubernetes has supported swagger 1.2 (older version of OpenAPI spec) for a while, but the spec was incomplete and invalid, making it hard to generate tools/clients based on it.   
+[OpenAPI](https://www.openapis.org/) allows API providers to define their operations and models, and enables developers to automate their tools and generate their favorite language’s client to talk to that API server. Kubernetes has supported swagger 1.2 (older version of OpenAPI spec) for a while, but the spec was incomplete and invalid, making it hard to generate tools/clients based on it.
 
-In Kubernetes 1.4, we introduced alpha support for the OpenAPI spec (formerly known as swagger 2.0 before it was donated to the [Open API Initiative](https://www.openapis.org/about)) by upgrading the current models and operations. Beginning in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), the support for the OpenAPI spec has been completed by auto-generating the spec directly from Kubernetes source, which will keep the spec--and documentation--completely in sync with future changes in operations/models.  
+In Kubernetes 1.4, we introduced alpha support for the OpenAPI spec (formerly known as swagger 2.0 before it was donated to the [Open API Initiative](https://www.openapis.org/about)) by upgrading the current models and operations. Beginning in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), the support for the OpenAPI spec has been completed by auto-generating the spec directly from Kubernetes source, which will keep the spec--and documentation--completely in sync with future changes in operations/models.
 
-The new spec enables us to have better API documentation and we have even introduced a supported [python client](https://github.com/kubernetes-incubator/client-python).  
+The new spec enables us to have better API documentation and we have even introduced a supported [python client](https://github.com/kubernetes-incubator/client-python).
 
-The spec is modular, divided by GroupVersion: this is future-proof, since we intend to allow separate GroupVersions to be served out of separate API servers.  
+The spec is modular, divided by GroupVersion: this is future-proof, since we intend to allow separate GroupVersions to be served out of separate API servers.
 
-The structure of spec is explained in detail in [OpenAPI spec definition](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md). We used [operation’s tags](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#tag-object) to separate each GroupVersion and filled as much information as we can about paths/operations and models. For a specific operation, all parameters, method of call, and responses are documented.   
+The structure of spec is explained in detail in [OpenAPI spec definition](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md). We used [operation’s tags](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#tag-object) to separate each GroupVersion and filled as much information as we can about paths/operations and models. For a specific operation, all parameters, method of call, and responses are documented.
 
-For example, OpenAPI spec for reading a pod information is:  
+For example, OpenAPI spec for reading a pod information is:
 
 
 
 ```
 {
 
-...  
+...
   "paths": {
 
-"/api/v1/namespaces/{namespace}/pods/{name}": {  
-    "get": {  
-     "description": "read the specified Pod",  
-     "consumes": [  
-      "\*/\*"  
-     ],  
-     "produces": [  
-      "application/json",  
-      "application/yaml",  
-      "application/vnd.kubernetes.protobuf"  
-     ],  
-     "schemes": [  
-      "https"  
-     ],  
-     "tags": [  
-      "core\_v1"  
-     ],  
-     "operationId": "readCoreV1NamespacedPod",  
-     "parameters": [  
-      {  
-       "uniqueItems": true,  
-       "type": "boolean",  
-       "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'.",  
-       "name": "exact",  
-       "in": "query"  
-      },  
-      {  
-       "uniqueItems": true,  
-       "type": "boolean",  
-       "description": "Should this value be exported.  Export strips fields that a user can not specify.",  
-       "name": "export",  
-       "in": "query"  
-      }  
-     ],  
-     "responses": {  
-      "200": {  
-       "description": "OK",  
-       "schema": {  
-        "$ref": "#/definitions/v1.Pod"  
-       }  
-      },  
-      "401": {  
-       "description": "Unauthorized"  
-      }  
-     }  
+"/api/v1/namespaces/{namespace}/pods/{name}": {
+    "get": {
+     "description": "read the specified Pod",
+     "consumes": [
+      "\*/\*"
+     ],
+     "produces": [
+      "application/json",
+      "application/yaml",
+      "application/vnd.kubernetes.protobuf"
+     ],
+     "schemes": [
+      "https"
+     ],
+     "tags": [
+      "core\_v1"
+     ],
+     "operationId": "readCoreV1NamespacedPod",
+     "parameters": [
+      {
+       "uniqueItems": true,
+       "type": "boolean",
+       "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'.",
+       "name": "exact",
+       "in": "query"
+      },
+      {
+       "uniqueItems": true,
+       "type": "boolean",
+       "description": "Should this value be exported.  Export strips fields that a user can not specify.",
+       "name": "export",
+       "in": "query"
+      }
+     ],
+     "responses": {
+      "200": {
+       "description": "OK",
+       "schema": {
+        "$ref": "#/definitions/v1.Pod"
+       }
+      },
+      "401": {
+       "description": "Unauthorized"
+      }
+     }
     },
 
 …

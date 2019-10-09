@@ -157,7 +157,7 @@ has finished performing the TLS Bootstrap.
 
 ##  The kubelet drop-in file for systemd
 
-kubeadm ships with configuration for how systemd should run the kubelet. 
+kubeadm ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
 
 This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) is written to

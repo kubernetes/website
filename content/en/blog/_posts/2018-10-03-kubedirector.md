@@ -90,7 +90,7 @@ First, verify that Kubernetes (version 1.9 or later) is running, using the comma
 ```
 ~> kubectl version
 Client Version: version.Info{Major:"1", Minor:"11", GitVersion:"v1.11.3", GitCommit:"a4529464e4629c21224b3d52edfe0ea91b072862", GitTreeState:"clean", BuildDate:"2018-09-09T18:02:47Z", GoVersion:"go1.10.3", Compiler:"gc", Platform:"linux/amd64"}
-Server Version: version.Info{Major:"1", Minor:"11", GitVersion:"v1.11.3", GitCommit:"a4529464e4629c21224b3d52edfe0ea91b072862", GitTreeState:"clean", BuildDate:"2018-09-09T17:53:03Z", GoVersion:"go1.10.3", Compiler:"gc", Platform:"linux/amd64"}                                    
+Server Version: version.Info{Major:"1", Minor:"11", GitVersion:"v1.11.3", GitCommit:"a4529464e4629c21224b3d52edfe0ea91b072862", GitTreeState:"clean", BuildDate:"2018-09-09T17:53:03Z", GoVersion:"go1.10.3", Compiler:"gc", Platform:"linux/amd64"}
 ```
 Deploy the KubeDirector service and the example KubeDirectorApp resource definitions with the commands:
 ```
@@ -101,7 +101,7 @@ These will start the KubeDirector pod:
 ```
 ~> kubectl get pods
 NAME                           READY     STATUS     RESTARTS     AGE
-kubedirector-58cf59869-qd9hb   1/1       Running    0            1m     
+kubedirector-58cf59869-qd9hb   1/1       Running    0            1m
 ```
 List the installed KubeDirector applications with `kubectl get KubeDirectorApp`
 ```

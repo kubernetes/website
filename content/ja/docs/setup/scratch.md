@@ -480,11 +480,11 @@ You will need to run one or more instances of etcd.
     by durable storage (RAID, GCE PD)
   - Not highly available, but easy to restore - Run one etcd instance, with its log written to a directory backed
     by durable storage (RAID, GCE PD).
-    
+
     {{< note >}}May result in operations outages in case of
     instance outage. {{< /note >}}
   - Highly available - Run 3 or 5 etcd instances with non durable storage.
-  
+
     {{< note >}}Log can be written to non-durable storage
     because storage is replicated.{{< /note >}}
 

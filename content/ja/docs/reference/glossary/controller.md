@@ -6,14 +6,14 @@ full_link: /docs/admin/kube-controller-manager/
 short_description: >
   クラスターの状態をAPIサーバーから取得、見張る制御ループで、現在の状態を望ましい状態に移行するように更新します。
 
-aka: 
+aka:
 tags:
 - architecture
 - fundamental
 ---
  クラスターの状態を{{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}から取得、見張る制御ループで、現在の状態を望ましい状態に移行するように更新します。
 
-<!--more--> 
+<!--more-->
 
 今日、Kubernetesで提供されるコントローラーの例として、レプリケーションコントローラー、エンドポイントコントローラー、名前空間コントローラー、またサービスアカウントコントローラーがあります。
 

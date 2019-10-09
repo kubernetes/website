@@ -16,7 +16,7 @@ Fast growth came with a price. We leveraged technical debt to scale fast and to 
 * Simplifying Container Management
 * Onboarding Developers On Infrastructure
 * Unlocking Continuous Integration and Delivery
-We accomplished this by radically adopting Kubernetes and switching our DevOps team to a Cloud Platform team that worked in terms of containers and microservices. This included creating some tools to get around our own legacy debt.  
+We accomplished this by radically adopting Kubernetes and switching our DevOps team to a Cloud Platform team that worked in terms of containers and microservices. This included creating some tools to get around our own legacy debt.
 
 ### The Problem
 
@@ -90,4 +90,4 @@ All these changes do not come for free; committing our entire infrastructure to 
 As such, we have transferred one engineer to a new “cloud platform team” and will hire a couple of others (have I mentioned [we’re hiring](http://www.sharethis.com/hiring.html)!). They will be responsible for developing tools that we can use to interface well with Kubernetes and manage all of our cloud resources. In addition, they will be working in the Kubernetes source code, part of Kubernetes SIGs, and ideally, pushing code into the open source project.
 
 ### Summary
-All in all, while the move to Kubernetes initially seemed daunting, it was far less complicated and disruptive than we thought. And the reward at the other end was a company that could respond as fast as our customers wanted._Editor's note: at a recent Kubernetes meetup, the team at ShareThis gave a talk about their production use of Kubernetes. Video is embedded below._  
+All in all, while the move to Kubernetes initially seemed daunting, it was far less complicated and disruptive than we thought. And the reward at the other end was a company that could respond as fast as our customers wanted._Editor's note: at a recent Kubernetes meetup, the team at ShareThis gave a talk about their production use of Kubernetes. Video is embedded below._

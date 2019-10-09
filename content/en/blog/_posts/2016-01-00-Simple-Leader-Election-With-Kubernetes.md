@@ -26,13 +26,13 @@ To perform leader election, we use two properties of all Kubernetes API objects:
 
 Given these primitives, the code to use master election is relatively straightforward, and you can find it [here][1]. Let's run it ourselves.
 
-```    
+```
 $ kubectl run leader-elector --image=gcr.io/google_containers/leader-elector:0.4 --replicas=3 -- --election=example
 ```
 
 This creates a leader election set with 3 replicas:
 
-```    
+```
 $ kubectl get pods
 NAME                   READY     STATUS    RESTARTS   AGE
 leader-elector-inmr1   1/1       Running   0          13s
@@ -42,7 +42,7 @@ leader-elector-sgwcq   1/1       Running   0          13s
 
 To see which pod was chosen as the leader, you can access the logs of one of the pods, substituting one of your own pod's names in place of
 
-```  
+```
 ${pod_name}, (e.g. leader-elector-inmr1 from the above)
 
 $ kubectl logs -f ${name}
@@ -57,14 +57,14 @@ $ kubectl get endpoints example -o yaml
 ```
 Now to validate that leader election actually works, in a different terminal, run:
 
-```  
+```
 $ kubectl delete pods (leader-pod-name)
 ```
 This will delete the existing leader. Because the set of pods is being managed by a replication controller, a new pod replaces the one that was deleted, ensuring that the size of the replicated set is still three. Via leader election one of these three pods is selected as the new leader, and you should see the leader failover to a different pod. Because pods in Kubernetes have a _grace period_ before termination, this may take 30-40 seconds.
 
 The leader-election container provides a simple webserver that can serve on any address (e.g. http://localhost:4040). You can test this out by deleting the existing leader election group and creating a new one where you additionally pass in a --http=(host):(port) specification to the leader-elector image. This causes each member of the set to serve information about the leader via a webhook.
 
-```    
+```
 # delete the old leader elector group
 $ kubectl delete rc leader-elector
 
@@ -83,7 +83,7 @@ http://localhost:8001/api/v1/proxy/namespaces/default/pods/(leader-pod-name):404
 
 And you will see:
 
-```  
+```
 {"name":"(name-of-leader-here)"}
 ```
 ####  Leader election with sidecars
@@ -95,7 +95,7 @@ The leader-election container can serve as a sidecar that you can use from your 
 
 For example, here is a simple Node.js application that connects to the leader election sidecar and prints out whether or not it is currently the master. The leader election sidecar sets its identifier to `hostname` by default.
 
-```    
+```
 var http = require('http');
 // This will hold info about the current master
 var master = {};

@@ -176,8 +176,8 @@ whatever reclaim policy they were assigned at creation.
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 <!--
-Persistent Volumes can be configured to be expandable. This feature when set to `true`, 
-allows the users to resize the volume by editing the corresponding PVC object. 
+Persistent Volumes can be configured to be expandable. This feature when set to `true`,
+allows the users to resize the volume by editing the corresponding PVC object.
 
 The following types of volumes support volume expansion, when the underlying
 Storage Class has the field `allowVolumeExpansion` set to true.
@@ -646,7 +646,7 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
  -->
     `diskformat`: `thin`, `zeroedthick` 和 `eagerzeroedthick`。默认值: `"thin"`。
 
-<!--    
+<!--
 2. Create a StorageClass with a disk format on a user specified datastore.
 -->
 2. 在用户指定的数据存储上创建磁盘格式的 StorageClass。
@@ -942,8 +942,8 @@ parameters:
   When `kind` is `shared`, all unmanaged disks are created in a few shared
   storage accounts in the same resource group as the cluster. When `kind` is
   `dedicated`, a new dedicated storage account will be created for the new
-  unmanaged disk in the same resource group as the cluster. When `kind` is 
-  `managed`, all managed disks are created in the same resource group as 
+  unmanaged disk in the same resource group as the cluster. When `kind` is
+  `managed`, all managed disks are created in the same resource group as
   the cluster.
 -->
 * `storageaccounttype`：Azure 存储帐户 Sku 层。默认为空。
@@ -985,12 +985,12 @@ parameters:
   group are searched to find one that matches `skuName` and `location`. If a
   storage account is provided, it must reside in the same resource group as the
   cluster, and `skuName` and `location` are ignored.
-* `secretNamespace`: the namespace of the secret that contains the Azure Storage 
+* `secretNamespace`: the namespace of the secret that contains the Azure Storage
   Account Name and Key. Default is the same as the Pod.
 * `secretName`: the name of the secret that contains the Azure Storage Account Name and
   Key. Default is `azure-storage-account-<accountName>-secret`
 * `readOnly`: a flag indicating whether the storage will be mounted as read only.
-  Defaults to false which means a read/write mount. This setting will impact the 
+  Defaults to false which means a read/write mount. This setting will impact the
   `ReadOnly` setting in VolumeMounts as well.
 -->
 * `skuName`：Azure 存储帐户 Sku 层。默认为空。
@@ -1003,9 +1003,9 @@ parameters:
 * `readOnly`：指示是否将存储安装为只读的标志。默认为 false，表示 读/写 挂载。 该设置也会影响VolumeMounts中的 `ReadOnly` 设置。
 
 <!--
-During storage provisioning, a secret named by `secretName` is created for the 
-mounting credentials. If the cluster has enabled both 
-[RBAC](/docs/reference/access-authn-authz/rbac/) and 
+During storage provisioning, a secret named by `secretName` is created for the
+mounting credentials. If the cluster has enabled both
+[RBAC](/docs/reference/access-authn-authz/rbac/) and
 [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
 add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
@@ -1014,7 +1014,7 @@ add the `create` permission of resource `secret` for clusterrole
 为 `system:controller:persistent-volume-binder` 的 clusterrole 添加 `secret` 资源的 `create` 权限。
 
 <!--
-In a multi-tenancy context, it is strongly recommended to set the value for 
+In a multi-tenancy context, it is strongly recommended to set the value for
 `secretNamespace` explicitly, otherwise the storage account credentials may
 be read by other users.
 -->

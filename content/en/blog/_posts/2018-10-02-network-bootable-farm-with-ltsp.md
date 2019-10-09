@@ -15,13 +15,13 @@ You don't need to think about installing an OS and binaries on each node anymore
 
 You can buy and put 100 new servers into a production environment and get them working immediately - it's really amazing!
 
-Intrigued? Let me walk you through how it works. 
+Intrigued? Let me walk you through how it works.
 
 # Summary
 
 _**Please note:** this is a cool hack, but is not officially supported in Kubernetes._
 
-First, we need to understand how exactly it works. 
+First, we need to understand how exactly it works.
 
 In short, for all nodes we have prepared the image with the OS, Docker, Kubelet and everything else that you need there. This image with the kernel is building automatically by CI using Dockerfile. End nodes are booting the kernel and OS from this image via the network.
 
@@ -477,7 +477,7 @@ shared-network ltsp-netowrk {
             filename "/ltsp/amd64/grub/i386-pc/core.0";
         }
 
-        range 10.9.200.0 10.9.250.254; 
+        range 10.9.200.0 10.9.250.254;
     }
 ```
 

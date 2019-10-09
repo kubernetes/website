@@ -5,15 +5,15 @@ slug: cross-cluster-services
 url: /blog/2016/07/Cross-Cluster-Services
 ---
 
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_    
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_
 
-As Kubernetes users scale their production deployments we’ve heard a clear desire to deploy services across zone, region, cluster and cloud boundaries. Services that span clusters provide geographic distribution, enable hybrid and multi-cloud scenarios and improve the level of high availability beyond single cluster multi-zone deployments. Customers who want their services to span one or more (possibly remote) clusters, need them to be reachable in a consistent manner from both within and outside their clusters.  
+As Kubernetes users scale their production deployments we’ve heard a clear desire to deploy services across zone, region, cluster and cloud boundaries. Services that span clusters provide geographic distribution, enable hybrid and multi-cloud scenarios and improve the level of high availability beyond single cluster multi-zone deployments. Customers who want their services to span one or more (possibly remote) clusters, need them to be reachable in a consistent manner from both within and outside their clusters.
 
-In Kubernetes 1.3, our goal was to minimize the friction points and reduce the management/operational overhead associated with deploying a service with geographic distribution to multiple clusters. This post explains how to do this.   
+In Kubernetes 1.3, our goal was to minimize the friction points and reduce the management/operational overhead associated with deploying a service with geographic distribution to multiple clusters. This post explains how to do this.
 
-Note: Though the examples used here leverage Google Container Engine ([GKE](https://cloud.google.com/container-engine/)) to provision Kubernetes clusters, they work anywhere you want to deploy Kubernetes.  
+Note: Though the examples used here leverage Google Container Engine ([GKE](https://cloud.google.com/container-engine/)) to provision Kubernetes clusters, they work anywhere you want to deploy Kubernetes.
 
-Let’s get started. The first step is to create is to create Kubernetes clusters into 4 Google Cloud Platform (GCP) regions using GKE.  
+Let’s get started. The first step is to create is to create Kubernetes clusters into 4 Google Cloud Platform (GCP) regions using GKE.
 
 
 - asia-east1-b
@@ -21,7 +21,7 @@ Let’s get started. The first step is to create is to create Kubernetes cluster
 - us-east1-b
 - us-central1-b
 
-Let’s run the following commands to build the clusters:  
+Let’s run the following commands to build the clusters:
 
 
 
@@ -60,10 +60,10 @@ Let’s verify the clusters are created:
 ```
 gcloud container clusters list
 
-NAME              ZONE            MASTER\_VERSION  MASTER\_IP       NUM\_NODES  STATUS  
-gce-asia-east1    asia-east1-b    1.2.4           104.XXX.XXX.XXX 3          RUNNING  
-gce-europe-west1  europe-west1-b  1.2.4           130.XXX.XX.XX   3          RUNNING  
-gce-us-central1   us-central1-b   1.2.4           104.XXX.XXX.XX  3          RUNNING  
+NAME              ZONE            MASTER\_VERSION  MASTER\_IP       NUM\_NODES  STATUS
+gce-asia-east1    asia-east1-b    1.2.4           104.XXX.XXX.XXX 3          RUNNING
+gce-europe-west1  europe-west1-b  1.2.4           130.XXX.XX.XX   3          RUNNING
+gce-us-central1   us-central1-b   1.2.4           104.XXX.XXX.XX  3          RUNNING
 gce-us-east1      us-east1-b      1.2.4           104.XXX.XX.XXX  3          RUNNING
  ```
 
@@ -118,10 +118,10 @@ Let’s list out all the clusters in our federation:
 ```
 kubectl --context=federation-cluster get clusters
 
-NAME               STATUS    VERSION   AGE  
-gce-asia-east1     Ready               1m  
-gce-europe-west1   Ready               57s  
-gce-us-central1    Ready               47s  
+NAME               STATUS    VERSION   AGE
+gce-asia-east1     Ready               1m
+gce-europe-west1   Ready               57s
+gce-us-central1    Ready               47s
 gce-us-east1       Ready               34s
  ```
 
@@ -148,8 +148,8 @@ You can verify this by checking in each of the underlying clusters, for example:
 
 
 ```
-kubectl --context=gce-asia-east1a get svc nginx  
-NAME      CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE  
+kubectl --context=gce-asia-east1a get svc nginx
+NAME      CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
 nginx     10.63.250.98   104.199.136.89   80/TCP    9m
  ```
 
@@ -165,18 +165,18 @@ The status of your Federated Service will automatically reflect the real-time st
 
 
 ```
-kubectl --context=federation-cluster describe services nginx  
+kubectl --context=federation-cluster describe services nginx
 
-Name:                   nginx  
-Namespace:              default  
-Labels:                 run=nginx  
-Selector:               run=nginx  
-Type:                   LoadBalancer  
-IP:           
-LoadBalancer Ingress:   104.XXX.XX.XXX, 104.XXX.XX.XXX, 104.XXX.XX.XXX, 104.XXX.XXX.XX  
-Port:                   http    80/TCP  
-Endpoints:              \<none\>  
-Session Affinity:       None  
+Name:                   nginx
+Namespace:              default
+Labels:                 run=nginx
+Selector:               run=nginx
+Type:                   LoadBalancer
+IP:
+LoadBalancer Ingress:   104.XXX.XX.XXX, 104.XXX.XX.XXX, 104.XXX.XX.XXX, 104.XXX.XXX.XX
+Port:                   http    80/TCP
+Endpoints:              \<none\>
+Session Affinity:       None
 No events.
  ```
 
@@ -200,9 +200,9 @@ To render the underlying service shards healthy, we need to add backend Pods beh
 
 
 ```
-for CLUSTER in asia-east1-a europe-west1-a us-east1-a us-central1-a  
-do  
-kubectl --context=$CLUSTER run nginx --image=nginx:1.11.1-alpine --port=80  
+for CLUSTER in asia-east1-a europe-west1-a us-east1-a us-central1-a
+do
+kubectl --context=$CLUSTER run nginx --image=nginx:1.11.1-alpine --port=80
 done
  ```
 
@@ -218,33 +218,33 @@ Once the Pods have successfully started and begun listening for connections, Kub
 
 
 ```
-$ gcloud dns managed-zones describe example-dot-com   
+$ gcloud dns managed-zones describe example-dot-com
 
-creationTime: '2016-06-26T18:18:39.229Z'  
-description: Example domain for Kubernetes Cluster Federation  
-dnsName: example.com.  
-id: '3229332181334243121'  
-kind: dns#managedZone  
-name: example-dot-com  
-nameServers:  
-- ns-cloud-a1.googledomains.com.  
-- ns-cloud-a2.googledomains.com.  
-- ns-cloud-a3.googledomains.com.  
-- ns-cloud-a4.googledomains.com.  
+creationTime: '2016-06-26T18:18:39.229Z'
+description: Example domain for Kubernetes Cluster Federation
+dnsName: example.com.
+id: '3229332181334243121'
+kind: dns#managedZone
+name: example-dot-com
+nameServers:
+- ns-cloud-a1.googledomains.com.
+- ns-cloud-a2.googledomains.com.
+- ns-cloud-a3.googledomains.com.
+- ns-cloud-a4.googledomains.com.
 
-$ gcloud dns record-sets list --zone example-dot-com  
+$ gcloud dns record-sets list --zone example-dot-com
 
-NAME                                                                                                 TYPE      TTL     DATA  
-example.com.                                                                                       NS     21600  ns-cloud-e1.googledomains.com., ns-cloud-e2.googledomains.com.  
-example.com.                                                                                      SOA     21600 ns-cloud-e1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 1209600 300  
-nginx.mynamespace.myfederation.svc.example.com.                            A     180     104.XXX.XXX.XXX, 130.XXX.XX.XXX, 104.XXX.XX.XXX, 104.XXX.XXX.XX  
-nginx.mynamespace.myfederation.svc.us-central1-a.example.com.     A     180     104.XXX.XXX.XXX  
-nginx.mynamespace.myfederation.svc.us-central1.example.com.  
-nginx.mynamespace.myfederation.svc.us-central1.example.com.         A    180     104.XXX.XXX.XXX, 104.XXX.XXX.XXX, 104.XXX.XXX.XXX  
-nginx.mynamespace.myfederation.svc.asia-east1-a.example.com.       A    180     130.XXX.XX.XXX  
-nginx.mynamespace.myfederation.svc.asia-east1.example.com.  
-nginx.mynamespace.myfederation.svc.asia-east1.example.com.           A    180     130.XXX.XX.XXX, 130.XXX.XX.XXX  
-nginx.mynamespace.myfederation.svc.europe-west1.example.com.  CNAME    180   nginx.mynamespace.myfederation.svc.example.com.  
+NAME                                                                                                 TYPE      TTL     DATA
+example.com.                                                                                       NS     21600  ns-cloud-e1.googledomains.com., ns-cloud-e2.googledomains.com.
+example.com.                                                                                      SOA     21600 ns-cloud-e1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 1209600 300
+nginx.mynamespace.myfederation.svc.example.com.                            A     180     104.XXX.XXX.XXX, 130.XXX.XX.XXX, 104.XXX.XX.XXX, 104.XXX.XXX.XX
+nginx.mynamespace.myfederation.svc.us-central1-a.example.com.     A     180     104.XXX.XXX.XXX
+nginx.mynamespace.myfederation.svc.us-central1.example.com.
+nginx.mynamespace.myfederation.svc.us-central1.example.com.         A    180     104.XXX.XXX.XXX, 104.XXX.XXX.XXX, 104.XXX.XXX.XXX
+nginx.mynamespace.myfederation.svc.asia-east1-a.example.com.       A    180     130.XXX.XX.XXX
+nginx.mynamespace.myfederation.svc.asia-east1.example.com.
+nginx.mynamespace.myfederation.svc.asia-east1.example.com.           A    180     130.XXX.XX.XXX, 130.XXX.XX.XXX
+nginx.mynamespace.myfederation.svc.europe-west1.example.com.  CNAME    180   nginx.mynamespace.myfederation.svc.example.com.
 ... etc.
  ```
 
@@ -303,8 +303,8 @@ For external clients, automatic DNS expansion described is no longer possible. E
 
 
 ```
-eu.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.europe-west1.example.com.  
-us.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.us-central1.example.com.  
+eu.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.europe-west1.example.com.
+us.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.us-central1.example.com.
 nginx.acme.com             CNAME nginx.mynamespace.myfederation.svc.example.com.
  ```
 

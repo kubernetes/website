@@ -4,17 +4,17 @@ date: 2017-01-20
 slug: how-we-run-kubernetes-in-kubernetes-kubeception
 url: /blog/2017/01/How-We-Run-Kubernetes-In-Kubernetes-Kubeception
 ---
-_Editor's note: Today’s post is by the team at Giant Swarm, showing how they run Kubernetes in Kubernetes._  
+_Editor's note: Today’s post is by the team at Giant Swarm, showing how they run Kubernetes in Kubernetes._
 
-[Giant Swarm](https://giantswarm.io/)’s container infrastructure started out with the goal to be an easy way for developers to deploy containerized microservices. Our first generation was extensively using [fleet](https://github.com/coreos/fleet) as a base layer for our infrastructure components as well as for scheduling user containers.  
+[Giant Swarm](https://giantswarm.io/)’s container infrastructure started out with the goal to be an easy way for developers to deploy containerized microservices. Our first generation was extensively using [fleet](https://github.com/coreos/fleet) as a base layer for our infrastructure components as well as for scheduling user containers.
 
-In order to give our users a more powerful way to manage their containers we introduced Kubernetes into our stack in early 2016. However, as we needed a quick way to flexibly spin up and manage different users’ Kubernetes clusters resiliently we kept the underlying fleet layer.  
+In order to give our users a more powerful way to manage their containers we introduced Kubernetes into our stack in early 2016. However, as we needed a quick way to flexibly spin up and manage different users’ Kubernetes clusters resiliently we kept the underlying fleet layer.
 
-As we insist on running all our underlying infrastructure components in containers, fleet gave us the flexibility of using systemd unit files to define our infrastructure components declaratively. Our self-developed deployment tooling allowed us to deploy and manage the infrastructure without the need for imperative configuration management tools.  
+As we insist on running all our underlying infrastructure components in containers, fleet gave us the flexibility of using systemd unit files to define our infrastructure components declaratively. Our self-developed deployment tooling allowed us to deploy and manage the infrastructure without the need for imperative configuration management tools.
 
-However, fleet is just a distributed init and not a complete scheduling and orchestration system. Next to a lot of work on our tooling, it required significant improvements in terms of communication between peers, its reconciliation loop, and stability that we had to work on. Also the uptake in Kubernetes usage would ensure that issues are found and fixed faster.  
+However, fleet is just a distributed init and not a complete scheduling and orchestration system. Next to a lot of work on our tooling, it required significant improvements in terms of communication between peers, its reconciliation loop, and stability that we had to work on. Also the uptake in Kubernetes usage would ensure that issues are found and fixed faster.
 
-As we had made good experience with introducing Kubernetes on the user side and with recent developments like [rktnetes](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes) and [stackanetes](https://github.com/stackanetes/stackanetes) it felt like time for us to also move our base layer to Kubernetes.  
+As we had made good experience with introducing Kubernetes on the user side and with recent developments like [rktnetes](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes) and [stackanetes](https://github.com/stackanetes/stackanetes) it felt like time for us to also move our base layer to Kubernetes.
 
 
 
@@ -42,7 +42,7 @@ And wouldn’t it be nice to have an API and frontend for that?
 
 
 
-Based on the above requirements we set out to build what we call Giantnetes - or if you’re into movies, Kubeception. At the most basic abstraction it is an outer Kubernetes cluster (the actual Giantnetes), which is used to run and manage multiple completely isolated user Kubernetes clusters.  
+Based on the above requirements we set out to build what we call Giantnetes - or if you’re into movies, Kubeception. At the most basic abstraction it is an outer Kubernetes cluster (the actual Giantnetes), which is used to run and manage multiple completely isolated user Kubernetes clusters.
 
  ![](https://lh6.googleusercontent.com/jWRQBd96sPwtiG6vE_4DPAvEWrRnXTWVfWE3O4_JeCXYzSaAZPpVQA-s5K8W-GTZdQBYeC-g3rS3LMB_vgz6h8-EVQps0JIcaxoeXI8T6aVOowWtWdxRB78b_K3bxzfvVWGb5cWM)
 
@@ -64,7 +64,7 @@ Then, to create the inner Kubernetes clusters, we initiate a few pods, which con
 
 
 
-Currently this means we are starting Pods with Docker containers that in turn start VMs with KVM and qemu. However, we are looking into doing this with [rkt qemu-kvm](https://github.com/coreos/rkt/blob/master/Documentation/running-kvm-stage1.md), which would result in using a rktnetes setup for our Giantnetes.  
+Currently this means we are starting Pods with Docker containers that in turn start VMs with KVM and qemu. However, we are looking into doing this with [rkt qemu-kvm](https://github.com/coreos/rkt/blob/master/Documentation/running-kvm-stage1.md), which would result in using a rktnetes setup for our Giantnetes.
 
 
  ![](https://lh3.googleusercontent.com/fl8PIu5NgS4vRmUDuAGzni3uW-5RTYD0U22rF6fXr_UBfta4cLhQa2CsRNvDrmc2TiIZDRairTDYpn8QiU3Cjf6m8v74vFENCy9MHa3MgvNNEvvcwrwOxhvMe-pNITCDpV41bWBc)
@@ -87,15 +87,15 @@ For ensuring access to the API and to services of each inner Kubernetes cluster 
 
 
 
-Let’s have a look at a minimal sample deployment of Giantnetes.  
+Let’s have a look at a minimal sample deployment of Giantnetes.
 
  ![Screen Shot 2016-11-14 at 12.08.40 PM.png](https://lh6.googleusercontent.com/wX9sxvO2um5DeT-mjMpazRWZOvauARHLA2z5wRZC41d4V72nzNQORSxxRxq1dJxZ4Rvw3ji7_ThAntYv-iSUgZl_Eq3gSCNRRHafTuN5rdQ9eo1HwD64LP01GNsSL-SRMA5-RDGW)
 
 
 
-In the above example you see a user Kubernetes cluster `customera` running in VM-containers on top of Giantnetes. We currently use Jobs for the network and certificate setups.  
+In the above example you see a user Kubernetes cluster `customera` running in VM-containers on top of Giantnetes. We currently use Jobs for the network and certificate setups.
 
-Peeking inside the user cluster, you see the DNS pods and a helloworld running.  
+Peeking inside the user cluster, you see the DNS pods and a helloworld running.
 
  ![Screen Shot 2016-11-14 at 12.07.28 PM.png](https://lh3.googleusercontent.com/5o88zBSr5-JigMWvVnfN6nmMlKPtEt8-Gw5j_3Rq3QdsvLiHIVoOsow8WfgA5wd8WsA8M9C-MV4AdS04XDzLfzNR4T6ZXqPPAZc-Imbr-Um0B5QajGTtCqIwsMjsSAA9O-un3wvU)
 

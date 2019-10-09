@@ -115,7 +115,7 @@ authenticate to the API server as a bearer token.
 `cluster-info` ConfigMap as described below.
 
 The `expiration` field controls the expiry of the token.  Expired tokens are
-rejected when used for authentication and ignored during ConfigMap signing. 
+rejected when used for authentication and ignored during ConfigMap signing.
 The expiry value is encoded as an absolute UTC time using RFC3339.  Enable the
 `tokencleaner` controller to automatically delete expired tokens.
 

@@ -6,13 +6,13 @@ full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   オブジェクトを一意に識別するためのKubernetesが生成する文字列です。
 
-aka: 
+aka:
 tags:
 - fundamental
 ---
  オブジェクトを一意に識別するためのKubernetesが生成する文字列です。
 
-<!--more--> 
+<!--more-->
 
 Kubernetesクラスターの生存期間中にわたって生成された全てのオブジェクトは、異なるUIDを持っています。これは類似のエンティティの、同一時間軸での存在を区別するのが目的です。
 

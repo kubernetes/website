@@ -42,17 +42,17 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, adds the file directory to the header</td>
     </tr>
-    
+
     <tr>
       <td colspan="2">--address 0.0.0.0</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address for the Kubelet to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces) (default 0.0.0.0) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
     </tr>
-    
+
     <tr>
       <td colspan="2">--allowed-unsafe-sysctls strings</td>
-    </tr>  
+    </tr>
     <tr>
      <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated whitelist of unsafe sysctls or unsafe sysctl patterns (ending in *). Use these at your own risk. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
     </tr>
@@ -221,7 +221,7 @@ kubelet [flags]
     <tr>
        <td colspan="2">--cni-cache-dir string</td>
     </tr>
-    <tr>                                            
+    <tr>
        <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Alpha feature> The full path of the directory in which CNI should store cache files. This docker-specific flag only works when container-runtime is set to docker. (default "/var/lib/cni/cache")</td>
     </tr>
 
@@ -251,8 +251,8 @@ kubelet [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Beta feature> Set the maximum number of container log files that can be present for a container. The number must be >= 2. This flag can only be used with --container-runtime=remote. (default 5) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
-    </tr>    
-  
+    </tr>
+
     <tr>
        <td colspan="2">--container-log-max-size string</td>
     </tr>
@@ -280,7 +280,7 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">  containerd endpoint (default "/run/containerd/containerd.sock") (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--contention-profiling</td>
     </tr>
@@ -322,7 +322,7 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">docker endpoint (default "unix:///var/run/docker.sock") (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--docker-endpoint string</td>
     </tr>
@@ -511,7 +511,7 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to 'true', Hard Eviction Thresholds will be ignored while calculating Node Allocatable. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. [default=false]</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--experimental-bootstrap-kubeconfig string</td>
     </tr>
@@ -568,7 +568,7 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Interval between global housekeepings (default 1m0s) (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--hairpin-mode string</td>
     </tr>
@@ -645,28 +645,28 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] The endpoint of remote image service. If not specified, it will be the same with container-runtime-endpoint by default. Currently unix socket endpoint is supported on Linux, while npipe and tcp endpoints are supported on windows.  Examples:'unix:///var/run/dockershim.sock', 'npipe:////./pipe/dockershim'</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--iptables-drop-bit int32</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The bit of the fwmark space to mark packets for dropping. Must be within the range [0, 31]. (default 15) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--iptables-masquerade-bit int32</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The bit of the fwmark space to mark packets for SNAT. Must be within the range [0, 31]. Please match this parameter with corresponding parameter in kube-proxy. (default 14) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--keep-terminated-pod-volumes</td>
     </tr>
     <tr>
     <td></td><td style="line-height: 130%; word-wrap: break-word;">Keep terminated pod volumes mounted to the node after the pod terminates.  Can be useful for debugging volume related issues. (DEPRECATED: will be removed in a future version)</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--kube-api-burst int32</td>
     </tr>
@@ -743,19 +743,19 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">If non-empty, write log files in this directory</td>
     </tr>
-    
+
     <tr>
-      <td colspan="2">--log-file string</td>  
+      <td colspan="2">--log-file string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">If non-empty, use this log file</td>
     </tr>
-    
+
     <tr>
       <td colspan="2">--log-file-max-size uint</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Defines the maximum 
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Defines the maximum
       size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited. (default 1800)</td>
     </tr>
 
@@ -806,7 +806,7 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The namespace from which the kubernetes master services should be injected into pods (default "default") (DEPRECATED: This flag will be removed in a future version.)</td>
     </tr>
-    
+
     <tr>
        <td colspan="2">--max-open-files int</td>
     </tr>

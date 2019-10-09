@@ -16,7 +16,7 @@ Over the past year, we’ve seen fantastic momentum in the Kubernetes project, c
 
 [CloudBees][6] and the Jenkins community have created a Kubernetes plugin, allowing Jenkins slaves to be built as Docker images and run in Docker hosts managed by Kubernetes, either on the Google Cloud Platform or on a more local Kubernetes instance. These elastic slaves are then brought online as Jenkins schedules jobs for them and destroyed after their builds are complete, ensuring masters have steady access to clean workspaces and minimizing builds’ resource footprint.
 
- |  
+ |
 |
 
 ![][7]
@@ -25,7 +25,7 @@ Over the past year, we’ve seen fantastic momentum in the Kubernetes project, c
 
 [CoreOS][8] has created launched Tectonic, an opinionated enterprise distribution of Kubernetes, CoreOS and Docker. Tectonic includes a management console for workflows and dashboards, an integrated registry to build and share containers, and additional tools to automate deployment and customize rolling updates. At KuberCon, CoreOS launched Tectonic Preview, giving users easy access to Kubernetes 1.0, 24x7 enterprise ready support, Kubernetes guides and Kubernetes training to help enterprises begin experiencing the power of Kubernetes, CoreOS and Docker.
 
- |  
+ |
 |
 
 ![][9]
@@ -34,7 +34,7 @@ Over the past year, we’ve seen fantastic momentum in the Kubernetes project, c
 
 [Hitachi Data Systems][10] has announced that Kubernetes now joins the list of solutions validated to run on their enterprise Unified Computing Platform. With this announcement Hitachi has validated Kubernetes and VMware running side-by-side on the UCP platform, providing an enterprise solution for container-based applications and traditional virtualized workloads.
 
- |  
+ |
 |
 
 ![][11]
@@ -43,7 +43,7 @@ Over the past year, we’ve seen fantastic momentum in the Kubernetes project, c
 
 [Kismatic][12] is providing enterprise support for pure play open source Kubernetes. They have announced open source and commercially supported Kubernetes plug-ins specifically built for production-grade enterprise environments. Any Kubernetes deployment can now benefit from modular role-based access controls (RBAC), Kerberos for bedrock authentication, LDAP/AD integration, rich auditing and platform-agnostic Linux distro packages.
 
- |  
+ |
 |
 
 ![][13]
@@ -52,7 +52,7 @@ Over the past year, we’ve seen fantastic momentum in the Kubernetes project, c
 
 [Meteor Development Group][14], creators of Meteor, a JavaScript App Platform, are using Kubernetes to build [Galaxy][14] to run Meteor apps in production. Galaxy will scale from free test apps to production-suitable high-availability hosting.
 
- |  
+ |
 |
 
 ![][15]
@@ -61,7 +61,7 @@ Over the past year, we’ve seen fantastic momentum in the Kubernetes project, c
 
 Mesosphere has incorporated Kubernetes into its Data Center Operating System (DCOS) platform as a first class citizen. Using DCOS, enterprises can deploy Kubernetes across thousands of nodes, both bare-metal and virtualized machines that can run on-premise and in the cloud.  Mesosphere also launched a beta of their [Kubernetes Training Bootcamp][16] and will be offering more in the future.
 
- |  
+ |
 |
 
 ![][17]
@@ -70,7 +70,7 @@ Mesosphere has incorporated Kubernetes into its Data Center Operating System (DC
 
 [Mirantis][18] is enabling hybrid cloud applications across OpenStack and other clouds supporting Kubernetes. An OpenStack Murano app package supports full application lifecycle actions such as deploy, create cluster, create pod, add containers to pods, scale up and scale down.
 
- |  
+ |
 |
 
 ![][19]
@@ -79,16 +79,16 @@ Mesosphere has incorporated Kubernetes into its Data Center Operating System (DC
 
 [OpenContrail][20] is creating a kubernetes-contrail plugin designed to stitch the cluster management capabilities of Kubernetes with the network service automation capabilities of OpenContrail. Given the event-driven abstractions of pods and services inherent in Kubernetes, it is a simple extension to address network service enforcement by leveraging OpenContrail’s Virtual Network policy approach and programmatic API’s.
 
- |  
+ |
 |
 
 ![logo.png][21]
 
  |
 
-[Pachyderm][22] is a containerized data analytics engine which provides the broad functionality of Hadoop with the ease of use of Docker. Users simply provide containers with their data analysis logic and Pachyderm will distribute that computation over the data. They have just released full deployment on Kubernetes for on premise deployments, and on Google Container Engine, eliminating all the operational overhead of running a cluster yourself.  
+[Pachyderm][22] is a containerized data analytics engine which provides the broad functionality of Hadoop with the ease of use of Docker. Users simply provide containers with their data analysis logic and Pachyderm will distribute that computation over the data. They have just released full deployment on Kubernetes for on premise deployments, and on Google Container Engine, eliminating all the operational overhead of running a cluster yourself.
 
- |  
+ |
 |
 
 ![][23]
@@ -97,7 +97,7 @@ Mesosphere has incorporated Kubernetes into its Data Center Operating System (DC
 
 [Platalytics, Inc][24]. and announced the release of one-touch deploy-anywhere feature for its Spark Application Platform. Based on Kubernetes, Docker, and CoreOS, it allows simple and automated deployment of Apache Hadoop, Spark, and Platalytics platform, with a single click, to all major public clouds, including Google, Amazon, Azure, Digital Ocean, and private on-premise clouds. It also enables hybrid cloud scenarios, where resources on public and private clouds can be mixed.
 
- |  
+ |
 |
 
 ![][25]
@@ -106,7 +106,7 @@ Mesosphere has incorporated Kubernetes into its Data Center Operating System (DC
 
 [Rackspace][26] has created Corekube as a simple, quick way to deploy Kubernetes on OpenStack. By using a decoupled infrastructure that is coordinated by etcd, fleet and flannel, it enables users to try Kubernetes and CoreOS without all the fuss of setting things up by hand.
 
- |  
+ |
 |
 
 ![][27]
@@ -115,7 +115,7 @@ Mesosphere has incorporated Kubernetes into its Data Center Operating System (DC
 
 [Red Hat][28] is a long time proponent of Kubernetes, and a significant contributor to the project. In their own words, “From Red Hat Enterprise Linux 7 and Red Hat Enterprise Linux Atomic Host to OpenShift Enterprise 3 and the forthcoming Red Hat Atomic Enterprise Platform, we are well-suited to bring container innovations into the enterprise, leveraging Kubernetes as the common backbone for orchestration.”
 
- |  
+ |
 |
 
 ![][29]
@@ -131,10 +131,10 @@ Mesosphere has incorporated Kubernetes into its Data Center Operating System (DC
 
 
 
- |   
+ |
  |
 
-We’ve also seen a community of services partners spring up to assist in adopting Kubernetes and containers:  
+We’ve also seen a community of services partners spring up to assist in adopting Kubernetes and containers:
 
 
 
@@ -149,16 +149,16 @@ We’ve also seen a community of services partners spring up to assist in adopti
 
 [Biarca][32] is using Kubernetes to ease application deployment and scale on demand across available hybrid and multi-cloud clusters through strategically managed policy. A video on their website illustrates how to use Kubernetes to deploy applications in a private cloud infrastructure based on OpenStack and use a public cloud like GCE to address bursting demand for applications.
 
- |  
+ |
 |
 
 ![][33]
 
  |
 
-[Cloud Technology Partners][34] has developed a Container Services Offering featuring Kubernetes to assist enterprises with container best practices, adoption and implementation. This offering helps organizations understand how containers deliver competitive edge.  
+[Cloud Technology Partners][34] has developed a Container Services Offering featuring Kubernetes to assist enterprises with container best practices, adoption and implementation. This offering helps organizations understand how containers deliver competitive edge.
 
- |  
+ |
 |
 
 ![][35]
@@ -167,7 +167,7 @@ We’ve also seen a community of services partners spring up to assist in adopti
 
 [DoIT International][36] is offering a Kubernetes Bootcamp which consists of a series of hands-on exercises interleaved with mini-lectures covering hands on topics such as Container Basics, Using Docker, Kubernetes and Google Container Engine.
 
- |  
+ |
 |
 
 ![][37]
@@ -176,7 +176,7 @@ We’ve also seen a community of services partners spring up to assist in adopti
 
 [OpenCredo][38] provides a practical, lab style container and scheduler course in addition to consulting and solution delivery.  The three-day course allows development teams to quickly ramp up and make effective use of containers in real world scenarios, covering containers in general along with Docker and Kubernetes.
 
-|  
+|
 |
 
 ![][39]

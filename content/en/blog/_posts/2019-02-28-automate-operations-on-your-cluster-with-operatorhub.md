@@ -6,11 +6,11 @@ date: 2019-02-28
 **Author:**
 Diane Mueller, Director of Community Development, Cloud Platforms, Red Hat
 
-One of the important challenges facing developers and Kubernetes administrators has been a lack of ability to quickly find common services that are operationally ready for Kubernetes. Typically, the presence of an Operator for a specific service - a pattern that was introduced in 2016 and has gained momentum - is a good signal for the operational readiness of the service on Kubernetes. However, there has to date not existed a registry of Operators to simplify the discovery of such services.   
+One of the important challenges facing developers and Kubernetes administrators has been a lack of ability to quickly find common services that are operationally ready for Kubernetes. Typically, the presence of an Operator for a specific service - a pattern that was introduced in 2016 and has gained momentum - is a good signal for the operational readiness of the service on Kubernetes. However, there has to date not existed a registry of Operators to simplify the discovery of such services.
 
-To help address this challenge, today Red Hat is launching OperatorHub.io in collaboration with AWS, Google Cloud and Microsoft. OperatorHub.io enables developers and Kubernetes administrators to find and install curated Operator-backed services with a base level of documentation, active maintainership by communities or vendors, basic testing, and packaging for optimized life-cycle management on Kubernetes.  
+To help address this challenge, today Red Hat is launching OperatorHub.io in collaboration with AWS, Google Cloud and Microsoft. OperatorHub.io enables developers and Kubernetes administrators to find and install curated Operator-backed services with a base level of documentation, active maintainership by communities or vendors, basic testing, and packaging for optimized life-cycle management on Kubernetes.
 
-The Operators currently in OperatorHub.io are just the start. We invite the Kubernetes community to join us in building a vibrant community for Operators by developing, packaging, and publishing Operators on OperatorHub.io. 
+The Operators currently in OperatorHub.io are just the start. We invite the Kubernetes community to join us in building a vibrant community for Operators by developing, packaging, and publishing Operators on OperatorHub.io.
 
 ## What does OperatorHub.io provide?
 
@@ -49,7 +49,7 @@ While Operators on OperatorHub.io don’t need to be implemented using the SDK, 
 
 ## What does listing of an Operator on OperatorHub.io mean?
 
-To be listed, Operators must successfully show cluster lifecycle features, be packaged as a CSV to be maintained through OLM, and have acceptable documentation for its intended users.  
+To be listed, Operators must successfully show cluster lifecycle features, be packaged as a CSV to be maintained through OLM, and have acceptable documentation for its intended users.
 
 Some examples of Operators that are currently listed on OperatorHub.io include: Amazon Web Services Operator, Couchbase Autonomous Operator, CrunchyData’s PostgreSQL, etcd Operator, Jaeger Operator for Kubernetes, Kubernetes Federation Operator, MongoDB Enterprise Operator, Percona MySQL Operator, PlanetScale’s Vitess Operator, Prometheus Operator, and Redis Operator.
 

@@ -386,7 +386,7 @@ how to bring up a cluster federation correctly (or have your cluster administrat
 Check that:
 
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`).
-2. Your clusters are all 'Active'. This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints. If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be. 
+2. Your clusters are all 'Active'. This means that the cluster Federation system was able to connect and authenticate against the clusters' endpoints. If not, consult the logs of the federation-controller-manager pod to ascertain what the failure might be.
       ```
       kubectl --namespace=federation logs $(kubectl get pods --namespace=federation -l module=federation-controller-manager -o name)
       ```

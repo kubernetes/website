@@ -26,7 +26,7 @@ sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install ansible
 ```
-    
+
 On CloudStack server you also have to install libselinux-python :
 
 ```shell

@@ -6,13 +6,13 @@ full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#maste
 short_description: >
   Community members who collectively manage an ongoing piece or aspect of the larger Kubernetes open source project.
 
-aka: 
+aka:
 tags:
 - community
 ---
  {{< glossary_tooltip text="Community members" term_id="member" >}} who collectively manage an ongoing piece or aspect of the larger Kubernetes open source project.
 
-<!--more--> 
+<!--more-->
 
 Members within a SIG have a shared interest in advancing a specific area, such as architecture, API machinery, or documentation.
 SIGs must follow the [SIG Governance](https://github.com/kubernetes/community/blob/master/sig-governance.md) guidelines but can have their own contribution policy and channels of communication.

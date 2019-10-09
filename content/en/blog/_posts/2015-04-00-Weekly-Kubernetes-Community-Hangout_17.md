@@ -4,16 +4,16 @@ date: 2015-04-17
 slug: weekly-kubernetes-community-hangout_17
 url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_17
 ---
-Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.  
+Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.
 
-Agenda  
+Agenda
 
 * Mesos Integration
 * High Availability (HA)
 * Adding performance and profiling details to e2e to track regressions
 * Versioned clients
 
-Notes  
+Notes
 
 
 * Mesos integration

@@ -12,7 +12,7 @@ A Container's file system lives only as long as the Container does. So when a
 Container terminates and restarts, filesystem changes are lost. For more
 consistent storage that is independent of the Container, you can use a
 [Volume](/docs/concepts/storage/volumes/). This is especially important for stateful
-applications, such as key-value stores (such as Redis) and databases. 
+applications, such as key-value stores (such as Redis) and databases.
 
 {{% /capture %}}
 
@@ -46,7 +46,7 @@ the Pod:
     ```shell
     kubectl get pod redis --watch
     ```
-    
+
     The output looks like this:
 
     ```shell

@@ -13,7 +13,7 @@ card:
 ---
 
 {{% capture overview %}}
-This page provides an overview of the Kubernetes API. 
+This page provides an overview of the Kubernetes API.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -57,7 +57,7 @@ Here's a summary of each level:
   - The support for a feature may be dropped at any time without notice.
   - The API may change in incompatible ways in a later software release without notice.
   - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of  long-term support.
-  
+
 - Beta:
   - The version names contain `beta` (for example, `v2beta3`).
   - The software is well tested. Enabling a feature is considered safe. Features are enabled by default.
@@ -65,11 +65,11 @@ Here's a summary of each level:
   - The schema and/or semantics of objects may change in incompatible ways in a subsequent beta or stable release. When this happens, migration instructions are provided.  This may require deleting, editing, and re-creating
     API objects. The editing process may require some thought. This may require downtime for applications that rely on the feature.
   - The software is recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases. If you have multiple clusters which can be upgraded independently, you may be able to relax this restriction.
-  
+
  {{< note >}}
 Try the beta features and provide feedback. After the features exit beta, it may not be practical to make more changes.
  {{< /note >}}
-  
+
 - Stable:
   - The version name is `vX` where `X` is an integer.
   - The stable versions of features appear in released software for many subsequent versions.
@@ -89,7 +89,7 @@ The two paths that support extending the API with [custom resources](/docs/conce
  - [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
    for basic CRUD needs.
  - [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md) for a full set of Kubernetes API semantics to implement their own apiserver.
- 
+
 
 ## Enabling API groups
 

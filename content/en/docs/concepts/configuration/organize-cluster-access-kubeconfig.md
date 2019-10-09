@@ -48,7 +48,7 @@ clusters and namespaces.
 A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster. 
+the *current context* to communicate with the cluster.
 
 To choose the current context:
 ```

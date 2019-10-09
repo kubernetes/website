@@ -383,7 +383,7 @@ with namespaces, it can prevent one team from hogging all the resources.
 
 通过查看 `Pods` 部分，您将看到哪些 Pod 占用的节点上的资源。
 
-Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。 
+Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。
 [NodeStatus](/docs/resources-reference/{{< param "version" >}}/#nodestatus-v1-core) 的 `allocatable` 字段给出了可用于 Pod 的资源量。
 有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
 
@@ -484,7 +484,7 @@ If an optional runtime partition is used, root partition will not hold any image
 ## 本地临时存储
 
 Kubernetes版本1.8引入了新资源_ephemeral-storage_，用于管理本地临时存储。
-在每个Kubernetes节点中，kubelet的根目录（默认为 /var/lib/kubelet）和日志目录（ /var/log ）存储在节点的根分区上。 
+在每个Kubernetes节点中，kubelet的根目录（默认为 /var/lib/kubelet）和日志目录（ /var/log ）存储在节点的根分区上。
 Pods还通过emptyDir卷，容器日志，镜像层和容器可写层共享和使用此分区。
 
 该分区是“临时”分区，应用程序无法从该分区获得任何性能SLA（例如磁盘IOPS）。 本地临时存储管理仅适用于根分区。 图像层和可写层的可选分区超出范围。
@@ -553,7 +553,7 @@ spec:
 ### How Pods with ephemeral-storage requests are scheduled
 
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 
 The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 -->
@@ -594,7 +594,7 @@ as alpha functionality for monitoring only.
 ### 监控临时存储消耗
 
 使用本地临时存储时，kubelet 会持续对本地临时存储时进行监视。
-通过定期扫描，来监视每个 emptyDir 卷，日志目录和可写层。 
+通过定期扫描，来监视每个 emptyDir 卷，日志目录和可写层。
 从Kubernetes 1.15开始，作为集群操作员的一个选项，可以通过[项目配额](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) 来管理 emptyDir 卷（但是不包括日志目录或可写层）。
 项目配额最初是在XFS中实现的，最近又被移植到ext4fs中。 项目配额可用于监视和执行； 从Kubernetes 1.15开始，它们可用作Alpha功能仅用于监视。
 
@@ -608,8 +608,8 @@ continues to consume space.  This space will be tracked by the quota,
 but will not be seen by a directory scan.
 -->
 
-配额比目录扫描更快，更准确。 
-将目录分配给项目时，在该目录下创建的所有文件都将在该项目中创建，内核仅需跟踪该项目中的文件正在使用多少块。 
+配额比目录扫描更快，更准确。
+将目录分配给项目时，在该目录下创建的所有文件都将在该项目中创建，内核仅需跟踪该项目中的文件正在使用多少块。
 如果创建并删除了文件，但是文件描述符已打开，它将继续占用空间。 该空间将由配额跟踪，但目录扫描不会检查。
 
 <!--
@@ -620,7 +620,7 @@ IDs must be registered in `/etc/projects` and `/etc/projid` to prevent
 Kubernetes from using them.
 -->
 
-Kubernetes使用从1048576开始的项目ID。正在使用的ID注册于 `/etc/projects` 和 `/etc/projid`。 
+Kubernetes使用从1048576开始的项目ID。正在使用的ID注册于 `/etc/projects` 和 `/etc/projid`。
 如果此范围内的项目ID用于系统上的其他目的，则这些项目ID必须在 `/etc/projects` 和 `/etc/projid` 中注册，以防止Kubernetes使用它们。
 
 <!--
@@ -745,9 +745,9 @@ that requests the resource to be scheduled on that node.
 
 ##### 其他资源
 为了发布新的节点级拓展资源，集群操作员可以向API服务器提交 `PATCH` HTTP 请求，
-以在 `status.capacity` 中为集群中的节点指定可用数量。 
-完成此操作后，节点的 `status.capacity` 将包含新资源。 
-由kubelet异步使用新资源自动更新 `status.allocatable` 字段。 
+以在 `status.capacity` 中为集群中的节点指定可用数量。
+完成此操作后，节点的 `status.capacity` 将包含新资源。
+由kubelet异步使用新资源自动更新 `status.allocatable` 字段。
 请注意，由于调度程序在评估Pod适合性时使用节点的状态 `status.allocatable` 值，
 因此在用新资源修补节点容量和请求在该节点上调度资源的第一个Pod之间可能会有短暂的延迟。
 
@@ -761,7 +761,7 @@ is `k8s-master`.
 
 **示例:**
 
-这是一个示例，显示了如何使用 `curl` 进行HTTP请求，该请求在主节点为 `k8s-master` 的子节点 `k8s-node-1` 
+这是一个示例，显示了如何使用 `curl` 进行HTTP请求，该请求在主节点为 `k8s-master` 的子节点 `k8s-node-1`
 上通告五个 `example.com/foo` 资源。
 
 ```shell
@@ -779,7 +779,7 @@ in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 -->
 
-在前面的请求中，`~1` 是 Patch 路径中字符 `/` 的编码。 JSON-Patch中的操作路径值被解释为JSON-Pointer。 
+在前面的请求中，`~1` 是 Patch 路径中字符 `/` 的编码。 JSON-Patch中的操作路径值被解释为JSON-Pointer。
 有关更多详细信息，请参见
 [IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
 {{< /note >}}
@@ -854,7 +854,7 @@ _invalid_ quantities are `0.5` and `1500m`.
 
 ### 消耗扩展资源
 
-就像 CPU 和内存一样，用户可以使用 Pod 的扩展资源。 
+就像 CPU 和内存一样，用户可以使用 Pod 的扩展资源。
 调度程序负责核算资源，因此不会同时将过多的可用资源分配给 Pod。
 
 {{< note >}}
@@ -948,7 +948,7 @@ consistency across providers and platforms.
 在 kubernetes 1.5 版本中仅允许在容器上指定资源量。计划改进对所有容器在 Pod 中共享资源的计量，
 如 [emptyDir volume](/docs/concepts/storage/volumes/#emptydir)。
 
-在 kubernetes 1.5 版本中仅支持容器对 CPU 和内存的申请和限制。计划增加新的资源类型，包括节点磁盘空间资源和一个可支持自定义 
+在 kubernetes 1.5 版本中仅支持容器对 CPU 和内存的申请和限制。计划增加新的资源类型，包括节点磁盘空间资源和一个可支持自定义
 [资源类型](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/resources.md) 的框架。
 
 Kubernetes 通过支持通过多级别的 [服务质量](http://issue.k8s.io/168) 来支持资源的过度使用。

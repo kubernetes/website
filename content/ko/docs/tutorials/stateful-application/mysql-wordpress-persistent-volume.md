@@ -3,7 +3,7 @@ title: "예시: WordPress와 MySQL을 퍼시스턴트 볼륨에 배포하기"
 reviewers:
 content_template: templates/tutorial
 weight: 20
-card: 
+card:
   name: tutorials
   weight: 40
   title: "스테이트풀셋 예시: Wordpress와 퍼시스턴트 볼륨"
@@ -95,7 +95,7 @@ EOF
 다음의 매니페스트는 단일-인스턴스 WordPress 디플로이먼트를 기술한다. WordPress 컨테이너는
 웹사이트 데이터 파일을 위해 `/var/www/html`에 퍼시스턴트볼륨을 마운트한다. `WORDPRESS_DB_HOST` 환경 변수에는
 위에서 정의한 MySQL 서비스의 이름이 설정되며, WordPress는 서비스를 통해 데이터베이스에 접근한다.
-`WORDPRESS_DB_PASSWORD` 환경 변수에는 kustomize가 생성한 데이터베이스 패스워드가 설정된다. 
+`WORDPRESS_DB_PASSWORD` 환경 변수에는 kustomize가 생성한 데이터베이스 패스워드가 설정된다.
 
 {{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
@@ -104,13 +104,13 @@ EOF
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
       ```
-            
+
 2. WordPress 구성 파일을 다운로드한다.
 
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
       ```
-      
+
 3. 두 파일을 `kustomization.yaml`에 추가하자.
 
       ```shell
@@ -148,7 +148,7 @@ kubectl apply -k ./
       ```shell
       kubectl get pvc
       ```
-      
+
       {{< note >}}
       PV를 프로비저닝하고 정착(bound)시키는데 수 분이 걸릴 수 있다.
       {{< /note >}}

@@ -6,14 +6,14 @@ full_link: /docs/getting-started-guides/kops/
 short_description: >
   A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
 
-aka: 
+aka:
 tags:
 - tool
 - operation
 ---
  A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
 
-<!--more--> 
+<!--more-->
 
 {{< note >}}
 kops has general availability support only for AWS.

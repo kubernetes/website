@@ -34,9 +34,9 @@ Note taker: [Ilan Rabinovich]
       * Another Kubernetes 1.2 update
       * Update from CNCF update
       * 1.3 commitments from google
-  * No meeting on March 10th.  
+  * No meeting on March 10th.
 
-To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation — March 3rd, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].    
+To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation — March 3rd, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].
 
 The full recording is available on YouTube in the growing archive of [Kubernetes Community Meetings][7].  _\-- Kubernetes Community_
 

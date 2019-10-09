@@ -6,7 +6,7 @@ full_link: /docs/concepts/workloads/controllers/jobs-run-to-completion
 short_description: >
   A finite or batch task that runs to completion.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
@@ -14,7 +14,7 @@ tags:
 ---
  A finite or batch task that runs to completion.
 
-<!--more--> 
+<!--more-->
 
 Creates one or more {{< glossary_tooltip term_id="pod" >}} objects and ensures that a specified number of them successfully terminate. As Pods successfully complete, the Job tracks the successful completions.
 

@@ -120,7 +120,7 @@ Run the following command to have Docker run the application in a container and 
 ```
 docker run -p 5001:5000 hello-python
 ```
-Now navigate to http://localhost:5001, and you should see the “Hello form Python!” message. 
+Now navigate to http://localhost:5001, and you should see the “Hello form Python!” message.
 
 ### More info
 * [Get started with Docker](https://docs.docker.com/get-started/)
@@ -142,7 +142,7 @@ If you are running on Windows or Mac, make sure it is using the Docker for Deskt
 kubectl config use-context docker-for-desktop
 ```
 
-Now you are working with Kubernetes! You can see the node by typing: 
+Now you are working with Kubernetes! You can see the node by typing:
 ```
 kubectl get nodes
 ```
@@ -188,7 +188,7 @@ spec:
 
 This YAML file is the instructions to Kubernetes for what you want running. It is telling Kubernetes the following:
 * You want a load-balanced service exposing port 6000
-* You want four instances of the hello-python container running 
+* You want four instances of the hello-python container running
 
 Use kubectl to send the YAML file to Kubernetes by running the following command:
 ```
@@ -201,7 +201,7 @@ kubectl get pods
 ```
 <img src="/images/blog/get-started-with-kubernetes-using-python/kubectl-get-pods.png" alt="Pod listing" />
 
-Now navigate to http://localhost:6000, and you should see the “Hello form Python!” message. 
+Now navigate to http://localhost:6000, and you should see the “Hello form Python!” message.
 
 That’s it! The application is now running in Kubernetes!
 
@@ -222,7 +222,7 @@ If you are just getting started and this walk-through was useful to you, then th
   * This is my favorite book on Docker and Kubernetes.
 * [Kubernetes Learning Path: 50 days from zero to hero with Kubernetes](https://aka.ms/LearnKubernetes) - on Microsoft’s site
   * This is a 10-page pdf that has tons of links to videos (with Brendan Burns), documentation sites, and a really good workshop for Azure Kubernetes Service.
-  
+
 ## How to enable Kubernetes in Docker Desktop
 Once you have Docker Desktop installed, open the Settings:
 

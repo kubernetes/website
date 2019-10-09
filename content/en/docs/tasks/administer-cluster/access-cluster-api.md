@@ -220,7 +220,7 @@ one of the official [client libraries](/docs/reference/using-api/client-librarie
 libraries can automatically discover the API server and authenticate.
 
 While running in a Pod, the Kubernetes apiserver is accessible via a Service named
-`kubernetes` in the `default` namespace. Therefore, Pods can use the 
+`kubernetes` in the `default` namespace. Therefore, Pods can use the
 `kubernetes.default.svc` hostname to query the API server. Official client libraries
 do this automatically.
 
@@ -246,7 +246,7 @@ From within a Pod, the recommended ways to connect to the Kubernetes API are:
   - For a Python client, use the official [Python client library](https://github.com/kubernetes-client/python/).
     The `config.load_incluster_config()` function handles API host discovery and authentication automatically.
     See [an example here](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
-    
+
   - If you would like to query the API without an official client library, you can run `kubectl proxy`
     as the [command](/docs/tasks/inject-data-application/define-command-argument-container/)
     of a new sidecar container in the Pod. This way, `kubectl proxy` will authenticate

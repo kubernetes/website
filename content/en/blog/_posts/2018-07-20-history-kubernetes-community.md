@@ -47,9 +47,9 @@ In June of 2014 when Kubernetes was released to the world, the list above was th
 
 Three years later, the Kubernetes community has grown exponentially, and Kubernetes has become synonymous with cloud native container orchestration. There are more than 1700 people who have contributed to Kubernetes, there are more than 500 Kubernetes meetups worldwide and more than 42000 users have joined the #kubernetes-dev channel. What’s more, the community that we have built works successfully across geographic, language and corporate boundaries. It is a truly open, engaged and collaborative community, and in-and-of-itself and amazing achievement. Many thanks to everyone who has helped make it what it is today. Kubernetes is a commodity in the public cloud because of you.
 
-But if Kubernetes is a commodity, then what is the future? Certainly, there are an endless array of tweaks, adjustments and improvements to the core codebase that will occupy us for years to come, but the true future of Kubernetes are the applications and experiences that are being built on top of this new, ubiquitous platform.  
+But if Kubernetes is a commodity, then what is the future? Certainly, there are an endless array of tweaks, adjustments and improvements to the core codebase that will occupy us for years to come, but the true future of Kubernetes are the applications and experiences that are being built on top of this new, ubiquitous platform.
 
-Kubernetes has dramatically reduced the complexity to build new developer experiences, and a myriad of new experiences have been developed or are in the works that provide simplified or targeted developer experiences like Functions-as-a-Service, on top of core Kubernetes-as-a-Service.  
+Kubernetes has dramatically reduced the complexity to build new developer experiences, and a myriad of new experiences have been developed or are in the works that provide simplified or targeted developer experiences like Functions-as-a-Service, on top of core Kubernetes-as-a-Service.
 
 The Kubernetes cluster itself is being extended with custom resource definitions (which I first described to Kelsey Hightower on a walk from OSCON to a nearby restaurant in 2015), these new resources allow cluster operators to enable new plugin functionality that extend and enhance the APIs that their users have access to.
 

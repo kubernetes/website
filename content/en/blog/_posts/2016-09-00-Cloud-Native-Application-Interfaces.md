@@ -12,15 +12,15 @@ _--by Brian Grant and Craig Mcluckie, Google_
 
 
 
-When you say we need ‘software standards’ in erudite company, you get some interesting looks. Most concede that software standards have been central to the success of the boldest and most successful projects out there (like the Internet). Most are also skeptical about how they apply to the innovative world we live in today. Our projects are executed in week increments, not years. Getting bogged down behind mega-software-corporation-driven standards practices would be the death knell in this fluid, highly competitive world.  
+When you say we need ‘software standards’ in erudite company, you get some interesting looks. Most concede that software standards have been central to the success of the boldest and most successful projects out there (like the Internet). Most are also skeptical about how they apply to the innovative world we live in today. Our projects are executed in week increments, not years. Getting bogged down behind mega-software-corporation-driven standards practices would be the death knell in this fluid, highly competitive world.
 
-This isn’t about ‘those’ standards. The ones that emerge after years of deep consideration and negotiation that are eventually published by a body with a four-letter acronym for a name. This is about a different approach: finding what is working in the real world, and acting as a community to embrace it.  
+This isn’t about ‘those’ standards. The ones that emerge after years of deep consideration and negotiation that are eventually published by a body with a four-letter acronym for a name. This is about a different approach: finding what is working in the real world, and acting as a community to embrace it.
 
-Let’s go back to first principles. To describe Cloud Native in one word, we'd choose "automatable".  
+Let’s go back to first principles. To describe Cloud Native in one word, we'd choose "automatable".
 
-Most existing applications are not.&nbsp;  
+Most existing applications are not.&nbsp;
 
-Applications have many interfaces with their environment, whether with management infrastructure, shared services, or other applications. For us to remove the operator from patching, scaling, migrating an app from one environment to another, changing out dependencies, and handling of failure conditions, a set of well structured common interfaces is essential. It goes without saying that these interfaces must be designed for machines, not just humans. Machine-friendly interfaces allow automation systems to understand the systems under management, and create the loose coupling needed for applications to live in automated environments.&nbsp;  
+Applications have many interfaces with their environment, whether with management infrastructure, shared services, or other applications. For us to remove the operator from patching, scaling, migrating an app from one environment to another, changing out dependencies, and handling of failure conditions, a set of well structured common interfaces is essential. It goes without saying that these interfaces must be designed for machines, not just humans. Machine-friendly interfaces allow automation systems to understand the systems under management, and create the loose coupling needed for applications to live in automated environments.&nbsp;
 
 
 
@@ -36,7 +36,7 @@ When we look inside the systems at Google, we have been able to achieve very hig
 
 
 
-Even though Google has managed to get by this way, it hurts us. One way is when we acquire a company. Porting their technology to run in our automation systems requires a spectacular amount of work. Doing that work while continuing to innovate is particularly tough. Even more significant though, there’s a lot of innovation happening in the open source world that isn’t easy for us to tap into.&nbsp;When new technology emerges, we would like to be able to experiment with it, adopt it piecemeal, and perhaps contribute back to it. When you run a vertically integrated, bespoke stack, that is a hard thing to do.  
+Even though Google has managed to get by this way, it hurts us. One way is when we acquire a company. Porting their technology to run in our automation systems requires a spectacular amount of work. Doing that work while continuing to innovate is particularly tough. Even more significant though, there’s a lot of innovation happening in the open source world that isn’t easy for us to tap into.&nbsp;When new technology emerges, we would like to be able to experiment with it, adopt it piecemeal, and perhaps contribute back to it. When you run a vertically integrated, bespoke stack, that is a hard thing to do.
 
 
 The lack of standard interfaces leaves customers with three choices:&nbsp;

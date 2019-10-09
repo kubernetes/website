@@ -4,17 +4,17 @@ date: 2016-07-15
 slug: automation-platform-at-wercker-with-kubernetes
 url: /blog/2016/07/Automation-Platform-At-Wercker-With-Kubernetes
 ---
-_Editor’s note: today’s guest post is by Andy Smith, the CTO of Wercker, sharing how Kubernetes helps them save time and speed up development. &nbsp;_  
+_Editor’s note: today’s guest post is by Andy Smith, the CTO of Wercker, sharing how Kubernetes helps them save time and speed up development. &nbsp;_
 
-At [Wercker](http://wercker.com/) we run millions of containers that execute our users’ CI/CD jobs. The vast majority of them are ephemeral and only last as long as builds, tests and deploys take to run, the rest are ephemeral, too -- aren't we all --, but tend to last a bit longer and run our infrastructure. As we are running many containers across many nodes, we were in need of a highly scalable scheduler that would make our lives easier, and as such, decided to implement Kubernetes.  
+At [Wercker](http://wercker.com/) we run millions of containers that execute our users’ CI/CD jobs. The vast majority of them are ephemeral and only last as long as builds, tests and deploys take to run, the rest are ephemeral, too -- aren't we all --, but tend to last a bit longer and run our infrastructure. As we are running many containers across many nodes, we were in need of a highly scalable scheduler that would make our lives easier, and as such, decided to implement Kubernetes.
 
-Wercker is a container-centric automation platform that helps developers build, test and deploy their applications. We support any number of pipelines, ranging from building code, testing API-contracts between microservices, to pushing containers to registries, and deploying to schedulers. All of these pipeline jobs run inside Docker containers and each artifact can be a Docker container.  
+Wercker is a container-centric automation platform that helps developers build, test and deploy their applications. We support any number of pipelines, ranging from building code, testing API-contracts between microservices, to pushing containers to registries, and deploying to schedulers. All of these pipeline jobs run inside Docker containers and each artifact can be a Docker container.
 
-And of course we use Wercker to build Wercker, and deploy itself onto Kubernetes!  
+And of course we use Wercker to build Wercker, and deploy itself onto Kubernetes!
 
-**Overview**  
+**Overview**
 
-Because we are a platform for running multi-service cloud-native code we've made many design decisions around isolation. On the base level we use [CoreOS](http://coreos.com/) and [cloud-init](https://coreos.com/os/docs/latest/cloud-config.html) to bootstrap a cluster of heterogeneous nodes which I have named Patricians, Peasants, as well as controller nodes that don't have a cool name and are just called Controllers. Maybe we should switch to Constables.  
+Because we are a platform for running multi-service cloud-native code we've made many design decisions around isolation. On the base level we use [CoreOS](http://coreos.com/) and [cloud-init](https://coreos.com/os/docs/latest/cloud-config.html) to bootstrap a cluster of heterogeneous nodes which I have named Patricians, Peasants, as well as controller nodes that don't have a cool name and are just called Controllers. Maybe we should switch to Constables.
 
 
  ![k8s-architecture.jpg](https://lh5.googleusercontent.com/i_Gtd1J9dekCxy7jJYZDZX0XmAmGD4f8qhrYG60FdVqnM87l-si44BGHjFdEFACZcx2E-rgRZNxuvniYDninlHAl9ZHyF2-jJjKUl-QQH8Au29hwVTbnDc0tP1Rv_Yd8mvt1tfoX)

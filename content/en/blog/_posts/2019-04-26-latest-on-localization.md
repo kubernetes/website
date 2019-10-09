@@ -20,9 +20,9 @@ Localization matters because it reduces barriers to adoption and support. When w
 
 ## How do localizations happen?
 
-The availability of docs in different languages is a feature&mdash;and like all Kubernetes features, contributors develop localized docs in a SIG, share them for review, and add them to the project. 
+The availability of docs in different languages is a feature&mdash;and like all Kubernetes features, contributors develop localized docs in a SIG, share them for review, and add them to the project.
 
-Contributors work in teams to localize content. Because folks can't approve their own PRs, localization teams have a minimum size of two&mdash;for example, the Italian localization has two contributors. Teams can also be quite large: the Chinese team has several dozen contributors. 
+Contributors work in teams to localize content. Because folks can't approve their own PRs, localization teams have a minimum size of two&mdash;for example, the Italian localization has two contributors. Teams can also be quite large: the Chinese team has several dozen contributors.
 
 Each team has its own workflow. Some teams localize all content manually; others use editors with translation plugins and review machine output for accuracy. SIG Docs focuses on standards of output; this leaves teams free to adopt the workflow that works best for them. That said, teams frequently collaborate with each other on best practices, and sharing abounds in the best spirit of the Kubernetes community.
 
@@ -30,7 +30,7 @@ Each team has its own workflow. Some teams localize all content manually; others
 
 If you're interested in starting a new localization for Kubernetes docs, the [Kubernetes contribution guide](https://kubernetes.io/docs/contribute/localization/) shows you how.
 
-Existing localizations also need help. If you'd like to contribute to an existing project, join the localization team's Slack channel and introduce yourself. Folks on that team can help you get started. 
+Existing localizations also need help. If you'd like to contribute to an existing project, join the localization team's Slack channel and introduce yourself. Folks on that team can help you get started.
 
 Localization | Slack channel
 ---|---

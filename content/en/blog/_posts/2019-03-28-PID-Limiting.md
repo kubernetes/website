@@ -3,7 +3,7 @@ title: 'Process ID Limiting for Stability Improvements in Kubernetes 1.14'
 date: 2019-04-15
 ---
 
-**Author: Derek Carr** 
+**Author: Derek Carr**
 
 Have you ever seen someone take more than their fair share of the cookies? The one person who reaches in and grabs a half dozen fresh baked chocolate chip chunk morsels and skitters off like Cookie Monster exclaiming “Om nom nom nom.”
 
@@ -11,7 +11,7 @@ In some rare workloads, a similar occurrence was taking place inside Kubernetes 
 
 ## Can You Spare Some PIDs?
 
-Here, we’re talking about the greed of certain containers. Outside the ideal, runaway processes occur from time to time, particularly in clusters where testing is taking place. Thus, some wildly non-production-ready activity is happening. 
+Here, we’re talking about the greed of certain containers. Outside the ideal, runaway processes occur from time to time, particularly in clusters where testing is taking place. Thus, some wildly non-production-ready activity is happening.
 
 In such a scenario, it’s possible for something akin to a fork bomb taking place inside a node. As resources slowly erode, being taken over by some zombie-like process that continually spawns children, other legitimate workloads begin to get bumped in favor of this inflating balloon of wasted processing power. This could result in other processes on the same pod being starved of their needed PIDs. It could also lead to interesting side effects as a node could fail and a replica of that pod is scheduled to a new machine where the process repeats across your entire cluster.
 
@@ -23,7 +23,7 @@ This change allows administrators to protect one pod from another, but does not 
 
 Get started with [Kubernetes 1.14](https://github.com/kubernetes/kubernetes/releases/tag/v1.14.0).
 
-## Get Involved 
+## Get Involved
 
 If you have feedback for this feature or are interested in getting involved with the design and development, join the [Node Special Interest Group](https://github.com/kubernetes/community/tree/master/sig-node).
 

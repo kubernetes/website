@@ -10,7 +10,7 @@ According to this recently completed [CNCF Survey](https://www.cncf.io/blog/2018
 
 ## Problems to solve
 
-### Picking the right technology is hard 
+### Picking the right technology is hard
 
 Now that you understand Kubernetes, your teams are trained and you’ve started building applications on top, it’s time to face a new layer of challenges. Cloud native doesn’t just mean deploying a platform for developers to build on top of. Developers also need storage, backup, monitoring, logging and a service mesh to enforce policies upon data in transit. Each of these individual systems must be properly configured and deployed, as well as logged, monitored and backed up on its own. The CNCF is here to help. We provide a [landscape](https://landscape.cncf.io/) overview of all cloud-native technologies, but the list is huge and can be overwhelming.
 
@@ -69,7 +69,7 @@ Rewriting is hard, costs a fortune, and in most cases is not needed. At the end 
 
 At the moment, your monolith can consume three different types of services: REST (with [OpenAPI](https://www.openapis.org/) specification)  and OData (with Entity Data Model specification) for synchronous communication, and for asynchronous communication you can register a catalog of events based on [AsyncAPI](https://www.asyncapi.com/) specification. Your events are later delivered internally using [NATS Streaming](https://nats.io/) channel with [Knative eventing](https://github.com/knative/eventing/).
 
-Once your monolith's services are connected, you can provision them in selected Namespaces thanks to the previously mentioned [Service Catalog](https://kyma-project.io/docs/components/service-catalog/) integration. You, as a developer, can go to the catalog and see a list of all the services you can consume. There are services from your monolith, and services from other 3rd party providers thanks to registered Service Brokers, like [Azure's OSBA](https://github.com/Azure/open-service-broker-azure). It is the one single place with everything you need. If you want to stand up a new application, everything you need is already available in Kyma. 
+Once your monolith's services are connected, you can provision them in selected Namespaces thanks to the previously mentioned [Service Catalog](https://kyma-project.io/docs/components/service-catalog/) integration. You, as a developer, can go to the catalog and see a list of all the services you can consume. There are services from your monolith, and services from other 3rd party providers thanks to registered Service Brokers, like [Azure's OSBA](https://github.com/Azure/open-service-broker-azure). It is the one single place with everything you need. If you want to stand up a new application, everything you need is already available in Kyma.
 
 ### Finally some code
 
@@ -85,12 +85,12 @@ const MongoClient = require('mongodb').MongoClient;
 module.exports = { main: async function (event, context) {
     /* My function was triggered because it was subscribed to customer review event. I have access to the payload of the event. */
     let negative = await isNegative(event.data.comment)
-    
+
     if (negative) {
       console.log("Customer sentiment is negative:", event.data)
       await mongoInsert(event.data)
     } else {
-      console.log("This positive comment was not saved:", event.data) 
+      console.log("This positive comment was not saved:", event.data)
     }
 }}
 

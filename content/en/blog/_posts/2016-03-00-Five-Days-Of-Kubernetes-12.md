@@ -15,13 +15,13 @@ Our mission is to make building distributed systems easy and accessible for all.
 |
 3/28
  |
-\*&nbsp;[1000 nodes and Beyond: Updates to Kubernetes performance and scalability in 1.2](https://kubernetes.io/blog/2016/03/1000-nodes-and-beyond-updates-to-Kubernetes-performance-and-scalability-in-12)  
+\*&nbsp;[1000 nodes and Beyond: Updates to Kubernetes performance and scalability in 1.2](https://kubernetes.io/blog/2016/03/1000-nodes-and-beyond-updates-to-Kubernetes-performance-and-scalability-in-12)
 \* Guest post by Sysdig:&nbsp;[How container metadata changes your point of view](https://kubernetes.io/blog/2016/03/how-container-metadata-changes-your-point-of-view)&nbsp;
  |
 |
 3/29
  |
-\* [Building highly available applications using Kubernetes new multi-zone clusters (a.k.a. Ubernetes Lite")](https://kubernetes.io/blog/2016/03/building-highly-available-applications-using-Kubernetes-new-multi-zone-clusters-a.k.a-Ubernetes-Lite)  
+\* [Building highly available applications using Kubernetes new multi-zone clusters (a.k.a. Ubernetes Lite")](https://kubernetes.io/blog/2016/03/building-highly-available-applications-using-Kubernetes-new-multi-zone-clusters-a.k.a-Ubernetes-Lite)
 \* Guest post by AppFormix: [Helping Enterprises Operationalize Kubernetes](https://kubernetes.io/blog/2016/03/appformix-helping-enterprises)
  |
 |
@@ -47,7 +47,7 @@ BONUS
 
 
 
-You can follow us on twitter here [@Kubernetesio](https://twitter.com/kubernetesio)  
+You can follow us on twitter here [@Kubernetesio](https://twitter.com/kubernetesio)
 
 
 _--David Aronchick, Senior Product Manager for Kubernetes, Google_

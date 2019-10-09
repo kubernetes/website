@@ -22,7 +22,7 @@ This page shows how to configure a Key Management Service (KMS) provider and plu
 
 {{% capture steps %}}
 
-The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd. The data is encrypted using a data encryption key (DEK); a new DEK is generated for each encryption. The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS. The KMS provider uses gRPC to communicate with a specific KMS 
+The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd. The data is encrypted using a data encryption key (DEK); a new DEK is generated for each encryption. The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS. The KMS provider uses gRPC to communicate with a specific KMS
 plugin. The KMS plugin, which is implemented as a gRPC server and deployed on the same host(s) as the Kubernetes master(s), is responsible for all communication with the remote KMS.
 
 ## Configuring the KMS provider
@@ -40,13 +40,13 @@ See [Understanding the encryption at rest configuration.](/docs/tasks/administer
 
 To implement a KMS plugin, you can develop a new plugin gRPC server or enable a KMS plugin already provided by your cloud provider. You then integrate the plugin with the remote KMS and deploy it on the Kubernetes master.
 
-### Enabling the KMS supported by your cloud provider 
+### Enabling the KMS supported by your cloud provider
 Refer to your cloud provider for instructions on enabling the cloud provider-specific KMS plugin.
 
 ### Developing a KMS plugin gRPC server
 You can develop a KMS plugin gRPC server using a stub file available for Go. For other languages, you use a proto file to create a stub file that you can use to develop the gRPC server code.
 
-* Using Go: Use the functions and data structures in the stub file: [service.pb.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/service.pb.go) to develop the gRPC server code 
+* Using Go: Use the functions and data structures in the stub file: [service.pb.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/service.pb.go) to develop the gRPC server code
 
 * Using languages other than Go: Use the protoc compiler with the proto file: [service.proto](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/storage/value/encrypt/envelope/v1beta1/service.proto) to generate a stub file for the specific language
 
@@ -68,10 +68,10 @@ The gRPC server should listen at UNIX domain socket
 
 ### Integrating a KMS plugin with the remote KMS
 The KMS plugin can communicate with the remote KMS using any protocol supported by the KMS.
-All configuration data, including authentication credentials the KMS plugin uses to communicate with the remote KMS, 
+All configuration data, including authentication credentials the KMS plugin uses to communicate with the remote KMS,
 are stored and managed by the KMS plugin independently. The KMS plugin can encode the ciphertext with additional metadata that may be required before sending it to the KMS for decryption.
 
-### Deploying the KMS plugin 
+### Deploying the KMS plugin
 Ensure that the KMS plugin runs on the same host(s) as the Kubernetes master(s).
 
 ## Encrypting your data with the KMS provider
@@ -163,7 +163,7 @@ kubectl get secrets --all-namespaces -o json| kubectl replace -f -
 ## Disabling encryption at rest
 To disable encryption at rest:
 
-1. Place the `identity` provider as the first entry in the configuration file: 
+1. Place the `identity` provider as the first entry in the configuration file:
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -178,7 +178,7 @@ resources:
         endpoint: unix:///tmp/socketfile.sock
         cachesize: 100
 ```
-2.  Restart all kube-apiserver processes. 
+2.  Restart all kube-apiserver processes.
 3. Run the following command to force all secrets to be decrypted.
 ```
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -

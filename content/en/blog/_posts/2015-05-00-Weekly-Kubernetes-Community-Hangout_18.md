@@ -4,7 +4,7 @@ date: 2015-05-18
 slug: weekly-kubernetes-community-hangout_18
 url: /blog/2015/05/Weekly-Kubernetes-Community-Hangout_18
 ---
-Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.  
+Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.
 
 
 * [v1 API][1] \- what's in, what's out

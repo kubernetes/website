@@ -26,7 +26,7 @@ Kubernetes users are now empowered to incorporate clone operations in a cluster 
 
 ## Kubernetes API and Cloning
 
-The cloning feature in Kubernetes is enabled via the `PersistentVolumeClaim.DataSource` field.  Prior to v1.15 the only valid object type permitted for use as a dataSource was a `VolumeSnapshot`.  The cloning feature extends the allowed `PersistentVolumeclaim.DataSource.Kind` field to not only allow `VolumeSnapshot` but also `PersistentVolumeClaim`.  The existing behavior is not changed. 
+The cloning feature in Kubernetes is enabled via the `PersistentVolumeClaim.DataSource` field.  Prior to v1.15 the only valid object type permitted for use as a dataSource was a `VolumeSnapshot`.  The cloning feature extends the allowed `PersistentVolumeclaim.DataSource.Kind` field to not only allow `VolumeSnapshot` but also `PersistentVolumeClaim`.  The existing behavior is not changed.
 
 There are no new objects introduced to enable cloning. Instead, the existing dataSource field in the PersistentVolumeClaim object is expanded to be able to accept the name of an existing PersistentVolumeClaim in the same namespace.  It is important to note that from a users perspective a clone is just another PersistentVolume and PersistentVolumeClaim, the only difference being that that PersistentVolume is being populated with the contents of another PersistentVolume at creation time.  After creation it behaves exactly like any other Kubernetes PersistentVolume and adheres to the same behaviors and rules.
 
@@ -66,7 +66,7 @@ spec:
   storageClassName: csi-storageclass
   dataSource:
     name: src-pvc
-    kind: PersistentVolumeClaim 
+    kind: PersistentVolumeClaim
     apiGroup: ""
   accessModes:
     - ReadWriteOnce

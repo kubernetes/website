@@ -24,12 +24,12 @@ Concretely, a native Spark Application in Kubernetes acts as a [custom controlle
 
 ![][12]
 
-To try this yourself on a Kubernetes cluster, simply download the binaries for the official [Apache Spark 2.3 release][13]. For example, below, we describe running a simple Spark application to compute the mathematical constant Pi across three Spark executors, each running in a separate pod. Please note that this requires a cluster running Kubernetes 1.7 or above, a [kubectl][14] client that is configured to access it, and the necessary [RBAC rules][9] for the default namespace and service account.  
+To try this yourself on a Kubernetes cluster, simply download the binaries for the official [Apache Spark 2.3 release][13]. For example, below, we describe running a simple Spark application to compute the mathematical constant Pi across three Spark executors, each running in a separate pod. Please note that this requires a cluster running Kubernetes 1.7 or above, a [kubectl][14] client that is configured to access it, and the necessary [RBAC rules][9] for the default namespace and service account.
 
 
 
 ```
-$ kubectl cluster-info  
+$ kubectl cluster-info
 
 Kubernetes master is running at https://xx.yy.zz.ww
 
@@ -87,11 +87,11 @@ In Spark 2.3, we're starting with support for Spark applications written in Java
 
 There's lots of exciting work to be done in the near future. We're actively working on features such as dynamic resource allocation, in-cluster staging of dependencies, support for PySpark & SparkR, support for Kerberized HDFS clusters, as well as client-mode and popular notebooks' interactive execution environments. For people who fell in love with the Kubernetes way of managing applications declaratively, we've also been working on a [Kubernetes Operator][16] for spark-submit, which allows users to declaratively specify and submit Spark Applications.
 
-And we're just getting started! We would love for you to get involved and help us evolve the project further.  
+And we're just getting started! We would love for you to get involved and help us evolve the project further.
 
 Huge thanks to the Apache Spark and Kubernetes contributors spread across multiple organizations who spent many hundreds of hours working on this effort. We look forward to seeing more of you contribute to the project and help it evolve further.
 
-Anirudh Ramanathan and Palak Bhatia  
+Anirudh Ramanathan and Palak Bhatia
 Google
 
 [1]: https://kubernetes.io/docs/concepts/api-extension/custom-resources/

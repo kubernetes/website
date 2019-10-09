@@ -4,23 +4,23 @@ date: 2016-07-12
 slug: autoscaling-in-kubernetes
 url: /blog/2016/07/Autoscaling-In-Kubernetes
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_
 
-Customers using Kubernetes respond to end user requests quickly and ship software faster than ever before. But what happens when you build a service that is even more popular than you planned for, and run out of compute? In [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we are proud to announce that we have a solution: autoscaling. On [Google Compute Engine](https://cloud.google.com/compute/) (GCE) and [Google Container Engine](https://cloud.google.com/container-engine/) (GKE) (and coming soon on [AWS](https://aws.amazon.com/)), Kubernetes will automatically scale up your cluster as soon as you need it, and scale it back down to save you money when you don’t.  
+Customers using Kubernetes respond to end user requests quickly and ship software faster than ever before. But what happens when you build a service that is even more popular than you planned for, and run out of compute? In [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we are proud to announce that we have a solution: autoscaling. On [Google Compute Engine](https://cloud.google.com/compute/) (GCE) and [Google Container Engine](https://cloud.google.com/container-engine/) (GKE) (and coming soon on [AWS](https://aws.amazon.com/)), Kubernetes will automatically scale up your cluster as soon as you need it, and scale it back down to save you money when you don’t.
 
 
 ### Benefits of Autoscaling
 
-To understand better where autoscaling would provide the most value, let’s start with an example. Imagine you have a 24/7 production service with a load that is variable in time, where it is very busy during the day in the US, and relatively low at night. Ideally, we would want the number of nodes in the cluster and the number of pods in deployment to dynamically adjust to the load to meet end user demand. The new Cluster Autoscaling feature together with Horizontal Pod Autoscaler can handle this for you automatically.  
+To understand better where autoscaling would provide the most value, let’s start with an example. Imagine you have a 24/7 production service with a load that is variable in time, where it is very busy during the day in the US, and relatively low at night. Ideally, we would want the number of nodes in the cluster and the number of pods in deployment to dynamically adjust to the load to meet end user demand. The new Cluster Autoscaling feature together with Horizontal Pod Autoscaler can handle this for you automatically.
 
 
 ### Setting Up Autoscaling on GCE
 
-The following instructions apply to GCE. For GKE please check the autoscaling section in cluster operations manual available [here](https://cloud.google.com/container-engine/docs/clusters/operations#create_a_cluster_with_autoscaling).  
+The following instructions apply to GCE. For GKE please check the autoscaling section in cluster operations manual available [here](https://cloud.google.com/container-engine/docs/clusters/operations#create_a_cluster_with_autoscaling).
 
-Before we begin, we need to have an active GCE project with Google Cloud Monitoring, Google Cloud Logging and Stackdriver enabled. For more information on project creation, please read our [Getting Started Guide](https://github.com/kubernetes/kubernetes/blob/master/docs/getting-started-guides/gce.md#prerequisites). We also need to download a recent version of Kubernetes project (version [v1.3.0](http://v1.3.0/) or later).  
+Before we begin, we need to have an active GCE project with Google Cloud Monitoring, Google Cloud Logging and Stackdriver enabled. For more information on project creation, please read our [Getting Started Guide](https://github.com/kubernetes/kubernetes/blob/master/docs/getting-started-guides/gce.md#prerequisites). We also need to download a recent version of Kubernetes project (version [v1.3.0](http://v1.3.0/) or later).
 
-First, we set up a cluster with Cluster Autoscaler turned on. The number of nodes in the cluster will start at 2, and autoscale up to a maximum of 5. To implement this, we’ll export the following environment variables:  
+First, we set up a cluster with Cluster Autoscaler turned on. The number of nodes in the cluster will start at 2, and autoscale up to a maximum of 5. To implement this, we’ll export the following environment variables:
 
 
 
@@ -84,11 +84,11 @@ First, we’ll start a deployment running the image and expose it as a service:
 
 
 ```
-$ kubectl run php-apache \   
+$ kubectl run php-apache \
 
   --image=gcr.io/google\_containers/hpa-example \
 
-  --requests=cpu=500m,memory=500M --expose --port=80  
+  --requests=cpu=500m,memory=500M --expose --port=80
 
 service "php-apache" createddeployment "php-apache" created
 ```
@@ -112,7 +112,7 @@ php-apache   1         1         1            1           49s
 
 
 
-$ kubectl get pods  
+$ kubectl get pods
 NAME                          READY     STATUS    RESTARTS   AGE
 
 php-apache-2046965998-z65jn   1/1       Running   0          30s
@@ -129,8 +129,8 @@ We may now check that php-apache server works correctly by calling wget with the
 
 
 ```
-$ kubectl run -i --tty service-test --image=busybox /bin/sh  
-Hit enter for command prompt  
+$ kubectl run -i --tty service-test --image=busybox /bin/sh
+Hit enter for command prompt
 $ wget -q -O- http://php-apache.default.svc.cluster.local
 
 OK!
@@ -188,8 +188,8 @@ Now, we will see how our autoscalers (Cluster Autoscaler and Horizontal Pod Auto
 
 
 ```
-$ kubectl run -i --tty load-generator --image=busybox /bin/sh  
-Hit enter for command prompt  
+$ kubectl run -i --tty load-generator --image=busybox /bin/sh
+Hit enter for command prompt
 $ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
  ```
 

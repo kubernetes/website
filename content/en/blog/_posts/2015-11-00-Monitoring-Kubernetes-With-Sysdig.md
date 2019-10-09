@@ -4,27 +4,27 @@ date: 2015-11-19
 slug: monitoring-kubernetes-with-sysdig
 url: /blog/2015/11/Monitoring-Kubernetes-With-Sysdig
 ---
-_Today we’re sharing a guest post by Chris Crane from Sysdig about their monitoring integration into Kubernetes.&nbsp;_  
+_Today we’re sharing a guest post by Chris Crane from Sysdig about their monitoring integration into Kubernetes.&nbsp;_
 
-Kubernetes offers a full environment to write scalable and service-based applications. It takes care of things like container grouping, discovery, load balancing and healing so you don’t have to worry about them. The design is elegant, scalable and the APIs are a pleasure to use.  
+Kubernetes offers a full environment to write scalable and service-based applications. It takes care of things like container grouping, discovery, load balancing and healing so you don’t have to worry about them. The design is elegant, scalable and the APIs are a pleasure to use.
 
-And like any new infrastructure platform, if you want to run Kubernetes in production, you’re going to want to be able to monitor and troubleshoot it. We’re big fans of Kubernetes here at Sysdig, and, well: we’re here to help.  
+And like any new infrastructure platform, if you want to run Kubernetes in production, you’re going to want to be able to monitor and troubleshoot it. We’re big fans of Kubernetes here at Sysdig, and, well: we’re here to help.
 
-Sysdig offers native visibility into Kubernetes across the full Sysdig product line. That includes [sysdig](http://www.sysdig.org/), our open source, CLI system exploration tool, and [Sysdig Cloud](https://sysdig.com/), the first and only monitoring platform designed from the ground up to support containers and microservices.  
+Sysdig offers native visibility into Kubernetes across the full Sysdig product line. That includes [sysdig](http://www.sysdig.org/), our open source, CLI system exploration tool, and [Sysdig Cloud](https://sysdig.com/), the first and only monitoring platform designed from the ground up to support containers and microservices.
 
-At a high level, Sysdig products are aware of the entire Kubernetes cluster hierarchy, including **namespaces, services, replication controllers** and **labels**. So all of the rich system and application data gathered is now available in the context of your Kubernetes infrastructure. What does this mean for you? In a nutshell, we believe Sysdig can be your go-to tool for making Kubernetes environments significantly easier to monitor and troubleshoot!  
+At a high level, Sysdig products are aware of the entire Kubernetes cluster hierarchy, including **namespaces, services, replication controllers** and **labels**. So all of the rich system and application data gathered is now available in the context of your Kubernetes infrastructure. What does this mean for you? In a nutshell, we believe Sysdig can be your go-to tool for making Kubernetes environments significantly easier to monitor and troubleshoot!
 
-In this post I will quickly preview the Kubernetes visibility in both open source sysdig and Sysdig Cloud, and show off a couple interesting use cases. Let’s start with the open source solution.  
+In this post I will quickly preview the Kubernetes visibility in both open source sysdig and Sysdig Cloud, and show off a couple interesting use cases. Let’s start with the open source solution.
 
 
 ### Exploring a Kubernetes Cluster with csysdig&nbsp;
 
-The easiest way to take advantage of sysdig’s Kubernetes support is by launching csysdig, the sysdig ncurses UI:  
+The easiest way to take advantage of sysdig’s Kubernetes support is by launching csysdig, the sysdig ncurses UI:
 
-` > csysdig -k http://127.0.0.1:8080`  
-*Note: specify the address of your Kubernetes API server with the -k command, and sysdig will poll all the relevant information, leveraging both the standard and the watch API.  
+` > csysdig -k http://127.0.0.1:8080`
+*Note: specify the address of your Kubernetes API server with the -k command, and sysdig will poll all the relevant information, leveraging both the standard and the watch API.
 
-Now that csysdig is running, hit F2 to bring up the views panel, and you'll notice the presence of a bunch of new views. The **k8s Namespaces** view can be used to see the list of namespaces and observe the amount of CPU, memory, network and disk resources each of them is using on this machine:  
+Now that csysdig is running, hit F2 to bring up the views panel, and you'll notice the presence of a bunch of new views. The **k8s Namespaces** view can be used to see the list of namespaces and observe the amount of CPU, memory, network and disk resources each of them is using on this machine:
 
 
 [![](https://2.bp.blogspot.com/-9kXfpo76r0k/Vkz8AkpctEI/AAAAAAAAAss/yvf9oc759Wg/s640/sisdig%2B6.png)](https://2.bp.blogspot.com/-9kXfpo76r0k/Vkz8AkpctEI/AAAAAAAAAss/yvf9oc759Wg/s1600/sisdig%2B6.png)
@@ -37,7 +37,7 @@ Now that csysdig is running, hit F2 to bring up the views panel, and you'll noti
 
 
 
-Similarly, you can select **k8s Services** to see the same information broken up by service:  
+Similarly, you can select **k8s Services** to see the same information broken up by service:
 
 
 [![](https://2.bp.blogspot.com/-Ya1W3Z_ETcs/Vkz8AN3XtfI/AAAAAAAAAs8/HNv_TvHpfHU/s640/sisdig%2B2.png)](https://2.bp.blogspot.com/-Ya1W3Z_ETcs/Vkz8AN3XtfI/AAAAAAAAAs8/HNv_TvHpfHU/s1600/sisdig%2B2.png)
@@ -50,7 +50,7 @@ Similarly, you can select **k8s Services** to see the same information broken up
 
 
 
-or **k8s Controllers** to see the replication controllers:  
+or **k8s Controllers** to see the replication controllers:
 
 
 [![](https://3.bp.blogspot.com/-gGkgXRC5P6g/Vkz8A1RVyAI/AAAAAAAAAtQ/SFlHQeNrDjQ/s640/sysdig%2B1.png)](https://3.bp.blogspot.com/-gGkgXRC5P6g/Vkz8A1RVyAI/AAAAAAAAAtQ/SFlHQeNrDjQ/s1600/sysdig%2B1.png)
@@ -63,7 +63,7 @@ or **k8s Controllers** to see the replication controllers:
 
 
 
-or **k8s Pods** to see the list of pods running on this machine and the resources they use:  
+or **k8s Pods** to see the list of pods running on this machine and the resources they use:
 
 
 [![](https://3.bp.blogspot.com/-PrDfWzi9F3c/Vkz8H6rPlII/AAAAAAAAAtc/f46tE6EKvoo/s640/sisdig%2B7.png)](https://3.bp.blogspot.com/-PrDfWzi9F3c/Vkz8H6rPlII/AAAAAAAAAtc/f46tE6EKvoo/s1600/sisdig%2B7.png)
@@ -71,24 +71,24 @@ or **k8s Pods** to see the list of pods running on this machine and the resource
 
 
 ### Drill Down-Based Navigation&nbsp;
-A cool feature in csysdig is the ability to drill down: just select an element, click on enter and&nbsp;–&nbsp;boom&nbsp;–&nbsp;now you're looking inside it. Drill down is also aware of the Kubernetes hierarchy, which means I&nbsp;can start from a service, get the list of its pods, see which containers run inside one of the pods, and go inside one of the containers to explore files, network connections, processes or even threads. Check out the video below.  
+A cool feature in csysdig is the ability to drill down: just select an element, click on enter and&nbsp;–&nbsp;boom&nbsp;–&nbsp;now you're looking inside it. Drill down is also aware of the Kubernetes hierarchy, which means I&nbsp;can start from a service, get the list of its pods, see which containers run inside one of the pods, and go inside one of the containers to explore files, network connections, processes or even threads. Check out the video below.
 
 
 [![](https://1.bp.blogspot.com/-lQ-P2gLywlY/Vkz9MOoTgGI/AAAAAAAAAtk/UB6pW7sUbQA/s640/image09.gif)](https://1.bp.blogspot.com/-lQ-P2gLywlY/Vkz9MOoTgGI/AAAAAAAAAtk/UB6pW7sUbQA/s1600/image09.gif)
 
 
 ### Actions!&nbsp;
-One more thing about csysdig. As [recently announced](https://sysdig.com/csysdigs-hotkeys-turning-csysdig-into-a-control-panel-for-processes-connections-and-containers/), csysdig also offers “control panel” functionality, making it possible to use hotkeys to execute command lines based on the element currently selected. So we made sure to enrich the Kubernetes views with a bunch of useful hotkeys. For example, you can delete a namespace or a service by pressing "x," or you can describe them by pressing "d."  
+One more thing about csysdig. As [recently announced](https://sysdig.com/csysdigs-hotkeys-turning-csysdig-into-a-control-panel-for-processes-connections-and-containers/), csysdig also offers “control panel” functionality, making it possible to use hotkeys to execute command lines based on the element currently selected. So we made sure to enrich the Kubernetes views with a bunch of useful hotkeys. For example, you can delete a namespace or a service by pressing "x," or you can describe them by pressing "d."
 
-My favorite hotkeys, however, are "f," to follow the logs that a pod is generating, and "b," which leverages `kubectl` exec to give you a shell inside a pod. Being brought into a bash prompt for the pod you’re observing is really useful and, frankly, a bit magic. :-)  
+My favorite hotkeys, however, are "f," to follow the logs that a pod is generating, and "b," which leverages `kubectl` exec to give you a shell inside a pod. Being brought into a bash prompt for the pod you’re observing is really useful and, frankly, a bit magic. :-)
 
-So that’s a quick preview of Kubernetes in sysdig. Note though, that all of this functionality is only for a single machine. What happens if you want to monitor a distributed Kubernetes cluster? Enter Sysdig Cloud.  
+So that’s a quick preview of Kubernetes in sysdig. Note though, that all of this functionality is only for a single machine. What happens if you want to monitor a distributed Kubernetes cluster? Enter Sysdig Cloud.
 
 
 ### Monitoring Kubernetes with Sysdig Cloud&nbsp;
-Let’s start with a quick review of Kubernetes’ architecture. From the physical/infrastructure point of view, a Kubernetes cluster is made up of a set of **minion** machines overseen by a **master** machine. The master’s tasks include orchestrating containers across minions, keeping track of state and exposing cluster control through a REST API and a UI.  
+Let’s start with a quick review of Kubernetes’ architecture. From the physical/infrastructure point of view, a Kubernetes cluster is made up of a set of **minion** machines overseen by a **master** machine. The master’s tasks include orchestrating containers across minions, keeping track of state and exposing cluster control through a REST API and a UI.
 
-On the other hand, from the logical/application point of view, Kubernetes clusters are arranged in the hierarchical fashion shown in this picture:  
+On the other hand, from the logical/application point of view, Kubernetes clusters are arranged in the hierarchical fashion shown in this picture:
 
 [![](https://1.bp.blogspot.com/-p_x0bLRdFJo/Vkz8IPR5q4I/AAAAAAAAAtg/D9UU2MfPmcI/s640/sisdig%2B4.png)](https://1.bp.blogspot.com/-p_x0bLRdFJo/Vkz8IPR5q4I/AAAAAAAAAtg/D9UU2MfPmcI/s1600/sisdig%2B4.png)
 
@@ -100,7 +100,7 @@ On the other hand, from the logical/application point of view, Kubernetes cluste
 * Services are scaled horizontally by **replication controllers** (“RCs”) which create/destroy pods for each service as needed.&nbsp;
 * **Namespaces** are virtual clusters that can include one or more services.&nbsp;
 
-So just to be clear, multiple services and even multiple namespaces can be scattered across the same physical infrastructure.  
+So just to be clear, multiple services and even multiple namespaces can be scattered across the same physical infrastructure.
 
 
 
