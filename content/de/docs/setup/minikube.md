@@ -29,7 +29,7 @@ Lesen Sie [Minikube installieren](/docs/tasks/tools/install-minikube/) für Info
 ## Schnellstart
 
 Folgend finden Sie eine kurze Demo zur Verwendung von Minikube.
-Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--vm-driver=xxx`-Flag zu `minikube start` hinzu. 
+Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--vm-driver=xxx`-Flag zu `minikube start` hinzu.
 Minikube unterstützt die folgenden Treiber:
 
 * virtualbox
@@ -65,7 +65,7 @@ kubectl expose deployment hello-minikube --type=NodePort
 service/hello-minikube exposed
 ```
 ```
-# Wir haben jetzt einen echoserver Pod gestartet, aber wir müssen warten, 
+# Wir haben jetzt einen echoserver Pod gestartet, aber wir müssen warten,
 # bis der Pod betriebsbereit ist, bevor wir über den exponierten Dienst auf ihn zugreifen können.
 # Um zu überprüfen, ob der Pod läuft, können wir Folgendes verwenden:
 kubectl get pod
