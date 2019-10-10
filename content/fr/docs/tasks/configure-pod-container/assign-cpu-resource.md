@@ -19,7 +19,7 @@ Un conteneur est garanti d'avoir autant de CPU qu'il le demande, mais n'est pas 
 
 Chaque nœud de votre cluster doit avoir au moins 1 CPU.
 
-Pour certaines des étapes de cette page, vous devez lancer [metrics-server](https://github.com/kubernetes-incubator/metrics-server) dans votre cluster. Si le serveur de métriques est déja lancé, 
+Pour certaines des étapes de cette page, vous devez lancer [metrics-server](https://github.com/kubernetes-incubator/metrics-server) dans votre cluster. Si le serveur de métriques est déja lancé,
 vous pouvez sauter ces étapes.
 
 Si vous utilisez minikube, exécutez la commande suivante pour activer metrics-server :
@@ -34,12 +34,12 @@ Pour voir si metrics-server (ou un autre fournisseur de l'API des métriques de 
 kubectl get apiservices
 ```
 
-Si l'API de métriques de ressources est disponible, la sortie inclura une 
+Si l'API de métriques de ressources est disponible, la sortie inclura une
 référence à `metrics.k8s.io`.
 
 
 ```shell
-NAME      
+NAME
 v1beta1.metrics.k8s.io
 ```
 
@@ -114,7 +114,7 @@ Souvenez-vous qu'en réglant `-cpu "2"`, vous avez configuré le conteneur pour 
 
 {{< note >}}
 Une autre explication possible de la la restriction du CPU est que le Nœud pourrait ne pas avoir
-suffisamment de ressources CPU disponibles. Rappelons que les conditions préalables à cet exercice exigent que chacun de vos Nœuds doit avoir au moins 1 CPU. 
+suffisamment de ressources CPU disponibles. Rappelons que les conditions préalables à cet exercice exigent que chacun de vos Nœuds doit avoir au moins 1 CPU.
 Si votre conteneur fonctionne sur un nœud qui n'a qu'un seul CPU, le conteneur ne peut pas utiliser plus que 1 CPU, quelle que soit la limite de CPU spécifiée pour le conteneur.
 {{< /note >}}
 
@@ -206,9 +206,9 @@ pour spécifier une valeur par défaut pour la limite de CPU.
 
 ## Motivation pour les demandes et les limites du CPU
 
-En configurant les demandes et les limites de CPU des conteneurs qui se lancent sur votre cluster, 
-vous pouvez utiliser efficacement les ressources CPU disponibles sur les Nœuds de votre cluster. 
-En gardant une demande faible de CPU de pod, vous donnez au Pod une bonne chance d'être ordonnancé. 
+En configurant les demandes et les limites de CPU des conteneurs qui se lancent sur votre cluster,
+vous pouvez utiliser efficacement les ressources CPU disponibles sur les Nœuds de votre cluster.
+En gardant une demande faible de CPU de pod, vous donnez au Pod une bonne chance d'être ordonnancé.
 En ayant une limite CPU supérieure à la demande de CPU, vous accomplissez deux choses :
 
 * Le Pod peut avoir des pics d'activité où il utilise les ressources CPU qui se sont déjà disponible.

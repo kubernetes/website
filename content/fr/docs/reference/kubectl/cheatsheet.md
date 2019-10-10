@@ -29,7 +29,7 @@ source <(kubectl completion bash) # active l'auto-complétion pour bash dans le 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # ajoute l'auto-complétion de manière permanente à votre shell bash
 ```
 
-Vous pouvez de plus déclarer un alias pour `kubectl` qui fonctionne aussi avec l'auto-complétion :  
+Vous pouvez de plus déclarer un alias pour `kubectl` qui fonctionne aussi avec l'auto-complétion :
 
 ```bash
 alias k=kubectl
@@ -242,7 +242,7 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 # Désactive la livenessProbe d'un déploiement en utilisant un patch json avec tableaux indexés
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
-# Ajoute un nouvel élément à un tableau indexé 
+# Ajoute un nouvel élément à un tableau indexé
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 

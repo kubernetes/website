@@ -6,14 +6,14 @@ full_link: /docs/reference/generated/kube-apiserver/
 short_description: >
   Composant sur le master qui expose l'API Kubernetes. Il s'agit du front-end pour le plan de contrôle Kubernetes.
 
-aka: 
+aka:
 tags:
 - architecture
 - fundamental
 ---
  Composant sur le master qui expose l'API Kubernetes. Il s'agit du front-end pour le plan de contrôle Kubernetes.
 
-<!--more--> 
+<!--more-->
 
 Il est conçu pour une mise à l'échelle horizontale, ce qui veut dire qu'il met à l'échelle en déployant des instances supplémentaires. Voir [Construire des Clusters en Haute Disponibilité](/docs/admin/high-availability/).
 

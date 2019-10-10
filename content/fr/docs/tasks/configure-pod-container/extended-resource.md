@@ -28,7 +28,7 @@ Cela configurera l'un de vos nœuds pour qu'il annoncera une ressource dongle.
 
 ## Affecter une ressource supplémentaire à un Pod
 
-Pour demander une ressource supplémentaire, incluez le champ `resources:requests` dans votre fichier de manifeste du conteneur. Les ressources supplémentaires sont entièrement qualifiées dans n'importe quel domaine à l'extérieur de `*.kubernetes.io/`. 
+Pour demander une ressource supplémentaire, incluez le champ `resources:requests` dans votre fichier de manifeste du conteneur. Les ressources supplémentaires sont entièrement qualifiées dans n'importe quel domaine à l'extérieur de `*.kubernetes.io/`.
 Les noms de ressources supplémentaires valides ont la forme `example.com/foo` où `example.com` est remplacé par le domaine de votre organisation et `foo` est le nom descriptif de la ressource.
 
 Voici le fichier de configuration d'un Pod qui a un seul conteneur :
