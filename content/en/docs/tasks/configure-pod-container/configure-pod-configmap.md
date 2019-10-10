@@ -542,7 +542,7 @@ kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.y
 
 Add the ConfigMap name under the `volumes` section of the Pod specification.
 This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
-The `command` section lists the contents of the directory which got populated with the files having names as same as the keys in configMap.
+The `command` section lists directory files with names that match the keys in ConfigMap.
 
 {{< codenew file="pods/pod-configmap-volume.yaml" >}}
 
