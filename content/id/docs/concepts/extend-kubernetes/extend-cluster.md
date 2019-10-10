@@ -48,7 +48,7 @@ Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan 
 
 ## Pola-pola Perluasan
 
-Kubernetes didesain untuk dapat diotomasi dengan menulis program-program klien. Program apapun yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna.
+Kubernetes didesain untuk dapat diotomasi dengan menulis program-program klien. Program apapun yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
 
 *Otomasi* dapat berjalan di dalam kluster atau di luar kluster. Dengan mengikuti panduan
 di dalam dokumen ini, kamu dapat menulis otomasi yang sangat tersedia dan kuat.
@@ -82,7 +82,7 @@ Diagram berikut menunjukkan titik-titik perluasan di sebuah Kubernetes.
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1. Pengguna biasanya berinteraksi dengan API Kubernetes menggunakan `kubectl`. [_Plugin-plugin_ Kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/) memperluas _binari_ kubectl. Mereka hanya memengaruhi lingkungan lokal pengguna, dan tidak dapat memaksakan kebijakan yang menyeluruh di seluruh situs.
-2. apiserver menangani semua permintaan. Beberapa tipe titik perluasan di apiserver memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten mereka, menyunting konten, dan menangani penghapusan. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#perluasan-akses-api)
+2. apiserver menangani semua permintaan. Beberapa tipe titik perluasan di apiserver memperbolehkan otentikasi permintaan, atau memblokir mereka berdasarkan konten mereka, menyunting konten, dan menangani penghapusan. Hal ini dideskripsikan di bagian [Perluasan Akses API](/docs/concepts/overview/extending#perluasan-perluasan-akses-api)
 3. apiserver melayani berbagai macam sumber daya, _tipe-tipe sumber daya bawaan_, seperti `pod`, didefinisikan oleh proyek kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber daya yang kamu definisikan sendiri, atau yang proyek lain definisikan, disebut _Custom Resources_, seperti dijelaskan di bagian [Sumber Daya _Custom_](/docs/concepts/overview/extending#tipe-tipe-yang-ditentukan-pengguna). Sumber daya _Custom_ sering digunakan dengan Perluasan Akses API.
 4. Penjadwal Kubernetes memutuskan ke Node mana Pod akan ditempatkan. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan-perluasan Penjadwal](/docs/concepts/overview/extending#perluasan-perluasan-penjadwal).
 5. Sebagian besar perilaku Kubernetes diimplementasi oleh program yang disebut *Controller-controller* yang merupakan klien dari API-Server. *Controller-controller* sering digunakan bersama dengan Sumber Daya _Custom_.
@@ -103,75 +103,75 @@ Pertimbangkan untuk menambahkan Sumber Daya _Custom_ ke Kubernetes jika kamu ing
 
 Jangan menggunakan Sumber Daya _Custom_ sebagai penyimpanan data untuk aplikasi, pengguna, atau untuk memonitor data.
 
-Untuk lebih jelasnya tentan Sumber Daya _Custom_, lihat [Panduan Konsep Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/).
+Untuk lebih jelasnya tentang Sumber Daya _Custom_, lihat [Panduan Konsep Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/).
 
 ### Menggabungkan API Baru dengan Otomasi
 
-Kombinasi antart API sumber daya kustom dan loop kontrol disebut [Pola Operator](/docs/concepts/extend-kubernetes/operator/). Operator pola digunakan untuk mengatur aplikasi yang spesifik dan biasanya stateful. API kustom dan loop kontrol ini dapt digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan.
+Kombinasi antara sebuah API sumber daya _custom_ dan _loop_ kontrol disebut [Pola Operator](/docs/concepts/extend-kubernetes/operator/). Pola Operator digunakan untuk mengelola aplikasi yang spesifik dan biasanya _stateful_. API-API _custom_ dan _loop_ kontrol ini dapat digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan-kebijakan.
 
 ### Mengubah Sumber Daya Bawaan
 
-Ketika kamu memperluas API Kubernetes dengan menambahkan sumber daya kustom, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Kamu tidak dapat menggantikan atau mengubah API Grup yang sudah ada. Menambahkan sebuah API tidak secara langsung membuat kamu memengaruhi perilaku API yang sudah ada (seperti Pods), tetapi Perluasan Akses API dapat memengaruhi secara langsung.
+Ketika kamu memperluas API Kubernetes dengan menambahkan sumber daya _custom_, sumber daya yang ditambahkan akan selalu masuk ke Grup API baru. Kamu tidak dapat mengganti atau mengubah Grup API yang sudah ada. Menambah sebuah API tidak secara langsung membuat kamu memengaruhi perilaku API yang sudah ada (seperti Pod), tetapi Perluasan Akses API dapat memengaruhinya secara langsung.
 
 
-### Perluasan Akses API
+### Perluasan-Perluasan Akses API
 
-Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis Kontrol Penerimaan. Lihat dokumentasi [Mengatur Akses ke API Kubernetes](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
+Ketika sebuah permintaan sampai ke Server API Kubernetes, permintaan tersebut diotentikasi terlebih dahulu, kemudian diotorisasi, kemudian diarahkan ke berbagai jenis _Admission Control_. Lihat dokumentasi [Mengatur Akses ke API Kubernetes](/docs/reference/access-authn-authz/controlling-access/) untuk lebih jelasnya tentang alur ini.
 
-Setiap step ini menawarkan titik perluasan.
+Setiap langkah berikut menawarkan titik-titik perluasan.
 
-Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proxy yang mengotentikasi, dan metode ini dapat mengirim token dari header Otorisasi ke layanan terpisah untuk verifikasi (webhook). Semua metode ini tercakup dalam [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
+Kubernetes memiliki beberapa metode otentikasi bawaan yang didukungnya. Metode ini bisa berada di belakang proksi yang mengotentikasi, dan metode ini dapat mengirim sebuah token dari _header_ Otorisasi ke layanan terpisah untuk verifikasi (sebuah _webhook_). Semua metode ini tercakup dalam [Dokumentasi Otentikasi](/docs/reference/access-authn-authz/authentication/).
 
 ### Otentikasi
 
-[Otentikasi](/docs/reference/access-authn-authz/authentication/) memetakan header atau sertifikat dalam semua permintaan ke username untuk klien yang mebuat permintaan.
+[Otentikasi](/docs/reference/access-authn-authz/authentication/) memetakan _header_ atau sertifikat dalam semua permintaan ke _username_ untuk klien yang mebuat permintaan.
 
-Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [Webhook Otentikasi](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) jika metode bawaan tersebut tidak mencukupi kebutuhan kamu.
+Kubernetes menyediakan beberapa metode otentikasi bawaan, dan sebuah metode [_Webhook_ Otentikasi](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) jika metode bawaan tersebut tidak mencukupi kebutuhan kamu.
 
 ### Otorisasi
 
-[Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah user tertentu dapat membaca, menulis, dan melakukan operasi lainnya ke API sumber daya. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan kamu, [Webhook Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
+[Otorisasi](/docs/reference/access-authn-authz/webhook/) menentukan apakah pengguna tertentu dapat membaca, menulis, dan melakukan operasi lainnya terhadap sumber daya API. Hal ini hanya bekerja pada tingkat sumber daya secara keseluruhan -- tidak membeda-bedakan berdasarkan field objek sembarang. Jika pilihan otorisasi bawaan tidak mencukupi kebutuhan kamu, [_Webhook_ Otorisasi](/docs/reference/access-authn-authz/webhook/) memungkinkan pemanggilan kode yang disediakan pengguna untuk membuat keputusan otorisasi.
 
-### Kontrol Admisi Dinamik
+### Kontrol Admisi Dinamis
 
-Setalah permintaan diotorisasi, jika ini operasi penulisan, permintaan ini akan melalui step [Kontrol Admisi](/docs/reference/access-authn-authz/admission-controllers/). Sebagai tambahan untuk step bawaan, ada beberapa perluasan:
+Setalah permintaan diotorisasi, jika ini adalah operasi penulisan, permintaan ini akan melalui langkah [Kontrol Admisi](/docs/reference/access-authn-authz/admission-controllers/). Sebagai tambahan untuk step bawaan, ada beberapa perluasan:
 
-* [Webhook Kebijakan Gambar](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) membatasi gambar mana saja yang dapat berjalan di kontainer.
-* Untuk membuat keputusan kontrol admisi sembarang, [Webhook Admisi](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) umum dapat digunakan. Webhook Admisi dapat menolak pembuatan baru atau pembaruan.
+* [_Webhook_ Kebijakan _Image_](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) membatasi _image_ mana saja yang dapat berjalan di kontainer.
+* Untuk membuat keputusan kontrol admisi sembarang, [_Webhook_ Admisi](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) umum dapat digunakan. _Webhook_ Admisi dapat menolak pembuatan atau pembaruan.
 
 ## Perluasan Infrastruktur
 
-### Plugin Penyimpanan
+### _Plugin-plugin_ Penyimpanan
 
-[Volume Flex](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe volume tanpa dukungan bawaan dengan cara Kubelet memanggil sebuah Plugin Binari untuk memasang volume.
+[Flex Volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md) memungkinkan pengguna untuk memasang tipe-tipe volume tanpa dukungan bawaan dengan cara membiarkan Kubelet memanggil sebuah _Plugin Binary_ untuk menambatkan volume.
 
-### Plugin Perangkat
+### _Plugin_ Perangkat
 
-Plugin perangkat memungkinkan sebuah node untuk menemukan sumber daya Node baru (sebagai tambahan dari bawaannya seperti cpu dan memori) via [Plugin Perangkat](/docs/concepts/cluster-administration/device-plugins/).
+_Plugin_ perangkat memungkinkan sebuah node untuk menemukan sumber daya Node baru (sebagai tambahan dari bawaannya seperti CPU dan memori) melalui sebuah [_Plugin_ Perangkat](/docs/concepts/cluster-administration/device-plugins/).
 
-### Plugin Jaringan
+### _Plugin-plugin_ Jaringan
 
-Struktur jaringan yang berbeda dapat di dukung via node-level [Plugin Jaringan](/docs/admin/network-plugins/)
+Struktur-struktur jaringan yang berbeda dapat didukung melalui [_Plugin_ Jaringan](/docs/admin/network-plugins/) pada tingkat Node.
 
-### Perluasan Penjadwal
+### Perluasan-perluasan Penjadwal
 
-Penjadwal adalah jenis kontroler spesial yang mengawasi pod, dan menugaskan pod ke node. Penjadwal standar dapat digantikan seluruhnya, sementara  terus menggunakan komponen Kubernetes lainnya, atau [penjadwal ganda](/docs/tasks/administer-cluster/configure-multiple-schedulers/) dapat berjalan dalam waktu yang bersamaan.
+Penjadwal adalah jenis pengatur spesial yang mengawasi Pod, dan menempatkan Pod ke Node. Penjadwal bawaan dapat digantikan seluruhnya, sementara  terus menggunakan komponen Kubernetes lainnya, atau [penjadwal ganda](/docs/tasks/administer-cluster/configure-multiple-schedulers/) dapat berjalan dalam waktu yang bersamaan.
 
-Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal.
+Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa mereka tidak perlu memodifikasi penjadwal tersebut.
 
-Penjadwal juga mendukung [webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah webhook backend (perluasan penjadwal) untuk menyaring dan memprioritaskan node yang terpilih untuk sebuah pod.
+Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah _webhook backend_ (perluasan penjadwal) untuk menyaring dan memprioritaskan Node yang terpilih untuk sebuah Pod.
 
 {{% /capture %}}
 
 
 {{% capture whatsnext %}}
 
-* Pelajari lanjut tentang [Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/)
+* Pelajari lebih lanjut tentang [Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/)
 * Pelajari tentang [Kontrol Admisi Dinamis](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Pelajari lebih lanjut tentang perluasan Infrastruktur
-  * [Plugin Jaringan](/docs/concepts/cluster-administration/network-plugins/)
-  * [Plugin Perangkat](/docs/concepts/cluster-administration/device-plugins/)
-* Pelajari tentang [Plugin kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
-* Pelajari tentang [Operator Pola](/docs/concepts/extend-kubernetes/operator/)
+  * [_Plugin_ Jaringan](/docs/concepts/cluster-administration/network-plugins/)
+  * [_Plugin_ Perangkat](/docs/concepts/cluster-administration/device-plugins/)
+* Pelajari tentang [_Plugin_ kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
+* Pelajari tentang [Pola Operator](/docs/concepts/extend-kubernetes/operator/)
 
 {{% /capture %}}
