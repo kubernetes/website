@@ -62,30 +62,20 @@ On top of the above CAs, it is also necessary to get a public/private key pair f
 
 If you don't wish to copy the CA private keys to your cluster, you can generate all certificates yourself.
 
-{{< note >}}
-The scenario where you are providing CA certificates without keys is referred as external CA in the kubeadm documentation. Please note that
-when using kubeadm you can potentially choose to not provide the keys for the `kubernetes-ca` and/or the `kubernetes-front-proxy-ca`. Instead, you always have to 
-provide the private key for the `etcd-ca`.
-{{< /note >}}
-
 Required certificates:
 
 | Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd [1]                    | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
-| kube-etcd-peer [1]                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
-| kube-etcd-healthcheck-client [1]  | etcd-ca                   |                | client                                 |                                             |
+| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
+| kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
-| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[2]`, `[3]` |
+| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]` |
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates are required by kubeadm in case you are delegating to such tool the installation of a local etcd cluster
-(this approach is referred also as stacked etcd in some kubeadm documents). If instead you are providing an external etcd cluster, such certificates are not required.
-
-[2]: `controlPlaneEndpoint`, that is the load balancer stable IP and/or DNS name, if any.
-
-[3]: `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`, `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`
+[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm][kubeadm] the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
+`kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
 where `kind` maps to one or more of the [x509 key usage][usage] types:
 
@@ -96,6 +86,15 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 
 {{< note >}}
 Hosts/SAN listed above are the recommended ones for getting a working cluster; if required by a specific setup, it is possible to add additional SANs on all the server certificates.
+{{< /note >}}
+
+{{< note >}}
+For kubeadm users only:
+
+* The scenario where you are copying to your cluster CA certificates without private keys is referred as external CA in the kubeadm documentation.
+* If you are comparing the above list with a kubeadm geneerated PKI, please be aware that `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates
+  are not generated in case of external etcd.
+
 {{< /note >}}
 
 ### Certificate paths
@@ -128,7 +127,7 @@ Same considerations apply for the service account key pair:
 
 ## Configure certificates for user accounts
 
-If you don't wish to copy the CA private keys to your cluster, you must manually configure these administrator account and service accounts:
+You must manually configure these administrator account and service accounts:
 
 | filename                | credential name            | Default CN                     | O (in Subject) |
 |-------------------------|----------------------------|--------------------------------|----------------|
