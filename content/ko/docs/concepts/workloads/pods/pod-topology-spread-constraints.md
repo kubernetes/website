@@ -76,7 +76,7 @@ spec:
 - **whenUnsatisfiable** 는 분산 제약 조건을 만족하지 않을 경우에 처리하는 방법을 나타낸다.
     - `DoNotSchedule` (기본값)은 스케줄러에 스케줄을 하지 말라고 알려준다.
     - `ScheduleAnyway` 는 스케줄러에게 차이(skew)를 최소화하는 노드에 높은 우선순위를 부여하면서, 스케줄을 계속하도록 지시한다.
-- **labelSelector** 는 일치하는 파드를 찾는데 사용된다. 이 레이블 셀렉터와 일치하는 파드는 해당 토폴로지 도메인의 파드의 수를 결정하기 위해 계산되었다. 자세한 내용은 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
+- **labelSelector** 는 일치하는 파드를 찾는데 사용된다. 이 레이블 셀렉터와 일치하는 파드의 수를 계산하여 해당 토폴로지 도메인에 속할 파드의 수를 결정한다. 자세한 내용은 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
 
 사용자는 `kubectl explain Pod.spec.topologySpreadConstraints` 를 실행해서 이 필드에 대한 자세한 내용을 알 수 있다.
 
@@ -189,8 +189,8 @@ spec:
 쿠버네티스에서 "어피니티(Affinity)"와 관련된 지침은 파드가
 더 많이 채워지거나 더 많이 분산되는 방식으로 스케줄 되는 방법을 제어한다. 
 
-- `PodAffinity` 는 원하는 수의 파드를 자격이 있는 
-토폴로지 도메인(들)을 묶을 수 있다.
+- `PodAffinity` 는, 사용자가 자격이 충족되는 토폴로지 도메인에
+원하는 수의 파드를 얼마든지 채울 수 있다.
 - `PodAntiAffinity` 로는, 단일 토폴로지 도메인에
 단 하나의 파드만 스케줄 될 수 있다.
 
