@@ -226,7 +226,7 @@ submit-queue   610995
 
 `kubectl` est capable de recevoir des informations de colonnes spécifiques d'objets depuis le serveur.
 Cela veut dire que pour toute ressource donnée, le serveur va retourner les colonnes et lignes pour cette ressource, que le client pourra afficher.
-Cela permet un affichage de sortie lisible par l'utilisateur cohérent entre les clients utilisés sur le même cluster, le serveur encapsulant les détails d'affichage.  
+Cela permet un affichage de sortie lisible par l'utilisateur cohérent entre les clients utilisés sur le même cluster, le serveur encapsulant les détails d'affichage.
 
 Cette fonctionnalité est activée par défaut dans `kubectl` version 1.11 et suivantes. Pour la désactiver, ajoutez l'option
 `--server-print=false` à la commande `kubectl get`.
@@ -266,7 +266,7 @@ $ kubectl get pods --sort-by=.metadata.name
 
 ## Exemples : Opérations courantes
 
-Utilisez les exemples suivants pour vous familiariser avec les opérations de `kubectl` fréquemment utilisées : 
+Utilisez les exemples suivants pour vous familiariser avec les opérations de `kubectl` fréquemment utilisées :
 
 `kubectl apply` - Créer une ressource depuis un fichier ou stdin.
 
@@ -370,7 +370,7 @@ $ kubectl logs -f <nom-pod>
 Utilisez les exemples suivants pour vous familiariser avec l'écriture et l'utilisation de plugins `kubectl` :
 
 ```shell
-# créez un plugin simple dans n'importe quel langage et nommez 
+# créez un plugin simple dans n'importe quel langage et nommez
 # l'exécutable de telle sorte qu'il commence par "kubectl-"
 $ cat ./kubectl-hello
 #!/bin/bash
@@ -390,7 +390,7 @@ $ sudo mv ./kubectl-hello /usr/local/bin
 $ kubectl hello
 hello world
 
-# vous pouvez "désinstaller" un plugin, 
+# vous pouvez "désinstaller" un plugin,
 # simplement en le supprimant de votre PATH
 $ sudo rm /usr/local/bin/kubectl-hello
 ```
@@ -426,7 +426,7 @@ $ cat ./kubectl-whoami
 #!/bin/bash
 
 # ce plugin utilise la commande `kubectl config` pour afficher
-# l'information sur l'utilisateur courant, en se basant sur 
+# l'information sur l'utilisateur courant, en se basant sur
 # le contexte couramment sélectionné
 kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
 ```

@@ -64,7 +64,7 @@ Le fichier de configuration de pod décrit un pod qui possède un selector de n�
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
 1. Utilisez le fichier de configuration pour créer un pod qui sera ordonnancé sur votre nœud choisi :
-    
+
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml
     ```
@@ -76,7 +76,7 @@ Le fichier de configuration de pod décrit un pod qui possède un selector de n�
     ```
 
     La sortie est la suivante :
-    
+
     ```shell
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0

@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
- Un ou plusieurs conteneurs d'initialisation qui doivent être exécutés jusqu'à la fin, avant l'exécution de tout conteneur d'application.  
+ Un ou plusieurs conteneurs d'initialisation qui doivent être exécutés jusqu'à la fin, avant l'exécution de tout conteneur d'application.
 
 <!--more-->
 
