@@ -6,7 +6,7 @@ full_link: /docs/concepts/workloads/controllers/deployment/
 short_description: >
   Un objeto API que gestiona una aplicación replicada.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
@@ -14,8 +14,8 @@ tags:
 ---
  Un objeto API que gestiona una aplicación replicada.
 
-<!--more--> 
+<!--more-->
 
-Cada réplica se representa por un {{< glossary_tooltip term_id="pod" >}}, 
+Cada réplica se representa por un {{< glossary_tooltip term_id="pod" >}},
 y los Pods se distribuyen a lo largo de los nodos del clúster.
 

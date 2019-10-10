@@ -91,7 +91,7 @@ Si estás en macOS y usando el gestor de paquetes [Macports](https://macports.or
     sudo port selfupdate
     sudo port install kubectl
     ```
-    
+
 2. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
@@ -108,9 +108,9 @@ Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https:/
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
-    
+
     {{< note >}}Si no especificas una `DownloadLocation`, `kubectl` se instalará en el directorio temporal del usuario.{{< /note >}}
-    
+
     El instalador crea `$HOME/.kube` y crea un archivo de configuración
 
 2. Para asegurar que la versión utilizada sea la más actual puedes probar:
@@ -164,7 +164,7 @@ Para instalar kubectl en Windows puedes usar bien el gestor de paquetes [Chocola
     ```
     New-Item config -type file
     ```
-    
+
     {{< note >}}Edita el fichero de configuración con un editor de texto de tu elección, como Notepad.{{< /note >}}
 
 ## Descarga como parte del Google Cloud SDK
@@ -177,7 +177,7 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
     ```
     gcloud components install kubectl
     ```
-    
+
 3. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
@@ -190,14 +190,14 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
 {{% tab name="macOS" %}}
 1. Descarga la última entrega:
 
-    ```		 
+    ```		
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
     ```
 
     Para descargar una versión específica, remplaza el comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
 
     Por ejemplo, para descargar la versión {{< param "fullversion" >}} en macOS, teclea:
-		  
+		
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
     ```
@@ -225,7 +225,7 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
     Para descargar una versión específica, remplaza el trozo del comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
 
     Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, teclea:
-    
+
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
     ```

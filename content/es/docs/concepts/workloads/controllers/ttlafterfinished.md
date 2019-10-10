@@ -29,11 +29,11 @@ Descargo de responsabilidad Alpha: esta característica está actualmente en ver
 ## Controlador TTL
 
 El controlador TTL sólo soporta los Jobs por ahora. Un operador del clúster puede usar esta funcionalidad para limpiar
-los Jobs terminados (bien `Complete` o `Failed`) automáticamente especificando el valor del campo 
-`.spec.ttlSecondsAfterFinished` del Job, como en este 
+los Jobs terminados (bien `Complete` o `Failed`) automáticamente especificando el valor del campo
+`.spec.ttlSecondsAfterFinished` del Job, como en este
 [ejemplo](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
-El controlador TTL asumirá que un recurso es candidato a ser limpiado 
-TTL segundos después de que el recurso haya terminado; dicho de otra forma, cuando el TTL haya expirado. 
+El controlador TTL asumirá que un recurso es candidato a ser limpiado
+TTL segundos después de que el recurso haya terminado; dicho de otra forma, cuando el TTL haya expirado.
 Cuando el controlador TTL limpia un recursos, lo elimina en cascada, esto es, borra
 sus objetos subordinados juntos. Nótese que cuando se elimina un recurso,
 se respetan las garantías de su ciclo de vida, como con los finalizadores.
@@ -47,9 +47,9 @@ Los segundos TTL pueden ser configurados en cualquier momento. Aquí se muestran
 * Usando un [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
   para poner el valor de este campo dinámicamente en el momento de la creación del recursos. Los administradores del clúster pueden
   usar este enfoque para forzar una regla TTL para los recursos terminados.
-* Usando un 
+* Usando un
   [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  para poner el valor de este campo dinámicamente después de que el recurso haya terminado, 
+  para poner el valor de este campo dinámicamente después de que el recurso haya terminado,
   y eligiendo diferentes valores TTL basados en los estados de los recursos, etiquetas, etc.
 
 ## Advertencia
@@ -71,7 +71,7 @@ en momentos equivocados.
 
 En Kubernetes, se necesita ejecutar NTP en todos los nodos
 (ver [#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058))
-para evitar este problema. Los relojes no siempre son correctos, pero la diferencia debería ser muy pequeña. 
+para evitar este problema. Los relojes no siempre son correctos, pero la diferencia debería ser muy pequeña.
 Ten presente este riesgo cuando pongas un valor distinto de cero para el TTL.
 
 {{% /capture %}}
