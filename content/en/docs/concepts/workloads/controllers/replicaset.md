@@ -32,7 +32,7 @@ ReplicaSet's identifying information within their ownerReferences field. It's th
 knows of the state of the Pods it is maintaining and plans accordingly.
 
 A ReplicaSet identifies new Pods to acquire by using its selector. If there is a Pod that has no OwnerReference or the
-OwnerReference is not a controller and it matches a ReplicaSet's selector, it will be immediately acquired by said
+OwnerReference is not a {{< glossary_tooltip term_id="controller" >}} and it matches a ReplicaSet's selector, it will be immediately acquired by said
 ReplicaSet.
 
 ## When to use a ReplicaSet

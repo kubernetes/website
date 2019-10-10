@@ -45,7 +45,7 @@ To deploy a Windows container on Kubernetes, you must first create an example ap
         app: win-webserver
       type: NodePort
     ---
-    apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     metadata:
       labels:
@@ -103,6 +103,10 @@ Port mapping is also supported, but for simplicity in this example the container
 {{< note >}}
 Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows pods are able to access service IPs.
 {{< /note >}}
+
+## Using configurable Container usernames
+
+Starting with Kubernetes v1.16, Windows containers can be configured to run their entrypoints and processes with different usernames than the image defaults. The way this is achieved is a bit different from the way it is done for Linux containers. Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasusername/).
 
 ## Managing Workload Identity with Group Managed Service Accounts
 

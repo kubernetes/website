@@ -36,7 +36,7 @@ may be disabled by setting `--feature-gates=PodShareProcessNamespace=false`.
 
 ## Configure a Pod
 
-Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
+Process Namespace Sharing is enabled using the `shareProcessNamespace` field of
 `v1.PodSpec`. For example:
 
 {{< codenew file="pods/share-process-namespace.yaml" >}}

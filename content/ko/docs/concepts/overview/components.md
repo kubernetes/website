@@ -16,7 +16,7 @@ card:
 ## 마스터 컴포넌트
 
 마스터 컴포넌트는 클러스터의 컨트롤 플레인을 제공한다. 마스터 컴포넌트는 클러스터에 관한 전반적인 결정
-(예를 들어, 스케줄링)을 수행하고 클러스터 이벤트(예를 들어, 레플리케이션 컨트롤러의 `replicas` 필드가 요구조건을 충족되지 않을 경우 새로운 파드를 구동 시키는 것)를 감지하고 반응한다.
+(예를 들어, 스케줄링)을 수행하고 클러스터 이벤트(예를 들어, 디플로이먼트의 `replicas` 필드가 요구조건을 충족되지 않을 경우 새로운 {{< glossary_tooltip text="파드" term_id="pod">}}를 구동 시키는 것)를 감지하고 반응한다.
 
 마스터 컴포넌트는 클러스터 내 어떠한 머신에서든지 동작 될 수 있다. 그러나,
 간결성을 위하여, 구성 스크립트는 보통 동일 머신 상에 모든 마스터 컴포넌트를 구동시키고,
@@ -110,6 +110,9 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 [클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은
 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
 
+* [노드](/ko/docs/concepts/architecture/nodes/)에 대해 더 배우기
+* [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)에 대해 더 배우기
+* etcd의 공식 [문서](https://etcd.io/docs/) 읽기
 {{% /capture %}}
 
 

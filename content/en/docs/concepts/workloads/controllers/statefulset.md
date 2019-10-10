@@ -15,10 +15,6 @@ weight: 40
 
 StatefulSet is the workload API object used to manage stateful applications.
 
-{{< note >}}
-StatefulSets are stable (GA) in 1.9.
-{{< /note >}}
-
 {{< glossary_definition term_id="statefulset" length="all" >}}
 {{% /capture %}}
 
@@ -36,14 +32,13 @@ following.
 
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
 If an application doesn't require any stable identifiers or ordered deployment,
-deletion, or scaling, you should deploy your application with a controller that
-provides a set of stateless replicas. Controllers such as
+deletion, or scaling, you should deploy your application using a workload object
+that provides a set of stateless replicas.
 [Deployment](/docs/concepts/workloads/controllers/deployment/) or
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 
 ## Limitations
 
-* StatefulSet was a beta resource prior to 1.9 and not available in any Kubernetes release prior to 1.5.
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
@@ -169,8 +164,9 @@ This must be done manually.
 
 ### Pod Name Label
 
-When the StatefulSet controller creates a Pod, it adds a label, `statefulset.kubernetes.io/pod-name`, 
-that is set to the name of the Pod. This label allows you to attach a Service to a specific Pod in 
+When the StatefulSet {{< glossary_tooltip term_id="controller" >}} creates a Pod,
+it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
+the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
 
 ## Deployment and Scaling Guarantees

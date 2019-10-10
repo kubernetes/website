@@ -184,6 +184,19 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
+### Endpoint Slices
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+Endpoint Slices are an API resource that can provide a more scalable alternative
+to Endpoints. Although conceptually quite similar to Endpoints, Endpoint Slices
+allow for distributing network endpoints across multiple resources. By default,
+an Endpoint Slice is considered "full" once it reaches 100 endpoints, at which
+point additional Endpoint Slices will be created to store any additional
+endpoints.
+
+Endpoint Slices provide additional attributes and functionality which is
+described in detail in [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
+
 ## Virtual IPs and service proxies
 
 Every node in a Kubernetes cluster runs a `kube-proxy`. `kube-proxy` is
@@ -534,12 +547,11 @@ spec:
       port: 80
       targetPort: 9376
   clusterIP: 10.0.171.239
-  loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-      - ip: 146.148.47.155
+    - ip: 192.0.2.127
 ```
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
@@ -589,8 +601,6 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.
-For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
 {{% /tab %}}
 {{% tab name="AWS" %}}
 ```yaml
@@ -806,15 +816,11 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # A list of additional security groups to be added to the ELB
 ```
 
-#### Network Load Balancer support on AWS [alpha] {#aws-nlb-support}
+#### Network Load Balancer support on AWS {#aws-nlb-support}
 
-{{< warning >}}
-This is an alpha feature and is not yet recommended for production clusters.
-{{< /warning >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
-Starting from Kubernetes v1.9.0, you can use AWS Network Load Balancer (NLB) with Services. To
-use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type`
-with the value set to `nlb`.
+To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type` with the value set to `nlb`.
 
 ```yaml
     metadata:
@@ -904,6 +910,11 @@ forwarding. Should you later decide to move your database into your cluster, you
 can start its Pods, add appropriate selectors or endpoints, and change the
 Service's `type`.
 
+{{< warning >}}
+You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS. If you use ExternalName then the hostname used by clients inside your cluster is different from the name that the ExternalName references.
+
+For protocols that use hostnames this difference may lead to errors or unexpected responses. HTTP requests will have a `Host:` header that the origin server does not recognize; TLS servers will not be able to provide a certificate matching the hostname that the client connected to.
+{{< /warning >}}
 
 {{< note >}}
 This section is indebted to the [Kubernetes Tips - Part
@@ -1148,5 +1159,6 @@ which encompass the current ClusterIP, NodePort, and LoadBalancer modes and more
 
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
+* Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
 
 {{% /capture %}}

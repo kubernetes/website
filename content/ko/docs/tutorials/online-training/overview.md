@@ -43,6 +43,8 @@ content_template: templates/concept
 
 * [Kubernetes for the Absolute Beginners with Hands-on Labs (KodeKloud)](https://kodekloud.com/p/kubernetes-for-the-absolute-beginners-hands-on)
 
+* [Kubernetes Fundamentals (LFS258) (The Linux Foundation)](https://training.linuxfoundation.org/training/kubernetes-fundamentals/)
+
 * [Kubernetes Quick Start with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-quick-start)
 
 * [Kubernetes the Hard Way with Hands-On Labs (Linux Academy)](https://linuxacademy.com/linux/training/course/name/kubernetes-the-hard-way)

@@ -1,6 +1,5 @@
 ---
 reviewers:
-- mikedanese
 - luxas
 - jbeda
 title: Overview of kubeadm

@@ -109,17 +109,17 @@ several manual steps.
 
 1. Export the live object to a local object configuration file:
 
-```shell
-kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
-```
+    ```shell
+    kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
+    ```
 
 1. Manually remove the status field from the object configuration file.
 
 1. For subsequent object management, use `replace` exclusively.
 
-```shell
-kubectl replace -f <kind>_<name>.yaml
-```
+    ```shell
+    kubectl replace -f <kind>_<name>.yaml
+    ```
 
 ## Defining controller selectors and PodTemplate labels
 

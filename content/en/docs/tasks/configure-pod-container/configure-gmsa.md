@@ -133,7 +133,7 @@ roleRef:
 ```
 
 ## Configure GMSA credential spec reference in pod spec
-In the alpha stage of the feature, the annotation `pod.alpha.windows.kubernetes.io/gmsa-credential-spec-name` is used to specify references to desired GMSA credential spec custom resources in pod specs. This configures all containers in the pod spec to use the specified GMSA. A sample pod spec with the annotation populated to refer to `gmsa-WebApp1`:
+In the alpha stage of the feature, the pod spec field `securityContext.windowsOptions.gmsaCredentialSpecName` is used to specify references to desired GMSA credential spec custom resources in pod specs. This configures all containers in the pod spec to use the specified GMSA. A sample pod spec with the annotation populated to refer to `gmsa-WebApp1`:
 
 ```
 apiVersion: apps/v1beta1
@@ -152,9 +152,10 @@ spec:
     metadata:
       labels:
         run: with-creds
-      annotations:
-        pod.alpha.windows.kubernetes.io/gmsa-credential-spec-name: gmsa-WebApp1  # This must be the name of the cred spec you created
     spec:
+      securityContext:
+        windowsOptions:
+          gmsaCredentialSpecName: gmsa-webapp1
       containers:
       - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
         imagePullPolicy: Always
@@ -163,7 +164,7 @@ spec:
         beta.kubernetes.io/os: windows
 ```
 
-Individual containers in a pod spec can also specify the desired GMSA credspec using annotation `<containerName>.container.alpha.windows.kubernetes.io/gmsa-credential-spec`. For example:
+Individual containers in a pod spec can also specify the desired GMSA credspec using a per-container `securityContext.windowsOptions.gmsaCredentialSpecName` field. For example:
 
 ```
 apiVersion: apps/v1beta1
@@ -182,13 +183,14 @@ spec:
     metadata:
       labels:
         run: with-creds
-      annotations:
-        iis.container.alpha.windows.kubernetes.io/gmsa-credential-spec-name: gmsa-WebApp1  # This must be the name of the cred spec you created
     spec:
       containers:
       - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
         imagePullPolicy: Always
         name: iis
+        securityContext:
+          windowsOptions:
+            gmsaCredentialSpecName: gmsa-Webapp1
       nodeSelector:
         beta.kubernetes.io/os: windows
 ```

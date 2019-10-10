@@ -8,7 +8,7 @@ date: 2019-03-22
 More and more components that used to be part of Kubernetes are now
 being developed outside of Kubernetes. For example, storage drivers
 used to be compiled into Kubernetes binaries, then were moved into
-[stand-alone Flexvolume
+[stand-alone FlexVolume
 binaries](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 on the host, and now are delivered as [Container Storage Interface
 (CSI) drivers](https://github.com/container-storage-interface/spec)

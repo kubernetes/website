@@ -142,7 +142,7 @@ When using Docker:
 - The `spec.containers[].resources.requests.cpu` is converted to its core value,
   which is potentially fractional, and multiplied by 1024. The greater of this number
   or 2 is used as the value of the
-  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
+  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
   flag in the `docker run` command.
 
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
@@ -587,27 +587,7 @@ spec:
         example.com/foo: 1
 ```
 
-## Planned Improvements
 
-Kubernetes version 1.5 only allows resource quantities to be specified on a
-Container. It is planned to improve accounting for resources that are shared by
-all Containers in a Pod, such as
-[emptyDir volumes](/docs/concepts/storage/volumes/#emptydir).
-
-Kubernetes version 1.5 only supports Container requests and limits for CPU and
-memory. It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/scheduling/resources.md).
-
-Kubernetes supports overcommitment of resources by supporting multiple levels of
-[Quality of Service](http://issue.k8s.io/168).
-
-In Kubernetes version 1.5, one unit of CPU means different things on different
-cloud providers, and on different machine types within the same cloud providers.
-For example, on AWS, the capacity of a node is reported in
-[ECUs](http://aws.amazon.com/ec2/faqs/), while in GCE it is reported in logical
-cores. We plan to revise the definition of the cpu resource to allow for more
-consistency across providers and platforms.
 
 {{% /capture %}}
 

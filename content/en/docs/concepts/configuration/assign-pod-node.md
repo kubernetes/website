@@ -120,9 +120,6 @@ Node affinity is like the existing `nodeSelector` (but with the first two benefi
 while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
 described in the third item listed above, in addition to having the first and second properties listed above.
 
-`nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
-everything that `nodeSelector` can express.
-
 ### Node affinity
 
 Node affinity is conceptually similar to `nodeSelector` -- it allows you to constrain which nodes your
@@ -396,5 +393,9 @@ The above pod will run on the node kube-01.
 The design documents for
 [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
 and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
+
+Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
+The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can take part in node-level
+resource allocation decisions. 
 
 {{% /capture %}}

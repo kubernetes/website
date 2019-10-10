@@ -12,7 +12,7 @@ weight: 100
 {{% capture overview %}}
 
 Horizontal Pod Autoscaler automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization
+in a replication controller, deployment, replica set or stateful set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
 This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
@@ -287,7 +287,7 @@ For example, if you had your monitoring system collecting metrics about network 
 you could update the definition above using `kubectl edit` to look like this:
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache

@@ -4,150 +4,65 @@ abstract: "自动化的容器部署、扩展和管理"
 cid: "home"
 ---
 
-<section id="oceanNodes">
-    <main>
-        <div class="image-wrapper"><img src="https://d33wubrfki0l68.cloudfront.net/1567471e7c58dc9b7d9c65dcd54e60cbf5870daa/da576/_common-resources/images/flower.png" alt="images/flower.png"></div>
-        <div class="content">
-            
-            <h3><a href="/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a> 是用于自动部署，扩展和管理容器化应用程序的开源系统。</h3>
-            <p>它将组成应用程序的容器组合成逻辑单元，以便于管理和服务发现，Kubernetes 构建在 <a href="http://queue.acm.org/detail.cfm?id=2898444"> Google 15 年生产环境经验</a>基础之上,并结合来自社区的最佳创意和实践。</p>
-        </div>
-    </main>
-    <main>
-        <div class="image-wrapper"><img src="https://d33wubrfki0l68.cloudfront.net/33a12d8be0bc50be4738443101616e968c7afb8f/2c641/_common-resources/images/scalable.png" alt="images/scalable.png"></div>
-        <div class="content">
-            
-            <h4>全球规模</h4>
-            <p>基于允许 Google 每周运行数十亿个容器的原则进行设计，Kubernetes 可以在不增加您的运维团队的情况下进行弹性扩展。</p>
-        </div>
-    </main>
-    <main>
-        <div class="image-wrapper"><img src="https://d33wubrfki0l68.cloudfront.net/dbc75a944a909b2d52bf24ad06d485eca12af892/4fb42/_common-resources/images/blocks.png" alt="images/blocks.png"></div>
-        <div class="content">
-            
-            <h4>永不过时</h4>
-            <p>无论您应用运行在本地还是运行于全球任何地域，Kubernetes 的灵活性都可以随着您的需求复杂度不断增加，还可以持续、轻松地对外提供服务。</p>
-        </div>
-    </main>
-    <main>
-        <div class="image-wrapper"><img src="https://d33wubrfki0l68.cloudfront.net/bc2e475ac5fee0199eb3f4a0879cd559e8929f3a/4a628/_common-resources/images/suitcase.png" alt="images/suitcase.png"></div>
-        <div class="content">
-            
-            <h4>随处运行</h4>
-            <p>Kubernetes 是开源的，可以让您自由地部署在企业内部，私有云、混合云或公有云基础架构，使您轻松将应用迁移至任何位置。</p>
-        </div>
-    </main>
-</section>
-<section id="video">
-    <div class="light-text">
-        
-        <h2>Kubernetes: 最后&hellip; 它是真正的云平台</h2>
-        <p>Box 的联合创始人和服务架构师 Sam Ghods 发表了热情洋溢的演讲，随着使用 Kubernetes，我们首次有一个通用接口，可以建立真正的部署工具。</p>
+{{< deprecationwarning >}}
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}})
+是一个开源系统，用于容器化应用的自动部署、扩缩和管理。
+
+Kubernetes 将构成应用的容器按逻辑单位进行分组以便于管理和发现。
+Kubernetes 基于 [谷歌公司在运行生产负载上的 15 年经验](http://queue.acm.org/detail.cfm?id=2898444)
+打造，并融合了来自社区的最佳建议与实践。
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### 星际规模
+
+基于一定的规则原理，谷歌公司每周能够运行数十亿的容器；通过遵循相同的设计，
+Kubernetes 能够在保持现有运维团队规模的前提下完成集群的弹性伸缩。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### 永不过时
+
+无论是在本地测试还是支撑全球化企业业务，Kubernetes 的灵活性使得其能够与您一起成长。
+无论您的需求多么复杂，Kubernetes 都能助您始终如一地、轻而易举地交付应用。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### 随处运行
+
+作为一个开源系统，Kubernetes 使您能够自由地获得内部云、混合云或公有云基础设施所提供的便利，
+并根据需要轻松地迁移工作负载。
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>将超过 150 个微服务迁移到 Kubernetes 时遇到的挑战</h2>
+        <p>Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
         <button id="desktopShowVideoButton" onclick="kub.showVideo()">观看视频</button>
-    </div>
-    <button id="mobileShowVideoButton" onclick="kub.showVideo()"></button>
-</section>
-<section id="features">
-    <main>
-        
-        <h3 class="center">Kubernetes 特性</h3>
-        <div class="feature-box">
-            <div>
-                
-                <h4><a href="/docs/concepts/configuration/manage-compute-resources-container/">自动包装</a></h4>
-                <p>根据资源需求和其他约束自动放置容器，同时不会牺牲可用性，混合关键和最大努力的工作负载，以提高资源利用率并节省更多资源。</p>
-            </div>
-            <div>
-                
-                <h4><a href="/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller">自我修复</a></h4>
-                <p>重新启动失败的容器，在节点不可用时，替换和重新调度节点上的容器，对用户定义的健康检查不响应的容器会被中止，并且在容器准备好服务之前不会把其向客户端广播。</p>
-            </div>
-        </div>
-        <div class="feature-box">
-            <div>
-                
-                <h4><a href="/docs/tasks/run-application/horizontal-pod-autoscale/">横向缩放</a></h4>
-                <p>使用简单的命令或 UI，或者根据 CPU 的使用情况自动调整应用程序副本数。</p>
-            </div>
-            <div>
-                
-                <h4><a href="/docs/concepts/services-networking/service/">服务发现和负载均衡</a></h4>
-                <p>不需要修改您的应用程序来使用不熟悉的服务发现机制，Kubernetes 为容器提供了自己的 IP 地址和一组容器的单个 DNS 名称，并可以在它们之间进行负载均衡。</p>
-            </div>
-        </div>
-        <div class="feature-box">
-            <div>
-                
-                <h4><a href="/docs/concepts/workloads/controllers/deployment/#what-is-a-deployment">自动部署和回滚</a></h4>
-                <p>Kubernetes 逐渐部署对应用程序或其配置的更改，同时监视应用程序运行状况，以确保它不会同时终止所有实例。 如果出现问题，Kubernetes会为您恢复更改，利用日益增长的部署解决方案的生态系统。</p>
-            </div>
-            <div>
-                <h4><a href="/docs/concepts/configuration/secret/">密钥</a> 和 <a href="/docs/tasks/configure-pod-container/configure-pod-configmap/">配置</a> 管理</h4>
-                <p>部署和更新密钥和应用程序配置，不会重新编译您的镜像，不会在堆栈配置中暴露密钥(secrets)。</p>
-            </div>
-        </div>
-        <div class="feature-box">
-            <div>
-                <h4><a href="/docs/concepts/storage/persistent-volumes/">存储编排</a></h4>
-                <p>自动安装您所选择的存储系统，无论是本地存储，如公有云提供商 <a href="https://cloud.google.com/storage/">GCP</a> 或 <a href="https://aws.amazon.com/products/storage/">AWS</a>, 还是网络存储系统 NFS, iSCSI,
-            Gluster, Ceph, Cinder, 或 Flocker。</p>
-        </div>
-        <div>
-            <h4><a href="/docs/concepts/workloads/controllers/jobs-run-to-completion/">批处理</a></h4>
-            <p>除了服务之外，Kubernetes还可以管理您的批处理和 CI 工作负载，如果需要，替换出现故障的容器。</p>
-        </div>
-    </div>
-</main>
-</section>
-<section id="talkToUs">
-<main>
-    
-    <h3>实例探究</h3>
-    <div id="caseStudiesWrapper">
-        <div>
-            <p>使用Kubernetes来重塑世界上最大的教育公司</p>
-            <a href="/case-studies/pearson/">阅读更多</a>
-        </div>
-        <div>
-            <p>Kubernetes at Box: 微服务的最大优势</p>
-            <a href="https://blog.box.com/blog/kubernetes-box-microservices-maximum-velocity/">阅读更多</a>
-        </div>
-        <div>
-            <p>在 eBay 内部转移到 OpenStack 上的 Kubernetes 和容器</p>
-            <a href="https://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/">阅读更多</a>
-        </div>
-        <div>
-            <p>将本地的集群迁移至 Kubernetes</p>
-            <a href="https://www.youtube.com/watch?v=6XGUTu3WhBw">观看视频</a>
-        </div>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <h5 style="text-align: center"><a href="/case-studies/" style="color: #3371E3; font-weight: 400">探究所有的案例</a></h5>
-</main>
-</section>
-<div id="videoPlayer">
-<iframe data-url="https://www.youtube.com/embed/of45hYbkIZs?autoplay=1" frameborder="0" allowfullscreen></iframe>
-<button id="closeButton"></button>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2019" button id="desktopKCButton">参加 2019 年 11 月 18 日的 San Diego KubeCon</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2020/" button id="desktopKCButton">参加 2020 年 3 月 30 日的 Amsterdam KubeCon</a>
 </div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

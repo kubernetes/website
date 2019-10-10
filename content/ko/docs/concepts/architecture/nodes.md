@@ -22,6 +22,10 @@ weight: 10
 * [용량과 할당가능](#capacity)
 * [정보](#info)
 
+노드의 상태와 상세 정보는 다음 커맨드를 통해 확인할 수 있다. 
+```shell
+kubectl describe node <insert-node-name-here>
+```
 각 섹션은 아래 상세하게 기술되었다.
 
 ### 주소 {#addresses}
@@ -88,7 +92,8 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 ### 정보 {#info}
 
-커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), (사용하는 경우) Docker 버전, OS 이름과 같은 노드에 대한 일반적인 정보이다. 정보는 Kubelet에 의해 노드로부터 수집된다.
+커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), (사용하는 경우) Docker 버전, OS 이름과 같은노드에 대한 일반적인 정보를 보여준다.
+이 정보는 Kubelet에 의해 노드로부터 수집된다.
 
 ## 관리
 
@@ -185,9 +190,20 @@ DaemonSet 컨트롤러에 의해 생성된 파드는 쿠버네티스 스케줄�
 
 파드 형태가 아닌 프로세스에 대해 명시적으로 리소스를 확보하려면, [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved) 튜토리얼을 따른다.
 
+## 노드 토폴로지
+
+{{< feature-state state="alpha" >}}
+
+`TopologyManager` 
+[기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)를
+활성화 시켜두면, kubelet이 리소스 할당 결정을 할 때 토폴로지 힌트를 사용할 수 있다.
 
 ## API 오브젝트
 
 노드는 쿠버네티스 REST API 내 탑-레벨 리소스 이다. API 오브젝트에 대한 보다 자세한 내용은 [노드 API 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)에서 확인할 수 있다.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* [노드 컴포넌트](https://kubernetes.io/docs/concepts/overview/components/#node-components)에 대해 읽기
+* 노드 수준 토폴로지에 대해 읽기: [노드의 토폴로지 정책 제어하기](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}

@@ -25,9 +25,11 @@ def processLinks(content, remotePrefix, subPath):
                 target.startswith("mailto:") or
                 target.startswith("#")):
             if target.startswith("/"):
-                target = "/".join(remotePrefix, target[1:])
+                targetList = remotePrefix, target[1:]
+                target = "/".join(targetList)
             else:
-                target = "/".join(remotePrefix, subPath, target)
+                targetList = remotePrefix, subPath, target
+                target = "/".join(targetList)
 
         return "[%s](%s)" % (ankor, target)
 
@@ -37,6 +39,25 @@ def processLinks(content, remotePrefix, subPath):
 
     h1Regex = re.compile("^(# .*)?\n")
     content = re.sub(h1Regex, "", content)
+
+    return content
+
+
+def processKubectlLinks(content):
+    """Update markdown links found in the SeeAlso section of kubectl page.
+       Example:[kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)
+    """
+    def analyze(matchObj):
+        ankor = matchObj.group('ankor')
+        target = matchObj.group('target')
+        if (target.endswith(".md") and target.startswith("kubectl")):
+            ankorList = ankor.split("kubectl ")
+            target = "/docs/reference/generated/kubectl/kubectl-commands" + "#" + ankorList[1]
+        return "[%s](%s)" % (ankor, target)
+
+    # Links are in the form '[text](url)'
+    linkRegex = re.compile(r"\[(?P<ankor>.*)\]\((?P<target>.*?)\)")
+    content = re.sub(linkRegex, analyze, content)
 
     return content
 
@@ -78,6 +99,9 @@ def processFile(src, dst, repoPath, repoDir, rootDir, genAbsoluteLinks):
                     srcDir = os.path.dirname(src)
                     remotePrefix = repoPath + "/tree/master"
                     content = processLinks(content, remotePrefix, srcDir)
+                if dst.endswith("kubectl.md"):
+                    print("Processing kubectl links")
+                    content = processKubectlLinks(content)
                 dstFile.write(content)
         except Exception as ex:
             print("[Error] failed in writing target file '%s': %s"

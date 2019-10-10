@@ -13,10 +13,10 @@ weight: 30
 
 {{% capture overview %}}
 
-A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
+A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
-You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
+You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
 {{< note >}}
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
@@ -158,18 +158,24 @@ Follow the steps given below to update your Deployment:
     ```shell
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
     ```
-    The output is similar to this:
+   or simply use the following command: 
+    
+    ```shell
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
+    ```
+  
+  The output is similar to this:
     ```
     deployment.apps/nginx-deployment image updated
     ```
 
-    Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
+  Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
 
     ```shell
     kubectl edit deployment.v1.apps/nginx-deployment
     ```
 
-    The output is similar to this:
+   The output is similar to this:
     ```
     deployment.apps/nginx-deployment edited
     ```
@@ -229,10 +235,10 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     Next time you want to update these Pods, you only need to update the Deployment's Pod template again.
 
     Deployment ensures that only a certain number of Pods are down while they are being updated. By default,
-    it ensures that at least 25% of the desired number of Pods are up (25% max unavailable).
+    it ensures that at least 75% of the desired number of Pods are up (25% max unavailable).
 
     Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
-    By default, it ensures that at most 25% of the desired number of Pods are up (25% max surge).
+    By default, it ensures that at most 125% of the desired number of Pods are up (25% max surge).
 
     For example, if you look at the above Deployment closely, you will see that it first created a new Pod,
     then deleted some old Pods, and created new ones. It does not kill old Pods until a sufficient number of

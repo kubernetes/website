@@ -60,7 +60,7 @@ index.php는 CPU 과부하 연산을 수행한다.
 첫 번째 단계로, 실행 중인 이미지의 디플로이먼트를 시작하고 서비스로 노출시킨다.
 
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
 ```
 ```
 service/php-apache created
@@ -285,7 +285,7 @@ HorizontalPodAutoscaler는 각 메트릭에 대해 제안된 레플리카 개수
 `kubectl edit` 명령어를 이용하여 다음과 같이 정의를 업데이트 할 수 있다.
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
