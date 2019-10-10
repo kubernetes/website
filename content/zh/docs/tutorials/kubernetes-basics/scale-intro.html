@@ -26,7 +26,7 @@ title: 运行应用程序的多个实例
 			<div class="col-md-8">
        <h3>应用程序伸缩</h3>
 
-			<p>在之前的模块中，我们创建了一个 <a href="http://kubernetes.io/docs/user-guide/deployments/"> Deployment</a>，然后通过 <a href="http://kubernetes.io/docs/user-guide/services/">Service</a>让应用程序外部可见。
+			<p>在之前的模块中，我们创建了一个 <a href="/docs/user-guide/deployments/"> Deployment</a>，然后通过 <a href="/docs/user-guide/services/">Service</a>让应用程序外部可见。
 				Deployment 仅为我们的应用程序创建了一个 Pod。
 				当流量增加时，我们将需要扩展应用程序以跟上用户需求。</p>
 
@@ -88,7 +88,7 @@ title: 运行应用程序的多个实例
 			<div class="col-md-8">
 
 				<p>扩展 Deployment 将确保创建新的 Pods 并将其调度到拥有可用资源的 Node 节点上，收缩会保证 Pods 数量减少至新的所需状态。
-					Kubernetes 还支持 Pods 的 <a href="http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/"> 自动缩放 </a> ，但不在本教程范围之内。收缩到零也是可以的，此时它将终止指定 Deployment 的所有 Pod。 </p>
+					Kubernetes 还支持 Pods 的 <a href="/docs/user-guide/horizontal-pod-autoscaling/"> 自动缩放 </a> ，但不在本教程范围之内。收缩到零也是可以的，此时它将终止指定 Deployment 的所有 Pod。 </p>
 
 				<p>运行应用程序的多个实例需要一种将流量分发给所有实例的方法。服务有内置的负载均衡器，可将网络流量分配给 Deployment 暴露的所有 Pods。服务通过使用 endpoints 持续监控运行的 Pods，以确保流量仅发送到可用的 Pods。</p>
 
