@@ -8,14 +8,14 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
-<!-- 
+<!--
 This page describes the RuntimeClass resource and runtime selection mechanism.
 -->
 
 这个文档主要说明了 RuntimeClass 资源和 kubernetes 指定容器运行时的功能。
 
 {{< warning >}}
-<!-- 
+<!--
 RuntimeClass includes *breaking* changes in the beta upgrade in v1.14. If you were using
 RuntimeClass prior to v1.14, see [Upgrading RuntimeClass from Alpha to
 Beta](#upgrading-runtimeclass-from-alpha-to-beta).
@@ -31,7 +31,7 @@ Kubernetes1.14 的 β 版的升级包含了 RuntimeClass 的 *破坏性* 的变�
 
 {{% capture body %}}
 
-<!-- 
+<!--
 ## Runtime Class
 
 RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
@@ -42,7 +42,7 @@ configuration is used to run a Pod's containers.
 
 RuntimeClass 是可以让用户选择容器运行时的功能。用户通过设定容器运行时可以选择 Pod 的容器运行在那种容器运行时之上。
 
-<!-- 
+<!--
 ## Motivation
 
 You can set a different RuntimeClass between different Pods to provide a balance of
@@ -98,7 +98,7 @@ CRI implementation for how to configure.
 RuntimeClass assumes a homogeneous node configuration across the cluster by default (which means
 that all nodes are configured the same way with respect to container runtimes). To support
 heterogenous node configurations, see [Scheduling](#scheduling) below.
---> 
+-->
 
 默认情况下，RuntimeClass 被假设为所有节点上的配置均为一致。(这意味着所有的 Node 节点的容器运行时必须以相同的方式进行设定)。
 要支持不同配置构节点配置，请参见下面的[Scheduling]（＃scheduling）。
@@ -154,7 +154,7 @@ Once RuntimeClasses are configured for the cluster, using them is very simple. S
 -->
 ### 使用方法
 
-一旦集群中的 RuntimeClass 的设定完成，接下来的使用就变得非常简单了。只需要设定 PodSpec 的 `runtimeClassName` 设定项。  
+一旦集群中的 RuntimeClass 的设定完成，接下来的使用就变得非常简单了。只需要设定 PodSpec 的 `runtimeClassName` 设定项。
 例如：
 
 ```yaml
@@ -220,7 +220,7 @@ Runtime handlers are configured through containerd's configuration at
 See containerd's config documentation for more details:
 https://github.com/containerd/cri/blob/master/docs/config.md
 -->
-`containerd` 的具体设定请参考下面的文档信息。  
+`containerd` 的具体设定请参考下面的文档信息。
 https://github.com/containerd/cri/blob/master/docs/config.md
 
 #### [cri-o](https://cri-o.io/)
@@ -230,7 +230,7 @@ Runtime handlers are configured through cri-o's configuration at `/etc/crio/crio
 handlers are configured under the [crio.runtime
 table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
 -->
-运行时处理程序通过cri-o的配置在 `/etc/crio/crio.conf` 中进行配置。 
+运行时处理程序通过cri-o的配置在 `/etc/crio/crio.conf` 中进行配置。
 有效的处理程序在[crio.runtime表](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)下配置。
 
 ```
@@ -266,13 +266,13 @@ the intersection of the set of nodes selected by each. If there is a conflict, t
 rejected.
 -->
 
-从Kubernetes v1.16开始，RuntimeClass 通过 `scheduling` 字段添加了对异构集群的支持。 
-通过使用这些字段，可以确保将与此 RuntimeClass一 起运行的 Pod 调度到支持它的节点上。 
+从Kubernetes v1.16开始，RuntimeClass 通过 `scheduling` 字段添加了对异构集群的支持。
+通过使用这些字段，可以确保将与此 RuntimeClass一 起运行的 Pod 调度到支持它的节点上。
 要使用计划支持，您必须启用 RuntimeClass [admission controller] []（默认值，自1.16开始）。
 
 为了确保 Pod 被调度到支持特定 RuntimeClass 的节点上，
-那组节点应该具有一个公共标签，然后由 `runtimeclass.scheduling.nodeSelector` 字段选择该标签。 
-RuntimeClass 的 nodeSelector 在调度时与 Pod 的 nodeSelector 合并，有效地进行节点选择，并且调度到相应节点。 
+那组节点应该具有一个公共标签，然后由 `runtimeclass.scheduling.nodeSelector` 字段选择该标签。
+RuntimeClass 的 nodeSelector 在调度时与 Pod 的 nodeSelector 合并，有效地进行节点选择，并且调度到相应节点。
 如果有冲突，则将拒绝该 Pod 被调度。
 
 <!--
@@ -347,7 +347,7 @@ RuntimeClass Beta 功能包括以下更改：
 - 已在 RuntimeClass 定义中内联了 `spec`（即不再有RuntimeClassSpec）。
 - `runtimeHandler` 字段已重命名为 `handler`。
 - 所有 API 版本中现在都需要 `handler` 字段。 这意味着 Alpha API 中的 `runtimeHandler` 字段也是必须设定项。
-- `handler`字段必须是有效的DNS标签（[RFC 1123](https://tools.ietf.org/html/rfc1123))，这意味着它不再包含 `.` 字符（在所有版本中）。 
+- `handler`字段必须是有效的DNS标签（[RFC 1123](https://tools.ietf.org/html/rfc1123))，这意味着它不再包含 `.` 字符（在所有版本中）。
    有效的处理程序匹配以下正则表达式：`^ [a-z0-9]（[-a-z0-9] * [a-z0-9]）？$`。
 
 <!--

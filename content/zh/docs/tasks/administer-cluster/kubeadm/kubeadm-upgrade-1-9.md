@@ -4,7 +4,7 @@ reviewers:
 - luxas
 - roberthbailey
 - jbeda
-title: 将 kubeadm 集群在 v1.8 版本到 v1.9 版本之间升级/降级 
+title: 将 kubeadm 集群在 v1.8 版本到 v1.9 版本之间升级/降级
 content_template: templates/task
 ---
 
@@ -98,9 +98,9 @@ chmod a+rx /usr/bin/kubeadm
 {{< caution >}}
 <!--
 
-Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade. 
-Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm 
-team is working on fixing this limitation. 
+Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade.
+Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm
+team is working on fixing this limitation.
 
 --->
 **注意:** 在您的系统上升级控制面板之前升级 `kubeadm` 包会导致升级失败。
@@ -189,7 +189,7 @@ You can now apply the upgrade by executing the following command:
 
 _____________________________________________________________________
 ```
-         
+
 --->
 
   ```shell
@@ -242,7 +242,7 @@ _____________________________________________________________________
     请注意：在您执行升级之前，您必须升级 kubeadm 到 v1.9.0 版本
 _____________________________________________________________________
 ```
-                 
+
 <!--
 
 The `kubeadm upgrade plan` checks that your cluster is upgradeable and fetches the versions available to upgrade to in an user-friendly way.
@@ -326,7 +326,7 @@ To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm
 - Creates new certificate and key files of apiserver and backs up old files if they're about to expire in 180 days.
 
 --->
-                       
+
 升级具有默认内部的 DNS 的 coreDNS 集群，调用具有 `--feature-gates=CoreDNS=true` 标记的 `kubeadm upgrade apply`。
 `kubeadm upgrade apply`按照如下进行：
 
@@ -345,14 +345,14 @@ To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm
 
    Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
    Check the [addons](/docs/concepts/cluster-administration/addons/) page to find your CNI provider and see if there are additional      upgrade steps necessary.
-                                            
+
 --->
 
 4. 手动升级定义网络（SDN）的软件
 
    容器网络接口（CNI）提供者具有升级说明指导。
    检查这个[插件](/docs/concepts/cluster-administration/addons/)页面来找到 CNI 提供者和查看是否需要额外的升级步骤。
-                                                     
+
 <!--
 
 ## Upgrading your master and node packages
@@ -381,7 +381,7 @@ When running this command against the master host, this error is expected and ca
 node "master" already cordoned
 error: pods not managed by ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet (use --force to override): etcd-kubeadm, kube-apiserver-kubeadm, kube-controller-manager-kubeadm, kube-scheduler-kubeadm
 ```
-<!-- 
+<!--
 
 2. Upgrade the Kubernetes package versions on the `$HOST` node by using a Linux distribution-specific package manager:
 

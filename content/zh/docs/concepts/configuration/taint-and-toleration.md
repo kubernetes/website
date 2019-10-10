@@ -326,7 +326,7 @@ certain condition is true. The following taints are built in:
     this node, the kubelet removes this taint.
   -->
   此外，Kubernetes 1.6 已经支持（alpha阶段）节点问题的表示。换句话说，当某种条件为真时，node controller会自动给节点添加一个 taint。当前内置的 taint 包括：
-  
+
  * `node.kubernetes.io/not-ready`：节点未准备好。这相当于节点状态 `Ready` 的值为 "`False`"。
  * `node.kubernetes.io/unreachable`：node controller 访问不到节点. 这相当于节点状态 `Ready` 的值为 "`Unknown`"。
  * `node.kubernetes.io/out-of-disk`：节点磁盘耗尽。

@@ -44,7 +44,7 @@ REVISION        CHANGE-CAUSE
 ...
 ```
 
-* 在创建时，DaemonSet 的变化原因从 `kubernetes.io/change-cause` 注解（annotation）复制到其版本中。 用户可以在 `kubectl` 中指定 `--record=true` ，将执行的命令记录在变化原因注解中。 
+* 在创建时，DaemonSet 的变化原因从 `kubernetes.io/change-cause` 注解（annotation）复制到其版本中。 用户可以在 `kubectl` 中指定 `--record=true` ，将执行的命令记录在变化原因注解中。
 
 执行以下命令，来查看指定版本的详细信息：
 
@@ -88,8 +88,8 @@ daemonset "<daemonset-name>" rolled back
 
 执行以下命令，来观察 DaemonSet 回滚进度：
 
-```shell 
-kubectl rollout status ds/<daemonset-name> 
+```shell
+kubectl rollout status ds/<daemonset-name>
 ```
 
 回滚完成时，输出形如：
