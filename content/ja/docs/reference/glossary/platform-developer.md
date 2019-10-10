@@ -1,5 +1,5 @@
 ---
-title: Platform Developer
+title: プラットフォーム開発者
 id: platform-developer
 date: 2018-04-12
 full_link: 

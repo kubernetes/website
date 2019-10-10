@@ -1,5 +1,5 @@
 ---
-title: Contributor
+title: コントリビューター
 id: contributor
 date: 2018-04-12
 full_link: 
@@ -14,5 +14,5 @@ tags:
 
 <!--more--> 
 
-貢献はプルリクエスト（PRs）、イシュー、フィードバック、{{< glossary_tooltip text="special interest groups (SIG)" term_id="sig" >}}への参加、またはコミュニティイベントの開催が含まれます。
+貢献はPull Request（PRs）、Issue、フィードバック、{{< glossary_tooltip text="special interest groups (SIG)" term_id="sig" >}}への参加、またはコミュニティイベントの開催が含まれます。
 
