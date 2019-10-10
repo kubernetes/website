@@ -3,7 +3,7 @@ reviewers:
 title: Kubernetes API
 content_template: templates/concept
 weight: 30
-card: 
+card:
   name: concepts
   weight: 30
 ---
@@ -16,7 +16,7 @@ APIエンドポイント、リソースタイプ、そしてサンプルは[API�
 
 APIへの外部からのアクセスは、[APIアクセス制御ドキュメント](/docs/reference/access-authn-authz/controlling-access/)に記載されています。
 
-Kubernetes APIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することが出来ます。 
+Kubernetes APIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することが出来ます。
 
 また、Kubernetesは、シリアライズされた状態を(現在は[etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)に)APIリソースの単位で保存しています。
 

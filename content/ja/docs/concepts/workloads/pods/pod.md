@@ -178,7 +178,7 @@ describeコマンド出力のイベントテーブルには、次のように表
 `Error validating pod "FooPodName"."FooPodNamespace" from api, ignoring: spec.containers[0].securityContext.privileged: forbidden '<*>(0xc2089d3248)true'`
 
 マスターがv1.1より前のバージョンを実行している場合、特権を持つPodは作成できません。
-ユーザーが特権付きのコンテナを含むPodを作成しようとすると、次のエラーを受け取ります。 
+ユーザーが特権付きのコンテナを含むPodを作成しようとすると、次のエラーを受け取ります。
 `The Pod "FooPodName" is invalid.
 spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'`
 

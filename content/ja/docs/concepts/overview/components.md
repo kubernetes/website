@@ -3,7 +3,7 @@ reviewers:
 title: Kubernetesコンポーネント
 content_template: templates/concept
 weight: 20
-card: 
+card:
   name: concepts
   weight: 20
 ---
