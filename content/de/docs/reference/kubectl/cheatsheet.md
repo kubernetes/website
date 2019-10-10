@@ -64,7 +64,7 @@ kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser -
 # Legen Sie einen Kontext fest, indem Sie einen bestimmten Benutzernamen und einen bestimmten Namespace verwenden.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
- 
+
 kubectl config unset users.foo                       # delete user foo
 ```
 
