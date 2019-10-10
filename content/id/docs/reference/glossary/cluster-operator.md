@@ -2,17 +2,17 @@
 title: Cluster Operator
 id: cluster-operator
 date: 2018-04-12
-full_link:
+full_link: 
 short_description: >
   Seseorang yang mengkonfigurasi, mengontrol, dan memonitor cluster.
 
-aka:
+aka: 
 tags:
 - user-type
 ---
   Seseorang yang mengkonfigurasi, mengontrol, dan memonitor cluster.
 
-<!--more-->
+<!--more--> 
 
 
 Tanggung jawab utama mereka adalah menjaga dan menjalankan cluster, yang mungkin melibatkan kegiatan pemeliharaan berkala atau peningkatan. <br>
