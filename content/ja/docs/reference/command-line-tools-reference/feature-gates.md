@@ -270,7 +270,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `MountPropagation`: あるコンテナによってマウントされたボリュームを他のコンテナまたはpodに共有できるようにします。詳細は[マウントの伝播](/docs/concepts/storage/volumes/#mount-propagation)で確認できます。
 - `NodeLease`: 新しいLease APIを有効にしてノードヘルスシグナルとして使用できるノードのハートビートをレポートします。
 - `NonPreemptingPriority`: PriorityClassとPodのNonPreemptingオプションを有効にします。
-- `PersistentLocalVolumes`: Podsで`local`ボリュームタイプの使用を有効にします。`local`ボリュームを要求する場合、podアフィニティを指定する必要があります。
+- `PersistentLocalVolumes`: Podで`local`ボリュームタイプの使用を有効にします。`local`ボリュームを要求する場合、podアフィニティを指定する必要があります。
 - `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてPodの再スケジューリングとプリエンプションを有効にします。
 - `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
 - `ProcMountType`: コンテナのProcMountTypeの制御を有効にします。
