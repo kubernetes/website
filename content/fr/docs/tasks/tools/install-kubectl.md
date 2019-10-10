@@ -35,7 +35,7 @@ Vous devez utiliser une version de kubectl qui différe seulement d'une version 
     Pour télécharger une version spécifique, remplacez `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` avec la version spécifique.
 
     Par exemple, pour télécharger la version {{< param "fullversion" >}} sur Linux, tapez :
-    
+
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
     ```
@@ -79,8 +79,8 @@ EOF
 yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
-    
-    
+
+
 ### Installer avec snap
 
 Si vous êtes sur Ubuntu ou une autre distribution Linux qui supporte le gestionnaire de paquets [snap](https://snapcraft.io/docs/core/install), kubectl est disponible comme application [snap](https://snapcraft.io/).
@@ -96,21 +96,21 @@ Si vous êtes sur Ubuntu ou une autre distribution Linux qui supporte le gestion
     ```
     kubectl version
     ```
-    
+
 ## Installer kubectl sur macOS
 
 ### Installer le binaire kubectl avec curl sur macOS
 
 1. Téléchargez la dernière release:
 
-    ```		 
+    ```		
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
     ```
 
     Pour télécharger une version spécifique, remplacez `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` avec la version spécifique.
 
     Par exemple, pour télécharger la version {{< param "fullversion" >}} sur macOS, tapez :
-		  
+		
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
     ```
@@ -158,7 +158,7 @@ Si vous êtes sur MacOS et que vous utilisez le gestionnaire de paquets [Macport
     sudo port selfupdate
     sudo port install kubectl
     ```
-    
+
 2. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
@@ -196,9 +196,9 @@ Si vous êtes sous Windows et que vous utilisez le gestionnaire de paquets [Powe
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
-    
+
     {{< note >}}Si vous ne spécifiez pas un `DownloadLocation`, `kubectl` sera installé dans le répertoire temp de l'utilisateur.{{< /note >}}
-    
+
     Le programme d'installation creé `$HOME/.kube` qui est suivie par la création d'un fichier de configuration
 
 2. Testez pour vous assurer que la version que vous avez installée est à jour:
@@ -252,7 +252,7 @@ Pour installer kubectl sur Windows, vous pouvez utiliser le gestionnaire de paqu
     ```
     New-Item config -type file
     ```
-    
+
     {{< note >}}Editez le fichier de configuration avec un éditeur de texte de votre choix, tel que Notepad.{{< /note >}}
 
 ## Télécharger en tant qu'élément du SDK Google Cloud
@@ -265,14 +265,14 @@ Vous pouvez installer kubectl en tant qu'élément du SDK Google Cloud.
     ```
     gcloud components install kubectl
     ```
-    
+
 3. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
     kubectl version
     ```
 
-## Vérification de la configuration de kubectl 
+## Vérification de la configuration de kubectl
 
 Pour permettre à kubectl de trouver et d'accéder à un cluster Kubernetes, il lui faut un [fichier kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), qui est créé automatiquement lorsque vous créez un cluster avec `kube-up.sh` ou en déployant un cluster Minikube avec succès. Par défaut, la configuration de kubectl est située sous `~/.kube/config`.
 
@@ -427,7 +427,7 @@ compinit
 
 {{% capture whatsnext %}}
 * [Installer Minikube](/docs/tasks/tools/install-minikube/)
-* Voir les [guides de démarrage](/fr/docs/setup/) pour plus d'informations sur la création de clusters. 
+* Voir les [guides de démarrage](/fr/docs/setup/) pour plus d'informations sur la création de clusters.
 * [Apprenez comment lancer et exposer votre application](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * Si vous avez besoin d'accéder à un cluster que vous n'avez pas créé, consultez [Partager l'accès du Cluster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Consulter les [documents de référence de kubectl](/fr/docs/reference/kubectl/kubectl/)

@@ -10,7 +10,7 @@ Cette page montre comment configurer un Pod pour utiliser un Volume pour le stoc
 
 Le système de fichiers d'un conteneur ne vit que tant que le conteneur vit. Ainsi, quand un conteneur se termine et redémarre, les modifications apportées au système de fichiers sont perdues.  Pour un stockage plus consistant et indépendant du conteneur, vous pouvez utiliser un
 [Volume](/fr/docs/concepts/storage/volumes/).
-C'est particulièrement important pour les applications Stateful, telles que les key-value stores (comme par exemple Redis) et les bases de données. 
+C'est particulièrement important pour les applications Stateful, telles que les key-value stores (comme par exemple Redis) et les bases de données.
 
 {{% /capture %}}
 
@@ -25,7 +25,7 @@ C'est particulièrement important pour les applications Stateful, telles que les
 ## Configurer un volume pour un Pod
 
 Dans cet exercice, vous créez un pod qui contient un seul conteneur. Ce Pod a un Volume de type
-[emptyDir](/fr/docs/concepts/storage/volumes/#emptydir) qui dure toute la vie du Pod, même si le conteneur se termine et redémarre. 
+[emptyDir](/fr/docs/concepts/storage/volumes/#emptydir) qui dure toute la vie du Pod, même si le conteneur se termine et redémarre.
 Voici le fichier de configuration du Pod :
 
 {{< codenew file="pods/storage/redis.yaml" >}}
@@ -41,7 +41,7 @@ Voici le fichier de configuration du Pod :
     ```shell
     kubectl get pod redis --watch
     ```
-    
+
     La sortie ressemble à ceci :
 
     ```shell

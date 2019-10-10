@@ -15,7 +15,7 @@ Cette page vous montre comment installer [Minikube](/fr/docs/tutorials/hello-min
 
 {{% capture prerequisites %}}
 
-La virtualisation VT-x ou AMD-v doit être activée dans le BIOS de votre machine. 
+La virtualisation VT-x ou AMD-v doit être activée dans le BIOS de votre machine.
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -32,7 +32,7 @@ sysctl -a | grep machdep.cpu.features
 Si vous trouvez `VMX` dans la sortie, la fonction VT-x est supportée sur votre OS.
 {{% /tab %}}
 {{% tab name="Windows" %}}
-Pour vérifier si la virtualisation est prise en charge sur Windows 8 et au-delà, exécutez la commande suivante sur votre terminal Windows ou à l'invite de commande. 
+Pour vérifier si la virtualisation est prise en charge sur Windows 8 et au-delà, exécutez la commande suivante sur votre terminal Windows ou à l'invite de commande.
 ```
 systeminfo
 ```
