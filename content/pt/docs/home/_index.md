@@ -1,7 +1,7 @@
 ---
 approvers:
 - chenopis
-title: Kubernetes 
+title: Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home

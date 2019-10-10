@@ -17,7 +17,7 @@ Se você perceber que isso está desatualizado, por favor
 
 Se você notar uma violação do Código de Conduta em um evento ou meetup,
 ou em outro meio de comunicação, entre em contato com
-<a href="https://git.k8s.io/community/committee-code-of-conduct">Comitê de Código de Conduta da Comunidade Kubernetes</a>. 
+<a href="https://git.k8s.io/community/committee-code-of-conduct">Comitê de Código de Conduta da Comunidade Kubernetes</a>.
 Você pode nos contatar por e-mail em<a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>.
 Seu anonimato será protegido.
 

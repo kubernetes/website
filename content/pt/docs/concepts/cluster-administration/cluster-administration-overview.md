@@ -57,7 +57,7 @@ a permissão para usuários e contas de serviço.
 * [Usando Sysctls em um Cluster Kubernetes](/docs/concepts/cluster-administration/sysctl-cluster/) descreve a um administrador como usar a ferramenta de linha de comando `sysctl` para definir os parâmetros do kernel.
 
 
-* [Auditando](/docs/tasks/debug-application-cluster/audit/) 
+* [Auditando](/docs/tasks/debug-application-cluster/audit/)
 descreve como interagir com os logs de auditoria do Kubernetes.
 
 ### Protegendo o kubelet
