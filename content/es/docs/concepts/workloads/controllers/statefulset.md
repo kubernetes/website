@@ -104,12 +104,12 @@ spec:
 ```
 
 ## Selector de Pod
-Debes poner el valor del campo `.spec.selector` de un StatefulSet para que coincida con las etiquetas de su campo `.spec.template.metadata.labels`. Antes de Kubernetes 1.8, 
+Debes poner el valor del campo `.spec.selector` de un StatefulSet para que coincida con las etiquetas de su campo `.spec.template.metadata.labels`. Antes de Kubernetes 1.8,
 el campo `.spec.selector` se predeterminaba cuando se omitía. A partir de la versión 1.8, si no se especifica un selector de coincidencia de Pods, se produce un error de validación
 durante la creación del StatefulSet.
 
 ## Identidad de Pod
-Los Pods de un StatefulSet tienen una identidad única que está formada por un ordinal, 
+Los Pods de un StatefulSet tienen una identidad única que está formada por un ordinal,
 una identidad estable de red, y almacenamiento estable. La identidad se asocia al Pod,
 independientemente del nodo en que haya sido (re)programado.
 
@@ -131,7 +131,7 @@ Conforme se crea cada Pod, se le asigna un nombre DNS correspondiente de subdomi
 `$(podname).$(governing service domain)`, donde el servicio en funciones se define por el campo
 `serviceName` del StatefulSet.
 
-Como se indicó en la sección [limitaciones](#limitaciones), la creación del 
+Como se indicó en la sección [limitaciones](#limitaciones), la creación del
 [Servicio Headless](/docs/concepts/services-networking/service/#headless-services)
 encargado de la identidad de red de los pods es enteramente tu responsabilidad.
 
@@ -153,17 +153,17 @@ El valor de Cluster Domain se pondrá a `cluster.local` a menos que
 
 Kubernetes crea un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) para cada
 VolumeClaimTemplate. En el ejemplo de nginx de arriba, cada Pod recibirá un único PersistentVolume
-con una StorageClass igual a `my-storage-class` y 1 Gib de almacenamiento provisionado. Si no se indica ninguna StorageClass, 
+con una StorageClass igual a `my-storage-class` y 1 Gib de almacenamiento provisionado. Si no se indica ninguna StorageClass,
 entonces se usa la StorageClass por defecto. Cuando un Pod se (re)programa
 en un nodo, sus `volumeMounts` montan los PersistentVolumes asociados con sus
-PersistentVolume Claims. Nótese que los PersistentVolumes asociados con los 
+PersistentVolume Claims. Nótese que los PersistentVolumes asociados con los
 PersistentVolume Claims de los Pods no se eliminan cuando los Pods, o los StatefulSet se eliminan.
 Esto debe realizarse manualmente.
 
 ### Etiqueta de Nombre de Pod
 
-Cuando el controlador del StatefulSet crea un Pod, añade una etiqueta, `statefulset.kubernetes.io/pod-name`, 
-que toma el valor del nombre del Pod. Esta etiqueta te permite enlazar un Service a un Pod específico  
+Cuando el controlador del StatefulSet crea un Pod, añade una etiqueta, `statefulset.kubernetes.io/pod-name`,
+que toma el valor del nombre del Pod. Esta etiqueta te permite enlazar un Service a un Pod específico
 en el StatefulSet.
 
 ## Garantías de Despliegue y Escalado
@@ -173,12 +173,12 @@ en el StatefulSet.
 * Antes de que una operación de escalado se aplique a un Pod, todos sus predecesores deben estar Running y Ready.
 * Antes de que se termine un Pod, todos sus sucesores deben haberse apagado completamente.
 
-El StatefulSet no debería tener que indicar un valor 0 para el campo `pod.Spec.TerminationGracePeriodSeconds`. 
+El StatefulSet no debería tener que indicar un valor 0 para el campo `pod.Spec.TerminationGracePeriodSeconds`.
 Esta práctica no es segura y se aconseja no hacerlo. Para una explicación más detallada, por favor echa un vistazo a cómo [forzar la eliminación de Pods de un StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-Cuando el ejemplo nginx de arriba se crea, se despliegan tres Pods en el orden 
+Cuando el ejemplo nginx de arriba se crea, se despliegan tres Pods en el orden
 web-0, web-1, web-2. web-1 no se desplegará hasta que web-0 no esté
-[Running y Ready](/docs/user-guide/pod-states/), y web-2 no se desplegará hasta que 
+[Running y Ready](/docs/user-guide/pod-states/), y web-2 no se desplegará hasta que
 web-1 esté Running y Ready. En caso de que web-0 fallase, después de que web-1 estuviera Running y Ready, pero antes
 de que se desplegara web-2, web-2 no se desplegaría hasta que web-0 se redesplegase con éxito y estuviera
 Running y Ready.
@@ -207,7 +207,7 @@ y Ready o completamente terminados antes de lanzar o terminar otro Pod.
 ## Estrategias de Actualización
 
 En Kubernetes 1.7 y a posteriori, el campo `.spec.updateStrategy` del StatefulSet permite configurar
-y deshabilitar las actualizaciones automátizadas en línea para los contenedores, etiquetas, peticiones/límites de recursos, 
+y deshabilitar las actualizaciones automátizadas en línea para los contenedores, etiquetas, peticiones/límites de recursos,
 y anotaciones de los Pods del StatefulSet.
 
 ### On Delete
@@ -228,14 +228,14 @@ actualizar su predecesor.
 
 #### Particiones
 
-La estrategia de actualización `RollingUpdate` puede particionarse, indicando el valor del campo 
+La estrategia de actualización `RollingUpdate` puede particionarse, indicando el valor del campo
 `.spec.updateStrategy.rollingUpdate.partition`. Si se indica una partición, todos los Pods con un
-número ordinal mayor o igual que el de la partición serán actualizados cuando el campo `.spec.template` 
-del StatefulSet se actualice. Todos los Pods con un número ordinal que sea menor que el de la partición 
+número ordinal mayor o igual que el de la partición serán actualizados cuando el campo `.spec.template`
+del StatefulSet se actualice. Todos los Pods con un número ordinal que sea menor que el de la partición
 no serán actualizados, e incluso si son eliminados, serán recreados con la versión anterior. Si el campo
 `.spec.updateStrategy.rollingUpdate.partition` de un StatefulSet es mayor que el valor del campo `.spec.replicas`,
 las modificaciones al campo `.spec.template` no se propagarán a sus Pods.
-En la mayoría de ocasiones, no necesitarás usar una partición, pero pueden resultar útiles si quieres preparar una actualización, 
+En la mayoría de ocasiones, no necesitarás usar una partición, pero pueden resultar útiles si quieres preparar una actualización,
 realizar un despliegue tipo canary, o llevar a cabo un despliegue en fases.
 
 #### Retroceso Forzado
