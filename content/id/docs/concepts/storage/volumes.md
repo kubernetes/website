@@ -411,7 +411,7 @@ spec:
 
 ### glusterfs {#glusterfs}
 
-Sebuah Volume `glusterfs` memungkinkan sebuah volume [Glusterfs](http://www.gluster.org) (sebuah proyek _open-source_ _filesystem_ berbasis jaringan) untuk ditambatkan ke dalam Pod kamu. 
+Sebuah Volume `glusterfs` memungkinkan sebuah volume [Glusterfs](http://www.gluster.org) (sebuah proyek _open-source_ _filesystem_ berbasis jaringan) untuk ditambatkan ke dalam Pod kamu.
 Tidak seperti `emptyDir` yang ikut dihapus saat Pod dihapus, isi dari sebuah `glusterfs` dipertahankan dan _volume_-nya hanya dilepaskan tambatannya. Hal ini berarti sebuah `glusterfs` dapat diisi terlebih dahulu dengan data, dan data tersebut dapat "dioper" diantara Pod-pod. GlusterFS dapat ditambatkan kepada beberapa penulis secara bersamaan.
 
 {{< caution >}}
@@ -478,7 +478,7 @@ spec:
 
 ### iscsi {#iscsi}
 
-Sebuah Volume `iscsi` memungkinkan sebuah volume iSCSI (_SCSI over IP_) yang sudah ada untuk ditambatkan ke dalam Pod kamu. 
+Sebuah Volume `iscsi` memungkinkan sebuah volume iSCSI (_SCSI over IP_) yang sudah ada untuk ditambatkan ke dalam Pod kamu.
 Tidak seperti `emptyDir` yang ikut dihapus saat Pod dihapus, isi dari sebuah `iscsi` dipertahankan dan _volume_-nya hanya dilepaskan tambatannya. Hal ini berarti sebuah `iscsi` dapat diisi terlebih dahulu dengan data, dan data tersebut dapat "dioper" diantara Pod-pod.
 
 {{< caution >}}
@@ -572,7 +572,7 @@ Saat ini, tipe-tipe sumber Volume berikut dapat diproyeksikan:
 Semua sumber harus berada pada `namespace` yang sama dengan Pod yang menggunakannya. Untuk lebih lanjut, lihat [dokumen desain Volume](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
 
 Proyeksi `serviceAccountToken` adalah fitur yang diperkenalkan pada Kubernetes 1.11 dan dipromosikan menjadi Beta pada 1.12.
-Untuk mengaktifkan fitur inipada 1.11, kamu harus menyetel [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `TokenRequestProjection` secara eksplisit menjadi `True`. 
+Untuk mengaktifkan fitur inipada 1.11, kamu harus menyetel [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `TokenRequestProjection` secara eksplisit menjadi `True`.
 
 #### Contoh Pod dengan sebuah Secret, Downward API, dan ConfigMap.
 
@@ -725,7 +725,7 @@ Kamu harus sudah memiliki instalasi Quobyte dengan volume yang sudah disediakan 
 {{< /caution >}}
 
 Quobyte mendukung {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
-CSI adalah _plugin_ yang direkomendasikan untuk menggunakan Volume Quobyte di dalam Kubernetes. Ada [petunjuk dan contoh](https://github.com/quobyte/quobyte-csi#quobyte-csi) untuk menggunakan Quobyte menggunakan CSI pada proyek GitHub Quobyte.j  
+CSI adalah _plugin_ yang direkomendasikan untuk menggunakan Volume Quobyte di dalam Kubernetes. Ada [petunjuk dan contoh](https://github.com/quobyte/quobyte-csi#quobyte-csi) untuk menggunakan Quobyte menggunakan CSI pada proyek GitHub Quobyte.j
 
 ### rbd {#rbd}
 
@@ -1108,7 +1108,7 @@ Nilai-nilainya adalah sebagai berikut:
   Mode ini setara dengan _mount propagation_ `private`, seperti yang dideskripsikan pada [dokumentasi kernel Linux](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 
 * `HostToContainer` - Tambatan volume ini akan menerima semua tambatan selanjutnya yang ditambatkan pada volume ini atau pada apapun sub-direktori yang dimilikinya.
-  
+
   Dalam kata lain, jika _host_ yang bersangkutan menambatkan apapun di dalam tambatan volume, Container akan melihatnya ditambatkan di sana.
 
   Secara serupa, jika ada Pod dengan _mount propagation_ `Bidirectional` terhadap volume yang sama menambatkan apapun ke situ, maka Container dengan _mount propagation_ `HostToContainer` akan melihatnya.

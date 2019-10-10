@@ -2,7 +2,7 @@
 title: Pengenalan Pod
 content_template: templates/concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 60
 ---
@@ -36,7 +36,7 @@ Setiap *Pod* dimaksudkan untuk menjalankan satu *instance* aplikasi. Jika kamu i
 ### Bagaimana *Pod* mengelola beberapa Kontainer
 *Pod* didesain untuk mendukung banyak proses (sebagai kontainer) yang membentuk sebuah layanan. Kontainer di dalam sebuah *Pod* akan otomatis ditempatkan bersama di dalam satu mesin fisik atau mesin *virtual* di dalam kluster. Kontainer tersebut dapat berbagi *resource* dan dependensi, berkomunikasi satu sama lain, dan berkoordinasi kapan dan bagaimana mereka diterminasi.
 
-Perhatikan bahwa mengelompokan kontainer di dalam satu *Pod* merupakan kasus lanjutan. Kamu dapat menggunakan pola ini hanya dalam kasus tertentu. Sebagai contoh, kamu memiliki kontainer yang bertindak sebagai *web server* yang menyajikan berkas dari *resource* penyimpanan bersama, dan kontainer *sidecar* melakukan pembaharuan terhadap berkas tersebut dari sumber lain, seperti dalam diagram *Pod* berikut: 
+Perhatikan bahwa mengelompokan kontainer di dalam satu *Pod* merupakan kasus lanjutan. Kamu dapat menggunakan pola ini hanya dalam kasus tertentu. Sebagai contoh, kamu memiliki kontainer yang bertindak sebagai *web server* yang menyajikan berkas dari *resource* penyimpanan bersama, dan kontainer *sidecar* melakukan pembaharuan terhadap berkas tersebut dari sumber lain, seperti dalam diagram *Pod* berikut:
 {{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
 
 *Pod* menyediakan dua jenis *resource* sebagai penyusun dari kontainer: *jaringan* dan *penyimpanan*.

@@ -9,7 +9,7 @@ Laman ini menjelaskan soal jumlah volume maksimal yang dapat dihubungkan
 ke sebuah Node untuk berbagai penyedia layanan cloud.
 
 Penyedia layanan cloud seperti Google, Amazon, dan Microsoft pada umumnya memiliki
-keterbatasan dalam jumlah volume yang bisa terhubung ke sebuah Node. Keterbatasn ini 
+keterbatasan dalam jumlah volume yang bisa terhubung ke sebuah Node. Keterbatasn ini
 sangatlah penting untuk diketahui Kubernetes dalam menentukan keputusan. Jika tidak,
 Pod-pod yang telah dijadwalkan pada sebuah Node akan macet dan menunggu terus-menerus
 untuk terhubung pada volume.

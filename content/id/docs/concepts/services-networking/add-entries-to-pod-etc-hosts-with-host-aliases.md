@@ -7,12 +7,12 @@ weight: 60
 {{< toc >}}
 
 {{% capture overview %}}
-Menambahkan entri pada berkas /etc/hosts Pod akan melakukan _override_ 
-resolusi _hostname_ pada level Pod ketika DNS dan opsi lainnya tidak tersedia. 
-Pada versi 1.7, pengguna dapat menambahkan entri yang diinginkan beserta _field_ HostAliases 
+Menambahkan entri pada berkas /etc/hosts Pod akan melakukan _override_
+resolusi _hostname_ pada level Pod ketika DNS dan opsi lainnya tidak tersedia.
+Pada versi 1.7, pengguna dapat menambahkan entri yang diinginkan beserta _field_ HostAliases
 pada PodSpec.
 
-Modifikasi yang dilakukan tanpa menggunakan HostAliases tidaklah disarankan 
+Modifikasi yang dilakukan tanpa menggunakan HostAliases tidaklah disarankan
 karena berkas ini diatur oleh Kubelet dan dapat di-_override_ ketika Pod dibuat/di-_restart_.
 {{% /capture %}}
 
@@ -58,14 +58,14 @@ fe00::2	ip6-allrouters
 10.200.0.4	nginx
 ```
 
-Secara default, berkas `hosts` hanya berisikan _boilerplate_ alamat IP IPv4 and IPv6 seperti 
+Secara default, berkas `hosts` hanya berisikan _boilerplate_ alamat IP IPv4 and IPv6 seperti
 `localhost` dan hostname dari Pod itu sendiri.
 
 ## Menambahkan Entri Tambahan dengan HostAliases
 
-Selain _boilerplate default_, kita dapat menambahkan entri pada berkas 
+Selain _boilerplate default_, kita dapat menambahkan entri pada berkas
 `hosts` untuk melakukan resolusi `foo.local`, `bar.local` pada `127.0.0.1` dan `foo.remote`,
-`bar.remote` pada `10.1.2.3`, kita dapat melakukannya dengan cara menambahkan 
+`bar.remote` pada `10.1.2.3`, kita dapat melakukannya dengan cara menambahkan
 HostAliases pada Pod di bawah _field_ `.spec.hostAliases`:
 
 {{< codenew file="service/networking/hostaliases-pod.yaml" >}}
@@ -116,15 +116,15 @@ Dengan tambahan entri yang telah dispesifikasikan sebelumnya.
 
 ## Kenapa Kubelet Melakukan Mekanisme Manajemen Berkas `Hosts`?
 
-Kubelet [melakukan proses manajemen](https://github.com/kubernetes/kubernetes/issues/14633) 
-berkas `hosts` untuk setiap container yang ada pada Pod untuk mencegah Docker melakukan 
-[modifikasi](https://github.com/moby/moby/issues/17190) pada berkas tersebut 
+Kubelet [melakukan proses manajemen](https://github.com/kubernetes/kubernetes/issues/14633)
+berkas `hosts` untuk setiap container yang ada pada Pod untuk mencegah Docker melakukan
+[modifikasi](https://github.com/moby/moby/issues/17190) pada berkas tersebut
 setelah kontainer dihidupkan.
 
-Karena sifat dari berkas tersebut yang secara otomatis di-_manage_, 
-semua hal yang didefinisikan oleh pengguna akan ditimpa (_overwrite_) ketika berkas 
-`hosts` di-_mount_ kembali oleh Kubelet ketika ada kontainer yang di-_restart_ 
-atau Pod di-_schedule_ ulang. Dengan demikian tidak dianjurkan untuk 
+Karena sifat dari berkas tersebut yang secara otomatis di-_manage_,
+semua hal yang didefinisikan oleh pengguna akan ditimpa (_overwrite_) ketika berkas
+`hosts` di-_mount_ kembali oleh Kubelet ketika ada kontainer yang di-_restart_
+atau Pod di-_schedule_ ulang. Dengan demikian tidak dianjurkan untuk
 memodifikasi berkas tersebut secara langsung.
 
 {{% /capture %}}

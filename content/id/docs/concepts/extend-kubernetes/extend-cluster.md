@@ -48,7 +48,7 @@ Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan 
 
 ## Pola-pola Perluasan
 
-Kubernetes didesain untuk dapat diotomasi dengan menulis program-program klien. Program apapun yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
+Kubernetes didesain untuk dapat diotomasi dengan menulis program-program klien. Program apapun yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna.
 
 *Otomasi* dapat berjalan di dalam kluster atau di luar kluster. Dengan mengikuti panduan
 di dalam dokumen ini, kamu dapat menulis otomasi yang sangat tersedia dan kuat.
