@@ -66,14 +66,14 @@ kubectl config use-context my-cluster-name         # Définit my-cluster-name co
 # Ajoute un nouveau cluster à votre kubeconf, prenant en charge l'authentification de base (basic auth)
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
-# enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte
+# Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte
 kubectl config set-context --current --namespace=ggckad-s2
 
 # Définit et utilise un contexte qui utilise un nom d'utilisateur et un namespace spécifiques
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
 
-kubectl config unset users.foo                       # supprime l'utilisateur foo
+kubectl config unset users.foo                       # Supprime l'utilisateur foo
 ```
 
 ## Apply
@@ -87,12 +87,12 @@ Les manifests Kubernetes peuvent être définis en json ou yaml. Les extensions 
 `.yml`, et `.json` peuvent être utilisés.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml           # crée une ou plusieurs ressources
-kubectl apply -f ./my1.yaml -f ./my2.yaml     # crée depuis plusieurs fichiers
-kubectl apply -f ./dir                        # crée une ou plusieurs ressources depuis tous les manifests dans dir
-kubectl apply -f https://git.io/vPieo         # crée une ou plusieurs ressources depuis une url
-kubectl create deployment nginx --image=nginx  # démarre une instance unique de nginx
-kubectl explain pods,svc                       # affiche la documentation pour les manifests pod et svc
+kubectl apply -f ./my-manifest.yaml            # Crée une ou plusieurs ressources
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # Crée depuis plusieurs fichiers
+kubectl apply -f ./dir                         # Crée une ou plusieurs ressources depuis tous les manifests dans dir
+kubectl apply -f https://git.io/vPieo          # Crée une ou plusieurs ressources depuis une url
+kubectl create deployment nginx --image=nginx  # Démarre une instance unique de nginx
+kubectl explain pods,svc                       # Affiche la documentation pour les manifests pod et svc
 
 # Crée plusieurs objets YAML depuis l'entrée standard (stdin)
 cat <<EOF | kubectl apply -f -
@@ -140,10 +140,10 @@ EOF
 ```bash
 # Commandes Get avec un affichage basique
 kubectl get services                     # Liste tous les services d'un namespace
-kubectl get pods --all-namespaces        # Liste tous les pods de tous les namespaces
-kubectl get pods -o wide                 # Liste tous les pods du namespace, avec plus de détails
+kubectl get pods --all-namespaces        # Liste tous les Pods de tous les namespaces
+kubectl get pods -o wide                 # Liste tous les Pods du namespace, avec plus de détails
 kubectl get deployment my-dep            # Liste un déploiement particulier
-kubectl get pods                         # Liste tous les pods dans un namespace
+kubectl get pods                         # Liste tous les Pods dans un namespace
 kubectl get pod my-pod -o yaml           # Affiche le YAML du Pod
 kubectl get pod my-pod -o yaml --export  # Affiche le YAML du Pod sans les informations spécifiques au cluster
 
@@ -281,7 +281,7 @@ kubectl logs my-pod                                 # Affiche les logs du pod (s
 kubectl logs -l name=myLabel                        # Affiche les logs des pods ayant le label name=myLabel (stdout)
 kubectl logs my-pod --previous                      # Affiche les logs du pod (stdout) pour une instance précédente du conteneur
 kubectl logs my-pod -c my-container                 # Affiche les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs)
-kubectl logs -l name=myLabel -c my-container        # Affiche les logs des pods avec le label name=myLabel (stdout)
+kubectl logs -l name=myLabel -c my-container        # Affiche les logs des pods avec le label name=myLabel (stdout, cas d'un pod multi-conteneurs)
 kubectl logs my-pod -c my-container --previous      # Affiche les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs) pour une instance précédente du conteneur
 kubectl logs -f my-pod                              # Fait défiler (stream) les logs du pod (stdout)
 kubectl logs -f my-pod -c my-container              # Fait défiler (stream) les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs)
