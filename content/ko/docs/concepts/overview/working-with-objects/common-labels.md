@@ -60,7 +60,7 @@ metadata:
 예를 들어 워드프레스는 다른 워드프레스가 설치되어있는 웹사이트에 한번 한번 또는 그 이상 설치할 수 있다.
 
 애플리케이션의 이름과 인스턴스 이름은 별도로 기록된다.
-예를 들어 워드프레스는 `app.kubernetes.io/name` 에 `wordpress` 를 가지며 인스턴스 이름으로는 
+예를 들어 워드프레스는 `app.kubernetes.io/name` 에 `wordpress` 를 가지며 인스턴스 이름으로는
 `app.kubernetes.io/instance` 에 `wordpress-abcxzy` 의 값을 가진다.
 이를 통해 애플리케이션과 애플리케이션 인스턴스를 식별할 수 있다.
 모든 애플리케이션 인스턴스는 고유한 이름을 가져야 한다.

@@ -51,7 +51,7 @@ _레이블_ 은 키와 값의 쌍이다. 유효한 레이블 키에는 슬래시
 
 `kubernetes.io/`와 `k8s.io/` 접두사는 쿠버네티스의 핵심 구성요소로 예약되어있다.
 
-유효한 레이블 값은 63자 미만 또는 공백이며 시작과 끝은 알파벳과 숫자(`[a-z0-9A-Z]`)이며, 대시(`-`), 밑줄(`_`), 점(`.`)과 함께 사용할 수 있다. 
+유효한 레이블 값은 63자 미만 또는 공백이며 시작과 끝은 알파벳과 숫자(`[a-z0-9A-Z]`)이며, 대시(`-`), 밑줄(`_`), 점(`.`)과 함께 사용할 수 있다.
 
 다음의 예시는 파드에 `environment: production` 과 `app: nginx` 2개의 레이블이 있는 구성 파일이다.
 
@@ -70,7 +70,7 @@ spec:
     image: nginx:1.7.9
     ports:
     - containerPort: 80
-    
+
 ```
 
 ## 레이블 셀렉터
@@ -101,7 +101,7 @@ tier != frontend
 
 전자는 `environment`를 키로 가지는 것과 `production`를 값으로 가지는 모든 리소스를 선택한다.
 후자는 `tier`를 키로 가지고, 값을 `frontend`를 가지는 리소스를 제외한 모든 리소스를 선택하고, `tier`를 키로 가지며, 값을 공백으로 가지는 모든 리소스를 선택한다.
-`environment=production,tier!=frontend` 처럼 쉼표를 통해 한 문장으로 `frontend`를 제외한 `production`을 필터링할 수 있다. 
+`environment=production,tier!=frontend` 처럼 쉼표를 통해 한 문장으로 `frontend`를 제외한 `production`을 필터링할 수 있다.
 
 균등-기반 레이블의 요건에 대한 하나의 이용 시나리오는 파드가 노드를 선택하는 기준을 지정하는 것이다.
 예를 들어, 아래 샘플 파드는 "`accelerator=nvidia-tesla-p100`" 레이블을 가진 노드를 선택한다.

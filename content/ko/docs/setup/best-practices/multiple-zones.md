@@ -6,7 +6,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-이 페이지는 여러 영역에서 어떻게 클러스터를 구동하는지 설명한다. 
+이 페이지는 여러 영역에서 어떻게 클러스터를 구동하는지 설명한다.
 
 {{% /capture %}}
 

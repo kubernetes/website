@@ -10,12 +10,12 @@ menu:
       <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
 card:
   name: tutorials
-  weight: 10 
+  weight: 10
 ---
 
 {{% capture overview %}}
 
-이 튜토리얼에서는 [Minikube](/docs/getting-started-guides/minikube)와 Katacoda를 이용하여 
+이 튜토리얼에서는 [Minikube](/docs/getting-started-guides/minikube)와 Katacoda를 이용하여
 쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
@@ -114,7 +114,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개관](/docs/user-guide/kubectl-overview/)을 살펴보자.{{< /note >}}
 
 ## 서비스 만들기
@@ -128,7 +128,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
+
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출시키기 원한다는 뜻이다.
 
 2. 방금 생성한 서비스 살펴보기
@@ -189,13 +189,13 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     registry-creds: disabled
     storage-provisioner: enabled
     ```
-   
+
 2. 한 애드온을 활성화 한다. 예를 들어 `heapster`
 
     ```shell
     minikube addons enable heapster
     ```
-  
+
     출력:
 
     ```shell
@@ -232,7 +232,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     ```shell
     minikube addons disable heapster
     ```
-  
+
     출력:
 
     ```shell

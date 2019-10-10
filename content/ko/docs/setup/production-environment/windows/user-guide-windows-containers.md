@@ -104,7 +104,7 @@ weight: 75
 
 ## 설정 가능한 컨테이너 username 사용하기
 
-쿠버네티스 v1.16 부터, 윈도우 컨테이너는 이미지 기본 값과는 다른 username으로 엔트리포인트와 프로세스를 실행하도록 설정할 수 있다. 이 방식은 리눅스 컨테이너에서 지원되는 방식과는 조금 차이가 있다. [여기](/docs/tasks/configure-pod-container/configure-runasusername/)에서 이에 대해 추가적으로 배울 수 있다. 
+쿠버네티스 v1.16 부터, 윈도우 컨테이너는 이미지 기본 값과는 다른 username으로 엔트리포인트와 프로세스를 실행하도록 설정할 수 있다. 이 방식은 리눅스 컨테이너에서 지원되는 방식과는 조금 차이가 있다. [여기](/docs/tasks/configure-pod-container/configure-runasusername/)에서 이에 대해 추가적으로 배울 수 있다.
 
 ## 그룹 매니지드 서비스 어카운트를 이용하여 워크로드 신원 관리하기
 

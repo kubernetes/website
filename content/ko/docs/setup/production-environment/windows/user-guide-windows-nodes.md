@@ -196,7 +196,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
    Remove-Item .\master.zip
    ```
 
-1. 쿠버네티스 [구성 파일](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclustervxlan.json)을 커스터마이즈한다. 
+1. 쿠버네티스 [구성 파일](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclustervxlan.json)을 커스터마이즈한다.
 
     ```
     {
@@ -221,13 +221,13 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
         "InterfaceName" : "Ethernet"  // Designated network interface name on Windows node to use as container network
     },
     "Kubernetes" : {  // Contains values for Kubernetes node binaries
-        "Source" : {  // Contains values for Kubernetes node binaries 
+        "Source" : {  // Contains values for Kubernetes node binaries
             "Release" : "1.15.0",  // Version of Kubernetes node binaries
             "Url" : "https://dl.k8s.io/v1.15.0/kubernetes-node-windows-amd64.tar.gz"  // Direct URL pointing to Kubernetes node binaries tarball
         },
         "ControlPlane" : {  // Contains values associated with Kubernetes control-plane ("Master") node
             "IpAddress" : "kubemasterIP",  // IP address of control-plane ("Master") node
-            "Username" : "localadmin",  // Username on control-plane ("Master") node with remote SSH access  
+            "Username" : "localadmin",  // Username on control-plane ("Master") node with remote SSH access
             "KubeadmToken" : "token",  // Kubeadm bootstrap token
             "KubeadmCAHash" : "discovery-token-ca-cert-hash"  // Kubeadm CA key hash
         },
@@ -236,7 +236,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
         },
         "Network" : {  // Contains values for IP ranges in CIDR notation for Kubernetes networking
             "ServiceCidr" : "10.96.0.0/12",  // Service IP subnet used by Services in CIDR notation
-            "ClusterCidr" : "10.244.0.0/16"  // Cluster IP subnet used by Pods in CIDR notation 
+            "ClusterCidr" : "10.244.0.0/16"  // Cluster IP subnet used by Pods in CIDR notation
         }
     },
     "Install" : {  // Contains values and configurations for Windows node installation
@@ -254,7 +254,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 기존에 내려받은[KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 쿠버네티스를 윈도우 서버 컨테이너 호스트에 설치한다.
 
   ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install 
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install
   ```
   이 때 `-ConfigFile`는 쿠버네티스 구성 파일의 경로를 가리킨다.
 
@@ -285,7 +285,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 윈도우 노드를 클러스터에 참여시킨다.
 
   ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join
   ```
   이 때 `-ConfigFile` 쿠버네티스 구성 파일의 경로를 가리킨다.
 
@@ -302,7 +302,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 1. CNI 네트워크 플러그인을 구성한다.
 1. 선택된 네트워크 인터페이스 상에서 HNS 네트워크를 생성한다.
     {{< note >}}
-    이는 vSwitch가 생성되는 동안 몇 초간의 네트워크 순단현상을 야기할 수 있다. 
+    이는 vSwitch가 생성되는 동안 몇 초간의 네트워크 순단현상을 야기할 수 있다.
     {{< /note >}}
 1. (vxlan 플러그인을 선택한 경우) 오버레이 트래픽을 위해서 인바운드(inbound) 방화벽의 UDP 포트 4789를 열어준다.
 1. flanneld를 윈도우 서비스로 등록한다.
@@ -320,7 +320,7 @@ kubectl get nodes
 앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 클러스터에서 윈도우 노드를 제거한다.
 
   ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset 
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset
   ```
   이 때 `-ConfigFile` 쿠버네티스 구성 파일의 경로를 가리킨다.
 
