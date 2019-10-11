@@ -86,7 +86,7 @@ If you have more complex requirements for certificate renewal, you can opt out f
 {{< warning >}}
 Prior to kubeadm version 1.17 there is a [bug](https://github.com/kubernetes/kubeadm/issues/1818)
 where the default value for `--certificate-renewal` is `false` for the `kubeadm upgrade node`
-command, so the flag has to be passed explicitly `--certificate-renewal=true`.
+command. In that case, you should explicitly set `--certificate-renewal=true`.
 {{< /warning >}}
 
 ## Manual certificate renewal
