@@ -30,7 +30,7 @@ Kita melakukan ini di beberapa contoh sebelumnya, tetapi mari kita lakukan sekal
 Ini membuat aplikasi tersebut dapat diakses dari *node* manapun di dalam kluster kamu. Cek lokasi *node* dimana *Pod* tersebut berjalan:
 ```shell
 kubectl apply -f ./run-my-nginx.yaml
-kubectl get pods -l run=my-nginx -o wide
+kubectl get pods -l run-my-nginx -o wide
 ```
 ```
 NAME                        READY     STATUS    RESTARTS   AGE       IP            NODE
