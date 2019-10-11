@@ -88,7 +88,7 @@ be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved
 
-- **Kubelet Flag**: `--kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi][,][pid=1000]`
+- **Kubelet Flag**: `--kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi][,][pid=1000],[hugepages-<size>=1GiB]`
 - **Kubelet Flag**: `--kube-reserved-cgroup=`
 
 `kube-reserved` is meant to capture resource reservation for kubernetes system
@@ -102,9 +102,12 @@ post](https://kubernetes.io/blog/2016/11/visualize-kubelet-performance-with-node
 explains how the dashboard can be interpreted to come up with a suitable
 `kube-reserved` reservation.
 
-In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
-specified to reserve the specified number of process IDs for
-kubernetes system daemons.
+In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` and `hugepages-<size>` may also
+be reserved. `pid` may be specified to reserve a given number of process IDs for
+kubernetes system daemons. `hugepages-<size>` (read more about huge page resoureces
+[in this doc](/docs/tasks/manage-hugepages/scheduling-hugepages.md)) may be specified to
+reserve a given amount of huge page memory.
+
 
 To optionally enforce `kube-reserved` on system daemons, specify the parent
 control group for kube daemons as the value for `--kube-reserved-cgroup` kubelet
@@ -122,7 +125,7 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 
 ### System Reserved
 
-- **Kubelet Flag**: `--system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi][,][pid=1000]`
+- **Kubelet Flag**: `--system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi][,][pid=1000],[hugepages-<size>=1GiB]`
 - **Kubelet Flag**: `--system-reserved-cgroup=`
 
 
@@ -132,9 +135,11 @@ like `sshd`, `udev`, etc. `system-reserved` should reserve `memory` for the
 Reserving resources for user login sessions is also recommended (`user.slice` in
 systemd world).
 
-In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
-specified to reserve the specified number of process IDs for OS system
-daemons.
+In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` and `hugepages-<size>` may also
+be reserved. `pid` may be specified to reserve a given number of process IDs for
+kubernetes system daemons. `hugepages-<size>` (read more about huge page resoureces
+[in this doc](/docs/tasks/manage-hugepages/scheduling-hugepages.md)) may be specified to
+reserve a given amount of huge page memory.
 
 To optionally enforce `system-reserved` on system daemons, specify the parent
 control group for OS system daemons as the value for `--system-reserved-cgroup`
@@ -258,5 +263,8 @@ for `kube-reserved` and `system-reserved`.
 
 As of Kubernetes version 1.8, the `storage` key name was changed to `ephemeral-storage`
 for the alpha release.
+
+As of Kubernetes version 1.17, support for reserving hugepages via `hugepages-<size>`
+was added.
 
 {{% /capture %}}
