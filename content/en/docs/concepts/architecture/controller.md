@@ -76,7 +76,7 @@ For example: once the work is done for a Job, the Job controller
 updates that Job object to mark it `Finished`.
 
 (This is a bit like how some thermostats turn a light off to
-indicate that the your room is now at the temperature you set).
+indicate that your room is now at the temperature you set).
 
 ### Direct control
 
