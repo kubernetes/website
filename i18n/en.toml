@@ -25,6 +25,9 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "Twitter"
 
+[community_youtube_name]
+other = "YouTube"
+
 [deprecation_warning]
 other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
 
