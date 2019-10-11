@@ -33,7 +33,7 @@ that are much larger than the default page size.
 
 For example, on a system where the default page size is 4KiB, you could specify a limit,
 `hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
-total of 80 MiB) in total, that allocation fails.
+total of 80 MiB), that allocation fails.
 
 {{< note >}}
 You cannot overcommit `hugepages-*` resources.
