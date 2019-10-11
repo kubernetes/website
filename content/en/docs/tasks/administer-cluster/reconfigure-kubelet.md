@@ -111,6 +111,7 @@ installed, but you can adapt the tasks if you prefer to extract the
 1.  Choose a Node to reconfigure. In this example, the name of this Node is
     referred to as `NODE_NAME`.
 2.  Start the kubectl proxy in the background using the following command: 
+
       ```bash
       kubectl proxy --port=8001 &
       ```
