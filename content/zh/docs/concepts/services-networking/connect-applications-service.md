@@ -64,7 +64,7 @@ This makes it accessible from any node in your cluster. Check the nodes the Pod 
 
 ```shell
 kubectl apply -f ./run-my-nginx.yaml
-kubectl get pods -l run=my-nginx -o wide
+kubectl get pods -l run-my-nginx -o wide
 ```
 ```
 NAME                        READY     STATUS    RESTARTS   AGE       IP            NODE
