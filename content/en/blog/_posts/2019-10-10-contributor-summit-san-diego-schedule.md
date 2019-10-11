@@ -23,7 +23,8 @@ good time meeting their OSS teammates.
 Unconference tracks are returning from last year with sessions to be chosen
 Monday morning. These are ideal for the latest hot topics and specific
 discussions that contributors want to have. In previous years, we've covered
-flaky tests, cluster lifecycle, KEPs (Kubernetes Enhancement Proposals), mentoring, security, and more.
+flaky tests, cluster lifecycle, KEPs (Kubernetes Enhancement Proposals), mentoring,
+security, and more.
 
 ![Unconference](/images/blog/2019-10-10-contributor-summit-san-diego-schedule/DSCF0806.jpg)
 
@@ -33,9 +34,9 @@ the summit:
 
 * **[Vision]**: SIG-Architecture will be sharing their vision of where we're going
   with Kubernetes development for the next year and beyond.
-* **[Security]**: Tim Allclair will share the current state of security, and
-  Vallery Lancey will lead a discussion about making our platform secure by
-  default.
+* **[Security]**: Tim Allclair and CJ Cullen will present on the current state of
+  Kubernetes security. In another security talk, Vallery Lancey will lead a
+  discussion about making our platform secure by default.
 * **[Prow]**: Interested in working with Prow and contributing to Test-Infra, but
   not sure where to start?  Rob Keilty will help you get a Prow test environment
   running on your laptop.
