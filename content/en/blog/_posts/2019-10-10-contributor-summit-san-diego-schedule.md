@@ -55,7 +55,7 @@ and there will be a huge Meet & Greet for new contributors to find their SIG
 Monday.
 
 Hope to see you all there, and [make sure you register!][reg]
-[San Deigo team][team]
+[San Diego team][team]
 
 [reg]: https://events19.linuxfoundation.org/events/kubernetes-contributor-summit-north-america-2019/register/
 [schedule]: https://events19.linuxfoundation.org/events/kubernetes-contributor-summit-north-america-2019/program/schedule/
