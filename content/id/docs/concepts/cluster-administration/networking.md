@@ -92,3 +92,40 @@ Terbaru ini BCF diakui oleh Gartner sebagai visioner dalam [_Magic Quadrant_](ht
 ### Cilium
 
 [Cilium](https://github.com/cilium/cilium) adalah perangkat lunak _open source_ untuk menyediakan dan secara transparan mengamankan konektivitas jaringan antar kontainer aplikasi. Cilium mengetahui L7/HTTP dan dapat memberlakukan kebijakan jaringan pada L3-L7 menggunakan model keamanan berbasis identitas yang dipisahkan dari pengalamatan jaringan.
+
+### CNI-Genie dari Huawei
+
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) adalah _plugin_ CNI yang memungkinkan Kubernetes [secara bersamaan memiliki akses ke berbagai implementasi](https://github.com/Huawei-PaaS /CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) dari [model jaringan Kubernetes] (https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) dalam _runtime_. Ini termasuk setiap implementasi yang berjalan sebagai [_plugin_ CNI](https://github.com/containernetworking/cni#3rd-party-plugins), seperti [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+
+CNI-Genie juga mendukung [menetapkan beberapa alamat IP ke sebuah pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-address-per-pod), masing-masing dari _plugin_ CNI yang berbeda.
+
+### cni-ipvlan-vpc-k8s
+
+[cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) berisi satu set _plugin_ CNI dan IPAM untuk menyediakan kemudahan, host-lokal, latensi rendah, _throughput_ tinggi , dan tumpukan jaringan yang sesuai untuk Kubernetes dalam lingkungan Amazon Virtual Private Cloud (VPC) dengan memanfaatkan Amazon Elastic Network Interfaces (ENI) dan mengikat IP yang dikelola AWS ke Pods menggunakan _driver_ IPvlan _kernel_ Linux dalam mode L2.
+
+Plugin ini dirancang untuk secara langsung mengkonfigurasi dan _deploy_ dalam VPC. Kubelets melakukan _booting_ dan kemudian mengkonfigurasi sendiri dan menskalasi penggunaan IP mereka sesuai kebutuhan tanpa memerlukan kompleksitas yang sering direkomendasikan untuk mengelola jaringan _overlay_, BGP, menonaktifkan pemeriksaan sumber/tujuan, atau menyesuaikan tabel rute VPC untuk memberikan _subnet_ per _instance_ ke setiap _host_ (yang terbatas hingga 50-100 masukan per VPC). Singkatnya, cni-ipvlan-vpc-k8s secara signifikan mengurangi kompleksitas jaringan yang diperlukan untuk menggunakan Kubernetes yang berskala di dalam AWS.
+
+### Contiv
+
+[Contiv](https://github.com/contiv/netplugin) menyediakan jaringan yang dapat dikonfigurasi (_native_ l3 menggunakan BGP, _overlay_ menggunakan vxlan, classic l2, atau Cisco-SDN / ACI) untuk berbagai kasus penggunaan. [Contiv](http://contiv.io) semuanya open sourced.
+
+### Contrail / Tungsten Fabric
+
+[Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), berdasarkan [Tungsten Fabric](https://tungsten.io), adalah platform virtualisasi jaringan dan manajemen kebijakan _multi-cloud_ yang benar-benar terbuka. Contrail dan Tungsten Fabric terintegrasi dengan berbagai sistem orkestrasi seperti Kubernetes, OpenShift, OpenStack dan Mesos, dan menyediakan mode isolasi yang berbeda untuk mesin _virtual_, banyak kontainer / banyak _pods_ dan beban kerja _bare metal_.
+
+### DANM
+
+[DANM] (https://github.com/nokia/danm) adalah solusi jaringan untuk beban kerja telco yang berjalan di kluster Kubernetes. Dibangun dari komponen-komponen berikut:
+
+   * Plugin CNI yang mampu menyediakan antarmuka IPVLAN dengan fitur-fitur canggih
+   * Modul IPAM built-in dengan kemampuan mengelola dengan jumlah banyak, _cluster-wide_, _discontinous_ jaringan L3 dan menyediakan skema dinamis, statis, atau tidak ada permintaan skema IP
+   * Metaplugin CNI yang mampu melampirkan beberapa antarmuka jaringan ke kontainer, baik melalui CNI sendiri, atau mendelegasikan pekerjaan ke salah satu solusi CNI populer seperti SRI-OV, atau Flannel secara paralel
+   * Pengontrol Kubernetes yang mampu mengatur secara terpusat antarmuka VxLAN dan VLAN dari semua _host_ Kubernetes
+   * Pengontrol Kubernetes lain yang memperluas konsep _service discovery_ berbasis servis untuk bekerja di semua antarmuka jaringan _Pod_
+
+Dengan _toolset_ ini, DANM dapat memberikan beberapa antarmuka jaringan yang terpisah, kemungkinan untuk menggunakan ujung belakang jaringan yang berbeda dan fitur IPAM canggih untuk _pod_.
+
+### Flannel
+
+[Flannel] (https://github.com/coreos/flannel#flannel) adalah jaringan overlay yang sangat sederhana yang memenuhi persyaratan Kubernetes. Banyak orang telah melaporkan kesuksesan dengan Flannel dan Kubernetes.
+
