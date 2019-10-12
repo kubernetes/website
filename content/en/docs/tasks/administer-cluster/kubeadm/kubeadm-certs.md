@@ -59,11 +59,22 @@ Additionally, kubeadm informs the user if the certificate is externally managed;
 `kubelet.conf` is not included in the list above because kubeadm configures kubelet for automatic certificate renewal.
 {{< /note >}}
 
+{{< warning >}}
+On nodes created with `kubeadm init`, prior to kubeadm version 1.17, there is a
+[bug](https://github.com/kubernetes/kubeadm/issues/1753) where you manually have to modify the contents of `kubelet.conf`. After `kubeadm init` finishes, you should update `kubelet.conf` to point to the
+rotated kubelet client certificates, by replacing `client-certificate-data` and `client-key-data` with:
+
+```yaml
+client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
+client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
+```
+{{< /warning >}}
+
 ## Automatic certificate renewal
 
 `kubeadm` renews all the certificates during control plane [upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 
-This feature is designed for addressing the simplest use cases; 
+This feature is designed for addressing the simplest use cases;
 if you don't have specific requirements on certificate renewal and perform Kubernetes version upgrades regularly (less than 1 year in between each upgrade), kubeadm will take care of keeping your cluster up to date and reasonably secure.
 
 {{< note >}}
@@ -72,6 +83,11 @@ It is a best practice to upgrade your cluster frequently in order to stay secure
 
 If you have more complex requirements for certificate renewal, you can opt out from the default behavior by passing `--certificate-renewal=false` to `kubeadm upgrade apply` or to `kubeadm upgrade node`.
 
+{{< warning >}}
+Prior to kubeadm version 1.17 there is a [bug](https://github.com/kubernetes/kubeadm/issues/1818)
+where the default value for `--certificate-renewal` is `false` for the `kubeadm upgrade node`
+command. In that case, you should explicitly set `--certificate-renewal=true`.
+{{< /warning >}}
 
 ## Manual certificate renewal
 
@@ -110,7 +126,7 @@ You can configure an external signer such as [cert-manager][cert-manager-issuer]
 The built-in signer is part of [`kube-controller-manager`][kcm].
 To activate the built-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
 
-The built-in signer is part of [`kube-controller-manager`][kcm]. 
+The built-in signer is part of [`kube-controller-manager`][kcm].
 
 To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
 
@@ -150,7 +166,7 @@ The output is similar to this:
 
 If you set up an external signer, certificate signing requests (CSRs) are automatically approved.
 
-Otherwise, you must manually approve certificates with the [`kubectl certificate`][certs] command. e.g. 
+Otherwise, you must manually approve certificates with the [`kubectl certificate`][certs] command. e.g.
 
 ```shell
 kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
