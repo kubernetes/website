@@ -25,7 +25,7 @@ _Pod Security Policy_ adalah sebuah sumber daya pada tingkat kluster yang mengat
 | Penggunaan jaringan dan _port_ milik _host_         | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Penggunaan jenis-jenis Volume                       | [`volumes`](#volumes-and-file-systems)      |
 | Penggunaan _filesystem_ milik _host_                | [`allowedHostPaths`](#volumes-and-file-systems) |
-| _White list_ untuk _driver-driver_ Flexvolume       | [`allowedFlexVolumes`](#flexvolume-drivers) |
+| Daftar putih untuk _driver-driver_ Flexvolume       | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Mengalokasi FSGroup yang memiliki Volume milik Pod  | [`fsGroup`](#volumes-and-file-systems)      |
 | Mengharuskan penggunaan _read-only root filesystem_ | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | User dan Grop ID dari Container                    | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
@@ -90,7 +90,7 @@ subjects:
   name: <authorized user name>
 ```
 
-Jika sebuah `RoleBinding` (bukan `ClusterRoleBinding`) digunakan, maka ia hanya akan memberi akses penggunaan untuk Pod-pod yang dijalankan pada Namespace yang sama dengan `RoleBinding` tersebut. Hal ini dapat dipasangkan dengan grup sistem untuk memberi akses pada semua Pod yang berjalan di Namespace tersebut:
+Jika sebuah `RoleBinding` (bukan `ClusterRoleBinding`) digunakan, maka ia hanya akan memberi akses penggunaan untuk Pod-Pod yang dijalankan pada Namespace yang sama dengan `RoleBinding` tersebut. Hal ini dapat dipasangkan dengan grup sistem untuk memberi akses pada semua Pod yang berjalan di Namespace tersebut:
 
 ```yaml
 # Mengotorisasi semua ServiceAccount di dalam sebuah Namespace
@@ -144,7 +144,7 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 ### Membuat sebuah kebijakan dan sebuah Pod
 
-Beri definisi objek contoh PodSecurityPolicy dalam sebuah berkas. Ini adalah kebijakan yang mencegah pembuatan Pod-pod yang _privileged_.
+Beri definisi objek contoh PodSecurityPolicy dalam sebuah berkas. Ini adalah kebijakan yang mencegah pembuatan Pod-Pod yang _privileged_.
 
 {{< codenew file="policy/example-psp.yaml" >}}
 
@@ -314,9 +314,9 @@ determines if any container in a pod can enable privileged mode.
 
 **HostPID** - Mengatur jika Container-container pada Pod dapat berbagi _namespace process ID_ pada _host_. Catatlah bahwa saat dipasangkan dengan ptrace, hal ini dapat digunakan untuk eskalasi _privilege_ di luar kontainer (ptrace secara bawaan tidak diizinkan).
 
-**HostIPC** - Mengatur jika Container-container pada Pod dapat berbagi _namespace IPC_ pada _host_.
+**HostIPC** - Mengatur jika container-container pada Pod dapat berbagi _namespace IPC_ pada _host_.
 
-**HostNetwork** - Mengatur jika Pod dapat menggunakan _namespace_ jaringan pada _host_. Melakukan hal ini akan memberikan Pod akses pada perangkat _loopback_, _service_ yang sedang _listening_ pada _localhost_, dan dapat digunakan untuk mengintai aktivitas jaringan pada Pod-pod lain pada Node yang sama.
+**HostNetwork** - Mengatur jika Pod dapat menggunakan _namespace_ jaringan pada _host_. Melakukan hal ini akan memberikan Pod akses pada perangkat _loopback_, _service_ yang sedang _listening_ pada _localhost_, dan dapat digunakan untuk mengintai aktivitas jaringan pada Pod-Pod lain pada Node yang sama.
 
 **HostPorts** - Memberikan daftar putih dari berbagai _port_ yang diizinkan pada _namespace_ jaringan pada _host_. Hal ini didefinisikan sebagai sebuah daftar `HostPortRange`, dengan `min`(inklusif) dan `max`(inklusif). Nilai bawaannya adalah tidak ada _host port_ yang diizinkan.
 
@@ -324,7 +324,7 @@ determines if any container in a pod can enable privileged mode.
 
 ### Volume dan _file system_
 
-**Volume** - Menyediakan sebuah daftar putih dari tipe-tipe Volume yang diizinkan. Nilai-nilai yang diizinkan sesuai dengan sumber Volume yang didefinisikan saat membuat sebuah Volume. Untuk daftar lengkap tipe-tipe Volume, lihat [Tipe-tipe Volume](/docs/concepts/storage/volumes/#tipe-tipe-volume). Sebagai tambahan, `*` dapat digunakan untuk mengizinkan semua tipe Volume.
+**Volume** - Menyediakan sebuah daftar putih dari tipe-tipe Volume yang diizinkan. Nilai-nilai yang diizinkan sesuai dengan sumber Volume yang didefinisikan saat membuat sebuah Volume. Untuk daftar lengkap tipe-tipe Volume, lihat [tipe-tipe Volume](/docs/concepts/storage/volumes/#tipe-tipe-volume). Sebagai tambahan, `*` dapat digunakan untuk mengizinkan semua tipe Volume.
 
 **Kumpulan Volume-volume minimal yang direkomendasikan** untuk PodSecurityPolicy baru adalah sebagai berikut:
 
@@ -345,7 +345,7 @@ PodSecurityPolicy tidak membatasi tipe-tipe objek `PersistentVolume` yang dapat 
 - _MayRunAs_ - Membutuhkan setidaknya satu `range` untuk dapat ditentukan. Mengizinkan `FSGroups` dibiarkan kosong tanpa memberikan nilai bawaan. Memvalidasikan terhadap semua `range` jika nilai `FSGroups` disetel.
 - _RunAsAny_ - Tidak ada nilai bawaan yang diberikan. Mengizinkan ID `fsGroup` apapun untuk digunakan.
 
-**AllowedHostPaths** - Memperinci sebuah daftar putih dari _host path_ yang diizinkan untuk digunakan oleh volume-volume `hostPath`. Sebuah daftar kosong berarti tidak ada pembatasan pada _host path_ yang digunakan. Hal ini didefinisikan sebagai sebuah daftar objek-objek dengan sebuah kolom `pathPrefix`, yang mengizinkan volume-volume `hostPath` untuk menambatkan sebuah _path_ yang dimulai dengan sebuah _prefix_ yang diizinkan, dan sebuah kolom `readOnly` yang menunjukkan bahwa ia harus ditambatkan sebagai _read-only_.
+**AllowedHostPaths** - Memperinci sebuah daftar putih dari _host path_ yang diizinkan untuk digunakan oleh volume-volume `hostPath`. Sebuah daftar kosong berarti tidak ada pembatasan pada _host path_ yang digunakan. Hal ini didefinisikan sebagai sebuah daftar objek-objek dengan sebuah kolom `pathPrefix`, yang mengizinkan volume-volume `hostPath` untuk menambatkan sebuah _path_ yang dimulai dengan sebuah prefiks yang diizinkan, dan sebuah kolom `readOnly` yang menunjukkan bahwa ia harus ditambatkan sebagai _read-only_.
 Misalnya:
 
 ```yaml
@@ -359,11 +359,11 @@ allowedHostPaths:
 
 {{< warning >}} Ada banyak cara bagi sebuah Container dengan akses yang tidak dibatasi terhadap _host filesystem_-nya untuk dapat melakukan eskalasi _privilege_, termasuk membaca data dari Container-container lain, dan menyalahgunakan kredensial dari _service-service_ sistem, misalnya Kubelet.
 
-Direktori volume `hostPath` yang dapat ditulis mengizinkan Container-container untuk menulis ke _filesystem_ melalui cara-cara yang membiarkan mereka melintasi _host filesystem_ di luar `pathPrefix` yang bersangkutan.
+Direktori volume `hostPath` yang dapat ditulis mengizinkan container-container untuk menulis ke _filesystem_ melalui cara-cara yang membiarkan mereka melintasi _host filesystem_ di luar `pathPrefix` yang bersangkutan.
 `readOnly: true`, tersedia pada Kubernetes 1.11 ke atas, harus digunakan pada **semua** `allowedHostPaths` untuk secara efektif membatasi akses terhadap `pathPrefix` yang diperinci.
 {{< /warning >}}
 
-**ReadOnlyRootFilesystem** - Mengharuskan Container-container berjalan dengan sebuah _root filesystem_ yang bersifat _read-only_ (yaitu, tanpa lapisan yang dapat ditulis)
+**ReadOnlyRootFilesystem** - Mengharuskan container-container berjalan dengan sebuah _root filesystem_ yang bersifat _read-only_ (yaitu, tanpa lapisan yang dapat ditulis)
 
 ### _Driver-driver_ Flexvolume
 
@@ -388,10 +388,10 @@ spec:
 
 ### Pengguna dan Grup
 
-**RunAsUser** - Mengatur ID pengguna mana yang digunakan untuk menjalankan Container-container.
+**RunAsUser** - Mengatur ID pengguna mana yang digunakan untuk menjalankan container-container.
 
 - _MustRunAs_ - Membutuhkan setidaknya satu `range` untuk dapat ditentukan. Menggunakan semua nilai minimum dari `range` yang pertama sebagai nilai bawaannya. Memvalidasikan terhadap semua `range`.
-- _MustRunAsNonRoot_ - Mengharuskan Pod diajukan dengan nilai `runAsUser` yang bukan nol, atau memiliki petunjuk `USER` didefinisikan (dengan UID numerik) di dalam _image_. Pod-pod yang belum memperinci `runAsNonRoot` atau `runAsUser` akan dimutasikan untuk menyetel `runAsNonRoot=true` sehingga membutuhkan petunjuk `USER` dengan nilai numerik bukan nol di dalam Container. Tidak ada nilai bawaan yang diberikan. Menyetel `allowPrivilegeEscalation=false` sangat disarankan dengan strategi ini.
+- _MustRunAsNonRoot_ - Mengharuskan Pod diajukan dengan nilai `runAsUser` yang bukan nol, atau memiliki petunjuk `USER` didefinisikan (dengan UID numerik) di dalam _image_. Pod-Pod yang belum memperinci `runAsNonRoot` atau `runAsUser` akan dimutasikan untuk menyetel `runAsNonRoot=true` sehingga membutuhkan petunjuk `USER` dengan nilai numerik bukan nol di dalam Container. Tidak ada nilai bawaan yang diberikan. Menyetel `allowPrivilegeEscalation=false` sangat disarankan dengan strategi ini.
 - _RunAsAny_ - Tidak ada nilai bawaan yang diberikan. Mengizinkan `runAsUser` apapun untuk digunakan.
 
 **RunAsGroup** - Mengatur ID grup primer mana yang digunakan untuk menjalankan Container-container.
@@ -408,11 +408,11 @@ spec:
 
 ### Eskalasi _Privilege_
 
-Opsi ini mengatur opsi Container `allowPrivilegeEscalation`. Nilai `bool` ini secara langsung mengatur apakah _flag_ [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) disetel pada proses Container tersebut. _Flag_ ini akan mencegah program `setuid` mengganti ID pengguna efektif, dan mencegah berkas-berkas untuk memungkinkan kemampuan tambahan (misalnya, ini akan mencagah penggunaan peralatan `ping`). Kelakuan ini dibutuhkan untuk memaksakan `MustRunAsNonRoot`.
+Opsi ini mengatur opsi Container `allowPrivilegeEscalation`. Nilai `bool` ini secara langsung mengatur apakah _flag_ [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) disetel pada proses Container tersebut. _Flag_ ini akan mencegah program `setuid` mengganti ID pengguna efektif, dan mencegah berkas-berkas untuk memungkinkan kemampuan tambahan (misalnya, ini akan mencagah penggunaan peralatan `ping`). Perilaku ini dibutuhkan untuk memaksakan `MustRunAsNonRoot`.
 
 **AllowPrivilegeEscalation** - Membatasi apakah seorang pengguna diizinkan untuk menyetel konteks keamanan dari sebuah Container menjadi `allowPrivilegeEscalation=true`. Hal ini memiliki nilai bawaan untuk diizinkan, agar tidak merusak program `setuid`. Menyetel ini menjadi `false` memastikan bahwa tidak ada proses _child_ dari sebuah Container dapat memperoleh lebih banyak _privilege_ dari _parent_-nya.
 
-**DefaultAllowPrivilegeEscalation** - Menyetel nilai bawaan untuk opsi `allowPrivilegeEscalation`. Kelakuan bawaan tanpa hal ini adalah untuk mengizinkan eskalasi _privilege_ agar tidak merusak program `setuid`. Jika kelakuan ini tidak diinginkan, kolom ini dapat digunakan untuk menyetel nilai bawaan `allowPrivilegeEscalation` agar melarang eskalasi, sementara masih mengizinkan Pod-pod untuk meminta `allowPrivilegeEscalation` secara eksplisit.
+**DefaultAllowPrivilegeEscalation** - Menyetel nilai bawaan untuk opsi `allowPrivilegeEscalation`. Perilaku bawaan tanpa hal ini adalah untuk mengizinkan eskalasi _privilege_ agar tidak merusak program `setuid`. Jika perilaku ini tidak diinginkan, kolom ini dapat digunakan untuk menyetel nilai bawaan `allowPrivilegeEscalation` agar melarang eskalasi, sementara masih mengizinkan Pod-Pod untuk meminta `allowPrivilegeEscalation` secara eksplisit.
 
 ### Kemampuan-kemampuan
 
@@ -437,7 +437,7 @@ Kolom-kolom berikut mengambil daftar kemampuan-kemampuan, diperincikan sebagai n
 
 `DefaultProcMount` menggunakan nilai bawaan _container runtime_ untuk _readonly_ dan _masked paths_ untuk `/proc`. Kebanyakan _runtime_ Container melakukan _mask_ terhadap beberapa _path_ di dalam `/proc` untuk menghindari _security exposure_ dari perangkat-perangkat atau informasi khusus yang tidak disengaja. Hal ini ditandai dengan nilai _string_ `Default`.
 
-Satu-satunya ProcMountType lainnya adalah `UnmaskedProcMount`, yang melangkahi kelakuan _masking_ bawaan dari _runtime_ Container dan memastikan bahwa `/proc` yang baru dibuat tetap utuh tanpa perubahan. Hal ini ditandai dengan nilai _string_ `Unmasked`.
+Satu-satunya ProcMountType lainnya adalah `UnmaskedProcMount`, yang melangkahi perilaku _masking_ bawaan dari _runtime_ Container dan memastikan bahwa `/proc` yang baru dibuat tetap utuh tanpa perubahan. Hal ini ditandai dengan nilai _string_ `Unmasked`.
 
 ### AppArmor
 
@@ -445,13 +445,13 @@ Diatur melalui anotasi pada PodSecurityPolicy. Lihat [dokumentasi AppArmor](/doc
 
 ### Seccomp
 
-Penggunaan profil-profil _seccomp_ di dalam Pod-pod dapat diatur melalui anotasi pada PodSecurityPolicy.
+Penggunaan profil-profil _seccomp_ di dalam Pod-Pod dapat diatur melalui anotasi pada PodSecurityPolicy.
 _Seccomp_ adalah fitur _Alpha_ di Kubernetes.
 
-**seccomp.security.alpha.kubernetes.io/defaultProfileName** - Anotasi yang menunjukkan profil _seccomp_ bawaan untuk diterapkan kepada Container-container. Nilai-nilai yang mungkin adalah:
+**seccomp.security.alpha.kubernetes.io/defaultProfileName** - Anotasi yang menunjukkan profil _seccomp_ bawaan untuk diterapkan kepada container-container. Nilai-nilai yang mungkin adalah:
 
-- `unconfined` - _Seccomp_ tidak diterapkan pada proses-proses di Container (ini adalah bawaan di Kubernetes), jika tidak ada alternatif yang diberikan.
-- `runtime/default` - Profil _runtime_ Container bawaan digunakan.
+- `unconfined` - _Seccomp_ tidak diterapkan pada proses-proses di container (ini adalah bawaan di Kubernetes), jika tidak ada alternatif yang diberikan.
+- `runtime/default` - Profil _runtime_ container bawaan digunakan.
 - `docker/default` - Profil bawaan _seccomp_ Docker digunakan. Sudah kedaluwarsa sejak Kubernetes 1.11. Gunakan `runtime/default` sebagai gantinya.
 - `localhost/<path>` - Menentukan sebuah profil sebagai sebuah berkas pada Node yang berlokasi pada `<seccomp_root>/<path>`, di mana `<seccomp_root>` didefinisikan melalui _flag_ `--seccomp-profile-root` pada Kubelet.
 
