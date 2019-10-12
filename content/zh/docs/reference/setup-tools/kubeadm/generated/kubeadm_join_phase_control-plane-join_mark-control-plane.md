@@ -103,7 +103,7 @@ kubeadm join phase control-plane-join mark-control-plane [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性]“真实”主机根文件系统的路径。
+      [实验] 到'真实'主机根文件系统的路径。
       </td>
     </tr>
 
