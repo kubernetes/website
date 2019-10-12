@@ -129,3 +129,46 @@ Dengan _toolset_ ini, DANM dapat memberikan beberapa antarmuka jaringan yang ter
 
 [Flannel] (https://github.com/coreos/flannel#flannel) adalah jaringan overlay yang sangat sederhana yang memenuhi persyaratan Kubernetes. Banyak orang telah melaporkan kesuksesan dengan Flannel dan Kubernetes.
 
+### Google Compute Engine (GCE)
+
+Untuk skrip konfigurasi kluster Google Compute Engine, [perutean lanjutan](https://cloud.google.com/vpc/docs/routes) digunakan untuk menetapkan setiap VM _subnet_ (standarnya adalah `/24` - 254 IP). Setiap lalu lintas yang terikat untuk _subnet_ itu akan dialihkan langsung ke VM oleh _fabric_ jaringan GCE. Ini adalah tambahan untuk alamat IP "utama" yang ditugaskan untuk VM, yang NAT'ed untuk akses internet keluar. Sebuah linux _bridge_ (disebut `cbr0`) dikonfigurasikan untuk ada pada subnet itu, dan diteruskan ke _flag_ `-bridge` milik docker.
+
+Docker dimulai dengan:
+
+```shell
+DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
+```
+
+Jembatan ini dibuat oleh Kubelet (dikontrol oleh _flag_ `--network-plugin=kubenet`) sesuai dengan `Node`'s `.spec.podCIDR`.
+
+Docker sekarang akan mengalokasikan IP dari blok `cbr-cidr`. Kontainer dapat menjangkau satu sama lain dan `Node` di atas jembatan` cbr0`. IP-IP tersebut semuanya dapat dirutekan dalam jaringan proyek GCE.
+
+GCE sendiri tidak tahu apa-apa tentang IP ini, jadi tidak akan NAT untuk lalu lintas internet keluar. Untuk mencapai itu aturan iptables digunakan untuk menyamar (alias SNAT - untuk membuatnya seolah-olah paket berasal dari lalu lintas `Node` itu sendiri) yang terikat untuk IP di luar jaringan proyek GCE (10.0.0.0/8).
+
+```shell
+iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
+```
+
+Terakhir IP forwarding diaktifkan di kernel (sehingga kernel akan memproses paket untuk kontainer yang dijembatani):
+
+```shell
+sysctl net.ipv4.ip_forward=1
+```
+
+Hasil dari semua ini adalah bahwa semua `Pods` dapat saling menjangkau dan dapat keluar lalu lintas ke internet.
+
+### Jaguar
+
+[Jaguar](https://gitlab.com/sdnlab/jaguar) adalah solusi open source untuk jaringan Kubernetes berdasarkan OpenDaylight. Jaguar menyediakan jaringan overlay menggunakan vxlan dan Jaguar CNIPlugin menyediakan satu alamat IP per pod.
+
+### Knitter
+
+[Knitter](https://github.com/ZTE/Knitter/) adalah solusi jaringan yang mendukung banyak jaringan di Kubernetes. Solusi ini menyediakan kemampuan manajemen penyewa dan manajemen jaringan. Knitter mencakup satu set solusi jaringan kontainer NFV ujung ke ujung selain beberapa pesawat jaringan, seperti menjaga alamat IP untuk aplikasi, migrasi alamat IP, dll.
+
+### Kube-OVN
+
+[Kube-OVN](https://github.com/alauda/kube-ovn) adalah _fabric_ jaringan kubernetes berbasis OVN untuk _enterprises_. Dengan bantuan OVN/OVS, solusi ini menyediakan beberapa fitur jaringan _overlay_ canggih seperti _subnet_, QoS, alokasi IP statis, _mirroring traffic_, _gateway_, kebijakan jaringan berbasis _openflow_, dan proksi layanan.
+
+### Kube-router
+
+[Kube-router](https://github.com/cloudnativelabs/kube-router) adalah solusi jaringan yang dibuat khusus untuk Kubernetes yang bertujuan untuk memberikan kinerja tinggi dan kesederhanaan operasional. Kube-router menyediakan Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html) berbasis proksi layanan, solusi jaringan berbasis penerusan _pod-to-pod_ Linux _kernel_ tanpa _overlay_, dan penegak kebijakan jaringan berbasis _iptables/ipset_.
