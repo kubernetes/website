@@ -1,5 +1,5 @@
 ---
-title: 将CPU资源分配给容器和 Pods
+title: 将 CPU 资源分配给容器和 Pods
 content_template: templates/task
 weight: 20
 ---
