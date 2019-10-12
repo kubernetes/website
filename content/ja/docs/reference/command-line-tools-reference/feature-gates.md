@@ -1,31 +1,31 @@
 ---
-title: 機能ゲート
+title: フィーチャーゲート
 weight: 10
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
-このページでは管理者がそれぞれのKubernetesコンポーネントで指定できるさまざまな機能ゲートの概要について説明しています。
+このページでは管理者がそれぞれのKubernetesコンポーネントで指定できるさまざまなフィーチャーゲートの概要について説明しています。
 {{% /capture %}}
 
 {{% capture body %}}
 
 ## 概要
 
-機能ゲートはアルファ機能または実験的機能を記述するキー=値のペアのセットです。
+フィーチャーゲートはアルファ機能または実験的機能を記述するキー=値のペアのセットです。
 
-管理者は各コンポーネントで`--feature-gates`コマンドラインフラグを使用することで機能をオンまたはオフにできます。各コンポーネントはそれぞれのコンポーネント固有の機能ゲートの設定をサポートします。
-すべてのコンポーネントの機能ゲートの全リストを表示するには`-h`フラグを使用します。
-kubeletなどのコンポーネントに機能ゲートを設定するには以下のようにリストの機能ペアを`--feature-gates`フラグを使用して割り当てます。
+管理者は各コンポーネントで`--feature-gates`コマンドラインフラグを使用することで機能をオンまたはオフにできます。各コンポーネントはそれぞれのコンポーネント固有のフィーチャーゲートの設定をサポートします。
+すべてのコンポーネントのフィーチャーゲートの全リストを表示するには`-h`フラグを使用します。
+kubeletなどのコンポーネントにフィーチャーゲートを設定するには以下のようにリストの機能ペアを`--feature-gates`フラグを使用して割り当てます。
 
 ```shell
 --feature-gates="...,DynamicKubeletConfig=true"
 ```
 
-次の表は各Kubernetesコンポーネントに設定できる機能ゲートの概要です。
+次の表は各Kubernetesコンポーネントに設定できるフィーチャーゲートの概要です。
 
 - 「導入開始バージョン」列は機能が導入されたとき、またはリリース段階が変更されたときのKubernetesリリースバージョンとなります。
-- 「最終利用可能バージョン」列は空ではない場合は機能ゲートを使用できる最後のKubernetesリリースバージョンとなります。
+- 「最終利用可能バージョン」列は空ではない場合はフィーチャーゲートを使用できる最後のKubernetesリリースバージョンとなります。
 
 | 機能名 | デフォルト値 | ステージ | 導入開始バージョン | 最終利用可能バージョン |
 |---------|---------|-------|-------|-------|
@@ -209,12 +209,12 @@ GAになってからさらなる変更を加えることは現実的ではない
 
 *GA* 機能とは(*GA* 機能は *安定版* 機能とも呼ばれます):
 
-* 機能ゲートの設定は不要になります。
+* フィーチャーゲートの設定は不要になります。
 * 機能の安定版は後続バージョンでリリースされたソフトウェアで使用されます。
 
-### 機能ゲート
+### フィーチャーゲート
 
-各機能ゲートは特定の機能を有効/無効にするように設計されています。
+各フィーチャーゲートは特定の機能を有効/無効にするように設計されています。
 
 - `Accelerators`: DockerでのNvidia GPUのサポートを有効にします。
 - `AdvancedAuditing`: [高度な監査機能](/docs/tasks/debug-application-cluster/audit/#advanced-audit)を有効にします。
@@ -299,7 +299,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `TokenRequestProjection`: [投影ボリューム](/docs/concepts/storage/volumes/#projected)を使用したpodへのサービスアカウントのトークンの注入を有効にします。
 - `TTLAfterFinished`: [TTLコントローラー](/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
 - `VolumePVCDataSource`: 既存のPVCをデータソースとして指定するサポートを有効にします。
-- `VolumeScheduling`: ボリュームトポロジー対応のスケジューリングを有効にし、PersistentVolumeClaim（PVC）バインディングにスケジューリングの決定を認識させます。また`PersistentLocalVolumes`機能ゲートと一緒に使用すると[`local`](/docs/concepts/storage/volumes/#local)ボリュームタイプの使用が可能になります。
+- `VolumeScheduling`: ボリュームトポロジー対応のスケジューリングを有効にし、PersistentVolumeClaim（PVC）バインディングにスケジューリングの決定を認識させます。また`PersistentLocalVolumes`フィーチャーゲートと一緒に使用すると[`local`](/docs/concepts/storage/volumes/#local)ボリュームタイプの使用が可能になります。
 - `VolumeSnapshotDataSource`: ボリュームスナップショットのデータソースサポートを有効にします。
 - `VolumeSubpathEnvExpansion`: 環境変数を`subPath`に展開するための`subPathExpr`フィールドを有効にします。
 - `WatchBookmark`: ブックマークイベントの監視サポートを有効にします。
