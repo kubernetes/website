@@ -106,7 +106,7 @@ kubectl create namespace cpu-example
 ```
 
 <!-- ## Specify a CPU request and a CPU limit -->
-## 指定CPU请求和CPU限制
+## 指定 CPU 请求和 CPU 限制
 
 <!--
 To specify a CPU request for a Container, include the `resources:requests` field
@@ -151,7 +151,7 @@ kubectl get pod cpu-demo --output=yaml --namespace=cpu-example
 kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
 ```
 
-验证正在运行的的容器：
+确认容器正在运行：
 
 ```shell
 kubectl get pod cpu-demo --namespace=cpu-example
@@ -191,7 +191,7 @@ cpu-demo                    974m         <something>
 
 Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 CPUs, but the Container is only being allowed to use about 1 CPU. The Container CPU use is being throttled, because the Container is attempting to use more CPU resources than its limit.
 -->
-输出显示 Pod 中的一个容器的 CPU 请求为 500 milliCPU 和 CPU 限制为 1 个 CPU。
+输出显示 Pod 中的一个容器的 CPU 请求为 500 milliCPU 且其 CPU 限制为 1 个 CPU。
 
 ```yaml
 resources:
@@ -201,7 +201,7 @@ resources:
     cpu: 500m
 ```
 
-使用 `kubectl top` 来获取 pod 的度量：
+使用 `kubectl top` 来获取 Pod 的度量值：
 
 ```shell
 kubectl top pod cpu-demo --namespace=cpu-example
@@ -214,8 +214,8 @@ NAME                        CPU(cores)   MEMORY(bytes)
 cpu-demo                    974m         <something>
 ```
 
-回想一下，通过设置 `-cpu“ 2”`，您配置容器去尝试使用 2 个 CPU，但是这个容器只被允许使用大约 1 个 CPU。
-因为容器正在尝试使用超出其限制的 CPU 资源，所以限制容器CPU的使用。
+回想一下，通过设置 `-cpu“ 2”`，您配置容器尝试使用 2 个 CPU，但是这个容器只被允许使用大约 1 个 CPU。
+因为容器正在尝试使用超出其限制的 CPU 资源，所以容器的 CPU 使用被限制。
 
 <!--
 Another possible explanation for the CPU throttling is that the Node might not have
@@ -223,13 +223,15 @@ enough CPU resources available. Recall that the prerequisites for this exercise 
 your Nodes to have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
 cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
 -->
+
 {{< note >}}
 **注意**：CPU 节流的另一个可能解释是节点可能没有足够的 CPU 资源可用。
-回想一下，此练习的先决条件需要您的节点至少具有 1 个 CPU。 如果您的容器在只有 1 个 CPU 的节点上运行，
-则无论为容器指定的CPU限制如何，这个容器都不能使用超过 1 个CPU 的资源。
+回想一下，此练习的先决条件需要您的节点至少具有 1 个 CPU。如果您的容器在只有 1 个 CPU 的节点上运行，
+则无论为容器指定的 CPU 限制如何，这个容器都不能使用超过 1 个 CPU 的资源。
 {{< /note >}}
 
 <!-- ## CPU units -->
+
 ## CPU 单位
 
 <!--
@@ -258,14 +260,15 @@ CPU 资源以 *CPU* 单元为度量单位。在 Kubernetes 中，一个 CPU 等�
 * 1 AWS vCPU
 * 1 GCP Core
 * 1 Azure vCore
-* 一台配备英特尔处理器的具有超线程功能的裸机
+* 一台配备英特尔处理器的具有超线程功能的裸机上的一个超线程
 
 允许使用小数值。保证 CPU 为 0.5 的容器的 CPU 数量是请求一个 CPU 的容器的一半。您可以使用后缀 m 表示毫。例如
-100m CPU，100 milliCPU 和 0.1 CPU 都是相同的。精度不能超过 1m。
+100m CPU、100 milliCPU 和 0.1 CPU 都是相同的。精度不能超过 1m。
 
 Kubernetes 只允许使用绝对数值来请求 CPU，而不是相对数量；在单核、双核或 48 核的计算机上，0.1 代表着相同的 CPU 数量。
 
 <!-- ## Specify a CPU request that is too big for your Nodes -->
+
 ## 指定超过节点能力的CPU请求
 
 <!--
@@ -285,7 +288,7 @@ capacity of any Node in your cluster.
 
 CPU 请求和限制是与容器相关联的，不过假定 Pod 也具有 CPU 请求和限制也是有用的想法。
 一个 Pod 的 CPU 请求是这个 Pod 中的所有容器的 CPU 请求之和。
-同样， 一个 Pod 的 CPU 限制是这个 Pod 中所有容器的 CPU 限制数量之和。
+同样，一个 Pod 的 CPU 限制是这个 Pod 中所有容器的 CPU 限制数量之和。
 
 Kubernetes 基于资源请求值来调度 Pod。仅当某节点具有足够的 CPU 资源可满足某 Pod 的 CPU 请求时，该 Pod 才可能被调度运行到该节点上。
 
@@ -353,7 +356,7 @@ NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m
 ```
 
-查看有关 Pod的详细信息，包括事件：
+查看有关 Pod 的详细信息，包括事件：
 
 ```shell
 kubectl describe pod cpu-demo-2 --namespace=cpu-example
@@ -382,6 +385,7 @@ kubectl delete pod cpu-demo-2 --namespace=cpu-example
 ```
 
 <!-- ## If you do not specify a CPU limit -->
+
 ## 如果您不指定 CPU 的限制数量
 
 <!--
@@ -404,6 +408,7 @@ to specify a default value for the CPU limit.
 指定 CPU 限制的默认值。
 
 <!-- ## Motivation for CPU requests and limits -->
+
 ## CPU请求和限制的动机
 
 <!--
