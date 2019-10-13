@@ -17,16 +17,15 @@ that once had an owner, but no longer have an owner.
 ## Owners and dependents
 
 Some Kubernetes objects are owners of other objects. For example, a ReplicaSet
-is the owner of a set of Pods. The owned objects are called *dependents* of the
+owns a set of Pods. The owned objects are called *dependents* of the
 owner object. Every dependent object has a `metadata.ownerReferences` field that
 points to the owning object.
 
 Sometimes, Kubernetes sets the value of `ownerReference` automatically. For
 example, when you create a ReplicaSet, Kubernetes automatically sets the
-`ownerReference` field of each Pod in the ReplicaSet. In 1.8, Kubernetes
+`ownerReference` field of each Pod in the ReplicaSet. Kubernetes
 automatically sets the value of `ownerReference` for objects created or adopted
-by ReplicationController, ReplicaSet, StatefulSet, DaemonSet, Deployment, Job
-and CronJob.
+by workload resources such as {{< glossary_tooltip term_id="deployment" >}}.
 
 You can also specify relationships between owners and dependents by manually
 setting the `ownerReference` field.
@@ -164,20 +163,12 @@ to delete not only the ReplicaSets created, but also their Pods. If this type of
 is not used, only the ReplicaSets will be deleted, and the Pods will be orphaned.
 See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) for more information.
 
-## Known issues
-
-Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
-
 {{% /capture %}}
-
 
 {{% capture whatsnext %}}
 
-[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
-
-[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
+* Read the reference documentation for the [garbage collector](/docs/reference/controllers/garbage-collector/)
+* Read [Garbage collection design document 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
+* Read [Garbage collection design document 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
 {{% /capture %}}
-
-
-
