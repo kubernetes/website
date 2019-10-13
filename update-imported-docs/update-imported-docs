@@ -1,11 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import glob
 import os
+import platform
 import re
 import shutil
 import subprocess
 import sys
+
 
 try:
     import yaml
@@ -119,16 +121,26 @@ def main():
     currDir = os.path.dirname(__file__)
     rootDir = os.path.realpath(os.path.join(currDir, '..'))
 
+    print("Running python:", platform.python_version())
+
     try:
         configData = yaml.load(open(configFile, 'r'))
     except Exception as ex:
         print("[Error] failed in loading config file - %s" % str(ex))
         return -2
 
-    os.chdir(rootDir)
-    workDir = "/tmp/update_docs"
-    shutil.rmtree(workDir, True)
-    os.mkdir(workDir, 0750)
+    workDir = "/tmp"
+    cmd = ['mktemp', '-d', '-t', 'update_docs-XXXXXX']
+
+    try:
+        dir_output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+    except CalledProcessError as ex:
+        print("[Error] failed to create temp dir:", ex.output)
+        return ex.returncode
+
+    encoding = "utf-8"
+    workDir = dir_output.decode(encoding).strip('\n')
+    print("Created temp dir:", workDir)
 
     for repo in configData["repos"]:
         if "name" not in repo:
