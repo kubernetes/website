@@ -30,6 +30,14 @@ the Job has been complete for that many seconds.
 
 After the timer has expired, this controller deletes the Job.
 
+{{< caution >}}
+This controller uses timestamps stored in the Kubernetes resources to
+determine whether the TTL has expired or not. Expiry checks are sensitive
+to clock skew in your cluster. If different parts of your control plane
+have unsynchronized clocks, the TTL-after-finished controller could
+clean up resources at the wrong time.
+{{< /caution >}}
+
 {{% /capture %}}
 {{% capture whatsnext %}}
 
