@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - hw-qiaolei
 title: kubectl 概述
 content_template: templates/concept
@@ -9,7 +8,6 @@ card:
   name: reference
   weight: 20
 ---
-
 <!--
 ---
 reviewers:
@@ -29,7 +27,7 @@ card:
 <!--
 Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 -->
-Kubectl 是一个命令行接口，用于对 Kubernetes 集群运行命令。`kubectl` 在 $HOME/.kube 中寻找一个名为 config 的文件。您可以通过设置环境变量 KUBECONFIG 或设置 [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 参数指定其它 [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+Kubectl 是一个命令行接口，用于对 Kubernetes 集群运行命令。`kubectl` 在 $HOME/.kube 目录中寻找一个名为 config 的文件。您可以通过设置环境变量 KUBECONFIG 或设置 [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 参数指定其它 [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
