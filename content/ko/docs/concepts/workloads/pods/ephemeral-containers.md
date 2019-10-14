@@ -183,10 +183,14 @@ Ephemeral Containers:
 kubectl attach -it example-pod -c debugger
 ```
 
-만약 프로세스 네임스페이스를 공유를 활성화 하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼수 있다. 예를 들면 다음과 같다.
+만약 프로세스 네임스페이스를 공유를 활성화 하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼수 있다.
+예를 들어, 임시 컨테이너에 붙은 이후에 디버거 컨테이너에서 `ps` 를 실행한다.
 
 ```shell
-/ # ps auxww
+ps auxww
+```
+다음과 유사하게 출력된다.
+```
 PID   USER     TIME  COMMAND
     1 root      0:00 /pause
     6 root      0:00 nginx: master process nginx -g daemon off;
