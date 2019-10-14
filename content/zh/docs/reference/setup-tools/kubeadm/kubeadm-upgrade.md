@@ -1,26 +1,29 @@
 ---
-title: kubeadm upgrade
-content_template: templates/concept
-weight: 40
+reviewers:
+- sig-cluster-lifecycle
+title: Upgrading kubeadm clusters
+content_template: templates/task
 ---
+
 <!--
 ---
 reviewers:
-- mikedanese
-- luxas
-- jbeda
-title: kubeadm upgrade
-content_template: templates/concept
-weight: 40
+- sig-cluster-lifecycle
+title: Upgrading kubeadm clusters
+content_template: templates/task
 ---
 -->
+
 {{% capture overview %}}
+
 <!--
 `kubeadm upgrade` is a user-friendly command that wraps complex upgrading logic behind one command, with support
 for both planning an upgrade and actually performing it. `kubeadm upgrade` can also be used for downgrading
 cluster if necessary.
 -->
+
 `kubeadm upgrade` 是一个对用户友好的命令，它将复杂的升级逻辑包装在一个命令后面，支持升级的规划和实际执行。
+
 如有必要，`kubeadm upgrade` 也可用于降级集群。
 {{% /capture %}}
 
@@ -55,20 +58,6 @@ applied to static pod manifests.
 -->
 在 Kubernetes v1.11.0 及更高版本中，您可以使用 `kubeadm upgrade diff` 来查看将应用于静态 Pod 清单的更改。
 
-## kubeadm upgrade plan {#cmd-upgrade-plan}
-{{< include "generated/kubeadm_upgrade_plan.md" >}}
-
-## kubeadm upgrade apply {#cmd-upgrade-apply}
-{{< include "generated/kubeadm_upgrade_apply.md" >}}
-
-## kubeadm upgrade diff {#cmd-upgrade-diff}
-{{< include "generated/kubeadm_upgrade_diff.md" >}}
-
-## kubeadm upgrade node config {#cmd-upgrade-node-config}
-{{< include "generated/kubeadm_upgrade_node_config.md" >}}
-
-## kubeadm upgrade node experimental-control-plane {#cmd-experimental-control-plane}
-{{< include "generated/kubeadm_upgrade_node_experimental-control-plane.md" >}}
 
 {{% /capture %}}
 

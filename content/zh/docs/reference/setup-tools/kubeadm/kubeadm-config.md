@@ -41,15 +41,15 @@ to list and pull the images that kubeadm requires.
 
 {{% capture body %}}
 ## kubeadm config upload from-file {#cmd-config-from-file}
-{{< include "generated/kubeadm_config_upload_from-file.md" >}}
-
-{{< include "generated/kubeadm_config_upload_from-flags.md" >}}
 
 ## kubeadm config view {#cmd-config-view}
 {{< include "generated/kubeadm_config_view.md" >}}
 
-## kubeadm config print-default {#cmd-config-print-default}
-{{< include "generated/kubeadm_config_print-default.md" >}}
+## kubeadm config print init-defaults {#cmd-config-print-init-defaults}
+{{< include "generated/kubeadm_config_print_init-defaults.md" >}}
+
+## kubeadm config print join-defaults {#cmd-config-print-join-defaults}
+{{< include "generated/kubeadm_config_print_join-defaults.md" >}}
 
 ## kubeadm config migrate {#cmd-config-migrate}
 {{< include "generated/kubeadm_config_migrate.md" >}}
