@@ -67,10 +67,10 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 ## 디플로이먼트 만들기
 
-쿠버네티스 [*파드*](/docs/concepts/workloads/pods/pod/)는 관리와
+쿠버네티스 [*파드*](/ko/docs/concepts/workloads/pods/pod/)는 관리와
 네트워킹 목적으로 함께 묶여 있는 하나 이상의 컨테이너 그룹이다.
 이 튜토리얼의 파드에는 단 하나의 컨테이너만 있다. 쿠버네티스 
-[*디플로이먼트*](/docs/concepts/workloads/controllers/deployment/)는 파드의
+[*디플로이먼트*](/ko/docs/concepts/workloads/controllers/deployment/)는 파드의
 헬스를 검사해서 파드의 컨테이너가 종료되었다면 재시작해준다.
 파드의 생성 및 스케일링을 관리하는 방법으로 디플로이먼트를 권장한다.
 
