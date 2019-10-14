@@ -16,7 +16,7 @@ tags:
   Workloads are objects you use to manage and run your containers on the cluster.
 -->
 
-工作负载是在集群上管理和运行容器时的对象。
+工作负载是用来在集群上管理和运行容器的对象。
 
 <!--more--> 
 
@@ -37,6 +37,5 @@ Kubernetes 使用应用程序的当前状态部署和更新工作负载。
 工作负载包括 DaemonSet、Deployments、Jobs、Pods、ReplicaSet、ReplicationController 和 StatefulSet 对象。
 
 例如，具有 Web 元素和数据库元素的工作负载可能会运行数据库在一个 {{<glossary_tooltip term_id="StatefulSet">}} 中的
-{{<glossary_tooltip text ="pods" term_id="pod">}} ，并且网络服务器通过由许多{{<glossary_tooltip text="pods" term_id ="pod">}}网络应用组成的
-{{<glossary_tooltip term_id="Deployment">}}
-，大都是类似的。
+{{<glossary_tooltip text="pods" term_id="pod">}} ，并且网络服务器通过由许多{{<glossary_tooltip text="pods" term_id="pod">}}
+网络应用组成的 {{<glossary_tooltip term_id="Deployment">}}，大都是类似的。
