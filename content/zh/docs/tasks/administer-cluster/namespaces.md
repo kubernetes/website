@@ -130,6 +130,7 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
 
 1. 新建一个名为 `my-namespace.yaml` 的 YAML 文件，并写入下列内容：
 
+
 ```yaml
 apiVersion: v1
 kind: Namespace
@@ -137,13 +138,23 @@ metadata:
   name: <insert-namespace-name-here>
 ```
 
-<!-- Then run: -->
-
+<!--
+Then run:
+-->
 然后运行：
 
-```shell
+```
 kubectl create -f ./my-namespace.yaml
 ```
+
+<!--
+2. Alternatively, you can create namespace using below command:
+-->
+2. 或者，你可以使用下面的命令创建命名空间：
+
+   ```
+   kubectl create namespace <insert-namespace-name-here>
+   ```
 
 <!-- Note that the name of your namespace must be a DNS compatible label. -->
 
@@ -369,7 +380,7 @@ dev
 让我们创建一些内容。
 
 ```shell
-kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
+kubectl run snowflake --image=k8s.gcr.io/serve_hostname --replicas=2
 ```
 <!-- We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
@@ -419,7 +430,7 @@ kubectl get pods
 生产环境需要运行 cattle，让我们创建一些名为 cattle 的 pods。
 
 ```shell
-kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
+kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5
 
 kubectl get deployment
 ```

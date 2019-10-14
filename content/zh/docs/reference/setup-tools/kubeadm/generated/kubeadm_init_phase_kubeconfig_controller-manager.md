@@ -1,13 +1,10 @@
 
-<!-- Generates a kubeconfig file for the controller manager to use -->
-为控制器管理器生成要使用的 kubeconfig 文件
-
 <!-- ### Synopsis -->
 ### 概要
 
 
-<!-- Generates the kubeconfig file for the controller manager to use and saves it to controller-manager.conf file -->
-生成控制器管理器要使用的 kubeconfig ，并保存到 controller-manager.conf 文件中
+<!-- Generate the kubeconfig file for the controller manager to use and save it to controller-manager.conf file  -->
+生成控制器管理器要使用的 kubeconfig 文件，并保存到 controller-manager.conf 文件中。
 
 ```
 kubeadm init phase kubeconfig controller-manager [flags]
@@ -27,13 +24,13 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API Server will advertise it's listening on. Specify '0.0.0.0' to use the address of the default network interface.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</td>
     </tr> -->
     <tr>
       <td colspan="2">--apiserver-advertise-address 字符串</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"> API Server 对外发布的当前监听地址。设置此值为 “0.0.0.0” 以使用默认网络接口的 IP 地址。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">API Server 通知正在监听的 IP 地址。如果没有设置，将使用默认的网络接口</td>
     </tr>
 
 <!--     <tr>
@@ -68,14 +65,26 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm configuration file.</td>
     </tr> -->
     <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"> kubeadm 配置文件的路径。警告：配置文件的使用是实验性的。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。</td>
     </tr>
+    <tr>
+      <td colspan="2">--control-plane-endpoint string</td>
+    </tr>
+<!--
+    </tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify a stable IP address or DNS name for the control plane.</td>
+    </tr>
+-->
+
+    </tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">为控制平面指定一个稳定的 IP 地址或 DNS。</td>
+    </tr>    
 
 <!--     <tr>
       <td colspan="2">-h, --help</td>
@@ -104,12 +113,26 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">保存 kubeconfig 的路径。</td>
     </tr>
 
-  </tbody>
-</table>
+<!--
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+    </tr>    
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a specific Kubernetes version for the control plane.</td>
+    </tr>
+-->
+
+    <tr>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："stable-1"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">为控制平面指定特定的 Kubernetes 版本。</td>
+    </tr>
 
 
 
-<!-- ### Options inherited from parent commands -->
+<-- ### Options inherited from parent commands -->
+
 ### 从父命令继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
@@ -134,6 +157,14 @@ kubeadm init phase kubeconfig controller-manager [flags]
 
   </tbody>
 </table>
+
+<!--
+SEE ALSO
+* [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)     - Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
+-->
+
+查看其他
+* [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)     - 生成创建控制平面所需的所有 kubeconfig 文件和管理 kubeconfig 文件
 
 
 
