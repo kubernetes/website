@@ -1,0 +1,188 @@
+# i18n strings for the Bosnian (main) site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+[caution]
+other = "Oprez:"
+
+[cleanup_heading]
+other = "Čišćenje"
+
+[community_events_calendar]
+other = "Kalendar Događaja"
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[deprecation_warning]
+other = " dokumentacija se više ne održava aktivno. Verzija koju trenutno gledate je statički snimak. Za ažuriranu dokumentaciju, pogledajte "
+
+[deprecation_file_warning]
+other = "Zastarilo"
+
+[docs_label_browse]
+other = "Pretražite Dokumente"
+
+[docs_label_contributors]
+other = "Saradnici"
+
+[docs_label_i_am]
+other = "JA SAM..."
+
+[docs_label_users]
+other = "Korisnici"
+
+[feedback_heading]
+other = "Povratne informacije"
+
+[feedback_no]
+other = "Ne"
+
+[feedback_question]
+other = "Da li je ova stranica bila od pomoći?"
+
+[feedback_yes]
+other = "Da"
+
+[latest_version]
+other = "najnovija verzija."
+
+[layouts_blog_pager_prev]
+other = "<< Prethodna"
+
+[layouts_blog_pager_next]
+other = "Sljedeća >>"
+
+[layouts_case_studies_list_tell]
+other = "Ispričajte Vašu priču"
+
+[layouts_docs_glossary_aka]
+other = "Poznatije kao"
+
+[layouts_docs_glossary_description]
+other = "Ovaj spisak je namijenjen da bude standardna lista terminologije u Kubernetes-u. Ona sadrži tehničke izraze koji su specifični za Kubernetes, kao i generalne izraze koji pružaju koristan kontekst."
+
+[layouts_docs_glossary_deselect_all]
+other = "Odznači sve"
+
+[layouts_docs_glossary_click_details_after]
+other = "pokazatelj ispod da dobijete detaljnije objašnjenje za odabrani izraz."
+
+[layouts_docs_glossary_click_details_before]
+other = "Klikni na"
+
+[layouts_docs_glossary_filter]
+other = "Filtriraj pojmove prema njihovim oznakama"
+
+[layouts_docs_glossary_select_all]
+other = "Odaberi sve"
+
+[layouts_docs_partials_feedback_improvement]
+other = "predložite izmjene"
+
+[layouts_docs_partials_feedback_issue]
+other = "Prijavite problem na GitHub repozitoriju ako "
+
+[layouts_docs_partials_feedback_or]
+other = "ili"
+
+[layouts_docs_partials_feedback_problem]
+other = "prijavite problem"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Hvala za povratne informacije. Ako imate specifično, odgovarajuće pitanje kako da koristite Kubernetes, pitajte nas na"
+
+[layouts_docs_search_fetching]
+other = "Dohvaćam rezultate..."
+
+[main_by]
+other = "od"
+
+[main_cncf_project]
+other = """Mi smo <a href="https://cncf.io/">CNCF</a> diplomirani projekat</p>"""
+
+[main_community_explore]
+other = "Istražite zajednicu"
+
+[main_contribute]
+other = "Doprinesite"
+
+[main_copyright_notice]
+other = """Linux Fondacija &reg;. Sva prava zadržana. Linux Fondacija ima registrovane zaštitne znakove i koristi zaštitne znakove. Za listu zaštitnih znakova Linux Fondacije, pogledajte našu <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">stranicu o korištenju zaštitnih znakova</a>"""
+
+[main_documentation_license]
+other = """Kubernetes Autori | Dokumentacija Distribuisana pod <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+other = "Izmijeni ovu stranicu"
+
+[main_github_create_an_issue]
+other = "Prijavi problem"
+
+[main_github_invite]
+other = "Zanima Vas hakiranje base koda Kubernetesa?"
+
+[main_github_view_on]
+other = "Pogledaj na GitHub-u"
+
+[main_kubernetes_features]
+other = "Značajke Kubernetes-a"
+
+[main_kubeweekly_baseline]
+other = "Želite primati najnovije novosti o Kubernetes-u? Prijavite se na KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "Pogledajte prethodne pretplate"
+
+[main_kubeweekly_signup]
+other = "Pretplata"
+
+[main_page_history]
+other ="Historija Stranice"
+
+[main_page_last_modified_on]
+other = "Stranica zadnji puta mijenjana na"
+
+[main_read_about]
+other = "Pročitaj o"
+
+[main_read_more]
+other = "Pročitaj još"
+
+[note]
+other = "Napomena:"
+
+[objectives_heading]
+other = "Ciljevi"
+
+[prerequisites_heading]
+other = "Prije nego što počnete"
+
+[ui_search_placeholder]
+other = "Traži"
+
+[version_check_mustbe]
+other = "Vaš Kubernetes server mora biti na verziji "
+
+[version_check_mustbeorlater]
+other = "Vaš Kubernetes server mora biti na verziji ili novijoj od "
+
+[version_check_tocheck]
+other = "Da provjerite verziju, unesite "
+
+[warning]
+other = "Upozorenje:"
+
+[whatsnext_heading]
+other = "Šta je sljedeće"
