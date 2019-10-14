@@ -29,12 +29,10 @@ It is not guaranteed that all events happening in a cluster will be
 exported to Stackdriver. One possible scenario when events will not be
 exported is when event exporter is not running (e.g. during restart or
 upgrade). In most cases it's fine to use events for purposes like setting up
-[metrics][sdLogMetrics] and [alerts][sdAlerts], but you should be aware
+[metrics](https://cloud.google.com/logging/docs/logs-based-metrics/) and [alerts](https://cloud.google.com/logging/docs/logs-based-metrics/charts-and-alerts), but you should be aware
 of the potential inaccuracy.
 {{< /note >}}
 
-[sdLogMetrics]: https://cloud.google.com/logging/docs/view/logs_based_metrics
-[sdAlerts]: https://cloud.google.com/logging/docs/view/logs_based_metrics#creating_an_alerting_policy
 
 {{% /capture %}}
 
