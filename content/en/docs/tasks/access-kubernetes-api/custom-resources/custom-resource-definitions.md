@@ -873,8 +873,7 @@ OpenAPI v2 Publishing is available as beta since 1.15, and as alpha since 1.14. 
 `CustomResourcePublishOpenAPI` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
-With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) are published as part
-of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
+With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#preserving-unknown-fields) (opt-in in v1beta1, enabled by default in v1) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
 [kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation. 
 
