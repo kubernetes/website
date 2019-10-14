@@ -27,6 +27,18 @@ the difference between requests and limits, see
 
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
 CPU is specified in units of cores, and memory is specified in units of bytes.
+If you're using Kubernetes v1.14 or newer, you can specify _huge page_ resources.
+Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
+that are much larger than the default page size.
+
+For example, on a system where the default page size is 4KiB, you could specify a limit,
+`hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
+total of 80 MiB), that allocation fails.
+
+{{< note >}}
+You cannot overcommit `hugepages-*` resources.
+This is different from the `memory` and `cpu` resources.
+{{< /note >}}
 
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
@@ -42,13 +54,16 @@ Each Container of a Pod can specify one or more of the following:
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
+* `spec.containers[].resources.limits.hugepages-<size>`
 * `spec.containers[].resources.requests.cpu`
 * `spec.containers[].resources.requests.memory`
+* `spec.containers[].resources.requests.hugepages-<size>`
 
 Although requests and limits can only be specified on individual Containers, it
 is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
 resource requests/limits of that type for each Container in the Pod.
+
 
 ## Meaning of CPU
 
