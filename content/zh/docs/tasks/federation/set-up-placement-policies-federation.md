@@ -10,9 +10,9 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 <!--
 This page shows how to enforce policy-based placement decisions over Federated
