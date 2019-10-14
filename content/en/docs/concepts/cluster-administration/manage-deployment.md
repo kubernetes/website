@@ -106,7 +106,7 @@ With the above commands, we first create resources under `examples/application/n
 
 If you happen to organize your resources across several subdirectories within a particular directory, you can recursively perform the operations on the subdirectories also, by specifying `--recursive` or `-R` alongside the `--filename,-f` flag.
 
-For instance, assume there is a directory `project/k8s/development` that holds all of the manifests needed for the development environment, organized by resource type:
+For instance, assume there is a directory `project/k8s/development` that holds all of the {{< glossary_tooltip text="manifests" term_id="manifest" >}} needed for the development environment, organized by resource type:
 
 ```
 project/k8s/development
