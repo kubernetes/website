@@ -94,7 +94,7 @@ the current state closer in line.
 
 (There actually is a controller that horizontally scales the
 nodes in your cluster. See
-[Cluster autoscaling](https://kubernetes.io/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
+[Cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
 
 ## Desired versus current state {#desired-vs-current}
 
@@ -155,8 +155,8 @@ controller does.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Read about the [Kubernetes control plane](https://kubernetes.io/docs/concepts/#kubernetes-control-plane)
-* Discover some of the basic [Kubernetes objects](https://kubernetes.io/docs/concepts/#kubernetes-objects)
+* Read about the [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
+* Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
 {{% /capture %}}
