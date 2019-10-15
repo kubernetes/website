@@ -10,7 +10,7 @@ weight: 28
 The Cloud controller manager is a daemon that embeds
 the cloud specific control loops shipped with Kubernetes.
 -->
-云控制管理器是一个守护进程，它嵌入了Kubernetes附带的云特定控制循环。
+云控制管理器是一个守护进程，它嵌入了 Kubernetes 附带的云特定控制循环。
 
 ```
 cloud-controller-manager [flags]
