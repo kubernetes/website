@@ -182,11 +182,9 @@ static/docs/reference/generated/kubernetes-api/v1.15/scroll.js
 
 ## Updating the API reference index pages
 
+* Open `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` for editing, and update the API reference version number. For example:
 
-* Open `<web-base>/content/en/docs/reference/kubernetes-api/index.md` for editing, and update the API reference
-  version number. For example:
-
-    ```
+    ```markdown
     ---
     title: v1.15
     ---
@@ -197,7 +195,6 @@ static/docs/reference/generated/kubernetes-api/v1.15/scroll.js
 * Open `<web-base>/content/en/docs/reference/_index.md` for editing, and add a
    new link for the latest API reference. Remove the oldest API reference version.
    There should be five links to the most recent API references.
-
 
 ## Locally test the API reference
 
