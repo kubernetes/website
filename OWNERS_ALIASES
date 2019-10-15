@@ -51,7 +51,6 @@ aliases:
     - ryanmcginnis
     - simplytunde
     - steveperry-53
-    - stewart-yu
     - tengqm
     - tfogo
     - xiangpengzhao
@@ -60,7 +59,6 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - rajakavitha1
     - sftim
-    - stewart-yu
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
