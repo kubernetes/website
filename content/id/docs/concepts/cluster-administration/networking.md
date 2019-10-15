@@ -172,3 +172,16 @@ Hasil dari semua ini adalah bahwa semua `Pods` dapat saling menjangkau dan dapat
 ### Kube-router
 
 [Kube-router](https://github.com/cloudnativelabs/kube-router) adalah solusi jaringan yang dibuat khusus untuk Kubernetes yang bertujuan untuk memberikan kinerja tinggi dan kesederhanaan operasional. Kube-router menyediakan Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html) berbasis proksi layanan, solusi jaringan berbasis penerusan _pod-to-pod_ Linux _kernel_ tanpa _overlay_, dan penegak kebijakan jaringan berbasis _iptables/ipset_.
+
+### L2 networks and linux bridging
+
+Jika Anda memiliki jaringan L2 yang "bodoh", seperti saklar sederhana di _environment_ "bare-metal", kamu harus dapat melakukan sesuatu yang mirip dengan pengaturan GCE di atas. Perhatikan bahwa petunjuk ini hanya dicoba dengan sangat sederhana - sepertinya berhasil, tetapi belum diuji secara menyeluruh. Jika kamu menggunakan teknik ini dan telah menyempurnakan prosesnya, tolong beri tahu kami.
+
+Ikuti bagian "With Linux Bridge devices" dari [tutorial yang sangat bagus ini](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) dari Lars Kellogg-Stedman.
+
+### Multus (a Multi Network plugin)
+
+[Multus](https://github.com/Intel-Corp/multus-cni) adalah plugin Multi CNI untuk mendukung fitur Multi Networking di Kubernetes menggunakan objek jaringan berbasis CRD di Kubernetes.
+
+Multus mendukung semua [plugin referensi](https://github.com/containernetworking/plugins) (mis. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) yang mengimplementasikan spesifikasi CNI dan plugin pihak ke-3 (mis. [Calico](https://github.com/projectcalico/cni-plugin), [Weave] (https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). Selain itu, Multus mendukung [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) beban kerja di Kubernetes dengan aplikasi _cloud native_ dan aplikasi berbasis NFV di Kubernetes.
+
