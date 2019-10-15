@@ -184,7 +184,7 @@ port definitions on a Service object.
 Each port definition can have the same `protocol`, or a different one.
 -->
 
-Pod中的端口定义具有名称字段，您可以在服务的 `targetTarget` 属性中引用这些名称。 
+Pod中的端口定义具有名称字段，您可以在服务的 `targetTarget` 属性中引用这些名称。
 即使服务中使用单个配置的名称混合使用 Pod，并且通过不同的端口号提供相同的网络协议，此功能也可以使用。
 这为部署和发展服务提供了很大的灵活性。
 例如，您可以更改Pods在新版本的后端软件中公开的端口号，而不会破坏客户端。
@@ -306,7 +306,7 @@ endpoints.
 Endpoint Slices provide additional attributes and functionality which is
 described in detail in [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 -->
-Endpoint 切片是一种 API 资源，可以为 Endpoint 提供更可扩展的替代方案。 
+Endpoint 切片是一种 API 资源，可以为 Endpoint 提供更可扩展的替代方案。
 尽管从概念上讲与 Endpoint 非常相似，但 Endpoint 切片允许跨多个资源分布网络端点。
 默认情况下，一旦到达100个 Endpoint，该 Endpoint 切片将被视为“已满”，届时将创建其他 Endpoint 切片来存储任何其他 Endpoint。
 
@@ -345,7 +345,7 @@ There are a few reasons for using proxying for Services:
 
 ### 为什么不使用 DNS 轮询？
 
-时不时会有人问道，就是为什么 Kubernetes 依赖代理将入站流量转发到后端。 那其他方法呢？ 
+时不时会有人问道，就是为什么 Kubernetes 依赖代理将入站流量转发到后端。 那其他方法呢？
 例如，是否可以配置具有多个A值（或IPv6为AAAA）的DNS记录，并依靠轮询名称解析？
 
 使用服务代理有以下几个原因：
@@ -504,7 +504,7 @@ falls back to running in iptables proxy mode.
 
 要在 IPVS 模式下运行 kube-proxy，必须在启动 kube-proxy 之前使 IPVS Linux 在节点上可用。
 
-当 kube-proxy 以 IPVS 代理模式启动时，它将验证 IPVS 内核模块是否可用。 
+当 kube-proxy 以 IPVS 代理模式启动时，它将验证 IPVS 内核模块是否可用。
 如果未检测到 IPVS 内核模块，则 kube-proxy 将退回到以 iptables 代理模式运行。
 
 {{< /note >}}
@@ -699,7 +699,7 @@ You can find more information about `ExternalName` resolution in
 
 您可以（几乎总是应该）使用[附加组件](/docs/concepts/cluster-administration/addons/)为Kubernetes集群设置DNS服务。
 
-支持群集的DNS服务器（例如CoreDNS）监视 Kubernetes API 中的新服务，并为每个服务创建一组 DNS 记录。 
+支持群集的DNS服务器（例如CoreDNS）监视 Kubernetes API 中的新服务，并为每个服务创建一组 DNS 记录。
 如果在整个群集中都启用了 DNS，则所有 Pod 都应该能够通过其 DNS 名称自动解析服务。
 
 例如，如果您在 Kubernetes 命名空间 `"my-ns"` 中有一个名为 `"my-service"` 的服务，
@@ -708,7 +708,7 @@ You can find more information about `ExternalName` resolution in
 
 其他命名空间中的Pod必须将名称限定为 `my-service.my-ns` 。 这些名称将解析为为服务分配的群集IP。
 
-Kubernetes 还支持命名端口的 DNS SRV（服务）记录。 
+Kubernetes 还支持命名端口的 DNS SRV（服务）记录。
 如果 `"my-service.my-ns"` 服务具有名为 `"http"`　的端口，且协议设置为`TCP`，
 则可以对 `_http._tcp.my-service.my-ns` 执行DNS SRV查询查询以发现该端口号, `"http"`以及IP地址。
 
@@ -888,7 +888,7 @@ For example:
 
 使用支持外部负载均衡器的云提供商的服务，设置 `type` 的值为 `"LoadBalancer"`，将为 `Service` 提供负载均衡器。
 负载均衡器是异步创建的，关于被提供的负载均衡器的信息将会通过 `Service` 的 `status.loadBalancer` 字段被发布出去。
-实例: 
+实例:
 
 ```yaml
 apiVersion: v1
@@ -945,10 +945,10 @@ For example, `MC_myResourceGroup_myAKSCluster_eastus`.
 
 Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 -->
-在 **Azure** 上，如果要使用用户指定的公共类型 `loadBalancerIP` ，则首先需要创建静态类型的公共IP地址资源。 
+在 **Azure** 上，如果要使用用户指定的公共类型 `loadBalancerIP` ，则首先需要创建静态类型的公共IP地址资源。
 此公共IP地址资源应与群集中其他自动创建的资源位于同一资源组中。 例如，`MC_myResourceGroup_myAKSCluster_eastus`。
 
-将分配的IP地址指定为loadBalancerIP。 确保您已更新云提供程序配置文件中的securityGroupName。 
+将分配的IP地址指定为loadBalancerIP。 确保您已更新云提供程序配置文件中的securityGroupName。
 有关对 `CreatingLoadBalancerFailed` 权限问题进行故障排除的信息，
 请参阅 [与Azure Kubernetes服务（AKS）负载平衡器一起使用静态IP地址](https://docs.microsoft.com/en-us/azure/aks/static-ip)或[通过高级网络在AKS群集上创建LoadBalancerFailed](https://github.com/Azure/AKS/issues/357)。
 {{< /note >}}
@@ -1245,7 +1245,7 @@ also be used to set maximum time, in seconds, to keep the existing connections o
 
 #### AWS上的连接排空
 
-可以将注释 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` 设置为 `"true"` 的值来管理 ELB 的连接消耗。 
+可以将注释 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` 设置为 `"true"` 的值来管理 ELB 的连接消耗。
 注释 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout` 也可以用于设置最大时间（以秒为单位），以保持现有连接在注销实例之前保持打开状态。
 
 ```yaml
@@ -1388,7 +1388,7 @@ public IP addresses, be aware that non-NLB traffic can also reach all instances
 in those modified security groups.
 -->
 
-如果未设置 `.spec.loadBalancerSourceRanges` ，则 Kubernetes 允许从 `0.0.0.0/0` 到节点安全组的流量。 
+如果未设置 `.spec.loadBalancerSourceRanges` ，则 Kubernetes 允许从 `0.0.0.0/0` 到节点安全组的流量。
 如果节点具有公共 IP 地址，请注意，非 NLB 流量也可以到达那些修改后的安全组中的所有实例。
 {{< /note >}}
 
@@ -1404,7 +1404,7 @@ the `my-service` Service in the `prod` namespace to `my.database.example.com`:
 
 ### 类型ExternalName {#externalname}
 
-类型为 ExternalName 的服务将服务映射到 DNS 名称，而不是典型的选择器，例如 `my-service` 或者 `cassandra`。 
+类型为 ExternalName 的服务将服务映射到 DNS 名称，而不是典型的选择器，例如 `my-service` 或者 `cassandra`。
 您可以使用 `spec.externalName` 参数指定这些服务。
 
 例如，以下 Service 定义将 `prod` 名称空间中的 `my-service` 服务映射到 `my.database.example.com`：
@@ -1427,7 +1427,7 @@ is intended to specify a canonical DNS name. To hardcode an IP address, consider
 [headless Services](#headless-services).
 -->
 
-ExternalName 接受 IPv4 地址字符串，但作为包含数字的 DNS 名称，而不是 IP 地址。 类似于 IPv4 地址的外部名称不能由 CoreDNS 或 ingress-nginx 解析，因为外部名称旨在指定规范的 DNS 名称。 
+ExternalName 接受 IPv4 地址字符串，但作为包含数字的 DNS 名称，而不是 IP 地址。 类似于 IPv4 地址的外部名称不能由 CoreDNS 或 ingress-nginx 解析，因为外部名称旨在指定规范的 DNS 名称。
 要对 IP 地址进行硬编码，请考虑使用 [headless Services](#headless-services)。
 {{< /note >}}
 
@@ -1442,7 +1442,7 @@ Service's `type`.
 -->
 
 当查找主机 `my-service.prod.svc.cluster.local` 时，群集DNS服务返回 `CNAME` 记录，其值为 `my.database.example.com`。
-访问 `my-service` 的方式与其他服务的方式相同，但主要区别在于重定向发生在 DNS 级别，而不是通过代理或转发。 
+访问 `my-service` 的方式与其他服务的方式相同，但主要区别在于重定向发生在 DNS 级别，而不是通过代理或转发。
 如果以后您决定将数据库移到群集中，则可以启动其 Pod，添加适当的选择器或端点以及更改服务的`类型`。
 
 {{< note >}}
@@ -1772,10 +1772,10 @@ Kubernetes supports SCTP as a `protocol` value in Service, Endpoint, NetworkPoli
 When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 -->
 
-Kubernetes 支持 SCTP 作为 Service，Endpoint，NetworkPolicy 和 Pod 定义中的 `协议` 值作为alpha功能。 
+Kubernetes 支持 SCTP 作为 Service，Endpoint，NetworkPolicy 和 Pod 定义中的 `协议` 值作为alpha功能。
 要启用此功能，集群管理员需要在apiserver上启用 `SCTPSupport` 功能门，例如 `--feature-gates = SCTPSupport = true，…`。
 
-启用功能门后，您可以将服务，端点，NetworkPolicy或Pod的 `protocol` 字段设置为 `SCTP`。 
+启用功能门后，您可以将服务，端点，NetworkPolicy或Pod的 `protocol` 字段设置为 `SCTP`。
 Kubernetes相应地为 SCTP 关联设置网络，就像为 TCP 连接一样。
 
 <!--

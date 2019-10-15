@@ -1,4 +1,4 @@
 ---
-title: Kubernetes API 
+title: Kubernetes API
 weight: 30
 ---

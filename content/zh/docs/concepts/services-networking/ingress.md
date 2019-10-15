@@ -62,7 +62,7 @@ Traffic routing is controlled by rules defined on the Ingress resource.
 
 ## Ingress 是什么？
 
-Ingress公开了从群集外部到群集内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。 
+Ingress公开了从群集外部到群集内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
 流量路由由Ingress资源上定义的规则控制。
 
 ```none
@@ -208,7 +208,7 @@ routed to your default backend.
 
 ### 默认后端
 
-没有设定规则的 Ingress 将所有流量发送到单个默认后端。 
+没有设定规则的 Ingress 将所有流量发送到单个默认后端。
 默认后端通常是 [Ingress控制器](/docs/concepts/services-networking/ingress-controllers) 的配置选项，并且未在Ingress资源中指定。
 
 如果没有主机或路径与 Ingress 对象中的 HTTP 请求匹配，则流量将路由到您的默认后端。
@@ -276,7 +276,7 @@ down to a minimum. For example, a setup like:
 
 ### 简单分列
 
-分列配置根据请求的 HTTP URI 将流量从单个IP地址路由到多个服务。 
+分列配置根据请求的 HTTP URI 将流量从单个IP地址路由到多个服务。
 通过Ingress，您可以将负载均衡器的数量保持在最低水平。 例如，如下设置：
 
 ```none
@@ -494,7 +494,7 @@ sure the TLS secret you created came from a certificate that contains a CN
 for `sslexample.foo.com`.
 -->
 
-在 Ingress 中引用此秘钥会告诉 Ingress 控制器使用 TLS 保护从客户端到负载均衡器的通道。 
+在 Ingress 中引用此秘钥会告诉 Ingress 控制器使用 TLS 保护从客户端到负载均衡器的通道。
 您需要确保创建包含 `sslexample.foo.com` 的 TLS 秘钥的 CN 的证书。
 
 ```yaml
@@ -528,7 +528,7 @@ platform specific Ingress controller to understand how TLS works in your environ
 
 各种 Ingress 控制器所支持的 TLS 功能之间存在间隙。请参阅有关文件
 [nginx](https://git.k8s.io/ingress-nginx/README.md#https)，
-[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)， 
+[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)，
 或任何其他平台特定的 Ingress 控制器，以了解 TLS 如何在您的环境中工作。
 {{< /note >}}
 
@@ -681,7 +681,7 @@ for details on deploying Ingress in a federated cluster.
 ## 跨可用区失败
 
 用于跨故障域传播流量的技术在云提供商之间是不同的。详情请查阅相关 Ingress 控制器的文档。
-请查看相关[Ingress控制器](/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。 
+请查看相关[Ingress控制器](/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。
 您还可以参考[联合文档](/docs/concepts/cluster-administration/federation/)，以获取有关在联合群集中部署Ingress的详细信息。
 
 
@@ -696,7 +696,7 @@ evolution of various Ingress controllers.
 
 ## 未来的工作
 
-跟踪 [SIG网络](https://github.com/kubernetes/community/tree/master/sig-network) 详细了解Ingress和相关资源的发展。 
+跟踪 [SIG网络](https://github.com/kubernetes/community/tree/master/sig-network) 详细了解Ingress和相关资源的发展。
 您也可以跟踪 [Ingress信息库](https://github.com/kubernetes/ingress/tree/master) 了解 Ingress 控制器进化的更多信息。
 
 <!--

@@ -80,7 +80,7 @@ clusters and namespaces.
 A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster. 
+the *current context* to communicate with the cluster.
 --->
 通过 kubeconfig 文件中的 *context* 元素，使用简便的名称来对访问参数进行分组。每个上下文都有三个参数：cluster、namespace 和 user。默认情况下，`kubectl` 命令行工具使用 *当前上下文* 中的参数与集群进行通信。
 
@@ -156,7 +156,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
      Even if the second file has non-conflicting entries under `red-user`, discard them.
 --->
 1. 如果设置了 `--kubeconfig` 参数，则仅使用指定的文件。不进行合并。此参数只能使用一次。
-   
+
    否则，如果设置了 `KUBECONFIG` 环境变量，将它用作应合并的文件列表。根据以下规则合并 `KUBECONFIG` 环境变量中列出的文件：
 
    * 忽略空文件名。
