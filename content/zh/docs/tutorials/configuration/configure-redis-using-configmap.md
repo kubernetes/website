@@ -11,7 +11,7 @@ content_template: templates/tutorial
 <!--
 This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 -->
-这篇文档基于[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用ConfigMap来配置Redis的真实案例。
+这篇文档基于[使用 ConfigMap 来配置 Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
 
 {{% /capture %}}
 
@@ -24,10 +24,12 @@ This page provides a real world example of how to configure Redis using a Config
 * Apply the directory by running `kubectl apply -k ./`
 * Verify that the configuration was correctly applied.
 -->
-* 创建一个ConfigMap。
-* 使用ConfigMap来配置pod参数。
-* 创建pod。
-* 验证是否配置成功。
+* * 创建一个包含以下内容的 `kustomization.yaml` 文件：
+  * 一个 ConfigMap 生成器
+  * 一个使用 ConfigMap 的 Pod 资源配置
+* 使用 `kubectl apply -k ./` 应用整个路径的配置
+* 验证配置已经被正确应用。
+
 
 
 {{% /capture %}}
@@ -128,7 +130,7 @@ This is where the image will look for the config file for the redis master.
 Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that
 the configuration was correctly applied: 
 -->
-使用 `kubectl exec` 进入pod并运行 `redis-cli` 工具来验证配置已正确应用：
+使用 `kubectl exec` 进入 pod 并运行 `redis-cli` 工具来验证配置已正确应用：
 
 ```shell
 kubectl exec -it redis redis-cli
