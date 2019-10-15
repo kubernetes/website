@@ -35,7 +35,7 @@ The CCM consolidates all of the cloud-dependent logic from the preceding three c
 
 ## Components of the CCM
 
-The CCM breaks away some of the functionality of Kubernetes controller manager (KCM) and runs it as a separate process. Specifically, it breaks away those controllers in the KCM that are cloud dependent. The KCM has the following cloud dependent controller loops:
+The CCM breaks away some of the functionality of Kubernetes controller manager (KCM) and runs it as a separate process. Specifically, it breaks away those controllers in the KCM that are cloud dependents. The KCM has the following cloud dependent controller loops:
 
  * Node controller
  * Volume controller
@@ -49,7 +49,7 @@ In version 1.9, the CCM runs the following controllers from the preceding list:
 * Service controller
 
 {{< note >}}
-Volume controller was deliberately chosen to not be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM.
+Volume controller was deliberately chosen not to be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM.
 {{< /note >}}
 
 The original plan to support volumes using CCM was to use Flex volumes to support pluggable volumes. However, a competing effort known as CSI is being planned to replace Flex.
