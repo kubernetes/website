@@ -192,7 +192,7 @@ Hyper-V 可以运行在3种版本的 Windows 10 中：Windows 10 企业版，Win
 使用 Chocolatey 安装 Minikube
 
 <!-- The easiest way to install Minikube on Windows is using [Chocolatey](https://chocolatey.org/) (run as an administrator): -->
-在 Windows 上安装 Minikube 最简单的方式是使用[Chocolatey](https://chocolatey.org/) (run as an administrator)：
+在 Windows 上安装 Minikube 最简单的方式是使用[Chocolatey](https://chocolatey.org/) (以管理员身份运行)：
 
 ```shell
 choco install minikube
