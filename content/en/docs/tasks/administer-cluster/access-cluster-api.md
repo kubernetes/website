@@ -227,7 +227,6 @@ mvn install
 ```
 
 See [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases) to see which versions are supported.
-* Write an application atop of the java clients.
 
 The Java client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
