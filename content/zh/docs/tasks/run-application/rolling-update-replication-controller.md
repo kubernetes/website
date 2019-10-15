@@ -42,7 +42,7 @@ title: 基于Replication Controller执行滚动升级
 
 * `metadata.namespace`字段必须相同
 
-Replication Controllers的配置文件详细介绍见[创建Replication Controllers](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
+Replication Controllers的配置文件详细介绍见[创建Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/).
 
 ### 示例
 
