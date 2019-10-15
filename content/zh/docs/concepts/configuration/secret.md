@@ -121,8 +121,8 @@ If the password you are using has special characters, you need to escape them us
      kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
  You do not need to escape special characters in passwords from files (`--from-file`).
  -->
- 
- 
+
+
 特殊字符（例如 `$`,  `\*` 和 `!` ）需要转义。
 如果您使用的密码具有特殊字符，则需要使用 `\\` 字符对其进行转义。 例如，如果您的实际密码是 `S!B\*d$zDsb` ，则应通过以下方式执行命令：
      kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
@@ -376,9 +376,9 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 
 data和stringData的键必须由字母数字字符 '-', '_' 或者 '.' 组成。
 
-** 编码注意：** 秘密数据的序列化 JSON 和 YAML 值被编码为base64字符串。 
-换行符在这些字符串中无效，因此必须省略。 
-在 Darwin / macOS 上使用 `base64` 实用程序时，用户应避免使用 `-b` 选项来分隔长行。 
+** 编码注意：** 秘密数据的序列化 JSON 和 YAML 值被编码为base64字符串。
+换行符在这些字符串中无效，因此必须省略。
+在 Darwin / macOS 上使用 `base64` 实用程序时，用户应避免使用 `-b` 选项来分隔长行。
 相反，Linux用户 *应该* 在 `base64` 命令中添加选项 `-w 0`， 或者，如果`-w`选项不可用的情况下，
 执行 `base64 | tr -d '\n'`。
 
@@ -395,7 +395,7 @@ For example, to generate a Secret from files `./username.txt` and `./password.tx
 
 #### 从生成器创建 Secret
 Kubectl 从1.14版本开始支持 [使用 Kustomize 管理对象](/docs/tasks/manage-kubernetes-objects/kustomization/)
-使用此新功能，您还可以从生成器创建一个 Secret，然后将其应用于在 Apiserver 上创建对象。 
+使用此新功能，您还可以从生成器创建一个 Secret，然后将其应用于在 Apiserver 上创建对象。
 生成器应在目录内的“ kustomization.yaml”中指定。
 
 例如，从文件 `./username.txt` 和 `./password.txt` 生成一个 Secret。
@@ -953,7 +953,7 @@ field set to that of the service account.
 See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
  -->
- 
+
 ### 安排 imagePullSecrets 自动附加
 
 您可以手动创建 imagePullSecret，并从 serviceAccount 引用它。使用该 serviceAccount 创建的任何 pod 和默认使用该 serviceAccount 的 pod 将会将其的 imagePullSecret 字段设置为服务帐户的 imagePullSecret 字段。有关该过程的详细说明，请参阅 [将 ImagePullSecrets 添加到服务帐户](/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)。
@@ -1141,7 +1141,7 @@ Make the kustomization.yaml with SecretGenerator
 
 下面的例子说明一个 pod 消费一个包含 prod 凭据的 secret，另一个 pod 使用测试环境凭据消费 secret。
 
-通过秘钥生成器制作 kustomization.yaml 
+通过秘钥生成器制作 kustomization.yaml
 
 ```shell
 kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11

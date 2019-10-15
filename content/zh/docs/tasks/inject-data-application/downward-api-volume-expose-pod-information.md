@@ -40,7 +40,7 @@ content_template: templates/task
 第二个元素指示Pod的`annotations`字段的值保存在名为`annotations`的文件中。
 
 {{< note >}}
-**注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。 
+**注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。
 {{< /note >}}
 
 创建 Pod：

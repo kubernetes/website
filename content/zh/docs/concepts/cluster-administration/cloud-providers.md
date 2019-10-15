@@ -66,14 +66,14 @@ Kubernetes 知道如何通过文件 cloud.conf 与 OpenStack 进行交互。 该
 
 ```yaml
 [Global]
-username=user  
-password=pass  
-auth-url=https://<keystone_ip>/identity/v3  
-tenant-id=c869168a828847f39f7f06edd7305637  
+username=user
+password=pass
+auth-url=https://<keystone_ip>/identity/v3
+tenant-id=c869168a828847f39f7f06edd7305637
 domain-id=2a73b8f597c04551a0fdc8e95544be8a
 
 [LoadBalancer]
-subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a  
+subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a
 ```
 
 #### 全局配置

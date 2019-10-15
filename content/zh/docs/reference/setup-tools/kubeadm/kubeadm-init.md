@@ -79,7 +79,7 @@ following steps: -->
    themselves with the master in the future.  Optionally, the user can provide a
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs. -->
-3. 生成令牌以便其它节点以后可以使用这个令牌向 master 节点注册它们自己。 可选的，用户可以通过 `--token` 提供一个令牌, 正如文档[kubeadm 的令牌](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 描述的那样。  
+3. 生成令牌以便其它节点以后可以使用这个令牌向 master 节点注册它们自己。 可选的，用户可以通过 `--token` 提供一个令牌, 正如文档[kubeadm 的令牌](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 描述的那样。
 
 <!-- 4. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and

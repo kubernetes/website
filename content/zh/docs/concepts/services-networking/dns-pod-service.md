@@ -54,7 +54,7 @@ For more up-to-date specification, see
 运行在Namespace `bar` 中的一个 Pod，可以简单地通过 DNS 查询 `foo` 来找到该 Service。
 运行在 Namespace `quux` 中的一个 Pod 可以通过 DNS 查询 `foo.bar` 找到该 Service。
 
-以下各节详细介绍了受支持的记录类型和支持的布局。 其中代码部分的布局，名称或查询命令均被视为实现细节，如有更改，恕不另行通知。 
+以下各节详细介绍了受支持的记录类型和支持的布局。 其中代码部分的布局，名称或查询命令均被视为实现细节，如有更改，恕不另行通知。
 有关最新规范请查看
 [Kubernetes 基于 DNS 的服务发现](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
@@ -145,7 +145,7 @@ Example:
 在 v1.3 版本中，PodSpec 具有 `hostname` 字段，可以用来指定 Pod 的主机名。这个字段的值优先于 annotation `pod.beta.kubernetes.io/hostname`。
 在 v1.2 版本中引入了 beta 特性，用户可以为 Pod 指定 annotation，其中 `pod.beta.kubernetes.io/subdomain` 指定了 Pod 的子域名。
 最终的域名将是 “<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>”。
-举个例子，Pod 的主机名 annotation 设置为 “foo”，子域名 annotation 设置为 “bar”，在 Namespace “my-namespace” 中对应的 FQDN 为 “foo.bar.my-namespace.svc.cluster.local”。 
+举个例子，Pod 的主机名 annotation 设置为 “foo”，子域名 annotation 设置为 “bar”，在 Namespace “my-namespace” 中对应的 FQDN 为 “foo.bar.my-namespace.svc.cluster.local”。
 
 在 v1.3 版本中，PodSpec 具有 `subdomain` 字段，可以用来指定 Pod 的子域名。
 这个字段的值优先于 annotation `pod.beta.kubernetes.io/subdomain` 的值。
@@ -235,7 +235,7 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 
 因为没有为 Pod 名称创建A记录，所以要创建 Pod 的 A 记录需要 `hostname` 。
 
-没有 `hostname` 但带有 `subdomain` 的 Pod 只会为指向Pod的IP地址的 headless 服务创建 A 记录(`default-subdomain.my-namespace.svc.cluster-domain.example`)。 
+没有 `hostname` 但带有 `subdomain` 的 Pod 只会为指向Pod的IP地址的 headless 服务创建 A 记录(`default-subdomain.my-namespace.svc.cluster-domain.example`)。
 另外，除非在服务上设置了 `publishNotReadyAddresses=True`，否则 Pod 需要准备好 A 记录。
 {{< /note >}}
 
@@ -348,10 +348,10 @@ Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
 -->
 
 - `nameservers`: 将用作于 Pod 的 DNS 服务器的 IP 地址列表。最多可以指定3个 IP 地址。 当 Pod 的 `dnsPolicy` 设置为 "`None`" 时，列表必须至少包含一个IP地址，否则此属性是可选的。列出的服务器将合并到从指定的 DNS 策略生成的基本名称服务器，并删除重复的地址。
-- `searches`: 用于在 Pod 中查找主机名的 DNS 搜索域的列表。此属性是可选的。指定后，提供的列表将合并到根据所选 DNS 策略生成的基本搜索域名中。 
+- `searches`: 用于在 Pod 中查找主机名的 DNS 搜索域的列表。此属性是可选的。指定后，提供的列表将合并到根据所选 DNS 策略生成的基本搜索域名中。
    重复的域名将被删除。
    Kubernetes最多允许6个搜索域。
-- `options`: 对象的可选列表，其中每个对象可能具有 `name` 属性（必需）和 `value` 属性（可选）。 此属性中的内容将合并到从指定的 DNS 策略生成的选项。 
+- `options`: 对象的可选列表，其中每个对象可能具有 `name` 属性（必需）和 `value` 属性（可选）。 此属性中的内容将合并到从指定的 DNS 策略生成的选项。
    重复的条目将被删除。
 
 <!--

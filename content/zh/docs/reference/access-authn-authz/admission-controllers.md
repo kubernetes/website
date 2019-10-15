@@ -229,19 +229,19 @@ An example request body:
 请求载荷例子：
 
 ```
-{  
+{
   "apiVersion":"imagepolicy.k8s.io/v1alpha1",
   "kind":"ImageReview",
-  "spec":{  
-    "containers":[  
-      {  
+  "spec":{
+    "containers":[
+      {
         "image":"myrepo/myimage:v1"
       },
-      {  
+      {
         "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":[  
+    "annotations":[
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
     ],
     "namespace":"mynamespace"
@@ -510,7 +510,7 @@ for more information.
 
 <!--
 This plug-in limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission plugin,
-kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`. 
+kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`.
 Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
 -->
 这个插件限制了 kubelet 可以修改的 `Node` 和 `Pod` 对象。 为了受到这个入场插件的限制，kubelet 必须在 `system：nodes` 组中使用凭证，并使用 `system：node：<nodeName>` 形式的用户名。这样的 kubelet 只允许修改自己的 `Node` API 对象，只能修改绑定到节点本身的 `Pod` 对象。
