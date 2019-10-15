@@ -8,7 +8,7 @@ weight: 10
 
 하나의 노드는 쿠버네티스에서 하나의 워커 머신으로, 이전에는 `미니언`으로 알려졌다. 노드는
 클러스터에 따라, VM 또는 물리 머신이 될 수 있다. 각 노드는
-[파드](/docs/concepts/workloads/pods/pod/)를 동작시키기 위해 필요한 서비스를 포함하며 마스터 컴포넌트에 의해 관리된다. 노드 상의 서비스는 [컨테이너 런타임](/docs/concepts/overview/components/#node-components), kubelet 그리고 kube-proxy를 포함한다. 보다
+[파드](/ko/docs/concepts/workloads/pods/pod/)를 동작시키기 위해 필요한 서비스를 포함하며 마스터 컴포넌트에 의해 관리된다. 노드 상의 서비스는 [컨테이너 런타임](/ko/docs/concepts/overview/components/#노드-컴포넌트), kubelet 그리고 kube-proxy를 포함한다. 보다
 상세한 내용은 아키텍처 문서 내
 [쿠버네티스 노드](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
 섹션을 확인한다.
@@ -72,7 +72,7 @@ kubectl describe node <insert-node-name-here>
 
 ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controller-manager/)에 인수로 넘겨지는 `pod-eviction-timeout` 보다 더 길게 `Unknown` 또는 `False`로 유지되는 경우, 노드 상에 모든 파드는 노드 컨트롤러에 의해 삭제되도록 스케줄 된다. 기본 축출 타임아웃 기간은 **5분** 이다. 노드에 접근이 불가할 때와 같은 경우, apiserver는 노드 상의 kubelet과 통신이 불가하다. apiserver와의 통신이 재개될 때까지 파드 삭제에 대한 결정은 kubelet에 전해질 수 없다. 그 사이, 삭제되도록 스케줄 되어진 파드는 분할된 노드 상에서 계속 동작할 수도 있다.
 
-1.5 이전의 쿠버네티스 버전에서는, 노드 컨트롤러가 apiserver로부터 접근 불가한 이러한 파드를 [강제 삭제](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)
+1.5 이전의 쿠버네티스 버전에서는, 노드 컨트롤러가 apiserver로부터 접근 불가한 이러한 파드를 [강제 삭제](/ko/docs/concepts/workloads/pods/pod/#파드-강제-삭제)
 시킬 것이다. 그러나 1.5 이상에서는, 노드 컨트롤러가 클러스터 내 동작 중지된 것을 확신할 때까지는 파드를 
 강제로 삭제하지 않는다. 파드가 `Terminating` 또는 `Unknown` 상태로 있을 때 접근 불가한 노드 상에서 
 동작되고 있는 것을 보게 될 수도 있다. 노드가 영구적으로 클러스터에서 삭제되었는지에 대한 여부를 쿠버네티스가 기반 인프라로부터 유추할 수 없는 경우, 
@@ -113,7 +113,7 @@ taint 를 용인하는 파드는 노드 상에서 스케줄 될 수 있다.
 
 ## 관리
 
-[파드](/docs/concepts/workloads/pods/pod/)와 [서비스](/docs/concepts/services-networking/service/)와 달리,
+[파드](/ko/docs/concepts/workloads/pods/pod/)와 [서비스](/docs/concepts/services-networking/service/)와 달리,
 노드는 본래 쿠버네티스에 의해 생성되지 않는다. 구글 컴퓨트 엔진과 같은 클라우드 제공사업자에 의해 
 외부로부터 생성 되거나, 물리적 또는 가상 머신의 풀 내에서 존재한다. 
 그래서 쿠버네티스가 노드를 생성할 때, 
@@ -276,12 +276,12 @@ DaemonSet 컨트롤러에 의해 생성된 파드는 쿠버네티스 스케줄�
 
 노드의 용량 (cpu 수와 메모리 양) 은 노드 오브젝트의 한 부분이다.
 일반적으로, 노드는 스스로 등록하고 노드 오브젝트를 생성할 때 자신의 용량을 알린다. 만약
-[수동 노드 관리](#manual-node-administration)를 수행 한다면, 노드를 추가할 때 
+[수동 노드 관리](#수동-노드-관리)를 수행 한다면, 노드를 추가할 때 
 노드 용량을 설정해야 한다.
 
 쿠버네티스 스케줄러는 노드 상에 모든 노드에 대해 충분한 리소스가 존재하도록 보장한다.
 노드 상에 컨테이너에 대한 요청의 합이 노드 용량보다 더 크지 않도록 체크한다.
-kubelet에 의해 구동된 모든 컨테이너를 포함하지만, [컨테이너 런타임](/docs/concepts/overview/components/#node-components)에 의해 직접 구동된 컨테이너 또는 컨테이너 외부에서 동작하는 임의의 프로세스는 해당되지 않는다.
+kubelet에 의해 구동된 모든 컨테이너를 포함하지만, [컨테이너 런타임](/ko/docs/concepts/overview/components/#노드-컴포넌트)에 의해 직접 구동된 컨테이너 또는 컨테이너 외부에서 동작하는 임의의 프로세스는 해당되지 않는다.
 
 파드 형태가 아닌 프로세스에 대해 명시적으로 리소스를 확보하려면,
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved) 튜토리얼을 따른다.
@@ -302,6 +302,6 @@ kubelet에 의해 구동된 모든 컨테이너를 포함하지만, [컨테이�
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* [노드 컴포넌트](https://kubernetes.io/docs/concepts/overview/components/#node-components)에 대해 읽기
+* [노드 컴포넌트](/ko/docs/concepts/overview/components/#노드-컴포넌트)에 대해 읽기
 * 노드 수준 토폴로지에 대해 읽기: [노드의 토폴로지 정책 제어하기](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}

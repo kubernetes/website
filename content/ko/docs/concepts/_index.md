@@ -37,10 +37,10 @@ weight: 40
 
 또한, 쿠버네티스에는 기초 오브젝트를 기반으로, 부가 기능 및 편의 기능을 제공하는 [컨트롤러](/docs/concepts/architecture/controller/)에 의존하는 보다 높은 수준의 추상 개념도 포함되어 있다. 다음이 포함된다.
 
-* [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)
-* [데몬 셋](/docs/concepts/workloads/controllers/daemonset/)
-* [스테이트풀 셋](/docs/concepts/workloads/controllers/statefulset/)
-* [레플리카 셋](/docs/concepts/workloads/controllers/replicaset/)
+* [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
+* [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)
+* [스테이트풀 셋](/ko/docs/concepts/workloads/controllers/statefulset/)
+* [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)
 * [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## 쿠버네티스 컨트롤 플레인
