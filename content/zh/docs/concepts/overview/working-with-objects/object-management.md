@@ -143,7 +143,7 @@ See the [API reference](/docs/reference/generated/kubernetes-api/{{< param "vers
 for more details on object definitions.
 -->
 
-有关对象定义的详细信息，请参考 [API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
+有关对象定义的详细信息，请查看 [API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
 
 {{< warning >}}
 <!--
