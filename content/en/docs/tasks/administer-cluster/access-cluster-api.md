@@ -156,8 +156,7 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-Kubernetes officially supports client libraries for [Go](#go-client) and
-[Python](#python-client).
+Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [Dotnet](#dotnet-client), [Javascript](#javascript-client) and [Haskell](#haskell-client).
 
 #### Go client
 
@@ -214,9 +213,203 @@ for i in ret.items:
     print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
 ```
 
-#### Other languages
+#### Java client
 
-There are [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
+* To install the [Java Client](https://github.com/kubernetes-client/java), simply execute : 
+```shell
+# Clone java library
+git clone --recursive https://github.com/kubernetes-client/java
+
+# Installing project artifacts, POM etc:
+cd java
+mvn install
+
+```
+See [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases) to see which versions are supported.
+* Write an application atop of the java clients.
+
+The Java client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
+
+```java
+package io.kubernetes.client.examples;
+
+import io.kubernetes.client.ApiClient;
+import io.kubernetes.client.ApiException;
+import io.kubernetes.client.Configuration;
+import io.kubernetes.client.apis.CoreV1Api;
+import io.kubernetes.client.models.V1Pod;
+import io.kubernetes.client.models.V1PodList;
+import io.kubernetes.client.util.ClientBuilder;
+import io.kubernetes.client.util.KubeConfig;
+import java.io.FileReader;
+import java.io.IOException;
+
+/**
+ * A simple example of how to use the Java API from an application outside a kubernetes cluster
+ *
+ * <p>Easiest way to run this: mvn exec:java
+ * -Dexec.mainClass="io.kubernetes.client.examples.KubeConfigFileClientExample"
+ *
+ */
+public class KubeConfigFileClientExample {
+  public static void main(String[] args) throws IOException, ApiException {
+
+    // file path to your KubeConfig
+    String kubeConfigPath = "~/.kube/config";
+
+    // loading the out-of-cluster config, a kubeconfig from file-system
+    ApiClient client =
+        ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfigPath))).build();
+
+    // set the global default api-client to the in-cluster one from above
+    Configuration.setDefaultApiClient(client);
+
+    // the CoreV1Api loads default api-client from global configuration.
+    CoreV1Api api = new CoreV1Api();
+
+    // invokes the CoreV1Api client
+    V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null);
+    System.out.Println("Listing all pods: ");
+    for (V1Pod item : list.getItems()) {
+      System.out.println(item.getMetadata().getName());
+    }
+  }
+}
+```
+
+#### dotnet client
+
+To use [dotnet client](https://github.com/kubernetes-client/csharp), run the following command: `dotnet add package KubernetesClient --version 1.6.1` See [dotnet Client Library page](https://github.com/kubernetes-client/csharp) for more installation options. See [https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases) to see which versions are supported.
+
+The dotnet client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs):
+
+```csharp
+using System;
+using k8s;
+
+namespace simple
+{
+    internal class PodList
+    {
+        private static void Main(string[] args)
+        {
+            var config = KubernetesClientConfiguration.BuildDefaultConfig();
+            IKubernetes client = new Kubernetes(config);
+            Console.WriteLine("Starting Request!");
+
+            var list = client.ListNamespacedPod("default");
+            foreach (var item in list.Items)
+            {
+                Console.WriteLine(item.Metadata.Name);
+            }
+            if (list.Items.Count == 0)
+            {
+                Console.WriteLine("Empty!");
+            }
+        }
+    }
+}
+```
+
+#### JavaScript client
+
+To install [JavaScript client](https://github.com/kubernetes-client/javascript), run the following command: `npm install @kubernetes/client-node`. See [https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases) to see which versions are supported.
+
+The JavaScript client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js):
+
+```javascript
+const k8s = require('@kubernetes/client-node');
+
+const kc = new k8s.KubeConfig();
+kc.loadFromDefault();
+
+const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
+
+k8sApi.listNamespacedPod('default').then((res) => {
+    console.log(res.body);
+});
+```
+#### Haskell client
+
+See [https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases) to see which versions are supported.
+
+The Haskell client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs):
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+module Main where
+
+import Control.Concurrent.STM (atomically, newTVar)
+import Data.Function          ((&))
+import Kubernetes.Client      (KubeConfigSource (..), defaultTLSClientParams,
+                               disableServerCertValidation,
+                               disableServerNameValidation,
+                               disableValidateAuthMethods, mkKubeClientConfig,
+                               loadPEMCerts, newManager, setCAStore,
+                               setClientCert, setMasterURI, setTokenAuth)
+import Kubernetes.OpenAPI     (Accept (..), MimeJSON (..), dispatchMime,
+                               newConfig)
+import Network.TLS            (credentialLoadX509)
+
+import qualified Data.Map                      as Map
+import qualified Kubernetes.OpenAPI.API.CoreV1 as CoreV1
+
+example :: IO ()
+example = do
+    -- We need to first create a Kubernetes.Core.KubernetesConfig and a Network.HTTP.Client.Manager.
+    -- Currently we need to construct these objects manually. Work is underway to construct these
+    -- objects automatically from a kubeconfig file. See https://github.com/kubernetes-client/haskell/issues/2.
+    kcfg <-
+        newConfig
+        & fmap (setMasterURI "https://mycluster.example.com")    -- fill in master URI
+        & fmap (setTokenAuth "mytoken")                          -- if using token auth
+        & fmap disableValidateAuthMethods                        -- if using client cert auth
+    myCAStore <- loadPEMCerts "/path/to/ca.crt"                  -- if using custom CA certs
+    myCert    <-                                                 -- if using client cert
+        credentialLoadX509 "/path/to/client.crt" "/path/to/client.key"
+            >>= either error return
+    tlsParams <-
+        defaultTLSClientParams
+        & fmap disableServerNameValidation -- if master address is specified as an IP address
+        & fmap disableServerCertValidation -- if you don't want to validate the server cert at all (insecure)
+        & fmap (setCAStore myCAStore)      -- if using custom CA certs
+        & fmap (setClientCert myCert)      -- if using client cert
+    manager <- newManager tlsParams
+    dispatchMime
+            manager
+            kcfg
+            (CoreV1.listPodForAllNamespaces (Accept MimeJSON))
+        >>= print
+
+exampleWithKubeConfig :: IO ()
+exampleWithKubeConfig = do
+    oidcCache <- atomically $ newTVar $ Map.fromList []
+    (mgr, kcfg) <- mkKubeClientConfig oidcCache $ KubeConfigFile "/path/to/kubeconfig"
+    dispatchMime
+            mgr
+            kcfg
+            (CoreV1.listPodForAllNamespaces (Accept MimeJSON))
+        >>= print
+
+exampleWithInClusterConfig :: IO ()
+exampleWithInClusterConfig = do
+    oidcCache <- atomically $ newTVar $ Map.fromList []
+    (mgr, kcfg) <- mkKubeClientConfig oidcCache KubeConfigCluster
+    dispatchMime
+            mgr
+            kcfg
+            (CoreV1.listPodForAllNamespaces (Accept MimeJSON))
+        >>= print
+
+main :: IO ()
+main = return ()
+```
+
 
 ### Accessing the API from a Pod
 
