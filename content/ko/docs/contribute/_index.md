@@ -15,7 +15,7 @@ weight: 80
 
 쿠버네티스 문서 내용과 스타일에
 대해 더 많은 정보를 알고 싶다면, 
-[문서 스타일 개요](/docs/contribute/style/style/)를 참고하자.
+[문서 스타일 개요](/docs/contribute/style/)를 참고하자.
 
 {{% capture body %}}
 
