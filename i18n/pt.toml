@@ -118,7 +118,63 @@ other = "Usuários"
 [docs_label_i_am]
 other = "Eu sou..."
 
+# layouts > blog > pager
 
+[layouts_blog_pager_prev]
+other = "<< Anterior"
+
+[layouts_blog_pager_next]
+other = "Próximo >>"
+
+# layouts > blog > list
+
+[layouts_case_studies_list_tell]
+other = "Conte seu caso"
+
+# layouts > docs > glossary
+
+[layouts_docs_glossary_description]
+other = "Este glossário pretende ser uma lista padronizada e abrangente da terminologia do Kubernetes. Inclui termos técnicos específicos dos K8s, além de termos mais gerais que fornecem um contexto útil."
+
+[layouts_docs_glossary_filter]
+other = "Filtrar termos de acordo com suas tags"
+
+[layouts_docs_glossary_select_all]
+other = "Selecionar tudo"
+
+[layouts_docs_glossary_deselect_all]
+other = "Desmarcar tudo"
+
+[layouts_docs_glossary_aka]
+other = "Também conhecido como"
+
+[layouts_docs_glossary_click_details_before]
+other = "Clique nos"
+
+[layouts_docs_glossary_click_details_after]
+other = "indicadores abaixo para uma maior explicação sobre um termo em particular."
+
+# layouts > docs > search
+
+[layouts_docs_search_fetching]
+other = "Buscando resultados.."
+
+# layouts > partial > feedback
+
+[layouts_docs_partials_feedback_thanks]
+other = "Obrigado pelo feedback. Se você tiver uma pergunta específica sobre como utilizar o Kubernetes, faça em"
+
+[layouts_docs_partials_feedback_issue]
+other = "Abra um bug no repositório do GitHub se você deseja "
+
+[layouts_docs_partials_feedback_problem]
+other = "reportar um problema"
+
+[layouts_docs_partials_feedback_or]
+other = "ou"
+
+[layouts_docs_partials_feedback_improvement]
+other = "sugerir uma melhoria"
 
 # Community links
 [community_twitter_name]
