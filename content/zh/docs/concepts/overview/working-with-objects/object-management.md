@@ -20,7 +20,7 @@ details of managing objects by Kubectl.
 ## Management techniques
 -->
 
-## 管理技术
+## 管理技巧
 
 {{< warning >}}
 <!--
