@@ -1,6 +1,5 @@
 ---
 reviewers:
-- bgrant0607
 - mikedanese
 title: 安装并设置 kubectl
 content_template: templates/task
@@ -371,7 +370,7 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
 1. Download the latest release:
 
     ```		 
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    	curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
     To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
