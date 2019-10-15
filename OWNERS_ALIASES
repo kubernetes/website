@@ -180,3 +180,10 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+ sig-docs-ar-owners: # Admins for Arabic content
+    - salehmashal
+    - remyleone
+    - SuleimanWA
+  sig-docs-ar-reviews: # PR reviews for Arabic content
+    - salehmashal
+    - SuleimanWA
