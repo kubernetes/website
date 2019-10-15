@@ -39,9 +39,9 @@ This page describes the CoreDNS upgrade process and how to install CoreDNS inste
 
 <!--
 [CoreDNS](https://coredns.io) is a flexible, extensible DNS server that can serve as the Kubernetes cluster DNS.
-Like Kubernetes, the CoreDNS project is hosted by the [CNCF.](http://www.cncf.io)
+Like Kubernetes, the CoreDNS project is hosted by the {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
 -->
-[CoreDNS](https://coredns.io) 是一个灵活可扩展的 DNS 服务器，可以作为 Kubernetes 集群 DNS。与 Kubernetes 一样，CoreDNS 项目由 CNCF(http://www.cncf.io) 持有。
+[CoreDNS](https://coredns.io) 是一个灵活可扩展的 DNS 服务器，可以作为 Kubernetes 集群 DNS。与 Kubernetes 一样，CoreDNS 项目由 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} 持有。
 
 <!--
 You can use CoreDNS instead of kube-dns in your cluster by replacing kube-dns in an existing
@@ -60,6 +60,11 @@ For manual deployment or replacement of kube-dns, see the documentation at the
 [CoreDNS GitHub project.](https://github.com/coredns/deployment/tree/master/kubernetes)
 -->
 有关手动部署或替换 kube-dns，请参阅 [CoreDNS GitHub 工程](https://github.com/coredns/deployment/tree/master/kubernetes)。
+
+<!--
+## Migrating to CoreDNS
+-->
+## 迁移到 CoreDNS
 
 <!--
 ## Upgrading an existing cluster with kubeadm
@@ -85,6 +90,15 @@ during an upgrade. For example, here is what a `v1.11.0` upgrade would look like
 ```
 kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 ```
+
+<!--
+In Kubernetes version 1.13 and later the `CoreDNS` feature gate is removed and CoreDNS
+is used by default. Follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon) if you want
+your upgraded cluster to use kube-dns.
+-->
+在 Kubernetes 版本 1.13 和更高版本中，`CoreDNS`特性门已经删除，CoreDNS 在默认情况下使用。
+如果您想升级集群以使用 kube-dns，请遵循
+[此处](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon) 。
 
 <!--
 In versions prior to 1.11 the Corefile will be **overwritten** by the one created during upgrade.
@@ -116,14 +130,37 @@ and is installed by default.
 {{< /note >}}
 
 <!--
-To install kube-dns instead, set the `CoreDNS` feature gate
+To install kube-dns on versions prior to 1.13, set the `CoreDNS` feature gate
 value to `false`:
 -->
-若要安装 kube-dns，请将 `CoreDNS` 特性门值设置为 `false`：
+若要在1.13之前到版本上安装 kube-dns，请将 `CoreDNS` 特性门值设置为 `false`：
 
 ```
 kubeadm init --feature-gates=CoreDNS=false
 ```
+
+<!--
+For versions 1.13 and later, follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon).
+-->
+对于 1.13 版和更高版本，请遵循[此处](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon)概述到指南。
+
+<!--
+## Upgrading CoreDNS 
+-->
+## 升级 CoreDNS 
+
+<!--
+CoreDNS is available in Kubernetes since v1.9. 
+You can check the version of CoreDNS shipped with Kubernetes and the changes made to CoreDNS [here](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md).
+-->
+从 v1.9 起，Kubernetes 提供了 CoreDNS。
+您可以在[此处](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md)检查 Kubernetes 随附的 CoreDNS 版本以及对 CoreDNS 所做的更改。
+
+<!--
+CoreDNS can be upgraded manually in case you want to only upgrade CoreDNS or use your own custom image.
+There is a helpful [guideline and walkthrough](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md) available to ensure a smooth upgrade.
+-->
+如果您只想升级 CoreDNS 或使用自己的自定义镜像，则可以手动升级 CoreDNS。
 
 <!--
 ## Tuning CoreDNS
