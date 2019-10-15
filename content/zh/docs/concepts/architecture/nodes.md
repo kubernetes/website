@@ -17,7 +17,7 @@ redirect_from:
 ## Node 是什么？
 
 
-`Node` 是 Kubernetes 的工作节点，以前叫做 `minion`。取决于你的集群，Node 可以是一个虚拟机或者物理机器。每个 node 都有用于运行 [pods](/docs/user-guide/pods) 的必要服务，并由 master 组件管理。Node 上的服务包括 Docker、kubelet 和 kube-proxy。请查阅架构设计文档中 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) 一节获取更多细节。
+`Node` 是 Kubernetes 的工作节点，以前叫做 `minion`。取决于你的集群，Node 可以是一个虚拟机或者物理机器。每个 node 都有用于运行 [pods](/docs/user-guide/pods) 的必要服务，并由 master 组件管理。Node 上的服务包括 容器运行时、kubelet 和 kube-proxy。请查阅架构设计文档中 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) 一节获取更多细节。
 
 
 ## Node 状态
@@ -26,10 +26,15 @@ redirect_from:
   一个 node 的状态包含以下信息:
 
 * [地址](#地址)
-* ~~[阶段](#阶段)~~ **已废弃**
 * [条件](#条件)
 * [容量](#容量)
 * [信息](#信息)
+
+
+Node状态和其他细节可以通过以下命令展示：
+```shell
+kubectl describe node <insert-node-name-here>
+```
 
 
 下面对每个章节进行详细描述。
@@ -45,12 +50,6 @@ redirect_from:
 * InternalIP：通常是仅可在集群内部路由的 node IP 地址。
 
 
-### 阶段
-
-
-已废弃：node 阶段已经不再使用。
-
-
 ### 条件
 
 
@@ -59,10 +58,11 @@ redirect_from:
 
 | Node 条件          | 描述                                       |
 | ---------------- | ---------------------------------------- |
-| `OutOfDisk`      | `True` 表示 node 的空闲空间不足以用于添加新 pods, 否则为 `False` |
 | `Ready`          | `True` 表示 node 是健康的并已经准备好接受 pods；`False` 表示 node 不健康而且不能接受 pods；`Unknown` 表示 node 控制器在最近 40 秒内没有收到 node 的消息 |
 | `MemoryPressure` | `True` 表示 node 存在内存压力 -- 即 node 内存用量低，否则为 `False`       |
+| `PIDPressure` | `True` 表示 node 存在进程压力 -- 即 node 上有大量进程, 否则为 `False`       |
 | `DiskPressure`   | `True` 表示 node 存在磁盘压力 -- 即磁盘用量低，否则为 `False`       |
+| `NetworkUnavailable` | `True` 表示 node 网络未正确配置, 否则为 `False`       |
 <!--
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
@@ -161,7 +161,6 @@ Node 控制器在 node 的生命周期中扮演了多个角色。第一个是当
 
   对于自注册模式，kubelet 使用下列参数启动：
 
-  - `--api-servers` - apiservers 地址。
   - `--kubeconfig` - 用于向 apiserver 验证自己的凭据路径。
   - `--cloud-provider` - 如何从云服务商读取关于自己的元数据。
   - `--register-node` - 自动向  API 服务注册。
