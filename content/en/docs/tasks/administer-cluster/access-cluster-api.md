@@ -156,7 +156,7 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [Dotnet](#dotnet-client), [Javascript](#javascript-client) and [Haskell](#haskell-client).
+Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [Javascript](#javascript-client), and [Haskell](#haskell-client).
 
 #### Go client
 
@@ -216,6 +216,7 @@ for i in ret.items:
 #### Java client
 
 * To install the [Java Client](https://github.com/kubernetes-client/java), simply execute : 
+
 ```shell
 # Clone java library
 git clone --recursive https://github.com/kubernetes-client/java
@@ -223,8 +224,8 @@ git clone --recursive https://github.com/kubernetes-client/java
 # Installing project artifacts, POM etc:
 cd java
 mvn install
-
 ```
+
 See [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases) to see which versions are supported.
 * Write an application atop of the java clients.
 
@@ -332,6 +333,7 @@ k8sApi.listNamespacedPod('default').then((res) => {
     console.log(res.body);
 });
 ```
+
 #### Haskell client
 
 See [https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases) to see which versions are supported.
@@ -410,6 +412,9 @@ main :: IO ()
 main = return ()
 ```
 
+#### Other languages
+
+There are [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
 
 ### Accessing the API from a Pod
 
