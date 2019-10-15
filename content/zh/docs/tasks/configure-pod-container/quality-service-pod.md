@@ -417,6 +417,8 @@ kubectl delete namespace qos-example
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+
+* [Control Topology Management policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 -->
 
 ### 集群管理员参考
@@ -435,6 +437,7 @@ kubectl delete namespace qos-example
 
 * [为 API 对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
 
+* [控制节点上的拓扑管理策略](/docs/tasks/administer-cluster/topology-manager/)
 
 {{% /capture %}}
 

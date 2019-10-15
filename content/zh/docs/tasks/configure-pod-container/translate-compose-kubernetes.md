@@ -3,7 +3,7 @@ reviewers:
 - cdrage
 title: 将 Docker Compose 文件转换为 Kubernetes 资源
 content_template: templates/task
-weight: 170
+weight: 200
 ---
 
 <!--
@@ -170,7 +170,7 @@ you need is an existing `docker-compose.yml` file.
             - "6379"
 
         redis-slave:
-          image: gcr.io/google_samples/gb-redisslave:v1
+          image: gcr.io/google_samples/gb-redisslave:v3
           ports:
             - "6379"
           environment:
@@ -255,7 +255,7 @@ you need is an existing `docker-compose.yml` file.
       Selector:               service=frontend
       Type:                   LoadBalancer
       IP:                     10.0.0.183
-      LoadBalancer Ingress:   123.45.67.89
+      LoadBalancer Ingress:   192.0.2.89
       Port:                   80      80/TCP
       NodePort:               80      31144/TCP
       Endpoints:              172.17.0.4:80
@@ -268,7 +268,7 @@ you need is an existing `docker-compose.yml` file.
       如果您使用的是云提供商，您的 IP 将在 `LoadBalancer Ingress` 字段给出。
 
       ```sh
-      $ curl http://123.45.67.89
+      $ curl http://192.0.2.89
       ```
 
 {{% /capture %}}

@@ -6,9 +6,6 @@
 ### 概要
 
 
-<!-- Mark a node as a control-plane -->
-将节点标记为控制平面
-
 ```
 kubeadm init phase mark-control-plane [flags]
 ```
@@ -38,13 +35,13 @@ kubeadm init phase mark-control-plane [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
     </tr> -->
     <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"> kubeadm 配置文件的路径。 警告：配置文件的使用是实验性的。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。</td>
     </tr>
 
 <!--     <tr>
@@ -107,5 +104,12 @@ kubeadm init phase mark-control-plane [flags]
   </tbody>
 </table>
 
+<!--
+SEE ALSO
+* [kubeadm init phase](kubeadm_init_phase.md)   - Use this command to invoke single phase of the init workflow
+-->
 
+查看其他
+
+* [kubeadm init phase](kubeadm_init_phase.md)   - 使用此命令调用 init 工作流程的单个阶段
 
