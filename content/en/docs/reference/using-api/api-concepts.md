@@ -51,7 +51,7 @@ The verbs supported for each subresource will differ depending on the object - s
 
 ## Efficient detection of changes
 
-To enable clients to build a model of the current state of a cluster, all Kubernetes object resource types are required to support consistent lists and an incremental change notification feed called a **watch**.  Every Kubernetes object has a `resourceVersion` field representing the version of that resource as stored in the underlying database. When retrieving a collection of resources (either namespace or cluster scoped), the response from the server will contain a `resourceVersion` value that can be used to initiate a watch against the server. The server will return all changes (creates, deletes, and updates) that occur after the supplied `resourceVersion`. This allows a client to fetch the current state and then watch for changes without missing any updates. If the client watch is disconnected they can restart a new watch from the last returned `resourceVersion`, or perform a new collection request and begin again. See [Resource Version Semantics](#resource-version-semantics) for more detail.
+To enable clients to build a model of the current state of a cluster, all Kubernetes object resource types are required to support consistent lists and an incremental change notification feed called a **watch**.  Every Kubernetes object has a `resourceVersion` field representing the version of that resource as stored in the underlying database. When retrieving a collection of resources (either namespace or cluster scoped), the response from the server will contain a `resourceVersion` value that can be used to initiate a watch against the server. The server will return all changes (creates, deletes, and updates) that occur after the supplied `resourceVersion`. This allows a client to fetch the current state and then watch for changes without missing any updates. If the client watch is disconnected they can restart a new watch from the last returned `resourceVersion`, or perform a new collection request and begin again. See [Resource Version Semantics](#resource-versions) for more detail.
 
 For example:
 
@@ -88,8 +88,10 @@ For example:
 A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package. The following pseudo-code demonstrates how to implement a reflector:
 
 ```
-// Must be a specific resource version if the client requires data no older than a known resource version.
-// If not, this can initialized to "0".
+// Unless the client can tolerate arbitrary old resource versions, which may be served from partioned etcd members or stale caches
+// and can be much older than resource versions the client has observed, the client should provide a sufficiently recent resource version here.
+// If the client is certain can tolerage arbitrary old resource versions, it may use "0" for the initial resource version. A resource version of "0"
+// may be served from cache and can have significant scalability and performance benefits.
 lastObservedResourceVersion := initialResourceVersion
 
 while(should continue watching) {
@@ -104,7 +106,7 @@ while(should continue watching) {
       // This may either be the 1st list, which determines initial state, or it might
       // be a "relist", which re-establishes state after a watch is dropped.
       
-      lastObservedResourceVersion = `metadata.resourceVersion` in HTTP response
+      lastObservedResourceVersion = metadata.resourceVersion in HTTP response
       send HTTP WATCH request with parameter: resourceVersion=lastObservedResourceVersion
       switch(HTTP response status code) {
         case 410: // "Gone"
@@ -669,7 +671,7 @@ you need to include the `--feature-gates ServerSideApply=false` flag when
 starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
 should have the same flag setting.
 
-## Resource Version Semantics
+## Resource Versions
 
 Resource versions are strings that identify the server's internal version of an object. They can used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server.
 
@@ -683,17 +685,11 @@ Clients find resource versions in resources and list responses returned from the
 
 ### The ResourceVersion Parameter
 
-The get, list and watch operations support a `resourceVersion` parameter.
+The get, list and watch operations support the `resourceVersion` parameter.
 
 The exact meaning of this parameter differs depending on the operation and the value of the resource version.
 
 For get and list, the semantics of resource version are:
-
-- **Most Recent:** Return data at the most recent resource version. The returned data must be consistent (i.e. served from etcd via a quorum read).
-- **Not older than:** Return data at least as new as the provided resource version. The newest available resource version is preferred but strong consistency is not required; any data not older than this resource version is sufficient. In high availabiliy configurations, it is possible for the watch to start at a much older resource version that the client has previously observed, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
-- **Exact:** Return data at the exact resource version provided.
-
-And the possible cases are:
 
 **Get:**
 
@@ -708,13 +704,14 @@ And the possible cases are:
 | no limit  | Most Recent           | Not older than      | Not older than                       |
 | limit="n" | Most Recent           | Not older than      | Exact                                |
 
-For watch, the semantics are:
 
-- **Start at Most Recent:** Start a watch at the most recent resource version, which must be consistent (i.e. served from etcd via a quorum read). The establish initial state, the watch events begin with “Added” events for all resources instances that exist at the starting resource version. The following watch events are for all changes that occured after the resource version the watch started at.
-- **Start at Any:** Start a watch at any resource version, the most recent resource version available is preferred, but not required; any starting resource version is allowed. In high availabiliy configurations, it is possible for the watch to start at a much older resource version that the client has previously observed, due to partitions or stale caches. Clients that cannot tolerate this should not start a watch with this semantic. The establish initial state, the watch events begin with “Added” events for all resources instances that exist at the starting resource version. The following watch events are for all changes that occured after the resource version the watch started at.
-- **Start at Exact:** Start a watch at an exact resource version. The watch events are for all changes after the provided resource version. Unlike "Start at Most Recent" and "Start at Any", the watch is not started with "Added" events for the provided resource version. The client is assumed to already have the state at the provided resource version.
+The meaning of the get and list semantics are:
 
-And the possible cases are:
+- **Most Recent:** Return data at the most recent resource version. The returned data must be consistent (i.e. served from etcd via a quorum read).
+- **Not older than:** Return data at least as new as the provided resource version. The newest available resource version is preferred, but strong consistency is not required; any data not older than this resource version may be served. It is possible for the request to return data at a much older resource version that the client has previously observed, particularly in high availabiliy configurations, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
+- **Exact:** Return data at the exact resource version provided.
+
+For watch, the semantics of resource version are:
 
 **Watch:**
 
@@ -722,6 +719,14 @@ And the possible cases are:
 |-----------------------|---------------------|--------------------------------------|
 | Start at Most Recent  | Start at Any        | Start at Exact                       |
 
+The meaning of the watch semantics are:
+
+- **Start at Most Recent:** Start a watch at the most recent resource version, which must be consistent (i.e. served from etcd via a quorum read). To establish initial state, the watch begins with synthetic “Added” events of all resources instances that exist at the starting resource version. All following watch events are for all changes that occured after the resource version the watch started at.
+- **Start at Any:** Start a watch at any resource version, the most recent resource version available is preferred, but not required; any starting resource version is allowed. It is possible for the watch to start at a much older resource version that the client has previously observed, particularly in high availabiliy configurations, due to partitions or stale caches. Clients that cannot tolerate this should not start a watch with this semantic. To establish initial state, the watch begins with synthetic “Added” events for all resources instances that exist at the starting resource version. All following watch events are for all changes that occured after the resource version the watch started at.
+- **Start at Exact:** Start a watch at an exact resource version. The watch events are for all changes after the provided resource version. Unlike "Start at Most Recent" and "Start at Any", the watch is not started with synthetic "Added" events for the provided resource version. The client is assumed to already have the initial state at the starting resource version since the client provided the resource version.
+
 ### "Gone" resource versions
 
 Servers are not required to serve all older resource versions and may return a HTTP `410 (Gone)` status code if a client requests a resourceVersion older than the server has retained. Clients must be able to tolerate `410 (Gone)` responses. See [Efficient detection of changes](#efficient-detection-of-changes) for details on how to handle `410 (Gone)` responses when watching resources.
+
+For example, the kube-apiserver periodically compacts old resource versions from etcd based on its `--etcd-compaction-interval` setting. Also, the kube-apiserver's watch cache keeps `--watch-cache-sizes` resource versions in each resource cache. It depends on if a request is served from cache on which one of these limits applies, but if a resource version is unavailable in the one that applies, a `410 (Gone)` will be returned by the kube-apiserver.
