@@ -347,8 +347,8 @@ Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSe
 
 Setup instructions for specific systems:
 
-- [UAA](http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise)
-- [Dex](https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex)
+- [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
+- [Dex](https://github.com/dexidp/dex/blob/master/Documentation/kubernetes.md)
 - [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
 
 #### Using kubectl
