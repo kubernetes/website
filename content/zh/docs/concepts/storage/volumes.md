@@ -29,7 +29,7 @@ Kubernetes 抽象出 `Volume` 对象来解决这两个问题。
 Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 -->
 
-阅读本文前建议您熟悉一下 [Pods](/docs/user-guide/pods)。 
+阅读本文前建议您熟悉一下 [Pods](/docs/user-guide/pods)。
 
 {{% /capture %}}
 
@@ -473,7 +473,7 @@ It mounts a directory and writes the requested data in plain text files.
 -->
 
 `downwardAPI` 卷用于使 downward API 数据对应用程序可用。
-这种卷类型挂载一个目录并在纯文本文件中写入请求的数据。 
+这种卷类型挂载一个目录并在纯文本文件中写入请求的数据。
 
 {{< note >}}
 
@@ -1149,7 +1149,7 @@ guide](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 
 您可以在 Kubernetes 之外单独运行静态驱动以改进对 local 卷的生命周期管理。
 请注意，此驱动不支持动态配置。
-有关如何运行外部 `local` 卷驱动的示例，请参考 
+有关如何运行外部 `local` 卷驱动的示例，请参考
 [local 卷驱动用户指南](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)。
 
 {{< note >}}
@@ -1502,7 +1502,7 @@ means that a RBD volume can be pre-populated with data, and that data can
 be "handed off" between Pods.
 -->
 
-`rbd` 卷允许将 [Rados 块设备](http://ceph.com/docs/master/rbd/rbd/) 卷挂载到您的 Pod 中. 
+`rbd` 卷允许将 [Rados 块设备](http://ceph.com/docs/master/rbd/rbd/) 卷挂载到您的 Pod 中.
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时会被保存，卷只是被卸载掉了。
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间"传递"。
 
@@ -1734,7 +1734,7 @@ You must create VMDK using one of the following methods before using with Pod.
 Choose one of the following methods to create a VMDK.
 -->
 
-#### 创建 VMDK 卷 
+#### 创建 VMDK 卷
 
 选择下列方式之一创建 VMDK。
 
@@ -2086,7 +2086,7 @@ persistent volume:
 - `volumeAttributes`：一个字符串到字符串的映射表，用来设置卷的静态属性。
   该映射必须与 CSI 驱动程序返回的 `CreateVolumeResponse` 中的 `volume.attributes` 字段的映射相对应；[CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中有相应的定义。
   该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest`、和 `NodePublishVolumeRequest` 中的 `volume_attributes` 字段传递给 CSI 驱动。
-  
+
 <!--
 - `controllerPublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
@@ -2098,7 +2098,7 @@ persistent volume:
 - `controllerPublishSecretRef`：对包含敏感信息的 secret 对象的引用；该敏感信息会被传递给 CSI 驱动来完成 CSI `ControllerPublishVolume` 和 `ControllerUnpublishVolume` 调用。
   此字段是可选的；在不需要 secret 时可以是空的。
   如果 secret 对象包含多个 secret，则所有的 secret 都会被传递。
-   
+
 <!--
 - `nodeStageSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
@@ -2118,7 +2118,7 @@ persistent volume:
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
 -->
-  
+
 - `nodePublishSecretRef`：对包含敏感信息的 secret 对象的引用，以传递给 CSI 驱动来完成 CSI ``NodePublishVolume` 调用。
   此字段是可选的，如果不需要 secret，则可能是空的。
   如果 secret 对象包含多个 secret，则传递所有 secret。
@@ -2308,9 +2308,9 @@ Its values are:
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 -->
  * `HostToContainer` - 此卷挂载将会感知到主机后续针对此卷或其任何子目录的挂载操作。
-   
+
   换句话说，如果主机在此挂载卷中挂载任何内容，容器将能看到它被挂载在那里。
-   
+
   类似的，配置了 `Bidirectional` 挂载传播选项的 Pod 如果在同一卷上挂载了内容，挂载传播设置为 `HostToContainer` 的容器都将能看到这一变化。
 
   该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt) 中描述的 `rslave` 挂载传播选项。

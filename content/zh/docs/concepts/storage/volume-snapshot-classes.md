@@ -6,7 +6,7 @@ weight: 20
 
 {{% capture overview %}}
 
-<!-- 
+<!--
 This document describes the concept of `VolumeSnapshotClass` in Kubernetes. Familiarity
 with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 [storage classes](/docs/concepts/storage/storage-classes) is suggested.
@@ -19,7 +19,7 @@ with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 
 {{% capture body %}}
 
-<!-- 
+<!--
 ## Introduction
 
 Just like `StorageClass` provides a way for administrators to describe the "classes"
@@ -31,7 +31,7 @@ way to describe the "classes" of storage when provisioning a volume snapshot.
 
 就像 `StorageClass` 为管理员提供了一种在配置卷时描述存储“类”的方法，`VolumeSnapshotClass` 提供了一种在配置卷快照时描述存储“类”的方法。
 
-<!-- 
+<!--
 ## The VolumeSnapshotClass Resource
 
 Each `VolumeSnapshotClass` contains the fields `snapshotter` and `parameters`,
@@ -66,18 +66,18 @@ snapshotter: csi-hostpath
 parameters:
 ```
 
-<!-- 
+<!--
 ### Snapshotter
 
 Volume snapshot classes have a snapshotter that determines what CSI volume plugin is
 used for provisioning VolumeSnapshots. This field must be specified.
 -->
- 
+
 ### 快照生成器（Snapshotter）
 
 卷快照类具有一个快照生成器，用于确定配置 VolumeSnapshot 的 CSI 卷插件。 必须指定此字段。
 
-<!-- 
+<!--
 ## Parameters
 
 Volume snapshot classes have parameters that describe volume snapshots belonging to

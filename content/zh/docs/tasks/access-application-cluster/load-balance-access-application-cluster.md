@@ -57,7 +57,7 @@ load-balanced access to an application running in a cluster.
        ```
        kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
        ```
-       
+
 <!--
 1. List the pods that are running the Hello World application:
 -->
@@ -99,7 +99,7 @@ load-balanced access to an application running in a cluster.
        ```
        kubectl get services example-service
        ```
-   
+
 <!--
    The output shows the internal IP address and the external IP address of
    your service. If the external IP address shows as `<pending>`, repeat the

@@ -12,7 +12,7 @@ kubectl 可以操控 Kubernetes 集群。
 <!--
 ### Synopsis
 
-kubectl controls the Kubernetes cluster manager. 
+kubectl controls the Kubernetes cluster manager.
 
 Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
 -->

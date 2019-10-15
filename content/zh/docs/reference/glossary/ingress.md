@@ -6,7 +6,7 @@ full_link: /docs/concepts/services-networking/ingress/
 short_description: >
   An API object that manages external access to the services in a cluster, typically HTTP.
 
-aka: 
+aka:
 tags:
 - networking
 - architecture
@@ -17,7 +17,7 @@ tags:
 -->
 一个 API 对象，用于管理对集群中服务的外部访问，通常是 HTTP。
 
-<!--more--> 
+<!--more-->
 <!--
 Ingress can provide load balancing, SSL termination and name-based virtual hosting.
 -->

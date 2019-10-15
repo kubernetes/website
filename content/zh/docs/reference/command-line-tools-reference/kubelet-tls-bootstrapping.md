@@ -27,7 +27,7 @@ While any authentication strategy can be used for the kubelet's initial bootstra
 1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) - __alpha__
 2. [Token authentication file](###token-authentication-file)
 
-Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario. 
+Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario.
 
 ### Token authentication file
 Tokens are arbitrary but should represent at least 128 bits of entropy derived from a secure random number

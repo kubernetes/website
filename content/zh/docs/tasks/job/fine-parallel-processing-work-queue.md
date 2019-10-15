@@ -85,7 +85,7 @@ See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guest
 of deploying Redis scalably and redundantly.
 -->
 对于这个例子，为了简单起见，我们将启动一个单实例的 Redis。
-了解如何部署一个可伸缩、高可用的 Redis 例子，请查看 [Redis 样例](https://github.com/kubernetes/examples/tree/master/guestbook) 
+了解如何部署一个可伸缩、高可用的 Redis 例子，请查看 [Redis 样例](https://github.com/kubernetes/examples/tree/master/guestbook)
 
 <!--
 If you are working from the website source tree, you can go to the following

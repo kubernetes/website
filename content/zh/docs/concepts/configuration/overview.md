@@ -35,7 +35,7 @@ This is a living document. If you think of something that is not on this list bu
 -->
 - 在推送到集群之前，配置文件应存储在版本控制中。
  这允许您在必要时快速回滚配置更改。
- 它还有助于集群重新创建和恢复。 
+ 它还有助于集群重新创建和恢复。
 
 <!--
 - Write your configuration files using YAML rather than JSON. Though these formats can be used interchangeably in almost all scenarios, YAML tends to be more user-friendly.
@@ -104,7 +104,7 @@ This is a living document. If you think of something that is not on this list bu
 <!--
   *This does imply an ordering requirement* - any `Service` that a `Pod` wants to access must be created before the `Pod` itself, or else the environment variables will not be populated.  DNS does not have this restriction.
 -->
-  *这确实意味着订购要求* - 必须在`Pod`本身之前创建`Pod`想要访问的任何`Service`，否则将不会填充环境变量。 
+  *这确实意味着订购要求* - 必须在`Pod`本身之前创建`Pod`想要访问的任何`Service`，否则将不会填充环境变量。
    DNS没有此限制。
 
 <!--
@@ -224,7 +224,7 @@ To make sure the container always uses the same version of the image, you can sp
 You should avoid using the `:latest` tag when deploying containers in production as it is harder to track which version of the image is running and more difficult to roll back properly.
 -->
 
-在生产中部署容器时应避免使用 `:latest` 标记，因为更难跟踪正在运行的镜像版本，并且更难以正确回滚。 
+在生产中部署容器时应避免使用 `:latest` 标记，因为更难跟踪正在运行的镜像版本，并且更难以正确回滚。
 {{< /note >}}
 
 {{< note >}}

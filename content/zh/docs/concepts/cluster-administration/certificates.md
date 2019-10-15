@@ -40,7 +40,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
-        
+
 <!--
 1.  Generate a CA. (`--batch` set automatic mode. `--req-cn` default CN to use.)
 -->
@@ -101,7 +101,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 1.  生成密钥位数为 2048 的 ca.key：
 
         openssl genrsa -out ca.key 2048
-        
+
 <!--
 1.  According to the ca.key generate a ca.crt (use -days to set the certificate effective time):
 -->
@@ -222,7 +222,7 @@ Finally, add the same parameters into the API server start parameters.
         chmod +x cfssljson
         curl -L https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64 -o cfssl-certinfo
         chmod +x cfssl-certinfo
-        
+
 <!--
 1.  Create a directory to hold the artifacts and initialize cfssl:
 -->
@@ -258,7 +258,7 @@ Finally, add the same parameters into the API server start parameters.
             }
           }
         }
-        
+
 <!--
 1.  Create a JSON config file for CA certificate signing request (CSR), for example,
     `ca-csr.json`. Be sure to replace the values marked with angle brackets with
@@ -282,7 +282,7 @@ Finally, add the same parameters into the API server start parameters.
             "OU": "<organization unit>"
           }]
         }
-        
+
 <!--
 1.  Generate CA key (`ca-key.pem`) and certificate (`ca.pem`):
 -->
@@ -290,7 +290,7 @@ Finally, add the same parameters into the API server start parameters.
 1.  生成 CA 密钥（`ca-key.pem`）和证书（`ca.pem`）：
 
         ../cfssl gencert -initca ca-csr.json | ../cfssljson -bare ca
-        
+
 <!--
 1.  Create a JSON config file for generating keys and certificates for the API
     server, for example, `server-csr.json`. Be sure to replace the values in angle brackets with
@@ -328,7 +328,7 @@ Finally, add the same parameters into the API server start parameters.
             "OU": "<organization unit>"
           }]
         }
-        
+
 <!--
 1.  Generate the key and certificate for the API server, which are by default
     saved into file `server-key.pem` and `server.pem` respectively:

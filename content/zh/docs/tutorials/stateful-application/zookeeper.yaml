@@ -51,7 +51,7 @@ spec:
         app: zk
       annotations:
         pod.alpha.kubernetes.io/initialized: "true"
-        
+
     spec:
       affinity:
         podAntiAffinity:
@@ -60,7 +60,7 @@ spec:
                 matchExpressions:
                   - key: "app"
                     operator: In
-                    values: 
+                    values:
                     - zk-headless
               topologyKey: "kubernetes.io/hostname"
       containers:

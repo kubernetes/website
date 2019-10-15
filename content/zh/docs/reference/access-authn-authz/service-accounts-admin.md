@@ -7,7 +7,7 @@ approvers:
 title: 管理Service Accounts
 ---
 
-*这是一篇针对service accounts（服务账户）的集群管理员指南。  它呈现了 [User Guide to Service Accounts](/docs/user-guide/service-accounts)中的信息。* 
+*这是一篇针对service accounts（服务账户）的集群管理员指南。  它呈现了 [User Guide to Service Accounts](/docs/user-guide/service-accounts)中的信息。*
 
 *对授权和用户账户的支持已在规划中，当前并不完备，为了更好地描述service accounts，有时这些不完善的特性也会被提及。*
 

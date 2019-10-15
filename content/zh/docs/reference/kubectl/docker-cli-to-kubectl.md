@@ -20,7 +20,7 @@ $ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 ngi
 a9ec34d9878748d2f33dc20cb25c714ff21da8d40558b45bfaec9955859075d0
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
-a9ec34d98787        nginx               "nginx -g 'daemon of   2 seconds ago       Up 2 seconds        0.0.0.0:80->80/tcp, 443/tcp   nginx-app 
+a9ec34d98787        nginx               "nginx -g 'daemon of   2 seconds ago       Up 2 seconds        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
 ```
 
 使用 kubectl 命令：
@@ -141,7 +141,7 @@ $ docker exec -ti a9ec34d98787 /bin/sh
 使用 kubectl 命令：
 
 ```shell
-$ kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
+$ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 

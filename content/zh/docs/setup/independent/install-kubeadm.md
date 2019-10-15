@@ -3,17 +3,17 @@ title: 安装 kubeadm
 content_template: templates/task
 weight: 20
 ---
-<!-- 
+<!--
 ---
 title: Installing kubeadm
 content_template: templates/task
 weight: 20
---- 
+---
 -->
 
 {{% capture overview %}}
 
-<!-- 
+<!--
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
 For information how to create a cluster with kubeadm once you have performed this installation process,
 see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/) page.
@@ -24,7 +24,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 
 {{% capture prerequisites %}}
 
-<!-- 
+<!--
 * One or more machines running one of:
   - Ubuntu 16.04+
   - Debian 9
@@ -38,7 +38,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 * Full network connectivity between all machines in the cluster (public or private network is fine)
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly. 
+* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
 -->
 * 一台或多台运行着下列系统的机器:
   - Ubuntu 16.04+
@@ -49,7 +49,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
   - HypriotOS v1.0.1+
   - Container Linux (针对1800.6.0 版本测试)
 * 每台机器 2 GB 或更多的 RAM (如果少于这个数字将会影响您应用的运行内存)
-* 2 CPU 核心或更多 
+* 2 CPU 核心或更多
 * 集群中的所有机器的网络彼此均能相互连接(公网和内网都可以)
 * 节点之中不可以有重复的主机名，MAC 地址，product_uuid。更多详细信息请参见[这里](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) 。
 * 开启主机上的一些特定端口. 更多详细信息请参见[这里](#check-required-ports)。
@@ -59,8 +59,8 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 
 {{% capture steps %}}
 
-<!-- 
-## Verify the MAC address and product_uuid are unique for every node 
+<!--
+## Verify the MAC address and product_uuid are unique for every node
 -->
 ## 确保每个节点上 MAC 地址和 product_uuid 的唯一性。
 
@@ -71,11 +71,11 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 * 您可以使用下列命令获取网络接口的 MAC 地址：`ip link` 或是 `ifconfig -a`
 * 下列命令可以用来获取 product_uuid `sudo cat /sys/class/dmi/id/product_uuid`
 
-<!-- 
+<!--
 It is very likely that hardware devices will have unique addresses, although some virtual machines may have
 identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
 If these values are not unique to each node, the installation process
-may [fail](https://github.com/kubernetes/kubeadm/issues/31). 
+may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 -->
 一般来讲，硬件设备会拥有独一无二的地址，但是有些虚拟机可能会雷同。Kubernetes 使用这些值来唯一确定集群中的节点。如果这些值在集群中不唯一，可能会导致安装[失败](https://github.com/kubernetes/kubeadm/issues/31)。
 
@@ -128,15 +128,15 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 
 ** [NodePort 服务](/docs/concepts/services-networking/service/) 的默认端口范围。
 
-<!-- 
+<!--
 Any port numbers marked with * are overridable, so you will need to ensure any
-custom ports you provide are also open. 
+custom ports you provide are also open.
 -->
 任何使用 * 标记的端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
 
-<!-- 
+<!--
 Although etcd ports are included in master nodes, you can also host your own
-etcd cluster externally or on custom ports. 
+etcd cluster externally or on custom ports.
 -->
 虽然主节点已经包含了 etcd 的端口，您也可以使用自定义的外部 etcd 集群，或是指定自定义端口。
 <!--
@@ -149,20 +149,20 @@ documentation for the plugins about what port(s) those need.
 <!-- ## Installing runtime -->
 ## 安装 runtime
 
-<!-- 
+<!--
 Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
 The container runtime used by default is Docker, which is enabled through the built-in
-`dockershim` CRI implementation inside of the `kubelet`. 
+`dockershim` CRI implementation inside of the `kubelet`.
 -->
 从 v1.6.0 起，Kubernetes 开始允许使用 CRI，容器运行时接口。默认的容器运行时是 Docker，这是由 `kubelet` 内置的 CRI 实现 `dockershim` 开启的。
 
-<!-- 
+<!--
 Other CRI-based runtimes include:
 
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet) 
+- [rkt](https://github.com/kubernetes-incubator/rktlet)
 -->
 其他的容器运行时有：
 
@@ -171,8 +171,8 @@ Other CRI-based runtimes include:
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
 
-<!-- 
-Refer to the [CRI installation instructions](/docs/setup/cri) for more information. 
+<!--
+Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 -->
 参考 [CRI 安装指南](/docs/setup/cri) 获取更多信息.
 
@@ -181,7 +181,7 @@ Refer to the [CRI installation instructions](/docs/setup/cri) for more informati
 -->
 ## 安装 kubeadm, kubelet 和 kubectl
 
-<!-- 
+<!--
 You will install these packages on all of your machines:
 
 * `kubeadm`: the command to bootstrap the cluster.
@@ -189,47 +189,47 @@ You will install these packages on all of your machines:
 * `kubelet`: the component that runs on all of the machines in your cluster
     and does things like starting pods and containers.
 
-* `kubectl`: the command line util to talk to your cluster. 
+* `kubectl`: the command line util to talk to your cluster.
 -->
 您需要在每台机器上都安装以下的软件包：
 
  * `kubeadm`: 用来初始化集群的指令。
-  
+
  * `kubelet`: 在集群中的每个节点上用来启动 pod 和 container 等。
-  
+
  * `kubectl`: 用来与集群通信的命令行工具。
 
-<!-- 
+<!--
 kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
 need to ensure they match the version of the Kubernetes control plane you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
 can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
-but not vice versa. 
+but not vice versa.
 -->
 kubeadm **不能** 帮您安装或管理 `kubelet` 或 `kubectl` ，所以您得保证他们满足通过 kubeadm 安装的 Kubernetes 控制层对版本的要求。如果版本没有满足要求，就有可能导致一些难以想到的错误或问题。然而控制层与 kubelet 间的 _小版本号_ 不一致无伤大雅，不过请记住 kubelet 的版本不可以超过 API server 的版本。例如 1.8.0 的 API server 可以适配 1.7.0 的 kubelet，反之就不行了。
 
-<!-- 
+<!--
 {{< warning >}}
 These instructions exclude all Kubernetes packages from any system upgrades.
 This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
-{{</ warning >}} 
+{{</ warning >}}
 -->
 {{< warning >}}
 这些指南不包括所有系统升级时使用的 Kubernetes 程序包。这是因为 kubeadm 和 Kubernetes 需要 [升级时的特别注意事项](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/)。
-{{</ warning >}} 
+{{</ warning >}}
 
-<!-- 
+<!--
 For more information on version skews, please read our
-[version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy). 
+[version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
 -->
 
 更多关于版本偏差的信息，请参阅 [版本偏差政策](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)。
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}} 
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```bash
 apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -271,12 +271,12 @@ systemctl enable kubelet && systemctl start kubelet
   <!-- **Note:** -->
   **请注意：**
 
-  <!-- 
+  <!--
   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
     This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
     You have to do this until SELinux support is improved in the kubelet.
   - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
-    `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g. 
+    `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
   -->
   - 通过命令 `setenforce 0` 和 `sed ...` 可以将 SELinux 设置为 permissive 模式(将其禁用)。
     只有执行这一操作之后，容器才能访问宿主的文件系统，进而能够正常使用 Pod 网络。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
@@ -303,10 +303,10 @@ mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 ```
 
-<!-- 
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)) 
+<!--
+Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 -->
-安装 crictl (kubeadm / Kubelet 的容器运行时接口 (CRI) 要求) 
+安装 crictl (kubeadm / Kubelet 的容器运行时接口 (CRI) 要求)
 
 ```bash
 CRICTL_VERSION="v1.11.1"
@@ -314,7 +314,7 @@ mkdir -p /opt/bin
 curl -L "https://github.com/kubernetes-incubator/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
 
-<!-- 
+<!--
 Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service: -->
 
 安装 `kubeadm`, `kubelet`, `kubectl` 并且添加一个 `kubelet` systemd 服务:
@@ -332,8 +332,8 @@ mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-<!-- 
-Enable and start `kubelet`: 
+<!--
+Enable and start `kubelet`:
 -->
 启用并启动 `kubelet`:
 
@@ -391,19 +391,19 @@ systemctl daemon-reload
 systemctl restart kubelet
 ```
 
-<!-- 
-## Troubleshooting 
+<!--
+## Troubleshooting
 -->
 ## 查错
 
-<!-- 
+<!--
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 -->
-如果您在使用 kubeadm 时候遇到问题，请查看我们的[疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/). 
+如果您在使用 kubeadm 时候遇到问题，请查看我们的[疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/).
 {{% capture whatsnext %}}
-<!-- 
+<!--
 * [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)
 -->
-* [使用 kubeadm 来创建集群](/docs/setup/independent/create-cluster-kubeadm/) 
+* [使用 kubeadm 来创建集群](/docs/setup/independent/create-cluster-kubeadm/)
 
 {{% /capture %}}

@@ -56,7 +56,7 @@ content_template: templates/task
     ```
 
     日志中显示了HOSTNAME 与KUBERNETES_PORT 这两个环境变量的值：
-    
+
     ```
     command-demo
     tcp://10.3.240.1:443
@@ -81,7 +81,7 @@ args: ["$(MESSAGE)"]
 [Secrets](/docs/concepts/configuration/secret/).
 
 {{< note >}}
-**注意：** 环境变量需要加上括号，类似于`"$(VAR)"`。这是在`command` 
+**注意：** 环境变量需要加上括号，类似于`"$(VAR)"`。这是在`command`
 或 `args`字段使用变量的格式要求。
 {{< /note >}}
 

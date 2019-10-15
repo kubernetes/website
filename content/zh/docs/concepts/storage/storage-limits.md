@@ -5,28 +5,28 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-<!-- 
+<!--
 This page describes the maximum number of volumes that can be attached
 to a Node for various cloud providers.
 -->
 
 此页面描述了各个云供应商可关联至一个节点的最大卷数。
 
-<!-- 
+<!--
 Cloud providers like Google, Amazon, and Microsoft typically have a limit on
 how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach.
 -->
 
-谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。 
+谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。
 Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-<!-- 
+<!--
 ## Kubernetes default limits
 
 The Kubernetes scheduler has default limits on the number of volumes
@@ -36,7 +36,7 @@ that can be attached to a Node:
 ## Kubernetes 的默认限制
 
 The Kubernetes 调度器对关联于一个节点的卷数有默认限制：
-<!-- 
+<!--
 <table>
   <tr><th>Cloud service</th><th>Maximum volumes per Node</th></tr>
   <tr><td><a href="https://aws.amazon.com/ebs/">Amazon Elastic Block Store (EBS)</a></td><td>39</td></tr>
@@ -51,7 +51,7 @@ The Kubernetes 调度器对关联于一个节点的卷数有默认限制：
   <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
 </table>
 
-<!-- 
+<!--
 ## Custom limits
 
 You can change these limits by setting the value of the
@@ -72,7 +72,7 @@ The limit applies to the entire cluster, so it affects all Nodes.
 
 此限制应用于整个集群，所以它会影响所有节点。
 
-<!-- 
+<!--
 ## Dynamic volume limits
 -->
 
@@ -80,7 +80,7 @@ The limit applies to the entire cluster, so it affects all Nodes.
 
 {{< feature-state state="beta" for_k8s_version="v1.12" >}}
 
-<!-- 
+<!--
 Kubernetes 1.11 introduced support for dynamic volume limits based on Node type as an Alpha feature.
 In Kubernetes 1.12 this feature is graduating to Beta and will be enabled by default.
 
@@ -102,7 +102,7 @@ Kubernetes 1.11 引入了基于节点类型的动态卷限制的支持作为 Alp
 - Azure Disk
 - CSI
 
-<!-- 
+<!--
 When the dynamic volume limits feature is enabled, Kubernetes automatically
 determines the Node type and enforces the appropriate number of attachable
 volumes for the node. For example:
@@ -110,7 +110,7 @@ volumes for the node. For example:
 
 启用动态卷限制功能后，Kubernetes 会自动确定节点类型并确保节点上可关联的卷数目合规。 例如：
 
-<!-- 
+<!--
 * On
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
 up to 128 volumes can be attached to a node, [depending on the node

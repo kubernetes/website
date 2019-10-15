@@ -134,4 +134,4 @@ kubectl create --edit -f /tmp/srv.yaml
  -  [Kubernetes 对象模式参考](/docs/resources-reference/v1.6/)
  {{% /capture %}}
 
- 
+

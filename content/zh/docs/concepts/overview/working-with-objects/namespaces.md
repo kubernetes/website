@@ -33,12 +33,12 @@ need the features they provide.
 -->
 
 命名空间为名称提供了一个范围。
-资源的名称需要在命名空间内是惟一的，但不能跨命名空间。命名空间不能嵌套在另外一个命名空间内，而且每个 Kubernetes 
+资源的名称需要在命名空间内是惟一的，但不能跨命名空间。命名空间不能嵌套在另外一个命名空间内，而且每个 Kubernetes
 资源只能属于一个命名空间。
 
 <!--
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes 
+but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes
 resource can only be in one namespace.
 -->
 
@@ -100,7 +100,7 @@ Kubernetes starts with three initial namespaces:
    * `kube-system` The namespace for objects created by the Kubernetes system
    * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
 -->
-   
+
    * `default` 没有指明使用其它命名空间的对象所使用的默认命名空间
    * `kube-system` Kubernetes 系统创建对象所使用的命名空间
    * `kube-public` 这个命名空间是自动创建的，所有用户（包括未经过身份验证的用户）都可以读取它。这个命名空间主要用于集群使用，以防某些资源在整个集群中应该是可见和可读的。这个命名空间的公共方面只是一种约定，而不是要求。

@@ -95,7 +95,7 @@ One way to create a Deployment using a `.yaml` file like the one above is to use
 in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 -->
 
-使用类似于上面的 `.yaml` 文件来创建 Deployment，一种方式是使用 `kubectl` 命令行接口（CLI）中的 
+使用类似于上面的 `.yaml` 文件来创建 Deployment，一种方式是使用 `kubectl` 命令行接口（CLI）中的
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 命令，
 将 `.yaml` 文件作为参数。下面是一个示例：
 

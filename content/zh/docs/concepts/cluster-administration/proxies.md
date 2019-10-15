@@ -36,7 +36,7 @@ content_template: templates/concept
 
     - 在每个节点上运行
     - 代理 UDP 和 TCP
-    - 不支持 HTTP 
+    - 不支持 HTTP
     - 提供负载均衡能力
     - 只用来访问 Service
 

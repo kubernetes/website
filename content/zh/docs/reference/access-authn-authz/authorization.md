@@ -109,7 +109,7 @@ DELETE    | delete (for individual resources), deletecollection (for collections
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 
 * [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `policy` API group.
-* [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
+* [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization
 of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 * [Authentication](/docs/reference/access-authn-authz/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
 -->
@@ -141,7 +141,7 @@ Kubernetes有时使用专门的动词检查授权以获得额外的权限。例�
    * To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
  * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/reference/access-authn-authz/webhook/).
  -->
- 
+
 ## 授权模块
  * **Node** - 一个专用授权程序，根据计划运行的 pod 为 kubelet 授予权限。了解有关使用节点授权模式的更多信息，请参阅[节点授权](/docs/reference/access-authn-authz/node/).
  * **ABAC** - 基于属性的访问控制（ABAC) 定义了一种访问控制范例，通过使用将属性组合在一起的策略，将访问权限授予用户。策略可以使用任何类型的属性（用户属性，资源属性，对象，环境属性等）。要了解有关使用 ABAC 模式的更多信息，请参阅[ABAC 模式](/docs/reference/access-authn-authz/abac/)。
@@ -169,7 +169,7 @@ yes
 $ kubectl auth can-i create deployments --namespace prod
 no
 ```
-<!-- 
+<!--
 Administrators can combine this with [user impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation)
 to determine what action other users can perform.
 -->

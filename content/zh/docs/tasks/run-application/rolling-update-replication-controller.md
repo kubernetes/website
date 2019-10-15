@@ -141,7 +141,7 @@ my-nginx-o0ef1                                    1/1       Running   0         
 my-nginx-q6all                                    1/1       Running   0          8m        2d1d7a8f682934a254002b56404b813e
 ```
 
-使用`kubectl rolling-update`可以实时看到更新的进度： 
+使用`kubectl rolling-update`可以实时看到更新的进度：
 
 ```
 Scaling up my-nginx-ccba8fbd8cc8160970f63f9a2696fc46 from 0 to 3, scaling down my-nginx from 3 to 0 (keep 3 pods available, don't exceed 4 pods)

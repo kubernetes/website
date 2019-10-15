@@ -22,7 +22,7 @@ This guide uses a simple nginx server to demonstrate proof of concept. The same 
 ## Kubernetes 连接容器模型
 
 既然有了一个持续运行、可复制的应用，我们就能够将它暴露到网络上。
-在讨论 Kubernetes 网络连接的方式之前，非常值得与 Docker 中 “正常” 方式的网络进行对比。 
+在讨论 Kubernetes 网络连接的方式之前，非常值得与 Docker 中 “正常” 方式的网络进行对比。
 
 
 
@@ -225,9 +225,9 @@ Kubernetes支持两种查找服务的主要模式: 环境变量和DNS。 前者�
 
 <!--
 If the service environment variables are not desired (because possible clashing with expected program ones,
-too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks` 
-flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core). 
---> 
+too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks`
+flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+-->
 
 如果不需要服务环境变量（因为可能与预期的程序冲突，可能要处理的变量太多，或者仅使用DNS等），则可以通过在
 [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)上将 `enableServiceLinks` 标志设置为 `false` 来禁用此模式。

@@ -123,7 +123,7 @@ A policy with no (0) rules is treated as illegal.
 
 Below is an example audit policy file:
 -->
-您可以使用 `--audit-policy-file` 标志将包含策略的文件传递给 [kube-apiserver][kube-apiserver]。如果不设置该标志，则不记录事件。 
+您可以使用 `--audit-policy-file` 标志将包含策略的文件传递给 [kube-apiserver][kube-apiserver]。如果不设置该标志，则不记录事件。
 注意 `rules` 字段 __必须__ 在审计策略文件中提供。没有（0）规则的策略将被视为非法配置。
 
 以下是一个审计策略文件的示例：
@@ -529,7 +529,7 @@ plugin which supports full-text search and analytics.
 <!--
 ## Legacy Audit
 
-__Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and 
+__Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and
 will be removed in 1.12. To fallback to this legacy audit, disable the advanced
 auditing feature using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
 -->

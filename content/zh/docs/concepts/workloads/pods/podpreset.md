@@ -25,7 +25,7 @@ pod 中，这些信息可以包括 secret、 卷、卷挂载和环境变量。
 
 ## PodPreset 如何工作
 
-Kubernetes 提供了准入控制器 (`PodPreset`)，该控制器被启用时，会将 Pod Preset 
+Kubernetes 提供了准入控制器 (`PodPreset`)，该控制器被启用时，会将 Pod Preset
 应用于接收到的 pod 创建请求中。
 当出现 pod 创建请求时，系统会执行以下操作：
 
@@ -36,9 +36,9 @@ Kubernetes 提供了准入控制器 (`PodPreset`)，该控制器被启用时，�
 1. 为改动的 pod spec 添加注解，来表明它被 `PodPreset` 所修改。 注解形如：
 `podpreset.admission.kubernetes.io/podpreset-<pod-preset name>": "<resource version>"`。
 
-一个 Pod 可能不与任何 Pod Preset 匹配，也可能匹配多个 Pod Preset。 同时，一个 `PodPreset` 
+一个 Pod 可能不与任何 Pod Preset 匹配，也可能匹配多个 Pod Preset。 同时，一个 `PodPreset`
 可能不应用于任何 Pod，也可能应用于多个 Pod。 当 `PodPreset` 应用于一个或多个 Pod 时，Kubernetes
-修改 pod spec。 对于 `Env`、 `EnvFrom` 和 `VolumeMounts` 的改动， Kubernetes 修改 pod 
+修改 pod spec。 对于 `Env`、 `EnvFrom` 和 `VolumeMounts` 的改动， Kubernetes 修改 pod
 中所有容器的规格，对于卷的改动，Kubernetes 修改 Pod spec。
 
 {{< note >}}

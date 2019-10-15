@@ -53,24 +53,24 @@ for database debugging.
     查看输出是否成功，以验证是否成功创建 deployment：
 
         deployment "redis-master" created
- 
+
 <!--
     When the pod is ready, you can get:
 -->
     当 pod 是 ready 时，您将得到：
-       
+
        kubectl get pods
 
         NAME                            READY     STATUS    RESTARTS   AGE
         redis-master-765d459796-258hz   1/1       Running   0          50s
 
        kubectl get deployment
-       
+
         NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
         redis-master 1         1         1            1           55s
 
        kubectl get rs
-       
+
         NAME                      DESIRED   CURRENT   READY     AGE
         redis-master-765d459796   1         1         1         1m
 
@@ -104,9 +104,9 @@ for database debugging.
 -->
 3. 验证 Redis 服务是否运行在 pod 中并且监听 6379 端口：
 
-        
+
        kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
-        
+
 
 <!--
     The output displays the port:
@@ -125,7 +125,7 @@ for database debugging.
 
 1. 从 Kubernetes v1.10 开始，`kubectl port-forward` 允许使用资源名称（例如服务名称）来选择匹配的 pod 来进行端口转发。
 
-        kubectl port-forward redis-master-765d459796-258hz 6379:6379 
+        kubectl port-forward redis-master-765d459796-258hz 6379:6379
 
 <!--
     which is the same as
@@ -135,18 +135,18 @@ for database debugging.
         kubectl port-forward pods/redis-master-765d459796-258hz 6379:6379
 
 <!--
-    or  
+    or
 -->
     或者
 
-        kubectl port-forward deployment/redis-master 6379:6379 
+        kubectl port-forward deployment/redis-master 6379:6379
 
 <!--
     or
 -->
     或者
 
-        kubectl port-forward rs/redis-master 6379:6379 
+        kubectl port-forward rs/redis-master 6379:6379
 
 <!--
     or
