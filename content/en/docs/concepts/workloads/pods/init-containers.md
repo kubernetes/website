@@ -62,7 +62,7 @@ have some advantages for start-up related code:
 * Init containers can contain utilities or custom code for setup that are not present in an app
   image. For example, there is no need to make an image `FROM` another image just to use a tool like
   `sed`, `awk`, `python`, or `dig` during setup.
-* Init containers can securely run utilities that would make an app container image less secure.
+* Init containers can securely run utilities that would make an app container image more secure.
 * The application image builder and deployer roles can work independently without
   the need to jointly build a single app image.
 * Init containers can run with a different view of the filesystem than app containers in the
