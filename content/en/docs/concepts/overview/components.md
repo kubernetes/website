@@ -15,6 +15,10 @@ When you deploy Kubernetes, you get a cluster.
 
 This document outlines the various components you need to have
 a complete and working Kubernetes cluster.
+
+Here's the diagram of a Kubernetes cluster with all the components tied together.
+
+![CCM Comp Overview](/images/docs/post-ccm-arch.png)
 {{% /capture %}}
 
 {{% capture body %}}
