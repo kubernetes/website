@@ -45,7 +45,7 @@ Ces requêtes excluent spécifiquement les PRs de localisation, et n'inclure que
   Voyez si vous pouvez comprendre ce qui doit se passer pour que la PR soit mergée.
 - [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): Si c'est basé sur une branche `dev-`, c'est pour une release prochaine.
   Assurez vous que le [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) est au courant.
-  Si elle se base sur une branche obsolète, aidez l'auteur de la PR à comprendre comment viser la meilleure branche.
+  Si elle se base sur une branche obsolète, aidez l'auteur de la PR à comprendre comment choisir la meilleure branche.
 
 ## Proposer des améliorations
 
