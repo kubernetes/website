@@ -295,8 +295,8 @@ kubectl get replicationcontroller <rc-name>
 # List all replication controllers and services together in plain-text output format.
 kubectl get rc,services
 
-# List all daemon sets, including uninitialized ones, in plain-text output format.
-kubectl get ds --include-uninitialized
+# List all daemon sets in plain-text output format.
+kubectl get ds
 
 # List all pods running on node server01
 kubectl get pods --field-selector=spec.nodeName=server01
@@ -315,8 +315,8 @@ kubectl describe pods/<pod-name>
 # Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
 kubectl describe pods <rc-name>
 
-# Describe all pods, not including uninitialized ones
-kubectl describe pods --include-uninitialized=false
+# Describe all pods
+kubectl describe pods
 ```
 
 {{< note >}}
@@ -340,8 +340,8 @@ kubectl delete -f pod.yaml
 # Delete all the pods and services that have the label name=<label-name>.
 kubectl delete pods,services -l name=<label-name>
 
-# Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
-kubectl delete pods,services -l name=<label-name> --include-uninitialized
+# Delete all the pods and services that have the label name=<label-name>.
+kubectl delete pods,services -l name=<label-name>
 
 # Delete all pods, including uninitialized ones.
 kubectl delete pods --all
