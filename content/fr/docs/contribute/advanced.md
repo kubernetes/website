@@ -16,14 +16,14 @@ Vous devez utiliser Git et d'autres outils pour certaines de ces tâches.
 
 ## Soyez le trieur de PR pendant une semaine
 
-Les [approbateurs SIG Docs](/docs/contribute/participating/#approvers) peuvent être trieurs de PullRequest (PR).
+Les [approbateurs SIG Docs](/docs/contribute/participating/#approvers) peuvent être trieurs de Pull Request (PR).
 
 Les approbateurs SIG Docs sont ajoutés au [PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers) pour les rotations hebdomadaires.
 Les fonctions de trieur de PR incluent:
 
 - Faire une revue quotidienne des nouvelles pull requests.
-  - Aidez les nouveaux contributeurs à signer le CLA, et fermez toutes les PR où le CLA n'a pas été signé depuis deux semaines.
-    Les auteurs de PR peut rouvrir la PR après avoir signé le CLA, c’est donc un moyen à faible risque de s’assurer que rien n’est merged sans un CLA signé.
+  - Aidez les nouveaux contributeurs à signer le CLA et fermez toutes les PR où le CLA n'a pas été signé depuis deux semaines.
+    Les auteurs de PR peuvent rouvrir la PR après avoir signé le CLA, c’est donc un moyen à faible risque de s’assurer que rien n’est merged sans un CLA signé.
   - Fournir des informations sur les modifications proposées, notamment en facilitant les examens techniques des membres d'autres SIGs.
   - Merger les PRs quand elles sont prêtes, ou les fermer celles qui ne devraient pas être acceptées.
 - Triez et étiquetez les issues entrantes chaque jour.
