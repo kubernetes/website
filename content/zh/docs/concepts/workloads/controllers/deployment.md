@@ -1,19 +1,16 @@
 ---
 approvers:
 - janetkuo
-title: Deployments
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
 
-A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
-[ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
-You describe a _desired state_ in a Deployment object, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
 {{< note >}}
-You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
+<!-- You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below. -->
+不应管理部署拥有的副本集。所有用例都应通过操作部署对象来涵盖。如果下面未介绍您的用例，请考虑在主 Kubernetes 仓库中提出问题。
 {{< /note >}}
 
 {{% /capture %}}
@@ -21,17 +18,56 @@ You should not manage ReplicaSets owned by a Deployment. All the use cases shoul
 
 {{% capture body %}}
 
-## Use Case
+<!-- ## Use Case -->
+## 用例
 
-The following are typical use cases for Deployments:
+<!-- The following are typical use cases for Deployments: -->
+以下是部署的典型用例：
 
-- [Use Case](#use-case)
+<!-- - [Use Case](#use-case)
 - [Creating a Deployment](#creating-a-deployment)
   - [Pod-template-hash label](#pod-template-hash-label)
 - [Updating a Deployment](#updating-a-deployment)
   - [Rollover (aka multiple updates in-flight)](#rollover-aka-multiple-updates-in-flight)
   - [Label selector updates](#label-selector-updates)
 - [Rolling Back a Deployment](#rolling-back-a-deployment)
+  - [Checking Rollout History of a Deployment](#checking-rollout-history-of-a-deployment)
+  - [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision)
+- [Scaling a Deployment](#scaling-a-deployment)
+  - [Proportional scaling](#proportional-scaling)
+- [Pausing and Resuming a Deployment](#pausing-and-resuming-a-deployment)
+- [Deployment status](#deployment-status)
+  - [Progressing Deployment](#progressing-deployment)
+  - [Complete Deployment](#complete-deployment)
+  - [Failed Deployment](#failed-deployment)
+  - [Operating on a failed deployment](#operating-on-a-failed-deployment)
+- [Clean up Policy](#clean-up-policy)
+- [Use Cases](#use-cases)
+  - [Canary Deployment](#canary-deployment)
+- [Writing a Deployment Spec](#writing-a-deployment-spec)
+  - [Pod Template](#pod-template)
+  - [Replicas](#replicas)
+  - [Selector](#selector)
+  - [Strategy](#strategy)
+    - [Recreate Deployment](#recreate-deployment)
+    - [Rolling Update Deployment](#rolling-update-deployment)
+      - [Max Unavailable](#max-unavailable)
+      - [Max Surge](#max-surge)
+  - [Progress Deadline Seconds](#progress-deadline-seconds)
+  - [Min Ready Seconds](#min-ready-seconds)
+  - [Rollback To](#rollback-to)
+    - [Revision](#revision)
+  - [Revision History Limit](#revision-history-limit)
+  - [Paused](#paused)
+- [Alternative to Deployments](#alternative-to-deployments)
+  - [kubectl rolling update](#kubectl-rolling-update) -->
+- [用例](#use-case)
+- [创建部署](#creating-a-deployment)
+  - [Pod-template-hash 标签](#pod-template-hash-label)
+- [更新部署](#updating-a-deployment)
+  - [滚动更新（也称为运行中的多个更新）](#rollover-aka-multiple-updates-in-flight)
+  - [标签选择器更新](#label-selector-updates)
+- [回滚部署](#rolling-back-a-deployment)
   - [Checking Rollout History of a Deployment](#checking-rollout-history-of-a-deployment)
   - [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision)
 - [Scaling a Deployment](#scaling-a-deployment)
@@ -972,5 +1008,3 @@ in a similar fashion. But Deployments are recommended, since they are declarativ
 additional features, such as rolling back to any previous revision even after the rolling update is done.
 
 {{% /capture %}}
-
-

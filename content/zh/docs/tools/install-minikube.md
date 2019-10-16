@@ -171,7 +171,7 @@ sudo mv minikube /usr/local/bin
 安装 kubectl
 
 <!-- Make sure you have kubectl installed. You can install kubectl according to the instructions in [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows). -->
-确保您已经安装了 kubectl。您可以通过[安装和配置 kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos)来安装 kubectl。
+确保您已经安装了 kubectl。您可以通过[安装和配置 kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows)来安装 kubectl。
 
 <!-- ### Install a Hypervisor -->
 ### 安装虚拟机管理器
