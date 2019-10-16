@@ -20,12 +20,13 @@ Find more information at: /docs/reference/kubectl/overview/
 
 kubectl 可以操控 Kubernetes 集群。
 
-获取更多信息，请访问：https://kubernetes.io/docs/reference/kubectl/overview/
+获取更多信息，请访问：[kubectl 概述](/docs/reference/kubectl/overview/)
 
 ```
 kubectl [flags]
 ```
 
+<!--
 ### Options
 
 ```
@@ -55,6 +56,7 @@ kubectl [flags]
       --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
 ```
 -->
+
 ### 选项
 ```
       --alsologtostderr                  同时输出日志到标准错误控制台和文件
