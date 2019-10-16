@@ -37,12 +37,12 @@ Ces requêtes excluent spécifiquement les PRs de localisation, et n'inclure que
 
 - [Pas de CLA, non éligible au merge](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
   Rappelez au contributeur de signer le CLA. S’ils ont déjà été rappelés à la fois par le bot et par un humain, fermez la PR et rappelez-leur qu'ils peuvent l'ouvrir après avoir signé la CLA.
-  **Nous ne pouvons même pas passer en revue les PR dont les auteurs n'ont pas signé la CLA!**
+  **Nous ne pouvons même pas passer en revue les PR dont les auteurs n'ont pas signé la CLA !**
 - [A besoin de LGTM](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-label%3Algtm+):
   Si cela nécessite une révision technique, contactez l'un des réviseurs proposés par le bot.
   Si cela nécessite une révision de la documentation ou une édition, vous pouvez soit suggérer des modifications, soit ajouter un commit copyedit à la PR pour la faire avancer.
 - [A des LGTM, a besoin de docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
-  Voyez si vous pouvez comprendre ce qui doit se passer pour la PR soit mergée.
+  Voyez si vous pouvez comprendre ce qui doit se passer pour que la PR soit mergée.
 - [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): Si c'est basé sur une branche `dev-`, c'est pour une release prochaine.
   Assurez vous que le [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) est au courant.
   Si elle se base sur une branche obsolète, aidez l'auteur de la PR à comprendre comment viser la meilleure branche.
