@@ -26,14 +26,14 @@ Les fonctions de trieur de PR incluent:
     Les auteurs de PR peuvent rouvrir la PR après avoir signé le CLA, c’est donc un moyen à faible risque de s’assurer que rien n’est merged sans un CLA signé.
   - Fournir des informations sur les modifications proposées, notamment en facilitant les examens techniques des membres d'autres SIGs.
   - Merger les PRs quand elles sont prêtes, ou les fermer celles qui ne devraient pas être acceptées.
-- Triez et étiquetez les issues entrantes chaque jour.
+- Triez et étiquetez les tickets entrants (Github Issues) chaque jour.
   Consultez [Contributions Intermédiaires](/docs/contribute/intermediate/) pour obtenir des instructions sur la manière dont SIG Docs utilise les métadonnées.
 
 ### Requêtes Github utiles pour les trieurs
 
 Les requêtes suivantes sont utiles lors des opérations de triage.
-Après avoir utilisé ces trois requêtes, la liste restante de PRs devant être examinée est généralement petite.
-Ces requêtes excluent spécifiquement les PRs de localisation, et n'inclure que la branche `master` (sauf la derniere).
+Après avoir utilisé ces trois requêtes, la liste restante de PRs devant être examinées est généralement petite.
+Ces requêtes excluent spécifiquement les PRs de localisation, et n'incluent que la branche `master` (sauf la derniere).
 
 - [Pas de CLA, non éligible au merge](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
   Rappelez au contributeur de signer le CLA. S’ils ont déjà été rappelés à la fois par le bot et par un humain, fermez la PR et rappelez-leur qu'ils peuvent l'ouvrir après avoir signé la CLA.
