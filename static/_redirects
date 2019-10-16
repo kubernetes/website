@@ -122,7 +122,7 @@
 /docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
-/docs/concepts/overview/object-management-kubetcl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
+/docs/concepts/overview/object-management-kubectl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
 /docs/concepts/overview/object-management-kubectl/declarative-config/     /docs/tasks/manage-kubernetes-objects/declarative-config/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
