@@ -70,7 +70,7 @@ Pour en savoir plus sur les processus de publication de Kubernetes, reportez-vou
 Le représentant de SIG Docs pour une version donnée coordonne les tâches suivantes:
 
 - Surveillez le feature-tracking spreadsheet pour les fonctionnalités nouvelles ou modifiées ayant un impact sur la documentation.
-  Si la documentation pour une fonctionnalité donnée ne sera pas prête pour la release, la fonctionnalité peut ne pas être autorisé à entrer dans la release.
+  Si la documentation pour une fonctionnalité donnée ne sera pas prête pour la release, la fonctionnalité peut ne pas être autorisée à entrer dans la release.
 - Assistez régulièrement aux réunions de sig-release et donnez des mises à jour sur l'état de la documentation pour la release.
 - Consultez et copiez la documentation de la fonctionnalité rédigée par le SIG responsable de la mise en œuvre de la fonctionnalité.
 - Mergez les pull requests release-related et maintenir la branche de fonctionnalité Git pour la version.
