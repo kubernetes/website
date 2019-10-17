@@ -31,12 +31,12 @@ Jangan mengganti ReplicaSets milik Deployment. Consider untuk membuat issue pada
 
 Berikut adalah penggunaan yang umum pada Deployment:
 
-* [Membuat Deployment untuk merilis ReplicaSet](#creating-a-deployment). ReplicaSet membuat Pod di belakang layar. Cek status rilis untuk tahu proses rilis sukses atau tidak.
-* [Mendeklarasikan state baru dari Pods](#updating-a-deployment) dengan membarui PodTemplateSpec milik Deployment. ReplicaSet baru akan dibuat dan Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
+* [Membuat Deployment untuk merilis ReplicaSet](#membuat-deployment). ReplicaSet membuat Pod di belakang layar. Cek status rilis untuk tahu proses rilis sukses atau tidak.
+* [Mendeklarasikan state baru dari Pods](#membarui-deployment) dengan membarui PodTemplateSpec milik Deployment. ReplicaSet baru akan dibuat dan Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
 * [Mengembalikan ke revisi Deployment sebelumnya](#rolling-back-a-deployment) jika state Deployment sekarang tidak stabil. Each rollback updates the revision of the Deployment.
 * [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
-* [Menjeda Deployment](#pausing-and-resuming-a-deployment) untuk menerapkan perbaikan pada PodTemplateSpec-nya, lalu melanjutkan untuk memulai rilis baru.
-* [Memakai status Deployment](#deployment-status) sebagai indikator ketika rilis tersendat.
+* [Menjeda Deployment](#menjeda-dan-melanjutkan-deployment) untuk menerapkan perbaikan pada PodTemplateSpec-nya, lalu melanjutkan untuk memulai rilis baru.
+* [Memakai status Deployment](#status-deployment) sebagai indikator ketika rilis tersendat.
 * [Membersihkan ReplicaSet lama](#clean-up-policy) yang sudah tidak terpakai.
 
 ## Membuat Deployment
@@ -130,7 +130,7 @@ Dalam contoh ini:
   Namun, jika beberapa controller memiliki selektor yang beririsan, controller itu mungkin akan konflik dan berjalan dengan tidak semestinya.
   {{< /note >}}
 
-### Pod-template-hash label
+### Label pod-template-hash
 
 {{< note >}}
 Jangan ubah label ini.
@@ -286,40 +286,35 @@ menggandakannya menjadi 3 replika, sembari menghapus ReplicaSet menjadi 0 replik
 
 ### Rollover (aka multiple updates in-flight)
 
-Setiap kali Deployment baru is observed by the Deployment controller, ReplicaSet dibuat untuk membangkitkan Pod sesuai keinginan. 
-Jika Deployment diperbarui, the existing ReplicaSet that controls Pods whose labels
-match `.spec.selector` but whose template does not match `.spec.template` are scaled down. Eventually, the new
-ReplicaSet is scaled to `.spec.replicas` dan all old ReplicaSets is scaled to 0.
+Setiap kali Deployment baru is teramati oleh Deployment controller, ReplicaSet dibuat untuk membangkitkan Pod sesuai keinginan. 
+Jika Deployment diperbarui, ReplicaSet yang terkait Pod dengan label `.spec.selector` yang cocok, 
+namun kolom `.spec.template` pada templat tidak cocok akan dihapus. Kemudian, ReplicaSet baru akan
+digandakan sebanyak `.spec.replicas` dan semua ReplicaSet lama dihapus.
 
-If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
-as per the update dan start scaling that up, dan rolls over the ReplicaSet that it was scaling up previously
- -- it will add it to its list of old ReplicaSets dan start scaling it down.
+Jika kamu mengubah Deployment saat rilis sedang berjalan, Deployment akan membuat ReplicaSet baru
+tiap perubahan dan memulai penggandaan. Lalu, dia akan mengganti ReplicaSet yang dibuat sebelumnya
+ -- mereka ditambahkan ke dalam daftar ReplicaSet lama dan akan mulai dihapus.
 
-For example, suppose you create a Deployment to create 5 replicas of `nginx:1.7.9`,
-but then update the Deployment to create 5 replicas of `nginx:1.9.1`, when only 3
-replicas of `nginx:1.7.9` had been created. In that case, the Deployment immediately starts
-killing the 3 `nginx:1.7.9` Pods that it had created, dan starts creating
-`nginx:1.9.1` Pods. It does not wait for the 5 replicas of `nginx:1.7.9` to be created
-before changing course.
+Contohnya, ketika kamu membuat Deployment untuk membangkitkan 5 replika `nginx:1.7.9`,
+kemudian membarui Deployment dengan versi `nginx:1.9.1` ketika ada 3 replika `nginx:1.7.9` yang dibuat. 
+Dalam kasus ini, Deployment akan segera menghapus 3 replika Pod `nginx:1.7.9` yang telah dibuat, dan mulai membuat
+Pod `nginx:1.9.1`. Dia tidak akan menunggu kelima replika `nginx:1.7.9` selesai baru menjalankan perubahan.
 
-### Label selector updates
+### Mengubah selektor label
 
-It is generally discouraged to make label selector updates dan it is suggested to plan your selectors up front.
-In any case, if you need to perform a label selector update, exercise great caution dan make sure you have grasped
-all of the implications.
+Umumnya, sekali dibuat, selektor label tidak boleh diubah. Sehingga disarankan untuk direncanakan dengan hati-hati sebelumnya.
+Bagaimanapun, jika kamu perlu mengganti selektor label, lakukan dengan seksama dan pastikan kamu tahu segala konsekuensinya.
 
 {{< note >}}
-In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
+Pada versi API `apps/v1`, selektor label Deployment tidak bisa diubah ketika selesai dibuat.
 {{< /note >}}
 
-* Selector additions require the Pod template labels in the Deployment spec to be updated with the new label too,
-otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
-not select ReplicaSets dan Pods created with the old selector, resulting in orphaning all old ReplicaSets and
-creating a new ReplicaSet.
-* Selector updates perubahan the existing value in a selector key -- result in the same behavior as additions.
-* Selector removals removes an existing key from the Deployment selector -- do not require any perubahan in the
-Pod template labels. Existing ReplicaSets are not orphaned, dan a new ReplicaSet is not created, but note that the
-removed label still exists in any existing Pods dan ReplicaSets.
+* Penambahan selektor mensyaratkan label templat Pod di spek Deployment untuk diganti dengan label baru juga.
+Jika tidak, galat validasi akan muncul. Perubahan haruslah tidak tumpang-tindih, dengan kata lain selektor baru tidak mencakup ReplicaSet dan Pod yang dibuat dengan selektor lama. Sehingga, semua ReplicaSet lama akan menggantung sedangkan ReplicaSet baru tetap dibuat.
+* Pengubahan selektor mengubah nilai pada kunci selektor -- menghasilkan perilaku yang sama dengan penambahan.
+* Penghapusan selektor menghilangkan kunci yang ada pada selektor Deployment -- tidak mensyaratkan perubahan apapun pada label templat Pod. 
+ReplicaSet yang ada tidak menggantung dan ReplicaSet baru tidak dibuat. 
+Tapi perhatikan bahwa label yang dihapus masih ada pada Pod dan ReplicaSet masing-masing.
 
 ## Rolling Back a Deployment
 
@@ -804,7 +799,7 @@ Kamu tidak bisa membalikkan Deployment yang terjeda sampai dia diteruskan.
 ## Status Deployment
 
 Deployment melalui berbagai state dalam daur hidupnya. Dia dapat [berlangsung](#deployment-berlangsung) selagi merilis ReplicaSet baru, bisa juga [selesai](#deployment-selesai), 
-atau juga [gagal](#deployment-gag).
+atau juga [gagal](#deployment-gagal).
 
 ### Deployment Berlangsung
 
@@ -841,23 +836,23 @@ $ echo $?
 
 ### Deployment Gagal
 
-Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever completing. This can occur
-due to some of the following factors:
+Deployment-mu bisa saja terhenti saat mencoba deploy ReplicaSet terbaru tanpa pernah selesai. 
+Ini dapat terjadi karena faktor berikut:
 
-* Insufficient quota
+* Kuota tidak mencukupi
 * Readiness probe failures
-* Image pull errors
-* Insufficient permissions
+* Galat saat mengunduh image
+* Tidak memiliki ijin
 * Limit ranges
-* Application runtime misconfiguration
+* Konfigurasi runtime aplikasi yang salah
 
 One way you can detect this condition is to specify a deadline parameter in your Deployment spec:
 ([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `.spec.progressDeadlineSeconds` denotes the
 number of seconds the Deployment controller waits before indicating (in the Deployment status) that the
 Deployment progress has stalled.
 
-The following `kubectl` perintah sets the spec with `progressDeadlineSeconds` to make the controller report
-lack of progress for a Deployment after 10 minutes:
+Perintah `kubectl` berikut menetapkan spek dengan `progressDeadlineSeconds` untuk membuat controller
+melaporkan progres Deployment yang sedikit setelah 10 menit:
 
 ```shell
 kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
@@ -866,25 +861,23 @@ Keluaran akan tampil seperti berikut:
 ```
 deployment.apps/nginx-deployment patched
 ```
-Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
-attributes to the Deployment's `.status.conditions`:
+Ketika tenggat sudah lewat, controller Deployment menambah DeploymentCondition dengan atribut
+berikut ke `.status.conditions` milik Deployment:
 
 * Type=Progressing
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties) for more information on status conditions.
+Lihat [konvensi Kubernetes API](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties) untuk info lebih lanjut tentang kondisi status.
 
 {{< note >}}
-Kubernetes takes no action on a stalled Deployment other than to report a status condition with
-`Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it dan act accordingly, for
-example, rollback the Deployment to its previous version.
+Kubernetes tidak melakukan apapun pada Deployment yang tersendat selain melaporkannya sebagai `Reason=ProgressDeadlineExceeded`. 
+Orkestrator yang lebih tinggi dapat memanfaatkannya untuk melakukan tindak lanjut. Misalnya, mengembalikan Deployment ke versi sebelumnya.
 {{< /note >}}
 
 {{< note >}}
-If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
-safely pause a Deployment in the middle of a rollout dan resume without triggering the condition for exceeding the
-deadline.
+Jika Deployment terjeda, Kubernetes tidak akan mengecek progres pada selang itu.
+Kamu dapat menjeda Deployment di tengah rilis dan melanjutkannya dengan aman tanpa memicu kondisi saat tenggat telah lewat.
 {{< /note >}}
 
 You may experience transient errors with your Deployments, either due to a low timeout that you have set or
@@ -906,7 +899,7 @@ Conditions:
 <...>
 ```
 
-If you run `kubectl get deployment nginx-deployment -o yaml`, the Deployment status is similar to this:
+Jika kamu menjalankan `kubectl get deployment nginx-deployment -o yaml`, Deployment status akan muncul seperti berikut:
 
 ```
 status:
@@ -936,8 +929,7 @@ status:
   unavailableReplicas: 2
 ```
 
-Eventually, once the Deployment progress deadline is exceeded, Kubernetes updates the status dan the
-reason for the Progressing condition:
+Begitu tenggat progres Deployment terlewat, Kubernetes membarui status dan alasan untuk kondisi Progressing:
 
 ```
 Conditions:
@@ -967,8 +959,8 @@ is either in the middle of a rollout dan it is progressing or that it has succes
 required new replicas are available (see the Reason of the condition for the particulars - in our case
 `Reason=NewReplicaSetAvailable` means that the Deployment is complete).
 
-You can check if a Deployment has failed to progress by using `kubectl rollout status`. `kubectl rollout status`
-returns a non-zero exit code if the Deployment has exceeded the progression deadline.
+Kamu dapat mengecek apakah Deployment gagal berprogres dengan perintah `kubectl rollout status`. `kubectl rollout status`
+mengembalikan nilai selain nol jika Deployment telah melewati tenggat progres.
 
 ```shell
 kubectl rollout status deployment.v1.apps/nginx-deployment
@@ -981,10 +973,9 @@ $ echo $?
 1
 ```
 
-### Operating on a failed deployment
+### Menindak deployment yang gagal
 
-All actions that apply to a complete Deployment also apply to a failed Deployment. You can scale it up/down, roll back
-to a previous revision, or even pause it if you need to apply multiple tweaks in the Deployment Pod template.
+Semua aksi yang dapat diterapkan pada Deployment yang selesai berjalan juga pada Deployment gagal. Kamu dapat menaik/turunkan replika, membalikkan ke versi sebelumnya, atau menjedanya jika kamu perlu menerapkan beberapa perbaikan pada templat Pod Deployment.
 
 ## Clean up Policy
 
