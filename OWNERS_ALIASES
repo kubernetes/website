@@ -79,6 +79,7 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+    - anthonydahanne
   sig-docs-fr-reviews: # PR reviews for French content
     - remyleone
     - perriea
@@ -91,6 +92,7 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+    - anthonydahanne    
   sig-docs-hi-owners: # Admins for Hindi content
     - avidLearnerInProgress
     - daminisatya
