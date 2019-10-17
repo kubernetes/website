@@ -24,22 +24,23 @@ following steps: -->
    user specifies `--ignore-preflight-errors=<list-of-errors>`. -->
 1. 在做出变更前运行一系列的预检项来验证系统状态。 一些检查项目仅仅触发警告，其它的则会被视为错误并且退出 kubeadm，除非问题被解决或者用户指定了 `--ignore-preflight-errors=<list-of-errors>` 参数。
 
-<!-- 2. Generates a self-signed CA (or using an existing one if provided) to set up
+   <!-- 2. Generates a self-signed CA (or using an existing one if provided) to set up
    identities for each component in the cluster. If the user has provided their
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default) this step is skipped as described in the
    [Using custom certificates](#custom-certificates) document.
    The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary. -->
+
 2. 生成一个自签名的 CA 证书 (或者使用现有的证书，如果提供的话) 来为集群中的每一个组件建立身份标识。如果用户已经通过 `--cert-dir` 配置的证书目录（缺省值为 `/etc/kubernetes/pki`）提供了他们自己的 CA证书 以及/或者 密钥， 那么将会跳过这个步骤，正如文档[使用自定义证书](#custom-certificates)中所描述的那样。
    如果指定了 `--apiserver-cert-extra-sans` 参数, APIServer 的证书将会有额外的 SAN 条目，如果必要的话，将会被转为小写。
 
-<!-- 3. Writes kubeconfig files in `/etc/kubernetes/`  for
+   <!-- 3. Writes kubeconfig files in `/etc/kubernetes/`  for
    the kubelet, the controller-manager and the scheduler to use to connect to the
    API server, each with its own identity, as well as an additional
    kubeconfig file for administration named `admin.conf`. -->
-1. 将 kubeconfig 文件写入 `/etc/kubernetes/` 目录以便 kubelet、控制器管理器和调度器用来连接到 API 服务器，它们每一个都有自己的身份标识，同时生成一个名为 admin.conf 的独立的 kubeconfig 文件，用于管理操作。
+3. 将 kubeconfig 文件写入 `/etc/kubernetes/` 目录以便 kubelet、控制器管理器和调度器用来连接到 API 服务器，它们每一个都有自己的身份标识，同时生成一个名为 admin.conf 的独立的 kubeconfig 文件，用于管理操作。
 
-<!-- 4. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+   <!-- 4. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
    it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file.
    See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
    and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
@@ -50,10 +51,10 @@ following steps: -->
    参阅 [通过配置文件设置 Kubelet 参数](/docs/tasks/administer-cluster/kubelet-config-file/)以及 [在一个现有的集群中重新配置节点的 Kubelet 设置](/docs/tasks/administer-cluster/reconfigure-kubelet/)来获取更多关于动态配置 Kubelet 的信息。
    这个功能现在是默认关闭的，正如你所见它通过一个功能开关控制开闭, 但是在未来的版本中很有可能会默认启用。
 
-<!-- 5. Generates static Pod manifests for the API server,
+   <!-- 5. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
    an additional static Pod manifest are generated for etcd. -->
-1. 为 API 服务器、控制器管理器和调度器生成静态 Pod 的清单文件。假使没有提供一个外部的 etcd 服务的话，也会为 etcd 生成一份额外的静态 Pod 清单文件。
+5. 为 API 服务器、控制器管理器和调度器生成静态 Pod 的清单文件。假使没有提供一个外部的 etcd 服务的话，也会为 etcd 生成一份额外的静态 Pod 清单文件。
 
 <!-- Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
    watches this directory for Pods to create on startup. -->
@@ -71,17 +72,17 @@ following steps: -->
    它将创建一份 ConfigMap 和一些便于 kubelet 访问这份 ConfigMap 的 RBAC 规则，并且通过将 `Node.spec.configSource` 指向到新创建的 ConfigMap 来更新节点设置。这样它就完成了对 Kubelet 的动态配置。
    这个功能现在是默认关闭的，正如你所见它通过一个功能开关控制开闭, 但是在未来的版本中很有可能会默认启用。
 
-<!-- 2. Apply labels and taints to the master node so that no additional workloads will
+   <!-- 2. Apply labels and taints to the master node so that no additional workloads will
    run there. -->
 1. 对主节点应用标签和污点标记以便不会在它上面运行其它的工作负载。
 
-<!-- 3. Generates the token that additional nodes can use to register
+   <!-- 3. Generates the token that additional nodes can use to register
    themselves with the master in the future.  Optionally, the user can provide a
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs. -->
 3. 生成令牌以便其它节点以后可以使用这个令牌向主节点注册它们自己。 可选的，用户可以通过 `--token` 提供一个令牌, 正如文档 [kubeadm 的令牌](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 描述的那样。  
 
-<!-- 4. Makes all the necessary configurations for allowing node joining with the
+   <!-- 4. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
    [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
    mechanism:
@@ -110,7 +111,7 @@ following steps: -->
    在 1.11 版本以及更新版本的 Kubernetes 中 CoreDNS 是默认的 DNS 服务器。
    如果要安装 kube-dns 而不是 CoreDNS, 你需要在调用 kubeadm 的时候附加 `--feature-gates=CoreDNS=false` 参数。请注意，尽管 DNS 服务器已经被部署了，它并不会被调度直到你安装好了 CNI 网络插件。
 
-<!-- 2. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
+   <!-- 2. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane is
    transformed into a [self-hosted control plane](#self-hosting). -->
 1. 如果调用 `kubeadm init` 命令时启用了 alpha 状态的自托管功能(`--feature-gates=SelfHosting=true`)，基于静态 Pod 的控制平面将被转换为 [自托管的控制平面](#self-hosting)。
@@ -423,7 +424,7 @@ which still runs as a static Pod. -->
     DaemonSet manifests that will run the self-hosted control plane.
     It also modifies these manifests where necessary, for example adding new volumes
     for secrets. -->
-  1. 使用静态的控制平面 Pod 清单文件构建一个 DaemonSet 清单文件用来运行自托管的控制平面。有时也会在必要的时候修改这些清单文件，比如为 secrets 添加新的数据卷。
+  2. 使用静态的控制平面 Pod 清单文件构建一个 DaemonSet 清单文件用来运行自托管的控制平面。有时也会在必要的时候修改这些清单文件，比如为 secrets 添加新的数据卷。
 
   <!-- 3. Creates DaemonSets in the `kube-system` namespace and waits for the
      resulting Pods to be running. -->
@@ -501,7 +502,7 @@ kubeadm config images pull
     kubeadm token generate
     ```
 
-<!-- 2. Start both the master node and the worker nodes concurrently with this token.
+   <!-- 2. Start both the master node and the worker nodes concurrently with this token.
    As they come up they should find each other and form the cluster.  The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`. -->
 2. 使用这个令牌同时启动主节点和工作节点。它们一旦运行起来应该就会互相寻找对方并且建立集群。同样的 `--token` 参数可以同时用于 `kubeadm init` 和 `kubeadm join` 命令。
