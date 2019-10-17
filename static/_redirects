@@ -376,8 +376,8 @@
 /docs/user-guide/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/user-guide/garbage-collector/*     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/user-guide/gpus/     /docs/tasks/manage-gpus/scheduling-gpus/ 301
-/docs/user-guide/horizontal-pod-autoscaler/*     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
-/docs/user-guide/horizontal-pod-autoscaling/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
+/docs/user-guide/horizontal-pod-autoscaler/*     /docs/concepts/workloads/controllers/horizontal-pod-autoscale/ 301
+/docs/user-guide/horizontal-pod-autoscaling/     /docs/concepts/workloads/controllers/horizontal-pod-autoscale/ 301
 /docs/user-guide/horizontal-pod-autoscaling/walkthrough/     /docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/ 301
 /docs/user-guide/horizontal-pod-autoscaling/walkthrough.md     /docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/ 301
 /docs/user-guide/identifiers/     /docs/concepts/overview/working-with-objects/names/ 301
