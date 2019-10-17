@@ -47,10 +47,7 @@ content_template: templates/concept
 ## Облачные решения "под ключ"
 
 
-Такие решения озволяют создавать кластеры Kubernetes с помощью небольшого количества команд. Эти решения имеют большую поддежку сообществом и активно развиваются. Они могут быть размещены на разнообразных IaaS облачных провайдерах, при этом предлагая большую свободу и гибкость в обмен на приложенные усилия. (These solutions allow you to create Kubernetes clusters with only a few commands and 
-are actively developed and have active community support. They can also be hosted on 
-a range of Cloud IaaS providers, but they offer more freedom and flexibility in 
-exchange for effort. )
+Такие решения озволяют создавать кластеры Kubernetes с помощью небольшого количества команд. Эти решения имеют большую поддежку сообществом и активно развиваются. Они могут быть размещены на разнообразных IaaS облачных провайдерах, при этом предлагая большую свободу и гибкость в обмен на приложенные усилия.
 
 Вам следует выбрать облачное решение "под ключ", если вы":
 

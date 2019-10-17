@@ -58,7 +58,7 @@ other = "Прочитать о"
 other = "Прочитать больше"
 
 [main_github_invite]
-other = "Interested in hacking on the core Kubernetes code base?"
+other = "Хотите взломать ядро кодовой базы Kubernetes?"
 
 [main_github_view_on]
 other = "Посмотреть на GitHub"
