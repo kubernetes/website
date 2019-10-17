@@ -1,5 +1,5 @@
 ---
-title: Télécharger Kubernetes
-description: Téléchargement Kubernetes release
+title: Notes de version
+description: Notes de version
 weight: 20
 ---
