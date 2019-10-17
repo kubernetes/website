@@ -98,6 +98,7 @@ card:
 | [Pivotal](https://pivotal.io/) | | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service) | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service)           |      |          |
 | [Platform9](https://platform9.com/)         | &#x2714;             | &#x2714;      | &#x2714;            |      |   &#x2714;       |&#x2714;
 | [Rancher](https://rancher.com/)         |              |   [Rancher 2.x](https://rancher.com/docs/rancher/v2.x/en/)     |             |  [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/)    |          | [k3s](https://k3s.io/)
+| [Scaleway](https://www.scaleway.com/)        | [Scaleway Kapsule (Beta)](https://www.scaleway.com/en/kubernetes/)    | [Scaleway Instances](https://www.scaleway.com/en/virtual-instances/) |      |     |            |
 | [StackPoint](https://stackpoint.io/)          | &#x2714;            |  &#x2714;      |             |      |          |
 | [Supergiant](https://supergiant.io/)         |              |&#x2714;        |             |      |          |
 | [SUSE](https://www.suse.com/)        |              | &#x2714;       |             |      |          |
