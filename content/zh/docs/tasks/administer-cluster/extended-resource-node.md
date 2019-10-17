@@ -18,7 +18,6 @@ resources that would otherwise be unknown to Kubernetes.
 -->
 本文展示了如何为节点指定扩展资源。 扩展资源允许集群管理员发布节点级别的资源，这些资源在不进行发布的情况下无法被 Kubernetes 感知。
 
-{{< feature-state state="stable" >}}
 
 {{% /capture %}}
 
@@ -78,7 +77,7 @@ you call dongles.
 
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
 
-```
+```shell
 kubectl proxy
 ```
 
@@ -150,7 +149,7 @@ Host: k8s-master:8080
 
 启动一个代理（proxy），以便您可以很容易地向 Kubernetes API server 发送请求：
 
-```
+```shell
 kubectl proxy
 ```
 
@@ -266,7 +265,7 @@ Capacity:
 
 Here is a PATCH request that removes the dongle advertisement from a Node.
 
-```shell
+```
 PATCH /api/v1/nodes/<your-node-name>/status HTTP/1.1
 Accept: application/json
 Content-Type: application/json-patch+json
@@ -340,6 +339,8 @@ http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 kubectl describe node <your-node-name> | grep dongle
 ```
+
+(you should not see any output)
 
 {{% /capture %}}
 
