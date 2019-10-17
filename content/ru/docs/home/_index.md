@@ -15,13 +15,13 @@ menu:
     title: "Документация"
     weight: 20
     post: >
-      <p>Научитесь использованию Kubernetes и узнайте основные понятия, изучите примеры и справочную информацию. Также вы можете<a href="/editdocs/" data-auto-burger-exclude>помочь в создании документации</a>!</p>
+      <p>Научитесь использовать Kubernetes и узнайте основные понятия, изучите примеры и справочную информацию. Также вы можете <a href="/editdocs/" data-auto-burger-exclude>помочь в создании документации</a>!</p>
 overview: >
-  Kubernetes - это открытое програмное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями. Проект с открытым исходным кодом размещён на серверах Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+  Kubernetes - это открытое программное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями. Проект с открытым исходным кодом размещён на серверах Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
   title: "Основы"
-  description: "Узнайте о Kubernetes и его фундаментальных понятиях."
+  description: "Узнайте о Kubernetes и его фундаментальные понятия."
   button: "Начать"
   button_path: "/docs/concepts"
 - name: tutorials
@@ -35,7 +35,7 @@ cards:
   button: "Настройка Kubernetes"
   button_path: "/docs/setup"
 - name: tasks
-  title: "Узнайте как использовать Kubernetes"
+  title: "Узнайте, как использовать Kubernetes"
   description: "Ознакомиться с распространёнными задачами и способами их быстрого решения."
   button: "Посмотреть задачи"
   button_path: "/docs/tasks"
