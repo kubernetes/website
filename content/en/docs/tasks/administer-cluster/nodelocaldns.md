@@ -43,7 +43,7 @@ Having a local cache will help improve the latency in such scenarios.
 This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 
 
-{{< figure src="/images/docs/nodelocaldns.jpg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCahe handles DNS queries." >}}
+{{< figure src="/images/docs/nodelocaldns.jpg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCache handles DNS queries." >}}
 
 ## Configuration
 
