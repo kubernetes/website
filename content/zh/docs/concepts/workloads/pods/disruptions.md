@@ -70,7 +70,7 @@ an application.  Examples are:
 - 集群管理员错误地删除虚拟机（实例）
 - 云提供商或虚拟机管理程序中的故障导致的虚拟机消失
 - 内核错误
-- 节点由于集群网络分区从集群中消失
+- 节点由于集群网络隔离从集群中消失
 - 由于节点[资源不足](/docs/tasks/administer-cluster/out-of-resource/)导致 pod 被驱逐。
 
 <!--
