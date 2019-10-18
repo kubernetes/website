@@ -28,8 +28,8 @@ Kubernetes sebagai sebuah proyek, saat ini, mendukung dan memaintain kontroler-k
   kontroler dengan dukungan [komunitas](https://www.getambassador.io/docs) atau
   [komersial](https://www.getambassador.io/pro/) dari [Datawire](https://www.datawire.io/).
 * [AppsCode Inc.](https://appscode.com) menawarkan dukungan dan pemeliharaan untuk ingress berbasis [HAProxy](http://www.haproxy.org/), [Voyager](https://appscode.com/products/voyager).
-* [Contour](https://github.com/heptio/contour) merupakan ingress berbasis [Envoy](https://www.envoyproxy.io)
-  yang disediakan dan didukung oleh Heptio.
+* [Contour](https://projectcontour.io/) merupakan ingress berbasis [Envoy](https://www.envoyproxy.io/)
+  yang disediakan dan didukung oleh VMware.
 * Citrix menyediakan sebuah [kontroler Ingress](https://github.com/citrix/citrix-k8s-ingress-controller) untuk perangkat keras (MPX), virtualisasi (VPX) dan [kontainerisasi cuma-cuma (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) untuk mesin [*baremetal*](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) dan penyedia layanan [*cloud*](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
 * F5 Networks menyediakan [dukungan dan pemeliharaan](https://support.f5.com/csp/article/K86859508)
   untuk [kontroler F5 BIG-IP bagi Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest).
