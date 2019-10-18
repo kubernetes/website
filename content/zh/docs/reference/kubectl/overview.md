@@ -27,7 +27,7 @@ card:
 <!--
 Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 -->
-Kubectl 是一个命令行接口，用于对 Kubernetes 集群运行命令。`kubectl` 在 $HOME/.kube 目录中寻找一个名为 config 的文件。您可以通过设置环境变量 KUBECONFIG 或设置 [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 参数指定其它 [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+Kubectl 是一个命令行接口，用于对 Kubernetes 集群运行命令。`kubectl` 在 $HOME/.kube 目录中寻找一个名为 config 的文件。您可以通过设置环境变量 KUBECONFIG 或设置 [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 参数指定其它 [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
@@ -324,9 +324,10 @@ The following table includes a list of all the supported resource types and thei
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 
-<--
+<!--
 ## Output options
 -->
+
 ## 输出选项
 
 <!--
@@ -852,6 +853,7 @@ We can think of plugins as a means to build more complex functionality on top
 of the existing kubectl commands:
 -->
 我们可以将插件视为在现有 kubectl 命令之上构建更复杂功能的一种方法：
+
 <!--
 ```shell
 cat ./kubectl-whoami
@@ -862,6 +864,7 @@ cat ./kubectl-whoami
 kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
 ```
 -->
+
 ```shell
 cat ./kubectl-whoami
 #!/bin/bash
@@ -876,6 +879,7 @@ Running the above plugin gives us an output containing the user for the currentl
 context in our KUBECONFIG file:
 -->
 运行上面的插件为我们提供了一个输出，其中包含我们 KUBECONFIG 文件中当前所选定上下文对应的用户：
+
 <!--
 ```shell
 # make the file executable
@@ -888,6 +892,7 @@ kubectl whoami
 Current user: plugins-user
 ```
 -->
+
 ```shell
 # 使文件成为可执行的
 sudo chmod +x ./kubectl-whoami
