@@ -19,7 +19,7 @@ Kubernetes cluster.
 
 ## Add a label to a node
 
-1. List the nodes with labels in your cluster:
+1. List the nodes in your cluster, along with their labels:
 
     ```shell
     kubectl get nodes --show-labels
