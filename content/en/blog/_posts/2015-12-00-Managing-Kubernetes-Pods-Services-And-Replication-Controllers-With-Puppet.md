@@ -67,7 +67,7 @@ The advantages of using Puppet rather than just the standard YAML files and kube
 - Integration with other tools such as Puppet Server, for ensuring that your model in code matches the state of your cluster, and with PuppetDB for storing reports and tracking changes.
 - The ability to run the same code repeatedly against the Kubernetes API, to detect any changes or remediate configuration drift.&nbsp;
 
-It’s also worth noting that most large organisations will have very heterogenous environments, running a wide range of software and operating systems. Having a single toolchain that unifies those discrete systems can make adopting new technology like Kubernetes much easier.  
+It’s also worth noting that most large organisations will have very heterogeneous environments, running a wide range of software and operating systems. Having a single toolchain that unifies those discrete systems can make adopting new technology like Kubernetes much easier.  
 
 It’s safe to say that Kubernetes provides an excellent set of primitives on which to build cloud-native systems. And with Puppet, you can address some of the operational and configuration management issues that come with running any complex system in production. [Let us know](mailto:gareth@puppetlabs.com)&nbsp;what you think if you try the module out, and what else you’d like to see supported in the future.  
 

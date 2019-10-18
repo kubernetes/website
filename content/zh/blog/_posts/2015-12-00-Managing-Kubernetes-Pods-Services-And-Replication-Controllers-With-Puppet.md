@@ -146,7 +146,7 @@ The advantages of using Puppet rather than just the standard YAML files and kube
 - 能够针对 Kubernetes API 重复运行相同的代码，以检测任何更改或修正配置。
 
 <!--
-It’s also worth noting that most large organisations will have very heterogenous environments, running a wide range of software and operating systems. Having a single toolchain that unifies those discrete systems can make adopting new technology like Kubernetes much easier.  
+It’s also worth noting that most large organisations will have very heterogeneous environments, running a wide range of software and operating systems. Having a single toolchain that unifies those discrete systems can make adopting new technology like Kubernetes much easier.  
 -->
 
 值得注意的是，大多数大型组织都将拥有非常异构的环境，运行各种各样的软件和操作系统。拥有统一这些离散系统的单一工具链可以使采用 Kubernetes 等新技术变得更加容易。

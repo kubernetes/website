@@ -78,7 +78,7 @@ Check out some code I had to write to integrate a monolith with Azure services. 
 > You can watch [this](https://www.youtube.com/watch?v=wJzVWFGkiKk) short video for a full demo of sentiment analysis function.
 
 ```js
-/* It is a function powered by NodeJS runtime so I have to import some necessary dependencies. I choosed Azure's CosmoDB that is a Mongo-like database, so I could use a MongoClient */
+/* It is a function powered by NodeJS runtime so I have to import some necessary dependencies. I chosen Azure's CosmoDB that is a Mongo-like database, so I could use a MongoClient */
 const axios = require("axios");
 const MongoClient = require('mongodb').MongoClient;
 

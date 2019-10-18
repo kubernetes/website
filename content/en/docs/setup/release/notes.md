@@ -962,7 +962,7 @@ filename | sha512 hash
     * => IPv6 BackendPool name == <clusterName>-IPv6
     * This result into:
     * - clusters moving from IPv4 to duakstack will require no changes
-    * - clusters moving from IPv6 (while not seen in the wild, we can not rule out thier existance) to dualstack will require deleting backend pools (the reconciler will take care of creating correct backendpools)
+    * - clusters moving from IPv6 (while not seen in the wild, we can not rule out their existence) to dualstack will require deleting backend pools (the reconciler will take care of creating correct backendpools)
 * Promotes VolumePVCDataSource (Cloning) feature to beta for 1.16 release  ([#81792](https://github.com/kubernetes/kubernetes/pull/81792), [@j-griffith](https://github.com/j-griffith))
 * Remove kubectl log, use kubectl logs instead ([#78098](https://github.com/kubernetes/kubernetes/pull/78098), [@soltysh](https://github.com/soltysh))
 * CSI ephemeral inline volume support is beta, i.e. the CSIInlineVolume feature gate is enabled by default ([#82004](https://github.com/kubernetes/kubernetes/pull/82004), [@pohly](https://github.com/pohly))

@@ -30,7 +30,7 @@ If squeezing the absolute maximum QPS out of your storage application isn’t yo
 
 **Does your application require specialized hardware or instance types?**  
 
-If you run your storage application on high-end hardware or extra-large instance sizes, and your other workloads on commodity hardware or smaller, less expensive images, you may not want to deploy a heterogenous cluster. If you can standardize on a single instance size for all types of apps, then you may benefit from the flexible resource reallocation and consolidation, that you get from Kubernetes.  
+If you run your storage application on high-end hardware or extra-large instance sizes, and your other workloads on commodity hardware or smaller, less expensive images, you may not want to deploy a heterogeneous cluster. If you can standardize on a single instance size for all types of apps, then you may benefit from the flexible resource reallocation and consolidation, that you get from Kubernetes.  
 
 **A Practical Example - ZooKeeper**  
 

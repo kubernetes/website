@@ -367,7 +367,7 @@ manager to the manager making the change. When trying to apply an object, fields
 that have a different value and are owned by another manager will result in a
 [conflict](#conflicts). This is done in order to signal that the operation might undo another
 collaborator's changes. Conflicts can be forced, in which case the value will be
-overriden, and the ownership will be transfered.
+overriden, and the ownership will be transferred.
 
 It is meant both as a replacement for the original `kubectl apply` and as a
 simpler mechanism to write controllers.

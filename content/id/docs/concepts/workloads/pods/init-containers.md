@@ -41,7 +41,7 @@ Karena Init Container memiliki _image_ yang berbeda dengan Container aplikasi, m
 * Mereka dapat berisi skrip peralatan atau _setup_ yang tidak tersedia di dalam _image_ aplikasi. Misalnya, kita tidak perlu membuat _image_ dengan instruksi `FROM` dari _image_ lainnya hanya untuk menggunakan peralatan seperti `sed`, `awk`, `python`, atau `dig` pada saat _setup_.
 * Peran _builder_ atau _deployer_ dari _image_ dapat bekerja secara independen tanpa harus digabung untuk membuat satu _image_ aplikasi.
 * Mereka menggunakan _namespace_ Linux, sehingga mereka dapat memiliki sudut pandang _filesystem_ yang berbeda dengan Container aplikasi. Oleh karenanya, mereka dapat diberikan akses terhadap `Secret` yang tidak boleh diakses oleh Container aplikasi.
-* Mereka berjalan hingga selesai sebelum Container aplikasi manapun dimulai, sedangkan Container aplikasi dijalankan secara paralel, sehingga Init Container menyediakan cara yang mudah untuk menunda dijalankannya Container aplikasi hingga ketentuan-ketentuan yang diinginkan dipenuhi.
+* Mereka berjalan hingga selesai sebelum Container aplikasi manapun dimulai, sedangkan Container aplikasi dijalankan secara parallel, sehingga Init Container menyediakan cara yang mudah untuk menunda dijalankannya Container aplikasi hingga ketentuan-ketentuan yang diinginkan dipenuhi.
 
 ### Contoh-contoh
 
