@@ -37,8 +37,8 @@ Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/i
   controller with [community](https://www.getambassador.io/docs) or
   [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
 * [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](http://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager).
-* [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller
-  provided and supported by Heptio.
+* [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller
+  provided and supported by VMware.
 * Citrix provides an [Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for its hardware (MPX), virtualized (VPX) and [free containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
 * F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508)
   for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest).
@@ -61,7 +61,7 @@ Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/i
 * [Ambassador](https://www.getambassador.io/) API 网关， 一个基于 [Envoy](https://www.envoyproxy.io) 的 ingress
   控制器，有着来自 [Datawire](https://www.datawire.io/) [社区](https://www.getambassador.io/docs)或[商业](https://www.getambassador.io/pro/)的支持。
 * [AppsCode Inc.](https://appscode.com) 为最广泛使用的基于 [HAProxy](http://www.haproxy.org/) 的 ingress 控制器 [Voyager](https://appscode.com/products/voyager) 提供支持和维护.
-* [Contour](https://github.com/heptio/contour) 是一个基于 [Envoy](https://www.envoyproxy.io) 的 ingress 控制器，它由 Heptio 提供和支持。
+* [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/) 的 ingress 控制器，它由 VMware 提供和支持。
 * Citrix 为其硬件（MPX），虚拟化（VPX）和 [免费容器化 (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) 提供了一个 [Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller)，用于[裸金属](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal)和[云](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment)部署。
 * F5 Networks 为 [用于 Kubernetes 的 F5 BIG-IP 控制器](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)提供[支持和维护](https://support.f5.com/csp/article/K86859508)。
 * [Gloo](https://gloo.solo.io) 是一个开源的基于 [Envoy](https://www.envoyproxy.io) 的 ingress 控制器，它提供了 API 网关功能，有着来自 [solo.io](https://www.solo.io) 的企业级支持。
