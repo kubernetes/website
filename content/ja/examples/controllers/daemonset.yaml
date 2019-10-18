@@ -19,7 +19,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: fluentd-elasticsearch
-        image: gcr.io/fluentd-elasticsearch/fluentd:v2.5.1
+        image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
         resources:
           limits:
             memory: 200Mi
