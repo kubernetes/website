@@ -55,7 +55,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # eine Liste der Benutzer erhalten
-kubectl config current-context			               # den aktuellen Kontext anzeigen
+kubectl config current-context                       # den aktuellen Kontext anzeigen
 kubectl config use-context my-cluster-name           # Setzen Sie den Standardkontext auf my-cluster-name
 
 # Fügen Sie Ihrer kubeconf einen neuen Cluster hinzu, der basic auth unterstützt
@@ -77,10 +77,10 @@ Kubernetes Manifeste können in Json oder Yaml definiert werden. Die Dateierweit
 `.yml`, und `.json` können verwendet werden.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml           # Ressource(n) erstellen
-kubectl apply -f ./my1.yaml -f ./my2.yaml     # aus mehreren Dateien erstellen
-kubectl apply -f ./dir                        # Erstellen Sie Ressourcen in allen Manifestdateien in Verzeichnis
-kubectl apply -f https://git.io/vPieo         # Ressource(n) aus URL erstellen
+kubectl apply -f ./my-manifest.yaml            # Ressource(n) erstellen
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # aus mehreren Dateien erstellen
+kubectl apply -f ./dir                         # Erstellen Sie Ressourcen in allen Manifestdateien in Verzeichnis
+kubectl apply -f https://git.io/vPieo          # Ressource(n) aus URL erstellen
 kubectl create deployment nginx --image=nginx  # Starten Sie eine einzelne Instanz von Nginx
 kubectl explain pods,svc                       # Zeigen Sie die Dokumentation für Pod und SVC Manifeste an
 
@@ -133,7 +133,7 @@ kubectl get services                          # Listen Sie alle Dienste im Names
 kubectl get pods --all-namespaces             # Listen Sie alle Pods in allen Namespaces auf
 kubectl get pods -o wide                      # Listen Sie alle Pods im Namespace mit weiteren Details auf
 kubectl get deployment my-dep                 # Listen Sie eine bestimmte Bereitstellung auf
-kubectl get pods --include-uninitialized      # Listen Sie alle Pods im Namespace auf, einschließlich der nicht initialisierten
+kubectl get pods                              # Listen Sie alle Pods im Namespace auf
 
 # Describe Befehle mit ausführlicher Ausgabe
 kubectl describe nodes my-node
@@ -250,8 +250,7 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Skaliert meh
 kubectl delete -f ./pod.json                                              # Löscht einen Pod mit dem in pod.json angegebenen Typ und Namen
 kubectl delete pod,service baz foo                                        # Löscht Pods und Services mit den gleichen Namen "baz" und "foo"
 kubectl delete pods,services -l name=myLabel                              # Löscht Pods und Services mit dem Label name=myLabel
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # Löscht Pods und Services, einschließlich nicht initialisierter, mit dem Label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Löscht alle Pods und Dienste, einschließlich nicht initialisierter, im Namespace my-ns,
+kubectl -n my-ns delete po,svc --all                                      # Löscht alle Pods und Dienste, im Namespace my-ns
 ```
 
 ## Interaktion mit laufenden Pods
