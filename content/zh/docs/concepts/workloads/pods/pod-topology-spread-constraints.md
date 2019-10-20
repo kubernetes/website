@@ -343,7 +343,7 @@ There are some implicit conventions worth noting here:
     and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 -->
 
-    你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector` 也要一样处理。
+   你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector` 也要一样处理。
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
