@@ -919,42 +919,6 @@ spec:
         example.com/foo: 1
 ```
 
-<!--
-## Planned Improvements
-
-Kubernetes version 1.5 only allows resource quantities to be specified on a
-Container. It is planned to improve accounting for resources that are shared by
-all Containers in a Pod, such as
-[emptyDir volumes](/docs/concepts/storage/volumes/#emptydir).
-
-Kubernetes version 1.5 only supports Container requests and limits for CPU and
-memory. It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/scheduling/resources.md).
-
-Kubernetes supports overcommitment of resources by supporting multiple levels of
-[Quality of Service](http://issue.k8s.io/168).
-
-In Kubernetes version 1.5, one unit of CPU means different things on different
-cloud providers, and on different machine types within the same cloud providers.
-For example, on AWS, the capacity of a node is reported in
-[ECUs](http://aws.amazon.com/ec2/faqs/), while in GCE it is reported in logical
-cores. We plan to revise the definition of the cpu resource to allow for more
-consistency across providers and platforms.
--->
-
-## 计划改进
-
-在 kubernetes 1.5 版本中仅允许在容器上指定资源量。计划改进对所有容器在 Pod 中共享资源的计量，
-如 [emptyDir volume](/docs/concepts/storage/volumes/#emptydir)。
-
-在 kubernetes 1.5 版本中仅支持容器对 CPU 和内存的申请和限制。计划增加新的资源类型，包括节点磁盘空间资源和一个可支持自定义
-[资源类型](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/resources.md) 的框架。
-
-Kubernetes 通过支持通过多级别的 [服务质量](http://issue.k8s.io/168) 来支持资源的过度使用。
-
-在 kubernetes 1.5 版本中，一个 CPU 单位在不同的云提供商和同一云提供商的不同机器类型中的意味都不同。例如，在 AWS 上，节点的容量报告为 [ECU](http://aws.amazon.com/ec2/faqs/)，而在 GCE 中报告为逻辑内核。我们计划修改 cpu 资源的定义，以便在不同的提供商和平台之间保持一致。
-
 {{% /capture %}}
 
 
