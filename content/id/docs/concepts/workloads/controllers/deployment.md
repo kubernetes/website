@@ -1,7 +1,7 @@
 ---
 reviewers:
 - janetkuo
-title: Deployments
+title: Deployment
 feature:
   title: Automated rollouts dan rollbacks
   description: >
@@ -13,13 +13,13 @@ weight: 30
 
 {{% capture overview %}}
 
-A _Deployment_ menyediakan pembaruan deklaratif [Pods](/docs/id/concepts/workloads/pods/pod/) dan
-[ReplicaSets](/docs/id/concepts/workloads/controllers/replicaset/).
+Deployment menyediakan pembaruan [Pods](/docs/id/concepts/workloads/pods/pod/) dan
+[ReplicaSets](/docs/id/concepts/workloads/controllers/replicaset/) secara deklaratif.
 
 Kamu mendeskripsikan sebuah state yang diinginkan dalam Deployment, kemudian Deployment {{< glossary_tooltip term_id="controller" >}} mengubah state sekarang menjadi seperti pada deskripsi secara bertahap. Kamu dapat mendefinisikan Deployment untuk membuat ReplicaSets baru atau untuk menghapus Deployment yang sudah ada dan mengadopsi semua resourcenya untuk Deployment baru.
 
 {{< note >}}
-Jangan mengganti ReplicaSets milik Deployment. Consider untuk membuat issue pada repositori utama Kubernetes jika kasusmu tidak dicover semua solusi di bawah.
+Jangan mengganti ReplicaSets milik Deployment. Pertimbangkan untuk membuat isu pada repositori utama Kubernetes jika kasusmu tidak diatasi semua kasus di bawah.
 {{< /note >}}
 
 {{% /capture %}}
@@ -32,12 +32,12 @@ Jangan mengganti ReplicaSets milik Deployment. Consider untuk membuat issue pada
 Berikut adalah penggunaan yang umum pada Deployment:
 
 * [Membuat Deployment untuk merilis ReplicaSet](#membuat-deployment). ReplicaSet membuat Pod di belakang layar. Cek status rilis untuk tahu proses rilis sukses atau tidak.
-* [Mendeklarasikan state baru dari Pods](#membarui-deployment) dengan membarui PodTemplateSpec milik Deployment. ReplicaSet baru akan dibuat dan Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
-* [Mengembalikan ke revisi Deployment sebelumnya](#rolling-back-a-deployment) jika state Deployment sekarang tidak stabil. Each rollback updates the revision of the Deployment.
-* [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
+* [Mendeklarasikan state baru dari Pods](#membarui-deployment) dengan membarui PodTemplateSpec milik Deployment. ReplicaSet baru akan dibuat dan Deployment mengatur perpindahan Pod secara teratur dari ReplicaSet lama ke ReplicaSet baru. Tiap ReplicaSet baru akan mengganti revisi Deployment.
+* [Mengembalikan ke revisi Deployment sebelumnya](#membalikkan-deployment) jika state Deployment sekarang tidak stabil. Tiap pengembalian mengganti revisi Deployment.
+* [Scale up the Deployment to facilitate more load](#mengatur-skala-deployment).
 * [Menjeda Deployment](#menjeda-dan-melanjutkan-deployment) untuk menerapkan perbaikan pada PodTemplateSpec-nya, lalu melanjutkan untuk memulai rilis baru.
 * [Memakai status Deployment](#status-deployment) sebagai indikator ketika rilis tersendat.
-* [Membersihkan ReplicaSet lama](#clean-up-policy) yang sudah tidak terpakai.
+* [Membersihkan ReplicaSet lama](#kebijakan-pembersihan) yang sudah tidak terpakai.
 
 ## Membuat Deployment
 
@@ -316,11 +316,11 @@ Jika tidak, galat validasi akan muncul. Perubahan haruslah tidak tumpang-tindih,
 ReplicaSet yang ada tidak menggantung dan ReplicaSet baru tidak dibuat. 
 Tapi perhatikan bahwa label yang dihapus masih ada pada Pod dan ReplicaSet masing-masing.
 
-## Rolling Back a Deployment
+## Membalikkan Deployment
 
-Sometimes, you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
-Umumnya, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want
-(you can change that by modifying revision history limit).
+Kadang, kamu mau membalikkan Deployment; misalnya, saat Deployment tidak stabil, seperti crash looping.
+Umumnya, semua riwayat rilis Deployment disimpan oleh sistem sehingga kamu dapat kembali kapanpun kamu mau
+(kamu dapat mengubahnya dengan mengubah batas riwayat revisi).
 
 {{< note >}}
 A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
@@ -331,7 +331,7 @@ This means that when you roll back to an earlier revision, only the Deployment's
 rolled back.
 {{< /note >}}
 
-* Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
+* Misal kamu membuat saltik saat mengganti Deployment, dengan memberi nama image dengan `nginx:1.91` alih-alih `nginx:1.9.1`:
 
     ```shell
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
@@ -342,7 +342,7 @@ rolled back.
     deployment.apps/nginx-deployment image updated
     ```
 
-* The rollout gets stuck. You can verify it by checking the rollout status:
+* Rilis akan tersendat. Kamu dapat memeriksanya dengan melihat status rilis:
 
     ```shell
     kubectl rollout status deployment.v1.apps/nginx-deployment
@@ -353,10 +353,10 @@ rolled back.
     Waiting for rollout to finish: 1 out of 3 new replicas have been updated...
     ```
 
-* Press Ctrl-C to stop the above rollout status watch. For more information on stuck rollouts,
-[read more here](#deployment-status).
+* Tekan Ctrl-C untuk menghentikan pemeriksaan status rilis di atas. Untuk info lebih lanjut 
+tentang rilis tersendat, [baca disini](#status-deployment).
 
-* You see that the number of old replicas (`nginx-deployment-1564180365` dan `nginx-deployment-2035384211`) is 2, dan new replicas (nginx-deployment-3066724191) is 1.
+* Kamu lihat bahwa jumlah replika lama (`nginx-deployment-1564180365` dan `nginx-deployment-2035384211`) adalah 2, dan replika baru (nginx-deployment-3066724191) adalah 1.
 
     ```shell
     kubectl get rs
@@ -370,7 +370,7 @@ rolled back.
     nginx-deployment-3066724191   1         1         0       6s
     ```
 
-* Looking at the Pods created, you see that 1 Pod created by new ReplicaSet is stuck in an image pull loop.
+* Lihat pada Pod yang dibuat. Akan ada 1 Pod dibuat dari ReplicaSet baru tersendat loop(?) ketika penarikan image.
 
     ```shell
     kubectl get pods
@@ -386,12 +386,12 @@ rolled back.
     ```
 
     {{< note >}}
-    The Deployment controller stops the bad rollout automatically, dan stops scaling up the new
-    ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
-    Kubernetes Umumnya sets the value to 25%.
+    Controller Deployment menghentikan rilis yang buruk secara otomatis dan juga berhenti meningkatkan ReplicaSet baru. 
+    Ini tergantung pada parameter rollingUpdate (secara khusus `maxUnavailable`) yang dimasukkan.
+    Kubernetes umumnya mengatur jumlahnya menjadi 25%.
     {{< /note >}}
 
-* Get the description of the Deployment:  
+* Tampilkan deskripsi Deployment:  
     ```shell
     kubectl describe deployment
     ```
@@ -437,13 +437,13 @@ rolled back.
       13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
     ```
 
-  To fix this, you need to rollback to a previous revision of Deployment that is stable.
+  Untuk memperbaikinya, kamu harus kembali ke revisi Deployment yang sebelumnya stabil.
 
-### Checking Rollout History of a Deployment
+### Mengecek Riwayat Rilis Deployment
 
-Follow the steps given below to check the rollout history:
+Ikuti langkah-langkah berikut untuk mengecek riwayat rilis:
 
-1. First, check the revisions of this Deployment:  
+1. Pertama, cek revisi Deployment sekarang:  
     ```shell
     kubectl rollout history deployment.v1.apps/nginx-deployment
     ```
@@ -456,13 +456,13 @@ Follow the steps given below to check the rollout history:
     3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
     ```
 
-    `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
+    `CHANGE-CAUSE` disalin dari anotasi Deployment `kubernetes.io/change-cause` ke revisi saat pembuatan. Kamu dapat menentukan pesan `CHANGE-CAUSE` dengan:
 
-    * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
-    * Append the `--record` flag to save the `kubectl` perintah that is making perubahan to the resource.
-    * Manually editing the manifest of the resource.
+    * Menambahkan anotasi pada Deployment dengan `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
+    * Menambahkan argumen `--record` untuk menyimpan perintah `kubectl` yang menyebabkan perubahan sumber daya.
+    * Mengganti manifest sumber daya secara manual.
 
-2. To see the details of each revision, run:
+2. Untuk melihat detil tiap revisi, jalankan:
     ```shell
     kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
     ```
@@ -484,10 +484,10 @@ Follow the steps given below to check the rollout history:
       No volumes.
     ```
 
-### Rolling Back to a Previous Revision
-Follow the steps given below to rollback the Deployment from the current version to the previous version, which is version 2.
+### Kembali ke Revisi Sebelumnya
+Ikuti langkah-langkah berikut untuk membalikkan Deployment dari versi sekarang ke versi sebelumnya, yaitu versi 2.
 
-1. Now you've decided to undo the current rollout dan rollback to the previous revision:
+1. Sekarang kamu telah menentukan akan mengembalikan rilis sekarang ke sebelumnya:
     ```shell
     kubectl rollout undo deployment.v1.apps/nginx-deployment
     ```
@@ -496,7 +496,7 @@ Follow the steps given below to rollback the Deployment from the current version
     ```
     deployment.apps/nginx-deployment
     ```
-    Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
+    Gantinya, kamu dapat kambali ke revisi tertentu dengan menambahkan argumen `--to-revision`:
 
     ```shell
     kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
@@ -507,12 +507,12 @@ Follow the steps given below to rollback the Deployment from the current version
     deployment.apps/nginx-deployment
     ```
 
-    For more details about rollout related perintahs, read [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-perintahs#rollout).
+    Untuk detil lebih lanjut perintah terkait rilis, baca [`rilis kubectl`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
 
-    The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event
-    for rolling back to revision 2 is generated from Deployment controller.
+    Deployment sekarang dikembalikan ke revisi stabil sebelumnya. Seperti terlihat, ada event `DeploymentRollback`
+    yang dibentuk oleh controller Deployment untuk pembalikan ke revisi 2.
 
-2. Check if the rollback was successful dan the Deployment is running as expected, run:
+2. Cek apakah rilis telah sukses dan Deployment berjalan seharusnya, jalankan:
     ```shell
     kubectl get deployment nginx-deployment
     ```
@@ -522,7 +522,7 @@ Follow the steps given below to rollback the Deployment from the current version
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         3         3            3           30m
     ```
-3. Get the description of the Deployment:
+3. Tampilkan deskripsi Deployment:  
     ```shell
     kubectl describe deployment nginx-deployment
     ```
@@ -645,8 +645,8 @@ replika terbanyak dan proporsi yang lebih kecil untuk replika dengan ReplicaSet 
 Sisanya akan diberikan ReplicaSet dengan replika terbanyak. ReplicaSet tanpa replika tidak akan ditingkatkan.
 
 Dalam kasus kita di atas, 3 replika ditambahkan ke ReplicaSet lama dan 2 replika ditambahkan ke ReplicaSet baru. 
-Proses rilis should eventually move all replicas to the new ReplicaSet, assuming
-the new replicas become healthy. To confirm this, run:  
+Proses rilis akan segera memindahkan semua ReplicaSet baru, dengan asumsi semua replika dalam kondisi sehat. 
+Untuk memastikannya, jalankan:  
 
 ```shell
 kubectl get deploy
@@ -746,10 +746,10 @@ Hal ini memungkinkanmu menerapkan beberapa perbaikan selama selang jeda tanpa me
     deployment.apps/nginx-deployment resource requirements updated
     ```
 
-    The state awal Deployment sebelum pausing it will continue its function, but new updates to
-    the Deployment will not have any effect as long as the Deployment is paused.
+    The state awal Deployment sebelum jeda akan melanjutkan fungsinya, tapi perubahan 
+    Deployment tidak akan berefek apapun selama Deployment masih terjeda.
 
-* Eventually, resume the Deployment dan observe a new ReplicaSet coming up with all the new updates:
+* Kemudian, mulai kembali Deployment dan perhatikan ReplicaSet baru akan muncul dengan semua perubahan baru:
     ```shell
     kubectl rollout resume deployment.v1.apps/nginx-deployment
     ```
@@ -975,22 +975,21 @@ $ echo $?
 
 Semua aksi yang dapat diterapkan pada Deployment yang selesai berjalan juga pada Deployment gagal. Kamu dapat menaik/turunkan replika, membalikkan ke versi sebelumnya, atau menjedanya jika kamu perlu menerapkan beberapa perbaikan pada templat Pod Deployment.
 
-## Clean up Policy
+## Kebijakan Pembersihan
 
-You can set `.spec.revisionHistoryLimit` field in a Deployment to specify how many old ReplicaSets for
-this Deployment you want to retain. The rest will be garbage-collected in the background. Umumnya,
-it is 10.
+Kamu dapat mengisi kolom `.spec.revisionHistoryLimit` di Deployment untuk menentukan banyak ReplicaSet 
+pada Deployment yang ingin dipertahankan. Sisanya akan di garbage-collected di balik layar. Umumnya, nilai kolom berisi 10.
 
 {{< note >}}
-Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
-thus that Deployment will not be able to roll back.
+Mengisi secara eksplisit dengan nilai 0 akan membuat pembersihan semua riwayat rilis Deployment
+sehingga Deployment tidak akan dapat dikembalikan.
 {{< /note >}}
 
-## Canary Deployment
+## Deployment Canary
 
-If you want to roll out releases to a subset of users or servers using the Deployment, you
-can create multiple Deployments, one for each release, following the canary pattern described in
-[managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
+Jika kamu ingin merilis ke sebagian pengguna atau server menggunakan Deployment, 
+kamu dapat membuat beberapa Deployment, satu tiap rilis, dengan mengikuti pola canary yang didesripsikan pada
+[mengelola sumber daya](/id/docs/concepts/cluster-administration/manage-deployment/#deploy-dengan-canary).
 
 ## Writing a Deployment Spec
 
