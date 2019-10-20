@@ -62,9 +62,9 @@ deployment.apps/nginx-deployment created
 * `apiVersion` - 이 오브젝트를 생성하기 위해 사용하고 있는 쿠버네티스 API 버전이 어떤 것인지
 * `kind` - 어떤 종류의 오브젝트를 생성하고자 하는지
 * `metadata` - `이름` 문자열, `UID`, 그리고 선택적인 `네임스페이스` 를 포함하여 오브젝트를 유일하게 구분지어 줄 데이터
-* `spec` - 오브젝트에 대한 의도한 상태인지
+* `spec` - 오브젝트에 대해 어떤 상태를 의도하는지
 
-여러분은 또한 오브젝트 `spec` 필드를 제공해야만 할 것이다. 오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다. 
+오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다. 
 예를 들어, `파드`에 대한 `spec` 포맷은 
 [여기](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 에서 확인할 수 있고, `디플로이먼트`에 대한 `spec` 포맷은 
