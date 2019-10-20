@@ -1,5 +1,5 @@
 ---
-title: 作业 &mdash; 运行到完成
+title: 作业 运行到完成
 content_template: templates/concept
 feature:
   title: Batch execution
