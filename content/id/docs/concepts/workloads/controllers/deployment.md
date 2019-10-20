@@ -571,9 +571,9 @@ Follow the steps given below to rollback the Deployment from the current version
       Normal  ScalingReplicaSet   15s   deployment-controller  Scaled down replica set nginx-deployment-595696685f to 0
     ```
 
-## Scaling a Deployment
+## Mengatur Skala Deployment
 
-You can scale a Deployment by using the following perintah:
+Kamu dapat mengatur skala Deployment dengan perintah berikut:
 
 ```shell
 kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
@@ -583,9 +583,9 @@ Keluaran akan tampil seperti berikut:
 deployment.apps/nginx-deployment scaled
 ```
 
-Assuming [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
-in your cluster, you can setup an autoscaler for your Deployment dan choose the minimum dan maximum number of
-Pods you want to run based on the CPU utilization of your existing Pods.
+Dengan asumsi [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) dalam kluster dinyalakan,
+kamu dapat mengatur autoscaler untuk Deployment-mu dan memilih jumlah minimal dan maksimal Pod yang mau dijalankan berdasarkan penggunaan CPU
+dari Pod.
 
 ```shell
 kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
@@ -595,16 +595,16 @@ Keluaran akan tampil seperti berikut:
 deployment.apps/nginx-deployment scaled
 ```
 
-### Proportional scaling
+### Pengaturan skala proporsional
 
-RollingUpdate Deployments support running multiple versions of an application at the same time. When you
-or an autoscaler scales a RollingUpdate Deployment that is in the middle of a rollout (either in progress
-or paused), the Deployment controller balances the additional replicas in the existing active
-ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *proportional scaling*.
+Deployment RollingUpdate mendukung beberapa versi aplikasi berjalan secara bersamaan. Ketika kamu atau autoscaler 
+mengubah skala Deployment RollingUpdate yang ada di tengah rilis (yang sedang berjalan maupun terjeda), 
+controller Deployment menyeimbangkan replika tambahan dalam ReplicaSet aktif (ReplicaSet dengan Pod) untuk mencegah resiko. 
+Ini disebut *pengaturan skala proporsional*.
 
-For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surge)=3, dan [maxUnavailable](#max-unavailable)=2.
+Sebagai contoh, kamu menjalankan Deployment dengan 10 replika, [maxSurge](#max-surge)=3, dan [maxUnavailable](#max-unavailable)=2.
 
-* Ensure that the 10 replicas in your Deployment are running.
+* Pastikan ada 10 replica di Deployment-mu yang berjalan.
   ```shell
   kubectl get deploy
   ```
@@ -615,7 +615,7 @@ For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surg
   nginx-deployment     10        10        10           10          50s
   ```
 
-* You update to a new image which happens to be unresolvable from inside the cluster.
+* Ganti ke image baru yang kebetulan tidak bisa diresolve(?) dari dalam kluster.
     ```shell
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
     ```
@@ -625,8 +625,8 @@ For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surg
     deployment.apps/nginx-deployment image updated
     ```
 
-* The image update starts a new rollout with ReplicaSet nginx-deployment-1989198191, but it's blocked due to the
-`maxUnavailable` requirement that you mentioned above. Check out the rollout status:
+* Penggantian image akan memulai rilis baru dengan ReplicaSet nginx-deployment-1989198191, namun dicegah karena
+persyaratan `maxUnavailable` yang disebut di atas. Cek status rilis:
     ```shell
     kubectl get rs
     ```
@@ -637,15 +637,15 @@ For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surg
     nginx-deployment-618515232    8         8         8         1m
     ```
 
-* Then a new scaling request for the Deployment comes along. The autoscaler increments the Deployment replicas
-to 15. The Deployment controller needs to decide where to add these new 5 replicas. If you weren't using
-proportional scaling, all 5 of them would be added in the new ReplicaSet. With proportional scaling, you
-spread the additional replicas across all ReplicaSets. Bigger proportions go to the ReplicaSets with the
-most replicas dan lower proportions go to ReplicaSets with less replicas. Any leftovers are added to the
-ReplicaSet with the most replicas. ReplicaSets with zero replicas are not scaled up.
+* Kemudian, permintaan peningkatan untuk Deployment akan masuk. Autoscaler menambah replika Deployment
+menjadi 15. Controller Deployment perlu menentukan dimana 5 replika ini ditambahkan. Jika kamu memakai
+pengaturan skala proporsional, kelima replika akan ditambahkan ke ReplicaSet baru. Dengan pengaturan skala proporsional, 
+kamu menyebarkan replika tambahan ke semua ReplicaSet. Proporsi terbesar ada pada ReplicaSet dengan
+replika terbanyak dan proporsi yang lebih kecil untuk replika dengan ReplicaSet yang lebih sedikit. 
+Sisanya akan diberikan ReplicaSet dengan replika terbanyak. ReplicaSet tanpa replika tidak akan ditingkatkan.
 
-In our example above, 3 replicas are added to the old ReplicaSet dan 2 replicas are added to the
-new ReplicaSet. The rollout process should eventually move all replicas to the new ReplicaSet, assuming
+Dalam kasus kita di atas, 3 replika ditambahkan ke ReplicaSet lama dan 2 replika ditambahkan ke ReplicaSet baru. 
+Proses rilis should eventually move all replicas to the new ReplicaSet, assuming
 the new replicas become healthy. To confirm this, run:  
 
 ```shell
@@ -657,7 +657,7 @@ Keluaran akan tampil seperti berikut:
 NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment     15        18        7            8           7m
 ```
-The rollout status confirms how the replicas were added to each ReplicaSet.
+Status rilis mengkonfirmasi bagaimana replika ditambahkan ke tiap ReplicaSet.
 ```shell
 kubectl get rs
 ```
@@ -880,9 +880,9 @@ Jika Deployment terjeda, Kubernetes tidak akan mengecek progres pada selang itu.
 Kamu dapat menjeda Deployment di tengah rilis dan melanjutkannya dengan aman tanpa memicu kondisi saat tenggat telah lewat.
 {{< /note >}}
 
-You may experience transient errors with your Deployments, either due to a low timeout that you have set or
-due to any other kind of error that can be treated as transient. For example, let's suppose you have
-insufficient quota. If you describe the Deployment you will notice the following section:
+Kamu dapat mengalami galat sejenak pada Deployment disebabkan timeout yang dipasang terlalu kecil atau 
+hal-hal lain yang terjadi sementara. Misalnya, kamu punya kuota yang tidak mencukupi. Jika kamu mendeskripsikan Deployment
+kamu akan menjumpai pada bagian ini:
 
 ```shell
 kubectl describe deployment nginx-deployment
@@ -940,10 +940,9 @@ Conditions:
   ReplicaFailure  True    FailedCreate
 ```
 
-You can address an issue of insufficient quota by scaling down your Deployment, by scaling down other
-controllers you may be running, or by increasing quota in your namespace. If you satisfy the quota
-conditions dan the Deployment controller then completes the Deployment rollout, you'll see the
-Deployment's status update with a successful condition (`Status=True` dan `Reason=NewReplicaSetAvailable`).
+Kamu dapat menangani isu keterbatasan kuota dengan menurunkan jumlah Deployment, bisa dengan menghapus controllers 
+yang sedang berjalan, atau dengan meningkatkan kuota pada namespace. Jika kuota tersedia, kemudian controller Deployment
+akan dapat menyelesaikan rilis Deployment. Kamu akan melihat bahwa status Deployment berubah menjadi kondisi sukses (`Status=True` dan `Reason=NewReplicaSetAvailable`).
 
 ```
 Conditions:
@@ -953,11 +952,10 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`Type=Available` with `Status=True` means that your Deployment has minimum availability. Minimum availability is dictated
-by the parameters specified in the deployment strategy. `Type=Progressing` with `Status=True` means that your Deployment
-is either in the middle of a rollout dan it is progressing or that it has successfully completed its progress dan the minimum
-required new replicas are available (see the Reason of the condition for the particulars - in our case
-`Reason=NewReplicaSetAvailable` means that the Deployment is complete).
+`Type=Available` dengan `Status=True` artinya Deployment-mu punya ketersediaan minimum. Ketersediaan minimum diatur
+oleh parameter yang dibuat pada strategi deployment. `Type=Progressing` dengan `Status=True` berarti Deployment
+sedang dalam rilis dan masih berjalan atau sudah selesai berjalan dan jumlah minimum replika tersedia 
+(lihat bagian Alasan untuk kondisi tertentu - dalam kasus ini `Reason=NewReplicaSetAvailable` berarti Deployment telah selesai).
 
 Kamu dapat mengecek apakah Deployment gagal berprogres dengan perintah `kubectl rollout status`. `kubectl rollout status`
 mengembalikan nilai selain nol jika Deployment telah melewati tenggat progres.
