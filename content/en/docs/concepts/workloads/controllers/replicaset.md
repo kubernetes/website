@@ -77,7 +77,7 @@ And you will see output similar to:
 ```shell
 Name:		frontend
 Namespace:	default
-Selector:	tier=frontend,tier in (frontend)
+Selector:	tier=frontend
 Labels:		app=guestbook
 		tier=frontend
 Annotations:	<none>
