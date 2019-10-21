@@ -36,7 +36,7 @@ You can also discover and install kubectl plugins available in the open source
 using [Krew](https://sigs.k8s.io/krew). Krew is a plugin manager maintained by
 the Kubernetes SIG CLI community.
 
-{{< note >}}
+{{< caution >}}
 Kubectl plugins installed via the Krew [centralized
 index](https://github.com/kubernetes-sigs/krew-index) are not audited for
 security. You should install and run third-party plugins at your own risk, since
@@ -50,10 +50,9 @@ Executing this command causes a traversal of all files in your PATH. Any files t
 A warning will be included for any files beginning with `kubectl-` that are *not* executable.
 A warning will also be included for any valid plugin files that overlap each other's name.
 
-To discover plugins that are available in the open source, you can use
-[Krew](https://sigs.k8s.io/krew) which maintains an open source [plugin
-index](https://github.com/kubernetes-sigs/krew-index) that hosts a
-community-curated list of plugins.
+You can use [Krew](https://sigs.k8s.io/krew) to discover and install `kubectl`
+plugins from a community-curated
+[plugin index](https://github.com/kubernetes-sigs/krew-index).
 
 #### Limitations
 
@@ -350,7 +349,7 @@ when you release a newer version.
 
 {{% capture whatsnext %}}
 
-* Install [Krew – kubectl plugin manager](https://sigs.k8s.io/krew) to discover and install plugins
+* Install [Krew – kubectl plugin manager](https://sigs.k8s.io/krew) to discover and install plugins.
 * Check the Sample CLI Plugin repository for [a detailed example](https://github.com/kubernetes/sample-cli-plugin) of a plugin written in Go.
 * In case of any questions, feel free to reach out to the [CLI SIG team](https://github.com/kubernetes/community/tree/master/sig-cli).
 
