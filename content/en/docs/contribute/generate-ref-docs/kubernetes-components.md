@@ -20,7 +20,7 @@ reference documentation for tools and components in the
     * [Python 3.7.x](https://www.python.org/downloads/)
     * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
     * [Golang](https://golang.org/doc/install) version 1.12 for Kubernetes 1.14+; Go 1.13 [is not supported](https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#go)
-    * [Pip](https://pypi.org/project/pip/), which is used to install PyYAML (installed with Python)
+    * [Pip](https://pypi.org/project/pip/), which is used to install PyYAML (not installed by default on Ubuntu)
     * [PyYAML](https://pyyaml.org/) v5.1.2
     * [make](https://www.gnu.org/software/make/)
     * [gcc compiler/linker](https://gcc.gnu.org/)
@@ -28,6 +28,7 @@ reference documentation for tools and components in the
 * The `Go` binary must be in your path. The `update-imported-docs` tool sets your GOPATH.
 
 * You need to know how to create a pull request to a GitHub repository.
+
 This involves creating your own fork of the repository. For more
 information, see [Work from a local clone](/docs/contribute/intermediate/#work_from_a_local_clone).
 

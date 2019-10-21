@@ -520,6 +520,9 @@ Slack channel or the
 
 ### View your changes locally
 
+{{< tabs name="tab_with_hugo" >}}
+{{% tab name="Hugo in a container" %}}
+
 If you aren't ready to create a pull request but you want to see what your
 changes look like, you can build and run a docker image to generate all the documentation and
 serve it locally.
@@ -541,6 +544,8 @@ serve it locally.
 
 4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
+{{% /tab %}}
+{{% tab name="Hugo locally" %}}
 
 Alternatively, you can install and use the `hugo` command on your development machine:
 
@@ -557,6 +562,8 @@ Alternatively, you can install and use the `hugo` command on your development ma
 
 4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Triage and categorize issues
 

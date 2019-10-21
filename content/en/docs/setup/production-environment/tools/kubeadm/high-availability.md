@@ -114,21 +114,21 @@ option. Your cluster requirements may need a different configuration.
     - The `--upload-certs` flag is used to upload the certificates that should be shared
     across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
     control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
-    certificate distribution](#manual-certs) section bellow.
+    certificate distribution](#manual-certs) section below.
 
-{{< note >}}
-The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
-to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
-{{< /note >}}
+    {{< note >}}
+    The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
+    to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
+    {{< /note >}}
 
-{{< note >}}
-Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-some like Weave do not. See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
-To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kubeadm configuration file
-set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
-{{< /note >}}
+    {{< note >}}
+    Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
+    some like Weave do not. See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
+    To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kubeadm configuration file
+    set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
+    {{< /note >}}
 
-After the command completes you should see something like so:
+    - The output looks similar to:
 
 ```sh
 ...
@@ -142,30 +142,30 @@ Then you can join any number of worker nodes by running the following on each as
     kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
 ```
 
-- Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
-- When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
-are encrypted and uploaded in the `kubeadm-certs` Secret.
-- To re-upload the certificates and generate a new decryption key, use the following command on a control plane
-node that is already joined to the cluster:
+    - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
+    - When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
+     are encrypted and uploaded in the `kubeadm-certs` Secret.
+    - To re-upload the certificates and generate a new decryption key, use the following command on a control plane
+      node that is already joined to the cluster:
 
     ```sh
     sudo kubeadm init phase upload-certs --upload-certs
     ```
 
-- You can also specify a custom `--certificate-key` during `init` that can later be used by `join`.
-To generate such a key you can use the following command:
+    - You can also specify a custom `--certificate-key` during `init` that can later be used by `join`.
+      To generate such a key you can use the following command:
 
     ```sh
     kubeadm alpha certs certificate-key
     ```
 
-{{< note >}}
-The `kubeadm-certs` Secret and decryption key expire after two hours.
-{{< /note >}}
+    {{< note >}}
+    The `kubeadm-certs` Secret and decryption key expire after two hours.
+    {{< /note >}}
 
-{{< caution >}}
-As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
-{{< /caution >}}
+    {{< caution >}}
+    As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
+    {{< /caution >}}
 
 1.  Apply the CNI plugin of your choice:
     [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
@@ -244,19 +244,19 @@ in the kubeadm config file.
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
-{{< note >}}
-The difference between stacked etcd and external etcd here is that the external etcd setup requires
-a configuration file with the etcd endpoints under the `external` object for `etcd`.
-In the case of the stacked etcd topology this is managed automatically.
-{{< /note >}}
+  {{< note >}}
+  The difference between stacked etcd and external etcd here is that the external etcd setup requires
+  a configuration file with the etcd endpoints under the `external` object for `etcd`.
+  In the case of the stacked etcd topology this is managed automatically.
+  {{< /note >}}
 
-    -  Replace the following variables in the config template with the appropriate values for your cluster:
+  -  Replace the following variables in the config template with the appropriate values for your cluster:
 
-        - `LOAD_BALANCER_DNS`
-        - `LOAD_BALANCER_PORT`
-        - `ETCD_0_IP`
-        - `ETCD_1_IP`
-        - `ETCD_2_IP`
+    - `LOAD_BALANCER_DNS`
+    - `LOAD_BALANCER_PORT`
+    - `ETCD_0_IP`
+    - `ETCD_1_IP`
+    - `ETCD_2_IP`
 
 The following steps are similar to the stacked etcd setup:
 
@@ -349,11 +349,11 @@ SSH is required if you want to control all nodes from a single machine.
     done
     ```
 
-{{< caution >}}
-Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
-with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
-the creation of additional nodes could fail due to a lack of required SANs.
-{{< /caution >}}
+    {{< caution >}}
+    Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
+    with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
+    the creation of additional nodes could fail due to a lack of required SANs.
+    {{< /caution >}}
 
 1. Then on each joining control plane node you have to run the following script before running `kubeadm join`.
    This script will move the previously copied certificates from the home directory to `/etc/kubernetes/pki`:

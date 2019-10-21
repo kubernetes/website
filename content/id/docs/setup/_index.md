@@ -10,7 +10,7 @@ content_template: templates/concept
 
 Gunakan halaman ini untuk mencari solusi yang paling sesuai dengan kebutuhan kamu.
 
-Menentukan dimana sebaiknya Kubernetes dijalankan sangat tergantung pada kapasitas yang kamu punya dan seberapa fleksibel kluster yang kamu inginkan. 
+Menentukan dimana sebaiknya Kubernetes dijalankan sangat tergantung pada kapasitas yang kamu punya dan seberapa fleksibel kluster yang kamu inginkan.
 Kamu dapat menjalankan Kubernetes hampir dimana saja, mulai dari laptop, VM di penyedia cloud, sampai pada rak-rak berisi server <i>baremetal</i>.
 Kamu juga bisa menyiapkan kluster yang diatur sepenuhnya (<i>fully-managed</i>), dengan hanya menjalankan satu perintah, ataupun membuat kluster dengan solusi <i>custom</i> kamu sendiri pada server <i>baremetal</i>.
 

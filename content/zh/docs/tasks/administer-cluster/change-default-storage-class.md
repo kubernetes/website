@@ -55,7 +55,7 @@ content_template: templates/task
    默认 StorageClass 的注解 `storageclass.kubernetes.io/is-default-class` 设置为 `true`。注解的其它任意值或者缺省值将被解释为 `false`。
 
 
-   要标记一个 StorageClass 为非默认的，您需要改变它的值为 `false`： 
+   要标记一个 StorageClass 为非默认的，您需要改变它的值为 `false`：
 
         kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 

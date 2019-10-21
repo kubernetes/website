@@ -6,13 +6,13 @@ full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
   Reserva el recurso de almacenamiento definido en un PersistentVolume para poderlo montar como un volúmen en un contenedor.
 
-aka: 
+aka:
 tags:
 - core-object
 - storage
 ---
  Reserva el recurso de almacenamiento definido en un PersistentVolume para poderlo montar como un volúmen en un contenedor.
 
-<!--more--> 
+<!--more-->
 
 Especifica la cantidad de almacenamiento, cómo acceder a él (sólo lectura, lectura y escritura y/o exclusivo) y qué hacer una vez eliminemos el PersistentVolumeClaim (mantener, reciclar o eliminar). Los detalles sobre almacenamiento están disponibles en la especificación de PersistentVolume.

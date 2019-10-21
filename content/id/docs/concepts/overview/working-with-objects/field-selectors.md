@@ -3,7 +3,7 @@ title: Selektor Field
 weight: 60
 ---
 
-Selektor *field* memungkinkan kamu untuk [memilih (*select*) *resource* Kubernetes](/docs/concepts/overview/working-with-objects/kubernetes-objects) berdasarkan 
+Selektor *field* memungkinkan kamu untuk [memilih (*select*) *resource* Kubernetes](/docs/concepts/overview/working-with-objects/kubernetes-objects) berdasarkan
 nilai dari satu atau banyak *field resource*. Di bawah ini merupakan contoh dari beberapa *query* selektor *field*:
 
 * `metadata.name=my-service`

@@ -79,7 +79,7 @@ The CCM consolidates all of the cloud-dependent logic from the preceding three c
 
 CCM 整合了前三个组件中的所有依赖于云的逻辑，以创建与云的单一集成点。CCM 的新架构如下所示：
 
-<!-- 
+<!--
 ![CCM Kube Arch](/images/docs/post-ccm-arch.png)
 -->
 

@@ -85,7 +85,7 @@ Name:          hostpath
 Namespace:     default
 StorageClass:  example-hostpath
 Status:        Terminating
-Volume:        
+Volume:
 Labels:        <none>
 Annotations:   volume.beta.kubernetes.io/storage-class=example-hostpath
                volume.beta.kubernetes.io/storage-provisioner=example.com/hostpath
@@ -103,19 +103,19 @@ Annotations:     <none>
 Finalizers:      [kubernetes.io/pv-protection]
 StorageClass:    standard
 Status:          Available
-Claim:           
+Claim:
 Reclaim Policy:  Delete
 Access Modes:    RWO
 Capacity:        1Gi
-Message:         
+Message:
 Source:
     Type:          HostPath (bare host directory volume)
     Path:          /tmp/data
-    HostPathType:  
+    HostPathType:
 Events:            <none>
 ```
 
-### Melakukan Reklaim 
+### Melakukan Reklaim
 
 Ketika seorang pengguna telah selesai dengan volumenya, ia dapat menghapus objek PVC dari API yang memungkinkan untuk reklamasi dari sumber daya tersebut. Kebijakan reklaim dari sebuah `PersistentVolume` (PV) menyatakan apa yang dilakukan kluster setelah volume dilepaskan dari klaimnya. Saat ini, volume dapat dipertahankan (_Retained_), didaur ulang (_Recycled_), atau dihapus (_Deleted_).
 
@@ -168,7 +168,7 @@ Namun, alamat yang dispesifikasikan pada templat _recycler pod_ kustom pada bagi
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-Dukungan untuk memperluas PersistentVolumeClaim (PVC) sekarang sudah diaktifkan sejak awal. Kamu dapat memperluas 
+Dukungan untuk memperluas PersistentVolumeClaim (PVC) sekarang sudah diaktifkan sejak awal. Kamu dapat memperluas
 tipe-tipe volume berikut:
 
 * gcePersistentDisk
@@ -199,7 +199,7 @@ allowVolumeExpansion: true
 ```
 
 Untuk meminta volume yang lebih besar pada sebuah PVC, ubah objek PVC dan spesifikasikan ukuran yang lebih
-besar. Hal ini akan memicu perluasan dari volume yang berada di balik `PersistentVolume` (PV). Sebuah 
+besar. Hal ini akan memicu perluasan dari volume yang berada di balik `PersistentVolume` (PV). Sebuah
 `PersistentVolume` (PV) baru tidak akan dibuat untuk memenuhi klaim tersebut. Sebaliknya, volume yang sudah ada akan diatur ulang ukurannya.
 
 #### Perluasan Volume CSI
@@ -209,7 +209,7 @@ besar. Hal ini akan memicu perluasan dari volume yang berada di balik `Persisten
 Perluasan volume CSI mengharuskan kamu untuk mengaktifkan gerbang fitur `ExpandCSIVolumes` dan juga membutuhkan _driver_ CSI yang spesifik untuk mendukung perluasan volume. Silakan merujuk pada dokumentasi _driver_ spesifik CSI untuk informasi lebih lanjut.
 
 
-#### Mengubah ukuran sebuah volume yang memiliki _file system_ 
+#### Mengubah ukuran sebuah volume yang memiliki _file system_
 
 Kamu hanya dapat mengubah ukuran volume yang memiliki _file system_ jika _file system_ tersebut adalah XFS, Ext3, atau Ext4.
 
@@ -223,8 +223,8 @@ kubectl describe pvc <pvc_name>
 
 Jika `PersistentVolumeClaim` (PVC) memiliki status `FileSystemResizePending`, maka berarti aman untuk membuat ulang _pod_ menggunakan PersistentVolumeClaim (PVC) tersebut.
 
-FlexVolumes mengizinkan pengubahan ukuran jika _driver_ diatur dengan kapabilitas `RequiresFSResize` menjadi "_true_". 
-FlexVolume dapat diubah ukurannya pada saat _pod_ mengalami _restart_. 
+FlexVolumes mengizinkan pengubahan ukuran jika _driver_ diatur dengan kapabilitas `RequiresFSResize` menjadi "_true_".
+FlexVolume dapat diubah ukurannya pada saat _pod_ mengalami _restart_.
 
 {{< feature-state for_k8s_version="v1.11" state="alpha" >}}
 
@@ -236,8 +236,8 @@ PVC manapun yang sedang digunakan secara otomatis menjadi tersedia untuk _pod_ y
 Fitur ini tidak memiliki efek pada PVC yang tidak sedang digunakan oleh _Pod_ atau _deployment_. Kamu harus membuat sebuah _Pod_ yang
 menggunakan PVC sebelum perluasan dapat selesai dilakukan.
 
-Memperluas PVC yang sedang digunakan sudah ditambahkan pada rilis 1.13. Untuk mengaktifkan fitur ini gunakan `ExpandInUsePersistentVolumes` dan gerbang fitur `ExpandPersistentVolumes`.  Gerbang fitur `ExpandPersistentVolumes` sudah diaktifkan sejak awal. Jika `ExpandInUsePersistentVolumes` sudah terpasang, FlexVolume dapat diubah ukurannya secara langsung tanpa perlu melakukan _restart_ pada _pod_. 
- 
+Memperluas PVC yang sedang digunakan sudah ditambahkan pada rilis 1.13. Untuk mengaktifkan fitur ini gunakan `ExpandInUsePersistentVolumes` dan gerbang fitur `ExpandPersistentVolumes`.  Gerbang fitur `ExpandPersistentVolumes` sudah diaktifkan sejak awal. Jika `ExpandInUsePersistentVolumes` sudah terpasang, FlexVolume dapat diubah ukurannya secara langsung tanpa perlu melakukan _restart_ pada _pod_.
+
 {{< note >}}
 Pengubahan ukuran FlexVolume hanya mungkin dilakukan ketika _driver_ yang menjalankannya mendukung pengubahan ukuran.
 {{< /note >}}
@@ -365,7 +365,7 @@ Dahulu, anotasi `volume.beta.kubernetes.io/storage-class` digunakan sebagai gant
 atribut `storageClassName`. Anotasi ini masih dapat bekerja, namun
 akan dihilangkan sepenuhnya pada rilis Kubernetes mendatang.
 
-### Kebijakan Reklaim 
+### Kebijakan Reklaim
 
 Kebijakan-kebijakan reklaim saat ini antara lain:
 
@@ -375,7 +375,7 @@ Kebijakan-kebijakan reklaim saat ini antara lain:
 
 Saat ini, hanya NFS dan HostPath yang mendukung daur ulang. AWS EBS, GCE PD, Azure Disk, dan Cinder Volume mendukung penghapusan.
 
-### Opsi Pemasangan 
+### Opsi Pemasangan
 
 Seorang administrator Kubernetes dapat menspesifikasi opsi pemasangan tambahan untuk ketika sebuah _Persistent Volume_ dipasangkan pada sebuah _node_.
 
@@ -405,7 +405,7 @@ Dahulu, anotasi `volume.beta.kubernetes.io/mount-options` digunakan sebagai gant
 atribut `mountOptions`. Anotasi ini masih dapat bekerja, namun
 akan dihilangkan sepenuhnya pada rilis Kubernetes mendatang.
 
-### Afinitas Node 
+### Afinitas Node
 
 {{< note >}}
 Untuk kebanyakan tipe volume, kamu tidak perlu memasang kolom ini. Kolom ini secara otomatis terisi untuk tipe blok volume [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) dan [Azure Disk](/docs/concepts/storage/volumes/#azuredisk). Kamu harus mengaturnya secara eksplisit untuk volume [lokal](/docs/concepts/storage/volumes/#local).
@@ -413,7 +413,7 @@ Untuk kebanyakan tipe volume, kamu tidak perlu memasang kolom ini. Kolom ini sec
 
 Sebuah PV dapat menspesifikasi [afinitas node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core) untuk mendefinisikan batasan yang membatasi _node_ mana saja yang dapat mengakses volume tersebut. _Pod_ yang menggunakan sebuah PV hanya akan bisa dijadwalkan ke _node_ yang dipilih oleh afinitas _node_.
 
-### Fase 
+### Fase
 
 Sebuah volume akan berada dalam salah satu fase di bawah ini:
 
@@ -448,11 +448,11 @@ spec:
       - {key: environment, operator: In, values: [dev]}
 ```
 
-### Mode Akses 
+### Mode Akses
 
 Klaim menggunakan penulisan yang sama dengan volume ketika meminta _storage_ dengan mode akses tertentu.
 
-### Mode Volume 
+### Mode Volume
 
 Klaim menggunakan penulisan yang sama dengan volume untuk mengindikasikan konsumsi dari volume sebagai _filesystem_ ataupun perangkat _block_.
 
@@ -578,7 +578,7 @@ spec:
     lun: 0
     readOnly: false
 ```
-### _Persistent Volume Claim_ meminta Volume _Raw Block_ 
+### _Persistent Volume Claim_ meminta Volume _Raw Block_
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim

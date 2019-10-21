@@ -56,7 +56,7 @@ An example `NetworkPolicy` might look like this:
 
 ## `NetworkPolicy` 资源
 
-查看 [网络策略](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) 来了解资源定义。 
+查看 [网络策略](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) 来了解资源定义。
 
 下面是一个 `NetworkPolicy` 的示例:
 
@@ -152,7 +152,7 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
 
   * 标签为 "role=frontend" 的 "default" 名称空间中的任何Pod
   * 名称空间中带有标签 "project=myproject" 的任何pod
-  * IP 地址范围为 172.17.0.0–172.17.0.255 和 172.17.2.0–172.17.255.255（即，除了 172.17.1.0/24 之外的所有 172.17.0.0/16）  
+  * IP 地址范围为 172.17.0.0–172.17.0.255 和 172.17.2.0–172.17.255.255（即，除了 172.17.1.0/24 之外的所有 172.17.0.0/16）
 3. 允许从带有 "project=myproject" 标签的命名空间下的任何 pod 到 "default" 命名空间下的 pod 的6379 TCP端口的连接。
 
 查看 [网络策略入门指南](/docs/getting-started-guides/network-policy/walkthrough) 了解更多示例。
@@ -177,7 +177,7 @@ __podSelector__: 这将在与 `NetworkPolicy` 相同的名称空间中选择特�
 
 __namespaceSelector__: 这将选择特定的名称空间，应将所有 Pod 用作其输入源或输出目的地。
 
-__namespaceSelector__ *和* __podSelector__: 一个指定 `namespaceSelector` 和 `podSelector` 的 `to`/`from` 条目选择特定命名空间中的特定 Pod。注意使用正确的YAML语法；这项政策： 
+__namespaceSelector__ *和* __podSelector__: 一个指定 `namespaceSelector` 和 `podSelector` 的 `to`/`from` 条目选择特定命名空间中的特定 Pod。注意使用正确的YAML语法；这项政策：
 
 ```yaml
   ...

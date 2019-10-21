@@ -163,7 +163,7 @@ the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
 -->
 当前，如果有其他系统机制执行日志轮转，那么 `kubectl logs` 仅可查询到最新的日志内容。
-比如，一个 10MB 大小的文件，通过`logrotate` 执行轮转后生成两个文件，一个 10MB 大小，一个为空，所以 `kubectl logs` 将返回空。 
+比如，一个 10MB 大小的文件，通过`logrotate` 执行轮转后生成两个文件，一个 10MB 大小，一个为空，所以 `kubectl logs` 将返回空。
 {{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh

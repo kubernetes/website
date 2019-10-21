@@ -52,7 +52,7 @@ spec:
 * `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`：用于在 ELB 上启用代理协议。 当前仅接受 `*` 值，也就是在所有 ELB 后端启用代理协议。 将来可能进行调整，只允许特定的后端设置代理协议。
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-ports`：用于在服务中指定一个逗号分隔的端口列表，这些端口会使用 SSL/HTTPS 监听器。 默认为 `*`（全部）
 
-AWS 相关的注解信息取自 [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go) 文件的注释。
+AWS 相关的注解信息取自 [aws.go](https://github.com/kubernetes/cloud-provider-aws/blob/master/pkg/cloudprovider/providers/aws/aws.go) 文件的注释。
 
 # OpenStack
 本节介绍了使用 OpenStack 运行 Kubernetes 时所有可用的配置。
@@ -66,14 +66,14 @@ Kubernetes 知道如何通过文件 cloud.conf 与 OpenStack 进行交互。 该
 
 ```yaml
 [Global]
-username=user  
-password=pass  
-auth-url=https://<keystone_ip>/identity/v3  
-tenant-id=c869168a828847f39f7f06edd7305637  
+username=user
+password=pass
+auth-url=https://<keystone_ip>/identity/v3
+tenant-id=c869168a828847f39f7f06edd7305637
 domain-id=2a73b8f597c04551a0fdc8e95544be8a
 
 [LoadBalancer]
-subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a  
+subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a
 ```
 
 #### 全局配置

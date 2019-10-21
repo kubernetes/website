@@ -44,7 +44,7 @@ Pour qu'un Pod reçoive une classe de QoS Guaranteed :
 * Chaque conteneur du Pod doit avoir une limite de mémoire et une demande de mémoire, et elles doivent être les mêmes.
 * Chaque conteneur dans le Pod doit avoir une limite CPU et une demande CPU, et ils doivent être les mêmes.
 
-Ci-dessous le fichier de configuration d'un Pod qui a un seul conteneur. 
+Ci-dessous le fichier de configuration d'un Pod qui a un seul conteneur.
 Le conteneur dispose d'une limite de mémoire et d'une demande de mémoire, tous deux égaux à 200 MiB. Le conteneur a également une limite CPU et une demande CPU, toutes deux égales à 700 milliCPU :
 
 {{< codenew file="pods/qos/qos-pod.yaml" >}}
@@ -174,7 +174,7 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 ## Créez un pod qui contient deux conteneurs
 
 
-Voici le fichier de configuration d'un Pod qui a deux conteneurs. Un conteneur spécifie une 
+Voici le fichier de configuration d'un Pod qui a deux conteneurs. Un conteneur spécifie une
 demande de mémoire de 200 MiB. L'autre conteneur ne spécifie aucune demande ou limite.
 
 {{< codenew file="pods/qos/qos-pod-4.yaml" >}}

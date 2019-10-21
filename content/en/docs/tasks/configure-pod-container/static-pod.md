@@ -48,7 +48,7 @@ Instructions for other distributions or Kubernetes installations may vary.
 
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod two different ways: either by using configuration file(s) or by HTTP.
+You can configure a static Pod with either a [file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files) or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
 
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
@@ -65,33 +65,33 @@ For example, this is how to start a simple web server as a static Pod:
 
 2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
 
-```shell
-# Run this command on the node where kubelet is running
-mkdir /etc/kubelet.d/
-cat <<EOF >/etc/kubelet.d/static-web.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: static-web
-  labels:
-    role: myrole
-spec:
-  containers:
-    - name: web
-      image: nginx
-      ports:
+    ```shell
+    # Run this command on the node where kubelet is running
+    mkdir /etc/kubelet.d/
+    cat <<EOF >/etc/kubelet.d/static-web.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: static-web
+      labels:
+        role: myrole
+    spec:
+      containers:
         - name: web
-          containerPort: 80
-          protocol: TCP
-EOF
-```
+          image: nginx
+          ports:
+            - name: web
+              containerPort: 80
+              protocol: TCP
+    EOF
+    ```
 
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file).
-    On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
     ```
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
     ```
+    or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file).
 
 4. Restart the kubelet. On Fedora, you would run:
 
@@ -108,43 +108,41 @@ Similar to how [filesystem-hosted manifests](#configuration-files) work, the kub
 refetches the manifest on a schedule. If there are changes to the list of static
 Pods, the kubelet applies them.
 
-If you want to use this approach, create a YAML file:
+To use this approach: 
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: static-web
-  labels:
-    role: myrole
-spec:
-  containers:
-    - name: web
-      image: nginx
-      ports:
+1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
+
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: static-web
+      labels:
+        role: myrole
+    spec:
+      containers:
         - name: web
-          containerPort: 80
-          protocol: TCP
-```
-
-and store it on a web server so that you can pass the URL of that file to the kubelet.
-
-Configure the kubelet on your selected node to use this web manifest by running it with `--manifest-url=<manifest-url>`
-
-On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
-
-```
-KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>`
-```
-
-Now, restart the kubelet. On Fedora, you would run:
-
-```shell
-# Run this command on the node where the kubelet is running
-systemctl restart kubelet
-```
+          image: nginx
+          ports:
+            - name: web
+              containerPort: 80
+              protocol: TCP
+    ```
 
 
+
+2. Configure the kubelet on your selected node to use this web manifest by running it with `--manifest-url=<manifest-url>`. On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+
+    ```
+    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>`
+    ```
+
+3. Restart the kubelet. On Fedora, you would run:
+
+    ```shell
+    # Run this command on the node where the kubelet is running
+    systemctl restart kubelet
+    ```
 
 ## Observe static pod behavior {#behavior-of-static-pods}
 
