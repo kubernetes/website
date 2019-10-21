@@ -12,12 +12,12 @@ kubeconfig untuk mencari informasi yang dibutuhkan untuk memilih kluster dan
 berkomunikasi dengan API server dari suatu kluster.
 
 {{< note >}}
-Sebuah file yang digunakan untuk mengatur akses pada kluster disebut dengan
+Sebuah berkas yang digunakan untuk mengatur akses pada kluster disebut dengan
 berkas kubeconfig. Ini cara yang umum digunakan untuk mereferensikan berkas
 konfigurasi. Ini tidak berarti ada berkas dengan nama `kubeconfig`.
 {{< /note >}}
 
-Secara _default_, `kubectl` mencari file dengan nama `config` pada direktori
+Secara _default_, `kubectl` mencari berkas dengan nama `config` pada direktori
 `$HOME/.kube`. Kamu bisa mengatur lokasi berkas kubeconfig dengan mengatur
 nilai `KUBECONFIG` pada variabel _environment_ atau dengan mengatur menggunakan
 tanda [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
@@ -89,15 +89,15 @@ kubeconfig:
 
    Sebaliknya, jika variabel _environment_ `KUBECONFIG` digunakan, maka akan menggunakan 
    ini sebagai berkas-berkas yang akan digabungkan. Penggabungan berkas-berkas yang terdapat
-   pada variabel _environment_ `KUBECONFIG` akan menggikuti aturan sebagai berikut:
+   pada variabel _environment_ `KUBECONFIG` akan mengikuti aturan sebagai berikut:
 
    * Mengabaikan berkas tanpa nama.
-   * Mengeluarkan pesan kesalahan untuk berkas dengan isi yang tidak dapat di-_deserialized_.
+   * Mengeluarkan pesan kesalahan untuk berkas dengan isi yang tidak dapat dideserialisasi.
    * Berkas pertama yang menentukan nilai atau _key_ pada _map_ maka akan digunakan 
      pada _map_ tersebut.
    * Tidak pernah mengubah nilai atau _key_ dari suatu _map_.
-     Contoh: Pertahakan konteks pada berkas pertama yang mengatur `current-context`.
-     Contoh: Jika terdapat dua file yang menentukan nilai `red-user`, maka hanya gunakan
+     Contoh: Pertahankan konteks pada berkas pertama yang mengatur `current-context`.
+     Contoh: Jika terdapat dua berkas yang menentukan nilai `red-user`, maka hanya gunakan
      nilai `red-user` dari berkas pertama.
      Meskipun berkas kedua tidak memiliki entri yang bertentangan pada `red-user`, 
      abaikan mereka.
@@ -149,15 +149,15 @@ kubeconfig:
 Referensi _file_ dan _path_ pada berkas kubeconfig adalah bernilai relatif terhadap
 lokasi dari berkas kubeconfig.
 Referensi _file_ pada perintah adalah relatif terhadap direktori kerja saat ini.
-Dalam `$HOME/.kube/config`, _relative paths_ akan disimpan secara relatif, dan
-_absolute paths_ akan disimpan secara mutlak.
+Dalam `$HOME/.kube/config`, _relative path_ akan disimpan secara relatif, dan
+_absolute path_ akan disimpan secara mutlak.
 
 {{% /capture %}}
 
 
 {{% capture whatsnext %}}
 
-* [Mengature Akses Pada Beberapa Kluster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [Mengatur Akses Pada Beberapa Kluster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}
