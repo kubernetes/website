@@ -21,8 +21,8 @@ The Kubernetes project maintains release branches for the most recent three mino
 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
 Patch releases are cut from those branches at a regular cadence, or as needed.
-This decision is owned by the [patch release manager](https://github.com/kubernetes/sig-release/blob/master/release-team/role-handbooks/patch-release-manager/README.md#release-timing).
-The patch release manager is a member of the [release team for each release](https://github.com/kubernetes/sig-release/tree/master/releases/).
+This decision is owned by the [patch release team](https://github.com/kubernetes/sig-release/blob/master/release-engineering/role-handbooks/patch-release-team.md#release-timing).
+The patch release team is part of [release managers](https://github.com/kubernetes/sig-release/blob/master/release-managers.md). For more information, see [Kubernetes Patch releases](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md).
 
 Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
 
