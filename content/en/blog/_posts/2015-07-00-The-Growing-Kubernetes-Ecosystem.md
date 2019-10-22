@@ -95,7 +95,7 @@ Mesosphere has incorporated Kubernetes into its Data Center Operating System (DC
 
  |
 
-[Platalytics, Inc][24]. and announced the release of one-touch deploy-anywhere feature for its Spark Application Platform. Based on Kubernetes, Docker, and CoreOS, it allows simple and automated deployment of Apache Hadoop, Spark, and Platalytics platform, with a single click, to all major public clouds, including Google, Amazon, Azure, Digital Ocean, and private on-premise clouds. It also enables hybrid cloud scenarios, where resources on public and private clouds can be mixed.
+[Platalytics, Inc][24]. and announced the release of one-touch deploy-anywhere feature for its Spark Application Platform. Based on Kubernetes, Docker, and CoreOS, it allows simple and automated deployment of Apache Hadoop, Spark, and Platalytics platform, with a single click, to all major public clouds, including Google, Amazon, Azure, DigitalOcean, and private on-premise clouds. It also enables hybrid cloud scenarios, where resources on public and private clouds can be mixed.
 
  |  
 |
