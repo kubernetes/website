@@ -18,10 +18,12 @@
 		</section>
 		{{ block "post-hero" . }}{{ end }}
 		{{ end }}
-    
-    <article class="page-content">
-      {{ block "main" . }}{{ end }}
-    </article>
+	
+	<main>
+		<article class="page-content">
+		  {{ block "main" . }}{{ end }}
+		</article>
+	</main>
 
 		{{ partialCached "footer.html" . }}
 		{{ partialCached "footer-scripts.html" . }}
