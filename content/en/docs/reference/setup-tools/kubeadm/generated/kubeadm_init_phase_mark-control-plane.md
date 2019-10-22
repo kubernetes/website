@@ -74,7 +74,3 @@ kubeadm init phase mark-control-plane [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-

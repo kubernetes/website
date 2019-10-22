@@ -85,7 +85,3 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - Prepare the machine for serving a control plane
-

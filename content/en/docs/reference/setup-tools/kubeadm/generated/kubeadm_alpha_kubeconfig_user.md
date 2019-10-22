@@ -101,7 +101,3 @@ kubeadm alpha kubeconfig user [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - Kubeconfig file utilities
-
