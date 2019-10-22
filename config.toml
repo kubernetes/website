@@ -266,3 +266,10 @@ contentDir = "content/hi"
 [languages.hi.params]
 time_format_blog = "01.02.2006"
 language_alternatives = ["en"]
+
+[languages.vi]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "Vietnamese"
+contentDir = "content/vi"
+weight = 12
