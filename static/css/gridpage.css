@@ -39,10 +39,6 @@
     padding-top: 0;
 }
 
-.gridPage main {
-    max-width: 1100px !important;
-}
-
 .gridPage .main-section {
     max-width: 1100px !important;
 }
@@ -108,28 +104,6 @@ p.attrib {
     /*height: 340px;*/
 }
 
-.gridPage #video main {
-    position: relative;
-    max-width: 900px !important;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 20px;
-}
-
-.gridPage #video main > div {
-    width: 50%;
-}
-
-.gridPage #video main #zulilyLogo {
-    width: 100px;
-}
-
-.gridPage #video main img {
-    max-width: 100%;
-}
-
 .gridPage #video .main-section {
     position: relative;
     max-width: 900px !important;
@@ -177,15 +151,6 @@ p.attrib {
 
 .gridPage #users {
     padding: 50px;
-}
-
-.gridPage #users main {
-    max-width: 1150px !important;
-}
-
-.gridPage #users main h3 {
-    padding-left: 20px;
-    margin-bottom: 20px;
 }
 
 .gridPage #users .main-section {
@@ -243,12 +208,6 @@ p.attrib {
 section.bullets {
     background-color: #eeeeee;
     margin-bottom: 50px;
-}
-
-section.bullets main {
-    position: relative;
-    max-width: 1100px;
-    padding: 50px 0;
 }
 
 section.bullets .main-section {
@@ -312,23 +271,6 @@ section.bullets .content {
 }
 
 @media screen and (max-width: 900px){
-    .gridPage #video main {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .gridPage #video main > div {
-        width: 400px;
-    }
-
-    .gridPage #video main > div + div {
-        margin-top: 30px;
-    }
-
-    .gridPage #video h3 {
-        max-width: 100%;
-    }
-
     .gridPage #video .main-section {
         flex-direction: column;
         align-items: center;
@@ -377,11 +319,6 @@ section.bullets .content {
     .gridPage #hero {
         padding-right: 20px;
         padding-left: 20px;
-    }
-
-    .gridPage #video main > div {
-        width: 80%;
-        min-width: 280px;
     }
 
     .gridPage #video .main-section > div {
