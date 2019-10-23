@@ -15,13 +15,13 @@ weight: 30
 
 {{% capture overview %}}
 <!--
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).  -->
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** 能帮助您建立一个小型的符合最佳实践的 Kubernetes 集群。通过使用 kubeadm, 您的集群会符合 [Kubernetes 合规性测试](https://kubernetes.io/blog/2017/10/software-conformance-certification)的要求. Kubeadm 也支持其他的集群生命周期操作，比如升级、降级和管理[启动引导令牌](/docs/reference/access-authn-authz/bootstrap-tokens/)。
 
-<!-- Because you can install kubeadm on various types of machine (e.g. laptop, server, 
-Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
+<!-- Because you can install kubeadm on various types of machine (e.g. laptop, server,
+Raspberry Pi, etc.), it's well suited for integration with provisioning systems
 such as Terraform or Ansible. -->
 
 因为您可以在不同类型的机器（比如笔记本、服务器和树莓派等）上安装 kubeadm，因此它非常适合与 Terraform 或 Ansible 这类自动化管理系统集成。
@@ -129,7 +129,7 @@ Kubernetes 发现版本的通常只维护支持九个月，在维护周期内，
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-<!-- 
+<!--
 
 - One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
 - 2 GB or more of RAM per machine. Any less leaves little room for your
@@ -143,10 +143,10 @@ Kubernetes 发现版本的通常只维护支持九个月，在维护周期内，
 - 每台机器 2 GB 以上的内存，内存不足时应用会受限制
 - 主节点上 2 CPU 以上
 - 集群里所有的机器有完全的网络连接，公有网络或者私有网络都可以
- 
+
 {{% /capture %}}
 {{% capture steps %}}
-<!-- 
+<!--
 ## Objectives
 
 * Install a single master Kubernetes cluster or [high availability cluster](https://kubernetes.io/docs/setup/independent/high-availability/)
@@ -170,13 +170,13 @@ See ["Installing kubeadm"](/docs/setup/independent/install-kubeadm/).
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
-kubeadm to tell it what to do. This crashloop is expected and normal. 
+kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your master, the kubelet runs normally.
 {{< /note >}}-->
 
 ## 步骤
 
-### 在您的机器上安装 kubeadm 
+### 在您的机器上安装 kubeadm
 
 请查阅[安装 kubeadm](/docs/setup/independent/install-kubeadm/)。
 
@@ -198,22 +198,22 @@ communicates with). -->
 
 主节点是集群里运行控制面的机器，包括 etcd (集群的数据库)和 API 服务（kubectl CLI 与之交互）。
 
-<!-- 1. Choose a Pod network add-on, and verify whether it requires any arguments to 
+<!-- 1. Choose a Pod network add-on, and verify whether it requires any arguments to
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--Pod-network-cidr` to
 a provider-specific value. See [Installing a Pod network add-on](#Pod-network).
-1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated 
-with the default gateway to advertise the master's IP. To use a different 
-network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you 
+1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
+with the default gateway to advertise the master's IP. To use a different
+network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
+to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
-1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify 
-connectivity to gcr.io registries.   
+1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
+connectivity to gcr.io registries.
 
 Now run:
 
 ```bash
-kubeadm init <args> 
+kubeadm init <args>
 ``` -->
 
 
@@ -227,7 +227,7 @@ IPv6 的集群，则需要指定一个 IPv6 地址，比如 `--apiserver-adverti
 现在运行:
 
 ```bash
-kubeadm init <args> 
+kubeadm init <args>
 ```
 
 <!-- ### More information
@@ -254,7 +254,7 @@ components do not currently support multi-architecture.
 
 `kubeadm init` first runs a series of prechecks to ensure that the machine
 is ready to run Kubernetes. These prechecks expose warnings and exit on errors. `kubeadm init`
-then downloads and installs the cluster control plane components. This may take several minutes. 
+then downloads and installs the cluster control plane components. This may take several minutes.
 The output should look like: -->
 
 如果需要再次运行 `kubeadm init`，您必须先[卸载集群](#tear-down)。
@@ -383,8 +383,8 @@ each other. -->
 kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes Pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. 
-- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
+- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9. -->
 
 **网络必须在部署任何应用之前部署好。此外，在网络安装之前是 CoreDNS 不会启用的。
@@ -524,7 +524,7 @@ kubectl create -f ./
 
 {{% /tab %}}
 
-<!-- 
+<!--
 
 For `flannel` to work correctly, you must pass `--Pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
 
@@ -558,7 +558,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8
 想了解更多关于 `flannel` 的信息,请查阅[ GitHub 上的 CoreOS flannel 仓库](https://github.com/coreos/flannel)。
 {{% /tab %}}
 
-<!-- 
+<!--
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
@@ -582,7 +582,7 @@ Kube-router 提供 Pod 间联网、网络策略和和高效的基于 IPVS/LVS �
 想了解关于使用 kubeadm 搭建 Kubernetes 和 Kube-router 的更多信息。请查看官方的[安装指引](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md)。
 {{% /tab %}}
 
-<!-- 
+<!--
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
@@ -611,7 +611,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 ```
 {{% /tab %}}
 
-<!-- 
+<!--
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
@@ -644,7 +644,7 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 ```
 {{% /tab %}}
 
-<!-- 
+<!--
 Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
 simultaneous overlay-underlay support, network policy enforcement, network isolation,
 service chaining and flexible load balancing.
@@ -741,7 +741,7 @@ kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert
 ``` bash
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
-<!-- 
+<!--
 If you do not have the token, you can get it by running the following command on the master node:
 
 ``` bash
@@ -896,7 +896,7 @@ privileges by using `kubectl create (cluster)rolebinding`.
 
 ### (可选) 在非主节点上控制集群
 
-为了能在其他机器（比如，笔记本）上使用 kubectl 来控制您的集群，您可以从主节点上复制管理员的 
+为了能在其他机器（比如，笔记本）上使用 kubectl 来控制您的集群，您可以从主节点上复制管理员的
 kubeconfig 到您的机器上，像下面这样操作：
 
 ``` bash

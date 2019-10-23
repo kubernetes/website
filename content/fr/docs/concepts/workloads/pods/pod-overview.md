@@ -3,7 +3,7 @@ title: Aperçu du Pod
 description: Pod Concept Kubernetes
 content_template: templates/concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 60
 ---
@@ -76,7 +76,7 @@ En général, les Controllers utilisent des Templates de Pod que vous lui fourni
 
 ## Templates de Pod
 
-Les Templates de Pod sont des spécifications de pod qui sont inclus dans d'autres objets, comme les 
+Les Templates de Pod sont des spécifications de pod qui sont inclus dans d'autres objets, comme les
 [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), et
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).  Les Controllers utilisent les Templates de Pod pour créer réellement les pods.
 L'exemple ci-dessous est un manifeste simple pour un Pod d'un conteneur affichant un message.

@@ -158,7 +158,7 @@ When using `clientConfig.service`, the server cert must be valid for
 Default timeout for a webhook call is 10 seconds for webhooks registered created using `admissionregistration.k8s.io/v1`,
 and 30 seconds for webhooks created using `admissionregistration.k8s.io/v1beta1`. Starting in kubernetes 1.14 you
 can set the timeout and it is encouraged to use a small timeout for webhooks.
-If the webhook call times out, the request is handled according to the webhook's 
+If the webhook call times out, the request is handled according to the webhook's
 failure policy.
 {{< /note >}}
 
@@ -226,7 +226,7 @@ users:
 #
 # For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
 # A webhook with `url: https://www.example.com`:
-# - name: www.example.com 
+# - name: www.example.com
 #   user: ...
 #
 # A webhook with `url: https://www.example.com:443`:
@@ -277,7 +277,7 @@ webhooks:
   ...
 ```
 
-`admissionReviewVersions` is a required field when creating 
+`admissionReviewVersions` is a required field when creating
 `admissionregistration.k8s.io/v1` webhook configurations.
 Webhooks are required to support at least one `AdmissionReview`
 version understood by the current and previous API server.
@@ -294,7 +294,7 @@ webhooks:
   ...
 ```
 
-If no `admissionReviewVersions` are specified, the default when creating 
+If no `admissionReviewVersions` are specified, the default when creating
 `admissionregistration.k8s.io/v1beta1` webhook configurations is `v1beta1`.
 {{% /tab %}}
 {{< /tabs >}}
@@ -326,15 +326,15 @@ for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
     "subResource": "scale",
 
     # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     "requestKind": {"group":"autoscaling","version":"v1","kind":"Scale"},
     # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     "requestResource": {"group":"apps","version":"v1","resource":"deployments"},
     # subresource, if the request is to a subresource
-    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     "requestSubResource": "scale",
 
@@ -397,17 +397,17 @@ for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
     "subResource": "scale",
 
     # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     # Only sent by v1.15+ API servers.
     "requestKind": {"group":"autoscaling","version":"v1","kind":"Scale"},
     # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     # Only sent by v1.15+ API servers.
     "requestResource": {"group":"apps","version":"v1","resource":"deployments"},
     # subresource, if the request is to a subresource
-    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     # Only sent by v1.15+ API servers.
     "requestSubResource": "scale",
@@ -463,6 +463,7 @@ and a body containing an `AdmissionReview` object (in the same version they were
 with the `response` stanza populated, serialized to JSON.
 
 At a minimum, the `response` stanza must contain the following fields:
+
 * `uid`, copied from the `request.uid` sent to the webhook
 * `allowed`, either set to `true` or `false`
 
@@ -647,7 +648,7 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE", "UPDATE"] 
+  - operations: ["CREATE", "UPDATE"]
     apiGroups: ["apps"]
     apiVersions: ["v1", "v1beta1"]
     resources: ["deployments", "replicasets"]
@@ -664,7 +665,7 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE", "UPDATE"] 
+  - operations: ["CREATE", "UPDATE"]
     apiGroups: ["apps"]
     apiVersions: ["v1", "v1beta1"]
     resources: ["deployments", "replicasets"]
@@ -939,7 +940,7 @@ In the example given above, the webhook that only registered for `apps/v1` could
 * `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
 * `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook (with the objects converted to a version the webhook had specified: `apps/v1`)
 
-Specifying `Equivalent` is recommended, and ensures that webhooks continue to intercept the 
+Specifying `Equivalent` is recommended, and ensures that webhooks continue to intercept the
 resources they expect when upgrades enable new versions of the resource in the API server.
 
 When a resource stops being served by the API server, it is no longer considered equivalent to other versions of that resource that are still served.
@@ -1010,7 +1011,7 @@ and can optionally include a custom CA bundle to use to verify the TLS connectio
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
 The host might be resolved via external DNS in some apiservers
-(e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+(e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 
 Please note that using `localhost` or `127.0.0.1` as a `host` is
@@ -1121,6 +1122,7 @@ A webhook must explicitly indicate that it will not have side-effects when run w
 or the dry-run request will not be sent to the webhook and the API request will fail instead.
 
 Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration:
+
 * `Unknown`: no information is known about the side effects of calling the webhook.
 If a request with `dryRun: true` would trigger a call to this webhook, the request will instead fail, and the webhook will not be called.
 * `None`: calling the webhook will have no side effects.
@@ -1130,6 +1132,7 @@ If a request with the dry-run attribute would trigger a call to this webhook, th
 but if a request with `dryRun: true` is sent to the webhook, the webhook will suppress the side effects (the webhook is `dryRun`-aware).
 
 Allowed values:
+
 * In `admissionregistration.k8s.io/v1beta1`, `sideEffects` may be set to `Unknown`, `None`, `Some`, or `NoneOnDryRun`, and defaults to `Unknown`.
 * In `admissionregistration.k8s.io/v1`, `sideEffects` must be set to `None` or `NoneOnDryRun`.
 
@@ -1167,7 +1170,7 @@ Because webhooks add to API request latency, they should evaluate as quickly as 
 `timeoutSeconds` allows configuring how long the API server should wait for a webhook to respond
 before treating the call as a failure.
 
-If the timeout expires before the webhook responds, the webhook call will be ignored or 
+If the timeout expires before the webhook responds, the webhook call will be ignored or
 the API call will be rejected based on the [failure policy](#failure-policy).
 
 The timeout value must be between 1 and 30 seconds.
@@ -1207,8 +1210,8 @@ Admission webhooks created using `admissionregistration.k8s.io/v1` default timeo
 ### Reinvocation policy
 
 A single ordering of mutating admissions plugins (including webhooks) does not work for all cases
-(see https://issue.k8s.io/64333 as an example). A mutating webhook can add a new sub-structure 
-to the object (like adding a `container` to a `pod`), and other mutating plugins which have already 
+(see https://issue.k8s.io/64333 as an example). A mutating webhook can add a new sub-structure
+to the object (like adding a `container` to a `pod`), and other mutating plugins which have already
 run may have opinions on those new structures (like setting an `imagePullPolicy` on all containers).
 
 In v1.15+, to allow mutating admission plugins to observe changes made by other plugins,

@@ -67,7 +67,7 @@ The configuration file must:
 * Use the same `metadata.namespace`.
 
 Replication controller configuration files are described in
-[Creating Replication Controllers](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
+[Creating Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/).
 
 ### Examples
 

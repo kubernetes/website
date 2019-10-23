@@ -333,7 +333,7 @@ deployment "not-best-effort-nginx" created
 ```
 
 
-虽然没有指定默认的 limits，`best-effort-nginx` deployment 还是会创建 8 个 pods。这是由于它被 `best-effort` 配额追踪，而 `not-best-effort` 配额将忽略它。`not-best-effort` 配额将追踪 `not-best-effort-nginx` deployment，因为它创建的 pods 具有 `Burstable` 服务质量。 
+虽然没有指定默认的 limits，`best-effort-nginx` deployment 还是会创建 8 个 pods。这是由于它被 `best-effort` 配额追踪，而 `not-best-effort` 配额将忽略它。`not-best-effort` 配额将追踪 `not-best-effort-nginx` deployment，因为它创建的 pods 具有 `Burstable` 服务质量。
 
 
 让我们列出 namespace 中的 pods：
@@ -384,7 +384,7 @@ requests.memory     512Mi 1Gi
 ```
 
 
-如你看到的，`best-effort` 配额追踪了我们在 `best-effort-nginx` deployment 中创建的 8 个 pods 的资源用量，而 `not-best-effort` 配额追踪了我们在 `not-best-effort-nginx` deployment 中创的两个 pods 的用量。 
+如你看到的，`best-effort` 配额追踪了我们在 `best-effort-nginx` deployment 中创建的 8 个 pods 的资源用量，而 `not-best-effort` 配额追踪了我们在 `not-best-effort-nginx` deployment 中创的两个 pods 的用量。
 
 
 Scopes 提供了一种来对任何配额文档追踪的资源集合进行细分的机制，给操作人员部署和追踪资源消耗带来更大的灵活性。
