@@ -17,6 +17,14 @@ Using this command you can execute preflight checks on a control-plane node.
 {{< tab name="preflight" include="generated/kubeadm_init_phase_preflight.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
+
+This phase will write the kubelet configuration file and environment file and then start the kubelet.
+
+{{< tabs name="tab-kubelet-start" >}}
+{{< tab name="kubelet-start" include="generated/kubeadm_init_phase_kubelet-start.md" />}}
+{{< /tabs >}}
+
 ## kubeadm init phase certs {#cmd-phase-certs}
 
 Can be used to create all required certificates by kubeadm.
@@ -24,16 +32,16 @@ Can be used to create all required certificates by kubeadm.
 {{< tabs name="tab-certs" >}}
 {{< tab name="certs" include="generated/kubeadm_init_phase_certs.md" />}}
 {{< tab name="all" include="generated/kubeadm_init_phase_certs_all.md" />}}
-{{< tab name="apiserver-etcd-client" include="generated/kubeadm_init_phase_certs_apiserver-etcd-client.md" />}}
-{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_init_phase_certs_apiserver-kubelet-client.md" />}}
-{{< tab name="apiserver" include="generated/kubeadm_init_phase_certs_apiserver.md" />}}
 {{< tab name="ca" include="generated/kubeadm_init_phase_certs_ca.md" />}}
-{{< tab name="etcd-ca" include="generated/kubeadm_init_phase_certs_etcd-ca.md" />}}
-{{< tab name="healthcheck-client" include="generated/kubeadm_init_phase_certs_etcd-healthcheck-client.md" />}}
-{{< tab name="etcd-peer" include="generated/kubeadm_init_phase_certs_etcd-peer.md" />}}
-{{< tab name="etcd-server" include="generated/kubeadm_init_phase_certs_etcd-server.md" />}}
+{{< tab name="apiserver" include="generated/kubeadm_init_phase_certs_apiserver.md" />}}
+{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_init_phase_certs_apiserver-kubelet-client.md" />}}
 {{< tab name="front-proxy-ca" include="generated/kubeadm_init_phase_certs_front-proxy-ca.md" />}}
 {{< tab name="front-proxy-client" include="generated/kubeadm_init_phase_certs_front-proxy-client.md" />}}
+{{< tab name="etcd-ca" include="generated/kubeadm_init_phase_certs_etcd-ca.md" />}}
+{{< tab name="etcd-server" include="generated/kubeadm_init_phase_certs_etcd-server.md" />}}
+{{< tab name="etcd-peer" include="generated/kubeadm_init_phase_certs_etcd-peer.md" />}}
+{{< tab name="healthcheck-client" include="generated/kubeadm_init_phase_certs_etcd-healthcheck-client.md" />}}
+{{< tab name="apiserver-etcd-client" include="generated/kubeadm_init_phase_certs_apiserver-etcd-client.md" />}}
 {{< tab name="sa" include="generated/kubeadm_init_phase_certs_sa.md" />}}
 {{< /tabs >}}
 
@@ -45,17 +53,9 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 {{< tab name="kubeconfig" include="generated/kubeadm_init_phase_kubeconfig.md" />}}
 {{< tab name="all" include="generated/kubeadm_init_phase_kubeconfig_all.md" />}}
 {{< tab name="admin" include="generated/kubeadm_init_phase_kubeconfig_admin.md" />}}
-{{< tab name="controller-manager" include="generated/kubeadm_init_phase_kubeconfig_controller-manager.md" />}}
 {{< tab name="kubelet" include="generated/kubeadm_init_phase_kubeconfig_kubelet.md" />}}
+{{< tab name="controller-manager" include="generated/kubeadm_init_phase_kubeconfig_controller-manager.md" />}}
 {{< tab name="scheduler" include="generated/kubeadm_init_phase_kubeconfig_scheduler.md" />}}
-{{< /tabs >}}
-
-## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
-
-This phase will write the kubelet configuration file and environment file and then start the kubelet.
-
-{{< tabs name="tab-kubelet-start" >}}
-{{< tab name="kubelet-start" include="generated/kubeadm_init_phase_kubelet-start.md" />}}
 {{< /tabs >}}
 
 ## kubeadm init phase control-plane {#cmd-phase-control-plane}
@@ -78,6 +78,19 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 {{< tabs name="tab-etcd" >}}
 {{< tab name="etcd" include="generated/kubeadm_init_phase_etcd.md" />}}
 {{< tab name="local" include="generated/kubeadm_init_phase_etcd_local.md" />}}
+{{< /tabs >}}
+
+
+## kubeadm init phase upload-config {#cmd-phase-upload-config}
+
+You can use this command to upload the kubeadm configuration to your cluster.
+Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
+
+{{< tabs name="upload-config" >}}
+{{< tab name="upload-config" include="generated/kubeadm_init_phase_upload-config.md" />}}
+{{< tab name="all" include="generated/kubeadm_init_phase_upload-config_all.md" />}}
+{{< tab name="kubeadm" include="generated/kubeadm_init_phase_upload-config_kubeadm.md" />}}
+{{< tab name="kubelet" include="generated/kubeadm_init_phase_upload-config_kubelet.md" />}}
 {{< /tabs >}}
 
 
@@ -109,19 +122,6 @@ Use the following phase to configure bootstrap tokens.
 {{< /tabs >}}
 
 
-## kubeadm init phase upload-config {#cmd-phase-upload-config}
-
-You can use this command to upload the kubeadm configuration to your cluster.
-Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
-
-{{< tabs name="upload-config" >}}
-{{< tab name="upload-config" include="generated/kubeadm_init_phase_upload-config.md" />}}
-{{< tab name="all" include="generated/kubeadm_init_phase_upload-config_all.md" />}}
-{{< tab name="kubeadm" include="generated/kubeadm_init_phase_upload-config_kubeadm.md" />}}
-{{< tab name="kubelet" include="generated/kubeadm_init_phase_upload-config_kubelet.md" />}}
-{{< /tabs >}}
-
-
 ## kubeadm init phase addon {#cmd-phase-addon}
 
 You can install all the available addons with the `all` subcommand, or
@@ -130,8 +130,8 @@ install them selectively.
 {{< tabs name="tab-addon" >}}
 {{< tab name="addon" include="generated/kubeadm_init_phase_addon.md" />}}
 {{< tab name="all" include="generated/kubeadm_init_phase_addon_all.md" />}}
-{{< tab name="kube-proxy" include="generated/kubeadm_init_phase_addon_kube-proxy.md" />}}
 {{< tab name="coredns" include="generated/kubeadm_init_phase_addon_coredns.md" />}}
+{{< tab name="kube-proxy" include="generated/kubeadm_init_phase_addon_kube-proxy.md" />}}
 {{< /tabs >}}
 
 To use kube-dns instead of CoreDNS you have to pass a configuration file:
