@@ -31,6 +31,12 @@ different Kubernetes components.
   or its release stage is changed.
 - The "Until" column, if not empty, contains the last Kubernetes release in which
   you can still use a feature gate.
+- If a feature is in the Alpha or Beta state, you can find the feature listed
+  in the Alpha/Beta feature gate table.
+- If a feature is stable (GA) or deprecated, you can find all stages for that feature listed
+  in the GA/Deprecated feature gate table.
+
+### Feature gates for Alpha or Beta features
 
 {{< table caption="Feature gates for features in Alpha or Beta states" >}}
 
@@ -154,7 +160,7 @@ different Kubernetes components.
 | `WinOverlay` | `false` | Alpha | 1.14 | |
 {{< /table >}}
 
-The following table contains feature gates for graduated or deprecated features.
+### Feature gates for graduated or deprecated features
 
 {{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
 

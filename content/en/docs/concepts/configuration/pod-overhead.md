@@ -27,9 +27,9 @@ on top of the container requests & limits.
 ## Pod Overhead
 
 In Kubernetes, the pod's overhead is set at
-[admission](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
+[admission](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 time according to the overhead associated with the pod's
-[RuntimeClass](https://kubernetes.io/docs/concepts/containers/runtime-class/).
+[RuntimeClass](/docs/concepts/containers/runtime-class/).
 
 When Pod Overhead is enabled, the overhead is considered in addition to the sum of container
 resource requests when scheduling a pod. Similarly, Kubelet will include the pod overhead when sizing
