@@ -600,6 +600,6 @@ A cluster administrator can also migrate using [the deploy script](https://githu
 要将 kube-dns 迁移到 CoreDNS，可使用 [详细博客](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/) 来帮助用户在迁移自 kube-dns。
 集群管理员还可以使用[部署脚本](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh) 进行迁移。
 
-＃＃ 下一步是什么
+## 下一步
 - [调试 DNS 解析](/docs/tasks/administer-cluster/dns-debugging-resolution/)。
 ```
