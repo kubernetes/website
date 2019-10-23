@@ -213,8 +213,8 @@ There are [client libraries](/docs/reference/using-api/client-libraries/) for ac
 
 ### Accessing the API from within a Pod
 
-When accessing the API from a Pod, locating and authenticating
-to the API server are somewhat different.
+When accessing the API from within a Pod, locating and authenticating
+to the API server are slightly different to the external client case described above.
 
 The easiest way to use the Kubernetes API from a Pod is to use
 one of the official [client libraries](/docs/reference/using-api/client-libraries/). These
@@ -231,6 +231,8 @@ From within a Pod, the recommended ways to connect to the Kubernetes API are:
   - For a Python client, use the official [Python client library](https://github.com/kubernetes-client/python/).
     The `config.load_incluster_config()` function handles API host discovery and authentication automatically.
     See [an example here](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
+
+  - There are a number of other libraries available, please refer to the [Client Libraries](/docs/reference/using-api/client-libraries/) page.
 
 In each case, the service account credentials of the Pod are used to communicate
 securely with the API server.
@@ -255,7 +257,7 @@ used to verify the serving certificate of the API server.
 Finally, the default namespace to be used for namespaced API operations is placed in a file
 at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
-##### Using kubectl proxy
+#### Using kubectl proxy
 
 If you would like to query the API without an official client library, you can run `kubectl proxy`
 as the [command](/docs/tasks/inject-data-application/define-command-argument-container/)
@@ -263,7 +265,7 @@ of a new sidecar container in the Pod. This way, `kubectl proxy` will authentica
 to the API and expose it on the `localhost` interface of the Pod, so that other containers
 in the Pod can use it directly.
 
-##### Without using a proxy
+#### Without using a proxy
 
 It is possible to avoid using the kubectl proxy by passing the authentication token
 directly to the API server.  The internal certificate secures the connection.
@@ -272,16 +274,16 @@ directly to the API server.  The internal certificate secures the connection.
 # Point to the internal API server hostname
 APISERVER=https://kubernetes.default.svc
 
-# Serviceaccount location
+# Path to ServiceAccount token
 SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
 
-# Reads the default namespace
+# Read this Pod's namespace
 NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
 
-# Gets the bearer token value
+# Read the ServiceAccount bearer token
 TOKEN=$(cat ${SERVICEACCOUNT}/token)
 
-# Reference the internal CA
+# Reference the internal certificate authority (CA)
 CACERT=${SERVICEACCOUNT}/ca.crt
 
 # Explore the API with TOKEN
