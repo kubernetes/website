@@ -274,7 +274,7 @@ Vous pouvez installer kubectl en tant qu'élément du SDK Google Cloud.
 
 ## Vérification de la configuration de kubectl
 
-Pour permettre à kubectl de trouver et d'accéder à un cluster Kubernetes, il lui faut un [fichier kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), qui est créé automatiquement lorsque vous créez un cluster avec `kube-up.sh` ou en déployant un cluster Minikube avec succès. Par défaut, la configuration de kubectl est située sous `~/.kube/config`.
+Pour permettre à kubectl de trouver et d'accéder à un cluster Kubernetes, il lui faut un [fichier kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), qui est créé automatiquement lorsque vous créez un cluster avec [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)  ou en déployant un cluster Minikube avec succès. Par défaut, la configuration de kubectl est située sous `~/.kube/config`.
 
 Vérifiez que kubectl est correctement configuré en obtenant l'état du cluster:
 
