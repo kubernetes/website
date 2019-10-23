@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: security-context-demo-2 
+  name: security-context-demo-2
 spec:
   securityContext:
     runAsUser: 1000

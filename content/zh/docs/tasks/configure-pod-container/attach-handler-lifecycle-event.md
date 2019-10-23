@@ -44,7 +44,7 @@ Kubernetes 将发送一个 preStop 事件。
 In this exercise, you create a Pod that has one Container. The Container has handlers
 for the postStart and preStop events.
 -->
-在本练习中，你将创建一个包含一个容器的 Pod，该容器为 postStart 和 preStop 事件提供对应的处理函数。 
+在本练习中，你将创建一个包含一个容器的 Pod，该容器为 postStart 和 preStop 事件提供对应的处理函数。
 
 <!--
 Here is the configuration file for the Pod:
@@ -133,7 +133,7 @@ Kubernetes 在容器结束前立即发送 preStop 事件。除非 Pod 宽限期�
 <!--
 {{< note >}}
 Kubernetes only sends the preStop event when a Pod is *terminated*.
-This means that the preStop hook is not invoked when the Pod is *completed*. 
+This means that the preStop hook is not invoked when the Pod is *completed*.
 This limitation is tracked in [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807).
 {{< /note >}}
 -->

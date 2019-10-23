@@ -58,7 +58,7 @@ kubectl config view
 # e2e 사용자의 암호를 확인한다
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config view -o jsonpath='{.users[].name}'    # 사용자 리스트 조회
+kubectl config view -o jsonpath='{.users[*].name}'    # 사용자 리스트 조회
 kubectl config get-contexts                          # 컨텍스트 리스트 출력
 kubectl config current-context              # 현재 컨텍스트 출력
 kubectl config use-context my-cluster-name  # my-cluster-name를 기본 컨텍스트로 설정
@@ -85,10 +85,10 @@ kubectl config unset users.foo                       # foo 사용자 삭제
 , `.yml`, `.json` 이 사용된다.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml           # 리소스(들) 생성
-kubectl apply -f ./my1.yaml -f ./my2.yaml     # 여러 파일로 부터 생성
-kubectl apply -f ./dir                        # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
-kubectl apply -f https://git.io/vPieo         # url로부터 리소스(들) 생성
+kubectl apply -f ./my-manifest.yaml            # 리소스(들) 생성
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # 여러 파일로 부터 생성
+kubectl apply -f ./dir                         # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
+kubectl apply -f https://git.io/vPieo          # url로부터 리소스(들) 생성
 kubectl create deployment nginx --image=nginx  # nginx 단일 인스턴스를 시작
 kubectl explain pods,svc                       # 파드와 서비스 매니페스트 문서를 조회
 
@@ -141,7 +141,7 @@ kubectl get services                          # 네임스페이스 내 모든 �
 kubectl get pods --all-namespaces             # 모든 네임스페이스 내 모든 파드의 목록 조회
 kubectl get pods -o wide                      # 네임스페이스 내 모든 파드의 상세 목록 조회
 kubectl get deployment my-dep                 # 특정 디플로이먼트의 목록 조회
-kubectl get pods --include-uninitialized      # 초기화되지 않은 것을 포함하여 네임스페이스 내 모든 파드의 목록 조회
+kubectl get pods                              # 네임스페이스 내 모든 파드의 목록 조회
 kubectl get pod my-pod -o yaml                # 파드의 YAML 조회
 kubectl get pod my-pod -o yaml --export       # 클러스터 명세 없이 파드의 YAML 조회
 
@@ -149,7 +149,8 @@ kubectl get pod my-pod -o yaml --export       # 클러스터 명세 없이 파�
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-kubectl get services --sort-by=.metadata.name # Name으로 정렬된 서비스의 목록 조회
+# Name으로 정렬된 서비스의 목록 조회
+kubectl get services --sort-by=.metadata.name
 
 # 재시작 횟수로 정렬된 파드의 목록 조회
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
@@ -178,10 +179,6 @@ sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries 
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
 # 모든 파드(또는 레이블을 지원하는 다른 쿠버네티스 오브젝트)의 레이블 조회
-# 마찬가지로 "jq"를 사용
-for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
-
-# 혹은 이 명령어를 파드와 연관된 모든 레이블을 조회하는데 사용할 수 있다.
 kubectl get pods --show-labels
 
 # 어떤 노드가 준비됐는지 확인

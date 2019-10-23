@@ -16,7 +16,7 @@ content_template: templates/concept
 
 Utilisez cette page pour trouver le type de solution qui correspond le mieux à vos besoins.
 
-Le choix de distribution Kubernetes dépend des ressources dont vous disposez et de la flexibilité dont vous avez besoin. 
+Le choix de distribution Kubernetes dépend des ressources dont vous disposez et de la flexibilité dont vous avez besoin.
 Vous pouvez exécuter Kubernetes presque partout, de votre ordinateur portable aux machines virtuelles d'un fournisseur de cloud jusqu'à un rack de serveurs en bare metal.
 Vous pouvez également mettre en place un cluster entièrement géré en exécutant une seule commande ou bien créer votre propre cluster personnalisé sur vos serveurs bare-metal.
 
@@ -27,7 +27,7 @@ Vous pouvez également mettre en place un cluster entièrement géré en exécut
 ## Solutions locales
 
 La solution locale, installée sur votre machine, est un moyen facile de démarrer avec Kubernetes. Vous
-pouvez créer et tester des clusters Kubernetes sans vous soucier de la consommation 
+pouvez créer et tester des clusters Kubernetes sans vous soucier de la consommation
 des ressources et des quotas d'un cloud.
 
 Vous devriez choisir une solution locale si vous souhaitez :
@@ -40,21 +40,21 @@ Choisissez une [solution locale] (/docs/setup/pick-right-solution/#local-machine
 ## Solutions hébergées
 
 Les solutions hébergées sont un moyen pratique de créer et de maintenir des clusters Kubernetes. Elles
-permettent de gérer et d'exploiter vos clusters pour que vous n'ayez pas à le faire.  
+permettent de gérer et d'exploiter vos clusters pour que vous n'ayez pas à le faire.
 
 Vous devriez choisir une solution hébergée si vous :
 
 * Voulez une solution entièrement gérée
-* Voulez vous concentrer sur le développement de vos applications ou services  
+* Voulez vous concentrer sur le développement de vos applications ou services
 * N'avez pas d'équipe de Site Reliability Engineering (SRE) dédiée, mais que vous souhaitez une haute disponibilité.
-* Vous n'avez pas les ressources pour héberger et surveiller vos clusters 
+* Vous n'avez pas les ressources pour héberger et surveiller vos clusters
 
 Choisissez une [solution hébergée] (/fr/docs/setup/pick-right-solution/#hosted-solutions).
 
 ## Solutions cloud clés en main
 
-Ces solutions vous permettent de créer des clusters Kubernetes avec seulement quelques commandes et 
-sont activement développées et bénéficient du soutien actif de la communauté. Elles peuvent également être hébergés sur 
+Ces solutions vous permettent de créer des clusters Kubernetes avec seulement quelques commandes et
+sont activement développées et bénéficient du soutien actif de la communauté. Elles peuvent également être hébergés sur
 un ensemble de fournisseurs de Cloud de type IaaS, mais elles offrent plus de liberté et de flexibilité en contrepartie
 d'un effort à fournir plus important.
 
@@ -80,8 +80,8 @@ Choisissez une [solution clé en main sur site] (/docs/setup/pick-right-solution
 
 ## Solutions personnalisées
 
-Les solutions personnalisées vous offrent le maximum de liberté sur vos clusters, mais elles nécessitent plus  
-d'expertise. Ces solutions vont du bare-metal aux fournisseurs de cloud sur 
+Les solutions personnalisées vous offrent le maximum de liberté sur vos clusters, mais elles nécessitent plus
+d'expertise. Ces solutions vont du bare-metal aux fournisseurs de cloud sur
 différents systèmes d'exploitation.
 
 Choisissez une [solution personnalisée] (/docs/setup/pick-right-solution/#custom-solutions).

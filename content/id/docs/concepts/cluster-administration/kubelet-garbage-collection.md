@@ -6,7 +6,7 @@ weight: 70
 
 {{% capture overview %}}
 
-*Garbage collection* merupakan fitur kubelet yang sangat bermanfaat, yang akan membersihkan *image-image* dan juga kontainer-kontainer 
+*Garbage collection* merupakan fitur kubelet yang sangat bermanfaat, yang akan membersihkan *image-image* dan juga kontainer-kontainer
 yang tidak lagi digunakan. Kubelet akan melakukan *garbage collection* untuk kontainer setiap satu menit dan *garbage collection* untuk
 *image* setiap lima menit.
 
@@ -22,7 +22,7 @@ menghilangkan kontainer-kontainer yang sebenarnya masih diperlukan.
 
 Kubernetes mengelola *lifecycle* untuk seluruh *image* melalui *imageManager*, dengan bantuan cadvisor.
 
-*Policy* untuk melakukan *garbage collection* memperhatikan dua hal: `HighThresholdPercent` dan `LowThresholdPercent`. 
+*Policy* untuk melakukan *garbage collection* memperhatikan dua hal: `HighThresholdPercent` dan `LowThresholdPercent`.
 Penggunaan disk yang melewati batas atas (*high threshold*) akan men-*trigger* *garbage collection*.
 *Garbage collection* akan mulai menghapus dari *image-image* yang paling jarang digunakan (*least recently used*)
 sampai menemui batas bawah (*low threshold*) kembali.
@@ -31,15 +31,15 @@ sampai menemui batas bawah (*low threshold*) kembali.
 
 *Policy* untuk melakukan *garbage collection* pada kontainer memperhatikan tiga variabel yang ditentukan oleh pengguna (*user-defined*).
 `MinAge` merupakan umur minimal dimana suatu kontainer dapat terkena *garbage collection*.
-`MaxPerPodContainer` merupakan jumlah maksimum yang diperbolehkan untuk setiap pod (UID, container name) *pair* memiliki 
+`MaxPerPodContainer` merupakan jumlah maksimum yang diperbolehkan untuk setiap pod (UID, container name) *pair* memiliki
 kontainer-kontainer yang sudah mati (*dead containers*). `MaxContainers` merupakan jumlah maksimal total dari seluruh kontainer yang sudah mati.
 Semua variabel ini dapat dinonaktifkan secara individual, dengan mengatur `MinAge` ke angka nol serta mengatur `MaxPerPodContainer` dan `MaxContainers`
 ke angka di bawah nol.
 
-Kubelet akan mengambil tindakan untuk kontainer-kontainer yang tidak dikenal, sudah dihapus, atau diluar batasan-batasan yang diatur 
+Kubelet akan mengambil tindakan untuk kontainer-kontainer yang tidak dikenal, sudah dihapus, atau diluar batasan-batasan yang diatur
 sebelumnya melalui *flag*. Kontainer-kontainer yang paling lama (tertua) biasanya akan dihapus terlebih dahulu. `MaxPerPodContainer` dan `MaxContainer`
 berpotensi mengalami konflik satu sama lain pada situasi saat menjaga jumlah maksimal kontainer per pod (`MaxPerPodContainer`) akan melebihi
-jumlah kontainer mati (*dead containers*) yang diperbolehkan (`MaxContainers`). 
+jumlah kontainer mati (*dead containers*) yang diperbolehkan (`MaxContainers`).
 `MaxPerPodContainer` dapat diatur sedemikian rupa dalam situasi ini: Seburuk-buruhknya dengan melakukan *downgrade* `MaxPerPodContainer` ke angka 1
 dan melakukan *evict* kontainer-kontainer yang paling lama. Selain itu, kontainer-kontainer milik Pod yang telah dihapus akan dihilangkan
 saat umur mereka telah melebihi `MinAge`.
@@ -85,7 +85,7 @@ Beberapa fitur *Garbage Collection* pada kubelet di laman ini akan digantikan ol
 | `--maximum-dead-containers-per-container` | | *deprecated* saat log yang telah usang tersimpan di luar konteks kontainer |
 | `--minimum-container-ttl-duration` | | *deprecated* saat log yang telah usang tersimpan di luar konteks kontainer |
 | `--low-diskspace-threshold-mb` | `--eviction-hard` atau `eviction-soft` | *eviction* memberi generalisasi *threshold* disk untuk *resource-resource* lainnya |
-| `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | *eviction* memberi generalisasi transisi tekanan *disk* (*disk pressure*)untuk *resource-resource* lainnya | 
+| `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | *eviction* memberi generalisasi transisi tekanan *disk* (*disk pressure*)untuk *resource-resource* lainnya |
 
 {{% /capture %}}
 

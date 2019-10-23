@@ -71,17 +71,17 @@ Introducing CSI plugin support for out-of-tree providers, enabling Windows nodes
 
 ## Introducing Endpoint Slices
 
-The release of Kubernetes 1.16 includes an exciting new alpha feature: Endpoint Slices. These provide a scalable and extensible alternative to [Endpoints](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#endpoints-v1-core) resources. Behind the scenes, these resources play a big role in network routing within Kubernetes. Each network endpoint is tracked within these resources, and kube-proxy uses them for generating proxy rules that allow pods to communicate with each other so easily in Kubernetes.
+The release of Kubernetes 1.16 includes an exciting new alpha feature: the EndpointSlice API. This API provides a scalable and extensible alternative to the [Endpoints](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/#endpoints-v1-core) resource, which dates back to the very first versions of Kubernetes. Behind the scenes, Endpoints play a big role in network routing within Kubernetes. Each Service endpoint is tracked within these resources - kube-proxy uses them for generating proxy rules that allow pods to communicate with each other so easily in Kubernetes, and many ingress controllers use them to route HTTP traffic directly to pods.
 
 ### Providing Greater Scalability
 
-A key goal for Endpoint Slices is to enable greater scalability for Kubernetes Services. With the existing Endpoints resources, a single resource must include network endpoints representing all pods matching a Service. As Services start to scale to thousands of pods, the corresponding Endpoints resources become quite large. Simply adding or removing one endpoint from a Service at this scale can be quite costly. As the Endpoints resource is updated, every piece of code watching Endpoints will need to be sent a full copy of the resource. With kube-proxy running on every node in a cluster, a copy needs to be sent to every single node. At a small scale, this is not an issue, but it becomes increasingly noticeable as clusters get larger.
+A key goal for EndpointSlices is to enable greater scalability for Kubernetes Services. With the existing Endpoints API, a single instance must include network endpoints representing all pods matching a Service. As Services start to scale to thousands of pods, the corresponding Endpoints resources become quite large. Simply adding or removing one endpoint from a Service at this scale can be quite costly. As the Endpoints instance is updated, every piece of code watching Endpoints will need to be sent a full copy of the resource. With kube-proxy running on every node in a cluster, a copy needs to be sent to every single node. At a small scale, this is not an issue, but it becomes increasingly noticeable as clusters get larger.
 
-As a simple example, in a cluster with 5,000 nodes and a 1MB Endpoints object, any update would result in approximately 5GB transmitted (that’s enough to fill a DVD). This becomes increasingly significant given how frequently Endpoints can change during events like rolling updates on Deployments.
+![Endpoints to Endpoint Slice](/images/blog/2019-09-18-kubernetes-1-16-release-announcement/endpoint-slices.png)
 
-With Endpoint Slices, network endpoints for a Service are split into multiple resources, significantly decreasing the amount of data required for updates at scale. By default, Endpoint Slices are limited to 100 endpoints each.
+With EndpointSlices, network endpoints for a Service are split into multiple instances, significantly decreasing the amount of data required for updates at scale. By default, EndpointSlices are limited to 100 endpoints each.
 
-For example, let’s take a cluster with 20,000 network endpoints spread over 5,000 nodes. Updating a single endpoint will be much more efficient with Endpoint Slices since each one includes only a tiny portion of the total number of network endpoints. Instead of transferring a big Endpoints object to each node, only the small Endpoint Slice that’s been changed has to be transferred. The net effect is that approximately 200x less data needs to be transferred for this update.
+For example, let’s take a cluster with 10,000 Service endpoints spread over 5,000 nodes. A single Pod update would result in approximately 5GB transmitted with the Endpoints API (that’s enough to fill a DVD). This becomes increasingly significant given how frequently Endpoints can change during events like rolling updates on Deployments. The same update will be much more efficient with EndpointSlices since each one includes only a tiny portion of the total number of Service endpoints. Instead of transferring a big Endpoints object to each node, only the small EndpointSlice that’s been changed has to be transferred. In this example, EndpointSlices would decrease data transferred by approximately 100x.
 
 <table>
   <tr>
@@ -126,11 +126,38 @@ For example, let’s take a cluster with 20,000 network endpoints spread over 5,
   </tr>
 </table>
 
-The second primary goal for Endpoint Slices was to provide a resource that would be highly extensible and useful across a wide variety of use cases. One of the key additions with Endpoint Slices involves a new topology attribute. By default, this will be populated with the existing topology labels used throughout Kubernetes indicating attributes such as region and zone. Of course, this field can be populated with custom labels as well for more specialized use cases.
+### Providing Greater Extensibility
 
-Endpoint Slices also include greater flexibility for address types. Each contains a list of addresses. An initial use case for multiple addresses would be to support dual stack endpoints with both IPv4 and IPv6 addresses.
+A second goal for EndpointSlices was to provide a resource that would be highly extensible and useful across a wide variety of use cases. One of the key additions with EndpointSlices involves a new topology attribute. By default, this will be populated with the existing topology labels used throughout Kubernetes indicating attributes such as region and zone. Of course, this field can be populated with custom labels as well for more specialized use cases.
 
-The Kubernetes documentation has a lot more information about Endpoint Slices. There’s also a [great KubeCon talk](https://www.youtube.com/watch?v=Y5JOCCbJ_Fg) that provides more information on the initial rationale for developing Endpoint Slices. As an alpha feature in Kubernetes 1.16, they will not be enabled by default, but the docs cover how to enable them in your cluster.
+EndpointSlices also include greater flexibility for address types. Each contains a list of addresses. An initial use case for multiple addresses would be to support dual-stack endpoints with both IPv4 and IPv6 addresses. As an example, here’s a simple EndpointSlice showing how one could be represented:
+
+```
+apiVersion: discovery.k8s.io/v1alpha
+kind: EndpointSlice
+metadata:
+  name: example-abc
+  labels:
+    kubernetes.io/service-name: example
+addressType: IP
+ports:
+  - name: http
+    protocol: TCP
+    port: 80
+endpoints:
+  - addresses:
+    - "10.1.2.3"
+    - "2001:db8::1234:5678"
+    topology:
+      kubernetes.io/hostname: node-1
+      topology.kubernetes.io/zone: us-west2-a
+```
+
+### More About Endpoint Slices
+
+EndpointSlices are an alpha feature in Kubernetes 1.16 and not enabled by default. The Endpoints API will continue to be enabled by default, but we’re working to move the largest Endpoints consumers to the new EndpointSlice API. Notably, kube-proxy in Kubernetes 1.16 includes alpha support for EndpointSlices.
+
+The official Kubernetes documentation contains more information about EndpointSlices as well as how to enable them in your cluster. There’s also a [great KubeCon talk](https://www.youtube.com/watch?v=Y5JOCCbJ_Fg) that provides more background on the initial rationale for developing this API.
 
 #### Notable Feature Updates
 

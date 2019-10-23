@@ -28,7 +28,7 @@ Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernet
 -->
 [`kubectl`](/docs/tasks/tools/install-kubectl/) 是 Kubernetes 命令行工具，可以用来操控 Kubernetes 集群。
 
-## Kubeadm 
+## Kubeadm
 
 <!--
 [`kubeadm`](/docs/tasks/tools/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
@@ -54,13 +54,13 @@ development and testing purposes.
 [`minikube`](/docs/tasks/tools/install-minikube/) 是一个可以方便用户在其工作站点本地部署一个单节点 Kubernetes 集群的工具，用于开发和测试。
 
 
-## Dashboard 
+## Dashboard
 
 <!--
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
-to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. 
+to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
 -->
-[`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), 是 Kubernetes 基于 Web 的用户管理界面，允许用户部署容器化应用到 Kubernetes 集群，进行故障排查以及管理集群和集群资源。 
+[`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), 是 Kubernetes 基于 Web 的用户管理界面，允许用户部署容器化应用到 Kubernetes 集群，进行故障排查以及管理集群和集群资源。
 
 ## Helm
 

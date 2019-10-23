@@ -164,7 +164,7 @@ client_address=10.240.0.3
 为了防止这种情况发生，Kubernetes 提供了一个特性来保留客户端的源 IP 地址[(点击此处查看可用特性)](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)。设置 `service.spec.externalTrafficPolicy` 的值为 `Local`，请求就只会被代理到本地 endpoints 而不会被转发到其它节点。这样就保留了最初的源 IP 地址。如果没有本地 endpoints，发送到这个节点的数据包将会被丢弃。这样在应用到数据包的任何包处理规则下，你都能依赖这个正确的 source-ip 使数据包通过并到达 endpoint。
 
 
-设置 `service.spec.externalTrafficPolicy` 字段如下： 
+设置 `service.spec.externalTrafficPolicy` 字段如下：
 
 ```console
 $ kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'

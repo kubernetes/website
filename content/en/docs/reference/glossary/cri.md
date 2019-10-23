@@ -11,7 +11,7 @@ aka:
 tags:
 - fundamental
 ---
-The container runtime interface (CRI) is an an API for container runtimes
+The container runtime interface (CRI) is an API for container runtimes
 to integrate with kubelet on a node.
 <!--more-->
 

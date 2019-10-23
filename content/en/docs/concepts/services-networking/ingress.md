@@ -319,8 +319,8 @@ type: kubernetes.io/tls
 
 Referencing this secret in an Ingress tells the Ingress controller to
 secure the channel from the client to the load balancer using TLS. You need to make
-sure the TLS secret you created came from a certificate that contains a CN
-for `sslexample.foo.com`.
+sure the TLS secret you created came from a certificate that contains a Common
+Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `sslexample.foo.com`.
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -454,7 +454,7 @@ You can achieve the same outcome by invoking `kubectl replace -f` on a modified 
 ## Failing across availability zones
 
 Techniques for spreading traffic across failure domains differs between cloud providers.
-Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](/docs/concepts/cluster-administration/federation/)
+Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](https://github.com/kubernetes-sigs/federation-v2)
 for details on deploying Ingress in a federated cluster.
 
 ## Future Work

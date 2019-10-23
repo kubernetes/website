@@ -51,7 +51,6 @@ toc:
   - docs/getting-started-guides/gce.md
   - title: Running Kubernetes on IBM Cloud
     path: https://github.com/patrocinio/kubernetes-softlayer
-  - docs/getting-started-guides/stackpoint.md
 
 - title: Custom Solutions
   landing_page: /docs/getting-started-guides/coreos/index/

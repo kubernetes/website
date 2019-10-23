@@ -6,7 +6,7 @@ weight: 20
 
 {{% capture overview %}}
 
-Dieses Dokument katalogisiert die Kommunikationspfade zwischen dem Master (eigentlich dem Apiserver) und des Kubernetes-Clusters. 
+Dieses Dokument katalogisiert die Kommunikationspfade zwischen dem Master (eigentlich dem Apiserver) und des Kubernetes-Clusters.
 Die Absicht besteht darin, Benutzern die Möglichkeit zu geben, ihre Installation so anzupassen, dass die Netzwerkkonfiguration so abgesichert wird, dass der Cluster in einem nicht vertrauenswürdigen Netzwerk (oder mit vollständig öffentlichen IP-Adressen eines Cloud-Providers) ausgeführt werden kann.
 
 {{% /capture %}}
@@ -34,7 +34,7 @@ Der Standardbetriebsmodus für Verbindungen vom Cluster (Knoten und Pods, die au
 ## Master zum Cluster
 
 Es gibt zwei primäre Kommunikationspfade vom Master (Apiserver) zum Cluster.
-Der erste ist vom Apiserver bis zum Kubelet-Prozess, der auf jedem Node im Cluster ausgeführt wird. 
+Der erste ist vom Apiserver bis zum Kubelet-Prozess, der auf jedem Node im Cluster ausgeführt wird.
 Der zweite ist vom Apiserver zu einem beliebigen Node, Pod oder Dienst über die Proxy-Funktionalität des Apiservers.
 
 ### Apiserver zum kubelet
