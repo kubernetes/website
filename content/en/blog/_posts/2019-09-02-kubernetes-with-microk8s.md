@@ -4,13 +4,13 @@ date: 2019-09-02
 ---
 **Authors**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation; [Carmine Rimi](https://twitter.com/carminerimi), Product Manager, Canonical
 
-This is article #2 in a series about local deployment options on Linux, and it will cover [MicroK8s](https://microk8s.io/)  - the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
+This is article the second in a series about local deployment options on Linux, and it will cover [MicroK8s](https://microk8s.io/)  -the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
 
-While Minikube usually spins-up a local virtual machine (VM) for the Kubernetes cluster, MicroK8s doesn’t require a VM - it uses [snap](https://snapcraft.io/) packages, an application packaging and isolation technology (also originally developed by Canonical).
+While Minikube usually spins-up a local virtual machine (VM) for the Kubernetes cluster, MicroK8s doesn’t require a VM. It uses [snap](https://snapcraft.io/) packages, an application packaging and isolation technology (also originally developed by Canonical).
 
-This difference has its pros and cons. Here we’ll discuss a few of the interesting differences, comparing the benefits of a VM based approach with the benefits of a non-VM approach. One of the first factors is cross-platform portability. While a Minikube VM is portable across operating systems - it supports not only Linux, but Windows, macOS, and even FreeBSD - Microk8s requires Linux, and only on those distributions [that support snaps](https://snapcraft.io/docs/installing-snapd). Most popular Linux distributions are supported. 
+This difference has its pros and cons. Here we’ll discuss a few of the interesting differences, and comparing the benefits of a VM based approach with the benefits of a non-VM approach. One of the first factors is cross-platform portability. While a Minikube VM is portable across operating systems - it supports not only Linux, but Windows, macOS, and even FreeBSD - Microk8s requires Linux, and only on those distributions [that support snaps](https://snapcraft.io/docs/installing-snapd). Most popular Linux distributions are supported. 
 
-Another factor to consider is resource consumption. Whereas a VM appliance gives you greater portability, it does mean you’ll consume more resources to run the VM, primarily because the VM ships a complete operating system, and runs on top of a hypervisor. You’ll consume more disk space when the VM is dormant. You’ll consume more RAM and CPU while it is running. Since Microk8s doesn’t require spinning up a virtual machine you’ll have more resources to run your workloads and other applications. Given its smaller footprint, MicroK8s is ideal for IoT devices - you can even use it on a Raspberry Pi device!
+Another factor to consider is resource consumption. While a VM appliance gives you greater portability, it does mean you’ll consume more resources to run the VM, primarily because the VM ships a complete operating system, and runs on top of a hypervisor. You’ll consume more disk space when the VM is dormant. You’ll consume more RAM and CPU while it is running. Since Microk8s doesn’t require spinning up a virtual machine you’ll have more resources to run your workloads and other applications. Given its smaller footprint, MicroK8s is ideal for IoT devices - you can even use it on a Raspberry Pi device!
 
 Finally, the projects appear to follow a different release cadence and strategy. MicroK8s, and snaps in general provide [channels](https://snapcraft.io/docs/channels) that allow you to consume beta and release candidate versions of new releases of Kubernetes, as well as the previous stable release. Microk8s generally releases the stable release of upstream Kubernetes almost immediately.
 
@@ -18,7 +18,7 @@ But wait, there’s more! Minikube and MicroK8s both started as single-node clus
 
 ## Disclaimer
 
-This is not an official guide to MicroK8s. You may find detailed information on running and using MicroK8s on it's official [webpage](https://microk8s.io/docs/), where different use cases, operating systems, environments, etc. are covered. Instead, the purpose of this guide is to provide clear and easy guidelines for running MicroK8s on Linux.
+This is not an official guide to MicroK8s. You may find detailed information on running and using MicroK8s on it's official [webpage](https://microk8s.io/docs/), where different use cases, operating systems, environments, etc. are covered. Instead, the purpose of this post is to provide clear and easy guidelines for running MicroK8s on Linux.
 
 ## Prerequisites
 
@@ -124,7 +124,7 @@ kubectl get pods
 <center>{{<figure width="600" src="/images/blog/2019-09-02-kubernetes-with-microk8s/007-deployments.png">}}</center>
 
 
-Also, we may retrieve the full output of all available objects within our Kubernetes cluster:
+Also, we can retrieve the full output of all available objects within our Kubernetes cluster:
 
 ```shell
 kubectl get all --all-namespaces
@@ -135,7 +135,7 @@ kubectl get all --all-namespaces
 
 ## Uninstalling MicroK8s
 
-Uninstalling the microk8s cluster is so easy as uninstalling the snap:
+Uninstalling your microk8s cluster is so easy as uninstalling the snap:
 
 ```shell
 sudo snap remove microk8s
