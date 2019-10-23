@@ -98,8 +98,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 Minikube 실행 파일을 사용자 실행 경로에 추가하는 가장 쉬운 방법은 다음과 같다.
 
 ```shell
-sudo mkdir -p /usr/local/bin/
-sudo install minikube /usr/local/bin/
+sudo install minikube /usr/local/bin
 ```
 
 {{% /tab %}}

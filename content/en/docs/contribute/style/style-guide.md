@@ -73,9 +73,9 @@ represents.
 
 1. Display information about a Pod:
 
-        kubectl describe pod <pod-name> -n <namespace>
+        kubectl describe pod <pod-name>
 
-    If the namespace of the pod is `default`, you can omit the '-n' parameter.
+    where `<pod-name>` is the name of one of your Pods.
 
 ### Use bold for user interface elements
 

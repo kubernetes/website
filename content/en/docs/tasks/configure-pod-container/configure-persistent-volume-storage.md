@@ -160,24 +160,6 @@ hostPath volume:
 
     Hello from Kubernetes storage
 
-## Clean up
-
-Delete the Pod,  the PersistentVolumeClaim and the PersistentVolume:
-
-```shell
-kubectl delete pod task-pv-pod
-kubectl delete pvc task-pv-claim
-kubectl delete pv task-pv-volume
-```
-
-Open the shell to the Node in your cluster again (how you open a shell depends on how
-you set up your cluster. For example, if you are using Minikube, you can open a
-shell to your Node by entering `minikube ssh`) and remove the file:
-
-```shell
-sudo rm -rf /mnt/data
-```
-
 {{% /capture %}}
 
 

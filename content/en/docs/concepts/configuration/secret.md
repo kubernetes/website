@@ -76,12 +76,9 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 secret "db-user-pass" created
 ```
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
-
-```
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
-```
-
+Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
  You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
@@ -797,13 +794,14 @@ kubectl create secret generic test-db-secret --from-literal=username=testuser --
 secret "test-db-secret" created
 ```
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
-```
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+```shell
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
 ```
 
- You do not need to escape special characters in passwords from files (`--from-file`).
+You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 Now make the pods:

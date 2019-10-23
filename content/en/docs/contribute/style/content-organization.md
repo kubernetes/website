@@ -131,8 +131,7 @@ The [SASS](https://sass-lang.com/) source of the stylesheets for this site is st
 
 {{% capture whatsnext %}}
 
-* Learn about [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
-* Learn about the [Style guide](/docs/contribute/style/style-guide)
-* Learn about the [Content guide](/docs/contribute/style/content-guide)
+* [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
+* [Style guide](/docs/contribute/style/style-guide)
 
 {{% /capture %}}

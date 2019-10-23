@@ -169,9 +169,6 @@ kind: Deployment
 metadata:
   name: hello-python
 spec:
-  selector:
-    matchLabels:
-      app: hello-python
   replicas: 4
   template:
     metadata:

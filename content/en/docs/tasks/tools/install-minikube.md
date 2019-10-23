@@ -98,8 +98,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 Here's an easy way to add the Minikube executable to your path:
 
 ```shell
-sudo mkdir -p /usr/local/bin/
-sudo install minikube /usr/local/bin/
+sudo install minikube /usr/local/bin
 ```
 
 {{% /tab %}}
