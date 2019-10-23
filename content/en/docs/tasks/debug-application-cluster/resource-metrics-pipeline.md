@@ -8,7 +8,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Starting from Kubernetes 1.8, resource usage metrics, such as container CPU and memory usage,
+Resource usage metrics, such as container CPU and memory usage,
 are available in Kubernetes through the Metrics API. These metrics can be either accessed directly
 by user, for example by using `kubectl top` command, or used by a controller in the cluster, e.g.
 Horizontal Pod Autoscaler, to make decisions.
@@ -40,16 +40,14 @@ The API requires metrics server to be deployed in the cluster. Otherwise it will
 ## Metrics Server
 
 [Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data.
-Starting from Kubernetes 1.8 it's deployed by default in clusters created by `kube-up.sh` script
+It is deployed by default in clusters created by `kube-up.sh` script
 as a Deployment object. If you use a different Kubernetes setup mechanism you can deploy it using the provided
 [deployment yamls](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy).
-It's supported in Kubernetes 1.7+ (see details below).
 
 Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
 
 Metrics Server registered in the main API server through
-[Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/),
-which was introduced in Kubernetes 1.7.
+[Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
 
 Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
 
