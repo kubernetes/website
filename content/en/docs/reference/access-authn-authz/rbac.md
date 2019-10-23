@@ -13,7 +13,7 @@ Role-based access control (RBAC) is a method of regulating access to computer or
 {{% /capture %}}
 
 {{% capture body %}}
-`RBAC` uses the `rbac.authorization.k8s.io` API group
+`RBAC` uses the `rbac.authorization.k8s.io` {{< glossary_tooltip text="API Group" term_id="api-group" >}}
 to drive authorization decisions, allowing admins to dynamically configure policies
 through the Kubernetes API.
 
@@ -286,7 +286,7 @@ rules:
 
 Only the `rules` section is shown in the following examples.
 
-Allow reading the resource "pods" in the core API group:
+Allow reading the resource "pods" in the core {{< glossary_tooltip text="API Group" term_id="api-group" >}}:
 
 ```yaml
 rules:
