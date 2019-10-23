@@ -169,7 +169,7 @@ Follow the steps given below to update your Deployment:
     deployment.apps/nginx-deployment image updated
     ```
 
-   Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
+    Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
     
     ```shell
     kubectl edit deployment.v1.apps/nginx-deployment
