@@ -549,7 +549,7 @@ serve it locally.
 
 Alternatively, you can install and use the `hugo` command on your development machine:
 
-1.  [Install Hugo](https://gohugo.io/getting-started/installing/) version {{< hugoVersion >}} or later.
+1.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml).
 
 2.  In a terminal, go to the root directory of your clone of the Kubernetes
     docs, and enter this command:
