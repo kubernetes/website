@@ -298,7 +298,7 @@ kube-scheduler 有一系列的默认调度策略。
 
 - `TaintTolerationPriority`：基于 Pod 中对每个 Node 上污点容忍程度进行优先级评估，这个策略能够调整待选 Node 的排名。
 
-- `ImageLocalityPriority`：Node 上已经拥有Pod需要的 {{< glossary_tooltip text="container images" term_id="image" >}} 的 Node 会有较高的优先级。
+- `ImageLocalityPriority`：Node 上已经拥有Pod需要的 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 的 Node 会有较高的优先级。
 
 - `ServiceSpreadingPriority`：这个调度策略的主要目的是确保将归属于同一个 Service 的 Pod 调度到不同的 Node 上。如果 Node 上
   没有归属于同一个 Service 的 Pod，这个策略更倾向于将 Pod 调度到这类 Node 上。最终的目的：即使在一个 Node 宕机之后 Service 也具有很强容灾能力。
