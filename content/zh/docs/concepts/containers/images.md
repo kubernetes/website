@@ -131,7 +131,7 @@ Docker将私有仓库的密钥存放在`$HOME/.dockercfg`或`$HOME/.docker/confi
 	 - 如果使用node IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
    1.将本地的`.docker/config.json`拷贝到每个节点root用户目录下
      - 例如： `for n in $nodes; do scp ~/.docker/config.json root@$n:/root/.docker/config.json; done`
-	 
+	
 创建使用私有仓库的pod来验证，例如：
 
 ```yaml

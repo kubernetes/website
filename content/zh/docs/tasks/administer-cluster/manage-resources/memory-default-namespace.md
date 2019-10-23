@@ -265,7 +265,7 @@ Here are two of the restrictions that a resource quota imposes on a namespace:
 -->
 
 * 运行在命名空间中的每个容器必须有自己的内存限制。
-* 命名空间中所有容器的内存使用量之和不能超过声明的限制值。 
+* 命名空间中所有容器的内存使用量之和不能超过声明的限制值。
 
 <!--
 If a Container does not specify its own memory limit, it is given the default limit, and then

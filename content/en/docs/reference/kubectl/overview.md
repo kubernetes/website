@@ -94,7 +94,6 @@ Operation       | Syntax    |       Description
 `rolling-update`    | `kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE \| -f NEW_CONTROLLER_SPEC) [flags]` | Perform a rolling update by gradually replacing the specified replication controller and its pods.
 `run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | Run a specified image on the cluster.
 `scale`        | `kubectl scale (-f FILENAME \| TYPE NAME \| TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]` | Update the size of the specified replication controller.
-`stop`        | `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
 Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.

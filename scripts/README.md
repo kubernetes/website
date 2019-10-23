@@ -1,12 +1,14 @@
 # Development scripts for Kubernetes documentation
 
-- `find_pr.py`: Find what GitHub pull requests touch a given file.
-- `upstream_changes.py`: Find what changes occurred between two versions
-- `test_examples.sh`: This script tests whether a change affects example files bundled in the website.
-- `check-headers-file.sh`: This script checks the headers if you are in a production environment.
-- `hugo-version-check.sh`: This script checks whether your local Hugo version matches the version used in production.
-- `diff_l10n_branches.py`: This script generates a report of outdated contents in `content/<l10n-lang>` directory 
-by comparing two l10n team milestone branches.
+| Script                  | Description                                                                                                                           |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `find_pr.py`            | Find what GitHub pull requests touch a given file.                                                                                    |
+| `upstream_changes.py`   | Find what changes occurred between two versions.                                                                                      |
+| `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
+| `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
+| `hugo-version-check.sh` | This script checks whether your local Hugo version matches the version used in production.                                            |
+| `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
+
 
 
 ## Requirements

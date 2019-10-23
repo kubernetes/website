@@ -14,7 +14,7 @@ This page shows how to access clusters using the Kubernetes API.
 
 {{% capture steps %}}
 
-## Accessing the cluster API
+## Accessing the Kubernetes API
 
 ### Accessing for the first time with kubectl
 
@@ -161,28 +161,36 @@ Kubernetes officially supports client libraries for [Go](#go-client) and
 
 #### Go client
 
-* To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
-* Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
+* To get the library, run the following command: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>` See [https://github.com/kubernetes/client-go/releases](https://github.com/kubernetes/client-go/releases) to see which versions are supported.
+* Write an application atop of the client-go clients.
+
+{{< note >}}
+
+client-go defines its own API objects, so if needed, import API definitions from client-go rather than from the main repository. For example, `import "k8s.io/client-go/kubernetes"` is correct.
+
+{{< /note >}}
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 
 ```golang
 import (
-   "fmt"
-   "k8s.io/client-go/1.4/kubernetes"
-   "k8s.io/client-go/1.4/pkg/api/v1"
-   "k8s.io/client-go/1.4/tools/clientcmd"
+  "fmt"
+  "k8s.io/apimachinery/pkg/apis/meta/v1"
+  "k8s.io/client-go/kubernetes"
+  "k8s.io/client-go/tools/clientcmd"
 )
-...
-   // uses the current context in kubeconfig
-   config, _ := clientcmd.BuildConfigFromFlags("", "path to kubeconfig")
-   // creates the clientset
-   clientset, _:= kubernetes.NewForConfig(config)
-   // access the API to list pods
-   pods, _:= clientset.CoreV1().Pods("").List(v1.ListOptions{})
-   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
-...
+
+func main() {
+  // uses the current context in kubeconfig
+  // path-to-kubeconfig -- for example, /root/.kube/config
+  config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
+  // creates the clientset
+  clientset, _ := kubernetes.NewForConfig(config)
+  // access the API to list pods
+  pods, _ := clientset.CoreV1().Pods("").List(v1.ListOptions{})
+  fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
+}
 ```
 
 If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
@@ -192,7 +200,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py):
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
 
 ```python
 from kubernetes import client, config
@@ -239,11 +247,14 @@ at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
 From within a Pod, the recommended ways to connect to the Kubernetes API are:
 
-  - Use one of the official [client libraries](/docs/reference/using-api/client-libraries/)
-    as they handle API host discovery and authentication automatically.
-    For Go client, the `rest.InClusterConfig()` function assists with this.
+  - For a Go client, use the official [Go client library](https://github.com/kubernetes/client-go/).
+    The `rest.InClusterConfig()` function handles API host discovery and authentication automatically.
     See [an example here](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go).
 
+  - For a Python client, use the official [Python client library](https://github.com/kubernetes-client/python/).
+    The `config.load_incluster_config()` function handles API host discovery and authentication automatically.
+    See [an example here](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
+    
   - If you would like to query the API without an official client library, you can run `kubectl proxy`
     as the [command](/docs/tasks/inject-data-application/define-command-argument-container/)
     of a new sidecar container in the Pod. This way, `kubectl proxy` will authenticate

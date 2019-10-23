@@ -64,7 +64,7 @@ Get a local clone of the following repositories:
 go get -u github.com/spf13/pflag
 go get -u github.com/spf13/cobra
 go get -u gopkg.in/yaml.v2
-go get -u kubernetes-incubator/reference-docs
+go get -u kubernetes-sigs/reference-docs
 ```
 
 If you don't already have the kubernetes/website repository, get it now:
@@ -101,9 +101,9 @@ base directory is `$GOPATH/src/github.com/<your-username>/website.`
 The remaining steps refer to your base directory as `<web-base>`.
 
 * Determine the base directory of your clone of the
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs) repository.
+[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
+base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
 In your local k8s.io/kubernetes repository, check out the branch of interest,
@@ -201,7 +201,7 @@ git pull https://github.com/kubernetes/kubernetes release-1.15
 
 ## Running the doc generation code
 
-In your local kubernetes-incubator/reference-docs repository, build and run the
+In your local kubernetes-sigs/reference-docs repository, build and run the
 kubectl command reference generation code. You might need to run the command as root:
 
 ```shell

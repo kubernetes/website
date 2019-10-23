@@ -5,7 +5,7 @@ Utilisez cette commande afin de configurer le control plane Kubernetes
 
 Utilisez cette commande afin de configurer le control plane Kubernetes
 
-La commande "init" exécute les phases suivantes : 
+La commande "init" exécute les phases suivantes :
 ```
 preflight                  Exécute les vérifications en amont
 kubelet-start              Sauvegarde les réglages kubelet et (re)démarre kubelet

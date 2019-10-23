@@ -161,8 +161,8 @@ to stop.
 If your Container usually starts in more than `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a startup probe that checks the same endpoint as the liveness probe. The default for `periodSeconds` is 30s.
 You should then set its `failureThreshold` high enough to allow the Container to start, without changing the default values of the liveness probe. This helps to protect against deadlocks.
 
-For more information about how to set up a liveness or readiness probe, see
-[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+For more information about how to set up a liveness, readiness, startup probe, see
+[Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ## Pod and Container status
 
@@ -397,7 +397,7 @@ spec:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Get hands-on experience
-  [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+  [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
