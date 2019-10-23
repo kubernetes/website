@@ -364,7 +364,7 @@ iptables mode for kube-proxy became the default.
 Kubernetes v1.8 added ipvs proxy mode.
 -->
 
-###版本兼容性
+### 版本兼容性
 
 从Kubernetes v1.0开始，您已经可以使用 [用户空间代理模式](#proxy-mode-userspace)。
 Kubernetes v1.1添加了 iptables 模式代理，在 Kubernetes v1.2 中，kube-proxy 的 iptables 模式成为默认设置。
