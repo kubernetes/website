@@ -39,7 +39,7 @@ Minikube 支持以下 Kubernetes 功能：
 * NodePorts
 * ConfigMaps and Secrets
 * Dashboards
-* Container Runtime: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o), and [containerd](https://github.com/containerd/containerd)
+* Container Runtime: Docker, [CRI-O](https://github.com/kubernetes-incubator/cri-o), and [containerd](https://github.com/containerd/containerd)
 * Enabling CNI (Container Network Interface)
 * Ingress
 -->
@@ -48,7 +48,7 @@ Minikube 支持以下 Kubernetes 功能：
 * NodePorts
 * ConfigMaps 和 Secrets
 * Dashboards
-* 容器运行时: Docker、[rkt](https://github.com/rkt/rkt)、[CRI-O](https://github.com/kubernetes-incubator/cri-o) 以及 [containerd](https://github.com/containerd/containerd)
+* 容器运行时: Docker、[CRI-O](https://github.com/kubernetes-incubator/cri-o) 以及 [containerd](https://github.com/containerd/containerd)
 * 启用 CNI （容器网络接口）
 * Ingress
 
@@ -494,23 +494,6 @@ minikube start \
     --bootstrapper=kubeadm
 ```
 {{% /tab %}}
-{{% tab name="rkt container engine" %}}
-<!--
-To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
--->
-使用 [rkt](https://github.com/rkt/rkt) 作为容器运行时，请运行：
-
-```shell
-minikube start \
-    --network-plugin=cni \
-    --enable-default-cni \
-    --container-runtime=rkt
-```
-<!--
-This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
--->
-这将使用包含 rkt 和 Docker 的替代 minikube ISO 映像，并启用 CNI 网络。
-{{% /tab %}}
 {{< /tabs >}}
 
 <!--
@@ -895,15 +878,9 @@ export no_proxy=$no_proxy,$(minikube ip)
 ## 已知的问题
 
 <!--
-* Features that require a Cloud Provider will not work in Minikube. These include:
-  * LoadBalancers
-* Features that require multiple nodes. These include:
-  * Advanced scheduling policies
+Features that require multiple nodes will not work in Minikube.
 -->
-* 需要云供应商的提供的功能在 Minikube 中无法工作。这些包括：
-  * 负载均衡
-* 需要多节点的功能。这些包括：
-  * 先进的调度策略
+需要多个节点的功能无法在 Minikube 中使用。
 
 <!--
 ## Design
