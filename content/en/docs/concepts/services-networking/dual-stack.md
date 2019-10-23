@@ -45,7 +45,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 
 ## Enable IPv4/IPv6 dual-stack
 
-To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
+To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
