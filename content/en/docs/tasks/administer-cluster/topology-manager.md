@@ -47,7 +47,7 @@ The hint is then stored in the Topology Manager for use by the *Hint Providers* 
 
 The Topology Manager currently:
 
- - Works on Nodes with the `static` CPU Manager Policy enabled. See [control CPU Management Policies](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/)
+ - Works on Nodes with the `static` CPU Manager Policy enabled. See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/)
  - Works on Pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
 
 If these conditions are met, Topology Manager will align CPU and device requests.

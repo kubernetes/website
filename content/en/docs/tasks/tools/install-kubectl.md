@@ -189,8 +189,8 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     kubectl version
     ```
 {{< note >}}
-[Docker for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
-If you have installed Docker before, you may need to place your PATH entry before the one added by Docker installer or remove the Docker's `kubectl`.
+[Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
+If you have installed Docker Desktop before, you may need to place your PATH entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
 {{< /note >}}
 
 ### Install with Powershell from PSGallery
@@ -281,7 +281,7 @@ You can install kubectl as part of the Google Cloud SDK.
 
 ## Verifying kubectl configuration 
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using `kube-up.sh` or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
+In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
 
 Check that kubectl is properly configured by getting the cluster state:
 

@@ -8,7 +8,10 @@
     <h3>{{ $caseStudiesSection.Title }}</h3>
     <div id="caseStudiesWrapper">
       {{ range $caseStudiesPages }}
-      {{ $logo := .Resources.GetMatch "**logo*.png" }}
+			{{ $logo := .Resources.GetMatch "**{feature,logo}*.svg" }}
+			{{ if not $logo }}
+				{{ $logo = .Resources.GetMatch "**logo*.png" }}
+			{{ end }}
       <div>
         {{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
         <p>"{{ .Params.quote | truncate 100 }}"</p>
