@@ -10,11 +10,8 @@ card:
 ---
 
 {{% capture overview %}}
-When you deploy Kubernetes, you get a cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="A cluster is">}}
-
-This document outlines the various components you need to have
-a complete and working Kubernetes cluster.
+This document outlines the various binary components needed to
+deliver a functioning Kubernetes cluster.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -112,13 +109,12 @@ about containers in a central database, and provides a UI for browsing that data
 
 ### Cluster-level Logging
 
-A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
+A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
 {{% /capture %}}
 {{% capture whatsnext %}}
 * Learn about [Nodes](/docs/concepts/architecture/nodes/)
-* Learn about [Controllers](/docs/concepts/architecture/controller/)
 * Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
 {{% /capture %}}

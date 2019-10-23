@@ -401,6 +401,7 @@ metadata:
   name: compute-resources
 spec:
   hard:
+    pods: "4"
     requests.cpu: "1"
     requests.memory: 1Gi
     limits.cpu: "2"
@@ -423,7 +424,6 @@ spec:
   hard:
     configmaps: "10"
     persistentvolumeclaims: "4"
-    pods: "4"
     replicationcontrollers: "20"
     secrets: "10"
     services: "10"
@@ -456,6 +456,7 @@ Resource                 Used  Hard
 --------                 ----  ----
 limits.cpu               0     2
 limits.memory            0     2Gi
+pods                     0     4
 requests.cpu             0     1
 requests.memory          0     1Gi
 requests.nvidia.com/gpu  0     4
@@ -472,7 +473,6 @@ Resource                Used    Hard
 --------                ----    ----
 configmaps              0       10
 persistentvolumeclaims  0       4
-pods                    0       4
 replicationcontrollers  0       20
 secrets                 1       10
 services                0       10

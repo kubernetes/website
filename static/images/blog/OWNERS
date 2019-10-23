@@ -1,0 +1,11 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Owned by Kubernetes Blog reviewers.
+options:
+  no_parent_owners: true
+# reviewers: // List any reviewers here
+approvers:
+  - kbarnard10
+  - natekartchner
+  - sarahkconway
+  - zacharysarah

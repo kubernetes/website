@@ -122,7 +122,7 @@
 /docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
-/docs/concepts/overview/object-management-kubectl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
+/docs/concepts/overview/object-management-kubetcl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
 /docs/concepts/overview/object-management-kubectl/declarative-config/     /docs/tasks/manage-kubernetes-objects/declarative-config/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
@@ -240,10 +240,6 @@
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
-/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
-/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
-/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
-/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-8/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-1-9/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9/ 301
@@ -268,7 +264,6 @@
 /docs/tasks/configure-pod-container/cilium-network-policy/     /docs/tasks/administer-cluster/cilium-network-policy/ 301
 /docs/tasks/configure-pod-container/communicate-containers-same-pod/     /docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/ 301
 /docs/tasks/configure-pod-container/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
-/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
 /docs/tasks/configure-pod-container/declare-network-policy/     /docs/tasks/administer-cluster/declare-network-policy/ 301
 /docs/tasks/configure-pod-container/define-command-argument-container/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/tasks/configure-pod-container/define-environment-variable-container/     /docs/tasks/inject-data-application/define-environment-variable-container/ 301
@@ -401,7 +396,7 @@
 /docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
-/docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
+/docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
 /docs/user-guide/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/user-guide/logging/elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
@@ -531,6 +526,7 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/setup/turnkey/clc/     /docs/setup/production-environment/turnkey/clc/   301
 /docs/setup/turnkey/gce/     /docs/setup/production-environment/turnkey/gce/   301
 /docs/setup/turnkey/icp/     /docs/setup/production-environment/turnkey/icp/   301
+/docs/setup/turnkey/stackpoint/     /docs/setup/production-environment/turnkey/stackpoint/   301
 /docs/setup/on-premises-vm/cloudstack/     /docs/setup/production-environment/on-premises-vm/cloudstack/   301
 /docs/setup/on-premises-vm/dcos/     /docs/setup/production-environment/on-premises-vm/dcos/   301
 /docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301

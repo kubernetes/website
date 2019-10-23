@@ -10,7 +10,7 @@
       {{ range $caseStudiesPages }}
       {{ $logo := .Resources.GetMatch "**logo*.png" }}
       <div>
-        {{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+        {{ with $logo }}<img src="{{ .RelPermalink }}">{{ end }}
         <p>"{{ .Params.quote | truncate 100 }}"</p>
         <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
       </div>

@@ -1,0 +1,383 @@
+When you run the generator for the kubectl command ref docs,
+you get a set of markdown files in
+kubernetes-incubator/reference-docs/gen-kubectldocs/generators/build/documents.
+
+This file is a diff of the build/documents directory for 1.11
+and the build/documents directory for 1.12.
+
+
+diff -r v1_11/_generated_apply.md v1_12/_generated_apply.md
+56c56
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+62a63
+> server-dry-run |  | false | If true, request will be sent to server with dry-run flag, which means the modifications won't be persisted. This is an alpha feature and flag. 
+105a107
+> allow-missing-template-keys |  | true | If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. 
+108c110
+< output | o | yaml | Output format. One of: yaml&#124;json. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+110a113
+> template |  |  | Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview]. 
+154c157
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath-file&#124;jsonpath. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_auth.md v1_12/_generated_auth.md
+105c105
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+106a107,108
+> remove-extra-permissions |  | false | If true, removes extra permissions added to roles 
+> remove-extra-subjects |  | false | If true, removes extra subjects added to rolebindings 
+
+
+diff -r v1_11/_generated_autoscale.md v1_12/_generated_autoscale.md
+41c41
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_certificate.md v1_12/_generated_certificate.md
+70c70
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_cluster-info.md v1_12/_generated_cluster-info.md
+67c67
+< output | o | json | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o | json | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath-file&#124;jsonpath. 
+
+
+diff -r v1_11/_generated_completion.md v1_12/_generated_completion.md
+24c24
+< >bdocs-tab:example Installing bash completion on Linux ## Load the kubectl completion code for bash into the current shell
+---
+> >bdocs-tab:example Installing bash completion on Linux ## If bash-completion is not installed on Linux, please install the 'bash-completion' package ## via your distribution's package manager. ## Load the kubectl completion code for bash into the current shell
+
+
+diff -r v1_11/_generated_config.md v1_12/_generated_config.md
+12,13c12,13
+<   1. If the --kubeconfig flag is set, then only that file is loaded.  The flag may only be set once and no merging takes place.  
+<   2. If $KUBECONFIG environment variable is set, then it is used a list of paths (normal path delimitting rules for your system).  These paths are merged.  When a value is modified, it is modified in the file that defines the stanza.  When a value is created, it is created in the first file that exists.  If no files in the chain exist, then it creates the last file in the list.  
+---
+>   1. If the --kubeconfig flag is set, then only that file is loaded. The flag may only be set once and no merging takes place.  
+>   2. If $KUBECONFIG environment variable is set, then it is used as a list of paths (normal path delimitting rules for your system). These paths are merged. When a value is modified, it is modified in the file that defines the stanza. When a value is created, it is created in the first file that exists. If no files in the chain exist, then it creates the last file in the list.  
+246c246
+< `$ set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]`
+---
+> `$ set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]`
+249a250,256
+> ### Flags
+> 
+> Name | Shorthand | Default | Usage
+> ---- | --------- | ------- | ----- 
+> current |  | false | Modify the current context 
+> 
+> 
+414c421
+< output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_convert.md v1_12/_generated_convert.md
+44,45c44,45
+< output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+< output-version |  |  | Output the formatted object with the given group version (for ex: 'extensions/v1beta1').) 
+---
+> output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+> output-version |  |  | Output the formatted object with the given group version (for ex: 'extensions/v1beta1'). 
+
+
+diff -r v1_11/_generated_create.md v1_12/_generated_create.md
+111c111
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+217c217
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+251c251
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+261a262,273
+> >bdocs-tab:example Create a job
+> 
+> ```bdocs-tab:example_shell
+> kubectl create job my-job --image=busybox
+> ```
+> 
+> >bdocs-tab:example Create a job with command
+> 
+> ```bdocs-tab:example_shell
+> kubectl create job my-job --image=busybox -- date
+> ```
+> 
+273c285
+< `$ job NAME [--from=CRONJOB]`
+---
+> `$ job NAME [--image=image --from=cronjob/name] -- [COMMAND] [args...]`
+283a296
+> image |  |  | Image name to run. 
+358c371
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+373c386
+< kubectl create priorityclass default-priority --value=1000 --description="high priority"
+---
+> kubectl create priorityclass high-priority --value=1000 --description="high priority"
+400c413
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+441c454
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+530c543
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+664c677
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+795c808
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+829c842
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+864c877
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+898c911
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_edit.md v1_12/_generated_edit.md
+56c56
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath-file&#124;jsonpath. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_expose.md v1_12/_generated_expose.md
+59c59
+< `$ expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]`
+---
+> `$ expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP|SCTP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]`
+77c77
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_label.md v1_12/_generated_label.md
+68c68
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_logs.md v1_12/_generated_logs.md
+76d75
+< interactive |  | false | If true, prompt the user for input when required. 
+
+
+diff -r v1_11/_generated_patch.md v1_12/_generated_patch.md
+57c57
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_plugin.md v1_12/_generated_plugin.md
+8c8
+< Runs a command-line plugin. 
+---
+> Provides utilities for interacting with plugins. 
+10c10
+< Plugins are subcommands that are not part of the major command-line distribution and can even be provided by third-parties. Please refer to the documentation and examples for more information about how to install and write your own plugins.
+---
+> Plugins provide extended functionality that is not part of the major command-line distribution. Please refer to the documentation and examples for more information about how write your own plugins.
+14c14,38
+< `$ plugin NAME`
+---
+> `$ plugin [flags]`
+> 
+> 
+> 
+> ------------
+> 
+> ## <em>list</em>
+> 
+> 
+> 
+> List all available plugin files on a user's PATH. 
+> 
+> Available plugin files are those that are: - executable - anywhere on the user's PATH - begin with "kubectl-"
+> 
+> ### Usage
+> 
+> `$ list`
+> 
+> 
+> 
+> ### Flags
+> 
+> Name | Shorthand | Default | Usage
+> ---- | --------- | ------- | ----- 
+> name-only |  | false | If true, display only the binary name of each plugin, rather than its full path 
+
+
+diff -r v1_11/_generated_port-forward.md v1_12/_generated_port-forward.md
+17a18,23
+> >bdocs-tab:example Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in a pod selected by the service
+> 
+> ```bdocs-tab:example_shell
+> kubectl port-forward service/myservice 5000 6000
+> ```
+> 
+
+
+diff -r v1_11/_generated_proxy.md v1_12/_generated_proxy.md
+59a60
+> keepalive |  | 0s | keepalive specifies the keep-alive period for an active network connection. Set to 0 to disable keepalive. 
+
+
+diff -r v1_11/_generated_replace.md v1_12/_generated_replace.md
+54c54
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_rolling-update.md v1_12/_generated_rolling-update.md
+60c60
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_rollout.md v1_12/_generated_rollout.md
+61a62
+> allow-missing-template-keys |  | true | If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. 
+62a64
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+64a67
+> template |  |  | Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview]. 
+92a96
+> allow-missing-template-keys |  | true | If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. 
+93a98
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+94a100
+> template |  |  | Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview]. 
+122a129
+> allow-missing-template-keys |  | true | If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. 
+123a131
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+124a133
+> template |  |  | Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview]. 
+155a165
+> timeout |  | 0s | The length of time to wait before ending watch, zero means never. Any other values should contain a corresponding time unit (e.g. 1s, 2m, 3h). 
+194a205
+> allow-missing-template-keys |  | true | If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. 
+196a208
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+197a210
+> template |  |  | Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview]. 
+
+
+diff -r v1_11/_generated_run-container.md v1_12/_generated_run-container.md
+27c27
+< kubectl run hazelcast --image=nginx --labels="app=hazelcast,env=prod"
+---
+> kubectl run hazelcast --image=hazelcast --labels="app=hazelcast,env=prod"
+
+
+diff -r v1_11/_generated_run.md v1_12/_generated_run.md
+27c27
+< kubectl run hazelcast --image=nginx --labels="app=hazelcast,env=prod"
+---
+> kubectl run hazelcast --image=hazelcast --labels="app=hazelcast,env=prod"
+
+
+diff -r v1_11/_generated_scale.md v1_12/_generated_scale.md
+57c57
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_set.md v1_12/_generated_set.md
+180c180
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
+241c241
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+282c282
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+329c329
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath-file&#124;jsonpath. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
+diff -r v1_11/_generated_version.md v1_12/_generated_version.md
+25c25
+< client | c | false | Client version only (no server required). 
+---
+> client |  | false | Client version only (no server required). 
+
+
+diff -r v1_11/_generated_wait.md v1_12/_generated_wait.md
+5a6
+> >bdocs-tab:example Wait for the pod "busybox1" to contain the status condition of type "Ready".
+6a8,10
+> ```bdocs-tab:example_shell
+> kubectl wait --for=condition=Ready pod/busybox1
+> ```
+7a12
+> >bdocs-tab:example Wait for the pod "busybox1" to be deleted, with a timeout of 60s, after having issued the "delete" command.
+8a14,26
+> ```bdocs-tab:example_shell
+> kubectl delete pod/busybox1
+> kubectl wait --for=delete pod/busybox1 --timeout=60s
+> ```
+> 
+> 
+> Experimental: Wait for a specific condition on one or many resources. 
+> 
+> The command takes multiple resources and waits until the specified condition is seen in the Status field of every given resource. 
+> 
+> Alternatively, the command can wait for the given set of resources to be deleted by providing the "delete" keyword as the value to the --for flag. 
+> 
+> A successful message will be printed to stdout indicating when the specified condition has been met. One can use -o option to change to output destination.
+24c42
+< output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+---
+> output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 

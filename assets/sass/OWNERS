@@ -1,0 +1,10 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Allow CSS/SASS updates from blog and case studies owners 
+options:
+  no_parent_owners: false
+reviewers:
+  - alexcontini
+approvers:
+  - alexcontini
+  

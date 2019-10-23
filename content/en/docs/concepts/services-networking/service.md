@@ -547,11 +547,12 @@ spec:
       port: 80
       targetPort: 9376
   clusterIP: 10.0.171.239
+  loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-    - ip: 192.0.2.127
+      - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
@@ -601,6 +602,8 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
+Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.
+For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
 {{% /tab %}}
 {{% tab name="AWS" %}}
 ```yaml
@@ -910,11 +913,6 @@ forwarding. Should you later decide to move your database into your cluster, you
 can start its Pods, add appropriate selectors or endpoints, and change the
 Service's `type`.
 
-{{< warning >}}
-You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS. If you use ExternalName then the hostname used by clients inside your cluster is different from the name that the ExternalName references.
-
-For protocols that use hostnames this difference may lead to errors or unexpected responses. HTTP requests will have a `Host:` header that the origin server does not recognize; TLS servers will not be able to provide a certificate matching the hostname that the client connected to.
-{{< /warning >}}
 
 {{< note >}}
 This section is indebted to the [Kubernetes Tips - Part

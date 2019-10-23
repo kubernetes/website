@@ -33,7 +33,7 @@ The above list is sorted alphabetically by product name, not by recommendation o
 To see how Kubernetes network policy works, start off by creating an `nginx` deployment.
 
 ```console
-kubectl create deployment nginx --image=nginx
+kubectl run nginx --image=nginx --replicas=2
 ```
 ```none
 deployment.apps/nginx created
@@ -62,6 +62,7 @@ service/nginx               10.100.0.16   <none>        80/TCP     33s
 
 NAME                        READY         STATUS        RESTARTS   AGE
 pod/nginx-701339712-e0qfq   1/1           Running       0          35s
+pod/nginx-701339712-o00ef   1/1           Running       0          35s
 ```
 
 ## Test the service by accessing it from another pod
@@ -71,7 +72,7 @@ You should be able to access the new `nginx` service from other pods. To test, a
 Start a busybox container, and use `wget` on the `nginx` service:
 
 ```console
-kubectl run --generator=run-pod/v1 busybox --rm -ti --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox /bin/sh
 ```
 
 ```console
@@ -96,20 +97,13 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: nginx
+      run: nginx
   ingress:
   - from:
     - podSelector:
         matchLabels:
           access: "true"
 ```
-
-{{< note >}}
-
-In the case, the label `app=nginx` is automatically added.
-
-{{< /note >}}
-
 
 ## Assign the policy to the service
 
@@ -127,7 +121,7 @@ networkpolicy.networking.k8s.io/access-nginx created
 If we attempt to access the nginx Service from a pod without the correct labels, the request will now time out:
 
 ```console
-kubectl run --generator=run-pod/v1 busybox --rm -ti --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox /bin/sh
 ```
 
 ```console
@@ -146,7 +140,7 @@ wget: download timed out
 Create a pod with the correct labels, and you'll see that the request is allowed:
 
 ```console
-kubectl run --generator=run-pod/v1 busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --labels="access=true" --image=busybox /bin/sh
 ```
 
 ```console
