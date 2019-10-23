@@ -80,9 +80,7 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 
 - `imagePullPolicy: Always`: the image is pulled every time the pod is started.
 
-- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
-
-- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `IfNotPresent` is applied.
+- `imagePullPolicy` is omitted and the image tag is present: `IfNotPresent` is applied.
 
 - `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
 
