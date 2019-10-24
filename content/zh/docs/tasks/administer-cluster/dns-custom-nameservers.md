@@ -78,7 +78,7 @@ DNS 名称也需要域。 您可在 kubelet 中使用 `--cluster-domain = <defau
 The DNS server supports forward lookups (A records), port lookups (SRV records), reverse IP address lookups (PTR records),
 and more. For more information see [DNS for Services and Pods] (/docs/concepts/services-networking/dns-pod-service/). 
 -->
-DNS 服务器支持正向查找（A 记录），端口发现（SRV 记录），反向 IP 地址发现（PTR 记录）等。 更多信息，请参见[Pod 和 服务的 DNS] (/docs/concepts/services-networking/dns-pod-service/)。
+DNS 服务器支持正向查找（A 记录），端口发现（SRV 记录），反向 IP 地址发现（PTR 记录）等。 更多信息，请参见 [Pod 和 服务的 DNS](/docs/concepts/services-networking/dns-pod-service/)。
 
 <!-- 
 If a Pod's `dnsPolicy` is set to "`default`", it inherits the name resolution
