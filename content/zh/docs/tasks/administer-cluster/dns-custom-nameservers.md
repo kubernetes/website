@@ -106,7 +106,7 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications]
 (https://github.com/kubernetes/dns/blob/master/docs/specification.md). 
 -->
-CoreDNS是通用的权威DNS服务器，可以用作集群DNS，符合[dns 规范]
+CoreDNS 是通用的，权威 DNS 服务器，可以用作集群 DNS，符合 [dns 规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md)。
 (https://github.com/kubernetes/dns/blob/master/docs/specification.md)。
 
 <!-- 
