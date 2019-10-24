@@ -72,7 +72,7 @@ kubelet 使用 `--cluster-dns = <dns-service-ip>` 标志将 DNS 传递到每个�
 DNS names also need domains. You configure the local domain in the kubelet
 with the flag `--cluster-domain=<default-local-domain>`. 
 -->
-DNS 名称也需要域。 您可在 kubelet 中使用 `--cluster-domain = <default-local-domain>` 标志配置本地域。
+DNS 名称也需要域。 您可在 kubelet 中使用 `--cluster-domain = <default-local-domain>` 参数配置本地域。
 
 <!-- 
 The DNS server supports forward lookups (A records), port lookups (SRV records), reverse IP address lookups (PTR records),
