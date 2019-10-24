@@ -219,8 +219,3 @@ kubeadm join [api-server-endpoint] [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm join phase](kubeadm_join_phase.md)	 - Use this command to invoke single phase of the join workflow
-

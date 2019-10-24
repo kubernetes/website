@@ -113,7 +113,3 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
 
 
 
-SEE ALSO
-
-* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - Prepare the machine for serving a control plane
-

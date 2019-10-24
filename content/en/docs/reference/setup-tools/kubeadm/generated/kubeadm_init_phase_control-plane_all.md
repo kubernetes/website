@@ -159,7 +159,3 @@ kubeadm init phase control-plane all [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase control-plane](kubeadm_init_phase_control-plane.md)	 - Generate all static Pod manifest files necessary to establish the control plane
-

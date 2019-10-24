@@ -90,7 +90,3 @@ kubeadm init phase etcd local [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase etcd](kubeadm_init_phase_etcd.md)	 - Generate static Pod manifest file for local etcd
-

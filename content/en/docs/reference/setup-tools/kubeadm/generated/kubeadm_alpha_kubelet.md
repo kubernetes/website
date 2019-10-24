@@ -46,8 +46,3 @@ This command is not meant to be run on its own. See list of available subcommand
 
 
 
-SEE ALSO
-
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
-

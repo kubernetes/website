@@ -85,7 +85,3 @@ kubeadm upgrade node phase control-plane [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - Use this command to invoke single phase of the node workflow
-

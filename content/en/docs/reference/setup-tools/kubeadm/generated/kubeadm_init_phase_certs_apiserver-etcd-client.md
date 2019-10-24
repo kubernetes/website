@@ -89,7 +89,3 @@ kubeadm init phase certs apiserver-etcd-client [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
-

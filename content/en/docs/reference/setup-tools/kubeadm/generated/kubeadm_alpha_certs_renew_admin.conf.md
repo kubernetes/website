@@ -98,7 +98,3 @@ kubeadm alpha certs renew admin.conf [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
-

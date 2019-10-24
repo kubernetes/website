@@ -50,12 +50,3 @@ kubeadm init phase kubeconfig [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase kubeconfig admin](kubeadm_init_phase_kubeconfig_admin.md)	 - Generate a kubeconfig file for the admin to use and for kubeadm itself
-* [kubeadm init phase kubeconfig all](kubeadm_init_phase_kubeconfig_all.md)	 - Generate all kubeconfig files
-* [kubeadm init phase kubeconfig controller-manager](kubeadm_init_phase_kubeconfig_controller-manager.md)	 - Generate a kubeconfig file for the controller manager to use
-* [kubeadm init phase kubeconfig kubelet](kubeadm_init_phase_kubeconfig_kubelet.md)	 - Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
-* [kubeadm init phase kubeconfig scheduler](kubeadm_init_phase_kubeconfig_scheduler.md)	 - Generate a kubeconfig file for the scheduler to use
-

@@ -101,8 +101,3 @@ kubeadm reset [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm reset phase](kubeadm_reset_phase.md)	 - Use this command to invoke single phase of the reset workflow
-

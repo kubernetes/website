@@ -46,9 +46,3 @@ Use this command to invoke single phase of the node workflow
 
 
 
-SEE ALSO
-
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)	 - Upgrade commands for a node in the cluster
-* [kubeadm upgrade node phase control-plane](kubeadm_upgrade_node_phase_control-plane.md)	 - Upgrade the control plane instance deployed on this node, if any
-* [kubeadm upgrade node phase kubelet-config](kubeadm_upgrade_node_phase_kubelet-config.md)	 - Upgrade the kubelet configuration for this node
-

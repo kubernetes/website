@@ -257,8 +257,3 @@ kubeadm init [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-

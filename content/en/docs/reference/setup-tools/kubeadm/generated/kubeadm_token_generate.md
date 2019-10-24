@@ -74,7 +74,3 @@ kubeadm token generate [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens
-

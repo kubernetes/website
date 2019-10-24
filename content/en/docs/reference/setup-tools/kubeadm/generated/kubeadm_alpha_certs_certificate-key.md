@@ -56,7 +56,3 @@ kubeadm alpha certs certificate-key [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - Commands related to handling kubernetes certificates
-

@@ -57,7 +57,3 @@ kubeadm version [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-

@@ -106,8 +106,3 @@ kubeadm upgrade node [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
-* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - Use this command to invoke single phase of the node workflow
-

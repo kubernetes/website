@@ -88,7 +88,3 @@ source <(kubeadm completion zsh)
 
 
 
-SEE ALSO
-
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-

@@ -71,7 +71,3 @@ kubeadm upgrade node phase kubelet-config [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - Use this command to invoke single phase of the node workflow
-

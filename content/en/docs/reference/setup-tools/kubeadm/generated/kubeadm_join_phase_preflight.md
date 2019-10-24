@@ -155,7 +155,3 @@ kubeadm join phase preflight [api-server-endpoint] [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm join phase](kubeadm_join_phase.md)	 - Use this command to invoke single phase of the join workflow
-

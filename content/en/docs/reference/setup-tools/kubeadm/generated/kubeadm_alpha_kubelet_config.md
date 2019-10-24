@@ -46,9 +46,3 @@ This command is not meant to be run on its own. See list of available subcommand
 
 
 
-SEE ALSO
-
-* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - Commands related to handling the kubelet
-* [kubeadm alpha kubelet config download](kubeadm_alpha_kubelet_config_download.md)	 - Download the kubelet configuration from the cluster ConfigMap kubelet-config-1.X, where X is the minor version of the kubelet
-* [kubeadm alpha kubelet config enable-dynamic](kubeadm_alpha_kubelet_config_enable-dynamic.md)	 - EXPERIMENTAL: Enable or update dynamic kubelet configuration for a Node
-

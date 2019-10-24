@@ -84,7 +84,3 @@ kubeadm config migrate [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
-

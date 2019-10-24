@@ -46,11 +46,3 @@ Use this command to invoke single phase of the reset workflow
 
 
 
-SEE ALSO
-
-* [kubeadm reset](kubeadm_reset.md)	 - Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
-* [kubeadm reset phase cleanup-node](kubeadm_reset_phase_cleanup-node.md)	 - Run cleanup node.
-* [kubeadm reset phase preflight](kubeadm_reset_phase_preflight.md)	 - Run reset pre-flight checks
-* [kubeadm reset phase remove-etcd-member](kubeadm_reset_phase_remove-etcd-member.md)	 - Remove a local etcd member.
-* [kubeadm reset phase update-cluster-status](kubeadm_reset_phase_update-cluster-status.md)	 - Remove this node from the ClusterStatus object.
-
