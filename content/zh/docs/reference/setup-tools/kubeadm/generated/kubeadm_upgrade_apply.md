@@ -1,19 +1,13 @@
 <!--
-Upgrade your Kubernetes cluster to the specified version.
-
 ### Synopsis
 
-
-Upgrade your Kubernetes cluster to the specified version.
-
+Upgrade your Kubernetes cluster to the specified version
 ```
 kubeadm upgrade apply [version]
 ```
 
 ### Options
 -->
-
-将Kubernetes集群升级到指定版本。
 
 ### 简介
 
@@ -50,6 +44,13 @@ kubeadm upgrade apply [version]
     </tr>
 
     <tr>
+      <td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the renewal of certificates used by component changed during upgrades.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
@@ -78,10 +79,17 @@ kubeadm upgrade apply [version]
     </tr>
 
     <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
     <tr>
@@ -150,6 +158,13 @@ kubeadm upgrade apply [version]
     <tr>  
       <td></td><td style="line-height: 130%; word-wrap: break-word;">显示 Kubernetes 的候选版本作为升级替代方案，并允许升级到 Kubernetes 的 RC 版本。</td>
     </tr>
+  
+  <tr>
+    <td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">执行升级期间更改的组件所使用的证书的更新。</td>
+  </tr>
 
   <tr>
       <td colspan="2">--config string</td>
@@ -178,12 +193,19 @@ kubeadm upgrade apply [version]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">执行 etcd 的升级。</td>
     </tr>
+  
+  <tr>
+    <td colspan="2">-k, --experimental-kustomize string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">kustomize 静态 pod 清单的补丁的存储路径。</td>
+  </tr>
 
   <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组键值对，用于描述各种功能的功能门。选项包括：<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组键值对，用于描述各种功能的功能门。选项包括：<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
     </tr>
 
   <tr>
@@ -279,3 +301,7 @@ kubeadm upgrade apply [version]
   </tbody>
 </table>
 
+
+也可以看看
+
+* [kubeadm 升级](kubeadm_upgrade.md) - 使用此命令将群集平滑升级到新版本
