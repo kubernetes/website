@@ -120,7 +120,7 @@ This can be configured by maintaining a [Corefile](https://coredns.io/2017/07/23
 configuration file. A cluster administrator can modify the ConfigMap for the CoreDNS Corefile to change how service discovery works.  
 -->
 CoreDNS 是模块化且可插拔的 DNS 服务器，每个插件都为 CoreDNS 添加了新功能。
-可以通过维护[Corefile](https://coredns.io/2017/07/23/corefile-explained/)，即CoreDNS
+可以通过维护 [Corefile](https://coredns.io/2017/07/23/corefile-explained/)，即 CoreDNS
 配置文件。 集群管理员可以修改 CoreDNS Corefile 的 ConfigMap，以更改服务发现的工作方式。
 
 <!-- 
