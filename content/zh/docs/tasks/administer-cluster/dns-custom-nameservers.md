@@ -96,7 +96,7 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 `/etc/resolv.conf` for DNS inheritance. 
 -->
 如果您不想这样做，或者想要为 Pod 使用其他 DNS 配置，则可以
-使用 kubelet 的 `--resolv-conf` 标志。 将此标志设置为 "" 以避免 Pod
+使用 kubelet 的 `--resolv-conf` 标志。 将此参数设置为 "" 以避免 Pod
 继承 DNS。 将其设置为有效的文件路径以指定除以下以外的文件
 `/etc/resolv.conf`，用于 DNS 继承。
 
