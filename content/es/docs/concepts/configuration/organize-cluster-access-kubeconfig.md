@@ -1,5 +1,5 @@
 ---
-title: Organizar El Acceso A Los Clústeres Con Los Archivos kubeconfig
+title: Organizar El Acceso A Los Clústeres Con Los Ficheros kubeconfig
 content_template: templates/concept
 weight: 60
 ---
@@ -11,9 +11,9 @@ authentication mechanisms. The `kubectl` command-line tool uses kubeconfig files
 find the information it needs to choose a cluster and communicate with the API server
 of a cluster. -->
 
-Utilice los archivos kubeconfig para organizar la información acerca de los clústeres, los
+Utilice los ficheros kubeconfig para organizar la información acerca de los clústeres, los
 usuarios, los namespaces y los mecanismos de autenticación. La herramienta de
-línea de comandos `kubectl` utiliza los archivos kubeconfig para hallar la información que
+línea de comandos `kubectl` utiliza los ficheros kubeconfig para hallar la información que
 necesita para escoger un clúster y comunicarse con el servidor API de un clúster.
 
 <!-- {{< note >}}
@@ -24,7 +24,7 @@ It does not mean that there is a file named `kubeconfig`.
 
 {{< note >}}
 Un archivo utilizado para configurar el acceso a los clústeres se denomina
-*archivo kubeconfig*. Esta es una forma genérica de referirse a los archivos de
+*archivo kubeconfig*. Esta es una forma genérica de referirse a los ficheros de
 configuración. Esto no significa que exista un archivo llamado `kubeconfig`.
 {{< /note >}}
 
@@ -34,14 +34,14 @@ variable or by setting the
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag. -->
 
 Por defecto, `kubectl` busca un archivo llamado `config` en el directorio `$HOME/.kube`.
-Puedes especificar otros archivos kubeconfig mediante la configuración de la variable
+Puedes especificar otros ficheros kubeconfig mediante la configuración de la variable
 de entorno `KUBECONFIG` o mediante la configuracion del flag
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
 
 <!-- For step-by-step instructions on creating and specifying kubeconfig files, see
 [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters). -->
 
-Para obtener instrucciones paso a paso acerca de cómo crear y especificar los archivos kubeconfig,
+Para obtener instrucciones paso a paso acerca de cómo crear y especificar los ficheros kubeconfig,
 consulte el recurso
 [Configurar El Acceso A Múltiples Clústeres](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
@@ -70,7 +70,7 @@ de diversas maneras. Por ejemplo:
 <!-- With kubeconfig files, you can organize your clusters, users, and namespaces.
 You can also define contexts to quickly and easily switch between
 clusters and namespaces. -->
-Con los archivos kubeconfig puedes organizar tus clústers, usuarios y namespaces.
+Con los ficheros kubeconfig puedes organizar tus clústers, usuarios y namespaces.
 También puedes definir los diferentes contextos para realizar de forma rápida y
 facil los intercambios entre clústers y namespaces.
 
@@ -103,7 +103,7 @@ For Linux and Mac, the list is colon-delimited. For Windows, the list
 is semicolon-delimited. The `KUBECONFIG` environment variable is not
 required. If the `KUBECONFIG` environment variable doesn't exist,
 `kubectl` uses the default kubeconfig file, `$HOME/.kube/config`. -->
-La variable de entorno `KUBECONFIG` contiene una lista de archivos kubeconfig.
+La variable de entorno `KUBECONFIG` contiene una lista de ficheros kubeconfig.
 En el caso de Linux y Mac, la lista está delimitada por dos puntos.  Si se trata
 de Windows, la lista está delimitada por punto y coma. La variable de entorno
 `KUBECONFIG` no es indispensable. Si la variable de entorno `KUBECONFIG` no existe,
@@ -113,12 +113,12 @@ de Windows, la lista está delimitada por punto y coma. La variable de entorno
 an effective configuration that is the result of merging the files
 listed in the `KUBECONFIG` environment variable. -->
 Si la variable de entorno `KUBECONFIG` existe, `kubectl` utiliza una
-configuración eficiente que es el resultado de la fusión de los archivos
+configuración eficiente que es el resultado de la fusión de los ficheros
 listados en la variable de entorno `KUBECONFIG`.
 
 <!-- ## Merging kubeconfig files -->
 
-## Fusionando archivos kubeconfig
+## Fusionando ficheros kubeconfig
 
 <!-- To see your configuration, enter this command: -->
 Para poder ver su configuración, escriba el siguiente comando:
@@ -130,10 +130,10 @@ kubectl config view
 <!-- As described previously, the output might be from a single kubeconfig file,
 or it might be the result of merging several kubeconfig files. -->
 Como se ha descrito anteriormente, la respuesta de este comando podría resultar ser a partir de un único
-archivo kubeconfig, o podría ser el resultado de la fusión de varios archivos kubeconfig.
+archivo kubeconfig, o podría ser el resultado de la fusión de varios ficheros kubeconfig.
 
 <!-- Here are the rules that `kubectl` uses when it merges kubeconfig files: -->
-A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos kubeconfig:
+A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros kubeconfig:
 
 <!-- 1. If the `--kubeconfig` flag is set, use only the specified file. Do not merge.
    Only one instance of this flag is allowed. -->
@@ -147,14 +147,14 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
    according to these rules: -->
 
    En caso contrario, si la variable de entorno `KUBECONFIG` está activada, úsela
-   como un listado de los archivos que deben ser fusionados.
-   Fusionar los archivos listados en la variable de entorno `KUBECONFIG` de acuerdo
+   como un listado de los ficheros que deben ser fusionados.
+   Fusionar los ficheros listados en la variable de entorno `KUBECONFIG` de acuerdo
    con estas reglas:
 
    <!-- * Ignore empty filenames. -->
    * Ignorar nombres de archivo vacíos.
    <!-- * Produce errors for files with content that cannot be deserialized. -->
-   * Producir errores para archivos con contenido que no pueden ser deserializados.
+   * Producir errores para ficheros con contenido que no pueden ser deserializados.
    <!-- * The first file to set a particular value or map key wins. -->
    * El primer archivo que establezca un valor particular o una clave se impone.
    <!-- * Never change the value or map key. -->
@@ -163,7 +163,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
      Ejemplo: Conserva el contexto del primer archivo para configurar el `contexto actual`.
      <!-- Example: If two files specify a `red-user`, use only values from the first file's `red-user`.
      Even if the second file has non-conflicting entries under `red-user`, discard them. -->
-     Ejemplo: Si dos archivos especifican un `red-user`, utilice sólo los valores del primer archivo.
+     Ejemplo: Si dos ficheros especifican un `red-user`, utilice sólo los valores del primer archivo.
      Incluso desechar el segundo archivo aunque tenga registros que no tengan conflictos.
 
    <!-- For an example of setting the `KUBECONFIG` environment variable, see -->
@@ -183,7 +183,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
 2. Determinar el contexto a utilizar en base al primer acierto en esta secuencia:
 
    1. Si es que existe, utilice el flag `---contexto` de la línea de comandos.
-   2. Utilice el `contexto actual` procedente de los archivos kubeconfig fusionados.
+   2. Utilice el `contexto actual` procedente de los ficheros kubeconfig fusionados.
 
    En este punto se permite un contexto vacío.
 
@@ -215,7 +215,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
    Se construye cada pieza de la información del clúster en base a esta secuencia, el primer acierto se impone:
 
    1. Si es que existen, utilice el flag `--server`, `--certificate-authority`, `--insecure-skip-tls-verify` de la línea de comandos.
-   2. Si existen atributos de información de clúster procedentes de los archivos kubeconfig fusionados, utilícelos.
+   2. Si existen atributos de información de clúster procedentes de los ficheros kubeconfig fusionados, utilícelos.
    3. Fallar si no existe la ubicación del servidor.
 
 <!-- 5. Determine the actual user information to use. Build user information using the same
@@ -228,7 +228,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
    1. Use the `user` fields from the merged kubeconfig files.
    2. If there are two conflicting techniques, fail. -->
    3. Si es que existen, utilice el flag `--client-certificate`, `--client-key`, `--username`, `--password`, `--token` de la línea de comandos.
-   4. Utilice los campos `user` de los archivos kubeconfig fusionados.
+   4. Utilice los campos `user` de los ficheros kubeconfig fusionados.
    5. Fallar si hay dos mecanismo de autenticación contradictorios.
 
 <!-- 6. For any information still missing, use default values and potentially
@@ -238,7 +238,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
 
 <!-- ## File references -->
 
-## Referencias de archivos
+## Referencias de ficheros
 
 <!-- File and path references in a kubeconfig file are relative to the location of the kubeconfig file. -->
 Las referencias, así también como, las rutas de un archivo kubeconfig son relativas a la ubicación del archivo kubeconfig.
