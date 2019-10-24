@@ -163,7 +163,7 @@ Corefile 配置包括以下 CoreDNS 的[插件](https://coredns.io/plugins/)：
 -->
 * [错误](https://coredns.io/plugins/errors/)：错误记录到 stdout。
 * [健康](https://coredns.io/plugins/health/)：CoreDNS 的健康报告给 http://localhost:8080/health。
-* [kubernetes](https://coredns.io/plugins/kubernetes/)：CoreDNS 将基于 Kubernetes 的服务和 Pod 的 IP 答复 DNS 查询。 您可以在 [此处](https://coredns.io/plugins/kubernetes/).  
+* [kubernetes](https://coredns.io/plugins/kubernetes/)：CoreDNS 将基于 Kubernetes 的服务和 Pod 的 IP 答复 DNS 查询。 您可以在[此处](https://coredns.io/plugins/kubernetes/).  
 
 <!-- 
 > The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pods verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records. 
