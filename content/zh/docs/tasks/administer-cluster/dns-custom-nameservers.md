@@ -198,7 +198,7 @@ You can modify the default CoreDNS behavior by modifying the ConfigMap.
 <!-- 
 CoreDNS has the ability to configure stubdomains and upstream nameservers using the [forward plugin](https://coredns.io/plugins/forward/).  
 -->
-CoreDNS 能够使用 [forward plugin](https://coredns.io/plugins/forward/) 配置存根域和上游域名服务器。
+CoreDNS 能够使用[转发插件](https://coredns.io/plugins/forward/)配置存根域和上游域名服务器。
 
 <!-- 
 #### Example
