@@ -57,9 +57,3 @@ kubeadm config images [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
-* [kubeadm config images list](kubeadm_config_images_list.md)	 - Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
-* [kubeadm config images pull](kubeadm_config_images_pull.md)	 - Pull images used by kubeadm
-
