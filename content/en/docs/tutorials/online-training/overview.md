@@ -63,6 +63,8 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Microservice Applications in Kubernetes - 100% Hands-On Experience (Linux Academy)] (https://linuxacademy.com/devops/training/course/name/learn-microservices-by-doing)
 
+* [Magic Sandbox - an interactive, hands-on Kubernetes learning platform](https://msb.com)
+
 * [Monitoring Kubernetes With Prometheus with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-and-prometheus)
 
 * [Service Mesh with Istio with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/service-mesh-with-istio-part-1)
