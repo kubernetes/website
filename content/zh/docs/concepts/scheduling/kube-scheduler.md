@@ -81,7 +81,7 @@ functions to score the feasible Nodes and picks a Node with the highest
 score among the feasible ones to run the Pod. The scheduler then notifies
 the API server about this decision in a process called _binding_.
 -->
-调度器先在集群中找到一个 Pod 的所有可调度节点，然后根据一系列函数对这些可调度节点打分，然后选出其中得分最高的 Node 来运行 Pod。之后，调度器将这个调度决定通知给 kube-apiserver，这个过程叫做绑定。
+调度器先在集群中找到一个 Pod 的所有可调度节点，然后根据一系列函数对这些可调度节点打分，然后选出其中得分最高的 Node 来运行 Pod。之后，调度器将这个调度决定通知给 kube-apiserver，这个过程叫做 _绑定_。
 
 <!--
 Factors that need taken into account for scheduling decisions include
@@ -298,7 +298,7 @@ kube-scheduler 有一系列的默认调度策略。
 
 - `TaintTolerationPriority`：基于 Pod 中对每个 Node 上污点容忍程度进行优先级评估，这个策略能够调整待选 Node 的排名。
 
-- `ImageLocalityPriority`：Node 上已经拥有Pod需要的 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 的 Node 会有较高的优先级。
+- `ImageLocalityPriority`：Node 上已经拥有 Pod 需要的 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 的 Node 会有较高的优先级。
 
 - `ServiceSpreadingPriority`：这个调度策略的主要目的是确保将归属于同一个 Service 的 Pod 调度到不同的 Node 上。如果 Node 上
   没有归属于同一个 Service 的 Pod，这个策略更倾向于将 Pod 调度到这类 Node 上。最终的目的：即使在一个 Node 宕机之后 Service 也具有很强容灾能力。
