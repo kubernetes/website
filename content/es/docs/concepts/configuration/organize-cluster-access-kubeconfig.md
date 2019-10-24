@@ -12,7 +12,7 @@ find the information it needs to choose a cluster and communicate with the API s
 of a cluster. -->
 
 Utilice los archivos kubeconfig para organizar la información acerca de los clústeres, los
-usuarios, los espacios de nombres y los mecanismos de autenticación. La herramienta de
+usuarios, los namespaces y los mecanismos de autenticación. La herramienta de
 línea de comandos `kubectl` utiliza los archivos kubeconfig para hallar la información que
 necesita para escoger un clúster y comunicarse con el servidor API de un clúster.
 
@@ -35,7 +35,7 @@ variable or by setting the
 
 Por defecto, `kubectl` busca un archivo llamado `config` en el directorio `$HOME/.kube`.
 Puedes especificar otros archivos kubeconfig mediante la configuración de la variable
-de entorno `KUBECONFIG` o mediante la configuracion del parámetro
+de entorno `KUBECONFIG` o mediante la configuracion del flag
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
 
 <!-- For step-by-step instructions on creating and specifying kubeconfig files, see
@@ -72,7 +72,7 @@ You can also define contexts to quickly and easily switch between
 clusters and namespaces. -->
 Con los archivos kubeconfig puedes organizar tus clústers, usuarios y namespaces.
 También puedes definir los diferentes contextos para realizar de forma rápida y
-fácilmente los intercambios entre clústers y namespaces.
+facil los intercambios entre clústers y namespaces.
 
 <!-- ## Context -->
 
@@ -107,7 +107,7 @@ La variable de entorno `KUBECONFIG` contiene una lista de archivos kubeconfig.
 En el caso de Linux y Mac, la lista está delimitada por dos puntos.  Si se trata
 de Windows, la lista está delimitada por punto y coma. La variable de entorno
 `KUBECONFIG` no es indispensable. Si la variable de entorno `KUBECONFIG` no existe,
-`kubectl` utiliza el archivo kubeconfig por defecto ubicado en `$HOME/.kube/config`.
+`kubectl` utiliza el archivo kubeconfig por defecto `$HOME/.kube/config`.
 
 <!-- If the `KUBECONFIG` environment variable does exist, `kubectl` uses
 an effective configuration that is the result of merging the files
@@ -129,7 +129,7 @@ kubectl config view
 
 <!-- As described previously, the output might be from a single kubeconfig file,
 or it might be the result of merging several kubeconfig files. -->
-Como se ha descrito anteriormente, la respuesta podría ser a partir de un único
+Como se ha descrito anteriormente, la respuesta de este comando podría resultar ser a partir de un único
 archivo kubeconfig, o podría ser el resultado de la fusión de varios archivos kubeconfig.
 
 <!-- Here are the rules that `kubectl` uses when it merges kubeconfig files: -->
@@ -156,57 +156,85 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
    <!-- * Produce errors for files with content that cannot be deserialized. -->
    * Producir errores para archivos con contenido que no pueden ser deserializados.
    <!-- * The first file to set a particular value or map key wins. -->
-   * El primer archivo que establezca un valor particular o un map key gana.
+   * El primer archivo que establezca un valor particular o una clave se impone.
    <!-- * Never change the value or map key. -->
-   * Nunca cambie el valor o el map key.
+   * Nunca cambie el valor o la clave.
      <!-- Example: Preserve the context of the first file to set `current-context`. -->
      Ejemplo: Conserva el contexto del primer archivo para configurar el `contexto actual`.
-     Deséchelos incluso si el segundo archivo tiene registros que no contienen conflictos
      <!-- Example: If two files specify a `red-user`, use only values from the first file's `red-user`.
      Even if the second file has non-conflicting entries under `red-user`, discard them. -->
+     Ejemplo: Si dos archivos especifican un `red-user`, utilice sólo los valores del primer archivo.
+     Incluso desechar el segundo archivo aunque tenga registros que no tengan conflictos.
 
-     Ejemplo: Si dos archivos especifican un `red-user`, utilice sólo los valores del del primer archivo.
-     Deséchelos incluso si el segundo archivo tiene registros que no contienen conflictos
+   <!-- For an example of setting the `KUBECONFIG` environment variable, see -->
+   Para obtener un ejemplo de configuración de la variable de entorno `KUBECONFIG`, consulte la sección
+   [Configuración de la variable de entorno KUBECONFIG](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
 
-   For an example of setting the `KUBECONFIG` environment variable, see
-   [Setting the KUBECONFIG environment variable](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
+   <!-- Otherwise, use the default kubeconfig file, `$HOME/.kube/config`, with no merging. -->
+   En caso contrario, utilice el archivo kubeconfig predeterminado `$HOME/.kube/config`, sin fusionar.
 
-   Otherwise, use the default kubeconfig file, `$HOME/.kube/config`, with no merging.
-
-2. Determine the context to use based on the first hit in this chain:
+<!-- 2. Determine the context to use based on the first hit in this chain:
 
     1. Use the `--context` command-line flag if it exists.
     2. Use the `current-context` from the merged kubeconfig files.
 
-   An empty context is allowed at this point.
+   An empty context is allowed at this point. -->
 
-3. Determine the cluster and user. At this point, there might or might not be a context.
+2. Determinar el contexto a utilizar en base al primer acierto en esta secuencia:
+
+   1. Si es que existe, utilice el flag `---contexto` de la línea de comandos.
+   2. Utilice el `contexto actual` procedente de los archivos kubeconfig fusionados.
+
+   En este punto se permite un contexto vacío.
+
+<!-- 3. Determine the cluster and user. At this point, there might or might not be a context.
    Determine the cluster and user based on the first hit in this chain,
    which is run twice: once for user and once for cluster:
 
    1. Use a command-line flag if it exists: `--user` or `--cluster`.
    2. If the context is non-empty, take the user or cluster from the context.
 
-   The user and cluster can be empty at this point.
+   The user and cluster can be empty at this point. -->
+3. Determinar el clúster y el usuario. En este caso, puede o no haber un contexto.
+   Determine el clúster y el usuario en base al primer acierto que se ejecute dos veces en
+   esta secuencia: una para el usuario y otra para el clúster:
 
-4. Determine the actual cluster information to use. At this point, there might or
+   1. Si es que existen, utilice el flag `--user` o `--cluster` de la línea de comandos.
+   2. Si el contexto no está vacío, tome el usuario o clúster del contexto.
+
+   En este caso el usuario y el clúster pueden estar vacíos.
+
+<!-- 4. Determine the actual cluster information to use. At this point, there might or
    might not be cluster information.
    Build each piece of the cluster information based on this chain; the first hit wins:
 
    1. Use command line flags if they exist: `--server`, `--certificate-authority`, `--insecure-skip-tls-verify`.
    2. If any cluster information attributes exist from the merged kubeconfig files, use them.
-   3. If there is no server location, fail.
+   3. If there is no server location, fail.   -->
+4. Determinar la información del clúster a utilizar. En este caso, puede o no haber información del cluster.
+   Se construye cada pieza de la información del clúster en base a esta secuencia, el primer acierto se impone:
 
-5. Determine the actual user information to use. Build user information using the same
+   1. Si es que existen, utilice el flag `--server`, `--certificate-authority`, `--insecure-skip-tls-verify` de la línea de comandos.
+   2. Si existen atributos de información de clúster procedentes de los archivos kubeconfig fusionados, utilícelos.
+   3. Fallar si no existe la ubicación del servidor.
+
+<!-- 5. Determine the actual user information to use. Build user information using the same
    rules as cluster information, except allow only one authentication
-   technique per user:
+   technique per user: -->
+1. Determinar la información del usuario a utilizar. Cree información de usuario utilizando las mismas reglas que
+   la información de clúster, con la excepción de permitir sólo un mecanismo de autenticación por usuario:
 
-   1. Use command line flags if they exist: `--client-certificate`, `--client-key`, `--username`, `--password`, `--token`.
-   2. Use the `user` fields from the merged kubeconfig files.
-   3. If there are two conflicting techniques, fail.
+   <!-- 1. Use command line flags if they exist: `--client-certificate`, `--client-key`, `--username`, `--password`, `--token`.
+   1. Use the `user` fields from the merged kubeconfig files.
+   2. If there are two conflicting techniques, fail. -->
+   3. Si es que existen, utilice el flag `--client-certificate`, `--client-key`, `--username`, `--password`, `--token` de la línea de comandos.
+   4. Utilice los campos `user` de los archivos kubeconfig fusionados.
+   5. Fallar si hay dos mecanismo de autenticación contradictorios.
 
-6. For any information still missing, use default values and potentially
-   prompt for authentication information.
+<!-- 6. For any information still missing, use default values and potentially
+   prompt for authentication information. -->
+6. Si todavía falta alguna información, utilice los valores predeterminados y solicite
+   información de autenticación.
 
 <!-- ## File references -->
 
