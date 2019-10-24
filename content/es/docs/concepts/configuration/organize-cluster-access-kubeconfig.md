@@ -34,7 +34,7 @@ variable or by setting the
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag. -->
 
 Por defecto, `kubectl` busca un archivo llamado `config` en el directorio `$HOME/.kube`.
-Puedes especificar otros ficheros kubeconfig mediante la configuración de la variable
+Puedes especificar otros archivos kubeconfig mediante la configuración de la variable
 de entorno `KUBECONFIG` o mediante la configuracion del parámetro
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
 
@@ -103,7 +103,7 @@ For Linux and Mac, the list is colon-delimited. For Windows, the list
 is semicolon-delimited. The `KUBECONFIG` environment variable is not
 required. If the `KUBECONFIG` environment variable doesn't exist,
 `kubectl` uses the default kubeconfig file, `$HOME/.kube/config`. -->
-La variable de entorno `KUBECONFIG` contiene una lista de ficheros kubeconfig.
+La variable de entorno `KUBECONFIG` contiene una lista de archivos kubeconfig.
 En el caso de Linux y Mac, la lista está delimitada por dos puntos.  Si se trata
 de Windows, la lista está delimitada por punto y coma. La variable de entorno
 `KUBECONFIG` no es indispensable. Si la variable de entorno `KUBECONFIG` no existe,
@@ -113,39 +113,60 @@ de Windows, la lista está delimitada por punto y coma. La variable de entorno
 an effective configuration that is the result of merging the files
 listed in the `KUBECONFIG` environment variable. -->
 Si la variable de entorno `KUBECONFIG` existe, `kubectl` utiliza una
-configuración eficaz que es el resultante de la fusión de los ficheros
+configuración eficiente que es el resultado de la fusión de los archivos
 listados en la variable de entorno `KUBECONFIG`.
 
 <!-- ## Merging kubeconfig files -->
 
 ## Fusionando archivos kubeconfig
 
-To see your configuration, enter this command:
+<!-- To see your configuration, enter this command: -->
+Para poder ver su configuración, escriba el siguiente comando:
 
 ```shell
 kubectl config view
 ```
 
-As described previously, the output might be from a single kubeconfig file,
-or it might be the result of merging several kubeconfig files.
+<!-- As described previously, the output might be from a single kubeconfig file,
+or it might be the result of merging several kubeconfig files. -->
+Como se ha descrito anteriormente, la respuesta podría ser a partir de un único
+archivo kubeconfig, o podría ser el resultado de la fusión de varios archivos kubeconfig.
 
-Here are the rules that `kubectl` uses when it merges kubeconfig files:
+<!-- Here are the rules that `kubectl` uses when it merges kubeconfig files: -->
+A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos kubeconfig:
 
-1. If the `--kubeconfig` flag is set, use only the specified file. Do not merge.
-   Only one instance of this flag is allowed.
+<!-- 1. If the `--kubeconfig` flag is set, use only the specified file. Do not merge.
+   Only one instance of this flag is allowed. -->
 
-   Otherwise, if the `KUBECONFIG` environment variable is set, use it as a
+1. Si el flag `--kubeconfig` está activado, utilice sólo el archivo especificado. No fusionar.
+   Sólo se permite una instancia de este flag.
+
+   <!-- Otherwise, if the `KUBECONFIG` environment variable is set, use it as a
    list of files that should be merged.
    Merge the files listed in the `KUBECONFIG` environment variable
-   according to these rules:
+   according to these rules: -->
 
-   * Ignore empty filenames.
-   * Produce errors for files with content that cannot be deserialized.
-   * The first file to set a particular value or map key wins.
-   * Never change the value or map key.
-     Example: Preserve the context of the first file to set `current-context`.
-     Example: If two files specify a `red-user`, use only values from the first file's `red-user`.
-     Even if the second file has non-conflicting entries under `red-user`, discard them.
+   En caso contrario, si la variable de entorno `KUBECONFIG` está activada, úsela
+   como un listado de los archivos que deben ser fusionados.
+   Fusionar los archivos listados en la variable de entorno `KUBECONFIG` de acuerdo
+   con estas reglas:
+
+   <!-- * Ignore empty filenames. -->
+   * Ignorar nombres de archivo vacíos.
+   <!-- * Produce errors for files with content that cannot be deserialized. -->
+   * Producir errores para archivos con contenido que no pueden ser deserializados.
+   <!-- * The first file to set a particular value or map key wins. -->
+   * El primer archivo que establezca un valor particular o un map key gana.
+   <!-- * Never change the value or map key. -->
+   * Nunca cambie el valor o el map key.
+     <!-- Example: Preserve the context of the first file to set `current-context`. -->
+     Ejemplo: Conserva el contexto del primer archivo para configurar el `contexto actual`.
+     Deséchelos incluso si el segundo archivo tiene registros que no contienen conflictos
+     <!-- Example: If two files specify a `red-user`, use only values from the first file's `red-user`.
+     Even if the second file has non-conflicting entries under `red-user`, discard them. -->
+
+     Ejemplo: Si dos archivos especifican un `red-user`, utilice sólo los valores del del primer archivo.
+     Deséchelos incluso si el segundo archivo tiene registros que no contienen conflictos
 
    For an example of setting the `KUBECONFIG` environment variable, see
    [Setting the KUBECONFIG environment variable](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
