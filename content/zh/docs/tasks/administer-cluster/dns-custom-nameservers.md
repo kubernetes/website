@@ -36,7 +36,7 @@ see [the kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/ku
 -->
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Kubernetes 1.6 或更高版本。使用 CoreDNS 1.9 或更高版本。
-* 合适的 add-on 插件: kube-dns 或 CoreDNS. 使用 kubeadm 安装，请参见 [kubeadm 帮助文档](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-addon). 
+* 合适的附加组件: kube-dns 或 CoreDNS. 使用 kubeadm 安装，请参见 [kubeadm 帮助文档](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-addon). 
 {{% /capture %}}
 
 {{% capture steps %}}
