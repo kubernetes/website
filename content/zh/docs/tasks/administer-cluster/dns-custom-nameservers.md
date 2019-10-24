@@ -154,7 +154,7 @@ data:
 <!-- 
 The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS: 
 -->
-Corefile 配置包括以下 CoreDNS 的 [插件](https://coredns.io/plugins/)：
+Corefile 配置包括以下 CoreDNS 的[插件](https://coredns.io/plugins/)：
 
 <!-- 
 * [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
