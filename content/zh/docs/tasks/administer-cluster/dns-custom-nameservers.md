@@ -23,8 +23,8 @@ and is installed by default with kubeadm. See [CoreDNS ConfigMap options](#cored
 and [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/). 
 -->
 本页说明如何配置 DNS Pod 和自定义 DNS 解析过程。 在 Kubernetes 1.11 和更高版本中，CoreDNS 位于 GA
-并且默认情况下与 kubeadm 一起安装。 请参见[CoreDNS 的 ConfigMap 选项](#coredns-configmap-options) 
-and [使用 CoreDNS 进行服务发现](/docs/tasks/administer-cluster/coredns/)。
+并且默认情况下与 kubeadm 一起安装。 查看 [CoreDNS 的 ConfigMap 选项](#coredns-configmap-options) 
+和 [使用 CoreDNS 进行服务发现](/docs/tasks/administer-cluster/coredns/)。
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -51,7 +51,7 @@ DNS is a built-in Kubernetes service launched automatically
 using the addon manager
 [cluster add-on](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md). 
 -->
-DNS 是使用插件管理器[集群 add-on](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md)自动启动的内置的 Kubernetes 服务。
+DNS 是使用插件管理器[集群附加组件](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md)自动启动的内置的 Kubernetes 服务。
 
 <!-- 
 As of Kubernetes v1.12, CoreDNS is the recommended DNS Server, replacing kube-dns. However, kube-dns may still be installed by
@@ -179,11 +179,11 @@ Corefile 配置包括以下 CoreDNS 的[插件](https://coredns.io/plugins/)：
 * [loadbalance](https://coredns.io/plugins/loadbalance): This is a round-robin DNS loadbalancer that randomizes the order of A, AAAA, and MX records in the answer. 
 -->
 * [prometheus](https://coredns.io/plugins/prometheus/)：CoreDNS 的度量标准以 [Prometheus](https://prometheus.io/) 格式在 http://localhost:9153/metrics 上提供。
-* [forward](https://coredns.io/plugins/forward/)：不在Kubernetes集群域内的任何查询都将转发到预定义的解析器（/etc/resolv.conf）。
-* [cache](https://coredns.io/plugins/cache/)：这将启用前端缓存。
-* [loop](https://coredns.io/plugins/loop/)：检测到简单的转发循环，如果发现死循环，则中止 CoreDNS 进程。
-* [reload](https://coredns.io/plugins/reload)：允许自动重新加载已更改的 Corefile。 编辑 ConfigMap 配置后，请等待两分钟，以使更改生效。
-* [loadbalance](https://coredns.io/plugins/loadbalance)：这是一个轮询 DNS 负载均衡器，它在应答中随机分配 A，AAAA 和 MX 记录的顺序。
+* [转发](https://coredns.io/plugins/forward/)：不在Kubernetes集群域内的任何查询都将转发到预定义的解析器（/etc/resolv.conf）。
+* [缓存](https://coredns.io/plugins/cache/)：这将启用前端缓存。
+* [循环](https://coredns.io/plugins/loop/)：检测到简单的转发循环，如果发现死循环，则中止 CoreDNS 进程。
+* [重载](https://coredns.io/plugins/reload)：允许自动重新加载已更改的 Corefile。 编辑 ConfigMap 配置后，请等待两分钟，以使更改生效。
+* [负载均衡](https://coredns.io/plugins/loadbalance)：这是一个轮询 DNS 负载均衡器，它在应答中随机分配 A，AAAA 和 MX 记录的顺序。
 
 <!-- 
 You can modify the default CoreDNS behavior by modifying the ConfigMap. 
@@ -532,14 +532,20 @@ The equivalent configuration in CoreDNS creates a Corefile:
 -->
 CoreDNS 中的等效配置将创建一个 Corefile：
 
+<!--
 * For federations:
+-->
+* 对于 federations
 ​```yaml
 federation cluster.local {
            foo foo.feddomain.com
         }
 ​```
 
+<!--
 * For stubDomains:
+-->
+* 对于 stubDomains：
 ​```yaml
 abc.com:53 {
         errors
