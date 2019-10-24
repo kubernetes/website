@@ -122,7 +122,8 @@ different Kubernetes components.
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
-| `ServerSideApply` | `false` | Alpha | 1.14 | |
+| `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
+| `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | |
