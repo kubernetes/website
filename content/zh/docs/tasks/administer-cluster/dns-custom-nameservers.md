@@ -35,7 +35,7 @@ and [使用 CoreDNS 进行服务发现](/docs/tasks/administer-cluster/coredns/)
 see [the kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-addon). 
 -->
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* Kubernetes 版本 1.6 或更新。如果与 CoreDNS 匹配，版本 1.9 或更新。
+* Kubernetes 1.6 或更高版本。使用 CoreDNS 1.9 或更高版本。
 * 合适的 add-on 插件: kube-dns 或 CoreDNS. 使用 kubeadm 安装，请参见 [kubeadm 帮助文档](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-addon). 
 {{% /capture %}}
 
