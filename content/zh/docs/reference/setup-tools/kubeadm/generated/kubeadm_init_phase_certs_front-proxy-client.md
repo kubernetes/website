@@ -1,22 +1,18 @@
-为前端代理生成客户端
-<!--
-Generates the client for the front proxy
--->
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
+
 <!--
-Generates the client for the front proxy, and saves them into front-proxy-client.cert and front-proxy-client.key files. 
+Generate the certificate for the front proxy client, and save them into front-proxy-client.cert and front-proxy-client.key files.
 
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 
 Alpha Disclaimer: this command is currently alpha.
 -->
-为前端代理生成客户端，并将其保存到 front-proxy-client.cert 文件和 front-proxy-client.key 文件中。
+为前端代理客户端生成证书，并将其保存到 front-proxy-client.cert 和 front-proxy-client.key 文件中。
 
 如果两个文件都已存在，kubeadm 将跳过生成步骤并将使用现有文件。
 
@@ -29,7 +25,6 @@ kubeadm init phase certs front-proxy-client [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
 <table style="width: 100%; table-layout: fixed;">
@@ -39,79 +34,85 @@ kubeadm init phase certs front-proxy-client [flags]
   </colgroup>
   <tbody>
 
-<!--
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">
+      <!--
+      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
+      -->
+      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认："/etc/kubernetes/pki"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save and store the certificates.</td>
-    </tr>
--->
-    <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认："/etc/kubernetes/pki"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">存储证书的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      The path where to save and store the certificates.
+      -->
+      存储证书的路径。
+      </td>
     </tr>
 
-<!--
     <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
-    </tr>
--->
-    <tr>
-      <td colspan="2">--config string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Path to a kubeadm configuration file.
+      -->
+       kubeadm 配置文件路径。
+      </td>
     </tr>
 
-<!--
     <tr>
       <td colspan="2">--csr-dir string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path to output the CSRs and private keys to</td>
-    </tr>
--->
-    <tr>
-      <td colspan="2">--csr-dir string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于输出 CSRs 和私钥的路径</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      The path to output the CSRs and private keys to
+      -->
+      用于输出 CSRs 和私钥的路径
+      </td>
     </tr>
 
-<!--
     <tr>
       <td colspan="2">--csr-only</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create CSRs instead of generating certificates</td>
-    </tr>
--->
-    <tr>
-      <td colspan="2">--csr-only</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">创建 CSRs 而不是生成证书</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Create CSRs instead of generating certificates
+      -->
+      创建 CSRs 而不是生成证书
+      </td>
     </tr>
 
-<!--
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for front-proxy-client</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      help for front-proxy-client
+      -->
+      front-proxy-client 操作的帮助信息
+      </td>
     </tr>
--->
+
     <tr>
-      <td colspan="2">-h, --help</td>
+      <td colspan="2">
+      <!--
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
+      -->
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "stable-1"
+      </td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">front-proxy-client 的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Choose a specific Kubernetes version for the control plane.
+      -->
+      为控制平面选择特定的 Kubernetes 版本。
+      </td>
     </tr>
 
   </tbody>
@@ -122,7 +123,6 @@ kubeadm init phase certs front-proxy-client [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
@@ -132,20 +132,30 @@ kubeadm init phase certs front-proxy-client [flags]
   </colgroup>
   <tbody>
 
-<!--
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
--->
-
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      [EXPERIMENTAL] The path to the 'real' host root filesystem.
+      -->
+      [实验性功能] 到 '真实' 主机根文件系统的路径。
+      </td>
     </tr>
-
 
   </tbody>
 </table>
 
 
+
+<!-- 
+SEE ALSO 
+-->
+查看其它
+
+<!-- 
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation 
+-->
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - 生成证书
 
