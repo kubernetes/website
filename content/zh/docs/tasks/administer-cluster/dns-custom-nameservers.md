@@ -280,7 +280,7 @@ The running DNS Pod holds 3 containers:
   to perform healthchecks for `dnsmasq` and `kubedns`. 
 -->
 由于 CoreDNS 现在是默认设置，因此 Kube-dns 现在可以用作可选的 DNS 服务器。
-正在运行的DNS Pod包含3个容器：
+正在运行的 DNS Pod 包含 3 个容器：
 
 - "`kubedns`"：监测 Kubernetes 主节点的服务和 Endpoints 的更改，并维护内存中的查找结构以服务 
    DNS 请求。
