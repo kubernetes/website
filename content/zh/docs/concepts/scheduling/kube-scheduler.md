@@ -286,9 +286,9 @@ kube-scheduler 有一系列的默认调度策略。
 
 - `MostRequestedPriority`：空闲资源比例越低的 Node 得分越高。这个调度策略将会把你所有的工作负载（Pod）调度到尽量少的 Node 上。
 
-- `RequestedToCapacityRatioPriority`：为每个 Node 资源使用比例设定得分值用来给资源打分函数使用。
+- `RequestedToCapacityRatioPriority`：为 Node 上每个资源占用比例设定得分值，给资源打分函数在打分时使用。
 
-- `BalancedResourceAllocation`：Node 上各种资源的占用比例越接近的 Node 越得分越高。
+- `BalancedResourceAllocation`：Node 上与调度有关的多种资源的占用比例越接近，得分越高。
 
 - `NodePreferAvoidPodsPriority`：这个策略将根据 Node 的注解信息中是否含有 `scheduler.alpha.kubernetes.io/preferAvoidPods` 来
   计算其优先级。使用这个策略可以将两个不同 Pod 运行在不同的 Node 上。
@@ -310,10 +310,10 @@ kube-scheduler 有一系列的默认调度策略。
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Read about [scheduler performance tuning](/docs/concepts/scheduling/scheduler-perf-tuning/)
-* Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
-* Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
-* Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
-* Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+* 阅读关于 [调度器性能调优](/docs/concepts/scheduling/scheduler-perf-tuning/)
+* 阅读关于 [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+* 阅读关于kube-scheduler的 [参考文档](/docs/reference/command-line-tools-reference/kube-scheduler/)
+* 了解关于 [配置多个调度器](/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
+* 了解关于 [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
+* 了解关于 [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
 {{% /capture %}}
