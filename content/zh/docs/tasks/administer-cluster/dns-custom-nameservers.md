@@ -263,7 +263,7 @@ In Kubernetes version 1.10 and later, kubeadm supports automatic translation of 
 During translation, all FQDN nameservers will be omitted from the CoreDNS config.*** 
 -->
 在 Kubernetes 1.10 和更高版本中，kubeadm 支持将 kube-dns ConfigMap 自动转换为 CoreDNS ConfigMap。
-***注意：尽管kube-dns接受 stubdomain 和 nameserver 的 FQDN（例如：ns.foo.com），但 CoreDNS 不支持此功能。
+***注意：尽管 kube-dns 接受 stubdomain 和 nameserver 的 FQDN（例如：ns.foo.com），但 CoreDNS 不支持此功能。
 转换期间，CoreDNS 配置中将省略所有 FQDN 域名服务器。***
 
 ## Kube-dns
