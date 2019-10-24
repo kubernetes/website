@@ -67,17 +67,17 @@ content_template: templates/task
 
 Operating etcd with limited resources is suitable only for testing purposes. For deploying in production, advanced hardware configuration is required. Before deploying etcd in production, see [resource requirement reference documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#example-hardware-configurations).
 
-## Starting Kubernetes API server
+## Starting etcd clusters
 
-This section covers starting a Kubernetes API server with an etcd cluster in the deployment.
+This section covers starting a single-node and multi-node etcd cluster. 
 -->
 ## 资源要求
 
 使用有限的资源运行 etcd 只适合测试目的。为了在生产中部署，需要先进的硬件配置。在生产中部署 etcd 之前，请查看[所需资源参考文档](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#example-hardware-configurations)。
 
-## 启动 Kubernetes API 服务器
+## 启动 etcd 集群
 
-本节介绍如何在 deployment 中使用 etcd 集群启动 Kubernetes API 服务器。
+本节介绍如何启动单节点和多节点 etcd 集群。
 
 <!--
 ### Single-node etcd cluster
@@ -450,5 +450,31 @@ storage backend, please consult the [Kubernetes v1.12 etcd cluster upgrade docs]
 从 etcd2 迁移到 etcd3 的过程在很大程度上取决于部署和配置 etcd 集群的方式，以及如何部署和配置 Kubernetes 集群。 我们建议您查阅集群提供商的文档，以了解是否存在预定义的解决方案。
 
 如果您的集群是通过 `kube-up.sh` 创建的并且仍然使用 etcd2 作为其存储后端，请参阅 [Kubernetes v1.12 etcd 集群升级文档](https://v1-12.docs.kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#upgrading-and-rolling-back-etcd-clusters)
+
+<!-- 
+## Known issue: etcd client balancer with secure endpoints
+
+The etcd v3 client, released in etcd v3.3.13 or earlier, has a [critical bug](https://github.com/kubernetes/kubernetes/issues/72102) which affects the kube-apiserver and HA deployments. The etcd client balancer failover does not properly work against secure endpoints. As a result, etcd servers may fail or disconnect briefly from the kube-apiserver. This affects kube-apiserver HA deployments.
+
+The fix was made in [etcd v3.4](https://github.com/etcd-io/etcd/pull/10911) (and backported to v3.3.14 or later): the new client now creates its own credential bundle to correctly set authority target in dial function.
+
+Because the fix requires gRPC dependency upgrade (to v1.23.0), downstream Kubernetes [did not backport etcd upgrades](https://github.com/kubernetes/kubernetes/issues/72102#issuecomment-526645978). Which means the [etcd fix in kube-apiserver](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab) is only available from Kubernetes 1.16.
+
+To urgently fix this bug for Kubernetes 1.15 or earlier, build a custom kube-apiserver. You can make local changes to [`vendor/google.golang.org/grpc/credentials/credentials.go`](https://github.com/kubernetes/kubernetes/blob/7b85be021cd2943167cd3d6b7020f44735d9d90b/vendor/google.golang.org/grpc/credentials/credentials.go#L135) with [etcd@db61ee106](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab).
+
+See ["kube-apiserver 1.13.x refuses to work when first etcd-server is not available"](https://github.com/kubernetes/kubernetes/issues/72102). 
+-->
+
+## 已知问题：具有安全端点的 etcd 客户端均衡器
+
+在 etcd v3.3.13 或更早版本的 etcd v3 客户端有一个[严重的错误](https://github.com/kubernetes/kubernetes/issues/72102)，会影响 kube-apiserver 和 HA 部署。etcd 客户端平衡器故障转移不适用于安全端点。结果是，etcd 服务器可能会失败或短暂地与 kube-apiserver 断开连接。这会影响 kube-apiserver HA 的部署。
+
+该修复程序是在 [etcd v3.4](https://github.com/etcd-io/etcd/pull/10911) 中进行的（并反向移植到 v3.3.14 或更高版本）：现在，新客户端将创建自己的凭证捆绑包，以在拨号功能中正确设置授权目标。
+
+因为此修复程序要求将 gRPC 依赖升级（到 v1.23.0 ），因此，下游 Kubernetes [未反向移植 etcd 升级](https://github.com/kubernetes/kubernetes/issues/72102#issuecomment-526645978)。这意味着只能从 Kubernetes 1.16 获得 [kube-apiserver 中的 etcd 修复](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab)。
+
+要紧急修复 Kubernetes 1.15 或更早版本的此错误，请构建一个自定义的 kube-apiserver 。 您可以使用[`vendor/google.golang.org/grpc/credentials/credentials.go`](https://github.com/kubernetes/kubernetes/blob/7b85be021cd2943167cd3d6b7020f44735d9d90b/vendor/google.golang.org/grpc/credentials/credentials.go#L135) 和 [etcd@db61ee106](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab) 来进行本地更改。
+
+请看  ["kube-apiserver 1.13.x refuses to work when first etcd-server is not available"](https://github.com/kubernetes/kubernetes/issues/72102). 
 
 {{% /capture %}}
