@@ -312,7 +312,7 @@ kube-scheduler 有一系列的默认调度策略。
 {{% capture whatsnext %}}
 * 阅读关于 [调度器性能调优](/docs/concepts/scheduling/scheduler-perf-tuning/)
 * 阅读关于 [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
-* 阅读关于kube-scheduler的 [参考文档](/docs/reference/command-line-tools-reference/kube-scheduler/)
+* 阅读关于 kube-scheduler 的 [参考文档](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解关于 [配置多个调度器](/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
 * 了解关于 [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * 了解关于 [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
