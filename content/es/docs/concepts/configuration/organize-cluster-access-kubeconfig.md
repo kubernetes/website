@@ -11,10 +11,10 @@ authentication mechanisms. The `kubectl` command-line tool uses kubeconfig files
 find the information it needs to choose a cluster and communicate with the API server
 of a cluster. -->
 
-Utilice los archivos kubeconfig para organizar la información sobre los clústeres, los usuarios,
-los espacios de nombres y los mecanismos de autenticación. La herramienta de línea de comandos
-`kubectl` utiliza los archivos kubeconfig para hallar la información que necesita para seleccionar
-un clúster y comunicarse con el servidor API de un clúster.
+Utilice los archivos kubeconfig para organizar la información acerca de los clústeres, los
+usuarios, los espacios de nombres y los mecanismos de autenticación. La herramienta de
+línea de comandos `kubectl` utiliza los archivos kubeconfig para hallar la información que
+necesita para escoger un clúster y comunicarse con el servidor API de un clúster.
 
 <!-- {{< note >}}
 A file that is used to configure access to clusters is called
@@ -23,7 +23,7 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}} -->
 
 {{< note >}}
-Un archivo que se utilice para configurar el acceso a los clústeres se denomina
+Un archivo utilizado para configurar el acceso a los clústeres se denomina
 *archivo kubeconfig*. Esta es una forma genérica de referirse a los archivos de
 configuración. Esto no significa que exista un archivo llamado `kubeconfig`.
 {{< /note >}}
@@ -34,14 +34,14 @@ variable or by setting the
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag. -->
 
 Por defecto, `kubectl` busca un archivo llamado `config` en el directorio `$HOME/.kube`.
-Puedes especificar otros ficheros kubeconfig configurando la variable de entorno `KUBECONFIG`
-o configurando el parámetro
+Puedes especificar otros ficheros kubeconfig mediante la configuración de la variable
+de entorno `KUBECONFIG` o mediante la configuracion del parámetro
 [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
 
 <!-- For step-by-step instructions on creating and specifying kubeconfig files, see
 [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters). -->
 
-Para obtener instrucciones paso a paso sobre cómo crear y especificar los archivos kubeconfig,
+Para obtener instrucciones paso a paso acerca de cómo crear y especificar los archivos kubeconfig,
 consulte el recurso
 [Configurar El Acceso A Múltiples Clústeres](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
@@ -50,44 +50,75 @@ consulte el recurso
 
 {{% capture body %}}
 
-## Supporting multiple clusters, users, and authentication mechanisms
+<!-- ## Supporting multiple clusters, users, and authentication mechanisms -->
 
-Suppose you have several clusters, and your users and components authenticate
-in a variety of ways. For example:
+## Compatibilidad con múltiples clústeres, usuarios y mecanismos de autenticación
 
-- A running kubelet might authenticate using certificates.
+<!-- Suppose you have several clusters, and your users and components authenticate
+in a variety of ways. For example: -->
+Suponga que tiene diversos clústeres y que sus usuarios y componentes se autentican
+de diversas maneras. Por ejemplo:
+
+<!-- - A running kubelet might authenticate using certificates.
 - A user might authenticate using tokens.
-- Administrators might have sets of certificates that they provide to individual users.
+- Administrators might have sets of certificates that they provide to individual users. -->
 
-With kubeconfig files, you can organize your clusters, users, and namespaces.
+- Un kubelet en ejecución se podría autenticar usando certificados.
+- Un usuario se podría autenticar utilizando tokens.
+- Los administradores podrían tener un conjuntos de certificados que sean suministrados a los usuarios individuales.
+
+<!-- With kubeconfig files, you can organize your clusters, users, and namespaces.
 You can also define contexts to quickly and easily switch between
-clusters and namespaces.
+clusters and namespaces. -->
+Con los archivos kubeconfig puedes organizar tus clústers, usuarios y namespaces.
+También puedes definir los diferentes contextos para realizar de forma rápida y
+fácilmente los intercambios entre clústers y namespaces.
 
-## Context
+<!-- ## Context -->
 
-A *context* element in a kubeconfig file is used to group access parameters
+## Contexto
+
+<!-- A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster.
+the *current context* to communicate with the cluster. -->
+Un elemento *context* en un archivo kubeconfig se utiliza para agrupar los parámetros de
+acceso bajo un nombre apropiado. Cada contexto tiene tres parámetros: clúster, namespace
+y usuario.
+Por defecto, la herramienta de línea de comandos `kubectl` utiliza los parámetros del
+*contexto actual* para comunicarse con el clúster.
 
-To choose the current context:
+<!-- To choose the current context: -->
+Para seleccionar el contexto actual:
 ```
 kubectl config use-context
 ```
 
-## The KUBECONFIG environment variable
+<!-- ## The KUBECONFIG environment variable -->
 
-The `KUBECONFIG` environment variable holds a list of kubeconfig files.
+## La variable de entorno KUBECONFIG
+
+<!-- The `KUBECONFIG` environment variable holds a list of kubeconfig files.
 For Linux and Mac, the list is colon-delimited. For Windows, the list
 is semicolon-delimited. The `KUBECONFIG` environment variable is not
 required. If the `KUBECONFIG` environment variable doesn't exist,
-`kubectl` uses the default kubeconfig file, `$HOME/.kube/config`.
+`kubectl` uses the default kubeconfig file, `$HOME/.kube/config`. -->
+La variable de entorno `KUBECONFIG` contiene una lista de ficheros kubeconfig.
+En el caso de Linux y Mac, la lista está delimitada por dos puntos.  Si se trata
+de Windows, la lista está delimitada por punto y coma. La variable de entorno
+`KUBECONFIG` no es indispensable. Si la variable de entorno `KUBECONFIG` no existe,
+`kubectl` utiliza el archivo kubeconfig por defecto ubicado en `$HOME/.kube/config`.
 
-If the `KUBECONFIG` environment variable does exist, `kubectl` uses
+<!-- If the `KUBECONFIG` environment variable does exist, `kubectl` uses
 an effective configuration that is the result of merging the files
-listed in the `KUBECONFIG` environment variable.
+listed in the `KUBECONFIG` environment variable. -->
+Si la variable de entorno `KUBECONFIG` existe, `kubectl` utiliza una
+configuración eficaz que es el resultante de la fusión de los ficheros
+listados en la variable de entorno `KUBECONFIG`.
 
-## Merging kubeconfig files
+<!-- ## Merging kubeconfig files -->
+
+## Fusionando archivos kubeconfig
 
 To see your configuration, enter this command:
 
@@ -156,19 +187,25 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 6. For any information still missing, use default values and potentially
    prompt for authentication information.
 
-## File references
+<!-- ## File references -->
 
-File and path references in a kubeconfig file are relative to the location of the kubeconfig file.
-File references on the command line are relative to the current working directory.
-In `$HOME/.kube/config`, relative paths are stored relatively, and absolute paths
-are stored absolutely.
+## Referencias de archivos
+
+<!-- File and path references in a kubeconfig file are relative to the location of the kubeconfig file. -->
+Las referencias, así también como, las rutas de un archivo kubeconfig son relativas a la ubicación del archivo kubeconfig.
+<!-- File references on the command line are relative to the current working directory. -->
+Las referencias de un archivo en la línea de comandos son relativas al directorio actual de trabajo.
+<!-- In `$HOME/.kube/config`, relative paths are stored relatively, and absolute paths
+are stored absolutely. -->
+Dentro de `$HOME/.kube/config`, las rutas relativas se almacenan relativamente, y las rutas absolutas
+se almacenan absolutamente.
 
 {{% /capture %}}
 
 
 {{% capture whatsnext %}}
 
-* [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [Configurar El Acceso A Multiples Clústers](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}
