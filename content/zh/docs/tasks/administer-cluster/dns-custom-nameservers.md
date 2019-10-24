@@ -598,7 +598,7 @@ A cluster administrator can also migrate using [the deploy script](https://githu
 ## 迁移到 CoreDNS
 
 为了从 kube-dns 迁移到 CoreDNS，[一个详细的博客](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/)可以帮助用户调整 CoreDNS 来代替 kube-dns。
-集群管理员还可以使用[部署脚本](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh) 进行迁移。
+集群管理员还可以使用[部署脚本](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh)进行迁移。
 
 ## 下一步
 - [调试 DNS 解析](/docs/tasks/administer-cluster/dns-debugging-resolution/)。
