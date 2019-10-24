@@ -117,7 +117,6 @@ aliases:
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - nasa9084
-    - zacharysarah
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - cstoku
     - inductor
