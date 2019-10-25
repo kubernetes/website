@@ -1,5 +1,5 @@
 ---
-title: Container Storage Interface (CSI)
+title: コンテナストレージインターフェイス(CSI)
 id: csi
 date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#csi
