@@ -22,7 +22,7 @@ card:
 
 쿠버네티스 오브젝트는 하나의 "의도를 담은 레코드" 이다. 오브젝트를 생성하게 되면, 쿠버네티스 시스템은 그 오브젝트 생성을 보장하기 위해 지속적으로 작동할 것이다. 오브젝트를 생성함으로써, 여러분이 클러스터의 워크로드를 어떤 형태로 보이고자 하는지에 대해 효과적으로 쿠버네티스 시스템에 전한다. 이것이 바로 여러분의 클러스터에 대해 *의도한 상태* 가 된다.
 
-생성이든, 수정이든, 또는 삭제든 쿠버네티스 오브젝트를 동작시키려면, [Kubernetes API](/docs/concepts/overview/kubernetes-api/)를 이용해야 한다. 예를 들어, `kubectl` 커맨드-라인 인터페이스를 이용할 때, CLI는 여러분 대신 필요한 쿠버네티스 API를 호출해 준다. 또한, 여러분은 [Client Libraries](/docs/reference/using-api/client-libraries/) 중 하나를 이용하여 여러분만의 프로그램에서 쿠버네티스 API를 직접 이용할 수도 있다.
+생성이든, 수정이든, 또는 삭제든 쿠버네티스 오브젝트를 동작시키려면, [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)를 이용해야 한다. 예를 들어, `kubectl` 커맨드-라인 인터페이스를 이용할 때, CLI는 여러분 대신 필요한 쿠버네티스 API를 호출해 준다. 또한, 여러분은 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/) 중 하나를 이용하여 여러분만의 프로그램에서 쿠버네티스 API를 직접 이용할 수도 있다.
 
 ### 오브젝트 스펙(spec)과 상태(status)
 
@@ -62,12 +62,19 @@ deployment.apps/nginx-deployment created
 * `apiVersion` - 이 오브젝트를 생성하기 위해 사용하고 있는 쿠버네티스 API 버전이 어떤 것인지
 * `kind` - 어떤 종류의 오브젝트를 생성하고자 하는지
 * `metadata` - `이름` 문자열, `UID`, 그리고 선택적인 `네임스페이스` 를 포함하여 오브젝트를 유일하게 구분지어 줄 데이터
+* `spec` - 오브젝트에 대해 어떤 상태를 의도하는지
 
-여러분은 또한 오브젝트 `spec` 필드를 제공해야만 할 것이다. 오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다. 
-예를 들어, `파드`에 대한 `spec` 포맷은 [여기](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서 확인할 수 있고, `디플로이먼트`에 대한 `spec` 포맷은 [여기](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)에서 확인할 수 있다.
+오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다. 
+예를 들어, `파드`에 대한 `spec` 포맷은 
+[여기](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
+에서 확인할 수 있고, `디플로이먼트`에 대한 `spec` 포맷은 
+[여기](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)에서 확인할 수 있다.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
+* [파드(Pod)](/ko/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
+* 쿠버네티스의 [컨트롤러](/docs/concepts/architecture/controller/)에 대해 배운다.
 {{% /capture %}}
+
+

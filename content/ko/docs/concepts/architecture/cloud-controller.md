@@ -1,7 +1,7 @@
 ---
 title: 클라우트 컨트롤러 매니저 기반에 관한 개념
 content_template: templates/concept
-weight: 30
+weight: 40
 ---
 
 {{% capture overview %}}

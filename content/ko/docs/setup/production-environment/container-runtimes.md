@@ -181,7 +181,7 @@ add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
 # CRI-O 설치
-apt-get install cri-o-1.13
+apt-get install cri-o-1.15
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}

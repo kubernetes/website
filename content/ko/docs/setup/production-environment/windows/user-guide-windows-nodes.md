@@ -334,7 +334,7 @@ kubectl get nodes
 1. 등록된 모든 쿠버네티스 서비스(flanneld, kubelet, kube-proxy)를 해지한다.
 1. 쿠버네티스 바이너리(kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)를 모두 삭제한다.
 1. CNI 네트워크 플러그인 바이너리를 모두 삭제한다.
-1. 쿠버네티스 클러스터에 접근하기 위한 [Kubeconfig 파일](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 삭제한다.
+1. 쿠버네티스 클러스터에 접근하기 위한 [Kubeconfig 파일](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 삭제한다.
 
 
 ### 퍼블릭 클라우드 제공자

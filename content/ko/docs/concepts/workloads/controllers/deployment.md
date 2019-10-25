@@ -11,10 +11,10 @@ weight: 30
 
 {{% capture overview %}}
 
-_디플로이먼트_ 컨트롤러는 [파드](/ko/docs/concepts/workloads/pods/pod/)와 
+_디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와 
 [레플리카셋](/ko/docs/concepts/workloads/controllers/replicaset/)에 대한 선언적 업데이트를 제공한다.
 
-디플로이먼트에서 _의도하는 상태_ 를 설명하고, 디플로이먼트 컨트롤러는 현재 상태에서 의도하는 상태로 비율을 조정하며 변경한다. 새 레플리카셋을 생성하는 디플로이먼트를 정의하거나 기존 디플로이먼트를 제거하고, 모든 리소스를 새 디플로이먼트에 적용할 수 있다.
+디플로이먼트에서 _의도하는 상태_ 를 설명하고, 디플로이먼트 {{< glossary_tooltip term_id="controller" >}} 는 현재 상태에서 의도하는 상태로 비율을 조정하며 변경한다. 새 레플리카셋을 생성하는 디플로이먼트를 정의하거나 기존 디플로이먼트를 제거하고, 모든 리소스를 새 디플로이먼트에 적용할 수 있다.
 
 {{< note >}}
 디플로이먼트가 소유하는 레플리카셋은 관리하지 말아야 한다. 사용자의 유스케이스가 다음에 포함되지 않는 경우 쿠버네티스 리포지터리에 이슈를 올릴 수 있다.
@@ -151,23 +151,29 @@ _디플로이먼트_ 컨트롤러는 [파드](/ko/docs/concepts/workloads/pods/p
 
 다음 단계에 따라 디플로이먼트를 업데이트한다.
 
-1. nginx 파드를 이용 중인 `nginx:1.9.1` 이미지에서 `nginx:1.7.9` 로 업데이트 한다.
+1. `nginx:1.7.9` 이미지 대신 `nginx:1.9.1` 이미지를 사용하도록 nginx 파드를 업데이트 한다.
 
     ```shell
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
     ```
-    이와 유사하게 출력된다.
+   또는 간단하게 다음의 명령어를 사용한다.
+
+    ```shell
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
+    ```
+
+  이와 유사하게 출력된다.
     ```
     deployment.apps/nginx-deployment image updated
     ```
 
-    대안으로 디플로이먼트를 `edit` 해서 `.spec.template.spec.containers[0].image` 를 `nginx:1.7.9` 에서 `nginx:1.9.1` 로 변경한다.
+  대안으로 디플로이먼트를 `edit` 해서 `.spec.template.spec.containers[0].image` 를 `nginx:1.7.9` 에서 `nginx:1.9.1` 로 변경한다.
 
     ```shell
     kubectl edit deployment.v1.apps/nginx-deployment
     ```
 
-    이와 유사하게 출력된다.
+   이와 유사하게 출력된다.
     ```
     deployment.apps/nginx-deployment edited
     ```
