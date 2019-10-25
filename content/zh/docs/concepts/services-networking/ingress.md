@@ -1,12 +1,20 @@
 ---
+title: Ingress
+content_template: templates/concept
+weight: 40
+---
+<!--
+---
 reviewers:
 - bprashanth
 title: Ingress
 content_template: templates/concept
 weight: 40
 ---
+-->
 
 {{% capture overview %}}
+{{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
 {{% /capture %}}
 
@@ -14,25 +22,41 @@ weight: 40
 
 <!--
 ## Terminology
-
-Throughout this doc you will see a few terms that are sometimes used interchangeably elsewhere, that might cause confusion. This section attempts to clarify them.
-
-* Node: A single virtual or physical machine in a Kubernetes cluster.
-* Cluster: A group of nodes firewalled from the internet, that are the primary compute resources managed by Kubernetes.
-* Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
-* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](/docs/concepts/cluster-administration/networking/). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](https://www.openvswitch.org/).
-* Service: A Kubernetes [Service](/docs/concepts/services-networking/service/) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 -->
-
 ## 专用术语
 
-在本文档中，您将看到一些有时在其他地方可互换使用的术语，这些术语可能会引起混淆。 本节试图澄清它们
+<!-- 
+For clarity, this guide defines the following terms:
+-->
+为了清楚起见，本指南定义了以下术语：
 
-* 节点：Kubernetes 集群中的单个虚拟或物理机器。
-* 集群：互联网防火墙保护下的一组节点，它们是 Kubernetes 管理的主要计算资源。
-* 边缘路由器：为集群强制执行防火墙策略的路由器。这可以是由云提供商管理的网关或物理硬件。
-* 集群网络：一组逻辑或物理的链接，根据 [Kubernetes 网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。集群网络的例子包括 覆盖网络，例如 [flannel](https://github.com/coreos/flannel#flannel)；或者SDN，例如 [OVS](https://www.openvswitch.org/)。
-* 服务：Kubernetes [服务](/docs/concepts/services-networking/service/) 使用标签选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+<!--
+Node
+: A worker machine in Kubernetes, part of a cluster.
+-->
+Node
+: Kubernetes 中的一台工作者机器，是集群的一部分。
+
+<!-- 
+Cluster
+: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet. 
+-->
+Cluster
+: 运行由 Kubernetes 管理的容器化应用程序的一组节点。在大多数常见的 Kubernetes 部署中，集群中的节点不属于公共 Internet。
+
+<!-- 
+Edge router
+: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware. 
+-->
+Edge router
+: 强制对集群执行防火墙策略的路由器。
+
+Cluster network
+: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
+
+Service
+: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+-->
 
 <!--
 ## What is Ingress?
