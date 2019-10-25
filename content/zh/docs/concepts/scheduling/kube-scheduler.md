@@ -198,8 +198,8 @@ kube-scheduler 有一系列的默认调度策略。
 
 - `PodFitsResources`：检查 Node 上是否有足够的资源（如，cpu 和内存）来满足 pod 的资源请求。
 
-- `PodMatchNodeSelector`：检查 Node 的 {{< glossary_tooltip text="label(s)" term_id="label" >}} 是否能匹配
-  Pod 属性上 Node 的 {{< glossary_tooltip text="label(s)" term_id="label" >}} 值。
+- `PodMatchNodeSelector`：检查 Node 的 {{< glossary_tooltip text="标签" term_id="label" >}} 是否能匹配
+  Pod 属性上 Node 的 {{< glossary_tooltip text="标签" term_id="label" >}} 值。
 
 - `NoVolumeZoneConflict`：检测 pod 请求的 {{< glossary_tooltip text="Volumes" term_id="volume" >}} 在
   Node 上是否可用，因为某些存储卷存在区域调度约束。
@@ -288,13 +288,13 @@ kube-scheduler 有一系列的默认调度策略。
 
 - `RequestedToCapacityRatioPriority`：为 Node 上每个资源占用比例设定得分值，给资源打分函数在打分时使用。
 
-- `BalancedResourceAllocation`：Node 上与调度有关的多种资源的占用比例越接近，得分越高。
+- `BalancedResourceAllocation`：优选那些使得资源利用率更为均衡的节点。
 
 - `NodePreferAvoidPodsPriority`：这个策略将根据 Node 的注解信息中是否含有 `scheduler.alpha.kubernetes.io/preferAvoidPods` 来
   计算其优先级。使用这个策略可以将两个不同 Pod 运行在不同的 Node 上。
 
 - `NodeAffinityPriority`：基于 Pod 属性中 PreferredDuringSchedulingIgnoredDuringExecution 来进行 Node 亲和性调度。你可以通过这篇文章
-  [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/) 来了解到更详细的内容。
+  [Pods 到 Nodes 的分派](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/) 来了解到更详细的内容。
 
 - `TaintTolerationPriority`：基于 Pod 中对每个 Node 上污点容忍程度进行优先级评估，这个策略能够调整待选 Node 的排名。
 
@@ -311,9 +311,9 @@ kube-scheduler 有一系列的默认调度策略。
 {{% /capture %}}
 {{% capture whatsnext %}}
 * 阅读关于 [调度器性能调优](/docs/concepts/scheduling/scheduler-perf-tuning/)
-* 阅读关于 [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+* 阅读关于 [Pod 拓扑分布约束](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的 [参考文档](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解关于 [配置多个调度器](/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
-* 了解关于 [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
-* 了解关于 [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+* 了解关于 [拓扑结构管理策略](/docs/tasks/administer-cluster/topology-manager/)
+* 了解关于 [Pod 额外开销](/docs/concepts/configuration/pod-overhead/)
 {{% /capture %}}
