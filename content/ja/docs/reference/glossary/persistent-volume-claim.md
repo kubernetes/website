@@ -15,7 +15,5 @@ tags:
 
 <!--more--> 
 
-Specifies the amount of storage, how the storage will be accessed (read-only, read-write and/or exclusive) and how it is reclaimed (retained, recycled or deleted). Details of the storage itself are in the PersistentVolume specification.
-
 ストレージサイズ、ストレージへのアクセス制御（読み取り専用、読み取り/書き込み、排他的）、および再利用方法（保持、リサイクル、削除）を指定します。ストレージ自体の詳細は永続ボリュームの仕様にあります。
 
