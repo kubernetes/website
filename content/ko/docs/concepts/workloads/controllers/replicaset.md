@@ -28,7 +28,7 @@ weight: 10
 이 링크를 통해 레플리카셋은 자신이 유지하는 파드의 상태를 확인하고 이에 따라 관리 한다.
 
 레플리카셋은 셀렉터를 이용해서 필요한 새 파드를 식별한다. 만약 파드에 OwnerReference이 없거나 
-OwnerReference가 컨트롤러가 아니고 레플리카셋의 셀렉터와 일치한다면 레플리카셋이 즉각 파드를 
+OwnerReference가 {{< glossary_tooltip term_id="controller" >}} 가 아니고 레플리카셋의 셀렉터와 일치한다면 레플리카셋이 즉각 파드를 
 가지게 될 것이다.
 
 ## 레플리카셋을 사용하는 시기
@@ -319,7 +319,7 @@ kubectl autoscale rs frontend --max=10
 
 ### 디플로이먼트(권장)
 
-[`디플로이먼트`](/docs/concepts/workloads/controllers/deployment/)는 레플리카셋을 소유하거나 업데이트를 하고, 
+[`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/)는 레플리카셋을 소유하거나 업데이트를 하고, 
 파드의 선언적인 업데이트와 서버측 롤링 업데이트를 할 수 있는 오브젝트이다.
 레플리카셋은 단독으로 사용할 수 있지만, 오늘날에는 주로 디플로이먼트로 파드의 생성과 삭제 그리고 업데이트를 오케스트레이션하는 메커니즘으로 사용한다.
 디플로이먼트를 이용해서 배포할 때 생성되는 레플리카셋을 관리하는 것에 대해 걱정하지 않아도 된다.
@@ -338,13 +338,13 @@ kubectl autoscale rs frontend --max=10
 ### 데몬셋
 
 머신 모니터링 또는 머신 로깅과 같은 머신-레벨의 기능을 제공하는 파드를 위해서는 레플리카셋 대신 
-[`데몬셋`](/docs/concepts/workloads/controllers/daemonset/)을 사용한다.
+[`데몬셋`](/ko/docs/concepts/workloads/controllers/daemonset/)을 사용한다.
 이러한 파드의 수명은 머신의 수명과 연관되어 있고, 머신에서 다른 파드가 시작하기 전에 실행되어야 하며, 
 머신의 재부팅/종료가 준비되었을 때, 해당 파드를 종료하는 것이 안전하다.
 
 ### 레플리케이션 컨트롤러
 레플리카셋은 [_레플리케이션 컨트롤러_](/ko/docs/concepts/workloads/controllers/replicationcontroller/)를 계승하였다.
-이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/docs/concepts/overview/working-with-objects/labels/#label-selectors)에 
+이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)에 
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
 
