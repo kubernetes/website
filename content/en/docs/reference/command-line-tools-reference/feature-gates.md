@@ -103,8 +103,6 @@ different Kubernetes components.
 | `NodeLease` | `true` | Beta | 1.14 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
-| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
-| `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
@@ -211,6 +209,9 @@ The following table contains feature gates for graduated or deprecated features.
 | `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
 | `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
 | `PodReadinessGates` | `true` | GA | 1.14 | - |
+| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
+| `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
+| `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
