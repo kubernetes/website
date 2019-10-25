@@ -511,7 +511,7 @@ CoreDNS 不仅仅提供 kube-dns 的功能。
 为 kube-dns 创建的 ConfigMap 支持 `StubDomains` 和 `upstreamNameservers` 转换为 CoreDNS 中的 `forward` 插件。
 同样，kube-dns 中的 `Federations` 插件会转换为 CoreDNS 中的 `federation` 插件。
 
-###示例
+### 示例
 
 用于 kubedns 的此示例 ConfigMap 描述了 federations, stubdomains and upstreamnameservers：
 
