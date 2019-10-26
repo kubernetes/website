@@ -7,6 +7,17 @@ card:
   name: contribute
   weight: 50
 ---
+<!-- 
+---
+title: Intermediate contributing
+slug: intermediate
+content_template: templates/concept
+weight: 20
+card:
+  name: contribute
+  weight: 50
+--- 
+-->
 
 {{% capture overview %}}
 
@@ -15,14 +26,14 @@ This page assumes that you've read and mastered the tasks in the
 [start contributing](/docs/contribute/start/) topic and are ready to
 learn about more ways to contribute.
 -->
-本文假定你已经阅读并掌握了[开始贡献](/docs/contribute/start/)中介绍的内容，
-想要了解更多关于贡献的内容。
+本文假定你已经阅读并掌握了[开始贡献](/docs/contribute/start/)中介绍的内容，想要了解更多关于贡献的内容。
 
 
 {{< note >}}
 <!--
 Some tasks require you to use the Git command line client and other tools.
--->有些任务需要使用Git命令行客户端和其他工具。
+-->
+有些任务需要使用 Git 命令行客户端和其他工具。
 {{< /note >}}
 
 {{% /capture %}}
@@ -35,8 +46,7 @@ the ways outlined in the [start contributing](/docs/contribute/start/) topic,
 you may feel ready to do more. These tasks assume that you have, or are willing
 to gain, deeper knowledge of the following topic areas:
 -->
-现在，您已经熟悉了Kubernetes文档，并按照[开始贡献](/docs/contribute/start/)文章中介绍的方式进行了贡献，
-您可能已经准备好做更多的工作。这些任务假设您已经或愿意获得以下主题领域的更深入的知识:
+现在，您已经熟悉了 Kubernetes 文档，并按照[开始贡献](/docs/contribute/start/)文章中介绍的方式进行了贡献，您可能已经准备好做更多的工作。这些任务假设您已经或愿意获得以下主题领域的更深入的知识:
 
 <!--
 - Kubernetes concepts
@@ -44,9 +54,9 @@ to gain, deeper knowledge of the following topic areas:
 - Where and how to find information about upcoming Kubernetes features
 - Strong research skills in general
 -->
-- Kubernetes概念
-- Kubernetes文档工作流
-- 在哪里和如何找到即将推出的Kubernetes功能的信息
+- Kubernetes 概念
+- Kubernetes 文档工作流程
+- 在哪里和如何找到即将推出的 Kubernetes 功能的信息
 - 较强的研究能力
 
 <!--
@@ -66,10 +76,9 @@ To be added to this list, attend the weekly SIG Docs meeting and volunteer. Even
 if you are not on the schedule for the current week, you can still review pull
 requests (PRs) that are not already under active review.
 -->
-通常，每周都会有一个特定的文档审核志愿者对[pull requests 和 issues](#triage-and-categorize-issues)
-进行分类和审核。这个人就是本周的“PR 牧马人”。排班计划在[PR 牧马人排班](https://github.com/kubernetes/website/wiki/PR-Wranglers)维护。
+通常，每周都会有一个特定的文档审核志愿者对 [pull requests 和 issues](#triage-and-categorize-issues) 进行分类和审核。这个人就是本周的 “PR 轮流负责人”。排班计划在 [PR 轮流负责人排班](https://github.com/kubernetes/website/wiki/PR-Wranglers) 中维护。
 如果想要加入排班计划，需要参加每周的 SIG Docs 会议并志愿申请。
-尽管你不在本周的排班计划中，你也可以审核那些还未开始检视的PR。
+尽管你不在本周的排班计划中，你也可以审核那些还未开始检视的 PR。
 
 <!--
 In addition to the rotation, an automated system comments on each new PR and
@@ -78,7 +87,7 @@ reviewers in the affected files. The PR author is expected to follow the
 guidance of the bot, and this also helps PRs to get reviewed quickly.
 -->
 除了轮换之外，自动化系统（机器人）会根据修改的文件自动推荐相应的 approver 和 reviewer。
-PR作者应该遵循机器人的指导，这也有助于PR得到快速审查。
+PR 作者应该遵循机器人的指导，这也有助于 PR 得到快速审查。
 
 <!--
 We want to get pull requests (PRs) merged and published as quickly as possible.
@@ -86,8 +95,8 @@ To ensure the docs are accurate and up to date, each PR needs to be reviewed by
 people who understand the content, as well as people with experience writing
 great documentation.
 -->
-我们希望尽快合并和发布pull requests。
-为了确保文档是准确的和最新的，每个PR都需要由理解内容的人以及具有编写优秀文档经验的人来评审。
+我们希望尽快合并和发布 pull requests。
+为了确保文档是准确的和最新的，每个 PR 都需要由理解内容的人以及具有编写优秀文档经验的人来评审。
 
 <!--
 Reviewers and approvers need to provide actionable and constructive feedback to
@@ -97,28 +106,28 @@ yourself, but the project is better in the long term when we have a diversity of
 active participants.
 -->
 评审人员和批准人员需要提供可操作的和建设性的反馈，以保持贡献者的参与并帮助他们改进。
-有时候，帮助一个新的贡献者把他们的PR准备好合并比你自己重写它需要更多的时间，
+有时候，帮助一个新的贡献者把他们的 PR 准备好合并比你自己重写它需要更多的时间，
 但是从长远来看，当我们有不同的积极参与者时，这个项目会更好。
 
 <!--
 Before you start reviewing PRs, make sure you are familiar with the
-[Documentation Style Guide](/docs/contribute/style/style-guide/)
-and the [code of conduct](/community/code-of-conduct/)
+[Documentation Content Guide](/docs/contribute/style/content-guide/), the 
+[Documentation Style Guide](/docs/contribute/style/style-guide/),
+and the [code of conduct](/community/code-of-conduct/).
 -->
-在开始评审PR之前，请确保熟悉 [文档风格指南](/docs/contribute/style/style-guide/)
-和 [行为准则](/community/code-of-conduct/)。
+在开始评审 PR 之前，请确保熟悉[文档内容指南](/docs/contribute/style/content-guide/)、[文档风格指南](/docs/contribute/style/style-guide/)、[行为准则](/community/code-of-conduct/)。
 
 <!--
 ### Find a PR to review
 -->
-### 找一个PR来评审
+### 找一个 PR 来评审
 
 <!--
 To see all open PRs, go to the **Pull Requests** tab in the GitHub repository.
 A PR is eligible for review when it meets all of the following criteria:
 -->
-要查看所有打开的PR，请转到GitHub仓库中的**Pull Requests**选项卡。
-当符合以下所有条件时，PR才有资格进行评审：
+要查看所有打开的 PR，请转到 GitHub 仓库中的**Pull Requests**选项卡。
+当符合以下所有条件时，PR 才有资格进行评审：
 
 <!--
 - Has the `cncf-cla:yes` tag
@@ -133,10 +142,10 @@ A PR is eligible for review when it meets all of the following criteria:
   already been completed on a PR can be discouraging and counter-productive.
 -->
 - 拥有 `cncf-cla:yes` 标签
-- 描述中没有WIP
-- 没有包含`do-not-merge`字样的标签
+- 描述中没有 WIP
+- 没有包含 `do-not-merge` 字样的标签
 - 没有合并冲突
-- 基于正确的分支(通常为“master”，除非PR与某个未发布的功能相关)
+- 基于正确的分支(通常为 “master”，除非 PR 与某个未发布的功能相关)
 - 没有被其他文档人员（或其他技术领域的评审人）评审，除非你被显式的请求参与评审。
   需要说明的是，如果其他评审已经结束的情况下，你再留下很多新的意见，会让人感到沮丧，这适得其反。
 
@@ -146,18 +155,18 @@ the problem and offer to help them fix it. If they've been informed and have not
 fixed the problem in several weeks or months, eventually their PR will be closed
 without merging.
 -->
-如果PR不符合合并的条件，请留下评论，让作者知道问题所在，并帮助他们解决问题。
-如果他们被告知并在几周或几个月内没有解决问题，最终他们的PR将被关闭而不会合并。
+如果 PR 不符合合并的条件，请留下评论，让作者知道问题所在，并帮助他们解决问题。
+如果他们被告知并在几周或几个月内没有解决问题，最终他们的 PR 将被关闭而不会合并。
 
 <!--
 If you're new to reviewing, or you don't have a lot of bandwidth, look for PRs
 with the `size/XS` or `size/S` tag set. The size is automatically determined by
 the number of lines the PR changes.
 -->
-如果您是新手，或者您没有太多的带宽，请寻找具有 `size/XS` 或 `size/S` 标记集的PR。
-大小由PR更改的行数自动设置。
+如果您是新手，或者您没有太多的带宽，请寻找具有 `size/XS` 或 `size/S` 标记集的 PR。
+大小由 PR 更改的行数自动设置。
 
-#### 评审人员和批准人员
+#### Reviewers and approvers
 
 <!--
 The Kubernetes website repo operates differently than some of the Kubernetes
@@ -174,7 +183,7 @@ Kubernetes 网站仓库与 Kubernetes 的一些代码仓库在涉及审核者和
   indicates that a PR is technically accurate by leaving a `/lgtm` comment on
   the PR.
 
-    {{< note >}}Don't add an `/lgtm` unless you are confident in the technical
+    {{< note >}}Don't add a `/lgtm` unless you are confident in the technical
     accuracy of the documentation modified or introduced in the PR.{{< /note >}}
 
 - An approver reviews pull request content for docs quality and adherence to
@@ -182,29 +191,34 @@ Kubernetes 网站仓库与 Kubernetes 的一些代码仓库在涉及审核者和
   [style guide](/docs/contribute/style/style-guide). Only people listed as
   approvers in the
   [`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS) file can
-  approve a PR. To approve a PR, leave an `/approved` comment on the PR.
+  approve a PR. To approve a PR, leave an `/approve` comment on the PR.
 -->
-- 当评审人员以评审PR的技术准确性时，评审人员发表一个 `/lgtm` 评论表示技术上是无误的。
+- 当评审人员以评审 PR 的技术准确性时，评审人员发表一个 `/lgtm` 评论表示技术上是无误的。
 
-    {{< note >}}如果你对技术准确性不确信，不要在涉及文档修改的PR中回复 `/lgtm`。  {{< /note >}}
+    {{< note >}}如果你对技术准确性不确信，不要在涉及文档修改的 PR 中回复 `/lgtm`。  {{< /note >}}
     
 - 批准者审核有关文档修改的内容时，注重质量和相关规范（比如[风格规范](/docs/contribute/style/style-guide)）。
   只有在 [`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS) 文件中列出的
-  人才可以批准PR。批准PR时，需要回复一个`/approved`评论。
+  人才可以批准 PR。批准 PR 时，需要回复一个 `/approve` 评论。
 
 <!--
 A PR is merged when it has both a `/lgtm` comment from anyone in the Kubernetes
-organization and an `/approved` comment from an approver in the
+organization and an `/approve` comment from an approver in the
 `sig-docs-maintainers` group, as long as it is not on hold and the PR author
 has signed the CLA.
 -->
-如果PR拥有来自Kubernetes社区的任何人的`/lgtm`评论和来自`sig-docs-maintainers`组的`/approved`评论，
-只要它没有被hold并且作者已签署了CLA，PR就会被合并。
+如果 PR 拥有来自 Kubernetes 社区的任何人的 `/lgtm` 评论和来自 `sig-docs-maintainers` 组的 `/approve` 评论，只要它没有被 hold 并且作者已签署了 CLA，PR 就会被合并。
+
+{{< note >}}
+<!-- 
+The ["Participating"](/docs/contribute/participating/#approvers) section contains more information for reviewers and approvers, including specific responsibilities for approvers. -->
+["参与"](/docs/contribute/participating/#approvers)部分包含有关 reviewers 和 approvers 的更多信息，包括 approvers 的具体职责。
+{{< /note >}}
 
 <!--
 ### Review a PR
 -->
-### 审核PR
+### 审核 PR
 
 <!--   
 1.  Read the PR description and read any attached issues or links, if
@@ -261,9 +275,9 @@ has signed the CLA.
             provide technical review.
           - To prevent the PR from being merged, add `/hold`. This sets the
             label `do-not-merge/hold`.
-          - If a PR has no conflicts and has the `lgtm` and `approved` label but
+          - If a PR has no conflicts and has the `lgtm` and `approve` label but
             no `hold` label, it is merged automatically.
-          - If a PR has the `lgtm` and/or `approved` labels and new changes are
+          - If a PR has the `lgtm` and/or `approve` labels and new changes are
             detected, these labels are removed automatically.
 
             See
@@ -278,79 +292,79 @@ has signed the CLA.
 -->
 
    
-1.  阅读PR描述，并阅读任何附加的问题或链接，如果有的话。
+1.  阅读 PR 描述，并阅读任何附加的 issues 或链接，如果有的话。
     “快速评审”有时弊大于利，所以确保你有正确的知识来提供有意义的评审。
 
-2.  如果其他人是审核这个PR的最佳人选，请通过添加`/assign @<github-username>`的评论让他们知道。
-    如果你要求一个非文档人员进行技术评审，但仍然想从文档的角度来评审PR，那就继续吧。    
+2.  如果其他人是审核这个 PR 的最佳人选，请通过添加 `/assign @<github-username>` 的评论让他们知道。
+    如果你要求一个非文档人员进行技术评审，但仍然想从文档的角度来评审 PR，那就继续吧。    
 
 3.  转到 **Files changed** 选项卡。查看所有的修改行。删除的内容具有红色背景，这些行也以 `-` 符号开头。
     添加的内容具有绿色背景，这些行也以 `+` 符号开始。在一行中，实际修改的内容的背景颜色比该行的其余部分略深一些。
 
-      - 特别是如果PR使用复杂的格式或更改CSS、Javascript或其他站点范围内的元素，您可以使用PR预览网站。
+      - 特别是如果 PR 使用复杂的格式或更改 CSS、Javascript 或其他站点范围内的元素，您可以使用 PR 预览网站。
         转到 **Conversation** 选项卡，单击页面底部附近的 `deploy/netlify` 测试的 **Details** 链接。
         默认情况下，它会在同一个浏览器窗口中打开，所以在一个新窗口中打开它，这样你就不会丢失你的部分评论。
         切换回 **Files changed** 选项卡以继续您的审阅。
-      - 确保PR符合文档[风格指南](/docs/contribute/style/style-guide/)，
+      - 确保 PR 符合文档[风格指南](/docs/contribute/style/style-guide/)，
         如果不符合，请将作者链接到风格指南的相关部分。
       - 如果您对给定的更改有疑问、评论或其他反馈，请将鼠标悬停在一行上，然后单击出现的蓝白相间的 `+` 号。
         键入您的评论并单击 **Start a review**。
         
       - 如果你有更多的评论，请以同样的方式留下评论。
-      - 按照惯例，如果您看到一个与PR的主要目的无关的小问题，比如一个打印错误或空格错误，
-        您可以将它指出来，并在注释前加上nit:以便作者知道您认为它是无关紧要的。
+      - 按照惯例，如果您看到一个与 PR 的主要目的无关的小问题，比如一个打印错误或空格错误，
+        您可以将它指出来，并在注释前加上 nit: 以便作者知道您认为它是无关紧要的。
         他们仍然应该解决这个问题。
       - 当您查看完所有内容，或者没有任何评论时，回到页面顶部并单击 **Review changes**。
         选择**Comment** 或**Request Changes**。添加评审摘要，
-        并在评审摘要字段中另起一行添加适当的[Prow 命令](https://prow.k8s.io/command-help)。
-        SIG Docs 遵循[Kubernetes代码审查流程](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)。
-        您所有的意见将在一个单一的评论中发送给PR作者。
+        并在评审摘要字段中另起一行添加适当的 [Prow 命令](https://prow.k8s.io/command-help)。
+        SIG Docs 遵循 [Kubernetes 代码审查流程](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)。
+        您所有的意见将在一个单一的评论中发送给 PR 作者。
 
-          - 如果您认为PR已经准备好合并，请将文本 `/approve` 添加到摘要中。
-          - 如果PR不需要额外的技术审查，也可以同时添加文本 `/lgtm` 。
-          - 如果PR *确实* 需要额外的技术审查，使用 `/assign` + GitHub 用户名添加需要提供技术审查的人。
+          - 如果您认为 PR 已经准备好合并，请将文本 `/approve` 添加到摘要中。
+          - 如果 PR 不需要额外的技术审查，也可以同时添加文本 `/lgtm` 。
+          - 如果 PR *确实* 需要额外的技术审查，使用 `/assign` + GitHub 用户名添加需要提供技术审查的人。
             查看上面出现的 Markdown 文件中的`reviewers`字段，看看谁可以提供技术审阅。
-          - 如果需要阻止PR被合并，加上 `/hold` ，就会设置 `do-not-merge/hold` 标签。
-          - 如果PR没有冲突、有 `lgtm` 和 `approved` 标签且没有 `hold` 标签，它就会自动合并。 
-          - 如果PR拥有 `lgtm` 和 `approved` 后再有新的变更，那么这些标签会自动清除。
+          - 如果需要阻止 PR 被合并，加上 `/hold` ，就会设置 `do-not-merge/hold` 标签。
+          - 如果 PR 没有冲突、有 `lgtm` 和 `approve` 标签且没有 `hold` 标签，它就会自动合并。 
+          - 如果 PR 拥有 `lgtm` 和 `approve` 后再有新的变更，那么这些标签会自动清除。
 
-            PR中可能用到的命令，参阅
+            PR 中可能用到的命令，参阅
             [斜线命令列表](https://prow.k8s.io/command-help)。
 
-    - 如果您以前选择了**Request changes** ，并且PR作者已经处理了您的关注点，
+    - 如果您以前选择了**Request changes** ，并且 PR 作者已经处理了您的关注点，
       那么您可以在**Files changed** 选项卡或 **Conversation** 选项卡底部更改您的审阅状态。
-      确保添加 `/approve` 标签，并在必要时指派技术审阅人员，以便合并PR。
+      确保添加 `/approve` 标签，并在必要时指派技术审阅人员，以便合并 PR。
 
 <!--
 ### Commit into another person's PR
 -->
-### 提交到别人的PR
+### 提交到别人的 PR
 
 <!--
 Leaving PR comments is helpful, but there may be times when you need to commit
 into another person's PR, rather than just leaving a review.
 -->
-留下评论是有帮助的，但有时你需要把自己的想法融入到其他人的PR中，而不仅仅是留下评论。
+留下评论是有帮助的，但有时你需要把自己的想法融入到其他人的 PR 中，而不仅仅是留下评论。
 
 <!--
 Resist the urge to "take over" for another person unless they explicitly ask
 you to, or you want to resurrect a long-abandoned PR. While it may be faster
 in the short term, it deprives the person of the chance to contribute.
 -->
-除非对方明确要求你“接手”，或者你想重新建立一个长期被抛弃的PR，否则不要急于“接手”。
+除非对方明确要求你“接手”，或者你想重新建立一个长期被抛弃的 PR，否则不要急于“接手”。
 虽然短期内这样做可能更快，但会剥夺这个人做出贡献的机会。
 
 <!--
 The process you use depends on whether you need to edit a file that is already
 in the scope of the PR or a file that the PR has not yet touched.
 -->
-您的做法（接手）取决于您是需要编辑已经在PR范围内的文件，还是PR尚未触及的文件。
+您的做法（接手）取决于您是需要编辑已经在 PR 范围内的文件，还是 PR 尚未触及的文件。
 
 <!--
 You can't commit into someone else's PR if either of the following things is
 true:
 -->
-如果以下任何一件事是符合的，你就不能提交到某人的PR:
+如果以下任何一件事是符合的，你就不能提交到某人的 PR:
 
 <!--
 - If the PR author pushed their branch directly to the
@@ -361,21 +375,20 @@ true:
 - If the PR author explicitly disallowed edits from approvers, you can't
   commit into their PR unless they change this setting.
 -->
-- 如果PR作者将他们的分支直接推入https://github.com/kubernetes/website/ repository，
-  那么只有具有push访问权限的审阅者才能提交到他们的PR中。
-- 如果PR作者明确禁止审批者进行编辑，那么除非他们更改此设置，否则您无法提交到他们的PR中。
+- 如果 PR 作者将他们的分支直接推入 [https://github.com/kubernetes/website/](https://github.com/kubernetes/website/) 仓库，那么只有具有 push 访问权限的审阅者才能提交到他们的 PR 中。
+- 如果 PR 作者明确禁止审批者进行编辑，那么除非他们更改此设置，否则您无法提交到他们的 PR 中。
 
 <!--
 #### If the file is already changed by the PR
 -->
-#### 文件已在PR中修改
+#### 文件已在 PR 中修改
 
 <!--
 This method uses the GitHub UI. If you prefer, you can use the command line
 even if the file you want to change is part of the PR, if you are more
 comfortable working that way.
 -->
-这个方法使用GitHub UI。如果您愿意，您可以使用命令行，即使您想更改的文件是PR的一部分，如果您更愿意这样工作的话。
+这个方法使用 GitHub UI。如果您愿意，您可以使用命令行，即使您想更改的文件是 PR 的一部分，如果您更愿意这样工作的话。
 
 <!--
 1.  Click the **Files changed** tab.
@@ -395,27 +408,27 @@ author's fork) and now shows up in the PR and your changes are reflected in
 the **Files changed** tab. Leave a comment letting the PR author know you
 changed the PR.
 -->
-您的提交现在被推送到PR对应的分支(可能在作者的分支上)，
-在PR中，您的更改反映在 **Files changed** 选项卡中。
-留下评论，让PR作者知道你修改了PR。
+您的提交现在被推送到 PR 对应的分支(可能在作者的分支上)，
+在 PR 中，您的更改反映在 **Files changed** 选项卡中。
+留下评论，让 PR 作者知道你修改了 PR。
 
 <!--
 If the author is using the command line rather than the GitHub UI to work on
 this PR, they need to fetch their fork's changes and rebase their local branch
 on the branch in their fork, before doing additional work on the PR.
 -->
-如果作者使用命令行而不是GitHub UI来处理这个PR，那么在处理PR之前，
-他们需要获取fork的更改并将本地分支重新建立在fork中的分支上。
+如果作者使用命令行而不是 GitHub UI 来处理这个 PR，那么在处理 PR 之前，
+他们需要获取 fork 的更改并将本地分支重新建立在 fork 中的分支上。
 
-#### 如果文件没有被PR修改
+#### 如果文件没有被 PR 修改
 
 <!--
 If changes need to be made to a file that is not yet included in the PR, you
 need to use the command line. You can always use this method, if you prefer it
 to the GitHub UI.
 -->
-如果需要更改尚未包含在PR中的文件，则需要使用命令行。
-如果您喜欢使用这个方法而不喜欢使用GitHub UI，那么您总是可以使用这个方法。
+如果需要更改尚未包含在 PR 中的文件，则需要使用命令行。
+如果您喜欢使用这个方法而不喜欢使用 GitHub UI，那么您总是可以使用这个方法。
 
 
 1.  <!--
@@ -424,9 +437,9 @@ to the GitHub UI.
     The first link after this phrase is to the branch, and the second link is
     to the fork. Copy the second link. Note the name of the branch for later.
     -->
-    获取作者的fork的URL。你可以在**Conversation** 标签的底部找到它。
+    获取作者的 fork 的 URL。你可以在**Conversation** 标签的底部找到它。
     查找文本 **Add more commits by pushing to** 。
-    这个短语后面的第一个链接是到分支的，第二个链接是到fork的。
+    这个短语后面的第一个链接是到分支的，第二个链接是到 fork 的。
     复制第二个链接。稍后会用到分支的名称。
 
 2.  <!--
@@ -434,7 +447,7 @@ to the GitHub UI.
     repository. Decide on a name to give the remote (such as the author's
     GitHub username), and add the remote using the following syntax:
     -->
-    要给远程设置一个名称(比如作者的GitHub用户名)，然后使用以下语法添加远程：
+    要给远程设置一个名称(比如作者的 GitHub 用户名)，然后使用以下语法添加远程：
     
       ```
       git remote add <name> <url-of-fork>
@@ -479,15 +492,15 @@ to the GitHub UI.
     Go back to the GitHub IU and refresh the PR. Your changes appear. Leave the
     PR author a comment letting them know you changed the PR.
     -->
-    回到GitHub UI并刷新PR。给PR作者留言，让他们知道你修改了PR。
+    回到 GitHub UI 并刷新 PR。给 PR 作者留言，让他们知道你修改了 PR。
 
 <!--
 If the author is using the command line rather than the GitHub UI to work on
 this PR, they need to fetch their fork's changes and rebase their local branch
 on the branch in their fork, before doing additional work on the PR.
 -->
-如果作者使用命令行而不是GitHub UI来处理这个PR，那么在处理PR之前，
-他们需要获取fork的更改并将本地分支重新建立在fork中的分支上。
+如果作者使用命令行而不是 GitHub UI 来处理这个 PR，那么在处理 PR 之前，
+他们需要获取 fork 的更改并将本地分支重新建立在 fork 中的分支上。
 
 <!--
 ## Work from a local clone
@@ -502,9 +515,9 @@ assume that you have it installed locally. You can adapt them to use a local
 graphical Git client instead.
 -->
 对于需要多个文件的更改，或者涉及创建新文件或移动文件的更改，
-使用本地Git克隆比依赖GitHub UI更有意义。
-这些指令使用git命令，并假设您已经在本地安装了它。
-您可以将它们调整为使用本地图形化Git客户机。
+使用本地 Git 克隆比依赖 GitHub UI 更有意义。
+这些指令使用 git 命令，并假设您已经在本地安装了它。
+您可以将它们调整为使用本地图形化 Git 客户机。
 
 <!--
 ### Clone the repository
@@ -515,7 +528,7 @@ graphical Git client instead.
 You only need to clone the repository once per physical system where you work
 on the Kubernetes documentation.
 -->
-对于处理Kubernetes文档的每个物理机，只需要克隆存储库一次。
+对于处理 Kubernetes 文档的每个物理机，只需要克隆存储库一次。
 
 <!--
 1.  In a terminal window, use `git clone` to clone the repository. You do not
@@ -567,12 +580,11 @@ on the Kubernetes documentation.
       git remote rename origin upstream
       ```
 
-3.  如果还没有这样做，请在GitHub上创建存储库的分支。
-    在您的web浏览器中，访问[https://github.com/kubernetes/website](https://github.com/kubernetes/website)
-    并单击Fork按钮。几秒钟后，您将被重定向到您的fork的URL，它通常类似于`https://github.com/<username>/website` ，
-    除非您已经有一个名为 `website`的存储库。复制这个网址。
+3.  如果还没有这样做，请在 GitHub 上创建存储库的分支。
+    在您的 web 浏览器中，访问 [https://github.com/kubernetes/website](https://github.com/kubernetes/website)
+    并单击 Fork 按钮。几秒钟后，您将被重定向到您的 fork 的 URL，它通常类似于 `https://github.com/<username>/website`，除非您已经有一个名为 `website` 的存储库。复制这个网址。
 
-4.  在你的fork中增加另一个远端 `origin`:
+4.  在你的 fork 中增加另一个远端 `origin`:
 
       ```
       git remote add origin <FORK-URL>
@@ -602,9 +614,9 @@ but the following guidelines apply:
   use the pre-release feature branch created for that Kubernetes version.
 -->
 - 对于现有内容的一般改进，可以从 `master` 开始。
-- 对于关于Kubernetes发布版本中已经存在的特性的新内容，请从 `master` 开始。
-- 对于多个SIG Docs贡献者将协作的长期工作，例如内容重组，使用为该工作创建的特定功能分支。
-- 对于与即将发布但尚未发布的Kubernetes版本相关的新内容，请使用为该Kubernetes版本创建的预发布特性分支。
+- 对于关于 Kubernetes 发布版本中已经存在的特性的新内容，请从 `master` 开始。
+- 对于多个 SIG Docs 贡献者将协作的长期工作，例如内容重组，使用为该工作创建的特定功能分支。
+- 对于与即将发布但尚未发布的 Kubernetes 版本相关的新内容，请使用为该 Kubernetes 版本创建的预发布特性分支。
 
 <!--
 For more guidance, see
@@ -617,7 +629,7 @@ After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
 most up-to-date version of that branch.
 -->
-在您决定要使用哪个分支之后(或者用Git术语来说，基于它)，
+在您决定要使用哪个分支之后(或者用 Git 术语来说，基于它)，
 使用以下工作流来确保您的工作基于该分支的最新版本。
 
 
@@ -638,7 +650,7 @@ most up-to-date version of that branch.
     Create a new tracking branch based on the branch you decided is the most
     appropriate. This example assumes you are using `master`.
     -->
-    基于你选择的分支创建一个新的跟踪分支。以你使用master为例：
+    基于你选择的分支创建一个新的跟踪分支。以你使用 master 为例：
 
       ```
       git checkout -b <my_new_branch> upstream/master
@@ -665,10 +677,10 @@ most up-to-date version of that branch.
     section under `modified` or `untracked` need to be added if you want them to
     be part of this commit. For each file that needs to be added, use `git add`.
     -->
-    当您准备提交pull request时，提交您的更改。
-    首先使用git status查看需要向变更集中添加哪些更改。
-    有两个重要的部分:`Changes staged for commit`和`Changes not staged for commit`。
-    如果您希望将后一节中显示的`modified` 或 `untracked` 文件添加到提交中，你需要使用`git add`。
+    当您准备提交 pull request 时，提交您的更改。
+    首先使用 git status 查看需要向变更集中添加哪些更改。
+    有两个重要的部分：`Changes staged for commit` 和 `Changes not staged for commit`。
+    如果您希望将后一节中显示的 `modified` 或 `untracked` 文件添加到提交中，你需要使用 `git add`。
 
       ```
       git add example-file.md
@@ -690,7 +702,7 @@ most up-to-date version of that branch.
       commit message. If you do, it will cause that issue or pull request to get
       a notification every time the commit shows up in a new Git branch. You can
       link issues and pull requests together later, in the GitHub UI.
-      -->不要在提交消息中引用GitHub issue 或 PR(通过ID或URL)。如果您这样做了，那么每当提交出现在新的Git分支中时，就会导致该issue或PR获得通知。稍后，您可以在GitHub UI中链接问题并将请求拉到一起。
+      -->不要在提交消息中引用 GitHub issue 或 PR(通过 ID 或 URL)。如果您这样做了，那么每当提交出现在新的Git 分支中时，就会导致该 issue 或 PR 获得通知。稍后，您可以在 GitHub UI 中链接 issues 并将请求拉到一起。
       {{< /note >}}
 
 5.  <!--
@@ -699,15 +711,14 @@ most up-to-date version of that branch.
     You'll be able to view your changes after you submit the pull request, as
     well.
     -->
-    您还可以选择使用hugo命令在本地暂存站点来测试您的更改。[时间看本地更改](#view-your-changes-locally)。
-    您还可以在提交PR后查看更改。
+    您还可以选择使用 hugo 命令在本地暂存站点来测试您的更改。[本地查看更改](#view-your-changes-locally)。您还可以在提交 PR 后查看更改。
 
 6.  <!--
     Before you can create a pull request which includes your local commit, you
     need to push the branch to your fork, which is the endpoint for the `origin`
     remote.
     -->
-    在创建包含本地提交的PR之前，需要将分支推到fork，也就是`origin`端点。
+    在创建包含本地提交的 PR 之前，需要将分支推到 fork，也就是 `origin` 端点。
 
       ```
       git push origin <my_new_branch>
@@ -717,7 +728,7 @@ most up-to-date version of that branch.
       the behavior in that case depends upon the version of Git you are using.
       The results are more repeatable if you include the branch name.
       -->
-      从技术上讲，您可以从push命令中省略分支名称，但是这种情况下的行为取决于您使用的Git版本。
+      从技术上讲，您可以从 push 命令中省略分支名称，但是这种情况下的行为取决于您使用的 Git 版本。
       如果包含分支名称，结果将更加可重复。
 
 
@@ -726,25 +737,25 @@ most up-to-date version of that branch.
     web browser, GitHub detects that you pushed a new branch to your fork and
     offers to create a pull request. Fill in the pull request template.
     -->
-    此时，如果您在web浏览器中访问https://github.com/kubernetes/website, GitHub会检测到您将一个新的分支推送到您的fork，并提供创建一个pull请求。填写pull request模板。
+    此时，如果您在 web 浏览器中访问 https://github.com/kubernetes/website, GitHub 会检测到您将一个新的分支推送到您的 fork，并提供创建一个 pull 请求。填写 pull request 模板。
 
       - <!--The title should be no more than 50 characters and summarize the intent
-        of the change.-->标题不应超过50个字符，并总结更改的意图。
+        of the change.-->标题不应超过 50 个字符，并总结更改的意图。
       - <!--
         The long-form description should contain more information about the fix,
         including a line like `Fixes #12345` if the pull request fixes a GitHub
         issue. This will cause the issue to be closed automatically when the
         pull request is merged.
         -->
-        长表单描述应该包含关于修复的更多信息，如果PR修复了GitHub issue，
-        则应该包含类似`Fixes #12345`这样的行。
-        这将导致在合并PR时自动关闭该问题。
+        长表单描述应该包含关于修复的更多信息，如果 PR 修复了 GitHub issue，
+        则应该包含类似 `Fixes #12345` 这样的行。
+        这将导致在合并 PR 时自动关闭该 issue。
       - <!--
         You can add labels or other metadata and assign reviewers. See
         [Triage and categorize issues](#triage-and-categorize-issues) for the
         syntax.
         -->
-        您可以添加标签或其他元数据并分配审阅人员。有关语法，请参见[分类和分类问题](#triage-and-categorize-issues)。
+        您可以添加标签或其他元数据并分配审阅人员。有关语法，请参见[分类 issues](#triage-and-categorize-issues)。
 
       <!--Click **Create pull request**.--> 点击 **Create pull request**
 
@@ -755,7 +766,7 @@ most up-to-date version of that branch.
     your changes applied. This is how reviewers will check your changes.-->
     几个自动化测试将运行与您所应用的更改的网站状态。
     如果任何测试失败，请单击**Details**链接获取更多信息。
-    如果Netlify测试成功完成，它的**Details**链接将转到Kubernetes网站的阶段性版本，
+    如果 Netlify 测试成功完成，它的**Details**链接将转到 Kubernetes 网站的阶段性版本，
     其中应用了您的更改。
     这是审阅人员检查更改的方式。
 
@@ -764,13 +775,13 @@ most up-to-date version of that branch.
     creating a new commit. The new commit is added to your pull request and the
     tests run again, including re-staging the Netlify staged site.-->
     如果您注意到需要进行更多的更改，或者评审人员给了您反馈，请在本地处理反馈，
-    然后再次重复步骤4 - 6，创建一个新的提交。新的提交被添加到您的pull请求中，
-    测试再次运行，包括Netlify。
+    然后再次重复步骤 4 - 6，创建一个新的提交。新的提交被添加到您的 pull 请求中，
+    测试再次运行，包括 Netlify。
 
 10. <!--If a reviewer adds changes to your pull request, you need to fetch those
     changes from your fork before you can add more changes. Use the following
     commands to do this, assuming that your branch is currently checked out.-->
-    如果审查员将更改添加到您的pull请求中，您需要从fork获取这些更改，然后才能添加更多的更改。
+    如果审查员将更改添加到您的 pull 请求中，您需要从 fork 获取这些更改，然后才能添加更多的更改。
     假设您的分支当前已签出，请使用以下命令来完成此操作。
 
       ```
@@ -779,7 +790,7 @@ most up-to-date version of that branch.
       ```
 
       <!--After rebasing, you need to add the `-f` flag to force-push new changes to
-      the branch to your fork.-->在rebasing之后，您需要添加`-f`标志来强制推送分支。
+      the branch to your fork.-->在 rebasing 之后，您需要添加 `-f` 标志来强制推送分支。
 
       ```
       git push -f origin <your-branch-name>
@@ -790,11 +801,11 @@ most up-to-date version of that branch.
     might occur. If the pull request shows that there are conflicts to resolve,
     you can resolve them using the GitHub UI or you can resolve them locally.-->
     如果其他人的更改合并到您工作所基于的分支中，并且您对相同文件的相同部分进行了更改，
-    则可能会发生冲突。如果pull请求显示有需要解决的冲突，您可以使用GitHub UI解决它们，
+    则可能会发生冲突。如果 pull 请求显示有需要解决的冲突，您可以使用 GitHub UI 解决它们，
     或者在本地解决它们。
 
       <!--First, do step 10 to be sure that your fork and your local branch are in
-      the same state.-->首先执行第10步，确保你的fork仓库与你本地分支一致。
+      the same state.-->首先执行第 10 步，确保你的 fork 仓库与你本地分支一致。
 
       <!--Next, fetch `upstream` and rebase your branch on the branch it was
       originally based on, like `upstream/master`.-->
@@ -815,12 +826,12 @@ most up-to-date version of that branch.
       there are no changes that need to be committed. At that point, force-push
       the branch to your fork, and the pull request should no longer show any
       conflicts.-->
-      如果存在Git无法自动解决的冲突，可以使用`git status`命令查看冲突文件。
-      对于每个冲突文件，编辑它并查找冲突标记`>>>`，`<<<`，and `===`。
-      解决冲突并删除冲突标记。然后使用`git add <filename>`，
-      并使用`git rebase --continue`继续将更改添加到更改集中。
-      当所有提交都已应用，并且没有更多冲突时，`git status`将显示您不在rebase中，
-      并且不需要提交任何更改。此时，强制将分支推到fork, pull请求应该不再显示任何冲突。
+      如果存在 Git 无法自动解决的冲突，可以使用 `git status` 命令查看冲突文件。
+      对于每个冲突文件，编辑它并查找冲突标记 `>>>`，`<<<`，and `===`。
+      解决冲突并删除冲突标记。然后使用 `git add <filename>`，
+      并使用 `git rebase --continue` 继续将更改添加到更改集中。
+      当所有提交都已应用，并且没有更多冲突时，`git status` 将显示您不在 rebase 中，
+      并且不需要提交任何更改。此时，强制将分支推到 fork, pull 请求应该不再显示任何冲突。
 
 <!--
 If you're having trouble resolving conflicts or you get stuck with
@@ -828,8 +839,8 @@ anything else related to your pull request, ask for help on the `#sig-docs`
 Slack channel or the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 -->
-如果您在解决冲突方面遇到困难，或者您被与pull请求相关的任何其他事情卡住，
-请在`#sig-docs` Slack通道或[kubernet-sig-docs邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)中寻求帮助。
+如果您在解决冲突方面遇到困难，或者您被与 pull 请求相关的任何其他事情卡住，
+请在 `#sig-docs` Slack 通道或 [kubernet-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) 中寻求帮助。
 
 <!--
 ### View your changes locally
@@ -841,9 +852,9 @@ If you aren't ready to create a pull request but you want to see what your
 changes look like, you can build and run a docker image to generate all the documentation and 
 serve it locally.
 -->
-如果您还没有准备好创建一个pull请求，
+如果您还没有准备好创建一个 pull 请求，
 但是您希望看到您的更改是什么样子的，
-那么您可以构建并运行一个docker映像来生成所有文档并在本地提供它。
+那么您可以构建并运行一个 docker 映像来生成所有文档并在本地提供它。
 
 <!--
 1.  Build the image locally:
@@ -892,14 +903,14 @@ Alternatively, you can install and use the `hugo` command on your development ma
       make docker-serve
       ```
 
-3.  在浏览器地址栏输入 `localhost:1313`。Hugo将监视文件系统的更改，并根据需要重新构建站点。
+3.  在浏览器地址栏输入 `localhost:1313`。Hugo 将监视文件系统的更改，并根据需要重新构建站点。
 
-4.  如果想停掉本地Hugo实例，只需要在命令行中键入`Ctrl+C`来关闭命令行窗口。
+4.  如果想停掉本地 Hugo 实例，只需要在命令行中输入 `Ctrl+C` 来关闭命令行窗口。
 
 <!--
 Alternatively, you can install and use the `hugo` command on your development machine:
 -->
-或者，您可以在您的开发机器上安装并使用hugo命令：
+或者，您可以在您的开发机器上安装并使用 hugo 命令：
 
 1.  <!--
     [Install Hugo](https://gohugo.io/getting-started/installing/) version {{< hugoVersion >}} or later.
@@ -910,7 +921,7 @@ Alternatively, you can install and use the `hugo` command on your development ma
     In a terminal, go to the root directory of your clone of the Kubernetes
     docs, and enter this command:
     -->
-    在终端中，转到您克隆的Kubernetes文档的根目录，并输入以下命令：
+    在终端中，转到您克隆的 Kubernetes 文档的根目录，并输入以下命令：
 
       ```
       hugo server
@@ -925,12 +936,12 @@ Alternatively, you can install and use the `hugo` command on your development ma
     To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
     -->
-    如果想停掉本地Hugo实例，只需要在命令行中键入`Ctrl+C`来关闭命令行窗口。
+    如果想停掉本地 Hugo 实例，只需要在命令行中输入 `Ctrl+C` 来关闭命令行窗口。
 
 <!--
 ## Triage and categorize issues
 -->
-## 问题归类
+## issues 归类
 
 <!--
 In any given week, a specific docs approver volunteers to do initial
@@ -938,21 +949,21 @@ In any given week, a specific docs approver volunteers to do initial
 on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review PRs.
 -->
-在任何给定的一周内，一个特定的文档审批者会自愿对pull请求和问题进行初步分类和审查。
+在任何给定的一周内，一个特定的文档审批者会自愿对 pull 请求和 issues 进行初步分类和审查。
 要进入这个名单，参加每周的团体文档会议和志愿者。
-即使你不在这周的时间表上，你仍然可以审核PR。
+即使你不在这周的时间表上，你仍然可以审核 PR。
 
 <!--
 People in SIG Docs are responsible only for triaging and categorizing
 documentation issues. General website issues are also filed in the
 `kubernetes/website` repository.
 -->
-SIG文档人员只负责对文档问题进行分类和分类。一般的网站问题也归档在`kubernetes/website` 资源库中。
+SIG 文档人员只负责对文档 issues 进行分类和分类。一般的网站 issues 也归档在 `kubernetes/website` 资源库中。
 
 <!--
 When you triage an issue, you:
 -->
-当你对一个问题进行分类时：
+当你对一个 issue 进行分类时：
 
 <!--
 - Assess whether the issue has merit. Some issues can be closed quickly by
@@ -964,19 +975,17 @@ When you triage an issue, you:
 - At your discretion, taking ownership of an issue and submitting a PR for it
   (especially if it is quick or relates to work you were already doing).
 -->
-- 评估这个问题是否有价值。有些问题可以通过回答问题或向作者指出资源来迅速解决。
-- 如果问题没有足够的细节可以采取行动，或者模板没有填好，询问作者更多的信息。
-- 向问题添加标签(有时称为标签)、项目或里程碑。SIG文档团队并没有大量使用项目和里程碑。
-- 根据您的判断，对某个问题拥有所有权并为其提交PR(特别是如果它是快速的或与您已经在做的工作相关的)。
+- 评估这个 issue 是否有价值。有些 issues 可以通过回答问题或向作者指出资源来迅速解决。
+- 如果 issue 没有足够的细节可以采取行动，或者模板没有填好，询问作者更多的信息。
+- 向 issue 添加标签(有时称为标签)、项目或者里程碑。SIG 文档团队并没有大量使用项目和里程碑。
+- 根据您的判断，对某个 issue 拥有所有权并为其提交 PR (特别是如果它是快速的或与您已经在做的工作相关的)。
 
 <!--
 If you have questions about triaging an issue, ask in `#sig-docs` on Slack or
 the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 -->
-如果你针对问题分类有疑问，请在Slack `#sig-docs` 频道或
-[kubernetes-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
-中询问。
+如果你针对 issue 分类有疑问，请在 Slack `#sig-docs` 频道或 [kubernetes-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) 中询问。
 
 <!--
 ### More about labels
@@ -1007,98 +1016,40 @@ These guidelines are not set in stone and are subject to change.
     not be assigned automatically. A bug is a problem with existing content or
     functionality, and a feature is a request for new content or functionality.
     The `kind/documentation` label is not currently in use.
-  - Priority labels: define the relative severity of the issue. These do not
-    conform to those outlined in the
-    [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority), and can be one of `P1`, `P2`, or `P3`, if set.
-- To add a label, you can use GitHub's **Labels** widget if you are a Sig Docs
-  approver. Anyone who is a member of the Kubernetes organization can add a
-  label by leaving a comment like `/label <label-to-add>`. The label must
+  - Priority labels: define the relative severity of the issue, as outlined in the
+    [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority).
+- To add a label, leave a comment like `/label <label-to-add>`. The label must
   already exist. If you try to add a label that does not exist, the command is
   silently ignored.
 -->
-- 一个问题可以有多个标签。
-- 一些标签使用斜杠符号进行分组，可以将其视为“子标签”。例如，`sig/`存在许多标签，例如 `sig/cli` 和 `sig/api-machinery`。
-- 系统会根据问题所涉及文件中的元数据，问题注释中使用的斜杠命令或问题文本中的信息，自动添加一些标签。
-- 由负责问题分类的人员（或报告问题的人员，如果他们是SIG文档批准者）手动添加一些标签。
-  - `Actionable`：似乎有足够的信息可以解决或解决此问题。
-  - `good first issue`：Kubernetes或SIG Docs经验有限的人也有可能可以解决此问题。
-  - `kind/bug`, `kind/feature`, and `kind/documentation`：
-    如果提出问题的人未正确填写模板，则可能不会自动分配这些标签。
-    错误是现有内容或功能的问题，功能是对新内容或功能的请求。`kind/documentation`标签当前未使用。
-  - 优先级标签：定义问题的相对严重性。
-    这些并没有在[Kubernetes贡献者指导](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)中，
-    可以是一个P1，P2或者P3。
-- 要添加标签，如果您是Sig Docs批准者，则可以使用GitHub的Labels小部件。Kubernetes组织的任何人都可以通过添加评论来添加标签/label <label-to-add>。标签必须已经存在。如果您尝试添加不存在的标签，该命令将被静默忽略。
-
-<!--
-### Priorities
--->
-### 优先级
-
-<!--
-An issue's priority influences how quickly it is addressed. For documentation,
-here are the guidelines for setting a priority on an issue:
--->
-问题的优先级会影响问题的解决速度。对于文档，以下是设置问题优先级的准则：
-
-#### P1
-
-<!--
-- Major content errors affecting more than 1 page
-- Broken code sample on a heavily trafficked page
-- Errors on a “getting started” page
-- Well known or highly publicized customer pain points
-- Automation issues
--->
-- 影响超过1页的主要内容错误
-- 大量访问的页面上的代码示例损坏
-- “入门”页面上的错误
-- 众所周知或广为宣传的客户痛点
-- 自动化问题
-
-#### P2
-
-<!--
-This is the default for new issues and pull requests.
-这是新问题和拉取请求的默认设置。
--->
-
-<!--
-- Broken code for sample that is not heavily used
-- Minor content issues in a heavily trafficked page
-- Major content issues on a lower-trafficked page
--->
-- 不经常使用的示例代码损坏
-- 页面流量过大的次要内容问题
-- 流量较低的页面上的主要内容问题
-
-
-#### P3
-
-<!--
-- Typos and broken anchor links
-- Documentation feature requests
-- "Nice to have" items
--->
-- 错别字和损坏的链接
-- 文档功能要求
-- “有了更好（没有也问题不大）”项目
+- 一个 issue 可以有多个标签。
+- 一些标签使用斜杠符号进行分组，可以将其视为“子标签”。例如，`sig/` 存在许多标签，例如 `sig/cli` 和 `sig/api-machinery`。
+- 系统会根据 issue 所涉及文件中的元数据，issue 注释中使用的斜杠命令或 issue 文本中的信息，自动添加一些标签。
+- 由负责 issue 分类的人员（或报告 issue 的人员，如果他们是 SIG 文档批准者）手动添加一些标签。
+  - `Actionable`：似乎有足够的信息可以解决或解决此 issue。
+  - `good first issue`： Kubernetes 或 SIG Docs 经验有限的人也有可能可以解决此 issue。
+  - `kind/bug`、`kind/feature`、`kind/documentation`：
+    如果提出 issue 的人未正确填写模板，则可能不会自动分配这些标签。
+    错误是现有内容或功能的 issue，功能是对新内容或功能的请求。`kind/documentation` 标签当前未使用。
+  - 优先级标签：定义 issue 的相对严重性。
+    如 [Kubernetes 贡献者指导](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority) 中所述。
+- 要添加标签，添加 `/label <label-to-add>`。标签必须已经存在。
+  如果您尝试添加不存在的标签，该命令将被默认忽略。
 
 <!--
 ### Handling special issue types
 -->
-### 处理特殊问题类型
+### 处理特殊 issue 类型
 
 <!--
-We've encountered the following types of issues often enough to document how
-to handle them.
+We encounter the following types of issues often enough to document how to handle them.
 -->
-我们经常遇到以下类型的问题，有必要记录如何处理它们。
+我们经常遇到以下类型的 issues，足以记录如何处理它们。
 
 <!--
 #### Duplicate issues
 -->
-#### 重复的问题
+#### 重复的 issues
 
 <!--
 If a single problem has one or more issues open for it, the problem should be
@@ -1108,29 +1059,29 @@ close all the other issues that describe the same problem. Only having a single
 issue to work on will help reduce confusion and avoid duplicating work on the
 same problem.
 -->
-如果单个问题可以解决一个或多个问题，则应将该问题合并为一个问题。
-您应该决定哪个问题保持打开状态（或打开一个新问题），移植所有相关信息，链接相关问题，
-并关闭描述同一问题的所有其他问题。只处理一个问题将有助于减少混乱并避免重复处理同一问题。
+如果单个问题可以解决一个或多个 issues，则应将该问题合并为一个 issue。
+您应该决定哪个 issue 保持打开状态（或打开一个新 issue），移植所有相关信息，链接相关 issues，
+并关闭描述同一 issue 的所有其他 issues。只处理一个 issue 将有助于减少混乱并避免重复处理同一问题。
 
 <!--
 #### Dead link issues
 -->
-#### 无效链接问题
+#### 无效链接 issues
 
 <!--
 Depending on where the dead link is reported, different actions are required to
 resolve the issue. Dead links in the API and Kubectl docs are automation issues
-and should be assigned a P1 until the problem can be fully understood. All other
-dead links are issues that need to be manually fixed and can be assigned a P3.
+and should be assigned `/priority critical-urgent` until the problem can be fully understood. All other dead links are issues that need to be manually fixed and can be assigned `/priority important-longterm`.
 -->
-根据报告无效链接的位置，需要采取不同的措施来解决此问题。
-API和Kubectl文档中的无效链接是自动化问题，应分配为P1，直到可以完全解决该问题为止。
-所有其他无效链接都是需要手动修复的问题，可以将其分配为P3。
+根据报告无效链接的位置，需要采取不同的措施来解决此 issue。
+API 和 Kubectl 文档中的无效链接是自动化 issues，应分配为 `/priority critical-urgent`，
+直到可以完全解决该问题为止。所有其他无效链接都是需要手动修复的 issues，
+可以将其分配为 `/priority important-longterm`。
 
 <!--
 #### Blog issues
 -->
-#### 博客问题
+#### 博客 issues
 
 <!--
 [Kubernetes Blog](https://kubernetes.io/blog/) entries are expected to become
@@ -1138,9 +1089,9 @@ outdated over time, so we maintain only blog entries that are less than one year
 If an issue is related to a blog entry that is more than one year old, it should be closed
 without fixing. 
 -->
-随着时间的流逝，Kubernetes博客条目预计会过时，
+随着时间的流逝，Kubernetes 博客条目预计会过时，
 因此我们仅保留不到一年的博客条目。
-如果某个问题与存在超过一年的博客条目有关，则应将其关闭而不进行修复。
+如果某个 issue 与存在超过一年的博客条目有关，则应将其关闭而不进行修复。
 
 <!--
 #### Support requests or code bug reports
@@ -1154,10 +1105,10 @@ unrelated to docs, close the issue with a comment directing the requester to
 support venues (Slack, Stack Overflow) and, if relevant, where to file an issue
 for bugs with features (kubernetes/kubernetes is a great place to start).
 -->
-相反，为文档带来的一些问题是底层代码的问题，
+相反，为文档带来的一些 issues 是底层代码的 issues，
 或者在某些内容（例如教程）不起作用时请求帮助。
-对于与文档无关的问题，请关闭issue并指示请求者正确的支持场所（Slack，Stack Overflow），
-并在适当的地方针对具有功能缺陷的问题提出问题（可以从kubernetes/kubernetes开始）。
+对于与文档无关的 issues，请关闭 issue 并指示请求者正确的支持场所（Slack，Stack Overflow），
+并在适当的地方针对具有功能缺陷的问题提出 issue（可以从 kubernetes/kubernetes 开始）。
 
 <!--
 Sample response to a request for support:
@@ -1201,7 +1152,7 @@ If this is a documentation issue, please re-open this issue.
 Each major Kubernetes release includes new features, and many of them need
 at least a small amount of documentation to show people how to use them.
 -->
-每个主要的Kubernetes版本都包含新功能，其中许多功能至少需要少量文档才能向人们展示如何使用它们。
+每个主要的 Kubernetes 版本都包含新功能，其中许多功能至少需要少量文档才能向人们展示如何使用它们。
 
 <!--
 Often, the SIG responsible for a feature submits draft documentation for the
@@ -1209,11 +1160,12 @@ feature as a pull request to the appropriate release branch of
 `kubernetes/website` repository, and someone on the SIG Docs team provides
 editorial feedback or edits the draft directly.
 -->
-通常，负责功能的SIG负责对`kubernetes/website`存储库的相应release分支发起PR，
-提交该功能的文档草稿 ，并且由SIG Docs团队中的某人提供编辑反馈或直接编辑草稿。
+通常，负责功能的 SIG 负责对 `kubernetes/website` 存储库的相应 release 分支发起 PR，
+提交该功能的文档草稿，并且由 SIG Docs 团队中的某人提供编辑反馈或直接编辑草稿。
 
 <!--
 ### Find out about upcoming features
+-->
 ### 了解即将推出的功能
 
 <!--
@@ -1225,10 +1177,10 @@ repository. Each release has a sub-directory under the [/sig-release/tree/master
 directory. Each sub-directory contains a release schedule, a draft of the release
 notes, and a document listing each person on the release team.
 -->
-要了解即将发布的功能，请参加每周一次的sig-release会议
+要了解即将发布的功能，请参加每周一次的 sig-release 会议
 （请参阅[社区](https://kubernetes.io/community/)页面以获取即将举行的会议，
-并在[kubernetes/sig-release](https://github.com/kubernetes/sig-release/) 存储库中监视特定于发行版的文档。
-每个发行版在[/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
+并在 [kubernetes/sig-release](https://github.com/kubernetes/sig-release/) 存储库中留意特定于发行版的文档。
+每个发行版在 [/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
  目录下都有一个子目录。每个子目录包含一个发布计划，一个发布说明草稿以及一个列出发布团队中每个人的文档。
 
 <!--
@@ -1249,7 +1201,7 @@ notes, and a document listing each person on the release team.
   specific features, changes, deprecations, and more about the release. The
   content is not finalized until late in the release cycle, so use caution.
 -->
-- 发布时间表包含与发布有关的所有其他文档，会议，会议记录和里程碑的链接。
+- 发布时间表包含与发布有关的所有其他文档、会议、会议记录和里程碑的链接。
   它还包含有关该发行版的目标和时间表的信息，以及此发行版的任何特殊流程。
   在文档底部附近，定义了几个与发布相关的术语。
   
@@ -1258,7 +1210,7 @@ notes, and a document listing each person on the release team.
 - 发布团队文档列出了负责每个发布角色的人员。
   如果不清楚要与谁谈论某个特定功能或问题，请参加发布会议询问您的问题，
   或者与发布负责人联系，以便他们可以重定向您。
-- 发行说明草稿是了解更多有关特定功能，更改，不推荐使用以及更多有关发行版本的好地方。
+- 发行说明草稿是了解更多有关特定功能、更改、不推荐使用以及更多有关发行版本的好地方。
   该内容要到发布周期的后期才能最终确定，因此请谨慎使用。
 
 <!--
@@ -1275,9 +1227,9 @@ individual responsible for implementing it, whether it
 needs docs, a draft release note for the feature, and whether it has been
 merged. Keep the following in mind:
 -->
-给定Kubernetes版本的功能跟踪表 列出了计划发布的每个功能。
-每个订单项都包含功能名称，功能主要GitHub问题的链接，其稳定性级别（Alpha，Beta或Stable），
-SIG和负责实施此功能的人员，是否需要文档，发布说明草稿功能，以及是否已合并。请记住以下几点：
+给定 Kubernetes 版本的功能跟踪表列出了计划发布的每个功能。
+每个订单项都包含功能名称，功能主要 GitHub issue 的链接，其稳定性级别（Alpha，Beta 或 Stable），
+SIG 和负责实施此功能的人员，是否需要文档，发布说明草稿功能，以及是否已合并。请记住以下几点：
 
 <!--
 - Beta and Stable features are generally a higher documentation priority than
@@ -1288,8 +1240,8 @@ SIG和负责实施此功能的人员，是否需要文档，发布说明草稿�
   just because a feature is not marked as needing docs doesn't mean it doesn't
   need them.
 -->
-- Beta和稳定功能通常比Alpha功能具有更高的文档优先级。
-- 很难测试（因此要文档记录）尚未合并的功能，或者至少在其PR中被认为功能完整的功能。
+- Beta 和稳定功能通常比 Alpha 功能具有更高的文档优先级。
+- 很难测试（因此要文档记录）尚未合并的功能，或者至少在其 PR 中被认为功能完整的功能。
 - 确定某个功能是否需要文档是一个手动过程，并且仅仅因为某个功能未标记为需要文档并不意味着它就不需要它们。
 
 <!--
@@ -1303,7 +1255,7 @@ responsible for implementing the new feature. This means that your role may be
 more of a shepherding role for a given feature than developing the documentation
 from scratch.
 -->
-如上所述，新功能的草案内容通常由负责实施新功能的SIG提交。
+如上所述，新功能的草案内容通常由负责实施新功能的 SIG 提交。
 这意味着您的角色可能更像是给定功能的牧羊人角色。
 
 <!--
@@ -1313,10 +1265,9 @@ feature SIG. If you're given the go-ahead, you can edit into the PR using one of
 the techniques described in
 [Commit into another person's PR](#commit-into-another-persons-pr).
 -->
-选择要记录/跟踪的功能后，请在 `#sig-docs` Slack频道，
-每周一次的sig-docs会议中或直接在功能SIG提交的PR上询问有关功能。
-如果得到批准，则可以使用[提交到别人的PR](#commit-into-another-persons-pr)
-中介绍的技术来编辑 PR。
+选择要记录/跟踪的功能后，请在 `#sig-docs` Slack 频道，
+每周一次的 sig-docs 会议中或直接在功能 SIG 提交的 PR 上询问有关功能。
+如果得到批准，则可以使用[提交到别人的 PR](#commit-into-another-persons-pr) 中介绍的技术来编辑 PR。
 
 <!--
 If you need to write a new topic, the following links are useful:
@@ -1335,7 +1286,7 @@ If you need to write a new topic, the following links are useful:
 <!--
 ### SIG members documenting new features
 -->
-SIG成员记录了新功能
+SIG 成员记录了新功能
 
 <!--
 If you are a member of a SIG developing a new feature for Kubernetes, you need
@@ -1345,10 +1296,10 @@ release. Check the
 or check in the #sig-release Slack channel to verify scheduling details and
 deadlines. Some deadlines related to documentation are:
 -->
-如果您是Kubernetes开发新功能的SIG成员，则需要一并更新SIG文档，
+如果您是 Kubernetes 开发新功能的 SIG 成员，则需要一并更新 SIG 文档，
 以确保在发布该功能时及时记录了您的功能。
-查看 [功能跟踪电子表格](https://github.com/kubernetes/sig-release/tree/master/releases)，
- 或在 #sig-release Slack频道中查看验证计划详细信息和截止日期。
+查看[功能跟踪电子表格](https://github.com/kubernetes/sig-release/tree/master/releases)，
+ 或在 #sig-release Slack 频道中查看验证计划详细信息和截止日期。
  与文档相关的一些截止日期是：
 
 <!--
@@ -1373,16 +1324,16 @@ deadlines. Some deadlines related to documentation are:
   documentation and the docs are not ready, the feature may be removed from the
   milestone.
 -->
-- **文档截止期限-打开占位PR** ：针对`kubernetes/website`仓库中的`release-X.Y`分支提交一个PR，
-  稍作修改(占位)，稍后您将继续修改。使用Prow命令`/milestone X.Y`将PR分配给相关的里程碑。
+- **文档截止期限 - 打开占位 PR** ：针对 `kubernetes/website` 仓库中的 `release-X.Y` 分支提交一个 PR，
+  稍作修改(占位)，稍后您将继续修改。使用 Prow 命令 `/milestone X.Y` 将 PR 分配给相关的里程碑。
   这会提醒管理此版本的文档人员功能文档即将发布。
-  如果您的功能不需要任何文档更改，请在#sig-release Slack频道中说一下，
-  以确保sig-release团队知道这一点。
-  如果该功能确实需要文档，但未创建PR，则该功能可能已从里程碑中删除。
-- **文档截止日期-PR审核**：您的PR现在需要包含功能文档的初稿。不必担心格式或修饰。
+  如果您的功能不需要任何文档更改，请在 #sig-release Slack 频道中说一下，
+  以确保 sig-release 团队知道这一点。
+  如果该功能确实需要文档，但未创建 PR，则该功能可能已从里程碑中删除。
+- **文档截止日期 - PR 审核**：您的 PR 现在需要包含功能文档的初稿。不必担心格式或修饰。
   只需描述该功能的用途以及使用方法即可。管理发行版的文档人员将与您合作，使内容成形以进行发布。
   如果您的功能需要文档且未收到第一稿内容，则该功能可能已从里程碑中删除。
-- **文档完成-PR已审核，准备合并**：如果您的PR尚未在`release-X.Y`此期限之前合并到分支中，
+- **文档完成 - PR 已审核，准备合并**：如果您的 PR 尚未在 `release-X.Y` 此期限之前合并到分支中，
   请与管理发行版的文档人员一起合作帮助它合入。
   如果您的功能需要文档且文档尚未准备好，该功能可能会从里程碑中删除。
 
@@ -1392,9 +1343,9 @@ add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-g
 as part of your pull request. If your feature is moving out of Alpha, make sure to
 remove it from that file.
 -->
-如果您的功能是Alpha功能并且由[功能开关](/docs/reference/command-line-tools-reference/feature-gates/)
-控制，请确保将其作为PR的一部分添加到功能开关。
-如果您的功能要移出Alpha，请确保将其从该文件中删除。
+如果您的功能是 Alpha 功能并且由[功能开关](/docs/reference/command-line-tools-reference/feature-gates/) 控制，
+请确保将其作为 PR 的一部分添加到功能开关。
+如果您的功能要移出 Alpha，请确保将其从该文件中删除。
 
 <!--
 ## Contribute to other repos
@@ -1407,9 +1358,9 @@ individual repositories. Many of these repositories contain code or content that
 can be considered documentation, such as user-facing help text, error messages,
 user-facing text in API references, or even code comments.
 -->
-该Kubernetes项目包含超过50个仓库。
+该 Kubernetes 项目包含超过 50 个仓库。
 这些存储库中许多都包含可以视为文档的代码或内容，例如面向用户的帮助文本，错误消息，
-API参考中的面向用户的文本，甚至是代码注释。
+API 参考中的面向用户的文本，甚至是代码注释。
 
 <!--
 If you see text and you aren't sure where it comes from, you can use GitHub's
@@ -1417,8 +1368,8 @@ search tool at the level of the Kubernetes organization to search through all
 repositories for that text. This can help you figure out where to submit your
 issue or PR.
 -->
-如果您看到文本并且不确定其来源，则可以在Kubernetes组织级别使用GitHub的搜索工具在所有存储库中搜索该文本。
-这可以帮助您确定将问题或PR提交到哪里。
+如果您看到文本并且不确定其来源，则可以在 Kubernetes 组织级别使用 GitHub 的搜索工具在所有存储库中搜索该文本。
+这可以帮助您确定将 issue 或 PR 提交到哪里。
 
 <!--
 Each repository may have its own processes and procedures. Before you file an
@@ -1426,16 +1377,16 @@ issue or submit a PR, read that repository's `README.md`, `CONTRIBUTING.md`, and
 `code-of-conduct.md`, if they exist.
 -->
 每个存储库可能都有自己的流程和过程。
-在您提交的问题或提交PR，查看存储库的`README.md`，`CONTRIBUTING.md`以及 `code-of-conduct.md`。
+在您提交的 issue 或提交 PR，查看存储库的 `README.md`、`CONTRIBUTING.md` 以及 `code-of-conduct.md`。
 
 <!--
 Most repositories use issue and PR templates. Have a look through some open
 issues and PRs to get a feel for that team's processes. Make sure to fill out
 the templates with as much detail as possible when you file issues or PRs.
 -->
-大多数存储库使用issue和PR模板。
-浏览一些未解决的问题和PR，以了解该团队的流程。
-提交问题或PR时，​​请确保尽可能详细地填写模板。
+大多数存储库使用 issue 和 PR 模板。
+浏览一些未解决的 issues 和 PR，以了解该团队的流程。
+提交 issues 或 PR 时，​​请确保尽可能详细地填写模板。
 
 <!--
 ## Localize content
@@ -1451,11 +1402,11 @@ content. See [Localization](/docs/contribute/localization/) and ask on the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 or in `#sig-docs` on Slack if you are interested in helping out.
 -->
-Kubernetes文档首先是用英语编写的，但是我们希望人们能够使用他们选择的语言来阅读它。
-如果您愿意用另一种语言编写，尤其是在软件领域，则可以帮助本地化Kubernetes文档
+Kubernetes 文档首先是用英语编写的，但是我们希望人们能够使用他们选择的语言来阅读它。
+如果您愿意用另一种语言编写，尤其是在软件领域，则可以帮助本地化 Kubernetes 文档
 或提供有关现有本地化内容的反馈。
-请参阅[本地化](/docs/contribute/localization/) ，
-并在[kubernetes-sig-docs邮件列表][kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) #sig-docs上询问，或者在Slack上询问是否有帮助的兴趣。
+请参阅[本地化](/docs/contribute/localization/)，
+并在 [kubernetes-sig-docs 邮件列表][kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) #sig-docs 上询问，或者在 Slack 上询问是否有帮助的兴趣。
 
 <!--
 ### Working with localized content
@@ -1476,13 +1427,13 @@ Follow these guidelines for working with localized content:
 
    If a PR contains changes to source in more than one language, ask the PR contributor to open separate PRs for each language.
 -->
-- 将PR限制为一种语言。
+- 将 PR 限制为一种语言。
 
     每种语言都有其自己的审阅者和批准者。
     
-- 审阅者，请验证PR是否仅对一种语言进行了更改。
+- 审阅者，请验证 PR 是否仅对一种语言进行了更改。
   
-    如果PR包含对一种以上源语言的更改，请PR贡献者为每种语言打开单独的PR。
+    如果 PR 包含对一种以上源语言的更改，请 PR 贡献者为每种语言打开单独的 PR。
 
 {{% /capture %}}
 
@@ -1493,6 +1444,6 @@ When you are comfortable with all of the tasks discussed in this topic and you
 want to engage with the Kubernetes docs team in even deeper ways, read the
 [advanced docs contributor](/docs/contribute/advanced/) topic.
 -->
-如果您熟悉本主题中讨论的所有任务，并且想与Kubernetes文档小组进行更深入的接触，
-请阅读[高级文档贡献者](/docs/contribute/advanced/)主题。
+如果您熟悉本主题中讨论的所有任务，并且想与 Kubernetes 文档小组进行更深入的接触，
+请阅读[文档高级贡献者](/docs/contribute/advanced/)主题。
 {{% /capture %}}
