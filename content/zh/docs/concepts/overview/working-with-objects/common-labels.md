@@ -15,8 +15,7 @@ You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
 -->
-除了 kubectl 和 dashboard 之外，您可以其他工具来可视化和管理 Kubernetes 对象。
-一组通用的标签可以让多个工具之间互操作，用所有工具都能理解的通用方式描述对象。
+除了 kubectl 和 dashboard 之外，您可以使用其他工具来可视化和管理 Kubernetes 对象。一组通用的标签可以让多个工具之间相互操作，用所有工具都能理解的通用方式描述对象。
 
 <!--
 In addition to supporting tooling, the recommended labels describe applications
@@ -79,6 +78,7 @@ on every resource object.
 | `app.kubernetes.io/component`       | 架构中的组件 | `database` | 字符串 |
 | `app.kubernetes.io/part-of`         | 此级别的更高级别应用程序的名称 | `wordpress` | 字符串 |
 | `app.kubernetes.io/managed-by`  | 用于管理应用程序的工具 | `helm` | 字符串 |
+
 <!--
 To illustrate these labels in action, consider the following StatefulSet object:
 -->
@@ -181,7 +181,6 @@ The start to the following `Deployment` is used for WordPress:
 
 以下 `Deployment` 的开头用于 WordPress：
 
-
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -225,11 +224,11 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
@@ -243,11 +242,11 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
