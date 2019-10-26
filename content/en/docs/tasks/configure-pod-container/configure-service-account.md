@@ -75,7 +75,7 @@ Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
 
 ```shell
-kubectl get serviceAccounts
+kubectl get serviceaccounts
 ```
 The output is similar to this:
 
