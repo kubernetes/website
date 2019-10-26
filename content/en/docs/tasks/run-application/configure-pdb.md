@@ -49,7 +49,7 @@ specified by one of the built-in Kubernetes controllers:
 In this case, make a note of the controller's `.spec.selector`; the same
 selector goes into the PDBs `.spec.selector`.
 
-From version 1.15 PDBs support custom controllers where the [scale subresource](docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
 
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
@@ -165,9 +165,7 @@ automatically responds to changes in the number of replicas of the corresponding
 
 ## Create the PDB object
 
-You can create the PDB object with a command like `kubectl apply -f mypdb.yaml`.
-
-You cannot update PDB objects.  They must be deleted and re-created.
+You can create or update the PDB object with a command like `kubectl apply -f mypdb.yaml`.
 
 ## Check the status of the PDB
 

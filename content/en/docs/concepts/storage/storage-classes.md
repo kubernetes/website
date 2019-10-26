@@ -122,19 +122,26 @@ allows the users to resize the volume by editing the corresponding PVC object.
 The following types of volumes support volume expansion, when the underlying
 Storage Class has the field `allowVolumeExpansion` set to true.
 
-* gcePersistentDisk
-* awsElasticBlockStore
-* Cinder
-* glusterfs
-* rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* CSI  {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
+
+Volume type | Required Kubernetes version
+:---------- | :--------------------------
+gcePersistentDisk | 1.11
+awsElasticBlockStore | 1.11
+Cinder | 1.11
+glusterfs | 1.11
+rbd | 1.11
+Azure File | 1.11
+Azure Disk | 1.11
+Portworx | 1.11
+FlexVolume | 1.13
+CSI | 1.14 (alpha), 1.16 (beta)
+
+{{< /table >}}
+
 
 {{< note >}}
-This feature cannot be used to shrink volumes.
+You can only use the volume expansion feature to grow a Volume, not to shrink it.
 {{< /note >}}
 
 ### Mount Options
@@ -611,6 +618,9 @@ parameters:
   unmanaged disk in the same resource group as the cluster. When `kind` is 
   `managed`, all managed disks are created in the same resource group as 
   the cluster.
+* `resourceGroup`: Specify the resource group in which the Azure disk will be created. 
+   It must be an existing resource group name. If it is unspecified, the disk will be 
+   placed in the same resource group as the current Kubernetes cluster.
 
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard
   VM can only attach Standard_LRS disks.

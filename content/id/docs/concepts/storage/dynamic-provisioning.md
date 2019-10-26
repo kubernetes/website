@@ -122,7 +122,7 @@ tidak bisa terbuat.
 
 Pada kluster [Multi-Zona](/docs/setup/multiple-zones), Pod dapat tersebar di banyak Zona
 pada sebuah Region. Penyimpanan dengan *backend* Zona-Tunggal seharusnya disediakan pada
-Zona-Zona dimana Pod dijalankan. Hal ini dapat dicapai dengan mengatur 
+Zona-Zona dimana Pod dijalankan. Hal ini dapat dicapai dengan mengatur
 [Mode Volume Binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
 {{% /capture %}}

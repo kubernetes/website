@@ -56,7 +56,7 @@ provides load balancing for an application that has two running instances.
 1. 在您的集群中运行一个 Hello World 应用：
    ```shell
    kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
-   ```   
+   ```
 <!--
     The preceding command creates a
     [Deployment](/docs/concepts/workloads/controllers/deployment/)

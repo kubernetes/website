@@ -24,7 +24,7 @@ Laman ini menjelaskan berbagai *resource* yang tersedia di dalam Kontainer pada 
 ### Informasi tentang Kontainer
 
 *Hostname* sebuah Kontainer merupakan nama dari Pod dimana Kontainer dijalankan.
-Informasi ini tersedia melalui perintah `hostname` atau panggilan (*function call*) 
+Informasi ini tersedia melalui perintah `hostname` atau panggilan (*function call*)
 [`gethostname`](http://man7.org/linux/man-pages/man2/gethostname.2.html) pada `libc`.
 
 Nama Pod dan *namespace* tersedia sebagai variabel *environment* melalui [API *downward*](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).

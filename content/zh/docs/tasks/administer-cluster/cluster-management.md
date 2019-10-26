@@ -15,7 +15,7 @@ title: 集群管理
 ## 创建和配置集群
 
 
-要在一组机器上安装 Kubernetes， 请根据您的环境，查阅现有的 [入门指南](/docs/getting-started-guides/) 
+要在一组机器上安装 Kubernetes， 请根据您的环境，查阅现有的 [入门指南](/docs/getting-started-guides/)
 
 
 ## 升级集群

@@ -159,7 +159,7 @@ Job 根据它所创建的 Pod 的并行度，负责重试创建 Pod，并就决�
 
 和其它 Kubernetes 配置一样，Cron Job 需要 `apiVersion`、 `kind`、和 `metadata` 这三个字段。
 关于如何实现一个配置文件的更新信息，参考文档 [部署应用](/docs/user-guide/deploying-applications)、
-[配置容器](/docs/user-guide/configuring-containers) 和 
+[配置容器](/docs/user-guide/configuring-containers) 和
 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources)。
 
 Cron Job 也需要 [`.spec` 段](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。

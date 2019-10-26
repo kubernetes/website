@@ -62,7 +62,7 @@ kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
 kubectl --namespace=<insert-namespace-name-here> get pods
 ```
 
-### Mengkonfigurasi preferensi namespace 
+### Mengkonfigurasi preferensi namespace
 
 Kamu dapat menyimpan konfigurasi *namespace* untuk semua perintah `kubectl` dengan perintah:
 

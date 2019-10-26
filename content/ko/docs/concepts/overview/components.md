@@ -8,8 +8,11 @@ card:
 ---
 
 {{% capture overview %}}
-이 문서는 기능 수행하는 쿠버네티스 클러스터를 제공하기 위해 필요한
-다양한 바이너리 컴포넌트들에 대해 요약하여 정리한다
+쿠버네티스를 배포하면 클러스터를 얻는다.
+{{< glossary_definition term_id="cluster" length="all" prepend="클러스터는">}}
+
+이 문서는 완전히 작동하는 쿠버네티스 클러스터를 갖기 위해 필요한
+다양한 컴포넌트들에 대해 요약하고 정리한다.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -90,7 +93,7 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 
 ### DNS
 
-여타 애드온들이 절대적으로 요구되지 않는 반면에, 많은 예시들에서 그것을 필요로 하기때문에 모든 쿠버네티스 클러스터는 [cluster DNS](/docs/concepts/services-networking/dns-pod-service/)를 갖추어야만 한다.
+여타 애드온들이 절대적으로 요구되지 않는 반면에, 많은 예시들에서 그것을 필요로 하기때문에 모든 쿠버네티스 클러스터는 [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)를 갖추어야만 한다.
 
 클러스터 DNS는 구성환경 내 다른 DNS 서버와 더불어, 쿠버네티스 서비스를 위해 DNS 레코드를 제공해주는 DNS 서버다.
 
@@ -98,11 +101,11 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 
 ### 웹 UI (대시보드)
 
-[대시보드](/docs/tasks/access-application-cluster/web-ui-dashboard/)는 쿠버네티스 클러스터를 위한 범용의 웹 기반 UI다. 사용자로 하여금 클러스터 자체 뿐만 아니라, 클러스터에서 동작하는 애플리케이션에 대한 관리와 고장처리를 할 수 있도록 허용해준다.
+[대시보드](/ko/docs/tasks/access-application-cluster/web-ui-dashboard/)는 쿠버네티스 클러스터를 위한 범용의 웹 기반 UI다. 사용자로 하여금 클러스터 자체 뿐만 아니라, 클러스터에서 동작하는 애플리케이션에 대한 관리와 고장처리를 할 수 있도록 허용해준다.
 
 ### 컨테이너 리소스 모니터링
 
-[컨테이너 리소스 모니터링](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)은
+[컨테이너 리소스 모니터링](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)은
 중앙 데이터베이스 내에 컨테이너들에 대한 포괄적인 시계열 메트릭스를 기록하고 그 데이터를 열람하기 위한 UI를 제공해 준다.
 
 ### 클러스터-레벨 로깅
@@ -110,9 +113,10 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 [클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은
 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
 * [노드](/ko/docs/concepts/architecture/nodes/)에 대해 더 배우기
+* [컨트롤러](/docs/concepts/architecture/controller/)에 대해 더 배우기
 * [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)에 대해 더 배우기
 * etcd의 공식 [문서](https://etcd.io/docs/) 읽기
 {{% /capture %}}
-
-

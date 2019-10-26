@@ -92,7 +92,3 @@ kubeadm alpha certs renew all [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
-

@@ -86,7 +86,7 @@ kube-scheduler has a default set of scheduling policies.
 ### Filtering
 
 - `PodFitsHostPorts`: Checks if a Node has free ports (the network protocol kind)
-  for the Pod ports the the Pod is requesting.
+  for the Pod ports the Pod is requesting.
 
 - `PodFitsHost`: Checks if a Pod specifies a specific Node by it hostname.
 
@@ -174,7 +174,7 @@ kube-scheduler has a default set of scheduling policies.
   that the Service becomes more resilient to a single Node failure.
 
 - `CalculateAntiAffinityPriorityMap`: This policy helps implement
-  [pod anti-affinity](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+  [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
 - `EqualPriorityMap`: Gives an equal weight of one to all nodes.
 

@@ -36,7 +36,7 @@ As an example, here's a sample EndpointSlice resource for the `example`
 Kubernetes Service.
 
 ```yaml
-apiVersion: discovery.k8s.io/v1alpha
+apiVersion: discovery.k8s.io/v1alpha1
 kind: EndpointSlice
 metadata:
   name: example-abc
