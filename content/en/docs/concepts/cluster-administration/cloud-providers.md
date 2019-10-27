@@ -370,13 +370,18 @@ Note that the Kubernetes Node name must match the VM FQDN (reported by OVirt und
 The Photon cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the Photon VM name (or if `overrideIP` is set to true in the `--cloud-config`, the Kubernetes Node name must match the Photon VM IP address).
 
-## VSphere
+## vSphere
 
-### Node Name
+{{< tabs name="vSphere cloud provider" >}}
+{{% tab name="vSphere >= 6.7U3" %}}
+For all vSphere deployments on vSphere >= 6.7U3, the [external vSphere cloud provider](https://github.com/kubernetes/cloud-provider-vsphere), along with the [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver) is recommended. See [Deploying a Kubernetes Cluster on vSphere with CSI and CPI](https://cloud-provider-vsphere.sigs.k8s.io/tutorials/kubernetes-on-vsphere-with-kubeadm.html) for a quick start guide.
+{{% /tab %}}
+{{% tab name="vSphere < 6.7U3" %}}
+If you are running vSphere < 6.7U3, the in-tree vSphere cloud provider is recommended. See [Running a Kubernetes Cluster on vSphere with kubeadm](https://cloud-provider-vsphere.sigs.k8s.io/tutorials/k8s-vcp-on-vsphere-with-kubeadm.html) for a quick start guide.
+{{% /tab %}}
+{{< /tabs >}}
 
-The VSphere cloud provider uses the detected hostname of the node (as determined by the kubelet) as the name of the Kubernetes Node object.
-
-The `--hostname-override` parameter is ignored by the VSphere cloud provider.
+For in-depth documentation on the vSphere cloud provider, visit the [vSphere cloud provider docs site](https://cloud-provider-vsphere.sigs.k8s.io).
 
 ## IBM Cloud Kubernetes Service
 
