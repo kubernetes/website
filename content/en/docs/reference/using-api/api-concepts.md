@@ -90,7 +90,7 @@ A given Kubernetes server will only preserve a historical list of changes for a 
 ```
 // Unless the client can tolerate arbitrary old resource versions, which may be served from partioned etcd members or stale caches
 // and can be much older than resource versions the client has observed, the client should provide a sufficiently recent resource version here.
-// If the client is certain can tolerage arbitrary old resource versions, it may use "0" for the initial resource version. A resource version of "0"
+// If the client is certain it can tolerate arbitrary old resource versions, it may use "0" for the initial resource version. A resource version of "0"
 // may be served from cache and can have significant scalability and performance benefits.
 lastObservedResourceVersion := initialResourceVersion
 
@@ -673,7 +673,7 @@ should have the same flag setting.
 
 ## Resource Versions
 
-Resource versions are strings that identify the server's internal version of an object. They can used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server.
+Resource versions are strings that identify the server's internal version of an object. They can used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server. For example, clients must not assume resource versions are numeric, and must not compare two resource versions for greater-than or less-than relationships.
 
 ### ResourceVersion in metadata
 
@@ -725,7 +725,7 @@ The meaning of the watch semantics are:
 - **Start at Any:** Start a watch at any resource version, the most recent resource version available is preferred, but not required; any starting resource version is allowed. It is possible for the watch to start at a much older resource version that the client has previously observed, particularly in high availabiliy configurations, due to partitions or stale caches. Clients that cannot tolerate this should not start a watch with this semantic. To establish initial state, the watch begins with synthetic “Added” events for all resources instances that exist at the starting resource version. All following watch events are for all changes that occured after the resource version the watch started at.
 - **Start at Exact:** Start a watch at an exact resource version. The watch events are for all changes after the provided resource version. Unlike "Start at Most Recent" and "Start at Any", the watch is not started with synthetic "Added" events for the provided resource version. The client is assumed to already have the initial state at the starting resource version since the client provided the resource version.
 
-### "Gone" resource versions
+### "410 Gone" responses
 
 Servers are not required to serve all older resource versions and may return a HTTP `410 (Gone)` status code if a client requests a resourceVersion older than the server has retained. Clients must be able to tolerate `410 (Gone)` responses. See [Efficient detection of changes](#efficient-detection-of-changes) for details on how to handle `410 (Gone)` responses when watching resources.
 
