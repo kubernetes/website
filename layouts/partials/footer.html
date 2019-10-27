@@ -1,5 +1,5 @@
 <footer>
-    <main class="light-text">
+    <div class="light-text main-section">
         <nav>
             {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
             {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
@@ -32,5 +32,5 @@
         <div class="miceType center">
             ICP license: 京ICP备17074266号-3
         </div>
-    </main>
+    </div>
 </footer>

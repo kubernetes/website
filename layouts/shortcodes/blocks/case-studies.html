@@ -4,7 +4,7 @@
 {{ else }}
 {{ $caseStudiesPages := where $caseStudiesSection.Pages "Params.featured" true | first 4 }}
 <section id="talkToUs">
-  <main>
+  <div class="main-section">
     <h3>{{ $caseStudiesSection.Title }}</h3>
     <div id="caseStudiesWrapper">
       {{ range $caseStudiesPages }}
@@ -20,6 +20,6 @@
       {{ end }}  
     </div>
     <h5 style="text-align: center"><a href="/case-studies/" style="color: #3371E3; font-weight: 400">{{ $caseStudiesSection.LinkTitle }}</a></h5>
-  </main>
+  </div>
 </section>
 {{ end }}
