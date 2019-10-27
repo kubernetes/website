@@ -74,20 +74,14 @@ tolerations:
 
 上記の例では、`NoSchedule`の`effect`が使われます。かわりに`PreferNoSchedule`を使うこともできます。これは`NoSchedule`を「ソフトにした」バージョンで、システムはノード上にある該当のtaintを許容しないPodを配置*しようとします*が、必須の条件にはなりません。3つ目の`effect`には`NoExecute`がありますが、これは後で説明します。
 
-You can put multiple taints on the same node and multiple tolerations on the same pod.
-The way Kubernetes processes multiple taints and tolerations is like a filter: start
-with all of a node's taints, then ignore the ones for which the pod has a matching toleration; the
-remaining un-ignored taints have the indicated effects on the pod. In particular,
+同一のNodeには複数のtaintを付与することができ、また、Podについても同様に複数のtolerationを付与することができます。Kubernetesは、複数のtaintやtolerationをフィルターのように処理します。Nodeの持つtaintを評価し、配置したいPodがそれに一致するtolerationを保つ場合は全て無視します。
+最後に残ったtaintが、Podに対して明示されたeffectの値で作用します。特に
 
-* if there is at least one un-ignored taint with effect `NoSchedule` then Kubernetes will not schedule
-the pod onto that node
-* if there is no un-ignored taint with effect `NoSchedule` but there is at least one un-ignored taint with
-effect `PreferNoSchedule` then Kubernetes will *try* to not schedule the pod onto the node
-* if there is at least one un-ignored taint with effect `NoExecute` then the pod will be evicted from
-the node (if it is already running on the node), and will not be
-scheduled onto the node (if it is not yet running on the node).
+* `NoSchedule`のeffectを持つtaintが1つでも作用する条件を満たす場合、Kubernetesは該当Nodeに対してそのPodをスケジュールすることはありません
+* `NoSchedule`のeffectを持つtaintが1つも作用する条件を満たさず、`PreferNoSchedule`のeffectを持つtaintが1つでも条件を満たす場合、Kubernetesは該当Nodeに対してそのPodをスケジュールしないように*試みます*
+* `NoExecute`のeffectを持つtaintが1つでも作用する条件を満たす場合、Node上で動いているPodについてはevict(退役)され、Node上で動いていない場合はそのPodを該当Nodeにスケジュールすることはありません
 
-For example, imagine you taint a node like this
+例えば、Nodeに以下のようなtaintを付与したとします
 
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule
@@ -95,7 +89,7 @@ kubectl taint nodes node1 key1=value1:NoExecute
 kubectl taint nodes node1 key2=value2:NoSchedule
 ```
 
-And a pod has two tolerations:
+さらに、Podに以下の2つのtolerationがあります
 
 ```yaml
 tolerations:
@@ -109,11 +103,9 @@ tolerations:
   effect: "NoExecute"
 ```
 
-In this case, the pod will not be able to schedule onto the node, because there is no
-toleration matching the third taint. But it will be able to continue running if it is
-already running on the node when the taint is added, because the third taint is the only
-one of the three that is not tolerated by the pod.
+このケースでは、3つ目のtaintが適用されるためにPodはこのNode上にはスケジュールされなくなります。ただし、既に動いているPodは動き続けます。なぜなら、このPodに許容されないのは3つ目のtaintだけだからです。
 
+通常、`NoExecute`を持つtaintがNodeに付与された場合、これを許容するtolerationを持たないPodは即座にevictされます。また、これを許容するPodがevictされることはありません。しかし、
 Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
 not tolerate the taint will be evicted immediately, and any pods that do tolerate the
 taint will never be evicted. However, a toleration with `NoExecute` effect can specify
