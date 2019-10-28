@@ -31,7 +31,7 @@ TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의의 수명을
 TTL 컨트롤러는 오직 현재 잡만 지원한다. 클러스터 운영자는 잡의
 `.spec.ttlSecondsAfterFinished` 필드를 명시하거나 이
 [예시](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
-와 같이 이 기능을 사용해서 완료된 잡(`완료` 또는 `실패)을 자동으로 정리한다.
+와 같이 이 기능을 사용해서 완료된 잡(`완료` 또는 `실패`)을 자동으로 정리한다.
 TTL 컨트롤러는 리소스가 완료된 후, 다른 말로는 TTL이 만료되었을 때
 TTL 초(sec)동안 리소스를 정리할 수 있는 있다고 가정한다.
 TTL 컨트롤러가 리소스를 정리할때 리소스를 연속적으로 삭제한다. 즉,
