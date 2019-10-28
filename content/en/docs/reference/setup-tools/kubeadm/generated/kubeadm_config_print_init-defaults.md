@@ -69,7 +69,3 @@ kubeadm config print init-defaults [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm config print](kubeadm_config_print.md)	 - Print configuration
-

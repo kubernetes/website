@@ -23,7 +23,7 @@ You need to have a Kubernetes cluster and the kubectl command-line tool must be 
 
 ### Enable the WindowsRunAsUserName feature gate
 
-In the alpha state, the `WindowsRunAsUserName` feature gate needs to be enabled on the `kube-apiserver` service. Without it, the `runAsUserName` field will be dropped from the pod's, container's, and init container's SecurityContexts. See [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates. Please make sure `feature-gates=WindowsRunAsUserName=true` parameter exists in the `kube-apiserver` command line.
+In the alpha state, the `WindowsRunAsUserName` feature gate needs to be enabled on the `kube-apiserver` service. Without it, the `runAsUserName` field will be dropped from the pod's, container's, and init container's SecurityContexts. See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates. Please make sure `feature-gates=WindowsRunAsUserName=true` parameter exists in the `kube-apiserver` command line.
 
 {{% /capture %}}
 

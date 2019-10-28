@@ -54,10 +54,9 @@ RuntimeClass 특징 게이트가 활성화(기본값)를 확인한다.
 연관된 문서를 통해서 확인한다([아래](#cri-configuration)).
 
 {{< note >}}
-런타임 클래스는 클러스터 전체에 걸쳐 동질의 노드 설정
-(모든 노드가 컨테이너 런타임에 준하는 동일한 방식으로 설정되었음을 의미)을 가정한다. 어떠한 이질성(다양한
-설정)이라도 스케줄링 특징을 통해서 런타임 클래스와는 독립적으로 관리되어야 한다
-([파드를 노드에 할당하기](/docs/concepts/configuration/assign-pod-node/) 참고).
+런타임 클래스는 기본적으로 클러스터 전체에 걸쳐 동질의 노드 설정
+(모든 노드가 컨테이너 런타임에 준하는 동일한 방식으로 설정되었음을 의미)을 가정한다.
+이종의(heterogenous) 노드 설정을 지원하기 위해서는, 아래 [스케줄링](#scheduling)을 참고한다.
 {{< /note >}}
 
 해당 설정은 상응하는 `handler` 이름을 가지며, 이는 런타임 클래스에 의해서 참조된다.
@@ -144,6 +143,42 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 더 자세한 cri-o의 구성 문서를 살펴본다.
 https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 
+### 스케줄
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+쿠버네티스 v1.16 부터, 런타임 클래스는 `scheduling` 필드를 통해 이종의 클러스터 지원을 포함한다.
+이 필드를 사용하면, 이 런타임 클래스를 갖는 파드가 이를 지원하는 노드로 스케줄된다는 것을 보장할 수 있다.
+이 스케줄링 기능을 사용하려면, 런타임 클래스 [어드미션(admission) 컨트롤러][]를 활성화(1.16 부터 기본 값)해야 한다.
+
+파드가 지정된 런타임 클래스를 지원하는 노드에 안착한다는 것을 보장하려면,
+해당 노드들은 `runtimeClass.scheduling.nodeSelector` 필드에서 선택되는 공통 레이블을 가져야한다.
+런타임 클래스의 nodeSelector는 파드의 nodeSelector와 어드미션 시 병합되어서, 실질적으로
+각각에 의해 선택된 노드의 교집합을 취한다. 충돌이 있는 경우, 파드는 거부된다.
+
+지원되는 노드가 테인트(taint)되어서 다른 런타임 클래스 파드가 노드에서 구동되는 것을 막고 있다면,
+`tolerations`를 런타임 클래스에 추가할 수 있다. `nodeSelector`를 사용하면, 어드미션 시 
+해당 톨러레이션(toleration)이 파드의 톨러레이션과 병합되어, 실질적으로 각각에 의해 선택된
+노드의 합집합을 취한다.
+
+노드 셀렉터와 톨러레이션 설정에 대해 더 배우려면
+[노드에 파드 할당](/docs/concepts/configuration/assign-pod-node/)을 참고한다.
+
+[어드미션 컨트롤러]: /docs/reference/access-authn-authz/admission-controllers/
+
+### 파드 오버헤드
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+쿠버네티스 v1.16 부터는, 런타임 클래스에는 구동 중인 파드와 관련된 오버헤드를
+지정할 수 있는 기능이 [`PodOverhead`](/docs/concepts/configuration/pod-overhead.md) 기능을 통해 지원된다.
+`PodOverhead`를 사용하려면, PodOverhead [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+활성화 시켜야 한다. (기본 값으로는 비활성화 되어 있다.)
+
+
+파드 오버헤드는 런타임 클래스에서 `Overhead` 필드를 통해 정의된다. 이 필드를 사용하면,
+해당 런타임 클래스를 사용해서 구동 중인 파드의 오버헤드를 특정할 수 있고 이 오버헤드가
+쿠버네티스 내에서 처리된다는 것을 보장할 수 있다.
 
 ### 런타임 클래스를 알파에서 베타로 업그레이드 {#upgrading-runtimeclass-from-alpha-to-beta}
 
@@ -171,5 +206,12 @@ https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 - 지정되지 않았거나 비어 있는 `runtimeHandler` 이거나 핸들러 내에 `.` 캐릭터를 사용한 알파 런타임 클래스는
   더 이상 올바르지 않으며, 반드시 올바른 핸들러 구성으로 이전헤야 한다
   (위를 참조).
+
+### 더 읽기
+
+- [런타임 클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
+- [런타임 클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
+- [파드 오버헤드](/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
+- [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
 {{% /capture %}}

@@ -54,7 +54,7 @@ Voir le sujet [contribution avancée](/docs/contribute/advanced/) pour plus d'in
 Nous utilisons des modèles de page pour contrôler la présentation de nos pages de documentation.
 Assurez-vous de comprendre le fonctionnement de ces modèles en consultant [Utilisation de modèles de page](/docs/contribute/style/page-templates/).
 
-### Shortcodes Hugo 
+### Shortcodes Hugo
 
 La documentation de Kubernetes est convertie de Markdown à HTML avec Hugo.
 Nous utilisons les shortcodes standard Hugo, ainsi que quelques-uns qui sont personnalisés dans la documentation Kubernetes.

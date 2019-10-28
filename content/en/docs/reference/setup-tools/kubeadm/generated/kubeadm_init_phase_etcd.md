@@ -50,8 +50,3 @@ kubeadm init phase etcd [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase etcd local](kubeadm_init_phase_etcd_local.md)	 - Generate the static Pod manifest file for a local, single-node local etcd instance
-

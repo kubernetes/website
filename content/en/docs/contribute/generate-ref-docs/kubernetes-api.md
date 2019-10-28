@@ -8,7 +8,7 @@ content_template: templates/task
 This page shows how to update the generated reference docs for the Kubernetes API.
 The Kubernetes API reference documentation is built from the
 [Kubernetes OpenAPI spec](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json)
-and tools from [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
+and tools from [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs).
 
 If you find bugs in the generated documentation, you need to
 [fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
@@ -50,7 +50,7 @@ export GOPATH=$HOME/<workspace>
 Get a local clone of the following repositories:
 
 ```shell
-go get -u github.com/kubernetes-incubator/reference-docs
+go get -u github.com/kubernetes-sigs/reference-docs
 
 go get -u github.com/go-openapi/loads
 go get -u github.com/go-openapi/spec
@@ -79,8 +79,8 @@ The remaining steps refer to your base directory as `<k8s-base>`.
 The remaining steps refer to your base directory as `<web-base>`.
 
 * The base directory of your clone of the
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs)
-repository is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
+[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
+repository is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
 
@@ -182,11 +182,9 @@ static/docs/reference/generated/kubernetes-api/v1.15/scroll.js
 
 ## Updating the API reference index pages
 
+* Open `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` for editing, and update the API reference version number. For example:
 
-* Open `<web-base>/content/en/docs/reference/kubernetes-api/index.md` for editing, and update the API reference 
-  version number. For example:
-
-    ```
+    ```markdown
     ---
     title: v1.15
     ---
@@ -197,7 +195,6 @@ static/docs/reference/generated/kubernetes-api/v1.15/scroll.js
 * Open `<web-base>/content/en/docs/reference/_index.md` for editing, and add a
    new link for the latest API reference. Remove the oldest API reference version.
    There should be five links to the most recent API references.
-
 
 ## Locally test the API reference
 
