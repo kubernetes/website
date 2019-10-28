@@ -8,7 +8,7 @@ content_template: templates/concept
 {{% capture overview %}}
 
 Bagian ini membahas tentang tutorial Kubernetes.
-Tutorial berfungsi untuk memperlihatkan bagaimana caranya mencapai suatu tujuan yang lebih dari sekedar [task](/docs/tasks/) sederhana. 
+Tutorial berfungsi untuk memperlihatkan bagaimana caranya mencapai suatu tujuan yang lebih dari sekedar [task](/docs/tasks/) sederhana.
 Biasanya, sebuah tutorial punya beberapa bagian, masing-masing bagian terdiri dari langkah-langkah yang berurutan.
 Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus Istilah](/docs/reference/glossary/) untuk referensi nanti.
 
@@ -68,7 +68,7 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 {{% capture whatsnext %}}
 
-Tertarik menulis tutorial? Lihat 
+Tertarik menulis tutorial? Lihat
 [Menggunakan Template Halaman](/docs/home/contribute/page-templates/)
 untuk info mengenai template dan ragam halaman tutorial.
 

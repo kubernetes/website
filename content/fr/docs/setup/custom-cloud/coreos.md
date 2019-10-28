@@ -1,6 +1,6 @@
 ---
 title: CoreOS sur AWS ou GCE
-description: Installation Kubernetes CoreOS sur AWS GCE 
+description: Installation Kubernetes CoreOS sur AWS GCE
 content_template: templates/concept
 ---
 

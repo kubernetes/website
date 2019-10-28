@@ -82,7 +82,7 @@ context.
 ```shell
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # Validate it
-kubectl config view | grep namespace:
+kubectl config view --minify | grep namespace:
 ```
 
 ## Namespaces and DNS

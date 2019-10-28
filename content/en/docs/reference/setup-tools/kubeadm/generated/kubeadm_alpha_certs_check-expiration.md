@@ -64,7 +64,3 @@ kubeadm alpha certs check-expiration [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - Commands related to handling kubernetes certificates
-

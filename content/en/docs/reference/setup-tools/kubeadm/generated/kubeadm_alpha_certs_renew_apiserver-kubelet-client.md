@@ -98,7 +98,3 @@ kubeadm alpha certs renew apiserver-kubelet-client [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
-

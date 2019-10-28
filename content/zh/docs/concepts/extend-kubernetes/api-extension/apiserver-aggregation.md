@@ -37,7 +37,6 @@ The aggregation layer allows Kubernetes to be extended with additional APIs, bey
 
 The aggregation layer enables installing additional Kubernetes-style APIs in your cluster. These can either be pre-built, existing 3rd party solutions, such as [service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md), or user-created APIs like [apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md), which can get you started.
 -->
-
 ## 概述
 
 聚合层使您的集群可以安装其他 Kubernetes 风格的 API。这些 API 可以是预编译的、第三方的解决方案提供的例如[service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md)、或者用户创建的类似[apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md)一样的API可以帮助你上手。
@@ -54,6 +53,18 @@ Ordinarily, the APIService will be implemented by an *extension-apiserver* in a 
 
 正常情况下，APIService 会实现为运行于集群中某 Pod 内的 extension-apiserver。如果需要对增加的资源进行动态管理，extension-apiserver 经常需要和一个或多个控制器一起使用。因此，apiserver-builder 同时提供用来管理新资源的 API 框架和控制器框架。另外一个例子，当安装了 service-catalog 时，它会为自己提供的服务提供 extension-apiserver 和控制器。
 
+<!--
+Extension-apiservers should have low latency connections to and from the kube-apiserver.
+In particular, discovery requests are required to round-trip from the kube-apiserver in five seconds or less.
+If your deployment cannot achieve this, you should consider how to change it.  For now, setting the
+`EnableAggregatedDiscoveryTimeout=false` feature gate on the kube-apiserver
+will disable the timeout restriction. It will be removed in a future release.
+-->
+
+扩展 api 服务与 kube-apiserver 之间的连接应该具有低延迟的特性。
+特别是，发现请求和 kube-apiserver 的请求响应时间需要在五秒钟或更短的时间内。
+如果您的部署无法实现此目的，则应考虑如何进行改进。
+现在，利用 kube-apiserver 上的`EnableAggregatedDiscoveryTimeout = false`功能可以禁用超时限制。但是，它将在将来的版本中删除。
 {{% /capture %}}
 
 {{% capture whatsnext %}}

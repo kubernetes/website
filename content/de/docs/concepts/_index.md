@@ -15,7 +15,7 @@ Im Abschnitt Konzepte erfahren Sie mehr über die Teile des Kubernetes-Systems u
 
 ## Überblick
 
-Um mit Kubernetes zu arbeiten, verwenden Sie *Kubernetes-API-Objekte*, um den *gewünschten Status Ihres Clusters* zu beschreiben: 
+Um mit Kubernetes zu arbeiten, verwenden Sie *Kubernetes-API-Objekte*, um den *gewünschten Status Ihres Clusters* zu beschreiben:
 welche Anwendungen oder anderen Workloads Sie ausführen möchten, welche Containerimages sie verwenden, die Anzahl der Replikate, welche Netzwerk- und Festplattenressourcen Sie zur Verfügung stellen möchten, und vieles mehr. Sie legen den gewünschten Status fest, indem Sie Objekte mithilfe der Kubernetes-API erstellen, normalerweise über die Befehlszeilenschnittstelle `kubectl`. Sie können die Kubernetes-API auch direkt verwenden, um mit dem Cluster zu interagieren und den gewünschten Status festzulegen oder zu ändern.
 
 Sobald Sie den gewünschten Status eingestellt haben, wird das *Kubernetes Control Plane* dafür sorgen, dass der aktuelle Status des Clusters mit dem gewünschten Status übereinstimmt. Zu diesem Zweck führt Kubernetes verschiedene Aufgaben automatisch aus, z. B. Starten oder Neustarten von Containern, Skalieren der Anzahl der Repliken einer bestimmten Anwendung und vieles mehr. Das Kubernetes Control Plane besteht aus einer Reihe von Prozessen, die in Ihrem Cluster ausgeführt werden:
@@ -27,7 +27,7 @@ Sobald Sie den gewünschten Status eingestellt haben, wird das *Kubernetes Contr
 
 ## Kubernetes Objects
 
-Kubernetes enthält eine Reihe von Abstraktionen, die den Status Ihres Systems darstellen: implementierte containerisierte Anwendungen und Workloads, die zugehörigen Netzwerk- und Festplattenressourcen sowie weitere Informationen zu den Aufgaben Ihres Clusters. Diese Abstraktionen werden durch Objekte in der Kubernetes-API dargestellt; Lesen Sie [Kubernetes Objects Überblick](/docs/concepts/abstractions/overview/) für weitere Details. 
+Kubernetes enthält eine Reihe von Abstraktionen, die den Status Ihres Systems darstellen: implementierte containerisierte Anwendungen und Workloads, die zugehörigen Netzwerk- und Festplattenressourcen sowie weitere Informationen zu den Aufgaben Ihres Clusters. Diese Abstraktionen werden durch Objekte in der Kubernetes-API dargestellt; Lesen Sie [Kubernetes Objects Überblick](/docs/concepts/abstractions/overview/) für weitere Details.
 
 Die grundlegenden Objekte von Kubernetes umfassen:
 

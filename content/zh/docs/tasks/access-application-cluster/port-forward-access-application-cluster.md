@@ -133,8 +133,12 @@ for database debugging.
 -->
 3. 验证 Redis 服务是否运行在 pod 中并且监听 6379 端口：
 
-        
+
        kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 
 <!--
     The output displays the port:
@@ -163,7 +167,7 @@ for database debugging.
         kubectl port-forward pods/redis-master-765d459796-258hz 7000:6379
 
 <!--
-    or  
+    or
 -->
     或者
 

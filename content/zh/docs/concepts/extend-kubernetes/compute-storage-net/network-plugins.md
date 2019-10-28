@@ -177,6 +177,10 @@ CNI 网络插件还支持 pod 入口和出口流量整形。
   ]
 }
 ```
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 <!--
 Now you can add the `kubernetes.io/ingress-bandwidth` and `kubernetes.io/egress-bandwidth` annotations to your pod.
 For example:

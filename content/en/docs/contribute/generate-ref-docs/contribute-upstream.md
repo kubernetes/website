@@ -67,9 +67,9 @@ base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
 The remaining steps refer to your base directory as `<k8s-base>`.
 
 Determine the base directory of your clone of the
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs) repository.
+[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
+base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
 ## Editing the Kubernetes source code
@@ -230,7 +230,7 @@ several files, including `api/openapi-spec/swagger.json` in the
 The `swagger.json` file is the OpenAPI definition file to use for generating
 the API reference documentation.
 
-You are now ready to follow the [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/) guide to to generate the
+You are now ready to follow the [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/) guide to generate the
 [published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
 {{% /capture %}}
@@ -240,7 +240,6 @@ You are now ready to follow the [Generating Reference Documentation for the Kube
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
-* [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 
 {{% /capture %}}
 

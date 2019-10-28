@@ -34,7 +34,8 @@ This document discusses the concepts behind the cloud controller manager and giv
 本文讨论了云控制器管理器背后的概念，并提供了相关功能的详细信息。
 
 <!--
-Here's the architecture of a Kubernetes cluster without the cloud controller manager: -->
+Here's the architecture of a Kubernetes cluster without the cloud controller manager:
+-->
 
 这是没有云控制器管理器的 Kubernetes 集群的架构：
 
@@ -78,7 +79,9 @@ The CCM consolidates all of the cloud-dependent logic from the preceding three c
 
 CCM 整合了前三个组件中的所有依赖于云的逻辑，以创建与云的单一集成点。CCM 的新架构如下所示：
 
-<!-- ![CCM Kube Arch](/images/docs/post-ccm-arch.png) -->
+<!--
+![CCM Kube Arch](/images/docs/post-ccm-arch.png)
+-->
 
 ![含有云控制器管理器的 Kubernetes 架构](/images/docs/post-ccm-arch.png)
 
@@ -119,12 +122,6 @@ In version 1.9, the CCM runs the following controllers from the preceding list:
 * 节点控制器
 * 路由控制器
 * 服务控制器
-
-<!--
-Additionally, it runs another controller called the PersistentVolumeLabels controller. This controller is responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
--->
-
-此外，它还运行另一个名为 PersistentVolumeLabels Controller 的控制器，这个控制器负责在 GCP 和 AWS 云中创建的 PersistentVolumes 的域（zone）和区（region）标签进行设置。
 
 {{< note >}}
 <!--
@@ -175,13 +172,11 @@ CCM 的大多数功能都来自 KCM，如上一节所述，CCM 运行以下控�
 * Node controller
 * Route controller
 * Service controller
-* PersistentVolumeLabels controller
 -->
 
 * 节点控制器
 * 路由控制器
 * 服务控制器
-* PersistentVolumeLabels 控制器
 
 <!--
 #### Node controller
@@ -227,25 +222,13 @@ Route 控制器负责适当地配置云中的路由，以便 Kubernetes 集群�
 #### 服务控制器
 
 <!--
-The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB or Google LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
+The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB , Google LB, or Oracle Cloud Infrastructure LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
 -->
 
-服务控制器负责监听服务的创建、更新和删除事件。根据 Kubernetes 中各个服务的当前状态，它配置云负载均衡器（如 ELB 或 Google LB）以反映 Kubernetes 中的服务状态。此外，它还确保云负载均衡器的服务后端是最新的。
+服务控制器负责监听服务的创建、更新和删除事件。根据 Kubernetes 中各个服务的当前状态，它配置云负载均衡器（如 ELB, Google LB 或者 Oracle Cloud Infrastructure LB）以反映 Kubernetes 中的服务状态。此外，它还确保云负载均衡器的服务后端是最新的。
 
 <!--
-#### PersistentVolumeLabels controller
--->
-
-#### PersistentVolumeLabels 控制器
-
-<!--
-The PersistentVolumeLabels controller applies labels on AWS EBS/GCE PD volumes when they are created. This removes the need for users to manually set the labels on these volumes.
--->
-
-PersistentVolumeLabels 控制器在创建 AWS EBS/GCE PD 卷时应用标签，这样就无需用户手动设置这些卷上的标签。
-
-<!--
-These labels are essential for the scheduling of pods as these volumes are constrained to work only within the region/zone that they are in. Any Pod using these volumes needs to be scheduled in the same region/zone.
+### 2. Kubelet
 -->
 
 这些标签对于 pod 的调度至关重要，因为这些卷仅限于在它们所在的域（zone）/区（region）内工作，使用这些卷的任何 Pod 都需要在同一域（zone）/区（region）中进行调度。
@@ -281,15 +264,20 @@ In this new model, the kubelet initializes a node without cloud-specific informa
 ### 3. Kubernetes API 服务器
 
 <!--
-The PersistentVolumeLabels controller moves the cloud-dependent functionality of the Kubernetes API server to the CCM as described in the preceding sections.
+The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM.
 -->
 
-PersistentVolumeLabels 控制器将 Kubernetes API 服务器的依赖于云的功能移至 CCM，如前面部分所述。
+节点控制器包含 kubelet 中依赖于云的功能，在引入 CCM 之前，kubelet 负责使用特定于云的详细信息（如 IP 地址，域/区标签和实例类型信息）初始化节点。CCM 的引入已将此初始化操作从 kubelet 转移到 CCM 中。
+
+<!--
+In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
+-->
+
+在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
 
 <!--
 ## Plugin mechanism
 -->
-
 
 ## 插件机制
 
@@ -298,7 +286,6 @@ The cloud controller manager uses Go interfaces to allow implementations from an
 -->
 
 云控制器管理器使用 Go 接口允许插入任何云的实现。具体来说，它使用[此处](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62)定义的 CloudProvider 接口。
-
 
 <!--
 The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core. Implementations specific to cloud providers will be built outside of the core and implement interfaces defined in the core.
@@ -407,23 +394,8 @@ v1/Service:
 - Update
 
 <!--
-### PersistentVolumeLabels controller
+### Others
 -->
-
-### PersistentVolumeLabels 控制器
-
-<!--
-The PersistentVolumeLabels controller listens on PersistentVolume (PV) create events and then updates them. This controller requires access to get and update PVs.
--->
-
-PersistentVolumeLabels 控制器侦听 PersistentVolume（PV）创建事件并更新它们，该控制器需要访问以获取和更新 PV。
-
-v1/PersistentVolume:
-
-- Get
-- List
-- Watch
-- Update
 
 <!--
 ### Others
@@ -450,7 +422,6 @@ v1/ServiceAccount:
 <!--
 The RBAC ClusterRole for the CCM looks like this:
 -->
-
 
 针对 CCM 的 RBAC ClusterRole 看起来像这样：
 
@@ -520,7 +491,6 @@ rules:
 ## Vendor Implementations
 -->
 
-
 ## 供应商实施
 
 <!--
@@ -530,18 +500,24 @@ The following cloud providers have implemented CCMs:
 以下云服务提供商已实现了 CCM：
 
 <!--
+* [AWS](https://github.com/kubernetes/cloud-provider-aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
+* [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Linode](https://github.com/linode/linode-cloud-controller-manager)
+* [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
-* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
-* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
 -->
 
+* [AWS](https://github.com/kubernetes/cloud-provider-aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
+* [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Linode](https://github.com/linode/linode-cloud-controller-manager)
+* [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
-* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
-* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
 
 <!--
 ## Cluster Administration
@@ -551,7 +527,8 @@ The following cloud providers have implemented CCMs:
 
 <!--
 Complete instructions for configuring and running the CCM are provided
-[here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager). -->
+[here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
+-->
 
 [这里](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
 

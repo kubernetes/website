@@ -2,7 +2,7 @@
 reviewers:
 - tallclair
 - dchen1107
-title: Runtime Class
+title: 容器运行时类(Runtime Class)
 content_template: templates/concept
 weight: 20
 ---
