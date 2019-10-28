@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes Documentation Survey"
-date: 2019-09-19
-slug: Kubernetes-Documentation-End-User-Survey
+date: 2019-10-29
+slug: kubernetes-documentation-end-user-survey
 ---
 
 **Author:** [Aimee Ukasick](https://www.linkedin.com/in/aimee-ukasick/) and SIG Docs
