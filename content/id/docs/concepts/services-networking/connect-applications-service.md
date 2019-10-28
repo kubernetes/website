@@ -81,7 +81,7 @@ NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
-Seperti yang disebutkan sebelumnya, sebuah *Service* berisi sekumpulan *Pod*. *Pod* diekspos melalui `endpoints`. *Service selector* akan mengecek *Pod* secara terus-menerus dan hasilnya akan dikirim (*POSTed*) ke objek *endpoint* yang bernama `my-nginx`. Saat sebuah *Pod* mati, *IP Pod* di dalam *endpoint* tersebut akan otomatis dihapus, dan *Pod* baru yang sesuai dengan *Service selector* akan otomatis ditambahkan ke dalam *endpoint*. Cek *endpoint* dan perhatikan bahwa IP sama dengan *Pod* yang dibuat di langkah pertama: 
+Seperti yang disebutkan sebelumnya, sebuah *Service* berisi sekumpulan *Pod*. *Pod* diekspos melalui `endpoints`. *Service selector* akan mengecek *Pod* secara terus-menerus dan hasilnya akan dikirim (*POSTed*) ke objek *endpoint* yang bernama `my-nginx`. Saat sebuah *Pod* mati, *IP Pod* di dalam *endpoint* tersebut akan otomatis dihapus, dan *Pod* baru yang sesuai dengan *Service selector* akan otomatis ditambahkan ke dalam *endpoint*. Cek *endpoint* dan perhatikan bahwa IP sama dengan *Pod* yang dibuat di langkah pertama:
 
 ```shell
 kubectl describe svc my-nginx
@@ -111,7 +111,7 @@ Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<
 
 ## Mengakses Service
 
-Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *environment* dan *DNS*. 
+Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *environment* dan *DNS*.
 *DNS* membutuhkan [tambahan CoreDNS di dalam kluster](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
 
 ### Variabel Environment
@@ -197,7 +197,7 @@ Hingga sekarang kita hanya mengakses *nginx* server dari dalam kluster. Sebelum 
 * Sebuah [secret](/docs/concepts/configuration/secret/) yang membuat setifikat tersebut dapat diakses oleh *pod*
 
 
-Kamu dapat melihat semua itu di [contoh nginx https](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). Contoh ini mengaharuskan kamu melakukan instalasi *go* dan *make*. Jika kamu tidak ingin melakukan instalasi tersebut, ikuti langkah-langkah manualnya nanti, singkatnya: 
+Kamu dapat melihat semua itu di [contoh nginx https](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). Contoh ini mengaharuskan kamu melakukan instalasi *go* dan *make*. Jika kamu tidak ingin melakukan instalasi tersebut, ikuti langkah-langkah manualnya nanti, singkatnya:
 
 ```shell
 make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
@@ -215,7 +215,7 @@ default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           Opaque                                2         1m
 ```
 
-Berikut ini adalah langkah-langkah manual yang harus diikuti jika kamu mengalami masalah menjalankan *make* (pada windows contohnya): 
+Berikut ini adalah langkah-langkah manual yang harus diikuti jika kamu mengalami masalah menjalankan *make* (pada windows contohnya):
 
 ```shell
 #membuat sebuah key-pair public private

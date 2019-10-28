@@ -93,8 +93,10 @@ toc:
   - docs/concepts/services-networking/dns-pod-service.md
   - docs/concepts/services-networking/connect-applications-service.md
   - docs/concepts/services-networking/ingress.md
+  - docs/concepts/services-networking/endpoint-slices.md
   - docs/concepts/services-networking/network-policies.md
   - docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases.md
+  - docs/concepts/services-networking/dual-stack.md
 
 - title: Storage
   landing_page: /docs/concepts/storage/volumes/

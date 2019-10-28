@@ -61,6 +61,10 @@ tolerations:
   effect: "NoSchedule"
 ```
 
+Here’s an example of a pod that uses tolerations:
+
+{{< codenew file="pods/pod-with-toleration.yaml" >}}
+
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
@@ -134,7 +138,7 @@ already running on the node when the taint is added, because the third taint is 
 one of the three that is not tolerated by the pod.
 
 Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
-not tolerate the taint will be evicted immediately, and any pods that do tolerate the
+not tolerate the taint will be evicted immediately, and pods that do tolerate the
 taint will never be evicted. However, a toleration with `NoExecute` effect can specify
 an optional `tolerationSeconds` field that dictates how long the pod will stay bound
 to the node after the taint is added. For example,

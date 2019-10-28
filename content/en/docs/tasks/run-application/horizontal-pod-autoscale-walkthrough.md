@@ -12,7 +12,7 @@ weight: 100
 {{% capture overview %}}
 
 Horizontal Pod Autoscaler automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization
+in a replication controller, deployment, replica set or stateful set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
 This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
@@ -310,7 +310,9 @@ spec:
     pods:
       metric:
         name: packets-per-second
-      targetAverageValue: 1k
+      target:
+        type: AverageValue
+        averageValue: 1k
   - type: Object
     object:
       metric:

@@ -25,8 +25,8 @@ Pod fields and Container fields.
 
 There are two ways to expose Pod and Container fields to a running Container:
 
-* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
-* DownwardAPIVolumeFiles
+* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* Volume Files
 
 Together, these two ways of exposing Pod and Container fields are called the
 *Downward API*.

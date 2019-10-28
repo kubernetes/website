@@ -1,7 +1,6 @@
 
-Write kubelet settings, certificates and (re)start the kubelet
-
 ### Synopsis
+
 
 Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
 
