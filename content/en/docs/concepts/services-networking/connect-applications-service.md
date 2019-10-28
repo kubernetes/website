@@ -136,8 +136,8 @@ and DNS. The former works out of the box while the latter requires the
 [CoreDNS cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
 {{< note >}}
 If the service environment variables are not desired (because possible clashing with expected program ones,
-too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks` 
-flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core). 
+too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks`
+flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 {{< /note >}}
 
 
@@ -254,9 +254,9 @@ nginxsecret           Opaque                                2         1m
 Following are the manual steps to follow in case you run into problems running make (on windows for example):
 
 ```shell
-#create a public private key pair
+# Create a public private key pair
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
-#convert the keys to base64 encoding
+# Convert the keys to base64 encoding
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```

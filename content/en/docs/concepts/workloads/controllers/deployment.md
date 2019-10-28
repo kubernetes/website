@@ -249,7 +249,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   ```shell
   kubectl describe deployments
   ```
-  The output is similar to this:  
+  The output is similar to this:
   ```
   Name:                   nginx-deployment
   Namespace:              default
@@ -407,12 +407,12 @@ rolled back.
     Kubernetes by default sets the value to 25%.
     {{< /note >}}
 
-* Get the description of the Deployment:  
+* Get the description of the Deployment:
     ```shell
     kubectl describe deployment
     ```
 
-    The output is similar to this:  
+    The output is similar to this:
     ```
     Name:           nginx-deployment
     Namespace:      default
@@ -441,7 +441,7 @@ rolled back.
     OldReplicaSets:     nginx-deployment-1564180365 (3/3 replicas created)
     NewReplicaSet:      nginx-deployment-3066724191 (1/1 replicas created)
     Events:
-      FirstSeen LastSeen    Count   From                    SubobjectPath   Type        Reason              Message
+      FirstSeen LastSeen    Count   From                    SubObjectPath   Type        Reason              Message
       --------- --------    -----   ----                    -------------   --------    ------              -------
       1m        1m          1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-2035384211 to 3
       22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 1
@@ -459,11 +459,11 @@ rolled back.
 
 Follow the steps given below to check the rollout history:
 
-1. First, check the revisions of this Deployment:  
+1. First, check the revisions of this Deployment:
     ```shell
     kubectl rollout history deployment.v1.apps/nginx-deployment
     ```
-    The output is similar to this:  
+    The output is similar to this:
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
@@ -483,7 +483,7 @@ Follow the steps given below to check the rollout history:
     kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
     ```
 
-    The output is similar to this:  
+    The output is similar to this:
     ```
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
@@ -508,7 +508,7 @@ Follow the steps given below to rollback the Deployment from the current version
     kubectl rollout undo deployment.v1.apps/nginx-deployment
     ```
 
-    The output is similar to this:  
+    The output is similar to this:
     ```
     deployment.apps/nginx-deployment
     ```
@@ -518,7 +518,7 @@ Follow the steps given below to rollback the Deployment from the current version
     kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
     ```
 
-    The output is similar to this:  
+    The output is similar to this:
     ```
     deployment.apps/nginx-deployment
     ```
@@ -533,7 +533,7 @@ Follow the steps given below to rollback the Deployment from the current version
     kubectl get deployment nginx-deployment
     ```
 
-    The output is similar to this:  
+    The output is similar to this:
     ```
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         3         3            3           30m
@@ -542,7 +542,7 @@ Follow the steps given below to rollback the Deployment from the current version
     ```shell
     kubectl describe deployment nginx-deployment
     ```
-    The output is similar to this:  
+    The output is similar to this:
     ```
     Name:                   nginx-deployment
     Namespace:              default
@@ -662,13 +662,13 @@ ReplicaSet with the most replicas. ReplicaSets with zero replicas are not scaled
 
 In our example above, 3 replicas are added to the old ReplicaSet and 2 replicas are added to the
 new ReplicaSet. The rollout process should eventually move all replicas to the new ReplicaSet, assuming
-the new replicas become healthy. To confirm this, run:  
+the new replicas become healthy. To confirm this, run:
 
 ```shell
 kubectl get deploy
 ```
 
-The output is similar to this: 
+The output is similar to this:
 ```
 NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment     15        18        7            8           7m

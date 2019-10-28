@@ -13,7 +13,7 @@ Kubernetes provides a [device plugin framework](https://github.com/kubernetes/co
 that you can use to advertise system hardware resources to the
 {{< glossary_tooltip term_id="kubelet" >}}.
 
-Instead of customising the code for Kubernetes itself, vendors can implement a
+Instead of customizing the code for Kubernetes itself, vendors can implement a
 device plugin that you deploy either manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
 The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters,
 and other similar computing resources that may require vendor specific initialization
