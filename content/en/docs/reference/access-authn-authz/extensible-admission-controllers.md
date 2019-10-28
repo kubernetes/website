@@ -766,7 +766,7 @@ Use the object selector only if the webhook is opt-in, because end users may ski
 
 This example shows a mutating webhook that would match a `CREATE` of any resource with the label `foo: bar`:
 
-{{< tabs name="ValidatingWebhookConfiguration_example_1" >}}
+{{< tabs name="objectSelector_example" >}}
 {{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
