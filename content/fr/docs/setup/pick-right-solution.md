@@ -77,6 +77,8 @@ workloads, et plus encore.
 
 * [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offre des clusters Kubernetes managés.
 
+* [Hidora](https://hidora.ch) propose une plate-forme de cloud public basée sur Jelastic en Suisse, permettant l'installation de clusters Kubernetes dédiés. 
+
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index) offre des clusters Kubernetes managés
  avec choix d'isolation, des outils opérationnels, une vision intégrée de la sécurité des images et des conteneurs et une intégration avec Watson, IoT et les données.
 
