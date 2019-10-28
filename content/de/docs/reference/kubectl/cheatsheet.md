@@ -135,7 +135,7 @@ kubectl get pods -o wide                      # Listen Sie alle Pods im Namespac
 kubectl get deployment my-dep                 # Listen Sie eine bestimmte Bereitstellung auf
 kubectl get pods                              # Listen Sie alle Pods im Namespace auf
 
-# Describe Befehle mit ausführlicher Ausgabe
+# Beschreibung von my-node und my-pod mit ausführlicher Ausgabe
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
