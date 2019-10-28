@@ -100,11 +100,11 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - Action: Use IaaS providers reliable storage (e.g. GCE PD or AWS EBS volume) for VMs with apiserver+etcd
   - Mitigates: Apiserver backing storage lost
 
-- Action: Use (experimental) [high-availability](/docs/admin/high-availability) configuration
+- Action: Use [high-availability](/docs/admin/high-availability) configuration
   - Mitigates: Master VM shutdown or master components (scheduler, API server, controller-managing) crashing
     - Will tolerate one or more simultaneous node or component failures
   - Mitigates: Apiserver backing storage (i.e., etcd's data directory) lost
-    - Assuming you used clustered etcd.
+    - Assuming you used clustered etcd
 
 - Action: Snapshot apiserver PDs/EBS-volumes periodically
   - Mitigates: Apiserver backing storage lost
