@@ -243,9 +243,9 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes 1.7 contains [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), an alpha feature that will encrypt `Secret` resources in etcd, preventing
+Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), a feature introduced in 1.7, and beta since 1.13. This will encrypt `Secret` resources in etcd, preventing
 parties that gain access to your etcd backups from viewing the content of those secrets. While
-this feature is currently experimental, it may offer an additional level of defense when backups
+this feature is currently beta, it offers an additional level of defense when backups
 are not encrypted or an attacker gains read access to etcd.
 
 ### Receiving alerts for security updates and reporting vulnerabilities
