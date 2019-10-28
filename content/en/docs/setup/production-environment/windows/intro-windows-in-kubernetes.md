@@ -113,7 +113,6 @@ Code associated with in-tree volume plugins ship as part of the core Kubernetes 
 * [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
 * [azureFile](/docs/concepts/storage/volumes/#azurefile)
 * [gcePersistentDisk](/docs/concepts/storage/volumes/#gcepersistentdisk)
-* [awsElasticBlockStore](/docs/concepts/storage/volumes/#awselasticblockstore)
 * [vsphereVolume](/docs/concepts/storage/volumes/#vspherevolume)
 
 ##### FlexVolume Plugins
