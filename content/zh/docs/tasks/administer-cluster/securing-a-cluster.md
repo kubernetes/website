@@ -48,12 +48,12 @@ they are allowed to perform is the first line of defense.
 因为 Kubernetes 是完全通过 API 驱动的，所以，控制和限制谁可以通过 API 访问集群，以及允许这些访问者执行什么样的 API 动作，就成为了安全控制的第一道防线。
 
 <!--
-### Use Transport Level Security (TLS) for all API traffic
+### Use Transport Layer Security (TLS) for all API traffic
 
 Kubernetes expects that all API communication in the cluster is encrypted by default with TLS, and the
-majority of installation methods will allow the necessary certificates to be created and distributed to 
-the cluster components. Note that some components and installation methods may enable local ports over 
-HTTP and administrators should familiarize themselves with the settings of each component to identify 
+majority of installation methods will allow the necessary certificates to be created and distributed to
+the cluster components. Note that some components and installation methods may enable local ports over
+HTTP and administrators should familiarize themselves with the settings of each component to identify
 potentially unsecured traffic.
 -->
 ### 为 API 交互提供传输层安全 （TLS）
@@ -63,10 +63,10 @@ Kubernetes 期望集群中所有的 API 通信在默认情况下都使用 TLS �
 <!--
 ### API Authentication
 
-Choose an authentication mechanism for the API servers to use that matches the common access patterns 
-when you install a cluster. For instance, small single user clusters may wish to use a simple certificate 
+Choose an authentication mechanism for the API servers to use that matches the common access patterns
+when you install a cluster. For instance, small single user clusters may wish to use a simple certificate
 or static Bearer token approach. Larger clusters may wish to integrate an existing OIDC or LDAP server that
-allow users to be subdivided into groups. 
+allow users to be subdivided into groups.
 
 All API clients must be authenticated, even those that are part of the infrastructure like nodes,
 proxies, the scheduler, and volume plugins. These clients are typically [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/) or use x509 client certificates, and they are created automatically at cluster startup or are setup as part of the cluster installation.
@@ -96,10 +96,10 @@ As with authentication, simple and broad roles may be appropriate for smaller cl
 more users interact with the cluster, it may become necessary to separate teams into separate
 namespaces with more limited roles.
 
-With authorization, it is important to understand how updates on one object may cause actions in 
-other places. For instance, a user may not be able to create pods directly, but allowing them to 
-create a deployment, which creates pods on their behalf, will let them create those pods 
-indirectly. Likewise, deleting a node from the API will result in the pods scheduled to that node 
+With authorization, it is important to understand how updates on one object may cause actions in
+other places. For instance, a user may not be able to create pods directly, but allowing them to
+create a deployment, which creates pods on their behalf, will let them create those pods
+indirectly. Likewise, deleting a node from the API will result in the pods scheduled to that node
 being terminated and recreated on other nodes. The out of the box roles represent a balance
 between flexibility and the common use cases, but more limited roles should be carefully reviewed
 to prevent accidental escalation. You can make roles specific to your use case if the out-of-box ones don't meet your needs.
@@ -137,7 +137,7 @@ Kubelet 公开 HTTPS 端点，这些端点授予节点和容器强大的控制�
 ## Controlling the capabilities of a workload or user at runtime
 
 Authorization in Kubernetes is intentionally high level, focused on coarse actions on resources.
-More powerful controls exist as **policies** to limit by use case how those objects act on the 
+More powerful controls exist as **policies** to limit by use case how those objects act on the
 cluster, themselves, and other resources.
 -->
 ## 控制运行时负载或用户的能力
@@ -150,7 +150,7 @@ Kubernetes 中的授权故意设置为了高层级，它侧重于对资源的粗
 [Resource quota](/docs/concepts/policy/resource-quotas/) limits the number or capacity of
 resources granted to a namespace. This is most often used to limit the amount of CPU, memory,
 or persistent disk a namespace can allocate, but can also control how many pods, services, or
-volumes exist in each namespace. 
+volumes exist in each namespace.
 
 [Limit ranges](/docs/tasks/administer-cluster/memory-default-namespace/) restrict the maximum or minimum size of some of the
 resources above, to prevent users from requesting unreasonably high or low values for commonly
@@ -169,27 +169,27 @@ reserved resources like memory, or to provide default limits when none are speci
 A pod definition contains a [security context](/docs/tasks/configure-pod-container/security-context/)
 that allows it to request access to running as a specific Linux user on a node (like root),
 access to run privileged or access the host network, and other controls that would otherwise
-allow it to run unfettered on a hosting node. [Pod security policies](/docs/concepts/policy/pod-security-policy/) 
+allow it to run unfettered on a hosting node. [Pod security policies](/docs/concepts/policy/pod-security-policy/)
 can limit which users or service accounts can provide dangerous security context settings. For example, pod security policies can limit volume mounts, especially `hostPath`, which are aspects of a pod that should be controlled.
 
-Generally, most application workloads need limited access to host resources so they can 
-successfully run as a root process (uid 0) without access to host information. However, 
-considering the privileges associated with the root user, you should write application 
-containers to run as a non-root user. Similarly, administrators who wish to prevent 
-client applications from escaping their containers should use a restrictive pod security 
+Generally, most application workloads need limited access to host resources so they can
+successfully run as a root process (uid 0) without access to host information. However,
+considering the privileges associated with the root user, you should write application
+containers to run as a non-root user. Similarly, administrators who wish to prevent
+client applications from escaping their containers should use a restrictive pod security
 policy.
 -->
 ### 控制容器运行的特权
 
-pod 定义包含了一个[安全上下文](/docs/tasks/configure-pod-container/security-context/)，用于描述允许它请求访问某个节点上的特定 Linux 用户（如 root）、获得特权或访问主机网络、以及允许它在主机节点上不受约束地运行的其它控件。[Pod 安全策略](/docs/concepts/policy/pod-security-policy/)可以限制哪些用户或服务帐户可以提供危险的安全上下文设置。例如，pod 的安全策略可以限制卷挂载，尤其是 `hostpath`，这些都是 pod 应该控制的一些方面。 
+pod 定义包含了一个[安全上下文](/docs/tasks/configure-pod-container/security-context/)，用于描述允许它请求访问某个节点上的特定 Linux 用户（如 root）、获得特权或访问主机网络、以及允许它在主机节点上不受约束地运行的其它控件。[Pod 安全策略](/docs/concepts/policy/pod-security-policy/)可以限制哪些用户或服务帐户可以提供危险的安全上下文设置。例如，pod 的安全策略可以限制卷挂载，尤其是 `hostpath`，这些都是 pod 应该控制的一些方面。
 
 一般来说，大多数应用程序需要限制对主机资源的访问，他们可以在不能访问主机信息的情况下成功以根进程（UID 0）运行。但是，考虑到与 root 用户相关的特权，在编写应用程序容器时，您应该使用非 root 用户运行。类似地，希望阻止客户端应用程序逃避其容器的管理员，应该使用限制性的 pod 安全策略。
 
 <!--
 ### Restricting network access
 
-The [network policies](/docs/tasks/administer-cluster/declare-network-policy/) for a namespace 
-allows application authors to restrict which pods in other namespaces may access pods and ports 
+The [network policies](/docs/tasks/administer-cluster/declare-network-policy/) for a namespace
+allows application authors to restrict which pods in other namespaces may access pods and ports
 within their namespaces. Many of the supported [Kubernetes networking providers](/docs/concepts/cluster-administration/networking/)
 now respect network policy.
 
@@ -198,7 +198,7 @@ load balanced services, which on many clusters can control whether those users a
 are visible outside of the cluster.
 
 Additional protections may be available that control network rules on a per plugin or per
-environment basis, such as per-node firewalls, physically separating cluster nodes to 
+environment basis, such as per-node firewalls, physically separating cluster nodes to
 prevent cross talk, or advanced networking policy.
 -->
 ### 限制网络访问
@@ -230,14 +230,14 @@ to the metadata API, and avoid using provisioning data to deliver secrets.
 <!--
 ### Controlling which nodes pods may access
 
-By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a 
+By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a
 [rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node/)
 and the [taint based pod placement and eviction](/docs/concepts/configuration/taint-and-toleration/)
 that are available to end users. For many clusters use of these policies to separate workloads
 can be a convention that authors adopt or enforce via tooling.
 
-As an administrator, a beta admission plugin `PodNodeSelector` can be used to force pods 
-within a namespace to default or require a specific node selector, and if end users cannot 
+As an administrator, a beta admission plugin `PodNodeSelector` can be used to force pods
+within a namespace to default or require a specific node selector, and if end users cannot
 alter namespaces, this can strongly limit the placement of all of the pods in a specific workload.
 -->
 ### 控制 pod 可以访问那些节点
@@ -262,7 +262,7 @@ Write access to the etcd backend for the API is equivalent to gaining root on th
 and read access can be used to escalate fairly quickly. Administrators should always use strong
 credentials from the API servers to their etcd server, such as mutual auth via TLS client certificates,
 and it is often recommended to isolate the etcd servers behind a firewall that only the API servers
-may access. 
+may access.
 
 {{< caution >}}
 Allowing other components within the cluster to access the master etcd instance with
@@ -283,7 +283,7 @@ access to a subset of the keyspace is strongly recommended.
 ### Enable audit logging
 
 The [audit logger](/docs/tasks/debug-application-cluster/audit/) is a beta feature that records actions taken by the
-API for later analysis in the event of a compromise. It is recommended to enable audit logging 
+API for later analysis in the event of a compromise. It is recommended to enable audit logging
 and archive the audit file on a secure server.
 -->
 ### 开启审计日志
@@ -321,8 +321,8 @@ rotate those tokens frequently. For example, once the bootstrap phase is complet
 Many third party integrations to Kubernetes may alter the security profile of your cluster. When
 enabling an integration, always review the permissions that an extension requests before granting
 it access. For example, many security integrations may request access to view all secrets on
-your cluster which is effectively making that component a cluster admin. When in doubt, 
-restrict the integration to functioning in a single namespace if possible. 
+your cluster which is effectively making that component a cluster admin. When in doubt,
+restrict the integration to functioning in a single namespace if possible.
 
 Components that create pods may also be unexpectedly powerful if they can do so inside namespaces
 like the `kube-system` namespace, because those pods can gain access to service account secrets
@@ -357,7 +357,7 @@ Kubernetes 1.7 包含了 [rest 加密](/docs/tasks/administer-cluster/encrypt-da
 <!--
 ### Receiving alerts for security updates and reporting vulnerabilities
 
-Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 
+Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
 group for emails about security announcements. See the [security reporting](/security/)
 page for more on how to report vulnerabilities.
 -->
