@@ -159,9 +159,9 @@ Before making any customizations, it's important that you understand the general
 -->
 换句话说，您可以对特定的资源路径（例如`<api-server-url>/api/v1/namespaces/default/deployments`）发出`GET`和`POST`请求来读写相应的对象类型。
 <!--
-* **By leveraging the {{< link text="控制器模式" url="/docs/concepts/api-extension/custom-resources/#custom-controllers" >}}, Kubernetes objects can be used to enforce desired state**. For simplicity, you can think of the Controller pattern as the following continuous loop:
+* **By leveraging the {{< link text="Controller pattern" url="/docs/concepts/api-extension/custom-resources/#custom-controllers" >}}, Kubernetes objects can be used to enforce desired state**. For simplicity, you can think of the Controller pattern as the following continuous loop:
 -->
-* **通过利用{{< link text="Controller pattern" url="/docs/concepts/api-extension/custom-resources/#custom-controllers" >}}，可以使用 Kubernetes 对象来强制执行所需的状态**。为简单起见，您可以将 Controller 模式视为以下连续循环：
+* **通过利用{{< link text="控制器模式" url="/docs/concepts/api-extension/custom-resources/#custom-controllers" >}}，可以使用 Kubernetes 对象来强制执行所需的状态**。为简单起见，您可以将 Controller 模式视为以下连续循环：
 
 <!--
   <div class="emphasize-box" markdown="1">
@@ -204,7 +204,7 @@ There are two main ways of setting up custom resources:
 -->
 设置自定义资源有两种主要方式：
 1.**自定义资源定义 (CRDs)** - 此方法需要的实施工作量最少。请参阅{{< link text="一个例子" url="/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/" >}}。
-2.**API 聚合** - 此方法需要一些{{< link text="预配置" url="/docs/tasks/access-kubernetes-api/configure-aggregation-layer/" >}}在你实际上{{< link text="设置一个单独的扩展的 API 服务器"" url="/docs/tasks/access-kubernetes-api/setup-extension-api-server/" >}}之前。
+2.**API 聚合** - 此方法需要一些{{< link text="预配置" url="/docs/tasks/access-kubernetes-api/configure-aggregation-layer/" >}}在你实际上{{< link text="设置一个单独的扩展的 API 服务器" url="/docs/tasks/access-kubernetes-api/setup-extension-api-server/" >}}之前。
 
 <!--
 Note that unlike standard Kubernetes objects, which rely on the built-in {{< link text="`kube-controller-manager`" url="/docs/reference/generated/kube-controller-manager/" >}}, you'll need to write and run your own {{< link text="custom controllers" url="https://github.com/kubernetes/sample-controller" >}}.
@@ -268,7 +268,7 @@ Congrats on completing the Application Developer user journey! You've covered th
 <!--
 * If you'd like to suggest new features or keep up with the latest developments around Kubernetes app development, consider joining a {{< glossary_tooltip term_id="sig" >}} such as {{< link text="SIG Apps" url="https://github.com/kubernetes/community/tree/master/sig-apps" >}}.
 -->
-* 如果您想推荐新功能或者了解 Kubernentes 应用程序开发的最新进展，请考虑加入{{< glossary_tooltip term_id="sig" >}}，例如{{< link text="SIG Apps" url="https://github.com/kubernetes/community/tree/master/sig-apps" >}。
+* 如果您想推荐新功能或者了解 Kubernentes 应用程序开发的最新进展，请考虑加入{{< glossary_tooltip term_id="sig" >}}，例如{{< link text="SIG Apps" url="https://github.com/kubernetes/community/tree/master/sig-apps" >}}。
 
 <!--
 * If you are interested in learning more about the inner workings of Kubernetes (e.g. networking), consider checking out the {{< link text="Cluster Operator journey" url="/docs/user-journeys/users/cluster-operator/foundational/" >}}.
@@ -276,4 +276,5 @@ Congrats on completing the Application Developer user journey! You've covered th
 * 如果您有兴趣了解 Kubernetes 的内部工作（例如网络），请考虑查看{{< link text="Cluster Operator journey" url="/docs/user-journeys/users/cluster-operator/foundational/" >}}。
 
 {{% /capture %}}
+
 
