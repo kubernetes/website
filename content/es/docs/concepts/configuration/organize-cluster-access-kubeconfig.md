@@ -139,7 +139,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
 ## Referencias de ficheros
 
 Las referencias, así también como, las rutas de un archivo kubeconfig son relativas a la ubicación del archivo kubeconfig.
-Las referencias de un archivo en la línea de comandos son relativas al directorio actual de trabajo.
+Las referencias de un fichero en la línea de comandos son relativas al directorio actual de trabajo.
 Dentro de `$HOME/.kube/config`, las rutas relativas se almacenan relativamente, y las rutas absolutas
 se almacenan absolutamente.
 
