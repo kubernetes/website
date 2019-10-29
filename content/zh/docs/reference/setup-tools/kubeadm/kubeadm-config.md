@@ -1,8 +1,4 @@
 ---
-reviewers:
-- mikedanese
-- luxas
-- jbeda
 title: kubeadm config
 content_template: templates/concept
 weight: 50
