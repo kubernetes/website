@@ -95,7 +95,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
    * El primer archivo que establezca un valor particular o una clave se impone.
    * Nunca cambie el valor o la clave.
      Ejemplo: Conserva el contexto del primer fichero para configurar el `contexto actual`.
-     Ejemplo: Si dos ficheros especifican un `red-user`, utilice sólo los valores del primer archivo.
+     Ejemplo: Si dos ficheros especifican un `red-user`, utilice sólo los valores del primer fichero.
      Incluso desechar el segundo archivo aunque tenga registros que no tengan conflictos.
 
    Para obtener un ejemplo de configuración de la variable de entorno `KUBECONFIG`, consulte la sección
