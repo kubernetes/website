@@ -119,7 +119,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
 
    En este caso el usuario y el clúster pueden estar vacíos.
 
-4. Determinar la información del clúster a utilizar. En este caso, puede o no haber información del cluster.
+4. Determinar la información del clúster a utilizar. En este caso, puede o no haber información del clúster.
    Se construye cada pieza de la información del clúster en base a esta secuencia, el primer acierto se impone:
 
    1. Si es que existen, utilice el flag `--server`, `--certificate-authority`, `--insecure-skip-tls-verify` de la línea de comandos.
