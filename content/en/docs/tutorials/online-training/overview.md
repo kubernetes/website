@@ -13,8 +13,6 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/devops/training/course/name/using-machine-learning-to-scale-kubernetes-clusters)
 
-* [Amazon EKS Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/amazon-web-services/training/course/name/amazon-eks-deep-dive)
-
 * [Cloud Native Certified Kubernetes Administrator (CKA) with Hands-On Labs & Practice Exams (Linux Academy)](https://linuxacademy.com/linux/training/course/name/cloud-native-certified-kubernetes-administrator-cka)
 
 * [Certified Kubernetes Administrator (CKA) Preparation Course (CloudYuga)](https://cloudyuga.guru/courses/cka-online-self-paced)
@@ -27,19 +25,11 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/kubernetes-certification-course)
 
-* [Getting Started with Google Kubernetes Engine (Coursera)](https://www.coursera.org/learn/google-kubernetes-engine)
-
 * [Getting Started with Kubernetes (Pluralsight)](https://www.pluralsight.com/courses/getting-started-kubernetes)
-
-* [Getting Started with Kubernetes Clusters on OCI Oracle Kubernetes Engine (OKE) (Learning Library)](https://apexapps.oracle.com/pls/apex/f?p=44785:50:0:::50:P50_EVENT_ID,P50_COURSE_ID:5935,256)
-
-* [Google Kubernetes Engine Deep Dive (Linux Academy)] (https://linuxacademy.com/google-cloud-platform/training/course/name/google-kubernetes-engine-deep-dive)
 
 * [Helm Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/helm-deep-dive-part-1)
 
 * [Hands-on Introduction to Kubernetes (Instruqt)](https://play.instruqt.com/public/topics/getting-started-with-kubernetes)
-
-* [IBM Cloud: Deploying Microservices with Kubernetes (Coursera)](https://www.coursera.org/learn/deploy-micro-kube-ibm-cloud)
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x)
 
@@ -54,8 +44,6 @@ Here are some of the sites that offer online training for Kubernetes:
 * [Kubernetes the Hard Way with Hands-On Labs (Linux Academy)](https://linuxacademy.com/linux/training/course/name/kubernetes-the-hard-way)
 
 * [Kubernetes Security with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-security)
-
-* [Launch Your First OpenShift Operator with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/containers/training/course/name/red-hat-open-shift)
 
 * [Learn Kubernetes by Doing - 100% Hands-On Experience (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/learn-kubernetes-by-doing)
 
