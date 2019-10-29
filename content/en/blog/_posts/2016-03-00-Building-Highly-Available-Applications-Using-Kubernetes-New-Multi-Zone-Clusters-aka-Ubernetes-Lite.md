@@ -2,7 +2,7 @@
 title: " Building highly available applications using Kubernetes new multi-zone clusters (a.k.a. 'Ubernetes Lite') "
 date: 2016-03-29
 slug: building-highly-available-applications-using-kubernetes-new-multi-zone-clusters-a.k.a-ubernetes-lite
-url: /blog/2016/03/Building-Highly-Available-Applications-Using-Kubernetes-New-Multi-Zone-Clusters-A.K.A-Ubernetes-Lite
+url: /blog/2016/03/Building-Highly-Available-Applications-Using-Kubernetes-New-Multi-Zone-Clusters-aka-Ubernetes-Lite
 ---
 _Editor's note: this is the third post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 

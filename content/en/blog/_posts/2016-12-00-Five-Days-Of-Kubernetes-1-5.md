@@ -2,7 +2,7 @@
 title: " Five Days of Kubernetes 1.5 "
 date: 2016-12-19
 slug: five-days-of-kubernetes-1.5
-url: /blog/2016/12/Five-Days-Of-Kubernetes-1.5
+url: /blog/2016/12/Five-Days-Of-Kubernetes-1-5
 ---
 With the help of our growing community of 1,000 contributors, we pushed some 5,000 commits to extend support for production workloads and deliver [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads). While many improvements and new features have been added, we selected few to highlight in a series of in-depths posts listed below.&nbsp;  
 

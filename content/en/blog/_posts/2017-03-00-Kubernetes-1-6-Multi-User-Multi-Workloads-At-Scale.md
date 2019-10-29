@@ -2,7 +2,7 @@
 title: " Kubernetes 1.6: Multi-user, Multi-workloads at Scale "
 date: 2017-03-28
 slug: kubernetes-1.6-multi-user-multi-workloads-at-scale
-url: /blog/2017/03/Kubernetes-1.6-Multi-User-Multi-Workloads-At-Scale
+url: /blog/2017/03/Kubernetes-1-6-Multi-User-Multi-Workloads-At-Scale
 ---
 Today we’re announcing the release of Kubernetes 1.6.  
 

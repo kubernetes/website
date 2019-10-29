@@ -2,7 +2,7 @@
 title: " Kubernetes 1.7: Security Hardening, Stateful Application Updates and Extensibility "
 date: 2017-06-30
 slug: kubernetes-1.7-security-hardening-stateful-application-extensibility-updates
-url: /blog/2017/06/Kubernetes-1.7-Security-Hardening-Stateful-Application-Extensibility-Updates
+url: /blog/2017/06/Kubernetes-1-7-Security-Hardening-Stateful-Application-Extensibility-Updates
 ---
 Today we’re announcing Kubernetes 1.7, a milestone release that adds security, storage and extensibility features motivated by widespread production use of Kubernetes in the most demanding enterprise environments.&nbsp;  
 

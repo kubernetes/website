@@ -2,7 +2,7 @@
 title: " Scalability updates in Kubernetes 1.6: 5,000 node and 150,000 pod clusters "
 date: 2017-03-30
 slug: scalability-updates-in-kubernetes-1.6
-url: /blog/2017/03/Scalability-Updates-In-Kubernetes-1.6
+url: /blog/2017/03/Scalability-Updates-In-Kubernetes-1-6
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6_  
 

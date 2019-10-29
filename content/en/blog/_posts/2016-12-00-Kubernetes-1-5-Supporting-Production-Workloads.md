@@ -2,7 +2,7 @@
 title: " Kubernetes 1.5: Supporting Production Workloads "
 date: 2016-12-13
 slug: kubernetes-1.5-supporting-production-workloads
-url: /blog/2016/12/Kubernetes-1.5-Supporting-Production-Workloads
+url: /blog/2016/12/Kubernetes-1-5-Supporting-Production-Workloads
 ---
 
 Today we’re announcing the release of Kubernetes 1.5. This release follows close on the heels of KubeCon/CloundNativeCon, where users gathered to share how they’re running their applications on Kubernetes. Many of you expressed interest in running stateful applications in containers with the eventual goal of running all applications on Kubernetes. If you have been waiting to try running a distributed database on Kubernetes, or for ways to guarantee application disruption SLOs for stateful and stateless apps, this release has solutions for you.&nbsp;  
