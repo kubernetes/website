@@ -104,7 +104,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Master VM shutdown or master components (scheduler, API server, controller-managing) crashing
     - Will tolerate one or more simultaneous node or component failures
   - Mitigates: Apiserver backing storage (i.e., etcd's data directory) lost
-    - Assuming you used clustered etcd
+    - Assumes HA (highly-available) etcd configuration
 
 - Action: Snapshot apiserver PDs/EBS-volumes periodically
   - Mitigates: Apiserver backing storage lost
