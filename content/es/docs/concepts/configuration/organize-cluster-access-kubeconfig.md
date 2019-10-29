@@ -37,7 +37,7 @@ de diversas maneras. Por ejemplo:
 
 - Un kubelet en ejecución se podría autenticar usando certificados.
 - Un usuario se podría autenticar utilizando tokens.
-- Los administradores podrían tener un conjuntos de certificados que sean suministrados a los usuarios individuales.
+- Los administradores podrían tener un conjunto de certificados que sean suministrados a los usuarios individualmente.
 
 Con los ficheros kubeconfig puedes organizar tus clústers, usuarios y namespaces.
 También puedes definir los diferentes contextos para realizar de forma rápida y
