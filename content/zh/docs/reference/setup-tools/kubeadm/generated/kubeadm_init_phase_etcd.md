@@ -11,7 +11,7 @@ This command is not meant to be run on its own. See list of available subcommand
 此命令并不意味着可以单独运行。请参阅可用子命令列表。
 
 ```
-kubeadm init phase control-plane [flags]
+kubeadm init phase etcd [flags]
 ```
 
 <!-- 
@@ -32,9 +32,9 @@ kubeadm init phase control-plane [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for control-plane
+      help for etcd
       -->
-       control-plane 操作的帮助命令
+       etcd 操作的帮助命令
       </td>
     </tr>
 
@@ -65,7 +65,6 @@ kubeadm init phase control-plane [flags]
       -->
       [实验] 到 '真实' 主机根目录文件系统路径。
       </td>
-      </td>
     </tr>
 
   </tbody>
@@ -80,14 +79,8 @@ SEE ALSO
 
 <!--
 * [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase control-plane all](kubeadm_init_phase_control-plane_all.md)	 - Generate all static Pod manifest files
-* [kubeadm init phase control-plane apiserver](kubeadm_init_phase_control-plane_apiserver.md)	 - Generates the kube-apiserver static Pod manifest
-* [kubeadm init phase control-plane controller-manager](kubeadm_init_phase_control-plane_controller-manager.md)	 - Generates the kube-controller-manager static Pod manifest
-* [kubeadm init phase control-plane scheduler](kubeadm_init_phase_control-plane_scheduler.md)	 - Generates the kube-scheduler static Pod manifest
+* [kubeadm init phase etcd local](kubeadm_init_phase_etcd_local.md)	 - Generate the static Pod manifest file for a local, single-node local etcd instance
 -->
 * [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
-* [kubeadm init phase control-plane all](kubeadm_init_phase_control-plane_all.md)	 - 生成所有静态 Pod 清单文件
-* [kubeadm init phase control-plane apiserver](kubeadm_init_phase_control-plane_apiserver.md)	 - 生成 kube-apiserver 静态 Pod 清单
-* [kubeadm init phase control-plane controller-manager](kubeadm_init_phase_control-plane_controller-manager.md)	 - 生成 kube-controller-manager 静态 Pod 清单
-* [kubeadm init phase control-plane scheduler](kubeadm_init_phase_control-plane_scheduler.md)	 - 生成 kube-scheduler 静态 Pod 清单
+* [kubeadm init phase etcd local](kubeadm_init_phase_etcd_local.md)	 - 为本地单节点 etcd 实例生成静态 Pod 清单文件
 
