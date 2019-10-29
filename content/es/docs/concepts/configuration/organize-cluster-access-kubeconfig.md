@@ -147,7 +147,7 @@ se almacenan absolutamente.
 
 {{% capture whatsnext %}}
 
-* [Configurar El Acceso A Multiples Clústers](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [Configurar el acceso a multiples Clústeres](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}
