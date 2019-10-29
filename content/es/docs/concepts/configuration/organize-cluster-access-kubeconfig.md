@@ -94,7 +94,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
    * Producir errores para ficheros con contenido que no pueden ser deserializados.
    * El primer archivo que establezca un valor particular o una clave se impone.
    * Nunca cambie el valor o la clave.
-     Ejemplo: Conserva el contexto del primer archivo para configurar el `contexto actual`.
+     Ejemplo: Conserva el contexto del primer fichero para configurar el `contexto actual`.
      Ejemplo: Si dos ficheros especifican un `red-user`, utilice sólo los valores del primer archivo.
      Incluso desechar el segundo archivo aunque tenga registros que no tengan conflictos.
 
