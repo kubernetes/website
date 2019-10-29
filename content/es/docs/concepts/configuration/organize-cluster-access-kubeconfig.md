@@ -133,7 +133,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
    2. Utilice los campos `user` de los ficheros kubeconfig fusionados.
    3. Fallar si hay dos mecanismo de autenticación contradictorios.
 
-6. Si todavía falta alguna información, utilice los valores predeterminados y solicite
+6. Si todavía falta información, utilice los valores predeterminados y solicite
    información de autenticación.
 
 ## Referencias de ficheros
