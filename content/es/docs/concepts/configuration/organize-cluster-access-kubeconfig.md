@@ -122,7 +122,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
 4. Determinar la información del clúster a utilizar. En este caso, puede o no haber información del clúster.
    Se construye cada pieza de la información del clúster en base a esta secuencia, el primer acierto se impone:
 
-   1. Si es que existen, utilice el flag `--server`, `--certificate-authority`, `--insecure-skip-tls-verify` de la línea de comandos.
+   1. Si es que existen, use el flag `--server`, `--certificate-authority`, `--insecure-skip-tls-verify` en la línea de comandos.
    2. Si existen atributos de información de clúster procedentes de los ficheros kubeconfig fusionados, utilícelos.
    3. Falla si no existe la ubicación del servidor.
 
