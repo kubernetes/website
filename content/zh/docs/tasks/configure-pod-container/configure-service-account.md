@@ -389,7 +389,7 @@ ServiceAccountTokenVolumeProjection 在 1.12 版本中是 __beta__ 阶段，可�
 
 {{< /note >}}
 
-<！--
+<!--
 The kubelet can also project a service account token into a Pod. You can
 specify desired properties of the token, such as the audience and the validity
 duration. These properties are not configurable on the default service account
