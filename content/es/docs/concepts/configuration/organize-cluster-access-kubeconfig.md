@@ -1,5 +1,5 @@
 ---
-title: Organizar El Acceso A Los Clústeres Con Los Ficheros kubeconfig
+title: Organizar el acceso a los clústeres utilizando ficheros kubeconfig
 content_template: templates/concept
 weight: 60
 ---
