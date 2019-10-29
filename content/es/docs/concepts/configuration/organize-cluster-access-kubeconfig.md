@@ -41,7 +41,7 @@ de diversas maneras. Por ejemplo:
 
 Con los ficheros kubeconfig puedes organizar tus clústers, usuarios y namespaces.
 También puedes definir diferentes contextos para realizar de forma rápida y
-facil los intercambios entre clústers y namespaces.
+fácil cambios entre clústers y namespaces.
 
 ## Contexto
 
