@@ -57,7 +57,7 @@ Para seleccionar el contexto actual:
 kubectl config use-context
 ```
 
-## La variable de entorno KUBECONFIG
+## Variable de entorno KUBECONFIG
 
 La variable de entorno `KUBECONFIG` contiene una lista de ficheros kubeconfig.
 En el caso de Linux y Mac, la lista está delimitada por dos puntos.  Si se trata
