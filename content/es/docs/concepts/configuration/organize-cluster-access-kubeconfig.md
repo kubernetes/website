@@ -86,7 +86,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
    Sólo se permite una instancia con este flag.
 
    En caso contrario, si la variable de entorno `KUBECONFIG` está activada, sera usada
-   como un listado de los ficheros que deben ser fusionados.
+   como un listado de los ficheros a ser fusionados.
    Fusionar los ficheros listados en la variable de entorno `KUBECONFIG` de acuerdo
    con estas reglas:
 
