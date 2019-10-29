@@ -101,7 +101,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
    Para obtener un ejemplo de configuración de la variable de entorno `KUBECONFIG`, consulte la sección
    [Configuración de la variable de entorno KUBECONFIG](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
 
-   En caso contrario, utilice el archivo kubeconfig predeterminado `$HOME/.kube/config`, sin fusionar.
+   En caso contrario, utilice el fichero kubeconfig predeterminado `$HOME/.kube/config`, sin fusionar.
 
 2. Determinar el contexto a utilizar en base al primer acierto en esta secuencia:
 
