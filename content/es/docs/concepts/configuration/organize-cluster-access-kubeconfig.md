@@ -103,7 +103,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros
 
    En caso contrario, utilice el fichero kubeconfig predeterminado `$HOME/.kube/config`, sin fusionar.
 
-2. Determinar el contexto a utilizar en base al primer acierto en esta secuencia:
+2. Determinar el contexto a utilizar con base en el primer acierto en esta secuencia:
 
    1. Si es que existe, utilice el flag `---contexto` de la línea de comandos.
    2. Utilice el `contexto actual` procedente de los ficheros kubeconfig fusionados.
