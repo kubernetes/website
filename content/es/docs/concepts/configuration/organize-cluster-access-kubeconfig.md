@@ -77,7 +77,7 @@ Para poder ver su configuración, escriba el siguiente comando:
 kubectl config view
 ```
 
-Como se ha descrito anteriormente, la respuesta de este comando podría resultar ser a partir de un único
+Como se ha descrito anteriormente, la respuesta de este comando podría resultar a partir de un solo
 archivo kubeconfig, o podría ser el resultado de la fusión de varios ficheros kubeconfig.
 
 A continuación se muestran las reglas que usa `kubectl` cuando fusiona ficheros kubeconfig:
