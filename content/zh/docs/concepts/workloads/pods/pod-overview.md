@@ -45,11 +45,11 @@ Pod 封装了应用程序容器（或者在某些情况下封装多个容器）�
 Pod 表示部署单元：*Kubernetes 中应用程序的单个实例*，它可能由单个容器或少量紧密耦合并共享资源的容器组成。
 
 <!--
-> [Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other container runtimes as well.
+> [Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other [container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) as well.
 
 Pods in a Kubernetes cluster can be used in two main ways:
 -->
-[Docker](https://www.docker.com) 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时。
+[Docker](https://www.docker.com) 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的[容器运行时](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)。
 
 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
 
