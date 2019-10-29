@@ -16,7 +16,7 @@ card:
 {{% capture overview %}}
 
 This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Katacoda.
+on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment. 
 
 {{< note >}}
