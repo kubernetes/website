@@ -40,7 +40,7 @@ de diversas maneras. Por ejemplo:
 - Los administradores podrían tener un conjunto de certificados que sean suministrados a los usuarios individualmente.
 
 Con los ficheros kubeconfig puedes organizar tus clústers, usuarios y namespaces.
-También puedes definir los diferentes contextos para realizar de forma rápida y
+También puedes definir diferentes contextos para realizar de forma rápida y
 facil los intercambios entre clústers y namespaces.
 
 ## Contexto
