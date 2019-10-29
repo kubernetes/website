@@ -1,32 +1,17 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概述
 
 
 <!--
-Renew the certificate the apiserver uses to access etcd.
+Renew all known certificates necessary to run the control plane. Renewals are run unconditionally, regardless of expiration date. Renewals can also be run individually for more control.
 -->
-续订 apiserver 用于访问 etcd 的证书。
-
-<!--
-Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
--->
-无论证书的到期日期如何，续订都会无条件地进行；SAN 等额外属性将基于现有文件/证书，因此无需重新提供它们。
-
-<!--
-Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
--->
-默认情况下，续订尝试在 kubeadm 管理的本地 PKI 中使用证书颁发机构；作为替代方案，可以使用 K8s 证书 API 进行证书更新，或者作为最后一个选择来生成 CSR 请求。
-
-<!--
-After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
--->
-续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防文件在其他地方使用。
+续订运行控制平面所需的所有已知证书。续订是无条件进行的，与到期日期无关。续订也可以单独运行以进行更多控制。
 
 ```
-kubeadm alpha certs renew apiserver-etcd-client [flags]
+kubeadm alpha certs renew all [flags]
 ```
 
 <!--
@@ -100,9 +85,9 @@ kubeadm alpha certs renew apiserver-etcd-client [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for apiserver-etcd-client
+      help for all
       -->
-       apiserver-etcd-client 操作的帮助命令
+       all 操作的帮助命令
       </td>
     </tr>
 
@@ -178,3 +163,4 @@ SEE ALSO
 * [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
 -->
 * [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - 续订 Kubernetes 集群的证书
+

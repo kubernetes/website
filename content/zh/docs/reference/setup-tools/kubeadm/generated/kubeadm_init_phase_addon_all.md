@@ -204,10 +204,10 @@ kubeadm init phase addon all [flags]
 
 
 
-  <!--
-  ### Options inherited from parent commands
-  -->
-  ### 继承于父命令的选择项
+<!--
+### Options inherited from parent commands
+-->
+### 继承于父命令的选择项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
