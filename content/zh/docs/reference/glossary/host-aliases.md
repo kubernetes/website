@@ -5,7 +5,6 @@ date: 2019-01-31
 full_link: /docs/reference/glossary/host-aliases.md
 
 short_description: >
-
   HostAliases 是要注入 Pod 的 hosts 文件的 IP 地址和主机名之间的映射。
 aka:
 tags:
@@ -22,13 +21,11 @@ full_link: /docs/reference/glossary/host-aliases.md
 short_description: >
 
    A HostAliases is a mapping between the IP address and hostname to be injected into a Pod's hosts file.
-
 aka:
 tags:
 - operation
 ---
 -->
-
 <!--
  A HostAliases is a mapping between the IP address and hostname to be injected into a Pod's hosts file.
 -->
