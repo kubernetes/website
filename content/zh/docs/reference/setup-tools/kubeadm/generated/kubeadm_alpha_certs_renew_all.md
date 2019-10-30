@@ -2,7 +2,7 @@
 <!--
 ### Synopsis
 -->
-### 概述
+### 概要
 
 
 <!--
@@ -145,7 +145,7 @@ kubeadm alpha certs renew all [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根目录文件系统路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

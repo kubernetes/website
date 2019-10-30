@@ -51,7 +51,7 @@ kubeadm completion SHELL [flags]
 <!--
 ### Examples
 -->
-### 案例
+### 示例
 
 <!--
 ```
@@ -111,7 +111,7 @@ source <(kubeadm completion zsh)
       <!--
       help for completion
       -->
-       completion 操作的帮助信息
+       completion 操作的帮助命令
       </td>
     </tr>
 
@@ -121,7 +121,7 @@ source <(kubeadm completion zsh)
 
 
 <!--
-### Options
+### Options inherited from parent commands
 -->
 ### 从父命令继承的选项
 
@@ -140,7 +140,7 @@ source <(kubeadm completion zsh)
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 到 '真实' 主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

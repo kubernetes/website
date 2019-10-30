@@ -111,7 +111,7 @@ kubeadm alpha certs renew apiserver [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认："/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -160,7 +160,7 @@ kubeadm alpha certs renew apiserver [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 指向 '真实' 宿主机的根目录。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

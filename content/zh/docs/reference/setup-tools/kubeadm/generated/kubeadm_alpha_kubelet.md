@@ -77,6 +77,6 @@ SEE ALSO
 * [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
 * [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
 -->
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm 实验子命令
+* [kubeadm alpha](kubeadm_alpha.md)	 - kubeadm 实验子命令
 * [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - 用于 kubelet 配置的实用程序
 
