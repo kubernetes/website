@@ -17,7 +17,7 @@ title: 证书
 `cluster/saltbase/salt/generate-cert/make-ca-cert.sh`。
 
 执行该脚本时需传入两个参数。 第一个参数为 API 服务器的 IP 地址，第二个参数为对象的候补名称列表，
-形如 `IP:<ip地址> 或 DNS:<dns名称>`。
+形如 `IP:<ip 地址 > 或 DNS:<dns 名称 >`。
 
 脚本生成三个文件： `ca.crt`、`server.crt` 和 `server.key`。
 
@@ -44,7 +44,7 @@ title: 证书
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 1.  生成服务器证书和密钥。
     参数 `--subject-alt-name` 设置了访问 API 服务器时可能使用的 IP 和 DNS 名称。 `MASTER_CLUSTER_IP`
-    通常为 `--service-cluster-ip-range` 参数中指定的服务 CIDR 的 首个 IP 地址，`--service-cluster-ip-range`同时用于
+    通常为 `--service-cluster-ip-range` 参数中指定的服务 CIDR 的 首个 IP 地址，`--service-cluster-ip-range` 同时用于
     API 服务器和控制器管理器组件。  `--days` 参数用于设置证书的有效期限。
     下面的示例还假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
@@ -78,7 +78,7 @@ title: 证书
 
         openssl genrsa -out server.key 2048
 1.  创建用于生成证书签名请求（CSR）的配置文件。
-    确保在将其保存至文件（如`csr.conf`）之前将尖括号标记的值（如`<MASTER_IP>`）
+    确保在将其保存至文件（如 `csr.conf`）之前将尖括号标记的值（如 `<MASTER_IP>`）
     替换为你想使用的真实值。 注意：`MASTER_CLUSTER_IP` 是前面小节中描述的 API 服务器的服务集群 IP
     (service cluster IP)。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 

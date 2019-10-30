@@ -19,6 +19,7 @@ reviewers:
 
 {{% capture overview %}}
 <!--
+
 Kubernetes provides a `certificates.k8s.io` API, which lets you provision TLS
 certificates signed by a Certificate Authority (CA) that you control. These CA
 and certificates can be used by your workloads to establish trust.
@@ -47,8 +48,6 @@ CA 可以达到这个目的，但是您永远不要依赖它。不要以为
 这些证书将针对群根目录 CA 进行验证。
 {{< /note >}}
 
-
-
 {{% /capture %}}
 
 
@@ -63,25 +62,24 @@ CA 可以达到这个目的，但是您永远不要依赖它。不要以为
 <!--
 ## Trusting TLS in a Cluster
 
-Trusting the custom CA from an application running as a pod usually requires
-some extra application configuration. You will need to add the CA certificate
-bundle to the list of CA certificates that the TLS client or server trusts. For
-example, you would do this with a golang TLS config by parsing the certificate
-chain and adding the parsed certificates to the `RootCAs` field in the
-[`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
-You can distribute the CA certificate as a
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) that your
-pods have access to use.
+Trusting the cluster root CA from an application running as a pod usually
+requires some extra application configuration. You will need to add the CA
+certificate bundle to the list of CA certificates that the TLS client or server
+trusts. For example, you would do this with a golang TLS config by parsing the
+certificate chain and adding the parsed certificates to the `RootCAs` field
+in the [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 
+The CA certificate bundle is automatically mounted into pods using the default
+service account at the path `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`.
+If you are not using the default service account, ask a cluster administrator to
+build a configmap containing the certificate bundle that you have access to use.
 -->
 ## 集群中的 TLS 信任
 
-让 Pod 中运行的应用程序信任集群 CA 通常需要一些额外的应用程序配置。您将需要将 CA 证书包添加到 TLS 客户端或服务器信任的 CA 证书列表中。例如，您可以使用 golang TLS 配置通过解析证书链并将解析的证书添加到 [`tls.Config`](https://godoc.org/crypto/tls#Config) 结构中的 `RootCAs` 字段中。
+让 Pod 中运行的应用程序信任集群根 CA 通常需要一些额外的应用程序配置。您将需要将 CA 证书包添加到 TLS 客户端或服务器信任的 CA 证书列表中。例如，您可以使用 golang TLS 配置通过解析证书链并将解析的证书添加到 [`tls.Config`](https://godoc.org/crypto/tls#Config) 结构中的 `RootCAs` 字段中。
 
-您可以将CA证书作为
-[ConfigMap]（/docs/tasks/configure-pod-container/configure-pod-configmap）
-供 pods 使用。
+CA 证书捆绑包将使用默认服务账户自动加载到 pod 中，路径为 `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`。如果您没有使用默认服务账户，请请求集群管理员构建包含您有权访问使用的证书包的 configmap。
 
 <!--
 ## Requesting a Certificate
@@ -382,15 +380,19 @@ Kubernetes 管理员（具有适当权限）可以使用 `kubectl certificate ap
 <!--
 ## A Word of Warning on the Approval Permission
 
-The ability to approve CSRs decides who trusts who within your environment. The
-ability to approve CSRs should not be granted broadly or lightly. The
-requirements of the challenge noted in the previous section and the
-repercussions of issuing a specific certificate should be fully understood
-before granting this permission.
+
+The ability to approve CSRs decides who trusts who within the cluster. This
+includes who the Kubernetes API trusts. The ability to approve CSRs should
+not be granted broadly or lightly. The requirements of the challenge
+noted in the previous section and the repercussions of issuing a specific
+certificate should be fully understood before granting this permission. See
+[here](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for information on how
+certificates interact with authentication.
 -->
 ## 关于批准许可的警告
 
-批准 CSR 的能力决定谁信任环境中的谁。批准 CSR 的能力不能过于广泛和轻率。在给予本许可之前，应充分了解上一节中提到的挑战和发布特定证书的后果。
+批准 CSR 的能力决定谁信任群集中的谁。这包括 Kubernetes API 信任的人。批准 CSR 的能力不能过于广泛和轻率。在给予本许可之前，应充分了解上一节中提到的挑战和发布特定证书的后果。有关证书与认证交互的信息，请参阅[此处](/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
+
 
 <!--
 ## A Note to Cluster Administrators

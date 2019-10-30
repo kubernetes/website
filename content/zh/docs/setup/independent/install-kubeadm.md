@@ -160,14 +160,14 @@ The container runtime used by default is Docker, which is enabled through the bu
 Other CRI-based runtimes include:
 
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet) 
 -->
 其他的容器运行时有：
 
 - [containerd](https://github.com/containerd/cri) (containerd 的内置 CRI 插件)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
 
