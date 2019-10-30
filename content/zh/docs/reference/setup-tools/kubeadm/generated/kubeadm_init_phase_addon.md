@@ -8,7 +8,7 @@
 <!--
 This command is not meant to be run on its own. See list of available subcommands.
 -->
-此命令并不意味着可以单独运行。请参阅可用子命令列表。
+此命令并非设计用来单独运行。请参阅可用子命令列表。
 
 ```
 kubeadm init phase addon [flags]
@@ -46,7 +46,7 @@ kubeadm init phase addon [flags]
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -63,7 +63,7 @@ kubeadm init phase addon [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根目录文件系统路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
@@ -83,7 +83,7 @@ SEE ALSO
 * [kubeadm init phase addon coredns](kubeadm_init_phase_addon_coredns.md)	 - Install the CoreDNS addon to a Kubernetes cluster
 * [kubeadm init phase addon kube-proxy](kubeadm_init_phase_addon_kube-proxy.md)	 - Install the kube-proxy addon to a Kubernetes cluster
 -->
-* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 init 工作流程的单个阶段
-* [kubeadm init phase addon all](kubeadm_init_phase_addon_all.md)	 - 安装所有的 addon
+* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
+* [kubeadm init phase addon all](kubeadm_init_phase_addon_all.md)	 - 安装所有的插件
 * [kubeadm init phase addon coredns](kubeadm_init_phase_addon_coredns.md)	 - 将 CoreDNS 插件安装到 Kubernetes 集群
 * [kubeadm init phase addon kube-proxy](kubeadm_init_phase_addon_kube-proxy.md)	 - 将 kube-proxy 插件安装到 Kubernetes 集群

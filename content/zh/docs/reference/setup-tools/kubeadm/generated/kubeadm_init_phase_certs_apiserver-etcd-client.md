@@ -13,7 +13,7 @@ Generate the certificate the apiserver uses to access etcd, and save them into a
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-如果两个文件都已存在，则 kubeadm 跳过生成步骤，将使用现有文件。
+如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
@@ -49,7 +49,7 @@ kubeadm init phase certs apiserver-etcd-client [flags]
       <!--
       The path where to save and store the certificates.
       -->
-      存储证书的路径。
+      证书的存储路径。
       </td>
     </tr>
 
@@ -61,7 +61,7 @@ kubeadm init phase certs apiserver-etcd-client [flags]
       <!--
       Path to a kubeadm configuration file.
       -->
-       kubeadm 配置文件路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 
@@ -127,7 +127,7 @@ kubeadm init phase certs apiserver-etcd-client [flags]
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -144,7 +144,7 @@ kubeadm init phase certs apiserver-etcd-client [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根目录文件系统路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
