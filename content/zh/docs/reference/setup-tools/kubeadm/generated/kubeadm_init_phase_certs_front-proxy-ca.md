@@ -61,7 +61,7 @@ kubeadm init phase certs front-proxy-ca [flags]
       <!--
       Path to a kubeadm configuration file.
       -->
-       kubeadm 配置文件路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 

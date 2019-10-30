@@ -34,7 +34,7 @@ kubeadm init phase kubeconfig admin [flags]
       <!--
       The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-       API Server 通知正在监听的 IP 地址。如果没有设置，将使用默认的网络接口。
+       API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认的网络接口。
       </td>
     </tr>
 
@@ -51,7 +51,7 @@ kubeadm init phase kubeconfig admin [flags]
       <!--
       Port for the API Server to bind to.
       -->
-      要绑定到 API Server 的端口。
+      要绑定到 API 服务器的端口。
       </td>
     </tr>
 
@@ -92,7 +92,7 @@ kubeadm init phase kubeconfig admin [flags]
       <!--
       Specify a stable IP address or DNS name for the control plane.
       -->
-      为控制平面指定一个稳定的 IP 地址或 DNS。
+      为控制平面指定一个稳定的 IP 地址或 DNS 名称。
       </td>
     </tr>
 
@@ -121,7 +121,7 @@ kubeadm init phase kubeconfig admin [flags]
       <!--
       The path where to save the kubeconfig file.
       -->
-      保存 kubeconfig 的路径。
+       kubeconfig 文件的保存路径。
       </td>
     </tr>
 
@@ -167,7 +167,7 @@ kubeadm init phase kubeconfig admin [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根目录文件系统路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
@@ -185,5 +185,5 @@ SEE ALSO
 <!--
 * [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)	 - Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
 -->
-* [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)	 - 生成建立控制平面和管理 kubeconfig 文件所需的所有 kubeconfig 文件
+* [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)	 - 生成建立控制平面所需的 kubeconfig 文件和管理员用的 kubeconfig 文件
 

@@ -71,7 +71,7 @@ kubeadm init phase etcd local --config config.yaml
       <!--
       Path to a kubeadm configuration file.
       -->
-       kubeadm 配置文件路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 
@@ -83,7 +83,7 @@ kubeadm init phase etcd local --config config.yaml
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-       用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -104,7 +104,7 @@ kubeadm init phase etcd local --config config.yaml
       <!--
       --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
       -->
-      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认："k8s.gcr.io"
+      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
       </td>
     </tr>
     <tr>
@@ -112,7 +112,7 @@ kubeadm init phase etcd local --config config.yaml
       <!--
       Choose a container registry to pull control plane images from
       -->
-      选择一个容器仓库从中拉取控制平面镜像
+      选择要从中拉取控制平面镜像的容器仓库
       </td>
     </tr>
 
@@ -141,7 +141,7 @@ kubeadm init phase etcd local --config config.yaml
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根文件系统路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
