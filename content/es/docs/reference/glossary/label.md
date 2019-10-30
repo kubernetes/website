@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
- Etiqueta objetos con atributos de identificación los cuáles tienen significado y son relevantes para los usuarios.
+Metadatos en forma de clave-valor que permite añadir a los objetos atributos que sean relevantes para los usuarios para identificarlos.
 
 <!--more--> 
 
