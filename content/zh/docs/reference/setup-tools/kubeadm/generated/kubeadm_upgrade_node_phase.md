@@ -9,7 +9,7 @@
 Use this command to invoke single phase of the node workflow
 -->
 
-使用此命令调用节点工作流的单个阶段
+使用此命令调用 node 工作流的某个阶段
 
 <!--
 ### Options

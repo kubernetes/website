@@ -1,3 +1,4 @@
+
 <!--
 ### Synopsis
 -->
@@ -6,7 +7,7 @@
 <!--
 Upgrade your cluster smoothly to a newer version with this command
 -->
-此命令能将您的集群平滑升级到新版本
+此命令能将集群平滑升级到新版本
 
 
 ```
@@ -61,7 +62,7 @@ kubeadm upgrade [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 主机根目录文件系统 ’真实‘ 路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 

@@ -7,7 +7,7 @@
 <!--
 Print the version of kubeadm
 -->
-打印 kubeadm 的版本号
+打印 kubeadm 的版本
 
 ```
 kubeadm version [flags]
@@ -33,7 +33,7 @@ kubeadm version [flags]
       <!--
       help for version
       -->
-       version 的帮助命令
+       version 操作的帮助命令
       </td>
     </tr>
 
@@ -75,7 +75,7 @@ kubeadm version [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 

@@ -49,7 +49,8 @@ kubeadm token generate [flags]
       <!--
       help for generate
       -->
-       generate 操作的帮助信息</td>
+       generate 操作的帮助命令
+      </td>
     </tr>
 
   </tbody>
@@ -84,14 +85,16 @@ kubeadm token generate [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"</td>
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
+      </td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
       The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
       -->
-      用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
+      用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+      </td>
     </tr>
 
     <tr>
@@ -102,7 +105,8 @@ kubeadm token generate [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 到'真实'主机根文件系统的路径。</td>
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
+      </td>
     </tr>
 
   </tbody>
@@ -117,4 +121,4 @@ SEE ALSO
 
 <!--
 * [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens -->
-* [kubeadm token](kubeadm_token.md)	 - 管理引导 token
+* [kubeadm token](kubeadm_token.md)	 - 管理引导令牌（bootstrap token）
