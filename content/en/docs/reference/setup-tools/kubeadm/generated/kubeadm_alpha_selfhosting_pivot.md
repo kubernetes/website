@@ -97,7 +97,3 @@ kubeadm alpha selfhosting pivot [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - Make a kubeadm cluster self-hosted
-

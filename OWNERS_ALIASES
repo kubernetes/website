@@ -46,7 +46,6 @@ aliases:
     - kbarnard10
     - kbhawkey
     - makoscafee
-    - mistyhacks
     - rajakavitha1
     - ryanmcginnis
     - simplytunde
@@ -118,13 +117,13 @@ aliases:
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - nasa9084
-    - zacharysarah
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - cstoku
     - inductor
     - makocchi-git
     - MasayaAoyama
     - nasa9084
+    - oke-py
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
@@ -179,3 +178,9 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+  sig-docs-vi-owners: # Admins for Vietnamese content
+    - ngtuna
+    - truongnh1992
+  sig-docs-vi-reviews: # PR reviews for Vietnamese content
+    - ngtuna
+    - truongnh1992

@@ -85,7 +85,3 @@ kubeadm config images list [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm config images](kubeadm_config_images.md)	 - Interact with container images used by kubeadm
-

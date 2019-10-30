@@ -59,9 +59,3 @@ kubeadm config print [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
-* [kubeadm config print init-defaults](kubeadm_config_print_init-defaults.md)	 - Print default init configuration, that can be used for 'kubeadm init'
-* [kubeadm config print join-defaults](kubeadm_config_print_join-defaults.md)	 - Print default join configuration, that can be used for 'kubeadm join'
-

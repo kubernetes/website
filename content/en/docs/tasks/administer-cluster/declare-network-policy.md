@@ -49,7 +49,7 @@ kubectl expose deployment nginx --port=80
 service/nginx exposed
 ```
 
-This runs two `nginx` pods in the default namespace, and exposes them through a service called `nginx`.
+This runs a `nginx` pods in the default namespace, and exposes it through a service called `nginx`.
 
 ```console
 kubectl get svc,pod

@@ -73,7 +73,3 @@ kubeadm init phase upload-config kubeadm [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase upload-config](kubeadm_init_phase_upload-config.md)	 - Upload the kubeadm and kubelet configuration to a ConfigMap
-

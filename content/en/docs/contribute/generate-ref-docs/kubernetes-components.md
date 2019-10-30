@@ -15,16 +15,17 @@ reference documentation for tools and components in the
 
 * You need a machine that is running Linux or macOS.
 
-* You need to have this software installed:
+* Install the following:
 
-    * [Python 2.7.16](https://www.python.org/downloads/)
+    * [Python](https://www.python.org/downloads/) v3.7.x
     * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
     * [Golang](https://golang.org/doc/install) version 1.12 for Kubernetes 1.14+; Go 1.13 [is not supported](https://github.com/kubernetes/community/blob/master/contributors/devel/development.md#go)
-    * [PyYAML](https://pyyaml.org/) v3.13
+    * [Pip](https://pypi.org/project/pip/) used to install PyYAML
+    * [PyYAML](https://pyyaml.org/) v5.1.2
     * [make](https://www.gnu.org/software/make/)
     * [gcc compiler/linker](https://gcc.gnu.org/)
 
-* The Go binary must be in your path; **do not** set your `$GOPATH`. The `update-imported-docs` tool sets your GOPATH.
+* The `Go` binary must be in your path. The `update-imported-docs` tool sets your GOPATH.
 
 * You need to know how to create a pull request to a GitHub repository.
 This involves creating your own fork of the repository. For more
@@ -46,11 +47,11 @@ git clone git@github.com:<your_github_username>/website.git
 
 Determine the base directory of your clone. For example, if you followed the
 preceding step to get the repository, your base directory is
-`$github.com/website.` The remaining steps refer to your base directory as
+`github.com/website.` The remaining steps refer to your base directory as
 `<web-base>`.
 
-The reference documentation for the Kubernetes components and tools is generated
-from the Kubernetes source code. The `update-imported-docs` tool automatically
+The `update-imported-docs` tool generates the reference documentation for the
+Kubernetes components from the Kubernetes source code. The tool automatically
 clones the `kubernetes/kubernetes` repository. If you want to change the
 reference documentation, please follow [this
 guide](/docs/contribute/generate-ref-docs/contribute-upstream).
@@ -75,9 +76,10 @@ to `kubernetes/website`.
 
 ## Configuration file format
 
-Each config file may contain multiple repos that will be imported together.
-When necessary, you can customize the configuration file by manually editing
-it. You may create new config files for importing other groups of documents. Imported documents must follow these guidelines:
+Each config file may contain multiple repos that will be imported together. When
+necessary, you can customize the configuration file by manually editing it. You
+may create new config files for importing other groups of documents. Imported
+documents must follow these guidelines:
 
 1. Adhere to the [Documentation Style Guide](/docs/contribute/style/style-guide/).
 

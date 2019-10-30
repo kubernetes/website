@@ -50,11 +50,3 @@ kubeadm upgrade [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm upgrade apply](kubeadm_upgrade_apply.md)	 - Upgrade your Kubernetes cluster to the specified version
-* [kubeadm upgrade diff](kubeadm_upgrade_diff.md)	 - Show what differences would be applied to existing static pod manifests. See also: kubeadm upgrade apply --dry-run
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)	 - Upgrade commands for a node in the cluster
-* [kubeadm upgrade plan](kubeadm_upgrade_plan.md)	 - Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter
-
