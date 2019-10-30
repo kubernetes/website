@@ -58,7 +58,7 @@ kubeadm init phase certs front-proxy-client [flags]
       <!--
       Path to a kubeadm configuration file.
       -->
-       kubeadm 配置文件路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 
@@ -70,7 +70,7 @@ kubeadm init phase certs front-proxy-client [flags]
       <!--
       The path to output the CSRs and private keys to
       -->
-      用于输出 CSRs 和私钥的路径
+      输出 CSR 和私钥的路径
       </td>
     </tr>
 
@@ -82,7 +82,7 @@ kubeadm init phase certs front-proxy-client [flags]
       <!--
       Create CSRs instead of generating certificates
       -->
-      创建 CSRs 而不是生成证书
+      创建 CSR 而不是生成证书
       </td>
     </tr>
 
@@ -94,7 +94,7 @@ kubeadm init phase certs front-proxy-client [flags]
       <!--
       help for front-proxy-client
       -->
-      front-proxy-client 操作的帮助信息
+       front-proxy-client 操作的帮助命令
       </td>
     </tr>
 
@@ -103,7 +103,7 @@ kubeadm init phase certs front-proxy-client [flags]
       <!--
       --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
       -->
-      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "stable-1"
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："stable-1"
       </td>
     </tr>
     <tr>
@@ -140,7 +140,7 @@ kubeadm init phase certs front-proxy-client [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 到 '真实' 主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

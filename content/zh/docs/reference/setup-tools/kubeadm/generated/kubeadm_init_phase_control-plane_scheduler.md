@@ -51,7 +51,7 @@ kubeadm init phase control-plane scheduler [flags]
       <!--
       Path to a kubeadm configuration file.
       -->
-       kubeadm 配置文件路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 
@@ -63,6 +63,7 @@ kubeadm init phase control-plane scheduler [flags]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -91,7 +92,7 @@ kubeadm init phase control-plane scheduler [flags]
       <!--
       Choose a container registry to pull control plane images from
       -->
-      选择一个容器仓库从中拉取控制平面镜像
+      选择要从中拉取控制平面镜像的容器仓库
       </td>
     </tr>
 
@@ -132,7 +133,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -149,7 +150,7 @@ kubeadm init phase control-plane scheduler [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根目录文件系统路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

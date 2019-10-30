@@ -8,7 +8,7 @@
 <!--
 Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
 -->
-使用 Kubelet 配置文件编写一个文件，并使用特定节点的 Kubelet 设置编写一个环境文件，然后（重新）启动 kubelet。
+使用 kubelet 配置文件编写一个文件，并使用特定节点的 kubelet 设置编写一个环境文件，然后（重新）启动 kubelet。
 
 ```
 kubeadm init phase kubelet-start [flags]
@@ -17,7 +17,7 @@ kubeadm init phase kubelet-start [flags]
 <!--
 ### Examples
 -->
-### 案例
+### 示例
 <!--
 # Writes a dynamic environment file with kubelet flags from a InitConfiguration file.
 -->
@@ -111,7 +111,7 @@ kubeadm init phase kubelet-start [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 指向 '真实' 宿主机的根目录。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
@@ -128,5 +128,5 @@ SEE ALSO
 <!--
 * [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
 -->
-* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 init 工作流程的单个阶段
+* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
 

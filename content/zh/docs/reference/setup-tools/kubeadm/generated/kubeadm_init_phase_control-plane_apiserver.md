@@ -33,7 +33,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-       API 服务器将通知它正在监听的 IP 地址。如果未设置，将使用默认网络接口。
+       API 服务器所公布的其正在监听的 IP 地址。如果未设置，将使用默认网络接口。
       </td>
     </tr>
 
@@ -42,7 +42,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
       -->
-      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: 6443
+      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： 6443
       </td>
     </tr>
     <tr>
@@ -50,7 +50,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       Port for the API Server to bind to.
       -->
-       API 服务器绑定的端口
+      要绑定到 API 服务器的端口。
       </td>
     </tr>
 
@@ -62,7 +62,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
       -->
-      一组额外的参宿以 &lt;flagname&gt;=&lt;value&gt ；的形式传递给 API 服务器或者覆盖默认设置。
+      一组额外的参数以 &lt;flagname&gt;=&lt;value&gt; 形式传递给 API 服务器或者覆盖默认参数
       </td>
     </tr>
 
@@ -71,7 +71,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
       -->
-      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "/etc/kubernetes/pki"
+      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"
       </td>
     </tr>
     <tr>
@@ -115,7 +115,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-      kustomize 静态 pod 清单的补丁的存储路径。
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -148,7 +148,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
       -->
-      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "k8s.gcr.io"
+      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
       </td>
     </tr>
     <tr>
@@ -156,7 +156,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       Choose a container registry to pull control plane images from
       -->
-      选择要从中提取控制平面镜像的容器仓库
+      选择要从中拉取控制平面镜像的容器仓库
       </td>
     </tr>
 
@@ -165,7 +165,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
       -->
-      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "stable-1"
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："stable-1"
       </td>
     </tr>
     <tr>
@@ -182,7 +182,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       --service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"
       -->
-      --service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "10.96.0.0/12"
+      --service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："10.96.0.0/12"
       </td>
     </tr>
     <tr>
@@ -190,7 +190,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       Use alternative range of IP address for service VIPs.
       -->
-      其他服务 VIP 地址服务范围。
+      指定服务 VIP 使用 IP 地址的其他范围。
       </td>
     </tr>
 
@@ -201,7 +201,7 @@ kubeadm init phase control-plane apiserver [flags]
 <!-- 
 ### Options inherited from parent commands 
 -->
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 
 <table style="width: 100%; table-layout: fixed;">
@@ -219,7 +219,7 @@ kubeadm init phase control-plane apiserver [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真正' 主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统路径。
       </td>
     </tr>
 

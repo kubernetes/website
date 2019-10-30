@@ -51,7 +51,7 @@ kubeadm init phase control-plane controller-manager [flags]
       <!--
       Path to a kubeadm configuration file.
       -->
-       kubeadm 配置文件路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 
@@ -75,7 +75,7 @@ kubeadm init phase control-plane controller-manager [flags]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-       kustomize 静态 pod 清单的补丁的存储路径。
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -96,7 +96,7 @@ kubeadm init phase control-plane controller-manager [flags]
       <!--
       --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
       -->
-      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认："k8s.gcr.io"
+      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
       </td>
     </tr>
     <tr>
@@ -104,7 +104,7 @@ kubeadm init phase control-plane controller-manager [flags]
       <!--
       Choose a container registry to pull control plane images from
       -->
-      选择一个容器仓库从中拉取控制平面镜像
+      选择要从中拉取控制平面镜像的容器仓库
       </td>
     </tr>
 
@@ -133,7 +133,7 @@ kubeadm init phase control-plane controller-manager [flags]
       <!--
       Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
       -->
-      指定 Pod 网络的 IP 地址范围。如果设置，控制平面将自动为每个节点分配 CIDR。
+      指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动为每个节点分配 CIDR。
       </td>
     </tr>
 
