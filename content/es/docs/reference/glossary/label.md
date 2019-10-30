@@ -15,5 +15,5 @@ Metadatos en forma de clave-valor que permite añadir a los objetos atributos qu
 <!--more--> 
 
 Las etiquetas son pares clave-valor que se adhieren a los diferentes objetos, como los {{< glossary_tooltip text="Pods" term_id="pod" >}},
-Se utilizan para organizar y seleccionar subconjuntos de objetos.
+y que se utilizan para identificar, organizar y seleccionar subconjuntos de objetos.
 
