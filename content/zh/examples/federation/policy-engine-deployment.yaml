@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: opa
+  name: opa
+  namespace: federation-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opa
+  template:
+    metadata:
+      labels:
+        app: opa
+      name: opa
+    spec:
+      containers:
+        - name: opa
+          image: openpolicyagent/opa:0.4.10
+          args:
+          - "run"
+          - "--server"
+        - name: kube-mgmt
+          image: openpolicyagent/kube-mgmt:0.2
+          args:
+          - "-kubeconfig=/srv/kubernetes/kubeconfig"
+          - "-cluster=federation/v1beta1/clusters"
+          volumeMounts:
+           - name: federation-kubeconfig
+             mountPath: /srv/kubernetes
+             readOnly: true
+      volumes:
+      - name: federation-kubeconfig
+        secret:
+          secretName: federation-controller-manager-kubeconfig

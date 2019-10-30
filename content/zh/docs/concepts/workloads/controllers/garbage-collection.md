@@ -39,14 +39,14 @@ Kubernetes 垃圾收集器的角色是删除指定的对象，这些对象曾经
 
 这里有一个配置文件，表示一个具有 3 个 Pod 的 ReplicaSet：
 
-{{< code file="my-repset.yaml" >}}
+{{< codenew file="controllers/replicaset.yaml" >}}
 
 
 
 如果创建该 ReplicaSet，然后查看 Pod 的 metadata 字段，能够看到 OwnerReferences 字段：
 
 ```shell
-kubectl create -f https://k8s.io/docs/concepts/controllers/my-repset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/replicaset.yaml
 kubectl get pods --output=yaml
 ```
 

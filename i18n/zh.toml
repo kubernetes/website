@@ -30,6 +30,15 @@ other = "否"
 [latest_version]
 other = "最新版本。"
 
+[version_check_mustbe]
+other = "您的 Kubernetes 服务器必须是版本 "
+
+[version_check_mustbeorlater]
+other = "您的 Kubernetes 服务器必须等于或高于版本 "
+
+[version_check_tocheck]
+other = "为了检查版本, 输入 "
+
 [main_read_about]
 other = "Read about"
 

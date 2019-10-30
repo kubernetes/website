@@ -1,0 +1,93 @@
+---
+title: CERN Case Study
+linkTitle: cern
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+logo: cern_featured_logo.png
+---
+
+<div class="banner1" style="background-image: url('/images/CaseStudy_cern_banner1.jpg')">
+  <h1> CASE STUDY: CERN<br> <div class="subhead" style="margin-top:1%">CERN: Processing Petabytes of Data More Efficiently with Kubernetes
+
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>CERN</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Geneva, Switzerland
+</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Particle physics research</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="width:100%"">
+    <h2>Challenge</h2>
+    At CERN, the European Organization for Nuclear Research, physicists conduct experiments to learn about fundamental science. In its particle accelerators, "we accelerate protons to very high energy, close to the speed of light, and we make the two beams of protons collide," says CERN Software Engineer Ricardo Rocha. "The end result is a lot of data that we have to process." CERN currently stores 330 petabytes of data in its data centers, and an upgrade of its accelerators expected in the next few years will drive that number up by 10x. Additionally, the organization experiences extreme peaks in its workloads during periods prior to big conferences, and needs its infrastructure to scale to those peaks. "We want to have a more hybrid infrastructure, where we have our on premise infrastructure but can make use of public clouds temporarily when these peaks come up," says Rocha. "We’ve been looking to new technologies that can help improve our efficiency in our infrastructure so that we can dedicate more of our resources to the actual processing of the data."
+<br><br>
+    <h2>Solution</h2>
+    CERN’s technology team embraced containerization and cloud native practices, choosing Kubernetes for orchestration, Helm for deployment, Prometheus for monitoring, and CoreDNS for DNS resolution inside the clusters. Kubernetes federation has allowed the organization to run some production workloads both on premise and in public clouds.
+<br><br>
+<h2>Impact</h2>
+  "Kubernetes gives us the full automation of the application," says Rocha. "It comes with built-in monitoring and logging for all the applications and the workloads that deploy in Kubernetes. This is a massive simplification of our current deployments." The time to deploy a new cluster for a complex distributed storage system has gone from more than 3 hours to less than 15 minutes. Adding new nodes to a cluster used to take more than an hour; now it takes less than 2 minutes. The time it takes to autoscale replicas for system components has decreased from more than an hour to less than 2 minutes. Initially, virtualization gave 20% overhead, but with tuning this was reduced to ~5%. Moving to Kubernetes on bare metal would get this to 0%. Not having to host virtual machines is expected to also get 10% of memory capacity back.
+
+</div>
+
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    "Kubernetes is something we can relate to very much because it’s naturally distributed. What it gives us is a uniform API across heterogeneous resources to define our workloads. This is something we struggled with a lot in the past when we want to expand our resources outside our infrastructure."
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Ricardo Rocha, Software Engineer, CERN</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <h2>With a mission of researching fundamental science, and a stable of extremely large machines, the European Organization for Nuclear Research (CERN) operates at what can only be described as hyperscale.  </h2>
+  Experiments are conducted in particle accelerators, the biggest of which is 27 kilometers in circumference. "We accelerate protons to very high energy, to close to the speed of light, and we make the two beams of protons collide in well-defined places," says CERN Software Engineer Ricardo Rocha. "We build experiments around these places where we do the collisions. The end result is a lot of data that we have to process."<br><br>
+  And he does mean a lot: CERN currently stores and processes 330 petabytes of data—gathered from 4,300 projects and 3,300 users—using 10,000 hypervisors and 320,000 cores in its data centers. <br><br>
+  Over the years, the CERN technology department has built a large computing infrastructure, based on OpenStack private clouds, to help the organization’s physicists analyze and treat all this data. The organization experiences extreme peaks in its workloads. "Very often, just before conferences, physicists want to do an enormous amount of extra analysis to publish their papers, and we have to scale to these peaks, which means overcommitting resources in some cases," says Rocha. "We want to have a more hybrid infrastructure, where we have our on premise infrastructure but can make use of public clouds temporarily when these peaks come up."<br><br>
+  Additionally, few years ago, CERN announced that it would be doing a big upgrade of its accelerators, which will mean a ten-fold increase in the amount of data that can be collected. "So we’ve been looking to new technologies that can help improve our efficiency in our infrastructure, so that we can dedicate more of our resources to the actual processing of the data," says Rocha.
+
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_cern_banner3.jpg')">
+  <div class="banner3text">
+    "Before, the tendency was always: ‘I need this, I get a couple of developers, and I implement it.’ Right now it’s ‘I need this, I’m sure other people also need this, so I’ll go and ask around.’ The CNCF is a good source because there’s a very large catalog of applications available. It’s very hard right now to justify developing a new product in-house. There is really no real reason to keep doing that. It’s much easier for us to try it out, and if we see it’s a good solution, we try to reach out to the community and start working with that community." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Ricardo Rocha, Software Engineer, CERN</span>
+
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  Rocha’s team started looking at Kubernetes and containerization in the second half of 2015. "We’ve been using distributed infrastructures for decades now," says Rocha. "Kubernetes is something we can relate to very much because it’s naturally distributed. What it gives us is a uniform API across heterogeneous resources to define our workloads. This is something we struggled with a lot in the past when we want to expand our resources outside our infrastructure."<br><br>
+  The team created a prototype system for users to deploy their own Kubernetes cluster in CERN’s infrastructure, and spent six months validating the use cases and making sure that Kubernetes integrated with CERN’s internal systems. The main use case is batch workloads, which represent more than 80% of resource usage at CERN. (One single project that does most of the physics data processing and analysis alone consumes 250,000 cores.) "This is something where the investment in simplification of the deployment, logging, and monitoring pays off very quickly," says Rocha. Other use cases include Spark-based data analysis and machine learning to improve physics analysis. "The fact that most of these technologies integrate very well with Kubernetes makes our lives easier," he adds.<br><br>
+  The system went into production in October 2016, also using Helm for deployment, Prometheus for monitoring, and CoreDNS for DNS resolution within the cluster. "One thing that Kubernetes gives us is the full automation of the application," says Rocha. "So it comes with built-in monitoring and logging for all the applications and the workloads that deploy in Kubernetes. This is a massive simplification of our current deployments." The time to deploy a new cluster for a complex distributed storage system has gone from more than 3 hours to less than 15 minutes.<br><br> Adding new nodes to a cluster used to take more than an hour; now it takes less than 2 minutes. The time it takes to autoscale replicas for system components has decreased from more than an hour to less than 2 minutes.
+
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_cern_banner4.jpg')">
+  <div class="banner4text">
+  "With Kubernetes, there’s a well-established technology and a big community that we can contribute to. It allows us to do our physics analysis without having to focus so much on the lower level software. This is just exciting. We are looking forward to keep contributing to the community and collaborating with everyone."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Ricardo Rocha, Software Engineer, CERN</span>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  Rocha points out that the metric used in the particle accelerators may be events per second, but in reality "it’s how fast and how much of the data we can process that actually counts." And efficiency has certainly been improved with Kubernetes. Initially, virtualization gave 20% overhead, but with tuning this was reduced to ~5%. Moving to Kubernetes on bare metal would get this to 0%. Not having to host virtual machines is expected to also get 10% of memory capacity back.<br><br>
+  Kubernetes federation, which CERN has been using for a portion of its production workloads since February 2018, has allowed the organization to adopt a hybrid cloud strategy. And it was remarkably simple to do. "We had a summer intern working on federation," says Rocha. "For many years, I’ve been developing distributed computing software, which took like a decade and a lot of effort from a lot of people to stabilize and make sure it works. And for our intern, in a couple of days he was able to demo to me and my team that we had a cluster at CERN and a few clusters outside in public clouds that were federated together and that we could submit workloads to. This was shocking for us. It really shows the power of using this kind of well-established technologies." <br><br>
+  With such results, adoption of Kubernetes has made rapid gains at CERN, and the team is eager to give back to the community. "If we look back into the ’90s and early 2000s, there were not a lot of companies focusing on systems that have to scale to this kind of size, storing petabytes of data, analyzing petabytes of data," says Rocha. "The fact that Kubernetes is supported by such a wide community and different backgrounds, it motivates us to contribute back."
+
+</div>
+
+<div class="banner5" >
+  <div class="banner5text">
+This means that the physicist can build his or her analysis and publish it in a repository, share it with colleagues, and in 10 years redo the same analysis with new data. If we looked back even 10 years, this was just a dream."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Ricardo Rocha, Software Engineer, CERN</span></div>
+</div>
+
+<div class="fullcol">
+  These new technologies aren’t just enabling infrastructure improvements. CERN also uses the Kubernetes-based <a href="https://github.com/recast-hep">Reana/Recast</a> platform for reusable analysis, which is "the ability to define physics analysis as a set of workflows that are fully containerized in one single entry point," says Rocha. "This means that the physicist can build his or her analysis and publish it in a repository, share it with colleagues, and in 10 years redo the same analysis with new data. If we looked back even 10 years, this was just a dream."<br><br>
+  All of these things have changed the culture at CERN considerably. A decade ago, "The tendency was always: ‘I need this, I get a couple of developers, and I implement it,’" says Rocha. "Right now it’s ‘I need this, I’m sure other people also need this, so I’ll go and ask around.’ The CNCF is a good source because there’s a very large catalog of applications available. It’s very hard right now to justify developing a new product in-house. There is really no real reason to keep doing that. It’s much easier for us to try it out, and if we see it’s a good solution, we try to reach out to the community and start working with that community."
+
+</div>
+</section>

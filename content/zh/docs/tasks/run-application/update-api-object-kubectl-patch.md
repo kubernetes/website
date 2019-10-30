@@ -265,6 +265,7 @@ Patch your Deployment:
 -->
 patch Deployment：
 
+
 {{< tabs name="kubectl_patch_example" >}}
 {{{< tab name="Bash" codelang="bash" >}}
 kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
@@ -283,13 +284,13 @@ View the patched Deployment:
 kubectl get deployment patch-demo --output yaml
 ```
 
-The output shows that the PodSpec in the Deployment has two Containers:
 <!--
 The output shows that the PodSpec in the Deployment has only one Toleration:
 -->
 输出结果显示部署中的 PodSpec 只有一个默认：
 
 ```shell
+
 containers:
 - image: redis
   imagePullPolicy: Always
@@ -300,10 +301,9 @@ containers:
   name: patch-demo-ctr
   ...
 ```
-
-
-
 ```shell
+
+
 tolerations:
       - effect: NoSchedule
         key: disktype
