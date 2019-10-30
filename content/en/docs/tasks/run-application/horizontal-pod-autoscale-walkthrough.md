@@ -304,7 +304,7 @@ spec:
     resource:
       name: cpu
       target:
-        type: AverageUtilization
+        type: Utilization
         averageUtilization: 50
   - type: Pods
     pods:
@@ -322,7 +322,7 @@ spec:
         kind: Ingress
         name: main-route
       target:
-        kind: Value
+        type: Value
         value: 10k
 status:
   observedGeneration: 1
