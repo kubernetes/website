@@ -28,9 +28,9 @@ This command is not meant to be run on its own. See list of available subcommand
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for kubelet
+      help for config
       -->
-       kubelet 操作的帮助命令
+       config 操作的帮助命令
       </td>
     </tr>
 
@@ -59,7 +59,7 @@ This command is not meant to be run on its own. See list of available subcommand
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 指向 '真实' 宿主机的根目录。
+      [实验] 指向宿主机上的 '实际' 根文件系统的路径。
       </td>
     </tr>
 
@@ -74,9 +74,11 @@ SEE ALSO
 查看其他
 
 <!--
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
+* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - Commands related to handling the kubelet
+* [kubeadm alpha kubelet config download](kubeadm_alpha_kubelet_config_download.md)	 - Download the kubelet configuration from the cluster ConfigMap kubelet-config-1.X, where X is the minor version of the kubelet
+* [kubeadm alpha kubelet config enable-dynamic](kubeadm_alpha_kubelet_config_enable-dynamic.md)	 - EXPERIMENTAL: Enable or update dynamic kubelet configuration for a Node
 -->
-* [kubeadm alpha](kubeadm_alpha.md)	 - kubeadm 实验子命令
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - 用于 kubelet 配置的实用程序
+* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - 与处理 kubelet 有关的命令
+* [kubeadm alpha kubelet config download](kubeadm_alpha_kubelet_config_download.md)	 - 从集群 ConfigMap kubelet-config-1.X 中下载 kubelet 配置，其中 X 是 kubelet 的次要版本。
+* [kubeadm alpha kubelet config enable-dynamic](kubeadm_alpha_kubelet_config_enable-dynamic.md)	 - 实验：为节点启用或更新动态 kubelet 配置
 

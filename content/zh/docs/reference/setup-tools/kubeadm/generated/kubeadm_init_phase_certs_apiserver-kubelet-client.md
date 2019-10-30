@@ -1,17 +1,27 @@
 
-<!--
+<!-- 
 ### Synopsis
 -->
 ### 概要
 
 
 <!--
-Renew all known certificates necessary to run the control plane. Renewals are run unconditionally, regardless of expiration date. Renewals can also be run individually for more control.
+Generate the certificate for the API server to connect to kubelet, and save them into apiserver-kubelet-client.cert and apiserver-kubelet-client.key files.
 -->
-续订运行控制平面所需的所有已知证书。续订是无条件进行的，与到期日期无关。续订也可以单独运行以进行更多控制。
+生成供 API 服务器连接 kubelet 的证书，并将其保存到 apiserver-kubelet-client.cert 和 apiserver-kubelet-client.key 文件中。
+
+<!--
+If both files already exist, kubeadm skips the generation step and existing files will be used.
+-->
+如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
+
+<!--
+Alpha Disclaimer: this command is currently alpha.
+-->
+Alpha 免责声明：此命令当前为 Alpha 功能。
 
 ```
-kubeadm alpha certs renew all [flags]
+kubeadm init phase certs apiserver-kubelet-client [flags]
 ```
 
 <!--
@@ -51,7 +61,7 @@ kubeadm alpha certs renew all [flags]
       <!--
       Path to a kubeadm configuration file.
       -->
-       kubeadm 配置文件的路径。
+       kubeadm 配置文件路径。
       </td>
     </tr>
 
@@ -60,7 +70,7 @@ kubeadm alpha certs renew all [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
+     <!--
       The path to output the CSRs and private keys to
       -->
       输出 CSR 和私钥的路径
@@ -85,38 +95,26 @@ kubeadm alpha certs renew all [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for all
+      help for apiserver-kubelet-client
       -->
-       all 操作的帮助命令
+       apiserver-kubelet-client 操作的帮助命令
       </td>
     </tr>
 
     <tr>
       <td colspan="2">
       <!--
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："stable-1"
       </td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+      Choose a specific Kubernetes version for the control plane.
       -->
-      与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
-      </td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--use-api</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Use the Kubernetes certificate API to renew certificates
-      -->
-      使用 Kubernetes 证书 API 续订证书
+      为控制平面指定特定的 Kubernetes 版本。
       </td>
     </tr>
 
@@ -128,7 +126,7 @@ kubeadm alpha certs renew all [flags]
 <!--
 ### Options inherited from parent commands
 -->
-### 从父命令继承的选项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -145,7 +143,7 @@ kubeadm alpha certs renew all [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根文件系统的路径。
+      [实验] 指向宿主机上的 '实际' 根文件系统的路径。
       </td>
     </tr>
 
@@ -154,13 +152,13 @@ kubeadm alpha certs renew all [flags]
 
 
 
-<!--
-SEE ALSO
+<!-- 
+SEE ALSO 
 -->
-查看其他
+查看其它
 
 <!--
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
 -->
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - 续订 Kubernetes 集群的证书
+* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - 生成证书
 

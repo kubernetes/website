@@ -56,6 +56,7 @@ DaemonSet 有两种更新策略：
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion.
 --->
+
 * OnDelete:  使用 `OnDelete` 更新策略时，在更新 DaemonSet 模板后，只有当您手动删除老的 DaemonSet pods 之后，新的 DaemonSet pods *才会*被自动创建。跟 Kubernetes 1.6 以前的版本类似。
 * RollingUpdate: 这是默认的更新策略。使用 `RollingUpdate` 更新策略时，在更新 DaemonSet 模板后，老的 DaemonSet pods 将被终止，并且将以受控方式自动创建新的 DaemonSet pods。
 
@@ -284,13 +285,14 @@ either.
 {{< note >}}
 当所删除的 pods 不受任何控制器管理，也不是多副本的 pods，上述操作将导致服务中断。
 同时，上述操作也不会考虑 [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/) 所施加的约束。
-
 {{< /note >}}
 
 <!--
 #### Broken rollout
 --->
-#### 滚动中断
+
+#### 滚动更新中断
+
 
 <!--
 If the recent DaemonSet template update is broken, for example, the container is

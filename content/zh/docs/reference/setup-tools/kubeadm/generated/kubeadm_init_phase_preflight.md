@@ -1,21 +1,35 @@
 
-<!--
+<!-- 
 ### Synopsis
 -->
 ### 概要
 
 
 <!--
-This command is not meant to be run on its own. See list of available subcommands.
+Run pre-flight checks for kubeadm init.
 -->
-此命令并非设计用来单独运行。请参阅可用子命令列表。
+运行 kubeadm init 前的启动检查。
 
 ```
-kubeadm init phase addon [flags]
+kubeadm init phase preflight [flags]
 ```
 
 <!--
-### Options
+### Examples
+-->
+### 案例
+
+<!--
+# Run pre-flight checks for kubeadm init using a config file.
+-->
+
+```
+  # 使用配置文件对 kubeadm init 进行启动检查。
+  kubeadm init phase preflight --config kubeadm-config.yml
+```
+
+<!-- 
+### Options 
 -->
 ### 选项
 
@@ -27,14 +41,38 @@ kubeadm init phase addon [flags]
   <tbody>
 
     <tr>
+      <td colspan="2">--config string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Path to a kubeadm configuration file.
+      -->
+       kubeadm 配置文件的路径。
+      </td>
+    </tr>
+
+    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for addon
+      help for preflight
       -->
-       addon 操作的帮助命令
+       preflight 操作的帮助命令
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--ignore-preflight-errors stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+      -->
+      错误将显示为警告的检查列表：例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
       </td>
     </tr>
 
@@ -79,11 +117,6 @@ SEE ALSO
 
 <!--
 * [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase addon all](kubeadm_init_phase_addon_all.md)	 - Install all the addons
-* [kubeadm init phase addon coredns](kubeadm_init_phase_addon_coredns.md)	 - Install the CoreDNS addon to a Kubernetes cluster
-* [kubeadm init phase addon kube-proxy](kubeadm_init_phase_addon_kube-proxy.md)	 - Install the kube-proxy addon to a Kubernetes cluster
 -->
 * [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
-* [kubeadm init phase addon all](kubeadm_init_phase_addon_all.md)	 - 安装所有的插件
-* [kubeadm init phase addon coredns](kubeadm_init_phase_addon_coredns.md)	 - 将 CoreDNS 插件安装到 Kubernetes 集群
-* [kubeadm init phase addon kube-proxy](kubeadm_init_phase_addon_kube-proxy.md)	 - 将 kube-proxy 插件安装到 Kubernetes 集群
+

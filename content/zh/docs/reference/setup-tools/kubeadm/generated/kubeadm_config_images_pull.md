@@ -79,7 +79,7 @@ kubeadm config images pull [flags]
       <!--
       --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
       -->
-      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "k8s.gcr.io"
+      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
       </td>
     </tr>
     <tr>
@@ -87,7 +87,7 @@ kubeadm config images pull [flags]
       <!--
       Choose a container registry to pull control plane images from
       -->
-      选择一个容器仓库从中提取控制平面镜像
+      选择用于拉取控制平面镜像的容器仓库
       </td>
     </tr>
 
@@ -96,7 +96,7 @@ kubeadm config images pull [flags]
       <!--
       --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
       -->
-      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "stable-1"
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："stable-1"
       </td>
     </tr>
     <tr>
@@ -128,7 +128,7 @@ kubeadm config images pull [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>

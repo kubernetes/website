@@ -8,7 +8,7 @@
 <!--
 Kubeadm experimental sub-commands
 -->
-Kubeadm 实验子命令
+kubeadm 实验子命令
 
 <!--
 ### Options
@@ -59,7 +59,7 @@ Kubeadm 实验子命令
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性的功能] "真实"主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机的根文件系统的路径。
       </td>
     </tr>
 
@@ -81,6 +81,6 @@ SEE ALSO
 * [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - Make a kubeadm cluster self-hosted -->
 * [kubeadm](kubeadm.md)	 - kubeadm：轻松建立安全的 Kubernetes 集群
 * [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - 处理 kubernetes 证书相关的命令
-* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - Kubeconfig 文件应用程序
+* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - kubeconfig 文件应用程序
 * [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - 处理 kubelet 有关的命令
 * [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - kubeadm 集群自托管 
