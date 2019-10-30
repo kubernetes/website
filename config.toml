@@ -144,6 +144,7 @@ contentDir = "content/zh"
 [languages.zh.params]
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
+deprecated = false
 
 [languages.ko]
 title = "Kubernetes"

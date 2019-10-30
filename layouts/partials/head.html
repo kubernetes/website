@@ -19,7 +19,7 @@
 <meta name="description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
 <meta property="og:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
 <meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:url" content="{{ .RelPermalink }}">
 <meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
 <meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
 <meta name="twitter:image" content="https://kubernetes.io/images/favicon.png" />
