@@ -12,7 +12,7 @@ locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
 - kubeadm.k8s.io/v1beta2
 -->
-此命令允许您在 CLI 工具中将本地旧版本的配置对象转换为最新支持的版本，而无需触及集群中的任何内容。在此版本的 kubeadm 中，支持以下 API 版本：
+此命令允许您在 CLI 工具中将本地旧版本的配置对象转换为最新支持的版本，而无需变更集群中的任何内容。在此版本的 kubeadm 中，支持以下 API 版本：
 - kubeadm.k8s.io/v1beta2
 
 <!--
@@ -103,7 +103,7 @@ kubeadm config migrate [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -123,7 +123,7 @@ kubeadm config migrate [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 到 '真实' 主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
