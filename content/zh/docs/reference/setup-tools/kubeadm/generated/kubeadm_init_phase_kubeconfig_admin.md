@@ -185,5 +185,5 @@ SEE ALSO
 <!--
 * [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)	 - Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
 -->
-* [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)	 - 生成建立控制平面和管理 kubeconfig 文件所需的所有 kubeconfig 文件
+* [kubeadm init phase kubeconfig](kubeadm_init_phase_kubeconfig.md)	 - 生成建立控制平面所需的 kubeconfig 文件和管理员用的 kubeconfig 文件
 

@@ -17,7 +17,7 @@ kubeadm init phase upload-config kubelet [flags]
 <!--
 ### Examples
 -->
-### 案例
+### 示例
 
 <!--
 ```
@@ -26,8 +26,8 @@ kubeadm init phase upload-config kubelet [flags]
 ```
 -->
 ```
-  # 将 kubelet 配置从 kubeadm 配置文件上传到集群中的 ConfigMap。
-  kubeadm init phase upload-config kubelet --config kubeadm.yaml
+# 将 kubelet 配置从 kubeadm 配置文件上传到集群中的 ConfigMap。
+kubeadm init phase upload-config kubelet --config kubeadm.yaml
 ```
 
 <!--
@@ -71,7 +71,7 @@ kubeadm init phase upload-config kubelet [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "/etc/kubernetes/admin.conf"</td>
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -107,7 +107,8 @@ kubeadm init phase upload-config kubelet [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 到宿主机根文件系统的 '真实' 路径。</td>
+      [实验] 到 '真实' 主机根文件系统的路径。
+      </td>
     </tr>
 
   </tbody>
