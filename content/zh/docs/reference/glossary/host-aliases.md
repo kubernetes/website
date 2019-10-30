@@ -7,7 +7,6 @@ full_link: /docs/reference/glossary/host-aliases.md
 short_description: >
 
   HostAliases 是要注入 Pod 的 hosts 文件的 IP 地址和主机名之间的映射。
-
 aka:
 tags:
 - operation
