@@ -8,7 +8,7 @@
 <!--
 Upload the kubeadm ClusterConfiguration to a ConfigMap called kubeadm-config in the kube-system namespace. This enables correct configuration of system components and a seamless user experience when upgrading.
 -->
-将 kubeadm 集群配置上传到 kube-system 命名空间中名为 kubeadm-config 的 ConfigMap 中，这可以正确配置系统组件并在升级时提供无缝的用户体验。
+将 kubeadm ClusterConfiguration 上传到 kube-system 命名空间中名为 kubeadm-config 的 ConfigMap 中。这样就可以正确配置系统组件，并在升级时提供无缝的用户体验。
 
 <!--
 Alternatively, you can use kubeadm config.
@@ -22,14 +22,14 @@ kubeadm init phase upload-config kubeadm [flags]
 <!--
 ### Examples
 -->
-### 案例
+### 示例
 
 <!--
 # upload the configuration of your cluster
 -->
 ```
-  # 上传集群配置
-  kubeadm init phase upload-config --config=myConfig.yaml
+# 上传集群配置
+kubeadm init phase upload-config --config=myConfig.yaml
 ```
 
 <!--
@@ -73,7 +73,7 @@ kubeadm init phase upload-config kubeadm [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -110,7 +110,7 @@ kubeadm init phase upload-config kubeadm [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 指向 '真实' 宿主机的根目录。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

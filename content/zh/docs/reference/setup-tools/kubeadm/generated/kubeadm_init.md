@@ -76,7 +76,7 @@ kubeadm init [flags]
       <!--
       The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-       API 服务器将广播其正在监听的 IP 地址。如果未设置，将使用默认网络接口。
+       API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认网络接口。
       </td>
     </tr>
 
@@ -194,7 +194,7 @@ kubeadm init [flags]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-      kustomize 静态 pod 清单的补丁的存储路径。
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -206,7 +206,7 @@ kubeadm init [flags]
       <!--
       A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
       -->
-      一系列 key=value，描述了各种特征。选项包括：<br/> IPv6DualStack = true | false（ALPHA - 默认= false）
+      一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>IPv6DualStack=true|false (ALPHA - default=false)
       </td>
     </tr>
 
@@ -230,7 +230,7 @@ kubeadm init [flags]
       <!--
       A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
       -->
-      检查清单并将其错误将显示为警告。例如：'IsPrivilegedUser,Swap'。值为 'all' 将忽略所有检查错误。
+      错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
       </td>
     </tr>
 
@@ -239,7 +239,7 @@ kubeadm init [flags]
       <!--
       --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
       -->
-      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认："k8s.gcr.io"
+      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
       </td>
     </tr>
     <tr>
@@ -247,7 +247,7 @@ kubeadm init [flags]
       <!--
       Choose a container registry to pull control plane images from
       -->
-      选择一个容器 registry，从中拉取控制平面镜像
+      选择用于拉取控制平面镜像的容器仓库
       </td>
     </tr>
 
@@ -428,7 +428,7 @@ kubeadm init [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 相对 “真实” 宿主机根目录的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
@@ -446,5 +446,5 @@ SEE ALSO
 * [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
 * [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow 
 -->
-* [kubeadm](kubeadm.md)	 - kubeadm: 容易引导一个安全的 Kubernetes 集群
+* [kubeadm](kubeadm.md)	 - kubeadm: 轻松引导安全的 Kubernetes 集群
 * [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
