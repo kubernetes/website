@@ -1,3 +1,9 @@
+---
+title: 使用服务来访问集群中的应用
+content_template: templates/tutorial
+weight: 60
+---
+
 <!--
 ---
 title: Use a Service to Access an Application in a Cluster
@@ -5,11 +11,6 @@ content_template: templates/tutorial
 weight: 60
 ---
 -->
----
-title: 使用服务来访问集群中的应用
-content_template: templates/tutorial
-weight: 60
----
 
 {{% capture overview %}}
 
@@ -38,7 +39,7 @@ provides load balancing for an application that has two running instances.
 * Use the Service object to access the running application.
 -->
 * 运行 Hello World 应用的两个实例。
-* 创建一个服务对象来暴露一个 node port。
+* 创建一个服务对象来暴露 node port。
 * 使用服务对象来访问正在运行的应用。
 
 {{% /capture %}}
@@ -49,25 +50,35 @@ provides load balancing for an application that has two running instances.
 <!--
 ## Creating a service for an application running in two pods
 
-1. Run a Hello World application in your cluster:
+Here is the configuration file for the application Deployment:
 -->
-## 为运行在两个 pod 中的应用创建一个服务：
+## 为运行在两个 pod 中的应用创建一个服务
+
+这是应用程序部署的配置文件：
+
+{{< codenew file="service/access/hello-application.yaml" >}}
+<!--
+1. Run a Hello World application in your cluster:
+   Create the application Deployment using the file above:
+   ```shell
+   kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
+   ```
+   The preceding command creates a
+   [Deployment](/docs/concepts/workloads/controllers/deployment/)
+   object and an associated
+   [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+   object. The ReplicaSet has two
+   [Pods](/docs/concepts/workloads/pods/pod/),
+   each of which runs the Hello World application.
+-->
 
 1. 在您的集群中运行一个 Hello World 应用：
+   使用上面的文件创建应用程序 Deployment：
    ```shell
-   kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
-   ```   
-<!--
-    The preceding command creates a
-    [Deployment](/docs/concepts/workloads/controllers/deployment/)
-    object and an associated
-    [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-    object. The ReplicaSet has two
-    [Pods](/docs/concepts/workloads/pods/pod/),
-    each of which runs the Hello World application.
--->
-    上面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 对象。这个 ReplicaSet 有两个 [Pod](/docs/concepts/workloads/pods/pod/)，每个 Pod 都运行着 Hello World 应用。
-
+   kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
+   ```
+   上面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 对象。这个 ReplicaSet 有两个 [Pod](/docs/concepts/workloads/pods/pod/)，每个 Pod 都运行着 Hello World 应用。
+  
 <!--
 1. Display information about the Deployment:
 -->
