@@ -16,11 +16,14 @@ kubeadm join phase control-plane-prepare [flags]
 <!--
 ### Examples
 -->
-### 案例
+<!--
+# Prepares the machine for serving a control plane
+-->
+### 示例
 
 ```
-  # Prepares the machine for serving a control plane
-  kubeadm join phase control-plane-prepare all
+# 准备为控制平面服务的机器
+kubeadm join phase control-plane-prepare all
 ```
 
 <!--
@@ -55,7 +58,7 @@ kubeadm join phase control-plane-prepare [flags]
 <!--
 ### Options inherited from parent commands
 -->
-### 从父指令中继承的选项
+### 从父命令中继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -72,7 +75,7 @@ kubeadm join phase control-plane-prepare [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] '真实' 主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 
