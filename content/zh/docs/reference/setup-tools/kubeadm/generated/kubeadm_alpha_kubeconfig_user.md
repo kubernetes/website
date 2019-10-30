@@ -22,7 +22,7 @@ kubeadm alpha kubeconfig user [flags]
 <!--
 ### Examples # Output a kubeconfig file for an additional user named foo
 -->
-### 案例
+### 示例
 
 ```
   # 为名为 foo 的其他用户输出 kubeconfig 文件
