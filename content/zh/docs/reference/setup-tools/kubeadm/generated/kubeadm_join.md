@@ -82,7 +82,8 @@ TLS 引导机制也通过共享令牌驱动。
 
 
 <!-- 
-The "join [api-server-endpoint]" command executes the following phases: -->
+The "join [api-server-endpoint]" command executes the following phases:
+-->
 "join [api-server-endpoint]" 命令执行下列阶段：
 ```
 preflight              Run join pre-flight checks
@@ -122,7 +123,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-      如果节点应该托管一个新的控制平面实例，那么 API 服务器将通知它正在监听的 IP 地址。如果未设置，将使用默认网络接口。
+      如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
       </td>
     </tr>
 
@@ -131,7 +132,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
       -->
-      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: 6443
+      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 6443
       </td>
     </tr>
     <tr>
@@ -139,7 +140,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       If the node should host a new control plane instance, the port for the API Server to bind to.
       -->
-      如果节点应该托管新的控制平面实例，则 API 服务器要绑定的端口。
+      如果节点应该托管新的控制平面实例，则为 API 服务器要绑定的端口。
       </td>
     </tr>
 
@@ -151,7 +152,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       Use this key to decrypt the certificate secrets uploaded by init.
       -->
-      使用此密钥可以解密由 init 上传的证书机密。
+      使用此密钥可以解密由 init 上传的证书 secret。
       </td>
     </tr>
 
@@ -199,7 +200,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       For file-based discovery, a file or URL from which to load cluster information.
       -->
-      对于基于文件的发现，是从中加载集群信息的文件或 URL。
+      对于基于文件的发现，给出用于加载集群信息的文件或者 URL。
       </td>
     </tr>
 
@@ -235,7 +236,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
       -->
-      对于基于令牌的发现，允许没有   --discovery-token-ca-cert-hash 参数的加入.
+      对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
       </td>
     </tr>
 
@@ -247,7 +248,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-       kustomize 静态 pod 清单的补丁的存储路径。
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -271,7 +272,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
       -->
-      检查清单，其错误将显示为警告。示例：'IsPrivilegedUser,Swap'。值为 'all' 会忽略所有检查错误。
+      错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
       </td>
     </tr>
 
@@ -307,7 +308,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.
       -->
-      指定在加入节点时用于临时通过 Kubernetes Control Plane 进行身份验证的令牌。
+      指定在加入节点时用于临时通过 Kubernetes 控制平面进行身份验证的令牌。
       </td>
     </tr>
 
@@ -319,7 +320,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
       -->
-      如果未提供这些值，将此令牌用于 discovery-token 和 tls-bootstrap-token。
+      如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
       </td>
     </tr>
 
@@ -347,7 +348,7 @@ kubeadm join [api-server-endpoint] [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] “真正” 主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 
@@ -360,8 +361,9 @@ SEE ALSO
 -->
 查看其他
 
+
 <!-- 
 * [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
 * [kubeadm join phase](kubeadm_join_phase.md)	 - Use this command to invoke single phase of the join workflow -->
-* [kubeadm](kubeadm.md)	 - kubeadm: 轻易引导建立一个安全的 Kubernetes 集群
+* [kubeadm](kubeadm.md)	 - kubeadm: 轻易引导建立安全的 Kubernetes 集群
 * [kubeadm join phase](kubeadm_join_phase.md)	 - 使用此命令来调用 `join` 工作流程的单阶段

@@ -1,19 +1,13 @@
 
 <!--
-Joins a machine as a control plane instance
--->
-加入计算机作为控制平面实例
-
-<!--
 ### Synopsis
 -->
 ### 概要
 
-
 <!--
 Joins a machine as a control plane instance
 -->
-加入计算机作为控制平面实例
+添加作为控制平面实例的机器
 
 ```
 kubeadm join phase control-plane-join all [flags]
@@ -39,7 +33,7 @@ kubeadm join phase control-plane-join all [flags]
       <!--
       If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-      如果该节点应托管一个新的控制平面实例，此值则为 API 服务器将通告的其所侦听的 IP 地址。如果未设置，将使用默认网络接口。
+      如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
       </td>
     </tr>
     
@@ -75,7 +69,8 @@ kubeadm join phase control-plane-join all [flags]
       <!--
       help for all
       -->
-      all 操作的帮助信息      </td>
+       all 操作的帮助命令      
+      </td>
     </tr>
     
     <tr>
@@ -115,7 +110,7 @@ kubeadm join phase control-plane-join all [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性]“真实”主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
@@ -125,4 +120,13 @@ kubeadm join phase control-plane-join all [flags]
 
 
 
+<!-- 
+SEE ALSO 
+-->
+查看其它
+
+<!--
+* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance
+-->
+* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - 添加作为控制平面实例的机器
 

@@ -34,7 +34,7 @@ kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
       <!--
       If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-      如果该节点应承载一个新的控制平面实例，则 API 服务器将通知其正在侦听的 IP 地址。如果未设置，则将使用默认网络接口。
+      如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
       </td>
     </tr>
 
@@ -70,7 +70,7 @@ kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
       <!--
       For file-based discovery, a file or URL from which to load cluster information.
       -->
-      对于基于文件的发现，是从中加载集群信息的文件或 URL。
+      对于基于文件的发现，给出用于加载集群信息的文件或者 URL。
       </td>
     </tr>
 
@@ -106,7 +106,7 @@ kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
       <!--
       For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
       -->
-      对于基于令牌的发现，允许加入时不使用 --discovery-token-ca-cert-hash 固定。
+      对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
       </td>
     </tr>
 
@@ -154,7 +154,7 @@ kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
       <!--
       Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
       -->
-      如果未提供这些值，则将它们用于发现令牌和 tls-bootstrap 令牌。
+      如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
       </td>
     </tr>
 
