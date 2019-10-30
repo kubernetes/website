@@ -273,3 +273,10 @@ description = "Production-Grade Container Orchestration"
 languageName = "Vietnamese"
 contentDir = "content/vi"
 weight = 12
+
+[languages.be]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "Bengali"
+weight = 13
+contentDir = "content/be"
