@@ -17,7 +17,7 @@ kubeadm init phase etcd local [flags]
 <!--
 ### Examples
 -->
-### 案例
+### 示例
 
 <!--
 # Generates the static Pod manifest file for etcd, functionally
@@ -27,11 +27,11 @@ kubeadm init phase etcd local [flags]
 -->
 
 ```
-  # 为 etcd 生成静态 Pod 清单文件，其功能等效于 kubeadm init 生成的文件。
-  kubeadm init phase etcd local
+# 为 etcd 生成静态 Pod 清单文件，其功能等效于 kubeadm init 生成的文件。
+kubeadm init phase etcd local
   
-  # 使用从配置文件读取的选项为 etcd 生成静态 Pod 清单文件。
-  kubeadm init phase etcd local --config config.yaml
+# 使用从配置文件读取的选项为 etcd 生成静态 Pod 清单文件。
+kubeadm init phase etcd local --config config.yaml
 ```
 
 <!--
@@ -83,7 +83,7 @@ kubeadm init phase etcd local [flags]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-       kustomize 静态 pod 清单的补丁的存储路径。
+       用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -141,7 +141,7 @@ kubeadm init phase etcd local [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到 '真实' 主机根目录文件系统路径。
+      [实验] 到 '真实' 主机根文件系统路径。
       </td>
     </tr>
 
