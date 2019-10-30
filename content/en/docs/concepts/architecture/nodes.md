@@ -12,7 +12,7 @@ weight: 10
 A node is a worker machine in Kubernetes, previously known as a `minion`. A node
 may be a VM or physical machine, depending on the cluster. Each node contains
 the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the master
-components. The services on a node include the [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy. See
+components. The services on a node include the [container runtime](/docs/concepts/overview/components/#container-runtime), kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
@@ -284,7 +284,7 @@ capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
 checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
-includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
+includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#container-runtime) nor any process running outside of the containers.
 
 If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
