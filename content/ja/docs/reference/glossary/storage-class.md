@@ -4,7 +4,7 @@ id: storageclass
 date: 2018-04-12
 full_link: /docs/concepts/storage/storage-classes
 short_description: >
-  ストレージクラスは管理者が利用可能なさまざまなストレージタイプを記述する方法を提供します。
+  StorageClassは管理者が利用可能なさまざまなストレージタイプを記述する方法を提供します。
 
 aka: 
 tags:
