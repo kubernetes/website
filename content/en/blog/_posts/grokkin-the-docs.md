@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Grokkin' the Docs"
-date: 2019-09-04
+date: 2019-11-06
 slug: Grokkin-the-Docs
 ---
 
@@ -320,4 +320,4 @@ dedicated resources to continue to be successful.
 
 
 ## Citations
-1. @linuxfoundation. "Megan Byrd-Sanicki, Open Source Strategist, Google @megansanicki - documentation is the #1 driver of software adoption. #ossummit." _Twitter_, Oct 29, 2019, 3:54 a.m., twitter.com/linuxfoundation/status/1189103201439637510.
+<sup>1</sup> @linuxfoundation. "Megan Byrd-Sanicki, Open Source Strategist, Google @megansanicki - documentation is the #1 driver of software adoption. #ossummit." _Twitter_, Oct 29, 2019, 3:54 a.m., twitter.com/linuxfoundation/status/1189103201439637510.
