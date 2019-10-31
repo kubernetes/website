@@ -110,7 +110,7 @@ kubeadm upgrade apply [version]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-      kustomize 静态 pod 清单的补丁的存储路径。
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -158,7 +158,7 @@ kubeadm upgrade apply [version]
       <!--
       A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
       -->
-      一系列检查，其错误将显示为警告。示例：'IsPrivilegedUser,Swap'。值 'all' 忽略所有检查的错误。
+      错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
       </td>
     </tr>
 
@@ -167,7 +167,7 @@ kubeadm upgrade apply [version]
       <!--
       --image-pull-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 15m0s
       -->
-      --image-pull-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 15m0s
+      --image-pull-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：15m0s
       </td>
     </tr>
     <tr>
@@ -184,7 +184,7 @@ kubeadm upgrade apply [version]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -245,7 +245,7 @@ kubeadm upgrade apply [version]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] ’真实‘ 主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 

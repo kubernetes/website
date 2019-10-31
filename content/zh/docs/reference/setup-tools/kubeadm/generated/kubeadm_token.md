@@ -96,7 +96,7 @@ kubeadm token [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -107,7 +107,7 @@ kubeadm token [flags]
       <!--
       The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
       -->
-      与集群通信时使用的 KubeConfig 文件。如果未设置，则搜索一组标准位置以查找现有 KubeConfig 文件。
+      与集群通信时使用的 kubeconfig 文件。如果未设置，则搜索一组标准位置以查找现有 kubeconfig 文件。
       </td>
     </tr>
 
@@ -136,7 +136,7 @@ kubeadm token [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 指向 ‘真实’ 主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 
@@ -157,8 +157,8 @@ SEE ALSO
 * [kubeadm token generate](kubeadm_token_generate.md)	 - Generate and print a bootstrap token, but do not create it on the server
 * [kubeadm token list](kubeadm_token_list.md)	 - List bootstrap tokens on the server
 -->
-* [kubeadm](kubeadm.md)	 - kubeadm：轻易建立一个安全 Kubernetes 集群
+* [kubeadm](kubeadm.md)	 - kubeadm：轻松引导安全的 Kubernetes 集群
 * [kubeadm token create](kubeadm_token_create.md)	 - 在服务器上创建引导令牌（bootstrap token）
 * [kubeadm token delete](kubeadm_token_delete.md)	 - 在服务器上删除引导令牌（bootstrap token）
 * [kubeadm token generate](kubeadm_token_generate.md)	 - 生成并打印引导令牌（bootstrap token），但不在服务器上创建引导令牌（bootstrap token）
-* [kubeadm token list](kubeadm_token_list.md)	 - 列出服务器上的引导令牌列表（bootstrap tokens）
+* [kubeadm token list](kubeadm_token_list.md)	 - 列出服务器上的引导令牌列表（bootstrap token）

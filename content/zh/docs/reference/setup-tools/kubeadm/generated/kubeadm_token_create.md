@@ -45,7 +45,7 @@ kubeadm token create [token]
       <!--
       Path to a kubeadm configuration file.
       -->
-      到 kubeadm 配置文件的路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 
@@ -66,7 +66,7 @@ kubeadm token create [token]
       <!--
       --groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [system:bootstrappers:kubeadm:default-node-token]
       -->
-      --groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: [system:bootstrappers:kubeadm:default-node-token]
+      --groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：[system:bootstrappers:kubeadm:default-node-token]
       </td>
     </tr>
     <tr>
@@ -74,7 +74,7 @@ kubeadm token create [token]
       <!--
       Extra groups that this token will authenticate as when used for authentication. Must match "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
       -->
-      此令牌将在用于身份验证时进行身份验证的额外组。必须匹配  "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
+      此令牌用于身份验证时将进行身份验证的其他组。必须匹配  "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
       </td>
     </tr>
 
@@ -86,7 +86,7 @@ kubeadm token create [token]
       <!--
       help for create
       -->
-      create 操作的帮助信息
+       create 操作的帮助命令
       </td>
     </tr>
 
@@ -98,7 +98,7 @@ kubeadm token create [token]
       <!--
       Instead of printing only the token, print the full 'kubeadm join' flag needed to join the cluster using the token.
       -->
-      输出使用令牌加入群集所需的完整的 "kubeadm join" 样式的命令，而不是只输出令牌。
+      不仅仅打印令牌，而是打印使用令牌加入集群所需的完整 'kubeadm join' 参数。
       </td>
     </tr>
 
@@ -107,7 +107,7 @@ kubeadm token create [token]
       <!--
       --ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 24h0m0s
       -->
-      --ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 24h0m0s
+      --ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：24h0m0s
       </td>
     </tr>
     <tr>
@@ -124,7 +124,7 @@ kubeadm token create [token]
       <!--
       --usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [signing,authentication]
       -->
-      --usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: [signing,authentication]
+      --usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：[signing,authentication]
       </td>
     </tr>
     <tr>
@@ -170,7 +170,7 @@ kubeadm token create [token]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -190,7 +190,7 @@ kubeadm token create [token]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 到'真实'主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 

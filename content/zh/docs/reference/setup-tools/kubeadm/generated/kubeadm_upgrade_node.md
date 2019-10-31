@@ -23,7 +23,7 @@ kubelet-config  Upgrade the kubelet configuration for this node
 -->
 ```
 control-plane   如果存在的话，升级部署在该节点上的管理面实例
-kubelet-config  更新该节点上的kubelet配置
+kubelet-config  更新该节点上的 kubelet 配置
 ```
 
 ```
@@ -63,7 +63,7 @@ kubeadm upgrade node [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
       Do not change any state, just output the actions that would be performed.
-       -->
+      -->
       不更改任何状态，只输出将要执行的操作。
       </td>
     </tr>
@@ -76,7 +76,7 @@ kubeadm upgrade node [flags]
       <!--
       Perform the upgrade of etcd.
       -->
-      执行etcd的升级。
+      执行 etcd 的升级。
       </td>
     </tr>
 
@@ -88,7 +88,7 @@ kubeadm upgrade node [flags]
       <!--
       The path where kustomize patches for static pod manifests are stored.
       -->
-      静态 pod 的 kustomize 补丁的存储路径。
+      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
 
@@ -100,7 +100,7 @@ kubeadm upgrade node [flags]
       <!--
       help for node
       -->
-      节点的帮助
+       node 操作的帮助命令
       </td>
     </tr>
 
@@ -112,7 +112,7 @@ kubeadm upgrade node [flags]
       <!--
       The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
       -->
-      用于与集群交互的 kubeconfig 文件。如果参数未指定， 将从一系列标准位置检索存在的 kubeconfig 文件。
+      用于与集群交互的 kubeconfig 文件。如果参数未指定，将从一系列标准位置检索存在的 kubeconfig 文件。
       </td>
     </tr>
 
@@ -149,10 +149,6 @@ kubeadm upgrade node [flags]
 
 ### 从父命令继承的选项
 
-<!--
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
--->
-
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
@@ -164,7 +160,12 @@ kubeadm upgrade node [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      [EXPERIMENTAL] The path to the 'real' host root filesystem.
+      -->
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
+      </td>
     </tr>
 
   </tbody>
@@ -177,8 +178,8 @@ SEE ALSO
 * [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - Use this command to invoke single phase of the node workflow
 -->
 
-参见
+查看其他
 
 * [kubeadm upgrade](kubeadm_upgrade.md)	 - 使用此命令将集群平滑升级到新版本
-* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - 使用此命令来调用节点升级流程的某个阶段
+* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - 使用此命令来调用 node 升级流程的某个阶段
 
