@@ -41,6 +41,6 @@ will be visible on the API server, but cannot be controlled from there.
 -->
 当 kubelet 在其配置中发现一个静态容器时，
 它会自动地尝试在 Kubernetes API 服务器上为它创建 Pod 对象。
-这意味着 pod 将是可见的在 API 服务器上，但不能在其上进行控制。
+这意味着 pod 在 API 服务器上将是可见的，但不能在其上进行控制。
 
 （例如，删除静态 pod 将不会停止 kubelet 守护程序的运行）。
