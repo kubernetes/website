@@ -16,5 +16,4 @@ tags:
 <!--more--> 
 
 StorageClassはサービス品質レベル、バックアップポリシー、クラスター管理者が決定した任意のポリシーにマッピングできます。
-
 各StorageClassには`provisioner`、` parameters`、`reclaimPolicy`フィールドが含まれています。これらは、対象のStorageClassの{{< glossary_tooltip text="永続ボリューム" term_id="persistent-volume" >}}を動的プロビジョニングする必要がある場合に使用されます。ユーザーはStorageClassオブジェクトの名前を使用して特定のStorageClassを要求できます。
