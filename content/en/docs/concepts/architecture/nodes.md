@@ -305,6 +305,6 @@ API object can be found at:
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Read about [node components](https://kubernetes.io/docs/concepts/overview/components/#node-components)
+* Read about [node components](/docs/concepts/overview/components/#node-components)
 * Read about node-level topology: [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}
