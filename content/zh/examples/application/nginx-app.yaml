@@ -7,7 +7,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
+  - protocol: TCP
+    port: 80 #默认情况下node的80port可能占用，改成其它port时，targetPort缺省情况下默认等于port
+    targetPort: 80
   selector:
     app: nginx
 ---
