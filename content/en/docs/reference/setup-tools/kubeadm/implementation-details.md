@@ -305,7 +305,7 @@ Please note that:
 2. in case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written in a temporary folder
 3. Static Pod manifest generation for local etcd can be invoked individually with the [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd) command
 
-### Optional Dynamic Kublet Configuration
+### Optional Dynamic Kubelet Configuration
 
 To use this functionality call `kubeadm alpha kubelet config enable-dynamic`. It writes the kubelet init configuration
 into `/var/lib/kubelet/config/init/kubelet` file.
