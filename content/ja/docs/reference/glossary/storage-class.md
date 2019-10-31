@@ -1,5 +1,5 @@
 ---
-title: ストレージクラス
+title: StorageClass
 id: storageclass
 date: 2018-04-12
 full_link: /docs/concepts/storage/storage-classes
