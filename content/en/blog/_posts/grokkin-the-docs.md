@@ -246,8 +246,7 @@ to an open source project. SIG Docs needs a larger core team of tech writers who
 are allocated at least 50%. SIG Docs can then better achieve goals, move forward
 with new content, update existing content, and address open issues in a timely fashion.
 
-## Observation 09: Contributing to technical documentation projects requires, on
-#average, more skills than developing software {#observation-9}
+## Observation 09: Contributing to technical documentation projects requires, on average, more skills than developing software {#observation-9}
 
 When I said that to my former colleagues, the response was a healthy dose of
 skepticism and lots of laughter. It seems that many developers, as well as
