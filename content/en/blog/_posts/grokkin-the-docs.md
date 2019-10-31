@@ -28,7 +28,7 @@ thought contributing to the Kubernetes documentation would be the same. I was
 wrong. I should have thoroughly **read** the [Contribute to Kubernetes
 docs](https://kubernetes.io/docs/contribute/) pages instead of skimming them.
 
-I am very familiar with the git/gerrit workflow. With those tools, a user clones
+I am very familiar with the git/gerrit workflow. With those tools, a contributor clones
 the `master` repo and then creates a local branch. Kubernetes uses a different
 approach, called _Fork and Pull_. Each contributor `forks` the master repo, and
 then the contributor pushes work to their fork before creating a pull request. I
@@ -57,7 +57,7 @@ rebase` my PRs, which did not go well at all. As a result, I closed those PRs
 and submitted new ones.  When I asked for help on the #sig-docs channel,
 contributors posted useful links, what my local git config file should look
 like, and the exact set of git commands to run. The process used by contributors
-was different than the one defined in the **Intermediate contributing** page, so
+was different than the one defined in the **Intermediate contributing** page.
 I would have saved myself so much time if I had asked what GitHub workflow to
 use. The more community knowledge that is documented, the easier it is for new
 contributors to be productive quickly.
@@ -154,16 +154,13 @@ route issues.
 
 ## Observation 08: SIG Docs is understaffed {#observation-8}
 
-Documentation is the #1 driver of software adoption<sup>1</sup>.
+Documentation is the number one driver of software adoption<sup>1</sup>.
 
-Yet few companies are willing to allocate tech writers at least
-half-time to Kubernetes. Many contributors are able to devote a small amount of
-time to SIG Docs but few are full-time. Of the people __reviewing and
-approving__ English language documentation, probably only one or two are
-allocated full-time. Of the people __contributing content__ to the English
-language documentation, probably less than a handful are allocated full-time.
-That's very disheartening for online documentation that has had over 53 million
-unique page views from users in 229 countries year-to-date in 2019.  
+Many contributors devote a small amount of time to SIG Docs but only a handful
+are trained technical writers. Few companies have hired tech writers to work on
+Kubernetes docs at least half-time. That's very disheartening for online
+documentation that has had over 53 million unique page views from readers in 229
+countries year to date in 2019.  
 
 SIG Docs faces challenges due to lack of technical writers:
 
@@ -254,7 +251,7 @@ with new content, update existing content, and address open issues in a timely f
 
 When I said that to my former colleagues, the response was a healthy dose of
 skepticism and lots of laughter. It seems that many developers, as well as
-managers, don't really know what tech writers contributing to open source
+managers, don't fully know what tech writers contributing to open source
 projects actually do. Having done both development and technical writing for the
 better part of 22 years, I've noticed that tech writers are valued far less than
 software developers of comparative standing.
@@ -273,7 +270,7 @@ SIG Docs core team members do far more than write content based on requirements:
 - We read, understand, and occasionally write code.
 - We are project managers, able to plan new work as well as assign issues to releases.
 - We are educators and diplomats with every review we do and with every comment we leave on an issue.
-- We use analytics to plan work based on which pages readers access most often as well as which pages readers say are unhelpful.
+- We use site analytics to plan work based on which pages readers access most often as well as which pages readers say are unhelpful.
 - We are surveyors, soliciting feedback from the community on a regular basis.
 - We analyze the documentation as a whole, deciding what content should stay and
   what content should be removed based on available resources and reader needs.
@@ -308,7 +305,7 @@ positive adjectives! People welcomed me with open arms, and not only because SIG
 Docs needs more technical writers. I have never felt that my ideas and contributions were
 dismissed because I was the newbie. Humility and respect go a long way.
 Community members have a wealth of knowledge to share. Attend meetings, ask
-questions, propose improvements, thank people, and most important, contribute in
+questions, propose improvements, thank people, and contribute in
 every way that you can!
 
 Big shout out to those who helped me, and put up with me (LOL), during my
@@ -323,5 +320,4 @@ dedicated resources to continue to be successful.
 
 
 ## Citations
-1. @linuxfoundation. "Megan Byrd-Sanicki, Open Source Strategist, Google @megansanicki
- - documentation is the #1 driver of software adoption. #ossummit." _Twitter_, Oct 29, 2019, 3:54 a.m., twitter.com/linuxfoundation/status/1189103201439637510.
+1. @linuxfoundation. "Megan Byrd-Sanicki, Open Source Strategist, Google @megansanicki - documentation is the #1 driver of software adoption. #ossummit." _Twitter_, Oct 29, 2019, 3:54 a.m., twitter.com/linuxfoundation/status/1189103201439637510.
