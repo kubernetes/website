@@ -202,7 +202,7 @@ Static Pod manifest share a set of common properties:
   * If using a local etcd server, `etcd-servers` address will be set to `127.0.0.1:2379`
 - Leader election is enabled for both the controller-manager and the scheduler
 - Controller-manager and the scheduler will reference kubeconfig files with their respective, unique identities
-- All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-args)
+- All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 - All static Pods gets any extra Volumes specified by the user (Host path)
 
 Please note that:
