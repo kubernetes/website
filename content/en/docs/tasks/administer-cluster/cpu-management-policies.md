@@ -44,8 +44,7 @@ management policies to determine some placement preferences on the node.
 
 ### Configuration
 
-The CPU Manager is an alpha feature in Kubernetes v1.8. It was enabled by
-default as a beta feature since v1.10.
+The CPU Manager feature is currently in beta and is enabled by default.
 
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 option. There are two supported policies:
