@@ -26,12 +26,12 @@ content_template: templates/task
 本示例中，将创建一个只包含单个容器的Pod。Pod的配置文件中设置环境变量的名称为`DEMO_GREETING`，
 其值为`"Hello from the environment"`。下面是Pod的配置文件内容:
 
-{{< code file="envars.yaml" >}}
+{{< codenew file="pods/inject/envars.yaml" >}}
 
 1. 基于YAML文件创建一个Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
+    kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
     ```
 
 1. 获取一下当前正在运行的Pods信息:
