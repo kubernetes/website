@@ -69,6 +69,7 @@ other = "为了检查版本, 输入 "
 
 [main_read_about]
 other = "Read about"
+
 [layouts_blog_pager_prev]
 other = "<< 前一篇"
 
