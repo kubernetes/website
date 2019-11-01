@@ -43,7 +43,7 @@ kubeadm CLI 工具的生命周期与 [kubelet](/docs/reference/command-line-tool
 当使用 DEB 或 RPM 安装 kubelet 时，配置系统去管理 kubelet。
 您可以改用其他服务管理器，但需要手动地配置。
 
-集群中涉及的所有 kubelet 的一些配置细节都必须相同，而其他配置方面则需要基于每个kubelet进行设置，以适应给定机器的不同特性，例如操作系统、存储和网络。
+集群中涉及的所有 kubelet 的一些配置细节都必须相同，而其他配置方面则需要基于每个 kubelet 进行设置，以适应给定机器的不同特性，例如操作系统、存储和网络。
 您可以手动地管理 kubelet 的配置，但是 [kubeadm 现在提供一种 `KubeletConfiguration` API 类型，用于集中管理 kubelet 的配置](#configure-kubelets-using-kubeadm)。
 
 {{% /capture %}}
@@ -92,7 +92,7 @@ clusterDNS:
 ### 将集群级配置传播到每个 kubelet 中
 
 您可以通过使用 `kubeadm init` 和 `kubeadm join` 命令为 kubelet 提供默认值。
-有趣的示例包括使用其他 CRI 运行时或通过服务器设置设置不同的默认子网。
+有趣的示例包括使用其他 CRI 运行时或通过服务器设置不同的默认子网。
 
 如果您想使用子网 `10.96.0.0/12` 作为默认的服务，您可以给 kubeadm 传递 `--service-cidr` 参数：
 
@@ -105,7 +105,7 @@ kubeadm init --service-cidr 10.96.0.0/12
 在集群中的每个管理器和节点上的 kubelet 的设置需要相同。
 kubelet 提供了一个版本化的结构化 API 对象，该对象可以配置 kubelet 中的大多数参数，并将此配置推送到集群中正在运行的每个 kubelet 上。
 此对象被称为 **kubelet 的配置组件**。
-该配置组件允许用虎指定标志，例如用骆峰值代表集群的 DNS IP 地址，如下所示：
+该配置组件允许用户指定标志，例如用骆峰值代表集群的 DNS IP 地址，如下所示：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -149,7 +149,7 @@ such as systemd.
 以下列表提供了一些示例。
 
 - 由 kubelet 配置标志 `--resolv-confkubelet` 指定的 DNS 解析文件的路径在操作系统之间可能有所不同，
-  或者取决于您是否使用 `systemd-resolved`。
+  它取决于您是否使用 `systemd-resolved`。
   如果此路径错误，则在其 kubelet 配置错误的节点上 DNS 解析也将失败。
 
 - 除非您使用云提供商，否则默认情况下，Node API 对象 `.metadata.name` 被设置为计算机的主机名。
@@ -158,7 +158,7 @@ such as systemd.
 - 当前，kubelet 无法自动检测 CRI 运行时使用的 cgroup 驱动程序，
   但是值 `--cgroup-driver` 必须与 CRI 运行时使用的 cgroup 驱动程序匹配，以确保 kubelet 的健康运行状况。
 
-- 根据您的群集使用的CRI运行时，您可能需要为 kubelet 指定不同的标志。
+- 根据您集群使用的 CRI 运行时，您可能需要为 kubelet 指定不同的标志。
   例如，当使用 Docker 时，你要需要指定标志如 `--network-plugin=cni`，但是如果您使用的是外部运行时，
   则需要指定 `--container-runtime=remote` 并使用 `--container-runtime-path-endpoint=<path>` 指定 CRI端点。
 
@@ -228,7 +228,7 @@ ConfigMap 名为 `kubelet-config-1.X`，其中 `.X` 是您正在初始化的 kub
 此配置文件指向允许 kubelet 与 API 服务器通信的客户端证书。
 这解决了 [将集群级配置传播到每个 kubelet](#propagating-cluster-level-configuration-to-each-kubelet)的需求。
 
-该文档[提供特定实例的配置详细信息](#providing-instance-specific-configuration-details)是第二种解决模式，
+该文档 [提供特定实例的配置详细信息](#providing-instance-specific-configuration-details) 是第二种解决模式，
 kubeadm 将环境文件写入 `/var/lib/kubelet/kubeadm-flags.env`，其中包含了一个标志列表，
 当 kubelet 启动时，该标志列表会传递给 kubelet 标志在文件中的显示方式如下：
 
@@ -271,7 +271,7 @@ has finished performing the TLS Bootstrap.
 当运行 `kubeadm join` 时，kubeadm 使用 Bootstrap Token 证书执行 TLS 引导，该引导会获取一份证书，该证书需要下载 `kubelet-config-1.X` ConfigMap 并把它写入 `/var/lib/kubelet/config.yaml` 中。
 动态环境文件的生成方式恰好与 `kubeadm init` 相同。
 
-接下来，kubeadm 运行以下两个命令以将新配置加载到 kubelet 中：
+接下来，kubeadm 运行以下两个命令将新配置加载到 kubelet 中：
 
 ```bash
 systemctl daemon-reload && systemctl restart kubelet
@@ -319,10 +319,10 @@ This file specifies the default locations for all of the files managed by kubead
   `/etc/default/kubelet` (for DEBs), or `/etc/sysconfig/kubelet` (for RPMs). `KUBELET_EXTRA_ARGS`
   is last in the flag chain and has the highest priority in the event of conflicting settings.
 -->
-##  系统中的 kubelet 插入文件
+##  系统中的 kubelet 插件
 
 kubeadm 中附带了有关系统如何运行 kubelet 的配置。
-请注意 kubeadm CLI 命令不会触及插入文件。
+请注意 kubeadm CLI 命令不会触及此插件。
 
 通过 `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) 或者 [RPM 包](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) 安装的配置文件已被写入 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 并由系统使用。
 它加强了基础设施 [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service)))：
