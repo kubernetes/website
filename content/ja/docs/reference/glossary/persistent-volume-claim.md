@@ -4,14 +4,14 @@ id: persistent-volume-claim
 date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
-  ストレージ要求リソースはPersistentVolumeで定義されているため、コンテナ内のボリュームとしてマウントできます。
+  コンテナ内でボリュームとしてマウントするためにPersistentVolume内で定義されたストレージリソースを要求します。
 
 aka: 
 tags:
 - core-object
 - storage
 ---
- ストレージ要求リソースはPersistentVolumeで定義されているため、コンテナ内のボリュームとしてマウントできます。
+ コンテナ内でボリュームとしてマウントするためにPersistentVolume内で定義されたストレージリソースを要求します。
 
 <!--more--> 
 
