@@ -652,7 +652,6 @@ metadata:
 spec:
   capacity:
     storage: 100Gi
-  # volumeMode field requires BlockVolume Alpha feature gate to be enabled.
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
@@ -674,9 +673,8 @@ PersistentVolume `nodeAffinity` is required when using local volumes. It enables
 the Kubernetes scheduler to correctly schedule Pods using local volumes to the
 correct node.
 
-PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
-value "Filesystem") to expose the local volume as a raw block device. The
-`volumeMode` field requires `BlockVolume` Alpha feature gate to be enabled.
+PersistentVolume `volumeMode` can be set to "Block" (instead of the default
+value "Filesystem") to expose the local volume as a raw block device.
 
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
@@ -1306,9 +1304,8 @@ relies on the raw block volume feature that was introduced in a previous version
 Kubernetes.  This feature will make it possible for vendors with external CSI drivers to
 implement raw block volumes support in Kubernetes workloads.
 
-CSI block volume support is feature-gated, but enabled by default. The two
-feature gates which must be enabled for this feature are `BlockVolume` and
-`CSIBlockVolume`.
+This feature requires `CSIBlockVolume` feature gate to be enabled. It
+is enabled by default starting with Kubernetes 1.14.
 
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
