@@ -8,7 +8,7 @@
 <!--
 This command is not meant to be run on its own. See list of available subcommands.
 -->
-此命令并不意味着可以单独运行。请参阅可用子命令列表。
+此命令并非设计用来单独运行。请参阅可用子命令列表。
 
 <!--
 ### Options
@@ -77,6 +77,6 @@ SEE ALSO
 * [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
 * [kubeadm alpha selfhosting pivot](kubeadm_alpha_selfhosting_pivot.md)	 - Convert a static Pod-hosted control plane into a self-hosted one
 -->
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm 实验子命令
+* [kubeadm alpha](kubeadm_alpha.md)	 - kubeadm 实验子命令
 * [kubeadm alpha selfhosting pivot](kubeadm_alpha_selfhosting_pivot.md)	 - 将静态 Pod 托管的控制平面转换为自托管的平面
 

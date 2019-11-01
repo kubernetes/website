@@ -24,7 +24,7 @@ kubeadm token delete [token-value] ...
 <!--
 ### Options
 -->
-### 可选项
+### 选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -41,7 +41,7 @@ kubeadm token delete [token-value] ...
       <!--
       help for delete
       -->
-       delete 操作的帮助信息
+       delete 操作的帮助命令
       </td>
     </tr>
 
@@ -79,7 +79,7 @@ kubeadm token delete [token-value] ...
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -99,7 +99,7 @@ kubeadm token delete [token-value] ...
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 到'真实'主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 
@@ -116,5 +116,5 @@ SEE ALSO
 <!--
 * [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens
 -->
-* [kubeadm token](kubeadm_token.md)	 - 管理引导令牌
+* [kubeadm token](kubeadm_token.md)	 - 管理引导令牌（bootstrap token）
 

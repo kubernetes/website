@@ -1,8 +1,4 @@
 ---
-reviewers:
-- mikedanese
-- luxas
-- jbeda
 title: kubeadm reset
 content_template: templates/concept
 weight: 60

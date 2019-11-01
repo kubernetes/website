@@ -23,7 +23,7 @@ kubeadm config [flags]
 <!-- 
 ### Options 
 -->
-### 可选项
+### 选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -49,7 +49,7 @@ kubeadm config [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -57,7 +57,8 @@ kubeadm config [flags]
       <!--
       The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
       -->
-      用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。</td>
+      用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件
+      </td>
     </tr>
 
   </tbody>
@@ -68,7 +69,7 @@ kubeadm config [flags]
 <!-- 
 ### Options inherited from parent commands 
 -->
-### 从父命令继承的可选项
+### 从父命令继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -85,7 +86,7 @@ kubeadm config [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] “真实” 主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

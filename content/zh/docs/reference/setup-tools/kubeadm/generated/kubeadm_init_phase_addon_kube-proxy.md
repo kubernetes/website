@@ -33,7 +33,7 @@ kubeadm init phase addon kube-proxy [flags]
       <!--
       The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-       API 服务器将通知其正在监听的 IP 地址。如果未设置，则将使用默认网络接口。
+       API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将使用默认网络接口。
       </td>
     </tr>
 
@@ -95,7 +95,7 @@ kubeadm init phase addon kube-proxy [flags]
       <!--
       --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
       -->
-      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "k8s.gcr.io"
+      --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
       </td>
     </tr>
     <tr>
@@ -103,7 +103,7 @@ kubeadm init phase addon kube-proxy [flags]
       <!--
       Choose a container registry to pull control plane images from
       -->
-      选择一个容器仓库从中提取控制平面镜像
+      选择用于拉取控制平面镜像的容器仓库
       </td>
     </tr>
 
@@ -112,7 +112,7 @@ kubeadm init phase addon kube-proxy [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -129,7 +129,7 @@ kubeadm init phase addon kube-proxy [flags]
       <!--
       --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"
       -->
-      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "stable-1"
+      --kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："stable-1"
       </td>
     </tr>
     <tr>
@@ -149,7 +149,7 @@ kubeadm init phase addon kube-proxy [flags]
       <!--
       Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
       -->
-      指定 Pod 网络的 IP 地址范围。如果设置，控制平面将自动为每个节点分配 CIDR。
+      指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动为每个节点分配 CIDR。
       </td>
     </tr>
 
@@ -161,7 +161,7 @@ kubeadm init phase addon kube-proxy [flags]
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -178,7 +178,7 @@ kubeadm init phase addon kube-proxy [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 指向 '真实' 宿主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
@@ -195,5 +195,5 @@ SEE ALSO
 <!--
 * [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - Install required addons for passing Conformance tests
 -->
-* [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - 安装必需的插件以通过一致性测试
+* [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - 安装通过一致性测试所需的插件
 

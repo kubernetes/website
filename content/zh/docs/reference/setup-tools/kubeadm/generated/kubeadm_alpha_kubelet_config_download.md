@@ -11,8 +11,9 @@ Download the kubelet configuration from a ConfigMap of the form "kubelet-config-
 从集群中形式为 "kubelet-config-1.X" 的 ConfigMap 中下载 kubelet 配置，其中 X 是 kubelet 的次要版本。kubeadm 要么通过执行 "kubelet --version" 自动检测 kubelet 版本，要么传递 --kubelet-version 参数。
 
 <!--
-Alpha 免责声明：此命令当前为 Alpha 版本。
+Alpha Disclaimer: this command is currently alpha.
 -->
+Alpha 免责声明：此命令当前为 Alpha 功能。
 
 
 ```
@@ -22,7 +23,7 @@ kubeadm alpha kubelet config download [flags]
 <!--
 ### Examples
 -->
-### 案例
+### 示例
 
 <!--
 ```
@@ -70,7 +71,7 @@ kubeadm alpha kubelet config download [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -119,7 +120,7 @@ kubeadm alpha kubelet config download [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [试验阶段] 指向 '真实' 宿主机的根目录。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

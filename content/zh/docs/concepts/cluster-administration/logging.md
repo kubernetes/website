@@ -59,6 +59,7 @@ kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 The output is:
 -->
 输出结果为：
+
 ```
 pod/counter created
 ```
@@ -75,6 +76,7 @@ kubectl logs counter
 The output is:
 -->
 输出结果为：
+
 ```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
@@ -385,7 +387,7 @@ However, it's recommended to use `stdout` and `stderr` directly and leave rotati
 and retention policies to the kubelet.
 -->
 应用本身如果不具备轮转日志文件的功能，可以通过 sidecar 容器实现。
-该方式的 [例子](https://github.com/samsung-cnct/logrotate) 是运行一个定期轮转日志的容器。
+该方式的一个例子是运行一个定期轮转日志的容器。
 然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略交给 kubelet。
 
 <!--

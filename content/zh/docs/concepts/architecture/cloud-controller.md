@@ -225,20 +225,6 @@ Route 控制器负责适当地配置云中的路由，以便 Kubernetes 集群�
 The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB , Google LB, or Oracle Cloud Infrastructure LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
 -->
 
-服务控制器负责监听服务的创建、更新和删除事件。根据 Kubernetes 中各个服务的当前状态，它配置云负载均衡器（如 ELB, Google LB 或者 Oracle Cloud Infrastructure LB）以反映 Kubernetes 中的服务状态。此外，它还确保云负载均衡器的服务后端是最新的。
-
-<!--
-### 2. Kubelet
--->
-
-这些标签对于 pod 的调度至关重要，因为这些卷仅限于在它们所在的域（zone）/区（region）内工作，使用这些卷的任何 Pod 都需要在同一域（zone）/区（region）中进行调度。
-
-<!--
-The PersistentVolumeLabels controller was created specifically for the CCM; that is, it did not exist before the CCM was created. This was done to move the PV labelling logic in the Kubernetes API server (it was an admission controller) to the CCM. It does not run on the KCM.
--->
-
-PersistentVolumeLabels 控制器专门为 CCM 创建； 也就是说，在创建 CCM 之前它不存在。这样做是为了将 Kubernetes API 服务器（它是一个准入控制器）中的 PV 标记逻辑移动到 CCM，它不在 KCM 上运行。
-
 <!--
 ### 2. Kubelet
 -->
@@ -258,19 +244,7 @@ In this new model, the kubelet initializes a node without cloud-specific informa
 在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
 
 <!--
-### 3. Kubernetes API server
--->
-
-### 3. Kubernetes API 服务器
-
-<!--
-The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM.
--->
-
-节点控制器包含 kubelet 中依赖于云的功能，在引入 CCM 之前，kubelet 负责使用特定于云的详细信息（如 IP 地址，域/区标签和实例类型信息）初始化节点。CCM 的引入已将此初始化操作从 kubelet 转移到 CCM 中。
-
-<!--
-In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
+## Plugin mechanism
 -->
 
 在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
@@ -392,10 +366,6 @@ v1/Service:
 - Watch
 - Patch
 - Update
-
-<!--
-### Others
--->
 
 <!--
 ### Others

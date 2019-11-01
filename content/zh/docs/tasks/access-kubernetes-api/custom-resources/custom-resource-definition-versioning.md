@@ -830,7 +830,8 @@ spec:
       conversionReviewVersions: ["v1", "v1beta1"]
       ...
 ```
-<--
+
+<!--
 `conversionReviewVersions` is a required field when creating 
 `apiextensions.k8s.io/v1` custom resource definitions.
 Webhooks are required to support at least one `ConversionReview`

@@ -13,7 +13,7 @@ Generate the private key for signing service account tokens along with its publi
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令当前为 Alpha 功能。
+Alpha 免责声明：此命令当前为 alpha 阶段。
 
 ```
 kubeadm init phase certs sa [flags]
@@ -36,7 +36,7 @@ kubeadm init phase certs sa [flags]
       <!--
       --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
       -->
-      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/pki"
+      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"
       </td>
     </tr>
     <tr>
@@ -68,7 +68,7 @@ kubeadm init phase certs sa [flags]
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -85,7 +85,7 @@ kubeadm init phase certs sa [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验] 指向 '真实' 宿主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 

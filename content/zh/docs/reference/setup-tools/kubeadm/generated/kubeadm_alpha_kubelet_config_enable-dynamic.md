@@ -8,7 +8,7 @@
 <!--
 Enable or update dynamic kubelet configuration for a Node, against the kubelet-config-1.X ConfigMap in the cluster, where X is the minor version of the desired kubelet version.
 -->
-相对于集群中的 kubelet-config-1.X ConfigMap 启用或更新节点的动态 kubelet 配置，其中 X 是所需 kubelet 版本的次要版本。
+针对集群中的 kubelet-config-1.X ConfigMap 启用或更新节点的动态 kubelet 配置，其中 X 是所需 kubelet 版本的次要版本。
 
 <!--
 WARNING: This feature is still experimental, and disabled by default. Enable only if you know what you are doing, as it may have surprising side-effects at this stage.
@@ -27,7 +27,7 @@ kubeadm alpha kubelet config enable-dynamic [flags]
 <!--
 ### Examples  # Enable dynamic kubelet configuration for a Node.
 -->
-### 案例
+### 示例
 
 ```
   # 为节点启用动态 kubelet 配置。
@@ -86,7 +86,7 @@ kubeadm alpha kubelet config enable-dynamic [flags]
       <!--
       The desired version for the kubelet
       -->
-       Kubelet 的所需版本
+       kubelet 所需版本
       </td>
     </tr>
 

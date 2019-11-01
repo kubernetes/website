@@ -265,9 +265,15 @@ Patch your Deployment:
 -->
 patch Deployment：
 
-```shell
-kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
-```
+
+{{< tabs name="kubectl_patch_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
+kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment patch-demo --patch $(cat patch-file-containers.yaml)
+{{< /tab >}}}
+{{< /tabs >}}
 
 <!--
 View the patched Deployment:
@@ -284,6 +290,20 @@ The output shows that the PodSpec in the Deployment has only one Toleration:
 输出结果显示部署中的 PodSpec 只有一个默认：
 
 ```shell
+
+containers:
+- image: redis
+  imagePullPolicy: Always
+  name: patch-demo-ctr-2
+  ...
+- image: nginx
+  imagePullPolicy: Always
+  name: patch-demo-ctr
+  ...
+```
+```shell
+
+
 tolerations:
       - effect: NoSchedule
         key: disktype

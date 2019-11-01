@@ -2,13 +2,13 @@
 <!--
 ### Synopsis
 -->
-### 摘要
+### 概要
 
 
 <!--
 Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
 -->
-尽最大努力还原通过 'kubeadm init' 或者 'kubeadm join' 对主机所做的更改
+尽最大努力还原通过 'kubeadm init' 或者 'kubeadm join' 操作对主机所做的更改
 
 <!--
 The "reset" command executes the following phases:
@@ -42,7 +42,7 @@ kubeadm reset [flags]
       <!--
       --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
       -->
-      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "/etc/kubernetes/pki"
+      --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"
       </td>
     </tr>
     <tr>
@@ -50,7 +50,7 @@ kubeadm reset [flags]
       <!--
       The path to the directory where the certificates are stored. If specified, clean this directory.
       -->
-      到存储证书的目录的路径。如果指定了，需要清除此目录。
+      存储证书的目录路径。如果已指定，则需要清空此目录。
       </td>
     </tr>
 
@@ -98,7 +98,7 @@ kubeadm reset [flags]
       <!--
       A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
       -->
-      检查清单，其错误将显示为警告。例如：'IsPrivilegedUser,Swap'。值 'all' 忽略所有检查的错误。
+      错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
       </td>
     </tr>
 
@@ -107,7 +107,7 @@ kubeadm reset [flags]
       <!--
       --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "/etc/kubernetes/admin.conf"
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
       </td>
     </tr>
     <tr>
@@ -153,7 +153,7 @@ kubeadm reset [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] 通往 '真正的' 主机根文件系统的路径。
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
       </td>
     </tr>
 
@@ -172,4 +172,4 @@ SEE ALSO
 * [kubeadm reset phase](kubeadm_reset_phase.md)	 - Use this command to invoke single phase of the reset workflow
 -->
 * [kubeadm](kubeadm.md)	 - kubeadm: 轻松建立安全的 Kubernetes 集群
-* [kubeadm reset phase](kubeadm_reset_phase.md)	 - 使用此命令来调用重置工作流程的单阶段
+* [kubeadm reset phase](kubeadm_reset_phase.md)	 - 使用此命令来调用 `reset` 工作流程的某个阶段

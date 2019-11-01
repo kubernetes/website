@@ -27,9 +27,10 @@ are low. This is especially important when dealing with incompressible
 compute resources, such as memory or disk space. If such resources are exhausted,
 nodes become unstable.
 -->
-本页介绍了如何使用 `kubelet` 配置资源不足时的处理方式。
 
-当可用计算资源较少时，`kubelet` 需要保证节点稳定性。这在处理如内存和硬盘之类的不可压缩资源时尤为重要。如果任意一种资源耗尽，节点将会变得不稳定。
+本页介绍了如何使用`kubelet`配置资源不足时的处理方式。
+
+当可用计算资源较少时，`kubelet`需要保证节点稳定性。这在处理如内存和硬盘之类的不可压缩资源时尤为重要。如果任意一种资源耗尽，节点将会变得不稳定。
 
 {{% /capture %}}
 
@@ -43,10 +44,16 @@ The `kubelet` can proactively monitor for and prevent total starvation of a
 compute resource. In those cases, the `kubelet` can reclaim the starved
 resource by proactively failing one or more Pods. When the `kubelet` fails
 a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
+
+If the evicted Pod is managed by a Deployment, the Deployment will create another Pod 
+to be scheduled by Kubernetes.
+
 -->
 ## 驱逐策略
 
-`kubelet` 能够主动监测和防止计算资源的全面短缺。在那种情况下，`kubelet` 可以主动地结束一个或多个 pod 以回收短缺的资源。当 `kubelet` 结束一个 pod 时，它将终止 pod 中的所有容器，而 pod 的 `PodPhase` 将变为 `Failed`。
+`kubelet` 能够主动监测和防止计算资源的全面短缺。在那种情况下，`kubelet`可以主动地结束一个或多个 pod 以回收短缺的资源。当 `kubelet` 结束一个 pod 时，它将终止 pod 中的所有容器，而 pod 的 `PodPhase` 将变为 `Failed`。
+
+如果被驱逐的 Pod 由 Deployment 管理，这个 Deployment 会创建另一个 Pod 给 Kubernetes 来调度。
 
 <!--
 ### Eviction Signals
@@ -108,16 +115,16 @@ support in favor of eviction in response to disk pressure.
 
 上面的每个信号都支持字面值或百分比的值。基于百分比的值的计算与每个信号对应的总容量相关。
 
-`memory.available` 的值从 cgroupfs 获取，而不是通过类似 `free -m` 的工具。这很重要，因为 `free -m` 不能在容器中工作，并且如果用户使用了[可分配节点](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)特性，资源不足的判定将同时在本地 cgroup 层次结构的终端用户 pod 部分和根节点做出。这个[脚本](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)复现了与 `kubelet` 计算 `memory.available` 相同的步骤。`kubelet` 将 inactive_file（意即活动 LRU 列表上基于文件后端的内存字节数）从计算中排除，因为它假设内存在出现压力时将被回收。
+`memory.available` 的值从 cgroupfs 获取，而不是通过类似 `free -m` 的工具。这很重要，因为 `free -m` 不能在容器中工作，并且如果用户使用了 [可分配节点](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)特性，资源不足的判定将同时在本地 cgroup 层次结构的终端用户 pod 部分和根节点做出。这个 [脚本](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)复现了与 `kubelet` 计算 `memory.available` 相同的步骤。`kubelet`将`inactive_file`（意即活动 LRU 列表上基于文件后端的内存字节数）从计算中排除，因为它假设内存在出现压力时将被回收。
 
-`kubelet` 只支持两种文件系统分区。
+`kub`elet` 只支持两种文件系统分区。
 
 1. `nodefs` 文件系统，kubelet 将其用于卷和守护程序日志等。
 2. `imagefs` 文件系统，容器运行时用于保存镜像和容器可写层。
 
-`imagefs` 可选。`kubelet` 使用 cAdvisor 自动发现这些文件系统。`kubelet` 不关心其它文件系统。当前不支持配置任何其它类型。例如，在专用`文件系统`中存储卷和日志是不可以的。
+`imagefs`可选。`kubelet`使用 cAdvisor 自动发现这些文件系统。`kubelet`不关心其它文件系统。当前不支持配置任何其它类型。例如，在专用`文件系统`中存储卷和日志是不可以的。
 
-在将来的发布中，`kubelet` 将废除当前存在的[垃圾回收](/docs/concepts/cluster-administration/kubelet-garbage-collection/)机制，这种机制目前支持将驱逐操作作为对磁盘压力的响应。
+在将来的发布中，`kubelet`将废除当前存在的 [垃圾回收](/docs/concepts/cluster-administration/kubelet-garbage-collection/) 机制，这种机制目前支持将驱逐操作作为对磁盘压力的响应。
 
 <!--
 ### Eviction Thresholds
@@ -142,7 +149,7 @@ either `memory.available<10%` or `memory.available<1Gi`. You cannot use both.
 -->
 ### 驱逐阈值
 
-`kubelet` 支持指定驱逐阈值，用于触发 `kubelet` 回收资源。
+`kubelet`支持指定驱逐阈值，用于触发 `kubelet` 回收资源。
 
 每个阈值形式如下：
 
@@ -184,9 +191,9 @@ pods in response to a soft eviction threshold being met.
 -->
 #### 软驱逐阈值
 
-软驱逐阈值使用一对由驱逐阈值和管理员必须指定的宽限期组成的配置对。在超过宽限期前，`kubelet` 不会采取任何动作回收和驱逐信号关联的资源。如果没有提供宽限期，`kubelet` 启动时将报错。
+软驱逐阈值使用一对由驱逐阈值和管理员必须指定的宽限期组成的配置对。在超过宽限期前，`kubelet`不会采取任何动作回收和驱逐信号关联的资源。如果没有提供宽限期，`kubelet`启动时将报错。
 
-此外，如果达到了软驱逐阈值，操作员可以指定从节点驱逐 pod 时，在宽限期内允许结束的 pod 的最大数量。如果指定了 `pod.Spec.TerminationGracePeriodSeconds` 值，`kubelet` 将使用它和宽限期二者中较小的一个。如果没有指定，`kubelet` 将立即终止 pod，而不会优雅结束它们。
+此外，如果达到了软驱逐阈值，操作员可以指定从节点驱逐 pod 时，在宽限期内允许结束的 pod 的最大数量。如果指定了 `pod.Spec.TerminationGracePeriodSeconds` 值，`kubelet`将使用它和宽限期二者中较小的一个。如果没有指定，`kubelet`将立即终止 pod，而不会优雅结束它们。
 
 软驱逐阈值的配置支持下列标记：
 
@@ -216,7 +223,7 @@ The `kubelet` has the following default hard eviction threshold:
 -->
 #### 硬驱逐阈值
 
-硬驱逐阈值没有宽限期，一旦察觉，`kubelet` 将立即采取行动回收关联的短缺资源。如果满足硬驱逐阈值，`kubelet` 将立即结束 pod 而不是优雅终止。
+硬驱逐阈值没有宽限期，一旦察觉，`kubelet`将立即采取行动回收关联的短缺资源。如果满足硬驱逐阈值，`kubelet`将立即结束 pod 而不是优雅终止。
 
 硬驱逐阈值的配置支持下列标记：
 
@@ -265,7 +272,7 @@ The `kubelet` continues to report node status updates at the frequency specified
 
 `kubelet` 会将一个或多个驱逐信号映射到对应的节点状态。
 
-如果满足硬驱逐阈值，或者满足独立于其关联宽限期的软驱逐阈值时，`kubelet` 将报告节点处于压力下的状态。
+如果满足硬驱逐阈值，或者满足独立于其关联宽限期的软驱逐阈值时，`kubelet`将报告节点处于压力下的状态。
 
 下列节点状态根据相应的驱逐信号定义。
 
@@ -317,9 +324,9 @@ machine has a dedicated `imagefs` configured for the container runtime.
 -->
 ### 回收节点层级资源
 
-如果满足驱逐阈值并超过了宽限期，`kubelet` 将启动回收压力资源的过程，直到它发现低于设定阈值的信号为止。
+如果满足驱逐阈值并超过了宽限期，`kubelet`将启动回收压力资源的过程，直到它发现低于设定阈值的信号为止。
 
-`kubelet` 将尝试在驱逐终端用户 pod 前回收节点层级资源。发现磁盘压力时，如果节点针对容器运行时配置有独占的 `imagefs`，`kubelet` 回收节点层级资源的方式将会不同。
+`kubelet`将尝试在驱逐终端用户 pod 前回收节点层级资源。发现磁盘压力时，如果节点针对容器运行时配置有独占的 `imagefs`，`kubelet`回收节点层级资源的方式将会不同。
 
 <!--
 #### With `imagefs`
@@ -337,13 +344,13 @@ If `nodefs` filesystem has met eviction thresholds, `kubelet` frees up disk spac
 -->
 #### 使用 `Imagefs`
 
-如果 `nodefs` 文件系统满足驱逐阈值，`kubelet` 通过驱逐 pod 及其容器来释放磁盘空间。
+如果 `nodefs` 文件系统满足驱逐阈值，`kubelet`通过驱逐 pod 及其容器来释放磁盘空间。
 
-如果 `imagefs` 文件系统满足驱逐阈值，`kubelet` 通过删除所有未使用的镜像来释放磁盘空间。
+如果 `imagefs` 文件系统满足驱逐阈值，`kubelet`通过删除所有未使用的镜像来释放磁盘空间。
 
 #### 未使用 `Imagefs`
 
-如果 `nodefs` 满足驱逐阈值，`kubelet` 将以下面的顺序释放磁盘空间：
+如果 `nodefs` 满足驱逐阈值，`kubelet`将以下面的顺序释放磁盘空间：
 
 1. 删除停止运行的 pod/container
 2. 删除全部没有使用的镜像
@@ -378,16 +385,16 @@ that consumes the largest amount of disk and kill those first.
 -->
 ### 驱逐最终用户的 pod
 
-如果 `kubelet` 在节点上无法回收足够的资源，`kubelet` 将开始驱逐 pod。
+如果 `kubelet` 在节点上无法回收足够的资源，`kubelet`将开始驱逐 pod。
 
-`kubelet` 首先根据他们对短缺资源的使用是否超过请求来排除 pod 的驱逐行为，然后通过[优先级](/docs/concepts/configuration/pod-priority-preemption/)，然后通过相对于 pod 的调度请求消耗急需的计算资源。
+`kubelet` 首先根据他们对短缺资源的使用是否超过请求来排除 pod 的驱逐行为，然后通过 [优先级](/docs/concepts/configuration/pod-priority-preemption/)，然后通过相对于 pod 的调度请求消耗急需的计算资源。
 
 `kubelet` 按以下顺序对要驱逐的 pod 排名：
 
 * `BestEffort` 或 `Burstable`，其对短缺资源的使用超过了其请求，此类 pod 按优先级排序，然后使用高于请求。
-* `Guaranteed` pod 和 `Burstable` pod,其使用率低于请求，最后被驱逐。`Guaranteed` pod 只有为所有的容器指定了要求和限制并且它们相等时才能得到保证。由于另一个 pod 的资源消耗，这些 pod 保证永远不会被驱逐。如果系统守护进程（例如 `kubelet`、`docker`、和 `journald`）消耗的资源多于通过 `system-reserved` 或 `kube-reserved` 分配保留的资源，并且该节点只有 `Guaranteed` 或 `Burstable` pod 使用少于剩余的请求，然后节点必须选择驱逐这样的 pod 以保持节点的稳定性并限制意外消耗对其他 pod 的影响。在这种情况下，它将首先驱逐优先级最低的 pod。
+* `Guaranteed` pod 和 `Burstable` pod，其使用率低于请求，最后被驱逐。`Guaranteed`pod 只有为所有的容器指定了要求和限制并且它们相等时才能得到保证。由于另一个 pod 的资源消耗，这些 pod 保证永远不会被驱逐。如果系统守护进程（例如 `kubelet`、`docker`、和 `journald`）消耗的资源多于通过 `system-reserved` 或 `kube-reserved` 分配保留的资源，并且该节点只有 `Guaranteed` 或 `Burstable` pod 使用少于剩余的请求，然后节点必须选择驱逐这样的 pod 以保持节点的稳定性并限制意外消耗对其他 pod 的影响。在这种情况下，它将首先驱逐优先级最低的 pod。
 
-必要时，`kubelet` 会在遇到 `DiskPressure` 时驱逐一个 pod 来回收磁盘空间。如果 `kubelet` 响应 `inode` 短缺，它会首先驱逐服务质量最低的 pod 来回收 `inodes`。如果 `kubelet` 响应缺少可用磁盘，它会将 pod 排在服务质量范围内，该服务会消耗大量的磁盘并首先结束这些磁盘。
+必要时，`kubelet`会在遇到 `DiskPressure` 时驱逐一个 pod 来回收磁盘空间。如果 `kubelet` 响应 `inode` 短缺，它会首先驱逐服务质量最低的 pod 来回收 `inodes`。如果 `kubelet` 响应缺少可用磁盘，它会将 pod 排在服务质量范围内，该服务会消耗大量的磁盘并首先结束这些磁盘。
 
 <!--
 #### With `imagefs`
@@ -404,13 +411,13 @@ If `nodefs` is triggering evictions, `kubelet` sorts Pods based on their total d
 -->
 #### 使用 `imagefs`
 
-如果是 `nodefs` 触发驱逐，`kubelet` 将按 `nodefs` 用量 - 本地卷 + pod 的所有容器日志的总和对其排序。
+如果是 `nodefs` 触发驱逐，`kubelet`将按 `nodefs` 用量 - 本地卷 + pod 的所有容器日志的总和对其排序。
 
-如果是 `imagefs` 触发驱逐，`kubelet` 将按 pod 所有可写层的用量对其进行排序。
+如果是 `imagefs` 触发驱逐，`kubelet`将按 pod 所有可写层的用量对其进行排序。
 
 #### 未使用 `imagefs`
 
-如果是 `nodefs` 触发驱逐，`kubelet` 会根据磁盘的总使用情况对 pod 进行排序 - 本地卷 + 所有容器的日志及其可写层。
+如果是 `nodefs` 触发驱逐，`kubelet`会根据磁盘的总使用情况对 pod 进行排序 - 本地卷 + 所有容器的日志及其可写层。
 
 <!--
 ### Minimum eviction reclaim
@@ -442,7 +449,7 @@ The default `eviction-minimum-reclaim` is `0` for all resources.
 
 在某些场景，驱逐 pod 会导致回收少量资源。这将导致 `kubelet` 反复碰到驱逐阈值。除此之外，对如 `disk` 这类资源的驱逐时比较耗时的。
 
-为了减少这类问题，`kubelet` 可以为每个资源配置一个 `minimum-reclaim`。当 `kubelet` 发现资源压力时，`kubelet` 将尝试至少回收驱逐阈值之下 `minimum-reclaim` 数量的资源。
+为了减少这类问题，`kubelet`可以为每个资源配置一个 `minimum-reclaim`。当 `kubelet` 发现资源压力时，`kubelet`将尝试至少回收驱逐阈值之下 `minimum-reclaim` 数量的资源。
 
 例如使用下面的配置：
 
@@ -451,7 +458,7 @@ The default `eviction-minimum-reclaim` is `0` for all resources.
 --eviction-minimum-reclaim="memory.available=0Mi,nodefs.available=500Mi,imagefs.available=2Gi"`
 ```
 
-如果 `memory.available` 驱逐阈值被触发，`kubelet` 将保证 `memory.available` 至少为 `500Mi`。对于 `nodefs.available`，`kubelet` 将保证 `nodefs.available` 至少为 `1.5Gi`。对于 `imagefs.available`，`kubelet` 将保证 `imagefs.available` 至少为 `102Gi`，直到不再有相关资源报告压力为止。
+如果 `memory.available` 驱逐阈值被触发，`kubelet`将保证 `memory.available` 至少为 `500Mi`。对于 `nodefs.available`，`kubelet`将保证 `nodefs.available` 至少为 `1.5Gi`。对于 `imagefs.available`，`kubelet`将保证 `imagefs.available` 至少为 `102Gi`，直到不再有相关资源报告压力为止。
 
 所有资源的默认 `eviction-minimum-reclaim` 值为 `0`。
 
@@ -502,7 +509,7 @@ Unlike Pod eviction, if a Pod container is OOM killed, it may be restarted by th
 -->
 ## 节点 OOM 行为
 
-如果节点在 `kubelet` 回收内存之前经历了系统 OOM(内存不足) 事件，它将基于 [oom_killer](https://lwn.net/Articles/391222/) 做出响应。
+如果节点在 `kubelet` 回收内存之前经历了系统 OOM（内存不足）事件，它将基于 [oom-killer](https://lwn.net/Articles/391222/) 做出响应。
 
 `kubelet` 基于 pod 的 service 质量为每个容器设置一个 `oom_score_adj` 值。
 
@@ -512,7 +519,7 @@ Unlike Pod eviction, if a Pod container is OOM killed, it may be restarted by th
 | `BestEffort` | 1000 |
 | `Burstable` | min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
 
-如果 `kubelet` 在节点经历系统 OOM 之前无法回收内存，`oom_killer` 将基于它在节点上使用的内存百分比算出一个 `oom_score`，并加上 `oom_score_adj` 得到容器的有效 `oom_score`，然后结束得分最高的容器。
+如果 `kubelet` 在节点经历系统 OOM 之前无法回收内存，`oom_killer`将基于它在节点上使用的内存百分比算出一个 `oom_score`，并加上 `oom_score_adj` 得到容器的有效 `oom_score`，然后结束得分最高的容器。
 
 预期的行为应该是拥有最低 service 质量并消耗和调度请求相关内存量最多的容器第一个被结束，以回收内存。
 
@@ -555,17 +562,17 @@ and trigger eviction assuming those Pods use less than their configured request.
 考虑以下场景：
 
 * 节点内存容量：`10Gi`
-* 操作员希望为系统守护进程保留 10% 内存容量（内核、`kubelet` 等）。
+* 操作员希望为系统守护进程保留 10% 内存容量（内核、`kubelet`等）。
 * 操作员希望在内存用量达到 95% 时驱逐 pod，以减少对系统的冲击并防止系统 OOM 的发生。
 
-为了促成这个场景，`kubelet` 将像下面这样启动：
+为了促成这个场景，`kubelet`将像下面这样启动：
 
 ```
 --eviction-hard=memory.available<500Mi
 --system-reserved=memory=1.5Gi
 ```
 
-这个配置的暗示是理解“系统保留”应该包含被驱逐阈值覆盖的内存数量。
+这个配置的暗示是理解系统保留应该包含被驱逐阈值覆盖的内存数量。
 
 要达到这个容量，要么某些 pod 使用了超过它们请求的资源，要么系统使用的内存超过 `1.5Gi - 500Mi = 1Gi`。
 
@@ -590,7 +597,7 @@ for eviction. Instead `DaemonSet` should ideally launch `Guaranteed` Pods.
 
 我们永远都不希望 `kubelet` 驱逐一个从 `DaemonSet` 派生的 pod，因为这个 pod 将立即被重建并调度回相同的节点。
 
-目前，`kubelet` 没有办法区分一个 pod 是由 `DaemonSet` 还是其他对象创建。如果/当这个信息可用时，`kubelet` 可能会预先将这些 pod 从提供给驱逐策略的候选集合中过滤掉。
+目前，`kubelet`没有办法区分一个 pod 是由 `DaemonSet` 还是其他对象创建。如果/当这个信息可用时，`kubelet`可能会预先将这些 pod 从提供给驱逐策略的候选集合中过滤掉。
 
 总之，强烈推荐 `DaemonSet` 不要创建 `BestEffort` 的 pod，防止其被识别为驱逐的候选 pod。相反，理想情况下 `DaemonSet` 应该启动 `Guaranteed` 的 pod。
 
@@ -650,7 +657,7 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 
 ### kubelet 可能无法立即发现内存压力
 
-`kubelet` 当前通过以固定的时间间隔轮询 `cAdvisor` 来收集内存使用数据。如果内存使用在那个时间窗口内迅速增长，`kubelet` 可能不能足够快的发现 `MemoryPressure`，`OOMKiller` 将不会被调用。我们准备在将来的发行版本中通过集成 `memcg` 通知 API 来减小这种延迟。当超过阈值时，内核将立即告诉我们。
+`kubelet`当前通过以固定的时间间隔轮询 `cAdvisor` 来收集内存使用数据。如果内存使用在那个时间窗口内迅速增长，`kubelet`可能不能足够快的发现 `MemoryPressure`，`OOMKiller`将不会被调用。我们准备在将来的发行版本中通过集成 `memcg` 通知 API 来减小这种延迟。当超过阈值时，内核将立即告诉我们。
 
 如果您想处理可察觉的超量使用而不要求极端精准，可以设置驱逐阈值为大约 75% 容量作为这个问题的变通手段。这将增强这个特性的能力，防止系统 OOM，并提升负载卸载能力，以再次平衡集群状态。
 
@@ -662,6 +669,5 @@ the ability to get root container stats on an on-demand basis [(https://github.c
 -->
 ### kubelet 可能会驱逐超过需求数量的 pod
 
-由于状态采集的时间差，驱逐操作可能驱逐比所需的更多的 pod。将来可通过添加从根容器获取所需状态的能力 [(https://github.com/google/cadvisor/issues/1247)]([(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247)) 来减缓这种状况。
-
+由于状态采集的时间差，驱逐操作可能驱逐比所需的更多的 pod。将来可通过添加从根容器获取所需状态的能力 [https://github.com/google/cadvisor/issues/1247](https://github.com/google/cadvisor/issues/1247) 来减缓这种状况。
 {{% /capture %}}
