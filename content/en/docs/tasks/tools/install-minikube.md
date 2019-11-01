@@ -122,7 +122,7 @@ If you do not already have a hypervisor installed, install one of these now:
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 You can also install it on macOS by downloading a stand-alone binary:
