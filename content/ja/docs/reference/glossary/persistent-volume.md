@@ -4,14 +4,14 @@ id: persistent-volume
 date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
 short_description: >
- クラスター内のストレージの一部を示すAPIオブジェクトで、個々のPodのライフサイクルを超えて接続する一般的でプラグ可能なリソースとして利用可能です。
+ クラスター内のストレージの一部を表すAPIオブジェクトです。通常利用可能で、個々のPodのライフサイクルの先にあるプラグイン形式のリソースです。
 
 aka: 
 tags:
 - core-object
 - storage
 ---
- クラスター内のストレージの一部を示すAPIオブジェクトで、個々の{{< glossary_tooltip text="Pod" term_id="pod" >}}のライフサイクルを超えて接続する一般的でプラグ可能なリソースとして利用可能です。
+ クラスター内のストレージの一部を表すAPIオブジェクトです。通常利用可能で、個々の{{< glossary_tooltip text="Pod" term_id="pod" >}}のライフサイクルの先にあるプラグイン形式のリソースです。
 
 <!--more--> 
 
