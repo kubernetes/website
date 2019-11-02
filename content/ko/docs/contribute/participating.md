@@ -25,7 +25,7 @@ SIG Docs 내에서, [멤버](#멤버), [리뷰어](#리뷰어), 또는 [승인�
 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)
 문서를 확인한다.
 문서의 나머지에서는 대외적으로 쿠버네티스를 가장 잘 드러내는 수단 중 하나인 쿠버네티스 웹사이트와
-문서를 관리하는 책임을 가지는 SIG Docs에서,
+문서를 관리하는 책임을 지는 SIG Docs에서,
 이런 체계가 작동하는 특유의 방식에 대한 윤곽을 잡아보겠다.
 
 {{% /capture %}}
@@ -34,7 +34,7 @@ SIG Docs 내에서, [멤버](#멤버), [리뷰어](#리뷰어), 또는 [승인�
 
 ## 역할과 책임
 
-풀 리퀘스트가 콘텐츠를 게재하는데 사용되는 브랜치(현재는 `master`)에 머지되면, 해당 콘텐츠가 세상에
+풀 리퀘스트가 콘텐츠를 게재하는 데 사용되는 브랜치(현재는 `master`)에 머지되면, 해당 콘텐츠가 세상에
 발행되어 널리 읽힐 수 있게 된다. 발행된 콘텐츠가 높은 품질을 유지하도록,
 SIG Docs 승인자만 풀 리퀘스트를 머지할 수 있도록 제한한다.
 다음과 같이 진행된다.
@@ -45,7 +45,7 @@ SIG Docs 승인자만 풀 리퀘스트를 머지할 수 있도록 제한한다.
   `/lgtm` 코멘트를 달지 않아서) 주어진 풀 리퀘스트가
   자동으로 머지되는 것을 막을 수 있다.
 - 쿠버네티스 멤버 누구나 `/lgtm` 코멘트를 달아서 `lgtm` 레이블을 추가할 수 있다.
-- `/approve` 코멘트를 달아서 풀 리퀘스트를 머지할 수 있는 SIG Docs 멤버는 승인자 뿐이다.
+- `/approve` 코멘트를 달아서 풀 리퀘스트를 머지할 수 있는 SIG Docs 멤버는 승인자뿐이다.
   일부 승인자는 추가로 [PR Wrangler](#pr-wrangler) 또는
   [SIG Docs chairperson](#sig-docs-chairperson) 같이
   특화된 역할을 수행한다.
@@ -225,14 +225,14 @@ SIG Docs 승인자는
 [PR Wrangler 회람 스케줄러](https://github.com/kubernetes/website/wiki/PR-Wranglers)에
 참여하여 주 단위로 돌아가며 역할을 수행한다.
 SIG Docs는 모든 승인자들이 이 회람에 참여하기를 기대한다. 보다 자세한 내용은
-[일주일 간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
+[일주일간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 문서를 참고한다.
 
 #### SIG Docs chairperson
 
 SIG Docs를 포함한 각 SIG는, 한 명 이상의 SIG 멤버가 의장 역할을 하도록 선정한다. 이들은 SIG Docs와
 다른 쿠버네티스 조직 간 연락책(point of contact)이 된다. 이들은 쿠버네티스 프로젝트 전반의 조직과
-그 안에서 SIG Docs가 어떻게 운영되는지에 대한 폭넓은 지식을 갖추어야한다.
+그 안에서 SIG Docs가 어떻게 운영되는지에 대한 폭넓은 지식을 갖추어야 한다.
 현재 의장의 목록을 확인하려면
 [리더십](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
 문서를 참조한다.
@@ -260,7 +260,7 @@ PR 승인을 지원하기 위해서 자동화 시스템이 OWNERS 파일의 정�
 
 쿠버네티스 프로젝트는 GitHub 이슈와 풀 리퀘스트 자동화와 관련해서 prow라고 부르는 자동화 툴을 사용한다.
 [쿠버네티스 웹사이트 리포지터리](https://github.com/kubernetes/website)는
-다음의 두개의 [prow 플러그인](https://github.com/kubernetes/test-infra/blob/master/prow/plugins.yaml#L210)을
+다음의 두 개의 [prow 플러그인](https://github.com/kubernetes/test-infra/blob/master/prow/plugins.yaml#L210)을
 사용한다.
 
 - blunderbuss
