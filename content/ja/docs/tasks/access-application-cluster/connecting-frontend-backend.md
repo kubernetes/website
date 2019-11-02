@@ -94,7 +94,7 @@ Events:
 
 フロントエンドをバックエンドに接続する鍵は、バックエンドServiceです。
 Serviceは、バックエンドマイクロサービスに常に到達できるように、永続的なIPアドレスとDNS名のエントリを作成します。
-Serviceは{{< glossary_tooltip text="selectors" term_id="selector" >}}を使用して、トラフィックをルーティングするPodを見つけます。
+Serviceは{{< glossary_tooltip text="セレクター" term_id="selector" >}}を使用して、トラフィックをルーティングするPodを見つけます。
 
 まず、Service構成ファイルを調べます:
 
