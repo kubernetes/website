@@ -7,7 +7,7 @@
 <!-- 
 Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap 
 -->
-将新的控制平面节点注册到 kubeadm-config ConfigMap 中维护的 ClusterStatus 中
+将新的控制平面节点注册到 kubeadm-config ConfigMap 维护的 ClusterStatus 中
 
 ```
 kubeadm join phase control-plane-join update-status [flags]
@@ -33,7 +33,7 @@ kubeadm join phase control-plane-join update-status [flags]
       <!--
       If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       -->
-      如果该节点托管一个新的控制平面实例，则 API Server 的 IP 地址将通知其正在侦听的地址。如果未设置，将使用默认网络接口。
+      如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
       </td>
     </tr>
 
@@ -45,7 +45,7 @@ kubeadm join phase control-plane-join update-status [flags]
       <!--
       Path to kubeadm config file.
       -->
-      到 kubeadm 配置文件的路径。
+       kubeadm 配置文件的路径。
       </td>
     </tr>
 
@@ -90,7 +90,10 @@ kubeadm join phase control-plane-join update-status [flags]
 
 
 
+<!--
 ### Options inherited from parent commands
+-->
+### 从父命令中继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -107,7 +110,7 @@ kubeadm join phase control-plane-join update-status [flags]
       <!--
       [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      [实验性功能] “真实” 主机根文件系统的路径。
+      [实验] 到 '真实' 主机根文件系统的路径。
       </td>
     </tr>
 
@@ -124,6 +127,6 @@ SEE ALSO
 <!-- 
 * [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance 
 -->
-* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - 加入机器作为控制平面实例 
+* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - 添加作为控制平面实例的机器 
 
 

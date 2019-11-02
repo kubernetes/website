@@ -70,7 +70,7 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
       <!--
       For file-based discovery, a file or URL from which to load cluster information.
       -->
-      对于基于文件的发现，是从中加载集群信息的文件或 URL。
+      对于基于文件的发现，给出用于加载集群信息的文件或者 URL。
       </td>
     </tr>
 
@@ -106,7 +106,7 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
       <!--
       For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
       -->
-      对于基于令牌的发现，允许加入时不使用 --discovery-token-ca-cert-hash 固定。
+      对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
       </td>
     </tr>
 
@@ -142,7 +142,7 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
       <!--
       Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
       -->
-      如果未提供这些值，则将它们用于发现令牌和 tls-bootstrap 令牌。
+      如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
       </td>
     </tr>
 
@@ -154,7 +154,7 @@ kubeadm join phase control-plane-prepare download-certs [api-server-endpoint] [f
 <!--
 ### Options inherited from parent commands
 -->
-### 从父指令中继承的选项
+### 从父命令中继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
