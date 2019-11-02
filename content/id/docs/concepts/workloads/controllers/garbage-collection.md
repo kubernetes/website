@@ -16,7 +16,7 @@ Peran dari _garbage collector_ Kubernetes adalah untuk menghapus objek tertentu 
 
 Beberapa objek Kubernetes adalah pemilik dari objek lainnya. Sebagai contoh, sebuah ReplicaSet adalah pemilik dari sekumpulan Pod. Objek-objek yang dimiliki disebut *dependen* dari objek pemilik. Setiap objek dependen memiliki sebuah kolom `metadata.ownerReferences` yang menunjuk ke objek pemilik.
 
-Terkadang, Kubernetes menentukan nilai dari `ownerReference` secara otomatis. Sebagai contoh, ketika anda membuat sebuah ReplicaSet, Kubernetes secara otomatis akan menentukan tiap kolom `ownerReference` dari tiap Pod di dalam ReplicaSet. Pada versi 1.8, Kubernetes secara otomatis menentukan nilai dari `ownerReference` untuk objek yang diciptakan atau diadopsi oleh ReplicationController, ReplicaSet, StatefulSet, DaemonSet, Deployment, Job dan CronJob.
+Terkadang, Kubernetes menentukan nilai dari `ownerReference` secara otomatis. Sebagai contoh, ketika kamu membuat sebuah ReplicaSet, Kubernetes secara otomatis akan menentukan tiap kolom `ownerReference` dari tiap Pod di dalam ReplicaSet. Pada versi 1.8, Kubernetes secara otomatis menentukan nilai dari `ownerReference` untuk objek yang diciptakan atau diadopsi oleh ReplicationController, ReplicaSet, StatefulSet, DaemonSet, Deployment, Job dan CronJob.
 
 Kamu juga bisa menspesifikasikan hubungan antara pemilik dan dependen dengan cara menentukan kolom `ownerReference` secara manual.
 
@@ -24,7 +24,7 @@ Berikut adalah berkas untuk sebuah ReplicaSet yang memiliki tiga Pod:
 
 {{< codenew file="controllers/replicaset.yaml" >}}
 
-Jika anda membuat ReplicaSet tersebut dan kemudian melihat metadata Pod, kamu akan melihat kolom OwnerReferences:
+Jika kamu membuat ReplicaSet tersebut dan kemudian melihat metadata Pod, kamu akan melihat kolom OwnerReferences:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replicaset.yaml
