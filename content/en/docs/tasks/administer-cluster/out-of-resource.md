@@ -329,17 +329,11 @@ and trigger eviction assuming those Pods use less than their configured request.
 
 ### DaemonSet
 
-It is never desired for `kubelet` to evict a `DaemonSet` Pod, since the Pod is
-immediately recreated and rescheduled back to the same node.
+As `Priority` is a key factor in the eviction strategy, if you do not want 
+pods belonging to a `DaemonSet` to be evicted, specify a sufficiently high priorityClass 
+in the pod spec template. If you want pods belonging to a `DaemonSet` to run only if 
+there are sufficient resources, specify a lower or default priorityClass.
 
-At the moment, the `kubelet` has no ability to distinguish a Pod created
-from `DaemonSet` versus any other object. If/when that information is
-available, the `kubelet` could pro-actively filter those Pods from the
-candidate set of Pods provided to the eviction strategy.
-
-In general, it is strongly recommended that `DaemonSet` not
-create `BestEffort` Pods to avoid being identified as a candidate Pod
-for eviction. Instead `DaemonSet` should ideally launch `Guaranteed` Pods.
 
 ## Deprecation of existing feature flags to reclaim disk
 
