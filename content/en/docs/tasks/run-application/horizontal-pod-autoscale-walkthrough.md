@@ -135,8 +135,8 @@ As a result, the deployment was resized to 7 replicas:
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   7         7         7            7           19m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   7/7      7           7           19m
 ```
 
 {{< note >}}
@@ -166,8 +166,8 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   1         1         1            1           27m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   1/1     1            1           27m
 ```
 
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.

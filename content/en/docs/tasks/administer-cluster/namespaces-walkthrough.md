@@ -235,8 +235,8 @@ If you want to obtain the old behavior, use `--generator=run/v1` to create repli
 kubectl get deployment
 ```
 ```
-NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-snowflake   2         2         2            2           2m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+snowflake    2/2     2            2           2m
 ```
 
 ```shell
@@ -271,8 +271,8 @@ kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5
 kubectl get deployment
 ```
 ```
-NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-cattle    5         5         5            5           10s
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+cattle       5/5     5            5           10s
 ```
 
 ```shell

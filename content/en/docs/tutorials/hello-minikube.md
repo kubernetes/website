@@ -90,8 +90,8 @@ Pod runs a Container based on the provided Docker image.
     Output:
 
     ```shell
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    hello-node   1         1         1            1           1m
+    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1/1     1            1           1m
     ```
 
 3. View the Pod:
