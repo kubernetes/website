@@ -119,8 +119,6 @@ different Kubernetes components.
 | `RunAsGroup` | `true` | Beta | 1.14 | |
 | `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
 | `RuntimeClass` | `true` | Beta | 1.14 | |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
-| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
@@ -226,6 +224,9 @@ different Kubernetes components.
 | `PodReadinessGates` | `true` | GA | 1.14 | - |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
+| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | 1.16  |
+| `ScheduleDaemonSetPods` | `true` | GA | 1.17 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
