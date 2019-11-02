@@ -1,8 +1,5 @@
 ---
-reviewers:
-- luxas
-- jbeda
-title: Overview of kubeadm
+title: kubeadm 개요
 weight: 10
 card:
   name: reference
@@ -10,21 +7,21 @@ card:
 ---
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Kubeadm is a tool built to provide `kubeadm init` and `kubeadm join` as best-practice “fast paths” for creating Kubernetes clusters.
 
-kubeadm performs the actions necessary to get a minimum viable cluster up and running. By design, it cares only about bootstrapping, not about provisioning machines. Likewise, installing various nice-to-have addons, like the Kubernetes Dashboard, monitoring solutions, and cloud-specific addons, is not in scope.
+Kubeadm은 최소의 실행 가능한 클러스터를 가동 및 실행하는데 필요한 조치를 수행합니다. 설계상으로는 시스템 프로비저닝이 아니라 부트스트래핑에만 관심이 있습니다. 마찬가지로 쿠버네티스 대시보드, 모니터링 솔루션, 클라우드 별 애드온과 같은 다양한 기능을 갖춘 애드온을 설치하는 것은 범위에 포함하지 않습니다. 
 
-Instead, we expect higher-level and more tailored tooling to be built on top of kubeadm, and ideally, using kubeadm as the basis of all deployments will make it easier to create conformant clusters.
+대신, 우리는 Kubeadm 위에 더 높은 수준의 맞춤형 툴링이 구축될 것으로 예상되며, 이상적으로는 Kubeadm을 모든 배치의 기반으로 사용하는 것이 적합한 클러스터를 보다 쉽게 만들 수 있도록 할 것입니다.
 
-## How to install
+## 설치 방법
 
-To install kubeadm, see the [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
+kubeadm을 설치하기 위해서는 [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm) 문서를 참조하시기 바랍니다..
 
-## What's next
+## 다음
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) to bootstrap a Kubernetes control-plane node
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) to bootstrap a Kubernetes worker node and join it to the cluster
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) to upgrade a Kubernetes cluster to a newer version
-* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) to manage tokens for `kubeadm join`
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
-* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) to print the kubeadm version
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) to preview a set of features made available for gathering feedback from the community
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init)으로 kubernetes의 제어 영역 노드를 부트스트랩
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join)으로 Kubernetes의 작업자 노드를 부트스트랩하고 클러스터에 결합
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) 로 Kubernetes 클러스터를 최신 버전으로 업그레이드
+* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config)는 만약 kubeadm v1.7.x 나 그 이하의 버전으로 클러스터를 초기화 한 경우 `kubeadm upgrade` 를 사용하여 클러스터를 구성하세요.
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) 으로 `kubeadm join`의 토큰을 관리
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) 으로 현재 호스트에서 `kubeadm init` 나 `kubeadm join` 의 변경 사항을 되돌릴 수 있습니다.
+* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version)는 kubeadm 버전을 출력하기 위해 사용
+* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) 로 커뮤니티로부터의 피드백을 수집할 수 있는 다양한 기능을 미리볼 수 있습니다. 
