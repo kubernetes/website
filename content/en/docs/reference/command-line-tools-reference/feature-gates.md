@@ -153,8 +153,6 @@ different Kubernetes components.
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
 | `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
-| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
-| `WatchBookmark` | `true` | Beta | 1.16 | |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
 | `WindowsGMSA` | `true` | Beta | 1.16 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
@@ -238,6 +236,9 @@ different Kubernetes components.
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
 | `VolumeSubpath` | `true` | GA | 1.13 | - |
+| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
+| `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
+| `WatchBookmark` | `true` | GA | 1.17 | - |
 {{< /table >}}
 
 ## Using a Feature
