@@ -16,7 +16,7 @@ weight: 70
 {{% capture objectives %}}
 
 * {{< glossary_tooltip term_id="deployment" >}}オブジェクトを使用してマイクロサービスを作成および実行します。
-* フロントエンドを使用してトラフィックをバックエンドにルーティングします。
+* フロントエンドを経由してトラフィックをバックエンドにルーティングします。
 * Serviceオブジェクトを使用して、フロントエンドアプリケーションをバックエンドアプリケーションに接続します。
 
 {{% /capture %}}
@@ -26,7 +26,7 @@ weight: 70
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* このタスクは、サポートされている環境を必要とする[外部ロードバランサーでService](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用します。
+* このタスクでは[Serviceで外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用しますが、外部ロードバランサーの使用がサポートされている環境である必要があります。
   ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
 
 {{% /capture %}}
@@ -132,7 +132,7 @@ Serviceの設定には`type：LoadBalancer`があります。これは、Service
 kubectl apply -f https://k8s.io/examples/service/access/frontend.yaml
 ```
 
-出力は、両方のリソースが作成されたことを確認します:
+出力結果から両方のリソースが作成されたことを確認します:
 
 ```
 deployment.apps/frontend created
@@ -140,7 +140,7 @@ service/frontend created
 ```
 
 {{< note >}}
-nginx構成は、[コンテナイメージ](/examples/service/access/Dockerfile)に焼き付けられます。
+nginxの構成は、[コンテナイメージ](/examples/service/access/Dockerfile)に焼き付けられます。
 これを行うためのより良い方法は、[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)を使用して、構成をより簡単に変更できるようにすることです。
 {{< /note >}}
 
