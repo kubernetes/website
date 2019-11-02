@@ -89,8 +89,6 @@ A given Kubernetes server will only preserve a historical list of changes for a 
 
 ### Watch bookmarks
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
-
 To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to pass an information that all changes up to a given `resourceVersion` client is requesting has already been send. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
 
         GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
@@ -108,7 +106,7 @@ To mitigate the impact of short history window, we introduced a concept of `book
           "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "12746"} }
         }
 
-`Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event. Since version 1.16, watch bookmarks feature is enabled by default.
+`Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event.
 
 ## Retrieving large results sets in chunks
 
