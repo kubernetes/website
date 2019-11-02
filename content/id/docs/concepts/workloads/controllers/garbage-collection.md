@@ -6,7 +6,7 @@ weight: 60
 
 {{% capture overview %}}
 
-Peran dari _garbage collector_ Kubernetes adalah untuk menghapus objek tertentu yang sebelumnya mempunyai pemilik, tetapi tidak lagi mempunyai pemilik.
+Peran daripada _garbage collector_ Kubernetes adalah untuk menghapus objek tertentu yang sebelumnya mempunyai pemilik, tetapi tidak lagi mempunyai pemilik.
 
 {{% /capture %}}
 
