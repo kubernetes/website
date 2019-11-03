@@ -136,6 +136,9 @@ kubeadm reset [flags]
 
 
 
+<!--
+### Options inherited from parent commands
+-->
 ### 从父命令继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
