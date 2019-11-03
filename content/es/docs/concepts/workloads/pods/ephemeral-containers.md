@@ -41,7 +41,7 @@ para poder solucionar un error difícil de reproducir. Puede ejecutar en estos c
 un Container efímero en un Pod ya existente para examinar su estado y para ejecutar
 comandos de manera arbitraria.
 
-### Qué es un container efímero?
+### Qué es un Container efímero?
 
 Los containers efímeros se diferencian de otros containers en que no garantizan ni los
 recursos ni la ejecución, y en que nunca se reiniciarán automáticamente, de modo que no
