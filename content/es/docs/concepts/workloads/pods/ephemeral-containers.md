@@ -70,7 +70,7 @@ Los Containers efímeros resultan útiles para la solución interactiva de incid
 Container no incluye las utilidades de depuración.
 
 En particular, las [imágenes distroless](https://github.com/GoogleContainerTools/distroless)
-le permiten desplegar imágenes de containers mínimos que disminuyen la superficie de ataque
+le permiten desplegar imágenes de Containers mínimos que disminuyen la superficie de ataque
 y la exposición a errores y vulnerabilidades. Ya que las imágenes distroless no contienen un
 shell ni ninguna utilidad de debugging, se hace difícil solucionar los problemas de las imágenes
 distroless solamente usando `kubectl exec`.
