@@ -45,7 +45,7 @@ comandos de manera arbitraria.
 
 Los Containers efímeros se diferencian de otros Containers en que no garantizan ni los
 recursos ni la ejecución, y en que nunca se reiniciarán automáticamente, de modo que no
-son aptos para la construcción de aplicaciones. Los containers efímeros se describen
+son aptos para la construcción de aplicaciones. Los Containers efímeros se describen
 usando la misma "ContainerSpec" que los containers regulares, aunque muchos campos son
 incompatibles y no están habilitados para los containers efímeros.
 
