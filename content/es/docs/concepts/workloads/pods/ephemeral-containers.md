@@ -181,7 +181,7 @@ Ephemeral Containers:
 ...
 ```
 
-Se puede conectar al nuevo container efímero usando `kubectl attach`:
+Se puede conectar al nuevo Container efímero usando `kubectl attach`:
 
 ```shell
 kubectl attach -it example-pod -c debugger
