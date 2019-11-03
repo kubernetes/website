@@ -84,7 +84,7 @@ procesos en otros containers.
 {{< note >}}
 Los ejemplos de esta sección requieren que los `EphemeralContainers` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) estén habilitados
-y que tanto el cliente como el servidor de kubernetes tengan la version v1.16 o posterior.
+y que tanto el cliente como el servidor de Kubernetes tengan la version v1.16 o posterior.
 {{< /note >}}
 
 En los ejemplos de esta sección se muestra la forma en que los containers efímeros se
