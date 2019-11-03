@@ -32,7 +32,7 @@ alfa puede variar significativamente en el futuro o ser eliminada por completo.
 
 {{< glossary_tooltip text="Pods" term_id="pod" >}}} son el componente fundamental de las
 aplicaciones de Kubernetes. Puesto que los Pods están previstos para ser desechables
-y reemplazables, no se puede añadir un container a un Pod una vez creado. Sin embargo, por lo
+y reemplazables, no se puede añadir un Container a un Pod una vez creado. Sin embargo, por lo
 general se eliminan y se reemplazan los Pods de manera controlada utilizando
 {{< glossary_tooltip text="deployments" term_id="deployment" >}}}.
 
