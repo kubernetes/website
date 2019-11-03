@@ -75,7 +75,7 @@ y la exposición a errores y vulnerabilidades. Ya que las imágenes distroless n
 shell ni ninguna utilidad de depuración, resulta difícil solucionar los problemas de las imágenes
 distroless usando solamente `kubectl exec`.
 
-Cuando utilice containers efímeros, es conveniente habilitar el [proceso namespace de uso
+Cuando utilice Containers efímeros, es conveniente habilitar el [proceso Namespace de uso
 compartido](/docs/tasks/configure-pod-container/share-process-namespace/) para poder ver los
 procesos en otros containers.
 
