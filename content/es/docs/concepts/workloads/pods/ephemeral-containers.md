@@ -87,7 +87,7 @@ gate](/docs/reference/command-line-tools-reference/feature-gates/) estén habili
 y que tanto el cliente como el servidor de Kubernetes tengan la version v1.16 o posterior.
 {{< /note >}}
 
-En los ejemplos de esta sección se muestra la forma en que los containers efímeros se
+En los ejemplos de esta sección muestran la forma en que los Containers efímeros se
 presentan en la API. Los usuarios normalmente usarían un plugin `kubectl` para la solución
 de problemas que automatizaría estos pasos.
 
