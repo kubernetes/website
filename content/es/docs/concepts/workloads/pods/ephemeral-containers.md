@@ -49,7 +49,7 @@ son aptos para la construcción de aplicaciones. Los Containers efímeros se des
 usando la misma "ContainerSpec" que los Containers regulares, aunque muchos campos son
 incompatibles y no están habilitados para los Containers efímeros.
 
-- Los containers efímeros no pueden tener puertos, por lo que campos como `ports`,
+- Los Containers efímeros no pueden tener puertos, por lo que campos como `ports`,
   `livenessProbe`, `readinessProbe` no están habilitados.
 - Las asignaciones de recursos del Pod son inmutables, por lo que no esta habilitado
   configurar "resources".
