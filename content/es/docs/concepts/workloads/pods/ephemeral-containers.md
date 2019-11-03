@@ -56,7 +56,7 @@ incompatibles y no están habilitados para los Containers efímeros.
 - Para obtener una lista completa de los campos habilitados, consulte la documentación
   de referencia [EphemeralContainer] (/docs/reference/generated/kubernetes-api/{{< param "version" >}}}/#ephemeralcontainer-v1-core).
 
-En vez de añadirlos de forma directa al `pod.spec`, los containers efímeros se crean usando un
+En vez de añadirlos de forma directa al `pod.spec`, los Containers efímeros se crean usando un
 controlador especial de la API, `ephemeralcontainers`, por lo tanto no es posible añadir un
 container efímero utilizando `kubectl edit`.
 
