@@ -28,7 +28,7 @@ alfa puede variar significativamente en el futuro o ser eliminada por completo.
 
 {{% capture body %}}
 
-## Conociendo a los containers efímeros
+## Entendiendo los Containers efímeros
 
 {{< glossary_tooltip text="Pods" term_id="pod" >}}} son el componente fundamental de las
 aplicaciones de Kubernetes. Puesto que los Pods están previstos para ser desechables
