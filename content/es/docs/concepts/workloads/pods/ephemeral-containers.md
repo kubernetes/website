@@ -92,7 +92,7 @@ presentan en la API. Los usuarios normalmente usarían un plugin `kubectl` para 
 de problemas que automatizaría estos pasos.
 
 Los Containers efímeros son creados utilizando el subrecurso `ephemeralcontainers` del Pod,
-que puede ser demostrado utilizando `kubectl --raw`. En primer lugar describa el container
+que puede ser visto utilizando `kubectl --raw`. En primer lugar describa el Container
 efímero a añadir como una lista de `EphemeralContainers`:
 
 ```json
