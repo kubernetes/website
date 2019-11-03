@@ -136,8 +136,6 @@ different Kubernetes components.
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
 | `TaintBasedEvictions` | `true` | Beta | 1.13 | |
-| `TaintNodesByCondition` | `false` | Alpha | 1.8 | 1.11 |
-| `TaintNodesByCondition` | `true` | Beta | 1.12 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
 | `TokenRequest` | `true` | Beta | 1.12 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
@@ -219,6 +217,9 @@ The following table contains feature gates for graduated or deprecated features.
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | - |
+| `TaintNodesByCondition` | `false` | Alpha | 1.8 | 1.11 |
+| `TaintNodesByCondition` | `true` | Beta | 1.12 | 1.16 |
+| `TaintNodesByCondition` | `true` | GA | 1.17 | - |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
