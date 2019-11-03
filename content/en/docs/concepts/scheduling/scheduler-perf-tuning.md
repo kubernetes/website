@@ -63,7 +63,7 @@ percentageOfNodesToScore: 50
 checks all the nodes, simply because there are not enough feasible nodes to stop
 the scheduler's search early. {{< /note >}}
 
-**To disable this feature**, you can set `percentageOfNodesToScore` to 100.
+**To disable this feature**, you can set `percentageOfNodesToScore` to 0.
 
 ### Tuning percentageOfNodesToScore
 
