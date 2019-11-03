@@ -116,7 +116,7 @@ efímero a añadir como una lista de `EphemeralContainers`:
 }
 ```
 
-Para actualizar los containers efímeros de los `example-pod` ya en ejecución:
+Para actualizar los Containers efímeros de los `example-pod` en ejecución:
 
 ```shell
 kubectl replace --raw /api/v1/namespaces/default/pods/example-pod/ephemeralcontainers  -f ec.json
