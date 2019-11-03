@@ -38,7 +38,7 @@ general se eliminan y se reemplazan los Pods de manera controlada utilizando
 
 En ocasiones es necesario examinar el estado de un Pod existente, como por ejemplo,
 para poder solucionar un error difícil de reproducir. Puede ejecutar en estos casos
-un container efímero en un Pod ya existente para examinar su estado y para ejecutar
+un Container efímero en un Pod ya existente para examinar su estado y para ejecutar
 comandos de manera arbitraria.
 
 ### Qué es un container efímero?
