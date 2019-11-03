@@ -17,7 +17,7 @@ acciones iniciadas por el usuario, como por ejemplo, la solución de problemas. 
 crear aplicaciones, los Containers efímeros se utilizan para examinar los servicios.
 
 {{< warning >}}
-Los containers efímeros se encuentran en una fase alfa inicial y no son aptos para clústers
+Los Containers efímeros se encuentran en una fase alfa inicial y no son aptos para clústers
 de producción. Es de esperar que esta característica no funcione en algunas situaciones, por
 ejemplo, al seleccionar los namespaces de un container. En concordancia con la [Política de
 Deprecación de Kubernetes](/docs/reference/using-api/deprecation-policy/), esta característica
