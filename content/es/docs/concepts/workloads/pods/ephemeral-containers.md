@@ -58,7 +58,7 @@ incompatibles y no están habilitados para los Containers efímeros.
 
 En vez de añadirlos de forma directa al `pod.spec`, los Containers efímeros se crean usando un
 controlador especial de la API, `ephemeralcontainers`, por lo tanto no es posible añadir un
-container efímero utilizando `kubectl edit`.
+Container efímero utilizando `kubectl edit`.
 
 Al igual en el caso de los containers normales, no se puede modificar o remover un container
 efímero después de haberlo agregado a un Pod.
