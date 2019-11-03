@@ -14,7 +14,7 @@ weight: 80
 Esta página proporciona una descripción general de los Containers efímeros: un tipo especial de Container
 que se ejecuta temporalmente en un {{< glossary_tooltip term_id="pod" >}} ya existente para cumplir las
 acciones iniciadas por el usuario, como por ejemplo, la solución de problemas. En vez de ser utilizadas para
-crear aplicaciones, los containers efímeros se utilizan para examinar los servicios.
+crear aplicaciones, los Containers efímeros se utilizan para examinar los servicios.
 
 {{< warning >}}
 Los containers efímeros se encuentran en una fase alfa inicial y no son aptos para clústers
