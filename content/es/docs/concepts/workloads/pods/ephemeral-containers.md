@@ -91,7 +91,7 @@ En los ejemplos de esta sección se muestra la forma en que los containers efím
 presentan en la API. Los usuarios normalmente usarían un plugin `kubectl` para la solución
 de problemas que automatizaría estos pasos.
 
-Los containers efímeros son creados utilizando el subrecurso `ephemeralcontainers` del Pod,
+Los Containers efímeros son creados utilizando el subrecurso `ephemeralcontainers` del Pod,
 que puede ser demostrado utilizando `kubectl --raw`. En primer lugar describa el container
 efímero a añadir como una lista de `EphemeralContainers`:
 
