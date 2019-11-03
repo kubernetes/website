@@ -67,7 +67,7 @@ efímero después de haberlo agregado a un Pod.
 
 Los Containers efímeros resultan útiles para la solución interactiva de incidencias cuando
 "kubectl exec" es insuficiente tanto porque un container se ha caído, como porque la imagen de un
-container no incluye las utilidades de debugging.
+Container no incluye las utilidades de depuración.
 
 En particular, las [imágenes distroless](https://github.com/GoogleContainerTools/distroless)
 le permiten desplegar imágenes de containers mínimos que disminuyen la superficie de ataque
