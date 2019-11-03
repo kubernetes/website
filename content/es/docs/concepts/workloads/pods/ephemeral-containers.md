@@ -43,7 +43,7 @@ comandos de manera arbitraria.
 
 ### Qué es un Container efímero?
 
-Los containers efímeros se diferencian de otros containers en que no garantizan ni los
+Los Containers efímeros se diferencian de otros Containers en que no garantizan ni los
 recursos ni la ejecución, y en que nunca se reiniciarán automáticamente, de modo que no
 son aptos para la construcción de aplicaciones. Los containers efímeros se describen
 usando la misma "ContainerSpec" que los containers regulares, aunque muchos campos son
