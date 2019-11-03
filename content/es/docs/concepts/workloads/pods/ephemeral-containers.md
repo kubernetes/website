@@ -155,7 +155,7 @@ Esto devolverá una nueva lista de Containers efímeros:
 }
 ```
 
-Se puede ver el estado del nuevo container efímero creado usando `kubectl describe`:
+Se puede ver el estado del Container efímero creado usando `kubectl describe`:
 
 ```shell
 kubectl describe pod example-pod
