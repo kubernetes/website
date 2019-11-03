@@ -47,7 +47,7 @@ Los Containers efímeros se diferencian de otros Containers en que no garantizan
 recursos ni la ejecución, y en que nunca se reiniciarán automáticamente, de modo que no
 son aptos para la construcción de aplicaciones. Los Containers efímeros se describen
 usando la misma "ContainerSpec" que los Containers regulares, aunque muchos campos son
-incompatibles y no están habilitados para los containers efímeros.
+incompatibles y no están habilitados para los Containers efímeros.
 
 - Los containers efímeros no pueden tener puertos, por lo que campos como `ports`,
   `livenessProbe`, `readinessProbe` no están habilitados.
