@@ -29,7 +29,7 @@ Dieser Abschnitt der Kubernetes-Dokumentation enthält Referenzinformationen.
 ## API-Clientbibliotheken
 
 Um die Kubernetes-API aus einer Programmiersprache aufzurufen, können Sie
-[Clientbibliotheken](/docs/reference/using-api/client-libraries/) verwenden. 
+[Clientbibliotheken](/docs/reference/using-api/client-libraries/) verwenden.
 Offiziell unterstützte Clientbibliotheken:
 
 - [Kubernetes Go Clientbibliothek](https://github.com/kubernetes/client-go/)

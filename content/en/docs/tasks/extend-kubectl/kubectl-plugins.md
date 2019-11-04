@@ -30,10 +30,17 @@ Plugins were officially introduced as an alpha feature in the v1.8.0 release. Th
 
 ## Installing kubectl plugins
 
-A plugin is nothing more than a standalone executable file, whose name begins with `kubectl-`. To install a plugin, simply move this executable file to anywhere on your PATH.
+A plugin is nothing more than a standalone executable file, whose name begins with `kubectl-`. To install a plugin, simply move its executable file to anywhere on your PATH.
 
-{{< note >}}
-Kubernetes does not provide a package manager or anything similar to install or update plugins. It is your responsibility to ensure that plugin executables have a filename that begins with `kubectl-`, and that they are placed somewhere on your PATH.
+You can also discover and install kubectl plugins available in the open source
+using [Krew](https://sigs.k8s.io/krew). Krew is a plugin manager maintained by
+the Kubernetes SIG CLI community.
+
+{{< caution >}}
+Kubectl plugins installed via the Krew [centralized
+index](https://github.com/kubernetes-sigs/krew-index) are not audited for
+security. You should install and run third-party plugins at your own risk, since
+they are arbitrary programs running on your machine.
 {{< /note >}}
 
 ### Discovering plugins
@@ -42,6 +49,10 @@ Kubernetes does not provide a package manager or anything similar to install or 
 Executing this command causes a traversal of all files in your PATH. Any files that are executable, and begin with `kubectl-` will show up *in the order in which they are present in your PATH* in this command's output.
 A warning will be included for any files beginning with `kubectl-` that are *not* executable.
 A warning will also be included for any valid plugin files that overlap each other's name.
+
+You can use [Krew](https://sigs.k8s.io/krew) to discover and install `kubectl`
+plugins from a community-curated
+[plugin index](https://github.com/kubernetes-sigs/krew-index).
 
 #### Limitations
 
@@ -314,14 +325,32 @@ the tools and utilities in the CLI Runtime repository.
 
 See the [Sample CLI Plugin](https://github.com/kubernetes/sample-cli-plugin) for an example usage of the tools provided in the CLI Runtime repo.
 
+## Distributing kubectl plugins
+
+If you have developed a plugin for others to use, you should consider how you
+package it, distribute it and deliver updates to your users.
+
+[Krew](https://sigs.k8s.io/krew) project offers a cross-platform way to package
+and distribute your plugins. This way, you use a single packaging format for all
+target platforms (Linux, Windows, macOS etc) and deliver updates to your users.
+Since Krew also maintains a [plugin
+index](https://github.com/kubernetes-sigs/krew-index), others can discover your
+plugin and install it. Read the [Krew developer
+guide](https://github.com/kubernetes-sigs/krew/blob/master/docs/DEVELOPER_GUIDE.md)
+to learn how to package kubectl plugins for Krew.
+
+Alternatively, you can use traditional package managers such as, `apt` or `yum`
+on Linux, Chocolatey on Windows, Homebrew on macOS, since kubectl plugins are
+just executables placed somewhere in client's PATH. This comes with the burden
+of updating your kubectl plugin’s distribution package in multiple platforms
+when you release a newer version.
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
+* Install [Krew – kubectl plugin manager](https://sigs.k8s.io/krew) to discover and install plugins.
 * Check the Sample CLI Plugin repository for [a detailed example](https://github.com/kubernetes/sample-cli-plugin) of a plugin written in Go.
 * In case of any questions, feel free to reach out to the [CLI SIG team](https://github.com/kubernetes/community/tree/master/sig-cli).
-* Binary plugins are a beta feature, so this is the time to contribute ideas and improvements to the codebase. We're also excited to hear about what you're planning to implement with plugins, so [let us know](https://github.com/kubernetes/community/tree/master/sig-cli)!
 
 {{% /capture %}}
-
-

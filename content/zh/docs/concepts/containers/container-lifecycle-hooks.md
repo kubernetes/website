@@ -70,12 +70,13 @@ No parameters are passed to the handler.
 `PreStop`
 
 <!--
-This hook is called immediately before a container is terminated.
+This hook is called immediately before a container is terminated due to an API request or management event such as liveness probe failure, preemption, resource contention and others. A call to the preStop hook fails if the container is already in terminated or completed state.
 It is blocking, meaning it is synchronous,
 so it must complete before the call to delete the container can be sent.
 No parameters are passed to the handler.
 -->
-在容器终止之前立即调用此钩子。
+
+在容器终止之前是否立即调用此钩子，取决于 API 的请求或者管理事件，类似活动探针故障、资源抢占、资源竞争等等。 如果容器已经完全处于终止或者完成状态，则对 preStop 钩子的调用将失败。
 它是阻塞的，同时也是同步的，因此它必须在删除容器的调用之前完成。
 没有参数传递给处理程序。
 

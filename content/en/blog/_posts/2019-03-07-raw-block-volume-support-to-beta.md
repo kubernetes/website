@@ -110,7 +110,7 @@ Also, while Kubernetes is guaranteed to deliver a block device to the container,
 
 ## How can I learn more?
 
-Check out additional documentation on the snapshot feature here: /docs/concepts/storage/persistent-volumes/#raw-block-volume-support
+Check out additional documentation on the snapshot feature here: [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
 
 How do I get involved?
 

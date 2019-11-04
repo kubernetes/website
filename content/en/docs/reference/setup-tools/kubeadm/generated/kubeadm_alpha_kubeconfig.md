@@ -48,8 +48,3 @@ Alpha Disclaimer: this command is currently alpha.
 
 
 
-SEE ALSO
-
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
-* [kubeadm alpha kubeconfig user](kubeadm_alpha_kubeconfig_user.md)	 - Output a kubeconfig file for an additional user
-

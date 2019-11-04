@@ -524,7 +524,10 @@ kubectl delete pvc data-mysql-4
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-
+* Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+* Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
+* Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+* Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
   for other stateful application examples.
 

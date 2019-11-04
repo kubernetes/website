@@ -30,6 +30,7 @@ For clarity, this guide defines the following terms:
 -->
 为了清楚起见，本指南定义了以下术语：
 
+
 <!--
 Node
 : A worker machine in Kubernetes, part of a cluster.
@@ -114,6 +115,14 @@ You may need to deploy an Ingress controller such as [ingress-nginx](https://kub
 [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
 -->
 您可能需要部署 Ingress 控制器，例如 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)。您可以从许多[ Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)中进行选择。
+
+{{< note >}}
+
+<!--
+Make sure you review your Ingress controller's documentation to understand the caveats of choosing it.
+-->
+确保您查看了 Ingress 控制器的文档，以了解选择它的注意事项。
+{{< /note >}}
 
 <!--
 Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress
@@ -273,6 +282,15 @@ Ingress 控制器和负载均衡器可能需要一两分钟才能分配 IP 地�
 在此之前，您通常会看到地址为 `<pending>`。
 {{< /note >}}
 
+{{< note >}}
+
+<!--
+Ingress controllers and load balancers may take a minute or two to allocate an IP address.
+Until that time, you often see the address listed as `<pending>`.
+-->
+入口控制器和负载平衡器可能需要一两分钟才能分配IP地址。 在此之前，您通常会看到地址字段的值被设定为 `<pending>`。
+{{< /note >}}
+
 <!--
 ### Simple fanout
 -->
@@ -352,10 +370,12 @@ that satisfies the Ingress, as long as the Services (`service1`, `service2`) exi
 When it has done so, you can see the address of the load balancer at the
 Address field.
 -->
+
 Ingress 控制器将提供实现特定的负载均衡器来满足 Ingress，只要 Service (`s1`，`s2`) 存在。
 当它这样做了，你会在地址栏看到负载均衡器的地址。
 
 {{< note >}}
+
 <!--
 Depending on the [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
 you are using, you may need to create a default-http-backend
@@ -380,6 +400,7 @@ foo.bar.com --|                 |-> foo.bar.com service1:80
               | 178.91.123.132  |
 bar.foo.com --|                 |-> bar.foo.com service2:80
 ```
+
 
 <!--
 The following Ingress tells the backing load balancer to route requests based on
@@ -454,6 +475,7 @@ spec:
 -->
 ### TLS
 
+
 <!--
 You can secure an Ingress by specifying a {{< glossary_tooltip term_id="secret" >}}
 that contains a TLS private key and certificate. Currently the Ingress only
@@ -464,8 +486,10 @@ SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret
 must contain keys named `tls.crt` and `tls.key` that contain the certificate
 and private key to use for TLS. For example:
 -->
+
 您可以通过指定包含 TLS 私钥和证书的 secret {{< glossary_tooltip term_id="secret" >}} 来加密 Ingress。
 目前，Ingress 只支持单个 TLS 端口 443，并假定 TLS 终止。
+
 如果 Ingress 中的 TLS 配置部分指定了不同的主机，那么它们将根据通过 SNI TLS 扩展指定的主机名（如果 Ingress 控制器支持 SNI）在同一端口上进行复用。
 TLS Secret 必须包含名为 `tls.crt` 和 `tls.key` 的密钥，这些密钥包含用于 TLS 的证书和私钥，例如：
 
@@ -509,6 +533,8 @@ spec:
             serviceName: service1
             servicePort: 80
 ```
+{{< note >}}
+
 
 {{< note >}}
 <!-- 
@@ -518,9 +544,11 @@ controllers. Please refer to documentation on
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
 platform specific Ingress controller to understand how TLS works in your environment.
 -->
+
 各种 Ingress 控制器所支持的 TLS 功能之间存在差异。请参阅有关文件
 [nginx](https://git.k8s.io/ingress-nginx/README.md#https)、
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https) 或者任何其他平台特定的 Ingress 控制器，以了解 TLS 如何在您的环境中工作。
+
 {{< /note >}}
 
 <!--
@@ -536,6 +564,7 @@ weight scheme, and others. More advanced load balancing concepts
 Ingress. You can instead get these features through the load balancer used for
 a Service.
 -->
+
 Ingress 控制器使用一些适用于所有 Ingress 的负载均衡策略设置进行自举，例如负载均衡算法、后端权重方案和其他等。更高级的负载均衡概念（例如，持久会话、动态权重）尚未通过 Ingress 公开。您可以通过用于服务的负载均衡器来获取这些功能。
 
 <!--
@@ -593,6 +622,7 @@ kubectl edit ingress test
 This pops up an editor with the existing configuration in YAML format.
 Modify it to include the new Host:
 -->
+
 这将弹出具有 YAML 格式的现有配置的编辑器。
 修改它来增加新的主机：
 
@@ -650,6 +680,7 @@ Events:
   ----     ------  ----               ----                     -------
   Normal   ADD     45s                loadbalancer-controller  default/test
 ```
+
 
 <!--
 You can achieve the same outcome by invoking `kubectl replace -f` on a modified Ingress YAML file.

@@ -89,10 +89,10 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.15, they are:
+In 1.16, they are:
 
 ```shell
-NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota, StorageObjectInUseProtection
+NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, RuntimeClass, ResourceQuota
 ```
 
 ## What does each admission controller do?
@@ -605,6 +605,13 @@ objects in your Kubernetes deployment, you MUST use this admission controller to
 
 See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
+### RuntimeClass {#runtimeclass} {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+For [RuntimeClass](docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
+this admission controller will set the pod.Spec.Overhead field accordingly.
+
+See also [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 

@@ -58,7 +58,7 @@ Neither contention nor changes to limitrange will affect already created resourc
 
 The following section discusses the creation of a LimitRange acting at Container Level.
 A Pod with 04 containers is first created; each container within the Pod has a specific `spec.resource` configuration  
-each containerwithin the pod is handled differently by the LimitRanger admission controller.
+each container within the pod is handled differently by the LimitRanger admission controller.
 
  Create a namespace `limitrange-demo` using the following kubectl command
 
@@ -107,7 +107,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-1.yaml -
 ```
 
 ### Container spec with  valid CPU/Memory requests and limits
-View the the `busybox-cnt01` resource configuration
+View the `busybox-cnt01` resource configuration
 
 ```shell 
 kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[0].resources"

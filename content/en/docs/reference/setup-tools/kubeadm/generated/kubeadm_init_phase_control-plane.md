@@ -50,11 +50,3 @@ kubeadm init phase control-plane [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase control-plane all](kubeadm_init_phase_control-plane_all.md)	 - Generate all static Pod manifest files
-* [kubeadm init phase control-plane apiserver](kubeadm_init_phase_control-plane_apiserver.md)	 - Generates the kube-apiserver static Pod manifest
-* [kubeadm init phase control-plane controller-manager](kubeadm_init_phase_control-plane_controller-manager.md)	 - Generates the kube-controller-manager static Pod manifest
-* [kubeadm init phase control-plane scheduler](kubeadm_init_phase_control-plane_scheduler.md)	 - Generates the kube-scheduler static Pod manifest
-

@@ -85,7 +85,3 @@ kubeadm join phase control-plane-join etcd [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance
-

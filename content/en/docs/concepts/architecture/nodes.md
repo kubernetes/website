@@ -102,8 +102,8 @@ Describes the resources available on the node: CPU, memory and the maximum
 number of pods that can be scheduled onto the node.
 
 The fields in the capacity block indicate the total amount of resources that a
-Node has. The allocatable block indicates the amount of resources that on a
-Node that are available to be consumed by normal Pods.
+Node has. The allocatable block indicates the amount of resources on a
+Node that is available to be consumed by normal Pods.
 
 You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
@@ -174,9 +174,8 @@ ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
 In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
-node. Starting from Kubernetes 1.13, node lease feature is introduced as an
-alpha feature (feature gate `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+node. Node lease feature is enabled by default since 1.14 as a beta feature
+(feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 When node lease feature is enabled, each node has an associated `Lease` object in
 `kube-node-lease` namespace that is renewed by the node periodically, and both
 NodeStatus and node lease are treated as heartbeats from the node. Node leases
@@ -244,7 +243,7 @@ For self-registration, the kubelet is started with the following options:
   - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
+When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
 kubelets are only authorized to create/modify their own Node resource.
 

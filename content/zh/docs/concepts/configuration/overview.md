@@ -113,7 +113,7 @@ This is a living document. If you think of something that is not on this list bu
 <!--
   *This does imply an ordering requirement* - any `Service` that a `Pod` wants to access must be created before the `Pod` itself, or else the environment variables will not be populated.  DNS does not have this restriction.
 -->
-  *这确实意味着订购要求* - 必须在`Pod`本身之前创建`Pod`想要访问的任何`Service`，否则将不会填充环境变量。 
+  *这确实意味着订购要求* - 必须在`Pod`本身之前创建`Pod`想要访问的任何`Service`，否则将不会填充环境变量。
    DNS没有此限制。
 
 <!--

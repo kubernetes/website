@@ -30,7 +30,7 @@ tags:
  A Kubernetes systems-generated string to uniquely identify objects.
 -->
 
-由 Kubernetes 系统生成、用来唯一标识对象的字符串。
+Kubernetes 系统生成的字符串，唯一标识对象。
 
 <!--more--> 
 
@@ -38,5 +38,6 @@ tags:
 Every object created over the whole lifetime of a Kubernetes cluster has a distinct UID. It is intended to distinguish between historical occurrences of similar entities.
 -->
 
-在 Kubernetes 集群的整个生命周期中，每个被创建的对象都有不同的 UID。UID 用来区分相似实体的历史事件。
+在 Kubernetes 集群的整个生命周期中创建的每个对象都有一个不同的 uid，它旨在区分类似实体的历史事件。
+
 

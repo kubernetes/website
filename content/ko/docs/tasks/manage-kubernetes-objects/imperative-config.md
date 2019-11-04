@@ -108,17 +108,18 @@ kubectl create -f <url> --edit
 몇 가지 수동 단계를 포함한다.
 
 1. 다음과 같이 활성 오브젝트를 로컬 오브젝트 구성파일로 내보낸다.
-```shell
-kubectl get <종류>/<이름> -o yaml > <종류>_<이름>.yaml
-```
+
+    ```shell
+    kubectl get <종류>/<이름> -o yaml > <종류>_<이름>.yaml
+    ```
 
 1. 수동으로 오브젝트 구성파일에서 상태 필드를 제거한다.
 
 1. 이후 오브젝트 관리를 위해, `replace`만 사용한다.
-```shell
-kubectl replace -f <종류>_<이름>.yaml
-```
 
+    ```shell
+    kubectl replace -f <종류>_<이름>.yaml
+    ```
 
 ## 컨트롤러 셀렉터와 PodTemplate 레이블 삭제하기
 

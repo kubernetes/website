@@ -49,7 +49,7 @@ metadata:
 ```
 {{< note >}}
 Referensi pemilik lintas _namespace_ tidak diperbolehkan oleh desain. Artinya:
-1) Dependen dengan cakupan _namespace_ hanya bisa menspesifikasikan pemilik jika berada di _namespace_ yang sama, dan pemilik memiliki cakupan kluster. 
+1) Dependen dengan cakupan _namespace_ hanya bisa menspesifikasikan pemilik jika berada di _namespace_ yang sama, dan pemilik memiliki cakupan kluster.
 2) Dependen dengan cakupan kluster hanya bisa menspesifikasikan pemilik yang memiliki cakupan kluster, tetapi tidak berlaku untuk pemilik yang memiliki cakupan kluster.
 {{< /note >}}
 
@@ -82,7 +82,7 @@ Pada *foreground cascading deletion*, pertama objek utama akan memasuki keadaan 
  Sebelum Kubernetes 1.9, kebijakan _default_ dari _garbage collection_ untuk banyak _resource controller_ adalah **orphan**. Ini meliputi ReplicationController, ReplicaSet, StatefulSet, DaemonSet, dan Deployment. Untuk jenis pada kelompok versi `extensions/v1beta1`, `apps/v1beta1`, dan `apps/v1beta2`, kecuali kamu menspesifikasikan dengan cara lain, objek dependen adalah _orphan_ secara _default_. Pada Kubernetes 1.9, untuk semua jenis pada kelompok versi `apps/v1`, objek dependen dihapus secara _default_.
 
  Berikut sebuah contoh yang menghapus dependen di _background_:
- 
+
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
