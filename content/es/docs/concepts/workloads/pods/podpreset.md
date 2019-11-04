@@ -69,7 +69,7 @@ Spec de la siguiente forma: `podpreset.admission.kubernetes.io/exclude: "true"`.
 
 Con el fin de utilizar los Pod Presets en un clúster se debe asegurarse de lo siguiente:
 
-1.  Se ha configurado el tipo de API `settings.k8s.io/v1alpha1/podpreset`. Esto se puede hacer,
+1.  Que se ha configurado el tipo de API `settings.k8s.io/v1alpha1/podpreset`. Esto se puede hacer,
     por ejemplo, incluyendo `settings.k8s.io/v1alpha1=true` como valor de la opción `--runtime-config`
     en el servidor API. En minikube se debe añadir el flag
     `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` cuando el clúster
