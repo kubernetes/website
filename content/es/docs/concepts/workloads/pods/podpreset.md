@@ -49,7 +49,7 @@ Cuando se realiza una solicitud de creación de Pods, el sistema hace lo siguien
 Cada Pod puede ser correspondido por cero o más Pod Presets; y cada `Pod Preset` puede ser
 aplicado a cero o más Pods. Cuando se aplica un `Pod Preset` a una o más Pods, Kubernetes
 modifica la especificación del Pod. Para los cambios a `Env`, `EnvFrom`, y `VolumeMounts`,
-Kubernetes modifica la especificación del container para todos los containers en el Pod;
+Kubernetes modifica la especificación del Container para todos los Containers en el Pod;
 para los cambios a `Volume`, Kubernetes modifica la especificación del Pod.
 
 {{< note >}}
