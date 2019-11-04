@@ -80,6 +80,10 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
 
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints`.
 
+### Cluster-level default constraints
+
+TODO
+
 ### Example: One TopologySpreadConstraint
 
 Suppose you have a 4-node cluster where 3 Pods labeled `foo:bar` are located in node1, node2 and node3 respectively (`P` represents Pod):
