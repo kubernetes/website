@@ -1,0 +1,3 @@
+# Prevent bots from indexing site
+/*
+  X-Robots-Tag: noindex
