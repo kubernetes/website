@@ -67,7 +67,7 @@ Spec de la siguiente forma: `podpreset.admission.kubernetes.io/exclude: "true"`.
 
 ## Habilitando un Pod Preset
 
-Con el fin de utilizar los Pod Presets en un clúster se debe asegurarse de lo siguiente:
+Con el fin de utilizar los Pod Presets en un clúster debe asegurarse de lo siguiente:
 
 1.  Que se ha configurado el tipo de API `settings.k8s.io/v1alpha1/podpreset`. Esto se puede hacer,
     por ejemplo, incluyendo `settings.k8s.io/v1alpha1=true` como valor de la opción `--runtime-config`
