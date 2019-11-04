@@ -8,7 +8,7 @@
 <!--
 Renew the certificate for the API server to connect to kubelet.
 -->
-续订用于 API 服务器连接 kubelet 的证书。
+续订 apiserver 用于连接 kubelet 的证书。
 
 <!--
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
@@ -18,7 +18,7 @@ Renewals run unconditionally, regardless of certificate expiration date; extra a
 <!--
 Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
 -->
-默认情况下，续订尝试使用位于 kubeadm 所管理的本地 PKI 中的证书颁发机构；作为替代方案，也可以使用 K8s 证书 API 进行证书续订；亦或者，作为最后一个选择，生成 CSR 请求。
+默认情况下，续订尝试使用位于 kubeadm 所管理的本地 PKI 中的证书颁发机构；作为替代方案，也可能调用 K8s 证书 API 进行证书更新；亦或者，作为最后一个选择，生成 CSR 请求。
 
 <!--
 After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.

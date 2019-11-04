@@ -4,11 +4,15 @@
 -->
 ### 概要
 
-<!--
-Use this command to invoke single phase of the node workflow
--->
 
-使用此命令调用 node 工作流的某个阶段
+<!--
+Remove this node from the ClusterStatus object if the node is a control plane node.
+-->
+如果该节点是控制平面节点，从 ClusterStatus 对象中删除该节点。
+
+```
+kubeadm reset phase update-cluster-status [flags]
+```
 
 <!--
 ### Options
@@ -28,14 +32,15 @@ Use this command to invoke single phase of the node workflow
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for phase
+      help for update-cluster-status
       -->
-       phase 操作的帮助命令
+       update-cluster-status 操作的帮助命令
       </td>
     </tr>
 
   </tbody>
 </table>
+
 
 
 <!--
@@ -66,16 +71,14 @@ Use this command to invoke single phase of the node workflow
 </table>
 
 
+
 <!--
 SEE ALSO
 -->
 查看其他
 
 <!--
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)	 - Upgrade commands for a node in the cluster
-* [kubeadm upgrade node phase control-plane](kubeadm_upgrade_node_phase_control-plane.md)	 - Upgrade the control plane instance deployed on this node, if any
-* [kubeadm upgrade node phase kubelet-config](kubeadm_upgrade_node_phase_kubelet-config.md)	 - Upgrade the kubelet configuration for this node
+* [kubeadm reset phase](kubeadm_reset_phase.md)	 - Use this command to invoke single phase of the reset workflow
 -->
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)	 - 集群中某个节点的升级命令
-* [kubeadm upgrade node phase control-plane](kubeadm_upgrade_node_phase_control-plane.md)	 - 升级部署在此节点上的控制平面实例（如果有）
-* [kubeadm upgrade node phase kubelet-config](kubeadm_upgrade_node_phase_kubelet-config.md)	 - 升级此节点的 kubelet 配置
+* [kubeadm reset phase](kubeadm_reset_phase.md)	 - 使用此命令来调用 `reset` 工作流程的某个阶段
+

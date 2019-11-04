@@ -6,9 +6,9 @@
 
 
 <!--
-Renew the certificate for etcd nodes to communicate with each other.
+Renew the certificate embedded in the kubeconfig file for the admin to use and for kubeadm itself.
 -->
-续订 etcd 节点间用来相互通信的证书。
+续订 kubeconfig 文件中嵌入的证书，供管理员 和 kubeadm 自身使用。
 
 <!--
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
@@ -26,7 +26,7 @@ After renewal, in order to make changes effective, is is required to restart con
 续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防证书文件在其他地方使用。
 
 ```
-kubeadm alpha certs renew etcd-peer [flags]
+kubeadm alpha certs renew admin.conf [flags]
 ```
 
 <!--
@@ -100,19 +100,14 @@ kubeadm alpha certs renew etcd-peer [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for etcd-peer
+      help for admin.conf
       -->
-       etcd-peer 操作的帮助命令
+       admin.conf 操作的帮助命令
       </td>
     </tr>
 
     <tr>
-      <td colspan="2">
-      <!--
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
-      -->
-      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
-      </td>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
