@@ -1,7 +1,4 @@
 ---
-reviewers:
-- davidopp
-- lavalamp
 title: 创建大型集群
 weight: 20
 ---
@@ -14,7 +11,7 @@ weight: 20
 <!--
 At {{< param "version" >}}, Kubernetes supports clusters with up to 5000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
 -->
-在 {{< param "version" >}} 版本中， Kubernetes 支持的最大节点数为 5000。更具体地说，我们支持以下*所有*的标准配置：
+在 {{< param "version" >}} 版本中， Kubernetes 支持的最大节点数为 5000。更具体地说，我们支持满足以下*所有*条件的配置：
 
 <!--
 * No more than 5000 nodes
@@ -111,12 +108,12 @@ When creating a cluster, existing salt scripts:
 在创建集群时，现有 salt 脚本可以：
 
 * 启动并配置其它 etcd 实例
-* 配置 api 服务器以使用 etcd 存储事件
+* 配置 API 服务器以使用 etcd 存储事件
 
 <!--
 ### Size of master and master components
 -->
-### Master 和 master 组件的大小
+### 主控节点大小和主控组件
 
 <!--
 On GCE/Google Kubernetes Engine, and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
@@ -162,12 +159,12 @@ And the sizes we use on AWS are
 <!--
 On Google Kubernetes Engine, the size of the master node adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
 -->
-在 Google Kubernetes Engine 上，master 节点的大小会根据集群的大小自动调整。更多有关信息，请参阅 [此博客文章](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html)。
+在 Google Kubernetes Engine 上，主控节点的大小会根据集群的大小自动调整。更多有关信息，请参阅 [此博客文章](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html)。
 
 <!--
 On AWS, master node sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
 -->
-在 AWS 上，master 节点的规格是在集群启动时设置的，并且，即使以后通过手动删除或添加节点的方式使集群缩容或扩容，master 节点的大小也不会更改。
+在 AWS 上，主控节点的规格是在集群启动时设置的，并且，即使以后通过手动删除或添加节点的方式使集群缩容或扩容，主控节点的大小也不会更改。
 {{< /note >}}
 
 <!--
