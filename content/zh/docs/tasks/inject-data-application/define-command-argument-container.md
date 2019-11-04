@@ -31,21 +31,19 @@ content_template: templates/task
 
 本示例中，将创建一个只包含单个容器的Pod。在Pod配置文件中设置了一个命令与两个入参：
 
-{{< code file="commands.yaml" >}}
+{{< codenew file="pods/commands.yaml" >}}
 
-1. 基于YAML文件创建一个Pod：
+1. 基于 YAML 文件创建一个 Pod：
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+    kubectl apply -f https://k8s.io/examples/pods/commands.yaml
     ```
 
-2. List the running Pods:
+2. 列举运行中的 Pods：
 
-	获取正在运行的 pod
-
-	```shell
-	kubectl get pods
-	```
+    ```shell
+    kubectl get pods
+    ```
 
     查询结果显示在command-demo这个Pod下运行的容器已经启动完成
 
@@ -55,7 +53,7 @@ content_template: templates/task
     kubectl logs command-demo
     ```
 
-    日志中显示了HOSTNAME 与KUBERNETES_PORT 这两个环境变量的值：
+    日志中显示了 HOSTNAME 与 KUBERNETES_PORT 这两个环境变量的值：
 
     ```
     command-demo
@@ -99,12 +97,12 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 下表给出了Docker 与 Kubernetes中对应的字段名称。
 
-|              Description               |    Docker field name   | Kubernetes field name |
-|----------------------------------------|------------------------|-----------------------|
-|  The command run by the container      |   Entrypoint           |      command          |
-|  The arguments passed to the command   |   Cmd                  |      args             |
+| 描述 | Docker 字段名称 | Kubernetes 字段名称 |
+|------|-----------------|---------------------|
+| 容器运行的命令       | Entrypoint | command |
+| 传递给命令的参数集合 | Cmd        | args    |
 
-如果要覆盖默认的Entrypoint 与 Cmd，需要遵循如下规则：
+如果要覆盖默认的 Entrypoint 与 Cmd，需要遵循如下规则：
 
 * 如果在容器配置中没有设置`command` 或者 `args`，那么将使用Docker镜像自带的命
 令及其入参。
@@ -121,22 +119,22 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 下表涵盖了各类设置场景：
 
-| Image Entrypoint   |    Image Cmd     | Container command   |  Container args    |    Command run   |
-|--------------------|------------------|---------------------|--------------------|------------------|
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
-|     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
-|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
-|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
+| 镜像 Entrypoint   | 镜像 Cmd | 容器命令 | 容器参数 | 运行的命令 |
+|-------------------|----------|----------|----------|------------|
+| `[/ep-1]` | `[foo bar]` |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
+| `[/ep-1]` | `[foo bar]` |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
+| `[/ep-1]` | `[foo bar]` |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
+| `[/ep-1]` | `[foo bar]` |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
 
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* 获取更多资讯可参考 [containers and commands](/docs/user-guide/containers/).
-* 获取更多资讯可参考 [configuring pods and containers](/docs/tasks/).
-* 获取更多资讯可参考 [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
-* 参考 [Container](/docs/api-reference/{{< param "version" >}}/#container-v1-core).
+* 深入了解 [容器和命令](/docs/user-guide/containers/).
+* 深入了解 [配置 Pods 和容器](/docs/tasks/).
+* 深入了解 [在容器中运行命令](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+* 参考 [Container](/docs/api-reference/{{< param "version" >}}/#container-v1-core) 资源
 
 {{% /capture %}}
 

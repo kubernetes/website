@@ -51,8 +51,7 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 
 作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中的示例相似。它创建了一个  [Headless Service](/docs/user-guide/services/#headless-services)  `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
 
-{{< code file="web.yaml" >}}
-
+{{< codenew file="application/web/web.yaml" >}}
 
 下载上面的例子并保存为文件 `web.yaml`。
 
@@ -67,11 +66,10 @@ kubectl get pods -w -l app=nginx
 在另一个终端中，使用 [`kubectl create`](/docs/user-guide/kubectl/{{< param "version" >}}/#create) 来创建定义在 `web.yaml` 中的 Headless Service 和 StatefulSet。
 
 ```shell
-kubectl create -f web.yaml
-service "nginx" created
-statefulset "web" created
+kubectl apply -f web.yaml
+service/nginx created
+statefulset.apps/web created
 ```
-
 
 上面的命令创建了两个 Pod，每个都运行了一个 [NGINX](https://www.nginx.com) web 服务器。获取 `nginx` Service 和 `web` StatefulSet 来验证是否成功的创建了它们。
 
@@ -84,7 +82,6 @@ kubectl get statefulset web
 NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
 ```
-
 
 ### 顺序创建 Pod
 
@@ -989,10 +986,9 @@ statefulset "web" deleted
 
 `Parallel` pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
 
-{{< code file="webp.yaml" >}}
+{{< codenew file="application/web/web-parallel.yaml" >}}
 
-
-下载上面的例子并保存为 `webp.yaml`。
+下载上面的例子并保存为 `web-parallel.yaml`。
 
 
 这份清单和你在上文下载的完全一样，只是 `web` StatefulSet 的 `.spec.podManagementPolicy` 设置成了 `Parallel`。
@@ -1008,11 +1004,10 @@ kubectl get po -lapp=nginx -w
 在另一个终端窗口创建清单中的 StatefulSet 和 Service。
 
 ```shell
-kubectl create -f webp.yaml
-service "nginx" created
-statefulset "web" created
+kubectl apply -f web-parallel.yaml
+service/nginx created
+statefulset.apps/web created
 ```
-
 
 查看你在第一个终端中运行的 `kubectl get` 命令的输出。
 

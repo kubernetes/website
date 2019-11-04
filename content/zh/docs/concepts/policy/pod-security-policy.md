@@ -8,7 +8,6 @@ redirect_from:
 ---
 
 
-
 `PodSecurityPolicy` 类型的对象能够控制，是否可以向 Pod 发送请求，该 Pod 能够影响被应用到 Pod 和容器的 `SecurityContext`。
 查看 [Pod 安全策略建议](https://git.k8s.io/community/contributors/design-proposals/security-context-constraints.md) 获取更多信息。
 
@@ -143,23 +142,33 @@ _Pod 安全策略_ 由设置和策略组成，它们能够控制 Pod 访问的�
 Pod 必须基于 PSP 验证每个字段。
 
 
+<!--
+### Create a policy and a pod
 
-## 创建 Pod 安全策略
+Define the example PodSecurityPolicy object in a file. This is a policy that
+simply prevents the creation of privileged pods.
 
-下面是一个 Pod 安全策略的例子，所有字段的设置都被允许：
+{{< codenew file="policy/example-psp.yaml" >}}
 
-{{< code file="psp.yaml" >}}
-
-
-
-下载示例文件可以创建该策略，然后执行如下命令：
+And create it with kubectl:
 
 ```shell
-$ kubectl create -f ./psp.yaml
-podsecuritypolicy "permissive" created
+kubectl-admin create -f example-psp.yaml
 ```
+-->
 
+### 创建一个策略和一个 Pod
 
+在一个文件中定义 PodSecurityPolicy 对象实例。这里的策略只是用来禁止创建有特权
+要求的 Pods。
+
+{{< codenew file="policy/example-psp.yaml" >}}
+
+使用 kubectl 执行创建操作：
+
+```shell
+kubectl-admin create -f example-psp.yaml
+```
 
 ## 获取 Pod 安全策略列表
 

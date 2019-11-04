@@ -78,7 +78,7 @@ A URL can also be specified as a configuration source, which is handy for deploy
 还可以使用 URL 作为配置源，便于直接使用已经提交到 Github 上的配置文件进行部署：
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/zh/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```shell

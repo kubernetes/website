@@ -44,26 +44,21 @@ content_template: templates/tutorial
 
 ### 使用部署对象（Deployment）创建后端
 
-
-
 后端是一个简单的 hello 欢迎微服务应用。这是后端应用的 Deployment 配置文件：
 
-{{< code file="hello.yaml" >}}
-
+{{< codenew file="service/access/hello.yaml" >}}
 
 创建后端 Deployment：
 
+```shell
+kubectl apply -f https://k8s.io/examples/service/access/hello.yaml
 ```
-kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/hello.yaml
-```
-
 
 查看后端的 Deployment 信息：
 
 ```
 kubectl describe deployment hello
 ```
-
 
 输出类似于：
 
@@ -98,8 +93,7 @@ Events:
 
 首先，浏览 Service 的配置文件：
 
-{{< code file="hello-service.yaml" >}}
-
+{{< codenew file="service/access/hello-service.yaml" >}}
 
 
 配置文件中，你可以看到 Service 将流量路由到包含 `app: hello` 和 `tier: backend` 标签的 Pod。
@@ -107,46 +101,33 @@ Events:
 
 创建 `hello` Service：
 
+```shell
+kubectl apply -f https://k8s.io/examples/service/access/hello-service.yaml
 ```
-kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/hello-service.yaml
-```
-
-
 
 此时，你已经有了一个在运行的后端 Deployment，你也有了一个 Service 用于路由网络流量。
 
 
 ### 创建前端应用
 
-
-
-
-
 既然你已经有了后端应用，你可以创建一个前端应用连接到后端。前端应用通过 DNS 名连接到后端的工作 Pods。
 DNS 名是 "hello"，也就是 Service 配置文件中 `name` 字段的值。
-
-
 
 前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好镜像去寻找后端的 hello Service。
 只是 nginx 的配置文件：
 
-{{< code file="frontend/frontend.conf" >}}
-
-
-
+{{< codenew file="service/access/frontend.conf" >}}
 
 与后端类似，前端用包含一个 Deployment 和一个 Service。Service 的配置文件包含了 `type: LoadBalancer`，
 也就是说，Service 会使用你的云服务商的默认负载均衡设备。
 
-{{< code file="frontend.yaml" >}}
-
+{{< codenew file="service/access/frontend.yaml" >}}
 
 创建前端 Deployment 和 Service：
 
+```shell
+kubectl apply -f https://k8s.io/examples/service/access/frontend.yaml
 ```
-kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/frontend.yaml
-```
-
 
 通过输出确认两个资源都已经被创建：
 
@@ -155,26 +136,16 @@ deployment "frontend" created
 service "frontend" created
 ```
 
-
-
-
-
-
 **注意**：这个 nginx 配置文件是被打包在 [容器镜像](/docs/tasks/access-application-cluster/frontend/Dockerfile) 里的。
 更好的方法是使用 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)，这样的话你可以更轻易地更改配置。
 
-
 ### 与前端 Service 交互
-
-
 
 一旦你创建了 LoadBalancer 类型的 Service，你可以使用这条命令查看外部 IP：
 
 ```
 kubectl get service frontend
 ```
-
-
 
 外部 IP 字段的生成可能需要一些时间。如果是这种情况，外部 IP 会显示为 `<pending>`。
 

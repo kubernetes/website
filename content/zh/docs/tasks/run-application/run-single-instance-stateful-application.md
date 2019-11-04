@@ -14,7 +14,7 @@ content_template: templates/tutorial
 
 * 在环境中通过磁盘创建一个PersistentVolume.
 * 创建一个MySQL Deployment.
-* 在集群内以一个已知的DNS名将MySQL暴露给其他pods.
+* 在集群内以一个已知的 DNS 名将 MySQL 暴露给其他 pods.
 
 {{% /capture %}}
 
@@ -23,37 +23,11 @@ content_template: templates/tutorial
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* 为了数据持久性我们将在环境上通过磁盘创建一个持久卷. 环境支持的类型见这里[here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes). 本篇文档将介绍 `GCEPersistentDisk` . `GCEPersistentDisk`卷只能工作在Google Compute Engine平台上.
+* {{< include "default-storage-class-prereqs.md" >}}
 
 {{% /capture %}}
 
-
 {{% capture lessoncontent %}}
-
-## 在环境中设置一个磁盘
-
-你可以为有状态的应用使用任何类型的持久卷. 有关支持环境的磁盘列表，请参考持久卷类型[Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes). 对于Google Compute Engine, 请运行:
-
-```
-gcloud compute disks create --size=20GB mysql-disk
-```
-
-
-接下来创建一个指向刚创建的 `mysql-disk`磁盘的PersistentVolume. 下面是一个PersistentVolume的配置文件，它指向上面创建的Compute Engine磁盘:
-
-{{< code file="gce-volume.yaml" >}}
-
-注意`pdName: mysql-disk` 这行与Compute Engine环境中的磁盘名称相匹配. 有关为其
-他环境编写PersistentVolume配置文件的详细信息，请参见持久卷[Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
-
-
-创建持久卷:
-
-```
-kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
-```
-
-
 
 ## 部署MySQL
 
@@ -65,13 +39,16 @@ kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
 注意: 在配置的yaml文件中定义密码的做法是不安全的. 具体安全解决方案请参考
 [Kubernetes Secrets](/docs/concepts/configuration/secret/).
 
-{{< code file="mysql-deployment.yaml" >}}
+{{< codenew file="application/mysql/mysql-deployment.yaml" >}}
+{{< codenew file="application/mysql/mysql-pv.yaml" >}}
 
+1. 部署 YAML 文件中定义的 PV 和 PVC：
 
-1. 部署YAML文件中定义的内容:
+        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 
-       kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
+1. 部署 YAML 文件中定义的 Deployment：
 
+        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 
 1. 展示Deployment相关信息:
 
