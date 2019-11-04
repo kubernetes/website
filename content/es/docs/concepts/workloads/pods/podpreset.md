@@ -83,7 +83,7 @@ Con el fin de utilizar los Pod Presets en un clúster se debe asegurarse de lo s
     ```
 
     cuando el clúster se está iniciando.
-3.  Se han definido los Pod Presets mediante la creación de objetos `PodPreset` en el
+3.  Que se han definido los Pod Presets mediante la creación de objetos `PodPreset` en el
     namespace que se utilizará.
 
 {{% /capture %}}
