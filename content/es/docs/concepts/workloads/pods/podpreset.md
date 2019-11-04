@@ -74,7 +74,7 @@ Con el fin de utilizar los Pod Presets en un clúster se debe asegurarse de lo s
     en el servidor API. En minikube se debe añadir el flag
     `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` cuando el clúster
     se está iniciando.
-2.  Se ha habilitado el controlador de admisión `PodPreset`. Una forma de hacer esto es incluir
+2.  Que se ha habilitado el controlador de admisión `PodPreset`. Una forma de hacer esto es incluir
     `PodPreset` como valor de la opción `--enable-admission-plugins` especificada
     para el servidor API. En minikube se debe añadir el flag
 
