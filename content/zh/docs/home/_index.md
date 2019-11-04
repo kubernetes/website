@@ -77,7 +77,7 @@ cards:
   button_path: "/zh/docs/tasks"
 - name: reference
   title: 参考
-  description: 术语、命令行语法、API 资源类型和设置工具文档
+  description: 术语、命令行语法、API 资源类型和设置工具文档。
   button: 查看参考
   button_path: /zh/docs/reference
 - name: contribute
