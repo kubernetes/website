@@ -39,7 +39,7 @@ Cuando se realiza una solicitud de creación de Pods, el sistema hace lo siguien
    con las etiquetas del Pod que se está creando.
 3. Intenta fusionar los diversos recursos definidos por el `PodPreset` dentro del Pod
    que se está creando.
-4. Si se llegase a producir un error al intertar fusionar los recursos dentro del Pod,
+4. Si se llegase a producir un error al intentar fusionar los recursos dentro del Pod,
    lanza un evento que documente este error, luego crea el Pod _sin_ ningún recurso que se
    inyecte desde el `PodPreset`.
 5. Escribe una nota descriptiva de la especificación de Pod modificada resultante para
