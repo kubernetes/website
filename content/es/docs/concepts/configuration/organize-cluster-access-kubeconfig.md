@@ -7,7 +7,7 @@ weight: 60
 {{% capture overview %}}
 
 Utilice los archivos kubeconfig para organizar la información acerca de los clústeres, los
-usuarios, los namespaces y los mecanismos de autenticación. La herramienta de
+usuarios, los Namespaces y los mecanismos de autenticación. La herramienta de
 línea de comandos `kubectl` utiliza los archivos kubeconfig para hallar la información que
 necesita para escoger un clúster y comunicarse con el servidor API de un clúster.
 
