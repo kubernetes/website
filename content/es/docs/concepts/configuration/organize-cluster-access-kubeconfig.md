@@ -46,7 +46,7 @@ fácil cambios entre clústeres y Namespaces.
 ## Contexto
 
 Un elemento *context* en un archivo kubeconfig se utiliza para agrupar los parámetros de
-acceso bajo un nombre apropiado. Cada contexto tiene tres parámetros: clúster, namespace
+acceso bajo un nombre apropiado. Cada contexto tiene tres parámetros: clúster, Namespace
 y usuario.
 Por defecto, la herramienta de línea de comandos `kubectl` utiliza los parámetros del
 *contexto actual* para comunicarse con el clúster.
