@@ -68,27 +68,29 @@ ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被�
 ## 创建一个 ZooKeeper Ensemble
 
 
-下面的清单包含一个 [Headless Service](/docs/user-guide/services/#headless-services)，一个 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)，一个 [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 一个 [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)。
+下面的清单包含一个
+[Headless Service](/docs/concepts/services-networking/service/#headless-services)，
+一个 [Service](/docs/concepts/services-networking/service/)，
+一个 [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget)，
+和一个 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)。
 
-{{< code file="zookeeper.yaml" >}}
+{{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
-
-打开一个命令行终端，使用 [`kubectl create`](/docs/user-guide/kubectl/{{< param "version" >}}/#create) 创建这个清单。
-
-```shell
-kubectl create -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
-```
-
-
-这个操作创建了 `zk-headless` Headless Service、`zk-config` ConfigMap、`zk-budget` PodDisruptionBudget 和 `zk` StatefulSet。
+打开一个命令行终端，使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
+创建这个清单。
 
 ```shell
-service "zk-headless" created
-configmap "zk-config" created
-poddisruptionbudget "zk-budget" created
-statefulset "zk" created
+kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
 ```
 
+这个操作创建了 `zk-hs` Headless Service、`zk-cs` Service、`zk-pdb` PodDisruptionBudget 和 `zk` StatefulSet。
+
+```shell
+service/zk-hs created
+service/zk-cs created
+poddisruptionbudget.policy/zk-pdb created
+statefulset.apps/zk created
+```
 
 使用 [`kubectl get`](/docs/user-guide/kubectl/{{< param "version" >}}/#get) 查看 StatefulSet 控制器创建的 Pods。
 
