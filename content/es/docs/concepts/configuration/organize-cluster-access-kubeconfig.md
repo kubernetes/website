@@ -39,7 +39,7 @@ de diversas maneras. Por ejemplo:
 - Un usuario se podría autenticar utilizando tokens.
 - Los administradores podrían tener un conjunto de certificados que sean suministrados a los usuarios individualmente.
 
-Con los archivos kubeconfig puedes organizar tus clústers, usuarios y namespaces.
+Con los archivos kubeconfig puedes organizar tus clústeres, usuarios y Namespaces.
 También puedes definir diferentes contextos para realizar de forma rápida y
 fácil cambios entre clústers y namespaces.
 
