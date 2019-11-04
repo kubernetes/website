@@ -86,7 +86,8 @@ different Kubernetes components.
 | `DynamicAuditing` | `false` | Alpha | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
-| `EndpointSlice` | `false` | Alpha | 1.16 | |
+| `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
+| `EndpointSlice` | `false` | Beta | 1.17 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |

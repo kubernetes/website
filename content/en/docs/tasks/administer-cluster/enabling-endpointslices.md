@@ -27,7 +27,7 @@ resources instead of a single large Endpoints resource.
 
 ## Enabling Endpoint Slices
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 {{< note >}}
 Although Endpoint Slices may eventually replace Endpoints, many Kubernetes
@@ -36,19 +36,7 @@ seen as an addition to Endpoints in a cluster, not a replacement for them.
 {{< /note >}}
 
 As an alpha feature, Endpoint Slices are not enabled by default in Kubernetes.
-Enabling Endpoint Slices requires as many as 3 changes to Kubernetes cluster
-configuration.
-
-To enable the Discovery API group that includes Endpoint Slices, use the runtime
- config flag (`--runtime-config=discovery.k8s.io/v1alpha1=true`).
-
-The logic responsible for watching services, pods, and nodes and creating or
-updating associated Endpoint Slices lives within the EndpointSlice controller.
-This is disabled by default but can be enabled with the controllers flag on
-kube-controller-manager (`--controllers=endpointslice`).
-
-For Kubernetes components like kube-proxy to actually start using Endpoint
-Slices, the EndpointSlice feature gate will need to be enabled
+To enable them, the EndpointSlice feature gate will need to be enabled
 (`--feature-gates=EndpointSlice=true`).
 
 ## Using Endpoint Slices
