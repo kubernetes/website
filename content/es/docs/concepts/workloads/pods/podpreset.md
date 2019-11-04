@@ -15,7 +15,7 @@ montajes de volúmenes y variables de entorno.
 
 
 {{% capture body %}}
-## Conociendo a los Pod Presets
+## Entendiendo los Pod Presets
 
 Un `Pod Preset` es un recurso de la API utilizado para poder inyectar requerimientos
 adicionales de tiempo de ejecución en un Pod en el momento de la creación.
