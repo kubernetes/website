@@ -24,7 +24,8 @@ Berikut adalah berkas untuk sebuah ReplicaSet yang memiliki tiga Pod:
 
 {{< codenew file="controllers/replicaset.yaml" >}}
 
-Jika anda membuat ReplicaSet tersebut dan kemudian melihat metadata Pod, kamu akan melihat kolom OwnerReferences:
+
+Jika kamu membuat ReplicaSet tersebut dan kemudian melihat metadata Pod, kamu akan melihat kolom OwnerReferences:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replicaset.yaml
