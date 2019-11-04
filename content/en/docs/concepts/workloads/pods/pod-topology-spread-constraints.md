@@ -183,6 +183,43 @@ There are some implicit conventions worth noting here:
     and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+    
+### Cluster-level default constraints
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+It is possible to set default topology spread constraints for a cluster. Default
+topology spread constraints are applied to a pod iff:
+
+- It doesn't define any constraints in its `.spec.topologySpreadConstraints`.
+- It belongs to a service, replication controller, replica set or stateful set.
+
+Default constraints can be set as part of the `PodTopologySpread` plugin args
+in a [scheduling profile](/docs/reference/scheduling/profiles).
+The constraints are specified with the same [API above](#api), except that
+`labelSelector` must be empty. The selectors are calculated from the services,
+replication controllers, replica sets or stateful sets that the Pod belongs to.
+
+An example configuration might look like follows:
+
+```yaml
+...
+pluginConfig:
+- name: PodTopologySpread
+  args:
+    defaultConstraints:
+    - maxSkew: 1
+      topologyKey: failure-domain.beta.kubernetes.io/zone
+      whenUnsatisfiable: ScheduleAnyway
+```
+
+{{< note >}}
+The score produced by default scheduling constraints might conflict with the 
+score produced by the
+[`DefaultPodTopologySpread` plugin](/docs/reference/scheduling/profiles/#scheduling-plugins).
+It is recommended that you disable this plugin in the scheduling profile when
+using default constraints for `PodTopologySpread`.
+{{< /note >}}
 
 ## Comparison with PodAffinity/PodAntiAffinity
 
