@@ -69,61 +69,65 @@ Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
 <!--
 1. Create the pod `nginx` on your cluster:
 
-        kubectl create -f https://k8s.io/examples/pods/share-process-namespace.yaml
+    ```shell
+    kubectl apply -f https://k8s.io/examples/pods/share-process-namespace.yaml
+    ```
 
-2. Attach to the `shell` container and run `ps`:
+1. Attach to the `shell` container and run `ps`:
 
-        ```
-        kubectl attach -it nginx -c shell
-        ```
+    ```shell
+    kubectl attach -it nginx -c shell
+    ```
 
-        If you don't see a command prompt, try pressing enter.
+    If you don't see a command prompt, try pressing enter.
 
-        ```
-        / # ps ax
-        PID   USER     TIME  COMMAND
-            1 root      0:00 /pause
-            8 root      0:00 nginx: master process nginx -g daemon off;
-           14 101       0:00 nginx: worker process
-           15 root      0:00 sh
-           21 root      0:00 ps ax
-        ```
+    ```
+    / # ps ax
+    PID   USER     TIME  COMMAND
+        1 root      0:00 /pause
+        8 root      0:00 nginx: master process nginx -g daemon off;
+       14 101       0:00 nginx: worker process
+       15 root      0:00 sh
+       21 root      0:00 ps ax
+    ```
 -->
 1. 在集群中创建 `nginx` pod：
 
-        kubectl create -f https://k8s.io/examples/pods/share-process-namespace.yaml
+    ```shell
+    kubectl apply -f https://k8s.io/examples/pods/share-process-namespace.yaml
+    ```
+1. 获取容器 `shell`，执行 `ps`：
 
-2. 获取容器 `shell`，执行 `ps`：
+    ```shell
+    kubectl attach -it nginx -c shell
+    ```
+    如果没有看到命令提示符，请按 enter 回车键。
 
-        ```
-        kubectl attach -it nginx -c shell
-        ```
-
-        如果没有看到命令提示符，请按 enter 回车键。
-
-        ```
-        / # ps ax
-        PID   USER     TIME  COMMAND
-            1 root      0:00 /pause
-            8 root      0:00 nginx: master process nginx -g daemon off;
-           14 101       0:00 nginx: worker process
-           15 root      0:00 sh
-           21 root      0:00 ps ax
-        ```
+    ```
+    / # ps ax
+    PID   USER     TIME  COMMAND
+        1 root      0:00 /pause
+        8 root      0:00 nginx: master process nginx -g daemon off;
+       14 101       0:00 nginx: worker process
+       15 root      0:00 sh
+       21 root      0:00 ps ax
+    ```
 <!--
 You can signal processes in other containers. For example, send `SIGHUP` to
 nginx to restart the worker process. This requires the `SYS_PTRACE` capability.
 -->
 您可以在其他容器中对进程发出信号。例如，发送 `SIGHUP` 到 nginx 以重启工作进程。这需要 `SYS_PTRACE` 功能。
 
-        / # kill -HUP 8
-        / # ps ax
-        PID   USER     TIME  COMMAND
-            1 root      0:00 /pause
-            8 root      0:00 nginx: master process nginx -g daemon off;
-           15 root      0:00 sh
-           22 101       0:00 nginx: worker process
-           23 root      0:00 ps ax
+```
+/ # kill -HUP 8
+/ # ps ax
+PID   USER     TIME  COMMAND
+    1 root      0:00 /pause
+    8 root      0:00 nginx: master process nginx -g daemon off;
+   15 root      0:00 sh
+   22 101       0:00 nginx: worker process
+   23 root      0:00 ps ax
+```
 
 <!--
 It's even possible to access another container image using the
@@ -131,17 +135,19 @@ It's even possible to access another container image using the
 -->
 甚至可以使用 `/proc/$pid/root` 链接访问另一个容器镜像。
 
-        / # head /proc/8/root/etc/nginx/nginx.conf
+```
+/ # head /proc/8/root/etc/nginx/nginx.conf
 
-        user  nginx;
-        worker_processes  1;
+user  nginx;
+worker_processes  1;
 
-        error_log  /var/log/nginx/error.log warn;
-        pid        /var/run/nginx.pid;
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
 
 
-        events {
-            worker_connections  1024;
+events {
+    worker_connections  1024;
+```
 
 {{% /capture %}}
 
@@ -167,11 +173,11 @@ Pod 共享许多资源，因此它们共享进程命名空间是很有意义的�
    shared process namespace, `kill -HUP 1` will signal the pod sandbox.
    (`/pause` in the above example.)
 
-2. **Processes are visible to other containers in the pod.** This includes all
+1. **Processes are visible to other containers in the pod.** This includes all
    information visible in `/proc`, such as passwords that were passed as arguments
    or environment variables. These are protected only by regular Unix permissions.
 
-3. **Container filesystems are visible to other containers in the pod through the
+1. **Container filesystems are visible to other containers in the pod through the
    `/proc/$pid/root` link.** This makes debugging easier, but it also means
    that filesystem secrets are protected only by filesystem permissions.
 -->

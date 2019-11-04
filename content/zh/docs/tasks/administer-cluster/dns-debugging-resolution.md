@@ -207,7 +207,7 @@ Use the `kubectl get pods` command to verify that the DNS pod is running.
 
 For CoreDNS:
 ```shell
-kubectl get pods --namespace=kube-system -l k8s-app=coredns
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 NAME                       READY     STATUS    RESTARTS   AGE
 ...
 coredns-7b96bf9f76-5hsxb   1/1       Running   0           1h
@@ -237,7 +237,7 @@ have to deploy it manually.
 对于 CoreDNS 的情况:
 
 ```shell
-kubectl get pods --namespace=kube-system -l k8s-app=coredns
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 NAME                       READY     STATUS    RESTARTS   AGE
 ...
 coredns-7b96bf9f76-5hsxb   1/1       Running   0           1h
@@ -265,7 +265,7 @@ Use `kubectl logs` command to see logs for the DNS containers.
 
 For CoreDNS:
 ```shell
-for p in $(kubectl get pods --namespace=kube-system -l k8s-app=coredns -o name); do kubectl logs --namespace=kube-system $p; done
+for p in $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name); do kubectl logs --namespace=kube-system $p; done
 ```
 
 Here is an example of a healthy CoreDNS log:
@@ -288,7 +288,7 @@ linux/amd64, go1.10.3, 2e322f6
 对于 CoreDNS:
 
 ```shell
-for p in $(kubectl get pods --namespace=kube-system -l k8s-app=coredns -o name); do kubectl logs --namespace=kube-system $p; done
+for p in $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name); do kubectl logs --namespace=kube-system $p; done
 ```
 
 下列是一个正常运行的 CoreDNS 日志信息：

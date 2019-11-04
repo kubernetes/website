@@ -12,16 +12,11 @@ weight: 40
 ---
 -->
 
+{{% capture overview %}}
 <!--
-{{% capture overview %}}
 This page shows how to use an HTTP proxy to access the Kubernetes API.
-{{% /capture %}}
- -->
- 
-{{% capture overview %}}
-
+-->
 本文说明如何使用 HTTP 代理访问 Kubernetes API。
-
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -31,10 +26,12 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 <!--
 * If you do not already have an application running in your cluster, start
   a Hello world application by entering this command:
- -->
+-->
 * 如果您的集群中还没有任何应用，使用如下命令启动一个 Hello World 应用：
 
-      kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+```shell
+kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+```
 
 {{% /capture %}}
 
@@ -42,23 +39,25 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 
 <!--
 ## Using kubectl to start a proxy server
-
-This command starts a proxy to the Kubernetes API server:
- -->
+-->
 ## 使用 kubectl 启动代理服务器
 
+<!--
+This command starts a proxy to the Kubernetes API server:
+-->
 使用如下命令启动 Kubernetes API 服务器的代理：
 
     kubectl proxy --port=8080
 
 <!--
 ## Exploring the Kubernetes API
-
-When the proxy server is running, you can explore the API using `curl`, `wget`,
-or a browser.
- -->
+-->
 ## 探究 Kubernetes API
 
+<!--
+When the proxy server is running, you can explore the API using `curl`, `wget`,
+or a browser.
+-->
 当代理服务器在运行时，你可以通过 `curl`、`wget` 或者浏览器访问 API。
 
 <!--
@@ -92,7 +91,6 @@ Get a list of pods:
       "kind": "PodList",
       "apiVersion": "v1",
       "metadata": {
-        "selfLink": "/api/v1/namespaces/default/pods",
         "resourceVersion": "33074"
       },
       "items": [
@@ -101,7 +99,6 @@ Get a list of pods:
             "name": "kubernetes-bootcamp-2321272333-ix8pt",
             "generateName": "kubernetes-bootcamp-2321272333-",
             "namespace": "default",
-            "selfLink": "/api/v1/namespaces/default/pods/kubernetes-bootcamp-2321272333-ix8pt",
             "uid": "ba21457c-6b1d-11e6-85f7-1ef9f1dab92b",
             "resourceVersion": "33003",
             "creationTimestamp": "2016-08-25T23:43:30Z",
@@ -114,15 +111,11 @@ Get a list of pods:
 
 {{% /capture %}}
 
+{{% capture whatsnext %}}
 <!--
-{{% capture whatsnext %}}
 Learn more about [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy).
-{{% /capture %}}
- -->
- 
-{{% capture whatsnext %}}
-
+-->
 想了解更多信息，请参阅 [kubectl 代理](/docs/reference/generated/kubectl/kubectl-commands#proxy)。
-
 {{% /capture %}}
+
 

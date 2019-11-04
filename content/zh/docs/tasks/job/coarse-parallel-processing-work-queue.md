@@ -81,9 +81,9 @@ Start RabbitMQ as follows:
 按下面的方法启动 RabbitMQ：
 
 ```shell
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.3/examples/celery-rabbitmq/rabbitmq-service.yaml
 service "rabbitmq-service" created
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.3/examples/celery-rabbitmq/rabbitmq-controller.yaml
 replicationcontroller "rabbitmq-controller" created
 ```
 

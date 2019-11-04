@@ -1,9 +1,3 @@
-
-打印 kubeadm 的版本号
-<!--
-Print the version of kubeadm
--->
-
 <!--
 ### Synopsis
 -->
@@ -13,23 +7,16 @@ Print the version of kubeadm
 <!--
 Print the version of kubeadm
 -->
-打印 kubeadm 的版本号
+打印 kubeadm 的版本
 
 ```
 kubeadm version [flags]
 ```
 
-### 选项
-
 <!--
 ### Options
 -->
-
-<!--
-<td></td><td style="line-height: 130%; word-wrap: break-word;">help for version</td>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Output format; available options are 'yaml', 'json' and 'short'</td>
--->
-
+### 选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -42,25 +29,33 @@ kubeadm version [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">版本的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      help for version
+      -->
+       version 操作的帮助命令
+      </td>
     </tr>
 
     <tr>
       <td colspan="2">-o, --output string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">输出格式；可用的选项有 'yaml', 'json' 和 'short'</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Output format; available options are 'yaml', 'json' and 'short'
+      -->
+      输出格式；可用的选项有 'yaml', 'json' 和 'short'
+      </td>
     </tr>
 
   </tbody>
 </table>
 
 
-<!--
-### Options inherited from parent commands
--->
-<!--
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+
+<!-- 
+### Options inherited from parent commands 
 -->
 
 ### 从父命令继承的选项
@@ -76,7 +71,12 @@ kubeadm version [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      [EXPERIMENTAL] The path to the 'real' host root filesystem.
+      -->
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
+      </td>
     </tr>
 
   </tbody>
@@ -84,4 +84,13 @@ kubeadm version [flags]
 
 
 
+<!-- 
+SEE ALSO 
+-->
+查看其它
+
+<!--
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
+-->
+* [kubeadm](kubeadm.md)	 - kubeadm: 轻松引导安全的 Kubernetes 集群
 

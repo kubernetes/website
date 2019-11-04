@@ -1,7 +1,6 @@
 ---
 title: kubectl 的用法约定
 reviewers:
-- bgrant0607
 - janetkuo
 content_template: templates/concept
 ---
@@ -10,7 +9,6 @@ content_template: templates/concept
 ---
 title: kubectl Usage Conventions
 reviewers:
-- bgrant0607
 - janetkuo
 content_template: templates/concept
 ---
@@ -57,7 +55,7 @@ For a stable output in a script:
 <!--
 For `kubectl run` to satisfy infrastructure as code:
 -->
-若希望 `kubectl run` 满足"基础设施即代码（infrastructure as code）"的要求：
+若希望 `kubectl run` 满足基础设施即代码的要求：
 
 <!--
 * Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)).
@@ -84,36 +82,33 @@ You can create the following resources using `kubectl run` with the `--generator
 您可以使用带有 `--generator` 参数的 `kubectl run` 命令创建如下资源：
 
 <!--
-| Resource                        | kubectl command                                   |
-|---------------------------------|---------------------------------------------------|
-| Pod                             | `kubectl run --generator=run-pod/v1`              |
-| Replication controller          | `kubectl run --generator=run/v1`                  |
-| Deployment                      | `kubectl run --generator=extensions/v1beta1`      |
-|  -for an endpoint (default)     | `kubectl run --generator=deployment/v1beta1`      |
-| Deployment                      | `kubectl run --generator=apps/v1beta1`            |
-|  -for an endpoint (recommended) | `kubectl run --generator=deployment/apps.v1beta1` |
-| Job                             | `kubectl run --generator=job/v1`                  |
-| CronJob                         | `kubectl run --generator=batch/v1beta1`           |
-|  -for an endpoint (default)     | `kubectl run --generator=cronjob/v1beta1`         |
-| CronJob                         | `kubectl run --generator=batch/v2alpha1`          |
-|  -for an endpoint (deprecated)  | `kubectl run --generator=cronjob/v2alpha1`        |
+| Resource                            | api group          | kubectl command                                   |
+|-------------------------------------|--------------------|---------------------------------------------------|
+| Pod                                 | v1                 | `kubectl run --generator=run-pod/v1`              |
+| Replication controller (deprecated) | v1                 | `kubectl run --generator=run/v1`                  |
+| Deployment (deprecated)             | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
+| Deployment (deprecated)             | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
+| Job (deprecated)                    | batch/v1           | `kubectl run --generator=job/v1`                  |
+| CronJob (deprecated)                | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
+| CronJob (deprecated)                | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
 -->
 
-| 资源                             | kubectl 命令                                      |
-|---------------------------------|---------------------------------------------------|
-| Pod                             | `kubectl run --generator=run-pod/v1`              |
-| Replication controller          | `kubectl run --generator=run/v1`                  |
-| Deployment                      | `kubectl run --generator=extensions/v1beta1`      |
-|  -同时获得端点（默认）     | `kubectl run --generator=deployment/v1beta1`      |
-| Deployment                      | `kubectl run --generator=apps/v1beta1`            |
-|  -端点（推荐） | `kubectl run --generator=deployment/apps.v1beta1` |
-| Job                             | `kubectl run --generator=job/v1`                  |
-| CronJob                         | `kubectl run --generator=batch/v1beta1`           |
-|  -端点（默认）    | `kubectl run --generator=cronjob/v1beta1`         |
-| CronJob                         | `kubectl run --generator=batch/v2alpha1`          |
-|  -端点（废弃）  | `kubectl run --generator=cronjob/v2alpha1`        |
+| 资源                            | api 组          | kubectl 命令                                   |
+|-------------------------------------|--------------------|---------------------------------------------------|
+| Pod                                 | v1                 | `kubectl run --generator=run-pod/v1`              |
+| Replication controller (过期)) | v1                 | `kubectl run --generator=run/v1`                  |
+| Deployment (过期)             | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
+| Deployment (过期)             | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
+| Job (过期)                    | batch/v1           | `kubectl run --generator=job/v1`                  |
+| CronJob (过期)                | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
+| CronJob (过期)                | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
 
-
+<!-- {{< note >}}
+`kubectl run --generator` except for `run-pod/v1` is deprecated in v1.12.
+{{< /note >}} -->
+{{< note >}}
+v1.12 中不建议使用 `run-pod/v1` 以外的 `kubectl run --generator`。
+{{< /note >}}
 
 <!--
 If you do not specify a generator flag, other flags prompt you to use a specific generator. The following table lists the flags that force you to use specific generators, depending on the version of the cluster:
@@ -167,9 +162,9 @@ flag, which provides the object to be submitted to the cluster.
 ### `kubectl apply`
 
 <!--
-* You can use `kubectl apply` to create or update resources. However, to update a resource you should have created the resource by using `kubectl apply` or `kubectl create --save-config`. For more information about using kubectl apply to update resources, see [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply).
+* You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
 
-* 您可以使用 `kubectl apply` 命令创建或更新资源。但是，要更新资源，您应该使用 `kubectl apply` 或者 `kubectl create --save-config` 创建该资源。有关使用 kubectl apply 更新资源的详细信息，请参阅 [管理资源](/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply)。
+* 您可以使用 `kubectl apply` 命令创建或更新资源。有关使用 kubectl apply 更新资源的详细信息，请参阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
 
 {{% /capture %}}

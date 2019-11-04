@@ -30,7 +30,7 @@ You can set up an HA cluster:
 <!--
 - With stacked control plane nodes, where etcd nodes are colocated with control plane nodes- With external etcd nodes, where etcd runs on separate nodes from the control plane
 -->
- - 使用堆叠（stacked）控制平面节点，其中 etcd 节点与控制平面节点共存 
+ - 使用堆叠（stacked）控制平面节点，其中 etcd 节点与控制平面节点共存
  - 使用外部 etcd 节点，其中 etcd 在与控制平面不同的节点上运行
 
 <!--
@@ -62,7 +62,9 @@ The `kube-apiserver` is exposed to worker nodes using a load balancer.
 `kube-apiserver` 使用负载均衡器暴露给工作节点。
 
 <!--
-Each control plane node creates a local etcd member and this etcd member communicate only withthe `kube-apiserver` of this node. The same applies to the local `kube-controller-manager`and `kube-scheduler` instances.
+Each control plane node creates a local etcd member and this etcd member communicates only with
+the `kube-apiserver` of this node. The same applies to the local `kube-controller-manager`
+and `kube-scheduler` instances.
 -->
 每个控制平面节点创建一个本地 etcd 成员（member），这个 etcd 成员只与该节点的 `kube-apiserver` 通信。这同样适用于本地 `kube-controller-manager` 和 `kube-scheduler` 实例。
 
@@ -82,9 +84,10 @@ You should therefore run a minimum of three stacked control plane nodes for an H
 因此，您应该为 HA 集群运行至少三个堆叠的控制平面节点。
 
 <!--
-This is the default topology in kubeadm. A local etcd member is created automaticallyon control plane nodes when using `kubeadm init` and `kubeadm join --experimental-control-plane`.
+This is the default topology in kubeadm. A local etcd member is created automatically
+on control plane nodes when using `kubeadm init` and `kubeadm join --control-plane`.
 -->
-这是 kubeadm 中的默认拓扑。当使用 `kubeadm init` 和 `kubeadm join --experimental-control-plane` 时，在控制平面节点上会自动创建本地 etcd 成员。
+这是 kubeadm 中的默认拓扑。当使用 `kubeadm init` 和 `kubeadm join --control-plane` 时，在控制平面节点上会自动创建本地 etcd 成员。
 
 <!--
 ![Stacked etcd topology](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)

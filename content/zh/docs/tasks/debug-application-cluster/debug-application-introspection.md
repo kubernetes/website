@@ -325,7 +325,6 @@ metadata:
   name: nginx-deployment-1006230814-6winp
   namespace: default
   resourceVersion: "133447"
-  selfLink: /api/v1/namespaces/default/pods/nginx-deployment-1006230814-6winp
   uid: 4c879808-f161-11e5-9a78-42010af00005
 spec:
   containers:

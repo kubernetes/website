@@ -52,7 +52,14 @@ To run this pod, use the following command:
 用下面的命令运行 pod：
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
+```
+<!--
+The output is:
+-->
+输出结果为：
+
+```
 pod/counter created
 ```
 
@@ -62,7 +69,14 @@ To fetch the logs, use the `kubectl logs` command, as follows:
 使用 `kubectl logs` 命令获取日志:
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
+```
+<!--
+The output is:
+-->
+输出结果为：
+
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -178,12 +192,12 @@ systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
 bypassing the default logging mechanism. They use the [glog][glog]
 logging library. You can find the conventions for logging severity for those
-components in the [development docs on logging](https://git.k8s.io/community/contributors/devel/logging.md).
+components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 -->
 在使用 systemd 机制的服务器上，kubelet 和容器 runtime 写入日志到 journald。
 如果没有 systemd，他们写入日志到 `/var/log` 目录的 `.log` 文件。
 容器中的系统组件通常将日志写到 `/var/log` 目录，绕过了默认的日志机制。他们使用 [glog][glog] 日志库。
-您可以在[日志开发文档](https://git.k8s.io/community/contributors/devel/logging.md)找到这些组件的日志告警级别协议。
+您可以在[日志开发文档](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)找到这些组件的日志告警级别协议。
 
 <!--
 Similarly to the container logs, system component logs in the `/var/log`
@@ -363,13 +377,13 @@ container approach.
 
 <!--
 Sidecar containers can also be used to rotate log files that cannot be
-rotated by the application itself. [An example](https://github.com/samsung-cnct/logrotate)
+rotated by the application itself. An example
 of this approach is a small container running logrotate periodically.
 However, it's recommended to use `stdout` and `stderr` directly and leave rotation
 and retention policies to the kubelet.
 -->
 应用本身如果不具备轮转日志文件的功能，可以通过 sidecar 容器实现。
-该方式的 [例子](https://github.com/samsung-cnct/logrotate) 是运行一个定期轮转日志的容器。
+该方式的一个例子是运行一个定期轮转日志的容器。
 然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略交给 kubelet。
 
 <!--

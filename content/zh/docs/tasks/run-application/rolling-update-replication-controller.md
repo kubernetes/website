@@ -5,6 +5,7 @@ title: 基于Replication Controller执行滚动升级
 content_template: templates/concept
 weight: 80
 ---
+
 <!-- 
 ---
 reviewers:
@@ -32,18 +33,21 @@ For more information, see
 -->
 
 为了在更新服务的同时不中断业务， `kubectl` 支持['滚动更新'](/docs/user-guide/kubectl/v1.6/#rolling-update)，它一次更新一个pod，而不是同时停止整个服务。 有关更多信息，请参阅 [滚动更新设计文档](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) 和 [滚动更新示例](/docs/tasks/run-application/rolling-update-replication-controller/)。
+
 <!-- 
 To update a service without an outage, `kubectl` supports what is called [rolling update](/docs/reference/generated/kubectl/kubectl-commands/#rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) for more information.
 -->
 
 请注意， `kubectl rolling-update` 仅支持Replication Controllers。 但是，如果使用Replication Controllers部署应用，请考虑将其切换到[Deployments](/docs/concepts/workloads/controllers/deployment/). Deployment是一种被推荐使用的更高级别的控制器，它可以对应用进行声明性的自动滚动更新。 如果您仍然希望保留您的Replication Controllers并使用 `kubectl rolling-update`进行滚动更新， 请继续往下阅读：
-<!-- 
+
+<!--
 Note that `kubectl rolling-update` only supports Replication Controllers. However, if you deploy applications with Replication Controllers,
 consider switching them to [Deployments](/docs/concepts/workloads/controllers/deployment/). A Deployment is a higher-level controller that automates rolling updates
 of applications declaratively, and therefore is recommended. If you still want to keep your Replication Controllers and use `kubectl rolling-update`, keep reading:
 -->
 
 滚动更新可以对replication controller所管理的Pod的配置进行变更，变更可以通过一个新的配置文件来进行，或者，如果只更新镜像，则可以直接指定新的容器镜像。
+
 <!--
 A rolling update applies changes to the configuration of pods being managed by
 a replication controller. The changes can be passed as a new replication
@@ -52,6 +56,7 @@ image can be specified directly.
 -->
 
 滚动更新的工作流程：
+
 <!--
 A rolling update works by:
 -->
@@ -59,6 +64,7 @@ A rolling update works by:
 1. 通过新的配置创建一个replication controller
 2. 在新的控制器上增加副本数，在旧的上面减少副本数，直到副本数达到期望值
 3. 删除之前的replication controller
+
 <!--
 1. Creating a new replication controller with the updated configuration.
 2. Increasing/decreasing the replica count on the new and old controllers until
@@ -70,6 +76,7 @@ A rolling update works by:
 
     $ kubectl rolling-update NAME \
         ([NEW_NAME] --image=IMAGE | -f FILE)
+
 <!--
 Rolling updates are initiated with the `kubectl rolling-update` command:
 
@@ -91,7 +98,8 @@ Rolling updates are initiated with the `kubectl rolling-update` command:
 
 * `metadata.namespace`字段必须相同
 
-Replication Controllers的配置文件详细介绍见[创建Replication Controllers](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
+Replication Controllers的配置文件详细介绍见[创建Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/).
+
 <!--
 ## Passing a configuration file
 
@@ -119,6 +127,7 @@ Replication controller configuration files are described in
 
     // 将frontend-v2.json数据传到标准输入来更新frontend-v1的pods
     $ cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
+
 <!--
 ### Examples
 
@@ -141,6 +150,7 @@ Replication controller configuration files are described in
 
 如果`IMAGE:TAG` 和当前值相同，更新就会失败。 因此，我们建议使用版本号来作为标签，而不是使用 `:latest`。从一个 `image:latest`镜像升级到一个新的 `image:latest` 镜像将会失败，即使这两个镜像不是相同的。
 所以，我们不建议使用 `:latest` 来作为标签，详细信息见[最佳配置实践](/docs/concepts/configuration/overview/#container-images) 。
+
 <!--
 ## Updating the container image
 
@@ -171,6 +181,7 @@ Moreover, the use of `:latest` is not recommended, see
 
     // 更新frontend的pods，不更改replication controller的名称
     $ kubectl rolling-update frontend --image=image:v2
+
 <!--
 ### Examples
 
@@ -206,6 +217,7 @@ Moreover, the use of `:latest` is not recommended, see
 * `--update-period DURATION`: 更新两个pod之间等待的时间，默认值是`1m0s`。有效单位如`--poll-interval`所述。
 
 有关`kubectl rolling-update`命令的更多信息见[`kubectl`参考](/docs/user-guide/kubectl/v1.6/#rolling-update).
+
 <!--
 ## Required and optional fields
 
@@ -487,6 +499,7 @@ replicationcontroller "my-nginx-v4" rolling updated
 如果更新失败，可以尝试使用同样的命令来继续更新过程。
 
 在尝试更新之前如果需要回滚到之前的状态，可在之前的命令后面添加`--rollback=true`参数，这将回退所有的更改。
+
 <!--
 ## Troubleshooting
 

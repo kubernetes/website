@@ -32,7 +32,7 @@ Kubernetes node. `crictl` and its source are hosted in the
 
 `crictl` 是 CRI 兼容的容器运行时命令行接口。
 您可以使用它来检查和调试 Kubernetes 节点上的容器运行时和应用程序。
-`crictl`和它的源代码在 [cri-tools](https://github.com/kubernetes-incubator/cri-tools) 代码库.
+`crictl`和它的源代码在 [cri-tools](https://github.com/kubernetes-incubator/cri-tools) 代码库。
 
 {{% /capture %}}
 
@@ -129,11 +129,14 @@ The following examples show some `crictl` commands and example output.
 ## crictl 命令示例
 
 {{< warning >}}
+
 <!--If you use `crictl` to create pod sandboxes or containers on a running
 Kubernetes cluster, the Kubelet will eventually delete them. `crictl` is not a
 general purpose workflow tool, but a tool that is useful for debugging.-->
+
 如果使用 `crictl` 在正在运行的 Kubernetes 集群上创建 Pod 沙盒或容器，kubelet 最终将删除它们。
-`crictl` 不是一个通用的工作流工具，而是一个对调试有用的工具。
+`crictl`不是一个通用的工作流工具，而是一个对调试有用的工具。
+
 {{< /warning >}}
 
 <!--
@@ -412,7 +415,7 @@ deleted by the Kubelet.
         "command": [
             "top"
         ],
-        "log_path":"busybox/0.log",
+        "log_path":"busybox.log",
         "linux": {
         }
       }

@@ -180,7 +180,6 @@ metadata:
   name: build-robot
   namespace: default
   resourceVersion: "272500"
-  selfLink: /api/v1/namespaces/default/serviceaccounts/build-robot
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 secrets:
 - name: build-robot-token-bvbk5
@@ -321,7 +320,6 @@ metadata:
   name: default
   namespace: default
   resourceVersion: "243024"
-  selfLink: /api/v1/namespaces/default/serviceaccounts/default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 secrets:
 - name: default-token-uudge
@@ -338,7 +336,6 @@ metadata:
   creationTimestamp: 2015-08-07T22:02:39Z
   name: default
   namespace: default
-  selfLink: /api/v1/namespaces/default/serviceaccounts/default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 secrets:
 - name: default-token-uudge
@@ -392,7 +389,7 @@ ServiceAccountTokenVolumeProjection 在 1.12 版本中是 __beta__ 阶段，可�
 
 {{< /note >}}
 
-<！--
+<!--
 The kubelet can also project a service account token into a Pod. You can
 specify desired properties of the token, such as the audience and the validity
 duration. These properties are not configurable on the default service account

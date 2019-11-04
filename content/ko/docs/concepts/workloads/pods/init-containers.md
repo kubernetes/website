@@ -250,7 +250,7 @@ service/myservice created
 service/mydb created
 ```
 
-초기화 컨테이너들이 완료되는 것과 `myapp-pod` 파드가 Runnning 상태로
+초기화 컨테이너들이 완료되는 것과 `myapp-pod` 파드가 Running 상태로
 변경되는 것을 볼 것이다.
 
 ```shell

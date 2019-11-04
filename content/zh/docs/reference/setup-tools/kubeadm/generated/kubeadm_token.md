@@ -1,13 +1,10 @@
 
 <!--
-Manage bootstrap tokens.
--->
-管理引导令牌（bootstrap token）。
-
-<!--
 ### Synopsis
 -->
-### 概述
+### 概要
+
+
 
 <!--
 This command manages bootstrap tokens. It is optional and needed only for advanced use cases.
@@ -51,6 +48,7 @@ You can read more about bootstrap tokens here:
 ```
 kubeadm token [flags]
 ```
+
 <!--
 ### Options
 -->
@@ -70,7 +68,12 @@ kubeadm token [flags]
       <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Whether to enable dry-run mode or not</td>
       -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">是否启用 dry-run 模式</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Whether to enable dry-run mode or not
+      -->
+      是否启用 `dry-run` 模式
+      </td>
     </tr>
 
     <tr>
@@ -80,24 +83,38 @@ kubeadm token [flags]
       <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for token</td>
       -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">token 帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      help for token
+      -->
+      token 操作的帮助命令
+      </td>
     </tr>
 
     <tr>
+      <td colspan="2">
       <!--
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
       -->
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认: "/etc/kubernetes/admin.conf"</td>
+      --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
+      </td>
     </tr>
     <tr>
       <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
       -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群通信时使用的 KubeConfig 文件。如果未设置，则搜索一组标准位置以查找现有 KubeConfig 文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+      -->
+      与集群通信时使用的 kubeconfig 文件。如果未设置，则搜索一组标准位置以查找现有 kubeconfig 文件。
+      </td>
     </tr>
 
   </tbody>
 </table>
+
+
 
 <!--
 ### Options inherited from parent commands
@@ -115,11 +132,33 @@ kubeadm token [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+      [EXPERIMENTAL] The path to the 'real' host root filesystem.
       -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验性的] 指向“真实”主机根文件系统的路径。</td>
+      [实验] 指向 '真实' 宿主机根文件系统的路径。
+      </td>
     </tr>
 
   </tbody>
 </table>
+
+
+
+<!--
+SEE ALSO
+-->
+查看其它
+
+<!--
+* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
+* [kubeadm token create](kubeadm_token_create.md)	 - Create bootstrap tokens on the server
+* [kubeadm token delete](kubeadm_token_delete.md)	 - Delete bootstrap tokens on the server
+* [kubeadm token generate](kubeadm_token_generate.md)	 - Generate and print a bootstrap token, but do not create it on the server
+* [kubeadm token list](kubeadm_token_list.md)	 - List bootstrap tokens on the server
+-->
+* [kubeadm](kubeadm.md)	 - kubeadm：轻松引导安全的 Kubernetes 集群
+* [kubeadm token create](kubeadm_token_create.md)	 - 在服务器上创建引导令牌（bootstrap token）
+* [kubeadm token delete](kubeadm_token_delete.md)	 - 在服务器上删除引导令牌（bootstrap token）
+* [kubeadm token generate](kubeadm_token_generate.md)	 - 生成并打印引导令牌（bootstrap token），但不在服务器上创建引导令牌（bootstrap token）
+* [kubeadm token list](kubeadm_token_list.md)	 - 列出服务器上的引导令牌列表（bootstrap token）

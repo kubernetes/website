@@ -39,36 +39,33 @@ This action consists of the following steps:
    默认情况下，它使用引导令牌和 CA 密钥哈希来验证数据的真实性。
    也可以通过文件或 URL 直接发现根 CA。
 
-<!--
-1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
-   it first retrieves the kubelet init configuration from the master and writes it to
-   the disk. When kubelet starts up, kubeadm updates the node `Node.spec.configSource` property of the node.
-   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
-   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
-   for more information about Dynamic Kubelet Configuration.
--->
+    <!-- 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
+    it first retrieves the kubelet init configuration from the master and writes it to
+    the disk. When kubelet starts up, kubeadm updates the node `Node.spec.configSource` property of the node.
+    See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
+    and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
+    for more information about Dynamic Kubelet Configuration.
+    -->
 
 1. 如果调用 kubeadm 时启用了 `--feature-gates=DynamicKubeletConfig`，它首先从主机上检索 kubelet 初始化配置并将其写入磁盘。
    当 kubelet 启动时，kubeadm 更新节点的 `Node.spec.configSource` 属性。
    进一步了解动态 kubelet 配置 请参考 [使用配置文件设置 Kubelet 参数](/docs/tasks/administer-cluster/kubelet-config-file/) 和 [重新配置集群中节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/)。
 
-<!--
-1. Once the cluster information is known, kubelet can start the TLS bootstrapping
-   process.
+    <!-- 1. Once the cluster information is known, kubelet can start the TLS bootstrapping
+    process.
 
-   The TLS bootstrap uses the shared token to temporarily authenticate
-   with the Kubernetes API server to submit a certificate signing request (CSR); by
-   default the control plane signs this CSR request automatically.
--->
+    The TLS bootstrap uses the shared token to temporarily authenticate
+    with the Kubernetes API server to submit a certificate signing request (CSR); by
+    default the control plane signs this CSR request automatically.
+    -->
 
 1. 一旦知道集群信息，kubelet 就可以开始 TLS 引导过程。
    TLS 引导程序使用共享令牌与 Kubernetes API 服务器进行临时的身份验证，以提交证书签名请求 (CSR)；
    默认情况下，控制平面自动对该 CSR 请求进行签名。
 
-<!--
-1. Finally, kubeadm configures the local kubelet to connect to the API
-   server with the definitive identity assigned to the node.
--->
+    <!-- 1. Finally, kubeadm configures the local kubelet to connect to the API
+    server with the definitive identity assigned to the node.
+    -->
 
 1. 最后，kubeadm 配置本地 kubelet 使用分配给节点的确定标识连接到 API 服务器。
 

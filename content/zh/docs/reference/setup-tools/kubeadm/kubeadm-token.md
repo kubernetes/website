@@ -1,8 +1,4 @@
 ---
-reviewers:
-- mikedanese
-- luxas
-- jbeda
 title: kubeadm 令牌
 content_template: templates/concept
 weight: 70

@@ -19,17 +19,34 @@ reviewers:
 
 {{% capture overview %}}
 <!--
-Every Kubernetes cluster has a cluster root Certificate Authority (CA). The CA
-is generally used by cluster components to validate the API server's
-certificate, by the API server to validate kubelet client certificates, etc. To
-support this, the CA certificate bundle is distributed to every node in the
-cluster and is distributed as a secret attached to default service accounts.
-Optionally, your workloads can use this CA to establish trust. Your application
-can request a certificate signing using the `certificates.k8s.io` API using a
-protocol that is similar to the
-[ACME draft](https://github.com/ietf-wg-acme/acme/).
+
+Kubernetes provides a `certificates.k8s.io` API, which lets you provision TLS
+certificates signed by a Certificate Authority (CA) that you control. These CA
+and certificates can be used by your workloads to establish trust.
+
+`certificates.k8s.io` API uses a protocol that is similar to the [ACME
+draft](https://github.com/ietf-wg-acme/acme/).
 -->
-每个 Kubernetes 集群都有一个集群根证书颁发机构（CA）。集群中的组件通常使用 CA 来验证 API server 的证书，由 API 服务器验证 kubelet 客户端证书等。为了支持这一点，CA 证书包被分发到集群中的每个节点，并作为一个 secret 附加分发到默认 service account 上。 或者，您的工作负载可以使用此 CA 建立信任。您的应用程序可以使用类似于 [ACME 草案](https://github.com/ietf-wg-acme/acme/)的协议，使用 `certificates.k8s.io` API 请求证书签名。
+
+Kubernetes提供一个 `certificates.k8s.io` API，可让您配置
+由您控制的证书颁发机构（CA）签名的TLS证书。 您的工作负载可以使用这些CA和证书来建立信任。
+
+`certificates.k8s.io` API使用的协议类似于[ACME
+草稿]（https://github.com/ietf-wg-acme/acme/）。
+
+{{< note >}}
+<!--
+Certificates created using the `certificates.k8s.io` API are signed by a
+dedicated CA. It is possible to configure your cluster to use the cluster root
+CA for this purpose, but you should never rely on this. Do not assume that
+these certificates will validate against the cluster root CA.
+-->
+
+使用`certificates.k8s.io` API创建的证书由
+指定 CA 颁发。 将集群配置为使用集群根目录
+CA 可以达到这个目的，但是您永远不要依赖它。不要以为
+这些证书将针对群根目录 CA 进行验证。
+{{< /note >}}
 
 {{% /capture %}}
 
@@ -44,6 +61,7 @@ protocol that is similar to the
 
 <!--
 ## Trusting TLS in a Cluster
+
 
 Trusting the cluster root CA from an application running as a pod usually
 requires some extra application configuration. You will need to add the CA
@@ -362,6 +380,7 @@ Kubernetes 管理员（具有适当权限）可以使用 `kubectl certificate ap
 <!--
 ## A Word of Warning on the Approval Permission
 
+
 The ability to approve CSRs decides who trusts who within the cluster. This
 includes who the Kubernetes API trusts. The ability to approve CSRs should
 not be granted broadly or lightly. The requirements of the challenge
@@ -374,6 +393,7 @@ certificates interact with authentication.
 
 批准 CSR 的能力决定谁信任群集中的谁。这包括 Kubernetes API 信任的人。批准 CSR 的能力不能过于广泛和轻率。在给予本许可之前，应充分了解上一节中提到的挑战和发布特定证书的后果。有关证书与认证交互的信息，请参阅[此处](/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
 
+
 <!--
 ## A Note to Cluster Administrators
 
@@ -382,6 +402,7 @@ Kubernetes controller manager provides a default implementation of a signer. To
 enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to
 your Certificate Authority's keypair.
+
 -->
 ## 给集群管理员的一个建议
 
