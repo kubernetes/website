@@ -153,7 +153,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-Jika anda tertarik mempelajari lebih lanjut tentang `kubectl`, silahkan baca [Ikhtisar kubectl](/id/docs/reference/kubectl/overview/).
+Jika kamu tertarik mempelajari lebih lanjut tentang `kubectl`, silahkan baca [Ikhtisar kubectl](/id/docs/reference/kubectl/overview/).
 
 ## Memakai label secara efektif
 
