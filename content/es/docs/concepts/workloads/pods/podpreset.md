@@ -8,7 +8,7 @@ weight: 50
 
 {{% capture overview %}}
 Esta página provee una descripción general de los PodPresets, los cuales son
-los objetos que se utilizan para inyectar cierta información en los pods en
+los objetos que se utilizan para inyectar cierta información en los Pods en
 el momento de la creación. Esta información puede incluir secretos, volúmenes,
 montajes de volúmenes y variables de entorno.
 {{% /capture %}}
