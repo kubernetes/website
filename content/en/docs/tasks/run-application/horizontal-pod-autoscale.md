@@ -282,6 +282,11 @@ and [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/maste
 For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 
+## Support for configurable scaling rules
+
+TBA
+
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
