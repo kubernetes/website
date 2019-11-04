@@ -35,7 +35,7 @@ aplica los Pod Presets a las peticiones de creación de Pods entrantes.
 Cuando se realiza una solicitud de creación de Pods, el sistema hace lo siguiente:
 
 1. Obtiene todos los `PodPresets` disponibles para usar.
-2. Verifica si los selectores de etiquetas de cualquier `PodPreset` se corresponden
+2. Verifica si los selectores de etiquetas de cualquier `PodPreset` correspondan
    con las etiquetas del Pod que se está creando.
 3. Intenta fusionar los diversos recursos definidos por el `PodPreset` dentro del Pod
    que se está creando.
