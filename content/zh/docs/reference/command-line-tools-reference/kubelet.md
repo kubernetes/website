@@ -732,7 +732,7 @@ kubelet [flags]
       <!--
       Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding event-qps. Only used if --event-qps > 0 (default 10) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      突发（event）事件记录的最大数量，临时允许（event）事件记录突发到此数目但同时仍不超过 event-qps。仅在 --event-qps 大于 0 时使用（默认值为 10）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      突发事件记录的个数上限，在遵从 event-qps 阈值约束的前提下临时允许事件记录达到此数目。仅在 --event-qps 大于 0 时使用（默认值为 10）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -744,7 +744,7 @@ kubelet [flags]
       <!--
       If > 0, limit event creations per second to this value. If 0, unlimited. (default 5) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置大于 0 的值表示限制每秒能创建出的（Event）事件数量。设置为 0，则表示不限制。（默认值为 5）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置大于 0 的值表示限制每秒可生成的事件数量。设置为 0 表示不限制。（默认值为 5）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -756,7 +756,7 @@ kubelet [flags]
       <!--
       Max length of time for which to store events (per type). Value is a comma separated list of key values, where the keys are event types (e.g.: creation, oom) or "default" and the value is a duration. Default is applied to all non-specified event types (default "default=0") (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)
       -->
-      保存（Event）事件的最大时间（每个类型）。值是键值对（key=value）的逗号分隔列表，其中键是事件类型（例如：creation、oom）或者 “default”，值是持续时间（duration）。“default” 表示所有未指定的事件类型（默认值为 “default=0”）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
+      不同类型事件的最长保存时间。取值是键值对（key=value）的逗号分隔列表，其中键名是事件类型（例如：creation、oom）或者 “default”，键值是持续时间（duration）。所有未指定的事件类型都使用默认值（默认值为 “default=0”）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
       </td>
     </tr>
 
@@ -768,7 +768,7 @@ kubelet [flags]
       <!--
       Max number of events to store (per type). Value is a comma separated list of key values, where the keys are event types (e.g.: creation, oom) or "default" and the value is an integer. Default is applied to all non-specified event types (default "default=0") (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)
       -->
-      保存（Event）事件最大数量（每个类型）。值是键值对（key=value）的逗号分隔列表，其中键是事件类型（例如：creation、oom）或者 “default”，值是一个整数（integer）。“default” 表示所有未指定的事件类型（默认值为 “default=0”）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
+      每种事件类型的最大保存数量。取值是键值对（key=value）的逗号分隔列表，其中键名是事件类型（例如：creation、oom）或者 “default”，键值是一个整数（integer）。所有未指定的事件类型都使用默认值（默认值为 “default=0”）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
       </td>
     </tr>
 
@@ -780,7 +780,7 @@ kubelet [flags]
       <!--
       A set of eviction thresholds (e.g. memory.available<1Gi) that if met would trigger a pod eviction. (default imagefs.available<15%,memory.available<100Mi,nodefs.available<10%,nodefs.inodesFree<5%) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      触发 Pod Eviction 操作的一组硬门限（例如：memory.available < 1Gi（内存可用值小于 1 G））设置。（默认值为 imagefs.available<15%,memory.available<100Mi,nodefs.available<10%,nodefs.inodesFree<5%）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      触发 Pod 驱逐操作的一组硬性门限（例如：memory.available &lt; 1Gi（内存可用值小于 1 G））设置。（默认值为 imagefs.available&lt;15%,memory.available&lt;100Mi,nodefs.available&lt;10%,nodefs.inodesFree&lt;5%）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -792,7 +792,7 @@ kubelet [flags]
       <!--
       Maximum allowed grace period (in seconds) to use when terminating pods in response to a soft eviction threshold being met.  If negative, defer to pod specified value. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      响应满足软驱逐阈值（soft eviction threshold）而终止 Pod 时使用的最大允许宽限期（以秒为单位）。如果设置为负数，则遵循 Pod 的指定值。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      响应满足软驱逐阈值（soft eviction threshold）而终止 Pod 时使用的最长宽限期（以秒为单位）。如果设置为负数，则遵循 Pod 的指定值。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -804,7 +804,7 @@ kubelet [flags]
       <!--
       A set of minimum reclaims (e.g. imagefs.available=2Gi) that describes the minimum amount of resource the kubelet will reclaim when performing a pod eviction if that resource is under pressure. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      当本节点压力过大时，kubelet 进行软驱逐（Pod Eviction）操作，进而需要完成资源回收的最小数量的一组设置（例如：imagefs.available=2Gi）。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      当本节点压力过大时，kubelet 执行软性驱逐操作。此参数设置软性驱逐操作需要回收的资源的最小数量（例如：imagefs.available=2Gi）。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -816,7 +816,7 @@ kubelet [flags]
       <!--
       Duration for which the kubelet has to wait before transitioning out of an eviction pressure condition. (default 5m0s) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-       kubelet 在触发软驱逐（Pod Eviction）操作之前等待的最长时间。（默认值为 5m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+       kubelet 在触发软性 Pod 驱逐操作之前的最长等待时间。（默认值为 5m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -828,7 +828,7 @@ kubelet [flags]
       <!--
       A set of eviction thresholds (e.g. memory.available<1.5Gi) that if met over a corresponding grace period would trigger a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置一组驱逐阈值（eviction threshold）（例如：memory.available<1.5Gi），如果在相应的宽限期内达到该阈值，则会触发软驱逐（Pod Eviction）操作。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置一组驱逐阈值（例如：memory.available&lt;1.5Gi）。如果在相应的宽限期内达到该阈值，则会触发软性 Pod 驱逐操作。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -839,9 +839,8 @@ kubelet [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
       A set of eviction grace periods (e.g. memory.available=1m30s) that correspond to how long a soft eviction threshold must hold before triggering a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
-      触发软驱逐（Pod Eviction）操作的一组软门限等待时间设置，（例如：memory.available=1m30s）
       -->
-      设置一组驱逐宽限期（eviction grace period），与软驱逐阈值（soft eviction threshold）在触发软驱逐（Pod Eviction）操作之前必须保持多长时间相对应。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置一组驱逐宽限期，对应于触发软性 Pod 驱逐操作之前软性驱逐阈值所需持续的时间长短。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -853,7 +852,7 @@ kubelet [flags]
       <!--
       Whether kubelet should exit upon lock-file contention.
       -->
-      设置为 true 表示当有文件锁存在时 kubelet 可以退出。
+      设置为 true 表示当发生锁文件竞争时 kubelet 可以退出。
       </td>
     </tr>
 
@@ -865,7 +864,7 @@ kubelet [flags]
       <!--
       When set to 'true', Hard Eviction Thresholds will be ignored while calculating Node Allocatable. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. [default=false]
       -->
-      设置为 true 表示在计算可分配节点数时忽略硬门限设置（Hard Eviction Thresholds）。获取更多的信息请参考 https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/。（默认值为 false）。
+      设置为 true 表示在计算节点可分配资源数量时忽略硬性逐出阈值设置。请参考 https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/。（默认值为 false）。
       </td>
     </tr>
     
@@ -889,7 +888,7 @@ kubelet [flags]
       <!--
       [Experimental] if set true, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount
       -->
-      [实验性特性] 设置为 true 表示 kubelet 在进行 mount 操作之前对本 Node 上所需的组件（二进制文件等）进行检查
+      [实验性特性] 设置为 true 表示 kubelet 在进行挂载卷操作之前对本节点上所需的组件（如可执行文件等）进行检查
       </td>
     </tr>
 
@@ -901,7 +900,7 @@ kubelet [flags]
       <!--
       If enabled, the kubelet will integrate with the kernel memcg notification to determine if memory eviction thresholds are crossed rather than polling.
       -->
-      设置为 true 表示 kubelet 将会集成 kernel memcg 通知机制，以判断是否达到了内存驱逐门限（memory eviction threshold）而不是轮询。
+      设置为 true 表示 kubelet 将会集成内核的 memcg 通知机制而不是使用轮询机制来判断是否达到了内存驱逐阈值。
       </td>
     </tr>
 
@@ -913,7 +912,7 @@ kubelet [flags]
       <!--
       [Experimental] Path of mounter binary. Leave empty to use the default mount.
       -->
-      [实验性特性] mounter 二进制文件的路径。设置为空表示使用默认 mount。
+      [实验性特性] 卷挂载器（mounter）可执行文件的路径。设置为空表示使用默认挂载器 mount。
       </td>
     </tr>
 
@@ -925,7 +924,7 @@ kubelet [flags]
       <!--
       Makes the Kubelet fail to start if swap is enabled on the node.  (default true) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置为 true 表示如果主机启用了 swap，kubelet 将无法启用。（默认值为 true）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置为 true 表示如果主机启用了交换分区，kubelet 将无法使用。（默认值为 true）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -963,7 +962,7 @@ kubelet [flags]
       <!--
       Interval between global housekeepings (default 1m0s) (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)
       -->
-      全局 housekeeping 的时间间隔。（默认值为 1m0s）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
+      全局资源清理（housekeeping）操作的时间间隔。（默认值为 1m0s）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
       </td>
     </tr>
     
@@ -975,7 +974,7 @@ kubelet [flags]
       <!--
       How should the kubelet setup hairpin NAT. This allows endpoints of a Service to loadbalance back to themselves if they should try to access their own Service. Valid values are "promiscuous-bridge", "hairpin-veth" and "none". (default "promiscuous-bridge") (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-       kubelet 应该如何设置 hairpin NAT。该模式允许后端 endpoint 在访问其本身 Service 时能够再次 loadbalance 回自身。可选项包括“promiscuous-bridge”、“hairpin-veth” 和 “none”。（默认值为 “promiscuous-bridge”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+       设置 kubelet 执行发夹模式（hairpin）网络地址转译的方式。该模式允许后端端点对其自身服务的访问能够再次经由负载均衡转发回自身。可选项包括 “promiscuous-bridge”、“hairpin-veth” 和 “none”。（默认值为 “promiscuous-bridge”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -999,7 +998,7 @@ kubelet [flags]
       <!--
       The port of the localhost healthz endpoint (set to 0 to disable) (default 10248) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      本地 healthz endpoint（端点）的端口（设置为 0 表示禁用）（默认值为 10248）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      本地 healthz 端点使用的端口（设置为 0 表示禁用）（默认值为 10248）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1023,7 +1022,7 @@ kubelet [flags]
       <!--
       If non-empty, will use this string as identification instead of the actual hostname. If --cloud-provider is set, the cloud provider determines the name of the node (consult cloud provider documentation to determine if and how the hostname is used).
       -->
-      如果为非空，将使用此字符串作为标识，而不是实际的主机名。如果设置了 --cloud-provider，则云服务商将确定节点的名称（请查询云服务商文档以确定是否以及如何使用主机名）。
+      如果为非空，将使用此字符串而不是实际的主机名作为节点标识。如果设置了 --cloud-provider，则云服务商将确定节点的名称（请查询云服务商文档以确定是否以及如何使用主机名）。
       </td>
     </tr>
 
@@ -1035,7 +1034,7 @@ kubelet [flags]
       <!--
       Interval between container housekeepings (default 10s)
       -->
-      对容器进行 housekeeping 操作的时间间隔（默认值为 10 s）
+      清理容器操作的时间间隔（默认值为 10 s）
       </td>
     </tr>
 
@@ -1047,7 +1046,7 @@ kubelet [flags]
       <!--
       Duration between checking http for new data (default 20s) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      检查 http 以获取新数据之间的持续时间（默认值为 20 s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      HTTP 服务以获取新数据的时间间隔（默认值为 20 s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1059,7 +1058,7 @@ kubelet [flags]
       <!--
       The percent of disk usage after which image garbage collection is always run. Values must be within the range [0, 100], To disable image garbage collection, set to 100.  (default 85) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      镜像垃圾回收上限，磁盘使用空间达到该百分比时，镜像垃圾回收将持续工作。值必须在 [0，100] 范围内。要禁用镜像垃圾回收，请设置为 100。（默认值为 85）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      镜像垃圾回收上限。磁盘使用空间达到该百分比时，镜像垃圾回收将持续工作。值必须在 [0，100] 范围内。要禁用镜像垃圾回收，请设置为 100。（默认值为 85）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1071,7 +1070,7 @@ kubelet [flags]
       <!--
       The percent of disk usage before which image garbage collection is never run. Lowest disk usage to garbage collect to. Values must be within the range [0, 100] and should not be larger than that of --image-gc-high-threshold. (default 80) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      镜像垃圾回收下限，磁盘使用空间在达到该百分比之前，镜像垃圾回收将不启用。值必须在 [0，100] 范围内，并且不得大于 --image-gc-high-threshold 的值。（默认值为 80）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      镜像垃圾回收下限。磁盘使用空间在达到该百分比之前，镜像垃圾回收操作不会运行。值必须在 [0，100] 范围内，并且不得大于 --image-gc-high-threshold 的值。（默认值为 80）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1083,7 +1082,7 @@ kubelet [flags]
       <!--
       If no pulling progress is made before this deadline, the image pulling will be cancelled. This docker-specific flag only works when container-runtime is set to docker. (default 1m0s)
       -->
-      如果在该参数值之前还没能开始 pull 镜像的过程， pull 镜像操作将被取消。仅当容器运行环境设置为 docker 时，此特定于 docker 的参数才有效。（默认值为 1m0s）
+      如果在该参数值所设置的期限之前没有拉取镜像的进展，镜像拉取操作将被取消。仅当容器运行环境设置为 docker 时，此特定于 docker 的参数才有效。（默认值为 1m0s）
       </td>
     </tr>
 
@@ -1095,7 +1094,7 @@ kubelet [flags]
       <!--
       [Experimental] The endpoint of remote image service. If not specified, it will be the same with container-runtime-endpoint by default. Currently unix socket endpoint is supported on Linux, while npipe and tcp endpoints are supported on windows.  Examples:'unix:///var/run/dockershim.sock', 'npipe:////./pipe/dockershim'
       -->
-      [实验性特性] 远程镜像服务的 endpoint。未设定则默认情况下，它使用 container-runtime-endpoint 的值。目前，在 Linux 系统上支持的类型包括 unix socket endpoint，在 Windows 系统上支持的类型包括 npipe 和 tcp endpoint。例如：‘unix:///var/run/dockershim.sock’、‘npipe:////./pipe/dockershim’。
+      [实验性特性] 远程镜像服务的端点。若未设定则默认情况下使用 container-runtime-endpoint 的值。目前支持的类型包括在 Linux 系统上的 UNIX 套接字端点和 Windows 系统上的 npipe 和 TCP 端点。例如：‘unix:///var/run/dockershim.sock’、‘npipe:////./pipe/dockershim’。
       </td>
     </tr>
     
@@ -1107,7 +1106,7 @@ kubelet [flags]
       <!--
       The bit of the fwmark space to mark packets for dropping. Must be within the range [0, 31]. (default 15) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      标记数据包将被丢弃（dropping）的 fwmark 位设置。必须在 [0，31] 范围内。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      标记数据包将被丢弃的 fwmark 位设置。必须在 [0，31] 范围内。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
     
@@ -1131,7 +1130,7 @@ kubelet [flags]
     <!--
     Keep terminated pod volumes mounted to the node after the pod terminates.  Can be useful for debugging volume related issues. (DEPRECATED: will be removed in a future version)
     -->
-    设置为 true 表示 pod 被终止后仍然保留之前挂载（mount）过的卷（volume），常用于调试与卷（volume）有关的问题（issue）。（已弃用：未来版本将会移除该参数）
+    设置为 true 表示 Pod 终止后仍然保留之前挂载过的卷，常用于调试与卷有关的问题。（已弃用：未来版本将会移除该参数）
     </td>
     </tr>
     
@@ -1143,7 +1142,7 @@ kubelet [flags]
       <!--
       Burst to use while talking with kubernetes apiserver (default 10) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      发送到 apiserver 的每秒请求数量（默认值为 10）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      每秒发送到 apiserver 的请求数量上限（默认值为 10）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1155,7 +1154,7 @@ kubelet [flags]
       <!--
       Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf") (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      发送到 apiserver 的请求内容类型。（默认值为 “application/vnd.kubernetes.protobuf”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      发送到 apiserver 的请求的内容类型。（默认值为 “application/vnd.kubernetes.protobuf”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
       </td>
     </tr>
@@ -1168,7 +1167,7 @@ kubelet [flags]
       <!--
       QPS to use while talking with kubernetes apiserver (default 5) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      与 apiserver 通信的 QPS 值（默认值为 5）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      与 apiserver 通信的每秒查询数（QPS） 值（默认值为 5）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1180,7 +1179,7 @@ kubelet [flags]
       <!--
       A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for kubernetes system components. Currently cpu, memory and local ephemeral storage for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-       kubernetes 系统预留的资源配置，以一组 ResourceName=ResourceQuantity 格式表示。（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi）。当前支持用于根文件系统的 CPU、内存（memory）和本地临时存储（local ephemeral storage）。获取更多信息请参阅 http://kubernetes.io/docs/user-guide/compute-resources。（默认值为 none）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+       kubernetes 系统预留的资源配置，以一组 ResourceName=ResourceQuantity 格式表示。（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi）。当前支持用于根文件系统的 CPU、内存（memory）和本地临时存储。请参阅 http://kubernetes.io/docs/user-guide/compute-resources 获取更多信息。（默认值为 none）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1192,7 +1191,7 @@ kubelet [flags]
       <!--
       Absolute name of the top level cgroup that is used to manage kubernetes components for which compute resources were reserved via '--kube-reserved' flag. Ex. '/kube-reserved'. [default=''] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      用于管理 kubernetes 的带 ‘--kube-reserved’ 标签组件的计算资源，设置顶层 cgroup 全路径名，例如：‘/kube-reserved’。（默认值为 ‘’）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      给出某个顶层 cgroup 绝对名称，该 cgroup 用于管理带 ‘--kube-reserved’ 标签的 kubernetes 组件的计算资源。例如：‘/kube-reserved’。（默认值为 ‘’）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
