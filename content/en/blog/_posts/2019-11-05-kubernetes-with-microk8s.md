@@ -2,11 +2,11 @@
 title: 'Running Kubernetes locally on Linux with Microk8s'                                                           
 date: 2019-11-05
 ---
-**Authors**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation; [Carmine Rimi](https://twitter.com/carminerimi), Product Manager, Canonical
+**Authors**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation; [Carmine Rimi](https://twitter.com/carminerimi)
 
-This is article the second in a series about local deployment options on Linux, and it will cover [MicroK8s](https://microk8s.io/)  -the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
+This article the second in a [series](https://kubernetes.io/blog/2019/03/28/running-kubernetes-locally-on-linux-with-minikube-now-with-kubernetes-1.14-support/) about local deployment options on Linux, and it covers [MicroK8s](https://microk8s.io/). Microk8s is the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
 
-While Minikube usually spins-up a local virtual machine (VM) for the Kubernetes cluster, MicroK8s doesn’t require a VM. It uses [snap](https://snapcraft.io/) packages, an application packaging and isolation technology (also originally developed by Canonical).
+While Minikube usually spins up a local virtual machine (VM) for the Kubernetes cluster, MicroK8s doesn’t require a VM. It uses [snap](https://snapcraft.io/) packages, an application packaging and isolation technology.
 
 This difference has its pros and cons. Here we’ll discuss a few of the interesting differences, and comparing the benefits of a VM based approach with the benefits of a non-VM approach. One of the first factors is cross-platform portability. While a Minikube VM is portable across operating systems - it supports not only Linux, but Windows, macOS, and even FreeBSD - Microk8s requires Linux, and only on those distributions [that support snaps](https://snapcraft.io/docs/installing-snapd). Most popular Linux distributions are supported. 
 
@@ -22,7 +22,7 @@ This is not an official guide to MicroK8s. You may find detailed information on 
 
 ## Prerequisites
 
-A Linux distribution that [supports snaps](https://snapcraft.io/docs/installing-snapd). Since snaps were developed by Canonical, the publisher of Ubuntu, it’s natural that the latest version of Ubuntu supports it out-of-the-box. In this guide, we’ll use Ubuntu 18.04 LTS.
+A Linux distribution that [supports snaps](https://snapcraft.io/docs/installing-snapd), is required. In this guide, we’ll use Ubuntu 18.04 LTS, it supports snaps out-of-the-box.
 If you are interested in running Microk8s on Windows or Mac, you should check out [Multipass](https://multipass.run) to stand up a quick Ubuntu VM as the official way to run virtual Ubuntu on your system.
 
 ## MicroK8s installation
