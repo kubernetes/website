@@ -139,7 +139,7 @@ contains a single `from` element allowing connections from Pods with the label `
   ...
 ```
 
-contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
+contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `user=alice`, *or* from any Pod in any namespace with the label `role=client`.
 
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
 
