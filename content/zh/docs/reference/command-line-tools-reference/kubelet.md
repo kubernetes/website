@@ -1215,7 +1215,7 @@ kubelet [flags]
       <!--
       Optional absolute name of cgroups to create and run the Kubelet in. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      用于创建和运行 kubelet 的 cgroup 的可选绝对名称。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      用于创建和运行 kubelet 的 cgroup 的绝对名称。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1227,7 +1227,7 @@ kubelet [flags]
       <!--
       <Warning: Alpha feature> The path to file for kubelet to use as a lock file.
       -->
-      &lt;警告：alpha 功能&gt; kubelet 使用的 lock 文件的路径。
+      &lt;警告：alpha 功能&gt; kubelet 使用的锁文件的路径。
       </td>
     </tr>
 
@@ -1239,7 +1239,7 @@ kubelet [flags]
       <!--
       when logging hits line file:N, emit a stack trace (default :0)
       -->
-      当记录命中行文件：N 时，发出堆栈跟踪（默认值为：0）
+      当日志逻辑执行到命中 file 的第 N 行时，转储调用堆栈（默认值为：0）
       </td>
     </tr>
 
@@ -1251,7 +1251,7 @@ kubelet [flags]
       <!--
       Whether to log the usage of the cAdvisor container (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)
       -->
-      设置为 true 表示将 cAdvisor 容器的使用情况进行日志记录（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
+      设置为 true 表示将 cAdvisor 容器的使用情况写入日志（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
       </td>
     </tr>
 
@@ -1263,7 +1263,7 @@ kubelet [flags]
       <!--
       If non-empty, write log files in this directory
       -->
-      如果为非空，则在此目录中写入日志文件
+      如果此值为非空，则在所指定的目录中写入日志文件
       </td>
     </tr>
     
@@ -1275,7 +1275,7 @@ kubelet [flags]
       <!--
       If non-empty, use this log file
       -->
-      如果为非空，请使用此日志文件
+      如果此值非空，使用所给字符串作为日志文件名
       </td>
     </tr>
     
@@ -1287,7 +1287,7 @@ kubelet [flags]
       <!--
       Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited. (default 1800)
       -->
-      定义日志文件可以增长到的最大值。单位为兆字节（M）。如果值为 0，则最大文件大小表示无限制。（默认值为 1800）
+      定义日志文件的最大值。单位为兆字节（M）。如果值为 0，则最大文件大小表示无限制。（默认值为 1800）
       </td>
     </tr>
 
@@ -1323,7 +1323,7 @@ kubelet [flags]
       <!--
       Comma-separated list of files to check for machine-id. Use the first one that exists. (default "/etc/machine-id,/var/lib/dbus/machine-id") (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)
       -->
-      以逗号分隔的文件列表，用于检查计算机 id（machine-id）。使用存在的第一个计算机 id。（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
+      以逗号分隔的文件列表，用于检查 machine-id。kubelet 使用存在的第一个 machine-id。（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
       </td>
     </tr>
 
@@ -1359,7 +1359,7 @@ kubelet [flags]
       <!--
       Comma-separated list of HTTP headers to use when accessing the url provided to --manifest-url. Multiple headers with the same name will be added in the same order provided. This flag can be repeatedly invoked. For example: --manifest-url-header 'a:hello,b:again,c:world' --manifest-url-header 'b:beautiful' (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      访问提供给 --manifest-url 的 URL 时使用的 HTTP header（标头）的逗号分隔列表。具有相同名称的多个 header（标头）将以提供的相同顺序添加。该参数可以重复使用。例如：--manifest-url-header ‘a:hello,b:again,c:world’ --manifest-url-header ‘b:beautiful’（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      取值为由 HTTP 头部组成的逗号分隔列表，在访问 --manifest-url 所给出的 URL 时使用。名称相同的多个头部将按所列的顺序添加。该参数可以多次使用。例如：--manifest-url-header ‘a:hello,b:again,c:world’ --manifest-url-header ‘b:beautiful’（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
     <tr>
@@ -1370,7 +1370,7 @@ kubelet [flags]
       <!--
       The namespace from which the kubernetes master services should be injected into pods (default "default") (DEPRECATED: This flag will be removed in a future version.)
       -->
-       Kubernetes Master（主）服务应从其中注入到 Pod 中的命名空间（默认值为 “default”）（已弃用：此参数将在未来的版本中删除。）
+       kubelet 向 Pod 注入 Kubernetes 主控服务信息时使用的命名空间（默认值为 “default”）（已弃用：此参数将在未来的版本中删除。）
       </td>
     </tr>
     
@@ -1406,7 +1406,7 @@ kubelet [flags]
       <!--
       Maximum number of old instances of containers to retain globally. Each container takes up some disk space. To disable, set to a negative number. (default -1) (DEPRECATED: Use --eviction-hard or --eviction-soft instead. Will be removed in a future version.)
       -->
-      可以保留的已停止容器的最大数量。每个容器占用一些磁盘空间。要禁用，请设置为负数。（默认值为 -1）（已弃用：请改用 --eviction-hard 或者 --eviction-soft。此参数将在未来的版本中删除。）
+      设置全局可保留的已停止容器实例个数上限。每个实例会占用一些磁盘空间。要禁用，请设置为负数。（默认值为 -1）（已弃用：请改用 --eviction-hard 或者 --eviction-soft。此参数将在未来的版本中删除。）
       </td>
     </tr>
 
@@ -1478,7 +1478,7 @@ kubelet [flags]
       <!--
       IP address of the node. If set, kubelet will use this IP address for the node
       -->
-       Node 节点的 IP 地址。如果设置，kubelet 将使用该 IP 地址作为 Node 节点的 IP 地址。
+      节点的 IP 地址。如果设置，kubelet 将使用该 IP 地址作为节点的 IP 地址。
       </td>
     </tr>
 
@@ -1490,7 +1490,7 @@ kubelet [flags]
       <!--
       <Warning: Alpha feature> Labels to add when registering the node in the cluster.  Labels must be key=value pairs separated by ','. Labels in the 'kubernetes.io' namespace must begin with an allowed prefix (kubelet.kubernetes.io, node.kubernetes.io) or be in the specifically allowed set (beta.kubernetes.io/arch, beta.kubernetes.io/instance-type, beta.kubernetes.io/os, failure-domain.beta.kubernetes.io/region, failure-domain.beta.kubernetes.io/zone, failure-domain.kubernetes.io/region, failure-domain.kubernetes.io/zone, kubernetes.io/arch, kubernetes.io/hostname, kubernetes.io/instance-type, kubernetes.io/os)
       -->
-      &lt;警告：alpha 功能&gt; kubelet 在集群中注册本 Node 时设置的 Label。Label 以 key=value 的格式表示，多个 Label 以逗号分隔。命名空间 ‘kubernetes.io’ 中的 Label 必须以 kubelet.kubernetes.io 或 node.kubernetes.io 为前缀，或者在以下明确允许范围内（beta.kubernetes.io/arch、beta.kubernetes.io/instance-type、beta.kubernetes.io/os、failure-domain.beta.kubernetes.io/region、 failure-domain.beta.kubernetes.io/zone、failure-domain.kubernetes.io/region、failure-domain.kubernetes.io/zone、kubernetes.io/arch、kubernetes.io/hostname、kubernetes.io/instance-type、kubernetes.io/os）
+      &lt;警告：alpha 功能&gt; kubelet 在集群中注册本节点时设置的标签。标签以 key=value 的格式表示，多个标签以逗号分隔。命名空间 ‘kubernetes.io’ 中的标签必须以 kubelet.kubernetes.io 或 node.kubernetes.io 为前缀，或者在以下明确允许范围内（beta.kubernetes.io/arch、beta.kubernetes.io/instance-type、beta.kubernetes.io/os、failure-domain.beta.kubernetes.io/region、 failure-domain.beta.kubernetes.io/zone、failure-domain.kubernetes.io/region、failure-domain.kubernetes.io/zone、kubernetes.io/arch、kubernetes.io/hostname、kubernetes.io/instance-type、kubernetes.io/os）
       </td>
     </tr>
 
@@ -1514,7 +1514,7 @@ kubelet [flags]
       <!--
       Specifies how often kubelet posts node status to master. Note: be cautious when changing the constant, it must work with nodeMonitorGracePeriod in nodecontroller. (default 10s) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      指定 kubelet Master 节点汇报 Node 节点状态的时间间隔。注意：更改常量时请务必谨慎，它必须与 nodecontroller 中的 nodeMonitorGracePeriod  一起使用。（默认值为 10s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      指定 kubelet 向主控节点汇报节点状态的时间间隔。注意：更改此常量时请务必谨慎，它必须与 nodecontroller 中的 nodeMonitorGracePeriod 一起使用。（默认值为 10s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1526,7 +1526,7 @@ kubelet [flags]
       <!--
       Traffic to IPs outside this range will use IP masquerade. Set to '0.0.0.0/0' to never masquerade. (default "10.0.0.0/8") (DEPRECATED: will be removed in a future version)
       -->
-       kubelet 向该 IP 段之外的 IP 地址发送的流量将使用 IP masquerade 技术。设置为 “0.0.0.0/0”，不会使用 masquerade 技术。（默认值为 “10.0.0.0/8”）（已弃用：该参数将在未来版本中删除。）
+       kubelet 向该 IP 段之外的 IP 地址发送的流量将使用 IP 伪装技术。设置为 “0.0.0.0/0” 则不会使用伪装技术。（默认值为 “10.0.0.0/8”）（已弃用：该参数将在未来版本中删除。）
       </td>
     </tr>
 
@@ -1562,7 +1562,7 @@ kubelet [flags]
       <!--
       The image whose network/ipc namespaces containers in each pod will use. This docker-specific flag only works when container-runtime is set to docker. (default "k8s.gcr.io/pause:3.1")
       -->
-      用于 Pod 内网络命名空间共享的基础 pause 镜像。仅当容器运行环境设置为 docker 时，此特定于 docker 的参数才有效。（默认值为 “k8s.gcr.io/pause:3.1”）
+      指定基础设施镜像，Pod 内所有容器与其共享网络和 IPC 命名空间。仅当容器运行环境设置为 docker 时，此特定于 docker 的参数才有效。（默认值为 “k8s.gcr.io/pause:3.1”）
       </td>
     </tr>
 
@@ -1574,7 +1574,7 @@ kubelet [flags]
       <!--
       Path to the directory containing static pod files to run, or the path to a single static pod file. Files starting with dots will be ignored. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置包含要运行的静态 Pod 的文件目录的路径，或单个静态 Pod 文件的路径。以点 . 开头的文件将被忽略。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置包含要运行的静态 Pod 的文件的路径，或单个静态 Pod 文件的路径。以点（.）开头的文件将被忽略。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1586,7 +1586,7 @@ kubelet [flags]
       <!--
       Set the maximum number of processes per pod.  If -1, the kubelet defaults to the node allocatable pid capacity. (default -1) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置每个 Pod 的最大进程数目。如果为 -1，则 kubelet 默认为 Node 节点分配可用的 pid 容量。（默认值为 -1）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置每个 Pod 中的最大进程数目。如果为 -1，则 kubelet 使用节点可分配的 PID 容量作为默认值。（默认值为 -1）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1598,7 +1598,7 @@ kubelet [flags]
       <!--
       Number of Pods per core that can run on this Kubelet. The total number of Pods on this Kubelet cannot exceed max-pods, so max-pods will be used if this calculation results in a larger number of Pods allowed on the Kubelet. A value of 0 disables this limit. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-       kubelet 上每个 core 可运行的 Pod 数量。此 kubelet 上的 Pod 总数不能超过 max-pods 值。因此，如果此计算结果导致在 kubelet 上允许更多数量的 Pod，则使用 max-pods 值。值为 0 表示不做限制。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+       kubelet 在每个处理器核上可运行的 Pod 数量。此 kubelet 上的 Pod 总数不能超过 max-pods 值。因此，如果此计算结果导致在 kubelet 上允许更多数量的 Pod，则使用 max-pods 值。值为 0 表示不做限制。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1622,7 +1622,7 @@ kubelet [flags]
       <!--
       Default kubelet behaviour for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置 kernel tuning（内核调优） 默认 kubelet 行为。如果已设置该参数，则任何内核可调（kernel tunable）参数与 kubelet 默认值不同时， kubelet 都会出错。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置 kubelet 的默认内核调整行为。如果已设置该参数，当任何内核可调参数与 kubelet 默认值不同时，kubelet 都会出错。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1634,7 +1634,7 @@ kubelet [flags]
       <!--
       Unique identifier for identifying the node in a machine database, i.e cloudprovider
       -->
-      设置主机数据库中标识 Node 节点的唯一（ID）标识符，例如 cloudprovider
+      设置主机数据库中用来标识节点的唯一标识，即 cloudprovider
       </td>
     </tr>
 
@@ -1658,7 +1658,7 @@ kubelet [flags]
       <!--
       The read-only port for the Kubelet to serve on with no authentication/authorization (set to 0 to disable) (default 10255) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-       kubelet 可以在没有身份验证/授权（authentication/authorization）的情况下使用的只读端口（设置为 0 表示禁用）（默认值为 10255）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+       kubelet 可以在没有身份验证/鉴权的情况下提供只读服务的端口（设置为 0 表示禁用）（默认值为 10255）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1670,7 +1670,7 @@ kubelet [flags]
       <!--
       If true, when panics occur crash. Intended for testing.
       -->
-      设置为 true 表示发生 panics 情况时崩溃。仅用于测试。
+      设置为 true 表示发生内核失效时崩溃。仅用于测试。
       </td>
     </tr>
 
@@ -1682,7 +1682,7 @@ kubelet [flags]
       <!--
       Enables container streaming redirect. If false, kubelet will proxy container streaming data between apiserver and container runtime; if true, kubelet will return an http redirect to apiserver, and apiserver will access container runtime directly. The proxy approach is more secure, but introduces some overhead. The redirect approach is more performant, but less secure because the connection between apiserver and container runtime may not be authenticated.
       -->
-      启用容器流数据重定向。如果设置为 false，则 kubelet 将在 apiserver 和容器运行时之间代理容器流数据；如果设置为 true，则 kubelet 将返回 http 重定向到 apiserver，并且 apiserver 将直接访问容器运行时。代理方法更安全，但会带来一些开销。重定向方法性能更高，但安全性较低，因为 apiserver 和容器运行时之间的连接可能未通过身份验证。
+      启用容器流数据重定向。如果设置为 false，则 kubelet 将在 apiserver 和容器运行时之间转发容器流数据；如果设置为 true，则 kubelet 将返回指向 apiserver 的 HTTP 重定向指令，而 apiserver 将直接访问容器运行时。代理方法更安全，但会带来一些开销。重定向方法性能更高，但安全性较低，因为 apiserver 和容器运行时之间的连接可能未通过身份验证。
       </td>
     </tr>
 
@@ -1694,7 +1694,7 @@ kubelet [flags]
       <!--
       Register the node with the apiserver. If --kubeconfig is not provided, this flag is irrelevant, as the Kubelet won't have an apiserver to register with. Default=true. (default true)
       -->
-      将本 Node 注册到 apiserver。如果未提供 --kubeconfig 参数，则此参数无关紧要，因为 kubelet 将没有要注册的 apiserver。（默认值为 true）
+      将本节点注册到 apiserver。如果未提供 --kubeconfig 参数，则此参数无关紧要，因为 kubelet 将没有要注册的 apiserver。（默认值为 true）
       </td>
     </tr>
 
@@ -1706,7 +1706,7 @@ kubelet [flags]
       <!--
       Register the node as schedulable. Won't have any effect if register-node is false. (default true) (DEPRECATED: will be removed in a future version)
       -->
-      注册本 Node 为可以被调度的（schedulable）。register-node 为 false 则此设置无效。（默认值为 true）（已弃用：此参数将在未来的版本中删除。）
+      注册本节点为可调度的。register-node 为 false 时此设置无效。（默认值为 true）（已弃用：此参数将在未来的版本中删除。）
       </td>
       </tr>
 
@@ -1718,7 +1718,7 @@ kubelet [flags]
       <!--
       Register the node with the given list of taints (comma separated "<key>=<value>:<effect>"). No-op if register-node is false.
       -->
-      设置本 Node 的 taints，格式为 “<key>=<value>:<effect>” ，以逗号分隔。当 register-node 为 false 时不生效。
+      设置本节点的污点标记，格式为 “&lt;key&gt;=&lt;value&gt;:&lt;effect&gt;” ，以逗号分隔。当 register-node 为 false 时此标志无效。
       </td>
     </tr>
 
@@ -1730,7 +1730,7 @@ kubelet [flags]
       <!--
       Maximum size of a bursty pulls, temporarily allows pulls to burst to this number, while still not exceeding registry-qps. Only used if --registry-qps > 0 (default 10) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置并发拉取（pull）镜像的最大值，暂时允许到此参数值但同时仍不超过 registration-qps 值。仅在 --registry-qps 大于 0（默认值为 10）时使用（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置突发性镜像拉取的个数上限，在不超过 registration-qps 设置值的前提下暂时允许此参数所给的镜像拉取个数。仅在 --registry-qps 大于 0（默认值为 10）时使用（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1742,7 +1742,7 @@ kubelet [flags]
       <!--
       If > 0, limit registry pull QPS to this value.  If 0, unlimited. (default 5) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      如果 --registry-qps 大于 0，则限制镜像仓库（Registry）的 QPS 达到该值。设置为 0，表示不受限制。（默认值为 5）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      如果 --registry-qps 大于 0，用来限制镜像仓库的 QPS 上限。设置为 0，表示不受限制。（默认值为 5）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1754,7 +1754,7 @@ kubelet [flags]
       <!--
       Resolver configuration file used as the basis for the container DNS resolution configuration. (default "/etc/resolv.conf") (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      命名服务配置文件，用于容器内应用的 DNS 解析配置的基础。（默认值为 “/etc/resolv.conf”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      名字解析服务的配置文件名，用作容器 DNS 解析配置的基础。（默认值为 “/etc/resolv.conf”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
