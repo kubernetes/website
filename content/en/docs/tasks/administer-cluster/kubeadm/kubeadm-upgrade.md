@@ -88,6 +88,12 @@ The upgrade workflow at high level is the following:
     kubeadm version
     ```
 
+1.  Drain the control plane node:
+
+    ```shell
+    kubectl drain $MASTER --ignore-daemonsets
+    ```
+
 1.  On the control plane node, run:
 
     ```shell
@@ -230,6 +236,12 @@ The upgrade workflow at high level is the following:
     find your CNI provider and see whether additional upgrade steps are required.
 
     This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
+
+1.  Uncordon the control plane node
+
+    ```shell
+    kubectl uncordon $MASTER
+    ```
 
 ### Upgrade additional control plane nodes
 
