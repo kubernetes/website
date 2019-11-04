@@ -6,9 +6,9 @@
 
 
 <!--
-Generate the certificate for etcd nodes to communicate with each other, and save them into etcd/peer.cert and etcd/peer.key files.
+Generate the certificate for serving etcd, and save them into etcd/server.cert and etcd/server.key files.
 -->
-生成 etcd 节点相互通信的证书，并将其保存到 etcd/peer.cert 和 etcd/peer.key 文件中。
+生成用于提供 etcd 的证书，并将其保存到 etcd/server.cert 和 etcd/server.key 文件中。
 
 <!--
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
@@ -26,7 +26,7 @@ Alpha Disclaimer: this command is currently alpha.
 Alpha 免责声明：此命令当前为 alpha 功能。
 
 ```
-kubeadm init phase certs etcd-peer [flags]
+kubeadm init phase certs etcd-server [flags]
 ```
 
 <!-- 
@@ -100,9 +100,9 @@ kubeadm init phase certs etcd-peer [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for etcd-peer
+      help for etcd-server
       -->
-       etcd-peer 操作的帮助命令
+       etcd-server 操作的帮助命令
       </td>
     </tr>
 
@@ -161,7 +161,6 @@ kubeadm init phase certs etcd-peer [flags]
 SEE ALSO 
 -->
 查看其它
-
 
 <!--
 * [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation

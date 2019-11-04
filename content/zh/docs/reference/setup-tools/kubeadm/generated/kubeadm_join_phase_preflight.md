@@ -6,12 +6,25 @@
 
 
 <!--
-Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
+Run pre-flight checks for kubeadm join.
 -->
-生成一个包含 KubeletConfiguration 的文件和一个包含特定于节点的 kubelet 配置的环境文件，然后（重新）启动 kubelet。
+运行 kubeadm join 命令添加节点前检查。
 
 ```
-kubeadm join phase kubelet-start [api-server-endpoint] [flags]
+kubeadm join phase preflight [api-server-endpoint] [flags]
+```
+
+<!--
+### Examples
+-->
+### 示例
+<!--
+# Run join pre-flight checks using a config file.
+-->
+
+```
+  ＃使用配置文件运行 kubeadm join 命令添加节点前检查。
+  kubeadm join phase preflight --config kubeadm-config.yml
 ```
 
 <!--
@@ -27,6 +40,47 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
   <tbody>
 
     <tr>
+      <td colspan="2">--apiserver-advertise-address string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+      -->
+      对于将要托管新的控制平面实例的节点，指定 API 服务器将公布的其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+      <!--
+      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
+      -->
+      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：6443
+      </td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      If the node should host a new control plane instance, the port for the API Server to bind to.
+      -->
+      针对将要托管新的控制平面实例的节点，设置 API 服务器要绑定的端口。
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--certificate-key string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Use this key to decrypt the certificate secrets uploaded by init.
+      -->
+      使用此密钥可以解密由 `init` 操作上传的证书 secret。
+      </td>
+    </tr>
+
+    <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
@@ -35,6 +89,18 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
       Path to kubeadm config file.
       -->
        kubeadm 配置文件的路径。
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--control-plane</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      Create a new control plane instance on this node
+      -->
+      在此节点上创建一个新的控制平面实例
       </td>
     </tr>
 
@@ -55,7 +121,6 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      For file-based discovery, a file or URL from which to load cluster information.
       <!--
       For file-based discovery, a file or URL from which to load cluster information.
       -->
@@ -105,9 +170,21 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      help for kubelet-start
+      help for preflight
       -->
-       kubelet-start 操作的帮助命令
+       preflight 操作的帮助命令
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--ignore-preflight-errors stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--
+      A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+      -->
+      错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
       </td>
     </tr>
 
