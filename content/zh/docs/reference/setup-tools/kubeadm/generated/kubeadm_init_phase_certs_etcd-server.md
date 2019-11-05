@@ -8,7 +8,7 @@
 <!--
 Generate the certificate for serving etcd, and save them into etcd/server.cert and etcd/server.key files.
 -->
-生成用于提供 etcd 的证书，并将其保存到 etcd/server.cert 和 etcd/server.key 文件中。
+生成用于提供 etcd 服务的证书，并将其保存到 etcd/server.cert 和 etcd/server.key 文件中。
 
 <!--
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
