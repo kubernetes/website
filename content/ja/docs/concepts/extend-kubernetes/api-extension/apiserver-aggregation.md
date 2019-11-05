@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-アグリゲーションレイヤーは、APIを追加することでコアなKubernetes APIが提供している機能を超えて、Kubernetesの拡張を可能にします。
+アグリゲーションレイヤーを使用すると、KubernetesのコアAPIで提供されている機能を超えて、追加のAPIでKubernetesを拡張できます。
 
 {{% /capture %}}
 
@@ -14,7 +14,7 @@ weight: 10
 
 ## 概要
 
-アグリゲーションレイヤーを使うことで、KubernetesスタイルのAPIを、追加でクラスターにインストールすることが可能になります。これらは、[service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md)や、[apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md)のようなユーザーが作成したAPIなど、出来合いのもの、また既存のサードパーティソリューションに関わらず使い始めることができます。
+アグリゲーションレイヤーを使用すると、クラスターにKubernetesスタイルのAPIを追加でインストールできます。これらは、[service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md)や、[apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md)のようなユーザーが作成したAPIなど、出来合いのもの、また既存のサードパーティソリューションに関わらず使い始めることができます。
 
 バージョン1.7において、アグリゲーションレイヤーは、kube-apiserverのプロセス内で動きます。拡張リソースが登録されるまでは、アグリゲーションレイヤーは何もしません。APIを登録するには、ユーザーはKubernetes APIで使われるURLのパスを明記した、APIServiceオブジェクトを追加しなければなりません。それを追加すると、アグリゲーションレイヤーはAPIパス（例、/apis/myextension.mycompany.io/v1/…）への全てのアクセスを、登録されたAPIServiceにプロキシします。
 
@@ -26,7 +26,7 @@ weight: 10
 
 * アグリゲーターをあなたの環境で動かすには、まず[アグリゲーションレイヤーを設定](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)します
 * そして、アグリゲーションレイヤーと一緒に動作させるために[extension api-serverをセットアップ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)します
-* また、どのように[Custom Resource Definitionを使いKubernetes APIを拡張する](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)かを学んで下さい
+* また、[Custom Resource Definitionを使いKubernetes APIを拡張する](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)方法を学んで下さい
 
 {{% /capture %}}
 
