@@ -1766,7 +1766,7 @@ kubelet [flags]
       <!--
       Directory path for managing kubelet files (volume mounts,etc). (default "/var/lib/kubelet")
       -->
-      设置用于管理 kubelet 文件的根目录路径（例如 volume、mounts 相关文件）（默认值为 “/var/lib/kubelet”）
+      设置用于管理 kubelet 文件的根目录（例如挂载卷的相关文件）（默认值为 “/var/lib/kubelet”）
       </td>
     </tr>
 
@@ -1778,7 +1778,7 @@ kubelet [flags]
       <!--
       <Warning: Beta feature> Auto rotate the kubelet client certificates by requesting new certificates from the kube-apiserver when the certificate expiration approaches. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      &lt;警告：alpha 功能&gt; 设置当客户端证书过期时 kubelet 自动从 kube-apiserver 请求或滚动新的证书。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      &lt;警告：alpha 功能&gt; 设置当客户端证书即将过期时 kubelet 自动从 kube-apiserver 请求新的证书进行轮换。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1790,7 +1790,7 @@ kubelet [flags]
       <!--
       Auto-request and rotate the kubelet serving certificates by requesting new certificates from the kube-apiserver when the certificate expiration approaches. Requires the RotateKubeletServerCertificate feature gate to be enabled, and approval of the submitted CertificateSigningRequest objects. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      当证书过期时自动从 kube-apiserver 请求或者滚动新的证书。要求启用 RotateKubeletServerCertificate 特性开关，以及对提交的 CertificateSigningRequest 对象进行 approve 操作。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      当证书即将过期时自动从 kube-apiserver 请求新的证书进行轮换。要求启用 RotateKubeletServerCertificate 特性开关，以及对提交的 CertificateSigningRequest 对象进行批复（approve）操作。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1802,7 +1802,7 @@ kubelet [flags]
       <!--
       If true, exit after spawning pods from local manifests or remote urls. Exclusive with --enable-server
       -->
-      设置为 true 表示从本地清单（manifest）或远程 URL 创建完 Pod 后立即退出 kubelet 进程，与 --enable-server 参数互斥
+      设置为 true 表示从本地清单或远程 URL 创建完 Pod 后立即退出 kubelet 进程，与 --enable-server 参数互斥
       </td>
     </tr>
 
@@ -1814,7 +1814,7 @@ kubelet [flags]
       <!--
       Optional absolute name of cgroups to create and run the runtime in.
       -->
-      设置用于创建和运行容器运行时的 cgroup 的可选绝对名称。
+      设置用于创建和运行容器运行时的 cgroup 的绝对名称。
       </td>
     </tr>
 
@@ -1826,7 +1826,7 @@ kubelet [flags]
       <!--
       Timeout of all runtime requests except long running request - pull, logs, exec and attach. When timeout exceeded, kubelet will cancel the request, throw out an error and retry later. (default 2m0s) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      除了长时间运行的请求（request），对其他请求（request）的超时时间设置，包括 pull、logs、exec 和 attach 等操作。当超时时间到达时，请求会被取消，抛出一个错误并会重试。（默认值为 2m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      除了长时间运行的请求（包括 pull、logs、exec 和 attach 等操作），设置其他请求的超时时间。到达超时时间时，请求会被取消，抛出一个错误并会等待重试。（默认值为 2m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1850,7 +1850,7 @@ kubelet [flags]
       <!--
       Pull images one at a time. We recommend *not* changing the default value on nodes that run docker daemon with version < 1.9 or an Aufs storage backend. Issue #10959 has more details. (default true) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      按顺序挨个 pull 镜像。建议 *不要* 在运行版本小于 1.9 的 docker daemon 或 Aufs 存储后端的节点上更改默认值。（默认值为 true）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      逐一拉取镜像。建议 *不要* 在 docker 守护进程版本低于 1.9 或启用了 Aufs 存储后端的节点上更改默认值。（默认值为 true）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -1862,7 +1862,7 @@ kubelet [flags]
       <!--
       If true, avoid header prefixes in the log messages
       -->
-      设置为 true，则在日志消息中避免标头（header）前缀
+      设置为 true，则在日志消息中去掉标头前缀
       </td>
     </tr>
 
@@ -1874,7 +1874,7 @@ kubelet [flags]
       <!--
       If true, avoid headers when opening log files
       -->
-      设置为 true，打开日志文件时避免标头（header）
+      设置为 true，打开日志文件时去掉标头
       </td>
     </tr>
 
@@ -1886,7 +1886,7 @@ kubelet [flags]
       <!--
       logs at or above this threshold go to stderr (default 2)
       -->
-      设置达到或超过此阈值的日志输出到 stderr（默认值为 2）
+      设置严重程度达到或超过此阈值的日志输出到标准错误输出（默认值为 2）
       </td>
     </tr>
 
@@ -1898,7 +1898,7 @@ kubelet [flags]
       <!--
       Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction (default 1m0s) (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)
       -->
-      设置存储驱动程序中的写操作进行缓冲并作为单个事务提交到非内存后端的时间间隔。（默认值为 1m0s）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
+      设置存储驱动程序中写操作的缓冲时长，超过时长的操作会作为单一事务提交到非内存后端。（默认值为 1m0s）（已弃用：这是一个错误地在 kubelet 中注册的 cadvisor 参数。由于遗留问题，在删除之前，它将遵循标准的 CLI 弃用时间表。）
       </td>
     </tr>
 
@@ -1994,7 +1994,7 @@ kubelet [flags]
       <!--
       Max period between synchronizing running containers and config (default 1m0s) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      同步正在运行的容器和配置之间的最长时间（默认值为 1m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      在运行中的容器与其配置之间执行同步操作的最长时间间隔（默认值为 1m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2006,7 +2006,7 @@ kubelet [flags]
       <!--
       Optional absolute name of cgroups in which to place all non-kernel processes that are not already inside a cgroup under /. Empty for no container. Rolling back the flag requires a reboot. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-       cgroup 的可选绝对名称，用于将所有尚未在 cgroup 内的非内核进程放置在根目录下。无容器则为空。回滚该参数需要重启机器。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+       cgroup 的绝对名称，用于所有尚未放置在根目录下某 cgroup 内的非内核进程。空值表示不指定 cgroup。回滚该参数需要重启机器。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2018,7 +2018,7 @@ kubelet [flags]
       <!--
       A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      系统预留的资源配置，以一组 ”ResourceName=ResourceQuantity“ 的格式表示，（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi）。目前仅支持 CPU 和 （memory）内存的设置。获取更多信息请参考 http://kubernetes.io/docs/user-guide/compute-resources。（默认值为 ”none“）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      系统预留的资源配置，以一组 ”ResourceName=ResourceQuantity“ 的格式表示，（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi）。目前仅支持 CPU 和内存（memory）的设置。请参考 http://kubernetes.io/docs/user-guide/compute-resources 获取更多信息。（默认值为 ”none“）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2030,7 +2030,7 @@ kubelet [flags]
       <!--
       Absolute name of the top level cgroup that is used to manage non-kubernetes components for which compute resources were reserved via '--system-reserved' flag. Ex. '/system-reserved'. [default=''] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      用于管理非 kubernetes 的带 ‘--system-reserved’ 标签组件的计算资源，设置顶层 cgroup 全路径名，例如 ‘/system-reserved’。（默认值为 ‘’）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      给出一个顶层 cgroup 绝对名称，该 cgroup 用于管理非 kubernetes 组件，这些组件的计算资源通过 ‘--system-reserved’ 标志进行预留。例如 ‘/system-reserved’。（默认值为 ‘’）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2042,7 +2042,7 @@ kubelet [flags]
       <!--
       File containing x509 Certificate used for serving HTTPS (with intermediate certs, if any, concatenated after server cert). If --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to --cert-dir. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      包含 x509 证书的文件路径，用于 HTTPS 认证（与中间证书（如果有）在服务器证书之后连接）。如果未提供 --tls-cert-file 和 --tls-private-key-file，则会为公共地址生成自签名证书和密钥，并将其保存到传递给 --cert-dir 的目录中。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      包含 x509 证书的文件路径，用于 HTTPS 认证。如果有中间证书，则中间证书要串接在在服务器证书之后。如果未提供 --tls-cert-file 和 --tls-private-key-file，kubelet 会为公开地址生成自签名证书和密钥，并将其保存到通过 --cert-dir 指定的目录中。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2054,7 +2054,7 @@ kubelet [flags]
       <!--
       Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used. Possible values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      服务器端加密算法列表，以逗号分隔，如果不设置，则使用 Go cipher suites 的默认证表。可选加密算法包括：TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA （已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      服务器端加密算法列表，以逗号分隔，如果不设置，则使用 Go 语言加密包的默认算法列表。可选加密算法包括：TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA （已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2078,7 +2078,7 @@ kubelet [flags]
       <!--
       File containing x509 private key matching --tls-cert-file. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      包含 x509 与 --tls-cert-file 对应的私钥文件路径。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      包含与 --tls-cert-file 对应的 x509 私钥文件路径。（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2091,7 +2091,7 @@ kubelet [flags]
       <!--
       Topology Manager policy to use. Possible values: 'none', 'best-effort', 'restricted', 'single-numa-node'. (default "none") (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      设置 Topology Manager policy（拓扑管理策略）。可选值包括：‘none’、‘best-effort’、‘restricted’ 和 ‘single-numa-node’。（默认值为 “none”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      设置拓扑管理策略（Topology Manager policy）。可选值包括：‘none’、‘best-effort’、‘restricted’ 和 ‘single-numa-node’。（默认值为 “none”）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
 
@@ -2139,7 +2139,7 @@ kubelet [flags]
       <!--
       <Warning: Alpha feature> The full path of the directory in which to search for additional third party volume plugins (default "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/")
       -->
-      &lt;警告：alpha 功能&gt; 搜索第三方 Volume 插件的目录（默认值为 “/usr/libexec/kubernetes/kubelet-plugins/volume/exec/”）
+      &lt;警告：alpha 功能&gt; 用来搜索第三方存储卷插件的目录（默认值为 “/usr/libexec/kubernetes/kubelet-plugins/volume/exec/”）
       </td>
     </tr>
 
@@ -2151,7 +2151,7 @@ kubelet [flags]
       <!--
       Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes. To disable volume calculations, set to 0. (default 1m0s) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
       -->
-      指定 kubelet 计算和缓存所有 Pod 和 Volume（卷）的磁盘使用情况聚合值的时间间隔。要禁用 Volume 计算，请设置为 0。（默认值为 1m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+      指定 kubelet 计算和缓存所有 Pod 和卷的磁盘用量总值的时间间隔。要禁用磁盘用量计算，请设置为 0。（默认值为 1m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
       </td>
     </tr>
   </tbody>
