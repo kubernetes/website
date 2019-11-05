@@ -255,7 +255,7 @@ myapp-pod   1/1       Running   0          9m
 
 在所有的 Init 容器没有成功之前，Pod 将不会变成 `Ready` 状态。
 Init 容器的端口将不会在 Service 中进行聚集。
-正在初始化中的 Pod 处于 `Pending` 状态，但应该会将条件 `Initializing` 设置为 true。
+正在初始化中的 Pod 处于 `Pending` 状态，但应该会将条件 `Initialized` 设置为 true。
 
 如果 Pod [重启](#pod-restart-reasons)，所有 Init 容器必须重新执行。
 
