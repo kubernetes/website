@@ -106,6 +106,7 @@ The following table includes a list of all the supported resource types and thei
 
 | Resource Name | Short Names | API Group | Namespaced | Resource Kind |
 |---|---|---|---|---|
+| `bindings` | | | true | Binding|
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
@@ -150,6 +151,8 @@ The following table includes a list of all the supported resource types and thei
 | `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
 | `roles` | | rbac.authorization.k8s.io | true | Role |
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
+| `csidrivers` | | storage.k8s.io | false | CSIDriver |
+| `csinodes` | | storage.k8s.io | false | CSINode |
 | `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
