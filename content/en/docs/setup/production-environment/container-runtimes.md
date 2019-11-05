@@ -88,8 +88,9 @@ add-apt-repository \
 
 ## Install Docker CE.
 apt-get update && apt-get install \
-  docker-ce=5:19.03.* \
-  docker-ce-cli=5:19.03.*
+  containerd.io=1.2.10-3 \
+  docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
