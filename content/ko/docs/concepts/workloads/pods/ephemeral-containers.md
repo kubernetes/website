@@ -73,7 +73,7 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 
 임시 컨테이너 사용시 [프로세스 네임스페이스 
 공유](/docs/tasks/configure-pod-container/share-process-namespace/)를 
-활성화 하면 다른 컨테이너 안의 프로세스를 보는데 도움이 된다.
+활성화하면 다른 컨테이너 안의 프로세스를 보는데 도움이 된다.
 
 ### 예시
 
@@ -84,7 +84,7 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 {{< /note >}}
 
 이 섹션의 에시는 임시 컨테이너가 어떻게 API에 나타나는지 
-보여준다. 사용자는 일반적으로 자동화 하는 단계의 문제 해결을 위해 `kubectl` 
+보여준다. 사용자는 일반적으로 자동화하는 단계의 문제 해결을 위해 `kubectl` 
 플러그인을 사용했을 것이다.
 
 임시 컨테이너는 파드의 `ephemeralcontainers` 하위 리소스를 
@@ -183,7 +183,7 @@ Ephemeral Containers:
 kubectl attach -it example-pod -c debugger
 ```
 
-만약 프로세스 네임스페이스를 공유를 활성화 하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼수 있다.
+만약 프로세스 네임스페이스를 공유를 활성화하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼 수 있다.
 예를 들어, 임시 컨테이너에 붙은 이후에 디버거 컨테이너에서 `ps` 를 실행한다.
 
 ```shell
