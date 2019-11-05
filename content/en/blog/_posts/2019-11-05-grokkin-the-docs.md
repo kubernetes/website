@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Grokkin' the Docs"
-date: 2019-11-06
+date: 2019-11-05
 slug: Grokkin-the-Docs
 ---
 
