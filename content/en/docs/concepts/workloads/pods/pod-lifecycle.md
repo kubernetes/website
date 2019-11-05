@@ -276,10 +276,11 @@ once bound to a node, a Pod will never be rebound to another node.
 
 ## Pod lifetime
 
-In general, Pods do not disappear until someone destroys them. This might be a
-human or a controller. The only exception to
-this rule is that Pods with a `phase` of Succeeded or Failed for more than some
-duration (determined by `terminated-pod-gc-threshold` in the master) will expire and be automatically destroyed.
+In general, Pods remain until a human or controller process explicitly removes them.
+The control plane cleans up terminated Pods (with a phase of `Succeeded` or 
+`Failed`), when the number of Pods exceeds the configured threshold 
+(determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
+This avoids a resource leak as Pods are created and terminated over time.
 
 Three types of controllers are available:
 
