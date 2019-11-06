@@ -31,7 +31,7 @@ A _DaemonSet_ ensures that all (or some) Nodes run a copy of a Pod.  As nodes ar
 cluster, Pods are added to them.  As nodes are removed from the cluster, those Pods are garbage
 collected.  Deleting a DaemonSet will clean up the Pods it created.
 --->
- _DaemonSet_ 确保全部（或者某些）节点上运行一个 Pod 的副本。当有节点加入集群时，
+_DaemonSet_ 确保全部（或者某些）节点上运行一个 Pod 的副本。当有节点加入集群时，
 也会为他们新增一个 Pod 。当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。
 
 <!--
@@ -41,20 +41,19 @@ Some typical uses of a DaemonSet are:
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
   https://github.com/prometheus/node_exporter), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or Instana agent.
---->
-使用 DaemonSet 的一些典型用法：
+-->
 
 - 运行集群存储 daemon，例如在每个节点上运行 `glusterd`、`ceph`。
 - 在每个节点上运行日志收集 daemon，例如`fluentd`、`logstash`。
-- 在每个节点上运行监控 daemon，例如 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter)、`collectd`、[Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/)、 [AppDynamics 代理](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes)、 [Datadog 代理](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/)、[New Relic 代理](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` 或 Instana agent。
+- 在每个节点上运行监控 daemon，例如 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter)、[Sysdig 代理](https://sysdigdocs.atlassian.net/wiki/spaces/Platform)、`collectd`、[Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/)、[AppDynamics 代理](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes)、[Datadog 代理](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/)、[New Relic 代理](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration)，Ganglia `gmond` 或 [Instana 代理](https://www.instana.com/supported-integrations/kubernetes-monitoring/)。
 
 <!--
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
 different flags and/or different memory and cpu requests for different hardware types.
---->
-一个简单的用法是在所有的节点上都启动一个 DaemonSet，将被作为每种类型的 daemon 使
-用。
+-->
+一个简单的用法是在所有的节点上都启动一个 DaemonSet，将被作为每种类型的 daemon 使用。
+
 一个稍微复杂的用法是单独对每种 daemon 类型使用多个 DaemonSet，但具有不同的标志，
 和/或对不同硬件类型具有不同的内存、CPU要求。
 
@@ -67,8 +66,8 @@ different flags and/or different memory and cpu requests for different hardware 
 ## Writing a DaemonSet Spec
 
 ### Create a DaemonSet
---->
-## 编写 DaemonSet 规约 
+-->
+## 编写 DaemonSet Spec 
 
 ### 创建 DaemonSet
 
@@ -81,7 +80,7 @@ You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` f
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
---->
+-->
 您可以在 YAML 文件中描述 DaemonSet。例如，下面的 daemonset.yaml 文件描述了一个运行 fluentd-elasticsearch Docker 镜像的 DaemonSet：
 
 {{< codenew file="controllers/daemonset.yaml" >}}
@@ -96,12 +95,12 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
-[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/) documents.
+[configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
-A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
---->
+A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) section.
+-->
 ### 必需字段
-和其它所有 Kubernetes 配置一样，DaemonSet 需要 `apiVersion`、`kind` 和 `metadata` 字段。有关配置文件的基本信息，详见文档 [部署应用](/docs/user-guide/deploying-applications/)、[配置容器](/docs/tasks/) 和 [使用kubectl进行对象管理](/docs/concepts/overview/object-management-kubectl/overview/) 。
+和其它所有 Kubernetes 配置一样，DaemonSet 需要 `apiVersion`、`kind` 和 `metadata` 字段。有关配置文件的基本信息，详见文档 [部署应用](/docs/user-guide/deploying-applications/)、[配置容器](/docs/tasks/) 和 [使用kubectl进行对象管理](/docs/concepts/overview/object-management-kubectl/overview/)。
 
 DaemonSet 也需要一个 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 配置段。
 
@@ -117,7 +116,7 @@ labels (see [pod selector](#pod-selector)).
 
 A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod-states)
  equal to `Always`, or be unspecified, which defaults to `Always`.
---->
+-->
 ### Pod 模板
 
 `.spec` 唯一必需的字段是 `.spec.template`。
@@ -139,8 +138,8 @@ As of Kubernetes 1.8, you must specify a pod selector that matches the labels of
 defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
 its `.spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
---->
-### Pod Selector
+-->
+### Pod Selector {#pod-selector}
 
 `.spec.selector` 字段表示 Pod Selector，它与 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) 的 `.spec.selector` 的作用是相同的。
 
@@ -162,7 +161,7 @@ another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the D
 controller will think that those Pods were created by it.  Kubernetes will not stop you from doing
 this.  One case where you might want to do this is manually create a Pod with a different value on
 a node for testing.
---->
+-->
 `spec.selector` 表示一个对象，它由如下两个字段组成：
 
 * `matchLabels` - 与 [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/) 的 `.spec.selector` 的作用相同。
@@ -183,7 +182,7 @@ create Pods on nodes which match that [node
 selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`,
 then DaemonSet controller will create Pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create Pods on all nodes.
---->
+-->
 ### 仅在某些节点上运行 Pod
 
 如果指定了 `.spec.template.spec.nodeSelector`，DaemonSet Controller 将在能够与 [Node Selector](/docs/concepts/configuration/assign-pod-node/) 匹配的节点上创建 Pod。类似这种情况，可以指定 `.spec.template.spec.affinity`，然后 DaemonSet Controller 将在能够与 [node Affinity](/docs/concepts/configuration/assign-pod-node/) 匹配>的节点上创建 Pod。
@@ -202,7 +201,7 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
    by the DaemonSet controller.
  - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
    bootstrap.
---->
+-->
 ## 如何调度 Daemon Pods
 
 ### 由 DaemonSet 控制器调度（从v1.12 开始默认禁用）
@@ -228,7 +227,7 @@ That introduces the following issues:
  * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
    is handled by default scheduler. When preemption is enabled, the DaemonSet controller
    will make scheduling decisions without considering pod priority and preemption.
---->
+-->
 ### 由默认 scheduler 调度（从v1.12开始默认开启）
 
 {{< feature-state state="beta" for-kubernetes-version="1.12" >}}
@@ -246,7 +245,7 @@ scheduler is then used to bind the pod to the target host. If node affinity of
 the DaemonSet pod already exists, it is replaced. The DaemonSet controller only
 performs these operations when creating or modifying DaemonSet pods, and no
 changes are made to the `spec.template` of the DaemonSet.
---->
+-->
 `ScheduleDaemonSetPods` 允许您使用默认 scheduler 而不是 DaemonSet 控制器来调度 DaemonSets，方法是将 `NodeAffinity` 添加到 DaemonSet pods，而不是 `.spec.nodeName`。 然后使用默认 scheduler 将 pod 绑定到目标主机。 如果 DaemonSet pod的亲和节点已存在，则替换它。 DaemonSet 控制器仅在创建或修改 DaemonSet pods 时执行这些操作，并且不对 DaemonSet的 `spec.template` 进行任何更改。
 
 ```yaml
@@ -264,7 +263,7 @@ nodeAffinity:
 In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
 automatically to DaemonSet Pods. The default scheduler ignores
 `unschedulable` Nodes when scheduling DaemonSet Pods.
---->
+-->
 此外，`node.kubernetes.io/unschedulable：NoSchedule` toleration 会自动添加到 DaemonSet Pods。 在调度DaemonSet Pod 时，默认调度器会忽略 `unschedulable`节点。
 
 <!--
@@ -274,7 +273,7 @@ Although Daemon Pods respect
 [taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
 the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
---->
+-->
 ### Taints and Tolerations
 
 尽管 Daemon Pods 尊重[taints and tolerations](/docs/concepts/configuration/taint-and-toleration)，根据相关特性，会自动将以下 tolerations 添加到 DaemonSet Pods 中。
@@ -303,7 +302,7 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
   DNS.
 - **Service**: Create a service with the same Pod selector, and use the service to reach a
   daemon on a random node. (No way to reach specific node.)
---->
+-->
 ## 与 Daemon Pods 通信
 
 与 DaemonSet 中的 Pod 进行通信，几种可能的模式如下：
@@ -325,11 +324,13 @@ fields to be updated.  Also, the DaemonSet controller will use the original temp
 time a node (even with the same name) is created.
 
 You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
-will be left on the nodes.  You can then create a new DaemonSet with a different template.
-The new DaemonSet with the different template will recognize all the existing Pods as having
-matching labels.  It will not modify or delete them despite a mismatch in the Pod template.
-You will need to force new Pod creation by deleting the Pod or deleting the node.
---->
+will be left on the nodes.  If you subsequently create a new DaemonSet with the same selector,
+the new DaemonSet adopts the existing Pods. If any Pods need replacing the DaemonSet replaces
+them according to its `updateStrategy`.
+
+You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
+-->
+
 ## 更新 DaemonSet
 
 如果修改了节点标签（Label），DaemonSet 将立刻向新匹配上的节点添加 Pod，同时删除不能够匹配的节点上的 Pod。
@@ -337,12 +338,8 @@ You will need to force new Pod creation by deleting the Pod or deleting the node
 您可以修改 DaemonSet 创建的 Pod。然而，不允许对 Pod 的所有字段进行更新。当下次
 节点（即使具有相同的名称）被创建时，DaemonSet Controller 还会使用最初的模板。
 
-您可以删除一个 DaemonSet。如果使用 `kubectl` 并指定 `--cascade=false` 选项，则 Pod 将被保留在节点上。然后可以创建具有不同模板的新 DaemonSet。具有不同模板的新 DaemonSet 将能够通过标签匹配并识别所有已经存在的 Pod。它不会修改或删除它们，即使是错误匹配了 Pod 模板。通过删除 Pod 或者删除节点，可以强制创建新的 Pod。
-
-<!--
-In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
---->
-在 Kubernetes 1.6 或以后版本，可以在 DaemonSet 上 [执行滚动升级](/docs/tasks/manage-daemon/update-daemon-set/)。
+您可以删除一个 DaemonSet。如果使用 `kubectl` 并指定 `--cascade=false` 选项，则 Pod 将被保留在节点上。然后可以创建具有不同模板的新 DaemonSet。具有不同模板的新 DaemonSet 将能够通过标签匹配并识别所有已经存在的 Pod。
+如果有任何 Pod 需要替换，则 DaemonSet 根据它的 `updateStrategy` 来替换。
 
 <!--
 ## Alternatives to DaemonSet
@@ -358,7 +355,7 @@ running such processes via a DaemonSet:
 - Running daemons in containers with resource limits increases isolation between daemons from app
   containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod
   (e.g. start directly via Docker).
---->
+-->
 ## DaemonSet 的可替代选择
 
 ### init 脚本
@@ -366,7 +363,9 @@ running such processes via a DaemonSet:
 我们很可能希望直接在一个节点上启动 daemon 进程（例如，使用 `init`、`upstartd`、或 `systemd`）。这非常好，但基于 DaemonSet 来运行这些进程有如下一些好处：
 
 - 像对待应用程序一样，具备为 daemon 提供监控和管理日志的能力。
+
 - 为 daemon 和应用程序使用相同的配置语言和工具（如 Pod 模板、`kubectl`）。
+
 - 在资源受限的容器中运行 daemon，能够增加 daemon 和应用容器的隔离性。然而，这也实现了在容器中运行 daemon，但却不能在 Pod 中运行（例如，直接基于 Docker 启动）。
 
 <!--
@@ -376,7 +375,7 @@ It is possible to create Pods directly which specify a particular node to run on
 a DaemonSet replaces Pods that are deleted or terminated for any reason, such as in the case of
 node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, you should
 use a DaemonSet rather than creating individual Pods.
---->
+-->
 ### 裸 Pod
 
 可能要直接创建 Pod，同时指定其运行在特定的节点上。然而，DaemonSet 替换了由于任何原因被删除或终止的 Pod，例如节点失败、例行节点维护、内核升级。由于这个原因，我们应该使用 DaemonSet 而不是单独创建 Pod。
@@ -389,7 +388,7 @@ are called [static pods](/docs/concepts/cluster-administration/static-pod/).
 Unlike DaemonSet, static Pods cannot be managed with kubectl
 or other Kubernetes API clients.  Static Pods do not depend on the apiserver, making them useful
 in cluster bootstrapping cases.  Also, static Pods may be deprecated in the future.
---->
+-->
 ### 静态 Pod
 
 可能需要通过在一个指定目录下编写文件来创建 Pod，该目录受 Kubelet 所监视。这些 Pod 被称为 [静态 Pod](/docs/concepts/cluster-administration/static-pod/)。
@@ -406,10 +405,10 @@ Use a Deployment for stateless services, like frontends, where scaling up and do
 number of replicas and rolling out updates are more important than controlling exactly which host
 the Pod runs on.  Use a DaemonSet when it is important that a copy of a Pod always run on
 all or certain hosts, and when it needs to start before other Pods.
---->
+-->
 ### Deployments
 
-DaemonSet 与 [Deployments](/docs/concepts/workloads/controllers/deployment/)非常类似，它们都能创建 Pod，这些 Pod 对应的进程都不希望被终止掉（例如，Web 服务器、存储服务器）。
+DaemonSet 与 [Deployments](/docs/concepts/workloads/controllers/deployment/) 非常类似，它们都能创建 Pod，这些 Pod 对应的进程都不希望被终止掉（例如，Web 服务器、存储服务器）。
 为无状态的 Service 使用 Deployments，比如前端 Frontend 服务，实现对副本的数量进行扩缩容、平滑升级，比基于精确控制 Pod 运行在某个主机上要重要得多。
 需要 Pod 副本总是运行在全部或特定主机上，并需要先于其他 Pod 启动，当这被认为非常重要时，应该使用 Daemon Controller。
 
