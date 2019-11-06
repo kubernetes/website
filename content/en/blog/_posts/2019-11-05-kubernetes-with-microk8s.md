@@ -4,7 +4,7 @@ date: 2019-11-05
 ---
 **Authors**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation; [Carmine Rimi](https://twitter.com/carminerimi)
 
-This article the second in a [series](https://kubernetes.io/blog/2019/03/28/running-kubernetes-locally-on-linux-with-minikube-now-with-kubernetes-1.14-support/) about local deployment options on Linux, and it covers [MicroK8s](https://microk8s.io/). Microk8s is the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
+This article, the second in a [series](/blog/2019/03/28/running-kubernetes-locally-on-linux-with-minikube-now-with-kubernetes-1.14-support/) about local deployment options on Linux, and covers [MicroK8s](https://microk8s.io/). Microk8s is the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
 
 While Minikube usually spins up a local virtual machine (VM) for the Kubernetes cluster, MicroK8s doesn’t require a VM. It uses [snap](https://snapcraft.io/) packages, an application packaging and isolation technology.
 
