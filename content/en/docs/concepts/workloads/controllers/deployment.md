@@ -85,7 +85,7 @@ In this example:
   2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
     ```shell
     NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3/0     0            0           1s
+    nginx-deployment   0/3     0            0           1s
     ```
     When you inspect the Deployments in your cluster, the following fields are displayed:
 
