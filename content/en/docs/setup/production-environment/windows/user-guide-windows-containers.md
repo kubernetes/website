@@ -155,16 +155,6 @@ tolerations:
 apiVersion: node.k8s.io/v1beta1
 kind: RuntimeClass
 metadata:
-  name: linux-amd64
-handler: 'docker'
-scheduling:
-  nodeSelector:
-    kubernetes.io/os: 'linux'
-    kubernetes.io/arch: 'amd64'
----
-apiVersion: node.k8s.io/v1beta1
-kind: RuntimeClass
-metadata:
   name: windows
 handler: 'docker'
 scheduling:
@@ -173,9 +163,9 @@ scheduling:
     kubernetes.io/arch: 'amd64'
   tolerations:
   - effect: NoSchedule
-    key: windows
+    key: os
     operator: Equal
-    value: "true"
+    value: "windows"
 ```
 
 1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
