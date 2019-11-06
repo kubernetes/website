@@ -100,7 +100,11 @@ Pods, Controllers and Services are critical elements to managing Windows workloa
 
 #### Container Runtime
 
-Docker EE-basic 18.09 is required on Windows Server 2019 / 1809 nodes for Kubernetes. This works with the dockershim code included in the kubelet. Additional runtimes such as CRI-ContainerD may be supported in later Kubernetes versions.
+Docker EE-basic 18.09 or 19.03 is required on Windows Server 2019 / 1809 nodes for Kubernetes. This works with the dockershim code included in the kubelet. 
+
+
+{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+Kubernetes 1.17 introduces alpha-level support for the upcoming ContainerD 1.4 release. For more information on testing this alpha release, see: TODO
 
 #### Persistent Storage
 
@@ -272,6 +276,7 @@ These features were added in Kubernetes v1.15:
 
 1. Node-pod connectivity isn't possible by design. It's only possible for local pods with Flannel [PR 1096](https://github.com/coreos/flannel/pull/1096)
 2. We are restricted to using VNI 4096 and UDP port 4789. The VNI limitation is being worked on and will be overcome in a future release (open-source flannel changes). See the official [Flannel VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) backend docs for more details on these parameters.
+3. Packets larger than the default MTU of 1450 may be dropped. This is a known issue tracked in [kubernetes/kubernetes#83739](https://github.com/kubernetes/kubernetes/issues/83739)
 
 ##### DNS {#dns-limitations}
 
