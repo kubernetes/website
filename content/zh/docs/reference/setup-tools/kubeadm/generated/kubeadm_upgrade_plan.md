@@ -20,14 +20,14 @@ kubeadm upgrade plan [version] [flags]
   <td colspan="2">--allow-experimental-upgrades</td>
 </tr>
 <tr>
-  <td></td><td style="line-height: 130%; word-wrap: break-word;">显示不稳定版本的 Kubernetes 作为升级替代方案，并允许升级到 Kubernetes 的 Alpha / Beta / Release 候选版本。</td>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">显示不稳定版本的 Kubernetes 作为升级替代方案，并允许升级到 Kubernetes 的 Alpha/Beta/发行候选版本。</td>
 </tr>
 
 <tr>
   <td colspan="2">--allow-release-candidate-upgrades</td>
 </tr>
 <tr>
-  <td></td><td style="line-height: 130%; word-wrap: break-word;">显示 Kubernetes 的 release 候选版本作为升级选择，并允许升级到 Kubernetes 的 release 候选版本。</td>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">显示 Kubernetes 的发行候选版本作为升级选择，并允许升级到 Kubernetes 的发行候选版本。</td>
 </tr>
 
 <tr>
@@ -41,7 +41,7 @@ kubeadm upgrade plan [version] [flags]
   <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-  <td></td><td style="line-height: 130%; word-wrap: break-word;">一组描述各种特征的特征门的键值对。选项有：<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">一组描述各种特征特性门控的键值对。选项有：<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
 </tr>
 
 <tr>
@@ -62,7 +62,7 @@ kubeadm upgrade plan [version] [flags]
   <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-  <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群通信时使用的 kubeconfig 文件。 如果标志为 not set，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</td>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群通信时使用的 kubeconfig 文件。 如果标志为未设置，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</td>
 </tr>
 
 <tr>
