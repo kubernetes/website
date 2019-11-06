@@ -187,7 +187,7 @@ Se puede conectar al nuevo Container efímero usando `kubectl attach`:
 kubectl attach -it example-pod -c debugger
 ```
 
-Si el proceso namespace de uso compartido está habilitado, se pueden visualizar los procesos de todos los containers de ese Pod.
+Si el proceso Namespace de uso compartido está habilitado, se pueden visualizar los procesos de todos los Containers de ese Pod.
 Por ejemplo, después de haber conectado, ejecute `ps` en el debugger del container:
 
 ```shell
