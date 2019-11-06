@@ -126,31 +126,6 @@ spec:
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
 
-
-The following YAML file outlines the `mydb` and `myservice` services:
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: myservice
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mydb
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9377
-```
-
 You can start this Pod by running:
 
 ```shell
@@ -277,7 +252,7 @@ if the Pod `restartPolicy` is set to Always, the init containers use
 
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
 init container are not aggregated under a Service. A Pod that is initializing
-is in the `Pending` state but should have a condition `Initializing` set to true.
+is in the `Pending` state but should have a condition `Initialized` set to true.
 
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.

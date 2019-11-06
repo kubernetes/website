@@ -41,8 +41,6 @@ Kubernetes 垃圾收集器的角色是删除指定的对象，这些对象曾经
 
 {{< codenew file="controllers/replicaset.yaml" >}}
 
-
-
 如果创建该 ReplicaSet，然后查看 Pod 的 metadata 字段，能够看到 OwnerReferences 字段：
 
 ```shell

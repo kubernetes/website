@@ -19,6 +19,8 @@ on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) forma
 
 _Cron Job_ 创建基于时间调度的 [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
 
+## Cron Job 是什么？
+
 一个 CronJob 对象就像 _crontab_ (cron table) 文件中的一行。它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，并周期性的在给定的调度时间执行 Job。
 
 {{< note >}}
@@ -90,16 +92,10 @@ be down from `08:29:00` to `08:42:00`, the job will not start.
 Set a longer `startingDeadlineSeconds` if starting later is better than not
 starting at all.
 -->
+可选地，使用 `kubectl run` 创建一个 Cron Job，不需要写完整的配置：
 
 例如，假设一个 CronJob 被设置为`08:30:00` 准时开始，它的 `startingDeadlineSeconds` 属性被设置为10，如果在`08:29:00` 时将 CronJob 控制器的时间改为 `08:42:00`，Job 将不会启动。
 如果觉得晚些开始比没有启动好，那请设置一个较长的 `startingDeadlineSeconds`。
-
-<!--
-The Cronjob is only responsible for creating Jobs that match its schedule, and
-the Job in turn is responsible for the management of the Pods it represents.
--->
-
-CronJob 只负责创建与其时间表相匹配的 Job，相应的 Job 又会负责管理它所代表的Pod。
 
 创建该 Cron Job 之后，通过如下命令获取它的状态信息：
 

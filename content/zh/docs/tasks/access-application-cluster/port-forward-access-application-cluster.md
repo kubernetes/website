@@ -54,14 +54,14 @@ for database debugging.
     查看输出是否成功，以验证是否成功创建 deployment：
 
         deployment.apps/redis-master created
-    
+
 <!--
     View the pod status to check that it is ready:
 -->
     查看 pod 状态，检查其是否准备就绪：
 
         kubectl get pods
-    
+
 <!--
     The output displays the pod created:
 -->
@@ -121,7 +121,7 @@ for database debugging.
 
        kubectl get svc | grep redis
 
- <!--   
+ <!--
     The output displays the service created:
 -->
     输出显示创建的 service：
@@ -135,10 +135,6 @@ for database debugging.
 
 
        kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/master
 
 <!--
     The output displays the port:
@@ -157,7 +153,7 @@ for database debugging.
 
 1. 从 Kubernetes v1.10 开始，`kubectl port-forward` 允许使用资源名称（例如 pod 名称）来选择匹配的 pod 来进行端口转发。
 
-        kubectl port-forward redis-master-765d459796-258hz 7000:6379 
+        kubectl port-forward redis-master-765d459796-258hz 7000:6379
 
 <!--
     which is the same as
@@ -171,7 +167,7 @@ for database debugging.
 -->
     或者
 
-        kubectl port-forward deployment/redis-master 7000:6379 
+        kubectl port-forward deployment/redis-master 7000:6379
 
 <!--
     or

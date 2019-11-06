@@ -55,10 +55,6 @@ Create an nginx Pod, and note that it has a container port specification:
 创建一个 Nginx Pod，指示它具有一个容器端口的说明：
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 
 <!--
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
@@ -138,10 +134,6 @@ This is equivalent to `kubectl apply -f` the following yaml:
 这等价于使用 `kubectl create -f` 命令创建，对应如下的 yaml 文件：
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 
 <!--
 This specification will create a Service which targets TCP port 80 on any Pod

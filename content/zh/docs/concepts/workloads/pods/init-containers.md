@@ -140,7 +140,7 @@ Here are some ideas for how to use init containers:
 
 * 在启动应用容器之前等一段时间，使用类似命令：
 
-        `sleep 60` 
+        `sleep 60`
 
 * 克隆 Git 仓库到 {{< glossary_tooltip text="Volume" term_id="volume" >}}。
 * 将配置值放到配置文件中，运行模板工具为主应用容器动态地生成配置文件。例如，在配置文件中存放 POD_IP 值，并使用 Jinja 生成主应用配置文件。
@@ -356,13 +356,15 @@ During the startup of a Pod, each init container starts in order, after the netw
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an init container are not aggregated under a Service. A Pod that is initializing
  is in the `Pending` state but should have a condition `Initializing` set to true.
 
-If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers must execute again. 
+If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers must execute again.
 
 Changes to the init container spec are limited to the container image field. Altering an init container image field is equivalent to restarting the Pod.
 
 Because init containers can be restarted, retried, or re-executed, init container code should be idempotent. In particular, code that writes to files on `EmptyDirs` should be prepared for the possibility that an output file already exists.
 
-Init containers have all of the fields of an app container. However, Kubernetes prohibits `readinessProbe` from being used because init containers cannot define readiness distinct from completion. This is enforced during validation.
+在所有的 Init 容器没有成功之前，Pod 将不会变成 `Ready` 状态。
+Init 容器的端口将不会在 Service 中进行聚集。
+正在初始化中的 Pod 处于 `Pending` 状态，但应该会将条件 `Initialized` 设置为 true。
 
 Use `activeDeadlineSeconds` on the Pod and `livenessProbe` on the container to prevent init containers from failing forever. The active deadline includes init containers.
 

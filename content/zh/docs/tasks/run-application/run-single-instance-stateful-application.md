@@ -12,8 +12,8 @@ content_template: templates/tutorial
 
 {{% capture objectives %}}
 
-* 在环境中通过磁盘创建一个 PersistentVolume.
-* 创建一个 MySQL Deployment.
+* 在环境中通过磁盘创建一个PersistentVolume.
+* 创建一个MySQL Deployment.
 * 在集群内以一个已知的 DNS 名将 MySQL 暴露给其他 pods.
 
 {{% /capture %}}
@@ -27,16 +27,14 @@ content_template: templates/tutorial
 
 {{% /capture %}}
 
-
 {{% capture lessoncontent %}}
 
 
-## 部署 MySQL
+## 部署MySQL
 
 通过创建 Kubernetes Deployment 并使用 PersistentVolumeClaim 将其连接到现已存在的 PersistentVolume 上来运行一个有状态的应用.  例如, 下面这个 YAML 文件描述了一个运行 MySQL
 并引用 PersistentVolumeClaim 的 Deployment. 该文件定义了一个 volume 其挂载目录为 `/var/lib/mysql`, 然后创建一个大小为 20G 的卷的 PersistentVolumeClaim. 此申领可以通过任
 何符合需求的已有卷来满足, 或者被动态分配.
-
 
 注意: 在配置的 yaml 文件中定义密码的做法是不安全的. 具体安全解决方案请参考
 [Kubernetes Secrets](/docs/concepts/configuration/secret/).
@@ -44,12 +42,11 @@ content_template: templates/tutorial
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}
 {{< codenew file="application/mysql/mysql-pv.yaml" >}}
 
-
-1. 部署 YAML 文件中定义的 PV 和 PVC:
+1. 部署 YAML 文件中定义的 PV 和 PVC：
 
         kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 
-1. 部署 YAML 文件中定义的内容:
+1. 部署 YAML 文件中定义的 Deployment：
 
         kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 

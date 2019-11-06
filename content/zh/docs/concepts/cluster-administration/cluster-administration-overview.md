@@ -86,19 +86,11 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
 
-<<<<<<< HEAD
-* [控制到 Kubernetes API 的访问](/docs/admin/accessing-the-api)描述了如何为用户和 service accounts 建立权限许可。
-=======
 * [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
->>>>>>> upstream/master
 
 * [Authorization](/docs/reference/access-authn-authz/authorization/) is separate from authentication, and controls how HTTP calls are handled.
 
-<<<<<<< HEAD
-*  [用户认证](/docs/admin/authentication)阐述了 Kubernetes 中的认证功能，包括许多认证选项。
-=======
 * [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
->>>>>>> upstream/master
 
 * [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 
@@ -115,11 +107,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [用户认证](/docs/reference/access-authn-authz/authentication/)阐述了 Kubernetes 中的认证功能，包括许多认证选项。
 
-<<<<<<< HEAD
-* [审计](/docs/tasks/debug-application-cluster/audit/)描述了如何与 Kubernetes 的审计日志交互。
-=======
 * [授权](/docs/admin/authorization)从认证中分离出来，用于控制如何处理 HTTP 请求。
->>>>>>> upstream/master
 
 * [使用 Admission Controllers](/docs/admin/admission-controllers) 阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。
 
@@ -148,11 +136,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 * [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) explains how logging in Kubernetes works and how to implement it.
 -->
 
-<<<<<<< HEAD
-*  [DNS 与 SkyDNS 集成](/docs/concepts/services-networking/dns-pod-service/)描述了如何将一个 DNS 名解析到一个 Kubernetes service。
-=======
 ## 可选集群服务
->>>>>>> upstream/master
 
 * [DNS 与 SkyDNS 集成](/docs/concepts/services-networking/dns-pod-service/)描述了如何将一个 DNS 名解析到一个 Kubernetes service。
 

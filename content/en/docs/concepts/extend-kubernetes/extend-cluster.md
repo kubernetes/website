@@ -74,7 +74,7 @@ failure.
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (e.g. [Flex Volume
-Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 and [Network
 Plugins](/docs/concepts/cluster-administration/network-plugins/))
 and by kubectl.
@@ -147,7 +147,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Authorization
 
- [Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 
 
 ### Dynamic Admission Control
