@@ -83,7 +83,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 | client | digital signature, key encipherment, client auth                                |
 
 {{< note >}}
-위에 나열된 호스트/SAN은 작업중인 클러스터를 획득하는데 권장된다. 특정 설정이 필요한 경우, 모든 서버 인증서에 SAN을 추가할 수 있다.
+위에 나열된 호스트/SAN은 작업 중인 클러스터를 획득하는데 권장된다. 특정 설정이 필요한 경우, 모든 서버 인증서에 SAN을 추가할 수 있다.
 {{< /note >}}
 
 {{< note >}}

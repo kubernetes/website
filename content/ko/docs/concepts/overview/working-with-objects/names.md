@@ -6,11 +6,11 @@ weight: 20
 
 {{% capture overview %}}
 
-클러스터의 각 오브젝트에는 해당 유형의 리소스에 고유한 [_이름_](#names) 을 가지고 있다.
-또한, 모든 쿠버네티스 오브젝트에는 전체 클러스터에 걸쳐 고유한 [_UID_](#uids) 를 가지고 있다.
+클러스터의 각 오브젝트는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names) 을 가지고 있다.
+또한, 모든 쿠버네티스 오브젝트는 전체 클러스터에 걸쳐 고유한 [_UID_](#uids) 를 가지고 있다.
 
-예를 들어, 이름이 “myapp-1234”인 파드는 하나만 가질 수 있지만, 각각 “myapp-1234”라는
-이름을 가진 하나의 파드와 디플로이먼트를 가질 수 있다.
+예를 들어, 이름이 “myapp-1234”인 파드는 하나만 가질 수 있지만, 이름이 “myapp-1234”인
+파드와 디플로이먼트는 각각 가질 수 있다.
 
 유일하지 않은 사용자 제공 속성에 대해서, 쿠버네티스는 [레이블](/docs/user-guide/labels)과 [어노테이션](/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
 
@@ -53,6 +53,6 @@ UUID는 ISO/IEC 9834-8 과 ITU-T X.667 로 표준화 되어 있다.
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* 쿠버네티스의 [레이블](/docs/concepts/overview/working-with-objects/labels/)에 대해 읽기.
+* 쿠버네티스의 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 읽기.
 * [쿠버네티스의 식별자와 이름](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) 디자인 문서 읽기.
 {{% /capture %}}
