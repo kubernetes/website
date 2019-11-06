@@ -8,11 +8,11 @@ weight: 20
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize)는 
 [kustomization 파일](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization)을 
-통해 쿠버네티스 오브젝트를 사용자 정의하는 독립형 도구이다.
+통해 쿠버네티스 오브젝트를 사용자가 원하는 대로 변경하는(customize) 독립형 도구이다.
 
-kubectl은 1.14 이후로 
-kustomization 파일을 사용한 쿠버네티스 오브젝트의 관리도 지원한다. 
-kustomization 파일을 포함하는 디렉토리 내의 리소스를 보려면 다음 명령어를 실행한다.
+1.14 이후로, kubectl도 
+kustomization 파일을 사용한 쿠버네티스 오브젝트의 관리를 지원한다. 
+kustomization 파일을 포함하는 디렉터리 내의 리소스를 보려면 다음 명령어를 실행한다.
 
 ```shell
 kubectl kustomize <kustomization_directory>
@@ -52,7 +52,7 @@ Kustomize는 시크릿과 컨피그 맵을 파일이나 문자열에서 생성�
 
 #### configMapGenerator
 
-파일에서 컨피그 맵을 생성하려면 `configMapGenerator` 내의 `files` 리스트에 항목을 추가한다. 다음은 하나의 파일 컨텐츠에서 데이터 항목으로 컨피그 맵을 생성하는 예제이다.
+파일에서 컨피그 맵을 생성하려면 `configMapGenerator` 내의 `files` 리스트에 항목을 추가한다. 다음은 하나의 파일 콘텐츠에서 데이터 항목으로 컨피그 맵을 생성하는 예제이다.
 
 ```shell
 # application.properties 파일을 생성
@@ -172,7 +172,7 @@ type: Opaque
 
 #### generatorOptions
 
-생성된 컨피그 맵과 시크릿은 컨텐츠를 해쉬화하여 덧붙이는 접미사를 가진다. 이는 컨텐츠가 변경될 때 새로운 컨피그 맵 이나 시크릿이 생성되는 것을 보장한다. 접미사를 추가하는 동작을 비활성화하는 방법으로 `generatorOptions`를 사용할 수 있다. 그밖에, 생성된 컨피그 맵과 시크릿에 교차 편집 옵션들을 지정해주는 것도 가능하다.
+생성된 컨피그 맵과 시크릿은 콘텐츠를 해쉬화하여 덧붙이는 접미사를 가진다. 이는 콘텐츠가 변경될 때 새로운 컨피그 맵 이나 시크릿이 생성되는 것을 보장한다. 접미사를 추가하는 동작을 비활성화하는 방법으로 `generatorOptions`를 사용할 수 있다. 그밖에, 생성된 컨피그 맵과 시크릿에 교차 편집 옵션들을 지정해주는 것도 가능하다.
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -282,7 +282,7 @@ spec:
 
 ### 리소스 구성과 사용자 정의
 
-프로젝트 내 리소스의 집합을 구성하여 이들을 동일한 파일이나 디렉토리 내에서 
+프로젝트 내 리소스의 집합을 구성하여 이들을 동일한 파일이나 디렉터리 내에서 
 관리하는 것은 일반적이다. 
 Kustomize는 서로 다른 파일들로 리소스를 구성하고 패치나 다른 사용자 정의를 이들에 적용하는 것을 제공한다.
 
@@ -654,17 +654,17 @@ spec:
 
 ## Base와 Overlay
 
-Kustomize는 **base**와 **overlay**의 개념을 가지고 있다. **base**는 `kustomization.yaml`과 함께 사용되는 디렉토리다. 이는 
-사용자 정의와 관련된 리소스들의 집합을 포함한다. `kustomization.yaml`의 내부에 표시되는 base는 로컬 디렉토리이거나 원격 리포지터리의 디렉토리가 
-될 수 있다. **overlay**는 `kustomization.yaml`이 있는 디렉토리로 
-다른 kustomization 디렉토리들을 `bases`로 참조한다. **base**는 overlay에 대해서 알지 못하며 여러 overlay들에서 사용될 수 있다. 
+Kustomize는 **base**와 **overlay**의 개념을 가지고 있다. **base**는 `kustomization.yaml`과 함께 사용되는 디렉터리다. 이는 
+사용자 정의와 관련된 리소스들의 집합을 포함한다. `kustomization.yaml`의 내부에 표시되는 base는 로컬 디렉터리이거나 원격 리포지터리의 디렉터리가 
+될 수 있다. **overlay**는 `kustomization.yaml`이 있는 디렉터리로 
+다른 kustomization 디렉터리들을 `bases`로 참조한다. **base**는 overlay에 대해서 알지 못하며 여러 overlay들에서 사용될 수 있다. 
 한 overlay는 다수의 base들을 가질 수 있고, base들에서 모든 리소스를 구성할 수 있으며, 
 이들의 위에 사용자 정의도 가질 수 있다.
 
 다음은 base에 대한 예이다.
 
 ```shell
-# base를 가지는 디렉토리 생성
+# base를 가지는 디렉터리 생성
 mkdir base
 # base/deployment.yaml 생성
 cat <<EOF > base/deployment.yaml
@@ -732,7 +732,7 @@ EOF
 ## Kustomize를 이용하여 오브젝트를 적용/확인/삭제하는 방법
 
 `kustomization.yaml`에서 관리되는 리소스를 인식하려면 `kubectl` 명령어에 `--kustomize` 나 `-k`를 사용한다. 
-`-k`는 다음과 같이 kustomization 디렉토리를 가리키고 있어야 한다는 것을 주의한다.
+`-k`는 다음과 같이 kustomization 디렉터리를 가리키고 있어야 한다는 것을 주의한다.
 
 ```shell
 kubectl apply -k <kustomization directory>/
@@ -811,7 +811,7 @@ deployment.apps "dev-my-nginx" deleted
 | configmapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/kustomization.go#L195)  | 이 리스트 내 각각의 항목은 컨피그 맵을 생성한다                                               |
 | secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/kustomization.go#L201)     | 이 리스트 내 각각의 항목은 시크릿을 생성한다                                                  |
 | generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/kustomization.go#L239) | 모든 configMapGenerator와 secretGenerator의 동작을 변경                                 |
-| bases                 | []string                                                                                                     | 이 리스트 내 각각의 항목은 kustomization.yaml 파일을 가지는 디렉토리로 해석되어져야 한다            |
+| bases                 | []string                                                                                                     | 이 리스트 내 각각의 항목은 kustomization.yaml 파일을 가지는 디렉터리로 해석되어져야 한다            |
 | patchesStrategicMerge | []string                                                                                                     | 이 리스트 내 각각의 항목은 쿠버네티스 오브젝트의 전략적 병합 패치로 해석되어져야 한다                   |
 | patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/patch/json6902.go#L23)             | 이 리스트 내 각각의 항목은 쿠버네티스 오브젝트와 Json 패치로 해석되어져야 한다                       |
 | vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/pkg/types/var.go#L31)                       | 각각의 항목은 한 리소스의 필드에서 텍스트를 캡쳐한다                                            |
