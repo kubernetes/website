@@ -209,7 +209,6 @@
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-/docs/reference/kubernetes-api/index/     /docs/reference/kubernetes-api/api-index/ 301
 /docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
 
 /docs/reporting-security-issues/     /security/ 301
