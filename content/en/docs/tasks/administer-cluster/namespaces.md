@@ -109,17 +109,17 @@ More information on `finalizers` can be found in the namespace [design doc](http
 
 ## Deleting a namespace
 
-1. Delete a namespace with
+Delete a namespace with
 
-    ```shell
-    kubectl delete namespaces <insert-some-namespace-name>
-    ```
+```shell
+kubectl delete namespaces <insert-some-namespace-name>
+```
 
-    {{< warning >}}
-    This deletes _everything_ under the namespace!
-    {{< /warning >}}
+{{< warning >}}
+This deletes _everything_ under the namespace!
+{{< /warning >}}
 
-    This delete is asynchronous, so for a time you will see the namespace in the `Terminating` state.
+This delete is asynchronous, so for a time you will see the namespace in the `Terminating` state.
 
 ## Subdividing your cluster using Kubernetes namespaces
 
