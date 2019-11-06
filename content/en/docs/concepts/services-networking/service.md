@@ -318,7 +318,7 @@ about Kubernetes or Services or Pods.
 
 If you want to make sure that connections from a particular client
 are passed to the same Pod each time, you can select the session affinity based
-the on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
+on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
 (the default is "None").
 You can also set the maximum session sticky time by setting
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` appropriately.
