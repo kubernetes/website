@@ -317,6 +317,13 @@ kube-proxy [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">If set, write the default configuration values to this file and exit.</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--show-hidden-metrics-for-version version</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The previous version for which you want to show hidden metrics. Only the previous minor version is meaningful, other values will not be allowed. The format is <major>.<minor>, e.g.: '1.16'. The purpose of this format is make sure you have the opportunity to notice if the next release hides additional metrics, rather than being surprised when they are permanently removed in the release after that.</td>
+    </tr>
+
   </tbody>
 </table>
 
