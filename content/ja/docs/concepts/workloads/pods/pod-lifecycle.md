@@ -215,8 +215,7 @@ kubeletによって再起動される終了したコンテナは、5分後にキ
 ## Podのライフタイム
 
 一般にPodは人間またはコントローラーが明示的に削除するまで存在します。
-コントロールプレーンは終了状態のPod(SucceededまたはFailedの`phase`を持つ)の数が設定された閾値
-（kube-controller-manager内の`terminated-pod-gc-threshold`によって定義される）を超えたとき、それらのPodを削除します。
+コントロールプレーンは終了状態のPod(SucceededまたはFailedの`phase`を持つ)の数が設定された閾値（kube-controller-manager内の`terminated-pod-gc-threshold`によって定義される）を超えたとき、それらのPodを削除します。
 これはPodが作成されて時間とともに終了するため、リソースリークを避けます。
 
 次の3種類のコントローラがあります。
