@@ -61,7 +61,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overv
 In addition to required fields for a Pod, a Pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
 
-A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod-states)
+A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
  equal to `Always`, or be unspecified, which defaults to `Always`.
 
 ### Pod Selector
