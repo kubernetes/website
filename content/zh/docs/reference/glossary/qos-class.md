@@ -1,10 +1,10 @@
 ---
-title: QoS Class
+title: QoS 类
 id: qos-class
 date: 2019-04-15
 full_link: 
 short_description: >
-  QoS Class（Quality of Service Class）为 Kubernetes 提供了一种将集群中的 Pod 分为几个类型并做出有关调度和驱逐决策的方法。
+ QoS 类（Quality of Service Class）为 Kubernetes 提供了一种将集群中的 Pod 分为几个类并做出有关调度和驱逐决策的方法。
 
 aka: 
 tags:
@@ -42,5 +42,5 @@ related:
 QoS Class of a Pod is set at creation time  based on its compute resources requests and limits settings. QoS classes are used to make decisions about Pods scheduling and eviction.
 Kubernetes can assign one of the following  QoS classes to a Pod: `Guaranteed`, `Burstable` or `BestEffort`.
 -->
-Pod 的 QoS Class 是基于 Pod 在创建时配置的计算资源请求和限制。QoS Class 用于制定有关 Pod 调度和逐出的决策。
-Kubernetes 可以为 Pod 分配以下 QoS Class：`Guaranteed`，`Burstable` 或者 `BestEffort`。
+Pod 的 QoS 类是基于 Pod 在创建时配置的计算资源请求和限制。QoS 类用于制定有关 Pod 调度和逐出的决策。
+Kubernetes 可以为 Pod 分配以下 QoS 类：`Guaranteed`，`Burstable` 或者 `BestEffort`。
