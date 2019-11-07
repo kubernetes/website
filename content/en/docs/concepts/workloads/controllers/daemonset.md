@@ -117,9 +117,9 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
 
 {{< feature-state state="beta" for-kubernetes-version="1.12" >}}
 
-A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
+A DaemonSet resource type ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,
-DaemonSet pods are created and scheduled by the DaemonSet controller instead.
+DaemonSet pods can also be created and scheduled by a DaemonSet controller instead.
 That introduces the following issues:
 
  * Inconsistent Pod behavior: Normal Pods waiting to be scheduled are created
