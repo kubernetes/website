@@ -76,11 +76,6 @@ System services such as the container runtime and the kubelet itself can continu
 {{< /note >}}
 
 {{< note >}}
-The alpha version of this policy does not guarantee static
-exclusive allocations across Kubelet restarts.
-{{< /note >}}
-
-{{< note >}}
 CPU Manager doesn't support offlining and onlining of
 CPUs at runtime. Also, if the set of online CPUs changes on the node,
 the node must be drained and CPU manager manually reset by deleting the
