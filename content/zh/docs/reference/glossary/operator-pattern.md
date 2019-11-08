@@ -1,5 +1,5 @@
 ---
-title: Operator 模型
+title: Operator 模式
 id: operator-pattern
 date: 2019-05-21
 full_link: /docs/concepts/extend-kubernetes/operator/
@@ -10,7 +10,7 @@ aka:
 tags:
 - architecture
 ---
- [operator 模型](/docs/concepts/extend-kubernetes/operator/) 是一个系统设计, 将 {{< glossary_tooltip term_id="controller" >}} 关联到一个或多个自定义资源。
+ [operator 模式](/docs/concepts/extend-kubernetes/operator/) 是一个系统设计, 将 {{< glossary_tooltip term_id="controller" >}} 关联到一个或多个自定义资源。
 
 <!--
 ---
@@ -41,6 +41,6 @@ against a custom resource that's defined in the control plane, that's an example
 the Operator pattern.
 -->
 
-您可以通过将控制器添加到集群中来扩展 Kubernetes，而不仅仅是通过作为 Kubernetes 本身一部分的内置控制器。
+除了使用作为 Kubernetes 自身一部分的内置控制器之外，您还可以通过将控制器添加到集群中来扩展 Kubernetes。
 
-如果正在运行的应用程序能够充当控制器并具有 API 访问权限来执行那些在控制平面中定义的自定义资源任务，这就是一个 operator 模型的示例。
+如果正在运行的应用程序能够充当控制器并通过 API 访问的方式来执行任务操控那些在控制平面中定义的自定义资源，这就是一个 operator 模式的示例。
