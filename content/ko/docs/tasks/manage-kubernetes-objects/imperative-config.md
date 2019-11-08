@@ -29,7 +29,7 @@ weight: 40
 * 선언형 오브젝트 구성
 
 각 종류별 오브젝트 관리의 장점과 단점에 대한 논의는
-[쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/object-management-kubectl/overview/)를 참고한다.
+[쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
 
 ## 오브젝트 생성 방법
 

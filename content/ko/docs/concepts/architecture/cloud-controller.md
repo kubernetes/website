@@ -226,7 +226,7 @@ rules:
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
-* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [GCP](https://github.com/kubernetes/cloud-provider-gcp)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 * [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)

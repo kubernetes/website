@@ -88,17 +88,17 @@ weight: 80
 있다.
 다음의 가이드는 일부 리소스에 대해서 자세히 설명한다.
 
-* [클러스터](/docs/tasks/administer-federation/cluster/)
-* [컨피그 맵](/docs/tasks/administer-federation/configmap/)
-* [데몬 셋](/docs/tasks/administer-federation/daemonset/)
-* [디플로이먼트](/docs/tasks/administer-federation/deployment/)
-* [이벤트](/docs/tasks/administer-federation/events/)
-* [Hpa](/docs/tasks/administer-federation/hpa/)
-* [인그레스](/docs/tasks/administer-federation/ingress/)
-* [잡](/docs/tasks/administer-federation/job/)
-* [네임스페이스](/docs/tasks/administer-federation/namespaces/)
-* [레플리카 셋](/docs/tasks/administer-federation/replicaset/)
-* [시크릿](/docs/tasks/administer-federation/secret/)
+* [클러스터](/docs/tasks/federation/administer-federation/cluster/)
+* [컨피그 맵](/docs/tasks/federation/administer-federation/configmap/)
+* [데몬 셋](/docs/tasks/federation/administer-federation/daemonset/)
+* [디플로이먼트](/docs/tasks/federation/administer-federation/deployment/)
+* [이벤트](/docs/tasks/federation/administer-federation/events/)
+* [Hpa](/docs/tasks/federation/administer-federation/hpa/)
+* [인그레스](/docs/tasks/federation/administer-federation/ingress/)
+* [잡](/docs/tasks/federation/administer-federation/job/)
+* [네임스페이스](/docs/tasks/federation/administer-federation/namespaces/)
+* [레플리카 셋](/docs/tasks/federation/administer-federation/replicaset/)
+* [시크릿](/docs/tasks/federation/administer-federation/secret/)
 * [서비스](/docs/concepts/cluster-administration/federation-service-discovery/)
 
 

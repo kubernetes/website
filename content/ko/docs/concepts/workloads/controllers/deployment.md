@@ -156,24 +156,24 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
     ```shell
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
     ```
-   또는 간단하게 다음의 명령어를 사용한다.
+    또는 간단하게 다음의 명령어를 사용한다.
 
     ```shell
     kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
     ```
 
-  이와 유사하게 출력된다.
+    이와 유사하게 출력된다.
     ```
     deployment.apps/nginx-deployment image updated
     ```
 
-  대안으로 디플로이먼트를 `edit` 해서 `.spec.template.spec.containers[0].image` 를 `nginx:1.7.9` 에서 `nginx:1.9.1` 로 변경한다.
+    대안으로 디플로이먼트를 `edit` 해서 `.spec.template.spec.containers[0].image` 를 `nginx:1.7.9` 에서 `nginx:1.9.1` 로 변경한다.
 
     ```shell
     kubectl edit deployment.v1.apps/nginx-deployment
     ```
 
-   이와 유사하게 출력된다.
+    이와 유사하게 출력된다.
     ```
     deployment.apps/nginx-deployment edited
     ```
