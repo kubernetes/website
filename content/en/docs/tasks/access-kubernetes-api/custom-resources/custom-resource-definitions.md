@@ -1292,7 +1292,7 @@ kubectl get crontabs my-new-cron-object -o jsonpath='{.spec.replicas}'
 5
 ```
 
-You can use a [PodDisruptionBudget](docs/tasks/run-application/configure-pdb/) to protect custom resources that have the scale subresource enabled.
+You can use a [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to protect custom resources that have the scale subresource enabled.
 
 ### Categories
 
