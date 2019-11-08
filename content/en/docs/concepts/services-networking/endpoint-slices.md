@@ -59,6 +59,8 @@ endpoints:
       topology.kubernetes.io/zone: us-west2-a
 ```
 
+Additionally, you must [enable Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices/#enabling-endpoint-slices) first.
+
 By default, Endpoint Slices managed by the EndpointSlice controller will have no
 more than 100 endpoints each. Below this scale, Endpoint Slices should map 1:1
 with Endpoints and Services and have similar performance.
