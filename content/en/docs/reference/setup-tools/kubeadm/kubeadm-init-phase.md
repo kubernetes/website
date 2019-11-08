@@ -143,22 +143,22 @@ kubeadm init phase addon coredns --config=someconfig.yaml
 kubeadm init --config=someconfig.yaml
 # for listing or pulling images
 kubeadm config images list/pull --config=someconfig.yaml
-# for upgrades
-kubeadm upgrade apply --config=someconfig.yaml
 ```
 
-The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
-and also a type for the addon - `kube-dns` (default value is `CoreDNS`).
+The file has to contain an `addons` list in [`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3#ClusterConfiguration). The default list of addons has `CoreDNS` and `kube-proxy`, but it instead it should have `kube-dns` and
+`kube-proxy` for the kube-dns use case.
+
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-dns:
-  type: "kube-dns"
+addons:
+  - type: "kube-dns"
+  - type: "kube-proxy"
 ```
 
-For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+For more details on each field in the `v1beta3` configuration you can navigate to our
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)
 
 ## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node

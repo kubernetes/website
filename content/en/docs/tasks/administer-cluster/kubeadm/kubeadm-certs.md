@@ -133,7 +133,7 @@ To activate the built-in signer, you must pass the `--cluster-signing-cert-file`
 If you're creating a new cluster, you can use a kubeadm [configuration file][config]:
 
   ```yaml
-  apiVersion: kubeadm.k8s.io/v1beta2
+  apiVersion: kubeadm.k8s.io/v1beta3
   kind: ClusterConfiguration
   controllerManager:
     extraArgs:
@@ -143,7 +143,7 @@ If you're creating a new cluster, you can use a kubeadm [configuration file][con
 
 [cert-manager-issuer]: https://cert-manager.readthedocs.io/en/latest/tutorials/ca/creating-ca-issuer.html
 [kcm]: /docs/reference/command-line-tools-reference/kube-controller-manager/
-[config]: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2
+[config]: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3
 
 ### Create certificate signing requests (CSR)
 
