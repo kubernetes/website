@@ -402,15 +402,20 @@ to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
 The only component that considers both QoS and Pod priority is
-[Kubelet out-of-resource eviction](/docs/tasks/administer-cluster/out-of-resource/).
+[kubelet out-of-resource eviction](/docs/tasks/administer-cluster/out-of-resource/).
 The kubelet ranks Pods for eviction first by whether or not their usage of the
 starved resource exceeds requests, then by Priority, and then by the consumption
 of the starved compute resource relative to the Pods’ scheduling requests.
 See
-[Evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
-for more details. Kubelet out-of-resource eviction does not evict Pods whose
+[evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
+for more details.
+
+kubelet out-of-resource eviction does not evict Pods wheir their
 usage does not exceed their requests. If a Pod with lower priority is not
 exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* Read about using ResourceQuotas in connection with PriorityClasses: [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 {{% /capture %}}
