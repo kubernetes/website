@@ -384,10 +384,9 @@ scheduler may choose another node with higher priority Pods.
 When multiple nodes exist for preemption and none of the above scenarios apply,
 the scheduler chooses a node with the lowest priority.
 
-## Interactions of Pod priority and QoS
+## Interactions between Pod priority and quality of service {#interactions-of-pod-priority-and-qos}
 
-Pod priority and
-[QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md)
+Pod priority and {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
 are two orthogonal features with few interactions and no default restrictions on
 setting the priority of a Pod based on its QoS classes. The scheduler's
 preemption logic does not consider QoS when choosing preemption targets.
