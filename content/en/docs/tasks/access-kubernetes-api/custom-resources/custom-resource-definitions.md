@@ -40,7 +40,7 @@ are available to all namespaces.
 For example, if you save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 
 {{< tabs name="CustomResourceDefinition_example_1" >}}
-{{% tab name="admissionregistration.k8s.io/v1" %}}
+{{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -383,7 +383,7 @@ For CustomResourceDefinitions created in `apiextensions.k8s.io/v1beta1`, if a [s
 
 If pruning is enabled, unspecified fields in CustomResources on creation and on update are dropped.
 
-Compare the CustomResourceDefinition `crontabs.stable.example.com` above. It has pruning enabled (both in `apiextensions.k8s.io/v1` and `apiextensions.k8s.io/v1beta1). Hence, if you save the following YAML to `my-crontab.yaml`:
+Compare the CustomResourceDefinition `crontabs.stable.example.com` above. It has pruning enabled (both in `apiextensions.k8s.io/v1` and `apiextensions.k8s.io/v1beta1`). Hence, if you save the following YAML to `my-crontab.yaml`:
 
 ```yaml
 apiVersion: "stable.example.com/v1"
@@ -873,8 +873,7 @@ OpenAPI v2 Publishing is available as beta since 1.15, and as alpha since 1.14. 
 `CustomResourcePublishOpenAPI` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
-With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) are published as part
-of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
+With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#preserving-unknown-fields) (opt-in in v1beta1, enabled by default in v1) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
 [kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation. 
 
@@ -1293,7 +1292,7 @@ kubectl get crontabs my-new-cron-object -o jsonpath='{.spec.replicas}'
 5
 ```
 
-You can use a [PodDisruptionBudget](docs/tasks/run-application/configure-pdb/) to protect custom resources that have the scale subresource enabled.
+You can use a [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to protect custom resources that have the scale subresource enabled.
 
 ### Categories
 

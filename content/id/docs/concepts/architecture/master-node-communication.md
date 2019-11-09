@@ -17,7 +17,7 @@ Hal ini cukup penting, karena kluster bisa saja berjalan pada jaringan tak terpe
 
 ## Kluster menuju Master
 
-Semua jalur komunikasi dari kluster menuju master diterminasi pada apiserver. 
+Semua jalur komunikasi dari kluster menuju master diterminasi pada apiserver.
 Tidak ada komponen apapun di dalam master, selain apiserver, yang terekspos ke luar untuk diakses dari servis <i>remote</i>.
 Untuk instalasi kluster pada umumnya, apiserver diatur untuk <i>listen</i> ke koneksi <i>remote</i> melalui port HTTPS (443) yang aman, dengan satu atau beberapa metode [autentikasi](/docs/reference/access-authn-authz/authentication/) <i>client</i> yang telah terpasang.
 Sebaiknya, satu atau beberapa metode [otorisasi](/docs/reference/access-authn-authz/authorization/) juga dipasang, terutama jika kamu memperbolehkan [permintaan anonim (<i>anonymous request</i>)](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ataupun [service account token](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
@@ -39,7 +39,7 @@ Dan juga, kluster dan master bisa terhubung melalui jaringan publik dan/atau yan
 
 Ada dua jalur komunikasi utama dari master (apiserver) menuju kluster.
 Pertama, dari apiserver ke <i>process</i> kubelet yang berjalan pada setiap node di dalam kluster.
-Kedua, dari apiserver ke setiap node, pod, ataupun service melalui fungsi <i>proxy</i> pada apiserver. 
+Kedua, dari apiserver ke setiap node, pod, ataupun service melalui fungsi <i>proxy</i> pada apiserver.
 
 ### Apiserver menuju kubelet
 

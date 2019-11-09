@@ -183,7 +183,7 @@ add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
 # Install CRI-O
-apt-get install cri-o-1.13
+apt-get install cri-o-1.15
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
@@ -288,7 +288,7 @@ systemctl restart containerd
 
 To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
 When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 
 ## Other CRI runtimes: frakti
 

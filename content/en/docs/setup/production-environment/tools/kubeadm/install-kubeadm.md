@@ -66,10 +66,10 @@ switching to legacy mode, and is therefore incompatible with current kubeadm pac
 {{< tabs name="iptables_legacy" >}}
 {{% tab name="Debian or Ubuntu" %}}
 ```bash
-update-alternatives --set iptables /usr/sbin/iptables-legacy
-update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-update-alternatives --set arptables /usr/sbin/arptables-legacy
-update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
+sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
 ```
 {{% /tab %}}
 {{% tab name="Fedora" %}}
@@ -137,7 +137,7 @@ If the container runtime of choice is Docker, it is used through the built-in
 Other CRI-based runtimes include:
 
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
@@ -177,14 +177,14 @@ For more information on version skews, see:
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```bash
-apt-get update && apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
-apt-get update
-apt-get install -y kubelet kubeadm kubectl
-apt-mark hold kubelet kubeadm kubectl
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -275,7 +275,7 @@ When using Docker, kubeadm will automatically detect the cgroup driver for the k
 and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
 
 If you are using a different CRI, you have to modify the file
-`/etc/default/kubelet` with your `cgroup-driver` value, like so:
+`/etc/default/kubelet` (`/etc/sysconfig/kubelet` for CentOS, RHEL, Fedora) with your `cgroup-driver` value, like so:
 
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>

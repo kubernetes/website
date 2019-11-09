@@ -16,7 +16,7 @@ card:
 {{% capture overview %}}
 
 This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Katacoda.
+on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment. 
 
 {{< note >}}
@@ -90,8 +90,8 @@ Pod runs a Container based on the provided Docker image.
     Output:
 
     ```shell
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    hello-node   1         1         1            1           1m
+    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1/1     1            1           1m
     ```
 
 3. View the Pod:
@@ -163,7 +163,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
-5. Katacoda environment only: Type `30369` (see port opposite to `8080` in services output), and then click
+5. Katacoda environment only: Note the 5 digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type `30369` in the port number text box, then click Display Port.
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 

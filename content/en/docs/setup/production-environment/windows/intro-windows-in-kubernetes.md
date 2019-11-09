@@ -58,7 +58,7 @@ Key Kubernetes elements work the same way in Windows as they do in Linux. In thi
 
 * [Pods](/docs/concepts/workloads/pods/pod-overview/)
 
-    A Pod is the basic building block of Kubernetes–the smallest and simplest unit in the Kubernetes object model that you create or deploy. The following Pod capabilities, properties and events are supported with Windows containers:
+    A Pod is the basic building block of Kubernetes–the smallest and simplest unit in the Kubernetes object model that you create or deploy. You may not deploy Windows and Linux containers in the same Pod. All containers in a Pod are scheduled onto a single Node where each Node represents a specific platform and architecture. The following Pod capabilities, properties and events are supported with Windows containers:
 
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod status fields
@@ -113,7 +113,6 @@ Code associated with in-tree volume plugins ship as part of the core Kubernetes 
 * [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
 * [azureFile](/docs/concepts/storage/volumes/#azurefile)
 * [gcePersistentDisk](/docs/concepts/storage/volumes/#gcepersistentdisk)
-* [awsElasticBlockStore](/docs/concepts/storage/volumes/#awselasticblockstore)
 * [vsphereVolume](/docs/concepts/storage/volumes/#vspherevolume)
 
 ##### FlexVolume Plugins

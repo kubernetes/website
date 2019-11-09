@@ -31,7 +31,7 @@ content_template: templates/task
 
 在这个练习中，你将创建一个包含一个容器的pod。这是该pod的配置文件：
 
-{{< code file="dapi-volume.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume.yaml" >}}
 
 在配置文件中，你可以看到Pod有一个`downwardAPI`类型的Volume，并且挂载到容器中的`/etc`。
 
@@ -40,13 +40,13 @@ content_template: templates/task
 第二个元素指示Pod的`annotations`字段的值保存在名为`annotations`的文件中。
 
 {{< note >}}
-**注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。 
+**注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。
 {{< /note >}}
 
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
 验证Pod中的容器运行正常：
@@ -134,7 +134,7 @@ total 8
 
 前面的练习中，你将Pod字段保存到DownwardAPIVolumeFile中。接下来这个练习，你将存储容器字段。这里是包含一个容器的pod的配置文件：
 
-{{< code file="dapi-volume-resources.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
 
 在这个配置文件中，你可以看到Pod有一个`downwardAPI`类型的Volume,并且挂载到容器的`/etc`目录。
 
@@ -145,7 +145,7 @@ total 8
 创建Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume-resources.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
 ```
 
 进入Pod中运行的容器，打开一个shell：

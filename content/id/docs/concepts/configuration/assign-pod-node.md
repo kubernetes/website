@@ -35,7 +35,7 @@ Kamu dapat memastikan perintah telah berhasil dengan menjalankan ulang perintah 
 
 ### Langkah Dua: Menambahkan sebuah nodeSelector ke konfigurasi pod kamu
 
-Ambil berkas konfigurasi pod manapun yang akan kamu jalankan, dan tambahkan sebuah bagian `nodeSelector` pada berkas tersebut, seperti berikut. Sebagai contoh, jika berikut ini adalah konfigurasi pod saya: 
+Ambil berkas konfigurasi pod manapun yang akan kamu jalankan, dan tambahkan sebuah bagian `nodeSelector` pada berkas tersebut, seperti berikut. Sebagai contoh, jika berikut ini adalah konfigurasi pod saya:
 
 ```yaml
 apiVersion: v1
@@ -116,7 +116,7 @@ Aturan afinitas node tersebut menyatakan pod hanya bisa ditugaskan pada node den
 
 Kamu dapat meilhat operator `In` digunakan dalam contoh berikut. Sitaksis afinitas node yang baru mendukung operator-operator berikut: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`. Kamu dapat menggunakan `NotIn` dan `DoesNotExist` untuk mewujudkan perilaku node anti-afinitas, atau menggunakan [node taints](/docs/concepts/configuration/taint-and-toleration/) untuk menolak pod dari node tertentu.
 
-Jika kamu menyatakan `nodeSelector` dan `nodeAffinity`. *keduanya* harus dipenuhi agar pod dapat dijadwalkan pada node kandidat. 
+Jika kamu menyatakan `nodeSelector` dan `nodeAffinity`. *keduanya* harus dipenuhi agar pod dapat dijadwalkan pada node kandidat.
 
 Jika kamu menyatakan beberapa `nodeSelectorTerms` yang terkait dengan tipe `nodeAffinity`, maka pod akan dijadwalkan pada node **jika salah satu** dari `nodeSelectorTerms` dapat terpenuhi.
 
@@ -132,7 +132,7 @@ Untuk informasi lebih lanjut tentang afinitas node kamu dapat melihat [design do
 ### Afinitas and anti-afinitas antar pod (fitur beta)
 
 Afinitas and anti-afinitas antar pod diperkenalkan pada Kubernetes 1.4. Afinitas and anti-afinitas antar pod memungkinkan kamu untuk membatasi node yang memenuhi syarat untuk penjadwalan pod *berdasarkan label-label pada pod yang sudah berjalan pada node* daripada berdasarkan label-label pada node. Aturan tersebut berbentuk  "pod ini harus (atau, dalam kasus
-anti-afinitas, tidak boleh) berjalan dalam X jika X itu sudah menjalankan satu atau lebih pod yang memenuhi aturan Y". Y dinyatakan sebagai sebuah LabelSelector dengan daftar namespace terkait; tidak seperti node, karena pod are namespaced (maka dari itu label-label pada pod diberi namespace secara implisit), sebuah label selector di atas label-label pod harus menentukan namespace yang akan diterapkan selector. Secara konsep X adalah domain topologi seperti node, rack, zona penyedia cloud, daerah penyedia cloud, dll. Kamu dapat menyatakannya menggunakan `topologyKey`  yang merupakan kunci untuk label node yang digunakan sistem untuk menunjukkan domain topologi tersebut, contohnya lihat kunci label yang terdaftar di atas pada bagian [Selingan: label node built-in](#interlude-built-in-node-labels). 
+anti-afinitas, tidak boleh) berjalan dalam X jika X itu sudah menjalankan satu atau lebih pod yang memenuhi aturan Y". Y dinyatakan sebagai sebuah LabelSelector dengan daftar namespace terkait; tidak seperti node, karena pod are namespaced (maka dari itu label-label pada pod diberi namespace secara implisit), sebuah label selector di atas label-label pod harus menentukan namespace yang akan diterapkan selector. Secara konsep X adalah domain topologi seperti node, rack, zona penyedia cloud, daerah penyedia cloud, dll. Kamu dapat menyatakannya menggunakan `topologyKey`  yang merupakan kunci untuk label node yang digunakan sistem untuk menunjukkan domain topologi tersebut, contohnya lihat kunci label yang terdaftar di atas pada bagian [Selingan: label node built-in](#interlude-built-in-node-labels).
 
 {{< note >}}
 Afinitas and anti-afinitas antar pod membutuhkan jumlah pemrosesan yang substansial yang dapat memperlambat penjadwalan pada kluster berukuran besar secara signifikan. Kami tidak merekomendasikan penggunaan mereka pada kluster yang berukuran lebih besar dari beberapa ratus node.
@@ -159,14 +159,14 @@ maupun `preferredDuringSchedulingIgnoredDuringExecution`.
 
 Operator yang sah untuk afinitas dan anti-afinitas pod adalah `In`, `NotIn`, `Exists`, `DoesNotExist`.
 
-Pada dasarnya, `topologyKey` dapat berupa label-kunci apapun yang sah. Namun, untuk alasan performa dan keamanan, ada beberapa batasan untuk `topologyKey`: 
+Pada dasarnya, `topologyKey` dapat berupa label-kunci apapun yang sah. Namun, untuk alasan performa dan keamanan, ada beberapa batasan untuk `topologyKey`:
 
 1. Untuk afinitas and anti-afinitas pod `requiredDuringSchedulingIgnoredDuringExecution`, `topologyKey` tidak boleh kosong.
 2. Untuk anti-afinitas pod `requiredDuringSchedulingIgnoredDuringExecution`, pengontrol penerimaan `LimitPodHardAntiAffinityTopology` diperkenalkan untuk membatasi `topologyKey` pada `kubernetes.io/hostname`. Jika kamu menginginkan untuk membuatnya tersedia untuk topologi khusus, kamu dapat memodifikasi pengontrol penerimaan, atau cukup menonaktifkannya saja.
 3. Untuk anti-afinitas pod `preferredDuringSchedulingIgnoredDuringExecution`, `topologyKey` yang kosong diinterpretasikan sebagai "semua topologi" ("semua topologi" sekarang dibatasi pada kombinasi dari `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` dan `failure-domain.beta.kubernetes.io/region`).
 4. Kecuali untuk kasus-kasus di atas, `topologyKey` dapat berupa label-kunci apapun yang sah.
 
-Sebagai tambahan untuk `labelSelector` and `topologyKey`, kamu secara opsional dapat menyatakan daftar `namespaces` dari namespaces yang akan digunakan untuk mencocokan `labelSelector` (daftar ini berjalan pada level definisi yang sama dengan `labelSelector` dan `topologyKey`) 
+Sebagai tambahan untuk `labelSelector` and `topologyKey`, kamu secara opsional dapat menyatakan daftar `namespaces` dari namespaces yang akan digunakan untuk mencocokan `labelSelector` (daftar ini berjalan pada level definisi yang sama dengan `labelSelector` dan `topologyKey`)
 
 Jika dihilangkan atau kosong, daftar ini sesuai standar akan merujuk pada _namespace_ dari pod tempat definisi afinitas/anti-afinitas dinyatakan.
 
@@ -175,7 +175,7 @@ Semua `matchExpressions` berkaitan dengan afinitas and anti-afinitas `requiredDu
 #### Penggunaan yang lebih praktikal
 
 Afinitas and anti-afinitas antar pod dapat menjadi lebih berguna saat digunakan bersamaan dengan koleksi dengan level yang lebih tinggi seperti ReplicaSets, StatefulSets, Deployments, dll. Pengguna dapat dengan mudah mengkonfigurasi bahwa satu set workload harus
-ditempatkan bersama dalam topologi yang didefinisikan sama, misalnya, node yang sama. 
+ditempatkan bersama dalam topologi yang didefinisikan sama, misalnya, node yang sama.
 
 ##### Selalu ditempatkan bersamaan pada node yang sama
 
@@ -280,7 +280,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 
 Contoh di atas menggunakan aturan `PodAntiAffinity` dengan` topologyKey: "kubernetes.io/hostname"` untuk melakukan deploy kluster redis sehingga tidak ada dua instance terletak pada hos yang sama.
-Lihat [tutorial ZooKeeper](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)  untuk contoh dari konfigurasi StatefulSet dengan anti-afinitas untuk ketersediaan tinggi, menggunakan teknik yang sama. 
+Lihat [tutorial ZooKeeper](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)  untuk contoh dari konfigurasi StatefulSet dengan anti-afinitas untuk ketersediaan tinggi, menggunakan teknik yang sama.
 
 Untuk informasi lebih lanjut tentang afinitas/anti-afinitas antar pod, lihat [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 

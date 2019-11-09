@@ -61,7 +61,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overv
 In addition to required fields for a Pod, a Pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
 
-A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod-states)
+A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
  equal to `Always`, or be unspecified, which defaults to `Always`.
 
 ### Pod Selector
@@ -86,10 +86,10 @@ When the two are specified the result is ANDed.
 If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`. Config with these not matching will be rejected by the API.
 
 Also you should not normally create any Pods whose labels match this selector, either directly, via
-another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the DaemonSet
-controller will think that those Pods were created by it.  Kubernetes will not stop you from doing
-this.  One case where you might want to do this is manually create a Pod with a different value on
-a node for testing.
+another DaemonSet, or via another workload resource such as ReplicaSet.  Otherwise, the DaemonSet
+{{< glossary_tooltip term_id="controller" >}} will think that those Pods were created by it.
+Kubernetes will not stop you from doing this. One case where you might want to do this is manually
+create a Pod with a different value on a node for testing.
 
 ### Running Pods on Only Some Nodes
 

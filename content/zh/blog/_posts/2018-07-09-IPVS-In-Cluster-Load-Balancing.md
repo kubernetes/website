@@ -176,21 +176,21 @@ Here comes an example:
     Port:			http	3080/TCP
     Endpoints:		10.244.0.235:8080,10.244.1.237:8080
     Session Affinity:	None
-    
+
     # ip addr
     ...
     73: kube-ipvs0: <BROADCAST,NOARP> mtu 1500 qdisc noop state DOWN qlen 1000
         link/ether 1a:ce:f5:5f:c1:4d brd ff:ff:ff:ff:ff:ff
         inet 10.102.128.4/32 scope global kube-ipvs0
            valid_lft forever preferred_lft forever
-    
+
     # ipvsadm -ln
     IP Virtual Server version 1.2.1 (size=4096)
     Prot LocalAddress:Port Scheduler Flags
-      -> RemoteAddress:Port           Forward Weight ActiveConn InActConn     
+      -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
     TCP  10.102.128.4:3080 rr
-      -> 10.244.0.235:8080            Masq    1      0          0         
-      -> 10.244.1.237:8080            Masq    1      0          0   
+      -> 10.244.0.235:8080            Masq    1      0          0
+      -> 10.244.1.237:8080            Masq    1      0          0
 
 -->
 
@@ -204,21 +204,21 @@ Here comes an example:
     Port:			http	3080/TCP
     Endpoints:		10.244.0.235:8080,10.244.1.237:8080
     Session Affinity:	None
-    
+
     # ip addr
     ...
     73: kube-ipvs0: <BROADCAST,NOARP> mtu 1500 qdisc noop state DOWN qlen 1000
         link/ether 1a:ce:f5:5f:c1:4d brd ff:ff:ff:ff:ff:ff
         inet 10.102.128.4/32 scope global kube-ipvs0
            valid_lft forever preferred_lft forever
-    
+
     # ipvsadm -ln
     IP Virtual Server version 1.2.1 (size=4096)
     Prot LocalAddress:Port Scheduler Flags
-      -> RemoteAddress:Port           Forward Weight ActiveConn InActConn     
+      -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
     TCP  10.102.128.4:3080 rr
-      -> 10.244.0.235:8080            Masq    1      0          0         
-      -> 10.244.1.237:8080            Masq    1      0          0   
+      -> 10.244.0.235:8080            Masq    1      0          0
+      -> 10.244.1.237:8080            Masq    1      0          0
 
 <!--
 
@@ -241,8 +241,8 @@ There are three proxy modes in IPVS: NAT (masq), IPIP and DR. Only NAT mode supp
 IPVS 中有三种代理模式：NAT（masq），IPIP 和 DR。 只有 NAT 模式支持端口映射。 Kube-proxy 利用 NAT 模式进行端口映射。 以下示例显示 IPVS 服务端口3080到Pod端口8080的映射。
 
     TCP  10.102.128.4:3080 rr
-      -> 10.244.0.235:8080            Masq    1      0          0         
-      -> 10.244.1.237:8080            Masq    1      0       
+      -> 10.244.0.235:8080            Masq    1      0          0
+      -> 10.244.1.237:8080            Masq    1      0
 
 <!--
 
@@ -262,7 +262,7 @@ IPVS 支持客户端 IP 会话关联（持久连接）。 当服务指定会话�
     IP:			    10.102.128.4
     Port:			http	3080/TCP
     Session Affinity:	ClientIP
-    
+
     # ipvsadm -ln
     IP Virtual Server version 1.2.1 (size=4096)
     Prot LocalAddress:Port Scheduler Flags
@@ -301,32 +301,32 @@ IPVS proxier 在上述场景中利用 iptables。 具体来说，ipvs proxier �
 
 <!--
 
-  set name                      	members                                 	usage                                   
+  set name                      	members                                 	usage
   KUBE-CLUSTER-IP               	All Service IP + port                   	masquerade for cases that masquerade-all=true or clusterCIDR specified
-  KUBE-LOOP-BACK                	All Service IP + port + IP              	masquerade for resolving hairpin issue  
-  KUBE-EXTERNAL-IP              	Service External IP + port              	masquerade for packets to external IPs  
+  KUBE-LOOP-BACK                	All Service IP + port + IP              	masquerade for resolving hairpin issue
+  KUBE-EXTERNAL-IP              	Service External IP + port              	masquerade for packets to external IPs
   KUBE-LOAD-BALANCER            	Load Balancer ingress IP + port         	masquerade for packets to Load Balancer type service
   KUBE-LOAD-BALANCER-LOCAL      	Load Balancer ingress IP + port with externalTrafficPolicy=local	accept packets to Load Balancer with externalTrafficPolicy=local
   KUBE-LOAD-BALANCER-FW         	Load Balancer ingress IP + port with loadBalancerSourceRanges	Drop packets for Load Balancer type Service with loadBalancerSourceRanges specified
   KUBE-LOAD-BALANCER-SOURCE-CIDR	Load Balancer ingress IP + port + source CIDR	accept packets for Load Balancer type Service with loadBalancerSourceRanges specified
-  KUBE-NODE-PORT-TCP            	NodePort type Service TCP port          	masquerade for packets to NodePort(TCP) 
+  KUBE-NODE-PORT-TCP            	NodePort type Service TCP port          	masquerade for packets to NodePort(TCP)
   KUBE-NODE-PORT-LOCAL-TCP      	NodePort type Service TCP port with externalTrafficPolicy=local	accept packets to NodePort Service with externalTrafficPolicy=local
-  KUBE-NODE-PORT-UDP            	NodePort type Service UDP port          	masquerade for packets to NodePort(UDP) 
+  KUBE-NODE-PORT-UDP            	NodePort type Service UDP port          	masquerade for packets to NodePort(UDP)
   KUBE-NODE-PORT-LOCAL-UDP      	NodePort type service UDP port with externalTrafficPolicy=local	accept packets to NodePort Service with externalTrafficPolicy=local
 
 -->
 
-  设置名称                          	成员                                      	用法                                      
+  设置名称                          	成员                                      	用法
   KUBE-CLUSTER-IP               	所有服务 IP + 端口                             	masquerade-all=true 或 clusterCIDR 指定的情况下进行伪装
-  KUBE-LOOP-BACK                	所有服务 IP +端口+ IP                          	解决数据包欺骗问题                               
-  KUBE-EXTERNAL-IP              	服务外部 IP +端口                              	将数据包伪装成外部 IP                             
-  KUBE-LOAD-BALANCER            	负载均衡器入口 IP +端口                           	将数据包伪装成 Load Balancer 类型的服务               
+  KUBE-LOOP-BACK                	所有服务 IP +端口+ IP                          	解决数据包欺骗问题
+  KUBE-EXTERNAL-IP              	服务外部 IP +端口                              	将数据包伪装成外部 IP
+  KUBE-LOAD-BALANCER            	负载均衡器入口 IP +端口                           	将数据包伪装成 Load Balancer 类型的服务
   KUBE-LOAD-BALANCER-LOCAL      	负载均衡器入口 IP +端口 以及 externalTrafficPolicy=local	接受数据包到 Load Balancer externalTrafficPolicy=local
   KUBE-LOAD-BALANCER-FW         	负载均衡器入口 IP +端口 以及 loadBalancerSourceRanges	使用指定的 loadBalancerSourceRanges 丢弃 Load Balancer类型Service的数据包
   KUBE-LOAD-BALANCER-SOURCE-CIDR	负载均衡器入口 IP +端口 + 源 CIDR                  	接受 Load Balancer 类型 Service 的数据包，并指定loadBalancerSourceRanges
-  KUBE-NODE-PORT-TCP            	NodePort 类型服务 TCP                         	将数据包伪装成 NodePort（TCP）                    
+  KUBE-NODE-PORT-TCP            	NodePort 类型服务 TCP                         	将数据包伪装成 NodePort（TCP）
   KUBE-NODE-PORT-LOCAL-TCP      	NodePort 类型服务 TCP 端口，带有 externalTrafficPolicy=local	接受数据包到 NodePort 服务 使用 externalTrafficPolicy=local
-  KUBE-NODE-PORT-UDP            	NodePort 类型服务 UDP 端口                       	将数据包伪装成 NodePort(UDP)                   
+  KUBE-NODE-PORT-UDP            	NodePort 类型服务 UDP 端口                       	将数据包伪装成 NodePort(UDP)
   KUBE-NODE-PORT-LOCAL-UDP      	NodePort 类型服务 UDP 端口 使用 externalTrafficPolicy=local	接受数据包到NodePort服务 使用 externalTrafficPolicy=local
 
 <!--

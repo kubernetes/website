@@ -161,8 +161,8 @@ to stop.
 If your Container usually starts in more than `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a startup probe that checks the same endpoint as the liveness probe. The default for `periodSeconds` is 30s.
 You should then set its `failureThreshold` high enough to allow the Container to start, without changing the default values of the liveness probe. This helps to protect against deadlocks.
 
-For more information about how to set up a liveness or readiness probe, see
-[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+For more information about how to set up a liveness, readiness, startup probe, see
+[Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ## Pod and Container status
 
@@ -276,10 +276,11 @@ once bound to a node, a Pod will never be rebound to another node.
 
 ## Pod lifetime
 
-In general, Pods do not disappear until someone destroys them. This might be a
-human or a controller. The only exception to
-this rule is that Pods with a `phase` of Succeeded or Failed for more than some
-duration (determined by `terminated-pod-gc-threshold` in the master) will expire and be automatically destroyed.
+In general, Pods remain until a human or controller process explicitly removes them.
+The control plane cleans up terminated Pods (with a phase of `Succeeded` or 
+`Failed`), when the number of Pods exceeds the configured threshold 
+(determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
+This avoids a resource leak as Pods are created and terminated over time.
 
 Three types of controllers are available:
 
@@ -397,7 +398,7 @@ spec:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Get hands-on experience
-  [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+  [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 

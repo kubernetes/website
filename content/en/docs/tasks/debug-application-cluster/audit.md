@@ -86,8 +86,7 @@ rules:
 - level: Metadata
 ```
 
-The [audit profile used by GCE][gce-audit-profile] should be used as reference by
-admins constructing their own audit profiles.
+The audit profile used by GCE should be used as reference by admins constructing their own audit profiles. You can check the [configure-helper.sh][configure-helper] script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 ## Audit backends
 
@@ -493,7 +492,7 @@ plugin which supports full-text search and analytics.
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
 [auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
-[gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
+[configure-helper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
 [kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
 [fluentd_install_doc]: https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd
