@@ -16,33 +16,15 @@ importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 
-In Kubernetes 1.9 and later, Priority also affects scheduling order of Pods and
-out-of-resource eviction ordering on the Node.
+{{< warning >}}
+In a cluster where not all users are trusted, a malicious user could create Pods
+at the highest possible priorities, causing other Pods to be evicted/not get
+scheduled.
+An administrator can use ResourceQuota to prevent users from creating pods at
+high priorities.
 
-Pod priority and preemption graduated to beta in Kubernetes 1.11 and to GA in
-Kubernetes 1.14. They have been enabled by default since 1.11.
-
-In Kubernetes versions where Pod priority and preemption is still an alpha-level
-feature, you need to explicitly enable it. To use these features in the older
-versions of Kubernetes, follow the instructions in the documentation for your
-Kubernetes version, by going to the documentation archive version for your
-Kubernetes version.
-
-Kubernetes Version | Priority and Preemption State | Enabled by default
------------------- | :---------------------------: | :----------------:
-1.8                | alpha                         | no
-1.9                | alpha                         | no
-1.10               | alpha                         | no
-1.11               | beta                          | yes
-1.14               | stable                        | yes
-
-{{< warning >}}In a cluster where not all users are trusted, a
-malicious user could create pods at the highest possible priorities, causing
-other pods to be evicted/not get scheduled. To resolve this issue,
-[ResourceQuota](/docs/concepts/policy/resource-quotas/) is
-augmented to support Pod priority. An admin can create ResourceQuota for users
-at specific priority levels, preventing them from creating pods at high
-priorities. This feature is in beta since Kubernetes 1.12.
+See [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+for details.
 {{< /warning >}}
 
 {{% /capture %}}
@@ -51,7 +33,7 @@ priorities. This feature is in beta since Kubernetes 1.12.
 
 ## How to use priority and preemption
 
-To use priority and preemption in Kubernetes 1.11 and later, follow these steps:
+To use priority and preemption:
 
 1.  Add one or more [PriorityClasses](#priorityclass).
 
@@ -84,14 +66,13 @@ recommended to disable preemption.
 {{< /note >}}
 
 {{< note >}}
-In Kubernetes 1.15 and later,
-if the feature `NonPreemptingPriority` is enabled,
+In Kubernetes 1.15 and later, if the feature `NonPreemptingPriority` is enabled,
 PriorityClasses have the option to set `preemptionPolicy: Never`.
 This will prevent pods of that PriorityClass from preempting other pods.
 {{< /note >}}
 
-In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag
-`disablePreemption`, which is set to `false` by default.
+Preemption is controlled by a kube-scheduler flag `disablePreemption`, which is
+set to `false` by default.
 If you want to disable preemption despite the above note, you can set
 `disablePreemption` to `true`.
 
@@ -237,12 +218,12 @@ spec:
 
 ### Effect of Pod priority on scheduling order
 
-In Kubernetes 1.9 and later, when Pod priority is enabled, scheduler orders
-pending Pods by their priority and a pending Pod is placed ahead of other
-pending Pods with lower priority in the scheduling queue. As a result, the
-higher priority Pod may be scheduled sooner than Pods with lower priority if its
-scheduling requirements are met. If such Pod cannot be scheduled, scheduler will
-continue and tries to schedule other lower priority Pods.
+When Pod priority is enabled, the scheduler orders pending Pods by
+their priority and a pending Pod is placed ahead of other pending Pods
+with lower priority in the scheduling queue. As a result, the higher
+priority Pod may be scheduled sooner than Pods with lower priority if
+its scheduling requirements are met. If such Pod cannot be scheduled,
+scheduler will continue and tries to schedule other lower priority Pods.
 
 ## Preemption
 
@@ -292,7 +273,7 @@ priority Pods to zero or a small number.
 
 A [Pod Disruption Budget (PDB)](/docs/concepts/workloads/pods/disruptions/)
 allows application owners to limit the number of Pods of a replicated application
-that are down simultaneously from voluntary disruptions. Kubernetes 1.9 supports
+that are down simultaneously from voluntary disruptions. Kubernetes supports
 PDB when preempting Pods, but respecting PDB is best effort. The Scheduler tries
 to find victims whose PDB are not violated by preemption, but if no such victims
 are found, preemption will still happen, and lower priority Pods will be removed
