@@ -152,7 +152,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
 - Verify that the `$HOME/.kube/config` file contains a valid certificate, and
   regenerate a certificate if necessary. The certificates in a kubeconfig file
-  are base64 encoded. The `base64 -d` command can be used to decode the certificate
+  are base64 encoded. The `base64 --decode` command can be used to decode the certificate
   and `openssl x509 -text -noout` can be used for viewing the certificate information.
 - Unset the `KUBECONFIG` environment variable using:
 

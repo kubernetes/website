@@ -1371,6 +1371,7 @@ Pod.
 <!--
 Download the example above, and save it to a file named `web-parallel.yaml`
 
+下载上面的例子并保存为 `web-parallel.yaml`。
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy` 
 of the `web` StatefulSet is set to `Parallel`.
 

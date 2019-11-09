@@ -49,7 +49,7 @@ content_template: templates/task
 创建Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-envars-pod.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
 ```
 
 验证Pod中的容器运行正常：
@@ -113,7 +113,7 @@ MY_POD_NAME=dapi-envars-fieldref
 创建Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-envars-container.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-envars-container.yaml
 ```
 
 验证Pod中的容器运行正常：

@@ -217,15 +217,6 @@ spec:
 ```
 
 
-要启动这个 Pod，可以执行如下命令：
-
-```
-kubectl apply -f myapp.yaml
-```
-
-```
-pod/myapp-pod created
-```
 
 
 

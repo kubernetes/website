@@ -46,7 +46,7 @@ content_template: templates/task
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
 验证Pod中的容器运行正常：
@@ -145,7 +145,7 @@ total 8
 创建Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume-resources.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
 ```
 
 进入Pod中运行的容器，打开一个shell：

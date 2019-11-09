@@ -2,7 +2,7 @@
 title: " Cluster Federation in Kubernetes 1.5 "
 date: 2016-12-22
 slug: cluster-federation-in-kubernetes-1.5
-url: /blog/2016/12/Cluster-Federation-In-Kubernetes-1.5
+url: /blog/2016/12/Cluster-Federation-In-Kubernetes-1-5
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
 
