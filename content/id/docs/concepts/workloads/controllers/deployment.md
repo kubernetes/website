@@ -1,9 +1,7 @@
 ---
-reviewers:
-- janetkuo
 title: Deployment
 feature:
-  title: Automated rollouts dan rollbacks
+  title: Rilis dan pengembalian terotomasi
   description: >
     Kubernetes merilis perubahan secara progresif pada aplikasimu atau konfigurasinya sambil memonitor kesehatan aplikasi untuk menjamin bahwa semua instances tidak mati bersamaan. Jika sesuatu yang buruk terjadi, Kubernetes akan melakukan rollback pada perubahanmu. Take advantage of a growing ecosystem of deployment solutions.
 
@@ -34,7 +32,7 @@ Berikut adalah penggunaan yang umum pada Deployment:
 * [Membuat Deployment untuk merilis ReplicaSet](#membuat-deployment). ReplicaSet membuat Pod di belakang layar. Cek status rilis untuk tahu proses rilis sukses atau tidak.
 * [Mendeklarasikan state baru dari Pods](#membarui-deployment) dengan membarui PodTemplateSpec milik Deployment. ReplicaSet baru akan dibuat dan Deployment mengatur perpindahan Pod secara teratur dari ReplicaSet lama ke ReplicaSet baru. Tiap ReplicaSet baru akan mengganti revisi Deployment.
 * [Mengembalikan ke revisi Deployment sebelumnya](#membalikkan-deployment) jika state Deployment sekarang tidak stabil. Tiap pengembalian mengganti revisi Deployment.
-* [Scale up the Deployment to facilitate more load](#mengatur-skala-deployment).
+* [Memperbesar Deployment untuk memfasilitasi beban yang lebih](#mengatur-skala-deployment).
 * [Menjeda Deployment](#menjeda-dan-melanjutkan-deployment) untuk menerapkan perbaikan pada PodTemplateSpec-nya, lalu melanjutkan untuk memulai rilis baru.
 * [Memakai status Deployment](#status-deployment) sebagai indikator ketika rilis tersendat.
 * [Membersihkan ReplicaSet lama](#kebijakan-pembersihan) yang sudah tidak terpakai.
@@ -126,8 +124,8 @@ Dalam contoh ini:
 
   {{< note >}}
   Kamu harus memasukkan selektor dan label templat Pod yang benar pada Deployment (dalam kasus ini, `app: nginx`). 
-  Jangan membuat label atau selektor yang beririsan dengan controller lain (termasuk Deployment dan StatefulSet lainnya). Kubernetes tidak akan mencegah adanya label yang beririsan. 
-  Namun, jika beberapa controller memiliki selektor yang beririsan, controller itu mungkin akan konflik dan berjalan dengan tidak semestinya.
+  Jangan membuat label atau selektor yang beririsan dengan kontroler lain (termasuk Deployment dan StatefulSet lainnya). Kubernetes tidak akan mencegah adanya label yang beririsan. 
+  Namun, jika beberapa kontroler memiliki selektor yang beririsan, kontroler itu mungkin akan konflik dan berjalan dengan tidak semestinya.
   {{< /note >}}
 
 ### Label pod-template-hash
@@ -136,7 +134,7 @@ Dalam contoh ini:
 Jangan ubah label ini.
 {{< /note >}}
 
-Label `pod-template-hash` ditambahkan oleh Deployment controller pada tiap ReplicaSet yang dibuat atau diadopsi Deployment.
+Label `pod-template-hash` ditambahkan oleh Deployment kontroler pada tiap ReplicaSet yang dibuat atau diadopsi Deployment.
 
 Label ini menjamin anak-anak ReplicaSet milik Deployment tidak tumpang tindih. Dia dibangkitkan dengan melakukan hash pada `PodTemplate` milik ReplicaSet dan memakainya sebagai label untuk ditambahkan ke selektor ReplicaSet, label templat Pod, dan Pod apapun yang ReplicaSet miliki.
 
@@ -284,9 +282,9 @@ menggandakannya menjadi 3 replika, sembari menghapus ReplicaSet menjadi 0 replik
     ReplicaSet baru dan ReplicaSet lama, dengan strategi pembaruan rolling yang sama. 
     Terakhir, kamu akan dapat 3 replika di ReplicaSet baru telah menyala, dan ReplicaSet lama akan hilang (berisi 0).
 
-### Rollover (aka multiple updates in-flight)
+### Perpanjangan (alias banyak pembaruan secara langsung)
 
-Setiap kali Deployment baru is teramati oleh Deployment controller, ReplicaSet dibuat untuk membangkitkan Pod sesuai keinginan. 
+Setiap kali Deployment baru is teramati oleh Deployment kontroler, ReplicaSet dibuat untuk membangkitkan Pod sesuai keinginan. 
 Jika Deployment diperbarui, ReplicaSet yang terkait Pod dengan label `.spec.selector` yang cocok, 
 namun kolom `.spec.template` pada templat tidak cocok akan dihapus. Kemudian, ReplicaSet baru akan
 digandakan sebanyak `.spec.replicas` dan semua ReplicaSet lama dihapus.
@@ -323,12 +321,11 @@ Umumnya, semua riwayat rilis Deployment disimpan oleh sistem sehingga kamu dapat
 (kamu dapat mengubahnya dengan mengubah batas riwayat revisi).
 
 {{< note >}}
-A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
-new revision is created if dan only if the Deployment's Pod template (`.spec.template`) is changed,
-for example if you update the labels or container images of the template. Other updates, such as scaling the Deployment,
-do not create a Deployment revision, so that you can facilitate simultaneous manual- or auto-scaling.
-This means that when you roll back to an earlier revision, only the Deployment's Pod template part is
-rolled back.
+Revisi Deployment dibuat saat rilis Deployment dipicu. Ini berarti revisi baru dibuat jika dan hanya jika 
+templat Pod Deployment (`.spec.template`) berubah, misalnya jika kamu membarui label atau image kontainer pada templat. 
+Pembaruan lain, seperti penggantian skala Deployment, tidak membuat revisi Deployment, jadi kamu dapat memfasilitasi 
+penggantian skala secara manual atau otomatis secara simultan. Artinya saat kamu membalikkan ke versi sebelumnya, 
+hanya bagian templat Pod Deployment yang dibalikkan.
 {{< /note >}}
 
 * Misal kamu membuat saltik saat mengganti Deployment, dengan memberi nama image dengan `nginx:1.91` alih-alih `nginx:1.9.1`:
@@ -510,7 +507,7 @@ Ikuti langkah-langkah berikut untuk membalikkan Deployment dari versi sekarang k
     Untuk detil lebih lanjut perintah terkait rilis, baca [`rilis kubectl`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
 
     Deployment sekarang dikembalikan ke revisi stabil sebelumnya. Seperti terlihat, ada event `DeploymentRollback`
-    yang dibentuk oleh controller Deployment untuk pembalikan ke revisi 2.
+    yang dibentuk oleh kontroler Deployment untuk pembalikan ke revisi 2.
 
 2. Cek apakah rilis telah sukses dan Deployment berjalan seharusnya, jalankan:
     ```shell
@@ -599,7 +596,7 @@ deployment.apps/nginx-deployment scaled
 
 Deployment RollingUpdate mendukung beberapa versi aplikasi berjalan secara bersamaan. Ketika kamu atau autoscaler 
 mengubah skala Deployment RollingUpdate yang ada di tengah rilis (yang sedang berjalan maupun terjeda), 
-controller Deployment menyeimbangkan replika tambahan dalam ReplicaSet aktif (ReplicaSet dengan Pod) untuk mencegah resiko. 
+kontroler Deployment menyeimbangkan replika tambahan dalam ReplicaSet aktif (ReplicaSet dengan Pod) untuk mencegah resiko. 
 Ini disebut *pengaturan skala proporsional*.
 
 Sebagai contoh, kamu menjalankan Deployment dengan 10 replika, [maxSurge](#max-surge)=3, dan [maxUnavailable](#max-unavailable)=2.
@@ -848,11 +845,11 @@ Ini dapat terjadi karena faktor berikut:
 
 One way you can detect this condition is to specify a deadline parameter in your Deployment spec:
 ([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `.spec.progressDeadlineSeconds` denotes the
-number of seconds the Deployment controller waits before indicating (in the Deployment status) that the
+number of seconds the Deployment kontroler waits before indicating (in the Deployment status) that the
 Deployment progress has stalled.
 
-Perintah `kubectl` berikut menetapkan spek dengan `progressDeadlineSeconds` untuk membuat controller
-melaporkan progres Deployment yang sedikit setelah 10 menit:
+Perintah `kubectl` berikut menetapkan spek dengan `progressDeadlineSeconds` untuk membuat kontroler
+melaporkan kemajuan Deployment yang sedikit setelah 10 menit:
 
 ```shell
 kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
@@ -861,7 +858,7 @@ Keluaran akan tampil seperti berikut:
 ```
 deployment.apps/nginx-deployment patched
 ```
-Ketika tenggat sudah lewat, controller Deployment menambah DeploymentCondition dengan atribut
+Ketika tenggat sudah lewat, kontroler Deployment menambah DeploymentCondition dengan atribut
 berikut ke `.status.conditions` milik Deployment:
 
 * Type=Progressing
@@ -876,7 +873,7 @@ Orkestrator yang lebih tinggi dapat memanfaatkannya untuk melakukan tindak lanju
 {{< /note >}}
 
 {{< note >}}
-Jika Deployment terjeda, Kubernetes tidak akan mengecek progres pada selang itu.
+Jika Deployment terjeda, Kubernetes tidak akan mengecek kemajuan pada selang itu.
 Kamu dapat menjeda Deployment di tengah rilis dan melanjutkannya dengan aman tanpa memicu kondisi saat tenggat telah lewat.
 {{< /note >}}
 
@@ -929,7 +926,7 @@ status:
   unavailableReplicas: 2
 ```
 
-Begitu tenggat progres Deployment terlewat, Kubernetes membarui status dan alasan untuk kondisi Progressing:
+Begitu tenggat kemajuan Deployment terlewat, Kubernetes membarui status dan alasan untuk kondisi Progressing:
 
 ```
 Conditions:
@@ -940,8 +937,8 @@ Conditions:
   ReplicaFailure  True    FailedCreate
 ```
 
-Kamu dapat menangani isu keterbatasan kuota dengan menurunkan jumlah Deployment, bisa dengan menghapus controllers 
-yang sedang berjalan, atau dengan meningkatkan kuota pada namespace. Jika kuota tersedia, kemudian controller Deployment
+Kamu dapat menangani isu keterbatasan kuota dengan menurunkan jumlah Deployment, bisa dengan menghapus kontrolers 
+yang sedang berjalan, atau dengan meningkatkan kuota pada namespace. Jika kuota tersedia, kemudian kontroler Deployment
 akan dapat menyelesaikan rilis Deployment. Kamu akan melihat bahwa status Deployment berubah menjadi kondisi sukses (`Status=True` dan `Reason=NewReplicaSetAvailable`).
 
 ```
@@ -957,8 +954,8 @@ oleh parameter yang dibuat pada strategi deployment. `Type=Progressing` dengan `
 sedang dalam rilis dan masih berjalan atau sudah selesai berjalan dan jumlah minimum replika tersedia 
 (lihat bagian Alasan untuk kondisi tertentu - dalam kasus ini `Reason=NewReplicaSetAvailable` berarti Deployment telah selesai).
 
-Kamu dapat mengecek apakah Deployment gagal berprogres dengan perintah `kubectl rollout status`. `kubectl rollout status`
-mengembalikan nilai selain nol jika Deployment telah melewati tenggat progres.
+Kamu dapat mengecek apakah Deployment gagal berkembang dengan perintah `kubectl rollout status`. `kubectl rollout status`
+mengembalikan nilai selain nol jika Deployment telah melewati tenggat kemajuan.
 
 ```shell
 kubectl rollout status deployment.v1.apps/nginx-deployment
@@ -971,7 +968,7 @@ $ echo $?
 1
 ```
 
-### Menindak deployment yang gagal
+### Menindak Deployment yang gagal
 
 Semua aksi yang dapat diterapkan pada Deployment yang selesai berjalan juga pada Deployment gagal. Kamu dapat menaik/turunkan replika, membalikkan ke versi sebelumnya, atau menjedanya jika kamu perlu menerapkan beberapa perbaikan pada templat Pod Deployment.
 
@@ -991,138 +988,141 @@ Jika kamu ingin merilis ke sebagian pengguna atau server menggunakan Deployment,
 kamu dapat membuat beberapa Deployment, satu tiap rilis, dengan mengikuti pola canary yang didesripsikan pada
 [mengelola sumber daya](/id/docs/concepts/cluster-administration/manage-deployment/#deploy-dengan-canary).
 
-## Writing a Deployment Spec
+## Menulis Spesifikasi Deployment
 
-As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, dan `metadata` fields.
-For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
-configuring containers, dan [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
+Sebagaimana konfigurasi Kubernetes lainnya, Deployment memerlukan kolom `apiVersion`, `kind`, dan `metadata`.
+Untuk informasi umum tentang penggunaan berkas konfigurasi, lihat [deploy aplikasi](/id/docs/tutorials/stateless-application/run-stateless-application-deployment/),
+mengatur kontainer, dan [memakai kubectl untuk mengatur sumber daya](/id/docs/concepts/overview/working-with-objects/object-management/) documents.
 
-A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+Deployment juga perlu [bagian `.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
-### Pod Template
+### Templat Pod
 
-The `.spec.template` dan `.spec.selector` are the only required field of the `.spec`.
+Dalam `.spec` hanya ada kolom `.spec.template` dan `.spec.selector` yang wajib diisi.
 
-The `.spec.template` is a [Pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](/docs/concepts/workloads/pods/pod/), except it is nested dan does not have an
-`apiVersion` or `kind`.
+`.spec.template` adalah [templat Pod](/id/docs/concepts/workloads/pods/pod-overview/#templat-pod). Dia memiliki skema yang sama dengan [Pod](/id/docs/concepts/workloads/pods/pod/). Bedanya dia bersarang dan tidak punya `apiVersion` atau `kind`.
 
-In addition to required fields for a Pod, a Pod template in a Deployment must specify appropriate
-labels dan an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector)).
+Selain kolom wajib untuk Pod, templat Pod pada Deployment harus menentukan label dan aturan menjalankan ulang yang tepat. 
+Untuk label, pastikaan tidak bertumpang tindih dengan kontroler lainnya. Lihat [selektor](#selektor)).
 
-Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
-allowed, which is the default if not specified.
+[`.spec.template.spec.restartPolicy`](/id/docs/concepts/workloads/pods/pod-lifecycle/#aturan-menjalankan-ulang) hanya boleh berisi `Always`,
+yang tidak ditentukan pada bawaan.
 
-### Replicas
+### Replika
 
-`.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults to 1.
+`.spec.replicas` adalah kolom opsional yang mengatur jumlah Pod yang diinginkan. Setelan bawaannya berisi 1.
 
-### Selector
+### Selektor
 
-`.spec.selector` is an required field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)
-for the Pods targeted by this Deployment.
+`.spec.selector` adalah kolom wajib yang mengatur [selektor label](/id/docs/concepts/overview/working-with-objects/labels/)
+untuk Pod yang dituju oleh Deployment ini.
 
-`.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by the API.
+`.spec.selector` harus sesuai `.spec.template.metadata.labels`, atau akan ditolak oleh API.
 
-In API version `apps/v1`, `.spec.selector` dan `.metadata.labels` do not default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation of the Deployment in `apps/v1`.
+Di versi API `apps/v1`, `.spec.selector` dan `.metadata.labels` tidak berisi `.spec.template.metadata.labels` jika tidak disetel. 
+Jadi mereka harus disetel secara eksplisit. Perhatikan juga `.spec.selector` tidak dapat diubah setelah Deployment dibuat pada `apps/v1`.
 
-A Deployment may terminate Pods whose labels match the selector if their template is different
-from `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
-Pods with `.spec.template` if the number of Pods is less than the desired number.
+Deployment dapat mematikan Pod yang labelnya cocok dengan selektor jika templatnya berbeda
+dari `.spec.template` atau total jumlah Pod melebihi `.spec.replicas`. Dia akan membuat Pod baru 
+dengan `.spec.template` jika jumlah Pod kurang dari yang diinginkan.
 
 {{< note >}}
-You should not create other Pods whose labels match this selector, either directly, by creating
-another Deployment, or by creating another controller such as a ReplicaSet or a ReplicationController. If you
-do so, the first Deployment thinks that it created these other Pods. Kubernetes does not stop you from doing this.
+Kamu sebaiknya tidak membuat Pod lain yang labelnya cocok dengan selektor ini, baik secara langsung, 
+melalui Deployment lain, atau membuat kontroler lain seperti ReplicaSet atau ReplicationController. 
+Kalau kamu melakukannya, Deployment pertama akan mengira dia yang membuat Pod-pod ini. 
+Kubernetes tidak akan mencegahmu melakukannya.
 {{< /note >}}
 
-If you have multiple controllers that have overlapping selectors, the controllers will fight with each
-other dan won't behave correctly.
+Jika kamu punya beberapa kontroler dengan selektor bertindihan, mereka akan saling bertikai 
+dan tidak akan berjalan semestinya.
 
-### Strategy
+### Strategi
 
-`.spec.strategy` specifies the strategy used to replace old Pods by new ones.
-`.spec.strategy.type` can be "Recreate" or "RollingUpdate". "RollingUpdate" is
-the default value.
+`.spec.strategy` mengatur strategi yang dipakai untuk mengganti Pod lama dengan yang baru.
+`.spec.strategy.type` dapat berisi "Recreate" atau "RollingUpdate". Nilai bawaannya adalah "RollingUpdate".
 
-#### Recreate Deployment
+#### Membuat Ulang Deployment
 
-All existing Pods are killed before new ones are created when `.spec.strategy.type==Recreate`.
+Semua Pod yang ada dimatikan sebelum yang baru dibuat ketika nilai `.spec.strategy.type==Recreate`.
 
-#### Rolling Update Deployment
+#### Membarui Deployment secara Bergulir
 
-The Deployment updates Pods in a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/)
-fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` dan `maxSurge` to control
-the rolling update process.
+Deployment membarui Pod secara [bergulir](/id/docs/tasks/run-application/rolling-update-replication-controller/)
+saat `.spec.strategy.type==RollingUpdate`. Kamu dapat menentukan `maxUnavailable` dan `maxSurge` untuk mengatur
+proses pembaruan bergulir.
 
-##### Max Unavailable
+##### Ketidaktersediaan Maksimum
 
-`.spec.strategy.rollingUpdate.maxUnavailable` is an optional field that specifies the maximum number
-of Pods that can be unavailable during the update process. The value can be an absolute number (for example, 5)
-or a percentage of desired Pods (for example, 10%). The absolute number is calculated from percentage by
-rounding down. The value cannot be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. The default value is 25%.
+`.spec.strategy.rollingUpdate.maxUnavailable` adalah kolom opsional yang mengatur jumlah Pod maksimal 
+yang tidak tersedia selama proses pembaruan. Nilainya bisa berupa angka mutlak (contohnya 5) 
+atau persentase dari Pod yang diinginkan (contohnya 10%). Angka mutlak dihitung berdasarkan persentase 
+dengan pembulatan ke bawah. Nilai tidak bisa nol jika `.spec.strategy.rollingUpdate.maxSurge` juga nol. 
+Nilai bawaannya yaitu 25%.
 
-For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
-Pods immediately when the rolling update starts. Once new Pods are ready, old ReplicaSet can be scaled
-down further, followed by scaling up the new ReplicaSet, ensuring that the total number of Pods available
-at all times during the update is at least 70% of the desired Pods.
+Sebagai contoh, ketika nilai berisi 30%, ReplicaSet lama dapat segera diperkecil menjadi 70% dari Pod 
+yang diinginkan saat pembaruan bergulir dimulai. Seketika Pod baru siap, ReplicaSet lama dapat lebih diperkecil lagi, 
+diikuti dengan pembesaran ReplicaSet, menjamin total jumlah Pod yang siap kapanpun ketika pembaruan 
+paling sedikit 70% dari Pod yang diinginkan.
 
-##### Max Surge
+##### Kelebihan Maksimum
 
-`.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
-that can be created over the desired number of Pods. The value can be an absolute number (for example, 5) or a
-percentage of desired Pods (for example, 10%). The value cannot be 0 if `MaxUnavailable` is 0. The absolute number
-is calculated from the percentage by rounding up. The default value is 25%.
+`.spec.strategy.rollingUpdate.maxSurge` adalah kolom opsional yang mengatur jumlah Pod maksimal yang 
+dapat dibuat melebihi jumlah Pod yang diinginkan. Nilainya bisa berupa angka mutlak (contohnya 5) atau persentase 
+dari Pod yang diinginkan (contohnya 10%). Nilai tidak bisa nol jika `MaxUnavailable` juga nol. Angka mutlak 
+dihitung berdasarkan persentase dengan pembulatan ke bawah. Nilai bawaannya yaitu 25%.
 
-For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
-rolling update starts, such that the total number of old dan new Pods does not exceed 130% of desired
-Pods. Once old Pods have been killed, the new ReplicaSet can be scaled up further, ensuring that the
-total number of Pods running at any time during the update is at most 130% of desired Pods.
+Sebagai contoh, ketika nilai berisi 30%, ReplicaSet baru dapat segera diperbesar saat pembaruan bergulir dimulai, 
+sehingga total jumlah Pod yang baru dan lama tidak melebihi 130% dari Pod yang diinginkan. 
+Saat Pod lama dimatikan, ReplicaSet baru dapat lebih diperbesar lagi, menjamin total jumlah Pod yang siap 
+kapanpun ketika pembaruan paling banyak 130% dari Pod yang diinginkan.
 
-### Progress Deadline Seconds
+### Tenggat Kemajuan dalam Detik
 
-`.spec.progressDeadlineSeconds` is an optional field that specifies the number of seconds you want
-to wait for your Deployment to progress before the system reports back that the Deployment has
-[failed progressing](#failed-deployment) - surfaced as a condition with `Type=Progressing`, `Status=False`.
-dan `Reason=ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
-retrying the Deployment. In the future, once automatic rollback will be implemented, the Deployment
-controller will roll back a Deployment as soon as it observes such a condition.
+`.spec.progressDeadlineSeconds` adalah kolom opsional yang mengatur lama tunggu dalam dalam detik untuk Deployment-mu berjalan 
+sebelum sistem melaporkan lagi bahwa Deployment [gagal](#deployment-gagal) - ditunjukkan dengan kondisi `Type=Progressing`, `Status=False`, 
+dan `Reason=ProgressDeadlineExceeded` pada status sumber daya. Controller Deployment akan tetap mencoba ulang Deployment. 
+Nantinya begitu pengembalian otomatis diimplementasikan, kontroler Deployment akan membalikkan Deployment segera 
+saat dia menjumpai kondisi tersebut.
 
-If specified, this field needs to be greater than `.spec.minReadySeconds`.
+Jika ditentukan, kolom ini harus lebih besar dari `.spec.minReadySeconds`.
 
-### Min Ready Seconds
+### Lama Minimum untuk Siap dalam Detik
 
-`.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
-created Pod should be ready without any of its containers crashing, for it to be considered available.
-This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
-a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+`.spec.minReadySeconds` adalah kolom opsional yang mengatur lama minimal sebuah Pod yang baru dibuat 
+seharusnya siap tanpa ada kontainer yang rusak, untuk dianggap tersedia, dalam detik.
+Nilai bawaannya yaitu 0 (Pod akan dianggap tersedia segera ketika siap). Untuk mempelajari lebih lanjut 
+kapan Pod dianggap siap, lihat [Pemeriksaan Kontainer](/id/docs/concepts/workloads/pods/pod-lifecycle/#pemeriksaan-kontainer).
 
-### Rollback To
+### Kembali Ke
 
-Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` dan `apps/v1beta1`, dan is no longer supported in API versions starting `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
+Kolom `.spec.rollbackTo` telah ditinggalkan pada versi API `extensions/v1beta1` dan `apps/v1beta1`, dan sudah tidak didukung mulai versi API `apps/v1beta2`. 
+Sebagai gantinya, disarankan untuk menggunakan `kubectl rollout undo` sebagaimana diperkenalkan dalam [Kembali ke Revisi Sebelumnya](#kembali-ke-revisi-sebelumnya).
 
-### Revision History Limit
+### Batas Riwayat Revisi
 
-A Deployment's revision history is stored in the ReplicaSets it controls.
+Riwayat revisi Deployment disimpan dalam ReplicaSet yang dia kendalikan.
 
-`.spec.revisionHistoryLimit` is an optional field that specifies the number of old ReplicaSets to retain
-to allow rollback. These old ReplicaSets consume resources in `etcd` dan crowd the output of `kubectl get rs`. The configuration of each Deployment revision is stored in its ReplicaSets; therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment. Umumnya, 10 old ReplicaSets will be kept, however its ideal value depends on the frequency dan stability of new Deployments.
+`.spec.revisionHistoryLimit` adalah kolom opsional yang mengatur jumlah ReplicaSet lama yang dipertahankan 
+untuk memungkinkan pengembalian. ReplicaSet lama ini mengambil sumber daya dari `etcd` dan memunculkan keluaran 
+dari `kubectl get rs`. Konfigurasi tiap revisi Deployment disimpan pada ReplicaSet-nya; sehingga, begitu ReplicaSet lama dihapus, 
+kamu tidak mampu lagi membalikkan revisi Deployment-nya. Umumnya, 10 ReplicaSet lama akan dipertahankan, 
+namun nilai idealnya tergantung pada frekuensi dan stabilitas Deployment-deployment baru.
 
-More specifically, setting this field to zero means that all old ReplicaSets with 0 replicas will be cleaned up.
-In this case, a new Deployment rollout cannot be undone, since its revision history is cleaned up.
+Lebih spesifik, mengisi kolom dengan nol berarti semua ReplicaSet lama dengan 0 replika akan dibersihkan.
+Dalam kasus ini, rilis Deployment baru tidak dapat dibalikkan, sebab riwayat revisinya telah dibersihkan.
 
-### Paused
+### Terjeda
 
-`.spec.paused` is an optional boolean field for pausing dan resuming a Deployment. The only difference between
-a paused Deployment dan one that is not paused, is that any perubahan into the PodTemplateSpec of the paused
-Deployment will not trigger new rollouts as long as it is paused. A Deployment is not paused Umumnya when
-it is created.
+`.spec.paused` adalah kolom boolean opsional untuk menjeda dan melanjutkan Deployment. Perbedaan antara Deployment yang terjeda
+dan yang tidak hanyalah perubahan apapun pada PodTemplateSpec Deployment terjeda tidak akan memicu rilis baru selama masih terjeda. 
+Deployment umumnya tidak terjeda saat dibuat.
 
 ## Alternatif untuk Deployment
 
 ### kubectl rolling update
 
-[`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-perintahs#rolling-update) membarui Pod dan ReplicationController
+[`kubectl rolling update`](/id/docs/reference/generated/kubectl/kubectl-commands#rolling-update) membarui Pod dan ReplicationController
 dengan cara yang serupa. Namun, Deployments lebih disarankan karena deklaratif, berjalan di sisi server, dan punya fitur tambahan, 
-seperti pengembalian ke revisi manapun sebelumnya bahkan setelah pembaruan rolling selesais.
+seperti pembalikkan ke revisi manapun sebelumnya bahkan setelah pembaruan rolling selesais.
 
 {{% /capture %}}
