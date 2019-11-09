@@ -325,28 +325,23 @@ gone, and Pod P could possibly be scheduled on Node N.
 We may consider adding cross Node preemption in future versions if there is
 enough demand and if we find an algorithm with reasonable performance.
 
-## Debugging Pod Priority and Preemption
+## Troubleshooting
 
-Pod Priority and Preemption is a major feature that could potentially disrupt
-Pod scheduling if it has bugs.
+Pod priority and pre-emption can have unwanted side effects. Here are some
+examples of potential problems and ways to deal with them.
 
-### Potential problems caused by Priority and Preemption
-
-The followings are some of the potential problems that could be caused by bugs
-in the implementation of the feature. This list is not exhaustive.
-
-#### Pods are preempted unnecessarily
+### Pods are preempted unnecessarily
 
 Preemption removes existing Pods from a cluster under resource pressure to make
-room for higher priority pending Pods. If a user gives high priorities to
-certain Pods by mistake, these unintentional high priority Pods may cause
-preemption in the cluster. As mentioned above, Pod priority is specified by
-setting the `priorityClassName` field of `podSpec`. The integer value of
+room for higher priority pending Pods. If you give high priorities to
+certain Pods by mistake, these unintentionally high priority Pods may cause
+preemption in your cluster. Pod priority is specified by setting the
+`priorityClassName` field in the Pod's specification. The integer value for
 priority is then resolved and populated to the `priority` field of `podSpec`.
 
-To resolve the problem, `priorityClassName` of the Pods must be changed to use
-lower priority classes or should be left empty. Empty `priorityClassName` is
-resolved to zero by default.
+To address the problem, you can change the `priorityClassName` for those Pods
+to use lower priority classes, or leave that field empty. An empty
+`priorityClassName` is resolved to zero by default.
 
 When a Pod is preempted, there will be events recorded for the preempted Pod.
 Preemption should happen only when a cluster does not have enough resources for
@@ -355,29 +350,31 @@ Pod (preemptor) is higher than the victim Pods. Preemption must not happen when
 there is no pending Pod, or when the pending Pods have equal or lower priority
 than the victims. If preemption happens in such scenarios, please file an issue.
 
-#### Pods are preempted, but the preemptor is not scheduled
+### Pods are preempted, but the preemptor is not scheduled
 
 When pods are preempted, they receive their requested graceful termination
-period, which is by default 30 seconds, but it can be any different value as
-specified in the PodSpec. If the victim Pods do not terminate within this period,
-they are force-terminated. Once all the victims go away, the preemptor Pod can
-be scheduled.
+period, which is by default 30 seconds. If the victim Pods do not terminate within
+this period, they are forcibly terminated. Once all the victims go away, the
+preemptor Pod can be scheduled.
 
 While the preemptor Pod is waiting for the victims to go away, a higher priority
-Pod may be created that fits on the same node. In this case, the scheduler will
+Pod may be created that fits on the same Node. In this case, the scheduler will
 schedule the higher priority Pod instead of the preemptor.
 
-In the absence of such a higher priority Pod, we expect the preemptor Pod to be
-scheduled after the graceful termination period of the victims is over.
+This is expected behavior: the Pod with the higher priority should take the place
+of a Pod with a lower priority. Other controller actions, such as
+[cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling),
+may eventually provide capacity to schedule the pending Pods.
 
-#### Higher priority Pods are preempted before lower priority pods
+### Higher priority Pods are preempted before lower priority pods
 
-The scheduler tries to find nodes that can run a pending Pod and if no node is
-found, it tries to remove Pods with lower priority from one node to make room
-for the pending pod. If a node with low priority Pods is not feasible to run the
-pending Pod, the scheduler may choose another node with higher priority Pods
-(compared to the Pods on the other node) for preemption. The victims must still
-have lower priority than the preemptor Pod.
+The scheduler tries to find nodes that can run a pending Pod. If no node is
+found, the scheduler tries to remove Pods with lower priority from an arbitrary
+node in order to make room for the pending pod.
+If a node with low priority Pods is not feasible to run the pending Pod, the scheduler
+may choose another node with higher priority Pods (compared to the Pods on the
+other node) for preemption. The victims must still have lower priority than the
+preemptor Pod.
 
 When there are multiple nodes available for preemption, the scheduler tries to
 choose the node with a set of Pods with lowest priority. However, if such Pods
@@ -385,8 +382,7 @@ have PodDisruptionBudget that would be violated if they are preempted then the
 scheduler may choose another node with higher priority Pods.
 
 When multiple nodes exist for preemption and none of the above scenarios apply,
-we expect the scheduler to choose a node with the lowest priority. If that is
-not the case, it may indicate a bug in the scheduler.
+the scheduler chooses a node with the lowest priority.
 
 ## Interactions of Pod priority and QoS
 
