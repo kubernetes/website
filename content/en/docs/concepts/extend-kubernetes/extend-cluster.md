@@ -79,7 +79,7 @@ and [Network
 Plugins](/docs/concepts/cluster-administration/network-plugins/))
 and by kubectl.
 
-Below is a diagram showing how the extensions points interact with the
+Below is a diagram showing how the extension points interact with the
 Kubernetes control plane.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
