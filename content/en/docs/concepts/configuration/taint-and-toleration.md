@@ -10,16 +10,17 @@ weight: 40
 
 
 {{% capture overview %}}
-Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
-is a property of *pods* that *attracts* them to a set of nodes (either as a
-preference or a hard requirement). Taints are the opposite -- they allow a
-*node* to *repel* a set of pods.
+[_Node affinity_](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
+is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
+a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
+hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
+
+_Tolerations_ are applied to pods, and allow (but do not require) the pods to schedule
+onto nodes with matching taints.
 
 Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
 marks that the node should not accept any pods that do not tolerate the taints.
-Tolerations are applied to pods, and allow (but do not require) the pods to schedule
-onto nodes with matching taints.
 
 {{% /capture %}}
 
@@ -65,12 +66,12 @@ Here’s an example of a pod that uses tolerations:
 
 {{< codenew file="pods/pod-with-toleration.yaml" >}}
 
+The default value for `operator` is `Equal`.
+
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
-* the `operator` is `Equal` and the `value`s are equal
-
-`Operator` defaults to `Equal` if not specified.
+* the `operator` is `Equal` and the `value`s are equal.
 
 {{< note >}}
 
@@ -204,7 +205,7 @@ when there are node problems, which is described in the next section.
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Earlier we mentioned the `NoExecute` taint effect, which affects pods that are already
+The `NoExecute` taint effect, mentioned above, affects pods that are already
 running on the node as follows
 
  * pods that do not tolerate the taint are evicted immediately
@@ -213,9 +214,8 @@ running on the node as follows
  * pods that tolerate the taint with a specified `tolerationSeconds` remain
    bound for the specified amount of time
 
-In addition, Kubernetes 1.6 introduced alpha support for representing node
-problems. In other words, the node controller automatically taints a node when
-certain condition is true. The following taints are built in:
+The node controller automatically taints a Node when certain conditions
+are true. The following taints are built in:
 
  * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
@@ -236,19 +236,18 @@ with `NoExecute` effect. If the fault condition returns to normal the kubelet or
 controller can remove the relevant taint(s).
 
 {{< note >}}
-To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
-behavior of pod evictions due to node problems, the system actually adds the taints
-in a rate-limited way. This prevents massive pod evictions in scenarios such
-as the master becoming partitioned from the nodes.
+The control plane limits the rate of adding node new taints to nodes. This rate limiting
+manages the number of evictions that are triggered when many nodes become unreachable at
+once (for example: if there is a network disruption).
 {{< /note >}}
 
-The feature, in combination with `tolerationSeconds`, allows a pod
-to specify how long it should stay bound to a node that has one or both of these problems.
+You can specify `tolerationSeconds` for a Pod to define how long that Pod stays bound
+to a failing or unresponsive Node.
 
-For example, an application with a lot of local state might want to stay
-bound to node for a long time in the event of network partition, in the hope
+For example, you might want to keep an application with a lot of local state
+bound to node for a long time in the event of network partition, hoping
 that the partition will recover and thus the pod eviction can be avoided.
-The toleration the pod would use in that case would look like
+The toleration you set for that Pod might look like:
 
 ```yaml
 tolerations:
@@ -258,20 +257,15 @@ tolerations:
   tolerationSeconds: 6000
 ```
 
-Note that Kubernetes automatically adds a toleration for
-`node.kubernetes.io/not-ready` with `tolerationSeconds=300`
-unless the pod configuration provided
-by the user already has a toleration for `node.kubernetes.io/not-ready`.
-Likewise it adds a toleration for
-`node.kubernetes.io/unreachable` with `tolerationSeconds=300`
-unless the pod configuration provided
-by the user already has a toleration for `node.kubernetes.io/unreachable`.
+{{< note >}}
+Kubernetes automatically adds a toleration for
+`node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable`
+with `tolerationSeconds=300`,
+unless you, or a controller, set those tolerations explictly.
 
-These automatically-added tolerations ensure that
-the default pod behavior of remaining bound for 5 minutes after one of these
-problems is detected is maintained.
-The two default tolerations are added by the [DefaultTolerationSeconds
-admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
+These automatically-added tolerations mean that Pods remain bound to
+Nodes for 5 minutes after one of these problems is detected.
+{{< /note >}}
 
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
@@ -287,9 +281,8 @@ The node lifecycle controller automatically creates taints corresponding to
 Node conditions with `NoSchedule` effect.
 Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
 
-Starting in Kubernetes 1.8, the DaemonSet controller automatically adds the
-following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from
-breaking.
+The DaemonSet controller automatically adds the following `NoSchedule`
+tolerations to all daemons, to prevent DaemonSets from breaking.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
@@ -299,3 +292,10 @@ breaking.
 
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
+
+{{% /capture %}}
+{{% capture whatsnext %}}
+* Read about [out of resource handling](/docs/tasks/administer-cluster/out-of-resource/) and how you can configure it
+* Read about [pod priority](/docs/concepts/configuration/pod-priority-preemption/)
+
+{{% /capture %}}

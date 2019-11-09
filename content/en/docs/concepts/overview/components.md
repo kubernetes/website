@@ -83,7 +83,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
-### Container Runtime
+### Container runtime
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
