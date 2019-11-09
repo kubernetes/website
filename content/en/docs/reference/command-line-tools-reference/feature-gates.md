@@ -119,14 +119,12 @@ different Kubernetes components.
 | `RunAsGroup` | `true` | Beta | 1.14 | |
 | `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
 | `RuntimeClass` | `true` | Beta | 1.14 | |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
-| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
-| `StartupProbe` | `false` | Alpha | 1.16 | |
+| `StartupProbe` | `true` | Beta | 1.17 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
@@ -153,8 +151,6 @@ different Kubernetes components.
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
 | `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
-| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
-| `WatchBookmark` | `true` | Beta | 1.16 | |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
 | `WindowsGMSA` | `true` | Beta | 1.16 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
@@ -228,6 +224,9 @@ different Kubernetes components.
 | `PodReadinessGates` | `true` | GA | 1.14 | - |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
+| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | 1.16  |
+| `ScheduleDaemonSetPods` | `true` | GA | 1.17 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
@@ -238,6 +237,10 @@ different Kubernetes components.
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
 | `VolumeSubpath` | `true` | GA | 1.13 | - |
+| `VolumeSubpathEnvExpansion` | `true` | GA | 1.17 | - |
+| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
+| `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
+| `WatchBookmark` | `true` | GA | 1.17 | - |
 {{< /table >}}
 
 ## Using a Feature

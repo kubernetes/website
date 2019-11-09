@@ -64,17 +64,18 @@ is to drain the Node from its workloads, remove it from the cluster and re-join 
 ## Docker
 
 On each of your machines, install Docker.
-Version 18.06.2 is recommended, but 1.11, 1.12, 1.13, 17.03 and 18.09 are known to work as well.
+Version 19.03.4 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
 # Install Docker CE
 ## Set up the repository:
 ### Install packages to allow apt to use a repository over HTTPS
-apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+apt-get update && apt-get install \
+  apt-transport-https ca-certificates curl software-properties-common
 
 ### Add Docker’s official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -86,7 +87,10 @@ add-apt-repository \
   stable"
 
 ## Install Docker CE.
-apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
+apt-get update && apt-get install \
+  containerd.io=1.2.10-3 \
+  docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
@@ -114,12 +118,14 @@ systemctl restart docker
 yum install yum-utils device-mapper-persistent-data lvm2
 
 ### Add Docker repository.
-yum-config-manager \
-  --add-repo \
+yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Install Docker CE.
-yum update && yum install docker-ce-18.06.2.ce
+yum update && yum install \
+  containerd.io-1.2.10 \
+  docker-ce-19.03.4 \
+  docker-ce-cli-19.03.4
 
 ## Create /etc/docker directory.
 mkdir /etc/docker
