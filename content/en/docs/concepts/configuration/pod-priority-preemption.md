@@ -59,11 +59,11 @@ Pods.
 
 ## How to disable preemption
 
-{{< note >}}
-In Kubernetes 1.12+, critical pods rely on scheduler preemption to be scheduled
-when a cluster is under resource pressure. For this reason, it is not
-recommended to disable preemption.
-{{< /note >}}
+{{< caution >}}
+Critical pods rely on scheduler preemption to be scheduled when a cluster
+is under resource pressure. For this reason, it is not recommended to
+disable preemption.
+{{< /caution >}}
 
 {{< note >}}
 In Kubernetes 1.15 and later, if the feature `NonPreemptingPriority` is enabled,
