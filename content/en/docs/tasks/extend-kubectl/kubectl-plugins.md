@@ -27,14 +27,13 @@ You need to have a working `kubectl` binary installed.
 A plugin is nothing more than a standalone executable file, whose name begins with `kubectl-`. To install a plugin, simply move its executable file to anywhere on your `PATH`.
 
 You can also discover and install kubectl plugins available in the open source
-using [Krew](https://sigs.k8s.io/krew). Krew is a plugin manager maintained by
+using [Krew](https://krew.dev/). Krew is a plugin manager maintained by
 the Kubernetes SIG CLI community.
 
 {{< caution >}}
-Kubectl plugins installed via the Krew [centralized
-index](https://github.com/kubernetes-sigs/krew-index) are not audited for
-security. You should install and run third-party plugins at your own risk, since
-they are arbitrary programs running on your machine.
+Kubectl plugins available via the Krew [plugin index](https://index.krew.dev/)
+are not audited for security. You should install and run third-party plugins at your
+own risk, since they are arbitrary programs running on your machine.
 {{< /caution >}}
 
 ### Discovering plugins
@@ -44,9 +43,9 @@ Executing this command causes a traversal of all files in your `PATH`. Any files
 A warning will be included for any files beginning with `kubectl-` that are *not* executable.
 A warning will also be included for any valid plugin files that overlap each other's name.
 
-You can use [Krew](https://sigs.k8s.io/krew) to discover and install `kubectl`
+You can use [Krew](https://krew.dev/) to discover and install `kubectl`
 plugins from a community-curated
-[plugin index](https://github.com/kubernetes-sigs/krew-index).
+[plugin index](https://index.krew.dev/).
 
 #### Limitations
 
@@ -337,16 +336,13 @@ package it, distribute it and deliver updates to your users.
 
 ### Krew {#distributing-krew}
 
-[Krew](https://sigs.k8s.io/krew) offers a cross-platform way to package and
+[Krew](https://krew.dev/) offers a cross-platform way to package and
 distribute your plugins. This way, you use a single packaging format for all
 target platforms (Linux, Windows, macOS etc) and deliver updates to your users.
 Krew also maintains a [plugin
-index](https://github.com/kubernetes-sigs/krew-index) so that other people can
+index](https://index.krew.dev/) so that other people can
 discover your plugin and install it.
 
-Read the
-[Krew developer guide](https://github.com/kubernetes-sigs/krew/blob/master/docs/DEVELOPER_GUIDE.md)
-to learn how to package kubectl plugins for Krew.
 
 ### Native / platform specific package management {#distributing-native}
 
@@ -375,6 +371,6 @@ installs easier.
   plugin written in Go.
   In case of any questions, feel free to reach out to the
   [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
-* Read about [Krew](https://sigs.k8s.io/krew/), a package manager for kubectl plugins.
+* Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.
 
 {{% /capture %}}
