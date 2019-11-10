@@ -64,7 +64,7 @@ aliases:
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
     - alexbrand
-    - glo-pena
+    # glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - remyleone
