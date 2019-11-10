@@ -4,44 +4,44 @@ reviewers:
 title: Secrets
 content_template: templates/concept
 feature:
-  title: Secret and configuration management
+  title: Secret y gestión de la configuración
   description: >
-    Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
+    Implemente y actualice secrets y configuración de aplicaciones sin reconstruir su imagen y sin exponer secrets en su stack de configuración.
 weight: 50
 ---
 
 
 {{% capture overview %}}
 
-Los objetos de tipo `Secreto` en Kubernetes  te permite almacenar y administrar información confidencial, como
-contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un `Secreto`
+Los objetos de tipo `Secret` en Kubernetes te permiten almacenar y administrar información confidencial, como
+contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un `Secret`
 es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) para más información.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Introducción a Secretos
+## Introducción a Secrets
 
-Un `Secreto` es un objeto que contiene una pequeña cantidad de datos confidenciales como contraseñas, un token, o una llave.  Tal información podría ser puesta en la especificación de un `Pod` o en una imagen; poniendolo en un objeto de tipo `Secreto` permite mayor control sobre como se usa, y reduce el riesgo de exposicición accidental.
+Un `Secret` es un objeto que contiene una pequeña cantidad de datos confidenciales como contraseñas, un token, o una llave.  Tal información podría ser puesta en la especificación de un `Pod` o en una imagen; poniendolo en un objeto de tipo `Secret` permite mayor control sobre como se usa, y reduce el riesgo de exposicición accidental.
 
-Los usuarios pueden crear secretos, y el sistema también puede crearlos.
+Los usuarios pueden crear secrets, y el sistema también puede crearlos.
 
-Para usar un `Secreto`, un `Pod` debe hacer referencia a este. Un secreto puede ser usado con un `Pod`  de dos formas: como archivos en un {{< glossary_tooltip text="volumen" term_id="volume" >}} montado en uno o más de sus contenedores, o utilizados por `kubelet` al extraer imágenes del pod.
+Para usar un `Secret`, un `Pod` debe hacer referencia a este. Un secret puede ser usado con un `Pod`  de dos formas: como archivos en un {{< glossary_tooltip text="volumen" term_id="volume" >}} montado en uno o más de sus contenedores, o utilizados por `kubelet` al extraer imágenes del pod.
 
-### Secretos incorporados
+### Secrets incorporados
 
-#### Las Cuentas de Servicio Crean y Adjuntan Secretos con las Credenciales de la API
+#### Las Cuentas de Servicio Crean y Adjuntan Secrets con las Credenciales de la API
 
-Kubernetes crea automaticamente secretos que contienen credenciales para acceder a la API y modifica automáticamente sus pods para usar este tipo de secreto.
+Kubernetes crea automaticamente secrets que contienen credenciales para acceder a la API y modifica automáticamente sus pods para usar este tipo de secret.
 
 La creación y el uso automático de las credenciales de la API, pueden desabilitarse o anularse si se desea. Sin embargo, si todo lo que necesita hacer es acceder de forma segura al apiserver, este es el flujo de trabajo recomendado.
 
 Ver la documentación de  [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) para más información sobre cómo funcionan las Cuentas de Servicio.
 
-### Creando tu propio Secreto
+### Creando tu propio Secret
 
-#### Creando un Secreto Usando kubectl create secret
+#### Creando un Secret Usando kubectl create secret
 
 Digamos que algunos pods necesitan acceder a una base de datos. El nombre y contraseña que los pods deberían usar estan en los archivos:
 `./username.txt` y `./password.txt` en tu máquina local.
@@ -53,7 +53,7 @@ echo -n '1f2d1e2e67df' > ./password.txt
 ```
 
 El comando `kubectl create secret`
-empaqueta esos archivos en un Secreto y crea el objeto en el Apiserver.
+empaqueta esos archivos en un Secret y crea el objeto en el Apiserver.
 
 ```shell
 kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
@@ -66,7 +66,7 @@ Caracteres especiales como `$`, `\*`, y `!` requieren escapar.
 Si la contraseña que está utilizando tiene caracteres especiales, debe escapar de ellos usando el caracter `\\` . Por ejemplo, si tu password actual es `S!B\*d$zDsb`, deberías ejecutar el comando de esta manera: kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb . No necesita escapar de caracteres especiales en contraseñas de archivos (`--from-file`).
 {{< /note >}}
 
-Puedes comprobar que el secreto se haya creado, así:
+Puedes comprobar que el secret se haya creado, así:
 
 ```shell
 kubectl get secrets
@@ -93,19 +93,19 @@ username.txt:    5 bytes
 ```
 
 {{< note >}}
-`kubectl get` y `kubectl describe` evita mostrar el contenido de un secreto por defecto.
-Esto es para proteger el secreto de ser expuesto accidentalmente a un espectador, o de ser almacenado en un registro de terminal.
+`kubectl get` y `kubectl describe` evita mostrar el contenido de un secret por defecto.
+Esto es para proteger el secret de ser expuesto accidentalmente a un espectador, o de ser almacenado en un registro de terminal.
 {{< /note >}}
 
 Ver [decoding a secret](#decoding-a-secret) para ver el contenido de un secret.
 
-#### Creando un Secreto Manualmente
+#### Creando un Secret Manualmente
 
-Puedes crear también un Secreto primero en un archivo, en formato json o en yaml, y luego crear ese objeto. El 
+Puedes crear también un Secret primero en un archivo, en formato json o en yaml, y luego crear ese objeto. El 
 [Secret](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core) contiene dos mapas:
 data y stringData. El campo de data es usado para almacenar datos arbitrarios, codificado usando base64. El campo stringData se proporciona para su conveniencia, y le permite proporcionar datos secretos como cadenas no codificadas.
 
-Por ejemplo, para almacenar dos cadenas en un Secreto usando el campo data, conviértalos a base64  de la siguiente manera:
+Por ejemplo, para almacenar dos cadenas en un Secret usando el campo data, conviértalos a base64  de la siguiente manera:
 
 ```shell
 echo -n 'admin' | base64
@@ -114,7 +114,7 @@ echo -n '1f2d1e2e67df' | base64
 MWYyZDFlMmU2N2Rm
 ```
 
-Escribe un secreto que se vea así:
+Escribe un secret que se vea así:
 
 ```yaml
 apiVersion: v1
@@ -127,7 +127,7 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-Ahora escribe un Secreto usando [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
+Ahora escribe un Secret usando [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
 
 ```shell
 kubectl apply -f ./secret.yaml
@@ -137,11 +137,11 @@ secret "mysecret" created
 ```
 
 Para ciertos escenarios, es posible que desee utilizar el campo de stringData field en su lugar. 
-Este campo le permite poner una cadena codificada que no sea base64 directamente en el Secreto,
+Este campo le permite poner una cadena codificada que no sea base64 directamente en el Secret,
 y la cadena será codificada para ti cuando el Secret es creado o actualizado.
 
 Un ejemplo práctico de esto podría ser donde está implementando una aplicación 
-que usa un Secreto para almacenar un archivo de configuración,  y desea completar partes de ese archivo de configuración durante su proceso de implementación.
+que usa un Secret para almacenar un archivo de configuración,  y desea completar partes de ese archivo de configuración durante su proceso de implementación.
 
 Si su aplicación usa el siguiente archivo de configuración:
 
@@ -151,7 +151,7 @@ username: "user"
 password: "password"
 ```
 
-Podrías almacenarlo en un Secreto usando lo siguiente:
+Podrías almacenarlo en un Secret usando lo siguiente:
 
 ```yaml
 apiVersion: v1
@@ -193,7 +193,7 @@ data:
 ```
 
 Si se especifica un campo tanto de data y stringData, el valor de StringData
-es usado. Por ejemplo, la siguiente definición de Secreto:
+es usado. Por ejemplo, la siguiente definición de Secret:
 
 ```yaml
 apiVersion: v1
@@ -207,7 +207,7 @@ stringData:
   username: administrator
 ```
 
-Los resultado en el siguiente secreto:
+Los resultado en el siguiente secret:
 
 ```yaml
 apiVersion: v1
@@ -231,12 +231,12 @@ Las llaves de data y stringData deben consistir en caracteres alfanuméricos,
 
 **Nota de codificación:** Los valores serializados JSON y YAML  de los datos secretos estan codificadas como cadenas base64.  Las nuevas lineas no son válidas dentro de esa cadena y debe ser omitido.  Al usar `base64` en Darwin/macOS, los usuarios deben evitar el uso de la opción `-b` para dividir líneas largas. Por lo contratio los usuarios de Linux *deben* añadir la opción `-w 0` a los comandos `base64` o al pipeline `base64 | tr -d '\n'` si la opción `-w` no esta disponible.
 
-#### Creaando un Secreto a partir de Generador
+#### Creaando un Secret a partir de Generador
 Kubectl soporta [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 desde 1.14. Con esta nueva característica,
 puedes tambien crear un Secret a partir de un generador y luego aplicarlo para crear el objeto en el Apiserver. Los generadores deben ser especificados en un   `kustomization.yaml` dentro de un directorio.
 
-Por ejemplo, para generar un Secreto a partir de los archivos `./username.txt` y `./password.txt`
+Por ejemplo, para generar un Secret a partir de los archivos `./username.txt` y `./password.txt`
 ```shell
 # Crear un fichero llamado kustomization.yaml con SecretGenerator
 cat <<EOF >./kustomization.yaml
@@ -247,13 +247,13 @@ secretGenerator:
   - password.txt
 EOF
 ```
-Aplica el directorio kustomization para crear el objeto Secreto.
+Aplica el directorio kustomization para crear el objeto Secret.
 ```shell
 $ kubectl apply -k .
 secret/db-user-pass-96mffmfh4k created
 ```
 
-Puedes verificar que el secreto fue creado de la siguiente manera:
+Puedes verificar que el secret fue creado de la siguiente manera:
 
 ```shell
 $ kubectl get secrets
@@ -274,8 +274,8 @@ password.txt:    12 bytes
 username.txt:    5 bytes
 ```
 
-Por ejemplo, para generar un Secreto a partir de literales `username=admin` y `password=secret`,
-puedes especificar el generador del secreto en `kustomization.yaml` como:
+Por ejemplo, para generar un Secret a partir de literales `username=admin` y `password=secret`,
+puedes especificar el generador del secret en `kustomization.yaml` como:
 ```shell
 # Crea un fichero kustomization.yaml con SecretGenerator
 $ cat <<EOF >./kustomization.yaml
@@ -292,12 +292,12 @@ $ kubectl apply -k .
 secret/db-user-pass-dddghtt9b5 created
 ```
 {{< note >}}
-El nombre generado del Secreto  tiene un sufijo agregado al hashing de los contenidos. Esto asegura que se genera un nuevo Secreto cada vez que el contenido es modificado.
+El nombre generado del Secret  tiene un sufijo agregado al hashing de los contenidos. Esto asegura que se genera un nuevo Secret cada vez que el contenido es modificado.
 {{< /note >}}
 
-#### Decodificando un Secreto
+#### Decodificando un Secret
 
-Los Secretos se pueden recuperar a través del comando `kubectl get secret` . Por ejemplo, para recuperar el secret creado en la sección anterior:
+Los Secrets se pueden recuperar a través del comando `kubectl get secret` . Por ejemplo, para recuperar el secret creado en la sección anterior:
 
 ```shell
 kubectl get secret mysecret -o yaml
@@ -327,23 +327,23 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
-## Usando Secretos
+## Usando Secrets
 
 Los Secrets se pueden montar como volúmenes de datos o ser expuestos como 
 {{< glossary_tooltip text="variables de ambiente" term_id="container-env-variables" >}}
 para ser usados por un contenedor en un pod.  También pueden ser utilizados por otras partes del sistema, 
 sin estar directamente expuesto en el pod.  Por ejemplo, pueden tener credenciales que otras partes del sistema usan para interactuar con sistemas externos en su nombre.
 
-### Usando Secretos como Archivos de un Pod
+### Usando Secrets como Archivos de un Pod
 
-Para consumir un Secreto en un volumen en un Pod:
+Para consumir un Secret en un volumen en un Pod:
 
-1. Crear un secreto o usar uno existente. Múltiples pods pueden referenciar el mismo secreto.
-1. Modifique la definición del Pod para agregar un volumen debajo de `.spec.volumes[]`.  Asigne un nombre al volumen y tenga un campo `.spec.volumes[].secret.secretName` igual al nombre del objeto del secreto.
-1. Agrega un `.spec.containers[].volumeMounts[]` a cada contenedor que necesite un secreto. Especifica `.spec.containers[].volumeMounts[].readOnly = true` y `.spec.containers[].volumeMounts[].mountPath` a un nombre de directorio no utilizado donde desea que aparezca los secretos.
-1. Modifique la imagen y/o linea de comando para que el programa busque archivos en ese directorio.  Cada llave en el `data` map del los secretos se convierte en el nombre del archivo bajo `mountPath`.
+1. Crear un secret o usar uno existente. Múltiples pods pueden referenciar el mismo secret.
+1. Modifique la definición del Pod para agregar un volumen debajo de `.spec.volumes[]`.  Asigne un nombre al volumen y tenga un campo `.spec.volumes[].secret.secretName` igual al nombre del objeto del secret.
+1. Agrega un `.spec.containers[].volumeMounts[]` a cada contenedor que necesite un secret. Especifica `.spec.containers[].volumeMounts[].readOnly = true` y `.spec.containers[].volumeMounts[].mountPath` a un nombre de directorio no utilizado donde desea que aparezca los secrets.
+1. Modifique la imagen y/o linea de comando para que el programa busque archivos en ese directorio.  Cada llave en el `data` map del los secrets se convierte en el nombre del archivo bajo `mountPath`.
 
-Este es un ejemplo de un pod que monta un secreto en un volumen:
+Este es un ejemplo de un pod que monta un secret en un volumen:
 
 ```yaml
 apiVersion: v1
@@ -364,11 +364,11 @@ spec:
       secretName: mysecret
 ```
 
-Cada secreto que desea usar debe mencionarse en `.spec.volumes`.
+Cada secret que desea usar debe mencionarse en `.spec.volumes`.
 
-Si hay múltiples contenedores en un Pod, entonces cada contenedor necesita su propio bloque `volumeMounts` , pero solo un `.spec.volumes` se necesita por secreto.
+Si hay múltiples contenedores en un Pod, entonces cada contenedor necesita su propio bloque `volumeMounts` , pero solo un `.spec.volumes` se necesita por secret.
 
-Puede empaquetar muchos archivos en un secreto, o usar muchos secrets, lo que sea conveniente.
+Puede empaquetar muchos archivos en un secret, o usar muchos secrets, lo que sea conveniente.
 
 **Proyección de llaves secretas a rutas específicas**
 
@@ -399,17 +399,17 @@ spec:
 
 Lo que sucederá:
 
-* El secreto `username` se almacena bajo el archivo `/etc/foo/my-group/my-username` en lugar de `/etc/foo/username`.
-* El secreto `password` no se proyecta
+* El secret `username` se almacena bajo el archivo `/etc/foo/my-group/my-username` en lugar de `/etc/foo/username`.
+* El secret `password` no se proyecta
 
 Si se utiliza `.spec.volumes[].secret.items` , solo se proyectan las llaves específicadas en los `items`.
-Para consumir todas las llaves del secreto, Todas deben ser enumeradas en el campo `items`.
-Todas las llaves enumeradas deben existir en el secreto correspondiente. De lo contrario, el volumen no se crea.
+Para consumir todas las llaves del secret, Todas deben ser enumeradas en el campo `items`.
+Todas las llaves enumeradas deben existir en el secret correspondiente. De lo contrario, el volumen no se crea.
 
-**Permisos de archvios Secretos**
+**Permisos de archivos Secrets**
 
-Tambien puede especificar el modo de permiso de los archivos de bits  que tendrá una parte de un secreto.
-Si no especifica ninguno, `0644` es usado por defecto. Puede especificar un modo predeterminado para todo el volumen del secreto y sobreescribir por llave si es necesario.
+Tambien puede especificar el modo de permiso de los archivos de bits  que tendrá una parte de un secret.
+Si no especifica ninguno, `0644` es usado por defecto. Puede especificar un modo predeterminado para todo el volumen del secret y sobreescribir por llave si es necesario.
 
 Por ejemplo, puede especificar un modo predeterminado como este:
 
@@ -432,8 +432,8 @@ spec:
       defaultMode: 256
 ```
 
-Entonces, el secreto será montado en `/etc/foo` y todos los  archivos creados por el 
-montaje del volumen del secreto tendrán permiso `0400`.
+Entonces, el secret será montado en `/etc/foo` y todos los  archivos creados por el 
+montaje del volumen del secret tendrán permiso `0400`.
 
 Tenga en cuenta que la especificación JSON no soporta la notación octal, entonces use el valor 256 para
 permisos 0400. Si usa yaml en lugar de json para el pod, puede usar notación octal para especificar permisos de una manera más natural.
@@ -467,9 +467,9 @@ un valor de permiso `0777`. Debido a las limitaciones de JSON, debe especificar 
 
 Tenga en cuenta que este valor de permiso puede mostrarse en notación decimal si lo lee después.
 
-**Consumir Valores Secretos de Volumenes**
+**Consumir Valores Secrets de Volúmenes**
 
-Dentro del contenedor que monta un volumen del secreto, las llaves del secreto aparece como archivos y los valores del secreto son decodificados en base-64 y almacenados dentro de estos archivos.
+Dentro del contenedor que monta un volumen del secret, las llaves del secret aparece como archivos y los valores del secret son decodificados en base-64 y almacenados dentro de estos archivos.
 Este es el resultado de comandos ejecutados dentro del contenedor del ejemplo anterior:
 
 ```shell
@@ -495,36 +495,36 @@ cat /etc/foo/password
 1f2d1e2e67df
 ```
 
-El programa en un contenedor es responsable de leer los secretos de los archivos.
+El programa en un contenedor es responsable de leer los secrets de los archivos.
 
-**Los Secretos Montados se actualizan automáticamente**
+**Los Secrets Montados se actualizan automáticamente**
 
-Cuando se actualiza un secreto que ya se está consumiendo en un volumen, las claves proyectadas también se actualizan eventualmente.
-Kubelet está verificando si el secreto montado esta actualizado en cada sincronización periódica.
-Sin embargo, está usando su caché local para obtener el valor actual del Secreto.
+Cuando se actualiza un secret que ya se está consumiendo en un volumen, las claves proyectadas también se actualizan eventualmente.
+Kubelet está verificando si el secret montado esta actualizado en cada sincronización periódica.
+Sin embargo, está usando su caché local para obtener el valor actual del Secret.
 El tipo de caché es configurable usando el  (campo `ConfigMapAndSecretChangeDetectionStrategy`  en
 [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
 Puede ser propagado por el reloj (default), ttl-based, o simplemente redirigiendo
 todas las solicitudes a kube-apiserver directamente.
-Como resultado, el retraso total desde el momento en que se actualiza el Secreto hasta el momento en que se proyectan las nuevas claves en el Pod puede ser tan largo como el periodo de sincronización de kubelet + retraso de 
+Como resultado, el retraso total desde el momento en que se actualiza el Secret hasta el momento en que se proyectan las nuevas claves en el Pod puede ser tan largo como el periodo de sincronización de kubelet + retraso de 
 propagación de caché, donde el retraso de propagación de caché depende del tipo de caché elegido.
 (Es igual a mirar el retraso de propagación, ttl of cache, o cero correspondientemente).
 
 {{< note >}}
-Un contenedor que usa un Secreto como
-[subPath](/docs/concepts/storage/volumes#using-subpath) el montaje del volumen no recibirá actualizaciones de Secreto.
+Un contenedor que usa un Secret como
+[subPath](/docs/concepts/storage/volumes#using-subpath) el montaje del volumen no recibirá actualizaciones de Secret.
 {{< /note >}}
 
-### Usando Secretos como Variables de Entorno
+### Usando Secrets como Variables de Entorno
 
-Para usar un secreto en una {{< glossary_tooltip text="variable de entorno" term_id="container-env-variables" >}}
+Para usar un secret en una {{< glossary_tooltip text="variable de entorno" term_id="container-env-variables" >}}
 en un pod:
 
-1. Crea un secreto o usa uno existente. Múltiples pods pueden hacer referencia a un mismo secreto.
-1. Modifique la definición de su Pod en cada contenedor que desee consumir el valor de una llave secreta para agregar una variable de entorno para cada llave secreto que deseas consumir.   La variable de entorno que consume la llave secreta debe completar el nombre y la llave del  secreto en `env[].valueFrom.secretKeyRef`.
+1. Crea un secret o usa uno existente. Múltiples pods pueden hacer referencia a un mismo secret.
+1. Modifique la definición de su Pod en cada contenedor que desee consumir el valor de una llave secret para agregar una variable de entorno para cada llave secret que deseas consumir.   La variable de entorno que consume la llave secret debe completar el nombre y la llave del  secret en `env[].valueFrom.secretKeyRef`.
 1. Modifique su imagen y/o linea de comandos para que el programa busque valores en las variables de entorno especificadas.
 
-Esto es un ejemplo de un pod que usa secretos de variables de entorno:
+Esto es un ejemplo de un pod que usa secrets de variables de entorno:
 
 ```yaml
 apiVersion: v1
@@ -549,9 +549,9 @@ spec:
   restartPolicy: Never
 ```
 
-**Consumiendo Valores Secretos a partir de Variables de Entorno**
+**Consumiendo Valores Secrets a partir de Variables de Entorno**
 
-Dentro de un contenedor que consume un secreto en una variable de entorno, las claves secretas aparecen como variables de entorno normal  que contienen valores decodificados de base-64 de los datos del secreto.
+Dentro de un contenedor que consume un secret en una variable de entorno, las claves secrets aparecen como variables de entorno normal  que contienen valores decodificados de base-64 de los datos del secret.
 Este es el resultado de comandos ejecutados dentro del contenedor del ejemplo anterior.
 
 ```shell
@@ -569,7 +569,7 @@ echo $SECRET_PASSWORD
 
 ### Usando imagePullSecrets
 
-Una imagePullSecret es una forma de pasar a kubelet un secreto que contiene las credenciales para un registro de imagenes de Docker (u otro) para que pueda obtener una imagen privada en nombre de su pod.
+Una imagePullSecret es una forma de pasar a kubelet un secret que contiene las credenciales para un registro de imagenes de Docker (u otro) para que pueda obtener una imagen privada en nombre de su pod.
 
 **Especificar manualmente una imagePullSecret**
 
@@ -585,28 +585,28 @@ Ver [Agregar ImagePullSecrets a una cuenta de servicio](/docs/tasks/configure-po
 
 ### Montaje Automatico de Secrets Creados Manualmente
 
-Secretos creados Manualmente, (por ejemplo uno que contiene un token para acceder a una cuenta github) se puede conectar automáticamente a los pods según su cuenta de servicio. Vea [ Inyección de infromación en pods usando un a PodPreset](/docs/tasks/inject-data-application/podpreset/)  para una explicación detallada de este proceso.
+Secrets creados Manualmente, (por ejemplo uno que contiene un token para acceder a una cuenta github) se puede conectar automáticamente a los pods según su cuenta de servicio. Vea [ Inyección de infromación en pods usando un a PodPreset](/docs/tasks/inject-data-application/podpreset/)  para una explicación detallada de este proceso.
 
 ## Detalles
 
 ### Restricciones
 
-Las fuentes del volumen del  Secreto  se validan para garantizar que la referencia del objeto especificado apunte a un objeto de tipo `Secreto`. Por lo tanto, se debe crear un `Secreto` antes de que cualquier pod dependa de él.
+Las fuentes del volumen del  Secret  se validan para garantizar que la referencia del objeto especificado apunte a un objeto de tipo `Secret`. Por lo tanto, se debe crear un `Secret` antes de que cualquier pod dependa de él.
 
 Los objetos API Secret residen en {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 Solo pueden ser referenciados por pods en el mismo namespace.
 
-Los `Secretos` individuales estan limitados a 1MiB de tamaño.  Esto es para desalentar la creación de `Secretos` muy grandes que agotarían la memoria del apiserver y de kubelet.
-Sin embargo la creación de muchos secretos más pequeños también podría agotar la memoria. Límites más completos en el uso de memoria debido a `Secreto` es una característica planificada.
+Los `Secrets` individuales estan limitados a 1MiB de tamaño.  Esto es para desalentar la creación de `Secrets` muy grandes que agotarían la memoria del apiserver y de kubelet.
+Sin embargo la creación de muchos secrets más pequeños también podría agotar la memoria. Límites más completos en el uso de memoria debido a `Secret` es una característica planificada.
 
-Kubelet solo admite el uso de `Secreto` para Pods que obtiene del API server. Esto incluye cualquier pods creado usando kubectl, o indirectamente a través de un contralador de replicación.
+Kubelet solo admite el uso de `Secret` para Pods que obtiene del API server. Esto incluye cualquier pods creado usando kubectl, o indirectamente a través de un contralador de replicación.
 No incluye pods creados a través de los kubelets 
 `--manifest-url` flag, its `--config` flag, o su REST API (estas no son formas comunes de crear pods.)
 
-Los secretos deben crearse antes de que se consuman en pod como variables de entono a menos que estén marcados como optional.  Referencias a Secretos que no existen evitarán que el pod inicie. 
-Las referencias a través de `secretKeyRef` a claves que no existen en un Secreto con nombre evitarán que el pod se inicie.
+Los secrets deben crearse antes de que se consuman en pod como variables de entono a menos que estén marcados como optional.  Referencias a Secrets que no existen evitarán que el pod inicie. 
+Las referencias a través de `secretKeyRef` a claves que no existen en un Secret con nombre evitarán que el pod se inicie.
 
-Los Secretos que se utilizan para poblar variables de entorno a través de `envFrom` que tienen claves que se consideran nombres de variables de entorno no validos, tendran esas claves omitidas. El Pod se permitira reiniciar. Habrá un evento cuyo motivo es  `InvalidVariableNames` y el mensaje contendrá la lista de claves no validas que se omitieron. El ejemplo muestra un pod que se refiere al default/mysecret que contiene 2 claves no validas, 1 badkey y 2 alsobad.
+Los Secrets que se utilizan para poblar variables de entorno a través de `envFrom` que tienen claves que se consideran nombres de variables de entorno no validos, tendran esas claves omitidas. El Pod se permitira reiniciar. Habrá un evento cuyo motivo es  `InvalidVariableNames` y el mensaje contendrá la lista de claves no validas que se omitieron. El ejemplo muestra un pod que se refiere al default/mysecret que contiene 2 claves no validas, 1 badkey y 2 alsobad.
 
 ```shell
 kubectl get events
@@ -616,14 +616,14 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
 
-### Interacción del Secreto y Pod de por vida
+### Interacción del Secret y Pod de por vida
 
 Cuando se crea un Pod a través de la API, no se verifica que exista un recreto referenciado. 
-Una vez que se programa el Pod, kubelet intentará obtener el valor secreto.
-Si el Secreto no se puede recuperar será por que no existe o por una falla 
+Una vez que se programa el Pod, kubelet intentará obtener el valor del secret.
+Si el Secret no se puede recuperar será por que no existe o por una falla 
 temporal de conexión al servidor API, kubelet volverá a intentarlo periodicamente.
 Enviará un evento sobre el pod explicando las razones por la que aún no se inició.
-Una vez que el secreto es encontrado, kubelet creará y montará el volumen que lo contiene.
+Una vez que el secret es encontrado, kubelet creará y montará el volumen que lo contiene.
 Ninguno de los contenedorees del pod se iniciará hasta que se monten todos los volúmes del pod.
 
 ## Casos de uso
@@ -641,11 +641,11 @@ secret "ssh-key-secret" created
 ```
 
 {{< caution >}}
-Piense detenidamente antes de enviar tus propias llaves ssh: otros usuarios del cluster pueden tener acceso al secreto. Utilice una cuenta de servicio a la que desee que estén accesibles todos los usuarios con los que comparte el cluster de Kubernetes, y pueda revocarlas si se ven comprometidas.
+Piense detenidamente antes de enviar tus propias llaves ssh: otros usuarios del cluster pueden tener acceso al secret. Utilice una cuenta de servicio a la que desee que estén accesibles todos los usuarios con los que comparte el cluster de Kubernetes, y pueda revocarlas si se ven comprometidas.
 {{< /caution >}}
 
 
-Ahora podemos crear un pod que haga referencia al secreto con la llave ssh key y lo consuma en un volumen:
+Ahora podemos crear un pod que haga referencia al secret con la llave ssh key y lo consuma en un volumen:
 
 ```yaml
 apiVersion: v1
@@ -675,11 +675,11 @@ Cuando se ejecuta el comando del contenedor, las partes de la llave estarán dis
 /etc/secret-volume/ssh-privatekey
 ```
 
-El contenedor es libre de usar los datos del secreto para establecer conexión ssh.
+El contenedor es libre de usar los datos del secret para establecer conexión ssh.
 
 ### Caso de uso: Pods con credenciales prod / test
 
-Este ejemplo ilustra un pod que consume un secreto que contiene credenciales de prod y  otro pod que consume un secreto con credenciales de entorno de prueba.
+Este ejemplo ilustra un pod que consume un secret que contiene credenciales de prod y  otro pod que consume un secret con credenciales de entorno de prueba.
 
 Crear un fichero kustomization.yaml con SecretGenerator
 
@@ -794,9 +794,9 @@ spec:
     image: myClientImage
 ```
 
-### Caso de uso: Dotfiles en el volume del secreto
+### Caso de uso: Dotfiles en el volume del secret
 
-Para hacer que los datos esten 'ocultos' (es decir, en un file dónde el nombre comienza con un caracter de punto), simplemente haga que esa clave comience con un punto.  Por ejemplo, cuando el siguiente secreto es montado en un volumen:
+Para hacer que los datos esten 'ocultos' (es decir, en un file dónde el nombre comienza con un caracter de punto), simplemente haga que esa clave comience con un punto.  Por ejemplo, cuando el siguiente secret es montado en un volumen:
 
 ```yaml
 apiVersion: v1
@@ -838,7 +838,7 @@ Los archivos que comiences con caracterers de punto estan ocultos de la salida d
 tu debes usar `ls -la` para verlos al enumerar los contenidos del directorio.
 {{< /note >}}
 
-### Caso de uso: Secreto visible para un contenedor en un pod
+### Caso de uso: Secret visible para un contenedor en un pod
 
 Considere un programa que necesita manejar solicitudes HTTP, hacer una lógicca empresarial compleja y luego firmar algunos mensajes con un HMAC. Debido a que tiene una lógica de aplicación compleja, puede haber una vulnerabilidad de lectura remota de archivos inadvertida en el servidor, lo que podría exponer la clave privada a un atacante.
 
@@ -850,20 +850,20 @@ Con este enfoque particionado, un atacante ahora tiene que engañar a un servido
 
 ## Mejores prácticas
 
-### Clients que usan la API de secretos
+### Clientes que usan la API de secrets
 
 Al implementar aplicaciones que interactuan con los API secrets, el acceso debe limitarse utilizando [authorization policies](
 /docs/reference/access-authn-authz/authorization/) como [RBAC](
 /docs/reference/access-authn-authz/rbac/).
 
-Los secretos a menudo contienen valores que abarcan un espectro de importancia, muchos de los cuales pueden causar escalamientos dentro de Kubernetes (ejememplo, tokens de cuentas de servicio) y a sistemas externos. Incluso si  una aplicación individual puede razonar sobre el poder de los secretos con los que espera interactuar, otras aplicaciones dentro dle mismo namespace pueden invalidar esos supuestos.
+Los secrets a menudo contienen valores que abarcan un espectro de importancia, muchos de los cuales pueden causar escalamientos dentro de Kubernetes (ejememplo, tokens de cuentas de servicio) y a sistemas externos. Incluso si  una aplicación individual puede razonar sobre el poder de los secrets con los que espera interactuar, otras aplicaciones dentro dle mismo namespace pueden invalidar esos supuestos.
 
-Por esas razones las solicitudes de `watch` y `list` dentro de un espacio de nombres son extremadamente poderosos y deben evitarse, dado que listar secretos permiten a los clientes inspecionar los valores de todos los secrets que estan en el namespace. La capacidad para `watch` and `list` todos los secretos en un cluster deben reservarse solo para los componentes de nivel de sistema más privilegiados.
+Por esas razones las solicitudes de `watch` y `list` dentro de un espacio de nombres son extremadamente poderosos y deben evitarse, dado que listar secrets permiten a los clientes inspecionar los valores de todos los secrets que estan en el namespace. La capacidad para `watch` and `list` todos los secrets en un cluster deben reservarse solo para los componentes de nivel de sistema más privilegiados.
 
-Las aplicaciones que necesitan acceder a la API de secrets deben realizar solicitudes de `get` de los secrets que necesitan. Esto permite a los administradores restringir el acceso a todos los secretos mientras [white-listing access to individual instances](
+Las aplicaciones que necesitan acceder a la API de secrets deben realizar solicitudes de `get` de los secrets que necesitan. Esto permite a los administradores restringir el acceso a todos los secrets mientras [white-listing access to individual instances](
 /docs/reference/access-authn-authz/rbac/#referring-to-resources) que necesita la aplicación.
 
-Para un mejor rendimiento sobre un bucle `get`, los clientes pueden diseñar recursos que hacen referencia a un secreto y luego un secreto `watch` el recurso, al volver a solicitar el secreto cuando cambie la referencia. Además,, un ["bulk watch" API](
+Para un mejor rendimiento sobre un bucle `get`, los clientes pueden diseñar recursos que hacen referencia a un secret y luego un secret `watch` el recurso, al volver a solicitar el secret cuando cambie la referencia. Además,, un ["bulk watch" API](
 https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 para que los clientes puedan `watch` recursos individuales, y probablemente estará disponible en futuras versiones de Kubernetes.
 
@@ -872,34 +872,34 @@ para que los clientes puedan `watch` recursos individuales, y probablemente esta
 
 ### Protecciones
 
-Debido a que los objetos `secreto` se pueden crear independientemente de los `pods` que los usan, hay menos riesgo de que el secreto expuesto durante el flujo de trabajo de la creación,  visualización, y edición de pods. El sistema también puede tomar precausiones con los objetos`secreto`, tal como eviar escribirlos en el disco siempre que sea posible.
+Debido a que los objetos `secret` se pueden crear independientemente de los `pods` que los usan, hay menos riesgo de que el secret expuesto durante el flujo de trabajo de la creación,  visualización, y edición de pods. El sistema también puede tomar precausiones con los objetos`secret`, tal como eviar escribirlos en el disco siempre que sea posible.
 
-Un secreto solo se envía a un nodo si un pod en ese nodo lo requiere. Kubelet almacena el secreto en un `tmpfs` para que el secreto no se escriba en el almacenamiento de disco. Una vez que se elimina el pod que depende del secreto, kubelet eliminará su copia local de los datos de secretos.
+Un secret solo se envía a un nodo si un pod en ese nodo lo requiere. Kubelet almacena el secret en un `tmpfs` para que el secret no se escriba en el almacenamiento de disco. Una vez que se elimina el pod que depende del secret, kubelet eliminará su copia local de los datos de secrets.
 
-Puede haber secretos para varios Pods en el mismo nodo. Sin embargo, solo los secrets que solicita un Pod son potencialmente visibles dentro de sus contenedores. Por lo tanto, un Pod no tiene acceso a los secretos de otro Pod.
+Puede haber secrets para varios Pods en el mismo nodo. Sin embargo, solo los secrets que solicita un Pod son potencialmente visibles dentro de sus contenedores. Por lo tanto, un Pod no tiene acceso a los secrets de otro Pod.
 
-Puede haver varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del secreto en su 
+Puede haver varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del secret en su 
 `volumeMounts` para que sea visible dentro del contenedor. Esto se puede usar para construir particiones de seguridad útiles en el Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
 En la mayoría de las distribuciones Kubernetes-project-maintained, la comunicación entre usuario a el apiserver, y del apiserver a kubelets, ista protegido por SSL/TLS.
-Los secretos estan protegidos cuando se transmiten por estos canales.
+Los secrets estan protegidos cuando se transmiten por estos canales.
 
 {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 Puedes habilitar [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
-para datos secretos, para que los secretos no se almacenen en claro en {{< glossary_tooltip term_id="etcd" >}}.
+para datos secretos, para que los secrets no se almacenen en claro en {{< glossary_tooltip term_id="etcd" >}}.
 
 ### Riesgos
 
- - En el servidor API, los datos de los secretos se almacenan en {{< glossary_tooltip term_id="etcd" >}}; por lo tanto:
+ - En el servidor API, los datos de los secrets se almacenan en {{< glossary_tooltip term_id="etcd" >}}; por lo tanto:
    - Los adminsitradores deben habilitar el cifrado en reposo para los datos del cluster (requiere v1.13 o posterior)
    - Los administradores deben limitar el acceso a etcd a los usuarios administradores
    - Los administradores  pueden querer borrar/destruir discos usados por etcd cuando ya no estén en uso
    - Si ejecuta etcd en un clúster, los administradores deben asegurarse de usar SSL/TSL para la comunicación entre pares etcd.
- - Si configura el secreto a través de un archivo de (JSON o YAML) que tiene los datos del secreto codificados como base64, compartir este archivo o registrarlo en un repositorio de origen significa que el secreto está comprometido. La codificación Base64 no es un método de cifrado y se considera igual que un texto plano.
- - Las aplicaciones aún necesitan proteger el valor del secreto después de leerlo del volumen, como no registrarlo accidentalmente o transmitirlo a una parte no confiable.
- - Un usuario que puede crear un pod que usa un secreto también puede ver el valor del secreto. Incluso si una política del apiserver no permite que ese usuario lea el objeto secreto, el usuario puede ejecutar el pod que expone el secreto.
- - Actualmente, cualquier persona con root en cualquier nodo puede leer _cualquier_ secret del apiserver, haciéndose pasar por el kubelet.  Es una característica planificada enviar secretos a los nodos que realmente lo requieran, para restringir el impacto de una explosión de root en un single node.
+ - Si configura el secret a través de un archivo de (JSON o YAML) que tiene los datos del secret codificados como base64, compartir este archivo o registrarlo en un repositorio de origen significa que el secret está comprometido. La codificación Base64 no es un método de cifrado y se considera igual que un texto plano.
+ - Las aplicaciones aún necesitan proteger el valor del secret después de leerlo del volumen, como no registrarlo accidentalmente o transmitirlo a una parte no confiable.
+ - Un usuario que puede crear un pod que usa un secret también puede ver el valor del secret. Incluso si una política del apiserver no permite que ese usuario lea el objeto secret, el usuario puede ejecutar el pod que expone el secret.
+ - Actualmente, cualquier persona con root en cualquier nodo puede leer _cualquier_ secret del apiserver, haciéndose pasar por el kubelet.  Es una característica planificada enviar secrets a los nodos que realmente lo requieran, para restringir el impacto de una explosión de root en un single node.
 
 
 {{% capture whatsnext %}}
