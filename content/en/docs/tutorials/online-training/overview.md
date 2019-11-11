@@ -11,17 +11,15 @@ Here are some of the sites that offer online training for Kubernetes:
 
 {{% capture body %}}
 
+* [Advanced Kubernetes Training with Helm & Istio (Component Soft) Online](https://www.componentsoft.io/kbs-505-kubernetes-helm-and-istio-admin-with-cka-ckad-exam-prep/)
+
 * [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/devops/training/course/name/using-machine-learning-to-scale-kubernetes-clusters)
 
 * [Amazon EKS Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/amazon-web-services/training/course/name/amazon-eks-deep-dive)
 
-* [Online Kubernetes Training with CKA & CKAD prep (Component Soft)](https://www.componentsoft.io/kubernetes-administration-training-2/)
-
 * [Cloud Native Certified Kubernetes Administrator (CKA) with Hands-On Labs & Practice Exams (Linux Academy)](https://linuxacademy.com/linux/training/course/name/cloud-native-certified-kubernetes-administrator-cka)
 
 * [Certified Kubernetes Administrator (CKA) Preparation Course (CloudYuga)](https://cloudyuga.guru/courses/cka-online-self-paced)
-
-* [Online Advanced Kubernetes Training with Helm & Istio (Component Soft)](https://www.componentsoft.io/kbs-505-kubernetes-helm-and-istio-admin-with-cka-ckad-exam-prep/)
 
 * [Certified Kubernetes Administrator Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/certified-kubernetes-administrator-with-practice-tests)
 
@@ -57,6 +55,8 @@ Here are some of the sites that offer online training for Kubernetes:
 * [Kubernetes the Hard Way with Hands-On Labs (Linux Academy)](https://linuxacademy.com/linux/training/course/name/kubernetes-the-hard-way)
 
 * [Kubernetes Security with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-security)
+
+* [Kubernetes Training with CKA & CKAD prep (Component Soft) Online](https://www.componentsoft.io/kubernetes-administration-training-2/)
 
 * [Launch Your First OpenShift Operator with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/containers/training/course/name/red-hat-open-shift)
 
