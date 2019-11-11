@@ -55,7 +55,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 데몬셋의 파드 템플릿에는 파드의 필수 필드 외에도 적절한 레이블이 명시되어야 
 한다([파드 셀렉터](#파드-셀렉터)를 본다).
 
-데몬셋의 파드 템플릿의 [`RestartPolicy`](/ko/docs/concepts/workloads/pods/pod-lifecycle/)는 `Always` 를 가져야 하며,
+데몬셋의 파드 템플릿의 [`RestartPolicy`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)는 `Always` 를 가져야 하며,
  명시되지 않은 경우 기본으로 `Always`가 된다.
 
 ### 파드 셀렉터
