@@ -1,5 +1,4 @@
 ---
-title: Feature Gates
 weight: 10
 title: Feature Gates
 content_template: templates/concept
