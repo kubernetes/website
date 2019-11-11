@@ -239,9 +239,9 @@ different Kubernetes components.
 | `VolumeSubpath` | `true` | GA | 1.13 | - |
 {{< /table >}}
 
-## Using a Feature
+## Using a feature
 
-### Feature Stages
+### Feature stages
 
 A feature can be in *Alpha*, *Beta* or *GA* stage.
 An *Alpha* feature means:
@@ -277,7 +277,7 @@ A *GA* feature is also referred to as a *stable* feature. It means:
 * The corresponding feature gate is no longer needed.
 * Stable versions of features will appear in released software for many subsequent versions.
 
-### Feature Gates
+## List of feature gates {#feature-gates}
 
 Each feature gate is designed for enabling/disabling a specific feature:
 
