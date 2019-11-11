@@ -12,9 +12,69 @@ kubeadm upgrade plan [version] [flags]
 ```
 <!--
 ### Options
+
+```
+<tr>
+  <td colspan="2">--allow-experimental-upgrades</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">Show unstable versions of Kubernetes as an upgrade alternative and allow upgrading to an alpha/beta/release candidate versions of Kubernetes.</td>
+</tr>
+
+<tr>
+  <td colspan="2">--allow-release-candidate-upgrades</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">Show release candidate versions of Kubernetes as an upgrade alternative and allow upgrading to a release candidate versions of Kubernetes.</td>
+</tr>
+
+<tr>
+  <td colspan="2">--config string</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
+</tr>
+
+<tr>
+  <td colspan="2">--feature-gates string</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)</td>
+</tr>
+
+<tr>
+  <td colspan="2">-h, --help</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">help for plan</td>
+</tr>
+
+<tr>
+  <td colspan="2">--ignore-preflight-errors stringSlice</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</td>
+</tr>
+
+<tr>
+  <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
+</tr>
+
+<tr>
+  <td colspan="2">--print-config</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">Specifies whether the configuration file that will be used in the upgrade should be printed or not.</td>
+</tr>
+```
+
 -->
 ### 选项
 
+```
 <tr>
   <td colspan="2">--allow-experimental-upgrades</td>
 </tr>
@@ -70,8 +130,19 @@ kubeadm upgrade plan [version] [flags]
 <tr>
   <td></td><td style="line-height: 130%; word-wrap: break-word;">指定是否打印将在升级中使用的配置文件。</td>
 </tr>
+```
 <!--
 ### Options inherited from parent commands
+
+```
+<tr>
+  <td colspan="2">--rootfs string</td>
+</tr>
+<tr>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+</tr>
+```
+
 -->
 ### 从父命令继承的选项
 
