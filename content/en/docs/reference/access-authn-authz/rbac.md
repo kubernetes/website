@@ -564,10 +564,14 @@ Many of these are `system:` prefixed, which indicates that the resource is direc
 managed by the cluster control plane.
 All of the default ClusterRoles and ClusterRoleBindings are labeled with `kubernetes.io/bootstrapping=rbac-defaults`.
 
-API servers create a set of default `ClusterRole` and `ClusterRoleBinding` objects.
-Many of these are `system:` prefixed, which indicates that the resource is "owned" by the infrastructure.
+{{< caution >}}
+Take care when modifying ClusterRoles and ClusterRoleBindings with names
+that have a `system:` prefix.
 Modifications to these resources can result in non-functional clusters. One example is the `system:node` ClusterRole.
-This role defines permissions for kubelets. If the role is modified, it can prevent kubelets from working.
+This ClusterRole defines permissions for {{< glossary_tooltip term_id="kubelet" text="kubelets">}}.
+If you modify that ClusterRole incorrectly, your change could prevent the kubelet from working on
+all the nodes in your cluster.
+{{< /caution >}}
 
 ### Auto-reconciliation
 
@@ -592,7 +596,11 @@ To view the configuration of these roles via `kubectl` run:
 kubectl get clusterroles system:discovery -o yaml
 ```
 
-NOTE: editing the role is not recommended as changes will be overwritten on API server restart via auto-reconciliation (see above).
+{{< note >}}
+If you edit that ClusterRole, your changes will be overwritten on API server restart
+via [auto-reconciliation](#auto-reconciliation). To avoid that overwriting,
+either do not manually edit the role, or disable auto-reconciliation.
+{{< /note >}}
 
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
@@ -1056,9 +1064,10 @@ In order from most secure to least secure, the approaches are:
 
     If an application does not specify a `serviceAccountName`, it uses the "default" service account.
 
-    {{< note >}}Permissions given to the "default" service
-    account are available to any pod in the namespace that does not
-    specify a `serviceAccountName`.{{< /note >}}
+    {{< note >}}
+    Permissions given to the "default" service account are available to any pod
+    in the namespace that does not specify a `serviceAccountName`.
+    {{< /note >}}
 
     For example, grant read-only permission within "my-namespace" to the "default" service account:
 
@@ -1069,12 +1078,15 @@ In order from most secure to least secure, the approaches are:
       --namespace=my-namespace
     ```
 
-    Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the `kube-system` namespace.
-    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the `kube-system` namespace.
+    Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
+    "default" service account in the `kube-system` namespace.
+    To allow those add-ons to run with super-user access, grant cluster-admin
+    permissions to the "default" service account in the `kube-system` namespace.
 
-    {{< note >}}Enabling this means the `kube-system`
-    namespace contains secrets that grant super-user access to the
-    API.{{< /note >}}
+    {{< caution >}}
+    Enabling this means the `kube-system` namespace contains Secrets
+    that grant super-user access to your cluster's API.
+    {{< /caution >}}
 
     ```shell
     kubectl create clusterrolebinding add-on-cluster-admin \
@@ -1113,9 +1125,9 @@ In order from most secure to least secure, the approaches are:
     If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
 
     {{< warning >}}
-    This allows any user with read access
-    to secrets or the ability to create a pod to access super-user
-    credentials.
+    This allows any application full access to your cluster, and also grants
+    any user with read access to Secrets (or the ability to create any pod)
+    full access to your cluster.
     {{< /warning >}}
 
     ```shell
