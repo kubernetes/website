@@ -448,3 +448,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
 {{% /capture %}}
+{{% capture whatsnext %}}
+* The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
+  the project's approach to removing features and components.
+{{% /capture %}}
