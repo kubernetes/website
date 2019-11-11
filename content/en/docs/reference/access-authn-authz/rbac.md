@@ -666,20 +666,28 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 <td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
-It does not allow write access to resource quota or to the namespace itself.</td>
+This role does not allow write access to resource quota or to the namespace itself.</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
 <td>None</td>
 <td>Allows read/write access to most objects in a namespace.
-It does not allow viewing or modifying roles or role bindings.</td>
+
+This role does not allow viewing or modifying roles or role bindings.
+However, this role allows accessing Secrets and running Pods as any ServiceAccount in
+the namespace, so it can be used to gain the API access levels of any ServiceAccount in
+the namespace.</td>
 </tr>
 <tr>
 <td><b>view</b></td>
 <td>None</td>
 <td>Allows read-only access to see most objects in a namespace.
 It does not allow viewing roles or role bindings.
-It does not allow viewing secrets, since those are escalating.</td>
+
+This role does not allow viewing Secrets, since reading
+the contents of Secrets enables access to ServiceAccount credentials
+in the namespace, which would allow API access as any ServiceAccount
+in the namespace (a form of privilege escalation).</td>
 </tr>
 </table>
 
@@ -695,7 +703,7 @@ It does not allow viewing secrets, since those are escalating.</td>
 <tr>
 <td><b>system:kube-scheduler</b></td>
 <td><b>system:kube-scheduler</b> user</td>
-<td>Allows access to the resources required by the kube-scheduler component.</td>
+<td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-scheduler" text="scheduler" >}} component.</td>
 </tr>
 <tr>
 <td><b>system:volume-scheduler</b></td>
@@ -705,21 +713,23 @@ It does not allow viewing secrets, since those are escalating.</td>
 <tr>
 <td><b>system:kube-controller-manager</b></td>
 <td><b>system:kube-controller-manager</b> user</td>
-<td>Allows access to the resources required by the kube-controller-manager component.
-The permissions required by individual control loops are contained in the <a href="#controller-roles">controller roles</a>.</td>
+<td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}} component.
+The permissions required by individual controllers are detailed in the <a href="#controller-roles">controller roles</a>.</td>
 </tr>
 <tr>
 <td><b>system:node</b></td>
 <td>None</td>
-<td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pod status objects</b>.
+<td>Allows access to resources required by the kubelet, <b>including read access to all secrets, and write access to all pod status objects</b>.
 
-You should use the <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> and <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> is recommended instead of the <tt>system:node</tt> role, and allow granting API access to kubelets based on the pods scheduled to run on them.
+You should use the <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> and <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> instead of the <tt>system:node</tt> role, and allow granting API access to kubelets based on the Pods scheduled to run on them.
+
+The <tt>system:node</tt> role only exists for compatibility with Kubernetes clusters upgraded from versions prior to v1.8.
 </td>
 </tr>
 <tr>
 <td><b>system:node-proxier</b></td>
 <td><b>system:kube-proxy</b> user</td>
-<td>Allows access to the resources required by the kube-proxy component.</td>
+<td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} component.</td>
 </tr>
 </table>
 
@@ -741,7 +751,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:heapster</b></td>
 <td>None</td>
-<td>Role for the <a href="https://github.com/kubernetes/heapster">Heapster</a> component.</td>
+<td>Role for the <a href="https://github.com/kubernetes/heapster">Heapster</a> component (deprecated).</td>
 </tr>
 <tr>
 <td><b>system:kube-aggregator</b></td>
@@ -762,7 +772,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
 <td>Allows access to the resources required to perform
-<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.</td>
+<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>
