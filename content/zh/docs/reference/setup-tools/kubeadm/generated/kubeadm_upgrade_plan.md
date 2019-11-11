@@ -74,7 +74,7 @@ kubeadm upgrade plan [version] [flags]
 -->
 ### 选项
 
-```
+
 <tr>
   <td colspan="2">--allow-experimental-upgrades</td>
 </tr>
@@ -130,7 +130,7 @@ kubeadm upgrade plan [version] [flags]
 <tr>
   <td></td><td style="line-height: 130%; word-wrap: break-word;">指定是否打印将在升级中使用的配置文件。</td>
 </tr>
-```
+
 <!--
 ### Options inherited from parent commands
 
@@ -146,14 +146,13 @@ kubeadm upgrade plan [version] [flags]
 -->
 ### 从父命令继承的选项
 
-```
 <tr>
   <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
   <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] “真实”主机根文件系统的路径。</td>
 </tr>
-```
+
 <!--
 SEE ALSO
 -->
