@@ -4,13 +4,14 @@ id: toleration
 date: 2019-01-11
 full_link: /docs/concepts/configuration/taint-and-toleration/
 short_description: >
-  一个核心对象，由三个必需的属性组成：key，value，和 effect。容忍度允许将 Pod 调度到具有对应污点的节点或节点组上。
+  一个核心对象，由三个必需的属性组成：key、value 和 effect。容忍度允许将 Pod 调度到具有对应污点的节点或节点组上。
 aka:
 tags:
 - core-object
 - fundamental
 ---
- 一个核心对象，由三个必需的属性组成：key，value，和 effect。容忍度允许将 Pod 调度到具有匹配 {{< glossary_tooltip text="污点" term_id="taint" >}} 的节点或节点组上。
+ 一个核心对象，由三个必需的属性组成：key、value 和 effect。
+ 容忍度允许将 Pod 调度到具有匹配 {{< glossary_tooltip text="污点" term_id="taint" >}} 的节点或节点组上。
  
 <!--
 ---
