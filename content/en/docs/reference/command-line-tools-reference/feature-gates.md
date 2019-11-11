@@ -12,10 +12,13 @@ can specify on different Kubernetes components.
 {{% capture body %}}
 ## Overview
 
-Feature gates are a set of key=value pairs that describe alpha or experimental
-features.
-An administrator can use the `--feature-gates` command line flag on each component
-to turn a feature on or off. Each component supports a set of feature gates unique to that component.
+Feature gates are a set of key=value pairs that describe Kubernetes features.
+You can turn these features on or off using the `--feature-gates` command line flag
+on each Kubernetes component.
+
+
+Each Kubernetes component lets you enable or disable a set of feature gates that
+are relevant to that component.
 Use `-h` flag to see a full set of feature gates for all components.
 To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
 
@@ -31,9 +34,11 @@ different Kubernetes components.
 - The "Until" column, if not empty, contains the last Kubernetes release in which
   you can still use a feature gate.
 - If a feature is in the Alpha or Beta state, you can find the feature listed
-  in the Alpha/Beta feature gate table.
-- If a feature is stable (GA) or deprecated, you can find all stages for that feature listed
-  in the GA/Deprecated feature gate table.
+  in the [Alpha/Beta feature gate table](#feature-gates-for-alpha-or-beta-features).
+- If a feature is stable you can find all stages for that feature listed in the
+  [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+- The [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+  also lists deprecated and withdrawn features.
 
 ### Feature gates for Alpha or Beta features
 
@@ -272,8 +277,9 @@ Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
 {{< /note >}}
 
-A *GA* feature is also referred to as a *stable* feature. It means:
+A *General Availability* (GA) feature is also referred to as a *stable* feature. It means:
 
+* The feature is always enabled; you cannot disable it.
 * The corresponding feature gate is no longer needed.
 * Stable versions of features will appear in released software for many subsequent versions.
 
