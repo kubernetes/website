@@ -109,6 +109,7 @@ aliases:
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
+    - inductor
     - nasa9084
     - zacharysarah
   sig-docs-ja-reviews: # PR reviews for Japanese content
