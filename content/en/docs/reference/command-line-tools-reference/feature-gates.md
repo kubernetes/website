@@ -7,6 +7,8 @@ content_template: templates/concept
 {{% capture overview %}}
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
+
+See [feature stages](#feature-stages) for an explanation of the stages for a feature.
 {{% /capture %}}
 
 {{% capture body %}}
