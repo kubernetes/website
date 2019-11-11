@@ -577,8 +577,8 @@ all the nodes in your cluster.
 
 At each start-up, the API server updates default cluster roles with any missing permissions,
 and updates default cluster role bindings with any missing subjects.
-This allows the cluster to repair accidental modifications,
-and to keep roles and rolebindings up-to-date as permissions and subjects change in new releases.
+This allows the cluster to repair accidental modifications, and helps to keep roles and role bindings
+up-to-date as permissions and subjects change in new Kubernetes releases.
 
 To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate` 
 annotation on a default cluster role or rolebinding to `false`.
@@ -657,27 +657,27 @@ metadata:
 <td><b>system:masters</b> group</td>
 <td>Allows super-user access to perform any action on any resource.
 When used in a <b>ClusterRoleBinding</b>, it gives full control over every resource in the cluster and in all namespaces.
-When used in a <b>RoleBinding</b>, it gives full control over every resource in the rolebinding's namespace, including the namespace itself.</td>
+When used in a <b>RoleBinding</b>, it gives full control over every resource in the role binding's namespace, including the namespace itself.</td>
 </tr>
 <tr>
 <td><b>admin</b></td>
 <td>None</td>
 <td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
-including the ability to create roles and rolebindings within the namespace.
+including the ability to create roles and role bindings within the namespace.
 It does not allow write access to resource quota or to the namespace itself.</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
 <td>None</td>
 <td>Allows read/write access to most objects in a namespace.
-It does not allow viewing or modifying roles or rolebindings.</td>
+It does not allow viewing or modifying roles or role bindings.</td>
 </tr>
 <tr>
 <td><b>view</b></td>
 <td>None</td>
 <td>Allows read-only access to see most objects in a namespace.
-It does not allow viewing roles or rolebindings.
+It does not allow viewing roles or role bindings.
 It does not allow viewing secrets, since those are escalating.</td>
 </tr>
 </table>
