@@ -109,7 +109,7 @@ Kubernetes 集群的一些抽象概念可能是 {{< glossary_tooltip text="应�
 <!--
 The following diagram lists the possible abstractions of a Kubernetes cluster and whether an abstraction is self-managed or managed by a provider.
 -->
-下表列出了 Kubernetes 集群的抽象概念以及抽象概念是由自我管理还是由提供商管理。
+下图列出了 Kubernetes 集群的抽象概念以及抽象概念是由自我管理还是由提供商管理。
 
 <!--
 Production environment solutions![Production environment solutions](/images/docs/KubernetesSolutions.svg)
