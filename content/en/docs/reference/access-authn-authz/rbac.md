@@ -18,8 +18,6 @@ RBAC authorization uses the `rbac.authorization.k8s.io`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} to drive authorization
 decisions, allowing you to dynamically configure policies through the Kubernetes API.
 
-As of 1.8, RBAC mode is stable and backed by the rbac.authorization.k8s.io/v1 API.
-
 To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 with `--authorization-mode=RBAC`.
 
@@ -529,7 +527,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For all authenticated users (version 1.5+):
+For all authenticated users:
 
 ```yaml
 subjects:
@@ -538,7 +536,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For all unauthenticated users (version 1.5+):
+For all unauthenticated users:
 
 ```yaml
 subjects:
@@ -547,7 +545,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For all users (version 1.5+):
+For all users:
 
 ```yaml
 subjects:
@@ -582,7 +580,7 @@ To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/aut
 annotation on a default cluster role or rolebinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
 
-Auto-reconciliation is enabled in Kubernetes version 1.6+ when the RBAC authorizer is active.
+Auto-reconciliation is enabled by default if the RBAC authorizer is active.
 
 ### API discovery roles {#discovery-roles}
 
@@ -628,7 +626,7 @@ using ClusterRoleBindings (`cluster-status`), and roles intended to be granted w
 namespaces using RoleBindings (`admin`, `edit`, `view`).
 
 User-facing ClusterRoles use [ClusterRole aggregation](#aggregated-clusterroles) to allow admins to include
-rules for custom resources on these ClusterRoles. To add rules to the "admin", "edit", or "view" roles, create
+rules for custom resources on these ClusterRoles. To add rules to the `admin`, `edit`, or `view` roles, create
 a ClusterRole with one or more of the following labels:
 
 ```yaml
@@ -703,13 +701,10 @@ The permissions required by individual control loops are contained in the <a hre
 </tr>
 <tr>
 <td><b>system:node</b></td>
-<td>None in 1.8+</td>
+<td>None</td>
 <td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pod status objects</b>.
 
-As of 1.7, use of the <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> and <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
-Prior to 1.7, this role was automatically bound to the `system:nodes` group.
-In 1.7, this role was automatically bound to the `system:nodes` group if the `Node` authorization mode is not enabled.
-In 1.8+, no binding is automatically created.
+You should use the <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> and <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> is recommended instead of the <tt>system:node</tt> role, and allow granting API access to kubelets based on the pods scheduled to run on them.
 </td>
 </tr>
 <tr>
@@ -821,7 +816,7 @@ A user can only create/update a role if at least one of the following things is 
 
 1. They already have all the permissions contained in the role, at the same scope as the object being modified
 (cluster-wide for a `ClusterRole`, within the same namespace or cluster-wide for a `Role`)
-2. They are given explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
+2. They are given explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group.
 
 For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRole`
 containing that permission. To allow a user to create/update roles:
@@ -829,7 +824,7 @@ containing that permission. To allow a user to create/update roles:
 1. Grant them a role that allows them to create/update `Role` or `ClusterRole` objects, as desired.
 2. Grant them permission to include specific permissions in the roles the create/update:
     * implicitly, by giving them those permissions (if they attempt to create or modify a `Role` or `ClusterRole` with permissions they themselves have not been granted, the API request will be forbidden)
-    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
+    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 
 A user can only create/update a role binding if they already have all the permissions contained in the referenced role 
 (at the same scope as the role binding) *or* if they've been given explicit permission to perform the `bind` verb on the referenced role.
@@ -1129,10 +1124,11 @@ In order from most secure to least secure, the approaches are:
       --group=system:serviceaccounts
     ```
 
-## Upgrading from 1.5
+## Upgrading from ABAC
 
-Prior to Kubernetes 1.6, many deployments used very permissive ABAC policies,
-including granting full API access to all service accounts.
+Clusters that originally ran older Kubernetes versions often used
+permissive ABAC policies, including granting full API access to all
+service accounts.
 
 Default RBAC policies grant scoped permissions to control-plane components, nodes,
 and controllers, but grant *no permissions* to service accounts outside the `kube-system` namespace
@@ -1144,7 +1140,7 @@ Here are two approaches for managing this transition:
 ### Parallel authorizers
 
 Run both the RBAC and ABAC authorizers, and specify a policy file that contains
-[the legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-format):
+the [legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-format):
 
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
@@ -1178,5 +1174,8 @@ kubectl create clusterrolebinding permissive-binding \
   --group=system:serviceaccounts
 ```
 {{< /warning >}}
+
+After you have transitioned to use RBAC, you should adjust the access controls
+for your cluster to ensure that these meet your information security needs.
 
 {{% /capture %}}
