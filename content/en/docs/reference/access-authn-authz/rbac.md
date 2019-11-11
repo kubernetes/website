@@ -10,7 +10,8 @@ weight: 70
 ---
 
 {{% capture overview %}}
-Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise.
+Role-based access control (RBAC) is a method of regulating access to computer or
+network resources based on the roles of individual users within your organization.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -580,7 +581,7 @@ and updates default cluster role bindings with any missing subjects.
 This allows the cluster to repair accidental modifications, and helps to keep roles and role bindings
 up-to-date as permissions and subjects change in new Kubernetes releases.
 
-To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate` 
+To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate`
 annotation on a default cluster role or rolebinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
 
@@ -588,7 +589,7 @@ Auto-reconciliation is enabled by default if the RBAC authorizer is active.
 
 ### API discovery roles {#discovery-roles}
 
-Default role bindings authorize unauthenticated and authenticated users to read API information that is deemed safe to be publicly accessible (including CustomResourceDefinitions). To disable anonymous unauthenticated access add `--anonymous-auth=false` to the API server configuration.
+Default role bindings authorize unauthenticated and authenticated users to read API information that is deemed safe to be publicly accessible (including CustomResourceDefinitions). To disable anonymous unauthenticated access, add `--anonymous-auth=false` to the API server configuration.
 
 To view the configuration of these roles via `kubectl` run:
 
@@ -820,23 +821,27 @@ These roles include:
 The RBAC API prevents users from escalating privileges by editing roles or role bindings.
 Because this is enforced at the API level, it applies even when the RBAC authorizer is not in use.
 
-A user can only create/update a role if at least one of the following things is true:
+### Restrictions on role creation or update
 
-1. They already have all the permissions contained in the role, at the same scope as the object being modified
-(cluster-wide for a `ClusterRole`, within the same namespace or cluster-wide for a `Role`)
-2. They are given explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group.
+You can only create/update a role if at least one of the following things is true:
 
-For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRole`
+1. You already have all the permissions contained in the role, at the same scope as the object being modified
+(cluster-wide for a ClusterRole, within the same namespace or cluster-wide for a Role).
+2. You are granted explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group.
+
+For example, if `user-1` does not have the ability to list Secrets cluster-wide, they cannot create a ClusterRole
 containing that permission. To allow a user to create/update roles:
 
-1. Grant them a role that allows them to create/update `Role` or `ClusterRole` objects, as desired.
-2. Grant them permission to include specific permissions in the roles the create/update:
-    * implicitly, by giving them those permissions (if they attempt to create or modify a `Role` or `ClusterRole` with permissions they themselves have not been granted, the API request will be forbidden)
-    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
+1. Grant them a role that allows them to create/update Role or ClusterRole objects, as desired.
+2. Grant them permission to include specific permissions in the roles they create/update:
+    * implicitly, by giving them those permissions (if they attempt to create or modify a Role or ClusterRole with permissions they themselves have not been granted, the API request will be forbidden)
+    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group
 
-A user can only create/update a role binding if they already have all the permissions contained in the referenced role 
-(at the same scope as the role binding) *or* if they've been given explicit permission to perform the `bind` verb on the referenced role.
-For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRoleBinding`
+### Restrictions on role binding creation or update
+
+You can only create/update a role binding if you already have all the permissions contained in the referenced role
+(at the same scope as the role binding) *or* if you have been authorized to perform the `bind` verb on the referenced role.
+For example, if `user-1` does not have the ability to list Secrets cluster-wide, they cannot create a ClusterRoleBinding
 to a role that grants that permission. To allow a user to create/update role bindings:
 
 1. Grant them a role that allows them to create/update RoleBinding or ClusterRoleBinding objects, as desired.
