@@ -1,10 +1,9 @@
 ---
-reviewers:
 title: Service
 feature:
   title: サービスディスカバリーとロードバランシング
   description: >
-    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.
+    Kubernetesでは、なじみのないサービスディスカバリーの機構を使用するためにユーザーがアプリケーションの修正をする必要はありません。KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
 
 content_template: templates/concept
 weight: 10
@@ -15,8 +14,8 @@ weight: 10
 
 {{< glossary_definition term_id="service" length="short" >}}
 
-Kubernetesにおいては、なじみのないサービスディスカバリーの機構を使用するために、ユーザーはアプリケーションの修正を必要としません。  
-KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対するロードバランスが可能です。
+Kubernetesでは、なじみのないサービスディスカバリーの機構を使用するためにユーザーがアプリケーションの修正をする必要はありません。  
+KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
 
 {{% /capture %}}
 
@@ -24,9 +23,8 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 
 ## Serviceを利用する動機
 
-{{< glossary_tooltip term_id="pod" text="Pod" >}} は停止が想定して設計されています。 Podが作成され、もしそれらが停止する時、Podは再作成されません。
+{{< glossary_tooltip term_id="pod" text="Pod" >}}は停止が想定して設計されています。 Podが作成され、もしそれらが停止する時、Podは再作成されません。
 {{< glossary_tooltip term_id="deployment" >}}をアプリケーションを稼働させるために使用する時、DeploymentはPodを動的に作成・削除します。
-
 
 各Podはそれ自身のIPアドレスを持ちます。しかしDeploymentでは、ある時点において同時に稼働しているPodのセットは、その後のある時点において稼働しているPodのセットとは異なる場合があります。
 
@@ -34,20 +32,20 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 
 ここで_Service_ について説明します。
 
-## Service リソース {#service-resource}
+## Serviceリソース {#service-resource}
 
 Kubernetesにおいて、ServiceはPodの論理的なセットや、そのPodのセットにアクセスするためのポリシーを定義します(このパターンはよくマイクロサービスと呼ばることがあります)。  
-ServiceによってターゲットとされたPodのセットは、たいてい {{< glossary_tooltip text="セレクター" term_id="selector" >}} (セレクターなしのServiceを利用したい場合は[下記](#services-without-selectors)の記事を参照してください)によって定義されます。  
+ServiceによってターゲットとされたPodのセットは、たいてい {{< glossary_tooltip text="セレクター" term_id="selector" >}} (セレクターなしのServiceを利用したい場合は[下記](#services-without-selectors)を参照してください)によって定義されます。  
 
-例えば、3つのレプリカが稼働しているステートレスな画像処理用のバックエンドを考えます。このレプリカは代替可能なfrontendのPodです。&mdash; backendに何を使うかに関しては意識しません。backendのセットを構成する実際のPodのセットが変更された際、frontendクライアントはその変更を気にしたり、backendのPodのセットの情報を記録しておく必要はありません。
+例えば、3つのレプリカが稼働しているステートレスな画像処理用のバックエンドを考えます。これらのレプリカは代替可能です。&mdash; フロントエンドはバックエンドが何であろうと気にしません。バックエンドのセットを構成する実際のPodのセットが変更された際、フロントエンドクライアントはその変更を気にしたり、バックエンドのPodのセットの情報を記録しておく必要はありません。
 
-Serviceによる抽象化は、クライアントから、バックエンドのPodの管理する責務を分離することを可能にします。
+Serviceによる抽象化は、クライアントからバックエンドのPodの管理する責務を分離することを可能にします。
 
 ### クラウドネイティブのサービスディスカバリー
 
-もしアプリケーション内でサービスディスカバリーのためにKubernetes APIを使うことができる場合、ユーザーは{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}に対してのエンドポイントのためのクエリを実行でき、またService内のPodのセットが変更された時はいつでも更新された情報を取得できます。  
+アプリケーション内でサービスディスカバリーのためにKubernetes APIが使える場合、ユーザーはエンドポイントを{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}に問い合わせることができ、またService内のPodのセットが変更された時はいつでも更新されたエンドポイントの情報を取得できます。
 
-非ネイティブなアプリケーションのために、Kubernetesは、アプリケーションとbackend Podの間で、ネットワークポートや、ロードバランサーを配置する方法を提供します。 
+非ネイティブなアプリケーションのために、Kubernetesは、アプリケーションとバックエンドPodの間で、ネットワークポートや、ロードバランサーを配置する方法を提供します。 
 
 ## Serviceの定義
 
@@ -154,8 +152,8 @@ Serviceにおいてプロキシーを使う理由はいくつかあります。
 ### バージョン互換性
 
 Kubernetes v1.0から、[user-space プロキシーモード](#proxy-mode-userspace)を利用できるようになっています。  
-v1.1ではiptables モードでのプロキシーを追加し、v1.2では、kube-proxyにおいてiptablesモードがデフォルトとなりました。  
-v1.8では、ipvs プロキシーモードが追加されました。
+v1.1ではiptablesモードでのプロキシーを追加し、v1.2では、kube-proxyにおいてiptablesモードがデフォルトとなりました。  
+v1.8では、ipvsプロキシーモードが追加されました。
 
 ### user-space プロキシーモード {#proxy-mode-userspace}
 
@@ -168,7 +166,7 @@ kube-proxyは、どのバックエンドPodを使うかを決める際にService
 
 デフォルトでは、user-spaceモードにおけるkube-proxyはラウンドロビンアルゴリズムによってバックエンドPodを選択します。
 
-![user-space プロキシーのService概要ダイアグラム](/images/docs/services-userspace-overview.svg)
+![user-spaceプロキシーのService概要ダイアグラム](/images/docs/services-userspace-overview.svg)
 
 ### `iptables` プロキシーモード {#proxy-mode-iptables}
 
@@ -178,17 +176,17 @@ kube-proxyは、どのバックエンドPodを使うかを決める際にService
 
 デフォルトでは、iptablesモードにおけるkube-proxyはバックエンドPodをランダムで選択します。  
 
-トラフィックのハンドリングのためにiptablesを使用することは、システムのオーバーヘッドが少ないです。なぜならトラフィックはLinuxのnetfilterによってuser-spaceとkernel-spaceを切り替える必要がないためです。  
-このアプローチは、オーバーヘッドが少ないことに加えて、より信頼的な方法でもあります。  
+トラフィックのハンドリングのためにiptablesを使用すると、システムのオーバーヘッドが少なくなります。これは、トラフィックがLinuxのnetfilterによってuser-spaceとkernel-spaceを切り替える必要がないためです。  
+このアプローチは、オーバーヘッドが少ないことに加えて、より信頼できる方法でもあります。  
 
-もしkube-proxyが、iptableモードにおいて稼働し、その最初に選択されたPodが応答しない場合、そのコネクションは失敗となります。  
+kube-proxyがiptablesモードで稼働し、最初に選択されたPodが応答しない場合、そのコネクションは失敗します。  
 これはuser-spaceモードでの挙動と異なります: user-spaceモードにおいては、kube-proxyは最初のPodに対するコネクションが失敗したら、自動的に他のバックエンドPodに対して再接続を試みます。
 
 iptablesモードのkube-proxyが正常なバックエンドPodのみをリダイレクト対象とするために、Podの[ReadinessProbe](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を使用してバックエンドPodが正常に動作しているか確認できます。これは、ユーザーがkube-proxyを介して、コネクションに失敗したPodに対してトラフィックをリダイレクトするのを除外することを意味します。  
 
-![iptables プロキシーのService概要ダイアグラム](/images/docs/services-iptables-overview.svg)
+![iptablesプロキシーのService概要ダイアグラム](/images/docs/services-iptables-overview.svg)
 
-### IPVS プロキシーモード {#proxy-mode-ipvs}
+### IPVSプロキシーモード {#proxy-mode-ipvs}
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
@@ -196,12 +194,11 @@ iptablesモードのkube-proxyが正常なバックエンドPodのみをリダ�
 このコントロールループはIPVSのステータスが理想的な状態になることを保証します。  
 Serviceにアクセスするとき、IPVSはトラフィックをバックエンドのPodに向けます。
 
-IPVS プロキシーモードはiptablesモードと同様に、netfilterのフック関数に基づいています。ただし、基礎となるデータ構造としてハッシュテーブルを使っているのと、kernel-spaceで動作します。  
+IPVSプロキシーモードはiptablesモードと同様に、netfilterのフック関数に基づいています。ただし、基礎となるデータ構造としてハッシュテーブルを使っているのと、kernel-spaceで動作します。  
 これは、IPVSモードにおけるkube-proxyはiptablesモードに比べてより低いレイテンシーでトラフィックをリダイレクトし、プロキシーのルールを同期する際にはよりパフォーマンスがよいことを意味します。　　
 他のプロキシーモードと比較して、IPVSモードはより高いネットワークトラフィックのスループットをサポートしています。  
 
-IPVSはバックエンドPodに対するトラフィックのバランシングのために多くのオプションを提供します。  
-それは下記のとおりです。
+IPVSはバックエンドPodに対するトラフィックのバランシングのために多くのオプションを下記のとおりに提供します。  
 
 - `rr`: ラウンドロビン
 - `lc`: 最低コネクション数(オープンされているコネクション数がもっとも小さいもの)
@@ -213,16 +210,15 @@ IPVSはバックエンドPodに対するトラフィックのバランシング�
 {{< note >}}
 IPVSモードでkube-proxyを稼働させるためには、kube-proxyを稼働させる前にNode上でIPVSを有効にしなければなりません。
 
-kube-proxyがIPVSモードで起動するとき、IPVSカーネルモジュールが利用可能かどうかを確認します。  
+kube-proxyはIPVSモードで起動する場合、IPVSカーネルモジュールが利用可能かどうかを確認します。  
 もしIPVSカーネルモジュールが見つからなかった場合、kube-proxyはiptablesモードで稼働するようにフォールバックされます。
 {{< /note >}}
 
-![IPVS プロキシーのService概要ダイアグラム](/images/docs/services-ipvs-overview.svg)
+![IPVSプロキシーのService概要ダイアグラム](/images/docs/services-ipvs-overview.svg)
 
 このダイアグラムのプロキシーモデルにおいて、ServiceのIP:Portに対するトラフィックは、クライアントがKubernetesのServiceやPodについて何も知ることなく適切にバックエンドにプロキシーされています。
 
-もし特定のクライアントからのコネクションが、毎回同一のPodにリダイレクトされるようにするためには、`service.spec.sessionAffinity`を"ClientIP"にセットすることにより、クライアントのIPアドレスに基づいた
-SessionAffinityを選択することができます(デフォルトは"None")。
+特定のクライアントからのコネクションが、毎回同一のPodにリダイレクトされるようにするためには、`service.spec.sessionAffinity`を"ClientIP"にセットすることにより、クライアントのIPアドレスに基づいたSessionAffinityを選択することができます(デフォルトは"None")。
 また、`service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`を適切に設定することにより、セッションのタイムアウト時間を設定できます(デフォルトではこの値は18,000で、3時間となります)。
 
 ## 複数のポートを公開するService  
@@ -272,8 +268,7 @@ Kubernetesは、Serviceオブジェクトを見つけ出すために2つの主�
 ### 環境変数
 
 PodがNode上で稼働するとき、kubeletはアクティブな各Serviceに対して、環境変数のセットを追加します。
-これは[Docker links
-互換性](https://docs.docker.com/userguide/dockerlinks/)のある変数(
+これは[Docker links互換性](https://docs.docker.com/userguide/dockerlinks/)のある変数(
 [makeLinkVariables関数](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L72)を確認してください)や、より簡単な`{SVCNAME}_SERVICE_HOST`や、`{SVCNAME}_SERVICE_PORT`変数をサポートします。この変数名で使われるService名は大文字に変換され、`-`は`_`に変換されます。
 
 例えば、TCPポート6379番を公開していて、さらにclusterIPが10.0.0.11に割り当てられている`"redis-master"`というServiceは、下記のような環境変数を生成します。
@@ -305,18 +300,16 @@ CoreDNSなどのクラスター対応のDNSサーバーは新しいServiceや、
 例えば、Kubernetesの`"my-ns"`というNamespace内で`"my-service"`というServiceがある場合、KubernetesコントロールプレーンとDNS Serviceが協調して動作し、`"my-service.my-ns"`というDNSレコードを作成します。  
 `"my-ns"`というNamespace内のPodは`my-service`という名前で簡単に名前解決できるはずです(`"my-service.my-ns"`でも動作します)。
 
-他のNamespace内でのPodは`my-service.my-ns`といった様に指定しなくてはなりません。これらのDNS名は、そのServiceのclusterIPに名前解決されます。
+他のNamespace内でのPodは`my-service.my-ns`といった形で指定しなくてはなりません。これらのDNS名は、そのServiceのclusterIPに名前解決されます。
 
-Kubernetesは名前付きのポートに対するDNS SRV(Service) レコードもサポートしています。もし`"my-service.my-ns"`というServiceが`"http"`という名前のTCPポートを持っていた場合、IPアドレスと同様に、  
-`"http"`のポート番号を探すために`_http._tcp.my-service.my-ns`というDNS SRVクエリを実行できます。
+Kubernetesは名前付きのポートに対するDNS SRV(Service)レコードもサポートしています。もし`"my-service.my-ns"`というServiceが`"http"`という名前のTCPポートを持っていた場合、IPアドレスと同様に、`"http"`のポート番号を探すために`_http._tcp.my-service.my-ns`というDNS SRVクエリを実行できます。
 
 KubernetesのDNSサーバーは`ExternalName` Serviceにアクセスする唯一の方法です。  
 [DNS Pods と Service](/docs/concepts/services-networking/dns-pod-service/)にて`ExternalName`による名前解決に関するさらなる情報を確認できます。
 
 ## Headless Service {#headless-service}
 
-たまにユーザーはロードバランシングと単一のService IPを必要としない場合があります。このケースにおいて、clusterIP(`.spec.clusterIP`)の値を`"None"`に設定することにより、
-"Headless"とよばれるServiceを作成できます。
+場合によっては、負荷分散と単一のService IPは不要です。このケースにおいて、clusterIP(`.spec.clusterIP`)の値を`"None"`に設定することにより、"Headless"とよばれるServiceを作成できます。
 
 ユーザーは、Kubernetesの実装と紐づくことなく、他のサービスディスカバリーのメカニズムと連携するためにHeadless Serviceを使用できます。  
 例えば、ユーザーはこのAPI上でカスタム{{< glossary_tooltip term_id="operator-pattern" text="オペレーター" >}}を実装することができます。
@@ -372,7 +365,7 @@ Ingressは同一のIPアドレスにおいて、複数のServiceを公開する�
 これは、ユーザーが自分自身で、ポート番号の衝突に関して気をつける必要があることを意味します。  
 また、ユーザーは有効なポート番号を指定する必要があり、NodePortの使用において、設定された範囲のポートを指定する必要があります。
 
-NodePortの使用は、Kubernetesによって完全にサポートされていないようなユーザー独自のロードバランスの設定をするための有効な方法や、1つ以上のNodeのIPを直接公開するための方法となりえます。
+NodePortの使用は、Kubernetesによって完全にサポートされていないようなユーザー独自の負荷分散を設定をするための有効な方法や、1つ以上のNodeのIPを直接公開するための方法となりえます。
 
 注意点として、このServiceは`<NodeIP>:spec.ports[*].nodePort`と、`.spec.clusterIP:spec.ports[*].port`として疎通可能です。  
 (もしkube-proxyにおいて`--nodeport-addressses`が設定された場合、<NodeIP>はフィルターされたNodeIPとなります。)
@@ -690,7 +683,7 @@ spec:
 
 ### ExternalName タイプ {#externalname}
 
-ExternalNameタイプのServiceは、ServiceをDNS名とマッピングし、`my-service`や`cassandra`といっうような従来のラベルセレクターとはマッピングしません。  
+ExternalNameタイプのServiceは、ServiceをDNS名とマッピングし、`my-service`や`cassandra`というような従来のラベルセレクターとはマッピングしません。  
 ユーザーはこれらのServiceにおいて`spec.externalName`フィールドの値を指定します。
 
 このServiceの定義では、例えば`prod`というNamespace内の`my-service`というServiceを`my.database.example.com`にマッピングします。
@@ -716,8 +709,7 @@ IPアドレスをハードコードする場合、[Headless Service](#headless-s
 後にユーザーが使用しているデータベースをクラスター内に移行することになった後は、Podを起動させ、適切なラベルセレクターやEndpointを追加し、Serviceの`type`を変更します。
 
 {{< note >}}
-このセクションは、[Alen Komljen](https://akomljen.com/)による[Kubernetes Tips - Part
-1](https://akomljen.com/kubernetes-tips-part-1/)というブログポストを参考にしています。
+このセクションは、[Alen Komljen](https://akomljen.com/)による[Kubernetes Tips - Part1](https://akomljen.com/kubernetes-tips-part-1/)というブログポストを参考にしています。
 
 {{< /note >}}
 
@@ -769,7 +761,7 @@ Kubernetesの主要な哲学のうちの一つは、ユーザーは、ユーザ�
 Serviceリソースの設計のでは、これはユーザーの指定したポートが衝突する可能性がある場合は、そのポートのServiceを作らないことを意味します。これは障害を分離することとなります。
 
 Serviceのポート番号を選択できるようにするために、我々はどの2つのServiceでもポートが衝突しないことを保証します。  
-Kubernetesは各serviceに、それ自身のIPアドレスを割り当てることで実現しています。  
+Kubernetesは各Serviceに、それ自身のIPアドレスを割り当てることで実現しています。  
 
 各Serviceが固有のIPを割り当てられるのを保証するために、内部のアロケーターは、Serviceを作成する前に、etcd内のグローバルの割り当てマップをアトミックに更新します。  
 そのマップオブジェクトはServiceのIPアドレスの割り当てのためにレジストリー内に存在しなくてはならず、そうでない場合は、Serviceの作成時にIPアドレスが割り当てられなかったことを示すエラーメッセージが表示されます。  
@@ -806,7 +798,7 @@ Serviceのポートが1234で、そのServiceがクラスター内のすべて�
 kube-proxyが新しいServiceを見つけた時、kube-proxyは仮想IPから各Serviceのルールにリダイレクトされるような、iptablesルールのセットをインストールします。
 Service毎のルールは、トラフィックをバックエンドにリダイレクト(Destination NATを使用)しているEndpoint毎のルールに対してリンクしています。
 
-クライアントがServiceの仮想IPアドレスに対して接続しているとkい、そのiptablesルールが有効になります。  
+クライアントがServiceの仮想IPアドレスに対して接続しているとき、そのiptablesルールが有効になります。  
 バックエンドのPodが選択され(SessionAffinityに基づくか、もしくはランダムで選択される)、パケットはバックエンドにリダイレクトされます。  
 userspaceモードのプロキシーとは異なり、パケットは決してuserspaceにコピーされず、kube-proxyは仮想IPのために稼働される必要はなく、またNodeでは変更されていないクライアントIPからトラフィックがきます。
 
@@ -815,8 +807,8 @@ userspaceモードのプロキシーとは異なり、パケットは決してus
 #### IPVS
 
 iptablesの処理は、大規模なクラスターの場合劇的に遅くなります。例としてはServiceが10,000ほどある場合です。
-IPVSはロードバランシングのために設計され、カーネル内のハッシュテーブルに基づいています。なのでIPVSベースのkube-proxyによって、多数のServiceがある場合でも一貫して高パフォーマンスを実現できます。  
-次第に、IPVSベースのkube-proxyはロードバランスのアルゴリズムはさらに洗練されています(最小接続数、位置ベース、重み付け、永続性など)。
+IPVSは負荷分散のために設計され、カーネル内のハッシュテーブルに基づいています。そのためIPVSベースのkube-proxyによって、多数のServiceがある場合でも一貫して高パフォーマンスを実現できます。  
+次第に、IPVSベースのkube-proxyは負荷分散のアルゴリズムはさらに洗練されています(最小接続数、位置ベース、重み付け、永続性など)。
 
 ## APIオブジェクト
 
