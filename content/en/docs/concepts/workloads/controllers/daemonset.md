@@ -112,22 +112,23 @@ when the Pod is created, so it is ignored by the scheduler).  Therefore:
  - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
+However, by using the DaemonSet controller to schedule the DaemonSet pods that
+it creates introduces the following issues:
+
+ - Inconsistent Pod behavior: Normal Pods waiting to be scheduled are created
+   and in `Pending` state, but DaemonSet pods are not created in `Pending`
+   state. This is confusing to the user.
+ - [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
+   is handled by default scheduler. When preemption is enabled, the DaemonSet controller
+   will make scheduling decisions without considering pod priority and preemption.
 
 ### Scheduled by default scheduler (enabled by default since 1.12)
 
 {{< feature-state state="beta" for-kubernetes-version="1.12" >}}
 
-A DaemonSet resource type ensures that all eligible nodes run a copy of a Pod. Normally, the
-node that a Pod runs on is selected by the Kubernetes scheduler. However,
-DaemonSet pods can also be created and scheduled by a DaemonSet controller instead.
-That introduces the following issues:
-
- * Inconsistent Pod behavior: Normal Pods waiting to be scheduled are created
-   and in `Pending` state, but DaemonSet pods are not created in `Pending`
-   state. This is confusing to the user.
- * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
-   is handled by default scheduler. When preemption is enabled, the DaemonSet controller
-   will make scheduling decisions without considering pod priority and preemption.
+A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
+node that a Pod runs on is selected by the Kubernetes scheduler. This is also
+the default behavior of DaemonSet pods.
 
 `ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
 scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
