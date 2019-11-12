@@ -73,21 +73,11 @@ Make sure:
   tested with the upstream version, and does not promise support for other features.
   {{< /note >}}
 
-3. Container runtime is Docker -- Currently the only Kubernetes-supported container runtime that
-   also supports AppArmor is Docker. As more runtimes add AppArmor support, the options will be
-   expanded. You can verify that your nodes are running docker with:
-
-   ```shell
-   kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.containerRuntimeVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: docker://1.11.2
-   gke-test-default-pool-239f5d02-x1kf: docker://1.11.2
-   gke-test-default-pool-239f5d02-xwux: docker://1.11.2
-   ```
-
-   If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
-   options if the runtime is not Docker.
+3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container
+   runtimes should support AppArmor, like {{< glossary_tooltip term_id="docker">}},
+   {{< glossary_tooltip term_id="cri-o" >}} or {{< glossary_tooltip term_id="containerd" >}}.
+   Please refer to the corresponding runtime documentation and verify that the cluster fulfills
+   the requirements to use AppArmor.
 
 4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles is not already loaded in the
