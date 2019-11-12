@@ -124,7 +124,7 @@ See [decoding a secret](#decoding-a-secret) for how to see the contents of a sec
 
 You can also create a Secret in a file first, in json or yaml format,
 and then create that object. The
-[Secret](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core) contains two maps:
+[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core) contains two maps:
 data and stringData. The data field is used to store arbitrary data, encoded using
 base64. The stringData field is provided for convenience, and allows you to provide
 secret data as unencoded strings.
