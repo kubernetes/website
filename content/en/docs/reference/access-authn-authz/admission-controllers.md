@@ -607,7 +607,7 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 
 ### RuntimeClass {#runtimeclass} {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
-For [RuntimeClass](docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
+For [RuntimeClass](/docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
 this admission controller will set the pod.Spec.Overhead field accordingly.
 
 See also [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
