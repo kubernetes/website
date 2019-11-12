@@ -305,7 +305,7 @@ Nodes](/docs/concepts/configuration/assign-pod-node/).
 
 <!--
 As of Kubernetes v1.16, RuntimeClass includes support for specifying overhead associated with
-running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead.md) feature.
+running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead) feature.
 To use `PodOverhead`, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled (it is off by default).
 
@@ -316,7 +316,7 @@ are accounted for in Kubernetes.
 -->
 
 从 Kubernetes v1.16 开始，RuntimeClass 包含了对指定与运行 Pod 相关的开销的支持，
-这是[`Pod 开销`](/docs/concepts/configuration/pod-overhead.md)功能的一部分。
+这是[`Pod 开销`](/docs/concepts/configuration/pod-overhead)功能的一部分。
 要使用 `PodOverhead` ，您必须确保 PodOverhead [功能](/docs/reference/command-line-tools-reference/feature-gates/) 已启用（默认情况下处于关闭状态）。
 
 Pod 的开销是在 RuntimeClass 中通过 `Overhead` 字段定义的。 通过使用这些字段，
