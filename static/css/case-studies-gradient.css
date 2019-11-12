@@ -19,7 +19,7 @@
 }
 
 .image {
-
+padding-top:2% !important
 }
 
 .overlay:before{
@@ -41,6 +41,15 @@
     /* hack */
 }
 
+.quoteauthortext {
+  font-size:14px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+section {
+  padding:0px !important
+}
 
 a {color:white !important;}
 
@@ -182,6 +191,7 @@ hr {
   line-height:20px;
   letter-spacing:0.03em;
   font-size:14px;
+  width:100%;
 }
 
 .col2 {
