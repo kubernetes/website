@@ -220,14 +220,6 @@ There are a few reasons for using proxying for Services:
    on the DNS records could impose a high load on DNS that then becomes
    difficult to manage.
 
-### Version compatibility
-
-Since Kubernetes v1.0 you have been able to use the
-[userspace proxy mode](#proxy-mode-userspace).
-Kubernetes v1.1 added iptables mode proxying, and in Kubernetes v1.2 the
-iptables mode for kube-proxy became the default.
-Kubernetes v1.8 added ipvs proxy mode.
-
 ### User space proxy mode {#proxy-mode-userspace}
 
 In this mode, kube-proxy watches the Kubernetes master for the addition and
