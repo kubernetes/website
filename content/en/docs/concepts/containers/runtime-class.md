@@ -176,7 +176,7 @@ Nodes](/docs/concepts/configuration/assign-pod-node/).
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 As of Kubernetes v1.16, RuntimeClass includes support for specifying overhead associated with
-running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead.md) feature.
+running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead/) feature.
 To use `PodOverhead`, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled (it is off by default).
 
