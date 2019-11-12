@@ -9,7 +9,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
 from the user. This is by design.  However, some workloads require
@@ -44,14 +44,11 @@ management policies to determine some placement preferences on the node.
 
 ### Configuration
 
-The CPU Manager is an alpha feature in Kubernetes v1.8. It was enabled by
-default as a beta feature since v1.10.
-
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 option. There are two supported policies:
 
-* `none`: the default, which represents the existing scheduling behavior.
-* `static`: allows pods with certain resource characteristics to be
+* [`none`](#none-policy): the default policy.
+* [`static`](#static-policy): allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
 
 The CPU manager periodically writes resource updates through the CRI in
@@ -76,11 +73,6 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 
 {{< note >}}
 System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
-{{< /note >}}
-
-{{< note >}}
-The alpha version of this policy does not guarantee static
-exclusive allocations across Kubelet restarts.
 {{< /note >}}
 
 {{< note >}}
