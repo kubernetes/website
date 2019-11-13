@@ -113,7 +113,7 @@ en cours d'exécution :
    `Failure`. Si le Conteneur ne fournit pas de readiness probe, l'état par
    défaut est `Success`.
 
-### Quand devez-vous uiliser une liveness ou une readiness probe ?
+### Quand devez-vous utiliser une liveness ou une readiness probe ?
 
 Si le process de votre Conteneur est capable de crasher de lui-même lorsqu'il
 rencontre un problème ou devient inopérant, vous n'avez pas forcément besoin
