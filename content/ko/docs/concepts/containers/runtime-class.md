@@ -171,7 +171,7 @@ https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 쿠버네티스 v1.16 부터는, 런타임 클래스에는 구동 중인 파드와 관련된 오버헤드를
-지정할 수 있는 기능이 [`PodOverhead`](/docs/concepts/configuration/pod-overhead.md) 기능을 통해 지원된다.
+지정할 수 있는 기능이 [`PodOverhead`](/docs/concepts/configuration/pod-overhead) 기능을 통해 지원된다.
 `PodOverhead`를 사용하려면, PodOverhead [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
 활성화 시켜야 한다. (기본 값으로는 비활성화 되어 있다.)
 
