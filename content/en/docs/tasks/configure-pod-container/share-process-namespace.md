@@ -11,7 +11,7 @@ weight: 160
 
 {{% capture overview %}}
 
-{{< feature-state state="stable" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 This page shows how to configure process namespace sharing for a pod. When
 process namespace sharing is enabled, processes in a container are visible
