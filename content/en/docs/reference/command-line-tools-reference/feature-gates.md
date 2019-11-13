@@ -68,11 +68,13 @@ different Kubernetes components.
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
 | `CSIInlineVolume` | `true` | Beta | 1.16 | - |
-| `CSIMigration` | `false` | Alpha | 1.14 | |
+| `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
+| `CSIMigration` | `false` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | |
-| `CSIMigrationGCE` | `false` | Alpha | 1.14 | |
+| `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
+| `CSIMigrationGCE` | `false` | Beta | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | |
