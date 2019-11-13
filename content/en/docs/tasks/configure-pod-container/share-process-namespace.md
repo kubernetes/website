@@ -25,7 +25,7 @@ include debugging utilities like a shell.
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{% /capture %}}
 
