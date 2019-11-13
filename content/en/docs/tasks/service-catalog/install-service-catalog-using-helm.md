@@ -39,14 +39,15 @@ helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
 Check to make sure that it installed successfully by executing the following command:
 
 ```shell
-helm search service-catalog
+helm search repo service-catalog
 ```
 
 If the installation was successful, the command should output the following:
 
 ```
 NAME            VERSION DESCRIPTION
-svc-cat/catalog 0.0.1   service-catalog API server and controller-manag...
+svc-cat/catalog     	0.2.1        	           	service-catalog API server and controller-manag...
+svc-cat/catalog-v0.2	0.2.2        	           	service-catalog API server and controller-manag...
 ```
 
 ## Enable RBAC
