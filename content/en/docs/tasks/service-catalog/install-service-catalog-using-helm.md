@@ -45,8 +45,9 @@ helm search service-catalog
 If the installation was successful, the command should output the following:
 
 ```
-NAME            VERSION DESCRIPTION
-svc-cat/catalog 0.0.1   service-catalog API server and controller-manag...
+NAME                	CHART VERSION	APP VERSION	DESCRIPTION                                                 
+svc-cat/catalog     	0.2.1        	           	service-catalog API server and controller-manager helm chart
+svc-cat/catalog-v0.2	0.2.2        	           	service-catalog API server and controller-manager helm chart
 ```
 
 ## Enable RBAC
