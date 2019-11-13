@@ -397,7 +397,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ProcMountType`: Enables control over ProcMountType for containers.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
-  More details can be found [here](/docs/tasks/administer-cluster/storage-object-in-use-protection/).
 - `QOSReserved`: Allows resource reservations at the QoS level preventing pods at lower QoS levels from
   bursting into resources requested at higher QoS levels (memory only for now).
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
