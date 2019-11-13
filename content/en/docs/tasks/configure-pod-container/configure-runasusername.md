@@ -11,7 +11,7 @@ weight: 20
 This page shows how to enable and use the `RunAsUserName` feature for pods and containers that will run on Windows nodes. This feature is meant to be the Windows equivalent of the Linux-specific `runAsUser` feature, allowing users to run the container entrypoints with a different username that their default ones.
 
 {{< note >}}
-Currently this feature is in beta state. The overall functionality of the feature will not change, but there may be some changes regarding the username validation. Please take this into consideration when testing or adopting this feature.
+This feature is in beta. The overall functionality for `RunAsUserName` will not change, but there may be some changes regarding the username validation.
 {{< /note >}}
 
 {{% /capture %}}
@@ -19,20 +19,6 @@ Currently this feature is in beta state. The overall functionality of the featur
 {{% capture prerequisites %}}
 
 You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads will get scheduled.
-
-
-### Enable the WindowsRunAsUserName feature gate
-
-In the beta state, the `WindowsRunAsUserName` feature gate is enabled by default on the `kube-apiserver` service. 
-
-{{< note >}}
-If you need to disable this later, you can set `feature-gates=WindowsRunAsUserName=false` in the `kube-apiserver` command line. With the feature gate disabled, the `runAsUserName` field will be dropped from the pod's, container's, and init container's SecurityContexts. See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates.
-{{< /note >}}
-
-{{% /capture %}}
-
-{{% capture steps %}}
-
 
 ## Set the Username for a Pod
 
