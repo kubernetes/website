@@ -53,7 +53,7 @@ Vous n'avez pas besoin de mettre "kubernetes" dans le nom du fichier, car "kuber
 
 ## Ajout du titre du sujet à l'entête
 
-In your topic, put a `title` field in the [front matter](https://jekyllrb.com/docs/frontmatter/).
+Dans votre sujet, insérez un champ `title` dans l'entête [frontmatter](https://jekyllrb.com/docs/frontmatter/).
 L'entête est le bloc YAML qui se trouve entre les lignes à trois tirets en haut de la page.
 En voici un exemple :
 

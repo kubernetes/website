@@ -97,7 +97,7 @@ The raw data for glossary terms is stored at [https://github.com/kubernetes/webs
 
 ### Démonstration du glossaire
 
-Par exemple, l'include suivant dans les rendus de démarque est rendu à {{< glossary_tooltip text="cluster" term_id="cluster" >}} avec une infobulle :
+Par exemple, le snippet suivant est rendu à {{< glossary_tooltip text="cluster" term_id="cluster" >}} avec une infobulle :
 
 ````liquid
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
