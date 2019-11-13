@@ -141,7 +141,7 @@ If you're creating a new cluster, you can use a kubeadm [configuration file][con
       cluster-signing-key-file: /etc/kubernetes/pki/ca.key
   ```
 
-[cert-manager-issuer]: https://cert-manager.readthedocs.io/en/latest/tutorials/ca/creating-ca-issuer.html
+[cert-manager-issuer]: https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html
 [kcm]: /docs/reference/command-line-tools-reference/kube-controller-manager/
 [config]: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2
 
@@ -212,6 +212,7 @@ It is the responsibility of the CA to specify [the correct cert usages][cert-tab
 
 After a certificate is signed using your preferred method, the certificate and the private key must be copied to the PKI directory (by default `/etc/kubernetes/pki`).
 
+[cert-manager]: https://github.com/jetstack/cert-manager
 [openssl-ca]: https://superuser.com/questions/738612/openssl-ca-keyusage-extension
 [cfssl-usages]: https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170
 [certs]: /docs/setup/best-practices/certificates/
