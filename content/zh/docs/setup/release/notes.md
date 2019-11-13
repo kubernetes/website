@@ -896,7 +896,7 @@ Kubernetes 1.16 版本的四大主题如下：
 <!--
 - Switch to VM Update call in attach/detach disk operation, original CreateOrUpdate call may lead to orphaned VMs or blocked resources ([#81208](https://github.com/kubernetes/kubernetes/pull/81208), [@andyzhangx](https://github.com/andyzhangx))
 -->
-- 在附加或者分离磁盘操作中切换到 VM Update 调用，原始的 CreateOrUpdate 调用可能导致孤立的 VM 或资源阻塞。见 ([#81208](https://github.com/kubernetes/kubernetes/pull/81208)、[@andyzhangx](https://github.com/andyzhangx))。
+- 在关联或者摘除的磁盘操作中现使用 VM Update 调用，原来的 CreateOrUpdate 调用可能导致孤立的 VM 或资源阻塞。见 ([#81208](https://github.com/kubernetes/kubernetes/pull/81208)、[@andyzhangx](https://github.com/andyzhangx))。
 <!--
 - Fix azure disk naming matching issue due to case sensitive comparison ([#81720](https://github.com/kubernetes/kubernetes/pull/81720), [@andyzhangx](https://github.com/andyzhangx))
 -->
@@ -966,7 +966,8 @@ Kubernetes 1.16 版本的四大主题如下：
 <!--
 - kubeadm: fix a potential panic if kubeadm discovers an invalid, existing kubeconfig file ([#79165](https://github.com/kubernetes/kubernetes/pull/79165), [@neolit123](https://github.com/neolit123))
 -->
-- kubeadm：如果 kubeadm 发现无效的、现有的 kubeconfig 文件，则修复潜在的紧急情况。见 ([#79165](https://github.com/kubernetes/kubernetes/pull/79165)、[@neolit123](https://github.com/neolit123))。
+- kubeadm：修复了因 kubeadm 发现无效的、现有的 kubeconfig 文件而可能引起的崩溃问题。见 ([#79165](https://github.com/kubernetes/kubernetes/pull/79165)、[@neolit123](https://github.com/neolit123))。
+
 <!--
 - kubeadm: treat non-fatal errors as warnings when doing reset ([#80862](https://github.com/kubernetes/kubernetes/pull/80862), [@drpaneas](https://github.com/drpaneas))-->
 - kubeadm：重置时将非严重错误视为警告。见 ([#80862](https://github.com/kubernetes/kubernetes/pull/80862)、[@drpaneas](https://github.com/drpaneas))。
@@ -977,7 +978,7 @@ Kubernetes 1.16 版本的四大主题如下：
 <!--
 - kubeadm: fix "certificate-authority" files not being pre-loaded when using file discovery ([#80966](https://github.com/kubernetes/kubernetes/pull/80966), [@neolit123](https://github.com/neolit123))
 -->
-- kubeadm：修复使用文件发现时未预加载的 “证书颁发机构” 文件。见 ([#80966](https://github.com/kubernetes/kubernetes/pull/80966)、[@neolit123](https://github.com/neolit123))。
+- kubeadm：修复了使用文件发现时未预加载 “certificate-authority” 文件的问题。见 ([#80966](https://github.com/kubernetes/kubernetes/pull/80966)、[@neolit123](https://github.com/neolit123))。
 <!--
 - Add instruction to setup "Application Default Credentials" to run GCE Windows e2e tests locally. ([#81337](https://github.com/kubernetes/kubernetes/pull/81337), [@YangLu1031](https://github.com/YangLu1031))
 -->
@@ -1109,7 +1110,7 @@ Kubernetes 1.16 版本的四大主题如下：
 <!--
 ### Instrumentation
 -->
-### 仪器（Instrumentation）
+### 监控设施
 
 <!--
 - Kibana has been slightly revamped/improved in the latest version ([#80421](https://github.com/kubernetes/kubernetes/pull/80421), [@lostick](https://github.com/lostick))
@@ -1135,8 +1136,8 @@ Kubernetes 1.16 版本的四大主题如下：
 - Reduce kube-proxy CPU usage in IPVS mode when a large number of nodePort services exist. ([#79444](https://github.com/kubernetes/kubernetes/pull/79444), [@cezarsa](https://github.com/cezarsa))
 -->
 - kube-proxy 等待一段时间用来定义节点。见 ([#77167](https://github.com/kubernetes/kubernetes/pull/77167)、[@paulsubrata55](https://github.com/paulsubrata55))。
-- 将正常终止的日志级别增加到 `v=5`。见 ([#80100](https://github.com/kubernetes/kubernetes/pull/80100)、[@andrewsykim](https://github.com/andrewsykim))。
-- 当存在大量 nodePort 服务时，请减少 IPVS 模式下的 kube-proxy CPU 使用率。见 ([#79444](https://github.com/kubernetes/kubernetes/pull/79444)、[@cezarsa](https://github.com/cezarsa))。
+- 将体面终止的日志级别增加到 `v=5`。见 ([#80100](https://github.com/kubernetes/kubernetes/pull/80100)、[@andrewsykim](https://github.com/andrewsykim))。
+- 当存在大量 nodePort 服务时，减少 IPVS 模式下的 kube-proxy CPU 使用率。见 ([#79444](https://github.com/kubernetes/kubernetes/pull/79444)、[@cezarsa](https://github.com/cezarsa))。
 <!--
 - Fix in kube-proxy for SCTP nodeport service which only works for node's InternalIP, but doesn't work for other IPs present in the node when ipvs is enabled. ([#81477](https://github.com/kubernetes/kubernetes/pull/81477), [@paulsubrata55](https://github.com/paulsubrata55))
 - Ensure the `KUBE-MARK-DROP` chain in kube-proxy IPVS mode. The chain is ensured for both IPv4 and IPv6 in dual-stack operation. ([#82214](https://github.com/kubernetes/kubernetes/pull/82214), [@uablrek](https://github.com/uablrek))
@@ -1215,7 +1216,7 @@ Kubernetes 1.16 版本的四大主题如下：
 - Fix an issue that the correct PluginConfig.Args is not passed to the corresponding PluginFactory in kube-scheduler when multiple PluginConfig items are defined. ([#82483](https://github.com/kubernetes/kubernetes/pull/82483), [@everpeace](https://github.com/everpeace))
 - Take the context as the first argument of Schedule. ([#82119](https://github.com/kubernetes/kubernetes/pull/82119), [@wgliang](https://github.com/wgliang))
 -->
-- 添加一个 helper 函数来解码 scheduler 插件参数。见 ([#80696](https://github.com/kubernetes/kubernetes/pull/80696)、[@hex108](https://github.com/hex108))。
+- 添加一个工具函数来解码 scheduler 插件参数。见 ([#80696](https://github.com/kubernetes/kubernetes/pull/80696)、[@hex108](https://github.com/hex108))。
 - 修复抢占期间未调用过滤器插件。见 ([#81876](https://github.com/kubernetes/kubernetes/pull/81876)、[@wgliang](https://github.com/wgliang))。
 - 修复了以下问题：定义了多个 PluginConfig 项时，正确的 PluginConfig.Args 没有传递到 kube-scheduler 中的相应 PluginFactory。见 ([#82483](https://github.com/kubernetes/kubernetes/pull/82483)、[@everpeace](https://github.com/everpeace))。
 - 将上下文作为 Scheduler 的第一个参数。见 ([#82119](https://github.com/kubernetes/kubernetes/pull/82119)、[@wgliang](https://github.com/wgliang))。
@@ -1234,7 +1235,7 @@ Kubernetes 1.16 版本的四大主题如下：
 - Updates the `requestedToCapacityRatioArguments` to add resources parameter that allows the users to specify the resource name along with weights for each resource to score nodes based on the request to capacity ratio. ([#77688](https://github.com/kubernetes/kubernetes/pull/77688), [@sudeshsh](https://github.com/sudeshsh))
 - Add `UnschedulableAndUnresolvable` status code for scheduling framework ([#82034](https://github.com/kubernetes/kubernetes/pull/82034), [@alculquicondor](https://github.com/alculquicondor))
 -->
-- 在规范化得分阶段中，使用命名数组而不是分数数组。见 ([#80901](https://github.com/kubernetes/kubernetes/pull/80901)、[@draveness](https://github.com/draveness))。
+- 在规范化评分阶段，使用命名数组而不是分数数组。见 ([#80901](https://github.com/kubernetes/kubernetes/pull/80901)、[@draveness](https://github.com/draveness))。
 - 更新 `requestedToCapacityRatioArguments` 用于添加资源参数，该参数允许用户指定资源名称以及每种资源的权重，基于请求与容量之比为节点评分。见 ([#77688](https://github.com/kubernetes/kubernetes/pull/77688)、[@sudeshsh](https://github.com/sudeshsh))。
 - 为调度框架添加 `UnschedulableAndUnresolvable` 状态码。见 ([#82034](https://github.com/kubernetes/kubernetes/pull/82034)、[@alculquicondor](https://github.com/alculquicondor))。
 <!--
@@ -1417,7 +1418,7 @@ Kubernetes 1.16 版本的四大主题如下：
 <!--
 #### Added
 -->
-#### 添加
+#### 添加的依赖项
 
 - github.com/Azure/go-autorest/autorest/adal: [v0.5.0](https://github.com/Azure/go-autorest/autorest/adal/tree/v0.5.0)
 - github.com/Azure/go-autorest/autorest/date: [v0.1.0](https://github.com/Azure/go-autorest/autorest/date/tree/v0.1.0)
@@ -1479,7 +1480,7 @@ Kubernetes 1.16 版本的四大主题如下：
 <!--
 #### Changed
 -->
-#### 变更
+#### 变更了的依赖项
 
 - cloud.google.com/go: v0.34.0 → v0.38.0
 - github.com/Azure/azure-sdk-for-go: [v21.4.0+incompatible → v32.5.0+incompatible](https://github.com/Azure/azure-sdk-for-go/compare/v21.4.0...v32.5.0)
@@ -1571,7 +1572,7 @@ Kubernetes 1.16 版本的四大主题如下：
 <!--
 #### Removed
 -->
-#### 删除
+#### 删除的依赖项
 
 - github.com/Azure/go-autorest: [v11.1.2+incompatible](https://github.com/Azure/go-autorest/tree/v11.1.2)
 - github.com/codedellemc/goscaleio: [20e2ce2](https://github.com/codedellemc/goscaleio/tree/20e2ce2)
@@ -2139,19 +2140,27 @@ filename | sha512 hash
 * kubeadm: support any Linux kernel version newer than 3.10 ([#81623](https://github.com/kubernetes/kubernetes/pull/81623), [@neolit123](https://github.com/neolit123))
 * Added a metric 'apiserver_watch_events_sizes' that can be used to estimate sizes of watch events in the system. ([#80477](https://github.com/kubernetes/kubernetes/pull/80477), [@mborsz](https://github.com/mborsz))
 -->
-
+* kubeadm：打印 klog 级别大于 5 的错误的堆栈跟踪信息。见 ([#80937](https://github.com/kubernetes/kubernetes/pull/80937)、[@neolit123](https://github.com/neolit123))。
+* 修复了 iptables 代理模式可能会导致长时间延迟的问题。见 ([#80368](https://github.com/kubernetes/kubernetes/pull/80368)、[@danwinship](https://github.com/danwinship))。
+    * 在 RHEL 或 CentOS 7 上的超大型集群中更新服务或端点 IP。
+* kubeadm：支持任何 3.10 以上的 Linux 内核版本。见 ([#81623](https://github.com/kubernetes/kubernetes/pull/81623)、[@neolit123](https://github.com/neolit123))。
+* 添加了指标 'apiserver_watch_events_sizes'，可用于估计系统中监视事件的大小。见 ([#80477](https://github.com/kubernetes/kubernetes/pull/80477)、[@mborsz](https://github.com/mborsz))。
 <!--
 * NormalizeScore plugin set is removed from scheduler framework config API. Use ScorePlugin only. ([#80930](https://github.com/kubernetes/kubernetes/pull/80930), [@liu-cong](https://github.com/liu-cong))
 * kubeadm reset: unmount directories under "/var/lib/kubelet" for linux only ([#81494](https://github.com/kubernetes/kubernetes/pull/81494), [@Klaven](https://github.com/Klaven))
 * updates fluentd-elasticsearch docker image to fluentd 1.6.3 ([#80912](https://github.com/kubernetes/kubernetes/pull/80912), [@monotek](https://github.com/monotek))
 -->
-
+* 从 scheduler framework 配置 API 中删除了 NormalizeScore plugin，而是仅使用 ScorePlugin。见 ([#80930](https://github.com/kubernetes/kubernetes/pull/80930)、[@liu-cong](https://github.com/liu-cong))。
+* kubeadm reset：仅针对 Linux 卸载 "/var/lib/kubelet" 下的目录。见 ([#81494](https://github.com/kubernetes/kubernetes/pull/81494)、[@Klaven](https://github.com/Klaven))。
+* 将 fluentd-elasticsearch docker 镜像更新为 fluentd 1.6.3。见 ([#80912](https://github.com/kubernetes/kubernetes/pull/80912)、[@monotek](https://github.com/monotek))。
 <!--
 * Kubeadm now seamlessly migrates the CoreDNS Configuration when upgrading CoreDNS. ([#78033](https://github.com/kubernetes/kubernetes/pull/78033), [@rajansandeep](https://github.com/rajansandeep))
 * Introduce support for applying pod overhead to pod cgroups, if the PodOverhead feature is enabled. ([#79247](https://github.com/kubernetes/kubernetes/pull/79247), [@egernst](https://github.com/egernst))
 * Windows nodes on GCE now run with Windows Defender enabled. ([#81625](https://github.com/kubernetes/kubernetes/pull/81625), [@pjh](https://github.com/pjh))
 -->
-
+* 现在，Kubeadm 在升级 CoreDNS 时无差异地迁移 CoreDNS 配置。见 ([#78033](https://github.com/kubernetes/kubernetes/pull/78033)、[@rajansandeep](https://github.com/rajansandeep))。
+* 如果启用了 PodOverhead 功能，则将引入了 Pod 开销应用于 Pod cgroup 的支持。见 ([#79247](https://github.com/kubernetes/kubernetes/pull/79247)、[@egernst](https://github.com/egernst))。
+* GCE 上的 Windows 节点现在在启用 Windows 防护的情况下运行。见 ([#81625](https://github.com/kubernetes/kubernetes/pull/81625)、[@pjh](https://github.com/pjh))。
 
 # v1.16.0-beta.1
 
@@ -2225,18 +2234,36 @@ filename | sha512 hash
 -->
 ## 自 v1.16.0-alpha.3 起的变更日志
 
+<!--
 ### Action Required
+-->
+### 需要进行的操作
 
+<!--
 * scheduler.alpha.kubernetes.io/critical-pod annotation is removed. Pod priority (spec.priorityClassName) should be used instead to mark pods as critical. Action required! ([#80342](https://github.com/kubernetes/kubernetes/pull/80342), [@draveness](https://github.com/draveness))
 * Removed cadvisor metric labels `pod_name` and `container_name` to match instrumentation guidelines. ([#80376](https://github.com/kubernetes/kubernetes/pull/80376), [@ehashman](https://github.com/ehashman))
     * Action required: any Prometheus queries that match `pod_name` and `container_name` labels (e.g. cadvisor or kubelet probe metrics) must be updated to use `pod` and `container` instead.
 * Remove DirectCodecFactory(replace with serializer.WithoutConversionCodecFactory), DirectEncoder(replace with runtime.WithVersionEncoder) and DirectDecoder(replace with runtime.WithoutVersionDecoder). action required ([#79263](https://github.com/kubernetes/kubernetes/pull/79263), [@draveness](https://github.com/draveness))
+-->
+* 删除了 scheduler.alpha.kubernetes.io/critical-pod 注解。应使用 Pod priority（spec.priorityClassName）将 Pod 标记为关键。这是必须要进行的操作。见 ([#80342](https://github.com/kubernetes/kubernetes/pull/80342)、[@draveness](https://github.com/draveness))。
+* 删除了 cadvisor 指标标签 `pod_name` 和 `container_name` 以符合仪器指南。见 ([#80376](https://github.com/kubernetes/kubernetes/pull/80376)、[@ehashman](https://github.com/ehashman))。
+    * 需要进行的操作：标签的任何 Prometheus 查询（例如 cadvisor 或 kubelet 探测指标）都必须更新为使用 `pod` 和 `container` 标签。
+* 删除了 DirectCodecFactory（用 serializer.WithoutConversionCodecFactory 替换）、DirectEncoder（用 runtime.WithVersionEncoder 替换）和 DirectDecoder（用 runtime.WithoutVersionDecoder 替换）。这是必须要进行的操作。见 ([#79263](https://github.com/kubernetes/kubernetes/pull/79263)、[@draveness](https://github.com/draveness))。
 
+<!--
 ### Other notable changes
+-->
+### 其他值得注意的变化
 
+<!--
 * fix: detach azure disk issue using dangling error ([#81266](https://github.com/kubernetes/kubernetes/pull/81266), [@andyzhangx](https://github.com/andyzhangx))
 * Conversion webhooks can now indicate they support receiving and responding with `ConversionReview` API objects in the `apiextensions.k8s.io/v1` version by including `v1` in the `conversionReviewVersions` list in their CustomResourceDefinition. Conversion webhooks must respond with a ConversionReview object in the same apiVersion they receive. `apiextensions.k8s.io/v1` `ConversionReview` responses must specify a `response.uid` that matches the `request.uid` of the object they were sent. ([#81476](https://github.com/kubernetes/kubernetes/pull/81476), [@liggitt](https://github.com/liggitt))
 * The `CustomResourceDefinition` API type is promoted to `apiextensions.k8s.io/v1` with the following changes: ([#79604](https://github.com/kubernetes/kubernetes/pull/79604), [@liggitt](https://github.com/liggitt))
+-->
+* 修复使用 dangling 错误分离 Azure 磁盘的问题。见 ([#81266](https://github.com/kubernetes/kubernetes/pull/81266)、[@andyzhangx](https://github.com/andyzhangx))。
+* 转换 webhooks 现在可以通过将 `v1` 包含在 CustomResourceDefinition 的 `conversionReviewVersions` 列表中来表明它们支持 `apiextensions.k8s.io/v1` 版本的 `ConversionReview` API 对象的接收和响应。转换 webhooks 必须在收到的 apiVersion 中以 ConversionReview 对象作为响应。`apiextensions.k8s.io/v1` `ConversionReview` 响应必须指定一个 `response.uid`，该响应与发送对象的 `request.uid` 相匹配。见 ([#81476](https://github.com/kubernetes/kubernetes/pull/81476)、[@liggitt](https://github.com/liggitt))。
+* 通过以下更改，将 `CustomResourceDefinition` API 类型升级为 `apiextensions.k8s.io/v1`：见 ([#79604](https://github.com/kubernetes/kubernetes/pull/79604)、[@liggitt](https://github.com/liggitt))。
+    <!--
     * Use of the new `default` feature in validation schemas is limited to v1
     * `spec.scope` is no longer defaulted to `Namespaced` and must be explicitly specified
     * `spec.version` is removed; use `spec.versions` instead
@@ -2248,16 +2275,43 @@ filename | sha512 hash
     * `spec.versions[*].schema.openAPIV3Schema` is now required when creating v1 CustomResourceDefinitions
     * `spec.preserveUnknownFields: true` is disallowed when creating v1 CustomResourceDefinitions; it must be specified within schema definitions as `x-kubernetes-preserve-unknown-fields: true`
     * In `additionalPrinterColumns` items, the `JSONPath` field was renamed to `jsonPath` (fixes https://github.com/kubernetes/kubernetes/issues/66531)
+    -->
+    * 通过以下更改将 `CustomResourceDefinition` API 类型升级为 `apiextensions.k8s.io/v1`：
+    * `spec.scope` 不再默认为 `Namespaced`，必须明确指定 `spec.scope`
+    * 删除了 `spec.version`；改用 `spec.versions`
+    * 删除了 `spec.validation`；改用 `spec.versions[*].schema`
+    * 删除了 `spec.subresources`；改用 `spec.versions[*].subresources`
+    * 删除了 `spec.additionalPrinterColumns`；改用 `spec.versions[*].additionalPrinterColumns`
+    * 将 `spec.conversion.webhookClientConfig` 移至 `spec.conversion.webhook.clientConfig`
+    * 将 `spec.conversion.conversionReviewVersions` 移至 `spec.conversion.webhook.conversionReviewVersions`
+    * 现在，在创建 v1 CustomResourceDefinitions 时需要 `spec.versions[*].schema.openAPIV3Schema`
+    * 创建 v1 CustomResourceDefinitions 时不允许使用 `spec.preserveUnknownFields: true`；必须在模式定义中将其指定为 `x-kubernetes-preserve-unknown-fields: true`。
+    * 在 `additionalPrinterColumns` 项目中，将 `JSONPath` 字段重命名为 `jsonPath`，见 [参考](https://github.com/kubernetes/kubernetes/issues/66531)。
+<!--
 * openapi now advertises correctly supported patch types for custom resources ([#81515](https://github.com/kubernetes/kubernetes/pull/81515), [@liggitt](https://github.com/liggitt))
 * Kubelet could be run with no Azure identity without subscriptionId configured now. ([#81500](https://github.com/kubernetes/kubernetes/pull/81500), [@feiskyer](https://github.com/feiskyer))
     * A sample cloud provider configure is: '{"vmType": "vmss", "useInstanceMetadata": true}'.
 * Volumes specified in a pod but not used in it are no longer unnecessarily formatted, mounted and reported in `node.status.volumesInUse`. ([#81163](https://github.com/kubernetes/kubernetes/pull/81163), [@jsafrane](https://github.com/jsafrane))
+-->
+* openapi 现在可以为自定义资源发布其正确支持的补丁程序类型。见 ([#81515](https://github.com/kubernetes/kubernetes/pull/81515)、[@liggitt](https://github.com/liggitt))。
+* 如果现在没有配置 subscriptionId，则可以在没有 Azure 身份的情况下运行 kubelet。见 ([#81500](https://github.com/kubernetes/kubernetes/pull/81500)、[@feiskyer](https://github.com/feiskyer))。
+    * 一个云提供商配置示例为：'{"vmType": "vmss", "useInstanceMetadata": true}'。
+* 在 Pod 中指定但未在其中使用的卷不再需要在 `node.status.volumesInUse` 中格式化、安装和报告。见 ([#81163](https://github.com/kubernetes/kubernetes/pull/81163)、[@jsafrane](https://github.com/jsafrane))。
+<!--
 * kubeadm: use etcd's /health endpoint for a HTTP liveness probe on localhost instead of having a custom health check using etcdctl ([#81385](https://github.com/kubernetes/kubernetes/pull/81385), [@neolit123](https://github.com/neolit123))
 * kubeamd: use the --pod-network-cidr flag to init or use the podSubnet field in the kubeadm config to pass a comma separated list of pod CIDRs.  ([#79033](https://github.com/kubernetes/kubernetes/pull/79033), [@Arvinderpal](https://github.com/Arvinderpal))
 * Update to use go 1.12.9 ([#81489](https://github.com/kubernetes/kubernetes/pull/81489), [@BenTheElder](https://github.com/BenTheElder))
 * Update Azure SDK + go-autorest API versions ([#79574](https://github.com/kubernetes/kubernetes/pull/79574), [@justaugustus](https://github.com/justaugustus))
 * Extender bind should respect IsInterested ([#79804](https://github.com/kubernetes/kubernetes/pull/79804), [@yqwang-ms](https://github.com/yqwang-ms))
 * Add instruction to setup "Application Default Credentials" to run GCE Windows e2e tests locally.  ([#81337](https://github.com/kubernetes/kubernetes/pull/81337), [@YangLu1031](https://github.com/YangLu1031))
+-->
+* kubeadm：使用 etcd 的 /health 端点进行本地主机上的 HTTP 活跃探针操作，而不是使用 etcdctl 进行自定义健康检查。见 ([#81385](https://github.com/kubernetes/kubernetes/pull/81385)、[@neolit123](https://github.com/neolit123))。
+* kubeamd：使用 --pod-network-cidr 参数进行初始化或使用 kubeadm 配置中的 podSubnet 字段传递以逗号分隔的 Pod CIDR 列表。见 ([#79033](https://github.com/kubernetes/kubernetes/pull/79033)、[@Arvinderpal](https://github.com/Arvinderpal))。
+* 更新 go 到 1.12.9。见 ([#81489](https://github.com/kubernetes/kubernetes/pull/81489)、[@BenTheElder](https://github.com/BenTheElder))。
+* 更新 Azure SDK + go-autorest API 版本。见 ([#79574](https://github.com/kubernetes/kubernetes/pull/79574)、[@justaugustus](https://github.com/justaugustus))。
+* Extender 绑定应该匹配 IsInterested。见 ([#79804](https://github.com/kubernetes/kubernetes/pull/79804)、[@yqwang-ms](https://github.com/yqwang-ms))。
+* 添加设置 “应用程序默认凭证” 说明，用于在本地运行 GCE Windows e2e 测试。见 ([#81337](https://github.com/kubernetes/kubernetes/pull/81337)、[@YangLu1031](https://github.com/YangLu1031))。
+<!--
 * Scheduler should terminate when it looses leader lock. ([#81306](https://github.com/kubernetes/kubernetes/pull/81306), [@ravisantoshgudimetla](https://github.com/ravisantoshgudimetla))
 * kubelet now exports an "kubelet_evictions" metric that counts the number of pod evictions carried out by the kubelet to reclaim resources ([#81377](https://github.com/kubernetes/kubernetes/pull/81377), [@sjenning](https://github.com/sjenning))
 * Return error when the scoring plugin returns score out of range [0, 100]. ([#81015](https://github.com/kubernetes/kubernetes/pull/81015), [@draveness](https://github.com/draveness))
@@ -2265,12 +2319,29 @@ filename | sha512 hash
 * kube-proxy --cleanup will return the correct exit code if the cleanup was successful ([#78775](https://github.com/kubernetes/kubernetes/pull/78775), [@johscheuer](https://github.com/johscheuer))
 * remove iSCSI volume storage cleartext secrets in logs ([#81215](https://github.com/kubernetes/kubernetes/pull/81215), [@zouyee](https://github.com/zouyee))
 * Use a named array instead of a score array in normalizing-score phase. ([#80901](https://github.com/kubernetes/kubernetes/pull/80901), [@draveness](https://github.com/draveness))
+-->
+* Scheduler 应在释放领导者 lock 锁时终止。见 ([#81306](https://github.com/kubernetes/kubernetes/pull/81306)、[@ravisantoshgudimetla](https://github.com/ravisantoshgudimetla))。
+* kubelet 现在新增一个 "kubelet_evictions" 指标，该指标统计 kubelet 为回收资源而执行的 Pod 驱逐的数量。见 ([#81377](https://github.com/kubernetes/kubernetes/pull/81377)、[@sjenning](https://github.com/sjenning))。
+* 当计分插件返回的分数超出 [0，100] 范围时，返回错误。见 ([#81015](https://github.com/kubernetes/kubernetes/pull/81015)、[@draveness](https://github.com/draveness))。
+* 更新 go 到 1.12.8。见 ([#81390](https://github.com/kubernetes/kubernetes/pull/81390)、[@cblecker](https://github.com/cblecker))。
+* 如果清除成功，则 kube-proxy --cleanup 将返回正确的退出代码。见 ([#78775](https://github.com/kubernetes/kubernetes/pull/78775)、[@johscheuer](https://github.com/johscheuer))。
+* 删除日志中的 iSCSI 卷存储明文秘密。见 ([#81215](https://github.com/kubernetes/kubernetes/pull/81215)、[@zouyee](https://github.com/zouyee))。
+* 在规范化评分阶段，使用命名数组而不是分数数组。见 ([#80901](https://github.com/kubernetes/kubernetes/pull/80901)、[@draveness](https://github.com/draveness))。
+<!--
 * If scheduler extender filtered a not found node, current scheduling round for this pod will just be skipped. ([#79641](https://github.com/kubernetes/kubernetes/pull/79641), [@yqwang-ms](https://github.com/yqwang-ms))
 * Update golang/x/net dependency to bring in fixes for CVE-2019-9512, CVE-2019-9514 ([#81394](https://github.com/kubernetes/kubernetes/pull/81394), [@cblecker](https://github.com/cblecker))
 * Fixes CVE-2019-11250: client-go header logging (at verbosity levels >= 7) now masks `Authorization` header contents ([#81330](https://github.com/kubernetes/kubernetes/pull/81330), [@tedyu](https://github.com/tedyu))
 * Resolves a transient 404 response to custom resource requests during server startup ([#81244](https://github.com/kubernetes/kubernetes/pull/81244), [@liggitt](https://github.com/liggitt))
 * Non nil DataSource entries on PVC's are now displayed as part of `describe pvc` output. ([#76463](https://github.com/kubernetes/kubernetes/pull/76463), [@j-griffith](https://github.com/j-griffith))
 * Fix Azure client requests stuck issues on http.StatusTooManyRequests (HTTP Code 429). ([#81279](https://github.com/kubernetes/kubernetes/pull/81279), [@feiskyer](https://github.com/feiskyer))
+-->
+* 如果 scheduler 扩展程序过滤了一个未找到的节点，则此 Pod 的当前调度回合将被跳过。见 ([#79641](https://github.com/kubernetes/kubernetes/pull/79641)、[@yqwang-ms](https://github.com/yqwang-ms))。
+* 更新 golang/x/net 相关依赖项，修复 CVE-2019-9512、CVE-2019-9514 相关问题。见 ([#81394](https://github.com/kubernetes/kubernetes/pull/81394)、[@cblecker](https://github.com/cblecker))。
+* 修复 CVE-2019-11250 问题：现在，client-go header（头部）日志记录（详细级别大于等于 7）掩盖了 `Authorization` 头部内容。见 ([#81330](https://github.com/kubernetes/kubernetes/pull/81330)、[@tedyu](https://github.com/tedyu))。
+* 解决服务器启动期间对自定义资源请求的瞬态 404 响应。见 ([#81244](https://github.com/kubernetes/kubernetes/pull/81244)、[@liggitt](https://github.com/liggitt))。
+* PVC 上的非 nil 数据源条目现在显示为 `describe pvc` 输出的一部分。见 ([#76463](https://github.com/kubernetes/kubernetes/pull/76463)、[@j-griffith](https://github.com/j-griffith))。
+* 修复 Azure 客户端请求在 http.StatusTooManyRequests（HTTP 代码 429）上卡住的问题。([#81279](https://github.com/kubernetes/kubernetes/pull/81279)、[@feiskyer](https://github.com/feiskyer))。
+<!--
 * Implement a new feature that allows applying kustomize patches to static pod manifests generated by kubeadm.  ([#80905](https://github.com/kubernetes/kubernetes/pull/80905), [@fabriziopandini](https://github.com/fabriziopandini))
 * Add a service annotation `service.beta.kubernetes.io/azure-pip-name` to specify the public IP name for Azure load balancer. ([#81213](https://github.com/kubernetes/kubernetes/pull/81213), [@nilo19](https://github.com/nilo19))
 * Fix a bug in the IPVS proxier where virtual servers are not cleaned up even though the corresponding Service object was deleted. ([#80942](https://github.com/kubernetes/kubernetes/pull/80942), [@gongguan](https://github.com/gongguan))
@@ -2278,22 +2349,50 @@ filename | sha512 hash
 * etcd Docker image can be run as non-root ([#79722](https://github.com/kubernetes/kubernetes/pull/79722), [@randomvariable](https://github.com/randomvariable))
 * kubeadm: the permissions of generated CSR files are changed from 0644 to 0600 ([#81217](https://github.com/kubernetes/kubernetes/pull/81217), [@SataQiu](https://github.com/SataQiu))
 * Fix conflicted cache when the requests are canceled by other Azure operations. ([#81282](https://github.com/kubernetes/kubernetes/pull/81282), [@feiskyer](https://github.com/feiskyer))
+-->
+* 实施一项新功能，该功能允许将 kustomize 修补程序应用于 kubeadm 生成的静态 pod 清单。见 ([#80905](https://github.com/kubernetes/kubernetes/pull/80905)、[@fabriziopandini](https://github.com/fabriziopandini))。
+* 添加服务注解 `service.beta.kubernetes.io/azure-pip-name`，用于指定 Azure 负载均衡器的公共 IP 名称。见 ([#81213](https://github.com/kubernetes/kubernetes/pull/81213)、[@nilo19](https://github.com/nilo19))。
+* 修复了 IPVS 代理中的一个错误，该错误是即使删除了相应的 Service 对象，也无法清理虚拟服务器。见 ([#80942](https://github.com/kubernetes/kubernetes/pull/80942)、[@gongguan](https://github.com/gongguan))。
+* 添加对 RuntimeClasses 的调度支持。现在，RuntimeClasses 可以指定 nodeSelector 约束和容忍度，并使用该 RuntimeClass 将约束和容忍合并到 PodSpec 中。见 ([#80825](https://github.com/kubernetes/kubernetes/pull/80825)、[@tallclair](https://github.com/tallclair))。
+* 可以以非 root 用户身份运行 etcd Docker 镜像。见 ([#79722](https://github.com/kubernetes/kubernetes/pull/79722)、[@randomvariable](https://github.com/randomvariable))。
+* kubeadm：生成的 CSR 文件的权限从 0644 更改为 0600。见 ([#81217](https://github.com/kubernetes/kubernetes/pull/81217)、[@SataQiu](https://github.com/SataQiu))。
+* 当其他 Azure 操作取消请求时，修复冲突的缓存问题。见  ([#81282](https://github.com/kubernetes/kubernetes/pull/81282)、[@feiskyer](https://github.com/feiskyer))。
+<!--
 * Fix kubelet NodeLease potential performance issues. Kubelet now will try to update lease using cached one instead of get from API Server every time. ([#81174](https://github.com/kubernetes/kubernetes/pull/81174), [@answer1991](https://github.com/answer1991))
 * Improves validation errors for custom resources ([#81212](https://github.com/kubernetes/kubernetes/pull/81212), [@liggitt](https://github.com/liggitt))
 * Improvement in Kube-proxy. Kube-proxy waits for some duration for the node to be defined. ([#77167](https://github.com/kubernetes/kubernetes/pull/77167), [@paulsubrata55](https://github.com/paulsubrata55))
 * hyperkube will drop support for cloud-controller-manager in a future release ([#81219](https://github.com/kubernetes/kubernetes/pull/81219), [@dims](https://github.com/dims))
 * added an new Prometheus counter metric "sync_proxy_rules_iptables_restore_failures_total" for kube-proxy iptables-restore failures (both ipvs and iptables modes) ([#81210](https://github.com/kubernetes/kubernetes/pull/81210), [@figo](https://github.com/figo))
-* Add a `Patch` method to `ScaleInterface` ([#80699](https://github.com/kubernetes/kubernetes/pull/80699), [@knight42](https://github.com/knight42))
+* Add a `Patch` method to `ScaleInterface` ([#80699](https://github.com/kubernetes/kubernetes/pull/80699), [@knight42](https://github.com/knight42)
+-->
+* 修复 kubelet 节点租赁潜在的性能问题。kubelet 现在将尝试使用缓存的租约来更新租约，而不是每次都从 API Server 获取租约。见 ([#81174](https://github.com/kubernetes/kubernetes/pull/81174)、[@answer1991](https://github.com/answer1991))。
+* 改进自定义资源的验证错误。([#81212](https://github.com/kubernetes/kubernetes/pull/81212)、[@liggitt](https://github.com/liggitt))。
+* 改进 kube-proxy。kube-proxy 等待一段时间以定义节点。见 ([#77167](https://github.com/kubernetes/kubernetes/pull/77167)、[@paulsubrata55](https://github.com/paulsubrata55))。
+* hyperkube 将在将来的版本中放弃对云控制器管理器的支持。见 ([#81219](https://github.com/kubernetes/kubernetes/pull/81219)、[@dims](https://github.com/dims))。
+* 在 ipvs 和 iptables 模式，为 kube-proxy iptables-restore 故障添加了新的 Prometheus 计数器指标 "sync_proxy_rules_iptables_restore_failures_total"。见 ([#81210](https://github.com/kubernetes/kubernetes/pull/81210)、[@figo](https://github.com/figo))。
+* 在 `ScaleInterface` 中添加 `Patch` 方法。见 ([#80699](https://github.com/kubernetes/kubernetes/pull/80699)、[@knight42](https://github.com/knight42))。
+<!--
 * switch to VM Update call in attach/detach disk operation, original CreateOrUpdate call may lead to orphaned VMs or blocked resources ([#81208](https://github.com/kubernetes/kubernetes/pull/81208), [@andyzhangx](https://github.com/andyzhangx))
 * Add a azure cloud configuration `LoadBalancerName` and `LoadBalancerResourceGroup` to allow the corresponding customizations of azure load balancer. ([#81054](https://github.com/kubernetes/kubernetes/pull/81054), [@nilo19](https://github.com/nilo19))
 * Update the GCE windows node image to include hot fixes since July. ([#81106](https://github.com/kubernetes/kubernetes/pull/81106), [@YangLu1031](https://github.com/YangLu1031))
 * Kubelet considers all static pods as critical. Static pods pass kubelet admission even if a node does not have enough resources. Users must ensure that they account for resources when creating static pods. ([#80491](https://github.com/kubernetes/kubernetes/pull/80491), [@hpandeycodeit](https://github.com/hpandeycodeit))
+-->
+* 在关联或者摘除的磁盘操作中现使用 VM Update 调用，原来的 CreateOrUpdate 调用可能导致孤立的 VM 或资源阻塞。见 ([#81208](https://github.com/kubernetes/kubernetes/pull/81208)、[@andyzhangx](https://github.com/andyzhangx))。
+* 添加 Azure 云配置 `LoadBalancerName` 和 `LoadBalancerResourceGroup`，用于允许对 Azure 负载均衡器进行相应的自定义。见 ([#81054](https://github.com/kubernetes/kubernetes/pull/81054)、[@nilo19](https://github.com/nilo19))。
+* 更新包含自 7 月以来的修补程序的 GCE Windows 节点镜像。见 ([#81106](https://github.com/kubernetes/kubernetes/pull/81106)、[@YangLu1031](https://github.com/YangLu1031))。
+* kubelet 认为所有静态 Pod 都是至关重要的。即使节点没有足够的资源，静态 Pod 也会通过 kubelet 准入准则。用户必须确保在创建静态 Pod 时占资源。见 ([#80491](https://github.com/kubernetes/kubernetes/pull/80491)、[@hpandeycodeit](https://github.com/hpandeycodeit))。
+<!--
 * kube-apiserver: the `--basic-auth-file` flag and authentication mode is deprecated and will be removed in a future release. It is not recommended for production environments. ([#81152](https://github.com/kubernetes/kubernetes/pull/81152), [@tedyu](https://github.com/tedyu))
 * Fix a bug that pretty printer marshals empty byte or uint8 slice as null ([#81096](https://github.com/kubernetes/kubernetes/pull/81096), [@roycaihw](https://github.com/roycaihw))
 * Deprecate the `--cloud-provider-gce-lb-src-cidrs` flag in the kube-apiserver. This flag will be removed once the GCE Cloud Provider is removed from kube-apiserver.  ([#81094](https://github.com/kubernetes/kubernetes/pull/81094), [@andrewsykim](https://github.com/andrewsykim))
 * cloud-controller-manager binaries and docker images are no longer shipped with kubernetes releases. ([#81029](https://github.com/kubernetes/kubernetes/pull/81029), [@dims](https://github.com/dims))
 * API: the metadata.selfLink field is deprecated in individual and list objects. It will no longer be returned starting in v1.20, and the field will be removed entirely in v1.21. ([#80978](https://github.com/kubernetes/kubernetes/pull/80978), [@wojtek-t](https://github.com/wojtek-t))
-
+-->
+* kube-apiserver：`--basic-auth-file` 参数和身份验证模式已弃用，在以后的版本中将被删除。所以不建议在生产环境中使用。见 ([#81152](https://github.com/kubernetes/kubernetes/pull/81152), [@tedyu](https://github.com/tedyu))。
+* 修复了 printer 函数 marshals 操作时，将空字节或 uint8 切片作为 null 的错误。见 ([#81096](https://github.com/kubernetes/kubernetes/pull/81096)、[@roycaihw](https://github.com/roycaihw))。
+* 弃用 kube-apiserver 中的 `--cloud-provider-gce-lb-src-cidrs` 参数。一旦从 kube-apiserver 中删除了 GCE 云提供商，该参数将被删除。见 ([#81094](https://github.com/kubernetes/kubernetes/pull/81094), [@andrewsykim](https://github.com/andrewsykim))。
+* kubernetes 版本不再附带 cloud-controller-manager 二进制文件和 docker 镜像。见 ([#81029](https://github.com/kubernetes/kubernetes/pull/81029)、[@dims](https://github.com/dims))。
+* API：`metadata.selfLink` 字段在单个和列表对象中已弃用。从 v1.20 开始将不再返回该字段，而在 v1.21 中将完全删除该字段。见 ([#80978](https://github.com/kubernetes/kubernetes/pull/80978)、[@wojtek-t](https://github.com/wojtek-t))。
 
 
 # v1.16.0-alpha.3
@@ -2364,15 +2463,26 @@ filename | sha512 hash
 -->
 ## 自 v1.16.0-alpha.2 起的变更日志
 
+<!--
 ### Action Required
+-->
+### 需要进行的操作
 
+<!--
 * ACTION REQUIRED: ([#80676](https://github.com/kubernetes/kubernetes/pull/80676), [@fabriziopandini](https://github.com/fabriziopandini))
     * kubeadm now deletes the bootstrap-kubelet.conf file after TLS bootstrap
     * User relying on bootstrap-kubelet.conf should switch to kubelet.conf that contains node credentials
+-->
+* 需要进行的操作：见 ([#80676](https://github.com/kubernetes/kubernetes/pull/80676)、[@fabriziopandini](https://github.com/fabriziopandini))。
+    * TLS 引导后，kubeadm 现在将删除 bootstrap-kubelet.conf 文件
+    * 依赖 bootstrap-kubelet.conf 文件的用户应切换到包含节点凭据的 kubelet.conf
 
+<!--
 ### Other notable changes
+-->
+### 其他值得注意的变化
 
-* Fixes validation of VolumeAttachment API objects created with inline volume sources. ([#80945](https://github.com/kubernetes/kubernetes/pull/80945), [@tedyu](https://github.com/tedyu))
+* Fixes validation of VolumeAttachment APIFixes validation of VolumeAttachment API objects created with inline volume sources. ([#80945](https://github.com/kubernetes/kubernetes/pull/80945), [@tedyu](https://github.com/tedyu))
 * Azure disks of shared kind will no longer fail if they do not contain skuname or  ([#80837](https://github.com/kubernetes/kubernetes/pull/80837), [@rmweir](https://github.com/rmweir))
     *     storageaccounttype.
 * kubeadm: fix "certificate-authority" files not being pre-loaded when using file discovery ([#80966](https://github.com/kubernetes/kubernetes/pull/80966), [@neolit123](https://github.com/neolit123))
@@ -2462,13 +2572,19 @@ filename | sha512 hash
 
 ## Changelog since v1.16.0-alpha.1
 
+<!--
 ### Action Required
+-->
+### 需要进行的操作
 
 * Revert "scheduler.alpha.kubernetes.io/critical-pod annotation is removed. Pod priority (spec.priorityClassName) should be used instead to mark pods as critical. Action required!" ([#80277](https://github.com/kubernetes/kubernetes/pull/80277), [@draveness](https://github.com/draveness))
 * ACTION REQUIRED: container images tar files for 'amd64' will now contain the architecture in the RepoTags manifest.json section. ([#80266](https://github.com/kubernetes/kubernetes/pull/80266), [@javier-b-perez](https://github.com/javier-b-perez))
     * If you are using docker manifests there are not visible changes.
 
+<!--
 ### Other notable changes
+-->
+### 其他值得注意的变化
 
 * Use HTTPS as etcd-apiserver protocol when mTLS between etcd and kube-apiserver on master is enabled, change etcd metrics/health port to 2382. ([#77561](https://github.com/kubernetes/kubernetes/pull/77561), [@wenjiaswe](https://github.com/wenjiaswe))
 * kubelet: change node-lease-renew-interval to 0.25 of lease-renew-duration ([#80429](https://github.com/kubernetes/kubernetes/pull/80429), [@gaorong](https://github.com/gaorong))
@@ -2557,7 +2673,10 @@ filename | sha512 hash
 
 ## Changelog since v1.15.0
 
+<!--
 ### Action Required
+-->
+### 需要进行的操作
 
 * Migrate scheduler to use v1beta1 Event API. action required: any tool targeting scheduler events needs to use v1beta1 Event API ([#78447](https://github.com/kubernetes/kubernetes/pull/78447), [@yastij](https://github.com/yastij))
 * scheduler.alpha.kubernetes.io/critical-pod annotation is removed. Pod priority (spec.priorityClassName) should be used instead to mark pods as critical. Action required! ([#79554](https://github.com/kubernetes/kubernetes/pull/79554), [@draveness](https://github.com/draveness))
@@ -2580,7 +2699,10 @@ filename | sha512 hash
 * ACTION REQUIRED: Removed deprecated flag `--resource-container` from kube-proxy. ([#78294](https://github.com/kubernetes/kubernetes/pull/78294), [@vllry](https://github.com/vllry))
     * The deprecated `--resource-container` flag has been removed from kube-proxy, and specifying it will now cause an error.  The behavior is now as if you specified `--resource-container=""`.  If you previously specified a non-empty `--resource-container`, you can no longer do so as of kubernetes 1.16.
 
+<!--
 ### Other notable changes
+-->
+### 其他值得注意的变化
 
 * When HPAScaleToZero feature gate is enabled HPA supports scaling to zero pods based on object or external metrics. HPA remains active as long as at least one metric value available. ([#74526](https://github.com/kubernetes/kubernetes/pull/74526), [@DXist](https://github.com/DXist))
     * To downgrade the cluster to version that does not support scale-to-zero feature:
