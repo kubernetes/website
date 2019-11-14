@@ -14,5 +14,5 @@ CIDR (Classless Inter-Domain Routing) is a notation for describing blocks of IP 
 
 <!--more-->
 
-In the Kubernetes concept, each node is assigned a range of IP addresses through the start address and a netmask. This allows nodes to assign each <Pod> a unique IP address.
+In the context of Kubernetes, each {{< glossary_tooltip text="Node" term_id="node" >}} is assigned a range of IP addresses through the start address and a subnet mask using CIDR. This allows Nodes to assign each {{< glossary_tooltip text="Pod" term_id="pod" >}} a unique IP address. Although originally a concept for IPv4, CIDR has also been expanded to include IPv6. 
 
