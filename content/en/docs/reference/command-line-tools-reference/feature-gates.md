@@ -150,8 +150,6 @@ different Kubernetes components.
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | |
-| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
-| `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
 | `WindowsGMSA` | `true` | Beta | 1.16 | |
@@ -239,6 +237,8 @@ different Kubernetes components.
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
 | `VolumeSubpath` | `true` | GA | 1.13 | - |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
+| `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | 1.16 |
 | `VolumeSubpathEnvExpansion` | `true` | GA | 1.17 | - |
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
