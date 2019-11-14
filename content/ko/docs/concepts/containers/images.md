@@ -279,7 +279,7 @@ GCE 및 자동 노드 교체를 수행하는 다른 클라우드 제공자에 �
 kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
-만약 Docer 자격 증명 파일이 이미 존재한다면, 위의 명령을 사용하지 않고, 
+만약 Docker 자격 증명 파일이 이미 존재한다면, 위의 명령을 사용하지 않고, 
 자격 증명 파일을 쿠버네티스 시크릿으로 가져올 수 있다.
 [기존 Docker 자격 증명으로 시크릿 생성](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)에서 관련 방법을 설명하고 있다.
 `kubectl create secret docker-registry`는 
