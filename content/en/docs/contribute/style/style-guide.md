@@ -146,6 +146,33 @@ Set the value of the `replicas` field in the configuration file. | Set the value
 The value of the `exec` field is an ExecAction object. | The value of the "exec" field is an ExecAction object.
 {{< /table >}}
 
+### Use code style for Kubernetes command tool and component names
+
+{{< table caption = "Do and Don't - Use code style for Kubernetes command tool and component names" >}}
+Do | Don't
+:--| :-----
+The `kubelet` preserves node stability. | The kubelet preserves node stability.
+The `kube-proxy` maintains network rules on nodes. | The kube-proxy maintains network rules on nodes.
+Kubectl handles locating and authenticating to the API server. | `kubectl` handles locating and authenticating to the apiserver.
+{{< /table >}}
+
+### Starting a sentence with a component tool or component name
+
+{{< table caption = "Do and Don't - Starting a sentence with a component tool or component name" >}}
+Do | Don't
+:--| :-----
+The `kube-apiserver` is designed to scale horizontally. | `kube-apiserver` is designed to scale horizontally.
+Kubectl handles locating and authenticating to the API server. | The Kubectl handles locating and authenticating to the apiserver.
+{{< /table >}}
+
+### Use a general descriptor over a specific component name
+
+{{< table caption = "Do and Don't - Use a general descriptor over a specific component name" >}}
+Do | Don't
+:--| :-----
+The Kubernetes API server offers an OpenAPI spec. | The apiserver offers an OpenAPI spec.
+{{< /table >}}
+
 ### Use normal style for string and integer field values
 
 For field values of type string or integer, use normal style without quotation marks.
