@@ -116,11 +116,16 @@ documentation for the plugins about what port(s) those need.
 
 ## Installing runtime {#installing-runtime}
 
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
+To run containers in Pods, Kubernetes uses a
+{{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
 
-Since v1.14.0, kubeadm will try to automatically detect the container runtime on Linux nodes
+By default, Kubernetes uses the
+{{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
+to interface with your chosen container runtime.
+
+kubeadm automatically tries to detect the container runtime on Linux nodes
 by scanning through a list of well known domain sockets. The detectable runtimes and the
-socket paths, that are used, can be found in the table below.
+socket paths that are tried are listed in the following table:
 
 | Runtime    | Domain Socket                    |
 |------------|----------------------------------|
@@ -133,18 +138,13 @@ needed, because Docker 18.09 ships with containerd and both are detectable.
 If any other two or more runtimes are detected, kubeadm will exit with an appropriate
 error message.
 
-On non-Linux nodes the container runtime used by default is Docker.
+On non-Linux nodes, kubeadm uses Docker as the default container runtime.
 
-If the container runtime of choice is Docker, it is used through the built-in
-`dockershim` CRI implementation inside of the `kubelet`.
+If you select Docker as your container runtime, or use that by default, the kubelet
+integrates with Docker through the built-in `dockershim` CRI implementation.
 
-Other CRI-based runtimes include:
-
-- [containerd/cri](https://github.com/containerd/cri) (CRI plugin built into containerd)
-- [cri-o](https://cri-o.io/)
-- [frakti](https://github.com/kubernetes/frakti)
-
-Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
+See [container runtimes](/docs/setup/production-environment/container-runtimes/)
+for more information.
 
 ## Installing kubeadm, kubelet and kubectl
 
