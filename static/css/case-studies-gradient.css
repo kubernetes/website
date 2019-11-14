@@ -1,4 +1,8 @@
-
+.flip-nav ul.global-nav li a, .open-nav ul.global-nav li a {
+  color:#303030 !important;
+}
+​
+​
 .article {
   width:100%;
   border:1px solid grey;
@@ -9,19 +13,19 @@
   font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
-  padding-top:8%;
+  padding-top:10%;
   padding-bottom:0.5%;
-  padding-left:8%;
+  padding-left:10%;
   font-size:1.2em;
   background:linear-gradient(to right, #2635e4, #c72f6c);
   background-size:100% auto;
   background-repeat:no-repeat;
 }
-
+​
 .image {
-
+padding-top:2% !important
 }
-
+​
 .overlay:before{
   position: absolute;
   content:" ";
@@ -34,42 +38,58 @@
   background:linear-gradient(to right, #2635e4, #c72f6c);
   opacity:0.8;
 }
-
-
+​
+​
 .article * {
     position: relative;
     /* hack */
 }
-
-
-a {color:white !important;}
-
+​
+.quoteauthortext {
+  font-size:14px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding-top:1%;
+}
+​
+​
 #caseStudyTitle {
     margin-top: 1em !important;
     font-family:"Roboto", sans-serif;
 }
-
+​
 p {
   font-family:"Roboto", sans-serif;
   padding-bottom:1%;
   padding-top:1%;
+  font-weight:300;
+  line-height:1.4em;
+  letter-spacing:0.03em;
 }
-
+​
+section {
+  font-family:"Roboto", sans-serif;
+  font-weight:300;
+  line-height:1.4em;
+  letter-spacing:0.03em;
+  padding:0px !important
+}
+​
 .header_logo {
   width:23%;
   margin-bottom:-0.6%;
   margin-left:10px;
 }
-
+​
 a {
   text-decoration:none;
   color:#3366ff;
 }
-
+​
 body {
   margin:0;
 }
-
+​
 h1 {
   font-family:"Roboto", sans-serif;
   font-weight:bold;
@@ -77,18 +97,17 @@ h1 {
   font-size:42px;
   padding-bottom:0px;
 }
-
+​
 .subhead {
   font-size:26px;
   font-weight:300;
-  line-height:40px;
+  line-height:1.4em;
   padding-bottom:2%;
   padding-right:10%;
   width:80%;
-
-  padding-top:0%;
+  padding-top:0.5%;
 }
-
+​
 .banner1 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
@@ -99,7 +118,7 @@ h1 {
   font-size:32px;
   background-size:100% auto;
 }
-
+​
 .greybanner {
   font-family:"Roboto", sans-serif;
   font-weight:300;
@@ -114,23 +133,23 @@ h1 {
   background-size:100% auto;
   background-color:#666666;
 }
-
+​
 .quotetext {
   font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
   padding-top:5%;
   margin-top:0;
-  padding-bottom:2%;
-  width:60%;
-  font-size:1.2em;
+  padding-bottom:5%;
+  width:80%;
+  font-size:1.3em;
   line-height:1.4em;
   letter-spacing:0.03em;
-  padding-right:20%;
+  padding-right:10%;
   text-align:center;
   margin:0 auto;
 }
-
+​
 .greyquotetext {
   font-family:"Roboto", sans-serif;
   font-weight:300;
@@ -139,15 +158,16 @@ h1 {
   text-align:center;
   margin:0 auto;
 }
-
+​
 h2 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
   font-size:24px;
-  line-height:34px;
+  line-height:1.4em;
+  padding-top:1.5%;
   color:#3366ff;
 }
-
+​
 .quote {
   font-family:"Roboto", sans-serif;
   font-weight:300;
@@ -155,18 +175,18 @@ h2 {
   line-height:32px;
   color:#3366ff;
 }
-
+​
 .details {
   font-family:"Roboto", sans-serif;
   font-weight:300;
   font-size:18px;
   color:#3366ff;
   letter-spacing:0.03em;
-  padding-bottom:1.5%;
+  padding-bottom:1%;
   padding-top:2%;
-  padding-left:8%;
+  padding-left:10%;
 }
-
+​
 hr {
   border-bottom:0px solid;
   width:100%;
@@ -174,25 +194,22 @@ hr {
   background-color:#999999;
   height:1px;
 }
-
+​
 .col1 {
   font-family:"Roboto", sans-serif;
-  font-weight:100;
   color:#606060;
-  line-height:20px;
   letter-spacing:0.03em;
-  font-size:14px;
+  width:100%;
 }
-
+​
 .col2 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  line-height:20px;
   color:#606060;
   letter-spacing:0.03em;
-  font-size:14px;
+​
 }
-
+​
 .fullcol {
   width:77%;
   margin-left:11%;
@@ -201,21 +218,24 @@ hr {
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  line-height:22px;
   color:#606060;
   letter-spacing:0.03em;
-  font-size:14px;
 }
-
+​
+.fullcol h2 {
+  padding-bottom:2%;
+​
+}
+​
+​
 .cols {
   width:80%;
-  margin-left:8%;
-  margin-top:3%;
+  margin-left:10%;
+  margin-top:2%;
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
-  font-weight:300;
 }
-
+​
 h4 {
   font-family:"Roboto", sans-serif;
   font-weight:400;
@@ -223,29 +243,37 @@ h4 {
   font-size:20px;
   padding-bottom:0px;
 }
-
+​
 .video {
   text-align: center;
   height: auto;
 }
-
+​
 @media screen and (max-width: 910px) {
-
-  .quotetext{
-
-    width:85%;
-    margin-left:%;
-    font-size:1em;
+​
+  .fullcol {
+    padding-top:2%;
+    padding-bottom:2%;
+    width:90%;
+    margin-left:5%;
   }
-
+​
+  .quotetext{
+    width:90%;
+    margin-left:2%;
+    font-size:1em;
+    padding-top:8%;
+    padding-bottom:8%;
+    padding-right:5%;
+  }
+​
   .greyquotetext{
-
     width:85%;
     margin-left:%;
     font-size:0.8em;
     line-height:1.4em;
   }
-
+​
   h1 {
     font-family: "Roboto", sans-serif;
     font-weight: bold;
@@ -255,46 +283,45 @@ h4 {
     padding-bottom: 0px;
     width: 80%;
   }
-
+​
   .header_logo {
     width: 35%;
     margin-bottom: -.5%;
     margin-left: 10px;
   }
-
+​
   .subhead {
-    font-size: 18px;
-    font-weight: 100;
-    line-height: 27px;
-
+    font-size:1em;
+    font-weight: 300;
+    line-height: 1.3em;
+    letter-spacing:0.02em;
+    padding-top:1%;
+    padding-bottom:4%;
   }
-
+​
   .details {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 1em;
     color: #3366ff;
     letter-spacing: 0.03em;
-    padding-bottom: 2%;
-    line-height: 28px;
+    padding-bottom: 0%;
+    line-height: 1.6em;
     padding-top: 1em;
     padding-left: 10%;
   }
-
+​
  .logo {
       width: 8%;
   }
-
+​
   .col1 {
     width: 95%;
     font-family: "Roboto", sans-serif;
-    font-weight: 300;
     color: #606060;
-    line-height: 20px;
     letter-spacing: 0.03em;
-    font-size: 14px;
   }
-
+​
   .col2 {
     width: 95%;
     padding-top: 2%;
@@ -306,35 +333,81 @@ h4 {
     letter-spacing: 0.03em;
     font-size: 14px;
   }
-
-
+​
   .fullcol {
     margin-top: 6%;
     margin-bottom: 8%;
   }
-
+​
   h2 {
-    line-height: 26px;
-    font-size: 18px;
+    line-height: 1.4px;
+    font-size:1.3px;
   }
-
+​
   .quote {
     font-size: 18px;
     line-height: 24px;
   }
-
+​
   .logo {
     width: 35%;
   }
+​
+  .article {
+    width:100%;
+    border:1px solid grey;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    color:white;
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:20%;
+    padding-bottom:0.5%;
+    padding-left:10%;
+    font-size:1.2em;
+    background:linear-gradient(to right, #2635e4, #c72f6c);
+    background-size:100% auto;
+    background-repeat:no-repeat;
+  }
+​
+  .image {
+  padding-top:2% !important
+  }
+​
+  .overlay:before{
+    position: absolute;
+    content:" ";
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display: block;
+    z-index:0;
+    background:linear-gradient(to right, #2635e4, #c72f6c);
+    opacity:0.8;
+  }
+  .cols {
+    width:90%;
+    margin-left:5%;
+    margin-bottom:10%;
+  }
+​
+​
 }
-
+​
 @media screen and (max-width: 580px){
-
+​
   .header_logo {
     width:60%;
     margin-bottom:1%;
     margin-left:0%;
     margin-top:2%;
-
+​
   }
 }
+Collapse
+
+
+
