@@ -28,7 +28,7 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 
 各Podはそれ自身のIPアドレスを持ちます。しかしDeploymentでは、ある時点において同時に稼働しているPodのセットは、その後のある時点において稼働しているPodのセットとは異なる場合があります。
 
-この仕組みはある問題を引き起こします。もしあるPodのセット(ここでは"backends"と呼びます)がクラスター内で他のPodのセット(ここでは"frontends"と呼びます)に対して機能を提供する場合、frontendsのPodがワークロードにおけるbackendsを使用するために、どのようにbackendsのPodのIPアドレスを探し出したり、記録し続けるでしょうか?  
+この仕組みはある問題を引き起こします。もし、あるPodのセット(ここでは"バックエンド"と呼びます)がクラスター内で他のPodのセット(ここでは"フロントエンド"と呼びます)に対して機能を提供する場合、フロントエンドのPodがワークロードにおけるバックエンドを使用するために、バックエンドのPodのIPアドレスを探し出したり、記録し続けるためにはどうすればよいでしょうか?  
 
 ここで_Service_ について説明します。
 
@@ -45,7 +45,7 @@ Serviceによる抽象化は、クライアントからバックエンドのPod�
 
 アプリケーション内でサービスディスカバリーのためにKubernetes APIが使える場合、ユーザーはエンドポイントを{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}に問い合わせることができ、またService内のPodのセットが変更された時はいつでも更新されたエンドポイントの情報を取得できます。
 
-非ネイティブなアプリケーションのために、Kubernetesは、アプリケーションとバックエンドPodの間で、ネットワークポートや、ロードバランサーを配置する方法を提供します。 
+非ネイティブなアプリケーションのために、KubernetesはアプリケーションとバックエンドPodの間で、ネットワークポートやロードバランサーを配置する方法を提供します。 
 
 ## Serviceの定義
 
@@ -168,7 +168,7 @@ kube-proxyは、どのバックエンドPodを使うかを決める際にService
 
 ![user-spaceプロキシーのService概要ダイアグラム](/images/docs/services-userspace-overview.svg)
 
-### `iptables` プロキシーモード {#proxy-mode-iptables}
+### `iptables`プロキシーモード {#proxy-mode-iptables}
 
 このモードでは、kube-proxyはServiceやEndpointオブジェクトの追加・削除のチェックのためにKubernetesコントロールプレーンを監視します。  
 各Serviceでは、そのServiceの`clusterIP`と`port`に対するトラフィックをキャプチャするiptablesルールをインストールし、そのトラフィックをServiceのあるバックエンドのセットに対してリダイレクトします。  
