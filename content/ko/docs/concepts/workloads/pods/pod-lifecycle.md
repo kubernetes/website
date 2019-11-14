@@ -278,9 +278,9 @@ kubelet에 의해서 재시작되는 종료된 컨테이너는
 ## 파드의 일생(lifetime)
 
 일반적으로, 파드는 사람 혹은 컨트롤러의 프로세스가 명시적으로 파드를 삭제할 때까지 남아 있다.
-컨트롤 플레인은 파드의 수가 설정된 임계치 (kube-controller-manager에서
-`terminated-pod-gc-threshold`에 의해 결정되는) 를 초과할 때,
-종료된 파드들 (`Succeeded` 또는 `Failed` 단계) 을 정리한다.
+컨트롤 플레인은 파드의 수가 설정된 임계치(kube-controller-manager에서
+`terminated-pod-gc-threshold`에 의해 결정)를 초과할 때,
+종료된 파드들(`Succeeded` 또는 `Failed` 단계)을 정리한다.
 이로써 시간이 지남에 따라 파드가 생성되고 종료되어 리소스 누수를 피할 수 있다.
 
 세 가지 유형의 컨트롤러를 사용할 수 있다.
