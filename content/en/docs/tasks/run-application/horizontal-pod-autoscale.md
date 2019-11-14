@@ -3,6 +3,7 @@ reviewers:
 - fgrzadkowski
 - jszczepkowski
 - directxman12
+- josephburnett
 title: Horizontal Pod Autoscaler
 feature:
   title: Horizontal scaling
@@ -162,11 +163,15 @@ can be fetched, scaling is skipped. This means that the HPA is still capable
 of scaling up if one or more metrics give a `desiredReplicas` greater than
 the current value.
 
-Finally, just before HPA scales the target, the scale recommendation is recorded.  The
-controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
-This means that scaledowns will occur gradually, smoothing out the impact of rapidly
-fluctuating metric values.
+Finally, just before HPA scales the target, the scale recommendation is
+recorded.  The controller considers all recommendations within a configurable
+window choosing the highest recommendation from within that window. This value
+can be configured using the
+`--horizontal-pod-autoscaler-downscale-stabilization` flag or the HPA object
+behavior `behavior.scaleDown.stabilizationWindowSeconds` (see [Support for
+configurable scaling behavior](#support-for-configurable-scaling-behavior)),
+which defaults to 5 minutes.  This means that scaledowns will occur gradually,
+smoothing out the impact of rapidly fluctuating metric values.
 
 ## API Object
 
@@ -213,10 +218,7 @@ When managing the scale of a group of replicas using the Horizontal Pod Autoscal
 it is possible that the number of replicas keeps fluctuating frequently due to the
 dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing*.
 
-Starting from v1.6, a cluster operator can mitigate this problem by tuning
-the global HPA settings exposed as flags for the `kube-controller-manager` component:
-
-Starting from v1.12, a new algorithmic update removes the need for the
+Starting from v1.12, a new algorithmic update removes the need for an
 upscale delay.
 
 - `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
@@ -231,6 +233,11 @@ that the Horizontal Pod Autoscaler is not responsive to workload changes. Howeve
 the delay value is set too short, the scale of the replicas set may keep thrashing as
 usual.
 {{< /note >}}
+
+Starting from v1.17 the downscale stabilization window can be set on a per-HPA
+basis by setting the `behavior.scaleDown.stabilizationWindowSeconds` field in
+the v2beta2 API. See [Support for configurable scaling
+behavior](#support-for-configurable-scaling-behavior).
 
 ## Support for multiple metrics
 
@@ -281,6 +288,98 @@ and [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/maste
 
 For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
+
+## Support for configurable scaling behavior
+
+Starting from
+[v1.17](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+the v2beta2 API allows scale behavior to be configured through the HPA
+`behavior` field. Behaviors are specified separately for scaling up and down. In
+each direction a stabilization window can be specified as well as a list of
+policies and how to select amongst them. Policies can limit the absolute number
+of pods added or removed, or the percentage of pods added or removed.
+
+### Defaults
+
+New v2beta2 API objects are given default behavior values which match existing
+v1 HPA behavior. This includes a 5 minute scale down stabilization window (or
+the value of the `--horizontal-pod-autoscaler-downscale-stabilization` flag if
+provided) and the maximum of 4 pods and 2x scale up limit.
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+  scaleUp:
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type Pods
+      value: 4
+      periodSeconds: 15
+    selectPolicy: Max
+```
+
+### Example: change downscale stabilization window
+
+To provide a custom downscale stabilization window of 1 minute, the following
+behavior would be added to the HPA:
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 60
+```
+
+### Example: limit scale down rate
+
+To limit the rate at which pods are removed by the HPA to 10% per minute, the
+following behavior would be added to the HPA:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+To allow a final drop of 5 pods, another policy can be added and a selection
+strategy of minimum:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+    - type: Pods
+      value: 5
+      periodSeconds: 60
+    selectPolicy: Max
+```
+
+{{< note >}}
+The `selectPolicy` value of `Max` means the maximum change in the direction of
+scale. So for scale up policies `Max` will select the largest number of
+pods. For scale down policies `Max` will select the smallest number of
+pods. Likewise for scale up policies `Min` will select the smallest number of
+pods. And for scale down policies `Min` will select the largest number of pods.
+{{< /note >}}
+
+### Example: disable scale down
+
+The `selectPolicy` value of `Disabled` turns off scaling the given direction.
+So to prevent downscaling the following policy would be used:
+
+```yaml
+behavior:
+  scaleDown:
+    selectPolicy: Disabled
+```
 
 {{% /capture %}}
 
