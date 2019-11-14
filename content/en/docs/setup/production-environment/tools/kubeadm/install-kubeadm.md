@@ -119,13 +119,16 @@ documentation for the plugins about what port(s) those need.
 To run containers in Pods, Kubernetes uses a
 {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
 
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux nodes" %}}
+
 By default, Kubernetes uses the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
 to interface with your chosen container runtime.
 
-kubeadm automatically tries to detect the container runtime on Linux nodes
-by scanning through a list of well known domain sockets. The detectable runtimes and the
-socket paths that are tried are listed in the following table:
+kubeadm automatically tries to detect the container runtime
+by scanning through a list of well known Unix domain sockets. The detectable
+runtimes and the socket paths that are tried are:
 
 | Runtime    | Domain Socket                    |
 |------------|----------------------------------|
@@ -133,15 +136,26 @@ socket paths that are tried are listed in the following table:
 | containerd | /run/containerd/containerd.sock  |
 | CRI-O      | /var/run/crio/crio.sock          |
 
+<br />
 If both Docker and containerd are detected together, Docker takes precedence. This is
 needed, because Docker 18.09 ships with containerd and both are detectable.
 If any other two or more runtimes are detected, kubeadm will exit with an appropriate
 error message.
 
-On non-Linux nodes, kubeadm uses Docker as the default container runtime.
+If you select Docker as your container runtime, or use that by default, the kubelet
+integrates with Docker through Docker's built-in `dockershim` CRI implementation.
+
+{{% /tab %}}
+{{% tab name="other operating systems" %}}
+By default, kubeadm selects {{< glossary_tooltip term_id="docker" >}} as the container runtime.
 
 If you select Docker as your container runtime, or use that by default, the kubelet
-integrates with Docker through the built-in `dockershim` CRI implementation.
+integrates with Docker through Docker's built-in `dockershim`
+{{< glossary_tooltip term_id="cri" text="CRI">}}
+implementation.
+{{% /tab %}}
+{{< /tabs >}}
+
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
