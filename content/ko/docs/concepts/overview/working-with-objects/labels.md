@@ -150,8 +150,8 @@ _집합성 기준_ 요건은 _일치성 기준_ 요건과 조합해서 사용할
 
 LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 오브젝트 집합을 필터링하기 위해 레이블 셀렉터를 지정할 수 있다. 다음의 2가지 요건 모두 허용된다(URL 쿼리 문자열을 그대로 표기함).
 
-  * _불일치 기준_ 요건: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
-  * _집합성 기준_ 요건: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
+  * _불일치 기준_ 요건: `?labelSelector=environment=production,tier=frontend`
+  * _집합성 기준_ 요건: `?labelSelector=environment+in+(production,qa),tier+in+(frontend)`
 
 두 가지 레이블 셀렉터 스타일은 모두 REST 클라이언트를 통해 선택된 리소스를 확인하거나 목록을 볼 수 있다. 예를 들어, `kubectl`로 `API 서버`를 대상으로 _불일치 기준_으로 하는 셀렉터를 다음과 같이 이용할 수 있다.
 
