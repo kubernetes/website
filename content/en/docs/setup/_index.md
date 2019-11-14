@@ -73,6 +73,7 @@ The following production environment solutions table lists the providers and the
 | [Banzai Cloud Pipeline Kubernetes Engine (PKE)](https://banzaicloud.com/products/pke/) | | &#x2714; | | &#x2714; | &#x2714; | &#x2714; |
 | [CenturyLink Cloud](https://www.ctl.io/)     |       | &#x2714; |   |  | |
 | [Cisco Container Platform](https://cisco.com/go/containers)     |       |  | &#x2714;  |  | |
+| [Civo](https://www.civo.com)     | &#x2714;|  | |  | |
 | [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)       |     |  |   | &#x2714; |&#x2714; |
 | [CloudStack](https://cloudstack.apache.org/)           |      |  |   | | &#x2714;|
 | [Canonical](https://ubuntu.com/kubernetes)      |       &#x2714;       | &#x2714;       |      &#x2714;       | &#x2714;     |&#x2714;  | &#x2714;
