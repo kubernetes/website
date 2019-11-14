@@ -231,6 +231,7 @@ The following cloud providers have implemented CCMs:
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
+* [TencentCloud](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)
 
 ## Cluster Administration
 
