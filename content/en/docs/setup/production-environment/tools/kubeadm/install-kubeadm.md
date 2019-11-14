@@ -170,7 +170,7 @@ For information about installing `kubectl`, see [Install and set up kubectl](/do
 {{< warning >}}
 These instructions exclude all Kubernetes packages from any system upgrades.
 This is because kubeadm and Kubernetes require
-[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/).
+[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 {{</ warning >}}
 
 For more information on version skews, see:
