@@ -1,0 +1,62 @@
+---
+title: "Первоклассная оркестрация контейнеров"
+abstract: "Автоматизированное развёртывание, масштабирование и управление контейнерами."
+cid: home
+---
+
+{{< deprecationwarning >}}
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) - это открытое программное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями.
+
+Kubernetes группирует контейнеры, составляющие приложение, в логические единицы для более простого управления и обнаружения. При создании Kubernetes использован [15-тилетний опыт эксплуатации production нагрузок Google](http://queue.acm.org/detail.cfm?id=2898444), совмещённый с лучшими идеями и практиками сообщества.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Глобальный масштаб
+
+Разработанный на тех же принципах, которые позволяют Google запускать миллиарды контейнеров в неделю, Kubernetes может масштабироваться без увеличения вашей команды поддержки.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Никогда не перерасти
+
+Независимо от того, проводите ли вы локальное тестирование или работаете в корпорации, гибкость Kubernetes растёт вместе с вами, обеспечивая бесперебойную и простую доставку приложений независимо от сложности ваших потребностей.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### Запускайте где угодно
+
+Kubernetes - ПО с открытым исходным кодом, дающее вам возможность использовать преимущества гибкой (on-premises), гибридной или публичной облачной инфраструктуры, позволяющее без усилий перемещать рабочие нагрузки в соответствии с вашими потребностями.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>О сложности миграции 150+ микросервисов в Kubernetes.</h2>
+        <p>Сара Уелльс, технический директор Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Смотреть видео</button>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2019" button id="desktopKCButton">Посетите KubeCon в Барселоне, 20-23 мая 2019</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2019" button id="desktopKCButton">Посетите KubeCon в Шанхае, 24-26 июня 2019</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}
