@@ -223,7 +223,9 @@ data:
   lives: "3"
 ```
 
+{{< caution >}}
 When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+{{< /caution >}}
 
 ```shell
 # Download the sample files into `configure-pod-container/configmap/` directory
