@@ -232,6 +232,8 @@ The following cloud providers have implemented CCMs:
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 * [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
+* [TencentCloud](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)
+
 
 ## Cluster Administration
 
