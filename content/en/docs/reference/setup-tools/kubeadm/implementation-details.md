@@ -1,6 +1,5 @@
 ---
 reviewers:
-- mikedanese
 - luxas
 - jbeda
 title: Implementation details
@@ -167,7 +166,7 @@ Kubeadm kubeconfig files with identities for control plane components:
 - A kubeconfig file for kubelet to use, `/etc/kubernetes/kubelet.conf`; inside this file is embedded a client certificate with kubelet identity.
   This client cert should:
     - Be in the `system:nodes` organization, as required by the [Node Authorization](/docs/reference/access-authn-authz/node/) module
-    - Have the CN `system:node:<hostname-lowercased>`
+    - Have the Common Name (CN) `system:node:<hostname-lowercased>`
 - A kubeconfig file for controller-manager, `/etc/kubernetes/controller-manager.conf`; inside this file is embedded a client
   certificate with controller-manager identity. This client cert should have the CN `system:kube-controller-manager`, as defined
 by default [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
@@ -203,7 +202,7 @@ Static Pod manifest share a set of common properties:
   * If using a local etcd server, `etcd-servers` address will be set to `127.0.0.1:2379`
 - Leader election is enabled for both the controller-manager and the scheduler
 - Controller-manager and the scheduler will reference kubeconfig files with their respective, unique identities
-- All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-args)
+- All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 - All static Pods gets any extra Volumes specified by the user (Host path)
 
 Please note that:
@@ -306,7 +305,7 @@ Please note that:
 2. in case of kubeadm is executed in the `--dry-run` mode, the etcd static Pod manifest is written in a temporary folder
 3. Static Pod manifest generation for local etcd can be invoked individually with the [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd) command
 
-### Optional Dynamic Kublet Configuration
+### Optional Dynamic Kubelet Configuration
 
 To use this functionality call `kubeadm alpha kubelet config enable-dynamic`. It writes the kubelet init configuration
 into `/var/lib/kubelet/config/init/kubelet` file.

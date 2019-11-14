@@ -8,7 +8,7 @@ weight: 100
 
 Horizontal Pod Autoscaler는
 CPU 사용량(또는 베타 지원의 다른 애플리케이션 지원 메트릭)을 관찰하여
-레플리케이션 컨트롤러, 디플로이먼트 또는 레플리카 셋의 파드 개수를 자동으로 스케일한다.
+레플리케이션 컨트롤러, 디플로이먼트, 레플리카 셋 또는 스테이트풀 셋의 파드 개수를 자동으로 스케일한다.
 
 이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다. Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
 
@@ -60,7 +60,7 @@ index.php는 CPU 과부하 연산을 수행한다.
 첫 번째 단계로, 실행 중인 이미지의 디플로이먼트를 시작하고 서비스로 노출시킨다.
 
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
 ```
 ```
 service/php-apache created
@@ -285,7 +285,7 @@ HorizontalPodAutoscaler는 각 메트릭에 대해 제안된 레플리카 개수
 `kubectl edit` 명령어를 이용하여 다음과 같이 정의를 업데이트 할 수 있다.
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -308,7 +308,9 @@ spec:
     pods:
       metric:
         name: packets-per-second
-      targetAverageValue: 1k
+      target:
+        type: AverageValue
+        averageValue: 1k
   - type: Object
     object:
       metric:

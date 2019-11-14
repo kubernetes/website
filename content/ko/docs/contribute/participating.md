@@ -201,22 +201,30 @@ SIG Docs 승인자가 되는 방법과
 GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-admins` GitHub 그룹의
 멤버만이 신규 멤버를 GitHub 그룹에 추가할 수 있다.
 
-#### 웹사이트 관리자 되기
+#### 승인자의 책임
 
-`kubernetes-website-admins` GitHub 그룹의 멤버는 GitHub 그룹의 멤버십을 관리할 수 있고
-리포지터리를 세팅하거나 웹훅(webhook)을 추가, 삭제하고 트러블슈팅하는 것을 포함한
-모든 관리 권한을 가질 수 있다.
-모든 SIG Docs 승인자가 이 수준의 액세스를 할 필요는 없다.
+승인자는 리뷰와 풀리퀘스트를 웹사이트 리포지터리에 머지하여 문서를 개선한다. 이 역할에는 추가적인 권한이 필요하므로, 승인자에게는 별도의 책임이 부여된다.
 
-만약 이 수준의 접근 권한이 필요하다면, 현재 웹사이트 관리자나
-[쿠버네티스 Slack](https://kubernetes.slack.com) #sig-docs 채널에서 말한다.
+- 승인자는 PR들을 리포에 머지하는 `/approve` 명령을 사용할 수 있다.
+
+    부주의한 머지로 인해 사이트를 파괴할 수 있으므로, 머지할 때에 그 의미를 확인해야 한다.
+
+- 제안된 변경이 컨트리뷰션 가이드 라인에 적합한지 확인한다.
+
+    질문이 생기거나 확실하지 않다면 자유롭게 추가 리뷰를 요청한다.
+
+- PR을 `/approve` 하기 전에 Netlify 테스트 결과를 검토한다.
+
+    <img src="/images/docs/contribute/netlify-pass.png" width="75%" alt="승인 전에 반드시 Netlify 테스트를 통과해야 한다" />
+
+- 승인 전에 PR에 대한 Netlify 프리뷰 페이지를 방문하여, 제대로 보이는지 확인한다.
 
 #### PR Wrangler
 
 SIG Docs 승인자는
-[PR Wrangler 로테이션 스케줄러](https://github.com/kubernetes/website/wiki/PR-Wranglers)에
-올라서 주 단위로 돌아가며 역할을 수행한다.
-모든 SIG Docs 승인자는 이 로테이션에 참여하게 된다. 보다 자세한 내용은
+[PR Wrangler 회람 스케줄러](https://github.com/kubernetes/website/wiki/PR-Wranglers)에
+참여하여 주 단위로 돌아가며 역할을 수행한다.
+SIG Docs는 모든 승인자들이 이 회람에 참여하기를 기대한다. 보다 자세한 내용은
 [일주일 간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 문서를 참고한다.
 

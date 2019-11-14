@@ -152,7 +152,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
 - Verify that the `$HOME/.kube/config` file contains a valid certificate, and
   regenerate a certificate if necessary. The certificates in a kubeconfig file
-  are base64 encoded. The `base64 -d` command can be used to decode the certificate
+  are base64 encoded. The `base64 --decode` command can be used to decode the certificate
   and `openssl x509 -text -noout` can be used for viewing the certificate information.
 - Unset the `KUBECONFIG` environment variable using:
 
@@ -170,6 +170,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
   ```sh
   mv  $HOME/.kube $HOME/.kube.bak
+  mkdir $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
@@ -197,15 +198,15 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 ```
 
 - This may be due to Kubernetes using an IP that can not communicate with other IPs on the seemingly same subnet, possibly by policy of the machine provider.
-- Digital Ocean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
+- DigitalOcean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
 
-  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to Digital Ocean allows to query for the anchor IP from the droplet:
+  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to DigitalOcean allows to query for the anchor IP from the droplet:
 
   ```sh
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using Digital Ocean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [`KubeletExtraArgs` section of the kubeadm `NodeRegistrationOptions` structure](https://github.com/kubernetes/kubernetes/blob/release-1.13/cmd/kubeadm/app/apis/kubeadm/v1beta1/types.go) can be used for this.
+  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using DigitalOcean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [`KubeletExtraArgs` section of the kubeadm `NodeRegistrationOptions` structure](https://github.com/kubernetes/kubernetes/blob/release-1.13/cmd/kubeadm/app/apis/kubeadm/v1beta1/types.go) can be used for this.
 
   Then restart `kubelet`:
 
@@ -312,7 +313,7 @@ the field will be omitted when marshalling. When the field is omitted, kubeadm a
 
 There are at least two workarounds:
 
-1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
 
 2. Remove the taint after kubeadm init exits:
 ```bash

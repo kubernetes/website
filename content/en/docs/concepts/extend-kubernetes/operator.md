@@ -69,7 +69,7 @@ detail:
      to provide durable database storage, a StatefulSet to run SampleDB and
      a Job to handle initial configuration.
    * If you delete it, the Operator takes a snapshot, then makes sure that
-     the the StatefulSet and Volumes are also removed.
+     the StatefulSet and Volumes are also removed.
 6. The operator also manages regular database backups. For each SampleDB
    resource, the operator determines when to create a Pod that can connect
    to the database and take backups. These Pods would rely on a ConfigMap

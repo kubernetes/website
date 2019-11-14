@@ -47,7 +47,7 @@ spec:
         image: k8s.gcr.io/cloud-controller-manager:v1.8.0
         command:
         - /usr/local/bin/cloud-controller-manager
-        - --cloud-provider=<YOUR_CLOUD_PROVIDER>   # Add your own cloud provider here!
+        - --cloud-provider=[YOUR_CLOUD_PROVIDER]  # Add your own cloud provider here!
         - --leader-elect=true
         - --use-service-account-credentials
         # these flags will vary for every cloud provider

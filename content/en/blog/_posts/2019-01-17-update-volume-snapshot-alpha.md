@@ -132,7 +132,7 @@ If a user deletes a `VolumeSnapshot` API object in active use by a PVC, the `Vol
 
 ## Which volume plugins support Kubernetes Snapshots?
 
-Snapshots are only supported for CSI drivers (not for in-tree or Flexvolume). To use the Kubernetes snapshots feature, ensure that a CSI Driver that implements snapshots is deployed on your cluster.
+Snapshots are only supported for CSI drivers (not for in-tree or FlexVolume). To use the Kubernetes snapshots feature, ensure that a CSI Driver that implements snapshots is deployed on your cluster.
 
 As of the publishing of this blog post, the following CSI drivers support snapshots:
 
@@ -141,7 +141,7 @@ As of the publishing of this blog post, the following CSI drivers support snapsh
 - [Ceph RBD CSI Driver](https://github.com/ceph/ceph-csi/tree/master/pkg/rbd)
 - [Portworx CSI Driver](https://github.com/libopenstorage/openstorage/tree/master/csi)
 - [GlusterFS CSI Driver](https://github.com/gluster/gluster-csi-driver)
-- [Digital Ocean CSI Driver](https://github.com/digitalocean/csi-digitalocean)
+- [DigitalOcean CSI Driver](https://github.com/digitalocean/csi-digitalocean)
 - [Ember CSI Driver](https://github.com/embercsi/ember-csi)
 - [Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/tree/master/pkg/csi/cinder)
 - [Datera CSI Driver](https://github.com/Datera/datera-csi)

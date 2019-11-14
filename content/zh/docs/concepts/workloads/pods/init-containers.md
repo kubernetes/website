@@ -188,7 +188,7 @@ pod "myapp-pod" created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml 
+$ kubectl describe -f myapp.yaml
 Name:          myapp-pod
 Namespace:     default
 [...]
@@ -255,7 +255,7 @@ myapp-pod   1/1       Running   0          9m
 
 在所有的 Init 容器没有成功之前，Pod 将不会变成 `Ready` 状态。
 Init 容器的端口将不会在 Service 中进行聚集。
-正在初始化中的 Pod 处于 `Pending` 状态，但应该会将条件 `Initializing` 设置为 true。
+正在初始化中的 Pod 处于 `Pending` 状态，但应该会将条件 `Initialized` 设置为 true。
 
 如果 Pod [重启](#pod-restart-reasons)，所有 Init 容器必须重新执行。
 
@@ -268,7 +268,7 @@ Init 容器的端口将不会在 Service 中进行聚集。
 特别地，被写到 `EmptyDirs` 中文件的代码，应该对输出文件可能已经存在做好准备。
 
 Init 容器具有应用容器的所有字段。
-然而 Kubernetes 禁止使用 `readinessProbe`，因为 Init 容器不能够定义不同于完成（completion）的就绪（readiness）。 
+然而 Kubernetes 禁止使用 `readinessProbe`，因为 Init 容器不能够定义不同于完成（completion）的就绪（readiness）。
 这会在验证过程中强制执行。
 
 

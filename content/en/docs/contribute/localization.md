@@ -42,7 +42,7 @@ cd website
 
 ### Open a pull request
 
-Next, [open a pull request](https://kubernetes.io/docs/contribute/start/#submit-a-pull-request) (PR) to add a localization to the `kubernetes/website` repository. 
+Next, [open a pull request](/docs/contribute/start/#submit-a-pull-request) (PR) to add a localization to the `kubernetes/website` repository. 
 
 The PR must include all of the [minimum required content](#minimum-required-content) before it can be approved.
 

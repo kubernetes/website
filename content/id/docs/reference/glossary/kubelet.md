@@ -6,7 +6,7 @@ full_link: /docs/reference/generated/kubelet
 short_description: >
   Agen yang dijalankan pada setiap <i>node</i> di kluster dan bertugas memastikan kontainer dijalankan di dalam pod.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object

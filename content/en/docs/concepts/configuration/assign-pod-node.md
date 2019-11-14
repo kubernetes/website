@@ -99,9 +99,8 @@ and influencing the scheduler to schedule workloads to the compromised node.
 The `NodeRestriction` admission plugin prevents kubelets from setting or modifying labels with a `node-restriction.kubernetes.io/` prefix.
 To make use of that label prefix for node isolation:
 
-1. Check that you're using Kubernetes v1.11+ so that NodeRestriction is available.
-2. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have _enabled_ the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
-3. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
+1. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have _enabled_ the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
+2. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
 For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
 
 ## Affinity and anti-affinity
@@ -119,9 +118,6 @@ The affinity feature consists of two types of affinity, "node affinity" and "int
 Node affinity is like the existing `nodeSelector` (but with the first two benefits listed above),
 while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
 described in the third item listed above, in addition to having the first and second properties listed above.
-
-`nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
-everything that `nodeSelector` can express.
 
 ### Node affinity
 
@@ -396,5 +392,9 @@ The above pod will run on the node kube-01.
 The design documents for
 [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
 and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
+
+Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
+The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can take part in node-level
+resource allocation decisions. 
 
 {{% /capture %}}

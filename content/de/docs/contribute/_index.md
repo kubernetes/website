@@ -8,11 +8,11 @@ weight: 80
 
 {{% capture overview %}}
 
-Wenn Sie an der Dokumentation oder der Website von Kubernetes mitwirken möchten, freuen wir uns über Ihre Hilfe! 
+Wenn Sie an der Dokumentation oder der Website von Kubernetes mitwirken möchten, freuen wir uns über Ihre Hilfe!
 Jeder kann seinen Beitrag leisten, unabhängig davon ob Sie neu im Projekt sind oder schon lange dabei sind, und ob Sie sich als
 Entwickler, Endbenutzer oder einfach jemanden, der es einfach nicht aushält, Tippfehler zu sehen sehen.
 
-Weitere Möglichkeiten, sich in der Kubernetes-Community zu engagieren oder mehr über uns zu erfahren, finden Sie auf der [Kubernetes-Community-Seite](/community/). 
+Weitere Möglichkeiten, sich in der Kubernetes-Community zu engagieren oder mehr über uns zu erfahren, finden Sie auf der [Kubernetes-Community-Seite](/community/).
 Informationen zum Handbuch zur Dokumentation von Kubernetes finden Sie im [Gestaltungshandbuch](/docs/contribute/style/style-guide/).
 
 {{% capture body %}}
@@ -20,12 +20,12 @@ Informationen zum Handbuch zur Dokumentation von Kubernetes finden Sie im [Gesta
 ## Arten von Mitwirkenden
 
 - Ein _Member_ der Kubernetes Organisation, hat die [CLA unterzeichnet](/docs/contribute/start#sign-the-cla)
-  und etwas Zeit und Energie zum Projekt beigetragen. 
-  Siehe [Community-Mitgliedschaft](https://github.com/kubernetes/community/blob/master/community-membership.md) für spezifische Kriterien bezüglich der Mitgliedschaft. 
-- Ein SIG Docs _Reviewer_ ist ein Mitglied der Kubernetes-Organisation, das Interesse an der Überprüfung von 
-  Dokumentationsanfragen geäußert hat und von einem SIG Docs Approver zu der entsprechenden Github-Gruppe 
+  und etwas Zeit und Energie zum Projekt beigetragen.
+  Siehe [Community-Mitgliedschaft](https://github.com/kubernetes/community/blob/master/community-membership.md) für spezifische Kriterien bezüglich der Mitgliedschaft.
+- Ein SIG Docs _Reviewer_ ist ein Mitglied der Kubernetes-Organisation, das Interesse an der Überprüfung von
+  Dokumentationsanfragen geäußert hat und von einem SIG Docs Approver zu der entsprechenden Github-Gruppe
   und den `OWNERS`-Dateien im Github-Repository hinzugefügt wurde.
-- Ein SIG Docs _approver_ ist ein Mitglied mit gutem Ansehen, das sich kontinuierlich für das Projekt engagiert hat. 
+- Ein SIG Docs _approver_ ist ein Mitglied mit gutem Ansehen, das sich kontinuierlich für das Projekt engagiert hat.
   Ein Approver kann Pull-Anfragen zusammenführen und Inhalte im Namen der Kubernetes-Organisation veröffentlichen.
   Approver können SIG Docs auch in der größeren Kubernetes-Community vertreten. Einige der Aufgaben eines SIG Docs Approvers, wie z.B. die Koordination einer Freigabe, erfordern einen erheblichen Zeitaufwand.
 

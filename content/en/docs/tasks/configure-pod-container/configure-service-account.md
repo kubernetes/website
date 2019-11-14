@@ -11,11 +11,8 @@ weight: 90
 {{% capture overview %}}
 A service account provides an identity for processes that run in a Pod.
 
-*This is a user introduction to Service Accounts. See also the
-[Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).*
-
 {{< note >}}
-This document describes how service accounts behave in a cluster set up
+This document is a user introduction to Service Accounts and describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project. Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
 not apply.
@@ -78,7 +75,7 @@ Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
 
 ```shell
-kubectl get serviceAccounts
+kubectl get serviceaccounts
 ```
 The output is similar to this:
 
@@ -113,7 +110,6 @@ metadata:
   name: build-robot
   namespace: default
   resourceVersion: "272500"
-  selfLink: /api/v1/namespaces/default/serviceaccounts/build-robot
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 secrets:
 - name: build-robot-token-bvbk5
@@ -220,7 +216,6 @@ metadata:
   name: default
   namespace: default
   resourceVersion: "243024"
-  selfLink: /api/v1/namespaces/default/serviceaccounts/default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 secrets:
 - name: default-token-uudge
@@ -237,7 +232,6 @@ metadata:
   creationTimestamp: 2015-08-07T22:02:39Z
   name: default
   namespace: default
-  selfLink: /api/v1/namespaces/default/serviceaccounts/default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 secrets:
 - name: default-token-uudge
@@ -302,4 +296,9 @@ token available to the pod at a configurable file path, and refresh the token as
 
 The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most usecases.
 
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+See also the
+[Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).
 {{% /capture %}}

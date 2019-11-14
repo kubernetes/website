@@ -12,7 +12,7 @@ weight: 100
 {{% capture overview %}}
 
 Horizontal Pod Autoscaler automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization
+in a replication controller, deployment, replica set or stateful set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
 This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
@@ -65,7 +65,7 @@ It defines an index.php page which performs some CPU intensive computations:
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
 ```
 ```
 service/php-apache created
@@ -135,8 +135,8 @@ As a result, the deployment was resized to 7 replicas:
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   7         7         7            7           19m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   7/7      7           7           19m
 ```
 
 {{< note >}}
@@ -166,8 +166,8 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   1         1         1            1           27m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   1/1     1            1           27m
 ```
 
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
@@ -287,7 +287,7 @@ For example, if you had your monitoring system collecting metrics about network 
 you could update the definition above using `kubectl edit` to look like this:
 
 ```yaml
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
@@ -304,13 +304,15 @@ spec:
     resource:
       name: cpu
       target:
-        type: AverageUtilization
+        type: Utilization
         averageUtilization: 50
   - type: Pods
     pods:
       metric:
         name: packets-per-second
-      targetAverageValue: 1k
+      target:
+        type: AverageValue
+        averageValue: 1k
   - type: Object
     object:
       metric:
@@ -320,7 +322,7 @@ spec:
         kind: Ingress
         name: main-route
       target:
-        kind: Value
+        type: Value
         value: 10k
 status:
   observedGeneration: 1

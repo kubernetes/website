@@ -3,6 +3,7 @@ approvers:
 - k8s-merge-robot
 
 title: 认识 Kubernetes?
+weight: 10
 ---
 
 Kubernetes 是一个跨主机集群的 [开源的容器调度平台，它可以自动化应用容器的部署、扩展和操作](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) , 提供以容器为中心的基础架构。

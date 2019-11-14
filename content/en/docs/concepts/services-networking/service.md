@@ -86,9 +86,9 @@ spec:
   selector:
     app: MyApp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 This specification creates a new Service object named “my-service”, which
@@ -146,9 +146,9 @@ metadata:
   name: my-service
 spec:
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 Because this Service has no selector, the corresponding Endpoint object is *not*
@@ -184,6 +184,19 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
+### Endpoint Slices
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+Endpoint Slices are an API resource that can provide a more scalable alternative
+to Endpoints. Although conceptually quite similar to Endpoints, Endpoint Slices
+allow for distributing network endpoints across multiple resources. By default,
+an Endpoint Slice is considered "full" once it reaches 100 endpoints, at which
+point additional Endpoint Slices will be created to store any additional
+endpoints.
+
+Endpoint Slices provide additional attributes and functionality which is
+described in detail in [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
+
 ## Virtual IPs and service proxies
 
 Every node in a Kubernetes cluster runs a `kube-proxy`. `kube-proxy` is
@@ -206,14 +219,6 @@ There are a few reasons for using proxying for Services:
  * Even if apps and libraries did proper re-resolution, the low or zero TTLs
    on the DNS records could impose a high load on DNS that then becomes
    difficult to manage.
-
-### Version compatibility
-
-Since Kubernetes v1.0 you have been able to use the
-[userspace proxy mode](#proxy-mode-userspace).
-Kubernetes v1.1 added iptables mode proxying, and in Kubernetes v1.2 the
-iptables mode for kube-proxy became the default.
-Kubernetes v1.8 added ipvs proxy mode.
 
 ### User space proxy mode {#proxy-mode-userspace}
 
@@ -305,7 +310,7 @@ about Kubernetes or Services or Pods.
 
 If you want to make sure that connections from a particular client
 are passed to the same Pod each time, you can select the session affinity based
-the on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
+on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
 (the default is "None").
 You can also set the maximum session sticky time by setting
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` appropriately.
@@ -328,14 +333,14 @@ spec:
   selector:
     app: MyApp
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 9376
-  - name: https
-    protocol: TCP
-    port: 443
-    targetPort: 9377
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 9377
 ```
 
 {{< note >}}
@@ -356,7 +361,7 @@ that are configured for a specific IP address and difficult to re-configure.
 The IP address that you choose must be a valid IPv4 or IPv6 address from within the
 `service-cluster-ip-range` CIDR range that is configured for the API server.
 If you try to create a Service with an invalid clusterIP address value, the API
-server will returns a 422 HTTP status code to indicate that there's a problem.
+server will return a 422 HTTP status code to indicate that there's a problem.
 
 ## Discovering services
 
@@ -431,14 +436,12 @@ this case, you can create what are termed “headless” Services, by explicitly
 specifying `"None"` for the cluster IP (`.spec.clusterIP`).
 
 You can use a headless Service to interface with other service discovery mechanisms,
-without being tied to Kubernetes' implementation. For example, you could implement
-a custom {{< glossary_tooltip term_id="operator-pattern" text="Operator" >}} upon
-this API.
+without being tied to Kubernetes' implementation.
 
-For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
+For headless `Services`, a cluster IP is not allocated, kube-proxy does not handle
 these Services, and there is no load balancing or proxying done by the platform
 for them. How DNS is automatically configured depends on whether the Service has
-selectors defined.
+selectors defined:
 
 ### With selectors
 
@@ -532,16 +535,15 @@ spec:
   selector:
     app: MyApp
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
   clusterIP: 10.0.171.239
-  loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-    - ip: 146.148.47.155
+    - ip: 192.0.2.127
 ```
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
@@ -591,8 +593,6 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-Use `cloud.google.com/load-balancer-type: "internal"` for masters with version 1.7.0 to 1.7.3.
-For more information, see the [docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing).
 {{% /tab %}}
 {{% tab name="AWS" %}}
 ```yaml
@@ -600,7 +600,7 @@ For more information, see the [docs](https://cloud.google.com/kubernetes-engine/
 metadata:
     name: my-service
     annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 [...]
 ```
 {{% /tab %}}
@@ -687,8 +687,8 @@ In the above example, if the Service contained three ports, `80`, `443`, and
 `8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
 be proxied HTTP.
 
-From Kubernetes v1.9 onwrds you can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
-To see which policies are available for use, you can the `aws` command line tool:
+From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
+To see which policies are available for use, you can use the `aws` command line tool:
 
 ```bash
 aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
@@ -808,15 +808,11 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # A list of additional security groups to be added to the ELB
 ```
 
-#### Network Load Balancer support on AWS [alpha] {#aws-nlb-support}
+#### Network Load Balancer support on AWS {#aws-nlb-support}
 
-{{< warning >}}
-This is an alpha feature and is not yet recommended for production clusters.
-{{< /warning >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
-Starting from Kubernetes v1.9.0, you can use AWS Network Load Balancer (NLB) with Services. To
-use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type`
-with the value set to `nlb`.
+To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type` with the value set to `nlb`.
 
 ```yaml
     metadata:
@@ -863,7 +859,7 @@ specify `loadBalancerSourceRanges`.
 ```yaml
 spec:
   loadBalancerSourceRanges:
-  - "143.231.0.0/16"
+    - "143.231.0.0/16"
 ```
 
 {{< note >}}
@@ -906,6 +902,11 @@ forwarding. Should you later decide to move your database into your cluster, you
 can start its Pods, add appropriate selectors or endpoints, and change the
 Service's `type`.
 
+{{< warning >}}
+You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS. If you use ExternalName then the hostname used by clients inside your cluster is different from the name that the ExternalName references.
+
+For protocols that use hostnames this difference may lead to errors or unexpected responses. HTTP requests will have a `Host:` header that the origin server does not recognize; TLS servers will not be able to provide a certificate matching the hostname that the client connected to.
+{{< /warning >}}
 
 {{< note >}}
 This section is indebted to the [Kubernetes Tips - Part
@@ -931,12 +932,12 @@ spec:
   selector:
     app: MyApp
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
-    targetPort: 9376
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
   externalIPs:
-  - 80.11.12.10
+    - 80.11.12.10
 ```
 
 ## Shortcomings
@@ -1150,5 +1151,6 @@ which encompass the current ClusterIP, NodePort, and LoadBalancer modes and more
 
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
+* Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
 
 {{% /capture %}}

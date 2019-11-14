@@ -11,6 +11,7 @@ weight: 20
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 This document describes the current state of `VolumeSnapshots` in Kubernetes. Familiarity with [persistent volumes](/docs/concepts/storage/persistent-volumes/) is suggested.
 
 {{% /capture %}}
@@ -128,5 +129,13 @@ A volume snapshot can request a particular class by specifying the name of a
 using the attribute `snapshotClassName`.
 Only VolumeSnapshotContents of the requested class, ones with the same `snapshotClassName`
 as the VolumeSnapshot, can be bound to the VolumeSnapshot.
+
+## Provisioning Volumes from Snapshots
+
+You can provision a new volume, pre-populated with data from a snapshot, by using
+the *dataSource* field in the `PersistentVolumeClaim` object.
+
+For more details, see
+[Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 
 {{% /capture %}}

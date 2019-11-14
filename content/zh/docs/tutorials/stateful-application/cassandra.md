@@ -60,6 +60,8 @@ Pod 使用来自 Google [容器仓库](https://cloud.google.com/container-regist
 ## 快速入门
 
 
+{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
+
 如果你希望直接跳到我们使用的命令，以下是全部步骤：
 
 <!--
@@ -71,19 +73,15 @@ Pod 使用来自 Google [容器仓库](https://cloud.google.com/container-regist
 -->
 
 ```sh
-#
-# StatefulSet
-#
 
-# 克隆示例存储库
-git clone https://github.com/kubernetes/examples
-cd examples
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
+```
 
-# 创建服务来跟踪所有 cassandra statefulset 节点
-kubectl create -f cassandra/cassandra-service.yaml
+{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
 
+```
 # 创建 statefulset
-kubectl create -f cassandra/cassandra-statefulset.yaml
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 
 # 验证 Cassandra 集群。替换一个 pod 的名称。
 kubectl exec -ti cassandra-0 -- nodetool status
@@ -157,17 +155,14 @@ spec:
 ```
 
 
-[下载示例](https://raw.githubusercontent.com/kubernetes/examples/master/cassandra-service.yaml)
-
-
+Download [`cassandra-service.yaml`](/examples/application/cassandra/cassandra-service.yaml)
+and [`cassandra-statefulset.yaml`](/examples/application/cassandra/cassandra-statefulset.yaml)
 
 为 StatefulSet 创建 service
 
-
 ```console
-$ kubectl create -f cassandra/cassandra-service.yaml
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
 ```
-
 
 以下命令显示了 service 是否被成功创建。
 
@@ -291,16 +286,13 @@ parameters:
   type: pd-ssd
 ```
 
-[下载示例](https://raw.githubusercontent.com/kubernetes/examples/master/cassandra-statefulset.yaml)
-
-创建  Cassandra StatefulSet 如下：
+创建 Cassandra StatefulSet 如下：
 
 ```console
-$ kubectl create -f cassandra/cassandra-statefulset.yaml
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```
 
 ## 步骤 3：验证和修改 Cassandra StatefulSet
-
 
 这个 StatefulSet 的部署展示了 StatefulSets 提供的两个新特性：
 
@@ -387,7 +379,6 @@ metadata:
   name: cassandra
   namespace: default
   resourceVersion: "323"
-  selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/cassandra
   uid: 7a219483-6185-11e6-a910-42010a8a0fc0
 spec:
   replicas: 3
@@ -558,7 +549,6 @@ metadata:
   name: cassandra
   namespace: default
   resourceVersion: "944373"
-  selfLink: /api/v1/namespaces/default/endpoints/cassandra
   uid: a3d6c25f-1865-11e5-a34e-42010af01bcc
 subsets:
 - addresses:

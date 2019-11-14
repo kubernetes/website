@@ -99,6 +99,11 @@ kubectl exec -it redis redis-cli
 2) "allkeys-lru"
 ```
 
+Delete the created pod:
+```shell
+kubectl delete pod redis
+```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}

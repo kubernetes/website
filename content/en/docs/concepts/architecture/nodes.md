@@ -12,7 +12,7 @@ weight: 10
 A node is a worker machine in Kubernetes, previously known as a `minion`. A node
 may be a VM or physical machine, depending on the cluster. Each node contains
 the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the master
-components. The services on a node include the [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy. See
+components. The services on a node include the [container runtime](/docs/concepts/overview/components/#container-runtime), kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
@@ -51,7 +51,6 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 
 | Node Condition | Description |
 |----------------|-------------|
-| `OutOfDisk`    | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
@@ -102,8 +101,8 @@ Describes the resources available on the node: CPU, memory and the maximum
 number of pods that can be scheduled onto the node.
 
 The fields in the capacity block indicate the total amount of resources that a
-Node has. The allocatable block indicates the amount of resources that on a
-Node that are available to be consumed by normal Pods.
+Node has. The allocatable block indicates the amount of resources on a
+Node that is available to be consumed by normal Pods.
 
 You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
@@ -111,9 +110,8 @@ on a Node.
 
 ### Info
 
-General information about the node, such as kernel version, Kubernetes version
-(kubelet and kube-proxy version), Docker version (if used), OS name.
-The information is gathered by Kubelet from the node.
+Describes general information about the node, such as kernel version, Kubernetes version (kubelet and kube-proxy version), Docker version (if used), and OS name.
+This information is gathered by Kubelet from the node.
 
 ## Management
 
@@ -175,9 +173,8 @@ ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
 In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
-node. Starting from Kubernetes 1.13, node lease feature is introduced as an
-alpha feature (feature gate `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+node. Node lease feature is enabled by default since 1.14 as a beta feature
+(feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 When node lease feature is enabled, each node has an associated `Lease` object in
 `kube-node-lease` namespace that is renewed by the node periodically, and both
 NodeStatus and node lease are treated as heartbeats from the node. Node leases
@@ -245,7 +242,7 @@ For self-registration, the kubelet is started with the following options:
   - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
+When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
 kubelets are only authorized to create/modify their own Node resource.
 
@@ -286,11 +283,18 @@ capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
 checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
-includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
+includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#container-runtime) nor any process running outside of the containers.
 
 If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 
+## Node topology
+
+{{< feature-state state="alpha" >}}
+
+If you have enabled the `TopologyManager`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
+the kubelet can use topology hints when making resource assignment decisions.
 
 ## API Object
 
@@ -298,4 +302,8 @@ Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* Read about [node components](/docs/concepts/overview/components/#node-components)
+* Read about node-level topology: [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}

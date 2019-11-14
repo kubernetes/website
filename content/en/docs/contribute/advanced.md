@@ -23,7 +23,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular tur
 
 The PR wrangler’s duties include:
 
-- Review [open pull requests](https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
+- Review [open pull requests](https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [Style](/docs/contribute/style/style-guide/) and [Content](/docs/contribute/style/content-guide/) guides.
     - Review the smallest PRs (`size/XS`) first, then iterate towards the largest (`size/XXL`).
     - Review as many PRs as you can.
 - Ensure that the CLA is signed by each contributor.
@@ -78,11 +78,11 @@ An automated service, [`fejta-bot`](https://github.com/fejta-bot) automatically 
 
 ## Propose improvements
 
-SIG Docs
-[members](/docs/contribute/participating/#members) can propose improvements.
+SIG Docs [members](/docs/contribute/participating/#members) can propose improvements.
 
 After you've been contributing to the Kubernetes documentation for a while, you
-may have ideas for improvement to the style guide, the toolchain used to build
+may have ideas for improvement to the [Style Guide](/docs/contribute/style/style-guide/) 
+, the [Content Guide](/docs/contribute/style/content-guide/), the toolchain used to build
 the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
 these types of proposals need to be discussed in a SIG Docs meeting or on the
@@ -177,7 +177,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve a term
 Approvers must meet the following requirements to be a co-chair:
 
 - Have been a SIG Docs approver for at least 6 months
-- Have [led a Kubernetes docs release][coordinate-docs-for-a-kubernetes-release] or shadowed two releases
+- Have [led a Kubernetes docs release](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) or shadowed two releases
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs workflow, including: [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs), plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture). 
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months

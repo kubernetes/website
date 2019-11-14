@@ -1,7 +1,6 @@
 
-Prepare the machine for serving a control plane
-
 ### Synopsis
+
 
 Prepare the machine for serving a control plane
 

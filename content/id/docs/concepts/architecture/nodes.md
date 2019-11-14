@@ -62,12 +62,12 @@ Penggunaan <i>field-field</i> ini bergantung pada penyedia layanan cloud ataupun
 ```
 
 Jika status untuk `Ready condition` bernilai `Unknown` atau `False` untuk waktu yang lebih dari `pod-eviction-timeout`, tergantung bagaimana [kube-controller-manager](/docs/admin/kube-controller-manager/) dikonfigurasi, semua pod yang dijalankan pada node tersebut akan dihilangkan oleh Kontroler Node.
-Durasi <i>eviction timeout</i> yang standar adalah **lima menit**. 
-Pada kasus tertentu ketika node terputus jaringannya, apiserver tidak dapat berkomunikasi dengan kubelet yang ada pada node. 
-Keputusan untuk menghilangkan pod tidak dapat diberitahukan pada kubelet, sampai komunikasi dengan apiserver terhubung kembali. 
+Durasi <i>eviction timeout</i> yang standar adalah **lima menit**.
+Pada kasus tertentu ketika node terputus jaringannya, apiserver tidak dapat berkomunikasi dengan kubelet yang ada pada node.
+Keputusan untuk menghilangkan pod tidak dapat diberitahukan pada kubelet, sampai komunikasi dengan apiserver terhubung kembali.
 Sementara itu, pod-pod akan terus berjalan pada node yang sudah terputus, walaupun mendapati <i>schedule</i> untuk dihilangkan.
 
-Pada versi Kubernetes sebelum 1.5, kontroler node dapat menghilangkan dengan paksa ([force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)) pod-pod yang terputus dari apiserver. 
+Pada versi Kubernetes sebelum 1.5, kontroler node dapat menghilangkan dengan paksa ([force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)) pod-pod yang terputus dari apiserver.
 Namun, pada versi 1.5 dan seterusnya, kontroler node tidak menghilangkan pod dengan paksa, sampai ada konfirmasi bahwa pod tersebut sudah berhenti jalan di dalam kluster.
 Pada kasus dimana Kubernetes tidak bisa menarik kesimpulan bahwa ada node yang telah meninggalkan kluster, admin kluster mungkin perlu untuk menghilangkan node secara manual.
 Menghilangkan obyek node dari Kubernetes akan membuat semua pod yang berjalan pada node tersebut dihilangkan oleh apiserver, dan membebaskan nama-namanya agar bisa digunakan kembali.
@@ -138,7 +138,7 @@ Kontroler node memeriksa <i>state</i> masing-masing node untuk durasi yang diten
 
 Pada versi Kubernetes sebelum 1.13, `NodeStatus` adalah <i>heartbeat</i> yang diberikan oleh node.
 Setelah versi 1.13, fitur <i>node lease</i> diperkenalkan sebagai fitur alpha (fitur gate `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 Ketika fitur <i>node lease</i> diaktifasi, setiap node terhubung dengan obyek `Lease` di dalam <i>namespace</i> `kube-node-lease` yang terus diperbarui secara berkala.
 Kemudian, `NodeStatus` dan <i>node lease</i> keduanya dijadikan sebagai <i>heartbeat</i> dari node.
 Semua <i>node lease</i> diperbarui sesering mungkin, sedangkan `NodeStatus` dilaporkan dari node untuk master hanya ketika ada perubahan atau telah melewati periode waktu tertentu (<i>default</i>-nya 1 menit, lebih lama daripada <i>default timeout</i> node-node yang terputus jaringannya).

@@ -146,12 +146,12 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
 서비스를 삭제하려면, 아래의 명령어를 입력한다.
 
-        kubectl delete services my-service
+    kubectl delete services my-service
 
 Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카 셋, 파드를 삭제하려면,
 아래의 명령어를 입력한다.
 
-        kubectl delete deployment hello-world
+    kubectl delete deployment hello-world
 
 {{% /capture %}}
 

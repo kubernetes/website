@@ -17,9 +17,13 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Cloud Native Certified Kubernetes Administrator (CKA) with Hands-On Labs & Practice Exams (Linux Academy)](https://linuxacademy.com/linux/training/course/name/cloud-native-certified-kubernetes-administrator-cka)
 
+* [Certified Kubernetes Administrator (CKA) Preparation Course (CloudYuga)](https://cloudyuga.guru/courses/cka-online-self-paced)
+
 * [Certified Kubernetes Administrator Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/certified-kubernetes-administrator-with-practice-tests)
 
 * [Certified Kubernetes Application Developer (CKAD) with Hands-On Labs & Practice Exams (Linux Academy)] (https://linuxacademy.com/containers/training/course/name/certified-kubernetes-application-developer-ckad/)
+
+* [Certified Kubernetes Application Developer (CKAD) Preparation Course (CloudYuga)](https://cloudyuga.guru/courses/ckad-online-self-paced)
 
 * [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/kubernetes-certification-course)
 
@@ -42,6 +46,8 @@ Here are some of the sites that offer online training for Kubernetes:
 * [Kubernetes Essentials with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-essentials)
 
 * [Kubernetes for the Absolute Beginners with Hands-on Labs (KodeKloud)](https://kodekloud.com/p/kubernetes-for-the-absolute-beginners-hands-on)
+
+* [Kubernetes Fundamentals (LFS258) (The Linux Foundation)](https://training.linuxfoundation.org/training/kubernetes-fundamentals/)
 
 * [Kubernetes Quick Start with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-quick-start)
 

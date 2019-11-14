@@ -108,8 +108,8 @@ echo $pods
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
-여기서 셀렉터는 레플리케이션 컨트롤러의 셀렉터와 같다 (
-`kubectl describe` 의 출력에서 볼 수 있는 것과, 다른 형식의 파일인 `replication.yaml` 의 것). `--output=jsonpath` 옵션은
+여기서 셀렉터는 레플리케이션 컨트롤러(`kubectl describe` 의 출력에서 보인)의 셀렉터와 같고,
+다른 형식의 파일인 `replication.yaml` 의 것과 동일하다.  `--output=jsonpath` 옵션은
 반환된 목록의 각 파드에서 이름을 가져오는 표현식을 지정한다.
 
 

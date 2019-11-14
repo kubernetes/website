@@ -146,12 +146,12 @@ The preceding command creates a
 
 To delete the Service, enter this command:
 
-        kubectl delete services my-service
+    kubectl delete services my-service
 
 To delete the Deployment, the ReplicaSet, and the Pods that are running
 the Hello World application, enter this command:
 
-        kubectl delete deployment hello-world
+    kubectl delete deployment hello-world
 
 {{% /capture %}}
 

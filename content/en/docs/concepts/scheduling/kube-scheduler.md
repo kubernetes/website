@@ -86,7 +86,7 @@ kube-scheduler has a default set of scheduling policies.
 ### Filtering
 
 - `PodFitsHostPorts`: Checks if a Node has free ports (the network protocol kind)
-  for the Pod ports the the Pod is requesting.
+  for the Pod ports the Pod is requesting.
 
 - `PodFitsHost`: Checks if a Pod specifies a specific Node by it hostname.
 
@@ -174,13 +174,16 @@ kube-scheduler has a default set of scheduling policies.
   that the Service becomes more resilient to a single Node failure.
 
 - `CalculateAntiAffinityPriorityMap`: This policy helps implement
-  [pod anti-affinity](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+  [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
 - `EqualPriorityMap`: Gives an equal weight of one to all nodes.
 
 {{% /capture %}}
 {{% capture whatsnext %}}
 * Read about [scheduler performance tuning](/docs/concepts/scheduling/scheduler-perf-tuning/)
+* Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Learn about [configuring multiple schedulers](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
+* Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
 {{% /capture %}}

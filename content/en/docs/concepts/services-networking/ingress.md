@@ -15,7 +15,7 @@ weight: 40
 
 ## Terminology
 
-For the sake of clarity, this guide defines the following terms:
+For clarity, this guide defines the following terms:
 
 Node
 : A worker machine in Kubernetes, part of a cluster.
@@ -215,7 +215,7 @@ Events:
 ```
 
 The Ingress controller provisions an implementation-specific load balancer
-that satisfies the Ingress, as long as the Services (`s1`, `s2`) exist.
+that satisfies the Ingress, as long as the Services (`service1`, `service2`) exist.
 When it has done so, you can see the address of the load balancer at the
 Address field.
 
@@ -230,9 +230,9 @@ you are using, you may need to create a default-http-backend
 Name-based virtual hosts support routing HTTP traffic to multiple host names at the same IP address.
 
 ```none
-foo.bar.com --|                 |-> foo.bar.com s1:80
+foo.bar.com --|                 |-> foo.bar.com service1:80
               | 178.91.123.132  |
-bar.foo.com --|                 |-> bar.foo.com s2:80
+bar.foo.com --|                 |-> bar.foo.com service2:80
 ```
 
 The following Ingress tells the backing load balancer to route requests based on
@@ -319,8 +319,8 @@ type: kubernetes.io/tls
 
 Referencing this secret in an Ingress tells the Ingress controller to
 secure the channel from the client to the load balancer using TLS. You need to make
-sure the TLS secret you created came from a certificate that contains a CN
-for `sslexample.foo.com`.
+sure the TLS secret you created came from a certificate that contains a Common
+Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `sslexample.foo.com`.
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -384,7 +384,7 @@ Rules:
   Host         Path  Backends
   ----         ----  --------
   foo.bar.com
-               /foo   s1:80 (10.8.0.90:80)
+               /foo   service1:80 (10.8.0.90:80)
 Annotations:
   nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
@@ -407,14 +407,14 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: s1
+          serviceName: service1
           servicePort: 80
         path: /foo
   - host: bar.baz.com
     http:
       paths:
       - backend:
-          serviceName: s2
+          serviceName: service2
           servicePort: 80
         path: /foo
 ..
@@ -438,9 +438,9 @@ Rules:
   Host         Path  Backends
   ----         ----  --------
   foo.bar.com
-               /foo   s1:80 (10.8.0.90:80)
+               /foo   service1:80 (10.8.0.90:80)
   bar.baz.com
-               /foo   s2:80 (10.8.0.91:80)
+               /foo   service2:80 (10.8.0.91:80)
 Annotations:
   nginx.ingress.kubernetes.io/rewrite-target:  /
 Events:
@@ -454,7 +454,7 @@ You can achieve the same outcome by invoking `kubectl replace -f` on a modified 
 ## Failing across availability zones
 
 Techniques for spreading traffic across failure domains differs between cloud providers.
-Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](/docs/concepts/cluster-administration/federation/)
+Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](https://github.com/kubernetes-sigs/federation-v2)
 for details on deploying Ingress in a federated cluster.
 
 ## Future Work
