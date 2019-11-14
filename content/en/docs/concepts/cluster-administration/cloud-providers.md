@@ -404,3 +404,12 @@ The IBM Cloud Kubernetes Service provider leverages Kubernetes-native persistent
 
 The Baidu cloud provider uses the private IP address of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the Baidu VM private IP.
+
+## Tencent Kubernetes Engine
+
+If you wish to use the external cloud provider, its repository is [TencentCloud/tencentcloud-cloud-controller-manager](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager).
+
+### Node Name
+
+The Tencent cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the Kubernetes Node name must match the Tencent VM private IP.
