@@ -145,7 +145,7 @@ voluntary evictions, not all causes of unavailability.
 {{< /note >}}
 
 A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
-number of replicas) may block node drains entirely. This is permitted as per the 
+number of replicas) will block node drains entirely. This is permitted as per the 
 semantics of `PodDisruptionBudget`.
 
 You can find examples of pod disruption budgets defined below. They match pods with the label 
