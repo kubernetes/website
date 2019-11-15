@@ -1,3 +1,7 @@
+.flip-nav ul.global-nav li a, .open-nav ul.global-nav li a {
+  color:#303030 !important;
+}
+
 
 .article {
   width:100%;
@@ -9,9 +13,9 @@
   font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
-  padding-top:8%;
+  padding-top:10%;
   padding-bottom:0.5%;
-  padding-left:8%;
+  padding-left:10%;
   font-size:1.2em;
   background:linear-gradient(to right, #2635e4, #c72f6c);
   background-size:100% auto;
@@ -19,7 +23,7 @@
 }
 
 .image {
-
+padding-top:2% !important;
 }
 
 .overlay:before{
@@ -41,8 +45,13 @@
     /* hack */
 }
 
+.quoteauthortext {
+  font-size:14px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding-top:1%;
+}
 
-a {color:white !important;}
 
 #caseStudyTitle {
     margin-top: 1em !important;
@@ -53,6 +62,17 @@ p {
   font-family:"Roboto", sans-serif;
   padding-bottom:1%;
   padding-top:1%;
+  font-weight:300;
+  line-height:1.4em;
+  letter-spacing:0.03em;
+}
+
+section {
+  font-family:"Roboto", sans-serif;
+  font-weight:300;
+  line-height:1.4em;
+  letter-spacing:0.03em;
+  padding:0px !important
 }
 
 .header_logo {
@@ -81,12 +101,11 @@ h1 {
 .subhead {
   font-size:26px;
   font-weight:300;
-  line-height:40px;
+  line-height:1.4em;
   padding-bottom:2%;
   padding-right:10%;
   width:80%;
-
-  padding-top:0%;
+  padding-top:0.5%;
 }
 
 .banner1 {
@@ -121,12 +140,12 @@ h1 {
   color:#ffffff;
   padding-top:5%;
   margin-top:0;
-  padding-bottom:2%;
-  width:60%;
-  font-size:1.2em;
+  padding-bottom:5%;
+  width:80%;
+  font-size:1.3em;
   line-height:1.4em;
   letter-spacing:0.03em;
-  padding-right:20%;
+  padding-right:10%;
   text-align:center;
   margin:0 auto;
 }
@@ -144,7 +163,8 @@ h2 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
   font-size:24px;
-  line-height:34px;
+  line-height:1.4em;
+  padding-top:1.5%;
   color:#3366ff;
 }
 
@@ -162,9 +182,9 @@ h2 {
   font-size:18px;
   color:#3366ff;
   letter-spacing:0.03em;
-  padding-bottom:1.5%;
+  padding-bottom:1%;
   padding-top:2%;
-  padding-left:8%;
+  padding-left:10%;
 }
 
 hr {
@@ -177,20 +197,17 @@ hr {
 
 .col1 {
   font-family:"Roboto", sans-serif;
-  font-weight:100;
   color:#606060;
-  line-height:20px;
   letter-spacing:0.03em;
-  font-size:14px;
+  width:100%;
 }
 
 .col2 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  line-height:20px;
   color:#606060;
   letter-spacing:0.03em;
-  font-size:14px;
+
 }
 
 .fullcol {
@@ -201,19 +218,22 @@ hr {
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  line-height:22px;
   color:#606060;
   letter-spacing:0.03em;
-  font-size:14px;
 }
+
+.fullcol h2 {
+  padding-bottom:2%;
+
+}
+
 
 .cols {
   width:80%;
-  margin-left:8%;
-  margin-top:3%;
+  margin-left:10%;
+  margin-top:2%;
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
-  font-weight:300;
 }
 
 h4 {
@@ -231,15 +251,23 @@ h4 {
 
 @media screen and (max-width: 910px) {
 
-  .quotetext{
+  .fullcol {
+    padding-top:2%;
+    padding-bottom:2%;
+    width:90%;
+    margin-left:5%;
+  }
 
-    width:85%;
-    margin-left:%;
+  .quotetext{
+    width:90%;
+    margin-left:2%;
     font-size:1em;
+    padding-top:8%;
+    padding-bottom:8%;
+    padding-right:5%;
   }
 
   .greyquotetext{
-
     width:85%;
     margin-left:%;
     font-size:0.8em;
@@ -263,20 +291,22 @@ h4 {
   }
 
   .subhead {
-    font-size: 18px;
-    font-weight: 100;
-    line-height: 27px;
-
+    font-size:1em;
+    font-weight: 300;
+    line-height: 1.3em;
+    letter-spacing:0.02em;
+    padding-top:1%;
+    padding-bottom:4%;
   }
 
   .details {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 1em;
     color: #3366ff;
     letter-spacing: 0.03em;
-    padding-bottom: 2%;
-    line-height: 28px;
+    padding-bottom: 0%;
+    line-height: 1.6em;
     padding-top: 1em;
     padding-left: 10%;
   }
@@ -288,11 +318,8 @@ h4 {
   .col1 {
     width: 95%;
     font-family: "Roboto", sans-serif;
-    font-weight: 300;
     color: #606060;
-    line-height: 20px;
     letter-spacing: 0.03em;
-    font-size: 14px;
   }
 
   .col2 {
@@ -307,15 +334,14 @@ h4 {
     font-size: 14px;
   }
 
-
   .fullcol {
     margin-top: 6%;
     margin-bottom: 8%;
   }
 
   h2 {
-    line-height: 26px;
-    font-size: 18px;
+    line-height: 1.4px;
+    font-size:1.3px;
   }
 
   .quote {
@@ -326,6 +352,49 @@ h4 {
   .logo {
     width: 35%;
   }
+
+  .article {
+    width:100%;
+    border:1px solid grey;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    color:white;
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:20%;
+    padding-bottom:0.5%;
+    padding-left:10%;
+    font-size:1.2em;
+    background:linear-gradient(to right, #2635e4, #c72f6c);
+    background-size:100% auto;
+    background-repeat:no-repeat;
+  }
+
+  .image {
+  padding-top:2% !important
+  }
+
+  .overlay:before{
+    position: absolute;
+    content:" ";
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display: block;
+    z-index:0;
+    background:linear-gradient(to right, #2635e4, #c72f6c);
+    opacity:0.8;
+  }
+  .cols {
+    width:90%;
+    margin-left:5%;
+    margin-bottom:10%;
+  }
+
+
 }
 
 @media screen and (max-width: 580px){
