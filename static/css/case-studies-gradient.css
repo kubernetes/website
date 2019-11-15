@@ -305,13 +305,14 @@ hr {
   .details {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
-    font-size: 1em;
+    font-size: 1em !important;
     color: #3366ff;
     letter-spacing: 0.03em;
     padding-bottom: 0%;
     line-height: 1.6em;
     padding-top: 1em;
     padding-left: 10%;
+    padding-right:5%;
   }
 
  .logo {
