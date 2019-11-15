@@ -404,7 +404,7 @@ hr {
     font-family:"Roboto", sans-serif;
     padding-bottom:2%;
     padding-top:2%;
-    font-weight:1.2em;
+    font-size:1.2em;
     font-weight:300;
     line-height:1.4em;
     letter-spacing:0.03em;
@@ -420,6 +420,10 @@ hr {
 
   .quoteauthortext {
     line-height:1.5em;
+  }
+
+  h2 {
+    padding-top:6%;
   }
 }
 
