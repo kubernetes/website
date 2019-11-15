@@ -39,7 +39,7 @@ You can create the following resources using `kubectl run` with the `--generator
 | Resource                            | api group          | kubectl command                                   |
 |-------------------------------------|--------------------|---------------------------------------------------|
 | Pod                                 | v1                 | `kubectl run --generator=run-pod/v1`              |
-| Replication controller (deprecated) | v1                 | `kubectl run --generator=run/v1`                  |
+| ReplicationController (deprecated)  | v1                 | `kubectl run --generator=run/v1`                  |
 | Deployment (deprecated)             | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
 | Deployment (deprecated)             | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
 | Job (deprecated)                    | batch/v1           | `kubectl run --generator=job/v1`                  |
@@ -64,7 +64,7 @@ If you do not specify a generator flag, other flags prompt you to use a specific
 These flags use a default generator only when you have not specified any flag.
 This means that when you combine `--generator` with other flags the generator that you specified later does not change. For example, in a cluster v1.4, if you initially specify
 `--restart=Always`, a Deployment is created; if you later specify `--restart=Always`
-and `--generator=run/v1`, a Replication Controller is created.
+and `--generator=run/v1`, a ReplicationController is created.
 This enables you to pin to a specific behavior with the generator,
 even when the default generator is changed later.
 {{< /note >}}
