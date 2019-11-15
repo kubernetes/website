@@ -343,11 +343,10 @@ hr {
   .fullcol {
     margin-top: 6%;
     width:80%;
-    margin-left:10%:
+    margin-left:10%;
     margin-bottom: 8%;
+
   }
-
-
 
   .quote {
     font-size: 18px;
@@ -414,6 +413,10 @@ hr {
     line-height:1.4em;
     letter-spacing:0.03em;
     padding:0px !important
+  }
+
+  .quoteauthortext {
+    line-height:1.5em;
   }
 }
 
