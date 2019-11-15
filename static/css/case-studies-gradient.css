@@ -95,7 +95,7 @@ h1 {
   font-weight:bold;
   letter-spacing:0.025em;
   font-size:42px;
-  padding-bottom:0px;
+  padding-bottom:1%;
   margin-top:5%;
 }
 
@@ -197,6 +197,7 @@ h4 {
   letter-spacing:0.03em;
   padding-bottom:1%;
   padding-top:2%;
+  margin-left:0;
   padding-left:10%;
 }
 
@@ -392,6 +393,7 @@ hr {
     background:linear-gradient(to right, #2635e4, #c72f6c);
     opacity:0.8;
   }
+
   .colsgradient {
     width:90%;
     margin-left:5%;
