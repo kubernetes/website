@@ -228,7 +228,7 @@ hr {
 }
 
 
-.cols {
+.colsgradient {
   width:80%;
   margin-left:10%;
   margin-top:2%;
@@ -388,7 +388,7 @@ h4 {
     background:linear-gradient(to right, #2635e4, #c72f6c);
     opacity:0.8;
   }
-  .cols {
+  .colsgradient {
     width:90%;
     margin-left:5%;
     margin-bottom:10%;
