@@ -1,7 +1,7 @@
 ---
 title: Service
 feature:
-  title: サービスディスカバリーとロードバランシング
+  title: サービスディスカバリーと負荷分散
   description: >
     Kubernetesでは、なじみのないサービスディスカバリーの機構を使用するためにユーザーがアプリケーションの修正をする必要はありません。KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
 
@@ -24,7 +24,7 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 ## Serviceを利用する動機
 
 {{< glossary_tooltip term_id="pod" text="Pod" >}}は停止が想定して設計されています。 Podが作成され、もしそれらが停止する時、Podは再作成されません。
-{{< glossary_tooltip term_id="deployment" >}}をアプリケーションを稼働させるために使用する時、DeploymentはPodを動的に作成・削除します。
+{{< glossary_tooltip term_id="deployment" >}}をアプリケーションを稼働させるために使用すると、Podを動的に作成・削除してくれます。
 
 各Podはそれ自身のIPアドレスを持ちます。しかしDeploymentでは、ある時点において同時に稼働しているPodのセットは、その後のある時点において稼働しているPodのセットとは異なる場合があります。
 
