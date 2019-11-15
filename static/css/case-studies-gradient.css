@@ -284,6 +284,7 @@ hr {
     font-size: 30px !important;
     padding-bottom: 0px;
     width: 80%;
+    margin-top:15%;
   }
 
   .header_logo {
@@ -341,13 +342,12 @@ hr {
 
   .fullcol {
     margin-top: 6%;
+    width:80%;
+    margin-left:10%:
     margin-bottom: 8%;
   }
 
-  h2 {
-    line-height: 1.4px;
-    font-size:1.3px;
-  }
+
 
   .quote {
     font-size: 18px;
@@ -378,7 +378,7 @@ hr {
   }
 
   .image {
-  padding-top:15% !important
+  padding-top:2% !important
   }
 
   .overlay:before{
