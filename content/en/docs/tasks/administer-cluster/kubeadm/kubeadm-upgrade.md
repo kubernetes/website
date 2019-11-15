@@ -102,7 +102,7 @@ The upgrade workflow at high level is the following:
 
     You should see output similar to this:
 
-    ```shell
+    ```
     [upgrade/config] Making sure the configuration is correct:
     [upgrade/config] Reading configuration from the cluster...
     [upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
@@ -151,7 +151,7 @@ The upgrade workflow at high level is the following:
 
     You should see output similar to this:
 
-    ```shell
+    ```
     [preflight] Running pre-flight checks.
     [upgrade] Making sure the cluster is healthy:
     [upgrade/config] Making sure the configuration is correct:
@@ -314,7 +314,7 @@ without compromising the minimum required capacity for running your workloads.
 
     You should see output similar to this:
 
-    ```shell
+    ```
     node/ip-172-31-85-18 cordoned
     WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-proxy-dj7d7, kube-system/weave-net-z65qx
     node/ip-172-31-85-18 drained
