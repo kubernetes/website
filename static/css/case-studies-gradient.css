@@ -167,6 +167,17 @@ h2 {
   font-size:24px;
   line-height:1.4em;
   padding-top:1.5%;
+  padding-bottom:1%;
+  color:#3366ff;
+}
+
+h4 {
+  font-family:"Roboto", sans-serif;
+  font-weight:300;
+  font-size:24px;
+  line-height:1.4em;
+  padding-top:1.5%;
+  padding-bottom:2%;
   color:#3366ff;
 }
 
