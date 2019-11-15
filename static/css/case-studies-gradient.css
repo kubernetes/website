@@ -23,7 +23,7 @@
 }
 
 .image {
-padding-top:10% !important;
+padding-top:1% !important;
 }
 
 .overlay:before{
@@ -394,7 +394,22 @@ h4 {
     margin-bottom:10%;
   }
 
+  p {
+    font-family:"Roboto", sans-serif;
+    padding-bottom:1%;
+    padding-top:1%;
+    font-weight:300;
+    line-height:1.4em;
+    letter-spacing:0.03em;
+  }
 
+  section {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    line-height:1.4em;
+    letter-spacing:0.03em;
+    padding:0px !important
+  }
 }
 
 @media screen and (max-width: 580px){
