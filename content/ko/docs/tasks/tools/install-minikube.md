@@ -122,7 +122,7 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 가장 쉽게 맥OS에 Minikube를 설치하는 방법은 [Homebrew](https://brew.sh)를 이용하는 것이다.
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 실행 바이너리를 다운로드 받아서 맥OS에 설치할 수도 있다.
