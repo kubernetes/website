@@ -402,8 +402,9 @@ hr {
 
   p {
     font-family:"Roboto", sans-serif;
-    padding-bottom:1%;
-    padding-top:1%;
+    padding-bottom:2%;
+    padding-top:2%;
+    font-weight:1.2em;
     font-weight:300;
     line-height:1.4em;
     letter-spacing:0.03em;
