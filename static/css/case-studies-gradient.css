@@ -306,6 +306,7 @@ h4 {
     line-height: 1.3em;
     letter-spacing:0.02em;
     padding-top:1%;
+    width:90%;
     padding-bottom:4%;
   }
 
@@ -326,7 +327,8 @@ h4 {
   }
 
   .col1 {
-    width: 95%;
+    width: 90%;
+    margin-left:5%;
     font-family: "Roboto", sans-serif;
     color: #606060;
     letter-spacing: 0.03em;
@@ -383,7 +385,7 @@ h4 {
   }
 
   .image {
-  padding-top:2% !important
+  padding-top:15% !important
   }
 
   .overlay:before{
