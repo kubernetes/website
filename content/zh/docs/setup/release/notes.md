@@ -2984,26 +2984,26 @@ filename | sha512 hash
 * KMS Providers will install a healthz check for the status of kms-pluign in kube-apiservers' encryption config.  ([#78540](https://github.com/kubernetes/kubernetes/pull/78540), [@immutableT](https://github.com/immutableT))
 -->
 * 解决了由非 2xx HTTP 响应对 `/` 请求的服务支持的聚合 API 的问题。见 ([#79895](https://github.com/kubernetes/kubernetes/pull/79895)、[@deads2k](https://github.com/deads2k))。
-* updated fluentd to 1.5.1, elasticsearchs & kibana to 7.1.1 ([#79014](https://github.com/kubernetes/kubernetes/pull/79014), [@monotek](https://github.com/monotek))
-* kubeadm: implement support for concurrent add/remove of stacked etcd members ([#79677](https://github.com/kubernetes/kubernetes/pull/79677), [@neolit123](https://github.com/neolit123))
-* Added a metric 'apiserver_watch_events_total' that can be used to understand the number of watch events in the system. ([#78732](https://github.com/kubernetes/kubernetes/pull/78732), [@mborsz](https://github.com/mborsz))
-* KMS Providers will install a healthz check for the status of kms-pluign in kube-apiservers' encryption config.  ([#78540](https://github.com/kubernetes/kubernetes/pull/78540), [@immutableT](https://github.com/immutableT))
+* fluentd 更新至 1.5.1，elasticsearchs 和 kibana 更新至 7.1.1。见 ([#79014](https://github.com/kubernetes/kubernetes/pull/79014)、[@monotek](https://github.com/monotek))。
+* kubeadm：实现对堆叠的 etcd 成员的并发添加或删除的支持。见 ([#79677](https://github.com/kubernetes/kubernetes/pull/79677)、[@neolit123](https://github.com/neolit123))。
+* 添加了指标 `apiserver_watch_events_total`，可用于了解系统中监视事件的数量。见 ([#78732](https://github.com/kubernetes/kubernetes/pull/78732)、[@mborsz](https://github.com/mborsz))。
+* KMS 提供商将在 kube-apiservers 的加密配置中安装 kms 状态的运行状况检查插件。见 ([#78540](https://github.com/kubernetes/kubernetes/pull/78540)、[@immutableT](https://github.com/immutableT))。
 <!--
 * Fixes a bug in openapi published for custom resources using x-kubernetes-preserve-unknown-fields extensions, so that kubectl will allow sending unknown fields for that portion of the object. ([#79636](https://github.com/kubernetes/kubernetes/pull/79636), [@liggitt](https://github.com/liggitt))
 * A new client `k8s.io/client-go/metadata.Client` has been added for accessing objects generically. This client makes it easier to retrieve only the metadata (the `metadata` sub-section) from resources on the cluster in an efficient manner for use cases that deal with objects generically, like the garbage collector, quota, or the namespace controller. The client asks the server to return a `meta.k8s.io/v1 PartialObjectMetadata` object for list, get, delete, watch, and patch operations on both normal APIs and custom resources which can be encoded in protobuf for additional work. If the server does not yet support this API the client will gracefully fall back to JSON and transform the response objects into PartialObjectMetadata. ([#77819](https://github.com/kubernetes/kubernetes/pull/77819), [@smarterclayton](https://github.com/smarterclayton))
 -->
-* Fixes a bug in openapi published for custom resources using x-kubernetes-preserve-unknown-fields extensions, so that kubectl will allow sending unknown fields for that portion of the object. ([#79636](https://github.com/kubernetes/kubernetes/pull/79636), [@liggitt](https://github.com/liggitt))
-* A new client `k8s.io/client-go/metadata.Client` has been added for accessing objects generically. This client makes it easier to retrieve only the metadata (the `metadata` sub-section) from resources on the cluster in an efficient manner for use cases that deal with objects generically, like the garbage collector, quota, or the namespace controller. The client asks the server to return a `meta.k8s.io/v1 PartialObjectMetadata` object for list, get, delete, watch, and patch operations on both normal APIs and custom resources which can be encoded in protobuf for additional work. If the server does not yet support this API the client will gracefully fall back to JSON and transform the response objects into PartialObjectMetadata. ([#77819](https://github.com/kubernetes/kubernetes/pull/77819), [@smarterclayton](https://github.com/smarterclayton))
+* 修复了使用 x-kubernetes-preserve-unknown-fields 扩展为自定义资源发布的 openapi 中的一个错误，该错误使 kubectl 将允许为该对象的某部分发送未知字段。见 ([#79636](https://github.com/kubernetes/kubernetes/pull/79636)、[@liggitt](https://github.com/liggitt))。
+* 添加了新的客户端 `k8s.io/client-go/metadata.Client`，用于一般性地访问对象。一般情况下，对于使用处理对象（例如垃圾收集器、配额或命名空间控制器）的用例，该客户端使以有效方式从集群上的资源仅检索元数据（“元数据”部分）变得更加容易。客户端要求服务器返回一个 `meta.k8s.io/v1 PartialObjectMetadata` 对象，用于在常规 API 和自定义资源上进行列表、获取、删除、监视和修补操作，这些操作可以在 protobuf 中进行编码以进行其他工作。如果服务器尚不支持此 API，则客户端将正常使用 JSON 并将响应对象转换为 PartialObjectMetadata。见 ([#77819](https://github.com/kubernetes/kubernetes/pull/77819)、[@smarterclayton](https://github.com/smarterclayton))。
 <!--
 * changes timeout value in csi plugin from 15s to 2min which fixes the timeout issue ([#79529](https://github.com/kubernetes/kubernetes/pull/79529), [@andyzhangx](https://github.com/andyzhangx))
 * kubeadm: provide "--control-plane-endpoint" flag for `controlPlaneEndpoint` ([#79270](https://github.com/kubernetes/kubernetes/pull/79270), [@SataQiu](https://github.com/SataQiu))
 * Fixes invalid "time stamp is the future" error when kubectl cp-ing a file ([#73982](https://github.com/kubernetes/kubernetes/pull/73982), [@tanshanshan](https://github.com/tanshanshan))
 * Kubelet should now more reliably report the same primary node IP even if the set of node IPs reported by the CloudProvider changes. ([#79391](https://github.com/kubernetes/kubernetes/pull/79391), [@danwinship](https://github.com/danwinship))
 -->
-* changes timeout value in csi plugin from 15s to 2min which fixes the timeout issue ([#79529](https://github.com/kubernetes/kubernetes/pull/79529), [@andyzhangx](https://github.com/andyzhangx))
-* kubeadm: provide "--control-plane-endpoint" flag for `controlPlaneEndpoint` ([#79270](https://github.com/kubernetes/kubernetes/pull/79270), [@SataQiu](https://github.com/SataQiu))
-* Fixes invalid "time stamp is the future" error when kubectl cp-ing a file ([#73982](https://github.com/kubernetes/kubernetes/pull/73982), [@tanshanshan](https://github.com/tanshanshan))
-* Kubelet should now more reliably report the same primary node IP even if the set of node IPs reported by the CloudProvider changes. ([#79391](https://github.com/kubernetes/kubernetes/pull/79391), [@danwinship](https://github.com/danwinship))
+* 将 csi 插件中的超时值从 15 s 更改为 2 min，从而解决了超时问题。见 ([#79529](https://github.com/kubernetes/kubernetes/pull/79529)、[@andyzhangx](https://github.com/andyzhangx))。
+* kubeadm：为 `controlPlaneEndpoint` 提供 `--control-plane-endpoint` 参数。见 ([#79270](https://github.com/kubernetes/kubernetes/pull/79270)、[@SataQiu](https://github.com/SataQiu))。
+* 当 kubectl cp 操作复制一个文件时，修复无效的 "time stamp is the future" 错误。见 ([#73982](https://github.com/kubernetes/kubernetes/pull/73982)、[@tanshanshan](https://github.com/tanshanshan))。
+* 现在，即使云平台所报告的节点 IP 集合发生了变化，kubelet 也应该能够更可靠地报告相同的主节点 IP。见 ([#79391](https://github.com/kubernetes/kubernetes/pull/79391), [@danwinship](https://github.com/danwinship))。
 <!--
 * To configure controller manager to use ipv6dual stack: ([#73977](https://github.com/kubernetes/kubernetes/pull/73977), [@khenidak](https://github.com/khenidak))
     * use --cluster-cidr="<cidr1>,<cidr2>".
@@ -3013,47 +3013,47 @@ filename | sha512 hash
     * 2. Only the "RangeAllocator" (default) is allowed as a value for --cidr-allocator-type . Cloud allocators are not compatible with ipv6dualstack 
 * When using the conformance test image, a new environment variable E2E_USE_GO_RUNNER will cause the tests to be run with the new Golang-based test runner rather than the current bash wrapper. ([#79284](https://github.com/kubernetes/kubernetes/pull/79284), [@johnSchnake](https://github.com/johnSchnake))
 -->
-* To configure controller manager to use ipv6dual stack: ([#73977](https://github.com/kubernetes/kubernetes/pull/73977), [@khenidak](https://github.com/khenidak))
-    * use --cluster-cidr="<cidr1>,<cidr2>".
-    * Notes:
+* 允许将控制器管理器配置为使用 IPv6 双协议栈：见 ([#73977](https://github.com/kubernetes/kubernetes/pull/73977)、[@khenidak](https://github.com/khenidak))。
+    * 使用 `--cluster-cidr="<cidr1>,<cidr2>"`。
+    * 注意：
  
-    * 1. Only the first two cidrs are used (soft limits for Alpha, might be lifted later on). 
-    * 2. Only the "RangeAllocator" (default) is allowed as a value for --cidr-allocator-type . Cloud allocators are not compatible with ipv6dualstack 
-* When using the conformance test image, a new environment variable E2E_USE_GO_RUNNER will cause the tests to be run with the new Golang-based test runner rather than the current bash wrapper. ([#79284](https://github.com/kubernetes/kubernetes/pull/79284), [@johnSchnake](https://github.com/johnSchnake))
+    * 1. 仅使用前两个 CIDR（对 Alpha 功能的软限制，稍后可能会取消）。 
+    * 2. 仅将 "RangeAllocator"（默认值）作为 --cidr-allocator-type 的值。云分配器与 IPv6 双协议栈不兼容。
+* 当使用一致性测试镜像时，新的环境变量 `E2E_USE_GO_RUNNER` 将使测试使用基于 golang 的新测试运行程序而不是当前的 bash 包装程序运行。见 ([#79284](https://github.com/kubernetes/kubernetes/pull/79284)、[@johnSchnake](https://github.com/johnSchnake))。
 <!--
 * kubeadm: prevent PSP blocking of upgrade image prepull by using a non-root user ([#77792](https://github.com/kubernetes/kubernetes/pull/77792), [@neolit123](https://github.com/neolit123))
 * kubelet now accepts a --cni-cache-dir option, which defaults to /var/lib/cni/cache, where CNI stores cache files. ([#78908](https://github.com/kubernetes/kubernetes/pull/78908), [@dcbw](https://github.com/dcbw))
 -->
-* kubeadm: prevent PSP blocking of upgrade image prepull by using a non-root user ([#77792](https://github.com/kubernetes/kubernetes/pull/77792), [@neolit123](https://github.com/neolit123))
-* kubelet now accepts a --cni-cache-dir option, which defaults to /var/lib/cni/cache, where CNI stores cache files. ([#78908](https://github.com/kubernetes/kubernetes/pull/78908), [@dcbw](https://github.com/dcbw))
+* kubeadm：通过使用非 root 用户防止 PSP 阻止升级镜像提前拉取操作。见 ([#77792](https://github.com/kubernetes/kubernetes/pull/77792)、[@neolit123](https://github.com/neolit123))。
+* kubelet 现在接受 `--cni-cache-dir` 选项，默认为 /var/lib/cni/cache，这是 CNI 存储缓存文件的位置。([#78908](https://github.com/kubernetes/kubernetes/pull/78908)、[@dcbw](https://github.com/dcbw))。
 <!--
 * Update Azure API versions (containerregistry -- 2018-09-01, network -- 2018-08-01) ([#79583](https://github.com/kubernetes/kubernetes/pull/79583), [@justaugustus](https://github.com/justaugustus))
 -->
-* Update Azure API versions (containerregistry -- 2018-09-01, network -- 2018-08-01) ([#79583](https://github.com/kubernetes/kubernetes/pull/79583), [@justaugustus](https://github.com/justaugustus))
+* Azure API 版本已更新（容器 registry 到 2018-09-01，网络到 2018-08-01）。见 ([#79583](https://github.com/kubernetes/kubernetes/pull/79583))。
 <!--
 * Fix possible fd leak and closing of dirs in doSafeMakeDir  ([#79534](https://github.com/kubernetes/kubernetes/pull/79534), [@odinuge](https://github.com/odinuge))
 -->
-* Fix possible fd leak and closing of dirs in doSafeMakeDir  ([#79534](https://github.com/kubernetes/kubernetes/pull/79534), [@odinuge](https://github.com/odinuge))
+* 修复 `doSafeMakeDir` 中可能的文件描述符泄漏和目录关闭。见 ([#79534](https://github.com/kubernetes/kubernetes/pull/79534)、[@odinuge](https://github.com/odinuge))。
 <!--
 * kubeadm: fix the bug that "--cri-socket" flag does not work for `kubeadm reset` ([#79498](https://github.com/kubernetes/kubernetes/pull/79498), [@SataQiu](https://github.com/SataQiu))
 * kubectl logs --selector will support --tail=-1. ([#74943](https://github.com/kubernetes/kubernetes/pull/74943), [@JishanXing](https://github.com/JishanXing))
 * Introduce a new admission controller for RuntimeClass. Initially, RuntimeClass will be used to apply the pod overhead associated with a given RuntimeClass to the Pod.Spec if a corresponding RuntimeClassName is specified. ([#78484](https://github.com/kubernetes/kubernetes/pull/78484), [@egernst](https://github.com/egernst))
     * PodOverhead is an alpha feature as of Kubernetes 1.16.
 -->
-* kubeadm: fix the bug that "--cri-socket" flag does not work for `kubeadm reset` ([#79498](https://github.com/kubernetes/kubernetes/pull/79498), [@SataQiu](https://github.com/SataQiu))
-* kubectl logs --selector will support --tail=-1. ([#74943](https://github.com/kubernetes/kubernetes/pull/74943), [@JishanXing](https://github.com/JishanXing))
-* Introduce a new admission controller for RuntimeClass. Initially, RuntimeClass will be used to apply the pod overhead associated with a given RuntimeClass to the Pod.Spec if a corresponding RuntimeClassName is specified. ([#78484](https://github.com/kubernetes/kubernetes/pull/78484), [@egernst](https://github.com/egernst))
-    * PodOverhead is an alpha feature as of Kubernetes 1.16.
+* kubeadm：修复 `--cri-socket` 参数不适用于 `kubeadm reset` 操作的错误。见 ([#79498](https://github.com/kubernetes/kubernetes/pull/79498)、[@SataQiu](https://github.com/SataQiu))。
+* kubectl log 操作 --selector 支持 --tail = -1。见 ([#74943](https://github.com/kubernetes/kubernetes/pull/74943)、[@JishanXing](https://github.com/JishanXing))。
+* 为 RuntimeClass 引入新的准入控制器。最初，如果指定了相应的 RuntimeClassName，则将使用 RuntimeClass 与给定 RuntimeClass 关联的 Pod 开销应用于 Pod `spec`。见 ([#78484](https://github.com/kubernetes/kubernetes/pull/78484)、[@egernst](https://github.com/egernst))。
+    * 从 Kubernetes 1.16 开始，PodOverhead 是 Alpha 功能。
 <!--
 * Fix kubelet errors in AArch64 with huge page sizes smaller than 1MiB ([#78495](https://github.com/kubernetes/kubernetes/pull/78495), [@odinuge](https://github.com/odinuge))
 * The alpha `metadata.initializers` field, deprecated in 1.13, has been removed. ([#79504](https://github.com/kubernetes/kubernetes/pull/79504), [@yue9944882](https://github.com/yue9944882))
 * Fix duplicate error messages in cli commands ([#79493](https://github.com/kubernetes/kubernetes/pull/79493), [@odinuge](https://github.com/odinuge))
 * Default resourceGroup should be used when the value of annotation azure-load-balancer-resource-group is an empty string. ([#79514](https://github.com/kubernetes/kubernetes/pull/79514), [@feiskyer](https://github.com/feiskyer))
 -->
-* Fix kubelet errors in AArch64 with huge page sizes smaller than 1MiB ([#78495](https://github.com/kubernetes/kubernetes/pull/78495), [@odinuge](https://github.com/odinuge))
-* The alpha `metadata.initializers` field, deprecated in 1.13, has been removed. ([#79504](https://github.com/kubernetes/kubernetes/pull/79504), [@yue9944882](https://github.com/yue9944882))
-* Fix duplicate error messages in cli commands ([#79493](https://github.com/kubernetes/kubernetes/pull/79493), [@odinuge](https://github.com/odinuge))
-* Default resourceGroup should be used when the value of annotation azure-load-balancer-resource-group is an empty string. ([#79514](https://github.com/kubernetes/kubernetes/pull/79514), [@feiskyer](https://github.com/feiskyer))
+* 使用小于 1 MiB 的巨大页面来修复 AArch64 中的 kubelet 错误。见 ([#78495](https://github.com/kubernetes/kubernetes/pull/78495)、[@odinuge](https://github.com/odinuge))。
+* 在 v1.13 版本中弃用的 alpha `metadata.initializers` 字段已被删除。见 ([#79504](https://github.com/kubernetes/kubernetes/pull/79504)、[@yue9944882](https://github.com/yue9944882))。
+* 修复 cli 命令中的重复错误消息。见 ([#79493](https://github.com/kubernetes/kubernetes/pull/79493)、[@odinuge](https://github.com/odinuge))。
+* 当注解 `azure-load-balancer-resource-group` 的值为空字符串时，应使用默认 resourceGroup。见 ([#79514](https://github.com/kubernetes/kubernetes/pull/79514)、[@feiskyer](https://github.com/feiskyer))。
 <!--
 * Fixes output of `kubectl get --watch-only` when watching a single resource ([#79345](https://github.com/kubernetes/kubernetes/pull/79345), [@liggitt](https://github.com/liggitt))
 * RateLimiter add a context-aware method, fix client-go request goruntine backlog in async timeout scene. ([#79375](https://github.com/kubernetes/kubernetes/pull/79375), [@answer1991](https://github.com/answer1991))
@@ -3061,21 +3061,21 @@ filename | sha512 hash
 * Fix CRD validation error on 'items' field. ([#76124](https://github.com/kubernetes/kubernetes/pull/76124), [@tossmilestone](https://github.com/tossmilestone))
 * The CRD handler now properly re-creates stale CR storage to reflect CRD update. ([#79114](https://github.com/kubernetes/kubernetes/pull/79114), [@roycaihw](https://github.com/roycaihw))
 -->
-* Fixes output of `kubectl get --watch-only` when watching a single resource ([#79345](https://github.com/kubernetes/kubernetes/pull/79345), [@liggitt](https://github.com/liggitt))
-* RateLimiter add a context-aware method, fix client-go request goruntine backlog in async timeout scene. ([#79375](https://github.com/kubernetes/kubernetes/pull/79375), [@answer1991](https://github.com/answer1991))
-* Fix a bug where kubelet would not retry pod sandbox creation when the restart policy of the pod is Never ([#79451](https://github.com/kubernetes/kubernetes/pull/79451), [@yujuhong](https://github.com/yujuhong))
-* Fix CRD validation error on 'items' field. ([#76124](https://github.com/kubernetes/kubernetes/pull/76124), [@tossmilestone](https://github.com/tossmilestone))
-* The CRD handler now properly re-creates stale CR storage to reflect CRD update. ([#79114](https://github.com/kubernetes/kubernetes/pull/79114), [@roycaihw](https://github.com/roycaihw))
+* 监视某个资源时修复 `kubectl get --watch-only` 输出内容。见 ([#79345](https://github.com/kubernetes/kubernetes/pull/79345)、[@liggitt](https://github.com/liggitt))。
+* RateLimiter 添加了 context-aware 方法，修复了异步超时场景中的 client-go 请求 goruntine backlog 问题。见 ([#79375](https://github.com/kubernetes/kubernetes/pull/79375)、[@answer1991](https://github.com/answer1991))。
+* 修复了当 Pod 的重启策略设置为 Never 时，kubelet 不会重试 Pod 沙盒创建的问题。见 ([#79451](https://github.com/kubernetes/kubernetes/pull/79451)、[@yujuhong](https://github.com/yujuhong))。
+* 修复 `items` 字段中的 CRD 验证错误。见 ([#76124](https://github.com/kubernetes/kubernetes/pull/76124)、[@tossmilestone](https://github.com/tossmilestone))。
+* CRD 处理程序现在可以正确地重新创建过时的 CR 存储，以反映 CRD 更新。见 ([#79114](https://github.com/kubernetes/kubernetes/pull/79114)、[@roycaihw](https://github.com/roycaihw))。
 <!--
 * Integrated volume limits for in-tree and CSI volumes into one scheduler predicate. ([#77595](https://github.com/kubernetes/kubernetes/pull/77595), [@bertinatto](https://github.com/bertinatto))
 * Fix a bug in server printer that could cause kube-apiserver to panic. ([#79349](https://github.com/kubernetes/kubernetes/pull/79349), [@roycaihw](https://github.com/roycaihw))
 * Mounts /home/kubernetes/bin/nvidia/vulkan/icd.d on the host to /etc/vulkan/icd.d inside containers requesting GPU. ([#78868](https://github.com/kubernetes/kubernetes/pull/78868), [@chardch](https://github.com/chardch))
 * Remove CSIPersistentVolume feature gates ([#79309](https://github.com/kubernetes/kubernetes/pull/79309), [@draveness](https://github.com/draveness))
 -->
-* Integrated volume limits for in-tree and CSI volumes into one scheduler predicate. ([#77595](https://github.com/kubernetes/kubernetes/pull/77595), [@bertinatto](https://github.com/bertinatto))
-* Fix a bug in server printer that could cause kube-apiserver to panic. ([#79349](https://github.com/kubernetes/kubernetes/pull/79349), [@roycaihw](https://github.com/roycaihw))
-* Mounts /home/kubernetes/bin/nvidia/vulkan/icd.d on the host to /etc/vulkan/icd.d inside containers requesting GPU. ([#78868](https://github.com/kubernetes/kubernetes/pull/78868), [@chardch](https://github.com/chardch))
-* Remove CSIPersistentVolume feature gates ([#79309](https://github.com/kubernetes/kubernetes/pull/79309), [@draveness](https://github.com/draveness))
+* 将 in-tree 和 CSI（Volume）卷的（Volume）限制集成到一个调度器条件（Scheduler Predicate）。见 ([#77595](https://github.com/kubernetes/kubernetes/pull/77595)、[@bertinatto](https://github.com/bertinatto))。
+* 修复了源代码 printers 函数中可能导致 kube-apiserver 崩溃的错误。见 ([#79349](https://github.com/kubernetes/kubernetes/pull/79349)、[@roycaihw](https://github.com/roycaihw))。
+* 将主机上的 `/home/kubernetes/bin/nvidia/vulkan/icd.d` 挂载到请求 GPU 的容器内的 `/etc/vulkan/icd.d`。见 ([#78868](https://github.com/kubernetes/kubernetes/pull/78868)、[@chardch](https://github.com/chardch))。
+* 移除 CSIPersistentVolume 功能特性开关。见 ([#79309](https://github.com/kubernetes/kubernetes/pull/79309)、[@draveness](https://github.com/draveness))。
 <!--
 * Init container resource requests now impact pod QoS class ([#75223](https://github.com/kubernetes/kubernetes/pull/75223), [@sjenning](https://github.com/sjenning))
 * Correct the maximum allowed insecure bind port for the kube-scheduler and kube-apiserver to 65535. ([#79346](https://github.com/kubernetes/kubernetes/pull/79346), [@ncdc](https://github.com/ncdc))
@@ -3083,11 +3083,11 @@ filename | sha512 hash
 * Remove KubeletPluginsWatcher feature gates ([#79310](https://github.com/kubernetes/kubernetes/pull/79310), [@draveness](https://github.com/draveness))
 * Remove HugePages, VolumeScheduling, CustomPodDNS and PodReadinessGates feature flags ([#79307](https://github.com/kubernetes/kubernetes/pull/79307), [@draveness](https://github.com/draveness))
 -->
-* Init container resource requests now impact pod QoS class ([#75223](https://github.com/kubernetes/kubernetes/pull/75223), [@sjenning](https://github.com/sjenning))
-* Correct the maximum allowed insecure bind port for the kube-scheduler and kube-apiserver to 65535. ([#79346](https://github.com/kubernetes/kubernetes/pull/79346), [@ncdc](https://github.com/ncdc))
-* Fix remove the etcd member from the cluster during a kubeadm reset. ([#79326](https://github.com/kubernetes/kubernetes/pull/79326), [@bradbeam](https://github.com/bradbeam))
-* Remove KubeletPluginsWatcher feature gates ([#79310](https://github.com/kubernetes/kubernetes/pull/79310), [@draveness](https://github.com/draveness))
-* Remove HugePages, VolumeScheduling, CustomPodDNS and PodReadinessGates feature flags ([#79307](https://github.com/kubernetes/kubernetes/pull/79307), [@draveness](https://github.com/draveness))
+* 初始化容器资源请求现在会影响 Pod QoS 类。见 ([#75223](https://github.com/kubernetes/kubernetes/pull/75223)、[@sjenning](https://github.com/sjenning))。
+* 将 kube-scheduler 和 kube-apiserver 允许的最大不安全绑定端口更正为 65535。([#79346](https://github.com/kubernetes/kubernetes/pull/79346)、[@ncdc](https://github.com/ncdc))。
+* 修复在 kubeadm 重置期间从集群中删除 etcd 成员问题。见 ([#79326](https://github.com/kubernetes/kubernetes/pull/79326)、[@bradbeam](https://github.com/bradbeam))。
+* 移除 KubeletPluginsWatcher 特性开关。见 ([#79310](https://github.com/kubernetes/kubernetes/pull/79310)、[@draveness](https://github.com/draveness))。
+* 移除 HugePages、VolumeScheduling、CustomPodDNS 和 PodReadinessGates 功能参数。见 ([#79307](https://github.com/kubernetes/kubernetes/pull/79307)、[@draveness](https://github.com/draveness))。
 <!--
 * The GA PodPriority feature gate is now on by default and cannot be disabled. The feature gate will be removed in v1.18. ([#79262](https://github.com/kubernetes/kubernetes/pull/79262), [@draveness](https://github.com/draveness))
 * Remove pids cgroup controller requirement when related feature gates are disabled ([#79073](https://github.com/kubernetes/kubernetes/pull/79073), [@rafatio](https://github.com/rafatio))
@@ -3096,65 +3096,64 @@ filename | sha512 hash
 * update to use go 1.12.6 ([#78958](https://github.com/kubernetes/kubernetes/pull/78958), [@tao12345666333](https://github.com/tao12345666333))
 * kubeadm: fix a potential panic if kubeadm discovers an invalid, existing kubeconfig file ([#79165](https://github.com/kubernetes/kubernetes/pull/79165), [@neolit123](https://github.com/neolit123))
 -->
-* The GA PodPriority feature gate is now on by default and cannot be disabled. The feature gate will be removed in v1.18. ([#79262](https://github.com/kubernetes/kubernetes/pull/79262), [@draveness](https://github.com/draveness))
-* Remove pids cgroup controller requirement when related feature gates are disabled ([#79073](https://github.com/kubernetes/kubernetes/pull/79073), [@rafatio](https://github.com/rafatio))
-* Add Bind extension point of the scheduling framework ([#78513](https://github.com/kubernetes/kubernetes/pull/78513), [@chenchun](https://github.com/chenchun))
-* if targetPort is changed that will process by service controller  ([#77712](https://github.com/kubernetes/kubernetes/pull/77712), [@Sn0rt](https://github.com/Sn0rt))
-* update to use go 1.12.6 ([#78958](https://github.com/kubernetes/kubernetes/pull/78958), [@tao12345666333](https://github.com/tao12345666333))
-* kubeadm: fix a potential panic if kubeadm discovers an invalid, existing kubeconfig file ([#79165](https://github.com/kubernetes/kubernetes/pull/79165), [@neolit123](https://github.com/neolit123))
+* GA 版本中的 `PodPriority` 特性开关现在默认情况下处于打开状态，无法禁用。`PodPriority` 特性开关将在 v1.18 中删除。见 ([#79262](https://github.com/kubernetes/kubernetes/pull/79262), [@draveness](https://github.com/draveness))。
+* 禁用相关功能开关时，删除 PID cgroup 控制器要求。见 ([#79073](https://github.com/kubernetes/kubernetes/pull/79073)、[@rafatio](https://github.com/rafatio))。
+* 添加调度框架的绑定扩展点。见 ([#78513](https://github.com/kubernetes/kubernetes/pull/78513)、[@chenchun](https://github.com/chenchun))。
+* 如果 targetPort 更改，则将由服务控制器处理 targetPort。见 ([#77712](https://github.com/kubernetes/kubernetes/pull/77712)、[@Sn0rt](https://github.com/Sn0rt))。
+* 升级 go 到 1.12.6。见 ([#78958](https://github.com/kubernetes/kubernetes/pull/78958)、[@tao12345666333](https://github.com/tao12345666333))。
+* kubeadm：修复了因 kubeadm 发现无效的、现有的 kubeconfig 文件而可能引起的崩溃问题。见 ([#79165](https://github.com/kubernetes/kubernetes/pull/79165)、[@neolit123](https://github.com/neolit123))。
 <!--
 * fix kubelet fail to delete orphaned pod directory when the kubelet's pods directory (default is "/var/lib/kubelet/pods") symbolically links to another disk device's directory ([#79094](https://github.com/kubernetes/kubernetes/pull/79094), [@gaorong](https://github.com/gaorong))
 * Addition of Overhead field to the PodSpec and RuntimeClass types as part of the Pod Overhead KEP ([#76968](https://github.com/kubernetes/kubernetes/pull/76968), [@egernst](https://github.com/egernst))
 * fix pod list return value of framework.WaitForPodsWithLabelRunningReady ([#78687](https://github.com/kubernetes/kubernetes/pull/78687), [@pohly](https://github.com/pohly))
 -->
-* fix kubelet fail to delete orphaned pod directory when the kubelet's pods directory (default is "/var/lib/kubelet/pods") symbolically links to another disk device's directory ([#79094](https://github.com/kubernetes/kubernetes/pull/79094), [@gaorong](https://github.com/gaorong))
-* Addition of Overhead field to the PodSpec and RuntimeClass types as part of the Pod Overhead KEP ([#76968](https://github.com/kubernetes/kubernetes/pull/76968), [@egernst](https://github.com/egernst))
-* fix pod list return value of framework.WaitForPodsWithLabelRunningReady ([#78687](https://github.com/kubernetes/kubernetes/pull/78687), [@pohly](https://github.com/pohly))
+* 修复 kubelet 的 Pod 目录（默认为 `/var/lib/kubelet/pods`）象征性地链接到另一个磁盘设备的目录时，kubelet 无法删除孤立的 pod 目录的问题。见 ([#79094](https://github.com/kubernetes/kubernetes/pull/79094)、[@gaorong](https://github.com/gaorong))。
+* 作为 Pod Overhead KEP 的一部分，将 Overhead 字段添加到 PodSpec 和 RuntimeClass 类型中。见 ([#76968](https://github.com/kubernetes/kubernetes/pull/76968)、[@egernst](https://github.com/egernst))。
+* 修正 Pod 列表返回值为 `framework.WaitForPodsWithLabelRunningReady`。见 ([#78687](https://github.com/kubernetes/kubernetes/pull/78687)、[@pohly](https://github.com/pohly))。
 <!--
 * The behavior of the default handler for 404 requests fro the GCE Ingress load balancer is slightly modified in the sense that it now exports metrics using prometheus. The metrics exported include:  ([#79106](https://github.com/kubernetes/kubernetes/pull/79106), [@vbannai](https://github.com/vbannai))
     * - http_404_request_total  (the number of 404 requests handled)
     * - http_404_request_duration_ms (the amount of time the server took to respond in ms)
     * Also includes percentile groupings. The directory for the default 404 handler includes instructions on how to enable prometheus for monitoring and setting alerts.
 -->
-* The behavior of the default handler for 404 requests fro the GCE Ingress load balancer is slightly modified in the sense that it now exports metrics using prometheus. The metrics exported include:  ([#79106](https://github.com/kubernetes/kubernetes/pull/79106), [@vbannai](https://github.com/vbannai))
-    * - http_404_request_total  (the number of 404 requests handled)
-    * - http_404_request_duration_ms (the amount of time the server took to respond in ms)
-    * Also includes percentile groupings. The directory for the default 404 handler includes instructions on how to enable prometheus for monitoring and setting alerts.
+* 对于 GCE Ingress 负载均衡器的 404 请求的默认处理程序的行为，在某种程度上已进行了一些修改，即它现在使用 Prometheus 导出指标。导出的指标包括：见 ([#79106](https://github.com/kubernetes/kubernetes/pull/79106)、[@vbannai](https://github.com/vbannai))。
+    * - `http_404_request_total` （已处理的 404 请求数目）
+    * - `http_404_request_duration_ms` （服务器响应所花费的时间（以毫秒为单位））
+    * 还包括百分位数分组。默认 404 处理程序的目录包括有关如何启用 Prometheus 来监视和设置警报的说明。
 <!--
 * The kube-apiserver has improved behavior for both startup and shutdown sequences and also now exposes `
 eadyz` for readiness checking. Readyz includes all existing healthz checks but also adds a shutdown check. When a cluster admin initiates a shutdown, the kube-apiserver will try to process existing requests (for the duration of request timeout) before killing the apiserver process.   ([#78458](https://github.com/kubernetes/kubernetes/pull/78458), [@logicalhan](https://github.com/logicalhan))
     * The apiserver also now takes an optional flag "--maximum-startup-sequence-duration". This allows you to explicitly define an upper bound on the apiserver startup sequences before healthz begins to fail. By keeping the kubelet liveness initial delay short, this can enable quick kubelet recovery as soon as we have a boot sequence which has not completed in our expected time frame, despite lack of completion from longer boot sequences (like RBAC). Kube-apiserver behavior when the value of this flag is zero is backwards compatible (this is as the defaulted value of the flag).
 -->
-* The kube-apiserver has improved behavior for both startup and shutdown sequences and also now exposes `
-eadyz` for readiness checking. Readyz includes all existing healthz checks but also adds a shutdown check. When a cluster admin initiates a shutdown, the kube-apiserver will try to process existing requests (for the duration of request timeout) before killing the apiserver process.   ([#78458](https://github.com/kubernetes/kubernetes/pull/78458), [@logicalhan](https://github.com/logicalhan))
-    * The apiserver also now takes an optional flag "--maximum-startup-sequence-duration". This allows you to explicitly define an upper bound on the apiserver startup sequences before healthz begins to fail. By keeping the kubelet liveness initial delay short, this can enable quick kubelet recovery as soon as we have a boot sequence which has not completed in our expected time frame, despite lack of completion from longer boot sequences (like RBAC). Kube-apiserver behavior when the value of this flag is zero is backwards compatible (this is as the defaulted value of the flag).
+* kube-apiserver 改进了启动和关闭序列的行为，现在还公开了 `eadyz` 用来进行就绪检查。Readyz 包括所有现有的 healthz 检查，但还添加了关闭检查。当集群管理员启动关闭时， kube-apiserver 将在杀死 apiserver 进程之前尝试处理现有请求（在请求超时时间内）。见 ([#78458](https://github.com/kubernetes/kubernetes/pull/78458)、[@logicalhan](https://github.com/logicalhan))。
+    * apiserver 现在还带有一个可选参数 `--maximum-startup-sequence-duration`。这样，您就可以在 healthz 开始失败之前明确定义 apiserver 启动序列的上限。通过使 kubelet 活跃度初始延迟尽量较短，尽管启动序列没有在预期的时间范围内完成并且缺少较长的启动序列（如 RBAC），但可以使 kubelet 快速恢复。当此标志的值为零时，kube-apiserver 行为是向后兼容的（这是该参数的默认值）。
 <!--
 * fix: make azure disk URI as case insensitive ([#79020](https://github.com/kubernetes/kubernetes/pull/79020), [@andyzhangx](https://github.com/andyzhangx))
 * Enable cadvisor ProcessMetrics collecting. ([#79002](https://github.com/kubernetes/kubernetes/pull/79002), [@jiayingz](https://github.com/jiayingz))
 * Fixes a bug where `kubectl set config` hangs and uses 100% CPU on some invalid property names  ([#79000](https://github.com/kubernetes/kubernetes/pull/79000), [@pswica](https://github.com/pswica))
 * Fix a string comparison bug in IPVS graceful termination where UDP real servers are not deleted. ([#78999](https://github.com/kubernetes/kubernetes/pull/78999), [@andrewsykim](https://github.com/andrewsykim))
 -->
-* fix: make azure disk URI as case insensitive ([#79020](https://github.com/kubernetes/kubernetes/pull/79020), [@andyzhangx](https://github.com/andyzhangx))
-* Enable cadvisor ProcessMetrics collecting. ([#79002](https://github.com/kubernetes/kubernetes/pull/79002), [@jiayingz](https://github.com/jiayingz))
-* Fixes a bug where `kubectl set config` hangs and uses 100% CPU on some invalid property names  ([#79000](https://github.com/kubernetes/kubernetes/pull/79000), [@pswica](https://github.com/pswica))
-* Fix a string comparison bug in IPVS graceful termination where UDP real servers are not deleted. ([#78999](https://github.com/kubernetes/kubernetes/pull/78999), [@andrewsykim](https://github.com/andrewsykim))
+* 修复了使 Azure 磁盘 URI 不区分大小写的问题。见 ([#79020](https://github.com/kubernetes/kubernetes/pull/79020)、[@andyzhangx](https://github.com/andyzhangx))。
+* 启用 cAdvisor ProcessMetrics 指标收集。见 ([#79002](https://github.com/kubernetes/kubernetes/pull/79002)、[@jiayingz](https://github.com/jiayingz))。
+* 修复了 `kubectl set config` 挂起并在某些无效的属性名称上使用 100％ CPU 的错误。见 ([#79000](https://github.com/kubernetes/kubernetes/pull/79000)、[@pswica](https://github.com/pswica))。
+* 修复了 IPVS 正常终止操作中不删除 UDP 真实服务器的字符串比较错误。见 ([#78999](https://github.com/kubernetes/kubernetes/pull/78999)、[@andrewsykim](https://github.com/andrewsykim))。
 <!--
 * Reflector watchHandler Warning log 'The resourceVersion for the provided watch is too old.' is now logged as Info.  ([#78991](https://github.com/kubernetes/kubernetes/pull/78991), [@sallyom](https://github.com/sallyom))
 * fix a bug that pods not be deleted from unmatched nodes by daemon controller   ([#78974](https://github.com/kubernetes/kubernetes/pull/78974), [@DaiHao](https://github.com/DaiHao))
 * NONE ([#78821](https://github.com/kubernetes/kubernetes/pull/78821), [@jhedev](https://github.com/jhedev))
 * Volume expansion is enabled in the default GCE storageclass ([#78672](https://github.com/kubernetes/kubernetes/pull/78672), [@msau42](https://github.com/msau42))
 -->
-* Reflector watchHandler Warning log 'The resourceVersion for the provided watch is too old.' is now logged as Info.  ([#78991](https://github.com/kubernetes/kubernetes/pull/78991), [@sallyom](https://github.com/sallyom))
-* fix a bug that pods not be deleted from unmatched nodes by daemon controller   ([#78974](https://github.com/kubernetes/kubernetes/pull/78974), [@DaiHao](https://github.com/DaiHao))
-* NONE ([#78821](https://github.com/kubernetes/kubernetes/pull/78821), [@jhedev](https://github.com/jhedev))
-* Volume expansion is enabled in the default GCE storageclass ([#78672](https://github.com/kubernetes/kubernetes/pull/78672), [@msau42](https://github.com/msau42))
+* 重构 watchHandler Warning 日志 `The resourceVersion for the provided watch is too old`，现在被设置为 Info。见 ([#78991](https://github.com/kubernetes/kubernetes/pull/78991)、[@sallyom](https://github.com/sallyom))。
+* 修复了守护程序控制器（daemon controller）无法从不匹配的节点删除 Pod 的错误。见 ([#78974](https://github.com/kubernetes/kubernetes/pull/78974)、[@DaiHao](https://github.com/DaiHao))。
+* NONE 见 ([#78821](https://github.com/kubernetes/kubernetes/pull/78821)、[@jhedev](https://github.com/jhedev))。
+* 在默认的 GCE 存储类中启用了卷扩展。见 ([#78672](https://github.com/kubernetes/kubernetes/pull/78672)、[@msau42](https://github.com/msau42))。
 <!--
 * kubeadm: use the service-cidr flag to pass the desired service CIDR to the kube-controller-manager via its service-cluster-ip-range flag. ([#78625](https://github.com/kubernetes/kubernetes/pull/78625), [@Arvinderpal](https://github.com/Arvinderpal))
 * kubeadm: introduce deterministic ordering for the certificates generation in the phase command "kubeadm init phase certs" . ([#78556](https://github.com/kubernetes/kubernetes/pull/78556), [@neolit123](https://github.com/neolit123))
 * Add Pre-filter extension point to the scheduling framework. ([#78005](https://github.com/kubernetes/kubernetes/pull/78005), [@ahg-g](https://github.com/ahg-g))
 * fix pod stuck issue due to corrupt mnt point in flexvol plugin, call Unmount if PathExists returns any error ([#75234](https://github.com/kubernetes/kubernetes/pull/75234), [@andyzhangx](https://github.com/andyzhangx))
 -->
-* kubeadm: use the service-cidr flag to pass the desired service CIDR to the kube-controller-manager via its service-cluster-ip-range flag. ([#78625](https://github.com/kubernetes/kubernetes/pull/78625), [@Arvinderpal](https://github.com/Arvinderpal))
-* kubeadm: introduce deterministic ordering for the certificates generation in the phase command "kubeadm init phase certs" . ([#78556](https://github.com/kubernetes/kubernetes/pull/78556), [@neolit123](https://github.com/neolit123))
-* Add Pre-filter extension point to the scheduling framework. ([#78005](https://github.com/kubernetes/kubernetes/pull/78005), [@ahg-g](https://github.com/ahg-g))
-* fix pod stuck issue due to corrupt mnt point in flexvol plugin, call Unmount if PathExists returns any error ([#75234](https://github.com/kubernetes/kubernetes/pull/75234), [@andyzhangx](https://github.com/andyzhangx))
+* kubeadm：使用 service-cidr 参数通过其 service-cluster-ip-range 参数将所需的服务 CIDR 传递到 kube-controller-manager。见 ([#78625](https://github.com/kubernetes/kubernetes/pull/78625)、[@Arvinderpal](https://github.com/Arvinderpal))。
+* kubeadm：在阶段命令 `kubeadm init phase certs` 操作中引入确定性顺序用于生成证书。见 ([#78556](https://github.com/kubernetes/kubernetes/pull/78556)、[@neolit123](https://github.com/neolit123))。
+* 将预过滤器扩展点添加到调度框架。见 ([#78005](https://github.com/kubernetes/kubernetes/pull/78005)、[@ahg-g](https://github.com/ahg-g))。
+* 修复由于 flexvol 插件中的 mnt 点损坏而导致的卡住问题，如果 PathExists 返回任何错误，请调用 Unmount 操作。见 ([#75234](https://github.com/kubernetes/kubernetes/pull/75234)、[@andyzhangx](https://github.com/andyzhangx))。
