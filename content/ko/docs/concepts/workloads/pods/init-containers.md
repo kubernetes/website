@@ -60,7 +60,6 @@ weight: 40
 * 앱 이미지에는 없는 셋업을 위한 유틸리티 또는 맞춤 코드를 포함할 수 있다.
   예를 들어, 셋업 중에 단지 `sed`, `awk`, `python`, 또는 `dig`와 같은 도구를 사용하기 위해서
   다른 이미지로부터(`FROM`) 새로운 이미지를 만들 필요가 없다.
-* 앱 컨테이너 이미지의 보안성을 떨어뜨릴 수도 있는 유틸리티를 안전하게 실행할 수 있다.
 * 애플리케이션 이미지 빌더와 디플로이어 역할은 독립적으로 동작될 수 있어서
   공동의 단일 앱 이미지 형태로 빌드될 필요가 없다.
 * 초기화 컨테이너는 앱 컨테이너와 다른 파일 시스템 뷰를 가지도록 Linux 네임스페이스를 사용한다.
@@ -69,6 +68,9 @@ weight: 40
 * 앱 컨테이너들은 병렬로 실행되는 반면, 초기화 컨테이너들은 어떠한 앱
   컨테이너라도 시작되기 전에 실행 완료되어야 하므로, 초기화 컨테이너는 사전 조건들이
   충족될 때까지 앱 컨테이너가 시동되는 것을 막거나 지연시키는 간편한 방법을 제공한다.
+* 초기화 컨테이너는 앱 컨테이너 이미지의 보안성을 떨어뜨릴 수도 있는 유틸리티 혹은 커스텀 코드를 안전하게
+  실행할 수 있다. 불필요한 툴들을 분리한 채로 유지함으로써 앱 컨테이너 이미지의 공격에 대한
+  노출을 제한할 수 있다.
 
 
 ### 예제
@@ -122,31 +124,6 @@ spec:
   - name: init-mydb
     image: busybox:1.28
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
-```
-
-
-아래의 yaml file은 `mydb`와 `myservice` 서비스의 개요를 보여준다.
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: myservice
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mydb
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9377
 ```
 
 다음 커맨드들을 이용하여 파드를 시작하거나 디버깅할 수 있다.
