@@ -22,6 +22,10 @@
   background-repeat:no-repeat;
 }
 
+h1 .article {
+  padding-top:10%;
+}
+
 .image {
 padding-top:5% !important;
 }
