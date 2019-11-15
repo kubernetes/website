@@ -6,7 +6,7 @@ weight: 60
 
 {{% capture overview %}}
 
-Kubernetesにおいて、_スケジューリング_ は、{{< glossary_tooltip term_id="kubelet" >}}が{{< glossary_tooltip text="Pods" term_id="pod" >}}を稼働させるために{{< glossary_tooltip text="Nodes" term_id="node" >}}に割り当てることを意味します。
+Kubernetesにおいて、_スケジューリング_ は、{{< glossary_tooltip term_id="kubelet" >}}が{{< glossary_tooltip text="Pod" term_id="pod" >}}を稼働させるために{{< glossary_tooltip text="Node" term_id="node" >}}に割り当てることを意味します。
 
 {{% /capture %}}
 
@@ -32,7 +32,7 @@ kube-schedulerは、もし希望するのであれば自分自身でスケジュ
 スケジューラーはPodに対する割り当て可能なNodeをみつけ、それらの割り当て可能なNodeにスコアをつけます。その中から最も高いスコアのNodeを選択し、Podに割り当てるためのいくつかの関数を実行します。  
 スケジューラーは_binding_ と呼ばれる処理中において、APIサーバーに対して割り当てが決まったNodeの情報を通知します。
 
-スケジューリングを決定する上で考慮が必要な要素としては、個別または複数のリソース要求や、ハードウェア/ソフトウェアのポリシー制約、AffinityやAnti-Affinityの設定、データの局所性や、ワークロード間での干渉などが挙げられます。
+スケジューリングを決定する上で考慮が必要な要素としては、個別または複数のリソース要求や、ハードウェア/ソフトウェアのポリシー制約、affinityやanti-affinityの設定、データの局所性や、ワークロード間での干渉などが挙げられます。
 
 ## kube-schedulerによるスケジューリング{#kube-scheduler-implementation}
 
@@ -114,5 +114,5 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 {{% capture whatsnext %}}
 * [スケジューラーのパフォーマンスチューニング](/docs/concepts/scheduling/scheduler-perf-tuning/)を参照してください。
 * kube-schedulerの[リファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
-* Learn about [複数のスケジューラーの設定](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
+* [複数のスケジューラーの設定](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
 {{% /capture %}}
