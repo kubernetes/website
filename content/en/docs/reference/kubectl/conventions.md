@@ -47,18 +47,17 @@ You can create the following resources using `kubectl run` with the `--generator
 | CronJob (deprecated)                | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
 
 {{< note >}}
-`kubectl run --generator` except for `run-pod/v1` is deprecated in v1.12.
+Generators other than `run-pod/v1` are deprecated.
 {{< /note >}}
 
 If you do not specify a generator flag, other flags prompt you to use a specific generator. The following table lists the flags that force you to use specific generators, depending on the version of the cluster:
 
-|   Generated Resource   | Cluster v1.4 and later | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and earlier                   |
-|:----------------------:|------------------------|-----------------------|--------------------------------------------|--------------------------------------------|
-| Pod                    | `--restart=Never`      | `--restart=Never`     | `--generator=run-pod/v1`                   | `--restart=OnFailure` OR `--restart=Never` |
-| Replication Controller | `--generator=run/v1`   | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
-| Deployment             | `--restart=Always`     | `--restart=Always`    | `--restart=Always`                         | N/A                                        |
-| Job                    | `--restart=OnFailure`  | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
-| Cron Job               | `--schedule=<cron>`    | N/A                   | N/A                                        | N/A                                        |
+|   Generated Resource  | Flag                    |
+|:---------------------:|-------------------------|
+| CronJob               | `--schedule=<schedule>` |
+| Deployment            | `--restart=Always`      |
+| Job                   | `--restart=OnFailure`   |
+| Pod                   | `--restart=Never`       |
 
 {{< note >}}
 These flags use a default generator only when you have not specified any flag.
