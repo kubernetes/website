@@ -22,8 +22,6 @@
   background-repeat:no-repeat;
 }
 
-
-
 .image {
 padding-top:5% !important;
 }
@@ -185,7 +183,7 @@ h2 {
   font-size:1.2em !important;
   color:#3366ff;
   letter-spacing:0.03em;
-  padding-bottom:0%;
+  padding-bottom:1%;
   padding-top:2%;
   padding-left:10%;
 }
@@ -225,10 +223,7 @@ hr {
   letter-spacing:0.03em;
 }
 
-.fullcol h2 {
-  padding-bottom:2%;
 
-}
 
 
 .colsgradient {
