@@ -58,7 +58,7 @@ kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{prin
 a00:100::4
 ```
 
-You can also validate Pod IPs using the Downward API via the `status.podIP` fieldPath. The following snippet demonstrates how you can expose the Pod IPs via an environment variable called `MY_POD_IPS` within a container.
+You can also validate Pod IPs using the Downward API via the `status.podIPs` fieldPath. The following snippet demonstrates how you can expose the Pod IPs via an environment variable called `MY_POD_IPS` within a container.
 
 ```
         env:
