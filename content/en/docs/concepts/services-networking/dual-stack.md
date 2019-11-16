@@ -59,13 +59,6 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>` 
       * `--feature-gates="IPv6DualStack=true"`
 
-### New Additions (for follow up)
-   * Add new flags introduced in:
-      * https://github.com/kubernetes/kubernetes/pull/79993
-      * https://github.com/kubernetes/kubernetes/pull/82462
-      * https://github.com/kubernetes/kubernetes/pull/84089
-      * https://github.com/kubernetes/kubernetes/pull/83123
-
 {{< caution >}}
 If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on the command line, that assignment will fail.
 {{< /caution >}}
