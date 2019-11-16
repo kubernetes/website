@@ -58,7 +58,7 @@ kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{prin
 a00:100::4
 ```
 
-You can also validate Pod IPs using the Downward API using the `status.podIP` fieldPath. The following snippet demonstrates how you can expose the Pod IPs via an environment variable called `MY_POD_IPS` within the container runtime.
+You can also validate Pod IPs using the Downward API via the `status.podIP` fieldPath. The following snippet demonstrates how you can expose the Pod IPs via an environment variable called `MY_POD_IPS` within a container.
 
 ```
         env:
@@ -68,7 +68,7 @@ You can also validate Pod IPs using the Downward API using the `status.podIP` fi
               fieldPath: status.podIPs
 ```
 
-The following command prints the value of the `MY_POD_IPS` environment variable from within the container. The value is a comma separated list that corresponds to the Pod's IPv4 and IPv6 addresses.
+The following command prints the value of the `MY_POD_IPS` environment variable from within a container. The value is a comma separated list that corresponds to the Pod's IPv4 and IPv6 addresses.
 ```shell
 kubectl exec -it pod01 -- env | grep MY_POD_IPS
 ```
@@ -76,7 +76,7 @@ kubectl exec -it pod01 -- env | grep MY_POD_IPS
 MY_POD_IPS=10.244.0.6,fd00::6
 ```
 
-The Pod's IP addresses will also be written to `/etc/hosts` within the container. The following command executes a cat on `/etc/hosts` on a dual stack Pod. From the output you can verify both the IPv4 and IPv6 IP address for the Pod.
+The Pod's IP addresses will also be written to `/etc/hosts` within a container. The following command executes a cat on `/etc/hosts` on a dual stack Pod. From the output you can verify both the IPv4 and IPv6 IP address for the Pod.
 
 ```shell
 kubectl exec -it pod01 -- cat /etc/hosts
