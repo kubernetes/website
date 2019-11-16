@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: wordpress-mysql
   labels:
-    app: wordpress
+    app: wordpress-mysql
 spec:
   ports:
     - port: 3306
   selector:
-    app: wordpress
+    app: wordpress-mysql
     tier: mysql
   clusterIP: None
 ---
@@ -17,7 +17,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
   labels:
-    app: wordpress
+    app: wordpress-mysql
 spec:
   accessModes:
     - ReadWriteOnce
