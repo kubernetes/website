@@ -73,7 +73,7 @@ The following command prints the value of the `MY_POD_IPS` environment variable 
 kubectl exec -it pod01 -- env | grep MY_POD_IPS
 ```
 ```
-MY_POD_IPS=10.244.0.6,fd00::6
+MY_POD_IPS=10.244.1.4,a00:100::4
 ```
 
 The Pod's IP addresses will also be written to `/etc/hosts` within a container. The following command executes a cat on `/etc/hosts` on a dual stack Pod. From the output you can verify both the IPv4 and IPv6 IP address for the Pod.
@@ -89,8 +89,8 @@ fe00::0    ip6-localnet
 fe00::0    ip6-mcastprefix
 fe00::1    ip6-allnodes
 fe00::2    ip6-allrouters
-10.244.0.6    nginx-8bff7fdb7-xdzj6
-fd00::6    nginx-8bff7fdb7-xdzj6
+10.244.1.4    pod01
+a00:100::4    pod01
 ```
 
 ## Validate Services
