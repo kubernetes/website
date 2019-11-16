@@ -58,6 +58,41 @@ kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{prin
 a00:100::4
 ```
 
+You can also validate Pod IPs using the Downward API using the `status.podIP` fieldPath. The following snippet demonstrates how you can expose the Pod IPs via an environment variable called `MY_POD_IPS` within the container runtime.
+
+```
+        env:
+        - name: MY_POD_IPS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIPs
+```
+
+The following command prints the value of the `MY_POD_IPS` environment variable from within the container. The value is a comma separated list that corresponds to the Pod's IPv4 and IPv6 addresses.
+```shell
+kubectl exec -it pod01 -- env | grep MY_POD_IPS
+```
+```
+MY_POD_IPS=10.244.0.6,fd00::6
+```
+
+The Pod's IP addresses will also be written to `/etc/hosts` within the container. The following command executes a cat on `/etc/hosts` on a dual stack Pod. From the output you can verify both the IPv4 and IPv6 IP address for the Pod.
+
+```shell
+kubectl exec -it pod01 -- cat /etc/hosts
+```
+```
+# Kubernetes-managed hosts file.
+127.0.0.1    localhost
+::1    localhost ip6-localhost ip6-loopback
+fe00::0    ip6-localnet
+fe00::0    ip6-mcastprefix
+fe00::1    ip6-allnodes
+fe00::2    ip6-allrouters
+10.244.0.6    nginx-8bff7fdb7-xdzj6
+fd00::6    nginx-8bff7fdb7-xdzj6
+```
+
 ## Validate Services
 
 Create the following Service without the `ipFamily` field set. When this field is not set, the Service gets an IP from the first configured range via `--service-cluster-ip-range` flag on the kube-controller-manager.
