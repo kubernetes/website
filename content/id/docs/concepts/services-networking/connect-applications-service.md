@@ -167,7 +167,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 
 Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it).
 
-Sisa panduan ini mengasumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (Kube-dns kluster), jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam kluster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
+Sisa panduan ini mengasumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (CoreDNS kluster), jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam kluster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
