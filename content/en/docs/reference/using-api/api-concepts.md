@@ -620,7 +620,7 @@ should have the same flag setting.
 
 ## Resource Versions
 
-Resource versions are strings that identify the server's internal version of an object. They can used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server. For example, clients must not assume resource versions are numeric, and must not compare two resource versions for greater-than or less-than relationships.
+Resource versions are strings that identify the server's internal version of an object. Resource versions can used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server. For example, clients must not assume resource versions are numeric, and must not compare two resource versions for greater-than or less-than relationships.
 
 ### ResourceVersion in metadata
 
