@@ -28,8 +28,8 @@
 		<div>
 			<h4><i>"{{ .Params.quote | html }}"</i></h4>
 			{{ $img := .Resources.GetMatch "video.png" }}
-			{{ $small := .Resources.GetMatch "**small*.png" }}
-			{{ with $small }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+			{{ $small := .Resources.GetMatch "**small*.svg" }}
+			{{ with $small }}<img height="60px" src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
 		</div>
 		<div style= "padding-left: 40px;"><button onclick="kub.showVideo()">{{ with $img }}<img src="{{ .RelPermalink }}" alt="Box video">{{ end }}<h6>Kubernetes at Box</h6></button></div>
 	</div>
@@ -52,13 +52,13 @@
 			{{ $p := . }}
 			<a target="_blank" href="{{ with $p.Params.content_url }}{{ . | safeURL }}{{ else }}{{ .RelPermalink }}{{ end }}">
 			{{ with $logo }}
-				<img src="{{ .RelPermalink }}" height="127px" alt="{{ $p.LinkTitle }}">
+				<img src="{{ .RelPermalink }}" width="215px" height="127px" alt="{{ $p.LinkTitle }}">
 			{{ else }}
 				{{ errorf "Case Studies: Missing logo for %s. Put a PNG or SVG with the word 'logo' in the filename into %q" $p.LinkTitle $p.File.Dir }}
 			{{ end }}
 			</a>
 			{{ end }}
-			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img src="/images/case_studies/story.png" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
+			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img height="127px"src="/images/case_studies/story.svg" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
 		</div>
 	</div>
 </section>
