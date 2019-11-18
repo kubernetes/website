@@ -151,11 +151,11 @@ Serviceにおいてプロキシーを使う理由はいくつかあります。
 
 ### バージョン互換性
 
-Kubernetes v1.0から、[user-space プロキシーモード](#proxy-mode-userspace)を利用できるようになっています。  
+Kubernetes v1.0から、[user-spaceプロキシーモード](#proxy-mode-userspace)を利用できるようになっています。  
 v1.1ではiptablesモードでのプロキシーを追加し、v1.2では、kube-proxyにおいてiptablesモードがデフォルトとなりました。  
 v1.8では、ipvsプロキシーモードが追加されました。
 
-### user-space プロキシーモード {#proxy-mode-userspace}
+### user-spaceプロキシーモード {#proxy-mode-userspace}
 
 このモードでは、kube-proxyはServiceやEndpointオブジェクトの追加・削除をチェックするために、Kubernetes Masterを監視します。  
 各Serviceは、ローカルのNode上でポート(ランダムに選ばれたもの)を公開します。この"プロキシーポート"に対するどのようなリクエストも、そのServiceのバックエンドPodのどれか1つにプロキシーされます(Endpointを介して通知されたPodに対して)。  
