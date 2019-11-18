@@ -172,18 +172,28 @@ to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
-In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
-node. Node lease feature is enabled by default since 1.14 as a beta feature
-(feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
-When node lease feature is enabled, each node has an associated `Lease` object in
-`kube-node-lease` namespace that is renewed by the node periodically, and both
-NodeStatus and node lease are treated as heartbeats from the node. Node leases
-are renewed frequently while NodeStatus is reported from node to master only
-when there is some change or enough time has passed (default is 1 minute, which
-is longer than the default timeout of 40 seconds for unreachable nodes). Since
-node lease is much more lightweight than NodeStatus, this feature makes node
-heartbeat significantly cheaper from both scalability and performance
-perspectives.
+#### Heartbeats
+
+Heartbeats, sent by Kubernetes nodes, help determine the availability of a node.
+There are two forms of heartbeats: updates of `NodeStatus` and the
+[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
+Each Node has an associated Lease object in the `kube-node-lease`
+{{< glossary_tooltip term_id="namespace" text="namespace">}}.
+Lease is a lightweight resource, which improves the performance
+of the node heartbeats as the cluster scales.
+
+The kubelet is responsible for creating and updating the `NodeStatus` and
+a Lease object.
+
+- The kubelet updates the `NodeStatus` either when there is change in status,
+  or if there has been no update for a configured interval. The default interval
+  for `NodeStatus` updates is 5 minutes (much longer than the 40 second default
+  timeout for unreachable nodes).
+- The kubelet creates and then updates its Lease object every 10 seconds
+  (the default update interval). Lease updates occur independently from the
+  `NodeStatus` updates.
+
+#### Reliability
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
