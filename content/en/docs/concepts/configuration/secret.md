@@ -270,7 +270,7 @@ should be specified in a `kustomization.yaml` inside a directory.
 
 For example, to generate a Secret from files `./username.txt` and `./password.txt`
 ```shell
-# Create a kustomization.yaml file with SecretGenerator
+# Create a kustomization.yaml file with secretGenerator
 cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
