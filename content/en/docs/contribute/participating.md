@@ -261,7 +261,7 @@ the automation uses information from OWNERS files.
 The Kubernetes project uses an automation tool called prow for automation
 related to GitHub issues and pull requests. The
 [Kubernetes website repository](https://github.com/kubernetes/website) uses
-two [prow plugins](https://github.com/kubernetes/test-infra/blob/master/prow/plugins.yaml#L210):
+two [prow plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
 
 - blunderbuss
 - approve
