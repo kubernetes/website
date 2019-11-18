@@ -69,7 +69,7 @@ Function            | Description               | Example                       
 --------------------|---------------------------|-----------------------------------------------------------------|------------------
 `text`              | the plain text            | `kind is {.kind}`                                               | `kind is List`
 `@`                 | the current object        | `{@}`                                                           | the same as input
-`.` or `[]`         | child operator            | `{.kind}` or `{['kind']}`                                       | `List`
+`.` or `[]`         | child operator            | `{.kind}`, `{['kind']}` or `{['name\.type']}`                   | `List`
 `..`                | recursive descent         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
 `*`                 | wildcard. Get all objects | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
 `[start:end:step]` | subscript operator        | `{.users[0].name}`                                              | `myself`
