@@ -224,8 +224,10 @@ data:
 ```
 
 {{< caution >}}
-When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used.
 {{< /caution >}}
+
+The behavior of passing `--from-env-file` multiple times is demonstrated by: 
 
 ```shell
 # Download the sample files into `configure-pod-container/configmap/` directory
