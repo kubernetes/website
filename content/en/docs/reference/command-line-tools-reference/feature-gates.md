@@ -102,8 +102,6 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
-| `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
-| `NodeLease` | `true` | Beta | 1.14 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
@@ -215,6 +213,9 @@ different Kubernetes components.
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | - |
+| `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
+| `NodeLease` | `true` | Beta | 1.14 | 1.16 |
+| `NodeLease` | `true` | GA | 1.17 | - |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
