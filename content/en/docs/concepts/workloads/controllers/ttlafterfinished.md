@@ -84,6 +84,6 @@ very small. Please be aware of this risk when setting a non-zero TTL.
 
 [Clean up Jobs automatically](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
-[Design doc](https://github.com/kubernetes/community/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+[Design doc](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
 {{% /capture %}}

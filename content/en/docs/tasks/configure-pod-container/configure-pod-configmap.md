@@ -102,7 +102,6 @@ metadata:
   name: game-config
   namespace: default
   resourceVersion: "516"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config
   uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 data:
   game.properties: |
@@ -217,7 +216,6 @@ metadata:
   name: game-config-env-file
   namespace: default
   resourceVersion: "809965"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file
   uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
 data:
   allowed: '"true"'
@@ -252,7 +250,6 @@ metadata:
   name: config-multi-env-files
   namespace: default
   resourceVersion: "810136"
-  selfLink: /api/v1/namespaces/default/configmaps/config-multi-env-files
   uid: 252c4572-eb35-11e7-887b-42010a8002b8
 data:
   color: purple
@@ -290,7 +287,6 @@ metadata:
   name: game-config-3
   namespace: default
   resourceVersion: "530"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-3
   uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 data:
   game-special-key: |
@@ -326,7 +322,6 @@ metadata:
   name: special-config
   namespace: default
   resourceVersion: "651"
-  selfLink: /api/v1/namespaces/default/configmaps/special-config
   uid: dadce046-d673-11e5-8cd0-68f728db1985
 data:
   special.how: very
@@ -647,13 +642,9 @@ data:
    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
    ```
 
-- ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
+- ConfigMaps reside in a specific {{< glossary_tooltip term_id="namespace" >}}. A ConfigMap can only be referenced by pods residing in the same namespace.
 
-- Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. This includes pods created via the Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API.
-
-   {{< note >}}
-   These are not commonly-used ways to create pods.
-   {{< /note >}}
+- You can't use ConfigMaps for {{< glossary_tooltip text="static pods" term_id="static-pod" >}}, because the Kubelet does not support this.
 
 {{% /capture %}}
 

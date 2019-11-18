@@ -18,17 +18,19 @@ This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
 To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
-```shell
-egrep --color 'vmx|svm' /proc/cpuinfo
+```
+grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
 {{% /tab %}}
+
 {{% tab name="macOS" %}}
 To check if virtualization is supported on macOS, run the following command on your terminal.
 ```
-sysctl -a | grep machdep.cpu.features
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
 ```
-If you see `VMX` in the output, the VT-x feature is supported on your OS.
+If you see `VMX` in the output (should be colored), the VT-x feature is enabled in your machine.
 {{% /tab %}}
+
 {{% tab name="Windows" %}}
 To check if virtualization is supported on Windows 8 and above, run the following command on your Windows terminal or command prompt.
 ```
@@ -73,7 +75,7 @@ If you do not already have a hypervisor installed, install one of these now:
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.
+Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor. It is recommended to use the apt installation of docker from ([Docker](https://www.docker.com/products/docker-desktop), when using the none driver. The snap installation of docker does not work with minikube.
 {{< /note >}}
 
 ### Install Minikube using a package
@@ -96,7 +98,8 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 Here's an easy way to add the Minikube executable to your path:
 
 ```shell
-sudo install minikube /usr/local/bin
+sudo mkdir -p /usr/local/bin/
+sudo install minikube /usr/local/bin/
 ```
 
 {{% /tab %}}
@@ -119,7 +122,7 @@ If you do not already have a hypervisor installed, install one of these now:
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 You can also install it on macOS by downloading a stand-alone binary:
@@ -158,7 +161,7 @@ Hyper-V can run on three versions of Windows 10: Windows 10 Enterprise, Windows 
 The easiest way to install Minikube on Windows is using [Chocolatey](https://chocolatey.org/) (run as an administrator):
 
 ```shell
-choco install minikube kubernetes-cli
+choco install minikube
 ```
 
 After Minikube has finished installing, close the current CLI session and restart. Minikube should have been added to your path automatically.
@@ -183,19 +186,19 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 {{% /capture %}}
 
-## Cleanup local state
+## Clean up local state {#cleanup-local-state}
 
-If you have previously installed minikube, and run:
+If you have previously installed Minikube, and run:
 ```shell
 minikube start
 ```
 
-And this command returns an error:
-```shell
+and `minikube start` returned an error:
+```
 machine does not exist
 ```
 
-You need to clear minikube's local state:
+then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```

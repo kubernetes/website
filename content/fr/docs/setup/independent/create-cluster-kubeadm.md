@@ -307,7 +307,7 @@ Pour que Calico fonctionne correctement, vous devez passer `--pod-network-cidr =
 Notez que Calico fonctionne uniquement sur `amd64`,` arm64`, `ppc64le` et` s390x`.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
 
 {{% /tab %}}
@@ -319,7 +319,7 @@ Pour que Canal fonctionne correctement, `--pod-network-cidr = 10.244.0.0 / 16` d
 ` kubeadm init`. Notez que Canal ne fonctionne que sur `amd64`.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 {{% /tab %}}

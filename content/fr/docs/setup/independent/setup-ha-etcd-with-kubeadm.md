@@ -8,7 +8,7 @@ weight: 70
 {{% capture overview %}}
 
 Par défaut, Kubeadm exécute un cluster etcd mono nœud dans un pod statique géré
-par la kubelet sur le nœud du plan de contrôle (control plane). Ce n'est pas une configuration haute disponibilité puisque le cluster etcd ne contient qu'un seul membre et ne peut donc supporter 
+par la kubelet sur le nœud du plan de contrôle (control plane). Ce n'est pas une configuration haute disponibilité puisque le cluster etcd ne contient qu'un seul membre et ne peut donc supporter
 qu'aucun membre ne devienne indisponible. Cette page vous accompagne dans le processus de création
 d'un cluster etcd à trois membres en haute disponibilité, pouvant être utilisé en tant que cluster externe lors de l’utilisation de kubeadm pour configurer un cluster kubernetes.
 
@@ -41,15 +41,15 @@ kubeadm contient tout ce qui est nécessaire pour générer les certificats déc
 
 1. Configurez la kubelet pour qu'elle soit un gestionnaire de service pour etcd.
 
-    Etant donné qu'etcd a été créé en premier, vous devez remplacer la priorité de service en 
-    créant un nouveau fichier unit qui a une priorité plus élevée que le fichier unit de la kubelet fourni 
+    Etant donné qu'etcd a été créé en premier, vous devez remplacer la priorité de service en
+    créant un nouveau fichier unit qui a une priorité plus élevée que le fichier unit de la kubelet fourni
     par kubeadm.
 
     ```sh
     cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
     [Service]
     ExecStart=
-    ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true
+    ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests
     Restart=always
     EOF
 
@@ -105,7 +105,7 @@ kubeadm contient tout ce qui est nécessaire pour générer les certificats déc
 	 `/etc/kubernetes/pki/etcd/ca.key`. Une fois ces fichiers copiés,
     passez à l'étape suivante, "Créer des certificats pour chaque membre".
 
-    Si vous ne possédez pas déjà de CA, exécutez cette commande sur `$HOST0` (où vous 
+    Si vous ne possédez pas déjà de CA, exécutez cette commande sur `$HOST0` (où vous
     avez généré les fichiers de configuration pour kubeadm).
 
     ```

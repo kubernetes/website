@@ -16,7 +16,7 @@ there is rarely a need to fork or submit patches to the Kubernetes
 project code.
 
 This guide describes the options for customizing a Kubernetes
-cluster. It is aimed at {{< glossary_tooltip text="Cluster Operators" term_id="cluster-operator" >}} who want to
+cluster. It is aimed at {{< glossary_tooltip text="cluster operators" term_id="cluster-operator" >}} who want to
 understand how to adapt their Kubernetes cluster to the needs of
 their work environment. Developers who are prospective {{< glossary_tooltip text="Platform Developers" term_id="platform-developer" >}} or Kubernetes Project {{< glossary_tooltip text="Contributors" term_id="contributor" >}} will also find it
 useful as an introduction to what extension points and patterns
@@ -74,12 +74,12 @@ failure.
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (e.g. [Flex Volume
-Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 and [Network
 Plugins](/docs/concepts/cluster-administration/network-plugins/))
 and by kubectl.
 
-Below is a diagram showing how the extensions points interact with the
+Below is a diagram showing how the extension points interact with the
 Kubernetes control plane.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
@@ -122,7 +122,7 @@ For more about Custom Resources, see the [Custom Resources concept guide](/docs/
 
 ### Combining New APIs with Automation
 
-Often, when you add a new API, you also add a control loop that reads and/or writes the new APIs. When the combination of a Custom API and a control loop is used to manage a specific, usually stateful, application, this is called the *Operator* pattern. Custom APIs and control loops can also be used to control other resources, such as storage, policies, and so on.
+The combination of a custom resource API and a control loop is called the [Operator pattern](/docs/concepts/extend-kubernetes/operator/). The Operator pattern is used to manage specific, usually stateful, applications. These custom APIs and control loops can also be used to control other resources, such as storage or policies.
 
 ### Changing Built-in Resources
 
@@ -147,7 +147,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Authorization
 
- [Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 
 
 ### Dynamic Admission Control
@@ -205,7 +205,6 @@ the nodes chosen for a pod.
   * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
   * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
-* See examples of Automation
-  * [List of Operators](https://github.com/operator-framework/awesome-operators)
+* Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 
 {{% /capture %}}

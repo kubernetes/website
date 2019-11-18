@@ -271,7 +271,7 @@ h3.post-title{
   box-sizing: border-box;
   padding: 0 0 0 15px;
   margin: 10px 0;
-  line-height: 40px;
+  line-height: 50px;
   white-space: nowrap;
   font-family: Roboto, sans-serif;
 }
@@ -401,9 +401,20 @@ ul {
 
 /* Sidebar Icon Styles */
 .widget-link svg {
-  font-size: 48px;
+  font-size: 40px;
   color:#326DE6;
+  vertical-align: middle;
+  width: 40px !important;
 }
+
+.widget-link div {
+  display: flex;
+}
+
+.widget-link .widget-link-text {
+  margin-left: 6px;
+}
+
 
 /* SideNavigation Styles */
 .heading-year-toggle-checkbox,

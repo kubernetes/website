@@ -23,7 +23,7 @@ Minikube supports the following Kubernetes features:
 * NodePorts
 * ConfigMaps and Secrets
 * Dashboards
-* Container Runtime: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o), and [containerd](https://github.com/containerd/containerd)
+* Container Runtime: Docker, [CRI-O](https://cri-o.io/), and [containerd](https://github.com/containerd/containerd)
 * Enabling CNI (Container Network Interface)
 * Ingress
 
@@ -53,7 +53,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
-    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
     ```
     The output is similar to this:
     ```
@@ -61,7 +61,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```
 3. To access the `hello-minikube` Deployment, expose it as a Service:
     ```shell
-    kubectl expose deployment hello-minikube --type=NodePort
+    kubectl expose deployment hello-minikube --type=NodePort --port=8080
     ```
     The option `--type=NodePort` specifies the type of the Service.
 
@@ -232,7 +232,7 @@ minikube start \
 ```
 {{% /tab %}}
 {{% tab name="CRI-O" %}}
-To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container runtime, run:
+To use [CRI-O](https://cri-o.io/) as the container runtime, run:
 ```bash
 minikube start \
     --network-plugin=cni \
@@ -251,16 +251,6 @@ minikube start \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
     --bootstrapper=kubeadm
 ```
-{{% /tab %}}
-{{% tab name="rkt container engine" %}}
-To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
-```shell
-minikube start \
-    --network-plugin=cni \
-    --enable-default-cni \
-    --container-runtime=rkt
-```
-This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -455,10 +445,8 @@ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## Known Issues
-* Features that require a Cloud Provider will not work in Minikube. These include:
-  * LoadBalancers
-* Features that require multiple nodes. These include:
-  * Advanced scheduling policies
+
+Features that require multiple nodes will not work in Minikube.
 
 ## Design
 

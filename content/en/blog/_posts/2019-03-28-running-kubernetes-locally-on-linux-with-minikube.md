@@ -12,7 +12,7 @@ Kubernetes is a real winner (and a de facto standard) in the world of distribute
 
 A few weeks ago I ran a poll on Twitter asking the community to specify their preferred option for running Kubernetes locally on Linux:
 
-<center>{{< tweet 1093154369040773120 >}}</center>
+<center><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ok, Twitter ✋<br><br>Your local Kubernetes cluster on Linux is deployed by:</p>&mdash; ihor dvoretskyi (@idvoretskyi) <a href="https://twitter.com/idvoretskyi/status/1093154369040773120?ref_src=twsrc%5Etfw">February 6, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
 
 This is post #1 in a series about the local deployment options on Linux, and it will cover Minikube, the most popular community-built solution for running Kubernetes on a local machine.
 

@@ -25,7 +25,8 @@ manually through `easyrsa`, `openssl` or `cfssl`.
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
-1.  Generate a CA. (`--batch` set automatic mode. `--req-cn` default CN to use.)
+1.  Generate a new certificate authority (CA). `--batch` sets automatic mode;
+    `--req-cn` specifies the Common Name (CN) for the CA's new root certificate.
 
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 1.  Generate server certificate and key.
@@ -162,7 +163,7 @@ Finally, add the same parameters into the API server start parameters.
           }
         }
 1.  Create a JSON config file for CA certificate signing request (CSR), for example,
-    `ca-csr.json`. Be sure the replace the values marked with angle brackets with
+    `ca-csr.json`. Be sure to replace the values marked with angle brackets with
     real values you want to use.
 
         {

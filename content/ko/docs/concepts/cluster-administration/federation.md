@@ -88,17 +88,17 @@ weight: 80
 있다.
 다음의 가이드는 일부 리소스에 대해서 자세히 설명한다.
 
-* [클러스터](/docs/tasks/administer-federation/cluster/)
-* [컨피그 맵](/docs/tasks/administer-federation/configmap/)
-* [데몬 셋](/docs/tasks/administer-federation/daemonset/)
-* [디플로이먼트](/docs/tasks/administer-federation/deployment/)
-* [이벤트](/docs/tasks/administer-federation/events/)
-* [Hpa](/docs/tasks/administer-federation/hpa/)
-* [인그레스](/docs/tasks/administer-federation/ingress/)
-* [잡](/docs/tasks/administer-federation/job/)
-* [네임스페이스](/docs/tasks/administer-federation/namespaces/)
-* [레플리카 셋](/docs/tasks/administer-federation/replicaset/)
-* [시크릿](/docs/tasks/administer-federation/secret/)
+* [클러스터](/docs/tasks/federation/administer-federation/cluster/)
+* [컨피그 맵](/docs/tasks/federation/administer-federation/configmap/)
+* [데몬 셋](/docs/tasks/federation/administer-federation/daemonset/)
+* [디플로이먼트](/docs/tasks/federation/administer-federation/deployment/)
+* [이벤트](/docs/tasks/federation/administer-federation/events/)
+* [Hpa](/docs/tasks/federation/administer-federation/hpa/)
+* [인그레스](/docs/tasks/federation/administer-federation/ingress/)
+* [잡](/docs/tasks/federation/administer-federation/job/)
+* [네임스페이스](/docs/tasks/federation/administer-federation/namespaces/)
+* [레플리카 셋](/docs/tasks/federation/administer-federation/replicaset/)
+* [시크릿](/docs/tasks/federation/administer-federation/secret/)
 * [서비스](/docs/concepts/cluster-administration/federation-service-discovery/)
 
 
@@ -170,7 +170,7 @@ zone)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availabi
 
 마지막으로, 클러스터 중 어느 클러스터라도 쿠버네티스 클러스터에서 추천되는 최대 노드 수 보다 더 많은 노드가 필요하다면, 
 더 많은 클러스터가 필요할 것이다. 쿠버네티스 v1.3은 클러스터를 최대 1000노드까지 지원한다. 쿠버네티스 v1.8은 
-클러스터를 최대 5000 노드까지 지원한다. 더 자세한 가이드는 [대규모 클러스터 구축하기](/docs/setup/cluster-large/)에서 확인 가능하다.
+클러스터를 최대 5000 노드까지 지원한다. 더 자세한 가이드는 [대규모 클러스터 구축하기](/docs/setup/best-practices/cluster-large/)에서 확인 가능하다.
 
 {{% /capture %}}
 

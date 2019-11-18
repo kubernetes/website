@@ -10,8 +10,16 @@ card:
 ---
 
 {{% capture overview %}}
-This document outlines the various binary components needed to
-deliver a functioning Kubernetes cluster.
+When you deploy Kubernetes, you get a cluster.
+{{< glossary_definition term_id="cluster" length="all" prepend="A cluster is">}}
+
+This document outlines the various components you need to have
+a complete and working Kubernetes cluster.
+
+Here's the diagram of a Kubernetes cluster with all the components tied together.
+
+![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
+
 {{% /capture %}}
 
 {{% capture body %}}
@@ -82,11 +90,13 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 ## Addons
 
-Addons are pods and services that implement cluster features. The pods may be managed
-by Deployments, ReplicationControllers, and so on. Namespaced addon objects are created in
-the `kube-system` namespace.
+Addons use Kubernetes resources ({{< glossary_tooltip term_id="daemonset" >}},
+{{< glossary_tooltip term_id="deployment" >}}, etc)
+to implement cluster features. Because these are providing cluster-level features, namespaced resources
+for addons belong within the `kube-system` namespace.
 
-Selected addons are described below, for an extended list of available addons please see [Addons](/docs/concepts/cluster-administration/addons/).
+Selected addons are described below; for an extended list of available addons, please
+see [Addons](/docs/concepts/cluster-administration/addons/).
 
 ### DNS
 
@@ -107,9 +117,13 @@ about containers in a central database, and provides a UI for browsing that data
 
 ### Cluster-level Logging
 
-A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
+A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
 {{% /capture %}}
-
-
+{{% capture whatsnext %}}
+* Learn about [Nodes](/docs/concepts/architecture/nodes/)
+* Learn about [Controllers](/docs/concepts/architecture/controller/)
+* Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* Read etcd's official [documentation](https://etcd.io/docs/)
+{{% /capture %}}

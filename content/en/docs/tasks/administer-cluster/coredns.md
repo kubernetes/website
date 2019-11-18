@@ -19,7 +19,7 @@ This page describes the CoreDNS upgrade process and how to install CoreDNS inste
 ## About CoreDNS
 
 [CoreDNS](https://coredns.io) is a flexible, extensible DNS server that can serve as the Kubernetes cluster DNS.
-Like Kubernetes, the CoreDNS project is hosted by the [CNCF.](http://www.cncf.io)
+Like Kubernetes, the CoreDNS project is hosted by the {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
 
 You can use CoreDNS instead of kube-dns in your cluster by replacing kube-dns in an existing
 deployment, or by using tools like kubeadm that will deploy and upgrade the cluster for you.

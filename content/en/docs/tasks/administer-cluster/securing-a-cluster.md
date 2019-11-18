@@ -28,7 +28,7 @@ and provides recommendations on overall security.
 As Kubernetes is entirely API driven, controlling and limiting who can access the cluster and what actions
 they are allowed to perform is the first line of defense.
 
-### Use Transport Level Security (TLS) for all API traffic
+### Use Transport Layer Security (TLS) for all API traffic
 
 Kubernetes expects that all API communication in the cluster is encrypted by default with TLS, and the
 majority of installation methods will allow the necessary certificates to be created and distributed to 
@@ -112,6 +112,36 @@ considering the privileges associated with the root user, you should write appli
 containers to run as a non-root user. Similarly, administrators who wish to prevent 
 client applications from escaping their containers should use a restrictive pod security 
 policy.
+
+
+### Preventing containers from loading unwanted kernel modules
+
+The Linux kernel automatically loads kernel modules from disk if needed in certain
+circumstances, such as when a piece of hardware is attached or a filesystem is mounted. Of
+particular relevance to Kubernetes, even unprivileged processes can cause certain
+network-protocol-related kernel modules to be loaded, just by creating a socket of the
+appropriate type. This may allow an attacker to exploit a security hole in a kernel module
+that the administrator assumed was not in use.
+
+To prevent specific modules from being automatically loaded, you can uninstall them from
+the node, or add rules to block them. On most Linux distributions, you can do that by
+creating a file such as `/etc/modprobe.d/kubernetes-blacklist.conf` with contents like:
+
+```
+# DCCP is unlikely to be needed, has had multiple serious
+# vulnerabilities, and is not well-maintained.
+blacklist dccp
+
+# SCTP is not used in most Kubernetes clusters, and has also had
+# vulnerabilities in the past.
+blacklist sctp
+```
+
+To block module loading more generically, you can use a Linux Security Module (such as
+SELinux) to completely deny the `module_request` permission to containers, preventing the
+kernel from loading modules for containers under any circumstances. (Pods would still be
+able to use modules that had been loaded manually, or modules that were loaded by the
+kernel on behalf of some more-privileged process.)
 
 
 ### Restricting network access
@@ -213,9 +243,9 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes 1.7 contains [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), an alpha feature that will encrypt `Secret` resources in etcd, preventing
+Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), a feature introduced in 1.7, and beta since 1.13. This will encrypt `Secret` resources in etcd, preventing
 parties that gain access to your etcd backups from viewing the content of those secrets. While
-this feature is currently experimental, it may offer an additional level of defense when backups
+this feature is currently beta, it offers an additional level of defense when backups
 are not encrypted or an attacker gains read access to etcd.
 
 ### Receiving alerts for security updates and reporting vulnerabilities

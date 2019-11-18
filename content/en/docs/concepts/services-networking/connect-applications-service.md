@@ -134,6 +134,12 @@ about the [service proxy](/docs/concepts/services-networking/service/#virtual-ip
 Kubernetes supports 2 primary modes of finding a Service - environment variables
 and DNS. The former works out of the box while the latter requires the
 [CoreDNS cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
+{{< note >}}
+If the service environment variables are not desired (because possible clashing with expected program ones,
+too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks`
+flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+{{< /note >}}
+
 
 ### Environment Variables
 
@@ -231,8 +237,8 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 
 ```shell
-make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
-kubectl apply -f /tmp/secret.json
+make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
+kubectl create secret tls nginxsecret --key /tmp/nginx.key --cert /tmp/nginx.crt
 ```
 ```
 secret/nginxsecret created
@@ -248,9 +254,9 @@ nginxsecret           Opaque                                2         1m
 Following are the manual steps to follow in case you run into problems running make (on windows for example):
 
 ```shell
-#create a public private key pair
+# Create a public private key pair
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
-#convert the keys to base64 encoding
+# Convert the keys to base64 encoding
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```

@@ -6,5 +6,11 @@ reviewers:
 approvers:
 - sig-docs-en-owners # Defined in OWNERS_ALIASES
 
+emeritus_approvers:
+- chenopis
+- jaredbhatti
+# stewart-yu, you're welcome to return when you're ready to resume PR wrangling
+- stewart-yu 
+
 labels:
 - sig/docs

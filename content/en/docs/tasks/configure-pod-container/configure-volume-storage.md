@@ -113,7 +113,7 @@ of `Always`.
     kubectl exec -it redis -- /bin/bash
     ```
 
-1. In your shell, goto `/data/redis`, and verify that `test-file` is still there.
+1. In your shell, go to `/data/redis`, and verify that `test-file` is still there.
     ```shell
     root@redis:/data/redis# cd /data/redis/
     root@redis:/data/redis# ls

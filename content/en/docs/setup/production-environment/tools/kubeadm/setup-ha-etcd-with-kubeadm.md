@@ -8,6 +8,14 @@ weight: 70
 
 {{% capture overview %}}
 
+{{< note >}}
+While kubeadm is being used as the management tool for external etcd nodes
+in this guide, please note that kubeadm does not plan to support certificate rotation
+or upgrades for such nodes. The long term plan is to empower the tool
+[etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
+aspects.
+{{< /note >}}
+
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
 by the kubelet on the control plane node. This is not a high availability setup
 as the etcd cluster contains only one member and cannot sustain any members
@@ -53,7 +61,8 @@ this example.
     cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
     [Service]
     ExecStart=
-    ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests
+    #  Replace "systemd" with the cgroup driver of your container runtime. The default value in the kubelet is "cgroupfs".
+    ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd
     Restart=always
     EOF
 

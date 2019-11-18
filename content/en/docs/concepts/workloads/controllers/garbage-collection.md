@@ -93,7 +93,7 @@ collector deletes the object's dependents. Once the garbage collector has delete
 the owner object.
 
 Note that in the "foregroundDeletion", only dependents with
-`ownerReference.blockOwnerDeletion` block the deletion of the owner object.
+`ownerReference.blockOwnerDeletion=true` block the deletion of the owner object.
 Kubernetes version 1.7 added an [admission controller](/docs/reference/access-authn-authz/admission-controllers/#ownerreferencespermissionenforcement) that controls user access to set
 `blockOwnerDeletion` to true based on delete permissions on the owner object, so that
 unauthorized dependents cannot delay deletion of an owner object.

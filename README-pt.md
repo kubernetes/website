@@ -9,7 +9,7 @@ Bem vindos! Este repositório abriga todos os recursos necessários para criar o
 
 Você pode clicar no botão **Fork** na área superior direita da tela para criar uma cópia desse repositório na sua conta do GitHub. Esta cópia é chamada de *fork*. Faça as alterações desejadas no seu fork e, quando estiver pronto para enviar as alterações para nós, vá até o fork e crie uma nova solicitação de pull para nos informar sobre isso.
 
-Depois que seu **pull request** for criada, um revisor do Kubernetes assumirá a responsabilidade de fornecer um feedback claro e objetivo. Como proprietário do pull request, **é sua responsabilidade modificar seu pull request para abordar o feedback que foi fornecido a você pelo revisor do Kubernetes.** Observe também que você pode acabar tendo mais de um revisor do Kubernetes para fornecer seu feedback ou você pode acabar obtendo feedback de um revisor do Kubernetes que é diferente daquele originalmente designado para lhe fornecer feedback. Além disso, em alguns casos, um de seus revisores pode solicitar uma revisão técnica de um [revisor de tecnologia Kubernetes](https://github.com/kubernetes/website/wiki/Tech-reviewers) quando necessário. Os revisores farão o melhor para fornecer feedback em tempo hábil, mas o tempo de resposta pode variar de acordo com as circunstâncias.
+Depois que seu **pull request** for criado, um revisor do Kubernetes assumirá a responsabilidade de fornecer um feedback claro e objetivo. Como proprietário do pull request, **é sua responsabilidade modificar seu pull request para abordar o feedback que foi fornecido a você pelo revisor do Kubernetes.** Observe também que você pode acabar tendo mais de um revisor do Kubernetes para fornecer seu feedback ou você pode acabar obtendo feedback de um revisor do Kubernetes que é diferente daquele originalmente designado para lhe fornecer feedback. Além disso, em alguns casos, um de seus revisores pode solicitar uma revisão técnica de um [revisor de tecnologia Kubernetes](https://github.com/kubernetes/website/wiki/Tech-reviewers) quando necessário. Os revisores farão o melhor para fornecer feedback em tempo hábil, mas o tempo de resposta pode variar de acordo com as circunstâncias.
 
 Para mais informações sobre como contribuir com a documentação do Kubernetes, consulte:
 
@@ -19,16 +19,10 @@ Para mais informações sobre como contribuir com a documentação do Kubernetes
 * [Guia de Estilo da Documentação](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizando documentação do Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
-## Documentação do Kubernetes Localizando o `README.md`
+Você pode contactar os mantenedores da localização em Português em:
 
-### coreano
-
-Veja a tradução de `README.md` e mais orientações sobre detalhes para contribuidores coreanos na página [README coreano](README-ko.md).
-
-Você pode alcançar os mantenedores da localização coreana em:
-
-* June Yi ([GitHub - @gochist](https://github.com/gochist))
-* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+* Felipe ([GitHub - @femrtnz](https://github.com/femrtnz))
+* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-pt)
 
 ## Executando o site localmente usando o Docker
 
@@ -68,7 +62,7 @@ Isso iniciará o servidor Hugo local na porta 1313. Abra o navegador para http:/
 
 Aprenda a se envolver com a comunidade do Kubernetes na [página da comunidade](http://kubernetes.io/community/).
 
-Você pode alcançar os mantenedores deste projeto em:
+Você pode falar com os mantenedores deste projeto:
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
@@ -79,4 +73,4 @@ A participação na comunidade Kubernetes é regida pelo [Código de Conduta da 
 
 ## Obrigado!
 
-A Kubernetes prospera com a participação da comunidade e nós realmente apreciamos suas contribuições para o nosso site e nossa documentação!
+O Kubernetes conta com a participação da comunidade e nós realmente agradecemos suas contribuições para o nosso site e nossa documentação!

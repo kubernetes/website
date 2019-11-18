@@ -785,7 +785,7 @@ an error indicating that the Service already exists.
 ```shell
 kubectl apply -f web.yaml
 statefulset.apps/web created
-Error from server (AlreadyExists): error when creating "web.yaml": services "nginx" already exists
+service/nginx unchanged
 ```
 
 Ignore the error. It only indicates that an attempt was made to create the nginx

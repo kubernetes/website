@@ -70,7 +70,7 @@ section
   background-color: white
 
 section, header, footer
-  main
+  .main-section
     position: relative
     margin: auto
 
@@ -125,7 +125,11 @@ header
   background-size: contain
   background-position: center center
   background-repeat: no-repeat
-
+  
+#blog
+  &.flip-nav, &.open-nav
+    .logo
+      background-image: url(../images/nav_logo2.svg)
 
 // Blog post tables
 .blog-content
@@ -245,7 +249,7 @@ header
     color: $blue
     font-weight: normal
 
-  main
+  .main-section
     white-space: nowrap
     overflow: hidden
     clear: both
@@ -435,7 +439,7 @@ footer
   background-image: url(/images/texture.png)
   background-color: $dark-grey
 
-  main
+  .main-section
     padding: 20px 0
 
   nav
@@ -484,9 +488,9 @@ footer
 
 .social a
   display: inline-block
-  background-image: url(/images/social_sprite.png)
+  background-image: url(/images/social_sprite.svg)
   background-repeat: no-repeat
-  background-size: auto
+  background-size: 300px
   width: 50px
   height: 50px
   border-radius: 5px
@@ -890,7 +894,6 @@ dd
     font-family: $mono-font
     vertical-align: baseline
     font-size: 14px
-    font-weight: bold
     padding: 2px 4px
 
   a code
@@ -1062,7 +1065,7 @@ dd
   position: fixed
   bottom: 0
 
-#miceType
+.miceType
   clear: both
   font-size: 11px
   line-height: 18px
@@ -1118,7 +1121,7 @@ $feature-box-div-margin-bottom: 40px
     margin-bottom: 0
     padding-bottom: 1px
 
-    main
+    .main-section
       padding: 0 10px
       margin-bottom: 30px
 
@@ -1129,7 +1132,7 @@ $feature-box-div-margin-bottom: 40px
   section#cncf
     padding-top: 60px
     padding-bottom: 140px
-    background-image: url(/images/cncf-color.png)
+    background-image: url(/images/cncf-color.svg)
     background-position: center 100px
     background-repeat: no-repeat
     background-size: 300px
@@ -1144,7 +1147,7 @@ $feature-box-div-margin-bottom: 40px
   a
     color: $blue
 
-  main
+  .main-section
     margin-bottom: $ocean-nodes-padding-Y
     min-height: 160px
 
@@ -1157,7 +1160,7 @@ $feature-box-div-margin-bottom: 40px
       width: 100%
       max-width: 160px
 
-  main:first-child
+  .main-section:first-child
     .image-wrapper
       max-width: 100%
 
@@ -1305,10 +1308,10 @@ $feature-box-div-margin-bottom: 40px
 #features
   padding-top: 140px
   background-color: $light-grey
-  background-image: url(/images/wheel.png)
+  background-image: url(/images/wheel.svg)
   background-position: center 60px
   background-repeat: no-repeat
-  background-size: auto
+  background-size: 60px
 
 .feature-box
   //padding: 50px 0
@@ -1353,7 +1356,7 @@ $feature-box-div-margin-bottom: 40px
   #mainContent
     padding: 20px 0
 
-    main
+    .main-section
       max-width: none
 
     a
@@ -1772,7 +1775,7 @@ $feature-box-div-margin-bottom: 40px
 
 #home
   #talkToUs
-    main
+    .main-section
       padding: 30px 0
 
     h5

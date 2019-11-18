@@ -5,6 +5,7 @@ content_template: templates/concept
 card:
   name: reference
   weight: 30
+original: d4d55a703
 ---
 
 {{% capture overview %}}
@@ -28,7 +29,7 @@ source <(kubectl completion bash) # active l'auto-complétion pour bash dans le 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # ajoute l'auto-complétion de manière permanente à votre shell bash
 ```
 
-Vous pouvez de plus déclarer un alias pour `kubectl` qui fonctionne aussi avec l'auto-complétion :  
+Vous pouvez de plus déclarer un alias pour `kubectl` qui fonctionne aussi avec l'auto-complétion :
 
 ```bash
 alias k=kubectl
@@ -50,21 +51,35 @@ Indique avec quel cluster Kubernetes `kubectl` communique et modifie les informa
 kubectl config view # Affiche les paramètres fusionnés de kubeconfig
 
 # Utilise plusieurs fichiers kubeconfig en même temps et affiche la configuration fusionnée
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
+
+kubectl config view
 
 # Affiche le mot de passe pour l'utilisateur e2e
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # Affiche le contexte courant (current-context)
-kubectl config use-context my-cluster-name  # Définit my-cluster-name comme contexte courant
+kubectl config view -o jsonpath='{.users[*].name}' # Affiche une liste d'utilisateurs
+kubectl config get-contexts                        # Affiche la liste des contextes
+kubectl config current-context                     # Affiche le contexte courant (current-context)
+kubectl config use-context my-cluster-name         # Définit my-cluster-name comme contexte courant
 
 # Ajoute un nouveau cluster à votre kubeconf, prenant en charge l'authentification de base (basic auth)
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
+# Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte
+kubectl config set-context --current --namespace=ggckad-s2
+
 # Définit et utilise un contexte qui utilise un nom d'utilisateur et un namespace spécifiques
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+
+kubectl config unset users.foo                       # Supprime l'utilisateur foo
 ```
+
+## Apply
+`apply` gère des applications en utilisant des fichiers définissant des ressources Kubernetes. 
+Elle crée et met à jour des ressources dans un cluster en exécutant `kubectl apply`. 
+C'est la manière recommandée de gérer des applications Kubernetes en production. Voir le [Livre Kubectl](https://kubectl.docs.kubernetes.io).
 
 ## Création d'objets
 
@@ -72,15 +87,15 @@ Les manifests Kubernetes peuvent être définis en json ou yaml. Les extensions 
 `.yml`, et `.json` peuvent être utilisés.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # crée une ou plusieurs ressources
-kubectl create -f ./my1.yaml -f ./my2.yaml     # crée depuis plusieurs fichiers
-kubectl create -f ./dir                        # crée une ou plusieurs ressources depuis tous les manifests dans dir
-kubectl create -f https://git.io/vPieo         # crée une ou plusieurs ressources depuis une url
-kubectl create deployment nginx --image=nginx  # démarre une instance unique de nginx
-kubectl explain pods,svc                       # affiche la documentation pour les manifests pod et svc
+kubectl apply -f ./my-manifest.yaml            # Crée une ou plusieurs ressources
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # Crée depuis plusieurs fichiers
+kubectl apply -f ./dir                         # Crée une ou plusieurs ressources depuis tous les manifests dans dir
+kubectl apply -f https://git.io/vPieo          # Crée une ou plusieurs ressources depuis une url
+kubectl create deployment nginx --image=nginx  # Démarre une instance unique de nginx
+kubectl explain pods,svc                       # Affiche la documentation pour les manifests pod et svc
 
 # Crée plusieurs objets YAML depuis l'entrée standard (stdin)
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -107,7 +122,7 @@ spec:
 EOF
 
 # Crée un Secret contenant plusieurs clés
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -124,11 +139,13 @@ EOF
 
 ```bash
 # Commandes Get avec un affichage basique
-kubectl get services                          # Liste tous les services d'un namespace
-kubectl get pods --all-namespaces             # Liste tous les pods de tous les namespaces
-kubectl get pods -o wide                      # Liste tous les pods du namespace, avec plus de détails
-kubectl get deployment my-dep                 # Liste un déploiement particulier
-kubectl get pods --include-uninitialized      # Liste tous les pods dans un namespace, incluant ceux non initialisés
+kubectl get services                     # Liste tous les services d'un namespace
+kubectl get pods --all-namespaces        # Liste tous les Pods de tous les namespaces
+kubectl get pods -o wide                 # Liste tous les Pods du namespace, avec plus de détails
+kubectl get deployment my-dep            # Liste un déploiement particulier
+kubectl get pods                         # Liste tous les Pods dans un namespace
+kubectl get pod my-pod -o yaml           # Affiche le YAML du Pod
+kubectl get pod my-pod -o yaml --export  # Affiche le YAML du Pod sans les informations spécifiques au cluster
 
 # Commandes Describe avec un affichage verbeux
 kubectl describe nodes my-node
@@ -139,8 +156,11 @@ kubectl get services --sort-by=.metadata.name # Liste les services classés par 
 # Liste les pods classés par nombre de redémarrages
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
+# Affiche les pods du namespace test classés par capacité de stockage 
+kubectl get pods -n test --sort-by=.spec.capacity.storage  
+
 # Affiche la version des labels de tous les pods ayant un label app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Affiche tous les noeuds, en utilisant un sélecteur pour exclure ceux ayant un label 'node-role.kubernetes.io/master'
@@ -161,6 +181,9 @@ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name
 # Utilise aussi "jq"
 for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
 
+# Ou cette commande peut aussi être utilisée pour obtenir tous les labels associés aux pods
+kubectl get pods --show-labels
+
 # Vérifie quels noeuds sont prêts
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
@@ -178,7 +201,9 @@ Depuis la version 1.11, `rolling-update` a été déprécié (voir [CHANGELOG-1.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update du conteneur "www" du déploiement "frontend", par mise à jour de son image
+kubectl rollout history deployment/frontend                      # Vérifie l'historique de déploiements incluant la révision
 kubectl rollout undo deployment/frontend                         # Rollback du déploiement précédent
+kubectl rollout undo deployment/frontend --to-revision=2         # Rollback à une version spécifique
 kubectl rollout status -w deployment/frontend                    # Écoute (Watch) le status du rolling update du déploiement "frontend" jusqu'à ce qu'il se termine
 
 # déprécié depuis la version 1.11
@@ -217,7 +242,7 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 # Désactive la livenessProbe d'un déploiement en utilisant un patch json avec tableaux indexés
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
-# Ajoute un nouvel élément à un tableau indexé 
+# Ajoute un nouvel élément à un tableau indexé
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
@@ -244,19 +269,23 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale plusie
 kubectl delete -f ./pod.json                                              # Supprime un pod en utilisant le type et le nom spécifiés dans pod.json
 kubectl delete pod,service baz foo                                        # Supprime les pods et services ayant les mêmes noms "baz" et "foo"
 kubectl delete pods,services -l name=myLabel                              # Supprime les pods et services ayant le label name=myLabel
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # Supprime les pods et services, dont ceux non initialisés, ayant le label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Supprime tous les pods et services, dont ceux non initialisés, dans le namespace my-ns
+kubectl -n my-ns delete po,svc --all                                      # Supprime tous les pods et services dans le namespace my-ns
+# Supprime tous les pods correspondants à pattern1 ou pattern2 avec awk
+kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
 ## Interaction avec des Pods en cours d'exécution
 
 ```bash
 kubectl logs my-pod                                 # Affiche les logs du pod (stdout)
+kubectl logs -l name=myLabel                        # Affiche les logs des pods ayant le label name=myLabel (stdout)
 kubectl logs my-pod --previous                      # Affiche les logs du pod (stdout) pour une instance précédente du conteneur
 kubectl logs my-pod -c my-container                 # Affiche les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs)
+kubectl logs -l name=myLabel -c my-container        # Affiche les logs des pods avec le label name=myLabel (stdout, cas d'un pod multi-conteneurs)
 kubectl logs my-pod -c my-container --previous      # Affiche les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs) pour une instance précédente du conteneur
 kubectl logs -f my-pod                              # Fait défiler (stream) les logs du pod (stdout)
 kubectl logs -f my-pod -c my-container              # Fait défiler (stream) les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs)
+kubectl logs -f -l name=myLabel --all-containers    # Fait défiler (stream) les logs de tous les pods ayant le label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Exécute un pod comme un shell interactif
 kubectl attach my-pod -i                            # Attache à un conteneur en cours d'exécution
 kubectl port-forward my-pod 5000:6000               # Écoute le port 5000 de la machine locale et forwarde vers le port 6000 de my-pod
@@ -315,11 +344,11 @@ Pour afficher les détails sur votre terminal dans un format spécifique, vous p
 | `-o=yaml`                           | Affiche un objet de l'API formaté en YAML                                                                             |
 ### Verbosité de l'affichage de Kubectl et débogage
 
-La verbosité de Kubectl est contrôlée par une des options `-v` ou `--v` suivie d'un entier représentant le niveau de log. Les conventions générales de logging de Kubernetes et les niveaux de log associés sont décrits [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
+La verbosité de Kubectl est contrôlée par une des options `-v` ou `--v` suivie d'un entier représentant le niveau de log. Les conventions générales de logging de Kubernetes et les niveaux de log associés sont décrits [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 | Verbosité | Description                                                                                                                                                                                                                           |
 |-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `--v=0`   | Le minimum qui doit TOUJOURS être affiché à un opérateur.                                                                                                                                                                             |
+| `--v=0`   | Le minimum qui doit *toujours* être affiché à un opérateur.                                                                                                                                                                             |
 | `--v=1`   | Un niveau de log par défaut raisonnable si vous n'avez pas besoin de verbosité.                                                                                                                                                       |
 | `--v=2`   | Informations utiles sur l'état stable du service et messages de logs importants qui peuvent être corrélés à des changements significatifs dans le système. C'est le niveau de log par défaut recommandé pour la plupart des systèmes. |
 | `--v=3`   | Informations étendues sur les changements.                                                                                                                                                                                            |

@@ -27,6 +27,18 @@ the difference between requests and limits, see
 
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
 CPU is specified in units of cores, and memory is specified in units of bytes.
+If you're using Kubernetes v1.14 or newer, you can specify _huge page_ resources.
+Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
+that are much larger than the default page size.
+
+For example, on a system where the default page size is 4KiB, you could specify a limit,
+`hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
+total of 80 MiB), that allocation fails.
+
+{{< note >}}
+You cannot overcommit `hugepages-*` resources.
+This is different from the `memory` and `cpu` resources.
+{{< /note >}}
 
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
@@ -42,13 +54,16 @@ Each Container of a Pod can specify one or more of the following:
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
+* `spec.containers[].resources.limits.hugepages-<size>`
 * `spec.containers[].resources.requests.cpu`
 * `spec.containers[].resources.requests.memory`
+* `spec.containers[].resources.requests.hugepages-<size>`
 
 Although requests and limits can only be specified on individual Containers, it
 is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
 resource requests/limits of that type for each Container in the Pod.
+
 
 ## Meaning of CPU
 
@@ -142,7 +157,7 @@ When using Docker:
 - The `spec.containers[].resources.requests.cpu` is converted to its core value,
   which is potentially fractional, and multiplied by 1024. The greater of this number
   or 2 is used as the value of the
-  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
+  [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
   flag in the `docker run` command.
 
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
@@ -587,27 +602,7 @@ spec:
         example.com/foo: 1
 ```
 
-## Planned Improvements
 
-Kubernetes version 1.5 only allows resource quantities to be specified on a
-Container. It is planned to improve accounting for resources that are shared by
-all Containers in a Pod, such as
-[emptyDir volumes](/docs/concepts/storage/volumes/#emptydir).
-
-Kubernetes version 1.5 only supports Container requests and limits for CPU and
-memory. It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/scheduling/resources.md).
-
-Kubernetes supports overcommitment of resources by supporting multiple levels of
-[Quality of Service](http://issue.k8s.io/168).
-
-In Kubernetes version 1.5, one unit of CPU means different things on different
-cloud providers, and on different machine types within the same cloud providers.
-For example, on AWS, the capacity of a node is reported in
-[ECUs](http://aws.amazon.com/ec2/faqs/), while in GCE it is reported in logical
-cores. We plan to revise the definition of the cpu resource to allow for more
-consistency across providers and platforms.
 
 {{% /capture %}}
 

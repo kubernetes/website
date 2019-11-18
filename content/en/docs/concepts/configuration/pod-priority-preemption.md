@@ -94,7 +94,7 @@ old-style command line options. Below is a sample component config to disable
 preemption:
 
 ```yaml
-apiVersion: componentconfig/v1alpha1
+apiVersion: kubescheduler.config.k8s.io/v1alpha1
 kind: KubeSchedulerConfiguration
 algorithmSource:
   provider: DefaultProvider
@@ -156,7 +156,7 @@ description: "This priority class should be used for XYZ service pods only."
 
 1.15 adds the `PreemptionPolicy` field as an alpha feature.
 It is disabled by default in 1.15,
-and requires the `NonPreemptingPriority`[feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/
+and requires the `NonPreemptingPriority`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/
 ) to be enabled.
 
 Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue

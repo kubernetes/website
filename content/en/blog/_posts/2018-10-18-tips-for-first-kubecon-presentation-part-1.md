@@ -8,7 +8,7 @@ date: 2018-10-18
 
 First of all, let me congratulate you to this outstanding achievement. Speaking at KubeCon, especially if it's your first time, is a tremendous honor and experience. Well done!
 
-<center>{{< tweet 1044345018490662912 >}}</center>
+<center><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Congrats to everyone who got Kubecon talks accepted! 👏👏👏<br><br>To everyone who got a rejection don&#39;t feel bad. Only 13% could be accepted. Keep trying. There will be other opportunities.</p>&mdash; Justin Garrison (@rothgar) <a href="https://twitter.com/rothgar/status/1044345018490662912?ref_src=twsrc%5Etfw">September 24, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
 
 When I was informed that my [KubeCon talk about Kubernetes Resource Management](https://www.youtube.com/watch?v=8-apJyr2gi0) was accepted for KubeCon EU in Denmark (2018), I really could not believe it. By then, the chances to get your talk accepted were around 10% (or less, don't really remember the exact number). There were over a 1,000 submissions just for that KubeCon (recall that we now have **three KubeCon events during the year** - US, EU and Asia region). The popularity of Kubernetes is ever increasing and so is the number of people trying to get a talk accepted. Once again, **outstanding achievement to get your talk in**!
 

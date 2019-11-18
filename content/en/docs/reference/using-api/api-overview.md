@@ -47,7 +47,7 @@ The API versioning and software versioning are indirectly related.  The [API and
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and software versioning.
 {{< /note >}}
 
-Different API versions indicate different levels of stability and support. You can find more information about the criteria for each level in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  
+Different API versions indicate different levels of stability and support. You can find more information about the criteria for each level in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).
 
 Here's a summary of each level:
 

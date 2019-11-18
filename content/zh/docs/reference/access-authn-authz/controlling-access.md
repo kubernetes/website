@@ -73,7 +73,7 @@ Bootstrap Tokens，以及JWT Tokens (用于服务账户)。
   }
 }
 ```
-如果Bob对 `projectCaribou` 命名空间下的对象发起一个写（`create` 或者 `update`）请求，那么它的授权会被拒绝。 如果Bob请求读取(`get`) 其他命名空间，例如 `projectFish`下的对象，其授权也会被拒绝。 
+如果Bob对 `projectCaribou` 命名空间下的对象发起一个写（`create` 或者 `update`）请求，那么它的授权会被拒绝。 如果Bob请求读取(`get`) 其他命名空间，例如 `projectFish`下的对象，其授权也会被拒绝。
 
 Kubernetes的授权要求使用通用的REST属性与现有的组织或云服务提供商的访问控制系统进行交互。 采用REST格式是必要的，因为除Kubernetes外，这些访问控制系统还可能与其他的API进行交互。
 
@@ -103,7 +103,7 @@ Kubernetes 支持多种授权模块，例如ABAC模式，RBAC模式和 Webhook�
 
 ## API的端口和IP
 
-上述讨论适用于发送请求到API服务器的安全端口(典型情况)。  
+上述讨论适用于发送请求到API服务器的安全端口(典型情况)。
 实际上API服务器可以通过两个端口提供服务：
 
 默认情况下，API服务器在2个端口上提供HTTP服务：

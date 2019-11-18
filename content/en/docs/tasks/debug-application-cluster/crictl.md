@@ -295,7 +295,7 @@ deleted by the Kubelet.
         "command": [
             "top"
         ],
-        "log_path":"busybox/0.log",
+        "log_path":"busybox.log",
         "linux": {
         }
       }

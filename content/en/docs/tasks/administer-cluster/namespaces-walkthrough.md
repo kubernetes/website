@@ -225,7 +225,7 @@ At this point, all requests we make to the Kubernetes cluster from the command l
 Let's create some contents.
 
 ```shell
-kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
+kubectl run snowflake --image=k8s.gcr.io/serve_hostname --replicas=2
 ```
 We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
@@ -235,8 +235,8 @@ If you want to obtain the old behavior, use `--generator=run/v1` to create repli
 kubectl get deployment
 ```
 ```
-NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-snowflake   2         2         2            2           2m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+snowflake    2/2     2            2           2m
 ```
 
 ```shell
@@ -266,13 +266,13 @@ kubectl get pods
 Production likes to run cattle, so let's create some cattle pods.
 
 ```shell
-kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
+kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5
 
 kubectl get deployment
 ```
 ```
-NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-cattle    5         5         5            5           10s
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+cattle       5/5     5            5           10s
 ```
 
 ```shell

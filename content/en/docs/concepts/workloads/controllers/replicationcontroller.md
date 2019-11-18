@@ -39,7 +39,7 @@ only a single pod. A ReplicationController is similar to a process supervisor,
 but instead of supervising individual processes on a single node, the ReplicationController supervises multiple pods
 across multiple nodes.
 
-ReplicationController is often abbreviated to "rc" or "rcs" in discussion, and as a shortcut in
+ReplicationController is often abbreviated to "rc" in discussion, and as a shortcut in
 kubectl commands.
 
 A simple case is to create one ReplicationController object to reliably run one instance of
@@ -109,7 +109,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 Here, the selector is the same as the selector for the ReplicationController (seen in the
-`kubectl describe` output, and in a different form in `replication.yaml`.  The `--output=jsonpath` option
+`kubectl describe` output), and in a different form in `replication.yaml`.  The `--output=jsonpath` option
 specifies an expression that just gets the name from each pod in the returned list.
 
 

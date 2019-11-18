@@ -158,7 +158,7 @@ container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 kubectl get events | grep Created
 ```
 ```
-22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-minion-group-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
+22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]apparmor=k8s-apparmor-example-deny-write]
 ```
 
 컨테이너의 루트 프로세스가 올바른 프로파일로 실행되는지는 proc attr을 확인하여 직접 검증할 수 있다.
@@ -177,7 +177,18 @@ k8s-apparmor-example-deny-write (enforce)
 먼저 노드에서 사용하려는 프로파일을 적재해야 한다. 사용할 프로파일은 단순히
 파일 쓰기를 거부할 것이다.
 
-{{< code language="text" file="deny-write.profile" >}}
+```shell
+#include <tunables/global>
+
+profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
+  #include <abstractions/base>
+
+  file,
+
+  # Deny all file writes.
+  deny /** w,
+}
+```
 
 파드를 언제 스케줄할지 알지 못하므로 모든 노드에 프로파일을 적재해야 한다.
 이 예시에서는 SSH를 이용하여 프로파일을 설치할 것이나 다른 방법은
@@ -315,7 +326,7 @@ Events:
   FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
   ---------    --------    -----    ----                        -------------    --------    ------        -------
   23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-minion-group-t1f5
-  23s          23s         1        {kubelet e2e-test-stclair-minion-group-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+  23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
 파드 상태는 Failed이며 오류메시지는 `Pod Cannot enforce AppArmor: profile

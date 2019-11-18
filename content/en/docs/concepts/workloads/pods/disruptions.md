@@ -169,8 +169,8 @@ The deployment notices that one of the pods is terminating, so it creates a repl
 called `pod-d`.  Since `node-1` is cordoned, it lands on another node.  Something has
 also created `pod-y` as a replacement for `pod-x`.
 
-(Note: for a StatefulSet, `pod-a`, which would be called something like `pod-1`, would need
-to terminate completely before its replacement, which is also called `pod-1` but has a
+(Note: for a StatefulSet, `pod-a`, which would be called something like `pod-0`, would need
+to terminate completely before its replacement, which is also called `pod-0` but has a
 different UID, could be created.  Otherwise, the example applies to a StatefulSet as well.)
 
 Now the cluster is in this state:

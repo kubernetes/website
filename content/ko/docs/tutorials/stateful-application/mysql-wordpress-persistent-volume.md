@@ -92,6 +92,13 @@ EOF
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
+다음의 매니페스트는 단일-인스턴스 WordPress 디플로이먼트를 기술한다. WordPress 컨테이너는
+웹사이트 데이터 파일을 위해 `/var/www/html`에 퍼시스턴트볼륨을 마운트한다. `WORDPRESS_DB_HOST` 환경 변수에는
+위에서 정의한 MySQL 서비스의 이름이 설정되며, WordPress는 서비스를 통해 데이터베이스에 접근한다.
+`WORDPRESS_DB_PASSWORD` 환경 변수에는 kustomize가 생성한 데이터베이스 패스워드가 설정된다. 
+
+{{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
+
 1. MySQL 디플로이먼트 구성 파일을 다운로드한다.
 
       ```shell

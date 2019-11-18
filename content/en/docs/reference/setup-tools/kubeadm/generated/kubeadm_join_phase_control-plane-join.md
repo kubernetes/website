@@ -1,7 +1,6 @@
 
-Join a machine as a control plane instance
-
 ### Synopsis
+
 
 Join a machine as a control plane instance
 

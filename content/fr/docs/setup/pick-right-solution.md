@@ -15,16 +15,16 @@ de votre propre cluster personnalisé. Utilisez ce guide pour choisir la solutio
 
 Si vous voulez simplement jeter un coup d'oeil rapide, utilisez alors de préférence les [solutions locales basées sur Docker](#local-machine-solutions).
 
-Lorsque vous êtes prêts à augmenter le nombre de machines et souhaitez bénéficier de la haute disponibilité, une 
+Lorsque vous êtes prêts à augmenter le nombre de machines et souhaitez bénéficier de la haute disponibilité, une
 [solution hébergée](#hosted-solutions) est la plus simple à déployer et à maintenir.
 
-[Les solutions cloud clés en main](#turnkey-cloud-solutions) ne demandent que peu de commande pour déployer et couvrent un large panel de 
+[Les solutions cloud clés en main](#turnkey-cloud-solutions) ne demandent que peu de commande pour déployer et couvrent un large panel de
  fournisseurs de cloud. [Les solutions clés en main pour cloud privé](#on-premises-turnkey-cloud-solutions) possèdent la simplicité des solutions cloud clés en main combinées avec la sécurité de votre propre réseau privé.
 
 Si vous avez déjà un moyen de configurer vos resources, utilisez [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) pour facilement
 déployer un cluster grâce à une seule ligne de commande par machine.
 
-[Les solutions personnalisées](#custom-solutions) varient d'instructions pas à pas, à des conseils relativement généraux pour déployer un 
+[Les solutions personnalisées](#custom-solutions) varient d'instructions pas à pas, à des conseils relativement généraux pour déployer un
 cluster Kubernetes en partant du début.
 
 {{% /capture %}}
@@ -39,7 +39,7 @@ cluster Kubernetes en partant du début.
 application facile à installer pour votre environnement Mac ou Windows qui vous permet de
 commencer à coder et déployer votre code dans des conteneurs en quelques minutes sur un nœud unique Kubernetes.
 
-* [Minishift](https://docs.okd.io/latest/minishift/) installe la version communautaire de la plate-forme d'entreprise OpenShift 
+* [Minishift](https://docs.okd.io/latest/minishift/) installe la version communautaire de la plate-forme d'entreprise OpenShift
 de Kubernetes pour le développement local et les tests. Il offre une VM tout-en-un (`minishift start`) pour Windows, macOS et Linux,
  le `oc cluster up` containerisé (Linux uniquement) et [est livré avec quelques Add Ons faciles à installer](https://github.com/minishift/minishift-addons/tree/master/add-ons).
 
@@ -68,7 +68,7 @@ un nœud unique) qui ne nécessite qu'un docker-engine. Il utilise la technique 
 * [Azure Kubernetes Service](https://azure.microsoft.com/services/container-service/) offre des clusters Kubernetes managés.
 
 * [Containership Kubernetes Engine (CKE)](https://containership.io/containership-platform) Approvisionnement et gestion intuitive de clusters
- Kubernetes sur GCP, Azure, AWS, Packet, et DigitalOcean. Mises à niveau transparentes, auto-scaling, métriques, création de 
+ Kubernetes sur GCP, Azure, AWS, Packet, et DigitalOcean. Mises à niveau transparentes, auto-scaling, métriques, création de
 workloads, et plus encore.
 
 * [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes/) offre un service managé de Kubernetes.
@@ -99,13 +99,13 @@ workloads, et plus encore.
 
 * [Stackpoint.io](https://stackpoint.io) fournit l'automatisation et la gestion de l'infrastructure Kubernetes pour plusieurs clouds publics.
 
-* [SysEleven MetaKube](https://www.syseleven.io/products-services/managed-kubernetes/) offre un Kubernetes-as-a-Service sur un cloud public OpenStack. Il inclut la gestion du cycle de vie, les tableaux de bord d'administration, la surveillance, la mise à l'échelle automatique et bien plus encore. 
+* [SysEleven MetaKube](https://www.syseleven.io/products-services/managed-kubernetes/) offre un Kubernetes-as-a-Service sur un cloud public OpenStack. Il inclut la gestion du cycle de vie, les tableaux de bord d'administration, la surveillance, la mise à l'échelle automatique et bien plus encore.
 
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks) est une offre d'entreprise Kubernetes-as-a-Service faisant partie du catalogue de services Cloud VMware qui fournit des clusters Kubernetes faciles à utiliser, sécurisés par défaut, rentables et basés sur du SaaS.
 
 ## Solutions clés en main
 
-Ces solutions vous permettent de créer des clusters Kubernetes sur une gamme de fournisseurs de Cloud IaaaS avec seulement 
+Ces solutions vous permettent de créer des clusters Kubernetes sur une gamme de fournisseurs de Cloud IaaaS avec seulement
 quelques commandes. Ces solutions sont activement développées et bénéficient du soutien actif de la communauté.
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
@@ -157,11 +157,11 @@ Ces solutions vous permettent de créer des clusters Kubernetes sur votre cloud 
 
 ## Solutions personnalisées
 
-Kubernetes peut fonctionner sur une large gamme de fournisseurs de Cloud et d'environnements bare-metal, ainsi qu'avec de nombreux 
+Kubernetes peut fonctionner sur une large gamme de fournisseurs de Cloud et d'environnements bare-metal, ainsi qu'avec de nombreux
 systèmes d'exploitation.
 
 Si vous pouvez trouver un guide ci-dessous qui correspond à vos besoins, utilisez-le. C'est peut-être un peu dépassé, mais...
-ce sera plus facile que de partir de zéro. Si vous voulez repartir de zéro, soit parce que vous avez des exigences particulières, 
+ce sera plus facile que de partir de zéro. Si vous voulez repartir de zéro, soit parce que vous avez des exigences particulières,
 ou simplement parce que vous voulez comprendre ce qu'il y a à l'interieur de Kubernetes
 essayez le guide [Getting Started from Scratch](/docs/setup/release/building-from-source/).
 

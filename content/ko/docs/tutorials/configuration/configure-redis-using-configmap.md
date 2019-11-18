@@ -96,6 +96,11 @@ kubectl exec -it redis redis-cli
 2) "allkeys-lru"
 ```
 
+생성된 파드를 삭제한다.
+```shell
+kubectl delete pod redis
+```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}

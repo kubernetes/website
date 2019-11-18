@@ -36,6 +36,9 @@ To run this pod, use the following command:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
+```
+The output is:
+```
 pod/counter created
 ```
 
@@ -43,6 +46,9 @@ To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
 kubectl logs counter
+```
+The output is:
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
