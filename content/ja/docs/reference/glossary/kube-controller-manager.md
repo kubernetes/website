@@ -15,5 +15,4 @@ tags:
 
 <!--more--> 
 
-論理的には、各{{< glossary_tooltip text="controller" term_id="controller" >}}は、それぞれ別のプロセスですが、複雑になるのを避けるため、一つの実行ファイルにまとめてコンパイルされ、単一のプロセスとして動きます。
-
+論理的には、各{{< glossary_tooltip text="controller" term_id="controller" >}}は、それぞれ別のプロセスですが、複雑さを軽減するために一つの実行ファイルにまとめてコンパイルされ、単一のプロセスとして動きます。

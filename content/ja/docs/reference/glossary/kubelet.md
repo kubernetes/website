@@ -15,5 +15,4 @@ tags:
 
 <!--more--> 
 
-Kubeletは、様々な機構から提供されるPodSpecs情報を受け取り、それらのPodSpecs情報に記述されているコンテナが正常に稼働していることを保証します。Kubeletは、Kubernetes外で作成されたコンテナは管理しません。
-
+Kubeletは、様々なメカニズムで提供されるPodSpecs情報を受け取り、それらのPodSpecs情報に記述されているコンテナが正常に稼働していることを保証します。Kubeletは、Kubernetes外で作成されたコンテナは管理しません。

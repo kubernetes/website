@@ -15,5 +15,6 @@ tags:
 
 <!--more--> 
 
-あなたのKubernetesクラスター情報を守るため、etcdのデータのバックアッププランを持っておいて下さい。etcdに関するより詳細な情報は、[etcdドキュメント](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)を確認してください。
+etcdをKubernetesのデータストアとして使用する場合、必ずデータの[バックアップ](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)計画を作成して下さい。
 
+公式[ドキュメント](https://etcd.io/docs/)でetcdに関する詳細な情報を見つけることができます。
