@@ -7,6 +7,7 @@ content_template: templates/task
 ---
  
 {{% capture overview %}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 {{% /capture %}}
 
@@ -57,14 +58,5 @@ This works for e2e clusters created on GCE. On all other environments, the follo
 * --cluster-dns flag to kubelet needs to be modified to use the LOCAL_DNS IP that NodeLocal DNSCache is listening on (169.254.20.10 by default)
 
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
-
-### Feature availability
-
-The addon can be applied using the yaml specified above in any k8s version. The feature support is as described:
-
-| k8s version | Feature support |
-| :---------: |:-----------:|
-| 1.15 | Beta(Not enabled by default) |
-| 1.13 | Alpha(Not enabled by default) |
 
  {{% /capture %}}
