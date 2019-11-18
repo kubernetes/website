@@ -285,7 +285,7 @@ The next stage of security&#39;s &quot;cloud native evolution&quot; looks to be 
 
 **A service mesh is a web of encrypted persistent connections, made between high performance &quot;sidecar&quot; proxy servers like Envoy and Linkerd. It adds traffic management, monitoring, and policy - all without microservice changes.**
 
-Offloading microservice security and networking code to a shared, battle tested set of libraries was already possible with [Linkerd](https://linkerd.io/), and the introduction of [Istio](https://istio.io/) by Google, IBM, and Lyft, has added an alternative in this space. With the addition of [SPIFFE](https://spiffe.io) for per-pod cryptographic identity and a plethora of [other features](https://istio.io/docs/concepts/what-is-istio/overview.html), Istio could simplify the deployment of the next generation of network security.
+Offloading microservice security and networking code to a shared, battle tested set of libraries was already possible with [Linkerd](https://linkerd.io/), and the introduction of [Istio](https://istio.io/) by Google, IBM, and Lyft, has added an alternative in this space. With the addition of [SPIFFE](https://spiffe.io) for per-pod cryptographic identity and a plethora of [other features](https://istio.io/docs/concepts/what-is-istio/), Istio could simplify the deployment of the next generation of network security.
 
 In &quot;Zero Trust&quot; networks there may be no need for traditional firewalling or Kubernetes network policy, as every interaction occurs over mTLS (mutual TLS), ensuring that both parties are not only communicating securely, but that the identity of both services is known.
 
