@@ -152,8 +152,7 @@ The value of the `exec` field is an ExecAction object. | The value of the "exec"
 Do | Don't
 :--| :-----
 The `kubelet` preserves node stability. | The kubelet preserves node stability.
-The `kube-proxy` maintains network rules on nodes. | The kube-proxy maintains network rules on nodes.
-Kubectl handles locating and authenticating to the API server. | `kubectl` handles locating and authenticating to the apiserver.
+The `kubectl` handles locating and authenticating to the API server. | The kubectl handles locating and authenticating to the apiserver.
 {{< /table >}}
 
 ### Starting a sentence with a component tool or component name
@@ -161,16 +160,17 @@ Kubectl handles locating and authenticating to the API server. | `kubectl` handl
 {{< table caption = "Do and Don't - Starting a sentence with a component tool or component name" >}}
 Do | Don't
 :--| :-----
-The `kube-apiserver` is designed to scale horizontally. | `kube-apiserver` is designed to scale horizontally.
-Kubectl handles locating and authenticating to the API server. | The Kubectl handles locating and authenticating to the apiserver.
+The `kubeadm` tool bootstraps and provisions machines in a cluster. | `kubeadm` tool bootstraps and provisions machines in a cluster.
+The `kube-scheduler` is the default scheduler for Kubernetes. | kube-scheduler is the default scheduler for Kubernetes.
 {{< /table >}}
 
-### Use a general descriptor over a specific component name
+### Use a general descriptor over a component name
 
-{{< table caption = "Do and Don't - Use a general descriptor over a specific component name" >}}
+{{< table caption = "Do and Don't - Use a general descriptor over a component name" >}}
 Do | Don't
 :--| :-----
 The Kubernetes API server offers an OpenAPI spec. | The apiserver offers an OpenAPI spec.
+Aggregated APIs are subordinate API servers. | Aggregated APIs are subordinate APIServers.
 {{< /table >}}
 
 ### Use normal style for string and integer field values
