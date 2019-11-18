@@ -66,12 +66,12 @@ kubectl get pods --namespace=kube-system | grep kube-state
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
-kubectl create -f kube-state-metrics/kubernetes
-kubectl get pods --namespace=kube-system | grep kube-state
+kubectl create -f examples/standard
+kubectl get pods --namespace=kube-system | grep kube-state-metrics
 ```
 kube-state-metrics이 실행 중이고 준비되었는지 확인한다.
 ```shell
-kubectl get pods -n kube-system -l k8s-app=kube-state-metrics
+kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 ```
 
 출력
