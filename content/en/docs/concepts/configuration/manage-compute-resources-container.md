@@ -410,7 +410,7 @@ be managed by use of [project
 quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html).
 Project quotas were originally implemented in XFS, and have more
 recently been ported to ext4fs.  Project quotas can be used for both
-monitoring and enforcement; as of Kubernetes 1.15, they are available
+monitoring and enforcement; as of Kubernetes 1.16, they are available
 as alpha functionality for monitoring only.
 
 Quotas are faster and more accurate than directory scanning.  When a
@@ -432,7 +432,7 @@ following:
 
 * Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   feature gate in the kubelet configuration.  This defaults to `false`
-  in Kubernetes 1.15, so must be explicitly set to `true`.
+  in Kubernetes 1.16, so must be explicitly set to `true`.
 
 * Ensure that the root partition (or optional runtime partition) is
   built with project quotas enabled.  All XFS filesystems support
