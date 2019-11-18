@@ -85,6 +85,6 @@ endpoints:
 {{% capture whatsnext %}}
 
 * [엔드포인트 슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpoint-slices)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* [애플리케이션을 서비스와 함께 연결하기](/docs/concepts/services-networking/connect-applications-service/) 를 읽는다.
 
 {{% /capture %}}
