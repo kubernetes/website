@@ -16,13 +16,15 @@ weight: 20
 
 ## Master 组件
 
-Master 组件提供的集群控制。Master 组件对集群做出全局性决策(例如：调度)，以及检测和响应集群事件(副本控制器的`replicas`字段不满足时,启动新的副本)。
+Master 组件为集群提供控制平面。Master 组件对集群做出全局性决策(例如：调度)，并检测和响应集群事件(副本控制器的`replicas`字段不满足时，启动新的副本)。
 
-Master 组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会启动同一个虚拟机上所有 Master 组件，并且不会在此虚拟机上运行用户容器。请参阅[构建高可用性群集](/docs/admin/high-availability)示例对于多主机 VM 的设置。
+Master 组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会在同一个主机上启动所有 Master 组件，并且不要在此主机上运行用户容器。对于多主机 VM 的设置，敬请参阅[构建高可用性群集](/docs/admin/high-availability)。
 
 ### API服务器
 
-[kube-apiserver](/docs/admin/kube-apiserver)对外暴露了Kubernetes API。它是的 Kubernetes 前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。请参阅[构建高可用性群集](/docs/admin/high-availability).
+API服务器是暴露 Kubernetes API 的 Kubernetes 控制平面组件。API服务器是 Kubernetes 控制平面的前端。
+
+Kubernetes API 服务器的主要实现是[kube-apiserver](/docs/admin/kube-apiserver)。 kube-apiserver 被设计为水平扩展--即通过部署更多实例来实现伸缩。你可以运行多个 kube-apiserver 实例并且均衡每个实例的流量。
 
 ### etcd
 
