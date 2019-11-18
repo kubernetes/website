@@ -375,8 +375,8 @@ You can acquire all these from the [nginx https example](https://github.com/kube
 可以从 [Nginx https 示例](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/examples/https-nginx/) 获取所有上述内容，简明示例如下：
 
 ```shell
-make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
-kubectl apply -f /tmp/secret.json
+make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
+kubectl create secret tls nginxsecret --key /tmp/nginx.key --cert /tmp/nginx.crt
 ```
 ```
 secret/nginxsecret created
