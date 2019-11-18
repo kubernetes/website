@@ -136,7 +136,8 @@ By adding a taint to all Windows nodes, nothing will be scheduled on them (that 
 
 ```yaml
 nodeSelector:
-    "kubernetes.io/os": windows
+    kubernetes.io/os: windows
+    node.kubernetes.io/windows-build: '10.0.17763'
 tolerations:
     - key: "os"
       operator: "Equal"
@@ -144,23 +145,40 @@ tolerations:
       effect: "NoSchedule"
 ```
 
-#### Simplifying with RuntimeClass
+### Handling multiple Windows versions in the same cluster
+
+The Windows Server version used by each pod must match that of the node. If you want to use multiple Windows
+Server versions in the same cluster, then you should set additional node labels and nodeSelectors.
+
+Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build` to simplify this. If you're running an older version, then it's recommended to add this label manually to Windows nodes.
+
+This label reflects the Windows major, minor, and build number that need to match for compatibility. Here are values used today for each Windows Server version.
+
+| Product Name                         |   Build Number(s)      |
+|--------------------------------------|------------------------|
+| Windows Server 2019                  | 10.0.17763             |
+| Windows Server version 1809          | 10.0.17763             |
+| Windows Server version 1903          | 10.0.18362             |
+
+
+### Simplifying with RuntimeClass
 
 [RuntimeClass] can be used to simplify the process of using taints and tolerations. A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
 
 
-1. Save this file to `runtimeClasses.yml`
+1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` for the Windows OS, architecture, and version.
 
 ```yaml
 apiVersion: node.k8s.io/v1beta1
 kind: RuntimeClass
 metadata:
-  name: windows
+  name: windows-2019
 handler: 'docker'
 scheduling:
   nodeSelector:
     kubernetes.io/os: 'windows'
     kubernetes.io/arch: 'amd64'
+    node.kubernetes.io/windows-build: '10.0.17763'
   tolerations:
   - effect: NoSchedule
     key: os
@@ -169,7 +187,7 @@ scheduling:
 ```
 
 1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
-1. Add `runtimeClassName: windows` or `runtimeClassName: linux` as appropriate to Pod specs
+1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
 
 For example:
 
@@ -188,7 +206,7 @@ spec:
       labels:
         app: iis-2019
     spec:
-      runtimeClassName: windows
+      runtimeClassName: windows-2019
       containers:
       - name: iis
         image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
