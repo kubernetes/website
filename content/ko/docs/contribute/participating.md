@@ -260,7 +260,7 @@ PR 승인을 지원하기 위해서 자동화 시스템이 OWNERS 파일의 정�
 
 쿠버네티스 프로젝트는 GitHub 이슈와 풀 리퀘스트 자동화와 관련해서 prow라고 부르는 자동화 툴을 사용한다.
 [쿠버네티스 웹사이트 리포지터리](https://github.com/kubernetes/website)는
-다음의 두개의 [prow 플러그인](https://github.com/kubernetes/test-infra/blob/master/prow/plugins.yaml#L210)을
+다음의 두개의 [prow 플러그인](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)을
 사용한다.
 
 - blunderbuss
