@@ -29,7 +29,6 @@ Kubernetes 使用容器运行时来实现在 pod 中运行容器。
 
 {{% capture body %}}
 
-
 {{< caution >}}
 <!--
 A flaw was found in the way runc handled system file descriptors when running containers.
@@ -146,7 +145,7 @@ apt-get update && apt-get install apt-transport-https ca-certificates curl softw
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 -->
 # 安装 Docker CE
-## 设置仓库：
+## 设置仓库
 ### 安装软件包以允许 apt 通过 HTTPS 使用存储库
 apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
@@ -177,16 +176,16 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 -->
-### 新增 Docker apt 仓库。
+### 添加 Docker apt 仓库
 add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
 
-## 安装 Docker CE。
+## 安装 Docker CE
 apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
-# 设置 daemon。
+# 设置 daemon
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -325,7 +324,7 @@ sysctl --system
 
 使用以下命令在系统中安装 CRI-O：
 
-### prerequisites
+### 准备环境
 
 ```shell
 modprobe overlay
@@ -431,7 +430,7 @@ EOF
 sysctl --system
 ```
 -->
-## 容器
+## containerd
 
 本节包含使用 `containerd` 作为 CRI 运行时的必要步骤。
 
@@ -461,7 +460,7 @@ sysctl --system
 <!--
 ### Install containerd
 -->
-### 安装容器
+### 安装 containerd
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
@@ -504,7 +503,7 @@ add-apt-repository \
 ## 安装 containerd
 apt-get update && apt-get install -y containerd.io
 
-# 配置容器
+# 配置 containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
 
@@ -512,7 +511,7 @@ containerd config default > /etc/containerd/config.toml
 # Restart containerd
 systemctl restart containerd
 -->
-# 重启容器
+# 重启 containerd
 systemctl restart containerd
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
@@ -534,7 +533,7 @@ yum update && yum install containerd.io
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
 -->
-# 安装容器
+# 安装 containerd
 ## 设置仓库
 ### 安装所需包
 yum install yum-utils device-mapper-persistent-data lvm2
@@ -544,10 +543,10 @@ yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## 安装容器
+## 安装 containerd
 yum update && yum install containerd.io
 
-# 配置容器
+# 配置 containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
 
