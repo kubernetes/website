@@ -202,7 +202,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
 The rest of this section will assume you have a Service with a long lived IP
-(my-nginx), and a DNS server that has assigned a name to that IP. Here we use the CoreDNS cluster addon (application name ```kube-dns```), so you can talk to the Service from any pod in your cluster using standard methods (e.g. gethostbyname). If it isn't running, you can enable it referring to [this](https://github.com/coredns/deployment/tree/master/kubernetes) or [this](https://kubernetes.io/docs/tasks/administer-cluster/coredns/) links. Let's run another curl application to test this:
+(my-nginx), and a DNS server that has assigned a name to that IP. Here we use the CoreDNS cluster addon (application name `kube-dns`), so you can talk to the Service from any pod in your cluster using standard methods (e.g. `gethostbyname()`). If CoreDNS isn't running, you can enable it referring to the [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns). Let's run another curl application to test this:
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
