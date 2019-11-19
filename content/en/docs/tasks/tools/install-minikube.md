@@ -186,19 +186,19 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 {{% /capture %}}
 
-## Cleanup local state
+## Clean up local state {#cleanup-local-state}
 
-If you have previously installed minikube, and run:
+If you have previously installed Minikube, and run:
 ```shell
 minikube start
 ```
 
-And this command returns an error:
-```shell
+and `minikube start` returned an error:
+```
 machine does not exist
 ```
 
-You need to clear minikube's local state:
+then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```
