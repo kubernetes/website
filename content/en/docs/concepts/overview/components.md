@@ -15,6 +15,11 @@ When you deploy Kubernetes, you get a cluster.
 
 This document outlines the various components you need to have
 a complete and working Kubernetes cluster.
+
+Here's the diagram of a Kubernetes cluster with all the components tied together.
+
+![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
+
 {{% /capture %}}
 
 {{% capture body %}}

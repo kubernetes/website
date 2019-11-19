@@ -67,12 +67,12 @@ kubectl get pods --namespace=kube-system | grep kube-state
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
-kubectl create -f kube-state-metrics/kubernetes
-kubectl get pods --namespace=kube-system | grep kube-state
+kubectl create -f examples/standard
+kubectl get pods --namespace=kube-system | grep kube-state-metrics
 ```
 Verify that kube-state-metrics is running and ready
 ```shell
-kubectl get pods -n kube-system -l k8s-app=kube-state-metrics
+kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 ```
 
 Output:
