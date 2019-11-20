@@ -48,7 +48,7 @@ Seorang adminstrator kluster membuat beberapa VolumeSnapshotContent, yang masing
 #### Dinamis
 Ketika VolumeSnapshotContent yang dibuat oleh administrator tidak ada yang sesuai dengan VolumeSnapshot yang dibuat pengguna, kluster bisa saja
 mencoba untuk menyediakan sebuah VolumeSnapshot secara dinamis, khususnya untuk objek VolumeSnapshot.
-Proses penyediaan ini berdasarkan VolumeSnapshotClasses: VolumeSnapshot harus meminta sebuah [VolumeSnapshotClass]((/docs/concepts/storage/volume-snapshot-classes/))
+Proses penyediaan ini berdasarkan VolumeSnapshotClasses: VolumeSnapshot harus meminta sebuah [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)
 dan administrator harus membuat serta mengatur _class_ tersebut supaya penyediaan dinamis bisa terjadi.
 
 ### Ikatan (_Binding_)

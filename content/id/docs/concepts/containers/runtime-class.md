@@ -91,7 +91,7 @@ spec:
 
 Kubelet akan mendapat instruksi untuk menggunakan RuntimeClass dengan nama yang sudah ditentukan tersebut
 untuk menjalankan Pod ini. Jika RuntimeClass dengan nama tersebut tidak ditemukan, atau CRI tidak dapat
-menjalankan _handler_ yang terkait, maka Pod akan memasuki [tahap]((/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)) `Failed`.
+menjalankan _handler_ yang terkait, maka Pod akan memasuki [tahap](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) `Failed`.
 Lihat [_event_](/docs/tasks/debug-application-cluster/debug-application-introspection/) untuk mengetahui pesan error yang terkait.
 
 Jika tidak ada `runtimeClassName` yang ditentukan di dalam Pod, maka RuntimeHandler yang _default_ akan digunakan.
