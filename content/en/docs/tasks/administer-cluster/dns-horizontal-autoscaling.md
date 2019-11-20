@@ -129,7 +129,7 @@ linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 ```
 
 Modify the fields according to your needs. The "min" field indicates the
-minimal number of DNS backends. The actual number of backends number is
+minimal number of DNS backends. The actual number of backends is
 calculated using this equation:
 
     replicas = max( ceil( cores × 1/coresPerReplica ) , ceil( nodes × 1/nodesPerReplica ) )
