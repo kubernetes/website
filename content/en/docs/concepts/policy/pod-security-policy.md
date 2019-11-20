@@ -361,7 +361,7 @@ podsecuritypolicy "example" deleted
 
 ### Example Policies
 
-This is the least restricted policy you can create, equivalent to not using the
+This is the least restrictive policy you can create, equivalent to not using the
 pod security policy admission controller:
 
 {{< codenew file="policy/privileged-psp.yaml" >}}
@@ -400,8 +400,6 @@ pods on the same node.
 **HostPorts** - Provides a whitelist of ranges of allowable ports in the host
 network namespace. Defined as a list of `HostPortRange`, with `min`(inclusive)
 and `max`(inclusive). Defaults to no allowed host ports.
-
-**AllowedHostPaths** - See [Volumes and file systems](#volumes-and-file-systems).
 
 ### Volumes and file systems
 
