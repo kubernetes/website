@@ -76,8 +76,6 @@ different Kubernetes components.
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
-| `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
-| `CSINodeInfo` | `true` | Beta | 1.14 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
 | `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
@@ -178,6 +176,9 @@ different Kubernetes components.
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | - |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
 | `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+| `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
+| `CSINodeInfo` | `true` | Beta | 1.14 | 1.16 |
+| `CSINodeInfo` | `true` | GA | 1.17 | |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
