@@ -17,4 +17,4 @@ To use custom binaries or open source Kubernetes, follow the instructions below.
 
 The source code for [Kubernetes with Alibaba Cloud provider implementation](https://github.com/AliyunContainerService/kubernetes) is open source and available on GitHub.
 
-For more information, see "[Quick deployment of Kubernetes - VPC environment on Alibaba Cloud](https://www.alibabacloud.com/forum/read-830)" in English and [Chinese](https://yq.aliyun.com/articles/66474).
+For more information, see "[Quick deployment of Kubernetes - VPC environment on Alibaba Cloud](https://www.alibabacloud.com/forum/read-830)" in English.
