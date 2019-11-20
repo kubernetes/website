@@ -184,7 +184,7 @@ Kubelet memulai registrasi diri (<i>self-registration</i>) dengan opsi-opsi beri
   - `--node-labels` - Label-label untuk ditambahkan saat melakukan registrasi untuk node di dalam kluster (lihat label yang dibatasi secara paksa oleh [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) untuk 1.13+).
   - `--node-status-update-frequency` - Menentukan seberapa sering kubelet melaporkan status pada master.
 
-Ketika mode [otorisasi Node]((/docs/reference/access-authn-authz/node/)) dan [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) diaktifkan, semua kubelet hanya punya otoritas untuk membuat/modifikasi <i>resource</i> Node masing-masing.
+Ketika mode [otorisasi Node](/docs/reference/access-authn-authz/node/) dan [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) diaktifkan, semua kubelet hanya punya otoritas untuk membuat/modifikasi <i>resource</i> Node masing-masing.
 
 #### Administrasi Node secara Manual
 
