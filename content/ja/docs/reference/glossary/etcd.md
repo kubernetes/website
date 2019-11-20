@@ -13,7 +13,8 @@ tags:
 ---
  一貫性、高可用性を持ったキーバリューストアで、Kubernetesの全てのクラスター情報の保存場所として利用されています。
 
-<!--more--> 
+<!--more-->
 
-あなたのKubernetesクラスター情報を守るため、etcdのデータのバックアッププランを持っておいて下さい。etcdに関するより詳細な情報は、[etcdドキュメント](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)を確認してください。
+etcdをKubernetesのデータストアとして使用する場合、必ずデータの[バックアップ](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)プランを作成して下さい。
 
+公式[ドキュメント](https://etcd.io/docs/)でetcdに関する詳細な情報を見つけることができます。
