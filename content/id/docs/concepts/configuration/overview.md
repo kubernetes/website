@@ -1,7 +1,7 @@
 ---
 reviewers:
 - mikedanese
-title: konfigurasi dan Penerapan Konsep
+title: Konfigurasi dan Penerapan Konsep
 content_template: templates/concept
 weight: 10
 ---
