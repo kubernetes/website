@@ -154,7 +154,7 @@ to the container runtime.
 
 When using Docker:
 
-- The `spec.containers[].resources.requests.cpu` is converted to its core value,
+- The `spec.containers[].resources.requests.memory` is converted to its memory value,
   which is potentially fractional, and multiplied by 1024. The greater of this number
   or 2 is used as the value of the
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
