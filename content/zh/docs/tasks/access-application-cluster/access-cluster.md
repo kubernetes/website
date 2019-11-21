@@ -226,7 +226,7 @@ Go 客户端可以像 kubectl CLI 一样使用相同的 [kubeconfig 文件](/doc
 To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py).
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples).
 
 ### Other languages
 
@@ -237,7 +237,7 @@ See documentation for other libraries for how they authenticate.
 
 如果想要使用 [Python 客户端](https://github.com/kubernetes-client/python)，请运行命令：`pip install kubernetes`。参阅 [Python Client Library page](https://github.com/kubernetes-client/python) 以获得更详细的安装参数。
 
-Python 客户端可以像 kubectl CLI 一样使用相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 来定位和验证 apiserver，可参阅 [示例](https://github.com/kubernetes-client/python/tree/master/examples/example1.py)。
+Python 客户端可以像 kubectl CLI 一样使用相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 来定位和验证 apiserver，可参阅 [示例](https://github.com/kubernetes-client/python/tree/master/examples)。
 
 ### 其它语言
 
