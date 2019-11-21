@@ -146,14 +146,12 @@ aliases:
     - zacharysarah
     - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
-    - bradtopol
     - chenopis
     - chenrui333
     - dchen1107
     - haibinxie
     - hanjiayao
     - lichuqiang
-    - lucperkins
     - markthink
     - SataQiu
     - tengqm
