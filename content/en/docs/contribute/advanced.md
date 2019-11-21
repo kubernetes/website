@@ -55,6 +55,7 @@ reviewed is usually small. These queries specifically exclude localization PRs, 
   or copy-editing, either suggest changes or add a copyedit commit to the PR to move it along.
 - [Has LGTM, needs docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
   Determine whether any additional changes or updates need to be made for the PR to be merged. If you think the PR is ready to be merged, comment `/approve`.
+- [Quick Wins](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22+): If it’s a small PR against master with no clear blockers. (change "XS" in the size label as you work through the PRs [XS, S, M, L, XL, XXL]).
 - [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release. Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it by adding a comment with `/assign @<meister's_github-username>`. If it's against an old branch, help the PR author figure out whether it's targeted against the best branch.
 
 ### When to close Pull Requests
