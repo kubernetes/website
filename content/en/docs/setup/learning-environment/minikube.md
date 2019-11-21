@@ -204,7 +204,7 @@ plugins.
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 * vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
-* none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
+* none (Runs the Kubernetes components on the host and not in a VM. It is not recommended to run the none driver on personal workstations. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 
 #### Starting a cluster on alternative container runtimes
 You can start Minikube on the following container runtimes.
