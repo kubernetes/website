@@ -8,6 +8,7 @@ weight: 20
 {{% capture overview %}}
 이 페이지는 쿠버네티스 보안 및 공개 정보를 설명한다.
 {{% /capture %}}
+
 {{% capture body %}}
 ## 보안 공지
 보안 및 주요 API 공지에 대한 이메일을 위해 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 그룹에 가입하세요.
