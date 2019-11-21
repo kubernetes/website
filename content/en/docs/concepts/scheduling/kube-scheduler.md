@@ -88,7 +88,7 @@ kube-scheduler has a default set of scheduling policies.
 - `PodFitsHostPorts`: Checks if a Node has free ports (the network protocol kind)
   for the Pod ports the Pod is requesting.
 
-- `PodFitsHost`: Checks if a Pod specifies a specific Node by it hostname.
+- `PodFitsHost`: Checks if a Pod specifies a specific Node by its hostname.
 
 - `PodFitsResources`: Checks if the Node has free resources (eg, CPU and Memory)
   to meet the requirement of the Pod.
@@ -126,12 +126,12 @@ kube-scheduler has a default set of scheduling policies.
 
 - `CheckVolumeBinding`: Evaluates if a Pod can fit due to the volumes it requests.
   This applies for both bound and unbound
-  {{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}}
+  {{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}}.
 
 ### Scoring
 
 - `SelectorSpreadPriority`: Spreads Pods across hosts, considering Pods that
-   belonging to the same {{< glossary_tooltip text="Service" term_id="service" >}},
+   belong to the same {{< glossary_tooltip text="Service" term_id="service" >}},
    {{< glossary_tooltip term_id="statefulset" >}} or
    {{< glossary_tooltip term_id="replica-set" >}}.
 
@@ -152,13 +152,13 @@ kube-scheduler has a default set of scheduling policies.
 
 - `BalancedResourceAllocation`: Favors nodes with balanced resource usage.
 
-- `NodePreferAvoidPodsPriority`: Priorities nodes according to the node annotation
+- `NodePreferAvoidPodsPriority`: Prioritizes nodes according to the node annotation
   `scheduler.alpha.kubernetes.io/preferAvoidPods`. You can use this to hint that
   two different Pods shouldn't run on the same Node.
 
 - `NodeAffinityPriority`: Prioritizes nodes according to node affinity scheduling
    preferences indicated in PreferredDuringSchedulingIgnoredDuringExecution.
-   You can read more about this in [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)
+   You can read more about this in [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).
 
 - `TaintTolerationPriority`: Prepares the priority list for all the nodes, based on
   the number of intolerable taints on the node. This policy adjusts a node's rank
@@ -169,7 +169,7 @@ kube-scheduler has a default set of scheduling policies.
   Pod cached locally.
 
 - `ServiceSpreadingPriority`: For a given Service, this policy aims to make sure that
-  the Pods for the Service run on different nodes. It favouring scheduling onto nodes
+  the Pods for the Service run on different nodes. It favours scheduling onto nodes
   that don't have Pods for the service already assigned there. The overall outcome is
   that the Service becomes more resilient to a single Node failure.
 
