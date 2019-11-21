@@ -96,7 +96,7 @@ for details about addon manager and how to disable individual addons.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn more about [StorageClasses](/docs/concepts/storage/persistent-volumes/).
+* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 {{% /capture %}}
 
 
