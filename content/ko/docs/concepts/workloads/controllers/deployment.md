@@ -1082,7 +1082,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 `.spec.strategy.rollingUpdate.maxUnavailable` 은 업데이트 프로세스 중에 사용할 수 없는 최대 파드의 수를 지정하는 선택적 필드이다.
 이 값은 절대 숫자(예: 5) 또는 의도한 파드 비율(예: 10%)이 될 수 있다.
 절대 값은 반올림해서 백분율로 계산한다.
-만약 `.spec.strategy.rollingUpdate.maxSurge` 가 0면 값이 0이 될 수 없다. 기본 값은 25% 이다.
+만약 `.spec.strategy.rollingUpdate.maxSurge` 가 0이면 값이 0이 될 수 없다. 기본 값은 25% 이다.
 
 예를 들어 이 값을 30%로 설정하면 롤링업데이트 시작시 즉각 이전 레플리카셋의 크기를 
 의도한 파드 중 70%를 스케일 다운할 수 있다. 새 파드가 준비되면 기존 레플리카셋을 스케일 다운할 수 있으며, 
