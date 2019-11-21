@@ -324,38 +324,43 @@ graphical Git client instead.
 You only need to clone the repository once per physical system where you work
 on the Kubernetes documentation.
 
-1.  In a terminal window, use `git clone` to clone the repository. You do not
-    need any credentials to clone the repository.
+1.  Create a fork of the `kubernetes/website` repository on GitHub. In your
+    web browser, go to
+    [https://github.com/kubernetes/website](https://github.com/kubernetes/website)
+    and click the **Fork** button. After a few seconds, you are redirected to
+    the URL for your fork, which is `https://github.com/<github_username>/website`.
+
+2.  In a terminal window, use `git clone` to clone the your fork.
 
       ```bash
-      git clone https://github.com/kubernetes/website
+      git clone git@github.com/<github_username>/website
       ```
 
       The new directory `website` is created in your current directory, with
-      the contents of the GitHub repository.
+      the contents of your GitHub repository. Your fork is your `origin`.
 
-2.  Change to the new `website` directory. Rename the default `origin` remote
-    to `upstream`.
+3.  Change to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote.
 
       ```bash
       cd website
 
-      git remote rename origin upstream
+      git remote add upstream https://github.com/kubernetes/website.git
       ```
 
-3.  If you have not done so, create a fork of the repository on GitHub. In your
-    web browser, go to
-    [https://github.com/kubernetes/website](https://github.com/kubernetes/website)
-    and click the **Fork** button. After a few seconds, you are redirected to
-    the URL for your fork, which is typically something like
-    `https://github.com/<username>/website` unless you already had a repository
-    called `website`. Copy this URL.
+4.  Confirm your `origin` and `upstream` repositories.
 
-4.  Add your fork as a second remote, called `origin`:
+    ```bash
+    git remote -v
+    ```
 
-      ```bash
-      git remote add origin <FORK-URL>
-      ```
+    Output is similar to:
+
+    ```bash
+    origin	git@github.com:<github_username>/website.git (fetch)
+    origin	git@github.com:<github_username>/website.git (push)
+    upstream	https://github.com/kubernetes/website (fetch)
+    upstream	https://github.com/kubernetes/website (push)
+    ```
 
 ### Work on the local repository
 
@@ -379,24 +384,31 @@ After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
 most up-to-date version of that branch.
 
-1.  Fetch both the `upstream` and `origin` remotes. This updates your local
-    notion of what those branches contain, but does not change your local
-    branches at all.
+1.  There are three different copies of the repository when you work locally:
+    `local`, `upstream`, and `origin`. Fetch both the `origin` and `upstream` remotes. This
+    updates your cache of the remotes without actually changing any of the copies.
 
       ```bash
-      git fetch upstream
       git fetch origin
+      git fetch upstream
       ```
 
-2.  Create a new tracking branch based on the branch you decided is the most
-    appropriate. This example assumes you are using `master`.
+    This workflow deviates from the one defined in the Community's [GitHub
+    Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md).
+    In this workflow, you do not need to merge your local copy of `master` with `upstream/master` before
+    pushing the updates to your fork. That step is not required in
+    `kubernetes/website` because you are basing your branch on the upstream repository.
+
+2.  Create a local working branch based on the most appropriate upstream branch:
+    `upstream/dev-1.xx` for feature developers or `upstream/master` for all other
+    contributors. This example assumes you are basing your work on
+    `upstream/master`. Because you didn't update your local `master` to match
+    `upstream/master` in the previous step, you need to explicitly create your
+    branch off of `upstream/master`.
 
       ```bash
       git checkout -b <my_new_branch> upstream/master
       ```
-
-      This new branch is based on `upstream/master`, not your local `master`.
-      It tracks `upstream/master`.
 
 3.  With your new branch checked out, make your changes using a text editor.
     At any time, use the `git status` command to see what you've changed.
@@ -412,7 +424,7 @@ most up-to-date version of that branch.
       git add example-file.md
       ```
 
-      When all your intended changes are included, create a commit, using the
+      When all your intended changes are included, create a commit using the
       `git commit` command:
 
       ```bash
@@ -423,7 +435,7 @@ most up-to-date version of that branch.
       Do not reference a GitHub issue or pull request by ID or URL in the
       commit message. If you do, it will cause that issue or pull request to get
       a notification every time the commit shows up in a new Git branch. You can
-      link issues and pull requests together later, in the GitHub UI.
+      link issues and pull requests together later in the GitHub UI.
       {{< /note >}}
 
 5.  Optionally, you can test your change by staging the site locally using the
@@ -443,9 +455,9 @@ most up-to-date version of that branch.
       the behavior in that case depends upon the version of Git you are using.
       The results are more repeatable if you include the branch name.
 
-7.  At this point, if you go to https://github.com/kubernetes/website in your
-    web browser, GitHub detects that you pushed a new branch to your fork and
-    offers to create a pull request. Fill in the pull request template.
+7.  Go to https://github.com/kubernetes/website in your web browser. GitHub
+    detects that you pushed a new branch to your fork and offers to create a pull
+    request. Fill in the pull request template.
 
       - The title should be no more than 50 characters and summarize the intent
         of the change.
@@ -465,10 +477,25 @@ most up-to-date version of that branch.
     **Details** link goes to a staged version of the Kubernetes website with
     your changes applied. This is how reviewers will check your changes.
 
-9.  If you notice that more changes need to be made, or if reviewers give you
-    feedback, address the feedback locally, then repeat step 4 - 6 again,
-    creating a new commit. The new commit is added to your pull request and the
-    tests run again, including re-staging the Netlify staged site.
+9.  When you need to make more changes, address the feedback locally and amend
+    your original commit.
+
+    ```bash
+    git commit -a --amend
+    ```
+
+    - `-a`: commit all changes
+    - `--amend`: amend the previous commit, rather than creating a new one
+
+    An editor will open so you can update your commit message if necessary.
+
+    If you use `git commit -m` as in Step 4, you will create a new commit rather
+    than amending changes to your original commit. Creating a new commit means
+    you must squash your commits before your pull request can be merged.
+
+    Follow the instructions in Step 6 to push your commit. The commit is added
+    to your pull request and the tests run again, including re-staging the
+    Netlify staged site.
 
 10. If a reviewer adds changes to your pull request, you need to fetch those
     changes from your fork before you can add more changes. Use the following
@@ -479,11 +506,11 @@ most up-to-date version of that branch.
       git rebase origin/<your-branch-name>
       ```
 
-      After rebasing, you need to add the `-f` flag to force-push new changes to
-      the branch to your fork.
+      After rebasing, you need to add the `--force-with-lease` flag to
+      force push the branch's new changes to your fork.
 
       ```bash
-      git push -f origin <your-branch-name>
+      git push --force-with-lease origin <your-branch-name>
       ```
 
 11. If someone else's change is merged into the branch your work is based on,
@@ -512,6 +539,52 @@ most up-to-date version of that branch.
       there are no changes that need to be committed. At that point, force-push
       the branch to your fork, and the pull request should no longer show any
       conflicts.
+
+12. If your PR still has multiple commits after amending previous commits, you
+    must squash multiple commits into a single commit before your PR can be merged.
+    You can check the number of commits on your PR's `Commits` tab or by running
+    `git log` locally. Squashing commits is a form of rebasing.
+
+    ```bash
+    git rebase -i HEAD~<number_of_commits>
+    ```  
+
+    The `-i` switch tells git you want to rebase interactively. This enables
+    you to tell git which commits to squash into the first one. For
+    example, you have 3 commits on your branch:
+
+    ```
+    12345 commit 4 (2 minutes ago)
+    6789d commit 3 (30 minutes ago)
+    456df commit 2 (1 day ago)     
+    ```
+
+    You must squash your last three commits into the first one.
+
+    ```
+    git rebase -i HEAD~3
+    ```
+
+    That command opens an editor with the following:
+
+    ```
+    pick 456df commit 2
+    pick 6789d commit 3
+    pick 12345 commit 4
+    ```
+
+    Change `pick` to `squash` on the commits you want to squash, and make sure
+    the one `pick` commit is at the top of the editor.
+
+    ```
+    pick 456df commit 2
+    squash 6789d commit 3
+    squash 12345 commit 4
+    ```
+
+    Save and close your editor. Then push your squashed
+    commit with `git push --force-with-lease origin <branch_name>`.
+
 
 If you're having trouble resolving conflicts or you get stuck with
 anything else related to your pull request, ask for help on the `#sig-docs`

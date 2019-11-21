@@ -64,7 +64,7 @@ aliases:
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
     - alexbrand
-    - glo-pena
+    # glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - remyleone
@@ -116,6 +116,7 @@ aliases:
     - rlenferink
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
+    - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - cstoku
@@ -184,3 +185,13 @@ aliases:
   sig-docs-vi-reviews: # PR reviews for Vietnamese content
     - ngtuna
     - truongnh1992
+  sig-docs-ru-owners: # Admins for Russian content
+    - msheldyakov
+    - aisonaku
+    - potapy4
+    - dianaabv
+  sig-docs-ru-reviews: # PR reviews for Russian content
+    - msheldyakov
+    - aisonaku
+    - potapy4
+    - dianaabv

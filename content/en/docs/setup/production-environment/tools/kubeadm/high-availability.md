@@ -345,6 +345,7 @@ SSH is required if you want to control all nodes from a single machine.
         scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
         scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
         scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
+        # Quote this line if you are using external etcd
         scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
     done
     ```
@@ -368,6 +369,7 @@ SSH is required if you want to control all nodes from a single machine.
     mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
     mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
     mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+    # Quote this line if you are using external etcd
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
 {{% /capture %}}

@@ -37,7 +37,7 @@ content_template: templates/tutorial
 
 1. 通过YAML文件创建一个Deployment:
 
-       kubectl create -f https://k8s.io/docs/tasks/run-application/deployment.yaml
+        kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 
 1. 展示Deployment相关信息:
 
@@ -94,11 +94,11 @@ content_template: templates/tutorial
 
 1. 应用新的YAML:
 
-       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
+         kubectl apply -f https://k8s.io/examples/application/deployment-update.yaml
 
 1. 查看该deployment创建的pods以新的名称同时删除旧的pods:
 
-       kubectl get pods -l app=nginx
+         kubectl get pods -l app=nginx
 
 ## 通过增加副本数来弹缩应用
 
@@ -108,11 +108,11 @@ content_template: templates/tutorial
 
 1. 应用新的YAML文件:
 
-       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
+        kubectl apply -f https://k8s.io/examples/application/deployment-scale.yaml
 
 1. 验证Deployment有4个pods:
 
-       kubectl get pods -l app=nginx
+        kubectl get pods -l app=nginx
 
     输出的结果类似于:
 

@@ -34,4 +34,4 @@ spec:
       emptyDir: {}
     - name: secret-volume
       secret:
-         secretName: config-details
+        secretName: config-details
