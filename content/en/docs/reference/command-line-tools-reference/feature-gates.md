@@ -122,7 +122,6 @@ different Kubernetes components.
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
-| `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StartupProbe` | `true` | Beta | 1.17 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
@@ -239,6 +238,9 @@ different Kubernetes components.
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | 1.16  |
 | `ScheduleDaemonSetPods` | `true` | GA | 1.17 | - |
+| `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | 1.15 |
+| `ServiceLoadBalancerFinalizer` | `true` | Beta | 1.16 | 1.16 |
+| `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
