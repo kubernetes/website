@@ -1,7 +1,6 @@
 ---
 title: 쿠버네티스 보안과 공개 정보
 aliases: [/security/]
-- erictune
 content_template: templates/concept
 weight: 20
 ---
