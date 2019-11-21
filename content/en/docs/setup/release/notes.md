@@ -595,7 +595,7 @@ The main themes of this release are:
 - github.com/google/martian: [v2.1.0+incompatible](https://github.com/google/martian/tree/v2.1.0)
 - github.com/google/pprof: [3ea8567](https://github.com/google/pprof/tree/3ea8567)
 - github.com/google/renameio: [v0.1.0](https://github.com/google/renameio/tree/v0.1.0)
-- github.com/googleapis/gax-go/v2: [v2.0.4](https://github.com/googleapis/gax-go/v2/tree/v2.0.4)
+- github.com/googleapis/gax-go/v2: [v2.0.4](https://github.com/googleapis/gax-go/tree/v2.0.4)
 - github.com/hashicorp/go-syslog: [v1.0.0](https://github.com/hashicorp/go-syslog/tree/v1.0.0)
 - github.com/jimstudt/http-authentication: [3eca13d](https://github.com/jimstudt/http-authentication/tree/3eca13d)
 - github.com/kisielk/errcheck: [v1.2.0](https://github.com/kisielk/errcheck/tree/v1.2.0)

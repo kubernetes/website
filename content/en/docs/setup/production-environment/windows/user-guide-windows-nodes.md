@@ -254,7 +254,7 @@ Users can generate values for the `ControlPlane.KubeadmToken` and `ControlPlane.
 
 1. Install containers and Kubernetes (requires a system reboot)
 
-Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) script to install Kubernetes on the Windows Server container host:
+Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) script to install Kubernetes on the Windows Server container host:
 
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install 
@@ -284,7 +284,7 @@ Once installation is complete, any of the generated configuration files or binar
 #### Join the Windows Node to the Kubernetes cluster
 This section covers how to join a [Windows node with Kubernetes installed](#preparing-a-windows-node) with an existing (Linux) control-plane, to form a cluster.
 
-Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) script to join the Windows node to the cluster:
+Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) script to join the Windows node to the cluster:
 
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
@@ -319,7 +319,7 @@ kubectl get nodes
 #### Remove the Windows Node from the Kubernetes cluster
 In this section we'll cover how to remove a Windows node from a Kubernetes cluster. 
 
-Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) script to remove the Windows node from the cluster:
+Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) script to remove the Windows node from the cluster:
 
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset 

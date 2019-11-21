@@ -35,7 +35,7 @@ Improving performance was one of the major focus items for the containerd 1.1 re
 
 The following results are a comparison between containerd 1.1 and Docker 18.03 CE. The containerd 1.1 integration uses the CRI plugin built into containerd; and the Docker 18.03 CE integration uses the dockershim.
 
-The results were generated using the Kubernetes node performance benchmark, which is part of [Kubernetes node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/e2e-node-tests.md). Most of the containerd benchmark data is publicly accessible on the [node performance dashboard](http://node-perf-dash.k8s.io/).
+The results were generated using the Kubernetes node performance benchmark, which is part of [Kubernetes node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-testing/e2e-tests.md). Most of the containerd benchmark data is publicly accessible on the [node performance dashboard](http://node-perf-dash.k8s.io/).
 
 ### Pod Startup Latency
 The "105 pod batch startup benchmark" results show that the containerd 1.1 integration has lower pod startup latency than Docker 18.03 CE integration with dockershim (lower is better).
