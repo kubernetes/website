@@ -23,6 +23,7 @@ weight: 20
 보고서를 작성하기 위해서는 보안 세부 내용과 [모든 쿠버네티스 버그 보고서](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)로부터 예상되는 세부 사항을 [security@kubernetes.io](mailto:security@kubernetes.io)로 이메일을 보낸다.
 
 [제품 보안 위원회 구성원](https://git.k8s.io/security/security-release-process.md#product-security-committee-psc)의 GPG 키를 사용하여 이 목록으로 이메일을 암호화할 수 있다. GPG를 사용한 암호화는 공개할 필요가 없다.
+
 ### 언제 취약점을 보고해야 하는가?
 - 쿠버네티스에서 잠재적인 보안 취약점을 발견했다고 생각하는 경우
 - 취약성이 쿠버네티스에 어떤 영향을 미치는지 확신할 수 없는 경우
