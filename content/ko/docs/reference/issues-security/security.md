@@ -11,6 +11,7 @@ weight: 20
 
 {{% capture body %}}
 ## 보안 공지
+
 보안 및 주요 API 공지에 대한 이메일을 위해 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 그룹에 가입하세요.
 [이 링크](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50)를 사용하기 위해서 RSS 피드를 구독할 수 있다. 
 ## 취약점 보고
