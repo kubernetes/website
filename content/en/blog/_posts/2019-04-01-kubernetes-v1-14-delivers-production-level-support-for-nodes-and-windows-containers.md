@@ -57,7 +57,7 @@ As a community, our work is not complete. As already mentioned , we still have a
 We welcome you to get involved and join our community to share feedback and deployment stories, and contribute to code, docs, and improvements of any kind.
 
 - Read our getting started and contributor guides, which include links to the community meetings and past recordings, at https://github.com/kubernetes/community/tree/master/sig-windows
-- Explore our documentation at https://kubernetes.io/docs/setup/windows
+- Explore our documentation at https://kubernetes.io/docs/setup/production-environment/windows/
 - Join us on [Slack](https://kubernetes.slack.com/messages/sig-windows) or the [Kubernetes Community Forums](https://discuss.kubernetes.io/c/general-discussions/windows) to chat about Windows containers on Kubernetes.
 
 Thank you and feel free to reach us individually if you have any questions.

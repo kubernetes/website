@@ -23,7 +23,7 @@ Most people who have gotten hands-on with Kubernetes have at some point been han
 
 The Container Storage Interface ([CSI](https://github.com/container-storage-interface)) is now GA after being introduced as alpha in v1.9 and beta in v1.10. With CSI, the Kubernetes volume layer becomes truly extensible. This provides an opportunity for third party storage providers to write plugins that interoperate with Kubernetes without having to touch the core code. The [specification itself](https://github.com/container-storage-interface/spec) has also reached a 1.0 status.
 
-With CSI now stable, plugin authors are developing storage plugins out of core, at their own pace. You can find a list of sample and production drivers in the [CSI Documentation](https://kubernetes-csi.github.io/docs/Drivers.html).
+With CSI now stable, plugin authors are developing storage plugins out of core, at their own pace. You can find a list of sample and production drivers in the [CSI Documentation](https://kubernetes-csi.github.io/docs/drivers.html).
 
 ## CoreDNS is Now the Default DNS Server for Kubernetes
 

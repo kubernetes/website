@@ -58,7 +58,7 @@ You can provide reliable extensibility in a project like Kyma only if it is prop
 - Tracing is done with [Jaeger](https://www.jaegertracing.io/)
 - Authentication is supported by [dex](https://github.com/dexidp/dex)
 
-You don't have to integrate these tools: We made sure they all play together well, and are always up to date ( Kyma is already using Istio 1.1). With our custom [Installer](https://github.com/kyma-project/kyma/tree/master/components/installer) and [Helm](https://helm.sh/) charts, we enabled easy installation and easy upgrades to new versions of Kyma.
+You don't have to integrate these tools: We made sure they all play together well, and are always up to date ( Kyma is already using Istio 1.1). With our custom [Installer](https://github.com/kyma-project/kyma/blob/master/docs/kyma/04-02-local-installation.md) and [Helm](https://helm.sh/) charts, we enabled easy installation and easy upgrades to new versions of Kyma.
 
 ### Do not rewrite your monoliths
 
@@ -122,5 +122,5 @@ Such an approach gives you a lot of flexibility in adding new functionality. It 
 ## Contribute and give feedback
 
 Kyma is an open source project, and we would love help it grow. The way that happens is with your help. After reading this post, you already know that we don't want to reinvent the wheel. We stay true to this approach in our work model, which enables community contributors. We work in [Special Interest Groups](
-https://github.com/kyma-project/community/tree/master/sig-and-wg) and have publicly recorded meeting that you can join any time, so we have a setup similar to what you know from Kubernetes itself.
+https://github.com/kyma-project/community/tree/master/contributing) and have publicly recorded meeting that you can join any time, so we have a setup similar to what you know from Kubernetes itself.
 Feel free to share also your feedback with us, through [Twitter](https://twitter.com/kymaproject) or [Slack](http://slack.kyma-project.io).

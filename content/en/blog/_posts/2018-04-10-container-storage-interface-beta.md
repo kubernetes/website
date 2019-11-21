@@ -37,7 +37,7 @@ A `VolumeAttributes` field was added to Kubernetes `CSIPersistentVolumeSource` o
 
 CSI plugin authors must provide their own instructions for deploying their plugin on Kubernetes.
 
-The Kubernetes-CSI implementation team created a [sample hostpath CSI driver](https://kubernetes-csi.github.io/docs/Example.html). The sample provides a rough idea of what the deployment process for a CSI driver looks like. Production drivers, however, would deploy node components via a DaemonSet and controller components via a StatefulSet rather than a single pod (for example, see the deployment files for the [GCE PD driver](https://github.com/GoogleCloudPlatform/compute-persistent-disk-csi-driver/blob/master/deploy/kubernetes/README.md)).
+The Kubernetes-CSI implementation team created a [sample hostpath CSI driver](https://kubernetes-csi.github.io/docs/example.html). The sample provides a rough idea of what the deployment process for a CSI driver looks like. Production drivers, however, would deploy node components via a DaemonSet and controller components via a StatefulSet rather than a single pod (for example, see the deployment files for the [GCE PD driver](https://github.com/GoogleCloudPlatform/compute-persistent-disk-csi-driver/blob/master/deploy/kubernetes/README.md)).
 
 ## How do I use a CSI Volume in my Kubernetes pod?
 
@@ -167,7 +167,7 @@ Storage vendors can build Kubernetes deployments for their plugins using these c
 
 ## Where can I find CSI drivers?
 
-CSI drivers are developed and maintained by third parties. You can find a non-definitive list of some [sample and production CSI drivers](https://kubernetes-csi.github.io/docs/Drivers.html).
+CSI drivers are developed and maintained by third parties. You can find a non-definitive list of some [sample and production CSI drivers](https://kubernetes-csi.github.io/docs/drivers.html).
 
 ## What about FlexVolumes?
 
