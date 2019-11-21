@@ -447,10 +447,10 @@ source <(kubectl completion zsh)
 
 If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
-    ```shell
-    echo 'alias k=kubectl' >>~/.zshrc
-    echo 'complete -F __start_kubectl k' >>~/.zshrc
-    ```
+```shell
+echo 'alias k=kubectl' >>~/.zshrc
+echo 'complete -F __start_kubectl k' >>~/.zshrc
+```
     
 After reloading your shell, kubectl autocompletion should be working.
 
