@@ -1359,7 +1359,7 @@ mutating webhook chain, and didn't mutated the request object during the invocat
 }
 ```
 
-The following annotatino gets recorded for a webhook being invoked in the first round. The webhook is ordered the first in\
+The following annotation gets recorded for a webhook being invoked in the first round. The webhook is ordered the first in\
 the mutating webhook chain, and mutated the request object during the invocation.
 
 ```yaml
