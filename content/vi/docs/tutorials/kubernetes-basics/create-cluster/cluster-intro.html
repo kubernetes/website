@@ -35,8 +35,8 @@ weight: 10
                 
                 <p>Một Kubernetes cluster bao gồm 2 loại tài nguyên:
                     <ul>
-                        <li>Nút <b>Master</b> làm nhiệm vụ quản lý toàn cluster.</li>
-                        <li>Các <b>Nodes</b> còn lại khởi chạy các ứng dụng trực tiếp trên đó là các <b>Worker</b>.</li>
+                        <li>Node <b>Master</b> làm nhiệm vụ quản lý toàn cluster.</li>
+                        <li>Các <b>Node</b> còn lại khởi chạy các ứng dụng trực tiếp trên đó là các <b>Worker</b>.</li>
                     </ul>
                 </p>
             </div>
@@ -73,8 +73,8 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p><b>Nút Master chịu trách nhiệm quản lý cluster.</b> Nó quản lý toàn bộ các hoạt động bên trong cluster, như là việc khởi chạy các ứng dụng, kiểm soát chúng để chắc chắn chúng luôn ở các trạng thái như mong muốn, thay đổi khả năng đáp ứng của chúng (scaling), hoặc triển khai các phiên bản nâng cấp theo thời gian.</p>
-                <p><b>Một Node có thể là một máy ảo (VM) hoặc một máy tính vật lý làm việc với vai trò cung cấp khả năng tính toán cho cluster.</b> Mỗi Node có một chương trình chạy thường trực bên trong tên là Kubelet, làm nhiệm vụ quản lý Node và duy trì kết nối với nút Master. Mỗi Node bên cạnh đó còn chạy các chương trình dùng để khởi chạy và quản lý các Contaner như Docker hay rkt. Mỗi một Kubernetes cluster được triển khai trong thực tế khai thác thường có ít nhất 3 nút thuộc 2 loại như bên trên.</p>
+                <p><b>Node Master chịu trách nhiệm quản lý cluster.</b> Nó quản lý toàn bộ các hoạt động bên trong cluster, như là việc khởi chạy các ứng dụng, kiểm soát chúng để chắc chắn chúng luôn ở các trạng thái như mong muốn, thay đổi khả năng đáp ứng của chúng (scaling), hoặc triển khai các phiên bản nâng cấp theo thời gian.</p>
+                <p><b>Một Node có thể là một máy ảo (VM) hoặc một máy tính vật lý làm việc với vai trò cung cấp khả năng tính toán cho cluster.</b> Mỗi Node có một chương trình chạy thường trực bên trong tên là Kubelet, làm nhiệm vụ quản lý Node và duy trì kết nối với node Master. Mỗi Node bên cạnh đó còn chạy các chương trình dùng để khởi chạy và quản lý các Contaner như Docker hay rkt. Mỗi một Kubernetes cluster được triển khai trong thực tế khai thác thường có ít nhất 3 node thuộc 2 loại như bên trên.</p>
 
             </div>
             <div class="col-md-4">
@@ -86,7 +86,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p>Khi bạn triển khai các ứng dụng trên Kubernetes, bạn yêu cầu nút Master phân bổ và khởi chạy các ứng dụng của bạn. Nút Master tiếp đó tính toán để tìm ra các Node nào thích hợp cho việc triển khai ứng dụng. Các Node trong cluster kết nối và giao tiếp với nhau theo bộ qui tắc Kubernetes API do nút Master đưa ra. Quản trị viên hoặc người sử dụng đầu cuối cũng có thể sử dụng bộ qui tắc này để tương tác trực tiếp với một cluster.</p>
+                <p>Khi bạn triển khai các ứng dụng trên Kubernetes, bạn yêu cầu node Master phân bổ và khởi chạy các ứng dụng của bạn. Node Master tiếp đó tính toán để tìm ra các Node nào thích hợp cho việc triển khai ứng dụng. Các Node trong cluster kết nối và giao tiếp với nhau theo bộ qui tắc Kubernetes API do node Master đưa ra. Quản trị viên hoặc người sử dụng đầu cuối cũng có thể sử dụng bộ qui tắc này để tương tác trực tiếp với một cluster.</p>
 
                 <p>Một Kubernetes cluster có thể được xây dựng trên các máy tính vật lý hoặc các máy ảo. Để bắt đầu việc phát triển cho Kubernetes, bạn có thể sử dụng Minikube. Minikube là một bộ cài đặt Kubernetes bằng cách tạo ra một máy ảo trên máy tính của bạn và triển khai một cluster đơn giản bên trong máy ảo đó chỉ bao gồm một Node. Minikube có cho Linux, macOS, và Windows. Minikube CLI, một bộ công cụ dòng lệnh, cung cấp khả năng điều khiển cluster cho người sử dụng, như chạy, dừng chạy, xem trạng thái, hoặc xóa một thành phần trong cluster. Trong bài hướng dẫn này, bạn sẽ sử dụng một giao diện terminal trực tuyến với Minikube đã được cài đặt sẵn để thao tác.</p>
 
