@@ -28,18 +28,18 @@ When setting up a large Kubernetes cluster, the following issues must be conside
 
 ### 쿼터 문제
 
-To avoid running into cloud provider quota issues, when creating a cluster with many nodes, consider:
+여러 노드를 가지는 클러스터를 만들 때, 클라우드 프로바이더 쿼타 이슈를 피하기 위해 고려할 점:
 
-* Increase the quota for things like CPU, IPs, etc.
-  * In [GCE, for example,](https://cloud.google.com/compute/docs/resource-quotas) you'll want to increase the quota for:
-    * CPUs
-    * VM instances
-    * Total persistent disk reserved
-    * In-use IP addresses
-    * Firewall Rules
-    * Forwarding rules
-    * Routes
-    * Target pools
+* CPU, IP 등의 쿼타를 늘린다.
+  * 예를 들어 [GCE의 경우](https://cloud.google.com/compute/docs/resource-quotas) 다음에 관한 쿼타를 늘릴 수 있다:
+    * CPU
+    * VM 인스턴스
+    * 전체 영구 디스크 예약
+    * 사용 중인 IP 주소
+    * 방화벽 규칙
+    * 포워딩 규칙
+    * 라우트
+    * 대상 풀
 * Gating the setup script so that it brings up new node VMs in smaller batches with waits in between, because some cloud providers rate limit the creation of VMs.
 
 ### Etcd 저장소
@@ -94,6 +94,7 @@ For example:
         memory: 200Mi
 ```
 
+힙스터를 제외하고, 이러한 제약들은 정적이고 
 Except for Heapster, these limits are static and are based on data we collected from addons running on 4-node clusters (see [#10335](http://issue.k8s.io/10335#issuecomment-117861225)). The addons consume a lot more resources when running on large deployment clusters (see [#5880](http://issue.k8s.io/5880#issuecomment-113984085)). So, if a large cluster is deployed without adjusting these values, the addons may continuously get killed because they keep hitting the limits.
 
 To avoid running into cluster addon resource issues, when creating a cluster with many nodes, consider the following:
