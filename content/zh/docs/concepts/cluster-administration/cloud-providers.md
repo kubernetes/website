@@ -12,7 +12,6 @@ weight: 30
 ---
 -->
 
-
 {{% capture overview %}}
 <!--
 This page explains how to manage Kubernetes running on a specific
