@@ -70,7 +70,7 @@ You can also validate Pod IPs using the Downward API via the `status.podIPs` fie
 
 The following command prints the value of the `MY_POD_IPS` environment variable from within a container. The value is a comma separated list that corresponds to the Pod's IPv4 and IPv6 addresses.
 ```shell
-kubectl exec -it pod01 -- env | grep MY_POD_IPS
+kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
 ```
 MY_POD_IPS=10.244.1.4,a00:100::4
@@ -157,5 +157,4 @@ my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:318
 ```
 
 {{% /capture %}}
-
 
