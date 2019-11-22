@@ -24,7 +24,7 @@ weight: 20
 
 Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
 
-When setting up a large Kubernetes cluster, the following issues must be considered.
+큰 쿠버네티스 클러스트터 설정할 때는 다음 이슈들을 고려해야 한다.
 
 ### 쿼터 문제
 
@@ -44,8 +44,9 @@ When setting up a large Kubernetes cluster, the following issues must be conside
 
 ### Etcd 저장소
 
-To improve performance of large clusters, we store events in a separate dedicated etcd instance.
+큰 클러스터의 성능 향상을 위해, 우리는 이벤트를 각각의 전용 etcd 인스터스에 저장한다.
 
+클러스터를 생성할 때, 
 When creating a cluster, existing salt scripts:
 
 * start and configure additional etcd instance
