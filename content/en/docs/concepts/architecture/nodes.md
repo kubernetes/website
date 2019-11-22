@@ -81,19 +81,10 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates
+The node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-Similarly the scheduler ignores conditions when considering a Node; instead
-it looks at the Node's taints and a Pod's tolerations.
-
-Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
-tolerates the taints of a particular Node can be scheduled on that Node.
-
-{{< caution >}}
-Enabling this feature creates a small delay between the
-time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
-{{< /caution >}}
+When the scheduler is assigning a Pod to a Node, the scheduler takes the Node's taints
+into account, except for any taints that the Pod tolerates.
 
 ### Capacity and Allocatable {#capacity}
 
@@ -172,18 +163,28 @@ to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
-In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
-node. Node lease feature is enabled by default since 1.14 as a beta feature
-(feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
-When node lease feature is enabled, each node has an associated `Lease` object in
-`kube-node-lease` namespace that is renewed by the node periodically, and both
-NodeStatus and node lease are treated as heartbeats from the node. Node leases
-are renewed frequently while NodeStatus is reported from node to master only
-when there is some change or enough time has passed (default is 1 minute, which
-is longer than the default timeout of 40 seconds for unreachable nodes). Since
-node lease is much more lightweight than NodeStatus, this feature makes node
-heartbeat significantly cheaper from both scalability and performance
-perspectives.
+#### Heartbeats
+
+Heartbeats, sent by Kubernetes nodes, help determine the availability of a node.
+There are two forms of heartbeats: updates of `NodeStatus` and the
+[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
+Each Node has an associated Lease object in the `kube-node-lease`
+{{< glossary_tooltip term_id="namespace" text="namespace">}}.
+Lease is a lightweight resource, which improves the performance
+of the node heartbeats as the cluster scales.
+
+The kubelet is responsible for creating and updating the `NodeStatus` and
+a Lease object.
+
+- The kubelet updates the `NodeStatus` either when there is change in status,
+  or if there has been no update for a configured interval. The default interval
+  for `NodeStatus` updates is 5 minutes (much longer than the 40 second default
+  timeout for unreachable nodes).
+- The kubelet creates and then updates its Lease object every 10 seconds
+  (the default update interval). Lease updates occur independently from the
+  `NodeStatus` updates.
+
+#### Reliability
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master

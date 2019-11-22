@@ -63,6 +63,10 @@ Google Kubernetes Engine automatically updates master components (e.g. `kube-api
 
 The node upgrade process is user-initiated and is described in the [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade).
 
+### Upgrading an Amazon EKS Cluster
+
+Amazon EKS cluster's master components can be upgraded by using eksctl, AWS Management Console, or AWS CLI. The process is user-initiated and is described in the [Amazon EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html).
+
 ### Upgrading an Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) cluster
 
 Oracle creates and manages a set of master nodes in the Oracle control plane on your behalf (and associated Kubernetes infrastructure such as etcd nodes) to ensure you have a highly available managed Kubernetes control plane. You can also seamlessly upgrade these master nodes to new versions of Kubernetes with zero downtime. These actions are described in the [OKE documentation](https://docs.cloud.oracle.com/iaas/Content/ContEng/Tasks/contengupgradingk8smasternode.htm). 

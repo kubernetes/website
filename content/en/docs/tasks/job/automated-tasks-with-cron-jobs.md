@@ -87,8 +87,8 @@ The output is similar to this:
 ```
 NAME               COMPLETIONS   DURATION   AGE
 hello-4111706356   0/1                      0s
-hello-4111706356   0/1   0s    0s
-hello-4111706356   1/1   5s    5s
+hello-4111706356   0/1           0s         0s
+hello-4111706356   1/1           5s         5s
 ```
 
 Now you've seen one running job scheduled by the "hello" cron job.

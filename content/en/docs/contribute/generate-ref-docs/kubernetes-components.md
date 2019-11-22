@@ -128,7 +128,7 @@ repos:
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    git checkout release-1.16
+    git checkout release-1.17
     make generated_files
     cp -L -R vendor $GOPATH/src
     rm -r vendor

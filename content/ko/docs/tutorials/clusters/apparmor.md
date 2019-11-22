@@ -11,9 +11,9 @@ content_template: templates/tutorial
 
 AppArmor는 표준 리눅스 사용자와 그룹 기반의 권한을 보완하여, 한정된 리소스 집합으로
 프로그램을 제한하는 리눅스 커널 보안 모듈이다. AppArmor는 임의의 애플리케이션에 대해서
-잠재적인 공격범위를 줄이고 더욱 심층적인 방어를 제공하도록 구성할 수 있다.
+잠재적인 공격 범위를 줄이고 더욱 심층적인 방어를 제공하도록 구성할 수 있다.
 이 기능은 특정 프로그램이나 컨테이너에서 필요한 리눅스 기능, 네트워크 사용, 파일 권한 등에 대한
-접근 허용 목록를 조정한 프로파일로 구성한다. 각 프로파일은
+접근 허용 목록 조정한 프로파일로 구성한다. 각 프로파일은
 허용하지 않은 리소스 접근을 차단하는 *강제(enforcing)* 모드 또는
 위반만을 보고하는 *불평(complain)* 모드로 실행할 수 있다.
 
@@ -27,7 +27,7 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
 
 {{% capture objectives %}}
 
-* 노드에 프로파일을 어떻게 적재 하는지 예시를 본다.
+* 노드에 프로파일을 어떻게 적재하는지 예시를 본다.
 * 파드(Pod)에 프로파일을 어떻게 강제 적용하는지 배운다.
 * 프로파일이 적재되었는지 확인하는 방법을 배운다.
 * 프로파일을 위반하는 경우를 살펴본다.
@@ -54,7 +54,7 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
    ```
 
 2. AppArmor 커널 모듈을 사용 가능해야 한다. -- 리눅스 커널에 AppArmor 프로파일을 강제 적용하기 위해 AppArmor 커널 모듈은 반드시 설치되어 있고
-   사용 가능해야 한다. 예를 들어 Ubnutu 및 SUSE 같은 배포판은 모듈을 기본값으로 지원하고, 그 외 많은 다른 배포판들은 선택적으로 지원한다.
+   사용 가능해야 한다. 예를 들어 Ubuntu 및 SUSE 같은 배포판은 모듈을 기본값으로 지원하고, 그 외 많은 다른 배포판들은 선택적으로 지원한다.
    모듈이 사용 가능한지 확인하려면
    `/sys/module/apparmor/parameters/enabled` 파일을 확인한다.
 
@@ -63,8 +63,8 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
    Y
    ```
 
-   Kubelet(>=v1.4)이 AppArmor 기능 지원을 포함하지만 커널 모듈을 사용할 수 없으면
-   파드에서 AppArmor 옵션을 실행하는 것을 거부된다.
+   Kubelet(>=v1.4)이 AppArmor 기능 지원을 포함하지만, 커널 모듈을 사용할 수 없으면
+   파드에서 AppArmor 옵션을 실행하는 것이 거부된다.
 
   {{< note >}}
   우분투에는 추가적인 훅(hook)이나 추가 기능 패치를 포함한 리눅스 커널의 상위 스트림에 머지되지 않은
@@ -72,21 +72,11 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
   상위 스트림 버전에서 테스트한 패치만을 가지고 있어서 다른 기능은 지원을 보장하지 않는다.
   {{< /note >}}
 
-3. 컨테이너 런타임이 도커이다. -- 이는 현재 쿠버네티스에서 지원하는 컨테이너 런타임이며 AppArmor도 지원한다.
-   더 많은 런타임에서 AppArmor 지원을 추가할수록 설정은 확장될 것이다.
-   노드가 도커로 운영되고 있는지 확인할 수 있다.
-
-   ```shell
-   $ kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.containerRuntimeVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: docker://1.11.2
-   gke-test-default-pool-239f5d02-x1kf: docker://1.11.2
-   gke-test-default-pool-239f5d02-xwux: docker://1.11.2
-   ```
-
-   Kubelet(>=v1.4)은 AppArmor 지원을 포함하지만, 도커 런타임이 아니라면
-   파드를 AppArmor 옵션으로 실행하는 것은 거부된다.
+3. 컨테이너 런타임이 AppArmor을 지원한다. -- 현재 모든 일반적인 쿠버네티스를 지원하는
+{{< glossary_tooltip term_id="docker">}}, {{< glossary_tooltip term_id="cri-o" >}} 또는
+{{< glossary_tooltip term_id="containerd" >}} 와 같은 컨테이너 런타임들은 AppArmor를 지원해야 한다. 
+이 런타임 설명서를 참조해서 클러스터가 AppArmor를 사용하기 위한
+요구 사항을 충족하는지 확인해야 한다.
 
 4. 프로파일이 적재되어 있다. -- AppArmor는 각 컨테이너와 함께 실행해야 하는 AppArmor 프로파일을 지정하여 파드에 적용한다.
    커널에 지정한 프로파일이 적재되지 않았다면, Kubelet(>= v1.4)은 파드를 거부한다. 해당 노드에 어떤 프로파일이 적재되었는지는
@@ -132,7 +122,7 @@ AppArmor는 현재 베타라서 옵션은 어노테이션 형식으로 지정한
 [일반 사용자 버전으로 업그레이드 방법](#upgrade-path-to-general-availability) 참고)
 {{< /note >}}
 
-AppArmor 프로파일은 *컨테이너 마다* 지정된다. 함께 실행할 파드 컨테이너에 AppArmor 프로파일을 지정하려면
+AppArmor 프로파일은 *컨테이너마다* 지정된다. 함께 실행할 파드 컨테이너에 AppArmor 프로파일을 지정하려면
 파드의 메타데이터에 어노테이션을 추가한다.
 
 ```yaml
@@ -341,7 +331,7 @@ Events:
 
 * 각 노드에서 파드를 실행하는 [데몬셋](/docs/concepts/workloads/controllers/daemonset/)을 통해서
   올바른 프로파일이 적재되었는지 확인한다. 예시 구현은
-  [여기](https://git.k8s.io/kubernetes/test/images/apparmor-loader)에서 찾아 볼 수 있다.
+  [여기](https://git.k8s.io/kubernetes/test/images/apparmor-loader)에서 찾아볼 수 있다.
 * 노드 초기화 시간에 노드 초기화 스크립트(예를 들어 Salt, Ansible 등)나
   이미지를 이용
 * [예시](#example)에서 보여준 것처럼,
@@ -403,13 +393,13 @@ AppArmor가 일반 사용자 버전이 되면 제거된다.
 AppArmor는 일반 사용자 버전(general available)으로 준비되면 현재 어노테이션으로 지정되는 옵션은 필드로 변경될 것이다.
 모든 업그레이드와 다운그레이드 방법은 전환을 통해 지원하기에는 매우 미묘하니
 전환이 필요할 때에 상세히 설명할 것이다.
-최소 두번의 릴리즈에 대해서는 필드와 어노테이션 모두를 지원할 것이고,
+최소 두 번의 릴리즈에 대해서는 필드와 어노테이션 모두를 지원할 것이고,
 그 이후부터는 어노테이션은 명확히 거부된다.
 
 ## 프로파일 제작 {#authoring-profiles}
 
 AppArmor 프로파일을 만들고 올바르게 지정하는 것은 매우 까다로울 수 있다.
-다행히 이 작업에 도움되는 도구가 있다.
+다행히 이 작업에 도움 되는 도구가 있다.
 
 * `aa-genprof`와 `aa-logprof`는 애플리케이션 활동과 로그와 수행에 필요한 행동을 모니터링하여
   일반 프로파일 규칙을 생성한다. 자세한 사용방법은
@@ -422,7 +412,7 @@ AppArmor 프로파일을 만들고 올바르게 지정하는 것은 매우 까�
 파드가 실행 중인 쿠버네티스 노드에서 도구 실행을 금하지는 않는다.
 
 AppArmor 문제를 디버깅하기 위해서 거부된 것으로 보이는 시스템 로그를 확인할 수 있다.
-AppArmor 로그는 `dmesg`에서 보여지며, 오류는 보통 시스템 로그나
+AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
 `journalctl`에서 볼 수 있다. 더 많은 정보는
 [AppArmor 실패](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures)에서 제공한다.
 
@@ -443,7 +433,7 @@ AppArmor 로그는 `dmesg`에서 보여지며, 오류는 보통 시스템 로그
 - `runtime/default`: 기본 런타임 프로파일을 참조한다.
   - (기본 PodSecurityPolicy 없이) 프로파일을 지정하지 않고
     AppArmor를 사용하는 것과 동등하다.
-  - 도커에서는 권한없는 컨테이너의 경우는
+  - 도커에서는 권한 없는 컨테이너의 경우는
     [`docker-default`](https://docs.docker.com/engine/security/apparmor/) 프로파일로,
     권한이 있는 컨테이너의 경우 unconfined(프로파일 없음)으로 해석한다.
 - `localhost/<profile_name>`: 노드(localhost)에 적재된 프로파일을 이름으로 참조한다.

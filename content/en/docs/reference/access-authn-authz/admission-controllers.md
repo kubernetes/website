@@ -172,7 +172,20 @@ event requests. The cluster admin can specify event rate limits by:
  * Referencing an `EventRateLimit` configuration file from the file provided to the API
    server's command line flag `--admission-control-config-file`:
 
+{{< tabs name="eventratelimit_example" >}}
+{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: EventRateLimit
+  path: eventconfig.yaml
+...
+```
+{{% /tab %}}
+{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+```yaml
+# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
@@ -180,6 +193,8 @@ plugins:
   path: eventconfig.yaml
 ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 There are four types of limits that can be specified in the configuration:
 
@@ -240,7 +255,20 @@ imagePolicy:
 
 Reference the ImagePolicyWebhook configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
+{{< tabs name="imagepolicywebhook_example1" >}}
+{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: ImagePolicyWebhook
+  path: imagepolicyconfig.yaml
+...
+```
+{{% /tab %}}
+{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+```yaml
+# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
@@ -248,22 +276,44 @@ plugins:
   path: imagepolicyconfig.yaml
 ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Alternatively, you can embed the configuration directly in the file:
 
+{{< tabs name="imagepolicywebhook_example2" >}}
+{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: ImagePolicyWebhook
+  configuration:
+    imagePolicy:
+      kubeConfigFile: <path-to-kubeconfig-file>
+      allowTTL: 50
+      denyTTL: 50
+      retryBackoff: 500
+      defaultAllow: true
+```
+{{% /tab %}}
+{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+```yaml
+# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
 - name: ImagePolicyWebhook
   configuration:
     imagePolicy:
-      kubeConfigFile: /path/to/file
+      kubeConfigFile: <path-to-kubeconfig-file>
       allowTTL: 50
       denyTTL: 50
       retryBackoff: 500
       defaultAllow: true
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
@@ -441,8 +491,11 @@ and kubelets will not be allowed to modify labels with that prefix.
   * `kubernetes.io/arch`
   * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
+  * `node.kubernetes.io/instance-type`
   * `failure-domain.beta.kubernetes.io/region`
   * `failure-domain.beta.kubernetes.io/zone`
+  * `topology.kubernetes.io/region`
+  * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
   * `node.kubernetes.io/`-prefixed labels
 
@@ -489,7 +542,20 @@ podNodeSelectorPluginConfig:
 
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
+{{< tabs name="podnodeselector_example1" >}}
+{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: PodNodeSelector
+  path: podnodeselector.yaml
+...
+```
+{{% /tab %}}
+{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+```yaml
+# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
@@ -497,6 +563,8 @@ plugins:
   path: podnodeselector.yaml
 ...
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### Configuration Annotation Format
 `PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.

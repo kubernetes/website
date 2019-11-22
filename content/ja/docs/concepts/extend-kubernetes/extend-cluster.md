@@ -58,7 +58,7 @@ Kubernetes上でうまく動くクライアントプログラムを書くため�
 
 Webhookのモデルでは、Kubernetesは外部のサービスを呼び出します。
 *バイナリプラグイン* モデルでは、Kubernetesはバイナリ（プログラム）を実行します。
-バイナリプラグインはkubelet（例、[FlexVolumeプラグイン](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)、[ネットワークプラグイン](/docs/concepts/cluster-administration/network-plugins/)）、またkubectlで利用されています。
+バイナリプラグインはkubelet（例、[FlexVolumeプラグイン](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)、[ネットワークプラグイン](/docs/concepts/cluster-administration/network-plugins/)）、またkubectlで利用されています。
 
 下図は、それぞれの拡張ポイントが、Kubernetesのコントロールプレーンとどのように関わっているかを示しています。
 

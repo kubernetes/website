@@ -31,9 +31,9 @@ kubectl get deployment --namespace=kube-system
 
 The output is similar to this:
 
-    NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
     ...
-    dns-autoscaler        1         1         1            1           ...
+    dns-autoscaler            1/1     1            1           ...
     ...
 
 If you see "dns-autoscaler" in the output, DNS horizontal autoscaling is
@@ -50,9 +50,9 @@ kubectl get deployment -l k8s-app=kube-dns --namespace=kube-system
 
 The output is similar to this:
 
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
     ...
-    coredns      2         2         2            2           ...
+    coredns   2/2     2            2           ...
     ...
 
 If you don't see a Deployment for DNS services, you can also look for it by name:
@@ -164,14 +164,14 @@ The output is:
 Verify that the replica count is zero:
 
 ```shell
-kubectl get deployment --namespace=kube-system
+kubectl get rs --namespace=kube-system
 ```
 
 The output displays 0 in the DESIRED and CURRENT columns:
 
-    NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    NAME                                 DESIRED   CURRENT   READY   AGE
     ...
-    dns-autoscaler        0         0         0            0           ...
+    dns-autoscaler-6b59789fc8            0         0         0       ...
     ...
 
 ### Option 2: Delete the dns-autoscaler deployment
@@ -185,7 +185,7 @@ kubectl delete deployment dns-autoscaler --namespace=kube-system
 
 The output is:
 
-    deployment.extensions "dns-autoscaler" deleted
+    deployment.apps "dns-autoscaler" deleted
 
 ### Option 3: Delete the dns-autoscaler manifest file from the master node
 

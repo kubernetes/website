@@ -8,7 +8,7 @@ weight: 10
 
 하나의 노드는 쿠버네티스에서 하나의 워커 머신으로, 이전에는 `미니언`으로 알려졌다. 노드는
 클러스터에 따라, VM 또는 물리 머신이 될 수 있다. 각 노드는
-[파드](/ko/docs/concepts/workloads/pods/pod/)를 동작시키기 위해 필요한 서비스를 포함하며 마스터 컴포넌트에 의해 관리된다. 노드 상의 서비스는 [컨테이너 런타임](/ko/docs/concepts/overview/components/#노드-컴포넌트), kubelet 그리고 kube-proxy를 포함한다. 보다
+[파드](/ko/docs/concepts/workloads/pods/pod/)를 동작시키기 위해 필요한 서비스를 포함하며 마스터 컴포넌트에 의해 관리된다. 노드 상의 서비스는 [컨테이너 런타임](/ko/docs/concepts/overview/components/#컨테이너-런타임), kubelet 그리고 kube-proxy를 포함한다. 보다
 상세한 내용은 아키텍처 문서 내
 [쿠버네티스 노드](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
 섹션을 확인한다.
@@ -48,7 +48,6 @@ kubectl describe node <insert-node-name-here>
 
 | Node Condition | Description |
 |----------------|-------------|
-| `OutOfDisk`    | 노드 상에 새로운 파드를 추가하기 위한 여유 공간이 부족할 경우 `True`, 반대의 경우 `False` |
 | `Ready`        | 노드가 상태 양호하며 파드를 수용할 준비가 되어 있는 경우 `True`, 노드의 상태가 불량하여 파드를 수용하지 못할 경우 `False`, 그리고 노드 컨트롤러가 마지막 `node-monitor-grace-period` (기본값 40 기간 동안 노드로부터 응답을 받지 못한 경우) `Unknown` |
 | `MemoryPressure`    | 노드 메모리 상에 압박이 있는 경우, 즉 노드 메모리가 넉넉치 않은 경우 `True`, 반대의 경우 `False` |
 | `PIDPressure`    | 프로세스 상에 압박이 있는 경우, 즉 노드 상에 많은 프로세스들이 존재하는 경우 `True`, 반대의 경우 `False` |
@@ -281,7 +280,7 @@ DaemonSet 컨트롤러에 의해 생성된 파드는 쿠버네티스 스케줄�
 
 쿠버네티스 스케줄러는 노드 상에 모든 노드에 대해 충분한 리소스가 존재하도록 보장한다.
 노드 상에 컨테이너에 대한 요청의 합이 노드 용량보다 더 크지 않도록 체크한다.
-kubelet에 의해 구동된 모든 컨테이너를 포함하지만, [컨테이너 런타임](/ko/docs/concepts/overview/components/#노드-컴포넌트)에 의해 직접 구동된 컨테이너 또는 컨테이너 외부에서 동작하는 임의의 프로세스는 해당되지 않는다.
+kubelet에 의해 구동된 모든 컨테이너를 포함하지만, [컨테이너 런타임](/ko/docs/concepts/overview/components/#컨테이너-런타임)에 의해 직접 구동된 컨테이너 또는 컨테이너 외부에서 동작하는 임의의 프로세스는 해당되지 않는다.
 
 파드 형태가 아닌 프로세스에 대해 명시적으로 리소스를 확보하려면,
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved) 튜토리얼을 따른다.

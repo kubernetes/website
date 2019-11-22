@@ -15,12 +15,12 @@ card:
 
 {{% capture overview %}}
 
-이 튜토리얼에서는 [Minikube](/docs/getting-started-guides/minikube)와 Katacoda를 이용하여 
+이 튜토리얼에서는 [Minikube](/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여 
 쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{< note >}}
-[로컬에서 Minikube](/ko/docs/tasks/tools/install-minikube/)를 설치했다면 이 튜토리얼도 따라할 수 있다.
+[로컬에서 Minikube](/ko/docs/tasks/tools/install-minikube/)를 설치했다면 이 튜토리얼도 따라 할 수 있다.
 {{< /note >}}
 
 {{% /capture %}}
@@ -90,8 +90,8 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     출력:
 
     ```shell
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    hello-node   1         1         1            1           1m
+    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1/1     1            1           1m
     ```
 
 3. 파드 보기
@@ -127,13 +127,13 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 외부에서 접근하려면 파드를 쿠버네티스
 [*서비스*](/docs/concepts/services-networking/service/)로 노출해야 한다.
 
-1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출시키기
+1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출하기
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
     
-    `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출시키기
+    `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출하기
     원한다는 뜻이다.
 
 2. 방금 생성한 서비스 살펴보기
@@ -255,13 +255,13 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-필요시 Minikube 가상 머신(VM)을 정지한다.
+필요하면 Minikube 가상 머신(VM)을 정지한다.
 
 ```shell
 minikube stop
 ```
 
-필요시 minikube VM을 삭제한다.
+필요하면 minikube VM을 삭제한다.
 
 ```shell
 minikube delete

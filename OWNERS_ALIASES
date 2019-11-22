@@ -19,13 +19,18 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - castrojo
     - kbarnard10
+    - onlydole
     - zacharysarah
+    - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
+    - castrojo
     - cody-clark
+    - kbarnard10
     - mrbobbytables
     - onlydole
     - parispittman
     - vonguard
+    - onlydole
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -37,8 +42,6 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - bradamant3
     - bradtopol
-    - chenopis
-    - cody-clark
     - daminisatya
     - gochist
     - jaredbhatti
@@ -50,14 +53,13 @@ aliases:
     - ryanmcginnis
     - simplytunde
     - steveperry-53
-    - tengqm
-    - tfogo
     - xiangpengzhao
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - rajakavitha1
     - sftim
+    - tengqm
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
@@ -142,7 +144,6 @@ aliases:
     - kbarnard10
     - pwittrock
     - steveperry-53
-    - tengqm
     - zacharysarah
     - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
@@ -154,7 +155,6 @@ aliases:
     - lichuqiang
     - markthink
     - SataQiu
-    - tengqm
     - xiangpengzhao
     - xichengliudui
     - zacharysarah
