@@ -13,18 +13,19 @@ Kubernetes peut fonctionner sur des plateformes variées: sur votre PC portable,
 de serveurs bare-metal. L'effort demandé pour configurer un cluster varie de l'éxécution d'une simple commande à la création
 de votre propre cluster personnalisé. Utilisez ce guide pour choisir la solution qui correspond le mieux à vos besoins.
 
-Si vous voulez simplement jeter un coup d'oeil rapide, utilisez alors de préférence les [solutions locales basées sur Docker](#local-machine-solutions).
+Si vous voulez simplement jeter un coup d'oeil rapide, utilisez alors de préférence les [solutions locales basées sur Docker](#solutions-locales).
 
-Lorsque vous êtes prêts à augmenter le nombre de machines et souhaitez bénéficier de la haute disponibilité, une
-[solution hébergée](#hosted-solutions) est la plus simple à déployer et à maintenir.
+Lorsque vous êtes prêts à augmenter le nombre de machines et souhaitez bénéficier de la haute disponibilité, une 
+[solution hébergée](#solutions-hebergées) est la plus simple à déployer et à maintenir.
 
-[Les solutions cloud clés en main](#turnkey-cloud-solutions) ne demandent que peu de commande pour déployer et couvrent un large panel de
- fournisseurs de cloud. [Les solutions clés en main pour cloud privé](#on-premises-turnkey-cloud-solutions) possèdent la simplicité des solutions cloud clés en main combinées avec la sécurité de votre propre réseau privé.
+[Les solutions cloud clés en main](#solutions-clés-en-main) ne demandent que peu de commande pour déployer et couvrent un large panel de 
+ fournisseurs de cloud. [Les solutions clés en main pour cloud privé](#solutions-on-premises-clés-en-main) possèdent la simplicité des solutions cloud clés en main combinées avec la sécurité de votre propre réseau privé.
 
-Si vous avez déjà un moyen de configurer vos resources, utilisez [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) pour facilement
+Si vous avez déjà un moyen de configurer vos resources, utilisez [kubeadm](/fr/docs/setup/independent/create-cluster-kubeadm/) pour facilement
 déployer un cluster grâce à une seule ligne de commande par machine.
 
-[Les solutions personnalisées](#custom-solutions) varient d'instructions pas à pas, à des conseils relativement généraux pour déployer un
+[Les solutions personnalisées](#solutions-personnalisées) varient d'instructions pas à pas, à des conseils relativement généraux pour déployer un
+
 cluster Kubernetes en partant du début.
 
 {{% /capture %}}
@@ -33,7 +34,7 @@ cluster Kubernetes en partant du début.
 
 ## Solutions locales
 
-* [Minikube](/docs/setup/minikube/) est une méthode pour créer un cluster Kubernetes local à noeud unique pour le développement et le test. L'installation est entièrement automatisée et ne nécessite pas de compte de fournisseur de cloud.
+* [Minikube](/fr/docs/setup/learning-environment/minikube/) est une méthode pour créer un cluster Kubernetes local à noeud unique pour le développement et le test. L'installation est entièrement automatisée et ne nécessite pas de compte de fournisseur de cloud.
 
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) est une
 application facile à installer pour votre environnement Mac ou Windows qui vous permet de
