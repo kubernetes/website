@@ -22,9 +22,9 @@ weight: 20
 
 보통 클러스터 내 노드 수는, 플랫폼별 `config-default.sh` 파일 (예를 들면, [GCE의 `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh))에 있는 `NUM_NODES` 값에 따라 조절된다.
 
-Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
+하지만 단순히 값만 매우 크게 바꾼다면, 클라우드 프로바이더에 따라 셋업 스크립트가 실패하게 되는 경우가 많다. 예를 들어 GCE에 배포할 때 쿼타 이슈가 발생하여 클러스터 구축이 실패할 수 있다.
 
-큰 쿠버네티스 클러스트터 설정할 때는 다음 이슈들을 고려해야 한다.
+큰 쿠버네티스 클러스터를 설정할 때는 다음 이슈들을 고려해야 한다.
 
 ### 쿼터 문제
 
@@ -40,17 +40,16 @@ Simply changing that value to something very large, however, may cause the setup
     * 포워딩 규칙
     * 라우트
     * 대상 풀
-* Gating the setup script so that it brings up new node VMs in smaller batches with waits in between, because some cloud providers rate limit the creation of VMs.
+* 일부 클라우드 프로바이더는 VM 생성 속도에 제한이 있어, 셋업 스크립트 수행간 새로운 노드 VM을 생성하는 사이사이에 대기시간이 추가되는 작은 배치가 걸릴 수 있다.
 
-### Etcd 저장소
+### etcd 저장소
 
 큰 클러스터의 성능 향상을 위해, 우리는 이벤트를 각각의 전용 etcd 인스터스에 저장한다.
 
-클러스터를 생성할 때, 
-When creating a cluster, existing salt scripts:
+클러스터 생성시의 부가 스트립트:
 
-* start and configure additional etcd instance
-* configure api-server to use it for storing events
+* 추가 ectd 인스턴스 시작 및 설정
+* 이벤트를 저장하기 위한 api-server 설정
 
 ### 마스터 크기와 마스터 구성 요소
 
@@ -122,8 +121,6 @@ We welcome PRs that implement those features.
 
 ### 시작 시 사소한 노드 오류 허용
 
-다양한 이유로(자세한 내용은 [#18969](https://github.com/kubernetes/kubernetes/issues/18969) 참고) running
-`kube-up.sh` with a very large `NUM_NODES` may fail due to a very small number of nodes not coming up properly.
-현재로서는 두 가지 선택지가 있다: 클러스터를 재시작하거나(`kube-down.sh` 한 후 다시 `kube-up.sh` ), `kube-up.sh` 실행 전 환경변수 `ALLOWED_NOTREADY_NODES`를 적당히 아무 값으로 설정하는 것이다. 이렇게 하면 `kube-up.sh` 이 to succeed with fewer than `NUM_NODES` coming up. Depending on the
-reason for the failure, those additional nodes may join later or the cluster may remain at a size of
-`NUM_NODES - ALLOWED_NOTREADY_NODES`.
+다양한 이유로(자세한 내용은 [#18969](https://github.com/kubernetes/kubernetes/issues/18969) 참고) 매우 큰 `NUM_NODES`를 주고 `kube-up.sh`을 실행하면 제대로 기동되지 않은 극소수의 노드들 때문에 실패할 수 있다.
+
+현재로서는 두 가지 선택지가 있다: 클러스터를 재시작하거나(`kube-down.sh` 한 후 다시 `kube-up.sh` ), `kube-up.sh` 실행 전에 환경변수 `ALLOWED_NOTREADY_NODES`를 적당한 값으로 설정해주는 것이다. 이렇게 하면 `NUM_NODES`에 못미치는 경우에도 `kube-up.sh`이 성공할 수 있다. 실패 원인에 따라 일부 노드들이 늦게 조인되거나, 클러스터가 `NUM_NODES - ALLOWED_NOTREADY_NODES`의 크기로 남을 수 있다.
