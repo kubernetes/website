@@ -73,16 +73,17 @@ AWS에 적용하는 크기는 다음과 같다.
 * 500 노드 이상: c4.8xlarge
 
 {{< note >}}
-On Google Kubernetes Engine, the size of the master node adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
+구글 쿠버네티스 엔진에서, 마스터 노드 크기는 클러스터의 크기에 따라 자동적으로 조절된다.
+자세한 사항은 [이 블로그 글](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html)을 참고하라.
 
-On AWS, master node sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
+AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그대로이며 변경되지 않는다. 이후에 클러스터를 스케일 업/다운하거나 수동으로 노드를 추가/제거하거나 클러스터 오토스케일러를 사용하더라도 그렇다.
 {{< /note >}}
 
 ### 애드온 자원
-
+메모리 누수 또는 다른 리소스 이슈를 방지하기 위해
 To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).
 
-For example:
+예시:
 
 ```yaml
   containers:
@@ -120,10 +121,8 @@ We welcome PRs that implement those features.
 
 ### 시작 시 사소한 노드 오류 허용
 
-For various reasons (see [#18969](https://github.com/kubernetes/kubernetes/issues/18969) for more details) running
+다양한 이유로(자세한 내용은 [#18969](https://github.com/kubernetes/kubernetes/issues/18969) 참고) running
 `kube-up.sh` with a very large `NUM_NODES` may fail due to a very small number of nodes not coming up properly.
-Currently you have two choices: restart the cluster (`kube-down.sh` and then `kube-up.sh` again), or before
-running `kube-up.sh` set the environment variable `ALLOWED_NOTREADY_NODES` to whatever value you feel comfortable
-with. This will allow `kube-up.sh` to succeed with fewer than `NUM_NODES` coming up. Depending on the
+현재로서는 두 가지 선택지가 있다: 클러스터를 재시작하거나(`kube-down.sh` 한 후 다시 `kube-up.sh` ), `kube-up.sh` 실행 전 환경변수 `ALLOWED_NOTREADY_NODES`를 적당히 아무 값으로 설정하는 것이다. 이렇게 하면 `kube-up.sh` 이 to succeed with fewer than `NUM_NODES` coming up. Depending on the
 reason for the failure, those additional nodes may join later or the cluster may remain at a size of
 `NUM_NODES - ALLOWED_NOTREADY_NODES`.
