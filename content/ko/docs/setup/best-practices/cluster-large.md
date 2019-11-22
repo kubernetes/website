@@ -18,9 +18,9 @@ weight: 20
 
 ## 설치
 
-A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a "master" (the cluster-level control plane).
+클러스터는 쿠버네티스 에이전트가 구동하는 노드(물리 또는 가상 머신)의 집합이며, "마스터"(클러스터-수준 컨트롤 플레인)에 의해 관리된다.
 
-Normally the number of nodes in a cluster is controlled by the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh)).
+보통 클러스터 내 노드 수는, 플랫폼별 `config-default.sh` 파일 (예를 들면, [GCE의 `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh))에 있는 `NUM_NODES` 값에 따라 조절된다.
 
 Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
 
@@ -53,24 +53,24 @@ When creating a cluster, existing salt scripts:
 
 ### 마스터 크기와 마스터 구성 요소
 
-On GCE/Google Kubernetes Engine, and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
-in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
+GCE/구글 쿠버네티스 엔진 및 AWS에서, `kube-up`은 클러스터 내 노드의 수에 따라 마스터용으로 적합한 VM 크기를 자동으로 설정한다.
+기타 다른 프로바이더의 경우, 수동으로 설정해야 한다. 참고로 GCE에 적용하는 크기는 다음과 같다.
 
-* 1-5 nodes: n1-standard-1
-* 6-10 nodes: n1-standard-2
-* 11-100 nodes: n1-standard-4
-* 101-250 nodes: n1-standard-8
-* 251-500 nodes: n1-standard-16
-* more than 500 nodes: n1-standard-32
+* 1-5 노드: n1-standard-1
+* 6-10 노드: n1-standard-2
+* 11-100 노드: n1-standard-4
+* 101-250 노드: n1-standard-8
+* 251-500 노드: n1-standard-16
+* 500 노드 이상: n1-standard-32
 
-And the sizes we use on AWS are
+AWS에 적용하는 크기는 다음과 같다.
 
-* 1-5 nodes: m3.medium
-* 6-10 nodes: m3.large
-* 11-100 nodes: m3.xlarge
-* 101-250 nodes: m3.2xlarge
-* 251-500 nodes: c4.4xlarge
-* more than 500 nodes: c4.8xlarge
+* 1-5 노드: m3.medium
+* 6-10 노드: m3.large
+* 11-100 노드: m3.xlarge
+* 101-250 노드: m3.2xlarge
+* 251-500 노드: c4.4xlarge
+* 500 노드 이상: c4.8xlarge
 
 {{< note >}}
 On Google Kubernetes Engine, the size of the master node adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
