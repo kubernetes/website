@@ -168,7 +168,7 @@ Go 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동�
 Python 클라이언트를 사용하려면 `pip install kubernetes` 커맨드를 실행한다. 설치 옵션에 대한 상세 사항은 [Python Client Library page](https://github.com/kubernetes-client/python)를 참조한다.
 
 Python 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동일하게 [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)을 사용할 수 있다. 
-[예제](https://github.com/kubernetes-client/python/tree/master/examples/example1.py)를 참조한다.
+[예제](https://github.com/kubernetes-client/python/tree/master/examples)를 참조한다.
 
 ### 다른 언어
 
