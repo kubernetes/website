@@ -271,10 +271,11 @@ Session Affinity | 세션 어피니티(Affinity) |
 Setting | 세팅 | 
 Shell | 셸 |
 Sign In | 로그인 | 
-Sign Out | 로그아웃 | 
+Sign Out | 로그아웃 |
+skew | 차이(skew) |
 Stateful Set | 스테이트풀 셋 | 
 stateless | 스테이트리스 | 
-Static pod | 스태틱 파드(static pod) |
+Static pod | 스태틱(static) 파드 |
 Storage Class | 스토리지 클래스 | 
 Sub-Object | 서브-오브젝트 | 
 support | 지원 |
@@ -284,7 +285,8 @@ taint | 테인트(taint) |
 Task | 태스크 |
 Terminated | Terminated | 파드의 상태에 한함 
 tolerations | 톨러레이션(toleration) |
-Tools  | 도구
+Topology spread constraints | 토폴로지 분배 제약 조건 |
+Tools  | 도구 |
 traffic | 트래픽 |
 Type | 타입 | 
 ubuntu | 우분투 | 
