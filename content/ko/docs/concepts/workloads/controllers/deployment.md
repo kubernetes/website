@@ -1143,7 +1143,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 ### kubectl 롤링 업데이트
 
-[`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)도 
+[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)도 
 비슷한 방식으로 파드와 레플리케이션 컨트롤러를 업데이트한다. 그러나 디플로이먼트는 선언적이고, 서버 측면이며, 
 롤링 업데이트가 완료된 후에도 이전 수정 버전으로 롤백하는 것과 같은 추가 기능을 가지고 있으므로 권장한다.
 
