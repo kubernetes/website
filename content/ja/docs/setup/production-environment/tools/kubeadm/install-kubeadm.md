@@ -112,7 +112,7 @@ Other CRI-based runtimes include:
 - [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
-Refer to the [CRI installation instructions](/ja/docs/setup/cri) for more information.
+Refer to the [CRI installation instructions](/ja/docs/setup/production-environment/container-runtimes/) for more information.
 
 ## kubeadm、kubelet、kubectlのインストール
 
