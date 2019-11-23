@@ -14,7 +14,7 @@ _데몬셋_ 은 모든(또는 일부) 노드가 파드의 사본을 실행하도
 
 - 각 노드에서 `glusterd`, `ceph` 와 같은 클러스터 스토리지 데몬의 실행.
 - 모든 노드에서 `fluentd` 또는 `logstash` 와 같은 로그 수집 데몬의 실행.
-- 모든 노드에서 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Sysdig Agent](https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` 또는 [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 와 같은 노드 모니터링 데몬의 실행.
+- 모든 노드에서 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` 또는 [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 와 같은 노드 모니터링 데몬의 실행.
 
 단순한 케이스에서는, 각 데몬 유형의 처리를 위해서 모든 노드를 커버하는 하나의 데몬셋이 사용된다.
 더 복잡한 구성에서는 단일 유형의 데몬에 여러 데몬셋을 사용할 수 있지만, 
