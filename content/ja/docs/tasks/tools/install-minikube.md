@@ -110,7 +110,7 @@ Windowsに手動でMinikubeをダウンロードする場合、[`minikube-window
 
 {{% capture whatsnext %}}
 
-* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/minikube/)
+* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/learning-environment/minikube/)
 
 {{% /capture %}}
 
