@@ -8,7 +8,7 @@ content_template: templates/task
 {{% capture overview %}}
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
 
-Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) repo.
+Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog/blob/master/docs/install.md) repo.
 
 {{% /capture %}}
 
@@ -103,6 +103,6 @@ helm install svc-cat/catalog \
 
 {{% capture whatsnext %}}
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
-* Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
+* Explore the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) project.
 
 {{% /capture %}}
