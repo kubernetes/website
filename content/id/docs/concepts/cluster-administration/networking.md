@@ -173,11 +173,11 @@ Hasil dari semua ini adalah bahwa semua `Pods` dapat saling menjangkau dan dapat
 
 [Kube-router](https://github.com/cloudnativelabs/kube-router) adalah solusi jaringan yang dibuat khusus untuk Kubernetes yang bertujuan untuk memberikan kinerja tinggi dan kesederhanaan operasional. Kube-router menyediakan Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html) berbasis proksi layanan, solusi jaringan berbasis penerusan _pod-to-pod_ Linux _kernel_ tanpa _overlay_, dan penegak kebijakan jaringan berbasis _iptables/ipset_.
 
-### Jaringan L2 dan linux _bridging_
+### L2 networks and linux bridging
 
-Jika kamu memiliki jaringan "_dumb_" L2, seperti saklar sederhana di lingkungan "bare-metal", kamu harus dapat melakukan sesuatu yang mirip dengan pengaturan GCE di atas. Perhatikan bahwa petunjuk ini hanya pernah dicoba beberapa kali - sepertinya berhasil, tetapi belum diuji secara menyeluruh. Jika kamu menggunakan teknik ini dan menyempurnakan prosesnya, beri tahu kami.
+Jika Anda memiliki jaringan L2 yang "bodoh", seperti saklar sederhana di _environment_ "bare-metal", kamu harus dapat melakukan sesuatu yang mirip dengan pengaturan GCE di atas. Perhatikan bahwa petunjuk ini hanya dicoba dengan sangat sederhana - sepertinya berhasil, tetapi belum diuji secara menyeluruh. Jika kamu menggunakan teknik ini dan telah menyempurnakan prosesnya, tolong beri tahu kami.
 
-Ikuti bagian "Dengan perangkat Linux Bridge" dari [tutorial yang sangat bagus ini](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) dari Lars Kellogg- Stedman.
+Ikuti bagian "With Linux Bridge devices" dari [tutorial yang sangat bagus ini](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) dari Lars Kellogg-Stedman.
 
 ### Multus (plugin Multi-Jaringan)
 

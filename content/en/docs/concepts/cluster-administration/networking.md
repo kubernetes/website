@@ -219,15 +219,9 @@ traffic to the internet.
 
 ### L2 networks and linux bridging
 
-If you have a "dumb" L2 network, such as a simple switch in a "bare-metal"
-environment, you should be able to do something similar to the above GCE setup.
-Note that these instructions have only been tried very casually - it seems to
-work, but has not been thoroughly tested.  If you use this technique and
-perfect the process, please let us know.
+If you have a "dumb" L2 network, such as a simple switch in a "bare-metal" environment, you should be able to do something similar to the above GCE setup.  Note that these instructions have only been tried very casually - it seems to work, but has not been thoroughly tested.  If you use this technique and perfect the process, please let us know.
 
-Follow the "With Linux Bridge devices" section of [this very nice
-tutorial](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
-Lars Kellogg-Stedman.
+Follow the "With Linux Bridge devices" section of [this very nice tutorial](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from Lars Kellogg-Stedman.
 
 ### Multus (a Multi Network plugin)
 
