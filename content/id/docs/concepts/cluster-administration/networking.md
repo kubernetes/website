@@ -172,3 +172,59 @@ Hasil dari semua ini adalah bahwa semua `Pods` dapat saling menjangkau dan dapat
 ### Kube-router
 
 [Kube-router](https://github.com/cloudnativelabs/kube-router) adalah solusi jaringan yang dibuat khusus untuk Kubernetes yang bertujuan untuk memberikan kinerja tinggi dan kesederhanaan operasional. Kube-router menyediakan Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html) berbasis proksi layanan, solusi jaringan berbasis penerusan _pod-to-pod_ Linux _kernel_ tanpa _overlay_, dan penegak kebijakan jaringan berbasis _iptables/ipset_.
+
+### Jaringan L2 dan linux _bridging_
+
+Jika kamu memiliki jaringan "_dumb_" L2, seperti saklar sederhana di lingkungan "bare-metal", kamu harus dapat melakukan sesuatu yang mirip dengan pengaturan GCE di atas. Perhatikan bahwa petunjuk ini hanya pernah dicoba beberapa kali - sepertinya berhasil, tetapi belum diuji secara menyeluruh. Jika kamu menggunakan teknik ini dan menyempurnakan prosesnya, beri tahu kami.
+
+Ikuti bagian "Dengan perangkat Linux Bridge" dari [tutorial yang sangat bagus ini](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) dari Lars Kellogg- Stedman.
+
+### Multus (plugin Multi-Jaringan)
+
+[Multus](https://github.com/Intel-Corp/multus-cni) adalah plugin Multi CNI untuk mendukung fitur Banyak Jaringan di Kubernetes menggunakan objek jaringan berbasis CRD di Kubernetes.
+
+Multus mendukung semua [plugin referensi](https://github.com/containernetworking/plugins) (mis. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main / macvlan)) yang mengimplementasikan spesifikasi CNI dan plugin pihak ke-3 (mis. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave ), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). Selain itu, Multus mendukung [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS- DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) beban kerja di Kubernetes dengan aplikasi cloud asli dan aplikasi berbasis NFV di Kubernetes.
+
+### NSX-T
+
+[VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html) adalah virtualisasi jaringan dan platform keamanan. NSX-T dapat menyediakan virtualisasi jaringan untuk lingkungan multi-cloud dan multi-hypervisor dan berfokus pada kerangka kerja dan arsitektur aplikasi yang muncul yang memiliki titik akhir dan tumpukan teknologi yang heterogen. Selain hypervisor vSphere, lingkungan ini termasuk hypervisor lainnya seperti KVM, wadah, dan bare metal.
+
+[NSX-T Container Plug-in (NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) menyediakan integrasi antara NSX-T dan pembuat wadah seperti Kubernetes, serta integrasi antara NSX-T dan platform CaaS / PaaS berbasis-kontainer seperti Pivotal Container Service (PKS) dan OpenShift.
+
+### Nuage Networks VCS (Layanan Cloud Virtual)
+
+[Nuage](http://www.nuagenetworks.net) menyediakan platform SDN (Software-Defined Networking) berbasis kebijakan yang sangat skalabel. Nuage menggunakan Open vSwitch _open source_ untuk data _plane_ bersama dengan SDN Controller yang kaya fitur yang dibangun pada standar terbuka.
+
+Platform Nuage menggunakan _overlay_ untuk menyediakan jaringan berbasis kebijakan yang mulus antara Kubernetes Pods dan lingkungan non-Kubernetes (VM dan server _bare metal_). Model abstraksi kebijakan Nuage dirancang dengan mempertimbangkan aplikasi dan membuatnya mudah untuk mendeklarasikan kebijakan berbutir halus untuk aplikasi. Mesin analisis _real-time_ platform memungkinkan pemantauan visibilitas dan keamanan untuk aplikasi Kubernetes.
+
+### OpenVSwitch
+
+[OpenVSwitch](https://www.openvswitch.org/) adalah cara yang agak lebih dewasa tetapi juga rumit untuk membangun jaringan _overlay_. Ini didukung oleh beberapa "Toko Besar" untuk jaringan.
+
+### OVN (Open Virtual Networking)
+
+OVN adalah solusi virtualisasi jaringan opensource yang dikembangkan oleh komunitas Open vSwitch. Ini memungkinkan seseorang membuat switch logis, router logis, ACL stateful, load-balancers dll untuk membangun berbagai topologi jaringan virtual. Proyek ini memiliki plugin dan dokumentasi Kubernetes spesifik di [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
+
+### Project Calico
+
+[Project Calico](http://docs.projectcalico.org/) adalah penyedia jaringan wadah sumber terbuka dan mesin kebijakan jaringan.
+
+Calico menyediakan solusi jaringan dan kebijakan kebijakan jaringan yang sangat berskala untuk menghubungkan pod Kubernetes berdasarkan prinsip jaringan IP yang sama dengan internet, untuk Linux (open source) dan Windows (milik - tersedia dari [Tigera](https://www.tigera.io/essentials/)). Calico dapat digunakan tanpa enkapsulasi atau _overlay_ untuk menyediakan jaringan pusat data skala tinggi yang berkinerja tinggi. Calico juga menyediakan kebijakan keamanan jaringan berbutir halus, berdasarkan niat untuk pod Kubernetes melalui _firewall_ terdistribusi.
+
+Calico juga dapat dijalankan dalam mode penegakan kebijakan bersama dengan solusi jaringan lain seperti Flannel, alias [kanal](https://github.com/tigera/canal), atau jaringan GCE, AWS atau Azure asli.
+
+### Romana
+
+[Romana](http://romana.io) adalah jaringan sumber terbuka dan solusi otomasi keamanan yang memungkinkan kamu menggunakan Kubernetes tanpa jaringan hamparan. Romana mendukung Kubernetes [Kebijakan Jaringan](/docs/concepts/services-networking/network-policies/) untuk memberikan isolasi di seluruh ruang nama jaringan.
+
+### Weave Net dari Weaveworks
+
+[Weave Net](https://www.weave.works/products/weave-net/) adalah jaringan yang tangguh dan mudah digunakan untuk Kubernetes dan aplikasi yang dihostingnya. Weave Net berjalan sebagai [plug-in CNI](https://www.weave.works/docs/net/latest/cni-plugin/) atau berdiri sendiri. Di kedua versi, itu tidak memerlukan konfigurasi atau kode tambahan untuk dijalankan, dan dalam kedua kasus, jaringan menyediakan satu alamat IP per pod - seperti standar untuk Kubernetes.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+Desain awal model jaringan dan alasannya, dan beberapa rencana masa depan dijelaskan secara lebih rinci dalam [dokumen desain jaringan](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+
+{{% /capture %}}
