@@ -75,8 +75,8 @@ Node controller sẽ thực hiện những chức năng sau:
 
 1. Khởi tạo một Node với những nhãn dựa trên phân vùng của cloud.
 2. Khởi tạo một Node với những thông tin được cung cấp từ cloud, ví dụ như loại máy và kích cỡ.
-3. Thu thập địa chỉ mạng của Node và tên của máy chủ
-4. Trong trường hợp một Node không có tín hiệu phản hồi, Node controller sẽ kiểm tra xem Node này có thực sự xóa khỏi hệ thống cloud hay chưa. Nếu Node đó không còn tồn tại trên cloud, bộ controller sẽ xóa đối tượng Node đó khỏi cụm Kubernetes.
+3. Thu thập địa chỉ mạng của Node và hostname.
+4. Trong trường hợp một Node không có tín hiệu phản hồi, Node controller sẽ kiểm tra xem Node này có thực sự xóa khỏi hệ thống cloud hay chưa. Nếu Node đó không còn tồn tại trên cloud, bộ controller sẽ xóa Node đó khỏi cụm Kubernetes.
 
 #### Route controller
 
