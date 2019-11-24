@@ -80,7 +80,7 @@ Node controller sẽ thực hiện những chức năng sau:
 
 #### Route controller
 
-Route controller đóng vai trò cấu hình Route nằm trong hệ thống cloud để các container trên các Node khác nhau trong cụm Kubernetes có thể giao tiếp với nhau. Bộ Route controller hiện chỉ đáp ứng được cho các cụm Google Kubernetes Engine.
+Route controller đóng vai trò cấu hình định tuyến trong nằm trong hệ thống cloud để các container trên các Node khác nhau trong cụm Kubernetes có thể giao tiếp với nhau. Bộ Route controller hiện chỉ đáp ứng được cho các cụm Google Compute Engine.
 
 #### Service controller
 
