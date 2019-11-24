@@ -75,14 +75,8 @@ Bộ điều khiển Node sẽ thực hiện những chức năng sau:
 
 1. Khởi tạo một Node với những nhãn dựa trên phân vùng của Đám mây.
 2. Khởi tạo một Node với những thin6g tin được cung cấp từ đám mây, ví dụ như loại máy và kích cỡ.
-3. Thu thập địa chỉ mạng của Node và tên của máy chủ  
-   The Node controller is responsible for initializing a node by obtaining information about the nodes running in the cluster from the cloud provider. The node controller performs the following functions:
-
-4. Initialize a node with cloud specific zone/region labels.
-5. Initialize a node with cloud specific instance details, for example, type and size.
-6. Obtain the node's network addresses and hostname.
-7. In case a node becomes unresponsive, check the cloud to see if the node has been deleted from the cloud.
-   If the node has been deleted from the cloud, delete the Kubernetes Node object.
+3. Thu thập địa chỉ mạng của Node và tên của máy chủ
+4. Trong trường hợp một Node không có tín hiệu phản hồi, bộ điều khiển Node sẽ kiểm tra xem Node này có thực sự xóa khỏi hệ thống đám mây hay chưa. Nếu Node đó không còn tồn tại trên đám mây, bộ điều khiển sẽ xóa đối tượng Node đó trong Kubernetes.
 
 #### Bộ điều khiển Route
 
