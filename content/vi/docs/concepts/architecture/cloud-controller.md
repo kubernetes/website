@@ -48,7 +48,7 @@ Tại phiên bản 1.9, bộ CCM thực hiện chạy những bộ controller sa
 - Service controller
 
 {{< note >}}
-Volume controller được bỏ ra khỏi bộ Cloud Controller Manager. Do độ phức tạp lớn ảnh hướng và sẽ tốn nhiều thời gian cũng như nhân lực không đáp ứng đủ cho việc tách hẳn tầng logic liên quan tới Volume từ những bên cung cấp dịch vụ, và quyết định cuối cùng là sẽ không triển khai bộ quản lý Volume như một phần của bộ CCM
+Volume controller được bỏ ra khỏi bộ Cloud Controller Manager. Do độ phức tạp lớn ảnh hướng và sẽ tốn nhiều thời gian cũng như nhân lực không đáp ứng đủ cho việc tách hẳn tầng logic liên quan tới Volume từ những bên cung cấp dịch vụ, và quyết định cuối cùng là sẽ không triển khai bộ quản lý Volume như một phần của bộ CCM.
 {{< /note >}}
 
 Kết hoạch ban đầu của dự án là hỗ trợ Volume sử dụng bộ Cloud Controller Manager để áp dụng những Volume linh hoạt nhằm dễ dàng tích hợp bổ sung thêm. Tuy nhiên, một giải pháp khác cũng đang được lên kế hoạch để thay thế Volume linh hoạt được biết là CSI.
