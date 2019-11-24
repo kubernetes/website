@@ -6,7 +6,7 @@ weight: 40
 
 {{% capture overview %}}
 
-Khái niệm Cloud Controller Manager (để tránh nhầm lẫn với bản binary build cùng tên) được định nghĩa để cho phép các bên cung cấp dịch vụ cloud và bộ core của Kubernetes được phát triển độc lập. Bộ CCM chạy song song với những thành phần khác thuộc máy chủ của một cụm như Controller Manager của Kubernetes, API server, và scheduler. Nó cũng có thể đóng vai trò như một addon cho Kubernetes.
+Khái niệm Cloud Controller Manager (để tránh nhầm lẫn với bản binary build cùng tên) được định nghĩa để cho phép các bên cung cấp dịch vụ cloud và bộ core của Kubernetes được phát triển độc lập. Bộ CCM chạy đồng thời với những thành phần khác thuộc máy chủ của một cụm như Controller Manager của Kubernetes, API server, và scheduler. Nó cũng có thể đóng vai trò như một addon cho Kubernetes.
 
 Cloud Controller Manager này được thiết kế dựa trên cơ chế plugin nhằm cho phép các bên Cloud Provider có thể tích hợp với Kubernetes một cách dễ dàng thông qua các plugin này. Đã có những bản kế hoạch được thiết kế sẵn nhằm mục đích hỗ trợ những cloud provider thay đổi từ mô hình cũ sang mô hình mới đi chung với CCM.
 
