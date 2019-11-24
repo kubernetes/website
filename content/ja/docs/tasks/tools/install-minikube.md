@@ -123,7 +123,7 @@ kubectlがインストールされていることを確認してください。
 • [VMware Fusion](https://www.vmware.com/products/fusion)
 
 ### Minikubeのインストール
-macOSにMinikubeをインストールする最も簡単な方法は、[Homebrew](https://brew.sh)を使用することです:
+[Homebrew](https://brew.sh)を使うことでmacOSにMinikubeを簡単にインストールできます:
 
 ```shell
 brew install minikube
@@ -163,14 +163,13 @@ Hyper-Vは、Windows 10 Enterprise、Windows 10 Professional、Windows 10 Educat
 
 ### Chocolateyを使用したMinikubeのインストール
 
-MinikubeをWindowsにインストールする最も簡単な方法は、[Chocolatey](https://chocolatey.org/)を使用することです(管理者として実行):
+[Chocolatey](https://chocolatey.org/)を使うことでWindowsにMinikubeを簡単にインストールできます(管理者権限で実行する必要があります)。
 
 ```shell
 choco install minikube
 ```
 
-Minikubeのインストールが完了したら、現在のCLIセッションを閉じて再起動します。
-Minikubeは自動的にパスに追加されているはずです。
+Minikubeのインストールが終わったら、現在のCLIのセッションを終了して再起動します。Minikubeは自動的にパスに追加されます。
 
 ### インストーラー実行可能ファイルを使用したMinikubeのインストール
 
