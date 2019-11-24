@@ -236,6 +236,6 @@ Sau đây là danh sách các nhà cung cấp dịch vụ cloud đã triển kha
 
 ## Quản lý Cluster
 
-Hướng dẫn chi tiết cho việc cấu hình và chạy bộ CCM được cung cấp tại [đây]](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
+Hướng dẫn chi tiết cho việc cấu hình và chạy bộ CCM được cung cấp tại [đây](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
 {{% /capture %}}
