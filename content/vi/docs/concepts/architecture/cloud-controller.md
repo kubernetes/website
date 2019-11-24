@@ -34,7 +34,7 @@ Bộ CCM hợp nhất tất cả các logic phụ thuộc trên một nền tàn
 
 ## Các thành phần của một bộ CCM
 
-Cloud Controller Manager phân nhỏ một số chức năng của Kubernetes và chạy nó độc lập như một quy trình tách biệt. Cụ thể hơn, nó phân nhỏ những bộ controller trong Kubernetes Controller Manager phụ thuộc vào Cloud. Kubernetes Controller Manager sẽ có những bộ controller nhỏ hơn:
+Cloud Controller Manager phân nhỏ một số chức năng của Kubernetes và chạy nó như một tiến trình tách biệt. Cụ thể hơn, nó phân nhỏ những bộ controller trong Kubernetes Controller Manager phụ thuộc vào Cloud. Kubernetes Controller Manager sẽ có những bộ controller nhỏ hơn:
 
 - Node controller
 - Volume controller
