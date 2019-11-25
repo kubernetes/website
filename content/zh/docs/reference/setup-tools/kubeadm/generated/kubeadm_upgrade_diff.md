@@ -68,7 +68,7 @@ kubeadm upgrade diff [version] [flags]
 ### 选项
 
 <tr>
-  <td colspan="2">--api-server-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/manifests/kube-apiserver.yaml"</td>
+  <td colspan="2">--api-server-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/manifests/kube-apiserver.yaml"</td>
 </tr>
 <tr>
   <td></td><td style="line-height: 130%; word-wrap: break-word;">API服务器清单的路径</td>
@@ -82,14 +82,14 @@ kubeadm upgrade diff [version] [flags]
 </tr>
 
 <tr>
-  <td colspan="2">-c, --context-lines int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 3</td>
+  <td colspan="2">-c, --context-lines int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： 3</td>
 </tr>
 <tr>
   <td></td><td style="line-height: 130%; word-wrap: break-word;">差异中有多少行上下文</td>
 </tr>
 
 <tr>
-  <td colspan="2">--controller-manager-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/manifests/kube-controller-manager.yaml"</td>
+  <td colspan="2">--controller-manager-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/manifests/kube-controller-manager.yaml"</td>
 </tr>
 <tr>
   <td></td><td style="line-height: 130%; word-wrap: break-word;">控制器清单的路径</td>
@@ -103,14 +103,14 @@ kubeadm upgrade diff [version] [flags]
 </tr>
 
 <tr>
-  <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+  <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-  <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群通信时使用的 kubeconfig 文件，如果标志是 not set，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</td>
+  <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群通信时使用的 kubeconfig 文件，如果标志是未设置，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</td>
 </tr>
 
 <tr>
-  <td colspan="2">--scheduler-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/manifests/kube-scheduler.yaml"</td>
+  <td colspan="2">--scheduler-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/manifests/kube-scheduler.yaml"</td>
 </tr>
 <tr>
   <td></td><td style="line-height: 130%; word-wrap: break-word;">调度程序清单的路径</td>
