@@ -113,8 +113,8 @@ In Kubernetes, it's required to run NTP on all nodes(see [#6159](https://github.
 [自动清理作业](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
 <!--
-[Design doc](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+[Design doc](https://github.com/kubernetes/community/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 -->
-[设计文档](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+[设计文档](https://github.com/kubernetes/community/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
 {{% /capture %}}
