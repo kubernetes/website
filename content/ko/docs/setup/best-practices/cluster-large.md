@@ -97,14 +97,14 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
 힙스터를 제외하고, 이러한 제한들은 정적이며 4-노드 클러스터에서 구동한 애드온으루부터 수집한 데이터에 기반한 것이다.
 ([#10335](http://issue.k8s.io/10335#issuecomment-117861225) 참고). 애드온이 큰 클러스터에서 구동되면 더 많은 리소스를 소비한다([#5880](http://issue.k8s.io/5880#issuecomment-113984085) 참고). 따라서, 이러한 값의 조정 없이 큰 클러스터를 배포하면, 애드온들이 제한에 걸려 반복적으로 죽을 수 있다. 많은 노드를 가진 클러스터를 생성할 때는 애드온 리소스 이슈를 피하기 위해 다음을 고려하라:
 * Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster):
-  * [InfluxDB and Grafana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
+  * [InfluxDB와 Grafana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
   * [kubedns, dnsmasq, 사이드카](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
   * [Kibana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
-* Scale number of replicas for the following addons, if used, along with the size of cluster (there are multiple replicas of each so increasing replicas should help handle increased load, but, since load per replica also increases slightly, also consider increasing CPU/memory limits):
+* 다음 애드온들을 쓴다면 클러스터 크기에 따라 레플리카 수를 조절해준다(각각 레플리카가 여러 개 두면 늘어나는 부하를 처리하는 데 도움이 되지만, 레플리카 당 부하도 약간 늘어나게 되므로 CPU/메모리 제한을 높이는 것을 고려해보자):
   * [elasticsearch](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
 * 다음의 애드온들을 쓴다면 클러스터 크기에 따라 각각 메모리와 CPU 제한을 조금 더 높이자(노드 당 레플리카 1개만 있어도 클러스터 부하량/크기에 따라 CPU/메모리 사용율은 조금씩 증가한다):
-  * [ElasticSearch 플러그인 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [GCP 플러그인 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
+  * [ElasticSearch 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
+  * [GCP 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
 Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
 and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
