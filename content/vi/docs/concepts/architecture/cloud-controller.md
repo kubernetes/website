@@ -73,7 +73,7 @@ Node controller có vai trò khởi tạo một Node bằng cách thu thập th�
 
 Node controller sẽ thực hiện những chức năng sau:
 
-1. Khởi tạo một Node với những nhãn dựa trên phân vùng của cloud.
+1. Khởi tạo một Node với các nhãn region/zone.
 2. Khởi tạo một Node với những thông tin được cung cấp từ cloud, ví dụ như loại máy và kích cỡ.
 3. Thu thập địa chỉ mạng của Node và hostname.
 4. Trong trường hợp một Node không có tín hiệu phản hồi, Node controller sẽ kiểm tra xem Node này có thực sự xóa khỏi hệ thống cloud hay chưa. Nếu Node đó không còn tồn tại trên cloud, bộ controller sẽ xóa Node đó khỏi cụm Kubernetes.
@@ -84,25 +84,25 @@ Route controller đóng vai trò cấu hình định tuyến trong nằm trong h
 
 #### Service controller
 
-Service controller lắng nghe các sự kiện như một Service được tạo, cập nhật và xóa bỏ. Dựa trên trạng thái hiện tại của các vụ trên Kubernetes, nó cấu hình các bộ tải trọng trên cloud (như ELB của AWS, Google Load Balancer, hay Oracle Cloud Infrastructure LB) nhằm phản ánh trạng thái của các Service trên Kubernetes. Mặt khác, nó đám bảo những dịch vụ phụ trợ cho những dịch vụ cân bằng tải trên cloud được cập nhật mới nhất.
+Service controller lắng nghe các sự kiện tạo mới, cập nhật và xoá bỏ một service. Dựa trên trạng thái hiện tại của các vụ trên Kubernetes, nó cấu hình các bộ cân bằng tải trên cloud (như ELB của AWS, Google Load Balancer, hay Oracle Cloud Infrastructure LB) nhằm phản ánh trạng thái của các Service trên Kubernetes. Ngoài ra, nó đảm bảo những service backends cho các bộ cần bằng tải trên cloud được cập nhật
 
 ### 2. Kubelet
 
-Node controller bao gồm một số tính nằng phụ thuộc vào tầng cloud của Kubelet. Trước khi có bộ CCM, Kubelet đảm nhận vai trò khởi tạo một Node với thông tin chi tiết từ cloud như địa chỉ IP, phân vùng hay loại máy chủ. Với bộ CCM, vai trò này được bộ CCM đảm nhận thay cho Kubelet.
+Node controller bao gồm một số tính nằng phụ thuộc vào tầng cloud của Kubelet. Trước khi có bộ CCM, Kubelet đảm nhận vai trò khởi tạo một Node với thông tin chi tiết từ cloud như địa chỉ IP, region hay instance type. Với bộ CCM, vai trò này được bộ CCM đảm nhận thay cho Kubelet.
 
-Với mô hình mới này, Kubelet sẽ khởi tạo một Node nhưng không đi kèm với những thông tin từ cloud. Tuy nhiên, nó sẽ thêm vào một dấu chờ đánh dấu Node sẽ không được sắp xếp công việc (taint) cho tới khi bộ CCM khởi tạo xong Node này với những thông tin cụ thể cung cấp từ Cloud, sau đó nó sẽ xóa những dấu chờ này.
+Với mô hình mới này, Kubelet sẽ khởi tạo một Node nhưng không đi kèm với những thông tin từ cloud. Tuy nhiên, nó sẽ thêm vào một dấu chờ (taint) đánh dấu Node sẽ không được lập lịch cho tới khi bộ CCM khởi tạo xong Node này với những thông tin cụ thể cung cấp từ Cloud, sau đó nó sẽ xóa những dấu chờ này.
 
 ## Cơ chế Plugin
 
-Bộ CCM sử dụng interface trong ngôn ngữ Go để đáp ứng việc triển khai trên bất kì hệ thống cloud nào cũng có thể cắm vào sử dụng. Cụ thể hơn, nó sử dụng CloudProvider Interface được định ở [đây](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62).
+Bộ CCM sử dụng interface trong ngôn ngữ Go cho phép triển khai trên bất kì hệ thống cloud nào cũng có thể plugged in. Cụ thể hơn, nó sử dụng CloudProvider Interface được định nghĩa ở [đây](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62).
 
-Cách triển khai của bốn thành phần trên được tô đậm ở đường dẫn trên, và một số được thực hiện như giao diện chung cho các bên cung cấp dịch vụ cloud, sẽ nằm trong chính nhân gốc của Kubernetes. Cách thực hiện cụ thể cho từng nhà cung cấp dịch vụ sẽ được xây dựng ngoài nhân gốc và triển khai các giao diện xác định trước trong core.
+Cách triển khai của bốn bộ controllers được nêu ở trên, và một số được thực hiện như giao diện chung cho các bên cung cấp dịch vụ cloud, sẽ ở trong lõi (core) của Kubernetes. Việc triển khai dành riêng cho từng cloud provider sẽ được xây dựng bên ngoài lõi (core) và triển khai các giao diện được xác định bên trong lõi.
 
-Để biết thêm chỉ tiết, bạn có thể xem về [Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+Để biết thêm chỉ tiết, xem [Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
 
 ## Phân quyền
 
-Phần này sẽ phân nhỏ quyền hạn cần có cho các API object cung cấp bởi bộ CCM để thực hiện những hành động cần thiết.
+Phần này sẽ phân nhỏ quyền hạn cần có cho các API object cung cấp bởi bộ CCM để thực hiện những hành động của nó.
 
 ### Node controller
 
@@ -128,11 +128,11 @@ v1/Node:
 
 ### Service controller
 
-Service controller lắng nghe các sự kiện khởi tạo, cập nhật và xóa bỏ một đối tượng Service và cấu hình những điểm kết phù hợp.
+Service controller lắng nghe các sự kiện khởi tạo, cập nhật và xóa bỏ một đối tượng Service và cấu hình những endpoint phù hợp.
 
 Để truy cập các đối tượng Service, nó cần quyền list, và watch. Để cập nhật Service, nó sẽ cần patch và update.
 
-Để thiết lập các điểm kết cho các Service, nó cần quyền create, list, get, watch, và update.
+Để thiết lập các endpoint cho các Service, nó cần quyền create, list, get, watch, và update.
 
 v1/Service:
 
@@ -144,7 +144,7 @@ v1/Service:
 
 ### Các vấn đề khác
 
-Việc thực hiện nhân gốc của bộ CCM yêu cầu cần có quuyền khởi tạo sự kiện và đảm bảo quyền thực thi một số hành động, nó cần có quyền tạo các Service Accounts
+Việc triển khai lõi của bộ CCM yêu cầu cần có quyền tạo mới sự kiện và đảm bảo quyền thực thi một số hành động, nó cần có quyền tạo các Service Accounts
 
 v1/Event:
 
@@ -156,7 +156,7 @@ v1/ServiceAccount:
 
 - Create
 
-Với RBAC dựa trên vai trò, bộ CCM cần có ClusterRole tối thiểu:
+Với RBAC ClusterRole, bộ CCM cần có ClusterRole tối thiểu:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
