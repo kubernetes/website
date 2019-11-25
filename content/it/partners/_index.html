@@ -12,7 +12,98 @@ cid: partners
         <div class="col-container">
           <div class="col-nav">
             <center>
+              <h5---
+title: Partners
+bigheader: I Partners di Kubernetes
+abstract: La Crescita dell'ecosistema Kubernetes.
+class: gridPage
+cid: partners
+---
+<meta charset="utf-8" />
+
+<section id="users">
+    <main>
+        <h5>Kubernetes lavora in collaborazione con diversi partner al fine di creare un codice dalla base forte e dinamica che supporti uno spettro di piattaforme complementari.</h5>
+        <div class="col-container">
+          <div class="col-nav">
+            <center>
               <h5>
+                <b>Fornitori di Servizi Certificati Kubernetes</b>
+              </h5>
+              <br>Fornitori di servizi controllati con grande esperienza nell'aiutare le imprese ad adottare con successo Kubernetes.
+              <br><br><br>
+              <button id="kcsp" class="button" onClick="updateSrc(this.id)">Guarda i Partners di KCSP</button>
+              <br><br>Interessato a diventare partner <a href="https://www.cncf.io/certification/kcsp/">KCSP</a>?
+            </center>
+          </div>
+          <div class="col-nav">
+            <center>
+              <h5>
+                <b>Distribuzioni Kubernetes Certificate, Piattaforme Hosted e Installers</b>
+              </h5>La conformità del software assicura che la versione di Kubernetes di ogni fornitore supporti le API richieste.
+              <br><br><br>
+              <button id="conformance" class="button" onClick="updateSrc(this.id)">Guarda i Partner di Conformità</button>
+              <br><br>Interessato a diventare partner <a href="https://www.cncf.io/certification/software-conformance/">Certificati Kubernetes</a>?
+            </center>
+          </div>
+          <div class="col-nav">
+            <center>
+              <h5><b>Partner per la Formazione Kubernetes</b></h5>
+              <br>Professionisti esperti e certificati, con solida esperienza nella formazione tecnologica Cloud Native.
+              <button id="ktp" class="button" onClick="updateSrc(this.id)">Guarda i Partner di KTP</button>
+              <br><br>Interessato a diventare partner <a href="https://www.cncf.io/certification/training/">KTP</a>?
+            </center>
+          </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
+			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
+      var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
+
+      function updateSrc(buttonId) {
+      	if (buttonId == "kcsp") {
+        		$("#landscape").attr("src",defaultLink);
+            window.location.hash = "#kcsp";
+        }
+        if (buttonId == "conformance") {
+         		$("#landscape").attr("src",firstLink);
+            window.location.hash = "#conformance";
+        }
+        if (buttonId == "ktp") {
+        		$("#landscape").attr("src",secondLink);
+            window.location.hash = "#ktp";
+        }
+      }
+
+      // Automatically load the correct iframe based on the URL fragment
+      document.addEventListener('DOMContentLoaded', function() {
+        var showContent = "kcsp";
+        if (window.location.hash) {
+          console.log('hash is:', window.location.hash.substring(1));
+          showContent = window.location.hash.substring(1);
+        }
+        updateSrc(showContent);
+      });
+</script>
+<body>
+    <div id="frameHolder">
+      <iframe id="landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src=""></iframe>
+      <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+    </div>
+</body>
+    </main>
+</section>
+
+<style>
+    {{< include "partner-style.css" >}}
+</style>
+
+<script>
+    {{< include "partner-script.js" >}}
+</script>
+>
                 <b>Fornitori di servizi certificati Kubernetes</b>
               </h5>
               <br>Fornitori di servizi con una grande esperienza nell'aiutare le imprese ad adottare con successo Kubernetes.
