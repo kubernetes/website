@@ -1,5 +1,4 @@
 ---
-title: Feature Gates
 weight: 10
 title: Feature Gates
 content_template: templates/concept
@@ -8,15 +7,20 @@ content_template: templates/concept
 {{% capture overview %}}
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
+
+See [feature stages](#feature-stages) for an explanation of the stages for a feature.
 {{% /capture %}}
 
 {{% capture body %}}
 ## Overview
 
-Feature gates are a set of key=value pairs that describe alpha or experimental
-features.
-An administrator can use the `--feature-gates` command line flag on each component
-to turn a feature on or off. Each component supports a set of feature gates unique to that component.
+Feature gates are a set of key=value pairs that describe Kubernetes features.
+You can turn these features on or off using the `--feature-gates` command line flag
+on each Kubernetes component.
+
+
+Each Kubernetes component lets you enable or disable a set of feature gates that
+are relevant to that component.
 Use `-h` flag to see a full set of feature gates for all components.
 To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
 
@@ -31,6 +35,14 @@ different Kubernetes components.
   or its release stage is changed.
 - The "Until" column, if not empty, contains the last Kubernetes release in which
   you can still use a feature gate.
+- If a feature is in the Alpha or Beta state, you can find the feature listed
+  in the [Alpha/Beta feature gate table](#feature-gates-for-alpha-or-beta-features).
+- If a feature is stable you can find all stages for that feature listed in the
+  [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+- The [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+  also lists deprecated and withdrawn features.
+
+### Feature gates for Alpha or Beta features
 
 {{< table caption="Feature gates for features in Alpha or Beta states" >}}
 
@@ -116,7 +128,8 @@ different Kubernetes components.
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
-| `ServerSideApply` | `false` | Alpha | 1.14 | |
+| `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
+| `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | |
@@ -154,7 +167,7 @@ different Kubernetes components.
 | `WinOverlay` | `false` | Alpha | 1.14 | |
 {{< /table >}}
 
-The following table contains feature gates for graduated or deprecated features.
+### Feature gates for graduated or deprecated features
 
 {{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
 
@@ -233,9 +246,9 @@ The following table contains feature gates for graduated or deprecated features.
 | `VolumeSubpath` | `true` | GA | 1.13 | - |
 {{< /table >}}
 
-## Using a Feature
+## Using a feature
 
-### Feature Stages
+### Feature stages
 
 A feature can be in *Alpha*, *Beta* or *GA* stage.
 An *Alpha* feature means:
@@ -266,12 +279,13 @@ Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
 {{< /note >}}
 
-A *GA* feature is also referred to as a *stable* feature. It means:
+A *General Availability* (GA) feature is also referred to as a *stable* feature. It means:
 
+* The feature is always enabled; you cannot disable it.
 * The corresponding feature gate is no longer needed.
 * Stable versions of features will appear in released software for many subsequent versions.
 
-### Feature Gates
+## List of feature gates {#feature-gates}
 
 Each feature gate is designed for enabling/disabling a specific feature:
 
@@ -383,7 +397,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ProcMountType`: Enables control over ProcMountType for containers.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
-  More details can be found [here](/docs/tasks/administer-cluster/storage-object-in-use-protection/).
 - `QOSReserved`: Allows resource reservations at the QoS level preventing pods at lower QoS levels from
   bursting into resources requested at higher QoS levels (memory only for now).
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
@@ -435,4 +448,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
+  the project's approach to removing features and components.
 {{% /capture %}}

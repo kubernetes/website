@@ -102,7 +102,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 ```
 
 Please note that the current CPU consumption is 0% as we are not sending any requests to the server
-(the ``CURRENT`` column shows the average across all the pods controlled by the corresponding deployment).
+(the ``TARGET`` column shows the average across all the pods controlled by the corresponding deployment).
 
 ## Increase load
 
@@ -110,7 +110,7 @@ Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```shell
-kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
@@ -123,8 +123,8 @@ Within a minute or so, we should see the higher CPU load by executing:
 kubectl get hpa
 ```
 ```
-NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
-php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
+NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1          3m
 
 ```
 
@@ -135,8 +135,8 @@ As a result, the deployment was resized to 7 replicas:
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   7         7         7            7           19m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   7/7      7           7           19m
 ```
 
 {{< note >}}
@@ -166,8 +166,8 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   1         1         1            1           27m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   1/1     1            1           27m
 ```
 
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
@@ -304,13 +304,15 @@ spec:
     resource:
       name: cpu
       target:
-        type: AverageUtilization
+        type: Utilization
         averageUtilization: 50
   - type: Pods
     pods:
       metric:
         name: packets-per-second
-      targetAverageValue: 1k
+      target:
+        type: AverageValue
+        averageValue: 1k
   - type: Object
     object:
       metric:
@@ -320,7 +322,7 @@ spec:
         kind: Ingress
         name: main-route
       target:
-        kind: Value
+        type: Value
         value: 10k
 status:
   observedGeneration: 1

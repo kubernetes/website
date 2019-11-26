@@ -69,7 +69,3 @@ kubeadm token delete [token-value] ...
 
 
 
-SEE ALSO
-
-* [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens
-

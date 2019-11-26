@@ -220,14 +220,6 @@ There are a few reasons for using proxying for Services:
    on the DNS records could impose a high load on DNS that then becomes
    difficult to manage.
 
-### Version compatibility
-
-Since Kubernetes v1.0 you have been able to use the
-[userspace proxy mode](#proxy-mode-userspace).
-Kubernetes v1.1 added iptables mode proxying, and in Kubernetes v1.2 the
-iptables mode for kube-proxy became the default.
-Kubernetes v1.8 added ipvs proxy mode.
-
 ### User space proxy mode {#proxy-mode-userspace}
 
 In this mode, kube-proxy watches the Kubernetes master for the addition and
@@ -318,7 +310,7 @@ about Kubernetes or Services or Pods.
 
 If you want to make sure that connections from a particular client
 are passed to the same Pod each time, you can select the session affinity based
-the on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
+on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
 (the default is "None").
 You can also set the maximum session sticky time by setting
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` appropriately.

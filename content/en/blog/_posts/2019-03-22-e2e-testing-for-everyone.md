@@ -107,7 +107,7 @@ manifests. But the Kubernetes e2e.test binary is supposed to be usable
 and entirely stand-alone because that simplifies shipping and running
 it. The solution in the Kubernetes build system is to link all files
 under `test/e2e/testing-manifests` into the binary with
-[go-bindata](https://github.com/jteeuwen/go-bindata/go-bindata). The
+[go-bindata](https://github.com/jteeuwen/go-bindata). The
 E2E framework used to have a hard dependency on the output of
 `go-bindata`, now [bindata support is
 optional](https://github.com/kubernetes/kubernetes/pull/69103). When

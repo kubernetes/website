@@ -46,10 +46,3 @@ Commands related to handling kubernetes certificates
 
 
 
-SEE ALSO
-
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
-* [kubeadm alpha certs certificate-key](kubeadm_alpha_certs_certificate-key.md)	 - Generate certificate keys
-* [kubeadm alpha certs check-expiration](kubeadm_alpha_certs_check-expiration.md)	 - Check certificates expiration for a Kubernetes cluster
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
-

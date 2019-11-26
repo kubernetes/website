@@ -46,12 +46,10 @@ aliases:
     - kbarnard10
     - kbhawkey
     - makoscafee
-    - mistyhacks
     - rajakavitha1
     - ryanmcginnis
     - simplytunde
     - steveperry-53
-    - stewart-yu
     - tengqm
     - tfogo
     - xiangpengzhao
@@ -60,14 +58,13 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - rajakavitha1
     - sftim
-    - stewart-yu
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
     - alexbrand
-    - glo-pena
+    # glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - remyleone
@@ -119,14 +116,15 @@ aliases:
     - rlenferink
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
+    - inductor
     - nasa9084
-    - zacharysarah
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - cstoku
     - inductor
     - makocchi-git
     - MasayaAoyama
     - nasa9084
+    - oke-py
   sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
@@ -148,14 +146,12 @@ aliases:
     - zacharysarah
     - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
-    - bradtopol
     - chenopis
     - chenrui333
     - dchen1107
     - haibinxie
     - hanjiayao
     - lichuqiang
-    - lucperkins
     - markthink
     - SataQiu
     - tengqm
@@ -181,3 +177,21 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+  sig-docs-vi-owners: # Admins for Vietnamese content
+    - huynguyennovem
+    - ngtuna
+    - truongnh1992
+  sig-docs-vi-reviews: # PR reviews for Vietnamese content
+    - huynguyennovem
+    - ngtuna
+    - truongnh1992
+  sig-docs-ru-owners: # Admins for Russian content
+    - msheldyakov
+    - aisonaku
+    - potapy4
+    - dianaabv
+  sig-docs-ru-reviews: # PR reviews for Russian content
+    - msheldyakov
+    - aisonaku
+    - potapy4
+    - dianaabv

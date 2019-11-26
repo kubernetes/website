@@ -92,7 +92,3 @@ kubeadm upgrade diff [version] [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
-

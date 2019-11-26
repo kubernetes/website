@@ -1,5 +1,5 @@
 DOCKER       = docker
-HUGO_VERSION = 0.53
+HUGO_VERSION = 0.57.2
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
 NODE_BIN     = node_modules/.bin

@@ -1,7 +1,7 @@
 ---
 title: 클라우트 컨트롤러 매니저 기반에 관한 개념
 content_template: templates/concept
-weight: 30
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -226,7 +226,7 @@ rules:
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
-* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [GCP](https://github.com/kubernetes/cloud-provider-gcp)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 * [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)

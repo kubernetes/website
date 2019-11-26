@@ -75,7 +75,7 @@ If you do not already have a hypervisor installed, install one of these now:
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor. It is recommended to use the apt installation of docker from ([Docker](https://www.docker.com/products/docker-desktop), when using the none driver. The snap installation of docker does not work with minikube.
+Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor. It is recommended to use the apt installation of docker from [Docker](https://www.docker.com/products/docker-desktop), when using the none driver. The snap installation of docker does not work with minikube.
 {{< /note >}}
 
 ### Install Minikube using a package
@@ -122,7 +122,7 @@ If you do not already have a hypervisor installed, install one of these now:
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 You can also install it on macOS by downloading a stand-alone binary:
@@ -186,19 +186,19 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 {{% /capture %}}
 
-## Cleanup local state
+## Clean up local state {#cleanup-local-state}
 
-If you have previously installed minikube, and run:
+If you have previously installed Minikube, and run:
 ```shell
 minikube start
 ```
 
-And this command returns an error:
-```shell
+and `minikube start` returned an error:
+```
 machine does not exist
 ```
 
-You need to clear minikube's local state:
+then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```

@@ -14,7 +14,6 @@ redirect_from:
 {{< toc >}}
 
 
-
 ## Cron Job 是什么？
 
 _Cron Job_ 管理基于时间的 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)，即：
@@ -43,29 +42,12 @@ _Cron Job_ 管理基于时间的 [Job](/docs/concepts/jobs/run-to-completion-fin
 
 当使用的 Kubernetes 集群，版本 >= 1.4（对 ScheduledJob），>= 1.5（对 CronJob），当启动 API Server（参考 [为集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster) 获取更多信息）时，通过传递选项 `--runtime-config=batch/v2alpha1=true`  可以开启 batch/v2alpha1 API。
 
-## 创建 Cron Job
-
-下面是一个 Cron Job 的例子。它会每分钟运行一个 Job，打印出当前时间并输出问候语 hello。
-
-% include code.html language="yaml" file="cronjob.yaml" ghlink="/docs/concepts/workloads/controllers/cronjob.yaml" %}
-
-下载并运行该示例 Cron Job，然后执行如下命令：
-
-```shell
-$ kubectl create -f ./cronjob.yaml
-cronjob "hello" created
-```
-
-
-
 可选地，使用 `kubectl run` 创建一个 Cron Job，不需要写完整的配置：
 
 ```shell
 $ kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
 cronjob "hello" created
 ```
-
-
 
 创建该 Cron Job 之后，通过如下命令获取它的状态信息：
 
@@ -159,7 +141,7 @@ Job 根据它所创建的 Pod 的并行度，负责重试创建 Pod，并就决�
 
 和其它 Kubernetes 配置一样，Cron Job 需要 `apiVersion`、 `kind`、和 `metadata` 这三个字段。
 关于如何实现一个配置文件的更新信息，参考文档 [部署应用](/docs/user-guide/deploying-applications)、
-[配置容器](/docs/user-guide/configuring-containers) 和 
+[配置容器](/docs/user-guide/configuring-containers) 和
 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources)。
 
 Cron Job 也需要 [`.spec` 段](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。

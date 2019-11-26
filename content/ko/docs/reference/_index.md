@@ -49,8 +49,6 @@ content_template: templates/concept
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - 쿠버네티스에 탑재된 핵심 제어 루프를 포함하는 데몬.
 * [kube-proxy](/docs/admin/kube-proxy/) - 간단한 TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로빈 TCP/UDP 포워딩을 할 수 있다.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - 가용성, 성능 및 용량을 관리하는 스케줄러.
-* [federation-apiserver](/docs/admin/federation-apiserver/) - 연합된 클러스터를 위한 API 서버.
-* [federation-controller-manager](/docs/admin/federation-controller-manager/) - 쿠버네티스 연합에 탑재된 핵심 제어 루프를 포함하는 데몬.
 
 ## 설계 문서
 

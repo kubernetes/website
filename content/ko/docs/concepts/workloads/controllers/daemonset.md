@@ -55,7 +55,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 데몬셋의 파드 템플릿에는 파드의 필수 필드 외에도 적절한 레이블이 명시되어야 
 한다([파드 셀렉터](#파드-셀렉터)를 본다).
 
-데몬셋의 파드 템플릿의 [`RestartPolicy`](/ko/docs/concepts/workloads/pods/pod-lifecycle/)는 `Always` 를 가져야 하며,
+데몬셋의 파드 템플릿의 [`RestartPolicy`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)는 `Always` 를 가져야 하며,
  명시되지 않은 경우 기본으로 `Always`가 된다.
 
 ### 파드 셀렉터
@@ -81,7 +81,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 또한 일반적으로 다른 데몬셋이나 레플리카셋과 같은 다른 컨트롤러를 통해 직접적으로 
 레이블이 셀렉터와 일치하는 다른 파드를 생성하지 않아야 한다. 그렇지 않으면 데몬셋 
-컨트롤러는 해당 파드가 생성된 것으로 생각한다. 쿠버네티스는 이런 일을 하는 것을 
+{{< glossary_tooltip term_id="controller" >}} 는 해당 파드가 생성된 것으로 생각한다. 쿠버네티스는 이런 일을 하는 것을 
 막지 못한다. 사용자가 이와 같은 일을 하게되는 한 가지 경우는 테스트를 목적으로 한 노드에서 다른 값을 가지는 파드들을 
 수동으로 생성하는 것이다.
 
