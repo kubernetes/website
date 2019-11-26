@@ -160,9 +160,9 @@ kubectl get services --sort-by=.metadata.name
 # List pods Sorted by Restart Count
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# List pods in test namespace sorted by capacity
+# List PersistentVolumes in test namespace sorted by capacity
 
-kubectl get pods -n test --sort-by=.spec.capacity.storage
+kubectl get pv -n test --sort-by=.spec.capacity.storage
 
 # Get the version label of all pods with label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
