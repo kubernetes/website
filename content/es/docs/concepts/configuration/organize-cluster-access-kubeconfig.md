@@ -111,7 +111,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
    En este punto se permite un contexto vacío.
 
 3. Determinar el clúster y el usuario. En este caso, puede o no haber un contexto.
-   Determine el clúster y el usuario en base al primer acierto que se ejecute dos veces en
+   Determine el clúster y el usuario con base en el primer acierto que se ejecute dos veces en
    esta secuencia: una para el usuario y otra para el clúster:
 
    1. Si es que existen, utilice el flag `--user` o `--cluster` de la línea de comandos.
