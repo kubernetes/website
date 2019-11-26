@@ -66,7 +66,7 @@ efímero después de haberlo agregado a un Pod.
 ## Casos de uso para los Containers efímeros
 
 Los Containers efímeros resultan útiles para la solución interactiva de incidencias cuando
-"kubectl exec" es insuficiente tanto porque un container se ha caído, como porque la imagen de un
+`kubectl exec` es insuficiente tanto porque un container se ha caído, como porque la imagen de un
 Container no incluye las utilidades de depuración.
 
 En particular, las [imágenes distroless](https://github.com/GoogleContainerTools/distroless)
