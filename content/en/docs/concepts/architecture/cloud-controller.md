@@ -52,7 +52,7 @@ In version 1.9, the CCM runs the following controllers from the preceding list:
 Volume controller was deliberately chosen to not be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM.
 {{< /note >}}
 
-The original plan to support volumes using CCM was to use Flex volumes to support pluggable volumes. However, a competing effort known as CSI is being planned to replace Flex.
+The original plan to support volumes using CCM was to use [Flex](/docs/concepts/storage/volumes/#flexVolume) volumes to support pluggable volumes. However, a competing effort known as [CSI](/docs/concepts/storage/volumes/#csi) is being planned to replace Flex.
 
 Considering these dynamics, we decided to have an intermediate stop gap measure until CSI becomes ready.
 
