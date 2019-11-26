@@ -96,7 +96,7 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
 
 힙스터를 제외하고, 이러한 제한들은 정적이며 4-노드 클러스터에서 구동한 애드온으루부터 수집한 데이터에 기반한 것이다.
 ([#10335](http://issue.k8s.io/10335#issuecomment-117861225) 참고). 애드온이 큰 클러스터에서 구동되면 더 많은 리소스를 소비한다([#5880](http://issue.k8s.io/5880#issuecomment-113984085) 참고). 따라서, 이러한 값의 조정 없이 큰 클러스터를 배포하면, 애드온들이 제한에 걸려 반복적으로 죽을 수 있다. 많은 노드를 가진 클러스터를 생성할 때는 애드온 리소스 이슈를 피하기 위해 다음을 고려하라:
-* Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster):
+* 다음 애드온을 사용한다면 클러스터의 크기를 확장할 때 그에 맞게 메모리와 CPU 제한을 규모를 조정하라 ( 전체 클러스터를 담당하는 각 레플리카는, 메모리와 CPU 사용량이 대체로 클러스터의 크기/부하에 따라 비율적으로 증가할 것이다):
   * [InfluxDB와 Grafana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
   * [kubedns, dnsmasq, 사이드카](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
   * [Kibana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
