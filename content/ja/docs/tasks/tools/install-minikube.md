@@ -84,7 +84,7 @@ dockerのsnapインストールは、minikubeでは機能しません。
 
 ### パッケージを利用したMinikubeのインストール
 
-Minikubeの*実験*パッケージが利用可能です。
+Minikubeの*Experimental*パッケージが利用可能です。
 GitHubのMinikubeの[リリース](https://github.com/kubernetes/minikube/releases)ページからLinux(AMD64)パッケージを見つけることができます。
 
 Linuxのディストリビューションのパッケージツールを使用して、適切なパッケージをインストールしてください。
@@ -98,7 +98,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
   && chmod +x minikube
 ```
 
-Minikube実行可能ファイルをパスに追加する簡単な方法を次に示します:
+Minikube実行可能バイナリをパスに追加する簡単な方法を次に示します:
 
 ```shell
 sudo mkdir -p /usr/local/bin/
@@ -136,7 +136,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
   && chmod +x minikube
 ```
 
-Minikube実行可能ファイルをパスに追加する簡単な方法を次に示します:
+Minikube実行可能バイナリをパスに追加する簡単な方法を次に示します:
 
 ```shell
 sudo mv minikube /usr/local/bin
@@ -171,7 +171,7 @@ choco install minikube
 
 Minikubeのインストールが終わったら、現在のCLIのセッションを終了して再起動します。Minikubeは自動的にパスに追加されます。
 
-### インストーラー実行可能ファイルを使用したMinikubeのインストール
+### インストーラーを使用したMinikubeのインストール
 
 [Windowsインストーラー](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal)を使用してWindowsにMinikubeを手動でインストールするには、[`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest/download/minikube-installer.exe)をダウンロードしてインストーラーを実行します。
 
