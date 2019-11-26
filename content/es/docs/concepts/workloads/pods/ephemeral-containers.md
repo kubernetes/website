@@ -34,7 +34,7 @@ alfa puede variar significativamente en el futuro o ser eliminada por completo.
 aplicaciones de Kubernetes. Puesto que los Pods están previstos para ser desechables
 y reemplazables, no se puede añadir un Container a un Pod una vez creado. Sin embargo, por lo
 general se eliminan y se reemplazan los Pods de manera controlada utilizando
-{{< glossary_tooltip text="Deployments" term_id="deployment" >}}}.
+{{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 
 En ocasiones es necesario examinar el estado de un Pod existente, como por ejemplo,
 para poder solucionar un error difícil de reproducir. Puede ejecutar en estos casos
