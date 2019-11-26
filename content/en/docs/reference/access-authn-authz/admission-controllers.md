@@ -441,8 +441,11 @@ and kubelets will not be allowed to modify labels with that prefix.
   * `kubernetes.io/arch`
   * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
+  * `node.kubernetes.io/instance-type`
   * `failure-domain.beta.kubernetes.io/region`
   * `failure-domain.beta.kubernetes.io/zone`
+  * `topology.kubernetes.io/region`
+  * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
   * `node.kubernetes.io/`-prefixed labels
 
