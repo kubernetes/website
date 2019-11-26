@@ -177,7 +177,7 @@ If the list of pods matches expectations, but your endpoints are still empty, it
 have the right ports exposed.  If your service has a `containerPort` specified, but the Pods that are
 selected don't have that port listed, then they won't be added to the endpoints list.
 
-Verify that the pod's `containerPort` matches up with the Service's `containerPort`
+Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 #### Network traffic is not forwarded
 
