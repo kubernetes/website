@@ -111,7 +111,7 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
 
 애드온 컨테이너가 리소스 제한에 걸리는 것을 탐지하는 방법에 대해서는 [컴퓨트 리소스의 트러블슈팅 섹션](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)을 참고하라.
 
-In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
+[미래](http://issue.k8s.io/13048)에는 모든 클러스터 애드온의 리소스 제한을 클러스터 크기에 맞게 설정해주고 클러스터를 키우거나 줄일 때 동적으로 조절해줄 수 있기를 기대한다.
 
 이런 기능들에 대한 PR은 언제든 환영한다.
 
