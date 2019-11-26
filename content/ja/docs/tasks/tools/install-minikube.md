@@ -76,7 +76,7 @@ kubectlがインストールされていることを確認してください。
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--vm-driver = none`オプションもサポートしています。
+minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--vm-driver=none`オプションもサポートしています。
 このドライバーを使用するには、[Docker](https://www.docker.com/products/docker-desktop)とLinux環境が必要ですが、ハイパーバイザーは不要です。
 noneドライバーを使用する場合は、[Docker](https://www.docker.com/products/docker-desktop)からdockerのaptインストールを使用することをおすすめします。
 dockerのsnapインストールは、minikubeでは機能しません。
