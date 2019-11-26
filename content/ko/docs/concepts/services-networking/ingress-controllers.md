@@ -52,7 +52,7 @@ weight: 40
 사용자는 클러스터 내에 [복수의 인그레스 컨트롤러](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers)
 를 배포할 수 있다. 인그레스를 생성할 때, 사용자는 각 수신기에 적절한
 [`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)
-주석을 달아 클러스터 내에 둘 이상의 인그레스 컨트롤러가 있을 경우 사용해야 하는 인그레스 컨트롤러를 표시해야 한다.
+어노테이션을 달아 클러스터 내에 둘 이상의 인그레스 컨트롤러가 있을 경우 사용해야 하는 인그레스 컨트롤러를 표시해야 한다.
 
 만약 클래스를 정의하지 않으면, 클라우드 공급자가 기본 인그레스 컨트롤러를 사용하게 된다.
 
