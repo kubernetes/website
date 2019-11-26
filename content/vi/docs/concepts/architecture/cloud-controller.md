@@ -53,7 +53,7 @@ Volume controller được bỏ ra khỏi Cloud Controller Manager. Do độ ph�
 
 Kết hoạch ban đầu của dự án là hỗ trợ Volume sử dụng Cloud Controller Manager để áp dụng những Flex Volume linh hoạt nhằm dễ dàng tích hợp bổ sung thêm. Tuy nhiên, một giải pháp khác cũng đang được lên kế hoạch để thay thế Flex Volume được biết là CSI.
 
-Sau khi xem xét về khía cạnh này, chúng tôi quyết định có một khoảng dừng đo đạc trung gian trước khi CSI trở nên sẵn sàng cho việc sử dụng.
+Sau khi xem xét về khía cạnh này, chúng tôi quyết định sẽ có một khoảng thời gian nghỉ trước khi CSI trở nên sẵn sàng cho việc sử dụng.
 
 ## Chức năng của Cloud Controller Manager
 
