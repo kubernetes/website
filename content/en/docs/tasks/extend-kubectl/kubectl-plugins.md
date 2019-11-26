@@ -155,8 +155,8 @@ See [using the command line runtime package](#using-the-command-line-runtime-pac
 Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the the `kubectl-foo-bar-baz` plugin from the scenario above.
 
 If you run `kubectl foo bar baz arg1 --flag=value arg2`, kubectl's plugin mechanism will first try to find the plugin with the longest possible name, which in this case
-would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, kubectl` then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
-Finding a plugin with this name, kubectl then invokes that plugin, passing all args and flags after the plugin's name as arguments to the plugin process.
+would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, kubectl then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
+Upon having found a plugin with this name, kubectl then invokes that plugin, passing all args and flags after the plugin's name as arguments to the plugin process.
 
 Example:
 
@@ -171,17 +171,20 @@ sudo mv ./kubectl-foo-bar-baz /usr/local/bin
 # chck that kubectl recognizes your plugin
 kubectl plugin list
 ```
+
 ```
 The following kubectl-compatible plugins are available:
 
 /usr/local/bin/kubectl-foo-bar-baz
 ```
+
 ```
 # test that calling your plugin via a "kubectl" command works
 # even when additional arguments and flags are passed to your
 # plugin executable by the user.
 kubectl foo bar baz arg1 --meaningless-flag=true
 ```
+
 ```
 My first command-line argument was arg1
 ```
@@ -206,6 +209,7 @@ sudo mv ./kubectl-foo_bar /usr/local/bin
 # You can now invoke your plugin via kubectl:
 kubectl foo-bar
 ```
+
 ```
 I am a plugin with a dash in my name
 ```
@@ -217,6 +221,7 @@ The command from the above example, can be invoked using either a dash (`-`) or 
 # You can invoke your custom command with a dash
 kubectl foo-bar
 ```
+
 ```
 I am a plugin with a dash in my name
 ```
@@ -225,6 +230,7 @@ I am a plugin with a dash in my name
 # You can also invoke your custom command with an underscore
 kubectl foo_bar
 ```
+
 ```
 I am a plugin with a dash in my name
 ```
@@ -238,6 +244,7 @@ such that the output of the `kubectl plugin list` command is:
 ```bash
 PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins kubectl plugin list
 ```
+
 ```
 The following kubectl-compatible plugins are available:
 
@@ -260,6 +267,7 @@ There is another kind of overshadowing that can occur with plugin filenames. Giv
 # for a given kubectl command, the plugin with the longest possible filename will always be preferred
 kubectl foo bar baz
 ```
+
 ```
 Plugin kubectl-foo-bar-baz is executed
 ```
@@ -267,6 +275,7 @@ Plugin kubectl-foo-bar-baz is executed
 ```bash
 kubectl foo bar
 ```
+
 ```
 Plugin kubectl-foo-bar is executed
 ```
@@ -274,6 +283,7 @@ Plugin kubectl-foo-bar is executed
 ```bash
 kubectl foo bar baz buz
 ```
+
 ```
 Plugin kubectl-foo-bar-baz is executed, with "buz" as its first argument
 ```
@@ -281,6 +291,7 @@ Plugin kubectl-foo-bar-baz is executed, with "buz" as its first argument
 ```bash
 kubectl foo bar buz
 ```
+
 ```
 Plugin kubectl-foo-bar is executed, with "buz" as its first argument
 ```
@@ -290,6 +301,7 @@ This design choice ensures that plugin sub-commands can be implemented across mu
 ```bash
 ls ./plugin_command_tree
 ```
+
 ```
 kubectl-parent
 kubectl-parent-subcommand
@@ -303,6 +315,7 @@ You can use the aforementioned `kubectl plugin list` command to ensure that your
 ```bash
 kubectl plugin list
 ```
+
 ```
 The following kubectl-compatible plugins are available:
 
