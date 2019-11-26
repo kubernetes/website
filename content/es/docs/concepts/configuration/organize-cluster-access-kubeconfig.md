@@ -131,7 +131,7 @@ A continuación se muestran las reglas que usa `kubectl` cuando fusiona archivos
 
    1. Si es que existen, utilice el flag `--client-certificate`, `--client-key`, `--username`, `--password`, `--token` de la línea de comandos.
    2. Utilice los campos `user` de los archivos kubeconfig fusionados.
-   3. Falla si hay dos mecanismo de autenticación contradictorios.
+   3. Falla si hay dos mecanismos de autenticación contradictorios.
 
 6. Si todavía falta información, utilice los valores predeterminados y solicite
    información de autenticación.
