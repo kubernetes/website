@@ -39,20 +39,81 @@ Télécharger kops à partir de la [page de releases](https://github.com/kuberne
 
 Sur macOS:
 
+Téléchargez la dernière version avec la commande:
+
 ```shell
-curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
+```
+
+Pour télécharger une version spécifique, remplacez le
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+
+partie de la commande avec la version spécifique.
+
+Par exemple, pour télécharger la version 1.15.0 de kops, tapez:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+```
+
+Rendre le binaire exécutable kops.
+
+```shell
 chmod +x kops-darwin-amd64
-mv kops-darwin-amd64 /usr/local/bin/kops
-# Vous pouvez aussi l'installer avec Homebrew
+```
+
+Déplacez le fichier binaire kops dans votre chemin.
+
+```shell
+sudo mv kops-darwin-amd64 /usr/local/bin/kops
+```
+
+Vous pouvez également installer kops en utilisant [Homebrew] (https://brew.sh/).
+
+```shell
 brew update && brew install kops
 ```
 
 Sur Linux:
 
+Téléchargez la dernière version avec la commande:
+
 ```shell
-wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+```
+
+Pour télécharger une version spécifique, remplacez le
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+partie de la commande avec la version spécifique.
+
+Par exemple, pour télécharger la version 1.15.0 de kops, tapez:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+```
+
+Rendre le binaire exécutable kops
+
+```shell
 chmod +x kops-linux-amd64
-mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+Déplacez le fichier binaire kops dans votre chemin.
+
+```shell
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+Vous pouvez également installer kops en utilisant [Homebrew] (https://docs.brew.sh/Homebrew-on-Linux).
+
+```shell
+brew update && brew install kops
 ```
 
 ### (2/5) Créer un domaine route53 pour votre cluster
