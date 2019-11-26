@@ -238,7 +238,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CSIMigrationGCE`: シムと変換ロジックを有効にしてボリューム操作をKubernetesリポジトリー内のGCE-PDプラグインからPD CSIプラグインにルーティングします。
 - `CSIMigrationOpenStack`: シムと変換ロジックを有効にしてボリューム操作をKubernetesリポジトリー内のCinderプラグインからCinder CSIプラグインにルーティングします。
 - `CSINodeInfo`: csi.storage.k8s.ioのCSINodeInfo APIオブジェクトに関連するすべてのロジックを有効にします。
-- `CSIPersistentVolume`: [CSI(Container Storage Interface)]((https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md))互換のボリュームプラグインを通してプロビジョニングされたボリュームの検出とマウントを有効にします。
+- `CSIPersistentVolume`: [CSI(Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)互換のボリュームプラグインを通してプロビジョニングされたボリュームの検出とマウントを有効にします。
   詳細については[`csi`ボリュームタイプ](/docs/concepts/storage/volumes/#csi)ドキュメントを確認してください。
 - `CustomCPUCFSQuotaPeriod`: ノードがCPUCFSQuotaPeriodを変更できるようにします。
 - `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
