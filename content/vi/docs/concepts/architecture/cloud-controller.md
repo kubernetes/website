@@ -220,7 +220,7 @@ rules:
       - update
 ```
 
-## Cách triển khai của các nhà cung cấp
+## Các nhà cung cấp đã triển khai
 
 Sau đây là danh sách các nhà cung cấp dịch vụ cloud đã triển khai CCM:
 
