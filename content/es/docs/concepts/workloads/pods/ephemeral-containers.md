@@ -46,7 +46,7 @@ comandos de manera arbitraria.
 Los Containers efímeros se diferencian de otros Containers en que no garantizan ni los
 recursos ni la ejecución, y en que nunca se reiniciarán automáticamente, de modo que no
 son aptos para la construcción de aplicaciones. Los Containers efímeros se describen
-usando la misma "ContainerSpec" que los Containers regulares, aunque muchos campos son
+usando la misma [ContainerSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) que los Containers regulares, aunque muchos campos son
 incompatibles y no están habilitados para los Containers efímeros.
 
 - Los Containers efímeros no pueden tener puertos, por lo que campos como `ports`,
