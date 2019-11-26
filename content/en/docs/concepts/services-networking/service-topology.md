@@ -46,23 +46,6 @@ with it, while intrazonal traffic does not. Other common needs include being abl
 to route traffic to a local Pod managed by a DaemonSet, or keeping traffic to
 Nodes connected to the same top-of-rack switch for the lowest latency.
 
-## Prerequisites
-
-The following prerequisites are needed in order to enable topology aware service
-routing:
-
-   * Kubernetes 1.17 or later
-   * Kube-proxy running in iptables mode or IPVS mode
-   * Enable [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
-
-## Enable Service Topology
-
-To enable service topology, enable the `ServiceTopology` feature gate for
-kube-apiserver and kube-proxy:
-
-```
---feature-gates="ServiceTopology=true"
-```
 
 ## Using Service Topology
 
