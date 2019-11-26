@@ -1,6 +1,6 @@
 ---                                           
 title: 'Running Kubernetes locally on Linux with Microk8s'                                                           
-date: 2019-11-05
+date: 2019-11-26
 ---
 **Authors**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation; [Carmine Rimi](https://twitter.com/carminerimi)
 
