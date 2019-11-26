@@ -106,14 +106,14 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
   * [ElasticSearch 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
   * [GCP 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
-Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
-and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
-out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
+힙스터의 리소스 제한은 클러스터 최초 크기에 기초하여 동적으로 설정된다([#16185](http://issue.k8s.io/16185)과
+ [#22940](http://issue.k8s.io/22940) 참조). 힙스터에 리소스가 부족한 경우라면, 힙스터 메모리 요청량(상세내용은 해당 PR 참조)을 계산하는 공식을 적용해보자.
 
-For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting).
+애드온 컨테이너가 리소스 제한에 걸리는 것을 탐지하는 방법에 대해서는 [컴퓨트 리소스의 트러블슈팅 섹션](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)을 참고하라.
 
 In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
-We welcome PRs that implement those features.
+
+이런 기능들에 대한 PR은 언제든 환영한다.
 
 ### 시작 시 사소한 노드 오류 허용
 
