@@ -32,10 +32,10 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 -->
 * Kubernetes 1.16 或更高版本
-* 提供程序对双栈网络的支持 (云提供程序或其他方式必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口)
+* 提供程序对双协议栈网络的支持 (云供应商或其他方式必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口)
 * Kubenet 网络插件
 * Kube-proxy 在 IPVS 模式下运行
-* [启用双栈](/docs/concepts/services-networking/dual-stack/) 集群
+* [启用双协议栈](/docs/concepts/services-networking/dual-stack/) 集群
 
 {{% /capture %}}
 
@@ -54,9 +54,9 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 <!--
 Each dual-stack Node should have a single IPv4 block and a single IPv6 block allocated. Validate that IPv4/IPv6 Pod address ranges are configured by running the following command. Replace the sample node name with a valid dual-stack Node from your cluster. In this example, the Node's name is `k8s-linuxpool1-34450317-0`:
 -->
-每个双栈节点应分配一个 IPv4 块和一个 IPv6 块。
+每个双协议栈节点应分配一个 IPv4 块和一个 IPv6 块。
 通过运行以下命令来验证是否配置了 IPv4/IPv6 Pod 地址范围。
-将示例节点名称替换为集群中的有效双堆栈节点。
+将示例节点名称替换为集群中的有效双协议栈节点。
 在此示例中，节点的名称为 `k8s-linuxpool1-34450317-0`：
 
 ```shell
@@ -171,7 +171,7 @@ my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
 <!--
 ### Create a dual-stack load balanced Service
 -->
-### 创建双栈负载均衡服务
+### 创建双协议栈负载均衡服务
 
 <!--
 If the cloud provider supports the provisioning of IPv6 enabled external load balancer, create the following Service with both the `ipFamily` field set to `IPv6` and the `type` field set to `LoadBalancer`
