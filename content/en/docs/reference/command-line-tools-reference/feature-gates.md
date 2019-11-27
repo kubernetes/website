@@ -69,11 +69,17 @@ different Kubernetes components.
 | `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigration` | `false` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
+| `CSIMigrationAWS` | `false` | Beta | 1.17 | |
+| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
+| `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | |
+| `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | |
+| `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
+| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
 | `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
@@ -331,11 +337,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CSIDriverRegistry`: Enable all logic related to the CSIDriver API object in csi.storage.k8s.io.
 - `CSIInlineVolume`: Enable CSI Inline volumes support for pods.
 - `CSIMigration`: Enables shims and translation logic to route volume operations from in-tree plugins to corresponding pre-installed CSI plugins
-- `CSIMigrationAWS`: Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin
-- `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to Azure Disk CSI plugin
-- `CSIMigrationAzureFile`: Enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to Azure File CSI plugin
-- `CSIMigrationGCE`: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin
-- `CSIMigrationOpenStack`: Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin
+- `CSIMigrationAWS`: Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Supports falling back to in-tree EBS plugin if a node does not have EBS CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationAWSComplete`: Stops registering the EBS in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Requires CSIMigration and CSIMigrationAWS feature flags enabled and EBS CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin. Supports falling back to in-tree AzureDisk plugin if a node does not have AzureDisk CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationAzureDiskComplete`: Stops registering the Azure-Disk in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature flags enabled and AzureDisk CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationAzureFile`: Enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to AzureFile CSI plugin. Supports falling back to in-tree AzureFile plugin if a node does not have AzureFile CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationAzureFileComplete`: Stops registering the Azure-File in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature flags  enabled and AzureFile CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationGCE`: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling back to in-tree GCE plugin if a node does not have PD CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationGCEComplete`: Stops registering the GCE-PD in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin. Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationOpenStack`: Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports falling back to in-tree Cinder plugin if a node does not have Cinder CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationOpenStackComplete`: Stops registering the Cinder in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin. Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder CSI plugin installed and configured on all nodes in the cluster.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
