@@ -192,13 +192,13 @@ kind: AdmissionConfiguration
 plugins:
 - name: ValidatingAdmissionWebhook
   configuration:
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: WebhookAdmissionConfiguration
     kubeConfigFile: "<path-to-kubeconfig-file>"
 - name: MutatingAdmissionWebhook
   configuration:
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: WebhookAdmissionConfiguration
     kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
 {{% /tab %}}
@@ -210,11 +210,13 @@ kind: AdmissionConfiguration
 plugins:
 - name: ValidatingAdmissionWebhook
   configuration:
+    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
     kubeConfigFile: "<path-to-kubeconfig-file>"
 - name: MutatingAdmissionWebhook
   configuration:
+    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
     kubeConfigFile: "<path-to-kubeconfig-file>"
