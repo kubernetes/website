@@ -102,6 +102,14 @@ sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
 ```
 
+### Install Minikube using Homebrew
+
+As yet another alternative, you can install Minikube using Linux [Homebrew](https://docs.brew.sh/Homebrew-on-Linux):
+
+```shell
+brew install minikube
+```
+
 {{% /tab %}}
 {{% tab name="macOS" %}}
 ### Install kubectl
