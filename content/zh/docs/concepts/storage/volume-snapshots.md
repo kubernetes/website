@@ -236,7 +236,8 @@ using the attribute `snapshotClassName`.
 Only VolumeSnapshotContents of the requested class, ones with the same `snapshotClassName`
 as the VolumeSnapshot, can be bound to the VolumeSnapshot.
 -->
-通过使用 `snapshotClassName` 属性来指定 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) 的名称，卷快照可以请求特定的类。只有所请求类（与 VolumeSnapshot 有相同的 `snapshotClassName`）的 VolumeSnapshotContents 才可以绑定到 VolumeSnapshot。
+通过使用 `snapshotClassName` 属性来指定 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) 的名称，卷快照可以请求特定的类。
+只有所请求类（与 VolumeSnapshot 有相同的 `snapshotClassName`）的 VolumeSnapshotContents 才可以绑定到 VolumeSnapshot。
 
 <!--
 ## Provisioning Volumes from Snapshots
