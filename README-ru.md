@@ -19,14 +19,14 @@
 * [Руководство по оформлению документации](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Руководство по локализации Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
-## `README.md` файлы на других языках
-|  |  |
-|---|---|
-|[Французский](README-fr.md)|[Корейский](README-ko.md)|
-|[Немецкий](README-de.md)|[Португальский](README-pt.md)|
-|[Хинди README](README-hi.md)|[Испанский](README-es.md)|
-|[Индонезийский](README-id.md)|[Китайский](README-zh.md)|
-|||
+## Файл `README.md` на других языках
+|                               |                               |
+|-------------------------------|-------------------------------|
+| [Французский](README-fr.md)   | [Корейский](README-ko.md)     |
+| [Немецкий](README-de.md)      | [Португальский](README-pt.md) |
+| [Хинди](README-hi.md)         | [Испанский](README-es.md)     |
+| [Индонезийский](README-id.md) | [Китайский](README-zh.md)     |
+|                               |                               |
 
 ## Запуск сайта локально с помощью Docker
 
@@ -50,7 +50,7 @@ make docker-serve
 
 Откройте браузер и перейдите по ссылке http://localhost:1313, чтобы открыть сайт. Если вы редактируете исходные файлы сайта, Hugo автоматически применит изменения и обновит страницу в браузере.
 
-## Запуск веб-сайта с помощью Hugo {#running-the-site-locally-using-hugo}
+## Запуск сайта с помощью Hugo {#running-the-site-locally-using-hugo}
 
 Обратитесь к [официальной документации Hugo](https://gohugo.io/getting-started/installing/), чтобы установить Hugo. Убедитесь, что вы установили правильную версию Hugo, которая устанавливается в переменной окружения `HUGO_VERSION` в файле [`netlify.toml`](netlify.toml#L9).
 
@@ -66,7 +66,7 @@ make serve
 
 Узнайте, как поучаствовать в жизни сообщества Kubernetes на [странице сообщества](http://kubernetes.io/community/).
 
-Вы можете связаться с сопровождающими этого проекта по:
+Вы можете связаться с сопровождающими этого проекта по следующим ссылкам:
 
 - [Канал в Slack](https://kubernetes.slack.com/messages/sig-docs)
 - [Рассылка](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
