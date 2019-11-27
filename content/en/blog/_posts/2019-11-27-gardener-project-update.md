@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Gardener Project Update"
-date: 2019-11-10
-slug: Gardener-Project-Update
+date: 2019-11-27
+slug: gardener-project-update
 ---
 
 **Authors:** [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP), [Vasu
