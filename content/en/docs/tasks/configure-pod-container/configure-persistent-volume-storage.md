@@ -6,7 +6,7 @@ weight: 60
 
 {{% capture overview %}}
 
-This page shows yo how to configure a Pod to use a
+This page shows you how to configure a Pod to use a
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
 for storage.
 Here is a summary of the process:
