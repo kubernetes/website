@@ -22,16 +22,16 @@ weight: 20
 
 보통 클러스터 내 노드 수는, 플랫폼별 `config-default.sh` 파일 (예를 들면, [GCE의 `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh))에 있는 `NUM_NODES` 값에 따라 조절된다.
 
-하지만 단순히 값만 매우 크게 바꾼다면, 클라우드 프로바이더에 따라 셋업 스크립트가 실패하게 되는 경우가 많다. 예를 들어 GCE에 배포할 때 쿼타 이슈가 발생하여 클러스터 구축이 실패할 수 있다.
+하지만 단순히 값만 매우 크게 바꾼다면, 클라우드 프로바이더에 따라 셋업 스크립트가 실패하게 되는 경우가 많다. 예를 들어 GCE에 배포할 때 쿼터 이슈가 발생하여 클러스터 구축이 실패할 수 있다.
 
 큰 쿠버네티스 클러스터를 설정할 때는 다음 이슈들을 고려해야 한다.
 
 ### 쿼터 문제
 
-여러 노드를 가지는 클러스터를 만들 때, 클라우드 프로바이더 쿼타 이슈를 피하기 위해 고려할 점:
+여러 노드를 가지는 클러스터를 만들 때, 클라우드 프로바이더 쿼터 이슈를 피하기 위해 고려할 점:
 
-* CPU, IP 등의 쿼타를 늘린다.
-  * 예를 들어 [GCE의 경우](https://cloud.google.com/compute/docs/resource-quotas) 다음에 관한 쿼타를 늘릴 수 있다:
+* CPU, IP 등의 쿼터를 늘린다.
+  * 예를 들어 [GCE의 경우](https://cloud.google.com/compute/docs/resource-quotas) 다음에 관한 쿼터를 늘릴 수 있다:
     * CPU
     * VM 인스턴스
     * 전체 영구 디스크 예약
@@ -80,7 +80,7 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
 {{< /note >}}
 
 ### 애드온 자원
-[클러스터 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons)이 메모리 누수 등 노드 상의 가용한 리소스를 모두 소비하는 리소스 이슈를 방지하기 위해, 쿠버네티스는 애드온 컨테이너가 소비할 수 있는 CPU와 메모리 리소스를 제한하는 리소스 제한을 둔다(PR [#10653](http://pr.k8s.io/10653/files)과 [#10778](http://pr.k8s.io/10778/files) 참고). 
+[클러스터 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons)이 메모리 누수 등 노드 상의 가용한 리소스를 모두 소비하는 리소스 이슈를 방지하기 위해, 쿠버네티스는 애드온 컨테이너가 소비할 수 있는 CPU와 메모리 리소스를 제한하는 리소스 상한을 둔다(PR [#10653](http://pr.k8s.io/10653/files)과 [#10778](http://pr.k8s.io/10778/files) 참고). 
 
 예시:
 
@@ -106,12 +106,12 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
   * [ElasticSearch 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
   * [GCP 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
-힙스터의 리소스 제한은 클러스터 최초 크기에 기초하여 동적으로 설정된다([#16185](http://issue.k8s.io/16185)과
+힙스터의 리소스 상한은 클러스터 최초 크기에 기초하여 동적으로 설정된다([#16185](http://issue.k8s.io/16185)과
  [#22940](http://issue.k8s.io/22940) 참조). 힙스터에 리소스가 부족한 경우라면, 힙스터 메모리 요청량(상세내용은 해당 PR 참조)을 계산하는 공식을 적용해보자.
 
-애드온 컨테이너가 리소스 제한에 걸리는 것을 탐지하는 방법에 대해서는 [컴퓨트 리소스의 트러블슈팅 섹션](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)을 참고하라.
+애드온 컨테이너가 리소스 상한에 걸리는 것을 탐지하는 방법에 대해서는 [컴퓨트 리소스의 트러블슈팅 섹션](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)을 참고하라.
 
-[미래](http://issue.k8s.io/13048)에는 모든 클러스터 애드온의 리소스 제한을 클러스터 크기에 맞게 설정해주고 클러스터를 키우거나 줄일 때 동적으로 조절해줄 수 있기를 기대한다.
+[미래](http://issue.k8s.io/13048)에는 모든 클러스터 애드온의 리소스 상한을 클러스터 크기에 맞게 설정해주고 클러스터를 키우거나 줄일 때 동적으로 조절해줄 수 있기를 기대한다.
 
 이런 기능들에 대한 PR은 언제든 환영한다.
 
