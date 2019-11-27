@@ -104,7 +104,7 @@ sudo install minikube /usr/local/bin/
 
 ### Install Minikube using Homebrew
 
-Install Linux [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) and use it to install Minikube
+As yet another alternative, you can install Minikube using Linux [Homebrew](https://docs.brew.sh/Homebrew-on-Linux):
 
 ```shell
 brew install minikube
