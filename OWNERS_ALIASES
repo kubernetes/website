@@ -146,14 +146,12 @@ aliases:
     - zacharysarah
     - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
-    - bradtopol
     - chenopis
     - chenrui333
     - dchen1107
     - haibinxie
     - hanjiayao
     - lichuqiang
-    - lucperkins
     - markthink
     - SataQiu
     - tengqm
@@ -180,9 +178,11 @@ aliases:
     - jcjesus
     - devlware
   sig-docs-vi-owners: # Admins for Vietnamese content
+    - huynguyennovem
     - ngtuna
     - truongnh1992
   sig-docs-vi-reviews: # PR reviews for Vietnamese content
+    - huynguyennovem
     - ngtuna
     - truongnh1992
   sig-docs-ru-owners: # Admins for Russian content

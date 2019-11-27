@@ -25,7 +25,7 @@ cards:
   button_path: "/docs/concepts"
 - name: tutorials
   title: "Kubernetesを試す"
-  description: "Kubernetesにどのようにアプリケーションを展開するかを、チュートリアルから学びます。"
+  description: "チュートリアルに沿って、Kubernetesにアプリケーションをデプロイする方法を学びます。"
   button: "チュートリアルを見る"
   button_path: "/docs/tutorials"
 - name: setup
@@ -52,6 +52,6 @@ cards:
   title: "Kubernetesをダウンロードする"
   description: "もしKubernetesをインストールする、また最新バージョンにアップグレードする場合、最新のリリースノートを参照してください。"
 - name: about
-  title: "ドキュメントについて"
-  description: "このサイトは、Kubernetesの最新バージョンと過去４世代のドキュメントを含んでいます。"
+  title: ドキュメントについて
+  description: このWebサイトには、Kubernetesの最新バージョンと過去4世代のドキュメントが含まれています。
 ---

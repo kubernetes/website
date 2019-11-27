@@ -20,7 +20,7 @@ Because the feature is alpha in 1.9, it must be explicitly enabled. Alpha featur
 ### Why Kubernetes CSI?
 Kubernetes volume plugins are currently “in-tree”, meaning they’re linked, compiled, built, and shipped with the core kubernetes binaries. Adding support for a new storage system to Kubernetes (a volume plugin) requires checking code into the core Kubernetes repository. But aligning with the Kubernetes release process is painful for many plugin developers.  
 
-The existing [Flex Volume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md) attempted to address this pain by exposing an exec based API for external volume plugins. Although it enables third party storage vendors to write drivers out-of-tree, in order to deploy the third party driver files it requires access to the root filesystem of node and master machines.  
+The existing [Flex Volume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) attempted to address this pain by exposing an exec based API for external volume plugins. Although it enables third party storage vendors to write drivers out-of-tree, in order to deploy the third party driver files it requires access to the root filesystem of node and master machines.  
 
 In addition to being difficult to deploy, Flex did not address the pain of plugin dependencies: Volume plugins tend to have many external requirements (on mount and filesystem tools, for example). These dependencies are assumed to be available on the underlying host OS which is often not the case (and installing them requires access to the root filesystem of node machine).  
 
@@ -215,7 +215,7 @@ CSI drivers are developed and maintained by third-parties. You can find example 
 
 
 ### What about Flex?
-The [Flex Volume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md) exists as an exec based mechanism to create “out-of-tree” volume plugins. Although it has some drawbacks (mentioned above), the Flex volume plugin coexists with the new CSI Volume plugin. SIG Storage will continue to maintain the Flex API so that existing third-party Flex drivers (already deployed in production clusters) continue to work. In the future, new volume features will only be added to CSI, not Flex.  
+The [Flex Volume plugin](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) exists as an exec based mechanism to create “out-of-tree” volume plugins. Although it has some drawbacks (mentioned above), the Flex volume plugin coexists with the new CSI Volume plugin. SIG Storage will continue to maintain the Flex API so that existing third-party Flex drivers (already deployed in production clusters) continue to work. In the future, new volume features will only be added to CSI, not Flex.  
 
 
 ### What will happen to the in-tree volume plugins?

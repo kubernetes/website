@@ -102,7 +102,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 ```
 
 Please note that the current CPU consumption is 0% as we are not sending any requests to the server
-(the ``CURRENT`` column shows the average across all the pods controlled by the corresponding deployment).
+(the ``TARGET`` column shows the average across all the pods controlled by the corresponding deployment).
 
 ## Increase load
 
@@ -123,8 +123,8 @@ Within a minute or so, we should see the higher CPU load by executing:
 kubectl get hpa
 ```
 ```
-NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
-php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
+NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1          3m
 
 ```
 
