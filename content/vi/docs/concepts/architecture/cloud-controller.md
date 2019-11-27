@@ -1,5 +1,5 @@
 ---
-title: Các khác niệm nền tảng của Cloud Controller Manager
+title: Các khái niệm nền tảng của Cloud Controller Manager
 content_template: templates/concept
 weight: 40
 ---
