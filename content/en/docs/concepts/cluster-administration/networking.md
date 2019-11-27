@@ -106,6 +106,14 @@ Using this CNI plugin allows Kubernetes pods to have the same IP address inside 
 
 Additionally, the CNI can be run alongside [Calico for network policy enforcement](https://docs.aws.amazon.com/eks/latest/userguide/calico.html). The AWS VPC CNI project is open source with [documentation on GitHub](https://github.com/aws/amazon-vpc-cni-k8s).
 
+### Azure CNI for Kubernetes
+
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) brings the rich set of Azure Networking capabilities to Pods running in a Kubernetes cluster by utilizing the same SDN stack that powers Virtual Machines. It assigns VNet IP addresses to Pods and connects them directly to other Pods and VNet resources, providing performance that is at par with VMs. Pods can also connect seamlessly to peered VNets and to on-premises over Express Routes or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services such as storage and SQL that are protected by Service Endpoints or Private Link. VNet routing and security policies can be used for filtering Pods traffic and securing Kubernetes clusters.
+
+Azure CNI sets up networking for Pods by utilizing a pool of secondary Vnet IPs pre-configured on the Network Interface of a Kubernetes node. Pods that come up in a node are assigned IPs from the pool configured on the node and when the pod terminates its IP is returned back to the pool. Internet access is provided by translating the source IP of the traffic to the primary IP address of the node.
+
+Azure CNI is available natively in the Azure Kubernetes Service (AKS) and powers the [Advanced Networking](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni) option in AKS clusters. It supports Kubernetes Network Policy implementations from [Calico](https://azure.microsoft.com/en-us/blog/integrating-azure-cni-and-calico-a-technical-deep-dive/) and [Azure](https://docs.microsoft.com/en-us/azure/aks/use-network-policies). Azure CNI is open source on [GitHub](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md).
+
 ### Big Cloud Fabric from Big Switch Networks
 
 [Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) is a cloud native networking architecture, designed to run Kubernetes in private cloud/on-premises environments. Using unified physical & virtual SDN, Big Cloud Fabric tackles inherent container networking problems such as load balancing, visibility, troubleshooting, security policies & container traffic monitoring.
