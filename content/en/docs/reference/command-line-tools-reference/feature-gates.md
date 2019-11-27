@@ -118,8 +118,6 @@ different Kubernetes components.
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
 | `RequestManagement` | `false` | Alpha | 1.15 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
-| `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
-| `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
@@ -243,6 +241,9 @@ different Kubernetes components.
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
+| `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
+| `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | 1.16 |
+| `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | 1.16  |
 | `ScheduleDaemonSetPods` | `true` | GA | 1.17 | - |
