@@ -123,25 +123,120 @@ Users today need to use some combination of taints and node selectors in order t
 
 Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. All Kubernetes nodes today have the following default labels:
 
-* beta.kubernetes.io/os = [windows|linux]
-* beta.kubernetes.io/arch = [amd64|arm64|...]
+* kubernetes.io/os = [windows|linux]
+* kubernetes.io/arch = [amd64|arm64|...]
 
-If a Pod specification does not specify a nodeSelector like `"beta.kubernetes.io/os": windows`, it is possible the Pod can be scheduled on any host, Windows or Linux. This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. The best practice is to use a nodeSelector.
+If a Pod specification does not specify a nodeSelector like `"kubernetes.io/os": windows`, it is possible the Pod can be scheduled on any host, Windows or Linux. This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. The best practice is to use a nodeSelector.
 
 However, we understand that in many cases users have a pre-existing large number of deployments for Linux containers, as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators. In those situations, you may be hesitant to make the configuration change to add nodeSelectors. The alternative is to use Taints. Because the kubelet can set Taints during registration, it could easily be modified to automatically add a taint when running on Windows only.
 
-For example:  `--register-with-taints='os=Win1809:NoSchedule'`
+For example:  `--register-with-taints='os=windows:NoSchedule'`
 
 By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). In order for a Windows Pod to be scheduled on a Windows node, it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
 
 ```yaml
 nodeSelector:
-    "beta.kubernetes.io/os": windows
+    kubernetes.io/os: windows
+    node.kubernetes.io/windows-build: '10.0.17763'
 tolerations:
     - key: "os"
       operator: "Equal"
-      value: "Win1809"
+      value: "windows"
       effect: "NoSchedule"
 ```
 
+### Handling multiple Windows versions in the same cluster
+
+The Windows Server version used by each pod must match that of the node. If you want to use multiple Windows
+Server versions in the same cluster, then you should set additional node labels and nodeSelectors.
+
+Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build` to simplify this. If you're running an older version, then it's recommended to add this label manually to Windows nodes.
+
+This label reflects the Windows major, minor, and build number that need to match for compatibility. Here are values used today for each Windows Server version.
+
+| Product Name                         |   Build Number(s)      |
+|--------------------------------------|------------------------|
+| Windows Server 2019                  | 10.0.17763             |
+| Windows Server version 1809          | 10.0.17763             |
+| Windows Server version 1903          | 10.0.18362             |
+
+
+### Simplifying with RuntimeClass
+
+[RuntimeClass] can be used to simplify the process of using taints and tolerations. A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
+
+
+1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` for the Windows OS, architecture, and version.
+
+```yaml
+apiVersion: node.k8s.io/v1beta1
+kind: RuntimeClass
+metadata:
+  name: windows-2019
+handler: 'docker'
+scheduling:
+  nodeSelector:
+    kubernetes.io/os: 'windows'
+    kubernetes.io/arch: 'amd64'
+    node.kubernetes.io/windows-build: '10.0.17763'
+  tolerations:
+  - effect: NoSchedule
+    key: os
+    operator: Equal
+    value: "windows"
+```
+
+1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
+1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
+
+For example:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis-2019
+  labels:
+    app: iis-2019
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: iis-2019
+      labels:
+        app: iis-2019
+    spec:
+      runtimeClassName: windows-2019
+      containers:
+      - name: iis
+        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+        resources:
+          limits:
+            cpu: 1
+            memory: 800Mi
+          requests:
+            cpu: .1
+            memory: 300Mi
+        ports:
+          - containerPort: 80
+ selector:
+    matchLabels:
+      app: iis-2019
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iis
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+  selector:
+    app: iis-2019
+```
+
+
 {{% /capture %}}
+
+[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
