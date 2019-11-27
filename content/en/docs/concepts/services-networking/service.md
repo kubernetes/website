@@ -634,6 +634,15 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="Tencent Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:  
+    service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
+[...]
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 
@@ -869,6 +878,40 @@ public IP addresses, be aware that non-NLB traffic can also reach all instances
 in those modified security groups.
 
 {{< /note >}}
+
+#### Other CLB annotations on TKE
+
+There are other annotations for managing Cloud Load Balancer on TKE as described below.
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        service.kubernetes.io/qcloud-loadbalancer-backends-label： `key in (value1, value2)`
+        # Bind Loadbalancers with speicfied nodes
+        
+        service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
+        # Create a Service for public/private network access with an existing load balancer
+        
+        service.kubernetes.io/service.extensiveParameters: ""
+        # Create custom parameters for LB (does not support modification of LB type)
+        
+        service.kubernetes.io/service.listenerParameters: ""
+        # Create custom parameters for LB listener 
+        
+        service.kubernetes.io/loadbalance-type: xxxxx
+        # Specifies the type of CLB: Cloud Load Balancer（default） or Classic Cloud Load Balancer
+        # Valid values: classic（Classic Cloud Load Balancer）,any other fields or not specified(Cloud Load Balancer)
+        
+        service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
+        # Specifies the public network bandwidth billing method; valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
+        
+        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
+        # Specifies the bandwidth value (value range: [1,2000] Mbps).
+        
+        service.kubernetes.io/local-svc-only-bind-node-with-pod = true
+        # By setting it in Service annotation，loadbalancer will only register nodes with pod running on it, otherwise all nodes will be registered.
+```
 
 ### Type ExternalName {#externalname}
 
