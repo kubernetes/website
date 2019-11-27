@@ -81,19 +81,10 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates
+The node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-Similarly the scheduler ignores conditions when considering a Node; instead
-it looks at the Node's taints and a Pod's tolerations.
-
-Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
-tolerates the taints of a particular Node can be scheduled on that Node.
-
-{{< caution >}}
-Enabling this feature creates a small delay between the
-time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
-{{< /caution >}}
+When the scheduler is assigning a Pod to a Node, the scheduler takes the Node's taints
+into account, except for any taints that the Pod tolerates.
 
 ### Capacity and Allocatable {#capacity}
 
