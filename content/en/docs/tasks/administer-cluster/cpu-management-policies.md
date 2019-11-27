@@ -85,7 +85,10 @@ state file `cpu_manager_state` in the kubelet root directory.
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
 node. The amount of exclusively allocatable CPUs is equal to the total
 number of CPUs in the node minus any CPU reservations by the kubelet `--kube-reserved` or
-`--system-reserved` options. CPUs reserved by these options are taken, in
+`--system-reserved` options. From 1.17, the CPU reservation list can be specified
+explictly by kubelet `--reserved-cpus` option. The explicit CPU list specified by
+`--reserved-cpus` takes precedence over the CPU reservation specified by
+`--kube-reserved` and `--system-reserved`. CPUs reserved by these options are taken, in
 integer quantity, from the initial shared pool in ascending order by physical
 core ID.  This shared pool is the set of CPUs on which any containers in
 `BestEffort` and `Burstable` pods run. Containers in `Guaranteed` pods with fractional
@@ -95,8 +98,8 @@ exclusive CPUs.
 
 {{< note >}}
 The kubelet requires a CPU reservation greater than zero be made
-using either `--kube-reserved` and/or `--system-reserved` when the static
-policy is enabled. This is because zero CPU reservation would allow the shared
+using either `--kube-reserved` and/or `--system-reserved` or `--reserved-cpus` when
+the static policy is enabled. This is because zero CPU reservation would allow the shared
 pool to become empty.
 {{< /note >}}
 
