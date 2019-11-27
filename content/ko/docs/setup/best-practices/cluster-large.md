@@ -40,7 +40,7 @@ weight: 20
     * 포워딩 규칙
     * 라우트
     * 대상 풀
-* 일부 클라우드 프로바이더는 VM 생성 속도에 제한이 있어, 셋업 스크립트 수행간 새로운 노드 VM을 생성하는 사이사이에 대기시간이 추가되는 작은 배치가 걸릴 수 있다.
+* 일부 클라우드 프로바이더는 VM 생성 속도에 상한이 있어, 셋업 스크립트 수행간 새로운 노드 VM을 생성하는 사이사이에 대기시간이 추가되는 작은 배치가 걸릴 수 있다.
 
 ### etcd 저장소
 
@@ -94,15 +94,15 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
         memory: 200Mi
 ```
 
-힙스터를 제외하고, 이러한 제한들은 정적이며 4-노드 클러스터에서 구동한 애드온으루부터 수집한 데이터에 기반한 것이다.
-([#10335](http://issue.k8s.io/10335#issuecomment-117861225) 참고). 애드온이 큰 클러스터에서 구동되면 더 많은 리소스를 소비한다([#5880](http://issue.k8s.io/5880#issuecomment-113984085) 참고). 따라서, 이러한 값의 조정 없이 큰 클러스터를 배포하면, 애드온들이 제한에 걸려 반복적으로 죽을 수 있다. 많은 노드를 가진 클러스터를 생성할 때는 애드온 리소스 이슈를 피하기 위해 다음을 고려하라:
-* 다음 애드온을 사용한다면 클러스터의 크기를 확장할 때 그에 맞게 메모리와 CPU 제한을 규모를 조정하라 ( 전체 클러스터를 담당하는 각 레플리카는, 메모리와 CPU 사용량이 대체로 클러스터의 크기/부하에 따라 비율적으로 증가할 것이다):
+힙스터를 제외하고, 이러한 상한들은 정적이며 4-노드 클러스터에서 구동한 애드온으루부터 수집한 데이터에 기반한 것이다.
+([#10335](http://issue.k8s.io/10335#issuecomment-117861225) 참고). 애드온이 큰 클러스터에서 구동되면 더 많은 리소스를 소비한다([#5880](http://issue.k8s.io/5880#issuecomment-113984085) 참고). 따라서, 이러한 값의 조정 없이 큰 클러스터를 배포하면, 애드온들이 상한에 걸려 반복적으로 죽을 수 있다. 많은 노드를 가진 클러스터를 생성할 때는 애드온 리소스 이슈를 피하기 위해 다음을 고려하라:
+* 다음 애드온을 사용한다면 클러스터의 크기를 확장할 때 그에 맞게 메모리와 CPU 상한을 규모를 조정하라 ( 전체 클러스터를 담당하는 각 레플리카는, 메모리와 CPU 사용량이 대체로 클러스터의 크기/부하에 따라 비율적으로 증가할 것이다):
   * [InfluxDB와 Grafana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
   * [kubedns, dnsmasq, 사이드카](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
   * [Kibana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
-* 다음 애드온들을 쓴다면 클러스터 크기에 따라 레플리카 수를 조절해준다(각각 레플리카가 여러 개 두면 늘어나는 부하를 처리하는 데 도움이 되지만, 레플리카 당 부하도 약간 늘어나게 되므로 CPU/메모리 제한을 높이는 것을 고려해보자):
+* 다음 애드온들을 쓴다면 클러스터 크기에 따라 레플리카 수를 조절해준다(각각 레플리카가 여러 개 두면 늘어나는 부하를 처리하는 데 도움이 되지만, 레플리카 당 부하도 약간 늘어나게 되므로 CPU/메모리 상한을 높이는 것을 고려해보자):
   * [elasticsearch](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
-* 다음의 애드온들을 쓴다면 클러스터 크기에 따라 각각 메모리와 CPU 제한을 조금 더 높이자(노드 당 레플리카 1개만 있어도 클러스터 부하량/크기에 따라 CPU/메모리 사용율은 조금씩 증가한다):
+* 다음의 애드온들을 쓴다면 클러스터 크기에 따라 각각 메모리와 CPU 상한을 조금 더 높이자(노드 당 레플리카 1개만 있어도 클러스터 부하량/크기에 따라 CPU/메모리 사용율은 조금씩 증가한다):
   * [ElasticSearch 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
   * [GCP 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
