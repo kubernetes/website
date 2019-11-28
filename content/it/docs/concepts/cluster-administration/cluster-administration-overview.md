@@ -20,9 +20,9 @@ Prima di scegliere una guida, ecco alcune considerazioni:
  - **Se si sta progettando per l'alta disponibilità**, impara a configurare [cluster in più zone](/docs/concepts/cluster-administration/federation/).
  - Utilizzerai **un cluster di Kubernetes ospitato**, come [Motore di Google Kubernetes](https://cloud.google.com/kubernetes-engine/) o **che ospita il tuo cluster**?
  - Il tuo cluster sarà **on-premises** o **nel cloud (IaaS)**? Kubernetes non supporta direttamente i cluster ibridi. Invece, puoi impostare più cluster.
- - **Se stai configurando Kubernetes on-premises**, considera quale [modello di rete](/docs/concepts/cluster-administration/networking/) si adatti meglio. 
+ - **Se stai configurando Kubernetes on-premises**, considera quale [modello di rete](/docs/concepts/cluster-administration/networking/) si adatti meglio.
  - Eseguirai Kubernetes su **hardware "bare metal"** o su **macchine virtuali (VM)**?
- - Vuoi **solo eseguire un cluster**, oppure ti aspetti di fare **lo sviluppo attivo del codice del progetto di Kubernetes**? 
+ - Vuoi **solo eseguire un cluster**, oppure ti aspetti di fare **lo sviluppo attivo del codice del progetto di Kubernetes**?
    In quest'ultimo caso, scegli una distribuzione sviluppata attivamente. Alcune distribuzioni utilizzano solo versioni binarie, ma offrono una maggiore varietà di scelte
  - Familiarizzare con i [componenti](/docs/admin/cluster-components/) necessari per eseguire un cluster.
 
