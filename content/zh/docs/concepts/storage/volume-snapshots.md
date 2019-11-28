@@ -248,7 +248,7 @@ as the VolumeSnapshot, can be bound to the VolumeSnapshot.
 You can provision a new volume, pre-populated with data from a snapshot, by using
 the *dataSource* field in the `PersistentVolumeClaim` object.
 -->
-你可以供应一个新卷，该卷预填充了快照中的数据，在 `持久卷声明` 对象中使用 *数据源* 字段。
+你可以供应一个新卷，该卷预填充了快照中的数据，在 `持久卷声明` 对象中使用 *dataSource* 字段。
 
 <!--
 For more details, see
