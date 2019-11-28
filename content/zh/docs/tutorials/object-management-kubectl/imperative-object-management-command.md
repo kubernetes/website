@@ -66,7 +66,7 @@ kubectl create service nodeport -h
 - `patch`: 通过使用补丁字符串直接修改活动对象的特定字段。
 
 有关补丁字符串的更多详细信息，请参阅补丁部分
-[API 公约](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#patch-operations)。
+[API 公约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#patch-operations)。
 
 ## 如何删除对象
 

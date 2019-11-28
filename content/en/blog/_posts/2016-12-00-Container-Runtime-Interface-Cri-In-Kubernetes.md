@@ -90,7 +90,7 @@ Another potential issue with the kubelet implementation today is that kubelet ha
 
 
 
-There are many other aspects of CRI that are not covered in this blog post. Please see the list of [design docs and proposals](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md#design-docs-and-proposals) for all the details.
+There are many other aspects of CRI that are not covered in this blog post. Please see the list of [design docs and proposals](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md#design-docs-and-proposals) for all the details.
 
 
 
@@ -112,7 +112,7 @@ If you are interested in trying these alternative runtimes, you can follow the i
 
 
 
-For developers interested in integrating a new container runtime, please see the [developer guide](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md) for the known limitations and issues of the API. We are actively incorporating feedback from early developers to improve the API. Developers should expect occasional API breaking changes (it is Alpha, after all).
+For developers interested in integrating a new container runtime, please see the [developer guide](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) for the known limitations and issues of the API. We are actively incorporating feedback from early developers to improve the API. Developers should expect occasional API breaking changes (it is Alpha, after all).
 
 
 
@@ -124,7 +124,7 @@ Kubelet does not yet use CRI by default, but we are actively working on making t
 
 
 
-Besides a few [missing features](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md#docker-cri-integration-known-issues), the new integration has consistently passed the main end-to-end tests. We plan to expand the test coverage soon and would like to encourage the community to report any issues to help with the transition.
+Besides a few [missing features](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md#docker-cri-integration-known-issues), the new integration has consistently passed the main end-to-end tests. We plan to expand the test coverage soon and would like to encourage the community to report any issues to help with the transition.
 
 
 
