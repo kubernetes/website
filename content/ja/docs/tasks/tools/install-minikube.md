@@ -71,7 +71,7 @@ kubectlがインストールされていることを確認してください。
 
 ハイパーバイザーがまだインストールされていない場合は、これらのいずれかをインストールしてください:
 
-• QEMUも使用する[KVM](https://www.linux-kvm.org/)
+• [KVM](https://www.linux-kvm.org/)、ただしQEMUも使っているもの
 
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
