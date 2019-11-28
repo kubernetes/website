@@ -1,13 +1,17 @@
-title: IPv4/IPv6 双栈
+---
+reviewers:
+- lachie83
+- khenidak
+- aramase
+title: IPv4/IPv6 双协议栈
 feature:
-  title: IPv4/IPv6 dual-stack
+  title: IPv4/IPv6 双协议栈
   description: >
     Allocation of IPv4 and IPv6 addresses to Pods and Services
 
 content_template: templates/concept
 weight: 70
 ---
-
 <!--
 ---
 reviewers:
@@ -32,12 +36,12 @@ weight: 70
 <!--
  IPv4/IPv6 dual-stack enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
 -->
-IPv4/IPv6 双栈能够将 IPv4 和 IPv6 地址分配给 {{< glossary_tooltip text="Pods" term_id="pod" >}} 和 {{< glossary_tooltip text="Services" term_id="service" >}}。
+IPv4/IPv6 双协议栈能够将 IPv4 和 IPv6 地址分配给 {{< glossary_tooltip text="Pods" term_id="pod" >}} 和 {{< glossary_tooltip text="Services" term_id="service" >}}。
 
 <!--
 If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 -->
-如果你为 Kubernetes 集群启用了 IPv4/IPv6 双栈网络，则该集群将支持同时分配 IPv4 和 IPv6 地址。
+如果你为 Kubernetes 集群启用了 IPv4/IPv6 双协议栈网络，则该集群将支持同时分配 IPv4 和 IPv6 地址。
 
 {{% /capture %}}
 
@@ -51,7 +55,7 @@ If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the c
 <!--
 Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 -->
-在 Kubernetes 集群上启用 IPv4/IPv6 双栈可提供下面的功能：
+在 Kubernetes 集群上启用 IPv4/IPv6 双协议栈可提供下面的功能：
 
 <!--
    * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
@@ -59,7 +63,7 @@ Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following 
    * Kubenet multi address family support (IPv4 and IPv6)
    * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 -->
-   * 双栈 pod 网络 (每个 pod 分配一个 IPv4 和 IPv6 地址)
+   * 双协议栈 pod 网络 (每个 pod 分配一个 IPv4 和 IPv6 地址)
    * IPv4 和 IPv6 启用的服务 (每个服务必须是一个单独的地址族)
    * Kubenet 多地址族支持（IPv4 和 IPv6）
    * Pod 的集群外出口通过 IPv4 和 IPv6 路由
@@ -81,19 +85,19 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
    * Kube-proxy running in mode IPVS
 -->
    * Kubernetes 1.16 版本及更高版本
-   * 提供商支持双栈网络（云提供商或其他提供商必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口）
+   * 提供商支持双协议栈网络（云提供商或其他提供商必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口）
    * Kubenet 网络插件
    * Kube-proxy 运行在 IPVS 模式
 
 <!--
 ## Enable IPv4/IPv6 dual-stack
 -->
-## 启用 IPv4/IPv6 双栈
+## 启用 IPv4/IPv6 双协议栈
 
 <!--
 To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 -->
-要启用 IPv4/IPv6 双栈，为集群的相关组件启用 `IPv6DualStack` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)，并且设置双栈的集群网络分配：
+要启用 IPv4/IPv6 双协议栈，为集群的相关组件启用 `IPv6DualStack` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)，并且设置双协议栈的集群网络分配：
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
@@ -122,7 +126,7 @@ If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on 
 If your cluster has IPv4/IPv6 dual-stack networking enabled, you can create {{< glossary_tooltip text="Services" term_id="service" >}} with either an IPv4 or an IPv6 address. You can choose the address family for the Service's cluster IP by setting a field, `.spec.ipFamily`, on that Service.
 You can only set this field when creating a new Service. Setting the `.spec.ipFamily` field is optional and should only be used if you plan to enable IPv4 and IPv6 {{< glossary_tooltip text="Services" term_id="service" >}} and {{< glossary_tooltip text="Ingresses" term_id="ingress" >}} on your cluster. The configuration of this field not a requirement for [egress](#egress-traffic) traffic.
 -->
-如果你的集群启用了 IPv4/IPv6 双栈网络，则可以使用 IPv4 或 IPv6 地址来创建 {{< glossary_tooltip text="Services" term_id="service" >}}。你可以通过设置服务的 `.spec.ipFamily` 字段来选择服务的集群 IP 的地址族。你只能在创建新服务时设置该字段。`.spec.ipFamily` 字段的设置是可选的，并且仅当你计划在集群上启用 IPv4 and IPv6 的 {{< glossary_tooltip text="Services" term_id="service" >}} 和 {{< glossary_tooltip text="Ingresses" term_id="ingress" >}}。对于[出口](#出口流量)流量，该字段的配置不是必须的。
+如果你的集群启用了 IPv4/IPv6 双协议栈网络，则可以使用 IPv4 或 IPv6 地址来创建 {{< glossary_tooltip text="Services" term_id="service" >}}。你可以通过设置服务的 `.spec.ipFamily` 字段来选择服务的集群 IP 的地址族。你只能在创建新服务时设置该字段。`.spec.ipFamily` 字段的设置是可选的，并且仅当你计划在集群上启用 IPv4 和 IPv6 的 {{< glossary_tooltip text="Services" term_id="service" >}} 和 {{< glossary_tooltip text="Ingresses" term_id="ingress" >}}。对于[出口](#出口流量)流量，该字段的配置不是必须的。
 
 {{< note >}}
 <!--
@@ -155,19 +159,12 @@ The following Service specification includes the `ipFamily` field. Kubernetes wi
 -->
 以下服务规约不包含 `ipFamily` 字段。Kubernetes 将从已配置的 `service-cluster-ip-range` 范围内分配一个 IPv6 地址（也称作“集群 IP”）给该服务。
 
-{{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
-
-<!--
-The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
--->
-下面的服务规约包含 `ipFamily` 字段。该服务将为 Kubernetes 分配一个已配置的 `service-cluster-ip-range` 范围内的 IPv6 地址（也称为“集群 IP”）。
-
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
 <!--
 For comparison, the following Service specification will be assigned an IPV4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 -->
-为了进行比较，将从已配置的 `service-cluster-ip-range` 中为该服务规范分配一个 IPV4 地址（也称为“集群 IP”）。
+为了进行比较，将从已配置的 `service-cluster-ip-range` 向该服务分配以下 IPV4 地址（也称为“集群 IP”）。
 
 {{< codenew file="service/networking/dual-stack-ipv4-svc.yaml" >}}
 
@@ -212,7 +209,7 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 <!--
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 -->
-* [验证 IPv4/IPv6 双栈](/docs/tasks/network/validate-dual-stack)网络
+* [验证 IPv4/IPv6 双协议栈](/docs/tasks/network/validate-dual-stack)网络
 
 {{% /capture %}}
 
