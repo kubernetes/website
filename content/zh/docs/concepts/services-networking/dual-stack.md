@@ -93,7 +93,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 <!--
 To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 -->
-要启用 IPv4/IPv6 双栈，为集群的相关组件启用 `IPv6DualStack` [功能门](/docs/reference/command-line-tools-reference/feature-gates/)，并且设置双栈的集群网络分配：
+要启用 IPv4/IPv6 双栈，为集群的相关组件启用 `IPv6DualStack` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)，并且设置双栈的集群网络分配：
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
