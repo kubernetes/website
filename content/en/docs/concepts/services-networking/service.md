@@ -879,38 +879,40 @@ in those modified security groups.
 
 {{< /note >}}
 
-#### Other CLB annotations on Tencent Kubernetes Engine
+#### Other CLB annotations on Tencent Kubernetes Engine (TKE)
 
-There are other annotations for managing Cloud Load Balancer on TKE as described below.
+There are other annotations for managing Cloud Load Balancers on TKE as shown below.
 
 ```yaml
     metadata:
       name: my-service
       annotations:
-        service.kubernetes.io/qcloud-loadbalancer-backends-label： key in (value1, value2)
         # Bind Loadbalancers with speicfied nodes
-        
+        service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
+
+        # ID of an existing load balancer
         service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-        # Create a Service for public/private network access with an existing load balancer
         
+        # Custom parameters for the load balancer (LB), does not support modification of LB type yet
         service.kubernetes.io/service.extensiveParameters: ""
-        # Create custom parameters for LB (does not support modification of LB type)
         
+        # Custom parameters for the LB listener 
         service.kubernetes.io/service.listenerParameters: ""
-        # Create custom parameters for LB listener 
         
-        service.kubernetes.io/loadbalance-type: xxxxx
-        # Specifies the type of CLB: Cloud Load Balancer（default） or Classic Cloud Load Balancer
+        # Specifies the type of CLB: Cloud Load Balancer（default）or Classic Cloud Load Balancer
         # Valid values: classic（Classic Cloud Load Balancer）,any other fields or not specified(Cloud Load Balancer)
-        
+        service.kubernetes.io/loadbalance-type: xxxxx
+
+        # Specifies the public network bandwidth billing method; 
+        # valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
         service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
-        # Specifies the public network bandwidth billing method; valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
-        
-        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
+
         # Specifies the bandwidth value (value range: [1,2000] Mbps).
-        
-        service.kubernetes.io/local-svc-only-bind-node-with-pod = true
-        # By setting it in Service annotation，loadbalancer will only register nodes with pod running on it, otherwise all nodes will be registered.
+        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
+
+        # When this annotation is set，the loadbalancers will only register nodes 
+        # with pod running on it, otherwise all nodes will be registered.
+        service.kubernetes.io/local-svc-only-bind-node-with-pod: true
 ```
 
 ### Type ExternalName {#externalname}
