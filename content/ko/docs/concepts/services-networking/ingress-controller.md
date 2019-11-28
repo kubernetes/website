@@ -58,4 +58,4 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 *  [인그레스](/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
 * [NGINX 컨트롤러로 Minikube에서 Ingress를 설정하기](/docs/tasks/access-application-cluster/ingress-minikube).
 
-{{% /capture %}}
+{{% /capture %}} 
