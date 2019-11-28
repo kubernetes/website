@@ -146,21 +146,21 @@ You can set `.spec.ipFamily` to either:
 <!--
 The following Service specification does not include the `ipFamily` field. Kubernetes will assign an IP address (also known as a "cluster IP") from the first configured `service-cluster-ip-range` to this Service.
 -->
-以下服务规格不包含 `ipFamily` 字段。Kubernetes 将从最初配置的 `service-cluster-ip-range` 范围内分配一个 IP 地址（也成为“集群 IP”）给该服务。
+以下服务规约不包含 `ipFamily` 字段。Kubernetes 将从最初配置的 `service-cluster-ip-range` 范围内分配一个 IP 地址（也称作“集群 IP”）给该服务。
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
 <!--
 The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 -->
-以下服务规格不包含 `ipFamily` 字段。Kubernetes 将从已配置的 `service-cluster-ip-range` 范围内分配一个 IPv6 地址（也成为“集群 IP”）给该服务。
+以下服务规约不包含 `ipFamily` 字段。Kubernetes 将从已配置的 `service-cluster-ip-range` 范围内分配一个 IPv6 地址（也称作“集群 IP”）给该服务。
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
 <!--
 The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 -->
-下面的服务规格包含`ipFamily`字段。该服务将为 Kubernetes 分配一个已配置的 `service-cluster-ip-range` 范围内的 IPv6 地址（也称为“集群 IP”）。
+下面的服务规约包含 `ipFamily` 字段。该服务将为 Kubernetes 分配一个已配置的 `service-cluster-ip-range` 范围内的 IPv6 地址（也称为“集群 IP”）。
 
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
@@ -179,7 +179,7 @@ For comparison, the following Service specification will be assigned an IPV4 add
 <!--
 On cloud providers which support IPv6 enabled external load balancers, setting the `type` field to `LoadBalancer` in additional to setting `ipFamily` field to `IPv6` provisions a cloud load balancer for your Service.
 -->
-在支持启用了 IPv6 的外部服务均衡器的云提供程序上，除了将 `ipFamily` 字段设置为 `IPv6`，将 `type` 字段设置为 `LoadBalancer`，为你的服务提供云负载均衡。
+在支持启用了 IPv6 的外部服务均衡器的云驱动上，除了将 `ipFamily` 字段设置为 `IPv6`，将 `type` 字段设置为 `LoadBalancer`，为你的服务提供云负载均衡。
 
 <!--
 ## Egress Traffic
@@ -189,7 +189,7 @@ On cloud providers which support IPv6 enabled external load balancers, setting t
 <!--
 The use of publicly routable and non-publicly routable IPv6 address blocks is acceptable provided the underlying {{< glossary_tooltip text="CNI" term_id="cni" >}} provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
 -->
-公共路由和非公共路由的 IPv6 地址块的使用是可以的。提供底层 {{< glossary_tooltip text="CNI" term_id="cni" >}} 的提供程序可以实现这种传输。如果你拥有使用非公共路由 IPv6 地址的 pod，并且希望该 pod 到达集群外目的（比如，公共网络），你必须为出口流量和任何响应消息设置 IP 伪装。[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 可以感知双栈，所以你可以在双栈集群中使用 ip-masq-agent 来进行 IP 伪装。
+公共路由和非公共路由的 IPv6 地址块的使用是可以的。提供底层 {{< glossary_tooltip text="CNI" term_id="cni" >}} 的提供程序可以实现这种传输。如果你拥有使用非公共路由 IPv6 地址的 Pod，并且希望该 Pod 到达集群外目的（比如，公共网络），你必须为出口流量和任何响应消息设置 IP 伪装。[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 可以感知双栈，所以你可以在双栈集群中使用 ip-masq-agent 来进行 IP 伪装。
 
 <!--
 ## Known Issues
@@ -203,7 +203,7 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 -->
    * IPv6 网络块分配使用默认的 IPv4 CIDR 块大小（/24）
    * Kubenet 强制 IPv4，IPv6 的 IPs 位置报告 (--cluster-cidr)
-   * 如果 `EndpointSlice` 功能门启用，则双栈网络不起作用。
+   * 如果 `EndpointSlice` 特性门控启用，则双栈网络不起作用。
 
 {{% /capture %}}
 
