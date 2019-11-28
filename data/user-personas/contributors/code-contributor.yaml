@@ -12,7 +12,7 @@ intermediate:
     url: "https://github.com/kubernetes/enhancements/blob/master/keps/0001-kubernetes-enhancement-proposal-process.md"
   - label: "Understand the API conventions"
     icon: fa-map-o
-    url: "https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md"
+    url: "https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md"
 advanced:
   - label: "Learn about the release process"
     icon: fa-code-fork
