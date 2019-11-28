@@ -86,7 +86,7 @@ networking, or other host-specific parameters. The following list provides a few
 - Depending on the CRI runtime your cluster uses, you may need to specify different flags to the kubelet.
   For instance, when using Docker, you need to specify flags such as `--network-plugin=cni`, but if you
   are using an external runtime, you need to specify `--container-runtime=remote` and specify the CRI
-  endpoint using the `--container-runtime-path-endpoint=<path>`.
+  endpoint using the `--container-runtime-endpoint=<path>`.
 
 You can specify these flags by configuring an individual kubelet's configuration in your service manager,
 such as systemd.
