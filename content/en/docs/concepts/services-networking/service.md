@@ -879,7 +879,7 @@ in those modified security groups.
 
 {{< /note >}}
 
-#### Other CLB annotations on TKE
+#### Other CLB annotations on Tencent Kubernetes Engine
 
 There are other annotations for managing Cloud Load Balancer on TKE as described below.
 
@@ -887,7 +887,7 @@ There are other annotations for managing Cloud Load Balancer on TKE as described
     metadata:
       name: my-service
       annotations:
-        service.kubernetes.io/qcloud-loadbalancer-backends-label： `key in (value1, value2)`
+        service.kubernetes.io/qcloud-loadbalancer-backends-label： key in (value1, value2)
         # Bind Loadbalancers with speicfied nodes
         
         service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
