@@ -20,9 +20,6 @@ cloud provider.
 本文介绍了如何管理运行在特定云驱动上的 Kubernetes 集群。
 {{% /capture %}}
 
-
-
-
 {{% capture body %}}
 <!--
 ### kubeadm
@@ -33,9 +30,6 @@ in-tree cloud provider can be configured using kubeadm as shown below:
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) 是创建 kubernetes 集群的一种流行选择。
 kubeadm 通过提供配置选项来指定云驱动的配置信息。例如，一个典型的适用于“树内”云驱动的 kubeadm 配置如下：
-
-
-
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -75,7 +69,7 @@ For all external cloud providers, please follow the instructions on the individu
 which are listed under their headings below, or one may view [the list of all repositories](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
 -->
 
-“树内”的云驱动通常需要在命令行中为 [kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kubelet](/docs/admin/kubelet/) 指定 “--cloud-provider” 和 “--cloud-config”。在 “--cloud-config” 中为每个供应商指定的文件的内容也同样需要写在下面。
+“树内”的云驱动通常需要在命令行中为 [kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kubelet](/docs/admin/kubelet/) 指定 `--cloud-provider` 和 `--cloud-config`。在 `--cloud-config` 中为每个供应商指定的文件的内容也同样需要写在下面。
 对于所有外部云驱动，请遵循独立云存储库的说明，或浏览[所有版本库清单](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
 
 <!--
@@ -88,7 +82,7 @@ If you wish to use the external cloud provider, its repository is [kubernetes/cl
 
 # AWS
 本节介绍在 Amazon Web Services 上运行 Kubernetes 时可以使用的所有配置。
-如果希望此外部云驱动，其代码库位于 [kubernetes/cloud-provider-aws](https://github.com/kubernetes/cloud-provider-aws#readme)
+如果希望使用此外部云驱动，其代码库位于 [kubernetes/cloud-provider-aws](https://github.com/kubernetes/cloud-provider-aws#readme)
 
 <!--
 ### Node Name
@@ -105,6 +99,7 @@ You can setup [external load balancers](/docs/tasks/access-application-cluster/c
 to use specific features in AWS by configuring the annotations as shown below.
 -->
 ### 负载均衡器
+
 用户可以通过配置注解（annotations）来设置 [外部负载均衡器](/docs/tasks/access-application-cluster/create-external-load-balancer/)，以在 AWS 中使用特定功能，如下所示：
 
 ```yaml
@@ -179,7 +174,7 @@ AWS 相关的注解信息取自 [aws.go](https://github.com/kubernetes/cloud-pro
 <!--
 If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-azure](https://github.com/kubernetes/cloud-provider-azure#readme)
 -->
-如果希望此外部云驱动，其代码库位于 [kubernetes/cloud-provider-azure](https://github.com/kubernetes/cloud-provider-azure#readme)
+如果希望使用此外部云驱动，其代码库位于 [kubernetes/cloud-provider-azure](https://github.com/kubernetes/cloud-provider-azure#readme)
 
 <!--
 ### Node Name
@@ -190,7 +185,7 @@ Note that the Kubernetes Node name must match the Azure VM name.
 
 ### 节点名称
 
-云驱动 Azure 使用节点的主机名（由 kubelet 决定，或者用 “--hostname-override” 覆盖）作为 Kubernetes 节点对象的名称。
+云驱动 Azure 使用节点的主机名（由 kubelet 决定，或者用 `--hostname-override` 覆盖）作为 Kubernetes 节点对象的名称。
 注意 Kubernetes 节点名必须与 Azure 虚拟机的名称匹配。
 
 ## CloudStack
@@ -199,7 +194,7 @@ Note that the Kubernetes Node name must match the Azure VM name.
 If you wish to use the external cloud provider, its repository is [apache/cloudstack-kubernetes-provider](https://github.com/apache/cloudstack-kubernetes-provider)
 -->
 
-如果希望此外部云驱动，其代码库位于 [apache/cloudstack-kubernetes-provider](https://github.com/apache/cloudstack-kubernetes-provider)
+如果希望使用此外部云驱动，其代码库位于 [apache/cloudstack-kubernetes-provider](https://github.com/apache/cloudstack-kubernetes-provider)。
 
 <!--
 ### Node Name
@@ -210,7 +205,7 @@ Note that the Kubernetes Node name must match the CloudStack VM name.
 
 ### 节点名称
 
-云驱动 CloudStack 使用节点的主机名（由 kubelet 决定，或者用 “--hostname-override” 覆盖）作为 Kubernetes 节点对象的名称。
+云驱动 CloudStack 使用节点的主机名（由 kubelet 决定，或者用 `--hostname-override` 覆盖）作为 Kubernetes 节点对象的名称。
 注意 Kubernetes 节点名必须与 CloudStack 虚拟机名匹配。
 
 ## GCE
@@ -218,7 +213,7 @@ Note that the Kubernetes Node name must match the CloudStack VM name.
 If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
 -->
 
-如果希望此外部云驱动，其代码库位于 [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
+如果希望使用此外部云驱动，其代码库位于 [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
 
 <!--
 ### Node Name
@@ -229,8 +224,8 @@ Note that the first segment of the Kubernetes Node name must match the GCE insta
 
 ### 节点名称
 
-GCE 云驱动使用节点的主机名（由 kubelet 确定，或者用 “--hostname-override” 覆盖）作为 Kubernetes 节点对象的名称。
-注意，Kubernetes 节点名的第一个字段必须匹配 GCE 实例名(例如，名为 “Kubernetes - Node-2.c.my-proj.internal” 的节点必须对应于一个名为 “Kubernetes-Node-2” 的实例)。
+GCE 云驱动使用节点的主机名（由 kubelet 确定，或者用 `--hostname-override` 覆盖）作为 Kubernetes 节点对象的名称。
+注意，Kubernetes 节点名的第一个字段必须匹配 GCE 实例名(例如，名为 `kubernetes-node-2.c.my-proj.internal` 的节点必须对应于一个名为 `kubernetes-node-2` 的实例)。
 
 ## OpenStack
 <!--
@@ -241,7 +236,7 @@ If you wish to use the external cloud provider, its repository is [kubernetes/cl
 -->
 
 本节介绍了使用 OpenStack 运行 Kubernetes 时所有可用的配置。
-如果希望此外部云驱动，其代码库位于 [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
+如果希望使用此外部云驱动，其代码库位于 [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
 
 <!--
 ### Node Name
@@ -275,7 +270,7 @@ the underlying cloud, where available:
 
 Kubernetes 的 OpenStack 云驱动实现支持从底层云使用这些 OpenStack 服务：
 
-| 服务                     | API 版本       | 必须     |
+| 服务                     | API 版本       | 必需     |
 |--------------------------|----------------|----------|
 | 块存储 (Cinder)          | V1†, V2, V3    | No       |
 | 计算    (Nova)           | V2             | No       |
@@ -286,19 +281,17 @@ Kubernetes 的 OpenStack 云驱动实现支持从底层云使用这些 OpenStack
 <!--
 † Block Storage V1 API support is deprecated, Block Storage V3 API support was
 added in Kubernetes 1.9.
-
 ‡ Identity V2 API support is deprecated and will be removed from the provider in
 a future release. As of the "Queens" release, OpenStack will no longer expose the
 Identity V2 API.
-
 § Load Balancing V1 API support was removed in Kubernetes 1.9.
 -->
 
-† Block Storage V1 版本的 API 被弃用，从 Kubernetes 1.9 版本开始加入了Block Storage V3 版本 API。
+† Block Storage V1 版本的 API 被弃用，从 Kubernetes 1.9 版本开始加入了 Block Storage V3 版本 API。
 
-‡ 身份认证 V2 API 支持已被弃用，将在未来的版本中从供应商中移除。从 “Queens” 版本开始，OpenStack 将不再支持身份认证 V2 版本的 API。
+‡ Identity V2 API 支持已被弃用，将在未来的版本中从供应商中移除。从 “Queens” 版本开始，OpenStack 将不再支持 Identity V2 版本的 API。
 
-§ Kubernetes 1.9 中取消了对 V1 版本负载均衡API的支持。
+§ Kubernetes 1.9 中取消了对 V1 版本 Load Balancing API 的支持。
 
 <!--
 Service discovery is achieved by listing the service catalog managed by
@@ -309,7 +302,9 @@ support for impacted features. Certain features are also enabled or disabled
 based on the list of extensions published by Neutron in the underlying cloud.
 -->
 
-服务发现是通过使用供应商配置中提供的 “auth-url” 所列出 OpenStack 身份认证 （Keystone）管理的服务目录来实现的。当除 Keystone 外的 OpenStack 服务不可用时，供应商将优雅地降低功能，并简单地放弃对受影响特性的支持。某些功能还可以根据 Neutron 在底层云中发布的扩展列表启用或禁用。
+服务发现是通过使用供应商配置中提供的 `auth-url` 所列出 OpenStack 身份认证（Keystone）管理的服务目录来实现的。
+当除 Keystone 外的 OpenStack 服务不可用时，供应商将优雅地降低功能，并简单地放弃对受影响特性的支持。
+某些功能还可以根据 Neutron 在底层云中发布的扩展列表启用或禁用。
 
 ### cloud.conf
 <!--
@@ -330,7 +325,7 @@ load balancer:
 -->
 #### 典型配置
 
-这是一个典型配置的例子，它涉及到最常设置的值。它将供应商指向 OpenStack 云的 Keystone 端点，提供如何使用它进行身份验证的细节，并配置负载均衡器:
+下面是一个典型配置的例子，它涉及到最常设置的值。它将供应商指向 OpenStack 云的 Keystone 端点，提供如何使用它进行身份验证的细节，并配置负载均衡器:
 
 ```yaml
 [Global]
@@ -352,7 +347,7 @@ file:
 
 ##### 全局配置
 
-这些配置选项属于 OpenStack 提供程序的全局配置，并且应该出现在 `cloud.conf` 文件中的 `[global]` 部分:
+这些配置选项属于 OpenStack 驱动的全局配置，并且应该出现在 `cloud.conf` 文件中的 `[global]` 部分:
 
 <!--
 * `auth-url` (Required): The URL of the keystone API used to authenticate. On
@@ -382,15 +377,15 @@ file:
 * `ca-file` (Optional): Used to specify the path to your custom CA file.
 -->
 
-* `auth-url` (必须): 用于认证的 keystone API 的 URL。在 OpenStack 控制面板中，这可以在“访问和安全（Access and Security）> API 访问（API Access）> 凭证（Credentials）”中找到。
-* `username` (必须): 指 keystone 中一个有效用户的用户名。
-* `password` (必须): 指 keystone 中一个有效用户的密码。
-* `tenant-id` (必须): 用于指定要创建资源的租户 ID。
+* `auth-url` (必需): 用于认证的 keystone API 的 URL。在 OpenStack 控制面板中，这可以在“访问和安全（Access and Security）> API 访问（API Access）> 凭证（Credentials）”中找到。
+* `username` (必需): 指 keystone 中一个有效用户的用户名。
+* `password` (必需): 指 keystone 中一个有效用户的密码。
+* `tenant-id` (必需): 用于指定要创建资源的租户 ID。
 * `tenant-name` (可选): 用于指定要在其中创建资源的租户的名称。
-* `trust-id` (可选): 用于指定用于授权的信任的标识符。信任表示用户（委托人）将角色委托给另一个用户(受托人)的授权，并可选的允许受托人模仿委托人。可用的信任可以在 Keystone API 的 “/v3/OS-TRUST/trusts” 端点下找到。
+* `trust-id` (可选): 用于指定用于授权的信任的标识符。信任表示用户（委托人）将角色委托给另一个用户(受托人)的授权，并可选的允许受托人模仿委托人。可用的信任可以在 Keystone API 的 `/v3/OS-TRUST/trusts` 端点下找到。
 * `domain-id` (可选): 用于指定用户所属域的 ID。
 * `domain-name` (可选): 用于指定用户所属域的名称。
-* `region` (可选): 用于指定在多区域 OpenStack 云上运行时使用的区域标识符。区域是 OpenStack 部署的一般划分。虽然区域没有严格的地理含义，但部署可以使用地理名称表示区域标识符，如 “us-east”。可用区域位于 Keystone API 的 “/v3/regions” 端点之下。
+* `region` (可选): 用于指定在多区域 OpenStack 云上运行时使用的区域标识符。区域是 OpenStack 部署的一般性划分。虽然区域没有严格的地理含义，但部署可以使用地理名称表示区域标识符，如 `us-east`。可用区域位于 Keystone API 的 `/v3/regions` 端点之下。
 * `ca-file` (可选): 用于指定自定义 CA 文件的路径。
 
 <!--
@@ -398,7 +393,7 @@ When using Keystone V3 - which changes tenant to project - the `tenant-id` value
 is automatically mapped to the project construct in the API.
 -->
 
-当使用 Keystone V3 时(它将tenant更改为project)，“tenant-id” 值会自动映射到 API 中的项目。
+当使用 Keystone V3 时(它将tenant更改为project)，`tenant-id` 值会自动映射到 API 中的项目。
 
 <!--
 #####  Load Balancer
@@ -409,7 +404,7 @@ file:
 
 ####  负载均衡器
 
-这些配置选项属于 OpenStack 提供程序的全局配置，并且应该出现在 `cloud.conf` 文件中的 `[LoadBalancer]` 部分:
+这些配置选项属于 OpenStack 驱动的全局配置，并且应该出现在 `cloud.conf` 文件中的 `[LoadBalancer]` 部分:
 
 <!--
 * `lb-version` (Optional): Used to override automatic version detection. Valid
@@ -452,24 +447,24 @@ file:
 * `node-security-group` (Optional): ID of the security group to manage.
 -->
 
-* `lb-version` (可选): 用于覆盖自动版本检测。有效值为“v1”或“v2”。如果没有提供值，则自动选择底层 OpenStack 云所支持的最高版本。
-* `use-octavia` (可选): 用于确定是否查找和使用 Octavia LBaaS V2 服务目录端点。有效值是“true”或“false”。
-如果指定了“true”，并且无法找到 Octaiva LBaaS V2 入口，则提供者将退回并尝试寻找一个 Neutron LBaaS V2 端点。默认值是“false”。
+* `lb-version` (可选): 用于覆盖自动版本检测。有效值为 `v1` 或 `v2`。如果没有提供值，则自动选择底层 OpenStack 云所支持的最高版本。
+* `use-octavia` (可选): 用于确定是否查找和使用 Octavia LBaaS V2 服务目录端点。有效值是 `true` 或 `false`。
+如果指定了“true”，并且无法找到 Octaiva LBaaS V2 入口，则提供者将退回并尝试寻找一个 Neutron LBaaS V2 端点。默认值是 `false`。
 * `subnet-id` (可选): 用于指定要在其上创建负载均衡器的子网的 ID。
 可以在 “Network > Networks” 上找到。
 单击相应的网络以获得其子网。
 * `floating-network-id` (可选): 如果指定，将为负载均衡器创建一个浮动 IP。
-* `lb-method` (可选): 用于指定将负载分配到负载均衡器池成员的算法。值可以是 'ROUND_ROBIN'、'LEAST_CONNECTIONS' 或 'SOURCE_IP'。如果没有指定，默认行为是 'ROUND_ROBIN'。
-* `lb-provider` (可选): 用于指定负载均衡器的提供程序。如果没有指定，将使用在 neutron 中配置的默认提供者服务。
-* `create-monitor` (可选): 指定是否为 Neutron 负载均衡器创建健康监视器。有效值是“true”和“false”。
-默认为“false”。当指定“true”时，还必须设置 “monitor-delay”、“monitor-timeout” 和 “monitor-max-retries”。
-* `monitor-delay` (可选): 向负载均衡器的成员发送探测器之间的时间间隔。
+* `lb-method` (可选): 用于指定将负载分配到负载均衡器池成员的算法。值可以是 `ROUND_ROBIN`、`LEAST_CONNECTIONS` 或 `SOURCE_IP`。如果没有指定，默认行为是 `ROUND_ROBIN`。
+* `lb-provider` (可选): 用于指定负载均衡器的提供程序。如果没有指定，将使用在 Neutron 中配置的默认提供者服务。
+* `create-monitor` (可选): 指定是否为 Neutron 负载均衡器创建健康监视器。有效值是 `true` 和 `false`。
+默认为 `false`。当指定 `true` 时，还必须设置 `monitor-delay`、`monitor-timeout` 和 `monitor-max-retries`。
+* `monitor-delay` (可选): 向负载均衡器的成员发送探测之间的时间间隔。
 确保您指定了一个有效的时间单位。
-有效时间单位为 “ns”、 “us” (或 “µs”)、 “ms”、 “s”、 “m”、 “h”。
-* `monitor-timeout` (可选): 在超时之前，监视器等待 ping 响应的最长时间。该值必须小于延迟值。确保您指定了一个有效的时间单位。有效时间单位为 “ns”、 “us” (或 “µs”)、 “ms”、 “s”、 “m”、 “h”。
+有效时间单位为 `ns`、`us` (或 `µs`)、`ms`、`s`、`m`、`h`。
+* `monitor-timeout` (可选): 在超时之前，监视器等待 ping 响应的最长时间。该值必须小于延迟值。确保您指定了一个有效的时间单位。有效时间单位为 `ns`、 `us` (或 `µs`)、`ms`、`s`、`m`、 `h`。
 * `monitor-max-retries` (可选): 在将负载均衡器成员的状态更改为非活动之前，允许 ping 失败的次数。
-必须是1到10之间的数字。
-* `manage-security-groups` (可选): 确定负载均衡器是否应自动管理安全组规则。有效值是 “true” 和 “false”。默认为 “false”。当指定 “true” 时，还必须提供 “node-security-group”。
+必须是 1 到 10 之间的数字。
+* `manage-security-groups` (可选): 确定负载均衡器是否应自动管理安全组规则。有效值是 `true` 和 `false`。默认为 `false`。当指定 `true` 时，还必须提供 `node-security-group`。
 * `node-security-group` (可选): 要管理的安全组的 ID。
 
 <!--
@@ -480,7 +475,7 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
 
 ##### 块存储
 
-这些配置选项属于 OpenStack 提供程序的全局配置，并且应该出现在 `cloud.conf` 文件中的 `[BlockStorage]` 部分：
+这些配置选项属于 OpenStack 驱动的全局配置，并且应该出现在 `cloud.conf` 文件中的 `[BlockStorage]` 部分：
 
 <!--
 * `bs-version` (可选): Used to override automatic version detection. Valid
@@ -503,12 +498,12 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
   attached to the node, default is 256 for cinder.
 -->
 
-* `bs-version` (可选): 指所使用的块存储 API 版本。其合法值为 `v1`、 `v2`、 `v3`和 `auto`。 `auto`为默认值，将使用底层 Openstack 所支持的块存储 API 的最新版本。
-* `trust-device-path` (可选): 在大多数情况下，块设备名称由 Cinder 提供（例如：“/dev/vda ”）不可信任。此布尔值切换此行为。将其设置为“true”将导致信任 Cinder 提供的块设备名称。默认值“false”会根据设备序列号和 “/dev/disk/by-id” 映射发现设备路径，推荐这种方法。
+* `bs-version` (可选): 指所使用的块存储 API 版本。其合法值为 `v1`、`v2`、`v3`和 `auto`。 `auto` 为默认值，将使用底层 Openstack 所支持的块存储 API 的最新版本。
+* `trust-device-path` (可选): 在大多数情况下，块设备名称由 Cinder 提供（例如：`/dev/vda`）不可信任。此布尔值切换此行为。将其设置为 `true` 将导致信任 Cinder 提供的块设备名称。默认值 `false` 会根据设备序列号和 `/dev/disk/by-id` 映射发现设备路径，推荐这种方法。
 * `ignore-volume-az` (可选): 用于在附加 Cinder 卷时影响可用区使用。
-当 Nova 和 Cinder 有不同的可用区域时，应该将其设置为“true”。
+当 Nova 和 Cinder 有不同的可用区域时，应该将其设置为 `true`。
 最常见的情况是，有许多 Nova 可用区，但只有一个 Cinder 可用区。
-默认值是“false”，以保持在早期版本中使用的行为，但是将来可能会更改。
+默认值是 `false`，以保持在早期版本中使用的行为，但是将来可能会更改。
 * `node-volume-attach-limit` (可选): 可连接到节点的最大卷数，对于 Cinder 默认为 256。
    
 <!--
@@ -525,10 +520,10 @@ possible to force the use of Cinder API version 2 by adding this to the cloud
 provider configuration:
 -->
 
-如果在 OpenStack 上部署 Kubernetes <= 1.8 的版本，同时使用路径而不是端口来区分端点（endpoints），那么可能需要显式设置 `bs-version` 参数。 基于路径的端点形如 `http://foo.bar/volume`，而基于端口的的端点形如
+如果在 OpenStack 上部署 Kubernetes <= 1.8 的版本，同时使用路径而不是端口来区分端点（Endpoints），那么可能需要显式设置 `bs-version` 参数。 基于路径的端点形如 `http://foo.bar/volume`，而基于端口的的端点形如
 `http://foo.bar:xxx`。
 
-在使用基于路径的端点，并且 Kubernetes 使用较旧的自动检索逻辑的环境中，尝试卷卸载（detachment）会返回 `BS API version autodetection failed.` 错误。为了解决这个问题，可以通过添加以下内容到云驱动配置中，来强制使用 Cinder API V2 版本。
+在使用基于路径的端点，并且 Kubernetes 使用较旧的自动检索逻辑的环境中，尝试卷卸载（Detachment）会返回 `BS API version autodetection failed.` 错误。为了解决这个问题，可以通过添加以下内容到云驱动配置中，来强制使用 Cinder API V2 版本。
 
 
 ```yaml
@@ -564,7 +559,7 @@ should appear in the `[Metadata]` section of the `cloud.conf` file:
 这些配置选项属于 OpenStack 提供程序的全局配置，并且应该出现在 `cloud.conf` 文件中的 `[Metadata]` 部分：
 
 * `search-order` (可选): 此配置键影响提供者检索与其运行的实例相关的元数据的方式。
-“configDrive，metadataService” 的默认值导致供应商首先从配置驱动器中检索与实例相关的元数据（如果可用的话），然后检索元数据服务。
+`configDrive，metadataService` 的默认值导致供应商首先从配置驱动器中检索与实例相关的元数据（如果可用的话），然后检索元数据服务。
 他们的替代值：
   * `configDrive` - 仅从配置驱动器检索实例元数据。
   * `metadataService` - 仅从元数据服务检索实例元数据。
@@ -593,7 +588,7 @@ Kubernetes network plugin and should appear in the `[Route]` section of the
 
 这些配置选项属于 OpenStack 驱动为 Kubernetes 网络插件 [kubenet] 提供的设置，并且应该出现在 `cloud.conf` 文件中的 `[Route]` 部分:
 
-* `router-id` (可选)：如果底层云的 Neutron 部署支持 “extraroutes” 扩展，则使用 “router-id” 指定要添加路由的路由器。选择的路由器必须跨越包含集群节点的私有网络（通常只有一个节点网络，这个值应该是节点网络的默认路由器）。在 OpenStack 上使用 [kubenet] 时需要这个值。
+* `router-id` (可选)：如果底层云的 Neutron 部署支持 `extraroutes` 扩展，则使用 `router-id` 指定要添加路由的路由器。选择的路由器必须跨越包含集群节点的私有网络（通常只有一个节点网络，这个值应该是节点网络的默认路由器）。在 OpenStack 上使用 [kubenet] 时需要这个值。
 
 [kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
@@ -623,8 +618,8 @@ Note that the Kubernetes Node name must match the Photon VM name (or if `overrid
 -->
 ### 节点名称
 
-Photon 云驱动使用节点的主机名(由 kubelet 决定，或者用 `--hostname-override` 覆盖)作为 Kubernetes 节点对象的名称。
-注意，Kubernetes 节点名必须与 Photon VM名匹配（或者，如果在 `--cloud-config` 中将 `overrideIP` 设置为 true，则 Kubernetes 节点名必须与 Photon VM IP 地址匹配）。
+Photon 云驱动使用节点的主机名（由 kubelet 决定，或者用 `--hostname-override` 覆盖）作为 Kubernetes 节点对象的名称。
+注意，Kubernetes 节点名必须与 Photon VM名匹配（或者，如果在 `--cloud-config` 中将 `overrideIP` 设置为 `true`，则 Kubernetes 节点名必须与 Photon VM IP 地址匹配）。
 
 ## VSphere
 
@@ -685,6 +680,7 @@ IBM Cloud Kubernetes Services 驱动利用 Kubernetes 原生的持久卷，使�
 The Baidu cloud provider uses the private IP address of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the Baidu VM private IP.
 -->
+
 ## 百度云容器引擎
 
 ### 节点名称
