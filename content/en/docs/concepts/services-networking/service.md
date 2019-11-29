@@ -899,8 +899,8 @@ There are other annotations for managing Cloud Load Balancers on TKE as shown be
         # Custom parameters for the LB listener 
         service.kubernetes.io/service.listenerParameters: ""
         
-        # Specifies the type of CLB: Cloud Load Balancer（default）or Classic Cloud Load Balancer
-        # Valid values: classic（Classic Cloud Load Balancer）,any other fields or not specified(Cloud Load Balancer)
+        # Specifies the type of Load balancer;
+        # valid values: classic(Classic Cloud Load Balancer)and application(Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
 
         # Specifies the public network bandwidth billing method; 
