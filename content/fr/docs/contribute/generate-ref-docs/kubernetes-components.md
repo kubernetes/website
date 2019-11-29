@@ -81,7 +81,7 @@ Vos commits sont sur la branche master, qui est utilisée pour le développement
 Si vous souhaitez que vos commits apparaissent dans la documentation d'une version Kubernetes déjà publiée, vous devez proposer que vos commits soit sélectionnée dans la branche de publication.
 
 Par exemple, supposons que la branche master est utilisée pour développer Kubernetes 1.10, et vous voulez transférer vos commits sur la branche release-1.9.
-Pour savoir comment faire cela, consultez [Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/cherry-picks.md).
+Pour savoir comment faire cela, consultez [Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md).
 
 Surveillez votre pull request cherry-pick jusqu'à ce qu'elle soit mergée dans la branche release.
 
