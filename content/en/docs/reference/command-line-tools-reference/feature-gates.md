@@ -435,6 +435,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
 - `TokenRequestProjection`: Enable the injection of service account tokens into
   a Pod through the [`projected` volume](/docs/concepts/storage/volumes/#projected).
+- `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource assignments for different components in Kubernetes. See [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
 - `TTLAfterFinished`: Allow a [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) to clean up resources after they finish execution.
 - `VolumePVCDataSource`: Enable support for specifying an existing PVC as a DataSource.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
