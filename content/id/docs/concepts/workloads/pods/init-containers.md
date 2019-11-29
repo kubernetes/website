@@ -228,7 +228,7 @@ Contoh ini sangat sederhana, tetapi dapat memberikan sedikit petunjuk bagi kamu 
 
 Saat dimulainya sebuah Pod, Init Container dijalankan secara berurutan, setelah jaringan dan _volume_ telah diinisialisasi. Setiap Init Container harus selesai dan keluar secara berhasil sebelum yang berikutnya dijalankan. Jika ada Init Container yang gagal dijalankan atau keluar secara gagal, dia akan diulang kembali sesuai dengan `restartPolicy` yang dimiliki Pod. Tetapi, jika `restartPolicy` Pod disetel dengan nilai `Always`, Init Container akan menggunakan strategi `RestartPolicy` `OnFailure`.
 
-Sebuah Pod tidak dapat masuk ke status `Ready` hingga semua Init Container berhasil selesai. _Port_ di sebuah Init Container tidak diagregasikan di dalam sebuah Service. Sebuah Pod yang sedang diinisalisasikan akan masuk ke dalam status `Pending`, tetapi akan memiliki kondisi `Initializing` yang disetel menjadi `true`.
+Sebuah Pod tidak dapat masuk ke status `Ready` hingga semua Init Container berhasil selesai. _Port_ di sebuah Init Container tidak diagregasikan di dalam sebuah Service. Sebuah Pod yang sedang diinisalisasikan akan masuk ke dalam status `Pending`, tetapi akan memiliki kondisi `Initialized` yang disetel menjadi `true`.
 
 Jika sebuah Pod diulang [kembali](#alasan-pod-diulang-kembali), semua Init Container harus dijalankan kembali.
 
