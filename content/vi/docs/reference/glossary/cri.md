@@ -11,8 +11,7 @@ tags:
   - fundamental
 ---
 
-Container runetime interface (CRI) là một API c
-The container runtime interface (CRI) phục vụ cho việc tích hợp container runtimes với kubelet trên các node.
+Container runetime interface (CRI) là một API phục vụ cho việc tích hợp container runtimes với kubelet trên các node.
 
 <!--more-->
 
