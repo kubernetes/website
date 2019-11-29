@@ -62,7 +62,7 @@ However, we were still using JSON as a format in which data was stored in etcd, 
 We made tens of optimizations throughout the Kubernetes codebase during the last three releases, including:  
 
 - optimizing the scheduler (which resulted in 5-10x higher scheduling throughput)
-- switching all controllers to a new recommended design using shared informers, which reduced resource consumption of controller-manager - for reference see [this document](https://github.com/kubernetes/community/blob/master/contributors/devel/controllers.md)
+- switching all controllers to a new recommended design using shared informers, which reduced resource consumption of controller-manager - for reference see [this document](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/controllers.md)
 - optimizing individual operations in the API server (conversions, deep-copies, patch)
 - reducing memory allocation in the API server (which significantly impacts the latency of API calls)
 We want to emphasize that the optimization work we have done during the last few releases, and indeed throughout the history of the project, is a joint effort by many different companies and individuals from the whole Kubernetes community.  

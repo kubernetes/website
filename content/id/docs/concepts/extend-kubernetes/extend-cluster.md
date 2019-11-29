@@ -63,7 +63,7 @@ terpisah, hal tersebut disebut _Webhook_. Layanan terpisah tersebut disebut sebu
 Di dalam model _Webhook_, Kubernetes membuat sebuah _network request_ kepada sebuah layanan terpisah.
 
 Di dalam model _Binary Plugin_, Kubernetes mengeksekusi sebuah program.
-_Binary Plugin_ digunakan oleh kubelet (misalnya [_Plugin Flex Volume_](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+_Binary Plugin_ digunakan oleh kubelet (misalnya [_Plugin Flex Volume_](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 dan oleh [_Plugin_ Jaringan](/docs/concepts/cluster-administration/network-plugins/)) dan oleh kubectl.
 
 Berikut ini adalah diagram yang menunjukkan bagaimana titik-titik perluasan berinteraksi dengan _control plane_ Kubernetes.
