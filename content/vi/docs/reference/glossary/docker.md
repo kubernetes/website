@@ -4,14 +4,14 @@ id: docker
 date: 2019-29-11
 full_link: https://docs.docker.com/engine/
 short_description: >
-  Docker (cụ thể hơn, Docker Engine) là một công nghệ phần mềm thực hiện việc ảo hóa tầng hệ điều hành được gọi là container.
+  Docker là một công nghệ phần mềm thực hiện việc ảo hóa tầng hệ điều hành được gọi là container.
 
 aka:
 tags:
   - fundamental
 ---
 
-Docker (cụ thể hơn, Docker Engine) là một công nghệ phần mềm thực hiện việc ảo hóa tầng hệ điều hành được gọi là container.
+Docker là một công nghệ phần mềm thực hiện việc ảo hóa tầng hệ điều hành được gọi là container.
 
 <!--more-->
 

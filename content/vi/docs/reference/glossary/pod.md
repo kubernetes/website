@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-Một Pod thường được set up để chạy với một container chính yếu. Nó đồng thời có thể chạy kèm với các sidecar containers giúp bổ trợ thêm một số tính năng như thu thập log. Các Pods thường được quản lý bởi {{< glossary_tooltip term_id="deployment" >}}.
+Một Pod thường được set up để chạy với một container chính yếu. Nó đồng thời có thể chạy kèm với các sidecar containers giúp bổ trợ thêm một số tính năng như thu thập log. Các Pods thường được quản lý bởi một {{< glossary_tooltip term_id="deployment" >}}.

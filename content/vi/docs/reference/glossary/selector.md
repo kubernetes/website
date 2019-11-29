@@ -15,4 +15,4 @@ Cho phép người dùng lọc ra một danh sách tài nguyên dựa trên labe
 
 <!--more-->
 
-Selectors được áp dụng khi truy vấn những danh sách tài nguyên để lọc dựa trên {{< glossary_tooltip text="labels" term_id="label" >}}. chúng được đánh.
+Selectors được áp dụng khi truy vấn những danh sách tài nguyên để lọc dựa trên {{< glossary_tooltip text="labels" term_id="label" >}} chúng được đánh.

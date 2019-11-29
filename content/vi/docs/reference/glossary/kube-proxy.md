@@ -18,4 +18,4 @@ tags:
 
 kube-proxy duy trình network rules trên các node. Những network rules này cho phép việc giao tiếp trên network giữa các pods với trong và ngoài cluster.
 
-Kube-proxy sử dụng lớp packet filtering của hệ điều hành nếu có sẵn để sử dụng.Nếu không thì kube-proxy sẽ tự điều hướng network traffic.
+Kube-proxy sử dụng lớp packet filtering của hệ điều hành nếu có sẵn để sử dụng. Nếu không thì kube-proxy sẽ tự điều hướng network traffic.

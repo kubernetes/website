@@ -16,4 +16,4 @@ Là một image nhẹ và di động có khả năng thực thi chứa ứng d�
 
 <!--more-->
 
-Containers tách rời các ứng dụng khỏi hạ tầng hệ thống máy host nhằm giúp cho việc triển khai dễ dàng hơn trên từng hệ thống cloud hay hệ điều hành khác nhau, và đơn giản hóa việc nhân rộng.
+Containers tách rời các ứng dụng khỏi hạ tầng máy chủ nhằm giúp cho việc triển khai dễ dàng hơn trên từng hệ thống cloud hay hệ điều hành khác nhau, và đơn giản hóa việc nhân rộng.
