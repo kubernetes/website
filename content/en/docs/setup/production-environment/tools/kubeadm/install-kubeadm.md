@@ -126,33 +126,30 @@ By default, Kubernetes uses the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
 to interface with your chosen container runtime.
 
-kubeadm automatically tries to detect the container runtime
-by scanning through a list of well known Unix domain sockets. The detectable
-runtimes and the socket paths that are tried are:
+If you don't specify a runtime, kubeadm automatically tries to detect an installed
+container runtime by scanning through a list of well known Unix domain sockets.
+The following table lists container runtimes and their associated socket paths:
 
-| Runtime    | Domain Socket                    |
-|------------|----------------------------------|
-| Docker     | /var/run/docker.sock             |
-| containerd | /run/containerd/containerd.sock  |
-| CRI-O      | /var/run/crio/crio.sock          |
+{{< table caption = "Container runtimes and their socket paths" >}}
+| Runtime    | Path to Unix domain socket        |
+|------------|-----------------------------------|
+| Docker     | `/var/run/docker.sock`            |
+| containerd | `/run/containerd/containerd.sock` |
+| CRI-O      | `/var/run/crio/crio.sock`         |
+{{< /table >}}
 
 <br />
-If both Docker and containerd are detected together, Docker takes precedence. This is
-needed, because Docker 18.09 ships with containerd and both are detectable.
-If any other two or more runtimes are detected, kubeadm will exit with an appropriate
-error message.
+If both Docker and containerd are detected, Docker takes precedence. This is
+needed because Docker 18.09 ships with containerd and both are detectable even if you only
+installed Docker.
+If any other two or more runtimes are detected, kubeadm exits with an error.
 
-If you select Docker as your container runtime, or use that by default, the kubelet
-integrates with Docker through Docker's built-in `dockershim` CRI implementation.
+The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
 
 {{% /tab %}}
 {{% tab name="other operating systems" %}}
-By default, kubeadm selects {{< glossary_tooltip term_id="docker" >}} as the container runtime.
-
-If you select Docker as your container runtime, or use that by default, the kubelet
-integrates with Docker through Docker's built-in `dockershim`
-{{< glossary_tooltip term_id="cri" text="CRI">}}
-implementation.
+By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
+The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
 {{% /tab %}}
 {{< /tabs >}}
 
