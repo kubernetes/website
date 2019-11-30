@@ -18,7 +18,7 @@ can develop their features independently from the core Kubernetes release cycles
 
 Before going into how to build your own cloud controller manager, some background on how it works under the hood is helpful. The cloud controller manager is code from `kube-controller-manager` utilizing Go interfaces to allow implementations from any cloud to be plugged in. Most of the scaffolding and generic controller implementations will be in core, but it will always exec out to the cloud interfaces it is provided, so long as the [cloud provider interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L42-L62) is satisfied.
 
-To dive a little deeper into implementation details, all cloud controller managers will import packages from Kubernetes core, the only difference being each project will register their own cloud providers by calling [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go#L56-L66) where a global variable of available cloud providers is updated.
+To dive a little deeper into implementation details, all cloud controller managers will import packages from Kubernetes core, the only difference being each project will register their own cloud providers by calling [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/6371aabbd7a7726f4b358444cca40def793950c2/plugins.go#L55-L63) where a global variable of available cloud providers is updated.
 
 {{% /capture %}}
 
