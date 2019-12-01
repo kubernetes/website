@@ -17,7 +17,7 @@ easy to deploy a service that reliably serves HTTP(S) traffic
 originating from web clients around the globe on a single, static IP
 address.   Low network latency, high fault tolerance and easy administration are
 ensured through intelligent request routing and automatic replica
-relocation (using [Federated ReplicaSets](/docs/tasks/administer-federation/replicaset/).
+relocation (using Federated ReplicaSets (deprecated).
 Clients are automatically routed, via the shortest network path, to
 the cluster closest to them with available capacity (despite the fact
 that all clients use exactly the same static IP address).  The load balancer
@@ -65,7 +65,7 @@ Kubernetes cluster but inside the same GCP region.
 {{% capture prerequisites %}}
 This document assumes that you have a running Kubernetes Cluster
 Federation installation. If not, then see the
-[federation admin guide](/docs/tasks/federation/set-up-cluster-federation-kubefed/) to learn how to
+federation admin guide to learn how to
 bring up a cluster federation (or have your cluster administrator do
 this for you). Other tutorials, for example
 [this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
@@ -88,7 +88,7 @@ For example ingress YAML configurations, see the [Ingress User Guide](/docs/conc
 The `--context=federation-cluster` flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, see the
-[federation admin guide](/docs/admin/federation/) or one of the
+federation admin guide or one of the
 [administration tutorials](https://github.com/kelseyhightower/kubernetes-cluster-federation)
 to find out how to do so.
 
@@ -252,7 +252,7 @@ Check that your:
 1. Client (typically `kubectl`) is correctly configured (including API endpoints and login credentials).
 2. Cluster Federation API server is running and network-reachable.
 
-See the [federation admin guide](/docs/admin/federation/) to learn
+See the federation admin guide to learn
 how to bring up a cluster federation correctly (or have your cluster administrator do this for you), and how to correctly configure your client.
 
 #### I can create a Federated Ingress/service/replicaset successfully against the cluster federation API, but no matching ingresses/services/replicasets are created in my underlying clusters.

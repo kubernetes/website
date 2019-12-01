@@ -70,8 +70,7 @@ cluster.
 
 Once a federated HPA is created, the federation control plane partitions and
 creates the HPA in all underlying Kubernetes clusters. As of Kubernetes V1.7,
-[cluster selectors](/docs/tasks/administer-federation/cluster/#clusterselector-annotation)
-can also be used to restrict any federated object, including the HPAs in a subset
+[cluster selectors](/docs/tasks/federation/administer-federation/cluster/#clusterselector-annotation) (deprecated) can also be used to restrict any federated object, including the HPAs in a subset
 of clusters.
 
 You can verify the creation by checking each of the underlying clusters. For example, with a context named `gce-asia-east1a`
