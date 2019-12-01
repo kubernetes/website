@@ -74,7 +74,7 @@ Patch your Deployment:
 kubectl patch deployment patch-demo --patch "$(cat patch-file.yaml)"
 {{< /tab >}}
 {{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment patch-demo --patch $(cat patch-file.yaml)
+kubectl patch deployment patch-demo --patch $(Get-Content patch-file.yaml -Raw)
 {{< /tab >}}}
 {{< /tabs >}}
 
