@@ -215,14 +215,14 @@ This operation may be sped up by migrating etcd data directory, as described [he
 
 ## 高可用集群复制 Master 的最佳实践
 
-* 尝试将 Master 副本放置在不同的区域。在某区域故障时，放置在区域内的所有主机都将失败。
-为了在区域故障中幸免，请同样将工作节点放置在多区域中（详情请见[multiple-zones](/docs/setup/best-practices/multiple-zones/)）。
+* 尝试将 Master 副本放置在不同的区域。在某区域故障时，放置在该区域内的所有主机都将失败。
+为了在区域故障中幸免，请同样将工作节点放置在多区域中（详情请见[多区域](/docs/setup/best-practices/multiple-zones/)）。
 
-* 不要使用具有两个 Master 副本的集群。在双副本集群上达成一致需要在更改持久状态时运行两个副本。因此，两个副本都是需要的，任何副本的失败都会将集群变成多数失败状态。因此，就高可用而言，双副本集群不如单个副本集群。
+* 不要使用具有两个 Master 副本的集群。在双副本集群上达成一致需要在更改持久状态时两个副本都处于运行状态。因此，两个副本都是需要的，任一副本的失败都会将集群带入多数失败状态。因此，就高可用而言，双副本集群不如单个副本集群。
 
 * 添加 Master 副本时，集群状态（etcd）会被复制到一个新实例。如果集群很大，可能需要很长时间才能复制它的状态。
-这个操作可以通过迁移 etcd 数据目录来加速, 详情参见 [这里](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration)
-（我们正在考虑在未来添加对 etcd 数据目录迁移的支持）。
+这个操作可以通过迁移 etcd 数据存储来加速, 详情参见 [这里](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration)
+（我们正在考虑在未来添加对迁移 etcd 数据存储的支持）。
 
 
 {{% /capture %}}
@@ -258,11 +258,11 @@ In addition, there will be a load balancer in front of API servers that will rou
 
 每个 Master 副本将以以下模式运行以下组件:
 
-* etcd 实例： 所有实例将会以一致性方式组建集群；
+* etcd 实例： 所有实例将会以共识方式组建集群；
 
 * API 服务器： 每个服务器将与本地 etcd 通信——集群中的所有 API 服务器都可用;
 
-* controllers， scheduler 和 cluster auto-scaler： 将使用租约机制 ——每个集群中只有一个实例是可用的；
+* 控制器、调度器和集群自动扩缩器：将使用租约机制 —— 每个集群中只有一个实例是可用的；
 
 * add-on manager：每个管理器将独立工作，试图保持插件同步。
 
@@ -298,7 +298,7 @@ Similarly, the external IP will be used by kubelets to communicate with master.
 
 ### Master 服务 & kubelets
 
-与试图在 Kubernetes 服务中保持 Kubernetes apiserver 的最新列表不同，该系统将所有流量指向外部 IP：
+Kubernetes 并不试图在其服务中保持 apiserver 的列表为最新，相反，它将将所有访问请求指向外部 IP：
 
 * 在拥有一个 Master 的集群中，IP 指向单一的 Master，
 
@@ -314,9 +314,9 @@ There are no certificates for the ephemeral public IP for replicas;
 to access a replica via its ephemeral public IP, you must skip TLS verification.
 -->
 
-### Master 认证
+### Master 证书
 
-Kubernetes为每个副本生成外部公共 IP 和本地 IP 的 Master TLS 证书。
+Kubernetes 为每个副本的外部公共 IP 和本地 IP 生成 Master TLS 证书。
 副本的临时公共 IP 没有证书；
 要通过其临时公共 IP 访问副本，必须跳过TLS验证。
 
@@ -327,10 +327,10 @@ To allow etcd clustering, ports needed to communicate between etcd instances wil
 To make such deployment secure, communication between etcd instances is authorized using SSL.
 -->
 
-### etcd集群
+### etcd 集群
 
-为了允许 etcd 组建集群，将打开 etcd 实例之间通信所需的端口（用于集群内部通信）。
-为了使这种部署安全，etcd 实例之间的通信使用 SSL 进行授权。
+为了允许 etcd 组建集群，需开放 etcd 实例之间通信所需的端口（用于集群内部通信）。
+为了使这种部署安全，etcd 实例之间的通信使用 SSL 进行鉴权。
 
 <!--
 ## Additional reading
