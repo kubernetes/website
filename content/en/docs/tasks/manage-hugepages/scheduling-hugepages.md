@@ -41,14 +41,14 @@ be requested as well.
 apiVersion: v1
 kind: Pod
 metadata:
-  generateName: hugepages-volume-
+  name: hugepages_pod
 spec:
   containers:
-  - image: fedora:latest
+  - name: example
+    image: fedora:latest
     command:
     - sleep
     - inf
-    name: example
     volumeMounts:
     - mountPath: /hugepages
       name: hugepage
@@ -57,7 +57,7 @@ spec:
         hugepages-2Mi: 100Mi
         memory: 100Mi
       requests:
-        memory: 100Mi      
+        memory: 100Mi
   volumes:
   - name: hugepage
     emptyDir:
