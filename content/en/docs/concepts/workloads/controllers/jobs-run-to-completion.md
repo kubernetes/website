@@ -42,7 +42,7 @@ You can run the example with this command:
 kubectl apply -f https://k8s.io/examples/controllers/job.yaml
 ```
 ```
-job "pi" created
+job.batch/pi created
 ```
 
 Check on the status of the Job with `kubectl`:
@@ -51,35 +51,39 @@ Check on the status of the Job with `kubectl`:
 kubectl describe jobs/pi
 ```
 ```
-Name:             pi
-Namespace:        default
-Selector:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
-Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
-                  job-name=pi
-Annotations:      <none>
-Parallelism:      1
-Completions:      1
-Start Time:       Tue, 07 Jun 2016 10:56:16 +0200
-Pods Statuses:    0 Running / 1 Succeeded / 0 Failed
-Pod Template:
-  Labels:       controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+Name:           pi
+Namespace:      default
+Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+Labels:         controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
                 job-name=pi
+Annotations:    kubectl.kubernetes.io/last-applied-configuration:
+                  {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":...
+Parallelism:    1
+Completions:    1
+Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
+Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
+Duration:       65s
+Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
+Pod Template:
+  Labels:  controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+           job-name=pi
   Containers:
    pi:
     Image:      perl
-    Port:
+    Port:       <none>
+    Host Port:  <none>
     Command:
       perl
       -Mbignum=bpi
       -wle
       print bpi(2000)
-    Environment:        <none>
-    Mounts:             <none>
-  Volumes:              <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
 Events:
-  FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
-  ---------    --------    -----    ----            -------------    --------    ------            -------
-  1m           1m          1        {job-controller }                Normal      SuccessfulCreate  Created pod: pi-dtn4q
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
 ```
 
 To view completed Pods of a Job, use `kubectl get pods`.
@@ -91,7 +95,7 @@ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].met
 echo $pods
 ```
 ```
-pi-aiw0a
+pi-5rwd7
 ```
 
 Here, the selector is the same as the selector for the Job.  The `--output=jsonpath` option specifies an expression
