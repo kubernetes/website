@@ -352,7 +352,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
 - `EphemeralContainers`: Enable the ability to add {{< glossary_tooltip text="ephemeral containers"
   term_id="ephemeral-container" >}} to running pods.
-- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Even Pods Spread](/docs/concepts/configuration/even-pods-spread).
+- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Pod Topology Spread Constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalCriticalPodAnnotation`: Enable annotating specific pods as *critical* so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
