@@ -393,6 +393,34 @@ There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
 Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
 {{% /tab %}}
 
+{{% tab name="Kube-OVN" %}}
+For more usage about Kube-OVN, please take a look at [Kube-OVN Documents](https://github.com/alauda/kube-ovn#documents)
+
+Note that Kube-OVN now only works on `amd64`.
+
+1. Label the node which will host the ovndb
+```shell
+kubectl label node <node-name> kube-ovn/role=master
+```
+
+2. Install Kube-OVN releated CRDs
+```shell
+kubectl apply -f https://raw.githubusercontent.com/alauda/kube-ovn/master/yamls/crd.yaml
+
+```
+
+3. Install native ovn and ovs components:
+```shell
+kubectl apply -f https://raw.githubusercontent.com/alauda/kube-ovn/v0.9.0/yamls/ovn.yaml
+```
+
+4 Install the Kube-OVN controller:
+```shell
+kubectl apply -f https://raw.githubusercontent.com/alauda/kube-ovn/v0.9.0/yamls/kube-ovn.yaml
+```
+
+{{% /tab %}}
+
 {{% tab name="Kube-router" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
