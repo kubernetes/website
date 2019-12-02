@@ -933,14 +933,14 @@ spec:
     - name: Spec
       type: string
       description: The cron spec defining the interval a CronJob is run
-      jsonPath: .spec.cronSpec
+      JSONPath: .spec.cronSpec
     - name: Replicas
       type: integer
       description: The number of jobs launched by the CronJob
-      jsonPath: .spec.replicas
+      JSONPath: .spec.replicas
     - name: Age
       type: date
-      jsonPath: .metadata.creationTimestamp
+      JSONPath: .metadata.creationTimestamp
 ```
       {{% /tab %}}
       {{% tab name="apiextensions.k8s.io/v1beta1" %}}
