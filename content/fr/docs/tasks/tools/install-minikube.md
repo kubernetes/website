@@ -96,6 +96,7 @@ sudo mv minikube /usr/local/bin
 
 {{< note >}}
 Ce document vous montre comment installer Minikube sur Linux en utilisant un binaire statique.
+Pour d'autres méthodes d'installation sous Linux, reportez-vous à la section [Minikube documentation](https://minikube.sigs.k8s.io/docs/start/linux/).
 {{< /note >}}
 
 Vous pouvez installer Minikube sur Linux en téléchargeant un binaire statique:
