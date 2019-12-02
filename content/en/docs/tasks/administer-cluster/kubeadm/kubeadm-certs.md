@@ -200,8 +200,6 @@ Certificates can be renewed with `kubeadm alpha certs renew --csr-only`.
 As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag.
 To use the new certificates, copy the signed certificate and private key into the PKI directory (by default `/etc/kubernetes/pki`)
 
-A CSR contains a certificate's name, domain(s), and IPs, but it does not specify usages.
-
 A CSR contains a certificate's name, domains, and IPs, but it does not specify usages.
 It is the responsibility of the CA to specify [the correct cert usages][cert-table] when issuing a certificate.
 

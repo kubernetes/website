@@ -168,7 +168,7 @@ sudo chmod +x ./kubectl-foo-bar-baz
 # "install" your plugin by moving it to a directory in your $PATH
 sudo mv ./kubectl-foo-bar-baz /usr/local/bin
 
-# chck that kubectl recognizes your plugin
+# check that kubectl recognizes your plugin
 kubectl plugin list
 ```
 
