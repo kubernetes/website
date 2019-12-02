@@ -104,7 +104,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 `kube-apiserver`を**1.(n+1)**にアップグレードしてください。
 
 {{< note >}}
-[非推奨API](/docs/reference/using-api/deprecation-policy/)および[APIの変更ガイドライン](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)のプロジェクトポリシーにおいては、シングルインスタンスの場合でも`kube-apiserver`のアップグレードの際にマイナーバージョンをスキップしてはなりません。
+[非推奨API](/docs/reference/using-api/deprecation-policy/)および[APIの変更ガイドライン](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)のプロジェクトポリシーにおいては、シングルインスタンスの場合でも`kube-apiserver`のアップグレードの際にマイナーバージョンをスキップしてはなりません。
 {{< /note >}}
 
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
