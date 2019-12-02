@@ -185,6 +185,6 @@ many clients, since a compromised client can potentially man-in-the middle anoth
 client relying on the signature to bootstrap TLS trust.
 {{< /warning >}}
 
-Consult the [kubeadm security model](/docs/reference/generated/kubeadm/#security-model)
+Consult the [kubeadm implementation details](/docs/reference/setup-tools/kubeadm/implementation-details/)
 section for more information.
 {{% /capture %}}
