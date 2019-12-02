@@ -36,7 +36,7 @@ weight: 20
 예를 들어
 [HTTP 프록시를 사용하여 쿠버네티스 API에 접근](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
 이라는 제목의 문서는 `http-proxy-access-api.md`라는 이름의 파일을 가진다.
-"쿠버네티스"가 이미 해당 주제ㅔ의 URL에 있기 때문에 파일 이름에 "쿠버네티스" 를 넣을 필요가 없다.
+"쿠버네티스"가 이미 해당 주제의 URL에 있기 때문에 파일 이름에 "쿠버네티스" 를 넣을 필요가 없다.
 예를 들면 다음과 같다.
 
        /docs/tasks/access-kubernetes-api/http-proxy-access-api/
