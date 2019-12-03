@@ -107,12 +107,10 @@ Using this CNI plugin allows Kubernetes pods to have the same IP address inside 
 Additionally, the CNI can be run alongside [Calico for network policy enforcement](https://docs.aws.amazon.com/eks/latest/userguide/calico.html). The AWS VPC CNI project is open source with [documentation on GitHub](https://github.com/aws/amazon-vpc-cni-k8s).
 
 ### Azure CNI for Kubernetes
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
 
-[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that brings the rich set of Azure Networking capabilities to Pods running in a Kubernetes cluster by utilizing the same SDN stack that powers Virtual Machines. It assigns VNet IP addresses to Pods and connects them directly to other Pods and VNet resources, providing performance that is at par with VMs. Pods can also connect seamlessly to peered VNets and to on-premises over Express Routes or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services such as storage and SQL that are protected by Service Endpoints or Private Link. VNet routing and security policies can be used for filtering Pods traffic and securing Kubernetes clusters.
-
-Azure CNI sets up networking for Pods by utilizing a pool of secondary Vnet IPs pre-configured on the Network Interface of a Kubernetes node. Pods that come up in a node are assigned IPs from the pool configured on the node and when the pod terminates its IP is returned back to the pool. 
-
-Azure CNI is available natively in the [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni) option in AKS clusters. 
+Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
+ 
 
 ### Big Cloud Fabric from Big Switch Networks
 
