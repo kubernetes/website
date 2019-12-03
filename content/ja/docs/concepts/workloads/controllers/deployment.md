@@ -3,7 +3,7 @@ title: Deployment
 feature:
   title: 自動化されたロールアウトとロールバック
   description: >
-    Kubernetesはアプリケーションまたはその設定への変更を段階的に行い、アプリケーションの状態を監視しながら、全てのインスタンスが同時停止しないようにします。更新に問題が起きたとき、Kubernetesは変更のロールバックを行います。進化を続けるDeploymnetのエコシステムを活用してください。
+    Kubernetesはアプリケーションや設定への変更を段階的に行い、アプリケーションの状態を監視しながら、全てのインスタンスが同時停止しないようにします。更新に問題が起きたとき、Kubernetesは変更のロールバックを行います。進化を続けるDeploymnetのエコシステムを活用してください。
 
 content_template: templates/concept
 weight: 30
@@ -11,7 +11,7 @@ weight: 30
 
 {{% capture overview %}}
 
-_Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデートの機能を提供します。  
+_Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
 
 ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deploymentコントローラーは指定された頻度で現在の状態を理想的な状態に変更させます。ユーザーはDeploymentを定義して、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
@@ -895,7 +895,7 @@ $ echo $?
 
 ## 古いリビジョンのクリーンアップポリシー {#clean-up-policy}
 
-Deploymentが管理する古いReplicaSetをいくつ保持するかを指定するために、`.spec.revisionHistoryLimit`フィールドを設定できます。この値を超えた古いReplicaSetはバックグラウンドでガーベージコレクションの対象となって削除されます。デフォルトではこの値は10となります。
+Deploymentが管理する古いReplicaSetをいくつ保持するかを指定するために、`.spec.revisionHistoryLimit`フィールドを設定できます。この値を超えた古いReplicaSetはバックグラウンドでガーベージコレクションの対象となって削除されます。デフォルトではこの値は10です。
 
 {{< note >}}
 このフィールドを明示的に0に設定すると、Deploymentの全ての履歴を削除します。従って、Deploymentはロールバックできません。
