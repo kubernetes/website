@@ -359,6 +359,22 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     Kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flannelD are already configured to run as native Windows Services via `KubeCluster.ps1`, offering resiliency by re-starting the services automatically in the event of failure (for example a process crash).
 
+1. Load balancers are plumbed inconsistently across the cluster nodes
+
+    On Windows, kube-proxy creates a HNS load balancer for every Kubernetes service in the cluster. In the (default) kube-proxy configuration, nodes in clusters containing many (usually 100+) load balancers may run out of available ephemeral TCP ports (a.k.a. dynamic port range, which by default covers ports 49152 through 65535). This is due to the high number of ports reserved on each node for every (non-DSR) load balancer. This issue may manifest itself through errors in kube-proxy such as:
+    ```
+    Policy creation failed: hcnCreateLoadBalancer failed in Win32: The specified port already exists.
+    ```
+
+    Users can identify this issue by running [CollectLogs.ps1](https://github.com/microsoft/SDN/blob/master/Kubernetes/windows/debug/collectlogs.ps1) script and consulting the `*portrange.txt` files.
+
+    The `CollectLogs.ps1` will also mimic HNS allocation logic to test port pool allocation availability in the ephemeral TCP port range, and report success/failure in `reservedports.txt`. The script reserves 10 ranges of 64 TCP ephemeral ports (to emulate HNS behavior), counts reservation successes & failures, then releases the allocated port ranges. A success number less than 10 indicates the ephemeral pool is running out of free space. A heuristical summary of how many 64-block port reservations are approximately available will also be generated in `reservedports.txt`.
+
+    To resolve this issue, a few steps can be taken:
+        1.	For a permanent solution, kube-proxy load balancing should be set to [DSR mode](https://techcommunity.microsoft.com/t5/Networking-Blog/Direct-Server-Return-DSR-in-a-nutshell/ba-p/693710). DSR mode is fully implemented and available on newer [Windows Server Insider build 18945](https://blogs.windows.com/windowsexperience/2019/07/30/announcing-windows-server-vnext-insider-preview-build-18945/#o1bs7T2DGPFpf7HM.97) (or higher) only.
+        1. As a workaround, users can also increase the default Windows configuration of ephemeral ports available using a command such as `netsh int ipv4 set dynamicportrange TCP <start_port> <port_count>`. *WARNING:* Overriding the default dynamic port range can have consequences on other processes/services on the host that rely on available TCP ports from the non-ephemeral range, so this range should be selected carefully.
+        1. There is a scalability enhancement to non-DSR mode load balancers using intelligent port pool sharing, which is scheduled to be released through a cumulative update in Q1 2020.
+
 1. My Windows Pods cannot ping external resources
 
     Windows Pods do not have outbound rules programmed for the ICMP protocol today. However, TCP/UDP is supported. When trying to demonstrate connectivity to resources outside of the cluster, please substitute `ping <IP>` with corresponding `curl <IP>` commands.
@@ -420,7 +436,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
     Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
     ```
 
-    Often it is worthwhile to modify the [InterfaceName](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/start.ps1#L6) parameter of the start.ps1 script, in cases where the host's network adapter isn't "Ethernet". Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
+    Often it is worthwhile to modify the [InterfaceName](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.16.0/Kubeclusterbridge.json#L20) field of the configuration template, in cases where the host's network adapter isn't "Ethernet". Otherwise, consult the output of the `KubeCluster.ps1` script to see if there are errors during virtual network creation.
 
 1. My Pods are stuck at "Container Creating" or restarting over and over
 
