@@ -6,7 +6,9 @@ weight: 20
 
 {{% capture overview %}}
 이 페이지는 쿠버네티스 문서에서 새로운 주제를 생성하는 방법을 보여준다.
+{{% /capture %}}
 
+{{% capture prerequisites %}}
 [기여 시작하기](/docs/contribute/start/)에 설명된 대로 쿠버네티스 문서 저장소의 포크(fork)를 생성하자.
 {{% /capture %}}
 
