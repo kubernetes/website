@@ -78,22 +78,24 @@ yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
+### Install using other package management
 
-### Install with snap
+If you are on Ubuntu or another Linux distribution that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application. 
 
-If you are on Ubuntu or another Linux distribution that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
 
-1. Switch to the snap user and run the installation command:
+{{< tabs name="other_kubectl_install" >}}
+{{< tab name="Snap" codelang="bash" >}}
+sudo snap install kubectl --classic
 
-    ```
-    sudo snap install kubectl --classic
-    ```
+kubectl version
+{{< /tab >}}
+{{< tab name="Homebrew" codelang="bash" >}}
+brew install kubectl
 
-2. Test to ensure the version you installed is up-to-date:
-
-    ```
-    kubectl version
-    ```
+kubectl version
+{{< /tab >}}
+{{< /tabs >}}
 
 ## Install kubectl on macOS
 
