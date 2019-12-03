@@ -16,7 +16,7 @@ _Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)�
 ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deploymentコントローラーは指定された頻度で現在の状態を理想的な状態に変更させます。ユーザーはDeploymentを定義して、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
 {{< note >}}
-Deploymentによって作成されたReplicaSetを管理しないでください。ユーザーのユースケースが下記の項目をカバーできていない場合はメインのKubernetesレポジトリーにイシューを作成することを検討してください。
+Deploymentによって作成されたReplicaSetを管理しないでください。ユーザーのユースケースが下記の項目をカバーできていない場合はメインのKubernetesリポジトリーにイシューを作成することを検討してください。
 {{< /note >}}
 
 {{% /capture %}}
@@ -26,25 +26,24 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 ## ユースケース
 
-下記の項目はDeploymentの典型的なユースケースとなります。
+下記の項目はDeploymentの典型的なユースケースです。
 
 * ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
-* DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment) : 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
-* Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする : 
-ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
+* DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
+* Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
 * PodTemplateSpecに対する複数の修正を適用するために[Deploymentを停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始する。
 * 今後必要としない[古いReplicaSetのクリーンアップ](#clean-up-policy)
 
 ## Deploymentの作成 {#creating-a-deployment}
 
-下記の内容はDeploymentの例となります。これは`nginx`Podのレプリカを3つ持つReplicaSetを作成します。
+下記の内容はDeploymentの例です。これは`nginx`Podのレプリカを3つ持つReplicaSetを作成します。
 
 {{< codenew file="controllers/nginx-deployment.yaml" >}}
 
 この例において、
 
-* `nginx-deployment`とう名前のDeploymentが作成され、`.metadata.name`フィールドで名前を指定します。
+* `nginx-deployment`という名前のDeploymentが作成され、`.metadata.name`フィールドで名前を指定します。
 * Deploymentは3つのレプリカPodを作成し、`replicas`フィールドによってレプリカ数を指定します。
 * `selector`フィールドは、Deploymentが管理するPodのラベルを定義します。このケースにおいて、ユーザーはPodテンプレートにて定義されたラベル(`app: nginx`)を選択します。しかし、PodTemplate自体がそのルールを満たす限り、さらに洗練された方法でセレクターを指定することができます。
     {{< note >}}
@@ -83,7 +82,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
       * `AVAILABLE` ユーザーが利用可能なレプリカ数
       * `AGE` アプリケーションが稼働してからの時間
 
-    上記のyamlの例だと、`.spec.replicas`フィールドの値によると、理想的なレプリカ数は3となります。
+    上記のyamlの例だと、`.spec.replicas`フィールドの値によると、理想的なレプリカ数は3です。
 
   3. Deploymentのロールアウトステータスを確認するために、`kubectl rollout status deployment.v1.apps/nginx-deployment`を実行してください。コマンドの実行結果は下記のとおりです。
     ```shell
@@ -116,7 +115,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
     作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
 
   {{< note >}}
-  Deploymentに対して適切なセレクターとPodテンプレートのラベルを設定する必要があります(このケースでは`app: nginx`)。 ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザがラベルを重複させることを止めず、もし複数のコントローラーでセレクターが重複していると、コントローラー間で衝突し予期せぬふるまいをすることになります。
+  Deploymentに対して適切なセレクターとPodテンプレートのラベルを設定する必要があります(このケースでは`app: nginx`)。ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザがラベルを重複させることを止めないため、複数のコントローラーでセレクターの重複が発生すると、コントローラー間で衝突し予期せぬふるまいをすることになります。
   {{< /note >}}
 
 ### pod-template-hashラベル
@@ -265,7 +264,7 @@ Deploymentを更新するには下記のステップに従ってください。
 
 ### ロールオーバー (リアルタイムでの複数のPodの更新)
 
-Deploymentコントローラーにより、新しいDeploymentが観測される度にReplicaSetが作成され、理想とするレプリカ数のPodを作成します。もしDeploymentが更新されると、既存のReplicaSetが管理するPodのラベルが`.spec.selector`にマッチするが、テンプレートが`.spec.template`にマッチしない場合はスケールダウンされます。最終的に、新しいReplicaSetは`.spec.replicas`の値にスケールアップされ、古いReplicaSetは0にスケールダウンされます。
+Deploymentコントローラーにより、新しいDeploymentが観測される度にReplicaSetが作成され、理想とするレプリカ数のPodを作成します。Deploymentが更新されると、既存のReplicaSetが管理するPodのラベルが`.spec.selector`にマッチするが、テンプレートが`.spec.template`にマッチしない場合はスケールダウンされます。最終的に、新しいReplicaSetは`.spec.replicas`の値にスケールアップされ、古いReplicaSetは0にスケールダウンされます。
 
 Deploymentのロールアウトが進行中にDeploymentを更新すると、Deploymentは更新する毎に新しいReplicaSetを作成してスケールアップさせ、以前にスケールアップしたReplicaSetのロールオーバーを行います。Deploymentは更新前のReplicaSetを古いReplicaSetのリストに追加し、スケールダウンを開始します。
 
@@ -280,7 +279,7 @@ Deploymentのロールアウトが進行中にDeploymentを更新すると、Dep
 {{< /note >}}
 
 * セレクターの追加は、Deployment Specのテンプレートラベルも新しいラベルで更新する必要があります。そうでない場合はバリデーションエラーが返されます。この変更は重複がない更新となります。これは新しいセレクターは古いセレクターを持つReplicaSetとPodを選択せず、結果として古い全てのReplicaSetがみなし子状態になり、新しいReplicaSetを作成することを意味します。
-* セレクターの更新により、セレクターキー内の既存の値が変更されます。これにより、セレクターの追加と同じふるまいとなります。
+* セレクターの更新により、セレクターキー内の既存の値が変更されます。これにより、セレクターの追加と同じふるまいをします。
 * セレクターの削除により、Deploymentのセレクターから存在している値を削除します。これはPodテンプレートのラベルに関する変更を要求しません。既存のReplicaSetはみなし子状態にならず、新しいReplicaSetは作成されませんが、削除されたラベルは既存のPodとReplicaSetでは残り続けます。
 
 ## Deploymentのロールバック {#rolling-back-a-deployment}
@@ -553,7 +552,7 @@ deployment.apps/nginx-deployment scaled
 
 Deploymentのローリングアップデートは、同時に複数のバージョンのアプリケーションの稼働をサポートします。ユーザーやオートスケーラーがロールアウト中(更新中もしくは一時停止中)のDeploymentのローリングアップデートを行うとき、Deploymentコントローラーはリスクを削減するために既存のアクティブなReplicaSetのレプリカのバランシングを行います。これを*比例スケーリング* と呼びます。
 
-例えば、10のレプリカを持つDeploymentを稼働させているとき、[maxSurge](#max-surge)=3、[maxUnavailable](#max-unavailable)=2となります。
+例えば、10のレプリカを持つDeploymentを稼働させているとき、[maxSurge](#max-surge)=3、[maxUnavailable](#max-unavailable)=2です。
 
 * Deployment内で10のレプリカが稼働していることを確認します。
   ```shell
@@ -589,7 +588,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     nginx-deployment-618515232    8         8         8         1m
     ```
 
-* 次にDeploymentのスケーリングをするための新しい要求が発生します。オートスケーラーはDeploymentのレプリカ数を15に増やします。Deploymentコントローラーは新しい5つのレプリカをどこに追加するか決める必要がでてきます。もし比例スケーリングを使用していない場合、5つのレプリカは全て新しいReplicaSetに追加されます。比例スケーリングでは、追加されるレプリカは全てのReplicaSetに分散されます。比例割合が大きいものはレプリカ数の大きいReplicaSetとなり、比例割合が低いときはレプリカ数の小さいReplicaSetとなります。残っているレプリカはもっとも大きいレプリカ数を持つReplicaSetに追加されます。レプリカ数が0のReplicaSetはスケールアップされません。
+* 次にDeploymentのスケーリングをするための新しい要求が発生します。オートスケーラーはDeploymentのレプリカ数を15に増やします。Deploymentコントローラーは新しい5つのレプリカをどこに追加するか決める必要がでてきます。比例スケーリングを使用していない場合、5つのレプリカは全て新しいReplicaSetに追加されます。比例スケーリングでは、追加されるレプリカは全てのReplicaSetに分散されます。比例割合が大きいものはレプリカ数の大きいReplicaSetとなり、比例割合が低いときはレプリカ数の小さいReplicaSetとなります。残っているレプリカはもっとも大きいレプリカ数を持つReplicaSetに追加されます。レプリカ数が0のReplicaSetはスケールアップされません。
 
 上記の例では、3つのレプリカが古いReplicaSetに追加され、2つのレプリカが新しいReplicaSetに追加されました。ロールアウトの処理では、新しいレプリカ数のPodが正常になったと仮定すると、最終的に新しいReplicaSetに全てのレプリカを移動させます。これを確認するためには下記のコマンドを実行して下さい。
 
@@ -920,7 +919,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 
-[`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)が`Always`に等しいときのみ許可されます。これはもしテンプレートで指定されていない場合のデフォルトとなります。
+[`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)が`Always`に等しいときのみ許可されます。これはテンプレートで指定されていない場合のデフォルト値です。
 
 ### レプリカ数
 
@@ -930,7 +929,7 @@ Podの必須フィールドに加えて、Deployment内のPodテンプレート�
 
 `.spec.selector`は必須フィールドで、Deploymentによって対象とされるPodの[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/)を指定します。
 
-`.spec.selector`は`.spec.template.metadata.labels`と一致しなくてはならず、もし一致しない場合はAPIによって拒否されます。
+`.spec.selector`は`.spec.template.metadata.labels`と一致している必要があり、一致しない場合はAPIによって拒否されます。
 
 `apps/v1`バージョンにおいて、`.spec.selector`と`.metadata.labels`が指定されていない場合、`.spec.template.metadata.labels`の値に初期化されません。そのため`.spec.selector`と`.metadata.labels`を明示的に指定する必要があります。また`apps/v1`のDeploymentにおいて`.spec.selector`は作成後に不変になります。
 
@@ -940,7 +939,7 @@ Deploymentのテンプレートが`.spec.template`と異なる場合や、`.spec
 ユーザーは、Deploymentのセレクターに一致するラベルを持つPodを、直接作成したり他のDeploymentやReplicaSetやReplicationControllerによって作成するべきではありません。作成した場合は最初のDeploymentが、ラベルに一致する新しいPodを作成したとみなしてしまいます。Kubernetesはユーザーがこれを行ってもエラーなどを出さず、処理を止めません。
 {{< /note >}}
 
-もしセレクターが重複している複数のコントローラーを持つとき、そのコントローラーは互いに競合状態となり、正しくふるまいません。
+セレクターが重複する複数のコントローラーを持つとき、そのコントローラーは互いに競合状態となり、正しくふるまいません。
 
 ### 更新戦略
 
