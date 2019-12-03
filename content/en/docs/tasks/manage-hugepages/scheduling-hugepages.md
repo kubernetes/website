@@ -41,7 +41,7 @@ be requested as well.
 apiVersion: v1
 kind: Pod
 metadata:
-  name: hugepages_pod
+  name: huge-pages-example
 spec:
   containers:
   - name: example
@@ -83,5 +83,4 @@ token.
 - LimitRange support.
 
 {{% /capture %}}
-
 
