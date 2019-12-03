@@ -351,98 +351,13 @@ None of the PodSecurityContext fields work on Windows. They're listed here for r
 
 Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section. Logs are an important element of troubleshooting issues in Kubernetes. Make sure to include them any time you seek troubleshooting assistance from other contributors. Follow the instructions in the SIG-Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
-1. How do I know start.ps1 completed successfully?
+1. How do I know KubeCluster.ps1 completed successfully?
 
-    You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node, with running logs being displayed in separate PowerShell windows. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
+    You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
 
 1. Can I configure the Kubernetes node processes to run in the background as services?
 
-    Kubelet and kube-proxy are already configured to run as native Windows Services, offering resiliency by re-starting the services automatically in the event of failure (for example a process crash). You have two options for configuring these node components as services.
-
-    1. As native Windows Services
-
-        Kubelet & kube-proxy can be run as native Windows Services using `sc.exe`.
-
-        ```powershell
-        # Create the services for kubelet and kube-proxy in two separate commands
-        sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
-
-        # Please note that if the arguments contain spaces, they must be escaped.
-        sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
-
-        # Start the services
-        Start-Service kubelet
-        Start-Service kube-proxy
-
-        # Stop the service
-        Stop-Service kubelet (-Force)
-        Stop-Service kube-proxy (-Force)
-
-        # Query the service status
-        Get-Service kubelet
-        Get-Service kube-proxy
-        ```
-
-    1. Using nssm.exe
-
-        You can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. You can use this [sample script](https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel/register-svc.ps1), leveraging nssm.exe to register kubelet, kube-proxy, and flanneld.exe to run as Windows services in the background.
-
-        ```powershell
-        register-svc.ps1 -NetworkMode <Network mode> -ManagementIP <Windows Node IP> -ClusterCIDR <Cluster subnet> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Directory to place logs>
-
-        # NetworkMode      = The network mode l2bridge (flannel host-gw, also the default value) or overlay (flannel vxlan) chosen as a network solution
-        # ManagementIP     = The IP address assigned to the Windows node. You can use ipconfig to find this
-        # ClusterCIDR      = The cluster subnet range. (Default value 10.244.0.0/16)
-        # KubeDnsServiceIP = The Kubernetes DNS service IP (Default value 10.96.0.10)
-        # LogDir           = The directory where kubelet and kube-proxy logs are redirected into their respective output files (Default value C:\k)
-        ```
-
-        If the above referenced script is not suitable, you can manually configure nssm.exe using the following examples.
-        ```powershell
-        # Register flanneld.exe
-        nssm install flanneld C:\flannel\flanneld.exe
-        nssm set flanneld AppParameters --kubeconfig-file=c:\k\config --iface=<ManagementIP> --ip-masq=1 --kube-subnet-mgr=1
-        nssm set flanneld AppEnvironmentExtra NODE_NAME=<hostname>
-        nssm set flanneld AppDirectory C:\flannel
-        nssm start flanneld
-
-        # Register kubelet.exe
-        # Microsoft releases the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.2.0
-        # For more info search for "pause" in the "Guide for adding Windows Nodes in Kubernetes"
-        nssm install kubelet C:\k\kubelet.exe
-        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.2.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
-        nssm set kubelet AppDirectory C:\k
-        nssm start kubelet
-
-        # Register kube-proxy.exe (l2bridge / host-gw)
-        nssm install kube-proxy C:\k\kube-proxy.exe
-        nssm set kube-proxy AppDirectory c:\k
-        nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --hostname-override=<hostname>--kubeconfig=c:\k\config --enable-dsr=false --log-dir=<log directory> --logtostderr=false
-        nssm.exe set kube-proxy AppEnvironmentExtra KUBE_NETWORK=cbr0
-        nssm set kube-proxy DependOnService kubelet
-        nssm start kube-proxy
-
-        # Register kube-proxy.exe (overlay / vxlan)
-        nssm install kube-proxy C:\k\kube-proxy.exe
-        nssm set kube-proxy AppDirectory c:\k
-        nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --feature-gates="WinOverlay=true" --hostname-override=<hostname> --kubeconfig=c:\k\config --network-name=vxlan0 --source-vip=<source-vip> --enable-dsr=false --log-dir=<log directory> --logtostderr=false
-        nssm set kube-proxy DependOnService kubelet
-        nssm start kube-proxy
-        ```
-
-
-        For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
-
-        ```powershell
-        nssm set <Service Name> AppStdout C:\k\mysvc.log
-        nssm set <Service Name> AppStderr C:\k\mysvc.log
-        ```
-
-        For additional details, see official [nssm usage](https://nssm.cc/usage) docs.
-
-1. My Windows Pods do not have network connectivity
-
-    If you are using virtual machines, ensure that MAC spoofing is enabled on all the VM network adapter(s).
+    Kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flannelD are already configured to run as native Windows Services via `KubeCluster.ps1`, offering resiliency by re-starting the services automatically in the event of failure (for example a process crash).
 
 1. My Windows Pods cannot ping external resources
 
@@ -481,15 +396,6 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
     Remove-Item C:\k\SourceVipRequest.json
     ```
 
-1. After launching `start.ps1`, flanneld is stuck in "Waiting for the Network to be created"
-
-    There are numerous reports of this [issue which are being investigated](https://github.com/coreos/flannel/issues/1066); most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to simply relaunch start.ps1 or relaunch it manually as follows:
-
-    ```powershell
-    PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
-    PS C:> C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
-    ```
-
 1. My Windows Pods cannot launch because of missing `/run/flannel/subnet.env`
 
     This indicates that Flannel didn't launch correctly. You can either try to restart flanneld.exe or you can copy the files over manually from `/run/flannel/subnet.env` on the Kubernetes master to` C:\run\flannel\subnet.env` on the Windows worker node and modify the `FLANNEL_SUBNET` row to a different number. For example, if node subnet 10.244.4.1/24 is desired:
@@ -518,7 +424,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 1. My Pods are stuck at "Container Creating" or restarting over and over
 
-    Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service expect the image to be tagged as :latest.
+    Check that your pause image is compatible with your OS version. If you have a later version of Windows, such as an Insider build, you need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images.
 
     Starting with Kubernetes v1.14, Microsoft releases the pause infrastructure container at `mcr.microsoft.com/k8s/core/pause:1.2.0`. For more information search for "pause" in the [Guide for adding Windows Nodes in Kubernetes](../user-guide-windows-nodes).
 
