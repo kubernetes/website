@@ -250,7 +250,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 ```
 And also the configmap:
 ```shell
-kubectl create configmap nginxconfigmap --from-file=examples/staging/https-nginx/default.conf
+kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
 ```
 configmap/nginxconfigmap created
