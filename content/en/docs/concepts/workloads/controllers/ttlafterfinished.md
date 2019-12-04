@@ -16,7 +16,7 @@ objects that have finished execution. TTL controller only handles
 now, and may be expanded to handle other resources that will finish execution,
 such as Pods and custom resources.
 
-Alpha Disclaimer: this feature is currently alpha, and can be enabled with
+Alpha Disclaimer: this feature is currently alpha, and can be enabled with both kube-apiserver and kube-controller-manager
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `TTLAfterFinished`.
 
