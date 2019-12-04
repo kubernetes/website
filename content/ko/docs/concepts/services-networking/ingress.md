@@ -460,7 +460,7 @@ Events:
 [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)
 를 추적하여 인그레스와 진행중인 리소스의 발전에 대한 자세한 내용을 알아 본다. 다양한
 인그레스 컨트롤러의 발전에 대한 자세한 내용은
-[인그레스 리포지터리](https://github.com/kubernetes/ingress/tree/master)를 추적할 수 있다.
+[인그레스 리포지터리](https://github.com/kubernetes/ingress/tree/master)에서 추적할 수 있다.
 
 ## 대안
 
