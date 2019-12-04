@@ -38,6 +38,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 ## Service Discovery
 
 * [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can be [installed](https://github.com/coredns/deployment/tree/master/kubernetes) as the in-cluster DNS for pods.
+* [Node-local DNS cache](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/dns/nodelocaldns#nodelocal-dns-cache) lets you run a DNS cache on every Node, for improved performance. See [Using Node-Local DNS Cache](/docs/tasks/administer-cluster/nodelocaldns/) for more information.
 
 ## Visualization &amp; Control
 
