@@ -68,7 +68,7 @@ We started by restructuring the Ambassador internals more along the lines of a m
 
 As we started working more closely with Envoy v2, a testing challenge was quickly identified. As more and more features were being supported in Ambassador, more and more bugs appeared in Ambassador's handling of less common but completely valid combinations of features. This drove to creation of a new testing requirement that meant Ambassador's test suite needed to be reworked to automatically manage many combinations of features, rather than relying on humans to write each test individually. Moreover, we wanted the test suite to be fast in order to maximize engineering productivity.
 
-Thus, as part of the Ambassador rearchitecture, we introduced the [Kubernetes Acceptance Test (KAT)](https://github.com/datawire/ambassador/tree/master/kat) framework. KAT is an extensible test framework that:
+Thus, as part of the Ambassador rearchitecture, we introduced the [Kubernetes Acceptance Test (KAT)](https://github.com/datawire/ambassador/tree/master/python/kat) framework. KAT is an extensible test framework that:
 
 
 
