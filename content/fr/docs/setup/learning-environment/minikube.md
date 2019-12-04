@@ -230,7 +230,7 @@ Vous pouvez changer le pilote de machine virtuelle en ajoutant l'indicateur `--v
 Par exemple, la commande serait:
 
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --vm-driver=<nom_de_processeur>
 ```
 
 Minikube prend en charge les pilotes suivants:
