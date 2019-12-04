@@ -301,7 +301,7 @@ in a `BeforeEach` for each test and freed in an `AfterEach`. It has a
 which can be used by a test.
 
 The [PMEM-CSI storage
-test](https://github.com/intel/pmem-csi/blob/586ae281ac2810cb4da6f1e160cf165c7daf0d80/storage/csi_volumes.go#L51)
+test](https://github.com/intel/pmem-csi/blob/devel/test/e2e/storage/csi_volumes.go#L51)
 imports the Kubernetes storage test suite and sets up one instance of
 the provisioning tests for a PMEM-CSI driver which must be already
 installed in the test cluster. The storage test suite changes the
