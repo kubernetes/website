@@ -31,9 +31,9 @@ _POD 开销_ 是一个特性，用于计算 Pod 基础设施在容器请求和�
 
 <!--
 In Kubernetes, the pod's overhead is set at
-[admission](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
+[admission](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 time according to the overhead associated with the pod's
-[RuntimeClass](https://kubernetes.io/docs/concepts/containers/runtime-class/).
+[RuntimeClass](/docs/concepts/containers/runtime-class/).
 -->
 
 在 Kubernetes 中，Pod 的开销是根据与 Pod 的 [RuntimeClass](/docs/concepts/containers/runtime-class/) 相关联的开销在[准入](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)时设置的。
@@ -43,13 +43,11 @@ When Pod Overhead is enabled, the overhead is considered in addition to the sum 
 resource requests when scheduling a pod. Similarly, Kubelet will include the pod overhead when sizing
 the pod cgroup, and when carrying out pod eviction ranking.
 -->
-
 当启用 Pod 开销时，在调度 Pod 时，除了考虑容器资源请求的总和外，还要考虑 Pod 开销。类似地，Kubelet 将在确定 pod cgroup 的大小和执行 Pod 驱逐排序时包含 Pod 开销。
 
 <!--
 ### Set Up
 -->
-
 ### 设置
 
 <!--
@@ -57,7 +55,6 @@ You need to make sure that the `PodOverhead`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (it is off by default)
 across your cluster. This means:
 -->
-
 您需要确保在集群中启用了 `PodOverhead` [特性门](默认情况下是关闭的)。这意味着：
 
 <!--
@@ -66,7 +63,6 @@ across your cluster. This means:
 - in the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} on each Node
 - in any custom API servers that use feature gates
 -->
-
 - 在 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 - 在 {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}
 - 在每一个 Node 的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
