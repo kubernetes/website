@@ -53,7 +53,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
 2. Vous pouvez maintenant interagir avec votre cluster à l'aide de kubectl.
    Pour plus d'informations, voir [Interagir avec votre cluster.](#interacting-with-your-cluster).
 
-    Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l’aide de` --port`.
+    Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l’aide de `--port`.
 
     ```shell
     kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
@@ -71,7 +71,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
     kubectl expose deployment hello-minikube --type=NodePort --port=8080
     ```
 
-    L'option `--type = NodePort` spécifie le type du service.
+    L'option `--type=NodePort` spécifie le type du service.
 
     Le résultat est similaire à ceci:
 
@@ -87,14 +87,14 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
    kubectl get pod
    ```
 
-   Si la sortie affiche le `STATUS` comme` ContainerCreating`, le pod est toujours en cours de création:
+   Si la sortie affiche le `STATUS` comme `ContainerCreating`, le pod est toujours en cours de création:
 
    ```text
    NAME                              READY     STATUS              RESTARTS   AGE
    hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
    ```
 
-   Si la sortie indique le statut `STATUS` comme` Running`, le pod est maintenant opérationnel:
+   Si la sortie indique le statut `STATUS` comme `Running`, le pod est maintenant opérationnel:
 
    ```text
    NAME                              READY     STATUS    RESTARTS   AGE
@@ -200,7 +200,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
 
 La commande `minikube start` peut être utilisée pour démarrer votre cluster.
 Cette commande crée et configure une machine virtuelle qui exécute un cluster Kubernetes à un seul nœud.
-Cette commande configure également [kubectl] (/docs/user-guide/kubectl-overview/) pour communiquer avec ce cluster.
+Cette commande configure également [kubectl](/docs/user-guide/kubectl-overview/) pour communiquer avec ce cluster.
 
 {{< note >}}
 Si vous êtes derrière un proxy Web, vous devez transmettre ces informations à la commande `minikube start`:
@@ -226,8 +226,8 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 
 #### Spécification du pilote de machine virtuelle
 
-Vous pouvez changer le pilote de machine virtuelle en ajoutant l'indicateur `--vm-driver = <nom_du_processeur>` à `minikube start`.
-Par exemple, la commande serait.
+Vous pouvez changer le pilote de machine virtuelle en ajoutant l'indicateur `--vm-driver=<nom_du_processeur>` à `minikube start`.
+Par exemple, la commande serait:
 
 ```shell
 minikube start --vm-driver=<driver_name>
