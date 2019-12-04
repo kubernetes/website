@@ -1,5 +1,5 @@
 ---
-title: Installing Addons
+title: Add-ons
 content_template: templates/concept
 ---
 
