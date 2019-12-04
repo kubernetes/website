@@ -53,7 +53,7 @@ Nama _handler_ harus berupa valid label 1123 DNS (alfanumerik + karakter `-`).
 
 #### 2. Buat _resource_ `RuntimeClass` yang terkait
 
-Masing-masing konfigurasi pada langkah no.1 punya nama `handler` yang merepresentasikan 
+Masing-masing konfigurasi pada langkah no.1 punya nama `handler` yang merepresentasikan
 konfigurasi-konfigurasi tersebut. Untuk masing-masing `handler`, buatlah sebuah objek RuntimeClass terkait.
 
 _Resource_ RuntimeClass saat ini hanya memiliki 2 _field_ yang penting: nama RuntimeClass tersebut
@@ -69,8 +69,8 @@ handler: myconfiguration  # Nama dari konfigurasi CRI terkait
 ```
 
 {{< note >}}
-Sangat disarankan untuk hanya memperbolehkan admin kluster melakukan operasi 
-_write_ pada RuntimeClass. Biasanya ini sudah jadi _default_. Lihat [Ikhtisar 
+Sangat disarankan untuk hanya memperbolehkan admin kluster melakukan operasi
+_write_ pada RuntimeClass. Biasanya ini sudah jadi _default_. Lihat [Ikhtisar
 Autorisasi](/docs/reference/access-authn-authz/authorization/) untuk penjelasan lebih jauh.
 {{< /note >}}
 
@@ -154,7 +154,7 @@ pembaruan fitur RuntimeClass dari versi alpha ke versi beta:
   ```
   kubectl delete customresourcedefinitions.apiextensions.k8s.io runtimeclasses.node.k8s.io
   ```
-- Fitur Alpha pada RuntimeClass akan menjadi tidak valid, jika `runtimeHandler` tidak ditentukan atau 
+- Fitur Alpha pada RuntimeClass akan menjadi tidak valid, jika `runtimeHandler` tidak ditentukan atau
   kosong atau menggunakan karakter `.` pada _handler_. Ini harus dimigrasi ke _handler_ dengan
   konfigurasi yang valid (lihat petunjuk di atas).
 

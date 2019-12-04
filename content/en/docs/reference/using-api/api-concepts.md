@@ -306,6 +306,35 @@ An encoded Protobuf message with the following IDL:
 
 Clients that receive a response in `application/vnd.kubernetes.protobuf` that does not match the expected prefix should reject the response, as future versions may need to alter the serialization format in an incompatible way and will do so by changing the prefix.
 
+## Resource deletion
+
+Resources are deleted in two phases: 1) finalization, and 2) removal.
+
+```go
+{
+  "kind": "ConfigMap",
+  "apiVersion": "v1",
+  "metadata": {
+    "finalizers": {"url.io/neat-finalization", "other-url.io/my-finalizer"},
+    "deletionTimestamp": nil,
+  }
+}
+```
+
+When a client first deletes a resource, the `.metadata.deletionTimestamp` is set to the current time.
+Once the `.metadata.deletionTimestamp` is set, external controllers that act on finalizers
+may start performing their cleanup work at any time, in any order.
+Order is NOT enforced because it introduces significant risk of stuck `.metadata.finalizers`.
+`.metadata.finalizers` is a shared field, any actor with permission can reorder it.
+If the finalizer list is processed in order, then this can lead to a situation
+in which the component responsible for the first finalizer in the list is
+waiting for a signal (field value, external system, or other) produced by a
+component responsible for a finalizer later in the list, resulting in a deadlock.
+Without enforced ordering finalizers are free to order amongst themselves and
+are not vulnerable to ordering changes in the list.
+
+Once the last finalizer is removed, the resource is actually removed from etcd.
+
 
 ## Dry run
 

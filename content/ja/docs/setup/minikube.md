@@ -18,7 +18,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
   * NodePorts
   * ConfigMapsとSecrets
   * ダッシュボード
-  * コンテナランタイム: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o), [containerd](https://github.com/containerd/containerd)
+  * コンテナランタイム: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://cri-o.io/), [containerd](https://github.com/containerd/containerd)
   * CNI (Container Network Interface) の有効化
   * Ingress
 
@@ -51,14 +51,14 @@ Creating machine...
 Starting local Kubernetes cluster...
 ```
 ```shell
-kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
 ```
 ```
 deployment.apps/hello-minikube created
 ```
 
 ```shell
-kubectl expose deployment hello-minikube --type=NodePort
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
 ```
 ```
 service/hello-minikube exposed

@@ -76,7 +76,3 @@ kubeadm alpha kubelet config download [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
-

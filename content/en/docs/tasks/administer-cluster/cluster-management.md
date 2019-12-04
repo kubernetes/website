@@ -82,13 +82,13 @@ To upgrade a cluster on a platform not mentioned in the above list, check the or
 ## Resizing a cluster
 
 If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/docs/admin/node/#self-registration-of-nodes).
-If you're using GCE or Google Kubernetes Engine it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
+If you're using GCE or Google Kubernetes Engine it's done by resizing the Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
 gcloud compute instance-groups managed resize kubernetes-node-pool --size=42 --zone=$ZONE
 ```
 
-Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
+The Instance Group will take care of putting appropriate image on new machines and starting them, while the Kubelet will register its Node with the API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
 
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
 

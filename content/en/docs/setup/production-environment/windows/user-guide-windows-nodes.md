@@ -336,7 +336,7 @@ This step will perform the following actions on the targeted Windows node:
 1. Unregister all Kubernetes services (flanneld, kubelet, kube-proxy)
 1. Delete all Kubernetes binaries (kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)
 1. Delete all CNI network plugins binaries
-1. Delete [Kubeconfig file](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) used to access the Kubernetes cluster
+1. Delete [Kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) used to access the Kubernetes cluster
 
 
 ### Public Cloud Providers

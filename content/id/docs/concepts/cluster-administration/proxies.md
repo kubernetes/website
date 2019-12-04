@@ -55,7 +55,7 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
     - <i>support</i> untuk SCTP tergantung pada <i>load balancer</i> yang diimplementasikan oleh penyedia cloud
     - implementasi bervariasi tergantung pada penyedia cloud
 
-Pengguna Kubernetes biasanya hanya cukup perlu tahu tentang kubectl <i>proxy</i> dan apiserver <i>proxy</i>. 
+Pengguna Kubernetes biasanya hanya cukup perlu tahu tentang kubectl <i>proxy</i> dan apiserver <i>proxy</i>.
 Untuk <i>proxy-proxy</i> lain di luar ini, admin kluster biasanya akan memastikan konfigurasinya dengan benar.
 
 ## Melakukan <i>request redirect</i>

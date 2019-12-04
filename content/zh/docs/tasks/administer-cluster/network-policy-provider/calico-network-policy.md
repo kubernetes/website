@@ -70,14 +70,15 @@ weight: 10
 
 ## Creating a local Calico cluster with kubeadm
 
-To get a local single-host Calico cluster in fifteen minutes using kubeadm, refer to the 
+To get a local single-host Calico cluster in fifteen minutes using kubeadm, refer to the
 [Calico Quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/).
 
 -->
 
 ## 使用 kubeadm 创建一个本地 Calico 集群
 
-在15分钟内使用 kubeadm 得到一个本地单主机 Calico 集群，请参考 [Calico 快速入门](https://docs.projectcalico.org/latest/getting-started/kubernetes/)。
+在15分钟内使用 kubeadm 得到一个本地单主机 Calico 集群，请参考
+[Calico 快速入门](https://docs.projectcalico.org/latest/getting-started/kubernetes/)。
 
 {{% /capture %}}
 

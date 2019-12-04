@@ -1,11 +1,11 @@
 ---
-title: "下载 Kubernetes"
-weight: 20
+title: "Kubernetes 发行说明和版本偏差"
+weight: 10
 ---
 
 <!--
 ---
-title: "Downloading Kubernetes"
-weight: 20
+title: "Release notes and version skew"
+weight: 10
 ---
 -->

@@ -75,7 +75,3 @@ kubeadm init phase certs etcd-ca [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
-

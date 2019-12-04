@@ -120,11 +120,13 @@ Kubernetes 支持下列类型的卷：
    * [azureDisk](#azuredisk)
    * [azureFile](#azurefile)
    * [cephfs](#cephfs)
+   * [cinder](#cinder)
    * [configMap](#configmap)
    * [csi](#csi)
    * [downwardAPI](#downwardapi)
    * [emptyDir](#emptydir)
    * [fc (fibre channel)](#fc)
+   * [flexVolume](#flexVolume)
    * [flocker](#flocker)
    * [gcePersistentDisk](#gcepersistentdisk)
    * [gitRepo (deprecated)](#gitrepo)
@@ -165,8 +167,13 @@ between Pods.
 这意味着 EBS 卷可以预先填充数据，并且可以在 Pod 之间传递数据。
 
 {{< caution >}}
-<!--You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.-->
+
+<!--
+You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
+-->
+
 您在使用 EBS 卷之前必须先创建它，可以使用 `aws ec2 create-volume` 命令进行创建；也可以使用 AWS API 进行创建。
+
 {{< /caution >}}
 
 <!--
@@ -241,6 +248,26 @@ More details can be found [here](https://github.com/kubernetes/examples/tree/{{<
 `azureDisk` 用来在 Pod 上挂载 Microsoft Azure [数据盘（Data Disk）](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) .
 更多详情请参考[这里](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md)。
 
+<!--
+#### CSI Migration
+-->
+#### CSI迁移
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+<!--
+The CSI Migration feature for azureDisk, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `disk.csi.azure.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
+Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
+Alpha features must be enabled.
+-->
+
+启用azureDisk的CSI迁移功能后，它会将所有插件操作从现有的内建插件填添加disk.csi.azure.com容器存储接口（CSI）驱动程序中。
+为了使用此功能，必须在群集上安装 [Azure磁盘CSI驱动程序](https://github.com/kubernetes-sigs/azuredisk-csi-driver)，
+并且 `CSIMigration` 和 `CSIMigrationAzureDisk` Alpha功能 必须启用。
+
 ### azureFile {#azurefile}
 
 <!--
@@ -252,6 +279,26 @@ More details can be found [here](https://github.com/kubernetes/examples/tree/{{<
 
 `azureFile` 用来在 Pod 上挂载 Microsoft Azure 文件卷（File Volume） (SMB 2.1 和 3.0)。
 更多详情请参考[这里](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md)。
+
+<!--
+#### CSI Migration
+-->
+#### CSI迁移
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+<!--
+The CSI Migration feature for azureFile, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `file.csi.azure.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
+Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
+Alpha features must be enabled.
+-->
+
+启用azureFile的CSI迁移功能后，它会将所有插件操作从现有的内建插件填添加file.csi.azure.com容器存储接口（CSI）驱动程序中。
+为了使用此功能，必须在群集上安装 [Azure文件CSI驱动程序](https://github.com/kubernetes-sigs/azurefile-csi-driver)，
+并且 `CSIMigration` 和 `CSIMigrationAzureFile` Alpha功能 必须启用。
 
 ### cephfs {#cephfs}
 
@@ -269,15 +316,83 @@ writers simultaneously.
 
 
 {{< caution >}}
-<!--You must have your own Ceph server running with the share exported before you can use it.-->
+
+<!--
+You must have your own Ceph server running with the share exported before you can use it.
+-->
+
 在您使用 Ceph 卷之前，您的 Ceph 服务器必须正常运行并且要使用的 share 被导出（exported）。
 {{< /caution >}}
 
 <!--
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
 -->
 
-更多信息请参考 [CephFS 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/)。
+更多信息请参考 [CephFS 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)。
+
+### cinder {#cinder}
+
+{{< note >}}
+
+<!--
+Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
+configuration please refer [cloud provider openstack](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#openstack).
+-->
+
+先决条件：配置了OpenStack Cloud Provider 的 Kubernetes。 有关 cloudprovider 配置，请参考 [cloud provider openstack](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#openstack)。
+
+{{< /note >}}
+
+<!--
+`cinder` is used to mount OpenStack Cinder Volume into your Pod.
+
+#### Cinder Volume Example configuration
+-->
+
+`cinder` 用于将 OpenStack Cinder 卷安装到 Pod 中。
+
+#### Cinder Volume示例配置
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-cinder
+spec:
+  containers:
+  - image: k8s.gcr.io/test-webserver
+    name: test-cinder-container
+    volumeMounts:
+    - mountPath: /test-cinder
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This OpenStack volume must already exist.
+    cinder:
+      volumeID: <volume-id>
+      fsType: ext4
+```
+
+<!--
+#### CSI Migration
+-->
+#### CSI迁移
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+<!--
+The CSI Migration feature for Cinder, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
+Alpha features must be enabled.
+-->
+
+启用Cinder的CSI迁移功能后，它会将所有插件操作从现有的内建插件填添加 `cinder.csi.openstack.org` 容器存储接口（CSI）驱动程序中。
+为了使用此功能，必须在群集上安装 [Openstack Cinder CSI驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)，
+并且 `CSIMigration` 和 `CSIMigrationOpenStack` Alpha功能 必须启用。
+
 
 ### configMap {#configmap}
 
@@ -336,7 +451,9 @@ keyed with `log_level`.
 请注意，这个路径来源于 Volume 的 `mountPath` 和 `log_level` 键对应的 `path`。
 
 {{< caution >}}
-<!--You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) before you can use it.-->
+<!--
+You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) before you can use it.
+-->
 在使用 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前您首先要创建它。
 {{< /caution >}}
 
@@ -356,11 +473,15 @@ It mounts a directory and writes the requested data in plain text files.
 -->
 
 `downwardAPI` 卷用于使 downward API 数据对应用程序可用。
-这种卷类型挂载一个目录并在纯文本文件中写入请求的数据。 
+这种卷类型挂载一个目录并在纯文本文件中写入请求的数据。
 
 {{< note >}}
-<!--A Container using Downward API as a [subPath](#using-subpath) volume mount will not
-receive Downward API updates.-->
+
+<!--
+A Container using Downward API as a [subPath](#using-subpath) volume mount will not
+receive Downward API updates.
+-->
+
 容器以挂载 [subPath](#using-subpath) 卷的方式使用 downwardAPI 时，将不能接收到它的更新。
 {{< /note >}}
 
@@ -386,7 +507,10 @@ any reason, the data in the `emptyDir` is deleted forever.
 当 Pod 因为某些原因被从节点上删除时，`emptyDir` 卷中的数据也会永久删除。
 
 {{< note >}}
-<!--A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.-->
+
+<!--
+A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
+-->
 容器崩溃并不会导致 Pod 被从节点上移除，因此容器崩溃时 `emptyDir` 卷中的数据是安全的。
 {{< /note >}}
 
@@ -460,7 +584,9 @@ targetWWNs expect that those WWNs are from multi-path connections.
 如果指定多个 WWN，targetWWNs 期望这些 WWN 来自多路径连接。
 
 {{< caution >}}
-<!--You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.-->
+<!--
+You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.
+-->
 您必须配置 FC SAN Zoning，以便预先向目标 WWN 分配和屏蔽这些 LUN（卷），这样 Kubernetes 主机才可以访问它们。
 {{< /caution >}}
 
@@ -497,7 +623,9 @@ can be "handed off" between Pods as required.
 
 
 {{< caution >}}
-<!--You must have your own Flocker installation running before you can use it.-->
+<!--
+You must have your own Flocker installation running before you can use it.
+-->
 您在使用 Flocker 之前必须先安装运行自己的 Flocker。
 {{< /caution >}}
 
@@ -524,7 +652,9 @@ pre-populated with data, and that data can be "handed off" between Pods.
 这意味着持久盘卷可以被预先填充数据，并且这些数据可以在 Pod 之间"传递"。
 
 {{< caution >}}
-<!--You must create a PD using `gcloud` or the GCE API or UI before you can use it.-->
+<!--
+You must create a PD using `gcloud` or the GCE API or UI before you can use it.
+-->
 您在使用 PD 前，必须使用 `gcloud` 或者 GCE API 或 UI 创建它。
 {{< /caution >}}
 
@@ -654,6 +784,27 @@ spec:
 ```
 
 <!--
+#### CSI Migration
+-->
+#### CSI迁移
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+<!--
+The CSI Migration feature for GCE PD, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
+Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
+Alpha features must be enabled.
+-->
+
+启用 GCE PD 的 CSI 迁移功能后，它会将所有插件操作从现有的内建插件填添加 `pd.csi.storage.gke.io` 容器存储接口（ CSI ）驱动程序中。
+为了使用此功能，必须在群集上安装 [GCE PD CSI驱动程序](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)，
+并且 `CSIMigration` 和 `CSIMigrationGCE` Alpha功能 必须启用。
+
+
+<!--
 ### gitRepo (deprecated) {#gitrepo}
 -->
 
@@ -661,7 +812,7 @@ spec:
 
 {{< warning >}}
 <!--
-gitRepo volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+The gitRepo volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
 -->
 gitRepo 卷类型已经被废弃。如果需要在容器中提供 git 仓库，请将一个 [EmptyDir](#emptydir) 卷挂载到 InitContainer 中，使用 git 命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
 {{< /warning >}}
@@ -672,7 +823,7 @@ mounts an empty directory and clones a git repository into it for your Pod to
 use.  In the future, such volumes may be moved to an even more decoupled model,
 rather than extending the Kubernetes API for every such use case.
 
-Here is an example for gitRepo volume:
+Here is an example of gitRepo volume:
 -->
 
 `gitRepo` 卷是一个卷插件的例子。
@@ -717,15 +868,17 @@ simultaneously.
 这意味着 `glusterfs` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间"传递"。GlusterFS 可以被多个写者同时挂载。
 
 {{< caution >}}
-<!--You must have your own GlusterFS installation running before you can use it.-->
+<!--
+You must have your own GlusterFS installation running before you can use it.
+-->
 在使用前您必须先安装运行自己的 GlusterFS。
 {{< /caution >}}
 
 <!--
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) for more details.
 -->
 
-更多详情请参考 [GlusterFS 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs)。
+更多详情请参考 [GlusterFS 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs)。
 
 ### hostPath {#hostpath}
 
@@ -868,10 +1021,10 @@ iSCSI 的一个特点是它可以同时被多个用户以只读方式挂载。
 这意味着您可以用数据集预先填充卷，然后根据需要在尽可能多的 Pod 上提供它。不幸的是，iSCSI 卷只能由单个使用者以读写模式挂载——不允许同时写入。
 
 <!--
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) for more details.
 -->
 
-更多详情请参考 [iSCSI 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/iscsi)。
+更多详情请参考 [iSCSI 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi)。
 
 <!--
 ### local {#local}
@@ -879,7 +1032,7 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "g
 
 ### local {#local}
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 {{< note >}}
 <!--The alpha PersistentVolume NodeAffinity annotation has been deprecated
@@ -918,7 +1071,7 @@ be able to run. Applications using local volumes must be able to tolerate this
 reduced availability, as well as potential data loss, depending on the
 durability characteristics of the underlying disk.
 
-The following is an example PersistentVolume spec using a `local` volume and
+The following is an example of PersistentVolume spec using a `local` volume and
 `nodeAffinity`:
 -->
 
@@ -989,12 +1142,14 @@ selectors, Pod affinity, and Pod anti-affinity.
 An external static provisioner can be run separately for improved management of
 the local volume lifecycle. Note that this provisioner does not support dynamic
 provisioning yet. For an example on how to run an external local provisioner,
-see the [local volume provisioner user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
+see the [local volume provisioner user
+guide](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 -->
 
 您可以在 Kubernetes 之外单独运行静态驱动以改进对 local 卷的生命周期管理。
 请注意，此驱动不支持动态配置。
-有关如何运行外部 `local` 卷驱动的示例，请参考 [local 卷驱动用户指南](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)。
+有关如何运行外部 `local` 卷驱动的示例，请参考
+[local 卷驱动用户指南](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)。
 
 {{< note >}}
 <!--
@@ -1255,13 +1410,12 @@ receive updates for those volume sources.
 
 <!--
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
-Kubernetes. Portworx fingerprints storage in a server, tiers based on capabilities,
-and aggregates capacity across multiple servers. Portworx runs in-guest in virtual
-machines or on bare metal Linux nodes.
+Kubernetes. [Portworx](https://portworx.com/use-case/kubernetes-storage/) fingerprints storage in a server, tiers based on capabilities,
+and aggregates capacity across multiple servers. Portworx runs in-guest in virtual machines or on bare metal Linux nodes.
 -->
 
 `portworxVolume` 是一个可伸缩的块存储层，能够以超聚合（hyperconverged）的方式与 Kubernetes 一起运行。
-Portworx 支持对服务器上存储的指纹处理、基于存储能力进行分层以及跨多个服务器整合存储容量。
+[Portworx](https://portworx.com/use-case/kubernetes-storage/) 支持对服务器上存储的指纹处理、基于存储能力进行分层以及跨多个服务器整合存储容量。
 Portworx 可以以 in-guest 方式在虚拟机中运行，也可以在裸金属 Linux 节点上运行。
 
 <!--
@@ -1326,10 +1480,14 @@ created before you can use it.
 {{< /caution >}}
 
 <!--
-See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/quobyte) for more details.
+Quobyte supports the {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
+CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
+GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) for deploying Quobyte using CSI, along with examples.
 -->
 
-更多详情请参考 [Quobyte 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/quobyte)。
+Quobyte 支持{{< glossary_tooltip text="容器存储接口" term_id="csi" >}}。
+推荐使用 CSI 插件以在 Kubernetes 中使用 Quobyte 卷。
+Quobyte 的 GitHub 项目具有[说明(https://github.com/quobyte/quobyte/quobyte-csi#quobyte-csi)以及使用示例来部署 CSI 的 Quobyte。
 
 ### rbd {#rbd}
 
@@ -1342,13 +1500,15 @@ means that a RBD volume can be pre-populated with data, and that data can
 be "handed off" between Pods.
 -->
 
-`rbd` 卷允许将 [Rados 块设备](http://ceph.com/docs/master/rbd/rbd/) 卷挂载到您的 Pod 中. 
+`rbd` 卷允许将 [Rados 块设备](http://ceph.com/docs/master/rbd/rbd/) 卷挂载到您的 Pod 中.
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时会被保存，卷只是被卸载掉了。
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间"传递"。
 
 
 {{< caution >}}
-<!--You must have your own Ceph installation running before you can use RBD.-->
+<!--
+You must have your own Ceph installation running before you can use RBD.
+-->
 在使用 RBD 之前，您必须安装运行 Ceph。
 {{< /caution >}}
 
@@ -1359,14 +1519,14 @@ and then serve it in parallel from as many Pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/rbd) for more details.
+See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) for more details.
 -->
 
 RBD 的一个特点是它可以同时被多个用户以只读方式挂载。
 这意味着您可以用数据集预先填充卷，然后根据需要从尽可能多的 Pod 中并行地提供卷。
 不幸的是，RBD 卷只能由单个使用者以读写模式安装——不允许同时写入。
 
-更多详情请参考 [RBD 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/rbd)。
+更多详情请参考 [RBD 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)。
 
 ### scaleIO {#scaleio}
 
@@ -1390,7 +1550,7 @@ running with the volumes created before you can use them.
 {{< /caution >}}
 
 <!--
-The following is an example Pod configuration with ScaleIO:
+The following is an example of Pod configuration with ScaleIO:
 -->
 
 下面是配置了 ScaleIO 的 Pod 示例：
@@ -1421,7 +1581,7 @@ spec:
 ```
 
 <!--
-For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
+For further detail, please see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
 -->
 
 更多详情，请参考 [ScaleIO 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio)。
@@ -1447,8 +1607,10 @@ You must create a secret in the Kubernetes API before you can use it.
 {{< /caution >}}
 
 {{< note >}}
-<!--A Container using a Secret as a [subPath](#using-subpath) volume mount will not
-receive Secret updates.-->
+<!--
+A Container using a Secret as a [subPath](#using-subpath) volume mount will not
+receive Secret updates.
+-->
 容器以 [subPath](#using-subpath) 卷的方式挂载 Secret 时，它将感知不到 Secret 的更新。
 {{< /note >}}
 
@@ -1533,10 +1695,10 @@ spec:
 
 <!--
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
-[StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
+[StorageOS examples](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 -->
 
-更多关于动态供应和持久卷申领的信息请参考 [StorageOS 示例](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos)。
+更多关于动态供应和持久卷申领的信息请参考 [StorageOS 示例](https://github.com/kubernetes/examples/blob/master/volumes/storageos)。
 
 ### vsphereVolume {#vspherevolume}
 
@@ -1558,7 +1720,9 @@ of a volume are preserved when it is unmounted. It supports both VMFS and VSAN d
 vSphereVolume 卷类型支持 VMFS 和 VSAN 数据仓库。
 
 {{< caution >}}
-<!--You must create VMDK using one of the following method before using with Pod.-->
+<!--
+You must create VMDK using one of the following methods before using with Pod.
+-->
 在挂载到 Pod 之前，您必须用下列方式之一创建 VMDK。
 {{< /caution >}}
 
@@ -1568,15 +1732,14 @@ vSphereVolume 卷类型支持 VMFS 和 VSAN 数据仓库。
 Choose one of the following methods to create a VMDK.
 -->
 
-#### 创建 VMDK 卷 
+#### 创建 VMDK 卷
 
 选择下列方式之一创建 VMDK。
 
 {{< tabs name="tabs_volumes" >}}
 {{% tab name="使用 vmkfstools 创建" %}}
-<!--{{% tab name="Create using vmkfstools" %}}-->
-
 <!--
+{{% tab name="Create using vmkfstools" %}}
 First ssh into ESX, then use the following command to create a VMDK:
 -->
 
@@ -1587,9 +1750,8 @@ vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
 {{% /tab %}}
 {{% tab name="使用 vmware-vdiskmanager 创建" %}}
-<!--{{% tab name="Create using vmware-vdiskmanager" %}}-->
-
 <!--
+{{% tab name="Create using vmware-vdiskmanager" %}}
 Use the following command to create a VMDK:
 -->
 
@@ -1689,21 +1851,24 @@ spec:
 
 ### 使用带有扩展环境变量的 subPath
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+
 
 <!--
-`subPath` directory names can also be constructed from Downward API environment variables.
+Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
 Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
+The `subPath` and `subPathExpr` properties are mutually exclusive.
 -->
 
-`subPath` 的目录名也可以由 Downward API 环境变量构造。
+使用 `subPathExpr` 字段从 Downward API 环境变量构造 `subPath` 目录名。
 在使用此特性之前，必须启用 `VolumeSubpathEnvExpansion` 功能开关。
+`subPath` 和 `subPathExpr` 属性是互斥的。
 
 <!--
-In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
+In this example, a Pod uses `subPathExpr` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 -->
 
-在这个示例中，Pod 基于 Downward API 中的 Pod 名称，使用 `subPath` 在 hostPath 卷 `/var/log/pods` 中创建目录 `pod1`。
+在这个示例中，Pod 基于 Downward API 中的 Pod 名称，使用 `subPathExpr` 在 hostPath 卷 `/var/log/pods` 中创建目录 `pod1`。
 主机目录 `/var/log/pods/pod1` 挂载到了容器的 `/logs` 中。
 
 ```yaml
@@ -1725,7 +1890,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
-      subPath: $(POD_NAME)
+      subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
   - name: workdir1
@@ -1760,28 +1925,28 @@ several media types.
 <!--
 ## Out-of-Tree Volume Plugins
 The Out-of-tree volume plugins include the Container Storage Interface (CSI)
-and Flexvolume. They enable storage vendors to create custom storage plugins
+and FlexVolume. They enable storage vendors to create custom storage plugins
 without adding them to the Kubernetes repository.
 -->
 
 ## Out-of-Tree 卷插件
 
-Out-of-Tree 卷插件包括容器存储接口（CSI）和 Flexvolume。
+Out-of-Tree 卷插件包括容器存储接口（CSI）和 FlexVolume。
 它们使存储供应商能够创建自定义存储插件，而无需将它们添加到 Kubernetes 代码仓库。
 
 <!--
-Before the introduction of CSI and Flexvolume, all volume plugins (like
+Before the introduction of CSI and FlexVolume, all volume plugins (like
 volume types listed above) were "in-tree" meaning they were built, linked,
 compiled, and shipped with the core Kubernetes binaries and extend the core
 Kubernetes API. This meant that adding a new storage system to Kubernetes (a
 volume plugin) required checking code into the core Kubernetes code repository.
 -->
 
-在引入 CSI 和 Flexvolume 之前，所有卷插件（如上面列出的卷类型）都是 "in-tree" 的，这意味着它们是与 Kubernetes 的核心组件一同构建、链接、编译和交付的，并且这些插件都扩展了 Kubernetes 的核心 API。
+在引入 CSI 和 FlexVolume 之前，所有卷插件（如上面列出的卷类型）都是 "in-tree" 的，这意味着它们是与 Kubernetes 的核心组件一同构建、链接、编译和交付的，并且这些插件都扩展了 Kubernetes 的核心 API。
 这意味着向 Kubernetes 添加新的存储系统（卷插件）需要将代码合并到 Kubernetes 核心代码库中。
 
 <!--
-Both CSI and Flexvolume allow volume plugins to be developed independent of
+Both CSI and FlexVolume allow volume plugins to be developed independent of
 the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
 extensions.
 
@@ -1789,7 +1954,7 @@ For storage vendors looking to create an out-of-tree volume plugin, please refer
 to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 -->
 
-CSI 和 Flexvolume 都允许独立于 Kubernetes 代码库开发卷插件，并作为扩展部署（安装）在 Kubernetes 集群上。
+CSI 和 FlexVolume 都允许独立于 Kubernetes 代码库开发卷插件，并作为扩展部署（安装）在 Kubernetes 集群上。
 
 对于希望创建 out-of-tree 卷插件的存储供应商，请参考[这个 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)。
 
@@ -1809,13 +1974,34 @@ Kubernetes) to expose arbitrary storage systems to their container workloads.
 <!--
 Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
 
-CSI support was introduced as alpha in Kubernetes v1.9 and moved to beta in
-Kubernetes v1.10.
+CSI support was introduced as alpha in Kubernetes v1.9, moved to beta in
+Kubernetes v1.10, and is GA in Kubernetes v1.13.
 -->
 
 更多详情请阅读 [CSI 设计方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)。
 
-CSI 的支持在 Kubernetes v1.9 中作为 alpha 特性引入，并在 Kubernetes v1.10 中转为 beta 特性。
+CSI 的支持在 Kubernetes v1.9 中作为 alpha 特性引入，在 Kubernetes v1.10 中转为 beta 特性，并在 Kubernetes v1.13 正式 GA。
+
+{{< note >}}
+<!--
+Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
+v1.13 and will be removed in a future release.
+-->
+{{< /note >}}
+
+Kubernetes v1.13中不支持 CSI 规范版本0.2和0.3，并将在以后的版本中删除。
+
+{{< note >}}
+<!--
+CSI drivers may not be compatible across all Kubernetes releases.
+Please check the specific CSI driver's documentation for supported
+deployments steps for each Kubernetes release and a compatibility matrix.
+-->
+
+CSI驱动程序可能并非在所有Kubernetes版本中都兼容。
+请查看特定CSI驱动程序的文档，以获取每个 Kubernetes 版本所支持的部署步骤以及兼容性列表。
+
+{{< /note >}}
 
 <!--
 Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
@@ -1835,90 +2021,103 @@ persistent volume:
 
 存储管理员可以使用以下字段来配置 CSI 持久卷：
 
-
-- <!--`driver`: A string value that specifies the name of the volume driver to use.
+<!--
+- `driver`: A string value that specifies the name of the volume driver to use.
   This value must correspond to the value returned in the `GetPluginInfoResponse`
   by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo).
   It is used by Kubernetes to identify which CSI driver to call out to, and by
-  CSI driver components to identify which PV objects belong to the CSI driver.-->
+  CSI driver components to identify which PV objects belong to the CSI driver.
+-->
 
-  `driver`：指定要使用的卷驱动程序名称的字符串值。
+- `driver`：指定要使用的卷驱动程序名称的字符串值。
   这个值必须与 CSI 驱动程序在 `GetPluginInfoResponse` 中返回的值相对应；该接口定义在 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo)中。
   Kubernetes 使用所给的值来标识要调用的 CSI 驱动程序；CSI 驱动程序也使用该值来辨识哪些 PV 对象属于该 CSI 驱动程序。
 
-- <!--`volumeHandle`: A string value that uniquely identifies the volume. This value
+<!--
+- `volumeHandle`: A string value that uniquely identifies the volume. This value
   must correspond to the value returned in the `volume.id` field of the
   `CreateVolumeResponse` by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
   The value is passed as `volume_id` on all calls to the CSI volume driver when
-  referencing the volume.-->
+  referencing the volume.
+-->
 
-  `volumeHandle`：唯一标识卷的字符串值。
+- `volumeHandle`：唯一标识卷的字符串值。
   该值必须与CSI 驱动程序在 `CreateVolumeResponse` 的 `volume_id` 字段中返回的值相对应；接口定义在 [CSI spec](https://github.com/container-storageinterface/spec/blob/master/spec.md#createvolume) 中。
   在所有对 CSI 卷驱动程序的调用中，引用该 CSI 卷时都使用此值作为 `volume_id` 参数。
 
-- <!--`readOnly`: An optional boolean value indicating whether the volume is to be
+<!--
+- `readOnly`: An optional boolean value indicating whether the volume is to be
   "ControllerPublished" (attached) as read only. Default is false. This value is
   passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.-->
+  `ControllerPublishVolumeRequest`.
+-->
 
-  `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished` 关联该卷时是否设置该卷为只读。
+- `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished` 关联该卷时是否设置该卷为只读。
   默认值是 false。
   该值通过 `ControllerPublishVolumeRequest` 中的 `readonly` 字段传递给 CSI 驱动程序。
 
-
-- <!--`fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
+<!--
+- `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
   volume has not been formatted and formatting is supported, this value will be
   used to format the volume.
   This value is passed to the CSI driver via the `VolumeCapability` field of
   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
-  `NodePublishVolumeRequest`.-->
+  `NodePublishVolumeRequest`.
+-->
 
-  `fsType`：如果 PV 的 `VolumeMode` 为 `Filesystem`，那么此字段指定挂载卷时应该使用的文件系统。
+- `fsType`：如果 PV 的 `VolumeMode` 为 `Filesystem`，那么此字段指定挂载卷时应该使用的文件系统。
   如果卷尚未格式化，并且支持格式化，此值将用于格式化卷。
   此值可以通过 `ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
   `NodePublishVolumeRequest` 的 `VolumeCapability` 字段传递给 CSI 驱动。
 
-
-- <!--`volumeAttributes`: A map of string to string that specifies static properties
+<!--
+- `volumeAttributes`: A map of string to string that specifies static properties
   of a volume. This map must correspond to the map returned in the
   `volume.attributes` field of the `CreateVolumeResponse` by the CSI driver as
   defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
   The map is passed to the CSI driver via the `volume_attributes` field in the
   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
-  `NodePublishVolumeRequest`.-->
+  `NodePublishVolumeRequest`.
+-->
 
-  `volumeAttributes`：一个字符串到字符串的映射表，用来设置卷的静态属性。
+- `volumeAttributes`：一个字符串到字符串的映射表，用来设置卷的静态属性。
   该映射必须与 CSI 驱动程序返回的 `CreateVolumeResponse` 中的 `volume.attributes` 字段的映射相对应；[CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中有相应的定义。
   该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest`、和 `NodePublishVolumeRequest` 中的 `volume_attributes` 字段传递给 CSI 驱动。
-  
-- <!--`controllerPublishSecretRef`: A reference to the secret object containing
+
+<!--
+- `controllerPublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
   `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
   optional, and may be empty if no secret is required. If the secret object
-  contains more than one secret, all secrets are passed.-->
+  contains more than one secret, all secrets are passed.
+-->
 
-  `controllerPublishSecretRef`：对包含敏感信息的 secret 对象的引用；该敏感信息会被传递给 CSI 驱动来完成 CSI `ControllerPublishVolume` 和 `ControllerUnpublishVolume` 调用。
+- `controllerPublishSecretRef`：对包含敏感信息的 secret 对象的引用；该敏感信息会被传递给 CSI 驱动来完成 CSI `ControllerPublishVolume` 和 `ControllerUnpublishVolume` 调用。
   此字段是可选的；在不需要 secret 时可以是空的。
   如果 secret 对象包含多个 secret，则所有的 secret 都会被传递。
-   
-- <!--`nodeStageSecretRef`: A reference to the secret object containing
+
+<!--
+- `nodeStageSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
   `NodeStageVolume` call. This field is optional, and may be empty if no secret
   is required. If the secret object contains more than one secret, all secrets
-  are passed.-->
+  are passed.
+-->
 
-  `nodeStageSecretRef`：对包含敏感信息的 secret 对象的引用，以传递给 CSI 驱动来完成 CSI `NodeStageVolume` 调用。
+- `nodeStageSecretRef`：对包含敏感信息的 secret 对象的引用，以传递给 CSI 驱动来完成 CSI `NodeStageVolume` 调用。
   此字段是可选的，如果不需要 secret，则可能是空的。
   如果 secret 对象包含多个 secret，则传递所有 secret。
 
-- <!--`nodePublishSecretRef`: A reference to the secret object containing
+<!--
+- `nodePublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
   `NodePublishVolume` call. This field is optional, and may be empty if no
   secret is required. If the secret object contains more than one secret, all
-  secrets are passed.-->
-  
-  `nodePublishSecretRef`：对包含敏感信息的 secret 对象的引用，以传递给 CSI 驱动来完成 CSI ``NodePublishVolume` 调用。
+  secrets are passed.
+-->
+
+- `nodePublishSecretRef`：对包含敏感信息的 secret 对象的引用，以传递给 CSI 驱动来完成 CSI ``NodePublishVolume` 调用。
   此字段是可选的，如果不需要 secret，则可能是空的。
   如果 secret 对象包含多个 secret，则传递所有 secret。
 
@@ -1927,7 +2126,7 @@ persistent volume:
 -->
 #### CSI 原始块卷支持
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
 <!--
 Starting with version 1.11, CSI introduced support for raw block volumes, which
@@ -1940,13 +2139,12 @@ implement raw block volumes support in Kubernetes workloads.
 该特性将使具有外部 CSI 驱动程序的供应商能够在 Kubernetes 工作负载中实现原始块卷支持。
 
 <!--
-CSI block volume support is feature-gated and turned off by default.  To run CSI with
-block volume support enabled, a cluster administrator must enable the feature for each
-Kubernetes component using the following feature gate flags:
+CSI block volume support is feature-gated, but enabled by default. The two
+feature gates which must be enabled for this feature are `BlockVolume` and
+`CSIBlockVolume`.
 -->
 
-CSI 块卷支持是可选功能，并且默认关闭。
-为了在启用块卷支持的情况下运行 CSI，集群管理员必须使用以下特性开关参数为每个 Kubernetes 组件启用该特性：
+CSI块卷支持功能已启用，但默认情况下启用。必须为此功能启用的两个功能是“ BlockVolume”和“ CSIBlockVolume”。
 
 ```
 --feature-gates=BlockVolume=true,CSIBlockVolume=true
@@ -1955,26 +2153,112 @@ CSI 块卷支持是可选功能，并且默认关闭。
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 -->
+
 学习怎样[安装您的带有块卷支持的 PV/PVC](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
 
-
-### Flexvolume
 <!--
-Flexvolume is an out-of-tree plugin interface that has existed in Kubernetes
-since version 1.2 (before CSI). It uses an exec-based model to interface with
-drivers. Flexvolume driver binaries must be installed in a pre-defined volume
-plugin path on each node (and in some cases master).
-
-Pods interact with Flexvolume drivers through the `flexvolume` in-tree plugin.
-More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
+#### CSI ephemeral volumes
 -->
 
-Flexvolume 是一个自 1.2 版本（在 CSI 之前）以来在 Kubernetes 中一直存在的 out-of-tree 插件接口。
+#### CSI临时卷
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+<!--
+This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
+
+Example:
+-->
+
+此功能使 CSI 卷可以直接嵌入 Pod 规范中，而不是 PersistentVolume 中。 以这种方式指定的卷是临时的，不会在 Pod 重新启动后持续存在。
+
+实例：
+
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: my-csi-app
+spec:
+  containers:
+    - name: my-frontend
+      image: busybox
+      volumeMounts:
+      - mountPath: "/data"
+        name: my-csi-inline-vol
+      command: [ "sleep", "1000000" ]
+  volumes:
+    - name: my-csi-inline-vol
+      csi:
+        driver: inline.storage.kubernetes.io
+        volumeAttributes:
+              foo: bar
+```
+
+<!--
+This feature requires CSIInlineVolume feature gate to be enabled. It
+is enabled by default starting with Kubernetes 1.16.
+
+CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
+-->
+
+此功能需要启用 CSIInlineVolume 功能门。 从Kubernetes 1.16开始默认启用它。
+
+CSI 临时卷仅由一部分 CSI 驱动程序支持。 请在[此处](https://kubernetes-csi.github.io/docs/drivers.html)查看 CSI 驱动程序列表。
+
+<!--
+# Developer resources
+For more information on how to develop a CSI driver, refer to the [kubernetes-csi
+documentation](https://kubernetes-csi.github.io/docs/)
+
+#### Migrating to CSI drivers from in-tree plugins
+-->
+
+＃开发人员资源
+有关如何开发 CSI 驱动程序的更多信息，请参考[kubernetes-csi文档](https://kubernetes-csi.github.io/docs/)
+
+#### 从 in-tree 插件迁移到 CSI 驱动程序
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+<!--
+The CSI Migration feature, when enabled, directs operations against existing in-tree
+plugins to corresponding CSI plugins (which are expected to be installed and configured).
+The feature implements the necessary translation logic and shims to re-route the
+operations in a seamless fashion. As a result, operators do not have to make any
+configuration changes to existing Storage Classes, PVs or PVCs (referring to
+in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
+
+In the alpha state, the operations and features that are supported include
+provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
+
+In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented
+are listed in the "Types of Volumes" section above.
+-->
+
+启用 CSI 迁移功能后，会将针对现有 in-tree 插件的操作定向到相应的 CSI 插件（应安装和配置）。
+该功能实现了必要的转换逻辑和填充以无缝方式重新路由操作。 因此，操作员在过渡到取代树内插件的CSI驱动程序时，无需对现有存储类，PV 或 PVC（指 in-tree 插件)进行任何配置更改。
+在 Alpha 状态下，受支持的操作和功能包括供应/删除，附加/分离，安装/卸载和调整卷大小。
+上面的 "卷类型" 部分列出了支持 CSI 迁移并已实现相应 CSI 驱动程序的树内插件。
+
+### FlexVolume {#flexVolume}
+
+<!--
+FlexVolume is an out-of-tree plugin interface that has existed in Kubernetes
+since version 1.2 (before CSI). It uses an exec-based model to interface with
+drivers. FlexVolume driver binaries must be installed in a pre-defined volume
+plugin path on each node (and in some cases master).
+
+Pods interact with FlexVolume drivers through the `flexvolume` in-tree plugin.
+More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
+-->
+
+FlexVolume 是一个自 1.2 版本（在 CSI 之前）以来在 Kubernetes 中一直存在的 out-of-tree 插件接口。
 它使用基于 exec 的模型来与驱动程序对接。
-用户必须在每个节点（在某些情况下是主节点）上的预定义卷插件路径中安装 Flexvolume 驱动程序可执行文件。
+用户必须在每个节点（在某些情况下是主节点）上的预定义卷插件路径中安装 FlexVolume 驱动程序可执行文件。
 
 Pod 通过 `flexvolume` in-tree 插件与 Flexvolume 驱动程序交互。
-更多详情请参考[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)。
+更多详情请参考[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)。
 
 <!--
 ## Mount propagation
@@ -1993,19 +2277,22 @@ Its values are:
 卷的挂载传播特性由 Container.volumeMounts 中的 `mountPropagation` 字段控制。
 它的值包括：
 
- * <!--`None` - This volume mount will not receive any subsequent mounts
+<!--
+ * `None` - This volume mount will not receive any subsequent mounts
    that are mounted to this volume or any of its subdirectories by the host.
    In similar fashion, no mounts created by the Container will be visible on
    the host. This is the default mode.
 
    This mode is equal to `private` mount propagation as described in the
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
-   -->
-   `None` - 此卷挂载将不会感知到主机后续在此卷或其任何子目录上执行的挂载变化。
+-->
+
+ * `None` - 此卷挂载将不会感知到主机后续在此卷或其任何子目录上执行的挂载变化。
    类似的，容器所创建的卷挂载在主机上是不可见的。这是默认模式。
    该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的 `private` 挂载传播选项。
 
- * <!--`HostToContainer` - This volume mount will receive all subsequent mounts
+<!--
+ * `HostToContainer` - This volume mount will receive all subsequent mounts
    that are mounted to this volume or any of its subdirectories.
 
    In other words, if the host mounts anything inside the volume mount, the
@@ -2017,26 +2304,28 @@ Its values are:
 
    This mode is equal to `rslave` mount propagation as described in the
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
-   -->
-   `HostToContainer` - 此卷挂载将会感知到主机后续针对此卷或其任何子目录的挂载操作。
-   
-   换句话说，如果主机在此挂载卷中挂载任何内容，容器将能看到它被挂载在那里。
-   
-   类似的，配置了 `Bidirectional` 挂载传播选项的 Pod 如果在同一卷上挂载了内容，挂载传播设置为 `HostToContainer` 的容器都将能看到这一变化。
+-->
+ * `HostToContainer` - 此卷挂载将会感知到主机后续针对此卷或其任何子目录的挂载操作。
 
-   该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt) 中描述的 `rslave` 挂载传播选项。
+  换句话说，如果主机在此挂载卷中挂载任何内容，容器将能看到它被挂载在那里。
 
- * <!--`Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
+  类似的，配置了 `Bidirectional` 挂载传播选项的 Pod 如果在同一卷上挂载了内容，挂载传播设置为 `HostToContainer` 的容器都将能看到这一变化。
+
+  该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt) 中描述的 `rslave` 挂载传播选项。
+
+<!--
+ * `Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a Flexvolume or CSI driver or
+   A typical use case for this mode is a Pod with a FlexVolume or CSI driver or
    a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
    -->
-   --`Bidirectional` - 这种卷挂载和 `HostToContainer` 挂载表现相同。
+
+ * `Bidirectional` - 这种卷挂载和 `HostToContainer` 挂载表现相同。
 
    另外，容器创建的卷挂载将被传播回至主机和使用同一卷的所有 Pod 的所有容器。
 
@@ -2083,11 +2372,17 @@ Or, remove `MountFlags=slave` if present. Then restart the Docker daemon:
 或者，如果存在 `MountFlags=slave` 就删除掉。然后重启 Docker 守护进程：
 
 ```shell
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
+
+
 {{% capture whatsnext %}}
-<!--* Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).-->
-参考[使用持久卷部署 WordPress 和 MySQL](/docs/tutorials/stateful-application/mysqlwordpress-persistent-volume/) 示例。
+
+<!--
+* Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
+-->
+
+* 参考[使用持久卷部署 WordPress 和 MySQL](/docs/tutorials/stateful-application/mysqlwordpress-persistent-volume/) 示例。
 {{% /capture %}}

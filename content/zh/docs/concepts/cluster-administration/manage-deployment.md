@@ -1,23 +1,8 @@
 ---
-reviewers:
-- bgrant0607
-- janetkuo
-- mikedanese
 title: 管理资源
 content_template: templates/concept
 weight: 40
 ---
-<!--
----
-reviewers:
-- bgrant0607
-- janetkuo
-- mikedanese
-title: Managing Resources
-content_template: templates/concept
-weight: 40
----
- -->
 
 {{% capture overview %}}
 
@@ -48,7 +33,10 @@ Multiple resources can be created the same way as a single resource:
 可以用创建单个资源相同的方式来创建多个资源：
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/nginx-app.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx-app.yaml
+```
+
+```shell
 service/my-nginx-svc created
 deployment.apps/my-nginx created
 ```
@@ -59,12 +47,12 @@ The resources will be created in the order they appear in the file. Therefore, i
 资源将按照它们在文件中的顺序创建。因此，最好先指定服务，这样在控制器（例如 Deployment）创建 Pod 时能够确保调度器可以将与服务关联的多个 Pod 分散到不同节点。
 
 <!--
-`kubectl create` also accepts multiple `-f` arguments:
+`kubectl apply` also accepts multiple `-f` arguments:
  -->
 `kubectl create` 也接受多个 `-f` 参数:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
 <!--
@@ -73,7 +61,7 @@ And a directory can be specified rather than or in addition to individual files:
 还可以指定目录路径，而不用添加多个单独的文件：
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/nginx/
+kubectl apply -f https://k8s.io/examples/application/nginx/
 ```
 
 <!--
@@ -90,7 +78,10 @@ A URL can also be specified as a configuration source, which is handy for deploy
 还可以使用 URL 作为配置源，便于直接使用已经提交到 Github 上的配置文件进行部署：
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+```
+
+```shell
 deployment.apps/my-nginx created
 ```
 
@@ -104,7 +95,10 @@ Resource creation isn't the only operation that `kubectl` can perform in bulk. I
 资源创建并不是 `kubectl` 可以批量执行的唯一操作。`kubectl` 还可以从配置文件中提取资源名，以便执行其他操作，特别是删除您之前创建的资源：
 
 ```shell
-$ kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
+kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
+```
+
+```shell
 deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
@@ -115,27 +109,33 @@ In the case of just two resources, it's also easy to specify both on the command
 在仅有两种资源的情况下，可以使用"资源类型/资源名"的语法在命令行中同时指定这两个资源：
 
 ```shell
-$ kubectl delete deployments/my-nginx services/my-nginx-svc
+kubectl delete deployments/my-nginx services/my-nginx-svc
 ```
 
 <!--
 For larger numbers of resources, you'll find it easier to specify the selector (label query) specified using `-l` or `--selector`, to filter resources by their labels:
- -->
+-->
 对于资源数目较大的情况，您会发现使用 `-l` 或 `--selector` 指定的筛选器（标签查询）能很容易根据标签筛选资源：
 
 ```shell
-$ kubectl delete deployment,services -l app=nginx
+kubectl delete deployment,services -l app=nginx
+```
+
+```shell
 deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
 <!--
 Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
- -->
+-->
 由于 `kubectl` 用来输出资源名称的语法与其所接受的资源名称语法相同，所以很容易使用 `$()` 或 `xargs` 进行链式操作：
 
 ```shell
-$ kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+```
+
+```shell
 NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
@@ -173,7 +173,10 @@ By default, performing a bulk operation on `project/k8s/development` will stop a
 如果我们试图使用以下命令在此目录中创建资源，则会遇到一个错误：
 
 ```shell
-$ kubectl create -f project/k8s/development
+kubectl apply -f project/k8s/development
+```
+
+```shell
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
@@ -183,7 +186,10 @@ Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as
 然而，在 `--filename,-f` 后面标明 `--recursive` 或者 `-R` 之后：
 
 ```shell
-$ kubectl create -f project/k8s/development --recursive
+kubectl apply -f project/k8s/development --recursive
+```
+
+```shell
 configmap/my-config created
 deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
@@ -199,7 +205,10 @@ The `--recursive` flag also works when multiple `-f` arguments are provided:
 有多个 `-f` 参数出现的时候，`--recursive` 参数也能正常工作：
 
 ```shell
-$ kubectl create -f project/k8s/namespaces -f project/k8s/development --recursive
+kubectl apply -f project/k8s/namespaces -f project/k8s/development --recursive
+```
+
+```shell
 namespace/development created
 namespace/staging created
 configmap/my-config created
@@ -216,14 +225,14 @@ If you're interested in learning more about `kubectl`, go ahead and read [kubect
 ## Using labels effectively
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
- -->
+-->
 ## 有效地使用标签
 
 到目前为止我们使用的示例中的资源最多使用了一个标签。在许多情况下，应使用多个标签来区分集合。
 
 <!--
 For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
- -->
+-->
 例如，不同的应用可能会为 `app` 标签设置不同的值。
 但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 这样的多层应用，还需要区分每一层。前端可以带以下标签：
 
@@ -263,8 +272,11 @@ The labels allow us to slice and dice our resources along any dimension specifie
 标签允许我们按照标签指定的任何维度对我们的资源进行切片和切块：
 
 ```shell
-$ kubectl create -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
-$ kubectl get pods -Lapp -Ltier -Lrole
+kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl get pods -Lapp -Ltier -Lrole
+```
+
+```shell
 NAME                           READY     STATUS    RESTARTS   AGE       APP         TIER       ROLE
 guestbook-fe-4nlpb             1/1       Running   0          1m        guestbook   frontend   <none>
 guestbook-fe-ght6d             1/1       Running   0          1m        guestbook   frontend   <none>
@@ -274,7 +286,12 @@ guestbook-redis-slave-2q2yf    1/1       Running   0          1m        guestboo
 guestbook-redis-slave-qgazl    1/1       Running   0          1m        guestbook   backend    slave
 my-nginx-divi2                 1/1       Running   0          29m       nginx       <none>     <none>
 my-nginx-o0ef1                 1/1       Running   0          29m       nginx       <none>     <none>
-$ kubectl get pods -lapp=guestbook,role=slave
+```
+
+```shell
+kubectl get pods -lapp=guestbook,role=slave
+```
+```shell
 NAME                          READY     STATUS    RESTARTS   AGE
 guestbook-redis-slave-2q2yf   1/1       Running   0          3m
 guestbook-redis-slave-qgazl   1/1       Running   0          3m
@@ -362,7 +379,10 @@ For example, if you want to label all your nginx pods as frontend tier, simply r
 例如，如果想要将所有 nginx pod 标记为前端层，只需运行：
 
 ```shell
-$ kubectl label pods -l app=nginx tier=fe
+kubectl label pods -l app=nginx tier=fe
+```
+
+```shell
 pod/my-nginx-2035384211-j5fhi labeled
 pod/my-nginx-2035384211-u2c7e labeled
 pod/my-nginx-2035384211-u3t6x labeled
@@ -375,7 +395,9 @@ To see the pods you just labeled, run:
 首先用标签 "app=nginx" 过滤所有的 pod，然后用 "tier=fe" 标记它们。想要查看您刚才标记的 pod，请运行：
 
 ```shell
-$ kubectl get pods -l app=nginx -L tier
+kubectl get pods -l app=nginx -L tier
+```
+```shell
 NAME                        READY     STATUS    RESTARTS   AGE       TIER
 my-nginx-2035384211-j5fhi   1/1       Running   0          23m       fe
 my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
@@ -401,9 +423,11 @@ Sometimes you would want to attach annotations to resources. Annotations are arb
 有时，您可能希望将注解附加到资源中。注解是 API 客户端（如工具、库等）用于检索的任意非标识元数据。这可以通过 `kubectl annotate` 来完成。例如：
 
 ```shell
-$ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
-$ kubectl get pods my-nginx-v4-9gw19 -o yaml
-apiversion: v1
+kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
+kubectl get pods my-nginx-v4-9gw19 -o yaml
+```
+```shell
+apiVersion: v1
 kind: pod
 metadata:
   annotations:
@@ -426,7 +450,9 @@ When load on your application grows or shrinks, it's easy to scale with `kubectl
 当应用上的负载增长或收缩时，使用 `kubectl` 能够轻松实现规模的缩扩。例如，要将 nginx 副本的数量从 3 减少到 1，请执行以下操作：
 
 ```shell
-$ kubectl scale deployment/my-nginx --replicas=1
+kubectl scale deployment/my-nginx --replicas=1
+```
+```shell
 deployment.extensions/my-nginx scaled
 ```
 
@@ -436,7 +462,9 @@ Now you only have one pod managed by the deployment.
 现在，您的 deployment 管理的 pod 只有一个了。
 
 ```shell
-$ kubectl get pods -l app=nginx
+kubectl get pods -l app=nginx
+```
+```shell
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
 ```
@@ -447,7 +475,9 @@ To have the system automatically choose the number of nginx replicas as needed, 
 想要让系统自动选择需要 nginx 副本的数量，范围从 1 到 3，请执行以下操作：
 
 ```shell
-$ kubectl autoscale deployment/my-nginx --min=1 --max=3
+kubectl autoscale deployment/my-nginx --min=1 --max=3
+```
+```shell
 horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 ```
 
@@ -484,7 +514,7 @@ This command will compare the version of the configuration that you're pushing w
 这个命令将会把推送的版本与以前的版本进行比较，并应用您所做的更改，但是不会自动覆盖任何你没有指定更改的属性。
 
 ```shell
-$ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 deployment.apps/my-nginx configured
 ```
 
@@ -520,7 +550,7 @@ Alternatively, you may also update resources with `kubectl edit`:
 或者，您也可以使用 `kubectl edit` 更新资源：
 
 ```shell
-$ kubectl edit deployment/my-nginx
+kubectl edit deployment/my-nginx
 ```
 
 <!--
@@ -529,13 +559,16 @@ This is equivalent to first `get` the resource, edit it in text editor, and then
 这相当于首先 `get` 资源，在文本编辑器中编辑它，然后用更新的版本 `apply` 资源：
 
 ```shell
-$ kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
-$ vi /tmp/nginx.yaml
+kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
+vi /tmp/nginx.yaml
 # do some edit, and then save the file
-$ kubectl apply -f /tmp/nginx.yaml
+
+kubectl apply -f /tmp/nginx.yaml
 deployment.apps/my-nginx configured
-$ rm /tmp/nginx.yaml
+
+rm /tmp/nginx.yaml
 ```
+
 
 <!--
 This allows you to do more significant changes more easily. Note that you can specify the editor with your `EDITOR` or `KUBE_EDITOR` environment variables.
@@ -570,7 +603,9 @@ In some cases, you may need to update resource fields that cannot be updated onc
 在某些情况下，您可能需要更新某些初始化后无法更新的资源字段，或者您可能只想立即进行递归更改，例如修复 Deployment 创建的不正常的 Pod。若要更改这些字段，请使用 `replace --force`，它将删除并重新创建资源。在这种情况下，您可以简单地修改原始配置文件：
 
 ```shell
-$ kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
+kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
+```
+```shell
 deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
 ```
@@ -586,10 +621,9 @@ At some point, you'll eventually need to update your deployed application, typic
 在某些时候，您最终需要更新已部署的应用，通常都是通过指定新的镜像或镜像标签，如上面的金丝雀发布的场景中所示。`kubectl` 支持几种更新操作，每种更新操作都适用于不同的场景。
 
 <!--
-We'll guide you through how to create and update applications with Deployments. If your deployed application is managed by Replication Controllers,
-you should read [how to use `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/) instead.
+We'll guide you through how to create and update applications with Deployments.
  -->
-我们将指导您通过 Deployment 如何创建和更新应用。如果部署的应用由 `ReplicationController` 管理，那么您应该阅读 [怎么样使用 `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/)。
+我们将指导您通过 Deployment 如何创建和更新应用。
 
 <!--
 Let's say you were running version 1.7.9 of nginx:
@@ -597,7 +631,9 @@ Let's say you were running version 1.7.9 of nginx:
 假设您正运行的是 1.7.9 版本的 nginx：
 
 ```shell
-$ kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
+kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
+```
+```shell
 deployment.apps/my-nginx created
 ```
 
@@ -607,7 +643,7 @@ To update to version 1.9.1, simply change `.spec.template.spec.containers[0].ima
 要更新到 1.9.1 版本，只需使用我们前面学到的 kubectl 命令将 `.spec.template.spec.containers[0].image` 从 `nginx:1.7.9` 修改为 `nginx:1.9.1`。
 
 ```shell
-$ kubectl edit deployment/my-nginx
+kubectl edit deployment/my-nginx
 ```
 
 <!--
