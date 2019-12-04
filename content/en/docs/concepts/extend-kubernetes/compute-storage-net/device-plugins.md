@@ -154,7 +154,7 @@ ensure the continuous functioning of the device allocations during the upgrade.
 
 ## Monitoring Device Plugin Resources
 
-{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
 discover the set of devices that are in-use on the node and obtain metadata to describe which
@@ -182,7 +182,7 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Support for the "PodResources service" is in beta, and is enabled by default.
+Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.15.
 
 ## Device plugin examples {#examples}
 

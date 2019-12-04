@@ -76,59 +76,20 @@ threshold has been met.
 ## Container Collection
 -->
 
-容器垃圾回收策略考虑三个用户定义变量。
-
+容器垃圾回收策略考虑三个用户定义变量。`MinAge` 是容器可以被执行垃圾回收的最小生命周期。`MaxPerPodContainer` 是每个 pod 内允许存在的死亡容器的最大数量。
+`MaxContainers` 是全部死亡容器的最大数量。可以分别独立地通过将 `MinAge` 设置为 0，以及将 `MaxPerPodContainer` 和 `MaxContainers` 设置为小于 0 来禁用这些变量。
 <!--
-The policy for garbage collecting containers considers three user-defined variables.
--->
-
-`MinAge` 是容器可以被执行垃圾回收的最小年龄。
-
-<!--
-`MinAge` is the minimum age at which a container can be garbage collected.
--->
-
-`MaxPerPodContainer` 是每个 pod 内允许存在的死亡容器的最大数量。
-
-<!--
-`MaxPerPodContainer` is the maximum number of dead containers every single
-pod (UID, container name) pair is allowed to have.
--->
-
-`MaxContainers` 是全部死亡容器的最大数量。
-
-<!--
-`MaxContainers` is the maximum number of total dead containers. 
--->
-
-可以分别独立地通过将 `MinAge` 设置为 0，以及将 `MaxPerPodContainer` 和 `MaxContainers` 设置为小于 0 来禁用这些变量。
-
-<!--
-These variables can be individually disabled by setting `MinAge` to zero and setting `MaxPerPodContainer` and `MaxContainers` respectively to less than zero.
+The policy for garbage collecting containers considers three user-defined variables. `MinAge` is the minimum age at which a container can be garbage collected. `MaxPerPodContainer` is the maximum number of dead containers every single
+pod (UID, container name) pair is allowed to have. `MaxContainers` is the maximum number of total dead containers. These variables can be individually disabled by setting `MinAge` to zero and setting `MaxPerPodContainer` and `MaxContainers` respectively to less than zero.
 -->
 
 Kubelet 将处理无法辨识的、已删除的以及超出前面提到的参数所设置范围的容器。最老的容器通常会先被移除。
-
-<!--
-Kubelet will act on containers that are unidentified, deleted, or outside of the boundaries set by the previously mentioned flags. The oldest containers will generally be removed first.
--->
-
 `MaxPerPodContainer` 和 `MaxContainer` 在某些场景下可能会存在冲突，例如在保证每个 pod 内死亡容器的最大数量（`MaxPerPodContainer`）的条件下可能会超过允许存在的全部死亡容器的最大数量（`MaxContainer`）。
-
-<!--
-`MaxPerPodContainer` and `MaxContainer` may potentially conflict with each other in situations where retaining the maximum number of containers per pod (`MaxPerPodContainer`) would go outside the allowable range of global dead containers (`MaxContainers`). 
--->
-
 `MaxPerPodContainer` 在这种情况下会被进行调整：最坏的情况是将 `MaxPerPodContainer` 降级为 1，并驱逐最老的容器。
-
-<!--
-`MaxPerPodContainer` would be adjusted in this situation: A worst case scenario would be to downgrade `MaxPerPodContainer` to 1 and evict the oldest containers.
--->
-
 此外，pod 内已经被删除的容器一旦年龄超过 `MinAge` 就会被清理。
 
 <!--
-Additionally, containers owned by pods that have been deleted are removed once they are older than `MinAge`.
+Kubelet will act on containers that are unidentified, deleted, or outside of the boundaries set by the previously mentioned flags. The oldest containers will generally be removed first. `MaxPerPodContainer` and `MaxContainer` may potentially conflict with each other in situations where retaining the maximum number of containers per pod (`MaxPerPodContainer`) would go outside the allowable range of global dead containers (`MaxContainers`). `MaxPerPodContainer` would be adjusted in this situation: A worst case scenario would be to downgrade `MaxPerPodContainer` to 1 and evict the oldest containers. Additionally, containers owned by pods that have been deleted are removed once they are older than `MinAge`.
 -->
 
 不被 kubelet 管理的容器不受容器垃圾回收的约束。
@@ -184,25 +145,18 @@ Default is -1, which means there is no global limit.
 
 3. `maximum-dead-containers`，要全局保留的旧容器实例的最大数量。默认值是 -1，这意味着没有全局限制。
 
-容器可能会在其效用过期之前被垃圾回收。这些容器可能包含日志和其他对故障诊断有用的数据。
 
 <!--
 Containers can potentially be garbage collected before their usefulness has expired. These containers
-can contain logs and other data that can be useful for troubleshooting.
+can contain logs and other data that can be useful for troubleshooting. A sufficiently large value for
+`maximum-dead-containers-per-container` is highly recommended to allow at least 1 dead container to be
+retained per expected container. A larger value for `maximum-dead-containers` is also recommended for a
+similar reason.
 -->
 
+容器可能会在其效用过期之前被垃圾回收。这些容器可能包含日志和其他对故障诊断有用的数据。
 强烈建议为 `maximum-dead-containers-per-container` 设置一个足够大的值，以便每个预期容器至少保留一个死亡容器。
-
-<!--
-A sufficiently large value for `maximum-dead-containers-per-container` is highly recommended 
-to allow at least 1 dead container to be retained per expected container.
--->
-
 由于同样的原因，`maximum-dead-containers` 也建议使用一个足够大的值。
-
-<!--
-A larger value for `maximum-dead-containers` is also recommended for a similar reason.
--->
 
 查阅 [这个问题](https://github.com/kubernetes/kubernetes/issues/13287) 获取更多细节。
 

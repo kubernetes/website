@@ -6,28 +6,33 @@ weight: 30
 
 {{% capture overview %}}
 
-<!-- This document describes the concept of `VolumeSnapshotClass` in Kubernetes. Familiarity
+<!--
+This document describes the concept of `VolumeSnapshotClass` in Kubernetes. Familiarity
 with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
-[storage classes](/docs/concepts/storage/storage-classes) is suggested. -->
-
+[storage classes](/docs/concepts/storage/storage-classes) is suggested.
+-->
 
 本文档描述了 Kubernetes 中 `VolumeSnapshotClass` 的概念。 建议熟悉[卷快照（Volume Snapshots）](/docs/concepts/storage/volume-snapshots/)和[存储类（Storage Class）](/docs/concepts/storage/storage-classes)。
+
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-<!-- ## Introduction
+<!--
+## Introduction
 
 Just like `StorageClass` provides a way for administrators to describe the "classes"
 of storage they offer when provisioning a volume, `VolumeSnapshotClass` provides a
-way to describe the "classes" of storage when provisioning a volume snapshot. -->
+way to describe the "classes" of storage when provisioning a volume snapshot.
+-->
 
 ## 介绍
 
 就像 `StorageClass` 为管理员提供了一种在配置卷时描述存储“类”的方法，`VolumeSnapshotClass` 提供了一种在配置卷快照时描述存储“类”的方法。
 
-<!-- ## The VolumeSnapshotClass Resource
+<!--
+## The VolumeSnapshotClass Resource
 
 Each `VolumeSnapshotClass` contains the fields `snapshotter` and `parameters`,
 which are used when a `VolumeSnapshot` belonging to the class needs to be
@@ -40,7 +45,7 @@ be updated once they are created.
 
 Administrators can specify a default `VolumeSnapshotClass` just for VolumeSnapshots
 that don't request any particular class to bind to.
- -->
+-->
 
 ## VolumeSnapshotClass 资源
 
@@ -60,22 +65,25 @@ metadata:
 snapshotter: csi-hostpath
 parameters:
 ```
-<!-- 
+
+<!--
 ### Snapshotter
 
 Volume snapshot classes have a snapshotter that determines what CSI volume plugin is
 used for provisioning VolumeSnapshots. This field must be specified.
- -->
- 
+-->
+
 ### 快照生成器（Snapshotter）
 
 卷快照类具有一个快照生成器，用于确定配置 VolumeSnapshot 的 CSI 卷插件。 必须指定此字段。
 
-<!-- ## Parameters
+<!--
+## Parameters
 
 Volume snapshot classes have parameters that describe volume snapshots belonging to
 the volume snapshot class. Different parameters may be accepted depending on the
-`snapshotter`. -->
+`snapshotter`.
+-->
 
 ## 参数
 

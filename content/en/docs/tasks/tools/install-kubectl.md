@@ -102,7 +102,7 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
 1. Download the latest release:
 
     ```		 
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
     To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
@@ -136,6 +136,11 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 
 1. Run the installation command:
 
+    ```
+    brew install kubectl 
+    ```
+    or 
+    
     ```
     brew install kubernetes-cli
     ```
@@ -184,8 +189,8 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     kubectl version
     ```
 {{< note >}}
-[Docker for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
-If you have installed Docker before, you may need to place your PATH entry before the one added by Docker installer or remove the Docker's `kubectl`.
+[Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
+If you have installed Docker Desktop before, you may need to place your PATH entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
 {{< /note >}}
 
 ### Install with Powershell from PSGallery
@@ -276,7 +281,7 @@ You can install kubectl as part of the Google Cloud SDK.
 
 ## Verifying kubectl configuration 
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using `kube-up.sh` or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
+In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
 
 Check that kubectl is properly configured by getting the cluster state:
 
@@ -346,6 +351,12 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
+- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    ```
 
 {{< note >}}
 bash-completion sources all completion scripts in `/etc/bash_completion.d`.
@@ -408,6 +419,13 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
+- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    ```
+    
 - If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 
 {{< note >}}
@@ -427,6 +445,13 @@ To do so in all your shell sessions, add the following to your `~/.zshrc` file:
 source <(kubectl completion zsh)
 ```
 
+If you have an alias for kubectl, you can extend shell completion to work with that alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.zshrc
+    echo 'complete -F __start_kubectl k' >>~/.zshrc
+    ```
+    
 After reloading your shell, kubectl autocompletion should be working.
 
 If you get an error like `complete:13: command not found: compdef`, then add the following to the beginning of your `~/.zshrc` file:

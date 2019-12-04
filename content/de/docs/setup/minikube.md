@@ -18,7 +18,7 @@ Minikube ist ein Tool, mit dem Kubernetes lokal einfach ausgeführt werden kann.
   * NodePorts
   * ConfigMaps and Secrets
   * Dashboards
-  * Container Laufzeiumgebungen: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) und [containerd](https://github.com/containerd/containerd)
+  * Container Laufzeiumgebungen: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://cri-o.io/) und [containerd](https://github.com/containerd/containerd)
   * Unterstützung von CNI (Container Network Interface)
   * Ingress
 
@@ -29,7 +29,7 @@ Lesen Sie [Minikube installieren](/docs/tasks/tools/install-minikube/) für Info
 ## Schnellstart
 
 Folgend finden Sie eine kurze Demo zur Verwendung von Minikube.
-Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--vm-driver=xxx`-Flag zu `minikube start` hinzu. 
+Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--vm-driver=xxx`-Flag zu `minikube start` hinzu.
 Minikube unterstützt die folgenden Treiber:
 
 * virtualbox
@@ -52,20 +52,20 @@ Creating machine...
 Starting local Kubernetes cluster...
 ```
 ```shell
-kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
 ```
 ```
 deployment.apps/hello-minikube created
 ```
 
 ```shell
-kubectl expose deployment hello-minikube --type=NodePort
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
 ```
 ```
 service/hello-minikube exposed
 ```
 ```
-# Wir haben jetzt einen echoserver Pod gestartet, aber wir müssen warten, 
+# Wir haben jetzt einen echoserver Pod gestartet, aber wir müssen warten,
 # bis der Pod betriebsbereit ist, bevor wir über den exponierten Dienst auf ihn zugreifen können.
 # Um zu überprüfen, ob der Pod läuft, können wir Folgendes verwenden:
 kubectl get pod
@@ -164,7 +164,7 @@ minikube start \
 
 #### CRI-O
 
-Um [CRI-O](https://github.com/kubernetes-incubator/cri-o) als Containerlaufzeitumgebung zu verwenden, führen Sie den folgenden Befehl aus:
+Um [CRI-O](https://cri-o.io/) als Containerlaufzeitumgebung zu verwenden, führen Sie den folgenden Befehl aus:
 
 ```bash
 minikube start \

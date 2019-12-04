@@ -2,7 +2,7 @@
 reviewers:
 - tallclair
 - dchen1107
-title: Runtime Class
+title: 容器运行时类(Runtime Class)
 content_template: templates/concept
 weight: 20
 ---
@@ -293,11 +293,11 @@ Nodes](/docs/concepts/configuration/assign-pod-node/).
 
 <!--
 As of Kubernetes v1.16, RuntimeClass includes support for specifying overhead associated with
-running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead.md) feature.
+running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead) feature.
 To use `PodOverhead`, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled (it is off by default).
 -->
-在 Kubernetes v1.16 版本中，RuntimeClass 开始支持 pod 的 overhead，作为 [`PodOverhead`](/docs/concepts/configuration/pod-overhead.md) 
+在 Kubernetes v1.16 版本中，RuntimeClass 开始支持 pod 的 overhead，作为 [`PodOverhead`](/docs/concepts/configuration/pod-overhead)
 特性的一部分。
 若要使用 `PodOverhead` 特性，你需要确保 PodOverhead 特性开关处于开启状态（默认为关闭状态）。
 

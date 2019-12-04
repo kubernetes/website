@@ -34,7 +34,8 @@ This document discusses the concepts behind the cloud controller manager and giv
 本文讨论了云控制器管理器背后的概念，并提供了相关功能的详细信息。
 
 <!--
-Here's the architecture of a Kubernetes cluster without the cloud controller manager: -->
+Here's the architecture of a Kubernetes cluster without the cloud controller manager:
+-->
 
 这是没有云控制器管理器的 Kubernetes 集群的架构：
 
@@ -78,7 +79,9 @@ The CCM consolidates all of the cloud-dependent logic from the preceding three c
 
 CCM 整合了前三个组件中的所有依赖于云的逻辑，以创建与云的单一集成点。CCM 的新架构如下所示：
 
-<!-- ![CCM Kube Arch](/images/docs/post-ccm-arch.png) -->
+<!--
+![CCM Kube Arch](/images/docs/post-ccm-arch.png)
+-->
 
 ![含有云控制器管理器的 Kubernetes 架构](/images/docs/post-ccm-arch.png)
 
@@ -222,8 +225,6 @@ Route 控制器负责适当地配置云中的路由，以便 Kubernetes 集群�
 The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB , Google LB, or Oracle Cloud Infrastructure LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
 -->
 
-服务控制器负责监听服务的创建、更新和删除事件。根据 Kubernetes 中各个服务的当前状态，它配置云负载均衡器（如 ELB 或 Google LB 或 Oracle Cloud 基础 LB）以反映 Kubernetes 中的服务状态。此外，它还确保云负载均衡器的服务后端是最新的。
-
 <!--
 ### 2. Kubelet
 -->
@@ -246,6 +247,11 @@ In this new model, the kubelet initializes a node without cloud-specific informa
 ## Plugin mechanism
 -->
 
+在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
+
+<!--
+## Plugin mechanism
+-->
 
 ## 插件机制
 
@@ -254,7 +260,6 @@ The cloud controller manager uses Go interfaces to allow implementations from an
 -->
 
 云控制器管理器使用 Go 接口允许插入任何云的实现。具体来说，它使用[此处](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62)定义的 CloudProvider 接口。
-
 
 <!--
 The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core. Implementations specific to cloud providers will be built outside of the core and implement interfaces defined in the core.
@@ -388,7 +393,6 @@ v1/ServiceAccount:
 The RBAC ClusterRole for the CCM looks like this:
 -->
 
-
 针对 CCM 的 RBAC ClusterRole 看起来像这样：
 
 ```yaml
@@ -457,7 +461,6 @@ rules:
 ## Vendor Implementations
 -->
 
-
 ## 供应商实施
 
 <!--
@@ -494,7 +497,8 @@ The following cloud providers have implemented CCMs:
 
 <!--
 Complete instructions for configuring and running the CCM are provided
-[here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager). -->
+[here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
+-->
 
 [这里](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
 

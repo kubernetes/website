@@ -29,7 +29,7 @@ Par souci de clarté, ce guide définit les termes suivants :
 
 ## Qu'est-ce qu'un ingress ?
 
-Ingress (ou une entrée réseau), ajouté à Kubernetes v1.1, expose les routes HTTP et HTTPS de l'extérieur du cluster à
+Ingress (ou une entrée réseau), ajouté à Kubernetes v1.1, expose les routes HTTP et HTTPS de l'extérieur du cluster à des
 {{<link text = "services" url = "/docs/concepts/services-networking/service/">}} au sein du cluster.
 Le routage du trafic est contrôlé par des règles définies sur la ressource Ingress.
 

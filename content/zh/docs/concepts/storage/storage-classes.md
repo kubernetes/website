@@ -70,14 +70,15 @@ for details.
 更多详情请参阅 [`PersistentVolumeClaim` 章节](#persistentvolumeclaims)。
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: standard
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
 reclaimPolicy: Retain
+allowVolumeExpansion: true
 mountOptions:
   - debug
 volumeBindingMode: Immediate
@@ -93,6 +94,10 @@ for provisioning PVs. This field must be specified.
 
 `StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`持久化卷申领`。该字段必须指定。
 
+<!--
+| Volume Plugin        | Internal Provisioner| Config Example                       |
+-->
+
 | 卷插件        | 提供厂商 | 配置例子                      |
 | :---                 |     :---:           |    :---:                             |
 | AWSElasticBlockStore | &#x2713;            | [AWS EBS](#aws-ebs)                          |
@@ -101,7 +106,7 @@ for provisioning PVs. This field must be specified.
 | CephFS               | -                   | -                                    |
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
 | FC                   | -                   | -                                    |
-| Flexvolume           | -                   | -                                    |
+| FlexVolume           | -                   | -                                    |
 | Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
@@ -122,23 +127,26 @@ alongside Kubernetes). You can also run and specify external provisioners,
 which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
-run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
+run, what volume plugin it uses (including Flex), etc. The repository
+[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 houses a library for writing external provisioners that implements the bulk of
-the specification plus various community-maintained external provisioners.
+the specification. Some external provisioners are listed under the repository
+[kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
  -->
 您不限于指定此处列出的"内置"分配器（其名称前缀为 kubernetes.io 并打包在 Kubernetes 中）。
 您还可以运行和指定外部分配器，这些独立的程序遵循由 Kubernetes 定义的 [规范](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)。
 外部供应商的作者完全可以自由决定他们的代码保存于何处、打包方式、运行方式、使用的插件（包括 Flex）等。
-代码仓库 [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
-包含一个用于为外部分配器编写功能实现的类库，以及各种社区维护的外部分配器。
+代码仓库 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
+包含一个用于为外部分配器编写功能实现的类库。可以通过下面的代码仓库，查看外部分配器列表。
+
+[kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
 
 <!--
-For example, NFS doesn't provide an internal provisioner, but an external provisioner
-can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
-There are also cases when 3rd party storage vendors provide their own external
-provisioner.
+For example, NFS doesn't provide an internal provisioner, but an external
+provisioner can be used. There are also cases when 3rd party storage
+vendors provide their own external provisioner.
  -->
-例如，NFS 没有内部分配器，但可以使用外部分配器。一些外部分配器在代码仓库 [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage) 中。
+例如，NFS 没有内部分配器，但可以使用外部分配器。
 也有第三方存储供应商提供自己的外部分配器。
 
 <!--
@@ -158,6 +166,46 @@ whatever reclaim policy they were assigned at creation.
 `Delete` 或者 `Retain`。如果 `StorageClass` 对象被创建时没有指定 `reclaimPolicy` ，它将默认为 `Delete`。
 
 通过 `StorageClass` 手动创建并管理的 Persistent Volume 会使用它们被创建时指定的回收政策。
+
+<!--
+### Allow Volume Expansion
+-->
+
+### 允许卷扩展
+
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+
+<!--
+Persistent Volumes can be configured to be expandable. This feature when set to `true`,
+allows the users to resize the volume by editing the corresponding PVC object.
+
+The following types of volumes support volume expansion, when the underlying
+Storage Class has the field `allowVolumeExpansion` set to true.
+-->
+
+永久卷可以配置为可扩展。将此功能设置为 `true` 时，允许用户通过编辑相应的PVC对象来调整卷大小。
+
+当基础存储类的 `allowVolumeExpansion` 字段设置为true时，以下类型的卷支持卷扩展。
+
+* gcePersistentDisk
+* awsElasticBlockStore
+* Cinder
+* glusterfs
+* rbd
+* Azure File
+* Azure Disk
+* Portworx
+* FlexVolumes
+* CSI  {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+{{< note >}}
+
+<!--
+This feature cannot be used to shrink volumes.
+-->
+此功能不能用于缩小卷。
+
+{{< /note >}}
 
 <!--
 ### Mount Options
@@ -248,6 +296,17 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * All of the above
 * [Local](#local)
 
+{{< feature-state state="beta" for_k8s_version="1.14" >}}
+
+<!--
+[CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
+and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
+to see its supported topology keys and examples. The `CSINodeInfo` feature gate must be enabled.
+-->
+
+动态配置和预先创建的PVs也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
+但是您需要查看特定CSI驱动程序的文档以查看其支持的拓扑密钥和例子。 必须启用 `CSINodeInfo` 特性。
+
 <!--
 ### Allowed Topologies
 -->
@@ -260,7 +319,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 **注意：** 这个特性需要开启 `VolumeScheduling` 特性开关。
 
 <!--
-When a cluster operactor specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
+When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,
 if still required, `allowedTopologies` can be specified.
 -->
@@ -275,8 +334,8 @@ supported plugins.
 这个例子描述了如何将分配卷限的拓扑限制在特定的区域，在使用时应该根据插件支持情况替换 `zone` 和 `zones` 参数。
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: standard
 provisioner: kubernetes.io/gce-pd
@@ -308,8 +367,8 @@ Storage class 具有描述属于卷的参数。取决于分配器，可以接受
 ### AWS EBS
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
 provisioner: kubernetes.io/aws-ebs
@@ -351,17 +410,20 @@ parameters:
 * `fsType`：受 Kubernetes 支持的文件类型。默认值：`"ext4"`。
 * `encrypted`：指定 EBS 卷是否应该被加密。合法值为 `"true"` 或者 `"false"`。这里需要输入字符串，即 `"true"`, 而非 `true`。
 * `kmsKeyId`：可选。加密卷时使用密钥的完整 Amazon 资源名称。如果没有提供，但 `encrypted` 值为 true，AWS 生成一个密钥。关于有效的 ARN 值，请参阅 AWS 文档。
+
+{{< note >}}
 <!--
-**Note:** `zone` and `zones` parameters are deprecated and replaced with
+`zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
  -->
-**注意：** `zone` 和 `zones` 已被弃用并被 [允许的拓扑结构](#allowed-topologies) 取代。
+`zone` 和 `zones` 已被弃用并被 [允许的拓扑结构](#allowed-topologies) 取代。
+{{< /note >}}
 
 ### GCE PD
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
 provisioner: kubernetes.io/gce-pd
@@ -402,11 +464,14 @@ managed by the cluster.
 -->
 如果 `replication-type` 设置为 `regional-pd`，会分配一个 [区域性持久化磁盘（Regional Persistent Disk）](https://cloud.google.com/compute/docs/disks/#repds)。在这种情况下，用户必须使用 `zones` 而非 `zone` 来指定期望的复制区域（zone）。如果指定来两个特定的区域，区域性持久化磁盘会在这两个区域里分配。如果指定了多于两个的区域，Kubernetes 会选择其中任意两个区域。如果省略了 `zones` 参数，Kubernetes 会在集群管理的区域中任意选择。
 
+{{< note >}}
+
 <!--
-**Note:** `zone` and `zones` parameters are deprecated and replaced with
+`zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 -->
-**注意：** `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
+`zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
+{{< /note >}}
 
 ### Glusterfs
 
@@ -531,8 +596,8 @@ parameters:
 ### OpenStack Cinder
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gold
 provisioner: kubernetes.io/cinder
@@ -565,8 +630,8 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
 1. 使用用户指定的磁盘格式创建一个 StorageClass。
 
     ```yaml
-    kind: StorageClass
     apiVersion: storage.k8s.io/v1
+    kind: StorageClass
     metadata:
       name: fast
     provisioner: kubernetes.io/vsphere-volume
@@ -579,14 +644,14 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
  -->
     `diskformat`: `thin`, `zeroedthick` 和 `eagerzeroedthick`。默认值: `"thin"`。
 
-<!--    
+<!--
 2. Create a StorageClass with a disk format on a user specified datastore.
 -->
 2. 在用户指定的数据存储上创建磁盘格式的 StorageClass。
 
     ```yaml
-    kind: StorageClass
     apiVersion: storage.k8s.io/v1
+    kind: StorageClass
     metadata:
       name: fast
     provisioner: kubernetes.io/vsphere-volume
@@ -664,8 +729,8 @@ which you try out for persistent volume management inside Kubernetes for vSphere
 ### Ceph RBD
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: fast
 provisioner: kubernetes.io/rbd
@@ -776,20 +841,23 @@ parameters:
   主机可以是一个 IP 地址，或者如果您有正在运行的 DNS，您也可以提供 DNS 名称。
 * `adminSecretNamespace`：`adminSecretName`的 namespace。
   默认值是 "default"。
+
 <!--
 * `adminSecretName`: secret that holds information about the Quobyte user and
   the password to authenticate against the API server. The provided secret
-  must have type "kubernetes.io/quobyte", e.g. created in this way:
+  must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
+  e.g. created in this way:
 
     ```shell
     kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
       --namespace=kube-system
     ```
-
 -->
+
 * `adminSecretName`：保存关于 Quobyte 用户和密码的 secret，用于对 API 服务器进行身份验证。
-  提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数，例如以这种方式创建：
+  提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数 和 `user` 与 `password` 的键值，
+  例如以这种方式创建：
 
     ```shell
     kubectl create secret generic quobyte-admin-secret \
@@ -912,22 +980,41 @@ parameters:
   group are searched to find one that matches `skuName` and `location`. If a
   storage account is provided, it must reside in the same resource group as the
   cluster, and `skuName` and `location` are ignored.
+* `secretNamespace`: the namespace of the secret that contains the Azure Storage
+  Account Name and Key. Default is the same as the Pod.
+* `secretName`: the name of the secret that contains the Azure Storage Account Name and
+  Key. Default is `azure-storage-account-<accountName>-secret`
+* `readOnly`: a flag indicating whether the storage will be mounted as read only.
+  Defaults to false which means a read/write mount. This setting will impact the
+  `ReadOnly` setting in VolumeMounts as well.
 -->
 * `skuName`：Azure 存储帐户 Sku 层。默认为空。
 * `location`：Azure 存储帐户位置。默认为空。
 * `storageAccount`：Azure 存储帐户名称。默认为空。
   如果不提供存储帐户，会搜索所有与资源相关的存储帐户，以找到一个匹配 `skuName` 和 `location` 的账号。
   如果提供存储帐户，它必须存在于与集群相同的资源组中，`skuName` 和 `location` 会被忽略。
+* `secretNamespace`：包含 Azure 存储帐户名称和密钥的密钥的名称空间。 默认值与 Pod 相同。
+* `secretName`：包含 Azure 存储帐户名称和密钥的密钥的名称。 默认值为 `azure-storage-account-<accountName>-secret`
+* `readOnly`：指示是否将存储安装为只读的标志。默认为 false，表示 读/写 挂载。 该设置也会影响VolumeMounts中的 `ReadOnly` 设置。
 
 <!--
-During provision, a secret is created for mounting credentials. If the cluster
-has enabled both [RBAC](/docs/reference/access-authn-authz/rbac/) and
+During storage provisioning, a secret named by `secretName` is created for the
+mounting credentials. If the cluster has enabled both
+[RBAC](/docs/reference/access-authn-authz/rbac/) and
 [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
 add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 -->
-在分配期间，为挂载凭证创建一个 secret。如果集群同时启用了 [RBAC](/docs/admin/authorization/rbac/) 和 [Controller Roles](/docs/admin/authorization/rbac/#controller-roles)，
+在存储分配期间，为挂载凭证创建一个名为 `secretName` 的 secret。如果集群同时启用了 [RBAC](/docs/admin/authorization/rbac/) 和 [Controller Roles](/docs/admin/authorization/rbac/#controller-roles)，
 为 `system:controller:persistent-volume-binder` 的 clusterrole 添加 `secret` 资源的 `create` 权限。
+
+<!--
+In a multi-tenancy context, it is strongly recommended to set the value for
+`secretNamespace` explicitly, otherwise the storage account credentials may
+be read by other users.
+-->
+
+在多租户上下文中，强烈建议显式设置 `secretNamespace` 的值，否则其他用户可能会读取存储帐户凭据。
 
 <!--
 ### Portworx Volume
@@ -935,8 +1022,8 @@ add the `create` permission of resource `secret` for clusterrole
 ### Portworx 卷
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: portworx-io-priority-high
 provisioner: kubernetes.io/portworx-volume
@@ -948,13 +1035,13 @@ parameters:
 ```
 
 <!--
-* `fs`: filesystem to be laid out: [none/xfs/ext4] (default: `ext4`).
+* `fs`: filesystem to be laid out: `none/xfs/ext4` (default: `ext4`).
 * `block_size`: block size in Kbytes (default: `32`).
 * `repl`: number of synchronous replicas to be provided in the form of
-  replication factor [1..3] (default: `1`) A string is expected here i.e.
+  replication factor `1..3` (default: `1`) A string is expected here i.e.
   `"1"` and not `1`.
 * `io_priority`: determines whether the volume will be created from higher
-  performance or a lower priority storage [high/medium/low] (default: `low`).
+  performance or a lower priority storage `high/medium/low` (default: `low`).
 * `snap_interval`: clock/time interval in minutes for when to trigger snapshots.
   Snapshots are incremental based on difference with the prior snapshot, 0
   disables snaps (default: `0`). A string is expected here i.e.
@@ -965,20 +1052,20 @@ parameters:
 * `ephemeral`: specifies whether the volume should be cleaned-up after unmount
   or should be persistent. `emptyDir` use case can set this value to true and
   `persistent volumes` use case such as for databases like Cassandra should set
-  to false, [true/false] (default `false`). A string is expected here i.e.
+  to false, `true/false` (default `false`). A string is expected here i.e.
   `"true"` and not `true`.
 -->
-* `fs`：选择的文件系统：[none/xfs/ext4]（默认：`ext4`）。
+* `fs`：选择的文件系统：`none/xfs/ext4`（默认：`ext4`）。
 * `block_size`：以 Kbytes 为单位的块大小（默认值：`32`）。
-* `repl`：同步副本数量，以复制因子 [1..3]（默认值：`1`）的形式提供。
+* `repl`：同步副本数量，以复制因子 `1..3`（默认值：`1`）的形式提供。
   这里需要填写字符串，即，`"1"` 而不是 `1`。
-* `io_priority`：决定是否从更高性能或者较低优先级存储创建卷 [high/medium/low]（默认值：`low`）。
+* `io_priority`：决定是否从更高性能或者较低优先级存储创建卷 `high/medium/low`（默认值：`low`）。
 * `snap_interval`：触发快照的时钟/时间间隔（分钟）。快照是基于与先前快照的增量变化，0 是禁用快照（默认：`0`）。
   这里需要填写字符串，即，是 `"70"` 而不是 `70`。
 * `aggregation_level`：指定卷分配到的块数量，0 表示一个非聚合卷（默认：`0`）。
   这里需要填写字符串，即，是 `"0"` 而不是 `0`。
 * `ephemeral`：指定卷在卸载后进行清理还是持久化。 `emptyDir` 的使用场景可以将这个值设置为 true ，
-  `persistent volumes` 的使用场景可以将这个值设置为 false（例如 Cassandra 这样的数据库）[true/false]（默认为 `false`）。这里需要填写字符串，即，是 `"true"` 而不是 `true`。
+  `persistent volumes` 的使用场景可以将这个值设置为 false（例如 Cassandra 这样的数据库）`true/false`（默认为 `false`）。这里需要填写字符串，即，是 `"true"` 而不是 `true`。
 
 ### ScaleIO
 
@@ -1046,8 +1133,8 @@ kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
 ### StorageOS
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: fast
 provisioner: kubernetes.io/storageos
@@ -1124,7 +1211,7 @@ references it.
 -->
 ### 本地
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 ```yaml
 kind: StorageClass
@@ -1136,7 +1223,7 @@ volumeBindingMode: WaitForFirstConsumer
 ```
 
 <!--
-Local volumes do not support dynamic provisioning yet, however a StorageClass
+Local volumes do not currently support dynamic provisioning, however a StorageClass
 should still be created to delay volume binding until pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 -->

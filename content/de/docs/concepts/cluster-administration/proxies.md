@@ -17,7 +17,7 @@ Es gibt mehrere verschiedene Proxies, die die bei der Verwendung von Kubernetes 
 1.  Der [kubectl Proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
     - läuft auf dem Desktop eines Benutzers oder in einem Pod
-    - Proxy von einer lokalen Host-Adresse zum Kubernetes API Server 
+    - Proxy von einer lokalen Host-Adresse zum Kubernetes API Server
     - Client zu Proxy verwendet HTTP
     - Proxy zu API Server verwendet HTTPS
     - lokalisiert den API Server

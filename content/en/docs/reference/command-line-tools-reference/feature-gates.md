@@ -31,6 +31,12 @@ different Kubernetes components.
   or its release stage is changed.
 - The "Until" column, if not empty, contains the last Kubernetes release in which
   you can still use a feature gate.
+- If a feature is in the Alpha or Beta state, you can find the feature listed
+  in the Alpha/Beta feature gate table.
+- If a feature is stable (GA) or deprecated, you can find all stages for that feature listed
+  in the GA/Deprecated feature gate table.
+
+### Feature gates for Alpha or Beta features
 
 {{< table caption="Feature gates for features in Alpha or Beta states" >}}
 
@@ -65,15 +71,8 @@ different Kubernetes components.
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | |
-| `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
-| `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | |
-| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.10 |
-| `CustomResourceSubresources` | `true` | Beta | 1.11 | - |
-| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
-| `CustomResourceValidation` | `true` | Beta | 1.9 | |
-| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
-| `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | |
+| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
+| `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
@@ -83,13 +82,15 @@ different Kubernetes components.
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `EndpointSlice` | `false` | Alpha | 1.16 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
-| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | |
+| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
+| `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
 | `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `EvenPodsSpread` | `false` | Alpha | 1.16 | |
+| `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
@@ -121,7 +122,8 @@ different Kubernetes components.
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
-| `ServerSideApply` | `false` | Alpha | 1.14 | |
+| `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
+| `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | |
@@ -154,11 +156,12 @@ different Kubernetes components.
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
+| `WindowsGMSA` | `true` | Beta | 1.16 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | |
 {{< /table >}}
 
-The following table contains feature gates for graduated or deprecated features.
+### Feature gates for graduated or deprecated features
 
 {{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
 
@@ -179,6 +182,18 @@ The following table contains feature gates for graduated or deprecated features.
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
+| `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | 1.15 |
+| `CustomResourcePublishOpenAPI` | `true` | GA | 1.16 | - |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.10 |
+| `CustomResourceSubresources` | `true` | Beta | 1.11 | 1.15 |
+| `CustomResourceSubresources` | `true` | GA | 1.16 | - |
+| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
+| `CustomResourceValidation` | `true` | Beta | 1.9 | 1.15 |
+| `CustomResourceValidation` | `true` | GA | 1.16 | - |
+| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
+| `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | 1.15 |
+| `CustomResourceWebhookConversion` | `true` | GA | 1.16 | - |
 | `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
@@ -346,6 +361,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
+- `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler` resources when using custom or external metrics.
 - `KubeletConfigFile`: Enable loading kubelet configuration from a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/) for more details.
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet

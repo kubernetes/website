@@ -1,5 +1,5 @@
 ---
-title: 安装 Minikube
+title: Install Minikube
 content_template: templates/task
 weight: 20
 ---
@@ -59,7 +59,7 @@ If you do not already have a hypervisor installed, install the appropriate one f
 
   Minikube 也支持 `-\-vm-driver=none` 选项，该选项在主机而非 VM 上运行 Kubernetes 组件。
   使用这个驱动程序需要 Docker 和 linux 环境，而不需要 hypervisor。
-  
+
   <!--
   Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Using this driver requires Docker and a linux environment, but not a hypervisor.
   -->
@@ -108,5 +108,3 @@ If you do not already have a hypervisor installed, install the appropriate one f
 -->
 
 {{% /capture %}}
-
-

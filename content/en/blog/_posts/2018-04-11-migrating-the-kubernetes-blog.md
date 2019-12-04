@@ -35,4 +35,4 @@ Our workflow hasn't changed for confidential advance drafts. Additionally, we'll
 
 ### Call for reviewers
 
-The Kubernetes Blog needs more reviewers! If you're interested in contributing to the Kubernetes project and can participate on a regular, weekly basis, send an introductory email to [k8sblog@linuxfoundation.org](k8sblog@linuxfoundation.org).
+The Kubernetes Blog needs more reviewers! If you're interested in contributing to the Kubernetes project and can participate on a regular, weekly basis, send an introductory email to [k8sblog@linuxfoundation.org](mailto:k8sblog@linuxfoundation.org).

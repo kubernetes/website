@@ -13,7 +13,7 @@ Generate the certificate for etcd nodes to communicate with each other, and save
 <!--
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
 -->
-默认 SAN 为 localhost，127.0.0.1、127.0.0.1，:: 1
+默认 SAN 为 localhost、127.0.0.1、127.0.0.1、:: 1
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.

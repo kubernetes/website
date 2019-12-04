@@ -15,14 +15,14 @@ weight: 50
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-<!-- 
+<!--
 You need to have a Kubernetes cluster. Follow the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/) to bootstrap one.
  -->
 您需要拥有一个 Kubernetes 集群。按照[kubeadm 入门指南](/docs/getting-started-guides/kubeadm/)来引导一个。
 {{% /capture %}}
 
 {{% capture steps %}}
-<!-- 
+<!--
 ## Install the Weave Net addon
 
 Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/) guide.
@@ -72,7 +72,7 @@ weave-net-pmw8w                         2/2       Running   0          9d       
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-<!-- 
+<!--
 Once you have installed the Weave Net addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy. If you have any question, contact us at [#weave-community on Slack or Weave User Group](https://github.com/weaveworks/weave#getting-help).
  -->
 

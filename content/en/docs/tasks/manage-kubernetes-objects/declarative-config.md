@@ -764,7 +764,7 @@ spec:
     rollingUpdate: # defaulted by apiserver - derived from strategy.type
       maxSurge: 1
       maxUnavailable: 1
-    type: RollingUpdate # defaulted apiserver
+    type: RollingUpdate # defaulted by apiserver
   template:
     metadata:
       creationTimestamp: null

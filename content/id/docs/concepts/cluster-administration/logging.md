@@ -122,7 +122,7 @@ Kamu dapat menggunakan kontainer _sidecar_ dengan salah satu cara berikut:
 
 Kamu dapat memanfaatkan kubelet dan agen _logging_ yang telah berjalan pada tiap _node_ dengan menggunakan kontainer _sidecar_. Kontainer _sidecar_ dapat membaca log dari sebuah berkas, _socket_ atau journald. Tiap kontainer _sidecar_ menuliskan log ke `stdout` atau `stderr` mereka sendiri.
 
-Dengan menggunakan cara ini kamu dapat memisahkan aliran log dari bagian-bagian yang berbeda dari aplikasimu, yang beberapa mungkin tidak mendukung log ke `stdout` dan `stderr`. Perubahan logika aplikasimu dengan menggunakan cara ini cukup kecil, sehingga hampir tidak ada _overhead_. Selain itu, karena `stdout` dan `stderr` ditangani oleh kubelet, kamu juga dapat menggunakan alat bawaan seperti `kubectl logs`.  
+Dengan menggunakan cara ini kamu dapat memisahkan aliran log dari bagian-bagian yang berbeda dari aplikasimu, yang beberapa mungkin tidak mendukung log ke `stdout` dan `stderr`. Perubahan logika aplikasimu dengan menggunakan cara ini cukup kecil, sehingga hampir tidak ada _overhead_. Selain itu, karena `stdout` dan `stderr` ditangani oleh kubelet, kamu juga dapat menggunakan alat bawaan seperti `kubectl logs`.
 
 Sebagai contoh, sebuah pod berjalan pada satu kontainer tunggal, dan kontainer menuliskan ke dua berkas log yang berbeda, dengan dua format yang berbeda pula. Berikut ini _file_ konfigurasi untuk Pod:
 

@@ -78,7 +78,6 @@ on every resource object.
 | `app.kubernetes.io/component`       | 架构中的组件 | `database` | 字符串 |
 | `app.kubernetes.io/part-of`         | 此级别的更高级别应用程序的名称 | `wordpress` | 字符串 |
 | `app.kubernetes.io/managed-by`  | 用于管理应用程序的工具 | `helm` | 字符串 |
-
 <!--
 To illustrate these labels in action, consider the following StatefulSet object:
 -->
