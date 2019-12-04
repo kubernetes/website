@@ -77,8 +77,8 @@ It’d be impossible to have gotten where we are without enormous help from ever
 
 * [Argo](https://github.com/kubeflow/kubeflow/tree/master/kubeflow/argo) for managing ML workflows
 * [Caffe2 Operator](https://github.com/kubeflow/caffe2-operator) for running Caffe2 jobs
-* [Horovod & OpenMPI](https://github.com/kubeflow/kubeflow/tree/master/kubeflow/openmpi) for improved distributed training performance of TensorFlow
-* [Identity Aware Proxy](https://github.com/kubeflow/kubeflow/blob/master/docs/gke/iap.md), which enables using security your services with identities, rather than VPNs and Firewalls
+* [Horovod & OpenMPI](https://github.com/kubeflow/kubeflow/tree/master/components/openmpi-controller) for improved distributed training performance of TensorFlow
+* [Identity Aware Proxy](https://github.com/kubeflow/kubeflow/blob/master/docs/gke/iap_request.py), which enables using security your services with identities, rather than VPNs and Firewalls
 * [Katib](https://github.com/kubeflow/katib) for hyperparameter tuning
 * [Kubernetes volume controller](https://github.com/kubeflow/experimental-kvc) which provides basic volume and data management using volumes and volume sources in a Kubernetes cluster.
 * [Kubebench](https://github.com/kubeflow/kubebench) for benchmarking of HW and ML stacks
