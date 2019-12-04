@@ -34,7 +34,7 @@ weight: 40
 
 인그레스는 클러스터 외부에서 클러스터 내부
 {{< link text="서비스" url="/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
-트래픽 라우팅은 인그레스 리소스에 정의된 구칙에 의해 컨트롤된다.
+트래픽 라우팅은 인그레스 리소스에 정의된 규칙에 의해 컨트롤된다.
 
 ```none
     internet
@@ -55,7 +55,7 @@ weight: 40
 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)가 있어야 인그레스를 충족할 수 있다. 인그레스 리소스만 생성한다면 효과가 없다.
 
 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)와 같은 인그레스 컨트롤러를 배포해야 할 수도 있다. 여러
-[인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers) 중에서 선택할 수 도 있다.
+[인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers) 중에서 선택할 수도 있다.
 
 이상적으로, 모든 인그레스 컨트롤러는 참조 사양이 맞아야 한다. 실제로, 다양한 인그레스
 컨트롤러는 조금 다르게 작동한다.
@@ -152,7 +152,7 @@ test-ingress   *         107.178.254.228   80        59s
 할당될 때 까지는 주소는 종종 `<pending>` 으로 표시된다.
 {{< /note >}}
 
-### 간단한 팬아웃
+### 간단한 팬아웃(fanout)
 
 팬아웃 구성은 HTTP URI에서 요청된 것을 기반으로 단일 IP 주소에서 1개 이상의 서비스로
 트래픽을 라우팅 한다. 인그레스를 사용하면 로드 밸런서의 수를
