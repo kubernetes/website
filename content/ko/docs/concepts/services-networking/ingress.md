@@ -19,7 +19,7 @@ weight: 40
 : 클러스터의 일부이며, 쿠버네티스에 속한 워커 머신.
 
 클러스터(Cluster)
-: 쿠버네티스에서 관리되는 컨테이너화 된 애플리케이션을 실행하는 노드 집합. 이 예시와 대부분의 일반적인 쿠버네티스 배포에서 클러스터에 속한 노드는 공용 인터넷의 일부가 아니다.
+: 쿠버네티스에서 관리되는 컨테이너화 된 애플리케이션을 실행하는 노드 집합. 이 예시와 대부분의 일반적인 쿠버네티스 배포에서 클러스터에 속한 노드는 퍼블릭 인터넷의 일부가 아니다.
 
 에지 라우터(Edge router)
 : 클러스터에 방화벽 정책을 적용하는 라우터. 이것은 클라우드 공급자 또는 물리적 하드웨어의 일부에서 관리하는 게이트웨이일 수 있다.
@@ -61,7 +61,7 @@ weight: 40
 컨트롤러는 조금 다르게 작동한다.
 
 {{< note >}}
-인그레스 컨트롤러의 설명서를 검토하여 선택시 주의 사항을 이해해야 한다.
+인그레스 컨트롤러의 설명서를 검토하여 선택 시 주의 사항을 이해해야 한다.
 {{< /note >}}
 
 ## 인그레스 리소스
@@ -85,10 +85,10 @@ spec:
           servicePort: 80
 ```
 
- 다른 모든 쿠버네티스 리소스와 마찬가지로 인그레스에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
- 설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), [컨트롤러 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
- 인그레스는 종종 어노테이션을 이용해서 인그레스 컨트롤러에 따라 몇가지 옵션을 구성하는데,
- 그 예시로 [재작성-타겟 어노테이션](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)이다.
+ 다른 모든 쿠버네티스 리소스와 마찬가지로 인그레스에는 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다.
+ 설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
+ 인그레스는 종종 어노테이션을 이용해서 인그레스 컨트롤러에 따라 몇 가지 옵션을 구성하는데,
+ 그 예시는 [재작성-타겟 어노테이션](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)이다.
  다른 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)는 다른 어노테이션을 지원한다.
  지원되는 어노테이션을 확인하려면 선택한 인그레스 컨트롤러의 설명서를 검토한다.
 
@@ -103,13 +103,13 @@ spec:
 
 * 선택적 호스트. 이 예시에서는, 호스트가 지정되지 않기에 지정된 IP 주소를 통해 모든 인바운드
   HTTP 트래픽에 규칙이 적용 된다. 만약 호스트가 제공되면(예,
-  foo.bar.com) 규칙이 해당 호스트에 적용된다.
+  foo.bar.com), 규칙이 해당 호스트에 적용된다.
 * 경로 목록 (예, `/testpath`)에는 각각 `serviceName` 과 `servicePort` 가 정의되어있는 관련
-  백엔드를 가지고 있다. 로드 밸런서가 트래픽을 참조된 서비스로 유도하기 전에 호스트와 경로가
+  백엔드를 가지고 있다. 로드 밸런서가 트래픽을 참조된 서비스로 보내기 전에 호스트와 경로가
   모두 수신 요청의 내용과 일치해야 한다.
 * 백엔드는 [서비스 문서](/docs/concepts/services-networking/service/)에 설명된 바와 같이
   서비스와 포트 이름의 조합이다. 호스트와 규칙 경로가 일치하는 인그레스에 대한
-  HTTP(와 HTTPS) 요청이 백엔드 목록으로 전송된다.
+  HTTP(와 HTTPS) 요청은 백엔드 목록으로 전송된다.
 
 기본 백엔드는 종종 사양의 경로와 일치하지 않는 서비스에 대한 모든 요청을 처리하도록 인그레스
 컨트롤러에 구성되는 경우가 많다.
@@ -117,7 +117,7 @@ spec:
 ### 기본 벡엔드
 
 규칙이 없는 인그레스는 모든 트래픽을 단일 기본 백엔드로 전송한다. 기본
-백엔드는 일반적으로 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 인그레스 리소스에 지정되어 있지 않다.The default
+백엔드는 일반적으로 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 인그레스 리소스에 지정되어 있지 않다.
 
 만약 인그레스 오브젝트의 HTTP 요청과 일치하는 호스트 또는 경로가 없으면, 트래픽은
 기본 백엔드로 라우팅 된다.
@@ -187,7 +187,7 @@ spec:
           servicePort: 8080
 ```
 
-`kubectl apply -f` 를 사용해서 인그레스를 생성 할때 다음과 같다.
+`kubectl apply -f` 를 사용해서 인그레스를 생성 할 때 다음과 같다.
 
 ```shell
 kubectl describe ingress simple-fanout-example
@@ -225,7 +225,7 @@ Events:
 
 ### 이름 기반의 가상 호스팅
 
-이름 기반의 가상 호스트는 동일한 IP 주소에서 여러 호스트 이름으로 HTTP 트래픽을 라우팅 하는 것을 지원 한다.
+이름 기반의 가상 호스트는 동일한 IP 주소에서 여러 호스트 이름으로 HTTP 트래픽을 라우팅하는 것을 지원한다.
 
 ```none
 foo.bar.com --|                 |-> foo.bar.com service1:80
@@ -234,7 +234,7 @@ bar.foo.com --|                 |-> bar.foo.com service2:80
 ```
 
 다음 인그레스는 [호스트 헤더](https://tools.ietf.org/html/rfc7230#section-5.4)에 기반한 요청을
-라우팅 하기위해 뒷단의 로드 밸런서를 알려준다.
+라우팅 하기 위해 뒷단의 로드 밸런서를 알려준다.
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -316,7 +316,7 @@ type: kubernetes.io/tls
 ```
 
 인그레스에서 시크릿을 참조하면 인그레스 컨트롤러가 TLS를 사용하여
-클라이언트에서 로드 밸런서로 채널을 보호하도록 지시 한다. 생성한
+클라이언트에서 로드 밸런서로 채널을 보호하도록 지시한다. 생성한
 TLS 시크릿이 `sslexample.foo.com` 의 정규화 된 도메인 이름(FQDN)이라고
 하는 일반 이름(CN)을 포함하는 인증서에서 온 것인지 확인해야 한다.
 
@@ -357,7 +357,7 @@ TLS 기능을 제공하는 다양한 인그레스 컨트롤러간의 기능
 노출되지 않는다. 대신 서비스에 사용되는 로드 밸런서를 통해 이러한 기능을
 얻을 수 있다.
 
-또한, 헬스 체크를 인그레스를 통해 직접노출되지 않더라도, 쿠버네티스에는
+또한, 헬스 체크를 인그레스를 통해 직접 노출되지 않더라도, 쿠버네티스에는
 [준비 상태 프로브](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)와
 같은 동일한 최종 결과를 얻을 수 있는 병렬 개념이
 있다는 점도 주목할 가치가 있다. 컨트롤러 별
@@ -418,7 +418,7 @@ spec:
 ..
 ```
 
-변경사항을 저장한 후, kubectl은 API 서버의 리소스를 업데이트를 하며, 인그레스
+변경사항을 저장한 후, kubectl은 API 서버의 리소스를 업데이트하며, 인그레스
 컨트롤러에게도 로드 밸런서를 재구성하도록 지시한다.
 
 이것을 확인한다.
