@@ -61,7 +61,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   1. 下記のコマンドを実行してDeploymentを作成してください。
 
       {{< note >}}
-      実行したコマンドを`kubernetes.io/change-cause`というリソースアノテーションに記録するために`--record`フラグを指定できます。これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
+      実行したコマンドを`kubernetes.io/change-cause`というアノテーションに記録するために`--record`フラグを指定できます。これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
       {{< /note >}}
 
     ```shell
@@ -284,7 +284,7 @@ Deploymentのロールアウトが進行中にDeploymentを更新すると、Dep
 
 ## Deploymentのロールバック {#rolling-back-a-deployment}
 
-Deploymentのロールバックを行いたい場合があります。例えば、Deploymentがクラッシュ状態になりそれがループしたりする不安定なときです。デフォルトではユーザーがいつでもロールバックできるようにDeploymentの全てのロールアウト履歴がシステムに保持されます(リビジョン履歴の上限を設定することにより変更可能です)。
+Deploymentのロールバックを行いたい場合があります。例えば、Deploymentがクラッシュ状態になりそれがループしたりする不安定なときです。デフォルトではユーザーがいつでもロールバックできるようにDeploymentの全てのロールアウト履歴がシステムに保持されます(リビジョン履歴の上限は設定することで変更可能です)。
 
 {{< note >}}
 Deploymentのリビジョンは、Deploymentのロールアウトがトリガーされた時に作成されます。これはDeploymentのPodテンプレート(`.spec.template`)が変更されたときのみ新しいリビジョンが作成されることを意味します。Deploymentのスケーリングなど、他の種類の更新においてはDeploymentのリビジョンは作成されません。これは手動もしくはオートスケーリングを同時に行うことができるようにするためです。これは過去のリビジョンにロールバックするとき、DeploymentのPodテンプレートの箇所のみロールバックされることを意味します。
@@ -552,7 +552,7 @@ deployment.apps/nginx-deployment scaled
 
 Deploymentのローリングアップデートは、同時に複数のバージョンのアプリケーションの稼働をサポートします。ユーザーやオートスケーラーがロールアウト中(更新中もしくは一時停止中)のDeploymentのローリングアップデートを行うとき、Deploymentコントローラーはリスクを削減するために既存のアクティブなReplicaSetのレプリカのバランシングを行います。これを*比例スケーリング* と呼びます。
 
-例えば、10のレプリカを持つDeploymentを稼働させているとき、[maxSurge](#max-surge)=3、[maxUnavailable](#max-unavailable)=2です。
+レプリカ数が10、[maxSurge](#max-surge)=3、[maxUnavailable](#max-unavailable)=2であるDeploymentが稼働している例です。
 
 * Deployment内で10のレプリカが稼働していることを確認します。
   ```shell
