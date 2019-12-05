@@ -1,5 +1,4 @@
 ---
-title: Feature Gates
 weight: 10
 title: Feature Gates
 content_template: templates/concept
@@ -8,15 +7,20 @@ content_template: templates/concept
 {{% capture overview %}}
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
+
+See [feature stages](#feature-stages) for an explanation of the stages for a feature.
 {{% /capture %}}
 
 {{% capture body %}}
 ## Overview
 
-Feature gates are a set of key=value pairs that describe alpha or experimental
-features.
-An administrator can use the `--feature-gates` command line flag on each component
-to turn a feature on or off. Each component supports a set of feature gates unique to that component.
+Feature gates are a set of key=value pairs that describe Kubernetes features.
+You can turn these features on or off using the `--feature-gates` command line flag
+on each Kubernetes component.
+
+
+Each Kubernetes component lets you enable or disable a set of feature gates that
+are relevant to that component.
 Use `-h` flag to see a full set of feature gates for all components.
 To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
 
@@ -32,9 +36,11 @@ different Kubernetes components.
 - The "Until" column, if not empty, contains the last Kubernetes release in which
   you can still use a feature gate.
 - If a feature is in the Alpha or Beta state, you can find the feature listed
-  in the Alpha/Beta feature gate table.
-- If a feature is stable (GA) or deprecated, you can find all stages for that feature listed
-  in the GA/Deprecated feature gate table.
+  in the [Alpha/Beta feature gate table](#feature-gates-for-alpha-or-beta-features).
+- If a feature is stable you can find all stages for that feature listed in the
+  [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+- The [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+  also lists deprecated and withdrawn features.
 
 ### Feature gates for Alpha or Beta features
 
@@ -240,9 +246,9 @@ different Kubernetes components.
 | `VolumeSubpath` | `true` | GA | 1.13 | - |
 {{< /table >}}
 
-## Using a Feature
+## Using a feature
 
-### Feature Stages
+### Feature stages
 
 A feature can be in *Alpha*, *Beta* or *GA* stage.
 An *Alpha* feature means:
@@ -273,12 +279,13 @@ Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
 {{< /note >}}
 
-A *GA* feature is also referred to as a *stable* feature. It means:
+A *General Availability* (GA) feature is also referred to as a *stable* feature. It means:
 
+* The feature is always enabled; you cannot disable it.
 * The corresponding feature gate is no longer needed.
 * Stable versions of features will appear in released software for many subsequent versions.
 
-### Feature Gates
+## List of feature gates {#feature-gates}
 
 Each feature gate is designed for enabling/disabling a specific feature:
 
@@ -345,7 +352,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
 - `EphemeralContainers`: Enable the ability to add {{< glossary_tooltip text="ephemeral containers"
   term_id="ephemeral-container" >}} to running pods.
-- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Even Pods Spread](/docs/concepts/configuration/even-pods-spread).
+- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Pod Topology Spread Constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalCriticalPodAnnotation`: Enable annotating specific pods as *critical* so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
@@ -390,7 +397,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ProcMountType`: Enables control over ProcMountType for containers.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
-  More details can be found [here](/docs/tasks/administer-cluster/storage-object-in-use-protection/).
 - `QOSReserved`: Allows resource reservations at the QoS level preventing pods at lower QoS levels from
   bursting into resources requested at higher QoS levels (memory only for now).
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
@@ -429,6 +435,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
 - `TokenRequestProjection`: Enable the injection of service account tokens into
   a Pod through the [`projected` volume](/docs/concepts/storage/volumes/#projected).
+- `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource assignments for different components in Kubernetes. See [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
 - `TTLAfterFinished`: Allow a [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) to clean up resources after they finish execution.
 - `VolumePVCDataSource`: Enable support for specifying an existing PVC as a DataSource.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
@@ -442,4 +449,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
+  the project's approach to removing features and components.
 {{% /capture %}}

@@ -16,21 +16,60 @@ title: 使用 PodPreset 将信息注入 Pods
 
 这里是一个简单的示例，展示了如何通过 Pod Preset 修改 Pod spec 。
 
+{{< codenew file="podpreset/preset.yaml" >}}
+
+创建 PodPreset：
+
+```shell
+kubectl apply -f https://k8s.io/examples/podpreset/preset.yaml
+```
+
+检查所创建的 PodPreset：
+
+```shell
+kubectl get podpreset
+```
+```
+NAME             AGE
+allow-database   1m
+```
+
+新的 PodPreset 会对所有具有标签 `role: frontend` 的 Pods 采取行动。
+
 **用户提交的 pod spec：**
 
 {{< codenew file="podpreset/pod.yaml" >}}
 
-**Pod Preset 示例：**
+创建 Pod：
 
-{{< codenew file="podpreset/preset.yaml" >}}
+```shell
+kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
+```
 
-**通过准入控制器后的 Pod spec：**
+列举运行中的 Pods：
+
+```shell
+kubectl get pods
+```
+```
+NAME      READY     STATUS    RESTARTS   AGE
+website   1/1       Running   0          4m
+```
+
+**通过准入控制器后的 Pod 规约：**
 
 {{< codenew file="podpreset/merged.yaml" >}}
 
-### 带有 `ConfigMap` 的 Pod Spec 示例
+要查看如上输出，运行下面的命令：
 
-这里的示例展示了如何通过 Pod Preset 修改 Pod spec，Pod Preset 中定义了 `ConfigMap` 作为环境变量取值来源。
+```shell
+kubectl get pod website -o yaml
+```
+
+### 带有 ConfigMap 的 Pod Spec 示例
+
+这里的示例展示了如何通过 PodPreset 修改 Pod 规约，PodPreset 中定义了 `ConfigMap`
+作为环境变量取值来源。
 
 **用户提交的 pod spec：**
 
@@ -40,7 +79,7 @@ title: 使用 PodPreset 将信息注入 Pods
 
 {{< codenew file="podpreset/configmap.yaml" >}}
 
-**Pod Preset 示例：**
+**PodPreset 示例：**
 
 {{< codenew file="podpreset/allow-db.yaml" >}}
 
@@ -56,7 +95,7 @@ title: 使用 PodPreset 将信息注入 Pods
 
 {{< codenew file="podpreset/replicaset.yaml" >}}
 
-**Pod Preset 示例：**
+**PodPreset 示例：**
 
 {{< codenew file="podpreset/preset.yaml" >}}
 
@@ -70,11 +109,11 @@ title: 使用 PodPreset 将信息注入 Pods
 
 这里的示例展示了如何通过多个 Pod 注入策略修改 Pod spec。
 
-**用户提交的 pod spec：**
+**用户提交的 Pod 规约：**
 
 {{< codenew file="podpreset/pod.yaml" >}}
 
-**Pod Preset 示例：**
+**PodPreset 示例：**
 
 {{< codenew file="podpreset/preset.yaml" >}}
 
@@ -82,19 +121,19 @@ title: 使用 PodPreset 将信息注入 Pods
 
 {{< codenew file="podpreset/proxy.yaml" >}}
 
-**通过准入控制器后的 Pod spec：**
+**通过准入控制器后的 Pod 规约：**
 
 {{< codenew file="podpreset/multi-merged.yaml" >}}
 
 ### 冲突示例
 
-这里的示例展示了 Pod Preset 与原 Pod 存在冲突时，Pod spec 不会被修改。
+这里的示例展示了 PodPreset 与原 Pod 存在冲突时，Pod spec 不会被修改。
 
-**用户提交的 pod spec：**
+**用户提交的 Pod 规约：**
 
 {{< codenew file="podpreset/conflict-pod.yaml" >}}
 
-**Pod Preset 示例：**
+**PodPreset 示例：**
 
 {{< codenew file="podpreset/conflict-preset.yaml" >}}
 
@@ -117,7 +156,9 @@ Events:
 一旦用户不再需要 pod preset，可以使用 `kubectl` 进行删除：
 
 ```shell
-$ kubectl delete podpreset allow-database
+kubectl delete podpreset allow-database
+```
+```
 podpreset "allow-database" deleted
 ```
 

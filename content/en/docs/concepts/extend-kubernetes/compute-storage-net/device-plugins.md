@@ -13,7 +13,7 @@ Kubernetes provides a [device plugin framework](https://github.com/kubernetes/co
 that you can use to advertise system hardware resources to the
 {{< glossary_tooltip term_id="kubelet" >}}.
 
-Instead of customising the code for Kubernetes itself, vendors can implement a
+Instead of customizing the code for Kubernetes itself, vendors can implement a
 device plugin that you deploy either manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
 The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters,
 and other similar computing resources that may require vendor specific initialization
@@ -204,6 +204,6 @@ Here are some examples of device plugin implementations:
 
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
-* Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl-tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
+* Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 
 {{% /capture %}}

@@ -153,7 +153,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-Jika anda tertarik mempelajari lebih lanjut tentang `kubectl`, silahkan baca [Ikhtisar kubectl](/id/docs/reference/kubectl/overview/).
+Jika kamu tertarik mempelajari lebih lanjut tentang `kubectl`, silahkan baca [Ikhtisar kubectl](/id/docs/reference/kubectl/overview/).
 
 ## Memakai label secara efektif
 
@@ -311,7 +311,7 @@ metadata:
 
 Untuk informasi lebih lanjut, silahkan lihat laman [annotations](/docs/concepts/overview/working-with-objects/annotations/) dan [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate).
 
-## Memperbesar dan memperkecil aplikasi anda
+## Memperbesar dan memperkecil aplikasi kamu
 
 Saat beban aplikasi naik maupun turun, mudah untuk mengubah kapasitas dengan `kubectl`. Contohnya, untuk menurunkan jumlah replika nginx dari 3 ke 1, lakukan:
 

@@ -25,7 +25,7 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 ## Introduction
 
-Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this, we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
+Managing storage is a distinct problem from managing compute instances. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this, we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
 A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
@@ -722,12 +722,11 @@ and need persistent storage, it is recommended that you use the following patter
     `persistentVolumeClaim.storageClassName` field.
     This will cause the PVC to match the right storage
     class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name, leave the
-    `persistentVolumeClaim.storageClassName` field as nil.
-    - This will cause a PV to be automatically provisioned for the user with
-      the default StorageClass in the cluster. Many cluster environments have
-      a default StorageClass installed, or administrators can create their own
-      default StorageClass.
+  - If the user does not provide a storage class name, leave the 
+    `persistentVolumeClaim.storageClassName` field as nil. This will cause a 
+    PV to be automatically provisioned for the user with the default StorageClass 
+    in the cluster. Many cluster environments have a default StorageClass installed,
+    or administrators can create their own default StorageClass.
 - In your tooling, watch for PVCs that are not getting bound after some time
   and surface this to the user, as this may indicate that the cluster has no
   dynamic storage support (in which case the user should create a matching PV)

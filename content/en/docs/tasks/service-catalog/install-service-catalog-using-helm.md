@@ -8,7 +8,7 @@ content_template: templates/task
 {{% capture overview %}}
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
 
-Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) repo.
+Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog/blob/master/docs/install.md) repo.
 
 {{% /capture %}}
 
@@ -21,7 +21,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
     * If you are using `hack/local-up-cluster.sh`, ensure that the `KUBE_ENABLE_CLUSTER_DNS` environment variable is set, then run the install script.
 * [Install and setup kubectl](/docs/tasks/tools/install-kubectl/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
 * Install [Helm](http://helm.sh/) v2.7.0 or newer.
-    * Follow the [Helm install instructions](https://github.com/kubernetes/helm/blob/master/docs/install.md).
+    * Follow the [Helm install instructions](https://helm.sh/docs/intro/install/).
     * If you already have an appropriate version of Helm installed, execute `helm init` to install Tiller, the server-side component of Helm.
 
 {{% /capture %}}
@@ -45,8 +45,9 @@ helm search service-catalog
 If the installation was successful, the command should output the following:
 
 ```
-NAME            VERSION DESCRIPTION
-svc-cat/catalog 0.0.1   service-catalog API server and controller-manag...
+NAME                	CHART VERSION	APP VERSION	DESCRIPTION                                                 
+svc-cat/catalog     	0.2.1        	           	service-catalog API server and controller-manager helm chart
+svc-cat/catalog-v0.2	0.2.2        	           	service-catalog API server and controller-manager helm chart
 ```
 
 ## Enable RBAC
@@ -102,6 +103,6 @@ helm install svc-cat/catalog \
 
 {{% capture whatsnext %}}
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
-* Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
+* Explore the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) project.
 
 {{% /capture %}}

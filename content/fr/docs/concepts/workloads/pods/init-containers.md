@@ -265,7 +265,7 @@ Toutefois, si la `restartPolicy` du Pod est configurée à "Always", les init co
 
 Un Pod ne peut pas être `Ready` tant que tous les init containers ne se sont pas exécutés avec succès.
 Les ports d'un init container ne sont pas agrégés sous un Service. Un Pod qui s'initialise
-est dans l'état `Pending` mais devrait avoir une condition `Initializing` configurée à "true".
+est dans l'état `Pending` mais devrait avoir une condition `Initialized` configurée à "true".
 
 Si le Pod [redémarre](#raisons-du-redémarrage-d-un-pod) ou est redémarré, tous les init containers
 doivent s'exécuter à nouveau.

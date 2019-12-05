@@ -27,7 +27,6 @@ content_template: templates/tutorial
 
 {{% /capture %}}
 
-
 {{% capture lessoncontent %}}
 
 

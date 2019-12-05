@@ -73,8 +73,7 @@ Here is an example Deployment. It creates a ReplicaSet to bring up three nginx P
 Run the example by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f docs/user-guide/nginx-deployment.yaml --record
-deployment "nginx-deployment" created
+kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 Setting the kubectl flag `--record` to `true` allows you to record current command in the annotations of
@@ -391,7 +390,7 @@ First, check the revisions of this deployment:
 $ kubectl rollout history deployment/nginx-deployment
 deployments "nginx-deployment"
 REVISION    CHANGE-CAUSE
-1           kubectl create -f docs/user-guide/nginx-deployment.yaml --record
+1           kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 2           kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
 3           kubectl set image deployment/nginx-deployment nginx=nginx:1.91
 ```

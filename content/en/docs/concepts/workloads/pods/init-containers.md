@@ -62,7 +62,6 @@ have some advantages for start-up related code:
 * Init containers can contain utilities or custom code for setup that are not present in an app
   image. For example, there is no need to make an image `FROM` another image just to use a tool like
   `sed`, `awk`, `python`, or `dig` during setup.
-* Init containers can securely run utilities that would make an app container image less secure.
 * The application image builder and deployer roles can work independently without
   the need to jointly build a single app image.
 * Init containers can run with a different view of the filesystem than app containers in the
@@ -71,6 +70,9 @@ have some advantages for start-up related code:
 * Because init containers run to completion before any app containers start, init containers offer
   a mechanism to block or delay app container startup until a set of preconditions are met. Once
   preconditions are met, all of the app containers in a Pod can start in parallel.
+* Init containers can securely run utilities or custom code that would otherwise make an app
+  container image less secure. By keeping unnecessary tools separate you can limit the attack  
+  surface of your app container image. 
 
 
 ### Examples
@@ -124,31 +126,6 @@ spec:
   - name: init-mydb
     image: busybox:1.28
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
-```
-
-
-The following YAML file outlines the `mydb` and `myservice` services:
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: myservice
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mydb
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9377
 ```
 
 You can start this Pod by running:
@@ -277,7 +254,7 @@ if the Pod `restartPolicy` is set to Always, the init containers use
 
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
 init container are not aggregated under a Service. A Pod that is initializing
-is in the `Pending` state but should have a condition `Initializing` set to true.
+is in the `Pending` state but should have a condition `Initialized` set to true.
 
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.

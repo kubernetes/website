@@ -1377,7 +1377,7 @@ of the `web` StatefulSet is set to `Parallel`.
 In one terminal, watch the Pods in the StatefulSet.
 -->
 
-下载上面的例子并保存为 `webp.yaml`。
+下载上面的例子并保存为 `web-parallel.yaml`。
 
 
 这份清单和你在上文下载的完全一样，只是 `web` StatefulSet 的 `.spec.podManagementPolicy` 设置成了 `Parallel`。
