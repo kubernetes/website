@@ -3,7 +3,7 @@ reviewers:
 - derekwaynecarr
 - vishh
 - timstclair
-title: Configure Out Of Resource Handling
+title: Configure Out of Resource Handling
 content_template: templates/concept
 ---
 

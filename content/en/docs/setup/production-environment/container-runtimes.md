@@ -206,6 +206,7 @@ yum install --nogpgcheck cri-o
 ### Start CRI-O
 
 ```
+systemctl daemon-reload
 systemctl start crio
 ```
 

@@ -82,8 +82,8 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 
   2. `kubectl get deployments` 을 실행해서 디플로이먼트가 생성되었는지 확인한다. 만약 디플로이먼트가 여전히 생성중이면 다음과 유사하게 출력된다.
     ```shell
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         0         0            0           1s
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   0/3     0            0           1s
     ```
     클러스터에서 디플로이먼트를 점검할 때 다음 필드가 표시된다.
 
@@ -104,8 +104,8 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 
   4. 몇 초 후 `kubectl get deployments` 를 다시 실행한다. 다음과 유사하게 출력된다.
     ```shell
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           18s
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   3/3     3            3           18s
     ```
     디플로이먼트에서 3개의 레플리카가 생성되었고, 모든 레플리카는 최신 상태(최신 파드 템플릿을 포함)이며 사용 가능한 것을 알 수 있다.
 
@@ -159,7 +159,7 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
     또는 간단하게 다음의 명령어를 사용한다.
 
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record
     ```
 
     이와 유사하게 출력된다.
@@ -198,8 +198,8 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 * 롤아웃이 성공하면 `kubectl get deployments` 를 실행해서 디플로이먼트를 볼 수 있다.
     이와 유사하게 출력된다.
     ```
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           36s
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   3/3     3            3           36s
     ```
 
 * `kubectl get rs` 를 실행해서 디플로이먼트가 새 레플리카셋을 생성해서 파드를 업데이트 했는지 볼 수 있고, 
@@ -439,7 +439,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     OldReplicaSets:     nginx-deployment-1564180365 (3/3 replicas created)
     NewReplicaSet:      nginx-deployment-3066724191 (1/1 replicas created)
     Events:
-      FirstSeen LastSeen    Count   From                    SubobjectPath   Type        Reason              Message
+      FirstSeen LastSeen    Count   From                    SubObjectPath   Type        Reason              Message
       --------- --------    -----   ----                    -------------   --------    ------              -------
       1m        1m          1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-2035384211 to 3
       22s       22s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 1
@@ -533,8 +533,8 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
     이와 유사하게 출력된다.  
     ```
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           30m
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   3/3     3            3           30m
     ```
 3. 디플로이먼트의 설명 가져오기.
     ```shell
@@ -1082,7 +1082,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 `.spec.strategy.rollingUpdate.maxUnavailable` 은 업데이트 프로세스 중에 사용할 수 없는 최대 파드의 수를 지정하는 선택적 필드이다.
 이 값은 절대 숫자(예: 5) 또는 의도한 파드 비율(예: 10%)이 될 수 있다.
 절대 값은 반올림해서 백분율로 계산한다.
-만약 `.spec.strategy.rollingUpdate.maxSurge` 가 0면 값이 0이 될 수 없다. 기본 값은 25% 이다.
+만약 `.spec.strategy.rollingUpdate.maxSurge` 가 0이면 값이 0이 될 수 없다. 기본 값은 25% 이다.
 
 예를 들어 이 값을 30%로 설정하면 롤링업데이트 시작시 즉각 이전 레플리카셋의 크기를 
 의도한 파드 중 70%를 스케일 다운할 수 있다. 새 파드가 준비되면 기존 레플리카셋을 스케일 다운할 수 있으며, 
