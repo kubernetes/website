@@ -27,9 +27,9 @@ Mesosphere 提供了一个简单的选项来将 Kubernetes 设置到[DC/OS](http
 * Kubernetes running alongside fast-data platforms (e.g. Akka, Cassandra, Kafka, Spark)
 -->
 * 纯上游 Kubernetes
-* 单击集群配置
+* 集群一键部署
 * 默认情况下高度可用且安全
-* 与快速数据平台(例如 Akka 、 Cassandra 、Kafka 、 Spark)一起运行的 Kubernetes
+* 与快速数据平台 (例如 Akka、Cassandra、Kafka、Spark) 一起运行的 Kubernetes
 
 {{% /capture %}}
 
@@ -38,11 +38,11 @@ Mesosphere 提供了一个简单的选项来将 Kubernetes 设置到[DC/OS](http
 <!--
 ## Official Mesosphere Guide
 -->
-## 官方中层指南
+## Mesosphere 官方指南
 
 <!--
 The canonical source of getting started on DC/OS is located in the [quickstart repo](https://github.com/mesosphere/dcos-kubernetes-quickstart).
 -->
-DC/OS 入门的规范来源位于[quickstart 存储库](https://github.com/mesosphere/dcos-kubernetes-quickstart)中。
+DC/OS 入门的正式来源位于[quickstart 仓库](https://github.com/mesosphere/dcos-kubernetes-quickstart)中。
 
 {{% /capture %}}
