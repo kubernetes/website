@@ -192,7 +192,7 @@ func main() {
 }
 ```
 
-If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
+If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-within-a-pod).
 
 #### Python client
 
