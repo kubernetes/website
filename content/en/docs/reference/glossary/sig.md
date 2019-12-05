@@ -15,7 +15,7 @@ tags:
 <!--more--> 
 
 Members within a SIG have a shared interest in advancing a specific area, such as architecture, API machinery, or documentation.
-SIGs must follow the [SIG Governance](https://github.com/kubernetes/community/blob/master/sig-governance.md) guidelines but can have their own contribution policy and channels of communication.
+SIGs must follow the SIG [governance guidelines](https://github.com/kubernetes/community/blob/master/committee-steering/governance/sig-governance.md), but can have their own contribution policy and channels of communication.
 
 For more information, see the [kubernetes/community](https://github.com/kubernetes/community) repo and the current list of [SIGs and Working Groups](https://github.com/kubernetes/community/blob/master/sig-list.md).
 

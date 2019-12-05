@@ -8,52 +8,56 @@ weight: 80
 
 {{% capture overview %}}
 
-あなたがKubernetesのドキュメンテーションやWebサイトに貢献するのを手伝いたいのであれば、私たちはあなたの貢献を嬉しく思います！プロジェクトに関わって日が浅いのか、それとも長きに渡って関わっているのか、開発者、エンドユーザ、または誤植に耐えられない人かどうかに関係なく、誰でも貢献できます。
+ドキュメントやウェブサイトに貢献したい方、ご協力お待ちしています。
+はじめての方、久しぶりの方、開発者でもエンドユーザでも、はたまたタイポを見逃せない方でもどなたでも貢献可能です。
 
-Kubernetesコミュニティに参加する、または私たちについて学ぶためのより多くの方法については、[Kubernetesコミュニティサイト](/community/)をご覧ください。Kubernetesドキュメントのスタイルガイドについては、[スタイルガイド](/docs/contribute/style/style-guide/)を参照してください。
+ドキュメントのスタイルガイドについては[こちら](/docs/contribute/style/style-guide/)。
 
 {{% capture body %}}
 
-## 寄稿者のタイプ
+## コントリビューターの種類
 
-- [CLAに署名](/docs/contribute/start#sign-the-cla)し、プロジェクトにいくらかの時間と努力を費やしたKubernetes組織の*メンバー*。メンバーシップの具体的な基準については、[コミュニティメンバーシップ](https://github.com/kubernetes/community/blob/master/community-membership.md)を参照してください。
-- SIG Docs*レビューワー*は、ドキュメントのプルリクエストのレビューに関心を示し、SIG Docs承認者によってGithubリポジトリの適切なGithubグループと`OWNERS`ファイルに追加されたKubernetes組織のメンバーです。
-- SIG Docs*承認者*は、プロジェクトに対する継続的なコミットメントを示している優秀なメンバーです。承認者はKubernetes組織に代わってプルリクエストをマージし、コンテンツを公開できます。承認者は、より大きなKubernetesコミュニティのSIG Docsを代表することもできます。リリースの調整など、SIG Docs承認者の任務の中には、かなりの時間を要するものがあります。
+- _メンバー_ は、すでに [CLA に署名](/docs/contribute/start#sign-the-cla)しており、本プロジェクトに何度も貢献している方です。
+  [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md)を読んで、会員規約をご確認ください。
+- _レビュアー_ は、ドキュメントのPRレビューへ関心を示しており、承認者によりすでにGitHubグループ、およびGitHubレポジトリーの`OWNERS`ファイルに追加されているメンバーです。
+- _承認者_ は、本プロジェクトに継続してコミットできているメンバーです。Kubernetes organizationを代表して、PRをマージしたり、コンテンツを公開することができます。
+  また、Kubernetes コミュニティにおいて、SIG Docsを代表することもできますが、リリースの調整などのように、相応の時間をコミットすることも求められます。
 
-## 貢献する方法
+## ドキュメントへの貢献方法
 
-このリストは、誰でもできること、Kubernetes組織のメンバーができること、そしてより高いレベルのアクセスとSIG Docsプロセスへの精通を必要とすることに分けられます。時間をかけて一貫して貢献することで、すでに行われた作業や組織上の決定について理解するのに役立ちます。
+以下に挙げたものは、どなたでも可能なこと、Kubernetes organizationメンバーであれば可能なこと、SIG Docsのプロセスにアクセスでき、かつ慣れていないとできないことにわかれています。
+継続的に貢献していけば、ノウハウや組織的決断を理解する手助けとなるでしょう。
 
-これはKubernetesのドキュメントに貢献できる方法の網羅的なリストではありませんが、始めるのに役立ちます。
+これがKubernetesドキュメントへ貢献する方法の全てではないですが、手始めには良いでしょう。
 
-- [全ての人](/docs/contribute/start/)
-  - 対処可能なバグのファイル
+- [どなたでも](/docs/contribute/start/)
+  - issue を作成する
 - [メンバー](/docs/contribute/start/)
-  - 既存のドキュメントの改善
-  - [Slack](http://slack.k8s.io/)または[SIG docsメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)で改善のためのアイデアを発案
-  - ドキュメントのアクセシビリティの向上
-  - PRに拘束力のないフィードバックの提供
-  - ブログ記事やケーススタディの執筆・投稿
-- [レビューワー](/docs/contribute/intermediate/)
-  - 新機能のドキュメンテーション
-  - 問題のトリアージと分類
-  - PRの確認
-  - ダイアグラム、グラフィックアセット、および埋め込み可能なスクリーンキャスト/ビデオの作成
-  - ローカライゼーション
-  - ドキュメントの代表として他のリポジトリに貢献する
-  - コード内のユーザー向け文字列を編集する
-  - Godoc、コードのコメントを改善する
+  - 既存のドキュメントを改善する
+  - 改善のアイデアを[Slack](http://slack.k8s.io/)もしくは[SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)に投げる
+  - ドキュメントのアクセシビリティを改善する
+  - PRにフィードバックをする
+  - 事例やブロクを書く
+- [レビュアー](/docs/contribute/intermediate/)
+  - 新機能のドキュメントを作成する
+  - issueの選別、分類をする
+  - PRをレビューする
+  - 図表や、グラフィック資産、埋め込み可能な動画などを作成する
+  - 多言語対応
+  - ドキュメントの代表者として別のレポジトリに貢献する
+  - コード内にある、ユーザが使う文字列を編集する
+  - コードのコメントやGodocを改善する
 - [承認者](/docs/contribute/advanced/)
-  - PRを承認およびマージして寄稿者コンテンツを公開
-  - ドキュメント代表としてKubernetesリリースチームに参加する
-  - スタイルガイドに改善を提案する
-  - docsテストの改善を提案する
-  - KubernetesのWebサイトまたはその他のツールの改良を提案する
+  - PRを承認、マージすることでコントリビューターが作成したコンテンツを公開する
+  - Kubernetesのリリースチームに、ドキュメントを代表して参加する
+  - スタイルガイドの改善を提案する
+  - ドキュメントテストの改善を提案する
+  - Kubernetesのウェブサイトやその他ツールの改善を提案する
 
 
-## 貢献するその他の方法
+## その他の貢献方法
 
-- TwitterやStack Overflowなどのオンラインフォーラムを通じてKubernetesコミュニティに貢献したり、ローカルのミートアップやKubernetesイベントについて学ぶには、[Kubernetesコミュニティサイト](/community/)にアクセスしてください。
-- 機能の開発に貢献するには、[コントリビューターチートシート](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)を読んで始めてください。
+- TwitterやStack Overflowといったオンラインフォーラムを通してKubernetesコミュニティに貢献したい方、または各地のミートアップやイベントについて知りたい方は[Kubernetes community site](/community/)へ。
+- 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
 
 {{% /capture %}}

@@ -328,7 +328,7 @@ Error from server (Forbidden): error when creating "pvc-limit-greater.yaml": per
 
 ## Limits/Requests Ratio
 
-If `LimitRangeItem.maxLimitRequestRatio` if specified in th `LimitRangeSpec`, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value
+If `LimitRangeItem.maxLimitRequestRatio` is specified in the `LimitRangeSpec`, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value
 
 The following `LimitRange` enforces memory limit to be at most twice the amount of the memory request for any pod in the namespace.
 

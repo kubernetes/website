@@ -14,8 +14,8 @@ kops is an opinionated provisioning system:
 * Fully automated installation
 * Uses DNS to identify clusters
 * Self-healing: everything runs in Auto-Scaling Groups
-* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/images.md)
-* High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/high_availability.md)
+* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
+* High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
 * Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
 If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
@@ -39,20 +39,80 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 
 On macOS:
 
+Download the latest release with the command:
+
 ```shell
-curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
+```
+
+To download a specific version, replace the
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+
+portion of the command with the specific version.
+
+For example, to download kops version v1.15.0 type:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+```
+
+Make the kops binary executable.
+
+```shell
 chmod +x kops-darwin-amd64
-mv kops-darwin-amd64 /usr/local/bin/kops
-# you can also install using Homebrew
+```
+
+Move the kops binary in to your PATH.
+
+```shell
+sudo mv kops-darwin-amd64 /usr/local/bin/kops
+```
+
+You can also install kops using [Homebrew](https://brew.sh/).
+
+```shell
 brew update && brew install kops
 ```
 
 On Linux:
 
+Download the latest release with the command:
+
 ```shell
-wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+```
+
+To download a specific version, replace the
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+portion of the command with the specific version.
+
+For example, to download kops version v1.15.0 type:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+```
+
+Make the kops binary executable
+
+```shell
 chmod +x kops-linux-amd64
-mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+Move the kops binary in to your PATH.
+
+```shell
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+You can also install kops using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux).
+
+```shell
+brew update && brew install kops
 ```
 
 ### (2/5) Create a route53 domain for your cluster

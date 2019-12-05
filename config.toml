@@ -273,3 +273,16 @@ description = "Production-Grade Container Orchestration"
 languageName = "Vietnamese"
 contentDir = "content/vi"
 weight = 12
+
+[languages.ru]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "Русский"
+weight = 12
+contentDir = "content/ru"
+
+[languages.ru.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
