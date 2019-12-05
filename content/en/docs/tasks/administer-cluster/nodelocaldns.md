@@ -50,13 +50,15 @@ This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 
 This feature can be enabled using the command:
 
-`KUBE_ENABLE_NODELOCAL_DNS=true go run hack/e2e.go -v --up`
+`KUBE_ENABLE_NODELOCAL_DNS=true kubetest --up`
 
 This works for e2e clusters created on GCE. On all other environments, the following steps will setup NodeLocal DNSCache:
 
 * A yaml similar to [this](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) can be applied using `kubectl create -f` command.
-* --cluster-dns flag to kubelet needs to be modified to use the LOCAL_DNS IP that NodeLocal DNSCache is listening on (169.254.20.10 by default)
+* No need to modify the --cluster-dns flag since NodeLocal DNSCache listens on both the kube-dns service IP as well as a link-local IP (169.254.20.10 by default)
 
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
+
+The feature can be disabled by removing the daemonset, using `kubectl delete -f` command. On e2e clusters created on GCE, the daemonset can be removed by deleting the node-local-dns yaml from `/etc/kubernetes/addons/0-dns/nodelocaldns.yaml`
 
  {{% /capture %}}
