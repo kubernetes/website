@@ -177,7 +177,7 @@ __podSelector__: 这将在与 `NetworkPolicy` 相同的名称空间中选择特�
 
 __namespaceSelector__: 这将选择特定的名称空间，应将所有 Pod 用作其输入源或输出目的地。
 
-__namespaceSelector__ *和* __podSelector__: 一个指定 `namespaceSelector` 和 `podSelector` 的 `to`/`from` 条目选择特定命名空间中的特定 Pod。注意使用正确的YAML语法；这项政策：
+__namespaceSelector__ *和* __podSelector__: 一个指定 `namespaceSelector` 和 `podSelector` 的 `to`/`from` 条目选择特定命名空间中的特定 Pod。注意使用正确的YAML语法；这项策略：
 
 ```yaml
   ...
@@ -192,7 +192,7 @@ __namespaceSelector__ *和* __podSelector__: 一个指定 `namespaceSelector` �
   ...
 ```
 
-contains a single `from` element allowing connections from Pods with the label `role=client` in namespaces with the label `user=alice`. But *this* policy:
+在 `from` 数组中仅包含一个元素，只允许来自标有 `role = client` 的 Pod 且该 Pod 所在的名称空间中标有`user=alice`的连接。这项策略：
 
 ```yaml
   ...

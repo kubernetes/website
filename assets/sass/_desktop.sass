@@ -95,7 +95,7 @@ $video-section-height: 550px
       right: -25px
 
   section, header, footer
-    main
+    .main-section
       max-width: $main-max-width
 
   header, #vendorStrip, #encyclopedia, #hero h1, #hero h5, #docs #hero h1, #docs #hero h5,
@@ -108,11 +108,11 @@ $video-section-height: 550px
 
   #home
     section, header, footer
-      main
+      .main-section
         max-width: 1000px
 
   #oceanNodes
-    main
+    .main-section
       position: relative
       max-width: 830px
 
@@ -129,7 +129,7 @@ $video-section-height: 550px
           transform: translateY(-50%)
 
           img
-            max-width: 425px
+            width: 425px
 
         //.content
         //	width: 50%
@@ -172,7 +172,7 @@ $video-section-height: 550px
     background-image: url(../images/texture.png)
     background-color: $dark-grey
 
-    main
+    .main-section
       padding: 20px 0
 
     nav
@@ -211,9 +211,9 @@ $video-section-height: 550px
 
   .social a
     display: inline-block
-    background-image: url(../images/social_sprite.png)
+    background-image: url(../images/social_sprite.svg)
     background-repeat: no-repeat
-    background-size: auto
+    background-size: 350px
     width: 50px
     height: 50px
     border-radius: 5px
@@ -263,6 +263,12 @@ $video-section-height: 550px
 
     &:hover
       background-position: -250px 100%
+
+  a.youtube
+    background-position: -300px 0
+
+    &:hover
+      background-position: -300px 100%
 
   #community, .gridPage
     #hero

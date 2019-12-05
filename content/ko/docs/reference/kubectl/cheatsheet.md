@@ -58,6 +58,7 @@ kubectl config view
 # e2e 사용자의 암호를 확인한다
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
+kubectl config view -o jsonpath='{.users[].name}'    # 첫 번째 사용자 출력
 kubectl config view -o jsonpath='{.users[*].name}'    # 사용자 리스트 조회
 kubectl config get-contexts                          # 컨텍스트 리스트 출력
 kubectl config current-context              # 현재 컨텍스트 출력
@@ -268,7 +269,7 @@ kubectl delete -f ./pod.json                                              # pod.
 kubectl delete pod,service baz foo                                        # "baz", "foo"와 동일한 이름을 가진 파드와 서비스 삭제
 kubectl delete pods,services -l name=myLabel                              # name=myLabel 라벨을 가진 파드와 서비스 삭제
 kubectl delete pods,services -l name=myLabel --include-uninitialized      # 초기화되지 않은 것을 포함하여, name=myLabel 라벨을 가진 파드와 서비스 삭제
-kubectl -n my-ns delete po,svc --all                                      # 초기화되지 않은 것을 포함하여, my-ns 네임스페이스 내 모든 파드와 서비스 삭제
+kubectl -n my-ns delete pod,svc --all                                      # 초기화되지 않은 것을 포함하여, my-ns 네임스페이스 내 모든 파드와 서비스 삭제
 # awk pattern1 또는 pattern2에 매칭되는 모든 파드 삭제
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```

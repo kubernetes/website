@@ -1,5 +1,5 @@
 <footer>
-    <main class="light-text">
+    <div class="light-text main-section">
         <nav>
             {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
             {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
@@ -15,6 +15,7 @@
             </div>
             <div>
                 <a href="https://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>{{ T "community_stack_overflow_name" }}</span></a>
+                <a href="https://www.youtube.com/kubernetescommunity" class="youtube"><span>{{ T "community_youtube_name" }}</span></a>
                 <a href="https://discuss.kubernetes.io" class="mailing-list"><span>{{ T "community_forum_name" }}</span></a>
                 <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
             </div>
@@ -32,5 +33,5 @@
         <div class="miceType center">
             ICP license: 京ICP备17074266号-3
         </div>
-    </main>
+    </div>
 </footer>

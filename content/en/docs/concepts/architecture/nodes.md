@@ -12,7 +12,7 @@ weight: 10
 A node is a worker machine in Kubernetes, previously known as a `minion`. A node
 may be a VM or physical machine, depending on the cluster. Each node contains
 the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the master
-components. The services on a node include the [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy. See
+components. The services on a node include the [container runtime](/docs/concepts/overview/components/#container-runtime), kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
@@ -51,7 +51,6 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 
 | Node Condition | Description |
 |----------------|-------------|
-| `OutOfDisk`    | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
@@ -284,7 +283,7 @@ capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
 checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
-includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
+includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#container-runtime) nor any process running outside of the containers.
 
 If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
@@ -305,6 +304,6 @@ API object can be found at:
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Read about [node components](https://kubernetes.io/docs/concepts/overview/components/#node-components)
+* Read about [node components](/docs/concepts/overview/components/#node-components)
 * Read about node-level topology: [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}

@@ -16,7 +16,7 @@ card:
 {{% capture overview %}}
 
 This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Katacoda.
+on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment. 
 
 {{< note >}}
@@ -90,8 +90,8 @@ Pod runs a Container based on the provided Docker image.
     Output:
 
     ```shell
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    hello-node   1         1         1            1           1m
+    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1/1     1            1           1m
     ```
 
 3. View the Pod:
