@@ -26,9 +26,9 @@ LACHLAN EVENSON: Yeah, it seems fitting that you're interviewing an Australian f
 
 LACHLAN EVENSON: I remember back in early 2014, I was working for a company called Lithium Technologies. We'd been using containers for quite some time, and my boss at the time had put a challenge out to me-- go and find a way to orchestrate these containers, because they seem to be providing quite a bit of value to our developer velocity. 
 
-So he gave me a week, and he said, go and check out both Mesos and Kubernetes. And at the end of that week, I had Kubernetes up and running, and I had workloads scheduled. I was a little bit more challenged on the Mesos side, but Kubernetes was there, and I had it up and running. And from there, I actually went and was offered to speak at the Kubernetes 1.0 launch in OSCOM in Portland in 2014, I believe. 
+He gave me a week, and he said, go and check out both Mesos and Kubernetes. And at the end of that week, I had Kubernetes up and running, and I had workloads scheduled. I was a little bit more challenged on the Mesos side, but Kubernetes was there, and I had it up and running. And from there, I actually went and was offered to speak at the Kubernetes 1.0 launch in OSCOM in Portland in 2014, I believe. 
 
-<b>CRAIG BOX: So a real early adopter?</b>
+<b>CRAIG BOX: So, a real early adopter?</b>
 
 LACHLAN EVENSON: Really, really early. I remember, I think, I started in 0.8, before CrashLoopBackOff was a thing. I remember writing that thing myself. 
 
@@ -36,15 +36,15 @@ LACHLAN EVENSON: Really, really early. I remember, I think, I started in 0.8, be
 
 <b>CRAIG BOX: You were contributing to the code at that point as well?</b>
 
-LACHLAN EVENSON: I was just a user. I was part of the community at that point, but from a user perspective. So I showed up to things like the community meeting. I remember meeting Sarah Novotny in the very early years of the community meeting, and I spent some time in SIG Apps, so really looking at how people were putting workloads onto Kubernetes-- so going through that whole process. 
+LACHLAN EVENSON: I was just a user. I was part of the community at that point, but from a user perspective. I showed up to things like the community meeting. I remember meeting Sarah Novotny in the very early years of the community meeting, and I spent some time in SIG Apps, so really looking at how people were putting workloads onto Kubernetes-- so going through that whole process. 
 
 It turned out we built some tools like Helm, before Helm existed, to facilitate rollout and putting applications onto Kubernetes. And then, once Helm existed, that's when I met the folks from Deis, and I said, hey, I think you want to get rid of this code that we've built internally and then go and use the open-source code that Helm provided. 
 
-So we got into the Helm ecosystem there, and I subsequently went and worked for Deis, specifically on professional services-- so helping people out in the community with their Kubernetes journey. And that was when we actually met, Craig, back in Berlin. It seems, you know, I say container years are like dog years; it's 7:1. 
+So we got into the Helm ecosystem there, and I subsequently went and worked for Deis, specifically on professional services-- helping people out in the community with their Kubernetes journey. And that was when we actually met, Craig, back in Berlin. It seems, you know, I say container years are like dog years; it's 7:1. 
 
 <b>CRAIG BOX: Right.</b>
 
-LACHLAN EVENSON: So seven years ago, we were about 50 years-- much younger.
+LACHLAN EVENSON: Seven years ago, we were about 50 years-- much younger.
 
 <b>CRAIG BOX: That sounds like the same ratio as kangaroos to people in Australia.</b>
 
@@ -52,9 +52,9 @@ LACHLAN EVENSON: It's much the same arithmetic, yes.
 
 <b>ADAM GLICK: What was the most interesting implementation that you ran into at that time?</b>
 
-LACHLAN EVENSON: There wasn't a lot of the workload APIs. So back 1.0, there wasn't even Deployments. There wasn't Ingress. So back in the day, there were a lot of people in those points trying to build those workload APIs on top of Kubernetes, but they didn't actually have any way to extend Kubernetes itself. So there was no third-party resources. There was no operators, no custom resources. 
+LACHLAN EVENSON: There wasn't a lot of the workload APIs. Back in 1.0, there wasn't even Deployments. There wasn't Ingress. Back in the day, there were a lot of people in those points trying to build those workload APIs on top of Kubernetes, but they didn't actually have any way to extend Kubernetes itself. There were no third-party resources. There were no operators, no custom resources. 
 
-So a lot of people are actually trying to figure out how to interact with the Kubernetes API and deliver things like deployments, because you just had-- in those days, you didn't have replica sets. You had a ReplicationController that we called the RC, back in the day. So you didn't have a lot of these things that we take for granted today. There wasn't RBAC. There wasn't a lot of the things that we have today. 
+A lot of people are actually trying to figure out how to interact with the Kubernetes API and deliver things like deployments, because you just had-- in those days, you didn't have replica sets. You had a ReplicationController that we called the RC, back in the day. You didn't have a lot of these things that we take for granted today. There wasn't RBAC. There wasn't a lot of the things that we have today. 
 
 So it's great to have seen and been a part of the Kubernetes community from 0.8 to 1.16, and actually leading that release. So I've seen a lot, and it's been a wonderful part of my adventures in open-source. 
 
@@ -62,11 +62,11 @@ So it's great to have seen and been a part of the Kubernetes community from 0.8 
 
 LACHLAN EVENSON: It was fantastic. When we came on board with Microsoft, they didn't have a managed Kubernetes offering, and we were brought on to try and seed that. There was also a bigger part that we were actually building open-source tools to help people in the community integrate. We had the autonomy with-- Brendan Burns was on the team. We had Gabe Monroy. And we really had that top-down autonomy that was believing and placing a bet on open-source and helping us build tools and give us that autonomy to go and solve problems in open-source, along with contributing to things like Kubernetes. 
 
-So I'm part of the upstream team from a PM perspective, and we have a bunch of engineers, a bunch of PMs that are actually working on these things in the Cloud Native Compute Foundation to help folks integrate their workloads into things like Kubernetes and build and aid their cloud-native journeys. 
+I'm part of the upstream team from a PM perspective, and we have a bunch of engineers, a bunch of PMs that are actually working on these things in the Cloud Native Compute Foundation to help folks integrate their workloads into things like Kubernetes and build and aid their cloud-native journeys. 
 
 <b>CRAIG BOX: There are a number of new tools, and specifications, and so on that are still coming out from Microsoft under the Deis brand. That must be exciting to you as one of the people who joined from Deis initially.</b>
 
-LACHLAN EVENSON: Yeah, absolutely. So we really took that Deis brand-- it's now Deis Labs-- but we really wanted this a home to signal to the community that we were building things in the hope to put them out into foundation. So you may see things like CNAB, Cloud Native Application Bundles. I know [you've had both Ralph and Jeremy on the show before](https://kubernetespodcast.com/episode/061-cnab/) talking about CNAB, SMI - Service Mesh Interface, other tooling in the ecosystem where we want to signal to the community that we want to go give that to a foundation. So we really want a neutral place to begin that nascent work, but then things, for example, Virtual Kubelet started there as well, and it went out into the Cloud Native Compute Foundation. 
+LACHLAN EVENSON: Yeah, absolutely. We really took that Deis brand-- it's now Deis Labs-- but we really wanted this a home to signal to the community that we were building things in the hope to put them out into foundation. You may see things like CNAB, Cloud Native Application Bundles. I know [you've had both Ralph and Jeremy on the show before](https://kubernetespodcast.com/episode/061-cnab/) talking about CNAB, SMI - Service Mesh Interface, other tooling in the ecosystem where we want to signal to the community that we want to go give that to a foundation. We really want a neutral place to begin that nascent work, but then things, for example, Virtual Kubelet started there as well, and it went out into the Cloud Native Compute Foundation. 
 
 <b>ADAM GLICK: Is there any consternation about the fact that Phippy has become the character people look to rather than the actual "Captain Kube" owl, in the [family of donated characters](https://www.cncf.io/phippy/)?</b>
 
@@ -76,7 +76,7 @@ LACHLAN EVENSON: Yes, so it's interesting because I didn't actually work on that
 
 LACHLAN EVENSON: Because I could sit down and read it to my parents, as well, and tell them-- it wasn't for children. It was more for the adults in my life, I like to say. And so when I give out a copy of that book, I'm like, take it home and read it to mum. She might actually understand what you do by the end of that book. 
 
-But it was really a creative way, because this was back in that nascent Kubernetes where people were trying to get their head around those concepts-- what is a pod? What is a secret? What is a namespace? So having that vehicle of a fun set of characters-- 
+But it was really a creative way, because this was back in that nascent Kubernetes where people were trying to get their head around those concepts-- what is a pod? What is a secret? What is a namespace? Having that vehicle of a fun set of characters-- 
 
 <b>ADAM GLICK: Yep.</b>
 
@@ -90,7 +90,7 @@ LACHLAN EVENSON: Thank you very much. It was a pleasure to serve the community.
 
 LACHLAN EVENSON: Well, I think there are a few. Custom Resources hit GA. Now, that is a big milestone for extensibility and Kubernetes. I know we've spoken about them for some time-- custom resources were introduced in 1.7, and we've been trying to work through that ecosystem to bring the API up to a GA standard. So it hit GA, and I think a lot of the features that went in as part of the GA release will help people in the community that are writing operators. 
 
-There's a lot of lifecycle management, a lot of tooling that you can put into the APIs themselves. So doing strict dependency checks-- you can do typing, you can do validation, you can do pruning superfluous fields, and allowing for that ecosystem of operators and extensibility in the community to exist on top of Kubernetes. 
+There's a lot of lifecycle management, a lot of tooling that you can put into the APIs themselves. Doing strict dependency checks-- you can do typing, you can do validation, you can do pruning superfluous fields, and allowing for that ecosystem of operators and extensibility in the community to exist on top of Kubernetes. 
 
 It's been a long road to get to GA for Custom Resources, but it's great now that they're here and people can really bank on that being an API they can use to extend Kubernetes. So I'd say that's a large headline feature. The metrics overhaul, as well-- I know this was on the release blog. 
 
@@ -98,7 +98,7 @@ The metrics team have actually tried to standardize the metrics in Kubernetes an
 
 Finally, there were some other additions to CSI, as well. Volume resizing was added. This is a maturity story around the Container Storage Interface, which was introduced several releases ago in GA. But really, you've seen volume providers actually build on that interface and that interface get a little bit more broader to adopt things like "I want to resize dynamically at runtime on my storage volume".  That's a great story as well, for those providers out there. 
 
-I think they're the big headline features for 1.16, but there are a slew. There were 31 enhancements that went into Kubernetes 1.16. And I know there have been questions out there in the community saying, well, how do we decide what's stable? Eight of those were stable, eight of those were beta, and the rest of those features, the 15 remaining, were actually in alpha. So there was quite a few things that went from alpha into beta and beta into stable, so I think that's a good progression for the release, as well. 
+I think they're the big headline features for 1.16, but there are a slew. There were 31 enhancements that went into Kubernetes 1.16. And I know there have been questions out there in the community saying, well, how do we decide what's stable? Eight of those were stable, eight of those were beta, and the rest of those features, the 15 remaining, were actually in alpha. There were quite a few things that went from alpha into beta and beta into stable, so I think that's a good progression for the release, as well. 
 
 <b>ADAM GLICK: As you've looked at all these, which of them is your personal favorite?</b>
 
@@ -142,9 +142,9 @@ A lot of it is just making sure you know who to contact and how to contact them,
 
 <b>ADAM GLICK: Had you been on the path through the shadow program for release management?</b>
 
-LACHLAN EVENSON: Yeah, I had. I actually joined the shadow program-- so the shadow program for the release team. The Kubernetes release team is tasked with staffing a specific release, and I came in the 1.14 release under the lead of Aaron Crickenberger. And I was an enhancement shadow at that point. I was really interested in how KEPs worked, so the Kubernetes Enhancement Proposal work. So I wanted to make sure that I understood that part of the release team, and I came in and helped in that release. 
+LACHLAN EVENSON: Yeah, I had. I actually joined the shadow program-- so the shadow program for the release team. The Kubernetes release team is tasked with staffing a specific release, and I came in the 1.14 release under the lead of Aaron Crickenberger. And I was an enhancement shadow at that point. I was really interested in how KEPs worked, so the Kubernetes Enhancement Proposal work. I wanted to make sure that I understood that part of the release team, and I came in and helped in that release. 
 
-And then, in 1.15, I was asked if I could be a lead shadow. And the lead shadow is to stand alongside the lead and help the lead fill their duties. So if they're out, if they need people to wrangle different parts of the community, I would go out and do that. So I've served on three releases at this point-- 1.14, 1.15, and 1.16. 
+And then, in 1.15, I was asked if I could be a lead shadow. And the lead shadow is to stand alongside the lead and help the lead fill their duties. So if they're out, if they need people to wrangle different parts of the community, I would go out and do that. I've served on three releases at this point-- 1.14, 1.15, and 1.16. 
 
 <b>CRAIG BOX: Thank you for your service.</b>
 
@@ -158,7 +158,7 @@ And I think for the shadow program in general, the release team is a really good
 
 <b>ADAM GLICK: Speaking of the team, [there were 32 people involved](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.16), including yourself, in this release. What is it like to coordinate that group? That sounds like a full time job.</b>
 
-LACHLAN EVENSON: It is a full time job. And let me say that this release team in 1.16 represented five different continents. We can count Antarctica as not having anybody, but we didn't have anybody from South America for that release, which was unfortunate. But we had people from Australia, China, India, Tanzania. So we have a good spread-- Europe, North America. So it's great to have that spread and that continuity, which allowed for us to get things done throughout the day. 
+LACHLAN EVENSON: It is a full time job. And let me say that this release team in 1.16 represented five different continents. We can count Antarctica as not having anybody, but we didn't have anybody from South America for that release, which was unfortunate. But we had people from Australia, China, India, Tanzania. We have a good spread-- Europe, North America. It's great to have that spread and that continuity, which allowed for us to get things done throughout the day. 
 
 <b>CRAIG BOX: Until you want to schedule a meeting.</b>
 
@@ -166,9 +166,9 @@ LACHLAN EVENSON: Scheduling a meeting was extremely difficult. Typically, on the
 
 <b>ADAM GLICK: Any interesting facts about the team, besides the incredible geographic diversity that you had, to work around that?</b>
 
-LACHLAN EVENSON: I really appreciate about the release team that we're from all different backgrounds, from all different parts of the world and all different companies. So there are people who are doing this on their own time, There are people who are doing this on company time, but we all come together with that shared common goal of shipping that release. 
+LACHLAN EVENSON: I really appreciate about the release team that we're from all different backgrounds, from all different parts of the world and all different companies. There are people who are doing this on their own time, There are people who are doing this on company time, but we all come together with that shared common goal of shipping that release. 
 
-This release was we had the five continents. It was really exciting in 1.17 that we have in the lead roles, it was represented mainly by women. So 1.17, watch out-- most of the leads for 1.17 are women, which is a great result, and that's through that shadow program that we can foster different types of talent. So I'm excited to see future releases benefiting from different diverse groups of people from the Kubernetes community. 
+This release was we had the five continents. It was really exciting in 1.17 that we have in the lead roles, it was represented mainly by women. So 1.17, watch out-- most of the leads for 1.17 are women, which is a great result, and that's through that shadow program that we can foster different types of talent. I'm excited to see future releases benefiting from different diverse groups of people from the Kubernetes community. 
 
 <b>CRAIG BOX: What are you going to put in the proverbial envelope for the 1.17 team?</b>
 
@@ -176,9 +176,9 @@ LACHLAN EVENSON: We've had this theme of a lot of roles in the release team bein
 
 What we did in the previous 1.15, we actually had a role call the test-infra role. And thanks to the wonderful work of the folks of the test-infra team out of Google-- [Katharine Berry](https://kubernetespodcast.com/episode/077-eng-prod-and-testing/), and [Ben Elder](https://kubernetespodcast.com/episode/069-kind/), and other folks-- they actually automated this role completely that we could get rid of it in the 1.16 release and still have our same-- and be able to get a release out the door. 
 
-I think a lot of these things are ripe for automation, and therefore, we can have a lot less of a footprint going forward. So let's automate the bits of the process that we can and actually refine the process to make sure that the people that are involved are not doing the repetitive tasks over and over again. So in the era of enhancements, we could streamline that process. CI signal and bug triage, there are places we could actually go in and automate that as well. I think one place that's been done really well in 1.16 was in the release notes. 
+I think a lot of these things are ripe for automation, and therefore, we can have a lot less of a footprint going forward. Let's automate the bits of the process that we can and actually refine the process to make sure that the people that are involved are not doing the repetitive tasks over and over again. In the era of enhancements, we could streamline that process. CI signal and bug triage, there are places we could actually go in and automate that as well. I think one place that's been done really well in 1.16 was in the release notes. 
 
-So I don't know if you've seen [relnotes.k8s.io](https://relnotes.k8s.io), but you can go and check out the release notes and now, basically, annotated PRs show up as release notes that are searchable and sortable, all through an automated means, whereas that was previously some YAML jockeying to make sure that that would actually happen and be digestible to the users. 
+I don't know if you've seen [relnotes.k8s.io](https://relnotes.k8s.io), but you can go and check out the release notes and now, basically, annotated PRs show up as release notes that are searchable and sortable, all through an automated means, whereas that was previously some YAML jockeying to make sure that that would actually happen and be digestible to the users. 
 
 <b>CRAIG BOX: Come on, Lachie, all Kubernetes is just YAML jockeying.</b>
 
@@ -190,17 +190,17 @@ LACHLAN EVENSON: Yeah, but it's great to have an outcome where we can actually m
 
 LACHLAN EVENSON: At the end of each release, we do have a retrospective. It's during the community meeting. That retrospective, it was good. I was just really excited to see that there were so many positives. It's a typical retrospective where we go, what did we say we were going to do last release? Did we do that? What was great? What can we do better? And some actions out of that. 
 
-It was great to see people giving other people on the team so many compliments. It was really, really deep and rich, saying, thank you for doing this, thank you for doing that. People showed up and pulled their weight in the release team, and other people were acknowledging that. So that was great. 
+It was great to see people giving other people on the team so many compliments. It was really, really deep and rich, saying, thank you for doing this, thank you for doing that. People showed up and pulled their weight in the release team, and other people were acknowledging that. That was great. 
 
 I think one thing we want to do is-- we have a code freeze as part of the release process, which is where we make sure that code basically stops going into master in Kubernetes. Only things destined for the release can actually be put in there. But we don't actually stop the test infrastructure from changing, so the test infrastructure has a lifecycle of its own. 
 
-So one of the things that was proposed was about we actually code freeze the test infrastructure as well to make sure that we're not actually looking at changes in the test-infra causing jobs to fail while we're trying to stabilize the code. So I think that's something we have some high level agreement about, but getting down into the low-level nitty-gritty would be great in 1.17 and beyond. 
+One of the things that was proposed was that we actually code freeze the test infrastructure as well, to make sure that we're not actually looking at changes in the test-infra causing jobs to fail while we're trying to stabilize the code. I think that's something we have some high level agreement about, but getting down into the low-level nitty-gritty would be great in 1.17 and beyond. 
 
 <b>ADAM GLICK: We talked about sidecar containers slipping out of this release. Most of the features are on a release train, and are put in when they're ready. What does it mean for the process of managing a release when those things happen?</b>
 
 LACHLAN EVENSON: Basically, we have an enhancements freeze, and that says that enhancements-- so the KEPs that are backing these enhancements-- so the sidecar containers would have had an enhancement proposal. And the SIG that owns that code would then need to sign off and say that this is in a state called "implementable." When we've agreed on the high-level details, you can go and proceed and implement that. 
 
-Now, that had actually happened in the case of sidecar containers. The challenge was you still need to write the code and get the code actually implemented, and there's a month gap between enhancement freeze and code freeze. So if the code doesn't show up, or the code shows up and needs to be reviewed a little bit more, you may miss that deadline. 
+Now, that had actually happened in the case of sidecar containers. The challenge was you still need to write the code and get the code actually implemented, and there's a month gap between enhancement freeze and code freeze. If the code doesn't show up, or the code shows up and needs to be reviewed a little bit more, you may miss that deadline. 
 
 I think that's what happened in the case of this specific feature. It went all the way through to code freeze, the code wasn't complete at that time, and we basically had to make a call-- do we want to grant it an exception? In this case, they didn't ask for an exception. They said, let's just move it to 1.17. 
 
@@ -210,7 +210,7 @@ There's still a lot of people and SIGs show up at the start of a new release and
 
 LACHLAN EVENSON: Yeah, there's back and forth about this in the community, about how can we actually roll things at different cadences, I think, is the high-level question. Tim Hockin actually put out, how about we do stability cycles as well? Because there are a lot of new features going in, and there are a lot of stability features going in. But if you look at it, half of the features were beta or stable, and the other half were alpha, which means we're still introducing a lot more complexity and largely untested code into alpha state-- which, as much as we wouldn't like to admit, it does affect the stability of the system. 
 
-So there's talk of LTS. There's talk of stability releases as well. I think they're all things that are interesting now that Kubernetes has that momentum, and you are seeing a lot of things go to GA. People are like, "I don't need to be drinking from the firehose as fast. I have CRDs in GA. I have all these other things in GA. Do I actually need to consume this at the rate?" So I think stay tuned. If you're interested in those discussions, the upstream community is having those. Show up there and voice your opinion. 
+There's talk of LTS. There's talk of stability releases as well. I think they're all things that are interesting now that Kubernetes has that momentum, and you are seeing a lot of things go to GA. People are like, "I don't need to be drinking from the firehose as fast. I have CRDs in GA. I have all these other things in GA. Do I actually need to consume this at the rate?" So I think-- stay tuned. If you're interested in those discussions, the upstream community is having those. Show up there and voice your opinion. 
 
 <b>CRAIG BOX: Is this the first release with its own [release mascot](https://raw.githubusercontent.com/kubernetes/sig-release/master/releases/release-1.16/116_unlimited_breadsticks_for_all.png)?</b>
 
@@ -226,7 +226,7 @@ LACHLAN EVENSON: I do think it is the case. I wanted to have a little bit of fun
 
 <b>CRAIG BOX: We had a fun conversation with Aaron about his love of cats.</b>
 
-LACHLAN EVENSON: [LAUGHS] And it becomes a token of, hey, remember this hard work that you put together? It becomes a badge of honor for everybody that participated in the release.  I wanted to highlight it as a release mascot. I don't think a lot of people knew that we did have those across the last few releases. But it's just a bit of fun, and I wanted to put my own spin on things just so that the team could come together. So a lot of it was around the laughs that we had as a team throughout this release-- and my love of Olive Garden. 
+LACHLAN EVENSON: [LAUGHS] And it becomes a token of, hey, remember this hard work that you put together? It becomes a badge of honor for everybody that participated in the release.  I wanted to highlight it as a release mascot. I don't think a lot of people knew that we did have those across the last few releases. But it's just a bit of fun, and I wanted to put my own spin on things just so that the team could come together. A lot of it was around the laughs that we had as a team throughout this release-- and my love of Olive Garden. 
 
 <b>CRAIG BOX: Your love of Olive Garden feels like it may have become a meme to a community which might need a little explanation for our audience. For those who are not familiar with American fine dining, can we start with-- what exactly is Olive Garden?</b>
 
@@ -248,7 +248,7 @@ LACHLAN EVENSON: Yes. Absolutely, absolutely. And I would have loved to put that
 
 <b>ADAM GLICK: Aww. What's next for you in the community?</b>
 
-LACHLAN EVENSON: I've really been looking at Cluster API a lot-- so building Kubernetes clusters on top of a declarative approach. I've been taking a look at what we can do in the Cluster API ecosystem. I'm also a chair of SIG PM, so helping foster the KEP process as well. So making sure that that continues to happen and continues to be fruitful for the community. 
+LACHLAN EVENSON: I've really been looking at Cluster API a lot-- so building Kubernetes clusters on top of a declarative approach. I've been taking a look at what we can do in the Cluster API ecosystem. I'm also a chair of SIG PM, so helping foster the KEP process as well-- making sure that that continues to happen and continues to be fruitful for the community. 
 
 <hr/>
 
