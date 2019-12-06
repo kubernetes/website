@@ -193,6 +193,7 @@ Instance group | 인스턴스 그룹 |
 introspection | 인트로스펙션(introspection) |
 Istio | 이스티오(Istio) |
 Job | 잡 |
+kube-proxy | kube-proxy |
 Kubelet | Kubelet |
 Kubernetes | 쿠버네티스 |
 label | 레이블 | 

@@ -104,7 +104,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
