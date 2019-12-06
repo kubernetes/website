@@ -9,7 +9,8 @@ weight: 20
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-[기여 시작하기](/docs/contribute/start/)에 설명된 대로 쿠버네티스 문서 저장소의 포크(fork)를 생성하자.
+[기여 시작하기](/docs/contribute/start/)에 설명된 대로 쿠버네티스
+문서 저장소의 포크(fork)를 생성하자.
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -71,7 +72,6 @@ YAML 블록이다. 여기 예시가 있다.
 동적으로 작성된다. `/content/en/docs/` 아래의 최상위 디렉토리는 최상위 레벨 탐색 기능을 
 생성하고, 하위 디렉토리는 각각 목차에 항목을 
 갖는다.
-
 
 각 하위 디렉토리에는 `_index.md` 파일이 있으며 이는 해당 하위 디렉토리의 컨텐츠에 대한
 "홈" 페이지를 나타낸다. `_index.md`에는 템플릿이 필요없다. 그것은
