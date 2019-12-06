@@ -194,6 +194,41 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 {{% /capture %}}
 
+## Confirm Installation
+
+To confirm successful installation of both a hypervisor and Minikube, you can run the following command to start up a local Kubernetes cluster:
+
+{{< note >}}
+
+For setting the `--vm-driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--vm-driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+
+{{< /note >}}
+
+```shell
+minikube start --vm-driver=<driver_name>
+```
+
+Once `minikube start` finishes, run the command below to check the status of the cluster:
+
+```shell
+minikube status
+```
+
+If your cluster is running, the output from `minikube status` should be similar to:
+
+```
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
+
+After you have confirmed whether Minikube is working with your chosen hypervisor, you can continue to use Minikube or you can stop your cluster. To stop your cluster, run:
+
+```shell
+minikube stop
+```
+
 ## Clean up local state {#cleanup-local-state}
 
 If you have previously installed Minikube, and run:
