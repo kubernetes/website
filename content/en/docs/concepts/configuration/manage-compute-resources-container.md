@@ -76,6 +76,8 @@ One cpu, in Kubernetes, is equivalent to:
 - 1 IBM vCPU
 - 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
 
+>Did not explain the meaning of the CPU unit. In the end, 0.1m means that the pod can use the CPU's 100mHz performance? Or what else? Many people on the Internet are not convincing. I hope you can come up with a convincing and easy to understand explanation.
+
 Fractional requests are allowed. A Container with
 `spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
 CPU as one that asks for 1 CPU.  The expression `0.1` is equivalent to the
