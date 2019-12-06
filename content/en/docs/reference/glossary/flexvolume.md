@@ -18,5 +18,5 @@ tags:
 FlexVolumes enable users to write their own drivers and add support for their volumes in Kubernetes. FlexVolume driver binaries and dependencies must be installed on host machines. This requires root access. The Storage SIG suggests implementing a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver if possible since it addresses the limitations with FlexVolumes.
 
 * [FlexVolume in the Kubernetes documentation](/docs/concepts/storage/volumes/#flexvolume)
-* [More information on FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+* [More information on FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 * [Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)

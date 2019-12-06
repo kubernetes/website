@@ -144,7 +144,7 @@ Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster ac
 +---------------+-------+
 |     zoneA     | zoneB |
 +-------+-------+-------+
-| node1 | node2 |  nod3 |
+| node1 | node2 | node3 |
 +-------+-------+-------+
 |  P P  |   P   |  P P  |
 +-------+-------+-------+

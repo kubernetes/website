@@ -380,7 +380,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
 - `EphemeralContainers`: Enable the ability to add {{< glossary_tooltip text="ephemeral containers"
   term_id="ephemeral-container" >}} to running pods.
-- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Even Pods Spread](/docs/concepts/configuration/even-pods-spread).
+- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Pod Topology Spread Constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalCriticalPodAnnotation`: Enable annotating specific pods as *critical* so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
@@ -463,6 +463,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
 - `TokenRequestProjection`: Enable the injection of service account tokens into
   a Pod through the [`projected` volume](/docs/concepts/storage/volumes/#projected).
+- `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource assignments for different components in Kubernetes. See [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
 - `TTLAfterFinished`: Allow a [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) to clean up resources after they finish execution.
 - `VolumePVCDataSource`: Enable support for specifying an existing PVC as a DataSource.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
