@@ -92,7 +92,7 @@ Since containerd is being used by both Kubelet and Docker Engine, this means use
 A containerd [namespace](https://github.com/containerd/containerd/blob/master/docs/namespaces.md) mechanism is employed to guarantee that Kubelet and Docker Engine won't see or have access to containers and images created by each other. This makes sure they won't interfere with each other. This also means that:
 
 *   Users won't see Kubernetes created containers with the _docker ps_ command. Please use _crictl ps_ instead. And vice versa, users won't see Docker CLI created containers in Kubernetes or with _crictl ps_ command. The _crictl create_ and _crictl runp_ commands are only for troubleshooting. Manually starting pod or container with _crictl_ on production nodes is not recommended.
-*   Users won't see Kubernetes pulled images with the _docker images_ command. Please use the _crictl images_ command instead. And vice versa, Kubernetes won't see images created by _docker pull_, _docker load_ or _docker build_ commands. Please use the _crictl pull_ command instead, and _[ctr](https://github.com/containerd/containerd/blob/master/docs/man/ctr.1.md) cri load_ if you have to load an image.
+*   Users won't see Kubernetes pulled images with the _docker images_ command. Please use the _crictl images_ command instead. And vice versa, Kubernetes won't see images created by _docker pull_, _docker load_ or _docker build_ commands. Please use the _crictl pull_ command instead, and _[ctr](https://github.com/containerd/containerd/blob/release/1.2/docs/man/ctr.1.md) cri load_ if you have to load an image.
 
 # Summary
 *   Containerd 1.1 natively supports CRI. It can be used directly by Kubernetes.
