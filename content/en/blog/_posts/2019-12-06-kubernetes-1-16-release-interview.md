@@ -1,14 +1,14 @@
 ---
 layout: blog
 title: "When you're in the release team, you're family: the Kubernetes 1.16 release interview"
-date: 2019-12-05
+date: 2019-12-06
 ---
 
 <b>Author</b>: Craig Box (Google)
 
 It is a pleasure to co-host the weekly [Kubernetes Podcast from Google](https://kubernetespodcast.com/) with Adam Glick.  We get to talk to friends old and new from the community, as well as give people a download on the Cloud Native news every week.
 
-It was also a pleasure to see Lachlan Evenson, the release manager for Kubernetes 1.16, [win the CNCF "Top Ambassador" award](https://www.cncf.io/announcement/2019/11/19/cloud-native-computing-foundation-announces-2019-community-awards-winners/) at KubeCon.  We [talked with Lachie](https://kubernetespodcast.com/episode/072-kubernetes-1.16/) when 1.16 was released, and as is [becoming](https://kubernetes.io/blog/2018/07/16/how-the-sausage-is-made-the-kubernetes-1.11-release-interview-from-the-kubernetes-podcast/) a [tradition](https://kubernetes.io/blog/2019/05/13/cat-shirts-and-groundhog-day-the-kubernetes-1.14-release-interview/), we are delighted to share an abridged version of that interview with the readers of the Kubernetes Blog.
+It was also a pleasure to see Lachlan Evenson, the release team lead for Kubernetes 1.16, [win the CNCF "Top Ambassador" award](https://www.cncf.io/announcement/2019/11/19/cloud-native-computing-foundation-announces-2019-community-awards-winners/) at KubeCon.  We [talked with Lachie](https://kubernetespodcast.com/episode/072-kubernetes-1.16/) when 1.16 was released, and as is [becoming](https://kubernetes.io/blog/2018/07/16/how-the-sausage-is-made-the-kubernetes-1.11-release-interview-from-the-kubernetes-podcast/) a [tradition](https://kubernetes.io/blog/2019/05/13/cat-shirts-and-groundhog-day-the-kubernetes-1.14-release-interview/), we are delighted to share an abridged version of that interview with the readers of the Kubernetes Blog.
 
 If you're paying attention to the release calendar, you'll see 1.17 is due out soon. [Subscribe to our show](https://kubernetespodcast.com/subscribe/) in your favourite podcast player for another release interview!
 
@@ -82,7 +82,7 @@ But it was really a creative way, because this was back in that nascent Kubernet
 
 LACHLAN EVENSON: And Phippy is a PHP app. Remember them? So yeah, it's totally in line with the things that we're seeing people want to containerize and put onto Kubernetes at that. But Phippy is still cute. I was questioned last week about Captain Kube, as well, on the release logo, so we could talk about that a little bit more. But there's a swag of characters in there that are quite cute and illustrate the fun concept behind the Kubernetes community. 
 
-<b>CRAIG BOX: [1.16 has just been released](https://kubernetes.io/blog/2019/09/18/kubernetes-1-16-release-announcement/). You were the release manager for that-- congratulations.</b>
+<b>CRAIG BOX: [1.16 has just been released](https://kubernetes.io/blog/2019/09/18/kubernetes-1-16-release-announcement/). You were the release team lead for that-- congratulations.</b>
 
 LACHLAN EVENSON: Thank you very much. It was a pleasure to serve the community. 
 
@@ -150,7 +150,7 @@ And then, in 1.15, I was asked if I could be a lead shadow. And the lead shadow 
 
 LACHLAN EVENSON: Absolutely, it's my pleasure. 
 
-<b>ADAM GLICK: Release manager emeritus is the next role for you, I assume?</b>
+<b>ADAM GLICK: Release lead emeritus is the next role for you, I assume?</b>
 
 LACHLAN EVENSON: [LAUGHS] Yes. We also have a new role on the release lead team called Emeritus Advisors, which are actually to go back and help answer the questions of, why was this decision made? How can we do better? What was this like in the previous release? So we do have that continuity, and in 1.17, we have the old release lead from 1.15. Claire Lawrence is coming back to fill in as emeritus advisor. So that is something we do take. 
 
@@ -252,6 +252,6 @@ LACHLAN EVENSON: I've really been looking at Cluster API a lot-- so building Kub
 
 <hr/>
 
-<i>[Lachlan Evenson](https://twitter.com/lachlanevenson) is a Principal Program Manager at Microsoft and an Australian living in the US, and most recently served as the Kubernetes 1.16 release lead.
+<i>[Lachlan Evenson](https://twitter.com/lachlanevenson) is a Principal Program Manager at Microsoft and an Australian living in the US, and most recently served as the Kubernetes 1.16 release team lead.
 
 You can find the [Kubernetes Podcast from Google](http://www.kubernetespodcast.com/) at [@kubernetespod](https://twitter.com/KubernetesPod) on Twitter, and you can [subscribe](https://kubernetespodcast.com/subscribe/) so you never miss an episode.</i>
