@@ -48,7 +48,6 @@ kubectl describe node <insert-node-name-here>
 
 | Node Condition | Description |
 |----------------|-------------|
-| `OutOfDisk`    | 노드 상에 새로운 파드를 추가하기 위한 여유 공간이 부족할 경우 `True`, 반대의 경우 `False` |
 | `Ready`        | 노드가 상태 양호하며 파드를 수용할 준비가 되어 있는 경우 `True`, 노드의 상태가 불량하여 파드를 수용하지 못할 경우 `False`, 그리고 노드 컨트롤러가 마지막 `node-monitor-grace-period` (기본값 40 기간 동안 노드로부터 응답을 받지 못한 경우) `Unknown` |
 | `MemoryPressure`    | 노드 메모리 상에 압박이 있는 경우, 즉 노드 메모리가 넉넉치 않은 경우 `True`, 반대의 경우 `False` |
 | `PIDPressure`    | 프로세스 상에 압박이 있는 경우, 즉 노드 상에 많은 프로세스들이 존재하는 경우 `True`, 반대의 경우 `False` |
