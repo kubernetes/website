@@ -144,8 +144,10 @@ collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
 {{< /note >}}
 
-A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
-number of replicas) may block node drains entirely. This is permitted as per the 
+If you set `maxUnavailable` to 0% or 0, or you set `minAvailable` to 100% or the number of replicas,
+you are requiring zero voluntary evictions. When you set zero voluntary evictions for a workload
+object such as ReplicaSet, then you cannot successfully drain a Node running one of those Pods.
+If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
 semantics of `PodDisruptionBudget`.
 
 You can find examples of pod disruption budgets defined below. They match pods with the label 
