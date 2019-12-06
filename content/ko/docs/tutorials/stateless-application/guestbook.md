@@ -21,7 +21,7 @@ card:
 * Redis 마스터를 시작
 * Redis 슬레이브를 시작
 * 방명록 프론트엔드를 시작
-* 프론트엔드 서비스를 노출시키고 확인
+* 프론트엔드 서비스를 노출하고 확인
 * 정리 하기
 {{% /capture %}}
 
@@ -46,7 +46,7 @@ card:
 {{< codenew file="application/guestbook/redis-master-deployment.yaml" >}}
 
 1. 매니페스트 파일을 다운로드한 디렉토리에서 터미널 창을 시작한다.
-1. `redis-master-deployment.yaml` 파일을 통해 Redis 마스터의 디플로이먼트에 적용시킨다.
+1. `redis-master-deployment.yaml` 파일을 통해 Redis 마스터의 디플로이먼트에 적용한다.
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
@@ -81,7 +81,7 @@ POD-NAME을 해당 파드 이름으로 수정해야 한다.
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
-1. `redis-master-service.yaml` 파일을 통해 Redis 마스터 서비스에 적용시킨다.
+1. `redis-master-service.yaml` 파일을 통해 Redis 마스터 서비스에 적용한다.
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
@@ -118,7 +118,7 @@ Redis 마스터는 단일 파드이지만, 복제된 Redis 슬레이브를 추�
 
 {{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
 
-1. `redis-slave-deployment.yaml` 파일을 통해 Redis 슬레이브의 디플로이먼트에 적용시킨다.
+1. `redis-slave-deployment.yaml` 파일을 통해 Redis 슬레이브의 디플로이먼트에 적용한다.
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml
@@ -145,7 +145,7 @@ Redis 마스터는 단일 파드이지만, 복제된 Redis 슬레이브를 추�
 
 {{< codenew file="application/guestbook/redis-slave-service.yaml" >}}
 
-1. `redis-slave-service.yaml` 파일을 통해 Redis 슬레이브 서비스에 적용시킨다.
+1. `redis-slave-service.yaml` 파일을 통해 Redis 슬레이브 서비스에 적용한다.
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-service.yaml
@@ -166,7 +166,7 @@ Redis 마스터는 단일 파드이지만, 복제된 Redis 슬레이브를 추�
       redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
       ```
 
-## 방명록 프론트엔드를 설정하고 노출시키기
+## 방명록 프론트엔드를 설정하고 노출하기
 
 방명록 애플리케이션에는 PHP로 작성된 HTTP 요청을 처리하는 웹 프론트엔드가 있다. 쓰기 요청을 위한 `redis-master` 서비스와 읽기 요청을 위한 `redis-slave` 서비스에 연결하도록 설정된다.
 
@@ -174,7 +174,7 @@ Redis 마스터는 단일 파드이지만, 복제된 Redis 슬레이브를 추�
 
 {{< codenew file="application/guestbook/frontend-deployment.yaml" >}}
 
-1. `frontend-deployment.yaml` 파일을 통해 프론트엔드의 디플로이먼트에 적용시킨다.
+1. `frontend-deployment.yaml` 파일을 통해 프론트엔드의 디플로이먼트에 적용한다.
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
