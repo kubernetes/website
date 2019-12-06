@@ -251,7 +251,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 1. 컨테이너와 쿠버네티스를 설치 (시스템 재시작 필요)
 
-기존에 내려받은[KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 쿠버네티스를 윈도우 서버 컨테이너 호스트에 설치한다.
+기존에 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) 스크립트를 사용해서 쿠버네티스를 윈도우 서버 컨테이너 호스트에 설치한다.
 
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install 
@@ -282,7 +282,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 이 섹션에서는 클러스터를 구성하기 위해서 [쿠버네티스가 설치된 윈도우 노드](#윈도우-노드-준비하기)를 기존의 (리눅스) 컨트롤 플레인에 참여시키는 방법을 다룬다.
 
-앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 윈도우 노드를 클러스터에 참여시킨다.
+앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) 스크립트를 사용해서 윈도우 노드를 클러스터에 참여시킨다.
 
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
@@ -317,7 +317,7 @@ kubectl get nodes
 #### 윈도우 노드를 쿠버네티스 클러스터에서 제거하기
 이 섹션에서는 윈도우 노드를 쿠버네티스 클러스터에서 제거하는 방법을 다룬다.
 
-앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/KubeCluster.ps1) 스크립트를 사용해서 클러스터에서 윈도우 노드를 제거한다.
+앞서 내려받은 [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) 스크립트를 사용해서 클러스터에서 윈도우 노드를 제거한다.
 
   ```PowerShell
     .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset 

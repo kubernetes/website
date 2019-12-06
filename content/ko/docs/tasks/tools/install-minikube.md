@@ -75,7 +75,7 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다.
+Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다. 이 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop) 와 Linux 환경이 필요하지만, 하이퍼바이저는 필요하지 않는다. none 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop) 에서 도커를 apt로 설치하기를 사용하는 것을 권장한다. 도커의 스냅 설치는 minikube에서 작동하지 않는다.
 {{< /note >}}
 
 ### 패키지를 이용하여 Minikube 설치
@@ -186,19 +186,19 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 
 {{% /capture %}}
 
-## 새롭게 시작하기 위해 모두 정리하기
+## 새롭게 시작하기 위해 모두 정리하기 {#cleanup-local-state}
 
-이전에 minikube를 설치했었다면, 다음을 실행한다.
+이전에 Minikube를 설치했었다면, 다음을 실행한다.
 ```shell
 minikube start
 ```
 
-그리고 이 명령은 에러를 보여준다.
+그리고 `minikube start`는 에러를 보여준다.
 ```shell
 machine does not exist
 ```
 
-구성 파일을 삭제해야 한다.
+이제 구성 파일을 삭제해야 한다.
 ```shell
 minikube delete
 ```
