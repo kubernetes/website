@@ -10,6 +10,8 @@ weight: 80
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+
 A _Cron Job_ creates [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) on a time-based schedule.
 
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically

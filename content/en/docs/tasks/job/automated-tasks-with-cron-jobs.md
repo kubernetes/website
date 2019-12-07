@@ -8,21 +8,16 @@ weight: 10
 
 {{% capture overview %}}
 
-You can use [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) to run jobs on a time-based schedule.
+You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
 
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 
-{{< note >}}
-CronJob resource in `batch/v2alpha1` API group has been deprecated starting from cluster version 1.8.
-You should switch to using `batch/v1beta1`, instead, which is enabled by default in the API server.
-Examples in this document use `batch/v1beta1` in all examples.
-{{< /note >}}
-
 Cron jobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs.
 Therefore, jobs should be idempotent.
+
 For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
 
 {{% /capture %}}
@@ -30,11 +25,6 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 {{% capture prerequisites %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* You need a working Kubernetes cluster at version >= 1.8 (for CronJob). For previous versions of cluster (< 1.8)
-you need to explicitly enable `batch/v2alpha1` API by passing `--runtime-config=batch/v2alpha1=true` to
-the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
-for more), and then restart both the API server and the controller manager
-component.
 
 {{% /capture %}}
 
