@@ -1,7 +1,4 @@
 ---
-reviewers:
-- bgrant0607
-- mikedanese
 title: Cos'è Kubernetes
 content_template: templates/concept
 weight: 10
@@ -67,7 +64,7 @@ Kubernetes vi permette di montare automaticamente un sistema di archiviazione di
 Kubernetes permette di specificare quanta CPU e memoria (RAM) ha bisogno ogni container. Quando i container dispongono di richieste di risorse specifiche, Kubernetes può prendere decisioni migliori per gestire le risorse per i container.
 * **Auto risoluzione**
 Kubernetes riavvia i container che si bloccano, sostituisce i container, termina i container che non rispondono al controllo di salute definito dall'utente, e non li distribuisce ai clienti finché non sono pronti per funzionare correttamente..
-* **Gestione di informazioni sensibili e della configurazione
+* **Gestione di informazioni sensibili e della configurazione**
 Kubernetes consente di memorizzare e gestire informazioni sensibili, come le password, i token OAuth e le chiavi ssh. È possibile distribuire e aggiornare i segreti e la configurazione dell'applicazione senza dover ricostruire le immagini del container e senza rivelare segreti nella configurazione della pila.
 
 ## Cosa non è Kubernetes
