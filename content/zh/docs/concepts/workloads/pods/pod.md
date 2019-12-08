@@ -17,24 +17,24 @@ _Pods_ 是Kubernetes创建和管理的最小计算单元。
 
 _Pod_ (as in a pod of whales or pea pod) 是一个包含一个或多个
 {{< glossary_tooltip text="containers" term_id="container" >}}的容器组 (例如
-Docker containers), 包含共享的存储/网络，和如果运行容器的规范。一个Pod的所有资源总是同时定位和共同调度，并在共享上下文中运行。Pod模型是特定于应用程序的 "logical host" - 包含一个或多个应用程序相对紧密耦合的容器 &mdash; 在以前的容器中，在同一个物理或虚拟机上执行将意味着它在同一逻辑主机上执行。
+Docker containers), 包含共享的存储/网络，和如何运行容器的规范。一个Pod的所有资源总是同时定位和共同调度，并在共享上下文中运行。Pod模型是特定于应用程序的 "logical host" - 包含一个或多个应用程序相对紧密耦合的容器 &mdash; 在以前的容器中，在同一个物理或虚拟机上执行将意味着它在同一逻辑主机上执行。
 
 Kubernetes 支持不只是Docker的多种容器运行时，但Docker是最常见的运行时，有助于用Docker术语描述Pod。
 
-Pod共享的上下文是一组Linux namespace，cgrops，和可能是隔离的其他方面 — 与隔离Docker 容器相同。在Pod的上下文中，应用程序可能使用进一步sub-isolations。
+Pod共享的上下文是一组Linux namespace，cgrops，和可能是隔离的其他内容 — 与隔离Docker 容器相同。在Pod的上下文中，应用程序可能使用进一步sub-isolations。
 
-Pod中的容器共享一个IP地址和端口可以通过`localhost` 找到对方 。他们也可以使用标准进程间通信互相交互，如 SystemV 信号量或 POSIX 共享内存。不同Pod 中的容器有不同的IP地址没有[特殊配置](/docs/concepts/policy/pod-security-policy/)无法通过IPC通信.这些容器通常通过Pod IP地址彼此通信。
+Pod中的容器共享一个IP地址和端口可以通过`localhost` 找到对方 。他们也可以使用标准进程间通信互相交互，如 SystemV 信号量或 POSIX 共享内存。不同Pod 中的容器有不同的IP地址，没有[特殊配置](/docs/concepts/policy/pod-security-policy/)无法通过IPC通信.这些容器通常通过Pod IP地址彼此通信。
 
-Pod中的应用程序也可以访问共享的 {{< glossary_tooltip text="volumes" term_id="volume" >}}，这是定义作为Pod的一部分，可以 `mount` 到每个应用程序中文件系统。
+Pod中的应用程序也可以访问共享的 {{< glossary_tooltip text="volumes" term_id="volume" >}}，这是作为Pod 定义的一部分，可以 `mount` 到每个应用程序中文件系统。
 
 在[Docker](https://www.docker.com/)构造中，一个Pod被建模为一组具有共享名称空间和共享文件系统的Docker容器卷。
 
-与单个应用程序容器一样，Pods被认为是相对的临时的(而不是持久的)实体。如在[pod生命周期](/docs/concepts/workload /pods/pod-lifecycle/)讨论的，Pod 被创建，分配一个惟一的ID (UID)，以及
+与单个应用程序容器一样，Pod 被认为是相对的临时的(而不是持久的)实体。如在[pod生命周期](/docs/concepts/workload /pods/pod-lifecycle/)讨论的，Pod 被创建，分配一个惟一的ID (UID)，以及
 被调度到节点上，它们将一直在那里直到终止(根据restart)政策)或删除。如果{{< glossary_tooltip term_id="node" >}}死掉，则调度到该节点的Pod在超时时间后将按计划删除。而给定的Pod(由UID定义)则不是“重新调度”到一个新节点;相反，它可以被一个相同的Pod 代替，如果需要，甚至使用相同的名称，但是使用一个新的UID(参见[replication])(/docs/concepts/workload/controllers/)。
 
 当某物被认为与一个Pod (例如 `volume`)具有相同的寿命时，这意味着只要那个Pod(带有那个UID)存在，它就存在。如论Pod无论任何原因被删除，或即使创建了相同的替换，相关的内容(例如 `volume`)也会销毁并重新创建新的。
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" title="Pod 图解" width="50%" >}}
 
 *一个包含文件拉出器和Web Server的多容器Pod
 使用持久卷在容器之间共享存储*
