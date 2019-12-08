@@ -11,8 +11,8 @@ tags:
   - fundamental
 ---
 
-Docker là một công nghệ phần mềm thực hiện việc ảo hóa tầng hệ điều hành được gọi là container.
+Docker (cụ thể là Docker Engine) là một công nghệ phần mềm thực hiện việc ảo hóa tầng hệ điều hành, còn được gọi là container.
 
 <!--more-->
 
-Docker sử dụng những tính năng cách ly nguồn tài nguyên trong Linux kernel và kernal namespaces, cùng với một hệ thống tập tin liên kết (có thể liên kết với các hệ thống tập tin khác) như OverlayFS và một vài thành phân khác để các containers có thể chạy độc lập trên cùng một máy Linux, tránh việc bị overhead khi khởi chạy và bảo trì những máy tính ảo (VMs).
+Docker sử dụng khả năng cô lập các tài nguyên của Linux kernel như cgroups và kernel namespaces, cùng với một hệ thống tệp tin có khả năng kết hợp như OverlayFS và một vài thành phân khác để các containers có thể chạy độc lập trên cùng một máy Linux, tránh được việc bị overhead khi khởi động và bảo trì máy ảo (VMs).

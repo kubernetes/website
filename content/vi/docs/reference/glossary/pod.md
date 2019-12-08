@@ -4,7 +4,7 @@ id: pod
 date: 2019-29-11
 full_link: /docs/concepts/workloads/pods/pod-overview/
 short_description: >
-  Đối tượng nhỏ nhất và đơn giản nhất của Kubernetes. Một Pod đại diện cho một tập các containers đang vận hành trên cluster.
+  Đối tượng nhỏ nhất và đơn giản nhất của Kubernetes. Một Pod đại diện cho một tập các containers đang chạy trên cluster.
 
 aka:
 tags:
@@ -12,7 +12,7 @@ tags:
   - fundamental
 ---
 
-Đối tượng nhỏ nhất và đơn giản nhất của Kubernetes. Một Pod đại diện cho một tập các {{< glossary_tooltip text="containers" term_id="container" >}} đang vận hành trên cluster.
+Đối tượng nhỏ nhất và đơn giản nhất của Kubernetes. Một Pod đại diện cho một tập các {{< glossary_tooltip text="containers" term_id="container" >}} đang chạy trên cluster.
 
 <!--more-->
 

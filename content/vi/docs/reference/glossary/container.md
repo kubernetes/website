@@ -4,7 +4,7 @@ id: container
 date: 2019-29-11
 full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
 short_description: >
-  Là một image nhẹ và di động có khả năng thực thi chứa ứng dụng và những dependencies đi kèm.
+  Một image nhẹ, khả chuyển và có khả năng thực thi, chứa phần mềm và tất cả các dependencies của nó.
 
 aka:
 tags:
@@ -12,7 +12,7 @@ tags:
   - workload
 ---
 
-Là một image nhẹ và di động có khả năng thực thi chứa ứng dụng và những thứ mà nó phụ thuộc vào.
+Một image nhẹ, khả chuyển và có khả năng thực thi, chứa phần mềm và tất cả các dependencies của nó.
 
 <!--more-->
 

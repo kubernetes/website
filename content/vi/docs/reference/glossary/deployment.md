@@ -17,4 +17,4 @@ Một API object quản lý việc nhân rộng bản sao của ứng dụng.
 
 <!--more-->
 
-Mỗi bản sao là một đại diện diện cho một {{< glossary_tooltip term_id="pod" >}}, và các pods này được phân phối giữa các nodes trong cluster.
+Mỗi bản sao là một đại diện diện cho một {{< glossary_tooltip term_id="pod" >}}, và các pods này được phân bố giữa các nodes trong cluster.
