@@ -1,3 +1,12 @@
+---
+reviewers:
+- chenopis
+
+title: 使用 CronJob 运行自动化任务
+content_template: templates/task
+weight: 10
+---
+
 <!--
 ---
 title: Running Automated Tasks with a CronJob
@@ -7,15 +16,6 @@ content_template: templates/task
 weight: 10
 ---
 -->
-
----
-reviewers:
-- chenopis
-
-title: 使用 CronJob 运行自动化任务
-content_template: templates/task
-weight: 10
----
 
 {{% capture overview %}}
 
