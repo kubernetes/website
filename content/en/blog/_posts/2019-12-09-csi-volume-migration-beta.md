@@ -30,7 +30,7 @@ To try out CSI migration in beta for an existing plugin you must be using Kubern
 
 You must also install the requisite CSI driver on your cluster - instructions for this can generally be found from you provider of choice. CSI migration is available for GCE Persistent Disk and AWS Elastic Block Store in beta as well as for Azure Ffile/Ddisk and Openstack /Cinder in alpha. Kubernetes distributors should look at automating the deployment and management (upgrade, downgrade, etc.) of the CSI Drivers they will depend on.
 
-To verify the feature flag is enabled and driver installed on a particular node you can get the CSI Node object. You should see the in-tree plugin name of the migrated plugin as well as your driver in the drivers list.
+To verify the feature flag is enabled and driver installed on a particular node you can get the CSINode object. You should see the in-tree plugin name of the migrated plugin as well as your driver in the drivers list.
 
 ```shell
 kubectl get csinodes -o yaml
@@ -82,7 +82,7 @@ spec:
        claimName: test-disk
 ```
 
-Inspect that the pod is RUNNING after some time
+Verify that the pod is RUNNING after some time:
 
 ```shell
 kubectl get pods web-server
@@ -125,11 +125,11 @@ Major upcoming work includes implementing and hardening CSI migration for the re
 
 ## What should I do as a user?
 
-Please note that all new features for the Kubernetes storage system (like volume snapshotting) will only be added to the CSI interface. Therefore, if you are starting up a new cluster, creating stateful applications for the first time, or require these new features we recommend using CSI drivers natively (instead of the in-tree volume plugin API). Please follow the updated user guides and use the new CSI APIs.
+Note that all new features for the Kubernetes storage system (like volume snapshotting) will only be added to the CSI interface. Therefore, if you are starting up a new cluster, creating stateful applications for the first time, or require these new features we recommend using CSI drivers natively (instead of the in-tree volume plugin API). Follow the updated user guides to use the new CSI APIs.
 
 However, if you choose to roll a cluster forward or continue using specifications with the legacy volume APIs, CSI Migration will ensure we continue to support those deployments with the new CSI drivers.
 How do I get involved?
-The Kubernetes Slack channel csi-migration along with any of the standard SIG storage communication channels are great mediums to reach out to the SIG Storage and migration working group teams.
+The Kubernetes Slack channel csi-migration along with any of the standard SIG Storage communication channels are great mediums to reach out to the SIG Storage and migration working group teams.
 
 This project, like all of Kubernetes, is the result of hard work by many contributors from diverse backgrounds working together. We offer a huge thank you to the contributors who stepped up these last quarters to help the project reach Beta:
 
