@@ -116,7 +116,7 @@ As the Kubernetes community has grown, our release process represents an amazing
 
 ## Webinar
 
-Join members of the Kubernetes 1.17 release team on Jan 7th, 2020 to learn about the major features in this release. Register [here](??).
+Join members of the Kubernetes 1.17 release team on Jan 7th, 2020 to learn about the major features in this release. Register [here](https://zoom.us/webinar/register/9315759188139/WN_kPOZA_6RTjeGdXTG7YFO3A).
 
 ## Get Involved
 
