@@ -12,7 +12,7 @@ tags:
   - fundamental
 ---
 
-Là một đối tượng bao gồm ba thuộc tính bắt buộc: key, value, và effect. Taints (dấu chờ) ngăn cản việc lập lịch cho các pod chạy trên các node hay nhóm các node.
+Là một đối tượng bao gồm ba thuộc tính bắt buộc: key, value, và effect. Taints (dấu chờ) ngăn cản việc lập lịch cho các pod chạy trên các {{< glossary_tooltip text="node" term_id="node" >}} hay nhóm các node.
 
 <!--more-->
 
