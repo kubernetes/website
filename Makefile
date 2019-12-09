@@ -18,6 +18,9 @@ build: ## Build site with production settings and put deliverables in ./public
 build-preview: ## Build site with drafts and future posts enabled
 	hugo --buildDrafts --buildFuture
 
+deploy-preview:
+	hugo --enableGitInfo --buildFuture -b $(DEPLOY_PRIME_URL)
+
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
 

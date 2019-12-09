@@ -6,19 +6,16 @@ publish = "public"
 functions = "functions"
 command = "make non-production-build"
 
-[build.environment]
-HUGO_VERSION = "0.59.1"
-
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
 HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
+command = "make deploy-review"
 
 [context.branch-deploy]
-command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
+command = "make deploy-review"
 
 [context.master]
 # This context is triggered by the `master` branch and allows search indexing
