@@ -1,5 +1,5 @@
 DOCKER       = docker
-HUGO_VERSION = 0.59.1
+HUGO_VERSION = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
 NODE_BIN     = node_modules/.bin
@@ -17,6 +17,9 @@ build: ## Build site with production settings and put deliverables in ./public
 
 build-preview: ## Build site with drafts and future posts enabled
 	hugo --buildDrafts --buildFuture
+
+deploy-preview: check-hugo-versions ## Deploy preview site via netlify
+	hugo --enableGitInfo --buildFuture -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src

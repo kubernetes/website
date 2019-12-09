@@ -15,10 +15,10 @@ HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
+command = "make deploy-preview"
 
 [context.branch-deploy]
-command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
+command = "make deploy-preview"
 
 [context.master]
 # This context is triggered by the `master` branch and allows search indexing
