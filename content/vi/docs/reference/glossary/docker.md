@@ -15,4 +15,4 @@ Docker (cụ thể là Docker Engine) là một công nghệ phần mềm thực
 
 <!--more-->
 
-Docker sử dụng khả năng cô lập các tài nguyên của Linux kernel như cgroups và kernel namespaces, cùng với một hệ thống tệp tin có khả năng kết hợp như OverlayFS và một vài thành phân khác để các containers có thể chạy độc lập trên cùng một máy Linux, tránh được việc bị overhead khi khởi động và bảo trì máy ảo (VMs).
+Docker sử dụng khả năng cô lập các tài nguyên của Linux kernel như cgroups và kernel namespaces, cùng với một hệ thống tệp tin có khả năng kết hợp như OverlayFS và một vài thành phần khác để các containers có thể chạy độc lập trên cùng một máy Linux, tránh được việc bị overhead khi khởi động và bảo trì máy ảo (VMs).
