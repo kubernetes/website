@@ -65,7 +65,7 @@ In addition to the above interfaces, the storage services from the cloud provide
 
 ## Azure cloud provider implementation and VMSS
 
-In the Azure cloud provider, for every type of cluster we implement, there is a VMType option which we specify. In case of VMSS, the VM type is “vmss”.  The provisioning software (acs-engine, in future AKS etc.) would setup these values in /etc/kubernetes/azure.json file. Based on this type, various implementations would get instantiated [[3]](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/azure/azure_vmss.go)
+In the Azure cloud provider, for every type of cluster we implement, there is a VMType option which we specify. In case of VMSS, the VM type is “vmss”.  The provisioning software (acs-engine, in future AKS etc.) would setup these values in /etc/kubernetes/azure.json file. Based on this type, various implementations would get instantiated [[3]](https://github.com/kubernetes/kubernetes/blob/release-1.17/staging/src/k8s.io/legacy-cloud-providers/azure/azure_vmss.go)
 
 The load balancer interface provides access to the underlying cloud provider load balancer service. The information about the load balancers and the control operations on them are required for Kubernetes to handle the services which gets hosted on the Kubernetes cluster. For VMSS support the changes ensure that the VMSS instances are part of the load balancer pool as required.
 
@@ -264,7 +264,8 @@ With v1.12 we bring user assigned managed identity support for Kubernetes. With 
 
 To understand the internals, we will focus on a cluster created using acs-engine. This can be configured in other ways, but the basic interactions are of the same pattern.
 
-The acs-engine sets up the cluster with the required configuration. The /etc/kubernetes/azure.json file provides a way for the cluster components (eg: kube-apiserver) to gather configuration on how to access the cloud resources. In a user managed identity cluster there is a value filled with the key as `UserAssignedIdentityID`. This value is filled with the client id of the user assigned identity created by acs-engine or provided by the user, however the case may be. The code which does the authentication for Kubernetes on azure can be found here [[14]](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/azure/auth/azure_auth.go). This code uses Azure adal packages to get authenticated to access various resources in the cloud. In case of user assigned identity the following API call is made to get new token:
+The acs-engine sets up the cluster with the required configuration. The /etc/kubernetes/azure.json file provides a way for the cluster components (eg: kube-apiserver) to gather configuration on how to access the cloud resources. In a user managed identity cluster there is a value filled with the key as `UserAssignedIdentityID`. This value is filled with the client id of the user assigned identity created by acs-engine or provided by the user, however the case may be. The code which does the authentication for Kubernetes on azure can be found here [[14]](
+https://github.com/kubernetes/kubernetes/blob/release-1.17/staging/src/k8s.io/legacy-cloud-providers/azure/auth/azure_auth.go). This code uses Azure adal packages to get authenticated to access various resources in the cloud. In case of user assigned identity the following API call is made to get new token:
 
 ```
 adal.NewServicePrincipalTokenFromMSIWithUserAssignedID(msiEndpoint,
@@ -311,7 +312,7 @@ For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]
 
 2) /docs/concepts/architecture/cloud-controller/
 
-3)  https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/azure/azure_vmss.go
+3) https://github.com/kubernetes/kubernetes/blob/release-1.17/staging/src/k8s.io/legacy-cloud-providers/azure/azure_vmss.go
 
 4) https://github.com/Azure/acs-engine/blob/master/docs/kubernetes/deploy.md
 
@@ -333,6 +334,6 @@ For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]
 
 13) https://github.com/Azure/acs-engine/tree/master/examples/kubernetes-msi-userassigned
 
-14) https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/azure/auth/azure_auth.go
+14)https://github.com/kubernetes/kubernetes/blob/release-1.17/staging/src/k8s.io/legacy-cloud-providers/azure/auth/azure_auth.go
 
 15) https://github.com/Azure/acs-engine/tree/master/examples/addons/cluster-autoscaler
