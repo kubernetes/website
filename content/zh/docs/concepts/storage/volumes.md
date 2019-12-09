@@ -1489,7 +1489,7 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 
 Quobyte 支持{{< glossary_tooltip text="容器存储接口" term_id="csi" >}}。
 推荐使用 CSI 插件以在 Kubernetes 中使用 Quobyte 卷。
-Quobyte 的 GitHub 项目具有[说明(https://github.com/quobyte/quobyte/quobyte-csi#quobyte-csi)以及使用示例来部署 CSI 的 Quobyte。
+Quobyte 的 GitHub 项目具有[说明](https://github.com/quobyte/quobyte-csi#quobyte-csi)以及使用示例来部署 CSI 的 Quobyte。
 
 ### rbd {#rbd}
 
