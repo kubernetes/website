@@ -369,7 +369,7 @@ spec:
 ```
 
 Once both objects are created, the common snapshot controller verifies the binding between VolumeSnapshot and VolumeSnapshotContent objects is correct and marks the VolumeSnapshot as ready (if the CSI driver supports the `ListSnapshots` call, the controller also validates that the referenced snapshot exists). The CSI external-snapshotter sidecar checks if the snapshot exists if ListSnapshots CSI method is implemented, otherwise it assumes the snapshot exists. The external-snapshotter sidecar sets `readyToUse` to true in the status field of VolumeSnapshotContent. The common snapshot controller marks the snapshot as ready accordingly.
-Create Volume From Snapshot
+## Create Volume From Snapshot
 Once you have a bound and ready VolumeSnapshot object, you can use that object to provision a new volume that is pre-populated with data from the snapshot.
 
 To provision a new volume pre-populated with data from a snapshot, use the `dataSource` field in the `PersistentVolumeClaim`. It has three parameters:
