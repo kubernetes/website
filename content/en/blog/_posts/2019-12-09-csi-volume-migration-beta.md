@@ -114,7 +114,7 @@ Although CSI migration is now beta there is one major limitation that prevents u
 
 ## What is the timeline/status?
 
-The timeline for CSI migration is actually set by the cloud provider extraction project. It is part of the effort to remove all cloud provider code from Kubernetes. By migrating cloud storage plugins to external CSI drivers we are able to extract out all the cloud provider dependencies. Since an official deprecation was announced in TODO we plan to follow the timeline and move CSI migration to GA and completely remove all in-tree plugin code from Kubernetes by v1.21.
+The timeline for CSI migration is actually set by the cloud provider extraction project. It is part of the effort to remove all cloud provider code from Kubernetes. By migrating cloud storage plugins to external CSI drivers we are able to extract out all the cloud provider dependencies.
 
 Although the overall feature is beta and not on by default, there is still work to be done on a per-plugin basis. Currently only GCE PD and AWS EBS have gone beta with Migration and yet both are still off by default since they depend on a manual installation of their respective CSI Drivers. Azure File/Disk, OpenStack, and VMWare plugins are currently in less mature states and non-cloud plugins such as NFS, Portworx, RBD etc are still in the planning stages.
 
