@@ -115,6 +115,10 @@ to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, y
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
 1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
 connectivity to gcr.io registries.
+1. (Optional and note: alpha feature) Since version 1.18, kubeadm supports bringing
+up the cluster with specific cluster addons that are either defined in a
+`AddonInstallerConfiguration` ([general info](/docs/reference/setup-tools/kubeadm/kubeadm-init/#addon-installer)) or passed through in the [`addon installer`
+phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
 
 To initialize the control-plane node run:
 

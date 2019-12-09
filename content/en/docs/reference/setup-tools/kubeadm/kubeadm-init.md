@@ -164,6 +164,7 @@ The `AddonInstallerConfiguration` can be specified in the kubeadm config-file.
 If the `AddonInstaller` feature-gate is specified, but a configuration is not supplied, kubeadm will default the API. It is planned to default to installing version appropriate CoreDNS+kube-proxy, but these addons are not yet implemented.
 
 Minimal usage in a kubeadm config could look like:
+
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
@@ -173,11 +174,13 @@ kind: ClusterConfiguration
 featureGates:
   AddonInstaller: true
 ```
+
 ```shell
 kubeadm init --config cluster1-config.yaml
 ```
 
 Supplying your own configuration, you can override the feature's default and install from a manifest-list or kustomize directory:
+
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
@@ -195,16 +198,18 @@ addons:
 - name: weavenet
   manifestRef: https://cloud.weave.works/k8s/v1.10/net.yaml
 ```
+
 ```shell
 kubeadm init --config cluster1-config.yaml
 ```
 
 You may also invoke the addon-installer phase independently to apply the configuration without upgrading the rest of the cluster:
+
 ```shell
 kubeadm init addons installer --config cluster1-config.yaml
 ```
 
-The initial KEP for this feature can be found here: [kubeadm-addon-installer-KEP](TODO: link KEP merge location)
+The initial KEP for this feature can be found here: [kubeadm-addon-installer-KEP](https://github.com/kubernetes/enhancements/pull/1308).
 
 ### Uploading control-plane certificates to the cluster
 
