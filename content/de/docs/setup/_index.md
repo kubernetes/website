@@ -23,7 +23,7 @@ Noch einfacher können Sie einen Kubernetes-Cluster in einer Lern- und Produktio
 
 Benutzen Sie eine Docker-basierende Lösung, wenn Sie Kubernetes erlernen wollen: Von der Kubernetes-Community unterstützte Werkzeuge oder Werkzeuge in einem Ökosystem zum Einrichten eines Kubernetes-Clusters auf einer lokalen Maschine.
 
-{{< table caption="Local machine solutions table that lists the tools supported by the community and the ecosystem to deploy Kubernetes." >}}
+{{< table caption="Tabelle mit Lösungen für lokale Maschinen, in der die Tools aufgeführt sind, die von der Community und dem Ökosystem für die Bereitstellung von Kubernetes unterstützt werden." >}}
 
 |Community           |Ökosystem     |
 | ------------       | --------     |
