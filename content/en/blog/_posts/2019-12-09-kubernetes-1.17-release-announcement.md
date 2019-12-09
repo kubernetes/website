@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.17: Stability"
-date: 2019-12-10
+date: 2019-12-09
 slug: kubernetes-1-17-release-announcement
 ---
 
