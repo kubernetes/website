@@ -130,11 +130,10 @@ type VolumeSnapshotContent struct {
 ```go
 type VolumeSnapshotContentSpec struct {
          VolumeSnapshotRef core_v1.ObjectReference
-         PersistentVolumeRef core_v1.ObjectReference
          Source VolumeSnapshotContentSource
          DeletionPolicy DeletionPolicy
          Driver string
-         SnapshotClassName *string
+         VolumeSnapshotClassName *string
 }
 ```
 
