@@ -57,7 +57,7 @@ Instead, Kubernetes users are now empowered to incorporate snapshot operations i
 
 Additionally these Kubernetes snapshot primitives act as basic building blocks that unlock the ability to develop advanced, enterprise grade, storage administration features for Kubernetes: including application or cluster level backup solutions.
 
-Read the [full release blog here](https://kubernetes.io/blog/2019/12/09/csi-volume-snapshot-beta/).
+You can read more in the blog entry about [releasing CSI volume snapshots to beta](https://kubernetes.io/blog/2019/12/09/csi-volume-snapshot-beta/).
 
 # CSI Migration Beta
 
