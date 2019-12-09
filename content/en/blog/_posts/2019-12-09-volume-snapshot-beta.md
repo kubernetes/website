@@ -7,7 +7,7 @@ slug: kubernetes-1-17-feature-cis-volume-snapshot-beta
 
 **Authors:** Xing Yang, VMware & Xiangqian Yu, Google
 
-The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was introduced as alpha in Kubernetes v1.12, with a second alpha with breaking changes in Kubernetes v1.13.  This post summarizes the changes in the beta release.
+The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was introduced [as alpha](https://kubernetes.io/blog/2018/10/09/introducing-volume-snapshot-alpha-for-kubernetes/) in Kubernetes v1.12, with a [second alpha](https://kubernetes.io/blog/2019/01/17/update-on-volume-snapshot-alpha-for-kubernetes/) with breaking changes in Kubernetes v1.13.  This post summarizes the changes in the beta release.
 
 ## What is a Volume Snapshot?
 
@@ -44,27 +44,27 @@ As mentioned above, with the promotion of Volume Snapshot to beta, the feature i
 
 In order to use the Kubernetes Volume Snapshot feature, you must ensure the following components have been deployed on your Kubernetes cluster:
 
-- Kubernetes Volume Snapshot CRDs
-- Volume snapshot controller
+- [Kubernetes Volume Snapshot CRDs](https://github.com/kubernetes-csi/external-snapshotter/tree/master/config/crd)
+- [Volume snapshot controller](https://github.com/kubernetes-csi/external-snapshotter/tree/master/pkg/common-controller)
 - CSI Driver supporting Kubernetes volume snapshot beta
 
 See the deployment section below for details.
 
 ## Which drivers support Kubernetes Volume Snapshots?
 
-Kubernetes supports three types of volume plugins: in-tree, Flex, and CSI. See Kubernetes Volume Plugin FAQ for details.
+Kubernetes supports three types of volume plugins: in-tree, Flex, and CSI. See [Kubernetes Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) for details.
 
 Snapshots are only supported for CSI drivers (not for in-tree or Flex). To use the Kubernetes snapshots feature, ensure that a CSI Driver that implements snapshots is deployed on your cluster.
 
-Read the “Container Storage Interface (CSI) for Kubernetes GA” blog post to learn more about CSI and how to deploy CSI drivers.
+Read the “[Container Storage Interface (CSI) for Kubernetes GA](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/)” blog post to learn more about CSI and how to deploy CSI drivers.
 
 As of the publishing of this blog, the following CSI drivers have been updated to support volume snapshots beta:
 
-- GCE Persistent Disk CSI Driver
-- Portworx CSI Driver
-- NetApp Trident CSI Driver
+- [GCE Persistent Disk CSI Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+- [Portworx CSI Driver](https://github.com/libopenstorage/openstorage/tree/master/csi)
+- [NetApp Trident CSI Driver](https://github.com/NetApp/trident)
 
-Beta level Volume Snapshot support for other CSI drivers is pending, and should be available soon.
+Beta level Volume Snapshot support for other [CSI drivers](https://kubernetes-csi.github.io/docs/drivers.html) is pending, and should be available soon.
 
 ## Kubernetes Volume Snapshot Beta API
 
@@ -93,9 +93,7 @@ type VolumeSnapshot struct {
 ```go
 type VolumeSnapshotSpec struct {
 	Source VolumeSnapshotSource
-	Source core_v1.ObjectReference
 	VolumeSnapshotClassName *string
-	SnapshotContentName string
 }
 // Exactly one of its members MUST be specified
 type VolumeSnapshotSource struct {
@@ -174,7 +172,7 @@ type VolumeSnapshotClass struct {
 
 ### How do I deploy support for Volume Snapshots on my Kubernetes Cluster?
 
-Please note that the Volume Snapshot feature now depends on a new, common volume snapshot controller in addition to the volume snapshot CRDs. Both the volume snapshot controller and the CRDs are independent of any CSI driver. Regardless of the number CSI drivers deployed on the cluster, there must be only one instance of the volume snapshot controller running and one set of volume snapshot CRDs installed per cluster.
+Please note that the Volume Snapshot feature now depends on a new, common [volume snapshot controller](https://github.com/kubernetes-csi/external-snapshotter/tree/master/pkg/common-controller) in addition to the volume snapshot CRDs. Both the volume snapshot controller and the CRDs are independent of any CSI driver. Regardless of the number CSI drivers deployed on the cluster, there must be only one instance of the volume snapshot controller running and one set of volume snapshot CRDs installed per cluster.
 
 Therefore, it is strongly recommended that Kubernetes distributors bundle and deploy the controller and CRDs as part of their Kubernetes cluster management process (independent of any CSI Driver).
 
@@ -183,13 +181,14 @@ If your cluster does not come pre-installed with the correct components, you may
 #### Install Snapshot Beta CRDs
 
 - `kubectl create -f config/crd`
-- https://github.com/kubernetes-csi/external-snapshotter/tree/master/config/crd
+- [https://github.com/kubernetes-csi/external-snapshotter/tree/master/config/crd](https://github.com/kubernetes-csi/external-snapshotter/tree/master/config/crd)
 - Do this once per cluster
 
 
 #### Install Common Snapshot Controller
+
 - `kubectl create -f deploy/kubernetes/snapshot-controller`
-- https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller
+- [https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller](https://github.com/kubernetes-csi/external-snapshotter/tree/master/deploy/kubernetes/snapshot-controller)
 - Do this once per cluster
 
 #### Install CSI Driver
@@ -198,13 +197,13 @@ Follow instructions provided by your CSI Driver vendor.
 
 ### How do I use Kubernetes Volume Snapshots?
 
-Assuming all the required components (including CSI driver) are already deployed and running on your cluster, you can create volume snapshots using the VolumeSnapshot API object, and restore them by specifying a VolumeSnapshot data source on a PVC.
+Assuming all the required components (including CSI driver) are already deployed and running on your cluster, you can create volume snapshots using the `VolumeSnapshot` API object, and restore them by specifying a VolumeSnapshot data source on a PVC.
 
 #### Creating a New Volume Snapshot with Kubernetes
 
-You can enable creation/deletion of volume snapshots in a Kubernetes cluster, by creating a VolumeSnapshotClass API object pointing to a CSI Driver that support volume snapshots.
+You can enable creation/deletion of volume snapshots in a Kubernetes cluster, by creating a `VolumeSnapshotClass` API object pointing to a CSI Driver that support volume snapshots.
 
-The following VolumeSnapshotClass, for example, tells the Kubernetes cluster that a CSI driver, `testdriver.csi.k8s.io`, can handle volume snapshots, and that when these snapshots are created, their deletion policy should be to delete.
+The following `VolumeSnapshotClass`, for example, tells the Kubernetes cluster that a CSI driver, `testdriver.csi.k8s.io`, can handle volume snapshots, and that when these snapshots are created, their deletion policy should be to delete.
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
@@ -220,12 +219,12 @@ parameters:
 
 The common snapshot controller reserves the parameter keys `csi.storage.k8s.io/snapshotter-secret-name` and `csi.storage.k8s.io/snapshotter-secret-namespace`. If specified, it fetches the referenced Kubernetes secret and sets it as an annotation on the volume snapshot content object.  The CSI external-snapshotter sidecar retrieves it from the content annotation and passes it to the CSI driver during snapshot creation.
 
-#### Creation of a volume snapshot is triggered by the creation of a VolumeSnapshot API object
+#### Creation of a volume snapshot is triggered by the creation of a `VolumeSnapshot` API object.
 
-The VolumeSnapshot object must specify the following source type:
-`persistentVolumeClaimName` - The name of the PVC to snapshot. Please note that the source PVC, PV, and `VolumeSnapshotClass` for a VolumeSnapshot object must point to the same CSI driver.
+The `VolumeSnapshot` object must specify the following source type:
+`persistentVolumeClaimName` - The name of the PVC to snapshot. Please note that the source PVC, PV, and `VolumeSnapshotClass` for a `VolumeSnapshot` object must point to the same CSI driver.
 
-The following VolumeSnapshot, for example, triggers the creation of a snapshot for a PVC called `test-pvc` using the VolumeSnapshotClass above.
+The following `VolumeSnapshot`, for example, triggers the creation of a snapshot for a PVC called `test-pvc` using the `VolumeSnapshotClass` above.
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
@@ -238,19 +237,19 @@ spec:
     persistentVolumeClaimName: test-pvc
 ```
 
-When volume snapshot creation is invoked, the common snapshot controller first creates a VolumeSnapshotContent object with the `volumeSnapshotRef`, source `volumeHandle`, `volumeSnapshotClassName` if specified, `driver`, and `deletionPolicy`.
+When volume snapshot creation is invoked, the common snapshot controller first creates a `VolumeSnapshotContent` object with the `volumeSnapshotRef`, source `volumeHandle`, `volumeSnapshotClassName` if specified, `driver`, and `deletionPolicy`.
 
-The CSI external-snapshotter sidecar then passes the `VolumeSnapshotClass` parameters, the source volume ID, and any referenced secret(s) to the CSI driver (in this case `testdriver.csi.k8s.io`) via a CSI `CreateSnapshot` call. In response, the CSI driver creates a new snapshot for the specified volume, and returns the ID for that snapshot. The CSI external-snapshotter sidecar then updates the `snapshotHandle`, `creationTime`, `restoreSize`, and `readyToUse` in the status field of the VolumeSnapshotContent object that represents the new snapshot. For a storage system that needs to upload the snapshot after it is being cut, the CSI external-snapshotter sidecar will keep calling the CSI `CreateSnapshot` to check the status until upload is complete and `readyToUse` is true.
+The CSI external-snapshotter sidecar then passes the `VolumeSnapshotClass` parameters, the source volume ID, and any referenced secret(s) to the CSI driver (in this case `testdriver.csi.k8s.io`) via a CSI `CreateSnapshot` call. In response, the CSI driver creates a new snapshot for the specified volume, and returns the ID for that snapshot. The CSI external-snapshotter sidecar then updates the `snapshotHandle`, `creationTime`, `restoreSize`, and `readyToUse` in the status field of the `VolumeSnapshotContent` object that represents the new snapshot. For a storage system that needs to upload the snapshot after it is being cut, the CSI external-snapshotter sidecar will keep calling the CSI `CreateSnapshot` to check the status until upload is complete and `readyToUse` is true.
 
-The common snapshot controller binds the VolumeSnapshotContent object to the VolumeSnapshot (sets `BoundVolumeSnapshotContentName`), updating the `creationTime`, `restoreSize`, and `readyToUse` in the status field of the VolumeSnapshot object based on the status field of the VolumeSnapshotContent object.
+The common snapshot controller binds the `VolumeSnapshotContent` object to the `VolumeSnapshot` (sets `BoundVolumeSnapshotContentName`), updating the `creationTime`, `restoreSize`, and `readyToUse` in the status field of the `VolumeSnapshot` object based on the status field of the `VolumeSnapshotContent` object.
 
 If no `volumeSnapshotClassName` is specified, one is automatically selected as follows:
 The `StorageClass` from PVC or PV of the source volume is fetched.
 The default `VolumeSnapshotClass` is fetched, if available. A default `VolumeSnapshotClass` is a snapshot class created by the admin with the `snapshot.storage.kubernetes.io/is-default-class` annotation. If the `Driver` field of the default `VolumeSnapshotClass` is the same as the `Provisioner` field in the `StorageClass`, the default `VolumeSnapshotClass` is used. If there is no default `VolumeSnapshotClass` or more than one default `VolumeSnapshotClass` for a snapshot, an error will be returned.
 
-Note that the Kubernetes Snapshot API does not provide any consistency guarantees. You have to prepare your application (pause application, freeze filesystem etc.) before taking the snapshot for data consistency either manually or using some other higher level APIs/controllers.
+Please note that the Kubernetes Snapshot API does not provide any consistency guarantees. You have to prepare your application (pause application, freeze filesystem etc.) before taking the snapshot for data consistency either manually or using some other higher level APIs/controllers.
 
-You can verify that the VolumeSnapshot object is created and bound with `VolumeSnapshotContent` by running `kubectl describe volumesnapshot`:
+You can verify that the `VolumeSnapshot` object is created and bound with `VolumeSnapshotContent` by running `kubectl describe volumesnapshot`:
 
 `Bound Volume Snapshot Content Name` - field in the `Status` indicates indicates the volume is bound to the specified `VolumeSnapshotContent`.
 `Ready To Use` - field in the `Status` indicates this volume snapshot is ready for use.
@@ -284,11 +283,13 @@ Status:
   Restore Size:                        1Gi
 ```
 
-As a reminder to any developers building controllers using volume snapshot APIs: before using a VolumeSnapshot API object, validate the bi-directional binding between the VolumeSnapshot and the `VolumeSnapshotContent` it is bound to, to ensure the binding is complete and correct (not doing so may result in security issues).
+As a reminder to any developers building controllers using volume snapshot APIs: before using a `VolumeSnapshot` API object, validate the bi-directional binding between the `VolumeSnpashot` and the `VolumeSnapshotContent` it is bound to, to ensure the binding is complete and correct (not doing so may result in security issues).
 
 ```shell
 kubectl describe volumesnapshotcontent
+```
 
+```
 Name:         snapcontent-32ceaa2a-3802-4edd-a808-58c4f1bd7869
 Namespace:
 Labels:       <none>
@@ -326,11 +327,11 @@ Events:             <none>
 
 #### Importing an existing volume snapshot with Kubernetes
 
-You can always expose a pre-existing volume snapshot in Kubernetes by manually creating a VolumeSnapshotContent object to represent the existing volume snapshot. Because VolumeSnapshotContent is a non-namespace API object, only a cluster admin may have the permission to create it. By specifying the `volumeSnapshotRef` the cluster admin specifies exactly which user can use the snapshot.
+You can always expose a pre-existing volume snapshot in Kubernetes by manually creating a `VolumeSnapshotContent` object to represent the existing volume snapshot. Because `VolumeSnapshotContent` is a non-namespace API object, only a cluster admin may have the permission to create it. By specifying the `volumeSnapshotRef` the cluster admin specifies exactly which user can use the snapshot.
 
-The following VolumeSnapshotContent, for example exposes a volume snapshot with the name `7bdd0de3-aaeb-11e8-9aae-0242ac110002` belonging to a CSI driver called `testdriver.csi.k8s.io`.
+The following `VolumeSnapshotContent`, for example exposes a volume snapshot with the name `7bdd0de3-aaeb-11e8-9aae-0242ac110002` belonging to a CSI driver called `testdriver.csi.k8s.io`.
 
-A VolumeSnapshotContent object should be created by a cluster admin with the following fields to represent an existing snapshot:
+A `VolumeSnapshotContent` object should be created by a cluster admin with the following fields to represent an existing snapshot:
 
 - `driver` - CSI driver used to handle this volume. This field is required.
 - `source` - Snapshot identifying information
@@ -354,7 +355,7 @@ spec:
     namespace: default
 ```
 
-Once an admin creates a VolumeSnapshotContent object is created, you can create a VolumeSnapshot object pointing to the VolumeSnapshotContent object. The name and namespace of the VolumeSnapshot object must match the name/namespace specified in the `volumeSnapshotRef` of the VolumeSnapshotContent. It specifies the following fields:
+Once a `VolumeSnapshotContent` object is created, a user can create a `VolumeSnapshot` object pointing to the `VolumeSnapshotContent` object. The name and namespace of the `VolumeSnapshot` object must match the name/namespace specified in the volumeSnapshotRef of the VolumeSnapshotContent. It specifies the following fields:
 `volumeSnapshotContentName` - name of the volume snapshot content specified above. This field is required.
 `volumeSnapshotClassName` - name of the volume snapshot class. This field is optional.
 
@@ -368,16 +369,16 @@ spec:
         volumeSnapshotContentName: test-content
 ```
 
-Once both objects are created, the common snapshot controller verifies the binding between VolumeSnapshot and VolumeSnapshotContent objects is correct and marks the VolumeSnapshot as ready (if the CSI driver supports the `ListSnapshots` call, the controller also validates that the referenced snapshot exists). The CSI external-snapshotter sidecar checks if the snapshot exists if `ListSnapshots` CSI method is implemented, otherwise it assumes the snapshot exists. The external-snapshotter sidecar sets `readyToUse` to true in the status field of the VolumeSnapshotContent. The common snapshot controller marks the snapshot as ready accordingly.
+Once both objects are created, the common snapshot controller verifies the binding between `VolumeSnapshot` and `VolumeSnapshotContent` objects is correct and marks the `VolumeSnapshot` as ready (if the CSI driver supports the `ListSnapshots` call, the controller also validates that the referenced snapshot exists). The CSI external-snapshotter sidecar checks if the snapshot exists if ListSnapshots CSI method is implemented, otherwise it assumes the snapshot exists. The external-snapshotter sidecar sets `readyToUse` to true in the status field of `VolumeSnapshotContent`. The common snapshot controller marks the snapshot as ready accordingly.
 Create Volume From Snapshot
-Once you have a bound and ready VolumeSnapshot object, you can use that object to provision a new volume that is pre-populated with data from the snapshot.
+Once you have a bound and ready `VolumeSnapshot` object, you can use that object to provision a new volume that is pre-populated with data from the snapshot.
 
-To provision a new volume pre-populated with data from a snapshot, use the `dataSource` field in the PersistentVolumeClaim. It has three parameters:
+To provision a new volume pre-populated with data from a snapshot, use the `dataSource` field in the `PersistentVolumeClaim`. It has three parameters:
 `name` - name of the `VolumeSnapshot` object representing the snapshot to use as source
 `kind` - must be `VolumeSnapshot`
 `apiGroup` - must be snapshot.storage.k8s.io
 
-The namespace of the source VolumeSnapshot object is assumed to be the same as the namespace of the PersistentVolumeClaim object.
+The namespace of the source `VolumeSnapshot` object is assumed to be the same as the namespace of the `PersistentVolumeClaim` object.
 
 ```yaml
 apiVersion: v1
@@ -398,31 +399,34 @@ spec:
       storage: 1Gi
 ```
 
-When the PersistentVolumeClaim object is created, it will trigger provisioning of a new volume that is pre-populated with data from the specified snapshot.
+When the `PersistentVolumeClaim` object is created, it will trigger provisioning of a new volume that is pre-populated with data from the specified snapshot.
 As a storage vendor, how do I add support for snapshots to my CSI driver?
-To implement the snapshot feature, a CSI driver MUST add support for additional controller capabilities `CREATE_DELETE_SNAPSHOT` and `LIST_SNAPSHOTS`, and implement additional controller RPCs: `CreateSnapshot`, `DeleteSnapshot`, and `ListSnapshots`. For details, see the CSI spec and the Kubernetes-CSI Driver Developer Guide.
+To implement the snapshot feature, a CSI driver MUST add support for additional controller capabilities `CREATE_DELETE_SNAPSHOT` and `LIST_SNAPSHOTS`, and implement additional controller RPCs: `CreateSnapshot`, `DeleteSnapshot`, and `ListSnapshots`. For details, see the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md) and the [Kubernetes-CSI Driver Developer Guide](https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html).
 
 Although Kubernetes is as minimally prescriptive on the packaging and deployment of a CSI Volume Driver as possible, it provides a suggested mechanism for deploying an arbitrary containerized CSI driver on Kubernetes to simplify deployment of containerized CSI compatible volume drivers.
 
-As part of this recommended deployment process, the Kubernetes team provides a number of sidecar (helper) containers, including the external-snapshotter sidecar container.
+As part of this recommended deployment process, the Kubernetes team provides a number of sidecar (helper) containers, including the [external-snapshotter sidecar](https://kubernetes-csi.github.io/docs/external-snapshotter.html) container.
 
-The external-snapshotter watches the Kubernetes API server for VolumeSnapshotContent object(s) and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint. The CSI external-provisioner sidecar container has also been updated to support restoring volume from snapshot using the `dataSource` field in a PersistentVolumeClaim.
+The external-snapshotter watches the Kubernetes API server for `VolumeSnapshotContent` object and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint. The CSI [external-provisioner sidecar container](https://kubernetes-csi.github.io/docs/external-provisioner.html) has also been updated to support restoring volume from snapshot using the dataSource PVC field.
 
 In order to support snapshot feature, it is recommended that storage vendors deploy the external-snapshotter sidecar containers in addition to the external provisioner, along with their CSI driver.
 
 ## What are the limitations of beta?
 
 The beta implementation of volume snapshots for Kubernetes has the following limitations:
-Does not support reverting an existing volume to an earlier state represented by a snapshot (beta only supports provisioning a new volume from a snapshot).
-No snapshot consistency guarantees beyond any guarantees provided by storage system (e.g. crash consistency). These are the responsibility of higher level APIs/controllers
+
+- Does not support reverting an existing volume to an earlier state represented by a snapshot (beta only supports provisioning a new volume from a snapshot).
+- No snapshot consistency guarantees beyond any guarantees provided by storage system (e.g. crash consistency). These are the responsibility of higher level APIs/controllers
 
 ##  What’s next?
 
 Depending on feedback and adoption, the Kubernetes team plans to push the CSI Snapshot implementation to GA in either 1.18 or 1.19. Some of the features we are interested in supporting include consistency groups, application consistent snapshots, workload quiescing, in-place restores, volume backups, and more.
-How can I learn more?
-You can also have a look at the [external-snapshotter source code repository](https://github.com/kubernetes-csi/external-snapshotter).
 
-Check out additional documentation on the snapshot feature: [http://k8s.io/docs/concepts/storage/volume-snapshots](http://k8s.io/docs/concepts/storage/volume-snapshots) and [https://kubernetes-csi.github.io/docs/](https://kubernetes-csi.github.io/docs/)
+## How can I learn more?
+
+The code repository for snapshot APIs and controller is [here](https://github.com/kubernetes-csi/external-snapshotter).
+
+Check out additional documentation on the snapshot feature [here](http://k8s.io/docs/concepts/storage/volume-snapshots) and [here](https://kubernetes-csi.github.io/docs/).
 
 ## How do I get involved?
 
@@ -433,17 +437,17 @@ We offer a huge thank you to the contributors who stepped up these last few quar
 - Xing Yang (xing-yang)
 - Xiangqian Yu (yuxiangqian)
 - Jing Xu (jingxu97)
+- Grant Griffiths (ggriffiths)
+- Can Zhu (zhucan)
 
 With special thanks to the following people for their insightful reviews and thorough consideration with the design:
 
 - Michelle Au (msau42)
 - Saad Ali (saadali)
-- Grant Griffiths (ggriffiths)
 - Patrick Ohly (pohly)
 - Tim Hockin (thockin)
-- Can Zhu (zhucan)
 - Jordan Liggitt (liggitt).
 
-Those interested in getting involved with the design and development of CSI or any part of the Kubernetes Storage system, join the Kubernetes Storage Special Interest Group (SIG). We’re rapidly growing and always welcome new contributors.
+Those interested in getting involved with the design and development of CSI or any part of the Kubernetes Storage system, join the [Kubernetes Storage Special Interest Group (SIG)](https://github.com/kubernetes/community/tree/master/sig-storage). We’re rapidly growing and always welcome new contributors.
 
-We also hold regular SIG-Storage Snapshot Working Group meetings. New attendees are welcome to join for design and development discussions.
+We also hold regular [SIG-Storage Snapshot Working Group meetings](https://docs.google.com/document/d/1qdfvAj5O-tTAZzqJyz3B-yczLLxOiQd-XKpJmTEMazs/edit?usp=sharing). New attendees are welcome to join for design and development discussions.
