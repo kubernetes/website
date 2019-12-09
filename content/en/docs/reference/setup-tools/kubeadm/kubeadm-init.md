@@ -153,6 +153,59 @@ Allowed customization are:
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
 
+### Installing custom addons (Alpha) {#addon-installer}
+
+Kubeadm will normally install CoreDNS/kube-dns and kube-proxy using manifests built into the kubeadm binary.
+Using the `AddonInstaller` feature-gate (alpha), you can instruct kubeadm to install addons from other sources.
+Kubeadm will no longer use the in-binary manifests when using the `AddonInstaller` feature-gate.
+
+This feature is driven by a Component Config called the `addons.config.x-k8s.io/AddonInstallerConfiguration`.
+The `AddonInstallerConfiguration` can be specified in the kubeadm config-file.
+If the `AddonInstaller` feature-gate is specified, but a configuration is not supplied, kubeadm will default the API. It is planned to default to installing version appropriate CoreDNS+kube-proxy, but these addons are not yet implemented.
+
+Minimal usage in a kubeadm config could look like:
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+featureGates:
+  AddonInstaller: true
+```
+```shell
+kubeadm init --config cluster1-config.yaml
+```
+
+Supplying your own configuration, you can override the feature's default and install from a manifest-list or kustomize directory:
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+featureGates:
+  AddonInstaller: true
+---
+apiVersion: addons.config.x-k8s.io/v1alpha1
+kind: AddonInstallerConfiguration
+addons:
+- name: multibase-pod
+  kustomizeRef: github.com/kubernetes-sigs/kustomize//examples/multibases/dev/?ref=v1.0.6
+- name: weavenet
+  manifestRef: https://cloud.weave.works/k8s/v1.10/net.yaml
+```
+```shell
+kubeadm init --config cluster1-config.yaml
+```
+
+You may also invoke the addon-installer phase independently to apply the configuration without upgrading the rest of the cluster:
+```shell
+kubeadm init addons installer --config cluster1-config.yaml
+```
+
+The initial KEP for this feature can be found here: [kubeadm-addon-installer-KEP](TODO: link KEP merge location)
+
 ### Uploading control-plane certificates to the cluster
 
 By adding the flag `--upload-certs` to `kubeadm init` you can temporary upload
