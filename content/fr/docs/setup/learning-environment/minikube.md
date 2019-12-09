@@ -53,7 +53,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
 2. Vous pouvez maintenant interagir avec votre cluster à l'aide de kubectl.
    Pour plus d'informations, voir [Interagir avec votre cluster.](#interacting-with-your-cluster).
 
-    Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l’aide de` --port`.
+    Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l’aide de `--port`.
 
     ```shell
     kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
@@ -71,7 +71,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
     kubectl expose deployment hello-minikube --type=NodePort --port=8080
     ```
 
-    L'option `--type = NodePort` spécifie le type du service.
+    L'option `--type=NodePort` spécifie le type du Service.
 
     Le résultat est similaire à ceci:
 
@@ -81,27 +81,27 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
 
 4. Le Pod `hello-minikube` est maintenant lancé, mais vous devez attendre que le Pod soit opérationnel avant d'y accéder via le Service.
 
-   Vérifiez si le pod est opérationnel:
+   Vérifiez si le Pod est opérationnel:
 
    ```shell
    kubectl get pod
    ```
 
-   Si la sortie affiche le `STATUS` comme` ContainerCreating`, le pod est toujours en cours de création:
+   Si la sortie affiche le `STATUS` comme `ContainerCreating`, le Pod est toujours en cours de création:
 
    ```text
    NAME                              READY     STATUS              RESTARTS   AGE
    hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
    ```
 
-   Si la sortie indique le statut `STATUS` comme` Running`, le pod est maintenant opérationnel:
+   Si la sortie indique le statut `STATUS` comme `Running`, le Pod est maintenant opérationnel:
 
    ```text
    NAME                              READY     STATUS    RESTARTS   AGE
    hello-minikube-3383150820-vctvh   1/1       Running   0          13s
    ```
 
-5. Obtenez l'URL du service exposé pour afficher les détails du service:
+5. Obtenez l'URL du Service exposé pour afficher les détails du service:
 
    ```shell
    minikube service hello-minikube --url
@@ -200,7 +200,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
 
 La commande `minikube start` peut être utilisée pour démarrer votre cluster.
 Cette commande crée et configure une machine virtuelle qui exécute un cluster Kubernetes à un seul nœud.
-Cette commande configure également [kubectl] (/docs/user-guide/kubectl-overview/) pour communiquer avec ce cluster.
+Cette commande configure également [kubectl](/docs/user-guide/kubectl-overview/) pour communiquer avec ce cluster.
 
 {{< note >}}
 Si vous êtes derrière un proxy Web, vous devez transmettre ces informations à la commande `minikube start`:
@@ -226,11 +226,11 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 
 #### Spécification du pilote de machine virtuelle
 
-Vous pouvez changer le pilote de machine virtuelle en ajoutant l'indicateur `--vm-driver = <nom_du_processeur>` à `minikube start`.
-Par exemple, la commande serait.
+Vous pouvez changer le pilote de machine virtuelle en ajoutant l'indicateur `--vm-driver=<nom_du_pilote>` à `minikube start`.
+Par exemple, la commande serait:
 
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --vm-driver=<nom_du_pilote>
 ```
 
 Minikube prend en charge les pilotes suivants:
@@ -410,7 +410,7 @@ minikube dashboard
 
 ### Services
 
-Pour accéder à un service exposé via un port de noeud, exécutez cette commande dans un shell après le démarrage de Minikube pour obtenir l'adresse:
+Pour accéder à un service exposé via un port de nœud, exécutez cette commande dans un shell après le démarrage de Minikube pour obtenir l'adresse:
 
 ```shell
 minikube service [-n NAMESPACE] [--url] NAME

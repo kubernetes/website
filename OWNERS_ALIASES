@@ -48,13 +48,13 @@ aliases:
     - ryanmcginnis
     - simplytunde
     - steveperry-53
-    - tengqm
     - xiangpengzhao
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - rajakavitha1
     - sftim
+    - tengqm
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
@@ -139,7 +139,6 @@ aliases:
     - kbarnard10
     - pwittrock
     - steveperry-53
-    - tengqm
     - zacharysarah
     - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
@@ -151,7 +150,6 @@ aliases:
     - lichuqiang
     - markthink
     - SataQiu
-    - tengqm
     - xiangpengzhao
     - xichengliudui
     - zacharysarah
