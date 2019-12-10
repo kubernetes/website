@@ -44,10 +44,6 @@ weight: 40
 ## 구성 요소
 아래의 예시에서는 스테이트풀셋의 구성요소를 보여 준다.
 
-* 이름이 nginx라는 헤드리스 서비스는 네트워크 도메인을 컨트롤하는데 사용 한다.
-* 이름이 web인 스테이트풀셋은 3개의 nginx 컨테이너의 레플리카가 고유의 파드에서 구동될 것이라 지시하는 Spec을 갖는다.
-* volumeClaimTemplates은 퍼시스턴트 볼륨 프로비저너에서 프로비전한 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 사용해서 안정적인 스토리지를 제공한다.
-
 ```yaml
 apiVersion: v1
 kind: Service
@@ -98,6 +94,12 @@ spec:
         requests:
           storage: 1Gi
 ```
+
+위의 예시에서:
+
+* 이름이 nginx라는 헤드리스 서비스는 네트워크 도메인을 컨트롤하는데 사용 한다.
+* 이름이 web인 스테이트풀셋은 3개의 nginx 컨테이너의 레플리카가 고유의 파드에서 구동될 것이라 지시하는 Spec을 갖는다.
+* volumeClaimTemplates은 퍼시스턴트 볼륨 프로비저너에서 프로비전한 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 사용해서 안정적인 스토리지를 제공한다.
 
 ## 파드 셀렉터
 스테이트풀셋의 `.spec.selector` 필드는 `.spec.template.metadata.labels` 레이블과 일치하도록 설정 해야 한다. 쿠버네티스 1.8 이전에서는 생략시에 `.spec.selector` 필드가 기본 설정 되었다. 1.8 과 이후 버전에서는 파드 셀렉터를 명시하지 않으면 스테이트풀셋 생성시 유효성 검증 오류가 발생하는 결과가 나오게 된다.
@@ -260,7 +262,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 * [스테이트풀 애플리케이션의 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/)의 예시를 따른다.
 * [카산드라와 스테이트풀셋 배포](/ko/docs/tutorials/stateful-application/cassandra/)의 예시를 따른다.
-* [레플리케이티드(replicated) 스테이트풀 애플리케이션 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/)의 예시를 따른다.
+* [레플리케이티드(replicated) 스테이트풀 애플리케이션 실행하기](/docs/tasks/run-application/run-replicated-stateful-application/)의 예시를 따른다.
 
 {{% /capture %}}
 

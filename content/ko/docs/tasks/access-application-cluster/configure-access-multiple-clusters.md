@@ -371,7 +371,7 @@ Windows PowerShell
 {{% capture whatsnext %}}
 
 * [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands/)
+* [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}
 

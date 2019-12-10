@@ -59,6 +59,7 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 | PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
 | Python               | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
+| Python               | [github.com/tomplus/kubernetes_asyncio](https://github.com/tomplus/kubernetes_asyncio) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
