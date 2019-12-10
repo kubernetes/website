@@ -93,7 +93,7 @@ platform for additional features such as topological routing.
 
 {{% capture whatsnext %}}
 
-* [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices)
+* [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 
 {{% /capture %}}
