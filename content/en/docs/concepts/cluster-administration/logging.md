@@ -203,6 +203,7 @@ Mon Jan  1 00:00:02 UTC 2001 INFO 2
 ...
 ```
 
+
 The node-level agent installed in your cluster picks up those log streams
 automatically without any further configuration. If you like, you can configure
 the agent to parse log lines depending on the source container.
@@ -219,6 +220,10 @@ rotated by the application itself. An example
 of this approach is a small container running logrotate periodically.
 However, it's recommended to use `stdout` and `stderr` directly and leave rotation
 and retention policies to the kubelet.
+
+{{< note >}}
+This works because the side car will be restarted until the file exists. For more advance usage have a look to `ls app.log && tail -F app.log` is more powerfull for legacy application doing daily rolling.
+{{< /note >}}
 
 #### Sidecar container with a logging agent
 
