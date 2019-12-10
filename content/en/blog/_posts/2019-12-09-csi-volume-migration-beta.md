@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.17 Feature: Kubernetes In-Tree to CSI Volume Migration Moves to Beta"
-date: 2019-12-09
+date: 2019-12-09T09:00:00+08:00
 slug: kubernetes-1-17-feature-csi-migration-beta
 ---
 

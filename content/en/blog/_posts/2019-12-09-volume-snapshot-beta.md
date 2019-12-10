@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.17 Feature: Kubernetes Volume Snapshot Moves to Beta"
-date: 2019-12-09
+date: 2019-12-09T10:00:00-08:00
 slug: kubernetes-1-17-feature-cis-volume-snapshot-beta
 ---
 
