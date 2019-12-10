@@ -5,7 +5,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Here are some of the sites that offer  online training for Kubernetes:
+Here are some of the sites that offer online training for Kubernetes:
 
 {{% /capture %}}
 
