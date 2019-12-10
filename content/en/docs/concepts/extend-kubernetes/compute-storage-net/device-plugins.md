@@ -184,6 +184,32 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 
 Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.15.
 
+## Device Plugin integration with the Topology Manager
+
+{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+
+The Topology Manager is a Kubelet component that allows resources to be co-ordintated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct. 
+
+
+```gRPC
+message TopologyInfo {
+	repeated NUMANode nodes = 1;
+}
+
+message NUMANode {
+    int64 ID = 1;
+}
+```
+Device Plugins that wish to leverage the Topology Manager can send back a populated TopologyInfo struct as part of the device registration, along with the device IDs and the health of the device. The device manager will then use this information to consult with the Topology Manager and make resource assingment decisions.
+
+`TopologyInfo` supports a `nodes` field that is either `nil` (the default) or a list of NUMA nodes. This lets the Device Plugin publish that can span NUMA nodes.
+
+An example `TopologyInfo` struct populated for a device by a Device Plugin:
+
+```
+pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.TopologyInfo{Nodes: []*pluginapi.NUMANode{&pluginapi.NUMANode{ID: 0,},}}}
+```
+
 ## Device plugin examples {#examples}
 
 Here are some examples of device plugin implementations:
@@ -205,5 +231,6 @@ Here are some examples of device plugin implementations:
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
+* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
 
 {{% /capture %}}

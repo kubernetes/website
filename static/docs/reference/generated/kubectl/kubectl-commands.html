@@ -2016,12 +2016,6 @@ inspect them.</p>
 <td>If the requested object does not exist the command will return exit code 0. </td>
 </tr>
 <tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
-</tr>
-<tr>
 <td>kustomize</td>
 <td>k</td>
 <td></td>
@@ -2670,7 +2664,7 @@ inspect them.</p>
 </code></pre>
 <p>Delete resources by filenames, stdin, resources and names, or by resources and label selector.</p>
 <p> JSON and YAML formats are accepted. Only one type of the arguments may be specified: filenames, resources and names, or resources and label selector.</p>
-<p> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must pass a grace period of 0 and specify the --force flag.</p>
+<p> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must pass a grace period of 0 and specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, --grace-period is ignored.</p>
 <p> IMPORTANT: Force deleting pods does not wait for confirmation that the pod&#39;s processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.</p>
 <p> Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.</p>
 <h3 id="usage">Usage</h3>
@@ -2733,12 +2727,6 @@ inspect them.</p>
 <td></td>
 <td>false</td>
 <td>Treat &quot;resource not found&quot; as a successful delete. Defaults to &quot;true&quot; when --all is specified. </td>
-</tr>
-<tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -2891,12 +2879,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion). </td>
 </tr>
 <tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
-</tr>
-<tr>
 <td>kustomize</td>
 <td>k</td>
 <td></td>
@@ -3029,12 +3011,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>f</td>
 <td>[]</td>
 <td>Filename, directory, or URL to files to use to edit the resource </td>
-</tr>
-<tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -3286,12 +3262,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>f</td>
 <td>[]</td>
 <td>Filename, directory, or URL to files identifying the resource to update the annotation </td>
-</tr>
-<tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -3565,7 +3535,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </code></pre>
 <p>Diff configurations specified by filename or stdin between the current online configuration, and the configuration as it would be if applied.</p>
 <p> Output is always YAML.</p>
-<p> KUBECTL_EXTERNAL_DIFF environment variable can be used to select your own diff command. By default, the &quot;diff&quot; command available in your path will be run with &quot;-u&quot; (unicode) and &quot;-N&quot; (treat new files as empty) options.</p>
+<p> KUBECTL_EXTERNAL_DIFF environment variable can be used to select your own diff command. By default, the &quot;diff&quot; command available in your path will be run with &quot;-u&quot; (unified diff) and &quot;-N&quot; (treat absent files as empty) options.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ diff -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
@@ -3669,12 +3639,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>f</td>
 <td>[]</td>
 <td>Filename, directory, or URL to files to use to edit the resource </td>
-</tr>
-<tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -3813,12 +3777,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>f</td>
 <td>[]</td>
 <td>Filename, directory, or URL to files identifying the resource to update the labels </td>
-</tr>
-<tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -4910,12 +4868,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Filename, directory, or URL to files identifying the resource to get from a server. </td>
 </tr>
 <tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
-</tr>
-<tr>
 <td>kustomize</td>
 <td>k</td>
 <td></td>
@@ -5026,12 +4978,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>f</td>
 <td>[]</td>
 <td>Filename, directory, or URL to files identifying the resource to get from a server. </td>
-</tr>
-<tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -5227,12 +5173,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Filename, directory, or URL to files identifying the resource to get from a server. </td>
 </tr>
 <tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
-</tr>
-<tr>
 <td>kustomize</td>
 <td>k</td>
 <td></td>
@@ -5330,12 +5270,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td></td>
 <td>[]</td>
 <td>Groups to bind to the role </td>
-</tr>
-<tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
 </tr>
 <tr>
 <td>kustomize</td>
@@ -5848,12 +5782,6 @@ applications.</p>
 <td>Filename, directory, or URL to files containing the resource to describe </td>
 </tr>
 <tr>
-<td>include-uninitialized</td>
-<td></td>
-<td>false</td>
-<td>If true, the kubectl command applies to uninitialized objects. If explicitly set to false, this flag overrides other flags that make the kubectl commands apply to uninitialized objects, e.g., &quot;--all&quot;. Objects with empty metadata.initializers are regarded as initialized. </td>
-</tr>
-<tr>
 <td>kustomize</td>
 <td>k</td>
 <td></td>
@@ -5994,6 +5922,11 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell">kubectl logs <span class="hljs-attribute">--since</span>=1h nginx
 </code></pre>
 <blockquote class="code-block example">
+<p> Show logs from a kubelet with an expired serving certificate</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl logs <span class="hljs-comment">--insecure-skip-tls-verify-backend nginx</span>
+</code></pre>
+<blockquote class="code-block example">
 <p> Return snapshot logs from first container of a job named hello</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl logs <span class="hljs-keyword">job</span>/hello
@@ -6042,6 +5975,12 @@ applications.</p>
 <td>If watching / following pod logs, allow for any errors that occur to be non-fatal </td>
 </tr>
 <tr>
+<td>insecure-skip-tls-verify-backend</td>
+<td></td>
+<td>false</td>
+<td>Skip verifying the identity of the kubelet that logs are requested from.  In theory, an attacker could provide invalid log content back. You might want to use this if your kubelet serving certificates have expired. </td>
+</tr>
+<tr>
 <td>limit-bytes</td>
 <td></td>
 <td>0</td>
@@ -6058,6 +5997,12 @@ applications.</p>
 <td></td>
 <td>20s</td>
 <td>The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running </td>
+</tr>
+<tr>
+<td>prefix</td>
+<td></td>
+<td>false</td>
+<td>Prefix each log line with the log source (pod name and container name) </td>
 </tr>
 <tr>
 <td>previous</td>
@@ -6288,7 +6233,7 @@ applications.</p>
 <h1 id="top">top</h1>
 <p>Display Resource (CPU/Memory/Storage) usage.</p>
 <p> The top command allows you to see the resource consumption for nodes or pods.</p>
-<p> This command requires Heapster to be correctly configured and working on the server.</p>
+<p> This command requires Metrics Server to be correctly configured and working on the server.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ top</code></p>
 <hr>
@@ -6948,6 +6893,11 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl api-resources -o wide</span>
 </code></pre>
 <blockquote class="code-block example">
+<p> Print the supported API Resources sorted by a column</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl api-<span class="hljs-built_in">resources</span> --<span class="hljs-built_in">sort</span>-by=<span class="hljs-built_in">name</span>
+</code></pre>
+<blockquote class="code-block example">
 <p> Print the supported namespaced resources</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl</span> api-resources --namespaced=<span class="hljs-literal">true</span>
@@ -7005,6 +6955,12 @@ applications.</p>
 <td>o</td>
 <td></td>
 <td>Output format. One of: wide&#124;name. </td>
+</tr>
+<tr>
+<td>sort-by</td>
+<td></td>
+<td></td>
+<td>If non-empty, sort nodes list using specified field. The field can be either &#39;name&#39; or &#39;kind&#39;. </td>
 </tr>
 <tr>
 <td>verbs</td>
