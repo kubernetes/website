@@ -185,10 +185,10 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * All of the above
 * [Local](#local)
 
-{{< feature-state state="beta" for_k8s_version="1.14" >}}
+{{< feature-state state="stable" for_k8s_version="1.17" >}}
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
-to see its supported topology keys and examples. The `CSINodeInfo` feature gate must be enabled.
+to see its supported topology keys and examples.
 
 ### Allowed Topologies
 

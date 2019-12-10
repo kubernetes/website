@@ -185,7 +185,7 @@ selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
 ### Endpoint Slices
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 Endpoint Slices are an API resource that can provide a more scalable alternative
 to Endpoints. Although conceptually quite similar to Endpoints, Endpoint Slices

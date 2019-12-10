@@ -52,8 +52,6 @@ different Kubernetes components.
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `AttachVolumeLimit` | `true` | Alpha | 1.11 | 1.11 |
-| `AttachVolumeLimit` | `true` | Beta | 1.12 | |
 | `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
 | `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
 | `BlockVolume` | `true` | Beta | 1.13 | - |
@@ -68,14 +66,20 @@ different Kubernetes components.
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
 | `CSIInlineVolume` | `true` | Beta | 1.16 | - |
-| `CSIMigration` | `false` | Alpha | 1.14 | |
+| `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
+| `CSIMigration` | `false` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
+| `CSIMigrationAWS` | `false` | Beta | 1.17 | |
+| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
+| `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | |
-| `CSIMigrationGCE` | `false` | Alpha | 1.14 | |
+| `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | |
+| `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
+| `CSIMigrationGCE` | `false` | Beta | 1.17 | |
+| `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
-| `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
-| `CSINodeInfo` | `true` | Beta | 1.14 | |
+| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
 | `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
@@ -86,7 +90,8 @@ different Kubernetes components.
 | `DynamicAuditing` | `false` | Alpha | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
-| `EndpointSlice` | `false` | Alpha | 1.16 | |
+| `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
+| `EndpointSlice` | `false` | Beta | 1.17 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
@@ -106,33 +111,24 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
-| `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
-| `NodeLease` | `true` | Beta | 1.14 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
-| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
-| `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
 | `RequestManagement` | `false` | Alpha | 1.15 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
-| `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
-| `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
 | `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
 | `RuntimeClass` | `true` | Beta | 1.14 | |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
-| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
-| `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
-| `StartupProbe` | `false` | Alpha | 1.16 | |
+| `StartupProbe` | `true` | Beta | 1.17 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
@@ -144,8 +140,6 @@ different Kubernetes components.
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
 | `TaintBasedEvictions` | `true` | Beta | 1.13 | |
-| `TaintNodesByCondition` | `false` | Alpha | 1.8 | 1.11 |
-| `TaintNodesByCondition` | `true` | Beta | 1.12 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
 | `TokenRequest` | `true` | Beta | 1.12 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
@@ -156,11 +150,8 @@ different Kubernetes components.
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | |
-| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
-| `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
-| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
-| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
-| `WatchBookmark` | `true` | Beta | 1.16 | |
+| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
+| `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | - |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
 | `WindowsGMSA` | `true` | Beta | 1.16 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
@@ -182,6 +173,12 @@ different Kubernetes components.
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | - |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
 | `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+| `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
+| `CSINodeInfo` | `true` | Beta | 1.14 | 1.16 |
+| `CSINodeInfo` | `true` | GA | 1.17 | |
+| `AttachVolumeLimit` | `false` | Alpha | 1.11 | 1.11 |
+| `AttachVolumeLimit` | `true` | Beta | 1.12 | 1.16 |
+| `AttachVolumeLimit` | `true` | GA | 1.17 | - |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
@@ -223,6 +220,9 @@ different Kubernetes components.
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | - |
+| `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
+| `NodeLease` | `true` | Beta | 1.14 | 1.16 |
+| `NodeLease` | `true` | GA | 1.17 | - |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
@@ -232,18 +232,39 @@ different Kubernetes components.
 | `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
 | `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
 | `PodReadinessGates` | `true` | GA | 1.14 | - |
+| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
+| `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
+| `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
+| `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
+| `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | 1.16 |
+| `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | - |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
+| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | 1.16  |
+| `ScheduleDaemonSetPods` | `true` | GA | 1.17 | - |
+| `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | 1.15 |
+| `ServiceLoadBalancerFinalizer` | `true` | Beta | 1.16 | 1.16 |
+| `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | - |
+| `TaintNodesByCondition` | `false` | Alpha | 1.8 | 1.11 |
+| `TaintNodesByCondition` | `true` | Beta | 1.12 | 1.16 |
+| `TaintNodesByCondition` | `true` | GA | 1.17 | - |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
 | `VolumeSubpath` | `true` | GA | 1.13 | - |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
+| `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | 1.16 |
+| `VolumeSubpathEnvExpansion` | `true` | GA | 1.17 | - |
+| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
+| `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
+| `WatchBookmark` | `true` | GA | 1.17 | - |
 {{< /table >}}
 
 ## Using a feature
@@ -316,11 +337,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CSIDriverRegistry`: Enable all logic related to the CSIDriver API object in csi.storage.k8s.io.
 - `CSIInlineVolume`: Enable CSI Inline volumes support for pods.
 - `CSIMigration`: Enables shims and translation logic to route volume operations from in-tree plugins to corresponding pre-installed CSI plugins
-- `CSIMigrationAWS`: Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin
-- `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to Azure Disk CSI plugin
-- `CSIMigrationAzureFile`: Enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to Azure File CSI plugin
-- `CSIMigrationGCE`: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin
-- `CSIMigrationOpenStack`: Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin
+- `CSIMigrationAWS`: Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Supports falling back to in-tree EBS plugin if a node does not have EBS CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationAWSComplete`: Stops registering the EBS in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Requires CSIMigration and CSIMigrationAWS feature flags enabled and EBS CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin. Supports falling back to in-tree AzureDisk plugin if a node does not have AzureDisk CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationAzureDiskComplete`: Stops registering the Azure-Disk in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature flags enabled and AzureDisk CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationAzureFile`: Enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to AzureFile CSI plugin. Supports falling back to in-tree AzureFile plugin if a node does not have AzureFile CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationAzureFileComplete`: Stops registering the Azure-File in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature flags  enabled and AzureFile CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationGCE`: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling back to in-tree GCE plugin if a node does not have PD CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationGCEComplete`: Stops registering the GCE-PD in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin. Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI plugin installed and configured on all nodes in the cluster.
+- `CSIMigrationOpenStack`: Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports falling back to in-tree Cinder plugin if a node does not have Cinder CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
+- `CSIMigrationOpenStackComplete`: Stops registering the Cinder in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin. Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder CSI plugin installed and configured on all nodes in the cluster.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)

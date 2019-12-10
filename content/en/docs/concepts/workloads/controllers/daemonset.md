@@ -101,21 +101,9 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ## How Daemon Pods are Scheduled
 
-### Scheduled by DaemonSet controller (disabled by default since 1.12)
+### Scheduled by default scheduler
 
-Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
-created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
-when the Pod is created, so it is ignored by the scheduler).  Therefore:
-
- - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
-   by the DaemonSet controller.
- - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
-   bootstrap.
-
-
-### Scheduled by default scheduler (enabled by default since 1.12)
-
-{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
+{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,

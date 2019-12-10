@@ -1,0 +1,228 @@
+/*
+Kubernetes colors
+
+kubernetes blue - rgb(50, 109, 230)
+dark blue - rgb(51, 113, 227)
+dark grey - rgb(48, 48, 48)
+light grey - rgb(161, 160, 158)
+*/
+
+/* User agent CSS overrides */
+#sidebar-wrapper ul, #sidebar-wrapper li {
+    margin-left: 10px;
+    padding-left: 0;
+}
+
+.body-content hr {
+    margin: 2em 0;
+    border-top: 2px solid dimgrey;
+    border-bottom: 2px solid antiquewhite;
+}
+
+.body-content table {
+    margin-bottom: 1em;
+    width: 100%;
+    overflow: auto;
+}
+
+.body-content table th, .body-content table td {
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+.body-content table th {
+    padding: 15px 20px;
+    border-bottom: 1px solid lightsteelblue;
+    vertical-align: bottom;
+}
+
+.body-content table td {
+    padding: 10px;
+}
+
+.body-content table tr:last-child {
+    border-bottom: 1px solid lightsteelblue;
+}
+
+.body-content table tr:nth-child(odd) > td {
+    background-color: WhiteSmoke;
+}
+
+.body-content table tr:nth-child(even) > td {
+    background-color: Gainsboro;
+}
+
+.body-content dt {
+    font-weight: bold;
+}
+
+.body-content dd {
+    margin-left: 15px;
+}
+
+.body-content p, .body-content li, .body-content dt, .body-content dd {
+    line-height: 1.6;
+    margin-top: 0;
+}
+
+/* Brodoc CSS */
+
+body > #wrapper {
+    display: block;
+    padding-bottom: 500px;
+}
+
+#sidebar-wrapper {
+    display: block;
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: whitesmoke;
+    border-right: 2px solid slategrey;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+#sidebar-wrapper a {
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+}
+
+#sidebar-wrapper ul {
+    list-style: none;
+}
+
+#sidebar-wrapper a.selected {
+    font-style: bold;
+    color: whitesmoke;
+    border: 1px solid rgb(161, 160, 158);
+    background-color: rgb(51, 113, 227);
+    border-radius: 5px;
+}
+
+#sidebar-wrapper .strong-nav {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+#sidebar-wrapper .nav-level-1.strong-nav {
+    margin-top: 25px;
+}
+
+#sidebar-wrapper .copyright {
+    padding-left: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-decoration: underline;
+}
+
+#page-content-wrapper {
+    margin-left: 20%;
+    padding-top: 60px;
+}
+
+.body-content h1, .body-content h2 {
+    clear: both;
+    border-bottom: 3px solid lightslategrey;
+    padding-top: 20px;
+}
+
+.body-content > h3, .body-content > h4, .body-content > h5, .body-content > h6, .body-content > p, .body-content > aside, .body-content > ul > li, .body-content > ul > li {
+    padding-top: 20px;
+}
+
+.body-content table tr td:not(:first-child) {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.body-content table tr td a {
+    word-break: break-word;
+}
+
+.body-content p code {
+    text-overflow: ellipsis;
+    color: #802060;
+    display: inline-block;
+    font-size: smaller;
+    word-break: break-word;
+}
+
+.body-content blockquote {
+    border-left: 0;
+    border-radius: 5px;
+}
+
+.body-content pre.code-block {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.body-content blockquote p, .body-content pre {
+    color: black;
+    font-size: 13px;
+}
+
+.body-content blockquote.code-block {
+    background: Wheat;
+}
+
+.body-content pre.code-block code {
+  word-wrap: normal;
+  white-space: pre;
+}
+
+.body-content code {
+  color: Brown !important;
+}
+
+.code-block {
+    display: none;
+    width: 60%;
+    float: left;
+    clear: right;
+}
+
+.code-block.active {
+    display: initial;
+}
+
+#code-tabs-wrapper {
+    width: 55%;
+    height: 60px;
+    /* position: fixed; */
+    top: 0;
+    right: 0;
+}
+
+#code-tabs-wrapper .code-tab-list {
+    float: right;
+    margin-top: 0;
+    padding: 0 10px;
+}
+
+#code-tabs-wrapper .code-tab {
+    color: white;
+    /* display: inline-block; */
+    padding: 0 30px;
+    background: rgb(48, 48, 48);
+    border: 1px solid rgb(161, 160, 158);
+    border-radius: 5px;
+}
+
+#code-tabs-wrapper .tab-selected {
+    background: rgb(51, 113, 227);
+    font-style: bold;
+    border-radius: 5px;
+}
+
+.side-nav a {
+    color: black;
+}

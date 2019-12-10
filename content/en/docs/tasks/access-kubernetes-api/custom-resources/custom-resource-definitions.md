@@ -628,7 +628,7 @@ Additionally, the following restrictions are applied to the schema:
 
 These fields can only be set with specific features enabled:
 
-- `default`: can be set for `apiextensions.k8s.io/v1` CustomResourceDefinitions. Defaulting is in beta since 1.16 and requires the `CustomResourceDefaulting` feature gate to be enabled (which is the case automatically for many clusters for beta features). Compare [Validation Schema Defaulting](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting).
+- `default`: can be set for `apiextensions.k8s.io/v1` CustomResourceDefinitions. Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting` feature gate to be enabled, which is the case automatically for many clusters for beta features). Compare [Validation Schema Defaulting](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting).
 
 Note: compare with [structural schemas](#specifying-a-structural-schema) for further restriction required for certain CustomResourceDefinition features.
 
@@ -781,10 +781,10 @@ crontab "my-new-cron-object" created
 
 ### Defaulting
 
-{{< feature-state state="beta" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_kubernetes_version="1.17" >}}
 
 {{< note >}}
-Defaulting is available as beta since 1.16 in `apiextensions.k8s.io/v1` CustomResourceDefinitions, and hence enabled by default for most clusters (feature gate `CustomResourceDefaulting`, refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation).
+To use defaulting, your CustomResourceDefinition must use API version `apiextensions.k8s.io/v1`.
 {{< /note >}}
 
 Defaulting allows to specify default values in the [OpenAPI v3 validation schema](#validation):

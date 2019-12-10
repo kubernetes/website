@@ -8,14 +8,14 @@ content_template: templates/task
 {{% capture overview %}}
 
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
-1.15.x to version 1.16.x, and from version 1.16.x to 1.16.y (where `y > x`).
+1.16.x to version 1.17.x, and from version 1.17.x to 1.17.y (where `y > x`).
 
 To see information about upgrading clusters created using older versions of kubeadm,
 please refer to following pages instead:
 
+- [Upgrading kubeadm cluster from 1.15 to 1.16](https://v1-16.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [Upgrading kubeadm cluster from 1.14 to 1.15](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15/)
 - [Upgrading kubeadm cluster from 1.13 to 1.14](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/)
-- [Upgrading kubeadm cluster from 1.12 to 1.13](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13/) or [Upgrading kubeadm HA clusters from v1.12 to v1.13](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13/)
 
 The upgrade workflow at high level is the following:
 
@@ -27,7 +27,7 @@ The upgrade workflow at high level is the following:
 
 {{% capture prerequisites %}}
 
-- You need to have a kubeadm Kubernetes cluster running version 1.15.0 or later.
+- You need to have a kubeadm Kubernetes cluster running version 1.16.0 or later.
 - [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
 - The cluster should use a static control plane and etcd pods or external etcd.
 - Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md) carefully.
@@ -47,19 +47,19 @@ The upgrade workflow at high level is the following:
 
 ## Determine which version to upgrade to
 
-1.  Find the latest stable 1.16 version:
+1.  Find the latest stable 1.17 version:
 
     {{< tabs name="k8s_install_versions" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
     apt-cache policy kubeadm
-    # find the latest 1.16 version in the list
-    # it should look like 1.16.x-00, where x is the latest patch
+    # find the latest 1.17 version in the list
+    # it should look like 1.17.x-00, where x is the latest patch
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # find the latest 1.16 version in the list
-    # it should look like 1.16.x-0, where x is the latest patch
+    # find the latest 1.17 version in the list
+    # it should look like 1.17.x-0, where x is the latest patch
     {{% /tab %}}
     {{< /tabs >}}
 
@@ -71,14 +71,14 @@ The upgrade workflow at high level is the following:
 
     {{< tabs name="k8s_install_kubeadm_first_cp" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.16.x-00 with the latest patch version
+    # replace x in 1.17.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm=1.16.x-00 && \
+    apt-get update && apt-get install -y kubeadm=1.17.x-00 && \
     apt-mark hold kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.16.x-0 with the latest patch version
-    yum install -y kubeadm-1.16.x-0 --disableexcludes=kubernetes
+    # replace x in 1.17.x-0 with the latest patch version
+    yum install -y kubeadm-1.17.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 
@@ -91,7 +91,7 @@ The upgrade workflow at high level is the following:
 1.  Drain the control plane node:
 
     ```shell
-    kubectl drain $MASTER --ignore-daemonsets
+    kubectl drain $CP_NODE --ignore-daemonsets
     ```
 
 1.  On the control plane node, run:
@@ -109,26 +109,26 @@ The upgrade workflow at high level is the following:
     [preflight] Running pre-flight checks.
     [upgrade] Making sure the cluster is healthy:
     [upgrade] Fetching available versions to upgrade to
-    [upgrade/versions] Cluster version: v1.15.2
-    [upgrade/versions] kubeadm version: v1.16.0
+    [upgrade/versions] Cluster version: v1.16.0
+    [upgrade/versions] kubeadm version: v1.17.0
 
     Components that must be upgraded manually after you have upgraded the control plane with 'kubeadm upgrade apply':
     COMPONENT   CURRENT       AVAILABLE
-    Kubelet     1 x v1.15.2   v1.16.0
+    Kubelet     1 x v1.16.0   v1.17.0
 
     Upgrade to the latest version in the v1.16 series:
 
     COMPONENT            CURRENT   AVAILABLE
-    API Server           v1.15.2   v1.16.0
-    Controller Manager   v1.15.2   v1.16.0
-    Scheduler            v1.15.2   v1.16.0
-    Kube Proxy           v1.15.2   v1.16.0
-    CoreDNS              1.3.1     1.6.2
-    Etcd                 3.3.10    3.3.15
+    API Server           v1.16.0   v1.17.0
+    Controller Manager   v1.16.0   v1.17.0
+    Scheduler            v1.16.0   v1.17.0
+    Kube Proxy           v1.16.0   v1.17.0
+    CoreDNS              1.6.2     1.6.5
+    Etcd                 3.3.15    3.4.3-0
 
     You can now apply the upgrade by executing the following command:
 
-        kubeadm upgrade apply v1.16.0
+        kubeadm upgrade apply v1.17.0
 
     _____________________________________________________________________
     ```
@@ -144,7 +144,7 @@ The upgrade workflow at high level is the following:
 1.  Choose a version to upgrade to, and run the appropriate command. For example:
 
     ```shell
-    sudo kubeadm upgrade apply v1.16.x
+    sudo kubeadm upgrade apply v1.17.x
     ```
 
     - Replace `x` with the patch version you picked for this upgrade.
@@ -157,9 +157,9 @@ The upgrade workflow at high level is the following:
     [upgrade/config] Making sure the configuration is correct:
     [upgrade/config] Reading configuration from the cluster...
     [upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
-    [upgrade/version] You have chosen to change the cluster version to "v1.16.0"
-    [upgrade/versions] Cluster version: v1.15.2
-    [upgrade/versions] kubeadm version: v1.16.0
+    [upgrade/version] You have chosen to change the cluster version to "v1.17.0"
+    [upgrade/versions] Cluster version: v1.16.0
+    [upgrade/versions] kubeadm version: v1.17.0
     [upgrade/confirm] Are you sure you want to proceed with the upgrade? [y/N]: y
     [upgrade/prepull] Will prepull images for components [kube-apiserver kube-controller-manager kube-scheduler etcd]
     [upgrade/prepull] Prepulling image for component etcd.
@@ -177,7 +177,7 @@ The upgrade workflow at high level is the following:
     [upgrade/prepull] Prepulled image for component kube-apiserver.
     [upgrade/prepull] Prepulled image for component kube-scheduler.
     [upgrade/prepull] Successfully prepulled the images for all the control plane components
-    [upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.16.0"...
+    [upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.17.0"...
     Static pod: kube-apiserver-luboitvbox hash: 8d931c2296a38951e95684cbcbe3b923
     Static pod: kube-controller-manager-luboitvbox hash: 2480bf6982ad2103c05f6764e20f2787
     Static pod: kube-scheduler-luboitvbox hash: 9b290132363a92652555896288ca3f88
@@ -215,8 +215,8 @@ The upgrade workflow at high level is the following:
     [upgrade/staticpods] Component "kube-scheduler" upgraded successfully!
     [upgrade/staticpods] Renewing certificate embedded in "admin.conf"
     [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
-    [kubelet] Creating a ConfigMap "kubelet-config-1.16" in namespace kube-system with the configuration for the kubelets in the cluster
-    [kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.16" ConfigMap in the kube-system namespace
+    [kubelet] Creating a ConfigMap "kubelet-config-1.17" in namespace kube-system with the configuration for the kubelets in the cluster
+    [kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.17" ConfigMap in the kube-system namespace
     [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
     [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
     [bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
@@ -224,7 +224,7 @@ The upgrade workflow at high level is the following:
     [addons] Applied essential addon: CoreDNS
     [addons] Applied essential addon: kube-proxy
 
-    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.16.0". Enjoy!
+    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.17.0". Enjoy!
 
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
@@ -240,7 +240,7 @@ The upgrade workflow at high level is the following:
 1.  Uncordon the control plane node
 
     ```shell
-    kubectl uncordon $MASTER
+    kubectl uncordon $CP_NODE
     ```
 
 ### Upgrade additional control plane nodes
@@ -265,14 +265,14 @@ Also `sudo kubeadm upgrade plan` is not needed.
 
     {{< tabs name="k8s_install_kubelet" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.16.x-00 with the latest patch version
+    # replace x in 1.17.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet=1.16.x-00 kubectl=1.16.x-00 && \
+    apt-get update && apt-get install -y kubelet=1.17.x-00 kubectl=1.17.x-00 && \
     apt-mark hold kubelet kubectl
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.16.x-0 with the latest patch version
-    yum install -y kubelet-1.16.x-0 kubectl-1.16.x-0 --disableexcludes=kubernetes
+    # replace x in 1.17.x-0 with the latest patch version
+    yum install -y kubelet-1.17.x-0 kubectl-1.17.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 
@@ -293,14 +293,14 @@ without compromising the minimum required capacity for running your workloads.
 
     {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.16.x-00 with the latest patch version
+    # replace x in 1.17.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm=1.16.x-00 && \
+    apt-get update && apt-get install -y kubeadm=1.17.x-00 && \
     apt-mark hold kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.16.x-0 with the latest patch version
-    yum install -y kubeadm-1.16.x-0 --disableexcludes=kubernetes
+    # replace x in 1.17.x-0 with the latest patch version
+    yum install -y kubeadm-1.17.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 
@@ -334,14 +334,14 @@ without compromising the minimum required capacity for running your workloads.
 
     {{< tabs name="k8s_kubelet_and_kubectl" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.16.x-00 with the latest patch version
+    # replace x in 1.17.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet=1.16.x-00 kubectl=1.16.x-00 && \
+    apt-get update && apt-get install -y kubelet=1.17.x-00 kubectl=1.17.x-00 && \
     apt-mark hold kubelet kubectl
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.16.x-0 with the latest patch version
-    yum install -y kubelet-1.16.x-0 kubectl-1.16.x-0 --disableexcludes=kubernetes
+    # replace x in 1.17.x-0 with the latest patch version
+    yum install -y kubelet-1.17.x-0 kubectl-1.17.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 
