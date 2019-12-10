@@ -18,7 +18,7 @@ kubeadm upgrade node phase control-plane [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--certificate-renewal</td>
+      <td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the renewal of certificates used by component changed during upgrades.</td>

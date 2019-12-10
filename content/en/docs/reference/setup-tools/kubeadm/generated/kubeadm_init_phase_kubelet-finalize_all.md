@@ -2,10 +2,17 @@
 ### Synopsis
 
 
-Checks expiration for the certificates in the local PKI managed by kubeadm.
+Run all kubelet-finalize phases
 
 ```
-kubeadm alpha certs check-expiration [flags]
+kubeadm init phase kubelet-finalize all [flags]
+```
+
+### Examples
+
+```
+  # Updates settings relevant to the kubelet after TLS bootstrap"
+  kubeadm init phase kubelet-finalize all --config
 ```
 
 ### Options
@@ -21,7 +28,7 @@ kubeadm alpha certs check-expiration [flags]
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the certificates</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save and store the certificates.</td>
     </tr>
 
     <tr>
@@ -35,14 +42,7 @@ kubeadm alpha certs check-expiration [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for check-expiration</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for all</td>
     </tr>
 
   </tbody>
