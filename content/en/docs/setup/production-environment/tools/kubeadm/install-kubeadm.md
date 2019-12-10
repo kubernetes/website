@@ -146,16 +146,18 @@ If any other two or more runtimes are detected, kubeadm exits with an error.
 
 The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
 
+See [container runtimes](/docs/setup/production-environment/container-runtimes/)
+for more information.
 {{% /tab %}}
 {{% tab name="other operating systems" %}}
 By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
 The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
-{{% /tab %}}
-{{< /tabs >}}
-
 
 See [container runtimes](/docs/setup/production-environment/container-runtimes/)
 for more information.
+{{% /tab %}}
+{{< /tabs >}}
+
 
 ## Installing kubeadm, kubelet and kubectl
 
