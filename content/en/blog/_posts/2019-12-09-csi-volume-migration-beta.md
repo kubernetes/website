@@ -33,7 +33,7 @@ To try out CSI migration in beta for an existing plugin you must be using Kubern
 
 You must also install the requisite CSI driver on your cluster - instructions for this can generally be found from you provider of choice. CSI migration is available for GCE Persistent Disk and AWS Elastic Block Store in beta as well as for Azure File/Disk and Openstack Cinder in alpha. Kubernetes distributors should look at automating the deployment and management (upgrade, downgrade, etc.) of the CSI Drivers they will depend on.
 
-To verify the feature flag is enabled and driver installed on a particular node you can get the CSI Node object. You should see the in-tree plugin name of the migrated plugin as well as your [installed] driver in the drivers list.
+To verify the feature flag is enabled and driver installed on a particular node you can get the CSINode object. You should see the in-tree plugin name of the migrated plugin as well as your [installed] driver in the drivers list.
 
 
 ```shell
