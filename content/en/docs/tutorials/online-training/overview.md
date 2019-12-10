@@ -5,11 +5,13 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Here are some of the sites that offer free online training for Kubernetes:
+Here are some of the sites that offer  online training for Kubernetes:
 
 {{% /capture %}}
 
 {{% capture body %}}
+Here are free ressources:
+
 * [Getting Started with Google Kubernetes Engine (Coursera)](https://www.coursera.org/learn/google-kubernetes-engine)
 
 * [Getting Started with Kubernetes Clusters on OCI Oracle Kubernetes Engine (OKE) (Learning Library)](https://apexapps.oracle.com/pls/apex/f?p=44785:50:0:::50:P50_EVENT_ID,P50_COURSE_ID:5935,256)
@@ -24,15 +26,8 @@ Here are some of the sites that offer free online training for Kubernetes:
 
 * [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
-{{% /capture %}}
+and here are some paid ressources:
 
-{{% capture overview %}}
-
-and here are some of the sites that offer paid online training for Kubernetes:
-
-{{% /capture %}}
-
-{{% capture body %}}
 * [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/devops/training/course/name/using-machine-learning-to-scale-kubernetes-clusters)
 
 * [Amazon EKS Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/amazon-web-services/training/course/name/amazon-eks-deep-dive)
