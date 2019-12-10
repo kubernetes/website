@@ -19,11 +19,11 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - castrojo
     - kbarnard10
+    - onlydole
     - zacharysarah
+    - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
     - cody-clark
-    - mrbobbytables
-    - onlydole
     - parispittman
     - vonguard
   sig-docs-de-owners: # Admins for German content
