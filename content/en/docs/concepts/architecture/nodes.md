@@ -188,7 +188,7 @@ a Lease object.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
-(e.g. because the master has networking problem). Starting with 1.4, the node
+(e.g., because the master has a networking problem). Starting with 1.4, the node
 controller looks at the state of all nodes in the cluster when making a
 decision about pod eviction.
 
@@ -258,7 +258,7 @@ The administrator can modify node resources (regardless of the setting of `--reg
 Modifications include setting labels on the node and marking it unschedulable.
 
 Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
-e.g. to constrain a pod to only be eligible to run on a subset of the nodes.
+e.g., to constrain a pod to only be eligible to run on a subset of the nodes.
 
 Marking a node as unschedulable prevents new pods from being scheduled to that
 node, but does not affect any existing pods on the node. This is useful as a
