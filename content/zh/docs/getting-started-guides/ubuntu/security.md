@@ -31,14 +31,14 @@ This page assumes you have a working Juju deployed cluster.
 <!--
 ## Implementation
 
-The TLS and easyrsa implementations use the following [layers](https://jujucharms.com/docs/2.2/developer-layers).
+The TLS and easyrsa implementations use the following [layers](https://old-docs.jujucharms.com/2.5/en/developer-layers).
 
 [layer-tls-client](https://github.com/juju-solutions/layer-tls-client)
 [layer-easyrsa](https://github.com/juju-solutions/layer-easyrsa)
 -->
 ## 实现
 
-TLS 和 easyrsa 的实现使用以下 [layers](https://jujucharms.com/docs/2.2/developer-layers)。
+TLS 和 easyrsa 的实现使用以下 [layers](https://old-docs.jujucharms.com/2.5/en/developer-layers)。
 
 [layer-tls-client](https://github.com/juju-solutions/layer-tls-client)
 [layer-easyrsa](https://github.com/juju-solutions/layer-easyrsa)
@@ -52,7 +52,7 @@ By default the administrator can ssh to any deployed node in a cluster. You can 
 
 Note: The Juju controller node will still have open ssh access in your cloud, and will be used as a jump host in this case.
 
-Refer to the [model management](https://jujucharms.com/docs/2.2/models) page in the Juju documentation for instructions on how to manage ssh keys.
+Refer to the [model management](https://old-docs.jujucharms.com/2.5/en/models) page in the Juju documentation for instructions on how to manage ssh keys.
 -->
 ## 限制 ssh 访问
 
@@ -62,7 +62,7 @@ Refer to the [model management](https://jujucharms.com/docs/2.2/models) page in 
 
 注意：Juju 控制器节点在您的云中仍然有开放的 ssh 访问权限，并且在这种情况下将被用作跳板机。
 
-有关如何管理 ssh 密钥的说明，请参阅 Juju 文档中的 [模型管理](https://jujucharms.com/docs/2.2/models) 页面。
+有关如何管理 ssh 密钥的说明，请参阅 Juju 文档中的 [模型管理](https://old-docs.jujucharms.com/2.5/en/models) 页面。
 {{% /capture %}}
 
 
