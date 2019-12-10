@@ -95,7 +95,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 ## 데몬 파드가 스케줄 되는 방법
 
-### 기본 스케줄러에 의해서 스케줄
+### 기본 스케줄러로 스케줄
 
 {{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
