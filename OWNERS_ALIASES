@@ -23,9 +23,14 @@ aliases:
     - zacharysarah
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
+    - castrojo
     - cody-clark
+    - kbarnard10
+    - mrbobbytables
+    - onlydole
     - parispittman
     - vonguard
+    - onlydole
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
