@@ -78,7 +78,7 @@ fi
 # optional argument handling
 if [[ "$1" == "config" ]]
 then
-    echo $KUBECONFIG
+    echo "$KUBECONFIG"
     exit 0
 fi
 
