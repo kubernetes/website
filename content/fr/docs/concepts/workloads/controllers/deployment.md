@@ -15,7 +15,7 @@ weight: 30
 Un _Deployment_ fournit des mises à jour déclaratives pour des [Pods](/docs/concepts/workloads/pods/pod/) et des
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
-Vous décrivez un état désiré dans un Deployment, et le Deployment {{< glossary_tooltip term_id="controller" >}} change l'état actuel à celui désiré à une vitesse contrôlée. Vous pouvez définir des Deployments pour créer des ReplicaSets, ou pour supprimer des Deployments existant et récupérer leurs ressources dans de nouveaux Deployments.
+Vous décrivez un état désiré dans un Deployment, et le Deployment {{< glossary_tooltip term_id="controller" >}} change l'état actuel à celui désiré à un taux contrôlé. Vous pouvez définir des Deployments pour créer des ReplicaSets, ou pour supprimer des Deployments existant et récupérer leurs ressources dans de nouveaux Deployments.
 {{< note >}}
 Ne gérer pas de ReplicaSets appartenant à un Deployment. Vous pouvez ouvrir une issue sur le principal répértoire Kubernetes si votre besoin n'est pas traité ci-dessous.
 {{< /note >}}
@@ -25,37 +25,37 @@ Ne gérer pas de ReplicaSets appartenant à un Deployment. Vous pouvez ouvrir un
 
 {{% capture body %}}
 
-## Use Case
+## Cas d'utilisation
 
-The following are typical use cases for Deployments:
+Voici des cas d'utilisation typiques pour les Deployments :
 
-* [Create a Deployment to rollout a ReplicaSet](#creating-a-deployment). The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
-* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
-* [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
-* [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
-* [Pause the Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
-* [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck.
-* [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
+* [Créez un Deployment pour déployer un ReplicaSet](#creating-a-deployment). Le ReplicaSet crée des Pods en arrière-plan. Vérifiez l'état du Deployment pour voir s'il réussit ou non.
+* [Déclarer le nouvel état des Pods](#updating-a-deployment) en mettant à jour le PodTemplateSpec du Deployment. Un nouveau ReplicaSet est créé et le Deployment gère le déplacement des Pods de l'ancien ReplicaSet vers le nouveau à un rythme contrôlé. Chaque nouveau ReplicaSet met à jour la révision du Deployment.
+* [Revenir à une révision de Deployment précédente](#rolling-back-backk-a-deployment) si l'état actuel du Deployment n'est pas stable. Chaque retour en arrière met à jour la révision du Deployment.
+* [Augmenter le Deployment pour faciliter une plus grande charge](#scaling-a-deployment).
+* [Pause du Deployment](#pausing-and-resuming-a-deployment) pour appliquer plusieurs corrections à son PodTemplateSpec, puis le reprendre pour commencer un nouveau Deployment.
+* [Utilisez l'état du Deployment](#état-Deployment-Deployment) comme un indicateur qu'un Deployment est bloqué.
+* [Supprimer les ReplicaSets](#clean-up-policy) dont vous n'avez plus besoin.
 
-## Creating a Deployment
+## Création d'un Deployment
 
-The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
+L'exemple suivant est un exemple de Deployment. Il crée un ReplicaSet pour faire apparaître trois `nginx' Pods :
 
 {{< codenew file="controllers/nginx-deployment.yaml" >}}
 
-In this example:
+Dans cet exemple :
 
-* A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
-* The Deployment creates three replicated Pods, indicated by the `replicas` field.
-* The `selector` field defines how the Deployment finds which Pods to manage.
-  In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
-  However, more sophisticated selection rules are possible,
-  as long as the Pod template itself satisfies the rule.
+* Un Deployment nommé `nginx-deployment` est créé, indiqué par le champ `.metadata.name`.
+* Le Deployment crée trois Pods répliqués, indiqués par le champ `replicas`.
+* Le champ `selector` définit comment le Deployment trouve les Pods à gérer.
+  Dans ce cas, il vous suffit de sélectionner un label défini dans le template du Pod (`app : nginx`).
+  Toutefois, des règles de sélection plus sophistiquées sont possibles,
+  tant que le template du Pod lui-même réspecte les règles. 
     {{< note >}}
-    The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
-    is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
-    and the values array contains only "value".
-    All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
+    Le champ `matchLabels` est une association de couples {clé,valeur}. Une seule {clé,valeur} dans le couple `matchLabels` 
+    est équivalent à un élément de `matchExpressions`, dont le champ clé est "clé" l'opérateur est "In",
+    et le tableau des valeurs ne contient que "valeur".
+    Toutes les exigences, qu'il s'agisse des `matchLabels` ou des `matchExpressions`, doivent être satisfaites pour qu'il y ait correspondance.
     {{< /note >}}
 
 * The `template` field contains the following sub-fields:
