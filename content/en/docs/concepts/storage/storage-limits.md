@@ -38,6 +38,8 @@ that can be attached to a Node:
 
 You can change these limits by setting the value of the
 `KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
+CSI drivers might have a different procedure, see their documentation
+on how to customize their limits.
 
 Use caution if you set a limit that is higher than the default limit. Consult
 the cloud provider's documentation to make sure that Nodes can actually support
@@ -47,10 +49,7 @@ The limit applies to the entire cluster, so it affects all Nodes.
 
 ## Dynamic volume limits
 
-{{< feature-state state="beta" for_k8s_version="v1.12" >}}
-
-Kubernetes 1.11 introduced support for dynamic volume limits based on Node type as an Alpha feature.
-In Kubernetes 1.12 this feature is graduating to Beta and will be enabled by default.
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 Dynamic volume limits are supported for following volume types.
 
@@ -59,14 +58,12 @@ Dynamic volume limits are supported for following volume types.
 - Azure Disk
 - CSI
 
-
-When the dynamic volume limits feature is enabled, Kubernetes automatically
-determines the Node type and enforces the appropriate number of attachable
-volumes for the node. For example:
+For volumes managed by in-tree volume plugins, Kubernetes automatically determines the Node
+type and enforces the appropriate maximum number of volumes for the node. For example:
 
 * On
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
-up to 128 volumes can be attached to a node, [depending on the node
+up to 127 volumes can be attached to a node, [depending on the node
 type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 
 * For Amazon EBS disks on M5,C5,R5,T3 and Z1D instance types, Kubernetes allows only 25
@@ -76,7 +73,9 @@ Kubernetes allows 39 volumes to be attached to a Node.
 
 * On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
-* For CSI, any driver that advertises volume attach limits via CSI specs will have those limits available as the Node's allocatable property
-  and the Scheduler will not schedule Pods with volumes on any Node that is already at its capacity. Refer to the [CSI specs](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for more details.
+* If a CSI storage driver advertises a maximum number of volumes for a Node (using `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} honors that limit.
+Refer to the [CSI specifications](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for details.
+
+* For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
 
 {{% /capture %}}
