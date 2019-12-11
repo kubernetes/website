@@ -48,6 +48,7 @@ different Kubernetes components.
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
+| `AddonInstaller` | `false` | Alpha | 1.18 | |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
@@ -290,6 +291,7 @@ A *General Availability* (GA) feature is also referred to as a *stable* feature.
 Each feature gate is designed for enabling/disabling a specific feature:
 
 - `Accelerators`: Enable Nvidia GPU support when using Docker
+- `AddonInstaller`: Enable [installation of Cluster Addons](/docs/reference/setup-tools/kubeadm/kubeadm-init/#addon-installer)
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinitys](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
