@@ -19,7 +19,7 @@ I was able to run more processes on a single physical server than I could using 
 
 
 
-To orchestrate container deployment, we are using [IBM Cloud Kubernetes Service infrastructure](https://cloud.ibm.com/containers-kubernetes/landing), a Kubernetes implementation by IBM for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure.
+To orchestrate container deployment, we are using [IBM Cloud Kubernetes Service infrastructure](https://cloud.ibm.com/kubernetes/overview), a Kubernetes implementation by IBM for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure.
 
 
 
