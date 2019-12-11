@@ -87,9 +87,9 @@ Pod runs a Container based on the provided Docker image.
     kubectl get deployments
     ```
 
-    Output:
+    The output is similar to:
 
-    ```shell
+    ```
     NAME         READY   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1/1     1            1           1m
     ```
@@ -99,9 +99,10 @@ Pod runs a Container based on the provided Docker image.
     ```shell
     kubectl get pods
     ```
-    Output:
 
-    ```shell
+    The output is similar to:
+
+    ```
     NAME                          READY     STATUS    RESTARTS   AGE
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
@@ -142,9 +143,9 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     kubectl get services
     ```
 
-    Output:
+    The output is similar to:
 
-    ```shell
+    ```
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
     hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
@@ -177,9 +178,9 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     minikube addons list
     ```
 
-    Output:
+    The output is similar to:
 
-    ```shell
+    ```
     addon-manager: enabled
     coredns: disabled
     dashboard: enabled
@@ -203,9 +204,9 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     minikube addons enable heapster
     ```
   
-    Output:
+    The output is similar to:
 
-    ```shell
+    ```
     heapster was successfully enabled
     ```
 
@@ -215,9 +216,9 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     kubectl get pod,svc -n kube-system
     ```
 
-    Output:
+    The output is similar to:
 
-    ```shell
+    ```
     NAME                                        READY     STATUS    RESTARTS   AGE
     pod/heapster-9jttx                          1/1       Running   0          26s
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
@@ -240,9 +241,9 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     minikube addons disable heapster
     ```
   
-    Output:
+    The output is similar to:
 
-    ```shell
+    ```
     heapster was successfully disabled
     ```
 
