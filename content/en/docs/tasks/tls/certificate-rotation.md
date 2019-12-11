@@ -10,11 +10,11 @@ content_template: templates/task
 This page shows how to enable and configure certificate rotation for the kubelet.
 {{% /capture %}}
 
+{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+
 {{% capture prerequisites %}}
 
 * Kubernetes version 1.8.0 or later is required
-
-* Kubelet certificate rotation is beta in 1.8.0 which means it may change without notice.
 
 {{% /capture %}}
 

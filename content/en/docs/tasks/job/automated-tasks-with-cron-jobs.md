@@ -61,7 +61,7 @@ cronjob.batch/hello created
 Alternatively, you can use `kubectl run` to create a cron job without writing a full config:
 
 ```shell
-kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
+kubectl run --generator=run-pod/v1 hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
 ```
 
 After creating the cron job, get its status using this command:
@@ -87,8 +87,8 @@ The output is similar to this:
 ```
 NAME               COMPLETIONS   DURATION   AGE
 hello-4111706356   0/1                      0s
-hello-4111706356   0/1   0s    0s
-hello-4111706356   1/1   5s    5s
+hello-4111706356   0/1           0s         0s
+hello-4111706356   1/1           5s         5s
 ```
 
 Now you've seen one running job scheduled by the "hello" cron job.
