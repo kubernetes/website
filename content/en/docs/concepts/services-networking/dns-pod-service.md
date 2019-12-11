@@ -267,7 +267,12 @@ The availability of Pod DNS Config and DNS Policy "`None`"" is shown as below.
 {{% capture whatsnext %}}
 
 For guidance on administering DNS configurations, check
-[Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
+[Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/).
+
+The [Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md)
+specification describes a common standard for different implementations of Kubernetes DNS.
+Read this if you want to understand the baseline you can expect from the service,
+or to understand how to implement your own cluster DNS service.
 
 {{% /capture %}}
 

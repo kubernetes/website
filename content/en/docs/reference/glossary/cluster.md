@@ -11,10 +11,12 @@ tags:
 - fundamental
 - operation
 ---
-A set of worker machines, called {{< glossary_tooltip text="nodes" term_id="node" >}},
-that run containerized applications. Every cluster has at least one worker node.
+A set of machines, called {{< glossary_tooltip text="nodes" term_id="node" >}}, that run
+containerized applications managed by Kubernetes. To have a working cluster you need a
+control plane and at least one worker node.
 
 <!--more-->
+
 The worker node(s) host the {{< glossary_tooltip text="Pods" term_id="pod" >}} that are
 the components of the application workload. The
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} manages the worker

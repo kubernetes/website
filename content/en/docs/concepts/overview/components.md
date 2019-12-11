@@ -23,14 +23,48 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 {{% /capture %}}
 
 {{% capture body %}}
-## Control Plane Components
+## Node components
 
-The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+In Kubernetes, your application runs inside groups of one or more
+co-located containers called
+{{< glossary_tooltip text="_pods_" term_id="pod" >}}. Containers within a
+pod may share resources, such as an IP address and storage volumes, whereas
+pods are isolated from one another and from their hosts.  
+The hosts that run pods are called nodes, and one node can run pods from many
+different applications.
+
+To make this happen, Kubernetes runs several components on each node:
+
+### kubelet
+
+{{< glossary_definition term_id="kubelet" length="all" >}}
+
+### kube-proxy
+
+{{< glossary_definition term_id="kube-proxy" length="all" >}}
+
+### Container runtime
+
+{{< glossary_definition term_id="container-runtime" length="all" >}}
+
+## Control plane components
+
+The more different kinds of pod you want to run in your cluster, the
+more it helps to have systems to manage and share system resources,
+to make sure pods can communicate with other pods they need to talk to,
+and to make sure that the cluster is operating securely.
+
+The control plane's components make global decisions for your cluster
+(for example, scheduling), as well as detecting and responding to
+workload- level events (for example, starting up a new
+{{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas`
+field is unsatisfied).
 
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Building High-Availability Clusters](/docs/admin/high-availability/) for
+an example of a control plane distributed across multiple hosts.
 
 ### kube-apiserver
 
@@ -50,13 +84,13 @@ the same machine, and do not run user containers on this machine. See
 
 These controllers include:
 
-  * Node controller: Responsible for noticing and responding when nodes go down.
-  * Replication controller: Responsible for maintaining the correct number of pods for every replication
-  controller object in the system.
+  * Deployment controller: Responsible for maintaining the correct numbers of Pods for stateless
+    applications, and ensuring they are running with up-to-date configurations.
+  * Node controller: Responsible for noticing and responding when nodes go offline.
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
-  * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
+  * ServiceAccount & Token controllers: Create default accounts and API access tokens for new namespaces.
 
-### cloud-controller-manager
+### Cloud controller manager {#cloud-controller-manager}
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
@@ -74,58 +108,53 @@ The following controllers can have cloud provider dependencies:
   * Route controller: For setting up routes in the underlying cloud infrastructure
   * Service controller: For creating, updating and deleting cloud provider load balancers
 
-## Node Components
+## Add-ons {#addons}
 
-Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment.
-
-### kubelet
-
-{{< glossary_definition term_id="kubelet" length="all" >}}
-
-### kube-proxy
-
-{{< glossary_definition term_id="kube-proxy" length="all" >}}
-
-### Container Runtime
-
-{{< glossary_definition term_id="container-runtime" length="all" >}}
-
-## Addons
-
-Addons use Kubernetes resources ({{< glossary_tooltip term_id="daemonset" >}},
+Add-ons use Kubernetes resources ({{< glossary_tooltip term_id="daemonset" >}},
 {{< glossary_tooltip term_id="deployment" >}}, etc)
 to implement cluster features. Because these are providing cluster-level features, namespaced resources
-for addons belong within the `kube-system` namespace.
+for addons often belong within the `kube-system`
+{{< glossary_tooltip term_id="namespace" text="namespace">}}.
 
-Selected addons are described below; for an extended list of available addons, please
-see [Addons](/docs/concepts/cluster-administration/addons/).
+Some important examples of add-ons are:
 
 ### DNS
 
-While the other addons are not strictly required, all Kubernetes clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
+While the other add-ons are not strictly required, all Kubernetes clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many elements of Kubernetes rely on it.
 
-Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment, which serves DNS records for Kubernetes services.
+_Cluster DNS_ provides DNS specifically for your Kubernetes cluster, and lets Pods in the
+cluster look up DNS records for Kubernetes services.
 
-Containers started by Kubernetes automatically include this DNS server in their DNS searches.
+When Kubernetes runs a container, the kubelet provides configuration so that the application
+in the container automatically includes the cluster DNS service in its DNS searches.
 
 ### Web UI (Dashboard)
 
 [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
 
-### Container Resource Monitoring
+### Resource monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
-about containers in a central database, and provides a UI for browsing that data.
+[Resource monitoring tools](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) let you
+records generic time-series metrics about pods and their containers. You can link these up
+to additional tooling that lets you view the metrics graphically, identify anomalies,
+and alert about issues.
 
-### Cluster-level Logging
+### Cluster-level logging
 
-A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
-saving container logs to a central log store with search/browsing interface.
+You can set up [cluster-level logging](/docs/concepts/cluster-administration/logging/) for
+your cluster; for example, you can use a system that sends container logs to a central
+log store with search/browsing interface.
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Learn about [Nodes](/docs/concepts/architecture/nodes/)
-* Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
+* Learn about [nodes](/docs/concepts/architecture/nodes/)
+* Learn about [Pods](/docs/concepts/workloads/pods/pod/#motivation-for-pods) and why Kubernetes uses them
+  to group containers
+* Learn about [controllers](/docs/concepts/architecture/controller/)
+* Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+
+If you want to read about some of the above topics in depth, you can also:
+
 * Read etcd's official [documentation](https://etcd.io/docs/)
+* See [Add-ons](/docs/concepts/cluster-administration/addons/) for a longer list of Kubernetes add-ons
 {{% /capture %}}
