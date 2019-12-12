@@ -1,5 +1,5 @@
 ---
-title: 서비스로 애플리케이션 연결하기
+title: 서비스와 애플리케이션 연결하기
 content_template: templates/concept
 weight: 30
 ---
@@ -95,7 +95,6 @@ my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 일치하는 새 파드는 자동적으로 엔드포인트에 추가된다.
 엔드포인트를 확인하고 IP가 첫 번째 단계에서 생성된 파드와 동일하다는
 점을 참고한다.
-
 
 ```shell
 kubectl describe svc my-nginx
