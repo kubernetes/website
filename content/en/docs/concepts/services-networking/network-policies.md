@@ -11,16 +11,16 @@ weight: 50
 {{< toc >}}
 
 {{% capture overview %}}
-A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints.
+A network policy is a specification of how groups of {{< glossary_tooltip text="pods" term_id="pod">}} are allowed to communicate with each other and other network endpoints.
 
-`NetworkPolicy` resources use labels to select pods and define rules which specify what traffic is allowed to the selected pods.
+NetworkPolicy resources use {{< glossary_tooltip text="labels" term_id="label">}} to select pods and define rules which specify what traffic is allowed to the selected pods.
 
 {{% /capture %}}
 
 {{% capture body %}}
 ## Prerequisites
 
-Network policies are implemented by the network plugin, so you must be using a networking solution which supports `NetworkPolicy` - simply creating the resource without a controller to implement it will have no effect.
+Network policies are implemented by the [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). To use network policies, you must be using a networking solution which supports NetworkPolicy. Creating a NetworkPolicy resource without a controller that implements it will have no effect.
 
 ## Isolated and Non-isolated Pods
 
@@ -30,11 +30,11 @@ Pods become isolated by having a NetworkPolicy that selects them. Once there is 
 
 Network policies do not conflict, they are additive. If any policy or policies select a pod, the pod is restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of evaluation does not affect the policy result.
 
-## The `NetworkPolicy` Resource
+## The NetworkPolicy resource {#networkpolicy-resource}
 
-See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) for a full definition of the resource.
+See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) reference for a full definition of the resource.
 
-An example `NetworkPolicy` might look like this:
+An example NetworkPolicy might look like this:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -73,23 +73,25 @@ spec:
       port: 5978
 ```
 
-*POSTing this to the API server will have no effect unless your chosen networking solution supports network policy.*
+{{< note >}}
+POSTing this to the API server for your cluster will have no effect unless your chosen networking solution supports network policy.
+{{< /note >}}
 
-__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy`
+__Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy
 needs `apiVersion`, `kind`, and `metadata` fields.  For general information
 about working with config files, see
 [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
 
-__spec__: `NetworkPolicy` [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
+__spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
 
-__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the policy applies. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
+__podSelector__: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to which the policy applies. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
 
-__policyTypes__: Each `NetworkPolicy` includes a `policyTypes` list which may include either `Ingress`, `Egress`, or both. The `policyTypes` field indicates whether or not the given policy applies to ingress traffic to selected pod, egress traffic from selected pods, or both. If no `policyTypes` are specified on a NetworkPolicy then by default `Ingress` will always be set and `Egress` will be set if the NetworkPolicy has any egress rules.
+__policyTypes__: Each NetworkPolicy includes a `policyTypes` list which may include either `Ingress`, `Egress`, or both. The `policyTypes` field indicates whether or not the given policy applies to ingress traffic to selected pod, egress traffic from selected pods, or both. If no `policyTypes` are specified on a NetworkPolicy then by default `Ingress` will always be set and `Egress` will be set if the NetworkPolicy has any egress rules.
 
-__ingress__: Each `NetworkPolicy` may include a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
+__ingress__: Each NetworkPolicy may include a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
 
-__egress__: Each `NetworkPolicy` may include a list of whitelist `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
+__egress__: Each NetworkPolicy may include a list of whitelist `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
 
 So, the example NetworkPolicy:
 
@@ -107,7 +109,7 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
 
 There are four kinds of selectors that can be specified in an `ingress` `from` section or `egress` `to` section:
 
-__podSelector__: This selects particular Pods in the same namespace as the `NetworkPolicy` which should be allowed as ingress sources or egress destinations.
+__podSelector__: This selects particular Pods in the same namespace as the NetworkPolicy which should be allowed as ingress sources or egress destinations.
 
 __namespaceSelector__: This selects particular namespaces for which all Pods should be allowed as ingress sources or egress destinations.
 
@@ -255,9 +257,13 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Kubernetes supports SCTP as a `protocol` value in `NetworkPolicy` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `NetworkPolicy` to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+Kubernetes supports SCTP as a `protocol` value in NetworkPolicy definitions as an alpha feature.
 
-The CNI plugin has to support SCTP as `protocol` value in `NetworkPolicy`.
+To use this feature, enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the APIserver. For example: `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a NetworkPolicy to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+
+{{< note >}}
+For SCTP to work with network policy, you must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that has general SCTP support and also supports SCTP as a `protocol` value for NetworkPolicy.
+{{< /note >}}
 
 
 {{% /capture %}}
@@ -266,6 +272,6 @@ The CNI plugin has to support SCTP as `protocol` value in `NetworkPolicy`.
 
 - See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
   walkthrough for further examples.
-- See more [Recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
+- See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
 
 {{% /capture %}}
