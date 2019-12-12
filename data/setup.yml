@@ -39,7 +39,7 @@ toc:
   - title: Running Kubernetes on Azure Container Service
     path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
   - title: Running Kubernetes on IBM Cloud Kubernetes Service
-    path: https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index
+    path: https://cloud.ibm.com/docs/containers?topic=containers-getting-started
 
 - title: Turn-key Cloud Solutions
   landing_page: /docs/getting-started-guides/alibaba-cloud/
