@@ -76,6 +76,9 @@ specified by one of the built-in Kubernetes controllers: -->
 selector goes into the PDBs `.spec.selector`. -->
 在这种情况下，在控制器的 `.spec.selector` 字段中做记录，并在 PDB 的 `.spec.selector` 字段中加入同样的选择器。
 
+<!-- From version 1.15 PDBs support custom controllers where the scale subresource is enabled.-->
+从 1.15 版本开始，PDB 支持启用了扩展子资源的自定义控制器。
+
 <!-- You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
 described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors). -->
@@ -133,7 +136,7 @@ due to a voluntary disruption. -->
 <!-- - When you specify a percentage by setting the value to a string representation of a percentage (eg. `"50%"`), it represents a percentage of
   total Pods. For instance, if you set `minUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
   disruption. -->
-- 通过将值设置为百分比的字符串表示形式（例如“50％”）来指定百分比时，它表示总 Pod 数的百分比。例如，如果将 "minUnavailable" 设置为“50％”，则只有50％的 Pod 可以中断。
+- 通过将值设置为百分比的字符串表示形式（例如“50％”）来指定百分比时，它表示总 Pod 数的百分比。例如，如果将 "maxUnavailable" 设置为“50％”，则只有50％的 Pod 可以中断。
 
 <!-- When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
 you set `minAvailable` to `"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
@@ -242,8 +245,8 @@ automatically responds to changes in the number of replicas of the corresponding
 ## Create the PDB object
 ## 创建 PDB 对象
 
-<!-- You can create the PDB object with a command like `kubectl apply -f mypdb.yaml`. -->
-用户可以通过类似 `kubectl create -f mypdb.yaml` 的命令来创建 PDB。
+<!-- You can create or update the PDB object with a command like kubectl apply -f mypdb.yaml. -->
+用户可以通过类似 `kubectl create -f mypdb.yaml` 的命令来创建或更新 PDB 对象。
 
 <!-- You cannot update PDB objects.  They must be deleted and re-created. -->
 PDB 对象无法更新，必须删除后重新创建。
