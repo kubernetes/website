@@ -148,8 +148,8 @@ type VolumeSnapshotContentSource struct {
 
 ```go
 type VolumeSnapshotContentStatus struct {
-	CreationTime *int64
-	ReadyToUse *bool
+  CreationTime *int64
+  ReadyToUse *bool
   RestoreSize *int64
   Error *VolumeSnapshotError
   SnapshotHandle *string
