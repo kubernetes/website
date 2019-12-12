@@ -141,7 +141,7 @@ kubectl version
     ```
     brew install kubectl 
     ```
-    or 
+    или 
     
     ```
     brew install kubernetes-cli
@@ -321,7 +321,7 @@ kubectl предоставляет поддержку автодополнени
 
 Скрипт для дополнений kubectl для Bash может быть сгенерирован с помощью команды `kubectl completion bash`. После завершения выполнения скрипта в вашем командной оболочке будет доступно автодополнение команд kubectl.
 
-Однако, завершение скрипта зависит от [**bash-completion**](https://github.com/scop/bash-completion), что значит, что сначала необходимо установить данную утилиту (чтобы проверить, установлена ли у вас утилита bash-completion, используйте команду `type _init_completion`).
+Однако, выполнение скрипта зависит от [**bash-completion**](https://github.com/scop/bash-completion), что значит, что сначала необходимо установить данную утилиту (чтобы проверить, установлена ли у вас утилита bash-completion, используйте команду `type _init_completion`).
 
 ### Установка bash-completion
 
@@ -339,20 +339,20 @@ source /usr/share/bash-completion/bash_completion
 
 ### Включение автодополнения kubectl
 
-You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are two ways in which you can do this:
+Теперь вам необходимо убедиться, что скрипт для дополнения команд kubectl применён во всех сессиях вашей командной оболочки. Есть два способа сделать это:
 
-- Source the completion script in your `~/.bashrc` file:
+- Примените скрипт дополнений в вашем `~/.bashrc` файле:
 
     ```shell
     echo 'source <(kubectl completion bash)' >>~/.bashrc
     ```
 
-- Add the completion script to the `/etc/bash_completion.d` directory:
+- Добавьте скрипт дополнений в директорию `/etc/bash_completion.d`:
 
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
-- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+- Если у вас настроен алиас для kubectl, вы можете расширить действие дополнений в командной оболочке для работы с этим алиасом:
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
@@ -360,102 +360,102 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
     ```
 
 {{< note >}}
-bash-completion sources all completion scripts in `/etc/bash_completion.d`.
+Все исходные скрипты bash-completion находятся в `/etc/bash_completion.d`.
 {{< /note >}}
 
-Both approaches are equivalent. After reloading your shell, kubectl autocompletion should be working.
+Оба подхода равнозначны. После перезагрузки командной оболочки автодополнение kubectl должно работать.
 
 {{% /tab %}}
 
 
-{{% tab name="Bash on macOS" %}}
+{{% tab name="Bash на macOS" %}}
 
 
-### Introduction
+### Введение
 
-The kubectl completion script for Bash can be generated with `kubectl completion bash`. Sourcing this script in your shell enables kubectl completion.
+Скрипт дополнений kubectl может быть сгенерирован с помощью команды `kubectl completion bash`. Применение этого скрипта в вашей командной оболочке активирует дополнения kubectl.
 
-However, the kubectl completion script depends on [**bash-completion**](https://github.com/scop/bash-completion) which you thus have to previously install.
+Однако, скрипт дополнений kubectl зависит от утилиты [**bash-completion**](https://github.com/scop/bash-completion), которую необходимо установить заранее.
 
 {{< warning>}}
-there are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion script **doesn't work** correctly with bash-completion v1 and Bash 3.2. It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to correctly use kubectl completion on macOS, you have to install and use Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The following instructions assume that you use Bash 4.1+ (that is, any Bash version of 4.1 or newer).
+Существуют две версии bash-completion, v1 и v2. V1 используется для Bash 3.2 (версия по умолчанию для macOS), а версия v2 для Bash 4.1+. Скрипт дополнений kubectl **не работает** корректно с bash-completion v1 и Bash 3.2. Для работы скрипта требуется **bash-completion v2** и **Bash 4.1+**. Поэтому, для возможности корректной работы дополнений kubectl, вам требуется установить и использовать Bash 4.1+ ([*инструкция*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). В следующих шагах инструкции предполагается, что вы используете Bash 4.1+ (т.е. версию Bash 4.1 или новее).
 {{< /warning >}}
 
 
-### Install bash-completion
+### Установка bash-completion
 
 {{< note >}}
-As mentioned, these instructions assume you use Bash 4.1+, which means you will install bash-completion v2 (in contrast to Bash 3.2 and bash-completion v1, in which case kubectl completion won't work).
+Как было упомянуто, данные инструкции предподагают, что вы используете Bash 4.1+, что значит, что будет установлена версия bash-completion v2 (вместо Bash 3.2 и bash-completion v1, для которых дополнения kubectl не будут работать).
 {{< /note >}}
 
-You can test if you have bash-completion v2 already installed with `type _init_completion`. If not, you can install it with Homebrew:
+Проверить, установлена ли у вас уже версия bash-completion v2 с помощью команды `type _init_completion`. Если нет, вы можете установить утилиту с помощью Homebrew:
 
 ```shell
 brew install bash-completion@2
 ```
 
-As stated in the output of this command, add the following to your `~/.bashrc` file:
+Следуя инструкции в выводе данной команды, добавьте следующую информацию в файл `~/.bashrc`:
 
 ```shell
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 ```
 
-Reload your shell and verify that bash-completion v2 is correctly installed with `type _init_completion`.
+Перезапустите вашу командную оболочку и проверьте, что версия bash-completion v2 установлена корректно, используя команду `type _init_completion`.
 
-### Enable kubectl autocompletion
+### Включение автодополнения kubectl
 
-You now have to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways to achieve this:
+Теперь вам необходимо убедиться, что скрипт для дополнения команд kubectl применён во всех сессиях вашей командной оболочки. Есть несколько способов сделать это:
 
-- Source the completion script in your `~/.bashrc` file:
+- Примените скрипт дополнений в вашем `~/.bashrc` файле:
 
     ```shell
     echo 'source <(kubectl completion bash)' >>~/.bashrc
 
     ```
 
-- Add the completion script to the `/usr/local/etc/bash_completion.d` directory:
+- Добавьте скрипт дополнений в директорию `/usr/local/etc/bash_completion.d`:
 
     ```shell
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
-- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+- Если у вас настроен алиас для kubectl, вы можете расширить действие дополнений в командной оболочке для работы с этим алиасом:
 
     ```shell
     echo 'alias k=kubectl' >>~/.bashrc
     echo 'complete -F __start_kubectl k' >>~/.bashrc
     ```
     
-- If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
+- Если вы устанавливали kubectl с помощью Homebrew (как указано [выше](#install-with-homebrew-on-macos)), тогда скрипт дополнений kubectl уже должен находиться в `/usr/local/etc/bash_completion.d/kubectl`. В этом случае, вам не нужно ничего делать дополнительно.
 
 {{< note >}}
-the Homebrew installation of bash-completion v2 sources all the files in the `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
+Установка bash-completion v2 с использованием Homebrew размещает все файлы в директории`BASH_COMPLETION_COMPAT_DIR`, поэтому предыдущие два способа работают.
 {{< /note >}}
 
-In any case, after reloading your shell, kubectl completion should be working.
+В любом случае, после перезагрузки вашей командной оболочки, дополнения kubectl должны работать.
 {{% /tab %}}
 
 {{% tab name="Zsh" %}}
 
-The kubectl completion script for Zsh can be generated with the command `kubectl completion zsh`. Sourcing the completion script in your shell enables kubectl autocompletion.
+Скрипт дополнений kubectl может быть сгенерирован с помощью команды `kubectl completion zsh`. Применение этого скрипта в вашей командной оболочке активирует дополнения kubectl.
 
-To do so in all your shell sessions, add the following to your `~/.zshrc` file:
+Чтобы сделать это во всех сессиях вашей командной оболочки, добавьте следующую информацию в файл `~/.zshrc`:
 
 ```shell
 source <(kubectl completion zsh)
 ```
 
-If you have an alias for kubectl, you can extend shell completion to work with that alias:
+Если у вас настроен алиас для kubectl, вы можете расширить действие дополнений в командной оболочке для работы с этим алиасом:
 
 ```shell
 echo 'alias k=kubectl' >>~/.zshrc
 echo 'complete -F __start_kubectl k' >>~/.zshrc
 ```
     
-After reloading your shell, kubectl autocompletion should be working.
+После перезагрузки вашей командной оболочки автодополнения kubectl должны работать.
 
-If you get an error like `complete:13: command not found: compdef`, then add the following to the beginning of your `~/.zshrc` file:
+Если вы получаете ошибку `complete:13: command not found: compdef`, тогда добавьте следующее в начало вашего файла `~/.zshrc`:
 
 ```shell
 autoload -Uz compinit
@@ -467,9 +467,9 @@ compinit
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [Install Minikube](/docs/tasks/tools/install-minikube/)
-* See the [getting started guides](/docs/setup/) for more about creating clusters. 
-* [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
-* Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
+* [Установка Minikube](/docs/tasks/tools/install-minikube/)
+* Обратитесь к [руководствам по началу работы](/docs/setup/), чтобы узнать больше о создании кластеров. 
+* [Узнайте, как запустить и опубликовать ваше приложение.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* Если вам нужен доступ к кластуру, созданному не вами, обратитесь к документуIf you need access to a cluster you didn't create, see the [документу по созданию общего доступа к кластуру](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* Прочитайте [справочную документацию по kubectl](/docs/reference/kubectl/kubectl/)
 {{% /capture %}}
