@@ -114,20 +114,17 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 secret "db-user-pass" created
 ```
 
-{{< note >}}
+{{< note >}} 
 <!--
-Special characters such as `$`, `\*`, and `!` require escaping.
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
-     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
- You do not need to escape special characters in passwords from files (`--from-file`).
- -->
+Special characters such as $, \, *, and ! will be interpreted by your shell and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes ('). For example, if your actual password is S!B\*d$zDsb, you should execute the command this way:
 
-
-特殊字符（例如 `$`,  `\*` 和 `!` ）需要转义。
-如果您使用的密码具有特殊字符，则需要使用 `\\` 字符对其进行转义。 例如，如果您的实际密码是 `S!B\*d$zDsb` ，则应通过以下方式执行命令：
-     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb
-您无需从文件中转义密码中的特殊字符（ `--from-file` ）。
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+You do not need to escape special characters in passwords from files (--from-file).  -->
 {{< /note >}}
+特殊字符，例如 $，\，* 和 ！ 将由您的shell解释并需要转义。 在大多数常见的 Shell 中，最简单的转义密码方法是用单引号（'）引起来。 例如，如果您的实际密码是 S!B\*d$zDsb，则应通过以下方式执行命令：
+
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+您无需从文件中转义密码中的特殊字符（--from-file）。
 
 <!--
 You can check that the secret was created like this:
