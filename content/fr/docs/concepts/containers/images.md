@@ -147,7 +147,7 @@ IBM Cloud Container Registry fournit un registre d'images multi-tenant privé qu
 
 Pour installer le plugin du CLI de IBM Cloud Container Registry et créer un namespace pour vos images, voir [Débuter avec IBM Cloud Container Registry](https://cloud.ibm.com/docs/services/Registry?topic=registry-index#index).
 
-Vous pouvez utiliser le IBM Cloud Container Registry pour déployer des conteneurs depuis des [images publiques de IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images) et vos images privées dans le namespace `default`  de votre cluster IBM Cloud Kubernetes Service. Pour déployer un conteneur dans d'autres namespaces, ou pour utiliser une image d'une autre région de IBM Cloud Container Registry ou d'un autre compte IBM Cloud, créez un `imagePullSecret` Kubernetes. Pour plus d'informations, voir [Construire des conteneurs à partir d'images](https://cloud.ibm.com/docs/containers?topic=containers-images#images).
+Vous pouvez utiliser le IBM Cloud Container Registry pour déployer des conteneurs depuis des [images publiques de IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images#public_images) et vos images privées dans le namespace `default`  de votre cluster IBM Cloud Kubernetes Service. Pour déployer un conteneur dans d'autres namespaces, ou pour utiliser une image d'une autre région de IBM Cloud Container Registry ou d'un autre compte IBM Cloud, créez un `imagePullSecret` Kubernetes. Pour plus d'informations, voir [Construire des conteneurs à partir d'images](https://cloud.ibm.com/docs/containers?topic=containers-images#images).
 
 ### Configurer les nœuds pour s'authentifier auprès d'un registre privé
 
