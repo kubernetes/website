@@ -151,7 +151,7 @@ type VolumeSnapshotContentStatus struct {
 	CreationTime *int64
 	ReadyToUse *bool
 	RestoreSize *int64
-	Error *VolumeSnapshotError
+  Error *VolumeSnapshotError
   SnapshotHandle *string
 }
 ```
