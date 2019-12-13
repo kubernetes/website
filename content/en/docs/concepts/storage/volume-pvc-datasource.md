@@ -14,13 +14,6 @@ weight: 30
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
 
-This feature requires VolumePVCDataSource feature gate to be enabled:
-
-```
---feature-gates=VolumePVCDataSource=true
-```
-
-
 {{% /capture %}}
 
 

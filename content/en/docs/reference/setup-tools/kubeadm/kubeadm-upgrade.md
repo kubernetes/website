@@ -25,7 +25,14 @@ To use kube-dns with upgrades in Kubernetes v1.13.0 and later please follow [thi
 In Kubernetes v1.15.0 and later, `kubeadm upgrade apply` and `kubeadm upgrade node` will also
 automatically renew the kubeadm managed certificates on this node, including those stored in kubeconfig files.
 To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For more details about certificate
-renewal see the [certificate management documentation](docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+
+{{< note >}}
+The commands `kubeadm upgrade apply` and `kubeadm upgrade plan` have a legacy `--config`
+flag which makes it possible to reconfigure the cluster, while performing planning or upgrade of that particular
+control-plane node. Please be aware that the upgrade workflow was not designed for this scenario and there are
+reports of unexpected results.
+{{</ note >}}
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
 {{< include "generated/kubeadm_upgrade_plan.md" >}}

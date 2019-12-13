@@ -49,11 +49,8 @@ that provides a set of stateless replicas.
   [manual intervention to repair](#forced-rollback).
 
 ## Components
-The example below demonstrates the components of a StatefulSet.
 
-* A Headless Service, named nginx, is used to control the network domain.
-* The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
+The example below demonstrates the components of a StatefulSet.
 
 ```yaml
 apiVersion: v1
@@ -105,6 +102,12 @@ spec:
         requests:
           storage: 1Gi
 ```
+
+In the above example:
+
+* A Headless Service, named `nginx`, is used to control the network domain.
+* The StatefulSet, named `web`, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
+* The `volumeClaimTemplates` will provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
 
 ## Pod Selector
 You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `.spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
@@ -267,6 +270,7 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
+* Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
 
 {{% /capture %}}
 

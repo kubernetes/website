@@ -20,7 +20,7 @@ Some typical uses of a DaemonSet are:
 
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
-- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Sysdig Agent](https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/).
+- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Flowmill](https://github.com/Flowmill/flowmill-k8s/), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/).
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -61,7 +61,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overv
 In addition to required fields for a Pod, a Pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
 
-A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod-states)
+A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
  equal to `Always`, or be unspecified, which defaults to `Always`.
 
 ### Pod Selector
@@ -101,21 +101,9 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ## How Daemon Pods are Scheduled
 
-### Scheduled by DaemonSet controller (disabled by default since 1.12)
+### Scheduled by default scheduler
 
-Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
-created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
-when the Pod is created, so it is ignored by the scheduler).  Therefore:
-
- - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
-   by the DaemonSet controller.
- - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
-   bootstrap.
-
-
-### Scheduled by default scheduler (enabled by default since 1.12)
-
-{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
+{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,

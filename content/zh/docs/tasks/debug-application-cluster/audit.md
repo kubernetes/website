@@ -604,7 +604,7 @@ Kubernetes 可能会在创建新的日志文件时删除旧的日志文件; 您�
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
 [kubeconfig]: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
-[fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
+[fluentd_install_doc]: https://docs.fluentd.org/v/0.12/articles/quickstart#step1-installing-fluentd
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation

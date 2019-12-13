@@ -28,51 +28,47 @@ For `kubectl run` to satisfy infrastructure as code:
 
 * Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)).
 * Capture the parameters in a checked-in script, or at least use `--record` to annotate the created objects with the command line for an image that is lightly parameterized.
+* Pin to a specific [generator](#generators) version, such as `kubectl run --generator=run-pod/v1`.
 * Check in the script for an image that is heavily parameterized.
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
-* Pin to a specific [generator](#generators) version, such as `kubectl run --generator=deployment/v1beta1`.
 
 #### Generators
 
 You can create the following resources using `kubectl run` with the `--generator` flag:
 
-| Resource                            | api group          | kubectl command                                   |
-|-------------------------------------|--------------------|---------------------------------------------------|
-| Pod                                 | v1                 | `kubectl run --generator=run-pod/v1`              |
-| Replication controller (deprecated) | v1                 | `kubectl run --generator=run/v1`                  |
-| Deployment (deprecated)             | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
-| Deployment (deprecated)             | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
-| Job (deprecated)                    | batch/v1           | `kubectl run --generator=job/v1`                  |
-| CronJob (deprecated)                | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
-| CronJob (deprecated)                | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
+{{< table caption="Resources you can create using kubectl run" >}}
+| Resource                             | API group          | kubectl command                                   |
+|--------------------------------------|--------------------|---------------------------------------------------|
+| Pod                                  | v1                 | `kubectl run --generator=run-pod/v1`              |
+| ReplicationController _(deprecated)_ | v1                 | `kubectl run --generator=run/v1`                  |
+| Deployment _(deprecated)_            | extensions/v1beta1 | `kubectl run --generator=deployment/v1beta1`      |
+| Deployment _(deprecated)_            | apps/v1beta1       | `kubectl run --generator=deployment/apps.v1beta1` |
+| Job _(deprecated)_                   | batch/v1           | `kubectl run --generator=job/v1`                  |
+| CronJob _(deprecated)_               | batch/v2alpha1     | `kubectl run --generator=cronjob/v2alpha1`        |
+| CronJob _(deprecated)_               | batch/v1beta1      | `kubectl run --generator=cronjob/v1beta1`         |
+{{< /table >}}
 
 {{< note >}}
-`kubectl run --generator` except for `run-pod/v1` is deprecated in v1.12.
+Generators other than `run-pod/v1` are deprecated.
 {{< /note >}}
 
-If you do not specify a generator flag, other flags prompt you to use a specific generator. The following table lists the flags that force you to use specific generators, depending on the version of the cluster:
+If you explicitly set `--generator`, kubectl uses the generator you specified. If you invoke `kubectl run` and don't specify a generator, kubectl automatically selects which generator to use based on the other flags you set. The following table lists flags and the generators that are activated if you didn't specify one yourself:
 
-|   Generated Resource   | Cluster v1.4 and later | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and earlier                   |
-|:----------------------:|------------------------|-----------------------|--------------------------------------------|--------------------------------------------|
-| Pod                    | `--restart=Never`      | `--restart=Never`     | `--generator=run-pod/v1`                   | `--restart=OnFailure` OR `--restart=Never` |
-| Replication Controller | `--generator=run/v1`   | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
-| Deployment             | `--restart=Always`     | `--restart=Always`    | `--restart=Always`                         | N/A                                        |
-| Job                    | `--restart=OnFailure`  | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
-| Cron Job               | `--schedule=<cron>`    | N/A                   | N/A                                        | N/A                                        |
+{{< table caption="kubectl run flags and the resource they imply" >}}
+| Flag                    | Generated Resource    |
+|-------------------------|-----------------------|
+| `--schedule=<schedule>` | CronJob               |
+| `--restart=Always`      | Deployment            |
+| `--restart=OnFailure`   | Job                   |
+| `--restart=Never`       | Pod                   |
+{{< /table >}}
 
-{{< note >}}
-These flags use a default generator only when you have not specified any flag.
-This means that when you combine `--generator` with other flags the generator that you specified later does not change. For example, in a cluster v1.4, if you initially specify
-`--restart=Always`, a Deployment is created; if you later specify `--restart=Always`
-and `--generator=run/v1`, a Replication Controller is created.
-This enables you to pin to a specific behavior with the generator,
-even when the default generator is changed later.
-{{< /note >}}
+If you don't specify a generator, kubectl pays attention to other flags in the following order:
 
-The flags set the generator in the following order: first the `--schedule` flag, then the `--restart` policy flag, and finally the `--generator` flag.
+1. `--schedule`
+1. `--restart`
 
-To check the final resource that was created, use the `--dry-run`
-flag, which only prints the object that would be sent to the cluster without really sending it.
+You can use the `--dry-run` flag to preview the object that would be sent to your cluster, without really submitting it.
 
 ### `kubectl apply`
 

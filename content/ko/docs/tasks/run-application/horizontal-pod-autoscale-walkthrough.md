@@ -104,7 +104,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
@@ -129,8 +129,8 @@ CPU 소비가 305%까지 증가하였다.
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   7         7         7            7           19m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   7/7      7           7           19m
 ```
 
 {{< note >}}
@@ -160,8 +160,8 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   1         1         1            1           27m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   1/1     1            1           27m
 ```
 
 CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮췄다.
@@ -302,13 +302,15 @@ spec:
     resource:
       name: cpu
       target:
-        type: AverageUtilization
+        type: Utilization
         averageUtilization: 50
   - type: Pods
     pods:
       metric:
         name: packets-per-second
-      targetAverageValue: 1k
+      target:
+        type: AverageValue
+        averageValue: 1k
   - type: Object
     object:
       metric:
@@ -318,7 +320,7 @@ spec:
         kind: Ingress
         name: main-route
       target:
-        kind: Value
+        type: Value
         value: 10k
 status:
   observedGeneration: 1

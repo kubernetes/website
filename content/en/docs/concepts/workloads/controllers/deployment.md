@@ -84,8 +84,8 @@ In this example:
 
   2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
     ```shell
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         0         0            0           1s
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   0/3     0            0           1s
     ```
     When you inspect the Deployments in your cluster, the following fields are displayed:
 
@@ -106,8 +106,8 @@ In this example:
 
   4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
     ```shell
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           18s
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   3/3     3            3           18s
     ```
     Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
 
@@ -161,7 +161,7 @@ Follow the steps given below to update your Deployment:
     or simply use the following command: 
     
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record
     ```
   
     The output is similar to this:
@@ -200,8 +200,8 @@ Get more details on your updated Deployment:
 * After the rollout succeeds, you can view the Deployment by running `kubectl get deployments`.
     The output is similar to this:
     ```
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           36s
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   3/3     3            3           36s
     ```
 
 * Run `kubectl get rs` to see that the Deployment updated the Pods by creating a new ReplicaSet and scaling it
@@ -535,8 +535,8 @@ Follow the steps given below to rollback the Deployment from the current version
 
     The output is similar to this:
     ```
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           30m
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    nginx-deployment   3/3     3            3           30m
     ```
 3. Get the description of the Deployment:
     ```shell
@@ -1143,9 +1143,9 @@ it is created.
 
 ## Alternative to Deployments
 
-### kubectl rolling update
+### kubectl rolling-update
 
-[`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) updates Pods and ReplicationControllers
+[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) updates Pods and ReplicationControllers
 in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
 additional features, such as rolling back to any previous revision even after the rolling update is done.
 

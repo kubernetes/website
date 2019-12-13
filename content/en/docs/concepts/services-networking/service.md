@@ -185,7 +185,7 @@ selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
 ### Endpoint Slices
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 Endpoint Slices are an API resource that can provide a more scalable alternative
 to Endpoints. Although conceptually quite similar to Endpoints, Endpoint Slices
@@ -219,14 +219,6 @@ There are a few reasons for using proxying for Services:
  * Even if apps and libraries did proper re-resolution, the low or zero TTLs
    on the DNS records could impose a high load on DNS that then becomes
    difficult to manage.
-
-### Version compatibility
-
-Since Kubernetes v1.0 you have been able to use the
-[userspace proxy mode](#proxy-mode-userspace).
-Kubernetes v1.1 added iptables mode proxying, and in Kubernetes v1.2 the
-iptables mode for kube-proxy became the default.
-Kubernetes v1.8 added ipvs proxy mode.
 
 ### User space proxy mode {#proxy-mode-userspace}
 
@@ -318,7 +310,7 @@ about Kubernetes or Services or Pods.
 
 If you want to make sure that connections from a particular client
 are passed to the same Pod each time, you can select the session affinity based
-the on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
+on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
 (the default is "None").
 You can also set the maximum session sticky time by setting
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` appropriately.
@@ -642,6 +634,15 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="Tencent Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:  
+    service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
+[...]
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 
@@ -877,6 +878,42 @@ public IP addresses, be aware that non-NLB traffic can also reach all instances
 in those modified security groups.
 
 {{< /note >}}
+
+#### Other CLB annotations on Tencent Kubernetes Engine (TKE)
+
+There are other annotations for managing Cloud Load Balancers on TKE as shown below.
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        # Bind Loadbalancers with speicfied nodes
+        service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
+
+        # ID of an existing load balancer
+        service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
+        
+        # Custom parameters for the load balancer (LB), does not support modification of LB type yet
+        service.kubernetes.io/service.extensiveParameters: ""
+        
+        # Custom parameters for the LB listener 
+        service.kubernetes.io/service.listenerParameters: ""
+        
+        # Specifies the type of Load balancer;
+        # valid values: classic (Classic Cloud Load Balancer) or application (Application Cloud Load Balancer)
+        service.kubernetes.io/loadbalance-type: xxxxx
+
+        # Specifies the public network bandwidth billing method; 
+        # valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
+        service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
+
+        # Specifies the bandwidth value (value range: [1,2000] Mbps).
+        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
+
+        # When this annotation is set，the loadbalancers will only register nodes 
+        # with pod running on it, otherwise all nodes will be registered.
+        service.kubernetes.io/local-svc-only-bind-node-with-pod: true
+```
 
 ### Type ExternalName {#externalname}
 

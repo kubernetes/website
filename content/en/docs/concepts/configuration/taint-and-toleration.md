@@ -280,7 +280,7 @@ which matches the behavior when this feature is disabled.
 
 ## Taint Nodes by Condition
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates taints corresponding to
+The node lifecycle controller automatically creates taints corresponding to
 Node conditions.
 Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
 Note that `TaintNodesByCondition` only taints nodes with `NoSchedule` effect. `NoExecute` effect is controlled by `TaintBasedEviction` which is a beta feature and enabled by default since version 1.13.

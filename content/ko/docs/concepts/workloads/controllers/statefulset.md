@@ -260,6 +260,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 * [스테이트풀 애플리케이션의 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/)의 예시를 따른다.
 * [카산드라와 스테이트풀셋 배포](/ko/docs/tutorials/stateful-application/cassandra/)의 예시를 따른다.
+* [레플리케이티드(replicated) 스테이트풀 애플리케이션 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/)의 예시를 따른다.
 
 {{% /capture %}}
 

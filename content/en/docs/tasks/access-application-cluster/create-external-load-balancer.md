@@ -154,6 +154,8 @@ spec:
 
 ## Garbage Collecting Load Balancers
 
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
+
 In usual case, the correlating load balancer resources in cloud provider should
 be cleaned up soon after a LoadBalancer type Service is deleted. But it is known
 that there are various corner cases where cloud resources are orphaned after the
@@ -166,10 +168,6 @@ a finalizer named `service.kubernetes.io/load-balancer-cleanup`.
 The finalizer will only be removed after the load balancer resource is cleaned up.
 This prevents dangling load balancer resources even in corner cases such as the
 service controller crashing.
-
-This feature is beta and enabled by default since Kubernetes v1.16. You can also
-enable it in v1.15 (alpha) via the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ServiceLoadBalancerFinalizer`.
 
 ## External Load Balancer Providers
 
