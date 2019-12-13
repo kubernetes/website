@@ -45,7 +45,7 @@ By convention, the names of Kubernetes resources should be up to maximum length 
 For example, here’s the configuration file with a Pod name as `nginx-demo` and a Container name as `nginx`:
 -->
 
-例如，下面是一个配置文件，Pod 名为 `nginx demo`，容器名为 `nginx`：
+例如，下面是一个配置文件，Pod 名为 `nginx-demo`，容器名为 `nginx`：
 
 ```yaml
 apiVersion: v1
