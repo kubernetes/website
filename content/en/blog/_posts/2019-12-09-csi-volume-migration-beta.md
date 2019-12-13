@@ -29,11 +29,12 @@ The Kubernetes team has worked hard to ensure the stability of storage APIs and 
 
 If you are Kubernetes distributor that deploys in one of the environments listed below, now would be a good time to start testing the CSI migration and figuring out how to deploy/manage the appropriate CSI driver.
 
-To try out CSI migration in beta for an existing plugin you must be using Kubernetes v1.17 or higher. First, you must update/create a Kubernetes cluster with the feature flags `CSIMigration` (on by default in 1.17) and `CSIMigration{provider}` (off by default) enabled on the `kube-apiserver`, `kube-controller-manager`, as well as the `kubelet`’s. Where {provider} is the in-tree cloud provider storage type that is used in your cluster.
+To try out CSI migration in beta for an existing plugin you must be using Kubernetes v1.17 or higher. First, you must update/create a Kubernetes cluster with the feature flags `CSIMigration` (on by default in 1.17) and `CSIMigration{provider}` (off by default) enabled on all Kubernetes components (master and node). Where {provider} is the in-tree cloud provider storage type that is used in your cluster. You may also see an optional `CSIMigration{provider}Complete` flag that you *may* enable if all of your nodes have CSI migration enabled.
 
-You must also install the requisite CSI driver on your cluster - instructions for this can generally be found from you provider of choice. CSI migration is available for GCE Persistent Disk and AWS Elastic Block Store in beta as well as for Azure Ffile/Ddisk and Openstack/Cinder in alpha. Kubernetes distributors should look at automating the deployment and management (upgrade, downgrade, etc.) of the CSI Drivers they will depend on.
+You must also install the requisite CSI driver on your cluster - instructions for this can generally be found from you provider of choice. CSI migration is available for GCE Persistent Disk and AWS Elastic Block Store in beta as well as for Azure File/Disk and Openstack Cinder in alpha. Kubernetes distributors should look at automating the deployment and management (upgrade, downgrade, etc.) of the CSI Drivers they will depend on.
 
-To verify the feature flag is enabled and driver installed on a particular node you can get the CSINode object. You should see the in-tree plugin name of the migrated plugin as well as your driver in the drivers list.
+To verify the feature flag is enabled and driver installed on a particular node you can get the CSINode object. You should see the in-tree plugin name of the migrated plugin as well as your [installed] driver in the drivers list.
+
 
 ```shell
 kubectl get csinodes -o yaml
@@ -110,7 +111,7 @@ ControllerPublishVolume succeeded for disk ... to instance ...
 
 ## Current limitations
 
-Although CSI migration is now beta there is one major limitation that prevents us from turning it on by default. Turning on migration still requires a cluster administrator to install a CSI driver before storage functionality is seamlessly handed over. We are currently working with SIGsig-cloudprovider to provide a frictionless experience of bundling the required CSI Drivers with cloud distributions.
+Although CSI migration is now beta there is one major limitation that prevents us from turning it on by default. Turning on migration still requires a cluster administrator to install a CSI driver before storage functionality is seamlessly handed over. We are currently working with SIG-CloudProvider to provide a frictionless experience of bundling the required CSI Drivers with cloud distributions.
 
 ## What is the timeline/status?
 
