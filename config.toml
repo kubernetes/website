@@ -68,11 +68,11 @@ showedit = true
 
 latest = "v1.17"
 
-fullversion = "v1.17.0"
-version = "v1.17"
-githubbranch = "master"
-docsbranch = "master"
-deprecated = false
+fullversion = "v1.16.3"
+version = "v1.16"
+githubbranch = "v1.16.3"
+docsbranch = "release-1.16"
+deprecated = true
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"

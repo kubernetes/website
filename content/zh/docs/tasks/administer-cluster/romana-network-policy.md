@@ -35,7 +35,7 @@ content_template: templates/task
 
 
 * [Romana 网络策略](https://github.com/romana/romana/wiki/Romana-policies)
-    * [Romana 网络策略示例](https://github.com/romana/core/blob/master/doc/policy.md)
+    * [Romana 网络策略示例](https://github.com/romana/core/tree/master/policy)
 
 * NetworkPolicy API
 
