@@ -65,7 +65,7 @@ In addition to the above interfaces, the storage services from the cloud provide
 
 ## Azure cloud provider implementation and VMSS
 
-In the Azure cloud provider, for every type of cluster we implement, there is a VMType option which we specify. In case of VMSS, the VM type is “vmss”.  The provisioning software (acs-engine, in future AKS etc.) would setup these values in /etc/kubernetes/azure.json file. Based on this type, various implementations would get instantiated [[3]](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/azure/azure_vmss.go)
+In the Azure cloud provider, for every type of cluster we implement, there is a VMType option which we specify. In case of VMSS, the VM type is “vmss”.  The provisioning software (acs-engine, in future AKS etc.) would setup these values in /etc/kubernetes/azure.json file. Based on this type, various implementations would get instantiated [[3]](https://github.com/kubernetes-sigs/cloud-provider-azure)
 
 The load balancer interface provides access to the underlying cloud provider load balancer service. The information about the load balancers and the control operations on them are required for Kubernetes to handle the services which gets hosted on the Kubernetes cluster. For VMSS support the changes ensure that the VMSS instances are part of the load balancer pool as required.
 
