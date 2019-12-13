@@ -32,6 +32,10 @@ echo -n '39528$vdg7Jb' | base64
 The output shows that the base-64 representation of your username is `bXktYXBw`,
 and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
 
+{{< caution >}}
+Use a local tool trusted by your OS to decrease the security risks of external tools.
+{{< /caution >}}
+
 ## Create a Secret
 
 Here is a configuration file you can use to create a Secret that holds your
@@ -229,5 +233,4 @@ This functionality is available in Kubernetes v1.6 and later.
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 
 {{% /capture %}}
-
 
