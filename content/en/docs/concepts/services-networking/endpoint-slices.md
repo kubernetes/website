@@ -14,7 +14,7 @@ weight: 10
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 _Endpoint Slices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
@@ -26,7 +26,7 @@ Endpoints.
 
 ## Endpoint Slice resources {#endpointslice-resource}
 
-In Kubernetes, an EndpointSlice contains references to a set of network
+In Kubernetes, an Endpoint Slice contains references to a set of network
 endpoints. The EndpointSlice controller automatically creates Endpoint Slices
 for a Kubernetes Service when a selector is specified. These Endpoint Slices
 will include references to any Pods that match the Service selector. Endpoint
@@ -36,13 +36,13 @@ As an example, here's a sample EndpointSlice resource for the `example`
 Kubernetes Service.
 
 ```yaml
-apiVersion: discovery.k8s.io/v1beta1
+apiVersion: discovery.k8s.io/v1alpha1
 kind: EndpointSlice
 metadata:
   name: example-abc
   labels:
     kubernetes.io/service-name: example
-addressType: IPv4
+addressType: IP
 ports:
   - name: http
     protocol: TCP
@@ -50,6 +50,7 @@ ports:
 endpoints:
   - addresses:
     - "10.1.2.3"
+    - "2001:db8::1234:5678"
     conditions:
       ready: true
     hostname: pod-1
@@ -65,14 +66,6 @@ with Endpoints and Services and have similar performance.
 Endpoint Slices can act as the source of truth for kube-proxy when it comes to
 how to route internal traffic. When enabled, they should provide a performance
 improvement for services with large numbers of endpoints.
-
-## Address Types
-
-EndpointSlices support three address types:
-
-* IPv4
-* IPv6
-* FQDN (Fully Qualified Domain Name)
 
 ## Motivation
 

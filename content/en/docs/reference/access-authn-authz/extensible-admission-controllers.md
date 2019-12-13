@@ -184,48 +184,24 @@ the webhooks. There are three steps to complete the configuration.
   (yes, the same schema that's used by kubectl), so the field name is
   `kubeConfigFile`. Here is an example admission control configuration file:
 
-{{< tabs name="admissionconfiguration_example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
-```yaml
-apiVersion: apiserver.config.k8s.io/v1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: WebhookAdmissionConfiguration
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: WebhookAdmissionConfiguration
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: ValidatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-- name: MutatingAdmissionWebhook
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
-    apiVersion: apiserver.config.k8s.io/v1alpha1
-    kind: WebhookAdmission
-    kubeConfigFile: "<path-to-kubeconfig-file>"
-```
-{{% /tab %}}
-{{< /tabs >}}
+    ```yaml
+    apiVersion: apiserver.k8s.io/v1alpha1
+    kind: AdmissionConfiguration
+    plugins:
+    - name: ValidatingAdmissionWebhook
+      configuration:
+        apiVersion: apiserver.config.k8s.io/v1alpha1
+        kind: WebhookAdmission
+        kubeConfigFile: "<path-to-kubeconfig-file>"
+    - name: MutatingAdmissionWebhook
+      configuration:
+        apiVersion: apiserver.config.k8s.io/v1alpha1
+        kind: WebhookAdmission
+        kubeConfigFile: "<path-to-kubeconfig-file>"
+    ```
 
-For more information about `AdmissionConfiguration`, see the
-[AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/v1.17.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27).
+The schema of `admissionConfiguration` is defined
+[here](https://github.com/kubernetes/kubernetes/blob/v1.13.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1alpha1/types.go#L27).
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 
 * In the kubeConfig file, provide the credentials:
