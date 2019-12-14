@@ -15,5 +15,5 @@ tags:
 
 <!--more-->
 
-Komponen ini didesain agar dapat di-<i>scale</i> secara horizontal. Lihat [Membangun Kluster HA](/docs/admin/high-availability/).
+Komponen ini didesain agar dapat di-<i>scale</i> secara horizontal. Lihat [Membangun Klaster HA](/docs/admin/high-availability/).
 

@@ -18,11 +18,11 @@ Laman ini menjelaskan tentang fitur VolumeSnapshot pada Kubernetes. Sebelum lanj
 
 Seperti halnya sumber daya API PersistentVolume dan PersistentVolumeClaim yang digunakan oleh para pengguna dan administrator untuk menyediakan volume, sumber daya API VolumeSnapshotContent dan VolumeSnapshot digunakan mereka untuk membuat _snapshot_ volume.
 
-VolumeSnapshotContent merupakan suatu _snapshot_ yang diambil dari sebuah volume dari dalam kluster yang telah disediakan oleh administrator. Sepert layaknya PersistentVolume, VolumeSnapshotContent juga merupakan bagian dari sumber daya kluster.
+VolumeSnapshotContent merupakan suatu _snapshot_ yang diambil dari sebuah volume dari dalam klaster yang telah disediakan oleh administrator. Sepert layaknya PersistentVolume, VolumeSnapshotContent juga merupakan bagian dari sumber daya klaster.
 
 VolumeSnapshot merupakan suatu permintaan _snapshot_ dari volume oleh pengguna. Mirip seperti halnya PersistentVolumeClaim.
 
-Walaupun VolumeSnapshot membuat pengguna bisa mengonsumsi abstraksi dari sumber daya penyimpanan, administrator kluster tetap perlu
+Walaupun VolumeSnapshot membuat pengguna bisa mengonsumsi abstraksi dari sumber daya penyimpanan, administrator klaster tetap perlu
 menawarkan berbagai macam tipe VolumeSnapshotContent, tanpa perlu mengekspos pengguna pada detail bagaimana _snapshot_
 volume tersebut harus tersediakan. Bagi yang memerlukan hal ini, ada yang namanya sumber daya VolumeSnapshotClass.
 
@@ -36,17 +36,17 @@ Para pengguna tetap perlu mengetahui beberapa hal di bawah ketika menggunakan fi
 
 ## Siklus hidup VolumeSnapshot dan VolumeSnapshotContent
 
-VolumeSnapshotContent merupakan bagian dari sumber daya kluster. VolumeSnapshot merupakan permintaan terhadap sumber daya tersebut. Interaksi antara VolumeSnapshotContent dan VolumeSnapshot mengikuti siklus hidup berikut ini:
+VolumeSnapshotContent merupakan bagian dari sumber daya klaster. VolumeSnapshot merupakan permintaan terhadap sumber daya tersebut. Interaksi antara VolumeSnapshotContent dan VolumeSnapshot mengikuti siklus hidup berikut ini:
 
 ### Penyediaan VolumeSnapshot
 
 Ada dua cara untuk menyediakan _snapshot_: secara statis maupun dinamis.
 
 #### Statis
-Seorang adminstrator kluster membuat beberapa VolumeSnapshotContent, yang masing-masing memiliki detail tentang penyimpanan sebenarnya yang dapat dipergunakan oleh para pengguna. VolumeSnapshotContent tersebut dapat dikonsumsi melalui API Kubernetes.
+Seorang adminstrator klaster membuat beberapa VolumeSnapshotContent, yang masing-masing memiliki detail tentang penyimpanan sebenarnya yang dapat dipergunakan oleh para pengguna. VolumeSnapshotContent tersebut dapat dikonsumsi melalui API Kubernetes.
 
 #### Dinamis
-Ketika VolumeSnapshotContent yang dibuat oleh administrator tidak ada yang sesuai dengan VolumeSnapshot yang dibuat pengguna, kluster bisa saja
+Ketika VolumeSnapshotContent yang dibuat oleh administrator tidak ada yang sesuai dengan VolumeSnapshot yang dibuat pengguna, klaster bisa saja
 mencoba untuk menyediakan sebuah VolumeSnapshot secara dinamis, khususnya untuk objek VolumeSnapshot.
 Proses penyediaan ini berdasarkan VolumeSnapshotClasses: VolumeSnapshot harus meminta sebuah [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)
 dan administrator harus membuat serta mengatur _class_ tersebut supaya penyediaan dinamis bisa terjadi.

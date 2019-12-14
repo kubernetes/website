@@ -19,7 +19,7 @@ Laman ini menjelaskan berbagai *resource* yang tersedia di dalam Kontainer pada 
 
 * Sebuah *Filesystem*, yang merupakan kombinasi antara [image](/docs/concepts/containers/images/) dan satu atau banyak [*volumes*](/docs/concepts/storage/volumes/).
 * Informasi tentang Kontainer tersebut.
-* Informasi tentang objek-objek lain di dalam kluster.
+* Informasi tentang objek-objek lain di dalam klaster.
 
 ### Informasi tentang Kontainer
 
@@ -32,7 +32,7 @@ Nama Pod dan *namespace* tersedia sebagai variabel *environment* melalui [API *d
 Variabel *environment* yang ditulis pengguna dalam Pod *definition* juga tersedia di dalam Kontainer,
 seperti halnya variabel *environment* yang ditentukan secara statis di dalam *image* Docker.
 
-### Informasi tentang Kluster
+### Informasi tentang Klaster
 
 Daftar semua *Service* yang dijalankan ketika suatu Kontainer dibuat, tersedia di dalam Kontainer tersebut sebagai variabel *environment*.
 Variabel-variabel *environment* tersebut sesuai dengan sintaksis *links* dari Docker.

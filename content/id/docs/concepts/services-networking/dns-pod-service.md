@@ -11,15 +11,15 @@ Laman ini menyediakan ikhtisar dari dukungan DNS oleh Kubernetes.
 
 ## Pendahuluan
 
-Kubernetes DNS melakukan _scheduling_ DNS Pod dan Service yang ada pada kluster, serta 
+Kubernetes DNS melakukan _scheduling_ DNS Pod dan Service yang ada pada klaster, serta 
 melakukan konfigurasi kubelet untuk memberikan informasi bagi setiap Container 
 untuk menggunakan DNS Service IP untuk melakukan resolusi DNS.
 
 ### Apa Sajakah yang Mendapatkan Nama DNS?
 
-Setiap Service yang didefinisikan di dalam kluster (termasuk server DNS itu sendiri) 
+Setiap Service yang didefinisikan di dalam klaster (termasuk server DNS itu sendiri) 
 memiliki nama DNS. Secara default, sebuah _list_ pencarian DNS pada Pod klien
-akan mencantumkan _namespace_ Pod itu sendiri serta domain _default_ kluster. Hal ini dapat diilustrasikan 
+akan mencantumkan _namespace_ Pod itu sendiri serta domain _default_ klaster. Hal ini dapat diilustrasikan 
 dengan contoh berikut:
 
 Asumsikan sebuah Service dengan nama `foo` pada Kubernetes dengan _namespace_ `bar`. 
@@ -39,9 +39,9 @@ terbaru kamu dapat membaca [Service Discovery pada Kubernetes berbasis DNS](http
 
 Service "Normal" (bukan _headless_) akan diberikan sebuah A _record_ untuk sebuah nama dalam bentuk 
 `my-svc.my-namespace.svc.cluster-domain.example`. Inilah yang kemudian digunakan untuk melakukan 
-resolusi IP kluster dari Service tersebut.
+resolusi IP klaster dari Service tersebut.
 
-Service "Headless" (tanpa IP kluster) juga memiliki sebuah A _record_ DNS dengan format 
+Service "Headless" (tanpa IP klaster) juga memiliki sebuah A _record_ DNS dengan format 
 `my-svc.my-namespace.svc.cluster-domain.example`. Tidak seperti halnya Service normal, 
 DNS ini akan melakukan resolusi pada serangkauan IP dari Pod yang dipilih oleh Service tadi. 
 Klien diharapkan untuk mengkonsumsi serangkaian IP ini atau cara lain yang digunakan adalah pemilihan 
@@ -123,7 +123,7 @@ spec:
 ```
 
 Jika terdapat sebuah Service _headless_ memiliki nama yang sama dengan 
-subdomain dari suatu Pod pada _namespace_ yang sama, server KubeDNS kluster akan mengembalikan 
+subdomain dari suatu Pod pada _namespace_ yang sama, server KubeDNS klaster akan mengembalikan 
 A _record_ untuk FQDN Pod.
 Sebagai contoh, misalnya terdapat sebuah Pod dengan _hostname_ "`busybox-1`" dan 
 subdomain "`default-subdomain`", serta sebuah Service _headless_ dengan nama "`default-subdomain`"  
@@ -154,9 +154,9 @@ dispesifikasikan pada _field_ `dnsPolicy` yang ada pada spek Pod.
   dimana Pod tersebut dijalankan.
   Silakan baca [diskusi terkait](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
   untuk detailnya.
-- "`ClusterFirst`": _Query_ DNS apa pun yang tidak sesuai dengan sufiks domain kluster yang sudah dikonfigurasi 
+- "`ClusterFirst`": _Query_ DNS apa pun yang tidak sesuai dengan sufiks domain klaster yang sudah dikonfigurasi 
   misalnya "`www.kubernetes.io`", akan di-_forward_ ke _nameserver_ _upstream_ yang diwarisi dari Node.
-  Administrator kluster bisa saja memiliki _stub-domain_ atau DNS _usptream_ lain yang sudah dikonfigurasi.
+  Administrator klaster bisa saja memiliki _stub-domain_ atau DNS _usptream_ lain yang sudah dikonfigurasi.
   Silakan lihat [diskusi terkait](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
   untuk detail lebih lanjut mengenai bagaimana _query_ DNS melakukan hal tersebut.
 - "`ClusterFirstWithHostNet`": Untuk Pod yang dijalankan dengan menggunakan `hostNetwork`, kamu harus 

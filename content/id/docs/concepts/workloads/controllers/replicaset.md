@@ -31,7 +31,7 @@ Hal ini berarti kamu boleh jadi tidak akan membutuhkan manipulasi objek ReplicaS
 
 {{< codenew file="controllers/frontend.yaml" >}}
 
-Menyimpan _manifest_ ini dalam `frontend.yaml` dan mengirimkannya ke kluster Kubernetes akan membuat ReplicaSet yang telah didefinisikan beserta dengan Pod yang dikelola.
+Menyimpan _manifest_ ini dalam `frontend.yaml` dan mengirimkannya ke klaster Kubernetes akan membuat ReplicaSet yang telah didefinisikan beserta dengan Pod yang dikelola.
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
@@ -259,7 +259,7 @@ Pengaturan jumlah Pod pada ReplicaSet juga dapat dilakukan mengunakan [Horizonta
 
 {{< codenew file="controllers/hpa-rs.yaml" >}}
 
-Menyimpan _manifest_ ini dalam `hpa-rs.yaml` dan mengirimkannya ke kluster Kubernetes akan membuat HPA tersebut yang akan mengatur jumlah Pod pada ReplicaSet yang telah didefinisikan bergantung terhadap penggunaan CPU dari Pod yang direplikasi.
+Menyimpan _manifest_ ini dalam `hpa-rs.yaml` dan mengirimkannya ke klaster Kubernetes akan membuat HPA tersebut yang akan mengatur jumlah Pod pada ReplicaSet yang telah didefinisikan bergantung terhadap penggunaan CPU dari Pod yang direplikasi.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml

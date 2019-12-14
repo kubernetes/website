@@ -17,7 +17,7 @@ Penjadwal Poseidon-Firmament adalah penjadwal alternatif yang dapat digunakan be
 
 ## Pengenalan	
 
-Poseidon adalah sebuah layanan yang berperan sebagai pemersatu antara [Penjadwal Firmament](https://github.com/Huawei-PaaS/firmament) dengan Kubernetes. Penjadwal Poseidon-Firmament menambah kapabilitas penjadwal Kubernetes saat ini. Penjadwal ini menggabungkan kemampuan penjadwalan berbasis grafik jaringan grafis (_flow network graph_) baru bersama penjadwal Kubernetes bawaan. Penjadwal Firmament memodelkan beban-beban kerja dan kluster-kluster sebagai jaringan aliran dan menjalankan optimisasi aliran biaya-minimum kepada jaringan ini untuk membuat keputusan penjadwalan.
+Poseidon adalah sebuah layanan yang berperan sebagai pemersatu antara [Penjadwal Firmament](https://github.com/Huawei-PaaS/firmament) dengan Kubernetes. Penjadwal Poseidon-Firmament menambah kapabilitas penjadwal Kubernetes saat ini. Penjadwal ini menggabungkan kemampuan penjadwalan berbasis grafik jaringan grafis (_flow network graph_) baru bersama penjadwal Kubernetes bawaan. Penjadwal Firmament memodelkan beban-beban kerja dan klaster-klaster sebagai jaringan aliran dan menjalankan optimisasi aliran biaya-minimum kepada jaringan ini untuk membuat keputusan penjadwalan.
 
 Penjadwal ini memodelkan masalah penjadwalan sebagai optimasi berbasis batasan atas grafik jaringan aliran. Hal ini dicapai dengan mengurangi penjadwalan ke masalah optimisasi biaya-minimum aliran-maksimum. Penjadwal Poseidon-Firmament secara dinamis memperbaiki penempatan beban kerja.
 
@@ -28,8 +28,8 @@ Penjadwal Poseidon-Firmament berjalan bersamaan dengan penjadwal Kubernetes bawa
 ### Penjadwalan grafik jaringan (_network graph_) berbasis penjadwalan Poseidon-Firmament memberikan beberapa keuntungan utama sebagai berikut:
 
 - Beban kerja (Pod) dijadwalkan secara kolektif untuk memungkinkan penjadwalan dalam skala besar.
-- Berdasarkan hasil tes kinerja yang ekstensif, skala Poseidon-Firmament jauh lebih baik daripada penjadwal bawaan Kubernetes dilihat dari jumlah node meningkat dalam sebuah kluster. Hal ini disebabkan oleh fakta bahwa Poseidon-Firmament mampu mengamortisasi lebih banyak pekerjaan di seluruh beban kerja.
-- Penjadwal Poseidon-Firmament mengungguli penjadwal bawaan Kubernetes dengan margin lebar ketika menyangkut jumlah kinerja _throughput_ untuk skenario di mana kebutuhan sumber daya komputasi agak seragam di seluruh pekerjaan (Replicaset / Deployment / Job). Angka kinerja _throughput_ _end-to-end_ penjadwal Poseidon-Firmament , termasuk waktu _bind_, secara konsisten menjadi lebih baik seiring jumlah Node dalam sebuah kluster meningkat. Misalnya, untuk kluster 2.700 Node (ditampilkan dalam grafik [di sini](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/benchmark/README.md)), penjadwal Poseidon-Firmament berhasil mencapai 7X atau lebih _throughput_ _end-to-end_ yang lebih besar dibandingkan dengan penjadwal bawaan Kubernetes, yang mencakup waktu _bind_.
+- Berdasarkan hasil tes kinerja yang ekstensif, skala Poseidon-Firmament jauh lebih baik daripada penjadwal bawaan Kubernetes dilihat dari jumlah node meningkat dalam sebuah klaster. Hal ini disebabkan oleh fakta bahwa Poseidon-Firmament mampu mengamortisasi lebih banyak pekerjaan di seluruh beban kerja.
+- Penjadwal Poseidon-Firmament mengungguli penjadwal bawaan Kubernetes dengan margin lebar ketika menyangkut jumlah kinerja _throughput_ untuk skenario di mana kebutuhan sumber daya komputasi agak seragam di seluruh pekerjaan (Replicaset / Deployment / Job). Angka kinerja _throughput_ _end-to-end_ penjadwal Poseidon-Firmament , termasuk waktu _bind_, secara konsisten menjadi lebih baik seiring jumlah Node dalam sebuah klaster meningkat. Misalnya, untuk klaster 2.700 Node (ditampilkan dalam grafik [di sini](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/benchmark/README.md)), penjadwal Poseidon-Firmament berhasil mencapai 7X atau lebih _throughput_ _end-to-end_ yang lebih besar dibandingkan dengan penjadwal bawaan Kubernetes, yang mencakup waktu _bind_.
 - Tersedianya pembatasan aturan yang kompleks. 
 - Penjadwalan dalam Poseidon-Firmament bersifat dinamis; ini membuat sumber daya klaster dalam keadaan optimal secara global selama setiap berjalannya penjadwalan.
 - Pemanfaatan sumber daya yang sangat efisien.
@@ -53,7 +53,7 @@ Untuk detail tentang desain proyek ini, lihat [dokumen desain](https://github.co
 
 ## Kemungkinan Skenario Kasus Penggunaan - Kapan menggunakannya
 
-Seperti yang disebutkan sebelumnya, penjadwal Poseidon-Firmament memungkinkan lingkungan penjadwalan dengan _throughput_ yang sangat tinggi bahkan pada ukuran kluster dengan beban kerja besar, dikarenakan pendekatan penjadwalannya yang sekaligus dalam jumlah besar, dibandingkan dengan pendekatan bawaan _pod-at-a-time_ Kubernetes. Dalam pengujian ekstensif kami, kami telah mengamati manfaat _throughput_ substansial selama kebutuhan sumber daya (CPU / Memori) untuk Pod yang masuk seragam di seluruh tugas (Replicaset / Deployment / Job), terutama karena amortisasi pekerjaan yang efisien di seluruh tugas.
+Seperti yang disebutkan sebelumnya, penjadwal Poseidon-Firmament memungkinkan lingkungan penjadwalan dengan _throughput_ yang sangat tinggi bahkan pada ukuran klaster dengan beban kerja besar, dikarenakan pendekatan penjadwalannya yang sekaligus dalam jumlah besar, dibandingkan dengan pendekatan bawaan _pod-at-a-time_ Kubernetes. Dalam pengujian ekstensif kami, kami telah mengamati manfaat _throughput_ substansial selama kebutuhan sumber daya (CPU / Memori) untuk Pod yang masuk seragam di seluruh tugas (Replicaset / Deployment / Job), terutama karena amortisasi pekerjaan yang efisien di seluruh tugas.
 
 Meskipun penjadwal Poseidon-Firmament mampu menjadwalkan berbagai jenis beban kerja, seperti layanan-layanan, _batch_, dll., berikut ini adalah beberapa kasus penggunaan yang paling unggul:
 
@@ -85,14 +85,14 @@ Meskipun penjadwal Poseidon-Firmament mampu menjadwalkan berbagai jenis beban ke
 | Dukungan untuk Penjadwalan Volume Persisten Pra-terikat | Y | Y ||
 | Dukungan untuk Volume Lokal & Penjadwalan _Binding_ Volume Persisten Dinamis | Y | N** | Direncanakan. |
 | Ketersediaan Tinggi | Y | N** | Direncanakan. |
-| Penjadwalan berbasis metrik _real-time_ | N | Y** | Awalnya didukung menggunakan Heapster (sekarang tidak digunakan lagi) untuk menempatkan Pod menggunakan statistik penggunaan kluster aktual ketimbang reservasi. Rencananya akan dialihkan ke "server metrik". |
+| Penjadwalan berbasis metrik _real-time_ | N | Y** | Awalnya didukung menggunakan Heapster (sekarang tidak digunakan lagi) untuk menempatkan Pod menggunakan statistik penggunaan klaster aktual ketimbang reservasi. Rencananya akan dialihkan ke "server metrik". |
 | Dukungan untuk _Max-Pod_ per Node | Y | Y | Penjadwal Poseidon-Firmament secara mulus berdampingan dengan penjadwal bawaan Kubernetes.
 | Dukungan untuk Penyimpanan _Ephemeral_, selain CPU / Memori | Y | Y ||
 
 
 ## Instalasi	
 
-Untuk instalasi Poseidon dalam-kluster, silakan mulai dari [Petunjuk Instalasi](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/install/README.md).
+Untuk instalasi Poseidon dalam-klaster, silakan mulai dari [Petunjuk Instalasi](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/install/README.md).
 
 ## Pengembangan	
 
