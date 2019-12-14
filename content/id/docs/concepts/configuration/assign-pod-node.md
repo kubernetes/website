@@ -1,5 +1,5 @@
 ---
-title: Menetapkan Pod ke Kontainer
+title: Menetapkan Pod ke Container
 content_template: templates/concept
 weight: 30
 ---

@@ -13,7 +13,7 @@ Laman ini merupakan ikhtisar Kubernetes.
 
 {{% capture body %}}
 Kubernetes merupakan <i>platform open-source</i> yang digunakan untuk melakukan
-manajemen <i>workloads</i> aplikasi yang dikontainerisasi, serta menyediakan
+manajemen <i>workloads</i> aplikasi yang di-containeri-sasi, serta menyediakan
 konfigurasi dan otomatisasi secara deklaratif. Kubernetes berada di dalam ekosistem
 yang besar dan berkembang cepat. <i>Service</i>, <i>support</i>, dan perkakas
 Kubernetes tersedia secara meluas.
@@ -26,11 +26,11 @@ bersamaan dengan kontribusi berupa ide-ide terbaik yang diberikan oleh komunitas
 
 Kubernetes memiliki sejumlah fitur yang dapat dijabarkan sebagai berikut:
 
-- <i>platform</i> kontainer
+- <i>platform</i> container
 - <i>platform microservices</i>
 - <i>platform cloud</i> yang tidak mudah dipindahkan
 
-Kubernetes menyediakan manajemen <i>environment</i> yang berpusat pada kontainer.
+Kubernetes menyediakan manajemen <i>environment</i> yang berpusat pada container.
 Kubernetes melakukan orkestrasi terhadap <i>computing</i>, <i>networking</i>,
 dan inftrastruktur penyimpanan. Fitur inilah yang kemudian membuat konsep Platform as a Service (PaaS)
 menjadi lebih sederhana dilengkapi dengan fleksibilitas yang dimiliki oleh Infrastructure as a Service (IaaS).
@@ -65,7 +65,7 @@ inilah yang memungkinkan beberapa sistem lain untuk dapat dibangun di atas Kuber
 ## Lalu hal apakah yang tidak termasuk di dalam Kubernetes?
 
 Kubernetes bukanlah sebuah <i>PaaS (Platform as a
-Service)</i> yang biasanya. Meskipun Kubernetes dijalankan pada tingkatan kontainer
+Service)</i> yang biasanya. Meskipun Kubernetes dijalankan pada tingkatan container
 dan bukan pada tingkatan perangkat keras, Kubernetes menyediakan beberapa fitur
 yang biasanya disediakan oleh Paas, seperti <i>deployment</i>, <i>scaling</i>,
 <i>load balancing</i>, <i>logging</i>, dan <i>monitoring</i>. Akan tetapi,
@@ -78,7 +78,7 @@ Kubernetes:
 * Tidak melakukan limitasi terhadap aplikasi yang di-support. Kubernetes bertujuan
   untuk mendukung berbagai variasi <i>workloads</i>, termasuk
   <i>stateless</i>, <i>stateful</i>, dan <i>data-processing</i>. Jika sebuah
-  aplikasi dapat dijalankan di atas kontainer, maka aplikasi tersebut juga dapat
+  aplikasi dapat dijalankan di atas container, maka aplikasi tersebut juga dapat
   dijalankan di atas Kubernetes.
 * Tidak menyediakan mekanisme untuk melakukan <i>deploy</i> kode sumber
   maupun mekanisme <i>build</i> sebuah aplikasi. <i>Continuous Integration, Delivery, and Deployment
@@ -108,11 +108,11 @@ Kita tidak perlu peduli proses apa saja yang perlu dilakukan untuk melakukan A h
 Mekanisme kontrol yang tersentralisasi juga tidak dibutuhkan. Dengan demikian, sistem yang
 dihasilkan lebih mudah digunakan lebih kokoh, serta lebih <i>extensible</i>.
 
-## Mengapa kontainer?
+## Mengapa container?
 
-Mencari alasan kenapa kita harus menggunakan kontainer?
+Mencari alasan kenapa kita harus menggunakan container?
 
-![Mengapa kontainer?](/images/docs/why_containers.svg)
+![Mengapa container?](/images/docs/why_containers.svg)
 
 *Cara Lama* untuk melakukan mekanisme <i>deploy</i> suatu aplikasi
 adalah dengan cara instalasi aplikasi tersebut pada sebuah mesin
@@ -124,29 +124,29 @@ mekanisme <i>build</i> suatu <i>image</i> VM yang <i>immutable</i> untuk mendapa
 mekanisme <i>rollouts</i> dan <i>rollback</i> yang dapat diprediksi.
 Meskipun demikian, VM masih dianggap "berat" dan tidak tidak mudah dipindahkan.
 
-*Cara Baru* adalah dengan melakukan mekanisme <i>deploy</i> kontainer pada tingkatan
+*Cara Baru* adalah dengan melakukan mekanisme <i>deploy</i> container pada tingkatan
 virtualisasi di level sistem operasi (OS) bukan pada tingkatan virtualisasi perangkat keras.
-Kontainer ini berada dalam lingkungan yang terisolasi satu sama lain serta terisolasi dengan
-mesin dimana kontainer ini berada. Kontainer ini memiliki <i>filesystems</i> masing-masing.
-Selain itu, setiap kontainer tidak dapat "melihat" <i>process</i> yang sedang dijalankan di
-kontainer lain. Selain itu <i>resource</i> komputasi yang digunakan oleh kontainer
-ini juga dapat dibatasi. Kontainer juga dapat dengan lebih mudah di-<i>build</i> jika
-dibandingkan dengan VM, karena kontainer tidak bergantung pada <i>filesystem</i>
+Container ini berada dalam lingkungan yang terisolasi satu sama lain serta terisolasi dengan
+mesin dimana container ini berada. Container ini memiliki <i>filesystems</i> masing-masing.
+Selain itu, setiap container tidak dapat "melihat" <i>process</i> yang sedang dijalankan di
+container lain. Selain itu <i>resource</i> komputasi yang digunakan oleh container
+ini juga dapat dibatasi. Container juga dapat dengan lebih mudah di-<i>build</i> jika
+dibandingkan dengan VM, karena container tidak bergantung pada <i>filesystem</i>
 yang dimiliki mesin, serta dengan mudah dapat didistribusikan.
 
-Karena kontainer ukurannya kecil dan lebih cepat, sebuah aplikasi dapat dibangun di setiap
-<i>image</i> kontainer. Mekanisme pemetaan satu-satu antara kontainer dan aplikasi
-inilah yang membuka keuntungan secara meyeluruh yang dapat diberikan oleh kontainer.
-Dengan menggunakan kontainer, <i>image</i> kontainer dapat dibuat diwaktu rilis aplikasi.
+Karena container ukurannya kecil dan lebih cepat, sebuah aplikasi dapat dibangun di setiap
+<i>image</i> container. Mekanisme pemetaan satu-satu antara container dan aplikasi
+inilah yang membuka keuntungan secara meyeluruh yang dapat diberikan oleh container.
+Dengan menggunakan container, <i>image</i> container dapat dibuat diwaktu rilis aplikasi.
 Pembuatan <i>image</i> ini memungkinkan aplikasi secara konsisten dirilis pada
 <i>environment</i> <i>development</i> maupun <i>production</i>. Selain itu,
-kontainer juga memiliki transparasi yang lebih tinggi dibandingkan dengan VM. Maksudnya,
-infrastruktur punya tugas untuk mengatur lifecycle seluruh process yang ada di dalam kontainer. Ini bukanlah lagi tugas sebuah supervisor process yang tersembunyi di dalam kontainer.
+container juga memiliki transparasi yang lebih tinggi dibandingkan dengan VM. Maksudnya,
+infrastruktur punya tugas untuk mengatur lifecycle seluruh process yang ada di dalam container. Ini bukanlah lagi tugas sebuah supervisor process yang tersembunyi di dalam container.
 
-Secara garis besar, penggunaan kontainer memiliki keuntungan sebagai berikut:
+Secara garis besar, penggunaan container memiliki keuntungan sebagai berikut:
 
 * **Mekanisme pembuatan aplikasi serta proses deployment yang lebih efektif**:
-    Kontainer dapat meningkatkan kemudahan dan efisiensi jika dibandingkan dengan penggunaan VM.
+    Container dapat meningkatkan kemudahan dan efisiensi jika dibandingkan dengan penggunaan VM.
 * **Continuous development, integration, and deployment**:
     Digunakan untuk melakukan proses <i>build</i> dan <i>deploy</i> yang sering dilakukan
     serta kemudahan mekanisme <i>rollback</i> karena image yang ada sifatnya <i>immutable</i>.

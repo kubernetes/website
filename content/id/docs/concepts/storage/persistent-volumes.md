@@ -592,7 +592,7 @@ spec:
     requests:
       storage: 10Gi
 ```
-### Spesifikasi _Pod_ yang menambahkan alamat Perangkat _Raw Block_ pada kontainer
+### Spesifikasi _Pod_ yang menambahkan alamat Perangkat _Raw Block_ pada container
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -614,7 +614,7 @@ spec:
 ```
 
 {{< note >}}
-Ketika menambahkan sebuah perangkat _raw block_ untuk sebuah _Pod_, kita menspesifikasi alamat perangkat dalam kontainer alih-alih alamat pemasangan.
+Ketika menambahkan sebuah perangkat _raw block_ untuk sebuah _Pod_, kita menspesifikasi alamat perangkat dalam container alih-alih alamat pemasangan.
 {{< /note >}}
 
 ### Mengikat _Block Volume_

@@ -1,12 +1,12 @@
 ---
-title: Lifecyle Hook pada Kontainer
+title: Lifecyle Hook pada Container
 content_template: templates/concept
 weight: 30
 ---
 
 {{% capture overview %}}
 
-Laman ini menjelaskan bagaimana semua Kontainer yang diatur kubelet menggunakan *framework lifecycle hook*
+Laman ini menjelaskan bagaimana semua Container yang diatur kubelet menggunakan *framework lifecycle hook*
 untuk menjalankan kode yang di-*trigger* oleh *event* selama *lifecycle* berlangsung.
 
 {{% /capture %}}
@@ -16,58 +16,58 @@ untuk menjalankan kode yang di-*trigger* oleh *event* selama *lifecycle* berlang
 
 ## Ikhtisar
 
-Kubernetes menyediakan *hook* untuk *lifecycle* Kontainer. Hal ini sejalan dengan *framework* bahasa
+Kubernetes menyediakan *hook* untuk *lifecycle* Container. Hal ini sejalan dengan *framework* bahasa
 pemrograman pada umumnya yang memiliki *hook* untuk *lifecycle* komponen, seperti Angular contohnya.
-*Hook* tersebut digunakan Kontainer untuk selalu siap menerima *event* selama *lifecycle* dan
+*Hook* tersebut digunakan Container untuk selalu siap menerima *event* selama *lifecycle* dan
 menjalankan kode yang diimplementasi pada suatu *handler*, ketika *hook lifecycle* terkait telah dieksekusi.
 
-## Jenis-jenis *hook* pada Kontainer
+## Jenis-jenis *hook* pada Container
 
-Ada dua jenis *hook* yang diekspos pada Kontainer:
+Ada dua jenis *hook* yang diekspos pada Container:
 
 `PostStart`
 
-*Hook* ini dijalankan segera setelah suatu kontainer dibuat.
-Hanya saja, tidak ada jaminan bahwa *hook* akan tereksekusi sebelum `ENTRYPOINT` dari kontainer.
+*Hook* ini dijalankan segera setelah suatu container dibuat.
+Hanya saja, tidak ada jaminan bahwa *hook* akan tereksekusi sebelum `ENTRYPOINT` dari container.
 Tidak ada parameter yang diberikan pada *handler*.
 
 `PreStop`
 
-*Hook* ini akan dipanggil sesaat sebelum kontainer dimatikan, karena suatu *request* API atau *event* pengaturan,
+*Hook* ini akan dipanggil sesaat sebelum container dimatikan, karena suatu *request* API atau *event* pengaturan,
 contohnya kegagalan pada *liveness probe*, *preemption*, perebutan *resource*, dan lainnya.
-Sebuah panggilan untuk *hook* `PreStop` akan gagal jika kontainer tersebut telah ada pada *state terminate* atau *complete*.
+Sebuah panggilan untuk *hook* `PreStop` akan gagal jika container tersebut telah ada pada *state terminate* atau *complete*.
 Hal ini bersifat *blocking*, yang artinya panggilan bersifat sinkron (*synchronous*), harus menunggu eksekusi selesai, sebelum melakukan panggilan
-untuk menghapus kontainer tersebut.
+untuk menghapus container tersebut.
 Tidak ada parameter yang diberikan pada *handler*.
 
 Penjelasan yang lebih rinci tentang proses terminasi dapat dilihat pada [Terminasi Pod](/docs/concepts/workloads/pods/pod/#termination-of-pods).
 
 ### Implementasi *handler* untuk *hook*
 
-Kontainer dapat mengakses sebuah *hook* melalui implementasi dan registrasi sebuah *handler* untuk *hook* tersebut.
-Ada dua jenis *handler* untuk *hook* yang dapat diimplementasikan untuk Kontainer:
+Container dapat mengakses sebuah *hook* melalui implementasi dan registrasi sebuah *handler* untuk *hook* tersebut.
+Ada dua jenis *handler* untuk *hook* yang dapat diimplementasikan untuk Container:
 
-* Exec - Mengeksekusi sebuah perintah tertentu, contohnya `pre-stop.sh`, di dalam cgroups dan *namespace* suatu Kontainer. *Resource* yang dikonsumsi oleh perintah tersebut dianggap sebagai bagian dari Kontainer.
-* HTTP - Mengeksekusi sebuah *request* HTTP untuk *endpoint* tertentu pada Kontainer tersebut.
+* Exec - Mengeksekusi sebuah perintah tertentu, contohnya `pre-stop.sh`, di dalam cgroups dan *namespace* suatu Container. *Resource* yang dikonsumsi oleh perintah tersebut dianggap sebagai bagian dari Container.
+* HTTP - Mengeksekusi sebuah *request* HTTP untuk *endpoint* tertentu pada Container tersebut.
 
 ### Eksekusi *handler* untuk *hook*
 
-Ketika manajemen *hook* untuk suatu *lifecycle* Kontainer dipanggil, sistem manajemen internal pada Kubernetes
-akan mengeksekusi *handler* di dalam Kontainer yang terdaftar untuk *hook* tersebut.
+Ketika manajemen *hook* untuk suatu *lifecycle* Container dipanggil, sistem manajemen internal pada Kubernetes
+akan mengeksekusi *handler* di dalam Container yang terdaftar untuk *hook* tersebut.
 
 Panggilan *handler* untuk *hook* semuanya bersifat *synchronous* di dalam konteks Pod yang
-memiliki Kontainer tersebut. Artinya, untuk *hook* `PostStart`, Kontainer `ENTRYPOINT`
+memiliki Container tersebut. Artinya, untuk *hook* `PostStart`, Container `ENTRYPOINT`
 dan *hook* dieksekusi secara *asyncrhonous*. Akan tetapi, jika *hook* mengambil waktu terlalu lama,
-atau *hang*, Kontainer tersebut tidak bisa sampai ke *state* `running`.
+atau *hang*, Container tersebut tidak bisa sampai ke *state* `running`.
 
 Perilaku ini mirip dengan yang terjadi pada *hook* `PreStop`.
 Jika *hook* terlalu lama atau *hang* saat dieksekusi, Pod tersebut tetap ada pada *state* `Terminating`
 dan akan dimatikan setelah `terminationGracePeriodSeconds` Pod selesai.
-Jika sebuah *hook* `PostStart` atau `PreStop` gagal dieksekusi, Kontainer akan dimatikan.
+Jika sebuah *hook* `PostStart` atau `PreStop` gagal dieksekusi, Container akan dimatikan.
 
 Para pengguna sangat disarankan membuat *handler* untuk *hook* seringan mungkin (*lightweight*).
 Biar bagaimanapun, ada beberapa kasus yang memang membutuhkan waktu lama untuk mengeksekusi
-suatu perintah, misalnya saat proses penyimpanan *state* sebelum Kontainer dimatikan.
+suatu perintah, misalnya saat proses penyimpanan *state* sebelum Container dimatikan.
 
 ### Jaminan pengiriman *hook*
 
@@ -112,8 +112,8 @@ Events:
 
 {{% capture whatsnext %}}
 
-* Pelajari lebih lanjut tentang [*environment* Kontainer](/docs/concepts/containers/container-environment-variables/).
+* Pelajari lebih lanjut tentang [*environment* Container](/docs/concepts/containers/container-environment-variables/).
 * Pelajari bagaimana caranya
-  [melakukan *attach handler* pada *event lifecycle* sebuah Kontainer](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+  [melakukan *attach handler* pada *event lifecycle* sebuah Container](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 {{% /capture %}}

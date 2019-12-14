@@ -29,7 +29,7 @@ Kubernetes menyediakan sebuah _admission controller_ (`PodPreset`) dimana, ketik
 4. Ketika terjadi galat, lempar sebuah _event_ yang mendokumentasikan galat penggabungan dalam pod, dan membuat pod tanpa salah satu _resource_ dari `PodPreset`.
 5. Anotasikan hasil spesifikasi Pod yang telah dimodifikasi untuk menunjukkan bahwa Pod telah dimodifikasi oleh sebuah PodPreset. Anotasi berupa `podpreset.admission.kubernetes.io/podpreset-<nama pod-preset>: "<versi resource>"`.
 
-Tiap Pod akan bisa dipasangkan oleh nol atau lebih PodPreset; dan tiap PodPreset bisa diterapkan ke nol atau lebih Pod. Ketika sebuah PodPreset diterapkan ke satu atau lebih Pod, Kubernetes memodifikasi Pod Spec. Untuk perubahan terhadap `Env`,`EnvFrom`, dan `VolumeMount`, Kubernetes memodifikasi spesifikasi kontainer untuk semua kontainer di dalam Pod; Untuk perubahan terhadap `Volume`, Kubernetes memodifikasi Pod Spec.
+Tiap Pod akan bisa dipasangkan oleh nol atau lebih PodPreset; dan tiap PodPreset bisa diterapkan ke nol atau lebih Pod. Ketika sebuah PodPreset diterapkan ke satu atau lebih Pod, Kubernetes memodifikasi Pod Spec. Untuk perubahan terhadap `Env`,`EnvFrom`, dan `VolumeMount`, Kubernetes memodifikasi spesifikasi container untuk semua container di dalam Pod; Untuk perubahan terhadap `Volume`, Kubernetes memodifikasi Pod Spec.
 
 {{< note >}}
 Sebuah Pod Preset mampu memodifikasi kolom `.spec.containers` pada sebuah Pod Spec jika sesuai. Tidak ada definisi resource dari Pod Preset yang akan diterapkan kepada kolom `initContainer`.

@@ -26,7 +26,7 @@ deteksi serta pemberian respons terhadap <i>events</i> yang berlangsung di dalam
 Komponen master dapat dijalankan di mesin manapun yang ada di klaster. Meski begitu,
 untuk memudahkan proses yang ada, <i>script</i> inisiasi awal yang dijalankan
 biasanya memulai komponen master pada mesin yang sama, serta tidak menjalankan
-kontainer bagi pengguna di mesin ini. Contoh konfigurasi <i>multi-master VM</i>
+container bagi pengguna di mesin ini. Contoh konfigurasi <i>multi-master VM</i>
 dapat dilihat di modul [Membangun Klaster HA] (/docs/admin/high-availability/).
 
 
@@ -103,7 +103,7 @@ Komponen ini ada pada setiap <i>node</i>, fungsinya adalah melakukan pemeliharaa
 
 ### <i>Container Runtime</i>
 
-<i>Container runtime</i> adalah perangkat lunak yang bertanggung jawab dalam menjalankan kontainer.
+<i>Container runtime</i> adalah perangkat lunak yang bertanggung jawab dalam menjalankan container.
 Kubernetes mendukung beberapa <i>runtime</i>, diantaranya adalah: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) dan semua implementasi [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
 
 
@@ -123,7 +123,7 @@ lainnya.
 [Klaster DNS](/en/docs/concepts/cluster-administration/addons/      ) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
 <i>environment</i> kamu, yang berfungsi sebagai catatan DNS bagi Kubernetes <i>services</i>
 
-Kontainer yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini
+Container yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini
 ke dalam mekanisme pencarian DNS yang dimilikinya.
 
 
@@ -137,13 +137,13 @@ aplikasi yang ada pada klaster itu sendiri.
 ### <i>Container Resource Monitoring</i>
 
 [Container Resource Monitoring](/en/docs/tasks/debug-application-cluster/resource-usage-monitoring/) mencatat metrik <i>time-series</i> yang diperoleh
-dari kontainer ke dalam basis data serta menyediakan antar muka yang dapat digunakan
+dari container ke dalam basis data serta menyediakan antar muka yang dapat digunakan
 untuk melakukan pencarian data yang dibutuhkan.
 
 
 ### <i>Cluster-level Logging</i>
 
-[Cluster-level logging](/en/docs/concepts/cluster-administration/logging/) bertanggung jawab mencatat <i>log</i> kontainer pada
+[Cluster-level logging](/en/docs/concepts/cluster-administration/logging/) bertanggung jawab mencatat <i>log</i> container pada
 penyimpanan <i>log</i> terpusat dengan antar muka yang dapat digunakan untuk melakukan
 pencarian.
 

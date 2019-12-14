@@ -89,7 +89,7 @@ spec:
 ```
 
  Seperti layaknya *resource* Kubernetes yang lain, sebuah Ingress membutuhkan *field* `apiVersion`, `kind`, dan `metadata`.
- Untuk informasi umum soal bagaimana cara bekerja dengan menggunakan file konfigurasi, silahkan merujuk pada [melakukan deploy aplikasi](/docs/tasks/run-application/run-stateless-application-deployment/), [konfigurasi kontainer](/docs/tasks/configure-pod-container/configure-pod-configmap/), [mengatur *resource*](/docs/concepts/cluster-administration/manage-deployment/).
+ Untuk informasi umum soal bagaimana cara bekerja dengan menggunakan file konfigurasi, silahkan merujuk pada [melakukan deploy aplikasi](/docs/tasks/run-application/run-stateless-application-deployment/), [konfigurasi container](/docs/tasks/configure-pod-container/configure-pod-configmap/), [mengatur *resource*](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress seringkali menggunakan anotasi untuk melakukan konfigurasi beberapa opsi yang ada bergantung pada kontroler Ingress yang digunakan, sebagai contohnya
  adalah [anotasi rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
  [Kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) yang berbeda memiliki jenis anotasi yang berbeda. Pastikan kamu sudah terlebih dahulu memahami dokumentasi

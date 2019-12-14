@@ -34,7 +34,7 @@ Kamupun bisa mengikuti tutorial ini kalau sudah instalasi [Minikube di lokal](/d
 
 {{% capture prerequisites %}}
 
-Tutorial ini menyediakan image Kontainer yang dibuat melalui barisan kode berikut:
+Tutorial ini menyediakan image Container yang dibuat melalui barisan kode berikut:
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
@@ -66,13 +66,13 @@ Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docke
 
 ## Membuat sebuah Deployment
 
-Sebuah Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) adalah kumpulan dari satu atau banyak Kontainer,
-saling terhubung untuk kebutuhan administrasi dan jaringan. Pod dalam tutorial ini hanya punya satu Kontainer. Sebuah Kubernetes
+Sebuah Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) adalah kumpulan dari satu atau banyak Container,
+saling terhubung untuk kebutuhan administrasi dan jaringan. Pod dalam tutorial ini hanya punya satu Container. Sebuah Kubernetes
 [*Deployment*](/docs/concepts/workloads/controllers/deployment/) selalu memeriksa kesehatan
-Pod kamu dan melakukan <i>restart</i> saat Kontainer di dalam Pod tersebut mati. Deployment adalah cara jitu untuk membuat dan mereplikasi Pod.
+Pod kamu dan melakukan <i>restart</i> saat Container di dalam Pod tersebut mati. Deployment adalah cara jitu untuk membuat dan mereplikasi Pod.
 
 1. Gunakan perintah `kubectl create` untuk membuat Deployment yang dapat mengatur Pod.
-Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
+Pod menjalankan Container sesuai dengan image Docker yang telah diberikan.
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
@@ -120,7 +120,7 @@ Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 ## Membuat sebuah Servis
 
 Secara <i>default</i>, Pod hanya bisa diakses melalui alamat IP internal di dalam klaster Kubernetes.
-Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/docs/concepts/services-networking/service/) Kubernetes.
+Supaya Container `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/docs/concepts/services-networking/service/) Kubernetes.
 
 1. Ekspos Pod pada internet publik menggunakan perintah `kubectl expose`:
 

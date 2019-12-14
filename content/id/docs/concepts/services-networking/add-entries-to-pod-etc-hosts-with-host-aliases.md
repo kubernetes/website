@@ -119,11 +119,11 @@ Dengan tambahan entri yang telah dispesifikasikan sebelumnya.
 Kubelet [melakukan proses manajemen](https://github.com/kubernetes/kubernetes/issues/14633)
 berkas `hosts` untuk setiap container yang ada pada Pod untuk mencegah Docker melakukan
 [modifikasi](https://github.com/moby/moby/issues/17190) pada berkas tersebut
-setelah kontainer dihidupkan.
+setelah container dihidupkan.
 
 Karena sifat dari berkas tersebut yang secara otomatis di-_manage_,
 semua hal yang didefinisikan oleh pengguna akan ditimpa (_overwrite_) ketika berkas
-`hosts` di-_mount_ kembali oleh Kubelet ketika ada kontainer yang di-_restart_
+`hosts` di-_mount_ kembali oleh Kubelet ketika ada container yang di-_restart_
 atau Pod di-_schedule_ ulang. Dengan demikian tidak dianjurkan untuk
 memodifikasi berkas tersebut secara langsung.
 

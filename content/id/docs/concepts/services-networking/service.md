@@ -3,7 +3,7 @@ title: Service
 feature:
   title: Service discovery dan load balancing
   description: >
-    Kamu tidak perlu memodifikasi aplikasi kamu untuk menggunakan mekanisme _service discovery_ tambahan. Kubernetes menyediakan IP untuk setiap kontainer serta sebuah DNS bagi sebuah sekumpulan kontainer, serta akan melakukan mekanisme _load balance_ bagi sekumpulan kontainer tersebut.
+    Kamu tidak perlu memodifikasi aplikasi kamu untuk menggunakan mekanisme _service discovery_ tambahan. Kubernetes menyediakan IP untuk setiap container serta sebuah DNS bagi sebuah sekumpulan container, serta akan melakukan mekanisme _load balance_ bagi sekumpulan container tersebut.
 
 content_template: templates/concept
 weight: 10

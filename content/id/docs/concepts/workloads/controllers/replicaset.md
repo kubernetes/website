@@ -281,7 +281,7 @@ Maka dari itu penggunaan Deployments direkomendasikan jika kamu menginginkan Rep
 
 ### Pod sederhana
 
-Tidak seperti pada kasus ketika pengguna secara langsung membuat Pod, ReplicaSet akan menggantikan Pod yang dihapus atau diterminasi dengan alasan apapun, seperti pada kasus dimana terjadi kegagalan _node_ atau pemeliharaan _node_ yang disruptif, seperti pada kasus _upgrade_ kernel. Karena alasan ini kami merekomendasikan kamu untuk menggunakan ReplicaSet walaupun jika aplikasimu membutuhkan hanya satu Pod. Hal ini mirip dengan pengawas proses, hanya saja pada kasus ini mengawasi banyak Pod pada berbagai _node_ alih-alih berbagai proses individu pada sebuah _node_. ReplicaSet mendelegasikan proses pengulangan kembali dari kontainer lokal kepada agen yang terdapat di _node_ (sebagai contoh, Kubelet atau Docker).
+Tidak seperti pada kasus ketika pengguna secara langsung membuat Pod, ReplicaSet akan menggantikan Pod yang dihapus atau diterminasi dengan alasan apapun, seperti pada kasus dimana terjadi kegagalan _node_ atau pemeliharaan _node_ yang disruptif, seperti pada kasus _upgrade_ kernel. Karena alasan ini kami merekomendasikan kamu untuk menggunakan ReplicaSet walaupun jika aplikasimu membutuhkan hanya satu Pod. Hal ini mirip dengan pengawas proses, hanya saja pada kasus ini mengawasi banyak Pod pada berbagai _node_ alih-alih berbagai proses individu pada sebuah _node_. ReplicaSet mendelegasikan proses pengulangan kembali dari container lokal kepada agen yang terdapat di _node_ (sebagai contoh, Kubelet atau Docker).
 
 ### Job
 

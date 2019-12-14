@@ -22,8 +22,8 @@ RuntimeClass sebelum v1.14, lihat [Memperbarui RuntimeClass dari Alpha ke Beta](
 
 ## `Runtime Class`
 
-RuntimeClass merupakan sebuah fitur untuk memilih konfigurasi _runtime_ kontainer. Konfigurasi
-tersebut digunakan untuk menjalankan kontainer-kontainer milik suatu Pod.
+RuntimeClass merupakan sebuah fitur untuk memilih konfigurasi _runtime_ container. Konfigurasi
+tersebut digunakan untuk menjalankan container-container milik suatu Pod.
 
 ### Persiapan
 

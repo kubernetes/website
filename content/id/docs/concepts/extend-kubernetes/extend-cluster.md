@@ -87,7 +87,7 @@ Diagram berikut menunjukkan titik-titik perluasan di sebuah Kubernetes.
 4. Penjadwal Kubernetes memutuskan ke Node mana Pod akan ditempatkan. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan-perluasan Penjadwal](/docs/concepts/overview/extending#perluasan-perluasan-penjadwal).
 5. Sebagian besar perilaku Kubernetes diimplementasi oleh program yang disebut *Controller-controller* yang merupakan klien dari API-Server. *Controller-controller* sering digunakan bersama dengan Sumber Daya _Custom_.
 6. Kubelet berjalan di server, dan membantu Pod-pod  terlihat seperti server virtual dengan IP mereka sendiri di jaringan klaster. [_Plugin_ Jaringan](/docs/concepts/overview/extending#plugin-plugin-jaringan) memungkinkan adanya perbedaan implementasi pada jaringan Pod.
-7. Kubelet juga melakukan penambatan dan pelepasan tambatan volume untuk kontainer. Tipe-tipe penyimpanan baru dapat didukung via [_Plugin_ Penyimpanan](/docs/concepts/overview/extending#plugin-plugin-penyimpanan).
+7. Kubelet juga melakukan penambatan dan pelepasan tambatan volume untuk container. Tipe-tipe penyimpanan baru dapat didukung via [_Plugin_ Penyimpanan](/docs/concepts/overview/extending#plugin-plugin-penyimpanan).
 
 Jika kamu tidak yakin untuk memulai dari mana, diagram alir di bawah ini dapat membantu kamu. Ingat lah bahwa beberapa solusi mungkin melibatkan beberapa tipe perluasan.
 

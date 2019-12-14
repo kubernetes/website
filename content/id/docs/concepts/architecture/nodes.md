@@ -9,7 +9,7 @@ weight: 10
 Node merupakan sebuah mesin <i>worker</i> di dalam Kubernetes, yang sebelumnya dinamakan `minion`.
 Sebuah node bisa berupa VM ataupun mesin fisik, tergantung dari klaster-nya.
 Masing-masing node berisi beberapa servis yang berguna untuk menjalankan banyak [pod](/docs/concepts/workloads/pods/pod/) dan diatur oleh komponen-komponen yang dimiliki oleh master.
-Servis-servis di dalam sebuah node terdiri dari [runtime kontainer](/docs/concepts/overview/components/#node-components), kubelet dan kube-proxy.
+Servis-servis di dalam sebuah node terdiri dari [runtime container](/docs/concepts/overview/components/#node-components), kubelet dan kube-proxy.
 Untuk lebih detail, lihat dokumentasi desain arsitektur pada [Node Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node).
 
 {{% /capture %}}
@@ -217,8 +217,8 @@ Pada umumnya, node-node melakukan registrasi diri dan melaporkan kapasitasnya sa
 Jika kamu melakukan [administrasi node manual](#manual-node-administration), maka kamu perlu mengatur kapasitas node saat menambahkan node baru.
 
 <i>Scheduler</i> Kubernetes memastikan kalau ada <i>resource</i> yang cukup untuk menjalankan semua pod di dalam sebuah node.
-Kubernetes memeriksa jumlah semua <i>request</i> untuk kontainer pada sebuah node tidak lebih besar daripada kapasitas node.
-Hal ini termasuk semua kontainer yang dijalankan oleh kubelet. Namun, ini tidak termasuk kontainer-kontainer yang dijalankan secara langsung oleh [runtime kontainer](/docs/concepts/overview/components/#node-components) ataupun <i>process</i> yang ada di luar kontainer.
+Kubernetes memeriksa jumlah semua <i>request</i> untuk container pada sebuah node tidak lebih besar daripada kapasitas node.
+Hal ini termasuk semua container yang dijalankan oleh kubelet. Namun, ini tidak termasuk container-container yang dijalankan secara langsung oleh [runtime container](/docs/concepts/overview/components/#node-components) ataupun <i>process</i> yang ada di luar container.
 
 Kalau kamu ingin secara eksplisit menyimpan <i>resource</i> cadangan untuk menjalankan <i>process-process</i> selain Pod, ikut tutorial [menyimpan resource cadangan untuk <i>system daemon</i>](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 

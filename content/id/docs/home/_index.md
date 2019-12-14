@@ -15,7 +15,7 @@ menu:
     post: >
       <p>Mengerti penggunaan Kubernetes dengan belajar konsep, tutorial, dan referensinya. Kamupun bisa <a href="/editdocs/" data-auto-burger-exclude>bantu kami perbaiki dan lengkapi dokumentasinya</a>, yuk kontribusi!</p>
 overview: >
-  Kubernetes adalah sebuah orkestrator kontainer open source, yang mengotomasi deployment, replikasi, dan pengaturan aplikasi kontainer dengan mudah. Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>) mewadahi proyek open source ini.
+  Kubernetes adalah sebuah orkestrator container open source, yang mengotomasi deployment, replikasi, dan pengaturan aplikasi container dengan mudah. Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>) mewadahi proyek open source ini.
 cards:
 - name: concepts
   title: "Konsep dasar Kubernetes"

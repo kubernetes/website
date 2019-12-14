@@ -20,7 +20,7 @@ Halaman ini menjelaskan siklus hidup sebuah Pod
 
 _Field_ `status` dari sebuah Pod merupakan sebuah objek [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core), yang memiliki sebuah _field_ `phase`.
 
-Fase dari sebuah Pod adalah sesuatu yang sederhana, ringkasan yang lebih tinggi tentang Pod dalam siklus hidupnya. Fase ini tidak ditujukan sebagai sebuah kesimpulan yang luas dari observasi suatu kontainer atau _state_ suatu Pod, serta tidak ditujukan sebagai _state machine_ yang luas.
+Fase dari sebuah Pod adalah sesuatu yang sederhana, ringkasan yang lebih tinggi tentang Pod dalam siklus hidupnya. Fase ini tidak ditujukan sebagai sebuah kesimpulan yang luas dari observasi suatu container atau _state_ suatu Pod, serta tidak ditujukan sebagai _state machine_ yang luas.
 
 Jumlah dan arti dari nilai-nilai fase Pod dijaga ketat. Selain yang ada dalam dokumentasi ini, tidak perlu berasumsi mengenai Pod telah diberikan nilai `phase`.
 
@@ -28,10 +28,10 @@ Berikut adalah nilai yang mungkin diberikan untuk suatu `phase`:
 
 Nilai | Deskripsi
 :-----|:-----------
-`Pending` | Pod telah disetujui oleh sistem Kubernetes, tapi ada satu atau lebih _image_ kontainer yang belum terbuat. Ini termasuk saat sebelum dijadwalkan dan juga saat mengunduh _image_ melalui jaringan, yang mungkin butuh beberapa waktu.
-`Running` | Pod telah terikat ke suatu node, dan semua kontainer telah terbuat. Setidaknya ada 1 kontainer yang masih berjalan, atau dalam proses memulai atau _restart_.
-`Succeeded` | Semua kontainer di dalam Pod sudah berhasil dihentikan, dan tidak akan dilakukan _restart_.
-`Failed` | Semua kontainer dalan suatu Pod telah dihentikan, dan setidaknya ada satu kontainer yang terhenti karena kegagalan. Itu merupakan kontainer yang keluar dengan kode status bukan 0 atau dihentikan oleh sistem.
+`Pending` | Pod telah disetujui oleh sistem Kubernetes, tapi ada satu atau lebih _image_ container yang belum terbuat. Ini termasuk saat sebelum dijadwalkan dan juga saat mengunduh _image_ melalui jaringan, yang mungkin butuh beberapa waktu.
+`Running` | Pod telah terikat ke suatu node, dan semua container telah terbuat. Setidaknya ada 1 container yang masih berjalan, atau dalam proses memulai atau _restart_.
+`Succeeded` | Semua container di dalam Pod sudah berhasil dihentikan, dan tidak akan dilakukan _restart_.
+`Failed` | Semua container dalan suatu Pod telah dihentikan, dan setidaknya ada satu container yang terhenti karena kegagalan. Itu merupakan container yang keluar dengan kode status bukan 0 atau dihentikan oleh sistem.
 `Unknown` | _State_ suatu Pod tidak dapat diperoleh karena suatu alasan, biasanya karena kesalahan dalam komunikasi dengan _host_ yang digunakan Pod tersebut.
 
 ## Kondisi Pod
@@ -54,38 +54,38 @@ Suatu Pod memiliki sebuah PodStatus, yang merupakan _array_ dari [PodConditions]
   * `Ready`: Pod sudah mampu menerima _request_ masuk dan seharusnya sudah ditambahkan ke daftar pembagian beban kerja untuk servis yang sama;
   * `Initialized`:  Semua [init containers](/docs/concepts/workloads/pods/init-containers) telah berjalan sempurna.
   * `Unschedulable`: _scheduler_ belum dapat menjadwalkan Pod saat ini, sebagai contoh karena kekurangan _resources_ atau ada batasan-batasan lain.
-  * `ContainersReady`: Semua kontainer di dalam Pod telah siap.
+  * `ContainersReady`: Semua container di dalam Pod telah siap.
 
 
-## Pemeriksaan Kontainer
+## Pemeriksaan Container
 
-Sebuah [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) adalah sebuah diagnosa yang dilakukan secara berkala oleh [kubelet](/docs/admin/kubelet/) dalam suatu kontainer. Untuk melakukan diagnosa, kubelet memanggil sebuah [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) yang diimplementasikan oleh kontainer. Ada 3 tipe _Handler_ yang tersedia, yaitu:
+Sebuah [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) adalah sebuah diagnosa yang dilakukan secara berkala oleh [kubelet](/docs/admin/kubelet/) dalam suatu container. Untuk melakukan diagnosa, kubelet memanggil sebuah [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) yang diimplementasikan oleh container. Ada 3 tipe _Handler_ yang tersedia, yaitu:
 
-* [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core): Mengeksekusi perintah tertentu di dalam kontainer. Diagnosa dikatakan berhasil jika perintah selesai dengan kode status 0.
+* [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core): Mengeksekusi perintah tertentu di dalam container. Diagnosa dikatakan berhasil jika perintah selesai dengan kode status 0.
 
-* [TCPSocketAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#tcpsocketaction-v1-core): Melakukan pengecekan TCP terhadap alamat IP kontainer dengan _port_ tertentu. Diagnosa dikatakan berhasil jika _port_ tersebut terbuka.
+* [TCPSocketAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#tcpsocketaction-v1-core): Melakukan pengecekan TCP terhadap alamat IP container dengan _port_ tertentu. Diagnosa dikatakan berhasil jika _port_ tersebut terbuka.
 
-* [HTTPGetAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core): Melakukan sebuah _request_ HTTP Get terhadap alamat IP kontainer dengan _port_ dan _path_ tertentu. Diagnosa dikatakan berhasil jika responnya memiliki kode status lebih besar atau sama dengan 200 dan kurang dari 400.
+* [HTTPGetAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core): Melakukan sebuah _request_ HTTP Get terhadap alamat IP container dengan _port_ dan _path_ tertentu. Diagnosa dikatakan berhasil jika responnya memiliki kode status lebih besar atau sama dengan 200 dan kurang dari 400.
 
 Setiap pemeriksaan akan menghasilkan salah satu dari tiga hasil berikut:
 
-* _Success_: Kontainer berhasil melakukan diagnosa.
-* _Failure_: Kontainer gagal melakukan diagnosa.
+* _Success_: Container berhasil melakukan diagnosa.
+* _Failure_: Container gagal melakukan diagnosa.
 * _Unknown_: Gagal melakukan diagnosa, sehingga tidak ada aksi yang harus dilakukan.
 
-_Kubelet_ dapat secara optimal melakukan dan bereaksi terhadap dua jenis pemeriksaan yang sedang berjalan pada kontainer, yaitu:
+_Kubelet_ dapat secara optimal melakukan dan bereaksi terhadap dua jenis pemeriksaan yang sedang berjalan pada container, yaitu:
 
-* `livenessProbe`: Ini menunjukkan apakah kontainer sedang berjalan. Jika tidak berhasil melakukan pemeriksaan terhadap _liveness_ dari kontainer, maka kubelet akan mematikan kontainer, dan kontainer akan mengikuti aturan dari [_restart policy_](#restart-policy). Jika kontainer tidak menyediakan pemeriksaan terhadap _liveness_, maka nilai dari _state_ adalah `Success`.
+* `livenessProbe`: Ini menunjukkan apakah container sedang berjalan. Jika tidak berhasil melakukan pemeriksaan terhadap _liveness_ dari container, maka kubelet akan mematikan container, dan container akan mengikuti aturan dari [_restart policy_](#restart-policy). Jika container tidak menyediakan pemeriksaan terhadap _liveness_, maka nilai dari _state_ adalah `Success`.
 
-* `readinessProbe`: Ini menunjukan apakah kontainer sudah siap melayani _request_. Jika tidak berhasil melakukan pemeriksaan terhadap kesiapan dari kontainer, maka _endpoints controller_ akan menghapus alamat IP Pod dari daftar semua _endpoint_ untuk servis yang sama dengan Pod. Nilai awal _state_ sebelum jeda awal adalah `Failure`. Jika kontainer tidak menyediakan pemeriksaan terhadap _readiness_, maka nilai awal _state_ adalah `Success`.
+* `readinessProbe`: Ini menunjukan apakah container sudah siap melayani _request_. Jika tidak berhasil melakukan pemeriksaan terhadap kesiapan dari container, maka _endpoints controller_ akan menghapus alamat IP Pod dari daftar semua _endpoint_ untuk servis yang sama dengan Pod. Nilai awal _state_ sebelum jeda awal adalah `Failure`. Jika container tidak menyediakan pemeriksaan terhadap _readiness_, maka nilai awal _state_ adalah `Success`.
 
 ### Kapan sebaiknya menggunakan pemeriksaan terhadap _liveness_ atau _readiness_?
 
-Jika proses dalam kontainer mungkin gagal yang dikarenakan menghadapi suatu masalah
+Jika proses dalam container mungkin gagal yang dikarenakan menghadapi suatu masalah
 atau menjadi tidak sehat, maka pemeriksaan terhadap _liveness_ tidak diperlukan.
 Kubelet akan secara otomatis melakukan aksi yang tepat mengikuti `restartPolicy` dari Pod.
 
-Jika kamu ingin kontainer bisa dimatikan dan dijalankan ulang ketika gagal melakukan
+Jika kamu ingin container bisa dimatikan dan dijalankan ulang ketika gagal melakukan
 pemeriksaan, maka tentukan pemeriksaan _liveness_ dan tentukan nilai `restartPolicy` sebagai `Always` atau `OnFailure`.
 
 Jika kamu ingin mulai mengirim _traffic_ ke Pod hanya ketika pemeriksaan berhasil,
@@ -93,10 +93,10 @@ maka tentukan pemeriksaan _readiness_. Dalam kasus ini, pemeriksaan _readiness_ 
 akan sama dengan pemeriksaan _liveness_, tapi keberadaan pemeriksaan _readiness_ dalam
 _spec_ berarti Pod akan tetap dijalankan tanpa menerima _traffic_ apapun dan akan
 mulai menerima _traffic_ ketika pemeriksaan yang dilakukan mulai berhasil.
-Jika kontainermu dibutuhkan untuk tetap berjalan ketika _loading_ data yang besar,
+Jika containermu dibutuhkan untuk tetap berjalan ketika _loading_ data yang besar,
 _file_ konfigurasi, atau melakukan migrasi ketika _startup_, maka tentukanlah pemeriksaan _readiness_.
 
-Jika kamu ingin kontainermu dalam mematikan dirinya sendiri, kamu dapat menentukan
+Jika kamu ingin containermu dalam mematikan dirinya sendiri, kamu dapat menentukan
 suatu pemeriksaan _readiness_ yang melakukan pengecekan terhadap _endpoint_ untuk _readiness_.
 _endpoint_ tersebut berbeda dengan _endpoint_ untuk pengecekan _liveness_.
 
@@ -104,29 +104,29 @@ Perlu dicatat, jika kamu hanya ingin bisa menutup _request_ ketika Pod sedang di
 maka kamu tidak perlu menggunakan pemeriksaan _readiness_. Dalam penghapusan, Pod akan
 secara otomatis mengubah _state_ dirinya menjadi _unready_ tanpa peduli apakah terdapat
 pemeriksaan _readiness_ atau tidak. Pod tetap ada pada _state unready_ selama menunggu
-kontainer dalam Pod berhenti.
+container dalam Pod berhenti.
 
 Untuk informasi lebih lanjut mengenai pengaturan pemeriksaan _liveness_ atau _readiness_, lihat bagian
 [Konfigurasi _Liveness_ dan _Readiness_ _Probe_](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-## Status Pod dan Kontainer
+## Status Pod dan Container
 
-Untuk informasi lebih mendalam mengenai status Pod dan kontainer, silakan lihat
+Untuk informasi lebih mendalam mengenai status Pod dan container, silakan lihat
 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 dan
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
 Mohon diperhatikan, informasi tentang status Pod bergantung pada
 [ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
 
-## State Kontainer
+## State Container
 
-Ketika Pod sudah ditempatkan pada suatu node oleh scheduler, kubelet mulai membuat kontainer menggunakan _runtime_ kontainer.
-Ada tiga kemungkinan _state_ untuk suatu kontainer, yaitu Waiting, Running, dan Terminated.
-Untuk mengecek _state_ suatu kontainer, kamu bisa menggunakan perintah `kubectl describe pod [NAMA_POD]`.
-_State_ akan ditampilkan untuk masing-masing kontainer dalam Pod tersebut.
+Ketika Pod sudah ditempatkan pada suatu node oleh scheduler, kubelet mulai membuat container menggunakan _runtime_ container.
+Ada tiga kemungkinan _state_ untuk suatu container, yaitu Waiting, Running, dan Terminated.
+Untuk mengecek _state_ suatu container, kamu bisa menggunakan perintah `kubectl describe pod [NAMA_POD]`.
+_State_ akan ditampilkan untuk masing-masing container dalam Pod tersebut.
 
-* `Waiting`: Merupakan _state_ default dari kontainer. Jika _state_ kontainer bukan Running atau Terminated, berarti dalam _Wating state_.
-Suatu kontainer dalam Waiting _state_ akan tetap menjalan operasi-operasi yang dibutuhkan, misalnya mengunduh _images_, mengaplikasikan Secrets, dsb.
+* `Waiting`: Merupakan _state_ default dari container. Jika _state_ container bukan Running atau Terminated, berarti dalam _Wating state_.
+Suatu container dalam Waiting _state_ akan tetap menjalan operasi-operasi yang dibutuhkan, misalnya mengunduh _images_, mengaplikasikan Secrets, dsb.
 Bersamaan dengan _state_ ini, sebuah pesan dan alasan tentang _state_ akan ditampilkan untuk memberi informasi lebih.
 
     ```yaml
@@ -136,7 +136,7 @@ Bersamaan dengan _state_ ini, sebuah pesan dan alasan tentang _state_ akan ditam
 	  ...
    ```
 
-* `Running`: Menandakan kontainer telah berjalan tanpa masalah. Setelah kontainer masuk ke _state_ Running, jika terdapat _hook_ `postStart` maka akan dijalankan. _State_ ini juga menampilkan waktu ketika kontainer masuk ke _state_ Running.
+* `Running`: Menandakan container telah berjalan tanpa masalah. Setelah container masuk ke _state_ Running, jika terdapat _hook_ `postStart` maka akan dijalankan. _State_ ini juga menampilkan waktu ketika container masuk ke _state_ Running.
 
    ```yaml
    ...
@@ -145,7 +145,7 @@ Bersamaan dengan _state_ ini, sebuah pesan dan alasan tentang _state_ akan ditam
    ...
    ```
 
-* `Terminated`:  Menandakan kontainer telah menyelesaikan "tugasnya". Kontainer akan menjadi _state_ ini ketika telah menyelesaikan eksekusi atau terjadi kesalahan. Terlepas dari itu, sebuah alasan dan _exit code_ akan ditampilkan, bersama dengan waktu kontainer mulai dijalankan dan waktu berhenti. Sebelum kontainer masuk ke _state_ Terminated, jika terdapat `preStop` _hook_ maka akan dijalankan.
+* `Terminated`:  Menandakan container telah menyelesaikan "tugasnya". Container akan menjadi _state_ ini ketika telah menyelesaikan eksekusi atau terjadi kesalahan. Terlepas dari itu, sebuah alasan dan _exit code_ akan ditampilkan, bersama dengan waktu container mulai dijalankan dan waktu berhenti. Sebelum container masuk ke _state_ Terminated, jika terdapat `preStop` _hook_ maka akan dijalankan.
 
    ```yaml
    ...
@@ -197,8 +197,8 @@ salah satu dari [KubeClient _libraries_](/docs/reference/using-api/client-librar
 
 Dengan diperkenalkannya kondisi Pod yang baru, sebuah Pod akan dianggap siap hanya jika memenuhi dua syarat berikut:
 
-* Semua kontainer dalam Pod telah siap.
-* Semua kontainer yang diatur dalam `ReadinessGates` bernilai "`True`".
+* Semua container dalam Pod telah siap.
+* Semua container yang diatur dalam `ReadinessGates` bernilai "`True`".
 
 
 Untuk memfasilitasi perubahan tersebut terhadap evaluasi kesiapan Pod, dibuatkan sebuah kondisi Pod baru yaitu `ContainerReady`,
@@ -213,8 +213,8 @@ Dalam K8s 1.12, fitur tersebut sudah diaktifkan dari awal.
 ## Aturan Menjalankan Ulang
 
 Sebuah PodSpec memiliki _field_ `restartPolicy` dengan kemungkinan nilai berupa Always, OnFailure, dan Never.
-Nilai awalnya berupa Always. `restartPolicy` akan berlaku untuk semua kontainer dalam Pod.
-Kontainer yang mati dan dijalankan ulang oleh kubelet akan dijalankan ulang dengan jeda waktu yang ekponensial (10s, 20s, 40s, ...)
+Nilai awalnya berupa Always. `restartPolicy` akan berlaku untuk semua container dalam Pod.
+Container yang mati dan dijalankan ulang oleh kubelet akan dijalankan ulang dengan jeda waktu yang ekponensial (10s, 20s, 40s, ...)
 dengan batas atas senilai lima menit. Jeda waktu ini akan diatur ulang setelah sukses berjalan selama 10 menit.
 Sesuai dengan diskusi pada [dokumen Pod](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof),
 setelah masuk ke suatu node, sebuah Pod tidak akan pindah ke node lain.
@@ -288,43 +288,43 @@ spec:
 ### Contoh _State_
 
 
-  * Pod sedang berjalan dan memiliki sebuah kontainer. Kontainer berhenti dengan sukses.
+  * Pod sedang berjalan dan memiliki sebuah container. Container berhenti dengan sukses.
     * Mencatat _event_ penyelesaian.
     * Jika nilai `restartPolicy` adalah:
-      * Always: Jalankan ulang kontainer; nilai `phase` Pod akan tetap Running.
+      * Always: Jalankan ulang container; nilai `phase` Pod akan tetap Running.
 	  * OnFailure: nilai `phase` Pod akan berubah menjadi Succeeded.
 	  * Never: nilai `phase` Pod akan berubah menjadi Succeeded.
 
-  * Pod sedang berjalan dan memiliki sebuah kontainer. Kontainer berhenti dengan kegagalan.
+  * Pod sedang berjalan dan memiliki sebuah container. Container berhenti dengan kegagalan.
     * Mencatat _event_ kegagalan.
     * Jika nilai `restartPolicy` adalah:
-	  * Always: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
-	  * OnFailure: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.			
+	  * Always: Jalankan ulang container, nilai `phase` Pod akan tetap Running.
+	  * OnFailure: Jalankan ulang container, nilai `phase` Pod akan tetap Running.			
 	  * Never: nilai `phase` Pod akan menjadi Failed.
 
-  * Pod sedang berjalan dan memiliki dua kontainer. Kontainer pertama berhenti dengan kegagalan.
+  * Pod sedang berjalan dan memiliki dua container. Container pertama berhenti dengan kegagalan.
     * Mencatat _event_ kegagalan.
 	* Jika nilai `restartPolicy` adalah:
-	  * Always: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
-	  * OnFailure: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
-	  * Never: Tidak akan menjalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
-	* Jika kontainer pertama tidak berjalan dan kontainer kedua berhenti:
+	  * Always: Jalankan ulang container, nilai `phase` Pod akan tetap Running.
+	  * OnFailure: Jalankan ulang container, nilai `phase` Pod akan tetap Running.
+	  * Never: Tidak akan menjalankan ulang container, nilai `phase` Pod akan tetap Running.
+	* Jika container pertama tidak berjalan dan container kedua berhenti:
 	  * Mencatat _event_ kegagalan.
 	  * Jika nilai `restartPolicy` adalah:
-	    * Always: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
-		* OnFailure: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
+	    * Always: Jalankan ulang container, nilai `phase` Pod akan tetap Running.
+		* OnFailure: Jalankan ulang container, nilai `phase` Pod akan tetap Running.
 		* Never: nilai `phase` Pod akan menjadi Failed.
 
-  * Pod sedang berjalan dan memiliki satu kontainer. Kontainer berhenti karena kehabisan _memory_.
-    * Kontainer diberhentikan dengan kegagalan.
+  * Pod sedang berjalan dan memiliki satu container. Container berhenti karena kehabisan _memory_.
+    * Container diberhentikan dengan kegagalan.
 	* Mencatat kejadian kehabisan _memory_ (OOM)
 	* Jika nilai `restartPolicy` adalah:
-	  * Always: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
-	  * OnFailure: Jalankan ulang kontainer, nilai `phase` Pod akan tetap Running.
+	  * Always: Jalankan ulang container, nilai `phase` Pod akan tetap Running.
+	  * OnFailure: Jalankan ulang container, nilai `phase` Pod akan tetap Running.
 	  * Never: Mencatat kejadian kegagalan, nilai `phase` Pod akan menjadi Failed.
 
   * Pod sedang berjalan dan sebuah _disk_ mati.
-    * Menghentikan semua kontainer.
+    * Menghentikan semua container.
 	* Mencatat kejadian yang sesuai.
 	* Nilai `phase` Pod menjadi Failed.
 	* Jika berjalan menggunakan pengontrol, maka Pod akan dibuat ulang di tempat lain.
@@ -340,12 +340,12 @@ spec:
 {{% capture whatsnext %}}
 
 * Dapatkan pengalaman langsung mengenai
-  [penambahan _handlers_ pada kontainer _lifecycle events_](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+  [penambahan _handlers_ pada container _lifecycle events_](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Dapatkan pengalaman langsung mengenai
   [pengaturan _liveness_ dan _readiness probes_](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* Pelajari lebih lanjut mengenai [_lifecycle hooks_ pada kontainer](/docs/concepts/containers/container-lifecycle-hooks/).
+* Pelajari lebih lanjut mengenai [_lifecycle hooks_ pada container](/docs/concepts/containers/container-lifecycle-hooks/).
 
 {{% /capture %}}
 

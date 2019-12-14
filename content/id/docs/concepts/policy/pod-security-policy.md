@@ -312,7 +312,7 @@ determines if any container in a pod can enable privileged mode.
 
 ### Namespace Host
 
-**HostPID** - Mengatur jika Container-container pada Pod dapat berbagi _namespace process ID_ pada _host_. Catatlah bahwa saat dipasangkan dengan ptrace, hal ini dapat digunakan untuk eskalasi _privilege_ di luar kontainer (ptrace secara bawaan tidak diizinkan).
+**HostPID** - Mengatur jika Container-container pada Pod dapat berbagi _namespace process ID_ pada _host_. Catatlah bahwa saat dipasangkan dengan ptrace, hal ini dapat digunakan untuk eskalasi _privilege_ di luar container (ptrace secara bawaan tidak diizinkan).
 
 **HostIPC** - Mengatur jika container-container pada Pod dapat berbagi _namespace IPC_ pada _host_.
 

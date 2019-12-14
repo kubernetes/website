@@ -17,29 +17,29 @@ Pod adalah unit komputasi terkecil yang bisa di-_deploy_ dan dibuat serta dikelo
 ## Apa Itu Pod?
 
 Sebuah Pod (seperti pod pada paus atau kacang polong) adalah sebuah kelompok yang
-terdiri dari satu atau lebih {{< glossary_tooltip text="kontainer" term_id="container" >}} 
-(misalnya kontainer Docker), dengan ruang penyimpanan ataupun jaringan yang dipakai bersama,
-dan sebuah spesifikasi mengenai bagaimana menjalankan kontainer. Isi dari Pod akan
+terdiri dari satu atau lebih {{< glossary_tooltip text="container" term_id="container" >}} 
+(misalnya container Docker), dengan ruang penyimpanan ataupun jaringan yang dipakai bersama,
+dan sebuah spesifikasi mengenai bagaimana menjalankan container. Isi dari Pod akan
 selalu diletakkan dan dijadwalkan bersama, serta berjalan dalam konteks yang sama.
 Sebuah Pod memodelkan _"logical host"_ yang spesifik terhadap aplikasi. Ini mengandung
-lebih dari satu kontainer aplikasi yang secara relatif saling terhubung erat. Sebelum 
-masa kontainer, menjalankan aplikasi dalam mesin fisik atau _virtual_ berarti
+lebih dari satu container aplikasi yang secara relatif saling terhubung erat. Sebelum 
+masa container, menjalankan aplikasi dalam mesin fisik atau _virtual_ berarti
 menjalankan dalam _logical host_ yang sama.
 
-Walaupun Kubernetes mendukung lebih banyak _runtime_ kontainer selain Docker, 
+Walaupun Kubernetes mendukung lebih banyak _runtime_ container selain Docker, 
 namun Docker adalah yang paling umum diketahui dan ini membantu dalam menjelaskan
 Pod dengan istilah pada Docker.
 
 Konteks bersama dalam sebuah Pod adalah kumpulan Linux namespace, cgroup dan 
-kemungkinan segi isolasi lain, hal yang sama yang mengisolasi kontainer Docker.
+kemungkinan segi isolasi lain, hal yang sama yang mengisolasi container Docker.
 Dalam sebuah konteks pada Pod, setiap aplikasi bisa menerapkan sub-isolasi lebih lanjut.
 
-Semua kontainer dalam suatu Pod akan berbagi alamat IP dan _port_ yang sama, 
+Semua container dalam suatu Pod akan berbagi alamat IP dan _port_ yang sama, 
 dan bisa saling berkomunikasi melalui `localhost`. Komunikasi tersebut mengunakan 
 standar _inter-process communications_ (IPC) seperti SystemV semaphores 
-atau POSIX shared memory. Kontainer pada Pod yang berbeda memiliki alamat IP 
+atau POSIX shared memory. Container pada Pod yang berbeda memiliki alamat IP 
 yang berbeda dan tidak dapat berkomunikasi menggunakan IPC tanpa 
-[pengaturan khusus](/docs/concepts/policy/pod-security-policy/). Kontainer ini
+[pengaturan khusus](/docs/concepts/policy/pod-security-policy/). Container ini
 biasa berkomunikasi dengan yang lain menggunakan alamat IP setiap Pod.
 
 Aplikasi dalam suatu Pod juga memiliki akses ke {{< glossary_tooltip text="ruang penyimpanan" term_id="volume" >}} bersama, 
@@ -47,9 +47,9 @@ yang didefinisikan sebagai bagian dari Pod dan dibuat bisa diikatkan ke masing-m
 _filesystem_ pada aplikasi.
 
 Dalam istilah konsep [Docker](https://www.docker.com/), sebuah Pod dimodelkan sebagai 
-gabungan dari kontainer Docker yang berbagi _namespace_ dan ruang penyimpanan _filesystem_.
+gabungan dari container Docker yang berbagi _namespace_ dan ruang penyimpanan _filesystem_.
 
-Layaknya aplikasi dengan kontainer, Pod dianggap sebagai entitas yang relatif tidak kekal 
+Layaknya aplikasi dengan container, Pod dianggap sebagai entitas yang relatif tidak kekal 
 (tidak bertahan lama). Seperti yang didiskusikan dalam 
 [siklus hidup Pod](/docs/concepts/workloads/pods/pod-lifecycle/), Pod dibuat, diberikan
 ID unik (UID), dan dijadwalkan pada suatu mesin dan akan tetap disana hingga dihentikan
@@ -68,8 +68,8 @@ alasan apapun, sekalipun Pod pengganti yang identik telah dibuat, semua yang ber
 
 {{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
 
-*Sebuah Pod dengan banyak kontainer, yaitu _File Puller_ dan _Web Server_ yang menggunakan
-ruang penyimpanan persisten untuk berbagi ruang penyimpanan bersama antara kontainer.*
+*Sebuah Pod dengan banyak container, yaitu _File Puller_ dan _Web Server_ yang menggunakan
+ruang penyimpanan persisten untuk berbagi ruang penyimpanan bersama antara container.*
 
 ## Motivasi suatu Pods
 
@@ -81,7 +81,7 @@ pengelolaan aplikasi dengan menyediakan abstraksi tingkat yang lebih tinggi
 daripada konstituen aplikasinya. Pod melayani sebagai unit dari _deployment_, 
 penskalaan horizontal, dan replikasi. _Colocation_ (_co-scheduling_), berbagi nasib 
 (misalnya dimatikan), replikasi terkoordinasi, berbagi sumber daya dan 
-pengelolaan ketergantungan akan ditangani otomatis untuk kontainer dalam suatu Pod.
+pengelolaan ketergantungan akan ditangani otomatis untuk container dalam suatu Pod.
 
 ### Berbagi sumber daya dan komunikasi
 
@@ -94,13 +94,13 @@ berkoordinasi mengenai penggunaan _port_. Setiap Pod memiliki alamat IP
 dalam satu jaringan bersama yang bisa berkomunikasi dengan komputer lain
 dan Pod lain dalam jaringan yang sama.
 
-Kontainer dalam suatu Pod melihat _hostname_ sistem sebagai sesuatu yang sama
+Container dalam suatu Pod melihat _hostname_ sistem sebagai sesuatu yang sama
 dengan konfigurasi `name` pada Pod. Informasi lebih lanjut terdapat dibagian
 [jaringan](/docs/concepts/cluster-administration/networking/).
 
-Sebagai tambahan dalam mendefinisikan kontainer aplikasi yang berjalan dalam Pod,
+Sebagai tambahan dalam mendefinisikan container aplikasi yang berjalan dalam Pod,
 Pod memberikan sepaket sistem penyimpanan bersama. Sistem penyimpanan memungkinkan
-data untuk bertahan saat kontainer dijalankan ulang dan dibagikan kepada semua
+data untuk bertahan saat container dijalankan ulang dan dibagikan kepada semua
 aplikasi dalam Pod tersebut.
 
 ## Penggunaan Pod
@@ -124,21 +124,21 @@ Penjelasan lebih lengkap bisa melihat [The Distributed System ToolKit: Patterns 
 
 ## Alternatif pertimbangan
 
-Kenapa tidak menjalankan banyak program dalam satu kontainer (Docker)?
+Kenapa tidak menjalankan banyak program dalam satu container (Docker)?
 
-1. Transparansi. Membuat kontainer dalam suatu Pod menjadi terlihat dari infrastruktur,
-   memungkinkan infrastruktur menyediakan servis ke kontainer tersebut, misalnya saja
+1. Transparansi. Membuat container dalam suatu Pod menjadi terlihat dari infrastruktur,
+   memungkinkan infrastruktur menyediakan servis ke container tersebut, misalnya saja
    pengelolaan proses dan pemantauan sumber daya. Ini memfasilitasi sejumlah 
    kenyamanan untuk pengguna.
-1. Pemisahan ketergantungan perangkat lunak. Setiap kontainer mungkin memiliki 
+1. Pemisahan ketergantungan perangkat lunak. Setiap container mungkin memiliki 
    versi, dibuat dan dijalankan ulang secara independen. Kubernetes mungkin mendukung
-   pembaharuan secara langsung terhadap suatu kontainer, suatu saat nanti.
+   pembaharuan secara langsung terhadap suatu container, suatu saat nanti.
 1. Mudah digunakan. Penguna tidak diharuskan menjalankan manajer prosesnya sendiri,
    khawatir dengan sinyal dan propagasi _exit-code_, dan lain sebagainya.
-1. Efisiensi. Karena infrastruktur memegang lebih banyak tanggung jawab, kontainer
+1. Efisiensi. Karena infrastruktur memegang lebih banyak tanggung jawab, container
    bisa lebih ringan.
 
-Kenapa tidak mendukung penjadwalan kontainer berdasarkan _affinity_?
+Kenapa tidak mendukung penjadwalan container berdasarkan _affinity_?
 
 Cara itu bisa menyediakan lokasi yang sama, namun tidak memberikan banyak 
 keuntungan dari Pod, misalnya saja berbagi sumber daya, IPC, jaminan berbagi nasib
@@ -188,9 +188,9 @@ waktu untuk dibersihkan). Pengguna seharusnya dapat meminta untuk menghapus dan 
 proses penghentiannya, serta dapat memastikan penghentian berjalan sempurna. Ketika 
 pengguna meminta menghapus Pod, sistem akan mencatat masa tenggang untuk penghentian
 secara normal sebelum Pod dipaksa untuk dihentikan, dan sinyal TERM akan dikirim ke
-proses utama dalam setiap kontainer. Setelah masa tenggang terlewati, sinyal KILL 
+proses utama dalam setiap container. Setelah masa tenggang terlewati, sinyal KILL 
 akan dikirim ke setiap proses dan Pod akan dihapus dari API server. Jika Kubelet 
-atau kontainer manajer dijalankan ulang ketika menunggu suatu proses dihentikan,
+atau container manajer dijalankan ulang ketika menunggu suatu proses dihentikan,
 penghentian tersebut akan diulang dengan mengembalikan masa tenggang senilai semula.
 
 Contohnya sebagai berikut:
@@ -201,12 +201,12 @@ bersama dengan masa tenggang.
 1. Pod ditampilkan dalam status "Terminating" ketika tercantum dalam perintah klien
 1. (bersamaan dengan poin 3) Ketika Kubelet melihat Pod sudah ditandai sebagai 
 "Terminating" karena waktu pada poin 2 sudah diatur, ini memulai proses penghentian Pod
-	1. Jika salah satu kontainer pada Pod memiliki 
+	1. Jika salah satu container pada Pod memiliki 
 	[preStop _hook_](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), 
-	maka akan dipanggil di dalam kontainer. Jika `preStop` _hook_ masih berjalan
+	maka akan dipanggil di dalam container. Jika `preStop` _hook_ masih berjalan
 	setelah masa tenggang habis, langkah 2 akan dipanggil dengan tambahan masa tenggang
 	yang sedikit, 2 detik.
-	1. Semua kontainer akan diberikan sinyal TERM. Sebagai catatan, tidak semua kontainer 
+	1. Semua container akan diberikan sinyal TERM. Sebagai catatan, tidak semua container 
 	akan menerima sinyal TERM dalam waktu yang sama dan mungkin butuh waktu untuk 
 	menjalankan `preStop` _hook_ jika bergantung pada urutan penghentiannya.
 1. (bersamaan dengan poin 3) Pod akan dihapus dari daftar _endpoint_ untuk servis dan 
@@ -240,18 +240,18 @@ Penghentian paksa dapat menyebabkan hal berbahaya pada beberapa Pod dan seharusn
 dilakukan dengan perhatian lebih. Dalam kasus StatefulSet Pods, silakan melihat 
 dokumentasi untuk [penghentian Pod dari StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-## Hak istimewa untuk kontainer pada Pod
+## Hak istimewa untuk container pada Pod
 
-Setiap kontainer dalam Pod dapat mengaktifkan hak istimewa (mode _previleged_), dengan menggunakan tanda
+Setiap container dalam Pod dapat mengaktifkan hak istimewa (mode _previleged_), dengan menggunakan tanda
 `privileged` pada [konteks keamanan](/docs/tasks/configure-pod-container/security-context/)
-pada spesifikasi kontainer. Ini akan berguna untuk kontainer yang ingin menggunakan 
+pada spesifikasi container. Ini akan berguna untuk container yang ingin menggunakan 
 kapabilitas Linux seperti memanipulasi jaringan dan mengakses perangkat. Proses dalam
-kontainer mendapatkan hak istimewa yang hampir sama dengan proses di luar kontainer.
+container mendapatkan hak istimewa yang hampir sama dengan proses di luar container.
 Dengan hak istimerwa, seharusnya lebih mudah untuk menulis pada jaringan dan _plugin_ 
 ruang penyimpanan sebagai Pod berbeda yang tidak perlu dikompilasi ke dalam kubelet.
 
 {{< note >}}
-_Runtime_ kontainer kamu harus mendukung konsep hak istimewa kontainer untuk membuat
+_Runtime_ container kamu harus mendukung konsep hak istimewa container untuk membuat
 pengaturan ini menjadi relevan.
 {{< /note >}}
 

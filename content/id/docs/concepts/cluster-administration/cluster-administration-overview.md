@@ -42,7 +42,7 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
 
 * [Sertifikat (*certificate*)](/docs/concepts/cluster-administration/certificates/) akan menjabarkan langkah-langkah untuk membuat sertifikat menggunakan beberapa *tool chains*.
 
-* [Kubernetes *Container Environment*](/docs/concepts/containers/container-environment-variables/) akan menjelaskan *environment* untuk kontainer yang dikelola oleh Kubelet pada Kubernetes *node*.
+* [Kubernetes *Container Environment*](/docs/concepts/containers/container-environment-variables/) akan menjelaskan *environment* untuk container yang dikelola oleh Kubelet pada Kubernetes *node*.
 
 * [Mengontrol Akses ke Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) akan menjabarkan bagaimana cara mengatur izin (*permission*) untuk akun pengguna dan *service account*.
 

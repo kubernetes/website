@@ -7,13 +7,13 @@ weight: 30
 
 {{% capture overview %}}
 
-## Model Kubernetes untuk menghubungkan kontainer
+## Model Kubernetes untuk menghubungkan container
 
 Sekarang kamu memiliki aplikasi yang telah direplikasi, kamu dapat mengeksposnya di jaringan. Sebelum membahas pendekatan jaringan di Kubernetes, akan lebih baik jika kamu paham bagaimana jaringan bekerja di dalam *Docker*.
 
-Secara *default*, *Docker* menggunakan jaringan *host*, jadi kontainer dapat berkomunikasi dengan kontainer lainnya jika mereka berada di dalam *node* yang sama. Agar kontainer *Docker* dapat berkomunikasi antar *node*, masing-masing kontainer tersebut harus diberikan *port* yang berbeda di alamat IP *node* tersebut, yang akan diteruskan (*proxied*) ke dalam kontainer. Artinya adalah para kontainer di dalam sebuah *node* harus berkoordinasi *port* mana yang akan digunakan atau dialokasikan secara otomatis.
+Secara *default*, *Docker* menggunakan jaringan *host*, jadi container dapat berkomunikasi dengan container lainnya jika mereka berada di dalam *node* yang sama. Agar container *Docker* dapat berkomunikasi antar *node*, masing-masing container tersebut harus diberikan *port* yang berbeda di alamat IP *node* tersebut, yang akan diteruskan (*proxied*) ke dalam container. Artinya adalah para container di dalam sebuah *node* harus berkoordinasi *port* mana yang akan digunakan atau dialokasikan secara otomatis.
 
-Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang. Kubernetes mengasumsikan bahwa *Pod* dapat berkomunikasi dengan *Pod* lain, terlepas di *Node* mana *Pod* tersebut di *deploy*. Kubernetes memberikan setiap *Pod* alamat *ClusterIP* sehingga kamu tidak perlu secara explisit membuat jalur antara *Pod* ataupun memetakan *port* kontainer ke dalam *port* di dalam *Node* tersebut. Ini berarti kontainer di dalam sebuah *Pod* dapat berkomunikasi dengan *localhost* via *port*, dan setiap *Pod* di dalam klaster dapat berkomunikasi tanpa *NAT*. Panduan ini akan membahas bagaimana kamu dapat menjalankan sebuah layanan atau aplikasi di dalam model jaringan di atas.
+Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang. Kubernetes mengasumsikan bahwa *Pod* dapat berkomunikasi dengan *Pod* lain, terlepas di *Node* mana *Pod* tersebut di *deploy*. Kubernetes memberikan setiap *Pod* alamat *ClusterIP* sehingga kamu tidak perlu secara explisit membuat jalur antara *Pod* ataupun memetakan *port* container ke dalam *port* di dalam *Node* tersebut. Ini berarti container di dalam sebuah *Pod* dapat berkomunikasi dengan *localhost* via *port*, dan setiap *Pod* di dalam klaster dapat berkomunikasi tanpa *NAT*. Panduan ini akan membahas bagaimana kamu dapat menjalankan sebuah layanan atau aplikasi di dalam model jaringan di atas.
 
 Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepnya. Konsep yang sama juga ditulis lebih lengkap di [Aplikasi Jenkins CI](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes).
 
@@ -23,7 +23,7 @@ Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepn
 
 ## Mengekspos Pod ke dalam klaster
 
-Kita melakukan ini di beberapa contoh sebelumnya, tetapi mari kita lakukan sekali lagi dan berfokus pada prespektif jaringannya. Buat sebuah *nginx Pod*, dan perhatikan bahwa templat tersebut mempunyai spesifikasi *port* kontainer:
+Kita melakukan ini di beberapa contoh sebelumnya, tetapi mari kita lakukan sekali lagi dan berfokus pada prespektif jaringannya. Buat sebuah *nginx Pod*, dan perhatikan bahwa templat tersebut mempunyai spesifikasi *port* container:
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
 
@@ -45,7 +45,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
     podIP: 10.244.2.5
 ```
 
-Kamu dapat melakukan akses dengan *ssh* ke dalam *node* di dalam klaster dan mengakses IP *Pod* tersebut menggunakan *curl*. Perlu dicatat bahwa kontainer tersebut tidak menggunakan *port* 80 di dalam *node*, atau aturan *NAT* khusus untuk merutekan trafik ke dalam *Pod*. Ini berarti kamu dapat menjalankan banyak *nginx Pod* di *node* yang sama dimana setiap *Pod* dapat menggunakan *containerPort* yang sama, kamu dapat mengakses semua itu dari *Pod* lain ataupun dari *node* di dalam klaster menggunakan IP. Seperti *Docker*, *port* masih dapat di publikasi ke dalam * interface node*, tetapi kebutuhan seperti ini sudah berkurang karena model jaringannya.
+Kamu dapat melakukan akses dengan *ssh* ke dalam *node* di dalam klaster dan mengakses IP *Pod* tersebut menggunakan *curl*. Perlu dicatat bahwa container tersebut tidak menggunakan *port* 80 di dalam *node*, atau aturan *NAT* khusus untuk merutekan trafik ke dalam *Pod*. Ini berarti kamu dapat menjalankan banyak *nginx Pod* di *node* yang sama dimana setiap *Pod* dapat menggunakan *containerPort* yang sama, kamu dapat mengakses semua itu dari *Pod* lain ataupun dari *node* di dalam klaster menggunakan IP. Seperti *Docker*, *port* masih dapat di publikasi ke dalam * interface node*, tetapi kebutuhan seperti ini sudah berkurang karena model jaringannya.
 
 Kamu dapat membaca lebih detail [bagaimana kita melakukan ini](/docs/concepts/cluster-administration/networking/#how-to-achieve-this) jika kamu penasaran.
 
@@ -68,7 +68,7 @@ Perintah di atas sama dengan `kubectl apply -f` dengan *yaml* sebagai berikut:
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
 
-Spesifikasi ini akan membuat *Service* yang membuka *TCP port 80* di setiap *Pod* dengan label `run: my-nginx` dan mengeksposnya ke dalam *port Service* (`targetPort`: adalah port kontainer yang menerima trafik, `port` adalah *service port* yang dapat berupa *port* apapun yang digunakan *Pod* lain untuk mengakses *Service*).
+Spesifikasi ini akan membuat *Service* yang membuka *TCP port 80* di setiap *Pod* dengan label `run: my-nginx` dan mengeksposnya ke dalam *port Service* (`targetPort`: adalah port container yang menerima trafik, `port` adalah *service port* yang dapat berupa *port* apapun yang digunakan *Pod* lain untuk mengakses *Service*).
 
 Lihat [Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 objek *API* untuk melihat daftar *field* apa saja yang didukung di definisi *Service*. Cek *Service* kamu:
@@ -255,7 +255,7 @@ Berikut catatan penting tentang manifes *nginx-secure-app*:
 
 - di dalam file tersebut, ada spesifikasi *Deployment* dan *Service*
 - ada [server nginx](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf) yang melayani trafik *HTTP* di *port* 80 dan trafik *HTTPS* di *port* 443, dan *Service nginx* yang mengekspos kedua *port* tersebut.
-- Setiap kontainer mempunyai akses ke *key* melalui *volume* yang di *mount* pada `/etc/nginx/ssl`. Ini adalah konfigurasi sebelum server *nginx* dijalankan.
+- Setiap container mempunyai akses ke *key* melalui *volume* yang di *mount* pada `/etc/nginx/ssl`. Ini adalah konfigurasi sebelum server *nginx* dijalankan.
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml

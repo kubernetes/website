@@ -24,7 +24,7 @@ Lihat [Pengelolaan Objek Kubernetes](/id/docs/concepts/overview/object-managemen
 
 Perangkat `kubectl` mendukung perintah-perintah berbentuk kata kerja untuk membuat beberapa tipe objek yang paling umum. Perintah-perintah tersebut diberi nama yang mudah dikenali oleh pengguna yang belum familiar dengan tipe-tipe objek Kubernetes.
 
-- `run`: Membuat sebuah objek Deployment untuk menjalankan kontainer di satu atau lebih Pod.
+- `run`: Membuat sebuah objek Deployment untuk menjalankan container di satu atau lebih Pod.
 - `expose`: Membuat sebuah objek Service untuk mengatur lalu lintas beban antar Pod.
 - `autoscale`: Membuat sebuah objek Autoscaler untuk melakukan *scaling* horizontal secara otomatis terhadap sebuah objek *controller*, misalnya sebuah objek Deployment.
 
@@ -96,7 +96,7 @@ Ada beberapa perintah untuk menampilkan informasi tentang sebuah objek:
 
 - `get`: Menampilkan informasi dasar dari objek-objek yang sesuai dengan parameter dari perintah ini. Gunakan `get -h` untuk melihat daftar opsi yang bisa digunakan.
 - `describe`: Menampilkan agregat informasi detil dari objek-objek yang sesuai dengan parameter dari perintah ini.
-- `logs`: Menampilkan isi stdout dan stderr dari sebuah kontainer yang berjalan di sebuah Pod.
+- `logs`: Menampilkan isi stdout dan stderr dari sebuah container yang berjalan di sebuah Pod.
 
 ## Menggunakan perintah `set` untuk memodifikasi objek sebelum dibuat
 

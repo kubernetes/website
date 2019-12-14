@@ -19,7 +19,7 @@ kamu belajar lebih dalam bagaimana cara kerja Kubernetes.
 
 Untuk menggunakan Kubernetes, kamu menggunakan obyek-obyek *Kubernetes API* untuk merepresentasikan
 *state* yang diinginkan: apa yang aplikasi atau *workload* lain yang ingin kamu
-jalankan, *image* kontainer yang digunakan, jaringan atau *resource disk* apa yang ingin
+jalankan, *image* container yang digunakan, jaringan atau *resource disk* apa yang ingin
 kamu sediakan, dan lain sebagainya. Kamu membuat *state* yang diinginkan dengan cara membuat
 obyek dengan menggunakan API Kubernetes, dan biasanya menggunakan `command-line interface`, yaitu `kubectl`.
 Kamu juga dapat secara langsung berinteraksi dengan klaster untuk membuat atau mengubah
@@ -29,7 +29,7 @@ Setelah kamu membuat *state* yang kamu inginkan, *Control Plane* Kubernetes
 menggunakan `Pod Lifecycle Event Generator (PLEG)` untuk mengubah
 *state* yang ada saat ini supaya sama dengan *state* yang diinginkan.
 Untuk melakukan hal tersebut, Kubernetes melakukan berbagai *task* secara otomatis,
-misalnya dengan mekanisme `start` atau `stop` kontainer, melakukan *scale* replika dari
+misalnya dengan mekanisme `start` atau `stop` container, melakukan *scale* replika dari
 suatu aplikasi, dan lain sebagainya. *Control Plane* Kubernetes terdiri dari sekumpulan
 `process` yang dijalankan di klaster:
 

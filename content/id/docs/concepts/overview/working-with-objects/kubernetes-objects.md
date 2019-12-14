@@ -19,7 +19,7 @@ Objek-objek Kubernetes adalah entitas persisten di dalam sistem Kubernetes.
 Kubernetes menggunakan entitas ini untuk merepresentasikan _state_ yang ada pada
 klaster kamu. Secara spesifik, hal itu dapat dideskripsikan sebagai:
 
-* Aplikasi-aplikasi kontainer apa sajakah yang sedang dijalankan (serta pada _node_ apa aplikasi tersebut dijalankan)
+* Aplikasi-aplikasi container apa sajakah yang sedang dijalankan (serta pada _node_ apa aplikasi tersebut dijalankan)
 * _Resource_ yang tersedia untuk aplikasi tersebut
 * _Policy_ yang mengatur bagaimana aplikasi tersebut dijalankan, misalnya _restart_, _upgrade_, dan _fault-tolerance_.
 
