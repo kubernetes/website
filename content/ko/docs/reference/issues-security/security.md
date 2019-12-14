@@ -1,6 +1,5 @@
 ---
 title: 쿠버네티스 보안과 공개 정보
-aliases: [/security/]
 content_template: templates/concept
 weight: 20
 ---
@@ -14,7 +13,7 @@ weight: 20
 
 보안 및 주요 API 공지에 대한 이메일을 위해 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 그룹에 가입하세요.
 
-[이 링크](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50)를 사용하여 RSS 피드를 구독할 수 있다. 
+[이 링크](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50)를 사용하여 RSS 피드를 구독할 수 있다.
 
 ## 취약점 보고
 
@@ -50,4 +49,3 @@ weight: 20
 
 공개 날짜는 쿠버네티스 제품 보안 위원회와 버그 제출자가 협상한다. 사용자 완화가 가능해지면 가능한 빨리 버그를 완전히 공개하는 것이 좋다. 버그 또는 픽스가 아직 완전히 이해되지 않았거나 솔루션이 제대로 테스트되지 않았거나 벤더 협력을 위해 공개를 지연시키는 것이 합리적이다. 공개 기간은 즉시(특히 이미 공개적으로 알려진 경우)부터 몇 주까지입니다. 간단한 완화 기능이 있는 취약점의 경우 보고 날짜부터 공개 날짜까지는 7일 정도 소요될 것으로 예상된다. 쿠버네티스 제품 보안 위원회는 공개 날짜를 설정할 때 최종 결정권을 갖는다.
 {{% /capture %}}
-
