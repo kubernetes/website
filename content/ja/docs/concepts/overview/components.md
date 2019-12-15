@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 Kubernetesをデプロイすると、クラスターが展開されます。
-{{< glossary_definition term_id="cluster" length="all" prepend="A cluster is">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="クラスターは、">}}
 
 このドキュメントでは、Kubernetesクラスターが機能するために必要となるさまざまなコンポーネントの概要を説明します。
 
