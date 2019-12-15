@@ -705,7 +705,7 @@ spec:
         service.kubernetes.io/service.listenerParameters: ""
 
         # ロードバランサーのタイプを指定します
-        # 有効な値: classic（Classic Cloud Load Balancer）またはapplication（Application Cloud Load Balancer）
+        # 有効な値: classic(Classic Cloud Load Balancer)またはapplication(Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
         # パブリックネットワーク帯域幅の課金方法を指定します
         # 有効な値: TRAFFIC_POSTPAID_BY_HOUR（bill-by-traffic）およびBANDWIDTH_POSTPAID_BY_HOUR（bill-by-bandwidth）
