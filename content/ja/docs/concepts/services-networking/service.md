@@ -708,7 +708,7 @@ spec:
         # 有効な値: classic(Classic Cloud Load Balancer)またはapplication(Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
         # パブリックネットワーク帯域幅の課金方法を指定します
-        # 有効な値: TRAFFIC_POSTPAID_BY_HOUR（bill-by-traffic）およびBANDWIDTH_POSTPAID_BY_HOUR（bill-by-bandwidth）
+        # 有効な値: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic)およびBANDWIDTH_POSTPAID_BY_HOUR(bill-by-bandwidth)
         service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
         # 帯域幅の値を指定します(値の範囲：[1-2000] Mbps)。
         service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
