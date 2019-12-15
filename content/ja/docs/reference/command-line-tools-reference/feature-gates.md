@@ -311,7 +311,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `EnableAggregatedDiscoveryTimeout` (*非推奨*): 集約されたディスカバリコールで5秒のタイムアウトを有効にします。
 - `EnableEquivalenceClassCache`: Podをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
 - `EphemeralContainers`: 稼働するPodに{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}を追加する機能を有効にします。
-- `EvenPodsSpread`: Podをトポロジドメイン全体で均等にスケジュールできるようにします。[Even Pods Spread](/docs/concepts/configuration/even-pods-spread)をご覧ください。
+- `EvenPodsSpread`: Podをトポロジードメイン全体で均等にスケジュールできるようにします。[Even Pods Spread](/docs/concepts/configuration/even-pods-spread)をご覧ください。
 - `ExpandInUsePersistentVolumes`: 使用中のPVCのボリューム拡張を有効にします。[使用中のPersistentVolumeClaimのサイズ変更](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)を参照してください。
 - `ExpandPersistentVolumes`: 永続ボリュームの拡張を有効にします。[永続ボリューム要求の拡張](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)を参照してください。
 - `ExperimentalCriticalPodAnnotation`: [スケジューリングが保証されるよう](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)に特定のpodへの *クリティカル* の注釈を加える設定を有効にします。
