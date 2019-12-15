@@ -26,7 +26,7 @@ content_template: templates/concept
 - 「導入開始バージョン」列は機能が導入されたとき、またはリリース段階が変更されたときのKubernetesリリースバージョンとなります。
 - 「最終利用可能バージョン」列は空ではない場合はフィーチャーゲートを使用できる最後のKubernetesリリースバージョンとなります。
 - アルファまたはベータ状態の機能は[AlphaまたはBetaのフィーチャーゲート](#feature-gates-for-alpha-or-beta-features)に載っています。
-- 安定している機能は、[graduatedまたはdeprecatedのフィーチャーゲート](#feature-gates-for graduated-or-deprecated-features)に載っています。
+- 安定している機能は、[graduatedまたはdeprecatedのフィーチャーゲート](#feature-gates-for-graduated-or-deprecated-features)に載っています。
 - graduatedまたはdeprecatedのフィーチャーゲートには、非推奨および廃止された機能もリストされています。
 
 ### AlphaまたはBetaのフィーチャーゲート {#feature-gates-for-alpha-or-beta-features}
@@ -155,7 +155,7 @@ content_template: templates/concept
 | `WinOverlay` | `false` | Alpha | 1.14 | |
 {{< /table >}}
 
-### GraduatedまたはDeprecatedのフィーチャーゲート {#feature-gates-for graduated-or-deprecated-features}
+### GraduatedまたはDeprecatedのフィーチャーゲート {#feature-gates-for-graduated-or-deprecated-features}
 
 {{< table caption="GraduatedまたはDeprecatedのフィーチャーゲート" >}}
 
