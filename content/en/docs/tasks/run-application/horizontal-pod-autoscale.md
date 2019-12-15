@@ -293,33 +293,97 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 
 Starting from
 [v1.17](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
-the v2beta2 API allows scale behavior to be configured through the HPA
-`behavior` field. Behaviors are specified separately for scaling up and down. In
-each direction a stabilization window can be specified as well as a list of
-policies and how to select amongst them. Policies can limit the absolute number
-of pods added or removed, or the percentage of pods added or removed.
+the `v2beta2` API allows scaling behavior to be configured through the HPA
+`behavior` field. Behaviors are specified separately for scaling up and down in
+`scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
+window can be specified for both directions which prevents the flapping of the
+number of the replicas in the scaling target. Similarly specifing scaling
+policies controls the rate of change of replicas while scaling.
 
-### Defaults
+### Scaling Policies
 
-New v2beta2 API objects are given default behavior values which match existing
-v1 HPA behavior. This includes a 5 minute scale down stabilization window (or
-the value of the `--horizontal-pod-autoscaler-downscale-stabilization` flag if
-provided) and the maximum of 4 pods and 2x scale up limit.
+One or more scaling policies can be specified in the `behavior` section of the spec.
+When multiple policies are specified the policy which allows the highest amount of
+change is the policy which is selected by default. The following example shows this behavior
+while scaling down:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Pods
+      value: 4
+      periodSeconds: 60
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+When the number of pods is more than 40 the second policy will be used for scaling down.
+For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
+then during the first step 8 replicas will be reduced. In the next iteration when the number
+of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
+the autoscaler controller the number of pods to be change is re-calculated based on the number
+of current replicas. When the number of replicas falls below 40 the first policy_(Pods)_ is applied
+and 4 replicas will be reduced at a time.
+
+`periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The first policy allows at most 4 replicas to be scaled down in one minute. The second policy
+allows at most 10% of the current replicas to be scaled down in one minute.
+
+The policy selection can be changed by specifying the `selectPolicy` field for a scaling
+direction. By setting the value to `Min` which would select the policy which allows the
+smallest change in the replica count. Setting the value to `Disabled` completely disabled
+scaling in that direction.
+
+### Stabilization Window
+
+The stabilization window is used to retrict the flapping of replicas when the metrics
+used for scaling keep fluctuating. The stabilization window is used by the autoscaling
+algorithm to consider the computed desired state from the past to prevent scaling. In
+the following example the stabilization window is specified for `scaleDown`.
+
+```yaml
+scaleDown:
+  stabilizationWindowSeconds: 300
+```
+
+When the metrics indicate that the target should be scaled down the algorithm looks
+into previously computed desired states and uses the highest value from the specified
+interval. In above example all desired states from the past 5 minutes will be considered.
+
+### Default Behavior
+
+To use the custom scaling not all fields have to be specified. Only values which need to be
+customized can be specified. These custom values are merged with default values. The default values
+match the existing behavior in the HPA algorithm.
 
 ```yaml
 behavior:
   scaleDown:
     stabilizationWindowSeconds: 300
-  scaleUp:
     policies:
     - type: Percent
       value: 100
       periodSeconds: 15
-    - type Pods
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type: Pods
       value: 4
       periodSeconds: 15
     selectPolicy: Max
 ```
+For scaling down the stabilization window is _300_ seconds(or the value of the
+`--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
+for scaling down which allows a 100% of the currently running replicas to be removed which
+means the scaling target can be scaled down to the minimum allowed replicas.
+For scaling up there is no stabilization window. When the metrics indicate that the target should be
+scaled up the target is scaled up immediately. There are 2 policies which. 4 pods or a 100% of the currently
+running replicas will be added every 15 seconds till the HPA reaches its steady state.
 
 ### Example: change downscale stabilization window
 
@@ -361,14 +425,6 @@ behavior:
       periodSeconds: 60
     selectPolicy: Max
 ```
-
-{{< note >}}
-The `selectPolicy` value of `Max` means the maximum change in the direction of
-scale. So for scale up policies `Max` will select the largest number of
-pods. For scale down policies `Max` will select the smallest number of
-pods. Likewise for scale up policies `Min` will select the smallest number of
-pods. And for scale down policies `Min` will select the largest number of pods.
-{{< /note >}}
 
 ### Example: disable scale down
 
