@@ -265,6 +265,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 
 *GA* 機能とは(*GA* 機能は *安定版* 機能とも呼ばれます):
 
+* 機能は常に有効となり、無効にすることはできません。
 * フィーチャーゲートの設定は不要になります。
 * 機能の安定版は後続バージョンでリリースされたソフトウェアで使用されます。
 
@@ -280,6 +281,9 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `APIResponseCompression`:`LIST`や`GET`リクエストのAPIレスポンスを圧縮します。
 - `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/docs/tutorials/clusters/apparmor/)で確認できます。
 - `AttachVolumeLimit`: ボリュームプラグインを有効にすることでノードにアタッチできるボリューム数の制限を設定できます。
+- `BalanceAttachedNodeVolumes`: Include volume count on node to be considered for balanced resource allocation
+  while scheduling. A node which has closer CPU, memory utilization, and volume count is favored by the scheduler
+  while making decisions.
 - `BlockVolume`: PodでRawブロックデバイスの定義と使用を有効にします。詳細は[Rawブロックボリュームのサポート](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)で確認できます。
 - `BoundServiceAccountTokenVolume`: ServiceAccountTokenVolumeProjectionによって構成される計画ボリュームを使用するにはServiceAccountボリュームを移行します。詳細は[Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)で確認できます。
 - `CPUManager`: コンテナレベルのCPUアフィニティサポートを有効します。[CPUマネジメントポリシー](/docs/tasks/administer-cluster/cpu-management-policies/)を見てください。
@@ -298,39 +302,55 @@ GAになってからさらなる変更を加えることは現実的ではない
   詳細については[`csi`ボリュームタイプ](/docs/concepts/storage/volumes/#csi)ドキュメントを確認してください。
 - `CustomCPUCFSQuotaPeriod`: ノードがCPUCFSQuotaPeriodを変更できるようにします。
 - `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
+- `CustomResourceDefaulting`: Enable CRD support for default values in OpenAPI v3 validation schemas.
 - `CustomResourcePublishOpenAPI`: CRDのOpenAPI仕様での公開を有効にします。
 - `CustomResourceSubresources`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。
 - `CustomResourceValidation`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースのスキーマによる検証を有効にする。
 - `CustomResourceWebhookConversion`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースのWebhookベースの変換を有効にします。
-- `DebugContainers`: Podのネームスペースで「デバッグ」コンテナを実行できるようにして実行中のPodのトラブルシューティングを行います。
 - `DevicePlugins`: [device-plugins](/docs/concepts/cluster-administration/device-plugins/)によるノードでのリソースプロビジョニングを有効にします。
 - `DryRun`: サーバーサイドでの[dry run](/docs/reference/using-api/api-concepts/#dry-run)リクエストを有効にします。
 - `DynamicAuditing`: [動的監査](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)を有効にします。
 - `DynamicKubeletConfig`: kubeletの動的構成を有効にします。[kubeletの再設定](/docs/tasks/administer-cluster/reconfigure-kubelet/)を参照してください。
 - `DynamicProvisioningScheduling`: デフォルトのスケジューラーを拡張してボリュームトポロジーを認識しPVプロビジョニングを処理します。この機能は、v1.12の`VolumeScheduling`機能に完全に置き換えられました。
 - `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/docs/concepts/storage/dynamic-provisioning/)を有効にします。
+- `EnableAggregatedDiscoveryTimeout` (*deprecated*): Enable the five second timeout on aggregated discovery calls.
 - `EnableEquivalenceClassCache`: Podをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
+- `EphemeralContainers`: Enable the ability to add {{< glossary_tooltip text="ephemeral containers"
+  term_id="ephemeral-container" >}} to running pods.
+- `EvenPodsSpread`: Enable pods to be scheduled evenly across topology domains. See [Even Pods Spread](/docs/concepts/configuration/even-pods-spread).
 - `ExpandInUsePersistentVolumes`: 使用中のPVCのボリューム拡張を有効にします。[使用中のPersistentVolumeClaimのサイズ変更](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)を参照してください。
 - `ExpandPersistentVolumes`: 永続ボリュームの拡張を有効にします。[永続ボリューム要求の拡張](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)を参照してください。
 - `ExperimentalCriticalPodAnnotation`: [スケジューリングが保証されるよう](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)に特定のpodへの *クリティカル* の注釈を加える設定を有効にします。
 - `ExperimentalHostUserNamespaceDefaultingGate`: ホストするデフォルトのユーザー名前空間を有効にします。これは他のホストの名前空間やホストのマウントを使用しているコンテナ、特権を持つコンテナ、または名前空間のない特定の機能（たとえば`MKNODE`、`SYS_MODULE`など）を使用しているコンテナ用です。これはDockerデーモンでユーザー名前空間の再マッピングが有効になっている場合にのみ有効にすべきです。
+- `EndpointSlice`: Enables Endpoint Slices for more scalable and extensible
+   network endpoints. Requires corresponding API and Controller to be enabled.
+   See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices/).
 - `GCERegionalPersistentDisk`: GCEでリージョナルPD機能を有効にします。
 - `HugePages`: 事前に割り当てられた[huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/)の割り当てと消費を有効にします。
 - `HyperVContainer`: Windowsコンテナの[Hyper-Vによる分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)を有効にします。
+- `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler` resources when using custom or external metrics.
 - `KubeletConfigFile`: 設定ファイルを使用して指定されたファイルからのkubelet設定の読み込みを有効にします。詳細は[設定ファイルによるkubeletパラメーターの設定](/docs/tasks/administer-cluster/kubelet-config-file/)で確認できます。
 - `KubeletPluginsWatcher`: 調査ベースのプラグイン監視ユーティリティを有効にしてkubeletが[CSIボリュームドライバー](/docs/concepts/storage/volumes/#csi)などのプラグインを検出できるようにします。
 - `KubeletPodResources`: kubeletのpodのリソースgrpcエンドポイントを有効にします。詳細は[デバイスモニタリングのサポート](https://git.k8s.io/community/keps/sig-node/compute-device-assignment.md)で確認できます。
+- `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the feature-specific labels.
 - `LocalStorageCapacityIsolation`: [ローカルの一時ストレージ](/docs/concepts/configuration/manage-compute-resources-container/)の消費を有効にして、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)の`sizeLimit`プロパティも有効にします。
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`: `LocalStorageCapacityIsolation`が[ローカルの一時ストレージ](/docs/concepts/configuration/manage-compute-resources-container/)で有効になっていて、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)のbacking filesystemがプロジェクトクォータをサポートし有効になっている場合、プロジェクトクォータを使用して、パフォーマンスと精度を向上させるために、ファイルシステムへのアクセスではなく[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)ストレージ消費を監視します。
 - `MountContainers`: ホスト上のユーティリティコンテナをボリュームマウンターとして使用できるようにします。
 - `MountPropagation`: あるコンテナによってマウントされたボリュームを他のコンテナまたはpodに共有できるようにします。詳細は[マウントの伝播](/docs/concepts/storage/volumes/#mount-propagation)で確認できます。
+- `NodeDisruptionExclusion`: Enable use of the node label `node.kubernetes.io/exclude-disruption` which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: 新しいLease APIを有効にしてノードヘルスシグナルとして使用できるノードのハートビートをレポートします。
 - `NonPreemptingPriority`: PriorityClassとPodのNonPreemptingオプションを有効にします。
 - `PersistentLocalVolumes`: Podで`local`ボリュームタイプの使用を有効にします。`local`ボリュームを要求する場合、podアフィニティを指定する必要があります。
+- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/configuration/pod-overhead/) feature to account for pod overheads.
 - `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてPodの再スケジューリングとプリエンプションを有効にします。
 - `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
+- `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
+  a single process namespace between containers running in a pod.  More details can be found in
+  [Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
 - `ProcMountType`: コンテナのProcMountTypeの制御を有効にします。
 - `PVCProtection`: 永続ボリューム要求（PVC）がPodでまだ使用されているときに削除されないようにします。詳細は[ここ](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
+- `QOSReserved`: Allows resource reservations at the QoS level preventing pods at lower QoS levels from
+  bursting into resources requested at higher QoS levels (memory only for now).
 - `ResourceLimitsPriorityFunction`: 入力したPodのCPU制限とメモリ制限の少なくとも1つを満たすノードに対して最低スコアを1に割り当てるスケジューラー優先機能を有効にします。その目的は同じスコアを持つノード間の関係を断つことです。
 - `RequestManagement`: 各サーバーで優先順位付けと公平性を備えたリクエストの並行性の管理機能を有効にしました。
 - `ResourceQuotaScopeSelectors`: リソース割当のスコープセレクターを有効にします。
@@ -343,6 +363,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
 - `ServiceNodeExclusion`: クラウドプロバイダーによって作成されたロードバランサーからのノードの除外を有効にします。"`alpha.service-controller.kubernetes.io/exclude-balancer`"キーでラベル付けされている場合ノードは除外の対象となります。
+- `StartupProbe`: Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet.
 - `StorageObjectInUseProtection`: PersistentVolumeまたはPersistentVolumeClaimオブジェクトがまだ使用されている場合、それらの削除を延期します。
 - `StorageVersionHash`: apiserversがディスカバリーでストレージのバージョンハッシュを公開できるようにします。
 - `StreamingProxyRedirects`: ストリーミングリクエストのバックエンド(kubelet)からのリダイレクトをインターセプト（およびフォロー）するようAPIサーバーに指示します。ストリーミングリクエストの例には`exec`、`attach`、`port-forward`リクエストが含まれます。
@@ -360,5 +381,11 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `VolumeSubpathEnvExpansion`: 環境変数を`subPath`に展開するための`subPathExpr`フィールドを有効にします。
 - `WatchBookmark`: ブックマークイベントの監視サポートを有効にします。
 - `WindowsGMSA`: GMSA資格仕様をpodからコンテナランタイムに渡せるようにします。
+- `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
+- `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
+  the project's approach to removing features and components.
 {{% /capture %}}
