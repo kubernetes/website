@@ -320,7 +320,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `GCERegionalPersistentDisk`: GCEでリージョナルPD機能を有効にします。
 - `HugePages`: 事前に割り当てられた[huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/)の割り当てと消費を有効にします。
 - `HyperVContainer`: Windowsコンテナの[Hyper-Vによる分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)を有効にします。
-- `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler` resources when using custom or external metrics.
+- `HPAScaleToZero`: カスタムメトリクスまたは外部メトリクスを使用するときに、`HorizontalPodAutoscaler`リソースの`minReplicas`を0に設定できるようにします。
 - `KubeletConfigFile`: 設定ファイルを使用して指定されたファイルからのkubelet設定の読み込みを有効にします。詳細は[設定ファイルによるkubeletパラメーターの設定](/docs/tasks/administer-cluster/kubelet-config-file/)で確認できます。
 - `KubeletPluginsWatcher`: 調査ベースのプラグイン監視ユーティリティを有効にしてkubeletが[CSIボリュームドライバー](/docs/concepts/storage/volumes/#csi)などのプラグインを検出できるようにします。
 - `KubeletPodResources`: kubeletのpodのリソースgrpcエンドポイントを有効にします。詳細は[デバイスモニタリングのサポート](https://git.k8s.io/community/keps/sig-node/compute-device-assignment.md)で確認できます。
