@@ -698,7 +698,7 @@ spec:
         # 既存のロードバランサーのID
         service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
 
-        # ロードバランサー（LB）のカスタムパラメーターは、LBタイプの変更をまだサポートしていません
+        # ロードバランサー(LB)のカスタムパラメーターは、LBタイプの変更をまだサポートしていません
         service.kubernetes.io/service.extensiveParameters: ""
 
         # LBリスナーのカスタムパラメーター
