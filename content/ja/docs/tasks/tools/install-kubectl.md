@@ -82,7 +82,7 @@ yum install -y kubectl
 
 Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートする別のLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして使用できます。
 
-Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlでも[利用可能](https://docs.brew.sh/Homebrew-on-Linux#install)です。
+Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
 
 Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートしているLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして利用することもできます。
 
