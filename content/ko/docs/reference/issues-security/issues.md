@@ -1,7 +1,6 @@
 ---
 title: 쿠버네티스 이슈 트래커
 weight: 10
-aliases: [/cve/,/cves/]
 ---
 
 보안 문제를 보고하려면 [쿠버네티스 보안 공개 프로세스](/docs/reference/issues-security/security/#report-a-vulnerability)를 따른다.
