@@ -6,17 +6,16 @@ content_template: templates/concept
 
 {{% capture overview %}}
 このページでは管理者がそれぞれのKubernetesコンポーネントで指定できるさまざまなフィーチャーゲートの概要について説明しています。
+
+See [feature stages](#feature-stages) for an explanation of the stages for a feature.
 {{% /capture %}}
 
 {{% capture body %}}
-
 ## 概要
 
-フィーチャーゲートはアルファ機能または実験的機能を記述するkey=valueのペアのセットです。
+フィーチャーゲートはアルファ機能または実験的機能を記述するkey=valueのペアのセットです。管理者は各コンポーネントで`--feature-gates`コマンドラインフラグを使用することで機能をオンまたはオフにできます。
 
-管理者は各コンポーネントで`--feature-gates`コマンドラインフラグを使用することで機能をオンまたはオフにできます。各コンポーネントはそれぞれのコンポーネント固有のフィーチャーゲートの設定をサポートします。
-すべてのコンポーネントのフィーチャーゲートの全リストを表示するには`-h`フラグを使用します。
-kubeletなどのコンポーネントにフィーチャーゲートを設定するには以下のようにリストの機能ペアを`--feature-gates`フラグを使用して割り当てます。
+各コンポーネントはそれぞれのコンポーネント固有のフィーチャーゲートの設定をサポートします。すべてのコンポーネントのフィーチャーゲートの全リストを表示するには`-h`フラグを使用します。kubeletなどのコンポーネントにフィーチャーゲートを設定するには以下のようにリストの機能ペアを`--feature-gates`フラグを使用して割り当てます。
 
 ```shell
 --feature-gates="...,DynamicKubeletConfig=true"
@@ -26,23 +25,28 @@ kubeletなどのコンポーネントにフィーチャーゲートを設定す�
 
 - 「導入開始バージョン」列は機能が導入されたとき、またはリリース段階が変更されたときのKubernetesリリースバージョンとなります。
 - 「最終利用可能バージョン」列は空ではない場合はフィーチャーゲートを使用できる最後のKubernetesリリースバージョンとなります。
+- If a feature is in the Alpha or Beta state, you can find the feature listed
+  in the [Alpha/Beta feature gate table](#feature-gates-for-alpha-or-beta-features).
+- If a feature is stable you can find all stages for that feature listed in the
+  [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+- The [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+  also lists deprecated and withdrawn features.
+
+### Feature gates for Alpha or Beta features
+
+{{< table caption="Feature gates for features in Alpha or Beta states" >}}
 
 | 機能名 | デフォルト値 | ステージ | 導入開始バージョン | 最終利用可能バージョン |
 |---------|---------|-------|-------|-------|
-| `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
-| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
-| `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
-| `AdvancedAuditing` | `true` | GA | 1.12 | - |
-| `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
-| `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
-| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+|---------|---------|-------|-------|-------|
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `AttachVolumeLimit` | `true` | Alpha | 1.11 | 1.11 |
 | `AttachVolumeLimit` | `true` | Beta | 1.12 | |
-| `BlockVolume` | `false` | Alpha | 1.9 | |
+| `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
+| `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
 | `BlockVolume` | `true` | Beta | 1.13 | - |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
@@ -53,7 +57,8 @@ kubeletなどのコンポーネントにフィーチャーゲートを設定す�
 | `CSIBlockVolume` | `true` | Beta | 1.14 | |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
-| `CSIInlineVolume` | `false` | Alpha | 1.15 | - |
+| `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
+| `CSIInlineVolume` | `true` | Beta | 1.16 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
@@ -62,99 +67,67 @@ kubeletなどのコンポーネントにフィーチャーゲートを設定す�
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | |
-| `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
-| `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
-| `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
-| `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
-| `CustomPodDNS` | `true` | GA | 1.14 | - |
-| `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
-| `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | |
-| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.11 |
-| `CustomResourceSubresources` | `true` | Beta | 1.11 | - |
-| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
-| `CustomResourceValidation` | `true` | Beta | 1.9 | |
-| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
-| `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | |
-| `DebugContainers` | `false` | Alpha | 1.10 | |
+| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
+| `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
+| `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
-| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
-| `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
-| `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
-| `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
-| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | |
+| `EndpointSlice` | `false` | Alpha | 1.16 | |
+| `EphemeralContainers` | `false` | Alpha | 1.16 | |
+| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
+| `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
 | `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
-| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
-| `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
-| `HugePages` | `false` | Alpha | 1.8 | 1.9 |
-| `HugePages` | `true` | Beta| 1.10 | 1.13 |
-| `HugePages` | `true` | GA | 1.14 | |
+| `EvenPodsSpread` | `false` | Alpha | 1.16 | |
+| `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
-| `Initializers` | `false` | Alpha | 1.7 | 1.13 |
-| `Initializers` | - | Deprecated | 1.14 | |
-| `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
-| `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
-| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
-| `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
+| `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
-| `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha| 1.15 | |
+| `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
-| `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
-| `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
-| `MountPropagation` | `true` | GA | 1.12 | |
+| `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
-| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
-| `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
-| `PersistentLocalVolumes` | `true` | GA | 1.14 | |
-| `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
-| `PodPriority` | `true` | Beta | 1.11 | 1.13 |
-| `PodPriority` | `true` | GA | 1.14 | |
-| `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
-| `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
-| `PodReadinessGates` | `true` | GA | 1.14 | - |
-| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
+| `PodOverhead` | `false` | Alpha | 1.16 | - |
+| `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
-| `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
+| `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
-| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RequestManagement` | `false` | Alpha | 1.15 | |
+| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
+| `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
 | `RuntimeClass` | `true` | Beta | 1.14 | |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
+| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
-| `ServerSideApply` | `false` | Alpha | 1.14 | |
+| `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
+| `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
-| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
-| `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
+| `StartupProbe` | `false` | Alpha | 1.16 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
-| `StreamingProxyRedirects` | `true` | Beta | 1.5 | |
-| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
-| `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
-| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
-| `SupportIPVSProxyMode` | `true` | GA | 1.11 | |
+| `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
+| `StreamingProxyRedirects` | `true` | Beta | 1.6 | |
 | `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
 | `SupportNodePidsLimit` | `true` | Beta | 1.15 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
@@ -169,17 +142,100 @@ kubeletなどのコンポーネントにフィーチャーゲートを設定す�
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
-| `VolumePVCDataSource` | `false` | Alpha | 1.15 | |
-| `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
-| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
-| `VolumeScheduling` | `true` | GA | 1.13 | |
+| `TopologyManager` | `false` | Alpha | 1.16 | |
+| `ValidateProxyRedirects` | `false` | Alpha | 1.10 | 1.13 |
+| `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
+| `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
+| `VolumePVCDataSource` | `true` | Beta | 1.16 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
 | `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
-| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
-| `WatchBookmark` | `false` | Alpha | 1.15 | |
+| `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
+| `WatchBookmark` | `true` | Beta | 1.16 | |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
+| `WindowsGMSA` | `true` | Beta | 1.16 | |
+| `WinDSR` | `false` | Alpha | 1.14 | |
+| `WinOverlay` | `false` | Alpha | 1.14 | |
+{{< /table >}}
+
+### Feature gates for graduated or deprecated features
+
+{{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
+
+| 機能名 | デフォルト値 | ステージ | 導入開始バージョン | 最終利用可能バージョン |
+|---------|---------|-------|-------|-------|
+| `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
+| `Accelerators` | - | Deprecated | 1.11 | - |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
+| `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
+| `AdvancedAuditing` | `true` | GA | 1.12 | - |
+| `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
+| `AffinityInAnnotations` | - | Deprecated | 1.8 | - |
+| `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
+| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+| `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
+| `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
+| `CSIPersistentVolume` | `true` | GA | 1.13 | - |
+| `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
+| `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
+| `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
+| `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | 1.15 |
+| `CustomResourcePublishOpenAPI` | `true` | GA | 1.16 | - |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.10 |
+| `CustomResourceSubresources` | `true` | Beta | 1.11 | 1.15 |
+| `CustomResourceSubresources` | `true` | GA | 1.16 | - |
+| `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
+| `CustomResourceValidation` | `true` | Beta | 1.9 | 1.15 |
+| `CustomResourceValidation` | `true` | GA | 1.16 | - |
+| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
+| `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | 1.15 |
+| `CustomResourceWebhookConversion` | `true` | GA | 1.16 | - |
+| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
+| `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
+| `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
+| `DynamicVolumeProvisioning` | `true` | GA | 1.8 | - |
+| `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | 1.14 |
+| `EnableEquivalenceClassCache` | - | Deprecated | 1.15 | - |
+| `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
+| `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | - |
+| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
+| `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
+| `HugePages` | `false` | Alpha | 1.8 | 1.9 |
+| `HugePages` | `true` | Beta| 1.10 | 1.13 |
+| `HugePages` | `true` | GA | 1.14 | - |
+| `Initializers` | `false` | Alpha | 1.7 | 1.13 |
+| `Initializers` | - | Deprecated | 1.14 | - |
+| `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
+| `KubeletConfigFile` | - | Deprecated | 1.10 | - |
+| `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
+| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
+| `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
+| `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
+| `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
+| `MountPropagation` | `true` | GA | 1.12 | - |
+| `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
+| `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
+| `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
+| `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
+| `PodPriority` | `true` | Beta | 1.11 | 1.13 |
+| `PodPriority` | `true` | GA | 1.14 | - |
+| `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
+| `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
+| `PodReadinessGates` | `true` | GA | 1.14 | - |
+| `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
+| `PVCProtection` | - | Deprecated | 1.10 | - |
+| `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
+| `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
+| `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
+| `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
+| `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
+| `SupportIPVSProxyMode` | `true` | GA | 1.11 | - |
+| `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
+| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
+| `VolumeScheduling` | `true` | GA | 1.13 | - |
+| `VolumeSubpath` | `true` | GA | 1.13 | - |
+{{< /table >}}
 
 ## 機能を使用する
 
