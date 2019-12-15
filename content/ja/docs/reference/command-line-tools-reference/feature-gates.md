@@ -35,7 +35,6 @@ content_template: templates/concept
 
 | 機能名 | デフォルト値 | ステージ | 導入開始バージョン | 最終利用可能バージョン |
 |---------|---------|-------|-------|-------|
-|---------|---------|-------|-------|-------|
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
