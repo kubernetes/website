@@ -710,7 +710,7 @@ spec:
         # パブリックネットワーク帯域幅の課金方法を指定します
         # 有効な値: TRAFFIC_POSTPAID_BY_HOUR（bill-by-traffic）およびBANDWIDTH_POSTPAID_BY_HOUR（bill-by-bandwidth）
         service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
-        # 帯域幅の値を指定します（値の範囲：[1-2000] Mbps）。
+        # 帯域幅の値を指定します(値の範囲：[1-2000] Mbps)。
         service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
         # この注釈が設定されている場合、ロードバランサーはポッドが実行されているノードのみを登録します
         # そうでない場合、すべてのノードが登録されます
