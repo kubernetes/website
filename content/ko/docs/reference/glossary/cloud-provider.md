@@ -6,8 +6,8 @@ full_link: /docs/concepts/cluster-administration/cloud-providers
 short_description: >
   클라우드 컴퓨팅 플랫폼을 제공하는 조직.
 
-+aka:
-+- Cloud Service Provide
+aka:
+- Cloud Service Provide
 tags:
 - community
 ---
