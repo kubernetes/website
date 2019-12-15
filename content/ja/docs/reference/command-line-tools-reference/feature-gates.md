@@ -375,5 +375,5 @@ GAになってからさらなる変更を加えることは現実的ではない
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Kubernetesの[非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)では、機能とコンポーネントを削除するためのプロジェクトのアプローチを説明しています。
+* Kubernetesの[廃止ポリシー](/docs/reference/using-api/deprecation-policy/)では、機能とコンポーネントを削除するためのプロジェクトのアプローチを説明しています。
 {{% /capture %}}
