@@ -134,12 +134,12 @@ link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6)に設�
 
 ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊なケースのServiceです。さらなる情報は、このドキュメントの後で紹介する[ExternalName](#externalname)を参照ください。
 
-### Endpoint Slice
+### エンドポイントスライス
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
-Endpoint Sliceは、エンドポイントのよりスケーラブルな代替手段を提供できるAPIリソースです。概念的にはエンドポイントに非常に似ていますが、Endpoint Sliceを使用すると、ネットワークエンドポイントを複数のリソースに分割できます。デフォルトでは、Endpoint Sliceは、100個のエンドポイントに到達すると「フル」と見なされ、その時点で追加のEndpoint Sliceが作成され、追加のエンドポイントが保存されます。
+エンドポイントスライスは、Endpointsに対してよりスケーラブルな代替手段を提供できるAPIリソースです。概念的にはEndpointsに非常に似ていますが、エンドポイントスライスを使用すると、ネットワークエンドポイントを複数のリソースに分割できます。デフォルトでは、エンドポイントスライスは、100個のエンドポイントに到達すると「フル」と見なされ、その時点で追加のエンドポイントスライスが作成され、追加のエンドポイントが保存されます。
 
-Endpoint Sliceは、[Endpoint Sliceのドキュメント](/docs/concepts/services-networking/endpoint-slices/)にて詳しく説明されている追加の属性と機能を提供します。
+エンドポイントスライスは、[エンドポイントスライスのドキュメント](/docs/concepts/services-networking/endpoint-slices/)にて詳しく説明されている追加の属性と機能を提供します。
 
 ## 仮想IPとサービスプロキシー {#virtual-ips-and-service-proxies}
 
