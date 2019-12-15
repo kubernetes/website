@@ -84,8 +84,6 @@ Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマ�
 
 Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
 
-Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートしているLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして利用することもできます。
-
 {{< tabs name="other_kubectl_install" >}}
 {{< tab name="Snap" codelang="bash" >}}
 sudo snap install kubectl --classic
