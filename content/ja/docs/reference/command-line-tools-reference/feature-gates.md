@@ -300,7 +300,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CustomResourceDefaulting`: OpenAPI v3バリデーションスキーマにおいて、デフォルト値のCRDサポートを有効にします。
 - `CustomResourcePublishOpenAPI`: CRDのOpenAPI仕様での公開を有効にします。
 - `CustomResourceSubresources`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。
-- `CustomResourceValidation`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースのスキーマによる検証を有効にする。
+- `CustomResourceValidation`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースのスキーマによる検証を有効にします。
 - `CustomResourceWebhookConversion`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースのWebhookベースの変換を有効にします。
 - `DevicePlugins`: [device-plugins](/docs/concepts/cluster-administration/device-plugins/)によるノードでのリソースプロビジョニングを有効にします。
 - `DryRun`: サーバーサイドでの[dry run](/docs/reference/using-api/api-concepts/#dry-run)リクエストを有効にします。
