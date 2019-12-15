@@ -31,7 +31,7 @@ content_template: templates/concept
 
 ### AlphaまたはBetaのフィーチャーゲート {#feature-gates-for-alpha-or-beta-features}
 
-{{< table caption="Feature gates for features in Alpha or Beta states" >}}
+{{< table caption="AlphaまたはBetaのフィーチャーゲート" >}}
 
 | 機能名 | デフォルト値 | ステージ | 導入開始バージョン | 最終利用可能バージョン |
 |---------|---------|-------|-------|-------|
@@ -155,9 +155,9 @@ content_template: templates/concept
 | `WinOverlay` | `false` | Alpha | 1.14 | |
 {{< /table >}}
 
-### graduatedまたはdeprecatedのフィーチャーゲート {#feature-gates-for graduated-or-deprecated-features}
+### GraduatedまたはDeprecatedのフィーチャーゲート {#feature-gates-for graduated-or-deprecated-features}
 
-{{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
+{{< table caption="GraduatedまたはDeprecatedのフィーチャーゲート" >}}
 
 | 機能名 | デフォルト値 | ステージ | 導入開始バージョン | 最終利用可能バージョン |
 |---------|---------|-------|-------|-------|
