@@ -14,7 +14,7 @@ card:
 Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
 
 Generally, the SIG responsible for a feature submits draft documentation of the
-feature as a pull request to the appropriate release branch of the
+feature as a pull request to the appropriate development branch of the
 `kubernetes/website` repository, and someone on the SIG Docs team provides
 editorial feedback or edits the draft directly. This section covers the branching
 conventions and process used during a release by both groups.
@@ -96,9 +96,9 @@ deadlines.
 ### Open a placeholder PR
 
 1. Open a pull request against the
-`release-X.Y` branch in the `kubernetes/website` repository, with a small
+`dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
 commit that you will amend later.
-2. Use the Prow command `/milestone X.Y` to
+2. Use the Prow command `/milestone {{< skew nextMinorVersion >}}` to
 assign the PR to the relevant milestone. This alerts the docs person managing
 this release that the feature docs are coming.
 
@@ -121,7 +121,7 @@ content is not received, the feature may be removed from the milestone.
 
 ### All PRs reviewed and ready to merge
 
-If your PR has not yet been merged into the `release-X.Y` branch by the release deadline, work with the
+If your PR has not yet been merged into the `dev-{{< skew nextMinorVersion >}}` branch by the release deadline, work with the
 docs person managing the release to get it in by the deadline. If your feature needs
 documentation and the docs are not ready, the feature may be removed from the
 milestone.
