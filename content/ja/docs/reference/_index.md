@@ -1,6 +1,6 @@
 ---
 title: リファレンス
-linkTitle: "Reference"
+linkTitle: "リファレンス"
 main_menu: true
 weight: 70
 content_template: templates/concept
