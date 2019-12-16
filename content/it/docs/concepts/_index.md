@@ -1,5 +1,5 @@
 ---
-title: Concepts
+title: Concetti
 main_menu: true
 content_template: templates/concept
 weight: 40
