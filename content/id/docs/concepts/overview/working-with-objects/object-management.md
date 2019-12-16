@@ -28,10 +28,10 @@ beberapa metode untuk objek yang sama dapat menghasilkan perilaku yang tidak dii
 ## Perintah imperatif
 
 Ketika menggunakan perintah-perintah imperatif, seorang pengguna menjalankan operasi secara langsung
-pada objek-objek _live_ dalam sebuah kluster. Pengguna menjalankan operasi tersebut melalui
+pada objek-objek _live_ dalam sebuah klaster. Pengguna menjalankan operasi tersebut melalui
 argumen atau _flag_ pada perintah `kubectl`.
 
-Ini merupakan cara yang paling mudah untuk memulai atau menjalankan tugas "sekali jalan" pada sebuah kluster.
+Ini merupakan cara yang paling mudah untuk memulai atau menjalankan tugas "sekali jalan" pada sebuah klaster.
 Karena metode ini dijalankan secara langsung pada objek _live_, tidak ada _history_ yang menjelaskan konfigurasi-konfigurasi terkait sebelumnya.
 
 ### Contoh
@@ -53,7 +53,7 @@ kubectl create deployment nginx --image nginx
 Beberapa kelebihan metode ini dibandingkan metode konfigurasi objek:
 
 - Sederhana, mudah dipelajari dan diingat.
-- Hanya memerlukan satu langkah untuk membuat perubahan pada kluster.
+- Hanya memerlukan satu langkah untuk membuat perubahan pada klaster.
 
 Beberapa kekurangan metode ini dibandingkan metode konfigurasi objek:
 
@@ -78,7 +78,7 @@ membuang semua perubahan terhadap objek tersebut yang tidak didefinisikan pada b
 Metode ini sebaiknya tidak dilakukan pada tipe sumber daya yang spek-nya diperbarui
 secara independen di luar berkas konfigurasi. Service dengan tipe `LoadBalancer`, sebagai contoh,
 memiliki _field_ `externalIPs` yang diperbarui secara independen di luar konfigurasi, dilakukan
-oleh kluster.
+oleh klaster.
 {{< /warning >}}
 
 ### Contoh

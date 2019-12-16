@@ -127,7 +127,7 @@ dengan nama `web-0,web-1,web-2`.
 Sebuah StatefulSet dapat menggunakan sebuah [Service Headless](/docs/concepts/services-networking/service/#headless-services)
 untuk mengontrol domain dari Pod yang ada. Domain yang diatur oleh Service ini memiliki format:
 `$(service name).$(namespace).svc.cluster.local`, dimana "cluster.local" merupakan 
-domain kluster.
+domain klaster.
 Seiring dibuatnya setiap Pod, Pod tersebut akan memiliki subdomain DNS-nya sendiri, yang memiliki format:
 `$(podname).$(governing service domain)`, dimana Service yang mengatur didefinisikan oleh 
 _field_ `serviceName` pada StatefulSet.
@@ -136,17 +136,17 @@ Seperti sudah disebutkan di dalam bagian [keterbatasan](#keterbatasan), kamulah 
 untuk membuat [Service Headless](/docs/concepts/services-networking/service/#headless-services)
 yang bertanggung jawab terhadap identitas jaringan pada Pod.
 
-Di sini terdapat beberapa contoh penggunaan Domain Kluster, nama Service, 
+Di sini terdapat beberapa contoh penggunaan Domain Klaster, nama Service, 
 nama StatefulSet, dan bagaimana hal tersebut berdampak pada nama DNS dari Pod StatefulSet.
 
-Domain Kluster | Service (ns/nama) | StatefulSet (ns/nama)  | Domain StatefulSet  | DNS Pod | Hostname Pod |
+Domain Klaster | Service (ns/nama) | StatefulSet (ns/nama)  | Domain StatefulSet  | DNS Pod | Hostname Pod |
 -------------- | ----------------- | ----------------- | -------------- | ------- | ------------ |
  cluster.local | default/nginx     | default/web       | nginx.default.svc.cluster.local | web-{0..N-1}.nginx.default.svc.cluster.local | web-{0..N-1} |
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
-Domain kluster akan diatur menjadi `cluster.local` kecuali
+Domain klaster akan diatur menjadi `cluster.local` kecuali
 [nilainya dikonfigurasi](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 {{< /note >}}
 

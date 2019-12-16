@@ -161,6 +161,7 @@ bisa memberikan dukungan terhadap Pod yang _stateful_.
 
 Penggunaan API kolektif sebagai _user-facing primitive_ utama adalah hal yang
 relatif umum diantara sistem penjadwalan kluster, seperti 
+
 [Borg](https://research.google.com/pubs/pub43438.html), 
 [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), 
 [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), dan
@@ -172,7 +173,7 @@ Pod diekspose sebagai _primitive_ untuk memfasilitasi hal berikut:
 * mendukung operasi pada level Pod tanpa perlu melakukan proksi melalui API pengontrol
 * pemisahan antara umur suatu Pod dan pengontrol, seperti misalnya _bootstrapping_.
 * pemisahan antara pengontrol dan servis, pengontrol _endpoint_ hanya memperhatikan Pod
-* komposisi yang bersih antara fungsionalitas dilevel Kubelet dan kluster. Kubelet 
+* komposisi yang bersih antara fungsionalitas dilevel Kubelet dan klaster. Kubelet 
   secara efektif adalah pengontrol Pod.
 * aplikasi dengan ketersediaan tinggi, yang akan mengharapkan Pod akan digantikan 
   sebelum dihentikan dan tentu saja sebelum dihapus, seperti dalam kasus penggusuran 
@@ -180,7 +181,7 @@ Pod diekspose sebagai _primitive_ untuk memfasilitasi hal berikut:
 
 ## Penghentian Pod
 
-Karena Pod merepresentasikan proses yang berjalan pada mesin didalam kluster, sangat 
+Karena Pod merepresentasikan proses yang berjalan pada mesin didalam klaster, sangat 
 penting untuk memperbolehkan proses ini berhenti secara normal ketika sudah tidak 
 dibutuhkan (dibandingkan dengan dihentikan paksa dengan sinyal KILL dan tidak memiliki
 waktu untuk dibersihkan). Pengguna seharusnya dapat meminta untuk menghapus dan tahu
@@ -229,7 +230,7 @@ untuk melakukan penghapusan paksa.
 ### Penghapusan paksa sebuah Pod
 
 Penghapusan paksa dari sebuah Pod didefinisikan sebagai penghapusan Pod dari _state_ 
-kluster dan etcd secara langsung. Ketika penghapusan paksa dilakukan, API server tidak
+klaster dan etcd secara langsung. Ketika penghapusan paksa dilakukan, API server tidak
 akan menunggu konfirmasi dari kubelet bahwa Pod sudah dihentikan pada mesin ia berjalan.
 Ini menghapus Pod secara langsung dari API, sehingga Pod baru bisa dibuat dengan nama
 yang sama. Dalam mesin, Pod yang dihentikan paksa akan tetap diberikan sedikit masa 

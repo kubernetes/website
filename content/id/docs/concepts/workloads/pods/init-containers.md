@@ -267,7 +267,7 @@ Pod dapat diulang kembali, yang berakibat pada diulangnya eksekusi Init Containe
 
 ## Dukungan dan kompatibilitas
 
-Sebuah kluster dengan versi Apiserver 1.6.0 ke atas mendukung Init Container melalui kolom `.spec.initContainers`. Versi-versi sebelumnya mendukung Init Container melalui anotasi _alpha_ atau _beta_. Kolom `.spec.initContainers` juga diduplikasikan dalam bentuk anotasi _alpha_ dan _beta_ agar Kubelet versi 1.3.0 ke atas dapat menjalankan Init Container, dan agar Apiserver versi 1.6 dapat dengan aman dikembalikan ke versi 1.5.x tanpa kehilangan fungsionalitas Pod-pod yang telah dibuat sebelumnya.
+Sebuah klaster dengan versi Apiserver 1.6.0 ke atas mendukung Init Container melalui kolom `.spec.initContainers`. Versi-versi sebelumnya mendukung Init Container melalui anotasi _alpha_ atau _beta_. Kolom `.spec.initContainers` juga diduplikasikan dalam bentuk anotasi _alpha_ dan _beta_ agar Kubelet versi 1.3.0 ke atas dapat menjalankan Init Container, dan agar Apiserver versi 1.6 dapat dengan aman dikembalikan ke versi 1.5.x tanpa kehilangan fungsionalitas Pod-pod yang telah dibuat sebelumnya.
 
 Pada Apiserver dan Kubelet versi 1.8.0 ke atas, dukungan untuk anotasi _alpha_ dan _beta_ telah dihapus, sehingga dibutuhkan konversi (manual) dari anotasi yang telah kedaluwarsa tersebut ke dalam bentuk kolom `.spec.initContainers`.
 

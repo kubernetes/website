@@ -1,18 +1,18 @@
 ---
-title: Mengatur Akses Kluster Menggunakan Berkas kubeconfig
+title: Mengatur Akses Klaster Menggunakan Berkas kubeconfig
 content_template: templates/concept
 weight: 60
 ---
 
 {{% capture overview %}}
 
-Gunakan berkas kubeconfig untuk mengatur informasi mengenai kluster, pengguna, 
+Gunakan berkas kubeconfig untuk mengatur informasi mengenai klaster, pengguna, 
 _namespace_, dan mekanisme autentikasi. Perintah `kubectl` menggunakan berkas
-kubeconfig untuk mencari informasi yang dibutuhkan untuk memilih kluster dan
-berkomunikasi dengan API server dari suatu kluster.
+kubeconfig untuk mencari informasi yang dibutuhkan untuk memilih klaster dan
+berkomunikasi dengan API server dari suatu klaster.
 
 {{< note >}}
-Sebuah berkas yang digunakan untuk mengatur akses pada kluster disebut dengan
+Sebuah berkas yang digunakan untuk mengatur akses pada klaster disebut dengan
 berkas kubeconfig. Ini cara yang umum digunakan untuk mereferensikan berkas
 konfigurasi. Ini tidak berarti ada berkas dengan nama `kubeconfig`.
 {{< /note >}}
@@ -23,7 +23,7 @@ nilai `KUBECONFIG` pada variabel _environment_ atau dengan mengatur menggunakan
 tanda [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
 
 Instruksi langkah demi langkah untuk membuat dan menentukan berkas kubeconfig,
-bisa mengacu pada [Mengatur Akses Pada Beberapa Kluster]
+bisa mengacu pada [Mengatur Akses Pada Beberapa Klaster]
 (/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
 {{% /capture %}}
@@ -31,9 +31,9 @@ bisa mengacu pada [Mengatur Akses Pada Beberapa Kluster]
 
 {{% capture body %}}
 
-## Mendukung beberapa kluster, pengguna, dan mekanisme autentikasi
+## Mendukung beberapa klaster, pengguna, dan mekanisme autentikasi
 
-Misalkan kamu memiliki beberapa kluster, pengguna serta komponen dapat melakukan
+Misalkan kamu memiliki beberapa klaster, pengguna serta komponen dapat melakukan
 autentikasi dengan berbagai cara. Sebagai contoh:
 
 - Kubelet yang berjalan dapat melakukan autentikasi dengan menggunakan sertifikat
@@ -41,16 +41,16 @@ autentikasi dengan berbagai cara. Sebagai contoh:
 - Administrator bisa memiliki beberapa sertifikat yang diberikan kepada pengguna 
 individu.
 
-Dengan berkas kubeconfig, kamu bisa mengatur kluster, pengguna, dan _namespace_.
+Dengan berkas kubeconfig, kamu bisa mengatur klaster, pengguna, dan _namespace_.
 Kamu juga bisa menentukan konteks untuk mempercepat dan mempermudah perpindahan
-antara kluster dan _namespace_.
+antara klaster dan _namespace_.
 
 ## Konteks
 
 Sebuah elemen konteks pada berkas kubeconfig digunakan untuk mengelompokkan
 parameter akses dengan nama yang mudah. Setiap konteks akan memiliki 3 parameter:
-kluster, pengguna, dan _namespace_. Secara _default_, perintah `kubectl` menggunakan
-parameter dari konteks yang aktif untuk berkomunikasi dengan kluster.
+klaster, pengguna, dan _namespace_. Secara _default_, perintah `kubectl` menggunakan
+parameter dari konteks yang aktif untuk berkomunikasi dengan klaster.
 
 Untuk memilih konteks yang aktif, bisa menggunakan perintah berikut:
 ```
@@ -115,26 +115,26 @@ kubeconfig:
 
    Konteks yang kosong masih diperbolehkan pada tahap ini.
 
-1. Menentukan kluster dan pengguna. Pada tahap ini, mungkin akan ada atau tidak ada konteks.
-   Menentukan kluster dan pengguna berdasarkan yang pertama sesuai dengan pilihan berikut,
-   yang mana akan dijalankan dua kali: sekali untuk pengguna dan sekali untuk kluster:
+1. Menentukan klaster dan pengguna. Pada tahap ini, mungkin akan ada atau tidak ada konteks.
+   Menentukan klaster dan pengguna berdasarkan yang pertama sesuai dengan pilihan berikut,
+   yang mana akan dijalankan dua kali: sekali untuk pengguna dan sekali untuk klaster:
 
    1. Jika ada, maka gunakan tanda pada perintah: `--user` atau `--cluster`.
-   1. Jika konteks tidak kosong, maka pengguna dan kluster didapat dari konteks.
+   1. Jika konteks tidak kosong, maka pengguna dan klaster didapat dari konteks.
 
-   Pengguna dan kluster masih diperbolehkan kosong pada tahap ini.
+   Pengguna dan klaster masih diperbolehkan kosong pada tahap ini.
 
-1. Menentukan informasi kluster sebenarnya yang akan digunakan. Pada tahap ini, mungkin
-   akan ada atau tidak ada informasi kluster. Membentuk informasi kluster berdasarkan urutan
+1. Menentukan informasi klaster sebenarnya yang akan digunakan. Pada tahap ini, mungkin
+   akan ada atau tidak ada informasi klaster. Membentuk informasi klaster berdasarkan urutan
    berikut dan yang pertama sesuai akan digunakan:
 
    1. Jika ada, maka gunakan tanda pada perintah: `--server`, `--certificate-authority`, `--insecure-skip-tls-verify`.
-   1. Jika terdapat atribut informasi kluster dari hasil gabungan berkas kubeconfig, 
+   1. Jika terdapat atribut informasi klaster dari hasil gabungan berkas kubeconfig, 
       maka gunakan itu.
    1. Jika tidak terdapat informasi mengenai lokasi server, maka dianggap gagal.
 
 1. Menentukan informasi pengguna sebenarnya yang akan digunakan. Membentuk informasi 
-   pengguna dengan aturan yang sama dengan pembentukan informasi kluster, namun hanya 
+   pengguna dengan aturan yang sama dengan pembentukan informasi klaster, namun hanya 
    diperbolehkan ada satu teknik autentikasi untuk setiap pengguna:
 
    1. Jika ada, gunakan tanda pada perintah: `--client-certificate`, `--client-key`, `--username`, `--password`, `--token`.
@@ -157,7 +157,7 @@ _absolute path_ akan disimpan secara mutlak.
 
 {{% capture whatsnext %}}
 
-* [Mengatur Akses Pada Beberapa Kluster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [Mengatur Akses Pada Beberapa Klaster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}
