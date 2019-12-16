@@ -38,8 +38,8 @@ different Kubernetes components.
 - If a feature is in the Alpha or Beta state, you can find the feature listed
   in the [Alpha/Beta feature gate table](#feature-gates-for-alpha-or-beta-features).
 - If a feature is stable you can find all stages for that feature listed in the
-  [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
-- The [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+  [Graduated/Deprecated feature gate table](#feature-gates-for-graduated-or-deprecated-features).
+- The [Graduated/Deprecated feature gate table](#feature-gates-for-graduated-or-deprecated-features)
   also lists deprecated and withdrawn features.
 
 ### Feature gates for Alpha or Beta features
