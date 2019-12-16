@@ -6,7 +6,7 @@
 
 FROM alpine:latest
 
-LABEL maintainer "Luc Perkins <lperkins@linuxfoundation.org>"
+LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
 RUN apk add --no-cache \
     curl \
