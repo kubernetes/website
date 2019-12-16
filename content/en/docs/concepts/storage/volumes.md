@@ -657,7 +657,7 @@ metadata:
 spec:
   capacity:
     storage: 100Gi
-  # volumeMode field requires BlockVolume Alpha feature gate to be enabled.
+  # volumeMode field requires BlockVolume feature gate to be enabled.
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
@@ -681,7 +681,7 @@ correct node.
 
 PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
 value "Filesystem") to expose the local volume as a raw block device. The
-`volumeMode` field requires `BlockVolume` Alpha feature gate to be enabled.
+`volumeMode` field requires `BlockVolume` feature gate to be enabled.
 
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
