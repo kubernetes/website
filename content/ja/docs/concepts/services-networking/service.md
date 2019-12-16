@@ -134,6 +134,13 @@ link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6)に設�
 
 ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊なケースのServiceです。さらなる情報は、このドキュメントの後で紹介する[ExternalName](#externalname)を参照ください。
 
+### エンドポイントスライス
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+エンドポイントスライスは、Endpointsに対してよりスケーラブルな代替手段を提供できるAPIリソースです。概念的にはEndpointsに非常に似ていますが、エンドポイントスライスを使用すると、ネットワークエンドポイントを複数のリソースに分割できます。デフォルトでは、エンドポイントスライスは、100個のエンドポイントに到達すると「いっぱいである」と見なされ、その時点で追加のエンドポイントスライスが作成され、追加のエンドポイントが保存されます。
+
+エンドポイントスライスは、[エンドポイントスライスのドキュメント](/docs/concepts/services-networking/endpoint-slices/)にて詳しく説明されている追加の属性と機能を提供します。
+
 ## 仮想IPとサービスプロキシー {#virtual-ips-and-service-proxies}
 
 Kubernetesクラスターの各Nodeは`kube-proxy`を稼働させています。`kube-proxy`は[`ExternalName`](#externalname)タイプ以外の`Service`用に仮想IPを実装する責務があります。
@@ -148,12 +155,6 @@ Serviceにおいてプロキシーを使う理由はいくつかあります。
  * DNSの実装がレコードのTTLをうまく扱わず、期限が切れた後も名前解決の結果をキャッシュするという長い歴史がある。
  * いくつかのアプリケーションではDNSルックアップを1度だけ行い、その結果を無期限にキャッシュする。
  * アプリケーションとライブラリーが適切なDNS名の再解決を行ったとしても、DNSレコード上の0もしくは低い値のTTLがDNSに負荷をかけることがあり、管理が難しい。
-
-### バージョン互換性
-
-Kubernetes v1.0から、[user-spaceプロキシーモード](#proxy-mode-userspace)を利用できるようになっています。  
-v1.1ではiptablesモードでのプロキシーを追加し、v1.2では、kube-proxyにおいてiptablesモードがデフォルトとなりました。  
-v1.8では、ipvsプロキシーモードが追加されました。
 
 ### user-spaceプロキシーモード {#proxy-mode-userspace}
 
@@ -389,12 +390,11 @@ spec:
     port: 80
     targetPort: 9376
   clusterIP: 10.0.171.239
-  loadBalancerIP: 78.11.24.19
   type: LoadBalancer
 status:
   loadBalancer:
     ingress:
-    - ip: 146.148.47.155
+    - ip: 192.0.2.127
 ```
 
 外部のロードバランサーからのトラフィックはバックエンドのPodに直接転送されます。クラウドプロバイダーはどのようにそのリクエストをバランシングするかを決めます。  
@@ -437,9 +437,6 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
-
-Kubernetes1.7.0から1.7.3のMasterに対しては、`cloud.google.com/load-balancer-type: "internal"`を使用します。  
-さらなる情報については、[docs](https://cloud.google.com/kubernetes-engine/docs/internal-load-balancing)を参照してください。  
 {{% /tab %}}
 {{% tab name="AWS" %}}
 ```yaml
@@ -478,6 +475,15 @@ metadata:
     name: my-service
     annotations:
         service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
+[...]
+```
+{{% /tab %}}
+{{% tab name="Tencent Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:
+    service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 [...]
 ```
 {{% /tab %}}
@@ -630,13 +636,11 @@ AWS上でのELB Service用のアクセスログを管理するためにはいく
         # ELBに追加される予定のセキュリティーグループのリスト
 ```
 
-#### AWSでのNetwork Load Balancerのサポート [α版] {#aws-nlb-support}
+#### AWSでのNetwork Load Balancerのサポート {#aws-nlb-support}
 
-{{< warning >}}
-これはα版の機能で、プロダクション環境でのクラスターでの使用はまだ推奨しません。
-{{< /warning >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
-Kubernetes v1.9.0から、ServiceとAWS Network Load Balancer(NLB)を組み合わせることができます。AWSでのネットワークロードバランサーを使用するためには、`service.beta.kubernetes.io/aws-load-balancer-type`というアノテーションの値を`nlb`に設定してください。
+AWSでNetwork Load Balancerを使用するには、値を`nlb`に設定してアノテーション`service.beta.kubernetes.io/aws-load-balancer-type`を付与します。
 
 ```yaml
     metadata:
@@ -681,6 +685,38 @@ spec:
 
 {{< /note >}}
 
+#### Tencent Kubernetes Engine（TKE）におけるその他のCLBアノテーション
+
+以下に示すように、TKEでCloud Load Balancerを管理するためのその他のアノテーションがあります。
+
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        # 指定したノードでロードバランサーをバインドします
+        service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
+        # 既存のロードバランサーのID
+        service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
+
+        # ロードバランサー(LB)のカスタムパラメーターは、LBタイプの変更をまだサポートしていません
+        service.kubernetes.io/service.extensiveParameters: ""
+
+        # LBリスナーのカスタムパラメーター
+        service.kubernetes.io/service.listenerParameters: ""
+
+        # ロードバランサーのタイプを指定します
+        # 有効な値: classic(Classic Cloud Load Balancer)またはapplication(Application Cloud Load Balancer)
+        service.kubernetes.io/loadbalance-type: xxxxx
+        # パブリックネットワーク帯域幅の課金方法を指定します
+        # 有効な値: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic)およびBANDWIDTH_POSTPAID_BY_HOUR(bill-by-bandwidth)
+        service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
+        # 帯域幅の値を指定します(値の範囲：[1-2000] Mbps)。
+        service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
+        # この注釈が設定されている場合、ロードバランサーはポッドが実行されているノードのみを登録します
+        # そうでない場合、すべてのノードが登録されます
+        service.kubernetes.io/local-svc-only-bind-node-with-pod: true
+```
+
 ### ExternalName タイプ {#externalname}
 
 ExternalNameタイプのServiceは、ServiceをDNS名とマッピングし、`my-service`や`cassandra`というような従来のラベルセレクターとはマッピングしません。  
@@ -707,6 +743,12 @@ IPアドレスをハードコードする場合、[Headless Service](#headless-s
 `my-service.prod.svc.cluster.local`というホストをルックアップするとき、クラスターのDNS Serviceは`CNAME`レコードと`my.database.example.com`という値を返します。  
 `my-service`へのアクセスは、他のServiceと同じ方法ですが、再接続する際はプロキシーや転送を介して行うよりも、DNSレベルで行われることが決定的に異なる点となります。  
 後にユーザーが使用しているデータベースをクラスター内に移行することになった後は、Podを起動させ、適切なラベルセレクターやEndpointを追加し、Serviceの`type`を変更します。
+
+{{< warning >}}
+HTTPやHTTPSなどの一般的なプロトコルでExternalNameを使用する際に問題が発生する場合があります。ExternalNameを使用する場合、クラスター内のクライアントが使用するホスト名は、ExternalNameが参照する名前とは異なります。
+
+ホスト名を使用するプロトコルの場合、この違いによりエラーまたは予期しない応答が発生する場合があります。HTTPリクエストには、オリジンサーバーが認識しない`Host:`ヘッダーがあります。TLSサーバーは、クライアントが接続したホスト名に一致する証明書を提供できません。
+{{< /warning >}}
 
 {{< note >}}
 このセクションは、[Alen Komljen](https://akomljen.com/)による[Kubernetes Tips - Part1](https://akomljen.com/kubernetes-tips-part-1/)というブログポストを参考にしています。
@@ -905,5 +947,6 @@ Kubernetesプロジェクトは、現在利用可能なClusterIP、NodePortやLo
 
 * [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 * [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
+* [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 
 {{% /capture %}}
