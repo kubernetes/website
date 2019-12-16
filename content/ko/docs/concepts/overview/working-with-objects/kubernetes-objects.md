@@ -74,7 +74,7 @@ deployment.apps/nginx-deployment created
 
 {{% capture whatsnext %}}
 * [파드(Pod)](/ko/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
-* 쿠버네티스의 [컨트롤러](/docs/concepts/architecture/controller/)에 대해 배운다.
+* 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.
 {{% /capture %}}
 
 

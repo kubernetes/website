@@ -20,7 +20,7 @@ _레이블_ 은 파드와 같은 오브젝트에 첨부된 키와 값의 쌍이�
 }
 ```
 
-레이블은 UI와 CLI에서 효율적인 쿼리를 사용하고 검색에 사용하기에 적합하다. 식별되지 않는 정보는 [어노테이션](/docs/concepts/overview/working-with-objects/annotations/)으로 기록해야 한다.
+레이블은 UI와 CLI에서 효율적인 쿼리를 사용하고 검색에 사용하기에 적합하다. 식별되지 않는 정보는 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)으로 기록해야 한다.
 
 {{% /capture %}}
 
@@ -184,7 +184,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### API 오브젝트에서 참조 설정
 
-[`서비스`](/docs/user-guide/services) 와 [`레플리케이션 컨트롤러`](/docs/user-guide/replication-controller)와 같은 일부 쿠버네티스 오브젝트는 레이블 셀렉터를 사용해서 [`파드`](/docs/user-guide/pods)와 같은 다른 리소스 집합을 선택한다.
+[`서비스`](/docs/user-guide/services) 와 [`레플리케이션 컨트롤러`](/ko/docs/concepts/workloads/controllers/replicationcontroller/)와 같은 일부 쿠버네티스 오브젝트는 레이블 셀렉터를 사용해서 [`파드`](/ko/docs/concepts/workloads/pods/pod/)와 같은 다른 리소스 집합을 선택한다.
 
 #### 서비스와 레플리케이션 컨트롤러
 
@@ -209,7 +209,7 @@ selector:
 
 #### 세트-기반 요건을 지원하는 리소스
 
-[`잡`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`디플로이먼트`](/docs/concepts/workloads/controllers/deployment/), [`레플리카 셋`](/docs/concepts/workloads/controllers/replicaset/) 그리고 [`데몬 셋`](/docs/concepts/workloads/controllers/daemonset/) 같은 새로운 리소스들은 집합성 기준의 요건도 지원한다.
+[`잡`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/), [`레플리카 셋`](/ko/docs/concepts/workloads/controllers/replicaset/) 그리고 [`데몬 셋`](/ko/docs/concepts/workloads/controllers/daemonset/) 같은 새로운 리소스들은 집합성 기준의 요건도 지원한다.
 
 ```yaml
 selector:

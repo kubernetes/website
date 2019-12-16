@@ -30,9 +30,9 @@ weight: 10
 
 ## "단독(Naked)" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡
 
-- 가능하다면 단독 파드(즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드)를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
+- 가능하다면 단독 파드(즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드)를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
 
-  명백하게 [`restartPolicy: Never`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)를 사용하는 상황을 제외한다면, 의도한 파드의 수가 항상 사용 가능한 상태를 유지하는 레플리카 셋을 생성하고, 파드를 교체하는 전략([롤링 업데이트](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)와 같은)을 명시하는 디플로이먼트는 파드를 직접 생성하기 위해 항상 선호되는 방법이다. [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 또한 적절할 수 있다.
+  명백하게 [`restartPolicy: Never`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)를 사용하는 상황을 제외한다면, 의도한 파드의 수가 항상 사용 가능한 상태를 유지하는 레플리카 셋을 생성하고, 파드를 교체하는 전략([롤링 업데이트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-롤링-업데이트)와 같은)을 명시하는 디플로이먼트는 파드를 직접 생성하기 위해 항상 선호되는 방법이다. [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 또한 적절할 수 있다.
 
 
 ## 서비스
@@ -62,9 +62,9 @@ services)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 
 ## 레이블 사용하기
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__를 식별하는 [레이블](/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__를 식별하는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
 
-릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)는 생성되어 있는 서비스를 다운타임 없이 수정하기 쉽도록 만든다.
+릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)는 생성되어 있는 서비스를 다운타임 없이 수정하기 쉽도록 만든다.
 
 오브젝트의 의도한 상태는 디플로이먼트에 의해 기술되며, 만약 그 스펙에 대한 변화가 _적용될_ 경우, 디플로이먼트 컨트롤러는 일정한 비율로 실제 상태를 의도한 상태로 변화시킨다.
 
@@ -100,7 +100,7 @@ services)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 
 - `kubectl apply -f <디렉터리>`를 사용한다. 이 명령어는 `<디렉터리>` 내부의 모든 `.yaml`, `.yml`, 그리고 `.json` 쿠버네티스 구성 파일을 찾아 `apply`에 전달한다.
 
-- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/#label-selectors)와 [효율적으로 레이블 사용하기](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
+- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)와 [효율적으로 레이블 사용하기](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
 
 - 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl run`와 `kubectl expose`를 사용한다. [클러스터 내부의 애플리케이션에 접근하기 위한 서비스 사용](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.
 

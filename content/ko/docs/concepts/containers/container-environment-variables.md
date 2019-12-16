@@ -17,7 +17,7 @@ weight: 20
 
 쿠버네티스 컨테이너 환경은 컨테이너에 몇 가지 중요한 리소스를 제공한다.
 
-* 하나의 [이미지](/docs/concepts/containers/images/)와 하나 이상의 [볼륨](/docs/concepts/storage/volumes/)이 결합된 파일 시스템.
+* 하나의 [이미지](/ko/docs/concepts/containers/images/)와 하나 이상의 [볼륨](/docs/concepts/storage/volumes/)이 결합된 파일 시스템.
 * 컨테이너 자신에 대한 정보.
 * 클러스터 내의 다른 오브젝트에 대한 정보.
 
@@ -54,7 +54,7 @@ FOO_SERVICE_PORT=<서비스가 동작 중인 포트>
 
 {{% capture whatsnext %}}
 
-* [컨테이너 라이프사이클 훅(hooks)](/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배워 보기.
+* [컨테이너 라이프사이클 훅(hooks)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배워 보기.
 * [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/) 실제 경험 얻기.
 
 {{% /capture %}}
