@@ -47,7 +47,7 @@ yang didefinisikan sebagai bagian dari Pod dan dibuat bisa diikatkan ke masing-m
 _filesystem_ pada aplikasi.
 
 Dalam istilah konsep [Docker](https://www.docker.com/), sebuah Pod dimodelkan sebagai 
-gabungan dari kontainer Docker yang berbagi _namespacs_ dan ruang penyimpanan _filesystem_.
+gabungan dari kontainer Docker yang berbagi _namespace_ dan ruang penyimpanan _filesystem_.
 
 Layaknya aplikasi dengan kontainer, Pod dianggap sebagai entitas yang relatif tidak kekal 
 (tidak bertahan lama). Seperti yang didiskusikan dalam 
@@ -103,7 +103,7 @@ Pod memberikan sepaket sistem penyimpanan bersama. Sistem penyimpanan memungkink
 data untuk bertahan saat kontainer dijalankan ulang dan dibagikan kepada semua
 aplikasi dalam Pod tersebut.
 
-## Pengunaan Pod
+## Penggunaan Pod
 
 Pod dapat digunakan untuk menjalankan beberapa aplikasi yang terintegrasi
 secara vertikal (misalnya LAMP), namun motivasi utamanya adalah untuk mendukung
@@ -159,7 +159,7 @@ pengelolaan replikasi dan penluncuran.
 Pengontrol seperti [_StatefulSet_](/docs/concepts/workloads/controllers/statefulset.md)
 bisa memberikan dukungan terhadap Pod yang _stateful_.
 
-Pengunaan API kolektif sebagai _user-facing primitive_ utama adalah hal yang 
+Penggunaan API kolektif sebagai _user-facing primitive_ utama adalah hal yang
 relatif umum diantara sistem penjadwalan kluster, seperti 
 [Borg](https://research.google.com/pubs/pub43438.html), 
 [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), 
@@ -182,11 +182,11 @@ Pod diekspose sebagai _primitive_ untuk memfasilitasi hal berikut:
 
 Karena Pod merepresentasikan proses yang berjalan pada mesin didalam kluster, sangat 
 penting untuk memperbolehkan proses ini berhenti secara normal ketika sudah tidak 
-dibutuhkan (dibandingkan dengan dihentikan paksa dengan sinyak KILL dan tidak memiliki
+dibutuhkan (dibandingkan dengan dihentikan paksa dengan sinyal KILL dan tidak memiliki
 waktu untuk dibersihkan). Pengguna seharusnya dapat meminta untuk menghapus dan tahu
 proses penghentiannya, serta dapat memastikan penghentian berjalan sempurna. Ketika 
 pengguna meminta menghapus Pod, sistem akan mencatat masa tenggang untuk penghentian
-secara normal sebelum Pod dipaksa untuk dihentikan, dan sinyak TERM akan dikirim ke 
+secara normal sebelum Pod dipaksa untuk dihentikan, dan sinyal TERM akan dikirim ke
 proses utama dalam setiap kontainer. Setelah masa tenggang terlewati, sinyal KILL 
 akan dikirim ke setiap proses dan Pod akan dihapus dari API server. Jika Kubelet 
 atau kontainer manajer dijalankan ulang ketika menunggu suatu proses dihentikan,
@@ -213,7 +213,7 @@ tidak lagi dianggap sebagai bagian dari Pod yang berjalan dalam _replication con
 Pod yang dihentikan, secara perlahan tidak akan melayani permintaan karena load balancer 
 (seperti servis proksi) menghapus mereka dari daftar rotasi.
 1. Ketika masa tenggang sudah lewat, semua proses yang masih berjalan dalam Pod
-akan dihentikan dengan sinyak SIGKILL.
+akan dihentikan dengan sinyal SIGKILL.
 1. Kubelet akan selesai menghapus Pod dalam API server dengan mengatur masa tenggang
 menjadi 0 (langsung menghapus). Pod akan menghilang dari API dan tidak lagi terlihat
 oleh klien.
