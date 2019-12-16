@@ -8,7 +8,7 @@ weight: 40
 {{% capture overview %}}
 
 Bagian konsep ini membantu kamu belajar tentang bagian-bagian sistem serta abstraksi
-yang digunakan Kubernetes untuk merepresentasikan kluster kamu, serta membantu
+yang digunakan Kubernetes untuk merepresentasikan klaster kamu, serta membantu
 kamu belajar lebih dalam bagaimana cara kerja Kubernetes.
 
 {{% /capture %}}
@@ -22,7 +22,7 @@ Untuk menggunakan Kubernetes, kamu menggunakan obyek-obyek *Kubernetes API* untu
 jalankan, *image* kontainer yang digunakan, jaringan atau *resource disk* apa yang ingin
 kamu sediakan, dan lain sebagainya. Kamu membuat *state* yang diinginkan dengan cara membuat
 obyek dengan menggunakan API Kubernetes, dan biasanya menggunakan `command-line interface`, yaitu `kubectl`.
-Kamu juga dapat secara langsung berinteraksi dengan kluster untuk membuat atau mengubah
+Kamu juga dapat secara langsung berinteraksi dengan klaster untuk membuat atau mengubah
 *state* yang kamu inginkan.
 
 Setelah kamu membuat *state* yang kamu inginkan, *Control Plane* Kubernetes
@@ -31,10 +31,10 @@ menggunakan `Pod Lifecycle Event Generator (PLEG)` untuk mengubah
 Untuk melakukan hal tersebut, Kubernetes melakukan berbagai *task* secara otomatis,
 misalnya dengan mekanisme `start` atau `stop` kontainer, melakukan *scale* replika dari
 suatu aplikasi, dan lain sebagainya. *Control Plane* Kubernetes terdiri dari sekumpulan
-`process` yang dijalankan di kluster:
+`process` yang dijalankan di klaster:
 
-* **Kubernetes Master** terdiri dari tiga buah *process* yang dijalankan pada sebuah *node* di kluster kamu, *node* ini disebut sebagai *master*, yang terdiri [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan [kube-scheduler](/docs/admin/kube-scheduler/).
-* Setiap *node* non-master pada kluster kamu menjalankan dua buah *process*:
+* **Kubernetes Master** terdiri dari tiga buah *process* yang dijalankan pada sebuah *node* di klaster kamu, *node* ini disebut sebagai *master*, yang terdiri [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan [kube-scheduler](/docs/admin/kube-scheduler/).
+* Setiap *node* non-master pada klaster kamu menjalankan dua buah *process*:
   * **[kubelet](/docs/admin/kubelet/)**, yang menjadi perantara komunikasi dengan *master*.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, sebuah *proxy* yang merupakan representasi jaringan yang ada pada setiap *node*.
 
@@ -42,7 +42,7 @@ suatu aplikasi, dan lain sebagainya. *Control Plane* Kubernetes terdiri dari sek
 
 Kubernetes memiliki beberapa abstraksi yang merepresentasikan *state* dari sistem kamu:
 apa yang aplikasi atau *workload* lain yang ingin kamu jalankan, jaringan atau *resource disk* apa yang ingin
-kamu sediakan, serta beberapa informasi lain terkait apa yang sedang kluster kamu lakukan.
+kamu sediakan, serta beberapa informasi lain terkait apa yang sedang klaster kamu lakukan.
 Abstraksi ini direpresentasikan oleh obyek yang tersedia di API Kubernetes;
 lihat [ikhtisar obyek-obyek Kubernetes](/docs/concepts/abstractions/overview/)
 untuk penjelasan yang lebih mendetail.
@@ -66,10 +66,10 @@ Kontroler merupakan obyek mendasar dengan fungsi tambahan, contoh dari kontroler
 ## *Control Plane* Kubernetes
 
 Berbagai bagian *Control Plane* Kubernetes, seperti *master* dan *process-process* kubelet,
-mengatur bagaimana Kubernetes berkomunikasi dengan kluster kamu. *Control Plane*
+mengatur bagaimana Kubernetes berkomunikasi dengan klaster kamu. *Control Plane*
 menjaga seluruh *record* dari obyek Kubernetes serta terus menjalankan
 iterasi untuk melakukan manajemen *state* obyek. *Control Plane* akan memberikan respon
-apabila terdapat perubahan pada kluster kamu dan mengubah *state* saat ini agar sesuai
+apabila terdapat perubahan pada klaster kamu dan mengubah *state* saat ini agar sesuai
 dengan *state* yang diinginkan.
 
 Contohnya, ketika kamu menggunakan API Kubernetes untuk membuat sebuah *Deployment*,
@@ -80,15 +80,15 @@ pada *node*, dengan kata lain mengubah *state* saat ini agar sesuai dengan *stat
 
 ### Master
 
-Master Kubernetes bertanggung jawab untuk memelihara *state* yang diinginkan pada kluster kamu.
+Master Kubernetes bertanggung jawab untuk memelihara *state* yang diinginkan pada klaster kamu.
 Ketika kamu berinteraksi dengan Kubernetes, misalnya saja menggunakan perangkat `kubectl`,
-kamu berkomunikasi dengan *master* kluster Kubernetes kamu.
+kamu berkomunikasi dengan *master* klaster Kubernetes kamu.
 
-> "master" merujuk pada tiga buah *process* yang dijalankan pada sebuah *node* pada kluster kamu, *node* ini disebut sebagai *master*, yang terdiri [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan [kube-scheduler](/docs/admin/kube-scheduler/).
+> "master" merujuk pada tiga buah *process* yang dijalankan pada sebuah *node* pada klaster kamu, *node* ini disebut sebagai *master*, yang terdiri [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan [kube-scheduler](/docs/admin/kube-scheduler/).
 
 ### Node
 
-*Node* di dalam kluster Kubernetes adalah mesin (mesin virtual maupun fisik) yang
+*Node* di dalam klaster Kubernetes adalah mesin (mesin virtual maupun fisik) yang
 menjalankan aplikasi kamu. Master mengontrol setiap node; kamu akan jarang berinteraksi
 dengan *node* secara langsung.
 

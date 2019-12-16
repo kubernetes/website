@@ -9,25 +9,25 @@ card:
 
 {{% capture overview %}}
 Dokumen ini merupakan ikhtisar yang mencakup berbagai komponen
-yang dibutuhkan agar kluster Kubernetes dapat berjalan secara fungsional.
+yang dibutuhkan agar klaster Kubernetes dapat berjalan secara fungsional.
 
 {{% /capture %}}
 
 {{% capture body %}}
 ## Komponen <i>Master</i>
 
-Komponen <i>master</i> menyediakan <i>control plane</i> bagi kluster.
+Komponen <i>master</i> menyediakan <i>control plane</i> bagi klaster.
 Komponen ini berperan dalam proses pengambilan secara global
-pada kluster (contohnya, mekanisme <i>schedule</i>), serta berperan dalam proses
-deteksi serta pemberian respons terhadap <i>events</i> yang berlangsung di dalam kluster
+pada klaster (contohnya, mekanisme <i>schedule</i>), serta berperan dalam proses
+deteksi serta pemberian respons terhadap <i>events</i> yang berlangsung di dalam klaster
 (contohnya, penjadwalan pod baru apabila jumlah replika yang ada pada
 <i>replication controller</i> tidak terpenuhi).
 
-Komponen master dapat dijalankan di mesin manapun yang ada di kluster. Meski begitu,
+Komponen master dapat dijalankan di mesin manapun yang ada di klaster. Meski begitu,
 untuk memudahkan proses yang ada, <i>script</i> inisiasi awal yang dijalankan
 biasanya memulai komponen master pada mesin yang sama, serta tidak menjalankan
 kontainer bagi pengguna di mesin ini. Contoh konfigurasi <i>multi-master VM</i>
-dapat dilihat di modul [Membangun Kluster HA] (/docs/admin/high-availability/).
+dapat dilihat di modul [Membangun Klaster HA] (/docs/admin/high-availability/).
 
 
 ### kube-apiserver
@@ -109,18 +109,18 @@ Kubernetes mendukung beberapa <i>runtime</i>, diantaranya adalah: [Docker](http:
 
 ## <i>Addons</i>
 
-<i>Addons</i> merupakan pod dan service yang mengimplementasikan fitur-fitur yang diperlukan kluster.
+<i>Addons</i> merupakan pod dan service yang mengimplementasikan fitur-fitur yang diperlukan klaster.
 
 Beberapa <i>addons</i> akan dijelaskan selanjutnya.
 
 
 ### DNS
 
-Meskipun tidak semua <i>addons</i> dibutuhkan, semua kluster Kubernetes hendaknya
-memiliki DNS kluster. Komponen ini penting karena banyak dibutuhkan oleh komponen
+Meskipun tidak semua <i>addons</i> dibutuhkan, semua klaster Kubernetes hendaknya
+memiliki DNS klaster. Komponen ini penting karena banyak dibutuhkan oleh komponen
 lainnya.
 
-[Kluster DNS](/en/docs/concepts/cluster-administration/addons/      ) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
+[Klaster DNS](/en/docs/concepts/cluster-administration/addons/      ) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
 <i>environment</i> kamu, yang berfungsi sebagai catatan DNS bagi Kubernetes <i>services</i>
 
 Kontainer yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini
@@ -129,9 +129,9 @@ ke dalam mekanisme pencarian DNS yang dimilikinya.
 
 ### <i>Web UI</i> (Dasbor)
 
-[Dasbor](/en/docs/tasks/access-application-cluster/web-ui-dashboard/) adalah antar muka berbasis web multifungsi yang ada pada kluster Kubernetes.
-Dasbor ini memungkinkan user melakukan manajemen dan <i>troubleshooting</i> kluster maupun
-aplikasi yang ada pada kluster itu sendiri.
+[Dasbor](/en/docs/tasks/access-application-cluster/web-ui-dashboard/) adalah antar muka berbasis web multifungsi yang ada pada klaster Kubernetes.
+Dasbor ini memungkinkan user melakukan manajemen dan <i>troubleshooting</i> klaster maupun
+aplikasi yang ada pada klaster itu sendiri.
 
 
 ### <i>Container Resource Monitoring</i>

@@ -60,7 +60,7 @@ metadata:
 
 ## Aplikasi dan Instans Aplikasi
 
-Sebuah aplikasi dapat diinstal sekali atau beberapa kali di dalam kluster Kubernetes dan, 
+Sebuah aplikasi dapat diinstal sekali atau beberapa kali di dalam klaster Kubernetes dan, 
 pada beberapa kasus, di dalam sebuah _namespace_ yang sama. Misalnya, wordpress dapat 
 diinstal lebih dari satu kali dimana situs web yang berbeda merupakan hasil instalasi yang berbeda.
 

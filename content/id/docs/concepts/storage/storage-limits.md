@@ -39,7 +39,7 @@ Berhati-hatilah jika kamu menerapkan limit yang lebih besar dari limit _default_
 Perhatikan dokumentasi penyedia layanan cloud untuk hal ini, dan pastikan Node
 benar-benar dapat mendukung nilai limit yang kamu inginkan.
 
-Limit ini diterapkan untuk seluruh kluster, jadi akan berdampak pada semua Node.
+Limit ini diterapkan untuk seluruh klaster, jadi akan berdampak pada semua Node.
 
 ## Limit volume dinamis
 
