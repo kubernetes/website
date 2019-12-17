@@ -600,10 +600,10 @@ Strategi penggabungan ini menggunakan *tag* khusus `patchMergeKey` pada tiap *fi
 
 **Penjelasan:**
 
-- Kontainer dengan nama "nginx-helper-a" dihapus karena tidak ada kontainer dengan nama tersebut di *file* konfigurasi.
-- Kontainer dengan nama "nginx-helper-b" tetap mempertahankan nilai `args` pada konfigurasi *live*. Perintah `kubectl apply` bisa mengenali bahwa "nginx-helper-b" di konfigurasi *live* sama dengan "ngnix-helper-b" di *file* konfigurasi, meskipun keduanya memiliki *field* yang berbeda (tidak ada `args` pada *file* konfigurasi). Ini karena nilai `patchMergeKey` di kedua konfigurasi identik.
-- Kontainer dengan nama "nginx-helper-c" ditambahkan karena tidak ada kontainer dengan nama tersebut di konfigurasi *live*, tapi ada di *file* konfigurasi.
-- Kontainer dengan nama "nginx-helper-d" dipertahankan karena tidak ada elemen dengan nama tersebut pada *last-applied-configuration*.
+- Container dengan nama "nginx-helper-a" dihapus karena tidak ada kontainer dengan nama tersebut di *file* konfigurasi.
+- Container dengan nama "nginx-helper-b" tetap mempertahankan nilai `args` pada konfigurasi *live*. Perintah `kubectl apply` bisa mengenali bahwa "nginx-helper-b" di konfigurasi *live* sama dengan "ngnix-helper-b" di *file* konfigurasi, meskipun keduanya memiliki *field* yang berbeda (tidak ada `args` pada *file* konfigurasi). Ini karena nilai `patchMergeKey` di kedua konfigurasi identik.
+- Container dengan nama "nginx-helper-c" ditambahkan karena tidak ada kontainer dengan nama tersebut di konfigurasi *live*, tapi ada di *file* konfigurasi.
+- Container dengan nama "nginx-helper-d" dipertahankan karena tidak ada elemen dengan nama tersebut pada *last-applied-configuration*.
 
 #### Menggabungkan sebuah *list* dengan elemen-elemen primitif
 

@@ -123,7 +123,7 @@ lainnya.
 [Klaster DNS](/en/docs/concepts/cluster-administration/addons/      ) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
 <i>environment</i> kamu, yang berfungsi sebagai catatan DNS bagi Kubernetes <i>services</i>
 
-Kontainer yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini
+Container yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini
 ke dalam mekanisme pencarian DNS yang dimilikinya.
 
 

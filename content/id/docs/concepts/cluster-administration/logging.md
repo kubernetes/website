@@ -113,14 +113,14 @@ Kubernetes tidak menspesifikasikan khusus suatu agen _logging_, namun ada dua ag
 
 Kamu dapat menggunakan kontainer _sidecar_ dengan salah satu cara berikut:
 
-* Kontainer _sidecar_ mengeluarkan log aplikasi ke `stdout` miliknya sendiri.
-* Kontainer _sidecar_ menjalankan agen _logging_ yang dikonfigurasi untuk mengambil log dari aplikasi kontainer.
+* Container _sidecar_ mengeluarkan log aplikasi ke `stdout` miliknya sendiri.
+* Container _sidecar_ menjalankan agen _logging_ yang dikonfigurasi untuk mengambil log dari aplikasi kontainer.
 
-#### Kontainer _streaming_ _sidecar_
+#### Container _streaming_ _sidecar_
 
-![Kontainer _sidecar_ dengan kontainer _streaming_](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
+![Container _sidecar_ dengan kontainer _streaming_](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
 
-Kamu dapat memanfaatkan kubelet dan agen _logging_ yang telah berjalan pada tiap _node_ dengan menggunakan kontainer _sidecar_. Kontainer _sidecar_ dapat membaca log dari sebuah berkas, _socket_ atau journald. Tiap kontainer _sidecar_ menuliskan log ke `stdout` atau `stderr` mereka sendiri.
+Kamu dapat memanfaatkan kubelet dan agen _logging_ yang telah berjalan pada tiap _node_ dengan menggunakan kontainer _sidecar_. Container _sidecar_ dapat membaca log dari sebuah berkas, _socket_ atau journald. Tiap kontainer _sidecar_ menuliskan log ke `stdout` atau `stderr` mereka sendiri.
 
 Dengan menggunakan cara ini kamu dapat memisahkan aliran log dari bagian-bagian yang berbeda dari aplikasimu, yang beberapa mungkin tidak mendukung log ke `stdout` dan `stderr`. Perubahan logika aplikasimu dengan menggunakan cara ini cukup kecil, sehingga hampir tidak ada _overhead_. Selain itu, karena `stdout` dan `stderr` ditangani oleh kubelet, kamu juga dapat menggunakan alat bawaan seperti `kubectl logs`.
 
@@ -160,11 +160,11 @@ Agen node-level yang terpasang di klastermu akan mengambil aliran log tersebut s
 
 Sedikit catatan, meskipun menggunakan memori dan CPU yang cukup rendah (sekitar beberapa milicore untuk CPU dan beberapa megabytes untuk memori), penulisan log ke _file_ kemudian mengalirkannya ke `stdout` dapat berakibat penggunaan disk yang lebih besar. Jika kamu memiliki aplikasi yang menuliskan ke _file_ tunggal, umumnya lebih baik menggunakan `/dev/stdout` sebagai tujuan daripada menggunakan pendekatan dengan kontainer _sidecar_.
 
-Kontainer _sidecar_ juga dapat digunakan untuk melakukan rotasi berkas log yang tidak dapat dirotasi oleh aplikasi itu sendiri. Contoh dari pendekatan ini adalah sebuah kontainer kecil yang menjalankan rotasi log secara periodik. Namun, direkomendasikan untuk menggunakan `stdout` dan `stderr` secara langsung dan menyerahkan kebijakan rotasi dan retensi pada kubelet.
+Container _sidecar_ juga dapat digunakan untuk melakukan rotasi berkas log yang tidak dapat dirotasi oleh aplikasi itu sendiri. Contoh dari pendekatan ini adalah sebuah kontainer kecil yang menjalankan rotasi log secara periodik. Namun, direkomendasikan untuk menggunakan `stdout` dan `stderr` secara langsung dan menyerahkan kebijakan rotasi dan retensi pada kubelet.
 
-#### Kontainer _sidecar_ dengan agen _logging_
+#### Container _sidecar_ dengan agen _logging_
 
-![Kontainer _sidecar_ dengan agen _logging_](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
+![Container _sidecar_ dengan agen _logging_](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 
 Jika agen node-level _logging_ tidak cukup fleksible untuk kebutuhanmu, kamu dapat membuat kontainer _sidecar_ dengan agen _logging_ yang terpisah, yang kamu konfigurasi spesifik untuk berjalan dengan aplikasimu.
 

@@ -126,11 +126,11 @@ Meskipun demikian, VM masih dianggap "berat" dan tidak tidak mudah dipindahkan.
 
 *Cara Baru* adalah dengan melakukan mekanisme <i>deploy</i> kontainer pada tingkatan
 virtualisasi di level sistem operasi (OS) bukan pada tingkatan virtualisasi perangkat keras.
-Kontainer ini berada dalam lingkungan yang terisolasi satu sama lain serta terisolasi dengan
-mesin dimana kontainer ini berada. Kontainer ini memiliki <i>filesystems</i> masing-masing.
+Container ini berada dalam lingkungan yang terisolasi satu sama lain serta terisolasi dengan
+mesin dimana kontainer ini berada. Container ini memiliki <i>filesystems</i> masing-masing.
 Selain itu, setiap kontainer tidak dapat "melihat" <i>process</i> yang sedang dijalankan di
 kontainer lain. Selain itu <i>resource</i> komputasi yang digunakan oleh kontainer
-ini juga dapat dibatasi. Kontainer juga dapat dengan lebih mudah di-<i>build</i> jika
+ini juga dapat dibatasi. Container juga dapat dengan lebih mudah di-<i>build</i> jika
 dibandingkan dengan VM, karena kontainer tidak bergantung pada <i>filesystem</i>
 yang dimiliki mesin, serta dengan mudah dapat didistribusikan.
 
@@ -146,7 +146,7 @@ infrastruktur punya tugas untuk mengatur lifecycle seluruh process yang ada di d
 Secara garis besar, penggunaan kontainer memiliki keuntungan sebagai berikut:
 
 * **Mekanisme pembuatan aplikasi serta proses deployment yang lebih efektif**:
-    Kontainer dapat meningkatkan kemudahan dan efisiensi jika dibandingkan dengan penggunaan VM.
+    Container dapat meningkatkan kemudahan dan efisiensi jika dibandingkan dengan penggunaan VM.
 * **Continuous development, integration, and deployment**:
     Digunakan untuk melakukan proses <i>build</i> dan <i>deploy</i> yang sering dilakukan
     serta kemudahan mekanisme <i>rollback</i> karena image yang ada sifatnya <i>immutable</i>.

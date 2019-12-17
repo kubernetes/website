@@ -37,9 +37,9 @@ Dalam sebuah konteks pada Pod, setiap aplikasi bisa menerapkan sub-isolasi lebih
 Semua kontainer dalam suatu Pod akan berbagi alamat IP dan _port_ yang sama, 
 dan bisa saling berkomunikasi melalui `localhost`. Komunikasi tersebut mengunakan 
 standar _inter-process communications_ (IPC) seperti SystemV semaphores 
-atau POSIX shared memory. Kontainer pada Pod yang berbeda memiliki alamat IP 
+atau POSIX shared memory. Container pada Pod yang berbeda memiliki alamat IP 
 yang berbeda dan tidak dapat berkomunikasi menggunakan IPC tanpa 
-[pengaturan khusus](/docs/concepts/policy/pod-security-policy/). Kontainer ini
+[pengaturan khusus](/docs/concepts/policy/pod-security-policy/). Container ini
 biasa berkomunikasi dengan yang lain menggunakan alamat IP setiap Pod.
 
 Aplikasi dalam suatu Pod juga memiliki akses ke {{< glossary_tooltip text="ruang penyimpanan" term_id="volume" >}} bersama, 
@@ -94,7 +94,7 @@ berkoordinasi mengenai penggunaan _port_. Setiap Pod memiliki alamat IP
 dalam satu jaringan bersama yang bisa berkomunikasi dengan komputer lain
 dan Pod lain dalam jaringan yang sama.
 
-Kontainer dalam suatu Pod melihat _hostname_ sistem sebagai sesuatu yang sama
+Container dalam suatu Pod melihat _hostname_ sistem sebagai sesuatu yang sama
 dengan konfigurasi `name` pada Pod. Informasi lebih lanjut terdapat dibagian
 [jaringan](/docs/concepts/cluster-administration/networking/).
 

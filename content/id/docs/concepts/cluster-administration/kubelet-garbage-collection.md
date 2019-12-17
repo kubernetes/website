@@ -27,7 +27,7 @@ Penggunaan disk yang melewati batas atas (*high threshold*) akan men-*trigger* *
 *Garbage collection* akan mulai menghapus dari *image-image* yang paling jarang digunakan (*least recently used*)
 sampai menemui batas bawah (*low threshold*) kembali.
 
-## *Garbage Collection* untuk Kontainer
+## *Garbage Collection* untuk Container
 
 *Policy* untuk melakukan *garbage collection* pada kontainer memperhatikan tiga variabel yang ditentukan oleh pengguna (*user-defined*).
 `MinAge` merupakan umur minimal dimana suatu kontainer dapat terkena *garbage collection*.
@@ -37,14 +37,14 @@ Semua variabel ini dapat dinonaktifkan secara individual, dengan mengatur `MinAg
 ke angka di bawah nol.
 
 Kubelet akan mengambil tindakan untuk kontainer-kontainer yang tidak dikenal, sudah dihapus, atau diluar batasan-batasan yang diatur
-sebelumnya melalui *flag*. Kontainer-kontainer yang paling lama (tertua) biasanya akan dihapus terlebih dahulu. `MaxPerPodContainer` dan `MaxContainer`
+sebelumnya melalui *flag*. Container-kontainer yang paling lama (tertua) biasanya akan dihapus terlebih dahulu. `MaxPerPodContainer` dan `MaxContainer`
 berpotensi mengalami konflik satu sama lain pada situasi saat menjaga jumlah maksimal kontainer per pod (`MaxPerPodContainer`) akan melebihi
 jumlah kontainer mati (*dead containers*) yang diperbolehkan (`MaxContainers`).
 `MaxPerPodContainer` dapat diatur sedemikian rupa dalam situasi ini: Seburuk-buruhknya dengan melakukan *downgrade* `MaxPerPodContainer` ke angka 1
 dan melakukan *evict* kontainer-kontainer yang paling lama. Selain itu, kontainer-kontainer milik Pod yang telah dihapus akan dihilangkan
 saat umur mereka telah melebihi `MinAge`.
 
-Kontainer-kontainer yang tidak dikelola oleh kubelet akan terbebas dari *garbage collection*.
+Container-kontainer yang tidak dikelola oleh kubelet akan terbebas dari *garbage collection*.
 
 ## Konfigurasi Pengguna
 
@@ -65,7 +65,7 @@ terkena *garbage collection*.
 2. `maximum-dead-containers-per-container`, jumlah maksimal dari kontainer-kontainer lama yang diperbolehkan ada
 secara global. *Default*-nya adalah -1, yang berarti tidak ada batasannya untuk global.
 
-Kontainer-kontainer dapat berpotensi terkena *garbage collection* sebelum kegunaannya telah usang. Kontainer-kontainer
+Container-kontainer dapat berpotensi terkena *garbage collection* sebelum kegunaannya telah usang. Container-kontainer
 ini memliki log dan data lainnya yang bisa saja berguna saat *troubleshoot*. Sangat direkomendasikan untuk menetapkan
 angka yang cukup besar pada `maximum-dead-containers-per-container`, untuk memperbolehkan paling tidak 1 kontainer mati
 untuk dijaga (*retained*) per jumlah kontainer yang diharapkan. Angka yang lebih besar untuk `maximum-dead-containers`
