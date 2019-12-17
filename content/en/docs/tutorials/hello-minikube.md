@@ -164,7 +164,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
-5. Katacoda environment only: Note the 5 digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type `30369` in the port number text box, then click Display Port.
+5. Katacoda environment only: Note the 5 digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type your number in the port number text box, then click Display Port. Using the example from earlier, you would type `30369`.
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 
