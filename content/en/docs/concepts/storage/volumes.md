@@ -679,7 +679,7 @@ PersistentVolume `nodeAffinity` is required when using local volumes. It enables
 the Kubernetes scheduler to correctly schedule Pods using local volumes to the
 correct node.
 
-PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
+ PersistentVolume `volumeMode` can be set to "Block" (instead of the default
 value "Filesystem") to expose the local volume as a raw block device. The
 `volumeMode` field requires `BlockVolume` feature gate to be enabled.
 
