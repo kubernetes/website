@@ -208,7 +208,7 @@ Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, p
 Hit enter for command prompt
 ```
 
-Then, hit enter and run `nslookup my-nginx`:
+이제, `nslookup my-nginx` 를 입력하고 실행한다:
 
 ```shell
 [ root@curl-131556218-9fnch:/ ]$ nslookup my-nginx
