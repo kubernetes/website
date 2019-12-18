@@ -191,9 +191,10 @@ resource limits, see the
 
 The resource usage of a Pod is reported as part of the Pod status.
 
-If [optional monitoring](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/README.md)
-is configured for your cluster, then Pod resource usage can be retrieved from
-the monitoring system.
+If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+are available in your cluster, then Pod resource usage can be retrieved either
+from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+directly or from your monitoring tools.
 
 ## Troubleshooting
 
