@@ -1,6 +1,6 @@
 WEBROOT=${K8S_WEBROOT}
 K8SROOT=${K8S_ROOT}
-MINOR_VERSION=${MINOR_VER}
+MINOR_VERSION=${K8S_RELEASE}
 
 APISRC=gen-apidocs/generators
 APIDST=$(WEBROOT)/static/docs/reference/generated/kubernetes-api/v1.$(MINOR_VERSION)

@@ -247,7 +247,7 @@ def main():
                 "export GOPATH=" + work_dir + "\n" + \
                 "export K8S_ROOT=" + work_dir + \
                 "/src/k8s.io/kubernetes" + "\n" + \
-                "export K8S_WEBROOT=" + root_dir + "\n"+ gen_cmd
+                "export K8S_WEBROOT=" + root_dir + "\n" + gen_cmd
             print("Generating docs for {} with {}".format(repo_name, gen_cmd))
             res = subprocess.call(gen_cmd, shell=True)
             if res != 0:
