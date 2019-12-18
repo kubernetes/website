@@ -14,7 +14,7 @@ _데몬셋_ 은 모든(또는 일부) 노드가 파드의 사본을 실행하도
 
 - 각 노드에서 `glusterd`, `ceph` 와 같은 클러스터 스토리지 데몬의 실행.
 - 모든 노드에서 `fluentd` 또는 `logstash` 와 같은 로그 수집 데몬의 실행.
-- 모든 노드에서 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` 또는 [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 와 같은 노드 모니터링 데몬의 실행.
+- 모든 노드에서 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Flowmill](https://github.com/Flowmill/flowmill-k8s/), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` 또는 [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 와 같은 노드 모니터링 데몬의 실행.
 
 단순한 케이스에서는, 각 데몬 유형의 처리를 위해서 모든 노드를 커버하는 하나의 데몬셋이 사용된다.
 더 복잡한 구성에서는 단일 유형의 데몬에 여러 데몬셋을 사용할 수 있지만, 
@@ -95,21 +95,9 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 ## 데몬 파드가 스케줄 되는 방법
 
-### 데몬셋 컨트롤러에 의해서 스케줄(1.12 이후로 기본값으로 사용 안함)
+### 기본 스케줄러로 스케줄
 
-일반적으로 쿠버네티스 스케줄러에 의해 파드가 실행되는 머신이 선택된다. 그러나 데몬셋 
-컨트롤러에 의해 생성된 파드는 이미 머신이 선택되어 있다(`.spec.nodeName` 이 
-파드가 생성될 때 명시되므로, 스케줄러에서는 무시된다). 그러므로 다음과 같다.
-
- - 데몬셋 컨트롤러는 노드의 [`unschedulable`](/ko/docs/concepts/architecture/nodes/#수동-노드-관리) 
-   필드를 존중하지 않는다.
- - 데몬셋 컨트롤러는 스케줄러가 시작되지 않은 경우에도 파드를 만들 수 있어 클러스터 부트스트랩을 
-   도울 수도 있다.
-
-
-### 기본 스케줄러로 스케줄(1.12 이후로 기본값으로 사용)
-
-{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
+{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
 데몬셋은 자격이 되는 모든 노드에서 파드 사본이 실행하도록 보장한다. 일반적으로 
 쿠버네티스 스케줄러에 의해 파드가 실행되는 노드가 선택된다. 그러나 

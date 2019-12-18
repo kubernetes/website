@@ -39,20 +39,80 @@ kops를 이용하기 위해서는 [kubectl](/docs/tasks/tools/install-kubectl/)�
 
 MacOS에서:
 
+최신 버전의 릴리즈를 다운받는 명령어:
+
 ```shell
-curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest
+| grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
+```
+
+특정 버전을 다운로드 받는다면 다음을 변경한다.
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+
+특정 버전의 명령 부분이다.
+
+예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+```
+
+kops 바이너리를 실행 가능하게 만든다.
+
+```shell
 chmod +x kops-darwin-amd64
-mv kops-darwin-amd64 /usr/local/bin/kops
-# Homebrew를 통해 설치할 수도 있다.
+```
+
+kops 바이너리를 사용자의 PATH로 이동한다.
+
+```shell
+sudo mv kops-darwin-amd64 /usr/local/bin/kops
+```
+
+사용자는 [Homebrew](https://brew.sh/)를 이용해서 kops를 설치할 수 있다.
+
+```shell
 brew update && brew install kops
 ```
 
 Linux에서:
+최신 릴리즈를 다운로드 받는 명령어:
 
 ```shell
-wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+```
+
+특정 버전을 다운로드 받는다면 다음을 변경한다.
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+특정 버전의 명령 부분이다.
+
+예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+```
+
+kops 바이너리를 실행 가능하게 만든다.
+
+```shell
 chmod +x kops-linux-amd64
+```
+
+kops 바이너리를 사용자의 PATH로 이동한다.
+
+```shell
 sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+사용자는 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)를 이용해서 kops를 설치할 수 있다.
+
+```shell
+brew update && brew install kops
 ```
 
 ### (2/5) 클러스터에 사용할 route53 domain 생성

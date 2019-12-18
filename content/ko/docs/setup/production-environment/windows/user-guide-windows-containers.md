@@ -120,25 +120,123 @@ spec:
 
 사용자는 윈도우 컨테이너가 테인트와 톨러레이션을 이용해서 적절한 호스트에서 스케줄링되기를 보장할 수 있다. 오늘날 모든 쿠버네티스 노드는 다음 기본 레이블을 가지고 있다.
 
-* beta.kubernetes.io/os = [windows|linux]
-* beta.kubernetes.io/arch = [amd64|arm64|...]
+* kubernetes.io/os = [windows|linux]
+* kubernetes.io/arch = [amd64|arm64|...]
 
-파드 사양에 노드 셀렉터를 `"beta.kubernetes.io/os": windows`와 같이 지정하지 않았다면, 그 파드는 리눅스나 윈도우, 아무 호스트에나 스케줄링될 수 있다. 윈도우 컨테이너는 윈도우에서만 운영될 수 있고 리눅스 컨테이너는 리눅스에서만 운영될 수 있기 때문에 이는 문제를 일으킬 수 있다. 가장 좋은 방법은 노드 셀렉터를 사용하는 것이다.
+파드 사양에 노드 셀렉터를 `"kubernetes.io/os": windows`와 같이 지정하지 않았다면, 그 파드는 리눅스나 윈도우, 아무 호스트에나 스케줄링될 수 있다. 윈도우 컨테이너는 윈도우에서만 운영될 수 있고 리눅스 컨테이너는 리눅스에서만 운영될 수 있기 때문에 이는 문제를 일으킬 수 있다. 가장 좋은 방법은 노드 셀렉터를 사용하는 것이다.
 
 그러나 많은 경우 사용자는 이미 존재하는 대량의 리눅스 컨테이너용 디플로이먼트를 가지고 있을 뿐만 아니라, 헬름(Helm) 차트 커뮤니티 같은 상용 구성의 에코시스템이나, 오퍼레이터(Operator) 같은 프로그래밍 방식의 파드 생성 사례가 있음을 알고 있다. 이런 상황에서는 노드 셀렉터를 추가하는 구성 변경을 망설일 수 있다. 이에 대한 대안은 테인트를 사용하는 것이다. Kubelet은 등록하는 동안 테인트를 설정할 수 있기 때문에, 윈도우에서만 운영할 때에 자동으로 테인트를 추가하기 쉽다.
 
-예를 들면,  `--register-with-taints='os=Win1809:NoSchedule'`
+예를 들면,  `--register-with-taints='os=windows:NoSchedule'`
 
 모든 윈도우 노드에 테인트를 추가하여 아무 것도 거기에 스케줄링하지 않게 될 것이다(존재하는 리눅스 파드를 포함하여). 윈도우 파드가 윈도우 노드에 스케줄링되려면, 윈도우를 선택하기 위한 노드 셀렉터 및 적합하게 일치하는 톨러레이션이 모두 필요하다.
 
 ```yaml
 nodeSelector:
-    "beta.kubernetes.io/os": windows
+    kubernetes.io/os: windows
+    node.kubernetes.io/windows-build: '10.0.17763'
 tolerations:
     - key: "os"
       operator: "Equal"
-      value: "Win1809"
+      value: "windows"
       effect: "NoSchedule"
 ```
 
+### 동일 클러스터에서 여러 윈도우 버전을 조작하는 방법
+
+파드에서 사용하는 윈도우 서버 버전은 노드 버전과 일치해야 한다. 만약 동일한 클러스터에서 여러 윈도우
+서버 버전을 사용하려면, 추가로 노드 레이블과 nodeSelectors를 설정해야만 한다.
+
+쿠버네티스 1.17은 이것을 단순화하기 위해 새로운 레이블인 `node.kubernetes.io/windows-build` 를 자동으로 추가 한다. 만약 이전 버전을
+실행 중인 경우 이 레이블을 윈도우 노드에 수동으로 추가하는 것을 권장한다.
+
+이 레이블은 호환성을 일치해야 하는 윈도우 메이저, 마이너 및 빌드 번호를 나타낸다. 여기에 현재
+사용하는 각 윈도우 서버 버전이 있다.
+
+| 제품 이름                            |   빌드 번호            |
+|--------------------------------------|------------------------|
+| 윈도우 서버 2019                      | 10.0.17763             |
+| 윈도우 서버 버전 1809                 | 10.0.17763             |
+| 윈도우 서버 버전 1903                 | 10.0.18362             |
+
+
+### RuntimeClass로 단순화
+
+[RuntimeClass] 를 사용해서 테인트(taint)와 톨러레이션(toleration)을 사용하는 프로세스를 간소화 할 수 있다. 클러스터 관리자는 
+이 테인트와 톨러레이션을 캡슐화하는데 사용되는 `RuntimeClass` 오브젝트를 생성할 수 있다.
+
+
+1. 이 파일을 `runtimeClasses.yml` 로 저장한다. 여기에는 윈도우 OS, 아키텍처 및 버전에 적합한 `nodeSelector` 가 포함되었다.
+
+```yaml
+apiVersion: node.k8s.io/v1beta1
+kind: RuntimeClass
+metadata:
+  name: windows-2019
+handler: 'docker'
+scheduling:
+  nodeSelector:
+    kubernetes.io/os: 'windows'
+    kubernetes.io/arch: 'amd64'
+    node.kubernetes.io/windows-build: '10.0.17763'
+  tolerations:
+  - effect: NoSchedule
+    key: os
+    operator: Equal
+    value: "windows"
+```
+
+2. 클러스터 관리자로 `kubectl create -f runtimeClasses.yml` 를 실행해서 사용한다.
+3. 파드 사양에 적합한 `runtimeClassName: windows-2019` 를 추가한다.
+
+예시:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis-2019
+  labels:
+    app: iis-2019
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: iis-2019
+      labels:
+        app: iis-2019
+    spec:
+      runtimeClassName: windows-2019
+      containers:
+      - name: iis
+        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+        resources:
+          limits:
+            cpu: 1
+            memory: 800Mi
+          requests:
+            cpu: .1
+            memory: 300Mi
+        ports:
+          - containerPort: 80
+ selector:
+    matchLabels:
+      app: iis-2019
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iis
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+  selector:
+    app: iis-2019
+```
+
+
 {{% /capture %}}
+
+[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
