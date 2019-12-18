@@ -13,7 +13,7 @@ weight: 30
 
 기본적으로 도커는 호스트-프라이빗 네트워킹을 사용하기에 컨테이너는 동일한 머신에 있는 경우에만 다른 컨테이너와 통신 할 수 있다. 도커 컨테이너가 노드를 통해 통신하려면 머신 포트에 IP 주소가 할당되어야 컨테이너에 전달되거나 프록시된다. 이것은 컨테이너가 사용하는 포트를 매우 신중하게 조정하거나 포트를 동적으로 할당해야 한다는 의미이다.
 
-여러 개발자에 걸쳐있는 포트를 조정하는 것은 규모면에서 매우 어려우며, 사용자가 제어할 수 없는 클러스터 수준의 문제에 노출된다. 쿠버네티스는 파드가 착륙하는 호스트와는 무관하게 다른 파드와 통신할 수 있다고 가정한다. 모든 파드에게 자체 클러스터-프라이빗-IP 주소를 제공하기 때문에 파드간에 명시적으로 링크를 만들거나 컨테이너 포트를 호스트 포트에 매핑 할 필요가 없다. 이것은 파드 내의 컨테이너는 모두 로컬호스트에서 서로의 포트에 도달할 수 있으며 클러스터의 모든 파드는 NAT 없이 서로를 볼수 있다는 의미이다. 이 문서의 나머지 부분에서는 이러한 네트워킹 모델에서 신뢰할 수 있는 서비스를 실행하는 방법에 대해 자세히 설명할 것이다.
+여러 개발자에 걸쳐있는 포트를 조정하는 것은 규모면에서 매우 어려우며, 사용자가 제어할 수 없는 클러스터 수준의 문제에 노출된다. 쿠버네티스는 파드가 배치된 호스트와는 무관하게 다른 파드와 통신할 수 있다고 가정한다. 모든 파드에게 자체 클러스터-프라이빗-IP 주소를 제공하기 때문에 파드간에 명시적으로 링크를 만들거나 컨테이너 포트를 호스트 포트에 매핑 할 필요가 없다. 이것은 파드 내의 컨테이너는 모두 로컬호스트에서 서로의 포트에 도달할 수 있으며 클러스터의 모든 파드는 NAT 없이 서로를 볼 수 있다는 의미이다. 이 문서의 나머지 부분에서는 이러한 네트워킹 모델에서 신뢰할 수 있는 서비스를 실행하는 방법에 대해 자세히 설명할 것이다.
 
 이 가이드는 간단한 nginx 서버를 사용해서 개념증명을 보여준다. 동일한 원칙이 보다 완전한 [Jenkins CI 애플리케이션](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes)에서 구현된다.
 
@@ -23,12 +23,12 @@ weight: 30
 
 ## 파드를 클러스터에 노출하기
 
-이전 예시에서는 작업을 수행했지만, 다시 한번 수행하고 네트워킹 관점에 중점을 둔다
-nginx 파드를 생성하고, 컨테이너 포트 사양이 있는 것에 참고한다.
+이 작업은 이전 예시에서 수행해 보았지만, 네트워킹 관점을 중점에 두고 다시 한번 수행해 보자.
+nginx 파드를 생성하고, 해당 파드에 컨테이너 포트 사양이 있는 것을 참고한다.
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
 
-이렇게 하면 클러스터의 모든 노드에서 접근할 수 있다. 파드를 실행중인 노드를 확인한다.
+이렇게 하면 클러스터의 모든 노드에서 접근할 수 있다. 파드를 실행 중인 노드를 확인한다.
 
 ```shell
 kubectl apply -f ./run-my-nginx.yaml
@@ -54,7 +54,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 ## 서비스 생성하기
 
-따라서 평평하고 넓은 클러스터 전체의 주소 공간에서 nginx를 실행하는 파드를 가지고 있다. 이론적으로 이러한 파드와 직접 대화할 수 있지만, 노드가 죽으면 어떻게 되는가? 파드가 함께 죽으면 디플로이먼트에서 다른 IP로 새로운 파드를 생성한다. 이 문제를 서비스가 해결한다.
+평평하고 넓은 클러스터 전체의 주소 공간에서 nginx를 실행하는 파드가 있다고 가정하자. 이론적으로는 이러한 파드와 직접 대화할 수 있지만, 노드가 죽으면 어떻게 되는가? 파드가 함께 죽으면 디플로이먼트에서 다른 IP를 가진 새로운 파드를 생성한다. 이 문제를 서비스가 해결한다.
 
 쿠버네티스 서비스는 클러스터 어딘가에서 실행되는 논리적인 파드 집합을 정의하고 추상화함으로써 모두 동일한 기능을 제공한다. 생성시 각 서비스에는 고유한 IP 주소(clusterIP라고도 한다)가 할당된다. 이 주소는 서비스의 수명과 연관되어 있으며, 서비스가 활성화 되어있는 동안에는 변경되지 않는다. 파드는 서비스와 통신하도록 구성할 수 있으며, 서비스와의 통신은 서비스의 맴버 중 일부 파드에 자동적으로 로드-밸런싱 된다.
 
@@ -67,7 +67,7 @@ kubectl expose deployment/my-nginx
 service/my-nginx exposed
 ```
 
-이것과 동일한 다음 yaml 파일을 `kubectl apply -f` 로 적용한다.
+이것은 다음 yaml 파일을 `kubectl apply -f` 로 실행한 것과 동일하다.
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
 
@@ -89,7 +89,7 @@ my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
 앞에서 언급한 바와 같이, 서비스는 파드 그룹에 의해 지원된다. 이 파드들은
-`endpoints` 를 통해 노출된다. 서비스 셀렉터는 지속적으로 평가하고
+`endpoints` 를 통해 노출된다. 서비스 셀렉터는 지속적으로 평가되고
 결과는 `my-nginx` 이름의 엔드포인트 오브젝트에 POST된다.
 파드가 죽으면 자동적으로 엔드포인트에서 제거되며 서비스 셀렉터와
 일치하는 새 파드는 자동적으로 엔드포인트에 추가된다.
@@ -121,18 +121,18 @@ my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 ```
 
 이제 클러스터의 모든 노드에서 `<CLUSTER-IP>:<PORT>` 로 nginx 서비스를
-curl할수 있어야만 한다. 서비스 IP는 완전히 가상이므로 절대로 연결되지
+curl을 할 수 있을 것이다. 서비스 IP는 완전히 가상이므로 외부에서는 절대로 연결되지
 않음에 참고한다. 만약 이것이 어떻게 작동하는지 궁금하다면
 [서비스 프록시](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)에 대해 더 읽어본다.
 
 ## 서비스에 접근하기
 
-쿠버네티스는 서비스를 찾는 두가지 기본 모드인 환경 변수와 DNS를
+쿠버네티스는 서비스를 찾는 두 가지 기본 모드인 환경 변수와 DNS를
 지원한다. 전자는 기본적으로 작동하지만 후자는
 [CoreDNS 클러스터 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns)이 필요하다.
 {{< note >}}
 만약 서비스 환경 변수가 필요하지 않은 경우(소유한 프로그램과의 예상되는 충돌 가능성,
-너무 많은 변수를 처리하는 것, DNS만 사용하는 경우, 그외) [파드 사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)에서
+처리할 변수가 너무 많은 경우, DNS만 사용하는 경우 등) [파드 사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)에서
 `enableServiceLinks` 플래그를 `false` 로 설정하면 이 모드를 비활성화할 수 있다.
 {{< /note >}}
 
@@ -141,7 +141,7 @@ curl할수 있어야만 한다. 서비스 IP는 완전히 가상이므로 절대
 
 파드가 노드에서 실행될 때 kubelet은 각기 활성화된 서비스에 대해 일련의 환경
 변수 집합을 추가한다. 이것은 순서 문제를 야기한다. 이유를 확인하려면
-실행중인 nginx 파드 환경을 점검해야 한다(파드 이름은 다르다).
+실행 중인 nginx 파드 환경을 점검해야 한다(실제 사용자의 파드 이름은 다를 것이다).
 
 ```shell
 kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -152,13 +152,13 @@ KUBERNETES_SERVICE_PORT=443
 KUBERNETES_SERVICE_PORT_HTTPS=443
 ```
 
-서비스에 대한 언급이 없다는 것에 참고해야한다. 이것은 서비스 이전에 레플리카를
+서비스에 대한 언급이 없다는 것에 참고해야 한다. 이것은 서비스 이전에 레플리카를
 생성했기 때문이다. 이 작업을 수행할 때 또 다른 단점은 스케줄러가 두 파드를
-모두 동일한 머신에 배치할 수 있으며 이로 인해 전체 서비스가 중단될 수
+모두 동일한 머신에 배치할 수도 있다는 것이며, 이로 인해 전체 서비스가 중단될 수
 있다. 두개의 파드를 죽이고 디플로이먼트가 파드를 재생성하기를 기다리는 것으로
-올바른 방법을 수행할 수 있다. 이번에는 서비스 주변에 레플리카가 존재하기 *전* 에
-있다. 이렇게 하면 올바른 환경 변수뿐만 아니라 파드의 스케줄러-수준의
-서비스분배(모든 노드에 동일한 용량이 제공되는 경우)가
+이를 정상화 할 수 있다. 이번에는 서비스가 레플리카들 *전* 에
+존재한다. 이렇게 하면 올바른 환경 변수뿐만 아니라 파드의 스케줄러-수준의
+서비스 분배(모든 노드에 동일한 용량이 제공되는 경우)가
 된다.
 
 ```shell
@@ -172,7 +172,7 @@ my-nginx-3800858182-e9ihh   1/1       Running   0          5s      10.244.2.7   
 my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8    kubernetes-minion-905m
 ```
 
-파드를 죽이고 재생성되기 때문에 다른 이름을 가지는 것을 알 수 있다.
+파드가 죽고 재생성되었기 때문에 다른 이름을 가지는 것을 알 수 있다.
 
 ```shell
 kubectl exec my-nginx-3800858182-e9ihh -- printenv | grep SERVICE
@@ -187,7 +187,7 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 
 ### DNS
 
-쿠버네티스는 DNS 클러스터 애드온 서비스를 제공하며 dns 이름을 다른 서비스에 자동으로 할당한다. 이것을 클러스터에서 실행중인지 확인할 수 있다.
+쿠버네티스는 DNS 클러스터 애드온 서비스를 제공하며 dns 이름을 다른 서비스에 자동으로 할당한다. 다음 명령어로 이것이 클러스터에서 실행 중인지 확인할 수 있다.
 
 ```shell
 kubectl get services kube-dns --namespace=kube-system
@@ -197,8 +197,8 @@ NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
-이 섹션의 나머지 부분에서는 수명이 긴 IP의 서비스와 이 IP
-(my-nginx)에 이름을 할당한 DNS 서버가 있다고 가정한다. 여기서는 CoreDNS 클러스터 애드온(애플리케이션 이름 `kube-dns`)을 사용하기에 표준 방법(예: `gethostbyname()`)을 사용해서 클러스터의 모든 파드에서 서비스와 통신할 수 있다. 만약 CoreDNS가 실행중이 아니라면 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 또는 [CoreDNS 설치](/docs/tasks/administer-cluster/coredns/#installing-coredns)를 참조해서 활성화 할 수 있다. 이것을 테스트하기 위해 다른 curl 애플리케이션을 실행한다.
+이 섹션의 나머지 부분에서는 수명이 긴 IP의 서비스(my-nginx)와 이 IP
+에 이름을 할당한 DNS 서버가 있다고 가정한다. 여기서는 CoreDNS 클러스터 애드온(애플리케이션 이름 `kube-dns`)을 사용하므로, 표준 방법(예: `gethostbyname()`)을 사용해서 클러스터의 모든 파드에서 서비스와 통신할 수 있다. 만약 CoreDNS가 실행 중이 아니라면 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 또는 [CoreDNS 설치](/docs/tasks/administer-cluster/coredns/#installing-coredns)를 참조해서 활성화 할 수 있다. 이것을 테스트하기 위해 다른 curl 애플리케이션을 실행한다.
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -258,7 +258,7 @@ kubectl get configmaps
 NAME             DATA   AGE
 nginxconfigmap   1      114s
 ```
-다음은 make를 실행하는데 문제가 있는 경우에 수행해야하는 수동 단계이다(예시로 windows).
+다음은 make를 실행하는데 문제가 있는 경우에 수행해야 하는 수동 단계이다(예시로 windows).
 
 ```shell
 # Create a public private key pair
@@ -267,7 +267,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -ou
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```
-이전 명령의 출력을 사용해서 다음과 같이 yaml 파일을 생성한다. base64로 인코딩된 값은 모두 한줄에 있어야 한다.
+이전 명령의 출력을 사용해서 다음과 같이 yaml 파일을 생성한다. base64로 인코딩된 값은 모두 한 줄에 있어야 한다.
 
 ```yaml
 apiVersion: "v1"
@@ -296,7 +296,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
-nginx-secure-app의 매니페스트에 대한 주목할만한 점
+nginx-secure-app의 매니페스트에 대한 주목할만한 점:
 
 - 이것은 동일한 파일에 디플로이먼트와 서비스의 사양을 모두 포함하고 있다.
 - [nginx 서버](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf)
@@ -321,7 +321,7 @@ node $ curl -k https://10.244.3.5
 
 마지막 단계에서 curl에 `-k` 파라미터를 제공한 방법에 참고한다. 이는 인증서 생성시 nginx를 실행하는 파드에 대해 아무것도 모르기 때문에
 curl에 CName 불일치를 무시하도록 지시해야하기 때문이다. 서비스를 생성해서 인증서에 사용된 CName을 서비스 조회시 파드에서 사용된 실제 DNS 이름과 연결했다.
-파드에서 이것을 테스트 해보자(단순히 동일한 시크릿이 재사용되고 있으며, 파드는 서비스에 접근하기위해 nginx.crt만 필요하다):
+파드에서 이것을 테스트 해보자(단순히 동일한 시크릿이 재사용되고 있으며, 파드는 서비스에 접근하기위해 nginx.crt만 필요하다).
 
 {{< codenew file="service/networking/curlpod.yaml" >}}
 
