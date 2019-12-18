@@ -16,9 +16,27 @@ repos:
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-compdocs
     cd src/github.com/kubernetes-sigs/reference-docs/
-    sed "s/^MINOR_VERSION=[[:digit:]][[:digit:]]/MINOR_VERSION=${K8S_RELEASE}/g" Makefile > temp_makefile
-    mv temp_makefile Makefile
+    # generate component tool pages
     make comp
+    cd $GOPATH
+    go get -v github.com/kubernetes-sigs/reference-docs/gen-kubectldocs
+    cd src/github.com/kubernetes-sigs/reference-docs/
+    cp ${K8S_WEBROOT}/update-imported-docs/Makefile .
+    # generate kubectl cmd reference
+    make copycli
+    #
+    # cmds below are not working yet
+    # generate api reference
+    #cd $GOPATH
+    #go get -u github.com/go-openapi/loads
+    #go get -u github.com/go-openapi/spec
+    #go get -v github.com/kubernetes-sigs/reference-docs/gen-apidocs
+    #cd src/github.com/kubernetes-sigs/reference-docs/
+    #cp ${K8S_WEBROOT}/update-imported-docs/Makefile .
+    #make updateapispec
+    #make api
+    #make copyapi
+
 
   files:
   - src: gen-compdocs/build/cloud-controller-manager.md
