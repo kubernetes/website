@@ -93,13 +93,13 @@ kubectl create clusterrolebinding tiller-cluster-admin \
 
 Install Service Catalog from the root of the Helm repository using the following command:
 
-{{< tabs name="Helm3" >}} 
-{{% tab name="Helm3" %}}
+{{< tabs name="helm-versions" >}} 
+{{% tab name="Helm version 3" %}}
 ```shell
 helm install catalog svc-cat/catalog --namespace catalog
 ```
 {{% /tab %}}
-{{% tab name="Helm2" %}}
+{{% tab name="Helm version 2" %}}
 ```shell
 helm install svc-cat/catalog --name catalog --namespace catalog
 ```
