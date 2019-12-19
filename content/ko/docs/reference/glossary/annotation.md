@@ -2,7 +2,7 @@
 title: 어노테이션(Annotation)
 id: annotation
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/annotations
+full_link: /ko/docs/concepts/overview/working-with-objects/annotations
 short_description: >
   임의의 식별되지 않는 메타데이터를 오브젝트에 첨부할 때 이용하는 키-밸류 쌍.
 

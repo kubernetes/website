@@ -44,7 +44,7 @@ weight: 40
    [ Services ]
 ```
 
-인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름 기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
+인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름 기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
 
 인그레스는 임의의 포트 또는 프로토콜을 노출시키지 않는다. HTTP와 HTTPS 이외의 서비스를 인터넷에 노출하려면 보통
 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 또는
@@ -52,10 +52,10 @@ weight: 40
 
 ## 전제 조건들
 
-[인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)가 있어야 인그레스를 충족할 수 있다. 인그레스 리소스만 생성한다면 효과가 없다.
+[인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)가 있어야 인그레스를 충족할 수 있다. 인그레스 리소스만 생성한다면 효과가 없다.
 
 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)와 같은 인그레스 컨트롤러를 배포해야 할 수도 있다. 여러
-[인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers) 중에서 선택할 수도 있다.
+[인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers) 중에서 선택할 수도 있다.
 
 이상적으로, 모든 인그레스 컨트롤러는 참조 사양이 맞아야 한다. 실제로, 다양한 인그레스
 컨트롤러는 조금 다르게 작동한다.
@@ -89,7 +89,7 @@ spec:
  설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
  인그레스는 종종 어노테이션을 이용해서 인그레스 컨트롤러에 따라 몇 가지 옵션을 구성하는데,
  그 예시는 [재작성-타겟 어노테이션](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)이다.
- 다른 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)는 다른 어노테이션을 지원한다.
+ 다른 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 다른 어노테이션을 지원한다.
  지원되는 어노테이션을 확인하려면 선택한 인그레스 컨트롤러의 설명서를 검토한다.
 
 인그레스 [사양](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
@@ -117,7 +117,7 @@ spec:
 ### 기본 벡엔드
 
 규칙이 없는 인그레스는 모든 트래픽을 단일 기본 백엔드로 전송한다. 기본
-백엔드는 일반적으로 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 인그레스 리소스에 지정되어 있지 않다.
+백엔드는 일반적으로 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)의 구성 옵션이며, 인그레스 리소스에 지정되어 있지 않다.
 
 만약 인그레스 오브젝트의 HTTP 요청과 일치하는 호스트 또는 경로가 없으면, 트래픽은
 기본 백엔드로 라우팅 된다.
@@ -218,7 +218,7 @@ Events:
 볼 수 있다.
 
 {{< note >}}
-사용중인 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers)
+사용중인 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)
 에 따라 default-http-backend
 [서비스](/docs/concepts/services-networking/service/)를 만들어야 할 수도 있다.
 {{< /note >}}
@@ -452,7 +452,7 @@ Events:
 ## 가용성 영역에 전체에서의 실패
 
 장애 도메인에 트래픽을 분산시키는 기술은 클라우드 공급자마다 다르다.
-자세한 내용은 [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers) 설명서를 확인한다. 페더레이션 클러스터에서 인그레스 배포에 대한 자세한 내용은 [페더레이션 설명서](https://github.com/kubernetes-sigs/federation-v2)
+자세한 내용은 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers) 설명서를 확인한다. 페더레이션 클러스터에서 인그레스 배포에 대한 자세한 내용은 [페더레이션 설명서](https://github.com/kubernetes-sigs/federation-v2)
 를 참조할 수 있다.
 
 ## 앞으로의 할일
@@ -472,6 +472,6 @@ Events:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [인그레스 컨트롤러](/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
+* [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
 * [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/docs/tasks/access-application-cluster/ingress-minikube)
 {{% /capture %}}

@@ -35,7 +35,7 @@ weight: 40
 * [볼륨](/docs/concepts/storage/volumes/)
 * [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/)
 
-또한, 쿠버네티스에는 기초 오브젝트를 기반으로, 부가 기능 및 편의 기능을 제공하는 [컨트롤러](/docs/concepts/architecture/controller/)에 의존하는 보다 높은 수준의 추상 개념도 포함되어 있다. 다음이 포함된다.
+또한, 쿠버네티스에는 기초 오브젝트를 기반으로, 부가 기능 및 편의 기능을 제공하는 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 의존하는 보다 높은 수준의 추상 개념도 포함되어 있다. 다음이 포함된다.
 
 * [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
 * [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)
