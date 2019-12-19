@@ -122,7 +122,7 @@ process-item-cherry-dnfu9   0/1       Completed   0          4m
 We can use this single command to check on the output of all jobs at once:
 
 ```shell
-  kubectl logs -f -l jobgroup=jobexample
+kubectl logs -f -l jobgroup=jobexample
 ```
 
 The output is:
