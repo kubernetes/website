@@ -80,8 +80,8 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 노드 수명주기 컨트롤러는 자동으로 컨디션을 나타내는
 [테인트(taints)](/docs/concepts/configuration/taint-and-toleration/)를 생성한다.
-스케줄러가 파드를 노드에 할당할 때, 스케줄러는 파드가 허용하는 테인트를 
-제외하고 노드 계정의 테인트를 고려 한다.
+스케줄러가 파드를 노드에 할당할 때, 스케줄러는 파드가 극복(tolerate)하는 테인트가
+아닌 한, 노드 계정의 테인트를 고려 한다.
 
 ### 용량과 할당가능 {#capacity}
 
