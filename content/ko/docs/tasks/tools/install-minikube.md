@@ -214,7 +214,7 @@ minikube start --vm-driver=<driver_name>
 minikube status
 ```
 
-만약 클러스터가 실행중이면, `minikube status` 의 출력은 다음과 유사해야한다.
+만약 클러스터가 실행 중이면, `minikube status` 의 출력은 다음과 유사해야 한다.
 
 ```
 host: Running

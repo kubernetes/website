@@ -60,7 +60,7 @@ $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep ta
 curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
 ```
 
-kops 바이너리를 실행가능하게 만든다.
+kops 바이너리를 실행 가능하게 만든다.
 
 ```shell
 chmod +x kops-darwin-amd64
@@ -79,7 +79,7 @@ brew update && brew install kops
 ```
 
 Linux에서:
-최신 릴리즈를 다운받는 명령어:
+최신 릴리즈를 다운로드 받는 명령어:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
@@ -97,7 +97,7 @@ $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep ta
 curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
 ```
 
-kops 바이너리를 실행가능하게 만든다.
+kops 바이너리를 실행 가능하게 만든다.
 
 ```shell
 chmod +x kops-linux-amd64

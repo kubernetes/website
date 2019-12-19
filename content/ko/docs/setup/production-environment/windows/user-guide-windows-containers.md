@@ -148,7 +148,7 @@ tolerations:
 서버 버전을 사용하려면, 추가로 노드 레이블과 nodeSelectors를 설정해야만 한다.
 
 쿠버네티스 1.17은 이것을 단순화하기 위해 새로운 레이블인 `node.kubernetes.io/windows-build` 를 자동으로 추가 한다. 만약 이전 버전을
-실행중인 경우 이 레이블을 Windows 노드에 수동으로 추가하는 것을 권장한다.
+실행 중인 경우 이 레이블을 Windows 노드에 수동으로 추가하는 것을 권장한다.
 
 이 레이블은 호환성을 일치해야 하는 Windows 메이저, 마이너 및 빌드 번호를 나타낸다. 여기에 현재
 사용하는 각 Windows 서버 버전이 있다.
@@ -162,7 +162,7 @@ tolerations:
 
 ### RuntimeClass로 단순화
 
-[RuntimeClass] 를 사용해서 테인트(taint)와 톨러레이션(toleration)를 사용하는 프로세스를 간소화 할 수 있다. 클러스터 관리자는 
+[RuntimeClass] 를 사용해서 테인트(taint)와 톨러레이션(toleration)을 사용하는 프로세스를 간소화 할 수 있다. 클러스터 관리자는 
 이 테인트와 톨러레이션을 캡슐화하는데 사용되는 `RuntimeClass` 오브젝트를 생성할 수 있다.
 
 
@@ -186,8 +186,8 @@ scheduling:
     value: "windows"
 ```
 
-2. 클러스터 관리자로 `kubectl create -f runtimeClasses.yml` 를 실행해서 사용한다
-3. 파드 사양에 적합한 `runtimeClassName: windows-2019` 를 추가한다
+2. 클러스터 관리자로 `kubectl create -f runtimeClasses.yml` 를 실행해서 사용한다.
+3. 파드 사양에 적합한 `runtimeClassName: windows-2019` 를 추가한다.
 
 예시:
 

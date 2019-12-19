@@ -167,11 +167,11 @@ NodeStatus의 NodeReady 컨디션을 ConditionUnknown으로 업데이트 하는 
 [리스(Lease) 오브젝트](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io) 이다.
 각 노드에는 `kube-node-lease` 라는
 {{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 에 관련된 리스 오브젝트가 있다.
-리스는 경량 리소스로, 클러스터 확장될 때
+리스는 경량 리소스로, 클러스터가 확장될 때
 노드의 하트비트 성능을 향상 시킨다.
 
-kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트하는
-역할을 한다.
+kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
+의무가 있다.
 
 - kubelet은 상태가 변경되거나 구성된 상태에 대한 업데이트가 없는 경우,
   `NodeStatus` 를 업데이트 한다. `NodeStatus` 의 기본 업데이트
