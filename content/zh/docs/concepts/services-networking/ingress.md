@@ -63,8 +63,30 @@ Cluster network
 Service
 : A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network. 
 -->
+<<<<<<< HEAD
 服务（Service）：
 Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器（selectors）标识的一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+=======
+
+## 专用术语
+
+为了避免歧义，本指南定义了以下术语：
+
+节点
+：Kubernetes 集群中的单个工作机器。
+
+集群
+：运行由Kubernetes管理的容器化应用程序的一组节点。 对于此示例，在大多数常见的Kubernetes部署中，集群中的节点不属于公共网络。
+
+边缘路由器
+：为集群强制执行防火墙策略的路由器。这可以是由云提供商管理的网关或物理硬件。
+
+集群网络
+：一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
+
+服务：
+Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+>>>>>>> update zh ingress.md
 
 <!--
 ## What is Ingress?
@@ -76,6 +98,12 @@ Ingress exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource. 
 -->
+<<<<<<< HEAD
+=======
+
+## Ingress 是什么？
+
+>>>>>>> update zh ingress.md
 Ingress公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
 流量路由由Ingress资源上定义的规则控制。
 
