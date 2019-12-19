@@ -73,7 +73,7 @@ Below are general categories of non-Kubernetes project content along with guidel
                 - Including instructions for installing Kubernetes on production environments using various projects:
                     - Kubernetes Rebar Integrated Bootstrap (KRIB) is a vendor-specific project and content belongs in the vendor's documentation
                     - [Kubernetes Operations (kops)](https://github.com/kubernetes/kops) has installation instructions and tutorials in its GitHub repository
-                    - [Kubespray](https://kubespray.io) has its own documenation  
+                    - [Kubespray](https://kubespray.io) has its own documentation 
         - Adding a tutorial that explains how to perform a task using a vendor-specific product or an open source project that is not a CNCF project or a project in the kubernetes or kubnetes-sigs GitHub organizations
         - Adding a tutorial on how to use a CNCF project or a project in the kubernetes or kubnetes-sigs GitHub organizations if the project has its own documentation
 1. Detailed technical content about how to use a non-Kubernetes project or how that project is designed

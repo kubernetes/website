@@ -94,7 +94,7 @@ kubectl config view -o jsonpath='{"Cluster name\tServer\n"}{range .clusters[*]}{
 # Select name of cluster you want to interact with from above output:
 export CLUSTER_NAME="some_server_name"
 
-# Point to the API server refering the cluster name
+# Point to the API server referring the cluster name
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
 # Gets the token value

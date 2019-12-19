@@ -879,7 +879,7 @@ With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAP
 
 The OpenAPI v3 validation schema is converted to OpenAPI v2 schema, and
 show up in `definitions` and `paths` fields in the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
-The following modifications are applied during the conversion to keep backwards compatiblity with
+The following modifications are applied during the conversion to keep backwards compatibility with
 kubectl in previous 1.13 version. These modifications prevent kubectl from being over-strict and rejecting
 valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
 and therefore won't affect [validation](#validation) in the API server.
