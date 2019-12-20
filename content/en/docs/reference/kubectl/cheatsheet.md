@@ -86,7 +86,7 @@ kubectl config unset users.foo                       # delete user foo
 
 ## Creating Objects
 
-Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
+Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
