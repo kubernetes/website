@@ -186,7 +186,9 @@ In kubeadm terms, any certificate that would normally be signed by an on-disk CA
 
 You can create certificate signing requests with `kubeadm alpha certs renew --csr-only`.
 
-Both the CSR and the accompanying private key are given in the output; you can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
+Both the CSR and the accompanying private key are given in the output.
+You can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
+If `--csr-dir` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
 
 Certificates can be renewed with `kubeadm alpha certs renew --csr-only`.
 As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag.
