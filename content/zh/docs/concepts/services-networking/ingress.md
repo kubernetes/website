@@ -109,7 +109,7 @@ GCE／Google Kubernetes Engine 是在主节点上部署 Ingress 控制器。
 您可以在 Pod 中部署任意数量的自定义 Ingress 控制器。
 您必须使用适当的类来注释每个 Ingress，如[这里](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) 和 [这里](https://git.k8s.io/ingress-gce/examples/PREREQUISITES.md#ingress-class) 所示。
 
-一定要检查一下这个控制器的 [beta 限制](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations)。
+一定要检查一下这个控制器的 [beta 限制](https://github.com/kubernetes/ingress-gce/blob/master/LIMITATIONS.md)。
 在 GCE／Google Kubernetes Engine 之外的环境中，需要将[控制器部署](https://git.k8s.io/ingress-nginx/README.md) 为 Pod。
 
 {{< note >}}

@@ -796,7 +796,7 @@ $ kubectl delete daemonset cassandra
 ### Seed Provider Source
 
 
-我们使用了一个自定义的 [`SeedProvider`](https://svn.apache.org/repos/asf/cassandra/trunk/src/java/org/apache/cassandra/locator/SeedProvider.java) 来在 Kubernetes 之上运行 Cassandra。仅当你通过 replication control 或者 daemonset 部署 Cassandra 时才需要使用自定义的 seed provider。在 Cassandra 中，`SeedProvider` 引导 Cassandra 使用 gossip 协议来查找其它 Cassandra 节点。Seed 地址是被视为连接端点的主机。Cassandra 实例使用 seed 列表来查找彼此并学习 ring 环拓扑。[`KubernetesSeedProvider`](https://github.com/kubernetes/kubernetes/blob/master/examples/storage/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 通过 Kubernetes API 发现 Cassandra seeds IP 地址，那些 Cassandra 实例在 Cassandra Service 中定义。
+我们使用了一个自定义的 [`SeedProvider`](https://gitbox.apache.org/repos/asf?p=cassandra.git;a=blob;f=src/java/org/apache/cassandra/locator/SeedProvider.java;h=7efa9e050a4604c2cffcb953c3c023a2095524fe;hb=c2e11bd4224b2110abe6aa84c8882e85980e3491) 来在 Kubernetes 之上运行 Cassandra。仅当你通过 replication control 或者 daemonset 部署 Cassandra 时才需要使用自定义的 seed provider。在 Cassandra 中，`SeedProvider` 引导 Cassandra 使用 gossip 协议来查找其它 Cassandra 节点。Seed 地址是被视为连接端点的主机。Cassandra 实例使用 seed 列表来查找彼此并学习 ring 环拓扑。[`KubernetesSeedProvider`](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 通过 Kubernetes API 发现 Cassandra seeds IP 地址，那些 Cassandra 实例在 Cassandra Service 中定义。
 
 请查阅自定义 seed provider 的 [README](https://git.k8s.io/examples/cassandra/java/README.md) 文档，获取 `KubernetesSeedProvider` 进阶配置。对于本示例来说，你应该不需要自定义 Seed Provider 的配置。
 
