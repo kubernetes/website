@@ -124,11 +124,8 @@ Make sure you review your Ingress controller's documentation to understand the c
 确保您查看了 Ingress 控制器的文档，以了解选择它的注意事项。
 {{< /note >}}
 
-<!--
-Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress
-controllers operate slightly differently.
--->
-理想情况下，所有 Ingress 控制器都应符合参考规范。实际上，各种 Ingress 控制器的操作略有不同。
+一定要检查一下这个控制器的 [beta 限制](https://github.com/kubernetes/ingress-gce/blob/master/LIMITATIONS.md)。
+在 GCE／Google Kubernetes Engine 之外的环境中，需要将[控制器部署](https://git.k8s.io/ingress-nginx/README.md) 为 Pod。
 
 {{< note >}}
 <!--
