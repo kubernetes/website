@@ -19,4 +19,4 @@ Les contrôleurs d'accès sont configurables pour le serveur API de Kubernetes. 
 les deux. Tout contrôleur d'accès peut rejeter la demande. Les contrôleurs modifiant peuvent modifier les objets qu'ils admettent ;
 alors que les contrôleurs validants ne le peuvent pas.
 
-* ["Contrôleur d'accès" dans la documentation de Kubernetes](fr/docs/reference/access-authn-authz/admission-controllers/)
+* ["Contrôleur d'accès" dans la documentation de Kubernetes](/docs/reference/access-authn-authz/admission-controllers/)
