@@ -1,0 +1,226 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+'.source.gfm':
+
+  # Capture variables for concept template
+  # For full concept template see 'newconcept' below
+  'Insert concept template':
+    'prefix': 'ctemplate'
+    'body': 'content_template: templates/concept'
+  'Insert concept overview':
+    'prefix': 'coverview'
+    'body': '{{% capture overview %}}'
+  'Insert concept body':
+    'prefix': 'cbody'
+    'body': '{{% capture body %}}'
+  'Insert concept whatsnext':
+    'prefix': 'cnext'
+    'body': '{{% capture whatsnext %}}'
+
+
+  # Capture variables for task template
+  # For full task template see 'newtask' below
+  'Insert task template':
+    'prefix': 'ttemplate'
+    'body': 'content_template: templates/task'
+  'Insert task overview':
+    'prefix': 'toverview'
+    'body': '{{% capture overview %}}'
+  'Insert task prerequisites':
+    'prefix': 'tprereq'
+    'body': """
+      {{% capture prerequisites %}}
+
+      {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+      {{% /capture %}}
+    """
+  'Insert task steps':
+    'prefix': 'tsteps'
+    'body': '{{% capture steps %}}'
+  'Insert task discussion':
+    'prefix': 'tdiscuss'
+    'body': '{{% capture discussion %}}'
+
+
+  # Capture variables for tutorial template
+  # For full tutorial template see 'newtutorial' below
+  'Insert tutorial template':
+    'prefix': 'tutemplate'
+    'body': 'content_template: templates/tutorial'
+  'Insert tutorial overview':
+    'prefix': 'tuoverview'
+    'body': '{{% capture overview %}}'
+  'Insert tutorial prerequisites':
+    'prefix': 'tuprereq'
+    'body': '{{% capture prerequisites %}}'  
+  'Insert tutorial objectives':
+    'prefix': 'tuobjectives'
+    'body': '{{% capture objectives %}}'
+  'Insert tutorial lesson content':
+    'prefix': 'tulesson'
+    'body': '{{% capture lessoncontent %}}'
+  'Insert tutorial whatsnext':
+    'prefix': 'tunext'
+    'body': '{{% capture whatsnext %}}'
+  'Close capture':
+    'prefix': 'ccapture'
+    'body': '{{% /capture %}}'
+  'Insert note':
+    'prefix': 'anote'
+    'body': """
+      {{< note >}}
+      $1
+      {{< /note >}}
+    """
+  
+  # Admonitions
+  'Insert caution':
+    'prefix': 'acaution'
+    'body': """
+      {{< caution >}}
+      $1
+      {{< /caution >}}
+    """
+  'Insert warning':
+    'prefix': 'awarning'
+    'body': """
+      {{< warning >}}
+      $1
+      {{< /warning >}}
+    """
+  
+  # Misc one-liners
+  'Insert TOC':
+    'prefix': 'toc'
+    'body': '{{< toc >}}'
+  'Insert code from file':
+    'prefix': 'codefile'
+    'body': '{{< codenew file="$1" >}}'
+  'Insert feature state':
+    'prefix': 'fstate'
+    'body': '{{< feature-state for_k8s_version="$1" state="$2" >}}'
+  'Insert figure':
+    'prefix': 'fig'
+    'body': '{{< figure src="$1" title="$2" alt="$3" caption="$4" >}}'
+  'Insert Youtube link':
+    'prefix': 'yt'
+    'body': '{{< youtube $1 >}}'
+
+
+  # Full concept template
+  'Create new concept':
+    'prefix': 'newconcept'
+    'body': """
+      ---
+      reviewers:
+      - ${1:"github-id-or-group"}
+      title: ${2:"topic-title"}
+      content_template: templates/concept
+      ---
+      {{% capture overview %}}
+      ${3:"overview-content"}
+      {{% /capture %}}
+      
+      {{< toc >}}
+      
+      {{% capture body %}}
+      ${4:"h2-heading-per-subtopic"}
+      {{% /capture %}}
+      
+      {{% capture whatsnext %}}
+      ${5:"next-steps-or-delete"}
+      {{% /capture %}}
+    """
+
+
+  # Full task template
+  'Create new task':
+    'prefix': 'newtask'
+    'body': """
+      ---
+      reviewers:
+      - ${1:"github-id-or-group"}
+      title: ${2:"topic-title"}
+      content_template: templates/task
+      ---
+      {{% capture overview %}}
+      ${3:"overview-content"}
+      {{% /capture %}}
+      
+      {{< toc >}}
+      
+      {{% capture prerequisites %}}
+      
+      {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+      
+      ${4:"additional-prereqs-or-delete"}
+      
+      {{% /capture %}}
+      
+      {{% capture steps %}}
+      ${5:"h2-heading-per-step"}
+      {{% /capture %}}
+      
+      {{% capture discussion %}}
+      ${6:"task-discussion-or-delete"}
+      {{% /capture %}}
+    """
+
+  # Full tutorial template
+  'Create new tutorial':
+    'prefix': 'newtutorial'
+    'body': """
+      ---
+      reviewers:
+      - ${1:"github-id-or-group"}
+      title: ${2:"topic-title"}
+      content_template: templates/tutorial
+      ---
+      {{% capture overview %}}
+      ${3:"overview-content"}
+      {{% /capture %}}
+      
+      {{< toc >}}
+      
+      {{% capture prerequisites %}}
+      
+      {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+      
+      ${4:"additional-prereqs-or-delete"}
+      
+      {{% /capture %}}
+      
+      {{% capture objectives %}}
+      ${5:"tutorial-objectives"}
+      {{% /capture %}}
+      
+      {{% capture lessoncontent %}}
+      ${6:"lesson-content"}
+      {{% /capture %}}
+      
+      {{% capture whatsnext %}}
+      ${7:"next-steps-or-delete"}
+      {{% /capture %}}
+    """
+  

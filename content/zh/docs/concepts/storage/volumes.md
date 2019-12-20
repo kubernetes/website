@@ -29,7 +29,7 @@ Kubernetes 抽象出 `Volume` 对象来解决这两个问题。
 Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 -->
 
-阅读本文前建议您熟悉一下 [Pods](/docs/user-guide/pods)。
+阅读本文前建议您熟悉一下 [Pods](/docs/user-guide/pods)。 
 
 {{% /capture %}}
 
@@ -728,7 +728,6 @@ spec:
       pdName: my-data-disk
       fsType: ext4
 ```
-
 <!--
 #### Regional Persistent Disks
 -->
@@ -1322,7 +1321,6 @@ spec:
               path: my-group/my-password
               mode: 511
 ```
-
 <!--
 Each projected volume source is listed in the spec under `sources`. The
 parameters are nearly the same with two exceptions:
@@ -2369,7 +2367,7 @@ Edit your Docker's `systemd` service file.  Set `MountFlags` as follows:
 MountFlags=shared
 ```
 <!--
-Or, remove `MountFlags=slave` if present.  Then restart the Docker daemon:
+Or, remove `MountFlags=slave` if present. Then restart the Docker daemon:
 -->
 或者，如果存在 `MountFlags=slave` 就删除掉。然后重启 Docker 守护进程：
 
