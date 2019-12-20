@@ -1,7 +1,7 @@
 ---
 title: 卷快照类
 content_template: templates/concept
-weight: 20
+weight: 30
 ---
 
 {{% capture overview %}}
