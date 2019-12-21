@@ -424,7 +424,6 @@ kubectl apply -k ./
 
       ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
-{{% /capture %}}
 
 {{< warning >}}
 <!-- 
