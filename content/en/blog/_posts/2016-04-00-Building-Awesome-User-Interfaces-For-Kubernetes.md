@@ -19,7 +19,7 @@ SIG UI members have been independently working on a variety of UIs for Kubernete
 | Dashboard UI v1.0 home screen showing applications running in a Kubernetes cluster. |
 
 
-Since the initial release of the Dashboard UI we have been thinking hard about what to do next and what users of UIs for Kubernetes think about our plans. We’ve had many internal discussions on this topic, but most importantly, reached out directly to our users. We created a questionnaire asking a few demographic questions as well as questions for prioritizing use cases. We received more than 200 responses from a wide spectrum of user types, which in turn helped to shape the Dashboard UI’s [current roadmap](https://github.com/kubernetes/dashboard/blob/master/docs/devel/roadmap.md). Our members from LiveWyer summarised the results in a [nice infographic](http://static.lwy.io/img/kubernetes_dashboard_infographic.png).&nbsp;  
+Since the initial release of the Dashboard UI we have been thinking hard about what to do next and what users of UIs for Kubernetes think about our plans. We’ve had many internal discussions on this topic, but most importantly, reached out directly to our users. We created a questionnaire asking a few demographic questions as well as questions for prioritizing use cases. We received more than 200 responses from a wide spectrum of user types, which in turn helped to shape the Dashboard UI’s [current roadmap](https://github.com/kubernetes/dashboard/blob/master/docs/common/roadmap.md). Our members from LiveWyer summarised the results in a [nice infographic](http://static.lwy.io/img/kubernetes_dashboard_infographic.png).&nbsp;  
 
 **Connect with us**    
 
