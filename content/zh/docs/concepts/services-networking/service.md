@@ -1,5 +1,7 @@
 ---
-title: Service
+reviewers:
+- bprashanth
+title: Services
 feature:
   title: 服务发现与负载均衡
   description: >
@@ -9,6 +11,20 @@ content_template: templates/concept
 weight: 10
 ---
 
+<!--
+---
+reviewers:
+- bprashanth
+title: Services
+feature:
+  title: Service discovery and load balancing
+  description: >
+    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
+
+content_template: templates/concept
+weight: 10
+---
+-->
 
 {{% capture overview %}}
 
@@ -350,9 +366,9 @@ There are a few reasons for using proxying for Services:
 
 使用服务代理有以下几个原因：
 
-  * DNS 实现的历史由来已久，它不遵守记录 TTL，并且在名称查找结果到期后对其进行缓存。
-  * 有些应用程序仅执行一次 DNS 查找，并无限期地缓存结果。
-  * 即使应用和库进行了适当的重新解析，DNS 记录上的 TTL 值低或为零也可能会给 DNS 带来高负载，从而使管理变得困难。
+  * DNS 实现的历史由来已久，它不遵守记录 TTL，并且在名称查找结果到期后对其进行缓存。
+  * 有些应用程序仅执行一次 DNS 查找，并无限期地缓存结果。
+  * 即使应用和库进行了适当的重新解析，DNS 记录上的 TTL 值低或为零也可能会给 DNS 带来高负载，从而使管理变得困难。
 
 <!--
 ### Version compatibility

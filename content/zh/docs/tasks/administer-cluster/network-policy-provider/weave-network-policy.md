@@ -34,13 +34,16 @@ The Weave Net addon for Kubernetes comes with a [Network Policy Controller](http
 按照[通过插件集成Kubernetes](https://www.weave.works/docs/net/latest/kube-addon/)指南。
 
 Kubernetes 的 Weave Net 插件带有[网络策略控制器](https://www.weave.works/docs/net/latest/kube-addon/#npc)，可自动监控 Kubernetes 所有名称空间中的任何 NetworkPolicy 注释。 配置`iptables`规则以允许或阻止策略指示的流量。
+
 <!--
+
 ## Test the installation
 
 Verify that the weave works.
 
 Enter the following command:
- -->
+
+-->
 
 ## 测试安装
 

@@ -32,6 +32,8 @@ Pod 的配置文件如下：
 
 {{< codenew file="pods/two-container-pod.yaml" >}}
 
+
+
 在配置文件中，你可以看到 Pod 有一个共享卷，名为 `shared-data`。
 
 配置文件中的第一个容器运行了一个 nginx 服务器。共享卷的挂载路径是 `/usr/share/nginx/html`。

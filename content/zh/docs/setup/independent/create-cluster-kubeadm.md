@@ -156,7 +156,7 @@ Kubernetes 发现版本的通常只维护支持九个月，在维护周期内，
 
 ## 目标
 
-* 搭建一个单主 Kubernetes 集群或者[高可用集群](https://kubernetes.io/docs/setup/independent/high-availability/)
+* 搭建一个单主 Kubernetes 集群或者[高可用集群](/docs/setup/independent/high-availability/)
 * 在集群上安装 Pod 网络组件以便 Pod 之间可以互相通信
 
 <!-- ## Instructions
@@ -547,7 +547,7 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 
 通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
 进而确保桥接的 IPv4 流量会传递给 iptables。
-这是一部分 CNI 插件运行的要求条件，请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)获取更详细信息。
+这是一部分 CNI 插件运行的要求条件，请查看[这篇文档](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)获取更详细信息。
 
 注意 `flannel` 适用于 `amd64`、`arm`、`arm64` 和 `ppc64le` 架构平台。
 
@@ -573,7 +573,7 @@ For information on setting up Kubernetes cluster with Kube-router using kubeadm,
 {{% tab name="Kube-router" %}}
 通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
 确保桥接的 IPv4 流量会传递给 iptables。
-这是一部分 CNI 插件的运行条件。请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)了解更详细的信息。
+这是一部分 CNI 插件的运行条件。请查看[这篇文档](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)了解更详细的信息。
 
 Kube-router 依赖于 kube-controller-manager 来给节点分配 CIDR， 因此需要设置 `kubeadm init` 的 `--Pod-network-cidr` 参数。
 
@@ -599,7 +599,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {{% tab name="Romana" %}}
 通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
 确保桥接的 IPv4 流量会传递给 iptables。这是一部分 CNI 插件的运行条件。
-请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)
+请查看[这篇文档](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)
 获取更详细的信息。
 
 官方的 Romana 安装指引在[这里](https://github.com/romana/romana/tree/master/containerize#using-kubeadm)。
@@ -631,7 +631,7 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
 将桥接的 IPv4 流量传递给 iptables。这是一部分 CNI 插件的运行条件。
-请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)
+请查看[这篇文档](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)
 获取更详细的信息。
 
 官方的 Weave Net 配置向导在[这里](https://www.weave.works/docs/net/latest/kube-addon/)。

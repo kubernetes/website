@@ -107,12 +107,10 @@ Make sure you review your ingress controller's documentation to understand the c
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-
 <!--
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 -->
-
 * 了解更多关于 [Ingress](/docs/concepts/services-networking/ingress/)。
 * [在 Minikube 上使用 NGINX 控制器安装 Ingress](/docs/tasks/access-application-cluster/ingress-minikube)。
 {{% /capture %}}

@@ -3,6 +3,11 @@ title: 网络插件
 content_template: templates/concept
 weight: 10
 ---
+<!--
+title: Network Plugins
+content_template: templates/concept
+weight: 10
+-->
 
 
 {{% capture overview %}}
@@ -172,7 +177,6 @@ CNI 网络插件还支持 pod 入口和出口流量整形。
   ]
 }
 ```
-
 <!--
 Now you can add the `kubernetes.io/ingress-bandwidth` and `kubernetes.io/egress-bandwidth` annotations to your pod.
 For example:

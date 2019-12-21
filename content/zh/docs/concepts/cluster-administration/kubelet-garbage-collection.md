@@ -5,19 +5,26 @@ weight: 70
 ---
 
 <!--
+---
 title: Configuring kubelet Garbage Collection
 content_template: templates/concept
 weight: 70
+---
 -->
 
 {{% capture overview %}}
 
+垃圾回收是 kubelet 的一个有用功能，它将清理未使用的镜像和容器。
+
 <!--
-Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
+Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. 
 -->
 
-垃圾回收是 kubelet 的一个有用功能，它将清理未使用的镜像和容器。Kubelet 将每分钟对容器执行一次垃圾回收，每五分钟对镜像执行一次垃圾回收。
+Kubelet 将每分钟对容器执行一次垃圾回收，每五分钟对镜像执行一次垃圾回收。
 
+<!--
+Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
+-->
 
 不建议使用外部垃圾收集工具，因为这些工具可能会删除原本期望存在的容器进而破坏 kubelet 的行为。
 
@@ -44,13 +51,22 @@ of cadvisor.
 -->
 
 镜像垃圾回收策略只考虑两个因素：`HighThresholdPercent` 和 `LowThresholdPercent`。
-磁盘使用率超过上限阈值（HighThresholdPercent）将触发垃圾回收。
-垃圾回收将删除最近最少使用的镜像，直到磁盘使用率满足下限阈值（LowThresholdPercent）。
 
 <!--
 The policy for garbage collecting images takes two factors into consideration:
-`HighThresholdPercent` and `LowThresholdPercent`. Disk usage above the high threshold
-will trigger garbage collection. The garbage collection will delete least recently used images until the low
+`HighThresholdPercent` and `LowThresholdPercent`.
+-->
+
+磁盘使用率超过上限阈值（HighThresholdPercent）将触发垃圾回收。
+
+<!--
+Disk usage above the high threshold will trigger garbage collection.
+-->
+
+垃圾回收将删除最近最少使用的镜像，直到磁盘使用率满足下限阈值（LowThresholdPercent）。
+
+<!--
+The garbage collection will delete least recently used images until the low
 threshold has been met.
 -->
 
