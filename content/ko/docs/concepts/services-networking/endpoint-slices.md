@@ -12,7 +12,7 @@ weight: 10
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 _엔드포인트 슬라이스_ 는 쿠버네티스 클러스터 내의 네트워크 엔드포인트를
 추적하는 간단한 방법을 제공한다. 이것은 엔드포인트를 더 확장하고, 확장 가능한
@@ -24,7 +24,7 @@ _엔드포인트 슬라이스_ 는 쿠버네티스 클러스터 내의 네트워
 
 ## 엔드포인트 슬라이스 리소스 {#endpointslice-resource}
 
-쿠버네티스에서 엔드포인트 슬라이스는 일련의 네트워크 엔드 포인트에 대한
+쿠버네티스에서 EndpointSlice는 일련의 네트워크 엔드 포인트에 대한
 참조를 포함한다. 쿠버네티스 서비스에 셀렉터가 지정되면 EndpointSlice
 컨트롤러는 자동으로 엔드포인트 슬라이스를 생성한다. 이 엔드포인트 슬라이스는
 서비스 셀렉터와 매치되는 모든 파드들을 포함하고 참조한다. 엔드포인트
@@ -34,13 +34,13 @@ _엔드포인트 슬라이스_ 는 쿠버네티스 클러스터 내의 네트워
 리소스 샘플이 있다.
 
 ```yaml
-apiVersion: discovery.k8s.io/v1alpha1
+apiVersion: discovery.k8s.io/v1beta1
 kind: EndpointSlice
 metadata:
   name: example-abc
   labels:
     kubernetes.io/service-name: example
-addressType: IP
+addressType: IPv4
 ports:
   - name: http
     protocol: TCP
@@ -48,7 +48,6 @@ ports:
 endpoints:
   - addresses:
     - "10.1.2.3"
-    - "2001:db8::1234:5678"
     conditions:
       ready: true
     hostname: pod-1
@@ -64,6 +63,14 @@ endpoints:
 엔드포인트 슬라이스는 내부 트래픽을 라우트하는 방법에 대해 kube-proxy에
 신뢰할 수 있는 소스로 역할을 할 수 있다. 이를 활성화 하면, 많은 수의 엔드포인트를 가지는
 서비스에 대해 성능 향상을 제공해야 한다.
+
+## 주소 유형
+
+EndpointSlice는 다음 주소 유형을 지원한다.
+
+* IPv4
+* IPv6
+* FQDN (Fully Qualified Domain Name)
 
 ## 사용동기
 
