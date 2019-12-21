@@ -433,7 +433,6 @@ Do not leave your WordPress installation on this page. If another user finds it,
 不要在此页面上保留 WordPress 安装。如果其他用户找到了它，他们可以在您的实例上建立一个网站并使用它来提供恶意内容。<br/><br/>通过创建用户名和密码来安装 WordPress 或删除您的实例。
 
 {{< /warning >}}
-{{% /capture %}}
 
 {{% capture cleanup %}}
 <!--
