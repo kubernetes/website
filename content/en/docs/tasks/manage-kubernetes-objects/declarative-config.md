@@ -83,7 +83,14 @@ kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
-`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
+`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run),
+which needs to be enabled on `kube-apiserver`.
+
+Since `diff` performs a server-side apply request in dry-run mode,
+it requires granting `PATCH`, `CREATE`, and `UPDATE` permissions.
+See [Dry-Run Authorization](/docs/reference/using-api/api-concepts#dry-run-authorization)
+for details.
+
 {{< /note >}}
 
 Create the object using `kubectl apply`:
