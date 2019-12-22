@@ -20,9 +20,9 @@ weight: 20
 
 클러스터는 쿠버네티스 에이전트가 구동하는 노드(물리 또는 가상 머신)의 집합이며, "마스터"(클러스터-수준 컨트롤 플레인)에 의해 관리된다.
 
-보통 클러스터 내 노드 수는, 플랫폼별 `config-default.sh` 파일 (예를 들면, [GCE의 `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh))에 있는 `NUM_NODES` 값에 따라 조절된다.
+보통 클러스터 내 노드 수는 플랫폼별 `config-default.sh` 파일 (예를 들면, [GCE의 `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh))에 있는 `NUM_NODES` 값에 따라 조절된다.
 
-하지만 단순히 값만 매우 크게 바꾼다면, 클라우드 프로바이더에 따라 셋업 스크립트가 실패하게 되는 경우가 많다. 예를 들어 GCE에 배포할 때 쿼터 이슈가 발생하여 클러스터 구축이 실패할 수 있다.
+하지만 단순히 값만 매우 크게 바꾼다면, 클라우드 프로바이더에 따라 셋업 스크립트가 실패할 수도 있다. 예를 들어, GCE에 배포할 때 쿼터 이슈가 발생하여 클러스터 구축이 실패할 수 있다.
 
 큰 쿠버네티스 클러스터를 설정할 때는 다음 이슈들을 고려해야 한다.
 
@@ -31,7 +31,7 @@ weight: 20
 여러 노드를 가지는 클러스터를 만들 때, 클라우드 프로바이더 쿼터 이슈를 피하기 위해 고려할 점:
 
 * CPU, IP 등의 쿼터를 늘린다.
-  * 예를 들어 [GCE의 경우](https://cloud.google.com/compute/docs/resource-quotas) 다음에 관한 쿼터를 늘릴 수 있다:
+  * 예를 들어, [GCE의 경우](https://cloud.google.com/compute/docs/resource-quotas) 다음에 관한 쿼터를 늘릴 수 있다.
     * CPU
     * VM 인스턴스
     * 전체 영구 디스크 예약
@@ -40,13 +40,13 @@ weight: 20
     * 포워딩 규칙
     * 라우트
     * 대상 풀
-* 일부 클라우드 프로바이더는 VM 생성 속도에 상한이 있어, 셋업 스크립트 수행간 새로운 노드 VM을 생성하는 사이사이에 대기시간이 추가되는 작은 배치가 걸릴 수 있다.
+* 일부 클라우드 프로바이더는 VM 생성 속도에 상한이 있어, 셋업 스크립트 수행 간 새로운 노드 VM을 생성하는 사이사이에 대기시간이 추가되는 작은 배치가 걸릴 수 있다.
 
 ### etcd 저장소
 
 큰 클러스터의 성능 향상을 위해, 우리는 이벤트를 각각의 전용 etcd 인스턴스에 저장한다.
 
-클러스터 생성시의 부가 스트립트:
+클러스터 생성시의 부가 스트립트이다.
 
 * 추가 ectd 인스턴스 시작 및 설정
 * 이벤트를 저장하기 위한 api-server 설정
@@ -75,7 +75,7 @@ AWS에 적용하는 크기는 다음과 같다.
 {{< note >}}
 구글 쿠버네티스 엔진에서, 마스터 노드 크기는 클러스터의 크기에 따라 자동적으로 조절된다. 자세한 사항은 [이 블로그 글](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html)을 참고하라.
 
-AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그대로이며 변경되지 않는다. 이후에 클러스터를 스케일 업/다운하거나 수동으로 노드를 추가/제거하거나 클러스터 오토스케일러를 사용하더라도 그렇다.
+AWS에서, 마스터 노드의 크기는 클러스터 시작 시에 설정된 그대로이며 변경되지 않는다. 이후에 클러스터를 스케일 업/다운하거나 수동으로 노드를 추가/제거하거나 클러스터 오토스케일러를 사용하더라도 그렇다.
 {{< /note >}}
 
 ### 애드온 자원
@@ -94,17 +94,17 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
         memory: 200Mi
 ```
 
-힙스터를 제외하고, 이러한 상한들은 정적이며 4-노드 클러스터에서 구동한 애드온으루부터 수집한 데이터에 기반한 것이다.([#10335](http://issue.k8s.io/10335#issuecomment-117861225) 참고). 애드온이 큰 클러스터에서 구동되면 더 많은 리소스를 소비한다([#5880](http://issue.k8s.io/5880#issuecomment-113984085) 참고). 따라서, 이러한 값의 조정 없이 큰 클러스터를 배포하면, 애드온들이 상한에 걸려 반복적으로 죽을 수 있다. 
+힙스터(Heapster)를 제외하고, 이러한 상한들은 정적이며 4-노드 클러스터에서 구동한 애드온으로부터 수집한 데이터에 기반한 것이다.([#10335](http://issue.k8s.io/10335#issuecomment-117861225) 참고). 애드온이 큰 클러스터에서 구동되면 더 많은 리소스를 소비한다([#5880](http://issue.k8s.io/5880#issuecomment-113984085) 참고). 따라서, 이러한 값의 조정 없이 큰 클러스터를 배포하면, 애드온들이 상한에 걸려 반복적으로 죽을 수 있다.
 
 많은 노드를 가진 클러스터를 생성할 때는 애드온 리소스 이슈를 피하기 위해 다음을 고려하라.
 
-* 다음 애드온을 사용한다면 클러스터의 크기를 확장할 때 그에 맞게 메모리와 CPU 상한을 규모를 조정하라 ( 전체 클러스터를 담당하는 각 레플리카는, 메모리와 CPU 사용량이 대체로 클러스터의 크기/부하에 따라 비율적으로 증가할 것이다).
+* 다음 애드온을 사용한다면, 클러스터의 크기를 확장할 때 그에 맞게 메모리와 CPU 상한을 규모를 조정하라 (전체 클러스터를 담당하는 각 레플리카는, 메모리와 CPU 사용량이 대체로 클러스터의 크기/부하에 따라 비율적으로 증가할 것이다).
   * [InfluxDB와 Grafana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
   * [kubedns, dnsmasq, 사이드카](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
   * [Kibana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
 * 다음 애드온들을 쓴다면 클러스터 크기에 따라 레플리카 수를 조절해준다(각각 레플리카가 여러 개 두면 늘어나는 부하를 처리하는 데 도움이 되지만, 레플리카 당 부하도 약간 늘어나게 되므로 CPU/메모리 상한을 높이는 것을 고려해보자):
   * [elasticsearch](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
-* 다음의 애드온들을 쓴다면 클러스터 크기에 따라 각각 메모리와 CPU 상한을 조금 더 높이자(노드 당 레플리카 1개만 있어도 클러스터 부하량/크기에 따라 CPU/메모리 사용율은 조금씩 증가한다):
+* 다음의 애드온들을 쓴다면, 클러스터 크기에 따라 각각 메모리와 CPU 상한을 조금 더 높이자(노드 당 레플리카 1개만 있어도 클러스터 부하량/크기에 따라 CPU/메모리 사용율은 조금씩 증가한다).
   * [ElasticSearch 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
   * [GCP 플러그인을 적용한 FluentD](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
@@ -123,6 +123,5 @@ AWS에서, 마스터 노드의 크기는 클러스터 시작시에 설정된 그
 `kube-up.sh`을 실행하면 제대로 기동되지 않은 극소수의 노드들 때문에 실패할 수 있다.
 현재로서는 두 가지 선택지가 있다. 클러스터를 재시작하거나(`kube-down.sh` 한 후 다시 `kube-up.sh` ),
 `kube-up.sh` 실행 전에 환경변수 `ALLOWED_NOTREADY_NODES`를 적당한 값으로 설정해주는 것이다. 
-이렇게 하면 `NUM_NODES`에 못미치는 경우에도 `kube-up.sh`이 성공할 수 있다. 
-실패 원인에 따라 일부 노드들이 늦게 조인되거나, 클러스터가 
-`NUM_NODES - ALLOWED_NOTREADY_NODES`의 크기로 남을 수 있다.
+이렇게 하면 `NUM_NODES`에 못 미치는 경우에도 `kube-up.sh`이 성공할 수 있다.
+실패 원인에 따라 일부 노드들이 늦게 결합되거나, 클러스터가 `NUM_NODES - ALLOWED_NOTREADY_NODES`의 크기로 남을 수 있다.
