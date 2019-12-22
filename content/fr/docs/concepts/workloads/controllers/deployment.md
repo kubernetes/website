@@ -58,77 +58,77 @@ Dans cet exemple :
     Toutes les exigences, qu'il s'agisse des `matchLabels` ou des `matchExpressions`, doivent être satisfaites pour qu'il y ait correspondance.
     {{< /note >}}
 
-* The `template` field contains the following sub-fields:
-  * The Pods are labeled `app: nginx`using the `labels` field.
-  * The Pod template's specification, or `.template.spec` field, indicates that
-  the Pods run one container, `nginx`, which runs the `nginx`
-  [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
-  * Create one container and name it `nginx` using the `name` field.
+* Le champ `template` contient les sous-champs suivants
+  * Les Pods sont étiquetés `app : nginx` en utilisant le champ `labels`.
+  * La spécification du template du Pod, ou le champ `.template.spec`, indique que
+  les Pods lancent un conteneur, `nginx`, en utilisant l'image `nginx` [Docker Hub](https://hub.docker.com/) 1.7.9.
 
-  Follow the steps given below to create the above Deployment:
+  * Créez un conteneur et nommez-le `nginx` en utilisant le champ `name`.
 
-  Before you begin, make sure your Kubernetes cluster is up and running.
+  Suivez les étapes indiquées ci-dessous pour créer le déploiement ci-dessus :
 
-  1. Create the Deployment by running the following command:
+  Avant de commencer, assurez-vous que votre cluster Kubernetes est opérationnelle.
+
+  1. Créez le déploiement en exécutant la commande suivante :
 
       {{< note >}}
-      You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection.
-      For example, to see the commands executed in each Deployment revision.
+      Vous pouvez spécifier l'option `--record` pour enregistrer la commande exécutée dans l'annotation de ressource `kubernetes.io/change-cause`. C'est utile pour une introspection future.
+      Par exemple, pour voir les changements effectuées après chaque modification de l'object. 
       {{< /note >}}
 
     ```shell
     kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     ```
 
-  2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
+  2. Lancez `kubectl get deployments` pour vérifier si le déploiement a été créé. Si le déploiement est toujours en cours de création, la sortie est similaire à ce qui suit :
     ```shell
     NAME               READY   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   0/3     0            0           1s
     ```
-    When you inspect the Deployments in your cluster, the following fields are displayed:
+    Lorsque vous inspectez les Deployments dans votre cluster, les zones suivantes sont affichées :
 
-      * `NAME` lists the names of the Deployments in the cluster.
-      * `DESIRED` displays the desired number of _replicas_ of the application, which you define when you create the Deployment. This is the _desired state_.
-      * `CURRENT` displays how many replicas are currently running.
-      * `UP-TO-DATE` displays the number of replicas that have been updated to achieve the desired state.
-      * `AVAILABLE` displays how many replicas of the application are available to your users.
-      * `AGE` displays the amount of time that the application has been running.
+      * `NAME` liste les noms des Déploiements dans le cluster.  _replicas_
+      * `DESIRED` affiche le nombre désiré de _replicas_ de l'application, que vous définissez lorsque vous créez le Déploiement. C'est l'état _desired state_.
+      * `CURRENT` affiche le nombre de réplicas en cours d'exécution.
+      * `UP-TO-DATE` affiche le nombre de réplicas qui ont été mises à jour pour atteindre l'état désiré.
+      * `AVAILABLE` affiche combien de réplicas de l'application sont disponibles pour vos utilisateurs.
+      * `AGE`  affiche le temps d'exécution de l'application depuis sa création.
 
-    Notice how the number of desired replicas is 3 according to `.spec.replicas` field.
+    Notez que le nombre de réplicas désirées est de 3 selon le champ `.spec.replicas`.
 
-  3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`. The output is similar to this:
+  3. Pour voir le statut du déploiement, lancez `kubectl rollout status deployment.v1.apps/nginx-deployment`. La sortie est similaire à ceci :
     ```shell
-    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
+    En attendant la fin du déploiement : 2 des 3 nouvelles réplicas ont été mises à jour...
     deployment.apps/nginx-deployment successfully rolled out
     ```
 
-  4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
+  4. Lancez à nouveau la commande `kubectl get deployments` quelques secondes plus tard. La sortie est similaire à ceci :
     ```shell
     NAME               READY   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3/3     3            3           18s
     ```
-    Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
+    Notez que le Deployment a créé les trois réplicas et que tout les réplicas sont à jour (ils contiennent le dernier modèle de Pod) et disponibles.
 
-  5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
+  5. Pour voir le ReplicaSet (`rs`) créé par le Deployment, lancez `kubectl get rs`. La sortie est similaire à ceci :
     ```shell
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-75675f5897   3         3         3       18s
     ```
-    Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
-    	randomly generated and uses the pod-template-hash as a seed.
+    Notez que le nom du ReplicaSet est toujours formaté comme `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. La chaîne aléatoire est
+    	généré au hasard et utilise le pod-template-hash en tant que seed.
 
-  6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`. The following output is returned:
+  6. Pour voir les labels générés automatiquement pour chaque Pod, lancez `kubectl get pods --show-labels`. La sortie suivante est retournée :
     ```shell
     NAME                                READY     STATUS    RESTARTS   AGE       LABELS
     nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
     nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
     nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
     ```
-    The created ReplicaSet ensures that there are three `nginx` Pods.
+    Le ReplicaSet créé assure qu'il y a trois Pods `nginx`.
 
   {{< note >}}
-  You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
-  `app: nginx`). Do not overlap labels or selectors with other controllers (including other Deployments and StatefulSets). Kubernetes doesn't stop you from overlapping, and if multiple controllers have overlapping selectors those controllers might conflict and behave unexpectedly.
+  Vous devez spécifier un sélecteur approprié et des étiquettes de modèle de Pod dans un déploiement (dans ce cas,
+  `app : nginx`). Ne faites pas chevaucher les étiquettes ou les sélecteurs avec d'autres contrôleurs (y compris d'autres Deployments et StatefulSets). Kubernetes n'empêche pas le chevauchement, et si plusieurs contrôleurs ont des sélecteurs qui se chevauchent, ces contrôleurs peuvent entrer en conflit et se comporter de manière inattendue.
   {{< /note >}}
 
 ### Pod-template-hash label
