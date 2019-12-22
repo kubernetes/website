@@ -149,7 +149,7 @@ IBM 클라우드 컨테이너 레지스트리는 멀티-테넌트 프라이빗 �
 
 IBM 클라우드 컨테이너 레지스트리 CLI 플러그인을 설치하고 사용자 이미지를 위한 네임스페이스를 생성하기 위해서는, [IBM 클라우드 컨테이너 레지스트리 시작하기](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started)를 참고한다.
 
-[IBM 클라우드 퍼블릭 이미지](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images) 및 사용자의 프라이빗 이미지로부터 컨테이너를 사용자의 IBM 클라우드 쿠버네티스 서비스 클러스터의 `default` 네임스페이스에 디플로이하기 위해서 IBM 클라우드 컨테이너 레지스트리를 사용하면 된다. 컨테이너를 다른 네임스페이스에 디플로이하거나, 다른 IBM 클라우드 컨테이너 레지스트리 지역 또는 IBM 클라우드 계정을 사용하기 위해서는, 쿠버네티스 `imagePullSecret`를 생성한다. 더 자세한 정보는, [이미지로부터 컨테이너 빌드하기](https://cloud.ibm.com/docs/containers?topic=containers-images#images)를 참고한다.
+[IBM 클라우드 퍼블릭 이미지](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images) 및 사용자의 프라이빗 이미지로부터 컨테이너를 사용자의 IBM 클라우드 쿠버네티스 서비스 클러스터의 `default` 네임스페이스에 디플로이하기 위해서 IBM 클라우드 컨테이너 레지스트리를 사용하면 된다. 컨테이너를 다른 네임스페이스에 디플로이하거나, 다른 IBM 클라우드 컨테이너 레지스트리 지역 또는 IBM 클라우드 계정을 사용하기 위해서는, 쿠버네티스 `imagePullSecret`를 생성한다. 더 자세한 정보는, [이미지로부터 컨테이너 빌드하기](https://cloud.ibm.com/docs/containers?topic=containers-images)를 참고한다.
 
 ### 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
 
