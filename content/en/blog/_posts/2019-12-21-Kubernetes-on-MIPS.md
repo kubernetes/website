@@ -89,38 +89,38 @@ After a long process of building image, finally we finished with about four doze
 
 Here are some of the images we built：
 
- - docker.io/library/busybox:1.29
- - docker.io/library/nginx:1.14-alpine
- - docker.io/library/nginx:1.15-alpine
- - docker.io/library/perl:5.26
- - docker.io/library/httpd:2.4.38-alpine
- - docker.io/library/redis:5.0.5-alpine
- - gcr.io/google-containers/conformance:v1.16.2
- - gcr.io/google-containers/hyperkube:v1.16.2
- - gcr.io/google-samples/gb-frontend:v6
- - gcr.io/kubernetes-e2e-test-images/agnhost:2.6
- - gcr.io/kubernetes-e2e-test-images/apparmor-loader:1.0
- - gcr.io/kubernetes-e2e-test-images/dnsutils:1.1
- - gcr.io/kubernetes-e2e-test-images/echoserver:2.2
- - gcr.io/kubernetes-e2e-test-images/ipc-utils:1.0
- - gcr.io/kubernetes-e2e-test-images/jessie-dnsutils:1.0
- - gcr.io/kubernetes-e2e-test-images/kitten:1.0
- - gcr.io/kubernetes-e2e-test-images/metadata-concealment:1.2
- - gcr.io/kubernetes-e2e-test-images/mounttest-user:1.0
- - gcr.io/kubernetes-e2e-test-images/mounttest:1.0
- - gcr.io/kubernetes-e2e-test-images/nautilus:1.0
- - gcr.io/kubernetes-e2e-test-images/nonewprivs:1.0
- - gcr.io/kubernetes-e2e-test-images/nonroot:1.0
- - gcr.io/kubernetes-e2e-test-images/resource-consumer-controller:1.0
- - gcr.io/kubernetes-e2e-test-images/resource-consumer:1.5
- - gcr.io/kubernetes-e2e-test-images/sample-apiserver:1.10
- - gcr.io/kubernetes-e2e-test-images/test-webserver:1.0
- - gcr.io/kubernetes-e2e-test-images/volume/gluster:1.0
- - gcr.io/kubernetes-e2e-test-images/volume/iscsi:2.0
- - gcr.io/kubernetes-e2e-test-images/volume/nfs:1.0
- - gcr.io/kubernetes-e2e-test-images/volume/rbd:1.0.1
- - k8s.gcr.io/etcd:3.3.15
- - k8s.gcr.io/pause:3.1
+ - `docker.io/library/busybox:1.29`
+ - `docker.io/library/nginx:1.14-alpine`
+ - `docker.io/library/nginx:1.15-alpine`
+ - `docker.io/library/perl:5.26`
+ - `docker.io/library/httpd:2.4.38-alpine`
+ - `docker.io/library/redis:5.0.5-alpine`
+ - `gcr.io/google-containers/conformance:v1.16.2`
+ - `gcr.io/google-containers/hyperkube:v1.16.2`
+ - `gcr.io/google-samples/gb-frontend:v6`
+ - `gcr.io/kubernetes-e2e-test-images/agnhost:2.6`
+ - `gcr.io/kubernetes-e2e-test-images/apparmor-loader:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/dnsutils:1.1`
+ - `gcr.io/kubernetes-e2e-test-images/echoserver:2.2`
+ - `gcr.io/kubernetes-e2e-test-images/ipc-utils:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/jessie-dnsutils:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/kitten:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/metadata-concealment:1.2`
+ - `gcr.io/kubernetes-e2e-test-images/mounttest-user:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/mounttest:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/nautilus:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/nonewprivs:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/nonroot:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/resource-consumer-controller:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/resource-consumer:1.5`
+ - `gcr.io/kubernetes-e2e-test-images/sample-apiserver:1.10`
+ - `gcr.io/kubernetes-e2e-test-images/test-webserver:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/volume/gluster:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/volume/iscsi:2.0`
+ - `gcr.io/kubernetes-e2e-test-images/volume/nfs:1.0`
+ - `gcr.io/kubernetes-e2e-test-images/volume/rbd:1.0.1`
+ - `k8s.gcr.io/etcd:3.3.15`
+ - `k8s.gcr.io/pause:3.1`
 
 Finally we run the tests and got the test result, include `e2e.log` , which showed that all test cases passed. Additionally we submitted our test result to [k8s-conformance](https://github.com/cncf/k8s-conformance) as a [pull request](https://github.com/cncf/k8s-conformance/pull/779).
 
