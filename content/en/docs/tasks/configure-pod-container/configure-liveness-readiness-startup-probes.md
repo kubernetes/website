@@ -79,7 +79,7 @@ kubectl describe pod liveness-exec
 
 The output indicates that no liveness probes have failed yet:
 
-```shell
+```
 FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
@@ -98,7 +98,7 @@ kubectl describe pod liveness-exec
 At the bottom of the output, there are messages indicating that the liveness
 probes have failed, and the containers have been killed and recreated.
 
-```shell
+```
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
@@ -117,7 +117,7 @@ kubectl get pod liveness-exec
 
 The output shows that `RESTARTS` has been incremented:
 
-```shell
+```
 NAME            READY     STATUS    RESTARTS   AGE
 liveness-exec   1/1       Running   1          1m
 ```
