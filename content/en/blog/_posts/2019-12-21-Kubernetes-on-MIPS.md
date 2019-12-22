@@ -15,7 +15,7 @@ slug: Kubernetes-on-MIPS
 
 ## Achievements
 
-For many years, in order to enrich the ecology of the open source community, we have been working on adapting Kubernetes to MIPS architecture. With the continuous iterative optimization and the performance improvement of MIPS CPU, we have made some breakthrough progresses on mips64el platform.
+For many years, in order to enrich the ecology of the open source community, we have been working on adapting Kubernetes to the MIPS architecture. With the continuous iterative optimization and the performance improvement of MIPS CPU, we have made some breakthrough progresses on mips64el platform.
 
 Over the years, we have been actively participated in the Kubernetes community and have rich experience in the using and optimization of Kubernetes technology. Recently, we tried to adapt Kubernetes to the MIPS architecture platform and gained a stage achievement. Successfully completed the migration and adaptation of Kubernetes and related components, not only built a stable and highly available MIPS cluster, but also completed the conformance test of kubernetes-v1.16.2.
 
@@ -141,4 +141,3 @@ Contribution plan：
 * contribute the source of deploy tools like kubeadm for MIPS
 
 ----
-
