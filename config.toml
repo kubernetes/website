@@ -276,7 +276,7 @@ weight = 12
 
 [languages.ru]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Первоклассная оркестрация контейнеров"
 languageName = "Русский"
 weight = 12
 contentDir = "content/ru"
