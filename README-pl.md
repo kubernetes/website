@@ -53,7 +53,7 @@ make docker-serve
 
 Otwórz w przeglądarce adres http://localhost:1313, aby obejrzeć zawartość serwisu. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 
-## Jak uruchomić serwis lokalnie przy pomocy Hugo
+## Jak uruchomić serwis lokalnie przy pomocy Hugo?
 
 Zajrzyj do [oficjalnej dokumentacji Hugo](https://gohugo.io/getting-started/installing/) po instrukcję instalacji. Upewnij się, że instalujesz rozszerzoną wersję Hugo, określoną przez zmienną środowiskową `HUGO_VERSION` w pliku [`netlify.toml`](netlify.toml#L9).
 
