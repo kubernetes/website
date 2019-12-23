@@ -114,13 +114,13 @@ the name of the MySQL Service defined above, and WordPress will access the datab
       
 3. Add them to `kustomization.yaml` file.
 
-      ```shell
-      cat <<EOF >>./kustomization.yaml
-      resources:
-        - mysql-deployment.yaml
-        - wordpress-deployment.yaml
-      EOF
-      ```
+```shell
+cat <<EOF >>./kustomization.yaml
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
+EOF
+```
 
 ## Apply and Verify
 The `kustomization.yaml` contains all the resources for deploying a WordPress site and a 
