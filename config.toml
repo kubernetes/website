@@ -198,7 +198,7 @@ language_alternatives = ["en"]
 
 [languages.no]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Produksjonsklar kontainer-orkestrering"
 languageName ="Norsk"
 weight = 7
 contentDir = "content/no"
