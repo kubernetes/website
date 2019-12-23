@@ -27,7 +27,7 @@ CPU manager might help workloads with the following characteristics:
 
 ## Ok! How Do I use it?
 
-Using the CPU manager is simple. First, [enable CPU manager with the Static policy](/docs/tasks/administer-cluster/cpu-management-policies/#cpu-management-policies) in the Kubelet running on the compute nodes of your cluster. Then configure your pod to be in the [Guaranteed Quality of Service (QoS) class](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). Request whole numbers of CPU cores (e.g., `1000m`, `4000m`) for containers that need exclusive cores. Create your pod in the same way as before (e.g., `kubectl create -f pod.yaml`). And _voilà_, the CPU manager will assign exclusive CPUs to each of container in the pod according to their CPU requests.
+Using the CPU manager is simple. First, [enable CPU manager with the Static policy](/docs/tasks/administer-cluster/cpu-management-policies/#cpu-management-policies) in the Kubelet running on the compute nodes of your cluster. Then configure your pod to be in the [Guaranteed Quality of Service (QoS) class](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). Request whole numbers of CPU cores (e.g., `1000m`, `4000m`) for containers that need exclusive cores. Create your pod in the same way as before (e.g., `kubectl create -f pod.yaml`). And the CPU manager will assign exclusive CPUs to each of container in the pod according to their CPU requests.
 
 ```
 apiVersion: v1
