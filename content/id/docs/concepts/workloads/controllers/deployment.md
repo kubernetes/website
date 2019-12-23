@@ -64,7 +64,7 @@ Dalam contoh ini:
 
   Ikuti langkah-langkah berikut untuk membuat Deployment di atas:
 
-  Sebelum memulai, pastikan kluster Kubernetes sedang menyala dan bekerja.
+  Sebelum memulai, pastikan klaster Kubernetes sedang menyala dan bekerja.
 
   1. Buat Deployment dengan menjalankan perintah berikut:
 
@@ -82,9 +82,9 @@ Dalam contoh ini:
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         0         0            0           1s
     ```
-    Ketika kamu memeriksa Deployments pada klustermu, kolom berikut akan tampil:
+    Ketika kamu memeriksa Deployments pada klastermu, kolom berikut akan tampil:
 
-      * `NAME` menampilkan daftar nama Deployment pada kluster.
+      * `NAME` menampilkan daftar nama Deployment pada klaster.
       * `DESIRED` menampilkan jumlah replika aplikasi yang diinginkan sesuai yang didefinisikan saat pembuatan Deployment. Ini adalah _state_ yang diinginkan.
       * `CURRENT` menampilkan berapa jumlah replika yang sedang berjalan.
       * `UP-TO-DATE` menampilkan jumlah replika yang diperbarui agar sesuai state yang diinginkan.
@@ -141,10 +141,10 @@ Label ini menjamin anak-anak ReplicaSet milik Deployment tidak tumpang tindih. D
 ## Membarui Deployment
 
 {{< note >}}
-Rilis Deployment hanya dapat dipicu oleh perubahan templat Pod Deployment (yaitu, `.spec.template`), contohnya perubahan kolom label atau image container. Lainnya, seperti replika, do not trigger a rollout.
+Rilis Deployment hanya dapat dipicu oleh perubahan templat Pod Deployment (yaitu, `.spec.template`), contohnya perubahan kolom label atau image container. Yang lain, seperti replika, tidak akan memicu rilis.
 {{< /note >}}
 
-Follow the steps given below to update your Deployment:
+Ikuti langkah-langkah berikut untuk membarui Deployment: 
 
 1. Ganti Pod nginx menjadi image `nginx:1.9.1` dari image `nginx:1.7.9`.
 
@@ -580,7 +580,7 @@ Keluaran akan tampil seperti berikut:
 deployment.apps/nginx-deployment scaled
 ```
 
-Dengan asumsi [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) dalam kluster dinyalakan,
+Dengan asumsi [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) dalam klaster dinyalakan,
 kamu dapat mengatur autoscaler untuk Deployment-mu dan memilih jumlah minimal dan maksimal Pod yang mau dijalankan berdasarkan penggunaan CPU
 dari Pod.
 
@@ -612,7 +612,7 @@ Sebagai contoh, kamu menjalankan Deployment dengan 10 replika, [maxSurge](#max-s
   nginx-deployment     10        10        10           10          50s
   ```
 
-* Ganti ke image baru yang kebetulan tidak bisa diresolve(?) dari dalam kluster.
+* Ganti ke image baru yang kebetulan tidak bisa ditemukan dari dalam klaster.
     ```shell
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
     ```
@@ -837,16 +837,16 @@ Deployment-mu bisa saja terhenti saat mencoba deploy ReplicaSet terbaru tanpa pe
 Ini dapat terjadi karena faktor berikut:
 
 * Kuota tidak mencukupi
-* Readiness probe failures
+* Kegagalan pengecekan kesiapan
 * Galat saat mengunduh image
 * Tidak memiliki ijin
 * Limit ranges
 * Konfigurasi runtime aplikasi yang salah
 
-One way you can detect this condition is to specify a deadline parameter in your Deployment spec:
-([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `.spec.progressDeadlineSeconds` denotes the
-number of seconds the Deployment kontroler waits before indicating (in the Deployment status) that the
-Deployment progress has stalled.
+Salah satu cara untuk mendeteksi kondisi ini adalah untuk menjelaskan parameter tenggat pada spesifikasi Deployment:
+([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `.spec.progressDeadlineSeconds` menyatakan
+lama kontroler Deployment menunggu sebelum mengindikasikan (pada status Deployment) bahwa kemajuan Deployment
+tersendat dalam detik.
 
 Perintah `kubectl` berikut menetapkan spek dengan `progressDeadlineSeconds` untuk membuat kontroler
 melaporkan kemajuan Deployment yang sedikit setelah 10 menit:
@@ -991,8 +991,8 @@ kamu dapat membuat beberapa Deployment, satu tiap rilis, dengan mengikuti pola c
 ## Menulis Spesifikasi Deployment
 
 Sebagaimana konfigurasi Kubernetes lainnya, Deployment memerlukan kolom `apiVersion`, `kind`, dan `metadata`.
-Untuk informasi umum tentang penggunaan berkas konfigurasi, lihat [deploy aplikasi](/id/docs/tutorials/stateless-application/run-stateless-application-deployment/),
-mengatur kontainer, dan [memakai kubectl untuk mengatur sumber daya](/id/docs/concepts/overview/working-with-objects/object-management/) documents.
+Untuk informasi umum tentang penggunaan berkas konfigurasi, lihat dokumen [deploy aplikasi](/id/docs/tutorials/stateless-application/run-stateless-application-deployment/),
+mengatur kontainer, dan [memakai kubectl untuk mengatur sumber daya](/id/docs/concepts/overview/working-with-objects/object-management/).
 
 Deployment juga perlu [bagian `.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
