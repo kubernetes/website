@@ -99,7 +99,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl get pods
     ```
-    다음과 유사하게 출력된다:
+    다음과 유사하게 출력된다.
 
     ```
     NAME                          READY     STATUS    RESTARTS   AGE
@@ -142,7 +142,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     kubectl get services
     ```
 
-    다음과 유사하게 출력된다:
+    다음과 유사하게 출력된다.
 
     ```
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
@@ -177,7 +177,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     minikube addons list
     ```
 
-    다음과 유사하게 출력된다:
+    다음과 유사하게 출력된다.
 
     ```
     addon-manager: enabled
@@ -206,7 +206,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     minikube addons enable heapster
     ```
   
-    다음과 유사하게 출력된다:
+    다음과 유사하게 출력된다.
 
     ```
     heapster was successfully enabled
@@ -218,7 +218,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     kubectl get pod,svc -n kube-system
     ```
 
-    다음과 유사하게 출력된다:
+    다음과 유사하게 출력된다.
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
@@ -247,7 +247,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     minikube addons disable heapster
     ```
   
-    다음과 유사하게 출력된다:
+    다음과 유사하게 출력된다.
 
     ```
     heapster was successfully disabled
