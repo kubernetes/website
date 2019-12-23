@@ -31,7 +31,7 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 |[Japanese README](README-ja.md)|[Polish README](README-pl.md)|
 |||
 
-## Jak uruchomić serwis internetowy lokalnie przy pomocy Dockera
+## Jak uruchomić serwis internetowy lokalnie przy pomocy Dockera?
 
 Zalecaną metodą uruchomienia serwisu internetowego Kubernetes lokalnie jest użycie specjalnego obrazu [Dockera](https://docker.com), który zawiera generator stron statycznych [Hugo](https://gohugo.io).
 
