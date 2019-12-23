@@ -6,7 +6,7 @@ weight: 80
 
 {{% capture overview %}}
 
-+{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
 _크론 잡은_ 시간 기반의 일정에 따라 [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 만든다.
 
