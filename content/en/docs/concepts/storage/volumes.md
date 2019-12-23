@@ -679,8 +679,7 @@ the Kubernetes scheduler to correctly schedule Pods using local volumes to the
 correct node.
 
 PersistentVolume `volumeMode` can be set to "Block" (instead of the default
-value "Filesystem") to expose the local volume as a raw block device. The
-`volumeMode` field requires `BlockVolume` feature gate to be enabled.
+value "Filesystem") to expose the local volume as a raw block device.
 
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
