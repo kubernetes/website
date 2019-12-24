@@ -24,11 +24,11 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 ## Różne wersje językowe `README.md`
 |  |  |
 |---|---|
-|[French README](README-fr.md)|[Korean README](README-ko.md)|
-|[German README](README-de.md)|[Portuguese README](README-pt.md)|
-|[Hindi README](README-hi.md)|[Spanish README](README-es.md)|
-|[Indonesian README](README-id.md)|[Chinese README](README-zh.md)|
-|[Japanese README](README-ja.md)|[Polish README](README-pl.md)|
+|[README po francusku](README-fr.md)|[README po koreańsku](README-ko.md)|
+|[README po niemiecku](README-de.md)|[README po portugalsku](README-pt.md)|
+|[README w hindi](README-hi.md)|[README po hiszpańsku](README-es.md)|
+|[README po indonezyjsku](README-id.md)|[README po chińsku](README-zh.md)|
+|[README po japońsku](README-ja.md)|[README po polsku](README-pl.md)|
 |||
 
 ## Jak uruchomić serwis internetowy lokalnie przy pomocy Dockera
