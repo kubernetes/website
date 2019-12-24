@@ -247,7 +247,7 @@ spec:
 
 이렇게 하면 다른 NetworkPolicy에서 선택하지 않은 파드도 수신 또는 송신 트래픽을 허용하지 않는다.
 
-## SCTP support
+## SCTP 지원
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
