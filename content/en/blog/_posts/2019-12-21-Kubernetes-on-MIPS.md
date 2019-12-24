@@ -122,7 +122,7 @@ Here are some of the images we built：
  - `k8s.gcr.io/etcd:3.3.15`
  - `k8s.gcr.io/pause:3.1`
 
-Finally we run the tests and got the test result, include `e2e.log` , which showed that all test cases passed. Additionally we submitted our test result to [k8s-conformance](https://github.com/cncf/k8s-conformance) as a [pull request](https://github.com/cncf/k8s-conformance/pull/779).
+Finally, we ran the tests and got the test result, include `e2e.log`, which showed that all test cases passed. Additionally, we submitted our test result to [k8s-conformance](https://github.com/cncf/k8s-conformance) as a [pull request](https://github.com/cncf/k8s-conformance/pull/779).
 
 ![Pull request for conformance test results](/images/blog/2019-12-21-Kubernetes-on-MIPS/pull-request-for-conformance-test-results.png)
 
