@@ -19,7 +19,7 @@ card:
 
 *Pod* は、Kubernetesアプリケーションの基本的な実行単位です。これは、作成またはデプロイするKubernetesオブジェクトモデルの中で最小かつ最も単純な単位です。Podは、{{< glossary_tooltip term_id="cluster" >}}で実行されているプロセスを表します。
 
-Podは、アプリケーションのコンテナ（いくつかの場合においては複数のコンテナ）、ストレージリソース、ユニークなネットワークIP、およびコンテナーの実行方法を管理するオプションをカプセル化します。Podはデプロイメントの単位、すなわち*Kubernetesのアプリケーションの単一インスタンス* で、単一の{{< glossary_tooltip text="container" term_id="container" >}}または密結合なリソースを共有する少数のコンテナで構成される場合があります。
+Podは、アプリケーションのコンテナ(いくつかの場合においては複数のコンテナ)、ストレージリソース、ユニークなネットワークIP、およびコンテナの実行方法を管理するオプションをカプセル化します。Podはデプロイメントの単位、すなわち*Kubernetesのアプリケーションの単一インスタンス* で、単一の{{< glossary_tooltip text="container" term_id="container" >}}または密結合なリソースを共有する少数のコンテナで構成される場合があります。
 
 [Docker](https://www.docker.com)はKubernetesのPod内で使われる最も一般的なコンテナランタイムですが、Podは他の[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)も同様にサポートしています。
 
