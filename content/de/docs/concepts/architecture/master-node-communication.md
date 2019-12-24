@@ -34,8 +34,8 @@ Der Standardbetriebsmodus für Verbindungen vom Cluster (Knoten und Pods, die au
 ## Master zum Cluster
 
 Es gibt zwei primäre Kommunikationspfade vom Master (Apiserver) zum Cluster.
-Der erste ist vom Apiserver bis zum Kubelet-Prozess, der auf jedem Node im Cluster ausgeführt wird.
-Der zweite ist vom Apiserver zu einem beliebigen Node, Pod oder Dienst über die Proxy-Funktionalität des Apiservers.
+Der Erste ist vom Apiserver hin zum Kubelet-Prozess, der auf jedem Node im Cluster ausgeführt wird.
+Der Zweite ist vom Apiserver zu einem beliebigen Node, Pod oder Dienst über die Proxy-Funktionalität des Apiservers.
 
 ### Apiserver zum kubelet
 
@@ -53,7 +53,7 @@ Um diese Verbindung zu überprüfen, verwenden Sie das Flag `--kubelet-certifica
 Wenn dies nicht möglich ist, verwenden Sie [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
 zwischen dem Apiserver und dem kubelet, falls es erforderlich ist eine Verbindung über ein nicht vertrauenswürdiges oder öffentliches Netz zu vermeiden.
 
-Außerdem sollte [Kubelet Authentifizierung und/oder Autorisierung](/docs/admin/kubelet-authentication-authorization/) aktiviert sein, um die kubelet-API zu absichern.
+Außerdem sollte [Kubelet Authentifizierung und/oder Autorisierung](/docs/admin/kubelet-authentication-authorization/) aktiviert sein, um die kubelet-API abzusichern.
 
 ### Apiserver zu Nodes, Pods und Services
 
