@@ -63,9 +63,10 @@ Diese Verbindungen **sind derzeit nicht sicher** innerhalb von nicht vertrauensw
 
 ### SSH Tunnels
 
-Kubernetes unterstützt SSH-Tunnel zum Schutz der Kommunikationspfade von Mastern in Richtung des Clusters.
-In dieser Konfiguration erstellt der Apiserver einen SSH-Tunnel zu jedem Node im Cluster (Verbindung mit dem SSH-Server, der Port 22 läuft), und leitet den gesamten Datenverkehr für ein kubelet, einen Node, einen Pod oder einen Dienst durch den Tunnel.
-Dieser Tunnel stellt sicher, dass der Datenverkehr nicht außerhalb des Netzwerks sichtbar ist, in dem die Knoten laufen.
-SSH-Tunnel zur Zeit nicht unterstützt und sollten nicht genutzt werden, es sei denn, Sie wissen, was Sie tun. Ein Ersatz für diesen Kommunikationskanal wird entwickelt.
+Kubernetes unterstützt SSH-Tunnel zum Schutz der Master -> Cluster Kommunikationspfade.
+In dieser Konfiguration initiiert der Apiserver einen SSH-Tunnel zu jedem Node im Cluster (Verbindung mit dem SSH-Server, der Port 22 läuft), und leitet den gesamten Datenverkehr für ein kubelet, einen Node, einen Pod oder einen Dienst durch den Tunnel.
+Dieser Tunnel stellt sicher, dass der Datenverkehr nicht außerhalb des Netzwerks sichtbar ist, in dem die Knoten ausgeführt werden.
+
+SSH-Tunnel werden zur Zeit nicht unterstützt. Sie sollten also nicht verwendet werden, sei denn, man weiß, was man tut. Ein Ersatz für diesen Kommunikationskanal wird entwickelt.
 
 {{% /capture %}}
