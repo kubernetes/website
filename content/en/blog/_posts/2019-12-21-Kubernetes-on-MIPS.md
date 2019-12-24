@@ -130,7 +130,7 @@ Finally, we ran the tests and got the test result, include `e2e.log`, which show
 
 ## What's next
 
-We built the kubernetes-mips component manually and finished the conformance test, which verified the feasibility of Kubernetes On MIPS platform and greatly enhanced our confidence in promoting the support of the MIPS architecture by Kubernetes.
+We built the kubernetes-MIPS component manually and finished the conformance test, which verified the feasibility of Kubernetes On the MIPS platform and greatly enhanced our confidence in promoting the support of the MIPS architecture by Kubernetes.
 
 In the future, we will actively contribute our experience and achievements to the community, submit PR and patch for MIPS, etc. We hope that more developer and company in community could join us and promote the Kubernetes for MIPS.
 
