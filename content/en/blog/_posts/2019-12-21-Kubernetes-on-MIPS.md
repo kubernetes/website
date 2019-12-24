@@ -25,7 +25,7 @@ Over the years, we have been actively participated in the Kubernetes community a
 
 ## K8S-MIPS component build
 
-Almost all native cloud components related to Kubernetes do not provide MIPS version installation package or image. The prerequisite of deploying Kubernetes on MIPS platform is to compile and build all required components on mips64el platform. These components include:
+Almost all native cloud components related to Kubernetes do not provide a MIPS version installation package or image. The prerequisite of deploying Kubernetes on the MIPS platform is to compile and build all required components on the mips64el platform. These components include:
 
  - golang 
  - docker-ce 
