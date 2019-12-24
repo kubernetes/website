@@ -5,7 +5,7 @@
 
 Witamy!
 
-W tym repozytorium znajdziesz wszystko, co potrzebujesz do zbudowania [strony internetowej Kubernetes wraz z dokumentacją](https://kubernetes.io/). Bardzo nam miło, że chcesz wziąć w tym udział!
+W tym repozytorium znajdziesz wszystko, czego potrzebujesz do zbudowania [strony internetowej Kubernetes wraz z dokumentacją](https://kubernetes.io/). Bardzo nam miło, że chcesz wziąć w tym udział!
 
 ## Twój wkład w dokumentację
 
@@ -35,7 +35,11 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 
 Zalecaną metodą uruchomienia serwisu internetowego Kubernetes lokalnie jest użycie specjalnego obrazu [Dockera](https://docker.com), który zawiera generator stron statycznych [Hugo](https://gohugo.io).
 
-> Użytkownicy Windows będą potrzebowali dodatkowych narzędzi, które mogą zainstalować przy pomocy [Chocolatey](https://chocolatey.org). `choco install make`
+> Użytkownicy Windows będą potrzebowali dodatkowych narzędzi, które mogą zainstalować przy pomocy [Chocolatey](https://chocolatey.org).
+
+```bash
+choco install make
+```
 
 > Jeśli wolisz uruchomić serwis lokalnie bez Dockera, przeczytaj [jak uruchomić serwis lokalnie przy pomocy Hugo](#jak-uruchomić-serwis-lokalnie-przy-pomocy-hugo) poniżej.
 
@@ -63,7 +67,7 @@ Aby uruchomić serwis lokalnie po instalacji Hugo, napisz:
 make serve
 ```
 
-Zostanie uruchomiony lokalny serwer Hugo na porcie 1313. Otwórz przeglądarkę na stronie http://localhost:1313, aby obejrzeć zawartość serwisu. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
+Zostanie uruchomiony lokalny serwer Hugo na porcie 1313. Otwórz w przeglądarce adres http://localhost:1313, aby obejrzeć zawartość serwisu. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 
 ## Społeczność, listy dyskusyjne, uczestnictwo i wsparcie
 
@@ -71,12 +75,12 @@ Zajrzyj na stronę [społeczności](http://kubernetes.io/community/), aby dowied
 
 Możesz kontaktować się z gospodarzami projektu za pomocą:
 
-* [Slack-a](https://kubernetes.slack.com/messages/sig-docs)
+* [Komunikatora Slack](https://kubernetes.slack.com/messages/sig-docs)
 * [List dyskusyjnych](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 ### Zasady postępowania
 
-Udział w działaniach społeczności Kubernetes jest regulowany przez [Zasady postępowania Kubernetes](code-of-conduct.md).
+Udział w działaniach społeczności Kubernetes jest regulowany przez [Kodeks postępowania](code-of-conduct.md).
 
 ## Dziękujemy!
 
