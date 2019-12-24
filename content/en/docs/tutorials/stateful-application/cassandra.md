@@ -153,7 +153,7 @@ This example uses the default provisioner for Minikube. Please update the follow
     cassandra-2   1/1       Running   0          8m
     ```
 
-3. Run the Cassandra [nodetool](https://wiki.apache.org/cassandra/NodeTool) to display the status of the ring.
+3. Run the Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool) to display the status of the ring.
 
     ```shell
     kubectl exec -it cassandra-0 -- nodetool status
