@@ -31,7 +31,7 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 |[README po japońsku](README-ja.md)|[README po polsku](README-pl.md)|
 |||
 
-## Jak uruchomić serwis internetowy lokalnie przy pomocy Dockera
+## Jak uruchomić serwis internetowy lokalnie przy pomocy Dockera?
 
 Zalecaną metodą uruchomienia serwisu internetowego Kubernetes lokalnie jest użycie specjalnego obrazu [Dockera](https://docker.com), który zawiera generator stron statycznych [Hugo](https://gohugo.io).
 
@@ -39,7 +39,7 @@ Zalecaną metodą uruchomienia serwisu internetowego Kubernetes lokalnie jest u�
 
 > Jeśli wolisz uruchomić serwis lokalnie bez Dockera, przeczytaj [jak uruchomić serwis lokalnie przy pomocy Hugo](#jak-uruchomić-serwis-lokalnie-przy-pomocy-hugo) poniżej.
 
-Jeśli [zainstalowałeś i uruchomiłeś](https://www.docker.com/get-started) już Dockera, zbuduj obraz `kubernetes-hugo` Dockera lokalnie:
+Jeśli [zainstalowałeś i uruchomiłeś](https://www.docker.com/get-started) już Dockera, zbuduj obraz `kubernetes-hugo` lokalnie:
 
 ```bash
 make docker-image
@@ -53,7 +53,7 @@ make docker-serve
 
 Otwórz w przeglądarce adres http://localhost:1313, aby obejrzeć zawartość serwisu. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 
-## Jak uruchomić serwis lokalnie przy pomocy Hugo
+## Jak uruchomić serwis lokalnie przy pomocy Hugo?
 
 Zajrzyj do [oficjalnej dokumentacji Hugo](https://gohugo.io/getting-started/installing/) po instrukcję instalacji. Upewnij się, że instalujesz rozszerzoną wersję Hugo, określoną przez zmienną środowiskową `HUGO_VERSION` w pliku [`netlify.toml`](netlify.toml#L9).
 
