@@ -12,7 +12,7 @@ Follow along and read what’s new:
 || Five Days of Kubernetes|
 |-|-|
 | Day 1 | [Dynamic Provisioning and Storage Classes in Kubernetes Stable in 1.6](https://kubernetes.io/blog/2017/03/dynamic-provisioning-and-storage-classes-kubernetes) |
-| Day 2 | [Scalability updates in Kubernetes 1.6](https://kubernetes.io/blog/2017/03/scalability-updates-in-kubernetes-1.6) |
+| Day 2 | [Scalability updates in Kubernetes 1.6](https://kubernetes.io/blog/2017/03/scalability-updates-in-kubernetes-1-6) |
 | Day 3 | [Advanced Scheduling in Kubernetes 1.6](https://kubernetes.io/blog/2017/03/advanced-scheduling-in-kubernetes) |
 | Day 4 | [Configuring Private DNS Zones and Upstream Nameservers in Kubernetes](https://kubernetes.io/blog/2017/04/configuring-private-dns-zones-upstream-nameservers-kubernetes) |
 |Day 5 |  [RBAC support in Kubernetes](https://kubernetes.io/blog/2017/04/rbac-support-in-kubernetes) |
