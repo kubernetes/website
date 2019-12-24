@@ -26,7 +26,7 @@ weight: 10
 - `imagePullPolicy`와 사용할 이미지의 태그를 생략.
 - [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 어드미션 컨트롤러를 활성화.
 
-`:latest` 태그 사용은 피해야 한다는 것을 참고하고, 자세한 정보는 [구성을 위한 모범 사례](/docs/concepts/configuration/overview/#container-images)를 참고한다.
+`:latest` 태그 사용은 피해야 한다는 것을 참고하고, 자세한 정보는 [구성을 위한 모범 사례](/ko/docs/concepts/configuration/overview/#컨테이너-이미지)를 참고한다.
 
 ## 매니페스트로 멀티-아키텍처 이미지 빌드
 
@@ -141,7 +141,7 @@ kubelet은 ECR 자격 증명을 가져오고 주기적으로 갱신할 것이다
    * `DOCKER_EMAIL`: `${some-email-address}`
 
 해당 변수에 대한 값을 채우고 나면 
-[쿠버네티스 시크릿을 구성하고 그것을 파드 디플로이를 위해서 사용](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)할 수 있다.
+[쿠버네티스 시크릿을 구성하고 그것을 파드 디플로이를 위해서 사용](/ko/docs/concepts/containers/images/#파드에-imagepullsecrets-명시)할 수 있다.
 
 ### IBM 클라우드 컨테이너 레지스트리 사용
 IBM 클라우드 컨테이너 레지스트리는 멀티-테넌트 프라이빗 이미지 레지스트리를 제공하여 사용자가 Docker 이미지를 안전하게 저장하고 공유할 수 있도록 한다. 기본적으로, 

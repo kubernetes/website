@@ -41,7 +41,7 @@ weight: 10
 
 * [인증서](/docs/concepts/cluster-administration/certificates/)는 다른 툴 체인을 이용하여 인증서를 생성하는 방법을 설명한다.
 
-* [쿠버네티스 컨테이너 환경](/docs/concepts/containers/container-environment-variables/)은 쿠버네티스 노드에서 Kubelet에 의해 관리되는 컨테이너 환경에 대해 설명한다.
+* [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment-variables/)은 쿠버네티스 노드에서 Kubelet에 의해 관리되는 컨테이너 환경에 대해 설명한다.
 
 * [쿠버네티스 API에 대한 접근 제어](/docs/reference/access-authn-authz/controlling-access/)는 사용자와 서비스 계정에 어떻게 권한 설정을 하는지 설명한다.
 
@@ -62,7 +62,7 @@ weight: 10
 
 ## 선택적 클러스터 서비스
 
-* [DNS 통합](/docs/concepts/services-networking/dns-pod-service/)은 DNS 이름이 쿠버네티스 서비스에 바로 연결되도록 변환하는 방법을 설명한다.
+* [DNS 통합](/ko/docs/concepts/services-networking/dns-pod-service/)은 DNS 이름이 쿠버네티스 서비스에 바로 연결되도록 변환하는 방법을 설명한다.
 
 * [클러스터 활동 로깅과 모니터링](/docs/concepts/cluster-administration/logging/)은 쿠버네티스 로깅이 로깅의 작동 방법과 로깅을 어떻게 구현하는지 설명한다.
 

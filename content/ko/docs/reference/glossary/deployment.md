@@ -2,7 +2,7 @@
 title: 디플로이먼트(Deployment)
 id: deployment
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/deployment/
+full_link: /ko/docs/concepts/workloads/controllers/deployment/
 short_description: >
   복제된(replicated) 애플리케이션을 관리하는 API 오브젝트.
 

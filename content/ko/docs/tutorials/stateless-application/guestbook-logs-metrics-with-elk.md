@@ -394,8 +394,8 @@ deployment.extensions/frontend scaled
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [리소스 모니터링 도구](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)를 공부한다.
-* [로깅 아키텍처](/docs/concepts/클러스터-administration/logging/)를 더 읽어본다.
-* [애플리케이션 검사 및 디버깅](/docs/tasks/debug-application-cluster/)을 더 읽어본다.
-* [애플리케이션 문제 해결](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)을 더 읽어본다.
+* [리소스 모니터링 도구](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)를 공부한다.
+* [로깅 아키텍처](/docs/concepts/cluster-administration/logging/)를 더 읽어본다.
+* [애플리케이션 검사 및 디버깅](/ko/docs/tasks/debug-application-cluster/)을 더 읽어본다.
+* [애플리케이션 문제 해결](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)을 더 읽어본다.
 {{% /capture %}}
