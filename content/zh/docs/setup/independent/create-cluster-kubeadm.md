@@ -113,7 +113,7 @@ timeframe; which also applies to `kubeadm`.
 
 ### 维护周期
 
-Kubernetes 发现版本的通常只维护支持九个月，在维护周期内，如果发现有比较重大的 bug 或者安全问题的话，
+Kubernetes 发布的版本通常只维护支持九个月，在维护周期内，如果发现有比较重大的 bug 或者安全问题的话，
 可能会发布一个补丁版本。下面是 Kubernetes 的发布和维护周期，同时也适用于 `kubeadm`。
 
 | Kubernetes 版本     | 发行月份        | 终止维护月份        |
