@@ -286,6 +286,6 @@ API 오브젝트에 대한 더 자세한 것은
 
 ## 더 자세한 정보는
 
-[스테이트리스 애플리케이션 레플리케이션 컨트롤러 실행하기](docs/tutorials/stateless-application/run-stateless-ap-replication-controller/) 를 참조하라.
+[스테이트리스 애플리케이션 레플리케이션 컨트롤러 실행하기](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/) 를 참조하라.
 
 {{% /capture %}}
