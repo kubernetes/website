@@ -85,7 +85,7 @@ Most test images are written in golang, then compiled into binaries and built as
 
 Some images are not in `kubernetes/test/images`, such as `gcr.io/google-samples/gb-frontend:v6`. There is no clear documentation explaining where these images are locaated, though we found the source code in repository [github.com/GoogleCloudPlatform/kubernetes-engine-samples](github.com/GoogleCloudPlatform/kubernetes-engine-samples). We soon ran into new problems: to build these google sample images, we have to build the base image it uses, even the base image of the base images, such as `php:5-apache`, `redis`, and `perl`.
 
-After a long process of building an image, we finished with about four dozen images, including the images used by the test pod, and the base images. Then the last step before we run the tests is to place all those images into every node in cluster and make sure the Pod image pull policy is `imagePullPolicy: ifNotPresent`.
+After a long process of building an image, we finished with about four dozen images, including the images used by the test pod, and the base images. The last step before we run the tests is to place all those images into every node in the cluster and make sure the Pod image pull policy is `imagePullPolicy: ifNotPresent`.
 
 Here are some of the images we built：
 
