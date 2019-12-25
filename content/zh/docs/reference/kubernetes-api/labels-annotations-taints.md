@@ -10,13 +10,12 @@ kubernetes.io 标签和注解。
 **目录：**
 <!-- BEGIN MUNGE: GENERATED_TOC -->
 
-- [知名标签、注解和 Taints](#well-known-labels-annotations-and-taints)
-  - [beta.kubernetes.io/arch](#betakubernetesioarch)
-  - [beta.kubernetes.io/os](#betakubernetesioos)
-  - [kubernetes.io/hostname](#kubernetesiohostname)
-  - [beta.kubernetes.io/instance-type](#betakubernetesioinstance-type)
-  - [failure-domain.beta.kubernetes.io/region](#failure-domainbetakubernetesioregion)
-  - [failure-domain.beta.kubernetes.io/zone](#failure-domainbetakubernetesiozone)
+- [beta.kubernetes.io/arch](#betakubernetesioarch)
+- [beta.kubernetes.io/os](#betakubernetesioos)
+- [kubernetes.io/hostname](#kubernetesiohostname)
+- [beta.kubernetes.io/instance-type](#betakubernetesioinstance-type)
+- [failure-domain.beta.kubernetes.io/region](#failure-domainbetakubernetesioregion)
+- [failure-domain.beta.kubernetes.io/zone](#failure-domainbetakubernetesiozone)
 
 <!-- END MUNGE: GENERATED_TOC -->
 
