@@ -969,7 +969,7 @@ Specify the assigned IP address as loadBalancerIP. Ensure that you have updated 
 请参阅 [与Azure Kubernetes服务（AKS）负载平衡器一起使用静态IP地址](https://docs.microsoft.com/en-us/azure/aks/static-ip)或[通过高级网络在AKS群集上创建LoadBalancerFailed](https://github.com/Azure/AKS/issues/357)。
 {{< /note >}}
 
-<--
+<!--
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from Services inside the same
 (virtual) network address block.
