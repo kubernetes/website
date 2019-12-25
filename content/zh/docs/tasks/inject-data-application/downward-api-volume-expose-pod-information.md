@@ -107,19 +107,33 @@ zone="us-est-coast"
 /# ls -laR /etc
 ```
 
-在输出中可以看到，`labels` 和 `annotations`文件都在一个临时子目录中：这个例子，`..2982_06_02_21_47_53.299460680`。在`/etc`目录中，`..data`是一个指向临时子目录
+在输出中可以看到，`labels` 和 `annotations`文件都在一个临时子目录中：这个例子，`..2019_12_05_07_00_34.813117769`。在`/etc`目录中，`..data`是一个指向临时子目录
 的符号链接。`/etc`目录中，`labels` 和 `annotations`也是符号链接。
 
 ```
-drwxr-xr-x  ... Feb 6 21:47 ..2982_06_02_21_47_53.299460680
-lrwxrwxrwx  ... Feb 6 21:47 ..data -> ..2982_06_02_21_47_53.299460680
-lrwxrwxrwx  ... Feb 6 21:47 annotations -> ..data/annotations
-lrwxrwxrwx  ... Feb 6 21:47 labels -> ..data/labels
-
-/etc/..2982_06_02_21_47_53.299460680:
+/etc/podinfo # ls -alRL 
+.:
 total 8
--rw-r--r--  ... Feb  6 21:47 annotations
--rw-r--r--  ... Feb  6 21:47 labels
+drwxrwxrwt    3 root     root           120 Dec  5 07:00 .
+drwxr-xr-x    1 root     root            21 Dec  5 07:00 ..
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 ..2019_12_05_07_00_34.813117769
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 ..data
+-rw-r--r--    1 root     root          1123 Dec  5 07:00 annotations
+-rw-r--r--    1 root     root            39 Dec  5 07:00 labels
+
+./..2019_12_05_07_00_34.813117769:
+total 8
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 .
+drwxrwxrwt    3 root     root           120 Dec  5 07:00 ..
+-rw-r--r--    1 root     root          1123 Dec  5 07:00 annotations
+-rw-r--r--    1 root     root            39 Dec  5 07:00 labels
+
+./..data:
+total 8
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 .
+drwxrwxrwt    3 root     root           120 Dec  5 07:00 ..
+-rw-r--r--    1 root     root          1123 Dec  5 07:00 annotations
+-rw-r--r--    1 root     root            39 Dec  5 07:00 labels
 ```
 
 用符号链接可实现元数据的动态原子刷新；更新将写入一个新的临时目录，然后`..data`符号链接完成原子更新，通过使用[rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html)。
