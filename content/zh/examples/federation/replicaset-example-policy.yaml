@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: nginx-pci
+  name: nginx-pci
+  annotations:
+    requires-pci: "true"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-pci
+  template:
+    metadata:
+      labels:
+        app: nginx-pci
+    spec:
+      containers:
+      - image: nginx
+        name: nginx-pci

@@ -1,3 +1,9 @@
+---
+title: 为命名空间配置内存和 CPU 配额
+content_template: templates/task
+weight: 50
+---
+
 <!--
 ---
 title: Configure Memory and CPU Quotas for a Namespace
@@ -5,13 +11,6 @@ content_template: templates/task
 weight: 50
 ---
 -->
-
----
-title: 为命名空间配置内存和 CPU 配额
-content_template: templates/task
-weight: 50
----
-
 
 {{% capture overview %}}
 
@@ -299,8 +298,3 @@ kubectl delete namespace quota-mem-cpu-example
 * [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {{% /capture %}}
-
-
-
-
-

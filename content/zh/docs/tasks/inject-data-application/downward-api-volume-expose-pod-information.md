@@ -31,7 +31,7 @@ content_template: templates/task
 
 在这个练习中，你将创建一个包含一个容器的pod。这是该pod的配置文件：
 
-{{< codenew file="pods/inject/dapi-volume.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
 
 在配置文件中，你可以看到Pod有一个`downwardAPI`类型的Volume，并且挂载到容器中的`/etc`。
 
@@ -134,7 +134,7 @@ total 8
 
 前面的练习中，你将Pod字段保存到DownwardAPIVolumeFile中。接下来这个练习，你将存储容器字段。这里是包含一个容器的pod的配置文件：
 
-{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume.yaml" >}}
 
 在这个配置文件中，你可以看到Pod有一个`downwardAPI`类型的Volume,并且挂载到容器的`/etc`目录。
 
