@@ -136,12 +136,5 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 * [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) explains how logging in Kubernetes works and how to implement it.
 -->
 
-## 可选集群服务
-
-* [DNS 与 SkyDNS 集成](/docs/concepts/services-networking/dns-pod-service/)描述了如何将一个 DNS 名解析到一个 Kubernetes service。
-
-* [记录和监控集群活动](/docs/concepts/cluster-administration/logging/)阐述了 Kubernetes 的日志如何工作以及怎样实现。
 
 {{% /capture %}}
-
-

@@ -64,7 +64,8 @@ kubectl describe deployment hello
 
 ```
 Name:                           hello
-Namespace:                      default
+Namespace:                    
+  default
 CreationTimestamp:              Mon, 24 Oct 2016 14:21:02 -0700
 Labels:                         app=hello
                                 tier=backend
@@ -117,6 +118,9 @@ DNS 名是 "hello"，也就是 Service 配置文件中 `name` 字段的值。
 只是 nginx 的配置文件：
 
 {{< codenew file="service/access/frontend.conf" >}}
+
+
+
 
 与后端类似，前端用包含一个 Deployment 和一个 Service。Service 的配置文件包含了 `type: LoadBalancer`，
 也就是说，Service 会使用你的云服务商的默认负载均衡设备。

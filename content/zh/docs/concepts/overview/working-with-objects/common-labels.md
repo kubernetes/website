@@ -15,8 +15,7 @@ You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
 -->
-除了 kubectl 和 dashboard 之外，您可以其他工具来可视化和管理 Kubernetes 对象。
-一组通用的标签可以让多个工具之间互操作，用所有工具都能理解的通用方式描述对象。
+除了 kubectl 和 dashboard 之外，您可以使用其他工具来可视化和管理 Kubernetes 对象。一组通用的标签可以让多个工具之间相互操作，用所有工具都能理解的通用方式描述对象。
 
 <!--
 In addition to supporting tooling, the recommended labels describe applications
@@ -70,7 +69,6 @@ on every resource object.
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
 | `app.kubernetes.io/managed-by`  | The tool being used to manage the operation of an application | `helm` | string |
-
 -->
 | 键                                 | 描述           | 示例  | 类型 |
 | ----------------------------------- | --------------------- | -------- | ---- |
@@ -182,7 +180,6 @@ The start to the following `Deployment` is used for WordPress:
 
 以下 `Deployment` 的开头用于 WordPress：
 
-
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -219,7 +216,6 @@ metadata:
 <!--
 MySQL is exposed as a `StatefulSet` with metadata for both it and the larger application it belongs to:
 -->
-
 MySQL 作为一个 `StatefulSet` 暴露，包含它和它所属的较大应用程序的元数据：
 ```yaml
 apiVersion: apps/v1
@@ -228,17 +224,16 @@ metadata:
   labels:
     app.kubernetes.io/name: mysql
     app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
 <!--
 The `Service` is used to expose MySQL as part of WordPress:
 -->
-
 `Service` 用于将 MySQL 作为 WordPress 的一部分暴露：
 ```yaml
 apiVersion: v1
@@ -247,10 +242,10 @@ metadata:
   labels:
     app.kubernetes.io/name: mysql
     app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
