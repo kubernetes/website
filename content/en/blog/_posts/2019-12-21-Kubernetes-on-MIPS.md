@@ -71,7 +71,7 @@ After successfully building the above components, we use tools such as kubespray
 
 ## Run K8S Conformance Test
 
-The most straightforward way to verify the stability and availability of the K8S-MIPS cluster is to run Kubernetes [conformance test](https://github.com/kubernetes/kubernetes/blob/v1.16.2/cluster/images/conformance/README.md).
+The most straightforward way to verify the stability and availability of the K8S-MIPS cluster is to run a Kubernetes [conformance test](https://github.com/kubernetes/kubernetes/blob/v1.16.2/cluster/images/conformance/README.md).
 
 Conformance is a standalone container to launch Kubernetes end-to-end tests, for the purposes of conformance testing.
 
