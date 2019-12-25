@@ -1,3 +1,9 @@
+---
+title: 为命名空间配置默认的内存请求和限制
+content_template: templates/task
+weight: 10
+---
+
 <!--
 ---
 title: Configure Default Memory Requests and Limits for a Namespace
@@ -5,12 +11,6 @@ content_template: templates/task
 weight: 10
 ---
 -->
-
----
-title: 为命名空间配置默认的内存请求和限制
-content_template: templates/task
-weight: 10
----
 
 {{% capture overview %}}
 
@@ -331,5 +331,3 @@ it can be allowed to run in a namespace that is restricted by a quota.
 * [为 Pod 配置服务数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {{% /capture %}}
-
-
