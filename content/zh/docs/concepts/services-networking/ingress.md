@@ -63,8 +63,25 @@ Cluster network（集群网络）
 Service
 : A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network. 
 -->
-Service（服务）
-: Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="label" term_id="label" >}} 选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+
+## 专用术语
+
+为了避免歧义，本指南定义了以下术语：
+
+节点
+：Kubernetes 集群中的单个工作机器。
+
+集群
+：运行由Kubernetes管理的容器化应用程序的一组节点。 对于此示例，在大多数常见的Kubernetes部署中，集群中的节点不属于公共网络。
+
+边缘路由器
+：为集群强制执行防火墙策略的路由器。这可以是由云提供商管理的网关或物理硬件。
+
+集群网络
+：一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
+
+服务：
+Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
 <!--
 ## What is Ingress?
@@ -76,8 +93,11 @@ Ingress exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource. 
 -->
-Ingress 公开了从集群外部到集群内部 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的 HTTP 和 HTTPS 路由。
-流量路由由 Ingress 资源上定义的规则控制。
+
+## Ingress 是什么？
+
+Ingress公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
+流量路由由Ingress资源上定义的规则控制。
 
 ```none
     internet
@@ -100,7 +120,11 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 Ingress 不会公开任意端口或协议。
 将 HTTP 和 HTTPS 以外的服务公开到 Internet 时，通常使用 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 或者 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer) 类型的服务。
 
-<!-- 
+可以将Ingress配置为提供服务外部可访问的URL，负载均衡流量，终止 SSL / TLS 并提供基于名称的虚拟主机。 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)通常负责通过负载平衡器来实现入口，尽管它也可以配置边缘路由器或其他前端以帮助处理流量。
+
+Ingress 不会公开任意端口或协议。 将 HTTP 和 HTTPS 以外的服务公开给 Internet 时，通常使用以下类型的服务 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 或者 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
+
+<!--
 ## Prerequisites
 -->
 ## 环境准备
@@ -694,8 +718,12 @@ Techniques for spreading traffic across failure domains differs between cloud pr
 Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](/docs/concepts/cluster-administration/federation/)
 for details on deploying Ingress in a federated cluster.
 -->
-云提供商之间跨故障域分配流量的技术有所不同。详情请查阅相关 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)的文档。
-有关在联邦集群中部署 Ingress 的详细信息，请参阅[联邦文档](/docs/concepts/cluster-administration/federation/)。 
+
+## 跨可用区失败
+
+用于跨故障域传播流量的技术在云提供商之间是不同的。详情请查阅相关 Ingress 控制器的文档。
+请查看相关[Ingress控制器](/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。
+您还可以参考[联合文档](/docs/concepts/cluster-administration/federation/)，以获取有关在联合集群中部署Ingress的详细信息。
 
 
 <!--
