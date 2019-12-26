@@ -15,11 +15,11 @@ Po stworzeniu *pull request*, jeden z recenzentów Kubernetes podejmie się zada
 
 Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz na stronach:
 
-* [Start contributing](https://kubernetes.io/docs/contribute/start/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+* [Jak rozpocząć współpracę](https://kubernetes.io/docs/contribute/start/)
+* [Podgląd wprowadzanych zmian w dokumentacji](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Szablony stron](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Styl pisania dokumentacji](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Lokalizacja dokumentacji Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
 ## Różne wersje językowe `README.md`
 |  |  |
