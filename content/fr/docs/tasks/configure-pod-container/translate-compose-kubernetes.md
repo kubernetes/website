@@ -6,12 +6,10 @@ weight: 200
 
 {{% capture overview %}}
 
-C'est quoi Kompose ? C'est un outil de conversion de tout ce qui compose ( notamment Docker Compose) en orchestrateurs de conteneurs (Kubernetes ou OpenShift).
-
-Vous trouverez plus d'informations sur le site web de Kompose à [http://kompose.io](http://kompose.io).
+C'est quoi Kompose ? C'est un outil de conversion de tout ce qui compose (notamment Docker Compose) en orchestrateurs de conteneurs (Kubernetes ou OpenShift).
+Vous trouverez plus d'informations sur le site web de Kompose à [http://kompose.io](http:/kompose.io).
 
 {{% /capture %}}
-
 
 {{% capture prerequisites %}}
 
@@ -91,10 +89,9 @@ brew install kompose
 
 ## Utiliser Kompose
 
-En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous
-dont vous avez besoin est un fichier `docker-compose.yml`.
+En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous dont vous avez besoin est un fichier `docker-compose.yml`.
 
-1.  Allez dans le répertoire contenant votre fichier `docker-compose.yml`. Si vous n'en         avez pas, faites un test en utilisant celui-ci.
+1.  Allez dans le répertoire contenant votre fichier `docker-compose.yml`. Si vous n'en avez pas, faites un test en utilisant celui-ci.
 
       ```yaml
       version: "2"
@@ -123,7 +120,7 @@ dont vous avez besoin est un fichier `docker-compose.yml`.
             kompose.service.type: LoadBalancer
       ```
 
-2.  Lancez la commande `kompose up` pour déployer directement sur Kubernetes, ou passez         plutôt à l'étape suivante pour générer un fichier à utiliser avec `kubectl`.
+2.  Lancez la commande `kompose up` pour déployer directement sur Kubernetes, ou passez plutôt à l'étape suivante pour générer un fichier à utiliser avec `kubectl`.
 
       ```bash
       $ kompose up
@@ -138,7 +135,7 @@ dont vous avez besoin est un fichier `docker-compose.yml`.
       Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
       ```
 
-3.  Pour convertir le fichier `docker-compose.yml` en fichiers que vous pouvez utiliser         avec `kubectl`, lancez `kompose convert` et ensuite `kubectl apply -f <output file>`.
+3.  Pour convertir le fichier `docker-compose.yml` en fichiers que vous pouvez utiliser avec `kubectl`, lancez `kompose convert` et ensuite `kubectl apply -f <output file>`.
 
       ```bash
       $ kompose convert                           
@@ -385,7 +382,8 @@ is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1
 
 ## `kompose down`
 
-Une fois que vous avez déployé l'application "composée" sur Kubernetes, `$ kompose down` vous facilitera la suppression de l'application en supprimant ses déploiements et services. Si vous avez besoin de supprimer d'autres ressources, utilisez la commande 'kubectl'.
+Une fois que vous avez déployé l'application "composée" sur Kubernetes, `$ kompose down` vous
+facilitera la suppression de l'application en supprimant ses déploiements et services. Si vous avez besoin de supprimer d'autres ressources, utilisez la commande 'kubectl'.
 
 ```sh
 $ kompose --file docker-guestbook.yml down
@@ -562,7 +560,8 @@ Le label `kompose.service.type` doit être défini avec `ports` uniquement, sino
 
 ## Redémarrer
 
-Si vous voulez créer des pods normaux sans contrôleurs, vous pouvez utiliser la construction `restart` de docker-compose pour définir cela. Suivez le tableau ci-dessous pour voir ce qui se passe avec la valeur de `restart`.
+Si vous voulez créer des pods normaux sans contrôleurs, vous pouvez utiliser la construction
+`restart` de docker-compose pour définir cela. Suivez le tableau ci-dessous pour voir ce qui se passe avec la valeur de `restart`.
 
 | `docker-compose` `restart` | object created    | Pod `restartPolicy` |
 |----------------------------|-------------------|---------------------|
