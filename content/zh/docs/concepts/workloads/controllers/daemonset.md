@@ -191,30 +191,15 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 <!--
 ## How Daemon Pods are Scheduled
 
-### Scheduled by DaemonSet controller (disabled by default since 1.12)
-
-Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
-created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
-when the Pod is created, so it is ignored by the scheduler).  Therefore:
-
- - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
-   by the DaemonSet controller.
- - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
-   bootstrap.
+### Scheduled by default scheduler
 -->
 ## 如何调度 Daemon Pods
 
-### 由 DaemonSet 控制器调度（从v1.12 开始默认禁用）
-
-正常情况下，Pod 运行在哪个机器上是由 Kubernetes 调度器来选择的。然而，由 DaemonSet Controller 创建的 Pod 已经确定了在哪个机器上（Pod 创建时指定了 `.spec.nodeName`，调度器会忽略它），因此：
-
-- DaemonSet Controller 并不关心一个节点的 [`unschedulable`](/docs/admin/node/#manual-node-administration) 字段。
-- DaemonSet Controller 可以创建 Pod，即使调度器还没有启动，这对集群启动是非常有帮助的。
+### 通过默认 scheduler 调度
 
 <!--
-### Scheduled by default scheduler (enabled by default since 1.12)
 
-{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
+{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,
@@ -228,9 +213,8 @@ That introduces the following issues:
    is handled by default scheduler. When preemption is enabled, the DaemonSet controller
    will make scheduling decisions without considering pod priority and preemption.
 -->
-### 由默认 scheduler 调度（从v1.12开始默认开启）
 
-{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
+{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
 DaemonSet 确保所有符合条件的节点都运行一个 Pod 的副本。通常，运行 Pod 的节点由 Kubernetes scheduler 选择。然而，DaemonSet pods 由 DaemonSet controller 创建和调度。这将引入以下问题：
 
