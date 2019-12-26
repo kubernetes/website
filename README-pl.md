@@ -5,7 +5,7 @@
 
 Witamy!
 
-W tym repozytorium znajdziesz wszystko, czego potrzebujesz do zbudowania [strony internetowej Kubernetes wraz z dokumentacją](https://kubernetes.io/). Bardzo nam miło, że chcesz wziąć w tym udział!
+W tym repozytorium znajdziesz wszystko, czego potrzebujesz do zbudowania [strony internetowej Kubernetes wraz z dokumentacją](https://kubernetes.io/). Bardzo nam miło, że chcesz wziąć udział w jej współtworzeniu!
 
 ## Twój wkład w dokumentację
 
