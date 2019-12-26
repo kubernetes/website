@@ -243,10 +243,10 @@ to `kubernetes/website`.
 当 Markdown 文件放入 `kubernetes/website` 仓库的本地目录中后，你就可以创建 [PR](/docs/home/contribute/create-pull-request/) 将它们提交到 `kubernetes/website`。
 
 <!--
-## Customizing the config file
+## Customizing the reference.yml config file
 -->
 
-## 自定义配置文件
+## 自定义 reference.yml 配置文件
 
 <!--
 Open `<web-base>/update-imported-docs/reference.yml` for editing.
@@ -256,24 +256,24 @@ what it is doing and need to change the specified release branch.
 
 打开 `<web-base>/update-imported-docs/reference.yml` 进行编辑。不要修改 `generate-command` 条目的内容，除非你了解它的作用，并且需要修改指定的已发布分支。
 
-```shell
+```yaml
 repos:
 - name: reference-docs
-  remote: https://github.com/kubernetes-incubator/reference-docs.git
+  remote: https://github.com/kubernetes-sigs/reference-docs.git
   # This and the generate-command below needs a change when reference-docs has
   # branches properly defined
-  branch: master  
+  branch: master
   generate-command: |
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    git checkout release-1.11
+    git checkout release-1.17
     make generated_files
     cp -L -R vendor $GOPATH/src
     rm -r vendor
     cd $GOPATH
-    go get -v github.com/kubernetes-incubator/reference-docs/gen-compdocs
-    cd src/github.com/kubernetes-incubator/reference-docs/
+    go get -v github.com/kubernetes-sigs/reference-docs/gen-compdocs
+    cd src/github.com/kubernetes-sigs/reference-docs/
     make comp
 ```
 
