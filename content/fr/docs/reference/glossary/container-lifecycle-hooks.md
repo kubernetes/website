@@ -2,7 +2,7 @@
 title: Container Lifecycle Hooks
 id: container-lifecycle-hooks
 date: 2018-10-08
-full_link: fr/docs/concepts/containers/container-lifecycle-hooks/
+full_link: /docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   Les hooks (ou déclencheurs) du cycle de vie exposent les événements du cycle de vie de la gestion du conteneur et permettent à l'utilisateur d'exécuter le code lorsque les événements se produisent.
 

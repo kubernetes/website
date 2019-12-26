@@ -324,6 +324,9 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 `minikube delete` 명령은 클러스터를 삭제하는데 사용할 수 있다.
 이 명령어는 Minikube 가상 머신을 종료하고 삭제한다. 어떤 데이터나 상태도 보존되지 않다.
 
+### minikube 업그레이드
+[minikube 업그레이드](https://minikube.sigs.k8s.io/docs/start/macos/)를 본다.
+
 ## 클러스터와 상호 작용하기
 
 ### Kubectl

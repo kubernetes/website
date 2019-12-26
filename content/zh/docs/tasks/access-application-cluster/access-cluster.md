@@ -1,15 +1,16 @@
-﻿<!--
+﻿---
+title: 访问集群
+weight: 20
+content_template: templates/concept
+---
+
+<!--
 ---
 title: Accessing Clusters
 weight: 20
 content_template: templates/concept
 ---
 -->
----
-title: 访问集群
-weight: 20
-content_template: templates/concept
----
 
 {{% capture overview %}}
 
@@ -117,8 +118,15 @@ with [::1] for IPv6, like so:
 ```shell
 $ curl http://localhost:8080/api/
 {
+  "kind": "APIVersions",
   "versions": [
     "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
   ]
 }
 ```

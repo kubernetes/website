@@ -105,7 +105,7 @@ If you are running an HA cluster, this command needs to be executed on all the c
 
 The Kubernetes certificates normally reach their expiration date after one year.
 
-- `--csr-only` can be used to renew certificats with an external CA by generating certificate signing requests (without actually renewing certificates in place); see next paragraph for more information.
+- `--csr-only` can be used to renew certificates with an external CA by generating certificate signing requests (without actually renewing certificates in place); see next paragraph for more information.
 
 - It's also possible to renew a single certificate instead of all.
 
