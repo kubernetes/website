@@ -9,13 +9,13 @@ card:
 
 {{% capture overview %}}
 
-本网站包含了当前最新版本和之前四个版本的 Kubernetes。
+本网站包含当前版本和之前四个版本的 Kubernetes 文档。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## 当前最新版本
+## 当前版本
 
 当前版本是
 [{{< param "version" >}}](/)。

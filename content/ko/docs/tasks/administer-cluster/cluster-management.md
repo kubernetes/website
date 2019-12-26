@@ -60,6 +60,9 @@ Google Kubernetes Engine은 자동으로 마스터 구성요소들(예. `kube-ap
 
 노드 업그레이드 프로세스는 사용자가 직접 시작하는 방식이며 [Google Kubernetes Engine 문서](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade)에 설명되어 있다.
 
+### Amazon EKS 클러스터 업그레이드
+Amazon EKS 클러스터는 eksctl, AWS 관리 콘솔, AWS CLI를 사용해서 마스터 구성요소를 업그레이드할 수 있다. 프로세스는 사용자가 시작하며 [Amazon EKS 문서](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html)에 설명되어 있다.
+
 ### Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) 클러스터 업그레이드
 
 Oracle은 당신이 고가용성의 관리형 쿠버네티스 컨트롤 플레인을 가질 수 있도록 사용자를 대신하여 Oracle 컨트롤 플레인 내에 마스터 노드들의 세트를 (그리고 etcd 노드들과 같은 관련 쿠버네티스 인프라스트럭처를) 생성하고 관리한다. 또한 이 마스터 노드들을 다운타임 없이 쿠버네티스 신규 버전으로 유연하게 업그레이드할 수도 있다. 이 기능들은 [OKE 문서](https://docs.cloud.oracle.com/iaas/Content/ContEng/Tasks/contengupgradingk8smasternode.htm)에 설명되어 있다.

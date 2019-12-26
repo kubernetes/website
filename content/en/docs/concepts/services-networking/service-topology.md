@@ -41,7 +41,7 @@ By using Node label matching between the source and destination, the operator
 may designate groups of Nodes that are "closer" and "farther" from one another,
 using whatever metric makes sense for that operator's requirements. For many
 operators in public clouds, for example, there is a preference to keep service
-traffic withing the same zone, because interzonal traffic has a cost associated
+traffic within the same zone, because interzonal traffic has a cost associated
 with it, while intrazonal traffic does not. Other common needs include being able
 to route traffic to a local Pod managed by a DaemonSet, or keeping traffic to
 Nodes connected to the same top-of-rack switch for the lowest latency.

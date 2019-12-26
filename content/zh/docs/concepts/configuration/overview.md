@@ -5,6 +5,15 @@ title: 配置最佳实践
 content_template: templates/concept
 weight: 10
 ---
+<!--
+---
+reviewers:
+- mikedanese
+title: Configuration Best Practices
+content_template: templates/concept
+weight: 10
+---
+-->
 
 {{% capture overview %}}
 <!--
@@ -35,7 +44,7 @@ This is a living document. If you think of something that is not on this list bu
 -->
 - 在推送到集群之前，配置文件应存储在版本控制中。
  这允许您在必要时快速回滚配置更改。
- 它还有助于集群重新创建和恢复。
+ 它还有助于集群重新创建和恢复。 
 
 <!--
 - Write your configuration files using YAML rather than JSON. Though these formats can be used interchangeably in almost all scenarios, YAML tends to be more user-friendly.
@@ -210,27 +219,25 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 - `imagePullPolicy: Never`：镜像被假设存在于本地。
   没有尝试拉取镜像。
 
-{{< note >}}
 <!--
 To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`. The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
 -->
-
+{{< note >}}
 要确保容器始终使用相同版本的镜像，你可以指定其 [摘要](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), 例如`sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 摘要唯一地标识出镜像的指定版本，因此除非您更改摘要值，否则 Kubernetes 永远不会更新它。
 {{< /note >}}
 
-{{< note >}}
 <!--
 You should avoid using the `:latest` tag when deploying containers in production as it is harder to track which version of the image is running and more difficult to roll back properly.
 -->
-
-在生产中部署容器时应避免使用 `:latest` 标记，因为更难跟踪正在运行的镜像版本，并且更难以正确回滚。
+{{< note >}}
+在生产中部署容器时应避免使用 `:latest` 标记，因为更难跟踪正在运行的镜像版本，并且更难以正确回滚。 
 {{< /note >}}
 
-{{< note >}}
 <!--
 The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
 -->
+{{< note >}}
 底层镜像提供程序的缓存语义甚至使 `imagePullPolicy: Always`变得高效。
 例如，对于 Docker，如果镜像已经存在，则拉取尝试很快，因为镜像层都被缓存并且不需要镜像下载。
 {{< /note >}}
@@ -250,7 +257,7 @@ The caching semantics of the underlying image provider make even `imagePullPolic
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 -->
 - 使用标签选择器进行`get`和`delete`操作，而不是特定的对象名称。
-- 请参阅[标签选择器](/docs/concepts/overview/working-with-objects/labels/#label-selectors)和[有效使用标签](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)部分。
+- 请参阅[标签选择器](/docs/concepts/overview/working-with-objects/labels/#label-selectors)和[有效使用标签]部分(/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)。
 
 <!--
 - Use `kubectl run` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
@@ -259,5 +266,3 @@ The caching semantics of the underlying image provider make even `imagePullPolic
   有关示例，请参阅[使用服务访问集群中的应用程序](/docs/tasks/access-application-cluster/service-access-application-cluster/)。
 
 {{% /capture %}}
-
-

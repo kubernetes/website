@@ -32,7 +32,6 @@ Kubernetes 将发送一个 preStop 事件。
 
 {{% /capture %}}
 
-
 {{% capture steps %}}
 
 <!--

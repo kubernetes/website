@@ -14,9 +14,8 @@ TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 처리하며, 파드와 커스텀 리소스와 같이 실행을 완료할 다른 리소스를
 처리하도록 확장될 수 있다.
 
-알파(Alpha) 고지 사항: 이 기능은 현재 알파이다, 그리고 
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
-`TTLAfterFinished` 를 통해 활성화 될 수 있다.
+알파(Alpha) 고지 사항: 이 기능은 현재 알파이다, 그리고 kube-apiserver 와 kube-controller-manager 와 함께
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 로 `TTLAfterFinished` 를 활성화 할 수 있다.
 
 
 {{% /capture %}}

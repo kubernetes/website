@@ -96,7 +96,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 ```
 
-아직 서버로 어떠한 요청도 하지 않았기 때문에, 현재 CPU 소비는 0%임을 확인할 수 있다 (``CURRENT``은 디플로이먼트에 의해 제어되는 파드들의 평균을 나타낸다).
+아직 서버로 어떠한 요청도 하지 않았기 때문에, 현재 CPU 소비는 0%임을 확인할 수 있다 (``TARGET``은 디플로이먼트에 의해 제어되는 파드들의 평균을 나타낸다).
 
 ## 부하 증가
 
@@ -117,8 +117,8 @@ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 kubectl get hpa
 ```
 ```
-NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
-php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
+NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1          3m
 
 ```
 

@@ -58,8 +58,6 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
-
-
 <!--
 ## Configuration
 
@@ -82,5 +80,3 @@ to periodically gather these metrics and make them available in some kind of tim
 在生产环境中，您可能想配置 prometheus 或其他一些指标收集工具，以定期收集这些指标数据，并将它们应用到某种时间序列数据库中。
 
 {{% /capture %}}
-
-
