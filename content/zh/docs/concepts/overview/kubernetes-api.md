@@ -63,7 +63,7 @@ The requested format is specified by setting HTTP headers:
 
 ## OpenAPI 和 API Swagger 定义
 
-完整的 API 细节被记录在 [OpenAPI](https://www.openapis.org/).
+完整的 API 详细文档使用 [OpenAPI](https://www.openapis.org/)生成.
 
 随着 Kubernetes 1.10 版本的正式启用，Kubernetes API 服务通过 `/openapi/v2` 接口提供 OpenAPI 规范。
 通过设置 HTTP 标头的规定了请求的结构。
