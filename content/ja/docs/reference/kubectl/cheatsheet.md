@@ -1,5 +1,5 @@
 ---
-title: kubectl Cheat Sheet
+title: kubectlチートシート
 content_template: templates/concept
 card:
   name: reference
@@ -8,9 +8,9 @@ card:
 
 {{% capture overview %}}
 
-こちらも参照ください: [Kubectl 概要](/docs/reference/kubectl/overview/) 、 [JsonPath ガイド](/docs/reference/kubectl/jsonpath)。
+こちらも参照ください: [Kubectl概要](/docs/reference/kubectl/overview/) 、 [JsonPath ガイド](/docs/reference/kubectl/jsonpath)。
 
-このページは `kubectl` コマンドの概要です。
+このページは`kubectl`コマンドの概要です。
 
 {{% /capture %}}
 
@@ -43,7 +43,7 @@ echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~
 
 ## Kubectlコンテキストの設定
 
-`kubectl`がどのkubernetesクラスターと通信するかを設定します。
+`kubectl`がどのKubernetesクラスターと通信するかを設定します。
 設定ファイル詳細については[kubeconfigを使用した複数クラスターとの認証](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)をご覧ください。
 
 ```bash
@@ -57,7 +57,7 @@ kubectl config view
 # e2eユーザのパスワードを取得。
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config view -o jsonpath='{.users[].name}'    # 最初のユーザ名ーを表示
+kubectl config view -o jsonpath='{.users[].name}'    # 最初のユーザー名を表示
 kubectl config view -o jsonpath='{.users[*].name}'   # ユーザー名のリストを表示
 kubectl config get-contexts                          # コンテキストのリストを表示 
 kubectl config current-context                       # 現在のコンテキストを表示
@@ -78,18 +78,18 @@ kubectl config unset users.foo    # ユーザーfooを削除
 
 ## Apply
 
-`apply`はkubernetesリソースを定義するファイルを通じてアプリケーションを管理します。 `kubectl apply`を実行して、クラスター内のリソースを作成および更新します。 これは、本番環境でkubernetesアプリケーションを管理する推奨方法です。
+`apply`はKubernetesリソースを定義するファイルを通じてアプリケーションを管理します。`kubectl apply`を実行して、クラスター内のリソースを作成および更新します。これは、本番環境でkubernetesアプリケーションを管理する推奨方法です。
 詳しくは[Kubectl Book](https://kubectl.docs.kubernetes.io)をご覧ください。
 
 
 ## Objectの作成
 
-kubernetesのマニフェストファイルは、jsonまたはyamlで定義できます。ファイル拡張子として、`.yaml`や`.yml`、`.json`が使えます。
+Kubernetesのマニフェストファイルは、jsonまたはyamlで定義できます。ファイル拡張子として、`.yaml`や`.yml`、`.json`が使えます。
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # リソースの作成する
+kubectl apply -f ./my-manifest.yaml            # リソースを作成する
 kubectl apply -f ./my1.yaml -f ./my2.yaml      # 複数のファイルからリソースを作成する
-kubectl apply -f ./dir                         # dirディレクトリに存在するマニフェストファイルからリソースを作成する
+kubectl apply -f ./dir                         # dirディレクトリ内のすべてのマニフェストファイルからリソースを作成する
 kubectl apply -f https://git.io/vPieo          # urlで公開されているファイルからリソースを作成する
 kubectl create deployment nginx --image=nginx  # 単一のnginx Deploymentを作成します
 kubectl explain pods,svc                       # PodおよびServiceマニフェストのドキュメントを取得します。
@@ -222,7 +222,7 @@ cat pod.json | kubectl replace -f -                              # 標準入力�
 # リソースを強制的に削除してから再生成し、置き換えます。サービスの停止が発生します
 kubectl replace --force -f ./pod.json
 
-# Replicasetリソースで作られたnginxについてServiceを作成します。これは、ポート80で提供され、コンテナーへはポート8000で接続します
+# ReplicaSetリソースで作られたnginxについてServiceを作成します。これは、ポート80で提供され、コンテナーへはポート8000で接続します
 kubectl expose rc nginx --port=80 --target-port=8000
 
 # 単一コンテナのPodイメージのバージョン(タグ)をv4に更新する
