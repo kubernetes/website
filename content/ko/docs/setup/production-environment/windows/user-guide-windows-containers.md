@@ -96,7 +96,7 @@ spec:
     * 네트워크를 통한 노드에서 파드 간에 통신, 리눅스 마스터에서 `curl`을 파드 IP 주소의 80 포트로 실행하여 웹 서버 응답을 확인한다.
     * 파드와 파드 간에 통신, `docker exec` 나 `kubectl exec`를 이용해 파드 간에 핑(ping)한다(윈도우 노드를 여럿가지고 있다면 호스트를 달리하며).
     * 서비스와 파드 간에 통신, 리눅스 마스터와 독립 파드에서 `curl`을 가상 서비스 IP 주소(`kubectl get services`로 보여지는)로 실행한다.
-    * 서비스 검색(discovery), 쿠버네티스 [기본 DNS 접미사](/docs/concepts/services-networking/dns-pod-service/#services)와 서비스 이름으로 `curl`을 실행한다.
+    * 서비스 검색(discovery), 쿠버네티스 [기본 DNS 접미사](/ko/docs/concepts/services-networking/dns-pod-service/#서비스)와 서비스 이름으로 `curl`을 실행한다.
     * 인바운드 연결, 클러스터 외부 장비나 리눅스 마스터에서 NodePort로 `curl`을 실행한다.
     * 아웃바운드 연결, `kubectl exec`를 이용해서 파드에서 외부 IP 주소로 `curl`을 실행한다.
 

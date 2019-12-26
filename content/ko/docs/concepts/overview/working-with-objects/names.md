@@ -11,7 +11,7 @@ weight: 20
 
 예를 들어, 이름이 `myapp-1234`인 파드는 동일한 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/) 내에서 하나만 가질 수 있지만, 이름이 `myapp-1234`인 파드와 디플로이먼트는 각각 가질 수 있다.
 
-유일하지 않은 사용자 제공 속성에 대해서, 쿠버네티스는 [레이블](/docs/user-guide/labels)과 [어노테이션](/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
+유일하지 않은 사용자 제공 속성에 대해서, 쿠버네티스는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)과 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
 
 {{% /capture %}}
 
