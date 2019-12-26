@@ -2,7 +2,7 @@
 title: 노드(Node)
 id: node
 date: 2018-04-12
-full_link: /docs/concepts/architecture/nodes/
+full_link: /ko/docs/concepts/architecture/nodes/
 short_description: >
   노드는 쿠버네티스의 작업 장비(worker machine)이다.
 

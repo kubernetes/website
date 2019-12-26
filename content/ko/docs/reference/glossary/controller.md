@@ -2,7 +2,7 @@
 title: 컨트롤러(Controller)
 id: controller
 date: 2018-04-12
-full_link: /docs/concepts/architecture/controller/
+full_link: /ko/docs/concepts/architecture/controller/
 short_description: >
   API 서버를 통해 클러스터의 공유된 상태를 감시하고, 현재 상태를 원하는 상태로 이행시키는 컨트롤 루프.
 
