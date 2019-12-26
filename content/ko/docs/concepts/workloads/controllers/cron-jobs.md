@@ -6,6 +6,8 @@ weight: 80
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+
 _크론 잡은_ 시간 기반의 일정에 따라 [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 만든다.
 
 하나의 크론잡 객체는 _크론탭_ (크론 테이블) 파일의 한 줄과 같다. 크론잡은 잡을 [크론](https://en.wikipedia.org/wiki/Cron)형식으로 쓰여진 주어진 일정에 따라 주기적으로 동작시킨다.
