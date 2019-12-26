@@ -32,7 +32,7 @@ Kubernetes提供一个 `certificates.k8s.io` API，可让您配置
 由您控制的证书颁发机构（CA）签名的TLS证书。 您的工作负载可以使用这些CA和证书来建立信任。
 
 `certificates.k8s.io` API使用的协议类似于[ACME
-草稿]（https://github.com/ietf-wg-acme/acme/）。
+草稿](https://github.com/ietf-wg-acme/acme/)。
 
 {{< note >}}
 <!--
