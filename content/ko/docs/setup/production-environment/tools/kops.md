@@ -60,7 +60,7 @@ $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep ta
 curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
 ```
 
-kops 바이너리를 실행가능하게 만든다.
+kops 바이너리를 실행 가능하게 만든다.
 
 ```shell
 chmod +x kops-darwin-amd64
@@ -97,7 +97,7 @@ $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep ta
 curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
 ```
 
-kops 바이너리를 실행가능하게 만든다.
+kops 바이너리를 실행 가능하게 만든다.
 
 ```shell
 chmod +x kops-linux-amd64
