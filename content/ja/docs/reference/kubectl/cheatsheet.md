@@ -354,7 +354,6 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 `-o=wide`     | 追加の情報を含むプレーンテキスト形式で出力します。Podの場合、Node名が含まれます。
 `-o=yaml`     | YAML形式のAPIオブジェクトを出力します
 
-### Kubectl output verbosity and debugging
 ### Kubectlのログレベルとデバッグ
 kubectlのログレベルは、レベルを表す整数が後に続く `-v`または` --v`フラグで制御されます。 一般的なkubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
 
