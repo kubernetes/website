@@ -128,7 +128,7 @@ http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
     duration := time.Now().Sub(started)
     if duration.Seconds() > 10 {
         w.WriteHeader(500)
-        w.Write([]byte(fmt.Sprintf("error: %v", duration.Seconds())))
+        w.Write([]byte(fmt.Sprintf("erreur: %v", duration.Seconds())))
     } else {
         w.WriteHeader(200)
         w.Write([]byte("ok"))
@@ -295,7 +295,7 @@ Kubelet fait la connexion de la probe au noeud, pas dans le Pod, ce qui signifie
 ### Référence
 
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-* [Conteneur](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
 {{% /capture %}}
