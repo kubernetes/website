@@ -38,7 +38,7 @@ https://docs.docker.com/edge/engine/reference/commandline/manifest/
 Hier einige Beispiele wie wir dies in unserem Build - Prozess nutzen:
 https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
 
-Diese Kommandos basieren rein auf dem Docker Kommandozeileninterface und werden auch darauf ausgeführt. Sie sollten entweder die Datei `$HOME/.docker/config.json` bearbeiten und den `experimental` Schlüssel auf `enabled`setzen, oder einfach die Umgebungsvariable `DOCKER_CLI_EXPERIMENTAL` auf `enabled`setzen wenn das Docker Kommandozeileninterface aufrufen.
+Diese Kommandos basieren rein auf dem Docker Kommandozeileninterface und werden auch damit ausgeführt. Sie sollten entweder die Datei `$HOME/.docker/config.json` bearbeiten und den `experimental` Schlüssel auf `enabled`setzen, oder einfach die Umgebungsvariable `DOCKER_CLI_EXPERIMENTAL` auf `enabled`setzen wenn Sie das Docker Kommandozeileninterface aufrufen.
 
 
 {{< note >}}
