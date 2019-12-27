@@ -75,7 +75,7 @@ The most straightforward way to verify the stability and availability of the K8S
 
 Conformance is a standalone container to launch Kubernetes end-to-end tests for conformance testing.
 
-Once the test has started, it will launches a number of pods for various end-to-end tests. The source code of those images used by these pods is mostly from `kubernetes/test/images` , and the built images are pulled from repository `gcr.io/kubernetes-e2e-test-images/` . Since there are no MIPS images in the repository, we must first build all needed images to run the test.
+Once the test has started, it launches several pods for various end-to-end tests. The source code of those images used by these pods is mostly from `kubernetes/test/images`, and the built images are at `gcr.io/kubernetes-e2e-test-images`. Since there are no MIPS images in the repository, we must first build all needed images to run the test.
 
 ### Build needed images for test
 
