@@ -169,7 +169,7 @@ Diese Vorgehensweise ist anwendbar wenn sie ihre Knoten - Konfiguration ändern 
 Kubernetes unterstützt zur Zeit nur die `auths` und `HttpHeaders` Sektionen der Docker Konfiguration . Das bedeutet das die Hilfswerkzeuge (`credHelpers` ooderr `credsStore`) nicht unterstützt werden.
 {{< /note >}}
 
-Docker speicher Schlüssel für eigene Registries in der Datei `$HOME/.dockercfg` oder `$HOME/.docker/config.json`. Wenn sie die gleiche Datei in einen der unten aufgeführten Suchpfade ablegen wird Kubelet sie als Hilfswerkzeug für Zugriffsdaten nutzen wenn es Images bezieht.
+Docker speichert Schlüssel für eigene Registries in der Datei `$HOME/.dockercfg` oder `$HOME/.docker/config.json`. Wenn sie die gleiche Datei in einen der unten aufgeführten Suchpfade ablegen wird Kubelet sie als Hilfswerkzeug für Zugriffsdaten nutzen wenn es Images bezieht.
 
 
 *   `{--root-dir:-/var/lib/kubelet}/config.json`
