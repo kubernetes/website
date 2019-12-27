@@ -1,6 +1,7 @@
 ---
 title: Parallel Processing using Expansions
 content_template: templates/concept
+min-kubernetes-server-version: v1.8
 weight: 20
 ---
 

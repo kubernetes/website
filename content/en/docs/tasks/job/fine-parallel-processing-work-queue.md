@@ -1,6 +1,7 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
 content_template: templates/task
+min-kubernetes-server-version: v1.8
 weight: 40
 ---
 

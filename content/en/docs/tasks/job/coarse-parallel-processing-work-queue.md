@@ -1,5 +1,6 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
+min-kubernetes-server-version: v1.8
 content_template: templates/task
 weight: 30
 ---

@@ -1,5 +1,6 @@
 ---
 title: Running Automated Tasks with a CronJob
+min-kubernetes-server-version: v1.8
 reviewers:
 - chenopis
 content_template: templates/task
