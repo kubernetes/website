@@ -28,7 +28,7 @@ weight: 10
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 <!--
 _Endpoint Slices_ provide a simple way to track network endpoints within a
@@ -44,7 +44,7 @@ _Endpoint Slices_ 提供了一种简单的方法来跟踪 Kubernetes 集群中�
 <!--
 ## Endpoint Slice resources {#endpointslice-resource}
 
-In Kubernetes, an Endpoint Slice contains references to a set of network
+In Kubernetes, an EndpointSlice contains references to a set of network
 endpoints. The EndpointSlice controller automatically creates Endpoint Slices
 for a Kubernetes Service when a selector is specified. These Endpoint Slices
 will include references to any Pods that match the Service selector. Endpoint
@@ -55,18 +55,18 @@ Kubernetes Service.
 -->
 ## Endpoint Slice 资源 {#endpointslice-resource}
 
-在 Kubernetes 中，`Endpoint Slice`包含对一组网络端点的引用。指定选择器后，EndpointSlice 控制器会自动为 Kubernetes 服务创建 Endpoint Slices。这些 Endpoint Slices 将包含对与服务选择器匹配的所有 Pod 的引用。Endpoint Slices 通过唯一的服务和端口组合将网络端点组织在一起。
+在 Kubernetes 中，`EndpointSlice` 包含对一组网络端点的引用。指定选择器后，EndpointSlice 控制器会自动为 Kubernetes 服务创建 EndpointSlice。这些 EndpointSlice 将包含对与服务选择器匹配的所有 Pod 的引用。EndpointSlice 通过唯一的服务和端口组合将网络端点组织在一起。
 
 例如，这里是 Kubernetes服务 `example` 的示例 EndpointSlice 资源。
 
 ```yaml
-apiVersion: discovery.k8s.io/v1alpha1
+apiVersion: discovery.k8s.io/v1beta1
 kind: EndpointSlice
 metadata:
   name: example-abc
   labels:
     kubernetes.io/service-name: example
-addressType: IP
+addressType: IPv4
 ports:
   - name: http
     protocol: TCP
@@ -74,7 +74,6 @@ ports:
 endpoints:
   - addresses:
     - "10.1.2.3"
-    - "2001:db8::1234:5678"
     conditions:
       ready: true
     hostname: pod-1
@@ -91,6 +90,14 @@ with Endpoints and Services and have similar performance.
 Endpoint Slices can act as the source of truth for kube-proxy when it comes to
 how to route internal traffic. When enabled, they should provide a performance
 improvement for services with large numbers of endpoints.
+
+## Address Types
+
+EndpointSlices support three address types:
+
+* IPv4
+* IPv6
+* FQDN (Fully Qualified Domain Name)
 
 ## Motivation
 
@@ -111,6 +118,14 @@ platform for additional features such as topological routing.
 默认情况下，由 EndpointSlice 控制器管理的 Endpoint Slice 将有不超过 100 个 endpoints。低于此比例时，Endpoint Slices 应与 Endpoints 和服务进行 1：1 映射，并具有相似的性能。
 
 当涉及如何路由内部流量时，Endpoint Slices 可以充当 kube-proxy 的真实来源。启用该功能后，在服务的 endpoints 规模庞大时会有可观的性能提升。
+
+## Address Types
+
+EndpointSlice 支持三种地址类型：
+
+* IPv4
+* IPv6
+* FQDN (完全合格的域名)
 
 ## 动机
 
