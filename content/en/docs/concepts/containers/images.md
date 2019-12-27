@@ -205,7 +205,7 @@ example, run these on your desktop/laptop:
 
 Verify by creating a pod that uses a private image, e.g.:
 
-```yaml
+```shell
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
@@ -218,20 +218,27 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
+```
+```
 pod/private-image-test-1 created
 ```
 
-If everything is working, then, after a few moments, you should see:
+If everything is working, then, after a few moments, you can run:
 
 ```shell
 kubectl logs private-image-test-1
+```
+and see that the command outputs:
+```
 SUCCESS
 ```
 
-If it failed, then you will see:
-
+If you suspect that the command failed, you can run:
 ```shell
-kubectl describe pods/private-image-test-1 | grep "Failed"
+kubectl describe pods/private-image-test-1 | grep 'Failed'
+```
+In case of failure, the output is similar to:
+```
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
@@ -358,7 +365,8 @@ common use cases and suggested solutions.
    - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 
-{{% /capture %}}
 
 If you need access to multiple registries, you can create one secret for each registry.
 Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
+
+{{% /capture %}}
