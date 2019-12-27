@@ -1,12 +1,8 @@
----
-reviewers:
-- erictune
-- thockin
+
 title: Images
 content_template: templates/concept
 weight: 10
 ---
-
 {{% capture overview %}}
 
 Sie erstellen ihr Docker Image und laden es in eine Registry hoch bevor es in einem Kubernetes Pod referenziert werden kann.
