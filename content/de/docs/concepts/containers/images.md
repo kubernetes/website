@@ -1,4 +1,4 @@
-
+---
 title: Images
 content_template: templates/concept
 weight: 10
