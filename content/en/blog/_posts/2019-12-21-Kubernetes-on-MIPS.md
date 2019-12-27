@@ -38,7 +38,7 @@ Almost all native cloud components related to Kubernetes do not provide a MIPS v
 
 Thanks to the excellent design of Golang and its good support for the MIPS platform, the compilation processes of the above cloud native components are greatly simplified. First of all, we compiled Golang on the latest stable version for the mips64el platform, and then we compiled most of the above components with source code.
 
-During the compilation processes, we inevitably encountered many platform compatibility problems, such as Golang system call compatibility problem (syscall), type casting of syscall. Stat_t from uint32 to uint64, patching for EpollEvent and so on. All problems are successfully solved. Some adaptation have also been contributed to the community through pull request or any other ways.
+During the compilation processes, we inevitably encountered many platform compatibility problems, such as a Golang system call compatibility problem (syscall), typecasting of syscall. Stat_t from uint32 to uint64, patching for EpollEvent, and so on. 
 
 To build K8S-MIPS components, we mainly used cross compilation technology. Firstly we made a cross compilation basic image based on MIPS architecture. Integrated QEMU tool, this image is used to translate MIPS CPU instructions. Then by modifying the build script of Kubernetes and E2E image script of Kubernetes, Hyperkube and E2E test images on MIPS architecture are cross compiled.
 
