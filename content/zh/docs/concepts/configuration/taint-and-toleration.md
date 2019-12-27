@@ -421,8 +421,7 @@ which matches the behavior when this feature is disabled.
 ## 基于节点状态添加 taint
 
 <!--
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates taints corresponding to
-Node conditions.
+The node lifecycle controller automatically creates taints corresponding to Node conditions.
 Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
 Note that `TaintNodesByCondition` only taints nodes with `NoSchedule` effect. `NoExecute` effect is controlled by `TaintBasedEviction` which is a beta feature and enabled by default since version 1.13.
 
@@ -436,8 +435,8 @@ breaking.
   * `node.kubernetes.io/unschedulable` (1.10 or later)
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 -->
-在版本1.12中，`TaintNodesByCondition` 功能已升级为Beta，因此节点生命周期控制器会自动创建与Node条件相对应的污点。
-同样，调度程序不检查节点条件。 而是调度程序检查污点。 这确保了节点条件不会影响调度到节点上的内容。 用户可以通过添加适当的 Pod 容忍来选择忽略某些Node的问题(表示为 Node 的调度条件)。
+Node 生命周期控制器会自动创建与 Node 条件相对应的污点。
+同样，调度程序不检查节点条件。 而是调度程序检查污点。 这确保了节点条件不会影响调度到节点上的内容。 用户可以通过添加适当的 Pod 容忍来选择忽略某些 Node 的问题(表示为 Node 的调度条件)。
 注意，`TaintNodesByCondition` 只会污染具有 `NoSchedule` 设定的节点。 `NoExecute` 效应由 `TaintBasedEviction` 控制，
 `TaintBasedEviction` 是 Beta 版功能，自1.13版起默认启用。
 

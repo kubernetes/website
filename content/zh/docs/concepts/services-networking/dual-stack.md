@@ -101,8 +101,9 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/24`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 例如 `--cluster-cidr=10.244.0.0/16,fc00::/24`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 对于 IPv4 默认为 /24，对于 IPv6 默认为 /64
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
@@ -194,13 +195,9 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 ## 已知问题
 
 <!--
-   * IPv6 network block assignment uses the default IPv4 CIDR block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
-   * Dual-stack networking does not function if the `EndpointSlice` feature gate is enabled.
 -->
-   * IPv6 网络块分配使用默认的 IPv4 CIDR 块大小（/24）
    * Kubenet 强制 IPv4，IPv6 的 IPs 位置报告 (--cluster-cidr)
-   * 如果 `EndpointSlice` 特性门控启用，则双栈网络不起作用。
 
 {{% /capture %}}
 

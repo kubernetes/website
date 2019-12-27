@@ -152,7 +152,7 @@ language_alternatives = ["en"]
 
 [languages.ko]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "운영 수준의 컨테이너 오케스트레이션"
 languageName = "한국어 Korean"
 weight = 3
 contentDir = "content/ko"
