@@ -16,7 +16,7 @@ Die `image` Eigenschaft eines Containers unterstüzt die gleiche Syntax wie die 
 
 ## Aktualisieren von Images
 
-Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu das dass Kubelet Images übersptringt die bereits auf einem Node vorliegen.
+Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu das dass Kubelet Images überspringt die bereits auf einem Node vorliegen.
 Wenn sie stattdessen möchten das ein Image immer forciert heruntergeladen wird, können sie folgendes tun:
 
 
@@ -313,10 +313,10 @@ Sie können dies in Verbindung mit einer auf jedem Knoten genutzten `.docker/con
 Es gibt eine Anzahl an Lösungen um eigene Registries zu konfigurieren, hier sind einige Anwendungsfälle und empfohlene Lösungen.
 
 1. Cluster die nur nicht-proprietäre Images (z.B. open-source) ausführen. Images müssen nicht versteckt werden.
-   - Nutzing von öffentlichen Images auf Docker hub.
+   - Nutzung von öffentlichen Images auf Docker hub.
      - Keine Konfiguration notwendig
      - Auf GCE/Google Kubernetes Engine, wird automatisch ein lokaler Spiegel für eine verbesserte Geschwindigkeit und Verfügbarkeit genutzt.
-2. Cluster die einige proprietäre Images ausführen die für Außenstehende nicht sichtbar sein sollen, aber für alle Cluster - Benutzer sichtbar sein sollen.
+2. Cluster die einige proprietäre Images ausführen die für Außenstehende nicht sichtbar sein dürfen, aber für alle Cluster - Benutzer sichtbar sein sollen.
    - Nutzung einer gehosteten privaten Registry [Docker registry](https://docs.docker.com/registry/).
      - Kann auf [Docker Hub](https://hub.docker.com/signup), oder woanders gehostet werden.
      - Manuelle Konfiguration der .docker/config.json auf jedem Knoten, wie oben beschrieben.
