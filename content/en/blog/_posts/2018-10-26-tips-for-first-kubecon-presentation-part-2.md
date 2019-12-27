@@ -6,7 +6,7 @@ date: 2018-10-26
 
 **Author**: Michael Gasch (VMware)
 
-Hello and welcome back to the second and final part about tips for KubeCon first-time speakers. If you missed the last post, please give it a read [here](https://kubernetes.io/blog/2018/10/18/tips-for-your-first-kubecon-presentation---part-1/).
+Hello and welcome back to the second and final part about tips for KubeCon first-time speakers. If you missed the last post, please give it a read [here](https://kubernetes.io/blog/2018/10/18/tips-for-your-first-kubecon-presentation-part-1/).
 
 ## The Day before the Show
 

@@ -56,9 +56,9 @@ Next, NetScaler CPX needed to be inserted in the data path of GCP ingress load b
 接下来，需要在 GCP 入口负载均衡器的数据路径中插入 NetScaler CPX，使 NetScaler CPX 能够将流量分散到前端 web 服务器。NetScaler 团队进行了修改，以便 NetScaler CPX 监听 API 服务器事件，并配置自己来创建 VIP、IP 表规则和服务器规则，以便跨前端应用程序接收流量和负载均衡。谷歌云平台团队提供反馈和帮助，验证为克服技术障碍所做的修改。完成了!
 
 <!--
-NetScaler CPX use case is supported in [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads). Citrix customers and the broader enterprise market will have the opportunity to leverage NetScaler with Kubernetes, thereby lowering the friction to move workloads to the cloud.&nbsp;  
+NetScaler CPX use case is supported in [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/). Citrix customers and the broader enterprise market will have the opportunity to leverage NetScaler with Kubernetes, thereby lowering the friction to move workloads to the cloud.&nbsp;
 -->
-NetScaler CPX 用例在 [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernets-1.3 - bridge -cloud-native-and-enterprise-workload) 中提供支持。Citrix 的客户和更广泛的企业市场将有机会基于 Kubernetes 享用 NetScaler 服务，从而降低将工作负载转移到云平台的阻力。&nbsp;
+NetScaler CPX 用例在 [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/) 中提供支持。Citrix 的客户和更广泛的企业市场将有机会基于 Kubernetes 享用 NetScaler 服务，从而降低将工作负载转移到云平台的阻力。&nbsp;
 
 <!--
 You can learn more about&nbsp;NetScaler CPX [here](https://www.citrix.com/networking/microservices.html).  

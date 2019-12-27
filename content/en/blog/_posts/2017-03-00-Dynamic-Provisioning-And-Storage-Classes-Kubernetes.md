@@ -5,7 +5,7 @@ slug: dynamic-provisioning-and-storage-classes-kubernetes
 url: /blog/2017/03/Dynamic-Provisioning-And-Storage-Classes-Kubernetes
 ---
 
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6) on what's new in Kubernetes 1.6_
 
 
 
@@ -13,7 +13,7 @@ Storage is a critical part of running stateful containers, and Kubernetes offers
 
 StorageClasses use provisioners that are specific to the storage platform or cloud provider to give Kubernetes access to the physical media being used. Several storage provisioners are provided in-tree (see [user-guide](/docs/user-guide/persistent-volumes/index#provisioner)), but additionally out-of-tree provisioners are now supported (see [kubernetes-incubator](https://github.com/kubernetes-incubator/external-storage)).  
 
-In the [Kubernetes 1.6 release](https://kubernetes.io/blog/2017/03/kubernetes-1.6-multi-user-multi-workloads-at-scale), **dynamic provisioning has been promoted to stable** (having entered beta in 1.4). This is a big step forward in completing the Kubernetes storage automation vision, allowing cluster administrators to control how resources are provisioned and giving users the ability to focus more on their application. With all of these benefits, **there are a few important user-facing changes (discussed below) that are important to understand before using Kubernetes 1.6**.  
+In the [Kubernetes 1.6 release](https://kubernetes.io/blog/2017/03/kubernetes-1-6-multi-user-multi-workloads-at-scale), **dynamic provisioning has been promoted to stable** (having entered beta in 1.4). This is a big step forward in completing the Kubernetes storage automation vision, allowing cluster administrators to control how resources are provisioned and giving users the ability to focus more on their application. With all of these benefits, **there are a few important user-facing changes (discussed below) that are important to understand before using Kubernetes 1.6**.
 
 **Storage Classes and How to Use them**  
 
