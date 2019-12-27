@@ -40,7 +40,7 @@ Thanks to the excellent design of Golang and its good support for the MIPS platf
 
 During the compilation processes, we inevitably encountered many platform compatibility problems, such as a Golang system call compatibility problem (syscall), typecasting of syscall. Stat_t from uint32 to uint64, patching for EpollEvent, and so on. 
 
-To build K8S-MIPS components, we mainly used cross compilation technology. Firstly we made a cross compilation basic image based on MIPS architecture. Integrated QEMU tool, this image is used to translate MIPS CPU instructions. Then by modifying the build script of Kubernetes and E2E image script of Kubernetes, Hyperkube and E2E test images on MIPS architecture are cross compiled.
+To build K8S-MIPS components, we used cross-compilation technology. Our process involved integrating a QEMU tool to translate MIPS CPU instructions and modifying the build script of Kubernetes and E2E image script of Kubernetes, Hyperkube, and E2E test images on MIPS architecture.
 
 After successfully building the above components, we use tools such as kubespray and kubeadm to complete kubernetes cluster construction.
 
