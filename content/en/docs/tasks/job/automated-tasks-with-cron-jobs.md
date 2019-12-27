@@ -25,7 +25,7 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 
