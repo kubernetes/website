@@ -150,26 +150,13 @@ Kubernetes causes all the Pod objects running on the node to be deleted from the
 
 
 <!--
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates
+The node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-Similarly the scheduler ignores conditions when considering a Node; instead
-it looks at the Node's taints and a Pod's tolerations.
+When the scheduler is assigning a Pod to a Node, the scheduler takes the Node's taints
+into account, except for any taints that the Pod tolerates.
 -->
-在版本 1.12 中，`TaintNodesByCondition` 功能已升级为 Beta 功能，因此节点生命周期控制器会自动创建代表条件的 [污点](/docs/concepts/configuration/taint-and-toleration/)。同样，scheduler 在考虑节点时会忽略条件，而是查看节点的污点和 Pod 的容忍度。
-
-<!--
-Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
-tolerates the taints of a particular Node can be scheduled on that Node.
--->
-现在用户可以在旧的调度模型和新的、更灵活的调度模型之间进行选择，一个没有任何容忍度的 Pod 会根据旧模型进行调度。但是能够容忍特定节点的污点的 Pod 则可以在该节点上调度执行。
-
-{{< caution >}}
-<!--
-Enabling this feature creates a small delay between the
-time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
--->启用此功能会在观察条件与到产生污点之间产生较小的延迟。此延迟通常少于一秒，但会增加成功调度但被 kubelet 拒绝的 Pod 数量。
-{{< /caution >}}
+节点生命周期控制器会自动创建代表条件的[污点](/docs/concepts/configuration/taint-and-toleration/)。
+当 scheduler 将 Pod 分配给节点时，scheduler 会考虑节点上的污点，但是 Pod 可以容忍的污点除外。
 
 <!--
 ### Capacity and Allocatable {#capacity}
@@ -295,24 +282,47 @@ checks the state of each node every `--node-monitor-period` seconds.
 第三个是监控节点的健康情况。节点控制器负责在节点不能访问时（也即是节点控制器因为某些原因没有收到心跳，例如节点宕机）将它的 NodeStatus 的 NodeReady 状态更新为 ConditionUnknown。后续如果节点持续不可访问，节点控制器将删除节点上的所有 pods（使用优雅终止）。（默认情况下 40s 开始报告 ConditionUnknown，在那之后 5m 开始删除 pods。）节点控制器每隔 `--node-monitor-period` 秒检查每个节点的状态。
 
 <!--
-In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
-node. Node lease feature is enabled by default since 1.14 as a beta feature
-(feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+#### Heartbeats
 -->
-在 1.13 之前的 Kubernetes 版本中，NodeStatus 是来自节点的心跳信号。从 1.14 开始，默认情况下已启用节点租赁功能作为 beta 功能(功能特性开关 `NodeLease`、[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md))。
+#### 心跳机制
 
 <!--
-When node lease feature is enabled, each node has an associated `Lease` object in
-`kube-node-lease` namespace that is renewed by the node periodically, and both
-NodeStatus and node lease are treated as heartbeats from the node. Node leases
-are renewed frequently while NodeStatus is reported from node to master only
-when there is some change or enough time has passed (default is 1 minute, which
-is longer than the default timeout of 40 seconds for unreachable nodes). Since
-node lease is much more lightweight than NodeStatus, this feature makes node
-heartbeat significantly cheaper from both scalability and performance
-perspectives.
+Heartbeats, sent by Kubernetes nodes, help determine the availability of a node.
+There are two forms of heartbeats: updates of `NodeStatus` and the
+[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
+Each Node has an associated Lease object in the `kube-node-lease`
+{{< glossary_tooltip term_id="namespace" text="namespace">}}.
+Lease is a lightweight resource, which improves the performance
+of the node heartbeats as the cluster scales.
 -->
-启用节点租赁功能后，每个节点在 `kube-node-lease` 命名空间中都有一个关联的 `Lease` 租赁对象，该对象由节点定期更新，并且 NodeStatus 和节点租赁都被视为来自节点的心跳信号。仅当发生某些更改或经过了足够的时间（默认值为 1 分钟，比无法访问的节点的默认超时 40 秒）时，才会频繁更新节点租约，同时将 NodeStatus 从节点报告给主节点。由于节点租赁比 NodeStatus 轻得多，因此从可伸缩性和性能的角度来看，此功能使节点心跳明显便利。
+Kubernetes 节点发送的心跳有助于确定节点的可用性。
+心跳有两种形式：`NodeStatus` 和 [`Lease` 对象](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io)。
+每个节点在 `kube-node-lease`{{< glossary_tooltip term_id="namespace" text="namespace">}} 中都有一个关联的 `Lease` 对象。
+`Lease` 是一种轻量级的资源，可在集群扩展时提高节点心跳机制的性能。
+
+<!--
+The kubelet is responsible for creating and updating the `NodeStatus` and
+a Lease object.
+-->
+kubelet 负责创建和更新 `NodeStatus` 和 `Lease` 对象。
+
+<!--
+- The kubelet updates the `NodeStatus` either when there is change in status,
+  or if there has been no update for a configured interval. The default interval
+  for `NodeStatus` updates is 5 minutes (much longer than the 40 second default
+  timeout for unreachable nodes).
+- The kubelet creates and then updates its Lease object every 10 seconds
+  (the default update interval). Lease updates occur independently from the
+  `NodeStatus` updates.
+-->
+- 当状态发生变化时，或者在配置的时间间隔内没有更新时，kubelet 会更新 `NodeStatus`。
+`NodeStatus` 更新的默认间隔为 5 分钟（比无法访问的节点的 40 秒默认超时时间长点）。
+- kubelet 会每 10 秒（默认更新间隔时间）创建并更新其 `Lease` 对象。`Lease` 更新独立于 `NodeStatus` 更新而发生。
+
+<!--
+#### Reliability
+-->
+#### 可靠性
 
 <!--
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
