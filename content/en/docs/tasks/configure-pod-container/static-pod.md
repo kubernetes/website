@@ -52,7 +52,7 @@ You can configure a static Pod with either a [file system hosted configuration f
 
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
-Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the [Kubelet Configuration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
+Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static Pod:
@@ -91,7 +91,7 @@ For example, this is how to start a simple web server as a static Pod:
     ```
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
     ```
-    or add the `staticPodPath: <the directory>` field in the [Kubelet Configuration file](/docs/tasks/administer-cluster/kubelet-config-file).
+    or add the `staticPodPath: <the directory>` field in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file).
 
 4. Restart the kubelet. On Fedora, you would run:
 
