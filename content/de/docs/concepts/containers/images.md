@@ -225,7 +225,7 @@ kubectl describe pods/private-image-test-1 | grep "Failed"
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
-Sie müssen sich darum kümmern das alle Knoten im Cluster die gleiche `.docker/config.json` haben, anderenfalls werden Pods auf einigen Knoten ausgeführt, auf anderen jedoch nicht starten.
+Sie müssen sich darum kümmern das alle Knoten im Cluster die gleiche `.docker/config.json` haben, anderenfalls werden Pods auf einigen Knoten starten, auf anderen jedoch nicht.
 Wenn sie zum Beispiel Knoten automatisch Skalieren lassen, sollte dann jedes Instanztemplate die `.docker/config.json` beinhalten, oder ein Laufwerk einhängen die diese beinhaltet.
 
 Alle Pods haben Lesezugriff auf jedes Image in ihrer eigenen Registry sobald die Registry - Schlüssel zur `.docker/config.json` hinzugefügt wurden.
