@@ -122,7 +122,7 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 
 * 有关环境变量的更多信息，请参阅[这里](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)。
 * 有关如何通过环境变量来使用 Secret，请参阅[这里](/docs/user-guide/secrets/#using-secrets-as-environment-variables)。
-* 关于 [EnvVarSource](docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 资源的信息。
+* 关于 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 资源的信息。
 
 {{% /capture %}}
 
