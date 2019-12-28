@@ -19,10 +19,10 @@ For information how to create a cluster with kubeadm once you have performed thi
 
 * One or more machines running one of:
   - Ubuntu 16.04+
-  - Debian 9
+  - Debian 9+
   - CentOS 7
-  - RHEL 7
-  - Fedora 25/26 (best-effort)
+  - Red Hat Enterprise Linux (RHEL) 7
+  - Fedora 25+
   - HypriotOS v1.0.1+
   - Container Linux (tested with 1800.6.0)
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
@@ -50,6 +50,34 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
+
+## iptablesがnftablesバックエンドを使用しないようにする
+
+In Linux, nftables is available as a modern replacement for the kernel's iptables subsystem. The
+`iptables` tooling can act as a compatibility layer, behaving like iptables but actually configuring
+nftables. This nftables backend is not compatible with the current kubeadm packages: it causes duplicated
+firewall rules and breaks `kube-proxy`.
+
+If your system's `iptables` tooling uses the nftables backend, you will need to switch the `iptables`
+tooling to 'legacy' mode to avoid these problems. This is the case on at least Debian 10 (Buster),
+Ubuntu 19.04, Fedora 29 and newer releases of these distributions by default. RHEL 8 does not support
+switching to legacy mode, and is therefore incompatible with current kubeadm packages.
+
+{{< tabs name="iptables_legacy" >}}
+{{% tab name="Debian or Ubuntu" %}}
+```bash
+sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
+sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+```
+{{% /tab %}}
+{{% tab name="Fedora" %}}
+```bash
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## 必須ポートの確認
 
@@ -149,14 +177,14 @@ For more information on version skews, see:
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```bash
-apt-get update && apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
-apt-get update
-apt-get install -y kubelet kubeadm kubectl
-apt-mark hold kubelet kubeadm kubectl
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -201,17 +229,17 @@ systemctl enable --now kubelet
 Install CNI plugins (required for most pod network):
 
 ```bash
-CNI_VERSION="v0.7.5"
+CNI_VERSION="v0.8.2"
 mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 ```
 
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.12.0"
+CRICTL_VERSION="v1.16.0"
 mkdir -p /opt/bin
-curl -L "https://github.com/kubernetes-incubator/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
 
 Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
@@ -247,7 +275,7 @@ When using Docker, kubeadm will automatically detect the cgroup driver for the k
 and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
 
 If you are using a different CRI, you have to modify the file
-`/etc/default/kubelet` with your `cgroup-driver` value, like so:
+`/etc/default/kubelet` (`/etc/sysconfig/kubelet` for CentOS, RHEL, Fedora) with your `cgroup-driver` value, like so:
 
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
