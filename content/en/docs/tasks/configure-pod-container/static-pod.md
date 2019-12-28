@@ -129,8 +129,6 @@ To use this approach:
               protocol: TCP
     ```
 
-
-
 2. Configure the kubelet on your selected node to use this web manifest by running it with `--manifest-url=<manifest-url>`. On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 
     ```
