@@ -152,7 +152,7 @@ already be running.
 
 You can view running containers (including static Pods) by running (on the node):
 ```shell
-# Run this command on the node where kubelet is running
+# Run this command on the node where the kubelet is running
 docker ps
 ```
 
