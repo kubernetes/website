@@ -10,14 +10,15 @@ card:
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
-For information how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">このページでは`kubeadm`ツールボックスのインストール方法について示します。
+
+このインストールプロセスを実行した後、kubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)のページを参照してください。
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-* One or more machines running one of:
+* 次のいずれかを実行する1つ以上のマシン:
   - Ubuntu 16.04+
   - Debian 9+
   - CentOS 7
@@ -25,12 +26,11 @@ For information how to create a cluster with kubeadm once you have performed thi
   - Fedora 25+
   - HypriotOS v1.0.1+
   - Container Linux (tested with 1800.6.0)
-* 2 GB or more of RAM per machine (any less will leave little room for your apps)
-* 2 CPUs or more
-* Full network connectivity between all machines in the cluster (public or private network is fine)
-* Unique hostname, MAC address, and product_uuid for every node. See [here](#MACアドレスとproduct_uuidが全てのノードでユニークであることの検証) for more details.
-* Certain ports are open on your machines. See [here](#必須ポートの確認) for more details.
-* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
+* マシンごとに2GB以上のRAM（これより少ないと、アプリ用のスペースがほとんどなくなります）
+* 2コア以上のCPU
+* クラスタ内のすべてのマシン間の完全なネットワーク接続（パブリック、プライベートネットワークどちらでも問題ありません）
+* すべてのノードに一意のホスト名、MACアドレス、およびproduct_uuidが割り当てられていること。詳細は[こちら](#MACアドレスとproduct_uuidが全てのノードでユニークであることの検証)をご覧ください
+* スワップが無効になっていること。kubeletが正常に機能するには、スワップを**無効にしなければなりません**
 
 {{% /capture %}}
 
@@ -38,30 +38,22 @@ For information how to create a cluster with kubeadm once you have performed thi
 
 ## MACアドレスとproduct_uuidが全てのノードでユニークであることの検証
 
-* You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
-* The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
+* コマンド`ip link`または`ifconfig -a`を使用して、ネットワークインターフェースのMACアドレスを取得できます
+* product_uuidは、コマンド`sudo cat /sys/class/dmi/id/product_uuid`を使用して確認できます
 
-It is very likely that hardware devices will have unique addresses, although some virtual machines may have
-identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
-If these values are not unique to each node, the installation process
-may [fail](https://github.com/kubernetes/kubeadm/issues/31).
+一部の仮想マシンは同じ値を持つ場合がありますが、ハードウェアデバイスには一意のアドレスが割り当てられる可能性が非常に高くなります。Kubernetesはこれらの値を使用して、クラスター内のノードを一意に識別します。
+
+これらの値が各ノードに固有でない場合、インストールプロセスは[失敗](https://github.com/kubernetes/kubeadm/issues/31)する場合があります。
 
 ## ネットワークアダプタの確認
 
-If you have more than one network adapter, and your Kubernetes components are not reachable on the default
-route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
+複数のネットワークアダプターがあり、Kubernetesコンポーネントがデフォルトルートに到達できない場合、Kubernetesクラスターアドレスが適切なアダプターを経由するようにIPルートを追加することをお勧めします。
 
 ## iptablesがnftablesバックエンドを使用しないようにする
 
-In Linux, nftables is available as a modern replacement for the kernel's iptables subsystem. The
-`iptables` tooling can act as a compatibility layer, behaving like iptables but actually configuring
-nftables. This nftables backend is not compatible with the current kubeadm packages: it causes duplicated
-firewall rules and breaks `kube-proxy`.
+Linuxでは、nftablesはカーネルのiptablesサブシステムを置き換えるものとして利用できます。`iptables`ツールは互換レイヤとして動作し、iptablesのように動作しますが、実際にはnftablesを使って設定します。このnftablesバックエンドは現在のkubeadmパッケージと互換性がありません。ファイアウォールルールの重複を引き起こし、`kube-proxy`を破壊します。
 
-If your system's `iptables` tooling uses the nftables backend, you will need to switch the `iptables`
-tooling to 'legacy' mode to avoid these problems. This is the case on at least Debian 10 (Buster),
-Ubuntu 19.04, Fedora 29 and newer releases of these distributions by default. RHEL 8 does not support
-switching to legacy mode, and is therefore incompatible with current kubeadm packages.
+システムの`iptables`ツールがnftablesバックエンドを使用している場合、これらの問題を避けるために`iptables`ツールをレガシーモードに切り替える必要があります。これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
 
 {{< tabs name="iptables_legacy" >}}
 {{% tab name="Debian or Ubuntu" %}}
@@ -83,96 +75,79 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 
 ### マスターノード
 
-| Protocol | Direction | Port Range | Purpose                 | Used By                   |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
-| TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP      | Inbound   | 10250      | Kubelet API             | Self, Control plane       |
-| TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
-| TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
+| プロトコル | 方向       | ポート範囲  | 目的                     | 利用するサービス         |
+|----------|------------|-----------|-------------------------|------------------------|
+| TCP      | インバウンド | 6443*     | Kubernetes API server   | All                    |
+| TCP      | インバウンド | 2379-2380 | etcd server client API  | kube-apiserver, etcd   |
+| TCP      | インバウンド | 10250     | Kubelet API             | Self, Control plane    |
+| TCP      | インバウンド | 10251     | kube-scheduler          | Self                   |
+| TCP      | インバウンド | 10252     | kube-controller-manager | Self                   |
 
 ### ワーカーノード
 
-| Protocol | Direction | Port Range  | Purpose               | Used By                 |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
-| TCP      | Inbound   | 30000-32767 | NodePort Services**   | All                     |
 
-** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
+| プロトコル | 方向       | ポート範囲    | 目的                   | 利用するサービス          |
+|----------|------------|-------------|-----------------------|-------------------------|
+| TCP      | インバウンド | 10250       | Kubelet API           | Self, Control plane     |
+| TCP      | インバウンド | 30000-32767 | NodePort Services**   | All                     |
 
-Any port numbers marked with * are overridable, so you will need to ensure any
-custom ports you provide are also open.
+** [NodePortサービス](/docs/concepts/services-networking/service/)のデフォルトのポート範囲
 
-Although etcd ports are included in control-plane nodes, you can also host your own
-etcd cluster externally or on custom ports.
+*のマークが付いたポート番号はすべて上書き可能であるため、指定するカスタムポートも開いていることを確認する必要があります。
 
-The pod network plugin you use (see below) may also require certain ports to be
-open. Since this differs with each pod network plugin, please see the
-documentation for the plugins about what port(s) those need.
+etcdポートはコントロールプレーンノードに含まれていますが、独自のetcdクラスターを外部またはカスタムポートでホストすることもできます。
+
+使用するPodネットワークプラグイン（以下を参照）も、特定のポートを開く必要があります。 これは各Podネットワークプラグインによって異なるため、必要なポートについてはプラグインのドキュメントを参照してください。
 
 ## ランタイムのインストール
 
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
+v1.6.0以降、KubernetesはデフォルトでCRI（Container Runtime Interface）の使用を有効にしました。
 
-Since v1.14.0, kubeadm will try to automatically detect the container runtime on Linux nodes
-by scanning through a list of well known domain sockets. The detectable runtimes and the
-socket paths, that are used, can be found in the table below.
+v1.14.0以降、kubeadmは、既知のドメインソケットのリストをスキャンして、Linuxノード上のコンテナランタイムを自動的に検出しようとします。使用可能な検出可能なランタイムとソケットパスは、以下の表に記載されています。
 
-| Runtime    | Domain Socket                    |
-|------------|----------------------------------|
-| Docker     | /var/run/docker.sock             |
-| containerd | /run/containerd/containerd.sock  |
-| CRI-O      | /var/run/crio/crio.sock          |
+| ランタイム  | ドメインソケット                   |
+|------------|---------------------------------|
+| Docker     | /var/run/docker.sock            |
+| containerd | /run/containerd/containerd.sock |
+| CRI-O      | /var/run/crio/crio.sock         |
 
-If both Docker and containerd are detected together, Docker takes precedence. This is
-needed, because Docker 18.09 ships with containerd and both are detectable.
-If any other two or more runtimes are detected, kubeadm will exit with an appropriate
-error message.
+Dockerとcontainerdの両方が同時に検出された場合、Dockerが優先されます。Docker 18.09にはcontainerdが同梱されており、両方が検出可能であるためです。他の2つ以上のランタイムが検出された場合、kubeadmは適切なエラーメッセージで終了します。
 
-On non-Linux nodes the container runtime used by default is Docker.
+Linux以外のノードでは、デフォルトで使用されるコンテナランタイムはDockerです。
 
-If the container runtime of choice is Docker, it is used through the built-in
-`dockershim` CRI implementation inside of the `kubelet`.
+選択したコンテナランタイムがDockerである場合、`kubelet`内にある組み込みの`dockershim`というCRI実装を通じてランタイムが使用されます。
 
-Other CRI-based runtimes include:
+他のCRIベースのランタイムには以下のようなものがあります:
 
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
-Refer to the [CRI installation instructions](/ja/docs/setup/production-environment/container-runtimes/) for more information.
+詳細は[CRIのインストール](/ja/docs/setup/cri)をご覧ください。
 
 ## kubeadm、kubelet、kubectlのインストール
 
-You will install these packages on all of your machines:
+これらのパッケージをすべてのマシンにインストールします:
 
-* `kubeadm`: the command to bootstrap the cluster.
+* `kubeadm`: クラスターをブートストラップするコマンドです
 
-* `kubelet`: the component that runs on all of the machines in your cluster
-    and does things like starting pods and containers.
+* `kubelet`: クラスター内のすべてのマシンで実行され、Podやコンテナの起動などを行うコンポーネントです
 
-* `kubectl`: the command line util to talk to your cluster.
+* `kubectl`: クラスターと通信するために使用するコマンドラインユーティリティです
 
-kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
-need to ensure they match the version of the Kubernetes control plane you want
-kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
-can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
-kubelet and the control plane is supported, but the kubelet version may never exceed the API
-server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
-but not vice versa.
+kubeadmは`kubelet`や`kubectl`を **インストールまたは管理しません** ので、kubeadmでインストールするKubernetesコントロールプレーンのバージョンと一致させる必要があります。そうしないと、予期しないバグのある動作につながる可能性のあるバージョンスキューが発生するリスクがあります。ただし、kubeletとコントロールプレーン間の1マイナーバージョンスキューはサポートされていますが、kubeletバージョンはAPIサーバーのバージョンを超えることはできません。たとえば、1.7.0を実行するkubeletは1.8.0 APIサーバーと完全に互換性がありますが、その逆はできません。
 
-For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/install-kubectl/).
+`kubectl`のインストールに関する詳細は[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)をご覧ください。
 
 {{< warning >}}
-These instructions exclude all Kubernetes packages from any system upgrades.
-This is because kubeadm and Kubernetes require
-[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
+これらの手順は、システムのアップグレードからすべてのKubernetesパッケージを除外します。
+これは、kubeadmとKubernetesが[アップグレードに特別な注意](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/)を必要とするためです。
 {{</ warning >}}
 
-For more information on version skews, see:
+バージョンスキューに関する詳細は以下をご覧ください:
 
-* Kubernetes [version and version-skew policy](/ja/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [version skew policy](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+* Kubernetes[バージョンとバージョンスキューサポートポリシー](/ja/docs/setup/release/version-skew-policy/)
+* Kubeadm固有の[バージョンスキューポリシー](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -199,7 +174,7 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
-# Set SELinux in permissive mode (effectively disabling it)
+# SELinuxをpermissiveモードに設定します（実質的に無効にします）
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
@@ -208,13 +183,10 @@ yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 systemctl enable --now kubelet
 ```
 
-  **Note:**
+  **注意:**
 
-  - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
-    This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
-    You have to do this until SELinux support is improved in the kubelet.
-  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
-    `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
+  - 「`setenforce 0`と`sed ...`を実行してSELinuxをpermissiveモードに設定すると、SELinuxは事実上無効になります。これは、コンテナがホストファイルシステムにアクセスする等の場合、Podネットワークに必要です。kubeletにおけるSELinux対応が改善されるまで、これを行う必要があります。
+  - RHEL/CentOS 7の一部のユーザーは、iptablesがバイパスされているため、トラフィックが正しくルーティングされないという問題を報告しています。`sysctl`で` net.bridge.bridge-nf-call-iptables`が1に設定されていることを確認する必要があります。
 
     ```bash
     cat <<EOF >  /etc/sysctl.d/k8s.conf
@@ -223,10 +195,10 @@ systemctl enable --now kubelet
     EOF
     sysctl --system
     ```
-  - Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
+  - このステップの前に `br_netfilter`モジュールがロードされていることを確認してください。これは `lsmod | grep br_netfilter`によって実行されます。明示的にロードするには、 `modprobe br_netfilter`を呼び出します。
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
-Install CNI plugins (required for most pod network):
+CNIプラグインをインストールします（ほとんどのポッドネットワークに必要）:
 
 ```bash
 CNI_VERSION="v0.8.2"
@@ -234,7 +206,7 @@ mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 ```
 
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
+crictlのインストール（kubeadm / Kubelet Container Runtime Interface（CRI）に必要）
 
 ```bash
 CRICTL_VERSION="v1.16.0"
@@ -242,7 +214,7 @@ mkdir -p /opt/bin
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
 
-Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
+`kubeadm`、`kubelet`、`kubectl`をインストールし、`kubelet`のsystemdサービスを追加します:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
@@ -257,7 +229,7 @@ mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-Enable and start `kubelet`:
+`kubelet`を有効にして起動する:
 
 ```bash
 systemctl enable --now kubelet
@@ -266,44 +238,38 @@ systemctl enable --now kubelet
 {{< /tabs >}}
 
 
-The kubelet is now restarting every few seconds, as it waits in a crashloop for
-kubeadm to tell it what to do.
+kubeletはクラッシュループでkubeadmが何をすべきかを指示するのを待つため、数秒ごとに再起動します。
 
 ## マスターノードのkubeletによって使用されるcgroupドライバの設定
 
-When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
-and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
+Dockerを使用する場合、kubeadmはkubeletのcgroupドライバーを自動的に検出し、実行時にそれを`/var/lib/kubelet/kubeadm-flags.env`ファイルに設定します。
 
-If you are using a different CRI, you have to modify the file
-`/etc/default/kubelet` (`/etc/sysconfig/kubelet` for CentOS, RHEL, Fedora) with your `cgroup-driver` value, like so:
+別のCRIを使用している場合、`/etc/default/kubelet`（CentOS、RHEL、Fedoraの場合は`/etc/sysconfig/kubelet`）にある`cgroup-driver`の値を変更する必要があります:
 
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 ```
 
-This file will be used by `kubeadm init` and `kubeadm join` to source extra
-user defined arguments for the kubelet.
+このファイルは、kubeletの追加のユーザー定義引数を取得するために、`kubeadm init`および`kubeadm join`によって使用されます。
 
-Please mind, that you **only** have to do that if the cgroup driver of your CRI
-is not `cgroupfs`, because that is the default value in the kubelet already.
+CRIのcgroupドライバーが`cgroupfs`**でない場合にのみ** それを行う必要があることに注意してください。これは、既にkubeletのデフォルト値が明示されているためです。
 
-Restarting the kubelet is required:
+kubeletの再起動が必要です:
 
 ```bash
 systemctl daemon-reload
 systemctl restart kubelet
 ```
 
-The automatic detection of cgroup driver for other container runtimes
-like CRI-O and containerd is work in progress.
+CRI-Oやcontainerdなどの他のコンテナランタイム用のcgroupドライバの自動検出は現在鋭意開発中です。
 
 
 ## トラブルシュート
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+kubeadmで問題が発生した場合は、[トラブルシューティングドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を参照してください。
 
 {{% capture whatsnext %}}
 
-* [Using kubeadm to Create a Cluster](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* [kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
 {{% /capture %}}
