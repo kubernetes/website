@@ -64,6 +64,8 @@ The Kubernetes 调度器对关联于一个节点的卷数有默认限制：
 
 You can change these limits by setting the value of the
 `KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
+CSI drivers might have a different procedure, see their documentation
+on how to customize their limits.
 
 Use caution if you set a limit that is higher than the default limit. Consult
 the cloud provider's documentation to make sure that Nodes can actually support
@@ -75,6 +77,7 @@ The limit applies to the entire cluster, so it affects all Nodes.
 ## 自定义限制
 
 您可以通过设置 `KUBE_MAX_PD_VOLS` 环境变量的值来设置这些限制，然后再启动调度器。
+CSI 驱动程序可能具有不同的过程，关于如何自定义其限制请参阅相关文档。
 
 如果设置的限制高于默认限制，请谨慎使用。请参阅云提供商的文档以确保节点可支持您设置的限制。
 
@@ -86,12 +89,9 @@ The limit applies to the entire cluster, so it affects all Nodes.
 
 ## 动态卷限制
 
-{{< feature-state state="beta" for_k8s_version="v1.12" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 <!--
-Kubernetes 1.11 introduced support for dynamic volume limits based on Node type as an Alpha feature.
-In Kubernetes 1.12 this feature is graduating to Beta and will be enabled by default.
-
 Dynamic volume limits are supported for following volume types.
 
 - Amazon EBS
@@ -99,9 +99,6 @@ Dynamic volume limits are supported for following volume types.
 - Azure Disk
 - CSI
 -->
-
-Kubernetes 1.11 引入了基于节点类型的动态卷限制的支持作为 Alpha 功能。
-在 Kubernetes 1.12 中，此功能升级到 Beta 版，将默认开启。
 
 以下卷类型支持动态卷限制。
 
@@ -111,17 +108,16 @@ Kubernetes 1.11 引入了基于节点类型的动态卷限制的支持作为 Alp
 - CSI
 
 <!--
-When the dynamic volume limits feature is enabled, Kubernetes automatically
-determines the Node type and enforces the appropriate number of attachable
-volumes for the node. For example:
+For volumes managed by in-tree volume plugins, Kubernetes automatically determines the Node
+type and enforces the appropriate maximum number of volumes for the node. For example:
 -->
 
-启用动态卷限制功能后，Kubernetes 会自动确定节点类型并确保节点上可关联的卷数目合规。 例如：
+对于由内建插件管理的卷，Kubernetes 会自动确定节点类型并确保节点上可关联的卷数目合规。 例如：
 
 <!--
 * On
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
-up to 128 volumes can be attached to a node, [depending on the node
+up to 127 volumes can be attached to a node, [depending on the node
 type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 
 * For Amazon EBS disks on M5,C5,R5,T3 and Z1D instance types, Kubernetes allows only 25
@@ -131,8 +127,10 @@ Kubernetes allows 39 volumes to be attached to a Node.
 
 * On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
-* For CSI, any driver that advertises volume attach limits via CSI specs will have those limits available as the Node's allocatable property
-  and the Scheduler will not schedule Pods with volumes on any Node that is already at its capacity. Refer to the [CSI specs](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for more details.
+* If a CSI storage driver advertises a maximum number of volumes for a Node (using `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} honors that limit.
+Refer to the [CSI specifications](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for details.
+
+* For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
 -->
 
 * 在
@@ -147,6 +145,9 @@ Kubernetes 允许 39 个卷关联至节点。
 * 在 Azure 环境中, 根据节点类型，最多 64 个磁盘可以关联至一个节点。
 更多详细信息，请参阅[Azure 虚拟机的数量大小](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes)。
 
-* 对于 CSI，任何符合 CSI 规范中卷关联限制的驱动都将这些限制作为 Node 的 allocatable 属性。调度器不会往已经达到其容量限制的任何节点上调度具有卷的Pod。 参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
+* 如果 CSI 存储驱动程序（使用 `NodeGetInfo` ）为节点通告卷数上限，则 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 将遵守该限制值。
+参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
+
+* 对于由已迁移到 CSI 驱动程序的树内插件管理的卷，最大卷数将是 CSI 驱动程序报告的卷数。
 
 {{% /capture %}}
