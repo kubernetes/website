@@ -518,6 +518,7 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 
 /docs/setup/minikube/     /docs/setup/learning-environment/minikube/   301
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
+/ja/docs/setup/cri/     /ja/docs/setup/production-environment/container-runtimes/   301
 /docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
 /ja/docs/setup/independent/install-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
 /docs/setup/independent/troubleshooting-kubeadm/     /docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/   301
