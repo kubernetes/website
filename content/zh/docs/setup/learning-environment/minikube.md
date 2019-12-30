@@ -926,6 +926,6 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 <!--
 Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
 -->
-我们欢迎您向社区提交贡献、提出问题以及参与评论！Minikube 开发人员可以在 [Slack](https://kubernetes.slack.com) 的 #minikube 频道上互动交流（点击[这里](http：//slack.kubernetes.io/)获得邀请）。我们还有 [kubernetes-dev Google Groups 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-dev)。如果您要发信到列表中，请在主题前加上 "minikube: "。
+我们欢迎您向社区提交贡献、提出问题以及参与评论！Minikube 开发人员可以在 [Slack](https://kubernetes.slack.com) 的 #minikube 频道上互动交流（点击[这里](http://slack.kubernetes.io/)获得邀请）。我们还有 [kubernetes-dev Google Groups 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-dev)。如果您要发信到列表中，请在主题前加上 "minikube: "。
 
 {{% /capture %}}
