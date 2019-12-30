@@ -4,13 +4,13 @@ date: 2016-07-11
 slug: minikube-easily-run-kubernetes-locally
 url: /blog/2016/07/Minikube-Easily-Run-Kubernetes-Locally
 ---
-_Editor's note: This is the first post in a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3&nbsp;_  
+_Editor's note: This is the first post in a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3&nbsp;_
 
 While Kubernetes is one of the best tools for managing containerized applications available today, and has been production-ready for over a year, Kubernetes has been missing a great local development platform.  
 
 For the past several months, several of us from the Kubernetes community have been working to fix this in the [Minikube](http://github.com/kubernetes/minikube) repository on GitHub. Our goal is to build an easy-to-use, high-fidelity Kubernetes distribution that can be run locally on Mac, Linux and Windows workstations and laptops with a single command.  
 
-Thanks to lots of help from members of the community, we're proud to announce the official release of Minikube. This release comes with support for [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), new commands to make interacting with your local cluster easier and experimental drivers for xhyve (on macOS) and KVM (on Linux).  
+Thanks to lots of help from members of the community, we're proud to announce the official release of Minikube. This release comes with support for [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/), new commands to make interacting with your local cluster easier and experimental drivers for xhyve (on macOS) and KVM (on Linux).
 
 **Using Minikube**  
 

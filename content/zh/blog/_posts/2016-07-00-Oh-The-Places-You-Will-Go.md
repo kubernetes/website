@@ -54,7 +54,7 @@ And so although you’re only a year old, you really have an [old soul](http://q
 If I would pick just two of the wise decisions those brilliant people made:  
 -->
 
-所以，尽管你只有一岁，你真的有一个[旧灵魂](http://queue.acm.org/detail.cfm？ID=2898444)。我只是[很多人抚养你]中的一员(https://kubernetes.io/blog/2016/07/happy-k8sbday-1)，但对我来说，能够与那些建立了这些令人难以置信的系统并拥有所有这些领域知识的人一起工作是一次极好的学习经历。然而，因为我们是白手起家(而不是采用现有的 Borg 代码)，我们处于同一水平，仍然可以就如何培养你进行真正的讨论。好吧，至少和我们的水平一样接近，但值得称赞的是，他们都太好了，从来没提过！
+所以，尽管你只有一岁，你真的有一个[旧灵魂](http://queue.acm.org/detail.cfm?ID=2898444)。我只是[很多人抚养你](https://kubernetes.io/blog/2016/07/happy-k8sbday-1)中的一员，但对我来说，能够与那些建立了这些令人难以置信的系统并拥有所有这些领域知识的人一起工作是一次极好的学习经历。然而，因为我们是白手起家(而不是采用现有的 Borg 代码)，我们处于同一水平，仍然可以就如何培养你进行真正的讨论。好吧，至少和我们的水平一样接近，但值得称赞的是，他们都太好了，从来没提过！
 
 如果我选择两个聪明人做出的明智决定：
 
