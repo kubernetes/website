@@ -2384,5 +2384,5 @@ sudo systemctl restart docker
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 -->
 
-* 参考[使用持久卷部署 WordPress 和 MySQL](/docs/tutorials/stateful-application/mysqlwordpress-persistent-volume/) 示例。
+* 参考[使用持久卷部署 WordPress 和 MySQL](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
 {{% /capture %}}
