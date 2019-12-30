@@ -436,7 +436,7 @@ changing the order of objects.
 The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go) that leaves only [one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80) to be implemented for different conversions.
 -->
 
-请参考 [自定义资源转换 webhook 服务](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/main.go) 的实施，这在 Kubernetes e2e 测试中得到验证。webhook 处理由 apiserver 发送的`ConversionReview`请求，并发送回包含在`ConversionResponse`中的转换结果。请注意，请求包含需要独立转换不改变对象顺序的自定义资源列表。示例服务器的组织方式使其可以重用于其他转换。大多数常见代码都位于 [框架文件](https://github.com/kubernetes/kubernetes/tree/v1.14.0/test/images/crd-conversion-webhook/converter/framework.go) 中，只留下 [示例](`https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80`) 用于实施不同的转换。
+请参考 [自定义资源转换 webhook 服务](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/main.go) 的实施，这在 Kubernetes e2e 测试中得到验证。webhook 处理由 apiserver 发送的`ConversionReview`请求，并发送回包含在`ConversionResponse`中的转换结果。请注意，请求包含需要独立转换不改变对象顺序的自定义资源列表。示例服务器的组织方式使其可以重用于其他转换。大多数常见代码都位于 [框架文件](https://github.com/kubernetes/kubernetes/tree/v1.14.0/test/images/crd-conversion-webhook/converter/framework.go) 中，只留下 [示例](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80) 用于实施不同的转换。
 
 <!--
 The example conversion webhook server leaves the `ClientAuth` field

@@ -48,10 +48,10 @@ To use kube-dns with upgrades in Kubernetes v1.13.0 and later please follow [thi
 In Kubernetes v1.15.0 and later, `kubeadm upgrade apply` and `kubeadm upgrade node` will also
 automatically renew the kubeadm managed certificates on this node, including those stored in kubeconfig files.
 To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For more details about certificate
-renewal see the [certificate management documentation](docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
 -->
 在 Kubernetes v1.15.0 和更高版本中，`kubeadm upgrade apply` 和 `kubeadm upgrade node` 也将自动续订该节点上的 kubeadm 托管证书，包括存储在 kubeconfig 文件中的证书。
-要选择退出，可以传递参数 `--certificate-renewal=false`。有关证书续订的更多详细信息请参见[证书管理文档](docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
+要选择退出，可以传递参数 `--certificate-renewal=false`。有关证书续订的更多详细信息请参见[证书管理文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
 
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}

@@ -172,7 +172,7 @@ There is a helpful [guideline and walkthrough](https://github.com/coredns/deploy
 When resource utilisation is a concern, it may be useful to tune the configuration of CoreDNS. For more details, check out the
 [documentation on scaling CoreDNS]((https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)).
 -->
-当涉及到资源利用时，优化内核的配置可能是有用的。有关详细信息，请参阅 [关于扩展 CoreDNS 的文档]((https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md))。
+当涉及到资源利用时，优化内核的配置可能是有用的。有关详细信息，请参阅 [关于扩展 CoreDNS 的文档](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)。
 
 {{% /capture %}}
 
