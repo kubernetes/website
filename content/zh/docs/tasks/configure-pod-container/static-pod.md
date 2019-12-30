@@ -18,7 +18,7 @@ instead, the kubelet watches each static Pod (and restarts it if it crashes).
 -->
 
 *静态 Pod* 在指定的节点上由 kubelet 守护进程直接管理，不需要 {{< glossary_tooltip text="API 服务" term_id="kube-apiserver" >}} 监管。
-不像 Pod 是由控制面管理的（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）；相反 kubelet 监视每个静态 Pod（在它奔溃之后重新启动）。
+不像 Pod 是由控制面管理的（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）；相反 kubelet 监视每个静态 Pod（在它崩溃之后重新启动）。
 
 <!--
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
@@ -38,11 +38,11 @@ instead.
 
 静态 Pod 永远都会绑定到一个指定节点上的 {{< glossary_tooltip term_id="kubelet" >}}。
 
-kubelet 会通过 Kubernetes API 服务为每个静态 Pod 自动重试创建一个 {{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
-这意味着节点上运行的静态 Pod 对 API 服务来说是不可见的。
+kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建一个 {{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
+这意味着节点上运行的静态 Pod 对 API 服务来说是不可见的，但是不能通过 API 服务器来控制。
 
 {{< note >}}
-如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，应该要用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} 替代这种方式。
+如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} 替代这种方式。
 {{< /note >}}
 
 {{% /capture %}}
@@ -59,7 +59,7 @@ Instructions for other distributions or Kubernetes installations may vary.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-这篇文章的前提是你在用 {{< glossary_tooltip term_id="docker" >}} 来运行 Pod，并且你的节点是运行在 Fedora 操作系统。
+本文假定你在使用 {{< glossary_tooltip term_id="docker" >}} 来运行 Pod，并且你的节点是运行着 Fedora 操作系统。
 其它发行版或者 Kubernetes 部署版本上操作方式可能不一样。
 
 {{% /capture %}}
@@ -103,12 +103,32 @@ For example, this is how to start a simple web server as a static Pod:
     ```
 <!--
 2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
+
+   ```shell
+    # Run this command on the node where kubelet is running
+    mkdir /etc/kubelet.d/
+    cat <<EOF >/etc/kubelet.d/static-web.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: static-web
+      labels:
+        role: myrole
+    spec:
+      containers:
+        - name: web
+          image: nginx
+          ports:
+            - name: web
+              containerPort: 80
+              protocol: TCP
+    EOF
 -->
 
-2. 选择一个目录，比如在 `/etc/kubelet.d` 目录来保存 web 服务 Pod 的定义文件， `/etc/kubelet.d/static-web.yaml`：
+1. 选择一个目录，比如在 `/etc/kubelet.d` 目录来保存 web 服务 Pod 的定义文件， `/etc/kubelet.d/static-web.yaml`：
 
     ```shell
-    # Run this command on the node where kubelet is running
+    # 在 kubelet 运行的节点上执行以下命令
     mkdir /etc/kubelet.d/
     cat <<EOF >/etc/kubelet.d/static-web.yaml
     apiVersion: v1
@@ -128,7 +148,7 @@ For example, this is how to start a simple web server as a static Pod:
     EOF
     ```
 <!--
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+1. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
     ```
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
@@ -145,12 +165,17 @@ For example, this is how to start a simple web server as a static Pod:
 
 <!--
 1. Restart the kubelet. On Fedora, you would run:
+   
+    ```shell
+    # Run this command on the node where the kubelet is running
+    systemctl restart kubelet
+    ```
 -->
 
 1. 重启 kubelet。Fedora 上使用下面的命令：
 
     ```shell
-    # Run this command on the node where the kubelet is running
+    # 在 kubelet 运行的节点上执行以下命令
     systemctl restart kubelet
     ```
 <!--
@@ -206,12 +231,17 @@ Kubelet 根据 `--manifest-url=<URL>` 参数的配置定期的下载指定文件
     ```
 <!--
 3. Restart the kubelet. On Fedora, you would run:
+
+    ```shell
+    # Run this command on the node where the kubelet is running
+    systemctl restart kubelet
+    ```
 -->
 
 1. 重启 kubelet。在 Fedora 上运行如下命令：
 
     ```shell
-    # Run this command on the node where the kubelet is running
+    # 在 kubelet 运行的节点上执行以下命令
     systemctl restart kubelet
     ```
 <!--
@@ -236,7 +266,7 @@ The output might be something like:
 
 可以在节点上云心下面的命令来看运行的容器（包括静态 Pod）：
 ```shell
-# Run this command on the node where kubelet is running
+# 在 kubelet 运行的节点上执行以下命令
 docker ps
 ```
 <!--
@@ -278,7 +308,7 @@ Make sure the kubelet has permission to create the mirror Pod in the API server.
 propagated into the mirror Pod. You can use those labels as normal via
 {{< glossary_tooltip term_id="selector" text="selectors" >}}, etc.
 -->
-静态 Pod 上的{{< glossary_tooltip term_id="label" text="Labels" >}} 被传到镜像 Pod。 你可以通过 {{< glossary_tooltip term_id="selector" text="selectors" >}} 使用这些标签，比如。
+静态 Pod 上的{{< glossary_tooltip term_id="label" text="标签" >}} 被传到镜像 Pod。 你可以通过 {{< glossary_tooltip term_id="selector" text="选择算符" >}} 使用这些标签，比如。
 
 <!--
 If you try to use `kubectl` to delete the mirror Pod from the API server,
@@ -308,14 +338,21 @@ Back on your node where the kubelet is running, you can try to stop the Docker
 container manually.
 You'll see that, after a time, the kubelet will notice and will restart the Pod
 automatically:
+
+```shell
+# Run these commands on the node where the kubelet is running
+docker stop f6d05272b57e # replace with the ID of your container
+sleep 20
+docker ps
+```
 -->
 
 回到 kubelet 运行的节点上，可以手工停止 Docker 容器。
 可以看到过了一段时间后 kubelet 会发现容器停止了并且会自动重启 Pod：
 
 ```shell
-# Run these commands on the node where the kubelet is running
-docker stop f6d05272b57e # replace with the ID of your container
+# 在 kubelet 运行的节点上执行以下命令
+docker stop f6d05272b57e # 把 ID 换为你的容器的 ID
 sleep 20
 docker ps
 ```
@@ -327,10 +364,6 @@ CONTAINER ID        IMAGE         COMMAND                CREATED       ...
 ## Dynamic addition and removal of static pods
 
 The running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
--->
-## 动态增加和删除静态 pod
-
-运行的 kubelet 定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
 
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
@@ -340,6 +373,23 @@ mv /etc/kubelet.d/static-web.yaml /tmp
 sleep 20
 docker ps
 # You see that no nginx container is running
+mv /tmp/static-web.yaml  /etc/kubelet.d/
+sleep 20
+docker ps
+```
+-->
+## 动态增加和删除静态 pod
+
+运行的 kubelet 定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
+
+```shell
+# 前提是你在用主机文件系统上的静态 Pod 配置文件
+# 在 kubelet 运行的节点上执行以下命令
+#
+mv /etc/kubelet.d/static-web.yaml /tmp
+sleep 20
+docker ps
+# 可以看到没有 nginx 容器在运行
 mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
 docker ps
