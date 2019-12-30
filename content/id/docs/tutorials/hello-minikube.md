@@ -7,8 +7,8 @@ menu:
     title: "Mulai"
     weight: 10
     post: >
-      <p>Siap untuk mengotori tanganmu? Yuk kita buat kluster Kubernetes sederhana yang menjalankan Node.js aplikasi "Halo Dunia".</p>
-card: 
+      <p>Siap untuk mengotori tanganmu? Yuk kita buat klaster Kubernetes sederhana yang menjalankan Node.js aplikasi "Halo Dunia".</p>
+card:
   name: tutorials
   weight: 10
 ---
@@ -46,9 +46,9 @@ Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docke
 
 {{% capture lessoncontent %}}
 
-## Membuat sebuah kluster Minikube
+## Membuat sebuah klaster Minikube
 
-1. Tekan **Launch Terminal** 
+1. Tekan **Launch Terminal**
 
     {{< kat-button >}}
 
@@ -62,7 +62,7 @@ Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docke
 
 3. Hanya untuk <i>environment</i> Katacoda: Di layar terminal paling atas, tekan tombol plus, lalu lanjut tekan **Select port to view on Host 1**.
 
-4. Hanya untuk <i>environment</i> Katacoda: Ketik `30000`, lalu lanjut tekan **Display Port**. 
+4. Hanya untuk <i>environment</i> Katacoda: Ketik `30000`, lalu lanjut tekan **Display Port**.
 
 ## Membuat sebuah Deployment
 
@@ -72,7 +72,7 @@ saling terhubung untuk kebutuhan administrasi dan jaringan. Pod dalam tutorial i
 Pod kamu dan melakukan <i>restart</i> saat Kontainer di dalam Pod tersebut mati. Deployment adalah cara jitu untuk membuat dan mereplikasi Pod.
 
 1. Gunakan perintah `kubectl create` untuk membuat Deployment yang dapat mengatur Pod.
-Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan. 
+Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
@@ -103,7 +103,7 @@ Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. Lihat <i>event</i> kluster:
+4. Lihat <i>event</i> klaster:
 
     ```shell
     kubectl get events
@@ -114,12 +114,12 @@ Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}Untuk info lebih lanjut tentang perintah `kubectl`, lihat [ringkasan kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Membuat sebuah Servis
 
-Secara <i>default</i>, Pod hanya bisa diakses melalui alamat IP internal di dalam kluster Kubernetes.
+Secara <i>default</i>, Pod hanya bisa diakses melalui alamat IP internal di dalam klaster Kubernetes.
 Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/docs/concepts/services-networking/service/) Kubernetes.
 
 1. Ekspos Pod pada internet publik menggunakan perintah `kubectl expose`:
@@ -127,8 +127,8 @@ Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
-    Tanda `--type=LoadBalancer` menunjukkan bahwa kamu ingin ekspos Servis keluar dari kluster.
+
+    Tanda `--type=LoadBalancer` menunjukkan bahwa kamu ingin ekspos Servis keluar dari klaster.
 
 2. Lihat Servis yang baru kamu buat:
 
@@ -144,7 +144,7 @@ Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    Untuk penyedia cloud yang memiliki <i>load balancer</i>, sebuah alamat IP eksternal akan disediakan untuk mengakses Servis tersebut. 
+    Untuk penyedia cloud yang memiliki <i>load balancer</i>, sebuah alamat IP eksternal akan disediakan untuk mengakses Servis tersebut.
     Pada Minikube, tipe `LoadBalancer` membuat Servis tersebut dapat diakses melalui perintah `minikube service`.
 
 3. Jalankan perintah berikut:
@@ -188,13 +188,13 @@ Minikube punya beberapa <i>addons</i> yang bisa diaktifkan, dinon-aktifkan, maup
     registry-creds: disabled
     storage-provisioner: enabled
     ```
-   
+
 2. Aktifkan sebuah <i>addon</i>, misalnya `heapster`:
 
     ```shell
     minikube addons enable heapster
     ```
-  
+
     Keluaran:
 
     ```shell
@@ -231,7 +231,7 @@ Minikube punya beberapa <i>addons</i> yang bisa diaktifkan, dinon-aktifkan, maup
     ```shell
     minikube addons disable heapster
     ```
-  
+
     Keluaran:
 
     ```shell
@@ -240,7 +240,7 @@ Minikube punya beberapa <i>addons</i> yang bisa diaktifkan, dinon-aktifkan, maup
 
 ## Bersih-bersih
 
-Sekarang, mari kita bersihkan semua <i>resource</i> yang kamu buat di kluster:
+Sekarang, mari kita bersihkan semua <i>resource</i> yang kamu buat di klaster:
 
 ```shell
 kubectl delete service hello-node

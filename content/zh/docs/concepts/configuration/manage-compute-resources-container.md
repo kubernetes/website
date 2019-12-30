@@ -8,6 +8,18 @@ feature:
     根据资源需求和其他约束自动放置容器，同时不会牺牲可用性，将任务关键工作负载和尽力服务工作负载进行混合放置，以提高资源利用率并节省更多资源。
 ---
 
+<!--
+---
+title: Managing Compute Resources for Containers
+content_template: templates/concept
+weight: 20
+feature:
+  title: Automatic binpacking
+  description: >
+    Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
+---
+-->
+
 {{% capture overview %}}
 
 <!--
@@ -28,10 +40,8 @@ the difference between requests and limits, see
 
 <!--
 ## Resource types
-
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
 CPU is specified in units of cores, and memory is specified in units of bytes.
-
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
@@ -56,7 +66,6 @@ Each Container of a Pod can specify one or more of the following:
 * `spec.containers[].resources.limits.memory`
 * `spec.containers[].resources.requests.cpu`
 * `spec.containers[].resources.requests.memory`
-
 Although requests and limits can only be specified on individual Containers, it
 is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
@@ -85,7 +94,6 @@ One cpu, in Kubernetes, is equivalent to:
 - 1 Azure vCore
 - 1 IBM vCPU
 - 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
-
 Fractional requests are allowed. A Container with
 `spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
 CPU as one that asks for 1 CPU.  The expression `0.1` is equivalent to the
@@ -94,7 +102,6 @@ expression `100m`, which can be read as "one hundred millicpu". Some people say
 request with a decimal point, like `0.1`, is converted to `100m` by the API, and
 precision finer than `1m` is not allowed. For this reason, the form `100m` might
 be preferred.
-
 CPU is always requested as an absolute quantity, never as a relative quantity;
 0.1 is the same amount of CPU on a single-core, dual-core, or 48-core machine.
 -->
@@ -116,7 +123,6 @@ CPU 总是要用绝对数量，不可以使用相对数量；0.1 的 CPU 在单�
 
 <!--
 ## Meaning of memory
-
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point integer using one of these suffixes:
 E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
@@ -175,7 +181,6 @@ spec:
 
 <!--
 ## How Pods with resource requests are scheduled
-
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
 run on. Each node has a maximum capacity for each of the resource types: the
 amount of CPU and memory it can provide for Pods. The scheduler ensures that,
@@ -311,13 +316,11 @@ In the preceding example, the Pod named "frontend" fails to be scheduled due to
 insufficient CPU resource on the node. Similar error messages can also suggest
 failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
 is pending with a message of this type, there are several things to try:
-
 - Add more nodes to the cluster.
 - Terminate unneeded Pods to make room for pending Pods.
 - Check that the Pod is not larger than all the nodes. For example, if all the
   nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
   never be scheduled.
-
 You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 -->
@@ -373,7 +376,6 @@ system daemons use a portion of the available resources. The `allocatable` field
 [NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
-
 The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
@@ -383,7 +385,7 @@ with namespaces, it can prevent one team from hogging all the resources.
 
 通过查看 `Pods` 部分，您将看到哪些 Pod 占用的节点上的资源。
 
-Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。 
+Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。
 [NodeStatus](/docs/resources-reference/{{< param "version" >}}/#nodestatus-v1-core) 的 `allocatable` 字段给出了可用于 Pod 的资源量。
 有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
 
@@ -391,7 +393,6 @@ Pod 可用的资源量小于节点容量，因为系统守护程序使用一部�
 
 <!--
 ### My Container is terminated
-
 Your Container might get terminated because it is resource-starved. To check
 whether a Container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
@@ -484,7 +485,7 @@ If an optional runtime partition is used, root partition will not hold any image
 ## 本地临时存储
 
 Kubernetes版本1.8引入了新资源_ephemeral-storage_，用于管理本地临时存储。
-在每个Kubernetes节点中，kubelet的根目录（默认为 /var/lib/kubelet）和日志目录（ /var/log ）存储在节点的根分区上。 
+在每个Kubernetes节点中，kubelet的根目录（默认为 /var/lib/kubelet）和日志目录（ /var/log ）存储在节点的根分区上。
 Pods还通过emptyDir卷，容器日志，镜像层和容器可写层共享和使用此分区。
 
 该分区是“临时”分区，应用程序无法从该分区获得任何性能SLA（例如磁盘IOPS）。 本地临时存储管理仅适用于根分区。 图像层和可写层的可选分区超出范围。
@@ -553,7 +554,7 @@ spec:
 ### How Pods with ephemeral-storage requests are scheduled
 
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 
 The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 -->
@@ -594,7 +595,7 @@ as alpha functionality for monitoring only.
 ### 监控临时存储消耗
 
 使用本地临时存储时，kubelet 会持续对本地临时存储时进行监视。
-通过定期扫描，来监视每个 emptyDir 卷，日志目录和可写层。 
+通过定期扫描，来监视每个 emptyDir 卷，日志目录和可写层。
 从Kubernetes 1.15开始，作为集群操作员的一个选项，可以通过[项目配额](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) 来管理 emptyDir 卷（但是不包括日志目录或可写层）。
 项目配额最初是在XFS中实现的，最近又被移植到ext4fs中。 项目配额可用于监视和执行； 从Kubernetes 1.15开始，它们可用作Alpha功能仅用于监视。
 
@@ -608,8 +609,8 @@ continues to consume space.  This space will be tracked by the quota,
 but will not be seen by a directory scan.
 -->
 
-配额比目录扫描更快，更准确。 
-将目录分配给项目时，在该目录下创建的所有文件都将在该项目中创建，内核仅需跟踪该项目中的文件正在使用多少块。 
+配额比目录扫描更快，更准确。
+将目录分配给项目时，在该目录下创建的所有文件都将在该项目中创建，内核仅需跟踪该项目中的文件正在使用多少块。
 如果创建并删除了文件，但是文件描述符已打开，它将继续占用空间。 该空间将由配额跟踪，但目录扫描不会检查。
 
 <!--
@@ -620,7 +621,7 @@ IDs must be registered in `/etc/projects` and `/etc/projid` to prevent
 Kubernetes from using them.
 -->
 
-Kubernetes使用从1048576开始的项目ID。正在使用的ID注册于 `/etc/projects` 和 `/etc/projid`。 
+Kubernetes使用从1048576开始的项目ID。正在使用的ID注册于 `/etc/projects` 和 `/etc/projid`。
 如果此范围内的项目ID用于系统上的其他目的，则这些项目ID必须在 `/etc/projects` 和 `/etc/projid` 中注册，以防止Kubernetes使用它们。
 
 <!--
@@ -745,9 +746,9 @@ that requests the resource to be scheduled on that node.
 
 ##### 其他资源
 为了发布新的节点级拓展资源，集群操作员可以向API服务器提交 `PATCH` HTTP 请求，
-以在 `status.capacity` 中为集群中的节点指定可用数量。 
-完成此操作后，节点的 `status.capacity` 将包含新资源。 
-由kubelet异步使用新资源自动更新 `status.allocatable` 字段。 
+以在 `status.capacity` 中为集群中的节点指定可用数量。
+完成此操作后，节点的 `status.capacity` 将包含新资源。
+由kubelet异步使用新资源自动更新 `status.allocatable` 字段。
 请注意，由于调度程序在评估Pod适合性时使用节点的状态 `status.allocatable` 值，
 因此在用新资源修补节点容量和请求在该节点上调度资源的第一个Pod之间可能会有短暂的延迟。
 
@@ -761,7 +762,7 @@ is `k8s-master`.
 
 **示例:**
 
-这是一个示例，显示了如何使用 `curl` 进行HTTP请求，该请求在主节点为 `k8s-master` 的子节点 `k8s-node-1` 
+这是一个示例，显示了如何使用 `curl` 进行HTTP请求，该请求在主节点为 `k8s-master` 的子节点 `k8s-node-1`
 上通告五个 `example.com/foo` 资源。
 
 ```shell
@@ -779,7 +780,7 @@ in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 -->
 
-在前面的请求中，`~1` 是 Patch 路径中字符 `/` 的编码。 JSON-Patch中的操作路径值被解释为JSON-Pointer。 
+在前面的请求中，`~1` 是 Patch 路径中字符 `/` 的编码。 JSON-Patch中的操作路径值被解释为JSON-Pointer。
 有关更多详细信息，请参见
 [IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
 {{< /note >}}
@@ -854,7 +855,7 @@ _invalid_ quantities are `0.5` and `1500m`.
 
 ### 消耗扩展资源
 
-就像 CPU 和内存一样，用户可以使用 Pod 的扩展资源。 
+就像 CPU 和内存一样，用户可以使用 Pod 的扩展资源。
 调度程序负责核算资源，因此不会同时将过多的可用资源分配给 Pod。
 
 {{< note >}}
@@ -918,42 +919,6 @@ spec:
       limits:
         example.com/foo: 1
 ```
-
-<!--
-## Planned Improvements
-
-Kubernetes version 1.5 only allows resource quantities to be specified on a
-Container. It is planned to improve accounting for resources that are shared by
-all Containers in a Pod, such as
-[emptyDir volumes](/docs/concepts/storage/volumes/#emptydir).
-
-Kubernetes version 1.5 only supports Container requests and limits for CPU and
-memory. It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom
-[resource types](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/scheduling/resources.md).
-
-Kubernetes supports overcommitment of resources by supporting multiple levels of
-[Quality of Service](http://issue.k8s.io/168).
-
-In Kubernetes version 1.5, one unit of CPU means different things on different
-cloud providers, and on different machine types within the same cloud providers.
-For example, on AWS, the capacity of a node is reported in
-[ECUs](http://aws.amazon.com/ec2/faqs/), while in GCE it is reported in logical
-cores. We plan to revise the definition of the cpu resource to allow for more
-consistency across providers and platforms.
--->
-
-## 计划改进
-
-在 kubernetes 1.5 版本中仅允许在容器上指定资源量。计划改进对所有容器在 Pod 中共享资源的计量，
-如 [emptyDir volume](/docs/concepts/storage/volumes/#emptydir)。
-
-在 kubernetes 1.5 版本中仅支持容器对 CPU 和内存的申请和限制。计划增加新的资源类型，包括节点磁盘空间资源和一个可支持自定义 
-[资源类型](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/resources.md) 的框架。
-
-Kubernetes 通过支持通过多级别的 [服务质量](http://issue.k8s.io/168) 来支持资源的过度使用。
-
-在 kubernetes 1.5 版本中，一个 CPU 单位在不同的云提供商和同一云提供商的不同机器类型中的意味都不同。例如，在 AWS 上，节点的容量报告为 [ECU](http://aws.amazon.com/ec2/faqs/)，而在 GCE 中报告为逻辑内核。我们计划修改 cpu 资源的定义，以便在不同的提供商和平台之间保持一致。
 
 {{% /capture %}}
 

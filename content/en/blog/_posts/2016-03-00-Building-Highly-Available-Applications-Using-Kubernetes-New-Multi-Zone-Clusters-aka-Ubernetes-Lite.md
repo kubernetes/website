@@ -2,7 +2,7 @@
 title: " Building highly available applications using Kubernetes new multi-zone clusters (a.k.a. 'Ubernetes Lite') "
 date: 2016-03-29
 slug: building-highly-available-applications-using-kubernetes-new-multi-zone-clusters-a.k.a-ubernetes-lite
-url: /blog/2016/03/Building-Highly-Available-Applications-Using-Kubernetes-New-Multi-Zone-Clusters-A.K.A-Ubernetes-Lite
+url: /blog/2016/03/Building-Highly-Available-Applications-Using-Kubernetes-New-Multi-Zone-Clusters-aka-Ubernetes-Lite
 ---
 _Editor's note: this is the third post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 
@@ -11,7 +11,7 @@ _Editor's note: this is the third post in a [series of in-depth posts](https://k
 ### Introduction&nbsp;
 One of the most frequently-requested features for Kubernetes is the ability to run applications across multiple zones. And with good reason — developers need to deploy applications across multiple domains, to improve availability in thxe advent of a single zone outage.  
 
-[Kubernetes 1.2](https://kubernetes.io/blog/2016/03/Kubernetes-1.2-even-more-performance-upgrades-plus-easier-application-deployment-and-management-), released two weeks ago, adds support for running a single cluster across multiple failure zones (GCP calls them simply "zones," Amazon calls them "availability zones," here we'll refer to them as "zones"). This is the first step in a broader effort to allow federating multiple Kubernetes clusters together (sometimes referred to by the affectionate nickname "[Ubernetes](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/federation.md)"). This initial version (referred to as "Ubernetes Lite") offers improved application availability by spreading applications across multiple zones within a single cloud provider.  
+[Kubernetes 1.2](https://kubernetes.io/blog/2016/03/kubernetes-1-2-even-more-performance-upgrades-plus-easier-application-deployment-and-management), released two weeks ago, adds support for running a single cluster across multiple failure zones (GCP calls them simply "zones," Amazon calls them "availability zones," here we'll refer to them as "zones"). This is the first step in a broader effort to allow federating multiple Kubernetes clusters together (sometimes referred to by the affectionate nickname "[Ubernetes](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/federation.md)"). This initial version (referred to as "Ubernetes Lite") offers improved application availability by spreading applications across multiple zones within a single cloud provider.
 
 Multi-zone clusters are deliberately simple, and by design, very easy to use — no Kubernetes API changes were required, and no application changes either. You simply deploy your existing Kubernetes application into a new-style multi-zone cluster, and your application automatically becomes resilient to zone failures.  
 

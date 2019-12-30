@@ -50,10 +50,3 @@ kubeadm init phase addon [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase addon all](kubeadm_init_phase_addon_all.md)	 - Install all the addons
-* [kubeadm init phase addon coredns](kubeadm_init_phase_addon_coredns.md)	 - Install the CoreDNS addon to a Kubernetes cluster
-* [kubeadm init phase addon kube-proxy](kubeadm_init_phase_addon_kube-proxy.md)	 - Install the kube-proxy addon to a Kubernetes cluster
-

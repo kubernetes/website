@@ -75,7 +75,7 @@ If you do not already have a hypervisor installed, install one of these now:
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor. It is recommended to use the apt installation of docker from ([Docker](https://www.docker.com/products/docker-desktop), when using the none driver. The snap installation of docker does not work with minikube.
+Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor. It is recommended to use the apt installation of docker from [Docker](https://www.docker.com/products/docker-desktop), when using the none driver. The snap installation of docker does not work with minikube.
 {{< /note >}}
 
 ### Install Minikube using a package
@@ -102,6 +102,14 @@ sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
 ```
 
+### Install Minikube using Homebrew
+
+As yet another alternative, you can install Minikube using Linux [Homebrew](https://docs.brew.sh/Homebrew-on-Linux):
+
+```shell
+brew install minikube
+```
+
 {{% /tab %}}
 {{% tab name="macOS" %}}
 ### Install kubectl
@@ -122,7 +130,7 @@ If you do not already have a hypervisor installed, install one of these now:
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 You can also install it on macOS by downloading a stand-alone binary:
@@ -186,19 +194,54 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 {{% /capture %}}
 
-## Cleanup local state
+## Confirm Installation
 
-If you have previously installed minikube, and run:
+To confirm successful installation of both a hypervisor and Minikube, you can run the following command to start up a local Kubernetes cluster:
+
+{{< note >}}
+
+For setting the `--vm-driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--vm-driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+
+{{< /note >}}
+
+```shell
+minikube start --vm-driver=<driver_name>
+```
+
+Once `minikube start` finishes, run the command below to check the status of the cluster:
+
+```shell
+minikube status
+```
+
+If your cluster is running, the output from `minikube status` should be similar to:
+
+```
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
+
+After you have confirmed whether Minikube is working with your chosen hypervisor, you can continue to use Minikube or you can stop your cluster. To stop your cluster, run:
+
+```shell
+minikube stop
+```
+
+## Clean up local state {#cleanup-local-state}
+
+If you have previously installed Minikube, and run:
 ```shell
 minikube start
 ```
 
-And this command returns an error:
-```shell
+and `minikube start` returned an error:
+```
 machine does not exist
 ```
 
-You need to clear minikube's local state:
+then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```

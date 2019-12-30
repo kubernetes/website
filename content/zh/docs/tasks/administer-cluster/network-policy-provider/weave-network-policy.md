@@ -15,14 +15,14 @@ weight: 50
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-<!-- 
+<!--
 You need to have a Kubernetes cluster. Follow the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/) to bootstrap one.
  -->
 您需要拥有一个 Kubernetes 集群。按照[kubeadm 入门指南](/docs/getting-started-guides/kubeadm/)来引导一个。
 {{% /capture %}}
 
 {{% capture steps %}}
-<!-- 
+<!--
 ## Install the Weave Net addon
 
 Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/) guide.
@@ -34,13 +34,16 @@ The Weave Net addon for Kubernetes comes with a [Network Policy Controller](http
 按照[通过插件集成Kubernetes](https://www.weave.works/docs/net/latest/kube-addon/)指南。
 
 Kubernetes 的 Weave Net 插件带有[网络策略控制器](https://www.weave.works/docs/net/latest/kube-addon/#npc)，可自动监控 Kubernetes 所有名称空间中的任何 NetworkPolicy 注释。 配置`iptables`规则以允许或阻止策略指示的流量。
-<!-- 
+
+<!--
+
 ## Test the installation
 
 Verify that the weave works.
 
 Enter the following command:
- -->
+
+-->
 
 ## 测试安装
 
@@ -69,7 +72,7 @@ weave-net-pmw8w                         2/2       Running   0          9d       
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-<!-- 
+<!--
 Once you have installed the Weave Net addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy. If you have any question, contact us at [#weave-community on Slack or Weave User Group](https://github.com/weaveworks/weave#getting-help).
  -->
 

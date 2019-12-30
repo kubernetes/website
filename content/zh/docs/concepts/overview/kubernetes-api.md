@@ -117,7 +117,7 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 ## API 版本
 
 为了使删除字段或者重构资源表示更加容易，Kubernetes 支持
-多个API版本。每一个版本都在不同API路径下，例如 `/api/v1` 或者 
+多个API版本。每一个版本都在不同API路径下，例如 `/api/v1` 或者
 `/apis/extensions/v1beta1`。
 
 <!--
@@ -187,7 +187,7 @@ The API group is specified in a REST path and in the `apiVersion` field of a ser
 
 ## API 组
 
-为了更容易地扩展Kubernetes API，我们实现了[*`API组`*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)。 
+为了更容易地扩展Kubernetes API，我们实现了[*`API组`*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)。
 API组在REST路径和序列化对象的 **`apiVersion`** 字段中指定。
 
 <!--
@@ -239,9 +239,9 @@ to pick up the `--runtime-config` changes.
 
 ## 启用 API 组
 
-某些资源和API组默认情况下处于启用状态。 可以通过在apiserver上设置 `--runtime-config` 来启用或禁用它们。 
-`--runtime-config` 接受逗号分隔的值。 
-例如：要禁用batch/v1，请设置 `--runtime-config=batch/v1=false`，以启用batch/v2alpha1，请设置`--runtime-config=batch/v2alpha1`。 
+某些资源和API组默认情况下处于启用状态。 可以通过在apiserver上设置 `--runtime-config` 来启用或禁用它们。
+`--runtime-config` 接受逗号分隔的值。
+例如：要禁用batch/v1，请设置 `--runtime-config=batch/v1=false`，以启用batch/v2alpha1，请设置`--runtime-config=batch/v2alpha1`。
 该标志接受描述apiserver的运行时配置的逗号分隔的一组键值对。
 
 重要：启用或禁用组或资源需要重新启动apiserver和控制器管理器来使得 `--runtime-config` 更改生效。
@@ -257,7 +257,7 @@ apiserver. `--runtime-config` accepts comma separated values. For example: to di
 
 ## 启用组中资源
 
-DaemonSets，Deployments，HorizontalPodAutoscalers，Ingress，Jobs 和 ReplicaSets是默认启用的。 
+DaemonSets，Deployments，HorizontalPodAutoscalers，Ingress，Jobs 和 ReplicaSets是默认启用的。
 其他扩展资源可以通过在apiserver上设置 `--runtime-config` 来启用。
 `--runtime-config` 接受逗号分隔的值。 例如：要禁用 Deployment 和 Ingress，
 请设置 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`

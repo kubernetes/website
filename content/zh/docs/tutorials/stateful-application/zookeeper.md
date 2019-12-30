@@ -62,33 +62,35 @@ content_template: templates/tutorial
 ensemble 使用 Zab 协议选举一个 leader，在选举出 leader 前不能写入数据。一旦选举出了 leader，ensemble 使用 Zab 保证所有写入被复制到一个 quorum，然后这些写入操作才会被确认并对客户端可用。如果没有遵照加权 quorums，一个 quorum 表示包含当前 leader 的 ensemble 的多数成员。例如，如果 ensemble 有3个服务，一个包含 leader 的成员和另一个服务就组成了一个 quorum。如果 ensemble 不能达成一个 quorum，数据将不能被写入。
 
 
-ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被写入一个在存储介质上的持久 WAL（Write Ahead Log）。当一个服务故障时，它能够通过回放 WAL 恢复之前的状态。为了防止 WAL 无限制的增长，ZooKeeper 服务会定期的将内存状态快照保存到存储介质。这些快照能够直接加载到内存中，所有在这个快照之前的 WAL 条目都可以被安全的丢弃。 
+ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被写入一个在存储介质上的持久 WAL（Write Ahead Log）。当一个服务故障时，它能够通过回放 WAL 恢复之前的状态。为了防止 WAL 无限制的增长，ZooKeeper 服务会定期的将内存状态快照保存到存储介质。这些快照能够直接加载到内存中，所有在这个快照之前的 WAL 条目都可以被安全的丢弃。
 
 
 ## 创建一个 ZooKeeper Ensemble
 
 
-下面的清单包含一个 [Headless Service](/docs/user-guide/services/#headless-services)，一个 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)，一个 [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 一个 [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)。
+下面的清单包含一个
+[Headless Service](/docs/concepts/services-networking/service/#headless-services)，
+一个 [Service](/docs/concepts/services-networking/service/)，
+一个 [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget)，
+和一个 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)。
 
-{{< code file="zookeeper.yaml" >}}
+{{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
-
-打开一个命令行终端，使用 [`kubectl create`](/docs/user-guide/kubectl/{{< param "version" >}}/#create) 创建这个清单。
-
-```shell
-kubectl create -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
-```
-
-
-这个操作创建了 `zk-headless` Headless Service、`zk-config` ConfigMap、`zk-budget` PodDisruptionBudget 和 `zk` StatefulSet。
+打开一个命令行终端，使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
+创建这个清单。
 
 ```shell
-service "zk-headless" created
-configmap "zk-config" created
-poddisruptionbudget "zk-budget" created
-statefulset "zk" created
+kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
 ```
 
+这个操作创建了 `zk-hs` Headless Service、`zk-cs` Service、`zk-pdb` PodDisruptionBudget 和 `zk` StatefulSet。
+
+```shell
+service/zk-hs created
+service/zk-cs created
+poddisruptionbudget.policy/zk-pdb created
+statefulset.apps/zk created
+```
 
 使用 [`kubectl get`](/docs/user-guide/kubectl/{{< param "version" >}}/#get) 查看 StatefulSet 控制器创建的 Pods。
 
@@ -350,7 +352,7 @@ zk-0      0/1       Terminating   0         11m
 zk-0      0/1       Terminating   0         11m
 ```
 
-重新应用 `zookeeper.yaml` 中的代码清单。 
+重新应用 `zookeeper.yaml` 中的代码清单。
 
 ```shell
 kubectl apply -f https://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
@@ -897,7 +899,7 @@ ZooKeeper 需要一个服务的 quorum 来成功的提交数据变动。对于�
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
-``` 
+```
 
 
 `zk` StatefulSe 中所有的 Pods 都被部署在不同的节点。
@@ -919,13 +921,13 @@ kubernetes-minion-group-2g2d
                 matchExpressions:
                   - key: "app"
                     operator: In
-                    values: 
-                    - zk-headless
+                    values:
+                    - zk
               topologyKey: "kubernetes.io/hostname"
 ```
 
 
-`requiredDuringSchedulingRequiredDuringExecution` 告诉 Kubernetes 调度器，在以 `topologyKey` 指定的域中，绝对不要把 `zk-headless` 的两个 Pods 调度到相同的节点。`topologyKey` 
+`requiredDuringSchedulingRequiredDuringExecution` 告诉 Kubernetes 调度器，在以 `topologyKey` 指定的域中，绝对不要把带有键为 `app`，值为 `zk` 的标签的两个 Pods 调度到相同的节点。`topologyKey`
 `kubernetes.io/hostname` 表示这个域是一个单独的节点。使用不同的 rules、labels 和 selectors，你能够通过这种技术把你的 ensemble 在物理、网络和电力故障域之间分布。
 
 

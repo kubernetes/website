@@ -6,14 +6,14 @@ full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
 short_description: >
   Una imagen ligera y portátil que contiene un software y todas sus dependencias.
 
-aka: 
+aka:
 tags:
 - fundamental
 - workload
 ---
  Una imagen ligera y portátil que contiene un software y todas sus dependencias.
 
-<!--more--> 
+<!--more-->
 
 Los contenedores desacoplan la aplicaciones de la infraestructura subyacente del servidor
 donde se ejecutan para facilitar el despliegue en diferentes proveedores de nube o entornos de SO, y para un escalado más eficiente.

@@ -146,6 +146,28 @@ control group (`system.slice` on systemd machines for example).
 Note that Kubelet **does not** create `--system-reserved-cgroup` if it doesn't
 exist. Kubelet will fail if an invalid cgroup is specified.
 
+### Explicitly Reserved CPU List
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
+
+- **Kubelet Flag**: `--reserved-cpus=0-3`
+
+`reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
+kubernetes system daemons. This option is added in 1.17 release. `reserved-cpus`
+is for systems that do not intent to define separate top level cgroups for
+OS system daemons and kubernetes system daemons with regard to cpuset resource.
+If the Kubelet **does not** have `--system-reserved-cgroup` and `--kube-reserved-cgroup`,
+the explicit cpuset provided by `reserved-cpus` will take precedence over the CPUs
+defined by `--kube-reserved` and `--system-reserved` options.
+
+This option is specifically designed for Telco/NFV use cases where uncontrolled
+interrupts/timers may impact the workload performance. you can use this option
+to define the explicit cpuset for the system/kubernetes daemons as well as the
+interrupts/timers, so the rest CPUs on the system can be used exclusively for
+workloads, with less impact from uncontrolled interrupts/timers. To move the
+system daemon, kubernetes daemons and interrupts/timers to the explicit cpuset
+defined by this option, other mechanism outside Kubernetes should be used.
+For example: in Centos, you can do this using the tuned toolset.
+
 ### Eviction Thresholds
 
 - **Kubelet Flag**: `--eviction-hard=[memory.available<500Mi]`
@@ -258,5 +280,9 @@ for `kube-reserved` and `system-reserved`.
 
 As of Kubernetes version 1.8, the `storage` key name was changed to `ephemeral-storage`
 for the alpha release.
+
+As of Kubernetes version 1.17, you can optionally specify
+explicit cpuset by `reserved-cpus` as CPUs reserved for OS system
+daemons/interrupts/timers and Kubernetes daemons.
 
 {{% /capture %}}

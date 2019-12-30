@@ -28,8 +28,8 @@ cards:
   button: "Lihat tutorial"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Menyiapkan sebuah kluster"
-  description: "Dapatkan kluster Kubernetes sesuai dengan kapasitas dan kebutuhanmu."
+  title: "Menyiapkan sebuah klaster"
+  description: "Dapatkan klaster Kubernetes sesuai dengan kapasitas dan kebutuhanmu."
   button: "Menyiapkan Kubernetes"
   button_path: "/docs/setup"
 - name: tasks

@@ -2,7 +2,7 @@
 title: " Kubernetes 1.5: Supporting Production Workloads "
 date: 2016-12-13
 slug: kubernetes-1.5-supporting-production-workloads
-url: /blog/2016/12/Kubernetes-1.5-Supporting-Production-Workloads
+url: /blog/2016/12/Kubernetes-1-5-Supporting-Production-Workloads
 ---
 
 Today we’re announcing the release of Kubernetes 1.5. This release follows close on the heels of KubeCon/CloundNativeCon, where users gathered to share how they’re running their applications on Kubernetes. Many of you expressed interest in running stateful applications in containers with the eventual goal of running all applications on Kubernetes. If you have been waiting to try running a distributed database on Kubernetes, or for ways to guarantee application disruption SLOs for stateful and stateless apps, this release has solutions for you.&nbsp;  
@@ -54,11 +54,11 @@ The CNCF recently announced the [Kubernetes Managed Service Provider](https://ku
 **Community Velocity**  
 In the past three months we’ve seen more than a hundred new contributors join the project with some 5,000 commits pushed, reaching new milestones by bringing the total for the core project to 1,000+ contributors and 40,000+ commits. This incredible momentum is only possible by having an open design, being open to new ideas, and empowering an open community to be welcoming to new and senior contributors alike. A big thanks goes out to the release team for 1.5 -- Saad Ali of Google, Davanum Srinivas of Mirantis, and Caleb Miles of CoreOS for their work bringing the 1.5 release to light.  
 
-Offline, the community can be found at one of the many Kubernetes related [meetups](https://www.meetup.com/topics/kubernetes/) around the world. The strength and scale of the community was visible in the crowded halls of CloudNativeCon/KubeCon Seattle (the recorded user talks are [here](https://www.youtube.com/playlist?list=PLj6h78yzYM2PqgIGU1Qmi8nY7dqn9PCr4)). The next C[loudNativeCon + KubeCon is in Berlin](http://events.linuxfoundation.org/events/cloudnativecon-and-kubecon-europe) March 29-30, 2017, be sure to get your ticket and [submit your talk](https://docs.google.com/a/google.com/forms/d/e/1FAIpQLSc0lPQhSuDusPXLKJDTcWrH3DbOuoQlTD0lB4IGUz6NAmcf2g/viewform) before the CFP deadline of Dec 16th.  
+Offline, the community can be found at one of the many Kubernetes related [meetups](https://www.meetup.com/topics/kubernetes/) around the world. The strength and scale of the community was visible in the crowded halls of CloudNativeCon/KubeCon Seattle (the recorded user talks are [here](https://www.youtube.com/playlist?list=PLj6h78yzYM2PqgIGU1Qmi8nY7dqn9PCr4)). The next C[loudNativeCon + KubeCon is in Berlin](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/) March 29-30, 2017, be sure to get your ticket and [submit your talk](https://docs.google.com/a/google.com/forms/d/e/1FAIpQLSc0lPQhSuDusPXLKJDTcWrH3DbOuoQlTD0lB4IGUz6NAmcf2g/viewform) before the CFP deadline of Dec 16th.  
 
 
 
-Ready to start contributing? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/blob/master/community/README.md).&nbsp;  
+Ready to start contributing? Share your voice at our weekly [community meeting](https://kubernetes.io/community/).&nbsp;  
 
 
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)&nbsp;

@@ -45,12 +45,13 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 
 ## Enable IPv4/IPv6 dual-stack
 
-To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
+To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/24`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
@@ -98,9 +99,7 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 
 ## Known Issues
 
-   * IPv6 network block assignment uses the default IPv4 CIDR block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
-   * Dual-stack networking does not function if the `EndpointSlice` feature gate is enabled.
 
 {{% /capture %}}
 

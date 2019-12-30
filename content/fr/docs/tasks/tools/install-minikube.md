@@ -15,7 +15,7 @@ Cette page vous montre comment installer [Minikube](/fr/docs/tutorials/hello-min
 
 {{% capture prerequisites %}}
 
-La virtualisation VT-x ou AMD-v doit être activée dans le BIOS de votre machine. 
+La virtualisation VT-x ou AMD-v doit être activée dans le BIOS de votre machine.
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -32,7 +32,7 @@ sysctl -a | grep machdep.cpu.features
 Si vous trouvez `VMX` dans la sortie, la fonction VT-x est supportée sur votre OS.
 {{% /tab %}}
 {{% tab name="Windows" %}}
-Pour vérifier si la virtualisation est prise en charge sur Windows 8 et au-delà, exécutez la commande suivante sur votre terminal Windows ou à l'invite de commande. 
+Pour vérifier si la virtualisation est prise en charge sur Windows 8 et au-delà, exécutez la commande suivante sur votre terminal Windows ou à l'invite de commande.
 ```
 systeminfo
 ```
@@ -76,7 +76,7 @@ Minikube supporte également une option `--vm-driver=none` qui exécute les comp
 La façon la plus simple d'installer Minikube sur macOS est d'utiliser [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 Vous pouvez aussi l'installer sur macOS en téléchargeant un binaire statique:
@@ -96,6 +96,7 @@ sudo mv minikube /usr/local/bin
 
 {{< note >}}
 Ce document vous montre comment installer Minikube sur Linux en utilisant un binaire statique.
+Pour d'autres méthodes d'installation sous Linux, reportez-vous à la section [Minikube documentation](https://minikube.sigs.k8s.io/docs/start/linux/).
 {{< /note >}}
 
 Vous pouvez installer Minikube sur Linux en téléchargeant un binaire statique:

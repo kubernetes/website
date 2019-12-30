@@ -11,7 +11,7 @@ People familiar with [Puppet](https://github.com/puppetlabs/puppet)&nbsp;might h
 
 ### The Puppet Kubernetes Module
 
-The Puppet Kubernetes module currently assumes you already have a Kubernetes cluster [up and running](http://kubernetes.io/gettingstarted/).&nbsp;Its focus is on managing the resources in Kubernetes, like Pods, Replication Controllers and Services, not (yet) on managing the underlying kubelet or etcd services. Here’s a quick snippet of code describing a Pod in Puppet’s DSL.  
+The Puppet Kubernetes module currently assumes you already have a Kubernetes cluster [up and running](/docs/tutorials/kubernetes-basics/);Its focus is on managing the resources in Kubernetes, like Pods, Replication Controllers and Services, not (yet) on managing the underlying kubelet or etcd services. Here’s a quick snippet of code describing a Pod in Puppet’s DSL.  
 
 
 ```

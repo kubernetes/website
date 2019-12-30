@@ -4,16 +4,15 @@ id: kubelet
 date: 2018-04-12
 full_link: /docs/reference/generated/kubelet
 short_description: >
-  クラスター内の各ノードで稼働するエージェントです。コンテナがPod内で稼働していることを保証します。
+  クラスター内の各ノードで実行されるエージェントです。各コンテナがPodで実行されていることを保証します。
 
 aka: 
 tags:
 - fundamental
 - core-object
 ---
- クラスター内の各ノードで稼働するエージェントです。コンテナがPod内で稼働していることを保証します。
+ クラスター内の各ノードで実行されるエージェントです。各コンテナがPodで実行されていることを保証します。
 
-<!--more--> 
+<!--more-->
 
-Kubeletは、様々な機構から提供されるPodSpecs情報を受け取り、それらのPodSpecs情報に記述されているコンテナが正常に稼働していることを保証します。Kubeletは、Kubernetes外で作成されたコンテナは管理しません。
-
+kubeletは、さまざまなメカニズムを通じて提供されるPodSpecのセットを取得し、それらのPodSpecに記述されているコンテナが正常に実行されている状態に保ちます。kubeletは、Kubernetesが作成したものではないコンテナは管理しません。

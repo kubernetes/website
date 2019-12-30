@@ -1,15 +1,16 @@
-﻿<!--
+﻿---
+title: 访问集群
+weight: 20
+content_template: templates/concept
+---
+
+<!--
 ---
 title: Accessing Clusters
 weight: 20
 content_template: templates/concept
 ---
 -->
----
-title: 访问集群
-weight: 20
-content_template: templates/concept
----
 
 {{% capture overview %}}
 
@@ -117,8 +118,15 @@ with [::1] for IPv6, like so:
 ```shell
 $ curl http://localhost:8080/api/
 {
+  "kind": "APIVersions",
   "versions": [
     "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
   ]
 }
 ```
@@ -226,7 +234,7 @@ Go 客户端可以像 kubectl CLI 一样使用相同的 [kubeconfig 文件](/doc
 To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py).
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples).
 
 ### Other languages
 
@@ -237,7 +245,7 @@ See documentation for other libraries for how they authenticate.
 
 如果想要使用 [Python 客户端](https://github.com/kubernetes-client/python)，请运行命令：`pip install kubernetes`。参阅 [Python Client Library page](https://github.com/kubernetes-client/python) 以获得更详细的安装参数。
 
-Python 客户端可以像 kubectl CLI 一样使用相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 来定位和验证 apiserver，可参阅 [示例](https://github.com/kubernetes-client/python/tree/master/examples/example1.py)。
+Python 客户端可以像 kubectl CLI 一样使用相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 来定位和验证 apiserver，可参阅 [示例](https://github.com/kubernetes-client/python/tree/master/examples)。
 
 ### 其它语言
 
@@ -313,7 +321,7 @@ such as your desktop machine.
 -->
 ## 访问集群中正在运行的服务
 
-上一节介绍了如何连接 Kubernetes API 服务。本节介绍如何连接到 Kubernetes 集群上运行的其他服务。 
+上一节介绍了如何连接 Kubernetes API 服务。本节介绍如何连接到 Kubernetes 集群上运行的其他服务。
 在 Kubernetes 中，[节点](/docs/admin/node)，[pods](/docs/user-guide/pods) 和 [服务](/docs/user-guide/services) 都有自己的 IP。
 在许多情况下，集群上的节点 IP，pod IP 和某些服务 IP 将无法路由，因此无法从集群外部的计算机（例如桌面计算机）访问它们。
 
@@ -499,14 +507,14 @@ The redirect capabilities have been deprecated and removed.  Please use a proxy 
 There are several different proxies you may encounter when using Kubernetes:
 
 1.  The [kubectl proxy](#directly-accessing-the-rest-api):
-  
+
     - runs on a user's desktop or in a pod
     - proxies from a localhost address to the Kubernetes apiserver
     - client to proxy uses HTTP
     - proxy to apiserver uses HTTPS
     - locates apiserver
     - adds authentication headers
-    
+
 -->
 ## 多种代理
 
@@ -520,10 +528,10 @@ There are several different proxies you may encounter when using Kubernetes:
     - 代理到 apiserver 使用 HTTPS
     - 定位 apiserver
     - 添加身份验证 header
-    
+
 <!--
 1.  The [apiserver proxy](#discovering-builtin-services):
-  
+
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
     - runs in the apiserver processes
@@ -541,10 +549,10 @@ There are several different proxies you may encounter when using Kubernetes:
     - 代理将根据可用的信息决定使用 HTTP 或者 HTTPS 代理到目标
     - 可用于访问节点、Pod 或服务
     - 在访问服务时进行负载平衡
-    
+
 <!--
 1.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
-  
+
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP
@@ -552,29 +560,29 @@ There are several different proxies you may encounter when using Kubernetes:
     - is just used to reach services
 -->
 1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips)：
-  
+
     - 运行在每个节点上
     - 代理 UDP 和 TCP
     - 不能代理 HTTP
     - 提供负载均衡
     - 只能用来访问服务
-    
+
 <!--
 1.  A Proxy/Load-balancer in front of apiserver(s):
-  
+
     - existence and implementation varies from cluster to cluster (e.g. nginx)
     - sits between all clients and one or more apiservers
     - acts as load balancer if there are several apiservers.
 -->
 1.  位于 apiserver 之前的 Proxy/Load-balancer：
-  
+
     - 存在和实现因集群而异（例如 nginx）
     - 位于所有客户和一个或多个 apiserver 之间
     - 如果有多个 apiserver，则充当负载均衡器
-    
+
 <!--
 1.  Cloud Load Balancers on external services:
-  
+
     - are provided by some cloud providers (e.g. AWS ELB, Google Cloud Load Balancer)
     - are created automatically when the Kubernetes service has type `LoadBalancer`
     - use UDP/TCP only
@@ -584,7 +592,7 @@ Kubernetes users will typically not need to worry about anything other than the 
 will typically ensure that the latter types are setup correctly.
 -->
 1.  外部服务上的云负载均衡器：
-  
+
     - 由一些云提供商提供（例如 AWS ELB，Google Cloud Load Balancer）
     - 当 Kubernetes 服务类型为 `LoadBalancer` 时自动创建
     - 只使用 UDP/TCP

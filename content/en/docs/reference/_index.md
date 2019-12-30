@@ -20,11 +20,11 @@ This section of the Kubernetes documentation contains references.
 
 * [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
+  * [1.17](/docs/reference/generated/kubernetes-api/v1.17/)
   * [1.16](/docs/reference/generated/kubernetes-api/v1.16/)
   * [1.15](/docs/reference/generated/kubernetes-api/v1.15/)
   * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
   * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
-  * [1.12](/docs/reference/generated/kubernetes-api/v1.12/)
 
 ## API Client Libraries
 
@@ -51,8 +51,6 @@ client libraries:
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
 * [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
-* [federation-apiserver](/docs/admin/federation-apiserver/) - API server for federated clusters.
-* [federation-controller-manager](/docs/admin/federation-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes federation.
 
 ## Design Docs
 

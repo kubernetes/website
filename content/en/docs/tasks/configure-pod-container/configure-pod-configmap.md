@@ -223,7 +223,11 @@ data:
   lives: "3"
 ```
 
-When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+{{< caution >}}
+When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used.
+{{< /caution >}}
+
+The behavior of passing `--from-env-file` multiple times is demonstrated by: 
 
 ```shell
 # Download the sample files into `configure-pod-container/configmap/` directory
@@ -537,7 +541,7 @@ kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.y
 
 Add the ConfigMap name under the `volumes` section of the Pod specification.
 This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
-The `command` section references the `special.level` item stored in the ConfigMap.
+The `command` section lists directory files with names that match the keys in ConfigMap.
 
 {{< codenew file="pods/pod-configmap-volume.yaml" >}}
 

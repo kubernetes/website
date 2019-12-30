@@ -158,7 +158,7 @@ When using `clientConfig.service`, the server cert must be valid for
 Default timeout for a webhook call is 10 seconds for webhooks registered created using `admissionregistration.k8s.io/v1`,
 and 30 seconds for webhooks created using `admissionregistration.k8s.io/v1beta1`. Starting in kubernetes 1.14 you
 can set the timeout and it is encouraged to use a small timeout for webhooks.
-If the webhook call times out, the request is handled according to the webhook's 
+If the webhook call times out, the request is handled according to the webhook's
 failure policy.
 {{< /note >}}
 
@@ -184,73 +184,97 @@ the webhooks. There are three steps to complete the configuration.
   (yes, the same schema that's used by kubectl), so the field name is
   `kubeConfigFile`. Here is an example admission control configuration file:
 
+{{< tabs name="admissionconfiguration_example1" >}}
+{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: ValidatingAdmissionWebhook
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: WebhookAdmissionConfiguration
+    kubeConfigFile: "<path-to-kubeconfig-file>"
+- name: MutatingAdmissionWebhook
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: WebhookAdmissionConfiguration
+    kubeConfigFile: "<path-to-kubeconfig-file>"
+```
+{{% /tab %}}
+{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+```yaml
+# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
 - name: ValidatingAdmissionWebhook
   configuration:
+    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
     kubeConfigFile: "<path-to-kubeconfig-file>"
 - name: MutatingAdmissionWebhook
   configuration:
+    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
     apiVersion: apiserver.config.k8s.io/v1alpha1
     kind: WebhookAdmission
     kubeConfigFile: "<path-to-kubeconfig-file>"
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
-The schema of `admissionConfiguration` is defined
-[here](https://github.com/kubernetes/kubernetes/blob/v1.13.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1alpha1/types.go#L27).
+For more information about `AdmissionConfiguration`, see the
+[AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/v1.17.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27).
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 
 * In the kubeConfig file, provide the credentials:
 
-```yaml
-apiVersion: v1
-kind: Config
-users:
-# name should be set to the DNS name of the service or the host (including port) of the URL the webhook is configured to speak to.
-# If a non-443 port is used for services, it must be included in the name when configuring 1.16+ API servers.
-#
-# For a webhook configured to speak to a service on the default port (443), specify the DNS name of the service:
-# - name: webhook1.ns1.svc
-#   user: ...
-#
-# For a webhook configured to speak to a service on non-default port (e.g. 8443), specify the DNS name and port of the service in 1.16+:
-# - name: webhook1.ns1.svc:8443
-#   user: ...
-# and optionally create a second stanza using only the DNS name of the service for compatibility with 1.15 API servers:
-# - name: webhook1.ns1.svc
-#   user: ...
-#
-# For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
-# A webhook with `url: https://www.example.com`:
-# - name: www.example.com 
-#   user: ...
-#
-# A webhook with `url: https://www.example.com:443`:
-# - name: www.example.com:443
-#   user: ...
-#
-# A webhook with `url: https://www.example.com:8443`:
-# - name: www.example.com:8443
-#   user: ...
-#
-- name: 'webhook1.ns1.svc'
-  user:
-    client-certificate-data: "<pem encoded certificate>"
-    client-key-data: "<pem encoded key>"
-# The `name` supports using * to wildcard-match prefixing segments.
-- name: '*.webhook-company.org'
-  user:
-    password: "<password>"
-    username: "<name>"
-# '*' is the default match.
-- name: '*'
-  user:
-    token: "<token>"
-```
+    ```yaml
+    apiVersion: v1
+    kind: Config
+    users:
+    # name should be set to the DNS name of the service or the host (including port) of the URL the webhook is configured to speak to.
+    # If a non-443 port is used for services, it must be included in the name when configuring 1.16+ API servers.
+    #
+    # For a webhook configured to speak to a service on the default port (443), specify the DNS name of the service:
+    # - name: webhook1.ns1.svc
+    #   user: ...
+    #
+    # For a webhook configured to speak to a service on non-default port (e.g. 8443), specify the DNS name and port of the service in 1.16+:
+    # - name: webhook1.ns1.svc:8443
+    #   user: ...
+    # and optionally create a second stanza using only the DNS name of the service for compatibility with 1.15 API servers:
+    # - name: webhook1.ns1.svc
+    #   user: ...
+    #
+    # For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
+    # A webhook with `url: https://www.example.com`:
+    # - name: www.example.com
+    #   user: ...
+    #
+    # A webhook with `url: https://www.example.com:443`:
+    # - name: www.example.com:443
+    #   user: ...
+    #
+    # A webhook with `url: https://www.example.com:8443`:
+    # - name: www.example.com:8443
+    #   user: ...
+    #
+    - name: 'webhook1.ns1.svc'
+      user:
+        client-certificate-data: "<pem encoded certificate>"
+        client-key-data: "<pem encoded key>"
+    # The `name` supports using * to wildcard-match prefixing segments.
+    - name: '*.webhook-company.org'
+      user:
+        password: "<password>"
+        username: "<name>"
+    # '*' is the default match.
+    - name: '*'
+      user:
+        token: "<token>"
+    ```
 
 Of course you need to set up the webhook server to handle these authentications.
 
@@ -277,7 +301,7 @@ webhooks:
   ...
 ```
 
-`admissionReviewVersions` is a required field when creating 
+`admissionReviewVersions` is a required field when creating
 `admissionregistration.k8s.io/v1` webhook configurations.
 Webhooks are required to support at least one `AdmissionReview`
 version understood by the current and previous API server.
@@ -294,7 +318,7 @@ webhooks:
   ...
 ```
 
-If no `admissionReviewVersions` are specified, the default when creating 
+If no `admissionReviewVersions` are specified, the default when creating
 `admissionregistration.k8s.io/v1beta1` webhook configurations is `v1beta1`.
 {{% /tab %}}
 {{< /tabs >}}
@@ -326,15 +350,15 @@ for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
     "subResource": "scale",
 
     # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     "requestKind": {"group":"autoscaling","version":"v1","kind":"Scale"},
     # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     "requestResource": {"group":"apps","version":"v1","resource":"deployments"},
     # subresource, if the request is to a subresource
-    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     "requestSubResource": "scale",
 
@@ -397,17 +421,17 @@ for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
     "subResource": "scale",
 
     # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     # Only sent by v1.15+ API servers.
     "requestKind": {"group":"autoscaling","version":"v1","kind":"Scale"},
     # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     # Only sent by v1.15+ API servers.
     "requestResource": {"group":"apps","version":"v1","resource":"deployments"},
     # subresource, if the request is to a subresource
-    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the 
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the
     # original request to the API server was converted to a version the webhook registered for.
     # Only sent by v1.15+ API servers.
     "requestSubResource": "scale",
@@ -463,6 +487,7 @@ and a body containing an `AdmissionReview` object (in the same version they were
 with the `response` stanza populated, serialized to JSON.
 
 At a minimum, the `response` stanza must contain the following fields:
+
 * `uid`, copied from the `request.uid` sent to the webhook
 * `allowed`, either set to `true` or `false`
 
@@ -524,7 +549,7 @@ Example of a minimal response from a webhook to forbid a request:
 
 When rejecting a request, the webhook can customize the http code and message returned to the user using the `status` field.
 The specified status object is returned to the user.
-See the [API documentation](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#status-v1-meta) for details about the status type.
+See the [API documentation](/docs/reference/generated/kubernetes-api/v1.14/#status-v1-meta) for details about the status type.
 Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
 {{< tabs name="AdmissionReview_response_forbid_details" >}}
 {{% tab name="admission.k8s.io/v1" %}}
@@ -647,7 +672,7 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE", "UPDATE"] 
+  - operations: ["CREATE", "UPDATE"]
     apiGroups: ["apps"]
     apiVersions: ["v1", "v1beta1"]
     resources: ["deployments", "replicasets"]
@@ -664,7 +689,7 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE", "UPDATE"] 
+  - operations: ["CREATE", "UPDATE"]
     apiGroups: ["apps"]
     apiVersions: ["v1", "v1beta1"]
     resources: ["deployments", "replicasets"]
@@ -765,7 +790,7 @@ Use the object selector only if the webhook is opt-in, because end users may ski
 
 This example shows a mutating webhook that would match a `CREATE` of any resource with the label `foo: bar`:
 
-{{< tabs name="ValidatingWebhookConfiguration_example_1" >}}
+{{< tabs name="objectSelector_example" >}}
 {{% tab name="admissionregistration.k8s.io/v1" %}}
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -939,7 +964,7 @@ In the example given above, the webhook that only registered for `apps/v1` could
 * `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
 * `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook (with the objects converted to a version the webhook had specified: `apps/v1`)
 
-Specifying `Equivalent` is recommended, and ensures that webhooks continue to intercept the 
+Specifying `Equivalent` is recommended, and ensures that webhooks continue to intercept the
 resources they expect when upgrades enable new versions of the resource in the API server.
 
 When a resource stops being served by the API server, it is no longer considered equivalent to other versions of that resource that are still served.
@@ -1010,7 +1035,7 @@ and can optionally include a custom CA bundle to use to verify the TLS connectio
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
 The host might be resolved via external DNS in some apiservers
-(e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+(e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 
 Please note that using `localhost` or `127.0.0.1` as a `host` is
@@ -1109,7 +1134,7 @@ webhooks:
 Webhooks typically operate only on the content of the `AdmissionReview` sent to them.
 Some webhooks, however, make out-of-band changes as part of processing admission requests.
 
-Webhooks that make out-of-band changes ("side effects") must also have a reconcilation mechanism
+Webhooks that make out-of-band changes ("side effects") must also have a reconciliation mechanism
 (like a controller) that periodically determines the actual state of the world, and adjusts
 the out-of-band data modified by the admission webhook to reflect reality.
 This is because a call to an admission webhook does not guarantee the admitted object will be persisted as is, or at all.
@@ -1121,6 +1146,7 @@ A webhook must explicitly indicate that it will not have side-effects when run w
 or the dry-run request will not be sent to the webhook and the API request will fail instead.
 
 Webhooks indicate whether they have side effects using the `sideEffects` field in the webhook configuration:
+
 * `Unknown`: no information is known about the side effects of calling the webhook.
 If a request with `dryRun: true` would trigger a call to this webhook, the request will instead fail, and the webhook will not be called.
 * `None`: calling the webhook will have no side effects.
@@ -1130,6 +1156,7 @@ If a request with the dry-run attribute would trigger a call to this webhook, th
 but if a request with `dryRun: true` is sent to the webhook, the webhook will suppress the side effects (the webhook is `dryRun`-aware).
 
 Allowed values:
+
 * In `admissionregistration.k8s.io/v1beta1`, `sideEffects` may be set to `Unknown`, `None`, `Some`, or `NoneOnDryRun`, and defaults to `Unknown`.
 * In `admissionregistration.k8s.io/v1`, `sideEffects` must be set to `None` or `NoneOnDryRun`.
 
@@ -1167,7 +1194,7 @@ Because webhooks add to API request latency, they should evaluate as quickly as 
 `timeoutSeconds` allows configuring how long the API server should wait for a webhook to respond
 before treating the call as a failure.
 
-If the timeout expires before the webhook responds, the webhook call will be ignored or 
+If the timeout expires before the webhook responds, the webhook call will be ignored or
 the API call will be rejected based on the [failure policy](#failure-policy).
 
 The timeout value must be between 1 and 30 seconds.
@@ -1207,8 +1234,8 @@ Admission webhooks created using `admissionregistration.k8s.io/v1` default timeo
 ### Reinvocation policy
 
 A single ordering of mutating admissions plugins (including webhooks) does not work for all cases
-(see https://issue.k8s.io/64333 as an example). A mutating webhook can add a new sub-structure 
-to the object (like adding a `container` to a `pod`), and other mutating plugins which have already 
+(see https://issue.k8s.io/64333 as an example). A mutating webhook can add a new sub-structure
+to the object (like adding a `container` to a `pod`), and other mutating plugins which have already
 run may have opinions on those new structures (like setting an `imagePullPolicy` on all containers).
 
 In v1.15+, to allow mutating admission plugins to observe changes made by other plugins,
@@ -1356,7 +1383,7 @@ mutating webhook chain, and didn't mutated the request object during the invocat
 }
 ```
 
-The following annotatino gets recorded for a webhook being invoked in the first round. The webhook is ordered the first in\
+The following annotation gets recorded for a webhook being invoked in the first round. The webhook is ordered the first in\
 the mutating webhook chain, and mutated the request object during the invocation.
 
 ```yaml

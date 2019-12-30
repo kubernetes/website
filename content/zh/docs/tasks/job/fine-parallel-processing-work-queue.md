@@ -40,17 +40,22 @@ Here is an overview of the steps in this example:
   detect when a finite-length work queue is empty.  In practice you would set up a store such
   as Redis once and reuse it for the work queues of many jobs, and other things.
 -->
+
 1. **启动存储服务用于保存工作队列。** 在这个例子中，我们使用 Redis 来存储工作项。在上一个例子中，我们使用了 RabbitMQ。在这个例子中，由于 AMQP 不能为客户端提供一个良好的方法来检测一个有限长度的工作队列是否为空，我们使用了 Redis 和一个自定义的工作队列客户端库。在实践中，您可能会设置一个类似于 Redis 的存储库，并将其同时用于多项任务或其他事务的工作队列。
+
 <!--
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
   this example, a message is just an integer that we will do a lengthy computation on.
 -->
-1. **创建一个队列，然后向其中填充消息。** 每个消息表示一个将要被处理的工作任务。在这个例子中，消息只是一个我们将用于进行长度计算的整数。
+
+2. **创建一个队列，然后向其中填充消息。** 每个消息表示一个将要被处理的工作任务。在这个例子中，消息只是一个我们将用于进行长度计算的整数。
+
 <!--
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 -->
-1. **启动一个 Job 对队列中的任务进行处理**。这个 Job 启动了若干个 Pod 。每个 Pod 从消息队列中取出一个工作任务，处理它，然后重复，直到到达队列的尾部。
+
+3. **启动一个 Job 对队列中的任务进行处理**。这个 Job 启动了若干个 Pod 。每个 Pod 从消息队列中取出一个工作任务，处理它，然后重复，直到到达队列的尾部。
 
 {{% /capture %}}
 
@@ -85,7 +90,7 @@ See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guest
 of deploying Redis scalably and redundantly.
 -->
 对于这个例子，为了简单起见，我们将启动一个单实例的 Redis。
-了解如何部署一个可伸缩、高可用的 Redis 例子，请查看 [Redis 样例](https://github.com/kubernetes/examples/tree/master/guestbook) 
+了解如何部署一个可伸缩、高可用的 Redis 例子，请查看 [Redis 样例](https://github.com/kubernetes/examples/tree/master/guestbook)
 
 <!--
 If you are working from the website source tree, you can go to the following

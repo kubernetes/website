@@ -39,7 +39,7 @@ _레플리케이션 컨트롤러_ 는 언제든지 지정된 수의 파드 레�
 단일 노드에서 개별 프로세스를 감시하는 대신 레플리케이션 컨트롤러는
 여러 노드에서 여러 파드를 감시한다.
 
-레플리케이션 컨트롤러는 디스커션에서 종종 "rc" 혹은 "rcs"로 축약되며
+레플리케이션 컨트롤러는 디스커션에서 종종 "rc"로 축약되며
 kubectl 명령에서 숏컷으로 사용된다.
 
 간단한 경우는 하나의 레플리케이션 컨트롤러 오브젝트를 생성하여
@@ -286,6 +286,6 @@ API 오브젝트에 대한 더 자세한 것은
 
 ## 더 자세한 정보는
 
-[스테이트리스 애플리케이션 레플리케이션 컨트롤러 실행하기](docs/tutorials/stateless-application/run-stateless-ap-replication-controller/) 를 참조하라.
+[스테이트리스 애플리케이션 레플리케이션 컨트롤러 실행하기](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/) 를 참조하라.
 
 {{% /capture %}}

@@ -151,14 +151,19 @@ spec:
 
 #### CSI Migration
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 The CSI Migration feature for awsElasticBlockStore, when enabled, shims all plugin operations
 from the existing in-tree plugin to the `ebs.csi.aws.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [AWS EBS CSI
 Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
-Alpha features must be enabled.
+Beta features must be enabled.
+
+#### CSI Migration Complete
+{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+
+To turn off the awsElasticBlockStore storage plugin from being loaded by controller manager and kubelet, you need to set this feature flag to true. This requires `ebs.csi.aws.com` Container Storage Interface (CSI) driver being installed on all worker nodes.
 
 ### azureDisk {#azuredisk}
 
@@ -214,7 +219,7 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "
 
 {{< note >}}
 Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
-configuration please refer [cloud provider openstack](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#openstack).
+configuration please refer [cloud provider openstack](/docs/concepts/cluster-administration/cloud-providers/#openstack).
 {{< /note >}}
 
 `cinder` is used to mount OpenStack Cinder Volume into your Pod.
@@ -479,14 +484,14 @@ spec:
 
 #### CSI Migration
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 The CSI Migration feature for GCE PD, when enabled, shims all plugin operations
 from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
 Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
-Alpha features must be enabled.
+Beta features must be enabled.
 
 ### gitRepo (deprecated) {#gitrepo}
 
@@ -652,7 +657,6 @@ metadata:
 spec:
   capacity:
     storage: 100Gi
-  # volumeMode field requires BlockVolume Alpha feature gate to be enabled.
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
@@ -674,9 +678,8 @@ PersistentVolume `nodeAffinity` is required when using local volumes. It enables
 the Kubernetes scheduler to correctly schedule Pods using local volumes to the
 correct node.
 
-PersistentVolume `volumeMode` can now be set to "Block" (instead of the default
-value "Filesystem") to expose the local volume as a raw block device. The
-`volumeMode` field requires `BlockVolume` Alpha feature gate to be enabled.
+PersistentVolume `volumeMode` can be set to "Block" (instead of the default
+value "Filesystem") to expose the local volume as a raw block device.
 
 When using local volumes, it is recommended to create a StorageClass with
 `volumeBindingMode` set to `WaitForFirstConsumer`. See the
@@ -1154,7 +1157,7 @@ spec:
 
 ### Using subPath with expanded environment variables
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 
 Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.

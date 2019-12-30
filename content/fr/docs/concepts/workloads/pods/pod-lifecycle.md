@@ -21,8 +21,8 @@ contenant un champ `phase`.
 
 La phase d'un Pod est un résumé simple et de haut niveau de l'étape à laquelle le Pod se trouve
 dans son cycle de vie.
-La phase n'est pas faite pour être un cumul complet d'observations de l'état 
-du conteneur ou du Pod, ni pour être une machine à état compréhensible. 
+La phase n'est pas faite pour être un cumul complet d'observations de l'état
+du conteneur ou du Pod, ni pour être une machine à état compréhensible.
 
 Le nombre et la signification des valeurs de phase d'un pod sont soigneusement gardés.
 Hormis ce qui est documenté ici, rien ne doit être supposé sur des Pods
@@ -42,7 +42,7 @@ Valeur | Description
 
 Un Pod a un PodStatus, qui contient un tableau de
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-à travers lesquelles le Pod est ou non passé. Chaque élément 
+à travers lesquelles le Pod est ou non passé. Chaque élément
 du tableau de PodCondition a six champs possibles :
 
 * Le champ `lastProbeTime` fournit un timestamp auquel la condition du Pod
@@ -61,7 +61,7 @@ du tableau de PodCondition a six champs possibles :
 * Le champ `type` est une chaîne de caractères ayant une des valeurs suivantes :
 
   * `PodScheduled` : le Pod a été affecté à un nœud ;
-  * `Ready` : le Pod est prêt à servir des requêtes et doit être rajouté aux équilibreurs 
+  * `Ready` : le Pod est prêt à servir des requêtes et doit être rajouté aux équilibreurs
     de charge de tous les Services correspondants ;
   * `Initialized` : tous les [init containers](/docs/concepts/workloads/pods/init-containers)
     ont démarré correctement ;
@@ -75,8 +75,8 @@ du tableau de PodCondition a six champs possibles :
 
 Une [Sonde](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) (Probe) est un diagnostic
 exécuté périodiquement par [kubelet](/docs/admin/kubelet/)
-sur un Conteneur. Pour exécuter un diagnostic, kubelet appelle un 
-[Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implémenté par 
+sur un Conteneur. Pour exécuter un diagnostic, kubelet appelle un
+[Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implémenté par
 le Conteneur. Il existe trois types de handlers :
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
@@ -98,7 +98,7 @@ Chaque sonde a un résultat parmi ces trois :
 * Failure: Le Conteneur a échoué au diagnostic.
 * Unknown: L'exécution du diagnostic a échoué, et donc aucune action ne peut être prise.
 
-kubelet peut optionnellement exécuter et réagir à deux types de sondes sur des conteneurs 
+kubelet peut optionnellement exécuter et réagir à deux types de sondes sur des conteneurs
 en cours d'exécution :
 
 * `livenessProbe` : Indique si le Conteneur est en cours d'exécution. Si
@@ -115,7 +115,7 @@ en cours d'exécution :
 
 ### Quand devez-vous uiliser une liveness ou une readiness probe ?
 
-Si le process de votre Conteneur est capable de crasher de lui-même lorsqu'il 
+Si le process de votre Conteneur est capable de crasher de lui-même lorsqu'il
 rencontre un problème ou devient inopérant, vous n'avez pas forcément besoin
 d'une liveness probe ; kubelet va automatiquement exécuter l'action correcte
 en accord avec la politique de redémarrage (`restartPolicy`) du Pod.
@@ -125,11 +125,11 @@ spécifiez une liveness probe et indiquez une valeur pour `restartPolicy` à Alw
 ou OnFailure.
 
 Si vous voulez commencer à envoyer du trafic à un Pod seulement lorsqu'une sonde
-réussit, spécifiez une readiness probe. Dans ce cas, la readiness probe peut être 
+réussit, spécifiez une readiness probe. Dans ce cas, la readiness probe peut être
 la même que la liveness probe, mais l'existence de la readiness probe dans la spec
 veut dire que le Pod va démarrer sans recevoir aucun trafic et va commencer
 à recevoir du trafic après que la sonde réussisse.
-Si votre Conteneur doit charger une grande quantité de données, des fichiers de 
+Si votre Conteneur doit charger une grande quantité de données, des fichiers de
 configuration ou exécuter des migrations au démarrage, spécifiez une readiness probe.
 
 Si vous désirez que le Conteneur soit capable de se mettre en maintenance tout seul, vous
@@ -137,7 +137,7 @@ pouvez spécifier une readiness probe qui vérifie un point de terminaison spéc
 readiness et différent de la liveness probe.
 
 Notez que si vous voulez uniquement être capable de dérouter les requêtes lorsque
-le Pod est supprimé, vous n'avez pas forcément besoin d'une readiness probe; lors 
+le Pod est supprimé, vous n'avez pas forcément besoin d'une readiness probe; lors
 de sa suppression, le Pod se met automatiquement dans un état non prêt, que la
 readiness probe existe ou non.
 Le Pod reste dans le statut non prêt le temps que les Conteneurs du Pod s'arrêtent.
@@ -151,16 +151,16 @@ Pour des informations détaillées sur le statut d'un Pod et d'un Conteneur, voi
 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 et
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
-Notez que l'information rapportée comme statut d'un Pod dépend du 
+Notez que l'information rapportée comme statut d'un Pod dépend du
 [ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core) actuel.
 
 ## États d'un Conteneur
 
 Une fois que le Pod est assigné à un nœud par le scheduler, kubelet commence
-à créer les conteneurs en utilisant le runtime de conteneurs. Il existe trois états possibles 
+à créer les conteneurs en utilisant le runtime de conteneurs. Il existe trois états possibles
 pour les conteneurs : en attente (Waiting), en cours d'exécution (Running) et terminé (Terminated). Pour vérifier l'état d'un conteneur, vous pouvez utiliser `kubectl describe pod [POD_NAME]`. L'état est affiché pour chaque conteneur du Pod.
 
-* `Waiting` : état du conteneur par défaut. Si le conteneur n'est pas dans un état Running ou Terminated, il est dans l'état Waiting. Un conteneur dans l'état Waiting exécute 
+* `Waiting` : état du conteneur par défaut. Si le conteneur n'est pas dans un état Running ou Terminated, il est dans l'état Waiting. Un conteneur dans l'état Waiting exécute
 les opérations nécessaires, comme télécharger les images, appliquer des Secrets, etc. À côté
 de cet état, un message et une raison sur l'état sont affichés pour vous fournir plus
 d'informations.
@@ -172,23 +172,23 @@ d'informations.
    ...
    ```
 
-* `Running` : Indique que le conteneur s'exécute sans problème. Une fois qu'un centeneur est 
+* `Running` : Indique que le conteneur s'exécute sans problème. Une fois qu'un centeneur est
 dans l'état Running, le hook `postStart` est exécuté (s'il existe). Cet état affiche aussi
-le moment auquel le conteneur est entré dans l'état Running.  
-   
+le moment auquel le conteneur est entré dans l'état Running.
+
    ```yaml
    ...
       State:          Running
        Started:      Wed, 30 Jan 2019 16:46:38 +0530
    ...
-   ```   
+   ```
 
 * `Terminated`:  Indique que le conteneur a terminé son exécution et s'est arrêté.
 Un conteneur entre dans cet état lorsqu'il s'est exécuté avec succès ou lorsqu'il a
 échoué pour une raison quelconque. De plus, une raison et un code de retour sont affichés,
-ainsi que les moments de démarrage et d'arrêt du conteneur. Avant qu'un conteneur entre 
+ainsi que les moments de démarrage et d'arrêt du conteneur. Avant qu'un conteneur entre
 dans l'état Terminated, le hook `preStop` est exécuté (s'il existe).
-  
+
    ```yaml
    ...
       State:          Terminated
@@ -197,18 +197,18 @@ dans l'état Terminated, le hook `preStop` est exécuté (s'il existe).
         Started:      Wed, 30 Jan 2019 11:45:26 +0530
         Finished:     Wed, 30 Jan 2019 11:45:26 +0530
     ...
-   ``` 
+   ```
 
 ## Pod readiness gate
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-Afin d'étendre la readiness d'un Pod en autorisant l'injection de données 
-supplémentaires ou des signaux dans `PodStatus`, Kubernetes 1.11 a introduit 
+Afin d'étendre la readiness d'un Pod en autorisant l'injection de données
+supplémentaires ou des signaux dans `PodStatus`, Kubernetes 1.11 a introduit
 une fonctionnalité appelée [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
-Vous pouvez utiliser le nouveau champ `ReadinessGate` dans `PodSpec` 
+Vous pouvez utiliser le nouveau champ `ReadinessGate` dans `PodSpec`
 pour spécifier des conditions additionnelles à évaluer pour la readiness d'un Pod.
-Si Kubernetes ne peut pas trouver une telle condition dans le champ `status.conditions` 
+Si Kubernetes ne peut pas trouver une telle condition dans le champ `status.conditions`
 d'un Pod, le statut de la condition est "`False`" par défaut. Voici un exemple :
 
 ```yaml
@@ -244,11 +244,11 @@ Avec l'introduction de nouvelles conditions d'un Pod, un Pod est considéré com
 * Tous les conteneurs du Pod sont prêts.
 * Toutes les conditions spécifiées dans `ReadinessGates` sont à "`True`".
 
-Pour faciliter le changement de l'évaluation de la readiness d'un Pod, 
+Pour faciliter le changement de l'évaluation de la readiness d'un Pod,
 une nouvelle condition de Pod `ContainersReady` est introduite pour capturer
 l'ancienne condition `Ready` d'un Pod.
 
-Avec K8s 1.11, en tant que fonctionnalité alpha, "Pod Ready++" doit être explicitement activé en mettant la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `PodReadinessGates` 
+Avec K8s 1.11, en tant que fonctionnalité alpha, "Pod Ready++" doit être explicitement activé en mettant la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `PodReadinessGates`
 à true.
 
 Avec K8s 1.12, la fonctionnalité est activée par défaut.
@@ -280,7 +280,7 @@ Pods qui doivent se terminer, par exemple des calculs par batch. Les Jobs sont a
 seulement pour des Pods ayant `restartPolicy` égal à OnFailure ou Never.
 
 - Utilisez un [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
-  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) ou 
+  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) ou
   [Deployment](/docs/concepts/workloads/controllers/deployment/)
   pour des Pods qui ne doivent pas s'arrêter, par exemple des serveurs web.
   ReplicationControllers sont appropriés pour des Pods ayant `restartPolicy` égal à
@@ -302,8 +302,8 @@ une politique pour mettre la `phase` de tous les Pods du nœud perdu à Failed.
 
 ### Exemple avancé de liveness probe
 
-Les Liveness probes sont exécutées par kubelet, toutes les requêtes sont donc faites 
-dans l'espace réseau de kubelet. 
+Les Liveness probes sont exécutées par kubelet, toutes les requêtes sont donc faites
+dans l'espace réseau de kubelet.
 
 ```yaml
 apiVersion: v1

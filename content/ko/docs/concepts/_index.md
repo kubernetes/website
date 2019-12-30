@@ -17,7 +17,7 @@ weight: 40
 
 쿠버네티스를 사용하려면, *쿠버네티스 API 오브젝트* 로 클러스터에 대해 사용자가 *바라는 상태* 를 기술해야 한다. 어떤 애플리케이션이나 워크로드를 구동시키려고 하는지, 어떤 컨테이너 이미지를 쓰는지, 복제의 수는 몇 개인지, 어떤 네트워크와 디스크 자원을 쓸 수 있도록 할 것인지 등을 의미한다. 바라는 상태를 설정하는 방법은 쿠버네티스 API를 사용해서 오브젝트를 만드는 것인데, 대개 `kubectl`이라는 커맨드라인 인터페이스를 사용한다. 클러스터와 상호 작용하고 바라는 상태를 설정하거나 수정하기 위해서 쿠버네티스 API를 직접 사용할 수도 있다.
 
-바라는 상태를 설정하면, *쿠버네티스 컨트롤 플레인* 은 Pod Lifecycle Event Generator (PLEG) 를 통해 클러스터의 현재 상태를 바라는 상태와 일치시킨다. 그렇게 함으로써, 쿠버네티스가 컨테이너를 시작 또는 재시작하거나, 주어진 애플리케이션의 복제 수를 스케일링하는 등의 다양한 작업을 자동으로 수행한다. 쿠버네티스 컨트롤 플레인은 클러스터에서 실행 중인 프로세스의 묶음(collection)으로 구성된다.
+바라는 상태를 설정하면, *쿠버네티스 컨트롤 플레인* 은 Pod Lifecycle Event Generator ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md))를 통해 클러스터의 현재 상태를 바라는 상태와 일치시킨다. 그렇게 함으로써, 쿠버네티스가 컨테이너를 시작 또는 재시작하거나, 주어진 애플리케이션의 복제 수를 스케일링하는 등의 다양한 작업을 자동으로 수행한다. 쿠버네티스 컨트롤 플레인은 클러스터에서 실행 중인 프로세스의 묶음(collection)으로 구성된다.
 
 * **쿠버네티스 마스터**는 클러스터 내 마스터 노드로 지정된 노드 내에서 구동되는 세 개의 프로세스 묶음이다. 해당 프로세스는 [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) 및 [kube-scheduler](/docs/admin/kube-scheduler/)이다.
 * 클러스터 내 마스터 노드가 아닌 각각의 노드는 다음 두 개의 프로세스를 구동시킨다.
@@ -26,21 +26,21 @@ weight: 40
 
 ## 쿠버네티스 오브젝트
 
-쿠버네티스는 시스템의 상태를 나타내는 추상 개념을 다수 포함하고 있다. 컨테이너화되어 배포된 애플리케이션과 워크로드, 이에 연관된 네트워크와 디스크 자원, 그 밖에 클러스터가 무엇을 하고 있는지에 대한 정보가 이에 해당한다. 이런 추상 개념은 쿠버네티스 API 내 오브젝트로 표현된다. 보다 자세한 내용은 [쿠버네티스 오브젝트 개요](/docs/concepts/abstractions/overview/) 문서를 참조한다.
+쿠버네티스는 시스템의 상태를 나타내는 추상 개념을 다수 포함하고 있다. 컨테이너화되어 배포된 애플리케이션과 워크로드, 이에 연관된 네트워크와 디스크 자원, 그 밖에 클러스터가 무엇을 하고 있는지에 대한 정보가 이에 해당한다. 이런 추상 개념은 쿠버네티스 API 내 오브젝트로 표현된다. 보다 자세한 내용은 [쿠버네티스 오브젝트 이해하기](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/) 문서를 참조한다.
 
 기초적인 쿠버네티스 오브젝트에는 다음과 같은 것들이 있다.
 
-* [파드](/docs/concepts/workloads/pods/pod-overview/)
+* [파드](/ko/docs/concepts/workloads/pods/pod-overview/)
 * [서비스](/docs/concepts/services-networking/service/)
 * [볼륨](/docs/concepts/storage/volumes/)
-* [네임스페이스](/docs/concepts/overview/working-with-objects/namespaces/)
+* [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/)
 
-추가로, 쿠버네티스에는 컨트롤러라는 보다 높은 수준의 추상 개념도 다수 있다. 컨트롤러는 기초 오브젝트를 기반으로, 부가 기능 및 편의 기능을 제공해준다. 다음이 포함된다.
+또한, 쿠버네티스에는 기초 오브젝트를 기반으로, 부가 기능 및 편의 기능을 제공하는 [컨트롤러](/docs/concepts/architecture/controller/)에 의존하는 보다 높은 수준의 추상 개념도 포함되어 있다. 다음이 포함된다.
 
-* [레플리카 셋](/docs/concepts/workloads/controllers/replicaset/)
-* [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)
-* [스테이트풀 셋](/docs/concepts/workloads/controllers/statefulset/)
-* [데몬 셋](/docs/concepts/workloads/controllers/daemonset/)
+* [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
+* [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)
+* [스테이트풀 셋](/ko/docs/concepts/workloads/controllers/statefulset/)
+* [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)
 * [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## 쿠버네티스 컨트롤 플레인
@@ -59,10 +59,6 @@ weight: 40
 
 클러스터 내 노드는 애플리케이션과 클라우드 워크플로우를 구동시키는 머신(VM, 물리 서버 등)이다. 쿠버네티스 마스터는 각 노드를 관리한다. 직접 노드와 직접 상호 작용할 일은 거의 없을 것이다.
 
-#### 오브젝트 메타데이터
-
-
-* [어노테이션](/docs/concepts/overview/working-with-objects/annotations/)
 
 {{% /capture %}}
 

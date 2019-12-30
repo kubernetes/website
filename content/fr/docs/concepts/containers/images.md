@@ -18,7 +18,7 @@ La propriété `image` d'un conteneur utilise la même syntaxe que la commande `
 
 ## Mettre à jour des images
 
-La politique de récupération par défaut est `IfNotPresent`, Kubelet ne récupère alors pas une image si elle est déjà présente sur le nœud. 
+La politique de récupération par défaut est `IfNotPresent`, Kubelet ne récupère alors pas une image si elle est déjà présente sur le nœud.
 Si vous voulez forcer une récupération à chaque fois, vous pouvez faire une des actions suivantes :
 
 - définissez `imagePullPolicy` du conteneur à `Always`.
@@ -46,7 +46,7 @@ Veuillez utiliser les versions *18.06 ou ultérieure*, les versions antérieures
 
 Si vous avez des problèmes en téléchargeant des manifestes viciés, nettoyez les anciens manifestes dans `$HOME/.docker/manifests` pour recommencer de zéro.
 
-Pour Kubernetes, nous avons historiquement utilisé des images avec des suffixes `-$(ARCH)`. Pour une rétrocompatibilité, veuillez générer les anciennes images avec des suffixes. Par exemple, l'image `pause` qui a le manifeste pour toutes les architetures et l'image `pause-amd64` qui est rétrocompatible 
+Pour Kubernetes, nous avons historiquement utilisé des images avec des suffixes `-$(ARCH)`. Pour une rétrocompatibilité, veuillez générer les anciennes images avec des suffixes. Par exemple, l'image `pause` qui a le manifeste pour toutes les architetures et l'image `pause-amd64` qui est rétrocompatible
 pour d'anciennes configurations ou des fichiers YAML qui auraient codé en dur les images avec des suffixes.
 
 ## Utiliser un registre privé
@@ -96,7 +96,7 @@ Kubernetes prend en charge nativement [Amazon Elastic Container Registry](https:
 Utilisez simplement le nom complet de l'image (par ex. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
 dans la définition du Pod.
 
-Tous les utilisateurs du cluster qui peuvent créer des pods auront la possibilité 
+Tous les utilisateurs du cluster qui peuvent créer des pods auront la possibilité
 d'exécuter des pods qui utilisent n'importe quelle image du registre ECR.
 
 Kubelet va aller chercher et rafraîchir périodiquement les certificats ECR.  Les permissions suivantes sont requises par kubelet :
@@ -160,7 +160,7 @@ Si vous travaillez dans AWS EC2 et utilisez EC2 Container Registry (ECR), kubele
 {{< /note >}}
 
 {{< note >}}
-Cette méthode est utilisable si vous avez le contrôle sur la configuration des nœuds. Elle ne marchera pas 
+Cette méthode est utilisable si vous avez le contrôle sur la configuration des nœuds. Elle ne marchera pas
 correctement sur GCE, et sur tout autre fournisseur cloud qui fait du remplacement de nœud automatique.
 {{< /note >}}
 
@@ -184,7 +184,7 @@ Docker stocke les clés pour les regisres privés dans le fichier `$HOME/.docker
 Vous pouvez avoir à définir `HOME=/root` explicitement dans votre fichier d'environnement pour kubelet.
 {{< /note >}}
 
-Voici les étapes recommandées pour configurer vos nœuds pour qu'ils utilisent un registre privé. Dans cet exemple, exécutez-les sur votre poste de travail : 
+Voici les étapes recommandées pour configurer vos nœuds pour qu'ils utilisent un registre privé. Dans cet exemple, exécutez-les sur votre poste de travail :
 
    1. Exécutez `docker login [server]` pour chaque jeu de certificats que vous désirez utiliser.  Ceci met à jour `$HOME/.docker/config.json`.
    1. Examinez `$HOME/.docker/config.json` dans un éditeur pour vous assurer qu'il contient uniquement les certificats que vous désirez utiliser.
@@ -236,7 +236,7 @@ Si vous travaillez dans Google Kubernetes Engine, vous trouverez un `.dockercfg`
 {{< /note >}}
 
 {{< note >}}
-Cette méthode est utilisable si vous avez le contrôle sur la configuration des nœuds. Elle ne marchera pas 
+Cette méthode est utilisable si vous avez le contrôle sur la configuration des nœuds. Elle ne marchera pas
 correctement sur GCE, et sur tout autre fournisseur cloud qui fait du remplacement de nœud automatique.
 {{< /note >}}
 
@@ -268,13 +268,13 @@ kubectl create secret docker-registry <name> --docker-server=SERVEUR_REGISTRE_DO
 secret/myregistrykey created.
 ```
 
-Si vous avez déjà un fichier de clés Docker, alors, plutôt que d'utiliser la commande ci-dessus, 
+Si vous avez déjà un fichier de clés Docker, alors, plutôt que d'utiliser la commande ci-dessus,
 vous pouvez importer le fichier de clés comme un Secret Kubernetes.
 [Créer un Secret basé sur des clés Docker existantes](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explique comment s'y prendre.
 Ceci est particulièrement utile si vous utilisez plusieurs registres privés, `kubectl create secret docker-registry` créant un Secret ne fonctionnant qu'avec un seul registre privé.
 
 {{< note >}}
-Les pods peuvent référencer des pull secrets dans leur propre namespace uniquement, 
+Les pods peuvent référencer des pull secrets dans leur propre namespace uniquement,
 ces étapes doivent donc être faites pour chaque namespace.
 {{< /note >}}
 

@@ -148,7 +148,3 @@ kubeadm upgrade apply [version]
 
 
 
-SEE ALSO
-
-* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
-

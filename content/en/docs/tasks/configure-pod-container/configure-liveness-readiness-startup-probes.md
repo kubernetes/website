@@ -241,9 +241,9 @@ livenessProbe:
 
 Sometimes, you have to deal with legacy applications that might require
 an additional startup time on their first initialization.
-In such cases, it can be tricky to setup liveness probe parameters without
+In such cases, it can be tricky to set up liveness probe parameters without
 compromising the fast response to deadlocks that motivated such a probe.
-The trick is to setup a startup probe with the same command, HTTP or TCP
+The trick is to set up a startup probe with the same command, HTTP or TCP
 check, with a `failureThreshold * periodSeconds` long enough to cover the
 worse case startup time.
 
@@ -323,7 +323,7 @@ you can use to more precisely control the behavior of liveness and readiness
 checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started
-before liveness or readiness probes are initiated.
+before liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
 seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults

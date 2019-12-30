@@ -34,7 +34,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 In einem Cluster sind die Controller Manager Metriken unter `http://localhost:10252/metrics` auf dem Host verfügbar, auf dem der Controller Manager läuft.
 
-Die Metriken werden im [Prometheus Format](https://prometheus.io/docs/instrumenting/exposition_formats/) ausgegeben. 
+Die Metriken werden im [Prometheus Format](https://prometheus.io/docs/instrumenting/exposition_formats/) ausgegeben.
 
 In einer Produktionsumgebung können Sie Prometheus oder einen anderen Metrik Scraper konfigurieren, um diese Metriken regelmäßig zu sammeln und in einer Art Zeitreihen Datenbank verfügbar zu machen.
 

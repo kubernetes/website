@@ -122,7 +122,7 @@
 /docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
-/docs/concepts/overview/object-management-kubetcl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
+/docs/concepts/overview/object-management-kubectl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
 /docs/concepts/overview/object-management-kubectl/declarative-config/     /docs/tasks/manage-kubernetes-objects/declarative-config/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
@@ -318,8 +318,12 @@
 /docs/tutorials/kubernetes-basics/expose-intro/     /docs/tutorials/kubernetes-basics/expose/expose-intro/ 301
 /docs/tutorials/kubernetes-basics/scale-interactive/     /docs/tutorials/kubernetes-basics/scale/scale-interactive/ 301
 /docs/tutorials/kubernetes-basics/scale-intro/     /docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
+/ja/docs/tutorials/kubernetes-basics/scale-intro/     /ja/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
+/ko/docs/tutorials/kubernetes-basics/scale-intro/     /ko/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /docs/tutorials/kubernetes-basics/update-interactive/    /docs/tutorials/kubernetes-basics/update/update-interactive/ 301
 /docs/tutorials/kubernetes-basics/update-intro/     /docs/tutorials/kubernetes-basics/update/update-intro/ 301
+/ja/docs/tutorials/kubernetes-basics/update-intro/     /ja/docs/tutorials/kubernetes-basics/update/update-intro/ 301
+/ko/docs/tutorials/kubernetes-basics/update-intro/     /ko/docs/tutorials/kubernetes-basics/update/update-intro/ 301
 /docs/tutorials/example-tutorial-template.md -> /example-templates/example-tutorial-template.md 301
 /docs/tutorials/object-management-kubectl/declarative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-command/      /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
@@ -515,12 +519,16 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/setup/minikube/     /docs/setup/learning-environment/minikube/   301
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
 /docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
+/ja/docs/setup/independent/install-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
 /docs/setup/independent/troubleshooting-kubeadm/     /docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/   301
 /docs/setup/independent/create-cluster-kubeadm/     /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/   301
+/ja/docs/setup/independent/create-cluster-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/   301
 /docs/setup/independent/control-plane-flags/     /docs/setup/production-environment/tools/kubeadm/control-plane-flags/   301
 /docs/setup/independent/ha-topology/     /docs/setup/production-environment/tools/kubeadm/ha-topology/   301
+/ja/docs/setup/independent/ha-topology/     /ja/docs/setup/production-environment/tools/kubeadm/ha-topology/   301
 /docs/setup/independent/high-availability/     /docs/setup/production-environment/tools/kubeadm/high-availability/   301
 /docs/setup/independent/setup-ha-etcd-with-kubeadm/     /docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/   301
+/ja/docs/setup/independent/setup-ha-etcd-with-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/   301
 /docs/setup/independent/kubelet-integration/     /docs/setup/production-environment/tools/kubeadm/kubelet-integration/   301
 /docs/setup/custom-cloud/kops/     /docs/setup/production-environment/tools/kops/   301
 /docs/setup/custom-cloud/kubespray/     /docs/setup/production-environment/tools/kubespray/   301
@@ -531,7 +539,6 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/setup/turnkey/clc/     /docs/setup/production-environment/turnkey/clc/   301
 /docs/setup/turnkey/gce/     /docs/setup/production-environment/turnkey/gce/   301
 /docs/setup/turnkey/icp/     /docs/setup/production-environment/turnkey/icp/   301
-/docs/setup/turnkey/stackpoint/     /docs/setup/production-environment/turnkey/stackpoint/   301
 /docs/setup/on-premises-vm/cloudstack/     /docs/setup/production-environment/on-premises-vm/cloudstack/   301
 /docs/setup/on-premises-vm/dcos/     /docs/setup/production-environment/on-premises-vm/dcos/   301
 /docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301

@@ -62,6 +62,7 @@ kubectl config view
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
+kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts 
 kubectl config current-context                       # display the current-context
@@ -159,9 +160,9 @@ kubectl get services --sort-by=.metadata.name
 # List pods Sorted by Restart Count
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# List pods in test namespace sorted by capacity
+# List PersistentVolumes in test namespace sorted by capacity
 
-kubectl get pods -n test --sort-by=.spec.capacity.storage
+kubectl get pv -n test --sort-by=.spec.capacity.storage
 
 # Get the version label of all pods with label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
@@ -250,7 +251,7 @@ kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", 
 ```
 
 ## Editing Resources
-The edit any API resource in an editor.
+Edit any API resource in your preferred editor.
 
 ```bash
 kubectl edit svc/docker-registry                      # Edit the service named docker-registry
@@ -272,7 +273,7 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multip
 kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
 kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
 kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services in namespace my-ns,
+kubectl -n my-ns delete pod,svc --all                                      # Delete all pods and services in namespace my-ns,
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```

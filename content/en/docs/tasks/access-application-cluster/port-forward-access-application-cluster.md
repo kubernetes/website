@@ -49,8 +49,8 @@ for database debugging.
 
     The output displays that the deployment was created:
 
-        NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-        redis-master 1         1         1            1           55s
+        NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+        redis-master 1/1     1            1           55s
 
     View the replicaset status using:
 

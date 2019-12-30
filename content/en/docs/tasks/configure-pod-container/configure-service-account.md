@@ -11,11 +11,8 @@ weight: 90
 {{% capture overview %}}
 A service account provides an identity for processes that run in a Pod.
 
-*This is a user introduction to Service Accounts. See also the
-[Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).*
-
 {{< note >}}
-This document describes how service accounts behave in a cluster set up
+This document is a user introduction to Service Accounts and describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project. Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
 not apply.
@@ -78,7 +75,7 @@ Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
 
 ```shell
-kubectl get serviceAccounts
+kubectl get serviceaccounts
 ```
 The output is similar to this:
 
@@ -299,4 +296,9 @@ token available to the pod at a configurable file path, and refresh the token as
 
 The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most usecases.
 
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+See also the
+[Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).
 {{% /capture %}}

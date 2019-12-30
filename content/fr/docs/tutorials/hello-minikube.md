@@ -9,14 +9,14 @@ menu:
     weight: 10
     post: >
       <p>Prêt à mettre les mains dans le cambouis ? Créez un cluster Kubernetes simple qui exécute "Hello World" avec Node.js.</p>>.
-card: 
+card:
   name: tutorials
   weight: 10
 ---
 
 {{% capture overview %}}
 
-Ce tutoriel vous montre comment exécuter une simple application Hello World Node.js sur Kubernetes en utilisant [Minikube](/docs/getting-start-guides/minikube) et Katacoda.
+Ce tutoriel vous montre comment exécuter une simple application Hello World Node.js sur Kubernetes en utilisant [Minikube](/docs/getting-started-guides/minikube/) et Katacoda.
 Katacoda fournit un environnement Kubernetes gratuit dans le navigateur.
 
 {{< note >}}

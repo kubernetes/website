@@ -8,7 +8,7 @@ weight: 100
 
 Horizontal Pod Autoscaler는
 CPU 사용량(또는 베타 지원의 다른 애플리케이션 지원 메트릭)을 관찰하여
-레플리케이션 컨트롤러, 디플로이먼트 또는 레플리카 셋의 파드 개수를 자동으로 스케일한다.
+레플리케이션 컨트롤러, 디플로이먼트, 레플리카 셋 또는 스테이트풀 셋의 파드 개수를 자동으로 스케일한다.
 
 이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다. Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
 
@@ -96,7 +96,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 ```
 
-아직 서버로 어떠한 요청도 하지 않았기 때문에, 현재 CPU 소비는 0%임을 확인할 수 있다 (``CURRENT``은 디플로이먼트에 의해 제어되는 파드들의 평균을 나타낸다).
+아직 서버로 어떠한 요청도 하지 않았기 때문에, 현재 CPU 소비는 0%임을 확인할 수 있다 (``TARGET``은 디플로이먼트에 의해 제어되는 파드들의 평균을 나타낸다).
 
 ## 부하 증가
 
@@ -104,7 +104,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
@@ -117,8 +117,8 @@ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 kubectl get hpa
 ```
 ```
-NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
-php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
+NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1          3m
 
 ```
 
@@ -129,8 +129,8 @@ CPU 소비가 305%까지 증가하였다.
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   7         7         7            7           19m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   7/7      7           7           19m
 ```
 
 {{< note >}}
@@ -160,8 +160,8 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 kubectl get deployment php-apache
 ```
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   1         1         1            1           27m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   1/1     1            1           27m
 ```
 
 CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮췄다.
@@ -302,13 +302,15 @@ spec:
     resource:
       name: cpu
       target:
-        type: AverageUtilization
+        type: Utilization
         averageUtilization: 50
   - type: Pods
     pods:
       metric:
         name: packets-per-second
-      targetAverageValue: 1k
+      target:
+        type: AverageValue
+        averageValue: 1k
   - type: Object
     object:
       metric:
@@ -318,7 +320,7 @@ spec:
         kind: Ingress
         name: main-route
       target:
-        kind: Value
+        type: Value
         value: 10k
 status:
   observedGeneration: 1

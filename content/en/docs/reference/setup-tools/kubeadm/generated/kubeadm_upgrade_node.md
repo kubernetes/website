@@ -39,7 +39,7 @@ kubeadm upgrade node [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--etcd-upgrade</td>
+      <td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the upgrade of etcd.</td>
@@ -105,9 +105,4 @@ kubeadm upgrade node [flags]
 </table>
 
 
-
-SEE ALSO
-
-* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
-* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - Use this command to invoke single phase of the node workflow
 

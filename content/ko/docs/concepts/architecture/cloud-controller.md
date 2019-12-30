@@ -1,7 +1,7 @@
 ---
 title: 클라우트 컨트롤러 매니저 기반에 관한 개념
 content_template: templates/concept
-weight: 30
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -52,7 +52,7 @@ CCM은 쿠버네티스 컨트롤러 매니저(KCM)의 기능 일부를 독립시
 볼륨 컨트롤러는 의도적으로 CCM의 일부가 되지 않도록 선택되었다. 연관된 복잡성 때문에 그리고 벤더 특유의 볼륨 로직 개념을 일반화 하기 위한 기존의 노력때문에, 볼륨 컨트롤러는 CCM으로 이전되지 않도록 결정되었다.
 {{< /note >}}
 
-CCM을 이용하는 볼륨을 지원하기 위한 원래 계획은 플러그형 볼륨을 지원하기 위한 Flex 볼륨을 사용하기 위한 것이었다. 그러나, CSI라 알려진 경쟁적인 노력이 Flex를 대체하도록 계획되고 있다.
+CCM을 이용하는 볼륨을 지원하기 위한 원래 계획은 플러그형 볼륨을 지원하기 위한 [Flex](/docs/concepts/storage/volumes/#flexVolume) 볼륨을 사용하기 위한 것이었다. 그러나, [CSI](/docs/concepts/storage/volumes/#csi)라 알려진 경쟁적인 노력이 Flex를 대체하도록 계획되고 있다.
 
 이러한 역동성을 고려하여, CSI가 준비될 때까지 차이점에 대한 측정은 도중에 중지하기로 결정하였다.
 
@@ -83,7 +83,7 @@ CCM의 주요 기능은 KCM으로부터 파생된다. 이전 섹션에서 언급
 
 #### 서비스 컨트롤러
 
-서비스 컨트롤러는 서비스 생성, 업데이트, 그리고 이벤트 삭제에 대한 책임을 가진다. 쿠버네티스 내 서비스의 현재 상태를 근거로, 쿠버네티스 내 서비스의 상태를 나타내기 위해 클라우드 로드 밸런서(ELB, Google LB, Oracle Cloud Infrastrucutre LB와 같은)를 구성해준다. 추가적으로, 클라우드 로드 밸런서를 위한 서비스 백엔드가 최신화 되도록 보장해 준다.
+서비스 컨트롤러는 서비스 생성, 업데이트, 그리고 이벤트 삭제에 대한 책임을 가진다. 쿠버네티스 내 서비스의 현재 상태를 근거로, 쿠버네티스 내 서비스의 상태를 나타내기 위해 클라우드 로드 밸런서(ELB, Google LB, Oracle Cloud Infrastrucuture LB와 같은)를 구성해준다. 추가적으로, 클라우드 로드 밸런서를 위한 서비스 백엔드가 최신화 되도록 보장해 준다.
 
 ### 2. Kubelet
 
@@ -226,11 +226,12 @@ rules:
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
-* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [GCP](https://github.com/kubernetes/cloud-provider-gcp)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 * [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
+* [TencentCloud](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)
 
 ## 클러스터 관리
 

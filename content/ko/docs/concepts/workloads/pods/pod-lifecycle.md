@@ -161,8 +161,8 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 컨테이너가 보통 `initialDelaySeconds + failureThreshold × periodSeconds` 이후에 기동된다면, 스타트업 프로브가 활성화 프로브와 같은 엔드포인트를 체크하도록 명시해야 한다. `periodSeconds`의 기본 값은 30s 이다.
 이 때 컨테이너가 활성화 프로브의 기본 값 변경 없이 기동되도록 하려면 `failureThreshold`를 충분히 높게 설정해주어야 한다. 그래야 데드락(deadlocks)을 방지하는데 도움이 된다.
 
-활성 프로브 및 준비성 프로브를 설정하는 방법에 대한 추가적인 정보는,
-[활성 프로브 및 준비성 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
+활성, 준비성 및 스타트업 프로브를 설정하는 방법에 대한 추가적인 정보는,
+[활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)를 참조하면 된다.
 
 ## 파드 및 컨테이너 상태
 
@@ -277,10 +277,11 @@ kubelet에 의해서 재시작되는 종료된 컨테이너는
 
 ## 파드의 일생(lifetime)
 
-일반적으로, 파드는 누군가 파드를 파괴할 때까지 사라지지 않는다.
-그것은 주로 사람이나 컨트롤러에 의해서 일어난다.
-이 법칙에 대한 유일한 예외는 일정 기간(마스터의 `terminated-pod-gc-threshold`에 의해 결정되는)
-이상 파드의 `phase`가 Succeeded 또는 Failed라서 파드가 만료되고 자동적으로 파괴되는 경우이다.
+일반적으로, 파드는 사람 혹은 컨트롤러의 프로세스가 명시적으로 파드를 삭제할 때까지 남아 있다.
+컨트롤 플레인은 파드의 수가 설정된 임계치(kube-controller-manager에서
+`terminated-pod-gc-threshold`에 의해 결정)를 초과할 때,
+종료된 파드들(`Succeeded` 또는 `Failed` 단계)을 정리한다.
+이로써 시간이 지남에 따라 파드들이 생성 및 종료되며 발생하는 리소스 누수를 피할 수 있다.
 
 세 가지 유형의 컨트롤러를 사용할 수 있다.
 
@@ -398,7 +399,7 @@ spec:
   [컨테이너 라이프사이클 이벤트에 핸들러 부착하기](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Hands-on 경험하기
-  [활성 및 준비성 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+  [활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
 * [컨테이너 라이프사이클 후크(hook)](/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
 

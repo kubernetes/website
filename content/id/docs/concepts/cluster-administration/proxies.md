@@ -26,7 +26,7 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
 1.  [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
 
     - merupakan sebuah <i>bastion</i> yang ada di dalam apiserver
-    - menghubungkan pengguna di luar kluster ke alamat-alamat IP di dalam kluster yang tidak bisa terjangkau
+    - menghubungkan pengguna di luar klaster ke alamat-alamat IP di dalam klaster yang tidak bisa terjangkau
     - dijalankan bersama <i>process-process</i> apiserver
     - dari klien menuju <i>proxy</i> menggunakan HTTPS (atau http jika dikonfigurasi pada apiserver)
     - dari <i>proxy</i> menuju target menggunakan HTTP atau HTTPS, tergantung pilihan yang diambil oleh <i>proxy</i> melalui informasi yang ada
@@ -43,7 +43,7 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
 
 1.  Sebuah <i>Proxy/Load-balancer</i> di depan satu atau banyak apiserver:
 
-    - keberadaan dan implementasinya bervariasi tergantung pada kluster (contohnya nginx)
+    - keberadaan dan implementasinya bervariasi tergantung pada klaster (contohnya nginx)
     - ada di antara seluruh klien dan satu/banyak apiserver
     - jika ada beberapa apiserver, berfungsi sebagai <i>load balancer</i>
 
@@ -55,8 +55,8 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
     - <i>support</i> untuk SCTP tergantung pada <i>load balancer</i> yang diimplementasikan oleh penyedia cloud
     - implementasi bervariasi tergantung pada penyedia cloud
 
-Pengguna Kubernetes biasanya hanya cukup perlu tahu tentang kubectl <i>proxy</i> dan apiserver <i>proxy</i>. 
-Untuk <i>proxy-proxy</i> lain di luar ini, admin kluster biasanya akan memastikan konfigurasinya dengan benar.
+Pengguna Kubernetes biasanya hanya cukup perlu tahu tentang kubectl <i>proxy</i> dan apiserver <i>proxy</i>.
+Untuk <i>proxy-proxy</i> lain di luar ini, admin klaster biasanya akan memastikan konfigurasinya dengan benar.
 
 ## Melakukan <i>request redirect</i>
 

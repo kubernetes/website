@@ -58,7 +58,7 @@ Berikut beberapa contoh kasus penggunaan Init Container:
 * Menunggu beberapa waktu sebelum menjalankan Container aplikasi dengan perintah seperti `sleep 60`.
 * Mengklon sebuah _git repository_ ke dalam sebuah _volume_.
 * Menaruh nilai-nilai tertentu ke dalam sebuah _file_ konfigurasi dan menjalankan peralatan _template_ untuk membuat _file_ konfigurasi secara dinamis untuk Container aplikasi utama. Misalnya, untuk menaruh nilai POD_IP ke dalam sebuah konfigurasi dan membuat konfigurasi aplikasi utama menggunakan Jinja.
-  
+
 Contoh-contoh penggunaan yang lebih detail dapat dilihat pada [dokumentasi StatefulSet](/docs/concepts/workloads/controllers/statefulset/) dan [petunjuk Produksi Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/).
 
 ### Menggunakan Init Container
@@ -228,7 +228,7 @@ Contoh ini sangat sederhana, tetapi dapat memberikan sedikit petunjuk bagi kamu 
 
 Saat dimulainya sebuah Pod, Init Container dijalankan secara berurutan, setelah jaringan dan _volume_ telah diinisialisasi. Setiap Init Container harus selesai dan keluar secara berhasil sebelum yang berikutnya dijalankan. Jika ada Init Container yang gagal dijalankan atau keluar secara gagal, dia akan diulang kembali sesuai dengan `restartPolicy` yang dimiliki Pod. Tetapi, jika `restartPolicy` Pod disetel dengan nilai `Always`, Init Container akan menggunakan strategi `RestartPolicy` `OnFailure`.
 
-Sebuah Pod tidak dapat masuk ke status `Ready` hingga semua Init Container berhasil selesai. _Port_ di sebuah Init Container tidak diagregasikan di dalam sebuah Service. Sebuah Pod yang sedang diinisalisasikan akan masuk ke dalam status `Pending`, tetapi akan memiliki kondisi `Initializing` yang disetel menjadi `true`.
+Sebuah Pod tidak dapat masuk ke status `Ready` hingga semua Init Container berhasil selesai. _Port_ di sebuah Init Container tidak diagregasikan di dalam sebuah Service. Sebuah Pod yang sedang diinisalisasikan akan masuk ke dalam status `Pending`, tetapi akan memiliki kondisi `Initialized` yang disetel menjadi `true`.
 
 Jika sebuah Pod diulang [kembali](#alasan-pod-diulang-kembali), semua Init Container harus dijalankan kembali.
 
@@ -267,7 +267,7 @@ Pod dapat diulang kembali, yang berakibat pada diulangnya eksekusi Init Containe
 
 ## Dukungan dan kompatibilitas
 
-Sebuah kluster dengan versi Apiserver 1.6.0 ke atas mendukung Init Container melalui kolom `.spec.initContainers`. Versi-versi sebelumnya mendukung Init Container melalui anotasi _alpha_ atau _beta_. Kolom `.spec.initContainers` juga diduplikasikan dalam bentuk anotasi _alpha_ dan _beta_ agar Kubelet versi 1.3.0 ke atas dapat menjalankan Init Container, dan agar Apiserver versi 1.6 dapat dengan aman dikembalikan ke versi 1.5.x tanpa kehilangan fungsionalitas Pod-pod yang telah dibuat sebelumnya.
+Sebuah klaster dengan versi Apiserver 1.6.0 ke atas mendukung Init Container melalui kolom `.spec.initContainers`. Versi-versi sebelumnya mendukung Init Container melalui anotasi _alpha_ atau _beta_. Kolom `.spec.initContainers` juga diduplikasikan dalam bentuk anotasi _alpha_ dan _beta_ agar Kubelet versi 1.3.0 ke atas dapat menjalankan Init Container, dan agar Apiserver versi 1.6 dapat dengan aman dikembalikan ke versi 1.5.x tanpa kehilangan fungsionalitas Pod-pod yang telah dibuat sebelumnya.
 
 Pada Apiserver dan Kubelet versi 1.8.0 ke atas, dukungan untuk anotasi _alpha_ dan _beta_ telah dihapus, sehingga dibutuhkan konversi (manual) dari anotasi yang telah kedaluwarsa tersebut ke dalam bentuk kolom `.spec.initContainers`.
 

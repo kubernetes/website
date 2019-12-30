@@ -12,7 +12,7 @@ weight: 10
 A node is a worker machine in Kubernetes, previously known as a `minion`. A node
 may be a VM or physical machine, depending on the cluster. Each node contains
 the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the master
-components. The services on a node include the [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy. See
+components. The services on a node include the [container runtime](/docs/concepts/overview/components/#container-runtime), kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
@@ -51,7 +51,6 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 
 | Node Condition | Description |
 |----------------|-------------|
-| `OutOfDisk`    | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
@@ -82,19 +81,10 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates
+The node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-Similarly the scheduler ignores conditions when considering a Node; instead
-it looks at the Node's taints and a Pod's tolerations.
-
-Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
-tolerates the taints of a particular Node can be scheduled on that Node.
-
-{{< caution >}}
-Enabling this feature creates a small delay between the
-time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
-{{< /caution >}}
+When the scheduler is assigning a Pod to a Node, the scheduler takes the Node's taints
+into account, except for any taints that the Pod tolerates.
 
 ### Capacity and Allocatable {#capacity}
 
@@ -102,8 +92,8 @@ Describes the resources available on the node: CPU, memory and the maximum
 number of pods that can be scheduled onto the node.
 
 The fields in the capacity block indicate the total amount of resources that a
-Node has. The allocatable block indicates the amount of resources that on a
-Node that are available to be consumed by normal Pods.
+Node has. The allocatable block indicates the amount of resources on a
+Node that is available to be consumed by normal Pods.
 
 You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
@@ -173,18 +163,28 @@ to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
-In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
-node. Node lease feature is enabled by default since 1.14 as a beta feature
-(feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
-When node lease feature is enabled, each node has an associated `Lease` object in
-`kube-node-lease` namespace that is renewed by the node periodically, and both
-NodeStatus and node lease are treated as heartbeats from the node. Node leases
-are renewed frequently while NodeStatus is reported from node to master only
-when there is some change or enough time has passed (default is 1 minute, which
-is longer than the default timeout of 40 seconds for unreachable nodes). Since
-node lease is much more lightweight than NodeStatus, this feature makes node
-heartbeat significantly cheaper from both scalability and performance
-perspectives.
+#### Heartbeats
+
+Heartbeats, sent by Kubernetes nodes, help determine the availability of a node.
+There are two forms of heartbeats: updates of `NodeStatus` and the
+[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
+Each Node has an associated Lease object in the `kube-node-lease`
+{{< glossary_tooltip term_id="namespace" text="namespace">}}.
+Lease is a lightweight resource, which improves the performance
+of the node heartbeats as the cluster scales.
+
+The kubelet is responsible for creating and updating the `NodeStatus` and
+a Lease object.
+
+- The kubelet updates the `NodeStatus` either when there is change in status,
+  or if there has been no update for a configured interval. The default interval
+  for `NodeStatus` updates is 5 minutes (much longer than the 40 second default
+  timeout for unreachable nodes).
+- The kubelet creates and then updates its Lease object every 10 seconds
+  (the default update interval). Lease updates occur independently from the
+  `NodeStatus` updates.
+
+#### Reliability
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
@@ -243,7 +243,7 @@ For self-registration, the kubelet is started with the following options:
   - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
+When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
 kubelets are only authorized to create/modify their own Node resource.
 
@@ -284,7 +284,7 @@ capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
 checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
-includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
+includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#container-runtime) nor any process running outside of the containers.
 
 If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
@@ -305,6 +305,6 @@ API object can be found at:
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Read about [node components](https://kubernetes.io/docs/concepts/overview/components/#node-components)
+* Read about [node components](/docs/concepts/overview/components/#node-components)
 * Read about node-level topology: [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}

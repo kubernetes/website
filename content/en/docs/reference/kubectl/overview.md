@@ -10,7 +10,7 @@ card:
 ---
 
 {{% capture overview %}}
-Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
+Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
 
@@ -106,6 +106,7 @@ The following table includes a list of all the supported resource types and thei
 
 | Resource Name | Short Names | API Group | Namespaced | Resource Kind |
 |---|---|---|---|---|
+| `bindings` | | | true | Binding|
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
@@ -150,6 +151,8 @@ The following table includes a list of all the supported resource types and thei
 | `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
 | `roles` | | rbac.authorization.k8s.io | true | Role |
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
+| `csidrivers` | | storage.k8s.io | false | CSIDriver |
+| `csinodes` | | storage.k8s.io | false | CSINode |
 | `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
@@ -295,8 +298,8 @@ kubectl get replicationcontroller <rc-name>
 # List all replication controllers and services together in plain-text output format.
 kubectl get rc,services
 
-# List all daemon sets, including uninitialized ones, in plain-text output format.
-kubectl get ds --include-uninitialized
+# List all daemon sets in plain-text output format.
+kubectl get ds
 
 # List all pods running on node server01
 kubectl get pods --field-selector=spec.nodeName=server01
@@ -315,8 +318,8 @@ kubectl describe pods/<pod-name>
 # Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
 kubectl describe pods <rc-name>
 
-# Describe all pods, not including uninitialized ones
-kubectl describe pods --include-uninitialized=false
+# Describe all pods
+kubectl describe pods
 ```
 
 {{< note >}}
@@ -340,8 +343,8 @@ kubectl delete -f pod.yaml
 # Delete all the pods and services that have the label name=<label-name>.
 kubectl delete pods,services -l name=<label-name>
 
-# Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
-kubectl delete pods,services -l name=<label-name> --include-uninitialized
+# Delete all the pods and services that have the label name=<label-name>.
+kubectl delete pods,services -l name=<label-name>
 
 # Delete all pods, including uninitialized ones.
 kubectl delete pods --all

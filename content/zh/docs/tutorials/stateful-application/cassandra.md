@@ -39,7 +39,7 @@ title: "Example: Deploying Cassandra with Stateful Sets"
 ## 准备工作
 
 
-本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](https://kubernetes.io/docs/getting-started-guides/) 获取关于你的平台的安装说明。
+本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/docs/getting-started-guides/) 获取关于你的平台的安装说明。
 
 
 本示例还需要一些代码和配置文件。为了避免手动输入，你可以 `git clone` Kubernetes 源到你本地。
@@ -60,6 +60,8 @@ Pod 使用来自 Google [容器仓库](https://cloud.google.com/container-regist
 ## 快速入门
 
 
+{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
+
 如果你希望直接跳到我们使用的命令，以下是全部步骤：
 
 <!--
@@ -71,19 +73,15 @@ Pod 使用来自 Google [容器仓库](https://cloud.google.com/container-regist
 -->
 
 ```sh
-#
-# StatefulSet
-#
 
-# 克隆示例存储库
-git clone https://github.com/kubernetes/examples
-cd examples
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
+```
 
-# 创建服务来跟踪所有 cassandra statefulset 节点
-kubectl create -f cassandra/cassandra-service.yaml
+{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
 
+```
 # 创建 statefulset
-kubectl create -f cassandra/cassandra-statefulset.yaml
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 
 # 验证 Cassandra 集群。替换一个 pod 的名称。
 kubectl exec -ti cassandra-0 -- nodetool status
@@ -157,17 +155,14 @@ spec:
 ```
 
 
-[下载示例](https://raw.githubusercontent.com/kubernetes/examples/master/cassandra-service.yaml)
-
-
+Download [`cassandra-service.yaml`](/examples/application/cassandra/cassandra-service.yaml)
+and [`cassandra-statefulset.yaml`](/examples/application/cassandra/cassandra-statefulset.yaml)
 
 为 StatefulSet 创建 service
 
-
 ```console
-$ kubectl create -f cassandra/cassandra-service.yaml
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
 ```
-
 
 以下命令显示了 service 是否被成功创建。
 
@@ -291,16 +286,13 @@ parameters:
   type: pd-ssd
 ```
 
-[下载示例](https://raw.githubusercontent.com/kubernetes/examples/master/cassandra-statefulset.yaml)
-
-创建  Cassandra StatefulSet 如下：
+创建 Cassandra StatefulSet 如下：
 
 ```console
-$ kubectl create -f cassandra/cassandra-statefulset.yaml
+kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```
 
 ## 步骤 3：验证和修改 Cassandra StatefulSet
-
 
 这个 StatefulSet 的部署展示了 StatefulSets 提供的两个新特性：
 
@@ -804,7 +796,7 @@ $ kubectl delete daemonset cassandra
 ### Seed Provider Source
 
 
-我们使用了一个自定义的 [`SeedProvider`](https://svn.apache.org/repos/asf/cassandra/trunk/src/java/org/apache/cassandra/locator/SeedProvider.java) 来在 Kubernetes 之上运行 Cassandra。仅当你通过 replication control 或者 daemonset 部署 Cassandra 时才需要使用自定义的 seed provider。在 Cassandra 中，`SeedProvider` 引导 Cassandra 使用 gossip 协议来查找其它 Cassandra 节点。Seed 地址是被视为连接端点的主机。Cassandra 实例使用 seed 列表来查找彼此并学习 ring 环拓扑。[`KubernetesSeedProvider`](https://github.com/kubernetes/kubernetes/blob/master/examples/storage/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 通过 Kubernetes API 发现 Cassandra seeds IP 地址，那些 Cassandra 实例在 Cassandra Service 中定义。
+我们使用了一个自定义的 [`SeedProvider`](https://gitbox.apache.org/repos/asf?p=cassandra.git;a=blob;f=src/java/org/apache/cassandra/locator/SeedProvider.java;h=7efa9e050a4604c2cffcb953c3c023a2095524fe;hb=c2e11bd4224b2110abe6aa84c8882e85980e3491) 来在 Kubernetes 之上运行 Cassandra。仅当你通过 replication control 或者 daemonset 部署 Cassandra 时才需要使用自定义的 seed provider。在 Cassandra 中，`SeedProvider` 引导 Cassandra 使用 gossip 协议来查找其它 Cassandra 节点。Seed 地址是被视为连接端点的主机。Cassandra 实例使用 seed 列表来查找彼此并学习 ring 环拓扑。[`KubernetesSeedProvider`](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 通过 Kubernetes API 发现 Cassandra seeds IP 地址，那些 Cassandra 实例在 Cassandra Service 中定义。
 
 请查阅自定义 seed provider 的 [README](https://git.k8s.io/examples/cassandra/java/README.md) 文档，获取 `KubernetesSeedProvider` 进阶配置。对于本示例来说，你应该不需要自定义 Seed Provider 的配置。
 
@@ -813,4 +805,3 @@ $ kubectl delete daemonset cassandra
 你可能还注意到我们设置了一些 Cassandra 参数（`MAX_HEAP_SIZE`和`HEAP_NEWSIZE`），并且增加了关于 [namespace](/docs/user-guide/namespaces) 的信息。我们还告诉 Kubernetes 容器暴露了 `CQL` 和 `Thrift` API 端口。最后，我们告诉集群管理器我们需要 0.1 cpu（0.1 核）。
 
 [!Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/cassandra/README.md?pixel)]()
-

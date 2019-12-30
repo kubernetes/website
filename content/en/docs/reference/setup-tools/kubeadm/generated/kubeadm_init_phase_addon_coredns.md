@@ -99,7 +99,3 @@ kubeadm init phase addon coredns [flags]
 
 
 
-SEE ALSO
-
-* [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - Install required addons for passing Conformance tests
-

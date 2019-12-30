@@ -42,7 +42,7 @@ _Container Runtime Interface_ (CRI). Lihat bagian ([di bawah ini](#konfigurasi-c
 soal bagaimana melakukan konfigurasi untuk implementasi CRI yang kamu miliki.
 
 {{< note >}}
-Untuk saat ini, RuntimeClass berasumsi bahwa semua _node_ di dalam kluster punya
+Untuk saat ini, RuntimeClass berasumsi bahwa semua _node_ di dalam klaster punya
 konfigurasi yang sama (homogen). Jika ada _node_ yang punya konfigurasi berbeda dari
 yang lain (heterogen), maka perbedaan ini harus diatur secara independen di luar RuntimeClass
 melalui fitur _scheduling_ (lihat [Menempatkan Pod pada Node](/docs/concepts/configuration/assign-pod-node/)).
@@ -53,7 +53,7 @@ Nama _handler_ harus berupa valid label 1123 DNS (alfanumerik + karakter `-`).
 
 #### 2. Buat _resource_ `RuntimeClass` yang terkait
 
-Masing-masing konfigurasi pada langkah no.1 punya nama `handler` yang merepresentasikan 
+Masing-masing konfigurasi pada langkah no.1 punya nama `handler` yang merepresentasikan
 konfigurasi-konfigurasi tersebut. Untuk masing-masing `handler`, buatlah sebuah objek RuntimeClass terkait.
 
 _Resource_ RuntimeClass saat ini hanya memiliki 2 _field_ yang penting: nama RuntimeClass tersebut
@@ -69,14 +69,14 @@ handler: myconfiguration  # Nama dari konfigurasi CRI terkait
 ```
 
 {{< note >}}
-Sangat disarankan untuk hanya memperbolehkan admin kluster melakukan operasi 
-_write_ pada RuntimeClass. Biasanya ini sudah jadi _default_. Lihat [Ikhtisar 
+Sangat disarankan untuk hanya memperbolehkan admin klaster melakukan operasi
+_write_ pada RuntimeClass. Biasanya ini sudah jadi _default_. Lihat [Ikhtisar
 Autorisasi](/docs/reference/access-authn-authz/authorization/) untuk penjelasan lebih jauh.
 {{< /note >}}
 
 ### Penggunaan
 
-Ketika RuntimeClass sudah dikonfigurasi pada kluster, penggunaannya sangatlah mudah.
+Ketika RuntimeClass sudah dikonfigurasi pada klaster, penggunaannya sangatlah mudah.
 Kamu bisa tentukan `runtimeClassName` di dalam `spec` sebuah Pod, sebagai contoh:
 
 ```yaml
@@ -91,11 +91,11 @@ spec:
 
 Kubelet akan mendapat instruksi untuk menggunakan RuntimeClass dengan nama yang sudah ditentukan tersebut
 untuk menjalankan Pod ini. Jika RuntimeClass dengan nama tersebut tidak ditemukan, atau CRI tidak dapat
-menjalankan _handler_ yang terkait, maka Pod akan memasuki [tahap]((/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)) `Failed`.
+menjalankan _handler_ yang terkait, maka Pod akan memasuki [tahap](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) `Failed`.
 Lihat [_event_](/docs/tasks/debug-application-cluster/debug-application-introspection/) untuk mengetahui pesan error yang terkait.
 
 Jika tidak ada `runtimeClassName` yang ditentukan di dalam Pod, maka RuntimeHandler yang _default_ akan digunakan.
-Untuk kasus ini, perilaku kluster akan seperti saat fitur RuntimeClass dinonaktifkan.
+Untuk kasus ini, perilaku klaster akan seperti saat fitur RuntimeClass dinonaktifkan.
 
 ### Konfigurasi CRI
 
@@ -154,7 +154,7 @@ pembaruan fitur RuntimeClass dari versi alpha ke versi beta:
   ```
   kubectl delete customresourcedefinitions.apiextensions.k8s.io runtimeclasses.node.k8s.io
   ```
-- Fitur Alpha pada RuntimeClass akan menjadi tidak valid, jika `runtimeHandler` tidak ditentukan atau 
+- Fitur Alpha pada RuntimeClass akan menjadi tidak valid, jika `runtimeHandler` tidak ditentukan atau
   kosong atau menggunakan karakter `.` pada _handler_. Ini harus dimigrasi ke _handler_ dengan
   konfigurasi yang valid (lihat petunjuk di atas).
 
