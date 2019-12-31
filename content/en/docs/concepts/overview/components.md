@@ -122,8 +122,9 @@ saving container logs to a central log store with search/browsing interface.
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Learn about [Nodes](/docs/concepts/architecture/nodes/)
-* Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* Learn about [Nodes]({{< relref "docs/concepts/architecture/nodes.md" >}})
+* Learn about [Controllers]({{< ref "/docs/concepts/architecture/controller.md" >}})
+* Learn about [kube-scheduler]({{< ref "/docs/concepts/scheduling/kube-scheduler.md" >}})
+* Learn about [kube-scheduler]({{< relref "docs/concepts/scheduling/kube-scheduler.md" >}})
 * Read etcd's official [documentation](https://etcd.io/docs/)
 {{% /capture %}}

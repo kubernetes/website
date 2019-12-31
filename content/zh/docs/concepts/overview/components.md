@@ -215,7 +215,9 @@ saving container logs to a central log store with search/browsing interface.
 * Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
 -->
-* 进一步了解 [Nodes](/docs/concepts/architecture/nodes/)
-* 进一步了解 [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* 进一步了解 [Nodes]({{< relref "docs/concepts/architecture/nodes.md" >}})
+* 进一步了解 [控制器]({{< ref "/docs/concepts/architecture/controller.md" >}})
+* 进一步了解 [kube-scheduler]({{< ref "/docs/concepts/scheduling/kube-scheduler.md" >}})
+* 进一步了解 [kube-scheduler]({{< relref "docs/concepts/scheduling/kube-scheduler.md" >}})
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
 {{% /capture %}}
