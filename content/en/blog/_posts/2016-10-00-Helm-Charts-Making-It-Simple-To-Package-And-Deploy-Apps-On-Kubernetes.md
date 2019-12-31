@@ -37,7 +37,7 @@ The following applications are now available:
 | [MySQL](https://github.com/kubernetes/charts/tree/master/stable/mysql) | [Grafana](https://github.com/kubernetes/charts/tree/master/incubator/grafana) |
 | [Redmine](https://github.com/kubernetes/charts/tree/master/stable/redmine)|[MongoDB](https://github.com/kubernetes/charts/tree/master/incubator/mongodb)|
 | [Wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress)|[Patroni](https://github.com/kubernetes/charts/tree/master/incubator/patroni) |
-||[Prometheus](https://github.com/kubernetes/charts/tree/master/incubator/prometheus)|
+||[Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)|
 |  | [Spark](https://github.com/helm/charts/tree/master/stable/spark)|
 |    | [ZooKeeper](https://github.com/kubernetes/charts/tree/master/incubator/zookeeper) |
 
