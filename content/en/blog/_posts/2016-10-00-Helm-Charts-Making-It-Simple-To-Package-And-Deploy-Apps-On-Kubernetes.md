@@ -56,8 +56,8 @@ The following applications are now available:
 **Example workflow for a Chart user**  
 
 
-1. 1.[Install Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-helm)
-2. 2.[Initialize Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-an-example-chart)
+1. 1.[Install Helm](https://helm.sh/docs/intro/quickstart/#install-helm)
+2. 2.[Initialize Helm](https://helm.sh/docs/intro/quickstart/#install-an-example-chart)
 3. 3.[Search for a chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-search-finding-charts)   
 
 ```
