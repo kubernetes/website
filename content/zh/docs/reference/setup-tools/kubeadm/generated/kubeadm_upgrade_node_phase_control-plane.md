@@ -1,9 +1,3 @@
-
-升级部署在此节点上的控制平面实例。【重要】执行此命令之前，需要在控制平面的另一实例上执行 `kubeadm upgrade apply`。
-<!--
-Upgrades the control plane instance deployed on this node. IMPORTANT. This command should be executed after executing `kubeadm upgrade apply` on another control plane instance
--->
-
 <!--
 ### Synopsis
 -->
@@ -11,32 +5,12 @@ Upgrades the control plane instance deployed on this node. IMPORTANT. This comma
 ### 概要
 
 <!--
-Downloads the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. kubeadm uses the --kubelet-version parameter to determine what the desired kubelet version is. Give
+Upgrade the control plane instance deployed on this node, if any
 -->
-从集群中 "kubelet-config-1.X" 的 ConfigMap 下载 kubelet 配置，在集群中 X 是 kubelet 的次要版本。kubeadm 使用 --kubelet-version 参数来确定所需的 kubelet 版本。
+升级部署在此节点上的控制平面实例，如果有的话
 
 ```
-kubeadm upgrade node experimental-control-plane [flags]
-```
-
-<!--
-### Examples
--->
-
-### 例子
-
-<!--
-  # Downloads the kubelet configuration from the ConfigMap in the cluster. Uses a specific desired kubelet version.
-  # Simulates the downloading of the kubelet configuration from the ConfigMap in the cluster with a specific desired 
-  # version. Does not change any state locally on the node.
--->
-
-```
-  # 从集群中的 ConfigMap 下载 kubelet 配置。使用特定的 kubelet 版本。
-  kubeadm upgrade node config --kubelet-version v1.12.0
-  
-  # 模拟从集群中的 ConfigMap 下载 kubelet 配置，使用特定的指定版本。不更改节点上的任何本地状态。
-  kubeadm upgrade node config --kubelet-version v1.12.0 --dry-run
+kubeadm upgrade node phase control-plane [flags]
 ```
 
 <!--
@@ -53,37 +27,74 @@ kubeadm upgrade node experimental-control-plane [flags]
   <tbody>
 
     <tr>
+      <td colspan="2">--certificate-renewal</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">更新在升级期间变更的组件使用的证书。</td>
+    </tr>
+<!-- 
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the renewal of certificates used by component changed during upgrades.</td>
+-->
+
+    <tr>
       <td colspan="2">--dry-run</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">不改变任何状态，只输出将要执行的动作</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">不改变任何状态，只输出将要执行的动作。</td>
     </tr>
 <!--
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Do not change any state, just output the actions that would be performed.</td>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">Do not change any state, just output the actions that would be performed.</td>
+-->
+
+    <tr>
+      <td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: true</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">执行 etcd 的升级。</td>
+    </tr>
+<!--
+    <td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td> 
+-->
+
+<!--
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the upgrade of etcd.</td>
+-->
+
+    <tr>
+      <td colspan="2">-k, --experimental-kustomize string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。</td>
+    </tr>
+      
+<!--
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
 -->
 
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">experimental-control-plane 的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">control-plane 的帮助信息</td>
     </tr>
+
 <!--
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for experimental-control-plane</td>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">help for control-plane</td>
 -->
 
     <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/kubelet.conf"</td>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"</td>
     </tr>
-<!--
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/kubelet.conf"</td>
--->
-
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
     </tr>
+
 <!--
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
+    <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+-->
+
+<!--
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
 -->
 
   </tbody>
