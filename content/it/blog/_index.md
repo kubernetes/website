@@ -6,5 +6,5 @@ menu:
     title: "Blog"
     weight: 40
     post: >
-       <p>Leggi le ultime notizie su Kubernetes e più in generale sui container, e ottieni guide tecniche fresche di stampa.</p>
+       <p>Leggi le ultime notizie su Kubernetes e su tutto quello che riguarda il mondo dei containers.</p>
 ---
