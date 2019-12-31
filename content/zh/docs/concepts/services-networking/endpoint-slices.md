@@ -119,7 +119,10 @@ platform for additional features such as topological routing.
 
 当涉及如何路由内部流量时，Endpoint Slices 可以充当 kube-proxy 的真实来源。启用该功能后，在服务的 endpoints 规模庞大时会有可观的性能提升。
 
+<!--
 ## Address Types
+-->
+## 地址类型
 
 EndpointSlice 支持三种地址类型：
 
