@@ -38,7 +38,7 @@ The following applications are now available:
 | [Redmine](https://github.com/kubernetes/charts/tree/master/stable/redmine)|[MongoDB](https://github.com/kubernetes/charts/tree/master/incubator/mongodb)|
 | [Wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress)|[Patroni](https://github.com/kubernetes/charts/tree/master/incubator/patroni) |
 ||[Prometheus](https://github.com/kubernetes/charts/tree/master/incubator/prometheus)|
-|  | [Spark](https://github.com/kubernetes/charts/tree/master/incubator/spark)|
+|  | [Spark](https://github.com/helm/charts/tree/master/stable/spark)|
 |    | [ZooKeeper](https://github.com/kubernetes/charts/tree/master/incubator/zookeeper) |
 
 
