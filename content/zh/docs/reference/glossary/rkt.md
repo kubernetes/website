@@ -5,7 +5,7 @@ date: 2019-01-24
 translater: Coffey Gao
 full_link: https://coreos.com/rkt/
 short_description: >
-  A security-minded, standards-based container engine.
+  一个安全的、基于标准的容器引擎。
 
 aka: 
 tags:
