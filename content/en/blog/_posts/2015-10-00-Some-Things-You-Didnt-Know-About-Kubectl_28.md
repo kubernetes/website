@@ -4,7 +4,7 @@ date: 2015-10-28
 slug: some-things-you-didnt-know-about-kubectl_28
 url: /blog/2015/10/Some-Things-You-Didnt-Know-About-Kubectl_28
 ---
-[kubectl](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/kubectl-overview.md) is the command line tool for interacting with Kubernetes clusters. Many people use it every day to deploy their container workloads into production clusters. But there’s more to kubectl than just `kubectl create -f or kubectl rolling-update`. kubectl is a veritable multi-tool of container orchestration and management. Below we describe some of the features of kubectl that you may not have seen.   
+[kubectl](https://github.com/kubernetes/website/blob/master/content/en/docs/reference/kubectl/overview.md) is the command line tool for interacting with Kubernetes clusters. Many people use it every day to deploy their container workloads into production clusters. But there’s more to kubectl than just `kubectl create -f or kubectl rolling-update`. kubectl is a veritable multi-tool of container orchestration and management. Below we describe some of the features of kubectl that you may not have seen.
 
 **Important Note** : Most of these features are part of the upcoming 1.1 release of Kubernetes. They are not present in the current stable 1.0.x release series.  
 
@@ -103,7 +103,7 @@ Sometimes you want to dynamically add or remove labels from a Pod, Service or Re
 
 ##### Add annotations to your objects
 
-Just like labels, you can add or remove annotations from API objects using the kubectl annotate subcommand. Unlike labels, annotations are there to help describe your object, but aren’t used to identify pods via label queries ([more details on annotations](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/annotations.md#annotations)). For example, you might add an annotation of an icon for a GUI to use for displaying your pods.  
+Just like labels, you can add or remove annotations from API objects using the kubectl annotate subcommand. Unlike labels, annotations are there to help describe your object, but aren’t used to identify pods via label queries ([more details on annotations](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/overview/working-with-objects/annotations.md)). For example, you might add an annotation of an icon for a GUI to use for displaying your pods.
 
 `$> kubectl annotate pods redis-izl09 icon-url=http://goo.gl/XXBTWq `  
 `pod "redis-izl09" annotated`  
