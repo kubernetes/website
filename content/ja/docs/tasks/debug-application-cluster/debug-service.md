@@ -159,7 +159,7 @@ spec:
 <!--
 Confirm your `Pods` are running:
 -->
-`Pods`が実行中であることを確認してください。
+`Pod`が実行中であることを確認してください。
 
 ```shell
 kubectl get pods -l app=hostnames
