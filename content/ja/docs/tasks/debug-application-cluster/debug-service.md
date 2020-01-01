@@ -11,7 +11,7 @@ that a `Service` is not working properly.  You've run your `Deployment` and
 created a `Service`, but you get no response when you try to access it.
 This document will hopefully help you to figure out what's going wrong.
 -->
-新規にKubernetesをインストールした環境でかなり頻繁に発生する問題は、`Service`が適切に機能しないという問題です。
+新規にKubernetesをインストールした環境でかなり頻繁に発生する問題は、`Service`が適切に機能しないというものです。
 `Deployment`を実行して`Service`を作成したにもかかわらず、アクセスしようとしても応答がありません。
 このドキュメントは、何が問題なのかを理解するのに役立ちます。
 
