@@ -1,20 +1,20 @@
 ---
 title: etcd
 id: etcd
-date: 2020-27-02
+date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  Key value store nhất quán (consistent) và sẵn sàng cao (highly-available) được sử dụng như một kho lưu trữ của Kubernetes cho tất cả dữ liệu của cluster.
+  Bộ lưu trữ nhất quán và sẵn sàng cao được sử dụng để lưu trữ tất cả dữ liệu Kubernetes phía sau.
 
 aka: 
 tags:
 - architecture
 - storage
 ---
- Key value store nhất quán (consistent) và sẵn sàng cao (highly-available) được sử dụng như một kho lưu trữ của Kubernetes cho tất cả dữ liệu của cluster.
+ Bộ lưu trữ nhất quán và sẵn sàng cao được sử dụng để lưu trữ tất cả dữ liệu Kubernetes phía sau.
 
 <!--more-->
 
-Nếu Kubernetes cluster của bạn sử dụng etcd như kho lưu trữ của nó, chắc chắn bạn có một kế hoạch [back up](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) cho những dữ liệu này.
+Nếu cluster Kubernetes của bạn sử dụng etcd như bộ lưu trữ phía sau, hãy chắc chắn bạn có một kế hoạch [sao lưu](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) cho dữ liệu đó.
 
-Bạn có thể tìm thêm thông tin chi tiết về etcd tại [documentation](https://etcd.io/docs/).
+Bạn có thể tìm thấy thông tin chuyên sâu về etcd trong[tài liệu chính thức](https://etcd.io/docs/).

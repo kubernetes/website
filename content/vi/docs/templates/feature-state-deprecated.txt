@@ -1,0 +1,2 @@
+
+This feature is *deprecated*. For more information on this state, see the [Kubernetes Deprecation Policy](/docs/reference/deprecation-policy/).

@@ -1,18 +1,17 @@
 ---
 title: Cluster
 id: cluster
-date: 2020-02-26
+date: 2019-06-15
 full_link: 
 short_description: >
-   Một tập các worker machine, được gọi là node, dùng để chạy các các ứng dụng được đóng gói (containerized application). Mỗi cụm (cluster) có ít nhất một worker node.
+   Một tập các máy chủ, được gọi là node, mà chạy ứng dụng container hóa được quản lý bởi Kubernetes. Một cluster có ít nhất một node worker và ít nhất một node master.
 
 aka: 
 tags:
 - fundamental
 - operation
 ---
-Một tập các worker machine, được gọi là node, dùng để chạy các containerized application. Mỗi cụm (cluster) có ít nhất một worker node.
+Một tập các máy chủ, được gọi là node, mà chạy ứng dụng container hóa được quản lý bởi Kubernetes. Một cluster có ít nhất một node worker và ít nhất một node master.
 
 <!--more-->
-Các worker node chứa các pod (là những thành phần của ứng dụng). Control Plane quản lý các worker node và pod trong cluster.
-Trong môi trường sản phẩm (production environment), Control Plane thường chạy trên nhiều máy tính và một cluster thường chạy trên nhiều node, cung cấp khả năng chịu lỗi (fault-tolerance) và tính sẵn sàng cao (high availability).
+Các node worker chạy các pod là thành phần của ứng dụng. Node master quản lý các node worker và các pod trong cluster. Nhiều node master được sử dụng để cung cấp một cluster với chuyển đổi dự phòng và tính sẵn sàng cao.

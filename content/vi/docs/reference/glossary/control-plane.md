@@ -1,15 +1,13 @@
 ---
 title: Control Plane
 id: control-plane
-date: 2020-03-04
+date: 2019-05-12
 full_link:
 short_description: >
-  Tầng điều khiển container, được dùng để đưa ra API và các interface để định nghĩa, triển khai, và quản lý vòng đời của các container.
+  Lớp container orchestration mà expose các API và giao diện để định nghĩa, triển khai, và quản lý vòng đời các container.
 
 aka:
 tags:
 - fundamental
 ---
- Tầng điều khiển container, được dùng để đưa ra API và các interface để định nghĩa, triển khai, và quản lý vòng đời của các container.
-
-
+ Lớp container orchestration mà expose các API và giao diện để định nghĩa, triển khai, và quản lý vòng đời các container.
