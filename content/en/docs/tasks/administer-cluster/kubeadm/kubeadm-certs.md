@@ -21,9 +21,37 @@ You should be familiar with [PKI certificates and requirements in Kubernetes](/d
 
 {{% capture steps %}}
 
+## Using custom certificates {#custom-certificates}
+
+By default, kubeadm generates all the certificates needed for a cluster to run.
+You can override this behavior by providing your own certificates.
+
+To do so, you must place them in whatever directory is specified by the
+`--cert-dir` flag or the `certificatesDir` field of kubeadm's `ClusterConfiguration`.
+By default this is `/etc/kubernetes/pki`.
+
+If a given certificate and private key pair exists before running `kubeadm init`,
+kubeadm does not overwrite them. This means you can, for example, copy an existing
+CA into `/etc/kubernetes/pki/ca.crt` and `/etc/kubernetes/pki/ca.key`,
+and kubeadm will use this CA for signing the rest of the certificates.
+
+## External CA mode {#external-ca-mode}
+
+It is also possible to provide just the `ca.crt` file and not the
+`ca.key` file (this is only available for the root CA file, not other cert pairs).
+If all other certificates and kubeconfig files are in place, kubeadm recognizes
+this condition and activates the "External CA" mode. kubeadm will proceed without the
+CA key on disk.
+
+Instead, run the controller-manager standalone with `--controllers=csrsigner` and
+point to the CA certificate and key.
+
+[PKI certificates and requirements](/docs/setup/best-practices/certificates/) includes guidance on
+setting up a cluster to use an external CA.
+
 ## Check certificate expiration
 
-`check-expiration` can be used to check certificate expiration.
+You can use the `check-expiration` subcommand to check when certificates expire:
 
 ```
 kubeadm alpha certs check-expiration
@@ -32,17 +60,22 @@ kubeadm alpha certs check-expiration
 The output is similar to this:
 
 ```
-CERTIFICATE                EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
-admin.conf                 May 15, 2020 13:03 UTC   364d            false
-apiserver                  May 15, 2020 13:00 UTC   364d            false
-apiserver-etcd-client      May 15, 2020 13:00 UTC   364d            false
-apiserver-kubelet-client   May 15, 2020 13:00 UTC   364d            false
-controller-manager.conf    May 15, 2020 13:03 UTC   364d            false
-etcd-healthcheck-client    May 15, 2020 13:00 UTC   364d            false
-etcd-peer                  May 15, 2020 13:00 UTC   364d            false
-etcd-server                May 15, 2020 13:00 UTC   364d            false
-front-proxy-client         May 15, 2020 13:00 UTC   364d            false
-scheduler.conf             May 15, 2020 13:03 UTC   364d            false
+CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
+admin.conf                 Dec 30, 2020 23:36 UTC   364d                                    no
+apiserver                  Dec 30, 2020 23:36 UTC   364d            ca                      no
+apiserver-etcd-client      Dec 30, 2020 23:36 UTC   364d            etcd-ca                 no
+apiserver-kubelet-client   Dec 30, 2020 23:36 UTC   364d            ca                      no
+controller-manager.conf    Dec 30, 2020 23:36 UTC   364d                                    no
+etcd-healthcheck-client    Dec 30, 2020 23:36 UTC   364d            etcd-ca                 no
+etcd-peer                  Dec 30, 2020 23:36 UTC   364d            etcd-ca                 no
+etcd-server                Dec 30, 2020 23:36 UTC   364d            etcd-ca                 no
+front-proxy-client         Dec 30, 2020 23:36 UTC   364d            front-proxy-ca          no
+scheduler.conf             Dec 30, 2020 23:36 UTC   364d                                    no
+
+CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
+ca                      Dec 28, 2029 23:36 UTC   9y              no
+etcd-ca                 Dec 28, 2029 23:36 UTC   9y              no
+front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 ```
 
 The command shows expiration/residual time for the client certificates in the `/etc/kubernetes/pki` folder and for the client certificate embedded in the KUBECONFIG files used by kubeadm (`admin.conf`, `controller-manager.conf` and `scheduler.conf`).
@@ -70,7 +103,7 @@ client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
 
 ## Automatic certificate renewal
 
-`kubeadm` renews all the certificates during control plane [upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
+kubeadm renews all the certificates during control plane [upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 
 This feature is designed for addressing the simplest use cases;
 if you don't have specific requirements on certificate renewal and perform Kubernetes version upgrades regularly (less than 1 year in between each upgrade), kubeadm will take care of keeping your cluster up to date and reasonably secure.
