@@ -77,7 +77,7 @@ For many steps here you will want to see what a `Pod` running in the cluster
 sees.  The simplest way to do this is to run an interactive alpine `Pod`:
 -->
 ここでの多くのステップでは、クラスターで実行されている`Pod`が見ているものを確認する必要があります。
-これを行う最も簡単な方法は、インタラクティブなAlpine `Pod`を実行することです。
+これを行う最も簡単な方法は、インタラクティブなAlpineの`Pod`を実行することです。
 
 ```none
 kubectl run -it --rm --restart=Never alpine --image=alpine sh
