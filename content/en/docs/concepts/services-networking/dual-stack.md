@@ -85,7 +85,7 @@ The following Service specification includes the `ipFamily` field. Kubernetes wi
 
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
-For comparison, the following Service specification will be assigned an IPV4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
+For comparison, the following Service specification will be assigned an IPv4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 
 {{< codenew file="service/networking/dual-stack-ipv4-svc.yaml" >}}
 
