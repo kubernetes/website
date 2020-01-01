@@ -31,8 +31,7 @@ If the evicted Pod is managed by a Deployment, the Deployment will create anothe
 to be scheduled by Kubernetes.
 
 ### Eviction Signals
-
-The `kubelet` supports eviction decisions based on the signals described in the following
+https://twitter.com/MGWVc he `kubelet` supports eviction decisions based on the signals described in the following
 table. The value of each signal is described in the Description column, which is based on
 the `kubelet` summary API.
 
