@@ -110,7 +110,7 @@ For the purposes of this walk-through, let's run some `Pods`.  Since you're
 probably debugging your own `Service` you can substitute your own details, or you
 can follow along and get a second data point.
 -->
-このウォークスルーの目的のために、いくつかの`Pods`を実行しましょう。
+このウォークスルーの目的のために、いくつかの`Pod`を実行しましょう。
 おそらくあなた自身の`Service`をデバッグしているので、あなた自身の詳細に置き換えることもできますし、
 これに沿って2番目のデータポイントを取得することもできます。
 
@@ -277,7 +277,7 @@ Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 If this fails, perhaps your `Pod` and `Service` are in different
 `Namespaces`, try a namespace-qualified name:
 -->
-これが失敗した場合、おそらく`Pod`と`Service`が異なる`Namespaces`にあるので、ネームスペースで修飾された名前を試してください。
+これが失敗した場合、おそらく`Pod`と`Service`が異なる`Namespace`にあるので、ネームスペースで修飾された名前を試してください。
 
 ```shell
 u@pod$ nslookup hostnames.default
@@ -506,15 +506,15 @@ with the same name?
 * Is the port's `protocol` the same as the `Pod`'s?
 -->
 * アクセスしようとしているポートは`spec.ports[]`に定義されていますか？
-* `targetPort`は`Pods`に対して適切ですか(多くの`Pods`は`Service`とは異なるポートを使用することを選択します)？
+* `targetPort`は`Pod`に対して適切ですか(多くの`Pod`は`Service`とは異なるポートを使用することを選択します)？
 * `targetPort`を数値で定義しようとしている場合、数値(9376)あるいは文字列"9376"のどちらですか？
-* `targetPort`を名前で定義しようとしている場合、`Pods`は同じ名前でポートを公開していますか？
+* `targetPort`を名前で定義しようとしている場合、`Pod`は同じ名前でポートを公開していますか？
 * ポートの`protocol`は`Pod`のものと同じですか？
 
 <!--
 ## Does the Service have any Endpoints?
 -->
-## ServiceにEndpointsがあるか？
+## ServiceにEndpointがあるか？
 
 <!--
 If you got this far, we assume that you have confirmed that your `Service`
@@ -522,12 +522,12 @@ exists and is resolved by DNS.  Now let's check that the `Pods` you ran are
 actually being selected by the `Service`.
 -->
 ここまで来ということは、`Service`は存在し、DNSによって名前解決できることが確認できているでしょう。
-ここでは、実行した`Pods`が`Service`によって実際に選択されていることを確認しましょう。
+ここでは、実行した`Pod`が`Service`によって実際に選択されていることを確認しましょう。
 
 <!--
 Earlier we saw that the `Pods` were running.  We can re-check that:
 -->
-以前に、`Pods`が実行されていることを確認しました。再確認しましょう。
+以前に、`Pod`が実行されていることを確認しました。再確認しましょう。
 
 ```shell
 kubectl get pods -l app=hostnames
@@ -541,7 +541,7 @@ hostnames-yp2kp   1/1       Running   0          1h
 The "AGE" column says that these `Pods` are about an hour old, which implies that
 they are running fine and not crashing.
 -->
-"AGE"列は、これらの`Pods`が約1時間前のものであることを示しており、それらが正常に実行され、クラッシュしていないことを意味します。
+"AGE"列は、これらの`Pod`が約1時間前のものであることを示しており、それらが正常に実行され、クラッシュしていないことを意味します。
 
 <!--
 The `-l app=hostnames` argument is a label selector - just like our `Service`
@@ -549,7 +549,7 @@ has.  Inside the Kubernetes system is a control loop which evaluates the
 selector of every `Service` and saves the results into an `Endpoints` object.
 -->
 `-l app=hostnames`引数はラベルセレクターで、ちょうど私たちの`Service`に定義されているものと同じです。
-Kubernetesシステム内には、すべての`Service`のセレクターを評価し、結果を`Endpoints`オブジェクトに保存するコントロールループがあります。
+Kubernetesシステム内には、すべての`Service`のセレクターを評価し、結果を`Endpoint`オブジェクトに保存するコントロールループがあります。
 
 ```shell
 kubectl get endpoints hostnames
@@ -565,8 +565,8 @@ values on your `Pods`.  A common mistake is to have a typo or other error, such
 as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
 `app=hostnames`.
 -->
-これにより、Endpointsコントローラーが`Service`の正しい`Pods`を見つけていることを確認できます。
-`hostnames`行が空白の場合、`Service`の`spec.selector`フィールドが実際に`Pods`の`metadata.labels`値を選択していることを確認する必要があります。
+これにより、Endpointコントローラーが`Service`の正しい`Pod`を見つけていることを確認できます。
+`hostnames`行が空白の場合、`Service`の`spec.selector`フィールドが実際に`Pod`の`metadata.labels`値を選択していることを確認する必要があります。
 よくある間違いは、タイプミスまたは他のエラー、たとえば`Service`が`run=hostnames`を選択しているのに`Deployment`が`app=hostnames`を指定していることです。
 
 <!--
@@ -579,8 +579,8 @@ At this point, we know that your `Service` exists and has selected your `Pods`.
 Let's check that the `Pods` are actually working - we can bypass the `Service`
 mechanism and go straight to the `Pods`.
 -->
-この時点で、`Service`が存在し、`Pods`を選択していることがわかります。
-`Pods`が実際に機能していることを確認しましょう。`Service`メカニズムをバイパスして、`Pods`に直接アクセスすることができます。
+この時点で、`Service`が存在し、`Pod`を選択していることがわかります。
+`Pod`が実際に機能していることを確認しましょう。`Service`メカニズムをバイパスして、`Pod`に直接アクセスすることができます。
 
 {{< note >}}
 <!--
@@ -607,15 +607,15 @@ this is not what happens (or whatever the correct behavior is for your own
 `kubectl logs` to be useful or `kubectl exec` directly to your `Pods` and check
 service from there.
 -->
-`Endpoints`リスト内の各`Pod`は、それぞれの自身のホスト名を返すはずです。
-そうならない(または、あなた自身の`Pods`の正しい振る舞いにならない)場合は、そこで何が起こっているのかを調査する必要があります。
-`kubectl logs`が役立つかもしれません。あるいは、`kubectl exec`で直接`Pods`にアクセスし、そこでサービスをチェックしましょう。
+`Endpoint`リスト内の各`Pod`は、それぞれの自身のホスト名を返すはずです。
+そうならない(または、あなた自身の`Pod`の正しい振る舞いにならない)場合は、そこで何が起こっているのかを調査する必要があります。
+`kubectl logs`が役立つかもしれません。あるいは、`kubectl exec`で直接`Pod`にアクセスし、そこでサービスをチェックしましょう。
 
 <!--
 Another thing to check is that your `Pods` are not crashing or being restarted.
 Frequent restarts could lead to intermittent connectivity issues.
 -->
-もう1つ確認すべきことは、`Pods`がクラッシュしたり、再起動されていないことです。
+もう1つ確認すべきことは、`Pod`がクラッシュしたり、再起動されていないことです。
 頻繁に再起動されていると、断続的な接続の問題が発生する可能性があります。
 
 ```shell
@@ -642,7 +642,7 @@ If you get here, your `Service` is running, has `Endpoints`, and your `Pods`
 are actually serving.  At this point, the whole `Service` proxy mechanism is
 suspect.  Let's confirm it, piece by piece.
 -->
-ここに到達したのなら、`Service`は実行され、`Endpoints`があり、`Pods`が実際にサービスを提供しています。
+ここに到達したのなら、`Service`は実行され、`Endpoint`があり、`Pod`が実際にサービスを提供しています。
 この時点で、`Service`のプロキシメカニズム全体が疑わしいです。
 ひとつひとつ確認しましょう。
 
@@ -955,7 +955,7 @@ misbehaving.  And yet your `Service` is not working.  You should probably let
 us know, so we can help investigate!
 -->
 ここまでたどり着いたということは、とてもおかしなことが起こっています。
-`Service`は実行中で、`Endpoints`があり、`Pods`は実際にサービスを提供しています。
+`Service`は実行中で、`Endpoint`があり、`Pod`は実際にサービスを提供しています。
 DNSは動作していて、`iptables`ルールがインストールされていて、`kube-proxy`も誤動作していないようです。
 それでも、あなたの`Service`は機能していません。
 おそらく私たちにお知らせ頂いた方がよいでしょう。調査をお手伝いします！
