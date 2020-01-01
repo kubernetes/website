@@ -28,60 +28,43 @@ weight: 40
 <!-- 
 For clarity, this guide defines the following terms:
 -->
-为了清楚起见，本指南定义了以下术语：
+为了表达更加清晰，本指南定义了以下术语：
 
 
 <!--
 Node
 : A worker machine in Kubernetes, part of a cluster.
 -->
-Node（节点）
-: Kubernetes 中的一台工作者机器，是集群的一部分。
+节点（Node）
+: Kubernetes 集群中其中一台工作机器，是集群的一部分。
 
-<!-- 
+<!--
 Cluster
 : A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet. 
 -->
-Cluster（集群）
-: 运行由 Kubernetes 管理的容器化应用程序的一组节点。在大多数常见的 Kubernetes 部署中，集群中的节点不属于公共 Internet。
+集群（Cluster）
+: 一组运行程序（这些程序是容器化的，被 Kubernetes 管理的）的节点。 在此示例中，和在大多数常见的Kubernetes部署方案，集群中的节点都不会是公共网络。
 
-<!-- 
+<!--
 Edge router
 : A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware. 
 -->
-Edge router（边缘路由器）
-: 强制对集群执行防火墙策略的路由器。这可能是由云提供商或物理硬件管理的网关。
+边缘路由器（Edge router）
+: 在集群中强制性执行防火墙策略的路由器（router）。可以是由云提供商管理的网关，也可以是物理硬件。
 
-<!-- 
+<!--
 Cluster network
 : A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/). 
 -->
-Cluster network（集群网络）
+集群网络（Cluster network）
 : 一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
 
-<!-- 
+<!--
 Service
 : A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network. 
 -->
-
-## 专用术语
-
-为了避免歧义，本指南定义了以下术语：
-
-节点
-：Kubernetes 集群中的单个工作机器。
-
-集群
-：运行由Kubernetes管理的容器化应用程序的一组节点。 对于此示例，在大多数常见的Kubernetes部署中，集群中的节点不属于公共网络。
-
-边缘路由器
-：为集群强制执行防火墙策略的路由器。这可以是由云提供商管理的网关或物理硬件。
-
-集群网络
-：一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
-
-服务：
-Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+服务（Service）：
+Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器（selectors）标识的一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
 <!--
 ## What is Ingress?
@@ -93,9 +76,6 @@ Ingress exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource. 
 -->
-
-## Ingress 是什么？
-
 Ingress公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
 流量路由由Ingress资源上定义的规则控制。
 
