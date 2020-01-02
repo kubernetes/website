@@ -208,13 +208,13 @@ Users can ensure Windows containers can be scheduled on the appropriate host usi
 -->
 用户可以使用污点和容忍度确保 Windows 容器可以调度在适当的主机上。目前所有 Kubernetes 节点都具有以下默认标签：
 
-* beta.kubernetes.io/os = [windows|linux]
-* beta.kubernetes.io/arch = [amd64|arm64|...]
+* kubernetes.io/os = [windows|linux]
+* kubernetes.io/arch = [amd64|arm64|...]
 
 <!--
-If a Pod specification does not specify a nodeSelector like `"beta.kubernetes.io/os": windows`, it is possible the Pod can be scheduled on any host, Windows or Linux. This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. The best practice is to use a nodeSelector.
+If a Pod specification does not specify a nodeSelector like `"kubernetes.io/os": windows`, it is possible the Pod can be scheduled on any host, Windows or Linux. This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. The best practice is to use a nodeSelector.
 -->
-如果 Pod 规范未指定诸如 `"beta.kubernetes.io/os": windows` 之类的 nodeSelector，则该 Pod 可能会被调度到任何主机（Windows 或 Linux）上。这是有问题的，因为 Windows 容器只能在 Windows 上运行，而 Linux 容器只能在 Linux 上运行。最佳实践是使用 nodeSelector。
+如果 Pod 规范未指定诸如 `"kubernetes.io/os": windows` 之类的 nodeSelector，则该 Pod 可能会被调度到任何主机（Windows 或 Linux）上。这是有问题的，因为 Windows 容器只能在 Windows 上运行，而 Linux 容器只能在 Linux 上运行。最佳实践是使用 nodeSelector。
 
 <!--
 However, we understand that in many cases users have a pre-existing large number of deployments for Linux containers, as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators. In those situations, you may be hesitant to make the configuration change to add nodeSelectors. The alternative is to use Taints. Because the kubelet can set Taints during registration, it could easily be modified to automatically add a taint when running on Windows only.
@@ -222,9 +222,9 @@ However, we understand that in many cases users have a pre-existing large number
 但是，我们了解到，在许多情况下，用户都有既存的大量的 Linux 容器部署，以及一个现成的配置生态系统，例如社区 Helm charts，以及程序化 Pod 生成案例，例如 Operators。在这些情况下，您可能会不愿意更改配置添加 nodeSelector。替代方法是使用污点。由于 kubelet 可以在注册期间设置污点，因此可以轻松修改它，使其仅在 Windows 上运行时自动添加污点。
 
 <!--
-For example:  `--register-with-taints='os=Win1809:NoSchedule'`
+For example:  `--register-with-taints='os=windows:NoSchedule'`
 -->
-例如：`--register-with-taints='os=Win1809:NoSchedule'`
+例如：`--register-with-taints='os=windows:NoSchedule'`
 
 <!--
 By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). In order for a Windows Pod to be scheduled on a Windows node, it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
@@ -233,12 +233,136 @@ By adding a taint to all Windows nodes, nothing will be scheduled on them (that 
 
 ```yaml
 nodeSelector:
-    "beta.kubernetes.io/os": windows
+    kubernetes.io/os: windows
+    node.kubernetes.io/windows-build: '10.0.17763'
 tolerations:
     - key: "os"
       operator: "Equal"
-      value: "Win1809"
+      value: "windows"
       effect: "NoSchedule"
 ```
 
+<!--
+### Handling multiple Windows versions in the same cluster
+-->
+### 处理同一集群中的多个 Windows 版本
+
+<!--
+The Windows Server version used by each pod must match that of the node. If you want to use multiple Windows
+Server versions in the same cluster, then you should set additional node labels and nodeSelectors.
+-->
+每个 Pod 使用的 Windows Server 版本必须与该节点的 Windows Server 版本相匹配。
+如果要在同一集群中使用多个 Windows Server 版本，则应该设置其他节点标签和 nodeSelector。
+
+<!--
+Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build` to simplify this. If you're running an older version, then it's recommended to add this label manually to Windows nodes.
+-->
+Kubernetes 1.17 自动添加了一个新标签 `node.kubernetes.io/windows-build` 来简化此操作。 如果您运行的是旧版本，则建议手动将此标签添加到 Windows 节点。
+
+<!--
+This label reflects the Windows major, minor, and build number that need to match for compatibility. Here are values used today for each Windows Server version.
+-->
+此标签反映了需要兼容的 Windows 主要、次要和内部版本号。以下是当前每个 Windows Server 版本使用的值。
+
+| 产品名称                              |   内部编号             |
+|--------------------------------------|------------------------|
+| Windows Server 2019                  | 10.0.17763             |
+| Windows Server version 1809          | 10.0.17763             |
+| Windows Server version 1903          | 10.0.18362             |
+
+
+<!--
+### Simplifying with RuntimeClass
+-->
+### 使用 RuntimeClass 简化
+
+<!--
+[RuntimeClass] can be used to simplify the process of using taints and tolerations. A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
+-->
+[RuntimeClass] 可用于简化使用污点和容忍度的过程。集群管理员可以创建 `RuntimeClass` 对象，用于封装这些污点和容忍度。
+
+
+<!--
+1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` for the Windows OS, architecture, and version.
+-->
+1. 将此文件保存到 `runtimeClasses.yml` 文件。它包括适用于 Windows 操作系统、体系结构和版本的 `nodeSelector`。
+
+```yaml
+apiVersion: node.k8s.io/v1beta1
+kind: RuntimeClass
+metadata:
+  name: windows-2019
+handler: 'docker'
+scheduling:
+  nodeSelector:
+    kubernetes.io/os: 'windows'
+    kubernetes.io/arch: 'amd64'
+    node.kubernetes.io/windows-build: '10.0.17763'
+  tolerations:
+  - effect: NoSchedule
+    key: os
+    operator: Equal
+    value: "windows"
+```
+
+<!--
+1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
+1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
+-->
+1. 集群管理员运行 `kubectl create -f runtimeClasses.yml` 操作
+1. 根据需要向 Pod 规约中添加 `runtimeClassName: windows-2019`
+
+<!--
+For example:
+-->
+例如：
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis-2019
+  labels:
+    app: iis-2019
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: iis-2019
+      labels:
+        app: iis-2019
+    spec:
+      runtimeClassName: windows-2019
+      containers:
+      - name: iis
+        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+        resources:
+          limits:
+            cpu: 1
+            memory: 800Mi
+          requests:
+            cpu: .1
+            memory: 300Mi
+        ports:
+          - containerPort: 80
+ selector:
+    matchLabels:
+      app: iis-2019
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iis
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+  selector:
+    app: iis-2019
+```
+
+
 {{% /capture %}}
+
+[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/

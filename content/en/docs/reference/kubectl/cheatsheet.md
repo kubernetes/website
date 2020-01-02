@@ -86,7 +86,7 @@ kubectl config unset users.foo                       # delete user foo
 
 ## Creating Objects
 
-Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
+Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
@@ -339,7 +339,7 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 
 ### Formatting output
 
-To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+To output details to your terminal window in a specific format, add the `-o` (or `--output`) flag to a supported `kubectl` command.
 
 Output format | Description
 --------------| -----------

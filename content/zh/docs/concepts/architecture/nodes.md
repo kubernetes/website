@@ -156,7 +156,7 @@ When the scheduler is assigning a Pod to a Node, the scheduler takes the Node's 
 into account, except for any taints that the Pod tolerates.
 -->
 节点生命周期控制器会自动创建代表条件的[污点](/docs/concepts/configuration/taint-and-toleration/)。
-当 scheduler 将 Pod 分配给节点时，scheduler 会考虑节点上的污点，但是 Pod 可以容忍的污点除外。
+当调度器将 Pod 分配给节点时，调度器会考虑节点上的污点，但是 Pod 可以容忍的污点除外。
 
 <!--
 ### Capacity and Allocatable {#capacity}
@@ -297,7 +297,7 @@ of the node heartbeats as the cluster scales.
 -->
 Kubernetes 节点发送的心跳有助于确定节点的可用性。
 心跳有两种形式：`NodeStatus` 和 [`Lease` 对象](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io)。
-每个节点在 `kube-node-lease`{{< glossary_tooltip term_id="namespace" text="namespace">}} 中都有一个关联的 `Lease` 对象。
+每个节点在 `kube-node-lease`{{< glossary_tooltip term_id="namespace" text="命名空间">}} 中都有一个关联的 `Lease` 对象。
 `Lease` 是一种轻量级的资源，可在集群扩展时提高节点心跳机制的性能。
 
 <!--
@@ -316,7 +316,7 @@ kubelet 负责创建和更新 `NodeStatus` 和 `Lease` 对象。
   `NodeStatus` updates.
 -->
 - 当状态发生变化时，或者在配置的时间间隔内没有更新时，kubelet 会更新 `NodeStatus`。
-`NodeStatus` 更新的默认间隔为 5 分钟（比无法访问的节点的 40 秒默认超时时间长点）。
+`NodeStatus` 更新的默认间隔为 5 分钟（比无法访问的节点的 40 秒默认超时时间长很多）。
 - kubelet 会每 10 秒（默认更新间隔时间）创建并更新其 `Lease` 对象。`Lease` 更新独立于 `NodeStatus` 更新而发生。
 
 <!--

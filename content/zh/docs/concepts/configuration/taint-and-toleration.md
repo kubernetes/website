@@ -436,9 +436,9 @@ breaking.
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 -->
 Node 生命周期控制器会自动创建与 Node 条件相对应的污点。
-同样，调度程序不检查节点条件。 而是调度程序检查污点。 这确保了节点条件不会影响调度到节点上的内容。 用户可以通过添加适当的 Pod 容忍来选择忽略某些 Node 的问题(表示为 Node 的调度条件)。
+同样，调度器不检查节点条件，而是检查节点污点。这确保了节点条件不会影响调度到节点上的内容。用户可以通过添加适当的 Pod 容忍度来选择忽略某些 Node 的问题(表示为 Node 的调度条件)。
 注意，`TaintNodesByCondition` 只会污染具有 `NoSchedule` 设定的节点。 `NoExecute` 效应由 `TaintBasedEviction` 控制，
-`TaintBasedEviction` 是 Beta 版功能，自1.13版起默认启用。
+`TaintBasedEviction` 是 Beta 版功能，自 Kubernetes 1.13 起默认启用。
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`

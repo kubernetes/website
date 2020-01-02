@@ -231,7 +231,7 @@ Heapster 的资源限制与您集群的初始大小有关（请参阅 [#16185](h
 <!--
 For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting).
 -->
-关于如何检测插件容器是否达到资源限制，参见 [计算资源的故障排除](docs/concepts/configuration/manage-compute-resources-container/#troubleshooting) 部分。
+关于如何检测插件容器是否达到资源限制，参见 [计算资源的故障排除](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting) 部分。
 
 <!--
 In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.

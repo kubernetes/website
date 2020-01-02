@@ -74,7 +74,7 @@ called SIG Docs. We [communicate](#participate-in-sig-docs-discussions) using a 
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/). 
 -->
-Kubernetes 文档是由 {{< glossary_tooltip text="特别兴趣小组" term_id="sig" >}} (SIG) 维护的，该小组名为 SIG Docs。我们通过 Slack 频道、邮件列表和网络视频周会进行[交流](#participate-in-sig-docs-discussions)。欢迎新的参与者加入。更多信息，请参考[参与 SIG Docs](/docs/contribute/participating/)。
+Kubernetes 文档是由 {{< glossary_tooltip text="特别兴趣小组" term_id="sig" >}} (SIG) 维护的，该小组名为 SIG Docs。我们通过 Slack 频道、邮件列表和网络视频周会进行[交流](#参与-sig-docs-讨论)。欢迎新的参与者加入。更多信息，请参考[参与 SIG Docs](/docs/contribute/participating/)。
 
 <!-- 
 ### Content guildelines
@@ -88,7 +88,7 @@ channel.
 -->
 ### 内容指南
 
-SIG Docs 社区创建了有关 Kubernetes 文档中允许哪种内容的指南。查看[文档内容指南](/docs/contribute/style/content-guide/)确定是否允许您要进行的内容贡献。您可以在 [#sig-docs]((#participate-in-sig-docs-discussions)) 频道中询问有关允许内容的问题。
+SIG Docs 社区创建了有关 Kubernetes 文档中允许哪种内容的指南。查看[文档内容指南](/docs/contribute/style/content-guide/)确定是否允许您要进行的内容贡献。您可以在 [#sig-docs](#参与-sig-docs-讨论) 频道中询问有关允许内容的问题。
 
 <!-- 
 ### Style guidelines

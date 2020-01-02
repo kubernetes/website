@@ -232,7 +232,7 @@ PodAntiAffinity | 파드안티어피니티(PodAntiAffinity) |
 PodDisruptionBudget | PodDisruptionBudget |
 postfix | 접미사 | 
 prefix | 접두사 |
-Previleged | 특권을 가진(previleged) |
+Privileged | 특권을 가진(privileged) |
 Prometheus | 프로메테우스 |
 proof of concept | 개념 증명 | 
 Pull Request | 풀 리퀘스트 |
@@ -266,7 +266,7 @@ Self-healing | 자가 치유 |
 Service | 서비스 | 
 Service Account | 서비스 어카운트 | 
 service discovery | 서비스 디스커버리 | 
-service mesh | 서비스 메쉬 |
+service mesh | 서비스 메시 |
 Session | 세션 | 
 Session Affinity | 세션 어피니티(Affinity) |
 Setting | 세팅 | 
