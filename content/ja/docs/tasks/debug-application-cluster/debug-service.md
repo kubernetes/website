@@ -130,7 +130,7 @@ deployment.apps/hostnames created
 <!--
 This is the same as if you started the `Deployment` with the following YAML:
 -->
-これは、次のYAMLで `Deployment`を開始した場合と同じです。
+これは、次のYAMLで`Deployment`を開始した場合と同じです。
 
 ```yaml
 apiVersion: apps/v1
