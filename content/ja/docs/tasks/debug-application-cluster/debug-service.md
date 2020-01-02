@@ -33,7 +33,7 @@ can run anywhere you have `kubectl` and credentials for the cluster.  To make it
 clear what is expected, this document will use the following conventions.
 -->
 このドキュメントのあらゆる場所で、実行可能な様々なコマンドが示されます。
-`Pod`内で実行する必要があるコマンドもあれば、Kubernetesの`Node`上で実行する必要があるコマンドや、
+中には`Pod`内で実行する必要があるコマンドもあれば、Kubernetesの`ノード`上で実行する必要があるコマンドや、
 `kubectl`とクラスターの認証情報がある場所であればどこでも実行できるコマンドもあります。
 期待される内容を明確にするために、このドキュメントでは次の規則を使用します。
 
