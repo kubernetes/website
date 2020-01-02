@@ -266,7 +266,7 @@ Self-healing | 자가 치유 |
 Service | 서비스 | 
 Service Account | 서비스 어카운트 | 
 service discovery | 서비스 디스커버리 | 
-service mesh | 서비스 메쉬 |
+service mesh | 서비스 메시 |
 Session | 세션 | 
 Session Affinity | 세션 어피니티(Affinity) |
 Setting | 세팅 | 
