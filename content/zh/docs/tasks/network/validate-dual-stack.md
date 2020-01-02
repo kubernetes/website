@@ -92,13 +92,58 @@ InternalIP: 2001:1234:5678:9abc::5
 <!--
 Validate that a Pod has an IPv4 and IPv6 address assigned. (replace the Pod name with a valid Pod in your cluster. In this example the Pod name is pod01)
 -->
-验证 Pod 已分配了 IPv4 和 IPv6 地址。（用集群中的有效 Pod 替换 Pod 名称。在此示例中， Pod 名称为pod01）
+验证 Pod 已分配了 IPv4 和 IPv6 地址。（用集群中的有效 Pod 替换 Pod 名称。在此示例中， Pod 名称为 pod01）
 ```shell
 kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
 ```
 ```
 10.244.1.4
 a00:100::4
+```
+
+<!--
+You can also validate Pod IPs using the Downward API via the `status.podIPs` fieldPath. The following snippet demonstrates how you can expose the Pod IPs via an environment variable called `MY_POD_IPS` within a container.
+-->
+您也可以通过 `status.podIPs` 使用 Downward API 验证 Pod IP。以下代码段演示了如何通过容器内称为 `MY_POD_IPS` 的环境变量公开 Pod 的 IP 地址。
+
+```
+        env:
+        - name: MY_POD_IPS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIPs
+```
+
+<!--
+The following command prints the value of the `MY_POD_IPS` environment variable from within a container. The value is a comma separated list that corresponds to the Pod's IPv4 and IPv6 addresses.
+-->
+使用以下命令打印出容器内部 `MY_POD_IPS` 环境变量的值。该值是一个逗号分隔的列表，与 Pod 的 IPv4 和 IPv6 地址相对应。
+
+```shell
+kubectl exec -it pod01 -- set | grep MY_POD_IPS
+```
+```
+MY_POD_IPS=10.244.1.4,a00:100::4
+```
+
+<!--
+The Pod's IP addresses will also be written to `/etc/hosts` within a container. The following command executes a cat on `/etc/hosts` on a dual stack Pod. From the output you can verify both the IPv4 and IPv6 IP address for the Pod.
+-->
+Pod 的 IP 地址也将被写入容器内的 `/etc/hosts` 文件中。在双栈 Pod 上执行 cat `/etc/hosts` 命令操作。从输出结果中，您可以验证 Pod 的 IPv4 和 IPv6 地址。
+
+```shell
+kubectl exec -it pod01 -- cat /etc/hosts
+```
+```
+# Kubernetes-managed hosts file.
+127.0.0.1    localhost
+::1    localhost ip6-localhost ip6-loopback
+fe00::0    ip6-localnet
+fe00::0    ip6-mcastprefix
+fe00::1    ip6-allnodes
+fe00::2    ip6-allrouters
+10.244.1.4    pod01
+a00:100::4    pod01
 ```
 
 <!--
