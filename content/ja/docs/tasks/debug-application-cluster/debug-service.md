@@ -819,7 +819,7 @@ If this fails and you are using the userspace proxy, you can try accessing the
 proxy directly.  If you are using the iptables proxy, skip this section.
 -->
 もしこれが失敗し、あなたがUserspaceプロキシを使用している場合、プロキシへの直接アクセスを試してみてください。
-もしIptablesプロキシを使用している場合、このセクションはスキップしてください。
+もしiptablesプロキシーを使用している場合、このセクションはスキップしてください。
 
 <!--
 Look back at the `iptables-save` output above, and extract the
