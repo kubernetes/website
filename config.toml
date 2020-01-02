@@ -288,7 +288,7 @@ language_alternatives = ["en"]
 
 [languages.pl]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Produkcyjny system zarządzania kontenerami"
 languageName = "Polski"
 weight = 13
 contentDir = "content/pl"
