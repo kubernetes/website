@@ -195,6 +195,9 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 
 # List Events sorted by timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# List pods that use a specific Secret
+kubectl get pods -o json | jq -r '.items[] | select(.spec.containers[].env[]?.valueFrom.secretKeyRef.name == "secret-name").metadata.name'
 ```
 
 ## Updating Resources
