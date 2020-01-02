@@ -1,5 +1,5 @@
 ---
-title: Managing Compute Resources for Containers
+title: Managing Resources for Containers
 content_template: templates/concept
 weight: 20
 feature:
@@ -10,18 +10,42 @@ feature:
 
 {{% capture overview %}}
 
-When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
-much CPU and memory (RAM) each Container needs. When Containers have resource
-requests specified, the scheduler can make better decisions about which nodes to
-place Pods on. And when Containers have their limits specified, contention for
-resources on a node can be handled in a specified manner. For more details about
-the difference between requests and limits, see
-[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how
+much of each resource a {{< glossary_tooltip text="Container" term_id="container" >}} needs.
+The most common resources to specify are CPU and memory (RAM); there are others.
+
+When you specify the resource _request_ for Containers in a Pod, the scheduler uses this
+information to decide which node to place the Pod on. When you specify a resource _limit_
+for a Container, the kubelet enforces those limits so that the running container is not
+allowed to use more of that resource than the limit you set. The kubelet also reserves
+at least the _request_ amount of that system resource specifically for that container
+to use.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
+
+## Requests and limits
+
+If the node where a Pod is running has enough of a resource available, it's possible (and
+allowed) for a container to use more resource than its `request` for that resource specifies.
+However, a container is not allowed to use more than its resource `limit`.
+
+For example, if you set a `memory` request of 256 MiB for a container, and that container is in
+a Pod scheduled to a Node with 8GiB of memory and no other Pods, then the container can try to use
+more RAM.
+
+If you set a `memory` limit of 4GiB for that Container, the kubelet (and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) enforce the limit.
+The runtime prevents the container from using more than the configured resource limit. For example:
+when a process in the container tries to consume more than the allowed amount of memory,
+the system kernel terminates the process that attempted the allocation, with an out of memory
+(OOM) error.
+
+Limits can be implemented either reactively (the system intervenes once it sees a violation)
+or by enforcement (the system prevents the container from ever exceeding the limit). Different
+runtimes can have different ways to implement the same restrictions.
 
 ## Resource types
 
@@ -72,7 +96,7 @@ One cpu, in Kubernetes, is equivalent to **1 vCPU/Core** for cloud providers and
 
 Fractional requests are allowed. A Container with
 `spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
-CPU as one that asks for 1 CPU.  The expression `0.1` is equivalent to the
+CPU as one that asks for 1 CPU. The expression `0.1` is equivalent to the
 expression `100m`, which can be read as "one hundred millicpu". Some people say
 "one hundred millicores", and this is understood to mean the same thing. A
 request with a decimal point, like `0.1`, is converted to `100m` by the API, and
@@ -330,18 +354,97 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
 
 ## Local ephemeral storage
-{{< feature-state state="beta" >}}
 
-Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by Pods via emptyDir volumes, container logs, image layers and container writable layers.
+<!-- feature gate LocalStorageCapacityIsolation -->
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
-This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
+Nodes have local ephemeral storage, backed by
+locally-attached writeable devices or, sometimes, by RAM.
+"Ephemeral" means that there is no long-term guarantee about durability.
+
+Pods use ephemeral local storage for scratch space, caching, and for logs.
+The kubelet can provide scratch space to Pods using local ephemeral storage to
+mount [`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir)
+ {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
+
+The kubelet also uses this kind of storage to hold
+[node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
+container images, and the writable layers of running containers.
+
+{{< caution >}}
+If a node fails, the data in its ephemeral storage can be lost.  
+Your applications cannot expect any performance SLAs (disk IOPS for example)
+from local ephemeral storage.
+{{< /caution >}}
+
+As a beta feature, Kubernetes lets you track, reserve and limit the amount
+of ephemeral local storage a Pod can consume.
+
+### Configurations for local ephemeral storage
+
+Kubernetes supports two ways to configure local ephemeral storage on a node:
+{{< tabs name="local_storage_configurations" >}}
+{{% tab name="Single filesystem" %}}
+In this configuration, you place all different kinds of ephemeral local data
+(`emptyDir` volumes, writeable layers, container images, logs) into one filesystem.
+The most effective way to configure the kubelet means dedicating this filesystem
+to Kubernetes (kubelet) data.
+
+The kubelet also writes
+[node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
+and treats these similarly to ephemeral local storage.
+
+The kubelet writes logs to files inside its configured log directory (`/var/log`
+by default); and has a base directory for other locally stored data
+(`/var/lib/kubelet` by default).
+
+Typically, both `/var/lib/kubelet` and `/var/log` are on the system root filesystem,
+and the kubelet is designed with that layout in mind.
+
+Your node can have as many other filesystems, not used for Kubernetes,
+as you like.
+{{% /tab %}}
+{{% tab name="Two filesystems" %}}
+You have a filesystem on the node that you're using for ephemeral data that
+comes from running Pods: logs, and `emptyDir` volumes. You can use this filesystem
+for other data (for example: system logs not related to Kubernetes); it can even
+be the root filesystem.
+
+The kubelet also writes
+[node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
+into the first filesystem, and treats these similarly to ephemeral local storage.
+
+You also use a separate filesystem, backed by a different logical storage device.
+In this configuration, the directory where you tell the kubelet to place
+container image layers and writeable layers is on this second filesystem.
+
+The first filesystem does not hold any image layers or writeable layers.
+
+Your node can have as many other filesystems, not used for Kubernetes,
+as you like.
+{{% /tab %}}
+{{< /tabs >}}
+
+The kubelet can measure how much local storage it is using. It does this provided
+that:
+
+- the `LocalStorageCapacityIsolation`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled (the feature is on by default), and
+- you have set up the node using one of the supported configurations
+  for local ephemeral storage.
+
+If you have a different configuration, then the kubelet does not apply resource
+limits for ephemeral local storage.
 
 {{< note >}}
-If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
+The kubelet tracks `tmpfs` emptyDir volumes as container memory use, rather
+than as local ephemeral storage.
 {{< /note >}}
 
-### Requests and limits setting for local ephemeral storage
-Each Container of a Pod can specify one or more of the following:
+### Setting requests and limits for local ephemeral storage
+
+You can use _ephemeral-storage_ for managing local ephemeral storage. Each Container of a Pod can specify one or more of the following:
 
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
@@ -355,7 +458,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 128974848, 129e6, 129M, 123Mi
 ```
 
-For example, the following Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+In the following example, the Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
 
 ```yaml
 apiVersion: v1
@@ -390,73 +493,109 @@ run on. Each node has a maximum amount of local ephemeral storage it can provide
 
 The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 
-### How Pods with ephemeral-storage limits run
+### Ephemeral storage consumption management {#resource-emphemeralstorage-consumption}
 
-For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the Pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the Pod's emptyDir volumes exceeds the limit, the Pod will be evicted.
+If the kubelet is managing local ephemeral storage as a resource, then the
+kubelet measures storage use in:
 
-### Monitoring ephemeral-storage consumption
+- `emptyDir` volumes, except _tmpfs_ `emptyDir` volumes
+- directories holding node-level logs
+- writeable container layers
 
-When local ephemeral storage is used, it is monitored on an ongoing
-basis by the kubelet.  The monitoring is performed by scanning each
-emptyDir volume, log directories, and writable layers on a periodic
-basis.  Starting with Kubernetes 1.15, emptyDir volumes (but not log
-directories or writable layers) may, at the cluster operator's option,
-be managed by use of [project
-quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html).
-Project quotas were originally implemented in XFS, and have more
-recently been ported to ext4fs.  Project quotas can be used for both
-monitoring and enforcement; as of Kubernetes 1.16, they are available
-as alpha functionality for monitoring only.
+If a Pod is using more ephemeral storage than you allow it to, the kubelet
+sets an eviction signal that triggers Pod eviction.
 
-Quotas are faster and more accurate than directory scanning.  When a
+For container-level isolation, if a Container's writable layer and log
+usage exceeds its storage limit, the kubelet marks the Pod for eviction.
+
+For pod-level isolation the kubelet works out an overall Pod storage limit by
+summing the limits for the containers in that Pod. In this case, if the sum of
+the local ephemeral storage usage from all containers and also the Pod's `emptyDir`
+volumes exceeds the overall Pod storage limit, then the kubelet also marks the Pod
+for eviction.
+
+{{< caution >}}
+If the kubelet is not measuring local ephemeral storage, then a Pod
+that exceeds its local storage limit will not be evicted for breaching
+local storage resource limits.
+
+However, if the filesystem space for writeable container layers, node-level logs,
+or `emptyDir` volumes falls low, the node
+{{< glossary_tooltip text="taints" term_id="taint" >}} itself as short on local storage
+and this taint triggers eviction for any Pods that don't specifically tolerate the taint.
+
+See the supported [configurations](#configurations-for-local-ephemeral-storage)
+for ephemeral local storage.
+{{< /caution >}}
+
+The kubelet supports different ways to measure Pod storage use:
+
+{{< tabs name="resource-emphemeralstorage-measurement" >}}
+{{% tab name="Periodic scanning" %}}
+The kubelet performs regular, schedules checks that scan each
+`emptyDir` volume, container log directory, and writeable container layer.
+
+The scan measures how much space is used.
+
+{{< note >}}
+In this mode, the kubelet does not track open file descriptors
+for deleted files.
+
+If you (or a container) create a file inside an `emptyDir` volume,
+something then opens that file, and you delete the file while it is
+still open, then the inode for the deleted file stays until you close
+that file but the kubelet does not categorize the space as in use.
+{{< /note >}}
+{{% /tab %}}
+{{% tab name="Filesystem project quota" %}}
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+Project quotas are an operating-system level feature for managing
+storage use on filesystems. With Kubernetes, you can enable project
+quotas for monitoring storage use. Make sure that the filesystem
+backing the `emptyDir` volumes, on the node, provides project quota support.
+For example, XFS and ext4fs offer project quotas.
+
+{{< note >}}
+Project quotas let you monitor storage use; they do not enforce limits.
+{{< /note >}}
+
+Kubernetes uses project IDs starting from `1048576`. The IDs in use are
+registered in `/etc/projects` and `/etc/projid`. If project IDs in
+this range are used for other purposes on the system, those project
+IDs must be registered in `/etc/projects` and `/etc/projid` so that
+Kubernetes does not use them.
+
+Quotas are faster and more accurate than directory scanning. When a
 directory is assigned to a project, all files created under a
 directory are created in that project, and the kernel merely has to
-keep track of how many blocks are in use by files in that project.  If
-a file is created and deleted, but with an open file descriptor, it
-continues to consume space.  This space will be tracked by the quota,
-but will not be seen by a directory scan.
+keep track of how many blocks are in use by files in that project.  
+If a file is created and deleted, but has an open file descriptor,
+it continues to consume space. Quota tracking records that space accurately
+whereas directory scans overlook the storage used by deleted files.
 
-Kubernetes uses project IDs starting from 1048576.  The IDs in use are
-registered in `/etc/projects` and `/etc/projid`.  If project IDs in
-this range are used for other purposes on the system, those project
-IDs must be registered in `/etc/projects` and `/etc/projid` to prevent
-Kubernetes from using them.
-
-To enable use of project quotas, the cluster operator must do the
-following:
+If you want to use project quotas, you should:
 
 * Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
-  feature gate in the kubelet configuration.  This defaults to `false`
-  in Kubernetes 1.16, so must be explicitly set to `true`.
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in the kubelet configuration.
 
-* Ensure that the root partition (or optional runtime partition) is
-  built with project quotas enabled.  All XFS filesystems support
-  project quotas, but ext4 filesystems must be built specially.
+* Ensure that the the root fileystem (or optional runtime filesystem)
+  has project quotas enabled. All XFS filesystems support project quotas.
+  For ext4 filesystems, you need to enable the project quota tracking feature
+  while the filesystem is not mounted.
+  ```bash
+  # For ext4, with /dev/block-device not mounted
+  sudo tune2fs -O project -Q prjquota /dev/block-device
+  ```
 
-* Ensure that the root partition (or optional runtime partition) is
-  mounted with project quotas enabled.
+* Ensure that the root filesystem (or optional runtime filesystem is
+  mounted with project quotas enabled. For both XFS and ext4fs, the
+  mount option is named `prjquota`.
 
-#### Building and mounting filesystems with project quotas enabled
-
-XFS filesystems require no special action when building; they are
-automatically built with project quotas enabled.
-
-Ext4fs filesystems must be built with quotas enabled, then they must
-be enabled in the filesystem:
-
-```
-% sudo mkfs.ext4 other_ext4fs_args... -E quotatype=prjquota /dev/block_device
-% sudo tune2fs -O project -Q prjquota /dev/block_device
-
-```
-
-To mount the filesystem, both ext4fs and XFS require the `prjquota`
-option set in `/etc/fstab`:
-
-```
-/dev/block_device	/var/kubernetes_data	defaults,prjquota	0	0
-```
-
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Extended resources
 
@@ -611,5 +750,7 @@ spec:
 * [Container API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
+
+* Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
 
 {{% /capture %}}
