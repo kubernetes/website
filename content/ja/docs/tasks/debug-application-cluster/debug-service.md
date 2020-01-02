@@ -179,7 +179,7 @@ The astute reader will have noticed that we did not actually create a `Service`
 yet - that is intentional.  This is a step that sometimes gets forgotten, and
 is the first thing to check.
 -->
-賢明な読者は、`Service`をまだ実際に作成していないことに気付くでしょう。これは意図的です。
+賢明な読者は、`Service`をまだ実際に作成していないことにお気付きかと思いますが、これは意図的です。
 これは時々忘れられるステップであり、最初に確認すべきことです。
 
 <!--
