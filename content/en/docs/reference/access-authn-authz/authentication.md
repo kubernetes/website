@@ -120,7 +120,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 
 ### Bootstrap Tokens
 
-This feature is currently in **beta**.
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 To allow for streamlined bootstrapping for new clusters, Kubernetes includes a
 dynamically-managed Bearer token type called a *Bootstrap Token*. These tokens

@@ -117,7 +117,7 @@ While any authentication strategy can be used for the kubelet's initial
 bootstrap credentials, the following two authenticators are recommended for ease
 of provisioning.
 
-1. [Bootstrap Tokens](#bootstrap-tokens) - __beta__
+1. [Bootstrap Tokens](#bootstrap-tokens)
 2. [Token authentication file](#token-authentication-file)
 
 Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver. 
