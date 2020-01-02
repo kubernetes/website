@@ -77,6 +77,8 @@ workloads, et plus encore.
 
 * [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offre des clusters Kubernetes managés.
 
+* [Hidora](https://hidora.com/) propose une plate-forme de cloud public basée sur Jelastic avec la possibilité de créer des clusters de développement ou de production de Kubernetes. Hidora propose également du Docker as a Service et du Platforme as a Service basée sur Jelastic en Suisse.
+
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index) offre des clusters Kubernetes managés
  avec choix d'isolation, des outils opérationnels, une vision intégrée de la sécurité des images et des conteneurs et une intégration avec Watson, IoT et les données.
 
