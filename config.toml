@@ -270,7 +270,7 @@ language_alternatives = ["en"]
 [languages.vi]
 title = "Kubernetes"
 description = "Giải pháp điều phối container trong môi trường production"
-languageName = "Vietnamese"
+languageName = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 12
 
