@@ -233,7 +233,7 @@ hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 <!--
 As before, this is the same as if you had started the `Service` with YAML:
 -->
-前と同様に、これは次の様なYAMLで`Service`を開始した場合と同じです。
+前と同様に、これは次のようなYAMLで`Service`を開始した場合と同じです。
 
 ```yaml
 apiVersion: v1
