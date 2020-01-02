@@ -928,7 +928,7 @@ for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; don
 has the permission to manipulate linux bridge on node. If cbr0` bridge is
 used and configured properly, you should see:
 -->
-実際に使われている`hairpin-mode`が`promiscuous-bridge`の場合、`Kubelet`にNode上のLinuxブリッジを操作する権限があることを確認してください。
+実際に使われている`hairpin-mode`が`promiscuous-bridge`の場合、`Kubelet`にノード上のLinuxブリッジを操作する権限があることを確認してください。
 `cbr0`ブリッジが使用され適切に構成されている場合、以下が表示されます。
 
 ```shell
