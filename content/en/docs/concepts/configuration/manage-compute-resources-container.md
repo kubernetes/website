@@ -50,7 +50,8 @@ runtimes can have different ways to implement the same restrictions.
 ## Resource types
 
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
-CPU is specified in units of cores, and memory is specified in units of bytes.
+CPU represents compute processing and is specified in units of [Kubernetes CPUs](#meaning-of-cpu).
+Memory is specified in units of bytes.
 If you're using Kubernetes v1.14 or newer, you can specify _huge page_ resources.
 Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
 that are much larger than the default page size.
@@ -88,8 +89,9 @@ is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
 resource requests/limits of that type for each Container in the Pod.
 
+## Resource units in Kubernetes
 
-## Meaning of CPU
+### Meaning of CPU
 
 Limits and requests for CPU resources are measured in *cpu* units.
 One cpu, in Kubernetes, is equivalent to **1 vCPU/Core** for cloud providers and **1 hyperthread** on bare-metal Intel processors.
@@ -106,7 +108,7 @@ be preferred.
 CPU is always requested as an absolute quantity, never as a relative quantity;
 0.1 is the same amount of CPU on a single-core, dual-core, or 48-core machine.
 
-## Meaning of memory
+### Meaning of memory
 
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point integer using one of these suffixes:
