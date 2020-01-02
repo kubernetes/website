@@ -423,7 +423,7 @@ Assuming we can confirm that DNS works, the next thing to test is whether your
 IP (from `kubectl get` above).
 -->
 DNSが機能することを確認できると仮定すると、次にテストするのは`Service`が機能しているかどうかです。
-上述の`kubectl get`で確認できる`Service`のIPに、クラスター内のNodeからアクセスします。
+上述の`kubectl get`で確認できる`Service`のIPに、クラスター内のノードからアクセスします。
 
 ```shell
 u@node$ curl 10.0.1.175:80
