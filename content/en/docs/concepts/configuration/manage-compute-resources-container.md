@@ -10,18 +10,39 @@ feature:
 
 {{% capture overview %}}
 
-When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
-much CPU and memory (RAM) each Container needs. When Containers have resource
-requests specified, the scheduler can make better decisions about which nodes to
-place Pods on. And when Containers have their limits specified, contention for
-resources on a node can be handled in a specified manner. For more details about
-the difference between requests and limits, see
-[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how
+much resources each {{< glossary_tooltip text="Container" term_id="container" >}} needs.
+The most common resources you specify are CPU and memory (RAM), and there are others you might
+use as well.
+
+When you specify the resource _request_ for Containers, the scheduler can make better decisions
+about which nodes to place Pods on. And when you specify _limits_ for Containers, that lets
+the kubelet on a node manage contention for those resources.
+
+
 
 {{% /capture %}}
 
 
 {{% capture body %}}
+
+## Requests and limits
+
+A Container can exceed its resource request if the Node has enough of that resource available.
+But a Container is not allowed to use more than its resource limit limit.
+
+For example, if you set a request of 256 MiB for a container, and that Container is in a Pod
+scheduled to a Node with 8GiB of memory and no other Pods, then the Container can try to use
+more RAM.
+
+If you set a memory limit of 4GiB for that Container, the kubelet (and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) enforce the limit.
+The runtime prevents the container from using more than the configured resource limit; typically,
+in this case, the system kernel terminates the process in the container with an OOM (out of memory)
+error.
+
+Limits can be enforced either by policing (the system intervenes when it sees a violation) or by
+prevention (the system prevents the container from ever exceeding the limit).
 
 ## Resource types
 
