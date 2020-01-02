@@ -655,7 +655,7 @@ suspect.  Let's confirm it, piece by piece.
 Confirm that `kube-proxy` is running on your `Nodes`.  You should get something
 like the below:
 -->
-`kube-proxy`が`Nodes`上で実行されていることを確認しましょう。
+`kube-proxy`が`Node`上で実行されていることを確認しましょう。
 以下のような結果が得られるはずです。
 
 ```shell
