@@ -69,7 +69,10 @@ kubeadm upgrade node [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--etcd-upgrade</td>
+      <!-- 
+      <td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+      -->
+      <td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: true</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -105,7 +108,10 @@ kubeadm upgrade node [flags]
     </tr>
 
     <tr>
+      <!-- 
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+      -->
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -170,16 +176,4 @@ kubeadm upgrade node [flags]
 
   </tbody>
 </table>
-
-<!--
-SEE ALSO
-
-* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
-* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - Use this command to invoke single phase of the node workflow
--->
-
-查看其他
-
-* [kubeadm upgrade](kubeadm_upgrade.md)	 - 使用此命令将集群平滑升级到新版本
-* [kubeadm upgrade node phase](kubeadm_upgrade_node_phase.md)	 - 使用此命令来调用 node 升级流程的某个阶段
 
