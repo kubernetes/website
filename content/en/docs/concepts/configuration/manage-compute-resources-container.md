@@ -187,7 +187,7 @@ To determine whether a Container cannot be scheduled or is being killed due to
 resource limits, see the
 [Troubleshooting](#troubleshooting) section.
 
-## Monitoring compute resource usage
+### Monitoring compute & memory resource usage
 
 The resource usage of a Pod is reported as part of the Pod status.
 
