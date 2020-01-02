@@ -818,7 +818,7 @@ hostnames-0uton
 If this fails and you are using the userspace proxy, you can try accessing the
 proxy directly.  If you are using the iptables proxy, skip this section.
 -->
-もしこれが失敗し、あなたがUserspaceプロキシを使用している場合、プロキシへの直接アクセスを試してみてください。
+もしこれが失敗し、あなたがuserspaceプロキシーを使用している場合、プロキシーへの直接アクセスを試してみてください。
 もしiptablesプロキシーを使用している場合、このセクションはスキップしてください。
 
 <!--
