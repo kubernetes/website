@@ -13,7 +13,7 @@ This document will hopefully help you to figure out what's going wrong.
 -->
 新規にKubernetesをインストールした環境でかなり頻繁に発生する問題は、`Service`が適切に機能しないというものです。
 `Deployment`を実行して`Service`を作成したにもかかわらず、アクセスしようとしても応答がありません。
-このドキュメントは、何が問題なのかを理解するのに役立ちます。
+何が問題になっているのかを理解するのに、このドキュメントがきっと役立つでしょう。
 
 
 {{% /capture %}}
@@ -32,9 +32,8 @@ commands need to be run within a `Pod`, others on a Kubernetes `Node`, and other
 can run anywhere you have `kubectl` and credentials for the cluster.  To make it
 clear what is expected, this document will use the following conventions.
 -->
-このドキュメントのあらゆる場所で、実行可能な様々なコマンドが示されます。
-中には`Pod`内で実行する必要があるコマンドもあれば、Kubernetesの`ノード`上で実行する必要があるコマンドや、
-`kubectl`とクラスターの認証情報がある場所であればどこでも実行できるコマンドもあります。
+このドキュメントでは全体を通して、実行可能なさまざまなコマンドが示されます。
+中には`Pod`内で実行する必要があるコマンドもあれば、Kubernetesの`ノード`上で実行する必要があるコマンドや、`kubectl`とクラスターの認証情報がある場所であればどこでも実行できるコマンドもあります。
 期待される内容を明確にするために、このドキュメントでは次の規則を使用します。
 
 <!--
@@ -111,8 +110,7 @@ probably debugging your own `Service` you can substitute your own details, or yo
 can follow along and get a second data point.
 -->
 このウォークスルーの目的のために、いくつかの`Pod`を実行しましょう。
-おそらくあなた自身の`Service`をデバッグしているので、あなた自身の詳細に置き換えることもできますし、
-これに沿って2番目のデータポイントを取得することもできます。
+おそらくあなた自身の`Service`をデバッグしているので、あなた自身の詳細に置き換えることもできますし、これに沿って2番目のデータポイントを取得することもできます。
 
 ```shell
 kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
@@ -179,8 +177,7 @@ The astute reader will have noticed that we did not actually create a `Service`
 yet - that is intentional.  This is a step that sometimes gets forgotten, and
 is the first thing to check.
 -->
-賢明な読者は、`Service`をまだ実際に作成していないことにお気付きかと思いますが、これは意図的です。
-これは時々忘れられるステップであり、最初に確認すべきことです。
+賢明な読者は、`Service`をまだ実際に作成していないことにお気付きかと思いますが、これは意図的です。これは時々忘れられるステップであり、最初に確認すべきことです。
 
 <!--
 So what would happen if I tried to access a non-existent `Service`?  Assuming you
@@ -366,9 +363,7 @@ assume that is "cluster.local" in this document, but yours might be different,
 in which case you should change that in all of the commands above.
 -->
 `search`行には、`Service`名を見つけるための適切なサフィックスを含める必要があります。
-この場合、ローカルの`Namespace`で`Service`を見つけるためのサフィックス(`default.svc.cluster.local`)、
-すべての`Namespaces`で`Service`を見つけるためのサフィックス(`svc.cluster.local`)、
-およびクラスターのサフィックス(`cluster.local`)です。
+この場合、ローカルの`Namespace`で`Service`を見つけるためのサフィックス(`default.svc.cluster.local`)、すべての`Namespaces`で`Service`を見つけるためのサフィックス(`svc.cluster.local`)、およびクラスターのサフィックス(`cluster.local`)です。
 インストール方法によっては、その後に追加のレコードがある場合があります(合計6つまで)。
 クラスターのサフィックスは、`--cluster-domain`フラグを使用して`kubelet`に渡されます。
 このドキュメントではそれが"cluster.local"であると仮定していますが、あなたのクラスターでは異なる場合があります。
@@ -408,9 +403,7 @@ If this fails, you might need to go to the kube-proxy section of this doc, or
 even go back to the top of this document and start over, but instead of
 debugging your own `Service`, debug DNS.
 -->
-これが失敗した場合、このドキュメントのkube-proxyセクションに移動するか、
-あるいは、このドキュメントの先頭に戻って最初からやり直し、
-あなた自身の`Service`をデバッグする代わりにDNSをデバッグする必要があるかもしれません。
+これが失敗した場合、このドキュメントのkube-proxyセクションに移動するか、あるいは、このドキュメントの先頭に戻って最初からやり直し、あなた自身の`Service`をデバッグする代わりにDNSをデバッグする必要があるかもしれません。
 
 <!--
 ## Does the Service work by IP?
@@ -775,8 +768,7 @@ There should be 1 rule in `KUBE-SERVICES`, 1 or 2 rules per endpoint in
 per endpoint, and a few rules in each `KUBE-SEP-(hash)` chain.  The exact rules
 will vary based on your exact config (including node-ports and load-balancers).
 -->
-`KUBE-SERVICES`に1つのルールがあり、`KUBE-SVC-(hash)`のエンドポイント毎に1つまたは2つのルールがあり(`SessionAffinity`に依存)、
-エンドポイント毎に1つの`KUBE-SEP-(hash)`チェーンがあり、 そしてそれぞれの`KUBE-SEP-(hash)`チェーンにはいくつかのルールがあるはずです。
+`KUBE-SERVICES`に1つのルールがあり、`KUBE-SVC-(hash)`のエンドポイント毎に1つまたは2つのルールがあり(`SessionAffinity`に依存)、エンドポイント毎に1つの`KUBE-SEP-(hash)`チェーンがあり、 そしてそれぞれの`KUBE-SEP-(hash)`チェーンにはいくつかのルールがあるはずです。
 正確なルールは、あなたの正確な構成(NodePortとLoadBalancerを含む)によって異なります。
 
 #### IPVS
