@@ -912,7 +912,7 @@ I0629 00:51:43.648698    3252 kubelet.go:380] Hairpin mode set to "promiscuous-b
 the permission to operate in `/sys` on node. If everything works properly,
 you should see something like:
 -->
-* 実際に使われている`hairpin-mode`が`hairpin-veth`の場合、`Kubelet`にNodeの`/sys`で操作する権限があることを確認します。
+* 実際に使われている`hairpin-mode`が`hairpin-veth`の場合、`Kubelet`にノードの`/sys`で操作する権限があることを確認します。
 すべてが正常に機能している場合、次のようなものが表示されます。
 
 ```shell
