@@ -652,9 +652,12 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 
 * Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* [Container API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* For more details about the difference between requests and limits, see
+  [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
-* [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
+* Read the [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API reference
+
+* Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
 
 * Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
 
