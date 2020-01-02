@@ -195,145 +195,6 @@ If [optional monitoring](http://releases.k8s.io/{{< param "githubbranch" >}}/clu
 is configured for your cluster, then Pod resource usage can be retrieved from
 the monitoring system.
 
-## Troubleshooting
-
-### My Pods are pending with event message failedScheduling
-
-If the scheduler cannot find any node where a Pod can fit, the Pod remains
-unscheduled until a place can be found. An event is produced each time the
-scheduler fails to find a place for the Pod, like this:
-
-```shell
-kubectl describe pod frontend | grep -A 3 Events
-```
-```
-Events:
-  FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
-  36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
-```
-
-In the preceding example, the Pod named "frontend" fails to be scheduled due to
-insufficient CPU resource on the node. Similar error messages can also suggest
-failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
-is pending with a message of this type, there are several things to try:
-
-- Add more nodes to the cluster.
-- Terminate unneeded Pods to make room for pending Pods.
-- Check that the Pod is not larger than all the nodes. For example, if all the
-  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
-  never be scheduled.
-
-You can check node capacities and amounts allocated with the
-`kubectl describe nodes` command. For example:
-
-```shell
-kubectl describe nodes e2e-test-node-pool-4lw4
-```
-```
-Name:            e2e-test-node-pool-4lw4
-[ ... lines removed for clarity ...]
-Capacity:
- cpu:                               2
- memory:                            7679792Ki
- pods:                              110
-Allocatable:
- cpu:                               1800m
- memory:                            7474992Ki
- pods:                              110
-[ ... lines removed for clarity ...]
-Non-terminated Pods:        (5 in total)
-  Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
-  ---------    ----                                  ------------  ----------  ---------------  -------------
-  kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
-  kube-system  kube-dns-3297075139-61lj3             260m (13%)    0 (0%)      100Mi (1%)       170Mi (2%)
-  kube-system  kube-proxy-e2e-test-...               100m (5%)     0 (0%)      0 (0%)           0 (0%)
-  kube-system  monitoring-influxdb-grafana-v4-z1m12  200m (10%)    200m (10%)  600Mi (8%)       600Mi (8%)
-  kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
-Allocated resources:
-  (Total limits may be over 100 percent, i.e., overcommitted.)
-  CPU Requests    CPU Limits    Memory Requests    Memory Limits
-  ------------    ----------    ---------------    -------------
-  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
-```
-
-In the preceding output, you can see that if a Pod requests more than 1120m
-CPUs or 6.23Gi of memory, it will not fit on the node.
-
-By looking at the `Pods` section, you can see which Pods are taking up space on
-the node.
-
-The amount of resources available to Pods is less than the node capacity, because
-system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
-gives the amount of resources that are available to Pods. For more information, see
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
-
-The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
-to limit the total amount of resources that can be consumed. If used in conjunction
-with namespaces, it can prevent one team from hogging all the resources.
-
-### My Container is terminated
-
-Your Container might get terminated because it is resource-starved. To check
-whether a Container is being killed because it is hitting a resource limit, call
-`kubectl describe pod` on the Pod of interest:
-
-```shell
-kubectl describe pod simmemleak-hra99
-```
-```
-Name:                           simmemleak-hra99
-Namespace:                      default
-Image(s):                       saadali/simmemleak
-Node:                           kubernetes-node-tf0f/10.240.216.66
-Labels:                         name=simmemleak
-Status:                         Running
-Reason:
-Message:
-IP:                             10.244.2.75
-Replication Controllers:        simmemleak (1/1 replicas created)
-Containers:
-  simmemleak:
-    Image:  saadali/simmemleak
-    Limits:
-      cpu:                      100m
-      memory:                   50Mi
-    State:                      Running
-      Started:                  Tue, 07 Jul 2015 12:54:41 -0700
-    Last Termination State:     Terminated
-      Exit Code:                1
-      Started:                  Fri, 07 Jul 2015 12:54:30 -0700
-      Finished:                 Fri, 07 Jul 2015 12:54:33 -0700
-    Ready:                      False
-    Restart Count:              5
-Conditions:
-  Type      Status
-  Ready     False
-Events:
-  FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
-```
-
-In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
-Container in the Pod was terminated and restarted five times.
-
-You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
-of previously terminated Containers:
-
-```shell
-kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
-```
-```
-Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
-```
-
-You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
-
 ## Local ephemeral storage
 
 <!-- feature gate LocalStorageCapacityIsolation -->
@@ -638,6 +499,145 @@ spec:
       limits:
         example.com/foo: 1
 ```
+
+## Troubleshooting
+
+### My Pods are pending with event message failedScheduling
+
+If the scheduler cannot find any node where a Pod can fit, the Pod remains
+unscheduled until a place can be found. An event is produced each time the
+scheduler fails to find a place for the Pod, like this:
+
+```shell
+kubectl describe pod frontend | grep -A 3 Events
+```
+```
+Events:
+  FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
+  36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
+```
+
+In the preceding example, the Pod named "frontend" fails to be scheduled due to
+insufficient CPU resource on the node. Similar error messages can also suggest
+failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
+is pending with a message of this type, there are several things to try:
+
+- Add more nodes to the cluster.
+- Terminate unneeded Pods to make room for pending Pods.
+- Check that the Pod is not larger than all the nodes. For example, if all the
+  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
+  never be scheduled.
+
+You can check node capacities and amounts allocated with the
+`kubectl describe nodes` command. For example:
+
+```shell
+kubectl describe nodes e2e-test-node-pool-4lw4
+```
+```
+Name:            e2e-test-node-pool-4lw4
+[ ... lines removed for clarity ...]
+Capacity:
+ cpu:                               2
+ memory:                            7679792Ki
+ pods:                              110
+Allocatable:
+ cpu:                               1800m
+ memory:                            7474992Ki
+ pods:                              110
+[ ... lines removed for clarity ...]
+Non-terminated Pods:        (5 in total)
+  Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
+  ---------    ----                                  ------------  ----------  ---------------  -------------
+  kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
+  kube-system  kube-dns-3297075139-61lj3             260m (13%)    0 (0%)      100Mi (1%)       170Mi (2%)
+  kube-system  kube-proxy-e2e-test-...               100m (5%)     0 (0%)      0 (0%)           0 (0%)
+  kube-system  monitoring-influxdb-grafana-v4-z1m12  200m (10%)    200m (10%)  600Mi (8%)       600Mi (8%)
+  kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  CPU Requests    CPU Limits    Memory Requests    Memory Limits
+  ------------    ----------    ---------------    -------------
+  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
+```
+
+In the preceding output, you can see that if a Pod requests more than 1120m
+CPUs or 6.23Gi of memory, it will not fit on the node.
+
+By looking at the `Pods` section, you can see which Pods are taking up space on
+the node.
+
+The amount of resources available to Pods is less than the node capacity, because
+system daemons use a portion of the available resources. The `allocatable` field
+[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
+gives the amount of resources that are available to Pods. For more information, see
+[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
+
+The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
+to limit the total amount of resources that can be consumed. If used in conjunction
+with namespaces, it can prevent one team from hogging all the resources.
+
+### My Container is terminated
+
+Your Container might get terminated because it is resource-starved. To check
+whether a Container is being killed because it is hitting a resource limit, call
+`kubectl describe pod` on the Pod of interest:
+
+```shell
+kubectl describe pod simmemleak-hra99
+```
+```
+Name:                           simmemleak-hra99
+Namespace:                      default
+Image(s):                       saadali/simmemleak
+Node:                           kubernetes-node-tf0f/10.240.216.66
+Labels:                         name=simmemleak
+Status:                         Running
+Reason:
+Message:
+IP:                             10.244.2.75
+Replication Controllers:        simmemleak (1/1 replicas created)
+Containers:
+  simmemleak:
+    Image:  saadali/simmemleak
+    Limits:
+      cpu:                      100m
+      memory:                   50Mi
+    State:                      Running
+      Started:                  Tue, 07 Jul 2015 12:54:41 -0700
+    Last Termination State:     Terminated
+      Exit Code:                1
+      Started:                  Fri, 07 Jul 2015 12:54:30 -0700
+      Finished:                 Fri, 07 Jul 2015 12:54:33 -0700
+    Ready:                      False
+    Restart Count:              5
+Conditions:
+  Type      Status
+  Ready     False
+Events:
+  FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
+```
+
+In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
+Container in the Pod was terminated and restarted five times.
+
+You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
+of previously terminated Containers:
+
+```shell
+kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
+```
+```
+Container Name: simmemleak
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
+```
+
+You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
 
 
 
