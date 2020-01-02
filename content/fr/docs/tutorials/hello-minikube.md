@@ -191,16 +191,16 @@ Minikube dispose d'un ensemble d'extensions intégrées qui peuvent être activ�
     storage-provisioner: enabled
     ```
 
-2. Activez une extension, par exemple, `heapster` :
+2. Activez une extension, par exemple, `metrics-server` :
 
     ```shell
-    minikube addons enable heapster
+    minikube addons enable metrics-server
     ```
 
     Sortie :
 
     ```shell
-    heapster was successfully enabled
+    metrics-server was successfully enabled
     ```
 
 3. Affichez le pod et le service que vous venez de créer :
@@ -213,7 +213,7 @@ Minikube dispose d'un ensemble d'extensions intégrées qui peuvent être activ�
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
-    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/metrics-server-6754dbc9df-q8zlg         1/1       Running   0          26s
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
     pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
@@ -221,23 +221,23 @@ Minikube dispose d'un ensemble d'extensions intégrées qui peuvent être activ�
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.94.175    <none>        443/TCP             26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
     service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Désactivez `heapster` :
+4. Désactivez `metrics-server` :
 
     ```shell
-    minikube addons disable heapster
+    minikube addons disable metrics-server
     ```
 
     Sortie :
 
     ```shell
-    heapster was successfully disabled
+    metrics-server was successfully disabled
     ```
 
 ## Nettoyage
