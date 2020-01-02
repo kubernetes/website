@@ -521,7 +521,7 @@ If you got this far, we assume that you have confirmed that your `Service`
 exists and is resolved by DNS.  Now let's check that the `Pods` you ran are
 actually being selected by the `Service`.
 -->
-ここまで来ということは、`Service`は存在し、DNSによって名前解決できることが確認できているでしょう。
+ここまで来たということは、`Service`は存在し、DNSによって名前解決できることが確認できているでしょう。
 ここでは、実行した`Pod`が`Service`によって実際に選択されていることを確認しましょう。
 
 <!--
