@@ -130,22 +130,24 @@ cascading | 캐스케이딩(cascading) |
 character set | 캐릭터 셋 |
 Charts | 차트 |
 checkpoint | 체크포인트 |
-CLI | CLI | 
-Cluster | 클러스터 | 
+CLI | CLI |
+Cluster | 클러스터 |
+cluster role | 클러스터 롤 | API 오브젝트를 설명하지 않는 한
+ClusterRole | ClusterRole (클러스터 롤) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 Command Line Tool | 커맨드라인 툴 |
-Config Map | 컨피그 맵 | 
+ConfigMap | ConfigMap(컨피그 맵) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 configuration | 구성, 설정 |
 Connection | 연결 | 
 containerized | 컨테이너화 된 |
 Context | 컨텍스트  | 
 Control Plane | 컨트롤 플레인 | 
 controller | 컨트롤러 |
-Cron Job | 크론 잡 | 
-custom metrics | 사용자 정의 메트릭 | 
+CronJob | CronJob(크론 잡) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+custom metrics | 사용자 정의 메트릭 |
 Custom resource | 사용자 정의 리소스 |
-CustomResourceDefinition | 커스텀 리소스 데피니션 | 
+CustomResourceDefinition | CustomResourceDefinition(커스텀 리소스 데피니션) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 Daemon | 데몬 |
-Daemon Set | 데몬 셋 |
+DaemonSet | DaemonSet(데몬 셋) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 Dashboard | 대시보드 | 
 Data Plane | 데이터 플레인 | 
 Default Limit | 기본 상한 | 
@@ -160,7 +162,8 @@ distros | 배포판 |
 Docker | 도커 |
 Dockerfile | Dockerfile | 
 Downward API | 다운워드(Downward) API |
-Endpoint | 엔드포인트 |
+endpoint | 엔드포인트 | API 오브젝트를 설명하지 않는 한
+Endpoint | Endpoint(엔드포인트) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 entry point | 진입점 | 
 Event | 이벤트 | 
 Exec | Exec |
@@ -179,7 +182,7 @@ Heapster | 힙스터(Heapster) |
 Heartbeat | 하트비트 |
 Homebrew | Homebrew | 
 hook | 훅(hook) | 
-Horizontal Pod Autoscaler | Horizontal Pod Autoscaler | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+HorizontalPodAutoscaler | HorizontalPodAutoscaler | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 hosted zone | 호스팅 영역 | 
 hostname | 호스트네임 |
 Huge page | Huge page |
@@ -187,16 +190,17 @@ Hypervisor | 하이퍼바이저 |
 idempotent | 멱등성 |
 Image | 이미지 | 
 Image Pull Secrets | 이미지 풀(Pull) 시크릿 | 
-Ingress | 인그레스 | 
+Ingress | Ingress(인그레스) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 Init Container | 초기화 컨테이너 | 
 Instance group | 인스턴스 그룹 |
 introspection | 인트로스펙션(introspection) |
 Istio | 이스티오(Istio) |
-Job | 잡 |
+Job | Job / 잡 | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 kube-proxy | kube-proxy |
 Kubelet | Kubelet |
 Kubernetes | 쿠버네티스 |
 label | 레이블 | 
+Lease | Lease(리스) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 lifecycle | 라이프사이클 |
 Linux | 리눅스 | 
 load | 부하 | 
@@ -212,9 +216,12 @@ Minikube | Minikube |
 Mirror pod | 미러 파드(mirror pod) |
 monitoring | 모니터링 | 
 naked pod | 네이키드(naked) 파드 |
-Namespace | 네임스페이스 | 
-Network Policy | 네트워크 폴리시 |
-Node | 노드 | 
+namespace | 네임스페이스 | API 오브젝트를 설명하지 않는 한
+Namespace | Namespace(네임스페이스) | API 오브젝트를 설명하지 않는 한
+network policy | 네트워크 폴리시 | 클러스터 롤 | API 오브젝트를 설명하지 않는 한
+NetworkPolicy | NetworkPolicy(네트워크 폴리시) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+node | 노드 | API 오브젝트를 설명하지 않는 한
+Node | Node(노드) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 node lease | 노드 리스(lease)
 Object | 오브젝트 | 
 Orchestrate | 오케스트레이션하다 |
@@ -222,12 +229,13 @@ Output | 출력 |
 parameter | 파라미터 |
 patch | 패치 |
 Pending | Pending | 파드, 클레임의 상태에 한함 
-Persistent Volume | 퍼시스턴트 볼륨 | 
-Persistent Volume Claim | 퍼시스턴트 볼륨 클레임 | 
-pipeline | 파이프라인 | 
-placeholder pod | 플레이스홀더(placeholder) 파드 | 
-Pod(파드) | 파드 |
-Pod Preset | 파드 프리셋 | 
+PersistentVolume | PersistentVolume(퍼시스턴트 볼륨) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+PersistentVolumeClaim | PersistentVolumeClaim(퍼시스턴트 볼륨 클레임) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+pipeline | 파이프라인 |
+placeholder pod | 플레이스홀더(placeholder) 파드 | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+pod | 파드 | API 오브젝트를 설명하지 않는 한
+Pod | Pod(파드) |
+PodPreset | PodPreset(파드 프리셋) |
 PodAntiAffinity | 파드안티어피니티(PodAntiAffinity) | 
 PodDisruptionBudget | PodDisruptionBudget |
 postfix | 접미사 | 
@@ -243,29 +251,34 @@ Ready | Ready |
 Reclaim Policy | 반환 정책 | 
 Registry | 레지스트리 | 
 Release | 릴리스 | 
-Replica Set | 레플리카 셋 | 
+ReplicaSet | ReplicaSet(레플리카 셋) |
 replicas | 레플리카 |
-Replication Controller | 레플리케이션 컨트롤러 | 
+ReplicationController | ReplicationController(레플리케이션 컨트롤러) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 repository | 리포지터리 |
 resource | 리소스 | 
 Resource Limit | 리소스 상한 |
-Resource Quota | 리소스 쿼터 |
+resource quota | 리소스 쿼터 | API 오브젝트를 설명하지 않는 한
+ResourceQuota | 리소스 쿼터 | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 return | 반환하다 | 
 revision | 리비전 |
-Role | 롤 |  
-rollback | 롤백 | 
+role | 롤 | API 오브젝트를 설명하지 않는 한
+Role | Role (롤) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+rollback | 롤백 |
 rolling update | 롤링 업데이트 |
 rollout | 롤아웃 |
 Running | Running | 파드의 상태에 한함 
 runtime | 런타임 |
 Scale | 스케일 | 
-Secret | 시크릿 | 
+secret | 시크릿 | API 오브젝트를 설명하지 않는 한
+Secret | Secret(시크릿) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
 segment | 세그먼트 |
 Selector | 셀렉터 | 
 Self-healing | 자가 치유 |
-Service | 서비스 | 
-Service Account | 서비스 어카운트 | 
-service discovery | 서비스 디스커버리 | 
+service | 서비스 | API 오브젝트를 설명하지 않는 한
+Service | Service(서비스) | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+service account | 서비스 어카운트 | API 오브젝트를 설명하지 않는 한
+ServiceAccount | 서비스 어카운트 | 예외적으로 API 오브젝트에 대해 외래어 표기법 적용하지 않고 원문 그대로 표기
+service discovery | 서비스 디스커버리 |
 service mesh | 서비스 메쉬 |
 Session | 세션 | 
 Session Affinity | 세션 어피니티(Affinity) |
@@ -274,7 +287,7 @@ Shell | 셸 |
 Sign In | 로그인 | 
 Sign Out | 로그아웃 |
 skew | 차이(skew) |
-Stateful Set | 스테이트풀 셋 | 
+StatefulSet | StatefulSet (스테이트풀 셋) |
 stateless | 스테이트리스 | 
 Static pod | 스태틱(static) 파드 |
 Storage Class | 스토리지 클래스 | 
