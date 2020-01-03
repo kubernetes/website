@@ -118,9 +118,9 @@ balancer in between your application and the backend Pods.
 -->
 ### 云原生服务发现
 
-如果您能够在应用程序中使用 Kubernetes 接口进行服务发现，则可以查询 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} 的 endpoint 资源，只要服务中的Pod集合发生更改，端点就会更新。
+如果您想要在应用程序中使用 Kubernetes 接口进行服务发现，则可以查询 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} 的 endpoint 资源，只要服务中的Pod集合发生更改，端点就会更新。
 
-对于非本机应用程序，Kubernetes提供了在应用程序和后端Pod之间放置网络端口或负载平衡器的方法。
+对于非本机应用程序，Kubernetes提供了在应用程序和后端Pod之间放置网络端口或负载均衡器的方法。
 
 <!--
 ## Defining a Service
@@ -205,7 +205,7 @@ Pod中的端口定义具有名称字段，您可以在服务的 `targetTarget` �
 这为部署和发展服务提供了很大的灵活性。
 例如，您可以更改Pods在新版本的后端软件中公开的端口号，而不会破坏客户端。
 
-服务的默认协议是TCP；默认协议是TCP。 您还可以使用任何其他 [受支持的协议](#protocol-support)。
+服务的默认协议是TCP。 您还可以使用任何其他 [受支持的协议](#protocol-support)。
 
 由于许多服务需要公开多个端口，因此 Kubernetes 在服务对象上支持多个端口定义。
 每个端口定义可以具有相同的 `protocol`，也可以具有不同的协议。
@@ -596,7 +596,7 @@ For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` a
 
 与一般的Kubernetes名称一样，端口名称只能包含 小写字母数字字符 和 `-`。 端口名称还必须以字母数字字符开头和结尾。
 
-例如，名称 `123_abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
+例如，名称 `123-abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
 {{< /note >}}
 
 <!--
