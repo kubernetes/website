@@ -21,13 +21,11 @@ Questo è un diagramma di un cluster Kubernetes con tutti i componenti e le loro
 {{% /capture %}}
 
 {{% capture body %}}
-## Componenti del Master
+## Componenti della Control Plane
 
-I componenti del Master forniscono la control plane del cluster.
-I componenti del Master fanno decisioni globali sul cluster (ad esempio, lo scheduling), e individuano e rispondono a eventi derivanti dal cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
+La Control Plane è responsabile di tutte le decisioni globali sul cluster (ad esempio, lo scheduling), e l'individuazione e la risposta ad eventi derivanti dal cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
 
-I componenti del Master possono essere eseguiti su qualsiasi nodo del cluster.
-Solitamente, per motivi di facilità, gli script di installazione tendono a eseguire tutti i componenti del Master sulla stessa macchina, senza l'utilizzo di container.
+I componenti della Control Plane possono essere eseguiti su qualsiasi nodo del cluster, ma solitamente gli script di installazione tendono a eseguire tutti i componenti della Control Plane sulla stessa macchina, separando la Control Plane dai workload dell'utente.
 Vedi [creare un cluster in High-Availability](/docs/admin/high-availability/) per un esempio di un'installazione multi-master.
 
 ### kube-apiserver
@@ -46,16 +44,16 @@ Vedi [creare un cluster in High-Availability](/docs/admin/high-availability/) pe
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-Questi controller includono:
+Alcuni esempi di controller gestiti dal kube-controller-manager sono:
 
-  * Node Controller: Responsabile dell'identificazione e della risposta ad eventi in cui i nodi diventano non disponibili.
-  * Replication Controller: Responsabile per il mantenimento del corretto numero di pod per ogni replication controller del sistema.
+  * Node Controller: Responsabile del monitoraggio dei nodi del cluster, e.g. della gestione delle azioni da eseguire quando un nodo diventa non disponibile.
+  * Replication Controller: Responsabile per il mantenimento del corretto numero di Pod per ogni ReplicaSet presente nel sistema
   * Endpoints Controller: Popola gli oggetti Endpoints (cioè, mette in relazioni i Pods con i Services).
   * Service Account & Token Controllers: Creano gli account di default e i token di accesso alle API per i nuovi namespaces.
 
 ### cloud-controller-manager
 
-Il [cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) esegui i controller che interagiscono con i cloud provider sottostanti.
+Il [cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) esegue i controller che interagiscono con i cloud provider responsabili per la gestione dell'infrastruttura sottostante al cluster, in caso di deployment in cloud.
 Il cloud-controller-manager è una funzionalità alpha introdotta in Kubernetes 1.6.
 
 Il cloud-controller-manager esegue esclusivamente i cicli di controllo specifici dei cloud provider.
@@ -73,9 +71,9 @@ I seguenti controller hanno dipendenze verso implementazioni di specifici cloud 
   * Service Controller: Per creare, aggiornare ed eliminare i load balancer nella infrastruttura del cloud provider
   * Volume Controller: Per creare, associare e montare i volumi e per interagire con il cloud provider per orchestrare i volumi
 
-## Node Components
+## Componenti dei Nodi
 
-I componenti dei Nodi, girano su ogni nodo, mantenendo i pod correttamente in funzione e fornendo il runtime environment di Kubernetes.
+I componenti di Kubernetes che girano sui Worker Node sono responsabili dell'esecuzione dei workload degli utenti.
 
 ### kubelet
 
@@ -98,15 +96,15 @@ Alcuni addons sono descritti di seguito; mentre per una più estesa lista di add
 
 ### DNS
 
-Mentre gli altri addons non sono strettamente richiesti, tutti i cluster Kubernetes dovrebbero essere muniti di un [DNS del cluster](/docs/concepts/services-networking/dns-pod-service/), dal momento che molti esempi lo necessitano.
+Mentre gli altri addons non sono strettamente richiesti, tutti i cluster Kubernetes dovrebbero essere muniti di un [DNS del cluster](/docs/concepts/services-networking/dns-pod-service/), dal momento che molte applicazioni lo necessitano.
 
-Il DNS del cluster è un server DNS aggiuntivo rispetto ad altri server DNS presenti nel tuo ambiente, che serve i record DNS per i servizi Kubernetes.
+Il DNS del cluster è un server DNS aggiuntivo rispetto ad altri server DNS presenti nella rete, e si occupa specificatamente dei record DNS per i servizi Kubernetes.
 
-I container eseguiti da Kubernetes includono automaticamente questo server DNS per le loro risoluzione DNS.
+I container eseguiti da Kubernetes possono utilizzare questo server per la risoluzione DNS.
 
 ### Interfaccia web (Dashboard)
 
-La [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) è una interfaccia web generalistica per i cluster Kubernetes.
+La [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) è una interfaccia web per i cluster Kubernetes.
 Permette agli utenti di gestire e fare troubleshooting delle applicazioni che girano nel cluster, e del cluster stesso.
 
 ### Monitoraggio dei Container

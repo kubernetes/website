@@ -11,7 +11,7 @@ tags:
 - architecture
 - storage
 ---
- È un database key-value altamente disponibile che è usato da Kubernetes per salvare tutte le informazioni del cluster.
+ È un database key-value ridondato, che è usato da Kubernetes per salvare tutte le informazioni del cluster.
 
 <!--more-->
 

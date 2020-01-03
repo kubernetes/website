@@ -12,13 +12,12 @@ tags:
 - networking
 ---
  [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) è un
-proxy eseguito su ogni nodo del cluster, che implementa parte dei
+proxy eseguito su ogni nodo del cluster, responsabile della gestione dei
 Kubernetes {{< glossary_tooltip term_id="service">}}.
 
 <!--more-->
 
-I kube-proxy mantengono le regole di networking sui nodi. Queste regole permettono
-la comunicazione verso i tuoi da altri nodi del cluster o dall'esterno.
+I kube-proxy mantengono le regole di networking sui nodi.
+Queste regole permettono la comunicazione verso gli altri nodi del cluster o l'esterno.
 
-Il kube-proxy usa l'infrastruttura di sistema di gestione pacchetti se è presente
-e disponibile. In caso contratio, il kube-proxy gestisce il traffico direttamente.
+Il kube-proxy usa le librerie del sistema operativo quando possible; in caso contrario il kube-proxy gestisce il traffico direttamente.
