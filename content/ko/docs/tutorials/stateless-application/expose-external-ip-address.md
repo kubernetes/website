@@ -158,6 +158,6 @@ Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카
 
 {{% capture whatsnext %}}
 
-[애플리케이션과 서비스 연결하기](/docs/concepts/services-networking/connect-applications-service/)에 대해
+[애플리케이션과 서비스 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해
 더 배워 본다.
 {{% /capture %}}
