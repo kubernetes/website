@@ -79,6 +79,9 @@ Minikube also supports a `--vm-driver=none` option that runs the Kubernetes comp
 Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.
 It is recommended to use the apt installation of docker from [Docker](https://www.docker.com/products/docker-desktop), when using the none driver.
 (The snap installation of docker does not work with minikube.)
+
+The `none` VM driver can result in security and data loss issues.
+Before using `--vm-driver=none`, consult [this documentation](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) for more information.
 {{< /note >}}
 
 ### Install Minikube using a package
