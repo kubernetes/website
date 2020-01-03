@@ -56,16 +56,16 @@ The following applications are now available:
 **Example workflow for a Chart user**  
 
 
-1. 1.[Install Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-helm)
-2. 2.[Initialize Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-an-example-chart)
-3. 3.[Search for a chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-search-finding-charts)   
+1. 1.[Install Helm](https://helm.sh/docs/intro/quickstart/#install-helm)
+2. 2.[Initialize Helm](https://helm.sh/docs/intro/quickstart/#install-an-example-chart)
+3. 3.[Search for a chart](https://helm.sh/docs/intro/using_helm/#helm-search-finding-charts)
 
 ```
 $ helm search  
 NAME VERSION DESCRIPTION stable/drupal 0.3.1 One of the most versatile open source content m...stable/jenkins 0.1.0 A Jenkins Helm chart for Kubernetes. stable/mariadb 0.4.0 Chart for MariaDB stable/mysql 0.1.0 Chart for MySQL stable/redmine 0.3.1 A flexible project management web application. stable/wordpress 0.3.0 Web publishing platform for building blogs and ...
  ```
 
-4. 4.[Install the chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-install-installing-a-package)  
+4. 4.[Install the chart](https://helm.sh/docs/intro/using_helm/#helm-install-installing-a-package)
 
 ```
 $ helm install stable/jenkins
