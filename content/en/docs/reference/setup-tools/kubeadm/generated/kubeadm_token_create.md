@@ -25,6 +25,13 @@ kubeadm token create [token]
   <tbody>
 
     <tr>
+      <td colspan="2">--certificate-key string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">When used together with '--print-join-command', print the full 'kubeadm join' flag needed to join the cluster as a control-plane. To create a new certificate key you must use 'kubeadm init phase upload-certs --upload-certs'.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>

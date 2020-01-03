@@ -8,14 +8,34 @@ repos:
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    git checkout release-1.16
+    git checkout release-1.${K8S_RELEASE}
     make generated_files
     cp -L -R vendor $GOPATH/src
-    rm -r vendor
+    rm -r vendor/github.com/spf13/cobra
+    rm -r vendor/github.com/spf13/pflag
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-compdocs
     cd src/github.com/kubernetes-sigs/reference-docs/
+    # generate component tool pages
     make comp
+    cd $GOPATH
+    go get -v github.com/kubernetes-sigs/reference-docs/gen-kubectldocs
+    cd src/github.com/kubernetes-sigs/reference-docs/
+    cp ${K8S_WEBROOT}/update-imported-docs/Makefile_temp ./Makefile
+    # generate kubectl cmd reference
+    make copycli
+    #
+    # generate api reference
+    cd $GOPATH
+    rm -rf src/vendor
+    go get -u github.com/go-openapi/loads
+    go get -u github.com/go-openapi/spec
+    go get -v github.com/kubernetes-sigs/reference-docs/gen-apidocs
+    cd src/github.com/kubernetes-sigs/reference-docs/
+    make updateapispec
+    make api
+    make copyapi
+
 
   files:
   - src: gen-compdocs/build/cloud-controller-manager.md
