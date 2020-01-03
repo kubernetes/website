@@ -548,6 +548,9 @@ status:
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
 
+For LoadBalancer type of Services, when there is more than one port defined, all
+ports must have the same protocol and the protocol must be one of `TCP`, `UDP`
+and `SCTP`.
 
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
@@ -1100,20 +1103,14 @@ about the API object at: [Service API object](/docs/reference/generated/kubernet
 
 ### TCP
 
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
-
 You can use TCP for any kind of Service, and it's the default network protocol.
 
 ### UDP
-
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 You can use UDP for most Services. For type=LoadBalancer Services, UDP support
 depends on the cloud provider offering this facility.
 
 ### HTTP
-
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 If your cloud provider supports it, you can use a Service in LoadBalancer mode
 to set up external HTTP / HTTPS reverse proxying, forwarded to the Endpoints
@@ -1125,8 +1122,6 @@ to expose HTTP / HTTPS Services.
 {{< /note >}}
 
 ### PROXY protocol
-
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
 you can use a Service in LoadBalancer mode to configure a load balancer outside
