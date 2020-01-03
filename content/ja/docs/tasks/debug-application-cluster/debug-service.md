@@ -623,7 +623,7 @@ hostnames-632524106-tlaok   1/1       Running   0          2m
 If the restart count is high, read more about how to [debug
 pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods).
 -->
-再起動回数が多い場合は、[Podをデバッグする](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods)方法の詳細をご覧ください。
+再起動回数が多い場合は、[Podをデバッグする](/ja/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#podのデバッグ)方法の詳細をご覧ください。
 
 <!--
 ## Is the kube-proxy working?
