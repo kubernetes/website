@@ -121,8 +121,6 @@ These are advanced topics for users who need to integrate their organization's c
 
 The Kubernetes Certificate Authority does not work out of the box.
 You can configure an external signer such as [cert-manager][cert-manager-issuer], or you can use the built-in signer.
-The built-in signer is part of [`kube-controller-manager`][kcm].
-To activate the built-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
 
 The built-in signer is part of [`kube-controller-manager`][kcm].
 
@@ -186,19 +184,14 @@ In kubeadm terms, any certificate that would normally be signed by an on-disk CA
 
 ### Create certificate signing requests (CSR)
 
-You can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
-If `--csr-dir` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
-Both the CSR and the accompanying private key are given in the output. After a certificate is signed, the certificate and the private key must be copied to the PKI directory (by default `/etc/kubernetes/pki`).
-
-A CSR represents a request to a CA for a signed certificate for a client.
-
 You can create certificate signing requests with `kubeadm alpha certs renew --csr-only`.
 
-Both the CSR and the accompanying private key are given in the output; you can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
+Both the CSR and the accompanying private key are given in the output.
+You can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
+If `--csr-dir` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
 
 Certificates can be renewed with `kubeadm alpha certs renew --csr-only`.
 As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag.
-To use the new certificates, copy the signed certificate and private key into the PKI directory (by default `/etc/kubernetes/pki`)
 
 A CSR contains a certificate's name, domains, and IPs, but it does not specify usages.
 It is the responsibility of the CA to specify [the correct cert usages][cert-table] when issuing a certificate.
