@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Kubernetes Blog
 linkTitle: Blog
 menu:

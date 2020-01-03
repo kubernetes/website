@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Cos'è Kubernetes
 content_template: templates/concept
 weight: 10
