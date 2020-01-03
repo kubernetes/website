@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 ##
-# This script was tested with Python 3.7.4, Go 1.12, and PyYAML 5.1.2
+# This script was tested with Python 3.7.4, Go 1.13+, and PyYAML 5.1.2
 # installed in a virtual environment.
 # This script assumes you have the Python package manager 'pip' installed.
 #
@@ -18,10 +18,11 @@
 # This work_dir will temporarily become the GOPATH.
 #
 # To execute the script from the website/update-imported-docs directory:
-# ./update-imported-docs.py <config_file>
+# ./update-imported-docs.py <config_file> <k8s_release>
 # Config files:
 #     reference.yml  use this to update the reference docs
 #     release.yml    use this to auto-generate/import release notes
+# K8S_RELEASE: provide the minor release version such as, 17
 ##
 
 import argparse
@@ -154,14 +155,19 @@ def process_file(src, dst, repo_path, repo_dir, root_dir, gen_absolute_links):
 def parse_input_args():
     """
     Parse command line argument
-    'config_file' is only one argument; it should be one of the YAML
+    'config_file' is the first argument; it should be one of the YAML
     files in this same directory
+    'k8s_release' is the second argument; provide the release minor
+    version
     :return: parsed argument
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('config_file', type=str,
                         help="reference.yml to generate reference docs; "
                              "release.yml to generate release notes")
+    parser.add_argument('k8s_release', type=str,
+                        help="k8s release minor version, ex: 17"
+                        )
     return parser.parse_args()
 
 
@@ -176,6 +182,10 @@ def main():
     in_args = parse_input_args()
     config_file = in_args.config_file
     print("config_file is {}".format(config_file))
+
+    # second parse input argument
+    k8s_release = in_args.k8s_release
+    print("ks8_release is {}".format(k8s_release))
 
     curr_dir = os.path.dirname(__file__)
     print("curr_dir {}".format(curr_dir))
@@ -199,6 +209,8 @@ def main():
         print("[Error] Unable to create temp work_dir {}; error: {}"
               .format(work_dir, ose))
         return -2
+
+    print("Working dir {}".format(work_dir))
 
     for repo in config_data["repos"]:
         if "name" not in repo:
@@ -231,7 +243,11 @@ def main():
         os.chdir(repo_path)
         if "generate-command" in repo:
             gen_cmd = repo["generate-command"]
-            gen_cmd = "export GOPATH=" + work_dir + "\n" + gen_cmd
+            gen_cmd = "export K8S_RELEASE=" + k8s_release + "\n" + \
+                "export GOPATH=" + work_dir + "\n" + \
+                "export K8S_ROOT=" + work_dir + \
+                "/src/k8s.io/kubernetes" + "\n" + \
+                "export K8S_WEBROOT=" + root_dir + "\n" + gen_cmd
             print("Generating docs for {} with {}".format(repo_name, gen_cmd))
             res = subprocess.call(gen_cmd, shell=True)
             if res != 0:
