@@ -7,7 +7,7 @@ weight: 1
 {{< toc >}}
 
 {{% capture overview %}}
-Keamanan Kubernetes (dan keamanan secara umum) adalah sebuah topik sangat besar yang memiliki banyak bagian yang sangat berkaitan satu sama lain. Pada masa sekarang ini di mana perangkat lunak _open source_ telah diintegrasi ke dalam banyak sistem yang membantu berjalannya aplikasi web, ada beberapa konsep menyeluruh yang dapat membantu intuisimu untuk berpikir tentang keamanan secara menyeluruh. Panduan ini akan mendefinisikan sebuah cara/model berpikir untuk beberapa konsep umum mengenai Keamanan _Cloud Native_. Cara berpikir ini sepenuhnya subjektif dan kamu sebaiknya hanya menggunakannya apabila ini membantumu berpikir tentang di mana harus mengamankan _stack_ perangkat lunakmu.
+Keamanan Kubernetes (dan keamanan secara umum) adalah sebuah topik sangat luas yang memiliki banyak bagian yang sangat berkaitan satu sama lain. Pada masa sekarang ini di mana perangkat lunak _open source_ telah diintegrasi ke dalam banyak sistem yang membantu berjalannya aplikasi web, ada beberapa konsep menyeluruh yang dapat membantu intuisimu untuk berpikir tentang konsep keamanan secara menyeluruh. Panduan ini akan mendefinisikan sebuah cara/model berpikir untuk beberapa konsep umum mengenai Keamanan _Cloud Native_. Cara berpikir ini sepenuhnya subjektif dan kamu sebaiknya hanya menggunakannya apabila ini membantumu berpikir tentang di mana harus mengamankan _stack_ perangkat lunakmu.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -21,11 +21,11 @@ Pendekatan berlapis ini memperkuat pendekatan [_defense in depth_](https://en.wi
 
 {{< figure src="/images/docs/4c.png" title="The 4C's of Cloud Native Security" >}}
 
-Seperti yang dapat kamu lihat dari gambar di atas, setiap dari 4C tersebut bergantung pada keamanan dari kotak yang lebih besar di mana mereka berada. Hampir tidak mungkin untuk mengamankan sistem terhadap standar-standar keamanan yang buruk pada Cloud, Container, dan Code hanya dengan menangani keamanan pada level kode. Akan tetapi, apabila semua area tersebut ditangani dengan baik, maka menambahkan keamanan ke dalam kode kamu akan memperkuat landasan yang sudah kuat. Area-area yang menjadi perhatian ini akan dideskripsikan lebih mendalam di bawah.
+Seperti yang dapat kamu lihat dari gambar di atas, setiap dari 4C tersebut bergantung pada keamanan dari kotak yang lebih besar di mana mereka berada. Hampir tidak mungkin untuk mengamankan sistem terhadap standar-standar keamanan yang buruk pada Cloud, Container, dan Code hanya dengan menangani keamanan pada lapisan kode. Akan tetapi, apabila semua area tersebut ditangani dengan baik, maka menambahkan keamanan ke dalam kode kamu akan memperkuat landasan yang sudah kuat. Area-area yang menjadi perhatian ini akan dideskripsikan lebih mendalam di bawah.
 
 ## Cloud
 
-Dalam banyak hal, Cloud (atau server-server _co-located_, atau pusat data/_data center_ korporat) adalah [_trusted computing base_ (basis komputasi yang dipercaya)](https://en.wikipedia.org/wiki/Trusted_computing_base) dari sebuah kluster Kubernetes. Jika komponen-komponen tersebut rentan secara keamanan (atau dikonfigurasi dengan cara yang rentan), maka sesungguhnya tidak ada cara untuk menjamin keamanan dari komponen-komponen apa pun yang dibangun di atas basis komputasi ini. Memberikan rekomendasi untuk keamanan cloud berada di luar lingkup panduan ini, karena setiap penyedia layanan cloud dan beban kerja pada dasarnya berbeda-beda. Berikut beberapa tautan menuju beberapa dokumentasi penyedia layanan cloud yang populer untuk keamanan maupun untuk memberikan panduan umum untuk mengamankan infrastruktur yang menjadi basis sebuah kluster Kubernetes.
+Dalam banyak hal, Cloud (atau server-server _co-located_, atau pusat data/_data center_ korporat) adalah [_trusted computing base_ (basis komputasi yang dipercaya)](https://en.wikipedia.org/wiki/Trusted_computing_base) dari sebuah klaster Kubernetes. Jika komponen-komponen tersebut rentan secara keamanan (atau dikonfigurasi dengan cara yang rentan), maka sesungguhnya tidak ada cara untuk menjamin keamanan dari komponen-komponen apa pun yang dibangun di atas basis komputasi ini. Memberikan rekomendasi untuk keamanan cloud berada di luar lingkup panduan ini, karena setiap penyedia layanan cloud dan beban kerja pada dasarnya berbeda-beda. Berikut beberapa tautan menuju beberapa dokumentasi penyedia layanan cloud yang populer untuk keamanan maupun untuk memberikan panduan umum untuk mengamankan infrastruktur yang menjadi basis sebuah klaster Kubernetes.
 
 ### Tabel Keamanan Penyedia Layanan Cloud
 
@@ -38,46 +38,46 @@ IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
 
-Jika kamu mengoperasikan perangkat keras kamu sendiri, atau penyedia layanan cloud yang berbeda, kamu perlu merujuk pada dokumentasimu untuk praktik keamanan terbaik.
+Jika kamu mengoperasikan perangkat keras kamu sendiri, atau penyedia layanan cloud yang berbeda, kamu perlu merujuk pada dokumentasi penyedia layanan cloud yang kamu pakai untuk praktik keamanan terbaik.
 
 ### Tabel Panduan Umum Infrastruktur
 
 Area yang Menjadi Perhatian untuk Infrastruktur Kubernetes | Rekomendasi |
 --------------------------------------------- | ------------ |
-Akses Jaringan terhadap API Server (Master-master) | Secara Ideal, semua akses terhadap Master-master Kubernetes tidak diizinkan secara publik pada internet, dan dikontrol oleh daftar kendali akses (_network ACL_) yang dibatasi untuk kumpulan alamat IP yang dibutuhkan untuk mengelola kluster. |
+Akses Jaringan terhadap API Server (Master-master) | Secara Ideal, semua akses terhadap Master-master Kubernetes tidak diizinkan secara publik pada internet, dan dikontrol oleh daftar kendali akses (_network ACL_) yang dibatasi untuk kumpulan alamat IP yang dibutuhkan untuk mengelola klaster. |
 Akses Jaringan terhadap Node-node (Server-server Worker)| Node-node harus dikonfigurasikan untuk _hanya_ menerima koneksi-koneksi (melalui daftar kendali akses) dari Master-master pada porta-porta (_port_) yang telah ditentukan, dan menerima koneksi-koneksi dari Service-service Kubernetes dengan tipe NodePort dan LoadBalancer. Apabila memungkinkan, Node-node tersebut sebaiknya tidak diekspos pada internet publik sama sekali. |
-Akses Kubernetes terhadap API Penyedia Layanan Cloud | Setiap penyedia layanan cloud perlu memberikan kumpulan izin yang berbeda-beda untuk Master-master dan Node-node Kubernetes, sehingga rekomendasi ini sifatnya lebih umum. Praktik terbaiknya adalah untuk memberikan kluster akses terhadap penyedia layanan cloud yang mengikuti [_principle of least privilege_ (prinsip hak istimewa paling sedikit)](https://en.wikipedia.org/wiki/Principle_of_least_privilege) untuk sumber daya yang kluster tersebut perlukan untuk dikelola. Sebuah contoh untuk Kops di AWS dapat ditemukan di sini: https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles |
+Akses Kubernetes terhadap API Penyedia Layanan Cloud | Setiap penyedia layanan cloud perlu memberikan kumpulan izin yang berbeda-beda untuk Master-master dan Node-node Kubernetes, sehingga rekomendasi ini sifatnya lebih umum. Praktik terbaiknya adalah untuk memberikan klaster akses terhadap penyedia layanan cloud yang mengikuti [_principle of least privilege_ (prinsip hak istimewa paling sedikit)](https://en.wikipedia.org/wiki/Principle_of_least_privilege) untuk sumber daya yang klaster tersebut perlukan untuk dikelola. Sebuah contoh untuk Kops di AWS dapat ditemukan di sini: https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles |
 Akses terhadap etcd | Akses terhadap etcd (tempat penyimpanan data Kubernetes) harus dibatasi hanya untuk Master-master saja. Bergantung pada konfigurasimu, kamu sebaiknya juga mengusahakan koneksi etcd menggunakan TLS. Informasi lebih lanjut dapat ditemukan di sini: https://github.com/etcd-io/etcd/tree/master/Documentation#security |
-Enkripsi etcd | Di mana pun kita dapat melakukannya, mengenkripsi semua data saat diam (_at rest_) pada semua _drive_, dan sejak etcd menyimpan keadaan seluruh kluster (termasuk Secret-secret), _disk_-nya sebaiknya kita enkripsi saat diam. |
+Enkripsi etcd | Di mana pun kita dapat melakukannya, mengenkripsi semua data saat diam (_at rest_) pada semua _drive_, dan sejak etcd menyimpan keadaan seluruh klaster (termasuk Secret-secret), _disk_-nya sebaiknya kita enkripsi saat diam. |
 
 ## Cluster
 
 Bagian ini akan memberikan tautan-tautan untuk mengamankan beban-beban kerja di dalam Kubernetes. Ada dua area yang menjadi perhatian untuk mengamankan Kubernetes:
 
-* Mengamankan komponen-komponen yang dapat dikonfigurasi yang membentuk kluster
-* Mengamankan komponen-komponen yang berjalan di dalam kluster
+* Mengamankan komponen-komponen yang dapat dikonfigurasi yang membentuk klaster
+* Mengamankan komponen-komponen yang dijalankan di dalam klaster
 
 ### Komponen-komponen _dari_ Cluster
 
-Jika kamu mau menjaga klustermu dari akses yang tidak disengaja atau yang bersifat serangan, dan mengadopsi praktik yang baik, baca dan ikutilah nasihat untuk [mengamankan klustermu](/docs/tasks/administer-cluster/securing-a-cluster/).
+Jika kamu ingin menjaga klastermu dari akses yang tidak disengaja atau yang bersifat serangan, dan mengadopsi praktik yang baik, baca dan ikutilah nasihat untuk [mengamankan klastermu](/docs/tasks/administer-cluster/securing-a-cluster/).
 
 ### Komponen-komponen _di dalam_ Cluster (aplikasimu)
 
-Bergantung pada permukaan yang dapat diserang dari aplikasimu, kamu mungkin mau berfokus pada aspek keamanan yang spesifik. Sebagai contoh, jika kamu menjalankan sebuah layanan (kita sebut Layanan A) yang kritikal di dalam rantai sumber daya lainnya dan sebuah beban kerja terpisah (kita sebut Layanan B) yang rentan terhadap serangan _resource exhaustion_, dengan tidak menyetel limit untuk sumber daya maka kamu juga menaruh risiko terhadap Layanan A. Berikut tabel tautan-tautan menuju hal-hal yang perlu diperhatikan untuk mengamankan beban-beban kerja yang berjalan di dalam Kubernetes.
+Bergantung pada permukaan yang dapat diserang dari aplikasimu, kamu mungkin ingin berfokus pada aspek keamanan yang spesifik. Sebagai contoh, jika kamu menjalankan sebuah layanan (kita sebut Layanan A) yang kritikal di dalam rantai sumber daya lainnya dan sebuah beban kerja terpisah (kita sebut Layanan B) yang rentan terhadap serangan _resource exhaustion_, dengan tidak menyetel limit untuk sumber daya maka kamu juga menaruh risiko terhadap Layanan A. Berikut tabel tautan-tautan menuju hal-hal yang perlu diperhatikan untuk mengamankan beban-beban kerja yang berjalan di dalam Kubernetes.
 
 Area yang Menjadi Perhatian untuk Keamanan Beban Kerja | Rekomendasi |
 ------------------------------ | ------------ |
 Otorisasi RBAC (Akses terhadap API Kubernetes) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/ |
 Autentikasi | https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/ |
-Manajemen Secret Aplikasi (dan mengenkripsi mereka di etcd saat diam) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/ |
+Manajemen Secret Aplikasi (dan mengenkripsi mereka di etcd) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/ |
 Pod Security Policy | https://kubernetes.io/docs/concepts/policy/pod-security-policy/ |
-Quality of Service (dan manajemen sumber daya kluster) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/ |
+Quality of Service (dan manajemen sumber daya klaster) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/ |
 Network Policy | https://kubernetes.io/docs/concepts/services-networking/network-policies/ |
 TLS untuk Ingress Kubernetes | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls |
 
 ## Container
 
-Untuk menjalankan perangkat lunak di dalam Kubernetes, ia harus berada di dalam sebuah Container. Karenanya, ada beberapa pertimbangan keamanan yang harus diperhitungkan untuk mengambil manfaat dari fitur-fitur keamanan beban kerja Kubernetes. Keamanan Container berada di luar lingkup panduan ini, tetapi berikut disediakan sebuah tabel rekomendasi-rekomendasi umum dan tautan menuju eksplorasi lebih dalam pada topik ini.
+Untuk menjalankan perangkat lunak di dalam Kubernetes, perangkat lunak tersebut haruslah berada di dalam sebuah Container. Karenanya, ada beberapa pertimbangan keamanan yang harus diperhitungkan untuk mengambil manfaat dari fitur-fitur keamanan beban kerja Kubernetes. Keamanan Container berada di luar lingkup panduan ini, tetapi berikut disediakan sebuah tabel rekomendasi-rekomendasi umum dan tautan menuju eksplorasi lebih dalam pada topik ini.
 
 Area yang Menjadi Perhatian untuk Container | Rekomendasi |
 ------------------------------ | ------------ |
@@ -87,7 +87,7 @@ Larang pengguna-pengguna dengan hak istimewa | Saat membangun Container-containe
 
 ## Code
 
-Akhirnya pada level kode aplikasi, hal ini adalah satu dari permukaan-permukaan serangan utama yang paling dapat kamu kontrol. Hal ini juga berada di luar lingkup Kubernetes, tetapi berikut beberapa rekomendasi:
+Akhirnya pada lapisan kode aplikasi, hal ini adalah satu dari permukaan-permukaan serangan utama yang paling dapat kamu kontrol. Hal ini juga berada di luar lingkup Kubernetes, tetapi berikut beberapa rekomendasi:
 
 ### Tabel Panduan Umum Keamanan Kode
 
@@ -107,7 +107,7 @@ Kebanyakan dari saran yang disebut di atas dapat diotomasi di dalam _delivery pi
 {{% capture whatsnext %}}
 
 * Pelajari tentang [Network Policy untuk Pod](/docs/concepts/services-networking/network-policies/)
-* Pelajari tentang [mengamankan kluster kamu](/docs/tasks/administer-cluster/securing-a-cluster/)
+* Pelajari tentang [mengamankan klaster kamu](/docs/tasks/administer-cluster/securing-a-cluster/)
 * Pelajari tentang [kontrol akses API](/docs/reference/access-authn-authz/controlling-access/)
 * Pelajari tentang [enkripsi data saat transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * Pelajari tentang [enkripsi data saat diam](/docs/tasks/administer-cluster/encrypt-data/)
