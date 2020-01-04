@@ -268,9 +268,8 @@ you can also create a Secret from generators and then apply it to create the obj
 the Apiserver. The generators
 should be specified in a `kustomization.yaml` inside a directory.
 
-For example, to generate a Secret from files `./username.txt` and `./password.txt`
+For example, to generate a Secret from files `./username.txt` and `./password.txt`, you can set a `secretGenerator` in a `kustomization.yaml` as
 ```shell
-# Create a kustomization.yaml file with secretGenerator
 cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
@@ -307,9 +306,8 @@ username.txt:    5 bytes
 ```
 
 For example, to generate a Secret from literals `username=admin` and `password=secret`,
-you can specify the secret generator in `kustomization.yaml` as
+you can specify a `secretGenerator` in `kustomization.yaml` as
 ```shell
-# Create a kustomization.yaml file with SecretGenerator
 $ cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
