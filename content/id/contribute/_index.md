@@ -1,6 +1,6 @@
 ---
 content_template: templates/concept
-title: Berkontribusi ke dokumentasi Kubernetes
+title: Berkontribusi ke Dokumentasi Kubernetes
 linktitle: Berkontribusi
 main_menu: true
 weight: 80
@@ -48,7 +48,7 @@ Daftar ini bukanlah daftar lengkap mengenai cara-cara kamu dapat berkontribusi
 terhadap dokumentasi Kubernetes, tetapi daftar ini dapat membantumu memulainya.
 
 - [Siapapun](/docs/contribute/start/)
-  - Isu-isu terbuka yang dapat dilakukan
+  - Membuka _issue_ untuk ditindaklanjuti
 - [Member](/docs/contribute/start/)
   - Memutakhirkan dokumentasi yang sudah ada
   - Menyampaikan ide-ide untuk pembaruan di [Slack](http://slack.k8s.io/) atau [milis SIG docs][SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
