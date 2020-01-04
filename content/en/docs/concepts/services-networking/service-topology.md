@@ -6,7 +6,7 @@ title: Service Topology
 feature:
   title: Service Topology
   description: >
-    Routing of service traffice based upon cluster topology.
+    Routing of service traffic based upon cluster topology.
 
 content_template: templates/concept
 weight: 10
