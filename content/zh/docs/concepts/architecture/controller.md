@@ -83,7 +83,21 @@ Other components in the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 act on the new information (there are new Pods to schedule and run),
 and eventually the work is done.
+-->
 
+### 通过 API 服务来控制 {#control-via-API-server}
+
+{{< glossary_tooltip term_id="job" >}} 控制器是一个 Kubernetes 内置控制器的例子。内置控制器管理通过和集群 API 服务交互来管理状态。
+
+Job 是一种 Kubernetes 资源，它运行一个 {{< glossary_tooltip term_id="pod" >}}，或者可能是多个 Pod，来执行一个任务然后停止。
+
+（一旦[被调度了](/docs/concepts/scheduling/)），对 kubelet 来说 Pod 对象就会变成了期望状态的一部分。
+
+在集群中，当 Job 控制器拿到新任务时，它会保证一组 Node 节点上的 kubelet 可以运行正确数量的 Pod 来完成工作。
+Job 控制器不会自己运行任何的 Pod 或者容器。Job 控制器是通知 API 服务来创建或者移除 Pod。
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}中的其它组件根据新的消息而反应（调度新的 Pod 并且运行它）并且最终完成工作。
+
+<!--
 After you create a new Job, the desired state is for that Job to be completed.
 The Job controller makes the current state for that Job be nearer to your
 desired state: creating Pods that do the work you wanted for that Job, so that
@@ -96,17 +110,6 @@ updates that Job object to mark it `Finished`.
 (This is a bit like how some thermostats turn a light off to
 indicate that your room is now at the temperature you set).
 -->
-### 通过 API 服务来控制 {#control-via-API-server}
-
-{{< glossary_tooltip term_id="job" >}} 控制器是一个 Kubernetes 内置控制器的例子。内置控制器管理通过和集群 API 服务交互来管理状态。
-
-Job 是一种 Kubernetes 资源，它运行一个 {{< glossary_tooltip term_id="pod" >}}，或者可能是多个 Pod，来执行一个任务然后停止。
-
-（一旦[被调度了](/docs/concepts/scheduling/)），对 kubelet 来说 Pod 对象就会变成了期望状态的一部分。
-
-在集群中，当 Job 控制器拿到新任务时，它会保证一组 Node 节点上的 kubelet 可以运行正确数量的 Pod 来完成工作。
-Job 控制器不会自己运行任何的 Pod 或者容器。Job 控制器是通知 API 服务来创建或者移除 Pod。
-{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}中的其它组件根据新的消息而反应（调度新的 Pod 并且运行它）并且最终完成工作。
 
 创建新 Job 后，所期望的状态就是完成这个 Job。Job 控制器会让 Job 的当前状态不断接近期望状态：创建为 Job 要完成工作所需要的 Pod，使 Job 的状态接近完成。
 
@@ -237,11 +240,6 @@ Kubernetes 自带有一组内置的控制器，运行在 {{< glossary_tooltip te
 
 Deployment 控制器和 Job 控制器是 Kubernetes 内置控制器的典型例子。Kubernetes 运行一个弹性的控制平面，所以如果任意内置控制器失败了，控制平面的另外一部分会接替它的工作。
 
-You can find controllers that run outside the control plane, to extend Kubernetes.
-Or, if you want, you can write a new controller yourself.
-You can run your own controller as a set of Pods,
-or externally to Kubernetes. What fits best will depend on what that particular
-controller does.
 你会发现控制平面外面运行的控制器，扩展了 Kubernetes 的能力。或者，如果你愿意，你也可以写一个新控制器。你可以以一组 Pod 来运行你的控制器，或者运行在 Kubernetes 外面。什么是最合适的控制器，这将取决于特定控制器的功能。
 
 {{% /capture %}}
