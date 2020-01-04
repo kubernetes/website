@@ -17,11 +17,11 @@ about your *desired state*. The actual room temperature is the
 closer to the desired state, by turning equipment on or off.
 -->
 
-在机器人技术和自动化中，控制循环是一个控制系统状态的不终止的循环。
+在机器人技术和自动化中，控制环是一个控制系统状态的不终止的循环。
 
-这是一个控制循环的例子：房间里的温度自动调节器。
+这是一个控制环的例子：房间里的温度自动调节器。
 
-当你设置了温度，告诉了温度自动调节器你*期望状态*。房间的实际温度是*当前状态*。通过对设备的开关控制，温度自动调节器让其当前状态接近期望状态。
+当你设置了温度，告诉了温度自动调节器你的*期望状态*。房间的实际温度是*当前状态*。通过对设备的开关控制，温度自动调节器让其当前状态接近期望状态。
 
 {{< glossary_definition term_id="controller" length="short">}}
 
@@ -53,7 +53,7 @@ detail.
 
 一个控制器至少追踪一种类型的 Kubernetes 资源。这些[对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)有一个代表期望状态的指定字段。正对这种资源的控制器就是要使他的当前状态接近与期望状态。
 
-控制器可能会自行执行操作；在 Kubernetes 中更常见的是一个控制器会发送信息给 {{< glossary_tooltip text="API 服务" term_id="kube-apiserver" >}}，这会有副作用。看下面这个例子。
+控制器可能会自行执行操作；在 Kubernetes 中更常见的是一个控制器会发送信息给 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}，这会有副作用。看下面这个例子。
 
 {{< comment >}}
 一些内置的控制器，比如命名空间控制器，针对没有指定命名空间的对象。简单期间，这篇文章没有详细介绍这些细节。
@@ -85,16 +85,16 @@ act on the new information (there are new Pods to schedule and run),
 and eventually the work is done.
 -->
 
-### 通过 API 服务来控制 {#control-via-API-server}
+### 通过 API 服务器来控制 {#control-via-API-server}
 
-{{< glossary_tooltip term_id="job" >}} 控制器是一个 Kubernetes 内置控制器的例子。内置控制器管理通过和集群 API 服务交互来管理状态。
+{{< glossary_tooltip term_id="job" >}} 控制器是一个 Kubernetes 内置控制器的例子。内置控制器通过和集群 API 服务器交互来管理状态。
 
 Job 是一种 Kubernetes 资源，它运行一个 {{< glossary_tooltip term_id="pod" >}}，或者可能是多个 Pod，来执行一个任务然后停止。
 
 （一旦[被调度了](/docs/concepts/scheduling/)），对 kubelet 来说 Pod 对象就会变成了期望状态的一部分。
 
 在集群中，当 Job 控制器拿到新任务时，它会保证一组 Node 节点上的 kubelet 可以运行正确数量的 Pod 来完成工作。
-Job 控制器不会自己运行任何的 Pod 或者容器。Job 控制器是通知 API 服务来创建或者移除 Pod。
+Job 控制器不会自己运行任何的 Pod 或者容器。Job 控制器是通知 API 服务器来创建或者移除 Pod。
 {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}中的其它组件根据新的消息而反应（调度新的 Pod 并且运行它）并且最终完成工作。
 
 <!--
@@ -141,9 +141,9 @@ nodes in your cluster. See
 
 相比 Job 控制器，有些控制器需要对集群外的一些东西进行修改。
 
-例如，如果你使用一个控制循环来保证集群中有足够的{{< glossary_tooltip text="节点" term_id="node" >}}，那么控制就需要当前集群外的一些服务在需要时创建新节点。
+例如，如果你使用一个控制环来保证集群中有足够的{{< glossary_tooltip text="节点" term_id="node" >}}，那么控制就需要当前集群外的一些服务在需要时创建新节点。
 
-和外部状态交互的控制器从 API 服务获取到它想要的状态，然后直接和外部系统进行通信并使当前状态更接近期望状态。
+和外部状态交互的控制器从 API 服务器获取到它想要的状态，然后直接和外部系统进行通信并使当前状态更接近期望状态。
 
 （实际上有一个控制器可以水平地扩展集群中的节点。请看[集群自动扩缩容](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)）。
 
@@ -165,7 +165,7 @@ useful changes, it doesn't matter if the overall state is or is not stable.
 
 Kubernetes 采用了系统的云原生视图，并且可以处理持续的变化。
 
-在任务执行时，集群随时都可能被修改，并且控制循环会自动的修复故障。这意味着很可能集群永远不会达到稳定状态。
+在任务执行时，集群随时都可能被修改，并且控制环会自动的修复故障。这意味着很可能集群永远不会达到稳定状态。
 
 只要集群中控制器的在运行并且进行有效的修改，整体状态的稳定与否是无关紧要的。
 <!--
@@ -200,7 +200,7 @@ the controllers can use to tell those Pods apart.
 
 作为设计的一个原则，Kubernetes 使用了很多控制器，每个控制器管理集群状态的一个特定方面。最常见的一个特定的控制器使用一种类型的资源作为它的期望状态，控制器管理控制另外一种类型的资源向它的期望状态发展。
 
-使用简单的控制器而不是一组相互连接的单体控制循环是很有用的。控制器会失败，所以 Kubernetes 的设计是考虑到了这一点。
+使用简单的控制器而不是一组相互连接的单体控制环是很有用的。控制器会失败，所以 Kubernetes 的设计是考虑到了这一点。
 
 例如：为 Job 追踪 Job 对象（发现新工作）和 Pod 对象（运行 Job，并且等工作完成）的控制器。在本例中，其它东西创建作业，而作业控制器创建 Pod。
 
