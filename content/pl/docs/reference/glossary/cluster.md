@@ -1,0 +1,17 @@
+---
+title: Klaster
+id: cluster
+date: 2019-06-15
+full_link: 
+short_description: >
+   Zestaw maszyn, nazywanych węzłami, na których uruchamiane są aplikacje zarządzane przez Kubernetes. Klaster posiada przynajmniej jeden węzeł roboczy i jeden węzeł typu master.
+
+aka: 
+tags:
+- fundamental
+- operation
+---
+Zestaw maszyn, nazywanych węzłami, na których uruchamiane są aplikacje zarządzane przez Kubernetes. Klaster posiada przynajmniej jeden węzeł roboczy i jeden węzeł typu master.
+
+<!--more-->
+Na węźle (lub węzłach) roboczych rozmieszczane są pody, które są składowymi aplikacji. Węzeł (lub węzły) typu master zarządzają węzłami roboczymi i podami należącymi do klastra. Zwielokrotnione węzły typu master zapewniają większą niezawodność i odporność klastra na awarie.
