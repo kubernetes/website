@@ -49,7 +49,13 @@ with it, while intrazonal traffic does not. Other common needs include being abl
 to route traffic to a local Pod managed by a DaemonSet, or keeping traffic to
 Nodes connected to the same top-of-rack switch for the lowest latency.
 -->
+
 ## 介绍 {#introduction}
+
+默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到任意一个服务后端的地址上。从 Kubernetes 1.7 开始，可以将“外部”流量路由到节点上运行的 pod 上，但不支持 `ClusterIP` 服务，并且更复杂的拓扑（比如分区路由）也是不支持的。通过允许 `Service` 创建器根据 `Node` 标签为源 `Node` 和目的 `Node` 定义流量路由策略，`Service` 拓扑特性实现了服务流量的路由。
+
+通过对源 `Node` 和目的 `Node` 标签的匹配，运营者可以使用任何符合运营者要求的度量来指定彼此“更近”和“更远”的节点组。例如，对于在公有云上的运营者来说，更偏向于把流量控制在同一区域内，应为区域间的流量是有费用成本的，而区域内的流量没有。其它常用需要包括把流量路由到由 `DaemonSet` 管理的本地 Pod 上，或者把保持流量在链接同一机架交换机的 `Node` 上，以获得低延时。
+
 <!--
 ## Prerequisites 
 
@@ -59,18 +65,35 @@ routing:
    * Kubernetes 1.17 or later
    * Kube-proxy running in iptables mode or IPVS mode
    * Enable [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
+-->
+
+## 前提条件 {#prerequisites}
+
+为了启用拓扑感知服务路由功能，必须要有以下一些前提条件：
+
+   * Kubernetes 的版本要 >= 1.17
+   * Kube-proxy 运行在 iptables 模式或者 IPVS 模式
+   * 启用 [端点切片](/docs/concepts/services-networking/endpoint-slices/)功能
+
 <!--
 ## Enable Service Topology
 
 To enable service topology, enable the `ServiceTopology` feature gate for
 kube-apiserver and kube-proxy:
--->
-
-## 前提条件 {#prerequisites}
 
 ```
 --feature-gates="ServiceTopology=true"
 ```
+-->
+
+## 启用 `Service` 拓扑 {#enable-service-topology}
+
+要启用 `Service` 拓扑，就要给 kube-apiserver 和 kube-proxy 启用 `ServiceTopology` 功能：
+
+```
+--feature-gates="ServiceTopology=true"
+```
+
 <!--
 ## Using Service Topology
 
@@ -89,7 +112,15 @@ have no backends that match the topology of the client, the service has no
 backends for that client and connections should fail. The special value `"*"` may
 be used to mean "any topology". This catch-all value, if used, only makes sense
 as the last value in the list.
+-->
 
+## 使用 `Service` 拓扑 {#using-service-topology}
+
+如果集群启用了 `Service` 拓扑功能后，就可以在 `Service` 配置中指定 `topologyKeys` 字段，从而控制 `Service` 的流量路由。此字段是 `Node` 标签的优先顺序字段，将用于在访问这个 `Service` 时对端点进行排序。流量会被定向到第一个标签值和源 `Node` 标签值相匹配的 `Node`。如果这个 `Service` 没有匹配的后端 `Node`，那么第二个标签会被使用做匹配，以此类推，直到没有标签。
+
+如果没有匹配到，流量会被拒绝，就如同这个 `Service` 根本没有后端。这是根据有可用后端的第一个拓扑键来选择端点的。如果这个字段被配置了而没有后端可以匹配客户端拓扑，那么这个 `Service` 对那个客户端是没有后端的，链接应该是失败的。这个字段配置为 `"*"` 意味着任意拓扑。这个全匹配值如果使用了，那么只有作为配置值列表中的最后一个值才有用。
+
+<!--
 If `topologyKeys` is not specified or empty, no topology constraints will be applied.
 
 Consider a cluster with Nodes that are labeled with their hostname, zone name,
@@ -106,6 +137,14 @@ traffic as follows.
   none are available within this zone:
   `["topology.kubernetes.io/zone", "*"]`.
 -->
+
+如果 `topologyKeys` 没有指定或者为空，就没有启用这个拓扑功能。
+
+一个集群中，其 `Node` 的标签被打为其主机名，区域名和地区名。那么就可以设置 `Service` 的 `topologyKeys` 的值，像下面的做法一样定向流量了。
+
+* 只定向到同一个 `Node` 上的端点，`Node` 上没有端点存在时就失败：配置 `["kubernetes.io/hostname"]`。
+* 偏向定向到同一个 `Node`  上的端点，回退同一区域的端点上，然后是同一地区，其它情况下就失败：配置 `["kubernetes.io/hostname",  "topology.kubernetes.io/zone", "topology.kubernetes.io/region"]`。这或许很有用，例如，数据局部很重要的情况下。
+* 偏向于同一区域，但如果此区域中没有可用的终结点，则回退到任何可用的终结点：配置 `["topology.kubernetes.io/zone", "*"]`。
 
 <!--
 ## Constraints
@@ -125,6 +164,16 @@ traffic as follows.
   it is used.
 -->
 
+## 约束条件 {#constraints}
+
+* `Service` 拓扑和 `externalTrafficPolicy=Local` 是不兼容的，所以 `Service` 不能同时使用这两种特性。但是在同一个集群的不同 `Service` 上是可以分别使用这两种特性的，只要不在同一个 `Service` 上就可以。
+
+* 有效的拓扑键目前只有：`kubernetes.io/hostname`，`topology.kubernetes.io/zone` 和 `topology.kubernetes.io/region`，但是未来会推广到其它的 `Node` 标签。
+
+* 拓扑键必须是有效的标签，并且最多指定16个。
+
+* 全匹配值：`"*"`，如果要用，那必须是拓扑键值的最后一个值。 
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
@@ -132,4 +181,8 @@ traffic as follows.
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
+
+* 阅读关于[启用服务拓扑](/docs/tasks/administer-cluster/enabling-service-topology)
+* 阅读[使用 `Services` 链接应用](/docs/concepts/services-networking/connect-applications-service/)
+
 {{% /capture %}}
