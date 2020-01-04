@@ -434,9 +434,3 @@ kubeadm init [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
