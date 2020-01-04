@@ -23,7 +23,7 @@ preferentially routed to endpoints that are on the same Node as the client, or
 in the same availability zone.
 -->
 
-`Service` 拓扑可以让一个服务基于集群中的 `Node` 拓扑进行流量路由。例如，一个服务可以指定流量是被优先路由到一个和客户端在同一个 `Node` 或者在同一可用区域的端点。
+`Service` 拓扑可以让一个服务基于集群的 `Node` 拓扑进行流量路由。例如，一个服务可以指定流量是被优先路由到一个和客户端在同一个 `Node` 或者在同一可用区域的端点。
 
 {{% /capture %}}
 
@@ -49,8 +49,9 @@ with it, while intrazonal traffic does not. Other common needs include being abl
 to route traffic to a local Pod managed by a DaemonSet, or keeping traffic to
 Nodes connected to the same top-of-rack switch for the lowest latency.
 -->
+## 介绍 {#introduction}
 <!--
-## Prerequisites
+## Prerequisites 
 
 The following prerequisites are needed in order to enable topology aware service
 routing:
@@ -64,6 +65,9 @@ routing:
 To enable service topology, enable the `ServiceTopology` feature gate for
 kube-apiserver and kube-proxy:
 -->
+
+## 前提条件 {#prerequisites}
+
 ```
 --feature-gates="ServiceTopology=true"
 ```
