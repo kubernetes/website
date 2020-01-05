@@ -20,10 +20,10 @@ card:
 
 * 次のいずれかが動作しているマシンが必要です
   - Ubuntu 16.04+
-  - Debian 9
+  - Debian 9+
   - CentOS 7
-  - RHEL 7
-  - Fedora 25/26 (best-effort)
+  - Red Hat Enterprise Linux (RHEL) 7
+  - Fedora 25+
   - HypriotOS v1.0.1+
   - Container Linux (tested with 1800.6.0)
 * 1台あたり2GB以上のメモリ (2GBの場合、アプリ用のスペースはほとんどありません)
@@ -49,6 +49,34 @@ Kubernetesはこれらの値を使用して、クラスター内のノードを�
 ## ネットワークアダプタの確認
 
 複数のネットワークアダプターがあり、Kubernetesコンポーネントにデフォルトで到達できない場合、IPルートを追加して、Kubernetesクラスターアドレスが適切なアダプターを経由するように設定することをお勧めします。
+
+## iptablesがnftablesバックエンドを使用しないようにする
+
+Linuxでは、カーネルのiptablesサブシステムの最新の代替品としてnftablesが利用できます。
+`iptables`ツールは互換性レイヤーとして機能し、iptablesのように動作しますが、実際にはnftablesを設定します。
+このnftablesバックエンドは現在のkubeadmパッケージと互換性がありません。
+(ファイアウォールルールが重複し、 `kube-proxy`を破壊するためです。)
+
+もしあなたのシステムの `iptables`ツールがnftablesバックエンドを使用している場合、
+これらの問題を避けるために` iptables`ツールを 'legacy'モードに切り替える必要があります。
+これは、少なくともDebian 10（Buster）、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。
+RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
+
+{{< tabs name="iptables_legacy" >}}
+{{% tab name="Debian or Ubuntu" %}}
+```bash
+sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
+sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
+```
+{{% /tab %}}
+{{% tab name="Fedora" %}}
+```bash
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## 必須ポートの確認
 
@@ -144,14 +172,14 @@ kubeletバージョンがAPIサーバーのバージョンを超えることは�
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```bash
-apt-get update && apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
-apt-get update
-apt-get install -y kubelet kubeadm kubectl
-apt-mark hold kubelet kubeadm kubectl
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -196,17 +224,17 @@ systemctl enable --now kubelet
 Install CNI plugins (required for most pod network):
 
 ```bash
-CNI_VERSION="v0.7.5"
+CNI_VERSION="v0.8.2"
 mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 ```
 
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.12.0"
+CRICTL_VERSION="v1.16.0"
 mkdir -p /opt/bin
-curl -L "https://github.com/kubernetes-incubator/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
 
 Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
@@ -238,7 +266,7 @@ kubeadmが何をすべきか指示するまで、kubeletはクラッシュルー
 
 Dockerを使用した場合、kubeadmは自動的にkubelet向けのcgroup driverを検出し、それを実行時に`/var/lib/kubelet/kubeadm-flags.env`ファイルに設定します。
 
-もしあなたが異なるCRIを使用している場合、`/etc/default/kubelet`ファイル内の`cgroup-driver`の値を以下のように変更する必要があります。
+もしあなたが異なるCRIを使用している場合、`/etc/default/kubelet`(CentOS, RHEL, Fedoraでは`/etc/sysconfig/kubelet`) ファイル内の`cgroup-driver`の値を以下のように変更する必要があります。
 
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
