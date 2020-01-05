@@ -123,7 +123,7 @@ deployment.apps/hostnames created
 <!--
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
 -->
-`kubectl`コマンドは、作成または変更されたリソースのタイプと名前を出力するので、この後のコマンドで使用することもできます。
+`kubectl`コマンドは作成、変更されたリソースのタイプと名前を出力するので、この後のコマンドで使用することもできます。
 {{< note >}}
 <!--
 This is the same as if you started the `Deployment` with the following YAML:
@@ -209,7 +209,7 @@ So we have a culprit, let's create the `Service`.  As before, this is for the
 walk-through - you can use your own `Service`'s details here.
 -->
 犯人がいましたので、`Service`を作成しましょう。
-前と同様に、これはウォークスルー用です。ここで独自の`Service`の詳細を使用することもできます。
+前と同様に、これはウォークスルー用です。ご自身の`Service`の詳細を使用することもできます。
 
 ```shell
 kubectl expose deployment hostnames --port=80 --target-port=9376
@@ -219,7 +219,7 @@ service/hostnames exposed
 <!--
 And read it back, just to be sure:
 -->
-そして、念のため読み返してください。
+そして、念のため内容を確認します。
 
 ```shell
 kubectl get svc hostnames
@@ -446,7 +446,7 @@ It might sound silly, but you should really double and triple check that your
 `Service` is correct and matches your `Pod`'s port.  Read back your `Service`
 and verify it:
 -->
-馬鹿げているように聞こえるかもしれませんが、`Service`が正しく定義され`Pod`のポートとマッチすることを、ダブルチェックそしてトリプルチェックすべきです。
+馬鹿げているように聞こえるかもしれませんが、`Service`が正しく定義され`Pod`のポートとマッチすることを二度、三度と確認すべきです。
 `Service`を読み返して確認しましょう。
 
 ```shell
@@ -500,7 +500,7 @@ with the same name?
 -->
 * アクセスしようとしているポートは`spec.ports[]`に定義されていますか？
 * `targetPort`は`Pod`に対して適切ですか(多くの`Pod`は`Service`とは異なるポートを使用することを選択します)？
-* `targetPort`を数値で定義しようとしている場合、数値(9376)あるいは文字列"9376"のどちらですか？
+* `targetPort`を数値で定義しようとしている場合、それは数値(9376)、文字列"9376"のどちらですか？
 * `targetPort`を名前で定義しようとしている場合、`Pod`は同じ名前でポートを公開していますか？
 * ポートの`protocol`は`Pod`のものと同じですか？
 
