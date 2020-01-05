@@ -54,9 +54,9 @@ Nodes connected to the same top-of-rack switch for the lowest latency.
 
 ## 介绍 {#introduction}
 
-默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到任意一个服务后端的地址上。从 Kubernetes 1.7 开始，可以将“外部”流量路由到节点上运行的 pod 上，但不支持 `ClusterIP` 服务，并且更复杂的拓扑 &mdash; 比如分区路由 &mdash; 也还不支持。通过允许 `Service` 创建器根据 `Node` 标签为源 `Node` 和目的 `Node` 定义流量路由策略，`Service` 拓扑特性实现了服务流量的路由。
+默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到任意一个服务后端的地址上。从 Kubernetes 1.7 开始，可以将“外部”流量路由到节点上运行的 pod 上，但不支持 `ClusterIP` 服务，更复杂的拓扑 &mdash; 比如分区路由 &mdash; 也还不支持。通过允许 `Service` 创建者根据源 `Node` 和目的 `Node` 的标签来定义流量路由策略，`Service` 拓扑特性实现了服务流量的路由。
 
-通过对源 `Node` 和目的 `Node` 标签的匹配，运营者可以使用任何符合运营者要求的度量来指定彼此“更近”和“更远”的节点组。例如，对于在公有云上的运营者来说，更偏向于把流量控制在同一区域内，应为区域间的流量是有费用成本的，而区域内的流量没有。其它常用需要包括把流量路由到由 `DaemonSet` 管理的本地 Pod 上，或者把保持流量在链接同一机架交换机的 `Node` 上，以获得低延时。
+通过对源 `Node` 和目的 `Node` 标签的匹配，运营者可以使用任何符合运营者要求的度量值来指定彼此“较近”和“较远”的节点组。例如，对于在公有云上的运营者来说，更偏向于把流量控制在同一区域内，因为区域间的流量是有费用成本的，而区域内的流量没有。其它常用需求还包括把流量路由到由 `DaemonSet` 管理的本地 Pod 上，或者把保持流量在连接同一机架交换机的 `Node` 上，以获得低延时。
 
 <!--
 ## Prerequisites 
@@ -71,9 +71,9 @@ routing:
 
 ## 前提条件 {#prerequisites}
 
-为了启用拓扑感知服务路由功能，必须要有以下一些前提条件：
+为了启用拓扑感知服务路由功能，必须要满足以下一些前提条件：
 
-   * Kubernetes 的版本要 >= 1.17
+   * Kubernetes 的版本不低于 1.17
    * Kube-proxy 运行在 iptables 模式或者 IPVS 模式
    * 启用 [端点切片](/zh/docs/concepts/services-networking/endpoint-slices/)功能
 
@@ -145,7 +145,7 @@ traffic as follows.
 一个集群中，其 `Node` 的标签被打为其主机名，区域名和地区名。那么就可以设置 `Service` 的 `topologyKeys` 的值，像下面的做法一样定向流量了。
 
 * 只定向到同一个 `Node` 上的端点，`Node` 上没有端点存在时就失败：配置 `["kubernetes.io/hostname"]`。
-* 偏向定向到同一个 `Node`  上的端点，回退同一区域的端点上，然后是同一地区，其它情况下就失败：配置 `["kubernetes.io/hostname",  "topology.kubernetes.io/zone", "topology.kubernetes.io/region"]`。这或许很有用，例如，数据局部很重要的情况下。
+* 偏向定向到同一个 `Node`  上的端点，回退同一区域的端点上，然后是同一地区，其它情况下就失败：配置 `["kubernetes.io/hostname",  "topology.kubernetes.io/zone", "topology.kubernetes.io/region"]`。这或许很有用，例如，数据局部性很重要的情况下。
 * 偏向于同一区域，但如果此区域中没有可用的终结点，则回退到任何可用的终结点：配置 `["topology.kubernetes.io/zone", "*"]`。
 
 <!--
