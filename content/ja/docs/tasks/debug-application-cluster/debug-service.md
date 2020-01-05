@@ -434,7 +434,7 @@ If your `Service` is working, you should get correct responses.  If not, there
 are a number of things that could be going wrong.  Read on.
 -->
 `Service`が機能している場合は、正しい応答が得られるはずです。
-そうでない場合、おかしい可能性のあるものがいくつかありますので、続けましょう。
+そうでない場合、おかしい可能性のあるものがいくつかあるため、続けましょう。
 
 <!--
 ## Is the Service correct?
