@@ -16,6 +16,7 @@ weight: 10
 {{% capture overview %}}
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+
 <!--
 _Service Topology_ enables a service to route traffic based upon the Node
 topology of the cluster. For example, a service can specify that traffic be
@@ -28,6 +29,7 @@ in the same availability zone.
 {{% /capture %}}
 
 {{% capture body %}}
+
 <!--
 ## Introduction
 
@@ -52,7 +54,7 @@ Nodes connected to the same top-of-rack switch for the lowest latency.
 
 ## 介绍 {#introduction}
 
-默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到任意一个服务后端的地址上。从 Kubernetes 1.7 开始，可以将“外部”流量路由到节点上运行的 pod 上，但不支持 `ClusterIP` 服务，并且更复杂的拓扑（比如分区路由）也是不支持的。通过允许 `Service` 创建器根据 `Node` 标签为源 `Node` 和目的 `Node` 定义流量路由策略，`Service` 拓扑特性实现了服务流量的路由。
+默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到任意一个服务后端的地址上。从 Kubernetes 1.7 开始，可以将“外部”流量路由到节点上运行的 pod 上，但不支持 `ClusterIP` 服务，并且更复杂的拓扑 &mdash; 比如分区路由 &mdash; 也还不支持。通过允许 `Service` 创建器根据 `Node` 标签为源 `Node` 和目的 `Node` 定义流量路由策略，`Service` 拓扑特性实现了服务流量的路由。
 
 通过对源 `Node` 和目的 `Node` 标签的匹配，运营者可以使用任何符合运营者要求的度量来指定彼此“更近”和“更远”的节点组。例如，对于在公有云上的运营者来说，更偏向于把流量控制在同一区域内，应为区域间的流量是有费用成本的，而区域内的流量没有。其它常用需要包括把流量路由到由 `DaemonSet` 管理的本地 Pod 上，或者把保持流量在链接同一机架交换机的 `Node` 上，以获得低延时。
 
@@ -64,7 +66,7 @@ routing:
 
    * Kubernetes 1.17 or later
    * Kube-proxy running in iptables mode or IPVS mode
-   * Enable [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
+   * Enable [Endpoint Slices](/zh/docs/concepts/services-networking/endpoint-slices/)
 -->
 
 ## 前提条件 {#prerequisites}
@@ -73,7 +75,7 @@ routing:
 
    * Kubernetes 的版本要 >= 1.17
    * Kube-proxy 运行在 iptables 模式或者 IPVS 模式
-   * 启用 [端点切片](/docs/concepts/services-networking/endpoint-slices/)功能
+   * 启用 [端点切片](/zh/docs/concepts/services-networking/endpoint-slices/)功能
 
 <!--
 ## Enable Service Topology
@@ -118,7 +120,7 @@ as the last value in the list.
 
 如果集群启用了 `Service` 拓扑功能后，就可以在 `Service` 配置中指定 `topologyKeys` 字段，从而控制 `Service` 的流量路由。此字段是 `Node` 标签的优先顺序字段，将用于在访问这个 `Service` 时对端点进行排序。流量会被定向到第一个标签值和源 `Node` 标签值相匹配的 `Node`。如果这个 `Service` 没有匹配的后端 `Node`，那么第二个标签会被使用做匹配，以此类推，直到没有标签。
 
-如果没有匹配到，流量会被拒绝，就如同这个 `Service` 根本没有后端。这是根据有可用后端的第一个拓扑键来选择端点的。如果这个字段被配置了而没有后端可以匹配客户端拓扑，那么这个 `Service` 对那个客户端是没有后端的，链接应该是失败的。这个字段配置为 `"*"` 意味着任意拓扑。这个全匹配值如果使用了，那么只有作为配置值列表中的最后一个值才有用。
+如果没有匹配到，流量会被拒绝，就如同这个 `Service` 根本没有后端。这是根据有可用后端的第一个拓扑键来选择端点的。如果这个字段被配置了而没有后端可以匹配客户端拓扑，那么这个 `Service` 对那个客户端是没有后端的，链接应该是失败的。这个字段配置为 `"*"` 意味着任意拓扑。这个通配符值如果使用了，那么只有作为配置值列表中的最后一个才有用。
 
 <!--
 If `topologyKeys` is not specified or empty, no topology constraints will be applied.
@@ -172,17 +174,18 @@ traffic as follows.
 
 * 拓扑键必须是有效的标签，并且最多指定16个。
 
-* 全匹配值：`"*"`，如果要用，那必须是拓扑键值的最后一个值。 
+* 通配符：`"*"`，如果要用，那必须是拓扑键值的最后一个值。 
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+
 <!--
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
 
 * 阅读关于[启用服务拓扑](/docs/tasks/administer-cluster/enabling-service-topology)
-* 阅读[使用 `Services` 链接应用](/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[用 `Services` 连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
 
 {{% /capture %}}
