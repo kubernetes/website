@@ -47,7 +47,7 @@ Komponenty *master* mogą być uruchomione na dowolnej maszynie w klastrze. Dla 
 Kontrolerami są:
 
 * Node Controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
-* Replication Controller: Odpowiada za utrzymanie prawidłowej liczby podów dla każdego obiektu typu *replication controller* w systemie.
+* Replication Controller: Odpowiada za utrzymanie prawidłowej liczby podów dla każdego obiektu typu *ReplicationController* w systemie.
 * Endpoints Controller: Dostarcza informacji do obiektów typu *Endpoints* (tzn. łączy ze sobą Serwisy i Pody).
 * Service Account & Token Controllers: Tworzy domyślne konta i tokeny dostępu API dla nowych przestrzeni nazw (*namespaces*).
 
