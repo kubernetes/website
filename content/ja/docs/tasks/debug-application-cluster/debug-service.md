@@ -110,7 +110,7 @@ probably debugging your own `Service` you can substitute your own details, or yo
 can follow along and get a second data point.
 -->
 このドキュメントのウォークスルーのために、いくつかの`Pod`を実行しましょう。
-おそらくあなた自身の`Service`をデバッグしているので、あなた自身の詳細に置き換えることもできますし、これに沿って2番目のデータポイントを取得することもできます。
+おそらくあなた自身の`Service`をデバッグしているため、あなた自身の詳細に置き換えることもできますし、これに沿って2番目のデータポイントを取得することもできます。
 
 ```shell
 kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
@@ -123,7 +123,7 @@ deployment.apps/hostnames created
 <!--
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
 -->
-`kubectl`コマンドは作成、変更されたリソースのタイプと名前を出力するので、この後のコマンドで使用することもできます。
+`kubectl`コマンドは作成、変更されたリソースのタイプと名前を出力するため、この後のコマンドで使用することもできます。
 {{< note >}}
 <!--
 This is the same as if you started the `Deployment` with the following YAML:
@@ -274,7 +274,7 @@ Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 If this fails, perhaps your `Pod` and `Service` are in different
 `Namespaces`, try a namespace-qualified name:
 -->
-これが失敗した場合、おそらく`Pod`と`Service`が異なる`Namespace`にあるので、ネームスペースで修飾された名前を試してください。
+これが失敗した場合、おそらく`Pod`と`Service`が異なる`Namespace`にあるため、ネームスペースで修飾された名前を試してください。
 
 ```shell
 u@pod$ nslookup hostnames.default
