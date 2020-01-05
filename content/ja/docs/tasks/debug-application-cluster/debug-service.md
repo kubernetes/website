@@ -109,7 +109,7 @@ For the purposes of this walk-through, let's run some `Pods`.  Since you're
 probably debugging your own `Service` you can substitute your own details, or you
 can follow along and get a second data point.
 -->
-このウォークスルーの目的のために、いくつかの`Pod`を実行しましょう。
+このドキュメントのウォークスルーのために、いくつかの`Pod`を実行しましょう。
 おそらくあなた自身の`Service`をデバッグしているので、あなた自身の詳細に置き換えることもできますし、これに沿って2番目のデータポイントを取得することもできます。
 
 ```shell
