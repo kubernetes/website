@@ -38,7 +38,6 @@ This section of the Kubernetes documentation contains references.
   * [1.15](/docs/reference/generated/kubernetes-api/v1.15/)
   * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
   * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
-  * [1.12](/docs/reference/generated/kubernetes-api/v1.12/)
 
 <!--
 ## API Reference
