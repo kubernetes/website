@@ -17,16 +17,16 @@ Na tej stronie znajdziesz ogólne informacje o Kubernetes.
 {{% capture body %}}
 Kubernetes to przenośna, rozszerzalna platforma oprogramowania *open-source* służąca do zarządzania zadaniami i serwisami uruchamianymi w kontenerach, która umożliwia deklaratywną konfigurację i automatyzację. Ekosystem Kubernetes jest duży i dynamicznie się rozwija. Serwisy Kubernetes, wsparcie i narzędzia są szeroko dostępne.
 
-Nazwa Kubernetes pochodzi z greki i oznacza sternika albo pilota. Google otworzyło projekt Kubernetes publicznie w 2014. Kubernetes korzysta z [piętnastoletniego doświadczenia Google w uruchamianiu wielkoskalowych serwisów](https://ai.google/research/pubs/pub43438) w połączeniu z najlepszymi ideami i praktykami wypracowanymi przez społeczność.
+Nazwa Kubernetes pochodzi z greki i oznacza sternika albo pilota. Google otworzyło projekt Kubernetes publicznie w 2014. Kubernetes korzysta z [piętnastoletniego doświadczenia Google w uruchamianiu wielkoskalowych serwisów](https://ai.google/research/pubs/pub43438) i łączy je z najlepszymi pomysłami i praktykami wypracowanymi przez społeczność.
 
 ## Trochę historii
 
-Cofnijmy sie trochę w czasie i zobaczmy, dlaczego Kubernetes jest taki przydatny.
+Aby zrozumieć, dlaczego Kubernetes stał się taki przydatny, cofnijmy sie trochę w czasie.
 
-![Deployment evolution](/images/docs/Container_Evolution.svg)
+![Jak zmieniały sie metody wdrożeń](/images/docs/Container_Evolution.svg)
 
 **Era wdrożeń tradycyjnych:**
-Na początku aplikacje uruchamiane były na fizycznych serwerach. Nie było możliwości wymuszania granic pomiędzy zasobami poszczególnych aplikacji, co prowadziło do problemów z alokacją zasobów. Przykładowo, kiedy wiele aplikacji jest uruchomionych na jednym fizycznym serwerze, niektóre z tych aplikacji mogą zużyć większość dostępnych zasobów, powodując spowolnienie działania innych. Rozwiązaniem tego problemu mogło być uruchamianie każdej aplikacji na osobnej maszynie. Niestety, takie podejście ograniczało skalowanie, ponieważ większość zasobów była niedociążona, a utrzymanie wielu fizycznych maszyn było kosztowne.
+Na początku aplikacje uruchamiane były na fizycznych serwerach. Nie było możliwości separowania zasobów poszczególnych aplikacji, co prowadziło do problemów z alokacją zasobów. Przykładowo, kiedy wiele aplikacji jest uruchomionych na jednym fizycznym serwerze, część tych aplikacji może zużyć większość dostępnych zasobów, powodując spowolnienie działania innych. Rozwiązaniem tego problemu mogło być uruchamianie każdej aplikacji na osobnej maszynie. Niestety, takie podejście ograniczało skalowanie, ponieważ większość zasobów była niedociążona, a utrzymanie wielu fizycznych maszyn było kosztowne.
 
 **Era wdrożeń w środowiskach wirtualnych:**  
 Jako rozwiązanie zaproponowano wirtualizację, która umożliwiała uruchamianie wielu maszyn wirtualnych (VM) na jednym procesorze fizycznego serwera. Wirtualizacja pozwalała izolować aplikacje pomiędzy maszynami wirtualnymi i osiągnąć pewien poziom bezpieczeństwa, jako że informacje związane z jedną aplikacją nie były w łatwy sposób dostępne dla pozostałych.
@@ -36,7 +36,7 @@ Wirtualizacja pozwala lepiej wykorzystywać zasoby fizycznego serwera i lepiej s
 Każda maszyna wirtualna jest pełną maszyną zawierającą własny system operacyjny pracujący na zwirtualizowanej warstwie sprzętowej.
 
 **Era wdrożeń w kontenerach:**
-Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejszy stopnień wzajemnej izolacji, współdzieląc ten sam system operacyjny. Kontenery określane są mianem "lekkich". Podobnie, jak maszyna wirtualna, kontener posiada własny system plików, procesor, pamięć, przestrzeń procesów i in. Ponieważ kontenery nie są związane z leżącymi poniżej warstwami infrastruktury, mogą być przenoszone pomiędzy chmurami i dystrybucjami systemu operacyjnego.
+Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejszy stopnień wzajemnej izolacji, współdzieląc ten sam system operacyjny. Kontenery określane są mianem "lekkich". Podobnie, jak maszyna wirtualna, kontener posiada własny system plików, procesor, pamięć, przestrzeń procesów i in. Ponieważ kontenery nie są związane z leżącymi poniżej warstwami infrastruktury, mogą być migrowane pomiędzy chmurami i różnymi dystrybucjami systemu operacyjnego.
 
 Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
@@ -53,11 +53,11 @@ Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
 ## Do czego potrzebujesz Kubernetes i jakie są jego możliwości
 
-Kontenery są dobrą metodą na opakowywanie i uruchamianie aplikacji. W środowisku produkcyjnym musisz zarządzać kontenerami, w których działają aplikacje i pilnować, aby nie było żadnych przestojów w ich dostępności. Przykładowo, kiedy jeden z kontenerów przestaje działać, inny musi zostać uruchomiony. Nie byłoby prościej, aby takimi działaniami zajmował się jakiś system?
+Kontenery są dobrą metodą na opakowywanie i uruchamianie aplikacji. W środowisku produkcyjnym musisz zarządzać kontenerami, w których działają aplikacje i pilnować, aby nie było żadnych przerw w ich dostępności. Przykładowo, kiedy jeden z kontenerów przestaje działać, inny musi zostać uruchomiony. Nie byłoby prościej, aby takimi działaniami zajmował się jakiś system?
 
-I tu właśnie Kubernetes przychodzi z pomocą! Kubernetes dostarcza środowisko do pracy w niezawodny sposób z systemami rozproszonymi. Kubernetes obsługuje skalowanie aplikacji, przełączanie w sytuacjach awaryjnych, różne scenariusze wdrożeń itp. Przykładowo, Kubernetes w łatwy sposób może zarządzać wdrożeniem nowej wersji oprogramowania zgodnie ze scenariuszem *canary*.
+I tu właśnie Kubernetes przychodzi z pomocą! Kubernetes dostarcza środowisko do pracy w niezawodny sposób z systemami rozproszonymi. Kubernetes obsługuje skalowanie aplikacji, przełączanie w sytuacjach awaryjnych, różne scenariusze wdrożeń itp. Przykładowo, Kubernetes w łatwy sposób może zarządzać wdrożeniem nowej wersji oprogramowania zgodnie z metodyką *canary*.
 
-Kubernetes dostarcza:
+Kubernetes zapewnia:
 
 * **Detekcję nowych serwisów i balansowanie ruchu**  
 Kubernetes może udostępnić kontener używając nazwy DNS lub swojego własnego adresu IP. Jeśli ruch przychodzący do kontenera jest duży, Kubernetes może balansować obciążenie i przekierować ruch sieciowy, aby zapewnić stabilność całej instalacji.
@@ -74,15 +74,15 @@ Kubernetes pozwala składować i zarządzać informacjami poufnymi, takimi jak h
 
 ## Czym Kubernetes nie jest
 
-Kubernetes nie jest tradycyjnym, zawierającym wszystko systemem Paas (Platform as a Service). Ponieważ Kubernetes działa w warstwie kontenerów, a nie sprzętu, posiada różne funkcjonalności ogólnego zastosowania, wspólne dla innych rozwiązań PaaS, takie jak: instalacje *(deployments)*, skalowanie, balansowanie ruchu, logowanie i monitoring. Co ważne, Kubernetes nie jest monolitem i te domyślnie dostępne rozwiązania są opcjonalne i działają jako wtyczki. Kubernetes dostarcza elementy, z których może być zbudowana platforma deweloperska, ale pozostawia użytkownikowi wybór i elastyczność tam, gdzie jest to ważne.
+Kubernetes nie jest tradycyjnym, zawierającym wszystko systemem PaaS *(Platform as a Service)*. Ponieważ Kubernetes działa w warstwie kontenerów, a nie sprzętu, posiada różne funkcjonalności ogólnego zastosowania, wspólne dla innych rozwiązań PaaS, takie jak: instalacje *(deployments)*, skalowanie, balansowanie ruchu, logowanie i monitoring. Co ważne, Kubernetes nie jest monolitem i te domyślnie dostępne rozwiązania są opcjonalne i działają jako wtyczki. Kubernetes dostarcza elementy, z których może być zbudowana platforma deweloperska, ale pozostawia użytkownikowi wybór i elastyczność tam, gdzie jest to ważne.
 
 Kubernetes:
 
 * Nie ogranicza typów aplikacji, które są obsługiwane. Celem Kubernetes jest możliwość obsługi bardzo różnorodnego typu zadań, włączając w to *stateless*, *stateful* i *data-processing*. Jeśli jakaś aplikacja może działać w kontenerze, będzie doskonale sobie radzić w środowisku Kubernetes.
 * Nie zarządza kodem źródłowym i nie buduje aplikacji. Procesy Continuous Integration, Delivery, and Deployment (CI/CD) są zależne od kultury pracy organizacji, jej preferencji oraz wymagań technicznych.
-* Nie dostarcza serwisów z warstwy aplikacyjnej, takich jak *middleware* (np. message bus), środowiska analizy danych (np. Spark), bazy danych (np. MySQL), cache ani klastrowych systemów składowania danych (np. *Ceph*) jako usług wbudowanych. Te składniki mogą być uruchamiane na Kubernetes i udostępniane innym aplikacjom przez przenośne rozwiązania, takie jak [Open Service Broker](https://openservicebrokerapi.org/).
+* Nie dostarcza serwisów z warstwy aplikacyjnej, takich jak *middleware* (np. message bus), środowiska analizy danych (np. Spark), bazy danych (np. MySQL), cache ani klastrowych systemów składowania danych (np. Ceph) jako usług wbudowanych. Te składniki mogą być uruchamiane na Kubernetes i udostępniane innym aplikacjom przez przenośne rozwiązania, takie jak [Open Service Broker](https://openservicebrokerapi.org/).
 * Nie wymusza użycia konkretnych systemów zbierania logów, monitorowania ani ostrzegania. Niektóre z tych rozwiązań są udostępnione jako przykłady. Dostępne są też mechanizmy do gromadzenia i eksportowania różnych metryk.
-* Nie dostarcza ani nie wymusza języka/systemu używanego do konfiguracji (np. Jsonnet). Udostępnia API typu deklaratywnego, z którego można korzystać za pomocą różnych metod wykorzystujących deklaratywne specyfikacje.
+* Nie dostarcza, ani nie wymusza języka/systemu używanego do konfiguracji (np. Jsonnet). Udostępnia API typu deklaratywnego, z którego można korzystać za pomocą różnych metod wykorzystujących deklaratywne specyfikacje.
 * Nie zapewnia, ani nie wykorzystuje żadnego ogólnego systemu do zarządzania konfiguracją, utrzymaniem i samo-naprawianiem maszyn.
 * Co więcej, nie jest zwykłym systemem planowania *(orchestration)*. W rzeczywistości, eliminuje konieczność orkiestracji. Zgodnie z definicją techniczną, orkiestracja to wykonywanie określonego ciągu zadań: najpierw A, potem B i następnie C. Dla kontrastu, Kubernetes składa się z wielu niezależnych, możliwych do złożenia procesów sterujących, których zadaniem jest doprowadzenie stanu faktycznego do stanu oczekiwanego. Nie ma znaczenia, w jaki sposób przechodzi się od A do C. Nie ma konieczności scentralizowanego zarządzania. Dzięki temu otrzymujemy system, który jest potężniejszy, bardziej odporny i niezawodny i dający więcej możliwości rozbudowy.
 
