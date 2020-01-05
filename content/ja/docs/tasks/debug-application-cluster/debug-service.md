@@ -789,7 +789,7 @@ TCP  10.0.1.175:80 rr
 IPVS proxy will create a virtual server for each service address(e.g. Cluster IP, External IP, NodePort IP, Load Balancer IP etc.) and some corresponding real servers for endpoints of the service, if any. In this example, service hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`) and you'll get results similar to above.
 -->
 IPVSプロキシーは、各Serviceアドレス(Cluster IP、External IP、NodePort IP、Load Balancer IPなど)毎の仮想サーバーと、Serviceのエンドポイントが存在する場合に対応する実サーバーを作成します。
-この例では、サービスホスト名(`10.0.1.175:80`)は3つのエンドポイント(`10.244.0.5:9376`、`10.244.0.6:9376`、`10.244.0.7:9376`)を持ち、上と似た結果が得られるはずです。
+この例では、hostnames Service(`10.0.1.175:80`)は3つのエンドポイント(`10.244.0.5:9376`、`10.244.0.6:9376`、`10.244.0.7:9376`)を持ち、上と似た結果が得られるはずです。
 
 <!--
 ### Is kube-proxy proxying?
