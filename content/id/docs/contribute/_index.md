@@ -8,10 +8,10 @@ weight: 80
 
 {{% capture overview %}}
 
-Jika kamu ingin membantu dengan berkontribusi ke dokumentasi atau situs web Kubernetes,
-kami senang mendapat bantuan kamu! Siapapun dapat berkontribusi, baik kamu masih baru dengan
-proyek ini atau kamu telah lumayan lama, maupun jika kamu mengidentifikasikan dirimu sebagai seorang
-developer, seorang pengguna, atau bahkan seorang yang tidak tahan melihat saltik (_typo_)!
+Jika kamu ingin membantu dengan berkontribusi ke dokumentasi atau situs web Kubernetes, kami
+dengan senang hati menerima bantuan kamu! Siapapun bisa berkontribusi, baik kamu yang masih
+baru atau sudah lama di proyek ini, maupun jika kamu adalah seorang developer, seorang pengguna,
+atau bahkan seorang yang tidak tahan melihat saltik (_typo_)!
 
 Untuk informasi mengenai isi dan gaya (penulisan)
 dokumentasi Kubernetes, lihat [ikhtisar gaya penulisan dokumentasi](/docs/contribute/style/).
@@ -74,6 +74,6 @@ terhadap dokumentasi Kubernetes, tetapi daftar ini dapat membantumu memulainya.
 ## Cara-cara tambahan untuk berkontribusi
 
 - Untuk berkontribusi ke komunitas Kubernetes melalui forum-forum daring seperti Twitter atau Stack Overflow, atau mengetahui tentang pertemuan komunitas (_meetup_) lokal dan acara-acara Kubernetes, kunjungi [situs komunitas Kubernetes](/community/).
-- Untuk berkontribusi ke pengembangan fitur, baca [_cheatseet_ kontributor](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) untuk memulai.
+- Untuk mulai berkontribusi ke pengembangan fitur, baca [_cheatseet_ kontributor](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet).
 
 {{% /capture %}}
