@@ -7,6 +7,7 @@ short_description: >
   An API resource that automatically scales the number of pod replicas based on targeted CPU utilization or custom metric targets.
 
 aka: 
+- HPA
 tags:
 - operation
 ---
