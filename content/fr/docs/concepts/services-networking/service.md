@@ -3,8 +3,8 @@ title: Service
 feature:
   title: Service discovery and load balancing
   description: >
-    No need to modify your application to use an unfamiliar service discovery mechanism.
-    Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.
+    Pas besoin de modifier votre application pour utiliser un mécanisme de découverte de services inconnu.
+    Kubernetes donne aux pods leurs propres adresses IP et un nom DNS unique pour un ensemble de pods, et peut équilibrer la charge entre eux.
 
 content_template: templates/concept
 weight: 10
