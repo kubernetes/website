@@ -156,9 +156,9 @@ kubectl get services --sort-by=.metadata.name
 # 재시작 횟수로 정렬된 파드의 목록 조회
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# test 네임스페이스 내 파드 목록을 용량으로 정렬해서 조회
+# test 네임스페이스를 가지는 PersistentVolumes을 용량별로 정렬해서 조회
 
-kubectl get pods -n test --sort-by=.spec.capacity.storage
+kubectl get pv -n test --sort-by=.spec.capacity.storage
 
 # app=cassandra 레이블을 가진 모든 파드의 레이블 버전 조회
 kubectl get pods --selector=app=cassandra -o \

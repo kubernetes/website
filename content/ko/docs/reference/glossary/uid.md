@@ -2,7 +2,7 @@
 title: UID
 id: uid
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/names
+full_link: /ko/docs/concepts/overview/working-with-objects/names
 short_description: >
   오브젝트를 중복 없이 식별하기 위해 쿠버네티스 시스템이 생성하는 문자열.
 

@@ -277,7 +277,7 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 원본이 삭제되면 새 레플리카셋을 생성해서 대체할 수 있다.
 기존 `.spec.selector`와 신규 `.spec.selector`가 같으면 새 레플리카셋은 기존 파드를 선택한다.
 하지만 신규 레플리카셋은 기존 파드를 신규 레플리카셋의 새롭고 다른 파드 템플릿에 일치시키는 작업을 수행하지는 않는다.
-컨트롤 방식으로 파드를 새로운 사양으로 업데이트 하기 위해서는 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)를 이용하면 된다. 
+컨트롤 방식으로 파드를 새로운 사양으로 업데이트 하기 위해서는 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-생성)를 이용하면 된다. 
 이는 레플리카셋이 롤링 업데이트를 직접적으로 지원하지 않기 때문이다.
 
 ### 레플리카셋에서 파드 격리
