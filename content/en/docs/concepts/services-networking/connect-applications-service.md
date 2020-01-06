@@ -338,7 +338,7 @@ NAME                               READY     STATUS    RESTARTS   AGE
 curl-deployment-1515033274-1410r   1/1       Running   0          1m
 ```
 ```shell
-kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/nginx.crt
+kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/tls.crt
 ...
 <title>Welcome to nginx!</title>
 ...
