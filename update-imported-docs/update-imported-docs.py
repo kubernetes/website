@@ -22,7 +22,7 @@
 # Config files:
 #     reference.yml  use this to update the reference docs
 #     release.yml    use this to auto-generate/import release notes
-# K8S_RELEASE: provide the minor release version such as, 17
+# K8S_RELEASE: provide the release version such as, 1.17
 ##
 
 import argparse
@@ -157,8 +157,7 @@ def parse_input_args():
     Parse command line argument
     'config_file' is the first argument; it should be one of the YAML
     files in this same directory
-    'k8s_release' is the second argument; provide the release minor
-    version
+    'k8s_release' is the second argument; provide the release version
     :return: parsed argument
     """
     parser = argparse.ArgumentParser()
@@ -166,7 +165,7 @@ def parse_input_args():
                         help="reference.yml to generate reference docs; "
                              "release.yml to generate release notes")
     parser.add_argument('k8s_release', type=str,
-                        help="k8s release minor version, ex: 17"
+                        help="k8s release version, ex: 1.17"
                         )
     return parser.parse_args()
 

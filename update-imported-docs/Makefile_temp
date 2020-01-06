@@ -1,12 +1,27 @@
 WEBROOT=${K8S_WEBROOT}
 K8SROOT=${K8S_ROOT}
-MINOR_VERSION=${K8S_RELEASE}
+K8SRELEASE=${K8S_RELEASE}
 
-ONE=1
+# change <major>.<minor> to <major>_<minor>
+getversion:
+	echo $(K8SRELEASE) | sed "s/\./_/g" > b.tmp
+
+K8SVERDIR=$(shell cat b.tmp)
+
+sepversion: getversion
+	echo $(K8SVERDIR) | sed "s/[0-9]_//g" > minor.tmp
+	echo $(K8SVERDIR) | sed "s/_[0-9]*//g" > major.tmp
+
+MINOR_VERSION := $(shell cat minor.tmp)
+MAJOR_VERSION := $(shell cat major.tmp)
+ONE := 1
 PREV_MINOR_VERSION := $(shell echo $$(( $(MINOR_VERSION) - $(ONE) )))
 
+cleantmp:
+	rm minor.tmp; rm major.tmp; rm b.tmp
+
 APISRC=gen-apidocs
-APIDST=$(WEBROOT)/static/docs/reference/generated/kubernetes-api/v1.$(MINOR_VERSION)
+APIDST=$(WEBROOT)/static/docs/reference/generated/kubernetes-api/v$(K8SRELEASE)
 
 CLISRC=gen-kubectldocs/generators/build
 CLIDST=$(WEBROOT)/static/docs/reference/generated/kubectl
@@ -17,27 +32,36 @@ default:
 	@echo "Support commands:\ncli api comp copycli copyapi updateapispec"
 
 # Set up versioned directories for new release
-#
 # kubectl-command static-includes, toc.yaml
-createkubectldir:
-	@echo Release minor version: $(MINOR_VERSION)
-	@echo Previous release minor version: $(PREV_MINOR_VERSION)
-	mkdir -p $(shell pwd)/gen-kubectldocs/generators/v1_$(MINOR_VERSION)
-	cp -r $(shell pwd)/gen-kubectldocs/generators/v1_$(PREV_MINOR_VERSION)/* $(shell pwd)/gen-kubectldocs/generators/v1_$(MINOR_VERSION)/
+createkubectldir: sepversion
+	@echo version $(K8SVERDIR)
+	mkdir -p $(shell pwd)/gen-kubectldocs/generators/v$(K8SVERDIR)
+	if ! [ -f "$(shell pwd)/gen-kubectldocs/generators/v1_$(PREV_MINOR_VERSION)/config.yaml" ]; then \
+		cp -r $(shell pwd)/gen-kubectldocs/generators/v1_15/* $(shell pwd)/gen-kubectldocs/generators/v$(K8SVERDIR)/; \
+	else \
+		cp -r $(shell pwd)/gen-kubectldocs/generators/v1_$(PREV_MINOR_VERSION)/* $(shell pwd)/gen-kubectldocs/generators/v$(K8SVERDIR)/; \
+	fi
 
 # api-ref versioned dir, swagger.json, config.yaml
-createapidir:
-	mkdir -p $(shell pwd)/gen-apidocs/config/v1_$(MINOR_VERSION)
-	if [ -d "$(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)" ]; then \
-		cp $(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)/config.yaml $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml; \
-		echo "Dir exists: $(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)"; \
-	else \
-		cp $(APISRC)/config/config.yaml $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml; \
+createapidir: sepversion
+	@echo version $(K8SVERDIR)
+	mkdir -p $(shell pwd)/gen-apidocs/config/v$(K8SVERDIR)
+	# config.yaml
+	if ! [ -f "$(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml" ]; then \
+		if [ -f "$(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)/config.yaml" ]; then \
+			cp $(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)/config.yaml $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml; \
+			echo "Using config file: $(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)/config.yaml"; \
+		else \
+			cp $(APISRC)/config/config.yaml $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml; \
+		fi \
 	fi
-	cp $(K8SROOT)/api/openapi-spec/swagger.json $(APISRC)/config/v1_$(MINOR_VERSION)/swagger.json
+	# swagger.json
+	if ! [ -f "$(APISRC)/config/v1_$(MINOR_VERSION)/swagger.json" ]; then \
+		cp $(K8SROOT)/api/openapi-spec/swagger.json $(APISRC)/config/v1_$(MINOR_VERSION)/swagger.json; \
+	fi
 
 # copy versioned files to the base config dir before generating api ref
-stageapifiles:
+stageapifiles: createapidir
 	cp $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml $(APISRC)/config/config.yaml
 	cp $(APISRC)/config/v1_$(MINOR_VERSION)/swagger.json $(APISRC)/config/swagger.json
 
@@ -48,7 +72,7 @@ cleancli:
 	sudo rm -rf $(shell pwd)/gen-kubectldocs/generators/build
 	sudo rm -rf $(shell pwd)/gen-kubectldocs/generators/manifest.json
 
-cli: cleancli createkubectldir
+cli: createkubectldir cleancli
 	go run gen-kubectldocs/main.go --kubernetes-version v1_$(MINOR_VERSION)
 	docker run -v $(shell pwd)/gen-kubectldocs/generators/includes:/source -v $(shell pwd)/gen-kubectldocs/generators/build:/build -v $(shell pwd)/gen-kubectldocs/generators/:/manifest pwittrock/brodocs
 
@@ -64,7 +88,7 @@ copycli: cli
 	cp $(CLISRC)/node_modules/jquery/dist/jquery.min.js $(CLIDST)/node_modules/jquery/dist/jquery.min.js
 	cp $(CLISRCFONT)/css/font-awesome.min.css $(CLIDSTFONT)/css/font-awesome.min.css
 
-# Build kube component docs
+# Build kube component,tool docs
 cleancomp:
 	rm -rf $(shell pwd)/gen-compdocs/build
 
@@ -83,7 +107,7 @@ comp: cleancomp
 updateapispec:
 	cp $(K8SROOT)/api/openapi-spec/swagger.json gen-apidocs/config/swagger.json
 
-api: cleanapi createapidir stageapifiles
+api: cleanapi stageapifiles
 	go run gen-apidocs/main.go --work-dir=gen-apidocs --munge-groups=false
 
 cleanapi:

@@ -8,5 +8,5 @@ This `update-imported-docs.py` script generates the Kubernetes reference docs (c
 ### General Usage
 
 ```shell
-python3 update-imported-docs.py reference.yml <minor-version>
+python3 update-imported-docs.py <config_file> <k8s_release>
 ```
