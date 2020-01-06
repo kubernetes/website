@@ -33,7 +33,7 @@ weight: 20
 
 新しいAPIを作る場合、[APIをKubernetesクラスターAPIにアグリゲート(集約)する](/ja/docs/concepts/api-extension/apiserver-aggregation/)か、もしくはAPIをスタンドアローンで動かすかを検討します。
 
-| APIアグリゲーションを使う場合: | スタンドアロンAPIを使う場合: |
+| APIアグリゲーションを使う場合: | スタンドアローンAPIを使う場合: |
 | ------------------------------ | ---------------------------- |
 | APIが[宣言的](#宣言的API) | APIが[宣言的](#宣言的API)モデルに適さない |
 | 新しいリソースを`kubectl`を使い読み込み、書き込みしたい| `kubectl`のサポートは必要ない |
@@ -126,7 +126,7 @@ CRDは簡単に使えます。アグリゲートAPIはより柔軟です。ニ�
 通常、CRDは下記の場合に適しています:
 
 * 少数のフィールドしか必要ない
-* そのリソースは社内のみで利用している、または小さいオープンソースプロジェクトの一部で利用している（商用プロダクトではない）
+* そのリソースは社内のみで利用している、または小さいオープンソースプロジェクトの一部で利用している(商用プロダクトではない)
 
 ### 使いやすさの比較
 
@@ -146,20 +146,20 @@ CRDは、アグリゲートAPIと比べ、簡単に作れます。
 | 機能 | 詳細 | CRD | アグリゲートAPI |
 | ---- | ---- | --- | --------------- |
 | バリデーション | エラーを予防し、クライアントと無関係にAPIを発達させることができるようになる。これらの機能は多数のクライアントがおり、同時に全てを更新できないときに最も効果を発揮する | はい、ほとんどのバリデーションは[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation)で、CRDに指定できる。その他のバリデーションは[Webhookのバリデーション](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)によりサポートされている | はい、任意のバリデーションが可能 |
-| デフォルト設定 | 上記を参照。| はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting)の`default`キーワード（1.15でアルファ）、または[Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9)を通じて可能 | はい |
+| デフォルト設定 | 上記を参照 | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting)の`default`キーワード(1.16でベータ)、または[Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9)を通じて可能 | はい |
 | 複数バージョニング | 同じオブジェクトを、違うAPIバージョンで利用可能にする。フィールドの名前を変更するなどのAPIの変更を簡単に行うのに役立つ。クライアントのバージョンを管理する場合、重要性は下がる | [はい](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning) | はい |
-| カスタムストレージ | 異なる性能のストレージが必要な場合（例えば、キーバリューストアの代わりに時系列データベース）または、セキュリティの分離（例えば、機密情報の暗号化、その他）| いいえ | はい |
+| カスタムストレージ | 異なる性能のストレージが必要な場合(例えば、キーバリューストアの代わりに時系列データベース)または、セキュリティの分離(例えば、機密情報の暗号化、その他)| いいえ | はい |
 | カスタムビジネスロジック | オブジェクトが作成、読み込み、更新、また削除されるときに任意のチェック、アクションを実行する| はい、[Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)を利用 | はい |
 | サブリソースのスケール | HorizontalPodAutoscalerやPodDisruptionBudgetなどのシステムが、新しいリソースと連携できるようにする | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource) | はい |
-| サブリソースの状態 | <ul><li>より詳細なアクセスコントロール: ユーザーがspecセクションに書き込み、コントローラーがstatusセクションに書き込む</li><li>カスタムリソースのデータ変換時にオブジェクトの世代を上げられるようにする（リソースがspecと、statusでセクションが分離している必要がある）</li></ul> | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | はい |
+| サブリソースの状態 | <ul><li>より詳細なアクセスコントロール: ユーザーがspecセクションに書き込み、コントローラーがstatusセクションに書き込む</li><li>カスタムリソースのデータ変換時にオブジェクトの世代を上げられるようにする(リソースがspecと、statusでセクションが分離している必要がある)</li></ul> | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | はい |
 | その他のサブリソース | "logs"や"exec"のような、CRUD以外の処理の追加 | いいえ | はい |
 | strategic-merge-patch |`Content-Type: application/strategic-merge-patch+json`で、PATCHをサポートする新しいエンドポイント。ローカル、サーバー、どちらでも更新されうるオブジェクトに有用。さらなる情報は["APIオブジェクトをkubectl patchで決まった場所で更新"](/docs/tasks/run-application/update-api-object-kubectl-patch/)を参照 | いいえ | はい |
 | プロトコルバッファ | プロトコルバッファを使用するクライアントをサポートする新しいリソース | いいえ | はい |
-| OpenAPIスキーマ | サーバーから動的に取得できる型のOpenAPI（スワッガー）スキーマはあるか、許可されたフィールドのみが設定されるようにすることで、ユーザーはフィールド名のスペルミスから保護されているか、型は強制されているか（言い換えると、「文字列」フィールドに「int」を入れさせない） | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) スキーマがベース(1.15でベータ) | はい |
+| OpenAPIスキーマ | サーバーから動的に取得できる型のOpenAPI(スワッガー)スキーマはあるか、許可されたフィールドのみが設定されるようにすることで、ユーザーはフィールド名のスペルミスから保護されているか、型は強制されているか(言い換えると、「文字列」フィールドに「int」を入れさせない) | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) スキーマがベース(1.16でGA) | はい |
 
 ### 一般的な機能
 
-CRD、またはアグリゲートAPI、どちらを使ってカスタムリソースを作った場合でも、Kubernetesプラットフォーム外でAPIを実装するのに比べ、多数の機能が提供される。
+CRD、またはアグリゲートAPI、どちらを使ってカスタムリソースを作った場合でも、Kubernetesプラットフォーム外でAPIを実装するのに比べ、多数の機能が提供されます:
 
 | 機能 | 何を実現するか |
 | ---- | -------------- |
@@ -169,13 +169,13 @@ CRD、またはアグリゲートAPI、どちらを使ってカスタムリソ�
 | json-patch | 新しいエンドポイントが`Content-Type: application/json-patch+json`を用いたPATCHをサポート |
 | merge-patch | 新しいエンドポイントが`Content-Type: application/merge-patch+json`を用いたPATCHをサポート |
 | HTTPS | 新しいエンドポイントがHTTPSを利用 |
-| ビルトイン認証 | 拡張機能へのアクセスに認証のため、コアAPIサーバー(アグリゲーションレイヤー) を利用 |
-| ビルトイン認可 | 拡張機能へのアクセスにコアAPIサーバーで使われている認可機構を再利用（例、RBAC） |
-| ファイナライザ | 外部リソースの削除が終わるまで、拡張リソースの削除をブロック |
+| ビルトイン認証 | 拡張機能へのアクセスに認証のため、コアAPIサーバー(アグリゲーションレイヤー)を利用 |
+| ビルトイン認可 | 拡張機能へのアクセスにコアAPIサーバーで使われている認可機構を再利用(例、RBAC) |
+| ファイナライザー | 外部リソースの削除が終わるまで、拡張リソースの削除をブロック |
 | Admission Webhooks | 拡張リソースの作成/更新/削除処理時に、デフォルト値の設定、バリデーションを実施 |
 | UI/CLI 表示 | kubectl、ダッシュボードで拡張リソースを表示 |
 | 未設定 vs 空設定 | クライアントは、フィールドの未設定とゼロ値を区別することができる |
-| クライアントライブラリの生成 | Kubernetesは、一般的なクライアントライブラリと、タイプ固有のクライアントライブラリを生成するツールを提供 |
+| クライアントライブラリーの生成 | Kubernetesは、一般的なクライアントライブラリーと、タイプ固有のクライアントライブラリーを生成するツールを提供 |
 | ラベルとアノテーション | ツールがコアリソースとカスタムリソースの編集方法を知っているオブジェクト間で、共通のメタデータを提供 |
 
 ## カスタムリソースのインストール準備
@@ -198,26 +198,26 @@ CRDを作成しても、勝手に新しい障害点が追加されてしまう�
 
 CRDでは、APIサーバーのビルトインリソースと同じ認証、認可、そして監査ロギングの仕組みを利用します。
 
-もしRBACを使っている場合、ほとんどのRBACのロールは新しいリソースに付与されません。（クラスター管理者ロール、もしくはワイルドカードで作成されたロールを除く）新しいリソースには、明示的にアクセスを許可する必要があります。多くの場合、CRDおよびアグリゲートAPIには、追加するタイプの新しいロール定義がバンドルされています。
+もしRBACを使っている場合、ほとんどのRBACのロールは新しいリソースへのアクセスを許可しません。(クラスター管理者ロール、もしくはワイルドカードで作成されたロールを除く)新しいリソースには、明示的にアクセスを許可する必要があります。多くの場合、CRDおよびアグリゲートAPIには、追加するタイプの新しいロール定義がバンドルされています。
 
 アグリゲートAPIサーバーでは、APIサーバーのビルトインリソースと同じ認証、認可、そして監査の仕組みを使う場合と使わない場合があります。
 
 ## カスタムリソースへのアクセス
 
-Kubernetesの[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を使い、カスタムリソースにアクセスすることが可能です。全てのクライアントライブラリがカスタムリソースをサポートしているわけでは無いですが、GoとPythonのライブラリはサポートしています。
+Kubernetesの[クライアントライブラリー](/docs/reference/using-api/client-libraries/)を使い、カスタムリソースにアクセスすることが可能です。全てのクライアントライブラリーがカスタムリソースをサポートしているわけでは無いですが、GoとPythonのライブラリーはサポートしています。
 
-カスタムリソースには、下記のような方法で操作できます:
+カスタムリソースは、下記のような方法で操作できます:
 
 - kubectl
 - kubernetesの動的クライアント
 - 自作のRESTクライアント
-- [Kubernetesクライアント生成ツール](https://github.com/kubernetes/code-generator)を使い生成したクライアント（生成は高度な作業ですが、一部のプロジェクトは、CRDまたはAAとともにクライアントを提供する場合があります） 
+- [Kubernetesクライアント生成ツール](https://github.com/kubernetes/code-generator)を使い生成したクライアント(生成は高度な作業ですが、一部のプロジェクトは、CRDまたはAAとともにクライアントを提供する場合があります)
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* [Kubernetes APIをアグリゲーションレイヤーで拡張](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
+* [Kubernetes APIをアグリゲーションレイヤーで拡張](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
 * [Kubernetes APIをCustomResourceDefinitionで拡張](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)について学ぶ
 
 {{% /capture %}}
