@@ -1,7 +1,7 @@
 ---
 title: Service
 feature:
-  title: Service discovery and load balancing
+  title: Découverte de services et équilibrage de charge
   description: >
     Pas besoin de modifier votre application pour utiliser un mécanisme de découverte de services inconnu.
     Kubernetes donne aux pods leurs propres adresses IP et un nom DNS unique pour un ensemble de pods, et peut équilibrer la charge entre eux.
