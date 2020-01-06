@@ -49,17 +49,33 @@ aliases:
     - kbarnard10
     - kbhawkey
     - makoscafee
-    - rajakavitha1
+    - Rajakavitha1
     - ryanmcginnis
     - simplytunde
     - steveperry-53
+    - tengqm
     - xiangpengzhao
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
+    - bradamant3
+    - bradtopol
+    - daminisatya
+    - gochist
+    - jaredbhatti
+    - jimangel
+    - kbarnard10
+    - kbhawkey
+    - makoscafee
     - rajakavitha1
+    - ryanmcginnis
     - sftim
+    - simplytunde
+    - steveperry-53
     - tengqm
+    - xiangpengzhao
+    - zacharysarah
+    - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
@@ -109,12 +125,10 @@ aliases:
     - girikuncoro
     - irvifa
   sig-docs-it-owners: # Admins for Italian content
-    - fabriziopandini
     - mattiaperi
     - micheleberardi
     - rlenferink
   sig-docs-it-reviews: # PR reviews for Italian content
-    - fabriziopandini
     - mattiaperi
     - micheleberardi
     - rlenferink
@@ -140,7 +154,6 @@ aliases:
     - gochist
     - ianychoi
     - seokho-son
-    - ysyukr
   sig-docs-maintainers: # Website maintainers
     - bradamant3
     - jimangel
@@ -158,6 +171,7 @@ aliases:
     - lichuqiang
     - markthink
     - SataQiu
+    - tengqm
     - xiangpengzhao
     - xichengliudui
     - zacharysarah
