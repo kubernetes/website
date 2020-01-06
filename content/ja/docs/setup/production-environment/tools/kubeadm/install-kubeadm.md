@@ -26,12 +26,12 @@ card:
   - Fedora 25+
   - HypriotOS v1.0.1+
   - Container Linux (tested with 1800.6.0)
-* 1台あたり2GB以上のメモリ (2GBの場合、アプリ用のスペースはほとんどありません)
+* 1台あたり2GB以上のメモリ(2GBの場合、アプリ用のスペースはほとんどありません)
 * 2コア以上のCPU
-* クラスター内のすべてのマシン間で通信可能なネットワーク (パブリックネットワークでもプライベートネットワークでも構いません)
-* ユニークな hostname, MACアドレス, と product_uuid が各ノードに必要です。詳細は [ここ](#MACアドレスとproduct_uuidが全てのノードでユニークであることの検証) を参照してください。
-* マシン内の特定のポートが開いていること。詳細は [ここ](#必須ポートの確認) を参照してください。
-* Swapがオフであること。kubeletが正常に動作するためにはswapは **必ず** オフでなければなりません。
+* クラスター内のすべてのマシン間で通信可能なネットワーク(パブリックネットワークでもプライベートネットワークでも構いません)
+* ユニークなhostname、MACアドレス、とproduct_uuidが各ノードに必要です。詳細は[ここ](#MACアドレスとproduct_uuidが全てのノードでユニークであることの検証)を参照してください。
+* マシン内の特定のポートが開いていること。詳細は[ここ](#必須ポートの確認)を参照してください。
+* Swapがオフであること。kubeletが正常に動作するためにはswapは**必ず**オフでなければなりません。
 
 {{% /capture %}}
 
@@ -39,8 +39,8 @@ card:
 
 ## MACアドレスとproduct_uuidが全てのノードでユニークであることの検証
 
-* ネットワークインターフェースのMACアドレスは`ip link` もしくは `ifconfig -a`コマンドで取得できます。
-* product_uuid は `sudo cat /sys/class/dmi/id/product_uuid` コマンドで確認できます。
+* ネットワークインターフェースのMACアドレスは`ip link`もしくは`ifconfig -a`コマンドで取得できます。
+* product_uuidは`sudo cat /sys/class/dmi/id/product_uuid`コマンドで確認できます。
 
 ハードウェアデバイスではユニークなアドレスが割り当てられる可能性が非常に高いですが、VMでは同じになることがあります。
 Kubernetesはこれらの値を使用して、クラスター内のノードを一意に識別します。
@@ -55,11 +55,11 @@ Kubernetesはこれらの値を使用して、クラスター内のノードを�
 Linuxでは、カーネルのiptablesサブシステムの最新の代替品としてnftablesが利用できます。
 `iptables`ツールは互換性レイヤーとして機能し、iptablesのように動作しますが、実際にはnftablesを設定します。
 このnftablesバックエンドは現在のkubeadmパッケージと互換性がありません。
-(ファイアウォールルールが重複し、 `kube-proxy`を破壊するためです。)
+(ファイアウォールルールが重複し、`kube-proxy`を破壊するためです。)
 
-もしあなたのシステムの `iptables`ツールがnftablesバックエンドを使用している場合、
-これらの問題を避けるために` iptables`ツールを 'legacy'モードに切り替える必要があります。
-これは、少なくともDebian 10（Buster）、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。
+もしあなたのシステムの`iptables`ツールがnftablesバックエンドを使用している場合、
+これらの問題を避けるために`iptables`ツールを'legacy'モードに切り替える必要があります。
+これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。
 RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
 
 {{< tabs name="iptables_legacy" >}}
@@ -99,14 +99,14 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 
 ** [NodePort Services](/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
 
-\* の項目は書き換え可能です。
+\*の項目は書き換え可能です。
 そのため、あなたが指定したカスタムポートも開いていることを確認する必要があります。
 
 etcdポートはコントロールプレーンノードに含まれていますが、
 独自のetcdクラスターを外部またはカスタムポートでホストすることもできます。
 
-使用するPod ネットワークプラグイン（以下を参照）のポートも開く必要があります。 
-これは各Pod ネットワークプラグインによって異なるため、必要なポートについては
+使用するPodネットワークプラグイン（以下を参照）のポートも開く必要があります。
+これは各Podネットワークプラグインによって異なるため、必要なポートについては
 プラグインのドキュメントを参照してください。
 
 ## ランタイムのインストール
@@ -114,7 +114,7 @@ etcdポートはコントロールプレーンノードに含まれています�
 v1.6.0以降、KubernetesはデフォルトでCRI(Container Runtime Interface)の使用を有効にしています。
 
 また、v1.14.0以降、kubeadmは既知のドメインソケットのリストをスキャンして、
-Linuxノード上のコンテナランタイムを自動的に検出しようとします。 
+Linuxノード上のコンテナランタイムを自動的に検出しようとします。
 検出可能なランタイムとソケットパスは、以下の表に記載されています。
 
 | ランタイム  | ドメインソケット                   |
@@ -137,7 +137,7 @@ Linux以外のノードでは、デフォルトで使用されるコンテナラ
 - [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
-詳細は [CRIのインストール](/ja/docs/setup/production-environment/container-runtimes/) を参照してください。
+詳細は[CRIのインストール](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
 
 ## kubeadm、kubelet、kubectlのインストール
 
@@ -146,7 +146,7 @@ Linux以外のノードでは、デフォルトで使用されるコンテナラ
 * `kubeadm`: クラスターを起動するコマンド。
 
 * `kubelet`: クラスター内のすべてのマシンで実行されるコンポーネント。
-     ポッドやコンテナの起動などを行います。
+     ポッドやコンテナの起動などを行います。
 
 * `kubectl`: クラスターにアクセスするためのコマンドラインツール。
 
@@ -266,7 +266,7 @@ kubeadmが何をすべきか指示するまで、kubeletはクラッシュルー
 
 Dockerを使用した場合、kubeadmは自動的にkubelet向けのcgroup driverを検出し、それを実行時に`/var/lib/kubelet/kubeadm-flags.env`ファイルに設定します。
 
-もしあなたが異なるCRIを使用している場合、`/etc/default/kubelet`(CentOS, RHEL, Fedoraでは`/etc/sysconfig/kubelet`) ファイル内の`cgroup-driver`の値を以下のように変更する必要があります。
+もしあなたが異なるCRIを使用している場合、`/etc/default/kubelet`(CentOS、RHEL、Fedoraでは`/etc/sysconfig/kubelet`)ファイル内の`cgroup-driver`の値を以下のように変更する必要があります。
 
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
@@ -274,7 +274,7 @@ KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 
 このファイルは、kubeletの追加のユーザー定義引数を取得するために、`kubeadm init`および`kubeadm join`によって使用されます。
 
-CRIのcgroupドライバーが `cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。
+CRIのcgroupドライバーが`cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。
 なぜなら、これは既にkubeletのデフォルト値であるためです。
 
 kubeletをリスタートする方法:
