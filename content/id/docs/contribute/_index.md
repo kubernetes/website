@@ -40,7 +40,7 @@ dokumentasi Kubernetes, lihat [ikhtisar gaya penulisan dokumentasi](/docs/contri
 
 Daftar ini dibagi menjadi hal-hal yang dapat dilakukan oleh siapapun, hal-hal yang
 dapat dilakukan oleh anggota-anggota organisasi Kubernetes, dan hal-hal yang
-memerlukan tingat akses yang lebih tinggi serta pengetahuan terhadap proses-proses
+memerlukan tingkat akses yang lebih tinggi serta pengetahuan terhadap proses-proses
 SIG Docs. Berkontribusi secara konsisten dari waktu ke waktu dapat membantumu
 mengerti beberapa peralatan dan keputusan organisasi yang telah dibuat.
 
