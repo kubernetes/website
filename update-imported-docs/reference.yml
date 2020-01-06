@@ -32,10 +32,7 @@ repos:
     go get -u github.com/go-openapi/spec
     go get -v github.com/kubernetes-sigs/reference-docs/gen-apidocs
     cd src/github.com/kubernetes-sigs/reference-docs/
-    make updateapispec
-    make api
     make copyapi
-
 
   files:
   - src: gen-compdocs/build/cloud-controller-manager.md
@@ -46,7 +43,7 @@ repos:
     dst: content/en/docs/reference/command-line-tools-reference/
   # We have problems generating docs for kubelet, it is done manually now
   # - src: gen-compdocs/build/kubelet.md
-  # dst: content/en/docs/reference/command-line-tools-reference/
+  #   dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-proxy.md
     dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-scheduler.md
