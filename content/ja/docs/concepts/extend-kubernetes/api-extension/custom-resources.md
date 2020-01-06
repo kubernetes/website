@@ -105,9 +105,9 @@ CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類�
 
 どのようにインストールされたかに関わらず、新しいリソースはカスタムリソースとして参照され、ビルトインのKubernetesリソース(Podなど)とは区別されます。
 
-## カスタムリソース定義
+## CustomResourceDefinitions
 
-[カスタムリソース定義](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)APIリソースは、カスタムリソースを定義します。CRDオブジェクトを定義することで、指定した名前、スキーマで新しいカスタムリソースが作成されます。Kubernetes APIは、作成したカスタムリソースのストレージを提供、および処理します。
+[CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)APIリソースは、カスタムリソースを定義します。CRDオブジェクトを定義することで、指定した名前、スキーマで新しいカスタムリソースが作成されます。Kubernetes APIは、作成したカスタムリソースのストレージを提供、および処理します。
 
 これはカスタムリソースを処理するために、独自のAPIサーバーを書くことから解放してくれますが、一般的な性質として[APIサーバーアグリゲーション](#APIサーバーアグリゲーション)と比べると、柔軟性に欠けます。
 
