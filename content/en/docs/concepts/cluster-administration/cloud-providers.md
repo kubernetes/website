@@ -52,6 +52,12 @@ for the [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager]
 For all external cloud providers, please follow the instructions on the individual repositories,
 which are listed under their headings below, or one may view [the list of all repositories](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
 
+## Alibaba Cloud
+ If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-alibaba-cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)
+
+### Node Name
+The AlibabaCloudProvider use ${region-id}.${instance-id} as the name of the Kubernetes Node object which is determined by the kubelet overridden with `--hostname-override=${region-id}.${instance-id} --provider-id=${region-id}.${instance-id}`
+
 ## AWS
 This section describes all the possible configurations which can
 be used when running Kubernetes on Amazon Web Services.
