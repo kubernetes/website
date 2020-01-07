@@ -217,7 +217,7 @@ Kubernetesの[クライアントライブラリー](/docs/reference/using-api/cl
 
 {{% capture whatsnext %}}
 
-* [Kubernetes APIをアグリゲーションレイヤーで拡張](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
-* [Kubernetes APIをCustomResourceDefinitionで拡張](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)について学ぶ
+* [Kubernetes APIをアグリゲーションレイヤーで拡張する方法](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
+* [Kubernetes APIをCustomResourceDefinitionで拡張する方法](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)について学ぶ
 
 {{% /capture %}}
