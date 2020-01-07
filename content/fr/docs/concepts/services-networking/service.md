@@ -374,7 +374,7 @@ Les valeurs de `Type` et leurs comportements sont:
      Vous avez besoin de CoreDNS version 1.7 ou supérieure pour utiliser le type `ExternalName`.
      {{< /note >}}
 
-Vous pouvez également utiliser [Ingress] (/fr/docs/concepts/services-networking/ingress) pour exposer votre service.
+Vous pouvez également utiliser [Ingress](/fr/docs/concepts/services-networking/ingress) pour exposer votre service.
 Ingress n'est pas un type de service, mais il sert de point d'entrée pour votre cluster.
 Il vous permet de consolider vos règles de routage en une seule ressource car il peut exposer plusieurs services sous la même adresse IP.
 
@@ -599,14 +599,14 @@ Depuis la version 1.3.0, l'utilisation de cette annotation s'applique à tous le
 
 Il existe plusieurs annotations pour gérer les journaux d'accès aux services ELB sur AWS.
 
-L'annotation `service.beta.kubernetes.io / aws-load-balancer-access-log-enabled` contrôle si les journaux d'accès sont activés.
+L'annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled` contrôle si les journaux d'accès sont activés.
 
-L'annotation `service.beta.kubernetes.io / aws-load-balancer-access-log-emit-interval` contrôle l'intervalle en minutes pour la publication des journaux d'accès.
+L'annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval` contrôle l'intervalle en minutes pour la publication des journaux d'accès.
 Vous pouvez spécifier un intervalle de 5 ou 60 minutes.
 
-L'annotation `service.beta.kubernetes.io / aws-load-balancer-access-log-s3-bucket-name` contrôle le nom du bucket Amazon S3 où les journaux d'accès au load balancer sont stockés.
+L'annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name` contrôle le nom du bucket Amazon S3 où les journaux d'accès au load balancer sont stockés.
 
-L'annotation `service.beta.kubernetes.io / aws-load-balancer-access-log-s3-bucket-prefix` spécifie la hiérarchie logique que vous avez créée pour votre bucket Amazon S3.
+L'annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix` spécifie la hiérarchie logique que vous avez créée pour votre bucket Amazon S3.
 
 ```yaml
     metadata:
