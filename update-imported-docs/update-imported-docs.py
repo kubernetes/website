@@ -37,7 +37,7 @@ import tempfile
 error_msgs = []
 
 # pip should be installed when Python is installed, but just in case...
-if not shutil.which('pip'):
+if not (shutil.which('pip') or shutil.which('pip3')):
     error_msgs.append("Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
 
 reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
@@ -184,9 +184,9 @@ def main():
 
     # second parse input argument
     k8s_release = in_args.k8s_release
-    print("ks8_release is {}".format(k8s_release))
+    print("k8s_release is {}".format(k8s_release))
 
-    curr_dir = os.path.dirname(__file__)
+    curr_dir = os.path.dirname(os.path.abspath(__file__))
     print("curr_dir {}".format(curr_dir))
     root_dir = os.path.realpath(os.path.join(curr_dir, '..'))
     print("root_dir {}".format(root_dir))
