@@ -141,7 +141,7 @@ weight = 1
 
 [languages.zh]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
 contentDir = "content/zh"
