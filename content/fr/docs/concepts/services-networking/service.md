@@ -341,7 +341,7 @@ La configuration automatique de DNS dépend de la définition ou non de sélecte
 
 ### Avec sélecteurs
 
-Pour les services sans tête qui définissent des sélecteurs, le controlleur des Endpoints crée des enregistrements `Endpoints` dans l'API, et modifie la configuration DNS pour renvoyer des enregistrements (adresses) qui pointent directement vers les `Pods` visés par le `Service`.
+Pour les services headless qui définissent des sélecteurs, le controlleur des Endpoints crée des enregistrements `Endpoints` dans l'API, et modifie la configuration DNS pour renvoyer des enregistrements (adresses) qui pointent directement vers les `Pods` visés par le `Service`.
 
 ### Sans sélecteurs
 
