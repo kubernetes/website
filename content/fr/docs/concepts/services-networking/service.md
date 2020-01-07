@@ -896,7 +896,7 @@ Ce même flux de base s'exécute lorsque le trafic arrive via un port de nœud o
 Les opérations iptables ralentissent considérablement dans un cluster à grande échelle, par exemple 10000 services.
 IPVS est conçu pour l'équilibrage de charge et basé sur des tables de hachage dans le noyau.
 Ainsi, vous pouvez obtenir une cohérence des performances dans un grand nombre de services à partir d'un kube-proxy basé sur IPVS.
-Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms (least conns, locality, weighted, persistence).
+De plus, kube-proxy basé sur IPVS a des algorithmes d'équilibrage de charge plus sophistiqués (le moins de connexions, localité, pondéré, persistance).
 
 ## Objet API
 
