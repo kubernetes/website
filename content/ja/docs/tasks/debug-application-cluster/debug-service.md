@@ -314,7 +314,7 @@ own cluster.
 <!--
 You can also try this from a `Node` in the cluster:
 -->
-クラスター内の`Node`からも試すこともできます。
+クラスター内の`ノード`からも試すこともできます。
 
 {{< note >}}
 <!--
@@ -648,7 +648,7 @@ suspect.  Let's confirm it, piece by piece.
 Confirm that `kube-proxy` is running on your `Nodes`.  You should get something
 like the below:
 -->
-`kube-proxy`が`Node`上で実行されていることを確認しましょう。
+`kube-proxy`が`ノード`上で実行されていることを確認しましょう。
 以下のような結果が得られるはずです。
 
 ```shell
@@ -665,7 +665,7 @@ should see something like:
 -->
 次に、マスターとの接続など、明らかな失敗をしていないことを確認します。
 これを行うには、ログを確認する必要があります。
-ログへのアクセス方法は、`Node`のOSに依存します。
+ログへのアクセス方法は、`ノード`のOSに依存します。
 一部のOSでは/var/log/kube-proxy.logのようなファイルですが、他のOSでは`journalctl`を使用してログにアクセスします。
 次のように表示されます。
 
@@ -686,7 +686,7 @@ I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/ku
 If you see error messages about not being able to contact the master, you
 should double-check your `Node` configuration and installation steps.
 -->
-マスターに接続できないことに関するエラーメッセージが表示された場合、`Node`の設定とインストール手順をダブルチェックする必要があります。
+マスターに接続できないことに関するエラーメッセージが表示された場合、`ノード`の設定とインストール手順をダブルチェックする必要があります。
 
 <!--
 One of the possible reasons that `kube-proxy` cannot run correctly is that the
@@ -710,7 +710,7 @@ One of the main responsibilities of `kube-proxy` is to write the `iptables`
 rules which implement `Services`.  Let's check that those rules are getting
 written.
 -->
-`kube-proxy`の主な責務の1つは、`Services`を実装する`iptables`ルールを記述することです。
+`kube-proxy`の主な責務の1つは、`Service`を実装する`iptables`ルールを記述することです。
 それらのルールが書かれていることを確認しましょう。
 
 <!--
