@@ -1,11 +1,27 @@
 WEBROOT=${K8S_WEBROOT}
 K8SROOT=${K8S_ROOT}
-MINOR_VERSION=${K8S_RELEASE}
+K8SRELEASE=${K8S_RELEASE}
 
-APISRC=gen-apidocs/generators
-APIDST=$(WEBROOT)/static/docs/reference/generated/kubernetes-api/v1.$(MINOR_VERSION)
-APISRCFONT=$(APISRC)/build/node_modules/font-awesome
-APIDSTFONT=$(APIDST)/node_modules/font-awesome
+# change <major>.<minor> to <major>_<minor>
+getversion:
+	echo $(K8SRELEASE) | sed "s/\./_/g" > b.tmp
+
+K8SVERDIR=$(shell cat b.tmp)
+
+sepversion: getversion
+	echo $(K8SVERDIR) | sed "s/[0-9]_//g" > minor.tmp
+	echo $(K8SVERDIR) | sed "s/_[0-9]*//g" > major.tmp
+
+MINOR_VERSION := $(shell cat minor.tmp)
+MAJOR_VERSION := $(shell cat major.tmp)
+ONE := 1
+PREV_MINOR_VERSION := $(shell echo $$(( $(MINOR_VERSION) - $(ONE) )))
+
+cleantmp:
+	rm minor.tmp; rm major.tmp; rm b.tmp
+
+APISRC=gen-apidocs
+APIDST=$(WEBROOT)/static/docs/reference/generated/kubernetes-api/v$(K8SRELEASE)
 
 CLISRC=gen-kubectldocs/generators/build
 CLIDST=$(WEBROOT)/static/docs/reference/generated/kubectl
@@ -13,7 +29,41 @@ CLISRCFONT=$(CLISRC)/node_modules/font-awesome
 CLIDSTFONT=$(CLIDST)/node_modules/font-awesome
 
 default:
-	@echo "Support commands:\ncli api comp copycli copyapi copycomp updateapispec"
+	@echo "Support commands:\ncli api comp copycli copyapi updateapispec"
+
+# Set up versioned directories for new release
+# kubectl-command static-includes, toc.yaml
+createkubectldir: sepversion
+	@echo version $(K8SVERDIR)
+	mkdir -p $(shell pwd)/gen-kubectldocs/generators/v$(K8SVERDIR)
+	if ! [ -f "$(shell pwd)/gen-kubectldocs/generators/v1_$(PREV_MINOR_VERSION)/config.yaml" ]; then \
+		cp -r $(shell pwd)/gen-kubectldocs/generators/v1_15/* $(shell pwd)/gen-kubectldocs/generators/v$(K8SVERDIR)/; \
+	else \
+		cp -r $(shell pwd)/gen-kubectldocs/generators/v1_$(PREV_MINOR_VERSION)/* $(shell pwd)/gen-kubectldocs/generators/v$(K8SVERDIR)/; \
+	fi
+
+# api-ref versioned dir, swagger.json, config.yaml
+createapidir: sepversion
+	@echo version $(K8SVERDIR)
+	mkdir -p $(shell pwd)/gen-apidocs/config/v$(K8SVERDIR)
+	# config.yaml
+	if ! [ -f "$(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml" ]; then \
+		if [ -f "$(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)/config.yaml" ]; then \
+			cp $(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)/config.yaml $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml; \
+			echo "Using config file: $(shell pwd)/gen-apidocs/config/v1_$(PREV_MINOR_VERSION)/config.yaml"; \
+		else \
+			cp $(APISRC)/config/config.yaml $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml; \
+		fi \
+	fi
+	# swagger.json
+	if ! [ -f "$(APISRC)/config/v1_$(MINOR_VERSION)/swagger.json" ]; then \
+		cp $(K8SROOT)/api/openapi-spec/swagger.json $(APISRC)/config/v1_$(MINOR_VERSION)/swagger.json; \
+	fi
+
+# copy versioned files to the base config dir before generating api ref
+stageapifiles: createapidir
+	cp $(APISRC)/config/v1_$(MINOR_VERSION)/config.yaml $(APISRC)/config/config.yaml
+	cp $(APISRC)/config/v1_$(MINOR_VERSION)/swagger.json $(APISRC)/config/swagger.json
 
 # Build kubectl docs
 cleancli:
@@ -22,9 +72,7 @@ cleancli:
 	sudo rm -rf $(shell pwd)/gen-kubectldocs/generators/build
 	sudo rm -rf $(shell pwd)/gen-kubectldocs/generators/manifest.json
 
-cli: cleancli
-	mkdir -p $(shell pwd)/gen-kubectldocs/generators/v1_$(MINOR_VERSION)
-	cp -r $(shell pwd)/gen-kubectldocs/generators/v1_15/* $(shell pwd)/gen-kubectldocs/generators/v1_$(MINOR_VERSION)
+cli: createkubectldir cleancli
 	go run gen-kubectldocs/main.go --kubernetes-version v1_$(MINOR_VERSION)
 	docker run -v $(shell pwd)/gen-kubectldocs/generators/includes:/source -v $(shell pwd)/gen-kubectldocs/generators/build:/build -v $(shell pwd)/gen-kubectldocs/generators/:/manifest pwittrock/brodocs
 
@@ -40,7 +88,7 @@ copycli: cli
 	cp $(CLISRC)/node_modules/jquery/dist/jquery.min.js $(CLIDST)/node_modules/jquery/dist/jquery.min.js
 	cp $(CLISRCFONT)/css/font-awesome.min.css $(CLIDSTFONT)/css/font-awesome.min.css
 
-# Build kube component docs
+# Build kube component,tool docs
 cleancomp:
 	rm -rf $(shell pwd)/gen-compdocs/build
 
@@ -55,46 +103,26 @@ comp: cleancomp
 	go run gen-compdocs/main.go gen-compdocs/build kubeadm
 	go run gen-compdocs/main.go gen-compdocs/build kubectl
 
-copycomp:
-	cp $(shell pwd)/gen-compdocs/build/* $(WEBROOT)/docs/reference/generated/
-
 # Build api docs
 updateapispec:
-	cp $(K8SROOT)/api/openapi-spec/swagger.json gen-apidocs/generators/openapi-spec/swagger.json
+	cp $(K8SROOT)/api/openapi-spec/swagger.json gen-apidocs/config/swagger.json
 
-api: cleanapi
-	go run gen-apidocs/main.go --config-dir=gen-apidocs/generators --munge-groups=false
+api: cleanapi stageapifiles
+	go run gen-apidocs/main.go --work-dir=gen-apidocs --munge-groups=false
 
-# NOTE: The following "sudo" may go away when we remove docker based api doc generator
 cleanapi:
-	sudo rm -rf $(shell pwd)/gen-apidocs/generators/build
-	sudo rm -rf $(shell pwd)/gen-apidocs/generators/includes
+	rm -rf $(shell pwd)/gen-apidocs/build
 
-copyapi:
+copyapi: api
+	mkdir -p $(APIDST)
 	cp $(APISRC)/build/index.html $(APIDST)/index.html
-	cp $(APISRC)/build/navData.js $(APIDST)/navData.js
-	cp $(APISRC)/static/scroll.js $(APIDST)/scroll.js
+	# copy scroll.js, jquery.scrollTo.min.js and the new navData.js
+	mkdir -p $(APIDST)/js
+	cp $(APISRC)/build/navData.js $(APIDST)/js/
+	cp $(APISRC)/static/js/* $(APIDST)/js/
+	# copy stylesheet.css, bootstrap.min.css, font-awesome.min.css
 	mkdir -p $(APIDST)/css
-	cp $(APISRC)/static/stylesheet.css $(APIDST)/css/stylesheet.css
-	cp $(APISRC)/static/bootstrap.min.css $(APIDST)/css/bootstrap.min.css
-	cp $(APISRC)/static/jquery.scrollTo.min.js $(APIDST)/jquery.scrollTo.min.js
-	cp $(APISRC)/static/font-awesome.min.css $(APIDST)/css/font-awesome.min.css
+	cp $(APISRC)/static/css/* $(APIDST)/css/
+	# copy fonts data
 	mkdir -p $(APIDST)/fonts
-	cp $(APISRC)/static/FontAwesome.otf $(APIDST)/fonts/FontAwesome.otf
-	cp $(APISRC)/static/fontawesome-webfont.eot $(APIDST)/fonts/fontawesome-webfont.eot
-	cp $(APISRC)/static/fontawesome-webfont.svg $(APIDST)/fonts/fontawesome-webfont.svg
-	cp $(APISRC)/static/fontawesome-webfont.ttf $(APIDST)/fonts/fontawesome-webfont.ttf
-	cp $(APISRC)/static/fontawesome-webfont.woff $(APIDST)/fonts/fontawesome-webfont.woff
-	cp $(APISRC)/static/fontawesome-webfont.woff2 $(APIDST)/fonts/fontawesome-webfont.woff2
-
-# Build resource docs
-resource: cleanapi
-	go run gen-apidocs/main.go --build-operations=false --munge-groups=false --config-dir=gen-apidocs/generators
-	docker run -v $(shell pwd)/gen-apidocs/generators/includes:/source -v $(shell pwd)/gen-apidocs/generators/build:/build -v $(shell pwd)/gen-apidocs/generators/:/manifest pwittrock/brodocs
-
-copyresource: resource
-	rm -rf gen-apidocs/generators/build/documents/
-	rm -rf gen-apidocs/generators/build/runbrodocs.sh
-	rm -rf gen-apidocs/generators/build/manifest.json
-	rm -rf $(WEBROOT)/docs/resources-reference/v1.$(MINOR_VERSION)/*
-	cp -r gen-apidocs/generators/build/* $(WEBROOT)/docs/resources-reference/v1.$(MINOR_VERSION)/
+	cp $(APISRC)/static/fonts/* $(APIDST)/fonts/
