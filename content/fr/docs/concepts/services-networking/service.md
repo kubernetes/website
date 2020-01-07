@@ -427,7 +427,7 @@ status:
     - ip: 192.0.2.127
 ```
 
-Le trafic provenant du load balancer externe est dirigé vers les Pod backend.
+Le trafic provenant du load balancer externe est dirigé vers les Pods backend.
 Le fournisseur de cloud décide de la répartition de la charge.
 
 Certains fournisseurs de cloud vous permettent de spécifier le `loadBalancerIP`.
@@ -447,7 +447,7 @@ Par exemple, `MC_myResourceGroup_myAKSCluster_eastus`.
 
 Spécifiez l'adresse IP attribuée en tant que loadBalancerIP.
 Assurez-vous d'avoir mis à jour le securityGroupName dans le fichier de configuration du fournisseur de cloud.
-Pour plus d'informations sur le dépannage `CreatingLoadBalancerFailed` relatif aux perssions consultez: [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) ou [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
+Pour plus d'informations sur le dépannage `CreatingLoadBalancerFailed` relatif aux permissions consultez: [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) ou [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 
 {{< /note >}}
 
@@ -881,7 +881,7 @@ Les clients peuvent simplement se connecter à une adresse IP et à un port, san
 
 Considérons à nouveau l'application de traitement d'image décrite ci-dessus.
 Lorsque le service backend est créé, le plan de contrôle Kubernetes attribue une adresse IP virtuelle, par exemple 10.0.0.1.
-En supposant que le port de service est 1234, le service est observé par toutes les instances de proxy de cube dans le cluster.
+En supposant que le port de service est 1234, le service est observé par toutes les instances de kube-proxy dans le cluster.
 Lorsqu'un proxy voit un nouveau service, il installe une série de règles iptables qui redirigent de l'adresse IP virtuelle vers des règles par service.
 Les règles par service sont liées aux règles par point de terminaison qui redirigent le trafic (à l'aide du NAT de destination) vers les backends.
 
@@ -981,7 +981,7 @@ SCTP n'est pas pris en charge sur les nœuds Windows.
 Le kube-proxy ne prend pas en charge la gestion des associations SCTP lorsqu'il est en mode userspace.
 {{< /warning >}}
 
-## Future work
+## Futurs développements
 
 À l'avenir, la stratégie de proxy pour les services peut devenir plus nuancée que le simple équilibrage alterné, par exemple master-elected ou sharded.
 Nous prévoyons également que certains services auront des load balancer «réels», auquel cas l'adresse IP virtuelle y transportera simplement les paquets.
