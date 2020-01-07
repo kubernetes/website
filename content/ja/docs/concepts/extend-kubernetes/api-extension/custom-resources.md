@@ -94,7 +94,7 @@ APIが宣言的ではない兆候として、次のものがあります:
 
 Kubernetesは、クラスターへカスタムリソースを追加する2つの方法を提供しています:
 
-- CRDはシンプルで、プログラミング無しに作成可能
+- CRDはシンプルで、プログラミングなしに作成可能
 - [APIアグリゲーション](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)は、プログラミングが必要だが、データがどのように格納され、APIバージョン間でどのように変換されるかというような、より詳細なAPIの振る舞いを制御できる
 
 Kubernetesは、さまざまなユーザーのニーズを満たすためにこれら2つのオプションを提供しており、使いやすさや柔軟性が損なわれることはありません。
@@ -105,7 +105,7 @@ CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類�
 
 どのようにインストールされたかに関わらず、新しいリソースはカスタムリソースとして参照され、ビルトインのKubernetesリソース(Podなど)とは区別されます。
 
-## CustomResourceDefinitions
+## CustomResourceDefinition
 
 [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)APIリソースは、カスタムリソースを定義します。CRDオブジェクトを定義することで、指定した名前、スキーマで新しいカスタムリソースが作成されます。Kubernetes APIは、作成したカスタムリソースのストレージを提供、および処理します。
 
