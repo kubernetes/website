@@ -825,12 +825,12 @@ spec:
 
 ## Lacunes
 
-En utilisant le proxy de l'espace utilisateur pour les VIP peut fonctionner à petite ou moyenne échelle, mais ne vous étendrez pas à de très grands clusters avec des milliers de services.
+Le proxy fonctionnant dans l'espace utilisateur pour les VIP peut fonctionner à petite ou moyenne échelle, mais montrera ses limites dans de très grands clusters avec des milliers de services.
 La [proposition de conception originale pour les portails](http://issue.k8s.io/1107) a plus de détails à ce sujet.
 
 L'utilisation du proxy de l'espace utilisateur masque l'adresse IP source d'un paquet accédant à un service.
 Cela rend certains types de filtrage réseau (pare-feu) impossibles.
-Le mode proxy iptables n'obscurcit pas les adresses IP source dans le cluster, mais il affecte toujours les clients passant par un équilibreur de charge ou un port de nœud.
+Le mode proxy iptables n'obscurcit pas les adresses IP source dans le cluster, mais il affecte toujours les clients passant par un `LoadBalancer` ou un `NodePort`.
 
 Le champ `Type` est conçu comme une fonctionnalité imbriquée - chaque niveau s'ajoute au précédent.
 Cela n'est pas strictement requis sur tous les fournisseurs de cloud (par exemple, Google Compute Engine n'a pas besoin d'allouer un `NodePort` pour faire fonctionner `LoadBalancer`, mais AWS le fait) mais l'API actuelle le requiert.
