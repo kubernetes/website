@@ -140,7 +140,7 @@ Les adresses IP de noeud final ne peuvent pas être les adresses IP de cluster d
 {{< /note >}}
 
 L'accès à un service sans sélecteur fonctionne de la même manière que s'il avait un sélecteur.
-Dans l'exemple ci-dessus, le trafic est routé vers le point de terminaison unique défini dans le YAML: `192.0.2.42:9376` (TCP).
+Dans l'exemple ci-dessus, le trafic est routé vers le Endpoint unique défini dans le YAML: `192.0.2.42:9376` (TCP).
 
 Un service ExternalName est un cas spécial de service qui n'a pas de sélecteurs et utilise des noms DNS à la place.
 Pour plus d'informations, consultez la section [ExternalName](#externalname) plus loin dans ce document.
@@ -176,7 +176,7 @@ Il existe plusieurs raisons d'utiliser le proxy pour les services:
 
 Dans ce mode, kube-proxy surveille le maître Kubernetes pour l'ajout et la suppression d'objets Service et Endpoint.
 Pour chaque service, il ouvre un port (choisi au hasard) sur le nœud local.
-Toutes les connexions à ce "port proxy" sont transmises par proxy à l'un des modules backend du service (comme indiqué via les points de terminaison).
+Toutes les connexions à ce "port proxy" sont transmises par proxy à l'un des modules backend du service (comme indiqué via les Endpoints).
 kube-proxy prend en compte le paramètre `SessionAffinity` du service pour décider quel pod backend utiliser.
 
 Enfin, le proxy de l'espace utilisateur installe des règles iptables qui capturent le trafic vers le service `clusterIP` (qui est virtuel) et `port`.
@@ -783,7 +783,7 @@ Pour coder en dur une adresse IP, pensez à utiliser des [Services headless](#he
 
 Lors de la recherche de l'hôte `my-service.prod.svc.cluster.local`, le service DNS du cluster renvoie un enregistrement` CNAME` avec la valeur `my.database.example.com`.
 L'accès à «mon-service» fonctionne de la même manière que les autres services, mais avec la différence cruciale que la redirection se produit au niveau DNS plutôt que via un proxy ou un transfert.
-Si vous décidez ultérieurement de déplacer votre base de données dans votre cluster, vous pouvez démarrer ses pods, ajouter des sélecteurs ou des points de terminaison appropriés et modifier le `type 'du service.
+Si vous décidez ultérieurement de déplacer votre base de données dans votre cluster, vous pouvez démarrer ses pods, ajouter des sélecteurs ou des Endpoints appropriés et modifier le `type` du service.
 
 {{< warning >}}
 Vous pouvez rencontrer des difficultés à utiliser ExternalName pour certains protocoles courants, notamment HTTP et HTTPS.
@@ -800,7 +800,7 @@ Cette section est redevable à l'article [Kubernetes Tips - Part 1](https://akom
 ### IP externes
 
 S'il existe des adresses IP externes qui acheminent vers un ou plusieurs nœuds de cluster, les services Kubernetes peuvent être exposés sur ces "IP externes".
-Le trafic qui pénètre dans le cluster avec l'IP externe (en tant qu'IP de destination), sur le port de service, sera routé vers l'un des points de terminaison de service.
+Le trafic qui pénètre dans le cluster avec l'IP externe (en tant qu'IP de destination), sur le port de service, sera routé vers l'un des Endpoints de service.
 Les `externalIPs` ne sont pas gérées par Kubernetes et relèvent de la responsabilité de l'administrateur du cluster.
 
 Dans la spécification de service, «externalIPs» peut être spécifié avec n'importe lequel des «ServiceTypes».
@@ -883,7 +883,7 @@ Considérons à nouveau l'application de traitement d'image décrite ci-dessus.
 Lorsque le service backend est créé, le plan de contrôle Kubernetes attribue une adresse IP virtuelle, par exemple 10.0.0.1.
 En supposant que le port de service est 1234, le service est observé par toutes les instances de kube-proxy dans le cluster.
 Lorsqu'un proxy voit un nouveau service, il installe une série de règles iptables qui redirigent de l'adresse IP virtuelle vers des règles par service.
-Les règles par service sont liées aux règles par point de terminaison qui redirigent le trafic (à l'aide du NAT de destination) vers les backends.
+Les règles par service sont liées aux règles des Endpoints qui redirigent le trafic (à l'aide du NAT de destination) vers les backends.
 
 Lorsqu'un client se connecte à l'adresse IP virtuelle du service, la règle iptables entre en jeu.
 Un backend est choisi (soit en fonction de l'affinité de la session, soit au hasard) et les paquets sont redirigés vers le backend.
