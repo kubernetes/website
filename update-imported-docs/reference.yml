@@ -8,7 +8,7 @@ repos:
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    git checkout release-1.${K8S_RELEASE}
+    git checkout release-${K8S_RELEASE}
     make generated_files
     cp -L -R vendor $GOPATH/src
     rm -r vendor/github.com/spf13/cobra
@@ -22,6 +22,8 @@ repos:
     go get -v github.com/kubernetes-sigs/reference-docs/gen-kubectldocs
     cd src/github.com/kubernetes-sigs/reference-docs/
     cp ${K8S_WEBROOT}/update-imported-docs/Makefile_temp ./Makefile
+    # testing
+    make sepversion
     # generate kubectl cmd reference
     make copycli
     #
@@ -32,10 +34,7 @@ repos:
     go get -u github.com/go-openapi/spec
     go get -v github.com/kubernetes-sigs/reference-docs/gen-apidocs
     cd src/github.com/kubernetes-sigs/reference-docs/
-    make updateapispec
-    make api
     make copyapi
-
 
   files:
   - src: gen-compdocs/build/cloud-controller-manager.md
@@ -46,7 +45,7 @@ repos:
     dst: content/en/docs/reference/command-line-tools-reference/
   # We have problems generating docs for kubelet, it is done manually now
   # - src: gen-compdocs/build/kubelet.md
-  # dst: content/en/docs/reference/command-line-tools-reference/
+  #   dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-proxy.md
     dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-scheduler.md
