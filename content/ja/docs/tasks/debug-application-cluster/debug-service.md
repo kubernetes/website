@@ -636,7 +636,7 @@ are actually serving.  At this point, the whole `Service` proxy mechanism is
 suspect.  Let's confirm it, piece by piece.
 -->
 ここに到達したのなら、`Service`は実行され、`Endpoint`があり、`Pod`が実際にサービスを提供しています。
-この時点で、`Service`のプロキシメカニズム全体が疑わしいです。
+この時点で、`Service`のプロキシーメカニズム全体が疑わしいです。
 ひとつひとつ確認しましょう。
 
 <!--
