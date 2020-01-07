@@ -29,7 +29,7 @@ following line to the .bash_profile
 
     brew install bash-completion
 
-安装后，必须激活 bash_completion。这可以通过在 .bash_profile 文件中添加下面的命令行来完成 
+安装后，必须激活 bash_completion。这可以通过在 .bash_profile 文件中添加下面的命令行来完成
 
     source $(brew --prefix)/etc/bash_completion
 
@@ -146,16 +146,3 @@ source <(kubeadm completion zsh)
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!-- 
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster 
--->
-* [kubeadm](kubeadm.md)	 - kubeadm: 轻松引导安全的 Kubernetes 集群
-
