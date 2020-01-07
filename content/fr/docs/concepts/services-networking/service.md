@@ -613,13 +613,17 @@ L'annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-
       name: my-service
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
-        # Specifies whether access logs are enabled for the load balancer
+        # Spécifie si les journaux d'accès sont activés pour le load balancer
+
         service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
-        # The interval for publishing the access logs. You can specify an interval of either 5 or 60 (minutes).
+        # L'intervalle de publication des journaux d'accès.
+        # Vous pouvez spécifier un intervalle de 5 ou 60 (minutes).
+
         service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
-        # The name of the Amazon S3 bucket where the access logs are stored
+        # Le nom du bucket Amazon S3 où les journaux d'accès sont stockés
+
         service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
-        # The logical hierarchy you created for your Amazon S3 bucket, for example `my-bucket-prefix/prod`
+        # La hiérarchie logique que vous avez créée pour votre bucket Amazon S3, par exemple `my-bucket-prefix/prod`
 ```
 
 #### Drainage de connexion sur AWS
