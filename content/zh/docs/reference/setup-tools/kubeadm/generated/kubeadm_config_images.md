@@ -84,20 +84,3 @@ kubeadm config images [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO
--->
-查看其它
-
-<!-- 
-* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
-* [kubeadm config images list](kubeadm_config_images_list.md)	 - Print a list of images kubeadm will use. The configuration file is used in case any images or image repositories are customized
-* [kubeadm config images pull](kubeadm_config_images_pull.md)	 - Pull images used by kubeadm 
--->
-* [kubeadm config](kubeadm_config.md)	 - 管理 kubeadm 集群的配置，该配置保存在集群的 ConfigMap 中
-* [kubeadm config images list](kubeadm_config_images_list.md)	 - 打印 kubeadm 将使用的镜像列表。如果自定义任何镜像或镜像存储库，则使用配置文件
-* [kubeadm config images pull](kubeadm_config_images_pull.md)	 - 拉取 kubeadm 使用的镜像
-
