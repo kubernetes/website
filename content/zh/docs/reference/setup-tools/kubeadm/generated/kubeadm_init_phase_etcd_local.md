@@ -29,7 +29,7 @@ kubeadm init phase etcd local [flags]
 ```
 # 为 etcd 生成静态 Pod 清单文件，其功能等效于 kubeadm init 生成的文件。
 kubeadm init phase etcd local
-  
+
 # 使用从配置文件读取的选项为 etcd 生成静态 Pod 清单文件。
 kubeadm init phase etcd local --config config.yaml
 ```
@@ -147,16 +147,3 @@ kubeadm init phase etcd local --config config.yaml
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm init phase etcd](kubeadm_init_phase_etcd.md)	 - Generate static Pod manifest file for local etcd
--->
-* [kubeadm init phase etcd](kubeadm_init_phase_etcd.md)	 - 为本地 etcd 生成静态 Pod 清单文件
-
