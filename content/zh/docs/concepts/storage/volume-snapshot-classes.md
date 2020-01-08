@@ -82,7 +82,7 @@ If the deletionPolicy is `Delete`, then the underlying storage snapshot will be 
 -->
 ### 删除策略 {#deletion-policy}
 
-卷快照类具有 `deletetionPolicy` 属性。用户可以配置当所绑定的 `VolumeSnapshot` 对象将被删除时，如何处理 `VolumeSnapshotContent` 对象。卷快照的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须指定。
+卷快照类具有 `deletionPolicy` 属性。用户可以配置当所绑定的 `VolumeSnapshot` 对象将被删除时，如何处理 `VolumeSnapshotContent` 对象。卷快照的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须指定。
 
 如果删除策略是 `Delete`，那么底层的存储快照会和 `VolumeSnapshotContent` 对象一起删除。如果删除策略是 `Retain`，那么底层快照和 `VolumeSnapshotContent` 对象都会被保留。
 
