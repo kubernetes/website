@@ -7,10 +7,12 @@ weight: 20
 <!--
 ---
 reviewers:
-- jsafrane
 - saad-ali
 - thockin
 - msau42
+- jingxu97
+- xing-yang
+- yuxiangqian
 title: Volume Snapshots
 content_template: templates/concept
 weight: 20
@@ -19,15 +21,14 @@ weight: 20
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
-<!--
-This document describes the current state of `VolumeSnapshots` in Kubernetes. Familiarity with [persistent volumes](/docs/concepts/storage/persistent-volumes/) is suggested.
--->
+{{< feature-state for_k8s_version="1.17" state="beta" >}}
 
-本文档描述 Kubernetes 中 `VolumeSnapshots` 的当前状态。建议先熟悉[持久卷](/docs/concepts/storage/persistent-volumes/)。
+<!--
+In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage system. This document assumes that you are already familiar with Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
+-->
+在 Kubernetes 中，卷快照是一个存储系统上卷的快照，本文假设你已经熟悉了 Kubernetes 的 [持久卷](/docs/concepts/storage/persistent-volumes/)。
 
 {{% /capture %}}
-
 
 {{% capture body %}}
 
@@ -35,7 +36,7 @@ This document describes the current state of `VolumeSnapshots` in Kubernetes. Fa
 ## Introduction
 -->
 
-## 介绍
+## 介绍 {#introduction}
 
 <!--
 Similar to how API resources `PersistentVolume` and `PersistentVolumeClaim` are used to provision volumes for users and administrators, `VolumeSnapshotContent` and `VolumeSnapshot` API resources are provided to create volume snapshots for users and administrators.
@@ -53,12 +54,9 @@ A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is simila
 `VolumeSnapshot` 是用户对于卷的快照的请求。它类似于持久卷声明。
 
 <!--
-While `VolumeSnapshots` allow a user to consume abstract storage resources, cluster administrators
-need to be able to offer a variety of `VolumeSnapshotContents` without exposing
-users to the details of how those volume snapshots should be provisioned. For these needs
-there is the `VolumeSnapshotClass` resource.
+`VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attibutes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
 -->
-`VolumeSnapshots` 允许用户消费抽象的存储资源，集群管理员需要能够提供多种 `VolumeSnapshotContents`，又不会向用户暴露这些应该供应的卷快照的细节。为了实现这些需求，就需要 `VolumeSnapshotClass` 资源。
+`VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。从存储系统上相同卷上获取的不同快照，这些参数可能会不一样，因此不能用一个 `PersistentVolumeClaim` 的相同 `StorageClass` 来指卷快照。
 
 <!--
 Users need to be aware of the following when using this feature:
@@ -66,68 +64,59 @@ Users need to be aware of the following when using this feature:
 当使用该功能时，用户需要注意以下几点：
 
 <!--
-* API Objects `VolumeSnapshot`, `VolumeSnapshotContent`, and `VolumeSnapshotClass` are CRDs, not part of the core API.
+* API Objects `VolumeSnapshot`, `VolumeSnapshotContent`, and `VolumeSnapshotClass` are {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}, not part of the core API.
 * `VolumeSnapshot` support is only available for CSI drivers.
-* As part of the deployment process, the Kubernetes team provides a sidecar helper container for the snapshot controller called `external-snapshotter`. It watches `VolumeSnapshot` objects and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint.
-* CSI drivers may or may not have implemented the volume snapshot functionality. The CSI drivers that have provided support for volume snapshot will likely use `external-snapshotter`.
-* The CSI drivers that support volume snapshot will automatically install CRDs defined for the volume snapshots.
+* As part of the deployment process in the beta version of `VolumeSnapshot`, the Kubernetes team provides a snapshot controller to be deployed into the control plane, and a sidecar helper container called csi-snapshotter to be deployed together with the CSI driver.  The snapshot controller watches `VolumeSnapshot` and `VolumeSnapshotContent` objects and is responsible for the creation and deletion of `VolumeSnapshotContent` object in dynamic provisioning.  The sidecar csi-snapshotter watches `VolumeSnapshotContent` objects and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint.
+* CSI drivers may or may not have implemented the volume snapshot functionality. The CSI drivers that have provided support for volume snapshot will likely use the csi-snapshotter. See [CSI Driver documentation](https://kubernetes-csi.github.io/docs/) for details.
+* The CRDs and snapshot controller installations are the responsibility of the Kubernetes distribution.
 -->
-* API 对象 `VolumeSnapshot`，`VolumeSnapshotContent` 和 `VolumeSnapshotClass` 是 CRD，不是核心 API 的部分。
+* API 对象 `VolumeSnapshot`，`VolumeSnapshotContent` 和 `VolumeSnapshotClass` 是 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}，不是核心 API 的部分。
 * `VolumeSnapshot` 支持仅可用于 CSI 驱动。
-* 作为部署过程的一部分，Kubernetes 团队为快照控制器提供了一个名为 `external-snapshotter` 的 sidecar 帮助容器。它监视 `VolumeSnapshot` 对象然后向 CSI 端点触发 `CreateSnapshot` 和 `DeleteSnapshot` 操作。
-* CSI 驱动可能实现，也可能没有实现卷快照功能。CSI 驱动可能会使用 `external-snapshotter` 来提供对卷快照的支持。
-* 支持卷快照的 CSI 驱动将自动安装 用于定义卷快照定义的 CRD。
+* 作为 beta 版本 `VolumeSnapshot` 部署过程的一部分，Kubernetes 团队提供了一个部署于控制平面的快照控制器，并且提供了一个叫做 `csi-snapshotter` 的 sidecar 帮助容器，它和 CSI 驱动程序部署在一起。快照控制器监视 `VolumeSnapshot` 和 `VolumeSnapshotContent` 对象，并且负责动态的创建和删除 `VolumeSnapshotContent` 对象。sidecar csi-snapshotter 监视 `VolumeSnapshotContent` 对象，并且触发针对 CSI 端点的 `CreateSnapshot` 和 `DeleteSnapshot` 的操作。
+* CSI 驱动可能实现，也可能没有实现卷快照功能。CSI 驱动可能会使用 csi-snapshotter 来提供对卷快照的支持。详见 [CSI 驱动程序文档](https://kubernetes-csi.github.io/docs/)
+* Kubernetes 负责 CRDs 和快照控制器的安装。
 
 <!--
 ## Lifecycle of a volume snapshot and volume snapshot content
--->
-## 卷快照和卷快照内容的生命周期
 
-<!--
 `VolumeSnapshotContents` are resources in the cluster. `VolumeSnapshots` are requests for those resources. The interaction between `VolumeSnapshotContents` and `VolumeSnapshots` follow this lifecycle:
 -->
+## 卷快照和卷快照内容的生命周期 {#lifecycle-of-a-volume-snapshot-and-volume-snapshot-content}
+
 `VolumeSnapshotContents` 是集群中的资源。`VolumeSnapshots` 是对于这些资源的请求。`VolumeSnapshotContents` 和 `VolumeSnapshots` 之间的交互遵循以下生命周期：
 
 <!--
 ### Provisioning Volume Snapshot
+
+There are two ways snapshots may be provisioned: pre-provisioned or dynamically provisioned.
 -->
-### 供应卷快照
+### 供应卷快照 {#provisioning-volume-snapshot}
+
+快照可以通过两种方式进行供应：预配置或动态配置。
 
 <!--
-There are two ways snapshots may be provisioned: statically or dynamically.
+#### Pre-provisioned {#static}
+A cluster administrator creates a number of `VolumeSnapshotContents`. They carry the details of the real volume snapshot on the storage system which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.
 -->
-快照可以通过两种方式进行供应：静态或动态。
-
-<!--
-#### Static
--->
-#### 静态的
-<!--
-A cluster administrator creates a number of `VolumeSnapshotContents`. They carry the details of the real storage which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.
--->
-集群管理员创建多个 `VolumeSnapshotContents`。它们带有实际存储的详细信息，可以供集群用户使用。它们存在于 Kubernetes API 中，并且能够被使用。
+#### 预配置 {#static}
+集群管理员创建多个 `VolumeSnapshotContents`。它们带有存储系统上实际卷快照的详细信息，可以供集群用户使用。它们存在于 Kubernetes API 中，并且能够被使用。
 
 <!--
 #### Dynamic
+
+Instead of using a pre-existing snapshot, you can request that a snapshot to be dynamically taken from a PersistentVolumeClaim. The [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) specifies storage provider-specific parameters to use when taking a snapshot.
 -->
-#### 动态的
-<!--
-When none of the static `VolumeSnapshotContents` the administrator created matches a user's `VolumeSnapshot`,
-the cluster may try to dynamically provision a volume snapshot specially for the `VolumeSnapshot` object.
-This provisioning is based on `VolumeSnapshotClasses`: the `VolumeSnapshot` must request a
-[volume snapshot class](/docs/concepts/storage/volume-snapshot-classes/) and
-the administrator must have created and configured that class in order for dynamic
-provisioning to occur.
--->
+#### 动态的 {#dynamic}
+
 当管理员创建的静态 `VolumeSnapshotContents` 都不能匹配用户的 `VolumeSnapshot`，集群可能会尝试专门为 `VolumeSnapshot` 对象供应一个卷快照。此供应基于 `VolumeSnapshotClasses`：`VolumeSnapshot` 必须请求[卷快照类](/docs/concepts/storage/volume-snapshot-classes/)并且管理员必须已经创建并配置了该类，才能进行动态供应。
 
 <!--
 ### Binding
 -->
-### 绑定
+### 绑定 {#binding}
 
 <!--
-A user creates, or has already created in the case of dynamic provisioning, a `VolumeSnapshot` with a specific amount of storage requested and with certain access modes. A control loop watches for new VolumeSnapshots, finds a matching VolumeSnapshotContent (if possible), and binds them together. If a VolumeSnapshotContent was dynamically provisioned for a new VolumeSnapshot, the loop will always bind that VolumeSnapshotContent to the VolumeSnapshot. Once bound, `VolumeSnapshot` binds are exclusive, regardless of how they were bound. A VolumeSnapshot to VolumeSnapshotContent binding is a one-to-one mapping.
+The snapshot controller handles the binding of a `VolumeSnapshot` object with an appropriate `VolumeSnapshotContent` object, in both pre-provisioned and dynamically provisioned scenarios. The binding is a one-to-one mapping.
 -->
 用户创建，或在动态供应场景下已经创建了的 `VolumeSnapshot` 具有特定数量的存储请求和特定的访问模式。一个控制循环监视新的 VolumeSnapshots，找到匹配的 VolumeSnapshotContent（如果可能），并把它们绑定到一起。如果 VolumeSnapshotContent 是给动态供应给一个新的VolumeSnapshot，循环将依然绑定 VolumeSnapshotContent 到 VolumeSnapshot。一旦绑定，无论是如何绑定的，`VolumeSnapshot` 绑定都是排他的。VolumeSnapshot 到 VolumeSnapshotContent 的绑定是一对一的映射。
 
