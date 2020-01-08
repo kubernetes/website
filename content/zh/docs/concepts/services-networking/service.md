@@ -596,7 +596,7 @@ For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` a
 
 与一般的Kubernetes名称一样，端口名称只能包含 小写字母数字字符 和 `-`。 端口名称还必须以字母数字字符开头和结尾。
 
-例如，名称 `123_abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
+例如，名称 `123-abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
 {{< /note >}}
 
 <!--
