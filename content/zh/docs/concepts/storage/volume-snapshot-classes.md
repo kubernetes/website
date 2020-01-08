@@ -1,11 +1,4 @@
 ---
-reviewers:
-- saad-ali
-- thockin
-- msau42
-- jingxu97
-- xing-yang
-- yuxiangqian
 title: 卷快照类
 content_template: templates/concept
 weight: 30
@@ -89,7 +82,7 @@ If the deletionPolicy is `Delete`, then the underlying storage snapshot will be 
 -->
 ### 删除策略 {#deletion-policy}
 
-卷快照类有删除策略。它可以配置一个策略，当 `VolumeSnapshot` 对象被删除时，对它所绑定的 `VolumeSnapshotContent` 可以做什么。卷快照的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须明确。
+卷快照类具有 `deletetionPolicy` 属性。用户可以配置当所绑定的 `VolumeSnapshot` 对象将被删除时，如何处理 `VolumeSnapshotContent` 对象。卷快照的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须指定。
 
 如果删除策略是 `Delete`，那么底层的存储快照会和 `VolumeSnapshotContent` 对象一起删除。如果删除策略是 `Retain`，那么底层快照和 `VolumeSnapshotContent` 对象都会被保留。
 
@@ -102,6 +95,6 @@ the volume snapshot class. Different parameters may be accepted depending on the
 -->
 ## 参数 {#parameters}
 
-卷快照类具有描述属于卷快照类的卷快照参数。 可根据 `driver` 接受不同的参数。
+卷快照类具有描述属于该卷快照类的卷快照的参数。 可根据 `driver` 接受不同的参数。
 
 {{% /capture %}}
