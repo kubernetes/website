@@ -16,7 +16,7 @@ HostAliases를 사용하지 않은 수정은 권장하지 않는데, 이는 호�
 
 ## 기본 호스트 파일 내용
 
-파드 IP가 할당된 Nginx 파드를 시작해보자:
+파드 IP가 할당된 Nginx 파드를 시작해보자.
 
 ```shell
 kubectl run nginx --image nginx --generator=run-pod/v1
@@ -26,7 +26,7 @@ kubectl run nginx --image nginx --generator=run-pod/v1
 pod/nginx created
 ```
 
-파드 IP를 확인해보자:
+파드 IP를 확인해보자.
 
 ```shell
 kubectl get pods --output=wide
@@ -60,8 +60,9 @@ fe00::2	ip6-allrouters
 ## HostAliases를 사용하여 추가 항목들 추가하기
 
 기본 상용구 이외에, `foo.local`, `bar.local`이 `127.0.0.1`로, `foo.remote`, 
-`bar.remote`가 `10.1.2.3`로 해석될 수 있도록 추가 항목들을 추가할 수 있으며, 
-이는 `.spec.hostAliases`에서 파드에 HostAliases를 추가해서 할 수 있다.
+`bar.remote`가 `10.1.2.3`로 해석될 수 있도록 추가 항목들을 `hosts` 파일에 추가할 수 있으며, 
+이는 `.spec.hostAliases` 항목에서 정의하여 
+파드에 HostAliases를 추가하면 가능하다.
 
 
 {{< codenew file="service/networking/hostaliases-pod.yaml" >}}
@@ -118,7 +119,8 @@ fe00::2	ip6-allrouters
 한다.
 
 호스트 파일이 관리된다는 특성으로 인해, 컨테이너 재시작이나 파드 리스케줄 이벤트로 
-`hosts` 파일이 Kubelet에 의해 재적용될 때마다 사용자가 직접 작성한 어떠한 내용이
-덮어쓰여진다. 따라서, 호스트 파일의 내용들을 직접 바꾸는 것은 권장하지 않는다.
+`hosts` 파일이 Kubelet에 의해 다시 마운트될 때마다 사용자가 작성한 모든 내용이
+덮어쓰여진다. 따라서, 호스트 파일의 내용을 
+직접 바꾸는 것은 권장하지 않는다.
 
 {{% /capture %}}
