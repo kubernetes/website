@@ -1,5 +1,5 @@
 ---
-title: 配置存活，就绪和启动探测器
+title: 配置存活、就绪和启动探测器
 content_template: templates/task
 weight: 110
 ---
@@ -14,7 +14,7 @@ where an application is running, but unable to make progress. Restarting a
 Container in such a state can help to make the application more available
 despite bugs.
 -->
-这篇文章介绍如何给容器配置存活，就绪和启动探测器。
+这篇文章介绍如何给容器配置存活、就绪和启动探测器。
 
 [kubelet](/zh/docs/admin/kubelet/) 使用存活探测器来知道什么时候要重启容器。例如，存活探测器可以捕捉到死锁（应用程序在运行，但是无法继续执行后面的步骤）。这样的情况下重启容器有助于让应用程序在有问题的情况下更可用。
 
@@ -32,7 +32,7 @@ getting killed by the kubelet before they are up and running.
 -->
 kubelet 使用就绪探测器可以知道容器什么时候准备好了并可以开始接受请求流量， 当一个 Pod 内的所有容器都准备好了，才能把这个 Pod 看作就绪了。这种信号的一个用途就是控制哪个 Pod 作为 Service 的后端。在 Pod 还没有准备好的时候，会从 Service 的负载均衡器中被剔除的。
 
-kubelet 使用启动探测器可以知道应用程序容器什么时候启动了。如果这样的探测器可以配置，就可以控制容器在启动成功后再进行存活性和就绪检查，确保这些存活、就绪探测器不会影响应用程序的启动。这可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
+kubelet 使用启动探测器可以知道应用程序容器什么时候启动了。如果配置了这类探测器，就可以控制容器在启动成功后再进行存活性和就绪检查，确保这些存活、就绪探测器不会影响应用程序的启动。这可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
 
 {{% /capture %}}
 
@@ -100,7 +100,7 @@ kubectl apply -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
 <!--
 Within 30 seconds, view the Pod events:
 -->
-在 30 秒内，看 Pod 的事件：
+在 30 秒内，查看 Pod 的事件：
 
 ```shell
 kubectl describe pod liveness-exec
@@ -173,9 +173,9 @@ Another kind of liveness probe uses an HTTP GET request. Here is the configurati
 file for a Pod that runs a container based on the `k8s.gcr.io/liveness`
 image.
 -->
-## 定义一个存活的 HTTP 请求接口 {#define-a-liveness-HTTP-request}
+## 定义一个存活态 HTTP 请求接口 {#define-a-liveness-HTTP-request}
 
-另外一种类型的存活探测方式是使用 HTTP GET 请求，下面是一个 Pod 的配置文件，其中运行一个基于 `k8s.gcr.io/liveness` 镜像的容器。
+另外一种类型的存活探测方式是使用 HTTP GET 请求。下面是一个 Pod 的配置文件，其中运行一个基于 `k8s.gcr.io/liveness` 镜像的容器。
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
 
@@ -373,9 +373,9 @@ provide a fast response to container deadlocks.
 If the startup probe never succeeds, the container is killed after 300s and
 subject to the pod's `restartPolicy`.
 -->
-辛苦有启动探测，应用程序将会有最多 5 分钟(30 * 10 = 300s) 的时间来完成它的启动。
+幸亏有启动探测，应用程序将会有最多 5 分钟(30 * 10 = 300s) 的时间来完成它的启动。
 一旦启动探测成功一次，存活探测任务就会接管对容器的探测，对容器死锁可以快速响应。
-如果启动探测一直没有成功，容器会在 300 秒后被杀死，并且设置 Pod 状态为 `restartPolicy`。
+如果启动探测一直没有成功，容器会在 300 秒后被杀死，并且根据 `restartPolicy` 来设置 Pod 状态。
 
 <!--
 ## Define readiness probes
@@ -391,13 +391,13 @@ Services.
 -->
 ## 定义就绪探测器 {#define-readiness-probes}
 
-有时候，应用程序会暂时性的不能提供通信服务。例如，应用程序在启动时可能需要加载很大的数据或配置文件，或是启动后要依赖等待外部服务。在这种情况下，即不想去杀死应用程序，也不想给它发送请求。Kubernetes 提供了就绪探测器来发现并缓解这些情况。容器所在 Pod 上报还未就绪的信息，并且不接受通过 Kubernetes Service 的流量。
+有时候，应用程序会暂时性的不能提供通信服务。例如，应用程序在启动时可能需要加载很大的数据或配置文件，或是启动后要依赖等待外部服务。在这种情况下，既不想杀死应用程序，也不想给它发送请求。Kubernetes 提供了就绪探测器来发现并缓解这些情况。容器所在 Pod 上报还未就绪的信息，并且不接受通过 Kubernetes Service 的流量。
 
 {{< note >}}
 <!--
 Readiness probes runs on the container during its whole lifecycle.
 -->
-就绪探测器运行在容器的整个生命周期。
+就绪探测器在容器的整个生命周期中保持运行状态。
 {{< /note >}}
 
 <!--
@@ -436,7 +436,7 @@ HTTP 和 TCP 的就绪探测器配置也和存活探测器的配置一样的。
 <!--
 Eventually, some of this section could be moved to a concept topic.
 -->
-最后，本节的一些内容可以放到概念这个主题里。
+最后，本节的一些内容可以放到某个概念主题里。
 {{< /comment >}}
 
 <!--
