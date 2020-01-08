@@ -32,7 +32,7 @@ Just like `StorageClass` provides a way for administrators to describe the "clas
 of storage they offer when provisioning a volume, `VolumeSnapshotClass` provides a
 way to describe the "classes" of storage when provisioning a volume snapshot.
 -->
-## 介绍
+## 介绍 {#introduction}
 
 就像 `StorageClass` 为管理员提供了一种在配置卷时描述存储“类”的方法，`VolumeSnapshotClass` 提供了一种在配置卷快照时描述存储“类”的方法。
 
@@ -100,7 +100,7 @@ Volume snapshot classes have parameters that describe volume snapshots belonging
 the volume snapshot class. Different parameters may be accepted depending on the
 `driver`.
 -->
-## 参数
+## 参数 {#parameters}
 
 卷快照类具有描述属于卷快照类的卷快照参数。 可根据 `driver` 接受不同的参数。
 
