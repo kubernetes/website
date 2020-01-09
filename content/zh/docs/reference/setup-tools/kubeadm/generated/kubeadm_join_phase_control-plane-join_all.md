@@ -117,16 +117,3 @@ kubeadm join phase control-plane-join all [flags]
   </tbody>
 </table>
 
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance
--->
-* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - 添加作为控制平面实例的机器
-
