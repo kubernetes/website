@@ -46,7 +46,7 @@ Similar to how API resources `PersistentVolume` and `PersistentVolumeClaim` are 
 <!--
 A `VolumeSnapshotContent` is a snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a PersistentVolume is a cluster resource.
 -->
-`VolumeSnapshotContent` 是从管理员已提供的集群中的卷获取的快照。就像持久卷是集群的资源一样，它也是集群中的资源。
+`VolumeSnapshotContent` 是一种快照，从管理员已提供的集群中的卷获取。就像持久卷是集群的资源一样，它也是集群中的资源。
 
 <!--
 A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is similar to a PersistentVolumeClaim.
@@ -92,7 +92,7 @@ There are two ways snapshots may be provisioned: pre-provisioned or dynamically 
 -->
 ### 供应卷快照 {#provisioning-volume-snapshot}
 
-快照可以通过两种方式进行供应：预配置或动态配置。
+快照可以通过两种方式进行配置：预配置或动态配置。
 
 <!--
 #### Pre-provisioned {#static}
@@ -108,125 +108,148 @@ Instead of using a pre-existing snapshot, you can request that a snapshot to be 
 -->
 #### 动态的 {#dynamic}
 
-当管理员创建的静态 `VolumeSnapshotContents` 都不能匹配用户的 `VolumeSnapshot`，集群可能会尝试专门为 `VolumeSnapshot` 对象供应一个卷快照。此供应基于 `VolumeSnapshotClasses`：`VolumeSnapshot` 必须请求[卷快照类](/docs/concepts/storage/volume-snapshot-classes/)并且管理员必须已经创建并配置了该类，才能进行动态供应。
+可以从一个 `PersistentVolumeClaim` 申请动态的获取一个快照，而不用使用已经存在的快照。在使用快照时，[卷快照类](/docs/concepts/storage/volume-snapshot-classes/)指定确切的存储提供者参数。
 
 <!--
 ### Binding
+
+The snapshot controller handles the binding of a `VolumeSnapshot` object with an appropriate `VolumeSnapshotContent` object, in both pre-provisioned and dynamically provisioned scenarios. The binding is a one-to-one mapping.
 -->
 ### 绑定 {#binding}
 
-<!--
-The snapshot controller handles the binding of a `VolumeSnapshot` object with an appropriate `VolumeSnapshotContent` object, in both pre-provisioned and dynamically provisioned scenarios. The binding is a one-to-one mapping.
--->
-用户创建，或在动态供应场景下已经创建了的 `VolumeSnapshot` 具有特定数量的存储请求和特定的访问模式。一个控制循环监视新的 VolumeSnapshots，找到匹配的 VolumeSnapshotContent（如果可能），并把它们绑定到一起。如果 VolumeSnapshotContent 是给动态供应给一个新的VolumeSnapshot，循环将依然绑定 VolumeSnapshotContent 到 VolumeSnapshot。一旦绑定，无论是如何绑定的，`VolumeSnapshot` 绑定都是排他的。VolumeSnapshot 到 VolumeSnapshotContent 的绑定是一对一的映射。
+在预配置和动态配置场景下，快照控制器处理绑定 `VolumeSnapshot` 对象和其合适的 `VolumeSnapshotContent` 对象。绑定关系是一对一的。
 
 <!--
-VolumeSnapshots will remain unbound indefinitely if a matching VolumeSnapshotContent does not exist. VolumeSnapshots will be bound as matching VolumeSnapshotContents become available.
+In the case of pre-provisioned binding, the VolumeSnapshot will remain unbound until the requested VolumeSnapshotContent object is created.
 -->
-如果不存在匹配的 VolumeSnapshotContent，VolumeSnapshots 将永远保持未绑定状态。当匹配的 VolumeSnapshotContents 可用时，将绑定 VolumeSnapshots。
+在预配置快照绑定场景下，`VolumeSnapshotContent` 对象创建之后，才会和 `VolumeSnapshot` 进行绑定。
 
 <!--
-### Persistent Volume Claim in Use Protection
--->
-### 使用保护的持久性卷声明
+### Persistent Volume Claim as Snapshot Source Protection
 
-<!--
 The purpose of the Persistent Volume Claim Object in Use Protection feature is to ensure that in-use PVC API objects are not removed from the system (as this may result in data loss).
+
+The purpose of this protection is to ensure that in-use PersistentVolumeClaim API objects are not removed from the system while a snapshot is being taken from it (as this may result in data loss).
 -->
-使用保护的持久性卷声明功能的目的是确保使用中的 PVC API 对象不会从系统中被删除（因为这可能会导致数据丢失）。
+### 快照源的持久性卷声明保护
+
+这种保护的目的是确保当从 `PersistentVolumeClaim` API 对象中做快照的时候，它不会被从系统中删除（因为这可能会导致数据丢失）。
 
 <!--
-If a PVC is in active use by a snapshot as a source to create the snapshot, the PVC is in-use. If a user deletes a PVC API object in active use as a snapshot source, the PVC object is not removed immediately. Instead, removal of the PVC object is postponed until the PVC is no longer actively used by any snapshots. A PVC is no longer used as a snapshot source when `ReadyToUse` of the snapshot `Status` becomes `true`.
+
+While a snapshot is being taken of a PersistentVolumeClaim, that PersistentVolumeClaim is in-use. If you delete a PersistentVolumeClaim API object in active use as a snapshot source, the PersistentVolumeClaim object is not removed immediately. Instead, removal of the PersistentVolumeClaim object is postponed until the snapshot is readyToUse or aborted.
 -->
 如果一个 PVC 正在被快照用来作为源进行快照创建，则该 PVC 是使用中的。如果用户删除正作为快照源的 PVC API 对象，则 PVC 对象不会立即被删除掉。相反，PVC 对象的删除将推迟到任何快照不在主动使用它为止。当快照的 `Status` 中的 `ReadyToUse`值为 `true` 时，PVC 将不再用作快照源。
 
+当从 `PersistentVolumeClaim` 中生成快照时，`PersistentVolumeClaim` 就在被使用了。如果删除一个作为快照源的 `PersistentVolumeClaim` 对象，这个 `PersistentVolumeClaim` 对象不会立即被删除的。相反，在快照可以被使用或者被放弃之后，才会执行删除 `PersistentVolumeClaim` 对象的动作。
+
 <!--
 ### Delete
+
+Deletion is triggered by deleting the `VolumeSnapshot` object, and the `DeletionPolicy` will be followed. If the `DeletionPolicy` is `Delete`, then the underlying storage snapshot will be deleted along with the `VolumeSnapshotContent` object. If the `DeletionPolicy` is `Retain`, then both the underlying snapshot and `VolumeSnapshotContent` remain.
 -->
-### 删除
+### 删除 {#delete}
+
+删除 `VolumeSnapshot` 对象触发删除 `VolumeSnapshotContent` 操作，并且 `DeletionPolicy` 会紧跟着执行。如果 `DeletionPolicy` 是 `Delete`，那么底层存储快照会和 `VolumeSnapshotContent` 一起被删除。如果 `DeletionPolicy` 是 `Retain`，那么底层快照和 `VolumeSnapshotContent` 都会被保留。
 
 <!--
-Deletion removes both the `VolumeSnapshotContent` object from the Kubernetes API, as well as the associated storage asset in the external infrastructure.
--->
-删除操作会从 Kubernetes API 中删除 `VolumeSnapshotContent` 对象，同时删除它在外部基础架构中关联存储资产。
-
-<!--
-## Volume Snapshot Contents
--->
-## 卷快照内容
-
-<!--
-Each VolumeSnapshotContent contains a spec, which is the specification of the volume snapshot.
--->
-每个 VolumeSnapshotContent 包含一个 spec，用来表示卷快照的规格。
-
-```yaml
-apiVersion: snapshot.storage.k8s.io/v1alpha1
-kind: VolumeSnapshotContent
-metadata:
-  name: new-snapshot-content-test
-spec:
-  snapshotClassName: csi-hostpath-snapclass
-  source:
-    name: pvc-test
-    kind: PersistentVolumeClaim
-  volumeSnapshotSource:
-    csiVolumeSnapshotSource:
-      creationTime:    1535478900692119403
-      driver:          csi-hostpath
-      restoreSize:     10Gi
-      snapshotHandle:  7bdd0de3-aaeb-11e8-9aae-0242ac110002
-```
-
-<!--
-### Class
--->
-### 类
-
-<!--
-A VolumeSnapshotContent can have a class, which is specified by setting the
-`snapshotClassName` attribute to the name of a
-[VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/).
-A VolumeSnapshotContent of a particular class can only be bound to VolumeSnapshots requesting
-that class. A VolumeSnapshotContent with no `snapshotClassName` has no class and can only be bound
-to VolumeSnapshots that request no particular class.
--->
-VolumeSnapshotContent 可以具有一个类，该类通过设置 `snapshotClassName` 属性为 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) 的名称来指定。一个特定类的 VolumeSnapshotContent 只能够绑定到请求该类的 VolumeSnapshots。没有 `snapshotClassName` 的 VolumeSnapshotContent 没有类，并且只能绑定到不要求特定类的 VolumeSnapshots。
-
-
 ## VolumeSnapshots
 
-<!--
-Each VolumeSnapshot contains a spec and a status, which is the specification and status of the volume snapshot.
+Each VolumeSnapshot contains a spec and a status.
 -->
-每个 VolumeSnapshot 对象包含 spec 和 status，用来表示卷快照的规格和状态。
+## 卷快照 {#volume-snapshots}
+
+每个 `VolumeSnapshot` 包含一个 spec 和一个状态。
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1alpha1
+apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
   name: new-snapshot-test
 spec:
-  snapshotClassName: csi-hostpath-snapclass
+  volumeSnapshotClassName: csi-hostpath-snapclass
   source:
-    name: pvc-test
-    kind: PersistentVolumeClaim
+    persistentVolumeClaimName: pvc-test
 ```
 
 <!--
-### Class
--->
-### 类
+`persistentVolumeClaimName` is the name of the PersistentVolumeClaim data source for the snapshot. This field is required for dynamically provisioning a snapshot.
 
-<!--
 A volume snapshot can request a particular class by specifying the name of a
 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)
-using the attribute `snapshotClassName`.
-Only VolumeSnapshotContents of the requested class, ones with the same `snapshotClassName`
-as the VolumeSnapshot, can be bound to the VolumeSnapshot.
+using the attribute `volumeSnapshotClassName`. If nothing is set, then the default class is used if available.
 -->
-通过使用 `snapshotClassName` 属性来指定 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) 的名称，卷快照可以请求特定的类。
-只有所请求类（与 VolumeSnapshot 有相同的 `snapshotClassName`）的 VolumeSnapshotContents 才可以绑定到 VolumeSnapshot。
+`persistentVolumeClaimName` 是 `PersistentVolumeClaim` 数据源对快照的名称。这个字段是动态配置快照中的必填字段。
+
+卷快照可以通过指定 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) 使用 `volumeSnapshotClassName` 属性来请求特定类。如果没有设置，那么使用默认类（如果有）。
+
+<!--
+For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName` as the source for the snapshot as shown in the following example. The `volumeSnapshotContentName` source field is required for pre-provisioned snapshots.
+-->
+对于预配置的快照，像下面的例子一样，需要给快照指定 `volumeSnapshotContentName` 来作为源。对于预配置的快照 `source` 中的`volumeSnapshotContentName` 字段是必填的
+
+```
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshot
+metadata:
+  name: test-snapshot
+spec:
+  source:
+        volumeSnapshotContentName: test-content
+```
+
+<!--
+## Volume Snapshot Contents
+
+Each VolumeSnapshot contains a spec and a status, which is the specification and status of the volume snapshot.
+Each VolumeSnapshotContent contains a spec and status. In dynamic provisioning, the snapshot common controller creates `VolumeSnapshotContent` objects. Here is an example:
+-->
+每个 VolumeSnapshotContent 对象包含 spec 和 status。在动态配置时，快照通用控制器创建 `VolumeSnapshotContent` 对象。下面是例子：
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotContent
+metadata:
+  name: snapcontent-72d9a349-aacd-42d2-a240-d775650d2455
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    volumeHandle: ee0cfb94-f8d4-11e9-b2d8-0242ac110002
+  volumeSnapshotClassName: csi-hostpath-snapclass
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+    uid: 72d9a349-aacd-42d2-a240-d775650d2455
+```
+
+<!--
+`volumeHandle` is the unique identifier of the volume created on the storage backend and returned by the CSI driver during the volume creation. This field is required for dynamically provisioning a snapshot. It specifies the volume source of the snapshot.
+
+For pre-provisioned snapshots, you (as cluster administrator) are responsible for creating the `VolumeSnapshotContent` object as follows.
+-->
+`volumeHandle` 是存储后端创建卷的唯一标识符，在卷创建期间由 CSI 驱动程序返回。动态设置快照需要此字段。它指出了快照的卷源。
+
+对于预配置快照，你（作为集群管理员）要按如下命令来创建 `VolumeSnapshotContent` 对象。
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotContent
+metadata:
+  name: new-snapshot-content-test
+spec:
+  deletionPolicy: Delete
+  driver: hostpath.csi.k8s.io
+  source:
+    snapshotHandle: 7bdd0de3-aaeb-11e8-9aae-0242ac110002
+  volumeSnapshotRef:
+    name: new-snapshot-test
+    namespace: default
+```
+<!--
+`snapshotHandle` is the unique identifier of the volume snapshot created on the storage backend. This field is required for the pre-provisioned snapshots. It specifies the CSI snapshot id on the storage system that this `VolumeSnapshotContent` represents.
+-->
+`snapshotHandle` 是存储后端创建卷的唯一标识符。对于预设置快照，这个字段是必须的。它指定此 `VolumeSnapshotContent` 表示的存储系统上的 CSI 快照 id。
 
 <!--
 ## Provisioning Volumes from Snapshots
@@ -237,7 +260,7 @@ as the VolumeSnapshot, can be bound to the VolumeSnapshot.
 You can provision a new volume, pre-populated with data from a snapshot, by using
 the *dataSource* field in the `PersistentVolumeClaim` object.
 -->
-你可以供应一个新卷，该卷预填充了快照中的数据，在 `持久卷声明` 对象中使用 *dataSource* 字段。
+你可以配置一个新卷，该卷预填充了快照中的数据，在 `持久卷声明` 对象中使用 *dataSource* 字段。
 
 <!--
 For more details, see
