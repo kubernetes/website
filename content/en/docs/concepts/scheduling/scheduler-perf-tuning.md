@@ -28,23 +28,67 @@ large Kubernetes clusters.
 
 {{% capture body %}}
 
-## Percentage of Nodes to Score
+In large clusters, you can tune the scheduler's behaviour balancing
+scheduling outcomes between latency (new Pods are placed quickly) and
+accuracy (the scheduler rarely makes poor placement decisions).
 
-Before Kubernetes 1.12, Kube-scheduler used to check the feasibility of all
-nodes in a cluster and then scored the feasible ones. Kubernetes 1.12 added a
-new feature that allows the scheduler to stop looking for more feasible nodes
-once it finds a certain number of them. This improves the scheduler's
-performance in large clusters. The number is specified as a percentage of the
-cluster size. The percentage can be controlled by a configuration option called
-`percentageOfNodesToScore`. The range should be between 1 and 100. Larger values
-are considered as 100%. Zero is equivalent to not providing the config option.
-Kubernetes 1.14 has logic to find the percentage of nodes to score based on the
-size of the cluster if it is not specified in the configuration. It uses a
-linear formula which yields 50% for a 100-node cluster. The formula yields 10%
-for a 5000-node cluster. The lower bound for the automatic value is 5%. In other
-words, the scheduler always scores at least 5% of the cluster no matter how
-large the cluster is, unless the user provides the config option with a value
-smaller than 5.
+You configure this tuning setting via kube-scheduler setting
+`percentageOfNodesToScore`. This KubeSchedulerConfiguration setting determines
+a threshold for scheduling nodes in your cluster.
+
+### Setting the threshold
+
+The `percentageOfNodesToScore` option accepts whole numeric values between 0
+and 100. The value 0 is a special number which indicates that the kube-scheduler
+should use its compiled-in default.
+If you set `percentageOfNodesToScore` above 100, kube-scheduler acts as if you
+had set a value of 100.
+
+To change the value, edit the kube-scheduler configuration file (this is likely
+to be `/etc/kubernetes/config/kube-scheduler.yaml`), then restart the scheduler.
+
+After you have made this change, you can run
+```bash
+kubectl get componentstatuses
+```
+to verify that the kube-scheduler component is healthy. The output is similar to:
+```
+NAME                 STATUS    MESSAGE             ERROR
+controller-manager   Healthy   ok
+scheduler            Healthy   ok
+...
+```
+
+## Node scoring threshold {#percentage-of-nodes-to-score}
+
+To improve scheduling performance, the kube-scheduler can stop looking for
+feasible nodes once it has found enough of them. In large clusters, this saves
+time compared to a naive approach that would consider every node.
+
+You specify a threshold for how many nodes are enough, as a whole number percentage
+of all the nodes in your cluster. The kube-scheduler converts this into an
+integer number of nodes. During scheduling, if the kube-scheduler has identified
+enough feasible nodes to exceed the configured percentage, the kube-scheduler
+stops searching for more feasible nodes and moves on to the
+[scoring phase](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation).
+
+[How the scheduler iterates over Nodes](#how-the-scheduler-iterates-over-nodes)
+describes the process in detail.
+
+### Default threshold
+
+If you don't specify a threshold, Kubernetes calculates a figure using a
+linear formula that yields 50% for a 100-node cluster and yields 10%
+for a 5000-node cluster. The lower bound for the automatic value is 5%.
+
+This means that, the kube-scheduler always scores at least 5% of your cluster no
+matter how large the cluster is, unless you have explicitly set
+`percentageOfNodesToScore` to be smaller than 5.
+
+If you want the scheduler to score all nodes in your cluster, set
+`percentageOfNodesToScore` to 100.
+
+## Example
 
 Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
 
@@ -59,39 +103,38 @@ algorithmSource:
 percentageOfNodesToScore: 50
 ```
 
-{{< note >}} In clusters with less than 50 feasible nodes, the scheduler still
-checks all the nodes, simply because there are not enough feasible nodes to stop
-the scheduler's search early. {{< /note >}}
 
-**To disable this feature**, you can set `percentageOfNodesToScore` to 100.
-
-### Tuning percentageOfNodesToScore
+## Tuning percentageOfNodesToScore
 
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
-minimum value of 50 nodes. This means that changing
-this option to lower values in clusters with several hundred nodes will not have
-much impact on the number of feasible nodes that the scheduler tries to find.
-This is intentional as this option is unlikely to improve performance noticeably
-in smaller clusters. In large clusters with over a 1000 nodes setting this value
-to lower numbers may show a noticeable performance improvement.
+minimum value of 50 nodes.
 
-An important note to consider when setting this value is that when a smaller
+{{< note >}}In clusters with less than 50 feasible nodes, the scheduler still
+checks all the nodes, simply because there are not enough feasible nodes to stop
+the scheduler's search early.
+
+In a small cluster, if you set a low value for `percentageOfNodesToScore`, your
+change will have no or little effect, for a similar reason.
+
+If your cluster has several hundred Nodes or fewer, leave this configuration option
+at its default value. Making changes is unlikely to improve the
+scheduler's performance significantly.
+{{< /note >}}
+
+An important detail to consider when setting this value is that when a smaller
 number of nodes in a cluster are checked for feasibility, some nodes are not
 sent to be scored for a given Pod. As a result, a Node which could possibly
 score a higher value for running the given Pod might not even be passed to the
-scoring phase. This would result in a less than ideal placement of the Pod. For
-this reason, the value should not be set to very low percentages. A general rule
-of thumb is to never set the value to anything lower than 10. Lower values
-should be used only when the scheduler's throughput is critical for your
-application and the score of nodes is not important. In other words, you prefer
-to run the Pod on any Node as long as it is feasible.
+scoring phase. This would result in a less than ideal placement of the Pod.
 
-If your cluster has several hundred Nodes or fewer, we do not recommend lowering
-the default value of this configuration option. It is unlikely to improve the
-scheduler's performance significantly.
+You should avoid setting `percentageOfNodesToScore` very low so that kube-scheduler
+does not make frequent, poor Pod placement decisions. Avoid setting the
+percentage to anything below 10%, unless the scheduler's throughput is critical
+for your application and the score of nodes is not important. In other words, you
+prefer to run the Pod on any Node as long as it is feasible.
 
-### How the scheduler iterates over Nodes
+## How the scheduler iterates over Nodes
 
 This section is intended for those who want to understand the internal details
 of this feature.
