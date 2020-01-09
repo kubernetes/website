@@ -87,13 +87,15 @@ For an example of adding a new localization, see the PR to enable [docs in Frenc
 
 PR 必须包含所有[最低要求的内容](#minimum-required-content)，然后才能被批准。
 
-有关添加新本地化的示例，请参见添加[法语文档]（https://github.com/kubernetes/website/pull/12548） 的 PR。
+有关添加新本地化的示例，请参见添加[法语文档](https://github.com/kubernetes/website/pull/12548) 的 PR。
     
+<!-- 
 ### Join the Kubernetes GitHub organization
 
-<!-- 
 Once you've opened a localization PR, you can become members of the Kubernetes GitHub organization. Each person on the team needs to create their own [Organization Membership Request](https://github.com/kubernetes/org/issues/new/choose) in the `kubernetes/org` repository. 
 -->
+### 加入 Kubernetes Github 组织
+
 提交本地化 PR 后，您可以成为 Kubernetes GitHub 组织的成员。团队中的每个人都需要在 `kubernetes/org` 仓库中创建自己的[组织成员资格申请](https://github.com/kubernetes/org/issues/new/choose)。
 
 <!-- 
