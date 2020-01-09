@@ -109,7 +109,7 @@ you need is an existing `docker-compose.yml` file.
           ports:
             - "6379"
 
-        redis-slave:
+        redis-follower:
           image: gcr.io/google_samples/gb-redisslave:v3
           ports:
             - "6379"
@@ -149,20 +149,20 @@ you need is an existing `docker-compose.yml` file.
       $ kompose convert                           
       INFO Kubernetes file "frontend-service.yaml" created         
       INFO Kubernetes file "redis-master-service.yaml" created     
-      INFO Kubernetes file "redis-slave-service.yaml" created      
+      INFO Kubernetes file "redis-follower-service.yaml" created      
       INFO Kubernetes file "frontend-deployment.yaml" created      
       INFO Kubernetes file "redis-master-deployment.yaml" created  
-      INFO Kubernetes file "redis-slave-deployment.yaml" created   
+      INFO Kubernetes file "redis-follower-deployment.yaml" created   
       ```
 
       ```bash
-      $ kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+      $ kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-follower-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-follower-deployment.yaml
       service/frontend created
       service/redis-master created
-      service/redis-slave created
+      service/redis-follower created
       deployment.apps/frontend created
       deployment.apps/redis-master created
-      deployment.apps/redis-slave created
+      deployment.apps/redis-follower created
       ```
 
       Your deployments are running in Kubernetes.
@@ -255,18 +255,18 @@ INFO Kubernetes file "frontend-service.yaml" created
 INFO Kubernetes file "mlbparks-service.yaml" created         
 INFO Kubernetes file "mongodb-service.yaml" created          
 INFO Kubernetes file "redis-master-service.yaml" created     
-INFO Kubernetes file "redis-slave-service.yaml" created      
+INFO Kubernetes file "redis-follower-service.yaml" created      
 INFO Kubernetes file "frontend-deployment.yaml" created      
 INFO Kubernetes file "mlbparks-deployment.yaml" created      
 INFO Kubernetes file "mongodb-deployment.yaml" created       
 INFO Kubernetes file "mongodb-claim0-persistentvolumeclaim.yaml" created
 INFO Kubernetes file "redis-master-deployment.yaml" created  
-INFO Kubernetes file "redis-slave-deployment.yaml" created   
+INFO Kubernetes file "redis-follower-deployment.yaml" created   
 
 $ ls
-mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml  
+mlbparks-deployment.yaml  mongodb-service.yaml                       redis-follower-service.jsonmlbparks-service.yaml  
 frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
-frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
+frontend-service.yaml     mongodb-deployment.yaml                    redis-follower-deployment.yaml
 redis-master-deployment.yaml
 ```
 
@@ -320,10 +320,10 @@ We are going to create Kubernetes deployments and services for your Dockerized a
 If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
 INFO Successfully created service: redis-master   
-INFO Successfully created service: redis-slave    
+INFO Successfully created service: redis-follower    
 INFO Successfully created service: frontend       
 INFO Successfully created deployment: redis-master
-INFO Successfully created deployment: redis-slave
+INFO Successfully created deployment: redis-follower
 INFO Successfully created deployment: frontend    
 
 Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details.
@@ -332,18 +332,18 @@ $ kubectl get deployment,svc,pods
 NAME                                              DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
 deployment.extensions/frontend                    1             1             1            1           4m
 deployment.extensions/redis-master                1             1             1            1           4m
-deployment.extensions/redis-slave                 1             1             1            1           4m
+deployment.extensions/redis-follower                 1             1             1            1           4m
 
 NAME                         TYPE               CLUSTER-IP    EXTERNAL-IP   PORT(S)      AGE
 service/frontend             ClusterIP          10.0.174.12   <none>        80/TCP       4m
 service/kubernetes           ClusterIP          10.0.0.1      <none>        443/TCP      13d
 service/redis-master         ClusterIP          10.0.202.43   <none>        6379/TCP     4m
-service/redis-slave          ClusterIP          10.0.1.85     <none>        6379/TCP     4m
+service/redis-follower          ClusterIP          10.0.1.85     <none>        6379/TCP     4m
 
 NAME                                READY         STATUS        RESTARTS     AGE
 pod/frontend-2768218532-cs5t5       1/1           Running       0            4m
 pod/redis-master-1432129712-63jn8   1/1           Running       0            4m
-pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
+pod/redis-follower-2504961300-nve7b    1/1           Running       0            4m
 ```
 
 **Note**:
@@ -357,11 +357,11 @@ $ kompose --file ./examples/docker-guestbook.yml --provider openshift up
 We are going to create OpenShift DeploymentConfigs and Services for your Dockerized application.
 If you need different kind of resources, use the 'kompose convert' and 'oc create -f' commands instead.
 
-INFO Successfully created service: redis-slave    
+INFO Successfully created service: redis-follower    
 INFO Successfully created service: frontend       
 INFO Successfully created service: redis-master   
-INFO Successfully created deployment: redis-slave
-INFO Successfully created ImageStream: redis-slave
+INFO Successfully created deployment: redis-follower
+INFO Successfully created ImageStream: redis-follower
 INFO Successfully created deployment: frontend    
 INFO Successfully created ImageStream: frontend   
 INFO Successfully created deployment: redis-master
@@ -373,15 +373,15 @@ $ oc get dc,svc,is
 NAME               REVISION                              DESIRED       CURRENT    TRIGGERED BY
 dc/frontend        0                                     1             0          config,image(frontend:v4)
 dc/redis-master    0                                     1             0          config,image(redis-master:e2e)
-dc/redis-slave     0                                     1             0          config,image(redis-slave:v1)
+dc/redis-follower     0                                     1             0          config,image(redis-follower:v1)
 NAME               CLUSTER-IP                            EXTERNAL-IP   PORT(S)    AGE
 svc/frontend       172.30.46.64                          <none>        80/TCP     8s
 svc/redis-master   172.30.144.56                         <none>        6379/TCP   8s
-svc/redis-slave    172.30.75.245                         <none>        6379/TCP   8s
+svc/redis-follower    172.30.75.245                         <none>        6379/TCP   8s
 NAME               DOCKER REPO                           TAGS          UPDATED
 is/frontend        172.30.12.200:5000/fff/frontend                     
 is/redis-master    172.30.12.200:5000/fff/redis-master                 
-is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1  
+is/redis-follower     172.30.12.200:5000/fff/redis-follower    v1  
 ```
 
 **Note**:
@@ -396,8 +396,8 @@ Once you have deployed "composed" application to Kubernetes, `$ kompose down` wi
 $ kompose --file docker-guestbook.yml down
 INFO Successfully deleted service: redis-master   
 INFO Successfully deleted deployment: redis-master
-INFO Successfully deleted service: redis-slave    
-INFO Successfully deleted deployment: redis-slave
+INFO Successfully deleted service: redis-follower    
+INFO Successfully deleted deployment: redis-follower
 INFO Successfully deleted service: frontend       
 INFO Successfully deleted deployment: frontend
 ```
