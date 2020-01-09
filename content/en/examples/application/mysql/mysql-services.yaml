@@ -5,6 +5,7 @@ metadata:
   name: mysql
   labels:
     app: mysql
+    app.kubernetes.io/name: mysql
 spec:
   ports:
   - name: mysql
@@ -21,10 +22,11 @@ metadata:
   name: mysql-read
   labels:
     app: mysql
+    app.kubernetes.io/name: mysql
+    readonly: "true"
 spec:
   ports:
   - name: mysql
     port: 3306
   selector:
     app: mysql
-

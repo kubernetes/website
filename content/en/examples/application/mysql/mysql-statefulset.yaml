@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: mysql
+        app.kubernetes.io/name: mysql
     spec:
       initContainers:
       - name: init-mysql
