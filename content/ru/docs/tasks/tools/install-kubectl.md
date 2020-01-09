@@ -1,6 +1,4 @@
 ---
-reviewers:
-- mikedanese
 title: Установка и настройка kubectl
 content_template: templates/task
 weight: 10
@@ -44,12 +42,12 @@ card:
     chmod +x ./kubectl
     ```
 
-3. Переместите бинарный файл в PATH.
+3. Добавьте путь к бинарному файлу в переменную окружения PATH.
 
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
-4. Выполните команду, чтобы проверить актуальность установленной версии:
+4. Чтобы проверить актуальность установленной версии, выполните команду:
 
     ```
     kubectl version
@@ -101,7 +99,7 @@ kubectl version
 
 ### Установка бинарного файла kubectl с использованием curl на macOS
 
-1. Загрузите последний релиз:
+1. Загрузите последний релиз с помощью команды::
 
     ```		 
     curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
@@ -121,12 +119,12 @@ kubectl version
     chmod +x ./kubectl
     ```
 
-3. Переместите бинарный файл в PATH.
+3. Добавьте путь к бинарному файлу в переменную окружения PATH.
 
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
-4. Выполните команду, чтобы проверить актуальность установленной версии:
+4. Чтобы проверить актуальность установленной версии, выполните команду:
 
     ```
     kubectl version
@@ -136,7 +134,7 @@ kubectl version
 
 Если вы пользователь macOS и используете пакетный менеджер [Homebrew](https://brew.sh/), вы можете установить kubectl с помощью Homebrew.
 
-1. Выполните команду установки:
+1. Для установки, выполните команду:
 
     ```
     brew install kubectl 
@@ -147,7 +145,7 @@ kubectl version
     brew install kubernetes-cli
     ```
 
-2. Выполните, чтобы проверить актуальность установленной версии:
+2. Чтобы проверить актуальность установленной версии, выполните команду:
 
     ```
     kubectl version
@@ -157,14 +155,14 @@ kubectl version
 
 Если вы пользователь macOS и используете пакетный менеджер [Macports](https://macports.org/), вы можете установить kubectl с помощью Macports.
 
-1. Выполните команду установки:
+1. Для установки, выполните команду:
 
     ```
     sudo port selfupdate
     sudo port install kubectl
     ```
     
-2. Выполните, чтобы проверить актуальность установленной версии:
+2. Чтобы проверить актуальность установленной версии, выполните команду:
 
     ```
     kubectl version
@@ -184,7 +182,7 @@ kubectl version
 
     Чтобы определить последнюю стабильную версию (например, для написания скриптов), обратитесь к [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)..
 
-2. Добавьте бинарный файл в PATH.
+2. Добавьте путь к бинарному файлу в переменную окружения PATH.
 3. Проверьте, что установленная версия `kubectl` соответствует загруженной:
 
     ```
@@ -198,7 +196,7 @@ kubectl version
 
 Если вы пользователь Windows и используете пакетный менеджер [Powershell Gallery](https://www.powershellgallery.com/), вы можете установить kubectl с помощью Powershell.
 
-1. Выполните команду установки (не забудьте указать `DownloadLocation`):
+1. Для установки, выполните команду (не забудьте указать `DownloadLocation`):
 
     ```
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
@@ -209,7 +207,7 @@ kubectl version
     
     Установщик создаст `$HOME/.kube` и даст ему инструции по созданию файла конфигурации
 
-2. Выполните, чтобы проверить актуальность установленной версии:
+2. Чтобы проверить актуальность установленной версии, выполните команду:
 
     ```
     kubectl version
@@ -232,7 +230,7 @@ kubectl version
 
 {{% /tab %}}
 {{< /tabs >}}
-2. Выполните, чтобы проверить актуальность установленной версии:
+2. Чтобы проверить актуальность установленной версии, выполните команду:
 
     ```
     kubectl version
@@ -261,7 +259,7 @@ kubectl version
     New-Item config -type file
     ```
     
-    {{< note >}}Редактируйте конфигурационный файл с помощью удобного вам текстового редактора, например Notepad.{{< /note >}}
+    {{< note >}}Вы можете отредактировать конфигурационный файл с помощью удобного вам текстового редактора, например Notepad.{{< /note >}}
 
 ## Загрузка как часть Google Cloud SDK
 
@@ -274,7 +272,7 @@ kubectl version
     gcloud components install kubectl
     ```
     
-3. Выполните, чтобы проверить актуальность установленной версии:
+3. Чтобы проверить актуальность установленной версии, выполните команду:
 
     ```
     kubectl version
@@ -297,7 +295,7 @@ kubectl cluster-info
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-Например, если вы хотите запустить кластер Kubernetes на вашем ноутбуке (локально), вам сначала потребуется установить инструмен, такой как Minikube, и затем перевыполнить указанные выше команды.
+Например, если вы хотите запустить кластер Kubernetes на вашем ноутбуке (локально), вам сначала потребуется установить инструмент, такой как Minikube, и затем перевыполнить указанные выше команды.
 
 Если kubectl cluster-info возвращает в ответе url, но вы не можете получить доступ к вашему кластеру, используйте следующую команду для проверку корректности настроек:
 
@@ -385,7 +383,7 @@ source /usr/share/bash-completion/bash_completion
 ### Установка bash-completion
 
 {{< note >}}
-Как было упомянуто, данные инструкции предподагают, что вы используете Bash 4.1+, что значит, что будет установлена версия bash-completion v2 (вместо Bash 3.2 и bash-completion v1, для которых дополнения kubectl не будут работать).
+Как было упомянуто ранее, данные инструкции предподагают, что вы используете Bash 4.1+, что значит, что будет установлена версия bash-completion v2 (вместо Bash 3.2 и bash-completion v1, для которых дополнения kubectl не будут работать).
 {{< /note >}}
 
 Проверить, установлена ли у вас уже версия bash-completion v2 с помощью команды `type _init_completion`. Если нет, вы можете установить утилиту с помощью Homebrew:
@@ -470,6 +468,6 @@ compinit
 * [Установка Minikube](/docs/tasks/tools/install-minikube/)
 * Обратитесь к [руководствам по началу работы](/docs/setup/), чтобы узнать больше о создании кластеров. 
 * [Узнайте, как запустить и опубликовать ваше приложение.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* Если вам нужен доступ к кластуру, созданному не вами, обратитесь к документуIf you need access to a cluster you didn't create, see the [документу по созданию общего доступа к кластуру](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* Если вам нужен доступ к кластеру, созданному не вами, обратитесь к документу [документу по созданию общего доступа к кластуру](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Прочитайте [справочную документацию по kubectl](/docs/reference/kubectl/kubectl/)
 {{% /capture %}}
