@@ -24,8 +24,6 @@ replication.
 on general patterns for running stateful applications in Kubernetes.
 {{< /note >}}
 
-
-
 ## {{% heading "prerequisites" %}}
 
 
@@ -132,8 +130,11 @@ mysql-2   2/2       Running   0          1m
 ```
 
 Press **Ctrl+C** to cancel the watch.
+
+{{< note >}}
 If you don't see any progress, make sure you have a dynamic PersistentVolume
-provisioner enabled as mentioned in the [prerequisites](#before-you-begin).
+provisioner enabled, as mentioned in the [prerequisites](#before-you-begin).
+{{< /note >}}
 
 This manifest uses a variety of techniques for managing stateful Pods as part of
 a StatefulSet. The next section highlights some of these techniques to explain
@@ -375,10 +376,14 @@ Then drain the Node by running the following command, which cordons it so
 no new Pods may schedule there, and then evicts any existing Pods.
 Replace `<node-name>` with the name of the Node you found in the last step.
 
-This might impact other applications on the Node, so it's best to
-**only do this in a test cluster**.
+{{< caution >}}
+Draining a Node can impact other workloads and applications that are
+running on the same node, so only do the following step in a test
+cluster.
+{{< /caution >}}
 
 ```shell
+# See above advice about impact on other workloads
 kubectl drain <node-name> --force --delete-emptydir-data --ignore-daemonsets
 ```
 
@@ -453,10 +458,13 @@ Scaling back down is also seamless:
 kubectl scale statefulset mysql --replicas=3
 ```
 
-Note, however, that while scaling up creates new PersistentVolumeClaims
+{{< note >}}
+Although scaling up creates new PersistentVolumeClaims
 automatically, scaling down does not automatically delete these PVCs.
+
 This gives you the choice to keep those initialized PVCs around to make
 scaling back up quicker, or to extract data before deleting them.
+{{< /note >}}
 
 You can see this by running:
 
