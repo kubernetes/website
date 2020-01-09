@@ -34,8 +34,8 @@ The following applications are now available:
 |[Drupal](https://github.com/kubernetes/charts/tree/master/stable/drupal) | [Consul](https://github.com/kubernetes/charts/tree/master/incubator/consul) |
 |[Jenkins](https://github.com/kubernetes/charts/tree/master/stable/jenkins)|[Elasticsearch](https://github.com/kubernetes/charts/tree/master/incubator/elasticsearch) |
 | [MariaDB](https://github.com/kubernetes/charts/tree/master/stable/mariadb) | [etcd](https://github.com/kubernetes/charts/tree/master/incubator/etcd) |
-| [MySQL](https://github.com/kubernetes/charts/tree/master/stable/mysql) | [Grafana](https://github.com/kubernetes/charts/tree/master/incubator/grafana) |
-| [Redmine](https://github.com/kubernetes/charts/tree/master/stable/redmine)|[MongoDB](https://github.com/kubernetes/charts/tree/master/incubator/mongodb)|
+| [MySQL](https://github.com/kubernetes/charts/tree/master/stable/mysql) | [Grafana](https://github.com/helm/charts/tree/master/stable/grafana) |
+| [Redmine](https://github.com/kubernetes/charts/tree/master/stable/redmine)|[MongoDB](https://github.com/helm/charts/tree/master/stable/mongodb)|
 | [Wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress)|[Patroni](https://github.com/kubernetes/charts/tree/master/incubator/patroni) |
 ||[Prometheus](https://github.com/kubernetes/charts/tree/master/incubator/prometheus)|
 |  | [Spark](https://github.com/kubernetes/charts/tree/master/incubator/spark)|
