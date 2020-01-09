@@ -55,7 +55,7 @@ After successfully building the above components, we use tools such as kubespray
 | coredns for CKE on MIPS         | 1.6.5   | `registry.inspurcloud.cn/library/cke/kubernetes/coredns-mips64el:v1.6.5`                                                                                                                                                                                                          |
 | calico for CKE on MIPS         | 3.8.0   | `registry.inspurcloud.cn/library/cke/calico/cni-mips64el:v3.8.0` `registry.inspurcloud.cn/library/cke/calico/ctl-mips64el:v3.8.0` `registry.inspurcloud.cn/library/cke/calico/node-mips64el:v3.8.0` `registry.inspurcloud.cn/library/cke/calico/kube-controllers-mips64el:v3.8.0` |
 
-> Note: CKE is a kubernetes based cloud container engine launched by Inspur
+**Note**: CKE is a Kubernetes-based cloud container engine launched by Inspur
 
 ![K8S-MIPS Cluster Components](/images/blog/2019-12-21-Kubernetes-on-MIPS/k8s-mips-cluster-components.png)
 
