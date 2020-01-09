@@ -15,7 +15,7 @@ weight: 30
 
 This page shows how to run a replicated stateful application using a
 {{< glossary_tooltip term_id="statefulset" >}}.
-The example is a MySQL single-master topology with multiple slaves running
+The example is a MySQL single-master topology with multiple replicas running
 asynchronous replication.
 
 {{< caution >}}
@@ -69,9 +69,9 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
-configuration on the MySQL master and slaves.
-In this case, you want the master to be able to serve replication logs to slaves
-and you want slaves to reject any writes that don't come via replication.
+configuration on the MySQL master and replicas.
+In this case, you want the master to be able to serve replication logs to replicas
+and you want replicas to reject any writes that don't come via replication.
 
 There's nothing special about the ConfigMap itself that causes different
 portions to apply to different Pods.
@@ -98,7 +98,7 @@ cluster and namespace.
 The client Service, called `mysql-read`, is a normal Service with its own
 cluster IP that distributes connections across all MySQL Pods that report
 being Ready. The set of potential endpoints includes the MySQL master and all
-slaves.
+replicas.
 
 Note that only read queries can use the load-balanced client Service.
 Because there is only one MySQL master, clients should connect directly to the
@@ -170,26 +170,27 @@ into a file called `server-id.cnf` in the MySQL `conf.d` directory.
 This translates the unique, stable identity provided by the StatefulSet
 into the domain of MySQL server IDs, which require the same properties.
 
-The script in the `init-mysql` container also applies either `master.cnf` or
-`slave.cnf` from the ConfigMap by copying the contents into `conf.d`.
+The script in the `init-mysql` container also applies either `master.cnf`
+(for the master Pod) or `replica.cnf` (for from the ConfigMap by copying the contents into `conf.d`.
 Because the example topology consists of a single MySQL master and any number of
-slaves, the script simply assigns ordinal `0` to be the master, and everyone
-else to be slaves.
+replicas, the script simply assigns ordinal `0` to be the master, and everyi
+other Pod to be replicas.
+
 Combined with the StatefulSet controller's
 [deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
-this ensures the MySQL master is Ready before creating slaves, so they can begin
-replicating.
+this ensures the MySQL master is Ready before creating any replicas, so that
+replication can then begin.
 
 ### Cloning existing data
 
-In general, when a new Pod joins the set as a slave, it must assume the MySQL
+In general, when a new Pod joins the set as a replica, it must assume the MySQL
 master might already have data on it. It also must assume that the replication
 logs might not go all the way back to the beginning of time.
 These conservative assumptions are the key to allow a running StatefulSet
 to scale up and down over time, rather than being fixed at its initial size.
 
 The second init container, named `clone-mysql`, performs a clone operation on
-a slave Pod the first time it starts up on an empty PersistentVolume.
+a replica Pod the first time it starts up on an empty PersistentVolume.
 That means it copies all existing data from another running Pod,
 so its local state is consistent enough to begin replicating from the master.
 
@@ -209,14 +210,14 @@ server, and an `xtrabackup` container that acts as a
 [sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 The `xtrabackup` sidecar looks at the cloned data files and determines if
-it's necessary to initialize MySQL replication on the slave.
+it's necessary to initialize MySQL replication on the replica.
 If so, it waits for `mysqld` to be ready and then executes the
 `CHANGE MASTER TO` and `START SLAVE` commands with replication parameters
 extracted from the XtraBackup clone files.
 
-Once a slave begins replication, it remembers its MySQL master and
+Once a replica begins replication, it remembers its MySQL master and
 reconnects automatically if the server restarts or the connection dies.
-Also, because slaves look for the master at its stable DNS name
+Also, because replicas look for the master at its stable DNS name
 (`mysql-0.mysql`), they automatically find the master even if it gets a new
 Pod IP due to being rescheduled.
 
@@ -294,7 +295,7 @@ it running in another window so you can see the effects of the following steps.
 
 ## Simulate Pod and Node failure {#simulate-pod-and-node-downtime}
 
-To demonstrate the increased availability of reading from the pool of slaves
+To demonstrate the increased availability of reading from the pool of replicas
 instead of a single server, keep the `SELECT @@server_id` loop from above
 running while you force a Pod out of the Ready state.
 
@@ -416,9 +417,10 @@ Now uncordon the Node to return it to a normal state:
 kubectl uncordon <node-name>
 ```
 
-## Scaling the number of slaves
+## Scaling the StatefulSet
 
-With MySQL replication, you can scale your read query capacity by adding slaves.
+With MySQL replication, you can scale your read query capacity by adding
+more replicas.
 With StatefulSet, you can do this with a single command:
 
 ```shell

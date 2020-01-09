@@ -10,8 +10,7 @@ data:
     # Apply this config only on the master.
     [mysqld]
     log-bin
-  slave.cnf: |
-    # Apply this config only on slaves.
+  replica.cnf: |
+    # Apply this config only on replicas.
     [mysqld]
     super-read-only
-
