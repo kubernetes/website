@@ -227,7 +227,7 @@ used.
 
 There can be at most 512 parameters defined for a StorageClass.
 The total length of the parameters object including its keys and values cannot
-exceed 256 KB.
+exceed 256 KiB.
 
 ### AWS EBS
 
