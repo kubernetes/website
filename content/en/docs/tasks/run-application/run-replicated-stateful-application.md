@@ -69,7 +69,7 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
-configuration on the primary MySQL server and replicas.
+configuration on the primary MySQL server and its replicas.
 In this case, you want the primary server to be able to serve replication logs to replicas
 and you want replicas to reject any writes that don't come via replication.
 
@@ -418,8 +418,9 @@ kubectl uncordon <node-name>
 
 ## Scaling the number of replicas
 
-With MySQL replication, you can scale your read query capacity by adding replicas.
-With StatefulSet, you can do this with a single command:
+When you use MySQL replication, you can scale your read query capacity by
+adding replicas.
+For a StatefulSet, you can achieve this with a single command:
 
 ```shell
 kubectl scale statefulset mysql  --replicas=5
