@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes on MIPS"
-date: 2019-12-21
+date: 2020-01-09
 slug: Kubernetes-on-MIPS
 ---
 
