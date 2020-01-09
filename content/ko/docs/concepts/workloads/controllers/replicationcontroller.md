@@ -1,7 +1,4 @@
 ---
-
-
-
 title: 레플리케이션 컨트롤러
 feature:
   title: 자가 치유
@@ -16,7 +13,7 @@ weight: 20
 {{% capture overview %}}
 
 {{< note >}}
-[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) 을 구성하는 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) 가 현재 권장되는 레플리케이션 설정 방법이다.
+[`ReplicaSet`](/ko/docs/concepts/workloads/controllers/replicaset/) 을 구성하는 [`Deployment`](/ko/docs/concepts/workloads/controllers/deployment/) 가 현재 권장되는 레플리케이션 설정 방법이다.
 {{< /note >}}
 
 _레플리케이션 컨트롤러_ 는 언제든지 지정된 수의 파드 레플리카가
@@ -143,7 +140,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 
 ### 파드 셀렉터
 
-`.spec.selector` 필드는 [레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/#label-selectors) 이다. 레플리케이션 컨트롤러는 셀렉터와 일치하는 레이블이 있는 모든 파드를 관리한다.
+`.spec.selector` 필드는 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터) 이다. 레플리케이션 컨트롤러는 셀렉터와 일치하는 레이블이 있는 모든 파드를 관리한다.
 직접 생성하거나 삭제된 파드와 다른 사람이나 프로세스가 생성하거나
 삭제한 파드를 구분하지 않는다. 이렇게 하면 실행중인 파드에 영향을 주지 않고
 레플리케이션 컨트롤러를 교체할 수 있다.
@@ -257,14 +254,14 @@ API 오브젝트에 대한 더 자세한 것은
 
 ### 레플리카셋
 
-[`레플리카셋`](/docs/concepts/workloads/controllers/replicaset/)은 새로운 [set-based label selector](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement) 이다.
-이것은 주로 [`디플로이먼트`](/docs/concepts/workloads/controllers/deployment/) 에 의해 파드의 생성, 삭제 및 업데이트를 오케스트레이션 하는 메커니즘으로 사용된다.
+[`레플리카셋`](/docs/concepts/workloads/controllers/replicaset/)은 새로운 [집합성 기준 레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#집합성-기준-요건) 이다.
+이것은 주로 [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/) 에 의해 파드의 생성, 삭제 및 업데이트를 오케스트레이션 하는 메커니즘으로 사용된다.
 사용자 지정 업데이트 조정이 필요하거나 업데이트가 필요하지 않은 경우가 아니면 레플리카 셋을 직접 사용하는 대신 디플로이먼트를 사용하는 것이 좋다.
 
 
 ### 디플로이먼트 (권장되는)
 
-[`디플로이먼트`](/docs/concepts/workloads/controllers/deployment/) 는 `kubectl rolling-update` 와 비슷한 방식으로 기본 레플리카셋과 그 파드를 업데이트하는 상위 수준의 API 오브젝트이다.
+[`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/) 는 `kubectl rolling-update` 와 비슷한 방식으로 기본 레플리카셋과 그 파드를 업데이트하는 상위 수준의 API 오브젝트이다.
 `kubectl rolling-update` 와는 다르게 선언적이며, 서버 사이드이고,
 추가 기능이 있기 때문에 롤링 업데이트 기능을 원한다면 디플로이먼트를 권장한다.
 
@@ -280,7 +277,7 @@ API 오브젝트에 대한 더 자세한 것은
 ### 데몬셋
 
 머신 모니터링이나 머신 로깅과 같은 머신 레벨 기능을 제공하는 파드에는 레플리케이션 컨트롤러 대신
-[`데몬셋`](/docs/concepts/workloads/controllers/daemonset/)을 사용하라. 이런 파드들의 수명은 머신의 수명에 달려 있다.
+[`데몬셋`](/ko/docs/concepts/workloads/controllers/daemonset/)을 사용하라. 이런 파드들의 수명은 머신의 수명에 달려 있다.
 다른 파드가 시작되기 전에 파드가 머신에서 실행되어야 하며,
 머신이 재부팅/종료 준비가 되어 있을 때 안전하게 종료된다.
 

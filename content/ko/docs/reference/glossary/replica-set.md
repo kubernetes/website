@@ -2,7 +2,7 @@
 title: 레플리카셋(ReplicaSet)
 id: replica-set
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/replicaset/
+full_link: /ko/docs/concepts/workloads/controllers/replicaset/
 short_description: >
   레플리카셋은 지정된 수의 파드 레플리카가 동시에 실행이 되도록 보장한다
 

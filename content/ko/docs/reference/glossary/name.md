@@ -2,7 +2,7 @@
 title: 이름(Name)
 id: name
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/names
+full_link: /ko/docs/concepts/overview/working-with-objects/names
 short_description: >
   `/api/v1/pods/some-name`과 같이, 리소스 URL에서 오브젝트를 가리키는 클라이언트 제공 문자열.
 

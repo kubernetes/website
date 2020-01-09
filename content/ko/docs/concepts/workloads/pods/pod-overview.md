@@ -31,7 +31,7 @@ card:
   * [분산 시스템 툴킷: 복합 컨테이너를 위한 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
   * [컨테이너 디자인 패턴](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
-각각의 파드는 주어진 애플리케이션에서 단일 인스턴스로 동작을 하는 것을 말한다. 만약 애플리케이션을 수평적으로 스케일하기를 원하면(예를 들면, 다중 인스턴스 동작하는 것), 각 인스턴스 당 한 개씩 다중 파드를 사용해야 한다. 쿠버네티스에서는, 일반적으로 이것을 _복제_ 라고 한다. 복제된 파드는 주로 컨트롤러라고 하는 추상화 개념의 그룹에 의해 만들어지고 관리된다. 더 많은 정보는 [파드와 컨트롤러](#pods-and-controllers)를 참고하길 바란다.
+각각의 파드는 주어진 애플리케이션에서 단일 인스턴스로 동작을 하는 것을 말한다. 만약 애플리케이션을 수평적으로 스케일하기를 원하면(예를 들면, 다중 인스턴스 동작하는 것), 각 인스턴스 당 한 개씩 다중 파드를 사용해야 한다. 쿠버네티스에서는, 일반적으로 이것을 _복제_ 라고 한다. 복제된 파드는 주로 컨트롤러라고 하는 추상화 개념의 그룹에 의해 만들어지고 관리된다. 더 많은 정보는 [파드와 컨트롤러](#파드와-컨트롤러)를 참고하길 바란다.
 
 ## 어떻게 파드가 다중 컨테이너를 관리하는가
 
@@ -61,7 +61,7 @@ card:
 파드 내부에서 재시작되는 컨테이너를 파드와 함께 재시작되는 컨테이너로 혼동해서는 안된다. 파드는 자기 스스로 동작하지 않는다. 하지만 컨테이너 환경은 그것이 삭제될 때까지 계속 동작한다.
 {{< /note >}}
 
-파드는 스스로 자신을 치료하지 않는다. 만약 파드가 스케줄링된 노드에 장애가 생기거나, 스케쥴링 동작이 스스로 실패할 경우 파드는 삭제된다. 그와 비슷하게, 파드는 리소스나 노드의 유지 부족으로 인해 제거되는 상황에서 살아남지 못할 것이다. 쿠버네티스는 상대적으로 일시적인 파드 인스턴스를 관리하는 작업을 처리하는 *컨트롤러* 라고 하는 고수준의 추상적 개념을 사용한다. 즉, 파드를 직접적으로 사용가능 하지만, 컨트롤러를 사용하여 파드를 관리하는 것이 쿠버네티스에서 훨씬 더 보편적이다. 쿠버네티스가 어떻게 파드 스케일링과 치료하는지 보려면 [파드와 컨트롤러](#pods-and-controllers)를 참고하길 바란다.
+파드는 스스로 자신을 치료하지 않는다. 만약 파드가 스케줄링된 노드에 장애가 생기거나, 스케쥴링 동작이 스스로 실패할 경우 파드는 삭제된다. 그와 비슷하게, 파드는 리소스나 노드의 유지 부족으로 인해 제거되는 상황에서 살아남지 못할 것이다. 쿠버네티스는 상대적으로 일시적인 파드 인스턴스를 관리하는 작업을 처리하는 *컨트롤러* 라고 하는 고수준의 추상적 개념을 사용한다. 즉, 파드를 직접적으로 사용가능 하지만, 컨트롤러를 사용하여 파드를 관리하는 것이 쿠버네티스에서 훨씬 더 보편적이다. 쿠버네티스가 어떻게 파드 스케일링과 치료하는지 보려면 [파드와 컨트롤러](#파드와-컨트롤러)를 참고하길 바란다.
 
 ### 파드와 컨트롤러
 
@@ -69,17 +69,17 @@ card:
 
 한 가지 또는 그 이상의 파드를 보유한 컨트롤러의 몇 가지 예시.
 
-* [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)
-* [스테이트풀 셋](/docs/concepts/workloads/controllers/statefulset/)
-* [데몬 셋](/docs/concepts/workloads/controllers/daemonset/)
+* [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
+* [스테이트풀 셋](/ko/docs/concepts/workloads/controllers/statefulset/)
+* [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)
 
 일반적으로, 컨트롤러는 책임을 지고 제공한 파드 템플릿을 사용한다.
 
 ## 파드 템플릿
 
-파드 템플릿은 [레플리케이션 컨트롤러](/docs/concepts/workloads/controllers/replicationcontroller/),
+파드 템플릿은 [레플리케이션 컨트롤러](/ko/docs/concepts/workloads/controllers/replicationcontroller/),
 [잡](/docs/concepts/jobs/run-to-completion-finite-workloads/),
-[데몬 셋](/docs/concepts/workloads/controllers/daemonset/)과 같은 다른 객체를 포함하는 파드 명세서이다.
+[데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)과 같은 다른 객체를 포함하는 파드 명세서이다.
 컨트롤러는 파드 템플릿을 사용하여 실제 파드를 만든다.
 아래 예시는 메시지를 출력하는 컨테이너를 포함하는 파드에 대한 간단한 매니페스트이다.
 
@@ -102,8 +102,8 @@ spec:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [파드](/docs/concepts/workloads/pods/pod/)에 대해 더 배워보자.
+* [파드](/ko/docs/concepts/workloads/pods/pod/)에 대해 더 배워보자.
 * 파드의 동작에 대해 더 알아보자.
-  * [파드 종료](/docs/concepts/workloads/pods/pod/#termination-of-pods)
+  * [파드 종료](/ko/docs/concepts/workloads/pods/pod/#파드의-종료)
   * [파드 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)
 {{% /capture %}}

@@ -15,7 +15,7 @@ card:
 
 {{% capture overview %}}
 
-이 튜토리얼에서는 [Minikube](/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여 
+이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여 
 쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
@@ -87,9 +87,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     kubectl get deployments
     ```
 
-    출력:
+    다음과 유사하게 출력된다.
 
-    ```shell
+    ```
     NAME         READY   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1/1     1            1           1m
     ```
@@ -99,9 +99,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl get pods
     ```
-    출력:
+    다음과 유사하게 출력된다.
 
-    ```shell
+    ```
     NAME                          READY     STATUS    RESTARTS   AGE
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
@@ -142,9 +142,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     kubectl get services
     ```
 
-    출력:
+    다음과 유사하게 출력된다.
 
-    ```shell
+    ```
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
     hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
@@ -163,7 +163,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 4. Katacoda 환경에서만: 플러스를 클릭한 후에 **Select port to view on Host 1** 를 클릭.
 
-5. Katacoda 환경에서만: 서비스 출력에서 `8080`의 반대편에 표시되는 5자리 포트 번호를 기록 한다. 이 포트 번호는 무작위로 생성되며, 사용자마다 다를 수 있다. 포트 번호 텍스트 상자에 `30369` 를 입력한 다음, 포트 표시를 클릭한다.
+5. Katacoda 환경에서만: 서비스 출력에서 `8080`의 반대편에 표시되는 5자리 포트 번호를 기록 한다. 이 포트 번호는 무작위로 생성되며, 사용자마다 다를 수 있다. 포트 번호 텍스트 상자에 포트 번호를 입력한 다음, 포트 표시를 클릭한다. 이전 예시를 사용해서 `30369` 를 입력한다.
 
     이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 "Hello World" 메시지를 보여준다.
 
@@ -177,24 +177,27 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     minikube addons list
     ```
 
-    출력:
+    다음과 유사하게 출력된다.
 
-    ```shell
+    ```
     addon-manager: enabled
-    coredns: disabled
     dashboard: enabled
     default-storageclass: enabled
     efk: disabled
     freshpod: disabled
+    gvisor: disabled
     heapster: disabled
+    helm-tiller: disabled
     ingress: disabled
-    kube-dns: enabled
+    ingress-dns: disabled
+    logviewer: disabled
     metrics-server: disabled
     nvidia-driver-installer: disabled
     nvidia-gpu-device-plugin: disabled
     registry: disabled
     registry-creds: disabled
     storage-provisioner: enabled
+    storage-provisioner-gluster: disabled
     ```
    
 2. 한 애드온을 활성화 한다. 예를 들어 `heapster`
@@ -203,9 +206,9 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     minikube addons enable heapster
     ```
   
-    출력:
+    다음과 유사하게 출력된다.
 
-    ```shell
+    ```
     heapster was successfully enabled
     ```
 
@@ -215,21 +218,25 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     kubectl get pod,svc -n kube-system
     ```
 
-    출력:
+    다음과 유사하게 출력된다.
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
+    pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
+    pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
     pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
-    pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
-    pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
+    pod/kube-apiserver-minikube                 1/1       Running   0          34m
+    pod/kube-controller-manager-minikube        1/1       Running   0          34m
+    pod/kube-proxy-rnlps                        1/1       Running   0          34m
+    pod/kube-scheduler-minikube                 1/1       Running   0          34m
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
     service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-    service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
@@ -240,9 +247,9 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     minikube addons disable heapster
     ```
   
-    출력:
+    다음과 유사하게 출력된다.
 
-    ```shell
+    ```
     heapster was successfully disabled
     ```
 
