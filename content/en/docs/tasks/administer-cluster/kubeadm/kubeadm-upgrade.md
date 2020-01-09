@@ -52,7 +52,7 @@ The upgrade workflow at high level is the following:
     {{< tabs name="k8s_install_versions" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
-    apt-cache policy kubeadm
+    apt-cache madison kubeadm
     # find the latest 1.17 version in the list
     # it should look like 1.17.x-00, where x is the latest patch
     {{% /tab %}}
