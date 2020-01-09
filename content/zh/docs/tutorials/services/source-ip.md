@@ -110,7 +110,7 @@ command=GET
 ...
 ```
 
-如果客户端 pod 和 服务端 pod 在相同的节点上，client_address 就是客户端 pod 的 IP 地址。但是，如果它们在不同的节点上， client_address 将会是客户端 pod 所在节点的 flannel IP 地址。
+无论客户端 pod 和 服务端 pod 是否在相同的节点上，client_address 始终是客户端 pod 的 IP 地址。
 
 
 ## Type=NodePort 类型 Services 的 Source IP
