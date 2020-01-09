@@ -2,7 +2,7 @@
 title: 크론잡(CronJob)
 id: cronjob
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/cron-jobs/
+full_link: /ko/docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   주기적인 일정에 따라 실행되는 [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 관리.
 

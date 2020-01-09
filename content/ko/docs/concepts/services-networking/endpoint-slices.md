@@ -91,7 +91,7 @@ EndpointSlice는 다음 주소 유형을 지원한다.
 
 {{% capture whatsnext %}}
 
-* [엔드포인트 슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpoint-slices)
-* [애플리케이션을 서비스와 함께 연결하기](/docs/concepts/services-networking/connect-applications-service/) 를 읽는다.
+* [엔드포인트 슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpointslices)
+* [애플리케이션을 서비스와 함께 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/) 를 읽는다.
 
 {{% /capture %}}

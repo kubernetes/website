@@ -26,7 +26,7 @@ title: 리소스 모니터링 도구
 ## 리소스 메트릭 파이프라인
 
 리소스 메트릭 파이프라인은 
-[Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale)
+[Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale)
 컨트롤러와 같은 클러스터 구성요소나 `kubectl top` 유틸리티에 관련되어 있는
 메트릭들로 제한된 집합을 제공한다. 이 메트릭은 경량의 단기 인메모리 저장소인
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)에
