@@ -166,8 +166,8 @@ kubeletバージョンがAPIサーバーのバージョンを超えることは�
 
 バージョン差異(version skew)に関しては下記を参照してください。
 
-* Kubernetes [version and version-skew policy](/ja/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [version skew policy](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+* Kubernetes [Kubernetesバージョンとバージョンスキューサポートポリシー](/ja/docs/setup/release/version-skew-policy/)
+* Kubeadm-specific [バージョン互換ポリシー](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
