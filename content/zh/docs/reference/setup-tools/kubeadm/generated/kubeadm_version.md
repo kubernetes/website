@@ -82,15 +82,3 @@ kubeadm version [flags]
   </tbody>
 </table>
 
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
--->
-* [kubeadm](kubeadm.md)	 - kubeadm: 轻松引导安全的 Kubernetes 集群
-
