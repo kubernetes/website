@@ -330,7 +330,7 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 
 ### 출력 형식 지정
 
-특정 형식으로 터미널 창에 세부 사항을 출력하려면, 지원되는 `kubectl` 명령에 `-o` 또는 `--output` 플래그를 추가하면 된다.
+특정 형식으로 터미널 창에 세부 사항을 출력하려면, 지원되는 `kubectl` 명령에 `-o` (또는 `--output`) 플래그를 추가한다.
 
 출력 형식       | 세부 사항
 --------------| -----------
