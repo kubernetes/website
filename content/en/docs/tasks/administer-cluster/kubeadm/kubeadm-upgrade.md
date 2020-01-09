@@ -52,13 +52,13 @@ The upgrade workflow at high level is the following:
     {{< tabs name="k8s_install_versions" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
-    apt-cache madison kubeadm
-    # find the latest 1.17 version in the list
+    # find the latest 1.17 version using apt-cache
+    apt-cache madison kubeadm | awk '{print $3}' | grep -m1 '^1\.17\.'
     # it should look like 1.17.x-00, where x is the latest patch
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # find the latest 1.17 version in the list
+    # find the latest 1.17 version using yum
+    yum list --showduplicates kubeadm --disableexcludes=kubernetes | awk '{print $2}' | grep '^1\.17\.' | tail -n1
     # it should look like 1.17.x-0, where x is the latest patch
     {{% /tab %}}
     {{< /tabs >}}
