@@ -8,7 +8,7 @@ card:
 
 {{% capture overview %}}
 
-[Kubectl概要](/docs/reference/kubectl/overview/)と[JsonPathガイド](/docs/reference/kubectl/jsonpath)も合わせてご覧ください
+[Kubectl概要](/docs/reference/kubectl/overview/)と[JsonPathガイド](/docs/reference/kubectl/jsonpath)も合わせてご覧ください。
 
 このページは`kubectl`コマンドの概要です。
 
@@ -54,7 +54,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
-# e2eユーザのパスワードを取得。
+# e2eユーザのパスワードを取得します。
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # 最初のユーザー名を表示します
@@ -78,7 +78,7 @@ kubectl config unset users.foo    # ユーザーfooを削除します
 
 ## Apply
 
-`apply`はKubernetesリソースを定義するファイルを通じてアプリケーションを管理します。`kubectl apply`を実行して、クラスター内のリソースを作成および更新します。これは、本番環境でkubernetesアプリケーションを管理する推奨方法です。
+`apply`はKubernetesリソースを定義するファイルを通じてアプリケーションを管理します。`kubectl apply`を実行して、クラスター内のリソースを作成および更新します。これは、本番環境でKubernetesアプリケーションを管理する推奨方法です。
 詳しくは[Kubectl Book](https://kubectl.docs.kubernetes.io)をご覧ください。
 
 
@@ -122,7 +122,7 @@ spec:
     - "1000"
 EOF
 
-# いくつかの鍵を含むsecretを作成します
+# いくつかの鍵を含むSecretを作成します
 
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
@@ -266,18 +266,18 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # エディターを指定
 ```bash
 kubectl scale --replicas=3 rs/foo                                 # 「foo」という名前のレプリカセットを3にスケーリングします
 kubectl scale --replicas=3 -f foo.yaml                            # 「foo.yaml」で指定されたリソースを3にスケーリングします
-kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # mysqlと名付けられたdeploymentの現在のサイズが2であれば、mysqlを3にスケールします
+kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # mysqlと名付けられたdeploymentの現在のサイズが2であれば、mysqlを3にスケジューリングします
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 複数のReplication controllerをスケーリングします
 ```
 
 ## リソースの削除
 
 ```bash
-kubectl delete -f ./pod.json                                              # pod.jsonで指定されたタイプと名前を使用してポッドを削除します
+kubectl delete -f ./pod.json                                              # pod.jsonで指定されたタイプと名前を使用してPodを削除します
 kubectl delete pod,service baz foo                                        # 「baz」と「foo」の名前を持つPodとServiceを削除します
 kubectl delete pods,services -l name=myLabel                              # name=myLabelラベルを持つのPodとServiceを削除します
 kubectl -n my-ns delete pod,svc --all                                     # 名前空間my-ns内のすべてのPodとServiceを削除します
-# awkコマンドのpattern1またはpattern2に一致するすべてのポッドを削除します。
+# awkコマンドのpattern1またはpattern2に一致するすべてのPodを削除します。
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
@@ -312,7 +312,7 @@ kubectl cordon my-node                                                # my-node�
 kubectl drain my-node                                                 # メンテナンスの準備としてmy-nodeで動作中のPodを空にします
 kubectl uncordon my-node                                              # my-nodeにスケーリングされるように設定します
 kubectl top node my-node                                              # 特定のノードのメトリクスを表示します
-kubectl cluster-info                                                  # kubernetesクラスターのマスターとサービスのアドレスを表示します
+kubectl cluster-info                                                  # Kubernetesクラスターのマスターとサービスのアドレスを表示します
 kubectl cluster-info dump                                             # 現在のクラスター状態を標準出力にダンプします
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 現在のクラスター状態を/path/to/cluster-stateにダンプします
 
@@ -355,7 +355,7 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 `-o=yaml`     | YAML形式のAPIオブジェクトを出力します
 
 ### Kubectlのログレベルとデバッグ
-kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なkubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
+kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なKubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
 
 ログレベル    | 説明
 --------------| -----------
