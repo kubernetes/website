@@ -887,7 +887,7 @@ There are other annotations for managing Cloud Load Balancers on TKE as shown be
     metadata:
       name: my-service
       annotations:
-        # Bind Loadbalancers with speicfied nodes
+        # Bind Loadbalancers with specified nodes
         service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
 
         # ID of an existing load balancer
