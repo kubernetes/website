@@ -191,7 +191,7 @@ A desired state of an object is described by a Deployment, and if changes to tha
 <!--
 The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/admin/kubelet/) attempts to pull the specified image.
 -->
-当 [kubelet](/docs/admin/kubelet/)尝试拉取指定的镜像时，[imagePullPolicy]（/ docs / concepts / containers / images / #updating-images）和镜像的标签会生效。
+当 [kubelet](/docs/admin/kubelet/)尝试拉取指定的镜像时，[imagePullPolicy](/docs/concepts/containers/images/#updating-images)和镜像的标签会生效。
 
 <!--
 - `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
