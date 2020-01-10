@@ -67,30 +67,3 @@ Use this command to invoke single phase of the reset workflow
 </table>
 
 
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm reset](kubeadm_reset.md)	 - Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
--->
-* [kubeadm reset](kubeadm_reset.md)	 - 尽最大努力还原通过 “kubeadm init” 或 “kubeadm join” 操作对主机所做的更改
-<!--
-* [kubeadm reset phase cleanup-node](kubeadm_reset_phase_cleanup-node.md)	 - Run cleanup node.
--->
-* [kubeadm reset phase cleanup-node](kubeadm_reset_phase_cleanup-node.md)	 - 执行 cleanup node（清理节点）操作。
-<!--
-* [kubeadm reset phase preflight](kubeadm_reset_phase_preflight.md)	 - Run reset pre-flight checks
--->
-* [kubeadm reset phase preflight](kubeadm_reset_phase_preflight.md)	 - 运行 reset 命令启动前检查
-<!--
-* [kubeadm reset phase remove-etcd-member](kubeadm_reset_phase_remove-etcd-member.md)	 - Remove a local etcd member.
--->
-* [kubeadm reset phase remove-etcd-member](kubeadm_reset_phase_remove-etcd-member.md)	 - 删除某个本地 etcd 成员。
-<!--
-* [kubeadm reset phase update-cluster-status](kubeadm_reset_phase_update-cluster-status.md)	 - Remove this node from the ClusterStatus object.
--->
-* [kubeadm reset phase update-cluster-status](kubeadm_reset_phase_update-cluster-status.md)	 - 从 ClusterStatus 对象中删除该节点。
-

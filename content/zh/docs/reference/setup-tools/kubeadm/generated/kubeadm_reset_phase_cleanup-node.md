@@ -99,16 +99,3 @@ kubeadm reset phase cleanup-node [flags]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-
-<!--
-* [kubeadm reset phase](kubeadm_reset_phase.md)	 - Use this command to invoke single phase of the reset workflow
--->
-* [kubeadm reset phase](kubeadm_reset_phase.md)	 - 使用此命令来调用 `reset` 工作流程的某个阶段
-
