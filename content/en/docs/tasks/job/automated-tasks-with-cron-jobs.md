@@ -1,5 +1,6 @@
 ---
 title: Running Automated Tasks with a CronJob
+min-kubernetes-server-version: v1.8
 reviewers:
 - chenopis
 content_template: templates/task
@@ -24,7 +25,7 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 
