@@ -167,7 +167,7 @@ Ne modifiez pas ce label.
 Le label `pod-template-hash` est ajoutée par le contrôleur de déploiement à chaque ReplicaSet créé ou adopté par un déploiement.
 
 Ce label garantit que les ReplicaSets enfants d'un déploiement ne se chevauchent pas.
-Il est généré en hachant le `PodTemplate` du ReplicaSet et en utilisant le hachage résultant comme valeur de label qui est ajoutée au sélecteur ReplicaSet, aux label de template de pod et dans tous les pods existants que le ReplicaSet peut avoir.
+Il est généré en hachant le `PodTemplate` du ReplicaSet et en utilisant le hachage résultant comme valeur de label qui est ajoutée au sélecteur ReplicaSet, aux labels de template de pod et dans tous les pods existants que le ReplicaSet peut avoir.
 
 ## Mise à jour d'un déploiement
 
