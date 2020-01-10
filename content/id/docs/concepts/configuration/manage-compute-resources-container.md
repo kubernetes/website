@@ -11,13 +11,12 @@ feature:
 {{% capture overview %}}
 
 Saat kamu membuat spesifikasi sebuah [Pod](/docs/concepts/workloads/pods/pod/), kamu
-dapat secara opsional memerinci seberapa banyak CPU dan memori (RAM) yang dibutuhkan
-oleh setiap Container. Saat Container-Container memerinci _request_ (permintaan) sumber daya,
+dapat secara opsional menentukan seberapa banyak CPU dan memori (RAM) yang dibutuhkan
+oleh setiap Container. Saat Container-Container menentukan _request_ (permintaan) sumber daya,
 scheduler dapat membuat keputusan yang lebih baik mengenai Node mana yang akan dipilih
-untuk menaruh Pod-Pod. Dan saat Container-Container memerinci _limit_ (batas) sumber
-daya mereka, rebutan sumber daya pada sebuah Node dapat diatasi dalam cara yang telah
-ditentukan.
-Untuk lebih lanjut mengenai perbedaan `request` dan `limit`, lihat [QoS Sumber Daya](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+untuk menaruh Pod-Pod. Dan saat limit (batas) sumber daya Container-Container telah ditentukan,
+maka kemungkinan rebutan sumber daya pada sebuah Node dapat dihindari.
+Untuk informasi lebih lanjut mengenai perbedaan `request` dan `limit`, lihat [QoS Sumber Daya](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
 {{% /capture %}}
 
@@ -26,14 +25,14 @@ Untuk lebih lanjut mengenai perbedaan `request` dan `limit`, lihat [QoS Sumber D
 ## Jenis-jenis sumber daya
 
 _CPU_ dan _memori_ masing-masing merupakan _jenis sumber daya_ (_resource type_).
-Sebuah jenis sumber daya memiliki satuan dasar. CPU dirinci dalam satuan jumlah _core_,
-dan memori dirinci dalam satuan _bytes_. Jika kamu menggunakan Kubernetes v1.14 keatas,
-kamu dapat memerinci sumber daya _huge page_. _Huge page_ adalah fitur khusus Linux
+Sebuah jenis sumber daya memiliki satuan dasar. CPU ditentukan dalam satuan jumlah _core_,
+dan memori ditentukan dalam satuan _bytes_. Jika kamu menggunakan Kubernetes v1.14 keatas,
+kamu dapat menentukan sumber daya _huge page_. _Huge page_ adalah fitur khusus Linux
 di mana kernel Node mengalokasikan blok-blok memori yang jauh lebih besar daripada ukuran
-_page_ bawaannya. 
+_page_ bawaannya.
 
 Sebagai contoh, pada sebuah sistem di mana ukuran _page_ bawaannya adalah 4KiB, kamu
-dapat memerinci sebuah limit, `hugepages-2Mi: 80Mi`. Jika kontainer mencoba mengalokasikan
+dapat menentukan sebuah limit, `hugepages-2Mi: 80Mi`. Jika kontainer mencoba mengalokasikan
 lebih dari 40 _huge page_ berukuran 20MiB (total 80MiB), maka alokasi tersebut akan gagal.
 
 {{< note >}}
@@ -41,7 +40,7 @@ Kamu tidak dapat melakukan _overcommit_ terhadap sumber daya `hugepages-*`.
 Hal ini berbeda dari sumber daya `memory` dan `cpu` (yang dapat di-_overcommit_).
 {{< /note >}}
 
-CPU dan memori secara kolektif dimaksud sebagai _sumber daya komputasi_, atau cukup
+CPU dan memori secara kolektif disebut sebagai _sumber daya komputasi_, atau cukup
 _sumber daya_ saja. Sumber daya komputasi adalah jumlah yang dapat diminta, dialokasikan,
 dan dikonsumsi. Mereka berbeda dengan [sumber daya API](/docs/concepts/overview/kubernetes-api/).
 Sumber daya API, seperti Pod dan [Service](/docs/concepts/services-networking/service/) adalah
@@ -49,7 +48,7 @@ objek-objek yang dapat dibaca dan diubah melalui Kubernetes API Server.
 
 ## Request dan Limit Sumber daya dari Pod dan Container
 
-Setiap Container dari sebuah Pod dapat memerinci satu atau lebih dari hal-hal berikut:
+Setiap Container dari sebuah Pod dapat menentukan satu atau lebih dari hal-hal berikut:
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
@@ -58,7 +57,7 @@ Setiap Container dari sebuah Pod dapat memerinci satu atau lebih dari hal-hal be
 * `spec.containers[].resources.requests.memory`
 * `spec.containers[].resources.requests.hugepages-<size>`
 
-Walaupun `requests` dan `limits` hanya dapat diperinci pada Container individual, akan
+Walaupun `requests` dan `limits` hanya dapat ditentukan pada Container individual, akan
 lebih mudah untuk membahas tentang request dan limit sumber daya dari Pod. Sebuah
 _request/limit sumber daya Pod_ untuk jenis sumber daya tertentu adalah jumlah dari
 request/limit sumber daya pada jenis tersebut untuk semua Container di dalam Pod tersebut.
@@ -77,9 +76,9 @@ Satu cpu, dalam Kubernetes, adalah sama dengan:
 Request dalam bentuk pecahan diizinkan. Sebuah Container dengan
 `spec.containers[].resources.requests.cpu` bernilai `0.5` dijamin mendapat
 setengah CPU dibandingkan dengan yang meminta 1 CPU. Ekspresi nilai  `0.1` ekuivalen
-dengan ekspresi bilai `100m`, yang dapat dibaca sebagai "seratus milicpu". Beberapa
+dengan ekspresi nilai `100m`, yang dapat dibaca sebagai "seratus milicpu". Beberapa
 orang juga membacanya dengan "seratus milicore", dan keduanya ini dimengerti sebagai
-hal yang sama, Sebuah request dengan angka di belakang koma, seperti `0.1` dikonversi
+hal yang sama. Sebuah request dengan angka di belakang koma, seperti `0.1` dikonversi
 menjadi `100m` oleh API, dan presisi yang lebih kecil lagi dari `1m` tidak dibolehkan.
 Untuk alasan ini, bentuk `100m` mungkin lebih disukai.
 
@@ -142,12 +141,12 @@ untuk Pod tersebut untuk dijalankan. Setiap Node memiliki kapasitas maksimum
 untuk setiap jenis sumber daya: jumlah CPU dan memori yang dapat disediakan
 oleh Node tersebut untuk Pod-Pod. Scheduler memastikan bahwa, untuk setiap
 jenis sumber daya, jumlah semua request sumber daya dari Container-Container
-yang dijadwalkan lebih sedikit dari kapasitas Node tersebut. Perlu dicatat
+yang dijadwalkan lebih kecil dari kapasitas Node tersebut. Perlu dicatat
 bahwa walaupun penggunaan sumber daya memori atau CPU aktual/sesungguhnya pada
 Node-Node sangat rendah, scheduler tetap akan menolak untuk menaruh sebuah
-Pod pada sebuah Node jika pemeriksaan kapasitasnya gagal. Hal ini menjaga dari
-kekurangan sumber daya pada sebuah Node saat penggunaan sumber daya meningkat
-suatu waktu, misalnya pada saat titik puncak _traffic_ harian.
+Pod pada sebuah Node jika pemeriksaan kapasitasnya gagal. Hal ini adalah untuk
+menjaga dari kekurangan sumber daya pada sebuah Node saat penggunaan sumber daya
+meningkat suatu waktu, misalnya pada saat titik puncak _traffic_ harian.
 
 ## Bagaimana Pod-Pod dengan limit sumber daya dijalankan
 
@@ -171,11 +170,11 @@ Ketika menggunakan Docker:
   Periode kuota bawaan adalah 100ms. Resolusi minimum dari kuota CPU adalah 1 milidetik.
   {{</ note >}}
 
-- `spec.containers[].resources.limits.memory` diubah menjadi sebuah bilangan, dan
+- `spec.containers[].resources.limits.memory` diubah menjadi sebuah bilangan bulat, dan
   digunakan sebagai nilai dari _flag_ [`--memory`](https://docs.docker.com/engine/reference/run/#/user-memory-constraints)
   dari perintah `docker run`.
 
-Jika sebuah Container melebihi batas memorinya, Container tersebut mungkin diterminasi.
+Jika sebuah Container melebihi batas memorinya, Container tersebut mungkin akan diterminasi.
 Jika Container tersebut dapat diulang kembali, Kubelet akan mengulangnya kembali, sama
 seperti jenis kegagalan lainnya.
 
@@ -352,7 +351,7 @@ Jika sebuah partisi _runtime_ opsional digunakan, partisi _root_ tidak akan meny
 
 ### Menyetel request dan limit dari penyimpanan lokal sementara
 
-Setiap Container dari sebuah Pod dapat memerinci satu atau lebih dari hal-hal berikut:
+Setiap Container dari sebuah Pod dapat menentukan satu atau lebih dari hal-hal berikut:
 
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
@@ -400,7 +399,7 @@ Saat kamu membuat sebuah Pod, Kubernetes scheduler memilih sebuah Node di mana P
 tersebut akan dijalankan. Setiap Node memiliki jumlah maksimum penyimpanan lokal sementara yang dapat disediakan.
 Untuk lebih lanjut, lihat ["Hal-hal yang dapat dialokasikan Node"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 
-Scheduler memastikan bahwa jumlah dari request-request sumber daya dari Container-Container yang dijadwalkan lebih sedikit dari kapasitas Node.
+Scheduler memastikan bahwa jumlah dari request-request sumber daya dari Container-Container yang dijadwalkan lebih kecil dari kapasitas Node.
 
 ### Bagaimana Pod-Pod dengan limit ephemeral-storage dijalankan
 
@@ -455,7 +454,7 @@ Sistem berkas XFS tidak membutuhkan tindakan khusus saat dibangun;
 mereka secara otomatis telah dibangun dengan _project quotas_ yang
 telah diaktifkan.
 
-Sistem berkas _ext4fs_ harus dibangun denga  mengaktifkan _quotas_,
+Sistem berkas _ext4fs_ harus dibangun dengan  mengaktifkan _quotas_,
 kemudian mereka harus diaktifkan pada sistem berkas tersebut.
 
 ```
@@ -496,13 +495,13 @@ cara menyatakan sumber daya _device plugin_ yang dikelola pada setiap node.
 ##### Sumber daya lainnya
 
 Untuk menyatakan sebuah sumber daya yang diperluas tingkat Node, operator klaster
-dapat mengirimkan permintaan HTTP `PATCH` ke API server untuk memerinci kuantitas
+dapat mengirimkan permintaan HTTP `PATCH` ke API server untuk menentukan kuantitas
 sumber daya yang tersedia pada kolom `status.capacity` untuk Node pada klaster.
 Setelah itu, `status.capacity` pada Node akan memiliki sumber daya baru tersebut.
 Kolom `status.allocatable` diperbarui secara otomatis dengan sumber daya baru
 tersebut secara _asynchrounous_ oleh Kubelet. Perlu dicatat bahwa karena scheduler
 menggunakan nilai `status.allocatable` milik Node saat mengevaluasi muat atau tidaknya
-Pod, mungkin ada waktu tunda pendek antara melakukan `PATCH` terhadap kapasitas Node
+Pod, mungkin ada waktu jeda pendek antara melakukan `PATCH` terhadap kapasitas Node
 dengan sumber daya baru dengan Pod pertama yang meminta sumber daya tersebut untuk
 dapat dijadwalkan pada Node tersebut.
 
@@ -531,7 +530,7 @@ Sumber daya yang diperluas pada tingkat klaster tidak terikat pada Node. Mereka
 biasanya dikelola oleh _scheduler extender_, yang menangani penggunaan sumber daya
 dan kuota sumber daya.
 
-Kamu dapat memerinci sumber daya yang diperluas yang ditangani oleh _scheduler extender_
+Kamu dapat menentukan sumber daya yang diperluas yang ditangani oleh _scheduler extender_
 pada [konfigurasi kebijakan scheduler](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
 
 **Contoh:**
@@ -542,7 +541,7 @@ oleh _scheduler extender_.
 
 - Scheduler mengirim sebuah Pod ke _scheduler extender_ hanya jika Pod tersebut
     meminta "example.com/foo".
-- Kolom `ignoredByScheduler` memerinci bahwa scheduler tidak memeriksa sumber daya
+- Kolom `ignoredByScheduler` menentukan bahwa scheduler tidak memeriksa sumber daya
     "example.com/foo" pada predikat `PodFitsResources` miliknya.
 
 ```json
