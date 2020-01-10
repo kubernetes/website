@@ -229,6 +229,7 @@ The following cloud providers have implemented CCMs:
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Hetzner](https://github.com/hetznercloud/hcloud-cloud-controller-manager)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 * [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
