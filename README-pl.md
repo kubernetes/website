@@ -71,7 +71,7 @@ Zostanie uruchomiony lokalny serwer Hugo na porcie 1313. Otwórz w przeglądarce
 
 ## Społeczność, listy dyskusyjne, uczestnictwo i wsparcie
 
-Zajrzyj na stronę [społeczności](http://kubernetes.io/community/), aby dowiedzieć się, jak możesz się zaangażować w jej działania.
+Zajrzyj na stronę [społeczności](http://kubernetes.io/community/), aby dowiedzieć się, jak możesz zaangażować się w jej działania.
 
 Możesz kontaktować się z gospodarzami projektu za pomocą:
 
