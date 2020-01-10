@@ -55,7 +55,7 @@ Po zbudowaniu obrazu, możesz uruchomić serwis lokalnie:
 make docker-serve
 ```
 
-Otwórz w przeglądarce adres http://localhost:1313, aby obejrzeć zawartość serwisu. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
+Aby obejrzeć zawartość serwisu otwórz w przeglądarce adres http://localhost:1313. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 
 ## Jak uruchomić serwis lokalnie przy pomocy Hugo?
 
