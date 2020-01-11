@@ -24,7 +24,7 @@ Poniższy rysunek przedstawia klaster Kubernetes i powiązania pomiędzy jego r�
 
 Komponenty *master* odpowiadają za warstwę sterowania klastra. Podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
 
-Komponenty *master* mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Building High-Availability Clusters](/docs/admin/high-availability/) jest więcej informacji o konfiguracji typu *multi-master-VM*.
+Komponenty *master* mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Tworzenie Wysoko Dostępnych Klastrów](/docs/admin/high-availability/) jest więcej informacji o konfiguracji typu *multi-master-VM*.
 
 ### kube-apiserver
 
