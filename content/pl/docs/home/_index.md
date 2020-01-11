@@ -15,7 +15,7 @@ menu:
     title: "Dokumentacja"
     weight: 20
     post: >
-      <p>Naucz się, jak korzystać z Kubernetes z pomocą dokumentacji, która opisuje pojęcia, zawiera samouczki i informacje źródłowe. Możesz także <a href="/editdocs/" data-auto-burger-exclude>pomóc w jej tworzeniu</a>!</p>
+      <p>Naucz się, jak korzystać z Kubernetesa z pomocą dokumentacji, która opisuje pojęcia, zawiera samouczki i informacje źródłowe. Możesz także <a href="/editdocs/" data-auto-burger-exclude>pomóc w jej tworzeniu</a>!</p>
 overview: >
   Kubernetes to otwarte oprogramowanie służące do automatyzacji procesów uruchamiania, skalowania i zarządzania aplikacjami w kontenerach. Gospodarzem tego projektu o otwartym kodzie źródłowym jest Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
