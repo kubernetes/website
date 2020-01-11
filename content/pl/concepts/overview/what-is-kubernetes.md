@@ -45,7 +45,7 @@ Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 * Rozdzielenie zadań *Dev* i *Ops*: obrazy kontenerów powstają w fazie *build/release*, oddzielając w ten sposób aplikacje od infrastruktury.
 * Obserwowalność obejmuje nie tylko informacje i metryki z poziomu systemu operacyjnego, ale także poprawność działania samej aplikacji i inne sygnały.
 * Spójność środowiska na etapach rozwoju oprogramowania, testowania i działania w trybie produkcyjnym: działa w ten sam sposób na laptopie i w chmurze.
-* Możliwość przenoszenia pomiędzy systemami operacyjnymi i platformami chmurowymi: Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine i gdziekolwiek indziej.
+* Możliwość przenoszenia pomiędzy systemami operacyjnymi i platformami chmurowymi: Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine czy gdziekolwiek indziej.
 * Zarządzanie, które w centrum uwagi ma aplikacje: Poziom abstrakcji przeniesiony jest z warstwy systemu operacyjnego działającego na maszynie wirtualnej na poziom działania aplikacji, która działa na systemie operacyjnym używając zasobów logicznych.
 * Luźno powiązane, rozproszone i elastyczne "swobodne" mikro serwisy: Aplikacje podzielone są na mniejsze, niezależne komponenty, które mogą być dynamicznie uruchamiane i zarządzane - nie jest to monolityczny system działający na jednej, dużej maszynie dedykowanej na wyłączność.
 * Izolacja zasobów: wydajność aplikacji możliwa do przewidzenia
