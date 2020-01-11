@@ -50,7 +50,7 @@ cards:
   button: Weź udział
   button_path: /docs/contribute
 - name: download
-  title: Pobierz Kubernetes
+  title: Pobierz Kubernetesa
   description: Jeśli instalujesz lub aktualizujesz Kubernetes, zajrzyj do informacji o najnowszym wydaniu.
 - name: about
   title: O dokumentacji
