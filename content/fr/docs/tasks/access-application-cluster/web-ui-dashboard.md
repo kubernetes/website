@@ -44,7 +44,7 @@ L’exemple d’utilisateur créé dans le didacticiel disposera de privilèges 
 
 ### Proxy en ligne de commande
 
-Vous pouvez accéder à Dashboard à l'aide de l'outil de ligne de commande kubectl en exécutant la commande suivante:
+Vous pouvez accéder au tableau de bord à l'aide de l'outil en ligne de commande kubectl en exécutant la commande suivante:
 
 ```text
 kubectl proxy
