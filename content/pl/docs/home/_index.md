@@ -25,7 +25,7 @@ cards:
   button: "Podstawowe pojęcia"
   button_path: "/docs/concepts"
 - name: tutorials
-  title: "Wypróbuj Kubernetes"
+  title: "Wypróbuj Kubernetesa"
   description: "Skorzystaj z samouczków, aby nauczyć się uruchamiać aplikacje na Kubernetesie."
   button: "Samouczki"
   button_path: "/docs/tutorials"
