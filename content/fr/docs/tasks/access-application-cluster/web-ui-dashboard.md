@@ -32,7 +32,7 @@ Pour le déployer, exécutez la commande suivante:
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
 ```
 
-## Accessing the Dashboard UI
+## Accès à l'interface utilisateur du tableau de bord
 
 Pour protéger vos données de cluster, Dashboard se déploie avec une configuration RBAC minimale par défaut.
 Actuellement, Dashboard prend uniquement en charge la connexion avec un jeton de support.
