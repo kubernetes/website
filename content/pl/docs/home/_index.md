@@ -51,7 +51,7 @@ cards:
   button_path: /docs/contribute
 - name: download
   title: Pobierz Kubernetesa
-  description: Jeśli instalujesz lub aktualizujesz Kubernetes, zajrzyj do informacji o najnowszym wydaniu.
+  description: Jeśli instalujesz lub aktualizujesz Kubernetesa, zajrzyj do informacji o najnowszym wydaniu.
 - name: about
   title: O dokumentacji
   description: Tu znajdziesz dokumentację bieżącej i czterech poprzednich wersji Kubernetes.
