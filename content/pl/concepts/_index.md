@@ -15,7 +15,7 @@ Rozdział dotyczący pojęć ma za zadanie pomóc w zrozumieniu poszczególnych 
 
 ## Przegląd
 
-Pracując w środowisku Kubernetes, używasz *obiektów API Kubernetes* aby opisać *zamierzony stan* klastra: jakie aplikacje lub inne zadania chcesz uruchomić, jakich obrazów kontenerów chcesz użyć, ilu replik potrzebujesz, które zasoby dyskowe i sieciowe chcesz udostępnić itp. Zamierzony stan uzyskuje się definiując obiekty API Kubernetes, zazwyczaj przy pomocy polecenia `kubectl`. Możesz także używać API Kubernetes bezpośrednio, aby konfigurować i modyfikować stanu klastra.
+Pracując w środowisku Kubernetes, używasz *obiektów API Kubernetes* aby opisać *zamierzony stan* klastra: jakie aplikacje lub inne zadania chcesz uruchomić, jakich obrazów kontenerów chcesz użyć, ilu replik potrzebujesz, które zasoby dyskowe i sieciowe chcesz udostępnić itp. Zamierzony stan uzyskuje się definiując obiekty API Kubernetes, zazwyczaj przy pomocy polecenia `kubectl`. Możesz także używać API bezpośrednio, aby konfigurować i modyfikować stan klastra.
 
 Gdy tylko zdefiniujesz zamierzony stan, warstwa sterowania Kubernetes (*Kubernetes Control Plane*) podejmuje działania, aby aktualny stan klastra był zgodny ze stanem zamierzonym, wykorzystując do tego Pod Lifecycle Event Generator ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md)). W tym celu Kubernetes wykonuje szereg automatycznych zadań, takich jak start lub restart kontenerów, skalowanie liczby replik dla danej aplikacji itp. Warstwa sterowania Kubernetes to zbiór różnych procesów działających na klastrze:
 
