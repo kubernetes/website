@@ -80,7 +80,7 @@ Składniki węzłów uruchomiane są na każdym węźle. Utrzymują pody w dzia�
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
-## Dodatki (*Addons*)
+## Dodatki (*Addons*) {#dodatki}
 
 Dodatki korzystają z podstawowych obiektów Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}}, itp.), aby rozszerzyć funkcjonalności klastra. Ponieważ są to funkcjonalności obejmujące cały klaster, zasoby odnoszące się do przestrzeni nazw *(namespace)* należą `kube-system`.
 
