@@ -12,7 +12,7 @@ card:
 
 Le tableau de bord (Dashboard) est une interface web pour Kubernetes.
 Vous pouvez utiliser ce tableau de bord pour déployer des applications conteneurisées dans un cluster Kubernetes, dépanner votre application conteneurisée et gérer les ressources du cluster.
-Vous pouvez utiliser Dashboard pour obtenir une vue d'ensemble des applications en cours d'exécution sur votre cluster, ainsi que pour créer ou modifier des ressources Kubernetes individuelles. (comme des Deployments, Jobs, DaemonSets, etc).
+Vous pouvez utiliser le tableau de bord pour obtenir une vue d'ensemble des applications en cours d'exécution dans votre cluster, ainsi que pour créer ou modifier des ressources Kubernetes individuelles. (comme des Deployments, Jobs, DaemonSets, etc).
 Par exemple, vous pouvez redimensionner un Deployment, lancer une mise à jour progressive, redémarrez un pod ou déployez de nouvelles applications à l'aide d'un assistant de déploiement.
 
 Le tableau de bord fournit également des informations sur l'état des ressources Kubernetes de votre cluster et sur les erreurs éventuelles.
