@@ -43,7 +43,7 @@ Kubernetes zawiera także obiekty abstrakcyjne wyższego poziomu, zbudowane z ob
  * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
  * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
-## Warstwa sterowania (*Kubernetes Control Plane*)
+## Warstwa sterowania (*Kubernetes Control Plane*) {#warstwa-sterowania}
 
 Różne komponenty warstwy sterowania, takie jak: *Kubernetes Master* czy *kubelet*, odpowiadają za to, jak Kubernetes komunikuje się z klastrem. Warstwa sterowania przechowuje informacje o wszystkich obiektach Kubernetes w systemie i w sposób ciągły steruje ich stanem. Pętle sterowania reagują na zmiany zachodzące w klastrze w sposób ciągły, starając się doprowadzić, aby stan faktyczny wszystkich obiektów odpowiadał stanowi zamierzonemu przez użytkownika.
 
