@@ -78,7 +78,7 @@ Cliquez sur le bouton **CREATE** dans le coin supérieur droit de n’importe qu
 
 L'assistant de déploiement s'attend à ce que vous fournissiez les informations suivantes:
 
-- **App name** (obligatoire): Nom pour votre application.
+- **App name** (obligatoire): Nom de votre application.
   Un [label](/docs/concepts/overview/working-with-objects/labels/) avec le nom sera ajouté au Deployment et Service, le cas échéant, qui sera déployé.
 
   Le nom de l'application doit être unique dans son [namespace](/docs/tasks/administer-cluster/namespaces/) Kubernetes.
