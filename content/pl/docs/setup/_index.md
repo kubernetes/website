@@ -20,7 +20,7 @@ card:
 
 {{% capture overview %}}
 
-Ten rozdział poświęcony jest różnym metodom konfiguracji i uruchomienia Kubernetes.
+Ten rozdział poświęcony jest różnym metodom konfiguracji i uruchomienia Kubernetesa.
 
 Istnieje wiele rozwiązań dopasowanych do różnych potrzeb użytkowników: łatwości w utrzymaniu, wymagań bezpieczeństwa, poziomu sterowania, dostępności zasobów oraz niezbędnego doświadczenia do zarządzania klastrem.
 
