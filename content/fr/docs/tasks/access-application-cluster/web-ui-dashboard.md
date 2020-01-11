@@ -167,7 +167,7 @@ Au lieu de spécifier les détails de l'application dans l'assistant de déploie
 
 ## Utilisation du Dashboard
 
-Les sections suivantes décrivent des vues de l'interface utilisateur de Kubernetes Dashboard; ce qu'elles fournissent et comment peuvent-elles être utilisées.
+Les sections suivantes décrivent des vues du tableau de bord de Kubernetes; ce qu'elles fournissent et comment peuvent-elles être utilisées.
 
 ### Navigation
 
