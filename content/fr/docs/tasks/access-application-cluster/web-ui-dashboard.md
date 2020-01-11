@@ -126,7 +126,7 @@ Si nécessaire, vous pouvez développer la section **Options avancées** dans la
   Ces clusters virtuels sont appelés [namespaces](/docs/tasks/administer-cluster/namespaces/).
   Ils vous permettent de partitionner les ressources en groupes nommés de manière logique.
 
-  Dashboard propose tous les namespaces disponibles dans une liste déroulante et vous permet de créer un nouveau namespace.
+  Le tableau de bord propose tous les namespaces disponibles dans une liste déroulante et vous permet de créer un nouveau namespace.
   Le nom du namespace peut contenir au maximum 63 caractères alphanumériques et des tirets (-), mais ne peut pas contenir de lettres majuscules.
   Les noms de Namespace ne devrait pas être composé uniquement de chiffres.
   Si le nom est défini sous la forme d’un nombre, tel que 10, le pod sera placé dans le namespace par défaut.
