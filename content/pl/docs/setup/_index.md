@@ -53,7 +53,7 @@ Aby uruchomić klaster Kubernetes do nauki na lokalnym komputerze, skorzystaj z 
 
 Wybierając rozwiązanie dla środowiska produkcyjnego musisz zdecydować, którymi poziomami zarządzania klastrem (_abstrakcjami_) chcesz zajmować się sam, a które będą realizowane po stronie zewnętrznego operatora.
 
-Przykładowe poziomy abstrakcji klastra Kubernetes to: {{< glossary_tooltip text="aplikacje" term_id="applications" >}}, {{< glossary_tooltip text="poziom danych" term_id="data-plane" >}}, {{< glossary_tooltip text="poziom sterowania" term_id="control-plane" >}}, {{< glossary_tooltip text="infrastruktura klastra" term_id="cluster-infrastructure" >}} i {{< glossary_tooltip text="operacje na klastrze" term_id="cluster-operations" >}}.
+Przykładowe poziomy abstrakcji klastra Kubernetesa to: {{< glossary_tooltip text="aplikacje" term_id="applications" >}}, {{< glossary_tooltip text="warstwa danych" term_id="data-plane" >}}, {{< glossary_tooltip text="warstwa sterowania" term_id="control-plane" >}}, {{< glossary_tooltip text="infrastruktura klastra" term_id="cluster-infrastructure" >}} i {{< glossary_tooltip text="operacje na klastrze" term_id="cluster-operations" >}}.
 
 Poniższy schemat pokazuje poszczególne poziomy abstrakcji klastra Kubernetes oraz informacje, kto jest za nie odpowiedzialny (sam użytkownik czy zewnętrzny operator).
 
