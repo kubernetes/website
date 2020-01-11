@@ -55,7 +55,7 @@ Przykładowo, kiedy używasz Kubernetes API do stworzenia Deploymentu, podajesz 
 
 > "*Master*" odnosi się do zbioru procesów zarządzających stanem klastra. Zazwyczaj procesy te są uruchomione na pojedynczym węźle klastra, który jest określany jako "master". Master może być też zreplikowany w celu zagwarantowania wyższej dostępności i niezawodności.
 
-### Węzły (*Kubernetes Nodes*)
+### Węzły (*Kubernetes Nodes*) {#wezly}
 
 Węzły klastra to maszyny (wirtualne, fizyczne i in.), na których uruchamiane są aplikacje i inne zadania. Kubernetes master steruje każdym z węzłów — rzadko kiedy zachodzi konieczność bezpośredniej interakcji z węzłami.
 
