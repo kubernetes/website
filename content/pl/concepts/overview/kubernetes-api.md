@@ -1,6 +1,4 @@
 ---
-reviewers:
-- chenopis
 title: API Kubernetes
 content_template: templates/concept
 weight: 30

@@ -1,6 +1,4 @@
 ---
-reviewers:
-- lavalamp
 title: Składniki Kubernetes
 content_template: templates/concept
 weight: 20
