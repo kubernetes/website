@@ -47,7 +47,7 @@ Kubernetes zawiera także obiekty abstrakcyjne wyższego poziomu, zbudowane z ob
 
 Różne komponenty warstwy sterowania, takie jak: *Kubernetes Master* czy *kubelet*, odpowiadają za to, jak Kubernetes komunikuje się z klastrem. Warstwa sterowania przechowuje informacje o wszystkich obiektach Kubernetes w systemie i w sposób ciągły steruje ich stanem. Pętle sterowania reagują na zmiany zachodzące w klastrze w sposób ciągły, starając się doprowadzić, aby stan faktyczny wszystkich obiektów odpowiadał stanowi zamierzonemu przez użytkownika.
 
-Przykładowo, kiedy używasz Kubernetes API do stworzenia Deploymentu, podajesz oczekiwany stan systemu. Warstwa sterowania Kubernetes zapisuje stworzenie tego obiektu, a następnie realizuje Twoje polecenie startując wymagane aplikacje i zlecając ich uruchomienie na węzły klastra — w ten sposób powodując, że faktyczny stan klastra jest zgodny ze stanem zamierzonym.
+Przykładowo, kiedy używasz Kubernetes API do stworzenia Deploymentu, podajesz oczekiwany stan systemu. Warstwa sterowania Kubernetes zapisuje stworzenie tego obiektu, a następnie realizuje Twoje polecenie startując wymagane aplikacje i zlecając ich uruchomienie na węzłach klastra - w ten sposób starając się zapewnić, że faktyczny stan klastra jest zgodny ze stanem zamierzonym.
 
 ### Kubernetes Master
 
