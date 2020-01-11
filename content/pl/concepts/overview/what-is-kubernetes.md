@@ -38,11 +38,11 @@ Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejs
 Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
 * Szybkość i elastyczność w tworzeniu i instalacji aplikacji: obraz kontenera buduje się łatwiej niż obraz VM.
-* *Continuous development, integration, and deployment*: obrazy kontenerów mogą być budowane w sposób wiarygodny i częsty. Wycofanie zmian jst łatwe i szybkie (ponieważ obrazy są niezmienne).
+* Ułatwienie ciągłego rozwoju, integracji oraz wdrażania aplikacji (*Continuous development, integration, and deployment*): obrazy kontenerów mogą być budowane w sposób wiarygodny i częsty. Wycofanie zmian jst łatwe i szybkie (ponieważ obrazy są niezmienne).
 * Rozdzielenie zadań *Dev* i *Ops*: obrazy kontenerów powstają w fazie *build/release*, oddzielając w ten sposób aplikacje od infrastruktury.
 * Obserwowalność obejmuje nie tylko informacje i metryki z poziomu systemu operacyjnego, ale także poprawność działania samej aplikacji i inne sygnały.
 * Spójność środowiska na etapach rozwoju oprogramowania, testowania i działania w trybie produkcyjnym: działa w ten sam sposób na laptopie i w chmurze.
-* Możliwość przenoszenia pomiędzy systemami operacyjnymi i platformami chmurowymi: Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine czy gdziekolwiek indziej.
+* Możliwość przenoszenia pomiędzy systemami operacyjnymi i platformami chmurowymi: Ubuntu, RHEL, CoreOS, prywatnymi centrami danych, Google Kubernetes Engine czy gdziekolwiek indziej.
 * Zarządzanie, które w centrum uwagi ma aplikacje: Poziom abstrakcji przeniesiony jest z warstwy systemu operacyjnego działającego na maszynie wirtualnej na poziom działania aplikacji, która działa na systemie operacyjnym używając zasobów logicznych.
 * Luźno powiązane, rozproszone i elastyczne "swobodne" mikro serwisy: Aplikacje podzielone są na mniejsze, niezależne komponenty, które mogą być dynamicznie uruchamiane i zarządzane - nie jest to monolityczny system działający na jednej, dużej maszynie dedykowanej na wyłączność.
 * Izolacja zasobów: wydajność aplikacji możliwa do przewidzenia
@@ -52,7 +52,7 @@ Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
 Kontenery są dobrą metodą na opakowywanie i uruchamianie aplikacji. W środowisku produkcyjnym musisz zarządzać kontenerami, w których działają aplikacje i pilnować, aby nie było żadnych przerw w ich dostępności. Przykładowo, kiedy jeden z kontenerów przestaje działać, inny musi zostać uruchomiony. Nie byłoby prościej, aby takimi działaniami zajmował się jakiś system?
 
-I tu właśnie Kubernetes przychodzi z pomocą! Kubernetes dostarcza środowisko do pracy w niezawodny sposób z systemami rozproszonymi. Kubernetes obsługuje skalowanie aplikacji, przełączanie w sytuacjach awaryjnych, różne scenariusze wdrożeń itp. Przykładowo, Kubernetes w łatwy sposób może zarządzać wdrożeniem nowej wersji oprogramowania zgodnie z metodyką *canary deployments*.
+I tu właśnie Kubernetes przychodzi z pomocą! Kubernetes dostarcza środowisko do uruchamiania niezawodnych systemów rozproszonych. Kubernetes obsługuje skalowanie aplikacji, przełączanie w sytuacjach awaryjnych, różne scenariusze wdrożeń itp. Przykładowo, Kubernetes w łatwy sposób może zarządzać wdrożeniem nowej wersji oprogramowania zgodnie z metodyką *canary deployments*.
 
 Kubernetes zapewnia:
 
@@ -61,8 +61,8 @@ Kubernetes może udostępnić kontener używając nazwy DNS lub swojego własneg
 * **Zarządzanie obsługą składowania danych**  
 Kubernetes umożliwia automatyczne montowanie systemów składowania danych dowolnego typu — lokalnych, od dostawców chmurowych i innych.
 * **Automatyczne instalacje i wycofywanie zmian**  
-Możesz opisać oczekiwany stan instalacji za pomocą Kubernetes, który zajmie się doprowadzeniem w sposób kontrolowany stanu faktycznego do stanu oczekiwanego. Przykładowo, przy pomocy Kubernetes możesz zautomatyzować proces tworzenia nowych kontenerów na potrzeby swojego wdrożenia, usuwania istniejących i przejęcia zasobów przez nowe kontenery.
-* **Automatyczne rozplanowywanie wykorzystania zasobów**  
+Możesz opisać oczekiwany stan instalacji za pomocą Kubernetesa, który zajmie się doprowadzeniem w sposób kontrolowany stanu faktycznego do stanu oczekiwanego. Przykładowo, przy pomocy Kubernetesa możesz zautomatyzować proces tworzenia nowych kontenerów na potrzeby swojego wdrożenia, usuwania istniejących i przejęcia zasobów przez nowe kontenery.
+* **Automatyczne zarządzanie dostępnymi zasobami**
 Twoim zadaniem jest dostarczenie klastra maszyn, które Kubernetes może wykorzystać do uruchamiania zadań w kontenerach. Określasz zapotrzebowanie na moc procesora i pamięć RAM dla każdego z kontenerów. Kubernetes rozmieszcza kontenery na maszynach w taki sposób, aby jak najlepiej wykorzystać dostarczone zasoby.
 * **Samoczynne naprawianie**  
 Kubernetes restartuje kontenery, które przestały działać, wymienia je na nowe, wymusza wyłączenie kontenerów, które nie odpowiadają na określone zapytania o stan i nie rozgłasza powiadomień o ich dostępności tak długo, dopóki nie są gotowe do działania.
@@ -75,7 +75,7 @@ Kubernetes nie jest tradycyjnym, zawierającym wszystko systemem PaaS *(Platform
 
 Kubernetes:
 
-* Nie ogranicza typów aplikacji, które są obsługiwane. Celem Kubernetesa jest możliwość obsługi bardzo różnorodnego typu zadań, włączając w to aplikacje bezstanowe (*stateless*),  aplikacje ze stanem (*stateful*) i ogólne przetwarzanie danych. Jeśli jakaś aplikacja może działać w kontenerze, będzie doskonale sobie radzić w środowisku Kubernetesa.
+* Nie ogranicza typów aplikacji, które są obsługiwane. Celem Kubernetesa jest możliwość obsługi bardzo różnorodnego typu zadań, włączając w to aplikacje bezstanowe (*stateless*), aplikacje ze stanem (*stateful*) i ogólne przetwarzanie danych. Jeśli jakaś aplikacja może działać w kontenerze, będzie doskonale sobie radzić w środowisku Kubernetesa.
 * Nie zarządza kodem źródłowym i nie buduje aplikacji. Procesy Continuous Integration, Delivery, and Deployment (CI/CD) są zależne od kultury pracy organizacji, jej preferencji oraz wymagań technicznych.
 * Nie dostarcza serwisów z warstwy aplikacyjnej, takich jak warstwy pośrednie *middleware* (np. broker wiadomości), środowiska analizy danych (np. Spark), bazy danych (np. MySQL), cache ani klastrowych systemów składowania danych (np. Ceph) jako usług wbudowanych. Te składniki mogą być uruchamiane na klastrze Kubernetes i udostępniane innym aplikacjom przez przenośne rozwiązania, takie jak [Open Service Broker](https://openservicebrokerapi.org/).
 * Nie wymusza użycia konkretnych systemów zbierania logów, monitorowania ani ostrzegania. Niektóre z tych rozwiązań są udostępnione jako przykłady. Dostępne są też mechanizmy do gromadzenia i eksportowania różnych metryk.
