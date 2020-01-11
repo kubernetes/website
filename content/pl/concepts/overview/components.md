@@ -109,7 +109,7 @@ Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/
 {{% /capture %}}
 {{% capture whatsnext %}}
 * Więcej o [Węzłach](/docs/concepts/architecture/nodes/)
-* Więcej o [Controllers](/docs/concepts/architecture/controller/)
+* Więcej o [Kontrolerach](/docs/concepts/architecture/controller/)
 * Więcej o [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Oficjalna [dokumentacja](https://etcd.io/docs/) etcd
 {{% /capture %}}
