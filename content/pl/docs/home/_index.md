@@ -32,7 +32,7 @@ cards:
 - name: setup
   title: "Uruchom klaster"
   description: "Uruchom klaster Kubernetes dopasowany do Twoich potrzeb i możliwości."
-  button: "Uruchom Kubernetes"
+  button: "Uruchom Kubernetesa"
   button_path: "/docs/setup"
 - name: tasks
   title: "Naucz się korzystać z Kubernetes"
