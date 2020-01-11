@@ -56,7 +56,7 @@ Vous ne pouvez accéder à l'interface utilisateur _que_ depuis la machine sur l
 Voir `kubectl proxy --help` pour plus d'options.
 
 {{< note >}}
-La méthode d'authentification Kubeconfig NE prend PAS en charge les fournisseurs d'identité externes ni l'authentification basée sur un certificat x509.
+La méthode d'authentification Kubeconfig ne prend pas en charge les fournisseurs d'identité externes ni l'authentification basée sur un certificat x509.
 {{< /note >}}
 
 ## Page de bienvenue
