@@ -65,7 +65,7 @@ Lorsque vous accédez à Dashboard sur un cluster vide, la page d'accueil s'affi
 Cette page contient un lien vers ce document ainsi qu'un bouton pour déployer votre première application.
 De plus, vous pouvez voir quelles applications système sont exécutées par défaut dans le [namespace](/docs/tasks/administer-cluster/namespaces/) `kube-system` de votre cluster, par exemple le tableau de bord lui-même.
 
-![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
+![Page d'accueil du tableau de bord Kubernetes](/images/docs/ui-dashboard-zerostate.png)
 
 ## Déploiement d'applications conteneurisées
 
