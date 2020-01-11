@@ -11,7 +11,7 @@ weight: 50
 
 {{% capture overview %}}
 
-Les objets `secrets` de Kubernetes vous permettent de stocker et de gérer des informations sensibles, telles que les mots de passe, les jetons OAuth et les clés ssh.
+Les objets `secret` de Kubernetes vous permettent de stocker et de gérer des informations sensibles, telles que les mots de passe, les jetons OAuth et les clés ssh.
 Mettre ces informations dans un `secret` est plus sûr et plus flexible que de le mettre en dur dans la définition d'un {{< glossary_tooltip term_id="pod" >}} ou dans une {{< glossary_tooltip text="container image" term_id="image" >}}.
 Voir [Document de conception des secrets](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) pour plus d'informations.
 
