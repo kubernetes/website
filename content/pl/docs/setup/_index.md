@@ -20,7 +20,7 @@ Ten rozdział poświęcony jest różnym metodom konfiguracji i uruchomienia Kub
 
 Istnieje wiele rozwiązań dopasowanych do różnych potrzeb użytkowników: łatwości w utrzymaniu, wymagań bezpieczeństwa, poziomu sterowania, dostępności zasobów oraz niezbędnego doświadczenia do zarządzania klastrem.
 
-Klaster Kubernetes możesz zainstalować na lokalnym komputerze, w chmurze czy w prywatnym centrum obliczeniowym. Możesz też skorzystać z klastra Kubernetes udostępnianego jako usługa. Możesz też stworzyć swoje własne rozwiązanie w oparciu o różnych dostawców usług chmurowych, bądź bazując bezpośrednio na sprzęcie fizycznym.
+Klaster Kubernetes możesz zainstalować na lokalnym komputerze, w chmurze czy w prywatnym centrum obliczeniowym albo skorzystać z klastra Kubernetes udostępnianego jako usługa. Inną możliwością jest budowa własnego rozwiązania opartego o różnych dostawców usług chmurowych, bądź bazującego bezpośrednio na sprzęcie fizycznym.
 
 W dużym uproszczeniu, możesz zbudować klaster Kubernetes zarówno w środowisku szkoleniowym, jak i na potrzeby produkcyjne.
 
