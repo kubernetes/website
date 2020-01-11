@@ -124,7 +124,7 @@ wykorzystując podany obraz Dockera.
 
 Domyślnie Pod jest dostępny tylko poprzez swój wewnętrzny adres IP wewnątrz klastra
 Kubernetes. Aby kontener `hello-node` był osiągalny spoza wirtualnej sieci Kubernetes,
-musisz wystawić Pod jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
+musisz najpierw wystawić Pod jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes, na który można będzie dostać się z zewnątrz.
 
 1. Udostępnij Pod w Internecie przy pomocy polecenia `kubectl expose`:
 
