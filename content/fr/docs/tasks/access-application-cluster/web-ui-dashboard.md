@@ -182,7 +182,7 @@ Pour les administrateurs de cluster et de namespace, Dashboard répertorie les n
 La vue Liste de nœuds contient les mesures d'utilisation de CPU et de la mémoire agrégées sur tous les nœuds.
 La vue détaillée affiche les métriques d'un nœud, ses spécifications, son statut, les ressources allouées, les événements et les pods s'exécutant sur le nœud.
 
-#### Workloads
+#### Charges de travail
 
 Affiche toutes les applications en cours d'exécution dans le namespace selectionné.
 La vue répertorie les applications par type de charge de travail. (e.g., Deployments, Replica Sets, Stateful Sets, etc.) et chaque type de charge de travail peut être visualisé séparément.
