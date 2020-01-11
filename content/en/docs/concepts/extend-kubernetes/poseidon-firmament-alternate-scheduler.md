@@ -6,7 +6,7 @@ weight: 80
 
 {{% capture overview %}}
 
-**Current release of Poseidon-Firmament scheduler is an <code> alpha </code> release.**
+{{< feature-state for_k8s_version="v1.6" state="alpha" >}}
 
 The Poseidon-Firmament scheduler is an alternate scheduler that can be deployed alongside the default Kubernetes scheduler.
 
