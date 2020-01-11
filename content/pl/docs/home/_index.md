@@ -35,7 +35,7 @@ cards:
   button: "Uruchom Kubernetesa"
   button_path: "/docs/setup"
 - name: tasks
-  title: "Naucz się korzystać z Kubernetes"
+  title: "Naucz się korzystać z Kubernetesa"
   description: "Wyszukaj popularne zadania i dowiedz się, jak sobie z nimi efektywnie poradzić."
   button: "Przegląd zadań"
   button_path: "/docs/tasks"
