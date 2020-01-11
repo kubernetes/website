@@ -1,8 +1,4 @@
 ---
-reviewers:
-- brendandburns
-- erictune
-- mikedanese
 no_issue: true
 title: Od czego zacząć
 main_menu: true
