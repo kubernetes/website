@@ -23,7 +23,7 @@ Le tableau de bord fournit également des informations sur l'état des ressource
 
 {{% capture body %}}
 
-## Déploiement du Dashboard UI
+## Déploiement du tableau de bord
 
 L'interface utilisateur du tableau de bord n'est pas déployée par défaut.
 Pour le déployer, exécutez la commande suivante:
