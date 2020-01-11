@@ -143,7 +143,7 @@ other = "Zajrzyj na GitHub"
 other = "Funkcjonalności Kubernetesa"
 
 [main_kubeweekly_baseline]
-other = "Zapisz się na KubeWeekly, jeśli jesteś zainteresowany najnowszymi wiadomościami o Kubernetes."
+other = "Zapisz się na KubeWeekly, jeśli jesteś zainteresowany najnowszymi wiadomościami o Kubernetesie."
 
 [main_kubernetes_past_link]
 other = "Poprzednie newslettery"
