@@ -20,7 +20,7 @@ Pracując w środowisku Kubernetes, używasz *obiektów API Kubernetes* aby opis
 Gdy tylko zdefiniujesz zamierzony stan, warstwa sterowania Kubernetes (*Kubernetes Control Plane*) podejmuje działania, aby aktualny stan klastra był zgodny ze stanem zamierzonym, wykorzystując do tego Pod Lifecycle Event Generator ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md)). W tym celu Kubernetes wykonuje szereg automatycznych zadań, takich jak start lub restart kontenerów, skalowanie liczby replik dla danej aplikacji itp. Warstwa sterowania Kubernetes to zbiór różnych procesów działających na klastrze:
 
 * **Kubernetes Master** to zbiór trzech procesów uruchamianych na pojedynczym węźle klastra, który pełni rolę węzła _master_. Te procesy to: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) oraz [kube-scheduler](/docs/admin/kube-scheduler/).
-* Na każdym węźle klastra nie będącym węzłem typu _Master_ działają dwa procesy:
+* Na każdym węźle klastra, nie będącym węzłem typu _Master_, działają dwa procesy:
   * **[kubelet](/docs/admin/kubelet/)**, który komunikuje się z Kubernetes Master.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, proxy sieciowe pośredniczące w usługach sieciowych Kubernetes.
 
