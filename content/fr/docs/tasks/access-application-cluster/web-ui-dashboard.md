@@ -136,7 +136,7 @@ Si nécessaire, vous pouvez développer la section **Options avancées** dans la
 
 - **Image Pull Secret**: Si l'image de conteneur spécifiée est privée, il peut être nécessaire de configurer des identifiants de [pull secret](/docs/concepts/configuration/secret/).
 
-  Dashboard propose tous les secrets disponibles dans une liste déroulante et vous permet de créer un nouveau secret.
+  Le tableau de bord propose tous les secrets disponibles dans une liste déroulante et vous permet de créer un nouveau secret.
   Le nom de secret doit respecter la syntaxe du nom de domaine DNS, par exemple. `new.image-pull.secret`.
   Le contenu d'un secret doit être codé en base64 et spécifié dans un fichier [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
   Le nom du secret peut contenir 253 caractères maximum.
@@ -163,22 +163,22 @@ Si nécessaire, vous pouvez développer la section **Options avancées** dans la
 Kubernetes supporte la configuration déclarative.
 Dans ce style, toute la configuration est stockée dans des fichiers de configuration YAML ou JSON à l'aide des schémas de ressources de l'[API](/docs/concepts/overview/kubernetes-api/) de Kubernetes.
 
-Au lieu de spécifier les détails de l'application dans l'assistant de déploiement, vous pouvez définir votre application dans des fichiers YAML ou JSON et télécharger les fichiers à l'aide de Dashboard.
+Au lieu de spécifier les détails de l'application dans l'assistant de déploiement, vous pouvez définir votre application dans des fichiers YAML ou JSON et télécharger les fichiers à l'aide du tableau de bord.
 
-## Utilisation du Dashboard
+## Utilisation du tableau de bord
 
 Les sections suivantes décrivent des vues du tableau de bord de Kubernetes; ce qu'elles fournissent et comment peuvent-elles être utilisées.
 
 ### Navigation
 
-Lorsque des objets Kubernetes sont définis dans le cluster, Dashboard les affiche dans la vue initiale.
+Lorsque des objets Kubernetes sont définis dans le cluster, le tableau de bord les affiche dans la vue initiale.
 Par défaut, seuls les objets du namespace _default_ sont affichés, ce qui peut être modifié à l'aide du sélecteur d'espace de nom situé dans le menu de navigation.
 
 Le tableau de bord montre la plupart des types d'objets Kubernetes et les regroupe dans quelques catégories de menus.
 
 #### Vue d'ensemble de l'administrateur
 
-Pour les administrateurs de cluster et de namespace, Dashboard répertorie les noeuds, les namespaces et les volumes persistants et propose des vues de détail pour ceux-ci.
+Pour les administrateurs de cluster et de namespace, le tableau de bord répertorie les noeuds, les namespaces et les volumes persistants et propose des vues de détail pour ceux-ci.
 La vue Liste de nœuds contient les mesures d'utilisation de CPU et de la mémoire agrégées sur tous les nœuds.
 La vue détaillée affiche les métriques d'un nœud, ses spécifications, son statut, les ressources allouées, les événements et les pods s'exécutant sur le nœud.
 
@@ -207,7 +207,7 @@ La vue permet d’éditer et de gérer des objets de configuration et d’affich
 
 #### Visualisation de journaux
 
-Les listes de Pod et les pages de détail renvoient à une visionneuse de journaux intégrée au Dashboard.
+Les listes de Pod et les pages de détail renvoient à une visionneuse de journaux intégrée au tableau de bord.
 Le visualiseur permet d’exploiter les logs des conteneurs appartenant à un seul Pod.
 
 ![Visualisation de journaux](/images/docs/ui-dashboard-logs-view.png)
