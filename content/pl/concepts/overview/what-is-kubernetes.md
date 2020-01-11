@@ -51,7 +51,7 @@ Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 * Izolacja zasobów: wydajność aplikacji możliwa do przewidzenia
 * Wykorzystanie zasobów: wysoka wydajność i upakowanie.
 
-## Do czego potrzebujesz Kubernetes i jakie są jego możliwości
+## Do czego potrzebujesz Kubernetesa i jakie są jego możliwości
 
 Kontenery są dobrą metodą na opakowywanie i uruchamianie aplikacji. W środowisku produkcyjnym musisz zarządzać kontenerami, w których działają aplikacje i pilnować, aby nie było żadnych przerw w ich dostępności. Przykładowo, kiedy jeden z kontenerów przestaje działać, inny musi zostać uruchomiony. Nie byłoby prościej, aby takimi działaniami zajmował się jakiś system?
 
