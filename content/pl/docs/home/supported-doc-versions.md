@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-Ten serwis zawiera dokumentację do bieżącej i czterech poprzednich wersji Kubernetes.
+Ten serwis zawiera dokumentację do bieżącej i czterech poprzednich wersji Kubernetesa.
 
 {{% /capture %}}
 
@@ -25,4 +25,3 @@ Bieżąca wersja to
 {{< versions-other >}}
 
 {{% /capture %}}
-
