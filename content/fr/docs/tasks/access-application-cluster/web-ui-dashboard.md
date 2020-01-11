@@ -35,7 +35,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/a
 ## Accès à l'interface utilisateur du tableau de bord
 
 Pour protéger vos données de cluster, Dashboard se déploie avec une configuration RBAC minimale par défaut.
-Actuellement, Dashboard prend uniquement en charge la connexion avec un jeton de support.
+Actuellement, le tableau de bord prend uniquement en charge la connexion avec un jeton de support.
 Pour créer un jeton pour cette démo, vous pouvez suivre notre guide sur [créer un exemple d'utilisateur](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md).
 
 {{< warning >}}
