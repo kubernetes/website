@@ -104,7 +104,7 @@ other = "lub"
 other = "zgłosić problem"
 
 [layouts_docs_partials_feedback_thanks]
-other = "Dziękujemy za informację zwrotną. Jeśli masz konkretne pytanie dotyczące użycia Kubernetes, odwiedź"
+other = "Dziękujemy za informację zwrotną. Jeśli masz konkretne pytanie dotyczące użycia Kubernetesa, odwiedź"
 
 [layouts_docs_search_fetching]
 other = "Pobieram wyniki.."
