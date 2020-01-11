@@ -75,7 +75,7 @@ Kubernetes nie jest tradycyjnym, zawierającym wszystko systemem PaaS *(Platform
 
 Kubernetes:
 
-* Nie ogranicza typów aplikacji, które są obsługiwane. Celem Kubernetesa jest możliwość obsługi bardzo różnorodnego typu zadań, włączając w to *stateless*, *stateful* i *data-processing*. Jeśli jakaś aplikacja może działać w kontenerze, będzie doskonale sobie radzić w środowisku Kubernetesa.
+* Nie ogranicza typów aplikacji, które są obsługiwane. Celem Kubernetesa jest możliwość obsługi bardzo różnorodnego typu zadań, włączając w to aplikacje bezstanowe (*stateless*),  aplikacje ze stanem (*stateful*) i ogólne przetwarzanie danych. Jeśli jakaś aplikacja może działać w kontenerze, będzie doskonale sobie radzić w środowisku Kubernetesa.
 * Nie zarządza kodem źródłowym i nie buduje aplikacji. Procesy Continuous Integration, Delivery, and Deployment (CI/CD) są zależne od kultury pracy organizacji, jej preferencji oraz wymagań technicznych.
 * Nie dostarcza serwisów z warstwy aplikacyjnej, takich jak warstwy pośrednie *middleware* (np. broker wiadomości), środowiska analizy danych (np. Spark), bazy danych (np. MySQL), cache ani klastrowych systemów składowania danych (np. Ceph) jako usług wbudowanych. Te składniki mogą być uruchamiane na klastrze Kubernetes i udostępniane innym aplikacjom przez przenośne rozwiązania, takie jak [Open Service Broker](https://openservicebrokerapi.org/).
 * Nie wymusza użycia konkretnych systemów zbierania logów, monitorowania ani ostrzegania. Niektóre z tych rozwiązań są udostępnione jako przykłady. Dostępne są też mechanizmy do gromadzenia i eksportowania różnych metryk.
