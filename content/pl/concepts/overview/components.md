@@ -104,7 +104,7 @@ Kontenery uruchomione przez Kubernetes automatycznie przeszukują ten serwer DNS
 
 ### Logowanie na poziomie klastra
 
-Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/logging/) odpowiada za zapisywanie logów z pochodzących z poszczególnych kontenerów do wspólnego magazynu, który posiada interfejs do przeglądania i przeszukiwania.
+Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/logging/) odpowiada za zapisywanie logów pochodzących z poszczególnych kontenerów do wspólnego magazynu, który posiada interfejs do przeglądania i przeszukiwania.
 
 {{% /capture %}}
 {{% capture whatsnext %}}
