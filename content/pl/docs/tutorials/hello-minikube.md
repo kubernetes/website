@@ -240,7 +240,7 @@ Minikube ma zestaw wbudowanych dodatków, które mogą być włączane, wyłącz
 
     ```
 
-4. Wyłącz `heapster`:
+4. Wyłącz dodatek `heapster`:
 
     ```shell
     minikube addons disable heapster
