@@ -52,7 +52,7 @@ Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
 Kontenery są dobrą metodą na opakowywanie i uruchamianie aplikacji. W środowisku produkcyjnym musisz zarządzać kontenerami, w których działają aplikacje i pilnować, aby nie było żadnych przerw w ich dostępności. Przykładowo, kiedy jeden z kontenerów przestaje działać, inny musi zostać uruchomiony. Nie byłoby prościej, aby takimi działaniami zajmował się jakiś system?
 
-I tu właśnie Kubernetes przychodzi z pomocą! Kubernetes dostarcza środowisko do pracy w niezawodny sposób z systemami rozproszonymi. Kubernetes obsługuje skalowanie aplikacji, przełączanie w sytuacjach awaryjnych, różne scenariusze wdrożeń itp. Przykładowo, Kubernetes w łatwy sposób może zarządzać wdrożeniem nowej wersji oprogramowania zgodnie z metodyką *canary*.
+I tu właśnie Kubernetes przychodzi z pomocą! Kubernetes dostarcza środowisko do pracy w niezawodny sposób z systemami rozproszonymi. Kubernetes obsługuje skalowanie aplikacji, przełączanie w sytuacjach awaryjnych, różne scenariusze wdrożeń itp. Przykładowo, Kubernetes w łatwy sposób może zarządzać wdrożeniem nowej wersji oprogramowania zgodnie z metodyką *canary deployments*.
 
 Kubernetes zapewnia:
 
