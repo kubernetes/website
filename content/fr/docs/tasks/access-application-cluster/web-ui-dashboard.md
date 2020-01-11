@@ -216,6 +216,6 @@ Le visualiseur permet d’exploiter les logs des conteneurs appartenant à un se
 
 {{% capture whatsnext %}}
 
-Pour plus d'informations, voir la page de projet [Kubernetes Dashboard](https://github.com/kubernetes/dashboard).
+Pour plus d'informations, voir la page du projet [Kubernetes Dashboard](https://github.com/kubernetes/dashboard).
 
 {{% /capture %}}
