@@ -51,7 +51,7 @@ Przykładowo, kiedy używasz Kubernetes API do stworzenia Deploymentu, podajesz 
 
 ### Kubernetes Master
 
-*Kubernetes Master* odpowiada za utrzymanie klastra w zamierzonym stanie. Za każdym razem, kiedy korzystasz z `kubectl`, łączysz się z węzłem Kubernetes *master* danego klastra.
+*Kubernetes Master* odpowiada za utrzymanie klastra w zamierzonym stanie. Za każdym razem, kiedy korzystasz z `kubectl`, łączysz się z węzłem typu *master* danego klastra.
 
 > "*Master*" odnosi się do zbioru procesów zarządzających stanem klastra. Zazwyczaj procesy te są uruchomione na pojedynczym węźle klastra, który jest  określany jako "master". Master może być też replikowany w celu zagwarantowania wyższej dostępności i niezawodności.
 
