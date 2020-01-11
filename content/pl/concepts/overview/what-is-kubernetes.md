@@ -33,7 +33,7 @@ Wirtualizacja pozwala lepiej wykorzystywać zasoby fizycznego serwera i lepiej s
 Każda maszyna wirtualna jest pełną maszyną zawierającą własny system operacyjny pracujący na zwirtualizowanej warstwie sprzętowej.
 
 **Era wdrożeń w kontenerach:**
-Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejszy stopnień wzajemnej izolacji, współdzieląc ten sam system operacyjny. Kontenery określane są mianem "lekkich". Podobnie, jak maszyna wirtualna, kontener posiada własny system plików, procesor, pamięć, przestrzeń procesów i in. Ponieważ kontenery nie są związane z leżącymi poniżej warstwami infrastruktury, mogą być migrowane pomiędzy chmurami i różnymi dystrybucjami systemu operacyjnego.
+Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejszy stopnień wzajemnej izolacji, współdzieląc ten sam system operacyjny. Kontenery określane są mianem "lekkich". Podobnie, jak maszyna wirtualna, kontener posiada własny system plików, procesor, pamięć, przestrzeń procesów itd. Ponieważ kontenery nie są związane z leżącymi poniżej warstwami infrastruktury, mogą być łatwiej przenoszone pomiędzy chmurami i różnymi dystrybucjami systemu operacyjnego.
 
 Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
