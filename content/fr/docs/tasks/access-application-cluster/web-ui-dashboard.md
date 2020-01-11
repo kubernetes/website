@@ -210,7 +210,7 @@ La vue permet d’éditer et de gérer des objets de configuration et d’affich
 Les listes de Pod et les pages de détail renvoient à une visionneuse de journaux intégrée au Dashboard.
 Le visualiseur permet d’exploiter les logs des conteneurs appartenant à un seul Pod.
 
-![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
+![Visualisation de journaux](/images/docs/ui-dashboard-logs-view.png)
 
 {{% /capture %}}
 
