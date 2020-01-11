@@ -90,5 +90,5 @@ Kubernetes:
 
 {{% capture whatsnext %}}
 *   Dowiedz się o [komponentach Kubernetes](/pl/docs/concepts/overview/components/)
-*   Gotowy [zacząć pracę](/pl/docs/setup/)?
+*   Jesteś gotowy [zacząć pracę](/pl/docs/setup/)?
 {{% /capture %}}
