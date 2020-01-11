@@ -17,7 +17,7 @@ Par exemple, vous pouvez redimensionner un Deployment, lancer une mise à jour p
 
 Le tableau de bord fournit également des informations sur l'état des ressources Kubernetes de votre cluster et sur les erreurs éventuelles.
 
-![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
+![Tableau de bord Kubernetes](/images/docs/ui-dashboard.png)
 
 {{% /capture %}}
 
