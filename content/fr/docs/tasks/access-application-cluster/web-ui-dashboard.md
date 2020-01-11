@@ -50,7 +50,7 @@ Vous pouvez accéder au tableau de bord à l'aide de l'outil en ligne de command
 kubectl proxy
 ```
 
-Kubectl mettra le Dashboard à disposition à l'adresse suivante: <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>.
+Kubectl mettra le tableau de bord à disposition à l'adresse suivante: <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>.
 
 Vous ne pouvez accéder à l'interface utilisateur _que_ depuis l'ordinateur sur lequel la commande est exécutée.
 Voir `kubectl proxy --help` pour plus d'options.
