@@ -11,7 +11,7 @@ card:
 {{% capture overview %}}
 
 Dashboard UI est une interface web pour Kubernetes.
-Vous pouvez utiliser Dashboard pour déployer des applications conteneurisées sur un cluster Kubernetes, dépanner votre application conteneurisée et gérer les ressources du cluster.
+Vous pouvez utiliser ce tableau de bord pour déployer des applications conteneurisées dans un cluster Kubernetes, dépanner votre application conteneurisée et gérer les ressources du cluster.
 Vous pouvez utiliser Dashboard pour obtenir une vue d'ensemble des applications en cours d'exécution sur votre cluster, ainsi que pour créer ou modifier des ressources Kubernetes individuelles. (comme des Deployments, Jobs, DaemonSets, etc).
 Par exemple, vous pouvez redimensionner un Deployment, lancer une mise à jour progressive, redémarrez un pod ou déployez de nouvelles applications à l'aide d'un assistant de déploiement.
 
