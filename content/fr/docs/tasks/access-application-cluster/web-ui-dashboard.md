@@ -29,7 +29,7 @@ L'interface utilisateur du tableau de bord n'est pas déployée par défaut.
 Pour le déployer, exécutez la commande suivante:
 
 ```text
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta6/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
 ```
 
 ## Accessing the Dashboard UI
@@ -63,7 +63,7 @@ La méthode d'authentification Kubeconfig NE prend PAS en charge les fournisseur
 
 Lorsque vous accédez à Dashboard sur un cluster vide, la page d'accueil s'affiche.
 Cette page contient un lien vers ce document ainsi qu'un bouton pour déployer votre première application.
-De plus, vous pouvez voir quelles applications système sont exécutées par défaut dans le [namespace](/docs/tasks/administer-cluster/namespaces/) `kube-system` de votre cluster, par exemple le tableau de bord lui-même.
+De plus, vous pouvez voir quelles applications système sont exécutées par défaut dans le [namespace](/docs/tasks/administer-cluster/namespaces/) `kubernetes-dashboard` de votre cluster, par exemple le tableau de bord lui-même.
 
 ![Page d'accueil du tableau de bord Kubernetes](/images/docs/ui-dashboard-zerostate.png)
 
