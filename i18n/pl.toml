@@ -74,7 +74,7 @@ other = "Opowiedz swoją historię"
 other = "Znany też jako"
 
 [layouts_docs_glossary_description]
-other = "Celem tego słownika jest przedstawienie wszechstronnej, ujednoliconej listy terminologii związanej z Kubernetes. Słownik zawiera terminy specyficzne dla Kubernetes, a także pojęcia bardziej ogólne, dające lepsze zrozumienie kontekstu."
+other = "Celem tego słownika jest przedstawienie wszechstronnej, ujednoliconej listy terminologii związanej z projektem Kubernetes. Słownik zawiera terminy specyficzne dla Kubernetesa, a także pojęcia bardziej ogólne, umożliwiające lepsze zrozumienie kontekstu."
 
 [layouts_docs_glossary_deselect_all]
 other = "Odznacz wszystko"
