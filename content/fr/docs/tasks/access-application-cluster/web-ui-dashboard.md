@@ -1,5 +1,5 @@
 ---
-title: Web UI (Dashboard)
+title: Tableau de bord (Dashboard)
 content_template: templates/concept
 weight: 10
 card:
