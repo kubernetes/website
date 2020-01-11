@@ -329,7 +329,7 @@ Obtenez plus de détails sur votre déploiement mis à jour:
   Il a ensuite poursuivi la montée en puissance du nouveau et de l'ancien ReplicaSet, avec la même stratégie de mise à jour continue.
   Enfin, vous aurez 3 réplicas disponibles dans le nouveau ReplicaSet, et l'ancien ReplicaSet est réduit à 0.
 
-### Rollover (alias plusieurs mises à jour en vol)
+### Rollover (alias plusieurs mises à jour en vol) {#rollover}
 
 Chaque fois qu'un nouveau déploiement est observé par le contrôleur de déploiement, un ReplicaSet est créé pour afficher les pods souhaités.
 Si le déploiement est mis à jour, le ReplicaSet existant qui contrôle les pods dont les étiquettes correspondent à `.spec.selector` mais dont le modèle ne correspond pas à `.spec.template` est réduit.
