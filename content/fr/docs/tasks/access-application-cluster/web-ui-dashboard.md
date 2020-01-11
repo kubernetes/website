@@ -122,7 +122,7 @@ Si nécessaire, vous pouvez développer la section **Options avancées** dans la
   track=stable
   ```
 
-- **Namespace**: Kubernetes prend en charge plusieurs clusters virtuels sauvegardés par le même cluster physique.
+- **Namespace**: Kubernetes prend en charge plusieurs clusters virtuels s'exécutant sur le même cluster physique.
   Ces clusters virtuels sont appelés [namespaces](/docs/tasks/administer-cluster/namespaces/).
   Ils vous permettent de partitionner les ressources en groupes nommés de manière logique.
 
