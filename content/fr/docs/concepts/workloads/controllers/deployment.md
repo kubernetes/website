@@ -31,18 +31,18 @@ Pensez à ouvrir un ticket dans le dépot Kubernetes principal si votre cas d'ut
 
 Voici des cas d'utilisation typiques pour les déploiements:
 
-* [Créer un déploiement pour déployer un ReplicaSet](#creating-a-deployment).
+* [Créer un déploiement pour déployer un ReplicaSet](#création-dun-déploiement).
   Le ReplicaSet crée des pods en arrière-plan.
   Vérifiez l'état du déploiement pour voir s'il réussit ou non.
-* [Déclarez le nouvel état des Pods](#updating-a-deployment) en mettant à jour le PodTemplateSpec du déploiement.
+* [Déclarez le nouvel état des Pods](#mise-à-jour-dun-déploiement) en mettant à jour le PodTemplateSpec du déploiement.
   Un nouveau ReplicaSet est créé et le déploiement gère le déplacement des pods de l'ancien ReplicaSet vers le nouveau à un rythme contrôlé.
   Chaque nouveau ReplicaSet met à jour la révision du déploiement.
-* [Revenir à une révision de déploiement antérieure](#rolling-back-a-deployment) si l'état actuel du déploiement n'est pas stable.
+* [Revenir à une révision de déploiement antérieure](#annulation-dun-déploiement) si l'état actuel du déploiement n'est pas stable.
   Chaque restauration met à jour la révision du déploiement.
-* [Augmentez le déploiement pour traiter plus de charge](#scaling-a-deployment).
-* [Suspendre le déploiement](#pausing-and-resuming-a-deployment) d'appliquer plusieurs correctifs à son PodTemplateSpec, puis de le reprendre pour démarrer un nouveau déploiement.
-* [Utiliser l'état du déploiement](#deployment-status) comme indicateur qu'un déploiement est bloqué.
-* [Nettoyer les anciens ReplicaSets](#clean-up-policy) dont vous n'avez plus besoin.
+* [Augmentez le déploiement pour traiter plus de charge](#mise-à-léchelle-dun-déploiement).
+* [Suspendre le déploiement](#pause-et-reprise-dun-déploiement) d'appliquer plusieurs correctifs à son PodTemplateSpec, puis de le reprendre pour démarrer un nouveau déploiement.
+* [Utiliser l'état du déploiement](#statut-de-déploiement) comme indicateur qu'un déploiement est bloqué.
+* [Nettoyer les anciens ReplicaSets](#politique-de-nettoyage) dont vous n'avez plus besoin.
 
 ## Création d'un déploiement
 
@@ -1195,7 +1195,7 @@ Pour en savoir plus sur le moment où un pod est considéré comme prêt, consul
 ### Rollback To
 
 Le champ `.spec.rollbackTo` est obsolète dans les versions d'API `extensions/v1beta1` et `apps/v1beta1` et n'est plus pris en charge dans les versions d'API commençant par `apps/v1beta2`.
-Utilisez, `kubectl rollout undo` pour effectuer un [Restauration à une révision précédente](#rolling-back-to-a-previous-revision).
+Utilisez, `kubectl rollout undo` pour effectuer une [Restauration à une révision précédente](#revenir-à-une révision-précédente).
 
 ### Limite de l'historique des révisions
 
