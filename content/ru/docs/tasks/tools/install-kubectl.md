@@ -42,7 +42,7 @@ card:
     chmod +x ./kubectl
     ```
 
-3. Добавьте путь к бинарному файлу в переменную окружения PATH.
+3. Переместите файл в директорию из переменной окружения PATH.
 
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
@@ -99,7 +99,7 @@ kubectl version
 
 ### Установка бинарного файла kubectl с использованием curl на macOS
 
-1. Загрузите последний релиз с помощью команды::
+1. Загрузите последний релиз с помощью команды:
 
     ```		 
     curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
@@ -119,7 +119,7 @@ kubectl version
     chmod +x ./kubectl
     ```
 
-3. Добавьте путь к бинарному файлу в переменную окружения PATH.
+3. Переместите файл в директорию из переменной окружения PATH.
 
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
@@ -468,6 +468,6 @@ compinit
 * [Установка Minikube](/docs/tasks/tools/install-minikube/)
 * Обратитесь к [руководствам по началу работы](/docs/setup/), чтобы узнать больше о создании кластеров. 
 * [Узнайте, как запустить и опубликовать ваше приложение.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* Если вам нужен доступ к кластеру, созданному не вами, обратитесь к документу [документу по созданию общего доступа к кластуру](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* Если вам нужен доступ к кластеру, созданному не вами, обратитесь к [документу по созданию общего доступа к кластеру](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Прочитайте [справочную документацию по kubectl](/docs/reference/kubectl/kubectl/)
 {{% /capture %}}
