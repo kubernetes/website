@@ -61,7 +61,7 @@ La méthode d'authentification Kubeconfig ne prend pas en charge les fournisseur
 
 ## Page de bienvenue
 
-Lorsque vous accédez à Dashboard sur un cluster vide, la page d'accueil s'affiche.
+Lorsque vous accédez au tableau de bord sur un cluster vide, la page d'accueil s'affiche.
 Cette page contient un lien vers ce document ainsi qu'un bouton pour déployer votre première application.
 De plus, vous pouvez voir quelles applications système sont exécutées par défaut dans le [namespace](/docs/tasks/administer-cluster/namespaces/) `kubernetes-dashboard` de votre cluster, par exemple le tableau de bord lui-même.
 
