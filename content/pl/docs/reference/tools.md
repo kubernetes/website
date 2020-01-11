@@ -1,6 +1,4 @@
 ---
-reviewers:
-- janetkuo
 title: Narzędzia
 content_template: templates/concept
 ---

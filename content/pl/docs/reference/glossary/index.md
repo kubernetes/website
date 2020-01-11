@@ -1,7 +1,4 @@
 ---
-approvers:
-- chenopis
-- abiogenesis-now
 title: Ujednolicony słownik
 layout: glossary
 noedit: true

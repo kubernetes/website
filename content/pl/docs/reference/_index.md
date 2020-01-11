@@ -1,7 +1,5 @@
 ---
 title: Materiały źródłowe
-approvers:
-- chenopis
 linkTitle: "Materiały źródłowe"
 main_menu: true
 weight: 70
