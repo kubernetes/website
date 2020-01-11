@@ -134,7 +134,7 @@ other = "Edytuj stronę"
 other = "Zgłoś problem"
 
 [main_github_invite]
-other = "Chcesz zacząć współtworzyć kod Kubernetes?"
+other = "Chcesz zacząć współtworzyć kod Kubernetesa?"
 
 [main_github_view_on]
 other = "Zajrzyj na GitHub"
