@@ -19,7 +19,7 @@ overview: >
 cards:
 - name: concepts
   title: "Podstawy"
-  description: "Poznaj podstawowe pojęcia Kubernetes."
+  description: "Poznaj system Kubernetes i podstawowe pojęcia z nim związane."
   button: "Podstawowe pojęcia"
   button_path: "/docs/concepts"
 - name: tutorials
