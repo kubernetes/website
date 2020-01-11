@@ -1,5 +1,5 @@
 ---
-title: Wspierane wersje dokumentacji Kubernetes
+title: Wspierane wersje dokumentacji Kubernetesa
 content_template: templates/concept
 card:
   name: about
@@ -25,5 +25,4 @@ Bieżąca wersja to
 {{< versions-other >}}
 
 {{% /capture %}}
-
 
