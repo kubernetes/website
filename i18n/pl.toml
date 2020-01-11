@@ -29,7 +29,7 @@ other = "Twitter"
 other = "YouTube"
 
 [deprecation_warning]
-other = " dokumentacja nie jest juz aktualizowana. Wyświetlona jest wersja archiwalna. Po aktualną dokumentację zajrzyj na"
+other = " dokumentacja nie jest już aktualizowana. Wyświetlona jest wersja archiwalna. Po aktualną dokumentację zajrzyj na"
 
 [deprecation_file_warning]
 other = "Przestarzały"
