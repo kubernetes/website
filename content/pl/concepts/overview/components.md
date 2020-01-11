@@ -55,7 +55,7 @@ Kontrolerami są:
 
 cloud-controller-manager wykonuje tylko pętle sterowania konkretnych dostawców usług chmurowych. Wykonywanie tych pętli sterowania musi być wyłączone w kube-controller-manager. Wyłączenie następuje poprzez ustawienie opcji `--cloud-provider` jako `external` przy starcie kube-controller-manager.
 
-cloud-controller-manager umożliwia niezależny rozwój oprogramowania dostawców usług chmurowych od samego oprogramowania Kubernetes. W poprzednich wersjach, główny kod Kubernetes był zależny od kodu dostarczonego przez zewnętrznych dostawców różnych usług chmurowych. W przyszłych wydaniach, oprogramowanie związane z dostawcami chmurowymi będzie utrzymywane przez nich samych i podłączane do cloud-controller-manager w trakcie uruchamiana Kubernetes.
+cloud-controller-manager umożliwia rozwój oprogramowania dostawców usług chmurowych niezależnie od samego oprogramowania Kubernetes. W poprzednich wersjach, główny kod Kubernetes był zależny od kodu dostarczonego przez zewnętrznych dostawców różnych usług chmurowych. W przyszłych wydaniach, oprogramowanie związane z dostawcami chmurowymi będzie utrzymywane przez nich samych i podłączane do cloud-controller-managera w trakcie uruchamiana Kubernetes.
 
 Następujące kontrolery zależą od dostawców usług chmurowych:
 
