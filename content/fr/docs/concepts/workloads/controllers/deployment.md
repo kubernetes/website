@@ -1195,7 +1195,7 @@ Pour en savoir plus sur le moment où un pod est considéré comme prêt, consul
 ### Rollback To
 
 Le champ `.spec.rollbackTo` est obsolète dans les versions d'API `extensions/v1beta1` et `apps/v1beta1` et n'est plus pris en charge dans les versions d'API commençant par `apps/v1beta2`.
-Utilisez, `kubectl rollout undo` pour effectuer une [Restauration à une révision précédente](#revenir-à-une révision-précédente).
+Utilisez, `kubectl rollout undo` pour [Revenir à une révision précédente](#revenir-à-une-révision-précédente).
 
 ### Limite de l'historique des révisions
 
