@@ -33,7 +33,7 @@ Do podstawowych obiektów Kubernetes należą:
 * [Pod](/docs/concepts/workloads/pods/pod-overview/)
 * [Service *(Serwis)*](/docs/concepts/services-networking/service/)
 * [Volume *(Wolumin)*](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Namespace *(Przestrzeń nazw)*](/docs/concepts/overview/working-with-objects/namespaces/)
 
 Kubernetes zawiera także obiekty abstrakcyjne wyższego poziomu, zbudowane z obiektów podstawowych przy wykorzystaniu [Kontrolerów](/docs/concepts/architecture/controller/), które dostarczają dodatkowe funkcjonalności i udogodnienia. Należą do nich:
 
