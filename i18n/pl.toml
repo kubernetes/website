@@ -140,7 +140,7 @@ other = "Chcesz zacząć współtworzyć kod Kubernetesa?"
 other = "Zajrzyj na GitHub"
 
 [main_kubernetes_features]
-other = "Funkcjonalności Kubernetes"
+other = "Funkcjonalności Kubernetesa"
 
 [main_kubeweekly_baseline]
 other = "Zapisz się na KubeWeekly, jeśli jesteś zainteresowany najnowszymi wiadomościami o Kubernetes."
