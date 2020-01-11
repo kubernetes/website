@@ -70,7 +70,7 @@ De plus, vous pouvez voir quelles applications système sont exécutées par dé
 ## Déploiement d'applications conteneurisées
 
 Le tableau de bord vous permet de créer et de déployer une application conteneurisée en tant que Deployment et optionnellement un Service avec un simple assistant.
-Vous pouvez spécifier manuellement les détails de l'application ou télécharger un fichier YAML ou JSON contenant la configuration de l'application.
+Vous pouvez spécifier manuellement les détails de l'application ou charger un fichier YAML ou JSON contenant la configuration de l'application.
 
 Cliquez sur le bouton **CREATE** dans le coin supérieur droit de n’importe quelle page pour commencer.
 
