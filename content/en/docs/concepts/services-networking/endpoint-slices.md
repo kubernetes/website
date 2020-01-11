@@ -49,7 +49,7 @@ ports:
     port: 80
 endpoints:
   - addresses:
-    - "10.1.2.3"
+      - "10.1.2.3"
     conditions:
       ready: true
     hostname: pod-1
