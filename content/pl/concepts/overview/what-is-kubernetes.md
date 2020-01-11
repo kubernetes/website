@@ -11,7 +11,7 @@ card:
 ---
 
 {{% capture overview %}}
-Na tej stronie znajdziesz ogólne informacje o Kubernetes.
+Na tej stronie znajdziesz ogólne informacje o Kubernetesie.
 {{% /capture %}}
 
 {{% capture body %}}
