@@ -343,9 +343,6 @@ kubectl delete -f pod.yaml
 # Delete all the pods and services that have the label name=<label-name>.
 kubectl delete pods,services -l name=<label-name>
 
-# Delete all the pods and services that have the label name=<label-name>.
-kubectl delete pods,services -l name=<label-name>
-
 # Delete all pods, including uninitialized ones.
 kubectl delete pods --all
 ```
