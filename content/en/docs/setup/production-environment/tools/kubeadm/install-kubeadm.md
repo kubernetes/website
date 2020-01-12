@@ -66,6 +66,10 @@ switching to legacy mode, and is therefore incompatible with current kubeadm pac
 {{< tabs name="iptables_legacy" >}}
 {{% tab name="Debian or Ubuntu" %}}
 ```bash
+# ensure legacy binaries are installed
+sudo apt-get install -y iptables arptables ebtables
+
+# switch to legacy versions
 sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
 sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
