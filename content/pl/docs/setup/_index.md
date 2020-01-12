@@ -45,7 +45,7 @@ Aby uruchomić klaster Kubernetes do nauki na lokalnym komputerze, skorzystaj z 
 |                     | [k3s](https://k3s.io)|
 |                     | [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/)|
 
-## Środowisko produkcyjne
+## Środowisko produkcyjne {#srodowisko-produkcyjne}
 
 Wybierając rozwiązanie dla środowiska produkcyjnego musisz zdecydować, którymi poziomami zarządzania klastrem (_abstrakcjami_) chcesz zajmować się sam, a które będą realizowane po stronie zewnętrznego operatora.
 
