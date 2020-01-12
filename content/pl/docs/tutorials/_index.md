@@ -72,6 +72,6 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 Jeśli chciałbyś napisać nowy samouczek, zajrzyj na stronę
 [Jak używać szablonów stron](/docs/home/contribute/page-templates/)
-po informacje na temat stron i szablonów samouczków.
+gdzie znajdziesz dodatkowe informacje na temat stron i szablonów samouczków.
 
 {{% /capture %}}
