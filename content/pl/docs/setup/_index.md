@@ -10,7 +10,7 @@ card:
   anchors:
   - anchor: "#srodowisko-do-nauki"
     title: Środowisko do nauki
-  - anchor: "#production-environment"
+  - anchor: "#srodowisko-produkcyjne"
     title: Środowisko produkcyjne  
 ---
 
