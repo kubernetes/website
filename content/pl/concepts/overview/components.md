@@ -51,7 +51,7 @@ Kontrolerami są:
 
 ### cloud-controller-manager
 
-[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) uruchamia kontroler, który komunikuje się z usługami dostawcy chmury, na których zbudowany jest klaster. Oprogramowanie cloud-controller-manager, wprowadzone w Kubernetes 1.6 ma status rozwojowy alfa.
+[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) uruchamia kontroler, który komunikuje się z usługami dostawcy chmury, na których zbudowany jest klaster. Oprogramowanie cloud-controller-manager, wprowadzone w Kubernetes 1.6 ma status rozwojowy beta.
 
 cloud-controller-manager wykonuje tylko pętle sterowania konkretnych dostawców usług chmurowych. Wykonywanie tych pętli sterowania musi być wyłączone w kube-controller-manager. Wyłączenie następuje poprzez ustawienie opcji `--cloud-provider` jako `external` przy starcie kube-controller-manager.
 
