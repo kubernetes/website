@@ -21,4 +21,4 @@ Server API służy jako front-end warstwy sterowania Kubernetes.
 
 Podstawowa implementacją serwera API Kubernetes jest [kube-apiserver](/docs/reference/generated/kube-apiserver/).
 kube-apiserver został zaprojektowany w taki sposób, aby móc skalować się horyzontalnie &mdash; to oznacza, że zwiększa swoją wydajność poprzez dodawanie kolejnych instancji.
-Można uruchomić kilka instancji kube-apiserver i rozkładać ruch pomiędzy nie.
+Można uruchomić kilka instancji kube-apiserver i rozkładać między nimi ruch od klientów.
