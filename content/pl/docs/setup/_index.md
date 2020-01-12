@@ -28,7 +28,7 @@ W dużym uproszczeniu, możesz zbudować klaster Kubernetes zarówno w środowis
 
 {{% capture body %}}
 
-## Środowisko do nauki
+## Środowisko do nauki {#srodowisko-do-nauki}
 
 Aby uruchomić klaster Kubernetes do nauki na lokalnym komputerze, skorzystaj z rozwiązań opartych o Dockera — z narzędzi wspieranych przez społeczność Kubernetesa, bądź innych narzędzi dostępnych w ekosystemie.
 
