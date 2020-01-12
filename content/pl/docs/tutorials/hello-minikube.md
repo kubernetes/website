@@ -68,7 +68,7 @@ Więcej informacji na temat polecenia `docker build` znajdziesz w [dokumentacji 
 ## Stwórz Deployment
 
 [*Pod*](/docs/concepts/workloads/pods/pod/) w Kubernetes to grupa jednego lub wielu kontenerów połączonych ze sobą
-z na potrzeby administrowania i dostępu sieci. W tym samouczku Pod zawiera tylko jeden kontener.
+na potrzeby administrowania i dostępu sieci. W tym samouczku Pod zawiera tylko jeden kontener.
 [*Deployment*](/docs/concepts/workloads/controllers/deployment/) w Kubernetes monitoruje stan twojego Poda
 i restartuje należący do niego kontener, jeśli ten z jakichś powodów przestanie działać.
 Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowaniem Podów.
