@@ -11,7 +11,7 @@ tags:
 - architecture
 - storage
 ---
-Magazyn typu klucz-wartość *(key value)* zapewniający spójność i wysoką dostępność, używany do przechowywania wszystkich danych o klastrze Kubernetes.
+Magazyn typu klucz-wartość *(key/value store)*, zapewniający spójność i wysoką dostępność, używany do przechowywania wszystkich danych o klastrze Kubernetes.
 
 <!--more-->
 
