@@ -118,7 +118,7 @@ wykorzystując podany obraz Dockera.
     kubectl config view
     ```
   
-    {{< note >}}Więcej informacji na temat polecenia `kubectl`znajdziesz w [przeglądzie kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
+    {{< note >}}Więcej informacji na temat polecenia `kubectl` znajdziesz w [przeglądzie kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Stwórz Serwis
 
