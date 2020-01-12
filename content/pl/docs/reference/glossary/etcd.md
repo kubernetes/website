@@ -4,7 +4,7 @@ id: etcd
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  Magazyn typu klucz-wartość *(key value)* zapewniający spójność i wysoką dostępność, używany do przechowywania wszystkich danych o klastrze Kubernetes.
+  Magazyn typu klucz-wartość *(key/value store)*, zapewniający spójność i wysoką dostępność, używany do przechowywania wszystkich danych o klastrze Kubernetes.
 
 aka: 
 tags:
