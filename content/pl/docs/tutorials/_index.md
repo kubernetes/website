@@ -30,7 +30,7 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 ## Konfiguracja
 
-* [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
+[Konfiguracja  serwera Redis z użyciem ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Aplikacje bezstanowe *(Stateless Applications)*
 
