@@ -20,7 +20,7 @@ content_template: templates/concept
 
 클러스터에 액세스하려면 클러스터의 위치정보를 알아야 하고 클러스터에 접속하기 위한 
 인증정보를 가져야 한다. 일반적으로 이는 당신이 
-[Getting started guide](/docs/setup/)를 다 진행했을 때 자동으로 구성되거나, 
+[Getting started guide](/ko/docs/setup/)를 다 진행했을 때 자동으로 구성되거나, 
 다른 사람이 클러스터를 구성하고 당신에게 인증정보와 위치정보를 제공할 수도 있다.
 
 kubectl이 인지하는 위치정보와 인증정보는 다음 커맨드로 확인한다.
@@ -29,7 +29,7 @@ kubectl이 인지하는 위치정보와 인증정보는 다음 커맨드로 확�
 kubectl config view
 ```
 
-많은 [예제들](/docs/user-guide/kubectl-cheatsheet)에서 kubectl을 사용하는 것을 소개하고 있으며 
+많은 [예제들](/ko/docs/reference/kubectl/cheatsheet/)에서 kubectl을 사용하는 것을 소개하고 있으며 
 완전한 문서는 [kubectl manual](/docs/user-guide/kubectl-overview)에서 찾아볼 수 있다.
 
 ## REST API에 직접 액세스
@@ -219,7 +219,7 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 
 이전 장은 쿠버네티스 API server 접속에 대한 내용을 다루었다. 이번 장은 
 쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 쿠버네티스에서 
-[노드들](/docs/admin/node), [파드들](/docs/user-guide/pods), [서비스들](/docs/user-guide/services)은 
+[노드들](/ko/docs/concepts/architecture/nodes/), [파드들](/ko/docs/concepts/workloads/pods/pod/), [서비스들](/docs/user-guide/services)은 
 모두 자신의 IP들을 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는 
 클러스터 상의 노드 IP들, 파드 IP들, 서비스 IP들로 라우팅되지 않아서 접근을 
 할 수 없을 것이다.

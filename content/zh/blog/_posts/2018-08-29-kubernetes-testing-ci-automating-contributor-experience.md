@@ -132,7 +132,7 @@ Prow 让我们做以下事情：
 * 标出长时间保持不活动状态 issues/Pull Requests
 * 自动合并符合我们PR工作流程要求的 Pull Requests
 * 运行定义为[Knative Builds](https://github.com/knative/build)的 Kubernetes Pods或 Jenkins jobs的 CI 作业
-* 实施组织范围和重构 GitHub 仓库策略，如[Knative Builds]（https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector）和[GitHub labels]（https://github.com/kubernetes/test-infra/tree/master/label_sync）
+* 实施组织范围和重构 GitHub 仓库策略，如[Knative Builds](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector)和[GitHub labels](https://github.com/kubernetes/test-infra/tree/master/label_sync)
 
 <!--
 Prow was initially developed by the engineering productivity team building Google Kubernetes Engine, and is actively contributed to by multiple members of Kubernetes SIG Testing. Prow has been adopted by several other open source projects, including Istio, JetStack, Knative and OpenShift. [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md) takes a Kubernetes cluster and `kubectl apply starter.yaml` (running pods on a Kubernetes cluster).

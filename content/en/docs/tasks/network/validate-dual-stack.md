@@ -2,6 +2,7 @@
 reviewers:
 - lachie83
 - khenidak
+min-kubernetes-server-version: v1.16
 title: Validate IPv4/IPv6 dual-stack
 content_template: templates/task
 ---
@@ -12,11 +13,12 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 {{% capture prerequisites %}}
 
-* Kubernetes 1.16 or later
 * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
 * Kubenet network plugin
 * Kube-proxy running in mode IPVS
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
+
+{{< version-check >}}
 
 {{% /capture %}}
 

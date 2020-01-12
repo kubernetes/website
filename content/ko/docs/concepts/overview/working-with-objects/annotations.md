@@ -91,7 +91,7 @@ spec:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-[레이블과 셀렉터](/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
+[레이블과 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
 {{% /capture %}}
 
 

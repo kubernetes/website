@@ -26,8 +26,7 @@ following steps:
 1. Generates a self-signed CA (or using an existing one if provided) to set up
    identities for each component in the cluster. If the user has provided their
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
-   (`/etc/kubernetes/pki` by default) this step is skipped as described in the
-   [Using custom certificates](#custom-certificates) document.
+   (`/etc/kubernetes/pki` by default).
    The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
 
 1. Writes kubeconfig files in `/etc/kubernetes/`  for
@@ -177,30 +176,12 @@ The following command can be used to generate a new key on demand:
 kubeadm alpha certs certificate-key
 ```
 
-### Using custom certificates {#custom-certificates}
+### Certificate management with kubeadm
 
-By default, kubeadm generates all the certificates needed for a cluster to run.
-You can override this behavior by providing your own certificates.
-
-To do so, you must place them in whatever directory is specified by the
-`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
-is `/etc/kubernetes/pki`.
-
-If a given certificate and private key pair exists before running `kubeadm init`,
-kubeadm will not overwrite them. This means you can, for example, copy an existing
-CA into `/etc/kubernetes/pki/ca.crt` and `/etc/kubernetes/pki/ca.key`,
-and kubeadm will use this CA for signing the rest of the certificates.
-
-#### External CA mode {#external-ca-mode}
-
-It is also possible to provide just the `ca.crt` file and not the
-`ca.key` file (this is only available for the root CA file, not other cert pairs).
-If all other certificates and kubeconfig files are in place, kubeadm recognizes
-this condition and activates the "External CA" mode. kubeadm will proceed without the
-CA key on disk.
-
-Instead, run the controller-manager standalone with `--controllers=csrsigner` and
-point to the CA certificate and key.
+For detailed information on certificate management with kubeadm see
+[Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
+The document includes information about using external CA, custom certificates
+and certificate renewal.
 
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
 

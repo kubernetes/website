@@ -83,7 +83,7 @@ body > #wrapper {
     left: 0;
     background-color: whitesmoke;
     border-right: 2px solid slategrey;
-    overflow-x: hidden;
+    overflow-x: auto;
     padding-top: 60px;
 }
 

@@ -225,16 +225,3 @@ kubeadm init phase certs apiserver [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation
--->
-* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - 生成证书
-

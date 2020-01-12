@@ -162,15 +162,3 @@ kubeadm alpha certs renew admin.conf [flags]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - Renew certificates for a Kubernetes cluster
--->
-* [kubeadm alpha certs renew](kubeadm_alpha_certs_renew.md)	 - 续订 Kubernetes 集群的证书
-

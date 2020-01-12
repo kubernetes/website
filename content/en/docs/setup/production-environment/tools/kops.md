@@ -117,7 +117,7 @@ brew update && brew install kops
 
 ### (2/5) Create a route53 domain for your cluster
 
-kops uses DNS for discovery, both inside the cluster and so that you can reach the kubernetes API server
+kops uses DNS for discovery, both inside the cluster and outside, so that you can reach the kubernetes API server
 from clients.
 
 kops has a strong opinion on the cluster name: it should be a valid DNS name.  By doing so you will

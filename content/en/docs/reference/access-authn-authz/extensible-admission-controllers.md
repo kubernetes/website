@@ -961,6 +961,7 @@ Allowed values are `Exact` or `Equivalent`.
 * `Equivalent` means a request should be intercepted if modifies a resource listed in `rules`, even via another API group or version.
 
 In the example given above, the webhook that only registered for `apps/v1` could use `matchPolicy`:
+
 * `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
 * `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook (with the objects converted to a version the webhook had specified: `apps/v1`)
 

@@ -82,25 +82,3 @@ kubeadm join phase control-plane-prepare all
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm join phase](kubeadm_join_phase.md)	 - Use this command to invoke single phase of the join workflow
-* [kubeadm join phase control-plane-prepare all](kubeadm_join_phase_control-plane-prepare_all.md)	 - Prepare the machine for serving a control plane
-* [kubeadm join phase control-plane-prepare certs](kubeadm_join_phase_control-plane-prepare_certs.md)	 - Generate the certificates for the new control plane components
-* [kubeadm join phase control-plane-prepare control-plane](kubeadm_join_phase_control-plane-prepare_control-plane.md)	 - Generate the manifests for the new control plane components
-* [kubeadm join phase control-plane-prepare download-certs](kubeadm_join_phase_control-plane-prepare_download-certs.md)	 - [EXPERIMENTAL] Download certificates shared among control-plane nodes from the kubeadm-certs Secret
-* [kubeadm join phase control-plane-prepare kubeconfig](kubeadm_join_phase_control-plane-prepare_kubeconfig.md)	 - Generate the kubeconfig for the new control plane components
--->
-* [kubeadm join phase](kubeadm_join_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
-* [kubeadm join phase control-plane-prepare all](kubeadm_join_phase_control-plane-prepare_all.md)	 - 准备为控制平面服务的机器
-* [kubeadm join phase control-plane-prepare certs](kubeadm_join_phase_control-plane-prepare_certs.md)	 - 为新的控制平面组件生成证书
-* [kubeadm join phase control-plane-prepare control-plane](kubeadm_join_phase_control-plane-prepare_control-plane.md)	 - 为新的控制平面组件生成清单
-* [kubeadm join phase control-plane-prepare download-certs](kubeadm_join_phase_control-plane-prepare_download-certs.md)	 - [实验]从 kubeadm-certs Secret 下载控制平面节点之间共享的证书
-* [kubeadm join phase control-plane-prepare kubeconfig](kubeadm_join_phase_control-plane-prepare_kubeconfig.md)	 - 为新的控制平面组件生成 kubeconfig
-
