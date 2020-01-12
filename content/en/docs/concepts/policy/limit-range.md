@@ -108,7 +108,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-1.yaml -
 View the `busybox-cnt01` resource configuration:
 
 ```shell
-kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[0].resources"
+kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[0].resources"
 ```
 
 ```json
@@ -135,7 +135,7 @@ kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[0].re
 View the  `busybox-cnt02` resource configuration
 
 ```shell
-kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[1].resources"
+kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[1].resources"
 ```
 
 ```json
@@ -161,7 +161,7 @@ kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[1].re
 View the `busybox-cnt03` resource configuration
 
 ```shell
-kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[2].resources"
+kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[2].resources"
 ```
 ```json
 {
@@ -187,7 +187,7 @@ kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[2].re
 View the `busybox-cnt04` resource configuration:
 
 ```shell
-kubectl get  po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[3].resources"
+kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[3].resources"
 ```
 
 ```json
@@ -260,7 +260,7 @@ Error from server (Forbidden): error when creating "limit-range-pod-2.yaml": pod
 ```
 
 ```shell
-kubectl get  po/busybox1  -n limitrange-demo -o json | jq ".spec.containers[].resources.limits.memory"
+kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[].resources.limits.memory"
 "200Mi"
 "900Mi"
 "200Mi"
