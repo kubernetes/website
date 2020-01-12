@@ -35,7 +35,7 @@ Do podstawowych obiektów Kubernetes należą:
 * [Volume *(Wolumin)*](/docs/concepts/storage/volumes/)
 * [Namespace *(Przestrzeń nazw)*](/docs/concepts/overview/working-with-objects/namespaces/)
 
-Kubernetes zawiera także obiekty abstrakcyjne wyższego poziomu, zbudowane z obiektów podstawowych przy wykorzystaniu [Kontrolerów](/docs/concepts/architecture/controller/), które dostarczają dodatkowe funkcjonalności i udogodnienia. Należą do nich:
+Kubernetes zawiera także obiekty abstrakcyjne wyższego poziomu, zbudowane z obiektów podstawowych przy wykorzystaniu [kontrolerów](/docs/concepts/architecture/controller/), które dostarczają dodatkowe funkcjonalności i udogodnienia. Należą do nich:
 
  * [Deployment](/docs/concepts/workloads/controllers/deployment/)
  * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
