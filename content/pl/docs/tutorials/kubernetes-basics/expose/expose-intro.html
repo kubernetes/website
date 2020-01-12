@@ -39,7 +39,7 @@ weight: 10
 				<li><i>LoadBalancer</i> - Tworzy zewnętrzny load balancer u bieżącego dostawcy usług chmurowych (o ile jest taka możliwość) i przypisuje serwisowi stały, zewnętrzny adres IP. Nadzbiór NodePort.</li>
 				<li><i>ExternalName</i> - Wystawia Service przy pomocy wybranej nazwy (wyspecyfikowanej jako <code>externalName</code>) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of <code>kube-dns</code>.</li>
 			</ul>
-			<p>Więcej informacji na temat różnych typów serwisów znajduje się w  samouczku <a href="/docs/tutorials/services/source-ip/">Using Source IP</a>. Warto też zapoznać się z <a href="/docs/concepts/services-networking/connect-applications-service">Connecting Applications with Services</a>.</p>
+			<p>Więcej informacji na temat różnych typów serwisów znajduje się w  samouczku <a href="/docs/tutorials/services/source-ip/">Używanie adresu źródłowego (Source IP)</a>. Warto też zapoznać się z <a href="/docs/concepts/services-networking/connect-applications-service">Łączeniem Aplikacji z Serwisami</a>.</p>
 			<p>W pewnych przypadkach w serwisie nie specyfikuje się <code>selector</code>. Serwis, który został stworzony bez pola <code>selector</code>, nie utworzy odpowiedniego obiektu Endpoints. W ten sposób użytkownik ma możliwość ręcznego przyporządkowania serwisu do konkretnych endpoints. Inny przypadek, kiedy nie używa się selektora, ma miejsce, kiedy stosujemy <code>type: ExternalName</code>.</p>
 			</div>
 			<div class="col-md-4">
