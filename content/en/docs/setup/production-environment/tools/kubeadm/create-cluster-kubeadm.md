@@ -319,23 +319,12 @@ kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 {{% /tab %}}
 
 {{% tab name="Cilium" %}}
-For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
-
 For Cilium to work correctly, you must pass `--pod-network-cidr=10.217.0.0/16` to `kubeadm init`.
-
-These commands will deploy Cilium with its own etcd managed by etcd operator.
-
-_Note_: If you are running kubeadm in a single node please untaint it so that
-etcd-operator pods can be scheduled in the control-plane node.
-
-```shell
-kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
-```
 
 To deploy Cilium you just need to run:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/kubernetes/1.14/cilium.yaml
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
 ```
 
 Once all Cilium pods are marked as `READY`, you start using your cluster.
@@ -348,6 +337,10 @@ The output is similar to this:
 NAME           READY   STATUS    RESTARTS   AGE
 cilium-drxkl   1/1     Running   0          18m
 ```
+
+Cilium can be used as a replacement for kube-proxy, see [Kubernetes without kube-proxy](https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free).
+
+For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
 
 {{% /tab %}}
 

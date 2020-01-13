@@ -125,7 +125,7 @@ BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http
 providing and transparently securing network connectivity between application
 containers. Cilium is L7/HTTP aware and can enforce network policies on L3-L7
 using an identity based security model that is decoupled from network
-addressing.
+addressing, and it can be used in combination with other CNI plugins.
 
 ### CNI-Genie from Huawei
 
