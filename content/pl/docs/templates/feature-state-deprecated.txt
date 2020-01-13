@@ -1,0 +1,2 @@
+
+Ta funkcjonalność jest fazie *wycofywania*. Więcej informacji na temat tej fazy jest opisane w [Kubernetes Deprecation Policy](/docs/reference/deprecation-policy/).
