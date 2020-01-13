@@ -12,7 +12,7 @@ card:
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
 このページでは`kubeadm`コマンドをインストールする方法を示します。  
-このインストールプロセスの実行後にkubeadmを使用してクラスターを作成する方法については、[Using kubeadm to Create a Cluster](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
+このインストールプロセスの実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
 {{% /capture %}}
 
@@ -146,7 +146,7 @@ Linux以外のノードでは、デフォルトで使用されるコンテナラ
 * `kubeadm`: クラスターを起動するコマンドです。
 
 * `kubelet`: クラスター内のすべてのマシンで実行されるコンポーネントです。
-     ポッドやコンテナの起動などを行います。
+     Podやコンテナの起動などを行います。
 
 * `kubectl`: クラスターにアクセスするためのコマンドラインツールです。
 
@@ -262,9 +262,9 @@ systemctl enable --now kubelet
 
 kubeadmが何をすべきか指示するまで、kubeletはクラッシュループで数秒ごとに再起動します。
 
-## マスターノードのkubeletによって使用されるcgroupドライバの設定
+## マスターノードのkubeletによって使用されるcgroupドライバーの設定
 
-Dockerを使用した場合、kubeadmは自動的にkubelet向けのcgroup driverを検出し、それを実行時に`/var/lib/kubelet/kubeadm-flags.env`ファイルに設定します。
+Dockerを使用した場合、kubeadmは自動的にkubelet向けのcgroupドライバーを検出し、それを実行時に`/var/lib/kubelet/kubeadm-flags.env`ファイルに設定します。
 
 もしあなたが異なるCRIを使用している場合、`/etc/default/kubelet`(CentOS、RHEL、Fedoraでは`/etc/sysconfig/kubelet`)ファイル内の`cgroup-driver`の値を以下のように変更する必要があります。
 
