@@ -7,7 +7,7 @@ slug: Remembering-Brad-Childs
 
 **Authors:** Paul Morie, Red Hat
 
-Earlier this year, the Kubernetes family lost one of its own. Brad Childs was a
+Last year, the Kubernetes family lost one of its own. Brad Childs was a
 SIG Storage chair and long time contributor to the project. Brad worked on a
 number of features in storage and was known as much for his friendliness and
 sense of humor as for his technical contributions and leadership.
