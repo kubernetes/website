@@ -216,3 +216,11 @@ aliases:
     - aisonaku
     - potapy4
     - dianaabv
+  sig-docs-uk-owners: # Admins for Ukrainian content
+    - anastyakulyk
+    - MaxymVlasov
+  sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - anastyakulyk
+    - idvoretskyi
+    - MaxymVlasov
+    - Potapy4
