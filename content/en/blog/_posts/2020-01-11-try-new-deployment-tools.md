@@ -55,7 +55,7 @@ The article will consider such tools as: **Hugo**, **QBEC**, **Kaniko**, **Git-c
 As an example of our project, we will try to create a website for publishing documentation built on Hugo. **[Hugo](https://gohugo.io/)** is a static site generator.
 
 For those who are not familiar with static generators, I will tell you a little about them. Unlike regular site engines with database and some PHP which generate pages on the fly at the user's request, static generators are working a little different.  
-They allow to take the source text, let's say set of files in Markdown markup and theme templates, and then compile them into a fully finished site.
+They allow to take the source text, let's say set of files in **Markdown** markup and theme templates, and then compile them into a fully finished site.
 
 That is, at the output you will get a directory structure and a set of generated HTML files that can be simply uploaded to any cheap hosting and get a working site.
 
@@ -84,7 +84,7 @@ git submodule add https://github.com/matcornic/hugo-theme-learn themes/learn
 
 Thus, in our repository will be located only files directly related to our project, and nothing else. The connected theme will be just a link to specific repository and commit hash, so, it can always be pulled from the original source and without fear of incompatible changes.
 
-Edit config **config.toml**:
+Edit config `config.toml`:
 ```toml
 baseURL = "http://docs.example.org/"
 languageCode = "en-us"
@@ -99,7 +99,7 @@ hugo server
 
 Now we can go http://localhost:1313/ and check our newly created site. All changes made in the directory will automatically update the page in the browser, it is very convenient!
 
-Let's try to create a title page **content/_index.md**:
+Let's try to create a title page `content/_index.md`:
 
 ```markdown
 # My docs site
@@ -118,9 +118,9 @@ To generate a site, just run:
 hugo
 ```
 
-The contents of the directory ** public/** is your site.
+The contents of the directory `public/` is your site.
 
-By the way, let's add it to **.gitignore**:
+By the way, let's add it to `.gitignore`:
 ```
 echo /public > .gitignore
 ```
@@ -146,10 +146,10 @@ It is time to determine the structure of our repository. Usually I use something
     ├── image1
     └── image2
 ```
-* **dockerfiles/** - contain directories with Dockerfiles and everything need to build our docker images.
-* **deploy/** - contains directories for deploying our applications to Kubernetes
+* `dockerfiles/` --- contain directories with Dockerfiles and everything need to build our docker images.
+* `deploy/` --- contains directories for deploying our applications to Kubernetes
 
-Thus, we will create our first Dockerfile along the path **dockerfiles/website/Dockerfile**
+Thus, we will create our first Dockerfile along the path `dockerfiles/website/Dockerfile`
 
 ```Dockerfile
 FROM alpine:3.11 as builder
@@ -165,7 +165,7 @@ ENTRYPOINT [ "/usr/bin/darkhttpd" ]
 CMD [ "/var/www" ]
 ```
 
-As you can see, the Dockerfile contains two **FROM**, this opportunity is called [**multi-stage build**](https://docs.docker.com/develop/develop-images/multistage-build/) and allows you to exclude everything unnecessary from the final docker image. Thus, the final image will contain only content of our staticly generated site and **darkhttpd** (lightweight HTTP-server).
+As you can see, the Dockerfile contains two `FROM`, this opportunity is called [**multi-stage build**](https://docs.docker.com/develop/develop-images/multistage-build/) and allows you to exclude everything unnecessary from the final docker image. Thus, the final image will contain only content of our staticly generated site and **darkhttpd** (lightweight HTTP-server).
 
 Do not forget to commit our changes:
 ```
@@ -191,9 +191,9 @@ docker run -ti --rm \
   --destination=registry.gitlab.com/kvaps/docs.example.org/website:v0.0.1
 ```
 
-Where **registry.gitlab.com/kvaps/docs.example.org/website** is the name of your docker image, after the build it will be automatically pushed to the docker registry.
+Where `registry.gitlab.com/kvaps/docs.example.org/website` is the name of your docker image, after the build it will be automatically pushed to the docker registry.
 
-Option **\-\-cache** allows to cache the layers in docker registry, for the given example it will be saved in **registry.gitlab.com/kvaps/docs.example.org/website/cache**, but you can specify another using option **\-\-cache-repo**.
+Option `--cache` allows to cache the layers in docker registry, for the given example it will be saved in `registry.gitlab.com/kvaps/docs.example.org/website/cache`, but you can specify another using option `--cache-repo`.
 
 >
 > **[Screenshot of docker-registry](https://habrastorage.org/webt/0-/31/qx/0-31qxfta2gk7-colutf2l_qtmm.png)**
@@ -209,7 +209,7 @@ This can be really useful in cases where you need to deploy an application into 
 
 Qbec also allows you to render Helm charts by passing the necessary parameters to them and then operate them the same way as the usual manifestos. It allows you to add some mutations for them, and eliminates the need of using ChartMuseum. This way you can store and render charts directly from git, where they have the very place.
 
-As I said before, we will store all deployments in a directory **deploy/**:
+As I said before, we will store all deployments in a directory `deploy/`:
 ```bash
 mkdir deploy
 cd deploy
@@ -232,7 +232,7 @@ Now the structure of our application looks like this:
 └── qbec.yaml
 ```
 
-look at the file **qbec.yaml**:
+look at the file `qbec.yaml`:
 ```yaml
 apiVersion: qbec.io/v1alpha1
 kind: App
@@ -246,22 +246,22 @@ spec:
   vars: {}
 ```
 
-Here we are primarily interested in **spec.environment **, qbec has already created a default environment and took our namespace and server address from our current kubeconfig.  
+Here we are primarily interested in `spec.environment`, qbec has already created a default environment and took our namespace and server address from our current kubeconfig.  
 Now, when using **default** environment, qbec will always deploy to the specified Kubernetes cluster and the namespace. This way, you no longer need to switch namespace and context before applying configuration.  
 You can always update the settings in this file, if necessary.
 
-All your environments should be described in **qbec.yaml**, and in the **params.libsonnet** file, which is contain the information where to take parameters for them.
+All your environments should be described in `qbec.yaml`, and in the `params.libsonnet` file, which is contain the information where to take parameters for them.
 
 Next we see two directories:
 
-* **components/** - all the manifests for our application will be stored here, we can describe them both using jsonnet and as ordinary yaml files
-* **environments/** - here we will describe all the variables (parameters) for our environments.
+* `components/` --- all the manifests for our application will be stored here, we can describe them both using jsonnet and as ordinary yaml files
+* `environments/` --- here we will describe all the variables (parameters) for our environments.
 
 By default, we have two files:
-* **environments/base.libsonnet** - contains general parameters for all environments
-* **environments/default.libsonnet** - contains parameter overrides for **default** environment
+* `environments/base.libsonnet` --- contains general parameters for all environments
+* `environments/default.libsonnet` --- contains parameter overrides for **default** environment
 
-Let's open **environments/base.libsonnet** and add the parameters for our first component there:
+Let's open `environments/base.libsonnet` and add the parameters for our first component there:
 
 ```javascript
 {
@@ -281,7 +281,7 @@ Let's open **environments/base.libsonnet** and add the parameters for our first 
 }
 ```
 
-Create also our first component **components/website.jsonnet**:
+Create also our first component `components/website.jsonnet`:
 ```javascript
 local env = {
   name: std.extVar('qbec.io/env'),
@@ -382,10 +382,10 @@ In this file we described three Kubernetes entities, these are: **Deployment**, 
 
 The syntax **jsonnet** is very similar to regular json. In principle regular json is already valid jsonnet, so at first it might be easier for you to use some online services like **yaml2json** to convert your usual yaml manifests to json format, or if your components do not contain any variables, they can be completely placed as usual yaml file.
 
-{{< note >}}I
-highly recommend you to install a plugin for your editor for working with **jsonnet**.
+{{< note >}}
+I highly recommend you to install a plugin for your editor for working with **jsonnet**.
 
-For example, there is a nice plugin **vim-jsonnet** for vim, that turns on syntax highlighting and automatically runs **jsonnet fmt** during each save (it requires installed jsonnet).
+For example, there is a nice plugin **vim-jsonnet** for vim, that turns on syntax highlighting and automatically runs `jsonnet fmt` during each save (it requires installed **jsonnet** binary).
 {{< /note >}}
 
 Everything is ready to start the deployment:
@@ -401,7 +401,7 @@ Ok, now apply:
 qbec apply default
 ```
 
-In the output, you will always see what changes will be done in your cluster, qbec will ask you to accept the changes. By typing **y** you can confirm with that.
+In the output, you will always see what changes will be done in your cluster, qbec will ask you to accept the changes. By typing `y` you can confirm with that.
 
 Done, now our application is deployed!
 
@@ -429,7 +429,7 @@ But as practice has shown, this case is not so ideal, in terms of both practical
 
 Fortunately, this is not a problem at all, since now we will deploy **gitlab-runner** directly as part of our application directly to Kubernetes.
 
-Gitlab provides a helm-chart ready for deploying gitlab-runner in Kubernetes. Thus, all you need to do is find out the **registration token** for our project in **Settings \-\-> CI / CD \-\-> Runners** and pass it to Helm:
+Gitlab provides a helm-chart ready for deploying gitlab-runner in Kubernetes. Thus, all you need to do is find out the **registration token** for our project in **Settings → CI / CD → Runners** and pass it to Helm:
 ```bash
 helm repo add gitlab https://charts.gitlab.io
 
@@ -441,9 +441,9 @@ helm install gitlab-runner \
 ```
 
 Where:
-* **https://gitlab.com** - is address of your Gitlab-server.
-* **yga8y-jdCusVDn_t4Wxc** - is registration token for your project.
-* **rbac.create=true** - provides all the necessary privileges to the runner for make it possible to create new pods and perform our jobs using the Kubernetes-executor.
+* `https://gitlab.com` --- is address of your Gitlab-server.
+* `yga8y-jdCusVDn_t4Wxc` --- is registration token for your project.
+* `rbac.create=true` --- provides all the necessary privileges to the runner for make it possible to create new pods and perform our jobs using the Kubernetes-executor.
 
 If everything is done correctly, you should see the registered runner in the **Runners** section in the settings page of your project.
 
@@ -451,7 +451,7 @@ If everything is done correctly, you should see the registered runner in the **R
 > **[Screenshot of added runner](https://habrastorage.org/webt/at/lx/g_/atlxg_u6rjn4n0pkcpn8--2gare.png)**
 >
 
-Is it that simple? - yes, so simple! No more hassle with manual runners registration, since now all the runners will be created and destroyed automatically.
+Is it that simple? --- yes, so simple! No more hassle with manual runners registration, since now all the runners will be created and destroyed automatically.
 
 ---
 
@@ -459,7 +459,7 @@ Is it that simple? - yes, so simple! No more hassle with manual runners registra
 
 Since we decided to consider **gitlab-runner** as part of our project, it is time to describe it in our Git-repository.
 
-We could describe it as a separate component of **website**, but in the future we plan to deploy different copies of **website** very often, unlike **gitlab-runner**, which will be deployed only once per each Kubernetes cluster. So let's initialize a separate application for it:
+We could describe it as a separate component of **website**, but in the future we plan to deploy different copies of **website** very often, unlike `gitlab-runner`, which will be deployed only once per each Kubernetes cluster. So let's initialize a separate application for it:
 
 ```bash
 cd deploy
@@ -475,13 +475,13 @@ Let's connect it using git submodule:
 git submodule add https://gitlab.com/gitlab-org/charts/gitlab-runner vendor/gitlab-runner
 ```
 
-Now the **vendor/gitlab-runner** directory contains link to repository with a chart for gitlab-runner.
+Now the `vendor/gitlab-runner` directory contains link to repository with a chart for gitlab-runner.
 
 {{< note >}}
 Similar way, you can connect and other repositories, for example, the whole repository with official charts **https://github.com/helm/charts**
 {{< /note >}}
 
-Let's describe component **components/gitlab-runner.jsonnet**:
+Let's describe component `components/gitlab-runner.jsonnet`:
 
 ```javascript
 local env = {
@@ -503,13 +503,13 @@ std.native('expandHelmTemplate')(
 )
 ```
 
-The first argument to **expandHelmTemplate** is path to the chart, then **params.values** which we take from the environment parameters, then an object with
-- **nameTemplate** - release name
-- **namespace** - namespace passing to the Helm
-- **thisFile** - required parameter passing the path to the current file
-- **verbose** - shows the command **helm template** with all arguments when rendering a chart
+The first argument to `expandHelmTemplate` is path to the chart, then `params.values` which we take from the environment parameters, then an object with
+- `nameTemplate` --- release name
+- `namespace` --- namespace passing to the Helm
+- `thisFile` --- required parameter passing the path to the current file
+- `verbose` --- will show `helm template` command with all its arguments when rendering a chart
 
-Now let's describe the parameters for our component in **environments/base.libsonnet**:
+Now let's describe the parameters for our component in `environments/base.libsonnet`:
 
 ```javascript
 local secrets = import '../secrets/base.libsonnet';
@@ -530,7 +530,7 @@ local secrets = import '../secrets/base.libsonnet';
 }
 ```
 
-Pay attention we are taking **runnerRegistrationToken** from the external file **secrets/base.libsonnet**, let's create it:
+Pay attention we are taking `runnerRegistrationToken` from the external file `secrets/base.libsonnet`, let's create it:
 
 ```javascript
 {
@@ -611,14 +611,14 @@ git crypt export-key /path/to/keyfile
 That way, anyone who having the exported **keyfile** could decrypt your repository.
 
 It is time to configure our first secret.  
-Remember that we are still in the directory **deploy/gitlab-runner/**, where we have the directory **secrets/**, let's encrypt all the files inside it. To achieve this we should create the file **secrets/.gitattributes** with the following content:
+Remember that we are still in the directory `deploy/gitlab-runner/`, where we have the directory `secrets/`, let's encrypt all the files inside it. To achieve this we should create the file `secrets/.gitattributes` with the following content:
 
 ```git
 * filter=git-crypt diff=git-crypt
 .gitattributes !filter !diff
 ```
 
-As can be seen from the content, all files mask **\*** will be run through **git-crypt**, with the exception of **.gitattributes** itself
+As can be seen from the content, all files mask `*` will be run through **git-crypt**, with the exception of `.gitattributes` itself
 
 We can verify this by executing:
 ```bash
@@ -652,7 +652,7 @@ git crypt unlock
 
 A toolbox image is such an image with all the tools needed to perform deploy operationg in our project. It will be used by the gitlab-runner to perform typical deployment tasks.
 
-Everything is simple here, create a new **dockerfiles/toolbox/Dockerfile** with the following content:
+Everything is simple here, create a new `dockerfiles/toolbox/Dockerfile` with the following content:
 
 ```Dockerfile
 FROM alpine:3.11
@@ -684,7 +684,7 @@ To do this, go to the directory with gitlab-runner:
 ```bash
 cd deploy/gitlab-runner
 ```
-and add new component **components/rbac.jsonnet**:
+and add new component `components/rbac.jsonnet`:
 
 ```javascript
 local env = {
@@ -753,7 +753,7 @@ local params = p.components.rbac;
 ]
 ```
 
-We will also describe the new parameters in **environments/base.libsonnet**, which now will looks like:
+We will also describe the new parameters in `environments/base.libsonnet`, which now will looks like:
 
 ```javascript
 local secrets = import '../secrets/base.libsonnet';
@@ -781,7 +781,7 @@ local secrets = import '../secrets/base.libsonnet';
 }
 ```
 
-Note **$.components.rbac.name** refers to **name** for component **rbac**
+Note `$.components.rbac.name` refers to `name` for component `rbac`
 
 Let's check what has changed:
 
@@ -808,7 +808,7 @@ git commit -m "Configure gitlab-runner to use toolbox"
 
 # 9. Our first pipeline and building images using tags {#pipeline-build}
 
-In the project's root we will create **.gitlab-ci.yml** with the following content:
+In the project's root we will create `.gitlab-ci.yml` with the following content:
 
 ```yaml
 .build_docker_image:
@@ -838,7 +838,7 @@ build_website:
       - tags
 ```
 
-Note that we use **GIT_SUBMODULE_STRATEGY: normal** for those jobs where you need to explicitly initialize the submodules before execution.
+Note that we use `GIT_SUBMODULE_STRATEGY: normal` for those jobs where you need to explicitly initialize the submodules before execution.
 
 Do not forget to commit our changes:
 ```
@@ -846,7 +846,7 @@ git add .gitlab-ci.yml
 git commit -m "Automate docker build"
 ```
 
-I think we are brave enough to call it version **v0.0.1** and add a tag:
+I think we are brave enough to call it version `v0.0.1` and add a tag:
 
 ```bash
 git tag v0.0.1
@@ -877,22 +877,22 @@ git crypt export-key /tmp/docs-repo.key
 base64 -w0 /tmp/docs-repo.key; echo
 ```
 the output string should be saved in Gitlab, let's go to the settings of our project:
- **Settings --> CI / CD --> Variables** 
+ **Settings → CI / CD → Variables** 
 
 And create a new variable:
 
-* **Type:** File
-* **Key:** GITCRYPT_KEY
-* **Value:** <your string>
-* **Protected:** true (for the training can be false)
-* **Masked:** true
-* **Scope:** All environments
+* **Type:** `File`
+* **Key:** `GITCRYPT_KEY`
+* **Value:** `<your string>`
+* **Protected:** `true` *(for the training can be `false`)*
+* **Masked:** `true`
+* **Scope:** `All environments`
 
 >
 > **[Screenshot of added variable](https://habrastorage.org/webt/vj/li/ea/vjliealfwwsmiy4-nvjfvcf89ig.png)**
 >
 
-Now update our **.gitlab-ci.yml** adding to it:
+Now update our `.gitlab-ci.yml` adding to it:
 
 ```yaml
 .deploy_qbec_app:
@@ -917,10 +917,10 @@ deploy_website:
 ```
 Here we have used several new options for qbec:
 
-* **\-\-root some/app** - allows to define the directory with the application
-* **\-\-force:k8s-context \_\_incluster\_\_** - this is a magic variable that says that forces deployment to the same cluster where gtilab-runner is running. This must be done, because otherwise qbec will try to seek a suitable Kubernetes server in the kubeconfig
-* **\-\-wait** - makes qbec wait until the created resources become to Ready state then exit with a successful exit-code.
-* **\-\-yes** - disables the interactive shell **Are you sure?** during deployment
+* `--root some/app` --- allows to define the directory with the application
+* `--force:k8s-context __incluster__` --- this is a magic variable that says that forces deployment to the same cluster where gtilab-runner is running. This must be done, because otherwise qbec will try to seek a suitable Kubernetes server in the kubeconfig
+* `--wait` --- makes qbec wait until the created resources become to Ready state then exit with a successful exit-code.
+* `--yes` --- disables the interactive shell **Are you sure?** during deployment
 
 Do not forget to commit our changes:
 ```
@@ -943,7 +943,7 @@ Therefore, we will go by the more dynamic way and configure the digest based dep
 
 The idea is simple: now the image of our **website** will rebuild each time you push to **master**, and after that it automatically deploy to Kubernetes.
 
-Let's update these two jobs in our **.gitlab-ci.yml**:
+Let's update these two jobs in our `.gitlab-ci.yml`:
 
 ```yaml
 build_website:
@@ -968,16 +968,16 @@ deploy_website:
     - qbec apply default --root deploy/website --force:k8s-context __incluster__ --wait --yes --vm:ext-str digest="$DIGEST"
 ```
 
-Note that we added the **master** branch to **refs** for the job **build_website** branch, also now we're using **$CI_COMMIT_REF_NAME** instead of **$CI_COMMIT_TAG**. This way we are stopping using Git tags for the docker images and now they will be created with the commit branch name for each pipeline. It also will work with the tags, which will allow us to save snapshots of specific site versions in docker-registry.
+Note that we added our **master** branch to `refs` for the `build_website` job, also now we're using `$CI_COMMIT_REF_NAME` instead of `$CI_COMMIT_TAG`. This way we are stopping using Git tags for the docker images and now they will be created with the commit branch name for each pipeline. It also will work with the **tags**, which will allow us to save snapshots of specific site versions in docker-registry.
 
-Option **\-\-vm:ext-str digest="$DIGEST"** for qbec - allows you to pass an external variable to jsonnet.
+Option `--vm:ext-str digest="$DIGEST"` for qbec --- allows you to pass an external variable to jsonnet.
 
 Since we want to apply every version of our application to the cluster, we can't use the tag names anymore, becaus they will be unchanged. We need to specify exact image version for the every deployment operation to trigger rolling-update when it changes.
 
-Here, we will use the ability of Kaniko to save the digest of the image to a file (option **\-\-digest\-file**)  
+Here, we will use the ability of Kaniko to save the digest of the image to a file (option `--digest-file`)  
 Then we will passtrough this file and read it at the deployment stage.
 
-Let's update the parameters for our **deploy/website/environments/base.libsonnet** which will now look like this:
+Let's update the parameters for our `deploy/website/environments/base.libsonnet` which will now look like this:
 
 ```javascript
 {
@@ -1012,7 +1012,7 @@ Let's check, after `git push` we should see something like this:
 > **[Screenshot of pipeline for master](https://habrastorage.org/webt/7_/ry/nh/7_rynh5lgu_8hqnnl_gasx73zwq.png)**
 >
 
-We do not need to redeploy the gitlab-runner every time, unless, of course, nothing has changed in its configuration, so let's fix it in **.gitlab-ci.yml**:
+We do not need to redeploy the gitlab-runner every time, unless, of course, nothing has changed in its configuration, so let's fix it in `.gitlab-ci.yml`:
 
 ```yaml
 deploy_gitlab_runner:
@@ -1028,7 +1028,7 @@ deploy_gitlab_runner:
       - deploy/gitlab-runner/**/*
 ```
 
-**changes** allows you to monitor changes in **deploy/gitlab-runner/** and trigger job only in this case:
+`changes` allows you to monitor changes in `deploy/gitlab-runner/` and trigger job only in this case:
 
 Do not forget to commit our changes:
 ```bash
@@ -1046,7 +1046,7 @@ git commit -m "Reduce gitlab-runner deploy"
 
 It is time to diversify our pipeline with dynamic environments.
 
-First, update the **build_website** job in our **.gitlab-ci.yml**, removing the **only** block from it, which will force Gitlab to trigger it on any commit in any branch:
+First, update the `build_website` job in our `.gitlab-ci.yml`, removing the `only` block from it, which will force Gitlab to trigger it on any commit in any branch:
 
 ```
 build_website:
@@ -1061,7 +1061,7 @@ build_website:
       - artifacts/
 ```
 
-Then update the job **deploy_website**, add the **environment** block there:
+Then update the job `deploy_website`, add the `environment` block there:
 
 ```yaml
 deploy_website:
@@ -1128,12 +1128,12 @@ stop_review:
 
 They will run on push to any branch except master and will deploy a preview version of the site.
 
-We see a new option for qbec: **\-\-app-tag** - it allows you to add specific tag for the deployed versions of the application and work only within context of this tag.  
+We see a new option for qbec: `--app-tag` --- it allows you to add specific tag for the deployed versions of the application and work only within context of this tag.  
 Thus, we can do not create a separate environment for each review, but simply reuse the same one.
 
-Here we also used **qbec apply review**, instead of **qbec apply default** - this is how exactly we describe the differences for our environments (review and default):
+Here we also used `qbec apply review`, instead of `qbec apply default` --- this is how exactly we describe the differences for our environments (review and default):
 
-Add **review** environment to **deploy/website/qbec.yaml**
+Add **review** environment to `deploy/website/qbec.yaml`
 
 ```yaml
 spec:
@@ -1143,7 +1143,7 @@ spec:
       server: https://kubernetes.example.org:8443
 ```
 
-Then declare it in **deploy/website/params.libsonnet**:
+Then declare it in `deploy/website/params.libsonnet`:
 ```javascript
 local env = std.extVar('qbec.io/env');
 local paramsMap = {
@@ -1155,7 +1155,7 @@ local paramsMap = {
 if std.objectHas(paramsMap, env) then paramsMap[env] else error 'environment ' + env + ' not defined in ' + std.thisFile
 ```
 
-And write the custom parameters for it in **deploy/website/environments/review.libsonnet**:
+And write the custom parameters for it in `deploy/website/environments/review.libsonnet`:
 
 ```javascript
 // this file has the param overrides for the default environment
@@ -1173,7 +1173,7 @@ base {
 }
 ```
 
-Let's also take a closer look at the **stop_review** job, it will be triggered when the branch is removed. To force Gitlab not try to checkout on it, we use **GIT_STRATEGY: none**, later we clone the **master** branch and using it to delete the review version deployment.  
+Let's also take a closer look at the **stop_review** job, it will be triggered when the branch is removed. To force Gitlab not try to checkout on it, we use `GIT_STRATEGY: none`, later we clone the **master** branch and using it to delete the review version deployment.  
 This is little ugly, but I have not yet found more beautiful way.  
 An alternative way would be to deploy each review version to separated namespace, and then remove whole namespace with the application.
 
@@ -1189,10 +1189,10 @@ git commit -m "Enable automatic review"
 > **[Screenshot of created environments in Gitlab](https://habrastorage.org/webt/wc/pz/ce/wcpzcedcwgfqvr0h_thgcw4ylqk.png)**
 >
 
-Everything works? - excellent, delete our test branch: `git checkout master`, `git push origin :test`, check that the environment removal finished without errors.
+Everything works? --- excellent, delete our test branch: `git checkout master`, `git push origin :test`, check that the environment removal finished without errors.
 
 {{< warning >}}
-Here I want to clarify right away that any developer able to create branches in the project can also change **.gitlab-ci.yml ** file in this branch and gain access to secret variables.  
+Here I want to clarify right away that any developer able to create branches in the project can also change `.gitlab-ci.yml` file in this branch and gain access to secret variables.  
 Therefore, it is strongly recommended you to allow their use only for protected branches, for example in **master**, or provide a separated set of variables for each environment.
 {{< /warning >}}
 
@@ -1201,7 +1201,7 @@ Therefore, it is strongly recommended you to allow their use only for protected 
 # 13. Review Apps {#review-apps}
 
 **[Review Apps](https://docs.gitlab.com/ee/ci/review_apps/)** is such feature that allows you to add a button for each file in the repository to quickly view it in deployed environment.  
-For these buttons to appear, you need to create a file **.gitlab/route-map.yml** and describe all the path transformations in it, in our case it will be very simple:
+For these buttons to appear, you need to create a file `.gitlab/route-map.yml` and describe all the path transformations in it, in our case it will be very simple:
 
 ```yaml
 # Indices
