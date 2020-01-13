@@ -38,7 +38,7 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
 
-## Stateful Applications
+## Aplikacje stanowe *(Stateful Applications)*
 
 * [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
 
