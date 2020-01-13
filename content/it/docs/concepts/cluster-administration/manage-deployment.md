@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Gestione delle risorse
 content_template: templates/concept
 weight: 40
