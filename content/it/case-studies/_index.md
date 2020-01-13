@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Case Studies
 linkTitle: Case Studies
 bigheader: Kubernetes User Case Studies
