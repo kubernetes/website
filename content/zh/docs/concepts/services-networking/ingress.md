@@ -66,6 +66,7 @@ Service
 服务（Service）：
 Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器（selectors）标识的一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
+
 <!--
 ## What is Ingress?
 -->
@@ -76,8 +77,9 @@ Ingress exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource. 
 -->
-Ingress公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
-流量路由由Ingress资源上定义的规则控制。
+
+Ingress 公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
+流量路由由 Ingress 资源上定义的规则控制。
 
 ```none
     internet
@@ -699,11 +701,9 @@ Please check the documentation of the relevant [Ingress controller](/docs/concep
 for details on deploying Ingress in a federated cluster.
 -->
 
-## 跨可用区失败
-
 用于跨故障域传播流量的技术在云提供商之间是不同的。详情请查阅相关 Ingress 控制器的文档。
-请查看相关[Ingress控制器](/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。
-您还可以参考[联合文档](/docs/concepts/cluster-administration/federation/)，以获取有关在联合集群中部署Ingress的详细信息。
+请查看相关[ Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。
+您还可以参考[联邦文档](/docs/concepts/cluster-administration/federation/)，以获取有关在联合集群中部署Ingress的详细信息。
 
 
 <!--
