@@ -52,7 +52,7 @@ The article will consider such tools as: **Hugo**, **QBEC**, **Kaniko**, **Git-c
 
 # 1. Getting started with Hugo
 
-As an example of our project, we will try to create a website for publishing documentation built on Hugo. Hugo is a static site generator.
+As an example of our project, we will try to create a website for publishing documentation built on Hugo. **[Hugo](https://gohugo.io/)** is a static site generator.
 
 For those who are not familiar with static generators, I will tell you a little about them. Unlike regular site engines with database and some PHP which generate pages on the fly at the user's request, static generators are working a little different.  
 They allow to take the source text, let's say set of files in Markdown markup and theme templates, and then compile them into a fully finished site.
@@ -177,7 +177,7 @@ git commit -m "Add Dockerfile for website"
 
 # 3. Getting started with Kaniko {#kaniko}
 
-I decided to use **Kaniko** to build docker images, since it does not require running docker daemon. The build can be done on any host, the layers can be cached directly in docker-registry, getting rid of the need to have a full persistent storage.
+I decided to use **[Kaniko](https://github.com/GoogleContainerTools/kaniko)** to build docker images, since it does not require running docker daemon. The build can be done on any host, the layers can be cached directly in docker-registry, getting rid of the need to have a full persistent storage.
 
 To build the image, just start the container with **kaniko executor** and pass the current build context to it, you can do this locally, using docker:
 
@@ -203,7 +203,7 @@ Option **\-\-cache** allows to cache the layers in docker registry, for the give
 
 # 4. Getting started with QBEC {#qbec}
 
-[Qbec](https://qbec.io/) is a deployment tool that allows you to declaratively describe the manifests of your application and deploy them to Kubernetes. Using Jsonnet as the main syntax allow to simplify the description of differences for several environments, and also almost completely eliminates code repeatability.
+**[Qbec](https://qbec.io/)** is a deployment tool that allows you to declaratively describe the manifests of your application and deploy them to Kubernetes. Using Jsonnet as the main syntax allow to simplify the description of differences for several environments, and also almost completely eliminates code repeatability.
 
 This can be really useful in cases where you need to deploy an application into several clusters with different parameters and you want to declaratively describe them in Git.
 
@@ -557,6 +557,8 @@ qbec apply default
 
 # 7. Getting started with git-crypt {#git-crypt}
 
+**[Git-crypt](https://github.com/AGWA/git-crypt)** is a tool that allows you to configure transparent encryption for your repository.
+
 At the moment, the structure of our directory for gitlab-runner looks like this:
 
 ```
@@ -583,7 +585,7 @@ But pay attention that there might be more complex projects which might contain 
 Also in this case I would not be able to tell you about such a wonderful tool as **git-crypt**.
 {{< /note >}}
 {{< note >}}
-**git-crypt** is also quite convenient because it allows you to save the whole history of secrets, as well as compare, merge and resolve conflicts in the same way as when using standard Git.
+**Git-crypt** is also quite convenient because it allows you to save the whole history of secrets, as well as compare, merge and resolve conflicts in the same way as when using standard Git.
 {{< /note >}}
 
 The first step after installing **git-crypt** we need to generate the keys for our repository:
@@ -1198,7 +1200,7 @@ Therefore, it is strongly recommended you to allow their use only for protected 
 
 # 13. Review Apps {#review-apps}
 
-Review Apps is such feature that allows you to add a button for each file in the repository to quickly view it in deployed environment.  
+**[Review Apps](https://docs.gitlab.com/ee/ci/review_apps/)** is such feature that allows you to add a button for each file in the repository to quickly view it in deployed environment.  
 For these buttons to appear, you need to create a file **.gitlab/route-map.yml** and describe all the path transformations in it, in our case it will be very simple:
 
 ```yaml
