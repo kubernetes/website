@@ -170,7 +170,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 ## Enable addons
 
-Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
+Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 
