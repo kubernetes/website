@@ -881,12 +881,9 @@ the output string should be saved in Gitlab, let's go to the settings of our pro
 
 And create a new variable:
 
-* **Type:** `File`
-* **Key:** `GITCRYPT_KEY`
-* **Value:** `<your string>`
-* **Protected:** `true` *(for the training can be `false`)*
-* **Masked:** `true`
-* **Scope:** `All environments`
+| Type | Key          | Value           | Protected                              | Masked | Scope            |
+|------|--------------|-----------------|----------------------------------------|--------|------------------|
+| File | GITCRYPT_KEY | `<your string>` | true *(for the training can be false)* | true   | All environments |
 
 >
 > **[Screenshot of added variable](https://habrastorage.org/webt/vj/li/ea/vjliealfwwsmiy4-nvjfvcf89ig.png)**
