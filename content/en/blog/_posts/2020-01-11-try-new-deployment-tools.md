@@ -42,7 +42,7 @@ The article will consider such tools as: **Hugo**, **QBEC**, **Kaniko**, **Git-c
    
 [**10. Deployment automation**](#pipeline-deploy)
    
-[**11. Artifacts and building on push to master**](#artefacts)
+[**11. Artifacts and building on push to master**](#artifacts)
    
 [**12. Dynamic environments**](#dynamic-environments)
    
@@ -203,7 +203,7 @@ Option **\-\-cache** allows to cache the layers in docker registry, for the give
 
 # 4. Getting started with QBEC {#qbec}
 
-Qbec is a deployment tool that allows you to declaratively describe the manifests of your application and deploy them to Kubernetes. Using Jsonnet as the main syntax allow to simplify the description of differences for several environments, and also almost completely eliminates code repeatability.
+[Qbec](https://qbec.io/) is a deployment tool that allows you to declaratively describe the manifests of your application and deploy them to Kubernetes. Using Jsonnet as the main syntax allow to simplify the description of differences for several environments, and also almost completely eliminates code repeatability.
 
 This can be really useful in cases where you need to deploy an application into several clusters with different parameters and you want to declaratively describe them in Git.
 
@@ -592,7 +592,7 @@ The first step after installing **git-crypt** we need to generate the keys for o
 git crypt init
 ```
 
-If you have a pgp-key, then you can immediately add yourself as a collaborator for this project:
+If you have a PGP-key, then you can immediately add yourself as a collaborator for this project:
 
 ```
 git-crypt add-gpg-user kvapss@gmail.com
@@ -600,7 +600,7 @@ git-crypt add-gpg-user kvapss@gmail.com
 
 Thus, you can always decrypt this repository using your private key.
 
-If you don’t have a pgp-key and do not plan to have it, then you can go the other way and export the project key:
+If you don’t have a PGP-key and do not plan to have it, then you can go the other way and export the project key:
 
 ```
 git crypt export-key /path/to/keyfile
@@ -934,7 +934,7 @@ And after the `git push` we will see how our applications were deployed:
 
 ---
 
-# 11. Artifacts and building on push to master {#artefacts}
+# 11. Artifacts and building on push to master {#artifacts}
 
 Usually the above steps are enough to build and deliver almost any microservice, but we don’t want to add a tag every time we need to update the site.  
 Therefore, we will go by the more dynamic way and configure the digest based deployment direct in the master branch.
