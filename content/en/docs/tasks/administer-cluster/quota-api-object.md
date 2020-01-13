@@ -132,6 +132,14 @@ by quotas:
 <tr><td>"services.loadbalancers"</td><td>Service of type LoadBalancer</td></tr>
 </table>
 
+The 1.9 release added support for quotas on built-in kubernetes objects.
+Additionally, the 1.15 release added support for custom resources using the same syntax:
+
+* `count/<resource>.<group>`
+
+See [the Resource Quotas documentation](/docs/concepts/policy/resource-quotas/#object-count-quota)
+for more details on how to limit the number of objects of a given type.
+
 ## Clean up
 
 Delete your namespace:
