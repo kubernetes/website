@@ -41,7 +41,7 @@ The API requires metrics server to be deployed in the cluster. Otherwise it will
 
 ### CPU
 
-CPU is reported as the average usage, in cores, over a period of time. This value is derrived by taking a rate over a cumulative CPU counter provided by the kernel (in both linux and windows kernels). The window chosen for the rate calculation is determined by the kubelet.
+CPU is reported as the average usage, in cores, over a period of time. This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in both Linux and Windows kernels). The kubelet chooses the window  for the rate calculation.
 
 ### Memory
 
