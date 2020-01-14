@@ -1,6 +1,6 @@
 ---
 title: CSI Ephemeral Inline Volumes
-date: 2019-10-20
+date: 2020-01-21
 ---
 
 **Author:** Patrick Ohly (Intel)
@@ -30,15 +30,19 @@ had to be set to enable it in 1.15 because support was still in alpha
 state. In 1.16, the feature reached beta state, which typically means
 that it is enabled in clusters by default.
 
-CSI drivers have to be adapted to support this because although an
-existing CSI gRPC call (`NodePublishVolume`) is used, the way how it
-is used is different and not covered by the CSI spec: for ephemeral
-volumes, only that call is invoked by `kubelet` and all other calls
+CSI drivers have to be adapted to support this because although two
+existing CSI gRPC calls are used (`NodePublishVolume` and `NodeUnpublishVolume`),
+the way how they are
+used is different and not covered by the CSI spec: for ephemeral
+volumes, only `NodePublishVolume` is invoked by `kubelet` when asking
+the CSI driver for a volume. All other calls
 (like `CreateVolume`, `NodeStageVolume`, etc.) are skipped. The volume
 parameters are provided in the pod spec and from there copied into the
 `NodePublishVolumeRequest.volume_context` field. There are currently
 no standardized parameters; even common ones like size must be
-provided in a format that is defined by the CSI driver.
+provided in a format that is defined by the CSI driver. Likewise, only
+`NodeUnpublishVolume` gets called after the pod has terminated and the
+volume needs to be removed.
 
 Initially, the assumption was that CSI drivers would be specifically
 written to provide either persistent or ephemeral volumes. But there
