@@ -184,18 +184,18 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
-### Endpoint Slices
+### EndpointSlices
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-Endpoint Slices are an API resource that can provide a more scalable alternative
-to Endpoints. Although conceptually quite similar to Endpoints, Endpoint Slices
+EndpointSlices are an API resource that can provide a more scalable alternative
+to Endpoints. Although conceptually quite similar to Endpoints, EndpointSlices
 allow for distributing network endpoints across multiple resources. By default,
-an Endpoint Slice is considered "full" once it reaches 100 endpoints, at which
-point additional Endpoint Slices will be created to store any additional
+an EndpointSlice is considered "full" once it reaches 100 endpoints, at which
+point additional EndpointSlices will be created to store any additional
 endpoints.
 
-Endpoint Slices provide additional attributes and functionality which is
-described in detail in [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
+EndpointSlices provide additional attributes and functionality which is
+described in detail in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 
 ## Virtual IPs and service proxies
 
@@ -1196,6 +1196,6 @@ which encompass the current ClusterIP, NodePort, and LoadBalancer modes and more
 
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
+* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 
 {{% /capture %}}
