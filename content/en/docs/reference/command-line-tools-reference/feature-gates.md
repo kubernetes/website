@@ -68,7 +68,7 @@ different Kubernetes components.
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
 | `CSIInlineVolume` | `true` | Beta | 1.16 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
-| `CSIMigration` | `false` | Beta | 1.17 | |
+| `CSIMigration` | `true` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Beta | 1.17 | |
 | `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | |
