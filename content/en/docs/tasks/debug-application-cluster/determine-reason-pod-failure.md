@@ -60,7 +60,7 @@ the container starts.
         apiVersion: v1
         kind: Pod
         ...
-            lastState:
+            state:
               terminated:
                 containerID: ...
                 exitCode: 0
@@ -72,7 +72,7 @@ the container starts.
 1. Use a Go template to filter the output so that it includes
 only the termination message:
 
-        kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
+        kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.state.terminated.message}}{{end}}"
 
 ## Customizing the termination message
 
