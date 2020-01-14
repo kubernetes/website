@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Announcing the Kubernetes bug bounty program"
-date: 2020-01-14
+date: 2020-01-14T09:00:00-08:00
 slug: kubernetes-bug-bounty-announcement
 ---
 
