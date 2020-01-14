@@ -311,6 +311,10 @@ kube-scheduler 有一系列的默认调度策略。
 {{% /capture %}}
 {{% capture whatsnext %}}
 * 阅读关于 [调度器性能调优](/zh/docs/concepts/scheduling/scheduler-perf-tuning/)
+
+* 进一步了解 [控制器]({{< indoclink pagepath="/docs/concepts/architecture/" >}})
+* 进一步了解 [kube-scheduler]({{< indoclink pagepath="docs/concepts/scheduling/kube-scheduler/" >}})
+
 * 阅读关于 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的 [参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解关于 [配置多个调度器](/zh/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
