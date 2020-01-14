@@ -9,7 +9,7 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
 This page provides an overview of ephemeral containers: a special type of container
 that runs temporarily in an existing {{< glossary_tooltip term_id="pod" >}} to accomplish user-initiated actions such
@@ -83,12 +83,12 @@ you can view processes in other containers.
 {{< note >}}
 The examples in this section require the `EphemeralContainers` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled and kubernetes client and server version v1.16 or later.
+enabled, and Kubernetes client and server version v1.16 or later.
 {{< /note >}}
 
 The examples in this section demonstrate how ephemeral containers appear in
-the API. Users would normally use a `kubectl` plugin for troubleshooting that
-would automate these steps.
+the API. You would normally use a `kubectl` plugin for troubleshooting that
+automates these steps.
 
 Ephemeral containers are created using the `ephemeralcontainers` subresource
 of Pod, which can be demonstrated using `kubectl --raw`. First describe
@@ -190,6 +190,7 @@ If process namespace sharing is enabled, you can see processes from all the cont
 For example, after attaching, you run `ps` in the debugger container:
 
 ```shell
+# Run this in a shell inside the "debugger" ephemeral container
 ps auxww
 ```
 The output is similar to:
