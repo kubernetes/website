@@ -28,7 +28,7 @@ weight: 70
    * 이중 스택 파드 네트워킹(파드 당 단일 IPv4와 IPv6 주소 할당)
    * IPv4와 IPv6 지원 서비스(각 서비스는 단일 주소 패밀리이어야 한다.)
    * Kubenet 다중 주소 패밀리 지원(IPv4와 IPv6)
-   * IPv4와 IPv6 인터페이스를 통한 파드 오프(off) 클러스터 송신 라우팅(예: 인터넷)
+   * IPv4와 IPv6 인터페이스를 통한 파드 오프(off) 클러스터 이그레스 라우팅(예: 인터넷)
 
 ## 필수 구성 요소
 
@@ -62,7 +62,7 @@ IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요
 ## 서비스
 
 만약 클러스터 IPv4/IPv6 이중 스택 네트워킹을 활성화한 경우, IPv4 또는 IPv6 주소로 {{< glossary_tooltip text="서비스" term_id="service" >}} 를 만들 수 있다. 해당 서비스에서 `.spec.ipFamily` 필드를 설정하면, 서비스 클러스터 IP의 주소 패밀리를 선택할 수 있다.
-새 서비스를 생성할 때만 이 필드를 설정할 수 있다. `.spec.ipFamily` 필드는 선택 사항이며 클러스터에서 {{< glossary_tooltip text="서비스" term_id="service" >}} 와 {{< glossary_tooltip text="인그레스" term_id="ingress" >}} 를 IPv4와 IPv6로 사용하도록 설정할 경우에만 사용해야 한다. 이 필드의 구성은 [송신](#송신-트래픽)에 대한 요구사항이 아니다.
+새 서비스를 생성할 때만 이 필드를 설정할 수 있다. `.spec.ipFamily` 필드는 선택 사항이며 클러스터에서 {{< glossary_tooltip text="서비스" term_id="service" >}} 와 {{< glossary_tooltip text="인그레스" term_id="ingress" >}} 를 IPv4와 IPv6로 사용하도록 설정할 경우에만 사용해야 한다. 이 필드의 구성은 [이그레스](#이그레스-트래픽)에 대한 요구사항이 아니다.
 
 {{< note >}}
 클러스터의 기본 주소 패밀리는 `--service-cluster-ip-range` 플래그로 kube-controller-manager에 구성된 첫 번째 서비스 클러스터 IP 범위의 주소 패밀리이다.
@@ -89,9 +89,9 @@ IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요
 
 IPv6가 활성화된 외부 로드 밸런서를 지원하는 클라우드 공급자들은 `type` 필드를 `LoadBalancer` 로 설정하고, 추가적으로 `ipFamily` 필드를 `IPv6` 로 설정하면 서비스에 대한 클라우드 로드 밸런서가 구축된다.
 
-## 송신 트래픽
+## 이그레스 트래픽
 
-근본적으로 {{< glossary_tooltip text="CNI" term_id="cni" >}} 공급자가 전송을 구현할 수 있는 경우 공개적으로 라우팅 하거나 비공개 라우팅만 가능한 IPv6 주소 블록의 사용은 허용된다. 만약 비공개 라우팅만 가능한 IPv6를 사용하는 파드가 있고, 해당 파드가 오프 클러스터 목적지(예: 공용 인터넷)에 도달하기를 원하는 경우에는 송신 트래픽과 모든 응답을 위한 위장 IP를 설정해야 한다. [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 는 이중 스택을 인식하기에, 이중 스택 클러스터에서 위장 IP에 ip-masq-agent 를 사용할 수 있다.
+근본적으로 {{< glossary_tooltip text="CNI" term_id="cni" >}} 공급자가 전송을 구현할 수 있는 경우 공개적으로 라우팅 하거나 비공개 라우팅만 가능한 IPv6 주소 블록의 사용은 허용된다. 만약 비공개 라우팅만 가능한 IPv6를 사용하는 파드가 있고, 해당 파드가 오프 클러스터 목적지(예: 공용 인터넷)에 도달하기를 원하는 경우에는 이그레스 트래픽과 모든 응답을 위한 마스커레이딩 IP를 설정해야 한다. [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 는 이중 스택을 인식하기에, 이중 스택 클러스터에서 마스커레이딩 IP에 ip-masq-agent 를 사용할 수 있다.
 
 ## 알려진 이슈들
 
