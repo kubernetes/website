@@ -216,7 +216,7 @@ You can use the following command (using `jq`) to filter down
 to the config status:
 
 ```bash
-kubectl get no ${NODE_NAME} -o json | jq '.status.config'
+kubectl get no ${NODE_NAME} -o json | jq '.items[0].status.config'
 ```
 
 The following is an example response:
