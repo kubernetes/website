@@ -31,7 +31,7 @@ love to use it for demo sessions killing PODs on the big screens.
 
 ![](https://github.com/lucky-sideburn/KubeInvaders-kubernetes-post/raw/master/img3.png)
 
-**How to install KubeInvaders**
+## How to install KubeInvaders
 
 I defined multiples modes to install it:
 
@@ -55,7 +55,7 @@ The preferred way, of course, is with a Helm chart.
   ```
   ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-**How to use KubeInvaders**
+## How to use KubeInvaders
 
 Once it is installed on your cluster you can use the following
 functionalities:
@@ -70,7 +70,7 @@ d.  Key 'h' =\> Print help;
 
 e.  Key 'n' =\> Jump between; different namespaces (my preferred feature!)
 
-**Tuning KubeInvaders**
+## Tuning KubeInvaders
 
 At Codemotion Milan 2019, my colleagues and I organized a desk with a
 game station for playing KubeInvaders. People had to fight with K8s to
@@ -88,7 +88,7 @@ c.  UPDATETIME =\> Seconds to wait before update PODs status (you can set also 0
 
 The result is a harder game experience against the machine :D
 
-**Use cases**
+## Use cases
 
 Adopting chaos engineering strategies for your production environment is
 really useful because it is the only way to test if a system supports
@@ -103,7 +103,7 @@ some important use cases:
 
 -   Tuning readiness probes;
 
-**Next step**
+## Next step
 
 I want to continue to add some cool features and integrate it into a
 Kubernetes dashboard because I am planning to transform it into a
