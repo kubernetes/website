@@ -51,8 +51,8 @@ for example, [PMEM-CSI](https://github.com/intel/pmem-csi) manages
 persistent memory (PMEM), a new kind of local storage that is provided
 by [Intel® Optane™ DC Persistent
 Memory](https://www.intel.com/content/www/us/en/architecture-and-technology/optane-dc-persistent-memory.html). Such
-storage is useful as persistent data storage as well as ephemeral
-scratch space.
+memory is useful both as persistent data storage (faster than normal SSDs)
+and as ephemeral scratch space (higher capacity than DRAM).
 
 Therefore the support in Kubernetes 1.16 was extended:
 * Kubernetes and users can determine which kind of volumes a driver
@@ -68,8 +68,9 @@ For more information about implementing support of ephemeral inline
 volumes in a CSI driver, see the [Kubernetes-CSI
 documentation](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 and the [original design
-document](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/20190122-csi-inline-volumes.md). What
-follows in this blog post are usage examples based on real drivers
+document](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/20190122-csi-inline-volumes.md).
+
+What follows in this blog post are usage examples based on real drivers
 and a summary at the end.
 
 # Examples
