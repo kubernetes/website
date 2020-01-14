@@ -210,6 +210,12 @@ That `test` file just contains a single word:
 testing
 ```
 
+Such data containers can be built with Dockerfiles such as:
+```
+FROM scratch
+COPY index.html /index.html
+```
+
 ## [cert-manager-csi](https://github.com/jetstack/cert-manager-csi)
 
 cert-manager-csi works together with
