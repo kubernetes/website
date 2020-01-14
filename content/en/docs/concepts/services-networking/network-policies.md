@@ -257,12 +257,11 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Kubernetes supports SCTP as a `protocol` value in NetworkPolicy definitions as an alpha feature.
-
-To use this feature, enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the APIserver. For example: `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a NetworkPolicy to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+To use this feature, you (or your cluster administrator) will need to enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=true,…`.  
+When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
 
 {{< note >}}
-For SCTP to work with network policy, you must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that has general SCTP support and also supports SCTP as a `protocol` value for NetworkPolicy.
+You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
 {{< /note >}}
 
 
