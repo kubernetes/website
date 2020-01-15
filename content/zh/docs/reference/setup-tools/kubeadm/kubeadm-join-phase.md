@@ -22,13 +22,13 @@ and behind the scene both use the same code.
 -->
 `kubeadm join phase` 与 [kubeadm join 工作流程](/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow) 一致，后台都使用相同的代码。
 
-## kubeadm join 阶段 {#cmd-join-phase}
+## kubeadm join phase {#cmd-join-phase}
 
 {{< tabs name="tab-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_join_phase.md" />}}
 {{< /tabs >}}
 
-## kubeadm join 启动前检查阶段 {#cmd-join-phase-preflight}
+## kubeadm join phase preflight {#cmd-join-phase-preflight}
 
 <!--
 Using this phase you can execute preflight checks on a joining node.
@@ -39,7 +39,7 @@ Using this phase you can execute preflight checks on a joining node.
 {{< tab name="preflight" include="generated/kubeadm_join_phase_preflight.md" />}}
 {{< /tabs >}}
 
-## kubeadm join 控制平面节点准备工作 {#cmd-join-phase-control-plane-prepare}
+## kubeadm join phase control-plane-prepare {#cmd-join-phase-control-plane-prepare}
 
 <!--
 Using this phase you can prepare a node for serving a control-plane.
@@ -55,7 +55,7 @@ Using this phase you can prepare a node for serving a control-plane.
 {{< tab name="control-plane" include="generated/kubeadm_join_phase_control-plane-prepare_control-plane.md" />}}
 {{< /tabs >}}
 
-## kubeadm join 启动 kubelet 阶段 {#cmd-join-phase-kubelet-start}
+## kubeadm join phase kubelet-start {#cmd-join-phase-kubelet-start}
 
 <!--
 Using this phase you can write the kubelet settings, certificates and (re)start the kubelet.
@@ -66,7 +66,7 @@ Using this phase you can write the kubelet settings, certificates and (re)start 
 {{< tab name="kubelet-start" include="generated/kubeadm_join_phase_kubelet-start.md" />}}
 {{< /tabs >}}
 
-## kubeadm join 控制平面节点加入过程 {#cmd-join-phase-control-plane-join}
+## kubeadm join phase control-plane-join {#cmd-join-phase-control-plane-join}
 
 <!--
 Using this phase you can join a node as a control-plane instance.
