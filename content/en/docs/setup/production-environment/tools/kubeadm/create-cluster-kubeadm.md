@@ -291,6 +291,18 @@ You can install only one pod network per cluster.
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {{% /tab %}}
 
+{{% tab name="Antrea" %}}
+
+For `Antrea` to work correctly, you must pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/vmware-tanzu/antrea/master/build/yamls/antrea.yml
+```
+
+For more information about `Antrea`, see [the Project Antrea repository on GitHub
+](https://github.com/vmware-tanzu/antrea).
+{{% /tab %}}
+
 {{% tab name="AWS VPC" %}}
 AWS VPC CNI provides native AWS VPC networking to Kubernetes clusters.
 
