@@ -75,6 +75,10 @@ The upgrade workflow at high level is the following:
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.17.x-00 && \
     apt-mark hold kubeadm
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubeadm=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
@@ -271,6 +275,10 @@ Also `sudo kubeadm upgrade plan` is not needed.
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.17.x-00 kubectl=1.17.x-00 && \
     apt-mark hold kubelet kubectl
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubelet=1.17.x-00 kubectl=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
@@ -299,6 +307,10 @@ without compromising the minimum required capacity for running your workloads.
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.17.x-00 && \
     apt-mark hold kubeadm
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubeadm=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
@@ -341,6 +353,10 @@ without compromising the minimum required capacity for running your workloads.
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.17.x-00 kubectl=1.17.x-00 && \
     apt-mark hold kubelet kubectl
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubelet=1.17.x-00 kubectl=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
