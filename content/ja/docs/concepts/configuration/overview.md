@@ -77,7 +77,7 @@ services)（`ClusterIP`が`None`）を使用してServiceを簡単に検出で�
 
 - `imagePullPolicy` のタグが省略されていて、利用してるイメージのタグが`:latest`の場合や省略されいてる場合、`Always`が適用されます。
 
-- `imagePullPolicy` のタグが省略されていて、利用してるイメージのタグはあるが`:latest`でない場合場合、`IfNotPresent`が適用されます。
+- `imagePullPolicy` のタグが省略されていて、利用してるイメージのタグはあるが`:latest`でない場合、`IfNotPresent`が適用されます。
 
 - `imagePullPolicy: Never`: 常にローカルでイメージを探そうとします。ない場合にもイメージはpullしません。
 
