@@ -77,7 +77,7 @@ some_counter 0
 
 Hidden metrics will no longer be exposed by default; to use a hidden metric, you need to override the configuration for the relevant cluster component.
 
-Deleted metrics will no longer be available.
+Once a metric is deleted, the metric is not published. You cannot change this using an override.
 
 
 ## Show Hidden Metrics
