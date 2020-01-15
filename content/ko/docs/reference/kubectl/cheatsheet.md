@@ -82,7 +82,7 @@ kubectl config unset users.foo                       # foo 사용자 삭제
 
 ## 오브젝트 생성
 
-쿠버네티스 매니페스트는 json이나 yaml로 정의된다. 파일 확장자는 `.yaml`
+쿠버네티스 매니페스트는 JSON이나 YAML로 정의된다. 파일 확장자는 `.yaml`
 , `.yml`, `.json` 이 사용된다.
 
 ```bash
@@ -203,6 +203,7 @@ kubectl rollout history deployment/frontend                      # 현 리비전
 kubectl rollout undo deployment/frontend                         # 이전 디플로이먼트로 롤백
 kubectl rollout undo deployment/frontend --to-revision=2         # 특정 리비전으로 롤백
 kubectl rollout status -w deployment/frontend                    # 완료될 때까지 "frontend" 디플로이먼트의 롤링 업데이트 상태를 감시
+kubectl rollout restart deployment/frontend                      # "frontend" 디플로이먼트의 롤링 재시작
 
 
 # 버전 1.11 부터 사용 중단
