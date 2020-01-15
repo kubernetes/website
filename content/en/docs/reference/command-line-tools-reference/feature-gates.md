@@ -392,7 +392,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    if user namespace remapping is enabled in the Docker daemon.
 - `EndpointSlice`: Enables Endpoint Slices for more scalable and extensible
    network endpoints. Requires corresponding API and Controller to be enabled.
-   See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices/).
+   See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
