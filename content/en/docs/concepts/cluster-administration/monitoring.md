@@ -75,7 +75,7 @@ After deprecation:
 some_counter 0
 ```
 
-Hidden metrics will no longer be exposed by default; to use a hidden metric, you need to override the configuration for the relevant cluster component.
+Once a metric is hidden then by default the metrics is not published for scraping. To use a hidden metric, you need to override the configuration for the relevant cluster component.
 
 Once a metric is deleted, the metric is not published. You cannot change this using an override.
 
