@@ -20,26 +20,26 @@ This page provides hints on diagnosing DNS problems.
 
 ### Create a simple Pod to use as a test environment
 
-Create a file named busybox.yaml with the following contents:
+Create a file named dnsutils.yaml with the following contents:
 
-{{< codenew file="admin/dns/busybox.yaml" >}}
+{{< codenew file="admin/dns/dnsutils.yaml" >}}
 
 Then create a pod using this file and verify its status:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/dns/busybox.yaml
-pod/busybox created
+kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
+pod/dnsutils created
 
-kubectl get pods busybox
+kubectl get pods dnsutils
 NAME      READY     STATUS    RESTARTS   AGE
-busybox   1/1       Running   0          <some-time>
+dnsutils   1/1       Running   0          <some-time>
 ```
 
 Once that pod is running, you can exec `nslookup` in that environment.
 If you see something like the following, DNS is working correctly.
 
 ```shell
-kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
@@ -56,7 +56,7 @@ Take a look inside the resolv.conf file.
 [Known issues](#known-issues) below for more information)
 
 ```shell
-kubectl exec busybox cat /etc/resolv.conf
+kubectl exec dnsutils cat /etc/resolv.conf
 ```
 
 Verify that the search path and name server are set up like the following
@@ -72,7 +72,7 @@ Errors such as the following indicate a problem with the coredns/kube-dns add-on
 associated Services:
 
 ```
-kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
@@ -82,7 +82,7 @@ nslookup: can't resolve 'kubernetes.default'
 or
 
 ```
-kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
