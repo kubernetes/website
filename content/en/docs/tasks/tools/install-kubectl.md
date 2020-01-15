@@ -52,7 +52,7 @@ You must use a kubectl version that is within one minor version difference of yo
 4. Test to ensure the version you installed is up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Install using native package management
@@ -132,7 +132,7 @@ kubectl version
 4. Test to ensure the version you installed is up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Install with Homebrew on macOS
@@ -153,7 +153,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 2. Test to ensure the version you installed is up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Install with Macports on macOS
@@ -170,7 +170,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 2. Test to ensure the version you installed is up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## Install kubectl on Windows
@@ -191,7 +191,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 3. Test to ensure the version of `kubectl` is the same as downloaded:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
@@ -216,7 +216,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 2. Test to ensure the version you installed is up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
     {{< note >}}Updating the installation is performed by rerunning the two commands listed in step 1.{{< /note >}}
@@ -239,7 +239,7 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
 2. Test to ensure the version you installed is up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 3. Navigate to your home directory:
@@ -281,7 +281,7 @@ You can install kubectl as part of the Google Cloud SDK.
 3. Test to ensure the version you installed is up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## Verifying kubectl configuration 
