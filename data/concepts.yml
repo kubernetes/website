@@ -123,7 +123,6 @@ toc:
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
   - docs/concepts/cluster-administration/proxies.md
-  - docs/concepts/cluster-administration/controller-metrics.md
   - docs/concepts/cluster-administration/device-plugins.md
   - title: Policies
     section:

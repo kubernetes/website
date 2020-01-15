@@ -6,13 +6,15 @@ reviewers:
 - RainbowMango
 content_template: templates/concept
 weight: 60
+aliases:
+- controller-metrics.md
 ---
 
 {{% capture overview %}}
 
 System component metrics can give a better look into what is happening inside them. Metrics are particularly useful for building dashboards and alerts.
 
-Metrics in Kubernetes control plane components are exposed in Prometheus text format.
+Metrics in Kubernetes control plane are emitted in [prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/) and are human readable.
 
 {{% /capture %}}
 
@@ -20,7 +22,7 @@ Metrics in Kubernetes control plane components are exposed in Prometheus text fo
 
 ## Metrics in Kubernetes
 
-In most cases those metrics are available on `/metrics` endpoint of the HTTP server. For components that doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
+In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
 
 Examples of those components:
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
@@ -29,7 +31,10 @@ Examples of those components:
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
-Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes metrics in `/metrics/cadvisor` and `/metrics/resource` endpoints. Those metrics do not have same lifecycle.
+In a production environment you may want to configure [Prometheus Server](https://prometheus.io/) or some other metrics scraper
+to periodically gather these metrics and make them available in some kind of time series database.
+
+Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes metrics in `/metrics/cadvisor`, `/metrics/resource` and `/metrics/probes` endpoints. Those metrics do not have same lifecycle.
 
 If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing `/metrics`.
 For example:
@@ -55,7 +60,6 @@ Stable metrics can be guaranteed to not change; Specifically, stability means:
 
 * the metric itself will not be deleted (or renamed)
 * the type of metric will not be modified
-* no labels can be added or removed from this metric
 
 Deprecated metric signal that the metric will eventually be deleted; to find which version, you need to check annotation, which includes from which kubernetes version that metric will be considered deprecated.
 
@@ -95,6 +99,29 @@ Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. Accor
 * In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
 
 If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in `1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember to remove this metric dependency before upgrading to `1.14`
+
+## Component metrics
+
+### kube-controller-manager metrics
+
+Controller manager metrics provide important insight into the performance and health of the controller manager.
+These metrics include common Go language runtime metrics such as go_routine count and controller specific metrics such as
+etcd request latencies or Cloudprovider (AWS, GCE, OpenStack) API latencies that can be used
+to gauge the health of a cluster.
+
+Starting from Kubernetes 1.7, detailed Cloudprovider metrics are available for storage operations for GCE, AWS, Vsphere and OpenStack.
+These metrics can be used to monitor health of persistent volume operations.
+
+For example, for GCE these metrics are called:
+
+```
+cloudprovider_gce_api_request_duration_seconds { request = "instance_list"}
+cloudprovider_gce_api_request_duration_seconds { request = "disk_insert"}
+cloudprovider_gce_api_request_duration_seconds { request = "disk_delete"}
+cloudprovider_gce_api_request_duration_seconds { request = "attach_disk"}
+cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
+cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
+```
 
 {{% /capture %}}
 
