@@ -1,7 +1,0 @@
-{{- $p := .Get "pagepath" -}}
-{{- $defaultLang := "en" -}}
-{{- $langPrefix := "/" -}}
-{{- if ne $defaultLang .Page.Lang -}}
-{{- $langPrefix = printf "/%s" .Page.Lang -}}
-{{- end -}}
-{{- path.Join $langPrefix $p -}}
