@@ -51,17 +51,13 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/24`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
-      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
+      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /48 for IPv6
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
       * `--proxy-mode=ipvs`
       * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>` 
       * `--feature-gates="IPv6DualStack=true"`
-
-{{< caution >}}
-If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on the command line, that assignment will fail.
-{{< /caution >}}
 
 ## Services
 
