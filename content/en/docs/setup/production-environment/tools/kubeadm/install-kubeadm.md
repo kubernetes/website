@@ -285,7 +285,7 @@ This file will be used by `kubeadm init` and `kubeadm join` to source extra
 user defined arguments for the kubelet.
 
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
-is not `cgroupfs`, because that is the default value in the kubelet already.
+is not `systemd`, because that is the default value in the kubelet already.
 
 Restarting the kubelet is required:
 
