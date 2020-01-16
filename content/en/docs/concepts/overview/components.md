@@ -25,7 +25,7 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 {{% capture body %}}
 ## Control Plane Components
 
-The Control Plane components make global decisions about the cluster (for example, scheduling), and they detect and respond to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+The Control Plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
 
 Control Plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all Control Plane components on

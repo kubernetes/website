@@ -14,4 +14,4 @@ tags:
 A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
 
 <!--more-->
-The worker node(s) host the pods that are the components of the application. The Control Plane manages the worker nodes and the pods in the cluster. In production environments, it's typical to run a Control Plane across multiple computers and also to run multiple nodes, to provide fault-tolerance and high availability.
+The worker node(s) host the pods that are the components of the application. The Control Plane manages the worker nodes and the pods in the cluster. In production environments, the Control Plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability.
