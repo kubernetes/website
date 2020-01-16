@@ -235,7 +235,7 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/metrics-server               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
