@@ -135,7 +135,7 @@ calculated using this equation:
     replicas = max( ceil( cores × 1/coresPerReplica ) , ceil( nodes × 1/nodesPerReplica ) )
 
 Note that the values of both `coresPerReplica` and `nodesPerReplica` are
-integers.
+floats.
 
 The idea is that when a cluster is using nodes that have many cores,
 `coresPerReplica` dominates. When a cluster is using nodes that have fewer
