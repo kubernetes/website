@@ -266,7 +266,7 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # エディターを指定
 ```bash
 kubectl scale --replicas=3 rs/foo                                 # 「foo」という名前のレプリカセットを3にスケーリングします
 kubectl scale --replicas=3 -f foo.yaml                            # 「foo.yaml」で指定されたリソースを3にスケーリングします
-kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # mysqlと名付けられたdeploymentの現在のサイズが2であれば、mysqlを3にスケジューリングします
+kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # mysqlと名付けられたdeploymentの現在のサイズが2であれば、mysqlを3にスケーリングします
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 複数のReplication controllerをスケーリングします
 ```
 
