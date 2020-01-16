@@ -4,6 +4,7 @@ reviewers:
 - balopat
 - aaron-prindle
 title: Installing Kubernetes with Minikube
+weight: 30
 content_template: templates/concept
 ---
 
