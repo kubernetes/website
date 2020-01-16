@@ -224,6 +224,7 @@ rules:
 
 The following cloud providers have implemented CCMs:
 
+* [Alibaba Cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
