@@ -356,7 +356,7 @@ The response would look the same as for non-dry-run request, but the values of s
 
 ### Dry-run authorization
 
-Authorization for dry-run and non-dry-run requests is identitical. Thus, to make
+Authorization for dry-run and non-dry-run requests is identical. Thus, to make
 a dry-run request, the user must be authorized to make the non-dry-run request.
 
 For example, to run a dry-run `PATCH` for Deployments, you must have the
