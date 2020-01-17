@@ -168,6 +168,7 @@ Kubernetes 采用了系统的云原生视图，并且可以处理持续的变化
 在任务执行时，集群随时都可能被修改，并且控制环会自动的修复故障。这意味着很可能集群永远不会达到稳定状态。
 
 只要集群中控制器的在运行并且进行有效的修改，整体状态的稳定与否是无关紧要的。
+
 <!--
 ## Design
 
@@ -196,6 +197,7 @@ because there is information ({{< glossary_tooltip term_id="label" text="labels"
 the controllers can use to tell those Pods apart.
 {{< /note >}}
 -->
+
 ## 设计 {#design}
 
 作为设计的一个原则，Kubernetes 使用了很多控制器，每个控制器管理集群状态的一个特定方面。最常见的一个特定的控制器使用一种类型的资源作为它的期望状态，控制器管理控制另外一种类型的资源向它的期望状态发展。
