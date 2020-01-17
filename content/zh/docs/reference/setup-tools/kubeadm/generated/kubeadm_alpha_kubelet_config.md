@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -68,17 +68,4 @@ This command is not meant to be run on its own. See list of available subcommand
 
 
 
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - Commands related to handling the kubelet
-* [kubeadm alpha kubelet config download](kubeadm_alpha_kubelet_config_download.md)	 - Download the kubelet configuration from the cluster ConfigMap kubelet-config-1.X, where X is the minor version of the kubelet
-* [kubeadm alpha kubelet config enable-dynamic](kubeadm_alpha_kubelet_config_enable-dynamic.md)	 - EXPERIMENTAL: Enable or update dynamic kubelet configuration for a Node
--->
-* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - 与处理 kubelet 有关的命令
-* [kubeadm alpha kubelet config download](kubeadm_alpha_kubelet_config_download.md)	 - 从集群 ConfigMap kubelet-config-1.X 中下载 kubelet 配置，其中 X 是 kubelet 的次要版本。
-* [kubeadm alpha kubelet config enable-dynamic](kubeadm_alpha_kubelet_config_enable-dynamic.md)	 - 实验：为节点启用或更新动态 kubelet 配置
 
