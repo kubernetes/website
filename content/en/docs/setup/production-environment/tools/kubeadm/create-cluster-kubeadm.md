@@ -100,10 +100,10 @@ communicates with).
 1. (Recommended) If you have plans to upgrade this single control-plane kubeadm cluster
 to high availability you should specify the `--control-plane-endpoint` to set the shared endpoint
 for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
-1. Choose a pod network add-on, and verify whether it requires any arguments to
+1. Choose a Pod network add-on, and verify whether it requires any arguments to
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
-a provider-specific value. See [Installing a pod network add-on](#pod-network).
+a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 1. (Optional) Since version 1.14, kubeadm will try to detect the container runtime on Linux
 by using a list of well known domain socket paths. To use different container runtime or
 if there are more than one installed on the provisioned node, specify the `--cri-socket`
@@ -221,7 +221,7 @@ To start using your cluster, you need to run the following as a regular user:
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-You should now deploy a pod network to the cluster.
+You should now deploy a Pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
   /docs/concepts/cluster-administration/addons/
 
@@ -255,19 +255,19 @@ token can add authenticated nodes to your cluster. These tokens can be listed,
 created, and deleted with the `kubeadm token` command. See the
 [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
-### Installing a pod network add-on {#pod-network}
+### Installing a Pod network add-on {#pod-network}
 
 {{< caution >}}
 This section contains important information about installation and deployment order. Read it carefully before proceeding.
 {{< /caution >}}
 
-You must install a pod network add-on so that your pods can communicate with
+You must install a Pod network add-on so that your Pods can communicate with
 each other.
 
 **The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
 kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
-Several projects provide Kubernetes pod networks using CNI, some of which also
+Several projects provide Kubernetes Pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
 - IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
@@ -278,24 +278,16 @@ Make sure that your network manifest supports RBAC.
 Also, beware, that your Pod network must not overlap with any of the host networks as this can cause issues.
 If you find a collision between your network plugin’s preferred Pod network and some of your host networks, you should think of a suitable CIDR replacement and use that during `kubeadm init` with `--pod-network-cidr` and as a replacement in your network plugin’s YAML.
 
-You can install a pod network add-on with the following command on the control-plane node or a node that has the kubeconfig credentials:
+You can install a Pod network add-on with the following command on the control-plane node or a node that has the kubeconfig credentials:
 
 ```bash
 kubectl apply -f <add-on.yaml>
 ```
 
-You can install only one pod network per cluster.
+You can install only one Pod network per cluster.
+Below you can find installation instructions for some popular Pod network plugins:
 
 {{< tabs name="tabs-pod-install" >}}
-{{% tab name="Choose one..." %}}
-Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
-{{% /tab %}}
-
-{{% tab name="AWS VPC" %}}
-AWS VPC CNI provides native AWS VPC networking to Kubernetes clusters.
-
-For installation, please refer to the [AWS VPC CNI setup guide](https://github.com/aws/amazon-vpc-cni-k8s#setup).
-{{% /tab %}}
 
 {{% tab name="Calico" %}}
 For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
@@ -304,16 +296,6 @@ For Calico to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/1
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
-```
-
-{{% /tab %}}
-{{% tab name="Canal" %}}
-Canal uses Calico for policy and Flannel for networking. Refer to the Calico documentation for the [official getting started guide](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
-
-For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that Canal works on `amd64` only.
-
-```shell
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 {{% /tab %}}
@@ -327,7 +309,7 @@ To deploy Cilium you just need to run:
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
 ```
 
-Once all Cilium pods are marked as `READY`, you start using your cluster.
+Once all Cilium Pods are marked as `READY`, you start using your cluster.
 
 ```shell
 kubectl get pods -n kube-system --selector=k8s-app=cilium
@@ -376,40 +358,16 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 ](https://github.com/coreos/flannel).
 {{% /tab %}}
 
-{{% tab name="JuniperContrail/TungstenFabric" %}}
-Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
-simultaneous overlay-underlay support, network policy enforcement, network isolation,
-service chaining and flexible load balancing.
-
-There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
-
-Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
-{{% /tab %}}
-
 {{% tab name="Kube-router" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
+Kube-router relies on kube-controller-manager to allocate Pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
-Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
+Kube-router provides Pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
 For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
-{{% /tab %}}
-
-{{% tab name="Romana" %}}
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
-
-The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
-
-Romana works on `amd64` only.
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml
-```
 {{% /tab %}}
 
 {{% tab name="Weave Net" %}}
@@ -431,16 +389,16 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 {{< /tabs >}}
 
 
-Once a pod network has been installed, you can confirm that it is working by
-checking that the CoreDNS pod is Running in the output of `kubectl get pods --all-namespaces`.
-And once the CoreDNS pod is up and running, you can continue by joining your nodes.
+Once a Pod network has been installed, you can confirm that it is working by
+checking that the CoreDNS Pod is Running in the output of `kubectl get pods --all-namespaces`.
+And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
 
 If your network is not working or CoreDNS is not in the Running state, checkout our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ### Control plane node isolation
 
-By default, your cluster will not schedule pods on the control-plane node for security
-reasons. If you want to be able to schedule pods on the control-plane node, e.g. for a
+By default, your cluster will not schedule Pods on the control-plane node for security
+reasons. If you want to be able to schedule Pods on the control-plane node, e.g. for a
 single-machine Kubernetes cluster for development, run:
 
 ```bash
@@ -457,11 +415,11 @@ taint "node-role.kubernetes.io/master:" not found
 
 This will remove the `node-role.kubernetes.io/master` taint from any nodes that
 have it, including the control-plane node, meaning that the scheduler will then be able
-to schedule pods everywhere.
+to schedule Pods everywhere.
 
 ### Joining your nodes {#join-nodes}
 
-The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
+The nodes are where your workloads (containers and Pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
 * SSH to the machine
 * Become root (e.g. `sudo su -`)
@@ -625,6 +583,8 @@ control of your Kubernetes cluster.
 * Learn about kubeadm's advanced usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Configure log rotation. You can use **logrotate** for that. When using Docker, you can specify log rotation options for Docker daemon, for example `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. See [Configure and troubleshoot the Docker daemon](https://docs.docker.com/engine/admin/) for more details.
+* See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
+of Pod network add-ons.
 
 ## Feedback {#feedback}
 
