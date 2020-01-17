@@ -71,9 +71,9 @@ A user creates, or in the case of dynamic provisioning, has already created, a P
 
 Claims will remain unbound indefinitely if a matching volume does not exist. Claims will be bound as matching volumes become available. For example, a cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi. The PVC can be bound when a 100Gi PV is added to the cluster.
 
-### Using
+### Mounting and Using {#using}
 
-Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a Pod. For volumes that support multiple access modes, the user specifies which mode is desired when using their claim as a volume in a Pod.
+Pods use claims as volumes. The cluster inspects the claim to find a matching PersistentVolume for the Pod, and to check that the Pod is entitled to use it. If the claim is valid and the storage is available, the kubelet sets up storage access so that the PersistentVolume is available to containers in the Pod (either as mounted storage or as a block device). The PersistentVolumeClaim also defines whether the kubelet should mount the volume read-only or read-write.
 
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `persistentVolumeClaim` section in a Pod's `volumes` block. See [Claims As Volumes](#claims-as-volumes) for more details on this.
 
@@ -215,8 +215,7 @@ new PersistentVolume is never created to satisfy the claim. Instead, an existing
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-Support for expanding CSI volumes is enabled by default but it also requires a specific CSI driver to support volume expansion. Refer to documentation of the specific CSI driver for more information.
-
+Support for [expanding CSI volumes](https://kubernetes-csi.github.io/docs/volume-expansion.html) is enabled by default but it also requires a specific CSI driver to support volume expansion. Refer to documentation of the specific CSI driver for more information.
 
 #### Resizing a volume containing a file system
 
@@ -353,7 +352,11 @@ In the CLI, the access modes are abbreviated to:
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
 
-> __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
+{{< caution >}}
+
+A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time. Besides, it will be limited once a volume has been mounted on a single node with `ReadWriteOnce`.
+
+{{< /caution >}}
 
 
 | Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
