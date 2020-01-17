@@ -405,13 +405,13 @@ Some drivers will mount a host folder within the VM so that you can easily share
 Host folder sharing is not implemented in the KVM driver yet.
 {{< /note >}}
 
-| Driver | OS | HostFolder | VM |
-| --- | --- | --- | --- |
-| VirtualBox | Linux | /home | /hosthome |
-| VirtualBox | macOS | /Users | /Users |
-| VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
-| Xhyve | macOS | /Users | /Users |
+| Driver        | OS      | HostFolder   | VM                 |
+| --------------|---------|--------------|--------------------|
+| VirtualBox    | Linux   | ``/home``    | ``/hosthome``      |
+| VirtualBox    | macOS   | ``/Users``   | ``/Users``         |
+| VirtualBox    | Windows | ``C://Users``| ``/c/Users``       |
+| VMware Fusion | macOS   | ``/Users``   | ``/mnt/hgfs/Users``|
+| Xhyve         | macOS   | ``/Users``   | ``/Users``         |
 
 ## Private Container Registries
 
