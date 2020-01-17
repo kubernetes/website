@@ -98,7 +98,7 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
 | TCP      | Inbound   | 30000-32767 | NodePort Services**   | All                     |
 
-** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
+**Default port range for [NodePort Services](/docs/concepts/services-networking/service/)**.
 
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open.
