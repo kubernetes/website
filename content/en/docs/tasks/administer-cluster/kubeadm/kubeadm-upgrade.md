@@ -398,6 +398,19 @@ This command is idempotent and eventually makes sure that the actual state is th
 
 To recover from a bad state, you can also run `kubeadm upgrade apply --force` without changing the version that your cluster is running.
 
+During upgrade kubeadm writes the following backup folders under `/etc/kubernetes/tmp`:
+- `kubeadm-backup-etcd-<date>-<time>`
+- `kubeadm-backup-manifests-<date>-<time>`
+
+`kubeadm-backup-etcd` contains a backup of the local etcd member data for this control-plane Node.
+In case of an etcd upgrade failure and if the automatic rollback does not work, the contents of this folder
+can be manually restored in `/var/lib/etcd`. In case external etcd is used this backup folder will be empty.
+
+`kubeadm-backup-manifests` contains a backup of the static Pod manifest files for this control-plane Node.
+In case of a upgrade failure and if the automatic rollback does not work, the contents of this folder can be
+manually restored in `/etc/kuberentes/manifests`. If for some reason there is no difference between a pre-upgrade
+and post-upgrade manifest file for a certain component, a backup file for it will not be written.
+
 ## How it works
 
 `kubeadm upgrade apply` does the following:
