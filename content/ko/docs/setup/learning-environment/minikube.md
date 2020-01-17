@@ -399,13 +399,13 @@ spec:
 호스트 폴더 공유는 KVM 드라이버에서 아직 구현되어 있지 않다.
 {{< /note >}}
 
-| Driver        | OS      | HostFolder     | VM           |
-|---------------|---------|----------------|--------------|
-| VirtualBox    | Linux   | ``/home``      | ``/hosthome``|
-| VirtualBox    | macOS   | ``/Users``     | ``/Users``   |
-| VirtualBox    | Windows | ``C:/Users``  | ``/c/Users`` |
-| VMware Fusion | macOS   | ``/Users``     | ``/Users``   |
-| Xhyve         | macOS   | ``/Users``     | ``/Users``   |
+| Driver        | OS      | HostFolder| VM       |
+|---------------|---------|-----------|----------|
+| VirtualBox    | Linux   | /home     | /hosthome|
+| VirtualBox    | macOS   | /Users    | /Users   |
+| VirtualBox    | Windows | C:/Users| | /c/Users |
+| VMware Fusion | macOS   | /Users    | /Users   |
+| Xhyve         | macOS   | /Users    | /Users   |
 
 ## 프라이빗 컨테이너 레지스트리
 
