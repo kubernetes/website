@@ -277,7 +277,7 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
-  fstype: xfs
+  fstype: ext4
   replication-type: none
 ```
 
@@ -289,9 +289,9 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
-* `fstype`: `ext4` or `xfs`. Default: `ext4`
+* `fstype`: `ext4` or `xfs`. Default: `ext4`.
 
-If `fstype` is set to `xfs`, you will need xfs support on HostOS
+The defined filesystem type must be supported by the host operating system.
 
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 
