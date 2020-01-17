@@ -289,9 +289,7 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
-* `fstype`: `ext4` or `xfs`. Default: `ext4`.
-
-The defined filesystem type must be supported by the host operating system.
+* `fstype`: `ext4` or `xfs`. Default: `ext4`. The defined filesystem type must be supported by the host operating system.
 
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 
