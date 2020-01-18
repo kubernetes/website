@@ -1,4 +1,4 @@
-This document describes how to install a single-master Kubernetes cluster v1.15 with kubeadm on CentOS, and then deploy an external OpenStack cloud provider and Cinder CSI plugin in order to use Cinder volumes as persistent volumes in Kubernetes.
+This document describes how to install a single-master Kubernetes cluster v1.15 with kubeadm on CentOS, and then deploy an external OpenStack cloud provider and Cinder CSI plugin to use Cinder volumes as persistent volumes in Kubernetes.
 
 This cluster will be running on OpenStack VMs so we'll create a few things in OpenStack for it.
 
