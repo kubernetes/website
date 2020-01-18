@@ -138,7 +138,7 @@ modprobe br_netfilter
 The official document about how to create a single-master cluster can be found in https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
 We'll largely follow that document but also add additional things for the cloud provider.
-To make things clearer we'll use a kubeadm-config.yml for the master.
+To make things more clear, we'll use a kubeadm-config.yml for the master.
 In this config we specify to use an external OpenStack cloud provider, and where to find its config.
 We also enable storage API in API server's runtime config so we can use OpenStack volumes as persistent volumes in Kubernets.
 
