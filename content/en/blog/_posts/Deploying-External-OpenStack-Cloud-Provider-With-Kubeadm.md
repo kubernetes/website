@@ -50,7 +50,7 @@ echo "192.168.1.4 master1" >> /etc/hosts
 
 hostnamectl set-hostname master1
 ```
-Next we'll follow official documents to install docker and Kubernetes using kubeadm.
+Next, we'll follow official documents to install docker and Kubernetes using kubeadm.
 
 Install docker following the steps from the [Container Runtime Documentation.](/docs/setup/production-environment/container-runtimes/)
 
