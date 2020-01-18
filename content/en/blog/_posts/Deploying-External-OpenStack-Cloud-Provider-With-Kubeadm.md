@@ -359,7 +359,7 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 Next we'll set up worker nodes.
 
-Firstly install docker and kubeadm in the same way as how they were installed in the master. 
+Firstly, install docker and kubeadm in the same way as how they were installed in the master. 
 To join them to the cluster we need a token and ca cert hash from the output of master installation. 
 If it is expired or lost we can recreate it using these commands.
 
