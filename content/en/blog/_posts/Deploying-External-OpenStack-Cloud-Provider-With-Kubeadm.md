@@ -412,7 +412,7 @@ kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/rele
 ```
 
 The Cinder CSI plugin includes a controller plugin and a node plugin.
-The controller communicates with Kubernetes APIs and Cinder APIs to create/attach/detach/delete Cinder volumes, while node plugin runs on each worker node to bind a storage device (attached volume) to a pod, and unbind it during deletion.
+The controller communicates with Kubernetes APIs and Cinder APIs to create/attach/detach/delete Cinder volumes. The node plugin in-turn runs on each worker node to bind a storage device (attached volume) to a pod, and unbind it during deletion.
 Create cinder-csi-controllerplugin.yaml and apply it to create csi controller.
 ```
 kind: Service
