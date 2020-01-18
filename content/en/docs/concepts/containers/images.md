@@ -126,7 +126,7 @@ Troubleshooting:
 - Verify kubelet is running with `--cloud-provider=aws`.
 - Increase kubelet log level verbosity to at least 3 and check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
   - `aws_credentials.go:109] unable to get ECR credentials from cache, checking ECR API`
-  - `aws_credentials.go:116] Got ECR credentials from ECR API for <Your ECR AWS Account ID>.dkr.ecr.us-east-1.amazonaws.com`
+  - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Using Azure Container Registry (ACR)
 When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
