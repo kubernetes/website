@@ -680,7 +680,7 @@ NAME    STATUS   VOLUME                                     CAPACITY   ACCESS MO
 myvol   Bound    pvc-14b8bc68-6c4c-4dc6-ad79-4cb29a81faad   1Gi        RWO            csi-sc-cinderplugin   3s
 
 ```
-In OpenStack the volume will be called "*pvc*-14b8bc68-6c4c-4dc6-ad79-4cb29a81faad"
+In OpenStack the volume name will match the Kubernetes persistent volume generated name. In this example it would be: _pvc-14b8bc68-6c4c-4dc6-ad79-4cb29a81faad_
 
 Now we can create a pod with the PVC. 
 ```
