@@ -386,7 +386,7 @@ nodeRegistration:
     cloud-provider: "external"
 
 ```
-apiServerEndpoint is the master node, token and caCertHashes can be taken from the join command printed in the output of 'kubeadm token create' command.
+apiServerEndpoint is the control plane node, token and caCertHashes can be taken from the join command printed in the output of 'kubeadm token create' command.
 
 Run kubeadm and the worker nodes will be joined to the cluster.
 ```
