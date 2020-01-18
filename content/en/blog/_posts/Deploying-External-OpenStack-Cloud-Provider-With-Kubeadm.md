@@ -7,7 +7,7 @@ This cluster will be running on OpenStack VMs so we'll create a few things in Op
 * a private network and subnet
 * a router for this private network and connect it to a public network for floating IPs
 * a security group for all Kubernetes VMs
-* a VM as master node and a few VMs as worker nodes
+* a VM as control plane node and a few VMs as worker nodes
 
 The security group will have the following rules to open ports for Kubernetes.
 
