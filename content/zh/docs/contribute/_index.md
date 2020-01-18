@@ -170,4 +170,10 @@ documentation, but it should help you get started.
   - 对文档测试提出改进建议
   - 对 Kubernetes 网站或其他工具提出改进建议
 
+
+## 其他贡献途径
+
+- 如果您要通过 Twitter 或 Stack Overflow 等在线论坛为社区做贡献，或了解本地会议及Kubernetes事件，请查看 [Kubernetes community site](/community/).
+- 如果您要开发新的特性，请阅读 [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet).
+
 {{% /capture %}}
