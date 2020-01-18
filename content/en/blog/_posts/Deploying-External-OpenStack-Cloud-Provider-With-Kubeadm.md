@@ -205,7 +205,7 @@ Next run kubeadm to initiate the master
 kubeadm init --config=kubeadm-config.yml
 ```
 
-When the initialisation is finished, copy admin config to .kube
+With the initialization completed, copy admin config to .kube
 ```
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
