@@ -212,7 +212,7 @@ With the initialization completed, copy admin config to .kube
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-At this stage the master node is created but not ready. All the nodes have the taint <code>node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule</code> and waiting for being initialized by cloud-controller-manager. 
+At this stage, the control plane node is created but not ready. All the nodes have the taint <code>node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule</code> and waiting for being initialized by cloud-controller-manager. 
 ```
 # kubectl describe no master1
 Name:               master1
