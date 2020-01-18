@@ -399,7 +399,7 @@ If Kubernetes wants to attach a persistent volume to a pod, it can find out whic
 
 The integration with Cinder is provided by an external Cinder CSI plugin, as described in https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md
 
-We'll perform the following steps to install the Clinder CSI plugin.
+We'll perform the following steps to install the Cinder CSI plugin.
 Firstly, create a secret with CA certs for OpenStack's API endpoints. It is the same cert file as what we use in cloud provider above.
 ```
 kubectl create secret -n kube-system generic openstack-ca-cert --from-literal=ca.pem="$(cat /etc/kubernetes/ca.pem)" --dry-run -o yaml > openstack-ca-cert.yaml
