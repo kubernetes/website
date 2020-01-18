@@ -2,6 +2,7 @@
 title: Use Port Forwarding to Access Applications in a Cluster
 content_template: templates/task
 weight: 40
+min-kubernetes-server-version: v1.10
 ---
 
 {{% capture overview %}}
@@ -121,7 +122,8 @@ for database debugging.
 
 ## Forward a local port to a port on the Pod
 
-1.  `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to since Kubernetes v1.10.
+1.  `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
+
 
     ```shell
     # Change redis-master-765d459796-258hz to the name of the Pod
