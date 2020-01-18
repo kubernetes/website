@@ -11,7 +11,7 @@ This cluster will be running on OpenStack VMs so we'll create a few things in Op
 
 The security group will have the following rules to open ports for Kubernetes.
 
-**Master Node**
+**Control Plane Node**
 
 |Protocol  | Port Number | Description|
 |----------|-------------|------------|
