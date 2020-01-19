@@ -711,7 +711,7 @@ most up-to-date version of that branch.
     You'll be able to view your changes after you submit the pull request, as
     well.
     -->
-    您还可以选择使用 hugo 命令在本地暂存站点来测试您的更改。[本地查看更改](#view-your-changes-locally)。您还可以在提交 PR 后查看更改。
+    您还可以选择使用 hugo 命令在本地暂存站点来测试您的更改。参阅[本地查看更改](#本地查看更改)。您还可以在提交 PR 后查看更改。
 
 6.  <!--
     Before you can create a pull request which includes your local commit, you
