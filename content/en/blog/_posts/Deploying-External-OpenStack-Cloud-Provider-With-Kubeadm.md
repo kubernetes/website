@@ -46,8 +46,10 @@ The security group will have the following rules to open ports for Kubernetes.
 |TCP|9099|Calico felix (health check)|
 |UDP|8285|Flannel|
 |UDP|8472|Flannel|
-|TCP|6781-6784|Weave|
-|UDP|6783-6784|Weave|
+|TCP|6781-6784|Weave net|
+|UDP|6783-6784|Weave net|
+
+(CNI specific ports are only required to be opened when that particular CNI plugin is used. In this instruction we use Weave net, thus only those Weave net ports, TCP 6781-6784 and UDP 6783-6784, need to be opened in the security group.)
 
 The control plane needs at least 2 cores and 4GB RAM. After the VM is launched, verify its hostname and make sure it is the same as the node name in Nova. 
 If the hostname is not resolvable, add it to `/etc/hosts`.
@@ -233,7 +235,7 @@ Taints:             node-role.kubernetes.io/master:NoSchedule
                     node.kubernetes.io/not-ready:NoSchedule
 ......
 ```
-Now deploy openstack cloud controller manager into the cluster as per the instruction: https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-controller-manager-with-kubeadm.md 
+Now deploy openstack cloud controller manager into the cluster as per the [using controller manager with kubeadm](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-controller-manager-with-kubeadm.md) documentation.
 
 Create a secret with cloud-config for openstack cloud provider. 
 ```
@@ -409,7 +411,7 @@ If Kubernetes wants to attach a persistent volume to a pod, it can find out whic
 
 ### Deploy Cinder CSI
 
-The integration with Cinder is provided by an external Cinder CSI plugin, as described in [the Cinder CSI documentation](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+The integration with Cinder is provided by an external Cinder CSI plugin, as described in the [Cinder CSI](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md) documentation.
 
 We'll perform the following steps to install the Cinder CSI plugin.
 Firstly, create a secret with CA certs for OpenStack's API endpoints. It is the same cert file as what we use in cloud provider above.
