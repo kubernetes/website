@@ -47,7 +47,7 @@ The security group will have the following rules to open ports for Kubernetes.
 |TCP|6781-6784|Weave|
 |UDP|6783-6784|Weave|
 
-The master needs at least 2 cores and 4GB RAM. After the VM is launched, verify its hostname and make sure it is the same as the node name in Nova. 
+The control plane needs at least 2 cores and 4GB RAM. After the VM is launched, verify its hostname and make sure it is the same as the node name in Nova. 
 If the hostname is not resolvable, add it to /etc/hosts.
 
 For example, if the VM is called master1, and it has an internal IP 192.168.1.4. Add that to /etc/hosts and set hostname to master1.
