@@ -49,7 +49,7 @@ The security group will have the following rules to open ports for Kubernetes.
 |TCP|6781-6784|Weave net|
 |UDP|6783-6784|Weave net|
 
-(CNI specific ports are only required to be opened when that particular CNI plugin is used. In this instruction we use Weave net, thus only those Weave net ports, TCP 6781-6784 and UDP 6783-6784, need to be opened in the security group.)
+CNI specific ports are only required to be opened when that particular CNI plugin is used. In this instruction we use Weave net, thus only those Weave net ports, TCP 6781-6784 and UDP 6783-6784, need to be opened in the security group.
 
 The control plane needs at least 2 cores and 4GB RAM. After the VM is launched, verify its hostname and make sure it is the same as the node name in Nova. 
 If the hostname is not resolvable, add it to `/etc/hosts`.
