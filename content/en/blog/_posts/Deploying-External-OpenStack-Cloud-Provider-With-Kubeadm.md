@@ -185,7 +185,7 @@ Now we'll create cloud config, `/etc/kubernetes/cloud-config`, for OpenStack.
 Note that the tenant here is the one we created for all Kubernets VMs in the beginning.
 All VMs should be launched in this project/tenant.
 In addition you need to create a user in this tenant for Kubernetes to do queries.
-The ca-file is the CA root certitiface for OpenStack's API endpoint https://openstack.cloud:5000/v3
+The ca-file is the CA root certificate for OpenStack's API endpoint, for example `https://openstack.cloud:5000/v3`
 At the time of writing the cloud provider doesn't allow insecure connections (skip CA check).
 
 ```
