@@ -6,6 +6,8 @@ slug: Deploying-External-OpenStack-Cloud-Provider-with-Kubeadm
 ---
 This document describes how to install a single-master Kubernetes cluster v1.15 with kubeadm on CentOS, and then deploy an external OpenStack cloud provider and Cinder CSI plugin to use Cinder volumes as persistent volumes in Kubernetes.
 
+### Preparation in OpenStack
+
 This cluster will be running on OpenStack VMs so we'll create a few things in OpenStack for it.
 
 * A project/tenant for this kubernetes cluster
@@ -48,17 +50,19 @@ The security group will have the following rules to open ports for Kubernetes.
 |UDP|6783-6784|Weave|
 
 The control plane needs at least 2 cores and 4GB RAM. After the VM is launched, verify its hostname and make sure it is the same as the node name in Nova. 
-If the hostname is not resolvable, add it to /etc/hosts.
+If the hostname is not resolvable, add it to `/etc/hosts`.
 
-For example, if the VM is called master1, and it has an internal IP 192.168.1.4. Add that to /etc/hosts and set hostname to master1.
+For example, if the VM is called master1, and it has an internal IP 192.168.1.4. Add that to `/etc/hosts` and set hostname to master1.
 ```
 echo "192.168.1.4 master1" >> /etc/hosts
 
 hostnamectl set-hostname master1
 ```
+### Install Docker and Kubernetes
+
 Next, we'll follow official documents to install docker and Kubernetes using kubeadm.
 
-Install docker following the steps from the [Container Runtime Documentation.](/docs/setup/production-environment/container-runtimes/)
+Install docker following the steps from the [Container Runtime](/docs/setup/production-environment/container-runtimes/) Documentation.
 
 Note that it is best practice to use systemd as the cgroup driver for Kubernetes.
 If you use internal repository servers, add them to docker's config too.
@@ -107,7 +111,7 @@ systemctl restart docker
 systemctl enable docker
 ```
 
-Install kubeadm following the steps in https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+Install kubeadm following the steps from the [Installing Kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) documentation.
 
 ```
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -141,7 +145,7 @@ lsmod | grep br_netfilter
 modprobe br_netfilter
 ```
 
-The official document about how to create a single-master cluster can be found in https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+The official document about how to create a single-master cluster can be found from the [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) documentation.
 
 We'll largely follow that document but also add additional things for the cloud provider.
 To make things more clear, we'll use a kubeadm-config.yml for the master.
@@ -237,7 +241,7 @@ kubectl create secret -n kube-system generic cloud-config --from-literal=cloud.c
 kubectl apply -f cloud-config-secret.yaml 
 ```
 
-Get ca certs of OpenStack API endpoints and put it in /etc/kubernetes/ca.pem.
+Get ca certs of OpenStack API endpoints and put it in `/etc/kubernetes/ca.pem`.
 
 Create RBAC resources.
 ```
@@ -247,7 +251,7 @@ kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/rele
 
 We'll run OpenStack cloud controller manager as a DaemonSet rather than a pod.
 The manager will only run on the master, so if there are multiple masters, multiple pods will be run for high availability.
-Create the DaemonSet yaml, openstack-cloud-controller-manager-ds.yaml, and apply it.
+Create the DaemonSet yaml, `openstack-cloud-controller-manager-ds.yaml`, and apply it.
 
 ```
 ---
@@ -356,7 +360,7 @@ PodCIDR:                     10.224.0.0/24
 ProviderID:                  openstack:///548e3c46-2477-4ce2-968b-3de1314560a5
 
 ```
-Now install your favourite CNI and the master node will become ready.
+Now install your favourite CNI and the control plane node will become ready.
 
 For example, to install weave net, run this command
 ```
@@ -378,7 +382,7 @@ kubeadm token create --print-join-command
 
 ```
 
-Create kubeadm-config.yml for worker nodes with the above token and ca cert hash.
+Create `kubeadm-config.yml` for worker nodes with the above token and ca cert hash.
 ```
 apiVersion: kubeadm.k8s.io/v1beta2
 discovery:
@@ -403,6 +407,8 @@ At this stage we'll have a working Kubernetes cluster with an external OpenStack
 The provider tells Kubernetes about the mapping between Kubernetes nodes and OpenStack VMs.
 If Kubernetes wants to attach a persistent volume to a pod, it can find out which OpenStack VM the pod is running on from the mapping, and attach the underlying OpenStack volume to the VM accordingly.
 
+### Deploy Cinder CSI
+
 The integration with Cinder is provided by an external Cinder CSI plugin, as described in https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md
 
 We'll perform the following steps to install the Cinder CSI plugin.
@@ -419,7 +425,7 @@ kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/rele
 
 The Cinder CSI plugin includes a controller plugin and a node plugin.
 The controller communicates with Kubernetes APIs and Cinder APIs to create/attach/detach/delete Cinder volumes. The node plugin in-turn runs on each worker node to bind a storage device (attached volume) to a pod, and unbind it during deletion.
-Create cinder-csi-controllerplugin.yaml and apply it to create csi controller.
+Create `cinder-csi-controllerplugin.yaml` and apply it to create csi controller.
 ```
 kind: Service
 apiVersion: v1
@@ -534,7 +540,7 @@ spec:
 ```
 
 
-Create cinder-csi-nodeplugin.yaml and apply it to create csi node.
+Create `cinder-csi-nodeplugin.yaml` and apply it to create csi node.
 ```
 kind: DaemonSet
 apiVersion: apps/v1
@@ -745,3 +751,7 @@ If we go back to OpenStack, we can see the Cinder volume is mounted to the worke
 +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ```
+
+### Summary
+
+In this walk-through, we deployed a Kubernetes cluster on OpenStack VMs and integrated it with OpenStack using an external OpenStack cloud provider. Then on this Kubernetes cluster we deployed Cinder CSI plugin which can create Cinder volumes and expose them in Kubernetes as persistent volumes.
