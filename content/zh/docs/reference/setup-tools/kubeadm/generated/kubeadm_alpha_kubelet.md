@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -68,15 +68,4 @@ This command is not meant to be run on its own. See list of available subcommand
 
 
 
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
--->
-* [kubeadm alpha](kubeadm_alpha.md)	 - kubeadm 实验子命令
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - 用于 kubelet 配置的实用程序
 

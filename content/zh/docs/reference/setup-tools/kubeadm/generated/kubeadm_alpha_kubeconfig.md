@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -74,15 +74,5 @@ Alpha 免责声明：此命令当前为 alpha 功能。
 
 
 
-<!--
-SEE ALSO
--->
-查看其它
 
-<!--
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
-* [kubeadm alpha kubeconfig user](kubeadm_alpha_kubeconfig_user.md)	 - Output a kubeconfig file for an additional user
--->
-* [kubeadm alpha](kubeadm_alpha.md)	 - kubeadm 实验子命令
-* [kubeadm alpha kubeconfig user](kubeadm_alpha_kubeconfig_user.md)	 - 为其他用户输出 kubeconfig 文件
 

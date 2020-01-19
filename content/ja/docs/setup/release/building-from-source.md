@@ -7,7 +7,7 @@ card:
   title: リリースのビルド
 ---
 {{% capture overview %}}
-ソースコードからリリースをビルドすることもできますし、既にビルドされたリリースをダウンロードすることも可能です。Kubernetesを開発する予定が無いのであれば、[リリースノート](/ja/docs/setup/release/notes/)内にて既にビルドされたバージョンを使用することを推奨します。
+ソースコードからリリースをビルドすることもできますし、既にビルドされたリリースをダウンロードすることも可能です。Kubernetesを開発する予定が無いのであれば、[リリースノート](/docs/setup/release/notes/)内にて既にビルドされたバージョンを使用することを推奨します。
 
 Kubernetes のソースコードは[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)のリポジトリからダウンロードすることが可能です。
 {{% /capture %}}

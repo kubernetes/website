@@ -30,7 +30,7 @@ The upgrade workflow at high level is the following:
 - You need to have a kubeadm Kubernetes cluster running version 1.16.0 or later.
 - [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
 - The cluster should use a static control plane and etcd pods or external etcd.
-- Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md) carefully.
+- Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md) carefully.
 - Make sure to back up any important components, such as app-level state stored in a database.
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 
@@ -397,6 +397,19 @@ If `kubeadm upgrade` fails and does not roll back, for example because of an une
 This command is idempotent and eventually makes sure that the actual state is the desired state you declare.
 
 To recover from a bad state, you can also run `kubeadm upgrade apply --force` without changing the version that your cluster is running.
+
+During upgrade kubeadm writes the following backup folders under `/etc/kubernetes/tmp`:
+- `kubeadm-backup-etcd-<date>-<time>`
+- `kubeadm-backup-manifests-<date>-<time>`
+
+`kubeadm-backup-etcd` contains a backup of the local etcd member data for this control-plane Node.
+In case of an etcd upgrade failure and if the automatic rollback does not work, the contents of this folder
+can be manually restored in `/var/lib/etcd`. In case external etcd is used this backup folder will be empty.
+
+`kubeadm-backup-manifests` contains a backup of the static Pod manifest files for this control-plane Node.
+In case of a upgrade failure and if the automatic rollback does not work, the contents of this folder can be
+manually restored in `/etc/kubernetes/manifests`. If for some reason there is no difference between a pre-upgrade
+and post-upgrade manifest file for a certain component, a backup file for it will not be written.
 
 ## How it works
 
