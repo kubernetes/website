@@ -1,4 +1,4 @@
 ---
-title: "Controller"
+title: "コントローラー"
 weight: 20
 ---
