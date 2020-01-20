@@ -1,5 +1,4 @@
 ---
-title: "Controllers"
+title: "Controller"
 weight: 20
 ---
-

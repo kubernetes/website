@@ -1,4 +1,4 @@
 ---
-title: Installing Kubernetes with deployment tools
+title: Kubernetewをデプロイツールでインストールする
 weight: 30
 ---
