@@ -140,7 +140,7 @@ and use a controller to handle events.
 
 ## API server aggregation
 
-Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CRDs](#customresourcedefinitions).
+Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also generically handle custom resources through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
