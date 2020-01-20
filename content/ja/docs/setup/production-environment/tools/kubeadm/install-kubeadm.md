@@ -11,7 +11,7 @@ card:
 {{% capture overview %}}
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
-このページでは`kubeadm`コマンドをインストールする方法を示します。このインストールプロセスの実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
+このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
 {{% /capture %}}
 
@@ -41,11 +41,11 @@ card:
 * ネットワークインターフェースのMACアドレスは`ip link`もしくは`ifconfig -a`コマンドで取得できます。
 * product_uuidは`sudo cat /sys/class/dmi/id/product_uuid`コマンドで確認できます。
 
-ハードウェアデバイスではユニークなアドレスが割り当てられる可能性が非常に高いですが、VMでは同じになることがあります。Kubernetesはこれらの値を使用して、クラスター内のノードを一意に識別します。これらの値が各ノードに固有ではない場合、インストールプロセスが[失敗](https://github.com/kubernetes/kubeadm/issues/31)することもあります。
+ハードウェアデバイスではユニークなアドレスが割り当てられる可能性が非常に高いですが、VMでは同じになることがあります。Kubernetesはこれらの値を使用して、クラスター内のノードを一意に識別します。これらの値が各ノードに固有ではない場合、インストール処理が[失敗](https://github.com/kubernetes/kubeadm/issues/31)することもあります。
 
 ## ネットワークアダプタの確認
 
-複数のネットワークアダプターがあり、Kubernetesコンポーネントにデフォルトで到達できない場合、IPルートを追加して、Kubernetesクラスターアドレスが適切なアダプターを経由するように設定することをお勧めします。
+複数のネットワークアダプターがあり、Kubernetesコンポーネントにデフォルトで到達できない場合、IPルートを追加して、Kubernetesクラスターのアドレスが適切なアダプターを経由するように設定することをお勧めします。
 
 ## iptablesがnftablesバックエンドを使用しないようにする
 
