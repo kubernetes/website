@@ -20,7 +20,7 @@ Meskipun setiap `Pod` memiliki alamat IP-nya masing-masing, kamu tidak dapat men
 yang diberikan pada _pod-pod_ tersebut, karena alamat IP yang diberikan tidak stabil.
 Hal ini kemudian menimbulkan pertanyaan baru: apabila sebuah sekumpulan `Pod` (yang selanjutnya kita sebut _backend_)
 menyediakan _service_ bagi sebuah sekumpulan `Pod` lain (yang selanjutnya kita sebut _frontend_) di dalam
-kluster Kubernetes, bagaimana cara _frontend_ menemukan _backend_ mana yang digunakan?
+klaster Kubernetes, bagaimana cara _frontend_ menemukan _backend_ mana yang digunakan?
 
 Inilah alasan kenapa `Service` ada.
 
@@ -95,9 +95,9 @@ mereka juga melakukan abstraksi bagi _backend_ lainnya. Misalnya saja:
   * Kamu ingin memiliki sebuah basis data eksternal di _environment_ _production_ tapi pada tahap _test_,
     kamu ingin menggunakan basis datamu sendiri.
   * Kamu ingin merujuk _service_ kamu pada _service_ lainnya yang berada pada
-    [_Namespace_](/docs/concepts/overview/working-with-objects/namespaces/) yang berbeda atau bahkan kluster yang berbeda.
+    [_Namespace_](/docs/concepts/overview/working-with-objects/namespaces/) yang berbeda atau bahkan klaster yang berbeda.
   * Kamu melakukan migrasi _workloads_ ke Kubernetes dan beberapa _backend_ yang kamu miliki masih
-    berada di luar kluster Kubernetes.
+    berada di luar klaster Kubernetes.
 
 Berdasarkan skenario-skenario di atas, kamu dapat membuat sebuah `Service` tanpa _selector_:
 
@@ -145,7 +145,7 @@ informasi lebih lanjut silahkan baca bagian [ExternalName](#externalname).
 
 ## IP Virtual dan _proxy_ `Service`
 
-Setiap *node* di kluster Kubernetes menjalankan `kube-proxy`. `kube-proxy`
+Setiap *node* di klaster Kubernetes menjalankan `kube-proxy`. `kube-proxy`
 bertanggung jawab terhadap implementasi IP virtual bagi _Services_ dengan tipe
 selain [`ExternalName`](#externalname).
 
@@ -322,7 +322,7 @@ Meskipun begitu, DNS tidak memiliki keterbatasan ini.
 Salah satu [_add-on_](/docs/concepts/cluster-administration/addons/) opsional
 (meskipun sangat dianjurkan) adalah server DNS. Server DNS bertugas untuk mengamati apakah
 terdapat objek `Service` baru yang dibuat dan kemudian bertugas menyediakan DNS baru untuk
-_Service_ tersebut. Jika DNS ini diaktifkan untuk seluruh kluster, maka semua `Pod` akan secara otomatis
+_Service_ tersebut. Jika DNS ini diaktifkan untuk seluruh klaster, maka semua `Pod` akan secara otomatis
 dapat melakukan resolusi DNS.
 
 Sebagai contoh, apabila kamu memiliki sebuah `Service` dengan nama `"my-service"` pada _Namespace_
@@ -376,7 +376,7 @@ sistem DNS tetap melakukan konfigurasi salah satu dari:
 
 Untuk beberapa bagian dari aplikasi yang kamu miliki (misalnya saja, _frontend_),
 bisa saja kamu memiliki kebutuhan untuk mengekspos `Service` yang kamu miliki
-ke alamat IP eksternal (di luar kluster Kubernetes).
+ke alamat IP eksternal (di luar klaster Kubernetes).
 
 `ServiceTypes` yang ada pada Kubernetes memungkinkan kamu untuk menentukan
 jenis `Service` apakah yang kamu butuhkan. Secara _default_, jenis `Service`
@@ -384,13 +384,13 @@ yang diberikan adalah `ClusterIP`.
 
 _Value_ dan perilaku dari tipe `Service` dijelaskan sebagai berikut:
 
-   * `ClusterIP`: Mengekspos `Service` ke _range_ alamat IP di dalam kluster. Apabila kamu memilih _value_ ini
+   * `ClusterIP`: Mengekspos `Service` ke _range_ alamat IP di dalam klaster. Apabila kamu memilih _value_ ini
      `Service` yang kamu miliki hanya dapat diakses secara internal. tipe ini adalah
      _default_ _value_ dari _ServiceType_.
    * [`NodePort`](#nodeport): Mengekspos `Service` pada setiap IP *node* pada _port_ statis
      atau _port_ yang sama. Sebuah `Service` `ClusterIP`, yang mana `Service` `NodePort` akan di-_route_
      , dibuat secara otomatis. Kamu dapat mengakses `Service` dengan tipe ini,
-     dari luar kluster melalui `<NodeIP>:<NodePort>`.
+     dari luar klaster melalui `<NodeIP>:<NodePort>`.
    * [`LoadBalancer`](#loadbalancer): Mengekspos `Service` secara eksternal dengan menggunakan `LoadBalancer`
      yang disediakan oleh penyedia layanan _cloud_. `Service` dengan tipe `NodePort` dan `ClusterIP`,
      dimana trafik akan di-_route_, akan dibuat secara otomatis.
@@ -463,12 +463,12 @@ tetapi penyedia layanan _cloud_ tidak mendukung hal ini, maka _field_ yang ada a
 
 **Catatan Khusus untuk Azure**: Untuk spesifikasi `loadBalancerIP` publik yang didefinisikan oleh pengguna,
 sebuah alamat IP statis publik akan disediakan terlebih dahulu, dan alamat IP tersebut harus berada di
-_resource group_ dari _resource_ yang secara otomatis dibuat oleh kluster. Misalnya saja, `MC_myResourceGroup_myAKSCluster_eastus`.
+_resource group_ dari _resource_ yang secara otomatis dibuat oleh klaster. Misalnya saja, `MC_myResourceGroup_myAKSCluster_eastus`.
 Berikan spesifikasi alamat IP sebagai `loadBalancerIP`. Pastikan kamu sudah melakukan _update_ pada
 _securityGroupName_ pada _file_ konfigurasi penyedia layanan _cloud_.
 Untuk informasi lebih lanjut mengenai _permission_ untuk `CreatingLoadBalancerFailed` kamu dapat membaca _troubleshooting_ untuk
 [Penggunaan alamat IP statis pada _load balancer_ Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/static-ip) atau
-[_CreatingLoadBalancerFailed_ pada kluster AKS dengan _advanced networking_](https://github.com/Azure/AKS/issues/357).
+[_CreatingLoadBalancerFailed_ pada klaster AKS dengan _advanced networking_](https://github.com/Azure/AKS/issues/357).
 
 {{< note >}}
 Dukungan untuk SCTP _load balancer_ dari penyedia layanan _cloud_ bergantung pada
@@ -547,7 +547,7 @@ metadata:
 
 
 #### Dukungan untuk SSL di AWS
-Dukungan parsial untuk SSL bagi kluster yang dijalankan di AWS mulai diterapkan,
+Dukungan parsial untuk SSL bagi klaster yang dijalankan di AWS mulai diterapkan,
 mulai versi 1.3 terdapat 3 anotasi yang dapat ditambahkan pada `Service` dengan tipe
 `LoadBalancer`:
 
@@ -616,7 +616,7 @@ _Policy_ ini kemudian dapat dispesifikasikan menggunakan anotasi
 #### Protokol PROXY pada AWS
 
 Untuk mengaktifkan dukungan [protokol PROXY](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
-untuk kluster yang dijalankan di AWS, kamu dapat menggunakan anotasi di bawah ini:
+untuk klaster yang dijalankan di AWS, kamu dapat menggunakan anotasi di bawah ini:
 
 ```yaml
     metadata:
@@ -806,11 +806,11 @@ Untuk melakukan _hardcode_ alamat IP, kamu dapat menggunakan _headless_ `Service
 {{< /note >}}
 
 Ketika melakukan pencarian _host_ `my-service.prod.svc.cluster.local`,
-servis DNS kluster akan mengembalikan _record_ `CNAME` dengan _value_ `my.database.example.com`.
+servis DNS klaster akan mengembalikan _record_ `CNAME` dengan _value_ `my.database.example.com`.
 Mekanisme akses pada `my-service` bekerja dengan cara yang sama dengan
 `Service` pada umumnya, perbedaan yang krusial untuk hal ini adalah mekanisme _redirection_
 terjadi pada tingkatan DNS dan bukan melalui _proxy forward_. Apabila kamu berniat memindahkan basis data
-yang kamu pakai ke dalam kluster, kamu hanya perlu mengganti instans basis data kamu dan menjalankannya
+yang kamu pakai ke dalam klaster, kamu hanya perlu mengganti instans basis data kamu dan menjalankannya
 di dalam `Pod`, menambahkan _selector_ atau _endpoint_ yang sesuai, serta mengupah _type_ dari
 _Service_ yang kamu gunakan.
 
@@ -821,11 +821,11 @@ Bagian ini berasal dari tulisan [Tips Kubernetes - Bagian
 
 ### IP Eksternal
 
-Jika terdapat sebuah alamat IP eksternal yang melakukan mekanisme _route_ ke satu atau lebih _node_ yang ada di kluster, `Service` Kubernetes dapat diekspos
-dengan menggunakan `externalIP`. Trafik yang diarahkan ke kluster dengan IP eksternal
+Jika terdapat sebuah alamat IP eksternal yang melakukan mekanisme _route_ ke satu atau lebih _node_ yang ada di klaster, `Service` Kubernetes dapat diekspos
+dengan menggunakan `externalIP`. Trafik yang diarahkan ke klaster dengan IP eksternal
 (sebagai destinasi IP), pada _port_ `Service` akan di-_route_ ke salah satu _endpoint_ `Service`.
 _Value_ dari `externalIP` tidak diatur oleh Kubernetes dan merupakan tanggung jawab
-dari administrator kluster.
+dari administrator klaster.
 
 Pada _ServiceSpec_, kamu dapat memberikan spesifikasi `externalIP` dan `ServiceTypes`.
 Pada contoh di bawah ini. `"my-service"` dapat diakses oleh klien pada "`80.11.12.10:80`" (`externalIP:port`).
@@ -850,13 +850,13 @@ spec:
 ## Kekurangan
 
 Penggunaan _proxy_ _userspace_ untuk VIP dapat digunakan untuk skala kecil hingga menengah,
-meski begitu hal ini tidak _scalable_ untuk kluster yang sangat besar dan memiliki ribuan `Service`.
+meski begitu hal ini tidak _scalable_ untuk klaster yang sangat besar dan memiliki ribuan `Service`.
 Perhatikan [Desain proposal orisinil untuk _portal_](http://issue.k8s.io/1107) untuk informasi
 lebih lanjut.
 
 Penggunaan _proxy_ _userspace_ menghilangkan _source-IP_ dari _packet_ yang mengakses
 sebuah `Service`. Hal ini membuat mekanisme _firewall_ menjadi sulit untuk diterapkan.
-_Proxy_ `iptables` tidak menghilangkan _source IP_ yang berasal dari dalam kluster,
+_Proxy_ `iptables` tidak menghilangkan _source IP_ yang berasal dari dalam klaster,
 meski begitu, hal ini masih berimbas pada klien yang berasal dari `Service` dengan tipe
 _load-balancer_ atau _node-port_.
 
@@ -924,7 +924,7 @@ perbedaan cara kerja satu sama lainnya.
 Sebagai contoh, anggaplah kita memiliki aplikasi _image processing_ seperti yang sudah
 disebutkan di atas. Ketika `Service` _backend_ dibuat, _master_ Kubernetes akan mengalokasikan
 sebuah alamat IP virtual, misalnya 10.0.0.1. Dengan asumsi _port_ dari `Service` tersebut adalah _1234_,
-maka `Service` tersebut akan diamati oleh semua _instance_ `kube-proxy` yang ada di kluster.
+maka `Service` tersebut akan diamati oleh semua _instance_ `kube-proxy` yang ada di klaster.
 Ketika sebuah _proxy_ mendapati sebuah `Service` baru, _proxy_ tersebut akan membuka sebuah _port_
 _acak_, menyediakan `iptables` yang mengarahkan VIP pada _port_ yang baru saja dibuat, dan mulai
 koneksi pada _port_ tersebut.
@@ -943,7 +943,7 @@ tanpa harus mengetahui `Pod` mana yang sebenarnya diakses.
 Kembali, bayangkan apabila kita memiliki aplikasi _image processing_ seperti yang sudah
 disebutkan di atas. Ketika `Service` _backend_ dibuat, _master_ Kubernetes akan mengalokasikan
 sebuah alamat IP virtual, misalnya 10.0.0.1. Dengan asumsi _port_ dari `Service` tersebut adalah _1234_,
-maka `Service` tersebut akan diamati oleh semua _instance_ `kube-proxy` yang ada di kluster.
+maka `Service` tersebut akan diamati oleh semua _instance_ `kube-proxy` yang ada di klaster.
 Ketika sebuah _proxy_ mendapati sebuah `Service` baru, _proxy_ tersebut akan melakukan instalasi
 serangkaian _rules_ `iptables` yang akan melakukan _redirect_ VIP ke _rules_ tiap `Service`. _Rules_
 untuk tiap `Service` ini terkait dengan _rules_ tiap `Endpoints` yang mengarahkan (destinasi NAT)
@@ -960,7 +960,7 @@ atau _load-balancer_, meskipun pada dua kasus di atas klien IP tidak akan mengal
 
 #### _Ipvs_
 
-Operasi `iptables` berlangsung secara lambat pada kluster dengan skala besar (lebih dari 10.000 `Service`).
+Operasi `iptables` berlangsung secara lambat pada klaster dengan skala besar (lebih dari 10.000 `Service`).
 _IPVS_ didesain untuk mekanisme _load balance_ dan berbasis pada _hash tables_ yang berada di dalam _kernel_.
 Dengan demikian kita dapat mendapatkan performa yang konsisten pada jumlah `Service` yang cukup besar dengan
 menggunakan `kube-proxy` berbasis _ipvs_. Sementara itu, `kube-proxy` berbasis _ipvs_ memiliki algoritma
@@ -1025,7 +1025,7 @@ yang kemudian diikuti data dari klien.
 
 Kubernetes memberikan dukungan bagi SCTP sebagai _value_ dari _definition_ yang ada pada
 _Service_, `Endpoints`, `NetworkPolicy` dan `Pod` sebagai fitur _alpha_. Untuk mengaktifkan fitur ini,
-administrator kluster harus mengaktifkan _feature gate_ _SCTPSupport_ pada _apiserver_, contohnya
+administrator klaster harus mengaktifkan _feature gate_ _SCTPSupport_ pada _apiserver_, contohnya
 `“--feature-gates=SCTPSupport=true,...”`. Ketika _fature gate_ ini diaktifkan, pengguna dapat
 memberikan _value_ SCTP pada _field_ _protocol_ `Service`, `Endpoints`, `NetworkPolicy` dan `Pod`.
 Kubernetes kemudian akan melakukan pengaturan agar jaringan yang digunakan agar jaringan tersebut menggunakan SCTP,

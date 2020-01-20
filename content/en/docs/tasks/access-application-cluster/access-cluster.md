@@ -72,8 +72,15 @@ The output is similar to this:
 
 ```json
 {
+  "kind": "APIVersions",
   "versions": [
     "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
   ]
 }
 ```

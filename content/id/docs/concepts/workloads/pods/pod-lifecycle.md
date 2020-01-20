@@ -246,7 +246,7 @@ Ketiga tipe pengontrol ini memiliki sebuah PodTemplate. Direkomdasikan untuk mem
 pengontrol yang sesuai dan membiarkan ini membuat Pod, daripada membuat Pod sendiri secara langsung.
 Karena Pod itu sendiri tidak tahan terhadap gagalnya suatu mesin, namun pengontrol tahan.
 
-Jika node mati atau sambungannya terputus dari kluster, Kubernetes mengatur
+Jika node mati atau sambungannya terputus dari klaster, Kubernetes mengatur
 `phase` dari semua Pod pada node yang mati untuk menjadi Failed.
 
 ## Contoh

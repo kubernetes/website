@@ -1,4 +1,7 @@
 ---
+reviewers:
+- piosz
+- x13n
 title: 日志架构
 content_template: templates/concept
 weight: 60
@@ -9,7 +12,6 @@ weight: 60
 <!--
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 -->
-
 应用和系统日志可以让您了解集群内部的运行状况。日志对调试问题和监控集群活动非常有用。大部分现代化应用都有某种日志记录机制；同样地，大多数容器引擎也被设计成支持某种日志记录机制。针对容器化应用，最简单且受欢迎的日志记录方式就是写入标准输出和标准错误流。
 
 <!--
@@ -18,7 +20,6 @@ However, the native functionality provided by a container engine or runtime is u
 但是，由容器引擎或 runtime 提供的原生功能通常不足以满足完整的日志记录方案。例如，如果发生容器崩溃、pod 被逐出或节点宕机等情况，您仍然想访问到应用日志。因此，日志应该具有独立的存储和生命周期，与节点、pod 或容器的生命周期相独立。这个概念叫 _集群级的日志_ 。集群级日志方案需要一个独立的后台来存储、分析和查询日志。Kubernetes 没有为日志数据提供原生存储方案，但是您可以集成许多现有的日志解决方案到 Kubernetes 集群中。
 
 {{% /capture %}}
-
 
 {{% capture body %}}
 
@@ -58,6 +59,7 @@ kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 The output is:
 -->
 输出结果为：
+
 ```
 pod/counter created
 ```
@@ -74,6 +76,7 @@ kubectl logs counter
 The output is:
 -->
 输出结果为：
+
 ```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
@@ -384,7 +387,7 @@ However, it's recommended to use `stdout` and `stderr` directly and leave rotati
 and retention policies to the kubelet.
 -->
 应用本身如果不具备轮转日志文件的功能，可以通过 sidecar 容器实现。
-该方式的 [例子](https://github.com/samsung-cnct/logrotate) 是运行一个定期轮转日志的容器。
+该方式的一个例子是运行一个定期轮转日志的容器。
 然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略交给 kubelet。
 
 <!--

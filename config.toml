@@ -25,8 +25,7 @@ enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
 # Hindi is disabled because it's currently in development.
-# Italian is disabled until it meets minimum standards for quality.
-disableLanguages = ["hi", "it", "no"]
+disableLanguages = ["hi", "no"]
 
 [blackfriday]
 hrefTargetBlank = true
@@ -141,7 +140,7 @@ weight = 1
 
 [languages.zh]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
 contentDir = "content/zh"
@@ -152,7 +151,7 @@ language_alternatives = ["en"]
 
 [languages.ko]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "운영 수준의 컨테이너 오케스트레이션"
 languageName = "한국어 Korean"
 weight = 3
 contentDir = "content/ko"
@@ -187,7 +186,7 @@ language_alternatives = ["en"]
 [languages.it]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Italian"
+languageName = "Italiano"
 weight = 6
 contentDir = "content/it"
 
@@ -210,7 +209,7 @@ language_alternatives = ["en"]
 
 [languages.de]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Produktionsreife Container-Orchestrierung"
 languageName ="Deutsch"
 weight = 8
 contentDir = "content/de"
@@ -246,7 +245,7 @@ language_alternatives = ["en"]
 
 [languages.id]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
 weight = 10
 contentDir = "content/id"
@@ -269,14 +268,14 @@ language_alternatives = ["en"]
 
 [languages.vi]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName = "Vietnamese"
+description = "Giải pháp điều phối container trong môi trường production"
+languageName = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 12
 
 [languages.ru]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Первоклассная оркестрация контейнеров"
 languageName = "Русский"
 weight = 12
 contentDir = "content/ru"

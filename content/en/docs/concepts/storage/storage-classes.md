@@ -225,6 +225,10 @@ class. Different parameters may be accepted depending on the `provisioner`. For
 `iopsPerGB` are specific to EBS. When a parameter is omitted, some default is
 used.
 
+There can be at most 512 parameters defined for a StorageClass.
+The total length of the parameters object including its keys and values cannot
+exceed 256 KiB.
+
 ### AWS EBS
 
 ```yaml

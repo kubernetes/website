@@ -5,13 +5,13 @@ weight: 30
 ---
 
 {{% capture overview %}}
-Konsep _Cloud Controller Manager_/CCM (jangan tertukar dengan program biner kube-controller-manager) awalnya dibuat untuk memungkinkan kode vendor _cloud_ spesifik dan kode inti Kubernetes untuk berkembang secara independen satu sama lainnya. CCM berjalan bersama dengan komponen  Master lainnya seperti Kubernetes Controller Manager, API Server, dan Scheduler. CCM juga dapat dijalankan sebagai Kubernetes Addon (tambahan fungsi terhadap Kubernetes), yang akan berjalan di atas kluster Kubernetes.
+Konsep _Cloud Controller Manager_/CCM (jangan tertukar dengan program biner kube-controller-manager) awalnya dibuat untuk memungkinkan kode vendor _cloud_ spesifik dan kode inti Kubernetes untuk berkembang secara independen satu sama lainnya. CCM berjalan bersama dengan komponen  Master lainnya seperti Kubernetes Controller Manager, API Server, dan Scheduler. CCM juga dapat dijalankan sebagai Kubernetes Addon (tambahan fungsi terhadap Kubernetes), yang akan berjalan di atas klaster Kubernetes.
 
 Desain CCM didasarkan pada mekanisme _plugin_ yang memungkinkan penyedia layanan _cloud_ untuk berintegrasi dengan Kubernetes dengan mudah dengan menggunakan _plugin_. Sudah ada rencana untuk pengenalan penyedia layanan _cloud_ baru pada Kubernetes, dan memindahkan penyedia layanan _cloud_ yang sudah ada dari model yang lama ke model CCM.
 
 Dokumen ini mendiskusikan konsep di balik CCM dan mendetail fungsi-fungsinya.
 
-Berikut adalah arsitektur sebuah kluster Kubernetes tanpa CCM:
+Berikut adalah arsitektur sebuah klaster Kubernetes tanpa CCM:
 
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
 
@@ -69,20 +69,20 @@ Kebanyakan fungsi CCM diturunkan dari KCM. Seperti yang telah disebutkan pada ba
 
 #### Node Controller
 
-Node Controller bertugas untuk menyiapkan sebuah node dengan cara mengambil informasi node-node yang berjalan di dalam kluster dari penyedia layanan _cloud_. Node Controller melakukan fungsi-fungsi berikut:
+Node Controller bertugas untuk menyiapkan sebuah node dengan cara mengambil informasi node-node yang berjalan di dalam klaster dari penyedia layanan _cloud_. Node Controller melakukan fungsi-fungsi berikut:
 
 1. Menyiapkan sebuah node dengan memberi label _zone_/_region_ yang spesifik pada _cloud_.
 2. Menyiapkan sebuah node dengan informasi _instance_ yang spesifik _cloud_ , misalnya tipe dan ukurannya.
 3. Mendapatkan alamat jaringan dan _hostname_ milik node tersebut.
-4. Dalam hal sebuah node menjadi tidak responsif, memeriksa _cloud_ untuk melihat apakah node tersebut telah dihapus dari _cloud_. Juga, menghapus objek Node tersebut dari kluster Kubernetes, jika node tersebut telah dihapus dari _cloud_.
+4. Dalam hal sebuah node menjadi tidak responsif, memeriksa _cloud_ untuk melihat apakah node tersebut telah dihapus dari _cloud_. Juga, menghapus objek Node tersebut dari klaster Kubernetes, jika node tersebut telah dihapus dari _cloud_.
 
 #### Route Controller
 
-Route Controller bertugas mengkonfigurasi rute jaringan di dalam _cloud_ secara sesuai agar Container pada node-node yang berbeda di dalam kluster Kubernetes dapat berkomunikasi satu sama lain. Route Controller hanya berlaku untuk kluster yang berjalan pada Google Compute Engine (GCE) di penyedia layanan _cloud_ GCP.
+Route Controller bertugas mengkonfigurasi rute jaringan di dalam _cloud_ secara sesuai agar Container pada node-node yang berbeda di dalam klaster Kubernetes dapat berkomunikasi satu sama lain. Route Controller hanya berlaku untuk klaster yang berjalan pada Google Compute Engine (GCE) di penyedia layanan _cloud_ GCP.
 
 #### Service Controller
 
-Service Controller bertugas memantau terjadinya operasi `create`, `update`, dan `delete` pada Service. Berdasarkan keadaan terkini Service-service pada kluster Kubernetes, Service Controller mengkonfigurasi _load balancer_ spesifik _cloud_ (seperti ELB, Google LB, atau Oracle Cloud Infrastructure LB) agar sesuai dengan keadaan Service-service pada kluster Kubernetes. Sebagai tambahan, Service Controller juga memastikan bahwa _service backend_ (target dari _load balancer_ yang bersangkutan) dari _load balancer cloud_ tersebut berada dalam kondisi terkini.
+Service Controller bertugas memantau terjadinya operasi `create`, `update`, dan `delete` pada Service. Berdasarkan keadaan terkini Service-service pada klaster Kubernetes, Service Controller mengkonfigurasi _load balancer_ spesifik _cloud_ (seperti ELB, Google LB, atau Oracle Cloud Infrastructure LB) agar sesuai dengan keadaan Service-service pada klaster Kubernetes. Sebagai tambahan, Service Controller juga memastikan bahwa _service backend_ (target dari _load balancer_ yang bersangkutan) dari _load balancer cloud_ tersebut berada dalam kondisi terkini.
 
 ### 2. Kubelet
 
@@ -230,7 +230,7 @@ Penyedia layanan cloud berikut telah mengimplementasikan CCM:
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 
-## Administrasi Kluster
+## Administrasi Klaster
 
 Petunjuk lengkap untuk mengkonfigurasi dan menjalankan CCM disediakan [di sini](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 

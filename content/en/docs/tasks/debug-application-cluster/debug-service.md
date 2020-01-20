@@ -611,7 +611,7 @@ for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; don
 ```
 
 * If the effective hairpin mode is `promiscuous-bridge`, ensure `Kubelet`
-has the permission to manipulate linux bridge on node. If cbr0` bridge is
+has the permission to manipulate linux bridge on node. If `cbr0` bridge is
 used and configured properly, you should see:
 
 ```shell

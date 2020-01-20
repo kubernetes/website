@@ -86,7 +86,7 @@ kubectl config unset users.foo                       # delete user foo
 
 ## Creating Objects
 
-Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
+Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
@@ -161,7 +161,6 @@ kubectl get services --sort-by=.metadata.name
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # List PersistentVolumes in test namespace sorted by capacity
-
 kubectl get pv -n test --sort-by=.spec.capacity.storage
 
 # Get the version label of all pods with label app=cassandra
@@ -195,6 +194,9 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 
 # List Events sorted by timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
+kubectl diff -f ./my-manifest.yaml
 ```
 
 ## Updating Resources
@@ -207,6 +209,7 @@ kubectl rollout history deployment/frontend                      # Check the his
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
 
 # deprecated starting version 1.11
@@ -339,7 +342,7 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 
 ### Formatting output
 
-To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+To output details to your terminal window in a specific format, add the `-o` (or `--output`) flag to a supported `kubectl` command.
 
 Output format | Description
 --------------| -----------

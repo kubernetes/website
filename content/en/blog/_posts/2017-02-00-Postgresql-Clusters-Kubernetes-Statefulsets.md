@@ -12,7 +12,7 @@ In an earlier [post](https://kubernetes.io/blog/2016/09/creating-postgresql-clus
 
 **Step 1** - Create Kubernetes Environment  
 
-StatefulSets is a new feature implemented in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) (prior versions it was known as PetSets). As a result, running this example will require an environment based on Kubernetes 1.5.0 or above.    
+StatefulSets is a new feature implemented in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) (prior versions it was known as PetSets). As a result, running this example will require an environment based on Kubernetes 1.5.0 or above.
 
 The example in this blog deploys on Centos7 using [kubeadm](/docs/admin/kubeadm/). Some instructions on what kubeadm provides and how to deploy a Kubernetes cluster is located [here](http://linoxide.com/containers/setup-kubernetes-kubeadm-centos).  
 

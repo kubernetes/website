@@ -531,8 +531,8 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
     This was implemented in Kubernetes 1.15, and the pause infrastructure container `mcr.microsoft.com/k8s/core/pause:1.2.0`. Be sure to use these versions or newer ones.
     If you would like to build your own pause infrastructure container, be sure to include [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)
 
-1. My Kubernetes installation is failing because my Windows Server node is behind a proxy 
-  
+1. My Kubernetes installation is failing because my Windows Server node is behind a proxy
+
     If you are behind a proxy, the following PowerShell environment variables must be defined:
     ```PowerShell
     [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
@@ -540,9 +540,9 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
     ```
 
 1. What is a `pause` container?
-  
-    In a Kubernetes Pod, an infrastructure or "pause" container is first created to host the container endpoint. Containers that belong to the same pod, including infrastructure and worker containers, share a common network namespace and endpoint (same IP and port space). Pause containers are needed to accomodate worker containers crashing or restarting without losing any of the networking configuration.
-    
+
+    In a Kubernetes Pod, an infrastructure or "pause" container is first created to host the container endpoint. Containers that belong to the same pod, including infrastructure and worker containers, share a common network namespace and endpoint (same IP and port space). Pause containers are needed to accommodate worker containers crashing or restarting without losing any of the networking configuration.
+
     The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
 
 ### Further investigation

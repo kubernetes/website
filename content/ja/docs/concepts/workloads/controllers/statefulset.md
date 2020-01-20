@@ -44,10 +44,6 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 
 下記の例は、StatefulSetのコンポーネントのデモンストレーションとなります。
 
-* nginxという名前のHeadlessServiceは、ネットワークドメインをコントロールするために使われます。
-* webという名前のStatefulSetは、specで3つのnginxコンテナのレプリカを持ち、そのコンテナはそれぞれ別のPodで稼働するように設定されています。
-* volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
-
 ```yaml
 apiVersion: v1
 kind: Service
@@ -98,6 +94,12 @@ spec:
         requests:
           storage: 1Gi
 ```
+
+上記の例では、
+
+* nginxという名前のHeadlessServiceは、ネットワークドメインをコントロールするために使われます。
+* webという名前のStatefulSetは、specで3つのnginxコンテナのレプリカを持ち、そのコンテナはそれぞれ別のPodで稼働するように設定されています。
+* volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
 
 ## Podセレクター
 ユーザーは、StatefulSetの`.spec.template.metadata.labels`のラベルと一致させるため、StatefulSetの`.spec.selector`フィールドをセットしなくてはなりません。Kubernetes1.8以前では、`.spec.selector`フィールドは省略された場合デフォルト値になります。Kubernetes1.8とそれ以降のバージョンでは、ラベルに一致するPodセレクターの指定がない場合はStatefulSetの作成時にバリデーションエラーになります。

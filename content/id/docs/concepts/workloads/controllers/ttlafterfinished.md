@@ -28,7 +28,7 @@ Peringatan Fitur Alpha: fitur ini tergolong datam fitur alpha dan dapat diaktifk
 
 ## Pengendali TTL
 
-Pengendali TTL untuk saat ini hanya mendukung Job. Sebuah operator kluster
+Pengendali TTL untuk saat ini hanya mendukung Job. Sebuah operator klaster
 dapat menggunakan fitur ini untuk membersihkan Job yang telah dieksekusi (baik
 `Complete` atau `Failed`) secara otomatis dengan menentukan _field_
 `.spec.ttlSecondsAfterFinished` pada Job, seperti yang tertera di
@@ -49,7 +49,7 @@ Waktu TTL dalam detik dapat diatur kapan pun. Terdapat beberapa contoh untuk men
 * Gunakan sebuah
   [mengubah (_mutating_) _admission)](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
   untuk mengaktifkan _field_ ini secara dinamis pada saat pembuatan sumber daya.
-  Administrator kluster dapat menggunakan hal ini untuk menjamin kebijakan (_policy_) TTL pada
+  Administrator klaster dapat menggunakan hal ini untuk menjamin kebijakan (_policy_) TTL pada
   sumber daya yang telah selesai digunakan.
 * Gunakan sebuah
   [mengubah (_mutating_) _admission](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
@@ -70,7 +70,7 @@ menjamin Job tersebut akan tetap ada, meskipun nilai TTL berhasil diubah.
 
 Karena pengendali TTL menggunakan cap waktu (_timestamp_) yang disimpan di sumber daya
 Kubernetes untuk menentukan apakah TTL sudah habis atau belum, fitur ini tidak sensitif
-terhadap _time skew_ yang ada pada kluster dan bisa saja menghapus objek pada waktu yang salah
+terhadap _time skew_ yang ada pada klaster dan bisa saja menghapus objek pada waktu yang salah
 bagi objek tersebut akibat adanya _time skew_.
 
 Pada Kubernetes, NTP haruslah dilakukan pada semua node untuk mecegah adanya _time skew_

@@ -84,7 +84,7 @@ kubectl config view --minify | grep namespace:
 ## 네임스페이스와 DNS
 
 [서비스](/docs/user-guide/services)를 생성하면, 대응되는
-[DNS 엔트리](/docs/concepts/services-networking/dns-pod-service/)가 생성된다.
+[DNS 엔트리](/ko/docs/concepts/services-networking/dns-pod-service/)가 생성된다.
 이 엔트리는 `<서비스-이름>.<네임스페이스-이름>.svc.cluster.local`의 형식을 갖는데,
 이는 컨테이너가 `<서비스-이름>`만 사용하는 경우, 네임스페이스 내에 국한된 서비스로 연결된다.
 개발, 스테이징, 운영과 같이 여러 네임스페이스 내에서 동일한 설정을 사용하는 경우에 유용하다.

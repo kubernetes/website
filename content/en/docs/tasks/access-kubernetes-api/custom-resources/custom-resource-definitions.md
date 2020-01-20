@@ -81,7 +81,7 @@ spec:
     kind: CronTab
     # shortNames allow shorter string to match your resource on the CLI
     shortNames:
-    - ct  
+    - ct
 ```
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
@@ -256,10 +256,10 @@ A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/access-ku
    * a node with `x-kubernetes-preserve-unknown-fields: true`
 2. for each field in an object and each item in an array which is specified within any of `allOf`, `anyOf`, `oneOf` or `not`, the schema also specifies the field/item outside of those logical junctors (compare example 1 and 2).
 3. does not set `description`, `type`, `default`, `additionalProperties`, `nullable` within an `allOf`, `anyOf`, `oneOf` or `not`, with the exception of the two pattern for `x-kubernetes-int-or-string: true` (see below).
-4. if `metadata` is specified, then only restrictions on `metadata.name` and `metadata.generateName` are allowed. 
+4. if `metadata` is specified, then only restrictions on `metadata.name` and `metadata.generateName` are allowed.
 
 
-Non-Structural Example 1: 
+Non-Structural Example 1:
 ```yaml
 allOf:
 - properties:
@@ -296,7 +296,7 @@ allOf:
     properties:
       foo:
         ...
-``` 
+```
 
 Non-Structural Example 3:
 ```yaml
@@ -326,10 +326,10 @@ is not a structural schema because of the following violations:
 
 * the type at the root is missing (rule 1).
 * the type of `foo` is missing (rule 1).
-* `bar` inside of `anyOf` is not specified outside (rule 2). 
+* `bar` inside of `anyOf` is not specified outside (rule 2).
 * `bar`'s `type` is within `anyOf` (rule 3).
 * the description is set within `anyOf` (rule 3).
-* `metadata.finalizer` might not be restricted (rule 4). 
+* `metadata.finalizer` might not be restricted (rule 4).
 
 In contrast, the following, corresponding schema is structural:
 ```yaml
@@ -371,14 +371,14 @@ CustomResourceDefinitions traditionally store any (possibly validated) JSON as i
 {{< tabs name="CustomResourceDefinition_pruning" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
 
-For CustomResourceDefinitions created in `apiextensions.k8s.io/v1`, [structural OpenAPI v3 validation schemas](#specifying-a-structural-schema) are required and pruning is enabled and cannot be disabled (note that CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`).  
+For CustomResourceDefinitions created in `apiextensions.k8s.io/v1`, [structural OpenAPI v3 validation schemas](#specifying-a-structural-schema) are required and pruning is enabled and cannot be disabled (note that CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`).
 
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
 
 For CustomResourceDefinitions created in `apiextensions.k8s.io/v1beta1`, if a [structural OpenAPI v3 validation schema](#specifying-a-structural-schema) is defined (either in the global `spec.validation.openAPIV3Schema` in `apiextensions.k8s.io/v1beta1` or for each version) in a CustomResourceDefinition, pruning can be enabled by setting `spec.preserveUnknownFields` to `false`.
 
-{{% /tab %}} 
+{{% /tab %}}
 {{% /tabs %}}
 
 If pruning is enabled, unspecified fields in CustomResources on creation and on update are dropped.
@@ -501,8 +501,8 @@ type: object
 properties:
   foo:
     x-kubernetes-int-or-string: true
-``` 
- 
+```
+
 Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed (exactly those, without variations in order to additional fields):
 
 ```yaml
@@ -511,7 +511,7 @@ anyOf:
 - type: integer
 - type: string
 ...
-``` 
+```
 
 and
 
@@ -523,7 +523,7 @@ allOf:
   - type: string
 - ... # zero or more
 ...
-``` 
+```
 
 With one of those specification, both an integer and a string validate.
 
@@ -615,10 +615,10 @@ Additionally, the following restrictions are applied to the schema:
   - `definitions`,
   - `dependencies`,
   - `deprecated`,
-  - `discriminator`, 
+  - `discriminator`,
   - `id`,
   - `patternProperties`,
-  - `readOnly`, 
+  - `readOnly`,
   - `writeOnly`,
   - `xml`,
   - `$ref`.
@@ -667,7 +667,7 @@ spec:
                 replicas:
                   type: integer
                   minimum: 1
-                  maximum: 10  
+                  maximum: 10
   scope: Namespaced
   names:
     plural: crontabs
@@ -818,14 +818,14 @@ spec:
                   type: integer
                   minimum: 1
                   maximum: 10
-                  default: 1  
+                  default: 1
   scope: Namespaced
   names:
     plural: crontabs
     singular: crontab
     kind: CronTab
     shortNames:
-    - ct    
+    - ct
 ```
 
 With this both `cronSpec` and `replicas` are defaulted:
@@ -853,7 +853,7 @@ spec:
 ```
 
 Note that defaulting happens on the object
- 
+
 * in the request to the API server using the request version defaults,
 * when reading from etcd using the storage version defaults,
 * after mutating admission plugins with non-empty patches using the admission webhook object version defaults.
@@ -875,11 +875,11 @@ OpenAPI v2 Publishing is available as beta since 1.15, and as alpha since 1.14. 
 
 With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#preserving-unknown-fields) (opt-in in v1beta1, enabled by default in v1) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
-[kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation. 
+[kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 
 The OpenAPI v3 validation schema is converted to OpenAPI v2 schema, and
 show up in `definitions` and `paths` fields in the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
-The following modifications are applied during the conversion to keep backwards compatiblity with
+The following modifications are applied during the conversion to keep backwards compatibility with
 kubectl in previous 1.13 version. These modifications prevent kubectl from being over-strict and rejecting
 valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
 and therefore won't affect [validation](#validation) in the API server.

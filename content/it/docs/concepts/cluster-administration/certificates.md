@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Certificati
 content_template: templates/concept
 weight: 20

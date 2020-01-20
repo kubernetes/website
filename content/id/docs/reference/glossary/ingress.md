@@ -4,7 +4,7 @@ id: ingress
 date: 2019-04-21
 full_link: /docs/concepts/services-networking/ingress/
 short_description: >
-  Sebuah obyek API yang mengatur akses eksternal terhadap *Service* yang ada di dalam kluster, biasanya dalam bentuk *request* HTTP.
+  Sebuah obyek API yang mengatur akses eksternal terhadap *Service* yang ada di dalam klaster, biasanya dalam bentuk *request* HTTP.
 
 aka:
 tags:
@@ -12,7 +12,7 @@ tags:
 - architecture
 - extension
 ---
- Sebuah obyek API yang mengatur akses eksternal terhadap *Service* yang ada di dalam kluster, biasanya dalam bentuk *request* HTTP.
+ Sebuah obyek API yang mengatur akses eksternal terhadap *Service* yang ada di dalam klaster, biasanya dalam bentuk *request* HTTP.
 
 <!--more-->
 

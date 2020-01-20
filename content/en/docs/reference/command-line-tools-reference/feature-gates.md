@@ -38,8 +38,8 @@ different Kubernetes components.
 - If a feature is in the Alpha or Beta state, you can find the feature listed
   in the [Alpha/Beta feature gate table](#feature-gates-for-alpha-or-beta-features).
 - If a feature is stable you can find all stages for that feature listed in the
-  [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
-- The [Graduated/Deprecated feature gate table](#feature-gates-for graduated-or-deprecated-features).
+  [Graduated/Deprecated feature gate table](#feature-gates-for-graduated-or-deprecated-features).
+- The [Graduated/Deprecated feature gate table](#feature-gates-for-graduated-or-deprecated-features)
   also lists deprecated and withdrawn features.
 
 ### Feature gates for Alpha or Beta features
@@ -50,6 +50,7 @@ different Kubernetes components.
 |---------|---------|-------|-------|-------|
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
+| `APIPriorityAndFairness` | `false` | Alpha | 1.17 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
@@ -116,7 +117,6 @@ different Kubernetes components.
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
-| `RequestManagement` | `false` | Alpha | 1.15 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
@@ -237,6 +237,7 @@ different Kubernetes components.
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
+| `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | 1.16 |
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | - |
@@ -312,9 +313,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
 - `Accelerators`: Enable Nvidia GPU support when using Docker
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
-- `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinitys](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+- `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks.
+- `APIPriorityAndFairness`: Enable managing request concurrency with prioritization and fairness at each server. (Renamed from `RequestManagement`)
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
 - `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
    See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
@@ -372,7 +374,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DynamicAuditing`: Enable [dynamic auditing](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
-  This feature is superceded by the `VolumeScheduling` feature completely in v1.12.
+  This feature is superseded by the `VolumeScheduling` feature completely in v1.12.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EnableAggregatedDiscoveryTimeout` (*deprecated*): Enable the five second timeout on aggregated discovery calls.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
@@ -429,7 +431,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   assigns a lowest possible score of 1 to a node that satisfies at least one of
   the input Pod's cpu and memory limits. The intent is to break ties between
   nodes with same scores.
-- `RequestManagement`: Enable managing request concurrency with prioritization and fairness at each server.
 - `ResourceQuotaScopeSelectors`: Enable resource quota scope selectors.
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.

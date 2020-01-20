@@ -49,7 +49,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 ## 网络和网络策略
 
 * [ACI](https://www.github.com/noironetworks/aci-containers) 通过 Cisco ACI 提供集成的容器网络和安全网络。
-* [Calico](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/)  是一个安全的 L3 网络和网络策略提供者。
+* [Calico](https://docs.projectcalico.org/v3.11/getting-started/kubernetes/installation/calico)  是一个安全的 L3 网络和网络策略提供者。
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install)  结合 Flannel 和 Calico， 提供网络和网络策略。
 * [Cilium](https://github.com/cilium/cilium) 是一个 L3 网络和网络策略插件， 能够透明的实施  HTTP/API/L7 策略。 同时支持路由（routing）和叠加/封装（ overlay/encapsulation）模式。
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)  使 Kubernetes 无缝连接到一种 CNI 插件，例如：Flannel、Calico、Canal、Romana 或者 Weave。

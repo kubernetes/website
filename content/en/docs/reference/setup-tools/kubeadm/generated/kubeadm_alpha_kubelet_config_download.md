@@ -17,7 +17,7 @@ kubeadm alpha kubelet config download [flags]
   kubeadm alpha phase kubelet config download
   
   # Download the kubelet configuration from the ConfigMap in the cluster. Use a specific desired kubelet version.
-  kubeadm alpha phase kubelet config download --kubelet-version 1.16.0
+  kubeadm alpha phase kubelet config download --kubelet-version 1.17.0
 ```
 
 ### Options

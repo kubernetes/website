@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Esempio di modello di concetto
 content_template: templates/concept
 toc_hide: true

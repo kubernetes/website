@@ -961,6 +961,7 @@ Allowed values are `Exact` or `Equivalent`.
 * `Equivalent` means a request should be intercepted if modifies a resource listed in `rules`, even via another API group or version.
 
 In the example given above, the webhook that only registered for `apps/v1` could use `matchPolicy`:
+
 * `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
 * `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook (with the objects converted to a version the webhook had specified: `apps/v1`)
 
@@ -1134,7 +1135,7 @@ webhooks:
 Webhooks typically operate only on the content of the `AdmissionReview` sent to them.
 Some webhooks, however, make out-of-band changes as part of processing admission requests.
 
-Webhooks that make out-of-band changes ("side effects") must also have a reconcilation mechanism
+Webhooks that make out-of-band changes ("side effects") must also have a reconciliation mechanism
 (like a controller) that periodically determines the actual state of the world, and adjusts
 the out-of-band data modified by the admission webhook to reflect reality.
 This is because a call to an admission webhook does not guarantee the admitted object will be persisted as is, or at all.

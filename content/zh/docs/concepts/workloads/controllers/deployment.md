@@ -25,13 +25,43 @@ You should not manage ReplicaSets owned by a Deployment. All the use cases shoul
 
 The following are typical use cases for Deployments:
 
-* [Create a Deployment to rollout a ReplicaSet](#creating-a-deployment). The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
-* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
-* [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
-* [Scale up the Deployment to facilitate more load.](#scaling-a-deployment)
-* [Pause the Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
-* [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck
-* [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore
+- [Use Case](#use-case)
+- [Creating a Deployment](#creating-a-deployment)
+  - [Pod-template-hash label](#pod-template-hash-label)
+- [Updating a Deployment](#updating-a-deployment)
+  - [Rollover (aka multiple updates in-flight)](#rollover-aka-multiple-updates-in-flight)
+  - [Label selector updates](#label-selector-updates)
+- [Rolling Back a Deployment](#rolling-back-a-deployment)
+  - [Checking Rollout History of a Deployment](#checking-rollout-history-of-a-deployment)
+  - [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision)
+- [Scaling a Deployment](#scaling-a-deployment)
+  - [Proportional scaling](#proportional-scaling)
+- [Pausing and Resuming a Deployment](#pausing-and-resuming-a-deployment)
+- [Deployment status](#deployment-status)
+  - [Progressing Deployment](#progressing-deployment)
+  - [Complete Deployment](#complete-deployment)
+  - [Failed Deployment](#failed-deployment)
+  - [Operating on a failed deployment](#operating-on-a-failed-deployment)
+- [Clean up Policy](#clean-up-policy)
+- [Use Cases](#use-cases)
+  - [Canary Deployment](#canary-deployment)
+- [Writing a Deployment Spec](#writing-a-deployment-spec)
+  - [Pod Template](#pod-template)
+  - [Replicas](#replicas)
+  - [Selector](#selector)
+  - [Strategy](#strategy)
+    - [Recreate Deployment](#recreate-deployment)
+    - [Rolling Update Deployment](#rolling-update-deployment)
+      - [Max Unavailable](#max-unavailable)
+      - [Max Surge](#max-surge)
+  - [Progress Deadline Seconds](#progress-deadline-seconds)
+  - [Min Ready Seconds](#min-ready-seconds)
+  - [Rollback To](#rollback-to)
+    - [Revision](#revision)
+  - [Revision History Limit](#revision-history-limit)
+  - [Paused](#paused)
+- [Alternative to Deployments](#alternative-to-deployments)
+  - [kubectl rolling update](#kubectl-rolling-update)
 
 
 ## Creating a Deployment

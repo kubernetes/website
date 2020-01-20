@@ -65,7 +65,7 @@ PodCondition 배열의 각 요소는 다음 여섯 가지 필드를 가질 수 �
   * `PodScheduled`: 파드가 하나의 노드로 스케줄 완료되었음.
   * `Ready`: 파드는 요청들을 수행할 수 있으며
     모든 매칭 서비스들의 로드밸런싱 풀에 추가되어야 함.
-  * `Initialized`: 모든 [초기화 컨테이너](/docs/concepts/workloads/pods/init-containers)가
+  * `Initialized`: 모든 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers)가
     성공적으로 시작 완료되었음.
   * `Unschedulable`: 스케줄러가 자원의 부족이나 다른 제약 등에 의해서
     지금 당장은 파드를 스케줄할 수 없음.
@@ -243,7 +243,7 @@ status:
 ```
 
 파드의 새로운 조건들은
-쿠버네티스의 [레이블 키 포멧](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)을 준수해야 한다.
+쿠버네티스의 [레이블 키 포멧](/ko/docs/concepts/overview/working-with-objects/labels/#구문과-캐릭터-셋)을 준수해야 한다.
 `kubectl patch` 명령어가 오브젝트 상태 패치(patching)를 아직 제공하지 않기 때문에,
 새로운 파드 조건들은 [KubeClient 라이브러리](/docs/reference/using-api/client-libraries/)를 통한 `PATCH` 액션을 통해서 주입되어야 한다.
 
@@ -271,7 +271,7 @@ PodSpec은 항상(Always), 실패 시(OnFailure), 절대 안 함(Never) 값으�
 kubelet에 의해서 재시작되는 종료된 컨테이너는
 5분으로 제한된 지수 백-오프 지연(10초, 20초, 40초 ...)을 기준으로 재시작되며,
 10분의 성공적 실행 후에 재설정된다.
-[파드 문서](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof)에서 의논된 바와 같이,
+[파드 문서](/ko/docs/concepts/workloads/pods/pod/#파드의-내구성-또는-결핍)에서 의논된 바와 같이,
 파드는 일단 한 노드에 바운드되고 나면, 다른 노드에 다시 바운드되지 않는다.
 
 
@@ -290,13 +290,13 @@ kubelet에 의해서 재시작되는 종료된 컨테이너는
   지정된 경우에 적합하다.
 
 - 웹 서버와 같이, 종료가 예상되지 않는 파드에 대해서는
-  [레플리케이션 컨트롤러](/docs/concepts/workloads/controllers/replicationcontroller/),
-  [레플리카 셋](/docs/concepts/workloads/controllers/replicaset/), 또는
-  [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)를 사용하길 바란다.
+  [레플리케이션 컨트롤러](/ko/docs/concepts/workloads/controllers/replicationcontroller/),
+  [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/), 또는
+  [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)를 사용하길 바란다.
   레플리케이션 컨트롤러는 `restartPolicy`가 항상(Always)으로 지정된
   경우에만 적합하다.
 
-- 머신 당 하나씩 실행해야하는 파드를 위해서는 [데몬 셋](/docs/concepts/workloads/controllers/daemonset/)을 사용하길
+- 머신 당 하나씩 실행해야하는 파드를 위해서는 [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)을 사용하길
   바란다. 왜냐하면 데몬 셋은 특정 머신 전용 시스템 서비스(machine-specific system service)를 제공하기 때문이다.
 
 세 가지 모든 컨트롤러 유형은 PodTemplate을 가지고 있다. 파드를
@@ -401,7 +401,7 @@ spec:
 * Hands-on 경험하기
   [활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* [컨테이너 라이프사이클 후크(hook)](/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
+* [컨테이너 라이프사이클 후크(hook)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
 
 {{% /capture %}}
 

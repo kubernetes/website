@@ -17,7 +17,7 @@ Cette page montre comment utiliser l'outil `update-importer-docs` pour générer
 
     * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-    * [Golang](https://golang.org/doc/install) version 1.9 ou ultérieure
+    * [Golang](https://golang.org/doc/install) version 1.13 ou ultérieure
 
     * [make](https://www.gnu.org/software/make/)
 

@@ -7,7 +7,7 @@ menu:
     title: "Mulai"
     weight: 10
     post: >
-      <p>Siap untuk mengotori tanganmu? Yuk kita buat kluster Kubernetes sederhana yang menjalankan Node.js aplikasi "Halo Dunia".</p>
+      <p>Siap untuk mengotori tanganmu? Yuk kita buat klaster Kubernetes sederhana yang menjalankan Node.js aplikasi "Halo Dunia".</p>
 card:
   name: tutorials
   weight: 10
@@ -46,7 +46,7 @@ Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docke
 
 {{% capture lessoncontent %}}
 
-## Membuat sebuah kluster Minikube
+## Membuat sebuah klaster Minikube
 
 1. Tekan **Launch Terminal**
 
@@ -103,7 +103,7 @@ Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. Lihat <i>event</i> kluster:
+4. Lihat <i>event</i> klaster:
 
     ```shell
     kubectl get events
@@ -119,7 +119,7 @@ Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 
 ## Membuat sebuah Servis
 
-Secara <i>default</i>, Pod hanya bisa diakses melalui alamat IP internal di dalam kluster Kubernetes.
+Secara <i>default</i>, Pod hanya bisa diakses melalui alamat IP internal di dalam klaster Kubernetes.
 Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/docs/concepts/services-networking/service/) Kubernetes.
 
 1. Ekspos Pod pada internet publik menggunakan perintah `kubectl expose`:
@@ -128,7 +128,7 @@ Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
 
-    Tanda `--type=LoadBalancer` menunjukkan bahwa kamu ingin ekspos Servis keluar dari kluster.
+    Tanda `--type=LoadBalancer` menunjukkan bahwa kamu ingin ekspos Servis keluar dari klaster.
 
 2. Lihat Servis yang baru kamu buat:
 
@@ -240,7 +240,7 @@ Minikube punya beberapa <i>addons</i> yang bisa diaktifkan, dinon-aktifkan, maup
 
 ## Bersih-bersih
 
-Sekarang, mari kita bersihkan semua <i>resource</i> yang kamu buat di kluster:
+Sekarang, mari kita bersihkan semua <i>resource</i> yang kamu buat di klaster:
 
 ```shell
 kubectl delete service hello-node

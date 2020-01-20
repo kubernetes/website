@@ -3,6 +3,13 @@ title: 使用 kubeconfig 文件组织集群访问
 content_template: templates/concept
 weight: 60
 ---
+<!--
+---
+title: Organizing Cluster Access Using kubeconfig Files
+content_template: templates/concept
+weight: 60
+---
+--->
 
 {{% capture overview %}}
 
@@ -80,7 +87,7 @@ clusters and namespaces.
 A *context* element in a kubeconfig file is used to group access parameters
 under a convenient name. Each context has three parameters: cluster, namespace, and user.
 By default, the `kubectl` command-line tool uses parameters from
-the *current context* to communicate with the cluster.
+the *current context* to communicate with the cluster. 
 --->
 通过 kubeconfig 文件中的 *context* 元素，使用简便的名称来对访问参数进行分组。每个上下文都有三个参数：cluster、namespace 和 user。默认情况下，`kubectl` 命令行工具使用 *当前上下文* 中的参数与集群进行通信。
 
@@ -121,7 +128,6 @@ listed in the `KUBECONFIG` environment variable.
 <!--
 To see your configuration, enter this command:
 --->
-
 要查看配置，输入以下命令：
 ```shell
 kubectl config view
@@ -156,7 +162,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
      Even if the second file has non-conflicting entries under `red-user`, discard them.
 --->
 1. 如果设置了 `--kubeconfig` 参数，则仅使用指定的文件。不进行合并。此参数只能使用一次。
-
+   
    否则，如果设置了 `KUBECONFIG` 环境变量，将它用作应合并的文件列表。根据以下规则合并 `KUBECONFIG` 环境变量中列出的文件：
 
    * 忽略空文件名。
@@ -179,12 +185,12 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 1. Determine the context to use based on the first hit in this chain:
 
     1. Use the `--context` command-line flag if it exists.
-    1. Use the `current-context` from the merged kubeconfig files.
+    2. Use the `current-context` from the merged kubeconfig files.
 --->
 1. 根据此链中的第一个匹配确定要使用的上下文。
 
     1. 如果存在，使用 `--context` 命令行参数。
-    1. 使用合并的 kubeconfig 文件中的 `current-context`。
+    2. 使用合并的 kubeconfig 文件中的 `current-context`。
 
 <!--
    An empty context is allowed at this point.
@@ -197,12 +203,12 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    which is run twice: once for user and once for cluster:
 
    1. Use a command-line flag if it exists: `--user` or `--cluster`.
-   1. If the context is non-empty, take the user or cluster from the context.
+   2. If the context is non-empty, take the user or cluster from the context.
 --->
 1. 确定集群和用户。此时，可能有也可能没有上下文。根据此链中的第一个匹配确定集群和用户，这将运行两次：一次用于用户，一次用于集群。
 
    1. 如果存在，使用命令行参数：`--user` 或者 `--cluster`。
-   1. 如果上下文非空，从上下文中获取用户或集群。
+   2. 如果上下文非空，从上下文中获取用户或集群。
 
 <!--
    The user and cluster can be empty at this point.
@@ -215,35 +221,35 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    Build each piece of the cluster information based on this chain; the first hit wins:
 
    1. Use command line flags if they exist: `--server`, `--certificate-authority`, `--insecure-skip-tls-verify`.
-   1. If any cluster information attributes exist from the merged kubeconfig files, use them.
-   1. If there is no server location, fail.
+   2. If any cluster information attributes exist from the merged kubeconfig files, use them.
+   3. If there is no server location, fail.
 --->
 1. 确定要使用的实际集群信息。此时，可能有也可能没有集群信息。基于此链构建每个集群信息；第一个匹配项会被采用：
 
    1. 如果存在：`--server`、`--certificate-authority` 和 `--insecure-skip-tls-verify`，使用命令行参数。
-   1. 如果合并的 kubeconfig 文件中存在集群信息属性，则使用它们。
-   1. 如果没有 server 配置，则配置无效。
+   2. 如果合并的 kubeconfig 文件中存在集群信息属性，则使用它们。
+   3. 如果没有 server 配置，则配置无效。
 
 <!--
-1. Determine the actual user information to use. Build user information using the same
+2. Determine the actual user information to use. Build user information using the same
    rules as cluster information, except allow only one authentication
    technique per user:
 
    1. Use command line flags if they exist: `--client-certificate`, `--client-key`, `--username`, `--password`, `--token`.
-   1. Use the `user` fields from the merged kubeconfig files.
-   1. If there are two conflicting techniques, fail.
+   2. Use the `user` fields from the merged kubeconfig files.
+   3. If there are two conflicting techniques, fail.
 --->
-1. 确定要使用的实际用户信息。使用与集群信息相同的规则构建用户信息，但每个用户只允许一种身份认证技术：
+2. 确定要使用的实际用户信息。使用与集群信息相同的规则构建用户信息，但每个用户只允许一种身份认证技术：
 
    1. 如果存在：`--client-certificate`、`--client-key`、`--username`、`--password` 和 `--token`，使用命令行参数。
-   1. 使用合并的 kubeconfig 文件中的 `user` 字段。
-   1. 如果存在两种冲突技术，则配置无效。
+   2. 使用合并的 kubeconfig 文件中的 `user` 字段。
+   3. 如果存在两种冲突技术，则配置无效。
 
 <!--
-1. For any information still missing, use default values and potentially
+3. For any information still missing, use default values and potentially
    prompt for authentication information.
 --->
-1. 对于仍然缺失的任何信息，使用其对应的默认值，并可能提示输入身份认证信息。
+3. 对于仍然缺失的任何信息，使用其对应的默认值，并可能提示输入身份认证信息。
 
 <!--
 ## File references
@@ -269,7 +275,6 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 --->
 * [配置对多集群的访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
-
 {{% /capture %}}
 
 

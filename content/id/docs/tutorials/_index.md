@@ -32,7 +32,7 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 ## Aplikasi Stateless
 
-* [Memberi Akses Aplikasi di dalam Kluster melalui IP Eksternal](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [Memberi Akses Aplikasi di dalam Klaster melalui IP Eksternal](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [Contoh: Deploy aplikasi Guestbook PHP dengan Redis](/docs/tutorials/stateless-application/guestbook/)
 
@@ -56,7 +56,7 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 * [Menyiapkan CI/CD  untuk Aplikasi Teka-Teki Terdistribusi pada Kubernetes (Bagian 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
 
-## Kluster
+## Klaster
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 

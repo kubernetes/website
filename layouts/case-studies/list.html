@@ -23,13 +23,14 @@
 {{ $featuredVideos := where .Pages ".Params.video" "!=" nil }}
 {{ with $featuredVideos }}
 {{ with index $featuredVideos 0 }}
+{{ $altText := .LinkTitle }}
 <section id="video">
 	<div class="main-section">
 		<div>
 			<h4><i>"{{ .Params.quote | html }}"</i></h4>
 			{{ $img := .Resources.GetMatch "video.png" }}
 			{{ $small := .Resources.GetMatch "**small*.svg" }}
-			{{ with $small }}<img height="60px" src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+			{{ with $small }}<img height="60px" src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}
 		</div>
 		<div style= "padding-left: 40px;"><button onclick="kub.showVideo()">{{ with $img }}<img src="{{ .RelPermalink }}" alt="Box video">{{ end }}<h6>Kubernetes at Box</h6></button></div>
 	</div>
@@ -66,12 +67,10 @@
 {{ end }}
 {{ define "case-study-featured-block" }}
 {{ $isForeignLanguage := (ne .page.Lang .ctx.Lang)}}
-{{ $logo := .page.Resources.GetMatch "**{feature,logo}*.svg" }}
-{{ if not $logo }}
-	{{ $logo = .page.Resources.GetMatch "**{feature,logo}*.png" }}
-{{ end }}
+{{ $logo := .page.Resources.GetMatch "**{feature,logo}*.png" }}
+{{ $altText := .page.LinkTitle}}
 <div class="case-study">
-	{{ with $logo }}<img src="{{ .RelPermalink }}" height="127px" alt="{{ .Title }}">{{ end }}
+	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}
 	<p class="quote">"{{ .page.Params.quote | html }}"</p>
 	<a href="{{ .page.RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>{{ T "main_read_about"}} {{ .page.LinkTitle }}</a>
 </div>

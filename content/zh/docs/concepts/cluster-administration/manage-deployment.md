@@ -345,7 +345,6 @@ and then you can create a new release of the guestbook frontend that carries the
      image: gb-frontend:v4
 ```
 
-
 <!--
 The frontend service would span both sets of replicas by selecting the common subset of their labels (i.e. omitting the `track` label), so that the traffic will be redirected to both applications:
  -->

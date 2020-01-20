@@ -1,5 +1,6 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
+min-kubernetes-server-version: v1.8
 content_template: templates/task
 weight: 30
 ---
@@ -30,7 +31,7 @@ Here is an overview of the steps in this example:
 Be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 

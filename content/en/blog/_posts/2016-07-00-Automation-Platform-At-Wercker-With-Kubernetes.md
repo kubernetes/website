@@ -42,7 +42,7 @@ Our heaviest use of the Kubernetes API is definitely our system of creating dyna
 
 **Ingresses**
 
-In order to provide a backend for HTTP API calls and allow self-registration of handlers we make use of the Ingress system in Kubernetes. It wasn't the clearest thing to set up, but reading through enough of the [nginx example](https://kubernetes.io/blog/2016/03/Kubernetes-1.2-and-simplifying-advanced-networking-with-Ingress) eventually got us to a good spot where it is easy to connect services to the frontend.
+In order to provide a backend for HTTP API calls and allow self-registration of handlers we make use of the Ingress system in Kubernetes. It wasn't the clearest thing to set up, but reading through enough of the [nginx example](https://kubernetes.io/blog/2016/03/kubernetes-1-2-and-simplifying-advanced-networking-with-ingress/) eventually got us to a good spot where it is easy to connect services to the frontend.
 
 
 

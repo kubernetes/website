@@ -101,5 +101,5 @@ Plutôt que de spécifier tous les états désirés courants de tous les réplic
 {{% capture whatsnext %}}
 * En savoir plus sur le comportement des Pods :
   * [Terminaison d'un Pod](/docs/concepts/workloads/pods/pod/#termination-of-pods)
-  * [Cycle de vie d'un Pod](../pod-lifecycle)
+  * [Cycle de vie d'un Pod](/docs/concepts/workloads/pods/pod-lifecycle/)
 {{% /capture %}}

@@ -6,16 +6,16 @@ weight: 60
 
 {{% capture overview %}}
 
-Log aplikasi dan sistem dapat membantu kamu untuk memahami apa yang terjadi di dalam kluster kamu. Log berguna untuk mengidentifikasi dan menyelesaikan masalah serta memonitor aktivitas kluster. Hampir semua aplikasi modern mempunyai sejenis mekanisme log sehingga hampir semua mesin kontainer didesain untuk mendukung suatu mekanisme _logging_. Metode _logging_ yang paling mudah untuk aplikasi dalam bentuk kontainer adalah menggunakan _standard output_ dan _standard error_.
+Log aplikasi dan sistem dapat membantu kamu untuk memahami apa yang terjadi di dalam klaster kamu. Log berguna untuk mengidentifikasi dan menyelesaikan masalah serta memonitor aktivitas klaster. Hampir semua aplikasi modern mempunyai sejenis mekanisme log sehingga hampir semua mesin kontainer didesain untuk mendukung suatu mekanisme _logging_. Metode _logging_ yang paling mudah untuk aplikasi dalam bentuk kontainer adalah menggunakan _standard output_ dan _standard error_.
 
-Namun, fungsionalitas bawaan dari mesin kontainer atau _runtime_ biasanya tidak cukup memadai sebagai solusi log. Contohnya, jika sebuah kontainer gagal, sebuah pod dihapus, atau suatu _node_ mati, kamu biasanya tetap menginginkan untuk mengakses log dari aplikasimu. Oleh sebab itu, log sebaiknya berada pada penyimpanan dan _lifecyle_ yang terpisah dari node, pod, atau kontainer. Konsep ini dinamakan sebagai _logging_ pada level kluster. _Logging_ pada level kluster ini membutuhkan _backend_ yang terpisah untuk menyimpan, menganalisis, dan mengkueri log. Kubernetes tidak menyediakan solusi bawaan untuk penyimpanan data log, namun kamu dapat mengintegrasikan beragam solusi _logging_ yang telah ada ke dalam kluster Kubernetes kamu.
+Namun, fungsionalitas bawaan dari mesin kontainer atau _runtime_ biasanya tidak cukup memadai sebagai solusi log. Contohnya, jika sebuah kontainer gagal, sebuah pod dihapus, atau suatu _node_ mati, kamu biasanya tetap menginginkan untuk mengakses log dari aplikasimu. Oleh sebab itu, log sebaiknya berada pada penyimpanan dan _lifecyle_ yang terpisah dari node, pod, atau kontainer. Konsep ini dinamakan sebagai _logging_ pada level klaster. _Logging_ pada level klaster ini membutuhkan _backend_ yang terpisah untuk menyimpan, menganalisis, dan mengkueri log. Kubernetes tidak menyediakan solusi bawaan untuk penyimpanan data log, namun kamu dapat mengintegrasikan beragam solusi _logging_ yang telah ada ke dalam klaster Kubernetes kamu.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-Arsitektur _logging_ pada level kluster yang akan dijelaskan berikut mengasumsikan bahwa sebuah _logging backend_ telah tersedia baik di dalam maupun di luar klustermu. Meskipun kamu tidak tertarik menggunakan _logging_ pada level kluster, penjelasan tentang bagaimana log disimpan dan ditangani pada node di bawah ini mungkin dapat berguna untukmu.
+Arsitektur _logging_ pada level klaster yang akan dijelaskan berikut mengasumsikan bahwa sebuah _logging backend_ telah tersedia baik di dalam maupun di luar klastermu. Meskipun kamu tidak tertarik menggunakan _logging_ pada level klaster, penjelasan tentang bagaimana log disimpan dan ditangani pada node di bawah ini mungkin dapat berguna untukmu.
 
 ## Hal dasar _logging_ pada Kubernetes
 
@@ -61,7 +61,7 @@ _Logging driver_ json dari Docker memperlakukan tiap baris sebagai pesan yang te
 Secara _default_, jika suatu kontainer _restart_, kubelet akan menjaga kontainer yang mati tersebut beserta lognya. Namun jika suatu pod dibuang dari _node_, maka semua hal dari kontainernya juga akan dibuang, termasuk lognya.
 
 Hal lain yang perlu diperhatikan dalam _logging_ pada level _node_ adalah implementasi rotasi log, sehingga log tidak menghabiskan semua penyimpanan yang tersedia pada _node._ Kubernetes saat ini tidak bertanggung jawab dalam melakukan rotasi log, namun _deployment tool_ seharusnya memberikan solusi terhadap masalah tersebut.
-Contohnya, pada kluster Kubernetes, yang di _deployed_ menggunakan `kube-up.sh`, terdapat alat bernama [`logrotate`](https://linux.die.net/man/8/logrotate) yang dikonfigurasi untuk berjalan tiap jamnya. Kamu juga dapat menggunakan _runtime_ kontainer untuk melakukan rotasi log otomatis, misalnya menggunakan `log-opt` Docker.
+Contohnya, pada klaster Kubernetes, yang di _deployed_ menggunakan `kube-up.sh`, terdapat alat bernama [`logrotate`](https://linux.die.net/man/8/logrotate) yang dikonfigurasi untuk berjalan tiap jamnya. Kamu juga dapat menggunakan _runtime_ kontainer untuk melakukan rotasi log otomatis, misalnya menggunakan `log-opt` Docker.
 Pada `kube-up.sh`, metode terakhir digunakan untuk COS _image_ pada GCP, sedangkan metode pertama digunakan untuk lingkungan lainnya. Pada kedua metode, secara _default_ akan dilakukan rotasi pada saat berkas log melewati 10MB.
 
 Sebagai contoh, kamu dapat melihat informasi lebih rinci tentang bagaimana `kube-up.sh` mengatur _logging_ untuk COS _image_ pada GCP yang terkait dengan [_script_][cosConfigureHelper].
@@ -85,13 +85,13 @@ Pada mesin yang menggunakan systemd, kubelet dan runtime _runtime_ menulis ke jo
 Komponen sistem di dalam kontainer akan selalu menuliskan ke folder `/var/log`, melewati mekanisme _default logging_. Mereka akan menggunakan _logging library_ [klog][klog].
 Kamu dapat menemukan konvensi tentang tingkat kegawatan _logging_ untuk komponen-komponen tersebut pada [dokumentasi _development logging_](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
-Seperti halnya pada log kontainer, komponen sistem yang menuliskan log pada folder  `/var/log` juga harus melakukan rotasi log. Pada kluster Kubernetes yang menggunakan `kube-up.sh`, log tersebut telah dikonfigurasi dan akan dirotasi oleh `logrotate` secara harian atau saat ukuran log melebihi 100MB.
+Seperti halnya pada log kontainer, komponen sistem yang menuliskan log pada folder  `/var/log` juga harus melakukan rotasi log. Pada klaster Kubernetes yang menggunakan `kube-up.sh`, log tersebut telah dikonfigurasi dan akan dirotasi oleh `logrotate` secara harian atau saat ukuran log melebihi 100MB.
 
 [klog]: https://github.com/kubernetes/klog
 
-## Arsitektur kluster-level _logging_
+## Arsitektur klaster-level _logging_
 
-Meskipun Kubernetes tidak menyediakan solusi bawaan untuk _logging_ level kluster, ada beberapa pendekatan yang dapat kamu pertimbangkan. Berikut beberapa diantaranya:
+Meskipun Kubernetes tidak menyediakan solusi bawaan untuk _logging_ level klaster, ada beberapa pendekatan yang dapat kamu pertimbangkan. Berikut beberapa diantaranya:
 
 * Menggunakan agen _logging_ pada level _node_ yang berjalan pada setiap _node_.
 * Menggunakan kontainer _sidecar_ khusus untuk _logging_ aplikasi di dalam pod.
@@ -101,11 +101,11 @@ Meskipun Kubernetes tidak menyediakan solusi bawaan untuk _logging_ level kluste
 
 ![Menggunakan agen node-level _logging_](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
-Kamu dapat mengimplementasikan kluster-level _logging_ dengan menggunakan agen yang berjalan pada setiap _node_. Agen _logging_ merupakan perangkat khusus yang akan mengekspos log atau mengeluarkan log ke _backend_. Umumnya agen _logging_ merupakan kontainer yang memiliki akses langsung ke direktori tempat berkas log berada dari semua kontainer aplikasi yang berjalan pada _node_ tersebut.
+Kamu dapat mengimplementasikan klaster-level _logging_ dengan menggunakan agen yang berjalan pada setiap _node_. Agen _logging_ merupakan perangkat khusus yang akan mengekspos log atau mengeluarkan log ke _backend_. Umumnya agen _logging_ merupakan kontainer yang memiliki akses langsung ke direktori tempat berkas log berada dari semua kontainer aplikasi yang berjalan pada _node_ tersebut.
 
 Karena agen _logging_ harus berjalan pada setiap _node_, umumnya dilakukan dengan menggunakan replika DaemonSet, _manifest_ pod, atau menjalankan proses khusus pada _node_. Namun dua cara terakhir sudah dideprekasi dan sangat tidak disarankan.
 
-Menggunakan agen _logging_ pada level _node_ merupakan cara yang paling umum dan disarankan untuk kluster Kubernetes. Hal ini karena hanya dibutuhkan satu agen tiap node dan tidak membutuhkan perubahan apapun dari sisi aplikasi yang berjalan pada _node_. Namun, node-level _logging_ hanya dapat dilakukan untuk aplikasi yang menggunakan _standard output_ dan _standard error_.
+Menggunakan agen _logging_ pada level _node_ merupakan cara yang paling umum dan disarankan untuk klaster Kubernetes. Hal ini karena hanya dibutuhkan satu agen tiap node dan tidak membutuhkan perubahan apapun dari sisi aplikasi yang berjalan pada _node_. Namun, node-level _logging_ hanya dapat dilakukan untuk aplikasi yang menggunakan _standard output_ dan _standard error_.
 
 Kubernetes tidak menspesifikasikan khusus suatu agen _logging_, namun ada dua agen _logging_ yang dimasukkan dalam rilis Kubernetes: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) untuk digunakan pada Google Cloud Platform, dan [Elasticsearch](/docs/user-guide/logging/elasticsearch). Kamu dapat melihat informasi dan instruksi pada masing-masing dokumentasi. Keduanya menggunakan [fluentd](http://www.fluentd.org/) dengan konfigurasi kustom sebagai agen pada _node_.
 
@@ -156,7 +156,7 @@ Mon Jan  1 00:00:02 UTC 2001 INFO 2
 ...
 ```
 
-Agen node-level yang terpasang di klustermu akan mengambil aliran log tersebut secara otomatis tanpa perlu melakukan konfigurasi tambahan. Bahkan jika kamu mau, kamu dapat mengonfigurasi agen untuk melakukan _parse_ baris log tergantung dari kontainer sumber awalnya.
+Agen node-level yang terpasang di klastermu akan mengambil aliran log tersebut secara otomatis tanpa perlu melakukan konfigurasi tambahan. Bahkan jika kamu mau, kamu dapat mengonfigurasi agen untuk melakukan _parse_ baris log tergantung dari kontainer sumber awalnya.
 
 Sedikit catatan, meskipun menggunakan memori dan CPU yang cukup rendah (sekitar beberapa milicore untuk CPU dan beberapa megabytes untuk memori), penulisan log ke _file_ kemudian mengalirkannya ke `stdout` dapat berakibat penggunaan disk yang lebih besar. Jika kamu memiliki aplikasi yang menuliskan ke _file_ tunggal, umumnya lebih baik menggunakan `/dev/stdout` sebagai tujuan daripada menggunakan pendekatan dengan kontainer _sidecar_.
 
@@ -193,6 +193,6 @@ Ingat, ini hanya contoh saja dan kamu dapat mengganti fluentd dengan agen _loggi
 
 ![Mengekspos log langsung dari aplikasi](/images/docs/user-guide/logging/logging-from-application.png)
 
-Kamu dapat mengimplementasikan kluster-level _logging_ dengan mengekspos atau mengeluarkan log langsung dari tiap aplikasi; namun cara implementasi mekanisme _logging_ tersebut diluar cakupan dari Kubernetes.
+Kamu dapat mengimplementasikan klaster-level _logging_ dengan mengekspos atau mengeluarkan log langsung dari tiap aplikasi; namun cara implementasi mekanisme _logging_ tersebut diluar cakupan dari Kubernetes.
 
 {{% /capture %}}

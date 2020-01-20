@@ -16,7 +16,7 @@ Pod Security Policies (kebijakan keamanan Pod) memungkinkan otorisasi secara det
 
 ## Apa itu Pod Security Policy?
 
-_Pod Security Policy_ adalah sebuah sumber daya pada tingkat kluster yang mengatur aspek-aspek spesifikasi Pod yang sensitif terhadap keamanan. Objek-objek `PodSecurityPolicy` mendefinisikan sebuah kumpulan kondisi yang harus dijalankan oleh Pod untuk dapat diterima oleh sistem, dan juga sebagai nilai-nilai bawaan untuk kolom-kolom yang bersangkutan. Mereka memungkinkan administrator untuk mengatur hal-hal berikut:
+_Pod Security Policy_ adalah sebuah sumber daya pada tingkat klaster yang mengatur aspek-aspek spesifikasi Pod yang sensitif terhadap keamanan. Objek-objek `PodSecurityPolicy` mendefinisikan sebuah kumpulan kondisi yang harus dijalankan oleh Pod untuk dapat diterima oleh sistem, dan juga sebagai nilai-nilai bawaan untuk kolom-kolom yang bersangkutan. Mereka memungkinkan administrator untuk mengatur hal-hal berikut:
 
 | Aspek yang diatur                                      | Nama Kolom                                 |
 | ----------------------------------------------------| ------------------------------------------- |
@@ -39,9 +39,9 @@ _Pod Security Policy_ adalah sebuah sumber daya pada tingkat kluster yang mengat
 
 ## Mengaktifkan Pod Security Policy
 
-Pengaturan Pod Security Policy diimplementasi sebagai sebuah opsi (tapi direkomendasikan untuk digunakan) dari [_admission controller_](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy). PodSecurityPolicy dilaksanakan dengan [mengaktifkan _admission controller_-nya](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in), tetapi melakukan hal ini tanpa mengizinkan kebijakan apapun **akan menghalangi Pod apapun untuk dibuat** di dalam kluster.
+Pengaturan Pod Security Policy diimplementasi sebagai sebuah opsi (tapi direkomendasikan untuk digunakan) dari [_admission controller_](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy). PodSecurityPolicy dilaksanakan dengan [mengaktifkan _admission controller_-nya](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in), tetapi melakukan hal ini tanpa mengizinkan kebijakan apapun **akan menghalangi Pod apapun untuk dibuat** di dalam klaster.
 
-Sejak API dari Pod Security Policy (`policy/v1beta1/podsecuritypolicy`) diaktifkan secara independen dari _admission controller_, untuk kluster-kluster yang sudah ada direkomendasikan untuk menambahkan dan mengizinkan kebijakan yang bersangkutan sebelum mengaktifkan _admission controller_ tersebut.
+Sejak API dari Pod Security Policy (`policy/v1beta1/podsecuritypolicy`) diaktifkan secara independen dari _admission controller_, untuk klaster-klaster yang sudah ada direkomendasikan untuk menambahkan dan mengizinkan kebijakan yang bersangkutan sebelum mengaktifkan _admission controller_ tersebut.
 
 ## Mengizinkan Kebijakan
 
@@ -123,7 +123,7 @@ Saat operasi pembaruan (saat ini mutasi terhadap spesifikasi Pod tidak diizinkan
 
 ## Contoh
 
-_Contoh ini mengasumsikan kamu telah memiliki kluster yang berjalan dengan _admission controller_ PodSecurityPolicy diaktifkan, dan kamu mempunyai akses admin._
+_Contoh ini mengasumsikan kamu telah memiliki klaster yang berjalan dengan _admission controller_ PodSecurityPolicy diaktifkan, dan kamu mempunyai akses admin._
 
 ### Persiapan
 

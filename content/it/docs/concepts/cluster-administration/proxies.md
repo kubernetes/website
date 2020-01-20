@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Proxy in Kubernetes
 content_template: templates/concept
 weight: 90

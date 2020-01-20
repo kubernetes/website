@@ -22,7 +22,7 @@ spec:
     - 'projected'
     - 'secret'
     - 'downwardAPI'
-    # Berasumsi bahwa persistentVolumes yang disetel oleh admin kluster aman untuk digunakan.
+    # Berasumsi bahwa persistentVolumes yang disetel oleh admin klaster aman untuk digunakan.
     - 'persistentVolumeClaim'
   hostNetwork: false
   hostIPC: false

@@ -13,16 +13,16 @@ weight: 40
 
 Untuk memudahkan, di awal akan dijelaskan beberapa terminologi yang sering dipakai:
 
-* Node: Sebuah mesin fisik atau virtual yang berada di dalam kluster Kubernetes.
-* Kluster: Sekelompok node yang merupakan *resource* komputasi primer yang diatur oleh Kubernetes, biasanya diproteksi dari internet dengan menggunakan *firewall*.
-* *Edge router*: Sebuah *router* mengatur *policy firewall* pada kluster kamu. *Router* ini bisa saja berupa *gateway* yang diatur oleh penyedia layanan *cloud* maupun perangkat keras.
-* Jaringan kluster: Seperangkat *links* baik logis maupus fisik, yang memfasilitasi komunikasi di dalam kluster berdasarkan [model jaringan Kubernetes](/docs/concepts/cluster-administration/networking/).
-* *Service*: Sebuah [*Service*](/docs/concepts/services-networking/service/) yang mengidentifikasi beberapa *Pod* dengan menggunakan *selector label*. Secara umum, semua *Service* diasumsikan hanya memiliki IP virtual yang hanya dapat diakses dari dalam jaringan kluster.
+* Node: Sebuah mesin fisik atau virtual yang berada di dalam klaster Kubernetes.
+* Klaster: Sekelompok node yang merupakan *resource* komputasi primer yang diatur oleh Kubernetes, biasanya diproteksi dari internet dengan menggunakan *firewall*.
+* *Edge router*: Sebuah *router* mengatur *policy firewall* pada klaster kamu. *Router* ini bisa saja berupa *gateway* yang diatur oleh penyedia layanan *cloud* maupun perangkat keras.
+* Jaringan klaster: Seperangkat *links* baik logis maupus fisik, yang memfasilitasi komunikasi di dalam klaster berdasarkan [model jaringan Kubernetes](/docs/concepts/cluster-administration/networking/).
+* *Service*: Sebuah [*Service*](/docs/concepts/services-networking/service/) yang mengidentifikasi beberapa *Pod* dengan menggunakan *selector label*. Secara umum, semua *Service* diasumsikan hanya memiliki IP virtual yang hanya dapat diakses dari dalam jaringan klaster.
 
 ## Apakah *Ingress* itu?
 
 Ingress ditambahkan sejak Kubernetes v1.1, mengekspos rute HTTP dan HTTPS ke berbagai
-{{< link text="services" url="/docs/concepts/services-networking/service/" >}} di dalam kluster.
+{{< link text="services" url="/docs/concepts/services-networking/service/" >}} di dalam klaster.
 Mekanisme *routing* trafik dikendalikan oleh aturan-aturan yang didefinisikan pada *Ingress*.
 
 ```none
@@ -33,7 +33,7 @@ Mekanisme *routing* trafik dikendalikan oleh aturan-aturan yang didefinisikan pa
    [ Services ]
 ```
 
-Sebuah *Ingress* dapat dikonfigurasi agar berbagai *Service* memiliki URL yang dapat diakses dari eksternal (luar kluster), melakukan *load balance* pada trafik, terminasi SSL, serta Virtual Host berbasis Nama.
+Sebuah *Ingress* dapat dikonfigurasi agar berbagai *Service* memiliki URL yang dapat diakses dari eksternal (luar klaster), melakukan *load balance* pada trafik, terminasi SSL, serta Virtual Host berbasis Nama.
 Sebuah [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) bertanggung jawab untuk menjalankan fungsi Ingress yaitu sebagai *loadbalancer*, meskipun dapat juga digunakan untuk mengatur *edge router* atau *frontend* tambahan untuk menerima trafik.
 
 Sebuah *Ingress* tidak mengekspos sembarang *port* atau protokol. Mengekspos *Service* untuk protokol selain HTTP ke HTTPS internet biasanya dilakukan dengan menggunakan
@@ -450,7 +450,7 @@ Ingress yang ingin diubah.
 Teknik untuk menyeimbangkan persebaran trafik pada *failure domain* berbeda antar penyedia layanan *cloud*.
 Kamu dapat mempelajari dokumentasi yang relevan bagi [kontoler Ingress](/docs/concepts/services-networking/ingress-controllers)
 untuk informasi yang lebih detail. Kamu juga dapat mempelajari [dokumentasi federasi](/docs/concepts/cluster-administration/federation/)
-untuk informasi lebih detail soal bagaimana melakukan *deploy* untuk federasi kluster.
+untuk informasi lebih detail soal bagaimana melakukan *deploy* untuk federasi klaster.
 
 ## Pengembangan selanjutnya
 

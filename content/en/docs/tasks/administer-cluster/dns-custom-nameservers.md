@@ -75,10 +75,14 @@ data:
   Corefile: |
     .:53 {
         errors
-        health
+        health {
+            lameduck 5s
+        }
+        ready
         kubernetes cluster.local in-addr.arpa ip6.arpa {
-           pods insecure
-           fallthrough in-addr.arpa ip6.arpa
+            pods insecure
+            fallthrough in-addr.arpa ip6.arpa
+            ttl 30
         }
         prometheus :9153
         forward . /etc/resolv.conf
@@ -91,8 +95,9 @@ data:
 The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS:
 
 * [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
-* [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health.
-* [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). 
+* [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health. In this extended syntax `lameduck` will make the process unhealthy then wait for 5 seconds before the process is shut down.
+* [ready](https://coredns.io/plugins/ready/): An HTTP endpoint on port 8181 will return 200 OK, when all plugins that are able to signal readiness have done so.
+* [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). `ttl` allows you to set a custom TTL for responses. The default is 5 seconds. The minimum TTL allowed is 0 seconds, and the maximum is capped at 3600 seconds. Setting TTL to 0 will prevent records from being cached.
 
 > The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pods verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records.
 

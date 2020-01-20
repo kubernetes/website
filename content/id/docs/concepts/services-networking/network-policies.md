@@ -151,9 +151,9 @@ menginterpretasikan _policy_ tersebut.
 
 **ipBlock**: Ini digunakan untuk memilih _range_ IP CIDR tertentu untuk berperan sebagai
 _source_ _ingress_ atau destinasi _egress_. Alamat yang digunakan harus merupakan
-alamat IP eksternal kluster, karena alamat IP Pod bersifat _ephemeral_ dan tidak dapat ditebak.
+alamat IP eksternal klaster, karena alamat IP Pod bersifat _ephemeral_ dan tidak dapat ditebak.
 
-Mekanisme _ingress_ dan _egress_ kluster seringkali membutuhkan mekanisme _rewrite_ alamat IP _source_ dan destinasi
+Mekanisme _ingress_ dan _egress_ klaster seringkali membutuhkan mekanisme _rewrite_ alamat IP _source_ dan destinasi
 paket. Pada kasus-kasus dimana hal ini, tidak dapat dipastikan bahwa apakah hal ini
  terjadi sebelum atau setelah pemrosesan `NetworkPolicy`, dan perilaku yang ada mungkin saja berbeda
  untuk kombinasi _plugin_ jaringan, penyedia layanan _cloud_, serta implementasi `Service` yang berbeda.
@@ -162,7 +162,7 @@ Pada _ingress_, artinya bisa saja kamu melakukan _filter_ paket yang masuk berda
 sementara di kasus lain "source IP" yang digunakan oleh Network Policy adalah alamat IP `LoadBalancer`,
 _node_ dimana Pod berada, dsb.
 
-Pada _egress_, bisa saja sebuah koneksi dari Pod ke IP `Service` di-_rewrite_ ke IP eksternal kluster
+Pada _egress_, bisa saja sebuah koneksi dari Pod ke IP `Service` di-_rewrite_ ke IP eksternal klaster
 atau bahkan tidak termasuk di dalam `ipBlock` _policy_.
 
 ## _Policy_ _Default_
@@ -270,7 +270,7 @@ Hal ini menjamin bahwa bahkan Pod yang tidak dipilih oleh `NetworkPolicy` tidak 
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Kubernetes mendukung SCTP sebagai _value_ `protocol` pada definisi `NetworkPolicy` sebagai fitur alpha. Untuk mengaktifkan fitur ini, administrator kluster harus mengaktifkan gerbang fitur `SCTPSupport` pada `apiserver`, contohnya `“--feature-gates=SCTPSupport=true,...”`. Ketika gerbang fitur ini diaktifkan, pengguna dapat menerapkan `value` dari _field_ `protocol` pada `NetworkPolicy` menjadi `SCTP`. Kubernetes akan mengatur jaringan sesuai dengan SCTP, seperti halnya koneksi TCP.
+Kubernetes mendukung SCTP sebagai _value_ `protocol` pada definisi `NetworkPolicy` sebagai fitur alpha. Untuk mengaktifkan fitur ini, administrator klaster harus mengaktifkan gerbang fitur `SCTPSupport` pada `apiserver`, contohnya `“--feature-gates=SCTPSupport=true,...”`. Ketika gerbang fitur ini diaktifkan, pengguna dapat menerapkan `value` dari _field_ `protocol` pada `NetworkPolicy` menjadi `SCTP`. Kubernetes akan mengatur jaringan sesuai dengan SCTP, seperti halnya koneksi TCP.
 
 _Plugin_ CNI harus mendukung SCTP sebagai _value_ dari `protocol` pada `NetworkPolicy`.
 
