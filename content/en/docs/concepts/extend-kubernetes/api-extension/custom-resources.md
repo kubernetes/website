@@ -83,7 +83,7 @@ Signs that your API might not be declarative include:
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
  - High bandwidth access (10s of requests per second sustained) needed.
- - Store end-user data (such as images, PII, etc) or other large-scale data processed by applications.
+ - Store end-user data (such as images, PII, etc.) or other large-scale data processed by applications.
  - The natural operations on the objects are not CRUD-y.
  - The API is not easily modeled as objects.
  - You chose to represent pending operations with an operation ID or an operation object.
@@ -96,7 +96,7 @@ Use a ConfigMap if any of the following apply:
 * You want to put the entire config file into one key of a configMap.
 * The main use of the config file is for a program running in a Pod on your cluster to consume the file to configure itself.
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
-* You want to perform rolling updates via Deployment, etc, when the file is updated.
+* You want to perform rolling updates via Deployment, etc., when the file is updated.
 
 {{< note >}}
 Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
