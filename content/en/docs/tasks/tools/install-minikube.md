@@ -76,8 +76,10 @@ If you do not already have a hypervisor installed, install one of these now:
 
 Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.
 Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.
-It is recommended to use the apt installation of docker from [Docker](https://www.docker.com/products/docker-desktop), when using the none driver.
-(The snap installation of docker does not work with minikube.)
+
+If you're using the `none` driver in Debian or a derivative, use the `.deb` packages for
+Docker rather than the snap package, which does not work with Minikube.
+You can download `.deb` packages from [Docker](https://www.docker.com/products/docker-desktop).
 
 {{< caution >}}
 The `none` VM driver can result in security and data loss issues.
