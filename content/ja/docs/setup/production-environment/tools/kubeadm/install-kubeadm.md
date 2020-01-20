@@ -42,9 +42,7 @@ card:
 * ネットワークインターフェースのMACアドレスは`ip link`もしくは`ifconfig -a`コマンドで取得できます。
 * product_uuidは`sudo cat /sys/class/dmi/id/product_uuid`コマンドで確認できます。
 
-ハードウェアデバイスではユニークなアドレスが割り当てられる可能性が非常に高いですが、VMでは同じになることがあります。
-Kubernetesはこれらの値を使用して、クラスター内のノードを一意に識別します。
-これらの値が各ノードに固有ではない場合、インストールプロセスが[失敗](https://github.com/kubernetes/kubeadm/issues/31)することもあります。
+ハードウェアデバイスではユニークなアドレスが割り当てられる可能性が非常に高いですが、VMでは同じになることがあります。Kubernetesはこれらの値を使用して、クラスター内のノードを一意に識別します。これらの値が各ノードに固有ではない場合、インストールプロセスが[失敗](https://github.com/kubernetes/kubeadm/issues/31)することもあります。
 
 ## ネットワークアダプタの確認
 
@@ -52,14 +50,9 @@ Kubernetesはこれらの値を使用して、クラスター内のノードを�
 
 ## iptablesがnftablesバックエンドを使用しないようにする
 
-Linuxでは、カーネルのiptablesサブシステムの最新の代替品としてnftablesが利用できます。
-`iptables`ツールは互換性レイヤーとして機能し、iptablesのように動作しますが、実際にはnftablesを設定します。
-このnftablesバックエンドは現在のkubeadmパッケージと互換性がありません。
-(ファイアウォールルールが重複し、`kube-proxy`を破壊するためです。)
+Linuxでは、カーネルのiptablesサブシステムの最新の代替品としてnftablesが利用できます。`iptables`ツールは互換性レイヤーとして機能し、iptablesのように動作しますが、実際にはnftablesを設定します。このnftablesバックエンドは現在のkubeadmパッケージと互換性がありません。(ファイアウォールルールが重複し、`kube-proxy`を破壊するためです。)
 
-もしあなたのシステムの`iptables`ツールがnftablesバックエンドを使用している場合、これらの問題を避けるために`iptables`ツールをレガシーモードに切り替える必要があります。
-これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。
-RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
+もしあなたのシステムの`iptables`ツールがnftablesバックエンドを使用している場合、これらの問題を避けるために`iptables`ツールをレガシーモードに切り替える必要があります。これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
 
 {{< tabs name="iptables_legacy" >}}
 {{% tab name="Debian or Ubuntu" %}}
@@ -98,21 +91,17 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 
 ** [NodePort Services](/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
 
-\*の項目は書き換え可能です。
-そのため、あなたが指定したカスタムポートも開いていることを確認する必要があります。
+\*の項目は書き換え可能です。そのため、あなたが指定したカスタムポートも開いていることを確認する必要があります。
 
 etcdポートはコントロールプレーンノードに含まれていますが、独自のetcdクラスターを外部またはカスタムポートでホストすることもできます。
 
-使用するPodネットワークプラグイン（以下を参照）のポートも開く必要があります。
-これは各Podネットワークプラグインによって異なるため、必要なポートについては
-プラグインのドキュメントを参照してください。
+使用するPodネットワークプラグイン（以下を参照）のポートも開く必要があります。これは各Podネットワークプラグインによって異なるため、必要なポートについてはプラグインのドキュメントを参照してください。
 
 ## ランタイムのインストール
 
 v1.6.0以降、KubernetesはデフォルトでCRI(Container Runtime Interface)の使用を有効にしています。
 
-また、v1.14.0以降、kubeadmは既知のドメインソケットのリストをスキャンして、Linuxノード上のコンテナランタイムを自動的に検出しようとします。
-検出可能なランタイムとソケットパスは、以下の表に記載されています。
+また、v1.14.0以降、kubeadmは既知のドメインソケットのリストをスキャンして、Linuxノード上のコンテナランタイムを自動的に検出しようとします。検出可能なランタイムとソケットパスは、以下の表に記載されています。
 
 | ランタイム  | ドメインソケット                   |
 |------------|----------------------------------|
@@ -120,9 +109,7 @@ v1.6.0以降、KubernetesはデフォルトでCRI(Container Runtime Interface)�
 | containerd | /run/containerd/containerd.sock  |
 | CRI-O      | /var/run/crio/crio.sock          |
 
-Dockerとcontainerdの両方が同時に検出された場合、Dockerが優先されます。
-Docker 18.09にはcontainerdが同梱されており、両方が検出可能であるため、この仕様が必要です。
-他の2つ以上のランタイムが検出された場合、kubeadmは適切なエラーメッセージで終了します。
+Dockerとcontainerdの両方が同時に検出された場合、Dockerが優先されます。Docker 18.09にはcontainerdが同梱されており、両方が検出可能であるため、この仕様が必要です。他の2つ以上のランタイムが検出された場合、kubeadmは適切なエラーメッセージで終了します。
 
 Linux以外のノードでは、デフォルトで使用されるコンテナランタイムはDockerです。
 
@@ -147,16 +134,12 @@ Linux以外のノードでは、デフォルトで使用されるコンテナラ
 
 * `kubectl`: クラスターにアクセスするためのコマンドラインツールです。
 
-kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**ため、kubeadmにインストールするKubernetesコントロールプレーンのバージョンと一致させる必要があります。
-そうしないと、予期しないバグのある動作につながる可能性のあるバージョン差異(version skew)が発生するリスクがあります。
-ただし、kubeletとコントロールプレーン間のマイナーバージョン差異(minor version skew)は_1つ_サポートされていますが、kubeletバージョンがAPIサーバーのバージョンを超えることはできません。
-たとえば、1.7.0を実行するkubeletは1.8.0 APIサーバーと完全に互換性がありますが、その逆はできません。
+kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**ため、kubeadmにインストールするKubernetesコントロールプレーンのバージョンと一致させる必要があります。そうしないと、予期しないバグのある動作につながる可能性のあるバージョン差異(version skew)が発生するリスクがあります。ただし、kubeletとコントロールプレーン間のマイナーバージョン差異(minor version skew)は_1つ_サポートされていますが、kubeletバージョンがAPIサーバーのバージョンを超えることはできません。たとえば、1.7.0を実行するkubeletは1.8.0 APIサーバーと完全に互換性がありますが、その逆はできません。
 
 `kubectl`のインストールに関する詳細情報は、[kubectlのインストールおよびセットアップ](/docs/tasks/tools/install-kubectl/)を参照してください。
 
 {{< warning >}}
-これらの手順はシステムアップグレードによるすべてのKubernetesパッケージの更新を除きます。
-これはkubeadmとKubernetesが[アップグレードにおける特別な注意](docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を必要とするからです。
+これらの手順はシステムアップグレードによるすべてのKubernetesパッケージの更新を除きます。これはkubeadmとKubernetesが[アップグレードにおける特別な注意](docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を必要とするからです。
 {{</ warning >}}
 
 バージョン差異(version skew)に関しては下記を参照してください。
@@ -269,8 +252,7 @@ KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 
 このファイルは、kubeletの追加のユーザー定義引数を取得するために、`kubeadm init`および`kubeadm join`によって使用されます。
 
-CRIのcgroupドライバーが`cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。
-なぜなら、これは既にkubeletのデフォルト値であるためです。
+CRIのcgroupドライバーが`cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。なぜなら、これは既にkubeletのデフォルト値であるためです。
 
 kubeletをリスタートする方法:
 
