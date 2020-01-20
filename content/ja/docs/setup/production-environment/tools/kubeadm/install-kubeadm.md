@@ -11,8 +11,7 @@ card:
 {{% capture overview %}}
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
-このページでは`kubeadm`コマンドをインストールする方法を示します。  
-このインストールプロセスの実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
+このページでは`kubeadm`コマンドをインストールする方法を示します。このインストールプロセスの実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
 {{% /capture %}}
 
