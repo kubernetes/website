@@ -193,7 +193,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
    Remove-Item .\master.zip
    ```
 
-1. Customize the Kubernetes [configuration file](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclustervxlan.json) 
+1. Customize the Kubernetes [configuration file](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclustervxlan.json)
 
     ```
     {
@@ -218,13 +218,13 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
         "InterfaceName" : "Ethernet"  // Designated network interface name on Windows node to use as container network
     },
     "Kubernetes" : {  // Contains values for Kubernetes node binaries
-        "Source" : {  // Contains values for Kubernetes node binaries 
+        "Source" : {  // Contains values for Kubernetes node binaries
             "Release" : "1.15.0",  // Version of Kubernetes node binaries
             "Url" : "https://dl.k8s.io/v1.15.0/kubernetes-node-windows-amd64.tar.gz"  // Direct URL pointing to Kubernetes node binaries tarball
         },
         "ControlPlane" : {  // Contains values associated with Kubernetes control-plane ("Master") node
             "IpAddress" : "kubemasterIP",  // IP address of control-plane ("Master") node
-            "Username" : "localadmin",  // Username on control-plane ("Master") node with remote SSH access  
+            "Username" : "localadmin",  // Username on control-plane ("Master") node with remote SSH access
             "KubeadmToken" : "token",  // Kubeadm bootstrap token
             "KubeadmCAHash" : "discovery-token-ca-cert-hash"  // Kubeadm CA key hash
         },
@@ -233,7 +233,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
         },
         "Network" : {  // Contains values for IP ranges in CIDR notation for Kubernetes networking
             "ServiceCidr" : "10.96.0.0/12",  // Service IP subnet used by Services in CIDR notation
-            "ClusterCidr" : "10.244.0.0/16"  // Cluster IP subnet used by Pods in CIDR notation 
+            "ClusterCidr" : "10.244.0.0/16"  // Cluster IP subnet used by Pods in CIDR notation
         }
     },
     "Install" : {  // Contains values and configurations for Windows node installation
@@ -251,12 +251,12 @@ Users can generate values for the `ControlPlane.KubeadmToken` and `ControlPlane.
 Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) script to install Kubernetes on the Windows Server container host:
 
   ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install 
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -install
   ```
   where `-ConfigFile` points to the path of the Kubernetes configuration file.
 
 {{< note >}}
-In the example below, we are using overlay networking mode. This requires Windows Server version 2019 with [KB4489899](https://support.microsoft.com/help/4489899) and at least Kubernetes v1.14 or above. Users that cannot meet this requirement must use  `L2bridge` networking instead by selecting `bridge` as the [plugin](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclusterbridge.json#L18) in the configuration file.  
+In the example below, we are using overlay networking mode. This requires Windows Server version 2019 with [KB4489899](https://support.microsoft.com/help/4489899) and at least Kubernetes v1.14 or above. Users that cannot meet this requirement must use  `L2bridge` networking instead by selecting `bridge` as the [plugin](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/v1.15.0/Kubeclusterbridge.json#L18) in the configuration file.
 {{< /note >}}
 
   ![alt_text](../kubecluster.ps1-install.gif "KubeCluster.ps1 install output")
@@ -273,7 +273,7 @@ On the Windows node you target, this step will:
 
       {{< note >}}For the SSH key generation step, you also need to add the generated public SSH key to the `authorized_keys` file on your (Linux) control-plane node. You only need to do this once. The script prints out the steps you can follow to do this, at the end of its output.{{< /note >}}
 
-Once installation is complete, any of the generated configuration files or binaries can be modified before joining the Windows node. 
+Once installation is complete, any of the generated configuration files or binaries can be modified before joining the Windows node.
 
 #### Join the Windows Node to the Kubernetes cluster
 This section covers how to join a [Windows node with Kubernetes installed](#preparing-a-windows-node) with an existing (Linux) control-plane, to form a cluster.
@@ -281,7 +281,7 @@ This section covers how to join a [Windows node with Kubernetes installed](#prep
 Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) script to join the Windows node to the cluster:
 
   ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join 
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -join
   ```
   where `-ConfigFile` points to the path of the Kubernetes configuration file.
 
@@ -311,12 +311,12 @@ kubectl get nodes
 ```
 
 #### Remove the Windows Node from the Kubernetes cluster
-In this section we'll cover how to remove a Windows node from a Kubernetes cluster. 
+In this section we'll cover how to remove a Windows node from a Kubernetes cluster.
 
 Use the previously downloaded [KubeCluster.ps1](https://github.com/kubernetes-sigs/sig-windows-tools/blob/master/kubeadm/KubeCluster.ps1) script to remove the Windows node from the cluster:
 
   ```PowerShell
-    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset 
+    .\KubeCluster.ps1 -ConfigFile .\Kubeclustervxlan.json -reset
   ```
   where `-ConfigFile` points to the path of the Kubernetes configuration file.
 

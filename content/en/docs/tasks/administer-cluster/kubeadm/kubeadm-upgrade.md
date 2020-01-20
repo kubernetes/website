@@ -375,7 +375,7 @@ without compromising the minimum required capacity for running your workloads.
 1.  Bring the node back online by marking it schedulable:
 
     ```shell
-    # replace <node-to-drain> with the name of your node 
+    # replace <node-to-drain> with the name of your node
     kubectl uncordon <node-to-drain>
     ```
 

@@ -550,7 +550,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -569,7 +569,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```

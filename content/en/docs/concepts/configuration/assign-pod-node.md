@@ -11,7 +11,7 @@ weight: 30
 
 {{% capture overview %}}
 
-You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} to only be able to run on particular 
+You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} to only be able to run on particular
 {{< glossary_tooltip text="Node(s)" term_id="node" >}}, or to prefer to run on particular nodes.
 There are several ways to do this, and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
@@ -398,6 +398,6 @@ and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contribu
 
 Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
 The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can take part in node-level
-resource allocation decisions. 
+resource allocation decisions.
 
 {{% /capture %}}

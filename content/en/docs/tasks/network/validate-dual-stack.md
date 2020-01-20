@@ -39,7 +39,7 @@ a00:100::/24
 ```
 There should be one IPv4 block and one IPv6 block allocated.
 
-Validate that the node has an IPv4 and IPv6 interface detected (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0): 
+Validate that the node has an IPv4 and IPv6 interface detected (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0):
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
 ```
@@ -151,7 +151,7 @@ If the cloud provider supports the provisioning of IPv6 enabled external load ba
 
 {{< codenew file="service/networking/dual-stack-ipv6-lb-svc.yaml" >}}
 
-Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port. 
+Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port.
 ```
  kubectl get svc -l app=MyApp
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S)        AGE

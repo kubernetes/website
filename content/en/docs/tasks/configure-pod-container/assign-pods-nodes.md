@@ -69,7 +69,7 @@ a `disktype=ssd` label.
 
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
-    
+
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml
     ```
@@ -81,7 +81,7 @@ a `disktype=ssd` label.
     ```
 
     The output is similar to this:
-    
+
     ```shell
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0

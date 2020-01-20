@@ -27,7 +27,7 @@ The `kubelet` can proactively monitor for and prevent total starvation of a
 compute resource. In those cases, the `kubelet` can reclaim the starved
 resource by proactively failing one or more Pods. When the `kubelet` fails
 a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
-If the evicted Pod is managed by a Deployment, the Deployment will create another Pod 
+If the evicted Pod is managed by a Deployment, the Deployment will create another Pod
 to be scheduled by Kubernetes.
 
 ### Eviction Signals
@@ -329,9 +329,9 @@ and trigger eviction assuming those Pods use less than their configured request.
 
 ### DaemonSet
 
-As `Priority` is a key factor in the eviction strategy, if you do not want 
-pods belonging to a `DaemonSet` to be evicted, specify a sufficiently high priorityClass 
-in the pod spec template. If you want pods belonging to a `DaemonSet` to run only if 
+As `Priority` is a key factor in the eviction strategy, if you do not want
+pods belonging to a `DaemonSet` to be evicted, specify a sufficiently high priorityClass
+in the pod spec template. If you want pods belonging to a `DaemonSet` to run only if
 there are sufficient resources, specify a lower or default priorityClass.
 
 

@@ -9,7 +9,7 @@ content_template: templates/task
 {{% capture overview %}}
 This page explains how to configure your DNS Pod and customize the
 DNS resolution process. In Kubernetes version 1.11 and later, CoreDNS is at GA
-and is installed by default with kubeadm. See [CoreDNS ConfigMap options](#coredns-configmap-options) 
+and is installed by default with kubeadm. See [CoreDNS ConfigMap options](#coredns-configmap-options)
 and [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/).
 {{% /capture %}}
 
@@ -33,7 +33,7 @@ default with certain Kubernetes installer tools. Refer to the documentation prov
 
 
 The CoreDNS Deployment is exposed as a Kubernetes Service with a static IP.
-Both the CoreDNS and kube-dns Service are named `kube-dns` in the `metadata.name` field. This is done so that there is greater interoperability with workloads that relied on the legacy `kube-dns` Service name to resolve addresses internal to the cluster. It abstracts away the implementation detail of which DNS provider is running behind that common endpoint. 
+Both the CoreDNS and kube-dns Service are named `kube-dns` in the `metadata.name` field. This is done so that there is greater interoperability with workloads that relied on the legacy `kube-dns` Service name to resolve addresses internal to the cluster. It abstracts away the implementation detail of which DNS provider is running behind that common endpoint.
 The kubelet passes DNS to each container with the `--cluster-dns=<dns-service-ip>` flag.
 
 DNS names also need domains. You configure the local domain in the kubelet
@@ -55,13 +55,13 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 ## CoreDNS
 
 CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications]
-(https://github.com/kubernetes/dns/blob/master/docs/specification.md). 
+(https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
 ### CoreDNS ConfigMap options
 
-CoreDNS is a DNS server that is modular and pluggable, and each plugin adds new functionality to CoreDNS. 
+CoreDNS is a DNS server that is modular and pluggable, and each plugin adds new functionality to CoreDNS.
 This can be configured by maintaining a [Corefile](https://coredns.io/2017/07/23/corefile-explained/), which is the CoreDNS
-configuration file. A cluster administrator can modify the ConfigMap for the CoreDNS Corefile to change how service discovery works. 
+configuration file. A cluster administrator can modify the ConfigMap for the CoreDNS Corefile to change how service discovery works.
 
 In Kubernetes, CoreDNS is installed with the following default Corefile configuration.
 
@@ -91,7 +91,7 @@ data:
         reload
         loadbalance
     }
-``` 
+```
 The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS:
 
 * [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
@@ -112,7 +112,7 @@ You can modify the default CoreDNS behavior by modifying the ConfigMap.
 
 ### Configuration of Stub-domain and upstream nameserver using CoreDNS
 
-CoreDNS has the ability to configure stubdomains and upstream nameservers using the [forward plugin](https://coredns.io/plugins/forward/). 
+CoreDNS has the ability to configure stubdomains and upstream nameservers using the [forward plugin](https://coredns.io/plugins/forward/).
 
 #### Example
 If a cluster operator has a [Consul](https://www.consul.io/) domain server located at 10.150.0.1, and all Consul names have the suffix .consul.local. To configure it in CoreDNS, the cluster administrator creates the following stanza in the CoreDNS ConfigMap.
@@ -129,7 +129,7 @@ To explicitly force all non-cluster DNS lookups to go through a specific nameser
 
 ```
 forward .  172.16.0.1
-``` 
+```
 
 The final ConfigMap along with the default `Corefile` configuration looks like:
 
@@ -162,7 +162,7 @@ data:
     }
 ```
 In Kubernetes version 1.10 and later, kubeadm supports automatic translation of the CoreDNS ConfigMap from the kube-dns ConfigMap.
-***Note: While kube-dns accepts an FQDN for stubdomain and nameserver (eg: ns.foo.com), CoreDNS does not support this feature. 
+***Note: While kube-dns accepts an FQDN for stubdomain and nameserver (eg: ns.foo.com), CoreDNS does not support this feature.
 During translation, all FQDN nameservers will be omitted from the CoreDNS config.***
 
 ## Kube-dns

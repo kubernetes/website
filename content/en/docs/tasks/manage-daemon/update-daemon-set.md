@@ -30,7 +30,7 @@ DaemonSet has two update strategy types:
   DaemonSet pods will *only* be created when you manually delete old DaemonSet
   pods. This is the same behavior of DaemonSet in Kubernetes version 1.5 or
   before.
-* RollingUpdate: This is the default update strategy.  
+* RollingUpdate: This is the default update strategy.
   With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion.

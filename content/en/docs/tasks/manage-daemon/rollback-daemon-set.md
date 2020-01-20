@@ -8,7 +8,7 @@ weight: 20
 
 {{% capture overview %}}
 
-This page shows how to perform a rollback on a DaemonSet. 
+This page shows how to perform a rollback on a DaemonSet.
 
 {{% /capture %}}
 
@@ -94,8 +94,8 @@ DaemonSet. The real rollback is done asynchronously on the server side.
 
 To watch the progress of the rollback:
 
-```shell 
-kubectl rollout status ds/<daemonset-name> 
+```shell
+kubectl rollout status ds/<daemonset-name>
 ```
 
 When the rollback is complete, the output is similar to this:

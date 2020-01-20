@@ -66,16 +66,16 @@ but not both in the same item).
 
 The first provider in the list is used to encrypt resources going into storage. When reading
 resources from storage each provider that matches the stored data attempts to decrypt the data in
-order. If no provider can read the stored data due to a mismatch in format or secret key, an error 
-is returned which prevents clients from accessing that resource. 
+order. If no provider can read the stored data due to a mismatch in format or secret key, an error
+is returned which prevents clients from accessing that resource.
 
 Note:
 The alpha version of the encryption feature prior to 1.13 required to be configured with
 `kind: EncryptionConfig` and `apiVersion: v1`.
 
 {{< caution >}}
-**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
-the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
+**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed),
+the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
 read that resource will fail until it is deleted or a valid decryption key is provided.
 {{< /caution >}}
 
@@ -85,7 +85,7 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 -----|------------|----------|-------|------------|---------------------
 `identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
 `aescbc` | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than `secretbox`.
-`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review. 
+`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
 
@@ -137,7 +137,7 @@ Your config file contains keys that can decrypt content in etcd, so you must pro
 {{< /caution >}}
 
 
-## Verifying that data is encrypted 
+## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
 updated secret should be encrypted when stored. To check, you can use the `etcdctl` command line
@@ -155,8 +155,8 @@ program to retrieve the contents of your secret.
     ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
     ```
 
-    where `[...]` must be the additional arguments for connecting to the etcd server. 
-3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data. 
+    where `[...]` must be the additional arguments for connecting to the etcd server.
+3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data.
 4. Verify the secret is correctly decrypted when retrieved via the API:
 
     ```

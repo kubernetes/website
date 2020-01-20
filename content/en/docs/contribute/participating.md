@@ -40,7 +40,7 @@ the quality of our published content is high, we limit merging pull requests to
 SIG Docs approvers. Here's how it works.
 
 - When a pull request has both the `lgtm` and `approve` labels and has no `hold`
-  labels, the pull request merges automatically. 
+  labels, the pull request merges automatically.
 - Kubernetes organization members and SIG Docs approvers can add comments to
   prevent automatic merging of a given pull request (by adding a `/hold` comment
   or withholding a `/lgtm` comment).
@@ -86,11 +86,11 @@ in the Kubernetes organization. Follow these steps:
 
 1.  Find two reviewers or approvers to [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor)
     your membership.
-    
-      Ask for sponsorship in the [#sig-docs channel on the 
+
+      Ask for sponsorship in the [#sig-docs channel on the
       Kubernetes Slack instance](https://kubernetes.slack.com) or on the
       [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
-      
+
       {{< note >}}
       Don't send a direct email or Slack direct message to an individual
       SIG Docs member.
@@ -208,8 +208,8 @@ Approvers improve the documentation by reviewing and merging pull requests into 
 - Approvers can use the `/approve` command, which merges PRs into the repo.
 
     A careless merge can break the site, so be sure that when you merge something, you mean it.
-    
-- Make sure that proposed changes meet the contribution guidelines. 
+
+- Make sure that proposed changes meet the contribution guidelines.
 
     If you ever have a question, or you're not sure about something, feel free to call for additional review.
 

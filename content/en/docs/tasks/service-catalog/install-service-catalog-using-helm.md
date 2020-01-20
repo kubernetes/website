@@ -6,7 +6,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
+{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
 
 Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog/blob/master/docs/install.md) repo.
 
@@ -45,7 +45,7 @@ helm search service-catalog
 If the installation was successful, the command should output the following:
 
 ```
-NAME                	CHART VERSION	APP VERSION	DESCRIPTION                                                 
+NAME                	CHART VERSION	APP VERSION	DESCRIPTION
 svc-cat/catalog     	0.2.1        	           	service-catalog API server and controller-manager helm chart
 svc-cat/catalog-v0.2	0.2.2        	           	service-catalog API server and controller-manager helm chart
 ```
@@ -93,7 +93,7 @@ kubectl create clusterrolebinding tiller-cluster-admin \
 
 Install Service Catalog from the root of the Helm repository using the following command:
 
-{{< tabs name="helm-versions" >}} 
+{{< tabs name="helm-versions" >}}
 {{% tab name="Helm version 3" %}}
 ```shell
 helm install catalog svc-cat/catalog --namespace catalog

@@ -108,7 +108,7 @@ Similar to how [filesystem-hosted manifests](#configuration-files) work, the kub
 refetches the manifest on a schedule. If there are changes to the list of static
 Pods, the kubelet applies them.
 
-To use this approach: 
+To use this approach:
 
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 

@@ -151,7 +151,7 @@ The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above is the placeholde
 for the real path of the certification files. You need change these to the real path
 of certification files in your environment.
 
-Some times you may want to use base64 encoded data here instead of the path of the 
+Some times you may want to use base64 encoded data here instead of the path of the
 certification files, then you need add the suffix `-data` to the keys. For example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 

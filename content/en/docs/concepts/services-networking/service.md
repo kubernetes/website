@@ -641,7 +641,7 @@ metadata:
 ```yaml
 [...]
 metadata:
-  annotations:  
+  annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 [...]
 ```
@@ -895,25 +895,25 @@ There are other annotations for managing Cloud Load Balancers on TKE as shown be
 
         # ID of an existing load balancer
         service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-        
+
         # Custom parameters for the load balancer (LB), does not support modification of LB type yet
         service.kubernetes.io/service.extensiveParameters: ""
-        
-        # Custom parameters for the LB listener 
+
+        # Custom parameters for the LB listener
         service.kubernetes.io/service.listenerParameters: ""
-        
+
         # Specifies the type of Load balancer;
         # valid values: classic (Classic Cloud Load Balancer) or application (Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
 
-        # Specifies the public network bandwidth billing method; 
+        # Specifies the public network bandwidth billing method;
         # valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
         service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
 
         # Specifies the bandwidth value (value range: [1,2000] Mbps).
         service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
 
-        # When this annotation is set，the loadbalancers will only register nodes 
+        # When this annotation is set，the loadbalancers will only register nodes
         # with pod running on it, otherwise all nodes will be registered.
         service.kubernetes.io/local-svc-only-bind-node-with-pod: true
 ```

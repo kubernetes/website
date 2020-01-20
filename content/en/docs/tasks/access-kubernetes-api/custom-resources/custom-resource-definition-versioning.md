@@ -81,7 +81,7 @@ Removing an old version:
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting
    errors attempting to access the custom resource objects at the old version.
-   If this occurs, switch back to using `served:true` on the old version, migrate the 
+   If this occurs, switch back to using `served:true` on the old version, migrate the
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
     1. Verify that the `stored` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
@@ -315,7 +315,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 
 #### Permissible mutations
 
-A conversion webhook must not mutate anything inside of `metadata` of the converted object other than `labels` and `annotations`. Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request which caused the conversion. All other changes are just ignored.  
+A conversion webhook must not mutate anything inside of `metadata` of the converted object other than `labels` and `annotations`. Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request which caused the conversion. All other changes are just ignored.
 
 ### Deploy the conversion webhook service
 
@@ -492,7 +492,7 @@ and can optionally include a custom CA bundle to use to verify the TLS connectio
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
 The host might be resolved via external DNS in some apiservers
-(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 
 Please note that using `localhost` or `127.0.0.1` as a `host` is
@@ -622,7 +622,7 @@ spec:
       ...
 ```
 
-`conversionReviewVersions` is a required field when creating 
+`conversionReviewVersions` is a required field when creating
 `apiextensions.k8s.io/v1` custom resource definitions.
 Webhooks are required to support at least one `ConversionReview`
 version understood by the current and previous API server.
@@ -641,7 +641,7 @@ spec:
     ...
 ```
 
-If no `conversionReviewVersions` are specified, the default when creating 
+If no `conversionReviewVersions` are specified, the default when creating
 `apiextensions.k8s.io/v1beta1` custom resource definitions is `v1beta1`.
 {{% /tab %}}
 {{< /tabs >}}
@@ -664,10 +664,10 @@ for a request to convert `CronTab` objects to `example.com/v1`:
   "request": {
     # Random uid uniquely identifying this conversion call
     "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    
+
     # The API group and version the objects should be converted to
     "desiredAPIVersion": "example.com/v1",
-    
+
     # The list of objects to convert.
     # May contain one or more objects, in one or more versions.
     "objects": [
@@ -708,10 +708,10 @@ for a request to convert `CronTab` objects to `example.com/v1`:
   "request": {
     # Random uid uniquely identifying this conversion call
     "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    
+
     # The API group and version the objects should be converted to
     "desiredAPIVersion": "example.com/v1",
-    
+
     # The list of objects to convert.
     # May contain one or more objects, in one or more versions.
     "objects": [
@@ -860,7 +860,7 @@ If conversion fails, a webhook should return a `response` stanza containing the 
 
 {{< warning >}}
 Failing conversion can disrupt read and write access to the custom resources,
-including the ability to update or delete the resources. Conversion failures 
+including the ability to update or delete the resources. Conversion failures
 should be avoided whenever possible, and should not be used to enforce validation
  constraints (use validation schemas or webhook admission instead).
 {{< /warning >}}
@@ -944,7 +944,7 @@ can exist in storage at a version that has never been a storage version.
 ## Upgrade existing objects to a new stored version
 
 When deprecating versions and dropping support, select a storage upgrade
-procedure. 
+procedure.
 
 *Option 1:* Use the Storage Version Migrator
 

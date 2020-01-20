@@ -37,7 +37,7 @@ for details about addon manager and how to disable individual addons.
 
 ## Changing the default StorageClass
 
-1. List the StorageClasses in your cluster: 
+1. List the StorageClasses in your cluster:
 
     ```bash
     kubectl get storageclass

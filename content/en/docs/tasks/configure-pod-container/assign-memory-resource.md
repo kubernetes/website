@@ -42,7 +42,7 @@ If the resource metrics API is available, the output includes a
 reference to `metrics.k8s.io`.
 
 ```shell
-NAME      
+NAME
 v1beta1.metrics.k8s.io
 ```
 

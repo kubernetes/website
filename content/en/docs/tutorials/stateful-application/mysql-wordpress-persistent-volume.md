@@ -4,14 +4,14 @@ reviewers:
 - ahmetb
 content_template: templates/tutorial
 weight: 20
-card: 
+card:
   name: tutorials
   weight: 40
   title: "Stateful Example: Wordpress with Persistent Volumes"
 ---
 
 {{% capture overview %}}
-This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data. 
+This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data.
 
 A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods.
 
@@ -49,7 +49,7 @@ Download the following configuration files:
 
 {{% /capture %}}
 
-{{% capture lessoncontent %}} 
+{{% capture lessoncontent %}}
 
 ## Create PersistentVolumeClaims and PersistentVolumes
 
@@ -89,14 +89,14 @@ EOF
 
 ## Add resource configs for MySQL and WordPress
 
-The following manifest describes a single-instance MySQL Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD` environment variable sets the database password from the Secret. 
+The following manifest describes a single-instance MySQL Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD` environment variable sets the database password from the Secret.
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
 The following manifest describes a single-instance WordPress Deployment. The WordPress container mounts the
 PersistentVolume at `/var/www/html` for website data files. The `WORDPRESS_DB_HOST` environment variable sets
 the name of the MySQL Service defined above, and WordPress will access the database by Service. The
-`WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated. 
+`WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated.
 
 {{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
@@ -105,13 +105,13 @@ the name of the MySQL Service defined above, and WordPress will access the datab
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
       ```
-            
+
 2. Download the WordPress configuration file.
 
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
       ```
-      
+
 3. Add them to `kustomization.yaml` file.
 
 ```shell
@@ -123,7 +123,7 @@ EOF
 ```
 
 ## Apply and Verify
-The `kustomization.yaml` contains all the resources for deploying a WordPress site and a 
+The `kustomization.yaml` contains all the resources for deploying a WordPress site and a
 MySQL database. You can apply the directory by
 ```shell
 kubectl apply -k ./
@@ -145,11 +145,11 @@ Now you can verify that all objects exist.
       ```
 
 2. Verify that a PersistentVolume got dynamically provisioned.
- 
+
       ```shell
       kubectl get pvc
       ```
-      
+
       {{< note >}}
       It can take up to a few minutes for the PVs to be provisioned and bound.
       {{< /note >}}

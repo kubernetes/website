@@ -547,7 +547,7 @@ most up-to-date version of that branch.
 
     ```bash
     git rebase -i HEAD~<number_of_commits>
-    ```  
+    ```
 
     The `-i` switch tells git you want to rebase interactively. This enables
     you to tell git which commits to squash into the first one. For
@@ -556,7 +556,7 @@ most up-to-date version of that branch.
     ```
     12345 commit 4 (2 minutes ago)
     6789d commit 3 (30 minutes ago)
-    456df commit 2 (1 day ago)     
+    456df commit 2 (1 day ago)
     ```
 
     You must squash your last three commits into the first one.

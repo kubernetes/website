@@ -26,7 +26,7 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 {{% tab name="macOS" %}}
 To check if virtualization is supported on macOS, run the following command on your terminal.
 ```
-sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 If you see `VMX` in the output (should be colored), the VT-x feature is enabled in your machine.
 {{% /tab %}}

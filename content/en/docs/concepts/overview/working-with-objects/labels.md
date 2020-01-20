@@ -72,7 +72,7 @@ spec:
     image: nginx:1.7.9
     ports:
     - containerPort: 80
-    
+
 ```
 
 ## Label selectors
@@ -92,7 +92,7 @@ them.
 For some API types, such as ReplicaSets, the label selectors of two instances must not overlap within a namespace, or the controller can see that as conflicting instructions and fail to determine how many replicas should be present.
 {{< /note >}}
 
-{{< caution >}} 
+{{< caution >}}
 For both equality-based and set-based conditions there is no logical _OR_ (`||`) operator. Ensure your filter statements are structured accordingly.
 {{< /caution >}}
 

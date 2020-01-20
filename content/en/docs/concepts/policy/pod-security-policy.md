@@ -493,8 +493,8 @@ minimum value of the first range as the default. Validates against all ranges.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
 `runAsUser` or have the `USER` directive defined (using a numeric UID) in the
 image. Pods which have specified neither `runAsNonRoot` nor `runAsUser` settings
-will be mutated to set `runAsNonRoot=true`, thus requiring a defined non-zero 
-numeric `USER` directive in the container. No default provided. Setting 
+will be mutated to set `runAsNonRoot=true`, thus requiring a defined non-zero
+numeric `USER` directive in the container. No default provided. Setting
 `allowPrivilegeEscalation=false` is strongly recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
@@ -617,7 +617,7 @@ default cannot be changed.
 
 ### Sysctl
 
-By default, all safe sysctls are allowed. 
+By default, all safe sysctls are allowed.
 
 - `forbiddenSysctls` - excludes specific sysctls. You can forbid a combination of safe and unsafe sysctls in the list. To forbid setting any sysctls, use `*` on its own.
 - `allowedUnsafeSysctls` - allows specific sysctls that had been disallowed by the default list, so long as these are not listed in `forbiddenSysctls`.

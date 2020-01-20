@@ -115,8 +115,8 @@ field on the `deleteOptions` argument when deleting an Object. Possible values i
 
 Prior to Kubernetes 1.9, the default garbage collection policy for many controller resources was `orphan`.
 This included ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
-Deployment. For kinds in the `extensions/v1beta1`, `apps/v1beta1`, and `apps/v1beta2` group versions, unless you 
-specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, for all kinds in the `apps/v1` 
+Deployment. For kinds in the `extensions/v1beta1`, `apps/v1beta1`, and `apps/v1beta2` group versions, unless you
+specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, for all kinds in the `apps/v1`
 group version, dependent objects are deleted by default.
 
 Here's an example that deletes dependents in background:

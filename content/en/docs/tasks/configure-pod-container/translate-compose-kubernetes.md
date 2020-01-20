@@ -134,10 +134,10 @@ you need is an existing `docker-compose.yml` file.
       We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application.
       If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
-      INFO Successfully created Service: redis          
-      INFO Successfully created Service: web            
-      INFO Successfully created Deployment: redis       
-      INFO Successfully created Deployment: web         
+      INFO Successfully created Service: redis
+      INFO Successfully created Service: web
+      INFO Successfully created Deployment: redis
+      INFO Successfully created Deployment: web
 
       Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
       ```
@@ -146,13 +146,13 @@ you need is an existing `docker-compose.yml` file.
     `kubectl`, run `kompose convert` and then `kubectl apply -f <output file>`.
 
       ```bash
-      $ kompose convert                           
-      INFO Kubernetes file "frontend-service.yaml" created         
-      INFO Kubernetes file "redis-master-service.yaml" created     
-      INFO Kubernetes file "redis-slave-service.yaml" created      
-      INFO Kubernetes file "frontend-deployment.yaml" created      
-      INFO Kubernetes file "redis-master-deployment.yaml" created  
-      INFO Kubernetes file "redis-slave-deployment.yaml" created   
+      $ kompose convert
+      INFO Kubernetes file "frontend-service.yaml" created
+      INFO Kubernetes file "redis-master-service.yaml" created
+      INFO Kubernetes file "redis-slave-service.yaml" created
+      INFO Kubernetes file "frontend-deployment.yaml" created
+      INFO Kubernetes file "redis-master-deployment.yaml" created
+      INFO Kubernetes file "redis-slave-deployment.yaml" created
       ```
 
       ```bash
@@ -251,20 +251,20 @@ You can also provide multiple docker-compose files at the same time:
 
 ```sh
 $ kompose -f docker-compose.yml -f docker-guestbook.yml convert
-INFO Kubernetes file "frontend-service.yaml" created         
-INFO Kubernetes file "mlbparks-service.yaml" created         
-INFO Kubernetes file "mongodb-service.yaml" created          
-INFO Kubernetes file "redis-master-service.yaml" created     
-INFO Kubernetes file "redis-slave-service.yaml" created      
-INFO Kubernetes file "frontend-deployment.yaml" created      
-INFO Kubernetes file "mlbparks-deployment.yaml" created      
-INFO Kubernetes file "mongodb-deployment.yaml" created       
+INFO Kubernetes file "frontend-service.yaml" created
+INFO Kubernetes file "mlbparks-service.yaml" created
+INFO Kubernetes file "mongodb-service.yaml" created
+INFO Kubernetes file "redis-master-service.yaml" created
+INFO Kubernetes file "redis-slave-service.yaml" created
+INFO Kubernetes file "frontend-deployment.yaml" created
+INFO Kubernetes file "mlbparks-deployment.yaml" created
+INFO Kubernetes file "mongodb-deployment.yaml" created
 INFO Kubernetes file "mongodb-claim0-persistentvolumeclaim.yaml" created
-INFO Kubernetes file "redis-master-deployment.yaml" created  
-INFO Kubernetes file "redis-slave-deployment.yaml" created   
+INFO Kubernetes file "redis-master-deployment.yaml" created
+INFO Kubernetes file "redis-slave-deployment.yaml" created
 
 $ ls
-mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml  
+mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml
 frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
 frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
 redis-master-deployment.yaml
@@ -277,20 +277,20 @@ When multiple docker-compose files are provided the configuration is merged. Any
 ```sh
 $ kompose --provider openshift --file docker-voting.yml convert
 WARN [worker] Service cannot be created because of missing port.
-INFO OpenShift file "vote-service.yaml" created             
-INFO OpenShift file "db-service.yaml" created               
-INFO OpenShift file "redis-service.yaml" created            
-INFO OpenShift file "result-service.yaml" created           
-INFO OpenShift file "vote-deploymentconfig.yaml" created    
-INFO OpenShift file "vote-imagestream.yaml" created         
-INFO OpenShift file "worker-deploymentconfig.yaml" created  
-INFO OpenShift file "worker-imagestream.yaml" created       
-INFO OpenShift file "db-deploymentconfig.yaml" created      
-INFO OpenShift file "db-imagestream.yaml" created           
-INFO OpenShift file "redis-deploymentconfig.yaml" created   
-INFO OpenShift file "redis-imagestream.yaml" created        
-INFO OpenShift file "result-deploymentconfig.yaml" created  
-INFO OpenShift file "result-imagestream.yaml" created  
+INFO OpenShift file "vote-service.yaml" created
+INFO OpenShift file "db-service.yaml" created
+INFO OpenShift file "redis-service.yaml" created
+INFO OpenShift file "result-service.yaml" created
+INFO OpenShift file "vote-deploymentconfig.yaml" created
+INFO OpenShift file "vote-imagestream.yaml" created
+INFO OpenShift file "worker-deploymentconfig.yaml" created
+INFO OpenShift file "worker-imagestream.yaml" created
+INFO OpenShift file "db-deploymentconfig.yaml" created
+INFO OpenShift file "db-imagestream.yaml" created
+INFO OpenShift file "redis-deploymentconfig.yaml" created
+INFO OpenShift file "redis-imagestream.yaml" created
+INFO OpenShift file "result-deploymentconfig.yaml" created
+INFO OpenShift file "result-imagestream.yaml" created
 ```
 
 It also supports creating buildconfig for build directive in a service. By default, it uses the remote repo for the current git branch as the source repo, and the current branch as the source branch for the build. You can specify a different source repo and branch using ``--build-repo`` and ``--build-branch`` options respectively.
@@ -299,8 +299,8 @@ It also supports creating buildconfig for build directive in a service. By defau
 $ kompose --provider openshift --file buildconfig/docker-compose.yml convert
 WARN [foo] Service cannot be created because of missing port.
 INFO OpenShift Buildconfig using git@github.com:rtnpro/kompose.git::master as source.
-INFO OpenShift file "foo-deploymentconfig.yaml" created     
-INFO OpenShift file "foo-imagestream.yaml" created          
+INFO OpenShift file "foo-deploymentconfig.yaml" created
+INFO OpenShift file "foo-imagestream.yaml" created
 INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
@@ -319,12 +319,12 @@ $ kompose --file ./examples/docker-guestbook.yml up
 We are going to create Kubernetes deployments and services for your Dockerized application.
 If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
-INFO Successfully created service: redis-master   
-INFO Successfully created service: redis-slave    
-INFO Successfully created service: frontend       
+INFO Successfully created service: redis-master
+INFO Successfully created service: redis-slave
+INFO Successfully created service: frontend
 INFO Successfully created deployment: redis-master
 INFO Successfully created deployment: redis-slave
-INFO Successfully created deployment: frontend    
+INFO Successfully created deployment: frontend
 
 Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details.
 
@@ -357,13 +357,13 @@ $ kompose --file ./examples/docker-guestbook.yml --provider openshift up
 We are going to create OpenShift DeploymentConfigs and Services for your Dockerized application.
 If you need different kind of resources, use the 'kompose convert' and 'oc create -f' commands instead.
 
-INFO Successfully created service: redis-slave    
-INFO Successfully created service: frontend       
-INFO Successfully created service: redis-master   
+INFO Successfully created service: redis-slave
+INFO Successfully created service: frontend
+INFO Successfully created service: redis-master
 INFO Successfully created deployment: redis-slave
 INFO Successfully created ImageStream: redis-slave
-INFO Successfully created deployment: frontend    
-INFO Successfully created ImageStream: frontend   
+INFO Successfully created deployment: frontend
+INFO Successfully created ImageStream: frontend
 INFO Successfully created deployment: redis-master
 INFO Successfully created ImageStream: redis-master
 
@@ -379,9 +379,9 @@ svc/frontend       172.30.46.64                          <none>        80/TCP   
 svc/redis-master   172.30.144.56                         <none>        6379/TCP   8s
 svc/redis-slave    172.30.75.245                         <none>        6379/TCP   8s
 NAME               DOCKER REPO                           TAGS          UPDATED
-is/frontend        172.30.12.200:5000/fff/frontend                     
-is/redis-master    172.30.12.200:5000/fff/redis-master                 
-is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1  
+is/frontend        172.30.12.200:5000/fff/frontend
+is/redis-master    172.30.12.200:5000/fff/redis-master
+is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1
 ```
 
 **Note**:
@@ -394,11 +394,11 @@ Once you have deployed "composed" application to Kubernetes, `$ kompose down` wi
 
 ```sh
 $ kompose --file docker-guestbook.yml down
-INFO Successfully deleted service: redis-master   
+INFO Successfully deleted service: redis-master
 INFO Successfully deleted deployment: redis-master
-INFO Successfully deleted service: redis-slave    
+INFO Successfully deleted service: redis-slave
 INFO Successfully deleted deployment: redis-slave
-INFO Successfully deleted service: frontend       
+INFO Successfully deleted service: frontend
 INFO Successfully deleted deployment: frontend
 ```
 
@@ -437,8 +437,8 @@ INFO Successfully pushed image 'foo/bar:latest' to registry 'docker.io'
 INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
 INFO Deploying application in "default" namespace
-INFO Successfully created Service: foo            
-INFO Successfully created Deployment: foo         
+INFO Successfully created Service: foo
+INFO Successfully created Deployment: foo
 
 Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
 ```

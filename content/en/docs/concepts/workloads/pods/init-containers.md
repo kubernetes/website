@@ -71,8 +71,8 @@ have some advantages for start-up related code:
   a mechanism to block or delay app container startup until a set of preconditions are met. Once
   preconditions are met, all of the app containers in a Pod can start in parallel.
 * Init containers can securely run utilities or custom code that would otherwise make an app
-  container image less secure. By keeping unnecessary tools separate you can limit the attack  
-  surface of your app container image. 
+  container image less secure. By keeping unnecessary tools separate you can limit the attack
+  surface of your app container image.
 
 
 ### Examples

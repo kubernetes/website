@@ -62,7 +62,7 @@ Decide how many instances can be down at the same time for a short period
 due to a voluntary disruption.
 
 - Stateless frontends:
-  - Concern: don't reduce serving capacity by more than 10%. 
+  - Concern: don't reduce serving capacity by more than 10%.
     - Solution: use PDB with minAvailable 90% for example.
 - Single-instance Stateful Application:
   - Concern: do not terminate this application without talking to me.
@@ -97,15 +97,15 @@ that controls this behavior.
 
 ## Specifying a PodDisruptionBudget
 
-A `PodDisruptionBudget` has three fields: 
+A `PodDisruptionBudget` has three fields:
 
 * A label selector `.spec.selector` to specify the set of
 pods to which it applies. This field is required.
 * `.spec.minAvailable` which is a description of the number of pods from that
 set that must still be available after the eviction, even in the absence
 of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-* `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description 
-of the number of pods from that set that can be unavailable after the eviction. 
+* `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description
+of the number of pods from that set that can be unavailable after the eviction.
 It can be either an absolute number or a percentage.
 
 {{< note >}}
@@ -114,8 +114,8 @@ object using the `kubectl` command line tool, the `minAvailable` field has a
 default value of 1 if neither `minAvailable` nor `maxUnavailable` is specified.
 {{< /note >}}
 
-You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 
-`maxUnavailable` can only be used to control the eviction of pods 
+You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`.
+`maxUnavailable` can only be used to control the eviction of pods
 that have an associated controller managing them. In the examples below, "desired replicas"
 is the `scale` of the controller managing the pods being selected by the
 `PodDisruptionBudget`.
@@ -124,16 +124,16 @@ Example 1: With a `minAvailable` of 5, evictions are allowed as long as they lea
 5 or more healthy pods among those selected by the PodDisruptionBudget's `selector`.
 
 Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%
-of the number of desired replicas are healthy. 
+of the number of desired replicas are healthy.
 
 Example 3: With a `maxUnavailable` of 5, evictions are allowed as long as there are at most 5
 unhealthy replicas among the total number of desired replicas.
 
-Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as no more than 30% 
+Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as no more than 30%
 of the desired replicas are unhealthy.
 
 In typical usage, a single budget would be used for a collection of pods managed by
-a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
+a controller—for example, the pods in a single ReplicaSet or StatefulSet.
 
 {{< note >}}
 A disruption budget does not truly guarantee that the specified
@@ -150,7 +150,7 @@ object such as ReplicaSet, then you cannot successfully drain a Node running one
 If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
 semantics of `PodDisruptionBudget`.
 
-You can find examples of pod disruption budgets defined below. They match pods with the label 
+You can find examples of pod disruption budgets defined below. They match pods with the label
 `app: zookeeper`.
 
 Example PDB Using minAvailable:

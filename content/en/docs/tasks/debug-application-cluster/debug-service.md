@@ -342,7 +342,7 @@ kubectl get service hostnames -o json
 }
 ```
 
-* Is the port you are trying to access in `spec.ports[]`?  
+* Is the port you are trying to access in `spec.ports[]`?
 * Is the `targetPort` correct for your `Pods` (many `Pods` choose to use a different port than the `Service`)?
 * If you meant it to be a numeric port, is it a number (9376) or a
 string "9376"?

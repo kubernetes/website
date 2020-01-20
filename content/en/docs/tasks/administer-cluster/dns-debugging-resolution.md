@@ -167,7 +167,7 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 
 Note that the service name will be "kube-dns" for both CoreDNS and kube-dns deployments.
 If you have created the service or in the case it should be created by default
-but it does not appear, see 
+but it does not appear, see
 [debugging services](/docs/tasks/debug-application-cluster/debug-service/) for
 more information.
 

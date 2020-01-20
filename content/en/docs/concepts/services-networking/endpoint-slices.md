@@ -83,13 +83,13 @@ corresponding Node, zone, and region. When the values are available, the
 following Topology labels will be set by the EndpointSlice controller:
 
 * `kubernetes.io/hostname` - The name of the Node this endpoint is on.
-* `topology.kubernetes.io/zone` - The zone this endpoint is in. 
+* `topology.kubernetes.io/zone` - The zone this endpoint is in.
 * `topology.kubernetes.io/region` - The region this endpoint is in.
 
 The values of these labels are derived from resources associated with each
 endpoint in a slice. The hostname label represents the value of the NodeName
 field on the corresponding Pod. The zone and region labels represent the value
-of the labels with the same names on the corresponding Node. 
+of the labels with the same names on the corresponding Node.
 
 ### Management
 
@@ -142,7 +142,7 @@ actively rebalance them. The logic of the controller is fairly straightforward:
    fill them up with any new endpoints needed.
 3. If there's still new endpoints left to add, try to fit them into a previously
    unchanged slice and/or create new ones.
-   
+
 Importantly, the third step prioritizes limiting EndpointSlice updates over a
 perfectly full distribution of EndpointSlices. As an example, if there are 10
 new endpoints to add and 2 EndpointSlices with room for 5 more endpoints each,

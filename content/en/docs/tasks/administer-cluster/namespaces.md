@@ -90,7 +90,7 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
       name: <insert-namespace-name-here>
     ```
     Then run:
-   
+
     ```
     kubectl create -f ./my-namespace.yaml
     ```
@@ -99,7 +99,7 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
 
     ```
     kubectl create namespace <insert-namespace-name-here>
-    ``` 
+    ```
 
 Note that the name of your namespace must be a DNS compatible label.
 
