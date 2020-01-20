@@ -30,18 +30,18 @@ Kubernetes содержит ряд абстракций, которые пред
 
 Основные объекты Kubernetes включают в себя:
 
-* [Под](/docs/concepts/workloads/pods/pod-overview/)
-* [Сервис](/docs/concepts/services-networking/service/)
+* [Pod](/docs/concepts/workloads/pods/pod-overview/)
+* [Service](/docs/concepts/services-networking/service/)
 * [Том](/docs/concepts/storage/volumes/)
-* [Пространство имен](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
 Kubernetes также содержит абстракции более высокого уровня, которые опираются на [Контроллеры](/docs/concepts/architecture/controller/) для создания базовых объектов и предоставляют дополнительные функциональные и удобные функции. Они включают:
 
-* [Развертывание](/docs/concepts/workloads/controllers/deployment/)
+* [Deployment](/docs/concepts/workloads/controllers/deployment/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
 * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-* [Задачи](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## Панель управления Kubernetes
 
