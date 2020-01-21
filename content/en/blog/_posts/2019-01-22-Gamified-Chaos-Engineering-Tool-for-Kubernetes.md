@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "KubeInvaders - Gamified Chaos Engineering Tool for Kubernetes"
-date: 2020-01-16
+date: 2020-01-22
 slug: kubeinvaders-gamified-chaos-engineering-tool-for-kubernetes
 ---
 
