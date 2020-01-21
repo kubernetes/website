@@ -3,8 +3,8 @@
 >
 > For pull requests on 1.18 Features: set Milestone to 1.18 and Base Branch to dev-1.18
 >
-> For pull requests on Chinese localization, set Base Branch to release-1.16
-> Feel free to ask questions in #kubernetes-docs-zh
+> For pull requests on Chinese localization work, set Base Branch to master
+> Feel free to ask questions in #kubernetes-docs-zh or slack @chenrui333 for immediate actions
 >
 > For pull requests on Korean Localization: set Base Branch to dev-1.16-ko.\<latest team milestone>
 >
