@@ -8,47 +8,53 @@ weight: 40
 
 {{% capture overview %}}
 
-Kubernetes requires PKI certificates for authentication over TLS.
-If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
-You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
-This page explains the certificates that your cluster requires.
+KubernetesはTLS認証のためにPKI証明書を必要とします。
+[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使ってKubernetesでクラスタを構築しているのであれば、必要な証明は自動で生成されます。
+必要であれば自分自身で証明書を作ることも可能です(例えば、証明書をよりセキュアに扱いたいためにAPIサーバの中に証明書を保持したくない場合など)
+このページではクラスタが必要とする証明書について説明します。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## How certificates are used by your cluster
+## クラスタではどのように証明書が使われているのか
 
-Kubernetes requires PKI for the following operations:
+Kubernetesでは以下の操作にPKIを必要とします
 
-* Client certificates for the kubelet to authenticate to the API server
-* Server certificate for the API server endpoint
-* Client certificates for administrators of the cluster to authenticate to the API server
-* Client certificates for the API server to talk to the kubelets
-* Client certificate for the API server to talk to etcd
-* Client certificate/kubeconfig for the controller manager to talk to the API server
-* Client certificate/kubeconfig for the scheduler to talk to the API server.
-* Client and server certificates for the [front-proxy][proxy]
+* クライアント証明
+  * kubeletを用いたAPIサーバの認証
+  * クラスタ管理者のAPIサーバの認証
+  * APIサーバのkubeletsとの通信
+  * APIサーバのetcdとの通信
+  * [front-proxy][proxy]
+* サーバ証明
+  * APIサーバのエンドポイント操作
+  * [front-proxy][proxy]
+* クライアント証明とkubeconfig
+  * コントローラマネージャのAPIサーバとの通信
+  * スケジューラのAPIサーバとの通信
 
 {{< note >}}
-`front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/).
+ [an extension api server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)を使うためにkube-proxyを動かしている場合のみfront-proxyが必要になります。
 {{< /note >}}
 
-etcd also implements mutual TLS to authenticate clients and peers.
+etcdはクライアントとピアの認証のために相互TLSも実装しています
 
-## Where certificates are stored
+## 証明書の保存場所
 
-If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
+Kubernetesクラスタをkubeadmで構築しているのであれば証明書は/etc/kubernetes/pkiに保存されています。
+このページのパスは全て上記の位置からの相対パスで示してあります。
 
-## Configure certificates manually
+## 手動で証明書を設定する
 
-If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
+もし手動で証明書を作成したいのであれば以下のいずれかの手順を踏むことで作成することも出来ます。
 
-### Single root CA
+### 単一ルート認証局
 
-You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself.
+管理者による単一ルート認証局を作成することも可能です。
+単一ルート認証局は複数の中間認証局作り、以降のKubernetesの作成を委任することも出来ます。
 
-Required CAs:
+必要な認証局
 
 | path                   | Default CN                | description                      |
 |------------------------|---------------------------|----------------------------------|
@@ -58,11 +64,11 @@ Required CAs:
 
 On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
 
-### All certificates
+### 全ての証明書
 
-If you don't wish to copy the CA private keys to your cluster, you can generate all certificates yourself.
+もし秘密鍵をAPIサーバにコピーしたくなければ、あなた自身で証明書を作成することも出来ます。
 
-Required certificates:
+必要な証明書
 
 | Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
@@ -97,7 +103,7 @@ For kubeadm users only:
 
 {{< /note >}}
 
-### Certificate paths
+### 証明書のパス
 
 Certificates should be placed in a recommended path (as used by [kubeadm][kubeadm]). Paths should be specified using the given argument regardless of location.
 
@@ -125,7 +131,7 @@ Same considerations apply for the service account key pair:
 |  sa.key                      |                             | kube-controller-manager | service-account-private              |
 |                              | sa.pub                      | kube-apiserver          | service-account-key                  |
 
-## Configure certificates for user accounts
+## ユーザアカウント用に証明書を設定する
 
 You must manually configure these administrator account and service accounts:
 
