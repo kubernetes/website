@@ -431,7 +431,7 @@ You can find more information about `ExternalName` resolution in
 
 ## Headless Services
 
-Sometimes you don't need load-balancing and a single Service IP.  In
+Sometimes you don't need load-balancing a single Service IP.  In
 this case, you can create what are termed “headless” Services, by explicitly
 specifying `"None"` for the cluster IP (`.spec.clusterIP`).
 
