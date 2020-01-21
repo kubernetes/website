@@ -667,9 +667,9 @@ For get and list, the semantics of resource version are:
 
 **Get:**
 
-| resourceVersion unset | resourceVersion="0" | resourceVersion="{value other than 0}" |
-|-----------------------|---------------------|----------------------------------------|
-| Most Recent           | Any                 | Not older than                         |
+| resourceVersion unset | resourceVersion is `0` | resourceVersion is set but not `0` |
+|-----------------------|------------------------|------------------------------------|
+| Most Recent           | Any                    | Not older than                     |
 
 **List:**
 
@@ -677,7 +677,7 @@ For get and list, the semantics of resource version are:
 |-------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
 | limit unset                   | Most Recent           | Any                                            | Not older than                         |
 | limit="n", continue unset     | Most Recent           | Any                                            | Exact                                  |
-| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 (Bad Request)`      |
+| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
 
 The meaning of the get and list semantics are:
 
