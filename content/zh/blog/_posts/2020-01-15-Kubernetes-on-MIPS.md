@@ -6,7 +6,7 @@ slug: Kubernetes-on-MIPS
 -->
 ---
 layout: blog
-title: "支持 MIPS 架构 Kubernetes 的方案"
+title: "基于 MIPS 架构的 Kubernetes 方案"
 date: 2020-01-15
 slug: Kubernetes-on-MIPS
 ---
@@ -24,7 +24,7 @@ slug: Kubernetes-on-MIPS
 <!-- 
 [MIPS](https://en.wikipedia.org/wiki/MIPS_architecture) (Microprocessor without Interlocked Pipelined Stages) is a reduced instruction set computer (RISC) instruction set architecture (ISA), appeared in 1981 and developed by MIPS Technologies. Now MIPS architecture is widely used in many electronic products.
 -->
-[MIPS](https://zh.wikipedia.org/wiki/MIPS%E6%9E%B6%E6%A7%8B) (Microprocessor without Interlocked Pipelined Stages) 是一种采取精简指令集（RISC）的处理器架构 (ISA),出现于 1981 年，由 MIPS 科技公司开发。如今 MIPS 架构被广泛应用于许多电子产品上。
+[MIPS](https://zh.wikipedia.org/wiki/MIPS%E6%9E%B6%E6%A7%8B) (Microprocessor without Interlocked Pipelined Stages) 是一种采取精简指令集（RISC）的处理器架构 (ISA)，出现于 1981 年，由 MIPS 科技公司开发。如今 MIPS 架构被广泛应用于许多电子产品上。
 
 <!-- 
 [Kubernetes](https://kubernetes.io) has officially supported a variety of CPU architectures such as x86, arm/arm64, ppc64le, s390x. However, it's a pity that Kubernetes doesn't support MIPS. With the widespread use of cloud native technology, users under MIPS architecture also have an urgent demand for Kubernetes on MIPS.
@@ -45,7 +45,7 @@ For many years, to enrich the ecology of the open-source community, we have been
 <!-- 
 Over the years, we have been actively participating in the Kubernetes community and have rich experience in the using and optimization of Kubernetes technology. Recently, we tried to adapt the MIPS architecture platform for Kubernetes and achieved a new a stage on that journey. The team has completed migration and adaptation of Kubernetes and related components, built not only a stable and highly available MIPS cluster but also completed the conformance test for Kubernetes v1.16.2.
 -->
-多年来，我们一直积极投入 Kubernetes 社区，在 Kubernetes 技术应用和优化方面具备了丰富的经验。最近，我们在研发过程中尝试将 Kubernetes 适配到 MIPS 架构平台，并取得了阶段性成果。成功完成了 Kubernetes 以及相关组件的迁移适配，不仅搭建出稳定高可用的 MIPS 集群，同时完成了 Kubernetes-v1.16.2 的一致性测试。
+多年来，我们一直积极投入 Kubernetes 社区，在 Kubernetes 技术应用和优化方面具备了丰富的经验。最近，我们在研发过程中尝试将 Kubernetes 适配到 MIPS 架构平台，并取得了阶段性成果。成功完成了 Kubernetes 以及相关组件的迁移适配，不仅搭建出稳定高可用的 MIPS 集群，同时完成了 Kubernetes v1.16.2 版本的一致性测试。
 
 
 ![Kubernetes on MIPS](/images/blog/2020-01-15-Kubernetes-on-MIPS/kubernetes-on-mips.png)
@@ -63,7 +63,7 @@ _图一 Kubernetes on MIPS_
 <!--
 Almost all native cloud components related to Kubernetes do not provide a MIPS version installation package or image. The prerequisite of deploying Kubernetes on the MIPS platform is to compile and build all required components on the mips64el platform. These components include:
 -->
-基本上所有的 Kubernetes 相关的云原生组件都没有提供 MIPS 版本的安装包或镜像，在 MIPS 平台上部署 Kubernetes 的前提是自行编译构建出全部所需组件。这些组件主要包括：
+几乎所有的 Kubernetes 相关的云原生组件都没有提供 MIPS 版本的安装包或镜像，在 MIPS 平台上部署 Kubernetes 的前提是自行编译构建出全部所需组件。这些组件主要包括：
 
 - golang
 - docker-ce
@@ -231,7 +231,7 @@ Here are some of the images we built
 <!--
 Finally, we ran the tests and got the test result, include `e2e.log`, which showed that all test cases passed. Additionally, we submitted our test result to [k8s-conformance](https://github.com/cncf/k8s-conformance) as a [pull request](https://github.com/cncf/k8s-conformance/pull/779).
 -->
-最终我们执行一致性测试并且得到了测试报告，包括 `e2e.log`，显示我们通过了全部的测试用例。此外，我们将测试结果以 [pull request](https://github.com/cncf/k8s-conformance/pull/779) 的形式提交到了 [k8s-conformance](https://github.com/cncf/k8s-conformance) as a 。
+最终我们执行一致性测试并且得到了测试报告，包括 `e2e.log`，显示我们通过了全部的测试用例。此外，我们将测试结果以 [pull request](https://github.com/cncf/k8s-conformance/pull/779) 的形式提交给了 [k8s-conformance](https://github.com/cncf/k8s-conformance) 。
 
 ![Pull request for conformance test results](/images/blog/2020-01-15-Kubernetes-on-MIPS/pull-request-for-conformance-test-results.png)
 
@@ -248,12 +248,12 @@ _图五 一致性测试结果的 PR_
 <!--
 We built the kubernetes-MIPS component manually and finished the conformance test, which verified the feasibility of Kubernetes On the MIPS platform and greatly enhanced our confidence in promoting the support of the MIPS architecture by Kubernetes.
 -->
-我们手动构建了 K8S-MIPS 组件以及执行了 E2E 测试，验证了 Kubernetes On MIPS 的可行性，极大的增强了我们对于推进 Kubernetes 支持 MIPS 架构的信心。
+我们手动构建了 K8S-MIPS 组件以及执行了 E2E 测试，验证了 Kubernetes on MIPS 的可行性，极大的增强了我们对于推进 Kubernetes 支持 MIPS 架构的信心。
 
 <!--
 In the future, we plan to actively contribute our experience and achievements to the community, submit PR, and patch for MIPS. We hope that more developers and companies in the community join us and promote Kubernetes on MIPS.
 -->
-后续，我们将积极地向社区贡献我们的工作经验以及成果，提交 PR 以及 Patch For MIPS 等， 希望能够有更多的来自社区的力量加入进来，共同推进 Kubernetes For MIPS 的进程。
+后续，我们将积极地向社区贡献我们的工作经验以及成果，提交 PR 以及 Patch For MIPS 等， 希望能够有更多的来自社区的力量加入进来，共同推进 Kubernetes for MIPS 的进程。
 
 <!--
 Contribution plan：
