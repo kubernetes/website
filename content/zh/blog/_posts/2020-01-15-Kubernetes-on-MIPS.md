@@ -1,6 +1,12 @@
----
+<!--
 layout: blog
 title: "Kubernetes on MIPS"
+date: 2020-01-15
+slug: Kubernetes-on-MIPS
+-->
+---
+layout: blog
+title: "支持 MIPS 架构 Kubernetes 的方案"
 date: 2020-01-15
 slug: Kubernetes-on-MIPS
 ---
@@ -18,7 +24,7 @@ slug: Kubernetes-on-MIPS
 <!-- 
 [MIPS](https://en.wikipedia.org/wiki/MIPS_architecture) (Microprocessor without Interlocked Pipelined Stages) is a reduced instruction set computer (RISC) instruction set architecture (ISA), appeared in 1981 and developed by MIPS Technologies. Now MIPS architecture is widely used in many electronic products.
 -->
-[MIPS](https://en.wikipedia.org/wiki/MIPS_architecture) (Microprocessor without Interlocked Pipelined Stages) 是一种采取精简指令集（RISC）的处理器架构 (ISA),出现于 1981 年，由 MIPS 科技公司开发。如今 MIPS 架构被广泛应用于许多电子产品上。
+[MIPS](https://zh.wikipedia.org/wiki/MIPS%E6%9E%B6%E6%A7%8B) (Microprocessor without Interlocked Pipelined Stages) 是一种采取精简指令集（RISC）的处理器架构 (ISA),出现于 1981 年，由 MIPS 科技公司开发。如今 MIPS 架构被广泛应用于许多电子产品上。
 
 <!-- 
 [Kubernetes](https://kubernetes.io) has officially supported a variety of CPU architectures such as x86, arm/arm64, ppc64le, s390x. However, it's a pity that Kubernetes doesn't support MIPS. With the widespread use of cloud native technology, users under MIPS architecture also have an urgent demand for Kubernetes on MIPS.
