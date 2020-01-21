@@ -8,7 +8,15 @@ card:
 ---
 
 {{% capture overview %}}
+Kubernetesをデプロイすると、クラスターが展開されます。
+{{< glossary_definition term_id="cluster" length="all" prepend="クラスターは、">}}
+
 このドキュメントでは、Kubernetesクラスターが機能するために必要となるさまざまなコンポーネントの概要を説明します。
+
+すべてのコンポーネントが結び付けられたKubernetesクラスターの図を次に示します。
+
+![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.png)
+
 {{% /capture %}}
 
 {{% capture body %}}
@@ -106,7 +114,8 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* [ノード](/docs/concepts/architecture/nodes/) について学ぶ
-* [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/) について学ぶ
-* etcdの公式 [ドキュメント](https://etcd.io/docs/) を読む
+* [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
+* [コントローラー](/docs/concepts/architecture/controller/)について学ぶ
+* [kube-scheduler](/ja/docs/concepts/scheduling/kube-scheduler/)について学ぶ
+* etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
 {{% /capture %}}
