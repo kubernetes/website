@@ -64,7 +64,7 @@ hostnamectl set-hostname master1
 
 Next, we'll follow official documents to install docker and Kubernetes using kubeadm.
 
-Install docker following the steps from the [Container Runtime](/docs/setup/production-environment/container-runtimes/) Documentation.
+Install Docker following the steps from the [container runtime](/docs/setup/production-environment/container-runtimes/) documentation.
 
 Note that it is best practice to use systemd as the cgroup driver for Kubernetes.
 If you use internal repository servers, add them to docker's config too.
