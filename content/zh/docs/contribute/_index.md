@@ -180,7 +180,7 @@ documentation, but it should help you get started.
 - To contribute to the Kubernetes community through online forums like Twitter or Stack Overflow, or learn about local meetups and Kubernetes events, visit the [Kubernetes community site](/community/).
 -->
 
-- 如果您要通过 Twitter 或 Stack Overflow 等在线论坛为社区做贡献，或了解本地会议及Kubernetes事件，请查看 [Kubernetes community site](/community/).
+- 如果您要通过 Twitter 或 Stack Overflow 等在线论坛为社区做贡献，或了解本地会议及 Kubernetes 事件，请查看 [Kubernetes 社区网站](/community/).
 
 <!--
 - To contribute to feature development, read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get started.
