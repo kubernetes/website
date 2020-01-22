@@ -3,6 +3,7 @@ reviewers:
 - smarterclayton
 title: Encrypting Secret Data at Rest
 content_template: templates/task
+min-kubernetes-server-version: 1.13
 ---
 
 {{% capture overview %}}
@@ -13,9 +14,7 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* Kubernetes version 1.13.0 or later is required
-
-* etcd v3 or later is required
+* etcd v3.0 or later is required
 
 {{% /capture %}}
 
