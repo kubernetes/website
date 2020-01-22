@@ -705,7 +705,7 @@ The meaning of the watch semantics are:
 
 Servers are not required to serve all older resource versions and may return a HTTP `410 (Gone)` status code if a client requests a resourceVersion older than the server has retained. Clients must be able to tolerate `410 (Gone)` responses. See [Efficient detection of changes](#efficient-detection-of-changes) for details on how to handle `410 (Gone)` responses when watching resources.
 
-For example, the kube-apiserver periodically compacts old resource versions from etcd based on its `--etcd-compaction-interval` setting. Also, the kube-apiserver's watch cache keeps `--watch-cache-sizes` resource versions in each resource cache. If a resourceVersion is requested outside the applicable limit (depending on whether a request is served from cache or not), a `410 (Gone)` will be returned by the kube-apiserver.
+If you request a a resourceVersion outside the applicable limit then, depending on whether a request is served from cache or not, the API server may reply with a `410 Gone` HTTP response.
 
 ### Unavailable resource versions
 
