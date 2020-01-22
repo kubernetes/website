@@ -243,7 +243,7 @@ kubectl create secret -n kube-system generic cloud-config --from-literal=cloud.c
 kubectl apply -f cloud-config-secret.yaml 
 ```
 
-Get ca certs of OpenStack API endpoints and put it in `/etc/kubernetes/ca.pem`.
+Get the CA certificate for OpenStack API endpoints and put that into `/etc/kubernetes/ca.pem`.
 
 Create RBAC resources.
 ```
