@@ -253,7 +253,7 @@ kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/rele
 
 We'll run OpenStack cloud controller manager as a DaemonSet rather than a pod.
 The manager will only run on the master, so if there are multiple masters, multiple pods will be run for high availability.
-Create the DaemonSet yaml, `openstack-cloud-controller-manager-ds.yaml`, and apply it.
+Create `openstack-cloud-controller-manager-ds.yaml` containing the following manifests, then apply it.
 
 ```
 ---
