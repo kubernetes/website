@@ -27,9 +27,6 @@ The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd. An example configuration
 is provided below.
 
-Note:
-The alpha version of the encryption feature prior to 1.13 used the `--experimental-encryption-provider-config` flag.
-
 ## Understanding the encryption at rest configuration.
 
 ```yaml
@@ -69,10 +66,6 @@ resources from storage each provider that matches the stored data attempts to de
 order. If no provider can read the stored data due to a mismatch in format or secret key, an error 
 is returned which prevents clients from accessing that resource. 
 
-Note:
-The alpha version of the encryption feature prior to 1.13 required to be configured with
-`kind: EncryptionConfig` and `apiVersion: v1`.
-
 {{< caution >}}
 **IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
 the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
@@ -95,12 +88,12 @@ is the first provider, the first key is used for encryption.
 __Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture, compared to no encryption.
 Please use `kms` provider for additional security.__ By default, the `identity` provider is used to protect secrets in etcd, which
 provides no encryption. `EncryptionConfiguration` was introduced to encrypt secrets locally, with a locally managed key.
+
 Encrypting secrets with a locally managed key protects against an etcd compromise, but it fails to protect against a host compromise.
 Since the encryption keys are stored on the host in the EncryptionConfig YAML file, a skilled attacker can access that file and
-extract the encryption keys. This was a stepping stone in development to the `kms` provider, introduced in 1.10, and beta since 1.12. Envelope encryption
-creates dependence on a separate key, not stored in Kubernetes. In this case, an attacker would need to compromise etcd, the
-kubeapi-server, and the third-party KMS provider to retrieve the plaintext values, providing a higher level of security than
-locally-stored encryption keys.
+extract the encryption keys.
+
+Envelope encryption creates dependence on a separate key, not stored in Kubernetes. In this case, an attacker would need to compromise etcd, the kubeapi-server, and the third-party KMS provider to retrieve the plaintext values, providing a higher level of security than locally-stored encryption keys.
 
 ## Encrypting your data
 
