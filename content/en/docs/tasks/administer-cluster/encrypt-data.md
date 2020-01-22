@@ -78,7 +78,7 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 -----|------------|----------|-------|------------|---------------------
 `identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
 `aescbc` | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than `secretbox`.
-`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review. 
+`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
 
@@ -130,7 +130,7 @@ Your config file contains keys that can decrypt content in etcd, so you must pro
 {{< /caution >}}
 
 
-## Verifying that data is encrypted 
+## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
 updated secret should be encrypted when stored. To check, you can use the `etcdctl` command line
@@ -210,5 +210,3 @@ and restart all `kube-apiserver` processes. Then run the command `kubectl get se
 to force all secrets to be decrypted.
 
 {{% /capture %}}
-
-
