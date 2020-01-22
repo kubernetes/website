@@ -38,7 +38,7 @@ The security group will have the following rules to open ports for Kubernetes.
 |TCP|10255|Read-only Kubelet API|
 |TCP|30000-32767|NodePort Services|
 
-**CNI Ports on both master and worker nodes**
+**CNI ports on both master and worker nodes**
 
 |Protocol  | Port Number | Description|
 |----------|-------------|------------|
