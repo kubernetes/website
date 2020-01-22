@@ -64,8 +64,8 @@ Ce provisionnement est basé sur les `StorageClasses`: le PVC doit demander une 
 Les PVC qui demandent la classe `""` désactive le provisionnement dynamique pour eux-mêmes.
 
 Pour activer le provisionnement de stockage dynamique basé sur la classe de stockage, l'administrateur de cluster doit activer le `DefaultStorageClass` dans l'[contrôleur d'admission](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) sur le serveur API.
-Cela peut être fait, par exemple, en veillant à ce que `DefaultStorageClass` figure parmi la liste de valeurs séparées par des virgules pour le drapeau `--enable-admission-plugins` du composant serveur API.
-Pour plus d'informations sur les drapeaux de ligne de commande du serveur API, consultez la documentation [kube-apiserver](/docs/admin/kube-apiserver/).
+Cela peut être fait, par exemple, en veillant à ce que `DefaultStorageClass` figure parmi la liste de valeurs séparées par des virgules pour l'option `--enable-admission-plugins` du composant serveur API.
+Pour plus d'informations sur les options de ligne de commande du serveur API, consultez la documentation [kube-apiserver](/docs/admin/kube-apiserver/).
 
 ### Liaison
 
