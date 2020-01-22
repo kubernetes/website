@@ -10,7 +10,7 @@ This document describes how to install a single-master Kubernetes cluster v1.15 
 
 This cluster will be running on OpenStack VMs so we'll create a few things in OpenStack for it.
 
-* A project/tenant for this kubernetes cluster
+* A project/tenant for this Kubernetes cluster
 * a user in this project for Kubernetes, to query node information and attach volumes etc
 * a private network and subnet
 * a router for this private network and connect it to a public network for floating IPs
