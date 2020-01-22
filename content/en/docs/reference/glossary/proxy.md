@@ -24,4 +24,4 @@ the Kubernetes {{< glossary_tooltip term_id="service">}} concept.
 
 You can run kube-proxy as a plain userland proxy service. If your operating
 system supports it, you can instead run kube-proxy in a hybrid mode that
-achieves the same overall effect using fewer system resources.
+achieves the same overall effect using less system resources.
