@@ -74,6 +74,7 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 
 ### Providers:
 
+{{< table caption="Providers for Kubernetes encryption at rest" >}}
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
 -----|------------|----------|-------|------------|---------------------
 `identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
