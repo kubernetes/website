@@ -69,7 +69,7 @@ Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッ
 
 もし`spec.selector`が指定されたとき、`.spec.template.metadata.labels`とマッチしなければなりません。この2つの値がマッチしない設定をした場合、APIによってリジェクトされます。
 
-また、ユーザーは通常、別のDaemonSetやReplicaSetなどの別のワークロードリソースをする場合であっても直接であっても、このセレクターマッチするラベルを持つPodを作成すべきではありません。さもないと、DaemonSet {{<glossary_tooltip term_id = "controller">}}は、それらのPodが作成されたものとみなすためです。Kubernetesはこれを行うことを止めません。ユーザーがこれを行いたい1つのケースとしては、テスト用にノード上に異なる値を持つPodを手動で作成するような場合があります。
+また、ユーザーは通常、別のDaemonSetやReplicaSetなどの別のワークロードリソースを使用する場合であっても直接であっても、このセレクターマッチするラベルを持つPodを作成すべきではありません。さもないと、DaemonSet {{<glossary_tooltip term_id = "controller">}}は、それらのPodが作成されたものとみなすためです。Kubernetesはこれを行うことを止めません。ユーザーがこれを行いたい1つのケースとしては、テスト用にノード上に異なる値を持つPodを手動で作成するような場合があります。
 
 ### 特定のいくつかのNode上のみにPodを稼働させる
 
