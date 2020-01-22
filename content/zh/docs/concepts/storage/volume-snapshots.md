@@ -56,7 +56,7 @@ A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is simila
 <!--
 `VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attibutes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
 -->
-`VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。从存储系统上相同卷上获取的不同快照，这些参数可能会不一样，因此不能用一个 `PersistentVolumeClaim` 的相同 `StorageClass` 来指卷快照。
+`VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。在从存储系统的相同卷上获取的快照之间，这些属性可能有所不同，因此不能通过使用与 `PersistentVolumeClaim` 相同的 `StorageClass` 来表示。
 
 <!--
 Users need to be aware of the following when using this feature:
@@ -108,7 +108,7 @@ Instead of using a pre-existing snapshot, you can request that a snapshot to be 
 -->
 #### 动态的 {#dynamic}
 
-可以从一个 `PersistentVolumeClaim` 申请动态的获取一个快照，而不用使用已经存在的快照。在使用快照时，[卷快照类](/docs/concepts/storage/volume-snapshot-classes/)指定确切的存储提供者参数。
+可以从 `PersistentVolumeClaim` 中动态获取快照，而不用使用已经存在的快照。在获取快照时，[卷快照类](/docs/concepts/storage/volume-snapshot-classes/)指定要用的特定于存储提供程序的参数。
 
 <!--
 ### Binding
@@ -133,7 +133,7 @@ The purpose of this protection is to ensure that in-use PersistentVolumeClaim AP
 -->
 ### 快照源的持久性卷声明保护
 
-这种保护的目的是确保当从 `PersistentVolumeClaim` API 对象中做快照的时候，它不会被从系统中删除（因为这可能会导致数据丢失）。
+这种保护的目的是确保在从系统中获取快照时，不会将正在使用的 `PersistentVolumeClaim` API 对象从系统中删除（因为这可能会导致数据丢失）。
 
 <!--
 
@@ -186,7 +186,7 @@ using the attribute `volumeSnapshotClassName`. If nothing is set, then the defau
 <!--
 For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName` as the source for the snapshot as shown in the following example. The `volumeSnapshotContentName` source field is required for pre-provisioned snapshots.
 -->
-对于预配置的快照，像下面的例子一样，需要给快照指定 `volumeSnapshotContentName` 来作为源。对于预配置的快照 `source` 中的`volumeSnapshotContentName` 字段是必填的
+如下面例子所示，对于预配置的快照，需要给快照指定 `volumeSnapshotContentName` 来作为源。对于预配置的快照 `source` 中的`volumeSnapshotContentName` 字段是必填的。
 
 ```
 apiVersion: snapshot.storage.k8s.io/v1beta1
