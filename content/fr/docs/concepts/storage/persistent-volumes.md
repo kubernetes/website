@@ -304,7 +304,7 @@ Kubernetes prend actuellement en charge les plugins suivants:
 * Glusterfs
 * VsphereVolume
 * Quobyte Volumes
-* HostPath (Single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
+* HostPath (Test de nœud unique uniquement -- le stockage local n'est en aucun cas pris en charge et NE FONCTIONNERA PAS dans un cluster à plusieurs nœuds)
 * Portworx Volumes
 * ScaleIO Volumes
 * StorageOS
@@ -516,7 +516,7 @@ Le sélecteur peut comprendre deux champs:
 * `matchExpressions` - une liste des exigences définies en spécifiant la clé, la liste des valeurs et l'opérateur qui relie la clé et les valeurs.
   Les opérateurs valides incluent In, NotIn, Exists et DoesNotExist.
 
-Toutes les exigences, à la fois de `matchLabels` et de `matchExpressions`, sont ET ensemble - elles doivent toutes être satisfaites pour correspondre.
+Toutes les exigences, à la fois de `matchLabels` et de `matchExpressions` doivent toutes être satisfaites pour correspondre (application d'un opérateur booléen ET).
 
 ### Classe
 
