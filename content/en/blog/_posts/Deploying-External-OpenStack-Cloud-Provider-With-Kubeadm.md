@@ -89,7 +89,7 @@ yum update && yum install docker-ce-18.06.2.ce
 
 mkdir /etc/docker
 
-# Setup daemon.
+# Configure the Docker daemon
 
 cat > /etc/docker/daemon.json <<EOF
 {
