@@ -38,7 +38,7 @@ The security group will have the following rules to open ports for Kubernetes.
 |TCP|10255|Read-only Kubelet API|
 |TCP|30000-32767|NodePort Services|
 
-**CNI ports on both master and worker nodes**
+**CNI ports on both control plane and worker nodes**
 
 |Protocol  | Port Number | Description|
 |----------|-------------|------------|
@@ -46,8 +46,8 @@ The security group will have the following rules to open ports for Kubernetes.
 |TCP|9099|Calico felix (health check)|
 |UDP|8285|Flannel|
 |UDP|8472|Flannel|
-|TCP|6781-6784|Weave net|
-|UDP|6783-6784|Weave net|
+|TCP|6781-6784|Weave Net|
+|UDP|6783-6784|Weave Net|
 
 CNI specific ports are only required to be opened when that particular CNI plugin is used. In this instruction we use Weave net, thus only those Weave net ports, TCP 6781-6784 and UDP 6783-6784, need to be opened in the security group.
 
@@ -55,7 +55,7 @@ The control plane node needs at least 2 cores and 4GB RAM. After the VM is launc
 If the hostname is not resolvable, add it to `/etc/hosts`.
 
 For example, if the VM is called master1, and it has an internal IP 192.168.1.4. Add that to `/etc/hosts` and set hostname to master1.
-```
+```shell
 echo "192.168.1.4 master1" >> /etc/hosts
 
 hostnamectl set-hostname master1
@@ -68,7 +68,7 @@ Install Docker following the steps from the [container runtime](/docs/setup/prod
 
 Note that it is best practice to use systemd as the cgroup driver for Kubernetes.
 If you use internal repository servers, add them to docker's config too.
-```
+```shell
 # Install Docker CE
 ## Set up the repository
 ### Install required packages.
@@ -115,7 +115,7 @@ systemctl enable docker
 
 Install kubeadm following the steps from the [Installing Kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) documentation.
 
-```
+```shell
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -127,6 +127,7 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 EOF
 
 # Set SELinux in permissive mode (effectively disabling it)
+# Caveat: In a production environment you may not want to disable SELinux, please refer to Kubernetes documents about SELinux
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
@@ -154,7 +155,7 @@ To make things more clear, we'll use a `kubeadm-config.yml` for the master.
 In this config we specify to use an external OpenStack cloud provider, and where to find its config.
 We also enable storage API in API server's runtime config so we can use OpenStack volumes as persistent volumes in Kubernetes.
 
-```
+```yaml
 apiVersion: kubeadm.k8s.io/v1beta1
 kind: InitConfiguration
 nodeRegistration:
@@ -190,7 +191,7 @@ In addition you need to create a user in this tenant for Kubernetes to do querie
 The ca-file is the CA root certificate for OpenStack's API endpoint, for example `https://openstack.cloud:5000/v3`
 At the time of writing the cloud provider doesn't allow insecure connections (skip CA check).
 
-```
+```ini
 [Global]
 region=RegionOne
 username=username
@@ -213,19 +214,19 @@ ipv6-support-disabled=false
 ```
 
 Next run kubeadm to initiate the master
-```
+```shell
 kubeadm init --config=kubeadm-config.yml
 ```
 
 With the initialization completed, copy admin config to .kube
-```
+```shell
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 At this stage, the control plane node is created but not ready. All the nodes have the taint `node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule` and are waiting to be initialized by the cloud-controller-manager.
-```
+```console
 # kubectl describe no master1
 Name:               master1
 Roles:              master
@@ -238,7 +239,7 @@ Taints:             node-role.kubernetes.io/master:NoSchedule
 Now deploy the OpenStack cloud controller manager into the cluster, following [using controller manager with kubeadm](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-controller-manager-with-kubeadm.md).
 
 Create a secret with cloud-config for openstack cloud provider. 
-```
+```shell
 kubectl create secret -n kube-system generic cloud-config --from-literal=cloud.conf="$(cat /etc/kubernetes/cloud-config)" --dry-run -o yaml > cloud-config-secret.yaml
 kubectl apply -f cloud-config-secret.yaml 
 ```
@@ -246,7 +247,7 @@ kubectl apply -f cloud-config-secret.yaml
 Get the CA certificate for OpenStack API endpoints and put that into `/etc/kubernetes/ca.pem`.
 
 Create RBAC resources.
-```
+```shell
 kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/release-1.15/cluster/addons/rbac/cloud-controller-manager-roles.yaml
 kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/release-1.15/cluster/addons/rbac/cloud-controller-manager-role-bindings.yaml
 ```
@@ -255,7 +256,7 @@ We'll run OpenStack cloud controller manager as a DaemonSet rather than a pod.
 The manager will only run on the master, so if there are multiple masters, multiple pods will be run for high availability.
 Create `openstack-cloud-controller-manager-ds.yaml` containing the following manifests, then apply it.
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -348,7 +349,7 @@ spec:
 ```
 
 When the controller manager is running, it will query OpenStack to get information about the nodes and remove the taint. In the node info you'll see the VM's UUID in OpenStack.
-```
+```console
 # kubectl describe no master1
 Name:               master1
 Roles:              master
@@ -365,7 +366,7 @@ ProviderID:                  openstack:///548e3c46-2477-4ce2-968b-3de1314560a5
 Now install your favourite CNI and the control plane node will become ready.
 
 For example, to install weave net, run this command:
-```
+```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
 
@@ -375,7 +376,7 @@ Firstly, install docker and kubeadm in the same way as how they were installed i
 To join them to the cluster we need a token and ca cert hash from the output of master installation. 
 If it is expired or lost we can recreate it using these commands.
 
-```
+```shell
 # check if token is expired
 kubeadm token list
 
@@ -385,7 +386,7 @@ kubeadm token create --print-join-command
 ```
 
 Create `kubeadm-config.yml` for worker nodes with the above token and ca cert hash.
-```
+```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 discovery:
   bootstrapToken:
@@ -401,7 +402,7 @@ nodeRegistration:
 apiServerEndpoint is the control plane node, token and caCertHashes can be taken from the join command printed in the output of 'kubeadm token create' command.
 
 Run kubeadm and the worker nodes will be joined to the cluster.
-```
+```shell
 kubeadm join  --config kubeadm-config.yml 
 ```
 
@@ -415,12 +416,12 @@ The integration with Cinder is provided by an external Cinder CSI plugin, as des
 
 We'll perform the following steps to install the Cinder CSI plugin.
 Firstly, create a secret with CA certs for OpenStack's API endpoints. It is the same cert file as what we use in cloud provider above.
-```
+```shell
 kubectl create secret -n kube-system generic openstack-ca-cert --from-literal=ca.pem="$(cat /etc/kubernetes/ca.pem)" --dry-run -o yaml > openstack-ca-cert.yaml
 kubectl apply -f openstack-ca-cert.yaml
 ```
 Then create RBAC resources.
-```
+```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/cloud-provider-openstack/release-1.15/manifests/cinder-csi-plugin/cinder-csi-controllerplugin-rbac.yaml
 kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/release-1.15/manifests/cinder-csi-plugin/cinder-csi-nodeplugin-rbac.yaml
 ```
@@ -428,7 +429,7 @@ kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/rele
 The Cinder CSI plugin includes a controller plugin and a node plugin.
 The controller communicates with Kubernetes APIs and Cinder APIs to create/attach/detach/delete Cinder volumes. The node plugin in-turn runs on each worker node to bind a storage device (attached volume) to a pod, and unbind it during deletion.
 Create `cinder-csi-controllerplugin.yaml` and apply it to create csi controller.
-```
+```yaml
 kind: Service
 apiVersion: v1
 metadata:
@@ -543,7 +544,7 @@ spec:
 
 
 Create `cinder-csi-nodeplugin.yaml` and apply it to create csi node.
-```
+```yaml
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
@@ -664,7 +665,7 @@ spec:
 ```
 When they are both running, create a storage class for Cinder.
 
-```
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -672,7 +673,7 @@ metadata:
 provisioner: csi-cinderplugin
 ```
 Then we can create a PVC with this class.
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -688,7 +689,7 @@ spec:
 ```
 
 When the PVC is created, a Cinder volume is created correspondingly.
-```
+```console
 # kubectl get pvc
 NAME    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS          AGE
 myvol   Bound    pvc-14b8bc68-6c4c-4dc6-ad79-4cb29a81faad   1Gi        RWO            csi-sc-cinderplugin   3s
@@ -697,7 +698,7 @@ myvol   Bound    pvc-14b8bc68-6c4c-4dc6-ad79-4cb29a81faad   1Gi        RWO      
 In OpenStack the volume name will match the Kubernetes persistent volume generated name. In this example it would be: _pvc-14b8bc68-6c4c-4dc6-ad79-4cb29a81faad_
 
 Now we can create a pod with the PVC. 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -721,7 +722,7 @@ spec:
 ```
 When the pod is running, the volume will be attached to the pod.
 If we go back to OpenStack, we can see the Cinder volume is mounted to the worker node where the pod is running on.
-```
+```console
 # openstack volume show 6b5f3296-b0eb-40cd-bd4f-2067a0d6287f
 +--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field                          | Value                                                                                                                                                                                                                                                                                                                          |
