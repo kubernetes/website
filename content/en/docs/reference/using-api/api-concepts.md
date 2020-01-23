@@ -667,32 +667,33 @@ For get and list, the semantics of resource version are:
 
 **Get:**
 
-| resourceVersion unset | resourceVersion="0" | resourceVersion="{non-zero version}" |
-|-----------------------|---------------------|--------------------------------------|
-| Most Recent           | Any                 | Not older than                       |
+| resourceVersion unset | resourceVersion is `0` | resourceVersion is set but not `0` |
+|-----------------------|------------------------|------------------------------------|
+| Most Recent           | Any                    | Not older than                     |
 
 **List:**
 
-| paging    | resourceVersion unset | resourceVersion="0" | resourceVersion="{non-zero version}" |
-|-----------|-----------------------|---------------------|--------------------------------------|
-| no limit  | Most Recent           | Any                 | Not older than                       |
-| limit="n" | Most Recent           | Any                 | Exact                                |
-
+| paging                        | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
+|-------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
+| limit unset                   | Most Recent           | Any                                            | Not older than                         |
+| limit="n", continue unset     | Most Recent           | Any                                            | Exact                                  |
+| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
 
 The meaning of the get and list semantics are:
 
 - **Most Recent:** Return data at the most recent resource version. The returned data must be consistent (i.e. served from etcd via a quorum read).
-- **Any:** Return data at any resource version. The newest available resource version is preferred, but strong consistency is not required; data at any resource version may be served. It is possible for the request to return data at a much older resource version that the client has previously observed, particularly in high availability configurations, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
-- **Not older than:** Return data at least as new as the provided resource version. The newest available resource version is preferred, but any data not older than this resource version may be served.
+- **Any:** Return data at any resource version. The newest available resource version is preferred, but strong consistency is not required; data at any resource version may be served. It is possible for the request to return data at a much older resource version that the client has previously observed, particularly in high availabiliy configurations, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
+- **Not older than:** Return data at least as new as the provided resource version. The newest available data is preferred, but any data not older than this resource version may be served. Note that this ensures only that the objects returned are no older than they were at the time of the provided resource version. The resource version in the `ObjectMeta` of individual object may be older than the provide resource version so long it is for the latest modification to the object at the time of the provided resource version.
 - **Exact:** Return data at the exact resource version provided.
+- **Continue Token, Exact:** Return data at the resource version of the initial paginated list call. The returned Continue Tokens are responsible for keeping track of the initially provided resource version for all paginated list calls after the initial paginated list call.
 
 For watch, the semantics of resource version are:
 
 **Watch:**
 
-| resourceVersion unset               | resourceVersion="0"        | resourceVersion="{non-zero version}" |
-|-------------------------------------|----------------------------|--------------------------------------|
-| Get State and Start at Most Recent  | Get State and Start at Any | Start at Exact                       |
+| resourceVersion unset               | resourceVersion="0"        | resourceVersion="{value other than 0}" |
+|-------------------------------------|----------------------------|----------------------------------------|
+| Get State and Start at Most Recent  | Get State and Start at Any | Start at Exact                         |
 
 The meaning of the watch semantics are:
 
@@ -704,4 +705,8 @@ The meaning of the watch semantics are:
 
 Servers are not required to serve all older resource versions and may return a HTTP `410 (Gone)` status code if a client requests a resourceVersion older than the server has retained. Clients must be able to tolerate `410 (Gone)` responses. See [Efficient detection of changes](#efficient-detection-of-changes) for details on how to handle `410 (Gone)` responses when watching resources.
 
-For example, the kube-apiserver periodically compacts old resource versions from etcd based on its `--etcd-compaction-interval` setting. Also, the kube-apiserver's watch cache keeps `--watch-cache-sizes` resource versions in each resource cache. It depends on if a request is served from cache on which one of these limits applies, but if a resource version is unavailable in the one that applies, a `410 (Gone)` will be returned by the kube-apiserver.
+If you request a a resourceVersion outside the applicable limit then, depending on whether a request is served from cache or not, the API server may reply with a `410 Gone` HTTP response.
+
+### Unavailable resource versions
+
+Servers are not required to serve unrecognized resource versions. List and Get requests for unrecognized resource versions may wait briefly for the resource version to become available, should timeout with a `504 (Gateway Timeout)` if the provided resource versions does not become available in a resonable amount of time, and may respond with a `Retry-After` response header indicating how many seconds a client should wait before retrying the request. Currently the kube-apiserver also identifies these responses with a "Too large resource version" message. Watch requests for a unrecognized resource version may wait indefinitely (until the request timeout) for the resource version to become available.
