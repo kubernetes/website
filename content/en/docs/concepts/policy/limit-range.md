@@ -305,7 +305,7 @@ PersistentVolumeClaim  storage   1Gi  2Gi  -                -              -
 {{< codenew file="admin/resource/pvc-limit-lower.yaml" >}}
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource//pvc-limit-lower.yaml -n limitrange-demo
+kubectl create -f https://k8s.io/examples/admin/resource/pvc-limit-lower.yaml -n limitrange-demo
 ```
 
 While creating a PVC with `requests.storage` lower than the Min value in the LimitRange, an Error thrown by the server:
