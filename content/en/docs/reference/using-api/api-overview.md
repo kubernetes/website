@@ -106,12 +106,10 @@ When you enable or disable groups or resources, you need to restart the apiserve
 to pick up the `--runtime-config` changes.
 {{< /note >}}
 
-## Enabling or disabling resources in the groups
+## Enabling specific resources in the extensions/v1beta1 group
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
-You can enable other extensions resources by setting `--runtime-config` on apiserver.
-`--runtime-config` accepts comma separated values. For example, to disable deployments and jobs, set
-`--runtime-config=apps/v1/deployments=false,extensions/v1beta1/jobs=false`
-{{% /capture %}}
+DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
+For example: to enable deployments and daemonsets, set
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
 
-
+{{< note >}}Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.{{< /note >}}
