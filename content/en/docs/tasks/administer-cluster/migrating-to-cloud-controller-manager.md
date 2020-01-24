@@ -61,10 +61,12 @@ better, is based on the former internal provider.
 
 * Disable unsupported features
 * Build a list of manual actions to be done after migration
-  Examples:
-  * Deleting unused cloud resources
-  * Renaming
-  * etc.
+
+Resources to watch for:
+
+* Nodes, in particular labeling
+* LoadBalancers
+
 
 ### Prepare the CCM for deployment
 
@@ -72,14 +74,18 @@ better, is based on the former internal provider.
 * Deploy credentials
 * etc.
 
-**Do not deploy the CCM yet**
+**Do not deploy the CCM yet!**
+
+## Deploy Cloud Controller Manager
 
 ### Disable the integrated provider
 
-* In KCM and kubelet:
-  * Replace `--cloud-provider <OLD CLOUD PROVIDER>` with `--cloud-provider external`
-  * Remove other `--cloud-` options
-  * Restart KCM and kubelet
+In the `kube-controller-manager` and all `kubelet` deployments or services:
+
+* Replace `--cloud-provider <OLD CLOUD PROVIDER>` with `--cloud-provider external`
+* Remove other `--cloud-` options
+
+Restart all `kube-controller-manager` and all `kubelet` instances
 
 ### Deploy the cloud provider
 
@@ -94,6 +100,8 @@ Apply this deployment into your system namespace:
 ```shell
 kubectl apply -n kube-system -f cloud-provider.yml
 ```
+
+## Verify
 
 ### Ensure synchronization with existing environment
 
