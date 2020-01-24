@@ -38,17 +38,74 @@ If you were previously running the KCM outside the Kubernetes cluster (as a
 systemd service, for example), you need to determine the command line arguments
 by appropriate means. This will not be covered here.
 
+Once you've determined which cloud provide you're using, ensure that an external
+alternative is available. Note that there may be several alternatives, with
+different features. Choose a provider has roughly the same feature set or, even
+better, is based on the former internal provider.
+
+**TODO** Links to external providers here
+
 {{% /capture %}}
 
 {{% capture steps %}}
 
-1. Ensure a CCM for your cloud environment is available, with roughly the same feature set than the integrated KCM provider. Determine compatibility issues (missing features, different implementation, etc).
-2. Prepare your cloud environment and workloads for the migration: Disable unsupported features, build a list of manual actions to be done after migration (deleting unused cloud resources, renaming, etc).
-3. Prepare the CCM for deployment: Write configuration files, deploy credentials, etc. **Do not deploy the CCM yet**
-4. Disable the integrated provider in KCM and kubelet: Remove flags, replace with --provider external, etc. Restart these services.
-5. Deploy the cloud provider.
-6. Ensure it synchronises with the running environment correctly, detects existing resources, deploys new resources where appropriate. Apply manual fixes where necessary.
-7. Test deploy new cloud resources such as LoadBalancers and Nodes.
+## Preparation
+
+### Determine compatibility issues between internal and external cloud provider
+
+* Missing features
+* Different implementation
+* etc.
+
+### Prepare your cloud environment and workloads for the migration
+
+* Disable unsupported features
+* Build a list of manual actions to be done after migration
+  Examples:
+  * Deleting unused cloud resources
+  * Renaming
+  * etc.
+
+### Prepare the CCM for deployment
+
+* Write configuration files
+* Deploy credentials
+* etc.
+
+**Do not deploy the CCM yet**
+
+### Disable the integrated provider
+
+* In KCM and kubelet:
+  * Replace `--cloud-provider <OLD CLOUD PROVIDER>` with `--cloud-provider external`
+  * Remove other `--cloud-` options
+  * Restart KCM and kubelet
+
+### Deploy the cloud provider
+
+Adapt the example deployment for your new external cloud provider:
+
+```yaml
+EXAMPLE DEPLOYMENT HERE
+```
+
+Apply this deployment into your system namespace:
+
+```shell
+kubectl apply -n kube-system -f cloud-provider.yml
+```
+
+### Ensure synchronization with existing environment
+
+Watch the log of the CCM. Check that:
+
+* Existing cloud resources (LoadBalancers and Nodes) are detected
+* New resources are applyied where appropriate
+* Apply manual fixes where necessary
+
+### Test
+
+Create test deployments, such as LoadBalancers and new Nodes.
 
 {{% /capture %}}
 
