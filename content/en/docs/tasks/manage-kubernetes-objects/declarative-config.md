@@ -985,11 +985,11 @@ used only by the controller selector with no other semantic meaning.
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 ```
 
 {{% capture whatsnext %}}
