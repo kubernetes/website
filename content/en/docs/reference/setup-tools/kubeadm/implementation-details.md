@@ -455,6 +455,7 @@ in service when the user is switching the cluster DNS from kube-dns to CoreDNS o
 - In Kubernetes version 1.11 and 1.12, CoreDNS is the default DNS server and you must
 invoke kubeadm with `--feature-gates=CoreDNS=false` to install kube-dns instead
 - In Kubernetes version 1.13 and later, the `CoreDNS` feature gate is no longer available and kube-dns can be installed using the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
+- In Kubernetes version 1.18 kube-dns usage with kubeadm is deprecated and will be removed in a future release
 
 
 A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
