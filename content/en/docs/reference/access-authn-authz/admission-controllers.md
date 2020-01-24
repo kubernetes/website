@@ -645,21 +645,30 @@ for more information.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
-This admission controller first verifies any conflict between a pod's tolerations and its
-namespace's tolerations, and rejects the pod request if there is a conflict.
-It then merges the namespace's tolerations into the pod's tolerations.
-The resulting tolerations are checked against the namespace's whitelist of
-tolerations. If the check succeeds, the pod request is admitted otherwise
-rejected.
+The PodTolerationRestriction admission controller verifies any conflict between tolerations of a pod and the tolerations of its namespace.
+It rejects the pod request if there is a conflict.
+It then merges the tolerations annotated on the namespace into the tolerations of the pod.
+The resulting tolerations are checked against a whitelist of tolerations annotated to the namespace.
+If the check succeeds, the pod request is admitted otherwise it is rejected.
 
-If the pod's namespace does not have any associated default or whitelist of
-tolerations, then the cluster-level default or whitelist of tolerations are used
-instead if specified.
+If the namespace of the pod does not have any associated default tolerations or a whitelist of
+tolerations annotated, the cluster-level default tolerations or cluster-level whitelist of tolerations are used
+instead if they are specified.
 
-Tolerations to a namespace are assigned via the
-`scheduler.alpha.kubernetes.io/defaultTolerations` and
-`scheduler.alpha.kubernetes.io/tolerationsWhitelist`
-annotation keys.
+Tolerations to a namespace are assigned via the `scheduler.alpha.kubernetes.io/defaultTolerations` annotation key.
+The whitelist can be added via the `scheduler.alpha.kubernetes.io/tolerationsWhitelist` annotation key.
+
+Example for namespace annotations:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apps-that-need-nodes-exclusively
+  annotations:
+    scheduler.alpha.kubernetes.io/defaultTolerations: '{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}'
+    scheduler.alpha.kubernetes.io/tolerationsWhitelist: '{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}'
+```
 
 ### Priority {#priority}
 
