@@ -54,6 +54,13 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
     where `<your-pv-name>` is the name of your chosen PersistentVolume.
 
+    *Note* if you are running `kubectl` on Windows, you'd need to use double quotes on the
+    command line and thus escape the inner double quotes like this:
+
+    ```shell
+    kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
+    ```
+
 1. Verify that your chosen PersistentVolume has the right policy:
 
     ```shell
