@@ -380,6 +380,47 @@ The output is:
 
 {{< kat-button >}}
 
+### Downloadable code blocks
+
+Use {{</* codenew */>}} to make code samples (manifests) downloadable.
+
+ A way to include code in your topic is to create a new, complete sample file (or group of sample files) and then reference the sample from your topic. Use this method to include sample YAML files when the sample is generic and reusable, and you want the reader to try it out themselves.
+
+```none
+{{</* codenew file="application/deployment.yaml" */>}}
+```
+
+The output is:
+
+{{< codenew file="application/deployment.yaml" >}}
+
+Here is an example page containing that shortcode:
+
+https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/
+
+When adding a new standalone sample file, such as a YAML file, place the code in one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for the topic. In your topic file, use the codenew shortcode:
+
+```none
+{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+```
+
+where `<RELPATH>` is the path to the file to include, relative to the
+`examples` directory. The following Hugo shortcode references a YAML
+file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
+
+```none
+{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+```
+
+Typically, code samples do not change, however natural-language comments can be translated.
+For example: https://github.com/kubernetes/website/blob/master/content/ko/examples/application/deployment.yaml is the `ko` version for https://github.com/kubernetes/website/blob/master/content/en/examples/application/deployment.yaml
+
+You may also tell the reader about how to run the code after downloading the file by mentioning relevant commands like
+
+```none
+kubectl apply -f /path/to/<filename.yaml>
+```
+
 ## Common Shortcode Issues
 
 ### Ordered Lists
