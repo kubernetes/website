@@ -215,7 +215,7 @@ etcd2 and etcd3 is as follows:
                       message `etcd2 is no longer a supported storage backend`
 
 Before upgrading a v1.12.x kube-apiserver using `--storage-backend=etcd2` to
-v1.13.x, etcd v2 data MUST by migrated to the v3 storage backend, and
+v1.13.x, etcd v2 data MUST be migrated to the v3 storage backend, and
 kube-apiserver invocations changed to use `--storage-backend=etcd3`.
 
 The process for migrating from etcd2 to etcd3 is highly dependent on how the

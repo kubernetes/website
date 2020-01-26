@@ -163,7 +163,7 @@ data:
 ```
 
 The ConfigMap is created in the `kube-system` namespace because this
-ConfigMap configures a Kubelet, which is Kubernetes system component.
+ConfigMap configures a Kubelet, which is a Kubernetes system component.
 
 The `--append-hash` option appends a short checksum of the ConfigMap contents
 to the name. This is convenient for an edit-then-push workflow, because it
