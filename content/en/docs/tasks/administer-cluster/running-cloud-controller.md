@@ -77,7 +77,7 @@ Cloud controller manager does not implement any of the volume controllers found 
 
 ### Scalability
 
-In the previous architecture for cloud providers, we relied on kubelets using a local metadata service to retrieve node information about itself. With this new architecture, we now fully rely on the cloud controller managers to retrieve information for all nodes. For very larger clusters, you should consider possible bottle necks such as resource requirements and API rate limiting.
+In the previous architecture for cloud providers, we relied on kubelets using a local metadata service to retrieve node information about itself. With this new architecture, we now fully rely on the cloud controller managers to retrieve information for all nodes. For very large clusters, you should consider possible bottle necks such as resource requirements and API rate limiting.
 
 ### Chicken and Egg
 
