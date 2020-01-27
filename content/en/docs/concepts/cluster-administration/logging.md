@@ -222,7 +222,7 @@ However, it's recommended to use `stdout` and `stderr` directly and leave rotati
 and retention policies to the kubelet.
 
 {{< note >}}
-This works because the side car will be restarted until the file exists. For more advance usage have a look to `ls app.log && tail -F app.log` is more powerfull for legacy application doing daily rolling.
+This works because the sidecar will be restarted until the file exists. For more advanced usage have a look to `ls app.log && tail -F app.log` is more powerful for legacy application doing daily rolling.
 {{< /note >}}
 
 #### Sidecar container with a logging agent
