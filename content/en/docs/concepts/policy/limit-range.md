@@ -341,7 +341,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/limit-memory-ratio-pod.y
 Describe the <limit-memory-ratio-pod> LimitRange with the following kubectl command:
 
 ```shell
-$ kubectl describe limitrange/limit-memory-ratio-pod
+kubectl describe limitrange/limit-memory-ratio-pod
 ```
 
 ```shell
