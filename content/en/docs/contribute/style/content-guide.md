@@ -47,7 +47,7 @@ Before adding content, ask yourself this:
 - Is the content about an active CNCF project OR a project in the kubernetes or kubernetes-sigs GitHub organizations?
     - If yes, then:
         - Does the project have its own documentation?
-            - if yes, link to the project's documention from the Kubernetes documentation
+            - if yes, link to the project's documentation from the Kubernetes documentation
             - if no, add the content to the project's repository if possible and then link to it from the Kubernetes documentation
     - If no, then:
         - Stop!
