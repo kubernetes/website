@@ -3,6 +3,7 @@ reviewers:
 - andrewsykim
 title: Migrating to Cloud Controller Manager
 content_template: templates/task
+min-kubernetes-server-version: v1.16
 ---
 
 {{% capture overview %}}
@@ -18,30 +19,40 @@ to a dedicated CCM.
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+You need to have a Kubernetes cluster, and the kubectl command-line tool must
+be configured to communicate with your cluster. {{< version-check >}}
 
-Your cluster will most likely be running in cloud mode, using one of the
-integrated cloud providers. You can check by describing the KCM deployment:
+It's also assumed that you are currently running one of the cloud integrations
+provided by `kube-controller-manager`. This daemon may be running either as
+a pod or as a standalone service.
+
+### As a Pod
+
+Find out which cloud provider you are using by running the following command:
 
 ```shell
 kubectl describe pod kube-controller-manager -n kube-system
 ```
 
+### As a systemd service
+
+Find the `kube-controller-manager` parameters with the following command:
+
+```shell
+systemctl status | grep kube-controller-manager
+```
+
 Look for the `--cloud-provider` option, which will show you which cloud
-provider was used.
+provider is used.
 
-If the cloud provider is set to `external`, you are already running an external
-cloud provider. If the option is not set at all, you're most likely not
-using cloud integration. In this case, refer to [LINK TO DOCS ABOUT INSTALLING PROVIDER FROM SCRATCH].
-
-If you were previously running the KCM outside the Kubernetes cluster (as a
-systemd service, for example), you need to determine the command line arguments
-by appropriate means. This will not be covered here.
+If the option says `--cloud-provider=external`, you are already running an
+external cloud provider. If the option is not set at all, you're most likely not
+using cloud integration. In this case, you don't need to migrate.
 
 Once you've determined which cloud provide you're using, ensure that an external
 alternative is available. Note that there may be several alternatives, with
-different features. Choose a provider has roughly the same feature set or, even
-better, is based on the former internal provider.
+different features. Choose a provider that has roughly the same feature set or,
+even better, is based on the former integrated provider.
 
 **TODO** Links to external providers here
 
@@ -67,7 +78,6 @@ Resources to watch for:
 * Nodes, in particular labeling
 * LoadBalancers
 
-
 ### Prepare the CCM for deployment
 
 * Write configuration files
@@ -80,12 +90,51 @@ Resources to watch for:
 
 ### Disable the integrated provider
 
-In the `kube-controller-manager` and all `kubelet` deployments or services:
+Depending on if you're running `kube-controller-manager` as a Pod or a system
+service, change the following options either in the ReplicaSet or in the
+systemd service file.
 
-* Replace `--cloud-provider <OLD CLOUD PROVIDER>` with `--cloud-provider external`
-* Remove other `--cloud-` options
+#### As a Pod
 
-Restart all `kube-controller-manager` and all `kubelet` instances
+Use the following command to change the deployment:
+
+```shell
+kubectl edit replicaset kube-controller-manager
+```
+
+Replace `--cloud-provider=<OLD CLOUD PROVIDER>` with `--cloud-provider=external`.
+Remove all other `--cloud-` options.
+
+Do the same for kubelet:
+
+```shell
+kubectl edit replicaset kubelet
+```
+
+#### As a SystemD service
+
+Edit the KCM service file on each control plane node:
+
+```shell
+nano /etc/systemd/system/kube-controller-manager.service
+```
+
+Replace `--cloud-provider=<OLD CLOUD PROVIDER>` with `--cloud-provider=external`.
+Remove all other `--cloud-` options.
+
+Do the same for `kubelet` on all nodes:
+
+```shell
+nano /etc/systemd/system/kubelet.service
+```
+
+Reload the service files and restart the services on each node:
+
+```shell
+systemctl daemon-reload
+systemctl restart kube-controller-manager
+systemctl restart kubelet
+```
 
 ### Deploy the cloud provider
 
