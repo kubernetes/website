@@ -13,7 +13,7 @@ weight: 30
 
 {{% capture overview %}}
 
-Un _Déploiement_ (Deployment en anglais) fournit des mises à jour déclaratives pour [Pods](/docs/concepts/workloads/pods/pod/) et [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
+Un _Déploiement_ (Deployment en anglais) fournit des mises à jour déclaratives pour [Pods](/fr/docs/concepts/workloads/pods/pod/) et [ReplicaSets](/fr/docs/concepts/workloads/controllers/replicaset/).
 
 Vous décrivez un _état désiré_ dans un déploiement et le déploiement {{< glossary_tooltip term_id="controller" >}} change l'état réel à l'état souhaité à un rythme contrôlé.
 Vous pouvez définir des déploiements pour créer de nouveaux ReplicaSets, ou pour supprimer des déploiements existants et adopter toutes leurs ressources avec de nouveaux déploiements.
@@ -1106,14 +1106,14 @@ Un déploiement nécessite également un [`.spec` section](https://git.k8s.io/co
 
 Les `.spec.template` et `.spec.selector` sont les seuls champs obligatoires du `.spec`.
 
-Le `.spec.template` est un [Pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates).
-Il a exactement le même schéma qu'un [Pod](/docs/concepts/workloads/pods/pod/), sauf qu'il est imbriqué et n'a pas de `apiVersion` ou de `kind`.
+Le `.spec.template` est un [Pod template](/fr/docs/concepts/workloads/pods/pod-overview/#pod-templates).
+Il a exactement le même schéma qu'un [Pod](/fr/docs/concepts/workloads/pods/pod/), sauf qu'il est imbriqué et n'a pas de `apiVersion` ou de `kind`.
 
 En plus des champs obligatoires pour un pod, un Pod Template dans un déploiement doit spécifier des labels appropriées et une stratégie de redémarrage appropriée.
 Pour les labels, assurez-vous de ne pas chevaucher l'action d'autres contrôleurs.
 Voir [sélecteur](#selector)).
 
-Seulement un [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) égal à `Always` est autorisé, ce qui est la valeur par défaut s'il n'est pas spécifié.
+Seulement un [`.spec.template.spec.restartPolicy`](/fr/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) égal à `Always` est autorisé, ce qui est la valeur par défaut s'il n'est pas spécifié.
 
 ### Répliques
 
@@ -1190,7 +1190,7 @@ S'il est spécifié, ce champ doit être supérieur à `.spec.minReadySeconds`.
 
 `.spec.minReadySeconds` est un champ facultatif qui spécifie le nombre minimum de secondes pendant lequel un pod nouvellement créé doit être prêt sans qu'aucun de ses conteneurs ne plante, pour qu'il soit considéré comme disponible.
 Cette valeur par défaut est 0 (le pod sera considéré comme disponible dès qu'il sera prêt).
-Pour en savoir plus sur le moment où un pod est considéré comme prêt, consultez [Sondes de conteneur](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+Pour en savoir plus sur le moment où un pod est considéré comme prêt, consultez [Sondes de conteneur](/fr/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 ### Rollback To
 
