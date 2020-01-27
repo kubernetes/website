@@ -19,7 +19,7 @@ Vous décrivez un _état désiré_ dans un déploiement et le {{< glossary_toolt
 Vous pouvez définir des Deployments pour créer de nouveaux ReplicaSets, ou pour supprimer des déploiements existants et adopter toutes leurs ressources avec de nouveaux déploiements.
 
 {{< note >}}
-Ne gérez pas les ReplicaSets appartenant à un déploiement.
+Ne gérez pas les ReplicaSets appartenant à un Deployment.
 Pensez à ouvrir un ticket dans le dépot Kubernetes principal si votre cas d'utilisation n'est pas traité ci-dessous.
 {{< /note >}}
 
