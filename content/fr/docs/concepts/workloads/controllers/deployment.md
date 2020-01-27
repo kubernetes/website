@@ -16,7 +16,7 @@ weight: 30
 Un _Déploiement_ (Deployment en anglais) fournit des mises à jour déclaratives pour [Pods](/fr/docs/concepts/workloads/pods/pod/) et [ReplicaSets](/fr/docs/concepts/workloads/controllers/replicaset/).
 
 Vous décrivez un _état désiré_ dans un déploiement et le {{< glossary_tooltip term_id="controller" text="controlleur">}} déploiement change l'état réel à l'état souhaité à un rythme contrôlé.
-Vous pouvez définir des déploiements pour créer de nouveaux ReplicaSets, ou pour supprimer des déploiements existants et adopter toutes leurs ressources avec de nouveaux déploiements.
+Vous pouvez définir des Deployments pour créer de nouveaux ReplicaSets, ou pour supprimer des déploiements existants et adopter toutes leurs ressources avec de nouveaux déploiements.
 
 {{< note >}}
 Ne gérez pas les ReplicaSets appartenant à un déploiement.
