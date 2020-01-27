@@ -58,11 +58,11 @@ The preferred way, of course, is with a Helm chart:
 Once it is installed on your cluster you can use the following
 functionalities:
 
- * Key 'a' =\> Switch to automatic pilot
- * Key 'm' =\> Switch to manual pilot
- * Key 'i' =\> Show pod's name. Move the ship towards an alien
- * Key 'h' =\> Print help
- * Key 'n' =\> Jump between different namespaces (my preferred feature!)
+ * Key 'a' — Switch to automatic pilot
+ * Key 'm' — Switch to manual pilot
+ * Key 'i' — Show pod's name. Move the ship towards an alien
+ * Key 'h' — Print help
+ * Key 'n' — Jump between different namespaces (my favorite feature!)
 
 ## Tuning KubeInvaders
 
@@ -74,9 +74,9 @@ If you have pods that require a few seconds to start, you may lose. It
 is possible to set the complexity of the game with these parameters as
 environmment variables in the Kubernetes deployment:
 
- * ALIENPROXIMITY =\> Reduce this value to increase the distance between aliens;
- * HITSLIMIT =\> Seconds of CPU time to wait before shooting;
- * UPDATETIME =\> Seconds to wait before updating pod status (you can set also 0.x Es: 0.5);
+ * ALIENPROXIMITY — Reduce this value to increase the distance between aliens;
+ * HITSLIMIT — Seconds of CPU time to wait before shooting;
+ * UPDATETIME — Seconds to wait before updating pod status (you can set also 0.x Es: 0.5);
 
 The result is a harder game experience against the machine.
 
@@ -107,4 +107,4 @@ example:
 
 Please feel free to contribute to
 [https://github.com/lucky-sideburn/KubeInvaders](https://github.com/lucky-sideburn/KubeInvaders)
-and stay updated following \#kubeinvaders news [on Twitter](https://twitter.com/luckysideburn)).
+and stay updated following \#kubeinvaders news [on Twitter](https://twitter.com/luckysideburn).
