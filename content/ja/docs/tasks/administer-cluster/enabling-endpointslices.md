@@ -26,7 +26,7 @@ EndpointSlicesは、KubernetesのEndpointに対してスケーラブルで拡張
 EndpointSlicesは、最終的には既存のEndpointを置き換える可能性がありますが、多くのKubernetesコンポーネントはまだ既存のEndpointに依存しています。現時点ではEndpointSlicesを有効化することは、Endpointの置き換えではなく、クラスター内のEndpointへの追加とみなされる必要があります。
 {{< /note >}}
 
-EndpointSlicesはベータ版の機能とみなされますが、デフォルトではAPIのみが有効です。kube-proxyによるEndpointSlice controllerとEndpointSlicesの使用は、デフォルトでは有効になっていません。
+EndpointSliceはベータ版の機能とみなされますが、デフォルトではAPIのみが有効です。kube-proxyによるEndpointSliceコントローラーとEndpointSliceの使用は、デフォルトでは有効になっていません。
 
 EndpointSlice controllerはクラスター内にEndpointSlicesを作成し、管理します。これは、{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}と{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}の`EndpointSlice`の[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)で有効にできます(`--feature-gates=EndpointSlice=true`)。
 
