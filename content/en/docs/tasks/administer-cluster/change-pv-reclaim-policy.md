@@ -55,12 +55,9 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     where `<your-pv-name>` is the name of your chosen PersistentVolume.
 
     {{< note >}}
-    If you are running `kubectl` on Windows, you'd need to use double quotes on the
-    command line and thus escape the inner double quotes like this:
+    On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
 
-    ```shell
-    kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
-    ```
+    C:\> kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
     {{< /note >}}
 
 1. Verify that your chosen PersistentVolume has the right policy:
