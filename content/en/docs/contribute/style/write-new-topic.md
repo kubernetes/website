@@ -115,8 +115,9 @@ When adding a new standalone sample file, such as a YAML file, place the code in
 one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
 the topic. In your topic file, use the `codenew` shortcode:
 
-<pre>&#123;&#123;&lt; codenew file="&lt;RELPATH&gt;/my-example-yaml&gt;" &gt;&#125;&#125;</pre>
-
+```none
+{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+```
 where `<RELPATH>` is the path to the file to include, relative to the
 `examples` directory. The following Hugo shortcode references a YAML
 file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
