@@ -1,6 +1,6 @@
 ---
 title: Kubernetes 安全和信息披露
-aliases: [/security/]
+aliases: [security/]
 content_template: templates/concept
 weight: 20
 ---
@@ -127,7 +127,7 @@ A public disclosure date is negotiated by the Kubernetes product security team a
 公开披露日期由 Kubernetes 产品安全团队和 bug 提交者协商。我们倾向于在用户缓解措施可用时尽快完全披露该 bug。
 
 <!--
-It is reasonable to delay disclosure when the bug or the fix is not yet fully understood, the solution is not well-tested, or for vendor coordination. 
+It is reasonable to delay disclosure when the bug or the fix is not yet fully understood, the solution is not well-tested, or for vendor coordination.
 -->
 当 bug 或其修复还没有被完全理解，解决方案没有经过良好的测试，或者为了处理供应商协调问题时，延迟披露是合理的。
 
