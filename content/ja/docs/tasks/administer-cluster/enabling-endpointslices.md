@@ -38,7 +38,7 @@ EndpointSlice controllerはクラスター内にEndpointSlicesを作成し、管
 
 {{% capture whatsnext %}}
 
-* Read about [EndpointSlices (EN)](/docs/concepts/services-networking/endpoint-slices/)
+* [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 * Read [サービスとアプリケーションの接続](/docs/concepts/services-networking/connect-applications-service/)
 
 {{% /capture %}}
