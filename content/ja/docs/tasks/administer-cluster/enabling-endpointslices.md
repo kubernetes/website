@@ -39,6 +39,6 @@ EndpointSlice controllerはクラスター内にEndpointSlicesを作成し、管
 {{% capture whatsnext %}}
 
 * [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
-* Read [サービスとアプリケーションの接続](/docs/concepts/services-networking/connect-applications-service/)
+* [サービスとアプリケーションの接続](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 
 {{% /capture %}}
