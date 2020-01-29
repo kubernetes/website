@@ -263,11 +263,7 @@ When using a single VM for Kubernetes, it's useful to reuse Minikube's built-in 
 Be sure to tag your Docker image with something other than latest and use that tag to pull the image. Because `:latest` is the default value, with a corresponding default image pull policy of `Always`, an image pull error (`ErrImagePull`) eventually results if you do not have the Docker image in the default Docker registry (usually DockerHub).
 {{< /note >}}
 
-To work with the Docker daemon on your Mac/Linux host, use the `docker-env command` in your shell:
-
-```shell
-eval $(minikube docker-env)
-```
+To work with the Docker daemon on your Mac/Linux host, run the last line from `minikube docker-env`.
 
 You can now use Docker at the command line of your host Mac/Linux machine to communicate with the Docker daemon inside the Minikube VM:
 
