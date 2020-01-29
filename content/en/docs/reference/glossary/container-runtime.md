@@ -15,7 +15,7 @@ tags:
 
 <!--more-->
 
-Kubernetes supports several container runtimes: [Docker](http://www.docker.com),
-[containerd](https://containerd.io), [cri-o](https://cri-o.io/),
-[rktlet](https://github.com/kubernetes-incubator/rktlet) and any implementation of
-the [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Kubernetes supports several container runtimes: {{< glossary_tooltip term_id="docker">}},
+{{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}},
+and any implementation of the [Kubernetes CRI (Container Runtime
+Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
