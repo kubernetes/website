@@ -44,7 +44,7 @@ The controller interprets the structured data as a record of the user's
 desired state, and continually maintains this state.
 
 You can deploy and update a custom controller on a running cluster, independently
-of the cluster's own lifecycle. Custom controllers can work with any kind of resource,
+of the cluster's lifecycle. Custom controllers can work with any kind of resource,
 but they are especially effective when combined with custom resources. The
 [Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
 resources and custom controllers. You can use custom controllers to encode domain knowledge
@@ -61,7 +61,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 | You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kubernetes UI support is not required. |
 | You are developing a new API. | You already have a program that serves your API and works well. |
 | You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
-| Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
+| Your resources are naturally scoped to a cluster or namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
 | You want to reuse [Kubernetes API support features](#common-features).  | You don't need those features. |
 
 ### Declarative APIs
@@ -83,7 +83,7 @@ Signs that your API might not be declarative include:
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
  - High bandwidth access (10s of requests per second sustained) needed.
- - Store end-user data (such as images, PII, etc) or other large-scale data processed by applications.
+ - Store end-user data (such as images, PII, etc.) or other large-scale data processed by applications.
  - The natural operations on the objects are not CRUD-y.
  - The API is not easily modeled as objects.
  - You chose to represent pending operations with an operation ID or an operation object.
@@ -96,7 +96,7 @@ Use a ConfigMap if any of the following apply:
 * You want to put the entire config file into one key of a configMap.
 * The main use of the config file is for a program running in a Pod on your cluster to consume the file to configure itself.
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
-* You want to perform rolling updates via Deployment, etc, when the file is updated.
+* You want to perform rolling updates via Deployment, etc., when the file is updated.
 
 {{< note >}}
 Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
@@ -140,7 +140,7 @@ and use a controller to handle events.
 
 ## API server aggregation
 
-Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CRDs](#customresourcedefinitions).
+Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also generically handle custom resources through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
