@@ -43,7 +43,6 @@ card:
 |                     | [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) |
 |                     | [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)|
 |                     | [k3s](https://k3s.io)|
-|                     | [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/)|
 
 
 ## 운영 환경
@@ -77,11 +76,10 @@ card:
 | [Digital Rebar](https://provision.readthedocs.io/en/tip/README.html)            |        |  |      |     |  | &#x2714;
 | [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)        | &#x2714;      |  |      |     |            |
 | [Docker Enterprise](https://www.docker.com/products/docker-enterprise) |       |&#x2714;  | &#x2714;     |  |     | &#x2714;
-| [Fedora (멀티 노드)](https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)     |      |  |      | |    &#x2714;       | &#x2714;
-| [Fedora (단일 노드)](https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/)     |      |  |      | |           | &#x2714;
 | [Gardener](https://gardener.cloud/) | &#x2714; | &#x2714; | &#x2714; | &#x2714; | &#x2714; | [사용자 정의 확장](https://github.com/gardener/gardener/blob/master/docs/extensions/overview.md) |
 | [Giant Swarm](https://www.giantswarm.io/)     | &#x2714;       | &#x2714; |   &#x2714;    |     |
 | [Google](https://cloud.google.com/)           |  [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/)       | [Google Compute Engine (GCE)](https://cloud.google.com/compute/)|[GKE On-Prem](https://cloud.google.com/gke-on-prem/)       |  |  |     |  |      |       |  |
+| [Hidora](https:/hidora.com/)           |  &#x2714;       | &#x2714;| &#x2714;       |  |  |     |  |      |       |  |
 | [IBM](https://www.ibm.com/in-en/cloud)        | [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster)| |[IBM Cloud Private](https://www.ibm.com/in-en/cloud/private) | |
 | [Ionos](https://www.ionos.com/enterprise-cloud)        | [Ionos Managed Kubernetes](https://www.ionos.com/enterprise-cloud/managed-kubernetes) | [Ionos Enterprise Cloud](https://www.ionos.com/enterprise-cloud) | |
 | [Kontena Pharos](https://www.kontena.io/pharos/)          |    |&#x2714;|    &#x2714;    |        |         |
@@ -92,6 +90,7 @@ card:
 | [Kublr](https://kublr.com/)        |&#x2714; | &#x2714;  |&#x2714;       |&#x2714;  |&#x2714; |&#x2714; |
 | [Microsoft Azure](https://azure.microsoft.com)    |  [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/)     |  |     |        |    |
 | [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)    |       |  | &#x2714; |  |    |
+| [NetApp Kubernetes Service (NKS)](https://cloud.netapp.com/kubernetes-service) | &#x2714; | &#x2714; | &#x2714; |  |  |
 | [Nirmata](https://www.nirmata.com/)          |              |   &#x2714;     | &#x2714;            |      |          |
 | [Nutanix](https://www.nutanix.com/en)         | [Nutanix Karbon](https://www.nutanix.com/products/karbon)             | [Nutanix Karbon](https://www.nutanix.com/products/karbon)       |             |      | [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization)         |
 | [OpenNebula](https://www.opennebula.org)          |[OpenNebula Kubernetes](https://marketplace.opennebula.systems/docs/service/kubernetes.html)              |        |            |      |   |
@@ -101,7 +100,6 @@ card:
 | [Pivotal](https://pivotal.io/) | | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service) | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service)           |      |          |
 | [Platform9](https://platform9.com/)         | [Platform9 Managed Kubernetes](https://platform9.com/managed-kubernetes/)             |       | [Platform9 Managed Kubernetes](https://platform9.com/managed-kubernetes/)            |  &#x2714;    |  &#x2714;    |   &#x2714;
 | [Rancher](https://rancher.com/)         |              |   [Rancher 2.x](https://rancher.com/docs/rancher/v2.x/en/)     |             |  [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/)    |          | [k3s](https://k3s.io/)
-| [StackPoint](https://stackpoint.io/)          | &#x2714;            |  &#x2714;      |             |      |          |
 | [Supergiant](https://supergiant.io/)         |              |&#x2714;        |             |      |          |
 | [SUSE](https://www.suse.com/)        |              | &#x2714;       |             |      |          |
 | [SysEleven](https://www.syseleven.io/)         | &#x2714;             |        |             |      |          |
