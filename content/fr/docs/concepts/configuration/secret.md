@@ -454,7 +454,7 @@ spec:
         path: my-group/my-username
 ```
 
-What will happen:
+Que se passera-t-il:
 
 * `username` est stocké dans le fichier `/etc/foo/my-group/my-username` au lieu de `/etc/foo/username`.
 * `password` n'est pas projeté
