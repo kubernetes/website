@@ -8,7 +8,7 @@ This document describes how to install a single-master Kubernetes cluster v1.15 
 
 ### Preparation in OpenStack
 
-This cluster will be running on OpenStack VMs so we'll create a few things in OpenStack for it.
+This cluster runs on OpenStack VMs, so let's create a few things in OpenStack first.
 
 * A project/tenant for this Kubernetes cluster
 * a user in this project for Kubernetes, to query node information and attach volumes etc
