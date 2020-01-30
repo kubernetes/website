@@ -58,7 +58,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
 
 ```cmd
-C:\> kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
+kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
 ```
 
     {{< /note >}}
