@@ -93,7 +93,7 @@ metadata:
 소유자 오브젝트를 삭제한다.
 
 "foregroundDeletion" 에서는 ownerReference.blockOwnerDeletion=true 로
-설정된 종속자만 소유자 오브젝트의 삭제를 차단한다는 것을 참고한다.
+설정된 종속 항목만 소유자 오브젝트의 삭제를 차단한다는 것을 참고한다.
 쿠버네티스 버전 1.7에서는 소유자 오브젝트에 대한 삭제 권한에 따라 `blockOwnerDeletion` 를 true로 설정하기 위해 사용자 접근을 제어하는
 [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#ownerreferencespermissionenforcement)가
 추가되었기에 권한이 없는 종속 항목은 소유자 오브젝트의 삭제를 지연시킬 수 없다.
@@ -147,7 +147,7 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 ```
 
 kubectl도 캐스케이딩 삭제를 지원한다.
-kubectl을 사용해서 종속 항목을 자동으로 삭제하려면 `--cascade` 를 true로 설정한다.  종속자를
+kubectl을 사용해서 종속 항목을 자동으로 삭제하려면 `--cascade` 를 true로 설정한다.  종속 항목을
 분리하기 위해서는 `--cascase` 를 false로 설정한다. `--cascade` 의 기본값은
 true 이다.
 
@@ -178,6 +178,5 @@ kubectl delete replicaset my-repset --cascade=false
 [디자인 문서 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
 {{% /capture %}}
-
 
 
