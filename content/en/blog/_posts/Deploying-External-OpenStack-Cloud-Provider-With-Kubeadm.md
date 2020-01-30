@@ -4,22 +4,22 @@ title: "Deploying External OpenStack Cloud Provider with Kubeadm"
 date: 2020-01-20
 slug: Deploying-External-OpenStack-Cloud-Provider-with-Kubeadm
 ---
-This document describes how to install a single-master Kubernetes cluster v1.15 with kubeadm on CentOS, and then deploy an external OpenStack cloud provider and Cinder CSI plugin to use Cinder volumes as persistent volumes in Kubernetes.
+This document describes how to install a single control-plane Kubernetes cluster v1.15 with kubeadm on CentOS, and then deploy an external OpenStack cloud provider and Cinder CSI plugin to use Cinder volumes as persistent volumes in Kubernetes.
 
 ### Preparation in OpenStack
 
 This cluster runs on OpenStack VMs, so let's create a few things in OpenStack first.
 
 * A project/tenant for this Kubernetes cluster.
-* a user in this project for Kubernetes, to query node information and attach volumes etc
-* a private network and subnet
-* a router for this private network and connect it to a public network for floating IPs
-* a security group for all Kubernetes VMs
-* a VM as control plane node and a few VMs as worker nodes
+* A user in this project for Kubernetes, to query node information and attach volumes etc
+* A private network and subnet
+* A router for this private network and connect it to a public network for floating IPs
+* A security group for all Kubernetes VMs
+* A VM as control-plane node and a few VMs as worker nodes
 
 The security group will have the following rules to open ports for Kubernetes.
 
-**Control Plane Node**
+**Control-Plane Node**
 
 |Protocol  | Port Number | Description|
 |----------|-------------|------------|
@@ -38,7 +38,7 @@ The security group will have the following rules to open ports for Kubernetes.
 |TCP|10255|Read-only Kubelet API|
 |TCP|30000-32767|NodePort Services|
 
-**CNI ports on both control plane and worker nodes**
+**CNI ports on both control-plane and worker nodes**
 
 |Protocol  | Port Number | Description|
 |----------|-------------|------------|
@@ -51,7 +51,7 @@ The security group will have the following rules to open ports for Kubernetes.
 
 CNI specific ports are only required to be opened when that particular CNI plugin is used. In this instruction we use Weave net, thus only those Weave net ports, TCP 6781-6784 and UDP 6783-6784, need to be opened in the security group.
 
-The control plane node needs at least 2 cores and 4GB RAM. After the VM is launched, verify its hostname and make sure it is the same as the node name in Nova. 
+The control-plane node needs at least 2 cores and 4GB RAM. After the VM is launched, verify its hostname and make sure it is the same as the node name in Nova. 
 If the hostname is not resolvable, add it to `/etc/hosts`.
 
 For example, if the VM is called master1, and it has an internal IP 192.168.1.4. Add that to `/etc/hosts` and set hostname to master1.
@@ -148,10 +148,10 @@ lsmod | grep br_netfilter
 modprobe br_netfilter
 ```
 
-The official document about how to create a single-master cluster can be found from the [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) documentation.
+The official document about how to create a single control-plane cluster can be found from the [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) documentation.
 
 We'll largely follow that document but also add additional things for the cloud provider.
-To make things more clear, we'll use a `kubeadm-config.yml` for the master.
+To make things more clear, we'll use a `kubeadm-config.yml` for the control-plane node.
 In this config we specify to use an external OpenStack cloud provider, and where to find its config.
 We also enable storage API in API server's runtime config so we can use OpenStack volumes as persistent volumes in Kubernetes.
 
@@ -213,7 +213,7 @@ public-network-name=public
 ipv6-support-disabled=false
 ```
 
-Next run kubeadm to initiate the master
+Next run kubeadm to initiate the control-plane node
 ```shell
 kubeadm init --config=kubeadm-config.yml
 ```
@@ -225,7 +225,7 @@ With the initialization completed, copy admin config to .kube
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-At this stage, the control plane node is created but not ready. All the nodes have the taint `node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule` and are waiting to be initialized by the cloud-controller-manager.
+At this stage, the control-plane node is created but not ready. All the nodes have the taint `node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule` and are waiting to be initialized by the cloud-controller-manager.
 ```console
 # kubectl describe no master1
 Name:               master1
@@ -253,7 +253,7 @@ kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/rele
 ```
 
 We'll run OpenStack cloud controller manager as a DaemonSet rather than a pod.
-The manager will only run on the master, so if there are multiple masters, multiple pods will be run for high availability.
+The manager will only run on the control-plane node, so if there are multiple control-plane nodes, multiple pods will be run for high availability.
 Create `openstack-cloud-controller-manager-ds.yaml` containing the following manifests, then apply it.
 
 ```yaml
@@ -363,7 +363,7 @@ PodCIDR:                     10.224.0.0/24
 ProviderID:                  openstack:///548e3c46-2477-4ce2-968b-3de1314560a5
 
 ```
-Now install your favourite CNI and the control plane node will become ready.
+Now install your favourite CNI and the control-plane node will become ready.
 
 For example, to install weave net, run this command:
 ```shell
@@ -372,8 +372,8 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 Next we'll set up worker nodes.
 
-Firstly, install docker and kubeadm in the same way as how they were installed in the master. 
-To join them to the cluster we need a token and ca cert hash from the output of master installation. 
+Firstly, install docker and kubeadm in the same way as how they were installed in the control-plane node. 
+To join them to the cluster we need a token and ca cert hash from the output of control-plane node installation. 
 If it is expired or lost we can recreate it using these commands.
 
 ```shell
@@ -399,7 +399,7 @@ nodeRegistration:
     cloud-provider: "external"
 
 ```
-apiServerEndpoint is the control plane node, token and caCertHashes can be taken from the join command printed in the output of 'kubeadm token create' command.
+apiServerEndpoint is the control-plane node, token and caCertHashes can be taken from the join command printed in the output of 'kubeadm token create' command.
 
 Run kubeadm and the worker nodes will be joined to the cluster.
 ```shell
