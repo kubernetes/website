@@ -137,12 +137,6 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
     kubectl apply -f kube-flannel.yml
     ```
 
-    다음은 플라넬 파드는 리눅스 기반이라 [여기](https://github.com/Microsoft/SDN/blob/1d5c055bb195fecba07ad094d2d7c18c188f9d2d/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml) 나온 노드 셀렉터 패치를 플라넬 데몬셋 파드에 적용한다.
-
-    ```bash
-    kubectl patch ds/kube-flannel-ds-amd64 --patch "$(cat node-selector-patch.yml)" -n=kube-system
-    ```
-
     몇 분 뒤에 플라넬 파드 네트워크가 배포되었다면, 모든 파드에서 운영 중인 것을 확인할 수 있다.
 
     ```bash
