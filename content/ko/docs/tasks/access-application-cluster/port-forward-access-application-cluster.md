@@ -1,14 +1,14 @@
 ---
-title: 포트 포워딩을 사용하여 클러스터 안 어플리케이션 접근하기
+title: 포트 포워딩을 사용해서 클러스터 내 애플리케이션에 접근하기
 content_template: templates/task
 weight: 40
 ---
 
 {{% capture overview %}}
 
-본 페이지는 쿠버네티스 클러스터 안에서 실행하고 있는 Redis 서버에 연결하기 위해 어떻게
-`kubectl port-forward`를 사용하는지 설명한다. 이러한 종류의 연결은 데이터베이스 디버깅에 
-유용할 수 있다.
+이 페이지는 `kubectl port-forward` 를 사용해서 쿠버네티스 클러스터 내에서 
+실행중인 Redis 서버에 연결하는 방법을 보여준다. 이 유형의 연결은 데이터베이스
+디버깅에 유용할 수 있다.
 
 {{% /capture %}}
 
@@ -30,7 +30,7 @@ weight: 40
 
         kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
 
-    성공적인 커맨드의 출력은 디플로이먼트가 생성됐다는 것을 확인해준다.
+    성공적인 명령어의 출력은 디플로이먼트가 생성됐다는 것을 확인해준다.
 
         deployment.apps/redis-master created
 
@@ -94,23 +94,23 @@ weight: 40
 
         kubectl port-forward redis-master-765d459796-258hz 7000:6379
 
-    위 커맨드는 
+    이것은
 
         kubectl port-forward pods/redis-master-765d459796-258hz 7000:6379
 
-    혹은
+    또는
 
         kubectl port-forward deployment/redis-master 7000:6379
 
-    혹은
+    또는
 
         kubectl port-forward rs/redis-master 7000:6379
 
-    혹은 아래의 커맨드와 같다.
+    또는 다음과 같다.
 
         kubectl port-forward svc/redis-master 7000:6379
 
-    위에 명시된 명령어들 모두 동작한다. 결과는 아래와 비슷할 것이다.
+    위의 명령어들은 모두 동일하게 동작한다. 이와 유사하게 출력된다.
 
         I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:7000 -> 6379
         I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:7000 -> 6379
@@ -119,7 +119,7 @@ weight: 40
 
         redis-cli -p 7000
 
-3.  Redis 커맨드라인 프롬프트에, `ping` 명령을 입력한다.
+3.  Redis 커맨드라인 프롬프트에 `ping` 명령을 입력한다.
 
         127.0.0.1:7000>ping
 
@@ -132,22 +132,22 @@ weight: 40
 
 ## 토의
 
-로컬의 7000번 포트로 이루어진 연결은 Redis 서버를 실행하고 있는 파드의 6379번 포트로 포워딩된다. 
-이러한 연결을 설정하여, 파드 안에서 실행 중인 데이터베이스를 디버그하는데 로컬 워크스테이션을 
+로컬 7000 포트에 대한 연결은 Redis 서버가 실행중인 파드의 6379 포트로 포워딩된다.
+이 연결로 로컬 워크스테이션에서 파드 안에서 실행 중인 데이터베이스를 디버깅하는데
 사용할 수 있다.
 
 {{< warning >}}
-알려진 한계점으로 인해, 포트 포워딩은 TCP 프로토콜에만 작동한다. UDP 프로토콜에 대한 지원은 
-[47862번 이슈](https://github.com/kubernetes/kubernetes/issues/47862)
+알려진 제한사항으로 인해, 오늘날 포트 포워딩은 TCP 프로토콜에서만 작동한다. UDP 프로토콜에 대한 지원은 
+[이슈 47862](https://github.com/kubernetes/kubernetes/issues/47862)
 에서 추적되고 있다.
 {{< /warning >}}
 
 {{% /capture %}}
 
+
 {{% capture whatsnext %}}
 [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward)에 대해 더 알아본다.
 {{% /capture %}}
-
 
 
 
