@@ -319,7 +319,8 @@ Cela garantit qu'un nouveau secret est généré chaque fois que le contenu est 
 
 #### Décoder un secret
 
-Secrets can be retrieved via the `kubectl get secret` command. For example, to retrieve the secret created in the previous section:
+Les secrets peuvent être récupérés via la command `kubectl get secret`.
+Par exemple, pour récupérer le secret créé dans la section précédente:
 
 ```shell
 kubectl get secret mysecret -o yaml
