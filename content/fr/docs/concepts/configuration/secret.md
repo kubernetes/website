@@ -968,10 +968,10 @@ Vous pouvez activer le [chiffrement au repos](/docs/tasks/administer-cluster/enc
   * Les administrateurs peuvent vouloir effacer/détruire les disques utilisés par etcd lorsqu'ils ne sont plus utilisés
   * Si vous exécutez etcd dans un cluster, les administrateurs doivent s'assurer d'utiliser SSL/TLS pour la communication peer-to-peer etcd.
 * Si vous configurez le secret via un fichier manifeste (JSON ou YAML) qui a les données secrètes codées en base64, partager ce fichier ou l'archiver dans un dépot de source signifie que le secret est compromis.
-  L'encodage Base64 _n'est pas_ une méthode de chiffrement et est considéré comme identique au texte brut.
+  L'encodage Base64 _n'est pas_ une méthode de chiffrement, il est considéré comme identique au texte brut.
 * Les applications doivent toujours protéger la valeur du secret après l'avoir lu dans le volume, comme ne pas le mettre accidentellement dans un journal ou le transmettre à une partie non fiable.
 * Un utilisateur qui peut créer un pod qui utilise un secret peut également voir la valeur de ce secret.
-  Même si la stratégie apiserver ne permet pas à cet utilisateur de lire l'objet secret, l'utilisateur peut exécuter un pod qui expose le secret.
+  Même si la stratégie apiserver ne permet pas à cet utilisateur de lire l'objet secret, l'utilisateur peut créer un pod qui expose le secret.
 * Actuellement, toute personne disposant des droit root sur n'importe quel nœud peut lire _n'importe quel_ secret depuis l'apiserver, en usurpant l'identité du kubelet.
   Il est prévu de n'envoyer des secrets qu'aux nœuds qui en ont réellement besoin, pour limiter l'impact d'un exploit root sur un seul nœud.
 
