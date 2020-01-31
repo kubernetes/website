@@ -13,7 +13,7 @@ weight: 125
 {{< /deprecationfilewarning >}}
 
 Kubernetes version 1.5 and above includes a new command line tool called
-[`kubefed`](/docs/admin/kubefed/) to help you administrate your federated
+`kubefed` to help you administrate your federated
 clusters. `kubefed` helps you to deploy a new Kubernetes cluster federation
 control plane, and to add clusters to or remove clusters from an existing
 federation control plane.
@@ -22,6 +22,8 @@ This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
 
 > Note: `kubefed` is a beta feature in Kubernetes 1.6.
+
+> Note: this `kubefed` is a cli tool for federation v1, not the [federation v2]((https://github.com/kubernetes-sigs/kubefed)) which also called [kubefed](https://github.com/kubernetes-sigs/kubefed).
 
 {{% /capture %}}
 
@@ -126,7 +128,7 @@ control plane.
 ## Deploying a federation control plane
 
 To deploy a federation control plane on your host cluster, run
-[`kubefed init`](/docs/admin/kubefed_init/) command. When you use
+`kubefed init` command. When you use
 `kubefed init`, you must provide the following:
 
 * Federation name
@@ -530,13 +532,11 @@ then this configuration is automatically managed for you when the
 clusters are joined or unjoined using `kubefed join` or `unjoin`
 commands.
 
-In all other cases, you must update `kube-dns` configuration manually
-as described in the
-[Updating KubeDNS section of the admin guide](/docs/admin/federation/).
+In all other cases, you must update `kube-dns` configuration manually.
 
 ## Removing a cluster from a federation
 
-To remove a cluster from a federation, run the [`kubefed unjoin`](/docs/reference/setup-tools/kubefed/kubefed_unjoin/)
+To remove a cluster from a federation, run the `kubefed unjoin`
 command with the cluster name and the federation's
 `--host-cluster-context`:
 

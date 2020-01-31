@@ -19,8 +19,7 @@ This guide explains how to use events in federation control plane to help in deb
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/concepts/cluster-administration/federation/) to learn how to
+Federation installation. If not, then head over to the federation admin guide to learn how to
 bring up a cluster federation (or have your cluster administrator do
 this for you). Other tutorials, for example
 [this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)

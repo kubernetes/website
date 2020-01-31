@@ -56,7 +56,7 @@ different cluster if it does not.
 
 This guide assumes that you have a running Kubernetes Cluster
 Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
+federation admin guide to learn how to
 bring up a cluster federation (or have your cluster administrator do
 this for you). Other tutorials, for example
 [this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
@@ -74,7 +74,7 @@ different cloud providers (such as Google Cloud or AWS), and on-premises
 require, in the appropriate cloud providers and/or locations, and
 register each cluster's API endpoint and credentials with your
 Federation API Server (See the
-[federation admin guide](/docs/admin/federation/) for details).
+federation admin guide for details).
 
 Thereafter, your applications and services can span different clusters
 and cloud providers as described in more detail below.
@@ -90,8 +90,7 @@ kubectl --context=federation-cluster create -f services/nginx.yaml
 The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, visit the
-[federation admin guide](/docs/admin/federation/) or one of the
-[administration tutorials](https://github.com/kelseyhightower/kubernetes-cluster-federation)
+federation admin guide or one of the [administration tutorials](https://github.com/kelseyhightower/kubernetes-cluster-federation)
 to find out how to do so.
 
 As described above, the Federated Service will automatically create
@@ -379,7 +378,7 @@ Check that your
 1. Client (typically kubectl) is correctly configured (including API endpoints and login credentials).
 2. Cluster Federation API server is running and network-reachable.
 
-See the [federation admin guide](/docs/admin/federation/) to learn
+See the federation admin guide to learn
 how to bring up a cluster federation correctly (or have your cluster administrator do this for you), and how to correctly configure your client.
 
 ### I can create a federated service successfully against the cluster federation API, but no matching services are created in my underlying clusters
@@ -396,7 +395,7 @@ Check that:
 ### I can create a federated service successfully, but no matching DNS records are created in my DNS provider.
 Check that:
 
-1. Your federation name, DNS provider, DNS domain name are configured correctly.  Consult the [federation admin guide](/docs/admin/federation/) or  [tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation) to learn
+1. Your federation name, DNS provider, DNS domain name are configured correctly.  Consult the federation admin guide or [tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation) to learn
 how to configure your Cluster Federation system's DNS provider (or have your cluster administrator do this for you).
 2. Confirm that the Cluster Federation's service-controller is successfully connecting to and authenticating against your selected DNS provider (look for `service-controller` errors or successes in the output of `kubectl logs federation-controller-manager --namespace federation`).
 3. Confirm that the Cluster Federation's service-controller is successfully creating DNS records in your DNS provider (or outputting errors in its logs explaining in more detail what's failing).
