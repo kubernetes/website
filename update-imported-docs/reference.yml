@@ -8,7 +8,8 @@ repos:
     cd $GOPATH
     git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    git checkout release-${K8S_RELEASE}
+    # set the branch, ex: v1.17.0
+    git checkout v${K8S_RELEASE}.0
     make generated_files
     cp -L -R vendor $GOPATH/src
     rm -r vendor/github.com/spf13/cobra
@@ -21,12 +22,10 @@ repos:
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-kubectldocs
     cd src/github.com/kubernetes-sigs/reference-docs/
-    cp ${K8S_WEBROOT}/update-imported-docs/Makefile_temp ./Makefile
-    # testing
-    make sepversion
+    # create versioned dirs if needed and fetch v${K8S_RELEASE}.0:swagger.json
+    make updateapispec
     # generate kubectl cmd reference
     make copycli
-    #
     # generate api reference
     cd $GOPATH
     rm -rf src/vendor
