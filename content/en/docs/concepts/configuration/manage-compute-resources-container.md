@@ -1,5 +1,5 @@
 ---
-title: Managing Compute Resources for Containers
+title: Managing Resources for Containers
 content_template: templates/concept
 weight: 20
 feature:
@@ -10,23 +10,45 @@ feature:
 
 {{% capture overview %}}
 
-When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
-much CPU and memory (RAM) each Container needs. When Containers have resource
-requests specified, the scheduler can make better decisions about which nodes to
-place Pods on. And when Containers have their limits specified, contention for
-resources on a node can be handled in a specified manner. For more details about
-the difference between requests and limits, see
-[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how
+much resources each {{< glossary_tooltip text="Container" term_id="container" >}} needs.
+The most common resources you specify are CPU and memory (RAM), and there are others you might
+use as well.
+
+When you specify the resource _request_ for Containers, the scheduler can make better decisions
+about which nodes to place Pods on. And when you specify _limits_ for Containers, that lets
+the kubelet on a node manage contention for those resources.
+
+
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
+## Requests and limits
+
+A Container can exceed its resource request if the Node has enough of that resource available.
+But a Container is not allowed to use more than its resource limit limit.
+
+For example, if you set a request of 256 MiB for a container, and that Container is in a Pod
+scheduled to a Node with 8GiB of memory and no other Pods, then the Container can try to use
+more RAM.
+
+If you set a memory limit of 4GiB for that Container, the kubelet (and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) enforce the limit.
+The runtime prevents the container from using more than the configured resource limit; typically,
+in this case, the system kernel terminates the process in the container with an OOM (out of memory)
+error.
+
+Limits can be enforced either by policing (the system intervenes when it sees a violation) or by
+prevention (the system prevents the container from ever exceeding the limit).
+
 ## Resource types
 
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
-CPU is specified in units of cores, and memory is specified in units of bytes.
+CPU represents compute processing and is specified in units of [Kubernetes CPUs](#meaning-of-cpu).
+Memory is specified in units of bytes.
 If you're using Kubernetes v1.14 or newer, you can specify _huge page_ resources.
 Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
 that are much larger than the default page size.
@@ -64,8 +86,9 @@ is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
 resource requests/limits of that type for each Container in the Pod.
 
+## Resource units in Kubernetes
 
-## Meaning of CPU
+### Meaning of CPU
 
 Limits and requests for CPU resources are measured in *cpu* units.
 One cpu, in Kubernetes, is equivalent to:
@@ -88,7 +111,7 @@ be preferred.
 CPU is always requested as an absolute quantity, never as a relative quantity;
 0.1 is the same amount of CPU on a single-core, dual-core, or 48-core machine.
 
-## Meaning of memory
+### Meaning of memory
 
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point integer using one of these suffixes:
@@ -187,7 +210,7 @@ To determine whether a Container cannot be scheduled or is being killed due to
 resource limits, see the
 [Troubleshooting](#troubleshooting) section.
 
-## Monitoring compute resource usage
+### Monitoring compute & memory resource usage
 
 The resource usage of a Pod is reported as part of the Pod status.
 
@@ -195,158 +218,33 @@ If [optional monitoring](http://releases.k8s.io/{{< param "githubbranch" >}}/clu
 is configured for your cluster, then Pod resource usage can be retrieved from
 the monitoring system.
 
-## Troubleshooting
-
-### My Pods are pending with event message failedScheduling
-
-If the scheduler cannot find any node where a Pod can fit, the Pod remains
-unscheduled until a place can be found. An event is produced each time the
-scheduler fails to find a place for the Pod, like this:
-
-```shell
-kubectl describe pod frontend | grep -A 3 Events
-```
-```
-Events:
-  FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
-  36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
-```
-
-In the preceding example, the Pod named "frontend" fails to be scheduled due to
-insufficient CPU resource on the node. Similar error messages can also suggest
-failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
-is pending with a message of this type, there are several things to try:
-
-- Add more nodes to the cluster.
-- Terminate unneeded Pods to make room for pending Pods.
-- Check that the Pod is not larger than all the nodes. For example, if all the
-  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
-  never be scheduled.
-
-You can check node capacities and amounts allocated with the
-`kubectl describe nodes` command. For example:
-
-```shell
-kubectl describe nodes e2e-test-node-pool-4lw4
-```
-```
-Name:            e2e-test-node-pool-4lw4
-[ ... lines removed for clarity ...]
-Capacity:
- cpu:                               2
- memory:                            7679792Ki
- pods:                              110
-Allocatable:
- cpu:                               1800m
- memory:                            7474992Ki
- pods:                              110
-[ ... lines removed for clarity ...]
-Non-terminated Pods:        (5 in total)
-  Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
-  ---------    ----                                  ------------  ----------  ---------------  -------------
-  kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
-  kube-system  kube-dns-3297075139-61lj3             260m (13%)    0 (0%)      100Mi (1%)       170Mi (2%)
-  kube-system  kube-proxy-e2e-test-...               100m (5%)     0 (0%)      0 (0%)           0 (0%)
-  kube-system  monitoring-influxdb-grafana-v4-z1m12  200m (10%)    200m (10%)  600Mi (8%)       600Mi (8%)
-  kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
-Allocated resources:
-  (Total limits may be over 100 percent, i.e., overcommitted.)
-  CPU Requests    CPU Limits    Memory Requests    Memory Limits
-  ------------    ----------    ---------------    -------------
-  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
-```
-
-In the preceding output, you can see that if a Pod requests more than 1120m
-CPUs or 6.23Gi of memory, it will not fit on the node.
-
-By looking at the `Pods` section, you can see which Pods are taking up space on
-the node.
-
-The amount of resources available to Pods is less than the node capacity, because
-system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
-gives the amount of resources that are available to Pods. For more information, see
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
-
-The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
-to limit the total amount of resources that can be consumed. If used in conjunction
-with namespaces, it can prevent one team from hogging all the resources.
-
-### My Container is terminated
-
-Your Container might get terminated because it is resource-starved. To check
-whether a Container is being killed because it is hitting a resource limit, call
-`kubectl describe pod` on the Pod of interest:
-
-```shell
-kubectl describe pod simmemleak-hra99
-```
-```
-Name:                           simmemleak-hra99
-Namespace:                      default
-Image(s):                       saadali/simmemleak
-Node:                           kubernetes-node-tf0f/10.240.216.66
-Labels:                         name=simmemleak
-Status:                         Running
-Reason:
-Message:
-IP:                             10.244.2.75
-Replication Controllers:        simmemleak (1/1 replicas created)
-Containers:
-  simmemleak:
-    Image:  saadali/simmemleak
-    Limits:
-      cpu:                      100m
-      memory:                   50Mi
-    State:                      Running
-      Started:                  Tue, 07 Jul 2015 12:54:41 -0700
-    Last Termination State:     Terminated
-      Exit Code:                1
-      Started:                  Fri, 07 Jul 2015 12:54:30 -0700
-      Finished:                 Fri, 07 Jul 2015 12:54:33 -0700
-    Ready:                      False
-    Restart Count:              5
-Conditions:
-  Type      Status
-  Ready     False
-Events:
-  FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
-```
-
-In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
-Container in the Pod was terminated and restarted five times.
-
-You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
-of previously terminated Containers:
-
-```shell
-kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
-```
-```
-Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
-```
-
-You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
-
 ## Local ephemeral storage
-{{< feature-state state="beta" >}}
 
-Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by Pods via emptyDir volumes, container logs, image layers and container writable layers.
+<!-- feature gate LocalStorageCapacityIsolation -->
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
-This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
+Nodes have local ephemeral storage, backed either by RAM or by locally-attached writeable devices. The kubelet uses local ephemeral storage to provide emptyDir {{< glossary_tooltip term_id="volume" text="volumes" >}} to Pods. The kubelet also uses this kind of storage to hold [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level), container images, and the writable layers of running containers.
+
+“Ephemeral” means that there is no long-term guarantee about durability.
+
+{{< warning >}}
+If a node fails, the data in its ephemeral storage can be lost. Your
+applications cannot expect any performance SLAs (disk IOPS for example)
+from local ephemeral storage.
+{{< /warning >}}
+
+The kubelet manages local ephemeral storage provided that the different kinds of data (emptyDir volumes, writeable layers, container images, logs, etc) are all placed onto the node's root filesystem. If you have a different configuration, then the kubelet does not manage local ephemeral storage and does not apply resource limits.
+
+In each Kubernetes node, kubelet's root directory (`/var/lib/kubelet` by default) and log directory (`/var/log`) are part of the node's directory structure. Typically, both `/var/lib/kubelet` and `/var/log` are on the root filesystem, and the kubelet is designed with that layout in mind.
 
 {{< note >}}
-If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
+If you use a separate runtime filesystem, the root partition does not hold any image layer or writable layers, and the kubelet does not manage local ephemeral storage on that node.
 {{< /note >}}
 
+
 ### Requests and limits setting for local ephemeral storage
-Each Container of a Pod can specify one or more of the following:
+
+You can use _ephemeral-storage_ for managing local ephemeral storage. Each Container of a Pod can specify one or more of the following:
 
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
@@ -360,7 +258,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 128974848, 129e6, 129M, 123Mi
 ```
 
-For example, the following Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+In the following example, the Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
 
 ```yaml
 apiVersion: v1
@@ -397,21 +295,64 @@ The scheduler ensures that the sum of the resource requests of the scheduled Con
 
 ### How Pods with ephemeral-storage limits run
 
-For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the Pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the Pod's emptyDir volumes exceeds the limit, the Pod will be evicted.
+For container-level isolation, if a Container's writable layer and logs
+usage exceeds its storage limit, the Pod will be evicted. For pod-level
+isolation, if the sum of the local ephemeral storage usage from all
+containers and also the Pod's emptyDir volumes exceeds the limit, the
+Pod will be evicted.
 
-### Monitoring ephemeral-storage consumption
+{{< caution >}}
+If the kubelet is not managing local ephemeral storage, then a container that uses more than its storage limit will not be evicted.
+{{< /caution >}}
 
-When local ephemeral storage is used, it is monitored on an ongoing
-basis by the kubelet.  The monitoring is performed by scanning each
-emptyDir volume, log directories, and writable layers on a periodic
-basis.  Starting with Kubernetes 1.15, emptyDir volumes (but not log
-directories or writable layers) may, at the cluster operator's option,
-be managed by use of [project
-quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html).
-Project quotas were originally implemented in XFS, and have more
-recently been ported to ext4fs.  Project quotas can be used for both
-monitoring and enforcement; as of Kubernetes 1.16, they are available
-as alpha functionality for monitoring only.
+
+### Monitoring ephemeral-storage consumption {#resource-emphemeralstorage-consumption}
+
+If the kubelet is managing local ephemeral storage, then the kubelet
+measures storage use in:
+- emptyDir volumes
+- log directories
+- writeable container layers
+
+This information can trigger Pod eviction if a Pod is using more
+ephemeral-storage than you allow it.
+
+The kubelet supports different ways to measure Pod storage use:
+
+{{< tabs name="resource-emphemeralstorage-measurement" >}}
+{{% tab name="Periodic scanning" %}}
+The kubelet performs regular, schedules checks that scan each
+emptyDir volume, each container log directory, and each writeable container layer.
+
+The scans provide a measurement of how much space is used.
+
+{{< note >}}
+In this mode, the kubelet does not track open file descriptors
+for deleted files. If you (or a container) create a file inside an empyDir
+volume, something then opens that file, and you delete the file whilst
+it is still open, then inode for the deleted file stays until you close
+that file. However, the kubelet does not see that the space is used.
+{{< /note >}}
+{{% /tab %}}
+{{% tab name="Filesystem project quota" %}}
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+Project quotas are an operating-system level feature for managing
+storage use on filesystems. With Kubernetes, you can enable project
+quotas for monitoring storage use. You need to make sure that the filesystem
+backing the emptyDir volumes, on the node, provides project quota support.
+For example, XFS and ext4fs can offer project quotas.
+
+{{< note >}}
+Project quotas let you monitor storage use; they do not enforce limits.
+{{< /note >}}
+
+Kubernetes uses project IDs starting from `1048576`. The IDs in use are
+registered in `/etc/projects` and `/etc/projid`. If project IDs in
+this range are used for other purposes on the system, those project
+IDs must be registered in `/etc/projects` and `/etc/projid` so that
+Kubernetes does not use them.
 
 Quotas are faster and more accurate than directory scanning.  When a
 directory is assigned to a project, all files created under a
@@ -421,47 +362,27 @@ a file is created and deleted, but with an open file descriptor, it
 continues to consume space.  This space will be tracked by the quota,
 but will not be seen by a directory scan.
 
-Kubernetes uses project IDs starting from 1048576.  The IDs in use are
-registered in `/etc/projects` and `/etc/projid`.  If project IDs in
-this range are used for other purposes on the system, those project
-IDs must be registered in `/etc/projects` and `/etc/projid` to prevent
-Kubernetes from using them.
-
-To enable use of project quotas, the cluster operator must do the
-following:
+If you want to use project quotas, you should:
 
 * Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
-  feature gate in the kubelet configuration.  This defaults to `false`
-  in Kubernetes 1.16, so must be explicitly set to `true`.
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  in the kubelet configuration.
 
-* Ensure that the root partition (or optional runtime partition) is
-  built with project quotas enabled.  All XFS filesystems support
-  project quotas, but ext4 filesystems must be built specially.
+* Ensure that the the root fileystem (or optional runtime filesystem)
+  has project quotas enabled. All XFS filesystems support project quotas.
+  For ext4 filesystems, you need to enable the project quota tracking feature
+  whilst the filesystem is not mounted.
+  ```bash
+  # For ext4, with /dev/block-device not mounted
+  sudo tune2fs -O project -Q prjquota /dev/block-device
+  ```
 
-* Ensure that the root partition (or optional runtime partition) is
-  mounted with project quotas enabled.
+* Ensure that the root filesystem (or optional runtime filesystem is
+  mounted with project quotas enabled. For both XFS and ext4fs, the
+  mount option is named `prjquota`.
 
-#### Building and mounting filesystems with project quotas enabled
-
-XFS filesystems require no special action when building; they are
-automatically built with project quotas enabled.
-
-Ext4fs filesystems must be built with quotas enabled, then they must
-be enabled in the filesystem:
-
-```
-% sudo mkfs.ext4 other_ext4fs_args... -E quotatype=prjquota /dev/block_device
-% sudo tune2fs -O project -Q prjquota /dev/block_device
-
-```
-
-To mount the filesystem, both ext4fs and XFS require the `prjquota`
-option set in `/etc/fstab`:
-
-```
-/dev/block_device	/var/kubernetes_data	defaults,prjquota	0	0
-```
-
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Extended resources
 
@@ -602,6 +523,145 @@ spec:
         example.com/foo: 1
 ```
 
+## Troubleshooting
+
+### My Pods are pending with event message failedScheduling
+
+If the scheduler cannot find any node where a Pod can fit, the Pod remains
+unscheduled until a place can be found. An event is produced each time the
+scheduler fails to find a place for the Pod, like this:
+
+```shell
+kubectl describe pod frontend | grep -A 3 Events
+```
+```
+Events:
+  FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
+  36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
+```
+
+In the preceding example, the Pod named "frontend" fails to be scheduled due to
+insufficient CPU resource on the node. Similar error messages can also suggest
+failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
+is pending with a message of this type, there are several things to try:
+
+- Add more nodes to the cluster.
+- Terminate unneeded Pods to make room for pending Pods.
+- Check that the Pod is not larger than all the nodes. For example, if all the
+  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
+  never be scheduled.
+
+You can check node capacities and amounts allocated with the
+`kubectl describe nodes` command. For example:
+
+```shell
+kubectl describe nodes e2e-test-node-pool-4lw4
+```
+```
+Name:            e2e-test-node-pool-4lw4
+[ ... lines removed for clarity ...]
+Capacity:
+ cpu:                               2
+ memory:                            7679792Ki
+ pods:                              110
+Allocatable:
+ cpu:                               1800m
+ memory:                            7474992Ki
+ pods:                              110
+[ ... lines removed for clarity ...]
+Non-terminated Pods:        (5 in total)
+  Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
+  ---------    ----                                  ------------  ----------  ---------------  -------------
+  kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
+  kube-system  kube-dns-3297075139-61lj3             260m (13%)    0 (0%)      100Mi (1%)       170Mi (2%)
+  kube-system  kube-proxy-e2e-test-...               100m (5%)     0 (0%)      0 (0%)           0 (0%)
+  kube-system  monitoring-influxdb-grafana-v4-z1m12  200m (10%)    200m (10%)  600Mi (8%)       600Mi (8%)
+  kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  CPU Requests    CPU Limits    Memory Requests    Memory Limits
+  ------------    ----------    ---------------    -------------
+  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
+```
+
+In the preceding output, you can see that if a Pod requests more than 1120m
+CPUs or 6.23Gi of memory, it will not fit on the node.
+
+By looking at the `Pods` section, you can see which Pods are taking up space on
+the node.
+
+The amount of resources available to Pods is less than the node capacity, because
+system daemons use a portion of the available resources. The `allocatable` field
+[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
+gives the amount of resources that are available to Pods. For more information, see
+[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
+
+The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
+to limit the total amount of resources that can be consumed. If used in conjunction
+with namespaces, it can prevent one team from hogging all the resources.
+
+### My Container is terminated
+
+Your Container might get terminated because it is resource-starved. To check
+whether a Container is being killed because it is hitting a resource limit, call
+`kubectl describe pod` on the Pod of interest:
+
+```shell
+kubectl describe pod simmemleak-hra99
+```
+```
+Name:                           simmemleak-hra99
+Namespace:                      default
+Image(s):                       saadali/simmemleak
+Node:                           kubernetes-node-tf0f/10.240.216.66
+Labels:                         name=simmemleak
+Status:                         Running
+Reason:
+Message:
+IP:                             10.244.2.75
+Replication Controllers:        simmemleak (1/1 replicas created)
+Containers:
+  simmemleak:
+    Image:  saadali/simmemleak
+    Limits:
+      cpu:                      100m
+      memory:                   50Mi
+    State:                      Running
+      Started:                  Tue, 07 Jul 2015 12:54:41 -0700
+    Last Termination State:     Terminated
+      Exit Code:                1
+      Started:                  Fri, 07 Jul 2015 12:54:30 -0700
+      Finished:                 Fri, 07 Jul 2015 12:54:33 -0700
+    Ready:                      False
+    Restart Count:              5
+Conditions:
+  Type      Status
+  Ready     False
+Events:
+  FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
+```
+
+In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
+Container in the Pod was terminated and restarted five times.
+
+You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
+of previously terminated Containers:
+
+```shell
+kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
+```
+```
+Container Name: simmemleak
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
+```
+
+You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
+
 
 
 {{% /capture %}}
@@ -613,8 +673,13 @@ spec:
 
 * Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* [Container API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* For more details about the difference between requests and limits, see
+  [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
-* [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
+* Read the [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API reference
+
+* Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
+
+* Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
 
 {{% /capture %}}
