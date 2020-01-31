@@ -127,10 +127,10 @@ IP and may cause a second hop to another node, but should have good overall
 load-spreading. Local preserves the client source IP and avoids a second hop
 for LoadBalancer and NodePort type services, but risks potentially imbalanced
 traffic spreading.
-* `service.spec.healthCheckNodePort` - specifies the health check nodePort
+* `service.spec.healthCheckNodePort` - specifies the health check node port
 (numeric port number) for the service. If not specified, `healthCheckNodePort` is
-created by the service API backend with the allocated `nodePort`. It will use the
-user-specified `nodePort` value if specified by the client. It only has an
+created by the service API backend with the port allocated from range specified by `--service-node-port-range` in API server. It will use the
+user-specified `healthCheckNodePort` value if specified by the client. It only has an
 effect when `type` is set to LoadBalancer and `externalTrafficPolicy` is set
 to Local.
 
