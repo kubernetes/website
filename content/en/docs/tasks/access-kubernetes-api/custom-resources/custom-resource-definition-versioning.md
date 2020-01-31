@@ -961,5 +961,12 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
     the same content. This forces the backend to write objects in the current
     storage version, which is `v1`.
 2. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
+This can be done by accessing kubernetes api with patch request
+```bash
+curl -d '[{ "op": "replace", "path":"/status/storedVersions", "value": ["v1"] }]' \
+  -H "Content-Type: application/json-patch+json" \
+  -X PATCH \
+ http://localhost:8080/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/$resource_name/status
+```
 
 {{% /capture %}}
