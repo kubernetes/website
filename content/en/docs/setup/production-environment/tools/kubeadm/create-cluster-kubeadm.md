@@ -28,9 +28,11 @@ a building block in other ecosystem and/or installer tool with a larger
 scope.
 
 You can install _kubeadm_ very easily on operating systems that support
-installing deb or rpm packages. The responsible SIG for kubeadm,
-[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
-but you may also build them from source for other OSes.
+installing deb or rpm packages. The responsible
+{< glossary_tooltip text="SIG" term_id="sig" >}} for kubeadm,
+[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle),
+provides these packages pre-built for you, but you may also build them
+from source for other operating systems.
 
 
 ### kubeadm maturity
@@ -48,6 +50,7 @@ period a patch release may be issued from the release branch if a severe bug or
 security issue is found. Here are the latest Kubernetes releases and the support
 timeframe; which also applies to `kubeadm`.
 
+{{< table caption="Release and end-of-life details for recent Kubernetes versions" >}}
 | Kubernetes version | Release month  | End-of-life-month |
 |--------------------|----------------|-------------------|
 | v1.13.x            | December 2018  | September 2019    |
@@ -62,9 +65,9 @@ timeframe; which also applies to `kubeadm`.
 - One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
 - 2 GB or more of RAM per machine. Any less leaves little room for your
    apps.
-- 2 CPUs or more on the control-plane node
-- Full network connectivity among all machines in the cluster. A public or
-   private network is fine.
+- At least 2 CPUs on the machine that you use as a control-plane node.
+- Full network connectivity among all machines in the cluster. Either a public or
+   a private network is fine.
 
 {{% /capture %}}
 
@@ -114,7 +117,7 @@ To use a different network interface, specify the `--apiserver-advertise-address
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
 1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
-connectivity to gcr.io registries.
+connectivity to the gcr.io container image registry.
 
 To initialize the control-plane node run:
 
@@ -580,8 +583,9 @@ ipvsadm -C
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
-More options and information about the
-[`kubeadm reset command`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
+See the [`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+reference documentation for more information about this subcommand and its
+options.
 
 ## Maintaining a cluster {#lifecycle}
 
@@ -604,13 +608,13 @@ of Pod network add-ons.
 
 ## Feedback {#feedback}
 
-* For bugs, visit [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* For support, visit kubeadm Slack Channel:
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
-* General SIG Cluster Lifecycle Development Slack Channel:
+* For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* For support, visit the
+  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack channel
+* General SIG Cluster Lifecycle development Slack channel:
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG Cluster Lifecycle [SIG information](#TODO)
-* SIG Cluster Lifecycle Mailing List:
+* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG Cluster Lifecycle mailing list:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
 ## Version skew policy {#version-skew-policy}
