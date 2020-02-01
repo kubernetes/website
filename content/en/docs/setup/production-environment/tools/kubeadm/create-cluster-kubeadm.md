@@ -8,45 +8,44 @@ weight: 30
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
-lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">The `kubeadm` tool helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
+`kubeadm` also supports other cluster
+lifecycle functions, such as [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 
-Because you can install kubeadm on various types of machine (e.g. laptop, server,
-Raspberry Pi, etc.), it's well suited for integration with provisioning systems
-such as Terraform or Ansible.
+The `kubeadm` tool is good if you need:
 
-kubeadm's simplicity means it can serve a wide range of use cases:
+- A simple way for you to try out Kubernetes, possibly for the first time.
+- A way for existing users to automate setting up a cluster and test their application.
+- A building block in other ecosystem and/or installer tools with a larger
+  scope.
 
-- New users can start with kubeadm to try Kubernetes out for the first time.
-- Users familiar with Kubernetes can spin up clusters with kubeadm and test their applications.
-- Larger projects can include kubeadm as a building block in a more complex system that can also include other installer tools.
-
-kubeadm is designed to be a simple way for new users to start trying
-Kubernetes out, possibly for the first time, a way for existing users to
-test their application on and stitch together a cluster easily, and also to be
-a building block in other ecosystem and/or installer tool with a larger
-scope.
-
+You can install and use `kubeadm` on various machines: your laptop, a set
+of cloud servers, a Raspberry Pi, and more. Whether you're deploying into the
+cloud or on-premises, you can integrate `kubeadm` into provisioning systems such
+as Ansible or Terraform.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-- One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS.
-- 2 GiB or more of RAM per machine. Any less leaves little room for your
+To follow this guide, you need:
+
+- One or more machines running a deb/rpm-compatible Linux OS; for example: Ubuntu or CentOS.
+- 2 GiB or more of RAM per machine--any less leaves little room for your
    apps.
 - At least 2 CPUs on the machine that you use as a control-plane node.
-- Full network connectivity among all machines in the cluster. Either a public or
-   a private network is fine.
+- Full network connectivity among all machines in the cluster. You can use either a
+  public or a private network.
 
-You need to have a version of kubeadm that can deploy the version of Kubernetes
-that you want to use in your new cluster.
 
-[Kubernetes' version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#supported-versions) applies to kubeadm as well as to Kubernetes overall.
-Check that policy to learn about what versions of Kubernetes and kubeadm
-are supported.
+You also need to use a version of `kubeadm` that can deploy the version
+of Kubernetes that you want to use in your new cluster.
 
-kubeadm's overall feature state is General Availability (GA). Some sub-features are
+[Kubernetes' version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#supported-versions) applies to `kubeadm` as well as to Kubernetes overall.
+Check that policy to learn about what versions of Kubernetes and `kubeadm`
+are supported. This page is written for Kubernetes {{< param "version" >}}.
+
+The `kubeadm` tool's overall feature state is General Availability (GA). Some sub-features are
 still under active development. The implementation of creating the cluster may change
 slightly as the tool evolves, but the overall implementation should be pretty stable.
 
@@ -85,18 +84,18 @@ The control-plane node is the machine where the control plane components run, in
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
-1. (Recommended) If you have plans to upgrade this single control-plane kubeadm cluster
+1. (Recommended) If you have plans to upgrade this single control-plane `kubeadm` cluster
 to high availability you should specify the `--control-plane-endpoint` to set the shared endpoint
 for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
 1. Choose a Pod network add-on, and verify whether it requires any arguments to
-be passed to kubeadm initialization. Depending on which
+be passed to `kubeadm init`. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a Pod network add-on](#pod-network).
-1. (Optional) Since version 1.14, kubeadm will try to detect the container runtime on Linux
+1. (Optional) Since version 1.14, `kubeadm` tries to detect the container runtime on Linux
 by using a list of well known domain socket paths. To use different container runtime or
 if there are more than one installed on the provisioned node, specify the `--cri-socket`
 argument to `kubeadm init`. See [Installing runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
-1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
+1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
 with the default gateway to set the advertise address for this particular control-plane node's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
@@ -262,7 +261,7 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
   CIDR block to use instead, then use that during `kubeadm init` with
   `--pod-network-cidr` and as a replacement in your network plugin’s YAML).
 
-- By default, kubeadm sets up your cluster to use and enforce use of
+- By default, `kubeadm` sets up your cluster to use and enforce use of
   [RBAC](/docs/reference/access-authn-authz/rbac/) (role based access
   control).  
   Make sure that your Pod network plugin supports RBAC, and so do any manifests
@@ -394,10 +393,12 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 
 Once a Pod network has been installed, you can confirm that it is working by
-checking that the CoreDNS Pod is Running in the output of `kubectl get pods --all-namespaces`.
+checking that the CoreDNS Pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
 
-If your network is not working or CoreDNS is not in the Running state, check out our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If your network is not working or CoreDNS is not in the `Running` state, check out the
+[troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
+for `kubeadm`.
 
 ### Control plane node isolation
 
@@ -429,19 +430,19 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
 * Become root (e.g. `sudo su -`)
 * Run the command that was output by `kubeadm init`. For example:
 
-``` bash
+```bash
 kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 If you do not have the token, you can get it by running the following command on the control-plane node:
 
-``` bash
+```bash
 kubeadm token list
 ```
 
 The output is similar to this:
 
-``` console
+```console
 TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION            EXTRA GROUPS
 8ewj1p.9r9hcjoqgajrj4gi  23h  2018-06-12T02:51:28Z authentication,  The default bootstrap  system:
                                                    signing          token generated by     bootstrappers:
@@ -452,26 +453,26 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
 By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
 you can create a new token by running the following command on the control-plane node:
 
-``` bash
+```bash
 kubeadm token create
 ```
 
 The output is similar to this:
 
-``` console
+```console
 5didvk.d09sbcov8ph2amjw
 ```
 
 If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the control-plane node:
 
-``` bash
+```bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
    openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
 
-The output is similar to this:
+The output is similar to:
 
-``` console
+```console
 8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
 ```
 
@@ -503,7 +504,7 @@ In order to get a kubectl on some other computer (e.g. laptop) to talk to your
 cluster, you need to copy the administrator kubeconfig file from your control-plane node
 to your workstation like this:
 
-``` bash
+```bash
 scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
@@ -534,11 +535,18 @@ kubectl --kubeconfig ./admin.conf proxy
 
 You can now access the API Server locally at `http://localhost:8001/api/v1`
 
-## Tear down {#tear-down}
+## Clean up {#tear-down}
 
-To undo what kubeadm did, you should first [drain the
-node](/docs/reference/generated/kubectl/kubectl-commands#drain) and make
-sure that the node is empty before shutting it down.
+If you used disposable servers for your cluster, for testing, you can
+switch those off and do no further clean up. You can use
+`kubectl config delete-cluster` to delete your local references to the
+cluster.
+
+However, if you want to deprovision your cluster more cleanly, you should
+first [drain the node](/docs/reference/generated/kubectl/kubectl-commands#drain)
+and make sure that the node is empty, then deconfigure the node.
+
+### Remove the node
 
 Talking to the control-plane node with the appropriate credentials, run:
 
@@ -547,7 +555,7 @@ kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
 kubectl delete node <node name>
 ```
 
-Then, on the node being removed, reset all kubeadm installed state:
+Then, on the node being removed, reset all `kubeadm` installed state:
 
 ```bash
 kubeadm reset
@@ -568,30 +576,37 @@ ipvsadm -C
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
+### Clean up the control plane
+
+You can use `kubeadm reset` on the control plane host to trigger a best-effort
+clean up.
+
 See the [`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
 reference documentation for more information about this subcommand and its
 options.
 
-## Maintaining a cluster {#lifecycle}
+{{% /capture %}}
 
-Instructions for maintaining kubeadm clusters (e.g. upgrades,downgrades, etc.) can be found [here.](/docs/tasks/administer-cluster/kubeadm)
-
-## Explore other add-ons {#other-addons}
-
-See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
-including tools for logging, monitoring, network policy, visualization &amp;
-control of your Kubernetes cluster.
+{{% capture discussion %}}
 
 ## What's next {#whats-next}
 
 * Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
-* Learn about kubeadm's advanced usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
+* <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+  for details about upgrading your cluster using `kubeadm`.
+* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
-* Configure log rotation. You can use **logrotate** for that. When using Docker, you can specify log rotation options for Docker daemon, for example `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. See [Configure and troubleshoot the Docker daemon](https://docs.docker.com/engine/admin/) for more details.
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
 of Pod network add-ons.
+* <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
+  explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
+  control of your Kubernetes cluster.
+* Configure how your cluster handles logs for cluster events and from
+  applications running in Pods.
+  See [Logging Architecture](/docs/concepts/cluster-administration/logging/) for
+  an overview of what is involved.
 
-## Feedback {#feedback}
+### Feedback {#feedback}
 
 * For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * For support, visit the
@@ -604,12 +619,12 @@ of Pod network add-ons.
 
 ## Version skew policy {#version-skew-policy}
 
-The kubeadm CLI tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
-kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
+The `kubeadm` tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
+`kubeadm` vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
 
 Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
 
-Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
+Example: `kubeadm` v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
 These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
@@ -617,7 +632,24 @@ These resources provide more information on supported version skew between kubel
 * Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
 * Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
-## kubeadm works on multiple platforms {#multi-platform}
+## Limitations {#limitations}
+
+### Cluster resilience {#resilience}
+
+The cluster created here has a single control-plane node, with a single etcd database
+running on it. This means that if the control-plane node fails, your cluster may lose
+data and may need to be recreated from scratch.
+
+Workarounds:
+
+* Regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
+  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
+
+* Use multiple control-plane nodes. You can read
+  [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) to pick a cluster
+  topology that provides higher availabilty.
+
+### Platform compatibility {#multi-platform}
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
@@ -629,20 +661,8 @@ Only some of the network providers offer solutions for all platforms. Please con
 network providers above or the documentation from each provider to figure out whether the provider
 supports your chosen platform.
 
-## Limitations {#limitations}
-
-The cluster created here has a single control-plane node, with a single etcd database
-running on it. This means that if the control-plane node fails, your cluster may lose
-data and may need to be recreated from scratch.
-
-Workarounds:
-
-* Regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
-  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
-
-* Use multiple control-plane nodes by completing the
-  [HA setup](/docs/setup/independent/ha-topology) instead.
-
 ## Troubleshooting {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+
+{{% /capture %}}
