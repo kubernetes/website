@@ -92,7 +92,8 @@ spec:
 노드 오브젝트에 레이블을 추가하면 특정 노드 또는 노드 그룹에 파드를 대상으로 할 수 있다.
 이는 특정 파드가 어떤 격리, 보안, 또는 규제 속성이 있는 노드에서만 실행되도록 사용할 수 있다.
 이 목적으로 레이블을 사용하는 경우, 노드에서 kubelet 프로세스로 수정할 수 없는 레이블 키를 선택하는 것을 권장한다.
-이렇게 하면 손상된 노드가 해당 kubelet 자격 증명을 사용해서 해당 레이블을 자체 노드 오브젝트에 설정하고, 스케줄러가 손상된 노드로 워크로드를 스케줄 하는 것을 방지할 수 있다.
+이렇게 하면 손상된 노드가 해당 kubelet 자격 증명을 사용해서 해당 레이블을 자체 노드 오브젝트에 설정하고,
+스케줄러가 손상된 노드로 워크로드를 스케줄 하는 것을 방지할 수 있다.
 
 `NodeRestriction` 어드미션 플러그인은 kubelet이 `node-restriction.kubernetes.io/` 접두사로 레이블을 설정 또는 수정하지 못하게 한다.
 노드 격리에 해당 레이블 접두사를 사용하려면 다음과 같이 한다.
@@ -123,11 +124,14 @@ spec:
 스케줄할 수 있는 노드를 제한할 수 있다.
 
 여기에 현재 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 로 부르는
-두 가지 종류의 노드 어피니티가 있다. 전자는 파드가 노드에 스케줄 되도록 *반드시* 규칙을 만족해야 하는 것(`nodeSelector` 와 같으나 보다 표현적인 구문을 사용해서)을 지정하고,
-후자는 스케줄러가 시도하려고는 하지만, 보증하지 않는 *선호(preferences)*를 지정한다는 점에서 이를 각각 "엄격함(hard)" 과 "유연함(soft)" 하다고 생각할 수 있다.
+두 가지 종류의 노드 어피니티가 있다. 전자는 파드가 노드에 스케줄 되도록 *반드시*
+규칙을 만족해야 하는 것(`nodeSelector` 와 같으나 보다 표현적인 구문을 사용해서)을 지정하고,
+후자는 스케줄러가 시도하려고는 하지만, 보증하지 않는 *선호(preferences)*를 지정한다는 점에서
+이를 각각 "엄격함(hard)" 과 "유연함(soft)" 하다고 생각할 수 있다.
 이름의 "IgnoredDuringExecution" 부분은 `nodeSelector` 작동 방식과 유사하게 노드의
 레이블이 런타임 중에 변경되어 파드의 어피니티 규칙이 더 이상 충족되지 않으면 파드가 여전히 그 노드에서
-동작한다는 의미이다. 향후에는 파드의 노드 어피니티 요구 사항을 충족하지 않는 노드에서 파드를 제거한다는 점을 제외하고는 `preferredDuringSchedulingIgnoredDuringExecution` 와 같은 `requiredDuringSchedulingIgnoredDuringExecution` 를 제공할 계획이다.
+동작한다는 의미이다. 향후에는 파드의 노드 어피니티 요구 사항을 충족하지 않는 노드에서 파드를 제거한다는
+점을 제외하고는 `preferredDuringSchedulingIgnoredDuringExecution` 와 같은 `requiredDuringSchedulingIgnoredDuringExecution` 를 제공할 계획이다.
 
 따라서 `requiredDuringSchedulingIgnoredDuringExecution` 의 예로는 "인텔 CPU가 있는 노드에서만 파드 실행"이
 될 수 있고, `preferredDuringSchedulingIgnoredDuringExecution` 의 예로는 "장애 조치 영역 XYZ에 파드 집합을 실행하려고
@@ -161,7 +165,7 @@ spec:
 
 ### 파드간 어피니티와 안티-어피니티
 
-파드간 어피니티와 안티-어피니티는 파드를 노드의 레이블이 아니라 *노드에서 이미 동작 중인 파드들의 레이블을 기반으로*
+파드간 어피니티와 안티-어피니티는 파드를 노드의 레이블이 아닌 *노드에서 이미 동작 중인 파드들의 레이블을 기반으로*
 동작할 수 있는 노드를 선택하게 할 수 있다. 이 규칙은 "이 파드는 반드시 Y 규칙을 만족하는 파드가 하나 이상
 동작 중인 X에서만 동작할 수 있도록(안티-어피니티의 경우, 동작할 수 없도록) 한다"는 형태로 구성되어 있다. Y는
 네임스페이스와 관련된 선택적 목록을 가진 LabelSelector로 표현된다; 노드와는 다르게 파드는 네임스페이스
@@ -185,12 +189,12 @@ spec:
 `preferredDuringSchedulingIgnoredDuringExecution` 라고 하는 파드 어피니티와 안티 어피니티 두 가지 종류가 있다.
 앞선 노드 어피니티 섹션의 설명을 보면 된다.
 `requiredDuringSchedulingIgnoredDuringExecution` 어피니티의 예시는
-"서비스 A와 서비스 B는 서로 많은 통신을 하기 때문에 각 서비스의 파드들을 동일한 영역에 위치시킨다."이고
-`preferredDuringSchedulingIgnoredDuringExecution` 안티 어피니티의 예시는 "서비스를 여러 영역에 걸처 퍼트린다"가 될 것이다
+"서비스 A와 서비스 B는 서로 많은 통신을 하기 때문에 각 서비스의 파드들을 동일한 영역에 위치시킨다"고
+`preferredDuringSchedulingIgnoredDuringExecution` 안티 어피니티의 예시는 "서비스를 여러 영역에 걸처 퍼트린다"이다
 (엄격한 제약조건은 파드가 영역의 수보다 많을 수 있기 때문에 말이 안된다).
 
-파드간 어피니티는 파드 스펙에서 `affinity` 필드의 `podAffinity` 필드에서 지정할 수 있다.
-그리고 파드간 안티-어피니티는 파드 스펙에서 `affinity` 필드의 `podAntiAffinity` 필드에서 지정할 수 있다.
+파드간 어피니티는 PodSpec에서 `affinity` 필드의 `podAffinity` 필드에서 지정할 수 있다.
+그리고 파드간 안티-어피니티는 PodSpec에서 `affinity` 필드의 `podAntiAffinity` 필드에서 지정할 수 있다.
 
 #### 파드 어피니티를 사용하는 파드의 예시
 
@@ -199,29 +203,29 @@ spec:
 이 파드에서의 어피니티는 하나의 파드 어피니티 규칙과 하나의 안티-어피니티 규칙을 정의한다.
 이 예시에서 `podAffinity` 는 `requiredDuringSchedulingIgnoredDuringExecution` 이고 `podAntiAffinity` 는
 `preferredDuringSchedulingIgnoredDuringExecution` 이다. 파드 어피니티 규칙은 "security"를 키로 하고
- "S1"을 값으로 하는 레이블을 가진 파드가 최소한 하나라도 동작 중인 한 노드에서만 스케줄 될 수 있다고 말하고 있다.
+ "S1"을 값으로 하는 레이블을 가진 파드가 최소한 하나라도 동작 중인 한 노드에서만 스케줄 될 수 있다고 말하고 있다
 (더 정확하게는 파드가 `failure-domain.beta.kubernetes.io/zone` 를 키로 하고 V를 값으로 하는
 클러스터의 노드가 "security"를 키로하고 "S1"을 값으로 하는 레이블을 가진 파드를 동작시키고 있는 것과 같이
-노드 N이 `failure-domain.beta.kubernetes.io/zone` 을 키로 하고 어떤 V를 값으로 하는 레이블이 있는 노드 N에 뜨기에 적합하다.)
+노드 N이 `failure-domain.beta.kubernetes.io/zone` 을 키로 하고 어떤 V를 값으로 하는 레이블이 있는 노드 N에 뜨기에 적합하다).
 파드 안티-어피니티 규칙은 파드가 "security"를 키로 하고 "S2"를 값으로 하는 레이블을 가진 파드를
-실행시키고 있는 노드일 경우 해당 노드에 스케줄하지 않는 것을 선호한다고 말하고 있다.
+실행시키고 있는 노드일 경우 해당 노드에 스케줄하지 않는 것을 선호한다고 말하고 있다
 (`topologyKey` 가 `failure-domain.beta.kubernetes.io/zone` 라면 이는 스케줄하고자 하는 파드가
 "security"를 키로 하고 "S2"를 값으로하는 레이블을 가진 파드를 실행하고 있는 노드와
-동일한 영역에 있는 노드들에 스케줄될 수 없음을 의미한다.)
+동일한 영역에 있는 노드들에 스케줄될 수 없음을 의미한다).
 [디자인 문서](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)를 통해
 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 의
 파드 어피니티와 안티-어피니티에 대한 많은 예시를 확인할 수 있다.
 
 파드 어피니티와 안티-어피니티에 대해 허용된 연산자는 `In`, `NotIn`, `Exists`, `DoesNotExist` 가 있다.
 
-원칙적으로 `topologyKey` 는 어느 규칙에 맞는 레이블-키도 될 수 있다.
-하지만 성능과 보안상의 이유로 토폴로지 키에는 몇 가지 제약사항이 있다:
+원칙적으로 `topologyKey` 는 규칙에 맞는 어느 레이블-키도 될 수 있다.
+하지만 성능과 보안상의 이유로 토폴로지 키에는 몇 가지 제약사항이 있다.
 
 1. 어피니티와 `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에 대해
 `topologyKey` 가 비어있는 것은 허용하지 않는다.
 2. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에 대해 어드미션 컨트롤러의 `LimitPodHardAntiAffinityTopology` 는 `topologyKey` 를 `kubernetes.io/hostname` 으로 제한하기 위해 도입되었다. 사용자 정의 토폴로지를 이용하고자 할 경우 어드미션 컨트롤러를 수정하거나 간단하게 이를 비활성화하면 된다.
 3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에 대해 `topologyKey` 가 비어있는 경우 이를 "모든 토폴로지"("모든 토폴로지"는 현재 `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone`, `failure-domain.beta.kubernetes.io/region`로 제한된다)로 해석한다.
-4. 위의 경우를 제외하면 `topologyKey` 는 어느 규칙에 맞는 레이블-키도 가능하다.
+4. 위의 경우를 제외하면 `topologyKey` 는 규칙에 맞는 어느 레이블-키도 가능하다.
 
 `labelSelector` 와 `topologyKey` 외에도 `labelSelector` 가 매칭되어야 하는 네임스페이스의 `namespaces`
 리스트를 선택적으로 지정할 수 있다(이는 `labelSelector` 와 `topologyKey` 와 같은 개위로 작성되어야 한다).
@@ -240,7 +244,7 @@ spec:
 
 세 개의 노드를 가진 클러스터가 있는 상황에서 웹 어플리케이션은 redis와 같은 인메모리 캐시를 가지고 있다. 웹 서버를 캐시가 있는 위치와 동일한 곳으로 최대한 많이 위치시키고 싶다.
 
-이 짧은 yaml은 세 개의 레플리카를 가지고 `app=store` 라는 셀렉터 레이블을 가진 간단한 redis 디플로이먼트이다. 디플로이먼트는 `PodAntiAffinity` 설정이 있어 스케줄러가 레플리카들을 하나의 노드에만 위치하지 않도록 한다.
+이 짧은 yaml은 세 개의 레플리카를 가지고 `app=store` 라는 셀렉터 레이블을 가진 간단한 redis 디플로이먼트이다. 디플로이먼트는 `PodAntiAffinity` 설정이 있어 스케줄러가 레플리카들이 하나의 노드에만 위치하지 않도록 한다.
 
 ```yaml
 apiVersion: apps/v1
@@ -347,12 +351,12 @@ redis 클러스터가 하나의 호스트에 두 개 이상 위치하지 않도�
 
 `nodeName` 노드 셀렉션을 하는 가장 간단한 형태이지만
 자체의 한계 때문에 일반적으로 사용하지는 않는다.
-`nodeName` 은 파드 스펙의 필드이다. 비어있지 않다면 스케줄러는
+`nodeName` 은 PodSpec의 필드이다. 비어있지 않다면 스케줄러는
 이 파트를 무시하게 되고 해당되는 노드에서 동작 중인 kubelet이
-파드를 실행하려 할 것이다. 따라서 `nodeName` 이 파드 스펙에
+파드를 실행하려 할 것이다. 따라서 `nodeName` 이 PodSpec에
 제공되면 노드 셀렉션에 대한 위의 방법들 중 가장 우선시된다.
 
-`nodeName` 으로 노드를 선택하는 것의 제약사항이 몇 가지 있다:
+`nodeName` 으로 노드를 선택하는 것에는 제약사항이 몇 가지 있다.
 
 -		그 이름을 가진 노드가 없을 경우 파드는 실행되지 않을 것이고 
     몇몇 경우에는 자동으로 삭제된다.
@@ -362,7 +366,7 @@ redis 클러스터가 하나의 호스트에 두 개 이상 위치하지 않도�
 -		클라우드 환경에서의 노드 이름은 항상 예측이 가능하거나 
     안정적인 것이 아니다.
 
-`nodeName` 필드를 사용한 파드 설정 파일의 예시이다:
+`nodeName` 필드를 사용한 파드 설정 파일의 예시이다.
 
 ```yaml
 apiVersion: v1
@@ -376,7 +380,7 @@ spec:
   nodeName: kube-01
 ```
 
-우의 파드는 kube-01 노드에서 동작할 것이다.
+위의 파드는 kube-01 노드에서 동작할 것이다.
 
 {{% /capture %}}
 
