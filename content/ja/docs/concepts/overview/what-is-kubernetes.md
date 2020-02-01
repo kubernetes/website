@@ -2,7 +2,7 @@
 title: Kubernetesとは何か？
 content_template: templates/concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 10
 ---
@@ -98,7 +98,7 @@ Kubernetesは...
 
 {{% capture whatsnext %}}
 *   [はじめる](/docs/setup/)準備はできましたか？
-*   さらなる詳細については、[Kubernetesのドキュメント](/docs/home/)を御覧ください。
+*   さらなる詳細については、[Kubernetesのドキュメント](/ja/docs/home/)を御覧ください。
 {{% /capture %}}
 
 
