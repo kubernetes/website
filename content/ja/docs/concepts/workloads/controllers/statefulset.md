@@ -36,7 +36,7 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 * StatefuleSetはKubernetes1.9より以前のバージョンではβ版のリソースであり、1.5より前のバージョンでは利用できません。
 * 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
 * StatefulSetの削除もしくはスケールダウンをすることにより、StatefulSetに関連したボリュームは削除*されません* 。 これはデータ安全性のためで、関連するStatefulSetのリソース全てを自動的に削除するよりもたいてい有効です。
-* StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を要求します。ユーザーはこのServiceを作成する責任があります。
+* StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を要求します。ユーザーはこのServiceを作成する責任があります。
 * StatefulSetは、StatefulSetが削除されたときにPodの停止を行うことを保証していません。StatefulSetにおいて、規則的で安全なPodの停止を行う場合、削除のために事前にそのStatefulSetの数を0にスケールダウンさせることが可能です。
 * デフォルト設定の[Pod管理ポリシー](#pod-management-policies) (`OrderedReady`)によって[ローリングアップデート](#rolling-updates)を行う場合、[修復のための手動介入](#forced-rollback)を要求するようなブロークンな状態に遷移させることが可能です。
 
@@ -105,7 +105,7 @@ spec:
 ユーザーは、StatefulSetの`.spec.template.metadata.labels`のラベルと一致させるため、StatefulSetの`.spec.selector`フィールドをセットしなくてはなりません。Kubernetes1.8以前では、`.spec.selector`フィールドは省略された場合デフォルト値になります。Kubernetes1.8とそれ以降のバージョンでは、ラベルに一致するPodセレクターの指定がない場合はStatefulSetの作成時にバリデーションエラーになります。
 
 ## Podアイデンティティー
-StatefulSetのPodは、順番を示す番号、安定したネットワークアイデンティティー、安定したストレージからなる一意なアイデンティティーを持ちます。  
+StatefulSetのPodは、順番を示す番号、安定したネットワークアイデンティティー、安定したストレージからなる一意なアイデンティティーを持ちます。
 そのアイデンティティーはどのNode上にスケジュール(もしくは再スケジュール)されるかに関わらず、そのPodに紐付きます。
 
 ### 順序インデックス
@@ -116,11 +116,11 @@ N個のレプリカをもったStatefulSetにおいて、StatefulSet内の各Pod
 
 StatefulSet内の各Podは、そのStatefulSet名とPodの順序番号から派生してホストネームが割り当てられます。
 作成されたホストネームの形式は`$(StatefulSet名)-$(順序番号)`となります。先ほどの上記の例では、`web-0,web-1,web-2`という3つのPodが作成されます。
-StatefulSetは、Podのドメインをコントロールするために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を使うことができます。  
-このHeadless Serviceによって管理されたドメインは`$(Service名).$(ネームスペース).svc.cluster.local`形式となり、"cluster.local"というのはそのクラスターのドメインとなります。  
+StatefulSetは、Podのドメインをコントロールするために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を使うことができます。
+このHeadless Serviceによって管理されたドメインは`$(Service名).$(ネームスペース).svc.cluster.local`形式となり、"cluster.local"というのはそのクラスターのドメインとなります。
 各Podが作成されると、Podは`$(Pod名).$(管理するServiceドメイン名)`に一致するDNSサブドメインを取得し、管理するServiceはStatefulSetの`serviceName`で定義されます。
 
-[制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を作成する責任があります。
+[制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を作成する責任があります。
 
 ここで、クラスタードメイン、Service名、StatefulSet名の選択と、それらがStatefulSetのPodのDNS名にどう影響するかの例をあげます。
 
@@ -136,7 +136,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
 
 ### 安定したストレージ
 
-Kubernetesは各VolumeClaimTemplateに対して、1つの[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を作成します。上記のnginxの例において、各Podは`my-storage-class`というStorageClassをもち、1Gibのストレージ容量を持った単一のPersistentVolumeを受け取ります。もしStorageClassが指定されていない場合、デフォルトのStorageClassが使用されます。PodがNode上にスケジュール(もしくは再スケジュール)されたとき、その`volumeMounts`はPersistentVolume Claimに関連したPersistentVolumeをマウントします。  
+Kubernetesは各VolumeClaimTemplateに対して、1つの[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を作成します。上記のnginxの例において、各Podは`my-storage-class`というStorageClassをもち、1Gibのストレージ容量を持った単一のPersistentVolumeを受け取ります。もしStorageClassが指定されていない場合、デフォルトのStorageClassが使用されます。PodがNode上にスケジュール(もしくは再スケジュール)されたとき、その`volumeMounts`はPersistentVolume Claimに関連したPersistentVolumeをマウントします。
 注意点として、PodのPersistentVolume Claimと関連したPersistentVolumeは、PodやStatefulSetが削除されたときに削除されません。
 削除する場合は手動で行わなければなりません。
 
@@ -181,7 +181,7 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 
 #### パーティション
 
-`RollingUpdate`というアップデートストラテジーは、`.spec.updateStrategy.rollingUpdate.partition`を指定することにより、パーティションに分けることができます。もしパーティションが指定されていたとき、そのパーティションの値と等しいか、大きい番号を持つPodが更新されます。パーティションの値より小さい番号を持つPodは更新されず、たとえそれらのPodが削除されたとしても、それらのPodは以前のバージョンで再作成されます。もしStatefulSetの`.spec.updateStrategy.rollingUpdate.partition`が、`.spec.replicas`より大きい場合、`.spec.template`への更新はPodに反映されません。  
+`RollingUpdate`というアップデートストラテジーは、`.spec.updateStrategy.rollingUpdate.partition`を指定することにより、パーティションに分けることができます。もしパーティションが指定されていたとき、そのパーティションの値と等しいか、大きい番号を持つPodが更新されます。パーティションの値より小さい番号を持つPodは更新されず、たとえそれらのPodが削除されたとしても、それらのPodは以前のバージョンで再作成されます。もしStatefulSetの`.spec.updateStrategy.rollingUpdate.partition`が、`.spec.replicas`より大きい場合、`.spec.template`への更新はPodに反映されません。
 多くのケースの場合、ユーザーはパーティションを使う必要はありませんが、もし一部の更新を行う場合や、カナリー版のバージョンをロールアウトする場合や、段階的ロールアウトを行う場合に最適です。
 
 #### 強制ロールバック

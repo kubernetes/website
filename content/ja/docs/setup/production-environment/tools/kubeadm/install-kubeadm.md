@@ -88,7 +88,7 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 | TCP       | Inbound    | 10250       | Kubelet API             | Self, Control plane     |
 | TCP       | Inbound    | 30000-32767 | NodePort Services**     | All                     |
 
-** [NodePort Services](/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
+** [NodePort Services](/ja/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
 
 \*の項目は書き換え可能です。そのため、あなたが指定したカスタムポートも開いていることを確認する必要があります。
 

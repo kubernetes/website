@@ -16,13 +16,13 @@ KubernetesのDNSはクラスター上でDNS PodとServiceをスケジュール�
 
 ### 何がDNS名を取得するか
 
-クラスター内(DNSサーバーそれ自体も含む)で定義された全てのServiceはDNS名を割り当てられます。デフォルトでは、クライアントPodのDNSサーチリストはPod自身のネームスペースと、クラスターのデフォルトドメインを含みます。  
+クラスター内(DNSサーバーそれ自体も含む)で定義された全てのServiceはDNS名を割り当てられます。デフォルトでは、クライアントPodのDNSサーチリストはPod自身のネームスペースと、クラスターのデフォルトドメインを含みます。
 下記の例でこの仕組みを説明します。
 
 Kubernetesの`bar`というネームスペース内で`foo`という名前のServiceがあると仮定します。`bar`ネームスペース内で稼働しているPodは、`foo`に対してDNSクエリを実行するだけでこのServiceを探すことができます。`bar`とは別の`quux`ネームスペース内で稼働しているPodは、`foo.bar`に対してDNSクエリを実行するだけでこのServiceを探すことができます。
 
 下記のセクションでは、サポートされているレコードタイプとレイアウトについて詳しくまとめています。
-うまく機能する他のレイアウト、名前、またはクエリーは、実装の詳細を考慮し、警告なしに変更されることがあります。  
+うまく機能する他のレイアウト、名前、またはクエリーは、実装の詳細を考慮し、警告なしに変更されることがあります。
 最新の仕様に関する詳細は、[KubernetesにおけるDNSベースのServiceディスカバリ](https://github.com/kubernetes/dns/blob/master/docs/specification.md)を参照ください。
 
 ## Service
@@ -36,8 +36,8 @@ Kubernetesの`bar`というネームスペース内で`foo`という名前のSer
 ### SRVレコード
 
 SRVレコードは、通常のServiceもしくは[Headless
-Services](/docs/concepts/services-networking/service/#headless-services)の一部である名前付きポート向けに作成されます。それぞれの名前付きポートに対して、そのSRVレコードは`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`という形式となります。  
-通常のServiceに対しては、このSRVレコードは`my-svc.my-namespace.svc.cluster.local`という形式のドメイン名とポート番号へ名前解決します。  
+Services](/ja/docs/concepts/services-networking/service/#headless-service)の一部である名前付きポート向けに作成されます。それぞれの名前付きポートに対して、そのSRVレコードは`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`という形式となります。
+通常のServiceに対しては、このSRVレコードは`my-svc.my-namespace.svc.cluster.local`という形式のドメイン名とポート番号へ名前解決します。
 Headless Serviceに対しては、このSRVレコードは複数の結果を返します。それはServiceの背後にある各Podの1つを返すのと、`auto-generated-name.my-svc.my-namespace.svc.cluster.local`という形式のPodのドメイン名とポート番号を含んだ結果を返します。
 
 ## Pod
