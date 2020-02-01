@@ -27,47 +27,32 @@ test their application on and stitch together a cluster easily, and also to be
 a building block in other ecosystem and/or installer tool with a larger
 scope.
 
-You can install _kubeadm_ very easily on operating systems that support
-installing deb or rpm packages. The responsible
-{< glossary_tooltip text="SIG" term_id="sig" >}} for kubeadm,
-[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle),
-provides these packages pre-built for you, but you may also build them
-from source for other operating systems.
-
-
-### kubeadm maturity
-
-kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
-file API are still under active development. The implementation of creating the cluster
-may change slightly as the tool evolves, but the overall implementation should be pretty stable.
-Any commands under `kubeadm alpha` are by definition, supported on an alpha level.
-
-
-### Support timeframes
-
-Kubernetes releases are generally supported for nine months, and during that
-period a patch release may be issued from the release branch if a severe bug or
-security issue is found. Here are the latest Kubernetes releases and the support
-timeframe; which also applies to `kubeadm`.
-
-{{< table caption="Release and end-of-life details for recent Kubernetes versions" >}}
-| Kubernetes version | Release month  | End-of-life-month |
-|--------------------|----------------|-------------------|
-| v1.13.x            | December 2018  | September 2019    |
-| v1.14.x            | March 2019     | December 2019     |
-| v1.15.x            | June 2019      | March 2020        |
-| v1.16.x            | September 2019 | June 2020         |
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-- One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
-- 2 GB or more of RAM per machine. Any less leaves little room for your
+- One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS.
+- 2 GiB or more of RAM per machine. Any less leaves little room for your
    apps.
 - At least 2 CPUs on the machine that you use as a control-plane node.
 - Full network connectivity among all machines in the cluster. Either a public or
    a private network is fine.
+
+You need to have a version of kubeadm that can deploy the version of Kubernetes
+that you want to use in your new cluster.
+
+[Kubernetes' version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#supported-versions) applies to kubeadm as well as to Kubernetes overall.
+Check that policy to learn about what versions of Kubernetes and kubeadm
+are supported.
+
+kubeadm's overall feature state is General Availability (GA). Some sub-features are
+still under active development. The implementation of creating the cluster may change
+slightly as the tool evolves, but the overall implementation should be pretty stable.
+
+{{< note >}}
+Any commands under `kubeadm alpha` are, by definition, supported on an alpha level.
+{{< /note >}}
 
 {{% /capture %}}
 
