@@ -143,22 +143,3 @@ kubeadm token [flags]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其它
-
-<!--
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm token create](kubeadm_token_create.md)	 - Create bootstrap tokens on the server
-* [kubeadm token delete](kubeadm_token_delete.md)	 - Delete bootstrap tokens on the server
-* [kubeadm token generate](kubeadm_token_generate.md)	 - Generate and print a bootstrap token, but do not create it on the server
-* [kubeadm token list](kubeadm_token_list.md)	 - List bootstrap tokens on the server
--->
-* [kubeadm](kubeadm.md)	 - kubeadm：轻松引导安全的 Kubernetes 集群
-* [kubeadm token create](kubeadm_token_create.md)	 - 在服务器上创建引导令牌（bootstrap token）
-* [kubeadm token delete](kubeadm_token_delete.md)	 - 在服务器上删除引导令牌（bootstrap token）
-* [kubeadm token generate](kubeadm_token_generate.md)	 - 生成并打印引导令牌（bootstrap token），但不在服务器上创建引导令牌（bootstrap token）
-* [kubeadm token list](kubeadm_token_list.md)	 - 列出服务器上的引导令牌列表（bootstrap token）
