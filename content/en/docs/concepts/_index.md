@@ -22,7 +22,7 @@ Once you've set your desired state, the *Kubernetes Control Plane* makes the clu
 * The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
 * Each individual non-master node in your cluster runs two processes:
   * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
-  * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
+  * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy that reflects Kubernetes networking services on each node.
 
 ## Kubernetes Objects
 
@@ -35,7 +35,7 @@ The basic Kubernetes objects include:
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
-Kubernetes also contains higher-level abstractions that rely on [Controllers](/docs/concepts/architecture/controller/) to build upon the basic objects, and provide additional functionality and convenience features. These include:
+Kubernetes also contains higher-level abstractions that rely on [Controllers](/docs/concepts/architecture/controller/) to build upon the basic objects and provide additional functionality and convenience features. These include:
 
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
@@ -45,9 +45,9 @@ Kubernetes also contains higher-level abstractions that rely on [Controllers](/d
 
 ## Kubernetes Control Plane
 
-The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
+The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
 
-For example, when you use the Kubernetes API to create a Deployment, you provide a new desired state for the system. The Kubernetes Control Plane records that object creation, and carries out your instructions by starting the required applications and scheduling them to cluster nodes--thus making the cluster's actual state match the desired state.
+For example, when you use the Kubernetes API to create a Deployment, you provide a new desired state for the system. The Kubernetes Control Plane records that object creation and carries out your instructions by starting the required applications and scheduling them to cluster nodes--thus making the cluster's actual state match the desired state.
 
 ### Kubernetes Master
 
