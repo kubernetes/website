@@ -258,26 +258,43 @@ created, and deleted with the `kubeadm token` command. See the
 ### Installing a Pod network add-on {#pod-network}
 
 {{< caution >}}
-This section contains important information about installation and deployment order. Read it carefully before proceeding.
+This section contains important information about networking setup and
+deployment order.
+Read all of this advice carefully before proceeding.
+
+**You must deploy a
+{{< glossary_tooltip text="Container Network Interface" term_id="cni" >}}
+(CNI) based Pod network add-on so that your Pods can communicate with each other.  
+Cluster DNS (CoreDNS) will not start up before a network is installed.**
+
+- Take care that your Pod network must not overlap with any of the host
+  networks: you are likely to see problems if there is any overlap.  
+  (If you find a collision between your network plugin’s preferred Pod
+  network and some of your host networks, you should think of a suitable
+  CIDR block to use instead, then use that during `kubeadm init` with
+  `--pod-network-cidr` and as a replacement in your network plugin’s YAML).
+
+- By default, kubeadm sets up your cluster to use and enforce use of
+  [RBAC](/docs/reference/access-authn-authz/rbac/) (role based access
+  control).  
+  Make sure that your Pod network plugin supports RBAC, and so do any manifests
+  that you use to deploy it.
+
+- If you want to use IPv6--either dual-stack, or single-stack IPv6 only
+  networking--for your cluster, make sure that your Pod network plugin
+  supports IPv6.  
+  IPv6 support was added to CNI in [v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
+
 {{< /caution >}}
 
-You must install a Pod network add-on so that your Pods can communicate with
-each other.
+Several external projects provide Kubernetes Pod networks using CNI, some of which also
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/).
 
-**The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
-kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
+See the list of available
+[networking and network policy add-ons](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
 
-Several projects provide Kubernetes Pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
-- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). See each plugin's documentation to see if it supports IPv6.
-
-Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
-Make sure that your network manifest supports RBAC.
-
-Also, beware, that your Pod network must not overlap with any of the host networks as this can cause issues.
-If you find a collision between your network plugin’s preferred Pod network and some of your host networks, you should think of a suitable CIDR replacement and use that during `kubeadm init` with `--pod-network-cidr` and as a replacement in your network plugin’s YAML.
-
-You can install a Pod network add-on with the following command on the control-plane node or a node that has the kubeconfig credentials:
+You can install a Pod network add-on with the following command on the
+control-plane node or a node that has the kubeconfig credentials:
 
 ```bash
 kubectl apply -f <add-on.yaml>
@@ -392,7 +409,7 @@ Once a Pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS Pod is Running in the output of `kubectl get pods --all-namespaces`.
 And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
 
-If your network is not working or CoreDNS is not in the Running state, checkout our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If your network is not working or CoreDNS is not in the Running state, check out our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ### Control plane node isolation
 
