@@ -69,21 +69,3 @@ kubeadm upgrade [flags]
   </tbody>
 </table>
 
-<!--
-SEE ALSO
-
-* [kubeadm](kubeadm.md)         - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm upgrade apply](kubeadm_upgrade_apply.md)     - Upgrade your Kubernetes cluster to the specified version
-* [kubeadm upgrade diff](kubeadm_upgrade_diff.md)       - Show what differences would be applied to existing static pod manifests. See also: kubeadm upgrade apply --dry-run
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)       - Upgrade commands for a node in the cluster
-* [kubeadm upgrade plan](kubeadm_upgrade_plan.md)       - Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter
--->
-
-查看其他
-
-* [kubeadm](kubeadm.md)         - kubeadm: 轻松引导一个安全的 Kubernetes 集群
-* [kubeadm upgrade apply](kubeadm_upgrade_apply.md)     - 升级你的 Kubernetes 集群到指定的版本
-* [kubeadm upgrade diff](kubeadm_upgrade_diff.md)       - 显示现有的静态 pod 清单有什么不同。查看其它: kubeadm upgrade apply --dry-run
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)       - 集群中某个节点的升级命令
-* [kubeadm upgrade plan](kubeadm_upgrade_plan.md)       - 检查哪些版本可以升级，并验证当前集群是否可以升级。要跳过网络检查，请传入可选的 [version] 参数
-
