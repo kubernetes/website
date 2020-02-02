@@ -165,86 +165,86 @@ spec:
 
 ### 파드간 어피니티와 안티-어피니티
 
-파드간 어피니티와 안티-어피니티는 파드를 노드의 레이블이 아닌 *노드에서 이미 동작 중인 파드들의 레이블을 기반으로*
-동작할 수 있는 노드를 선택하게 할 수 있다. 이 규칙은 "이 파드는 반드시 Y 규칙을 만족하는 파드가 하나 이상
-동작 중인 X에서만 동작할 수 있도록(안티-어피니티의 경우, 동작할 수 없도록) 한다"는 형태로 구성되어 있다. Y는
-네임스페이스와 관련된 선택적 목록을 가진 LabelSelector로 표현된다; 노드와는 다르게 파드는 네임스페이스
-기반(이는 파드의 레이블이 네임스페이스 기반임을 내포한다)이고 파트 레이블에 대한 레이블 셀렉터는 반드시
-셀렉터가 어느 네임스페이스에 적용되어야 하는지 지정해 주어야 하기 때문이다. 개념적으로 X는 노드, 랙,
-클라우드 제공자 영역, 클라우드 제공자 리젼 등과 같은 토폴로지 도메인이다. 시스템이 사용하는 토폴로지
-도메인을 의미하는 노드 레이블의 키인 `topologyKey` 를 사용하여 토폴로지 도메인을 표현할 수 있으며,
-예시는 [넘어가기 전에: 빌트인 노드 레이블](#built-in-node-labels) 섹션에 나열된 레이블 키를 보면 된다.
+파드간 어피니티와 안티-어피니티를 사용하면 노드의 레이블을 기반으로 하지 않고, *노드에서 이미 실행 중인 파드 레이블을 기반으로*
+파드가 스케줄될 수 있는 노드를 제한할 수 있다. 규칙은 "X가 규칙 Y를 충족하는 하나 이상의 파드를 이미 실행중인 경우 
+이 파드는 X에서 실행해야한다(또는 안티-어피니티가 없는 경우에는 동작하면 안된다)는 형태이다. Y는
+선택적으로 연관된 네임스페이스 목록을 가진 LabelSelector로 표현된다. 노드와는 다르게 파드는 네임스페이스이기에
+(그리고 따라서 파드의 레이블은 암암리에 네임스페이스이다) 파드 레이블위의 레이블 셀렉터는 반드시
+셀렉터가 적용될 네임스페이스를 지정해야만 한다. 개념적으로 X는 노드, 랙,
+클라우드 공급자 영역, 클라우드 공급자 지역 등과 같은 토폴로지 도메인이다. 시스템이 이런 토폴로지
+도메인을 나타내는 데 사용하는 노드 레이블 키인 `topologyKey` 를 사용하여 이를 표현한다.
+예: [넘어가기 전에: 빌트인 노드 레이블](#built-in-node-labels) 섹션 위에 나열된 레이블 키를 본다.
 
 {{< note >}}
-파드간 어피니티와 안티-어피니티는 상당한 양의 연산을 필요로 하여
-큰 클러스터에서는 스케줄링을 상당히 느리게 할 수 있다.
-수백 개의 노드가 넘는 클러스터에서 이를 사용하는 것은 추천하지 않는다.
+파드간 어피니티와 안티-어피니티에는 상당한 양의 프로세싱이 필요하기에
+대규모 클러스터에서는 스케줄링 속도가 크게 느려질 수 있다.
+수백 개의 노드를 넘어가는 클러스터에서 이를 사용하는 것은 추천하지 않는다.
 {{< /note >}}
 
 {{< note >}}
-파드 안티-어피니티는 노드가 일관적으로 레이블을 가지고 있어야 함을 전제로 한다. 예를 들어 클러스터의 모든 노드는 `topologyKey` 와 매칭되는 적절한 레이블을 가지고 있어야 한다. 일부 또는 모든 노드가 지정된 `topologyKey` 레이블이 없다면 이는 의도치 않은 동작을 일으킬 수 있다.
+파드 안티-어피니티에서는 노드에 일관된 레이블을 지정해야 한다. 즉, 클러스터의 모든 노드는 `topologyKey` 와 매칭되는 적절한 레이블이 가지고 있어야 한다. 일부 또는 모든 노드에 지정된 `topologyKey` 레이블이 없는 경우에는 의도하지 않은 동작을 발생할 수 있다.
 {{< /note >}}
 
-노드 어피니티처럼 현재 각각 "엄격한"과 "유연한" 제약사항을 나타내는 `requiredDuringSchedulingIgnoredDuringExecution` 와
-`preferredDuringSchedulingIgnoredDuringExecution` 라고 하는 파드 어피니티와 안티 어피니티 두 가지 종류가 있다.
-앞선 노드 어피니티 섹션의 설명을 보면 된다.
+노드 어피니티와 마찬가지로 현재 파드 어피니티와 안티-어피니티로 부르는 "엄격함" 대 "유연함"의 요구사항을 나타내는 `requiredDuringSchedulingIgnoredDuringExecution` 와
+`preferredDuringSchedulingIgnoredDuringExecution` 두 가지 종류가 있다.
+앞의 노드 어피니티 섹션의 설명을 보면 본다.
 `requiredDuringSchedulingIgnoredDuringExecution` 어피니티의 예시는
-"서비스 A와 서비스 B는 서로 많은 통신을 하기 때문에 각 서비스의 파드들을 동일한 영역에 위치시킨다"고
-`preferredDuringSchedulingIgnoredDuringExecution` 안티 어피니티의 예시는 "서비스를 여러 영역에 걸처 퍼트린다"이다
-(엄격한 제약조건은 파드가 영역의 수보다 많을 수 있기 때문에 말이 안된다).
+"서로 많은 통신을 하기 때문에 서비스 A와 서비스 B를 같은 영역에 함께 위치시키는 것"이고,
+`preferredDuringSchedulingIgnoredDuringExecution` 안티-어피니티의 예시는 "서비스를 여러 영역에 걸쳐서 분배하는 것"이다
+(엄격한 요구사항은 영역보다 파드가 더 많을 수 있기 때문에 엄격한 요구사항은 의미가 없다).
 
-파드간 어피니티는 PodSpec에서 `affinity` 필드의 `podAffinity` 필드에서 지정할 수 있다.
-그리고 파드간 안티-어피니티는 PodSpec에서 `affinity` 필드의 `podAntiAffinity` 필드에서 지정할 수 있다.
+파드간 어피니티는 PodSpec에서 `affinity` 필드 중 `podAffinity` 필드로 지정한다.
+그리고 파드간 안티-어피니티는 PodSpec에서 `affinity` 필드 중 `podAntiAffinity` 필드로 지정한다.
 
 #### 파드 어피니티를 사용하는 파드의 예시
 
 {{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
 
-이 파드에서의 어피니티는 하나의 파드 어피니티 규칙과 하나의 안티-어피니티 규칙을 정의한다.
+이 파드의 어피니티는 하나의 파드 어피니티 규칙과 하나의 파드 안티-어피니티 규칙을 정의한다.
 이 예시에서 `podAffinity` 는 `requiredDuringSchedulingIgnoredDuringExecution` 이고 `podAntiAffinity` 는
-`preferredDuringSchedulingIgnoredDuringExecution` 이다. 파드 어피니티 규칙은 "security"를 키로 하고
- "S1"을 값으로 하는 레이블을 가진 파드가 최소한 하나라도 동작 중인 한 노드에서만 스케줄 될 수 있다고 말하고 있다
-(더 정확하게는 파드가 `failure-domain.beta.kubernetes.io/zone` 를 키로 하고 V를 값으로 하는
-클러스터의 노드가 "security"를 키로하고 "S1"을 값으로 하는 레이블을 가진 파드를 동작시키고 있는 것과 같이
-노드 N이 `failure-domain.beta.kubernetes.io/zone` 을 키로 하고 어떤 V를 값으로 하는 레이블이 있는 노드 N에 뜨기에 적합하다).
-파드 안티-어피니티 규칙은 파드가 "security"를 키로 하고 "S2"를 값으로 하는 레이블을 가진 파드를
-실행시키고 있는 노드일 경우 해당 노드에 스케줄하지 않는 것을 선호한다고 말하고 있다
-(`topologyKey` 가 `failure-domain.beta.kubernetes.io/zone` 라면 이는 스케줄하고자 하는 파드가
-"security"를 키로 하고 "S2"를 값으로하는 레이블을 가진 파드를 실행하고 있는 노드와
-동일한 영역에 있는 노드들에 스케줄될 수 없음을 의미한다).
+`preferredDuringSchedulingIgnoredDuringExecution` 이다. 파드 어피니티 규칙에 의하면 키 "security" 와 값
+"S1"인 레이블레이블이 있는 하나 이상의 이미 실행중인 파드와 동일한 영역에 있는 경우에만 파드를 노드에 스케줄할 수 있다.
+(보다 정확하게는, 클러스터에 키 "security"와 값 "S1"인 레이블을 가지고 있는 실행중인 파드가 있는 키
+`failure-domain.beta.kubernetes.io/zone` 와 값 V인 노드가 최소 하나 이상 있고, 노드 N이 키
+`failure-domain.beta.kubernetes.io/zone` 와 일부 값이 V인 레이블을 가진다면 파드는 노드 N에서 실행할 수 있다.)
+파드 안티-어피니티 규칙에 의하면노드가 이미 키 "security"와 값 "S2"인 레이블을 가진 파드를
+이미 실행하고 있는 파드는 노드에 스케줄되는 것을 선호선호하지 않는다.
+(만약 `topologyKey` 가 `failure-domain.beta.kubernetes.io/zone` 라면 노드가 키
+"security"와 값 "S2"를 레이블로 가진 파드와 
+동일한 영역에 있는 경우, 노드에 파드를 예약할 수 없음을 의미한다.)
 [디자인 문서](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)를 통해
 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 의
 파드 어피니티와 안티-어피니티에 대한 많은 예시를 확인할 수 있다.
 
-파드 어피니티와 안티-어피니티에 대해 허용된 연산자는 `In`, `NotIn`, `Exists`, `DoesNotExist` 가 있다.
+파드 어피니티와 안티-어피니티의 적합한 연산자는 `In`, `NotIn`, `Exists`, `DoesNotExist` 이다.
 
-원칙적으로 `topologyKey` 는 규칙에 맞는 어느 레이블-키도 될 수 있다.
-하지만 성능과 보안상의 이유로 토폴로지 키에는 몇 가지 제약사항이 있다.
+원칙적으로, `topologyKey` 는 적법한 어느 레이블-키도 될 수 있다.
+하지만, 성능과 보안상의 이유로 topologyKey에는 몇 가지 제약조건이 있다.
 
-1. 어피니티와 `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에 대해
-`topologyKey` 가 비어있는 것은 허용하지 않는다.
-2. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에 대해 어드미션 컨트롤러의 `LimitPodHardAntiAffinityTopology` 는 `topologyKey` 를 `kubernetes.io/hostname` 으로 제한하기 위해 도입되었다. 사용자 정의 토폴로지를 이용하고자 할 경우 어드미션 컨트롤러를 수정하거나 간단하게 이를 비활성화하면 된다.
-3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에 대해 `topologyKey` 가 비어있는 경우 이를 "모든 토폴로지"("모든 토폴로지"는 현재 `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone`, `failure-domain.beta.kubernetes.io/region`로 제한된다)로 해석한다.
-4. 위의 경우를 제외하면 `topologyKey` 는 규칙에 맞는 어느 레이블-키도 가능하다.
+1. 어피니티와 `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 대해
+`topologyKey` 가 비어있는 것을 허용하지 않는다.
+2. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에서 `topologyKey` 를 `kubernetes.io/hostname` 로 제한하기 위해 어드미션 컨트롤러 `LimitPodHardAntiAffinityTopology` 가 도입되었다. 사용자 지정 토폴로지를에 사용할 수 있도록 하려면, 어드미션 컨트롤러를 수정하거나 간단히 이를 비활성화 할 수 있다.
+3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 빈 `topologyKey` 를 "all topology"("all topology"는 현재 `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` 그리고 `failure-domain.beta.kubernetes.io/region` 의 조합으로 제한된다).
+4. 위의 경우를 제외하고, `topologyKey` 는 적법한 어느 레이블-키도 가능하다.
 
-`labelSelector` 와 `topologyKey` 외에도 `labelSelector` 가 매칭되어야 하는 네임스페이스의 `namespaces`
-리스트를 선택적으로 지정할 수 있다(이는 `labelSelector` 와 `topologyKey` 와 같은 개위로 작성되어야 한다).
+`labelSelector` 와 `topologyKey` 외에도 `labelSelector` 와 일치해야하는 네임스페이스 목록 `namespaces` 를
+선택적으로 지정할 수 있다(이것은 `labelSelector` 와 `topologyKey` 와 같은 수준의 정의이다).
 생략되어있거나 비어있을 경우 어피니티/안티-어피니티 정의가 있는 파드의 네임스페이스가 기본 값이다.
 
-파드가 노드에 스케줄 되려면 `requiredDuringSchedulingIgnoredDuringExecution` 어피니티 및 안티-어피니티와
-관련된 모든 `matchExpressions` 를 만족해야 한다.
+파드를 노드에 스케줄하려면 `requiredDuringSchedulingIgnoredDuringExecution` 어피니티와 안티-어피니티와
+연관된 `matchExpressions` 가 모두 충족되어야 한다.
 
 #### 더 실용적인 유스케이스
 
 파드간 어피니티와 안티-어피니티는 레플리카셋, 스테이트풀셋, 디플로이먼트 등과 같은
-상위 레벨의 컬렉션에 사용될 때 좀 더 유용할 수 있다. 이를 통해 같은 노드에 함께 위치시키는 것과 같이
-정의된 토폴로지와 동일한 곳에 함께 위치시키는 워크로드를 쉽게 구성할 수 있다.
+상위 레벨 모음과 함께 사용할 때 더욱 유용할 수 있다. 워크로드 집합이 동일한 노드와 같이
+동일하게 정의된 토폴로지와 같은 위치에 배치되도록 쉽게 구성할 수 있다.
 
 ##### 항상 같은 노드에 위치시키기
 
-세 개의 노드를 가진 클러스터가 있는 상황에서 웹 어플리케이션은 redis와 같은 인메모리 캐시를 가지고 있다. 웹 서버를 캐시가 있는 위치와 동일한 곳으로 최대한 많이 위치시키고 싶다.
+세 개의 노드가 있는 클러스터에서 웹 애플리케이션에는 redis와 같은 인-메모리 캐시가 있다. 웹 서버가 가능한 캐시와 함께 위치하기를 원한다.
 
-이 짧은 yaml은 세 개의 레플리카를 가지고 `app=store` 라는 셀렉터 레이블을 가진 간단한 redis 디플로이먼트이다. 디플로이먼트는 `PodAntiAffinity` 설정이 있어 스케줄러가 레플리카들이 하나의 노드에만 위치하지 않도록 한다.
+다음은 세 개의 레플리카와 셀렉터 레이블이 `app=store` 가 있는 간단한 redis 디플로이먼트의 yaml 스니펫이다. 디플로이먼트에는 스케줄러가 단일 노드에서 레플리카를 함꼐 배치하지 않도록 `PodAntiAffinity` 가 구성되어있다.
 
 ```yaml
 apiVersion: apps/v1
@@ -276,7 +276,7 @@ spec:
         image: redis:3.2-alpine
 ```
 
-아래의 짧은 yaml은 웹서버 디플로이먼트가 `podAntiAffinity` 와 `podAffinity` 설정을 가진 것이다. 이는 스케줄러에게 이 레플리카들이 `app=store` 라는 셀렉터 레이블을 가진 파드와 함께 위치시키고 싶다는 것을 알려준다. 또한 웹서버 레플리카가 하나의 노드에만 위치하지 않도록 한다.
+아래 yaml 스니펫의 웹서버 디플로이먼트는 `podAntiAffinity` 와 `podAffinity` 설정을 가지고 있다. 이렇게 하면 스케줄러에 모든 레플리카는 셀렉터 레이블이 `app=store` 인 파드와 함꼐 위치해야 한다. 또한 각 웹 서버 레플리카가 단일 노드의 같은 위치에 있지 않도록 한다.
 
 ```yaml
 apiVersion: apps/v1
@@ -317,19 +317,19 @@ spec:
         image: nginx:1.12-alpine
 ```
 
-위의 두 디플로이먼트를 생성하면 세 개의 노드를 가진 클러스터는 다음과 같이 보일 것이다.
+만약 위의 두 디플로이먼트를 생성하면 세 개의 노드가 있는 클러스터는 다음과 같아야 한다.
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
 | *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
 |  *cache-1*           |     *cache-2*       |     *cache-3*      |
 
-여기서 볼 수 있듯이 `web-server` 의 세 레플리카들이 기대했던 것처럼 알아서 캐시와 함께 위치하게 되었다.
+여기서 볼 수 있듯이 `web-server` 의 세 레플리카들이 기대했던 것처럼 자동으로 캐시와 함께 위치하게 된다.
 
 ```
 kubectl get pods -o wide
 ```
-결과는 다음과 비슷할 것이다:
+출력은 다음과 유사할 것이다:
 ```
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
@@ -342,31 +342,31 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 ##### 절대 동일한 노드에 위치시키지 않게 하기
 
-위의 예시는 `PodAntiAffinity` 규칙을 `topologyKey:"kubernetes.io/hostname"` 과 함께 사용하여
-redis 클러스터가 하나의 호스트에 두 개 이상 위치하지 않도록 배포한다.
-[ZooKeeper 튜토리얼](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)을 통해
-같은 방법을 사용하여 스테이트풀셋을 고가용성을 위해 안티-어피니티 설정을 한 예시를 확인할 수 있다.
+위의 예시에서 `topologyKey:"kubernetes.io/hostname"` 과 함께 `PodAntiAffinity` 규칙을 사용해서
+두 개의 인스터스가 동일한 호스트에 있지 않도록 redis 클러스터를 배포한다.
+같은 기술을 사용해서 고 가용성을 위해 안티-어피니티로 구성된 스테이트풀셋의 예시는 
+[ZooKeeper 튜토리얼](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)을 본다.
 
 ## nodeName
 
-`nodeName` 노드 셀렉션을 하는 가장 간단한 형태이지만
-자체의 한계 때문에 일반적으로 사용하지는 않는다.
-`nodeName` 은 PodSpec의 필드이다. 비어있지 않다면 스케줄러는
-이 파트를 무시하게 되고 해당되는 노드에서 동작 중인 kubelet이
-파드를 실행하려 할 것이다. 따라서 `nodeName` 이 PodSpec에
-제공되면 노드 셀렉션에 대한 위의 방법들 중 가장 우선시된다.
+`nodeName` 은 가장 간단한 형태의 노트 선택 제약 조건이지만,
+한계로 인해 일반적으로는 사용하지 않는다.
+`nodeName` 은 PodSpec의 필드이다. 만약 비어있지 않으면, 스케줄러는
+파드를 무시하고 명명된 노드에서 실행 중인 kubelet이
+파드를 실행하려고 한다. 따라서 만약 PodSpec에 `nodeName` 가
+제공된 경우, 노드 선텍을 위해 위의 방법보다 우선한다.
 
-`nodeName` 으로 노드를 선택하는 것에는 제약사항이 몇 가지 있다.
+`nodeName` 을 사용해서 노드를 선택할 때의 몇 가지 제한은 다음과 같다.
 
--		그 이름을 가진 노드가 없을 경우 파드는 실행되지 않을 것이고 
-    몇몇 경우에는 자동으로 삭제된다.
--		그 이름을 가진 노드가 파드를 실행하기 위한 
-    충분한 리소스가 없는 경우 파드의 실행은 실패하고 
-    OutOfmemory 또는 OutOfcpu와 같은 이유를 나타낼 것이다.
--		클라우드 환경에서의 노드 이름은 항상 예측이 가능하거나 
-    안정적인 것이 아니다.
+-   만약 명명된 노드가 없으면, 파드가 실행되지 않고 
+    따라서 자동으로 삭제될 수 있다.
+-   만약 명명된 노드에 파드를 수용할 수 있는
+    리소스가 없는 경우 파드가 실패하고, 그 이유는 다음과 같이 표시된다. 
+    예: OutOfmemory 또는 OutOfcpu.
+-   클라우드 환경의 노드 이름은 항상 예측 가능하거나 
+    안정적인 것은 아니다.
 
-`nodeName` 필드를 사용한 파드 설정 파일의 예시이다.
+여기에 `nodeName` 필드를 사용하는 파드 설정 파일 예시가 있다.
 
 ```yaml
 apiVersion: v1
@@ -380,7 +380,7 @@ spec:
   nodeName: kube-01
 ```
 
-위의 파드는 kube-01 노드에서 동작할 것이다.
+위 파드는 kube-01 노드에서 실행될 것이다.
 
 {{% /capture %}}
 
@@ -389,11 +389,11 @@ spec:
 [테인트(Taints)](/docs/concepts/configuration/taint-and-toleration/)는 노드가 특정 파드들을 *쫓아내게* 할 수 있다.
 
 [노드 어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)와
-[파드간 어피니티/안티-어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에 대한 디자인 문서는
-이 기능들에 대한 추가적인 배경 정보를 포함한다.
+[파드간 어피니티/안티-어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에 대한 디자인 문서에는
+이러한 기능에 대한 추가 배경 정보가 있다.
 
-파드가 노드에 할당되고 나면 kubelet은 파드를 실행하고 노드의 로컬 리소스를 할당한다.
+파드가 노드에 할당되면 kubelet은 파드를 실행하고 노드의 로컬 리소스를 할당한다.
 [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)는
-노드 레벨의 리소스 할당 결정의 일부분이 될 수 있다.
+노드 수준의 리소스 할당 결정에 참여할 수 있다.
 
 {{% /capture %}}
