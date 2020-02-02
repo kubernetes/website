@@ -166,7 +166,7 @@ spec:
 ### 파드간 어피니티와 안티-어피니티
 
 파드간 어피니티와 안티-어피니티를 사용하면 노드의 레이블을 기반으로 하지 않고, *노드에서 이미 실행 중인 파드 레이블을 기반으로*
-파드가 스케줄될 수 있는 노드를 제한할 수 있다. 규칙은 "X가 규칙 Y를 충족하는 하나 이상의 파드를 이미 실행중인 경우 
+파드가 스케줄될 수 있는 노드를 제한할 수 있다. 규칙은 "X가 규칙 Y를 충족하는 하나 이상의 파드를 이미 실행중인 경우
 이 파드는 X에서 실행해야한다(또는 안티-어피니티가 없는 경우에는 동작하면 안된다)는 형태이다. Y는
 선택적으로 연관된 네임스페이스 목록을 가진 LabelSelector로 표현된다. 노드와는 다르게 파드는 네임스페이스이기에
 (그리고 따라서 파드의 레이블은 암암리에 네임스페이스이다) 파드 레이블위의 레이블 셀렉터는 반드시
@@ -210,11 +210,11 @@ spec:
 파드 안티-어피니티 규칙에 의하면노드가 이미 키 "security"와 값 "S2"인 레이블을 가진 파드를
 이미 실행하고 있는 파드는 노드에 스케줄되는 것을 선호선호하지 않는다.
 (만약 `topologyKey` 가 `failure-domain.beta.kubernetes.io/zone` 라면 노드가 키
-"security"와 값 "S2"를 레이블로 가진 파드와 
+"security"와 값 "S2"를 레이블로 가진 파드와
 동일한 영역에 있는 경우, 노드에 파드를 예약할 수 없음을 의미한다.)
 [디자인 문서](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)를 통해
 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 의
-파드 어피니티와 안티-어피니티에 대한 많은 예시를 확인할 수 있다.
+파드 어피니티와 안티-어피니티에 대한 많은 예시를 맛볼 수 있다.
 
 파드 어피니티와 안티-어피니티의 적합한 연산자는 `In`, `NotIn`, `Exists`, `DoesNotExist` 이다.
 
@@ -344,7 +344,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 위의 예시에서 `topologyKey:"kubernetes.io/hostname"` 과 함께 `PodAntiAffinity` 규칙을 사용해서
 두 개의 인스터스가 동일한 호스트에 있지 않도록 redis 클러스터를 배포한다.
-같은 기술을 사용해서 고 가용성을 위해 안티-어피니티로 구성된 스테이트풀셋의 예시는 
+같은 기술을 사용해서 고 가용성을 위해 안티-어피니티로 구성된 스테이트풀셋의 예시는
 [ZooKeeper 튜토리얼](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)을 본다.
 
 ## nodeName
@@ -358,12 +358,12 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 `nodeName` 을 사용해서 노드를 선택할 때의 몇 가지 제한은 다음과 같다.
 
--   만약 명명된 노드가 없으면, 파드가 실행되지 않고 
+-   만약 명명된 노드가 없으면, 파드가 실행되지 않고
     따라서 자동으로 삭제될 수 있다.
 -   만약 명명된 노드에 파드를 수용할 수 있는
-    리소스가 없는 경우 파드가 실패하고, 그 이유는 다음과 같이 표시된다. 
+    리소스가 없는 경우 파드가 실패하고, 그 이유는 다음과 같이 표시된다.
     예: OutOfmemory 또는 OutOfcpu.
--   클라우드 환경의 노드 이름은 항상 예측 가능하거나 
+-   클라우드 환경의 노드 이름은 항상 예측 가능하거나
     안정적인 것은 아니다.
 
 여기에 `nodeName` 필드를 사용하는 파드 설정 파일 예시가 있다.
