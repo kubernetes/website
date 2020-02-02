@@ -41,7 +41,8 @@ But this doesn’t mean you can’t ship your ideas to `kubectl` users.
 
 ## What if you didn’t have to change `kubectl` to add functionality?
 
-This is where `kubectl` plugins shine. Since `kubectl` v1.12, you can simply
+This is where `kubectl` [plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/) shine.
+Since `kubectl` v1.12, you can simply
 drop executables into your `PATH` which follow the naming pattern
 `kubectl-myplugin`. Then you can execute this plugin as `kubectl myplugin` and
 it will just feel like a normal sub-command of `kubectl`.
@@ -78,4 +79,6 @@ projects.
 When the development is done, you just need to ship your plugin to the
 Kubernetes users. For best plugin installation experience and discoverability,
 you should consider doing so via the
-[krew](https://github.com/kubernetes-sigs/krew) plugin manager.
+[krew](https://github.com/kubernetes-sigs/krew) plugin manager. For an in-depth
+discussion about the technical details around `kubectl` plugins refer to the
+documentation on [kubernetes.io](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/).
