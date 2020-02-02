@@ -29,6 +29,13 @@ kubectl get nodes
 
 And verify that all of the nodes you expect to see are present and that they are all in the `Ready` state.
 
+Also, you can run below command to get detailed information of overall cluster health.
+
+```shell
+
+kubectl cluster-info dump
+```
+
 ## Looking at logs
 
 For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
