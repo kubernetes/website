@@ -433,7 +433,7 @@ You can find more information about `ExternalName` resolution in
 ## Headless Services
 
 Sometimes you don't need load-balancing and a single Service IP.  In
-this case, you can create what is termed “headless” Services, by explicitly
+this case, you can create what are termed “headless” Services, by explicitly
 specifying `"None"` for the cluster IP (`.spec.clusterIP`).
 
 You can use a headless Service to interface with other service discovery mechanisms,
@@ -550,8 +550,8 @@ status:
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
 
 For LoadBalancer type of Services, when there is more than one port defined, all
-ports must have the same protocol and the protocol must be one of `TCP`, `UDP`
-,and `SCTP`.
+ports must have the same protocol and the protocol must be one of `TCP`, `UDP`,
+and `SCTP`.
 
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
@@ -576,7 +576,7 @@ Specify the assigned IP address as loadBalancerIP. Ensure that you have updated 
 {{< /note >}}
 
 #### Internal load balancer
-In a mixed environment, it is sometimes necessary to route traffic from Services inside the same
+In a mixed environment it is sometimes necessary to route traffic from Services inside the same
 (virtual) network address block.
 
 In a split-horizon DNS environment you would need two Services to be able to route both external and internal traffic to your endpoints.
@@ -678,7 +678,7 @@ SSL, the ELB expects the Pod to authenticate itself over the encrypted
 connection, using a certificate.
 
 HTTP and HTTPS selects layer 7 proxying: the ELB terminates
-the connection with the user, parse headers and injects the `X-Forwarded-For`
+the connection with the user, parses headers, and injects the `X-Forwarded-For`
 header with the user's IP address (Pods only see the IP address of the
 ELB at the other end of its connection) when forwarding requests.
 
@@ -850,7 +850,7 @@ traffic. Nodes without any Pods for a particular LoadBalancer Service will fail
 the NLB Target Group's health check on the auto-assigned
 `.spec.healthCheckNodePort` and not receive any traffic.
 
-In order to achieve even traffic, either uses a DaemonSet, or specify a
+In order to achieve even traffic, either use a DaemonSet or specify a
 [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
 to not locate on the same node.
 
