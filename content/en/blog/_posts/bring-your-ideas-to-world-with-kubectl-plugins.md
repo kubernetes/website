@@ -1,5 +1,5 @@
 ---
-title: Bring your ideas to world with Kubectl Plugins
+title: Bring your ideas to world with kubectl plugins
 date: tbd
 ---
 
