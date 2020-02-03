@@ -303,7 +303,7 @@ PodをPodそれ自身で停止させたいような場合(例えば、バッチ�
 
 ### DaemonSet
 
-マシンの監視やロギングなど、マシンレベルの機能を提供したい場合は、ReplicaSetの代わりに[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/)を使用してください。
+マシンの監視やロギングなど、マシンレベルの機能を提供したい場合は、ReplicaSetの代わりに[`DaemonSet`](/ja/docs/concepts/workloads/controllers/daemonset/)を使用してください。
 これらのPodはマシン自体のライフタイムに紐づいています: そのPodは他のPodが起動する前に、そのマシン上で稼働される必要があり、マシンが再起動またはシャットダウンされるときには、安全に停止されます。
 
 ### ReplicationController

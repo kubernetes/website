@@ -225,7 +225,7 @@ kubeletによって再起動される終了したコンテナは、5分後にキ
 
 - 停止することを期待しないPod（たとえばWebサーバーなど）には、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)、または[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)を使用します。ReplicationControllerは`restartPolicy`がAlwaysのPodに対してのみ適切です。
 
-- マシン固有のシステムサービスを提供するため、マシンごとに1つずつ実行する必要があるPodには[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)を使用します。
+- マシン固有のシステムサービスを提供するため、マシンごとに1つずつ実行する必要があるPodには[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)を使用します。
 
 3種類のコントローラにはすべてPodTemplateが含まれます。
 Podを自分で直接作成するのではなく適切なコントローラを作成してPodを作成させることをおすすめします。
