@@ -10,7 +10,7 @@ weight: 30
 {{< glossary_tooltip text="파드" term_id="pod" >}}를 특정한 {{< glossary_tooltip text="노드(들)" term_id="node" >}}에서만 동작하도록 하거나,
 특정 노드들을 선호하도록 제한할 수 있다.
 이를 수행하는 방법에는 여러 가지가 있으며, 권장되는 접근 방식은 모두
-[레이블 셀렉터(label selector)](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택한다.
+[레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택한다.
 보통 스케줄러가 자동으로 합리적인 배치를 수행하기에 이런 제약 조건은 필요하지 않지만
 (예: 노드들에 걸쳐 파드를 분배하거나, 여유 자원이 부족한 노드에 파드를 배치하는 등)
 간혹 파드가 착륙하는 노드에 대해 더 많은 제어를 원할 수 있는 상황이 있다.
@@ -32,7 +32,7 @@ weight: 30
 
 ### 0 단계: 사전 준비
 
-이 예시는 쿠버네티스 파드에에 대한 기본적인 이해를 하고 있고 [쿠버네티스 클러스터가 설정](/ko/docs/setup/)되어 있다고 가정한다.
+이 예시는 쿠버네티스 파드에 대한 기본적인 이해를 하고 있고 [쿠버네티스 클러스터가 설정](/ko/docs/setup/)되어 있다고 가정한다.
 
 ### 1 단계: 노드에 레이블 붙이기
 
@@ -182,12 +182,12 @@ spec:
 {{< /note >}}
 
 {{< note >}}
-파드 안티-어피니티에서는 노드에 일관된 레이블을 지정해야 한다. 즉, 클러스터의 모든 노드는 `topologyKey` 와 매칭되는 적절한 레이블이 가지고 있어야 한다. 일부 또는 모든 노드에 지정된 `topologyKey` 레이블이 없는 경우에는 의도하지 않은 동작을 발생할 수 있다.
+파드 안티-어피니티에서는 노드에 일관된 레이블을 지정해야 한다. 즉, 클러스터의 모든 노드는 `topologyKey` 와 매칭되는 적절한 레이블을 가지고 있어야 한다. 일부 또는 모든 노드에 지정된 `topologyKey` 레이블이 없는 경우에는 의도하지 않은 동작이 발생할 수 있다.
 {{< /note >}}
 
 노드 어피니티와 마찬가지로 현재 파드 어피니티와 안티-어피니티로 부르는 "엄격함" 대 "유연함"의 요구사항을 나타내는 `requiredDuringSchedulingIgnoredDuringExecution` 와
 `preferredDuringSchedulingIgnoredDuringExecution` 두 가지 종류가 있다.
-앞의 노드 어피니티 섹션의 설명을 보면 본다.
+앞의 노드 어피니티 섹션의 설명을 본다.
 `requiredDuringSchedulingIgnoredDuringExecution` 어피니티의 예시는
 "서로 많은 통신을 하기 때문에 서비스 A와 서비스 B를 같은 영역에 함께 위치시키는 것"이고,
 `preferredDuringSchedulingIgnoredDuringExecution` 안티-어피니티의 예시는 "서비스를 여러 영역에 걸쳐서 분배하는 것"이다
