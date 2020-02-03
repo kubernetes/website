@@ -151,7 +151,7 @@ PodはAPIから消え、クライアントからは見えなくなる
 
 デフォルトでは、すべての削除は30秒以内に正常に行われます。
 `kubectl delete` コマンドは、ユーザーがデフォルト値を上書きして独自の値を指定できるようにする `--grace-period=<seconds>` オプションをサポートします。
-値 `0` はPodを[強制的に削除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)します。
+値 `0` はPodを[強制的に削除](/ja/docs/concepts/workloads/pods/pod/#podの強制削除)します。
 kubectlのバージョン1.5以降では、強制削除を実行するために `--grace-period=0` と共に `--force` というフラグを追加で指定する必要があります。
 
 ### Podの強制削除

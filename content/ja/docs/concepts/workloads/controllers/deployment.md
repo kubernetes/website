@@ -11,7 +11,7 @@ weight: 30
 
 {{% capture overview %}}
 
-_Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。
+_Deployment_ コントローラーは[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。
 
 ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deploymentコントローラーは指定された頻度で現在の状態を理想的な状態に変更させます。ユーザーはDeploymentを定義して、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
@@ -915,7 +915,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 `.spec.template`と`.spec.selector`は`.spec`における必須のフィールドです。
 
-`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/ja/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 
