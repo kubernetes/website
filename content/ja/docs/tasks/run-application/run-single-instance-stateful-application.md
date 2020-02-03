@@ -168,7 +168,7 @@ PersistentVolumeを手動でプロビジョニングした場合は、Persistent
 
 {{% capture whatsnext %}}
 
-* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
 
 * [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)についてもっと学ぶ
 

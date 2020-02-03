@@ -65,7 +65,7 @@ card:
 
 ## Deploymentの作成
 
-Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
+Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
 1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
@@ -257,7 +257,7 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)について学ぶ.
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
 * [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)について学ぶ.
 * [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
 

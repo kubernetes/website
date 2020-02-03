@@ -223,7 +223,7 @@ kubeletによって再起動される終了したコンテナは、5分後にキ
 - バッチ計算などのように終了が予想されるPodに対しては、[Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)を使用します。
    Jobは`restartPolicy`がOnFailureまたはNeverになるPodに対してのみ適切です。
 
-- 停止することを期待しないPod（たとえばWebサーバーなど）には、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)、または[Deployment](/docs/concepts/workloads/controllers/deployment/)を使用します。ReplicationControllerは`restartPolicy`がAlwaysのPodに対してのみ適切です。
+- 停止することを期待しないPod（たとえばWebサーバーなど）には、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)、または[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)を使用します。ReplicationControllerは`restartPolicy`がAlwaysのPodに対してのみ適切です。
 
 - マシン固有のシステムサービスを提供するため、マシンごとに1つずつ実行する必要があるPodには[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)を使用します。
 

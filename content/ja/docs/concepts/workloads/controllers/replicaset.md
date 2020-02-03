@@ -227,7 +227,7 @@ matchLabels:
 
 ### ReplicaSetとPodの削除
 
-ReplicaSetとそれが所有する全てのPod削除したいときは、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)コマンドを使ってください。  
+ReplicaSetとそれが所有する全てのPod削除したいときは、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)コマンドを使ってください。
 [ガーベージコレクター](/docs/concepts/workloads/controllers/garbage-collection/)がデフォルトで自動的に全ての依存するPodを削除します。
 
 REST APIもしくは`client-go`ライブラリーを使用するとき、ユーザーは`-d`オプションで`propagationPolicy`を`Background`か`Foreground`と指定しなくてはなりません。
@@ -287,7 +287,7 @@ kubectl autoscale rs frontend --max=10
 
 ### Deployment (推奨)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/)はReplicaSetを所有することのできるオブジェクトで、宣言的なサーバサイドのローリングアップデートを介してReplicaSetとPodをアップデートできます。
+[`Deployment`](/ja/docs/concepts/workloads/controllers/deployment/)はReplicaSetを所有することのできるオブジェクトで、宣言的なサーバサイドのローリングアップデートを介してReplicaSetとPodをアップデートできます。
 ReplicaSetは単独で使用可能ですが、現在では、ReplicaSetは主にPodの作成、削除とアップデートを司るためのメカニズムとしてDeploymentによって使用されています。ユーザーがDeploymentを使用するとき、Deploymentによって作成されるReplicaSetの管理について心配する必要はありません。DeploymentはReplicaSetを所有し、管理します。
 このため、もしユーザーがReplicaSetを必要とするとき、Deploymentの使用を推奨します。
 
@@ -309,7 +309,7 @@ PodをPodそれ自身で停止させたいような場合(例えば、バッチ�
 ### ReplicationController
 
 ReplicaSetは[_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/)の後継となるものです。
-この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。  
+この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。
 このように、ReplicaSetはReplicationControllerよりも好まれます。
 
 {{% /capture %}}

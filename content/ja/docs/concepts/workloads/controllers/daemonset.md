@@ -172,7 +172,7 @@ DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアン�
 
 ### Deployment
 
-DaemonSetは、Podの作成し、そのPodが停止されることのないプロセスを持つことにおいて[Deployment](/docs/concepts/workloads/controllers/deployment/)と同様です(例: webサーバー、ストレージサーバー)。
+DaemonSetは、Podの作成し、そのPodが停止されることのないプロセスを持つことにおいて[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)と同様です(例: webサーバー、ストレージサーバー)。
 
 フロントエンドのようなServiceのように、どのホスト上にPodが稼働するか制御するよりも、レプリカ数をスケールアップまたはスケールダウンしたりローリングアップデートする方が重要であるような、状態をもたないServiceに対してDeploymentを使ってください。
 Podのコピーが全てまたは特定のホスト上で常に稼働していることが重要な場合や、他のPodの前に起動させる必要があるときにDaemonSetを使ってください。
