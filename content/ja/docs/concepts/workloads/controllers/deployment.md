@@ -11,7 +11,7 @@ weight: 30
 
 {{% capture overview %}}
 
-_Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
+_Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。
 
 ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deploymentコントローラーは指定された頻度で現在の状態を理想的な状態に変更させます。ユーザーはDeploymentを定義して、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
@@ -28,7 +28,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 下記の項目はDeploymentの典型的なユースケースです。
 
-* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
+* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
 * Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
@@ -615,7 +615,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
 
 ユーザーは1つ以上の更新処理をトリガーする前に更新の一時停止と再開ができます。これにより、不必要なロールアウトを実行することなく一時停止と再開を行う間に複数の修正を反映できます。
 
-* 例えば、作成直後のDeploymentを考えます。  
+* 例えば、作成直後のDeploymentを考えます。
   Deploymentの詳細情報を確認します。
   ```shell
   kubectl get deploy
