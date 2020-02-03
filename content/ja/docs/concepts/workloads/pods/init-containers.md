@@ -13,7 +13,7 @@ weight: 40
 {{% capture body %}}
 ## Initコンテナを理解する
 
-単一の[Pod](/docs/concepts/workloads/pods/pod-overview/)は、Pod内に複数のコンテナを稼働させることができますが、Initコンテナもまた、アプリケーションコンテナが稼働する前に1つまたは複数稼働できます。
+単一の[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)は、Pod内に複数のコンテナを稼働させることができますが、Initコンテナもまた、アプリケーションコンテナが稼働する前に1つまたは複数稼働できます。
 
 Initコンテナは下記の項目をのぞいて、通常のコンテナと全く同じものとなります。
 
