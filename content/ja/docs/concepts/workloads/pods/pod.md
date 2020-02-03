@@ -112,7 +112,7 @@ Podは、耐久性のある存在として扱われることを意図してい�
 一般に、ユーザーはPodを直接作成する必要はありません。
 ほとんどの場合、対象がシングルトンであったとしても、[Deployments](/ja/docs/concepts/workloads/controllers/deployment/)などのコントローラーを使用するべきです。
 コントローラーは、レプリケーションとロールアウト管理だけでなく、クラスターレベルの自己修復機能も提供します。
-[StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)ようなコントローラーもステートフルなPodをサポートします。
+[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset.md)ようなコントローラーもステートフルなPodをサポートします。
 
 主要なユーザー向けのプリミティブとして集合APIを使用することは、[Borg](https://research.google.com/pubs/pub43438.html)、 [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)、[Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)、[Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)などのクラスタースケジューリングシステムで比較的一般的です。
 
@@ -178,7 +178,7 @@ describeコマンド出力のイベントテーブルには、次のように表
 `Error validating pod "FooPodName"."FooPodNamespace" from api, ignoring: spec.containers[0].securityContext.privileged: forbidden '<*>(0xc2089d3248)true'`
 
 マスターがv1.1より前のバージョンを実行している場合、特権を持つPodは作成できません。
-ユーザーが特権付きのコンテナを含むPodを作成しようとすると、次のエラーを受け取ります。
+ユーザーが特権付きのコンテナを含むPodを作成しようとすると、次のエラーを受け取ります。 
 `The Pod "FooPodName" is invalid.
 spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'`
 

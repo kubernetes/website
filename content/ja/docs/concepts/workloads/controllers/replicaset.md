@@ -196,7 +196,7 @@ Kubernetes1.9において、ReplicaSetは`apps/v1`というAPIバージョンが
 
 ### Pod テンプレート
 
-`.spec.template`はラベルを持つことが必要な[Pod テンプレート](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
+`.spec.template`はラベルを持つことが必要な[Pod テンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
 他のコントローラーがこのPodを所有しようとしないためにも、他のコントローラーのセレクターでラベルを上書きしないように注意してください。
 
 テンプレートの[再起動ポリシー](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
@@ -227,7 +227,7 @@ matchLabels:
 
 ### ReplicaSetとPodの削除
 
-ReplicaSetとそれが所有する全てのPod削除したいときは、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)コマンドを使ってください。
+ReplicaSetとそれが所有する全てのPod削除したいときは、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)コマンドを使ってください。  
 [ガーベージコレクター](/docs/concepts/workloads/controllers/garbage-collection/)がデフォルトで自動的に全ての依存するPodを削除します。
 
 REST APIもしくは`client-go`ライブラリーを使用するとき、ユーザーは`-d`オプションで`propagationPolicy`を`Background`か`Foreground`と指定しなくてはなりません。
@@ -309,7 +309,7 @@ PodをPodそれ自身で停止させたいような場合(例えば、バッチ�
 ### ReplicationController
 
 ReplicaSetは[_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/)の後継となるものです。
-この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。
+この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。  
 このように、ReplicaSetはReplicationControllerよりも好まれます。
 
 {{% /capture %}}
