@@ -7,7 +7,7 @@ weight: 30
 
 {{% capture overview %}}
 
-{{< glossary_tooltip text="파드" term_id="pod" >}}를 특정한 {{< glossary_tooltip text="노드(emf)" term_id="node" >}}에서만 동작하도록 하거나,
+{{< glossary_tooltip text="파드" term_id="pod" >}}를 특정한 {{< glossary_tooltip text="노드(들)" term_id="node" >}}에서만 동작하도록 하거나,
 특정 노드들을 선호하도록 제한할 수 있다.
 이를 수행하는 방법에는 여러 가지가 있으며, 권장되는 접근 방식은 모두
 [레이블 셀렉터(label selector)](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택한다.
@@ -36,7 +36,7 @@ weight: 30
 
 ### 1 단계: 노드에 레이블 붙이기
 
-`kubectl get nodes` 를 실행해서 클러스터 노드 이름을 가져온다. 이 중에 레이블을 추가하기 원하는 것 하나를 선택한 다음에 `kubectl label nodes <노드 이름> <레이블 키>=<레이블 값>` 을 실행해서 선택한 노드에 레이블을 추가한다. 예를 들어 노드의 이름이 'kubernetes-foo-node-1.c.a-robinson.internal' 이고, 원하는 레이블이 'disktype=ssd' 라면, `kubectl label nodes ubernetes-foo-node-1.c.a-robinson.internal disktype=ssd` 를 실행한다.
+`kubectl get nodes` 를 실행해서 클러스터 노드 이름을 가져온다. 이 중에 레이블을 추가하기 원하는 것 하나를 선택한 다음에 `kubectl label nodes <노드 이름> <레이블 키>=<레이블 값>` 을 실행해서 선택한 노드에 레이블을 추가한다. 예를 들어 노드의 이름이 'kubernetes-foo-node-1.c.a-robinson.internal' 이고, 원하는 레이블이 'disktype=ssd' 라면, `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd` 를 실행한다.
 
 `kubectl get nodes --show-labels` 를 다시 실행해서 노드가 현재 가진 레이블을 확인하여, 이 작업을 검증할 수 있다. 또한 `kubectl describe node "노드 이름"` 을 사용해서 노드에 주어진 레이블의 전체 목록을 확인할 수 있다.
 
