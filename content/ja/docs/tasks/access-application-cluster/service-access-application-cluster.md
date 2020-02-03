@@ -115,7 +115,7 @@ weight: 60
 ## service configuration fileの利用
 
 `kubectl expose`コマンドの代わりに、
-[service configuration file](/docs/concepts/services-networking/service/)
+[service configuration file](/ja/docs/concepts/services-networking/service/)
 を使用してServiceを作成することもできます。
 
 {{% /capture %}}

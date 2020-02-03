@@ -126,7 +126,7 @@ Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+services](/ja/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
 
 ## サービスIP経由でPodにアクセスすることができない
 

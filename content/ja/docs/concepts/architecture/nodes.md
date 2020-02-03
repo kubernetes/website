@@ -98,7 +98,7 @@ CapacityとAllocatableについて深く知りたい場合は、ノード上で�
 
 ## 管理 {#management}
 
-[Pod](/docs/concepts/workloads/pods/pod/)や[Service](/docs/concepts/services-networking/service/)と違い、ノードは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、Kubernetesがノードを作成すると、そのノードを表すオブジェクトが作成されます。作成後、Kubernetesはそのノードが有効かどうかを確認します。 たとえば、次の内容からノードを作成しようとしたとします:
+[Pod](/docs/concepts/workloads/pods/pod/)や[Service](/ja/docs/concepts/services-networking/service/)と違い、ノードは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、Kubernetesがノードを作成すると、そのノードを表すオブジェクトが作成されます。作成後、Kubernetesはそのノードが有効かどうかを確認します。 たとえば、次の内容からノードを作成しようとしたとします:
 
 ```json
 {

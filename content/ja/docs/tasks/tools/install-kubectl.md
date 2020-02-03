@@ -18,7 +18,7 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 
 {{% capture steps %}}
 
-## Linuxへkubectlをインストールする
+## Linuxへkubectlをインストールする {#install-kubectl-on-linux}
 
 ### curlを使用してLinuxへkubectlのバイナリをインストールする
 
@@ -97,7 +97,7 @@ kubectl version
 {{< /tab >}}
 {{< /tabs >}}
 
-## macOSへkubectlをインストールする
+## macOSへkubectlをインストールする {#install-kubectl-on-macos}
 
 ### curlを使用してmacOSへkubectlのバイナリをインストールする
 
@@ -139,7 +139,7 @@ macOSで[Homebrew](https://brew.sh/)パッケージマネージャーを使用�
 1. インストールコマンドを実行してください:
 
     ```
-    brew install kubectl 
+    brew install kubectl
     ```
     または
 
@@ -170,7 +170,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
     kubectl version
     ```
 
-## Windowsへkubectlをインストールする
+## Windowsへkubectlをインストールする {#install-kubectl-on-windows}
 
 ### curlを使用してWindowsへkubectlのバイナリをインストールする
 

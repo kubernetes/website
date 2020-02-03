@@ -23,7 +23,7 @@ weight: 30
 * このチュートリアルは、あなたが[PersistentVolume](/docs/concepts/storage/persistent-volumes/)
   と[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)、
   さらには[Pod](/ja/docs/concepts/workloads/pods/pod/)、
-  [Service](/docs/concepts/services-networking/service/)、
+  [Service](/ja/docs/concepts/services-networking/service/)、
   [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)などの
   他のコアな概念に精通していることを前提としています。
 * MySQLに関する知識は記事の理解に役立ちますが、

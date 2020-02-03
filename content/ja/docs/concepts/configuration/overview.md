@@ -35,7 +35,7 @@ weight: 10
 
 ## Service
 
-- 対応するバックエンドワークロード（DeploymentまたはReplicaSet）の前、およびそれにアクセスする必要があるワークロードの前に[Service](/docs/concepts/services-networking/service/)を作成します。Kubernetesがコンテナを起動すると、コンテナ起動時に実行されていたすべてのServiceを指す環境変数が提供されます。たとえば、fooという名前のServiceが存在する場合、すべてのコンテナは初期環境で次の変数を取得します。
+- 対応するバックエンドワークロード（DeploymentまたはReplicaSet）の前、およびそれにアクセスする必要があるワークロードの前に[Service](/ja/docs/concepts/services-networking/service/)を作成します。Kubernetesがコンテナを起動すると、コンテナ起動時に実行されていたすべてのServiceを指す環境変数が提供されます。たとえば、fooという名前のServiceが存在する場合、すべてのコンテナは初期環境で次の変数を取得します。
 
   ```shell
   FOO_SERVICE_HOST=<the host the Service is running on>
@@ -50,12 +50,11 @@ weight: 10
 
   デバッグ目的でのみポートにアクセスする必要がある場合は、[apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls)または[`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)を使用できます。
 
-  ノード上でPodのポートを明示的に公開する必要がある場合は、hostPortに頼る前に[NodePort](/docs/concepts/services-networking/service/#nodeport)の使用を検討してください。
+  ノード上でPodのポートを明示的に公開する必要がある場合は、hostPortに頼る前に[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)の使用を検討してください。
 
 - `hostPort`の理由と同じくして、`hostNetwork`の使用はできるだけ避けてください。
 
-- `kube-proxy`のロードバランシングが不要な場合は、[headless Service](/docs/concepts/services-networking/service/#headless-
-services)（`ClusterIP`が`None`）を使用してServiceを簡単に検出できます。
+- `kube-proxy`のロードバランシングが不要な場合は、[headless Service](/ja/docs/concepts/services-networking/service/#headless-service)（`ClusterIP`が`None`）を使用してServiceを簡単に検出できます。
 
 ## ラベルの使用
 
