@@ -1,8 +1,8 @@
 ---
 draft: True
-title: Case Studies
-linkTitle: Case Studies
-bigheader: Kubernetes User Case Studies
+title: Casi Di Studio
+linkTitle: Casi Di Studio
+bigheader: Casi di studio sugli utenti di Kubernetes
 abstract: Una raccolta di utenti che eseguono Kubernetes in produzione.
 layout: basic
 class: gridPage
