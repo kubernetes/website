@@ -19,21 +19,20 @@ developer, an end user, or someone who just can't stand seeing typos.
 
 ## Getting Started
 
-Anyone can open an issue with documentation or contribute a change using a PR,
-but some tasks need a higher level of access in the Kubernetes organization.
-See [Participating in SIG Docs](/docs/contribute/participating/) for a more detailed overview
+Anyone can open an issue describing problems or desired improvements with documentation, or contribute a change with a pull request (PR).
+Some tasks require more trust and need more access in the Kubernetes organization.
+See [Participating in SIG Docs](/docs/contribute/participating/) for more details about
 of roles and permissions.
 
-Kubernetes documentation is managed using a GitHub repository. While we welcome
+Kubernetes documentation resides in a GitHub repository. While we welcome
 contributions from anyone, you do need basic comfort with git and GitHub to
-operate well in the Kubernetes community.
+operate effectively in the Kubernetes community.
 
-At a minimum, do the following to get involved with documentation:
+To get involved with documentation:
 
 1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
-2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website) and the static site generator
-we use for the documentation site, [Hugo](https://gohugo.io/).
-3. Understand the basic processes around [improving content](https://kubernetes.io/docs/contribute/start/#improve-existing-content) and [reviewing changes](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
+2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website) and the website's [static site generator](https://gohugo.io).
+3. Make sure you understand the basic processes for [improving content](https://kubernetes.io/docs/contribute/start/#improve-existing-content) and [reviewing changes](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
 
 ## Other ways to contribute
 
@@ -44,9 +43,9 @@ we use for the documentation site, [Hugo](https://gohugo.io/).
 
 {{% capture whatsnext %}}
 
-- To read more about the basics of contributing to documentation, read [Start contributing](/docs/contribute/start/).
-- To understand how SIG Docs uses language in Kubernetes documentation, read the [Style Guide](/docs/contribute/style/style-guide/).
-- To understand more about SIG Docs, read [Participating in SIG Docs](/docs/contribute/participating/)
-- To learn about Kubernetes documentation localization projects, read [Localizing Kubernetes documentation](/docs/contribute/localization/).
+- For more information about the basics of contributing to documentation, read [Start contributing](/docs/contribute/start/).
+- Follow the [Kubernetes documentation style guide](/docs/contribute/style/style-guide/) when proposing changes.
+- For more information about SIG Docs, read [Participating in SIG Docs](/docs/contribute/participating/).
+- For more information about localizing Kubernetes docs, read [Localizing Kubernetes documentation](/docs/contribute/localization/).
 
 {{% /capture %}}
