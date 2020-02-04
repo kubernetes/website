@@ -196,14 +196,37 @@ to base your work on. Use these guidelines to make the decision:
 
 - Use `master` for fixing problems in content that is already published, or
   making improvements to content that already exists.
-  - Use a release branch (such as `dev-{{< release-branch >}}` for the {{< release-branch >}} release) to document upcoming features
-  or changes for an upcoming release that is not yet published.
-- Use a feature branch that has been agreed upon by SIG Docs to collaborate on
-  big improvements or changes to the existing documentation, including content
-  reorganization or changes to the look and feel of the website.
+- Use `master` to document something that is already part of the current
+  Kubernetes release, but isn't yet documented. You should write this content
+  in English first, and then localization teams will pick that change up as a
+  localization task.
+- If you're working on a localization, you should follow the convention for
+  that particular localization. To find this out, you can look at other
+  pull requests (tip: search for `is:pr is:merged label:language/xx`)
+  {{< comment >}}Localization note: when localizing that tip, replace `xx`
+  with the actual ISO3166 two-letter code for your target locale.{{< /comment >}}
+  - Some localization teams work with PRs that target `master`
+  - Some localization teams work with a series of long-lived branches, and
+    periodically merge these to `master`. This kind of branch has a name like
+    dev-\<version>-\<language code>.\<team milestone>; for example:
+    `dev-{{< release-branch >}}-ja.1`.
+- If you're writing or updating documentation for a feature change release,
+  then you need to know the major and minor version of Kubernetes that
+  the change will first appear in.
+  - For example, if the feature gate JustAnExample is going to move from alpha
+    to beta in the next minor version, you need to know what the next minor
+    version number is.
+  - Find the release branch named for that version. For example, features that
+    changed in the v{{< release-branch >}} release got documented in the branch
+    named `dev-{{< release-branch >}}`.
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack or
 attend a weekly SIG Docs meeting to get clarity.
+
+{{< note >}}
+If you already submitted your pull request and you know that the Base Branch
+was wrong, you (and only you, the submitter) can change it.
+{{< /note >}}
 
 ### Submit a pull request
 
