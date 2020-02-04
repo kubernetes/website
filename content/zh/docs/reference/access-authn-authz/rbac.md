@@ -23,7 +23,7 @@ weight: 70
 <!--
 Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise.
 -->
-基于角色的访问控制(RBAC)是一种基于企业中用户的角色来调节控制对计算机或网络资源的访问方法。
+基于角色的访问控制（RBAC）是一种基于企业中用户的角色来调节控制对计算机或网络资源的访问方法。
 {{% /capture %}}
 
 {{% capture body %}}
@@ -36,12 +36,12 @@ As of 1.8, RBAC mode is stable and backed by the rbac.authorization.k8s.io/v1 AP
 
 To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
 -->
-`RBAC` 使用 `rbac.authorization.k8s.io` {{< glossary_tooltip text="API Group" term_id="api-group" >}}
-作为认证驱动，通过Kubernetes API允许管理员动态配置策略。
+`RBAC` 使用 `rbac.authorization.k8s.io` {{< glossary_tooltip text="API 组" term_id="api-group" >}}
+来驱动鉴权操作，允许管理员通过 Kubernetes API 动态配置策略。
 
-在1.8版本中, RBAC 模式是稳定的并且得到rbac.authorization.k8s.io/v1 API支持。
+在 1.8 版本中，RBAC 模式是稳定的并通过 rbac.authorization.k8s.io/v1 API 提供支持。
 
-要启用RBAC, 在kubernetes的apiserver中添加 `--authorization-mode=RBAC`参数。
+要启用 RBAC，在启动 API 服务器时添加 `--authorization-mode=RBAC`参数。
 <!--
 ## API Overview
 
@@ -55,9 +55,9 @@ bootstrapping first.
 ## API 概述
 
 本文将介绍关于RBAC API声明的四种顶级类型，用户可以像其他资源
-一样与API资源(via `kubectl`, API calls, etc.)进行交互。例如，
-`kubectl apply -f (resource).yml`可以用在以上的任何一个例子
-中，读者在此之前可以阅读下面的章节作为引导。
+（通过 `kubectl`、API 调用等方式）与这些资源交互。例如，
+命令 `kubectl apply -f (resource).yml` 可以用在这里的任何一个例子之上。
+尽管如此，建议读者循序渐进阅读下面的章节，由浅入深。
 
 <!--
 ### Role and ClusterRole
