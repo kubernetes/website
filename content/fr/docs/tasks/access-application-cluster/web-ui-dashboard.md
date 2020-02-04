@@ -128,7 +128,7 @@ Si nécessaire, vous pouvez développer la section **Options avancées** dans la
 
   Le tableau de bord propose tous les namespaces disponibles dans une liste déroulante et vous permet de créer un nouveau namespace.
   Le nom du namespace peut contenir au maximum 63 caractères alphanumériques et des tirets (-), mais ne peut pas contenir de lettres majuscules.
-  Les noms de Namespace ne devrait pas être composé uniquement de chiffres.
+  Les noms de Namespace ne devraient pas être composés uniquement de chiffres.
   Si le nom est défini sous la forme d’un nombre, tel que 10, le pod sera placé dans le namespace par défaut.
 
   Si la création du namespace réussit, celle-ci est sélectionnée par défaut.
@@ -144,7 +144,7 @@ Si nécessaire, vous pouvez développer la section **Options avancées** dans la
   Si la création du secret d’extraction d’image est réussie, celle-ci est sélectionnée par défaut.
   Si la création échoue, aucun secret n'est appliqué.
 
-- **CPU requirement (cores)** et **Memory requirement (MiB)**: Vous pouvez spécifier les [limites de resource](/docs/tasks/configure-pod-container/limit-range/) minimales pour le conteneur.
+- **CPU requirement (cores)** et **Memory requirement (MiB)**: Vous pouvez spécifier les [limites de ressource](/docs/tasks/configure-pod-container/limit-range/) minimales pour le conteneur.
   Par défaut, les pods fonctionnent avec des limites de CPU et de mémoire illimitées.
 
 - **Run command** et **Run command arguments**: Par défaut, vos conteneurs exécutent les valeurs par défaut de la [commande d'entrée](/docs/user-guide/containers/#containers-and-commands) de l'image spécifiée.
