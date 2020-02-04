@@ -267,6 +267,9 @@ different Kubernetes components.
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
+| `WindowsRunAsUserName` | `false` | Alpha | 1.16 | 1.16 |
+| `WindowsRunAsUserName` | `true` | Beta | 1.17 | 1.17 |
+| `WindowsRunAsUserName` | `true` | GA | 1.18 | - |
 {{< /table >}}
 
 ## Using a feature
@@ -475,6 +478,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment variables into a `subPath`.
 - `WatchBookmark`: Enable support for watch bookmark events.
 - `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
+- `WindowsRunAsUserName` : Enable support for running applications in Windows containers with as a non-default user.
+  See [Configuring RunAsUserName](/docs/tasks/configure-pod-container/configure-runasusername) for more details.
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
