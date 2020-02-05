@@ -34,7 +34,7 @@ EndpointSliceコントローラーはクラスター内にEndpointSliceを作成
 
 ## EndpointSliceの使用
 
-クラスター内でEndpointSliceを完全に有効にすると、各Endpointsリソースに対応するEndpointSliceリソースが表示されます。既存のEndpointsの機能をサポートすることに加えて、EndpointSliceはトポロジーなどの新しい情報を含める必要があります。これらにより、クラスター内のネットワークEndpointsのスケーラビリティと拡張性が大きく向上します。
+クラスター内でEndpointSliceを完全に有効にすると、各Endpointsリソースに対応するEndpointSliceリソースが表示されます。既存のEndpointsの機能をサポートすることに加えて、EndpointSliceはトポロジーなどの新しい情報を含める必要があります。これらにより、クラスター内のネットワークエンドポイントのスケーラビリティと拡張性が大きく向上します。
 
 {{% capture whatsnext %}}
 
