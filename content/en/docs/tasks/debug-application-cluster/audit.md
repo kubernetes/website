@@ -31,7 +31,7 @@ answer the following questions:
 of its execution generates an event, which is then pre-processed according to
 a certain policy and written to a backend. The policy determines what's recorded
 and the backends persist the records. The current backend implementations
-include log files and webhooks.
+include logging of files and webhooks.
 
 Each request can be recorded with an associated "stage". The known stages are:
 
