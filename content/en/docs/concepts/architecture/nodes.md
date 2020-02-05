@@ -275,6 +275,12 @@ and do not respect the unschedulable attribute on a node. This assumes that daem
 the machine even if it is being drained of applications while it prepares for a reboot.
 {{< /note >}}
 
+{{< caution >}}
+`kubectl cordon` marks a node as 'unschedulable', which has the side effect of the service
+controller removing the node from any LoadBalancer node target lists it was previously 
+eligible for, effectively removing incoming load balancer traffic from the cordoned node(s).
+{{< /caution >}}
+
 ### Node capacity
 
 The capacity of the node (number of cpus and amount of memory) is part of the node object.
