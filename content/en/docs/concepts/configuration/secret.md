@@ -1141,7 +1141,7 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
    therefore:
    - Administrators should enable encryption at rest for cluster data (requires v1.13 or later).
    - Administrators should limit access to etcd to admin users.
-   - Administrators may want to wipe/shred disks used by etcd when no longer in use.
+   - Administrators may want to wipe/shared disks used by etcd when no longer in use.
    - If running etcd in a cluster, administrators should make sure to use SSL/TLS
      for etcd peer-to-peer communication.
  - If you configure the secret through a manifest (JSON or YAML) file which has
