@@ -28,19 +28,19 @@ DaemonSetのいくつかの典型的な使用例は以下の通りです。
 
 ### DaemonSetの作成
 
-ユーザーはYAMLファイル内でDaemonSetの設定を記述することができます。
+ユーザーはYAMLファイル内でDaemonSetの設定を記述することができます。  
 例えば、下記の`daemonset.yaml`ファイルでは`fluentd-elasticsearch`というDockerイメージを稼働させるDaemonSetの設定を記述します。
 
 {{< codenew file="controllers/daemonset.yaml" >}}
 
-* YAMLファイルに基づいてDaemonSetを作成します。
+* YAMLファイルに基づいてDaemonSetを作成します。  
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
 
 ### 必須のフィールド
 
-他の全てのKubernetesの設定と同様に、DaemonSetは`apiVersion`、`kind`と`metadata`フィールドが必須となります。
+他の全てのKubernetesの設定と同様に、DaemonSetは`apiVersion`、`kind`と`metadata`フィールドが必須となります。  
 設定ファイルの活用法に関する一般的な情報は、[アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)、[コンテナの設定](/docs/tasks/)、[kuberctlを用いたオブジェクトの管理](/docs/concepts/overview/object-management-kubectl/overview/)といったドキュメントを参照ください。
 
 また、DaemonSetにおいて[`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)セクションも必須となります。
@@ -76,7 +76,7 @@ Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッ
 ### 特定のいくつかのNode上のみにPodを稼働させる
 
 もしユーザーが`.spec.template.spec.nodeSelector`を指定したとき、DaemonSetコントローラーは、その[node
-selector](/docs/concepts/configuration/assign-pod-node/)にマッチするPodをNode上に作成します。
+selector](/docs/concepts/configuration/assign-pod-node/)にマッチするPodをNode上に作成します。  
 同様に、もし`.spec.template.spec.affinity`を指定したとき、DaemonSetコントローラーは[node affinity](/docs/concepts/configuration/assign-pod-node/)マッチするPodをNode上に作成します。
 もしユーザーがどちらも指定しないとき、DaemonSetコントローラーは全てのNode上にPodを作成します。
 
@@ -85,7 +85,7 @@ selector](/docs/concepts/configuration/assign-pod-node/)にマッチするPodを
 ### DaemonSetコントローラーによってスケジューリングされる場合(Kubernetes1.12からデフォルトで無効)
 
 通常、Podが稼働するマシンはKubernetesスケジューラーによって選択されます。
-しかし、DaemonSetコントローラーによって作成されたPodは既に選択されたマシンを持っています(`.spec.nodeName`はPodの作成時に指定され、Kubernetesスケジューラーによって無視されます）。
+しかし、DaemonSetコントローラーによって作成されたPodは既に選択されたマシンを持っています(`.spec.nodeName`はPodの作成時に指定され、Kubernetesスケジューラーによって無視されます）。  
 従って:
 
  - Nodeの[`unschedulable`](/docs/admin/node/#manual-node-administration)フィールドはDaemonSetコントローラーによって尊重されません。
@@ -95,7 +95,7 @@ selector](/docs/concepts/configuration/assign-pod-node/)にマッチするPodを
 
 {{< feature-state state="beta" for-kubernetes-version="1.12" >}}
 
-DaemonSetは全ての利用可能なNodeが単一のPodのコピーを稼働させることを保証します。通常、Podが稼働するNodeはKubernetesスケジューラーによって選択されます。しかし、DaemonSetのPodは代わりにDaemonSetコントローラーによって作成され、スケジューリングされます。
+DaemonSetは全ての利用可能なNodeが単一のPodのコピーを稼働させることを保証します。通常、Podが稼働するNodeはKubernetesスケジューラーによって選択されます。しかし、DaemonSetのPodは代わりにDaemonSetコントローラーによって作成され、スケジューリングされます。   
 下記の問題について説明します:
 
  * 矛盾するPodのふるまい: スケジューリングされるのを待っている通常のPodは、作成されているが`Pending`状態となりますが、DaemonSetのPodは`Pending`状態で作成されません。これはユーザーにとって困惑するものです。
@@ -118,7 +118,7 @@ nodeAffinity:
 
 ### TaintsとTolerations
 
-DaemonSetのPodは[TaintsとTolerations](/docs/concepts/configuration/taint-and-toleration)の設定を尊重します。
+DaemonSetのPodは[TaintsとTolerations](/docs/concepts/configuration/taint-and-toleration)の設定を尊重します。  
 下記のTolerationsは、関連する機能によって自動的にDaemonSetのPodに追加されます。
 
 | Toleration Key                           | Effect     | Version | Description                                                  |
@@ -128,7 +128,7 @@ DaemonSetのPodは[TaintsとTolerations](/docs/concepts/configuration/taint-and-
 | `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    |                                                              |
 | `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    |                                                              |
 | `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSetのPodはデフォルトスケジューラーによってスケジュール不可能な属性を許容(tolerate)します。                                                |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | ホストネットワークを使うDaemonSetのPodはデフォルトスケジューラーによってネットワーク利用不可能な属性を許容(tolerate)します。
+| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | ホストネットワークを使うDaemonSetのPodはデフォルトスケジューラーによってネットワーク利用不可能な属性を許容(tolerate)します。  
 
 ## Daemon Podとのコミュニケーション
 
@@ -167,7 +167,7 @@ Node上で直接起動することにより(例: `init`、`upstartd`、`systemd`
 
 ### 静的Pod Pods
 
-Kubeletによって監視されているディレクトリに対してファイルを書き込むことによって、Podを作成することが可能です。これは[静的Pod](/docs/concepts/cluster-administration/static-pod/)と呼ばれます。
+Kubeletによって監視されているディレクトリに対してファイルを書き込むことによって、Podを作成することが可能です。これは[静的Pod](/docs/concepts/cluster-administration/static-pod/)と呼ばれます。  
 DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアントで管理できません。静的PodはApiServerに依存しておらず、クラスターの自立起動時に最適です。また、静的Podは将来的には廃止される予定です。
 
 ### Deployment
