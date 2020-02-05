@@ -39,6 +39,6 @@ EndpointSliceコントローラーはクラスター内にEndpointSliceを作成
 {{% capture whatsnext %}}
 
 * [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
-* [サービスとアプリケーションの接続](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
+* [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 
 {{% /capture %}}
