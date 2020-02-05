@@ -766,6 +766,7 @@ parameters:
 * `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。
 * `pool`: Ceph RBD 池. 默认是 "rbd"。
 * `userId`：Ceph 客户端 ID，用于映射 RBD 镜像。默认与 `adminId` 相同。
+
 <!--
 * `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It
   must exist in the same namespace as PVCs. This parameter is required.
