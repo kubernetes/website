@@ -211,7 +211,7 @@ Approvers improve the documentation by reviewing and merging pull requests into 
 
     A careless merge can break the site, so be sure that when you merge something, you mean it.
 
-- Make sure that proposed changes meet the contribution guidelines.
+- Make sure that proposed changes meet the [contribution guidelines](/docs/contribute/style/content-guide/#contributing-content).
 
     If you ever have a question, or you're not sure about something, feel free to call for additional review.
 
