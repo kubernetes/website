@@ -573,13 +573,21 @@ more information about how an object's schema is used to make decisions when
 merging, see
 [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
+A number of markers were added in Kubernetes 1.16 and 1.17, to allow API developers to describe the merge strategy supported by lists, maps, and structs. These markers can be applied to objects of the respective type, in Go files or OpenAPI specs.
+
+| Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
+|---|---|---|---|---|
+| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `atomic` and `set` apply to lists with scalar elements only. `map` applies to lists of nested types only. If configured as `atomic`, the entire list is replaced during merge; a single manager manages the list as a whole at any one time. If `granular`, different managers can manage entries separately. | 1.16          |
+| `//+listMapKeys` | `x-kubernetes-list-map-keys` | Slice of map keys that uniquely identify entries e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A slice of strings whose values in combination must uniquely identify list entries. | 1.16 |
+| `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. | 1.17 |
+| `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.| 1.17 |
+
 ### Custom Resources
 
 By default, Server Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
-If the validation field is specified in the Custom Rseource Definition, it is
+If the validation field is specified in the Custom Resource Definition, it is
 used when merging objects of this type.
-
 
 ### Using Server-Side Apply in a controller
 
