@@ -62,6 +62,12 @@ To use priority and preemption in Kubernetes 1.11 and later, follow these steps:
 
 Keep reading for more information about these steps.
 
+{{< note >}}
+Kubernetes already ships with two PriorityClasses:
+`system-cluster-critical` and `system-node-critical`.
+These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+{{< /note >}}
+
 If you try the feature and then decide to disable it, you must remove the
 PodPriority command-line flag or set it to `false`, and then restart the API
 server and scheduler. After the feature is disabled, the existing Pods keep
