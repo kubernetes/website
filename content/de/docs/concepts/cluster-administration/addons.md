@@ -34,7 +34,7 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 * [Romana](http://romana.io) ist eine Layer 3 Network-Lösung für Pod-Netzwerke welche auch die [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) unterstützt. Details zur Installation als kubeadm Add-On sind [hier](https://github.com/romana/romana/tree/master/containerize) verfügbar.
 * [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) bietet Networking and Network-Policies und arbeitet auf beiden Seiten der Network-Partition ohne auf eine externe Datenbank angwiesen zu sein.
 
-## Service Discovery
+## Service-Discovery
 
 * [CoreDNS](https://coredns.io) ist ein flexibler, erweiterbarer DNS-Server der in einem Cluster [installiert](https://github.com/coredns/deployment/tree/master/kubernetes) werden kann und das Cluster-interne DNS für Pods bereitzustellen.
 
