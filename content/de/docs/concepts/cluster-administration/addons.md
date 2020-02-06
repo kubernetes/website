@@ -20,7 +20,7 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 ## Networking und Network Policy
 
 * [ACI](https://www.github.com/noironetworks/aci-containers) bietet Container-Networking und Network-Security mit Cisco ACI.
-* [Calico](https://docs.projectcalico.org/latest/introduction/) ist ein Networking- und Network-Policy-Provider. Calico unterstützt eine Reihe von Networking-Optionen, damit Du die richtige für deinen Use-Case wählen kannst. Dies beinhaltet Non-Overlaying and Overlaying-Networks mit oder ohne BGP. Calico nutzt die gleiche Engine um Network-Policies for Hosts, Pods und (falls Du Istio & Envoy benutzt) Anwendungen auf Service-Mesh-Ebene durchzusetzen.
+* [Calico](https://docs.projectcalico.org/latest/introduction/) ist ein Networking- und Network-Policy-Provider. Calico unterstützt eine Reihe von Networking-Optionen, damit Du die richtige für deinen Use-Case wählen kannst. Dies beinhaltet Non-Overlaying and Overlaying-Networks mit oder ohne BGP. Calico nutzt die gleiche Engine um Network-Policies für Hosts, Pods und (falls Du Istio & Envoy benutzt) Anwendungen auf Service-Mesh-Ebene durchzusetzen.
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) vereint Flannel und Calico um Networking- und Network-Policies bereitzustellen.
 * [Cilium](https://github.com/cilium/cilium) ist ein L3 Network- and Network-Policy-Plugin welches das transparent HTTP/API/L7-Policies durchsetzen kann. Sowohl Routing- als auch Overlay/Encapsulation-Modes werden uterstützt. Außerdem kann Cilium auf andere CNI-Plugins aufsetzen.
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) ermöglicht das nahtlose Verbinden von Kubernetes mit einer Reihe an CNI-Plugins wie z.B. Calico, Canal, Flannel, Romana, oder Weave.
@@ -36,7 +36,6 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 
 ## Service Discovery
 
-* [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can be [installed](https://github.com/coredns/deployment/tree/master/kubernetes) as the in-cluster DNS for pods.
 * [CoreDNS](https://coredns.io) ist ein flexibler, erweiterbarer DNS-Server der in einem Cluster [installiert](https://github.com/coredns/deployment/tree/master/kubernetes) werden kann und das Cluster-interne DNS für Pods bereitzustellen.
 
 ## Visualization &amp; Control
