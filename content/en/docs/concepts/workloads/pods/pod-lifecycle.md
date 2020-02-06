@@ -67,8 +67,6 @@ array has six possible fields:
     balancing pools of all matching Services;
   * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
     have started successfully;
-  * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
-    due to lack of resources or other constraints;
   * `ContainersReady`: all containers in the Pod are ready.
 
 
