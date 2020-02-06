@@ -10,7 +10,7 @@ weight: 65
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-The TTL controller provides a TTL mechanism to limit the lifetime of resource
+The TTL controller provides a TTL (time to live) mechanism to limit the lifetime of resource
 objects that have finished execution. TTL controller only handles
 [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) for
 now, and may be expanded to handle other resources that will finish execution,
