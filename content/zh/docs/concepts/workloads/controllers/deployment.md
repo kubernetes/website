@@ -65,41 +65,48 @@ The following are typical use cases for Deployments:
 
 -->
 * [创建 Deployment 以展开 ReplicaSet ](#creating-a-deployment)。 ReplicaSet 在后台创建 Pods。检查 ReplicaSet 展开的状态，查看其是否成功。
+
 <!--
 
 * [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
 
 -->
 * [声明 Pod 的新状态](#updating-a-deployment) 通过更新 Deployment 的 PodTemplateSpec。将创建新的 ReplicaSet ，并且 Deployment 管理器以受控速率将 Pod 从旧 ReplicaSet 移动到新 ReplicaSet 。每个新的 ReplicaSet 都会更新 Deployment 的修改历史。
+
 <!--
 
 * [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
 
 -->
 * [回滚到较早的 Deployment 版本](#rolling-back-a-deployment)，如果 Deployment 的当前状态不稳定。每次回滚都会更新 Deployment 的修改。
+
 <!--
 
 * [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
 
 -->
 * [扩展 Deployment 以承担更多负载](#scaling-a-deployment).
+
 <!--
 
  * [Pause the Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
 
 -->
 * [暂停 Deployment ](#pausing-and-resuming-a-deployment) 对其 PodTemplateSpec 进行修改，然后恢复它以启动新的展开。
+
 <!--
 
  * [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck.
 -->
 * [使用 Deployment 状态](#deployment-status) 作为卡住展开的指示器。
+
 <!--
 
  * [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
 
 -->
 * [清理较旧的 ReplicaSets ](#clean-up-policy) ，那些不在需要的。
+
 <!--
  ## Creating a Deployment
 -->
@@ -123,10 +130,12 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
  * A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
 -->
 * 将创建名为 `nginx-deployment` 的 Deployment ，由 `.metadata.name` 字段指示。
+
 <!--
  * The Deployment creates three replicated Pods, indicated by the `replicas` field.
 -->
 *  Deployment 创建三个复制的 Pods，由 `replicas` 字段指示。
+
 <!--
  * The `selector` field defines how the Deployment finds which Pods to manage.
   In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
@@ -136,7 +145,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 * `selector` 字段定义 Deployment 如何查找要管理的 Pods。
   在这种情况下，只需选择在 Pod 模板（`app: nginx`）中定义的标签。但是，更复杂的选择规则是可能的，只要 Pod 模板本身满足规则。
     {{< note >}}
-    <!--
+<!--
  The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
     is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
     and the values array contains only "value".
@@ -149,32 +158,35 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
  * The `template` field contains the following sub-fields:
 -->
 * `template` 字段包含以下子字段：
-  <!--
+
+<!--
  * The Pods are labeled `app: nginx`using the `labels` field.
 -->
   * Pod 标记为`app: nginx`，使用`labels`字段。
-  <!--
+
+<!--
  * The Pod template's specification, or `.template.spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
 -->
   * Pod 模板规范或 `.template.spec` 字段指示 Pods 运行一个容器， `nginx`，运行 `nginx` [Docker Hub](https://hub.docker.com/)版本1.7.9的镜像 。
-  <!--
+
+<!--
  * Create one container and name it `nginx` using the `name` field.
 -->
   * 创建一个容器并使用`name`字段将其命名为 `nginx`。
 
-  <!--
+<!--
  Follow the steps given below to create the above Deployment:
 -->
   按照以下步骤创建上述 Deployment ：
 
-  <!--
+<!--
  Before you begin, make sure your Kubernetes cluster is up and running.
 -->
   开始之前，请确保的 Kubernetes 集群已启动并运行。
 
-  <!--
+<!--
  1. Create the Deployment by running the following command:
 -->
   1. 通过运行以下命令创建 Deployment ：
@@ -194,7 +206,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
     kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     ```
 
-  <!--
+<!--
  2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
 -->
   2. 运行 `kubectl get deployments` 以检查 Deployment 是否已创建。如果仍在创建 Deployment ，则输出以下内容：
@@ -202,11 +214,12 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         0         0            0           1s
     ```
-    <!--
+<!--
  When you inspect the Deployments in your cluster, the following fields are displayed:
 -->
     检查集群中的 Deployments 时，将显示以下字段：
-      <!--
+
+<!--
  * `NAME` lists the names of the Deployments in the cluster.
       * `DESIRED` displays the desired number of _replicas_ of the application, which you define when you create the Deployment. This is the _desired state_.
       * `CURRENT` displays how many replicas are currently running.
@@ -221,12 +234,12 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
       * `AVAILABLE`显示应用程序可供用户使用的副本数。
       * `AGE` 显示应用程序运行的时间量。
 
-    <!--
+<!--
  Notice how the number of desired replicas is 3 according to `.spec.replicas` field.
 -->
     请注意，根据`.spec.replicas`副本字段，所需副本的数量为 3。
 
-  <!--
+<!--
  3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`. The output is similar to this:
 -->
   3. 要查看 Deployment 展开状态，运行 `kubectl rollout status deployment.v1.apps/nginx-deployment`。输出：
@@ -235,7 +248,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
     deployment.apps/nginx-deployment successfully rolled out
     ```
 
-  <!--
+<!--
  4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
 -->
   4. 几秒钟后再次运行 `kubectl get deployments`。输出：
@@ -243,12 +256,12 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         3         3            3           18s
     ```
-    <!--
+<!--
  Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
 -->
     请注意， Deployment 已创建所有三个副本，并且所有副本都是最新的（它们包含最新的 Pod 模板）并且可用。
 
-  <!--
+<!--
  5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
 -->
   5. 要查看 Deployment 创建的 ReplicaSet  （`rs`），运行 `kubectl get rs`。输出：
@@ -256,13 +269,13 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-75675f5897   3         3         3       18s
     ```
-    <!--
+<!--
  Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
     	randomly generated and uses the pod-template-hash as a seed.
 -->
     请注意， ReplicaSet 的名称始终被格式化为`[DEPLOYMENT-NAME]-[RANDOM-STRING]`。随机字符串是随机生成并使用 pod-template-hash 作为种子。
 
-  <!--
+<!--
  6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`. The following output is returned:
 -->
   6. 要查看每个 Pod 自动生成的标签，运行 `kubectl get pods --show-labels`。返回以下输出：
@@ -272,13 +285,14 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
     nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
     nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
     ```
-    <!--
+
+<!--
  The created ReplicaSet ensures that there are three `nginx` Pods.
 -->
     创建的复制集可确保有三个 `nginx` Pods。
 
   {{< note >}}
-  <!--
+<!--
  You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
   `app: nginx`). Do not overlap labels or selectors with other controllers (including other Deployments and StatefulSets). Kubernetes doesn't stop you from overlapping, and if multiple controllers have overlapping selectors those controllers might conflict and behave unexpectedly.
 -->
@@ -334,7 +348,7 @@ is changed, for example if the labels or container images of the template are up
     ```shell
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
     ```
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -342,7 +356,7 @@ is changed, for example if the labels or container images of the template are up
     deployment.apps/nginx-deployment image updated
     ```
 
-    <!--
+<!--
  Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
 -->
     或者，可以 `edit`  Deployment 并将 `.spec.template.spec.containers[0].image` 从 `nginx:1.7.9` 更改至 `nginx:1.9.1`。
@@ -351,7 +365,7 @@ is changed, for example if the labels or container images of the template are up
     kubectl edit deployment.v1.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -368,14 +382,14 @@ is changed, for example if the labels or container images of the template are up
     kubectl rollout status deployment.v1.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
     ```
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
     ```
-    <!--
+<!--
  or
 -->
     或者
@@ -409,7 +423,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     kubectl get rs
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -428,7 +442,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     kubectl get pods
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
 输出：
@@ -439,24 +453,24 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     nginx-deployment-1564180365-z9gth   1/1       Running   0          14s
     ```
 
-    <!--
+<!--
  Next time you want to update these Pods, you only need to update the Deployment's Pod template again.
 -->
     下次要更新这些 Pods 时，只需再次更新 Deployment  Pod 模板。
 
-    <!--
+<!--
  Deployment ensures that only a certain number of Pods are down while they are being updated. By default,
     it ensures that at least 75% of the desired number of Pods are up (25% max unavailable).
 -->
      Deployment 可确保在更新时仅关闭一定数量的 Pods。默认情况下，它确保至少 75%所需 Pods 运行（25%最大不可用）。
 
-    <!--
+<!--
  Deployment also ensures that only a certain number of Pods are created above the desired number of Pods.
     By default, it ensures that at most 25% of the desired number of Pods are up (25% max surge).
 -->
      Deployment 还确保仅创建一定数量的 Pods 高于期望的 Pods 数。默认情况下，它可确保最多增加 25% 期望 Pods 数（25%最大增量）。
 
-    <!--
+ <!--
  For example, if you look at the above Deployment closely, you will see that it first created a new Pod,
     then deleted some old Pods, and created new ones. It does not kill old Pods until a sufficient number of
     new Pods have come up, and does not create new Pods until a sufficient number of old Pods have been killed.
@@ -471,7 +485,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   ```shell
   kubectl describe deployments
   ```
-  <!--
+<!--
  The output is similar to this:   
 -->
   输出：
@@ -513,7 +527,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
       Normal  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 3
       Normal  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 0
     ```
-    <!--
+<!--
  Here you see that when you first created the Deployment, it created a ReplicaSet (nginx-deployment-2035384211)
     and scaled it up to 3 replicas directly. When you updated the Deployment, it created a new ReplicaSet
     (nginx-deployment-1564180365) and scaled it up to 1 and then scaled down the old ReplicaSet to 2, so that at
@@ -618,7 +632,7 @@ rolled back.
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -635,7 +649,7 @@ rolled back.
     kubectl rollout status deployment.v1.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -660,7 +674,7 @@ rolled back.
     kubectl get rs
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -680,7 +694,7 @@ rolled back.
     kubectl get pods
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -693,7 +707,7 @@ rolled back.
     ```
 
     {{< note >}}
-    <!--
+<!--
  The Deployment controller stops the bad rollout automatically, and stops scaling up the new
     ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
     Kubernetes by default sets the value to 25%.
@@ -709,7 +723,7 @@ rolled back.
     kubectl describe deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:   
 -->
     输出：
@@ -753,7 +767,7 @@ rolled back.
       13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
     ```
 
-  <!--
+<!--
  To fix this, you need to rollback to a previous revision of Deployment that is stable.
 -->
   要解决此问题，需要回滚到以前稳定的 Deployment 版本。
@@ -775,7 +789,7 @@ rolled back.
     ```shell
     kubectl rollout history deployment.v1.apps/nginx-deployment
     ```
-    <!--
+<!--
  The output is similar to this:   
 -->
     输出：
@@ -787,12 +801,12 @@ rolled back.
     3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
     ```
 
-    <!--
+<!--
  `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
 -->
     `CHANGE-CAUSE` 从 Deployment 注释 `kubernetes.io/change-cause` 创建时复制到其修改版。可以通过以下条件指定 `CHANGE-CAUSE` 消息：
 
-    <!--
+<!--
  * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
     * Append the `--record` flag to save the `kubectl` command that is making changes to the resource.
     * Manually editing the manifest of the resource.
@@ -809,7 +823,7 @@ rolled back.
     kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
     ```
 
-    <!--
+<!--
  The output is similar to this:   
 -->
     输出：
@@ -845,14 +859,14 @@ Follow the steps given below to rollback the Deployment from the current version
     kubectl rollout undo deployment.v1.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:   
 -->
     输出：
     ```
     deployment.apps/nginx-deployment
     ```
-    <!--
+<!--
  Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 -->
     或者，可以通过使用 `--to-revision` 来回滚到特定修改版本：
@@ -861,7 +875,7 @@ Follow the steps given below to rollback the Deployment from the current version
     kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
     ```
 
-    <!--
+<!--
  The output is similar to this:   
 -->
     输出：
@@ -869,12 +883,12 @@ Follow the steps given below to rollback the Deployment from the current version
     deployment.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  For more details about rollout related commands, read [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
 -->
     更多有关回滚相关指令，请参考 [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
 
-    <!--
+<!--
  The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event
     for rolling back to revision 2 is generated from Deployment controller.
 -->
@@ -888,7 +902,7 @@ Follow the steps given below to rollback the Deployment from the current version
     kubectl get deployment nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:   
 -->
     输出：
@@ -896,6 +910,7 @@ Follow the steps given below to rollback the Deployment from the current version
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         3         3            3           30m
     ```
+
 <!--
  3. Get the description of the Deployment:
 -->
@@ -903,7 +918,7 @@ Follow the steps given below to rollback the Deployment from the current version
     ```shell
     kubectl describe deployment nginx-deployment
     ```
-    <!--
+<!--
  The output is similar to this:   
 -->
     输出：
@@ -956,6 +971,7 @@ Follow the steps given below to rollback the Deployment from the current version
 -->
 ## 缩放 Deployment
 
+
 <!--
  You can scale a Deployment by using the following command:
 -->
@@ -964,6 +980,7 @@ Follow the steps given below to rollback the Deployment from the current version
 ```shell
 kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
 ```
+
 <!--
  The output is similar to this:
 -->
@@ -983,6 +1000,7 @@ Pods you want to run based on the CPU utilization of your existing Pods.
 ```shell
 kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
 ```
+
 <!--
  The output is similar to this:
 -->
@@ -1016,7 +1034,8 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
   ```shell
   kubectl get deploy
   ```
-  <!--
+
+<!--
  The output is similar to this:
 -->
   输出：
@@ -1034,7 +1053,7 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1050,7 +1069,7 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
     ```shell
     kubectl get rs
     ```
-      <!--
+<!--
  The output is similar to this:
 -->
       输出：
@@ -1089,6 +1108,7 @@ kubectl get deploy
 NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment     15        18        7            8           7m
 ```
+
 <!--
  The rollout status confirms how the replicas were added to each ReplicaSet.
 -->
@@ -1127,7 +1147,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   ```shell
   kubectl get deploy
   ```
-  <!--
+<!--
  The output is similar to this:
 -->
   输出：
@@ -1135,14 +1155,16 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
   nginx     3         3         3            3           1m
   ```
-  <!--
+
+<!--
  Get the rollout status:
 -->
   获取 Deployment 状态：
   ```shell
   kubectl get rs
   ```
-  <!--
+
+<!--
  The output is similar to this:
 -->
   输出：
@@ -1159,7 +1181,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl rollout pause deployment.v1.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1175,7 +1197,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1191,7 +1213,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl rollout history deployment.v1.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1200,6 +1222,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     REVISION  CHANGE-CAUSE
     1   <none>
     ```
+
 <!--
  * Get the rollout status to ensure that the Deployment is updates successfully:
 -->
@@ -1208,7 +1231,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl get rs
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1225,7 +1248,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1233,7 +1256,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     deployment.apps/nginx-deployment resource requirements updated
     ```
 
-    <!--
+<!--
  The initial state of the Deployment prior to pausing it will continue its function, but new updates to
     the Deployment will not have any effect as long as the Deployment is paused.
 -->
@@ -1247,7 +1270,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl rollout resume deployment.v1.apps/nginx-deployment
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1262,7 +1285,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl get rs -w
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1283,6 +1306,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     nginx-2142116321   0         0         0         2m
     nginx-3926361531   3         3         3         20s
     ```
+
 <!--
  * Get the status of the latest rollout:
 -->
@@ -1291,7 +1315,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     kubectl get rs
     ```
 
-    <!--
+<!--
  The output is similar to this:
 -->
     输出：
@@ -1317,6 +1341,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 rolling out a new ReplicaSet, it can be [complete](#complete-deployment), or it can [fail to progress](#failed-deployment).
 -->
 一个 Deployment 的生命周期中会有许多状态。当正在生产新的 ReplicaSet 时可能是[正在运行](#progressing-deployment)，可能是[已完成](#complete-deployment)，也可能是[ Deployment 失败](#failed-deployment)。
+
 <!--
  ### Progressing Deployment
 -->
@@ -1358,10 +1383,12 @@ Kubernetes 将 Deployment 标记为 _完成_，当它具有以下特征时：
 updates you've requested have been completed.
 -->
 * 与 Deployment 关联的所有副本都已更新到指定的最新版本，这意味着请求的任何更新都已完成。
+
 <!--
  * All of the replicas associated with the Deployment are available.
 -->
 * 与 Deployment 关联的所有副本都可用。
+
 <!--
  * No old replicas for the Deployment are running.
 -->
@@ -1376,6 +1403,7 @@ successfully, `kubectl rollout status` returns a zero exit code.
 ```shell
 kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
+
 <!--
  The output is similar to this:
 -->
@@ -1396,7 +1424,7 @@ $ echo $?
  Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever completing. This can occur
 due to some of the following factors:
 -->
-的 Deployment 可能会在未完成的情况下尝试 Deployment 其最新的 ReplicaSet 时遇到问题。可能发生此情况由于以下一些因素：
+你的 Deployment 可能会在未完成的情况下尝试 Deployment 其最新的 ReplicaSet 时遇到问题。可能发生此情况由于以下一些因素：
 
 <!--
  * Insufficient quota
@@ -1430,6 +1458,7 @@ lack of progress for a Deployment after 10 minutes:
 ```shell
 kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
 ```
+
 <!--
  The output is similar to this:
 -->
@@ -1437,6 +1466,7 @@ kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadline
 ```
 deployment.apps/nginx-deployment patched
 ```
+
 <!--
  Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
 attributes to the Deployment's `.status.conditions`:
@@ -1480,6 +1510,7 @@ insufficient quota. If you describe the Deployment you will notice the following
 ```shell
 kubectl describe deployment nginx-deployment
 ```
+
 <!--
  The output is similar to this:
 -->
@@ -1846,6 +1877,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
  Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1` and `apps/v1beta1`, and is no longer supported in API versions starting `apps/v1beta2`. Instead, `kubectl rollout undo` as introduced in [Rolling Back to a Previous Revision](#rolling-back-to-a-previous-revision) should be used.
 -->
 `.spec.rollbackTo` 字段已经在 API 版本 `extensions/v1beta1` 和 `apps/v1beta1`中废弃了，并且从 `apps/v1beta2`版本开始不在支持。相应的，会开始使用已经引入[回滚到上一个版本](#rolling-back-to-a-previous-revision)中的 `kubectl rollout undo`。
+
 <!--
  ### Revision History Limit
 -->
@@ -1894,6 +1926,7 @@ it is created.
 <!--
  [`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) updates Pods and ReplicationControllers
 -->
+
 <!--
  in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
 additional features, such as rolling back to any previous revision even after the rolling update is done.
