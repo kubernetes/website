@@ -1,6 +1,7 @@
 ---
 title: Using Source IP
 content_template: templates/tutorial
+min-kubernetes-server-version: v1.5
 ---
 
 {{% capture overview %}}
@@ -14,9 +15,7 @@ of Services, and how you can toggle this behavior according to your needs.
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-## Terminology
+### Terminology
 
 This document makes use of the following terms:
 
@@ -27,10 +26,11 @@ This document makes use of the following terms:
 * [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): a network daemon that orchestrates Service VIP management on every node
 
 
-## Prerequisites
+### Prerequisites
 
-You must have a working Kubernetes 1.5 cluster to run the examples in this
-document. The examples use a small nginx webserver that echoes back the source
+{{< include "task-tutorial-prereqs.md" >}}
+
+The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
 ```console
