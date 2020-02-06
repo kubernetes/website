@@ -6,9 +6,8 @@ content_template: templates/concept
 {{% capture overview %}}
 
 
-Add-ons erweitern die Funktionalität von Kubernetes.
+Add-Ons erweitern die Funktionalität von Kubernetes.
 
-This page lists some of the available add-ons and links to their respective installation instructions.
 Diese Seite gibt eine Übersicht über einige verfügbare Add-Ons und verweist auf die entsprechenden Installationsanleitungen.
 
 Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenfolge impliziert keine bevorzugung einzelner Projekte.
@@ -49,7 +48,7 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 
 * [KubeVirt](https://kubevirt.io/user-guide/docs/latest/administration/intro.html#cluster-side-add-on-deployment) ist ein Add-On um Virtuelle Maschinen in Kubernetes auszuführen. Wird typischer auf Bare-Metal Clustern eingesetzt.
 
-## Legacy Add-ons
+## Legacy Add-Ons
 
 Es gibt einige weitere Add-Ons die in dem abgekündigten [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons)-Verzeichnis dokumentiert sind.
 
