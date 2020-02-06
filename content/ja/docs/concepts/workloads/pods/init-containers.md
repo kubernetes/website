@@ -91,7 +91,7 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-古いアノテーション構文がKubernetes1.6と1.7において有効ですが、1.6では新しい構文にも対応しています。Kubernetes1.8以降では新しい構文はを使用する必要があります。KubernetesではInitコンテナの宣言を`spec`に移行させました。
+古いアノテーション構文がKubernetes1.6と1.7において有効ですが、1.6では新しい構文にも対応しています。Kubernetes1.8以降では新しい構文を使用する必要があります。KubernetesではInitコンテナの宣言を`spec`に移行させました。
 
 ```yaml
 apiVersion: v1
