@@ -40,6 +40,7 @@ applications, such as key-value stores (such as Redis) and databases.
 ## 为 Pod 配置卷
 
 在本练习中，您将创建一个运行 Pod，该 Pod 仅运行一个容器并拥有一个类型为 [emptyDir](/docs/concepts/storage/volumes/#emptydir) 的卷，在整个 Pod 生命周期中一直存在，即使 Pod 中的容器被终止和重启。以下是 Pod 的配置：
+
 <!--
 ## Configure a volume for a Pod
 
@@ -185,6 +186,7 @@ of `Always`.
 * 参阅 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)。
 
 * 除了 `emptyDir` 提供的本地磁盘存储外，Kubernetes 还支持许多不同的网络附加存储解决方案，包括 GCE 上的 PD 和 EC2 上的 EBS，它们是关键数据的首选，并将处理节点上的一些细节，例如安装和卸载设备。了解更多详情请参阅[卷](/docs/concepts/storage/volumes/)。
+
 <!--
 * See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 

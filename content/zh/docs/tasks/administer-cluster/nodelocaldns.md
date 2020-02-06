@@ -120,6 +120,7 @@ This works for e2e clusters created on GCE. On all other environments, the follo
 * A yaml similar to [this](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) can be applied using `kubectl create -f` command.
 -->
 * 可以使用 `kubectl create -f` 命令应用类似于[这个](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml)的 Yaml 。
+
 <!--
 * --cluster-dns flag to kubelet needs to be modified to use the LOCAL_DNS IP that NodeLocal DNSCache is listening on (169.254.20.10 by default)
 -->
