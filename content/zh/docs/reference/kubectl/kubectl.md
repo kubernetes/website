@@ -529,6 +529,7 @@ kubectl [flags]
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - 以“组/版本”的格式输出服务端所支持的 API 版本
 * [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply)	 - 基于文件名或标准输入，将新的配置应用到资源上
 * [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands#attach)	 - 连接到一个正在运行的容器
+
 <!--
 * [kubectl auth](/docs/reference/generated/kubectl/kubectl-commands#auth)	 - Inspect authorization
 * [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
@@ -543,6 +544,7 @@ kubectl [flags]
 * [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - 显示集群信息
 * [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - 根据已经给出的 Shell（bash 或 zsh），输出 Shell 补全后的代码
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - 修改 kubeconfig 配置文件
+
 <!--
 * [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	 - Convert config files between different API versions
 * [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - Mark node as unschedulable
@@ -555,6 +557,7 @@ kubectl [flags]
 * [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - 将文件和目录拷入/拷出容器。
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - 通过文件或标准输入来创建资源
 * [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - 通过文件名、标准输入、资源和名字删除资源，或者通过资源和标签选择器来删除资源
+
 <!--
 * [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Show details of a specific resource or group of resources
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
@@ -571,6 +574,7 @@ kubectl [flags]
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - 在容器中执行相关命令
 * [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - 显示资源文档说明
 * [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - 给定副本控制器、服务、Deployment 或 Pod，将其暴露为新的 kubernetes Service
+
 <!--
 * [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	 - Display one or many resources
 * [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	 - Build a kustomization target from a directory or a remote url.
@@ -585,6 +589,7 @@ kubectl [flags]
 * [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - 输出 pod 中某容器的日志
 * [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - 打印所有命令都支持的共有参数列表
 * [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - 基于策略性合并修补（Stategic Merge Patch）规则更新某资源中的字段
+
 <!--
 * [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - Provides utilities for interacting with plugins.
 * [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - Forward one or more local ports to a pod
@@ -599,6 +604,7 @@ kubectl [flags]
 * [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	 - 基于文件名或标准输入替换资源
 * [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	 - 管理资源的上线
 * [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	 - 在集群中使用指定镜像启动容器
+
 <!--
 * [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job
 * [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - Set specific features on objects
