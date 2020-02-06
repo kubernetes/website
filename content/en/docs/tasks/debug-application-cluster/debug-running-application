@@ -1,0 +1,42 @@
+---
+title: Debugging Running Kubernetes Applications from the terminal or IDE
+
+content_template: templates/task
+---
+
+{{% capture overview %}}
+
+Debugging microservices applications is a difficult task because the application state is spread across multiple processes on different nodes making it hard to get the holistic view of an application’s state. Various tools exist for monitoring latency and troubleshooting (i.e. Istio and OpenTracing) but they are passive tools and do not allow for altering the application during run time. 
+
+In contrast, the traditional debugging tools for monolithic applications provide developers with powerful real-time investigation features, including the ability to set breakpoints throughout the application, follow variable values on the fly, step through the code, and change values during run time.
+
+[Squash](https://squash.solo.io) is an open source project that brings the power of traditional tools to microservices developers. [Squash](https://squash.solo.io) bridges between the applications running in a Kubernetes environment (without modifying them) and the IDE. Developers can choose which containers, pods, services or images they are interested in debugging, and are allowed to set breakpoints in their code, follow values of their variables on the fly, step through the code while jumping between microservices, and change these values during run time.
+
+This document describes how Squash works to debug a running Kubernetes application with links to more information.
+
+{{% /capture %}}
+
+{{% capture body %}}
+
+## Key Concepts of Squash
+
+Squash consists of three distinct processes
+* Local interface: squashctl (via terminal or IDE extension)
+* Debugger session manager: “Plank” pod - an in-cluster pod spawned on demand for managing a particular debug session
+* RBAC expression process: “Squash” pod - (secure-mode only) an in-cluster pod that spawns Plank pods on the user’s behalf according to their RBAC permissions. Typically configured by system admin.
+
+## Using Squash to Debug a Running Applicaton 
+To start using the debugger, make sure it is running on the same node as the processes you want to debug and have those processes visible to it.
+
+To install with Homebrew package manager using the following command.
+
+`brew install solo-io/tap/squashctl`
+
+Or go to our [releases page](https://https://github.com/solo-io/squash/releases) to download the latest bits and add `squashctl` to your $PATH TO start using https://github.com/solo-io/squash/releases
+
+To start debugging, you will select a process though a Squash interface and that will trigger the creation of a Plank pod, which determines which PID to debug. Squash will then attach a debugger to the target PID and will expose the debugger to you.Depending on the language and your preferences, the debugger interface can bbe exposed directly in an IDE, terminal-based interactive debugger, or as a local port to attach to a preferred debugging interface.
+
+## Next Steps
+Visit the [Squash Docs](https://squash.solo.io/) for a tutorial and watch this [demo from KubeCon](https://https://www.youtube.com/watch?v=jkcFFr8lLTA&list=PLBOtlFtGznBieXBZ4gJCHSCeIiZazyDgD&index=3).
+
+{{% /capture %}}
