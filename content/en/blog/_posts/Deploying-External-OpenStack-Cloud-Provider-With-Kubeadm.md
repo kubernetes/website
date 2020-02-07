@@ -365,7 +365,7 @@ ProviderID:                  openstack:///548e3c46-2477-4ce2-968b-3de1314560a5
 ```
 Now install your favourite CNI and the control-plane node will become ready.
 
-For example, to install weave net, run this command:
+For example, to install Weave Net, run this command:
 ```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
