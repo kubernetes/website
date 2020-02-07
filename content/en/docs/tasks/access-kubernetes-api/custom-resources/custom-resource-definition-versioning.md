@@ -5,6 +5,7 @@ reviewers:
 - liggitt
 content_template: templates/task
 weight: 30
+min-kubernetes-server-version: v1.16
 ---
 
 {{% capture overview %}}
@@ -16,19 +17,17 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
-* Make sure your Kubernetes cluster has a master version of 1.16.0 or higher for `apiextensions.k8s.io/v1`, or 1.11.0 or higher for `apiextensions.k8s.io/v1beta1`.
+You should have a initial understanding of [custom resources](/docs/concepts/api-extension/custom-resources/).
 
-* Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
+{{< version-check >}}
 
 {{% /capture %}}
 
 {{% capture steps %}}
 
 ## Overview
-
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
 
 The CustomResourceDefinition API provides a workflow for introducing and upgrading
 to new versions of a CustomResourceDefinition.
