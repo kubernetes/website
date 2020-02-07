@@ -238,7 +238,7 @@ Taints:             node-role.kubernetes.io/master:NoSchedule
 ```
 Now deploy the OpenStack cloud controller manager into the cluster, following [using controller manager with kubeadm](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-controller-manager-with-kubeadm.md).
 
-Create a secret with cloud-config for openstack cloud provider. 
+Create a secret with the cloud-config for the openstack cloud provider. 
 ```shell
 kubectl create secret -n kube-system generic cloud-config --from-literal=cloud.conf="$(cat /etc/kubernetes/cloud-config)" --dry-run -o yaml > cloud-config-secret.yaml
 kubectl apply -f cloud-config-secret.yaml 
