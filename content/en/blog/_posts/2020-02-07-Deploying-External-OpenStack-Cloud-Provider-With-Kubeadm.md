@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Deploying External OpenStack Cloud Provider with Kubeadm"
-date: 2020-01-20
+date: 2020-02-07
 slug: Deploying-External-OpenStack-Cloud-Provider-with-Kubeadm
 ---
 This document describes how to install a single control-plane Kubernetes cluster v1.15 with kubeadm on CentOS, and then deploy an external OpenStack cloud provider and Cinder CSI plugin to use Cinder volumes as persistent volumes in Kubernetes.
