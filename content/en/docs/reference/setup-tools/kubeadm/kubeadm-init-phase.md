@@ -157,6 +157,8 @@ dns:
   type: "kube-dns"
 ```
 
+Please note that kube-dns usage with kubeadm is deprecated as of v1.18 and will be removed in a future release.
+
 For more details on each field in the `v1beta2` configuration you can navigate to our
 [API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
 
