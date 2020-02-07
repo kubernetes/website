@@ -62,7 +62,7 @@ hostnamectl set-hostname master1
 ```
 ### Install Docker and Kubernetes
 
-Next, we'll follow official documents to install docker and Kubernetes using kubeadm.
+Next, we'll follow the official documents to install docker and Kubernetes using kubeadm.
 
 Install Docker following the steps from the [container runtime](/docs/setup/production-environment/container-runtimes/) documentation.
 
