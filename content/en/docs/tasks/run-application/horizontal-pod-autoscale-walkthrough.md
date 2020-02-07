@@ -62,14 +62,19 @@ It defines an index.php page which performs some CPU intensive computations:
 ?>
 ```
 
-First, we will start a deployment running the image and expose it as a service:
+First, we will start a deployment running the image and expose it as a service
+using the following configuration:
 
+{{< codenew file="application/php-apache.yaml" >}}
+
+
+Run the following command:
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80  --generator=run-pod/v1
+kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
 ```
-service/php-apache created
 deployment.apps/php-apache created
+service/php-apache created
 ```
 
 ## Create Horizontal Pod Autoscaler
