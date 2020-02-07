@@ -10,7 +10,7 @@ This document describes how to install a single control-plane Kubernetes cluster
 
 This cluster runs on OpenStack VMs, so let's create a few things in OpenStack first.
 
-* A project/tenant for this Kubernetes cluster.
+* A project/tenant for this Kubernetes cluster
 * A user in this project for Kubernetes, to query node information and attach volumes etc
 * A private network and subnet
 * A router for this private network and connect it to a public network for floating IPs
