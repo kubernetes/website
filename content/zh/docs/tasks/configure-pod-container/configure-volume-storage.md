@@ -150,10 +150,10 @@ of `Always`.
 -->
 
 1. 用 shell 终端进入重新启动的容器中：
-
 <!--
 1.Get a shell into the restarted Container:
 -->
+
     ```shell
     kubectl exec -it redis -- /bin/bash
     ```
@@ -162,6 +162,7 @@ of `Always`.
 <!--
 1.In your shell, goto `/data/redis`, and verify that `test-file` is still there.
 -->
+
     ```shell
     root@redis:/data/redis# cd /data/redis/
     root@redis:/data/redis# ls
@@ -169,10 +170,10 @@ of `Always`.
     ```
 
 1. 删除为此练习所创建的 Pod：
-
 <!--
 1.Delete the Pod that you created for this exercise:
 -->
+
     ```shell
     kubectl delete pod redis
     ```
