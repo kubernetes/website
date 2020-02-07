@@ -8,7 +8,7 @@ menu:
     weight: 10
     post: >
       <p>手を動かす準備はできていますか？本チュートリアルでは、Node.jsを使った簡単な"Hello World"を実行するKubernetesクラスタをビルドします。</p>
-card:
+card: 
   name: tutorials
   weight: 10
 ---
@@ -61,7 +61,7 @@ card:
 
 3. Katacoda環境のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
 
-4. Katacoda環境のみ：`30000`を入力し、**Display Port**をクリックしてください。
+4. Katacoda環境のみ：`30000`を入力し、**Display Port**をクリックしてください。 
 
 ## Deploymentの作成
 
@@ -109,7 +109,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
     ```shell
     kubectl config view
     ```
-
+  
     {{< note >}} `kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。{{< /note >}}
 
 ## Serviceの作成
@@ -121,7 +121,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-
+    
     `--type=LoadBalancer`フラグはServiceをクラスタ外部に公開したいことを示しています。
 
 2. 作成したServiceを確認します:
@@ -139,7 +139,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
     ```
 
     ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスが提供されます。
-    Minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。
+    Minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。    
 
 3. 次のコマンドを実行します:
 
@@ -182,13 +182,13 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
     registry-creds: disabled
     storage-provisioner: enabled
     ```
-
+   
 2. ここでは例として`heapster`のアドオンを有効化します:
 
     ```shell
     minikube addons enable heapster
     ```
-
+  
     出力:
 
     ```shell

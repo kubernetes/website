@@ -17,8 +17,8 @@ weight: 40
 
 - ノード: Kubernetes内のワーカーマシンで、クラスターの一部です。
 
-- クラスター: Kubernetesによって管理されているコンテナ化されたアプリケーションを実行させるノードのセットです。この例や、多くのKubernetesによるデプロイでは、クラスター内のノードはパブリックインターネットとして公開されていません。
-
+- クラスター: Kubernetesによって管理されているコンテナ化されたアプリケーションを実行させるノードのセットです。この例や、多くのKubernetesによるデプロイでは、クラスター内のノードはパブリックインターネットとして公開されていません。  
+  
 - エッジルーター: クラスターでファイアウォールのポリシーを強制するルーターです。エッジルーターはクラウドプロバイダーやハードウェアの物理的な一部として管理されたゲートウェイとなります。
 
 - クラスターネットワーク: 物理的または論理的なリンクのセットで、Kubernetesの[ネットワークモデル](/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
@@ -74,8 +74,8 @@ spec:
           servicePort: 80
 ```
 
-他の全てのKubernetesリソースと同様に、Ingressは`apiVersion`、`kind`や`metadata`フィールドが必要です。設定ファイルの利用に関する一般的な情報は、[アプリケーションのデプロイ](/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナーの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。
-Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを使うことが多いです。その例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。
+他の全てのKubernetesリソースと同様に、Ingressは`apiVersion`、`kind`や`metadata`フィールドが必要です。設定ファイルの利用に関する一般的な情報は、[アプリケーションのデプロイ](/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナーの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。  
+Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを使うことが多いです。その例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。  
 [Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶために、ユーザーが使用するIngressコントローラーのドキュメントを確認してください。
 
 Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)は、ロードバランサーやプロキシーサーバーを設定するために必要な全ての情報を持っています。最も重要なものとして、外部からくる全てのリクエストに対して一致したルールのリストを含みます。IngressリソースはHTTPトラフィックに対してのルールのみサポートしています。
@@ -392,7 +392,6 @@ Ingressと関連するリソースの今後の開発については[SIG Network]
 Ingressリソースに直接関与しない複数の方法でServiceを公開できます。
 
 下記の2つの使用を検討してください。
-
 * [Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)
 * [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)
 

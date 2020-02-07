@@ -139,7 +139,7 @@ macOSで[Homebrew](https://brew.sh/)パッケージマネージャーを使用�
 1. インストールコマンドを実行してください:
 
     ```
-    brew install kubectl
+    brew install kubectl 
     ```
     または
 
