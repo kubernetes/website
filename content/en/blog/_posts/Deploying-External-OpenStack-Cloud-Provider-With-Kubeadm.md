@@ -66,7 +66,7 @@ Next, we'll follow the official documents to install docker and Kubernetes using
 
 Install Docker following the steps from the [container runtime](/docs/setup/production-environment/container-runtimes/) documentation.
 
-Note that it is best practice to use systemd as the cgroup driver for Kubernetes.
+Note that it is a [best practice to use systemd as the cgroup driver](/docs/setup/production-environment/container-runtimes/#cgroup-drivers) for Kubernetes.
 If you use internal repository servers, add them to docker's config too.
 ```shell
 # Install Docker CE
