@@ -184,7 +184,7 @@ networking:
   dnsDomain: "cluster.local"
 ```
 
-Now we'll create cloud config, `/etc/kubernetes/cloud-config`, for OpenStack. 
+Now we'll create the cloud config, `/etc/kubernetes/cloud-config`, for OpenStack. 
 Note that the tenant here is the one we created for all Kubernetes VMs in the beginning.
 All VMs should be launched in this project/tenant.
 In addition you need to create a user in this tenant for Kubernetes to do queries.
