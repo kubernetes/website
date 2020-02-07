@@ -46,7 +46,7 @@ kube-scheduler [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!-- 
-      If true, adds the file directory to the header
+      If true, adds the file directory to the header of the log messages
       -->
       如果为 true，则将文件目录添加到标题中
       </td>

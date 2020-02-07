@@ -58,7 +58,7 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      If true, adds the file directory to the header
+      If true, adds the file directory to the header of the log messages
       -->
       设置为 true 表示添加文件目录到 header 中
       </td>
