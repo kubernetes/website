@@ -252,7 +252,7 @@ kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/rele
 kubectl apply -f https://github.com/kubernetes/cloud-provider-openstack/raw/release-1.15/cluster/addons/rbac/cloud-controller-manager-role-bindings.yaml
 ```
 
-We'll run OpenStack cloud controller manager as a DaemonSet rather than a pod.
+We'll run the OpenStack cloud controller manager as a DaemonSet rather than a pod.
 The manager will only run on the control-plane node, so if there are multiple control-plane nodes, multiple pods will be run for high availability.
 Create `openstack-cloud-controller-manager-ds.yaml` containing the following manifests, then apply it.
 
