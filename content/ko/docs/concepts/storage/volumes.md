@@ -7,7 +7,7 @@ weight: 10
 {{% capture overview %}}
 
 컨테이너 내의 디스크에 있는 파일은 임시적이며, 컨테이너에서 실행될 때
-애플리케이션에 적지 않은 몇 가지 문제가 발생한다. 첫째, 컨테이너가 충돌되면
+애플리케이션에 적지 않은 몇 가지 문제가 발생한다. 첫째, 컨테이너가 충돌되면,
 kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
 시작되기 때문에 파일이 사라진다. 둘째, `파드` 에서 컨테이너를 함께 실행할 때 
 컨테이너 사이에 파일을 공유해야 하는 경우가 자주 발생한다. 쿠버네티스의
@@ -24,21 +24,21 @@ kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
 
 도커는 다소 느슨하고, 덜 관리되지만 
 [볼륨](https://docs.docker.com/engine/admin/volumes/)이라는
-개념을 가지고 있다. 도커에서 볼륨은 단순한 디스크 또는
+개념을 가지고 있다. 도커에서 볼륨은 단순한 디스크 내 디렉터리 또는
 다른 컨테이너에 있는 디렉터리다.  수명은 관리되지 않으며 최근까지는
 로컬 디스크 백업 볼륨만 있었다. 도커는 이제 볼륨 드라이버를
 제공하지만, 현재 기능은 매우 제한되어 있다(예: 도커 1.7부터
 컨테이너 당 하나의 볼륨 드라이버만 허용되고 매개 변수를 볼륨에
 전달할 방법이 없다).
 
-반면에, 쿠버네티스 볼륨은 파드를 둘러싸는 것과
-동일한 명시적인 수명을 가진다. 그 결과로 볼륨은 파드 내에서 실행되는 모든 컨테이너보다
+반면에, 쿠버네티스 볼륨은 그것을 둘러싼 파드와
+동일한 명시적인 수명을 가진다. 그 결과로, 볼륨은 파드 내에서 실행되는 모든 컨테이너보다
 수명이 길고, 컨테이너를 다시 시작해도 데이터가 보존된다. 물론 파드가
 존재하지 않으면, 볼륨도 존재하지 않는다. 이보다 더 중요한 것은
 쿠버네티스가 많은 유형의 볼륨을 지원하고, 파드는
 여러 볼륨을 동시에 사용할 수 있다.
 
-기본적으로 볼륨은 디렉터리일 뿐이며, 일부 데이터가 있을 수 있고, 파드
+기본적으로 볼륨은 디렉터리일 뿐이며, 일부 데이터가 있을 수 있으며, 파드
 내 컨테이너에서 접근할 수 있다.  디렉터리의 생성 방식, 이를 지원하는
 매체와 내용은 사용된 특정 볼륨의 유형에 따라
 결정된다.
@@ -49,11 +49,11 @@ kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
 `.spec.containers[*].volumeMounts`
 필드)를 지정한다.
 
-컨테이너내 프로세스는 도커 이미지와 볼륨으로 구성된 파일시스템
+컨테이너 내 프로세스는 도커 이미지와 볼륨으로 구성된 파일시스템 뷰를
 보기를 한다.  [도커
 이미지](https://docs.docker.com/userguide/dockerimages/)는 파일
 시스템 계층의 루트에 있으며 모든 볼륨은 이미지 내에 지정된 경로에
-마운트된다.  볼륨은 다른 볼륨에 마운트할 수 없거나 다른 볼륨에 대한 하드 링크(hard links)를
+마운트된다.  볼륨은 다른 볼륨에 마운트할 수 없거나 다른 볼륨에 대한 하드 링크를
 가질 수 없다. 파드 내 각각의 컨테이너는 각각의 볼륨을 마운트 할 위치를 독립적으로
 지정해야 한다.
 
@@ -102,10 +102,10 @@ kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
 할 수 있다.
 
 {{< caution >}}
-사용하려면 먼저 `aws ec2 create-volume` 또는 AWS API를 사용해서 EBS 볼륨을 생성해야 한다.
+이를 사용하려면 먼저 `aws ec2 create-volume` 또는 AWS API를 사용해서 EBS 볼륨을 생성해야 한다.
 {{< /caution >}}
 
-`awsElasticBlockStore` 볼륨을 사용할 때 몇가지 제한이 있다.
+`awsElasticBlockStore` 볼륨을 사용할 때 몇 가지 제한이 있다.
 
 * 파드가 실행 중인 노드는 AWS EC2 인스턴스여야 함
 * 이러한 인스턴스는 EBS 볼륨과 동일한 지역과 가용성 영역에 있어야 함
@@ -113,7 +113,7 @@ kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
 
 #### EBS 볼륨 생성하기
 
-파드와 함께 EBS 볼륨을 사용하려면 먼저 생성해야 한다.
+파드와 함께 EBS 볼륨을 사용하려면, 먼저 EBS 볼륨을 생성해야 한다.
 
 ```shell
 aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
@@ -138,7 +138,7 @@ spec:
       name: test-volume
   volumes:
   - name: test-volume
-    # 이 AWS EBS 볼륨은 먼저 있어야 한다.
+    # 이 AWS EBS 볼륨은 이미 존재해야 한다.
     awsElasticBlockStore:
       volumeID: <volume-id>
       fsType: ext4
@@ -148,9 +148,9 @@ spec:
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-awsElasticBlockStore 의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내 플러그인에서
+awsElasticBlockStore 의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면 클러스터에 [AWS EBS CSI
+드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [AWS EBS CSI
 드라이버](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAWS`
 베타 기능을 활성화 해야 한다.
@@ -158,7 +158,7 @@ awsElasticBlockStore 의 CSI 마이그레이션 기능이 활성화된 경우 �
 #### CSI 마이그레이션 완료
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
-awsElasticBlockStore 스토리지 플러그인이 컨트롤러 매니저와 kubelet에 의해 로드되지 않도록 끄려면, 이 기능 플래그를 true로 설정해야 한다. 이는 모든 워커 노드에서 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버의 설치를 필요로 한다.
+컨트롤러 매니저와 kubelet에 의해 로드되지 않도록 awsElasticBlockStore 스토리지 플러그인을 끄려면, 이 기능 의 플래그를 true로 설정해야 한다. 이는 모든 워커 노드에서 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버 설치를 필요로 한다.
 
 ### azureDisk {#azuredisk}
 
@@ -170,9 +170,9 @@ awsElasticBlockStore 스토리지 플러그인이 컨트롤러 매니저와 kube
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-azureDisk의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내 플러그인에서
+azureDisk의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `disk.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면 클러스터에 [Azure 디스크 CSI
+드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 디스크 CSI
 드라이버](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAzureDisk`
 알파 기능을 활성화 해야 한다.
@@ -190,22 +190,22 @@ azureDisk의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 
 
 azureFile의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내 플러그인에서
 `file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면 클러스터에 [Azure 파일 CSI
+드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 파일 CSI
 드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAzureFile`
 알파 기능을 활성화 해야 한다.
 
 ### cephfs {#cephfs}
 
-`cephfs` 볼륨을 사용하면 기존 CephFS 볼륨을
-파드에 마운트 할수 있다. 파드를 제거할 때 지워지는 `emptyDir`
+`cephfs` 볼륨은 기존 CephFS 볼륨을
+파드에 마운트 할 수 있다. 파드를 제거할 때 지워지는 `emptyDir`
 와는 다르게 cephfs 볼륨의 내용은 유지되고, 볼륨은 그저 마운트
 해제만 된다.  이 의미는 `cephfs` 볼륨에 데이터를 미리 채울 수 있으며,
-파드간에 데이터를 "전달(handed off)" 할 수 있다.  CephFS는 여러 작성자가
+파드 간에 데이터를 "전달(handed off)" 할 수 있다.  CephFS는 여러 작성자가
 동시에 마운트할 수 있다.
 
 {{< caution >}}
-사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 내보내야 한다.
+CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 내보내야 한다.
 {{< /caution >}}
 
 더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)를 본다.
