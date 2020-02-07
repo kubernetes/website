@@ -105,7 +105,7 @@ spec:
 
 - Huge page requests must equal the limits. This is the default if limits are
   specified, but requests are not.
-- Huge pages are isolated at a container scope.
+- Huge pages are isolated at a container scope, so each container has own limit on their cgroup sandbox as requested in a container spec.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
