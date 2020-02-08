@@ -462,13 +462,13 @@ Celles-ci ne sont pas configurables pour le moment et diffèrent selon le pilote
 Le partage de dossier hôte n'est pas encore implémenté dans le pilote KVM.
 {{< /note >}}
 
-| Pilote        | OS      | HostFolder | VM        |
-|---------------|---------|------------|-----------|
-| VirtualBox    | Linux   | /home      | /hosthome |
-| VirtualBox    | macOS   | /Users     | /Users    |
-| VirtualBox    | Windows | C://Users  | /c/Users  |
-| VMware Fusion | macOS   | /Users     | /Users    |
-| Xhyve         | macOS   | /Users     | /Users    |
+| Pilote        | OS      | HostFolder  | VM          |
+|---------------|---------|-------------|-------------|
+| VirtualBox    | Linux   | ``/home``   |``/hosthome``|
+| VirtualBox    | macOS   | ``/Users``  |``/Users``   |
+| VirtualBox    | Windows | ``C:/Users``|``/c/Users`` |
+| VMware Fusion | macOS   | ``/Users``  |``/Users``   |
+| Xhyve         | macOS   | ``/Users``  |``/Users``   |
 
 ## Registres de conteneurs privés
 

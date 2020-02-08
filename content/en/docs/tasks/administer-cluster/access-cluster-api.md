@@ -88,13 +88,13 @@ directly to the API server, like this:
 Using `grep/cut` approach:
 
 ```shell
-# Check all possible clusters, as you .KUBECONFIG may have multiple contexts:
+# Check all possible clusters, as your .KUBECONFIG may have multiple contexts:
 kubectl config view -o jsonpath='{"Cluster name\tServer\n"}{range .clusters[*]}{.name}{"\t"}{.cluster.server}{"\n"}{end}'
 
 # Select name of cluster you want to interact with from above output:
 export CLUSTER_NAME="some_server_name"
 
-# Point to the API server refering the cluster name
+# Point to the API server referring the cluster name
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
 # Gets the token value
@@ -215,7 +215,7 @@ for i in ret.items:
 
 #### Java client
 
-* To install the [Java Client](https://github.com/kubernetes-client/java), simply execute : 
+* To install the [Java Client](https://github.com/kubernetes-client/java), simply execute :
 
 ```shell
 # Clone java library
@@ -382,7 +382,7 @@ securely with the API server.
 #### Directly accessing the REST API
 
 While running in a Pod, the Kubernetes apiserver is accessible via a Service named
-`kubernetes` in the `default` namespace. Therefore, Pods can use the 
+`kubernetes` in the `default` namespace. Therefore, Pods can use the
 `kubernetes.default.svc` hostname to query the API server. Official client libraries
 do this automatically.
 

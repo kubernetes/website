@@ -83,7 +83,7 @@ Sebelum kamu dapat menggunakan sebuah volume EBS pada sebuah Pod, kamu harus mem
 aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
 ```
 
-Pastikan _availability zone_ yang kamu masukkan sama dengan _availability zone_ kluster kamu. (Dan pastikan juga ukuran dan jenis EBSnya sesuai dengan penggunaan yang kamu butuhkan!)
+Pastikan _availability zone_ yang kamu masukkan sama dengan _availability zone_ klaster kamu. (Dan pastikan juga ukuran dan jenis EBSnya sesuai dengan penggunaan yang kamu butuhkan!)
 
 #### Contoh Konfigurasi AWS EBS
 
@@ -111,7 +111,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-Pada saat fitur migrasi CSI (Container Storage Interface) untuk `awsElasticBlockStore` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `ebs.csi.aws.com`. Untuk menggunakan fitur ini, [Driver CSI AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationAWS` harus diaktifkan.
+Pada saat fitur migrasi CSI (Container Storage Interface) untuk `awsElasticBlockStore` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `ebs.csi.aws.com`. Untuk menggunakan fitur ini, [Driver CSI AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationAWS` harus diaktifkan.
 
 ### azureDisk {#azuredisk}
 
@@ -123,7 +123,7 @@ Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tr
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk `azureDisk` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `disk.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureDisk` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk `azureDisk` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `disk.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureDisk` harus diaktifkan.
 
 ### azureFile {#azurefile}
 
@@ -135,7 +135,7 @@ Selengkapnya dapat ditemukan [di sini](https://github.com/kubernetes/examples/tr
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk `azureFile` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `file.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure File](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureFile` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk `azureFile` diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `file.csi.azure.com`. Untuk menggunakan fitur ini, [Driver CSI Azure File](https://github.com/kubernetes-sigs/azuredisk-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationAzureFile` harus diaktifkan.
 
 ### cephfs {#cephfs}
 
@@ -181,7 +181,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk Cinder diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `cinder.csi.openstack.com`. Untuk menggunakan fitur ini, [Driver CSI Openstack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationOpenStack` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk Cinder diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `cinder.csi.openstack.com`. Untuk menggunakan fitur ini, [Driver CSI Openstack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationOpenStack` harus diaktifkan.
 
 ### configMap {#configmap}
 
@@ -281,7 +281,7 @@ Lihat [Contoh FC](https://github.com/kubernetes/examples/tree/{{< param "githubb
 
 ### flocker {#flocker}
 
-[Flocker](https://github.com/ClusterHQ/flocker) adalah sebuah proyek _open-source_ yg berfungsi sebagai pengatur _volume_ data Container yang diklusterkan. Flocker menyediakan pengelolaan dan orkestrasi _volume_ yang disokong oleh banyak jenis media penyimpanan.
+[Flocker](https://github.com/ClusterHQ/flocker) adalah sebuah proyek _open-source_ yg berfungsi sebagai pengatur _volume_ data Container yang diklasterkan. Flocker menyediakan pengelolaan dan orkestrasi _volume_ yang disokong oleh banyak jenis media penyimpanan.
 
 Sebuah Volume `flockere` memungkinkan sebuah _dataset_ Flocker untuk ditambatkan ke dalam sebuah Pod. Jika _dataset_ tersebut belum ada di dalam Flocker, maka ia harus dibuat terlebih dahulu dengan menggunakan Flocker CLI atau menggunakan Flocker API. Jika _dataset_ tersebut sudah ada, ia akan ditambatkan kembali oleh Flocker ke Node di mana Pod tersebut dijadwalkan. Hal ini berarti data dapat dioper diantara Pod-pod sesuai dengan kebutuhan.
 
@@ -378,7 +378,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-Pada saat fitur migrasi CSI untuk GCE PD diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `pd.csi.storage.gke.io`. Untuk menggunakan fitur ini, [Driver CSI GCE PD](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) harus dinstal di kluster dan fitur Alpha `CSIMigration` serta `CSIMigrationGCE` harus diaktifkan.
+Pada saat fitur migrasi CSI untuk GCE PD diaktifkan, fitur ini akan menterjemahkan semua operasi _plugin_ dari _plugin_ yang sudah ada di kode inti Kubernetes ke bentuk Driver CSI `pd.csi.storage.gke.io`. Untuk menggunakan fitur ini, [Driver CSI GCE PD](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) harus dinstal di klaster dan fitur Alpha `CSIMigration` serta `CSIMigrationGCE` harus diaktifkan.
 
 ### gitRepo (kedaluwarsa) {#gitrepo}
 
@@ -450,7 +450,7 @@ Nilai yang didukung untuk kolom `type` adalah:`
 Berhati-hatilah saat menggunakan tipe volume ini, karena:
 
 * Pod-pod dengan konfigurasi identik (misalnya dibuat dari podTemplate) mungkin berperilaku berbeda pada Node-node yang berbeda oleh karena berkas-berkas yang berbeda pada Node-node tersebut.
-* Saat Kubernetes menambahkan penjadwalan yang sadar terhadap sumber-daya kluster, sesuai yang telah direncanakan, ia tidak dapat melakukan perhitungan terhadap sumber daya yang digunakan oleh sebuah `hostPath`
+* Saat Kubernetes menambahkan penjadwalan yang sadar terhadap sumber-daya klaster, sesuai yang telah direncanakan, ia tidak dapat melakukan perhitungan terhadap sumber daya yang digunakan oleh sebuah `hostPath`
 * Berkas-berkas atau direktori-direktori yang dibuat pada _host-host_ bersangkutan hanya dapat ditulis oleh `root`. Kamu butuh antara menjalankan proses aplikasi kamu sebagai `root` pada sebuah [privileged Container](/docs/user-guide/security-context) atau mengubah _permission_ berkas kamu pada _host_ tersebut agar dapat menulis pada Volume `hostPath`
 
 #### Contoh Pod
@@ -742,10 +742,10 @@ Lihat [contoh RBD](https://github.com/kubernetes/examples/tree/{{< param "github
 
 ### scaleIO {#scaleio}
 
-ScaleIO adalah _platform_ penyimpanan berbasis perangkat lunak yang dapat menggunakan perangkat keras yang sudah tersedia untuk membuat kluster-kluster media penyimpanan terhubung jaringan yang _scalable_. _Plugin_ Volume `scaleIO` memungkinkan Pod-pod yang di-_deploy_ untuk mengakses Volume-volume ScaleIO yang telah tersedia (atau dapat menyediakan volume-volume untuk PersistentVolumeClaim secara dinamis, lihat [Persistent Volume ScaleIO](/docs/concepts/storage/persistent-volumes/#scaleio)).
+ScaleIO adalah _platform_ penyimpanan berbasis perangkat lunak yang dapat menggunakan perangkat keras yang sudah tersedia untuk membuat klaster-klaster media penyimpanan terhubung jaringan yang _scalable_. _Plugin_ Volume `scaleIO` memungkinkan Pod-pod yang di-_deploy_ untuk mengakses Volume-volume ScaleIO yang telah tersedia (atau dapat menyediakan volume-volume untuk PersistentVolumeClaim secara dinamis, lihat [Persistent Volume ScaleIO](/docs/concepts/storage/persistent-volumes/#scaleio)).
 
 {{< caution >}}
-Kamu harus memiliki kluster ScaleIO yang berjalan dengan volume-volume yang sudah dibuat sebelum kamu dapat menggunakannya.
+Kamu harus memiliki klaster ScaleIO yang berjalan dengan volume-volume yang sudah dibuat sebelum kamu dapat menggunakannya.
 {{< /caution >}}
 
 Berikut contoh konfigurasi sebuah Pod yang menggunakan ScaleIO:
@@ -795,7 +795,7 @@ Secret dijelaskan lebih lanjut [di sini](/docs/user-guide/secrets).
 
 Sebuah Volume `storageos` memungkinkan volume [StorageOS](https://www.storageos.com) yang sudah tersedia untuk ditambatkan ke dalam Pod kamu.
 
-StorageOS berjalan sebagai sebuah COntainer di dalam lingkungan Kubernetes kamu, membuat penyimpanan yang lokal atau penyimpanan yang sedang dipasang untuk diakses dari Node manapun di dalam kluster Kubernetes.
+StorageOS berjalan sebagai sebuah COntainer di dalam lingkungan Kubernetes kamu, membuat penyimpanan yang lokal atau penyimpanan yang sedang dipasang untuk diakses dari Node manapun di dalam klaster Kubernetes.
 Data dapat direplikasikan untuk melindungi dari kegagalan Node. _Thin provisioning_ dan kompresi dapat meningkatkan utilisasi dan mengurangi biaya.
 
 Di dalam intinya, StorageOS menyediakan penyimpanan blok kepada Container-container, yang dapat diakses melalui sebuah _filesystem_.
@@ -804,7 +804,7 @@ Container StorageOS membutuhkan Linux 64-bit dan tidak memiliki ketergantungan t
 Tersedia pula sebuah lisensi gratis untuk _developer_.
 
 {{< caution >}}
-Kamu harus menjalankan Container StorageOS pada setiap Node yang ingin mengakses volume-volume StorageOS atau yang akan berkontribusi pada kapasitas penyimpanan di kluster StorageOS. Untuk petunjuk instalasi, lihat [dokumentasi StorageOS](https://docs.storageos.com).
+Kamu harus menjalankan Container StorageOS pada setiap Node yang ingin mengakses volume-volume StorageOS atau yang akan berkontribusi pada kapasitas penyimpanan di klaster StorageOS. Untuk petunjuk instalasi, lihat [dokumentasi StorageOS](https://docs.storageos.com).
 {{< /caution >}}
 
 ```yaml
@@ -972,7 +972,7 @@ spec:
 
 Media penyimpanan (Disk, SSD, dll.) dari sebuah Volume `emptyDir` ditentukan oleh medium dari _filesystem_ yang menyimpan direktori _root_ dari Kubelet (biasanya `/var/lib/kubelet`). Tidak ada batasan berapa banyak ruang yang dapat digunakan oleh Volume `emptyDir` dan `hostPath`, dan tidak ada isolasi antara Container-container atau antara Pod-pod.
 
-Ke depannya, kita mengharapkan Volume `emptyDir` dan `hostPath` akan dapat meminta jumlah ruangan penyimpanan tertentu dengan mengunakan spesifikasi [resource][resource](/docs/user-guide/compute-resources), dan memilih tipe media penyimpanan yang akan digunakan, untuk kluster yang memiliki beberapa jenis media penyimpanan.
+Ke depannya, kita mengharapkan Volume `emptyDir` dan `hostPath` akan dapat meminta jumlah ruangan penyimpanan tertentu dengan mengunakan spesifikasi [resource][resource](/docs/user-guide/compute-resources), dan memilih tipe media penyimpanan yang akan digunakan, untuk klaster yang memiliki beberapa jenis media penyimpanan.
 
 ## _Plugin_ Volume yang Out-of-Tree
 
@@ -980,7 +980,7 @@ _Plugin_ Volume yang Out-of-tree termasuk Container Storage Interface (CSI) dan 
 
 Sebelum dikenalkannya CSI dan Flexvolume, semua _plugin_ volume (seperti jenis-jenis volume yang terdaftar di atas) berada pada "in-tree", yang berarti bahwa mereka dibangun, di-_link_, di-_compile_, dan didistribusikan bersama-sama dengan kode inti Kubernetes dan mengekstensi inti dari Kubernetes API. Hal ini berarti menambah sistem penyimpanan baru ke dalam Kubernetes (sebuah _plugin_ volume) membutukan penambahan kode tersebut ke dalam _repository_ kode inti Kubernetes.
 
-CSI dan Flexvolume memungkinkan _plugin_ volume untuk dikembangkan secara terpisah dari kode inti Kubernetes, dan diinstal pada kluster Kubernetes sebagai ekstensi.
+CSI dan Flexvolume memungkinkan _plugin_ volume untuk dikembangkan secara terpisah dari kode inti Kubernetes, dan diinstal pada klaster Kubernetes sebagai ekstensi.
 
 Bagi _vendor-vendor_ penyimpanan yang ingin membuat sebuah _plugin_ volume yang out-of-tree, lihat [FAQ ini](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
@@ -1001,7 +1001,7 @@ _Driver-driver_ CSI mungkin tidak cocok pada semua rilis Kubernetes.
 Silahkan lihat dokumentasi _driver_ CSI yang bersangkutan untuk petunjuk penggunaan yang didukung untuk setiap rilis Kubernetes, dan untuk melihat matriks kompabilitasnya.
 {{< /note >}}
 
-Saat sebuah _driver_ volume CSI dipasang pada kluster Kubernetes, pengguna dapat menggunakan tipe Volume `csi` untuk menambatkan volume-volume yang diekspos oleh _driver_ CSI tersebut.
+Saat sebuah _driver_ volume CSI dipasang pada klaster Kubernetes, pengguna dapat menggunakan tipe Volume `csi` untuk menambatkan volume-volume yang diekspos oleh _driver_ CSI tersebut.
 
 Tipe Volume `csi` tidak mendukung referensi secara langsung dari Pod dan hanya dapat dirujuk di dalam sebuah Pod melalui sebuah objek `PersistentVolumeClaim`.
 

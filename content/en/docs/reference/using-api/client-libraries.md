@@ -71,7 +71,7 @@ their authors, not the Kubernetes team.
 | dotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
-| Haskell              | [github.com/soundcloud/haskell-kubernetes](https://github.com/soundcloud/haskell-kubernetes) |
+| Haskell              | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) |
 {{% /capture %}}
 
 

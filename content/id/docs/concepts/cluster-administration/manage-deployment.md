@@ -352,7 +352,7 @@ Kadang kita perlu membuat pembaruan kecil, yang tidak mengganggu pada _resource_
 
 ### kubectl apply
 
-Disarankan untuk menyimpan berkas-berkas konfigurasi dalam _source control_ (lihat [konfigurasi sebagai kode](http://martinfowler.com/bliki/InfrastructureAsCode.html)). Sehingga berkas dapat dipelihara dan diatur dalam versi bersama dengan kode milik _resource_ yang diatur oleh konfigurasi tersebut. Berikutnya, kamu dapat menggunakan [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) untuk membarui perubahan konfigurasi ke kluster.
+Disarankan untuk menyimpan berkas-berkas konfigurasi dalam _source control_ (lihat [konfigurasi sebagai kode](http://martinfowler.com/bliki/InfrastructureAsCode.html)). Sehingga berkas dapat dipelihara dan diatur dalam versi bersama dengan kode milik _resource_ yang diatur oleh konfigurasi tersebut. Berikutnya, kamu dapat menggunakan [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) untuk membarui perubahan konfigurasi ke klaster.
 
 Perintah ini akan membandingkan versi konfigurasi yang disuplai dengan versi sebelumnya yang telah berjalan dan memasang perubahan yang kamu buat tanpa mengganti properti yang tidak berubah sama sekali.
 

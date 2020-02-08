@@ -177,14 +177,14 @@ dapat dilakukan dengan mudah dengan cara menulis
 [_admission controller_](/docs/reference/access-authn-authz/admission-controllers/) yang
 bersifat khusus). _Pod-pod_ dengan _toleration_ nantinya akan diperbolehkannya untuk menggunakan
 _node_ yang sudah di-_taint_ (atau dengan kata lain didedikasikan penggunaannya) maupun
-_node_ lain yang ada di dalam kluster. Jika kamu ingin mendedikasikan _node_ khusus
+_node_ lain yang ada di dalam klaster. Jika kamu ingin mendedikasikan _node_ khusus
 yang hanya digunakan oleh _pod-pod_ tadi serta memastikan _pod-pod_ tadi hanya menggunakan
 _node_ yang didedikasikan, maka kamu harus menambahkan sebuah _label_ yang serupa dengan
 _taint_ yang diberikan pada sekelompok _node_ (misalnya, `dedicated=groupName`), dan
 _admission controller_ sebaiknya menambahkan afininitas _node_ untuk memastikan _pod-pod_
 tadi hanya dijadwalkan pada _node_ dengan _label_ `dedicated=groupName`.
 
-* **Node-Node dengan Perangkat Keras Khusus**: Pada suatu kluster dimana
+* **Node-Node dengan Perangkat Keras Khusus**: Pada suatu klaster dimana
 sebagian kecuali _node_ memiliki perangkat keras khusus (misalnya GPU), kita ingin
 memastikan hanya _pod-pod_ yang membutuhkan GPU saja yang dijadwalkan di _node_ dengan GPU.
 Hal ini dapat dilakukan dengan memberikan _taint_ pada _node_ yang memiliki perangkat keras

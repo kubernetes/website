@@ -1,6 +1,4 @@
 ---
-reviewers:
-- mikedanese
 title: Konfigurasi dan Penerapan Konsep
 content_template: templates/concept
 weight: 10
@@ -13,7 +11,9 @@ Dokumentasi ini terbuka. Jika Anda menemukan sesuatu yang tidak ada dalam daftar
 {{% /capture %}}
 
 {{% capture body %}}
-## General Configuration Tips
+
+## Tip konfigurasi secara umum
+
 
 - Saat mendefinisikan konfigurasi, tentukan versi API stabil terbaru.
 
@@ -62,9 +62,10 @@ Server DNS melihat API Kubernetes untuk `Service` baru dan membuat satu set cata
 - Gunakan [headless Services](/docs/concepts/services-networking/service/#headless-
 services) (yang memiliki `ClusterIP` dari` None`) untuk Service discovery yang mudah ketika Anda tidak membutuhkan `kube-proxy` load balancing.
 
-## Using Labels
+## Menggunakan label
 
-- Deklarasi dan gunakan [labels](/docs/concepts/overview/working-with-objects/labels/) untuk identifikasi __semantic attributes__  aplikasi atau Deployment kamu, seperti `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Kamu dapat menggunakan label ini untuk memilih Pod yang sesuai untuk sumber daya lainnya; misalnya, Service yang memilih semua `tier: frontend` Pods, atau semua komponen` phase: test` dari `app: myapp`. Lihat [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) aplikasi untuk contoh-contoh pendekatan ini.
+- Deklarasi dan gunakan [labels] (/docs/concepts/overview/working-with-objects/labels/) untuk identifikasi __semantic attributes__  aplikasi atau Deployment kamu, seperti `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Kamu dapat menggunakan label ini untuk memilih Pod yang sesuai untuk sumber daya lainnya; misalnya, Service yang memilih semua `tier: frontend` Pods, atau semua komponen` phase: test` dari `app: myapp`. Lihat [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) aplikasi untuk contoh-contoh pendekatan ini.
+
 
 Service dapat dibuat untuk menjangkau beberapa Penyebaran dengan menghilangkan label khusus rilis dari pemilihnya. [Deployments](/docs/concepts/workloads/controllers/deployment/) membuatnya mudah untuk memperbarui Service yang sedang berjalan tanpa downtime.
 
@@ -98,7 +99,9 @@ Anda harus menghindari penggunaan tag `: latest` saat menempatkan container dala
 Semantik caching dari penyedia gambar yang mendasarinya membuat bahkan `imagePullPolicy: Always` efisien. Dengan Docker, misalnya, jika image sudah ada, upaya pull cepat karena semua lapisan image di-cache dan tidak perlu mengunduh image.
 {{< /note >}}
 
-## Using kubectl
+
+## Menggunakan kubectl
+
 
 - Gunakan `kubectl apply -f <directory>`. Ini mencari konfigurasi Kubernetes di semua file `.yaml`,` .yml`, dan `.json` di` <directory> `dan meneruskannya ke` apply`.
 

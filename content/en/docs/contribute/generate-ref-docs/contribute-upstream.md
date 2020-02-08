@@ -1,13 +1,14 @@
 ---
 title: Contributing to the Upstream Kubernetes Code
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}
 
-This page shows how to contribute to the upstream kubernetes/kubernetes project
-to fix bugs found in the Kubernetes API documentation or the `kube-*`
-components such as `kube-apiserver`, `kube-controller-manager`, etc.
+This page shows how to contribute to the upstream `kubernetes/kubernetes` project.
+You can fix bugs found in the Kubernetes API documentation or the content of
+the Kubernetes components such as `kubeadm`, `kube-apiserver`, and `kube-controller-manager`.
 
 If you instead want to regenerate the reference documentation for the Kubernetes
 API or the `kube-*` components from the upstream code, see the following instructions:
@@ -17,27 +18,24 @@ API or the `kube-*` components from the upstream code, see the following instruc
 
 {{% /capture %}}
 
-
 {{% capture prerequisites %}}
 
-You need to have these tools installed:
+- You need to have these tools installed:
 
-* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Golang](https://golang.org/doc/install) version 1.9.1 or later
-* [Docker](https://docs.docker.com/engine/installation/)
-* [etcd](https://github.com/coreos/etcd/) 
+  - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+  - [Golang](https://golang.org/doc/install) version 1.13+
+  - [Docker](https://docs.docker.com/engine/installation/)
+  - [etcd](https://github.com/coreos/etcd/)
 
-Your $GOPATH environment variable must be set, and the location of `etcd`
-must be in your $PATH environment variable.
+- Your `GOPATH` environment variable must be set, and the location of `etcd`
+  must be in your `PATH` environment variable.
 
-You need to know how to create a pull request to a GitHub repository.
-Typically, this involves creating a fork of the repository. For more
-information, see
-[Creating a Pull Request](https://help.github.com/articles/creating-a-pull-request/) and
-[GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
+- You need to know how to create a pull request to a GitHub repository.
+  Typically, this involves creating a fork of the repository.
+  For more information, see [Creating a Pull Request](https://help.github.com/articles/creating-a-pull-request/)
+  and [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 
 {{% /capture %}}
-
 
 {{% capture steps %}}
 
@@ -221,11 +219,10 @@ the same as the generated files in the master branch. The generated files in the
 contain API elements only from Kubernetes 1.9. The generated files in the master branch might contain
 API elements that are not in 1.9, but are under development for 1.10.
 
-
 ## Generating the published reference docs
 
 The preceding section showed how to edit a source file and then generate
-several files, including `api/openapi-spec/swagger.json` in the 
+several files, including `api/openapi-spec/swagger.json` in the
 `kubernetes/kubernetes` repository.
 The `swagger.json` file is the OpenAPI definition file to use for generating
 the API reference documentation.
@@ -238,8 +235,7 @@ You are now ready to follow the [Generating Reference Documentation for the Kube
 {{% capture whatsnext %}}
 
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
-* [Generating Reference Docs for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
-* [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
+* [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 
 {{% /capture %}}
-

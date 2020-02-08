@@ -41,7 +41,7 @@ There are a seemingly infinite set of choices, with an infinite set of possible 
 * [Amazon EC2](https://aws.amazon.com/ec2/) as our cloud platform, including RDS for persistence&nbsp;
 * [Docker Swarm](https://docs.docker.com/swarm/) as our "scheduler"&nbsp;
 * [Consul](https://consul.io/) for service discovery when bootstrapping Swarm&nbsp;
-* [Weave Net](http://weave.works/product/net/) for our network and service discovery for the application itself&nbsp;
+* [Weave Net](https://www.weave.works/oss/net/) for our network and service discovery for the application itself&nbsp;
 * [Terraform](https://terraform.io/) as our provisioner&nbsp;
 
 

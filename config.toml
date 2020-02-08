@@ -141,7 +141,7 @@ weight = 1
 
 [languages.zh]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
 contentDir = "content/zh"
@@ -152,7 +152,7 @@ language_alternatives = ["en"]
 
 [languages.ko]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "운영 수준의 컨테이너 오케스트레이션"
 languageName = "한국어 Korean"
 weight = 3
 contentDir = "content/ko"
@@ -210,7 +210,7 @@ language_alternatives = ["en"]
 
 [languages.de]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Produktionsreife Container-Orchestrierung"
 languageName ="Deutsch"
 weight = 8
 contentDir = "content/de"
@@ -246,7 +246,7 @@ language_alternatives = ["en"]
 
 [languages.id]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
 weight = 10
 contentDir = "content/id"
@@ -269,14 +269,14 @@ language_alternatives = ["en"]
 
 [languages.vi]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName = "Vietnamese"
+description = "Giải pháp điều phối container trong môi trường production"
+languageName = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 12
 
 [languages.ru]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Первоклассная оркестрация контейнеров"
 languageName = "Русский"
 weight = 12
 contentDir = "content/ru"
@@ -286,3 +286,14 @@ time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
 
+[languages.pl]
+title = "Kubernetes"
+description = "Produkcyjny system zarządzania kontenerami"
+languageName = "Polski"
+weight = 13
+contentDir = "content/pl"
+
+[languages.pl.params]
+time_format_blog = "01.02.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]

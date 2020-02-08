@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: opa
+  namespace: federation-system
+spec:
+  selector:
+    app: opa
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8181
+    targetPort: 8181

@@ -143,5 +143,3 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 * [记录和监控集群活动](/docs/concepts/cluster-administration/logging/)阐述了 Kubernetes 的日志如何工作以及怎样实现。
 
 {{% /capture %}}
-
-

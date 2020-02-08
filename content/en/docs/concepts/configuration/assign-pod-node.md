@@ -111,7 +111,7 @@ For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
 feature, greatly expands the types of constraints you can express. The key enhancements are
 
-1. the language is more expressive (not just "AND of exact match")
+1. the language is more expressive (not just "AND or exact match")
 2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
    can't satisfy it, the pod will still be scheduled
 3. you can constrain against labels on other pods running on the node (or other topological domain),

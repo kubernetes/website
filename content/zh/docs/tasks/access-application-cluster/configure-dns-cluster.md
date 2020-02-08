@@ -1,3 +1,9 @@
+---
+title: 为集群配置 DNS
+weight: 120
+content_template: templates/concept
+---
+
 <!--
 ---
 title: Configure DNS for a Cluster
@@ -5,11 +11,6 @@ weight: 120
 content_template: templates/concept
 ---
 -->
----
-title: 为集群配置 DNS
-weight: 120
-content_template: templates/concept
----
 
 {{% capture overview %}}
 <!--

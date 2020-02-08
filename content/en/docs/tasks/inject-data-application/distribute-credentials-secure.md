@@ -2,6 +2,7 @@
 title: Distribute Credentials Securely Using Secrets
 content_template: templates/task
 weight: 50
+min-kubernetes-server-version: v1.6
 ---
 
 {{% capture overview %}}
@@ -11,7 +12,7 @@ encryption keys, into Pods.
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 
@@ -20,7 +21,7 @@ encryption keys, into Pods.
 ## Convert your secret data to a base-64 representation
 
 Suppose you want to have two pieces of secret data: a username `my-app` and a password
-`39528$vdg7Jb`. First, use [Base64 encoding](https://www.base64encode.org/) to
+`39528$vdg7Jb`. First, use online Base 64 Encoding Tool [Base64 encoding](https://www.base64encode.org/), [Base64 encode](https://goonlinetools.com/base64-encode/) to
 convert your username and password to a base-64 representation. Here's a Linux
 example:
 
@@ -31,6 +32,10 @@ echo -n '39528$vdg7Jb' | base64
 
 The output shows that the base-64 representation of your username is `bXktYXBw`,
 and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
+
+{{< caution >}}
+Use a local tool trusted by your OS to decrease the security risks of external tools.
+{{< /caution >}}
 
 ## Create a Secret
 
@@ -229,5 +234,4 @@ This functionality is available in Kubernetes v1.6 and later.
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 
 {{% /capture %}}
-
 

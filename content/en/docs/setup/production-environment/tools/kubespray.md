@@ -62,9 +62,9 @@ Kubespray provides the ability to customize many aspects of the deployment:
 * Component versions
 * Calico route reflectors
 * Component runtime options
-  * docker
-  * rkt
-  * cri-o
+  * {{< glossary_tooltip term_id="docker" >}}
+  * {{< glossary_tooltip term_id="rkt" >}}
+  * {{< glossary_tooltip term_id="cri-o" >}}
 * Certificate generation methods (**Vault being discontinued**)
 
 Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.

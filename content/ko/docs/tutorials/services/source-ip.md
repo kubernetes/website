@@ -346,7 +346,7 @@ $ kubectl delete deployment source-ip-app
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [서비스를 통한 애플리케이션 연결하기](/docs/concepts/services-networking/connect-applications-service/)에 대해 더 공부하기
+* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해 더 공부하기
 * [부하분산](/docs/user-guide/load-balancer)에 대해 더 공부하기
 {{% /capture %}}
 

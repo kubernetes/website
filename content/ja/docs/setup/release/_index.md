@@ -1,4 +1,4 @@
 ---
-title: "Release notes and version skew"
+title: "リリースノート及びバージョンスキュー"
 weight: 10
 ---

@@ -42,7 +42,7 @@ _Container Runtime Interface_ (CRI). Lihat bagian ([di bawah ini](#konfigurasi-c
 soal bagaimana melakukan konfigurasi untuk implementasi CRI yang kamu miliki.
 
 {{< note >}}
-Untuk saat ini, RuntimeClass berasumsi bahwa semua _node_ di dalam kluster punya
+Untuk saat ini, RuntimeClass berasumsi bahwa semua _node_ di dalam klaster punya
 konfigurasi yang sama (homogen). Jika ada _node_ yang punya konfigurasi berbeda dari
 yang lain (heterogen), maka perbedaan ini harus diatur secara independen di luar RuntimeClass
 melalui fitur _scheduling_ (lihat [Menempatkan Pod pada Node](/docs/concepts/configuration/assign-pod-node/)).
@@ -69,14 +69,14 @@ handler: myconfiguration  # Nama dari konfigurasi CRI terkait
 ```
 
 {{< note >}}
-Sangat disarankan untuk hanya memperbolehkan admin kluster melakukan operasi
+Sangat disarankan untuk hanya memperbolehkan admin klaster melakukan operasi
 _write_ pada RuntimeClass. Biasanya ini sudah jadi _default_. Lihat [Ikhtisar
 Autorisasi](/docs/reference/access-authn-authz/authorization/) untuk penjelasan lebih jauh.
 {{< /note >}}
 
 ### Penggunaan
 
-Ketika RuntimeClass sudah dikonfigurasi pada kluster, penggunaannya sangatlah mudah.
+Ketika RuntimeClass sudah dikonfigurasi pada klaster, penggunaannya sangatlah mudah.
 Kamu bisa tentukan `runtimeClassName` di dalam `spec` sebuah Pod, sebagai contoh:
 
 ```yaml
@@ -95,7 +95,7 @@ menjalankan _handler_ yang terkait, maka Pod akan memasuki [tahap](/docs/concept
 Lihat [_event_](/docs/tasks/debug-application-cluster/debug-application-introspection/) untuk mengetahui pesan error yang terkait.
 
 Jika tidak ada `runtimeClassName` yang ditentukan di dalam Pod, maka RuntimeHandler yang _default_ akan digunakan.
-Untuk kasus ini, perilaku kluster akan seperti saat fitur RuntimeClass dinonaktifkan.
+Untuk kasus ini, perilaku klaster akan seperti saat fitur RuntimeClass dinonaktifkan.
 
 ### Konfigurasi CRI
 

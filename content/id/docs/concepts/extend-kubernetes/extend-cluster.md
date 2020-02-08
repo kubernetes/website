@@ -1,5 +1,5 @@
 ---
-title: Memperluas Kluster Kubernetes Kamu
+title: Memperluas Klaster Kubernetes Kamu
 content_template: templates/concept
 weight: 10
 ---
@@ -9,9 +9,9 @@ weight: 10
 Kubernetes sangat mudah dikonfigurasi dan diperluas. Sehingga,
 jarang membutuhkan _fork_ atau menambahkan _patch_ ke kode proyek Kubernetes.
 
-Panduan ini menjelaskan pilihan untuk menyesuaikan kluster Kubernetes.
-Dokumen ini ditujukan kepada {{< glossary_tooltip text="operator kluster" term_id="cluster-operator" >}} yang ingin
-memahami bagaimana menyesuaikan kluster Kubernetes dengan kebutuhan lingkungan kerja mereka.
+Panduan ini menjelaskan pilihan untuk menyesuaikan klaster Kubernetes.
+Dokumen ini ditujukan kepada {{< glossary_tooltip text="operator klaster" term_id="cluster-operator" >}} yang ingin
+memahami bagaimana menyesuaikan klaster Kubernetes dengan kebutuhan lingkungan kerja mereka.
 
 Developer yang prospektif {{< glossary_tooltip text="Developer Platform" term_id="platform-developer" >}} atau {{< glossary_tooltip text="Kontributor" term_id="contributor" >}} Proyek Kubernetes juga mendapatkan manfaat dari
 dokumen ini sebagai pengantar apa saja poin-poin dan pola-pola perluasan yang ada, untung-rugi, dan batasan-batasannya.
@@ -34,26 +34,26 @@ _Flag-flag_ dan _berkas-berkas konfigurasi_ didokumentasikan di bagian Referensi
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/).
 
-_Flag-flag_ dan berkas-berkas konfigurasi mungkin tidak selalu dapat diubah pada layanan Kubernetes yang _hosted_ atau pada distribusi dengan instalasi yang dikelola. Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Administrator Kluster. Dan juga, mereka dapat sewaktu-waktu diubah dalam versi Kubernetes di masa depan, dan menyetel mereka mungkin memerlukan proses pengulangan kembali. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
+_Flag-flag_ dan berkas-berkas konfigurasi mungkin tidak selalu dapat diubah pada layanan Kubernetes yang _hosted_ atau pada distribusi dengan instalasi yang dikelola. Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Administrator Klaster. Dan juga, mereka dapat sewaktu-waktu diubah dalam versi Kubernetes di masa depan, dan menyetel mereka mungkin memerlukan proses pengulangan kembali. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
 
-*API kebijakan bawaan*, seperti [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) dan Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), adalah API bawaan Kubernetes. API biasanya digunakan oleh layanan Kubernetes yang _hosted_ dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber daya Kubernetes lainnya seperti pod-pod, jadi konfigurasi kluster baru dapat diulang-ulang dan dapat diatur dengan cara yang sama dengan aplikasi. Dan, ketika mereka stabil, mereka mendapatkan keuntungan dari [kebijakan pendukung yang jelas](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada _berkas konfigurasi_ dan _flag-flag_ saat mereka cocok dengan situasi yang dibutuhkan.
+*API kebijakan bawaan*, seperti [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) dan Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), adalah API bawaan Kubernetes. API biasanya digunakan oleh layanan Kubernetes yang _hosted_ dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber daya Kubernetes lainnya seperti pod-pod, jadi konfigurasi klaster baru dapat diulang-ulang dan dapat diatur dengan cara yang sama dengan aplikasi. Dan, ketika mereka stabil, mereka mendapatkan keuntungan dari [kebijakan pendukung yang jelas](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada _berkas konfigurasi_ dan _flag-flag_ saat mereka cocok dengan situasi yang dibutuhkan.
 
 ## Perluasan
 
 Perluasan adalah komponen perangkat lunak yang memperluas dan berintegrasi secara mendalam dengan Kubernetes.
 Mereka mengadaptasi Kubernetes untuk mendukung perangkat keras tipe baru dan jenis baru.
 
-Kebanyakan administrator kluster akan menggunakan instansi Kubernetes yang didistribusikan atau yang _hosted_.
+Kebanyakan administrator klaster akan menggunakan instansi Kubernetes yang didistribusikan atau yang _hosted_.
 Sebagai hasilnya, kebanyakan pengguna Kubernetes perlu menginstal perluasan dan lebih sedikit yang perlu untuk membuat perluasan-perluasan yang baru.
 
 ## Pola-pola Perluasan
 
 Kubernetes didesain untuk dapat diotomasi dengan menulis program-program klien. Program apapun yang membaca dan/atau menulis ke API Kubernetes dapat menyediakan otomasi yang berguna. 
 
-*Otomasi* dapat berjalan di dalam kluster atau di luar kluster. Dengan mengikuti panduan
+*Otomasi* dapat berjalan di dalam klaster atau di luar klaster. Dengan mengikuti panduan
 di dalam dokumen ini, kamu dapat menulis otomasi yang sangat tersedia dan kuat.
-Otomasi pada umumnya dapat bekerja dengan berbagai macam kluster Kubernetes, termasuk
-kluster yang _hosted_ dan instalasi yang dikelola.
+Otomasi pada umumnya dapat bekerja dengan berbagai macam klaster Kubernetes, termasuk
+klaster yang _hosted_ dan instalasi yang dikelola.
 
 Ada pola spesifik untuk menulis program klien yang bekerja dengan baik bersama Kubernetes yang disebut pola _Controller_. _Controller-controller_ biasanya membaca kolom `.spec` milik sebuah objek, kemungkinan melakukan sesuatu, dan kemudian memperbarui objek milik `.status`.
 
@@ -86,7 +86,7 @@ Diagram berikut menunjukkan titik-titik perluasan di sebuah Kubernetes.
 3. apiserver melayani berbagai macam sumber daya, _tipe-tipe sumber daya bawaan_, seperti `pod`, didefinisikan oleh proyek kubernetes dan tidak dapat diubah. kamu juga dapat menambahkan sumber daya yang kamu definisikan sendiri, atau yang proyek lain definisikan, disebut _Custom Resources_, seperti dijelaskan di bagian [Sumber Daya _Custom_](/docs/concepts/overview/extending#tipe-tipe-yang-ditentukan-pengguna). Sumber daya _Custom_ sering digunakan dengan Perluasan Akses API.
 4. Penjadwal Kubernetes memutuskan ke Node mana Pod akan ditempatkan. Ada beberapa cara untuk memperluas penjadwalan. Hal ini dibahas pada bagian [Perluasan-perluasan Penjadwal](/docs/concepts/overview/extending#perluasan-perluasan-penjadwal).
 5. Sebagian besar perilaku Kubernetes diimplementasi oleh program yang disebut *Controller-controller* yang merupakan klien dari API-Server. *Controller-controller* sering digunakan bersama dengan Sumber Daya _Custom_.
-6. Kubelet berjalan di server, dan membantu Pod-pod  terlihat seperti server virtual dengan IP mereka sendiri di jaringan kluster. [_Plugin_ Jaringan](/docs/concepts/overview/extending#plugin-plugin-jaringan) memungkinkan adanya perbedaan implementasi pada jaringan Pod.
+6. Kubelet berjalan di server, dan membantu Pod-pod  terlihat seperti server virtual dengan IP mereka sendiri di jaringan klaster. [_Plugin_ Jaringan](/docs/concepts/overview/extending#plugin-plugin-jaringan) memungkinkan adanya perbedaan implementasi pada jaringan Pod.
 7. Kubelet juga melakukan penambatan dan pelepasan tambatan volume untuk kontainer. Tipe-tipe penyimpanan baru dapat didukung via [_Plugin_ Penyimpanan](/docs/concepts/overview/extending#plugin-plugin-penyimpanan).
 
 Jika kamu tidak yakin untuk memulai dari mana, diagram alir di bawah ini dapat membantu kamu. Ingat lah bahwa beberapa solusi mungkin melibatkan beberapa tipe perluasan.

@@ -78,19 +78,10 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 노드가 클러스터를 영구적으로 탈퇴하게 되면, 클러스터 관리자는 손수 노드 오브젝트를 삭제해야 할 수도 있다. 쿠버네티스에서 노드 오브젝트를 삭제하면 
 노드 상에서 동작중인 모든 파드 오브젝트가 apiserver로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳는다.
 
-1.12 버전에서, `TaintNodesByCondition` 기능은 베타가 되어, 노드 수명주기 컨트롤러는 자동으로 컨디션을 나타내는
-[taints](/docs/concepts/configuration/taint-and-toleration/)를 생성한다.
-마찬가지로 스케줄러가 노드를 고려할 때, 노드의 컨디션을 무시한다. 
-대신 노드의 taint와 toleration을 살펴본다.
-
-현재 사용자는 이전 스케줄링 모델과 새롭고 더 유연한 스케줄링 모델 사이에 선택할 수 있다. 
-아무런 toleration 도 가지지 않는 파드는 이전 모델에 따라 스케줄 되지만, 특정한 노드의 
-taint 를 용인하는 파드는 노드 상에서 스케줄 될 수 있다.
-
-{{< caution >}}
-이 기능을 활성화 하면 조건이 관찰되고 taint가 생성되는 
-시간 사이에 다소 지연이 발생한다. 이 지연은 보통 1초 미만이지만, 성공적으로 스케줄은 되나 kubelet에 의해 거부되는 파드의 수가 증가할 수 있다.
-{{< /caution >}}
+노드 수명주기 컨트롤러는 자동으로 컨디션을 나타내는
+[테인트(taints)](/docs/concepts/configuration/taint-and-toleration/)를 생성한다.
+스케줄러가 파드를 노드에 할당할 때, 스케줄러는 파드가 극복(tolerate)하는 테인트가
+아닌 한, 노드 계정의 테인트를 고려 한다.
 
 ### 용량과 할당가능 {#capacity}
 
@@ -169,18 +160,28 @@ NodeStatus의 NodeReady 컨디션을 ConditionUnknown으로 업데이트 하는 
 파드를 축출하기 시작하는 값은 5분이다.) 노드 컨트롤러는
 매 `--node-monitor-period` 초 마다 각 노드의 상태를 체크한다.
 
-쿠버네티스 1.13 이전 버전에서, NodeStatus는 노드로부터의 하트비트가
-된다. node lease 기능은 1.14 부터 기본값으로 활성화 되었으며, 베타 기능이다 
-(기능 게이트 `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)). 
-node lease 기능이 활성화 되면, 각 노드는 주기적으로 노드에 의해 
-갱신되는 `kube-node-lease` 네임스페이스 내 연관된 `Lease` 오브젝트를 가지고 
-NodeStatus와 node lease는 둘다 노드로부터의 하트비트로 취급된다. 
-NodeStatus가 오직 일부 변경사항이 있거나 충분한 시간이 지난 경우에만 
-(기본 1분으로, 접근 불가한 노드에 대한 기본 타임아웃 40초 보다 길다.) 
-노드에서 마스터로 보고 되는 반면에, Node lease는 자주 갱신된다. 
-노드 리스가 NodeStatus 보다 더 경량이므로, 이 기능은 확장성과
-성능 두 가지 측면에서 노드 하트비트를 상당히 
-경제적이도록 해준다.
+#### 하트비트
+
+쿠버네티스 노드에서 보내는 하트비트는 노드의 가용성을 결정하는데 도움이 된다.
+하트비트의 두 가지 형태는 `NodeStatus` 와
+[리스(Lease) 오브젝트](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io) 이다.
+각 노드에는 `kube-node-lease` 라는
+{{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 에 관련된 리스 오브젝트가 있다.
+리스는 경량 리소스로, 클러스터가 확장될 때
+노드의 하트비트 성능을 향상 시킨다.
+
+kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
+의무가 있다.
+
+- kubelet은 상태가 변경되거나 구성된 상태에 대한 업데이트가 없는 경우,
+  `NodeStatus` 를 업데이트 한다. `NodeStatus` 의 기본 업데이트
+  주기는 5분이다(연결할 수 없는 노드의 시간 제한인 40초
+  보다 훨씬 길다).
+- kubelet은 10초마다 리스 오브젝트를 생성하고 업데이트 한다(기본 업데이트 주기).
+  리스 업데이트는 `NodeStatus` 업데이트와는
+  독립적으로 발생한다.
+
+#### 안정성
 
 쿠버네티스 1.4에서, 대량의 노드들이 마스터 접근에 
 문제를 지닐 경우 (예를 들어 마스터에 네트워크 문제가 발생했기 때문에) 

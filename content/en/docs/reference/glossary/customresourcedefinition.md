@@ -2,7 +2,7 @@
 title: CustomResourceDefinition
 id: CustomResourceDefinition
 date: 2018-04-12
-full_link: docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/
+full_link: /docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/
 short_description: >
   Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.
 

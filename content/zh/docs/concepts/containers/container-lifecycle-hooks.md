@@ -1,8 +1,21 @@
 ---
+reviewers:
+- mikedanese
+- thockin
 title: 容器生命周期钩子
 content_template: templates/concept
 weight: 30
 ---
+
+<!--
+reviewers:
+- mikedanese
+- thockin
+title: Container Lifecycle Hooks
+content_template: templates/concept
+weight: 30
+-->
+
 
 {{% capture overview %}}
 

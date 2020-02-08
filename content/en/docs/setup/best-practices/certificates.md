@@ -92,7 +92,7 @@ Hosts/SAN listed above are the recommended ones for getting a working cluster; i
 For kubeadm users only:
 
 * The scenario where you are copying to your cluster CA certificates without private keys is referred as external CA in the kubeadm documentation.
-* If you are comparing the above list with a kubeadm geneerated PKI, please be aware that `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates
+* If you are comparing the above list with a kubeadm generated PKI, please be aware that `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates
   are not generated in case of external etcd.
 
 {{< /note >}}
@@ -134,7 +134,7 @@ You must manually configure these administrator account and service accounts:
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |
 | kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
-| scheduler.conf          | default-manager            | system:kube-scheduler          |                |
+| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |
 
 {{< note >}}
 The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).

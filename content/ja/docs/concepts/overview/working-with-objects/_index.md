@@ -1,5 +1,5 @@
 ---
-title: "Working with Kubernetes Objects"
+title: "Kubernetesのオブジェクトについて"
 weight: 40
 ---
 

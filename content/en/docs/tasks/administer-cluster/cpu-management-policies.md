@@ -86,7 +86,7 @@ This policy manages a shared pool of CPUs that initially contains all CPUs in th
 node. The amount of exclusively allocatable CPUs is equal to the total
 number of CPUs in the node minus any CPU reservations by the kubelet `--kube-reserved` or
 `--system-reserved` options. From 1.17, the CPU reservation list can be specified
-explictly by kubelet `--reserved-cpus` option. The explicit CPU list specified by
+explicitly by kubelet `--reserved-cpus` option. The explicit CPU list specified by
 `--reserved-cpus` takes precedence over the CPU reservation specified by
 `--kube-reserved` and `--system-reserved`. CPUs reserved by these options are taken, in
 integer quantity, from the initial shared pool in ascending order by physical

@@ -6,7 +6,7 @@ weight: 60
 
 {{% capture overview %}}
 
-Peran dari _garbage collector_ Kubernetes adalah untuk menghapus objek tertentu yang sebelumnya mempunyai pemilik, tetapi tidak lagi mempunyai pemilik.
+Peran daripada _garbage collector_ Kubernetes adalah untuk menghapus objek tertentu yang sebelumnya mempunyai pemilik, tetapi tidak lagi mempunyai pemilik.
 
 {{% /capture %}}
 
@@ -50,8 +50,8 @@ metadata:
 ```
 {{< note >}}
 Referensi pemilik lintas _namespace_ tidak diperbolehkan oleh desain. Artinya:
-1) Dependen dengan cakupan _namespace_ hanya bisa menspesifikasikan pemilik jika berada di _namespace_ yang sama, dan pemilik memiliki cakupan kluster.
-2) Dependen dengan cakupan kluster hanya bisa menspesifikasikan pemilik yang memiliki cakupan kluster, tetapi tidak berlaku untuk pemilik yang memiliki cakupan kluster.
+1) Dependen dengan cakupan _namespace_ hanya bisa menspesifikasikan pemilik jika berada di _namespace_ yang sama, dan pemilik memiliki cakupan klaster.
+2) Dependen dengan cakupan klaster hanya bisa menspesifikasikan pemilik yang memiliki cakupan klaster, tetapi tidak berlaku untuk pemilik yang memiliki cakupan klaster.
 {{< /note >}}
 
 ## Mengontrol bagaimana _garbage collector_ menghapus dependen

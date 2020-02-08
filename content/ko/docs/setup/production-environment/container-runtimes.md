@@ -62,17 +62,18 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 ## Docker
 
 각 머신들에 대해서, Docker를 설치한다.
-버전 18.06.2가 추천된다. 그러나 1.11, 1.12, 1.13, 17.03 그리고 18.09도 동작하는 것으로 알려져 있다. 
+버전 19.03.4가 추천된다. 그러나 1.13.1, 17.03, 17.06, 17.09, 18.06 그리고 18.09도 동작하는 것으로 알려져 있다. 
 쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 Docker 버전의 지속적인 파악이 필요하다.
 
 시스템에 Docker를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
 # Docker CE 설치
 ## 리포지터리 설정
 ### apt가 HTTPS 리포지터리를 사용할 수 있도록 해주는 패키지 설치
-apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+apt-get update && apt-get install \
+  apt-transport-https ca-certificates curl software-properties-common
 
 ### Docker의 공식 GPG 키 추가
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -84,7 +85,10 @@ add-apt-repository \
   stable"
 
 ## Docker CE 설치.
-apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
+apt-get update && apt-get install \
+  containerd.io=1.2.10-3 \
+  docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
 
 # 데몬 설정.
 cat > /etc/docker/daemon.json <<EOF
@@ -112,12 +116,14 @@ systemctl restart docker
 yum install yum-utils device-mapper-persistent-data lvm2
 
 ### Docker 리포지터리 추가
-yum-config-manager \
-  --add-repo \
+yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Docker CE 설치.
-yum update && yum install docker-ce-18.06.2.ce
+yum update && yum install \
+  containerd.io-1.2.10 \
+  docker-ce-19.03.4 \
+  docker-ce-cli-19.03.4
 
 ## /etc/docker 디렉터리 생성.
 mkdir /etc/docker
@@ -198,6 +204,7 @@ yum install --nogpgcheck cri-o
 ### CRI-O 시작
 
 ```
+systemctl daemon-reload
 systemctl start crio
 ```
 

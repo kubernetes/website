@@ -17,7 +17,7 @@ Many storage systems (like Google Cloud Persistent Disks, Amazon Elastic Block S
 
 The Kubernetes volume plugin system already provides a powerful abstraction that automates the provisioning, attaching, and mounting of block and file storage.
 
-Underpinning all these features is the Kubernetes goal of workload portability: Kubernetes aims to create an abstraction layer between distributed systems applications and underlying clusters so that applications can be agnostic to the specifics of the cluster they run on and application deployment requires no “cluster specific” knowledge.
+Underpinning all these features is the Kubernetes goal of workload portability: Kubernetes aims to create an abstraction layer between distributed applications and underlying clusters so that applications can be agnostic to the specifics of the cluster they run on and application deployment requires no “cluster specific” knowledge.
 
 The Kubernetes Storage SIG identified snapshot operations as critical functionality for many stateful workloads. For example, a database administrator may want to snapshot a database volume before starting a database operation.
 
@@ -148,11 +148,11 @@ type VolumeSnapshotContentSource struct {
 
 ```go
 type VolumeSnapshotContentStatus struct {
-	CreationTime *int64
-	ReadyToUse *bool
-	RestoreSize *int64
-	Error *VolumeSnapshotError
-           SnapshotHandle *string
+  CreationTime *int64
+  ReadyToUse *bool
+  RestoreSize *int64
+  Error *VolumeSnapshotError
+  SnapshotHandle *string
 }
 ```
 
@@ -171,7 +171,7 @@ type VolumeSnapshotClass struct {
 
 ### How do I deploy support for Volume Snapshots on my Kubernetes Cluster?
 
-Please note that the Volume Snapshot feature now depends on a new, common [volume snapshot controller](https://github.com/kubernetes-csi/external-snapshotter/tree/master/pkg/common-controller) in addition to the volume snapshot CRDs. Both the volume snapshot controller and the CRDs are independent of any CSI driver. Regardless of the number CSI drivers deployed on the cluster, there must be only one instance of the volume snapshot controller running and one set of volume snapshot CRDs installed per cluster.
+Please note that the Volume Snapshot feature now depends on a new, common [volume snapshot controller](https://github.com/kubernetes-csi/external-snapshotter/tree/master/pkg/common-controller) in addition to the volume snapshot CRDs. Both the volume snapshot controller and the CRDs are independent of any CSI driver. Regardless of the number of CSI drivers deployed on the cluster, there must be only one instance of the volume snapshot controller running and one set of volume snapshot CRDs installed per cluster.
 
 Therefore, it is strongly recommended that Kubernetes distributors bundle and deploy the controller and CRDs as part of their Kubernetes cluster management process (independent of any CSI Driver).
 
@@ -218,7 +218,7 @@ parameters:
 
 The common snapshot controller reserves the parameter keys `csi.storage.k8s.io/snapshotter-secret-name` and `csi.storage.k8s.io/snapshotter-secret-namespace`. If specified, it fetches the referenced Kubernetes secret and sets it as an annotation on the volume snapshot content object.  The CSI external-snapshotter sidecar retrieves it from the content annotation and passes it to the CSI driver during snapshot creation.
 
-#### Creation of a volume snapshot is triggered by the creation of a VolumeSnapshot API object.
+Creation of a volume snapshot is triggered by the creation of a VolumeSnapshot API object.
 
 The VolumeSnapshot object must specify the following source type:
 `persistentVolumeClaimName` - The name of the PVC to snapshot. Please note that the source PVC, PV, and VolumeSnapshotClass for a VolumeSnapshot object must point to the same CSI driver.
@@ -238,19 +238,19 @@ spec:
 
 When volume snapshot creation is invoked, the common snapshot controller first creates a VolumeSnapshotContent object with the `volumeSnapshotRef`, source `volumeHandle`, `volumeSnapshotClassName` if specified, `driver`, and `deletionPolicy`.
 
-The CSI external-snapshotter sidecar then passes the VolumeSnapshotClass parameters, the source volume ID, and any referenced secret(s) to the CSI driver (in this case `testdriver.csi.k8s.io`) via a CSI `CreateSnapshot` call. In response, the CSI driver creates a new snapshot for the specified volume, and returns the ID for that snapshot. The CSI external-snapshotter sidecar then updates the `snapshotHandle`, `creationTime`, `restoreSize`, and `readyToUse` in the status field of the VolumeSnapshotContent object that represents the new snapshot. For a storage system that needs to upload the snapshot after it is being cut, the CSI external-snapshotter sidecar will keep calling the CSI `CreateSnapshot` to check the status until upload is complete and `readyToUse` is true.
+The CSI external-snapshotter sidecar then passes the VolumeSnapshotClass parameters, the source volume ID, and any referenced secret(s) to the CSI driver (in this case `testdriver.csi.k8s.io`) via a CSI `CreateSnapshot` call. In response, the CSI driver creates a new snapshot for the specified volume, and returns the ID for that snapshot. The CSI external-snapshotter sidecar then updates the `snapshotHandle`, `creationTime`, `restoreSize`, and `readyToUse` in the status field of the VolumeSnapshotContent object that represents the new snapshot. For a storage system that needs to upload the snapshot after it has been cut, the CSI external-snapshotter sidecar will keep calling the CSI `CreateSnapshot` to check the status until upload is complete and set `readyToUse` to true.
 
-The common snapshot controller binds the VolumeSnapshotContent object to the VolumeSnapshot (sets `BoundVolumeSnapshotContentName`), updating the `creationTime`, `restoreSize`, and `readyToUse` in the status field of the VolumeSnapshot object based on the status field of the VolumeSnapshotContent object.
+The common snapshot controller binds the VolumeSnapshotContent object to the VolumeSnapshot (sets `BoundVolumeSnapshotContentName`), and updates the `creationTime`, `restoreSize`, and `readyToUse` in the status field of the VolumeSnapshot object based on the status field of the VolumeSnapshotContent object.
 
 If no `volumeSnapshotClassName` is specified, one is automatically selected as follows:
-The `StorageClass` from PVC or PV of the source volume is fetched.
-The default VolumeSnapshotClass is fetched, if available. A default VolumeSnapshotClass is a snapshot class created by the admin with the `snapshot.storage.kubernetes.io/is-default-class` annotation. If the `Driver` field of the default VolumeSnapshotClass is the same as the `Provisioner` field in the StorageClass, the default VolumeSnapshotClass is used. If there is no default VolumeSnapshotClass or more than one default VolumeSnapshotClass for a snapshot, an error will be returned.
+
+The `StorageClass` from PVC or PV of the source volume is fetched. The default VolumeSnapshotClass is fetched, if available. A default VolumeSnapshotClass is a snapshot class created by the admin with the `snapshot.storage.kubernetes.io/is-default-class` annotation. If the `Driver` field of the default VolumeSnapshotClass is the same as the `Provisioner` field in the StorageClass, the default VolumeSnapshotClass is used. If there is no default VolumeSnapshotClass or more than one default VolumeSnapshotClass for a snapshot, an error will be returned.
 
 Please note that the Kubernetes Snapshot API does not provide any consistency guarantees. You have to prepare your application (pause application, freeze filesystem etc.) before taking the snapshot for data consistency either manually or using some other higher level APIs/controllers.
 
 You can verify that the VolumeSnapshot object is created and bound with VolumeSnapshotContent by running `kubectl describe volumesnapshot`:
 
-`Bound Volume Snapshot Content Name` - field in the `Status` indicates indicates the volume is bound to the specified VolumeSnapshotContent.
+`Bound Volume Snapshot Content Name` - field in the `Status` indicates the volume is bound to the specified VolumeSnapshotContent.
 `Ready To Use` - field in the `Status` indicates this volume snapshot is ready for use.
 `Creation Time` - field in the `Status` indicates when the snapshot was actually created (cut).
 `Restore Size` - field in the `Status` indicates the minimum volume size required when restoring a volume from this snapshot.
@@ -369,7 +369,9 @@ spec:
 ```
 
 Once both objects are created, the common snapshot controller verifies the binding between VolumeSnapshot and VolumeSnapshotContent objects is correct and marks the VolumeSnapshot as ready (if the CSI driver supports the `ListSnapshots` call, the controller also validates that the referenced snapshot exists). The CSI external-snapshotter sidecar checks if the snapshot exists if ListSnapshots CSI method is implemented, otherwise it assumes the snapshot exists. The external-snapshotter sidecar sets `readyToUse` to true in the status field of VolumeSnapshotContent. The common snapshot controller marks the snapshot as ready accordingly.
+
 ## Create Volume From Snapshot
+
 Once you have a bound and ready VolumeSnapshot object, you can use that object to provision a new volume that is pre-populated with data from the snapshot.
 
 To provision a new volume pre-populated with data from a snapshot, use the `dataSource` field in the `PersistentVolumeClaim`. It has three parameters:

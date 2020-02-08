@@ -165,7 +165,7 @@ You can find out more on the [CoreDNS Blog](https://coredns.io/blog).
 
 ### Get involved with CoreDNS
 
-CoreDNS is an incubated [CNCF](https:://cncf.io) project.
+CoreDNS is an incubated [CNCF](https://cncf.io) project.
 
 We're most active on Slack (and GitHub):
 
