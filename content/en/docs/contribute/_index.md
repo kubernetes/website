@@ -34,6 +34,17 @@ To get involved with documentation:
 2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website) and the website's [static site generator](https://gohugo.io).
 3. Make sure you understand the basic processes for [improving content](https://kubernetes.io/docs/contribute/start/#improve-existing-content) and [reviewing changes](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
 
+## Contributions best practices
+
+- Do write clear and meaningful GIT commit messages.
+- Make sure to include _Github Special Keywords_ which references the issue and automatically closes the issue when PR is merged.
+- When you make a small change to a PR like fixing a typo, any style change, or changing grammar. Make sure you squash your commits so that you dont get a large number of commits for a relatively small change.
+- Make sure you include a nice PR description depicting the code you have changes, why to change a following piece of code and ensuring there is sufficient information for the reviewer to understand your PR.
+- Additional Readings : 
+    - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
+    - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests )
+    - [davidwalsh.name/squash-commits-git ](https://davidwalsh.name/squash-commits-git )
+
 ## Other ways to contribute
 
 - To contribute to the Kubernetes community through online forums like Twitter or Stack Overflow, or learn about local meetups and Kubernetes events, visit the [Kubernetes community site](/community/).
