@@ -25,9 +25,8 @@ tersebut.
 
 Resource Quota bekerja sebagai berikut:
 
-- Tim-tim berbeda bekerja di Namespace yang berbeda pula. Saat ini cara pakai ini masih
-  belum diwajibkan, tetapi dukungan untuk mewajibkan cara pakai ini melalui ACL sedang
-  direncanakan.
+- Tim-tim berbeda bekerja pada Namespace yang berbeda pula. Saat ini hal ini belum diwajibkan,
+  tetapi dukungan untuk mewajibkannya melalui ACL sedang direncanakan.
 - Administrator membuat sebuah `ResourceQuota` untuk setiap Namespace.
 - Para pengguna membuat sumber daya (Pod, Service, dll.) di dalam Namespace tersebut, kemudian
   sistem kuota memantau penggunaan untuk memastikan bahwa penggunaannya tidak melebihi batas
@@ -70,11 +69,11 @@ di dalam Namespace tersebut.
 Kamu dapat membatasi jumlah total [sumber daya komputasi](/docs/user-guide/compute-resources) yang dapat
 diminta di dalam sebuah Namespace.
 
-Jenis-jenis sumber daya berikut didukung:
+Berikut jenis-jenis sumber daya yang didukung:
 
 | Nama Sumber Daya | Deskripsi |
 | --------------------- | ----------------------------------------------------------- |
-| `limits.cpu` | Pada seluruh Pod yang berada pada kondisi non-terminal, jumlah `limits` CPU tidak dapat melebihi nilai ini. Sebuah Pod berada pada kondisi terminal yaitu jika `.status.phase in (Failed, Succeded)`-nya bernilai `true`. |
+| `limits.cpu` | Pada seluruh Pod yang berada pada kondisi non-terminal, jumlah `limits` CPU tidak dapat melebihi nilai ini. |
 | `limits.memory` | Pada seluruh Pod yang berada pada kondisi non-terminal, jumlah `limits` memori tidak dapat melebihi nilai ini. |
 | `limits.cpu` | Pada seluruh Pod yang berada pada kondisi non-terminal, jumlah `requests` CPU tidak dapat melebihi nilai ini. |
 | `limits.memory` | Pada seluruh Pod yang berada pada kondisi non-terminal, jumlah `requests` memori tidak dapat melebihi nilai ini. |
@@ -159,15 +158,15 @@ Namespace yang mengakibatkan _denial of service_.
 Sebelum rilis 1.9, kita tidak dapat melakukan pembatasan kuantitas objek generik pada kumpulan sumber daya yang terbatas.
 Sebagai tambahan, kita dapat membatasi lebih lanjut sumber daya tertentu dengan kuota berdasarkan jenis mereka.
 
-Jenis-jenis berikut sekarang didukung:
+Berikut jenis-jenis yang telah didukung:
 
 | Nama Sumber Daya | Deskripsi |
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | Jumlah total ConfigMap yang dapat berada pada suatu Namespace. |
 | `persistentvolumeclaims` | Jumlah total PersistentVolumeClaim[persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) yang dapat berada pada suatu Namespace. |
-| `pods` | Jumlah total Pod yang berada pada kondisi non-terminal yang dapat berada pada suatu Namespace. Sebuah Pod berada kondisi terminal yaitu jika `.status.phase in (Failed, Succeded)`-nya bernilai `true`. |
+| `pods` | Jumlah total Pod yang berada pada kondisi non-terminal yang dapat berada pada suatu Namespace. Sebuah Pod berada kondisi terminal yaitu jika `.status.phase in (Failed, Succeded)` adalah `true`. |
 | `replicationcontrollers` | Jumlah total ReplicationController yang dapat berada pada suatu Namespace. |
-| `resourcequotas` | Jumlah total [ResourceQuotaresource](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) yang dapat berada pada suatu Namespace. |
+| `resourcequotas` | Jumlah total [ResourceQuota](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) yang dapat berada pada suatu Namespace. |
 | `services` | Jumlah total Service yang dapat berada pada suatu Namespace. |
 | `services.loadbalancers` | Jumlah total Service dengan tipe LoadBalancer yang dapat berada pada suatu Namespace. |
 | `services.nodeports` | Jumlah total Service dengan tipe NodePort yang dapat berada pada suatu Namespace. |
@@ -402,7 +401,6 @@ mengharuskan setiap Container yang akan dibuat untuk menentukan limit eksplisit 
 ## Melihat dan Menyetel kuota
 
 Kubectl mendukung membuat, membarui, dan melihat kuota:
-Kubectl supports creating, updating, and viewing quotas:
 
 ```shell
 kubectl create namespace myspace
@@ -548,7 +546,7 @@ di Node yang sama.
 
 ## Membatasi konsumsi Priority Class secara bawaan
 
-Mungkin saja diinginkan untuk Pod-Pod pada kelas prioritas tertentu, misalnya "cluster-services", sebaiknya diizinkan pada sebuah Namespace, jika dan hanya jika, sebuah objek kuota yang cocok ada.
+Mungkin saja diinginkan untuk Pod-Pod pada kelas prioritas tertentu, misalnya "cluster-services", sebaiknya diizinkan pada sebuah Namespace, jika dan hanya jika terdapat sebuah objek kuota yang cocok.
 
 Dengan mekanisme ini, operator-operator dapat membatasi penggunaan Priority Class dengan prioritas tinggi pada Namespace-Namespace tertentu saja dan tidak semua Namespace dapat menggunakan Priority Class tersebut secara bawaan.
 
