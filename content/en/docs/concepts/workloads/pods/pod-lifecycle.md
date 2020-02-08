@@ -55,7 +55,7 @@ array has six possible fields:
 
 * The `message` field is a human-readable message indicating details
   about the transition.
-  
+
 * The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition.
 
 * The `status` field is a string, with possible values "`True`", "`False`", and "`Unknown`".
@@ -183,18 +183,18 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
        Reason:       ErrImagePull
 	  ...
    ```
-   
-* `Running`: Indicates that the container is executing without issues. The `postStart` hook (if any) is executed prior to the container entering a Running state. This state also displays the time when the container entered Running state.  
-   
+
+* `Running`: Indicates that the container is executing without issues. The `postStart` hook (if any) is executed prior to the container entering a Running state. This state also displays the time when the container entered Running state.
+
    ```yaml
    ...
       State:          Running
        Started:      Wed, 30 Jan 2019 16:46:38 +0530
    ...
-   ```   
-       
+   ```
+
 * `Terminated`:  Indicates that the container completed its execution and has stopped running. A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
-  
+
    ```yaml
    ...
       State:          Terminated
@@ -203,7 +203,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
         Started:      Wed, 30 Jan 2019 11:45:26 +0530
         Finished:     Wed, 30 Jan 2019 11:45:26 +0530
     ...
-   ``` 
+   ```
 
 ## Pod readiness gate
 
@@ -214,7 +214,7 @@ extra feedback or signals into `PodStatus`, Kubernetes 1.11 introduced a
 feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
 You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
 conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
-condition in the `status.conditions` field of a Pod, the status of the condition 
+condition in the `status.conditions` field of a Pod, the status of the condition
 is default to "`False`". Below is an example:
 
 ```yaml
@@ -253,12 +253,6 @@ when both the following statements are true:
 To facilitate this change to Pod readiness evaluation, a new Pod condition
 `ContainersReady` is introduced to capture the old Pod `Ready` condition.
 
-In K8s 1.11, as an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
-setting the `PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to true.
-
-In K8s 1.12, the feature is enabled by default.
-
 ## Restart policy
 
 A PodSpec has a `restartPolicy` field with possible values Always, OnFailure,
@@ -275,8 +269,8 @@ once bound to a node, a Pod will never be rebound to another node.
 ## Pod lifetime
 
 In general, Pods remain until a human or controller process explicitly removes them.
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or 
-`Failed`), when the number of Pods exceeds the configured threshold 
+The control plane cleans up terminated Pods (with a phase of `Succeeded` or
+`Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 
