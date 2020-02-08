@@ -1,73 +1,52 @@
 ---
-reviewers:
-- mikedanese
 title: Secrets
 content_template: templates/concept
-feature:
-  title: Secret and configuration management
-  description: >
-    Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
 weight: 50
 ---
 
 
 {{% capture overview %}}
-
-Kubernetes `secret` objects let you store and manage sensitive information, such
-as passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
-is safer and more flexible than putting it verbatim in a
-{{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
+Kubernetesの`secret`オブジェクトでは、パスワード、OAuthトークン、SSHキーのような機密情報を保存し管理します。
+この情報を`secret`に入れることは、{{< glossary_tooltip term_id="pod" >}}の定義や{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}にそのまま入れるよりも安全でフレキシブルです。
+詳細は[Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)を参照してください。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Overview of Secrets
+## Secretの概要
 
-A Secret is an object that contains a small amount of sensitive data such as
-a password, a token, or a key.  Such information might otherwise be put in a
-Pod specification or in an image; putting it in a Secret object allows for
-more control over how it is used, and reduces the risk of accidental exposure.
+Secretはパスワードやトークン、またはキーといった少量の機密情報を含むオブジェクトです。
+この情報はPodの定義やイメージ内に含むことも考えられますが、Secretオブジェクトに含むことで、使用方法をコントロールでき、誤って公開してしまうリスクを軽減できます。
 
-Users can create secrets, and the system also creates some secrets.
+ユーザーはSecretを作成でき、システムもまたいくつかのSecretを作成します。
 
-To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: as files in a
-{{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
-its containers, or used by kubelet when pulling images for the pod.
+Secretを利用する場合、PodにはSecretへの参照が必要になります。
+Secretは次の2つの方法でPodから利用できます: 1つ以上のコンテナに{{< glossary_tooltip text="ボリューム" term_id="volume" >}}をマウントしファイルとして扱う方法、またはPodのイメージをプルする際にKubeletによって利用される方法です。
 
 ### Built-in Secrets
 
-#### Service Accounts Automatically Create and Attach Secrets with API Credentials
+#### サービスアカウントはAPIの資格情報をSecretとして作成しアタッチします
 
-Kubernetes automatically creates secrets which contain credentials for
-accessing the API and it automatically modifies your pods to use this type of
-secret.
+KubernetesはAPIへアクセスするための資格情報をもつSecretを自動的に作成し、このSecretを使用するようPodを変更します。
 
-The automatic creation and use of API credentials can be disabled or overridden
-if desired.  However, if all you need to do is securely access the apiserver,
-this is the recommended workflow.
+APIの資格情報の利用や作成は、必要に応じて無効にしたり上書きできますが、APIサーバーに安全にアクセスするだけであれば、この手順は推奨される方法です。
 
-See the [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) documentation for more
-information on how Service Accounts work.
+どのようにサービスアカウントが動作しているかについては、[サービスアカウント](/docs/tasks/configure-pod-container/configure-service-account/)のドキュメントを参照してください。
 
-### Creating your own Secrets
+### Secretを作成する
 
-#### Creating a Secret Using kubectl create secret
+#### kubectl create secretを使用してSecretを作成する
 
-Say that some pods need to access a database.  The
-username and password that the pods should use is in the files
-`./username.txt` and `./password.txt` on your local machine.
+一部のPodがデータベースにアクセスする必要があるとします。Podが使用するユーザーネームとパスワードは、ローカルマシンの`./username.txt`および`./password.txt`というファイルにあります。
 
 ```shell
-# Create files needed for rest of example.
+# 以降の例に必要なファイルを作成します
 echo -n 'admin' > ./username.txt
 echo -n '1f2d1e2e67df' > ./password.txt
 ```
 
-The `kubectl create secret` command
-packages these files into a Secret and creates
-the object on the Apiserver.
+`kubectl create secret`コマンドはこれらのファイルをSecretに格納し、APIサーバーにオブジェクトを作成します。
 
 ```shell
 kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
@@ -76,16 +55,16 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 secret "db-user-pass" created
 ```
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+`$`、`\`、`*`、`!`のような特殊文字は[シェル](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%82%A7%E3%83%AB)に解釈されるため、エスケープする必要があります。一般的なシェルにおいて、エスケープする最も簡単な方法はパスワードをシングルクォーテーション（`'`）で囲むことです。たとえば、実際のパスワードが`S!B\*d$zDsb`であれば、次のコマンドを実行してください。
 
 ```
 kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
 ```
 
- You do not need to escape special characters in passwords from files (`--from-file`).
+パスワードをファイルから渡す場合（`--from-file`）は、特殊文字のエスケープは必要ありません。
 {{< /note >}}
 
-You can check that the secret was created like this:
+Secretが作成されていることを次のように確認できます:
 
 ```shell
 kubectl get secrets
@@ -112,25 +91,17 @@ username.txt:    5 bytes
 ```
 
 {{< note >}}
-`kubectl get` and `kubectl describe` avoid showing the contents of a secret by
-default.
-This is to protect the secret from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
+`kubectl get`および`kubectl describe`はデフォルトではSecretの内容は非表示となります。これは、見ているユーザに誤って表示したり、ターミナルのログに残ってしまうことを防ぐためです。
 {{< /note >}}
 
-See [decoding a secret](#decoding-a-secret) for how to see the contents of a secret.
+Secretの内容を表示する方法については[decoding a secret](#decoding-a-secret)を参照してください。
 
-#### Creating a Secret Manually
+#### 手動でSecretを作成する
 
-You can also create a Secret in a file first, in json or yaml format,
-and then create that object. The
-[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core) contains two maps:
-data and stringData. The data field is used to store arbitrary data, encoded using
-base64. The stringData field is provided for convenience, and allows you to provide
-secret data as unencoded strings.
+ファイルにJSONまたはYAMLフォーマットでSecretを作成してから、そのオブジェクトを作成することもできます。
+[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)は、dataとstringDataと2つのマップを含みます。dataフィールドは任意のデータを保存するのに用いられ、Base64でエンコードされます。stringDataフィールドは便利なように提供されており、エンコードされていない文字列としてSecretデータを与えることができます。
 
-For example, to store two strings in a Secret using the data field, convert
-them to base64 as follows:
+たとえば、2つの文字列をdataフィールドを用いてSecretに格納する場合、次のようにBase64エンコードします:
 
 ```shell
 echo -n 'admin' | base64
@@ -139,7 +110,7 @@ echo -n '1f2d1e2e67df' | base64
 MWYyZDFlMmU2N2Rm
 ```
 
-Write a Secret that looks like this:
+Secretは次のように記述します:
 
 ```yaml
 apiVersion: v1
@@ -152,7 +123,7 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply)を用いてSecretを作成します:
 
 ```shell
 kubectl apply -f ./secret.yaml
@@ -161,15 +132,9 @@ kubectl apply -f ./secret.yaml
 secret "mysecret" created
 ```
 
-For certain scenarios, you may wish to use the stringData field instead. This
-field allows you to put a non-base64 encoded string directly into the Secret,
-and the string will be encoded for you when the Secret is created or updated.
+特定のシナリオでは、代わりにstringDataフィールドを利用したいでしょう。このフィールドではBase64エンコードされていない文字列を直接Secretに記述でき、Secretが作成または更新されたときに文字列がエンコードされます。
 
-A practical example of this might be where you are deploying an application
-that uses a Secret to store a configuration file, and you want to populate
-parts of that configuration file during your deployment process.
-
-If your application uses the following configuration file:
+アプリケーションに次のような設定ファイルがあるとします:
 
 ```yaml
 apiUrl: "https://my.api.com/api/v1"
@@ -177,7 +142,7 @@ username: "user"
 password: "password"
 ```
 
-You could store this in a Secret using the following:
+設定ファイルを次のようにしてSecretに格納できます:
 
 ```yaml
 apiVersion: v1
@@ -192,17 +157,15 @@ stringData:
     password: {{password}}
 ```
 
-Your deployment tool could then replace the `{{username}}` and `{{password}}`
-template variables before running `kubectl apply`.
+デプロイツールは`kubectl apply`を実行する前に、`{{username}}`および`{{password}}`テンプレート変数を置換できます。
 
-stringData is a write-only convenience field. It is never output when
-retrieving Secrets. For example, if you run the following command:
+stringDataは書き込み専用の便利なフィールドです。Secretを取得する際はけっして出力されません。たとえば、次のコマンドを実行したとします:
 
 ```shell
 kubectl get secret mysecret -o yaml
 ```
 
-The output will be similar to:
+出力は次のようになります:
 
 ```yaml
 apiVersion: v1
@@ -218,8 +181,7 @@ data:
   config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
-If a field is specified in both data and stringData, the value from stringData
-is used. For example, the following Secret definition:
+dataとstringDataの両方でフィールドが指定されている場合、stringDataの値が利用されます。たとえば、次にSecretの定義を示します:
 
 ```yaml
 apiVersion: v1
@@ -233,7 +195,7 @@ stringData:
   username: administrator
 ```
 
-Results in the following secret:
+Secretは次のような結果となります:
 
 ```yaml
 apiVersion: v1
@@ -249,28 +211,25 @@ data:
   username: YWRtaW5pc3RyYXRvcg==
 ```
 
-Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
+`YWRtaW5pc3RyYXRvcg==`はデコードすると`administrator`となります。
 
-The keys of data and stringData must consist of alphanumeric characters,
-'-', '_' or '.'.
+dataおよびstringDataのキーは英数字または'-'、'_'、'.'で構成されなければなりません。
 
-**Encoding Note:** The serialized JSON and YAML values of secret data are
-encoded as base64 strings.  Newlines are not valid within these strings and must
-be omitted.  When using the `base64` utility on Darwin/macOS users should avoid
-using the `-b` option to split long lines.  Conversely Linux users *should* add
-the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
-`-w` option is not available.
+**エンコーディングに関する注意:** シリアライズされたJSONおよびYAMLのSecretデータの値はBase64文字列としてエンコードされています。
+改行はこれらの文字列内では無効で、省略されます。
+Darwin/macOSにて`base64`ユーティリティーを使用する際は、`-b`オプションを用いて行を分割すべきではありません。
+一方、Linuxユーザーは`base64`コマンドに`-w 0`オプションを追加するか、`-w`オプションを利用できない場合は`base64 | tr -d '\n'`としてパイプ *すべきです* 。
 
-#### Creating a Secret from Generator
-Kubectl supports [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
-since 1.14. With this new feature,
-you can also create a Secret from generators and then apply it to create the object on
-the Apiserver. The generators
-should be specified in a `kustomization.yaml` inside a directory.
+#### ジェネレーターからSecretを作成する
 
-For example, to generate a Secret from files `./username.txt` and `./password.txt`
+kubectlは1.14から[Kustomizeによるオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/kustomization/)をサポートしています。
+この機能によって、ジェネレーターからSecretを作成し、APIサーバー上にオブジェクトを生成することができます。
+ジェネレーターはディレクトリ内の`kustomization.yaml`に設定してください。
+
+たとえば、`./username.txt`および`./password.txt`ファイルからSecretを生成する場合は次のようになります。
+
 ```shell
-# Create a kustomization.yaml file with SecretGenerator
+# secretGeneratorを含むkustomization.yamlファイルを作成します
 cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
@@ -279,13 +238,13 @@ secretGenerator:
   - password.txt
 EOF
 ```
-Apply the kustomization directory to create the Secret object.
+kustomizationのディレクトリを適用し、Secretオブジェクトを作成します。
 ```shell
 $ kubectl apply -k .
 secret/db-user-pass-96mffmfh4k created
 ```
 
-You can check that the secret was created like this:
+Secretが作成されたことを次のように確認できます:
 
 ```shell
 $ kubectl get secrets
@@ -306,10 +265,9 @@ password.txt:    12 bytes
 username.txt:    5 bytes
 ```
 
-For example, to generate a Secret from literals `username=admin` and `password=secret`,
-you can specify the secret generator in `kustomization.yaml` as
+たとえば、`username=admin`および`password=secret`というリテラルからSecretを作成する場合は、`kustomization.yaml`のSecretジェネレーターにて次のように指定できます。
 ```shell
-# Create a kustomization.yaml file with SecretGenerator
+# secretGeneratorを含むkustomization.yamlファイルを作成します
 $ cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
@@ -318,19 +276,18 @@ secretGenerator:
   - password=secret
 EOF
 ```
-Apply the kustomization directory to create the Secret object.
+kustomizationのディレクトリを適用し、Secretオブジェクトを作成します。
 ```shell
 $ kubectl apply -k .
 secret/db-user-pass-dddghtt9b5 created
 ```
 {{< note >}}
-The generated Secrets name has a suffix appended by hashing the contents. This ensures that a new
-Secret is generated each time the contents is modified.
+生成されたSecretの名称は、内容のハッシュ値をサフィックスとして追加されます。これにより、内容が変更されるごとに新しいSecretが生成されることを保証しています。
 {{< /note >}}
 
-#### Decoding a Secret
+#### Secretをデコードする
 
-Secrets can be retrieved via the `kubectl get secret` command. For example, to retrieve the secret created in the previous section:
+Secretは`kubectl get secret`コマンドを通して得ることができます。たとえば、先ほどのセクションで作成したSecretを得る場合は、次のようになります:
 
 ```shell
 kubectl get secret mysecret -o yaml
@@ -350,7 +307,7 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-Decode the password field:
+passwordフィールドをデコードします:
 
 ```shell
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
@@ -359,20 +316,19 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
-#### Editing a Secret
+#### Secretを編集する
 
-An existing secret may be edited with the following command:
+既存のSecretは次のコマンドで編集できます:
 
 ```shell
 kubectl edit secrets mysecret
 ```
 
-This will open the default configured editor and allow for updating the base64 encoded secret values in the `data` field:
+デフォルトに設定されたエディターが起動し、`data`フィールド中のBase64エンコードされたSecretの値を更新できます:
 
 ```
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
+# 以下のオブジェクトを編集してください。'#'から始まる行は無視され、
+# 空のファイルは編集を中止されます。保存中にエラーが発生した場合、このファイルは再度開かれます。
 #
 apiVersion: v1
 data:
@@ -390,25 +346,22 @@ metadata:
 type: Opaque
 ```
 
-## Using Secrets
+## Secretを使用する
 
-Secrets can be mounted as data volumes or be exposed as
-{{< glossary_tooltip text="environment variables" term_id="container-env-variables" >}}
-to be used by a container in a pod.  They can also be used by other parts of the
-system, without being directly exposed to the pod.  For example, they can hold
-credentials that other parts of the system should use to interact with external
-systems on your behalf.
+Secretはデータボリュームとしてマウントするか、Pod内のコンテナで使用される{{< glossary_tooltip text="環境変数" term_id="container-env-variables" >}}として公開できます。
+また、Podに直接公開せずに、システムのほかの箇所で使用することもできます。
+たとえば、システムのほかの箇所がユーザーの代わりに外部システムと通信する際に、使用する資格情報を保持できます。
 
-### Using Secrets as Files from a Pod
+### PodからファイルとしてSecretを扱う
 
-To consume a Secret in a volume in a Pod:
+Pod内のボリュームのSecretを使用する場合は次のようになります:
 
-1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
-1. Modify your Pod definition to add a volume under `.spec.volumes[]`.  Name the volume anything, and have a `.spec.volumes[].secret.secretName` field equal to the name of the secret object.
-1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the secret.  Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
-1. Modify your image and/or command line so that the program looks for files in that directory.  Each key in the secret `data` map becomes the filename under `mountPath`.
+1. Secretを作成するか既存のものを使用します。複数のPodで同じSecretを参照できます。
+1. Podの仕様の`.spec.volumes[]`以下に、ボリュームを追加するよう編集してください。ボリュームに任意の名称を設定し、`.spec.volumes[].secret.secretName`フィールドはSecretオブジェクトの名称と同じにします。
+1. `.spec.containers[].volumeMounts[]`を、Secretを必要とする各コンテナに追記します。`.spec.containers[].volumeMounts[].readOnly = true`を設定し、`.spec.containers[].volumeMounts[].mountPath`をSecretを配置したい未使用のディレクトリ名に設定します。
+1. プログラムがそのファイルを探せるよう、イメージおよびコマンドライン、またはいずれかを編集します。Secretの`data`マップの各キーは、`mountPath`以下のファイル名となります。
 
-This is an example of a pod that mounts a secret in a volume:
+以下はSecretをボリュームとしてPodにマウントする例です:
 
 ```yaml
 apiVersion: v1
@@ -429,17 +382,17 @@ spec:
       secretName: mysecret
 ```
 
-Each secret you want to use needs to be referred to in `.spec.volumes`.
+使用する各Secretは`.spec.volumes`内で参照する必要があります。
 
-If there are multiple containers in the pod, then each container needs its
-own `volumeMounts` block, but only one `.spec.volumes` is needed per secret.
+Pod内に複数のコンテナがある場合は、各コンテナに`volumeMounts`ブロックが必要となりますが、Secretごとに必要な`.spec.volumes`一つとなります。
 
-You can package many files into one secret, or use many secrets, whichever is convenient.
+一つのSecretに多くのファイルを含めることや、多くのSecretを使用する方法のどちらでも適切です。
 
-**Projection of secret keys to specific paths**
+**Secretのkeyを特定のパスに反映する**
+<!-- **Projection of secret keys to specific paths** -->
 
-We can also control the paths within the volume where Secret keys are projected.
-You can use `.spec.volumes[].secret.items` field to change target path of each key:
+Secretのkeyが反映されるボリューム内のパスを操作することもできます。
+`.spec.volumes[].secret.items`フィールドを使用することで、各keyのターゲットパスを変更可能です:
 
 ```yaml
 apiVersion: v1
@@ -463,22 +416,21 @@ spec:
         path: my-group/my-username
 ```
 
-What will happen:
+これにより、次のようになります:
 
-* `username` secret is stored under `/etc/foo/my-group/my-username` file instead of `/etc/foo/username`.
-* `password` secret is not projected
+* `username`Secretは`/etc/foo/username`の代わりに`/etc/foo/my-group/my-username`のファイル内に格納されます
+* `password`secretは反映されません
 
-If `.spec.volumes[].secret.items` is used, only keys specified in `items` are projected.
-To consume all keys from the secret, all of them must be listed in the `items` field.
-All listed keys must exist in the corresponding secret. Otherwise, the volume is not created.
+`.spec.volumes[].secret.items`を使用する場合、`items`で指定したkeyのみが反映されます。
+Secretのすべてのkeyを使用するには、`items`フィールドにすべて列挙する必要があります。
+列挙されたkeyは、対応するSecretに存在しなければなりません。そうでない場合、ボリュームは作成されません。
 
-**Secret files permissions**
+**Secretファイルのパーミッション**
 
-You can also specify the permission mode bits files part of a secret will have.
-If you don't specify any, `0644` is used by default. You can specify a default
-mode for the whole secret volume and override per key if needed.
+Secretファイルに含める、パーミッションモードを表すビットを指定することもできます。
+なにも指定しない場合は、デフォルトで`0644`が使用されます。Secretボリューム全体にデフォルトモードを設定し、必要に応じてkeyごとに上書きすることもできます。
 
-For example, you can specify a default mode like this:
+たとえば、次のようにデフォルトモードを指定できます:
 
 ```yaml
 apiVersion: v1
@@ -499,15 +451,11 @@ spec:
       defaultMode: 256
 ```
 
-Then, the secret will be mounted on `/etc/foo` and all the files created by the
-secret volume mount will have permission `0400`.
+これにより、Secretは`/etc/foo`にマウントされ、Secretのボリュームマウントによって作成されたすべてのファイルは`0400`のパーミッションとなります。
 
-Note that the JSON spec doesn't support octal notation, so use the value 256 for
-0400 permissions. If you use yaml instead of json for the pod, you can use octal
-notation to specify permissions in a more natural way.
+JSONでの設定では8進数表記をサポートしないことに注意してください。そのため、0400のパーミッションには256という値を使用します。Podの設定にJSONでなくYAMLを使用する場合、8進数表記によってより自然な方法でパーミッションを指定できます。
 
-You can also use mapping, as in the previous example, and specify different
-permission for different files like this:
+先ほどの例のようにマッピングを用いて、次のようにファイルごとに異なるパーミッションを指定できます:
 
 ```yaml
 apiVersion: v1
@@ -531,19 +479,16 @@ spec:
         mode: 511
 ```
 
-In this case, the file resulting in `/etc/foo/my-group/my-username` will have
-permission value of `0777`. Owing to JSON limitations, you must specify the mode
-in decimal notation.
+このケースでは、`/etc/foo/my-group/my-username`に生成されたファイルのパーミッションは`0777`となります。
+JSONの制限のため、モードを10進数で指定する必要があります。
 
-Note that this permission value might be displayed in decimal notation if you
-read it later.
+今後読む際は、パーミッションが10進数表記となる場合がある点に注意してください。
 
-**Consuming Secret Values from Volumes**
+**ボリュームからSecretの値を利用する**
 
-Inside the container that mounts a secret volume, the secret keys appear as
-files and the secret values are base-64 decoded and stored inside these files.
-This is the result of commands
-executed inside the container from the example above:
+Secretボリュームをマウントしたコンテナ内では、Secretのkeyはファイルとなり、値はファイル内でBase64デコードされています。
+
+以下は、上記の例のコンテナ内で実行されたコマンドの結果です:
 
 ```shell
 ls /etc/foo/
@@ -568,39 +513,30 @@ cat /etc/foo/password
 1f2d1e2e67df
 ```
 
-The program in a container is responsible for reading the secrets from the
-files.
+このコンテナ内のプログラムは、ファイルからsecertを読んだ結果です。
 
-**Mounted Secrets are updated automatically**
+**マウントされたSecretは自動的に更新されます**
 
-When a secret being already consumed in a volume is updated, projected keys are eventually updated as well.
-Kubelet is checking whether the mounted secret is fresh on every periodic sync.
-However, it is using its local cache for getting the current value of the Secret.
-The type of the cache is configurable using the  (`ConfigMapAndSecretChangeDetectionStrategy` field in
-[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
-It can be either propagated via watch (default), ttl-based, or simply redirecting
-all requests to directly kube-apiserver.
-As a result, the total delay from the moment when the Secret is updated to the moment
-when new keys are projected to the Pod can be as long as kubelet sync period + cache
-propagation delay, where cache propagation delay depends on the chosen cache type
-(it equals to watch propagation delay, ttl of cache, or zero corespondingly).
+すでにボリューム内で使用されているSecretが更新されたとき、反映されているkeyも更新されます。
+Kubeletは、マウントされたSecretが最新かどうかを定期的な同期のたびに確認します。
+ただし、Secretの現在の値を取得するためにローカルキャッシュを用いています。
+キャッシュの種類は[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)の`ConfigMapAndSecretChangeDetectionStrategy`フィールドにて設定可能です。
+watch（デフォルト）、TTLベース、またはすべてのリクエストをkube-apiserverにリダイレクトする方法のいずれかによって伝搬できます。
+したがって、Secretが更新されてから新しいkeyがPodに反映されるまでの合計遅延時間は、Kubeletの同期周期+キャッシュの伝搬遅延とほぼ等しくなります。ここで、キャッシュの伝搬遅延はキャッシュタイプに依存します（watchの伝搬遅延、キャッシュのTTL、または即時反映のいずれか）。
 
 {{< note >}}
-A container using a Secret as a
-[subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive
-Secret updates.
+[subPath](/docs/concepts/storage/volumes#using-subpath)ボリュームマウントとしてSecretを利用するコンテナは、Secretの更新が反映されません。
 {{< /note >}}
 
-### Using Secrets as Environment Variables
+### Secretを環境変数として扱う
 
-To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
-in a pod:
+Pod内にて{{< glossary_tooltip text="環境変数" term_id="container-env-variables" >}}としてSecretを使う場合は次のようになります:
 
-1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
-1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[].valueFrom.secretKeyRef`.
-1. Modify your image and/or command line so that the program looks for values in the specified environment variables
+1. Secretを作成するか既存のものを使用します。複数のPodで同じSecretを参照できます。
+1. 各コンテナのPodの定義を変更し、Secretを使用する各コンテナの、Secret keyに対応する環境変数を追加します。Secret keyを使用する環境変数は、`env[].valueFrom.secretKeyRef`にSecretの名前とkeyを指定する必要があります。
+1. プログラムがその環境変数を探せるよう、イメージおよびコマンドライン、またはいずれかを編集します。
 
-This is an example of a pod that uses secrets from environment variables:
+以下はSecretを環境変数から使用するPodの例です:
 
 ```yaml
 apiVersion: v1
@@ -625,11 +561,10 @@ spec:
   restartPolicy: Never
 ```
 
-**Consuming Secret Values from Environment Variables**
+**環境変数からSecretの値を利用する**
 
-Inside a container that consumes a secret in an environment variables, the secret keys appear as
-normal environment variables containing the base-64 decoded values of the secret data.
-This is the result of commands executed inside the container from the example above:
+環境変数としてSecretを利用するコンテナ内では、Secretのキーは、SecretのデータのBase64デコード値をもつ通常の環境変数として現れます。
+以下にコンテナ内で実行されたコマンドの結果の例を示します:
 
 ```shell
 echo $SECRET_USERNAME
@@ -644,65 +579,52 @@ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
-### Using imagePullSecrets
+### imagePullSecretsを使用する
 
-An imagePullSecret is a way to pass a secret that contains a Docker (or other) image registry
-password to the Kubelet so it can pull a private image on behalf of your Pod.
+imagePullSecretは、Docker（またはほかの）イメージレジストリのパスワードを含むSecretをKubeletに渡し、Podに代わってプライベートイメージをプルできるようにする手段となります。
 
-**Manually specifying an imagePullSecret**
+**imagePullSecretを手動で指定する**
 
-Use of imagePullSecrets is described in the [images documentation](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
+imagePullSecretsの使用方法は[イメージのドキュメント](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記述されています。
 
-### Arranging for imagePullSecrets to be Automatically Attached
+### imagePullSecretsを自動で適用されるように用意する
 
-You can manually create an imagePullSecret, and reference it from
-a serviceAccount.  Any pods created with that serviceAccount
-or that default to use that serviceAccount, will get their imagePullSecret
-field set to that of the service account.
-See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
- for a detailed explanation of that process.
+imagePullSecretを手動で作成し、サービスアカウントから参照することもできます。
+そのサービスアカウントを指定して作成されたPod、またはそのサービスアカウントがdefaultとして使用されるPodは、サービスアカウントに設定されたimagePullSecretフィールドを利用できます。
+この手順の詳細は、[imagePullSecretsをサービスアカウントに追加する](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)を参照してください。
 
-### Automatic Mounting of Manually Created Secrets
+### 手動で作成したSecretを自動でマウントする
 
-Manually created secrets (e.g. one containing a token for accessing a github account)
-can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
+手動で作成されたSecret（たとえばGitHubアカウントにアクセスするトークンを含む）は、サービスアカウントをもとにPodに自動でアタッチすることもできます。
+この手順の詳細は、[PodPresetを使用してPodに情報を注入する](/docs/tasks/inject-data-application/podpreset/)を参照してください。
 
-## Details
+## 詳細
 
-### Restrictions
+### 制限
 
-Secret volume sources are validated to ensure that the specified object
-reference actually points to an object of type `Secret`.  Therefore, a secret
-needs to be created before any pods that depend on it.
+指定されたオブジェクトの参照が実際に`Secret`タイプを指しているかを確認するため、Secretボリュームのソースを検証します。
+したがって、Secretはそれに依存するPodの前に作成する必要があります。
 
-Secret API objects reside in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
-They can only be referenced by pods in that same namespace.
+Secret APIオブジェクトは{{< glossary_tooltip text="名前空間" term_id="namespace" >}}内に存在します。
+同じ名前空間のPodのみ参照可能です。
 
-Individual secrets are limited to 1MiB in size.  This is to discourage creation
-of very large secrets which would exhaust apiserver and kubelet memory.
-However, creation of many smaller secrets could also exhaust memory.  More
-comprehensive limits on memory usage due to secrets is a planned feature.
+それぞれのSecretは1MiBのサイズ制限があります。
+これは、APIサーバーやKubeletのメモリーを使い果たすような巨大なSecretの作成を防ぐためです。
+しかし、大量の小さなSecretを作成することもまたメモリーの枯渇に繋がります。
+Secretによるメモリーの包括的な使用制限については将来的に提供される予定です。
 
-Kubelet only supports use of secrets for Pods it gets from the API server.
-This includes any pods created using kubectl, or indirectly via a replication
-controller.  It does not include pods created via the kubelets
-`--manifest-url` flag, its `--config` flag, or its REST API (these are
-not common ways to create pods.)
+Kubeletは、APIサーバーから取得したPodのSecretのみをサポートします。
+これには、kubectlによって作成されたPod、またはレプリケーションコントローラーによって間接的に作成されたPodを含みます。
+Kubeletの`--manifest-url`フラグや`--config`フラグ、またはREST APIで作成されたPodは含まれません（これらはPodを作成するための一般的な方法ではありません）。
 
-Secrets must be created before they are consumed in pods as environment
-variables unless they are marked as optional.  References to Secrets that do
-not exist will prevent the pod from starting.
+Secretは、オプションとしてマークされていない限り、環境変数としてPodから利用される前に作成する必要があります。
+存在しないSecretを参照した場合、Podは起動されません。
 
-References via `secretKeyRef` to keys that do not exist in a named Secret
-will prevent the pod from starting.
+名前のついたSecretに存在しないキーを、`secretKeyRef`から参照した場合、Podは起動されません。
 
-Secrets used to populate environment variables via `envFrom` that have keys
-that are considered invalid environment variable names will have those keys
-skipped.  The pod will be allowed to start.  There will be an event whose
-reason is `InvalidVariableNames` and the message will contain the list of
-invalid keys that were skipped. The example shows a pod which refers to the
-default/mysecret that contains 2 invalid keys, 1badkey and 2alsobad.
+無効な環境変数名とみなされるキーをもつ`envFrom`を介して、環境変数の設定に使用されるSecretは、それらのキーをスキップします。
+Podは起動することができますが、`InvalidVariableNames`のイベントが発生し、スキップされた無効なキーのリストがメッセージとして表示されます。
+次の例は、1badkeyおよび2alsobadという2つの無効なキーを含む、default/mysecretを参照するPodについて表しています。
 
 ```shell
 kubectl get events
@@ -712,22 +634,20 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
 
-### Secret and Pod Lifetime interaction
+### SecretとPodのライフタイムの相互作用
 
-When a pod is created via the API, there is no check whether a referenced
-secret exists.  Once a pod is scheduled, the kubelet will try to fetch the
-secret value.  If the secret cannot be fetched because it does not exist or
-because of a temporary lack of connection to the API server, kubelet will
-periodically retry.  It will report an event about the pod explaining the
-reason it is not started yet.  Once the secret is fetched, the kubelet will
-create and mount a volume containing it.  None of the pod's containers will
-start until all the pod's volumes are mounted.
+API経由でPodを作成した際は、参照したSecretが存在するかどうかをチェックしません。
+Podがスケジュールされると、KubeletはSecretの値を取得しようとします。
+Secretが存在しないか、APIサーバーとの接続が一時的に失敗するなどの理由でSecretを取得できない場合、Kubeletは定期的に再取得を行ないます。
+このときPodが起動されない理由に関するイベントが報告されます。
+一度Secretが取得されると、KubeletはSecretを含むボリュームを作成し、マウントします。
+Podのボリュームがすべてマウントされるまで、Pod内のコンテナは起動されません。
 
-## Use cases
+## ユースケース
 
-### Use-Case: Pod with ssh keys
+### ユースケース: PodとSSHキー
 
-Create a kustomization.yaml with SecretGenerator containing some ssh keys:
+SecretGeneratorを使用して、いくつかのSSHキーを含むkustomization.yamlを作成します:
 
 ```shell
 kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
@@ -738,12 +658,11 @@ secret "ssh-key-secret" created
 ```
 
 {{< caution >}}
-Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+自身のSSHキーを送信する前に注意してください: クラスター内のほかのユーザーがSecretにアクセスできる可能性があります。
+Kubernetesクラスターを共有するすべてのユーザーが利用可能なサービスアカウントを使用することで、ユーザーが不正利用された場合は無効にすることができます。
 {{< /caution >}}
 
-
-Now we can create a pod which references the secret with the ssh key and
-consumes it in a volume:
+これにより、SSHキーをもつSecretを参照するPodを作成し、ボリュームから利用することができます:
 
 ```yaml
 apiVersion: v1
@@ -766,22 +685,20 @@ spec:
       mountPath: "/etc/secret-volume"
 ```
 
-When the container's command runs, the pieces of the key will be available in:
+コンテナのコマンドが実行された際、キーは以下から利用できます:
 
 ```shell
 /etc/secret-volume/ssh-publickey
 /etc/secret-volume/ssh-privatekey
 ```
 
-The container is then free to use the secret data to establish an ssh connection.
+コンテナはSSHコネクションを確立するために、Secretを自由に利用できます。
 
-### Use-Case: Pods with prod / test credentials
+### ユースケース: Podと本番/テストの機密情報
 
-This example illustrates a pod which consumes a secret containing prod
-credentials and another pod which consumes a secret with test environment
-credentials.
+この例では、本番環境の機密情報に関するSecretを利用するPodと、テスト環境の機密情報に関するSecretを利用するPodについて説明します。
 
-Make the kustomization.yaml with SecretGenerator
+SecretGeneratorを使用して、kustomization.yamlを作成します:
 
 ```shell
 kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
@@ -797,16 +714,16 @@ kubectl create secret generic test-db-secret --from-literal=username=testuser --
 secret "test-db-secret" created
 ```
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_\(computing\)) and require escaping. In most common shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+`$`、`\`、`*`、`!`のような特殊文字は[シェル](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%82%A7%E3%83%AB)に解釈されるため、エスケープする必要があります。一般的なシェルにおいて、エスケープする最も簡単な方法はパスワードをシングルクォーテーション（`'`）で囲むことです。たとえば、実際のパスワードが`S!B\*d$zDsb`であれば、次のコマンドを実行してください。
 
 ```
 kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
 ```
 
- You do not need to escape special characters in passwords from files (`--from-file`).
+パスワードをファイルから渡す場合（`--from-file`）は、特殊文字のエスケープは必要ありません。
 {{< /note >}}
 
-Now make the pods:
+Podを作成します:
 
 ```shell
 $ cat <<EOF > pod.yaml
@@ -852,7 +769,7 @@ items:
 EOF
 ```
 
-Add the pods to the same kustomization.yaml
+同じkustomization.yamlにPodを追加します。
 ```shell
 $ cat <<EOF >> kustomization.yaml
 resources:
@@ -860,25 +777,23 @@ resources:
 EOF
 ```
 
-Apply all those objects on the Apiserver by
+次のコマンドでオブジェクトをAPIサーバーに適用します。
 
 ```shell
 kubectl apply -k .
 ```
 
-Both containers will have the following files present on their filesystems with the values for each container's environment:
+各コンテナのファイルシステムには、各コンテナの環境ごとの値を含む、次のようなファイルが作成されます:
 
 ```shell
 /etc/secret-volume/username
 /etc/secret-volume/password
 ```
 
-Note how the specs for the two pods differ only in one field;  this facilitates
-creating pods with different capabilities from a common pod config template.
+2つのPodのspecは一つのフィールドのみ異なっている点に注意してください。
+これは、一般的なPodの設定テンプレートを使うことで、異なる機能をもつ複数のPodを作成することが容易になります。
 
-You could further simplify the base pod specification by using two Service Accounts:
-one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
-`test-user` with the `test-db-secret`.  Then, the pod spec can be shortened to, for example:
+2つのサービスアカウントを使用して、ベースとなるPodのspecをさらにシンプルにできます: 次の例では、`prod-user`では`prod-db-secret`を、`test-user`では`test-db-secret`を使用します:
 
 ```yaml
 apiVersion: v1
@@ -894,10 +809,10 @@ spec:
     image: myClientImage
 ```
 
-### Use-case: Dotfiles in secret volume
+### ユースケース: Secretボリューム内のDotfiles
 
-In order to make piece of data 'hidden' (i.e., in a file whose name begins with a dot character), simply
-make that key begin with a dot.  For example, when the following secret is mounted into a volume:
+データの一部を非表示にするには（これはファイル名をドットから開始することと同じです）、そのキーをドットから始めるだけです。
+たとえば、以下のSecretがボリュームにマウントされるとします:
 
 ```yaml
 apiVersion: v1
@@ -929,124 +844,78 @@ spec:
       mountPath: "/etc/secret-volume"
 ```
 
-
-The `secret-volume` will contain a single file, called `.secret-file`, and
-the `dotfile-test-container` will have this file present at the path
-`/etc/secret-volume/.secret-file`.
+`secret-volume`には`.secret-file`というファイルだけが含まれ、`dotfile-test-container`には`/etc/secret-volume/.secret-file`というパスにファイルが現れます。
 
 {{< note >}}
-Files beginning with dot characters are hidden from the output of  `ls -l`;
-you must use `ls -la` to see them when listing directory contents.
+ドットで始まるファイルは`ls -l`の出力には表示されません。ディレクトリの内容としてこれらを一覧表示するには、`ls -la`を使用する必要があります。
 {{< /note >}}
 
-### Use-case: Secret visible to one container in a pod
+### ユースケース: Pod内のコンテナで見えるSecret
 
-Consider a program that needs to handle HTTP requests, do some complex business
-logic, and then sign some messages with an HMAC.  Because it has complex
-application logic, there might be an unnoticed remote file reading exploit in
-the server, which could expose the private key to an attacker.
+HTTPリクエストを処理し、複雑なビジネスロジックを実行し、HMACでメッセージを署名する必要があるプログラムについて考えてみます。
+アプリケーションロジックが複雑であるため、サーバー内で看過されているリモートファイルの読み取りに関する脆弱性が存在し、攻撃者にプライベートキーがさらされるおそれがあります。
 
-This could be divided into two processes in two containers: a frontend container
-which handles user interaction and business logic, but which cannot see the
-private key; and a signer container that can see the private key, and responds
-to simple signing requests from the frontend (e.g. over localhost networking).
+これは、2つのコンテナにて2つのプロセスに分割できます: ユーザーへの応答とビジネスロジックを処理するがプライベートキーを閲覧できないフロントエンドのコンテナと、フロントエンドからの単純なリクエストに署名するプライベートキーを閲覧可能な署名用コンテナ（例: ローカルホストネットワーク経由）です。
 
-With this partitioned approach, an attacker now has to trick the application
-server into doing something rather arbitrary, which may be harder than getting
-it to read a file.
+この分割されたアプローチでは、攻撃者はアプリケーションサーバーをだまして任意の操作を実行する必要があります。これは、ファイルを読み取るよりも難しい場合があります。
 
 <!-- TODO: explain how to do this while still using automation. -->
 
-## Best practices
+## ベストプラクティス
 
-### Clients that use the secrets API
+### Secret APIを使用するクライアント
 
-When deploying applications that interact with the secrets API, access should be
-limited using [authorization policies](
-/docs/reference/access-authn-authz/authorization/) such as [RBAC](
-/docs/reference/access-authn-authz/rbac/).
+Secret APIを使用するアプリケーションをデプロイする場合、[RBAC](
+/docs/reference/access-authn-authz/rbac/)などの[認可ポリシー](
+/docs/reference/access-authn-authz/authorization/)を使用してアクセス制限を制限すべきです。
 
-Secrets often hold values that span a spectrum of importance, many of which can
-cause escalations within Kubernetes (e.g. service account tokens) and to
-external systems. Even if an individual app can reason about the power of the
-secrets it expects to interact with, other apps within the same namespace can
-render those assumptions invalid.
+Secretにはしばしば重要な要素にまたがる値が保持され、その多くはKubernetes内（サービスアカウントトークンなど）および外部システムでの昇格を引き起こす可能性があります。
+各アプリケーションは、通信されるであろうSecretがどれほど強力かを推測できますが、同じ名前空間のほかのアプリケーションはそうでないかもしれません。
 
-For these reasons `watch` and `list` requests for secrets within a namespace are
-extremely powerful capabilities and should be avoided, since listing secrets allows
-the clients to inspect the values of all secrets that are in that namespace. The ability to
-`watch` and `list` all secrets in a cluster should be reserved for only the most
-privileged, system-level components.
+これらの理由のため、名前空間内のSecretに対する`watch`および`list`リクエストはきわめて強力な機能であり、避けるべきです。Secretを一覧表示することにより、クライアントは名前空間に存在するすべてのSecretの値を検査することができます。クラスター内のすべてのSecretを`watch`および`list`する機能は、最も特権のあるシステムレベルのコンポーネントに対してのみ予約する必要があります。
 
-Applications that need to access the secrets API should perform `get` requests on
-the secrets they need. This lets administrators restrict access to all secrets
-while [white-listing access to individual instances](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
-the app needs.
+Secret APIにアクセスするアプリケーションは、そのSecretに対して`get`リクエストを実行する必要があります。
+また、アプリケーションが必要とする[各インスタンスに対してホワイトリストを設ける](/docs/reference/access-authn-authz/rbac/#referring-to-resources)ことで、管理者はすべてのSecretへのアクセスを制限することができます。
 
-For improved performance over a looping `get`, clients can design resources that
-reference a secret then `watch` the resource, re-requesting the secret when the
-reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
-to let clients `watch` individual resources has also been proposed, and will likely
-be available in future releases of Kubernetes.
+くり返し`get`を行う場合のパフォーマンス改善として、クライアントはSecretを参照するリソースを作成してから、リソースに対して`watch`を実行し、参照先の内容が変更された際に再度リクエストすることができます。
+さらに、クライアントに対してリソースごとに`watch`させる["bulk watch" API](
+https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)も提案されており、こちらは今後のKubernetesのリリースで利用可能となる場合があります。
 
-## Security Properties
+## セキュリティに関する特性
 
+### 保護
 
-### Protections
+`secret`オブジェクトは、それを使用するPodとは独立して作成されるため、Podの作成、表示および編集に関するワークフロー内でSecretを公開されてしまうリスクを低減できます。
+できるだけディスクへの書き込みを回避するなど、`secret`オブジェクトに対してさらなる予防措置を講じることも可能です。
 
-Because `secret` objects can be created independently of the `pods` that use
-them, there is less risk of the secret being exposed during the workflow of
-creating, viewing, and editing pods.  The system can also take additional
-precautions with `secret` objects, such as avoiding writing them to disk where
-possible.
+Secretはそれを必要とするPodが存在するノードにのみ送信されます。
+KubeletはSecretを`tmpfs`に保存するため、Secretはディスクストレージに書き込まれないようになっています。
+Secretに依存するPodが削除されると、Kubeletはローカル環境にコピーしたSecretも削除します。
 
-A secret is only sent to a node if a pod on that node requires it.
-Kubelet stores the secret into a `tmpfs` so that the secret is not written
-to disk storage. Once the Pod that depends on the secret is deleted, kubelet
-will delete its local copy of the secret data as well.
+同一ノード上の複数のPodがSecretをもつ場合がありますが、Podが実際に必要とするSecretのみがコンテナ内で表示可能となります。
+したがって、あるPodは別のPodに存在するSecretにはアクセスできないようになっています。
 
-There may be secrets for several pods on the same node.  However, only the
-secrets that a pod requests are potentially visible within its containers.
-Therefore, one Pod does not have access to the secrets of another Pod.
+Pod内に複数のコンテナを含む場合がありますが、各コンテナはそれぞれの`volumeMounts`内のSecretボリュームがコンテナ内で表示できるように要求する必要があります。
+[Podレベルでの安全なパーティション](#ユースケース-pod内のコンテナで見えるsecret)を構築することもできます。
 
-There may be several containers in a pod.  However, each container in a pod has
-to request the secret volume in its `volumeMounts` for it to be visible within
-the container.  This can be used to construct useful [security partitions at the
-Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
-
-On most Kubernetes-project-maintained distributions, communication between user
-to the apiserver, and from apiserver to the kubelets, is protected by SSL/TLS.
-Secrets are protected when transmitted over these channels.
+Kubernetesプロジェクトによって管理されているディストリビューションのほとんどは、ユーザーとAPIサーバー間、およびAPIサーバーとKubelet間の通信はSSL/TLSで保護されています。
+これらのチャネルを介して転送される場合には、Secretは保護されます。
 
 {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
-You can enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
-for secret data, so that the secrets are not stored in the clear into {{< glossary_tooltip term_id="etcd" >}}.
+Secretが{{< glossary_tooltip term_id="etcd" >}}内に平文で保存されないよう、Secretの[保存時における暗号化](/docs/tasks/administer-cluster/encrypt-data/)を有効にすることもできます。
 
-### Risks
+### リスク
 
- - In the API server secret data is stored in {{< glossary_tooltip term_id="etcd" >}};
-   therefore:
-   - Administrators should enable encryption at rest for cluster data (requires v1.13 or later)
-   - Administrators should limit access to etcd to admin users
-   - Administrators may want to wipe/shred disks used by etcd when no longer in use
-   - If running etcd in a cluster, administrators should make sure to use SSL/TLS
-     for etcd peer-to-peer communication.
- - If you configure the secret through a manifest (JSON or YAML) file which has
-   the secret data encoded as base64, sharing this file or checking it in to a
-   source repository means the secret is compromised. Base64 encoding is _not_ an
-   encryption method and is considered the same as plain text.
- - Applications still need to protect the value of secret after reading it from the volume,
-   such as not accidentally logging it or transmitting it to an untrusted party.
- - A user who can create a pod that uses a secret can also see the value of that secret.  Even
-   if apiserver policy does not allow that user to read the secret object, the user could
-   run a pod which exposes the secret.
- - Currently, anyone with root on any node can read _any_ secret from the apiserver,
-   by impersonating the kubelet.  It is a planned feature to only send secrets to
-   nodes that actually require them, to restrict the impact of a root exploit on a
-   single node.
+ - APIサーバー内では、Secretのデータは{{< glossary_tooltip term_id="etcd" >}}に格納されます。したがって、
+   - 管理者はクラスターデータの保存時における暗号化を有効にすべきです（v1.13以降である必要があります）
+   - 管理者はetcdへのアクセスをadminユーザに制限すべきです
+   - 管理者は使われなくなったetcdのディスクについて完全に消去することを推奨します
+   - etcdをクラスターとして実行している場合、管理者はetcdのピアツーピア通信においてSSL/TLSを使用するよう設定すべきです
+ - SecretをBase64エンコードされたデータをもつマニフェストファイル（JSONまたはYAML）として設定する場合、このファイルを共有したりソースコードリポジトリに配置すると、Secretが侵害されます。Base64は暗号化の方法 _ではないため_ 、プレーンテキストと同様です
+ - アプリケーションは、誤ってログに記録したり信頼できない第三者に送信することのないよう、Secretの値をボリュームから読み込んだあとも保護する必要があります
+ - Secretを使用してPodを作成できるユーザーは、Secretの値を見ることもできます。APIサーバーのポリシーがそのユーザーにSecretオブジェクトの閲覧を許可しない場合でも、ユーザーはSecretを公開するPodを実行できます
+ - 現在は、ノード上でrootとなれる場合は、Kubeletになりすますことにより、APIサーバーから _任意_ のSecretを閲覧することができます。将来的に、Secretを実際に必要としているノードのみに送信し、単一ノードでのルートエクスプロイトの影響を制限する機能が提供される予定です
 
 
 {{% capture whatsnext %}}
