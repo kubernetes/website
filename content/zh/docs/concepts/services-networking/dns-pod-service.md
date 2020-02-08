@@ -138,17 +138,9 @@ Example:
 
 当前，创建 Pod 后，它的主机名是该 Pod 的 `metadata.name` 值。
 
-在 v1.2 版本中，用户可以配置 Pod annotation， 通过 `pod.beta.kubernetes.io/hostname` 来设置 Pod 的主机名。
-如果为 Pod 配置了 annotation，会优先使用 Pod 的名称作为主机名。
-例如，给定一个 Pod，它具有 annotation `pod.beta.kubernetes.io/hostname: my-pod-name`，该 Pod 的主机名被设置为 “my-pod-name”。
+PodSpec 有一个可选的 `hostname` 字段，可以用来指定 Pod 的主机名。当这个字段被设置时，它将优先于 Pod 的名字成为该 Pod 的主机名。举个例子，给定一个 `hostname` 设置为 "`my-host`" 的 Pod，该 Pod 的主机名将被设置为 "`my-host`"。
 
-在 v1.3 版本中，PodSpec 具有 `hostname` 字段，可以用来指定 Pod 的主机名。这个字段的值优先于 annotation `pod.beta.kubernetes.io/hostname`。
-在 v1.2 版本中引入了 beta 特性，用户可以为 Pod 指定 annotation，其中 `pod.beta.kubernetes.io/subdomain` 指定了 Pod 的子域名。
-最终的域名将是 “<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>”。
-举个例子，Pod 的主机名 annotation 设置为 “foo”，子域名 annotation 设置为 “bar”，在 Namespace “my-namespace” 中对应的 FQDN 为 “foo.bar.my-namespace.svc.cluster.local”。
-
-在 v1.3 版本中，PodSpec 具有 `subdomain` 字段，可以用来指定 Pod 的子域名。
-这个字段的值优先于 annotation `pod.beta.kubernetes.io/subdomain` 的值。
+PodSpec 还有一个可选的 `subdomain` 字段，可以用来指定 Pod 的子域名。举个例子，一个 Pod 的 `hostname` 设置为 “`foo`”，`subdomain` 设置为 “`bar`”，在 namespace “`my-namespace`” 中对应的完全限定域名（FQDN）为 “`foo.bar.my-namespace.svc.cluster-domain.example`”。
 
 实例:
 ```yaml
