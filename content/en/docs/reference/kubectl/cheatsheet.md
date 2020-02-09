@@ -201,7 +201,7 @@ kubectl diff -f ./my-manifest.yaml
 
 ## Updating Resources
 
-As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), use `rollout` instead.
+As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), use `rollout` instead.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
