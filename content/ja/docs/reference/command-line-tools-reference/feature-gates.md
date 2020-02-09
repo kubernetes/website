@@ -373,7 +373,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `RunAsGroup`: コンテナの初期化プロセスで設定されたプライマリグループIDの制御を有効にします。
 - `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/docs/concepts/containers/runtime-class/)機能を有効にします。
 - `ScheduleDaemonSetPods`: DaemonSetのPodをDaemonSetコントローラーではなく、デフォルトのスケジューラーによってスケジュールされるようにします。
-- `SCTPSupport`: `Service`、`Endpoint`、`NetworkPolicy`、`Pod`の定義で`protocol`の値としてSCTPを使用できるようにします
+- `SCTPSupport`: `Service`、`Endpoints`、`NetworkPolicy`、`Pod`の定義で`protocol`の値としてSCTPを使用できるようにします
 - `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
 - `ServiceNodeExclusion`: クラウドプロバイダーによって作成されたロードバランサーからのノードの除外を有効にします。"`alpha.service-controller.kubernetes.io/exclude-balancer`"キーまたは`node.kubernetes.io/exclude-from-external-load-balancers`でラベル付けされている場合ノードは除外の対象となります。
