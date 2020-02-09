@@ -11,9 +11,9 @@ weight: 30
 특정 노드들을 선호하도록 제한할 수 있다.
 이를 수행하는 방법에는 여러 가지가 있으며, 권장되는 접근 방식은 모두
 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택한다.
-보통 스케줄러가 자동으로 합리적인 배치를 수행하기에 이런 제약 조건은 필요하지 않지만
-(예: 노드들에 걸쳐 파드를 분배하거나, 여유 자원이 부족한 노드에 파드를 배치하는 등)
-간혹 파드가 착륙하는 노드에 대해 더 많은 제어를 원할 수 있는 상황이 있다.
+보통 스케줄러가 자동으로 합리적인 배치(예: 노드들에 걸쳐 파드를 분배하거나,
+자원이 부족한 노드에 파드를 배치하지 않는 등)를 수행하기에 이런 제약 조건은 필요하지 않지만
+간혹 파드가 배치되는 노드에 대해 더 많은 제어를 원할 수 있는 상황이 있다.
 예를 들어 SSD가 장착된 머신에 파드가 연결되도록 하거나 또는 동일한 가용성 영역(availability zone)에서
 많은 것을 통신하는 두 개의 서로 다른 서비스의 파드를 같이 배치할 수 있다.
 
@@ -23,10 +23,10 @@ weight: 30
 
 ## 노드 셀렉터(nodeSelector)
 
-`nodeSelector` 는 가장 간단하고 권장하는 노드 선택 제약 조건의 형태이다.
+`nodeSelector` 는 가장 간단하고 권장되는 노드 선택 제약 조건의 형태이다.
 `nodeSelector` 는 PodSpec의 필드이다. 이는 키-값 쌍의 매핑으로 지정한다. 파드가 노드에서 동작할 수 있으려면,
 노드는 키-값의 쌍으로 표시되는 레이블을 각자 가지고 있어야 한다(이는 추가 레이블을 가지고 있을 수 있다).
-대부분의 일반적인 사용은 하나의 키-값 쌍이다.
+일반적으로 하나의 키-값 쌍이 사용된다.
 
 `nodeSelector` 를 어떻게 사용하는지 예시를 통해 알아보도록 하자.
 
@@ -42,7 +42,7 @@ weight: 30
 
 ### 2 단계: 파드 설정에 nodeSelector 필드 추가하기
 
-실행하고자 하는 파드의 설정 파일을 가져오고, 이처럼 nodeSelector 섹션을 추가한다. 예를 들어 이것이 파드 설정이라면:
+실행하고자 하는 파드의 설정 파일을 가져오고, 이처럼 nodeSelector 섹션을 추가한다. 예를 들어 이것이 파드 설정이라면,
 
 ```yaml
 apiVersion: v1
@@ -57,7 +57,7 @@ spec:
     image: nginx
 ```
 
-이 다음에 nodeSelector 를 다음과 같이 추가한다:
+이 다음에 nodeSelector 를 다음과 같이 추가한다.
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
@@ -89,7 +89,7 @@ spec:
 
 ## 노드 격리(isolation)/제한(restriction)
 
-노드 오브젝트에 레이블을 추가하면 특정 노드 또는 노드 그룹에 파드를 대상으로 할 수 있다.
+노드 오브젝트에 레이블을 추가하면 파드가 특정 노드 또는 노드 그룹을 목표 대상으로 할 수 있게 된다.
 이는 특정 파드가 어떤 격리, 보안, 또는 규제 속성이 있는 노드에서만 실행되도록 사용할 수 있다.
 이 목적으로 레이블을 사용하는 경우, 노드에서 kubelet 프로세스로 수정할 수 없는 레이블 키를 선택하는 것을 권장한다.
 이렇게 하면 손상된 노드가 해당 kubelet 자격 증명을 사용해서 해당 레이블을 자체 노드 오브젝트에 설정하고,
@@ -108,8 +108,8 @@ spec:
 어피니티/안티-어피니티 기능은 표현할 수 있는 제약 종류를 크게 확장한다. 주요 개선 사항은 다음과 같다.
 
 1. 언어가 보다 표현적이다("AND 또는 정확한 일치" 만이 아니다).
-2. 규칙이 엄격한 요구 사항이 아니라 "유연한(soft)"/"선호(preference)" 규칙을 나타낼 수 있기에 스케줄러가 규칙을 만족할 수 없다면,
-   파드는 계속 스케줄 되도록 한다.
+2. 규칙이 엄격한 요구 사항이 아니라 "유연한(soft)"/"선호(preference)" 규칙을 나타낼 수 있기에 스케줄러가 규칙을 만족할 수 없더라도,
+   파드가 계속 스케줄 되도록 한다.
 3. 노드 자체에 레이블을 붙이기보다는 노드(또는 다른 토폴로지 도메인)에서 실행 중인 다른 파드의 레이블을 제한할 수 있다.
    이를 통해 어떤 파드가 함께 위치할 수 있는지와 없는지에 대한 규칙을 적용할 수 있다.
 
@@ -127,7 +127,7 @@ spec:
 두 가지 종류의 노드 어피니티가 있다. 전자는 파드가 노드에 스케줄 되도록 *반드시*
 규칙을 만족해야 하는 것(`nodeSelector` 와 같으나 보다 표현적인 구문을 사용해서)을 지정하고,
 후자는 스케줄러가 시도하려고는 하지만, 보증하지 않는 *선호(preferences)*를 지정한다는 점에서
-이를 각각 "엄격함(hard)" 과 "유연함(soft)" 하다고 생각할 수 있다.
+이를 각각 "엄격함(hard)" 과 "유연함(soft)" 으로 생각할 수 있다.
 이름의 "IgnoredDuringExecution" 부분은 `nodeSelector` 작동 방식과 유사하게 노드의
 레이블이 런타임 중에 변경되어 파드의 어피니티 규칙이 더 이상 충족되지 않으면 파드가 여전히 그 노드에서
 동작한다는 의미이다. 향후에는 파드의 노드 어피니티 요구 사항을 충족하지 않는 노드에서 파드를 제거한다는
@@ -135,7 +135,7 @@ spec:
 
 따라서 `requiredDuringSchedulingIgnoredDuringExecution` 의 예로는 "인텔 CPU가 있는 노드에서만 파드 실행"이
 될 수 있고, `preferredDuringSchedulingIgnoredDuringExecution` 의 예로는 "장애 조치 영역 XYZ에 파드 집합을 실행하려고
-하지만, 불가능하다면 다른 곳에서 일부를 실행하도록 허용"이 된다.
+하지만, 불가능하다면 다른 곳에서 일부를 실행하도록 허용"이 있을 것이다.
 
 노드 어피니티는 PodSpec의 `affinity` 필드의 `nodeAffinity` 필드에서 지정된다.
 
@@ -143,14 +143,14 @@ spec:
 
 {{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
-이 노드 어피니티 규칙은 키가 `kubernetes.io/e2e-az-name` 이고고 값이 `e2e-az1` 또는 `e2e-az2` 인
+이 노드 어피니티 규칙은 키가 `kubernetes.io/e2e-az-name` 이고 값이 `e2e-az1` 또는 `e2e-az2` 인
 레이블이 있는 노드에만 파드를 배치할 수 있다고 말한다. 또한, 이 기준을 충족하는 노드들
 중에서 키가 `another-node-label-key` 이고 값이 `another-node-label-value` 인 레이블이 있는 노드를
 선호하도록 한다.
 
 예시에서 연산자 `In` 이 사용되고 있는 것을 볼 수 있다. 새로운 노드 어피니티 구문은 다음의 연산자들을 지원한다. `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 `NotIn` 과 `DoesNotExist` 를 사용해서 안티-어피니티를 수행하거나,
-특정 노드에서 파드를 쫓아내는 [노드 테인트(taint)](/docs/concepts/configuration/taint-and-toleration/)를 할 수 있다.
+특정 노드에서 파드를 쫓아내는 [노드 테인트(taint)](/docs/concepts/configuration/taint-and-toleration/)를 설정할 수 있다.
 
 `nodeSelector` 와 `nodeAffinity` 를 모두 지정한다면 파드가 후보 노드에 스케줄 되기 위해서는
 *둘 다* 반드시 만족해야 한다.
@@ -167,7 +167,7 @@ spec:
 
 파드간 어피니티와 안티-어피니티를 사용하면 노드의 레이블을 기반으로 하지 않고, *노드에서 이미 실행 중인 파드 레이블을 기반으로*
 파드가 스케줄될 수 있는 노드를 제한할 수 있다. 규칙은 "X가 규칙 Y를 충족하는 하나 이상의 파드를 이미 실행중인 경우
-이 파드는 X에서 실행해야한다(또는 안티-어피니티가 없는 경우에는 동작하면 안된다)는 형태이다. Y는
+이 파드는 X에서 실행해야 한다(또는 안티-어피니티가 없는 경우에는 동작하면 안된다)"는 형태이다. Y는
 선택적으로 연관된 네임스페이스 목록을 가진 LabelSelector로 표현된다. 노드와는 다르게 파드는 네임스페이스이기에
 (그리고 따라서 파드의 레이블은 암암리에 네임스페이스이다) 파드 레이블위의 레이블 셀렉터는 반드시
 셀렉터가 적용될 네임스페이스를 지정해야만 한다. 개념적으로 X는 노드, 랙,
@@ -203,12 +203,12 @@ spec:
 이 파드의 어피니티는 하나의 파드 어피니티 규칙과 하나의 파드 안티-어피니티 규칙을 정의한다.
 이 예시에서 `podAffinity` 는 `requiredDuringSchedulingIgnoredDuringExecution` 이고 `podAntiAffinity` 는
 `preferredDuringSchedulingIgnoredDuringExecution` 이다. 파드 어피니티 규칙에 의하면 키 "security" 와 값
-"S1"인 레이블레이블이 있는 하나 이상의 이미 실행중인 파드와 동일한 영역에 있는 경우에만 파드를 노드에 스케줄할 수 있다.
-(보다 정확하게는, 클러스터에 키 "security"와 값 "S1"인 레이블을 가지고 있는 실행중인 파드가 있는 키
+"S1"인 레이블이 있는 하나 이상의 이미 실행 중인 파드와 동일한 영역에 있는 경우에만 파드를 노드에 스케줄할 수 있다.
+(보다 정확하게는, 클러스터에 키 "security"와 값 "S1"인 레이블을 가지고 있는 실행 중인 파드가 있는 키
 `failure-domain.beta.kubernetes.io/zone` 와 값 V인 노드가 최소 하나 이상 있고, 노드 N이 키
 `failure-domain.beta.kubernetes.io/zone` 와 일부 값이 V인 레이블을 가진다면 파드는 노드 N에서 실행할 수 있다.)
-파드 안티-어피니티 규칙에 의하면노드가 이미 키 "security"와 값 "S2"인 레이블을 가진 파드를
-이미 실행하고 있는 파드는 노드에 스케줄되는 것을 선호선호하지 않는다.
+파드 안티-어피니티 규칙에 의하면 노드가 이미 키 "security"와 값 "S2"인 레이블을 가진 파드를
+실행하고 있는 파드는 노드에 스케줄되는 것을 선호하지 않는다.
 (만약 `topologyKey` 가 `failure-domain.beta.kubernetes.io/zone` 라면 노드가 키
 "security"와 값 "S2"를 레이블로 가진 파드와
 동일한 영역에 있는 경우, 노드에 파드를 예약할 수 없음을 의미한다.)
@@ -224,10 +224,10 @@ spec:
 1. 어피니티와 `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 대해
 `topologyKey` 가 비어있는 것을 허용하지 않는다.
 2. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에서 `topologyKey` 를 `kubernetes.io/hostname` 로 제한하기 위해 어드미션 컨트롤러 `LimitPodHardAntiAffinityTopology` 가 도입되었다. 사용자 지정 토폴로지를에 사용할 수 있도록 하려면, 어드미션 컨트롤러를 수정하거나 간단히 이를 비활성화 할 수 있다.
-3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 빈 `topologyKey` 를 "all topology"("all topology"는 현재 `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` 그리고 `failure-domain.beta.kubernetes.io/region` 의 조합으로 제한된다).
+3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티의 경우 빈 `topologyKey` 는 "all topology"("all topology"는 현재 `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` 그리고 `failure-domain.beta.kubernetes.io/region` 의 조합으로 제한된다)로 해석한다.
 4. 위의 경우를 제외하고, `topologyKey` 는 적법한 어느 레이블-키도 가능하다.
 
-`labelSelector` 와 `topologyKey` 외에도 `labelSelector` 와 일치해야하는 네임스페이스 목록 `namespaces` 를
+`labelSelector` 와 `topologyKey` 외에도 `labelSelector` 와 일치해야 하는 네임스페이스 목록 `namespaces` 를
 선택적으로 지정할 수 있다(이것은 `labelSelector` 와 `topologyKey` 와 같은 수준의 정의이다).
 생략되어있거나 비어있을 경우 어피니티/안티-어피니티 정의가 있는 파드의 네임스페이스가 기본 값이다.
 
@@ -244,7 +244,7 @@ spec:
 
 세 개의 노드가 있는 클러스터에서 웹 애플리케이션에는 redis와 같은 인-메모리 캐시가 있다. 웹 서버가 가능한 캐시와 함께 위치하기를 원한다.
 
-다음은 세 개의 레플리카와 셀렉터 레이블이 `app=store` 가 있는 간단한 redis 디플로이먼트의 yaml 스니펫이다. 디플로이먼트에는 스케줄러가 단일 노드에서 레플리카를 함꼐 배치하지 않도록 `PodAntiAffinity` 가 구성되어있다.
+다음은 세 개의 레플리카와 셀렉터 레이블이 `app=store` 가 있는 간단한 redis 디플로이먼트의 yaml 스니펫이다. 디플로이먼트에는 스케줄러가 단일 노드에서 레플리카를 함께 배치하지 않도록 `PodAntiAffinity` 가 구성되어 있다.
 
 ```yaml
 apiVersion: apps/v1
@@ -276,7 +276,7 @@ spec:
         image: redis:3.2-alpine
 ```
 
-아래 yaml 스니펫의 웹서버 디플로이먼트는 `podAntiAffinity` 와 `podAffinity` 설정을 가지고 있다. 이렇게 하면 스케줄러에 모든 레플리카는 셀렉터 레이블이 `app=store` 인 파드와 함꼐 위치해야 한다. 또한 각 웹 서버 레플리카가 단일 노드의 같은 위치에 있지 않도록 한다.
+아래 yaml 스니펫의 웹서버 디플로이먼트는 `podAntiAffinity` 와 `podAffinity` 설정을 가지고 있다. 이렇게 하면 스케줄러에 모든 레플리카는 셀렉터 레이블이 `app=store` 인 파드와 함께 위치해야 한다. 또한 각 웹 서버 레플리카가 단일 노드의 같은 위치에 있지 않도록 한다.
 
 ```yaml
 apiVersion: apps/v1
@@ -329,7 +329,7 @@ spec:
 ```
 kubectl get pods -o wide
 ```
-출력은 다음과 유사할 것이다:
+출력은 다음과 유사할 것이다.
 ```
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
@@ -386,7 +386,7 @@ spec:
 
 {{% capture whatsnext %}}
 
-[테인트(Taints)](/docs/concepts/configuration/taint-and-toleration/)는 노드가 특정 파드들을 *쫓아내게* 할 수 있다.
+[테인트](/docs/concepts/configuration/taint-and-toleration/)는 노드가 특정 파드들을 *쫓아내게* 할 수 있다.
 
 [노드 어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)와
 [파드간 어피니티/안티-어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에 대한 디자인 문서에는
