@@ -50,7 +50,7 @@ kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
 필드)를 지정한다.
 
 컨테이너 내 프로세스는 도커 이미지와 볼륨으로 구성된 파일시스템 뷰를
-보기를 한다.  [도커
+본다.  [도커
 이미지](https://docs.docker.com/userguide/dockerimages/)는 파일
 시스템 계층의 루트에 있으며 모든 볼륨은 이미지 내에 지정된 경로에
 마운트된다.  볼륨은 다른 볼륨에 마운트할 수 없거나 다른 볼륨에 대한 하드 링크를
@@ -888,7 +888,7 @@ spec:
       name: pxvol
   volumes:
   - name: pxvol
-    # 이 Portworx 볼륨은 먼저 있어야 한다.
+    # 이 Portworx 볼륨은 이미 존재해야 한다.
     portworxVolume:
       volumeID: "pxvol"
       fsType: "<fs-type>"
