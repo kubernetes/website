@@ -10,7 +10,7 @@ weight: 20
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 
 When you run a Pod on a Node, the Pod itself takes an amount of system resources. These
@@ -38,7 +38,7 @@ the pod cgroup, and when carrying out pod eviction ranking.
 ### Set Up
 
 You need to make sure that the `PodOverhead`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (it is off by default)
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (it is on by default as of 1.18)
 across your cluster. This means:
 
 - in {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
