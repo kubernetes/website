@@ -12,7 +12,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="beta" >}}
 
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to support latency-critical execution and high-throughput parallel computation. These include workloads in fields such as telecommunications, scientific computing, machine learning, financial services and data analytics. Such hybrid systems comprise a high performance environment.
 
@@ -176,12 +176,9 @@ In the case of the `BestEffort` pod the CPU Manager would send back the default 
 Using this information the Topology Manager calculates the optimal hint for the pod and stores this information, which will be used by the Hint Providers when they are making their resource assignments. 
 
 ### Known Limitations
-1. As of K8s 1.16 the Topology Manager is currently only guaranteed to work if a *single* container in the pod spec requires aligned resources. This is due to the hint generation being based on current resource allocations, and all containers in a pod generate hints before any resource allocation has been made. This results in unreliable hints for all but the first container in a pod.
-*Due to this limitation if multiple pods/containers are considered by Kubelet in quick succession they may not respect the Topology Manager policy.
+1. The maximum number of NUMA nodes that Topology Manager will allow is 8, past this there will be a state explosion when trying to enumerate the possible NUMA affinities and generating their hints.
 
-2. The maximum number of NUMA nodes that Topology Manager will allow is 8, past this there will be a state explosion when trying to enumerate the possible NUMA affinities and generating their hints.
-
-3. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail on the node due to the Topology Manager. 
+2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail on the node due to the Topology Manager. 
 
 
 {{% /capture %}}
