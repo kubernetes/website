@@ -144,7 +144,7 @@ EOF
 # Get commands with basic output
 kubectl get services                          # List all services in the namespace
 kubectl get pods --all-namespaces             # List all pods in all namespaces
-kubectl get pods -o wide                      # List all pods in the namespace, with more details
+kubectl get pods -o wide                      # List all pods in the current namespace, with more details
 kubectl get deployment my-dep                 # List a particular deployment
 kubectl get pods                              # List all pods in the namespace
 kubectl get pod my-pod -o yaml                # Get a pod's YAML
@@ -160,8 +160,8 @@ kubectl get services --sort-by=.metadata.name
 # List pods Sorted by Restart Count
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# List PersistentVolumes in test namespace sorted by capacity
-kubectl get pv -n test --sort-by=.spec.capacity.storage
+# List PersistentVolumes sorted by capacity
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # Get the version label of all pods with label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
@@ -201,7 +201,7 @@ kubectl diff -f ./my-manifest.yaml
 
 ## Updating Resources
 
-As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), use `rollout` instead.
+As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), use `rollout` instead.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image

@@ -22,7 +22,7 @@ updates.
 ## What is a Pod Security Policy?
 
 A _Pod Security Policy_ is a cluster-level resource that controls security
-sensitive aspects of the pod specification. The `PodSecurityPolicy` objects
+sensitive aspects of the pod specification. The [PodSecurityPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) objects
 define a set of conditions that a pod must run with in order to be accepted into
 the system, as well as defaults for the related fields. They allow an
 administrator to control the following:
@@ -624,5 +624,11 @@ By default, all safe sysctls are allowed.
 
 Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 
 {{% /capture %}}

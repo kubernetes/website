@@ -55,7 +55,7 @@ You need to make sure that the `PodOverhead`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (it is off by default)
 across your cluster. This means:
 -->
-您需要确保在集群中启用了 `PodOverhead` [特性门](默认情况下是关闭的)。这意味着：
+您需要确保在集群中启用了 `PodOverhead` [特性门](/docs/reference/command-line-tools-reference/feature-gates/)（默认情况下是关闭的）。这意味着：
 
 <!--
 - in {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}

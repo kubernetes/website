@@ -140,7 +140,7 @@ If the container runtime of choice is Docker, it is used through the built-in
 
 Other CRI-based runtimes include:
 
-- [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
+- [containerd/cri](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 

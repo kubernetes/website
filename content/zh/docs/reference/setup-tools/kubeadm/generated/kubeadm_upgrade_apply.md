@@ -252,14 +252,3 @@ kubeadm upgrade apply [version]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm upgrade](kubeadm_upgrade.md)	 - Upgrade your cluster smoothly to a newer version with this command
--->
-* [kubeadm 升级](kubeadm_upgrade.md) - 使用此命令将集群平滑升级到新版本

@@ -92,7 +92,7 @@ Hosts/SAN listed above are the recommended ones for getting a working cluster; i
 For kubeadm users only:
 
 * The scenario where you are copying to your cluster CA certificates without private keys is referred as external CA in the kubeadm documentation.
-* If you are comparing the above list with a kubeadm geneerated PKI, please be aware that `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates
+* If you are comparing the above list with a kubeadm generated PKI, please be aware that `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates
   are not generated in case of external etcd.
 
 {{< /note >}}

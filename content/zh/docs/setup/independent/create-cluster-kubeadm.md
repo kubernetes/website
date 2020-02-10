@@ -181,7 +181,7 @@ After you initialize your master, the kubelet runs normally.
 请查阅[安装 kubeadm](/docs/setup/independent/install-kubeadm/)。
 
 {{< note >}}
-**注意:** 如果您的机器已经安装了 kubeadm, 请运行 `apt-get update &&
+如果您的机器已经安装了 kubeadm, 请运行 `apt-get update &&
 apt-get upgrade` 或者 `yum update` 来升级至最新版本的 kubeadm.
 
 升级过程中，kubelet 会每隔几秒钟重启并陷入了不断循环等待 kubeadm 发布指令的状态。
@@ -849,7 +849,7 @@ A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the master. -->
 
 {{< note >}}
-**注意:** 若需为 `<master-ip>:<master-port>` 参数设定一个 IPv6 的元组，地址必须写在一对方括号里面，比如: `[fd00::101]:2073`。
+若需为 `<master-ip>:<master-port>` 参数设定一个 IPv6 的元组，地址必须写在一对方括号里面，比如: `[fd00::101]:2073`。
 {{< /note >}}
 
 输出类似这样:
@@ -905,7 +905,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 {{< note >}}
-**注意:** 上面的例子生效的前提是 SSH 允许 root 用户连接登录。
+上面的例子生效的前提是 SSH 允许 root 用户连接登录。
 如果root 用户不能连接的话，您可以将 `admin.conf` 复制到允许其他用户访问的其他地方并将 `scp` 命令里的用户改成相对应的用户再复制。
 
 这个 `admin.conf` 文件给予了用户整个集群的超级用户权限，因此这个操作必须小心谨慎。对于普通用户来说，

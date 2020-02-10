@@ -120,7 +120,7 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 
 Kubernetes built-in dockershim CRI does not support runtime handlers.
 
-#### [containerd](https://containerd.io/)
+#### {{< glossary_tooltip term_id="containerd" >}}
 
 Runtime handlers are configured through containerd's configuration at
 `/etc/containerd/config.toml`. Valid handlers are configured under the runtimes section:
@@ -132,19 +132,20 @@ Runtime handlers are configured through containerd's configuration at
 See containerd's config documentation for more details:
 https://github.com/containerd/cri/blob/master/docs/config.md
 
-#### [cri-o](https://cri-o.io/)
+#### {{< glossary_tooltip term_id="cri-o" >}}
 
-Runtime handlers are configured through cri-o's configuration at `/etc/crio/crio.conf`. Valid
+Runtime handlers are configured through CRI-O's configuration at `/etc/crio/crio.conf`. Valid
 handlers are configured under the [crio.runtime
-table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
+table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
 
 ```
 [crio.runtime.runtimes.${HANDLER_NAME}]
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-See cri-o's config documentation for more details:
-https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
+See CRI-O's [config documentation][100] for more details.
+
+[100]: https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md
 
 ### Scheduling
 

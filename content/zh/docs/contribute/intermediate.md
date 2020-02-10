@@ -1405,8 +1405,8 @@ or in `#sig-docs` on Slack if you are interested in helping out.
 Kubernetes 文档首先是用英语编写的，但是我们希望人们能够使用他们选择的语言来阅读它。
 如果您愿意用另一种语言编写，尤其是在软件领域，则可以帮助本地化 Kubernetes 文档
 或提供有关现有本地化内容的反馈。
-请参阅[本地化](/docs/contribute/localization/)，
-并在 [kubernetes-sig-docs 邮件列表][kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) #sig-docs 上询问，或者在 Slack 上询问是否有帮助的兴趣。
+如果您有兴趣提供帮助，请参阅 [本地化](/docs/contribute/localization/)，
+并在 [kubernetes-sig-docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) 或者 Slack 的 `#sig-docs` 群组内咨询。
 
 <!--
 ### Working with localized content

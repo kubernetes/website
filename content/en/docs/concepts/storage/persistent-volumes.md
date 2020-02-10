@@ -115,7 +115,7 @@ Labels:          type=local
 Annotations:     <none>
 Finalizers:      [kubernetes.io/pv-protection]
 StorageClass:    standard
-Status:          Available
+Status:          Terminating
 Claim:
 Reclaim Policy:  Delete
 Access Modes:    RWO

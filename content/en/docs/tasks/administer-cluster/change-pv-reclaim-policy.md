@@ -43,7 +43,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
         pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2    manual                     6s
         pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim3    manual                     3s
 
-   This list also includes the name of the claims that are bound to each volume
+     This list also includes the name of the claims that are bound to each volume
    for easier identification of dynamically provisioned volumes.
 
 1. Choose one of your PersistentVolumes and change its reclaim policy:
@@ -53,6 +53,15 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     ```
 
     where `<your-pv-name>` is the name of your chosen PersistentVolume.
+
+    {{< note >}}
+    On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
+
+```cmd
+kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
+```
+
+    {{< /note >}}
 
 1. Verify that your chosen PersistentVolume has the right policy:
 
