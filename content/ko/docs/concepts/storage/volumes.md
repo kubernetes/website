@@ -188,7 +188,7 @@ azureDisk의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-azureFile의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내 플러그인에서
+azureFile의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 파일 CSI
 드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver)
@@ -208,16 +208,16 @@ azureFile의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 
 CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 내보내야 한다.
 {{< /caution >}}
 
-더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)를 본다.
+더 자세한 내용은 [CephFS 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)를 참조한다.
 
 ### cinder {#cinder}
 
 {{< note >}}
 전제 조건: 오픈스택 클라우드 공급자로 구성된 쿠버네티스. 클라우드공급자
-구성에 대해서는 [오픈스택 클라우드 공급자](/docs/concepts/cluster-administration/cloud-providers/#openstack)을 참조한다.
+구성에 대해서는 [오픈스택 클라우드 공급자](/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
 {{< /note >}}
 
-`cinder` 는 오픈스택 Cinder 볼륨을 파드에 마운트하는데 사용한다.
+`cinder` 는 오픈스택 Cinder 볼륨을 파드에 마운트하는 데 사용한다.
 
 #### Cinder 볼륨 예시 구성
 
@@ -235,7 +235,7 @@ spec:
       name: test-volume
   volumes:
   - name: test-volume
-    # 이 오픈스택 볼륨은 먼저 있어야 한다.
+    # 이 오픈스택 볼륨은 이미 존재해야 한다.
     cinder:
       volumeID: <volume-id>
       fsType: ext4
@@ -245,12 +245,12 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-Cinder의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내 플러그인에서
+Cinder의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면 클러스터에 [오픈스택 Cinder CSI
+드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [오픈스택 Cinder CSI
 드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
 를 설치하고 `CSIMigration` 과 `CSIMigrationOpenStack`
-알파 기능을 활성화 해야 한다.
+알파 기능을 활성화해야 한다.
 
 ### configMap {#configmap}
 
@@ -259,8 +259,8 @@ Cinder의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내
 `ConfigMap` 오브젝트에 저장된 데이터는 `configMap` 유형의 볼륨에서 참조되고
 그런 다음에 파드에서 실행되는 컨테이너화된 애플리케이션이 소비한다.
 
-`configMap` 오브젝트를 참조할 때 간단하게 볼륨의 이름을
-제공해서 참조할 수 있다. ConfigMap의 특정 항목에 사용할 경로를
+`configMap` 오브젝트를 참조할 때, 간단하게 참조하기 위한 볼륨의 이름을
+제공할 수 있다. ConfigMap의 특정 항목에 사용할 경로를
 사용자 정의할 수 있다.
 예를 들어, `log-config` ConfigMap을 `configmap-pod` 라 부르는 파드에 마운트하려면
 아래 YAML을 사용할 수 있다.
@@ -292,7 +292,7 @@ spec:
 `path` 에서 파생된다.
 
 {{< caution >}}
-사용하려면 먼저 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)을 생성해야 한다.
+ConfigMap 볼륨을 사용하려면 먼저 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)을 생성해야 한다.
 {{< /caution >}}
 
 {{< note >}}
@@ -310,13 +310,13 @@ Downward API를 [subPath] 볼륨 마운트로 사용하는 컨테이너는 Downw
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
-더 자세한 내용은 [`downwardAPI` 볼륨 예시](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 본다.
+더 자세한 내용은 [`downwardAPI` 볼륨 예시](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)를 참조한다.
 
 ### emptyDir {#emptydir}
 
-`emptyDir` 볼륨은 파드가 할당 될때 처음 생성되며,
-해당 노드에서 파드가 실행되는 동안에만 존재한다.  이름에서 알수 있듯이
-처음에는 비어있다.  파드내 모든 컨테이너는 `emptyDir` 볼륨에서 동일한
+`emptyDir` 볼륨은 파드가 노드에 할당 될 때 처음 생성되며,
+해당 노드에서 파드가 실행되는 동안에만 존재한다.  이름에서 알 수 있듯이
+`emptyDir` 볼륨은 처음에는 비어있다.  파드내 모든 컨테이너는 `emptyDir` 볼륨에서 동일한
 파일을 읽고 쓸수 있지만, 볼륨은 각각의 컨테이너에서 동일하거나
 다른 경로에 마운트 될 수 있다.  어떤 이유로든 노드에서 파드를 제거하면
 `emptyDir` 의 데이터가 영구적으로 삭제된다.
@@ -335,7 +335,7 @@ Downward API를 [subPath] 볼륨 마운트로 사용하는 컨테이너는 Downw
 기본적으로, `emptyDir` 볼륨은 노드를 지원하는 모든 매체에
 저장된다(환경에 따라 디스크, SSD 또는 네트워크 스토리지일
 수 있다).  그러나 `emptyDir.medium` 필드를 `"Memory"` 로 설정해서
-쿠버네티스에 tmpfs (RAM 기반 파일 시스템)을 마운트하도록 할 수 있다.
+쿠버네티스에 tmpfs (RAM 기반 파일 시스템)를 마운트하도록 할 수 있다.
 tmpfs는 매우 빠르지만, 디스크와 다르게 노드 재부팅시 tmpfs가 지워지고,
 작성하는 모든 파일이 컨테이너 메모리
 제한에 포함된다.
@@ -363,14 +363,14 @@ spec:
 
 `fc` 볼륨은 기존 파이버 채널 볼륨을 파드에 마운트할 수 있게 한다.
 볼륨 구성에서 `targetWWNs` 파라미터를 사용하여 단일 또는
-다중 대상 월드 와이드 이름을 지정할 수 있다. 만약 여러 WWN이 지정된 경우
+다중 대상 월드 와이드 이름을 지정할 수 있다. 만약 여러 WWN이 지정된 경우,
 targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다.
 
 {{< caution >}}
 이러한 LUN (볼륨)을 할당하고 대상 WWN에 마스킹하도록 FC SAN Zoning을 구성해야만 쿠버네티스 호스트가 해당 LUN에 접근할 수 있다.
 {{< /caution >}}
 
-더 자세한 내용은 [FC 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) 를 본다.
+더 자세한 내용은 [FC 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) 를 참조한다.
 
 ### flocker {#flocker}
 
@@ -378,27 +378,27 @@ targetWWN은 해당 WWN이 다중 경로 연결에서 온 것으로 예상한다
 스토리지 백엔드가 지원하는 데이터 볼륨 관리와 오케스트레이션을 제공한다.
 
 `flocker` 볼륨은 Flocker 데이터셋을 파드에 마운트할 수 있게 한다. 만약
-Flocker내에 데이터셋이 없는 경우 먼저 Flocker
+Flocker내에 데이터셋이 없는 경우, 먼저 Flocker
 CLI 또는 Flocker API를 사용해서 생성해야 한다. 만약 데이터셋이 이미 있다면
 Flocker는 파드가 스케줄 되어있는 노드에 다시 연결한다. 이는 필요에
 따라 파드 간에 데이터를 "전달(handed off)" 할 수 있다는 의미이다.
 
 {{< caution >}}
-사용하기 위해서는 먼저 Flocker를 설치하고 실행한다
+`flocker` 볼륨을 사용하기 위해서는 먼저 Flocker를 설치하고 실행한다.
 {{< /caution >}}
 
-더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker)를 본다.
+더 자세한 내용은 [Flocker 예시](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker)를 참조한다.
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
 `gcePersistentDisk` 볼륨은 구글 컴퓨트 엔진 (GCE) [퍼시스턴트
-볼륨](http://cloud.google.com/compute/docs/disks)를 파드에 마운트 한다.  파드를
+디스크](http://cloud.google.com/compute/docs/disks)를 파드에 마운트 한다.  파드를
 제거할 때 지워지는 `emptyDir` 와는 다르게 PD의 내용은 유지되고,
-볼륨은 마운트 해제만 된다.  이 의미는 PD에 데이터를
-미리 채울 수 있으며, 파드간에 데이터를 "전달(handed off)" 할 수 있다.
+볼륨은 마운트 해제만 된다.  이는 PD에 데이터를
+미리 채울 수 있으며, 파드간에 데이터를 "전달(handed off)" 할 수 있다는 것을 의미한다.
 
 {{< caution >}}
-사용하려면 먼저 PD를 `gcloud`, GCE API 또는 UI를 사용해서 생성해야 한다.
+`gcePersistentDisk` 를 사용하려면 먼저 PD를 `gcloud`, GCE API 또는 UI를 사용해서 생성해야 한다.
 {{< /caution >}}
 
 `gcePersistentDisk` 를 사용할 때 몇가지 제한이 있다.
@@ -417,7 +417,7 @@ PD가 읽기 전용이거나 레플리카의 수가 0 또는 1이 아니라면 �
 
 #### PD 생성하기
 
-GCE PD를 파드와 함께 사용하려면 먼저 생성해야 한다.
+GCE PD를 파드와 함께 사용하려면 디스크를 먼저 생성해야 한다.
 
 ```shell
 gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
@@ -439,7 +439,7 @@ spec:
       name: test-volume
   volumes:
   - name: test-volume
-    # 이 GCE PD는 이미 있어야 한다.
+    # 이 GCE PD는 이미 존재해야 한다.
     gcePersistentDisk:
       pdName: my-data-disk
       fsType: ext4
@@ -448,9 +448,9 @@ spec:
 #### 지역(Regional) 퍼시스턴트 디스크
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
-[지역(Regional) 퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks/#repds) 기능을 사용하면 동일한 영역 내의 두 영역에서 사용할 수 있는 퍼시스턴트 디스크를 생성할 수 있다. 이 기능을 사용하려면 볼륨을 PersistentVolume으로 프로비저닝 해야 한다. 파드에서 직접 볼륨을 참조하는 것은 지원되지 않는다.
+[지역(Regional) 퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks/#repds) 기능을 사용하면 동일한 영역 내의 두 영역에서 사용할 수 있는 퍼시스턴트 디스크를 생성할 수 있다. 이 기능을 사용하려면 볼륨을 퍼시스턴트볼륨으로 프로비저닝 해야 한다. 파드에서 직접 볼륨을 참조하는 것은 지원되지 않는다.
 
-#### 지역(Regional) PD PersistentVolume을 수동으로 프로비저닝하기
+#### 지역(Regional) PD 퍼시스턴트볼륨을 수동으로 프로비저닝하기
 [GCE PD 용 StorageClass](/docs/concepts/storage/storage-classes/#gce) 를 사용해서 동적 프로비저닝이 가능하다.
 PersistentVolume을 생성하기 전에 PD를 생성해야만 한다.
 ```shell
@@ -483,7 +483,7 @@ spec:
 
 GCE PD의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내 플러그인에서
 `pd.csi.storage.gke.io` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면 클러스터에 [GCE PD CSI
+드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [GCE PD CSI
 드라이버](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationGCE`
 베타 기능을 활성화 해야 한다.
@@ -491,10 +491,10 @@ GCE PD의 CSI 마이그레이션 기능이 활성화된 경우 기존 트리 내
 ### gitRepo (사용 중단(deprecated)) {#gitrepo}
 
 {{< warning >}}
-gitRepo 볼륨 유형은 사용 중단(deprecated)되었다. git repo가 있는 컨테이너를 프로비전 하려면 초기화 컨테이너(InitContainer)에 [EmptyDir]을 마운트하고, 여기에 git을 사용해서 repo를 복제하고, [EmptyDir](#emptydir)을 파드 컨테이너에 마운트 한다.
+gitRepo 볼륨 유형은 사용 중단(deprecated)되었다. git repo가 있는 컨테이너를 프로비전 하려면 초기화 컨테이너(InitContainer)에 [EmptyDir](#emptydir)을 마운트하고, 여기에 git을 사용해서 repo를 복제하고, [EmptyDir](#emptydir)을 파드 컨테이너에 마운트 한다.
 {{< /warning >}}
 
-`gitRepo` 볼륨은 볼륨 플러그인으로 할수 있는 예시이다.  빈
+`gitRepo` 볼륨은 볼륨 플러그인으로 할 수 있는 예시이다.  빈
 디렉터리를 마운트하고 파드가 사용할 수 있도록 해당 디렉터리에 git 리포지트리를
 복제한다.  미래에는 모든 이용 사례에 대해 쿠버네티스 API를 확장하는 대신에 
 이런 볼륨은 훨씬 더 분리된 모델로 이동될 수 있다.
