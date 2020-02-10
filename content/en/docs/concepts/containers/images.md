@@ -124,9 +124,9 @@ Troubleshooting:
 - Verify all requirements above.
 - Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
 - Verify kubelet is running with `--cloud-provider=aws`.
-- Check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
-  - `plugins.go:56] Registering credential provider: aws-ecr-key`
-  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+- Increase kubelet log level verbosity to at least 3 and check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
+  - `aws_credentials.go:109] unable to get ECR credentials from cache, checking ECR API`
+  - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Using Azure Container Registry (ACR)
 When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)

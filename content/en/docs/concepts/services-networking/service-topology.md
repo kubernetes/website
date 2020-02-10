@@ -46,23 +46,6 @@ with it, while intrazonal traffic does not. Other common needs include being abl
 to route traffic to a local Pod managed by a DaemonSet, or keeping traffic to
 Nodes connected to the same top-of-rack switch for the lowest latency.
 
-## Prerequisites
-
-The following prerequisites are needed in order to enable topology aware service
-routing:
-
-   * Kubernetes 1.17 or later
-   * Kube-proxy running in iptables mode or IPVS mode
-   * Enable [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
-
-## Enable Service Topology
-
-To enable service topology, enable the `ServiceTopology` feature gate for
-kube-apiserver and kube-proxy:
-
-```
---feature-gates="ServiceTopology=true"
-```
 
 ## Using Service Topology
 
@@ -115,6 +98,98 @@ traffic as follows.
 
 * The catch-all value, `"*"`, must be the last value in the topology keys, if
   it is used.
+
+
+## Examples
+
+The following are common examples of using the Service Topology feature.
+
+### Only Node Local Endpoints
+
+A Service that only routes to node local endpoints. If no endpoints exist on the node, traffic is dropped:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+```
+
+### Prefer Node Local Endpoints
+
+A Service that prefers node local Endpoints but falls back to cluster wide endpoints if node local endpoints do not exist:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+    - "*"
+```
+
+
+### Only Zonal or Regional Endpoints
+
+A Service that prefers zonal then regional endpoints. If no endpoints exist in either, traffic is dropped.
+
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "topology.kubernetes.io/zone"
+    - "topology.kubernetes.io/region"
+```
+
+### Prefer Node Local, Zonal, then Regional Endpoints
+
+A Service that prefers node local, zonal, then regional endpoints but falls back to cluster wide endpoints.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+    - "topology.kubernetes.io/zone"
+    - "topology.kubernetes.io/region"
+    - "*"
+```
 
 
 {{% /capture %}}

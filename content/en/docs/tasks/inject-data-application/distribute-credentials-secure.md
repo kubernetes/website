@@ -2,6 +2,7 @@
 title: Distribute Credentials Securely Using Secrets
 content_template: templates/task
 weight: 50
+min-kubernetes-server-version: v1.6
 ---
 
 {{% capture overview %}}
@@ -11,7 +12,7 @@ encryption keys, into Pods.
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 

@@ -3,7 +3,6 @@ reviewers:
 - fgrzadkowski
 - jszczepkowski
 - directxman12
-- josephburnett
 title: Horizontal Pod Autoscaler
 feature:
   title: Horizontal scaling
@@ -163,15 +162,11 @@ can be fetched, scaling is skipped. This means that the HPA is still capable
 of scaling up if one or more metrics give a `desiredReplicas` greater than
 the current value.
 
-Finally, just before HPA scales the target, the scale recommendation is
-recorded.  The controller considers all recommendations within a configurable
-window choosing the highest recommendation from within that window. This value
-can be configured using the
-`--horizontal-pod-autoscaler-downscale-stabilization` flag or the HPA object
-behavior `behavior.scaleDown.stabilizationWindowSeconds` (see [Support for
-configurable scaling behavior](#support-for-configurable-scaling-behavior)),
-which defaults to 5 minutes.  This means that scaledowns will occur gradually,
-smoothing out the impact of rapidly fluctuating metric values.
+Finally, just before HPA scales the target, the scale recommendation is recorded.  The
+controller considers all recommendations within a configurable window choosing the
+highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
+This means that scaledowns will occur gradually, smoothing out the impact of rapidly
+fluctuating metric values.
 
 ## API Object
 
@@ -218,7 +213,10 @@ When managing the scale of a group of replicas using the Horizontal Pod Autoscal
 it is possible that the number of replicas keeps fluctuating frequently due to the
 dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing*.
 
-Starting from v1.12, a new algorithmic update removes the need for an
+Starting from v1.6, a cluster operator can mitigate this problem by tuning
+the global HPA settings exposed as flags for the `kube-controller-manager` component:
+
+Starting from v1.12, a new algorithmic update removes the need for the
 upscale delay.
 
 - `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
@@ -233,11 +231,6 @@ that the Horizontal Pod Autoscaler is not responsive to workload changes. Howeve
 the delay value is set too short, the scale of the replicas set may keep thrashing as
 usual.
 {{< /note >}}
-
-Starting from v1.17 the downscale stabilization window can be set on a per-HPA
-basis by setting the `behavior.scaleDown.stabilizationWindowSeconds` field in
-the v2beta2 API. See [Support for configurable scaling
-behavior](#support-for-configurable-scaling-behavior).
 
 ## Support for multiple metrics
 

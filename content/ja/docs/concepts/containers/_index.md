@@ -1,5 +1,4 @@
 ---
-title: "Containers"
+title: "コンテナ"
 weight: 40
 ---
-

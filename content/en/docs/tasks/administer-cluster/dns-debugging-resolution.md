@@ -258,14 +258,7 @@ Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
 cluster DNS by default, because that process is inherently distribution-specific.
 This should probably be implemented eventually.
 
-Linux's libc is impossibly stuck ([see this bug from
-2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)) with limits of just
-3 DNS `nameserver` records and 6 DNS `search` records. Kubernetes needs to
-consume 1 `nameserver` record and 3 `search` records. This means that if a
-local installation already uses 3 `nameserver`s or uses more than 3 `search`es,
-some of those settings will be lost. As a partial workaround, the node can run
-`dnsmasq` which will provide more `nameserver` entries, but not more `search`
-entries. You can also use kubelet's `--resolv-conf` flag.
+Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by default. What's more, for the glibc versions which are older than glic-2.17-222 ([the new versions update see this issue](https://access.redhat.com/solutions/58028)), the DNS `search` records has been limited to 6 ([see this bug from 2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)). Kubernetes needs to consume 1 `nameserver` record and 3 `search` records. This means that if a local installation already uses 3 `nameserver`s or uses more than 3 `search`es while your glibc versions in the affected list, some of those settings will be lost. For the workaround of the DNS `nameserver` records limit, the node can run `dnsmasq` which will provide more `nameserver` entries, you can also use kubelet's `--resolv-conf` flag. For fixing the DNS `search` records limit, consider upgrading your linux distribution or glibc version.
 
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
 work properly owing to a known issue with Alpine.

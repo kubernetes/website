@@ -168,20 +168,23 @@ Katacoda предоставляет бесплатную, встроенную �
 
     ```shell
     addon-manager: enabled
-    coredns: disabled
     dashboard: enabled
     default-storageclass: enabled
     efk: disabled
     freshpod: disabled
+    gvisor: disabled
     heapster: disabled
+    helm-tiller: disabled
     ingress: disabled
-    kube-dns: enabled
+    ingress-dns: disabled
+    logviewer: disabled
     metrics-server: disabled
     nvidia-driver-installer: disabled
     nvidia-gpu-device-plugin: disabled
     registry: disabled
     registry-creds: disabled
     storage-provisioner: enabled
+    storage-provisioner-gluster: disabled
     ```
    
 2. Включить дополнение, например, `metrics-server`:
@@ -206,17 +209,21 @@ Katacoda предоставляет бесплатную, встроенную �
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
-    pod/metrics-server-6754dbc9df-q8zlg         1/1       Running   0          26s
+    pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
+    pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
+    pod/metrics-server-67fb648c5                1/1       Running   0          26s
+    pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
-    pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
-    pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
+    pod/kube-apiserver-minikube                 1/1       Running   0          34m
+    pod/kube-controller-manager-minikube        1/1       Running   0          34m
+    pod/kube-proxy-rnlps                        1/1       Running   0          34m
+    pod/kube-scheduler-minikube                 1/1       Running   0          34m
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/metrics-server         ClusterIP   10.96.94.175    <none>        443/TCP             26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-    service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```

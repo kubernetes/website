@@ -111,7 +111,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | `Ready`        | 表示节点是健康的并已经准备好接受 pods；`False` 表示节点不健康而且不能接受 pods；`Unknown` 表示节点控制器在最近 40 秒内没有收到节点的消息 |
 | `MemoryPressure`    | `True` 表示节点存在内存压力 -- 即节点内存用量低，否则为 `False` |
 | `PIDPressure`    | `True` 表示节点存在进程压力 -- 即进程过多；否则为 `False` |
-| `DiskPressure`    | `True` 表示节点存在磁盘压力 -- 即磁盘用量低，否则为 `False` |
+| `DiskPressure`    | `True` 表示节点存在磁盘压力 -- 即磁盘可用量低，否则为 `False` |
 | `NetworkUnavailable`    | `True` 表示节点网络配置不正确；否则为 `False` |
 
 <!--

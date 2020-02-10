@@ -36,6 +36,7 @@ parallelism and completions exist across the registered clusters.
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * 你需要具备基本的 [Kubernetes 的工作知识](/docs/tutorials/kubernetes-basics/)，特别是 [job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
+
 <!--
 * You should also have a basic
 [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in

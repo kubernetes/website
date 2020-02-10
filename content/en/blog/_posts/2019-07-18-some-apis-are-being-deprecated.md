@@ -12,21 +12,45 @@ When APIs evolve, the old API is deprecated and eventually removed.
 
 The **v1.16** release will stop serving the following deprecated API versions in favor of newer and more stable API versions:
 
-* NetworkPolicy (in the **extensions/v1beta1** API group)
-  * Migrate to use the **networking.k8s.io/v1** API, available since v1.8.
-    Existing persisted data can be retrieved/updated via the **networking.k8s.io/v1** API.
-* PodSecurityPolicy (in the **extensions/v1beta1** API group)
+* NetworkPolicy in the **extensions/v1beta1** API version is no longer served
+  * Migrate to use the **networking.k8s.io/v1** API version, available since v1.8.
+    Existing persisted data can be retrieved/updated via the new version.
+* PodSecurityPolicy in the **extensions/v1beta1** API version
   * Migrate to use the **policy/v1beta1** API, available since v1.10.
-    Existing persisted data can be retrieved/updated via the **policy/v1beta1** API.
-* DaemonSet, Deployment, StatefulSet, and ReplicaSet (in the **extensions/v1beta1** and **apps/v1beta2** API groups)
-  * Migrate to use the **apps/v1** API, available since v1.9.
-    Existing persisted data can be retrieved/updated via the **apps/v1** API.
+    Existing persisted data can be retrieved/updated via the new version.
+* DaemonSet in the **extensions/v1beta1** and **apps/v1beta2** API versions is no longer served
+  * Migrate to use the **apps/v1** API version, available since v1.9.
+    Existing persisted data can be retrieved/updated via the new version.
+  * Notable changes:
+      * `spec.templateGeneration` is removed
+      * `spec.selector` is now required and immutable after creation
+      * `spec.updateStrategy.type` now defaults to `RollingUpdate`
+* Deployment in the **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions is no longer served
+  * Migrate to use the **apps/v1** API version, available since v1.9.
+    Existing persisted data can be retrieved/updated via the new version.
+  * Notable changes:
+      * `spec.rollbackTo` is removed
+      * `spec.selector` is now required and immutable after creation
+      * `spec.progressDeadlineSeconds` now defaults to `600` seconds
+      * `spec.revisionHistoryLimit` now defaults to `10`
+      * `maxSurge` and `maxUnavailable` now default to `25%`
+* StatefulSet in the **apps/v1beta1** and **apps/v1beta2** API versions is no longer served
+  * Migrate to use the **apps/v1** API version, available since v1.9.
+    Existing persisted data can be retrieved/updated via the new version.
+  * Notable changes:
+      * `spec.selector` is now required and immutable after creation
+      * `spec.updateStrategy.type` now defaults to `RollingUpdate`
+* ReplicaSet in the **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions is no longer served
+  * Migrate to use the **apps/v1** API version, available since v1.9.
+    Existing persisted data can be retrieved/updated via the new version.
+  * Notable changes:
+      * `spec.selector` is now required and immutable after creation
 
 The **v1.20** release will stop serving the following deprecated API versions in favor of newer and more stable API versions:
 
-* Ingress (in the **extensions/v1beta1** API group)
-  * Migrate to use the **networking.k8s.io/v1beta1** API, serving Ingress since v1.14.
-    Existing persisted data can be retrieved/updated via the **networking.k8s.io/v1beta1** API.
+* Ingress in the **extensions/v1beta1** API version will no longer be served
+  * Migrate to use the **networking.k8s.io/v1beta1** API version, available since v1.14.
+    Existing persisted data can be retrieved/updated via the new version.
 
 # What To Do
 

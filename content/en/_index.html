@@ -45,12 +45,12 @@ Kubernetes is open source giving you the freedom to take advantage of on-premise
         <br>
         <br>
         <br>
-        <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2020/" button id="desktopKCButton">Attend KubeCon in Amsterdam on Mar. 30-Apr. 2, 2020</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccnceu20" button id="desktopKCButton">Attend KubeCon in Amsterdam on Mar. 30-Apr. 2, 2020</a>
         <br>
         <br>
         <br>
         <br>
-        <a href="https://events.linuxfoundation.cn/kubecon-cloudnativecon-open-source-summit-china/" button id="desktopKCButton">Attend KubeCon in Shanghai on July 28-30, 2020</a>
+        <a href="https://www.lfasiallc.cn/kubecon-cloudnativecon-open-source-summit-china/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccncch20" button id="desktopKCButton">Attend KubeCon in Shanghai on July 28-30, 2020</a>
 </div>
 <div id="videoPlayer">
     <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>

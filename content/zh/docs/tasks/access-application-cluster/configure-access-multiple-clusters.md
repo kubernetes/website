@@ -9,7 +9,7 @@ content_template: templates/task
 本文展示如何使用配置文件来配置对多个集群的访问。 在将集群、用户和上下文定义在一个或多个配置文件中之后，用户可以使用 `kubectl config use-context` 命令快速地在集群之间进行切换。
 
 {{< note >}}
-**注意：** 用于配置集群访问的文件有时被称为 *kubeconfig 文件*。
+用于配置集群访问的文件有时被称为 *kubeconfig 文件*。
 这是一种引用配置文件的通用方式，并不意味着存在一个名为 `kubeconfig` 的文件。
 {{< /note >}}
 
