@@ -37,7 +37,7 @@ etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Ku
 <!--more--> 
 
 <!--
-Always have a backup plan for etcd's data for your Kubernetes cluster. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
+Always have a backup plan for etcd's data for your Kubernetes cluster. For in-depth information on etcd, see [etcd documentation](https://etcd.io/docs).
 -->
 
-您的 Kubernetes 集群的 etcd 数据库通常需要有个备份计划。要了解 etcd 更深层次的信息，请参考 [etcd 文档](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)。
+您的 Kubernetes 集群的 etcd 数据库通常需要有个备份计划。要了解 etcd 更深层次的信息，请参考 [etcd 文档](https://etcd.io/docs)。
