@@ -150,15 +150,23 @@ Active Job | 액티브 잡 |
 Addons | 애드온 |
 admission controller | 어드미션 컨트롤러 |
 Age | 기간 |
+<<<<<<< HEAD
 Allocation | 할당량 |
 alphanumeric | 영숫자 |
+=======
+Allocation | 할당량
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 Annotation | 어노테이션 |
 App | 앱 |
 Appendix | 부록 |
 Application | 애플리케이션 |
 Args | Args | 약어의 형태이므로 한글화하지 않고 영문 표기
 array | 배열 |
+<<<<<<< HEAD
 autoscaler | 오토스케일러 |
+=======
+autoscaler | 오토스케일러  
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 availability zone | 가용성 영역(availability zone) |
 bare pod | 베어(bare) 파드 |
 beta | 베타 |
@@ -244,7 +252,10 @@ lifecycle | 라이프사이클 |
 Linux | 리눅스 |
 load | 부하 |
 Log | 로그 |
+<<<<<<< HEAD
 loopback | 루프백(loopback) |
+=======
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 Lost | Lost | 클레임의 상태에 한함
 Machine | 머신 |
 manifest | 매니페스트 |
@@ -252,6 +263,7 @@ Master | 마스터 |
 max limit/request ratio | 최대 상한/요청량 비율 |
 metadata | 메타데이터 |
 metric | 메트릭 |
+<<<<<<< HEAD
 masquerading | 마스커레이딩 |
 Minikube | Minikube |
 Mirror pod | 미러 파드(mirror pod) |
@@ -260,6 +272,13 @@ multihomed | 멀티홈드(multihomed) |
 naked pod | 네이키드(naked) 파드 |
 Namespace | 네임스페이스 |
 netfilter | 넷필터(netfilter) |
+=======
+Minikube | Minikube |
+Mirror pod | 미러 파드(mirror pod) |
+monitoring | 모니터링 |
+naked pod | 네이키드(naked) 파드 |
+Namespace | 네임스페이스 |
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 Network Policy | 네트워크 폴리시 |
 Node | 노드 |
 node lease | 노드 리스(lease)
@@ -286,12 +305,17 @@ Pull Request | 풀 리퀘스트 |
 Pull Secret Credentials | 풀(Pull) 시크릿 자격증명 |
 QoS Class | QoS 클래스 |
 Quota | 쿼터 |
+<<<<<<< HEAD
 readiness gate | 준비성 게이트(readiness gate) |
 readiness probe | 준비성 프로브(readiness probe) |
 Ready | Ready |
 Reclaim Policy | 반환 정책 |
 redirect | 리다이렉트(redirect) |
 redirection | 리다이렉션 |
+=======
+Ready | Ready |
+Reclaim Policy | 반환 정책 |
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 Registry | 레지스트리 |
 Release | 릴리스 |
 Replica Set | 레플리카 셋 |
@@ -303,7 +327,11 @@ Resource Limit | 리소스 상한 |
 Resource Quota | 리소스 쿼터 |
 return | 반환하다 |
 revision | 리비전 |
+<<<<<<< HEAD
 Role | 롤 |
+=======
+Role | 롤 |  
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 rollback | 롤백 |
 rolling update | 롤링 업데이트 |
 rollout | 롤아웃 |
@@ -325,8 +353,11 @@ Shell | 셸 |
 Sign In | 로그인 |
 Sign Out | 로그아웃 |
 skew | 차이(skew) |
+<<<<<<< HEAD
 spec | 명세, 스펙, 사양 |
 specification | 명세 |
+=======
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 Stateful Set | 스테이트풀 셋 |
 stateless | 스테이트리스 |
 Static pod | 스태틱(static) 파드 |
@@ -345,7 +376,10 @@ traffic | 트래픽 |
 Type | 타입 |
 ubuntu | 우분투 |
 use case | 유스케이스 |
+<<<<<<< HEAD
 userspace | 유저스페이스(userspace) |
+=======
+>>>>>>> 63f30b086... Sync up between dev-1.18 and master branches (#19055)
 Utilization | 사용량, 사용률 |
 verbosity | 로그 상세 레벨(verbosity) |
 virtualization | 가상화 |

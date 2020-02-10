@@ -42,7 +42,6 @@ Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in th
 
 {{% /capture %}}
 
-
 {{% capture body %}}
 
 You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
@@ -361,7 +360,6 @@ is changed, for example if the labels or container images of the template are up
     ```shell
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
     ```
-
 <!--
  The output is similar to this:
 -->
