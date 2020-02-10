@@ -40,7 +40,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 必須のフィールド
 
 他の全てのKubernetesの設定と同様に、DaemonSetは`apiVersion`、`kind`と`metadata`フィールドが必須となります。  
-設定ファイルの活用法に関する一般的な情報は、[アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)、[コンテナの設定](/docs/tasks/)、[kubectlを用いたオブジェクトの管理](/docs/concepts/overview/working-with-objects/object-management/)といったドキュメントを参照ください。
+設定ファイルの活用法に関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/ja/docs/tasks/)、[kubectlを用いたオブジェクトの管理](/ja/docs/concepts/overview/working-with-objects/object-management/)といったドキュメントを参照ください。
 
 また、DaemonSetにおいて[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)セクションも必須となります。
 
@@ -134,7 +134,7 @@ DaemonSet内のPodとのコミュニケーションをする際に考えられ�
 
 ユーザーはDaemonSetが作成したPodを修正可能です。しかし、Podは全てのフィールドの更新を許可していません。また、DaemonSetコントローラーは次のNode(同じ名前でも)が作成されたときにオリジナルのテンプレートを使ってPodを作成します。
 
-ユーザーはDaemonSetを削除可能です。`kubectl`コマンドで`--cascade=false`を指定するとDaemonSetのPodはNode上に残り続けます。その後、同じセレクターで新しいDaemonSetを作成すると、新しいDaemonSetは既存のPodを採用します。PodでDaemonSetを置き換える必要がある場合は、`updateStrategy`に従ってそれらを置き換えます。
+ユーザーはDaemonSetを削除可能です。`kubectl`コマンドで`--cascade=false`を指定するとDaemonSetのPodはNode上に残り続けます。その後、同じセレクターで新しいDaemonSetを作成すると、新しいDaemonSetは既存のPodを再利用します。PodでDaemonSetを置き換える必要がある場合は、`updateStrategy`に従ってそれらを置き換えます。
 
 ユーザーはDaemonSet上で[ローリングアップデートの実施](/docs/tasks/manage-daemon/update-daemon-set/)が可能です。
 
