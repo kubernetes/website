@@ -213,7 +213,7 @@ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i cli
 ```
 The output is:
 ```
-client_address=104.132.1.79
+client_address=198.51.100.79
 ```
 
 Note that you only got one reply, with the *right* client IP, from the one node on which the endpoint pod
@@ -268,11 +268,13 @@ kubectl get svc loadbalancer
 The output is similar to this:
 ```
 NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
-loadbalancer   LoadBalancer   10.0.65.118   104.198.149.140   80/TCP    5m
+loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
 ```
 
+Next, send a request to this Service's external-ip:
+
 ```console
-curl 104.198.149.140
+curl 203.0.113.140
 ```
 The output is similar to this:
 ```
@@ -350,12 +352,12 @@ pointing to this port/path on each node. Wait about 10 seconds for the 2 nodes
 without endpoints to fail health checks, then curl the lb ip:
 
 ```console
-curl 104.198.149.140
+curl 203.0.113.140
 ```
 The output is similar to this:
 ```
 CLIENT VALUES:
-client_address=104.132.1.79
+client_address=198.51.100.79
 ...
 ```
 
