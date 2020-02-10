@@ -19,12 +19,25 @@ of Services, and how you can toggle this behavior according to your needs.
 
 This document makes use of the following terms:
 
-* [NAT](https://en.wikipedia.org/wiki/Network_address_translation): network address translation
-* [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): replacing the source IP on a packet, usually with a node's IP
-* [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): replacing the destination IP on a packet, usually with a pod IP
-* [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): a virtual IP, such as the one assigned to every Kubernetes Service
-* [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): a network daemon that orchestrates Service VIP management on every node
+{{< comment >}}
+If localizing this section, link to the equivalent Wikipedia pages for
+the target localization.
+{{< /comment >}}
 
+[NAT](https://en.wikipedia.org/wiki/Network_address_translation)
+: network address translation
+
+[Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT)
+: replacing the source IP on a packet; in this page, that usually means replacing with the IP address of a node.
+
+[Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
+: replacing the destination IP on a packet; in this page, that usually means replacing with the IP address of a {{< glossary_tooltip term_id="pod" >}}
+
+[VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
+: a virtual IP address, such as the one assigned to every {{< glossary_tooltip text="Service" term_id="service" >}} in Kubernetes
+
+[kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
+: a network daemon that orchestrates Service VIP management on every node
 
 ### Prerequisites
 
