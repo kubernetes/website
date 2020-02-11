@@ -29,7 +29,7 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 
 上記において安定とは、Podのスケジュール(または再スケジュール)をまたいでも永続的であることと同義です。
 もしアプリケーションが安定したネットワーク識別子と規則的なデプロイや削除、スケーリングを全く要求しない場合、ユーザーはステートレスなレプリカのセットを提供するコントローラーを使ってアプリケーションをデプロイするべきです。
-[Deployment](/docs/concepts/workloads/controllers/deployment/)や[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)のようなコントローラーはこのようなステートレスな要求に対して最適です。
+[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)や[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)のようなコントローラーはこのようなステートレスな要求に対して最適です。
 
 ## 制限事項
 

@@ -198,7 +198,7 @@ selector:
 
 #### *集合ベース* の要件指定をサポートするリソース
 
-[`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/)や[`Deployment`](/docs/concepts/workloads/controllers/deployment/)、[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)や[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/)などの比較的新しいリソースは、*集合ベース* での要件指定もサポートしています。  
+[`Job`](/docs/concepts/workloads/controllers/jobs-run-to-completion/)や[`Deployment`](/ja/docs/concepts/workloads/controllers/deployment/)、[`ReplicaSet`](/ja/docs/concepts/workloads/controllers/replicaset/)や[`DaemonSet`](/ja/docs/concepts/workloads/controllers/daemonset/)などの比較的新しいリソースは、*集合ベース* での要件指定もサポートしています。  
 ```yaml
 selector:
   matchLabels:

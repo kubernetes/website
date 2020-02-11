@@ -13,7 +13,7 @@ weight: 40
 {{% capture body %}}
 ## Initコンテナを理解する
 
-単一の[Pod](/docs/concepts/workloads/pods/pod-overview/)は、Pod内に複数のコンテナを稼働させることができますが、Initコンテナもまた、アプリケーションコンテナが稼働する前に1つまたは複数稼働できます。
+単一の[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)は、Pod内に複数のコンテナを稼働させることができますが、Initコンテナもまた、アプリケーションコンテナが稼働する前に1つまたは複数稼働できます。
 
 Initコンテナは下記の項目をのぞいて、通常のコンテナと全く同じものとなります。
 
@@ -57,7 +57,7 @@ Initコンテナはアプリケーションコンテナのイメージとは分�
 * ボリュームにあるgitリポジトリをクローンします。
 * メインのアプリケーションコンテナのための設定ファイルを動的に生成するために、いくつかの値を設定ファイルに移してテンプレートツールを稼働させます。例えば、設定ファイルにそのPodのPOD_IPを移して、Jinjaを使ってメインのアプリケーションコンテナの設定ファイルを生成します。
 
-さらに詳細な使用例は、[StatefulSetsのドキュメント](/docs/concepts/workloads/controllers/statefulset/)と[Production Pods guide](/docs/tasks/configure-pod-container/configure-pod-initialization/)にまとまっています。
+さらに詳細な使用例は、[StatefulSetsのドキュメント](/ja/docs/concepts/workloads/controllers/statefulset/)と[Production Pods guide](/docs/tasks/configure-pod-container/configure-pod-initialization/)にまとまっています。
 
 ### Initコンテナの使用
 

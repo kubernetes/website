@@ -49,7 +49,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 `.spec.template`は`.spec`内での必須のフィールドの1つです。
 
-`.spec.template`は[Podテンプレート](/docs/concepts/workloads/pods/pod-overview/#pod-templates)となります。これはフィールドがネストされていて、`apiVersion`や`kind`をもたないことを除いては、[Pod](/docs/concepts/workloads/pods/pod/)のテンプレートと同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート)となります。これはフィールドがネストされていて、`apiVersion`や`kind`をもたないことを除いては、[Pod](/ja/docs/concepts/workloads/pods/pod/)のテンプレートと同じスキーマとなります。
 
 Podに対する必須のフィールドに加えて、DaemonSet内のPodテンプレートは適切なラベルを指定しなくてはなりません([Podセレクター](#pod-selector)の項目を参照ください)。
 
@@ -172,7 +172,7 @@ DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアン�
 
 ### Deployment
 
-DaemonSetは、Podの作成し、そのPodが停止されることのないプロセスを持つことにおいて[Deployment](/docs/concepts/workloads/controllers/deployment/)と同様です(例: webサーバー、ストレージサーバー)。
+DaemonSetは、Podの作成し、そのPodが停止されることのないプロセスを持つことにおいて[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)と同様です(例: webサーバー、ストレージサーバー)。
 
 フロントエンドのようなServiceのように、どのホスト上にPodが稼働するか制御するよりも、レプリカ数をスケールアップまたはスケールダウンしたりローリングアップデートする方が重要であるような、状態をもたないServiceに対してDeploymentを使ってください。
 Podのコピーが全てまたは特定のホスト上で常に稼働していることが重要な場合や、他のPodの前に起動させる必要があるときにDaemonSetを使ってください。
