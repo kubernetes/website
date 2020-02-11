@@ -24,9 +24,9 @@ Once you've set your desired state, the *Kubernetes Control Plane* makes the clu
   * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
 
-## Kubernetes Objects
+## Kubernetes objects
 
-Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API. See [Understanding Kubernetes Objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) for more details.
+Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API. See [Understanding Kubernetes objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects) for more details.
 
 The basic Kubernetes objects include:
 
@@ -35,7 +35,7 @@ The basic Kubernetes objects include:
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
-Kubernetes also contains higher-level abstractions that rely on [Controllers](/docs/concepts/architecture/controller/) to build upon the basic objects, and provide additional functionality and convenience features. These include:
+Kubernetes also contains higher-level abstractions that rely on [controllers](/docs/concepts/architecture/controller/) to build upon the basic objects, and provide additional functionality and convenience features. These include:
 
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
