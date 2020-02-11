@@ -8,7 +8,7 @@ menu:
     weight: 10
     post: >
       <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
-card: 
+card:
   name: tutorials
   weight: 10
 ---
@@ -17,7 +17,7 @@ card:
 
 This tutorial shows you how to run a simple Hello World Node.js app
 on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment. 
+Katacoda provides a free, in-browser Kubernetes environment.
 
 {{< note >}}
 You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
@@ -49,7 +49,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 ## Create a Minikube cluster
 
-1. Click **Launch Terminal** 
+1. Click **Launch Terminal**
 
     {{< kat-button >}}
 
@@ -63,7 +63,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
-4. Katacoda environment only: Type `30000`, and then click **Display Port**. 
+4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 
 ## Create a Deployment
 
@@ -75,7 +75,7 @@ Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image. 
+Pod runs a Container based on the provided Docker image.
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
@@ -118,7 +118,7 @@ Pod runs a Container based on the provided Docker image.
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Create a Service
@@ -133,7 +133,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
+
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
 
@@ -199,13 +199,13 @@ Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addon
     storage-provisioner: enabled
     storage-provisioner-gluster: disabled
     ```
-   
+
 2. Enable an addon, for example, `metrics-server`:
 
     ```shell
     minikube addons enable metrics-server
     ```
-  
+
     The output is similar to:
 
     ```
@@ -246,7 +246,7 @@ Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addon
     ```shell
     minikube addons disable metrics-server
     ```
-  
+
     The output is similar to:
 
     ```
@@ -279,7 +279,7 @@ minikube delete
 {{% capture whatsnext %}}
 
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
+* Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}
