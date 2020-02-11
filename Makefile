@@ -18,7 +18,7 @@ build: ## Build site with production settings and put deliverables in ./public
 build-preview: ## Build site with drafts and future posts enabled
 	hugo --buildDrafts --buildFuture
 
-deploy-preview: check-hugo-versions ## Deploy preview site via netlify
+deploy-preview: ## Deploy preview site via netlify
 	hugo --enableGitInfo --buildFuture -b $(DEPLOY_PRIME_URL)
 
 functions-build:
@@ -27,9 +27,9 @@ functions-build:
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
+non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
 
 serve: ## Boot the development server.
@@ -47,6 +47,3 @@ docker-serve:
 test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
-
-check-hugo-versions:
-	scripts/hugo-version-check.sh $(HUGO_VERSION)
