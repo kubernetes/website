@@ -20,6 +20,7 @@ content_template: templates/concept
 
 * [Обзор Kubernetes API](/docs/reference/using-api/api-overview/) - Обзор API для Kubernetes.
 * Версии Kubernetes API
+  * [1.17](/docs/reference/generated/kubernetes-api/v1.17/)
   * [1.16](/docs/reference/generated/kubernetes-api/v1.16/)
   * [1.15](/docs/reference/generated/kubernetes-api/v1.15/)
   * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
@@ -40,8 +41,8 @@ content_template: templates/concept
 
 * [kubectl](/docs/user-guide/kubectl-overview) - Основной инструмент CLI для запуска команд и управления кластерами Kubernetes.
     * [JSONPath](/docs/user-guide/jsonpath/) - Документация по синтаксису использования [выражений JSONPath](http://goessner.net/articles/JsonPath/) с kubectl.
-* [kubeadm](/docs/admin/kubeadm/) - Инструмент CLI для простого обеспечения безопасного кластера Kubernetes.
-* [kubefed](/docs/admin/kubefed/) - Инструмент CLI, чтобы помочь вам администрировать ваши федеративные кластеры.
+* [kubeadm](/docs/admin/kubeadm/) - Инструмент CLI для легкого разворачивания защищенного кластера Kubernetes.
+* [kubefed](/docs/admin/kubefed/) - Инструмент CLI для помощи в администрировании федеративных кластеров.
 
 ## Ссылки на конфигурации
 

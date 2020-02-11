@@ -66,6 +66,10 @@ switching to legacy mode, and is therefore incompatible with current kubeadm pac
 {{< tabs name="iptables_legacy" >}}
 {{% tab name="Debian or Ubuntu" %}}
 ```bash
+# ensure legacy binaries are installed
+sudo apt-get install -y iptables arptables ebtables
+
+# switch to legacy versions
 sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
 sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
@@ -136,7 +140,7 @@ If the container runtime of choice is Docker, it is used through the built-in
 
 Other CRI-based runtimes include:
 
-- [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
+- [containerd/cri](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
@@ -217,7 +221,7 @@ systemctl enable --now kubelet
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
 
     ```bash
-    cat <<EOF >  /etc/sysctl.d/k8s.conf
+    cat <<EOF > /etc/sysctl.d/k8s.conf
     net.bridge.bridge-nf-call-ip6tables = 1
     net.bridge.bridge-nf-call-iptables = 1
     EOF

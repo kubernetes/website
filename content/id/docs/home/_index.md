@@ -43,9 +43,9 @@ cards:
   button: Lihat referensi
   button_path: /docs/reference
 - name: contribute
-  title: Kontribusi ke dokumentasi
-  description: Siapapun bisa kontribusi, buat kamu yang baru atau sudah lama di proyek ini.
-  button: Kontribusi ke dokumentasi
+  title: Berkontribusi ke dokumentasi
+  description: Siapapun bisa berkontribusi, buat kamu yang baru atau sudah lama di proyek ini.
+  button: Berkontribusi ke dokumentasi
   button_path: /docs/contribute
 - name: download
   title: Unduh Kubernetes

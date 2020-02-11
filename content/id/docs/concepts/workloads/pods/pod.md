@@ -242,7 +242,7 @@ dokumentasi untuk [penghentian Pod dari StatefulSet](/docs/tasks/run-application
 
 ## Hak istimewa untuk kontainer pada Pod
 
-Setiap kontainer dalam Pod dapat mengaktifkan hak istimewa (mode _previleged_), dengan menggunakan tanda
+Setiap kontainer dalam Pod dapat mengaktifkan hak istimewa (mode _privileged_), dengan menggunakan tanda
 `privileged` pada [konteks keamanan](/docs/tasks/configure-pod-container/security-context/)
 pada spesifikasi kontainer. Ini akan berguna untuk kontainer yang ingin menggunakan 
 kapabilitas Linux seperti memanipulasi jaringan dan mengakses perangkat. Proses dalam

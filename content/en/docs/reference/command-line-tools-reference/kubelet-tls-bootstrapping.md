@@ -417,7 +417,7 @@ However, you _can_ enable its server certificate, at least partially, via certif
 
 ### Certificate Rotation
 Kubernetes v1.8 and higher kubelet implements __beta__ features for enabling
-rotation of its client and/or serving certficates.  These can be enabled through
+rotation of its client and/or serving certificates.  These can be enabled through
 the respective `RotateKubeletClientCertificate` and
 `RotateKubeletServerCertificate` feature flags on the kubelet and are enabled by
 default.

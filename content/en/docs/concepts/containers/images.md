@@ -124,9 +124,9 @@ Troubleshooting:
 - Verify all requirements above.
 - Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
 - Verify kubelet is running with `--cloud-provider=aws`.
-- Check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
-  - `plugins.go:56] Registering credential provider: aws-ecr-key`
-  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+- Increase kubelet log level verbosity to at least 3 and check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
+  - `aws_credentials.go:109] unable to get ECR credentials from cache, checking ECR API`
+  - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Using Azure Container Registry (ACR)
 When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
@@ -205,7 +205,7 @@ example, run these on your desktop/laptop:
 
 Verify by creating a pod that uses a private image, e.g.:
 
-```yaml
+```shell
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
@@ -218,20 +218,27 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
+```
+```
 pod/private-image-test-1 created
 ```
 
-If everything is working, then, after a few moments, you should see:
+If everything is working, then, after a few moments, you can run:
 
 ```shell
 kubectl logs private-image-test-1
+```
+and see that the command outputs:
+```
 SUCCESS
 ```
 
-If it failed, then you will see:
-
+If you suspect that the command failed, you can run:
 ```shell
-kubectl describe pods/private-image-test-1 | grep "Failed"
+kubectl describe pods/private-image-test-1 | grep 'Failed'
+```
+In case of failure, the output is similar to:
+```
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
@@ -358,7 +365,8 @@ common use cases and suggested solutions.
    - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 
-{{% /capture %}}
 
 If you need access to multiple registries, you can create one secret for each registry.
 Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
+
+{{% /capture %}}

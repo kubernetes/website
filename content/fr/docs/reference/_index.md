@@ -35,7 +35,7 @@ Pour appeler l'API de Kubernetes depuis un langage de programmation on peut util
 
 ## Documents de Référence des outils en ligne de commande (CLI)
 
-* [kubectl](docs/reference/command-line-tools-reference/kubelet/) - Principal outil en ligne de commande (CLI) pour exécuter et gérer un cluster Kubernetes.
+* [kubectl](/docs/reference/kubectl/overview/) - Principal outil en ligne de commande (CLI) pour exécuter et gérer un cluster Kubernetes.
     * [JSONPath](/docs/user-guide/jsonpath/) - Guide de la syntaxe des [expressions JSONPath](http://goessner.net/articles/JsonPath/) avec kubectl.
 * [kubeadm](/docs/admin/kubeadm/) - Outil en ligne de commande (CLI) pour provisionner facilement un cluster Kubernetes sécurisé.
 * [kubefed](/docs/admin/kubefed/) - Outil en ligne de commande (CLI) pour aider à administrer des clusters fédérés.

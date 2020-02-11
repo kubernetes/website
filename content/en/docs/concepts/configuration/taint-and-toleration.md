@@ -73,6 +73,7 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 `Operator` defaults to `Equal` if not specified.
 
 {{< note >}}
+
 There are two special cases:
 
 * An empty `key` with operator `Exists` matches all keys, values and effects which means this
@@ -88,8 +89,9 @@ tolerations:
 ```yaml
 tolerations:
 - key: "key"
-  operator: "Exists"
+      operator: "Exists"
 ```
+
 {{< /note >}}
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.

@@ -961,6 +961,7 @@ Allowed values are `Exact` or `Equivalent`.
 * `Equivalent` means a request should be intercepted if modifies a resource listed in `rules`, even via another API group or version.
 
 In the example given above, the webhook that only registered for `apps/v1` could use `matchPolicy`:
+
 * `matchPolicy: Exact` would mean the `extensions/v1beta1` request would not be sent to the webhook
 * `matchPolicy: Equivalent` means the `extensions/v1beta1` request would be sent to the webhook (with the objects converted to a version the webhook had specified: `apps/v1`)
 
@@ -968,9 +969,10 @@ Specifying `Equivalent` is recommended, and ensures that webhooks continue to in
 resources they expect when upgrades enable new versions of the resource in the API server.
 
 When a resource stops being served by the API server, it is no longer considered equivalent to other versions of that resource that are still served.
-For example, deprecated `extensions/v1beta1` deployments are scheduled to stop being served by default in v1.16.
-Once that occurs, a webhook with a `apiGroups:["extensions"], apiVersions:["v1beta1"], resources:["deployments"]` rule
-would no longer intercept deployments created via `apps/v1` APIs. For that reason, webhooks should prefer registering
+For example, `extensions/v1beta1` deployments were first deprecated and then removed (in Kubernetes v1.16).
+
+Since that removal, a webhook with a `apiGroups:["extensions"], apiVersions:["v1beta1"], resources:["deployments"]` rule
+does not intercept deployments created via `apps/v1` APIs. For that reason, webhooks should prefer registering
 for stable versions of resources.
 
 This example shows a validating webhook that intercepts modifications to deployments (no matter the API group or version),

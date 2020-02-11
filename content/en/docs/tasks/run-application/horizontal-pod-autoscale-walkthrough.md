@@ -62,14 +62,19 @@ It defines an index.php page which performs some CPU intensive computations:
 ?>
 ```
 
-First, we will start a deployment running the image and expose it as a service:
+First, we will start a deployment running the image and expose it as a service
+using the following configuration:
 
+{{< codenew file="application/php-apache.yaml" >}}
+
+
+Run the following command:
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
+kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
 ```
-service/php-apache created
 deployment.apps/php-apache created
+service/php-apache created
 ```
 
 ## Create Horizontal Pod Autoscaler
@@ -80,7 +85,7 @@ The following command will create a Horizontal Pod Autoscaler that maintains bet
 controlled by the php-apache deployment we created in the first step of these instructions.
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
-(since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
+(since each pod requests 200 milli-cores by `kubectl run`), this means average CPU usage of 100 milli-cores).
 See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details on the algorithm.
 
 ```shell

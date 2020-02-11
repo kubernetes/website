@@ -8,7 +8,7 @@ weight: 30
 {{% capture overview %}}
 이 튜토리얼은 네이티브 클라우드 [카산드라](http://cassandra.apache.org/)를 쿠버네티스에서 배포하는 방법을 소개한다. 이 예제에서 커스텀 카산드라 *시드 제공자(SeedProvider)* 는 카산드라가 클러스터에 조인한 새 카산드라 노드를 발견할 수 있게 한다.
 
-*스테이트풀셋* 은 상태있는 애플리케이션을 클러스터 환경에서 쉽게 배포할 수 있게 한다. 이 튜토리얼에서 이용할 기능의 자세한 정보는 [*스테이트풀셋*](/docs/concepts/workloads/controllers/statefulset/) 문서를 참조하자.
+*스테이트풀셋* 은 상태있는 애플리케이션을 클러스터 환경에서 쉽게 배포할 수 있게 한다. 이 튜토리얼에서 이용할 기능의 자세한 정보는 [*스테이트풀셋*](/ko/docs/concepts/workloads/controllers/statefulset/) 문서를 참조하자.
 
 **도커에서 카산드라**
 
@@ -30,14 +30,14 @@ weight: 30
 
 {{% capture objectives %}}
 * 카산드라 헤드리스 [*서비스*](/docs/concepts/services-networking/service/)를 생성하고 검증한다.
-* [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)을 이용하여 카산드라 링을 생성한다.
-* [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)을 검증한다.
-* [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)을 수정한다.
-* [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)과 포함된 [파드](/docs/concepts/workloads/pods/pod/)를 삭제한다.
+* [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 이용하여 카산드라 링을 생성한다.
+* [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 검증한다.
+* [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 수정한다.
+* [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)과 포함된 [파드](/ko/docs/concepts/workloads/pods/pod/)를 삭제한다.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-이 튜토리얼을 완료하려면, [파드](/docs/concepts/workloads/pods/pod/), [서비스](/docs/concepts/services-networking/service/), [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)의 기본 개념에 친숙해야한다. 추가로
+이 튜토리얼을 완료하려면, [파드](/ko/docs/concepts/workloads/pods/pod/), [서비스](/docs/concepts/services-networking/service/), [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)의 기본 개념에 친숙해야한다. 추가로
 
 * *kubectl* 커맨드라인 도구를 [설치와 설정](/docs/tasks/tools/install-kubectl/)하자.
 
@@ -47,7 +47,7 @@ weight: 30
 * 실행 중인 쿠버네티스 클러스터를 소유
 
 {{< note >}}
-아직 클러스터가 없다면 [설치](/docs/setup/)를 읽도록 하자.
+아직 클러스터가 없다면 [설치](/ko/docs/setup/)를 읽도록 하자.
 {{< /note >}}
 
 ### 추가적인 Minikube 설정 요령
@@ -65,7 +65,7 @@ minikube start --memory 5120 --cpus=4
 {{% capture lessoncontent %}}
 ## 카산드라 헤드리스 서비스 생성하기
 
-쿠버네티스 [서비스](/docs/concepts/services-networking/service/)는 동일 작업을 수행하는 [파드](/docs/concepts/workloads/pods/pod/)의 집합을 기술한다.
+쿠버네티스 [서비스](/docs/concepts/services-networking/service/)는 동일 작업을 수행하는 [파드](/ko/docs/concepts/workloads/pods/pod/)의 집합을 기술한다.
 
 다음의 `서비스`는 쿠버네티스 클러스터에서 카산드라 파드와 클라이언트 간에 DNS 찾아보기 용도로 사용한다.
 

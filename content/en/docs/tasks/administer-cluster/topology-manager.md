@@ -99,7 +99,7 @@ If it is, Topology Manager will store this and the *Hint Providers* can then use
 resource allocation decision.
 If, however, this is not possible then the Topology Manager will reject the pod from the node. This will result in a pod in a `Terminated` state with a pod admission failure.
 
-Once the pod is in a `Terminated` state, the Kubernetes scheduler will **not** attempt to reschedule the pod. It is recommended a Deployment with Replicas to trigger a redeploy of the pod.
+Once the pod is in a `Terminated` state, the Kubernetes scheduler will **not** attempt to reschedule the pod. It is recommended to use a Deployment with replicas to trigger a redeploy of the Pod.
 An external control loop could be also implemented to trigger a redeployment of pods that have the `Topology Affinity` error.
 
 ### Pod Interactions with Topology Manager Policies

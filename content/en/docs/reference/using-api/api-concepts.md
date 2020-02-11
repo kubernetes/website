@@ -18,7 +18,7 @@ updating, and deleting primary resources via the standard HTTP verbs (POST, PUT,
 
 ## Standard API terminology
 
-Most Kubernetes API resource types are "objects" - they represent a concrete instance of a concept on the cluster, like a pod or namespace. A smaller number of API resource types are "virtual" - they often represent operations rather than objects, such as a permission check (use a POST with a JSON-encoded body of `SubjectAccessReview` to the `subjectaccessreviews` resource). All objects will have a unique name to allow idempotent creation and retrieval, but virtual resource types may not have unique names if they are not retrievable or do not rely on idempotency.
+Most Kubernetes API resource types are [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects): they represent a concrete instance of a concept on the cluster, like a pod or namespace. A smaller number of API resource types are "virtual" - they often represent operations rather than objects, such as a permission check (use a POST with a JSON-encoded body of `SubjectAccessReview` to the `subjectaccessreviews` resource). All objects will have a unique name to allow idempotent creation and retrieval, but virtual resource types may not have unique names if they are not retrievable or do not rely on idempotency.
 
 Kubernetes generally leverages standard RESTful terminology to describe the API concepts:
 
@@ -334,16 +334,16 @@ are not vulnerable to ordering changes in the list.
 Once the last finalizer is removed, the resource is actually removed from etcd.
 
 
-## Dry run
+## Dry-run
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}} In version 1.13, the dry run beta feature is enabled by default. The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry run mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non dry run response. The system guarantees that dry run requests will not be persisted in storage or have any other side effects.
+{{< feature-state for_k8s_version="v1.13" state="beta" >}} In version 1.13, the dry-run beta feature is enabled by default. The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry-run mode. DryRun mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non-dry-run response. The system guarantees that dry-run requests will not be persisted in storage or have any other side effects.
 
 
-### Make a dry run request
+### Make a dry-run request
 
-Dry run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.13 the only accepted values are:
+Dry-run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.13 the only accepted values are:
 
-* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. All built in admission control plugins support dry run. Additionally, admission webhooks can declare in their [configuration object](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration-k8s-io) that they do not have side effects by setting the sideEffects field to "None". If a webhook actually does have side effects, then the sideEffects field should be set to "NoneOnDryRun", and the webhook should also be modified to understand the `DryRun` field in AdmissionReview, and prevent side effects on dry run requests.
+* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. All built in admission control plugins support dry-run. Additionally, admission webhooks can declare in their [configuration object](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration-k8s-io) that they do not have side effects by setting the sideEffects field to "None". If a webhook actually does have side effects, then the sideEffects field should be set to "NoneOnDryRun", and the webhook should also be modified to understand the `DryRun` field in AdmissionReview, and prevent side effects on dry-run requests.
 * Leave the value empty, which is also the default: Keep the default modifying behavior.
 
 For example:
@@ -352,12 +352,28 @@ For example:
         Content-Type: application/json
         Accept: application/json
 
-The response would look the same as for non dry run request, but the values of some generated fields may differ.
+The response would look the same as for non-dry-run request, but the values of some generated fields may differ.
 
+### Dry-run authorization
+
+Authorization for dry-run and non-dry-run requests is identical. Thus, to make
+a dry-run request, the user must be authorized to make the non-dry-run request.
+
+For example, to run a dry-run `PATCH` for Deployments, you must have the
+`PATCH` permission for Deployments, as in the example of the RBAC rule below.
+
+```yaml
+rules:
+- apiGroups: ["extensions", "apps"]
+  resources: ["deployments"]
+  verbs: ["patch"]
+```
+
+See [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 
 ### Generated values
 
-Some values of an object are typically generated before the object is persisted. It is important not to rely upon the values of these fields set by a dry run request, since these values will likely be different in dry run mode from when the real request is made. Some of these fields are:
+Some values of an object are typically generated before the object is persisted. It is important not to rely upon the values of these fields set by a dry-run request, since these values will likely be different in dry-run mode from when the real request is made. Some of these fields are:
 
 * `name`: if `generateName` is set, `name` will have a unique random name
 * `creationTimestamp`/`deletionTimestamp`: records the time of creation/deletion
@@ -557,13 +573,21 @@ more information about how an object's schema is used to make decisions when
 merging, see
 [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
+A number of markers were added in Kubernetes 1.16 and 1.17, to allow API developers to describe the merge strategy supported by lists, maps, and structs. These markers can be applied to objects of the respective type, in Go files or OpenAPI specs.
+
+| Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
+|---|---|---|---|---|
+| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `atomic` and `set` apply to lists with scalar elements only. `map` applies to lists of nested types only. If configured as `atomic`, the entire list is replaced during merge; a single manager manages the list as a whole at any one time. If `granular`, different managers can manage entries separately. | 1.16          |
+| `//+listMapKeys` | `x-kubernetes-list-map-keys` | Slice of map keys that uniquely identify entries e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A slice of strings whose values in combination must uniquely identify list entries. | 1.16 |
+| `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. | 1.17 |
+| `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.| 1.17 |
+
 ### Custom Resources
 
 By default, Server Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
-If the validation field is specified in the Custom Rseource Definition, it is
+If the validation field is specified in the Custom Resource Definition, it is
 used when merging objects of this type.
-
 
 ### Using Server-Side Apply in a controller
 
@@ -667,32 +691,33 @@ For get and list, the semantics of resource version are:
 
 **Get:**
 
-| resourceVersion unset | resourceVersion="0" | resourceVersion="{non-zero version}" |
-|-----------------------|---------------------|--------------------------------------|
-| Most Recent           | Any                 | Not older than                       |
+| resourceVersion unset | resourceVersion is `0` | resourceVersion is set but not `0` |
+|-----------------------|------------------------|------------------------------------|
+| Most Recent           | Any                    | Not older than                     |
 
 **List:**
 
-| paging    | resourceVersion unset | resourceVersion="0" | resourceVersion="{non-zero version}" |
-|-----------|-----------------------|---------------------|--------------------------------------|
-| no limit  | Most Recent           | Any                 | Not older than                       |
-| limit="n" | Most Recent           | Any                 | Exact                                |
-
+| paging                        | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
+|-------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
+| limit unset                   | Most Recent           | Any                                            | Not older than                         |
+| limit="n", continue unset     | Most Recent           | Any                                            | Exact                                  |
+| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
 
 The meaning of the get and list semantics are:
 
 - **Most Recent:** Return data at the most recent resource version. The returned data must be consistent (i.e. served from etcd via a quorum read).
-- **Any:** Return data at any resource version. The newest available resource version is preferred, but strong consistency is not required; data at any resource version may be served. It is possible for the request to return data at a much older resource version that the client has previously observed, particularly in high availability configurations, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
-- **Not older than:** Return data at least as new as the provided resource version. The newest available resource version is preferred, but any data not older than this resource version may be served.
+- **Any:** Return data at any resource version. The newest available resource version is preferred, but strong consistency is not required; data at any resource version may be served. It is possible for the request to return data at a much older resource version that the client has previously observed, particularly in high availabiliy configurations, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
+- **Not older than:** Return data at least as new as the provided resource version. The newest available data is preferred, but any data not older than this resource version may be served. Note that this ensures only that the objects returned are no older than they were at the time of the provided resource version. The resource version in the `ObjectMeta` of individual object may be older than the provide resource version so long it is for the latest modification to the object at the time of the provided resource version.
 - **Exact:** Return data at the exact resource version provided.
+- **Continue Token, Exact:** Return data at the resource version of the initial paginated list call. The returned Continue Tokens are responsible for keeping track of the initially provided resource version for all paginated list calls after the initial paginated list call.
 
 For watch, the semantics of resource version are:
 
 **Watch:**
 
-| resourceVersion unset               | resourceVersion="0"        | resourceVersion="{non-zero version}" |
-|-------------------------------------|----------------------------|--------------------------------------|
-| Get State and Start at Most Recent  | Get State and Start at Any | Start at Exact                       |
+| resourceVersion unset               | resourceVersion="0"        | resourceVersion="{value other than 0}" |
+|-------------------------------------|----------------------------|----------------------------------------|
+| Get State and Start at Most Recent  | Get State and Start at Any | Start at Exact                         |
 
 The meaning of the watch semantics are:
 
@@ -704,4 +729,8 @@ The meaning of the watch semantics are:
 
 Servers are not required to serve all older resource versions and may return a HTTP `410 (Gone)` status code if a client requests a resourceVersion older than the server has retained. Clients must be able to tolerate `410 (Gone)` responses. See [Efficient detection of changes](#efficient-detection-of-changes) for details on how to handle `410 (Gone)` responses when watching resources.
 
-For example, the kube-apiserver periodically compacts old resource versions from etcd based on its `--etcd-compaction-interval` setting. Also, the kube-apiserver's watch cache keeps `--watch-cache-sizes` resource versions in each resource cache. It depends on if a request is served from cache on which one of these limits applies, but if a resource version is unavailable in the one that applies, a `410 (Gone)` will be returned by the kube-apiserver.
+If you request a a resourceVersion outside the applicable limit then, depending on whether a request is served from cache or not, the API server may reply with a `410 Gone` HTTP response.
+
+### Unavailable resource versions
+
+Servers are not required to serve unrecognized resource versions. List and Get requests for unrecognized resource versions may wait briefly for the resource version to become available, should timeout with a `504 (Gateway Timeout)` if the provided resource versions does not become available in a resonable amount of time, and may respond with a `Retry-After` response header indicating how many seconds a client should wait before retrying the request. Currently the kube-apiserver also identifies these responses with a "Too large resource version" message. Watch requests for a unrecognized resource version may wait indefinitely (until the request timeout) for the resource version to become available.

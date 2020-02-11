@@ -1,4 +1,18 @@
 ---
+title: 名称
+id: name
+date: 2018-04-12
+full_link: /docs/concepts/overview/working-with-objects/names
+short_description: >
+  客户端提供的字符串，用来指代资源 URL 中的对象，如 `/api/v1/pods/some-name`。
+
+aka: 
+tags:
+- fundamental
+---
+
+<!--
+---
 title: Name
 id: name
 date: 2018-04-12
@@ -10,6 +24,8 @@ aka:
 tags:
 - fundamental
 ---
+-->
+
 <!--
  A client-provided string that refers to an object in a resource URL, such as `/api/v1/pods/some-name`.
 -->

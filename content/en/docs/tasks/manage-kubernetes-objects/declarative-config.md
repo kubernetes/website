@@ -83,7 +83,14 @@ kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
-`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
+`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run),
+which needs to be enabled on `kube-apiserver`.
+
+Since `diff` performs a server-side apply request in dry-run mode,
+it requires granting `PATCH`, `CREATE`, and `UPDATE` permissions.
+See [Dry-Run Authorization](/docs/reference/using-api/api-concepts#dry-run-authorization)
+for details.
+
 {{< /note >}}
 
 Create the object using `kubectl apply`:
@@ -985,11 +992,11 @@ used only by the controller selector with no other semantic meaning.
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 ```
 
 {{% capture whatsnext %}}

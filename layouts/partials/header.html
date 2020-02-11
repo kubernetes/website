@@ -1,7 +1,7 @@
 <div id="cellophane" onclick="kub.toggleMenu()"></div>
 
 <header>
-    <a href="{{ site.Home.RelPermalink }}" class="logo" title="Production-Grade Container Orchestration - Kubernetes" aria-label="Kubernetes website"></a>
+    <a href="{{ site.Home.RelPermalink }}" class="logo" title="{{ site.Home.Title }} - {{ site.Params.title }}" aria-label="Kubernetes website"></a>
 
     <div class="nav-buttons" data-auto-burger="primary">
         <ul class="global-nav">
@@ -17,7 +17,7 @@
                 </a>
                 <ul>
                 {{ range $langPage.Translations }}
-                    <li><a href="{{  .RelPermalink }}">{{ .Language.LanguageName }}</a></li>
+                    <li><a href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a></li>
                 {{ end }}
                 </ul>
             </li>
@@ -28,7 +28,7 @@
                 </a>
                 <ul>
                 {{ range site.Params.versions }}
-                    <li><a href="{{  .url }}">{{ .version }}</a></li>
+                    <li><a href="{{ .url }}{{ $.RelPermalink }}">{{ .version }}</a></li>
                 {{ end }}
                 </ul>
             </li>

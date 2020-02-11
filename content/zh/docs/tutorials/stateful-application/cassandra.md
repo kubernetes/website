@@ -39,7 +39,7 @@ title: "Example: Deploying Cassandra with Stateful Sets"
 ## 准备工作
 
 
-本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](https://kubernetes.io/docs/getting-started-guides/) 获取关于你的平台的安装说明。
+本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/docs/getting-started-guides/) 获取关于你的平台的安装说明。
 
 
 本示例还需要一些代码和配置文件。为了避免手动输入，你可以 `git clone` Kubernetes 源到你本地。
@@ -805,4 +805,3 @@ $ kubectl delete daemonset cassandra
 你可能还注意到我们设置了一些 Cassandra 参数（`MAX_HEAP_SIZE`和`HEAP_NEWSIZE`），并且增加了关于 [namespace](/docs/user-guide/namespaces) 的信息。我们还告诉 Kubernetes 容器暴露了 `CQL` 和 `Thrift` API 端口。最后，我们告诉集群管理器我们需要 0.1 cpu（0.1 核）。
 
 [!Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/cassandra/README.md?pixel)]()
-

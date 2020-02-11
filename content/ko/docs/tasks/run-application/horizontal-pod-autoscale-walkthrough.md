@@ -10,7 +10,7 @@ Horizontal Pod Autoscaler는
 CPU 사용량(또는 베타 지원의 다른 애플리케이션 지원 메트릭)을 관찰하여
 레플리케이션 컨트롤러, 디플로이먼트, 레플리카 셋 또는 스테이트풀 셋의 파드 개수를 자동으로 스케일한다.
 
-이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다. Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
+이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다. Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는 [Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
 
 {{% /capture %}}
 
@@ -28,7 +28,7 @@ Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하�
 또한, 사용자 정의 메트릭을 사용하기 위해서는, 클러스터가 사용자 정의 메트릭 API를 제공하는 API 서버와 통신할 수 있어야 한다.
 마지막으로 쿠버네티스 오브젝트와 관련이 없는 메트릭을 사용하는 경우,
 버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야 하며, 외부 메트릭 API와 통신이 가능해야 한다.
-자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)를 참고하길 바란다.
+자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/#사용자-정의-메트릭을-위한-지원)를 참고하길 바란다.
 
 {{% /capture %}}
 

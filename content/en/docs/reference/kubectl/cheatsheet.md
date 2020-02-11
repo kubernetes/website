@@ -86,7 +86,7 @@ kubectl config unset users.foo                       # delete user foo
 
 ## Creating Objects
 
-Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
+Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
@@ -144,7 +144,7 @@ EOF
 # Get commands with basic output
 kubectl get services                          # List all services in the namespace
 kubectl get pods --all-namespaces             # List all pods in all namespaces
-kubectl get pods -o wide                      # List all pods in the namespace, with more details
+kubectl get pods -o wide                      # List all pods in the current namespace, with more details
 kubectl get deployment my-dep                 # List a particular deployment
 kubectl get pods                              # List all pods in the namespace
 kubectl get pod my-pod -o yaml                # Get a pod's YAML
@@ -195,11 +195,14 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 
 # List Events sorted by timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
+kubectl diff -f ./my-manifest.yaml
 ```
 
 ## Updating Resources
 
-As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), use `rollout` instead.
+As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), use `rollout` instead.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
@@ -207,6 +210,7 @@ kubectl rollout history deployment/frontend                      # Check the his
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
 
 # deprecated starting version 1.11
@@ -339,7 +343,7 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 
 ### Formatting output
 
-To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+To output details to your terminal window in a specific format, add the `-o` (or `--output`) flag to a supported `kubectl` command.
 
 Output format | Description
 --------------| -----------

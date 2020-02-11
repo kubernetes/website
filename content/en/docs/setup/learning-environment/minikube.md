@@ -4,6 +4,7 @@ reviewers:
 - balopat
 - aaron-prindle
 title: Installing Kubernetes with Minikube
+weight: 30
 content_template: templates/concept
 ---
 
@@ -204,7 +205,11 @@ plugins.
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 * vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
-* none (Runs the Kubernetes components on the host and not in a VM. It is not recommended to run the none driver on personal workstations. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
+* none (Runs the Kubernetes components on the host and not in a virtual machine. You need to be running Linux and to have {{< glossary_tooltip term_id="docker" >}} installed.)
+
+{{< caution >}}
+If you use the `none` driver, some Kubernetes components run as privileged containers that have side effects outside of the Minikube environment. Those side effects mean that the `none` driver is not recommended for personal workstations.
+{{< /caution >}}
 
 #### Starting a cluster on alternative container runtimes
 You can start Minikube on the following container runtimes.
@@ -262,11 +267,7 @@ When using a single VM for Kubernetes, it's useful to reuse Minikube's built-in 
 Be sure to tag your Docker image with something other than latest and use that tag to pull the image. Because `:latest` is the default value, with a corresponding default image pull policy of `Always`, an image pull error (`ErrImagePull`) eventually results if you do not have the Docker image in the default Docker registry (usually DockerHub).
 {{< /note >}}
 
-To work with the Docker daemon on your Mac/Linux host, use the `docker-env command` in your shell:
-
-```shell
-eval $(minikube docker-env)
-```
+To work with the Docker daemon on your Mac/Linux host, run the last line from `minikube docker-env`.
 
 You can now use Docker at the command line of your host Mac/Linux machine to communicate with the Docker daemon inside the Minikube VM:
 
@@ -409,7 +410,7 @@ Host folder sharing is not implemented in the KVM driver yet.
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /Users |
+| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
 | Xhyve | macOS | /Users | /Users |
 
 ## Private Container Registries

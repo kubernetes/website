@@ -61,7 +61,7 @@ Kubernetes implements an alternative Protobuf based serialization format for the
 
 Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve
 the [Swagger v1.2](http://swagger.io/) Kubernetes API spec at `/swaggerapi`.
-This endpoint is deprecated, and will be removed in Kubernetes 1.14.
+This endpoint is deprecated, and was removed in Kubernetes 1.14.
 
 ## API versioning
 

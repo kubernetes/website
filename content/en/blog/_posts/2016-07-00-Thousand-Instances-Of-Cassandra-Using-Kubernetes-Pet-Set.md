@@ -5,13 +5,13 @@ slug: thousand-instances-of-cassandra-using-kubernetes-pet-set
 url: /blog/2016/07/Thousand-Instances-Of-Cassandra-Using-Kubernetes-Pet-Set
 ---
 
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_    
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
 
 
 ## Running The Greek Pet Monster Races
 
 
-For the [Kubernetes 1.3 launch](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we wanted to put the new Pet Set through its paces. By testing a thousand instances of [Cassandra](https://cassandra.apache.org/), we could make sure that Kubernetes 1.3 was production ready. Read on for how we adapted Cassandra to Kubernetes, and had our largest deployment ever.  
+For the [Kubernetes 1.3 launch](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/), we wanted to put the new Pet Set through its paces. By testing a thousand instances of [Cassandra](https://cassandra.apache.org/), we could make sure that Kubernetes 1.3 was production ready. Read on for how we adapted Cassandra to Kubernetes, and had our largest deployment ever.
 
 It’s fairly straightforward to use containers with basic stateful applications today. Using a persistent volume, you can mount a disk in a pod, and ensure that your data lasts beyond the life of your pod. However, with deployments of distributed stateful applications, things can become more tricky. With Kubernetes 1.3, the new [Pet Set](/docs/user-guide/petset/) component makes everything much easier. To test this new feature out at scale, we decided to host the Greek Pet Monster Races! We raced Centaurs and other Ancient Greek Monsters over hundreds of thousands of races across multiple availability zones.  
 

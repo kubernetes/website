@@ -30,7 +30,7 @@ The upgrade workflow at high level is the following:
 - You need to have a kubeadm Kubernetes cluster running version 1.16.0 or later.
 - [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
 - The cluster should use a static control plane and etcd pods or external etcd.
-- Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md) carefully.
+- Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md) carefully.
 - Make sure to back up any important components, such as app-level state stored in a database.
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 
@@ -52,7 +52,7 @@ The upgrade workflow at high level is the following:
     {{< tabs name="k8s_install_versions" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
-    apt-cache policy kubeadm
+    apt-cache madison kubeadm
     # find the latest 1.17 version in the list
     # it should look like 1.17.x-00, where x is the latest patch
     {{% /tab %}}
@@ -75,6 +75,10 @@ The upgrade workflow at high level is the following:
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.17.x-00 && \
     apt-mark hold kubeadm
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubeadm=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
@@ -91,7 +95,8 @@ The upgrade workflow at high level is the following:
 1.  Drain the control plane node:
 
     ```shell
-    kubectl drain $CP_NODE --ignore-daemonsets
+    # replace <cp-node-name> with the name of your control plane node
+    kubectl drain <cp-node-name> --ignore-daemonsets
     ```
 
 1.  On the control plane node, run:
@@ -144,10 +149,10 @@ The upgrade workflow at high level is the following:
 1.  Choose a version to upgrade to, and run the appropriate command. For example:
 
     ```shell
+    # replace x with the patch version you picked for this upgrade
     sudo kubeadm upgrade apply v1.17.x
     ```
 
-    - Replace `x` with the patch version you picked for this upgrade.
 
     You should see output similar to this:
 
@@ -237,10 +242,11 @@ The upgrade workflow at high level is the following:
 
     This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
-1.  Uncordon the control plane node
+1.  Uncordon the control plane node:
 
     ```shell
-    kubectl uncordon $CP_NODE
+    # replace <cp-node-name> with the name of your control plane node
+    kubectl uncordon <cp-node-name>
     ```
 
 ### Upgrade additional control plane nodes
@@ -269,6 +275,10 @@ Also `sudo kubeadm upgrade plan` is not needed.
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.17.x-00 kubectl=1.17.x-00 && \
     apt-mark hold kubelet kubectl
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubelet=1.17.x-00 kubectl=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
@@ -297,6 +307,10 @@ without compromising the minimum required capacity for running your workloads.
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.17.x-00 && \
     apt-mark hold kubeadm
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubeadm=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
@@ -306,10 +320,11 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Drain the node
 
-1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads. Run:
+1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
     ```shell
-    kubectl drain $NODE --ignore-daemonsets
+    # replace <node-to-drain> with the name of your node you are draining
+    kubectl drain <node-to-drain> --ignore-daemonsets
     ```
 
     You should see output similar to this:
@@ -338,6 +353,10 @@ without compromising the minimum required capacity for running your workloads.
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.17.x-00 kubectl=1.17.x-00 && \
     apt-mark hold kubelet kubectl
+
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubelet=1.17.x-00 kubectl=1.17.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.17.x-0 with the latest patch version
@@ -356,7 +375,8 @@ without compromising the minimum required capacity for running your workloads.
 1.  Bring the node back online by marking it schedulable:
 
     ```shell
-    kubectl uncordon $NODE
+    # replace <node-to-drain> with the name of your node 
+    kubectl uncordon <node-to-drain>
     ```
 
 ## Verify the status of the cluster
@@ -377,6 +397,19 @@ If `kubeadm upgrade` fails and does not roll back, for example because of an une
 This command is idempotent and eventually makes sure that the actual state is the desired state you declare.
 
 To recover from a bad state, you can also run `kubeadm upgrade apply --force` without changing the version that your cluster is running.
+
+During upgrade kubeadm writes the following backup folders under `/etc/kubernetes/tmp`:
+- `kubeadm-backup-etcd-<date>-<time>`
+- `kubeadm-backup-manifests-<date>-<time>`
+
+`kubeadm-backup-etcd` contains a backup of the local etcd member data for this control-plane Node.
+In case of an etcd upgrade failure and if the automatic rollback does not work, the contents of this folder
+can be manually restored in `/var/lib/etcd`. In case external etcd is used this backup folder will be empty.
+
+`kubeadm-backup-manifests` contains a backup of the static Pod manifest files for this control-plane Node.
+In case of a upgrade failure and if the automatic rollback does not work, the contents of this folder can be
+manually restored in `/etc/kubernetes/manifests`. If for some reason there is no difference between a pre-upgrade
+and post-upgrade manifest file for a certain component, a backup file for it will not be written.
 
 ## How it works
 

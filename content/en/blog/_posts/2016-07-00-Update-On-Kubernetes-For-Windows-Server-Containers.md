@@ -4,7 +4,7 @@ date: 2016-07-07
 slug: update-on-kubernetes-for-windows-server-containers
 url: /blog/2016/07/Update-On-Kubernetes-For-Windows-Server-Containers
 ---
-We are proud to announce that with the [release of version 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), Kubernetes now supports 2000-node clusters with even better end-to-end pod startup time. The latency of our API calls are within our one-second [Service Level Objective (SLO)](https://en.wikipedia.org/wiki/Service_level_objective) and most of them are even an order of magnitude better than that. It is possible to run larger deployments than a 2,000 node cluster, but performance may be degraded and it may not meet our strict SLO.  
+We are proud to announce that with the [release of version 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/), Kubernetes now supports 2000-node clusters with even better end-to-end pod startup time. The latency of our API calls are within our one-second [Service Level Objective (SLO)](https://en.wikipedia.org/wiki/Service_level_objective) and most of them are even an order of magnitude better than that. It is possible to run larger deployments than a 2,000 node cluster, but performance may be degraded and it may not meet our strict SLO.
 
 In this blog post we discuss the detailed performance results from Kubernetes 1.3 and what changes we made from version 1.2 to achieve these results. We also describe Kubemark, a performance testing tool that we’ve integrated into our continuous testing framework to detect performance and scalability regressions.  
 

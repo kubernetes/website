@@ -8,6 +8,18 @@ feature:
     根据资源需求和其他约束自动放置容器，同时不会牺牲可用性，将任务关键工作负载和尽力服务工作负载进行混合放置，以提高资源利用率并节省更多资源。
 ---
 
+<!--
+---
+title: Managing Compute Resources for Containers
+content_template: templates/concept
+weight: 20
+feature:
+  title: Automatic binpacking
+  description: >
+    Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
+---
+-->
+
 {{% capture overview %}}
 
 <!--
@@ -28,10 +40,8 @@ the difference between requests and limits, see
 
 <!--
 ## Resource types
-
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
 CPU is specified in units of cores, and memory is specified in units of bytes.
-
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
@@ -56,7 +66,6 @@ Each Container of a Pod can specify one or more of the following:
 * `spec.containers[].resources.limits.memory`
 * `spec.containers[].resources.requests.cpu`
 * `spec.containers[].resources.requests.memory`
-
 Although requests and limits can only be specified on individual Containers, it
 is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
@@ -85,7 +94,6 @@ One cpu, in Kubernetes, is equivalent to:
 - 1 Azure vCore
 - 1 IBM vCPU
 - 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
-
 Fractional requests are allowed. A Container with
 `spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
 CPU as one that asks for 1 CPU.  The expression `0.1` is equivalent to the
@@ -94,7 +102,6 @@ expression `100m`, which can be read as "one hundred millicpu". Some people say
 request with a decimal point, like `0.1`, is converted to `100m` by the API, and
 precision finer than `1m` is not allowed. For this reason, the form `100m` might
 be preferred.
-
 CPU is always requested as an absolute quantity, never as a relative quantity;
 0.1 is the same amount of CPU on a single-core, dual-core, or 48-core machine.
 -->
@@ -116,7 +123,6 @@ CPU 总是要用绝对数量，不可以使用相对数量；0.1 的 CPU 在单�
 
 <!--
 ## Meaning of memory
-
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point integer using one of these suffixes:
 E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
@@ -175,7 +181,6 @@ spec:
 
 <!--
 ## How Pods with resource requests are scheduled
-
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
 run on. Each node has a maximum capacity for each of the resource types: the
 amount of CPU and memory it can provide for Pods. The scheduler ensures that,
@@ -311,13 +316,11 @@ In the preceding example, the Pod named "frontend" fails to be scheduled due to
 insufficient CPU resource on the node. Similar error messages can also suggest
 failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
 is pending with a message of this type, there are several things to try:
-
 - Add more nodes to the cluster.
 - Terminate unneeded Pods to make room for pending Pods.
 - Check that the Pod is not larger than all the nodes. For example, if all the
   nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
   never be scheduled.
-
 You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 -->
@@ -373,7 +376,6 @@ system daemons use a portion of the available resources. The `allocatable` field
 [NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
-
 The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
@@ -391,7 +393,6 @@ Pod 可用的资源量小于节点容量，因为系统守护程序使用一部�
 
 <!--
 ### My Container is terminated
-
 Your Container might get terminated because it is resource-starved. To check
 whether a Container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:

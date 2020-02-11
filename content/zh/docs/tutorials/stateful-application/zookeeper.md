@@ -922,12 +922,12 @@ kubernetes-minion-group-2g2d
                   - key: "app"
                     operator: In
                     values:
-                    - zk-headless
+                    - zk
               topologyKey: "kubernetes.io/hostname"
 ```
 
 
-`requiredDuringSchedulingRequiredDuringExecution` 告诉 Kubernetes 调度器，在以 `topologyKey` 指定的域中，绝对不要把 `zk-headless` 的两个 Pods 调度到相同的节点。`topologyKey`
+`requiredDuringSchedulingRequiredDuringExecution` 告诉 Kubernetes 调度器，在以 `topologyKey` 指定的域中，绝对不要把带有键为 `app`，值为 `zk` 的标签的两个 Pods 调度到相同的节点。`topologyKey`
 `kubernetes.io/hostname` 表示这个域是一个单独的节点。使用不同的 rules、labels 和 selectors，你能够通过这种技术把你的 ensemble 在物理、网络和电力故障域之间分布。
 
 

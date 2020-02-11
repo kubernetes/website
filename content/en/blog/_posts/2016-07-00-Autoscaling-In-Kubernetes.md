@@ -4,9 +4,9 @@ date: 2016-07-12
 slug: autoscaling-in-kubernetes
 url: /blog/2016/07/Autoscaling-In-Kubernetes
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
 
-Customers using Kubernetes respond to end user requests quickly and ship software faster than ever before. But what happens when you build a service that is even more popular than you planned for, and run out of compute? In [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we are proud to announce that we have a solution: autoscaling. On [Google Compute Engine](https://cloud.google.com/compute/) (GCE) and [Google Container Engine](https://cloud.google.com/container-engine/) (GKE) (and coming soon on [AWS](https://aws.amazon.com/)), Kubernetes will automatically scale up your cluster as soon as you need it, and scale it back down to save you money when you don’t.  
+Customers using Kubernetes respond to end user requests quickly and ship software faster than ever before. But what happens when you build a service that is even more popular than you planned for, and run out of compute? In [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/), we are proud to announce that we have a solution: autoscaling. On [Google Compute Engine](https://cloud.google.com/compute/) (GCE) and [Google Container Engine](https://cloud.google.com/container-engine/) (GKE) (and coming soon on [AWS](https://aws.amazon.com/)), Kubernetes will automatically scale up your cluster as soon as you need it, and scale it back down to save you money when you don’t.
 
 
 ### Benefits of Autoscaling

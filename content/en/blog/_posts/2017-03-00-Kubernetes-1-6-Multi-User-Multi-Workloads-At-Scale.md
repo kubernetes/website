@@ -109,4 +109,4 @@ Many thanks for your contributions and advocacy!
 
 _-- Aparna Sinha, Senior Product Manager,&nbsp;Kubernetes, Google_  
 
-_**PS: read this [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1.6) on what's new in Kubernetes 1.6**_  
+_**PS: read this [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6) on what's new in Kubernetes 1.6**_
