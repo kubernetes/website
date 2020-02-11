@@ -144,7 +144,9 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 * `selector` 字段定义 Deployment 如何查找要管理的 Pods。
   在这种情况下，只需选择在 Pod 模板（`app: nginx`）中定义的标签。但是，更复杂的选择规则是可能的，只要 Pod 模板本身满足规则。
-    {{< note >}}
+
+{{< note >}}
+
 <!--
  The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
     is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
@@ -152,7 +154,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
     All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
 -->
     `matchLabels` 字段是 {key,value} 的映射。单个 {key,value}在 `matchLabels` 映射中的值等效于 `matchExpressions` 的元素，其键字段是“key”，运算符为“In”，值数组仅包含“value”。所有要求，从 `matchLabels` 和 `matchExpressions`，必须满足才能匹配。
-    {{< /note >}}
+{{< /note >}}
 
 <!--
  * The `template` field contains the following sub-fields:
@@ -189,18 +191,18 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 <!--
  1. Create the Deployment by running the following command:
 -->
-  1. 通过运行以下命令创建 Deployment ：
+1. 通过运行以下命令创建 Deployment ：
 
-      {{< note >}}
-      <!--
+{{< note >}}
+<!--
  You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection.
 -->
       可以指定 `--record` 标志来写入在资源注释`kubernetes.io/change-cause`中执行的命令。它对以后的检查是有用的。
-      <!--
+<!--
  For example, to see the commands executed in each Deployment revision.
 -->
       例如，查看在每个 Deployment 修改中执行的命令。
-      {{< /note >}}
+{{< /note >}}
 
     ```shell
     kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
@@ -209,7 +211,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 <!--
  2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
 -->
-  2. 运行 `kubectl get deployments` 以检查 Deployment 是否已创建。如果仍在创建 Deployment ，则输出以下内容：
+2. 运行 `kubectl get deployments` 以检查 Deployment 是否已创建。如果仍在创建 Deployment ，则输出以下内容：
     ```shell
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         0         0            0           1s
@@ -242,7 +244,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 <!--
  3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`. The output is similar to this:
 -->
-  3. 要查看 Deployment 展开状态，运行 `kubectl rollout status deployment.v1.apps/nginx-deployment`。输出：
+3. 要查看 Deployment 展开状态，运行 `kubectl rollout status deployment.v1.apps/nginx-deployment`。输出：
     ```shell
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
     deployment.apps/nginx-deployment successfully rolled out
@@ -251,7 +253,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 <!--
  4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
 -->
-  4. 几秒钟后再次运行 `kubectl get deployments`。输出：
+4. 几秒钟后再次运行 `kubectl get deployments`。输出：
     ```shell
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         3         3            3           18s
@@ -264,7 +266,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 <!--
  5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
 -->
-  5. 要查看 Deployment 创建的 ReplicaSet  （`rs`），运行 `kubectl get rs`。输出：
+5. 要查看 Deployment 创建的 ReplicaSet  （`rs`），运行 `kubectl get rs`。输出：
     ```shell
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-75675f5897   3         3         3       18s
@@ -278,7 +280,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 <!--
  6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`. The following output is returned:
 -->
-  6. 要查看每个 Pod 自动生成的标签，运行 `kubectl get pods --show-labels`。返回以下输出：
+6. 要查看每个 Pod 自动生成的标签，运行 `kubectl get pods --show-labels`。返回以下输出：
     ```shell
     NAME                                READY     STATUS    RESTARTS   AGE       LABELS
     nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
@@ -291,13 +293,13 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
     创建的复制集可确保有三个 `nginx` Pods。
 
-  {{< note >}}
+{{< note >}}
 <!--
  You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
   `app: nginx`). Do not overlap labels or selectors with other controllers (including other Deployments and StatefulSets). Kubernetes doesn't stop you from overlapping, and if multiple controllers have overlapping selectors those controllers might conflict and behave unexpectedly.
 -->
   必须在 Deployment 中指定适当的选择器和 Pod 模板标签（在本例中为`app: nginx`）。不要与其他控制器（包括其他 Deployments 和状态设置）重叠标签或选择器。Kubernetes 不会阻止重叠，如果多个控制器具有重叠的选择器，这些控制器可能会冲突并运行意外。
-  {{< /note >}}
+{{< /note >}}
 
 <!--
  ### Pod-template-hash label
@@ -706,14 +708,14 @@ rolled back.
     nginx-deployment-3066724191-08mng   0/1       ImagePullBackOff   0          6s
     ```
 
-    {{< note >}}
+{{< note >}}
 <!--
  The Deployment controller stops the bad rollout automatically, and stops scaling up the new
     ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
     Kubernetes by default sets the value to 25%.
 -->
      Deployment 控制器自动停止不良展开，并停止向上扩展新的 ReplicaSet 。这取决于指定的滚动更新参数（具体为 `maxUnavailable`）。默认情况下，Kubernetes 将值设置为 25%。
-    {{< /note >}}
+{{< /note >}}
 
 <!--
  * Get the description of the Deployment:   
@@ -1324,6 +1326,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     nginx-2142116321   0         0         0         2m
     nginx-3926361531   3         3         3         28s
     ```
+
 {{< note >}}
 <!--
  You cannot rollback a paused Deployment until you resume it.
