@@ -59,7 +59,7 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Learn Kubernetes by Doing - 100% Hands-On Experience (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/learn-kubernetes-by-doing)
 
-* [Learn Kubernetes by using an Interactive, Hands-on Kubernetes learning platform (Magicsandbox)] (https://msb.com)
+* [Learn Kubernetes by using an Interactive, Hands-on Kubernetes learning platform (msb.com)] (https://msb.com)
 
 * [Learn Kubernetes using Interactive Hands-on Scenarios (Katacoda)](https://www.katacoda.com/courses/kubernetes/)
 
