@@ -40,7 +40,6 @@ aliases:
     - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - bradamant3
     - bradtopol
     - daminisatya
     - gochist
@@ -57,7 +56,6 @@ aliases:
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
-    - bradamant3
     - bradtopol
     - daminisatya
     - gochist
@@ -159,7 +157,6 @@ aliases:
     - seokho-son
     - ysyukr
   sig-docs-maintainers: # Website maintainers
-    - bradamant3
     - jimangel
     - kbarnard10
     - pwittrock
