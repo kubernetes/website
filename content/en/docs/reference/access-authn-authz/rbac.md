@@ -5,6 +5,7 @@ reviewers:
 - liggitt
 title: Using RBAC Authorization
 content_template: templates/concept
+url: /rbac
 weight: 70
 ---
 
