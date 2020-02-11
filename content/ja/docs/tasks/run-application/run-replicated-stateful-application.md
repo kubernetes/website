@@ -8,7 +8,7 @@ weight: 30
 
 このページでは、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
 コントローラーを使用して、レプリカを持つステートフルアプリケーションを実行する方法を説明します。
-ここでの例は、非同期レプリケーションを行う複数のスレーブを持つ、単一マスターのMySQLです。
+ここでの例は、非同期レプリケーションを行う複数のスレーブを持つ、単一マスターのMySQLです。
 
 **この例は本番環境向けの構成ではない**ことに注意してください。
 具体的には、MySQLの設定が安全ではないデフォルトのままとなっています。
@@ -76,7 +76,7 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 {{< codenew file="application/mysql/mysql-services.yaml" >}}
 
 ヘッドレスサービスは、StatefulSetコントローラーが
-StatefulSetの一部であるPodごとに作成するDNSエントリーのベースエントリーを提供します。
+StatefulSetの一部であるPodごとに作成するDNSエントリーのベースエントリーを提供します。
 この例ではヘッドレスサービスの名前は`mysql`なので、同じKubernetesクラスタの
 同じ名前空間内の他のPodは、`<pod-name>.mysql`を名前解決することでPodにアクセスできます。
 

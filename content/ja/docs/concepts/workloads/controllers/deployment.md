@@ -28,7 +28,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 下記の項目はDeploymentの典型的なユースケースです。
 
-* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
+* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
 * Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
