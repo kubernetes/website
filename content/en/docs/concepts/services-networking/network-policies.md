@@ -199,7 +199,7 @@ If you want to allow all traffic from all pods in a namespace (even if policies 
 
 You can create a "default" policy for a namespace which prevents all ingress AND egress traffic by creating the following NetworkPolicy in that namespace.
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed ingress or egress traffic.
 
