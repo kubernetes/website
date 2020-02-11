@@ -100,9 +100,9 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 |----------|-----------|-------------|-----------------------|-------------------------|
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
-| TCP      | Inbound   | 30000-32767 | NodePort Services**   | All                     |
+| TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
 
-** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
+† Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
 
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open.
@@ -116,35 +116,48 @@ documentation for the plugins about what port(s) those need.
 
 ## Installing runtime {#installing-runtime}
 
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
+To run containers in Pods, Kubernetes uses a
+{{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
 
-Since v1.14.0, kubeadm will try to automatically detect the container runtime on Linux nodes
-by scanning through a list of well known domain sockets. The detectable runtimes and the
-socket paths, that are used, can be found in the table below.
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux nodes" %}}
 
-| Runtime    | Domain Socket                    |
-|------------|----------------------------------|
-| Docker     | /var/run/docker.sock             |
-| containerd | /run/containerd/containerd.sock  |
-| CRI-O      | /var/run/crio/crio.sock          |
+By default, Kubernetes uses the
+{{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
+to interface with your chosen container runtime.
 
-If both Docker and containerd are detected together, Docker takes precedence. This is
-needed, because Docker 18.09 ships with containerd and both are detectable.
-If any other two or more runtimes are detected, kubeadm will exit with an appropriate
-error message.
+If you don't specify a runtime, kubeadm automatically tries to detect an installed
+container runtime by scanning through a list of well known Unix domain sockets.
+The following table lists container runtimes and their associated socket paths:
 
-On non-Linux nodes the container runtime used by default is Docker.
+{{< table caption = "Container runtimes and their socket paths" >}}
+| Runtime    | Path to Unix domain socket        |
+|------------|-----------------------------------|
+| Docker     | `/var/run/docker.sock`            |
+| containerd | `/run/containerd/containerd.sock` |
+| CRI-O      | `/var/run/crio/crio.sock`         |
+{{< /table >}}
 
-If the container runtime of choice is Docker, it is used through the built-in
-`dockershim` CRI implementation inside of the `kubelet`.
+<br />
+If both Docker and containerd are detected, Docker takes precedence. This is
+needed because Docker 18.09 ships with containerd and both are detectable even if you only
+installed Docker.
+If any other two or more runtimes are detected, kubeadm exits with an error.
 
-Other CRI-based runtimes include:
+The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
 
-- [containerd/cri](https://github.com/containerd/cri) (CRI plugin built into containerd)
-- [cri-o](https://cri-o.io/)
-- [frakti](https://github.com/kubernetes/frakti)
+See [container runtimes](/docs/setup/production-environment/container-runtimes/)
+for more information.
+{{% /tab %}}
+{{% tab name="other operating systems" %}}
+By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
+The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
 
-Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
+See [container runtimes](/docs/setup/production-environment/container-runtimes/)
+for more information.
+{{% /tab %}}
+{{< /tabs >}}
+
 
 ## Installing kubeadm, kubelet and kubectl
 
@@ -170,7 +183,7 @@ For information about installing `kubectl`, see [Install and set up kubectl](/do
 {{< warning >}}
 These instructions exclude all Kubernetes packages from any system upgrades.
 This is because kubeadm and Kubernetes require
-[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/).
+[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 {{</ warning >}}
 
 For more information on version skews, see:
