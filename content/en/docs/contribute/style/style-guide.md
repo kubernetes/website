@@ -3,10 +3,6 @@ title: Documentation Style Guide
 linktitle: Style guide
 content_template: templates/concept
 weight: 10
-card:
-  name: contribute
-  weight: 20
-  title: Documentation Style Guide
 ---
 
 {{% capture overview %}}
@@ -14,11 +10,16 @@ This page gives writing style guidelines for the Kubernetes documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
 
-For additional information on creating new content for the Kubernetes 
-documentation, read the [Documentation Content 
-Guide](/docs/contribute/style/content-guide/) and follow the instructions on 
-[using page templates](/docs/contribute/style/page-templates/) and [creating a 
+For additional information on creating new content for the Kubernetes
+documentation, read the [Documentation Content
+Guide](/docs/contribute/style/content-guide/) and follow the instructions on
+[using page templates](/docs/contribute/style/page-templates/) and [creating a
 documentation pull request](/docs/contribute/start/#improve-existing-content).
+
+Changes to the style guide are made by SIG Docs as a group. To propose a change
+or addition, [add it to the agenda](https://docs.google.com/document/d/1zg6By77SGg90EVUrhDIhopjZlSDg2jCebU-Ks9cYx0w/edit#) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
+discussion. See the [advanced contribution](/docs/contribute/advanced/) topic for more
+information.
 
 {{% /capture %}}
 
@@ -58,11 +59,11 @@ leads to an awkward construction.
 {{< table caption = "Do and Don't - API objects" >}}
 Do | Don't
 :--| :-----
-The Pod has two containers. | The pod has two containers. 
+The Pod has two containers. | The pod has two containers.
 The Deployment is responsible for ... | The Deployment object is responsible for ...
 A PodList is a list of Pods. | A Pod List is a list of pods.
-The two ContainerPorts ... | The two ContainerPort objects ... 
-The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ... 
+The two ContainerPorts ... | The two ContainerPort objects ...
+The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ...
 {{< /table >}}
 
 
@@ -83,11 +84,11 @@ represents.
 Do | Don't
 :--| :-----
 Click **Fork**. | Click "Fork".
-Select **Other**. | Select "Other". 
+Select **Other**. | Select "Other".
 {{< /table >}}
 
 ### Use italics to define or introduce new terms
- 
+
 {{< table caption = "Do and Don't - Use italics for new terms" >}}
 Do | Don't
 :--| :-----
@@ -130,7 +131,7 @@ Enclose code samples with triple backticks. `(```)`| Enclose code samples with a
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (**) or an underscore (_) to enclose inline code. For example, **var example = true**.
 Use triple backticks before and after a multi-line block of code for fenced code blocks. | Use multi-line blocks of code to create diagrams, flowcharts, or other illustrations.
 Use meaningful variable names that have a context. | Use variable names such as 'foo','bar', and 'baz' that are not meaningful and lack context.
-Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well. 
+Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well.
 {{< /table >}}
 
 {{< note >}}
@@ -185,7 +186,7 @@ Do | Don't
 Set the value of `imagePullPolicy` to Always. | Set the value of `imagePullPolicy` to "Always".
 Set the value of `image` to nginx:1.8. | Set the value of `image` to `nginx:1.8`.
 Set the value of the `replicas` field to 2. | Set the value of the `replicas` field to `2`.
-{{< /table >}} 
+{{< /table >}}
 
 
 ## Code snippet formatting
@@ -196,7 +197,7 @@ Set the value of the `replicas` field to 2. | Set the value of the `replicas` fi
 Do | Don't
 :--| :-----
 kubectl get pods | $ kubectl get pods
-{{< /table >}} 
+{{< /table >}}
 
 
 ### Separate commands from output
@@ -251,7 +252,7 @@ Kubernetes | Kubernetes should always be capitalized.
 Docker | Docker should always be capitalized.
 SIG Docs | SIG Docs rather than SIG-DOCS or other variations.
 On-premises | On-premises or On-prem rather than On-premise or other variations.
-{{< /table >}} 
+{{< /table >}}
 
 ## Shortcodes
 
@@ -359,11 +360,11 @@ Beware.
 
 ### Katacoda Embedded Live Environment
 
-This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel). 
-It lowers the barrier of entry by allowing users to use Minikube with one click instead of going through the complete 
+This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel).
+It lowers the barrier of entry by allowing users to use Minikube with one click instead of going through the complete
 Minikube and Kubectl installation process locally.
 
-The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window 
+The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window
 as the documentation.
 
 {{< caution >}}
@@ -376,7 +377,7 @@ For example:
 {{</* kat-button */>}}
 ```
 
-The output is: 
+The output is:
 
 {{< kat-button >}}
 
@@ -431,7 +432,7 @@ Update the title in the front matter of the page or blog post. | Use first level
 Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
 Use pound or hash signs (#) for non-blog post content. | Use underlines (--- or ===) to designate first-level headings.
 Use sentence case for headings. For example, **Extend kubectl with plugins** | Use title case for headings. For example, **Extend Kubectl With Plugins**
-{{< /table >}} 
+{{< /table >}}
 
 ### Paragraphs
 
@@ -439,8 +440,8 @@ Use sentence case for headings. For example, **Extend kubectl with plugins** | U
 Do | Don't
 :--| :-----
 Try to keep paragraphs under 6 sentences. | Indent the first paragraph with space characters. For example, ⋅⋅⋅Three spaces before a paragraph will indent it.
-Use three hyphens (---) to create a horizontal rule. Use horizontal rules for breaks in paragraph content. For example, a change of scene in a story, or a shift of topic within a section. | Use horizontal rules for decoration. 
-{{< /table >}} 
+Use three hyphens (---) to create a horizontal rule. Use horizontal rules for breaks in paragraph content. For example, a change of scene in a story, or a shift of topic within a section. | Use horizontal rules for decoration.
+{{< /table >}}
 
 ### Links
 
@@ -449,7 +450,7 @@ Do | Don't
 :--| :-----
 Write hyperlinks that give you context for the content they link to. For example: Certain ports are open on your machines. See <a href="#check-required-ports">Check required ports</a> for more details. | Use ambiguous terms such as “click here”. For example: Certain ports are open on your machines. See <a href="#check-required-ports">here</a> for more details.
 Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions)` and the output is [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions). | Write HTML-style links: `<a href="/media/examples/link-element-example.css" target="_blank">Visit our tutorial!</a>`, or create links that open in new tabs or windows. For example: `[example website](https://example.com){target="_blank"}`
-{{< /table >}} 
+{{< /table >}}
 
 
 ### Lists
@@ -457,17 +458,17 @@ Group items in a list that are related to each other and need to appear in a spe
 Website navigation links can also be marked up as list items; after all they are nothing but a group of related links.
 
  - End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
- 
+
    {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
-   
+
  - Use the number one (1.) for ordered lists.
- 
+
  - Use (+), (* ), or (-) for unordered lists.
- 
- - Leave a blank line after each list. 
- 
- - Indent nested lists with four spaces (for example, ⋅⋅⋅⋅). 
- 
+
+ - Leave a blank line after each list.
+
+ - Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
+
  - List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
 
 ### Tables
@@ -486,7 +487,7 @@ This section contains suggested best practices for clear, concise, and consisten
 Do | Don't
 :--| :-----
 This command starts a proxy. | This command will start a proxy.
- {{< /table >}} 
+ {{< /table >}}
 
 
 Exception: Use future or past tense if it is required to convey the correct
@@ -512,7 +513,7 @@ Use simple and direct language. Avoid using unnecessary phrases, such as saying 
 Do | Don't
 :--| :-----
 To create a ReplicaSet, ... | In order to create a ReplicaSet, ...
-See the configuration file. | Please see the configuration file. 
+See the configuration file. | Please see the configuration file.
 View the Pods. | With this next command, we'll view the Pods.
 {{< /table >}}  
 
@@ -522,7 +523,7 @@ View the Pods. | With this next command, we'll view the Pods.
 Do | Don't
 :--| :-----
 You can create a Deployment by ... | We'll create a Deployment by ...
-In the preceding output, you can see... | In the preceding output, we can see ... 
+In the preceding output, you can see... | In the preceding output, we can see ...
 {{< /table >}}  
 
 
@@ -583,7 +584,7 @@ considered new in a few months.
 Do | Don't
 :--| :-----
 In version 1.4, ... | In the current version, ...
-The Federation feature provides ... | The new Federation feature provides ... 
+The Federation feature provides ... | The new Federation feature provides ...
 {{< /table >}}  
 
 

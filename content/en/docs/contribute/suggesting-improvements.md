@@ -1,0 +1,66 @@
+---
+title: Suggesting content improvements
+slug: suggest-improvements
+content_template: templates/concept
+weight: 10
+card:
+  name: contribute
+  weight: 20
+---
+
+{{% capture overview %}}
+
+The easiest way to contribute to Kubernetes documentation file is to an issue about existing content,
+or a request for new content. All you need is a [GitHub account](https://github.com/join) and a web browser.
+
+All new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
+then review, categorize and tag issues as needed. You or another member
+of the Kubernetes community begin work on the issue an open a pull request with changes,
+and the issue is resolved.
+
+{{% /capture %}}
+
+{{% capture body %}}
+
+## Suggesting improvements to existing content
+
+1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
+ to a GitHub issue page pre-populated with some headers.
+2. Using Markdown, fill in as many details as you can. At a minimum, describe what
+  the issue or suggestion for improvement is.
+3. Click **Submit new issue**.
+
+After submitting, check in on your issue occasionally or turn on GitHub notifications.
+Reviewers and other community members might ask questions before
+they can take action on your issue.
+
+## Suggesting new content
+
+If you think content should exist, but you aren't sure where it should go, you can
+still file an issue. Either:
+
+- Choose an existing page in the section you think the content belongs in and click **Create an issue**.
+- Go to [GitHub](https://github.com/kubernetes/website/issues/new/) and file the issue directly.
+
+## How to file great issues
+
+To help others understand your issue and can act on it, do the following:
+
+- Use the issue template (the pre-populated text), and fill out as many details as you can.
+- Provide a clear issue description. Describe what specifically is missing, out of date,
+  wrong, or needs improvement.
+- Explain the specific impact the issue has on users.
+- Limit the scope of a given issue to a reasonable unit of work. For problems
+  with a large scope, break them down into smaller issues. For example, "Fix the security docs"
+  is too broad, but "Add details to the 'Restricting network access' topic" is specific enough
+  to be actionable.
+- Search the existing issues to see if there's anything related or similar to the
+  new issue.
+- If the new issue relates to another issue or pull request, refer to it
+  either by its full URL or by the issue or pull request number prefixed
+  with a `#` character. For example, `Introduced by #987654`.
+- Follow the [Code of Conduct](/community/code-of-conduct/) – be respectful and
+  avoid venting. For example, "The docs about X suck" is not
+  helpful or polite feedback.
+
+{{% /capture %}}

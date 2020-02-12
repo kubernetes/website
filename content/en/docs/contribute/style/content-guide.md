@@ -3,10 +3,6 @@ title: Documentation Content Guide
 linktitle: Content guide
 content_template: templates/concept
 weight: 10
-card:
-  name: contribute
-  weight: 20
-  title: Documentation Content Guide
 ---
 
 {{% capture overview %}}

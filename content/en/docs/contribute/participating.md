@@ -1,9 +1,10 @@
 ---
 title: Participating in SIG Docs
 content_template: templates/concept
+weight: 60
 card:
   name: contribute
-  weight: 40
+  weight: 60
 ---
 
 {{% capture overview %}}
