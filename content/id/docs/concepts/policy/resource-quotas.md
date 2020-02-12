@@ -25,7 +25,7 @@ tersebut.
 
 Resource Quota bekerja sebagai berikut:
 
-- Tim-tim berbeda bekerja pada Namespace yang berbeda pula. Saat ini hal ini belum diwajibkan,
+- Tim-tim berbeda bekerja pada Namespace yang berbeda pula. Sekarang hal ini belum diwajibkan,
   tetapi dukungan untuk mewajibkannya melalui ACL sedang direncanakan.
 - Administrator membuat sebuah `ResourceQuota` untuk setiap Namespace.
 - Para pengguna membuat sumber daya (Pod, Service, dll.) di dalam Namespace tersebut, kemudian
