@@ -25,7 +25,7 @@ Petunjuk yang disarankan untuk menjalankan Dokumentasi Kubernetes pada mesin lok
 
 > Jika kamu menggunakan Windows, kamu mungkin membutuhkan beberapa langkah tambahan untuk melakukan instalasi perangkat lunak yang dibutuhkan. Instalasi ini dapat dilakukan dengan menggunakan [Chocolatey](https://chocolatey.org). `choco install make`
 
-> Jika kamu ingin menjalankan **website** tanpa menggunakan **Docker**, kamu dapat melihat tautan berikut [Petunjuk untuk menjalankan website pada mesin lokal dengan menggunakan Hugo](#petunjuk-untuk-menjalankan-website-pada-mesin-lokal-denga-menggunakan-hugo) di bagian bawah.
+> Jika kamu ingin menjalankan **website** tanpa menggunakan **Docker**, kamu dapat melihat tautan berikut [Petunjuk untuk menjalankan website pada mesin lokal dengan menggunakan Hugo](#petunjuk-untuk-menjalankan-website-pada-mesin-lokal-dengan-menggunakan-hugo) di bagian bawah.
 
 Jika kamu sudah memiliki **Docker** [yang sudah dapat digunakan](https://www.docker.com/get-started), kamu dapat melakukan **build** `kubernetes-hugo` **Docker image** secara lokal:
 

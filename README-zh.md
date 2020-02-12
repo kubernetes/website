@@ -94,7 +94,7 @@ The recommended way to run the Kubernetes website locally is to run a specialize
 <!--
 > If you'd prefer to run the website locally without Docker, see [Running the website locally using Hugo](#running-the-site-locally-using-hugo) below.
  -->
-> 如果您更喜欢在没有 Docker 的情况下在本地运行网站，请参阅下面的[使用 Hugo 在本地运行网站](#running-the-site-locally-using-hugo) 章节。
+> 如果您更喜欢在没有 Docker 的情况下在本地运行网站，请参阅下面的[使用 Hugo 在本地运行网站](#使用-hugo-在本地运行网站) 章节。
 
 <!--
 If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
