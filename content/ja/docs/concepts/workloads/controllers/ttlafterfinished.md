@@ -26,7 +26,7 @@ TTLコントローラーは現在[Job](/docs/concepts/workloads/controllers/jobs
 TTLコントローラーは現在Jobに対してのみサポートされています。クラスターオペレーターはこの[例](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)のように、Jobの`.spec.ttlSecondsAfterFinished`フィールドを指定することにより、終了したJob(`完了した`もしくは`失敗した`)を自動的に削除するためにこの機能を使うことができます。  
 TTLコントローラーは、そのリソースが終了したあと指定したTTLの秒数後に削除できるか推定します。言い換えると、そのTTLが期限切れになると、TTLコントローラーがリソースをクリーンアップするときに、そのリソースに紐づく従属オブジェクトも一緒に連続で削除します。注意点として、リソースが削除されるとき、ファイナライザーのようなライフサイクルに関する保証は尊重されます。
 
-TTL秒はいつでもセット可能です。下記はJobの`.spec.ttlSecondsAfterFinished`フィールドのセットに関するいくつかの例です。
+TTL秒はいつでもセット可能です。下記はJobの`.spec.ttlSecondsAfterFinished`フィールドのセットに関するいくつかの例です。
 
 * Jobがその終了後にいくつか時間がたった後に自動的にクリーンアップできるように、そのリソースマニフェストにこの値を指定します。
 * この新しい機能を適用させるために、存在していて既に終了したリソースに対してこのフィールドをセットします。

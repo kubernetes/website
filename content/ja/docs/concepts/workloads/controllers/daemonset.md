@@ -105,7 +105,7 @@ nodeAffinity:
 
 さらに、`node.kubernetes.io/unschedulable:NoSchedule`というtolarationがDaemonSetのPodに自動的に追加されます。デフォルトスケジューラーは、DaemonSetのPodのスケジューリングのときに、`unschedulable`なNodeを無視します。
 
-### TaintsとTolerations
+### TaintsとTolerations
 
 DaemonSetのPodは[TaintsとTolerations](/docs/concepts/configuration/taint-and-toleration)の設定を尊重します。  
 下記のTolerationsは、関連する機能によって自動的にDaemonSetのPodに追加されます。
