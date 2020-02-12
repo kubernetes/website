@@ -160,7 +160,7 @@ for more information.
 
 This section contains the necessary steps to install `CRI-O` as CRI runtime.
 
-Use the following commands to install CRI-O on your system:
+Use the following commands to install CRI-O on your system (but be sure the major/minor version of CRI-O matches the major/minor version of kubernetes (see the [cri-o compatiblity matrix](https://github.com/cri-o/cri-o)):
 
 ### Prerequisites
 
