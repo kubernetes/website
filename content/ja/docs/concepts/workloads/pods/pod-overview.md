@@ -1,6 +1,4 @@
 ---
-reviewers:
-- erictune
 title: Podについての概観(Pod Overview)
 content_template: templates/concept
 weight: 10
