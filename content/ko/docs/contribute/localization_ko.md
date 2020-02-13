@@ -286,7 +286,7 @@ Pull Request | 풀 리퀘스트 |
 Pull Secret Credentials | 풀(Pull) 시크릿 자격증명 |
 QoS Class | QoS 클래스 |
 Quota | 쿼터 |
-readiness gate | 준비성 게이트(rediness gate) |
+readiness gate | 준비성 게이트(readiness gate) |
 readiness probe | 준비성 프로브(readiness probe) |
 Ready | Ready |
 Reclaim Policy | 반환 정책 |
