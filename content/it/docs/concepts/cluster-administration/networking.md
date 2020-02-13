@@ -5,7 +5,7 @@ weight: 50
 ---
 
 {{% capture overview %}}
-Il networking è una parte centrale di Kubernetes, ma può essere difficile capire esattamente come dovrebbe funzionare. 
+Il networking è una parte centrale di Kubernetes, ma può essere difficile capire esattamente come dovrebbe funzionare.
 Ci sono 4 reti distinte problemi da affrontare:
 
 1. Comunicazioni container-to-container altamente accoppiate: questo è risolto da
@@ -71,35 +71,35 @@ cieco all'esistenza o alla non esistenza dei porti di accoglienza.
 
 ## Come implementare il modello di rete di Kubernetes
 
-Ci sono diversi modi in cui questo modello di rete può essere implementato. Questo il documento non è uno studio 
+Ci sono diversi modi in cui questo modello di rete può essere implementato. Questo il documento non è uno studio
 esaustivo dei vari metodi, ma si spera che serva come introduzione a varie tecnologie e serve da punto di partenza.
 
 Le seguenti opzioni di networking sono ordinate alfabeticamente - l'ordine no implica uno stato preferenziale.
 
 ### ACI
 
-[Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) 
+[Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html)
 offers an integrated overlay and underlay SDN solution that supports containers, virtual machines, and bare metal
-servers. [ACI](https://www.github.com/noironetworks/aci-containers) provides container networking integration for ACI. 
+servers. [ACI](https://www.github.com/noironetworks/aci-containers) provides container networking integration for ACI.
 An overview of the integration is provided [here](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf).
 
 ### AOS da Apstra
 
-[AOS](http://www.apstra.com/products/aos/) è un sistema di rete basato sull'intento che crea e gestisce ambienti di 
-data center complessi da una semplice piattaforma integrata. AOS sfrutta un design distribuito altamente scalabile per 
+[AOS](http://www.apstra.com/products/aos/) è un sistema di rete basato sull'intento che crea e gestisce ambienti di
+data center complessi da una semplice piattaforma integrata. AOS sfrutta un design distribuito altamente scalabile per
 eliminare le interruzioni di rete riducendo al minimo i costi.
 
-Il progetto di riferimento AOS attualmente supporta gli host connessi Layer-3 che eliminano i problemi di commutazione 
-Layer-2 legacy. Questi host Layer-3 possono essere server Linux (Debian, Ubuntu, CentOS) che creano relazioni vicine 
-BGP direttamente con gli switch top of rack (TOR). AOS automatizza le adiacenze di routing e quindi fornisce un 
+Il progetto di riferimento AOS attualmente supporta gli host connessi Layer-3 che eliminano i problemi di commutazione
+Layer-2 legacy. Questi host Layer-3 possono essere server Linux (Debian, Ubuntu, CentOS) che creano relazioni vicine
+BGP direttamente con gli switch top of rack (TOR). AOS automatizza le adiacenze di routing e quindi fornisce un
 controllo a grana fine sulle iniezioni di integrità del percorso (RHI) comuni in una distribuzione di Kubernetes.
 
-AOS dispone di un ricco set di endpoint REST API che consentono a Kubernetes di modificare rapidamente i criteri di 
-rete in base ai requisiti dell'applicazione. Ulteriori miglioramenti integreranno il modello AOS Graph utilizzato per 
-la progettazione della rete con il provisioning del carico di lavoro, consentendo un sistema di gestione end-to-end per 
+AOS dispone di un ricco set di endpoint REST API che consentono a Kubernetes di modificare rapidamente i criteri di
+rete in base ai requisiti dell'applicazione. Ulteriori miglioramenti integreranno il modello AOS Graph utilizzato per
+la progettazione della rete con il provisioning del carico di lavoro, consentendo un sistema di gestione end-to-end per
 cloud privati ​​e pubblici.
 
-AOS supporta l'utilizzo di apparecchiature di produttori comuni di produttori quali Cisco, Arista, Dell, Mellanox, HPE 
+AOS supporta l'utilizzo di apparecchiature di produttori comuni di produttori quali Cisco, Arista, Dell, Mellanox, HPE
 e un gran numero di sistemi white-box e sistemi operativi di rete aperti come Microsoft SONiC, Dell OPX e Cumulus Linux.
 
 I dettagli su come funziona il sistema AOS sono disponibili qui: http://www.apstra.com/products/how-it-works/
@@ -121,11 +121,11 @@ indirizzamento.
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) è un plugin CNI che consente a Kubernetes 
-di [avere simultaneamente accesso a diverse implementazioni](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) 
-del [modello di rete Kubernetes](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. 
-Ciò include qualsiasi implementazione che funziona come un [plugin CNI](https://github.com/containernetworking/cni#3rd-party-plugins), 
-come [Flannel](https://github.com/coreos/flannel#flanella), [Calico](http://docs.projectcalico.org/), 
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) è un plugin CNI che consente a Kubernetes
+di [avere simultaneamente accesso a diverse implementazioni](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)
+del [modello di rete Kubernetes](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime.
+Ciò include qualsiasi implementazione che funziona come un [plugin CNI](https://github.com/containernetworking/cni#3rd-party-plugins),
+come [Flannel](https://github.com/coreos/flannel#flanella), [Calico](http://docs.projectcalico.org/),
 [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/tessere-net/).
 
 CNI-Genie supporta anche [assegnando più indirizzi IP a un pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-indirizzi-per-pod), ciascuno da un diverso plugin CNI.
@@ -151,15 +151,15 @@ complessità della rete richiesta per implementare Kubernetes su larga scala all
 
 
 226/5000
-[Contiv](https://github.com/contiv/netplugin) fornisce un networking configurabile (nativo l3 usando BGP, 
+[Contiv](https://github.com/contiv/netplugin) fornisce un networking configurabile (nativo l3 usando BGP,
 overlay usando vxlan, classic l2 o Cisco-SDN / ACI) per vari casi d'uso. [Contiv](http://contiv.io) è tutto aperto.
 
 ### Contrail / Tungsten Fabric
 
-[Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), basato su 
-[Tungsten Fabric](https://tungsten.io), è un virtualizzazione della rete e piattaforma di gestione delle 
-policy realmente aperte e multi-cloud. Contrail e Tungsten Fabric sono integrati con vari sistemi di 
-orchestrazione come Kubernetes, OpenShift, OpenStack e Mesos e forniscono diverse modalità di isolamento 
+[Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), basato su
+[Tungsten Fabric](https://tungsten.io), è un virtualizzazione della rete e piattaforma di gestione delle
+policy realmente aperte e multi-cloud. Contrail e Tungsten Fabric sono integrati con vari sistemi di
+orchestrazione come Kubernetes, OpenShift, OpenStack e Mesos e forniscono diverse modalità di isolamento
 per macchine virtuali, contenitori / pod e carichi di lavoro bare metal.
 
 ### DANM
@@ -176,14 +176,14 @@ Con questo set di strumenti DANM è in grado di fornire più interfacce di rete 
 
 ### Flannel
 
-[Flannel](https://github.com/coreos/flannel#flannel) è un overlay molto semplice rete che soddisfa i requisiti di 
+[Flannel](https://github.com/coreos/flannel#flannel) è un overlay molto semplice rete che soddisfa i requisiti di
 Kubernetes. Molti le persone hanno riportato il successo con Flannel e Kubernetes.
 
 ### Google Compute Engine (GCE)
 
-Per gli script di configurazione del cluster di Google Compute Engine, 
-[avanzato routing](https://cloud.google.com/vpc/docs/routes) è usato per assegna a ciascuna VM una sottorete 
-(l'impostazione predefinita è `/ 24` - 254 IP). Qualsiasi traffico vincolato per questo la sottorete verrà instradata 
+Per gli script di configurazione del cluster di Google Compute Engine,
+[avanzato routing](https://cloud.google.com/vpc/docs/routes) è usato per assegna a ciascuna VM una sottorete
+(l'impostazione predefinita è `/ 24` - 254 IP). Qualsiasi traffico vincolato per questo la sottorete verrà instradata
 direttamente alla VM dal fabric di rete GCE. Questo è dentro aggiunta all'indirizzo IP "principale" assegnato alla VM,
 a cui è stato assegnato NAT accesso a Internet in uscita. Un bridge linux (chiamato `cbr0`) è configurato per esistere
 su quella sottorete, e viene passato al flag `--bridge` della finestra mobile.
@@ -196,11 +196,11 @@ DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 
 Questo bridge è creato da Kubelet (controllato da `--network-plugin = kubenet` flag) in base al `Nodo` .spec.podCIDR`.
 
-Docker ora assegna gli IP dal blocco `cbr-cidr`. I contenitori possono raggiungere l'un l'altro e `Nodi` sul 
+Docker ora assegna gli IP dal blocco `cbr-cidr`. I contenitori possono raggiungere l'un l'altro e `Nodi` sul
 ponte` cbr0`. Questi IP sono tutti instradabili all'interno della rete del progetto GCE.
 
-GCE non sa nulla di questi IP, quindi non lo farà loro per il traffico internet in uscita. Per ottenere ciò viene 
-utilizzata una regola iptables masquerade (aka SNAT - per far sembrare che i pacchetti provengano dal `Node` stesso) 
+GCE non sa nulla di questi IP, quindi non lo farà loro per il traffico internet in uscita. Per ottenere ciò viene
+utilizzata una regola iptables masquerade (aka SNAT - per far sembrare che i pacchetti provengano dal `Node` stesso)
 traffico che è vincolato per IP al di fuori della rete del progetto GCE (10.0.0.0/8).
 
 ```shell
@@ -219,25 +219,25 @@ traffico verso internet.
 
 ### Jaguar
 
-[Jaguar](https://gitlab.com/sdnlab/jaguar) è una soluzione open source per la rete di Kubernetes basata 
-su OpenDaylight. Jaguar fornisce una rete overlay utilizzando vxlan e Jaguar. CNIPlugin fornisce un indirizzo 
+[Jaguar](https://gitlab.com/sdnlab/jaguar) è una soluzione open source per la rete di Kubernetes basata
+su OpenDaylight. Jaguar fornisce una rete overlay utilizzando vxlan e Jaguar. CNIPlugin fornisce un indirizzo
 IP per pod.
 
 ### Knitter
 
 363/5000
-[Knitter](https://github.com/ZTE/Knitter/) è una soluzione di rete che supporta più reti in Kubernetes. 
-Fornisce la capacità di gestione dei titolari e gestione della rete. Knitter include una serie di soluzioni 
-di rete container NFV end-to-end oltre a più piani di rete, come mantenere l'indirizzo IP per le applicazioni, 
+[Knitter](https://github.com/ZTE/Knitter/) è una soluzione di rete che supporta più reti in Kubernetes.
+Fornisce la capacità di gestione dei titolari e gestione della rete. Knitter include una serie di soluzioni
+di rete container NFV end-to-end oltre a più piani di rete, come mantenere l'indirizzo IP per le applicazioni,
 la migrazione degli indirizzi IP, ecc.
 
 ### Kube-router
 
 430/5000
-[Kube-router](https://github.com/cloudnativelabs/kube-router) è una soluzione di rete sviluppata appositamente 
-per Kubernetes che mira a fornire alte prestazioni e semplicità operativa. Kube-router fornisce un proxy di 
-servizio basato su Linux [LVS / IPVS](http://www.linuxvirtualserver.org/software/ipvs.html), una soluzione di 
-rete pod-to-pod basata sul kernel di inoltro del kernel Linux senza sovrapposizioni, e il sistema di sicurezza 
+[Kube-router](https://github.com/cloudnativelabs/kube-router) è una soluzione di rete sviluppata appositamente
+per Kubernetes che mira a fornire alte prestazioni e semplicità operativa. Kube-router fornisce un proxy di
+servizio basato su Linux [LVS / IPVS](http://www.linuxvirtualserver.org/software/ipvs.html), una soluzione di
+rete pod-to-pod basata sul kernel di inoltro del kernel Linux senza sovrapposizioni, e il sistema di sicurezza
 della politica di rete basato su iptables / ipset.
 
 ### L2 networks and linux bridging
@@ -254,41 +254,41 @@ Lars Kellogg-Stedman.
 
 ### Multus (a Multi Network plugin)
 
-[Multus](https://github.com/Intel-Corp/multus-cni) è un plugin Multi CNI per supportare la funzionalità Multi 
+[Multus](https://github.com/Intel-Corp/multus-cni) è un plugin Multi CNI per supportare la funzionalità Multi
 Networking in Kubernetes utilizzando oggetti di rete basati su CRD in Kubernetes.
 
-Multus supporta tutti i [plug-in di riferimento](https://github.com/containernetworking/plugins) 
-(ad esempio [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), 
-[DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), 
-[Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) che implementano 
-le specifiche CNI e i plugin di terze parti (ad esempio [Calico](https://github.com/projectcalico/cni-plugin), 
-[Weave](https://github.com/weaveworks/weave) ), [Cilium](https://github.com/cilium/cilium), 
-[Contiv](https://github.com/contiv/netplugin)). Oltre a ciò, Multus supporta 
-[SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), 
-[OVS- DPDK e VPP](https://github.com/intel/vhost-user-net-plugin) carichi di lavoro in Kubernetes con applicazioni 
+Multus supporta tutti i [plug-in di riferimento](https://github.com/containernetworking/plugins)
+(ad esempio [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel),
+[DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp),
+[Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) che implementano
+le specifiche CNI e i plugin di terze parti (ad esempio [Calico](https://github.com/projectcalico/cni-plugin),
+[Weave](https://github.com/weaveworks/weave) ), [Cilium](https://github.com/cilium/cilium),
+[Contiv](https://github.com/contiv/netplugin)). Oltre a ciò, Multus supporta
+[SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni),
+[OVS- DPDK e VPP](https://github.com/intel/vhost-user-net-plugin) carichi di lavoro in Kubernetes con applicazioni
 cloud native e basate su NFV in Kubernetes.
 
 ### NSX-T
 
-[VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html) è una piattaforma di virtualizzazione e sicurezza 
-della rete. NSX-T può fornire la virtualizzazione di rete per un ambiente multi-cloud e multi-hypervisor ed è 
-focalizzato su architetture applicative emergenti e architetture con endpoint eterogenei e stack tecnologici. Oltre 
+[VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html) è una piattaforma di virtualizzazione e sicurezza
+della rete. NSX-T può fornire la virtualizzazione di rete per un ambiente multi-cloud e multi-hypervisor ed è
+focalizzato su architetture applicative emergenti e architetture con endpoint eterogenei e stack tecnologici. Oltre
 agli hypervisor vSphere, questi ambienti includono altri hypervisor come KVM, container e bare metal.
 
-[Plug-in contenitore NSX-T (NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) fornisce 
-integrazione tra NSX-T e orchestratori di contenitori come Kubernetes, così come l'integrazione tra NSX-T e piattaforme 
+[Plug-in contenitore NSX-T (NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) fornisce
+integrazione tra NSX-T e orchestratori di contenitori come Kubernetes, così come l'integrazione tra NSX-T e piattaforme
 CaaS / PaaS basate su container come Pivotal Container Service (PKS) e OpenShift.
 
 ### Nuage Networks VCS (Servizi cloud virtualizzati)
 
-[Nuage](http://www.nuagenetworks.net) fornisce una piattaforma Software-Defined Networking (SDN) altamente scalabile 
-basata su policy. Nuage utilizza open source Open vSwitch per il piano dati insieme a un controller SDN ricco di 
+[Nuage](http://www.nuagenetworks.net) fornisce una piattaforma Software-Defined Networking (SDN) altamente scalabile
+basata su policy. Nuage utilizza open source Open vSwitch per il piano dati insieme a un controller SDN ricco di
 funzionalità basato su standard aperti.
 
-La piattaforma Nuage utilizza gli overlay per fornire una rete basata su policy senza soluzione di continuità tra i 
-Pod di Kubernetes e gli ambienti non Kubernetes (VM e server bare metal). Il modello di astrazione delle policy di 
-Nuage è stato progettato pensando alle applicazioni e semplifica la dichiarazione di policy a grana fine per le 
-applicazioni. Il motore di analisi in tempo reale della piattaforma consente la visibilità e il monitoraggio della 
+La piattaforma Nuage utilizza gli overlay per fornire una rete basata su policy senza soluzione di continuità tra i
+Pod di Kubernetes e gli ambienti non Kubernetes (VM e server bare metal). Il modello di astrazione delle policy di
+Nuage è stato progettato pensando alle applicazioni e semplifica la dichiarazione di policy a grana fine per le
+applicazioni. Il motore di analisi in tempo reale della piattaforma consente la visibilità e il monitoraggio della
 sicurezza per le applicazioni Kubernetes.
 
 ### OpenVSwitch
@@ -307,37 +307,37 @@ a [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 
 ### Progetto Calico
 
-[Project Calico](http://docs.projectcalico.org/) è un provider di rete contenitore open source e 
+[Project Calico](http://docs.projectcalico.org/) è un provider di rete contenitore open source e
 motore di criteri di rete.
 
-Calico offre una soluzione di rete e di rete altamente scalabile per il collegamento di pod Kubernetes basati sugli 
-stessi principi di rete IP di Internet, sia per Linux (open source) che per Windows (proprietario - disponibile da 
-[Tigera](https://www.tigera.io/essenziali/)). Calico può essere distribuito senza incapsulamento o sovrapposizioni per 
-fornire reti di data center ad alte prestazioni e su vasta scala. Calico fornisce inoltre una politica di sicurezza di 
+Calico offre una soluzione di rete e di rete altamente scalabile per il collegamento di pod Kubernetes basati sugli
+stessi principi di rete IP di Internet, sia per Linux (open source) che per Windows (proprietario - disponibile da
+[Tigera](https://www.tigera.io/essenziali/)). Calico può essere distribuito senza incapsulamento o sovrapposizioni per
+fornire reti di data center ad alte prestazioni e su vasta scala. Calico fornisce inoltre una politica di sicurezza di
 rete basata su intere grane per i pod Kubernetes tramite il firewall distribuito.
 
-Calico può anche essere eseguito in modalità di applicazione della policy insieme ad altre soluzioni di rete come 
+Calico può anche essere eseguito in modalità di applicazione della policy insieme ad altre soluzioni di rete come
 Flannel, alias [canal](https://github.com/tigera/canal) o native GCE, AWS o networking Azure.
 
 ### Romana
 
-[Romana](http://romana.io) è una soluzione di automazione della sicurezza e della rete open source che consente di 
-distribuire Kubernetes senza una rete di overlay. Romana supporta Kubernetes 
-[Politica di rete](/docs/concepts/services-networking/network-policies/) per fornire isolamento tra gli spazi dei nomi 
+[Romana](http://romana.io) è una soluzione di automazione della sicurezza e della rete open source che consente di
+distribuire Kubernetes senza una rete di overlay. Romana supporta Kubernetes
+[Politica di rete](/docs/concepts/services-networking/network-policies/) per fornire isolamento tra gli spazi dei nomi
 di rete.
 
 ### Weave Net di Weaveworks
 
-[Weave Net](https://www.weave.works/products/weave-net/) è un rete resiliente e semplice da usare per Kubernetes e le 
+[Weave Net](https://www.weave.works/products/weave-net/) è un rete resiliente e semplice da usare per Kubernetes e le
 sue applicazioni in hosting. Weave Net funziona come un plug-in [CNI](https://www.weave.works/docs/net/latest/cni-plugin/)
-o stand-alone. In entrambe le versioni, non richiede alcuna configurazione o codice aggiuntivo per eseguire, e in 
+o stand-alone. In entrambe le versioni, non richiede alcuna configurazione o codice aggiuntivo per eseguire, e in
 entrambi i casi, la rete fornisce un indirizzo IP per pod, come è standard per Kubernetes.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Il progetto iniziale del modello di rete e la sua logica, e un po 'di futuro i piani sono descritti in maggior 
+Il progetto iniziale del modello di rete e la sua logica, e un po 'di futuro i piani sono descritti in maggior
 dettaglio nella [progettazione della rete documento](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
 
 {{% /capture %}}
