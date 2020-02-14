@@ -20,13 +20,13 @@ weight: 20
 
 ## 概要
 
-ストレージを管理することはインスタンスを管理することとは全くの別物です。`PersistentVolueme`サブシステムは、ストレージが何から提供されているか、どのように消費されているかをユーザーと管理者から抽象化するAPIを提供しています。これを実現するための`PersistentVolume`と`PersistentVolumeClaim`という2つのAPIリソースを紹介します。
+ストレージを管理することはインスタンスを管理することとは全くの別物です。`PersistentVolume`サブシステムは、ストレージが何から提供されているか、どのように消費されているかをユーザーと管理者から抽象化するAPIを提供しています。これを実現するための`PersistentVolume`と`PersistentVolumeClaim`という2つのAPIリソースを紹介します。
 
 `PersistentVolume`(PV)は[ストレージクラス](/docs/concepts/storage/storage-classes/)を使った動的なプロビジョンか管理者によってプロビジョンされるクラスターのストレージの一部です。これはNodeと同じようにクラスターリソースの一部です。PVはVolumeのようなボリュームプラグインですが、PVを使う個別のPodとは独立したライフサイクルを持っています。このAPIオブジェクトはNFS、iSCSIやクラウドプロバイダー固有のストレージシステムの実装の詳細を捕捉します。
 
 `PersistentVolumeClaim`(PVC)はユーザーによって要求されるストレージです。これはPodと似ています。PodはNodeリソースを消費し、PVCはPVリソースを消費します。Podは特定レベルのCPUとメモリーリソースを要求することができます。クレームは特定のサイズやアクセスモード(例えば、1Nodeからのみ読み書きマウントができるや、複数Nodeから読み込み専用マウントができるなどです)を要求することができます。
 
-`PersistentVolumeClaims`がユーザーに抽象化されたストレージリソースの消費を許可している間、ユーザーは一般的に様々な問題に対応するためパフォーマンスなどの様々なプロパティとその`PersistentVolumes`を必要とします。クラスター管理者はユーザーに様々なボリュームがどう実装されているかを表に出すことなく、サイズやアクセスモードだけではない様々な`PersistentVolumes`を提供できるようにする必要があります。
+`PersistentVolumeClaim`がユーザーに抽象化されたストレージリソースの消費を許可している間、ユーザーは一般的に様々な問題に対応するためパフォーマンスなどの様々なプロパティとその`PersistentVolume`を必要とします。クラスター管理者はユーザーに様々なボリュームがどう実装されているかを表に出すことなく、サイズやアクセスモードだけではない様々な`PersistentVolume`を提供できるようにする必要があります。
 
 [実例を含む詳細なチュートリアル](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)を参照して下さい。
 
@@ -46,7 +46,7 @@ PVは静的か動的どちらかでプロビジョンされます。
 #### 動的
 
 ユーザーの`PersistentVolumeClaim`が管理者の作成したいずれの静的PVに一致しない場合、クラスターはPVCのためボリュームの動的プロビジョンを実施する場合があります。
-これは`StorageClasses`に基づきプロビジョニングされます。PVCは[ストレージクラス](/docs/concepts/storage/storage-classes/)の要求が必要で、管理者は動的プロビジョンのため作成・設定をする必要があります。
+これは`StorageClass`に基づきプロビジョニングされます。PVCは[ストレージクラス](/docs/concepts/storage/storage-classes/)の要求が必要で、管理者は動的プロビジョンのため作成・設定をする必要があります。
 クラス""のクレームは、自身の動的プロビジョニングを事実上無効にします。
 
 ストレージクラスに基づいたストレージの動的プロビジョンを有効化するには、クラスター管理者が`DefaultStorageClass`[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)をAPIサーバーで有効化する必要があります。
@@ -218,7 +218,7 @@ FlexVolumeは、Podの再起動時にサイズ変更できます。
 {{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 {{< note >}}
-使用中のPVCの拡張は、Kubernetes 1.15以降のベータ版と、1.11以降のアルファ版として利用可能です。`ExpandInUsePersistentVolumes`機能を有効化する必要があります。これはベータ機能のため多くのクラスターで自動的に行われます。詳細については、[フューチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)のドキュメントを参照してください。
+使用中のPVCの拡張は、Kubernetes 1.15以降のベータ版と、1.11以降のアルファ版として利用可能です。`ExpandInUsePersistentVolume`機能を有効化する必要があります。これはベータ機能のため多くのクラスターで自動的に行われます。詳細については、[フューチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)のドキュメントを参照してください。
 {{< /note >}}
 
 この場合、既存のPVCを使用しているPodまたはDeploymentを削除して再作成する必要はありません。使用中のPVCは、ファイルシステムが拡張されるとすぐにPodで自動的に使用可能になります。この機能は、PodまたはDeploymentで使用されていないPVCには影響しません。拡張を完了する前に、PVCを使用するPodを作成する必要があります。
@@ -490,7 +490,7 @@ spec:
 
 ### 名前空間に関する注意
 
-`PersistentVolumes`バインドは排他的であり、`PersistentVolumeClaims`は名前空間オブジェクトであるため、"多"モード(`ROX`、`RWX`)でクレームをマウントすることは1つの名前空間内でのみ可能です。
+`PersistentVolume`バインドは排他的であり、`PersistentVolumeClaim`は名前空間オブジェクトであるため、"多"モード(`ROX`、`RWX`)でクレームをマウントすることは1つの名前空間内でのみ可能です。
 
 ## Rawブロックボリュームのサポート
 
