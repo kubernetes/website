@@ -1,5 +1,5 @@
 ---
-title: Persistent Volumes
+title: 永続ボリューム
 feature:
   title: ストレージオーケストレーション
   description: >
