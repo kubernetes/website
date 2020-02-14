@@ -11,7 +11,7 @@ weight: 20
 
 {{% capture overview %}}
 
-このドキュメントではKubernetesの`PersistentVolumes`について説明します。[ボリューム](/docs/concepts/storage/volumes/)を一読することをおすすめします。
+このドキュメントではKubernetesの`PersistentVolume`について説明します。[ボリューム](/docs/concepts/storage/volumes/)を一読することをおすすめします。
 
 {{% /capture %}}
 
