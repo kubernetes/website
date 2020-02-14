@@ -20,7 +20,7 @@ weight: 20
 
 ## 概要
 
-ストレージを管理することはインスタンスを管理することとは全くの別物です。`PersistentVolume`サブシステムは、ストレージが何から提供されているか、どのように消費されているかをユーザーと管理者から抽象化するAPIを提供しています。これを実現するための`PersistentVolume`と`PersistentVolumeClaim`という2つのAPIリソースを紹介します。
+ストレージを管理することはインスタンスを管理することとは全くの別物です。`PersistentVolume`サブシステムは、ストレージが何から提供されているか、どのように消費されているかをユーザーと管理者から抽象化するAPIを提供します。これを実現するための`PersistentVolume`と`PersistentVolumeClaim`という2つの新しいAPIリソースを紹介します。
 
 `PersistentVolume`(PV)は[ストレージクラス](/docs/concepts/storage/storage-classes/)を使って管理者もしくは動的にプロビジョンされるクラスターのストレージの一部です。これはNodeと同じようにクラスターリソースの一部です。PVはVolumeのようなボリュームプラグインですが、PVを使う個別のPodとは独立したライフサイクルを持っています。このAPIオブジェクトはNFS、iSCSIやクラウドプロバイダー固有のストレージシステムの実装の詳細を捕捉します。
 
