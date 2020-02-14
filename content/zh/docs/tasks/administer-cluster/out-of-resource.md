@@ -117,7 +117,7 @@ support in favor of eviction in response to disk pressure.
 
 `memory.available` 的值从 cgroupfs 获取，而不是通过类似 `free -m` 的工具。这很重要，因为 `free -m` 不能在容器中工作，并且如果用户使用了 [可分配节点](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)特性，资源不足的判定将同时在本地 cgroup 层次结构的终端用户 pod 部分和根节点做出。这个 [脚本](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)复现了与 `kubelet` 计算 `memory.available` 相同的步骤。`kubelet`将`inactive_file`（意即活动 LRU 列表上基于文件后端的内存字节数）从计算中排除，因为它假设内存在出现压力时将被回收。
 
-`kub`elet` 只支持两种文件系统分区。
+`kubelet` 只支持两种文件系统分区。
 
 1. `nodefs` 文件系统，kubelet 将其用于卷和守护程序日志等。
 2. `imagefs` 文件系统，容器运行时用于保存镜像和容器可写层。
