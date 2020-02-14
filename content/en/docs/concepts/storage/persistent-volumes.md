@@ -286,6 +286,8 @@ Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume
 ## Persistent Volumes
 
 Each PV contains a spec and status, which is the specification and status of the volume.
+The name of a PersistentVolume object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 ```yaml
 apiVersion: v1
@@ -574,6 +576,7 @@ Support for the additional plugins was added in 1.10.
 {{< /note >}}
 
 ### Persistent Volumes using a Raw Block Volume
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -592,6 +595,7 @@ spec:
     readOnly: false
 ```
 ### Persistent Volume Claim requesting a Raw Block Volume
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -605,7 +609,9 @@ spec:
     requests:
       storage: 10Gi
 ```
+
 ### Pod specification adding Raw Block Device path in container
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -662,6 +668,7 @@ To enable support for restoring a volume from a volume snapshot data source, ena
 `VolumeSnapshotDataSource` feature gate on the apiserver and controller-manager.
 
 ### Create Persistent Volume Claim from Volume Snapshot
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -690,6 +697,7 @@ To enable support for cloning a volume from a PVC data source, enable the
 `VolumePVCDataSource` feature gate on the apiserver and controller-manager.
 
 ### Create Persistent Volume Claim from an existing pvc
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
