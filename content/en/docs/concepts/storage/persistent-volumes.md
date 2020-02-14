@@ -79,7 +79,7 @@ Claims will remain unbound indefinitely if a matching volume does not exist. Cla
 
 Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a Pod. For volumes that support multiple access modes, the user specifies which mode is desired when using their claim as a volume in a Pod.
 
-Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `persistentVolumeClaim` in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
+Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `PersistentVolumeClaim` in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
 ### Storage Object in Use Protection
 The purpose of the Storage Object in Use Protection feature is to ensure that Persistent Volume Claims (PVCs) in active use by a Pod and Persistent Volume (PVs) that are bound to PVCs are not removed from the system, as this may result in data loss.
@@ -722,9 +722,9 @@ and need persistent storage, it is recommended that you use the following patter
     `persistentVolumeClaim.storageClassName` field.
     This will cause the PVC to match the right storage
     class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name, leave the 
-    `persistentVolumeClaim.storageClassName` field as nil. This will cause a 
-    PV to be automatically provisioned for the user with the default StorageClass 
+  - If the user does not provide a storage class name, leave the
+    `persistentVolumeClaim.storageClassName` field as nil. This will cause a
+    PV to be automatically provisioned for the user with the default StorageClass
     in the cluster. Many cluster environments have a default StorageClass installed,
     or administrators can create their own default StorageClass.
 - In your tooling, watch for PVCs that are not getting bound after some time
