@@ -117,6 +117,9 @@ priority class name to the integer value of the priority. The name is specified
 in the `name` field of the PriorityClass object's metadata. The value is
 specified in the required `value` field. The higher the value, the higher the
 priority.
+The name of a PriorityClass object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names),
+and it cannot be prefixed with `system-`.
 
 A PriorityClass object can have any 32-bit integer value smaller than or equal
 to 1 billion. Larger numbers are reserved for critical system Pods that should
