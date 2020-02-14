@@ -41,7 +41,6 @@ resource.
 
 See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
-
 ## Lifecycle of a volume and claim
 
 PVs are resources in the cluster. PVCs are requests for those resources and also act as claim checks to the resource. The interaction between PVs and PVCs follows this lifecycle:
@@ -51,9 +50,11 @@ PVs are resources in the cluster. PVCs are requests for those resources and also
 There are two ways PVs may be provisioned: statically or dynamically.
 
 #### Static
+
 A cluster administrator creates a number of PVs. They carry the details of the real storage, which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.
 
 #### Dynamic
+
 When none of the static PVs the administrator created match a user's `PersistentVolumeClaim`,
 the cluster may try to dynamically provision a volume specially for the PVC.
 This provisioning is based on `StorageClasses`: the PVC must request a
@@ -440,6 +441,8 @@ The CLI will show the name of the PVC bound to the PV.
 ## PersistentVolumeClaims
 
 Each PVC contains a spec and status, which is the specification and status of the claim.
+The name of a PersistentVolumeClaim object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 ```yaml
 apiVersion: v1

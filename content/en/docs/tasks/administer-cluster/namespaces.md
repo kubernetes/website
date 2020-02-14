@@ -101,7 +101,8 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
     kubectl create namespace <insert-namespace-name-here>
     ``` 
 
-Note that the name of your namespace must be a DNS compatible label.
+The name of your namespace must be a valid
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
 

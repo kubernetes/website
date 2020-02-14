@@ -203,5 +203,7 @@ Your container runtime must support the concept of a privileged container for th
 Pod is a top-level resource in the Kubernetes REST API.
 The [Pod API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core) definition
 describes the object in detail.
+When creating the manifest for a Pod object, make sure the name specified is a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{% /capture %}}
