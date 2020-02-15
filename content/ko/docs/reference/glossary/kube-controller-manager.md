@@ -4,7 +4,7 @@ id: kube-controller-manager
 date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kube-controller-manager/
 short_description: >
-  컨트롤러를 구동하는 마스터 상의 컴포넌트.
+  {{< glossary_tooltip text="컨트롤러" term_id="controller" >}} 프로세스를 실행하는 컨트롤 플레인 컴포넌트.
 
 aka: 
 tags:
