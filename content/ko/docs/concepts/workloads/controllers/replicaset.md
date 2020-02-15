@@ -73,7 +73,7 @@ kubectl describe rs/frontend
 ```shell
 Name:		frontend
 Namespace:	default
-Selector:	tier=frontend,tier in (frontend)
+Selector:	tier=frontend
 Labels:		app=guestbook
 		tier=frontend
 Annotations:	<none>
@@ -132,7 +132,7 @@ metadata:
   name: frontend-9si5l
   namespace: default
   ownerReferences:
-  - apiVersion: extensions/v1beta1
+  - apiVersion: apps/v1
     blockOwnerDeletion: true
     controller: true
     kind: ReplicaSet
@@ -257,7 +257,7 @@ REST API또는 `client-go` 라이브러리를 이용할 때는 -d 옵션으로 `
 예시:
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
 > -H "Content-Type: application/json"
 ```
@@ -269,7 +269,7 @@ REST API 또는 `client-go` 라이브러리를 이용할 때는 `propagationPoli
 예시:
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
 > -H "Content-Type: application/json"
 ```

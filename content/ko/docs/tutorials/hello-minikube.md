@@ -169,7 +169,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 ## 애드온 사용하기
 
-Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 애드온 셋이 있다.
+Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 {{< glossary_tooltip text="애드온" term_id="addons" >}} 셋이 있다.
 
 1. 현재 지원하는 애드온 목록을 확인한다.
 
@@ -186,7 +186,6 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     efk: disabled
     freshpod: disabled
     gvisor: disabled
-    heapster: disabled
     helm-tiller: disabled
     ingress: disabled
     ingress-dns: disabled
@@ -200,16 +199,16 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     storage-provisioner-gluster: disabled
     ```
    
-2. 한 애드온을 활성화 한다. 예를 들어 `heapster`
+2. 한 애드온을 활성화 한다. 예를 들어 `metrics-server`
 
     ```shell
-    minikube addons enable heapster
+    minikube addons enable metrics-server
     ```
   
     다음과 유사하게 출력된다.
 
     ```
-    heapster was successfully enabled
+    metrics-server was successfully enabled
     ```
 
 3. 방금 생성한 파드와 서비스를 확인한다.
@@ -224,7 +223,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     NAME                                        READY     STATUS    RESTARTS   AGE
     pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
     pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
-    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/metrics-server-67fb648c5                1/1       Running   0          26s
     pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
@@ -235,22 +234,22 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. `heapster` 비활성화
+4. `metrics-server` 비활성화
 
     ```shell
-    minikube addons disable heapster
+    minikube addons disable metrics-server
     ```
   
     다음과 유사하게 출력된다.
 
     ```
-    heapster was successfully disabled
+    metrics-server was successfully disabled
     ```
 
 ## 제거하기

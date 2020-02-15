@@ -983,11 +983,11 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 ```
 
 {{% capture whatsnext %}}

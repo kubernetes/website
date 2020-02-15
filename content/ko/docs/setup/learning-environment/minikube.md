@@ -1,5 +1,6 @@
 ---
 title: Minikube로 쿠버네티스 설치
+weight: 30
 content_template: templates/concept
 ---
 
@@ -257,11 +258,7 @@ minikube start \
 Docker 이미지를 'latest'가 아닌 다른 태그로 태그했는지 확인하고 이미지를 풀링할 때에는 그 태그를 이용한다. 혹시 이미지 태그 버전을 지정하지 않았다면, 기본값은 `:latest`이고 이미지 풀링 정책은 `Always`가 가정하나, 만약 기본 Docker 레지스트리(보통 DockerHub)에 해당 Docker 이미지 버전이 없다면 `ErrImagePull`의 결과가 나타날 것이다.
 {{< /note >}}
 
-맥이나 리눅스 호스트에서 해당 Docker 데몬을 사용하려면 `docker-env command`를 쉘에서 사용해야 한다.
-
-```shell
-eval $(minikube docker-env)
-```
+맥이나 리눅스 호스트에서 해당 Docker 데몬을 사용하려면 `minikube docker-env` 에서 마지막 줄을 실행한다.
 
 이제 개인의 맥/리눅스 머신 내 커멘드 라인에서 도커를 사용해서 Minikube VM 안의 도커 데몬과 통신할 수 있다.
 
@@ -404,7 +401,7 @@ spec:
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /Users |
+| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
 | Xhyve | macOS | /Users | /Users |
 
 ## 프라이빗 컨테이너 레지스트리
