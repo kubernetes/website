@@ -191,6 +191,9 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 
 # 타임스탬프로 정렬된 이벤트 목록 조회
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# 매니페스트가 적용된 경우 클러스터의 현재 상태와 클러스터의 상태를 비교한다.
+kubectl diff -f ./my-manifest.yaml
 ```
 
 ## 리소스 업데이트

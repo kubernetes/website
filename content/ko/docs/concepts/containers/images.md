@@ -120,9 +120,9 @@ kubelet은 ECR 자격 증명을 가져오고 주기적으로 갱신할 것이다
 - 위의 모든 요구 사항을 확인한다.
 - 워크스테이션에서 $REGION (예: `us-west-2`)의 자격 증명을 얻는다. 그 자격 증명을 사용하여 해당 호스트로 SSH를 하고 Docker를 수동으로 실행한다. 작동하는가?
 - kubelet이 `--cloud-provider=aws`로 실행 중인지 확인한다.
-- kubelet 로그에서 (예: `journalctl -u kubelet`) 다음과 같은 로그 라인을 확인한다.
-  - `plugins.go:56] Registering credential provider: aws-ecr-key`
-  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+- kubelet 로그 수준을 최소 3 이상으로 늘리고 kubelet 로그에서 (예: `journalctl -u kubelet`) 다음과 같은 로그 라인을 확인한다.
+  - `aws_credentials.go:109] unable to get ECR credentials from cache, checking ECR API`
+  - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Azure 컨테이너 레지스트리(ACR) 사용
 [Azure 컨테이너 레지스트리](https://azure.microsoft.com/en-us/services/container-registry/)를 사용하는 경우 
@@ -202,7 +202,7 @@ Docker는 프라이빗 레지스트리를 위한 키를 `$HOME/.dockercfg` 또�
 
 프라이빗 이미지를 사용하는 파드를 생성하여 검증한다. 예를 들면 다음과 같다.
 
-```yaml
+```shell
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
@@ -215,20 +215,27 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
+```
+```
 pod/private-image-test-1 created
 ```
 
-만약 모든 것이 잘 작동한다면, 잠시 후에, 다음 메시지를 볼 것이다.
+만약 모든 것이 잘 작동한다면, 잠시 후에, 다음을 실행할 수 있다.
 
 ```shell
 kubectl logs private-image-test-1
+```
+그리고 커맨드 출력을 본다.
+```
 SUCCESS
 ```
 
-만약 실패했다면, 다음 메시지를 볼 것이다.
-
+명령이 실패한 것으로 의심되는 경우 다음을 실행할 수 있다.
 ```shell
-kubectl describe pods/private-image-test-1 | grep "Failed"
+kubectl describe pods/private-image-test-1 | grep 'Failed'
+```
+실패하는 케이스에는 출력이 다음과 유사하다.
+```
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
@@ -354,7 +361,9 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
    - 각 테넌트에 대한 레지스트리 자격 증명을 생성하고, 시크릿에 넣고, 각 테넌트 네임스페이스에 시크릿을 채운다.
    - 테넌트는 해당 시크릿을 각 네임스페이스의 imagePullSecrets에 추가한다.
 
-{{% /capture %}}
+
 
 다중 레지스트리에 접근해야 하는 경우, 각 레지스트리에 대해 하나의 시크릿을 생성할 수 있다.
 Kubelet은 모든`imagePullSecrets` 파일을 하나의 가상`.docker / config.json` 파일로 병합한다.
+
+{{% /capture %}}
