@@ -86,7 +86,9 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
-To delete a user you can run `kubectl config unset users.<name>`
+- To delete a user you can run `kubectl --kubeconfig=config-demo config unset users.<name>`
+- To remove a cluster, you can run `kubectl --kubeconfig=config-demo config unset clusters.<name>`
+- To remove a context, you can run `kubectl --kubeconfig=config-demo config unset contexts.<name>`
 {{< /note >}}
 
 Add context details to your configuration file:
