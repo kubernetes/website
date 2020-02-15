@@ -37,7 +37,7 @@ On their own, custom resources simply let you store and retrieve structured data
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 
-A [declarative API](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)
+A [declarative API](/docs/concepts/overview/kubernetes-api/)
 allows you to _declare_ or specify the desired state of your resource and tries to
 keep the current state of Kubernetes objects in sync with the desired state.
 The controller interprets the structured data as a record of the user's

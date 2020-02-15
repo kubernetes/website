@@ -199,7 +199,7 @@ If you want to allow all traffic from all pods in a namespace (even if policies 
 
 You can create a "default" policy for a namespace which prevents all ingress AND egress traffic by creating the following NetworkPolicy in that namespace.
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed ingress or egress traffic.
 
@@ -207,7 +207,7 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-To use this feature, you (or your cluster administrator) will need to enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=true,…`.  
+To use this feature, you (or your cluster administrator) will need to enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=true,…`.
 When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
 
 {{< note >}}
