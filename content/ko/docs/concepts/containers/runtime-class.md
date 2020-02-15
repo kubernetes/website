@@ -117,7 +117,7 @@ CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/docs/setup/prod
 
 쿠버네티스의 내장 dockershim CRI는 런타임 핸들러를 지원하지 않는다.
 
-#### [containerd](https://containerd.io/)
+#### {{< glossary_tooltip term_id="containerd" >}}
 
 런타임 핸들러는 containerd의 구성 파일인 `/etc/containerd/config.toml` 통해 설정한다.
 유효한 핸들러는 runtimes 단락 아래에서 설정한다.
@@ -129,10 +129,10 @@ CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/docs/setup/prod
 더 자세한 containerd의 구성 문서를 살펴본다.
 https://github.com/containerd/cri/blob/master/docs/config.md
 
-#### [cri-o](https://cri-o.io/)
+#### {{< glossary_tooltip term_id="cri-o" >}}
 
-런타임 핸들러는 cri-o의 구성파일인 `/etc/crio/crio.conf`을 통해 설정한다.
-[crio.runtime 테이블](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table) 아래에
+런타임 핸들러는 CRI-O의 구성파일인 `/etc/crio/crio.conf`을 통해 설정한다.
+[crio.runtime 테이블](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table) 아래에
 유효한 핸들러를 설정한다.
 
 ```
@@ -140,8 +140,9 @@ https://github.com/containerd/cri/blob/master/docs/config.md
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-더 자세한 cri-o의 구성 문서를 살펴본다.
-https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
+더 자세한 것은 CRI-O의 [설정 문서][100]를 본다.
+
+[100]: https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md
 
 ### 스케줄
 
