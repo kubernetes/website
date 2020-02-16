@@ -67,7 +67,7 @@ In the `.yaml` file for the Kubernetes object you want to create, you'll need to
 The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) can help you find the spec format for all of the objects you can create using Kubernetes.
 For example, the `spec` format for a Pod can be found in
 [PodSpec v1 core](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core),
-and the `spec` format for a Deployment can be found
+and the `spec` format for a Deployment can be found in
 [DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 
 {{% /capture %}}
