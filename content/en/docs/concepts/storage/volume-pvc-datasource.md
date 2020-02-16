@@ -60,6 +60,10 @@ spec:
     name: pvc-1
 ```
 
+{{< note >}}
+The capacity value for `spec.resources.requests.storage` must be specified and must be >= the capacity of the source volume.
+{{< /note >}}
+
 The result is a new PVC with the name `clone-of-pvc-1` that has the exact same content as the specified source `pvc-1`.
 
 ## Usage
