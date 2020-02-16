@@ -5,7 +5,7 @@ reviewers:
 - cheftako
 - chenopis
 content_template: templates/concept
-weight: 10
+weight: 20
 ---
 
 {{% capture overview %}}
