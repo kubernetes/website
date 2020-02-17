@@ -45,7 +45,7 @@ PVは静的か動的どちらかでプロビジョンされます。
 
 #### 動的
 
-ユーザーの`PersistentVolumeClaim`が管理者の作成したいずれの静的PVに一致しない場合、クラスターはPVC用にボリュームを動的にプロビジョニングしようとする場合があります。
+ユーザーの`PersistentVolumeClaim`が管理者の作成したいずれの静的PVにも一致しない場合、クラスターはPVC用にボリュームを動的にプロビジョニングしようとする場合があります。
 このプロビジョニングは`StorageClass`に基づいています。PVCは[ストレージクラス](/docs/concepts/storage/storage-classes/)の要求が必要であり、管理者は動的プロビジョニングを行うためにストレージクラスの作成・設定が必要です。ストレージクラスを""にしたストレージ要求は、自身の動的プロビジョニングを事実上無効にします。
 
 ストレージクラスに基づいたストレージの動的プロビジョンを有効化するには、クラスター管理者が`DefaultStorageClass`[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)をAPIサーバーで有効化する必要があります。
