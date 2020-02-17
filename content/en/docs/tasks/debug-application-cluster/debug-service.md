@@ -8,9 +8,10 @@ title: Debug Services
 
 {{% capture overview %}}
 An issue that comes up rather frequently for new installations of Kubernetes is
-that a `Service` is not working properly.  You've run your `Deployment` and
-created a `Service`, but you get no response when you try to access it.
-This document will hopefully help you to figure out what's going wrong.
+that a `Service` is not working properly.  You've run your `Pods` through a
+`Deployment` (or other workload controller) and created a `Service`, but you
+get no response when you try to access it.  This document will hopefully help
+you to figure out what's going wrong.
 
 {{% /capture %}}
 
@@ -73,15 +74,15 @@ can follow along and get a second data point.
 
 ```shell
 kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
-                        --labels=app=hostnames \
-                        --port=9376 \
-                        --replicas=3
+                      --replicas=3
 deployment.apps/hostnames created
 ```
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
+
 {{< note >}}
-This is the same as if you started the `Deployment` with the following YAML:
+This is the same as if you had started the `Deployment` with the following
+YAML:
 
 ```yaml
 apiVersion: apps/v1
@@ -91,31 +92,66 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: hostnames
+      run: hostnames
   replicas: 3
   template:
     metadata:
       labels:
-        app: hostnames
+        run: hostnames
     spec:
       containers:
       - name: hostnames
         image: k8s.gcr.io/serve_hostname
-        ports:
-        - containerPort: 9376
-          protocol: TCP
 ```
+
+The label "run" is automatically set by `kubectl run` to the name of the
+`Deployment`.
 {{< /note >}}
 
-Confirm your `Pods` are running:
+You can confirm your `Pods` are running:
 
 ```shell
-kubectl get pods -l app=hostnames
+kubectl get pods -l run=hostnames
 NAME                        READY     STATUS    RESTARTS   AGE
 hostnames-632524106-bbpiw   1/1       Running   0          2m
 hostnames-632524106-ly40y   1/1       Running   0          2m
 hostnames-632524106-tlaok   1/1       Running   0          2m
 ```
+
+You can also confirm that your `Pods` are serving.  We can get the list of
+`Pod` IP addresses and test them directly.
+
+```shell
+kubectl get pods -l run=hostnames \
+    -o go-template='{{range .items}}{{.status.podIP}}{{"\n"}}{{end}}'
+10.244.0.5
+10.244.0.6
+10.244.0.7
+```
+
+The container we are using for this walk-through simply serves its own hostname
+via HTTP on port 9376, but if you are debugging your own app, you'll want to
+use whatever port number your `Pods` are listening on.
+
+```shell
+u@pod$ wget -qO- 10.244.0.5:9376
+hostnames-0uton
+
+pod $ wget -qO- 10.244.0.6:9376
+hostnames-bvc05
+
+u@pod$ wget -qO- 10.244.0.7:9376
+hostnames-yp2kp
+```
+
+If you are not getting the responses you expect at this point, your `Pods`
+might not be healthy or might not be listening on the port you think they are.
+You might find `kubectl logs` to be useful for seeing what is happening, or
+perhaps you need to `kubectl exec` directly into your `Pods` and debug from
+there.
+
+Assuming everythign has gone to plan so far, we can start to investigate why
+your `Service` doesn't work.
 
 ## Does the Service exist?
 
@@ -123,9 +159,9 @@ The astute reader will have noticed that we did not actually create a `Service`
 yet - that is intentional.  This is a step that sometimes gets forgotten, and
 is the first thing to check.
 
-So what would happen if I tried to access a non-existent `Service`?  Assuming you
-have another `Pod` that consumes this `Service` by name you would get something
-like:
+What would happen if you tried to access a non-existent `Service`?  Assuming
+you have another `Pod` that consumes this `Service` by name you would get
+something like:
 
 ```shell
 u@pod$ wget -O- hostnames
@@ -133,7 +169,7 @@ Resolving hostnames (hostnames)... failed: Name or service not known.
 wget: unable to resolve host address 'hostnames'
 ```
 
-So the first thing to check is whether that `Service` actually exists:
+The first thing to check is whether that `Service` actually exists:
 
 ```shell
 kubectl get svc hostnames
@@ -157,6 +193,9 @@ NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 ```
 
+Now you know that the `Service` exists.
+
+{{< note >}}
 As before, this is the same as if you had started the `Service` with YAML:
 
 ```yaml
@@ -166,7 +205,7 @@ metadata:
   name: hostnames
 spec:
   selector:
-    app: hostnames
+    run: hostnames
   ports:
   - name: default
     protocol: TCP
@@ -174,9 +213,15 @@ spec:
     targetPort: 9376
 ```
 
-Now you can confirm that the `Service` exists.
+In order to highlight the full range of configuration, the `Service` we created
+here uses a different port number than the `Pods`.  For many real-world
+`Services`, these values might be the same.
+{{< /note >}}
 
-## Does the Service work by DNS?
+## Does the Service work by DNS name?
+
+One of the most common ways that clients consume a `Service` is through a DNS
+name.
 
 From a `Pod` in the same `Namespace`:
 
@@ -219,7 +264,7 @@ own cluster.
 You can also try this from a `Node` in the cluster:
 
 {{< note >}}
-10.0.0.10 is my DNS `Service`, yours might be different.
+10.0.0.10 is the cluster's DNS `Service` IP, yours might be different.
 {{< /note >}}
 
 ```shell
@@ -232,7 +277,7 @@ Address: 10.0.1.175
 ```
 
 If you are able to do a fully-qualified name lookup but not a relative one, you
-need to check that your `/etc/resolv.conf` file is correct.
+need to check that your `/etc/resolv.conf` file in your `Pod` is correct.
 
 ```shell
 u@pod$ cat /etc/resolv.conf
@@ -246,20 +291,21 @@ passed into `kubelet` with the `--cluster-dns` flag.
 
 The `search` line must include an appropriate suffix for you to find the
 `Service` name.  In this case it is looking for `Services` in the local
-`Namespace` (`default.svc.cluster.local`), `Services` in all `Namespaces`
-(`svc.cluster.local`), and the cluster (`cluster.local`).  Depending on your own
-install you might have additional records after that (up to 6 total).  The
-cluster suffix is passed into `kubelet` with the `--cluster-domain` flag.  We
-assume that is "cluster.local" in this document, but yours might be different,
-in which case you should change that in all of the commands above.
+`Namespace` ("default.svc.cluster.local"), `Services` in all `Namespaces`
+("svc.cluster.local"), and lastly for names in the cluster ("cluster.local").
+Depending on your own install you might have additional records after that (up
+to 6 total).  The cluster suffix is passed into `kubelet` with the
+`--cluster-domain` flag.  We assume that is "cluster.local" in this document,
+but yours might be different, in which case you should change that in all of
+the commands above.
 
 The `options` line must set `ndots` high enough that your DNS client library
 considers search paths at all.  Kubernetes sets this to 5 by default, which is
 high enough to cover all of the DNS names it generates.
 
-### Does any Service exist in DNS?
+### Does any Service work by DNS name? {#does-any-service-exist-in-dns}
 
-If the above still fails - DNS lookups are not working for your `Service` - we
+If the above still fails, DNS lookups are not working for your `Service`.  We
 can take a step back and see what else is not working.  The Kubernetes master
 `Service` should always work:
 
@@ -274,29 +320,29 @@ Address 1: 10.0.0.1 kubernetes.default.svc.cluster.local
 
 If this fails, you might need to go to the kube-proxy section of this doc, or
 even go back to the top of this document and start over, but instead of
-debugging your own `Service`, debug DNS.
+debugging your own `Service`, debug the DNS `Service`.
 
 ## Does the Service work by IP?
 
-Assuming we can confirm that DNS works, the next thing to test is whether your
-`Service` works at all.  From a node in your cluster, access the `Service`'s
-IP (from `kubectl get` above).
+Assuming we have confirmed that DNS works, the next thing to test is whether your
+`Service` works by its IP address.  From a `Pod` in your cluster, access the
+`Service`'s IP (from `kubectl get` above).
 
 ```shell
-u@node$ curl 10.0.1.175:80
+u@pod$ wget -O- 10.0.1.175:80
 hostnames-0uton
 
-u@node$ curl 10.0.1.175:80
+u@pod$ wget -O- 10.0.1.175:80
 hostnames-yp2kp
 
-u@node$ curl 10.0.1.175:80
+u@pod$ wget -O- 10.0.1.175:80
 hostnames-bvc05
 ```
 
 If your `Service` is working, you should get correct responses.  If not, there
 are a number of things that could be going wrong.  Read on.
 
-## Is the Service correct?
+## Is the Service defined correctly?
 
 It might sound silly, but you should really double and triple check that your
 `Service` is correct and matches your `Pod`'s port.  Read back your `Service`
@@ -316,7 +362,7 @@ kubectl get service hostnames -o json
         "resourceVersion": "347189",
         "creationTimestamp": "2015-07-07T15:24:29Z",
         "labels": {
-            "app": "hostnames"
+            "run": "hostnames"
         }
     },
     "spec": {
@@ -330,7 +376,7 @@ kubectl get service hostnames -o json
             }
         ],
         "selector": {
-            "app": "hostnames"
+            "run": "hostnames"
         },
         "clusterIP": "10.0.1.175",
         "type": "ClusterIP",
@@ -342,36 +388,40 @@ kubectl get service hostnames -o json
 }
 ```
 
-* Is the port you are trying to access in `spec.ports[]`?  
-* Is the `targetPort` correct for your `Pods` (many `Pods` choose to use a different port than the `Service`)?
-* If you meant it to be a numeric port, is it a number (9376) or a
-string "9376"?
-* If you meant it to be a named port, do your `Pods` expose a port
-with the same name?
-* Is the port's `protocol` the same as the `Pod`'s?
+* Is the `Service` port you are trying to access listed in `spec.ports[]`?
+* Is the `targetPort` correct for your `Pods` (some `Pods` use a different port than the `Service`)?
+* If you meant to use a numeric port, is it a number (9376) or a string "9376"?
+* If you meant to use a named port, do your `Pods` expose a port with the same name?
+* Is the port's `protocol` correct for your `Pods`?
 
 ## Does the Service have any Endpoints?
 
-If you got this far, we assume that you have confirmed that your `Service`
-exists and is resolved by DNS.  Now let's check that the `Pods` you ran are
+If you got this far, you have confirmed that your `Service` is correctly
+defined and is resolved by DNS.  Now let's check that the `Pods` you ran are
 actually being selected by the `Service`.
 
 Earlier we saw that the `Pods` were running.  We can re-check that:
 
 ```shell
-kubectl get pods -l app=hostnames
+kubectl get pods -l run=hostnames
 NAME              READY     STATUS    RESTARTS   AGE
 hostnames-0uton   1/1       Running   0          1h
 hostnames-bvc05   1/1       Running   0          1h
 hostnames-yp2kp   1/1       Running   0          1h
 ```
 
+The `-l run=hostnames` argument is a label selector - just like our `Service`
+has.
+
 The "AGE" column says that these `Pods` are about an hour old, which implies that
 they are running fine and not crashing.
 
-The `-l app=hostnames` argument is a label selector - just like our `Service`
-has.  Inside the Kubernetes system is a control loop which evaluates the
-selector of every `Service` and saves the results into an `Endpoints` object.
+The "RESTARTS" column says that these pods are not crashing frequently or being
+restarted.  Frequent restarts could lead to intermittent connectivity issues.
+If the restart count is high, read more about how to [debug pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods).
+
+Inside the Kubernetes system is a control loop which evaluates the selector of
+every `Service` and saves the results into a corresponding `Endpoints` object.
 
 ```shell
 kubectl get endpoints hostnames
@@ -380,17 +430,19 @@ hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
 
 This confirms that the endpoints controller has found the correct `Pods` for
-your `Service`.  If the `hostnames` row is blank, you should check that the
-`spec.selector` field of your `Service` actually selects for `metadata.labels`
-values on your `Pods`.  A common mistake is to have a typo or other error, such
-as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
-`app=hostnames`.
+your `Service`.  If the `ENDPOINTS` column is `<none>`, you should check that
+the `spec.selector` field of your `Service` actually selects for
+`metadata.labels` values on your `Pods`.  A common mistake is to have a typo or
+other error, such as the `Service` selecting for `app=hostnames`, but the
+`Deployment` specifying `run=hostnames`.
 
 ## Are the Pods working?
 
 At this point, we know that your `Service` exists and has selected your `Pods`.
-Let's check that the `Pods` are actually working - we can bypass the `Service`
-mechanism and go straight to the `Pods`.
+At the beginning of this walk-through, we verified the `Pods` themselves.
+Let's check again that the `Pods` are actually working - we can bypass the
+`Service` mechanism and go straight to the `Pods`, as listed by the `Endpoints`
+above.
 
 {{< note >}}
 These commands use the `Pod` port (9376), rather than the `Service` port (80).
@@ -409,29 +461,19 @@ hostnames-yp2kp
 
 We expect each `Pod` in the `Endpoints` list to return its own hostname.  If
 this is not what happens (or whatever the correct behavior is for your own
-`Pods`), you should investigate what's happening there.  You might find
-`kubectl logs` to be useful or `kubectl exec` directly to your `Pods` and check
-service from there.
-
-Another thing to check is that your `Pods` are not crashing or being restarted.
-Frequent restarts could lead to intermittent connectivity issues.
-
-```shell
-kubectl get pods -l app=hostnames
-NAME                        READY     STATUS    RESTARTS   AGE
-hostnames-632524106-bbpiw   1/1       Running   0          2m
-hostnames-632524106-ly40y   1/1       Running   0          2m
-hostnames-632524106-tlaok   1/1       Running   0          2m
-```
-
-If the restart count is high, read more about how to [debug
-pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods).
+`Pods`), you should investigate what's happening there.
 
 ## Is the kube-proxy working?
 
 If you get here, your `Service` is running, has `Endpoints`, and your `Pods`
 are actually serving.  At this point, the whole `Service` proxy mechanism is
 suspect.  Let's confirm it, piece by piece.
+
+The default implementation of `Services`, and the one used on most clusters, is
+kube-proxy.  This is a program that runs on every node and configures one of a
+small set of mechanisms for providing the `Service` abstraction.  If your
+cluster does not use kube-proxy, the following sections will not apply, and you
+will have to investigate whatever implementation of `Services` you are using.
 
 ### Is kube-proxy running?
 
@@ -472,33 +514,14 @@ installing Kubernetes from scratch. If this is the case, you need to manually
 install the `conntrack` package (e.g. `sudo apt install conntrack` on Ubuntu)
 and then retry.
 
-### Is kube-proxy writing iptables rules?
+Kube-proxy can run in one of a few modes.  Youc an see in the log above the
+line `Using iptables Proxier`.  This indicates that kube-proxy is running in
+"iptables" mode.  The most common other mode is "ipvs".  The older "userspace"
+mode has largely been replaced by these.
 
-One of the main responsibilities of `kube-proxy` is to write the `iptables`
-rules which implement `Services`.  Let's check that those rules are getting
-written.
+#### Iptables mode
 
-The kube-proxy can run in "userspace" mode, "iptables" mode or "ipvs" mode.
-Hopefully you are using the "iptables" mode or "ipvs" mode.  You
-should see one of the following cases.
-
-#### Userspace
-
-```shell
-u@node$ iptables-save | grep hostnames
--A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
--A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
-```
-
-There should be 2 rules for each port on your `Service` (just one in this
-example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".  If you do
-not see these, try restarting `kube-proxy` with the `-v` flag set to 4, and
-then look at the logs again.
-
-Almost nobody should be using the "userspace" mode any more, so we won't spend
-more time on it here.
-
-#### Iptables
+In "iptables" mode, you should see something like the following:
 
 ```shell
 u@node$ iptables-save | grep hostnames
@@ -514,12 +537,15 @@ u@node$ iptables-save | grep hostnames
 -A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/hostnames:" -j KUBE-SEP-57KPRZ3JQVENLNBR
 ```
 
-There should be 1 rule in `KUBE-SERVICES`, 1 or 2 rules per endpoint in
-`KUBE-SVC-(hash)` (depending on `SessionAffinity`), one `KUBE-SEP-(hash)` chain
-per endpoint, and a few rules in each `KUBE-SEP-(hash)` chain.  The exact rules
-will vary based on your exact config (including node-ports and load-balancers).
+For each port of each `Service`, there should be 1 rule in `KUBE-SERVICES` and
+one `KUBE-SVC-<hash>` chain.  For each `Pod` endpoint, there should be a small
+number of rules in that `KUBE-SVC-<hash>` and one `KUBE-SEP-<hash>` chain with
+a small number of rules in it.  The exact rules will vary based on your exact
+config (including node-ports and load-balancers).
 
-#### IPVS
+#### IPVS mode
+
+In "ipvs" mode, you should see something like the following:
 
 ```shell
 u@node$ ipvsadm -ln
@@ -533,11 +559,32 @@ TCP  10.0.1.175:80 rr
 ...
 ```
 
-IPVS proxy will create a virtual server for each service address(e.g. Cluster IP, External IP, NodePort IP, Load Balancer IP etc.) and some corresponding real servers for endpoints of the service, if any. In this example, service hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`) and you'll get results similar to above.
+For each port of each `Service`, plus any NodePorts, external IPs, and
+load-balancer IPs, kube-proxy will create a virtual server.  For each `Pod`
+endpoint, it will create corresponding real servers. In this example, service
+hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`,
+`10.244.0.6:9376`, `10.244.0.7:9376`).
+
+#### Userspace mode
+
+In rare cases, you may be using "userspace" mode.
+
+```shell
+u@node$ iptables-save | grep hostnames
+-A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
+-A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
+```
+
+There should be 2 rules for each port of your `Service` (just one in this
+example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".
+
+Almost nobody should be using the "userspace" mode any more, so we won't spend
+more time on it here.
 
 ### Is kube-proxy proxying?
 
-Assuming you do see the above rules, try again to access your `Service` by IP:
+Assuming you do see one the above cases, try again to access your `Service` by
+IP from one of your `Nodes`.
 
 ```shell
 u@node$ curl 10.0.1.175:80
@@ -565,14 +612,17 @@ Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9
 If you don't see those, try restarting `kube-proxy` with the `-v` flag set to 4, and
 then look at the logs again.
 
-### A Pod cannot reach itself via Service IP
+### Edge case: A Pod fails to reach itself via the Service IP {#a-pod-fails-to-reach-itself-via-the-service-ip}
+
+This might sound unlikely, but it does happen and it is supposed to work.
 
 This can happen when the network is not properly configured for "hairpin"
 traffic, usually when `kube-proxy` is running in `iptables` mode and Pods
 are connected with bridge network. The `Kubelet` exposes a `hairpin-mode`
-[flag](/docs/admin/kubelet/) that allows endpoints of a Service to loadbalance back to themselves
-if they try to access their own Service VIP. The `hairpin-mode` flag must either be
-set to `hairpin-veth` or `promiscuous-bridge`.
+[flag](/docs/admin/kubelet/) that allows endpoints of a Service to loadbalance
+back to themselves if they try to access their own Service VIP. The
+`hairpin-mode` flag must either be set to `hairpin-veth` or
+`promiscuous-bridge`.
 
 The common steps to trouble shoot this are as follows:
 
@@ -626,9 +676,9 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 
 If you get this far, something very strange is happening.  Your `Service` is
 running, has `Endpoints`, and your `Pods` are actually serving.  You have DNS
-working, `iptables` rules installed, and `kube-proxy` does not seem to be
-misbehaving.  And yet your `Service` is not working.  You should probably let
-us know, so we can help investigate!
+working, and `kube-proxy` does not seem to be misbehaving.  And yet your
+`Service` is not working.  You should probably let us know, so we can help
+investigate!
 
 Contact us on
 [Slack](/docs/troubleshooting/#slack) or
