@@ -295,7 +295,7 @@ Below you can find installation instructions for some popular Pod network plugin
 {{% tab name="Calico" %}}
 [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer. Calico works on several architectures, including `amd64`, `arm64`, and `ppc64le`.
 
-By default, Calico uses `192.168.0.0/16` as the Pod network CIDR, though this can be configured in the calico.yaml file. For Calico to work correctly, you need to pass this same CIDR to the kubeadm init command using the `--pod-network-cidr=192.168.0.0/16` flag or via the kubeadm configuration.
+By default, Calico uses `192.168.0.0/16` as the Pod network CIDR, though this can be configured in the calico.yaml file. For Calico to work correctly, you need to pass this same CIDR to the `kubeadm init` command using the `--pod-network-cidr=192.168.0.0/16` flag or via kubeadm's configuration.
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.11/manifests/calico.yaml
@@ -344,13 +344,11 @@ For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16
 
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [Network Plugin Requirements](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-Make sure that your firewall rules allow UDP ports 8285 and 8472 traffic for all hosts participating in the overlay network.
-see [here
-](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls).
+Make sure that your firewall rules allow UDP ports 8285 and 8472 traffic for all hosts participating in the overlay network. The [Firewall](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls) section of Flannel's troubleshooting guide explains about this in more detail.
 
-Note that `flannel` works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` under Linux.
+Flannel works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` architectures under Linux.
 Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
 
 ```shell
@@ -364,23 +362,23 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 {{% tab name="Kube-router" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [Network Plugin Requirements](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controller-manager to allocate Pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
 Kube-router provides Pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
 
-For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
+For information on using the `kubeadm` tool to set up a Kubernetes cluster with Kube-router, please see the official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
 {{% /tab %}}
 
 {{% tab name="Weave Net" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [Network Plugin Requirements](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
+For more information on setting up your Kubernetes cluster with Weave Net, please see [Integrating Kubernetes via the Addon]((https://www.weave.works/docs/net/latest/kube-addon/).
 
-Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` without any extra action required.
+Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` platforms without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
 if they don't know their PodIP.
 
