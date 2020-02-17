@@ -6,7 +6,7 @@ weight: 50
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
@@ -18,8 +18,8 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 
 ### Enable Feature Gate
 
-Ensure the `EvenPodsSpread` feature gate is enabled (it is disabled by default
-in 1.16). See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
+Ensure the `EvenPodsSpread` feature gate is enabled (it is enabled by default
+since 1.18). See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
 for an explanation of enabling feature gates. The `EvenPodsSpread` feature gate must be enabled for the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} **and**
 {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
@@ -201,7 +201,7 @@ See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig
 
 ## Known Limitations
 
-As of 1.16, at which this feature is Alpha, there are some known limitations:
+As of 1.18, at which this feature is Beta, there are some known limitations:
 
 - Scaling down a `Deployment` may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
