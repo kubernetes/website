@@ -91,6 +91,21 @@ kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 {{< /note >}}
 
+Add an local DNS alias for our master server. Edit the /etc/hosts file and add the above IP address and assign a
+name k8smaster.
+root@lfs458-node-1a0a:~# vim /etc/hosts
+
+Create a configuration file for the cluster. There are many options we could include, but will only set the control plane
+endpoint, software version to deploy and podSubnet values
+
+kubeadmConfig.yaml:
+apiVersion: kubeadm.k8s.io/v1beta2
+2 kind: ClusterConfiguration
+3 kubernetesVersion: *** #<-- Use the word stable for newest version
+4 controlPlaneEndpoint: "hostname:6443" #<-- Use the node alias not the IP
+5 networking:
+6 podSubnet: 192.168.0.0/16 #<-- Match the IP range from the Calico config file
+
 ### Initializing your control-plane node
 
 The control-plane node is the machine where the control plane components run, including
@@ -121,6 +136,8 @@ To initialize the control-plane node run:
 ```bash
 kubeadm init <args>
 ```
+For Example: kubeadm init --config=kubeadmConfig.yaml --upload-certs \
+| tee kubeadm-init.out
 
 ### Considerations about apiserver-advertise-address and ControlPlaneEndpoint
 
