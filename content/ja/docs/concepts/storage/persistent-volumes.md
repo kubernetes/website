@@ -127,7 +127,7 @@ Events:            <none>
 
 #### 削除
 
-`Delete`再クレームポリシーをサポートするボリュームプラグインの場合、削除すると`PersistentVolume`オブジェクトがKubernetesから削除されるだけでなく、AWS EBS、GCE PD、Azure Disk、Cinderボリュームなどの外部インフラストラクチャの関連ストレージアセットも削除されます。動的にプロビジョニングされたボリュームは、[`StorageClass`の再クレームポリシー](#reclaim-policy)を継承します。これはデフォルトで削除です。管理者は、ユーザーの需要に応じて`StorageClass`を構成する必要があります。そうでない場合、PVは作成後に編集またはパッチを適用する必要があります。[PersistentVolumeの再クレームポリシーの変更](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)を参照してください。
+`Delete`再クレームポリシーをサポートするボリュームプラグインの場合、削除すると`PersistentVolume`オブジェクトがKubernetesから削除されるだけでなく、AWS EBS、GCE PD、Azure Disk、Cinderボリュームなどの外部インフラストラクチャーの関連ストレージアセットも削除されます。動的にプロビジョニングされたボリュームは、[`StorageClass`の再クレームポリシー](#reclaim-policy)を継承します。これはデフォルトで削除です。管理者は、ユーザーの需要に応じて`StorageClass`を構成する必要があります。そうでない場合、PVは作成後に編集またはパッチを適用する必要があります。[PersistentVolumeの再クレームポリシーの変更](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)を参照してください。
 
 #### リサイクル
 
