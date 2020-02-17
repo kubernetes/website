@@ -18,9 +18,8 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 
 ### Enable Feature Gate
 
-Ensure the `EvenPodsSpread` feature gate is enabled (it is enabled by default
-since 1.18). See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
-for an explanation of enabling feature gates. The `EvenPodsSpread` feature gate must be enabled for the
+The `EvenPodsSpread` [feature gate] (/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled for the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} **and**
 {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
 
@@ -203,7 +202,7 @@ See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig
 
 As of 1.18, at which this feature is Beta, there are some known limitations:
 
-- Scaling down a `Deployment` may result in imbalanced Pods distribution.
+- Scaling down a Deployment may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
 {{% /capture %}}
