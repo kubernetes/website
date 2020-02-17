@@ -81,7 +81,9 @@ After you initialize your control-plane, the kubelet runs normally.
 ### Initializing your control-plane node
 
 The control-plane node is the machine where the control plane components run, including
-etcd (the cluster database) and the API server (which the kubectl CLI
+{{< glossary_tooltip term_id="etcd" >}} (the cluster database) and the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
+(which the {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} command line tool
 communicates with).
 
 1. (Recommended) If you have plans to upgrade this single control-plane `kubeadm` cluster
