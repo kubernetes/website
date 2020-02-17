@@ -200,7 +200,11 @@ minikube start --vm-driver=<driver_name>
 * hyperv ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 다음 IP는 동적이며 변경할 수 있다. `minikube ip`로 알아낼 수 있다.
 * vmware ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
-* none (쿠버네티스 컴포넌트를 VM이 아닌 호스트 상에서 구동한다. 개인용 워크스테이션에서 none 드라이버를 사용하는 것을 권장하지 않는다. 이 드라이버를 사용하려면 도커와 리눅스 환경이 필요하다.([도커 설치](https://docs.docker.com/install/linux/docker-ce/ubuntu/)))
+* none (쿠버네티스 컴포넌트를 가상 머신이 아닌 호스트 상에서 구동한다. 리눅스를 실행중이어야 하고, {{< glossary_tooltip term_id="docker" >}}가 설치되어야 한다.)
+  
+{{< caution >}}
+`none` 드라이버를 사용한다면 일부 쿠버네티스 컴포넌트는 Minikube 환경 외부에 있는 부작용이 있는 권한을 가진 컨테이너로 실행된다. 이런 부작용은 개인용 워크스테이션에는 `none` 드라이버가 권장하지 않는 것을 의미 한다.
+{{< /caution >}}
 
 #### 대안적인 컨테이너 런타임 상에서 클러스터 시작하기
 Minikube를 다음의 컨테이너 런타임에서 기동할 수 있다.

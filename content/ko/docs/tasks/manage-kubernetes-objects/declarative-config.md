@@ -81,7 +81,14 @@ kubectl apply -f <디렉터리>/
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 {{< note >}}
-`diff`는 `kube-apiserver`의 활성화가 필요한 [서버사이드 dry-run](/docs/reference/using-api/api-concepts/#dry-run)을 사용한다.
+`diff`는 `kube-apiserver`의 활성화가 필요한
+[서버사이드 dry-run](/docs/reference/using-api/api-concepts/#dry-run)을 사용한다.
+
+`diff` 는 dry-run 모드에서 서버 측 적용 요청을 수행하므로,
+`PATCH`, `CREATE`, 그리고 `UPDATE` 권한을 부여해야 한다.
+자세한 것은
+[Dry-Run 인증](/docs/reference/using-api/api-concepts#dry-run-authorization)을 본다.
+
 {{< /note >}}
 
 `kubectl apply`를 사용하여 오브젝트를 생성한다.

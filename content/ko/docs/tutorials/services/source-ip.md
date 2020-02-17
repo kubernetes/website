@@ -34,7 +34,7 @@ content_template: templates/tutorial
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```console
-kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 ```
 출력은 다음과 같다.
 ```
