@@ -178,6 +178,10 @@ kube-scheduler has a default set of scheduling policies.
 
 - `EqualPriorityMap`: Gives an equal weight of one to all nodes.
 
+### Multiple profiles
+
+TODO
+
 {{% /capture %}}
 {{% capture whatsnext %}}
 * Read about [scheduler performance tuning](/docs/concepts/scheduling/scheduler-perf-tuning/)
