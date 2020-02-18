@@ -9,7 +9,7 @@ weight: 65
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-TTLコントローラーは実行を終えたリソースオブジェクトのライフタイムを制御するためのTTL機構を提供します。  
+TTLコントローラーは実行を終えたリソースオブジェクトのライフタイムを制御するためのTTLメカニズムを提供します。  
 TTLコントローラーは現在[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のみ扱っていて、将来的にPodやカスタムリソースなど、他のリソースの実行終了を扱えるように拡張される予定です。
 
 α版の免責事項: この機能は現在α版の機能で、[Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)の`TTLAfterFinished`を有効にすることで使用可能です。
