@@ -15,7 +15,7 @@ tl;dr [Registration is open](https://events.linuxfoundation.org/kubernetes-contr
 
 - Evening Contributor Celebration:
 [ZuidPool](https://www.zuid-pool.nl/en/)
-- Address: Europaplein 22, 1078 GZ Amsterdam[, Netherlands](https://www.google.com/search?q=kubecon+amsterdam+2020&oq=kubecon+amste&aqs=chrome.0.35i39j69i57j0l4j69i61l2.3957j1j4&sourceid=chrome&ie=UTF-8&ibp=htl;events&rciv=evn&sa=X&ved=2ahUKEwiZoLvQ0dvnAhVST6wKHScBBZ8Q5bwDMAB6BAgSEAE#)
+- Address: [Europaplein 22, 1078 GZ Amsterdam, Netherlands](https://www.google.com/search?q=KubeCon+Amsterdam+2020&ie=UTF-8&ibp=htl;events&rciv=evn&sa=X&ved=2ahUKEwiZoLvQ0dvnAhVST6wKHScBBZ8Q5bwDMAB6BAgSEAE#)
 - Time: 18:00 - 21:00 
 
 **Monday, March 30, 2020**
