@@ -17,7 +17,7 @@ weight: 10
 
 * [파드](/docs/user-guide/pods/single-container/)
 * [클러스터 DNS(Cluster DNS)](/ko/docs/concepts/services-networking/dns-pod-service/)
-* [헤드리스 서비스(Headless Services)](/docs/concepts/services-networking/service/#headless-services)
+* [헤드리스 서비스(Headless Services)](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
 * [퍼시스턴트볼륨(PersistentVolumes)](/docs/concepts/storage/persistent-volumes/)
 * [퍼시턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
@@ -51,7 +51,7 @@ weight: 10
 아래 예제를 이용해서 스테이트풀셋을 생성하자. 이는
 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/) 개념에서 보인
 예제와 유사하다. 이것은 `web`과 이 스테이트풀셋 파드의 IP 주소를 게시하는
-[헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)인
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)인
 `nginx` 를 생성한다.
 
 {{< codenew file="application/web/web.yaml" >}}
