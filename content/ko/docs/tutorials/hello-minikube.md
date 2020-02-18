@@ -278,7 +278,7 @@ minikube delete
 {{% capture whatsnext %}}
 
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해서 더 배워 본다.
-* [애플리케이션 배포](/docs/user-guide/deploying-applications/)에 대해서 더 배워 본다.
+* [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)에 대해서 더 배워 본다.
 * [서비스 오브젝트](/ko/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
 
 {{% /capture %}}
