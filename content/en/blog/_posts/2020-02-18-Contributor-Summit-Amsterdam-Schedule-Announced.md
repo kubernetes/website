@@ -32,10 +32,10 @@ Hello everyone and Happy 2020! It’s hard to believe that KubeCon EU 2020 is le
 
 On top of the presentations, there will be a dedicated Docs Sprint as well as the New Contributor Workshop 101 and 201 Sessions. All told, we will have five separate rooms of content throughout the day on Monday. Please **[see the full schedule](https://kcseu2020.sched.com/)** to see what sessions you’d be interested in. We hope between the content provided and the inevitable hallway track, everyone has a fun and enriching experience. 
 
-Speaking of fun, the social Sunday night should be a blast! We’re hosting this summit’s social close to the conference center, at [ZuidPool](https://www.zuid-pool.nl/en/). There will be games, bingo, and unconference sign-up throughout the evening and should be a relaxed way to kick off the week. 
+Speaking of fun, the social Sunday night should be a blast! We’re hosting this summit’s social close to the conference center, at [ZuidPool](https://www.zuid-pool.nl/en/). There will be games, bingo, and unconference sign-up throughout the evening. It should be a relaxed way to kick off the week. 
 
 [Registration is open](https://events.linuxfoundation.org/kubernetes-contributor-summit-europe/)! Space is limited so it’s always a good idea to register early. 
 
-If you have any questions, reach out to the [Amsterdam Team](https://github.com/kubernetes/community/tree/master/events/2020/03-contributor-summit#team) on slack in the [#contributor-summit](https://kubernetes.slack.com/archives/C7J893413) channel. 
+If you have any questions, reach out to the [Amsterdam Team](https://github.com/kubernetes/community/tree/master/events/2020/03-contributor-summit#team) on Slack in the [#contributor-summit](https://kubernetes.slack.com/archives/C7J893413) channel.
 
 Hope to see you there!
