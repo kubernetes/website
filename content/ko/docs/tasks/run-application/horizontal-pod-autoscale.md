@@ -158,15 +158,11 @@ HorizontalPodAutoscaler에 여러 메트릭이 지정된 경우, 이 계산은
 현재 값보다 높은 `desiredReplicas` 을 제공하는 경우
 HPA가 여전히 확장할 수 있음을 의미한다.
 
-마지막으로, HPA가 목표를 스케일하기 직전에 스케일 권장 사항이
-기록된다. 컨트롤러는 구성 가능한 창(window) 내에서 가장 높은 권장
-사항을 선택하도록 해당 창 내의 모든 권장 사항을 고려한다. 이 값은
-`--horizontal-pod-autoscaler-downscale-stabilization` 플래그 또는 HPA 오브젝트
-동작 `behavior.scaleDown.stabilizationWindowSeconds` ([구성가능한
-스케일링 동작 지원](#구성가능한-스케일링-동작-지원)을 본다)을
-사용하여 설정할 수 있고, 기본 값은 5분이다.
-즉, 스케일 다운이 점진적으로 발생하여 급격히 변동하는 메트릭 값의
-영향을 완만하게 한다.
+마지막으로, HPA가 목표를 스케일하기 직전에 스케일 권장 사항이 기록된다.
+컨트롤러는 구성 가능한 창(window) 내에서 가장 높은 권장 사항을 선택하도록 해당 창 내의
+모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization` 플래그를 사용하여 설정할 수 있고, 기본 값은 5분이다.
+즉, 스케일 다운이 점진적으로 발생하여 급격히 변동하는
+메트릭 값의 영향을 완만하게 한다.
 
 ## API 오브젝트
 
@@ -213,6 +209,9 @@ Horizontal Pod Autoscaler를 사용하여 레플리카 그룹의 스케일을 �
 평가된 메트릭의 동적인 특징 때문에 레플리카 수가
 자주 변동할 수 있다. 이것은 때로는 *스래싱 (thrashing)* 이라고도 한다.
 
+v1.6 부터 클러스터 운영자는 `kube-controller-manager` 컴포넌트의 플래그로
+노출된 글로벌 HPA 설정을 튜닝하여 이 문제를 완화할 수 있다.
+
 v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대한
 필요성을 제거하였다.
 
@@ -228,11 +227,6 @@ v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대
 너무 짧게 설정하면, 레플리카 셋의 크기가 평소와 같이 계속 스래싱될 수
 있다.
 {{< /note >}}
-
-v1.17 부터 v2beta2 API 필드에서 `behavior.scaleDown.stabilizationWindowSeconds`
-를 설정하여 다운스케일 안정화 창을 HPA별로 설정할 수 있다.
-[구성가능한 스케일링
-동작 지원](#구성가능한-스케일링-동작-지원)을 본다.
 
 ## 멀티 메트릭을 위한 지원
 
@@ -283,154 +277,6 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
 어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)과
 [외부 메트릭스 사용하는 작업 과정](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)을 참조한다.
-
-## 구성가능한 스케일링 동작 지원
-
-[v1.17](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
-부터 `v2beta2` API는 HPA `behavior` 필드를 통해
-스케일링 동작을 구성할 수 있다.
-동작은 `behavior` 필드 아래의 `scaleUp` 또는 `scaleDown`
-섹션에서 스케일링 업과 다운을 위해 별도로 지정된다. 안정화 윈도우는
-스케일링 대상에서 레플리카 수의 플래핑(flapping)을 방지하는
-양방향에 대해 지정할 수 있다. 마찬가지로 스케일링 정책을 지정하면
-스케일링 중 레플리카 변경 속도를 제어할 수 있다.
-
-### 스케일링 정책
-
-스펙의 `behavior` 섹션에 하나 이상의 스케일링 폴리시를 지정할 수 있다.
-폴리시가 여러 개 지정된 경우 가장 많은 양의 변경을
-허용하는 정책이 기본적으로 선택된 폴리시이다. 다음 예시는 스케일 다운 중 이
-동작을 보여준다.
-
-```yaml
-behavior:
-  scaleDown:
-    policies:
-    - type: Pods
-      value: 4
-      periodSeconds: 60
-    - type: Percent
-      value: 10
-      periodSeconds: 60
-```
-
-파드 수가 40개를 초과하면 두 번째 폴리시가 스케일링 다운에 사용된다.
-예를 들어 80개의 레플리카가 있고 대상을 10개의 레플리카로 축소해야 하는
-경우 첫 번째 단계에서 8개의 레플리카가 스케일 다운 된다. 레플리카의 수가 72개일 때
-다음 반복에서 파드의 10%는 7.2 이지만, 숫자는 8로 올림된다. 오토스케일러 컨트롤러의
-각 루프에서 변경될 파드의 수는 현재 레플리카의 수에 따라 재계산된다. 레플리카의 수가 40
-미만으로 떨어지면 첫 번째 폴리시 _(파드들)_ 가 적용되고 한번에
-4개의 레플리카가 줄어든다.
-
-`periodSeconds` 는 폴리시가 참(true)으로 유지되어야 하는 기간을 나타낸다.
-첫 번째 정책은 1분 내에 최대 4개의 레플리카를 스케일 다운할 수 있도록 허용한다.
-두 번째 정책은 현재 레플리카의 최대 10%를 1분 내에 스케일 다운할 수 있도록 허용한다.
-
-확장 방향에 대해 `selectPolicy` 필드를 확인하여 폴리시 선택을 변경할 수 있다.
-레플리카의 수를 최소로 변경할 수 있는 폴리시를 선택하는 `최소(Min)`로 값을 설정한다.
-값을 `Disabled` 로 설정하면 해당 방향으로 스케일링이 완전히
-비활성화 된다.
-
-### 안정화 윈도우
-
-안정화 윈도우는 스케일링에 사용되는 메트릭이 계속 변동할 때 레플리카의 플래핑을
-다시 제한하기 위해 사용된다. 안정화 윈도우는 스케일링을 방지하기 위해 과거부터
-계산된 의도한 상태를 고려하는 오토스케일링 알고리즘에 의해 사용된다.
-다음의 예시에서 `scaleDown` 에 대해 안정화 윈도우가 지정되어있다.
-
-```yaml
-scaleDown:
-  stabilizationWindowSeconds: 300
-```
-
-메트릭이 대상을 축소해야하는 것을 나타내는 경우 알고리즘은
-이전에 계산된 의도한 상태를 살펴보고 지정된 간격의 최고 값을 사용한다.
-위의 예시에서 지난 5분 동안 모든 의도한 상태가 고려된다.
-
-### 기본 동작
-
-사용자 지정 스케일링을 사용하려면 일부 필드를 지정해야 한다. 사용자 정의해야
-하는 값만 지정할 수 있다. 이러한 사용자 지정 값은 기본값과 병합된다. 기본값은 HPA
-알고리즘의 기존 동작과 일치한다.
-
-```yaml
-behavior:
-  scaleDown:
-    stabilizationWindowSeconds: 300
-    policies:
-    - type: Percent
-      value: 100
-      periodSeconds: 15
-  scaleUp:
-    stabilizationWindowSeconds: 0
-    policies:
-    - type: Percent
-      value: 100
-      periodSeconds: 15
-    - type: Pods
-      value: 4
-      periodSeconds: 15
-    selectPolicy: Max
-```
-안정화 윈도우의 스케일링 다운의 경우 _300_ 초(또는 제공된
-경우`--horizontal-pod-autoscaler-downscale-stabilization` 플래그의 값)이다. 스케일링 다운에서는 현재
-실행 중인 레플리카의 100%를 제거할 수 있는 단일 정책만 있으며, 이는 스케일링
-대상을 최소 허용 레플리카로 축소할 수 있음을 의미한다.
-스케일링 업에는 안정화 윈도우가 없다. 메트릭이 대상을 스케일 업해야 한다고 표시된다면 대상이 즉시 스케일 업된다.
-두 가지 폴리시가 있다. HPA가 정상 상태에 도달 할 때까지 15초 마다
-4개의 파드 또는 현재 실행 중인 레플리카의 100% 가 추가된다.
-
-### 예시: 다운스케일 안정화 윈도우 변경
-
-사용자 지정 다운스케일 안정화 윈도우를 1분 동안 제공하기 위해
-다음 동작이 HPA에 추가된다.
-
-```yaml
-behavior:
-  scaleDown:
-    stabilizationWindowSeconds: 60
-```
-
-### 예시: 스케일 다운 비율 제한
-
-HPA에 의해 파드가 제거되는 속도를 분당 10%로 제한하기 위해
-다음 동작이 HPA에 추가된다.
-
-```yaml
-behavior:
-  scaleDown:
-    policies:
-    - type: Percent
-      value: 10
-      periodSeconds: 60
-```
-
-마지막으로 5개의 파드를 드롭하기 위해 다른 폴리시를 추가하고, 최소 선택
-전략을 추가할 수 있다.
-
-```yaml
-behavior:
-  scaleDown:
-    policies:
-    - type: Percent
-      value: 10
-      periodSeconds: 60
-    - type: Pods
-      value: 5
-      periodSeconds: 60
-    selectPolicy: Max
-```
-
-### 예시: 스케일 다운 비활성화
-
-`selectPolicy` 의 `Disabled` 값은 주어진 방향으로의 스케일링을 끈다.
-따라서 다운 스케일링을 방지하기 위해 다음 폴리시가 사용된다.
-
-```yaml
-behavior:
-  scaleDown:
-    selectPolicy: Disabled
-```
 
 {{% /capture %}}
 

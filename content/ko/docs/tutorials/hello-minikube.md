@@ -117,7 +117,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개관](/docs/user-guide/kubectl-overview/)을 살펴보자.{{< /note >}}
 
 ## 서비스 만들기
@@ -125,14 +125,14 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 기본적으로 파드는 쿠버네티스 클러스터 내부의 IP 주소로만
 접근할 수 있다. `hello-node` 컨테이너를 쿠버네티스 가상 네트워크
 외부에서 접근하려면 파드를 쿠버네티스
-[*서비스*](/docs/concepts/services-networking/service/)로 노출해야 한다.
+[*서비스*](/ko/docs/concepts/services-networking/service/)로 노출해야 한다.
 
 1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출하기
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
+
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출하기
     원한다는 뜻이다.
 
@@ -198,13 +198,13 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     storage-provisioner: enabled
     storage-provisioner-gluster: disabled
     ```
-   
+
 2. 한 애드온을 활성화 한다. 예를 들어 `metrics-server`
 
     ```shell
     minikube addons enable metrics-server
     ```
-  
+
     다음과 유사하게 출력된다.
 
     ```
@@ -245,7 +245,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     ```shell
     minikube addons disable metrics-server
     ```
-  
+
     다음과 유사하게 출력된다.
 
     ```
@@ -278,7 +278,7 @@ minikube delete
 {{% capture whatsnext %}}
 
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해서 더 배워 본다.
-* [애플리케이션 배포](/docs/user-guide/deploying-applications/)에 대해서 더 배워 본다.
-* [서비스 오브젝트](/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
+* [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)에 대해서 더 배워 본다.
+* [서비스 오브젝트](/ko/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
 
 {{% /capture %}}

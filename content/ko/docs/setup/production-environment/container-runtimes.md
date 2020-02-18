@@ -73,7 +73,7 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 ## 리포지터리 설정
 ### apt가 HTTPS 리포지터리를 사용할 수 있도록 해주는 패키지 설치
 apt-get update && apt-get install -y \
-  apt-transport-https ca-certificates curl software-properties-common
+  apt-transport-https ca-certificates curl software-properties-common gnupg2
 
 ### Docker의 공식 GPG 키 추가
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -159,6 +159,11 @@ systemctl restart docker
 이 섹션은 `CRI-O`를 CRI 런타임으로 설치하는 필수적인 단계를 담고 있다.
 
 시스템에 CRI-O를 설치하기 위해서 다음의 커맨드를 사용한다.
+
+{{< note >}}
+CRI-O 메이저와 마이너 버전은 쿠버네티스 메이저와 마이너 버전이 일치해야 한다.
+더 자세한 정보는 [CRI-O 호환 매트릭스](https://github.com/cri-o/cri-o)를 본다.
+{{< /note >}}
 
 ### 선행 조건
 
