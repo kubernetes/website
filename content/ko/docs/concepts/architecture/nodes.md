@@ -103,7 +103,7 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 ## 관리
 
-[파드](/ko/docs/concepts/workloads/pods/pod/)와 [서비스](/docs/concepts/services-networking/service/)와 달리,
+[파드](/ko/docs/concepts/workloads/pods/pod/)와 [서비스](/ko/docs/concepts/services-networking/service/)와 달리,
 노드는 본래 쿠버네티스에 의해 생성되지 않는다. 구글 컴퓨트 엔진과 같은 클라우드 제공사업자에 의해 
 외부로부터 생성 되거나, 물리적 또는 가상 머신의 풀 내에서 존재한다. 
 그래서 쿠버네티스가 노드를 생성할 때, 

@@ -125,7 +125,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 기본적으로 파드는 쿠버네티스 클러스터 내부의 IP 주소로만
 접근할 수 있다. `hello-node` 컨테이너를 쿠버네티스 가상 네트워크
 외부에서 접근하려면 파드를 쿠버네티스
-[*서비스*](/docs/concepts/services-networking/service/)로 노출해야 한다.
+[*서비스*](/ko/docs/concepts/services-networking/service/)로 노출해야 한다.
 
 1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출하기
 
@@ -278,7 +278,7 @@ minikube delete
 {{% capture whatsnext %}}
 
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해서 더 배워 본다.
-* [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)에 대해서 더 배워 본다.
-* [서비스 오브젝트](/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
+* [애플리케이션 배포](/docs/user-guide/deploying-applications/)에 대해서 더 배워 본다.
+* [서비스 오브젝트](/ko/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
 
 {{% /capture %}}

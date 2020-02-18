@@ -56,7 +56,7 @@ RuntimeClass 특징 게이트가 활성화(기본값)를 확인한다.
 {{< note >}}
 런타임 클래스는 기본적으로 클러스터 전체에 걸쳐 동질의 노드 설정
 (모든 노드가 컨테이너 런타임에 준하는 동일한 방식으로 설정되었음을 의미)을 가정한다.
-이종의(heterogenous) 노드 설정을 지원하기 위해서는, 아래 [스케줄링](#scheduling)을 참고한다.
+이종의(heterogenous) 노드 설정을 지원하기 위해서는, 아래 [스케줄](#스케줄)을 참고한다.
 {{< /note >}}
 
 해당 설정은 상응하는 `handler` 이름을 가지며, 이는 런타임 클래스에 의해서 참조된다.
@@ -163,7 +163,7 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 노드의 합집합을 취한다.
 
 노드 셀렉터와 톨러레이션 설정에 대해 더 배우려면
-[노드에 파드 할당](/docs/concepts/configuration/assign-pod-node/)을 참고한다.
+[노드에 파드 할당](/ko/docs/concepts/configuration/assign-pod-node/)을 참고한다.
 
 [어드미션 컨트롤러]: /docs/reference/access-authn-authz/admission-controllers/
 

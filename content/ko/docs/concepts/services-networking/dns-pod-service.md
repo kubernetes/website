@@ -55,7 +55,7 @@ IP로 해석된다.
 ### SRV 레코드
 
 SRV 레코드는 노멀 서비스 또는 
-[헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)에 
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)에 
 속하는 네임드 포트를 위해 만들어졌다. 각각의 네임드 포트에 대해서 SRV 레코드는 다음과 같은 형식을 가질 수 있다. 
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
 정규 서비스의 경우, 이는 포트 번호와 도메인 네임으로 해석된다. 

@@ -123,7 +123,7 @@ my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 이제 클러스터의 모든 노드에서 `<CLUSTER-IP>:<PORT>` 로 nginx 서비스를
 curl을 할 수 있을 것이다. 서비스 IP는 완전히 가상이므로 외부에서는 절대로 연결되지
 않음에 참고한다. 만약 이것이 어떻게 작동하는지 궁금하다면
-[서비스 프록시](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)에 대해 더 읽어본다.
+[서비스 프록시](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)에 대해 더 읽어본다.
 
 ## 서비스에 접근하기
 

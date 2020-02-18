@@ -38,8 +38,8 @@ weight: 40
 인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름 기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
 
 인그레스는 임의의 포트 또는 프로토콜을 노출시키지 않는다. HTTP와 HTTPS 이외의 서비스를 인터넷에 노출하려면 보통
-[Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 또는
-[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer) 유형의 서비스를 사용한다.
+[Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 또는
+[Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 유형의 서비스를 사용한다.
 
 ## 전제 조건들
 
@@ -98,7 +98,7 @@ spec:
 * 경로 목록 (예, `/testpath`)에는 각각 `serviceName` 과 `servicePort` 가 정의되어있는 관련
   백엔드를 가지고 있다. 로드 밸런서가 트래픽을 참조된 서비스로 보내기 전에 호스트와 경로가
   모두 수신 요청의 내용과 일치해야 한다.
-* 백엔드는 [서비스 문서](/docs/concepts/services-networking/service/)에 설명된 바와 같이
+* 백엔드는 [서비스 문서](/ko/docs/concepts/services-networking/service/)에 설명된 바와 같이
   서비스와 포트 이름의 조합이다. 호스트와 규칙 경로가 일치하는 인그레스에 대한
   HTTP(와 HTTPS) 요청은 백엔드 목록으로 전송된다.
 
@@ -211,7 +211,7 @@ Events:
 {{< note >}}
 사용중인 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)
 에 따라 default-http-backend
-[서비스](/docs/concepts/services-networking/service/)를 만들어야 할 수도 있다.
+[서비스](/ko/docs/concepts/services-networking/service/)를 만들어야 할 수도 있다.
 {{< /note >}}
 
 ### 이름 기반의 가상 호스팅
@@ -457,8 +457,8 @@ Events:
 
 사용자는 인그레스 리소스를 직접적으로 포함하지 않는 여러가지 방법으로 서비스를 노출할 수 있다.
 
-* [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer) 사용.
-* [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 사용.
+* [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 사용.
+* [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 사용.
 
 {{% /capture %}}
 

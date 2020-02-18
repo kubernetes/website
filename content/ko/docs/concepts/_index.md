@@ -31,7 +31,7 @@ weight: 40
 기초적인 쿠버네티스 오브젝트에는 다음과 같은 것들이 있다.
 
 * [파드](/ko/docs/concepts/workloads/pods/pod-overview/)
-* [서비스](/docs/concepts/services-networking/service/)
+* [서비스](/ko/docs/concepts/services-networking/service/)
 * [볼륨](/docs/concepts/storage/volumes/)
 * [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/)
 

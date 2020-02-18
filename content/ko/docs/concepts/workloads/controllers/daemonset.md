@@ -88,9 +88,9 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 오직 일부 노드에서만 파드 실행
 
 만약 `.spec.template.spec.nodeSelector` 를 명시하면 데몬셋 컨트롤러는 
-[노드 셀렉터](/docs/concepts/configuration/assign-pod-node/#nodeselector)와 
+[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/#노드-셀렉터-nodeselector)와 
 일치하는 노드에 파드를 생성한다. 마찬가지로 `.spec.template.spec.affinity` 를 명시하면 
-데몬셋 컨트롤러는 [노트 어피니티](/docs/concepts/configuration/assign-pod-node/#node-affinity)와 일치하는 노드에 파드를 생성한다. 
+데몬셋 컨트롤러는 [노트 어피니티](/ko/docs/concepts/configuration/assign-pod-node/#노드-어피니티)와 일치하는 노드에 파드를 생성한다. 
 만약 둘 중 하나를 명시하지 않으면 데몬셋 컨트롤러는 모든 노드에서 파드를 생성한다.
 
 ## 데몬 파드가 스케줄 되는 방법
@@ -161,7 +161,7 @@ nodeAffinity:
 - **푸시(Push)**: 데몬셋의 파드는 통계 데이터베이스와 같은 다른 서비스로 업데이트를 보내도록
   구성되어있다. 그들은 클라이언트들을 가지지 않는다.
 - **노드IP와 알려진 포트**: 데몬셋의 파드는 `호스트 포트`를 사용할 수 있으며, 노드IP를 통해 파드에 접근할 수 있다. 클라이언트는 노드IP를 어떻게든지 알고 있으며, 관례에 따라 포트를 알고 있다.
-- **DNS**: 동일한 파드 셀렉터로 [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)를 만들고, 
+- **DNS**: 동일한 파드 셀렉터로 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)를 만들고, 
   그 다음에 `엔드포인트` 리소스를 사용해서 데몬셋을 찾거나 DNS에서 여러 A레코드를
   검색한다.
 - **서비스**: 동일한 파드 셀렉터로 서비스를 생성하고, 서비스를 사용해서
