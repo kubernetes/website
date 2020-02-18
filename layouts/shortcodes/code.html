@@ -1,0 +1,38 @@
+{{ $p := .Page }}
+{{ $file := .Get "file" }}
+{{ $codelang := .Get "language" | default (path.Ext $file | strings.TrimPrefix ".") }} 
+{{ $fileDir := path.Split $file }}
+{{ $bundlePath := path.Join .Page.File.Dir $fileDir.Dir }}
+{{ $filename := path.Join $p.File.Dir $file }}
+{{ $ghlink := printf "https://%s/blob/master/content/%s/%s" site.Params.githubwebsiterepo .Page.Lang $filename | safeURL }}
+{{/* First assume this is a bundle and the file is inside it. */}}
+{{ $resource := $p.Resources.GetMatch (printf "%s*" $file ) }}
+{{ with $resource }}
+{{ $.Scratch.Set "content" .Content }}
+{{ else }}
+{{/* Read the file relative to the content root. */}}
+{{ $resource := readFile $filename}}
+{{ with $resource }}{{ $.Scratch.Set "content" . }}{{ end }}
+{{ end }}
+{{ if not ($.Scratch.Get "content") }}
+{{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
+{{ end }}
+{{ with $.Scratch.Get "content" }}
+<table class="includecode" id="{{ $file | anchorize }}">
+    <thead>
+        <tr>
+            <th>
+                {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}
+                    <code>{{ $file }} {{ $bundlePath }}</code>
+                {{ if $ghlink }}</a>{{ end }}
+                <img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ highlight . $codelang "" }}  </td>
+        </tr>
+    </tbody>
+</table>
+{{ end }}

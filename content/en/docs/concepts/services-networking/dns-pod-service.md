@@ -38,16 +38,14 @@ For more up-to-date specification, see
 
 ## Services
 
-### A/AAAA records
+### A records
 
-"Normal" (not headless) Services are assigned a DNS A or AAAA record,
-depending on the IP family of the service, for a name of the form
-`my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
+"Normal" (not headless) Services are assigned a DNS A record for a name of the
+form `my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
 of the Service.
 
-"Headless" (without a cluster IP) Services are also assigned a DNS A or AAAA record,
-depending on the IP family of the service, for a name of the form
-`my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
+"Headless" (without a cluster IP) Services are also assigned a DNS A record for
+a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
 Services, this resolves to the set of IPs of the pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
@@ -130,22 +128,22 @@ spec:
 ```
 
 If there exists a headless service in the same namespace as the pod and with
-the same name as the subdomain, the cluster's DNS Server also returns an A or AAAA
+the same name as the subdomain, the cluster's KubeDNS Server also returns an A
 record for the Pod's fully qualified hostname.
 For example, given a Pod with the hostname set to "`busybox-1`" and the subdomain set to
 "`default-subdomain`", and a headless Service named "`default-subdomain`" in
 the same namespace, the pod will see its own FQDN as
 "`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`". DNS serves an
-A or AAAA record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
-"`busybox2`" can have their distinct A or AAAA records.
+A record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
+"`busybox2`" can have their distinct A records.
 
 The Endpoints object can specify the `hostname` for any endpoint addresses,
 along with its IP.
 
 {{< note >}}
-Because A or AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA
+Because A records are not created for Pod names, `hostname` is required for the Pod's A
 record to be created. A Pod with no `hostname` but with `subdomain` will only create the
-A or AAAA record for the headless service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
+A record for the headless service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
 pointing to the Pod's IP address. Also, Pod needs to become ready in order to have a
 record unless `publishNotReadyAddresses=True` is set on the Service.
 {{< /note >}}

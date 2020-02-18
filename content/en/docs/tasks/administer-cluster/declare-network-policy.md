@@ -3,7 +3,6 @@ reviewers:
 - caseydavenport
 - danwinship
 title: Declare Network Policy
-min-kubernetes-server-version: v1.8
 content_template: templates/task
 ---
 {{% capture overview %}}
@@ -31,7 +30,7 @@ The above list is sorted alphabetically by product name, not by recommendation o
 
 ## Create an `nginx` deployment and expose it via a service
 
-To see how Kubernetes network policy works, start off by creating an `nginx` Deployment.
+To see how Kubernetes network policy works, start off by creating an `nginx` deployment.
 
 ```console
 kubectl create deployment nginx --image=nginx
@@ -40,7 +39,7 @@ kubectl create deployment nginx --image=nginx
 deployment.apps/nginx created
 ```
 
-Expose the Deployment through a Service called `nginx`.
+And expose it via a service.
 
 ```console
 kubectl expose deployment nginx --port=80
@@ -50,7 +49,7 @@ kubectl expose deployment nginx --port=80
 service/nginx exposed
 ```
 
-The above commands create a Deployment with an nginx Pod and expose the Deployment through a Service named `nginx`. The `nginx` Pod and Deployment are found in the `default` namespace.
+This runs a `nginx` pods in the default namespace, and exposes it through a service called `nginx`.
 
 ```console
 kubectl get svc,pod
@@ -65,43 +64,59 @@ NAME                        READY         STATUS        RESTARTS   AGE
 pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 ```
 
-## Test the service by accessing it from another Pod
+## Test the service by accessing it from another pod
 
-You should be able to access the new `nginx` service from other Pods. To access the `nginx` Service from another Pod in the `default` namespace, start a busybox container:
+You should be able to access the new `nginx` service from other pods. To test, access the service from another pod in the default namespace. Make sure you haven't enabled isolation on the namespace.
+
+Start a busybox container, and use `wget` on the `nginx` service:
 
 ```console
 kubectl run --generator=run-pod/v1 busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
-In your shell, run the following command:
+```console
+Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
 
-```shell
-wget --spider --timeout=1 nginx
-```
+Hit enter for command prompt
 
-```none
+/ # wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
-remote file exists
+/ #
 ```
 
 ## Limit access to the `nginx` service
 
-To limit the access to the `nginx` service so that only Pods with the label `access: true` can query it, create a NetworkPolicy object as follows:
+Let's say you want to limit access to the `nginx` service so that only pods with the label `access: true` can query it. To do that, create a `NetworkPolicy` that allows connections only from those pods:
 
-{{< codenew file="service/networking/nginx-policy.yaml" >}}
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: access-nginx
+spec:
+  podSelector:
+    matchLabels:
+      app: nginx
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          access: "true"
+```
 
 {{< note >}}
 
-NetworkPolicy includes a `podSelector` which selects the grouping of Pods to which the policy applies. You can see this policy selects Pods with the label `app=nginx`. The label was automatically added to the Pod in the `nginx` Deployment. An empty `podSelector` selects all pods in the namespace.
+In the case, the label `app=nginx` is automatically added.
 
 {{< /note >}}
 
+
 ## Assign the policy to the service
 
-Use kubectl to create a NetworkPolicy from the above `nginx-policy.yaml` file:
+Use kubectl to create a NetworkPolicy from the above nginx-policy.yaml file:
 
 ```console
-kubectl apply -f https://k8s.io/examples/service/networking/nginx-policy.yaml
+kubectl apply -f nginx-policy.yaml
 ```
 
 ```none
@@ -109,40 +124,40 @@ networkpolicy.networking.k8s.io/access-nginx created
 ```
 
 ## Test access to the service when access label is not defined
-When you attempt to access the `nginx` Service from a Pod without the correct labels, the request times out:
+If we attempt to access the nginx Service from a pod without the correct labels, the request will now time out:
 
 ```console
 kubectl run --generator=run-pod/v1 busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
-In your shell, run the command:
+```console
+Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
 
-```shell
-wget --spider --timeout=1 nginx
-```
+Hit enter for command prompt
 
-```none
+/ # wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 wget: download timed out
+/ #
 ```
 
 ## Define access label and test again
 
-You can create a Pod with the correct labels to see that the request is allowed:
+Create a pod with the correct labels, and you'll see that the request is allowed:
 
 ```console
 kubectl run --generator=run-pod/v1 busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
 ```
 
-In your shell, run the command:
+```console
+Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
 
-```shell
-wget --spider --timeout=1 nginx
-```
+Hit enter for command prompt
 
-```none
+/ # wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
-remote file exists
+/ #
 ```
-
 {{% /capture %}}
+
+

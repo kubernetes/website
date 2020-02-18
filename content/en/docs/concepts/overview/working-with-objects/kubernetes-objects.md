@@ -12,9 +12,9 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 {{% /capture %}}
 
 {{% capture body %}}
-## Understanding Kubernetes objects {#kubernetes-objects}
+## Understanding Kubernetes Objects
 
-*Kubernetes objects* are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state of your cluster. Specifically, they can describe:
+*Kubernetes Objects* are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state of your cluster. Specifically, they can describe:
 
 * What containerized applications are running (and on which nodes)
 * The resources available to those applications
@@ -33,7 +33,7 @@ For example, a Kubernetes Deployment is an object that can represent an applicat
 
 For more information on the object spec, status, and metadata, see the [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
-### Describing a Kubernetes object
+### Describing a Kubernetes Object
 
 When you create an object in Kubernetes, you must provide the object spec that describes its desired state, as well as some basic information about the object (such as a name). When you use the Kubernetes API to create the object (either directly or via `kubectl`), that API request must include that information as JSON in the request body. **Most often, you provide the information to `kubectl` in a .yaml file.** `kubectl` converts the information to JSON when making the API request.
 
@@ -51,7 +51,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
 
 The output is similar to this:
 
-```
+```shell
 deployment.apps/nginx-deployment created
 ```
 
@@ -73,7 +73,6 @@ and the `spec` format for a Deployment can be found in
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [Kubernetes API overview](/docs/reference/using-api/api-overview/) explains some more API concepts
 * Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
 * Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes
 {{% /capture %}}
