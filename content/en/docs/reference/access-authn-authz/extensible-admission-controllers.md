@@ -631,6 +631,8 @@ So a webhook response to add that label would be:
 ## Webhook configuration
 
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
+The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguration` object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 Each configuration can contain one or more webhooks.
 If multiple webhooks are specified in a single configuration, each should be given a unique name.
