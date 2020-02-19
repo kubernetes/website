@@ -6,8 +6,9 @@ weight: 28
 
 {{% capture synopsis %}}
 
+The Kubernetes scheduler watches for newly created Pods that have no Node assigned. For every Pod that the scheduler discovers, the scheduler becomes responsible for finding the best Node for that Pod to run on.
 
-The Kubernetes scheduler is a policy-rich, topology-aware,
+The scheduler is a policy-rich, topology-aware,
 workload-specific function that significantly impacts availability, performance,
 and capacity. The scheduler needs to take into account individual and collective
 resource requirements, quality of service requirements, hardware/software/policy
