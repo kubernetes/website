@@ -146,7 +146,7 @@ different Kubernetes components.
 | `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | |
-| `ValidateProxyRedirects` | `false` | Alpha | 1.10 | 1.13 |
+| `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | |
