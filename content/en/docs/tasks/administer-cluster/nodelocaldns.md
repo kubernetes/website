@@ -4,6 +4,7 @@ reviewers:
 - zihongz
 title: Using Node-local DNS Cache
 content_template: templates/task
+min-kubernetes-server-version: v1.15
 ---
 
 {{% capture overview %}}
