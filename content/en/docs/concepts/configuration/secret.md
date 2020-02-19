@@ -14,7 +14,7 @@ weight: 50
 
 Kubernetes Secrets let you store and manage sensitive information, such
 as passwords, OAuth tokens, and ssh keys. Storing confidential information in a Secret
-is safer and more flexible than putting it verbatim in a
+is safer and more flexible than putting it exactly as is in a
 {{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
 {{% /capture %}}
