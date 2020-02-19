@@ -255,7 +255,7 @@ For example, with the following configuration:
 
 ```
 --eviction-hard=memory.available<500Mi,nodefs.available<1Gi,imagefs.available<100Gi
---eviction-minimum-reclaim="memory.available=0Mi,nodefs.available=500Mi,imagefs.available=2Gi"`
+--eviction-minimum-reclaim="memory.available=500Mi,nodefs.available=1.5Gi,imagefs.available=102Gi"`
 ```
 
 If an eviction threshold is triggered for `memory.available`, the `kubelet` works to ensure
