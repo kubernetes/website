@@ -30,7 +30,7 @@ This is a living document. If you think of something that is not on this list bu
 - Put object descriptions in annotations, to allow better introspection.
 
 
-## "Naked" Pods vs ReplicaSets, Deployments, and Jobs
+## "Naked" Pods versus ReplicaSets, Deployments, and Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.
 
@@ -107,5 +107,4 @@ The caching semantics of the underlying image provider make even `imagePullPolic
 - Use `kubectl run` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
 
 {{% /capture %}}
-
 
