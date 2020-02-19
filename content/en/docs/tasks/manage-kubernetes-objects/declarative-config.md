@@ -654,7 +654,7 @@ by `name`.
 # last-applied-configuration value
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
     - name: nginx-helper-a # key: nginx-helper-a; will be deleted in result
       image: helper:1.3
     - name: nginx-helper-b # key: nginx-helper-b; will be retained
@@ -663,7 +663,7 @@ by `name`.
 # configuration file value
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
     - name: nginx-helper-b
       image: helper:1.3
     - name: nginx-helper-c # key: nginx-helper-c; will be added in result
@@ -672,7 +672,7 @@ by `name`.
 # live configuration
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
     - name: nginx-helper-a
       image: helper:1.3
     - name: nginx-helper-b
@@ -684,7 +684,7 @@ by `name`.
 # result after merge
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
       # Element nginx-helper-a was deleted
     - name: nginx-helper-b
       image: helper:1.3
