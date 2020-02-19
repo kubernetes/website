@@ -153,14 +153,14 @@ from the [`kubectl` reference](/docs/reference/generated/kubectl/kubectl-command
 
 ## Walkthrough
 
-Let's say you were running version 1.7.9 of nginx:
+Let's say you were running version 1.14.2 of nginx:
 
-{{< codenew file="controllers/replication-nginx-1.7.9.yaml" >}}
+{{< codenew file="controllers/replication-nginx-1.14.2.yaml" >}}
 
-To update to version 1.9.1, you can use [`kubectl rolling-update --image`](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) to specify the new image:
+To update to version 1.16.1, you can use [`kubectl rolling-update --image`](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) to specify the new image:
 
 ```shell
-kubectl rolling-update my-nginx --image=nginx:1.9.1
+kubectl rolling-update my-nginx --image=nginx:1.16.1
 ```
 ```
 Created my-nginx-ccba8fbd8cc8160970f63f9a2696fc46
