@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-ノードは、以前には `ミニオン` としても知られていた、Kubernetesにおけるワーカーマシンです。1つのノードはクラスターの性質にもよりますが、1つのVMまたは物理的なマシンです。各ノードには[Pod](/ja/docs/concepts/workloads/pods/pod/)を動かすために必要なサービスが含まれており、マスターコンポーネントによって管理されています。ノード上のサービスには[コンテナランタイム](/docs/concepts/overview/components/#node-components)、kubelet、kube-proxyが含まれています。詳細については、設計ドキュメントの[Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)セクションをご覧ください。
+ノードは、以前には `ミニオン` としても知られていた、Kubernetesにおけるワーカーマシンです。1つのノードはクラスターの性質にもよりますが、1つのVMまたは物理的なマシンです。各ノードには[Pod](/ja/docs/concepts/workloads/pods/pod/)を動かすために必要なサービスが含まれており、マスターコンポーネントによって管理されています。ノード上のサービスには[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)、kubelet、kube-proxyが含まれています。詳細については、設計ドキュメントの[Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)セクションをご覧ください。
 
 {{% /capture %}}
 
@@ -209,7 +209,7 @@ DaemonSetコントローラーによって作成されたPodはKubernetesスケ�
 
 Kubernetesスケジューラーは、ノード上のすべてのPodに十分なリソースがあることを確認します。
 ノード上のコンテナが要求するリソースの合計がノードキャパシティ以下であることを確認します。
-これは、kubeletによって開始されたすべてのコンテナを含みますが、[コンテナランタイム](/docs/concepts/overview/components/#node-components)によって直接開始されたコンテナやコンテナの外で実行されているプロセスは含みません。
+これは、kubeletによって開始されたすべてのコンテナを含みますが、[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)によって直接開始されたコンテナやコンテナの外で実行されているプロセスは含みません。
 
 Pod以外のプロセス用にリソースを明示的に予約したい場合は、このチュートリアルに従って[Systemデーモン用にリソースを予約](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)してください。
 
