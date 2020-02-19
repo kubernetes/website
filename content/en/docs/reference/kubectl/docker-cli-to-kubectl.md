@@ -281,7 +281,7 @@ kubectl get po -l run=nginx-app
 ```
 
 {{< note >}}
-When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
+When you use kubectl, you don't delete the pod directly. You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
 {{< /note >}}
 
 ## docker login
