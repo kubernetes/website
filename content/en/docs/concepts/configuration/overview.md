@@ -30,7 +30,7 @@ This is a living document. If you think of something that is not on this list bu
 - Put object descriptions in annotations, to allow better introspection.
 
 
-## "Naked" Pods vs ReplicaSets, Deployments, and Jobs
+## "Naked" Pods versus ReplicaSets, Deployments, and Jobs
 
 - Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.
 

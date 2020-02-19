@@ -376,7 +376,7 @@ pods        0     10
 * `Exist`
 * `DoesNotExist`
 
-## Requests vs Limits
+## Requests versus Limits
 
 When allocating compute resources, each container may specify a request and a limit value for either CPU or memory.
 The quota can be configured to quota either value.

@@ -202,7 +202,7 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 | Finalizers | Block deletion of extension resources until external cleanup happens. |
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
-| Unset vs Empty | Clients can distinguish unset fields from zero-valued fields. |
+| Unset versus Empty | Clients can distinguish unset fields from zero-valued fields. |
 | Client Libraries Generation | Kubernetes provides generic client libraries, as well as tools to generate type-specific client libraries. |
 | Labels and annotations | Common metadata across objects that tools know how to edit for core and custom resources. |
 
