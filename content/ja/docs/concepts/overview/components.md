@@ -80,7 +80,7 @@ cloud-controller-managerを使用すると、クラウドベンダーのコー�
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
-### コンテナランタイム
+### コンテナランタイム {#container-runtime}
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
