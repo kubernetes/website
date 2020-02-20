@@ -95,7 +95,7 @@ workloads, et plus encore.
 
 * [Oracle Container Engine for Kubernetes](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) est un service entièrement géré, évolutif et hautement disponible que vous pouvez utiliser pour déployer vos applications conteneurisées dans le cloud.
 
-* [OVHcloud Managed Kubernetes Service](https://www.ovhcloud.com/fr/public-cloud/kubernetes/) est un service gratuit, entièrement géré, évolutif et hautement disponible pour héberger vos applications conteneurisées sur le Cloud Public OVHcloud. Il est disponible sur plusieurs continents.
+* [OVHcloud Managed Kubernetes Service](https://www.ovhcloud.com/fr/public-cloud/kubernetes/) est un service entièrement géré, évolutif et hautement disponible pour héberger vos applications conteneurisées sur le cloud public OVHcloud. Il est disponible sur plusieurs continents.
 
 * [Platform9](https://platform9.com/products/kubernetes/) offre des Kubernetes gérés on-premises ou sur n'importe quel cloud public, et fournit une surveillance et des alertes de santé 24h/24 et 7j/7. (Kube2go, une plate-forme de service de déploiement de cluster Kubernetes pour le déploiement de l'interface utilisateur Web9, a été intégrée à Platform9 Sandbox.)
 
