@@ -213,7 +213,7 @@ This is one example where the immutability of containers is a huge asset.
 
 If you need to update more than just the image (e.g., command arguments, environment variables), you can create a new replication controller, with a new name and distinguishing label value, such as:
 
-{{< codenew file="controllers/replication-nginx-1.9.2.yaml" >}}
+{{< codenew file="controllers/replication-nginx-1.16.1.yaml" >}}
 
 and roll it out:
 
