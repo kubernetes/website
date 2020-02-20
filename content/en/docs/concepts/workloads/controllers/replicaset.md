@@ -75,53 +75,50 @@ kubectl describe rs/frontend
 
 And you will see output similar to:
 ```shell
-Name:		frontend
-Namespace:	default
-Selector:	tier=frontend
-Labels:		app=guestbook
-		tier=frontend
-Annotations:	<none>
-Replicas:	3 current / 3 desired
-Pods Status:	3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Name:         frontend
+Namespace:    default
+Selector:     tier=frontend
+Labels:       app=guestbook
+              tier=frontend
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"apps/v1","kind":"ReplicaSet","metadata":{"annotations":{},"labels":{"app":"guestbook","tier":"frontend"},"name":"frontend",...
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 Pod Template:
-  Labels:       app=guestbook
-                tier=frontend
+  Labels:  tier=frontend
   Containers:
    php-redis:
-    Image:      gcr.io/google_samples/gb-frontend:v3
-    Port:       80/TCP
-    Requests:
-      cpu:      100m
-      memory:   100Mi
-    Environment:
-      GET_HOSTS_FROM:   dns
-    Mounts:             <none>
-  Volumes:              <none>
+    Image:        gcr.io/google_samples/gb-frontend:v3
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
 Events:
-  FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-  ---------    --------    -----    ----                -------------    --------    ------            -------
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-qhloh
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-dnjpy
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-9si5l
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  117s  replicaset-controller  Created pod: frontend-wtsmm
+  Normal  SuccessfulCreate  116s  replicaset-controller  Created pod: frontend-b2zdv
+  Normal  SuccessfulCreate  116s  replicaset-controller  Created pod: frontend-vcmts
 ```
 
 And lastly you can check for the Pods brought up:
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 You should see Pod information similar to:
 ```shell
-NAME             READY     STATUS    RESTARTS   AGE
-frontend-9si5l   1/1       Running   0          1m
-frontend-dnjpy   1/1       Running   0          1m
-frontend-qhloh   1/1       Running   0          1m
+NAME             READY   STATUS    RESTARTS   AGE
+frontend-b2zdv   1/1     Running   0          6m36s
+frontend-vcmts   1/1     Running   0          6m36s
+frontend-wtsmm   1/1     Running   0          6m36s
 ```
 
 You can also verify that the owner reference of these pods is set to the frontend ReplicaSet.
 To do this, get the yaml of one of the Pods running:
 ```shell
-kubectl get pods frontend-9si5l -o yaml
+kubectl get pods frontend-b2zdv -o yaml
 ```
 
 The output will look similar to this, with the frontend ReplicaSet's info set in the metadata's ownerReferences field:
@@ -129,11 +126,11 @@ The output will look similar to this, with the frontend ReplicaSet's info set in
 apiVersion: v1
 kind: Pod
 metadata:
-  creationTimestamp: 2019-01-31T17:20:41Z
+  creationTimestamp: "2020-02-12T07:06:16Z"
   generateName: frontend-
   labels:
     tier: frontend
-  name: frontend-9si5l
+  name: frontend-b2zdv
   namespace: default
   ownerReferences:
   - apiVersion: apps/v1
@@ -141,7 +138,7 @@ metadata:
     controller: true
     kind: ReplicaSet
     name: frontend
-    uid: 892a2330-257c-11e9-aecd-025000000001
+    uid: f391f6db-bb9b-4c09-ae74-6a1f77f3d5cf
 ...
 ```
 
@@ -170,16 +167,17 @@ its desired count.
 
 Fetching the Pods:
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 The output shows that the new Pods are either already terminated, or in the process of being terminated:
 ```shell
 NAME             READY   STATUS        RESTARTS   AGE
-frontend-9si5l   1/1     Running       0          1m
-frontend-dnjpy   1/1     Running       0          1m
-frontend-qhloh   1/1     Running       0          1m
-pod2             0/1     Terminating   0          4s
+frontend-b2zdv   1/1     Running       0          10m
+frontend-vcmts   1/1     Running       0          10m
+frontend-wtsmm   1/1     Running       0          10m
+pod1             0/1     Terminating   0          1s
+pod2             0/1     Terminating   0          1s
 ```
 
 If you create the Pods first:
@@ -195,15 +193,15 @@ kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 You shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
 number of its new Pods and the original matches its desired count. As fetching the Pods:
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 Will reveal in its output:
 ```shell
 NAME             READY   STATUS    RESTARTS   AGE
-frontend-pxj4r   1/1     Running   0          5s
-pod1             1/1     Running   0          13s
-pod2             1/1     Running   0          13s
+frontend-hmmj2   1/1     Running   0          9s
+pod1             1/1     Running   0          36s
+pod2             1/1     Running   0          36s
 ```
 
 In this manner, a ReplicaSet can own a non-homogenous set of Pods
