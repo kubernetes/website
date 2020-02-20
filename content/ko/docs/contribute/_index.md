@@ -39,7 +39,7 @@ weight: 80
 - 명확하고, 의미있는 GIT 커밋 메시지를 작성한다.
 - 이슈를 참조하고, PR이 병합될 때 이슈를 자동으로 닫는 _Github 특수 키워드_ 를 포함한다.
 - 오타 수정, 스타일 변경 또는 문법 변경과 같이 변경이 적은 PR을 생성할때, 비교적으로 적은 변화로 많은 커밋 개수를 받지 않도록 반드시 커밋을 스쿼시(squash)한다.
-- 코드 변경 이유를 묘사하는 좋은 PR을 포함하도록 해야하는 것은 다음 코드를 변경해야하는 이유와 리뷰어가 PR을 이해할 수 있는 충분한 정보가 있어야 한다.
+- 변경한 코드를 묘사하고, 코드를 변경한 이유를 포함하는 멋진 PR 설명을 포함하고 있는지와 리뷰어를 위한 충분한 정보가 있는지 꼭 확인한다.
 - 추가적인 읽을거리들
     - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
     - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests )

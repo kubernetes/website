@@ -203,7 +203,7 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-이 기능을 사용하려면 사용자(또는 클러스터 관리자가) API 서버에 `--feature-gates=SCTPSupport=true,…` 를 사용해서 `SCTPSupport` 기능 게이트를 활성화 해야 한다.
+이 기능을 사용하려면 사용자(또는 클러스터 관리자가) API 서버에 `--feature-gates=SCTPSupport=true,…` 를 사용해서 `SCTPSupport` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다.
 기능 게이트가 활셩화 되면, NetworkPolicy의 `protocol` 필드를 `SCTP` 로 설정할 수 있다.
 
 {{< note >}}
