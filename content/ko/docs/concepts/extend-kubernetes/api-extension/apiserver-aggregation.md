@@ -14,7 +14,7 @@ weight: 10
 
 ## 개요
 
-애그리게이션 레이어는 부가적인 쿠버네티스-스타일 API를 클러스터에 설치할 수 있게 해준다. 이는 [서비스-카탈로그](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md)처럼 사전에 구축되어 존재하는 서드 파티 솔루션일 수 있고, [apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md)로 시작해볼 수 있는 것과 같은 사용자 정의 API일 수도 있다.
+애그리게이션 레이어는 부가적인 쿠버네티스-스타일 API를 클러스터에 설치할 수 있게 해준다. 이는 [서비스-카탈로그](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md)와 같이 사전에 구축되어 있는 서드 파티 솔루션일 수 있고, [apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md)로 시작해볼 수 있는 것과 같은 사용자 정의 API일 수도 있다.
 
 애그리게이션 레이어는 kube-apiserver 프로세스 안에서 구동된다. 확장 리소스가 등록되기 전까지, 애그리게이션 레이어는 아무 일도 하지 않는다. API를 등록하기 위해서, 사용자는 쿠버네티스 API 내에서 URL 경로를 "요구하는(claim)" APIService 오브젝트를 추가해야 한다. 이때, 애그리게이션 레이어는 해당 API 경로(예: /apis/myextensions.mycompany.io/v1/...)로 전송되는 모든 것을 등록된 APIService로 프록시하게 된다.
 
@@ -22,7 +22,7 @@ weight: 10
 
 Extension-apiserver는 kube-apiserver로 오가는 연결의 레이턴시가 낮아야 한다.
 특히, kube-apiserver로 부터의 디스커버리 요청은 왕복 레이턴시가 5초 이내여야 한다.
-이를 달성할 수 없는 경우에는, 이를 어떻게 바꿀 수 있을지 고려해야 한다. 지금은,
+사용자의 환경에서 달성할 수 없는 경우에는, 이를 어떻게 바꿀 수 있을지 고려해야 한다. 지금은,
 `EnableAggregatedDiscoveryTimeout=false` 기능 게이트를 설정해서 타임아웃 제한을
 비활성화 할 수 있다. 이 기능은 미래의 릴리스에서는 삭제될 예정이다.
 
