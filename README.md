@@ -37,7 +37,7 @@ The recommended way to run the Kubernetes website locally is to run a specialize
 
 > If you are running on Windows, you'll need a few more tools which you can install with [Chocolatey](https://chocolatey.org). `choco install make`
 
-> If you'd prefer to run the website locally without Docker, see [Running the website locally using Hugo](#running-the-site-locally-using-hugo) below.
+> If you'd prefer to run the website locally without Docker, see [Running the website locally using Hugo](#running-the-website-locally-using-hugo) below.
 
 If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
 
