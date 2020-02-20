@@ -57,10 +57,6 @@ Configure your application to trust and use the cluster root Certificate Authori
 
 Learn common tasks for administering a cluster.
 
-## Administering Federation
-
-Configure components in a cluster federation.
-
 ## Managing Stateful Applications
 
 Perform common tasks for managing Stateful applications, including scaling, deleting, and debugging StatefulSets.
