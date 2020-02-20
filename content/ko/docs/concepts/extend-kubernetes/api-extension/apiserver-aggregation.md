@@ -16,7 +16,7 @@ weight: 10
 
 애그리게이션 레이어는 부가적인 쿠버네티스-스타일 API를 클러스터에 설치할 수 있게 해준다. 이는 [서비스-카탈로그](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md)처럼 사전에 구축되어 존재하는 서드 파티 솔루션일 수 있고, [apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md)로 시작해볼 수 있는 것과 같은 사용자 정의 API일 수도 있다.
 
-애그리게이션 레이어는 kube-apiserver 프로세스 안에서 구동된다. 확장 리소스가 등록되기 전까지, 애그리게이션 레이어는 아무 일도 하지 않는다. API를 등록하기 위해서, 사용자는 쿠버네티스 API 내에서 URL 경로를 "요구하는(claim)" APIService 오브젝트를 추가해야한다. 이 때, 애그리게이션 레이어는 해당 API 경로(예: /apis/myextensions.mycompany.io/v1/...)로 전송되는 모든 것을 등록된 APIService로 프록시하게 된다.
+애그리게이션 레이어는 kube-apiserver 프로세스 안에서 구동된다. 확장 리소스가 등록되기 전까지, 애그리게이션 레이어는 아무 일도 하지 않는다. API를 등록하기 위해서, 사용자는 쿠버네티스 API 내에서 URL 경로를 "요구하는(claim)" APIService 오브젝트를 추가해야 한다. 이때, 애그리게이션 레이어는 해당 API 경로(예: /apis/myextensions.mycompany.io/v1/...)로 전송되는 모든 것을 등록된 APIService로 프록시하게 된다.
 
 대개, APIService는 클러스터 내에서 구동 중인 파드(pod) 내 *extension-apiserver* 로 구현된다. 이 extension-apiserver는 일반적으로 추가된 리소스에 대한 적극적인 관리가 필요한 경우 하나 이상의 컨트롤러와 짝지어진다. 결과적으로, apiserver-builder는 실제로 그 둘 모두에 대한 스켈레톤을 제공한다. 또 다른 예로, 서비스-카탈로그가 설치된 경우에는, 제공하는 서비스에 대한 extension-apiserver와 컨트롤러를 모두 제공한다.
 
@@ -35,5 +35,4 @@ Extension-apiserver는 kube-apiserver로 오가는 연결의 레이턴시가 낮
 * 또한, 어떻게 [쿠버네티스 API를 커스텀 리소스 데피니션으로 확장하는지](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)를 배워본다.
 
 {{% /capture %}}
-
 
