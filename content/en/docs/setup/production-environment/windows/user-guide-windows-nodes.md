@@ -50,17 +50,6 @@ In order to deploy your cluster you need the following address spaces:
 
 Review the networking options supported in 'Intro to Windows containers in Kubernetes: Supported Functionality: Networking' to determine how you need to allocate IP addresses for your cluster.
 
-### Components that run on Windows
-
-While the Kubernetes control-plane runs on your Linux node(s), the following components are configured and run on your Windows node(s).
-
-1. kubelet
-2. kube-proxy
-3. kubectl (optional)
-4. Container runtime
-
-Get the latest binaries from [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases), starting with v1.14 or later. The Windows-amd64 binaries for kubeadm, kubectl, kubelet, and kube-proxy can be found under the CHANGELOG link.
-
 ### Networking Configuration
 
 Once you have a Linux-based Kubernetes control-plane ("Master") node you are ready to choose a networking solution. This guide illustrates using Flannel in VXLAN mode for simplicity.
@@ -83,9 +72,7 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
     wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
 
-    There are two sections you should modify to enable the vxlan networking backend:
-
-    After applying the steps below, the `net-conf.json` section of `kube-flannel.yml` should look as follows:
+    Modify the `net-conf.json` section of the flannel manifest in order to set the VNI to 4096 and the Port to 4789. It should look as follows:
 
     ```json
     net-conf.json: |
@@ -101,36 +88,6 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
 
     {{< note >}}The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See the [VXLAN documentation](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)
     for an explanation of these fields.{{< /note >}}
-
-1. In the `net-conf.json` section of your `kube-flannel.yml`, double-check:
-    1. The cluster subnet (e.g. "10.244.0.0/16") is set as per your IP plan.
-      * VNI 4096 is set in the backend
-      * Port 4789 is set in the backend
-    1. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to `vxlan0`.
-
-    Your `cni-conf.json` should look as follows:
-
-    ```json
-    cni-conf.json: |
-        {
-          "name": "vxlan0",
-          "plugins": [
-            {
-              "type": "flannel",
-              "delegate": {
-                "hairpinMode": true,
-                "isDefaultGateway": true
-              }
-            },
-            {
-              "type": "portmap",
-              "capabilities": {
-                "portMappings": true
-              }
-            }
-          ]
-        }
-    ```
 
 1. Apply the Flannel manifest and validate
 
