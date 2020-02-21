@@ -12,7 +12,7 @@ weight: 10
 {{% capture overview %}}
 
 {{< feature-state state="alpha" >}}
-{{< caution >}}Alpha features can change rapidly. {{< /caution >}}
+{{< warning >}}Alpha features change rapidly. {{< /warning >}}
 
 Network plugins in Kubernetes come in a few flavors:
 

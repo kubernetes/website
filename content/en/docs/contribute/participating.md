@@ -24,7 +24,6 @@ You can also become a [member](#members),
 access and entail certain responsibilities for approving and committing changes.
 See [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md)
 for more information on how membership works within the Kubernetes community.
-
 The rest of this document outlines some unique ways these roles function within
 SIG Docs, which is responsible for maintaining one of the most public-facing
 aspects of Kubernetes -- the Kubernetes website and documentation.
@@ -53,8 +52,7 @@ aspects of Kubernetes -- the Kubernetes website and documentation.
 Anyone can do the following:
 
 - Open a GitHub issue against any part of Kubernetes, including documentation.
-- Provide non-binding feedback on a pull request.
-- Help to localize existing content
+- Provide non-binding feedback on a pull request/
 - Bring up ideas for improvement on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 - Use the `/lgtm` Prow command (short for "looks good to me") to recommend the changes in a pull request for merging.
   {{< note >}}
@@ -122,6 +120,7 @@ changes. Reviewers can:
 - Triage and categorize issues
 - Review pull requests and provide binding feedback
 - Create diagrams, graphics assets, and embeddable screencasts and videos
+- Localization
 - Edit user-facing strings in code
 - Improve code comments
 
@@ -167,7 +166,7 @@ add new members to a GitHub group.
 
 Approvers are members of the
 [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
-GitHub group. See [SIG Docs teams and automation](#sig-docs-teams-and-automation) for details.
+GitHub group. See [Teams and groups within SIG Docs](#teams-and-groups-within-sig-docs).
 
 Approvers can do the following:
 
