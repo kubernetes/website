@@ -25,8 +25,8 @@ kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) 如果你使用 kubeadm v1.7.x 或者更低版本，你需要对你的集群做一些配置以便使用 `kubeadm upgrade` 命令
 <!-- * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) to manage tokens for `kubeadm join` -->
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) 使用 `kubeadm join` 来管理令牌
-<!-- * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) to revert any changes made to this host by `kubeadm init` or `kubeadm join` -->
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) 使用 `kubeadm init` 或者  `kubeadm join` 来恢复对节点的改变
+<!-- * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) to revert any changes made to this host by `kubeadm init` or `kubeadm join` --> 
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) 还原之前使用 `kubeadm init` 或者 `kubeadm join` 对节点产生的改变
 <!-- * [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) to print the kubeadm version -->
 * [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) 打印出 kubeadm 版本
 <!-- * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) to preview a set of features made available for gathering feedback from the community -->
