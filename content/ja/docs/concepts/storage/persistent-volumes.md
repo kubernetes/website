@@ -627,7 +627,7 @@ spec:
 
 ボリュームの複製機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームの複製](/docs/concepts/storage/volume-pvc-datasource/)を参照してください。
 
-PVCデータソースからのボリューム複製のサポートを有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
+PVCデータソースからのボリューム複製機能を有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
 
 ### 既存のPVCからの永続ボリュームクレーム作成
 
