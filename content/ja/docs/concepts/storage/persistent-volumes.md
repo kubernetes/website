@@ -344,7 +344,7 @@ PVはクラスを持つことができます。これは`storageClassName`属性
 
 以前`volume.beta.kubernetes.io/storage-class`アノテーションは、`storageClassName`属性の代わりに使用されていました。このアノテーションはまだ機能しています。ただし、将来のKubernetesリリースでは完全に非推奨です。
 
-### 再クレームポリシー
+### 再クレームポリシー {#reclaim-policy}
 
 現在の再クレームポリシーは次のとおりです。
 
