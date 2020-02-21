@@ -217,7 +217,7 @@ FlexVolumeは、Podの再起動時にサイズ変更できます。
 {{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 {{< note >}}
-使用中のPVCの拡張は、Kubernetes 1.15以降のベータ版と、1.11以降のアルファ版として利用可能です。`ExpandInUsePersistentVolume`機能を有効化する必要があります。これはベータ機能のため多くのクラスターで自動的に行われます。詳細については、[フューチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)のドキュメントを参照してください。
+使用中のPVCの拡張は、Kubernetes 1.15以降のベータ版と、1.11以降のアルファ版として利用可能です。`ExpandInUsePersistentVolume`機能を有効化する必要があります。これはベータ機能のため多くのクラスターで自動的に行われます。詳細については、[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)のドキュメントを参照してください。
 {{< /note >}}
 
 この場合、既存のPVCを使用しているPodまたはDeploymentを削除して再作成する必要はありません。使用中のPVCは、ファイルシステムが拡張されるとすぐにPodで自動的に使用可能になります。この機能は、PodまたはDeploymentで使用されていないPVCには影響しません。拡張を完了する前に、PVCを使用するPodを作成する必要があります。
