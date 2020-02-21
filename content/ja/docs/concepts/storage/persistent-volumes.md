@@ -599,7 +599,7 @@ Podのrawブロックデバイスを追加する場合は、マウントパス�
 
 ボリュームスナップショット機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームのスナップショット](/docs/concepts/storage/volume-snapshots/)を参照してください。
 
-ボリュームスナップショットデータソースからのボリュームの復元サポートを有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
+ボリュームスナップショットのデータソースからボリュームを復元する機能を有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
 
 ### ボリュームスナップショットから永続ボリュームクレームを作成する
 
