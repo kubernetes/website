@@ -59,7 +59,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 1.14 이전 버전에서 쿠버네티스 apiserver는 `/swaggerapi`에서 [Swagger v1.2](http://swagger.io/)
 쿠버네티스 API 스펙을 검색하는데 사용할 수 있는 API도 제공한다.
-이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거될 예정이다.
+이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거되었다.
 
 ## API 버전 규칙
 

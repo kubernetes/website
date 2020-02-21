@@ -115,8 +115,9 @@ YAML 파일과 같은 새로운 독립형 샘플 파일을 추가할 때
 `<LANG>/examples/` 의 하위 디렉토리 중 하나에 코드를 배치하자. 여기서 `<LANG>`은
 주제에 관한 언어이다. 문서 파일에서 `codenew` 단축 코드(shortcode)를 사용하자.
 
-<pre>&#123;&#123;&lt; codenew file="&lt;RELPATH&gt;/my-example-yaml&gt;" &gt;&#125;&#125;</pre>
-
+```none
+{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+```
 여기서 `<RELPATH>` 는 `examples` 디렉토리와 관련하여 포함될
 파일의 경로이다. 다음 Hugo 단축 코드(shortcode)는 `/content/en/examples/pods/storage/gce-volume.yaml`
 에 있는 YAML 파일을 참조한다.

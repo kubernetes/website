@@ -134,7 +134,7 @@ This is a "preference" or "soft" version of `NoSchedule` -- the system will *try
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 -->
-上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。这是“优化”或“软”版本的 `NoSchedule`  ——系统会*尽量*避免将 pod 调度到存在其不能容忍 taint 的节点上，但这不是强制的。`effect` 的值还可以设置为 `NoExecute` ，下文会详细描述这个值。
+上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。这是“优化”或“软”版本的 `NoSchedule`  ——系统会 *尽量* 避免将 pod 调度到存在其不能容忍 taint 的节点上，但这不是强制的。`effect` 的值还可以设置为 `NoExecute` ，下文会详细描述这个值。
 
 <!--
 You can put multiple taints on the same node and multiple tolerations on the same pod.
@@ -155,7 +155,7 @@ the node (if it is already running on the node), and will not be
 scheduled onto the node (if it is not yet running on the node).
 -->
 * 如果未被过滤的 taint 中存在一个以上 effect 值为 `NoSchedule` 的 taint，则 Kubernetes 不会将 pod 分配到该节点。
-* 如果未被过滤的 taint 中不存在 effect 值为 `NoSchedule` 的 taint，但是存在 effect 值为 `PreferNoSchedule` 的 taint，则 Kubernetes 会*尝试*将 pod 分配到该节点。
+* 如果未被过滤的 taint 中不存在 effect 值为 `NoSchedule` 的 taint，但是存在 effect 值为 `PreferNoSchedule` 的 taint，则 Kubernetes 会 *尝试* 将 pod 分配到该节点。
 * 如果未被过滤的 taint 中存在一个以上 effect 值为 `NoExecute` 的 taint，则 Kubernetes 不会将 pod 分配到该节点（如果 pod 还未在节点上运行），或者将 pod 从该节点驱逐（如果 pod 已经在节点上运行）。
 
 <!--
@@ -231,7 +231,7 @@ taint is removed before that time, the pod will not be evicted.
 Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 -->
-通过 taint 和 toleration ，可以灵活地让 pod *避开*某些节点或者将 pod 从某些节点驱逐。下面是几个使用例子：
+通过 taint 和 toleration ，可以灵活地让 pod *避开* 某些节点或者将 pod 从某些节点驱逐。下面是几个使用例子：
 
 <!--
 
@@ -302,6 +302,7 @@ running on the node as follows
    bound for the specified amount of time
 -->
   前文我们提到过 taint 的 effect 值 `NoExecute`  ，它会影响已经在节点上运行的 pod
+
  * 如果 pod 不能忍受effect 值为 `NoExecute` 的 taint，那么 pod 将马上被驱逐
  * 如果 pod 能够忍受effect 值为 `NoExecute` 的 taint，但是在 toleration 定义中没有指定 `tolerationSeconds`，则 pod 还会一直在这个节点上运行。
  * 如果 pod 能够忍受effect 值为 `NoExecute` 的 taint，而且指定了 `tolerationSeconds`，则 pod 还能在这个节点上继续运行这个指定的时间长度。
@@ -350,7 +351,7 @@ behavior of pod evictions due to node problems, the system actually adds the tai
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.
 -->
-注意：为了保证由于节点问题引起的 pod 驱逐[rate limiting](/docs/concepts/architecture/nodes/)行为正常，系统实际上会以 rate-limited 的方式添加 taint。在像 master 和 node 通讯中断等场景下，这避免了 pod 被大量驱逐。
+为了保证由于节点问题引起的 pod 驱逐[rate limiting](/docs/concepts/architecture/nodes/)行为正常，系统实际上会以 rate-limited 的方式添加 taint。在像 master 和 node 通讯中断等场景下，这避免了 pod 被大量驱逐。
 {{< /note >}}
 
 <!--

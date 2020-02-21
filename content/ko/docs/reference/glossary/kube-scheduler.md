@@ -4,13 +4,13 @@ id: kube-scheduler
 date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
- 노드가 배정되지 않은 새로 생성된 파드를 감지하고 그것이 구동될 노드를 선택하는 마스터 상의 컴포넌트.
+  노드가 배정되지 않은 새로 생성된 파드를 감지하고, 실행할 노드를 선택하는 컨트롤 플레인 컴포넌트.
 
 aka: 
 tags:
 - architecture
 ---
- 노드가 배정되지 않은 새로 생성된 파드를 감지하고 그것이 구동될 노드를 선택하는 마스터 상의 컴포넌트.
+ 노드가 배정되지 않은 새로 생성된 파드를 감지하고, 실행할 노드를 선택하는 컨트롤 플레인 컴포넌트.
 
 <!--more--> 
 

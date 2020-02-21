@@ -113,13 +113,13 @@ EOF
       
 3. 두 파일을 `kustomization.yaml`에 추가하자.
 
-      ```shell
-      cat <<EOF >>./kustomization.yaml
-      resources:
-        - mysql-deployment.yaml
-        - wordpress-deployment.yaml
-      EOF
-      ```
+```shell
+cat <<EOF >>./kustomization.yaml
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
+EOF
+```
 
 ## 적용하고 확인하기
 `kustomization.yaml`은 WordPress 사이트와 MySQL 데이터베이스를 배포하는 모든 리소스를 포함한다.
