@@ -652,7 +652,7 @@ spec:
 
 もし幅広いクラスターで実行され、永続ボリュームが必要となる構成テンプレートやサンプルを作成している場合は、次のパターンを使用することをお勧めします。
 
-- 構成にPersistentVolumeClaimオブジェクトを含める(DeploymentsやConfigMapsと共に)
+- 構成にPersistentVolumeClaimオブジェクトを含める(DeploymentやConfigMapと共に)
 - ユーザーが設定をインスタンス化する際にPersistentVolumeを作成する権限がない場合があるため、設定にPersistentVolumeオブジェクトを含めない。
 - テンプレートをインスタンス化する時にストレージクラス名を指定する選択肢をユーザーに与える
   - ユーザーがストレージクラス名を指定する場合、`persistentVolumeClaim.storageClassName`フィールドにその値を入力する。これにより、クラスターが管理者によって有効にされたストレージクラスを持っている場合、PVCは正しいストレージクラスと一致する。
