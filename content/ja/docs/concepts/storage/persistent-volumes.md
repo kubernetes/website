@@ -444,7 +444,7 @@ Podと同様に、クレームは特定の量のリソースを要求できま�
 * `matchLabels` - ボリュームはこの値のラベルが必要です
 * `matchExpressions` - キー、値のリスト、およびキーと値を関連付ける演算子を指定することによって作成された要件のリスト。有効な演算子は、In、NotIn、ExistsおよびDoesNotExistです。
 
-`matchLabels`と`matchExpressions`の両方すべての要件はANDで結合されます。一致するには、すべてが一致する必要があります。
+`matchLabels`と`matchExpressions`の両方からのすべての要件はANDで結合されます。一致するには、すべてが一致する必要があります。
 
 ### クラス
 
