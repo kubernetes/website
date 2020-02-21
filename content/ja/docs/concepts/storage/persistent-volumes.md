@@ -165,7 +165,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-PersistentVolumeClaim(PVC)の拡大はデフォルトで有効です。次のボリュームのタイプで拡大できます。
+PersistentVolumeClaim(PVC)の拡大はデフォルトで有効です。次のボリュームの種類で拡大できます。
 
 * gcePersistentDisk
 * awsElasticBlockStore
