@@ -76,7 +76,7 @@ PVCを使用しているPodオブジェクトが存在する場合、PVCはPod�
 
 ユーザーがPodによって実際に使用されているPVCを削除しても、そのPVCはすぐには削除されません。PVCの削除は、PVCがPodで使用されなくなるまで延期されます。また、管理者がPVCに紐付けられているPVを削除しても、PVはすぐには削除されません。PVがPVCに紐付けられなくなるまで、PVの削除は延期されます。
 
-PVCの削除が保護されているかは、PVCのステータスが`Terminating`で、また`Finalizers`のリストに`kubernetes.io/pvc-protection`が含まれているかで確認できます。
+PVCの削除が保護されているかは、PVCのステータスが`Terminating`になっていて、そして`Finalizers`のリストに`kubernetes.io/pvc-protection`が含まれているかで確認できます。
 
 ```shell
 kubectl describe pvc hostpath
