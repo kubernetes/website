@@ -91,7 +91,7 @@ Annotations:   volume.beta.kubernetes.io/storage-class=example-hostpath
 Finalizers:    [kubernetes.io/pvc-protection]
 ```
 
-同様にPVの削除が保護されているかは、PVのステータスが`Terminating`で、また`Finalizers`のリストに`kubernetes.io/pv-protection`が含まれているかで確認できます。
+同様にPVの削除が保護されているかは、PVのステータスが`Terminating`になっていて、そして`Finalizers`のリストに`kubernetes.io/pv-protection`が含まれているかで確認できます。
 
 ```shell
 kubectl describe pv task-pv-volume
