@@ -235,7 +235,7 @@ EBSの拡張は時間がかかる操作です。また変更は、ボリュー�
 
 ## 永続ボリュームの種類
 
-`PersistentVolume`タイプはプラグインとして実装されます。Kubernetesは現在次のプラグインに対応しています。
+`PersistentVolume`の種類はプラグインとして実装されます。Kubernetesは現在次のプラグインに対応しています。
 
 * GCEPersistentDisk
 * AWSElasticBlockStore
