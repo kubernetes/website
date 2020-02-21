@@ -737,7 +737,7 @@ phase, and therefore is the last admission controller to run.
 `MutatingAdmissionWebhook` appears before it in this list, because it runs
 in the mutating phase.
 
-    For earlier versions, there was no concept of validating vs mutating and the
+    For earlier versions, there was no concept of validating versus mutating and the
 admission controllers ran in the exact order specified.
 
 {{% /capture %}}

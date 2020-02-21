@@ -30,7 +30,7 @@ A node's status contains the following information:
 * [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
-Node status and other details about a node can be displayed using below command:
+Node status and other details about a node can be displayed using the following command:
 ```shell
 kubectl describe node <insert-node-name-here>
 ```
@@ -188,7 +188,7 @@ a Lease object.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
-(e.g. because the master has networking problem). Starting with 1.4, the node
+(e.g. because the master has networking problems). Starting with 1.4, the node
 controller looks at the state of all nodes in the cluster when making a
 decision about pod eviction.
 
@@ -212,9 +212,9 @@ there is only one availability zone (the whole cluster).
 
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
-Therefore, if all nodes in a zone are unhealthy then node controller evicts at
-the normal rate `--node-eviction-rate`.  The corner case is when all zones are
-completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
+Therefore, if all nodes in a zone are unhealthy then the node controller evicts at
+the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
+completely unhealthy (i.e. there are no healthy nodes in the cluster). In such a
 case, the node controller assumes that there's some problem with master
 connectivity and stops all evictions until some connectivity is restored.
 

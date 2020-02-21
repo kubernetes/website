@@ -6,7 +6,7 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
 이 페이지는 임시 컨테이너에 대한 개요를 제공한다: 이 특별한 유형의 컨테이너는 
 트러블 슈팅과 같은 사용자가 시작한 작업을 완료하기위해 기존 {{< glossary_tooltip term_id="pod" >}} 에서 
@@ -187,6 +187,7 @@ kubectl attach -it example-pod -c debugger
 예를 들어, 임시 컨테이너에 붙은 이후에 디버거 컨테이너에서 `ps` 를 실행한다.
 
 ```shell
+# "디버거" 임시 컨테이너 내부 쉘에서 이것을 실행한다.
 ps auxww
 ```
 다음과 유사하게 출력된다.
