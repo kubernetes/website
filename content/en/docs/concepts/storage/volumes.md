@@ -1118,6 +1118,17 @@ spec:
 
 More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+The CSI Migration feature for vsphereVolume, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `csi.vsphere.vmware.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [vSphere CSI
+Driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
+Alpha features must be enabled.
+
 
 ## Using subPath
 
