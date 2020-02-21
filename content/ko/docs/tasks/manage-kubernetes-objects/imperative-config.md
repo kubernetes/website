@@ -135,11 +135,11 @@ kubectl create -f <url> --edit
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "apps/v1/deployment/nginx"
+      controller-selector: "extensions/v1beta1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "apps/v1/deployment/nginx"
+      controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
 {{% /capture %}}
