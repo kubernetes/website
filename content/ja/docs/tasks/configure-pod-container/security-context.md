@@ -8,7 +8,7 @@ weight: 80
 
 セキュリティコンテキストでは、Podまたはコンテナに対する特権およびアクセスコントロールの設定を定義します。セキュリティコンテキストの設定には、以下が含まれます:
 
-* 任意アクセス制御: ファイルのようなオブジェクトにアクセスするための権限は、[ユーザーID（UID）およびグループID（GID）](https://wiki.archlinux.org/index.php/users_and_groups)に基づきます
+* 任意アクセス制御: ファイルのようなオブジェクトにアクセスするための権限は、[ユーザーID (UID) およびグループID (GID)](https://wiki.archlinux.org/index.php/users_and_groups) に基づきます
 
 * [Security Enhanced Linux (SELinux)](https://ja.wikipedia.org/wiki/Security-Enhanced_Linux): オブジェクトにセキュリティラベルが割り当てられます
 
@@ -40,13 +40,13 @@ Linuxのセキュリティに関する仕組みの詳細な情報は、[Linuxカ
 Podにセキュリティコンテキストを指定するには、Podの仕様に`securityContext`フィールドを含めます。
 この`securityContext`フィールドは、[PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)オブジェクトです。
 Podに指定したこのセキュリティ設定は、Pod内のすべてのコンテナに適用されます。
-次に`securityContext`および`emptyDir`ボリュームを含むPodの設定ファイルを示します:
+以下に`securityContext`および`emptyDir`ボリュームを含むPodの設定ファイルを示します:
 
 {{< codenew file="pods/security/security-context.yaml" >}}
 
 この設定ファイルでは、`runAsUser`フィールドはPod内のコンテナにおいて、すべてのプロセスがユーザーID 1000として実行されるように指定しています。
 `runAsGroup`フィールドはPod内のコンテナにおいて、すべてのプロセスがプライマリーグループID 3000となるよう指定しています。
-このフィールドを省略した場合、コンテナのプライマリーグループIDはルート（0）となります。
+このフィールドを省略した場合、コンテナのプライマリーグループIDはルート (0) となります。
 `runAsGroup`を指定した場合、各ファイルは、ユーザーID 1000およびグループID 3000が所有者となるように作成されます。
 `fsGroup`フィールドを指定しているため、コンテナ内のすべてのプロセスは補助グループID 2000に属します。`/data/demo`ボリュームおよびそのボリューム内で作成されたファイルの所有者はグループID 2000となります。
 
@@ -130,7 +130,7 @@ gidが`runAsGroup`フィールドと同じ3000であることを確認できま�
 exit
 ```
 
-# コンテナにセキュリティコンテキストを設定する
+## コンテナにセキュリティコンテキストを設定する
 
 コンテナにセキュリティの設定を指定するには、`securityContext`フィールドをコンテナのマニフェストに含めます。
 この`securityContext`フィールドは、[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)オブジェクトです。
@@ -179,7 +179,7 @@ USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 exit
 ```
 
-# コンテナにケーパビリティーを設定する
+## コンテナにケーパビリティーを設定する
 
 [Linuxケーパビリティー](http://man7.org/linux/man-pages/man7/capabilities.7.html)を使うことで、rootユーザーのすべての特権を付与せずに、特定の特権のみをプロセスに付与することができます。
 コンテナにケーパビリティーを追加または削除するには、コンテナマニフェストの`securityContext`セクションに、`capabilities`フィールドを記述します。
@@ -213,7 +213,7 @@ kubectl exec -it security-context-demo-3 -- sh
 ps aux
 ```
 
-出力はコンテナのプロセスID（PID）を示しています:
+出力はコンテナのプロセスID (PID) を示しています:
 
 ```shell
 USER  PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
@@ -296,7 +296,7 @@ Linuxケーパビリティ定数は`CAP_XXX`という形式ですが、コンテ
 
 コンテナにSELinuxのラベル付けを行なうには、Podまたはコンテナマニフェストの`securityContext`セクションに`seLinuxOptions`をフィールドを含めます。
 `seLinuxOptions`フィールドは[SELinuxOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#selinuxoptions-v1-core)オブジェクトです。
-以下にSELinuxレベルを付与する例を示します:
+以下にSELinuxレベルを設定する例を示します:
 
 ```yaml
 ...
@@ -339,12 +339,11 @@ kubectl delete pod security-context-demo-4
 
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-* [Tuning Docker with the newest security enhancements最新のセキュリティ拡張機能を利用してDockerを調整する](https://opensource.com/business/15/3/docker-security-tuning)
+* [最新のセキュリティ拡張機能を利用してDockerを調整する](https://opensource.com/business/15/3/docker-security-tuning)
 * [セキュリティコンテキストのデザインドキュメント](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [所有権の管理に関するデザインドキュメント](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
 * [Pod Security Policy](/docs/concepts/policy/pod-security-policy/)
-* [AllowPrivilegeEscalation design
-  document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
+* [AllowPrivilegeEscalationのデザインドキュメント](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
 
 
 {{% /capture %}}
