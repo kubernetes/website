@@ -1,19 +1,15 @@
 ---
-reviewers:
-- jpeeler
-- pmorie
-title: Configure a Pod to Use a Projected Volume for Storage
+title: ストレージにProjectedボリュームを使用するようPodを設定する
 content_template: templates/task
 weight: 70
 ---
 
 {{% capture overview %}}
-This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount
-several existing volume sources into the same directory. Currently, `secret`, `configMap`, `downwardAPI`,
-and `serviceAccountToken` volumes can be projected.
+このページでは、[`projected`](/docs/concepts/storage/volumes/#projected)（投影）ボリュームを使用して、既存の複数のボリュームソースを同一ディレクトリ内にマウントする方法を説明します。
+現在、`secret`、`configMap`、`downwardAPI`および`serviceAccountToken`ボリュームを投影できます。
 
 {{< note >}}
-`serviceAccountToken` is not a volume type.
+`serviceAccountToken`はボリュームタイプではありません。
 {{< /note >}}
 {{% /capture %}}
 
@@ -22,55 +18,55 @@ and `serviceAccountToken` volumes can be projected.
 {{% /capture %}}
 
 {{% capture steps %}}
-## Configure a projected volume for a pod
+## ProjectedボリュームをPodに設定する
 
-In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. You then create a Pod that runs one container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
+この課題では、ローカルファイルからユーザーネームおよびパスワードの{{< glossary_tooltip text="Secret" term_id="secret" >}}を作成します。
+次に、単一のコンテナを実行するPodを作成し、[`projected`](/docs/concepts/storage/volumes/#projected)ボリュームを使用してそれぞれのSecretを同じ共有ディレクトリにマウントします。
 
-Here is the configuration file for the Pod:
+以下にPodの設定ファイルを示します:
 
 {{< codenew file="pods/storage/projected.yaml" >}}
 
-1. Create the Secrets:
+1. Secretを作成します:
 
     ```shell
-    # Create files containing the username and password:
+    # ユーザーネームおよびパスワードを含むファイルを作成します:
     echo -n "admin" > ./username.txt
     echo -n "1f2d1e2e67df" > ./password.txt
 
-    # Package these files into secrets:
+    # これらのファイルからSecretを作成します:
     kubectl create secret generic user --from-file=./username.txt
     kubectl create secret generic pass --from-file=./password.txt
     ```
-1. Create the Pod:
+1. Podを作成します:
 
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/storage/projected.yaml
     ```
-1. Verify that the Pod's container is running, and then watch for changes to
-the Pod:
+1. Pod内のコンテナが実行されていることを確認するため、Podの変更を監視します:
 
     ```shell
     kubectl get --watch pod test-projected-volume
     ```
-    The output looks like this:
+    出力は次のようになります:
     ```
     NAME                    READY     STATUS    RESTARTS   AGE
     test-projected-volume   1/1       Running   0          14s
     ```
-1. In another terminal, get a shell to the running container:
+1. 別の端末にて、実行中のコンテナに対してシェルを起動します:
 
     ```shell
     kubectl exec -it test-projected-volume -- /bin/sh
     ```
-1. In your shell, verify that the `projected-volume` directory contains your projected sources:
+1. シェル内にて、投影されたソースを含む`projected-volume`ディレクトリが存在することを確認します:
 
     ```shell
     ls /projected-volume/
     ```
 
-## Clean up
+## クリーンアップ
 
-Delete the Pod and the Secrets:
+PodおよびSecretを削除します:
 
 ```shell
 kubectl delete pod test-projected-volume
@@ -80,6 +76,6 @@ kubectl delete secret user pass
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
-* Read the [all-in-one volume](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md) design document.
+* [`projected`](/docs/concepts/storage/volumes/#projected)ボリュームについてさらに学ぶ
+* [all-in-oneボリューム](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)のデザインドキュメントを読む
 {{% /capture %}}
