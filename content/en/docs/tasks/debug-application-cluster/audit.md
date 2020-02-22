@@ -181,7 +181,7 @@ on `ResponseStarted` and `ResponseComplete` stages, you should account for ~200 
 events being generated each second. Assuming that there are up to 100 events in a batch,
 you should set throttling level at least 2 QPS. Assuming that the backend can take up to
 5 seconds to write events, you should set the buffer size to hold up to 5 seconds of events, i.e.
-10 batches, in other words 1000 events.
+10 batches, i.e. 1000 events.
 
 In most cases however, the default parameters should be sufficient and you don't have to worry about
 setting them manually. You can look at the following Prometheus metrics exposed by kube-apiserver
