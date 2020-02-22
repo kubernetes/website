@@ -53,7 +53,7 @@ weight: 70
     NAME                    READY     STATUS    RESTARTS   AGE
     test-projected-volume   1/1       Running   0          14s
     ```
-1. 別の端末にて、実行中のコンテナに対してシェルを起動します:
+1. 別の端末にて、実行中のコンテナへのシェルを取得します:
 
     ```shell
     kubectl exec -it test-projected-volume -- /bin/sh
