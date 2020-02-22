@@ -336,7 +336,7 @@ spec:
 {{< note >}}
 There is a gap between TLS features supported by various Ingress
 controllers. Please refer to documentation on
-[nginx](https://git.k8s.io/ingress-nginx/README.md#https),
+[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
 platform specific Ingress controller to understand how TLS works in your environment.
 {{< /note >}}
