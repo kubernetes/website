@@ -112,4 +112,5 @@ The following production environment solutions table lists the providers and the
 | [VMware](https://cloud.vmware.com/) | [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)              |[VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)        |   [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)          | [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)      |          |[VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)
 | [Z.A.R.V.I.S.](https://zarvis.ai/) | &#x2714; | | | | | |
 
+If you want to do it yourself, follow the documentation by starting with [installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 {{% /capture %}}
