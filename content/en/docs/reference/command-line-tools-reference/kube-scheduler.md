@@ -90,7 +90,7 @@ kube-scheduler [flags]
       <td colspan="2">--authorization-always-allow-paths stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [/healthz]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A list of HTTP paths to skip during authorization, i.e. these are authorized without contacting the 'core' kubernetes server.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A list of HTTP paths to skip during authorization, in other words these are authorized without contacting the 'core' kubernetes server.</td>
     </tr>
 
     <tr>

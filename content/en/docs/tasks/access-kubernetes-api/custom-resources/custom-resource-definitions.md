@@ -531,7 +531,7 @@ In [Validation Schema Publishing](/docs/tasks/access-kubernetes-api/extend-api-c
 
 ### RawExtension
 
-RawExtensions (as in `runtime.RawExtension` defined in [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94)) holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
+RawExtensions (as in `runtime.RawExtension` defined in [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94)) holds complete Kubernetes objects, in other words with `apiVersion` and `kind` fields.
 
 It is possible to specify those embedded objects (both completely without constraints or partially specified) by setting `x-kubernetes-embedded-resource: true`. For example:
 
