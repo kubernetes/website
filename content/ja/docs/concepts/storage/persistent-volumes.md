@@ -252,7 +252,7 @@ EBSの拡張は時間がかかる操作です。また変更は、ボリュー�
 * Glusterfs
 * VsphereVolume
 * Quobyte Volumes
-* HostPath (テスト用の単一Nodeのみ。ローカルストレージはどのような方法でもサポートされておらず、またマルチNodeクラスターでは動作しません)
+* HostPath (テスト用の単一ノードのみ。ローカルストレージはどのような方法でもサポートされておらず、またマルチノードクラスターでは動作しません)
 * Portworx Volumes
 * ScaleIO Volumes
 * StorageOS
