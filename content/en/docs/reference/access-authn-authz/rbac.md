@@ -572,10 +572,7 @@ All of the default ClusterRoles and ClusterRoleBindings are labeled with `kubern
 {{< caution >}}
 Take care when modifying ClusterRoles and ClusterRoleBindings with names
 that have a `system:` prefix.
-Modifications to these resources can result in non-functional clusters. One example is the `system:node` ClusterRole.
-This ClusterRole defines permissions for {{< glossary_tooltip term_id="kubelet" text="kubelets">}}.
-If you modify that ClusterRole incorrectly, your change could prevent the kubelet from working on
-all the nodes in your cluster.
+Modifications to these resources can result in non-functional clusters.
 {{< /caution >}}
 
 ### Auto-reconciliation
