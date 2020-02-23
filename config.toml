@@ -174,7 +174,7 @@ language_alternatives = ["en"]
 
 [languages.fr]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Solution professionnelle d’orchestration de conteneurs"
 languageName ="Français"
 weight = 5
 contentDir = "content/fr"
