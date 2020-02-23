@@ -311,33 +311,31 @@ spec:
 
 ### fc（ファイバーチャネル） {#fc}
 
-An `fc` volume allows an existing fibre channel volume to be mounted in a Pod.
-You can specify single or multiple target World Wide Names using the parameter
-`targetWWNs` in your volume configuration. If multiple WWNs are specified,
-targetWWNs expect that those WWNs are from multi-path connections.
+`fc`ボリュームは、既存のファイバーチャネルボリュームをPodにマウントすることができます。
+ボリュームの設定にて、一つ以上のWorld Wide Nameを`targetWWNs`に指定することができます。
+複数のWWNを指定した場合、targetWWNsはそれらのWWNがマルチパス接続であることが期待されます。
 
 {{< caution >}}
-You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.
+Kubernetesホストから指定されたWWNにアクセスできるようにするため、事前にWWNに対してLUN（ボリューム）の確保およびマスキングを行ない、FC-SANのゾーニングを設定する必要があります。
 {{< /caution >}}
 
-See the [FC example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) for more details.
+さらなる情報は、[FCの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel)を参照してください。
 
 ### flocker {#flocker}
 
-[Flocker](https://github.com/ClusterHQ/flocker) is an open-source clustered Container data volume manager. It provides management
-and orchestration of data volumes backed by a variety of storage backends.
+[Flocker](https://github.com/ClusterHQ/flocker)はオープンソースのクラスター化されたコンテナ用のデータボリューム管理ツールです。
+さまざまなストレージバックエンドに対応した、データボリュームの管理およびオーケストレーションを提供します。
 
-A `flocker` volume allows a Flocker dataset to be mounted into a Pod. If the
-dataset does not already exist in Flocker, it needs to be first created with the Flocker
-CLI or by using the Flocker API. If the dataset already exists it will be
-reattached by Flocker to the node that the Pod is scheduled. This means data
-can be "handed off" between Pods as required.
+`flocker`ボリュームは、FlockerデータセットをPodにマウントすることができます。
+Flockerにデータセットが存在しない場合は、最初にFlocker CLIまたはFlocker APIを使用して作成しておく必要があります。
+データセットが存在する場合は、FlockerによってPodがスケジュールされているノードに再アタッチされます。
+つまり、必要に応じてPod間でデータを受け渡すこともできます。
 
 {{< caution >}}
-You must have your own Flocker installation running before you can use it.
+使用する前に、Flockerをインストールし実行しておく必要があります。
 {{< /caution >}}
 
-See the [Flocker example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) for more details.
+さらなる情報は、[Flockerの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker)を参照してください。
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
