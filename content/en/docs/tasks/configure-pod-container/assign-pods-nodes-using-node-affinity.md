@@ -85,18 +85,18 @@ This means that the pod will get scheduled only on a node that has a `disktype=s
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
-## Assign pod to node using preffered node affinity
+## Assign pod to node using preferred node affinity
 
 This pod configuration file describes a pod that has a `preferredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
-This means that the pod will preffer a node that has a `disktype=ssd` label. 
+This means that the pod will prefer a node that has a `disktype=ssd` label. 
 
-{{< codenew file="pods/pod-nginx-preffered-affinity.yaml" >}}
+{{< codenew file="pods/pod-nginx-preferred-affinity.yaml" >}}
 
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
     
     ```shell
-    kubectl apply -f https://k8s.io/examples/pods/pod-nginx-preffered-affinity.yaml
+    kubectl apply -f https://k8s.io/examples/pods/pod-nginx-preferred-affinity.yaml
     ```
 
 1. Verify that the pod is running on your chosen node:
