@@ -77,33 +77,30 @@ Kubernetesは、いくつかの種類のボリュームをサポートしてい�
 
 ### awsElasticBlockStore {#awselasticblockstore}
 
-An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS) [EBS
-Volume](http://aws.amazon.com/ebs/) into your Pod.  Unlike
-`emptyDir`, which is erased when a Pod is removed, the contents of an EBS
-volume are preserved and the volume is merely unmounted.  This means that an
-EBS volume can be pre-populated with data, and that data can be "handed off"
-between Pods.
+`awsElasticBlockStore`ボリュームは、Amazon Web Services (AWS) [EBS
+ボリューム](https://aws.amazon.com/jp/ebs/)をPodにマウントします。
+`emptyDir`はPodが削除されると合わせて削除されますが、EBSボリュームの内容は保存されたままであり、ボリュームはアンマウントされるだけです。
+つまり、EBSボリュームに事前にデータを用意したり、Pod間でデータを受け渡すこともできます。
 
 {{< caution >}}
-You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
+EBSボリュームを使用する前に、`aws ec2 create-volume`コマンドまたはAWS APIで作成しておく必要があります。
 {{< /caution >}}
 
-There are some restrictions when using an `awsElasticBlockStore` volume:
+`awsElasticBlockStore`ボリュームを使用する際に、いくつかの制限があります:
 
-* the nodes on which Pods are running must be AWS EC2 instances
-* those instances need to be in the same region and availability-zone as the EBS volume
-* EBS only supports a single EC2 instance mounting a volume
+* Podが実行されているノードはAWS EC2インスタンスである必要があります
+* これらのインスタンスは、EBSボリュームと同じリージョンおよびアベイラビリティーゾーンでなければなりません
+* EBSは単一のEC2インスタンスにのみ、ボリュームマウントをサポートします
 
 #### EBSボリュームの作成
 
-Before you can use an EBS volume with a Pod, you need to create it.
+PodにEBSボリュームを使用する前に、EBSボリュームを作成する必要があります。
 
 ```shell
 aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
 ```
 
-Make sure the zone matches the zone you brought up your cluster in.  (And also check that the size and EBS volume
-type are suitable for your use!)
+クラスターを起動しているアベイラビリティーゾーンと同じであることを確認してください（また、EBSボリュームのサイズおよび種類が利用に適していることも確認してください!）。
 
 #### AWS EBSの設定例
 
@@ -131,52 +128,43 @@ spec:
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-The CSI Migration feature for awsElasticBlockStore, when enabled, shims all plugin operations
-from the existing in-tree plugin to the `ebs.csi.aws.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [AWS EBS CSI
-Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
-Beta features must be enabled.
+awsElasticBlockStoreに対するCSIマイグレーションの機能は、有効な場合、既存のin-treeプラグインから`ebs.csi.aws.com`コンテナストレージインターフェース (CSI) ドライバーへすべての処理を移行します。
+この機能を使用するには、[AWS EBS CSI
+Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)をクラスターにインストールし、`CSIMigration`および`CSIMigrationAWS`というベータ版の機能を有効にする必要があります。
 
 #### CSIマイグレーションの完了
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
-To turn off the awsElasticBlockStore storage plugin from being loaded by controller manager and kubelet, you need to set this feature flag to true. This requires `ebs.csi.aws.com` Container Storage Interface (CSI) driver being installed on all worker nodes.
+コントローラーマネージャーおよびKubeletによるawsElasticBlockStoreストレージプラグインのロードを無効にするには、機能フラグをtrueにしてください。
+この操作には、`ebs.csi.aws.com`コンテナストレージインターフェース (CSI) ドライバーがすべてのワーカーノードにインストールされている必要があります。
 
 ### azureDisk {#azuredisk}
 
-A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
+`azureDisk`は、Microsoft Azure[データディスク](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/)をPodにマウントします。
 
-More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
+さらなる情報は、[こちら](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md)を参照してください。
 
 #### CSIマイグレーション
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-The CSI Migration feature for azureDisk, when enabled, shims all plugin operations
-from the existing in-tree plugin to the `disk.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
-Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
-Alpha features must be enabled.
+azureDiskに対するCSIマイグレーションの機能は、有効な場合、既存のin-treeプラグインから`disk.csi.azure.com`コンテナストレージインターフェース (CSI) ドライバーへすべての処理を移行します。
+この機能を使用するには、[Azure Disk CSI
+Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)をクラスターにインストールし、`CSIMigration`および`CSIMigrationAzureDisk`というアルファ版の機能を有効にする必要があります。
 
 ### azureFile {#azurefile}
 
-A `azureFile` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
-into a Pod.
+`azureFile`は、Microsoft Azure Fileボリューム (SMB 2.1および3.0) をPodにマウントする際に使用します。
 
-More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+さらなる情報は、[こちら](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md)を参照してください。
 
 #### CSIマイグレーション
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-The CSI Migration feature for azureFile, when enabled, shims all plugin operations
-from the existing in-tree plugin to the `file.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
-Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
-Alpha features must be enabled.
+azureFileに対するCSIマイグレーションの機能は、有効な場合、既存のin-treeプラグインから`file.csi.azure.com`コンテナストレージインターフェース (CSI) ドライバーへすべての処理を移行します。
+この機能を使用するには、[Azure File CSI
+Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)をクラスターにインストールし、`CSIMigration`および`CSIMigrationAzureFile`というアルファ版の機能を有効にする必要があります。
 
 ### cephfs {#cephfs}
 
