@@ -82,7 +82,7 @@ The following manifest creates a storage class "slow" which provisions standard
 disk-like persistent disks.
 -->
 要启用动态供应功能，集群管理员需要为用户预先创建一个或多个 `StorageClass` 对象。
-`StorageClass` 对象定义当动态供应被调用时，哪一个 provisioner 将被使用和哪些参数将被传递给 provisioner。
+`StorageClass` 对象定义当动态供应被调用时，哪一个驱动将被使用和哪些参数将被传递给驱动。
 以下清单创建了一个 `StorageClass` 存储类 "slow"，它提供类似标准磁盘的永久磁盘。
 
 ```yaml
