@@ -633,7 +633,7 @@ either do not manually edit the role, or disable auto-reconciliation.
 
 Some of the default ClusterRoles are not `system:` prefixed. These are intended to be user-facing roles.
 They include super-user roles (`cluster-admin`), roles intended to be granted cluster-wide
-using ClusterRoleBindings (`cluster-status`), and roles intended to be granted within particular
+using ClusterRoleBindings, and roles intended to be granted within particular
 namespaces using RoleBindings (`admin`, `edit`, `view`).
 
 User-facing ClusterRoles use [ClusterRole aggregation](#aggregated-clusterroles) to allow admins to include
