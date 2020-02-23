@@ -1,10 +1,5 @@
 ---
-reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
-title: Volumes
+title: ボリューム
 content_template: templates/concept
 weight: 10
 ---
@@ -25,7 +20,7 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
 {{% capture body %}}
 
-## Background
+## バックグラウンド
 
 Docker also has a concept of
 [volumes](https://docs.docker.com/engine/admin/volumes/), though it is
@@ -62,7 +57,7 @@ the image.  Volumes can not mount onto other volumes or have hard links to
 other volumes.  Each Container in the Pod must independently specify where to
 mount each volume.
 
-## Types of Volumes
+## ボリュームの種類
 
 Kubernetes supports several types of Volumes:
 
@@ -116,7 +111,7 @@ There are some restrictions when using an `awsElasticBlockStore` volume:
 * those instances need to be in the same region and availability-zone as the EBS volume
 * EBS only supports a single EC2 instance mounting a volume
 
-#### Creating an EBS volume
+#### EBSボリュームの作成
 
 Before you can use an EBS volume with a Pod, you need to create it.
 
@@ -127,7 +122,7 @@ aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
 Make sure the zone matches the zone you brought up your cluster in.  (And also check that the size and EBS volume
 type are suitable for your use!)
 
-#### AWS EBS Example configuration
+#### AWS EBSの設定例
 
 ```yaml
 apiVersion: v1
@@ -149,7 +144,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration
+#### CSIマイグレーション
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -160,7 +155,7 @@ Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
 Beta features must be enabled.
 
-#### CSI Migration Complete
+#### CSIマイグレーションの完了
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
 To turn off the awsElasticBlockStore storage plugin from being loaded by controller manager and kubelet, you need to set this feature flag to true. This requires `ebs.csi.aws.com` Container Storage Interface (CSI) driver being installed on all worker nodes.
@@ -171,7 +166,7 @@ A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.micro
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
 
-#### CSI Migration
+#### CSIマイグレーション
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
@@ -189,7 +184,7 @@ into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
 
-#### CSI Migration
+#### CSIマイグレーション
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
@@ -224,7 +219,7 @@ configuration please refer [cloud provider openstack](/docs/concepts/cluster-adm
 
 `cinder` is used to mount OpenStack Cinder Volume into your Pod.
 
-#### Cinder Volume Example configuration
+#### Cinderボリュームの設定例
 
 ```yaml
 apiVersion: v1
@@ -246,7 +241,7 @@ spec:
       fsType: ext4
 ```
 
-#### CSI Migration
+#### CSIマイグレーション
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -345,7 +340,7 @@ While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
 node reboot and any files you write will count against your Container's
 memory limit.
 
-#### Example Pod
+#### Podの例
 
 ```yaml
 apiVersion: v1
@@ -364,7 +359,7 @@ spec:
     emptyDir: {}
 ```
 
-### fc (fibre channel) {#fc}
+### fc（ファイバーチャネル） {#fc}
 
 An `fc` volume allows an existing fibre channel volume to be mounted in a Pod.
 You can specify single or multiple target World Wide Names using the parameter
@@ -420,7 +415,7 @@ simultaneous writers allowed.
 Using a PD on a Pod controlled by a ReplicationController will fail unless
 the PD is read-only or the replica count is 0 or 1.
 
-#### Creating a PD
+#### 永続ディスク (PD) の作成
 
 Before you can use a GCE PD with a Pod, you need to create it.
 
@@ -428,7 +423,7 @@ Before you can use a GCE PD with a Pod, you need to create it.
 gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
 ```
 
-#### Example Pod
+#### Podの例
 
 ```yaml
 apiVersion: v1
@@ -450,12 +445,13 @@ spec:
       fsType: ext4
 ```
 
-#### Regional Persistent Disks
+#### リージョン永続ディスク
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 The [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#repds) feature allows the creation of Persistent Disks that are available in two zones within the same region. In order to use this feature, the volume must be provisioned as a PersistentVolume; referencing the volume directly from a pod is not supported.
 
-#### Manually provisioning a Regional PD PersistentVolume
+#### リージョン永続ディスクをPersistentVolumeとして手動でプロビジョニングする
+
 Dynamic provisioning is possible using a [StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce).
 Before creating a PersistentVolume, you must create the PD:
 ```shell
@@ -482,7 +478,7 @@ spec:
     fsType: ext4
 ```
 
-#### CSI Migration
+#### CSIマイグレーション
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -493,7 +489,7 @@ Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-drive
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
 Beta features must be enabled.
 
-### gitRepo (deprecated) {#gitrepo}
+### gitRepo（廃止） {#gitrepo}
 
 {{< warning >}}
 The gitRepo volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
@@ -582,7 +578,7 @@ Watch out when using this type of volume, because:
   [privileged Container](/docs/user-guide/security-context) or modify the file
   permissions on the host to be able to write to a `hostPath` volume
 
-#### Example Pod
+#### Podの例
 
 ```yaml
 apiVersion: v1
@@ -745,7 +741,7 @@ To enable this feature on 1.11, you need to explicitly set the `TokenRequestProj
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 True.
 
-#### Example Pod with a secret, a downward API, and a configmap.
+#### Secret、Downward API、およびConfigMapを使用するPodの例
 
 ```yaml
 apiVersion: v1
@@ -785,7 +781,7 @@ spec:
               path: my-group/my-config
 ```
 
-#### Example Pod with multiple secrets with a non-default permission mode set.
+#### デフォルト以外のパーミッションモードを指定したSecretを使用するPodの例
 
 ```yaml
 apiVersion: v1
@@ -1071,7 +1067,7 @@ of a volume are preserved when it is unmounted. It supports both VMFS and VSAN d
 You must create VMDK using one of the following methods before using with Pod.
 {{< /caution >}}
 
-#### Creating a VMDK volume
+#### VMDKボリュームの作成
 
 Choose one of the following methods to create a VMDK.
 
@@ -1094,7 +1090,7 @@ vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 {{< /tabs >}}
 
 
-#### vSphere VMDK Example configuration
+#### vSphere VMDKの設定例
 
 ```yaml
 apiVersion: v1
@@ -1119,7 +1115,7 @@ spec:
 More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
 
-## Using subPath
+## subPathの使用
 
 Sometimes, it is useful to share one volume for multiple uses in a single Pod. The `volumeMounts.subPath`
 property can be used to specify a sub-path inside the referenced volume instead of its root.
@@ -1155,7 +1151,7 @@ spec:
         claimName: my-lamp-site-data
 ```
 
-### Using subPath with expanded environment variables
+### 拡張した環境変数を用いたsubPathの使用
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
@@ -1193,7 +1189,7 @@ spec:
       path: /var/log/pods
 ```
 
-## Resources
+## リソース
 
 The storage media (Disk, SSD, etc.) of an `emptyDir` volume is determined by the
 medium of the filesystem holding the kubelet root dir (typically
@@ -1206,7 +1202,7 @@ request a certain amount of space using a [resource](/docs/user-guide/compute-re
 specification, and to select the type of media to use, for clusters that have
 several media types.
 
-## Out-of-Tree Volume Plugins
+## Out-of-Treeボリュームプラグイン
 The Out-of-tree volume plugins include the Container Storage Interface (CSI)
 and FlexVolume. They enable storage vendors to create custom storage plugins
 without adding them to the Kubernetes repository.
@@ -1224,7 +1220,7 @@ extensions.
 For storage vendors looking to create an out-of-tree volume plugin, please refer
 to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
-### CSI
+### コンテナストレージインターフェース (CSI)
 
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
 defines a standard interface for container orchestration systems (like
@@ -1300,7 +1296,7 @@ persistent volume:
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
 
-#### CSI raw block volume support
+#### CSIのRawブロックボリュームのサポート
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -1316,7 +1312,7 @@ feature gates which must be enabled for this feature are `BlockVolume` and
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
-#### CSI ephemeral volumes
+#### CSIの揮発性ディスク
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
@@ -1350,11 +1346,12 @@ is enabled by default starting with Kubernetes 1.16.
 
 CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
 
-# Developer resources
+# 開発者向けのリソース
+
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
 
-#### Migrating to CSI drivers from in-tree plugins
+#### in-treeプラグインからCSIドライバーにマイグレーションする
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
@@ -1381,7 +1378,7 @@ plugin path on each node (and in some cases master).
 Pods interact with FlexVolume drivers through the `flexvolume` in-tree plugin.
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md).
 
-## Mount propagation
+## マウントの伝搬 (Mount propagation)
 
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
@@ -1428,7 +1425,8 @@ In addition, any volume mounts created by Containers in Pods must be destroyed
 (unmounted) by the Containers on termination.
 {{< /caution >}}
 
-### Configuration
+### 設定
+
 Before mount propagation can work properly on some deployments (CoreOS,
 RedHat/Centos, Ubuntu) mount share must be configured correctly in
 Docker as shown below.
