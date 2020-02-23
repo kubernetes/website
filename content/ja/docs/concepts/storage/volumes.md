@@ -20,44 +20,29 @@ Kubernetesの`Volume`の抽象化は、これらの問題を解決します。
 
 ## バックグラウンド
 
-Docker also has a concept of
-[volumes](https://docs.docker.com/engine/admin/volumes/), though it is
-somewhat looser and less managed.  In Docker, a volume is simply a directory on
-disk or in another Container.  Lifetimes are not managed and until very
-recently there were only local-disk-backed volumes.  Docker now provides volume
-drivers, but the functionality is very limited for now (e.g. as of Docker 1.7
-only one volume driver is allowed per Container and there is no way to pass
-parameters to volumes).
+Dockerもまた[ボリューム](https://docs.docker.com/engine/admin/volumes/)の概念を持っていますが、いくぶん小さく緩い管理方法です。
+Dockerでは、ボリュームはディスクまたは別のコンテナ内のディレクトリにすぎません。
+ライフタイムは管理されておらず、ごく最近まではローカルディスクを使用したボリュームのみでした。
+現在はボリュームドライバーを提供していますが、機能は非常に制限されています（たとえば、Docker 1.7の時点では、コンテナごとに1つのボリュームドライバーのみ利用でき、ボリュームにパラメータを渡す方法はありません）。
 
-A Kubernetes volume, on the other hand, has an explicit lifetime - the same as
-the Pod that encloses it.  Consequently, a volume outlives any Containers that run
-within the Pod, and data is preserved across Container restarts. Of course, when a
-Pod ceases to exist, the volume will cease to exist, too.  Perhaps more
-importantly than this, Kubernetes supports many types of volumes, and a Pod can
-use any number of them simultaneously.
+一方、KubernetesのボリュームはPodと同様の明確なライフタイムを持っています。
+したがって、ボリュームはPod内で実行されるコンテナよりも長く残り、コンテナの再起動後もデータは保持されています。
+もちろん、Podが存在しなくなったときは、ボリュームも存在しなくなります。
+おそらくこれよりも重要なのは、Kubernetesが多くの種類のボリュームをサポートしており、Podが同時に任意の数のボリュームを利用できることでしょう。
 
-At its core, a volume is just a directory, possibly with some data in it, which
-is accessible to the Containers in a Pod.  How that directory comes to be, the
-medium that backs it, and the contents of it are determined by the particular
-volume type used.
+ボリュームは単なるディレクトリで、Pod内のコンテナからアクセス可能なデータを含んでいることです。
+ディレクトリがどのようになるか、サポートするメディア、およびその内容は、使用したボリュームタイプによって決定されます。
 
-To use a volume, a Pod specifies what volumes to provide for the Pod (the
-`.spec.volumes`
-field) and where to mount those into Containers (the
-`.spec.containers[*].volumeMounts`
-field).
+ボリュームを使用するには、Podの仕様に提供するボリュームの種類（`.spec.volumes`フィールド）およびコンテナのマウントする場所（`.spec.containers[*].volumeMounts`フィールド）を指定します。
 
-A process in a container sees a filesystem view composed from their Docker
-image and volumes.  The [Docker
-image](https://docs.docker.com/userguide/dockerimages/) is at the root of the
-filesystem hierarchy, and any volumes are mounted at the specified paths within
-the image.  Volumes can not mount onto other volumes or have hard links to
-other volumes.  Each Container in the Pod must independently specify where to
-mount each volume.
+コンテナ内のプロセスはDockerイメージおよびボリュームから作成されたファイルシステムを閲覧します。
+[Dockerイメージ](https://docs.docker.com/userguide/dockerimages/)はファイルシステム階層のルートに存在し、ボリュームはイメージ内の指定されたパスにマウントされます。
+ボリュームはほかのボリュームにマウントしたり、ほかのボリュームへのハードリンクを持つことはできません。
+Pod内の各コンテナには、ボリュームをマウントする場所を個別に指定する必要があります。
 
 ## ボリュームの種類
 
-Kubernetes supports several types of Volumes:
+Kubernetesは、いくつかの種類のボリュームをサポートしています:
 
    * [awsElasticBlockStore](#awselasticblockstore)
    * [azureDisk](#azuredisk)
@@ -68,11 +53,11 @@ Kubernetes supports several types of Volumes:
    * [csi](#csi)
    * [downwardAPI](#downwardapi)
    * [emptyDir](#emptydir)
-   * [fc (fibre channel)](#fc)
+   * [fc（ファイバーチャネル）](#fc)
    * [flexVolume](#flexVolume)
    * [flocker](#flocker)
    * [gcePersistentDisk](#gcepersistentdisk)
-   * [gitRepo (deprecated)](#gitrepo)
+   * [gitRepo（廃止）](#gitrepo)
    * [glusterfs](#glusterfs)
    * [hostPath](#hostpath)
    * [iscsi](#iscsi)
@@ -88,7 +73,7 @@ Kubernetes supports several types of Volumes:
    * [storageos](#storageos)
    * [vsphereVolume](#vspherevolume)
 
-We welcome additional contributions.
+追加のコントリビューションを歓迎しています。
 
 ### awsElasticBlockStore {#awselasticblockstore}
 
