@@ -260,43 +260,35 @@ ConfigMapを[subPath](#using-subpath)ボリュームマウントとして使用�
 
 ### downwardAPI {#downwardapi}
 
-A `downwardAPI` volume is used to make downward API data available to applications.
-It mounts a directory and writes the requested data in plain text files.
+`downwardAPI`ボリュームは、アプリケーションでDownward APIのデータを利用できるようにする際に用いられます。
+このボリュームタイプはディレクトリをマウントし、要求されたデータをプレーンテキストファイルとして書き込みます。
 
 {{< note >}}
-A Container using Downward API as a [subPath](#using-subpath) volume mount will not
-receive Downward API updates.
+Downward APIを[subPath](#using-subpath)ボリュームマウントとして使用するコンテナは、Downward APIの変更を受け取ることができません。
 {{< /note >}}
 
-See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
+さらなる情報は、[`downwardAPI`ボリュームの例](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)を参照してください。
 
 ### emptyDir {#emptydir}
 
-An `emptyDir` volume is first created when a Pod is assigned to a Node, and
-exists as long as that Pod is running on that node.  As the name says, it is
-initially empty.  Containers in the Pod can all read and write the same
-files in the `emptyDir` volume, though that volume can be mounted at the same
-or different paths in each Container.  When a Pod is removed from a node for
-any reason, the data in the `emptyDir` is deleted forever.
+`emptyDir`ボリュームは、ノードにPodが割り当てられた際に作成され、そのノード上で実行されている限り存在します。
+この名前が示すように、初期状態は空です。
+Pod内の各コンテナは`emptyDir`ボリューム内の同じファイルをすべて読み書きできますが、ボリュームは各コンテナごとに同一または異なるパスにマウントすることができます。
+Podがなんらかの理由でノードから削除されると、`emptyDir`内のデータは完全に削除されます。
 
 {{< note >}}
-A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
+コンテナがクラッシュしてもPodはノードから*削除されないため* 、`emptyDir`ボリューム内のデータはコンテナがクラッシュしても保たれます。
 {{< /note >}}
 
-Some uses for an `emptyDir` are:
+`emptyDir`のおもな用途は次のとおりです:
 
-* scratch space, such as for a disk-based merge sort
-* checkpointing a long computation for recovery from crashes
-* holding files that a content-manager Container fetches while a webserver
-  Container serves the data
+* ディスクベースのマージソートを行なう際の、まっさらなスペースの確保
+* 長い処理がクラッシュに備えるために、チェックポイントを行なう
+* Webサーバーのコンテナがデータを配信している間、コンテンツマネージャーのコンテナがファイルを保持する
 
-By default, `emptyDir` volumes are stored on whatever medium is backing the
-node - that might be disk or SSD or network storage, depending on your
-environment.  However, you can set the `emptyDir.medium` field to `"Memory"`
-to tell Kubernetes to mount a tmpfs (RAM-backed filesystem) for you instead.
-While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
-node reboot and any files you write will count against your Container's
-memory limit.
+デフォルトでは、`emptyDir`ボリュームはノードにあるメディアに保存されます。これは、ディスク、SSD、またはネットワークストレージなど、環境に依存します。
+ただし、`emptyDir.medium`フィールドに`"Memory"`を設定し、Kubernetesにtmpfs（RAMベースのファイルシステム）を使用するよう指示することもできます。
+tmpfsは非常に高速ですが、ディスクとは異なりノードの再起動時に消去され、書き込んだファイルはコンテナのメモリ制限値に数えられます。
 
 #### Podの例
 
