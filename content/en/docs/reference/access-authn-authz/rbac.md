@@ -608,7 +608,8 @@ either do not manually edit the role, or disable auto-reconciliation.
 {{< /note >}}
 
 <table>
-<colgroup><col width="25%"><col width="25%"><col></colgroup>
+<caption>Kubernetes RBAC API discovery roles</caption>
+<colgroup><col width="25%" /><col width="25%" /><col /></colgroup>
 <tr>
 <th>Default ClusterRole</th>
 <th>Default ClusterRoleBinding</th>
@@ -617,17 +618,17 @@ either do not manually edit the role, or disable auto-reconciliation.
 <tr>
 <td><b>system:basic-user</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Allows a user read-only access to basic information about themselves. Prior to 1.14, this role was also bound to `system:unauthenticated` by default.</td>
+<td>Allows a user read-only access to basic information about themselves. Prior to v1.14, this role was also bound to <tt>system:unauthenticated</tt> by default.</td>
 </tr>
 <tr>
 <td><b>system:discovery</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level. Prior to 1.14, this role was also bound to `system:unauthenticated` by default.</td>
+<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level. Prior to v1.14, this role was also bound to <tt>system:unauthenticated</tt> by default.</td>
 </tr>
 <tr>
 <td><b>system:public-info-viewer</b></td>
 <td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
-<td>Allows read-only access to non-sensitive information about the cluster. Introduced in 1.14.</td>
+<td>Allows read-only access to non-sensitive information about the cluster. Introduced in Kubernetes v1.14.</td>
 </tr>
 </table>
 
