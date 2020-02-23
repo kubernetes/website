@@ -222,7 +222,7 @@ language_alternatives = ["en"]
 
 [languages.es]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Orquestación de contenedores para producción"
 languageName ="Español"
 weight = 9
 contentDir = "content/es"
