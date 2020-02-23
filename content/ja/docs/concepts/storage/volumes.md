@@ -168,18 +168,16 @@ Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)をクラスタ�
 
 ### cephfs {#cephfs}
 
-A `cephfs` volume allows an existing CephFS volume to be
-mounted into your Pod. Unlike `emptyDir`, which is erased when a Pod is
-removed, the contents of a `cephfs` volume are preserved and the volume is merely
-unmounted.  This means that a CephFS volume can be pre-populated with data, and
-that data can be "handed off" between Pods.  CephFS can be mounted by multiple
-writers simultaneously.
+`cephfs`ボリュームでは、既存のCephFSボリュームをPodにマウントすることができます。
+`emptyDir`はPodが削除されると合わせて削除されますが、`cephfs`ボリュームは保存されたままであり、ボリュームはアンマウントされるだけです。
+つまり、CephFSボリュームに事前にデータを用意したり、Pod間でデータを受け渡すこともできます。
+CephFSは複数の書き込み元から同時にマウント可能です。
 
 {{< caution >}}
-You must have your own Ceph server running with the share exported before you can use it.
+使用する前に、Cephサーバーが起動中で、利用する共有がエクスポートされている必要があります。
 {{< /caution >}}
 
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
+さらなる情報は、[CephFSの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/)を参照してください。
 
 ### cinder {#cinder}
 
