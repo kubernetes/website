@@ -11,7 +11,7 @@ weight: 10
 次に、`Pod`内で複数のコンテナが一緒に起動する場合、しばしばコンテナ間でファイルを共有する必要が発生します。
 Kubernetesの`Volume`の抽象化は、これらの問題を解決します。
 
-[Pods](/docs/user-guide/pods)について十分に熟知していることを推奨します。
+[Pod](/docs/user-guide/pods)について十分に熟知していることを推奨します。
 
 {{% /capture %}}
 
