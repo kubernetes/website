@@ -97,7 +97,7 @@ Use the configuration file to create a pod that will get scheduled on `foo-node`
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Learn more about
-[labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+Learn more about [labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+Learn more about [nodes](/docs/concepts/architecture/nodes/).
 {{% /capture %}}
 
