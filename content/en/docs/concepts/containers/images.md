@@ -9,14 +9,29 @@ weight: 10
 
 {{% capture overview %}}
 
-You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
-
-The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
+You create your Docker image and push it to a registry before referring to it in a Kubernetes pod. For each container in Pod, you need to specify the image separately.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
+## Setting Image
+The docker image can be set for each container of pod using `image` property. The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags. If a tag is not specified, it defaults to `latest`.
+
+Here’s an example manifest for a Pod with container image `nginx:1.7.9`.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-demo
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80
+```
 
 ## Updating Images
 
