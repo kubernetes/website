@@ -6,14 +6,12 @@ weight: 10
 
 {{% capture overview %}}
 
-On-disk files in a Container are ephemeral, which presents some problems for
-non-trivial applications when running in Containers.  First, when a Container
-crashes, kubelet will restart it, but the files will be lost - the
-Container starts with a clean state.  Second, when running Containers together
-in a `Pod` it is often necessary to share files between those Containers.  The
-Kubernetes `Volume` abstraction solves both of these problems.
+コンテナ内におけるディスク上のファイルは揮発性であるため、コンテナで実行する際にアプリケーションはいくつかの問題を抱えます。
+まず、コンテナがクラッシュした際にKubeletはコンテナを再起動しますが、ファイルは失われます。つまり、コンテナはまっさらな状態から起動されることを意味します。
+次に、`Pod`内で複数のコンテナが一緒に起動する場合、しばしばコンテナ間でファイルを共有する必要が発生します。
+Kubernetesの`Volume`の抽象化は、これらの問題を解決します。
 
-Familiarity with [Pods](/docs/user-guide/pods) is suggested.
+[Pods](/docs/user-guide/pods)について十分に熟知していることを推奨します。
 
 {{% /capture %}}
 
