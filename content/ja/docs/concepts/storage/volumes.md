@@ -323,8 +323,8 @@ Kubernetesホストから指定されたWWNにアクセスできるようにす�
 
 ### flocker {#flocker}
 
-[Flocker](https://github.com/ClusterHQ/flocker)はオープンソースのクラスター化されたコンテナ用のデータボリューム管理ツールです。
-さまざまなストレージバックエンドに対応した、データボリュームの管理およびオーケストレーションを提供します。
+[Flocker](https://github.com/ClusterHQ/flocker)はオープンソースのコンテナ用のクラスター化されたデータボリューム管理ツールです。
+さまざまなストレージバックエンドに対応し、データボリュームの管理およびオーケストレーションを提供します。
 
 `flocker`ボリュームは、FlockerデータセットをPodにマウントすることができます。
 Flockerにデータセットが存在しない場合は、最初にFlocker CLIまたはFlocker APIを使用して作成しておく必要があります。
@@ -339,33 +339,28 @@ Flockerにデータセットが存在しない場合は、最初にFlocker CLI�
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
-A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE) [Persistent
-Disk](http://cloud.google.com/compute/docs/disks) into your Pod.  Unlike
-`emptyDir`, which is erased when a Pod is removed, the contents of a PD are
-preserved and the volume is merely unmounted.  This means that a PD can be
-pre-populated with data, and that data can be "handed off" between Pods.
+`gcePersistentDisk`ボリュームは、Google Compute Engine (GCE) [永続ディスク](http://cloud.google.com/compute/docs/disks)をPodにマウントすることができます。
+`emptyDir`はPodが削除されると合わせて削除されますが、永続ディスクの内容は保存されたままであり、ボリュームはアンマウントされるだけです。
+つまり、永続ディスクに事前にデータを用意したり、Pod間でデータを受け渡すこともできます。
 
 {{< caution >}}
-You must create a PD using `gcloud` or the GCE API or UI before you can use it.
+使用する前に、`gcloud`コマンドまたはGCE APIやUI上で永続ディスクを作成しておく必要があります。
 {{< /caution >}}
 
-There are some restrictions when using a `gcePersistentDisk`:
+`gcePersistentDisk`ボリュームを使用する際に、いくつかの制限があります:
 
-* the nodes on which Pods are running must be GCE VMs
-* those VMs need to be in the same GCE project and zone as the PD
+* Podが実行されているノードは、GCEの仮想マシンである必要があります
+* 仮想マシンは、永続ディスクと同じGCEプロジェクトおよびゾーンでなければなりません
 
-A feature of PD is that they can be mounted as read-only by multiple consumers
-simultaneously.  This means that you can pre-populate a PD with your dataset
-and then serve it in parallel from as many Pods as you need.  Unfortunately,
-PDs can only be mounted by a single consumer in read-write mode - no
-simultaneous writers allowed.
+永続ディスクの機能として、複数の利用先から読み込み専用で同時にマウントできます。
+これは、永続ディスクにデータを事前に用意し、必要なPodへ同時に提供できることを意味します。
+残念ながら、永続ディスクは読み書きモードでは単一の利用先でしかマウントできません。つまり、同時書き込みは利用できません。
 
-Using a PD on a Pod controlled by a ReplicationController will fail unless
-the PD is read-only or the replica count is 0 or 1.
+永続ディスクが読み込み専用であるか、レプリカ数が0または1でない限り、レプリケーションコントローラーによって操作されるPodで使用すると失敗します。
 
 #### 永続ディスク (PD) の作成
 
-Before you can use a GCE PD with a Pod, you need to create it.
+Podに対してGCEの永続ディスクを使用する前に、永続ディスクを作成する必要があります。
 
 ```shell
 gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
@@ -396,18 +391,20 @@ spec:
 #### リージョン永続ディスク
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
-The [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#repds) feature allows the creation of Persistent Disks that are available in two zones within the same region. In order to use this feature, the volume must be provisioned as a PersistentVolume; referencing the volume directly from a pod is not supported.
+[リージョン永続ディスク](https://cloud.google.com/compute/docs/disks/#repds)の機能により、同一リージョン内の2つのゾーン間で利用可能な永続ディスクを作成できます。この機能を使用するには、ボリュームをPersistentVolumeとしてプロビジョニングしなければなりません。Podから直接ボリュームを参照する操作はサポートされていません。
 
 #### リージョン永続ディスクをPersistentVolumeとして手動でプロビジョニングする
 
-Dynamic provisioning is possible using a [StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce).
-Before creating a PersistentVolume, you must create the PD:
+[GCEの永続ディスクのStorageClass](/docs/concepts/storage/storage-classes/#gce)を使用することで、動的なプロビジョニングが可能となります。
+PersistentVolumeを作成する前に、永続ディスクを作成する必要があります。
+
 ```shell
 gcloud beta compute disks create --size=500GB my-data-disk
     --region us-central1
     --replica-zones us-central1-a,us-central1-b
 ```
-Example PersistentVolume spec:
+
+PersistentVolumeの仕様の例を示します:
 
 ```yaml
 apiVersion: v1
@@ -430,25 +427,21 @@ spec:
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-The CSI Migration feature for GCE PD, when enabled, shims all plugin operations
-from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
-Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
-Beta features must be enabled.
+GCEの永続ディスクに対するCSIマイグレーションの機能は、有効な場合、既存のin-treeプラグインから`pd.csi.storage.gke.io`コンテナストレージインターフェース (CSI) ドライバーへすべての処理を移行します。
+この機能を使用するには、[GCE PD CSI
+Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)をクラスターにインストールし、`CSIMigration`および`CSIMigrationGCE`というベータ版の機能を有効にする必要があります。
 
 ### gitRepo（廃止） {#gitrepo}
 
 {{< warning >}}
-The gitRepo volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+gitRepoボリュームタイプは廃止されました。コンテナにGitリポジトリーをプロビジョニングするには、Gitを使用してリポジトリーをクローンするInitContainer内に[EmptyDir](#emptydir)をマウントしてから、Pod内のコンテナにその[EmptyDir](#emptydir)をマウントします。
 {{< /warning >}}
 
-A `gitRepo` volume is an example of what can be done as a volume plugin.  It
-mounts an empty directory and clones a git repository into it for your Pod to
-use.  In the future, such volumes may be moved to an even more decoupled model,
-rather than extending the Kubernetes API for every such use case.
+`gitRepo`ボリュームは、ボリュームプラグインとして実行できる例のひとつです。
+空のディレクトリをマウントし、使用するPod内にGitリポジトリーをクローンします。
+将来的に、このようなボリュームはユースケースごとにKubernetes APIを拡張するのではなく、さらに分離されたモデルに移行される可能性があります。
 
-Here is an example of gitRepo volume:
+以下にgitRepoボリュームの例を示します:
 
 ```yaml
 apiVersion: v1
@@ -471,19 +464,16 @@ spec:
 
 ### glusterfs {#glusterfs}
 
-A `glusterfs` volume allows a [Glusterfs](http://www.gluster.org) (an open
-source networked filesystem) volume to be mounted into your Pod.  Unlike
-`emptyDir`, which is erased when a Pod is removed, the contents of a
-`glusterfs` volume are preserved and the volume is merely unmounted.  This
-means that a glusterfs volume can be pre-populated with data, and that data can
-be "handed off" between Pods.  GlusterFS can be mounted by multiple writers
-simultaneously.
+`glusterfs`ボリュームは、[GlusterFS](http://www.gluster.org)（オープンソースのネットワークファイルシステム）ボリュームをPodにマウントすることができます。
+`emptyDir`はPodが削除されると合わせて削除されますが、`glusterfs`ボリュームは保存されたままであり、ボリュームはアンマウントされるだけです。
+つまり、glusterfsボリュームに事前にデータを用意したり、Pod間でデータを受け渡すこともできます。
+GlusterFSは複数の書き込み元から同時にマウント可能です。
 
 {{< caution >}}
-You must have your own GlusterFS installation running before you can use it.
+使用する前に、GlusterFSをインストールし実行しておく必要があります。
 {{< /caution >}}
 
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) for more details.
+さらなる情報は、[GlusterFSの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs)を参照してください。
 
 ### hostPath {#hostpath}
 
