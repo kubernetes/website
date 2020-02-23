@@ -1178,7 +1178,7 @@ extensions.
 For storage vendors looking to create an out-of-tree volume plugin, please refer
 to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
-### コンテナストレージインターフェース (CSI)
+### コンテナストレージインターフェース (CSI) {#csi}
 
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
 defines a standard interface for container orchestration systems (like
