@@ -20,7 +20,11 @@ RBAC authorization uses the `rbac.authorization.k8s.io`
 decisions, allowing you to dynamically configure policies through the Kubernetes API.
 
 To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-with `--authorization-mode=RBAC`.
+with the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
+for example:
+```shell
+kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
+```
 
 ## API objects {#api-overview}
 
@@ -1170,18 +1174,21 @@ Run both the RBAC and ABAC authorizers, and specify a policy file that contains
 the [legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-format):
 
 ```
---authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
+--authorization-mode=...,RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
 
-The RBAC authorizer will attempt to authorize requests first. If it denies an API request,
-the ABAC authorizer is then run. This means that any request allowed by *either* the RBAC
-or ABAC policies is allowed.
+To explain that first command line option in detail: if earlier authorizers, such as Node,
+deny a request, then the the RBAC authorizer attempts to authorize the API request. If RBAC
+also denies that API request, the ABAC authorizer is then run. This means that any request
+allowed by *either* the RBAC or ABAC policies is allowed.
 
-When the apiserver is run with a log level of 5 or higher for the RBAC component (`--vmodule=rbac*=5` or `--v=5`),
-you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
+When the kube-apiserver is run with a log level of 5 or higher for the RBAC component
+(`--vmodule=rbac*=5` or `--v=5`), you can see RBAC denials in the API server log
+(prefixed with `RBAC DENY:`).
 You can use that information to determine which roles need to be granted to which users, groups, or service accounts.
-Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
-in the server logs, you can remove the ABAC authorizer.
+
+Once you have [granted roles to service accounts](#service-account-permissions) and workloads
+are running with no RBAC denial messages in the server logs, you can remove the ABAC authorizer.
 
 ### Permissive RBAC permissions
 
