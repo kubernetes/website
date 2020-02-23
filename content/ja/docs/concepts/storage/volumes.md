@@ -182,11 +182,10 @@ CephFSは複数の書き込み元から同時にマウント可能です。
 ### cinder {#cinder}
 
 {{< note >}}
-Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
-configuration please refer [cloud provider openstack](/docs/concepts/cluster-administration/cloud-providers/#openstack).
+必須要件: OpenStackクラウドプロバイダー上にKubernetesが設定されていること。クラウドプロバイダーの設定については、[クラウドプロバイダーのOpenStackセクション](/docs/concepts/cluster-administration/cloud-providers/#openstack)を参照してください。
 {{< /note >}}
 
-`cinder` is used to mount OpenStack Cinder Volume into your Pod.
+`cinder`はOpenStack CinderボリュームをPodにマウントする際に使用します。
 
 #### Cinderボリュームの設定例
 
@@ -214,25 +213,18 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-The CSI Migration feature for Cinder, when enabled, shims all plugin operations
-from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
-Alpha features must be enabled.
+Cinderに対するCSIマイグレーションの機能は、有効な場合、既存のin-treeプラグインから`cinder.csi.openstack.org`コンテナストレージインターフェース (CSI) ドライバーへすべての処理を移行します。
+この機能を使用するには、[Openstack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)をクラスターにインストールし、`CSIMigration`および`CSIMigrationOpenStack`というアルファ版の機能を有効にする必要があります。
 
 ### configMap {#configmap}
 
-The [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) resource
-provides a way to inject configuration data into Pods.
-The data stored in a `ConfigMap` object can be referenced in a volume of type
-`configMap` and then consumed by containerized applications running in a Pod.
+[`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/)リソースは、設定データをPodに注入する手段を提供します。
+`ConfigMap`オブジェクト内に格納されているデータは`configMap`ボリュームタイプによって参照でき、Pod内でコンテナ化されたアプリケーションから利用することができます。
 
-When referencing a `configMap` object, you can simply provide its name in the
-volume to reference it. You can also customize the path to use for a specific
-entry in the ConfigMap.
-For example, to mount the `log-config` ConfigMap onto a Pod called `configmap-pod`,
-you might use the YAML below:
+`configMap`オブジェクトを参照する際は、ボリューム内の名前を指定するだけで参照できます。
+ConfigMapの特定のエントリーに使用するパスをカスタマイズすることもできます。
+たとえば、`log-config`というConfigMapを`configmap-pod`というPodにマウントするには、以下のようなYAMLを使用することになるでしょう:
 
 ```yaml
 apiVersion: v1
@@ -255,18 +247,15 @@ spec:
             path: log_level
 ```
 
-The `log-config` ConfigMap is mounted as a volume, and all contents stored in
-its `log_level` entry are mounted into the Pod at path "`/etc/config/log_level`".
-Note that this path is derived from the volume's `mountPath` and the `path`
-keyed with `log_level`.
+`log-config`ConfigMapはボリュームとしてマウントされ、すべての内容が`log_level`エントリーに格納されています。Podでは"`/etc/config/log_level`"というパスにマウントされています。
+このパスは、ボリュームの`mountPath`および`log_level`というキーに設定された`path`から成り立っている点に注意してください。
 
 {{< caution >}}
-You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) before you can use it.
+使用する前に、[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)をあらかじめ作成しておく必要があります。
 {{< /caution >}}
 
 {{< note >}}
-A Container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
-receive ConfigMap updates.
+ConfigMapを[subPath](#using-subpath)ボリュームマウントとして使用するコンテナは、ConfigMapの変更を受け取ることができません。
 {{< /note >}}
 
 ### downwardAPI {#downwardapi}
@@ -1084,7 +1073,7 @@ spec:
 More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
 
-## subPathの使用
+## subPathの使用 {#using-subpath}
 
 Sometimes, it is useful to share one volume for multiple uses in a single Pod. The `volumeMounts.subPath`
 property can be used to specify a sub-path inside the referenced volume instead of its root.
