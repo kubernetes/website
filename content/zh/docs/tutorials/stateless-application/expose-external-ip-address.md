@@ -252,6 +252,6 @@ Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
 
-了解更多关于[将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)。
+了解更多关于[将应用程序与服务连接](/content/zh/docs/concepts/services-networking/connect-applications-service.md)。
 
 {{% /capture %}}
