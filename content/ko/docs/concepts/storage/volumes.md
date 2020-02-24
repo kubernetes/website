@@ -8,8 +8,8 @@ weight: 10
 
 컨테이너 내의 디스크에 있는 파일은 임시적이며, 컨테이너에서 실행될 때
 애플리케이션에 적지 않은 몇 가지 문제가 발생한다. 첫째, 컨테이너가 충돌되면,
-kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
-시작되기 때문에 파일이 사라진다. 둘째, `파드` 에서 컨테이너를 함께 실행할 때 
+kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상태로
+시작되기 때문에 기존 파일이 유실된다. 둘째, `파드` 에서 컨테이너를 함께 실행할 때 
 컨테이너 사이에 파일을 공유해야 하는 경우가 자주 발생한다. 쿠버네티스의
 `볼륨` 추상화는 이 두 가지 문제를 모두 해결한다.
 
@@ -43,7 +43,7 @@ kubelet은 재시작이 되지만, 컨테이너가 깨끗한 상태로
 매체와 내용은 사용된 특정 볼륨의 유형에 따라
 결정된다.
 
-볼륨을 사용하기 위해 파드는 파드에 제공할 볼륨 (
+볼륨을 사용하기 위해 파드는 파드에 제공할 볼륨(
 `.spec.volumes`
 필드)과 컨테이너에 마운트 할 위치(
 `.spec.containers[*].volumeMounts`
@@ -158,7 +158,7 @@ awsElasticBlockStore 의 CSI 마이그레이션 기능이 활성화된 경우, �
 #### CSI 마이그레이션 완료
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
-컨트롤러 매니저와 kubelet에 의해 로드되지 않도록 awsElasticBlockStore 스토리지 플러그인을 끄려면, 이 기능 의 플래그를 true로 설정해야 한다. 이는 모든 워커 노드에서 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버 설치를 필요로 한다.
+컨트롤러 매니저와 kubelet에 의해 로드되지 않도록 awsElasticBlockStore 스토리지 플러그인을 끄려면, 이 기능의 플래그를 true로 설정해야 한다. 이는 모든 워커 노드에서 `ebs.csi.aws.com` 컨테이너 스토리지 인터페이스(CSI) 드라이버 설치를 필요로 한다.
 
 ### azureDisk {#azuredisk}
 
@@ -213,7 +213,7 @@ CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 �
 ### cinder {#cinder}
 
 {{< note >}}
-전제 조건: 오픈스택 클라우드 공급자로 구성된 쿠버네티스. 클라우드공급자
+전제 조건: 오픈스택 클라우드 공급자로 구성된 쿠버네티스. 클라우드 공급자
 구성에 대해서는 [오픈스택 클라우드 공급자](/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
 {{< /note >}}
 
@@ -296,17 +296,17 @@ ConfigMap 볼륨을 사용하려면 먼저 [ConfigMap](/docs/tasks/configure-pod
 {{< /caution >}}
 
 {{< note >}}
-ConfigMap을 [subPath](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 ConfigMap
+ConfigMap을 [subPath](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 ConfigMap
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
 ### downwardAPI {#downwardapi}
 
-`downwardAPI` 볼륨은 애플리케이션에서 downward API 데이터를 사용할 수 있도록 하는데 사용된다.
+`downwardAPI` 볼륨은 애플리케이션에서 다운워드(downward) API 데이터를 사용할 수 있도록 하는데 사용된다.
 이것은 디렉터리를 마운트하고 요청된 데이터를 일반 텍스트 파일로 작성한다.
 
 {{< note >}}
-Downward API를 [subPath] 볼륨 마운트로 사용하는 컨테이너는 Downward API
+Downward API를 [subPath](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 Downward API
 업데이트를 수신하지 않는다.
 {{< /note >}}
 
@@ -335,7 +335,7 @@ Downward API를 [subPath] 볼륨 마운트로 사용하는 컨테이너는 Downw
 기본적으로, `emptyDir` 볼륨은 노드를 지원하는 모든 매체에
 저장된다(환경에 따라 디스크, SSD 또는 네트워크 스토리지일
 수 있다).  그러나 `emptyDir.medium` 필드를 `"Memory"` 로 설정해서
-쿠버네티스에 tmpfs (RAM 기반 파일 시스템)를 마운트하도록 할 수 있다.
+쿠버네티스에 tmpfs(RAM 기반 파일 시스템)를 마운트하도록 할 수 있다.
 tmpfs는 매우 빠르지만, 디스크와 다르게 노드 재부팅시 tmpfs가 지워지고,
 작성하는 모든 파일이 컨테이너 메모리
 제한에 포함된다.
@@ -548,7 +548,7 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드간에 데�
   `hostPath` 로 이용함
 * 컨테이너에서 cAdvisor의 실행. `/sys` 를 `hostPath` 로 이용함
 * 파드는 주어진 `hostPath` 를 파드가 실행되기 이전에 있어야 하거나,
-  생성해야 하는지 그리고 존재해야하는 대상을 지정할 수 있도록 허용함
+  생성해야 하는지 그리고 존재해야 하는 대상을 지정할 수 있도록 허용함
 
 필요한 `path` 속성 외에도, `hostPath` 볼륨에 대한 `type` 을 마음대로 지정할 수 있다.
 
@@ -573,7 +573,7 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드간에 데�
 * 쿠버네티스가 계획한 대로 리소스 인식 스케줄링을 추가하면 `hostPath` 에서
   사용되는 리소스를 설명할 수 없음
 * 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다. 프로세스를
-  [특권 컨테이너] 에서 루트로 실행하거나
+  [특권 컨테이너](/docs/user-guide/security-context) 에서 루트로 실행하거나
   `hostPath` 볼륨에 쓸 수 있도록 호스트의 파일 권한을 수정해야 함
 
 #### 파드 예시
@@ -605,14 +605,14 @@ spec:
 할수 있다.  파드를 제거할 때 지워지는 `emptyDir` 와는
 다르게 `iscsi` 볼륨의 내용은 유지되고, 볼륨은 그저 마운트
 해제만 된다. 이 의미는 iscsi 볼륨에 데이터를 미리 채울 수 있으며,
-파드간에 데이터를 "전달(handed off)" 할 수 있다.
+파드간에 데이터를 "전달(handed off)" 할 수 있다는 것이다.
 
 {{< caution >}}
 사용하려면 먼저 iSCSI 서버를 실행하고 볼륨을 생성해야 한다.
 {{< /caution >}}
 
 iSCSI 특징은 여러 고객이 읽기 전용으로 마운트할 수
-있다는 것이다.  즉, 데이터셋으로 사전에 볼륨을 체운다음,
+있다는 것이다.  즉, 데이터셋으로 사전에 볼륨을 채운다음,
 필요한 만큼 많은 파드에서 병렬로 제공할 수 있다.  불행하게도,
 iSCSI 볼륨은 읽기-쓰기 모드에서는 단일 고객만 마운트할 수 있으며
 동시 쓰기는 허용되지 않는다.
@@ -677,10 +677,10 @@ spec:
 
 로컬 볼륨을 사용할 때는 `volumeBindingMode` 가 `WaitForFirstConsumer` 로 설정된
 스토리지클래스(StorageClass)를 생성하는 것을 권장한다.
-[예시](/docs/concepts/storage/storage-classes/#local)를 본다. 볼륨 바인딩을 지연시키면
+[예시](/docs/concepts/storage/storage-classes/#local)를 본다. 볼륨 바인딩을 지연시키는 것은
 퍼시스턴트볼륨클래임 바인딩 결정도 노드 리소스 요구사항, 노드 셀렉터,
 파드 어피니티 그리고 파드 안티 어피니티와
-같이 파드가 가질 수 있는 다른 노드 제약 조건으로 평가 된다.
+같이 파드가 가질 수 있는 다른 노드 제약 조건으로 평가되도록 만든다.
 
 로컬 볼륨 라이프사이클의 향상된 관리를 위해 외부 정적
 프로비저너를 별도로 실행할 수 있다. 이 프로비저너는 아직 동적
@@ -689,7 +689,7 @@ spec:
 가이드](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)를 본다.
 
 {{< note >}}
-로컬 정적 프로비저너를 사용해서 볼륨 수명주기를 관리하지 않는
+로컬 정적 프로비저너를 사용해서 볼륨 라이프사이클을 관리하지 않는
 경우 로컬 퍼시스턴트볼륨을 수동으로 정리하고 삭제하는 것이
 필요하다.
 {{< /note >}}
@@ -700,7 +700,7 @@ spec:
 할수 있다.  파드를 제거할 때 지워지는 `emptyDir` 와는
 다르게 `nfs` 볼륨의 내용은 유지되고, 볼륨은 그저 마운트
 해제만 된다. 이 의미는 NFS 볼륨에 데이터를 미리 채울 수 있으며,
-파드간에 데이터를 "전달(handed off)" 할 수 있다. NFS는 여러 작성자가
+파드간에 데이터를 "전달(handed off)" 할 수 있다는 뜻이다. NFS는 여러 작성자가
 동시에 마운트할 수 있다.
 
 {{< caution >}}
@@ -850,7 +850,7 @@ spec:
 예시 파드에 주입된 서비스 어카운트 토큰이 포함된 projected 볼륨이
 있다. 예를 들어 이 토큰은 파드 컨테이너에서 쿠버네티스 API 서버에 접근하는데
 사용할 수 있다. `audience` 필드는 토큰에 의도하는 대상을
-포함한다. 토큰 수령은 토큰 대상에 지정된 식별자로 자신을 식별해야하며,
+포함한다. 토큰 수령은 토큰 대상에 지정된 식별자로 자신을 식별해야 하며,
 그렇지 않으면 토큰을 거부해야 한다. 이 필드는
 선택 사항이며 기본값은 API 서버의 식별자이다.
 
@@ -861,13 +861,13 @@ API 서버에 대해 `--service-account-max-token-expiration` 옵션을 지정�
 상대 경로를 지정한다.
 
 {{< note >}}
-projected 볼륨 소스를 [subPath] 볼륨으로 마운트해서 사용하는 컨테이너는 해당 볼륨 소스의 업데이트를 수신하지 않는다.
+projected 볼륨 소스를 [subPath](#subpath-사용하기) 볼륨으로 마운트해서 사용하는 컨테이너는 해당 볼륨 소스의 업데이트를 수신하지 않는다.
 {{< /note >}}
 
 ### portworxVolume {#portworxvolume}
 
-`portworxVolume` 은 쿠버네티스와 하이퍼컨버지드를 실행하는 탄력적인 블록 스토리지
-계층이다.  [Portworx](https://portworx.com/use-case/kubernetes-storage/)는 서버에 지문을 저장하고, 기능에 기반한 계층
+`portworxVolume` 은 쿠버네티스와 하이퍼컨버지드(hyperconverged)를 실행하는 탄력적인 블록 스토리지
+계층이다.  [Portworx](https://portworx.com/use-case/kubernetes-storage/)는 서버에 스토리지 지문을 남기고, 역량에 기반하여 계층화 하고,
 그리고 여러 서버에 걸쳐 용량을 집계한다. Portworx는 가상 머신 내 게스트 또는 베어 메탈 리눅스 노드 위에서 실행된다.
 
 `portworxVolume` 은 쿠버네티스를 통해 동적으로 생성되거나
@@ -912,8 +912,8 @@ spec:
 {{< /caution >}}
 
 Quobyte는 {{< glossary_tooltip text="컨테이너 스토리지 인터페이스" term_id="csi" >}}를 지원한다.
-CSI 는 쿠버네티스 내에서 Quobyte 볼륨을 사용하기위해 권장하는 플러그인이다. Quobyte의
-깃헙 프로젝트에는 예시와 함께 CSI를 사용해서 Quobyte를 배포하기위한 [사용 설명서](https://github.com/quobyte/quobyte-csi#quobyte-csi)가 있다.
+CSI 는 쿠버네티스 내에서 Quobyte 볼륨을 사용하기 위해 권장하는 플러그인이다. Quobyte의
+깃헙 프로젝트에는 예시와 함께 CSI를 사용해서 Quobyte를 배포하기 위한 [사용 설명서](https://github.com/quobyte/quobyte-csi#quobyte-csi)가 있다.
 
 ### rbd {#rbd}
 
@@ -922,7 +922,7 @@ Device](http://ceph.com/docs/master/rbd/rbd/)를 파드에 마운트할 수
 있다.  파드를 제거할 때 지워지는 `emptyDir` 와는 다르게 `rbd` 볼륨의
 내용은 유지되고, 볼륨은 마운트 해제만 된다.  이
 의미는 RBD 볼륨에 데이터를 미리 채울 수 있으며, 데이터를
-"전달(handed off)" 할 수 있다.
+"전달(handed off)" 할 수 있다는 것이다.
 
 {{< caution >}}
 RBD를 사용하기 위해선 먼저 Ceph를 설치하고 실행해야 한다.
@@ -991,7 +991,7 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 {{< /caution >}}
 
 {{< note >}}
-시크릿을 [subPath](#using-subpath) 볼륨 마운트로 사용하는 컨테이너는 시크릿
+시크릿을 [subPath](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 시크릿
 업데이트를 수신하지 못한다.
 {{< /note >}}
 
@@ -1007,7 +1007,7 @@ StorageOS 는 쿠버네티스 환경에서 컨테이너로 실행되므로
 노드 장애로부터 보호하기 위해 데이터를 복제할 수 있다. 씬(Thin) 프로비저닝과
 압축은 활용률을 높이고 비용을 절감할 수 있게 한다.
 
-StorageOS의 핵심은 는 컨테이너에 파일시스템을 통해 접근할 수 있는 블록 스토리지를 제공하는 것이다.
+StorageOS의 핵심은 컨테이너에 파일시스템을 통해 접근할 수 있는 블록 스토리지를 제공하는 것이다.
 
 StorageOS 컨테이너는 64 비트 리눅스가 필요하고 추가적인 종속성이 없다.
 무료 개발자 라이선스를 사용할 수 있다.
@@ -1069,7 +1069,7 @@ spec:
 다음 중 하나를 선택해서 VMDK를 생성한다.
 
 {{< tabs name="tabs_volumes" >}}
-{{% tab name="vmkfstools을 사용해서 생성" %}}
+{{% tab name="vmkfstools를 사용해서 생성" %}}
 먼저 ESX에 ssh로 들어간 다음, 다음 명령을 사용해서 VMDK를 생성한다.
 
 ```shell
@@ -1205,16 +1205,16 @@ FlexVolume이 포함된다. 스토리지 벤더들은 이 플러그인을 쿠버
 추가하지 않고도 사용자 정의 스토리지 플러그인을 만들 수 있다.
 
 CSI 와 FlexVolume을 도입하기 전에는 모든 볼륨 플러그인(위
-목록의 볼륨 유형과 같은)은 "인 트리" 로 쿠버네티스 핵심
+목록의 볼륨 유형과 같은)은 "인 트리(in-tree)" 로 쿠버네티스 핵심
 바이너리와 함께 빌드, 링크, 컴파일 그리고 전달되었고 쿠버네티스
 핵심 API를 확장했다. 이는 새로운 스토리지 시스템을 쿠버네티스(
-볼륨 플러그인)에 추가하려면 쿠버네티스 핵심 코드 리포지토리의 코드 확인이 필요했었다.
+볼륨 플러그인)에 추가하려면 쿠버네티스 핵심 코드 리포지토리의 코드 확인이 필요했음을 의미한다.
 
 CSI와 FlexVolume을 통해 쿠버네티스 코드 베이스와는
 독립적으로 볼륨 플러그인을 개발하고, 쿠버네티스 클러스터의 확장으로 배포(설치)
 할 수 있다.
 
-아웃 오브 트리 볼륨 플러그인을 생성하려는 스토리지 벤더는
+아웃 오브 트리(out-of-tree) 볼륨 플러그인을 생성하려는 스토리지 벤더는
 [이 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)를 참조한다.
 
 ### CSI
@@ -1260,11 +1260,11 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
   이 값은 볼륨을 참조할 때 CSI 볼륨 드라이버에 대한 모든 호출에
   `volume_id` 값을 전달한다.
 - `readOnly`: 볼륨을 읽기 전용으로 "ControllerPublished" (연결)할지
-  여부를 나타내는 선택적인 부울 값. 기본적으로 false 이다. 이 값은
+  여부를 나타내는 선택적인 불리언(boolean) 값. 기본적으로 false 이다. 이 값은
   `ControllerPublishVolumeRequest` 의 `readonly` 필드를
   통해 CSI 드라이버로 전달된다.
 - `fsType`: 만약 PV의 `VolumeMode` 가 `Filesystem` 인 경우에 이 필드는
-  볼륨을 마운트하는 데 사용해야하는 파일시스템을 지정하는 데 사용될 수 있다. 만약
+  볼륨을 마운트하는 데 사용해야 하는 파일시스템을 지정하는 데 사용될 수 있다. 만약
   볼륨이 포맷되지 않았고 포맷이 지원되는 경우, 이 값은
   볼륨을 포맷하는데 사용된다.
   이 값은 `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`
@@ -1342,7 +1342,7 @@ spec:
 이 기능을 사용하려면 CSIInlineVolume 기능 게이트를 활성화 해야 한다.
 쿠버네티스 1.16 시작시 기본적으로 활성화 되어있다.
 
-CSI 임시 볼륨은 CSI 드라이버의 하위집합에서만 지원된다. CSI 드라이버의 복록은 [여기](https://kubernetes-csi.github.io/docs/drivers.html)를 본다.
+CSI 임시 볼륨은 CSI 드라이버의 하위집합에서만 지원된다. CSI 드라이버의 목록은 [여기](https://kubernetes-csi.github.io/docs/drivers.html)를 본다.
 
 # 개발자 리소스
 CSI 드라이버의 개발 방법에 대한 더 자세한 정보는 [쿠버네티스-csi
@@ -1378,14 +1378,14 @@ FlexVolume은 버전 1.2 (CSI 이전) 이후 쿠버네티스에 존재하는
 ## 마운트 전파(propagation)
 
 마운트 전파를 통해 컨테이너가 마운트한 볼륨을 동일한 파드의
-다른 컨테이너 또는 동일한 노드의 다른 파드로 공요할 수 있다.
+다른 컨테이너 또는 동일한 노드의 다른 파드로 공유할 수 있다.
 
 볼륨 마운트 전파는 Container.volumeMounts의 `mountPropagation` 필드에 의해 제어된다.
 그 값은 다음과 같다.
 
- * `None` - 이 볼륨 마운트는 호스트의 볼륨 또는 해당 서브디렉터리의
+ * `None` - 이 볼륨 마운트는 호스트의 볼륨 또는 해당 서브디렉터리에
    마운트된 것을 마운트 이후에 수신하지 않는다.
-   비슷한 방식으로, 컨테이너 생성 한 마운트는 호스트에서 볼 수 없다.
+   비슷한 방식으로, 컨테이너가 생성 한 마운트는 호스트에서 볼 수 없다.
    이것이 기본 모드이다.
 
    이 모드는 [리눅스 커널 문서](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)에
@@ -1409,7 +1409,7 @@ FlexVolume은 버전 1.2 (CSI 이전) 이후 쿠버네티스에 존재하는
    사용하는 모든 파드의 모든 컨테이너와 호스트로 다시 전파된다.
 
    이 모드의 일반적인 유스 케이스로는 FlexVolume 또는 CSI 드라이버를 사용하는 파드 또는
-   `hostPath` 볼륨을 사용하는 호스트에 무언가를 마운트해야하는 파드이다.
+   `hostPath` 볼륨을 사용하는 호스트에 무언가를 마운트해야 하는 파드이다.
 
    이 모드는 [리눅스 커널 문서](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)에
    설명된 `rshared` 마운트 전파와 같다.
