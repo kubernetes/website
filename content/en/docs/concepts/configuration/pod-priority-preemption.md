@@ -184,6 +184,10 @@ which will allow pods of that PriorityClass to preempt lower-priority pods
 If `PreemptionPolicy` is set to `Never`,
 pods in that PriorityClass will be non-preempting.
 
+The use of the `PreemptionPolicy` field requires the `NonPreemptingPriority`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled.
+
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,
 but do not wish to discard existing work by preempting running pods.
