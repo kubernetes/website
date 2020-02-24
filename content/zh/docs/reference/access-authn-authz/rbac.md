@@ -184,7 +184,7 @@ roleRef:
 
 一个 `RoleBinding` 可以引用同一的命名空间中的 `Role` 。
 下面的例子 `RoleBinding` 将 "pod-reader" 角色授予在 "default" 命名空间中的用户 "jane"；
-同时给用户 "jane" 读取 "default" 命名空间中 pods 的权限。
+这样，用户 "jane" 就具有了读取 "default" 命名空间中 pods 的权限。
 
 `roleRef` 里的内容决定了实际创建绑定的方法。`kind` 可以是 `Role` 或 `ClusterRole`，
 `name` 将引用你要指定的 `Role` 或 `ClusterRole` 的名称。在下面的例子中，角色绑定（RoleBinding）使用
@@ -2121,7 +2121,7 @@ kubectl create clusterrolebinding permissive-binding \
 {{< warning >}}
 下面的策略允许 **所有** 服务帐户充当集群管理员。
 容器中运行的所有应用程序都会自动收到服务帐户的凭据，
-可以对 API 执行任何操作，包括查看秘钥和修改权限，
+可以对 API 执行任何操作，包括查看 Secrets 和修改权限。
 这个策略是不被推荐的。
 
 ```
