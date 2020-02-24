@@ -49,7 +49,7 @@ Kubernetes cluster.
 
     The output is similar to this:
 
-    ```shell
+    ```
     NAME      STATUS    ROLES    AGE     VERSION        LABELS
     worker0   Ready     <none>   1d      v1.13.0        ...,disktype=ssd,kubernetes.io/hostname=worker0
     worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
@@ -59,14 +59,14 @@ Kubernetes cluster.
     In the preceding output, you can see that the `worker0` node has a
     `disktype=ssd` label.
 
-## Assign pod to node using required node affinity
+## Schedule a Pod using required node affinity
 
-This pod configuration file describes a pod that has a `requiredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
+This manifest describes a Pod that has a `requiredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
 This means that the pod will get scheduled only on a node that has a `disktype=ssd` label. 
 
 {{< codenew file="pods/pod-nginx-required-affinity.yaml" >}}
 
-1. Use the configuration file to create a pod that will get scheduled on your
+1. Apply the manifest to create a Pod that is scheduled onto your
    chosen node:
     
     ```shell
@@ -81,18 +81,18 @@ This means that the pod will get scheduled only on a node that has a `disktype=s
 
     The output is similar to this:
     
-    ```shell
+    ```
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
-## Assign pod to node using preferred node affinity
+## Schedule a Pod using preferred node affinity
 
-This pod configuration file describes a pod that has a `preferredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
+This manifest describes a Pod that has a `preferredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
 This means that the pod will prefer a node that has a `disktype=ssd` label. 
 
 {{< codenew file="pods/pod-nginx-preferred-affinity.yaml" >}}
 
-1. Use the configuration file to create a pod that will get scheduled on your
+1. Apply the manifest to create a Pod that is scheduled onto your
    chosen node:
     
     ```shell
@@ -107,7 +107,7 @@ This means that the pod will prefer a node that has a `disktype=ssd` label.
 
     The output is similar to this:
     
-    ```shell
+    ```
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
