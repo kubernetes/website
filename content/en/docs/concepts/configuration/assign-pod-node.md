@@ -17,7 +17,7 @@ There are several ways to do this, and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
-but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
+but there are some circumstances where you may want more control on a node where a pod lands, for example to ensure
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
 
@@ -176,7 +176,7 @@ Y is expressed as a LabelSelector with an optional associated list of namespaces
 (and therefore the labels on pods are implicitly namespaced),
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
-key for the node label that the system uses to denote such a topology domain, e.g. see the label keys listed above
+key for the node label that the system uses to denote such a topology domain; for example, see the label keys listed above
 in the section [Interlude: built-in node labels](#built-in-node-labels).
 
 {{< note >}}
@@ -366,7 +366,7 @@ Some of the limitations of using `nodeName` to select nodes are:
     some cases may be automatically deleted.
 -   If the named node does not have the resources to accommodate the
     pod, the pod will fail and its reason will indicate why,
-    e.g. OutOfmemory or OutOfcpu.
+    for example OutOfmemory or OutOfcpu.
 -   Node names in cloud environments are not always predictable or
     stable.
 
