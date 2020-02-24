@@ -158,12 +158,9 @@ globalDefault: false
 description: "This priority class should be used for XYZ service pods only."
 ```
 
-### Non-preempting PriorityClasses (alpha) {#non-preempting-priority-class}
+## Non-preempting PriorityClasses (alpha) {#non-preempting-priority-class}
 
-1.15 adds the `PreemptionPolicy` field as an alpha feature.
-It is disabled by default in 1.15,
-and requires the `NonPreemptingPriority`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/
-) to be enabled.
+{{< feature-state for_k8s_version="1.15" state="alpha" >}}
 
 Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
