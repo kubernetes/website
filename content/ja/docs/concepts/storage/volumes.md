@@ -477,44 +477,35 @@ GlusterFSは複数の書き込み元から同時にマウント可能です。
 
 ### hostPath {#hostpath}
 
-A `hostPath` volume mounts a file or directory from the host node's filesystem
-into your Pod. This is not something that most Pods will need, but it offers a
-powerful escape hatch for some applications.
+`hostPath`ボリュームでは、ホストノード側のファイルシステムのファイルやディレクトリをPodにマウントします。
+ほとんどのPodが必要とするものではありませんが、いくつかのアプリケーションでは強力な回避手段となるでしょう。
 
-For example, some uses for a `hostPath` are:
+たとえば、`hostPath`の使用方法は次のものが挙げられます:
 
-* running a Container that needs access to Docker internals; use a `hostPath`
-  of `/var/lib/docker`
-* running cAdvisor in a Container; use a `hostPath` of `/sys`
-* allowing a Pod to specify whether a given `hostPath` should exist prior to the
-  Pod running, whether it should be created, and what it should exist as
+* 実行中のコンテナがDocker内部にアクセスする必要がある場合、`/var/lib/docker`を`hostPath`に使用します
+* コンテナ内でcAdvisorを実行する場合、`/sys`を`hostPath`に使用します
+* Podが実行される前に`hostPath`が存在するかを確認し、またはそれを作成すべきか、およびその存在方法を指定することができます。
 
-In addition to the required `path` property, user can optionally specify a `type` for a `hostPath` volume.
+必須の`path`プロパティに加えて、`hostPath`ボリュームの`type`を任意で指定することもできます。
 
-The supported values for field `type` are:
+`type`フィールドの値は以下をサポートしています:
 
-
-| Value | Behavior |
+| 値 | 振るまい |
 |:------|:---------|
-| | Empty string (default) is for backward compatibility, which means that no checks will be performed before mounting the hostPath volume. |
-| `DirectoryOrCreate` | If nothing exists at the given path, an empty directory will be created there as needed with permission set to 0755, having the same group and ownership with Kubelet. |
-| `Directory` | A directory must exist at the given path |
-| `FileOrCreate` | If nothing exists at the given path, an empty file will be created there as needed with permission set to 0644, having the same group and ownership with Kubelet. |
-| `File` | A file must exist at the given path |
-| `Socket` | A UNIX socket must exist at the given path |
-| `CharDevice` | A character device must exist at the given path |
-| `BlockDevice` | A block device must exist at the given path |
+| | 空文字列（デフォルト）は下位互換性のために用意してあります。hostPathボリュームをマウントする前にチェックは行なわれません |
+| `DirectoryOrCreate` | 指定されたパスが存在しない場合、必要に応じて空のディレクトリが作成されます。パーミッションは0755にセットされ、Kubeletと同じグループおよび所有権を持ちます |
+| `Directory` | 指定したパスにディレクトリが存在する必要があります |
+| `FileOrCreate` | 指定されたパスが存在しない場合、必要に応じて空のファイルが作成されます。パーミッションは0644にセットされ、Kubeletと同じグループおよび所有権を持ちます |
+| `File` | 指定したパスにファイルが存在する必要があります |
+| `Socket` | 指定したパスにUNIXソケットが存在する必要があります |
+| `CharDevice` | 指定したパスにキャラクターデバイスが存在する必要があります |
+| `BlockDevice` | 指定したパスにブロックデバイスが存在する必要があります |
 
-Watch out when using this type of volume, because:
+このタイプのボリュームを使用する際は、次のことに注意してください:
 
-* Pods with identical configuration (such as created from a podTemplate) may
-  behave differently on different nodes due to different files on the nodes
-* when Kubernetes adds resource-aware scheduling, as is planned, it will not be
-  able to account for resources used by a `hostPath`
-* the files or directories created on the underlying hosts are only writable by root. You
-  either need to run your process as root in a
-  [privileged Container](/docs/user-guide/security-context) or modify the file
-  permissions on the host to be able to write to a `hostPath` volume
+* 同じ構成のPod（podTemplateから作成されたようなもの）はノード上のファイルが異なるため、ノードごとに異なる挙動となる場合があります
+* KubernetesにResource-Awareなスケジューリングを計画通りに追加すると、`hostPath`で使用されるリソースを考慮できなくなります
+* ベースとなっているホストで作成されたファイルやディレクトリはrootのみ書き込み可能です。そのため、プロセスを[特権を持つコンテナ](/docs/user-guide/security-context)で実行するか、`hostPath`ボリュームに書き込みできるようファイルパーミッションを変更しなければなりません
 
 #### Podの例
 
@@ -541,23 +532,19 @@ spec:
 
 ### iscsi {#iscsi}
 
-An `iscsi` volume allows an existing iSCSI (SCSI over IP) volume to be mounted
-into your Pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the
-contents of an `iscsi` volume are preserved and the volume is merely
-unmounted.  This means that an iscsi volume can be pre-populated with data, and
-that data can be "handed off" between Pods.
+`iscsi`ボリュームは、既存のiSCSI (SCSI over IP) ボリュームをPodにマウントできます。
+`emptyDir`はPodが削除されると合わせて削除されますが、`iscsi`ボリュームの内容は保存されたままであり、ボリュームはアンマウントされるだけです。
+つまり、iscsiボリュームに事前にデータを用意したり、Pod間でデータを受け渡すこともできます。
 
 {{< caution >}}
-You must have your own iSCSI server running with the volume created before you can use it.
+使用する前に、作成したボリュームを使用して実行されているiSCSIサーバーを用意する必要があります。
 {{< /caution >}}
 
-A feature of iSCSI is that it can be mounted as read-only by multiple consumers
-simultaneously.  This means that you can pre-populate a volume with your dataset
-and then serve it in parallel from as many Pods as you need.  Unfortunately,
-iSCSI volumes can only be mounted by a single consumer in read-write mode - no
-simultaneous writers allowed.
+iSCSIの機能として、複数の利用先から読み込み専用で同時にマウントできます。
+これは、ボリュームにデータを事前に用意し、必要なPodへ同時に提供できることを意味します。
+残念ながら、iSCSIは読み書きモードでは単一の利用先でしかマウントできません。つまり、同時書き込みは利用できません。
 
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) for more details.
+さらなる情報は、[iSCSIの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi)を参照してください。
 
 ### local {#local}
 
