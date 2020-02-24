@@ -115,6 +115,18 @@ required.
 
 Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
+### CertificateApproval
+
+TBD
+
+### CertificateSigning
+
+TBD
+
+### CertificateSubjectRestrictions
+
+TBD
+
 ### DefaultStorageClass {#defaultstorageclass}
 
 This admission controller observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
