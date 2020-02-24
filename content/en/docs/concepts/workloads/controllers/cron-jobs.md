@@ -18,7 +18,7 @@ One CronJob object is like one line of a _crontab_ (cron table) file. It runs a 
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
 {{< note >}}
-All **CronJob** `schedule:` times are denoted in UTC.
+All **CronJob** `schedule:` times are based on the timezone of the master where the job is initiated. The timezone could be different inside a container that runs kube-controller-manager.
 {{< /note >}}
 
 When creating the manifest for a CronJob resource, make sure the name you provide
