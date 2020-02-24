@@ -1917,12 +1917,12 @@ In order from most secure to least secure, the approaches are:
       --namespace=my-namespace
     ```
 
-2. 在命名空间中的 ”default” 服务账号授予角色
+2. 将角色授予某命名空间中的 ”default” 服务账号
 
     如果一个应用没有指定 `serviceAccountName`，那么它将使用 "default" 服务账号。
 
     {{< note >}}不指定 `serviceAccountName` 的话，
-	{{< note >}} "default" 服务账号的权限会授予给命名空间中所有未指定 `serviceAccountName` 的 Pods。{{< /note >}}
+	"default" 服务账号的权限会授予给命名空间中所有未指定 `serviceAccountName` 的 Pods。{{< /note >}}
 
 
     例如，在命名空间 "my-namespace" 中授予服务账号 "default" 只读权限：
@@ -1989,12 +1989,12 @@ In order from most secure to least secure, the approaches are:
     ```
 -->
 
-3. 为命名空间中所有的服务账号授予角色（Role）
+3. 将角色授予命名空间中所有的服务账号
 
-    如果你想要在命名空间中所有的应用都具有角色（role），无论它们使用的什么服务账号（service account），
-    你可以将命名空间的角色（role）授予服务账号组（service account group）。
+    如果你想要在命名空间中所有的应用都具有某角色，无论它们使用的什么服务账号，
+    你可以将角色授予该命名空间的服务账号组。
 
-    例如，在命名空间 "my-namespace" 中的只读权限授予该命名空间中的所有服务账号（service accounts）：
+    例如，在命名空间 "my-namespace" 中的只读权限授予该命名空间中的所有服务账号：
 
     ```shell
     kubectl create rolebinding serviceaccounts-view \
@@ -2005,9 +2005,9 @@ In order from most secure to least secure, the approaches are:
 
 4. 对集群范围内的所有服务账户授予一个受限角色（不鼓励）
 
-    如果你不想管理每一个命名空间的权限，你可以向所有的服务账号（service accounts）授予 cluster-wide 角色（role）。
+    如果你不想管理每一个命名空间的权限，你可以向所有的服务账号授予集群范围的角色。
 
-    例如，为集群中的服务账号（service accounts）授予跨所有命名空间的只读权限：
+    例如，为集群范围的所有服务账号授予跨所有命名空间的只读权限：
 
     ```shell
     kubectl create clusterrolebinding serviceaccounts-view \
@@ -2017,12 +2017,10 @@ In order from most secure to least secure, the approaches are:
 
 5. 授予超级用户访问权限给集群范围内的所有服务帐户（强烈不鼓励）
 
-    如果你不关心如何区分权限，你可以对所有的服务账号（service accounts）授予 super-user 的访问权限。
+    如果你不关心如何区分权限，你可以将超级用户访问权限授予所有服务账号。
 
     {{< warning >}}
-	这将允许任意用户具有读取 secrets 的访问权限
-    或者具有使用 super-user 凭证去创建 pod 的
-    能力。
+	这将允许所有能够读取 Secrets 和创建 Pods 的用户访问超级用户的私密信息。
     {{< /warning >}}
 
     ```shell
@@ -2047,13 +2045,13 @@ Here are two approaches for managing this transition:
 # 从版本1.5升级
 
 在Kubernetes 1.6版本之前，许多部署可以使用非常宽松的 ABAC 策略，
-包括授予所有服务帐户的完整 API 访问权。
+包括授予所有服务帐户全权访问 API 的能力。
 
-默认的 RBAC 策略被授予 control-plane components、nodes
-和 controllers, 在 `kube-system` 命名空间外的服务账号将没有权限。
-（超出授予所有认证用户的发现权限）
+默认的 RBAC 策略被授予控制面组件、节点和控制器。
+`kube-system` 命名空间外的服务账号将没有权限
+（除了授予所有认证用户的发现权限之外）
 
-虽然安全得多，但这可能会干扰期望自动接收 API 权限的现有工作负载。
+这样做虽然安全得多，但可能会干扰期望自动获得 API 权限的现有工作负载。
 这里有两种方法来完成这种转变:
 
 <!--
@@ -2065,6 +2063,8 @@ Run both the RBAC and ABAC authorizers, and specify a policy file that contains
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
+
+
 
 The RBAC authorizer will attempt to authorize requests first. If it denies an API request,
 the ABAC authorizer is then run. This means that any request allowed by *either* the RBAC
@@ -2078,22 +2078,22 @@ in the server logs, you can remove the ABAC authorizer.
 -->
 ### 平行鉴权
 
-同时运行 RBAC 和 ABAC 鉴权模式, 并指定包含的策略文件。
-[the legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-format):
+同时运行 RBAC 和 ABAC 鉴权模式, 并指定包含
+[现有的 ABAC 策略](/docs/reference/access-authn-authz/abac/#policy-file-format) 的策略文件：
 
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
 
-RBAC 鉴权器将首先尝试鉴权请求。如果它拒绝 API 请求，
-然后可以运行 ABAC 鉴权器。这意味着 RBAC 允许的任何请求
-或ABAC政策是同时被允许的。
+RBAC 鉴权器将首先尝试对请求进行鉴权。如果它拒绝 API 请求，
+则 ABAC 鉴权器运行。这意味着被 RBAC 或 ABAC 策略所允许的任何请求
+都是被允许的请求。
 
-当 apiserver 运行时，RBAC 组件的日志级别为5或更高（`--vmodule=rbac*=5` or `--v=5`）,
-你可以看到 apiserver 日志中 RBAC 的细节 （前缀 `RBAC DENY:`）
-您可以使用这些信息来确定需要将哪些角色（Role）授予哪些用户、组或服务帐户。
-一旦你发现在服务器日志中 [granted roles to service accounts](#service-account-permissions) 和工作负载中，
-如果没有 RBAC 拒绝消息的情况下，就可以删除 ABAC 鉴权器。
+如果 API 服务器启动时，RBAC 组件的日志级别为 5 或更高（`--vmodule=rbac*=5` or `--v=5`），
+你可以在 API 服务器的日志中看到 RBAC 的细节 （前缀 `RBAC DENY:`）
+您可以使用这些信息来确定需要将哪些角色授予哪些用户、组或服务帐户。
+一旦你将 [角色授予服务账号](#服务账号权限) ，工作负载运行时在服务器日志中
+没有出现 RBAC 拒绝消息，就可以删除 ABAC 鉴权器。
 
 <!--
 ## Permissive RBAC Permissions
@@ -2114,13 +2114,13 @@ kubectl create clusterrolebinding permissive-binding \
   --group=system:serviceaccounts
 ```
 -->
-## 宽泛的 RBAC 权限
+## 宽松的 RBAC 权限
 
-可以使用 RBAC 角色（Role）绑定复制许可策略。
+可以使用 RBAC 角色绑定在多个场合使用宽松的策略。
 
 {{< warning >}}
-下面的策略运行 **ALL** 服务帐户充当集群管理员。
-任何在容器中运行的应用程序都会自动接收服务帐户凭据，
+下面的策略允许 **所有** 服务帐户充当集群管理员。
+容器中运行的所有应用程序都会自动收到服务帐户的凭据，
 可以对 API 执行任何操作，包括查看秘钥和修改权限，
 这个策略是不被推荐的。
 
