@@ -168,5 +168,5 @@ the Hello World application, enter this command:
 {{% capture whatsnext %}}
 
 Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+[connecting applications with services](/content/en/docs/concepts/services-networking/connect-applications-service.md).
 {{% /capture %}}
