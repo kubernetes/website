@@ -158,7 +158,7 @@ globalDefault: false
 description: "This priority class should be used for XYZ service pods only."
 ```
 
-## Non-preempting PriorityClasses {#non-preempting-priority-class}
+## Non-preempting PriorityClass {#non-preempting-priority-class}
 
 {{< feature-state for_k8s_version="1.15" state="alpha" >}}
 
