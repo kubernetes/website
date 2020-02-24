@@ -158,7 +158,7 @@ globalDefault: false
 description: "This priority class should be used for XYZ service pods only."
 ```
 
-## Non-preempting PriorityClasses (alpha) {#non-preempting-priority-class}
+## Non-preempting PriorityClasses {#non-preempting-priority-class}
 
 {{< feature-state for_k8s_version="1.15" state="alpha" >}}
 
@@ -195,7 +195,7 @@ The high priority job with `PreemptionPolicy: Never` will be scheduled
 ahead of other queued pods,
 as soon as sufficient cluster resources "naturally" become free.
 
-#### Example Non-preempting PriorityClass
+### Example Non-preempting PriorityClass
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1
