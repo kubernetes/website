@@ -39,6 +39,7 @@ To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
 在 1.8 版本中，RBAC 模式是稳定的并通过 rbac.authorization.k8s.io/v1 API 提供支持。
 
 要启用 RBAC，在启动 API 服务器时添加 `--authorization-mode=RBAC` 参数。
+
 <!--
 ## API Overview
 
@@ -49,6 +50,7 @@ API resource (via `kubectl`, API calls, etc.). For instance,
 though readers who wish to follow along should review the section on
 bootstrapping first.
 -->
+
 ## API 概述
 
 本节介绍 RBAC API 所声明的四种顶级类型。用户可以像与其他 API 资源交互一样，
