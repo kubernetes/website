@@ -692,12 +692,7 @@ spec:
 
 ## Volume Cloning
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
-
-Volume clone feature was added to support CSI Volume Plugins only. For details, see [volume cloning](/docs/concepts/storage/volume-pvc-datasource/).
-
-To enable support for cloning a volume from a PVC data source, enable the
-`VolumePVCDataSource` feature gate on the apiserver and controller-manager.
+[Volume Cloning](/docs/concepts/storage/volume-pvc-datasource/) only available for CSI volume plugins.
 
 ### Create Persistent Volume Claim from an existing pvc
 
