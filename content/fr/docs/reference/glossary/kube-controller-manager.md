@@ -16,4 +16,4 @@ tags:
 <!--more-->
 
 Logiquement, chaque {{< glossary_tooltip text="contrôleur" term_id="controller" >}} est un processus à part mais,
-pour réduire la compléxité, les contrôleurs sont tous compilés dans un seul binaire et s'exécutent dans un seul processus.
+pour réduire la complexité, les contrôleurs sont tous compilés dans un seul binaire et s'exécutent dans un seul processus.
