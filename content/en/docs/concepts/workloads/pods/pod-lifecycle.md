@@ -168,7 +168,7 @@ For detailed information about Pod Container status, see
 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
-Note that the information reported as Pod status depends on the current
+Note that the information reported as Pod status [depends on](https://github.com/kubernetes/kubernetes/blob/b5e95fc73dafc92b8e94f5f5a53e5fea7b15ee6f/pkg/kubelet/kubelet_pods.go#L1266-L1334) the current
 [ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
 
 ## Container States
