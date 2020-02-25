@@ -1,7 +1,4 @@
 ---
----
----
----
 title: 使用 RBAC 鉴权
 content_template: templates/concept
 weight: 70
