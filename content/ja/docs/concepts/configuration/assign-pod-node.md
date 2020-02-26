@@ -95,7 +95,7 @@ Nodeの隔離にラベルのプレフィックスを使用するためには、�
 3. Nodeに`node-restriction.kubernetes.io/` プレフィックスのラベルを付与し、そのラベルがnode selectorに指定されていること。
 例えば、`example.com.node-restriction.kubernetes.io/fips=true` または `example.com.node-restriction.kubernetes.io/pci-dss=true`のようなラベルです。
 
-## Affinity と Anti-Affinity
+## Affinity と Anti-Affinity {#affinity-and-anti-affinity}
 
 `nodeSelector`はPodの稼働を特定のラベルが付与されたNodeに制限する最も簡単な方法です。
 Affinity/Anti-Affinityでは、より柔軟な指定方法が提供されています。

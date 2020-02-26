@@ -292,7 +292,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 
 - `Accelerators`: DockerでのNvidia GPUのサポートを有効にします。
 - `AdvancedAuditing`: [高度な監査機能](/docs/tasks/debug-application-cluster/audit/#advanced-audit)を有効にします。
-- `AffinityInAnnotations`(*非推奨*): [Podのアフィニティまたはアンチアフィニティ](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)を有効にします。
+- `AffinityInAnnotations`(*非推奨*): [Podのアフィニティまたはアンチアフィニティ](/ja/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)を有効にします。
 - `AllowExtTrafficLocalEndpoints`: サービスが外部へのリクエストをノードのローカルエンドポイントにルーティングできるようにします。
 - `APIListChunking`: APIクライアントがAPIサーバーからチャンク単位で（`LIST`や`GET`の）リソースを取得できるようにします。
 `APIPriorityAndFairness`: 各サーバーで優先順位付けと公平性を備えた要求の並行性を管理できるようにします(`RequestManagement`から名前が変更されました)。

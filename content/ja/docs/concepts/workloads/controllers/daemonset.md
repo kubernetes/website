@@ -74,8 +74,8 @@ Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッ
 ### 特定のいくつかのNode上のみにPodを稼働させる
 
 もしユーザーが`.spec.template.spec.nodeSelector`を指定したとき、DaemonSetコントローラーは、その[node
-selector](/docs/concepts/configuration/assign-pod-node/)にマッチするPodをNode上に作成します。  
-同様に、もし`.spec.template.spec.affinity`を指定したとき、DaemonSetコントローラーは[node affinity](/docs/concepts/configuration/assign-pod-node/)マッチするPodをNode上に作成します。
+selector](/ja/docs/concepts/configuration/assign-pod-node/)にマッチするPodをNode上に作成します。  
+同様に、もし`.spec.template.spec.affinity`を指定したとき、DaemonSetコントローラーは[node affinity](/ja/docs/concepts/configuration/assign-pod-node/)マッチするPodをNode上に作成します。
 もしユーザーがどちらも指定しないとき、DaemonSetコントローラーは全てのNode上にPodを作成します。
 
 ## Daemon Podがどのようにスケジューリングされるか
