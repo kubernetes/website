@@ -20,7 +20,7 @@ weight: 70
 <!--
 Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise.
 -->
-基于角色（Role）的访问控制（RBAC）是一种基于企业中用户的角色（Role）来调节控制对计算机或网络资源的访问方法。
+基于角色（Role）的访问控制（RBAC）是一种基于企业中用户的角色来调节控制对计算机或网络资源的访问方法。
 {{% /capture %}}
 
 {{% capture body %}}
@@ -103,7 +103,7 @@ rules:
 -->
 ### Role 和 ClusterRole
 
-在 RBAC API 中，一个角色（Role）包含一组相关权限的规则。权限是纯粹累加的（不存在拒绝某操作的规则）。
+在 RBAC API 中，一个角色包含一组相关权限的规则。权限是纯粹累加的（不存在拒绝某操作的规则）。
 角色可以用 `Role`  来定义到某个命名空间上，
 或者用 `ClusterRole` 来定义到整个集群作用域。
 
@@ -176,7 +176,7 @@ roleRef:
 -->
 ### RoleBinding 和 ClusterRoleBinding
 
-角色绑定（RoleBinding）是将角色（Role）中定义的权限赋予一个或者一组用户。
+角色绑定（RoleBinding）是将角色中定义的权限赋予一个或者一组用户。
 它包含若干主体（用户，组和服务账户）的列表和对这些主体所获得的角色的引用。
 可以使用 `RoleBinding` 在指定的命名空间中执行授权，
 或者在集群范围的命名空间使用 `ClusterRoleBinding` 来执行授权。
@@ -186,7 +186,7 @@ roleRef:
 这样，用户 "jane" 就具有了读取 "default" 命名空间中 pods 的权限。
 
 `roleRef` 里的内容决定了实际创建绑定的方法。`kind` 可以是 `Role` 或 `ClusterRole`，
-`name` 将引用你要指定的 `Role` 或 `ClusterRole` 的名称。在下面的例子中，角色绑定（RoleBinding）使用
+`name` 将引用你要指定的 `Role` 或 `ClusterRole` 的名称。在下面的例子中，角色绑定使用
 `roleRef` 将用户 "jane" 绑定到前文创建的角色 `Role`，其名称是 `pod-reader`。
 
 ```yaml
@@ -235,7 +235,7 @@ roleRef:
 -->
 `RoleBinding` 也可以引用 `ClusterRole`，对 `ClusterRole` 所定义的、位于 `RoleBinding` 命名空间内的资源授权。
 这可以允许管理者在
-整个集群中定义一组通用的角色（Role），然后在多个命名空间中重用它们。
+整个集群中定义一组通用的角色，然后在多个命名空间中重用它们。
 
 例如下面的例子，`RoleBinding` 指定的是 `ClusterRole`，
 "dave" （主体，区分大小写）将只可以读取在"development"
@@ -302,7 +302,6 @@ See [command usage and examples](#kubectl-auth-reconcile) for more information.
 最后，`ClusterRoleBinding` 可用来在集群级别或对所有命名空间执行授权。
 下面的例子允许 "manager" 组中的任何用户读取任意命名空间中 "secrets"。
 
-
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 # 这个集群角色绑定允许 "manager" 组中的任何用户读取任意命名空间中 "secrets"。
@@ -324,17 +323,18 @@ roleRef:
 改变现有绑定对象中 `roleRef` 字段的内容，必须删除并
 重新创建绑定对象。这种限制有两个主要原因：
 
-1.关于不同角色（Role）的绑定是完全不一样的。更改 `roleRef`
+1.关于不同角色的绑定是完全不一样的。更改 `roleRef`
  需要删除/重建绑定，确保要赋予绑定的完整主体列表是新
 的角色（而不是只是启用修改 `roleRef` 在不验证所有现有
 主体的情况下的，应该授予新角色对应的权限）。
+
 2.使得 `roleRef` 不可以改变现有绑定主体用户的 `update` 权限，
 这样可以让它们能够管理主体列表，而不能更改授予这些主体相关
 的角色。
 
 命令 `kubectl auth reconcile` 可以创建或者更新包含 RBAC 对象的清单文件，
-处理删除和重新创建绑定对象如果需要更改它们引用的角色。
-更多相关信息请参照[command usage and examples](#kubectl-auth-reconcile)
+并且在必要的情况下删除和重新创建绑定对象，以改变所引用的角色。
+更多相关信息请参照[命令用法和示例](#kubectl-auth-reconcile)
 
 <!--
 ### Referring to Resources
@@ -365,14 +365,14 @@ rules:
 -->
 ### 对资源的引用
 
-大多数资源都是使用名称的字符串表示，比如 "pods" 出现在相关的 API endpoint 的 URL 之中，
-然而有一些 Kubernetes API 频及 "subresource"子资源，例如 pod 的日志，鉴权它相关的 endpoint URL 如下：
+大多数资源都是使用名称的字符串表示，例如在相关的 API 端点的 URL 之中出现的  "pods" 。
+然而有一些 Kubernetes API 涉及 "子资源（subresources）"，例如 pod 的日志。Pod 日志相关的端点 URL 如下：
 
 ```http
 GET /api/v1/namespaces/{namespace}/pods/{name}/log
 ```
 
-在这种情况下，"pods" 是命名空间的资源，而 "log" 是 pods 的子资源。在 RBAC 角色中，
+在这种情况下，"pods" 是有命名空间的资源，而 "log" 是 pods 的子资源。在 RBAC 角色中，
 使用"/"分隔资源和子资源。允许一个主体要同时读取 pods 和 pod logs，你可以这么写：
 
 
@@ -426,7 +426,7 @@ rules:
   verbs: ["update", "get"]
 ```
 
-需要注意的是，`create` 请求不能被 resourceName 限制，因为不知道对象名称的
+需要注意的是，`create` 请求不能被 resourceName 限制，因为在鉴权时还不知道对象名称。
 鉴权时间。另一个例外是 `deletecollection`。
 
 <!--
@@ -469,8 +469,8 @@ rules:
 ### Aggregated ClusterRoles
 
 从 1.9 开始，集群角色（ClusterRole）可以通过使用 `aggregationRule` 的方式并组合其他 ClusterRoles 来创建。
-聚合集群角色（ClusterRole）的权限是由控制器管理，并通过标记规则和提供标签选择器来匹配 ClusterRoles。
-一个聚合集群角色（ClusterRole）的示例如下：
+聚合集群角色的权限是由控制器管理的，方法是通过过滤与标签选择器匹配的 ClusterRules，并将其中的权限进行组合。
+一个聚合集群角色的示例如下：
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -484,9 +484,9 @@ aggregationRule:
 rules: [] # 具体规则由控制器管理器自动填写。
 ```
 
-创建一个标签选择器来匹配的 ClusterRole 上的规则，它将成为聚合集群角色（ClusterRole）。在这种情况下，
-可以通过创建另一个具有相同标签为 `rbac.example.com/aggregate-to-monitoring: true` 的
- ClusterRole 作为 "monitoring" 集群角色（ClusterRole）。
+创建一个与标签选择器匹配的 ClusterRole 之后，其上定义的规则将成为聚合集群角色的一部分。在下面的例子中，
+通过创建一个新的、标签同样为 `rbac.example.com/aggregate-to-monitoring: true` 的
+ClusterRole，新的规则可被添加到 "monitoring" 集群角色中。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -605,10 +605,10 @@ rules:
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ```
 -->
-#### 角色（Role）示例
+#### 角色示例
 
 在以下示例中，我们仅截取展示了 `rules` 对应部分，
-允许读取 "pods" 资源的在 {{< glossary_tooltip text="API Group" term_id="api-group" >}}下的权限:
+允许读取在核心 {{< glossary_tooltip text="API 组" term_id="api-group" >}}下的 Pods:
 
 ```yaml
 rules:
@@ -617,7 +617,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-允许 读/写 在 "extensions" 和 "apps" API groups 中 "deployments" 的相关资源:
+允许读/写在 "extensions" 和 "apps" API 组中的 "deployments" 资源：
 
 ```yaml
 rules:
@@ -626,7 +626,7 @@ rules:
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ```
 
-允许读取 "pods" 和 读/写 "jobs" :
+允许读取 "pods" 和读/写 "jobs" :
 
 ```yaml
 rules:
@@ -666,7 +666,7 @@ rules:
   verbs: ["get", "post"]
 ```
 -->
-允许读取名称为 "my-config"的 `ConfigMap` （需要通过 `RoleBinding` 绑定去限制单一 `ConfigMap` 在 namespace 上）:
+允许读取名称为 "my-config"的 `ConfigMap` （需要通过 `RoleBinding` 绑定带某名字空间中特定的 `ConfigMap`）：
 
 ```yaml
 rules:
@@ -676,7 +676,7 @@ rules:
   verbs: ["get"]
 ```
 
-允许读取在 core group 中 "nodes" 资源（因为 `Node` 是集群范围的，所以需要 `ClusterRole` 绑定 `ClusterRoleBinding` 才可以有效）
+允许读取在核心组中的 "nodes" 资源（因为 `Node` 是集群范围的，所以需要 `ClusterRole` 绑定到 `ClusterRoleBinding` 才生效）
 
 ```yaml
 rules:
@@ -685,7 +685,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-允许 "GET" 和 "POST" 请求在非资源端点 "/healthz" 和其子路径（必须在 `ClusterRole` 绑定 `ClusterRoleBinding` 才有效）
+允许在非资源端点 "/healthz" 和其子路径上发起 "GET" 和 "POST" 请求（必须在 `ClusterRole` 绑定 `ClusterRoleBinding` 才生效）
 
 ```yaml
 rules:
@@ -717,19 +717,19 @@ to groups with the `system:serviceaccounts:` prefix.
 -->
 ### 对主体的引用
 
-`RoleBinding` 或者 `ClusterRoleBinding` 需要绑定角色（Role）到 *主体*。
+`RoleBinding` 或者 `ClusterRoleBinding` 需要绑定角色到 *主体*。
 主体可以是组，用户或者服务账户。
 
 用户是由字符串表示，它们可以是普通的用户名，像 "alice"，或者是
-邮件格式 "bob@example.com"，或者是数字ID。由 Kubernetes 管理员配置[authentication modules](/docs/reference/access-authn-authz/authentication/)
-需要的格式。在 RBAC 鉴权系统中可以不需要任何特定的格式。但是前缀 `system:` 是 Kubernetes 系统保留的，
+邮件格式 "bob@example.com"，或者是数字ID。由 Kubernetes 管理员配置[身份认证模块](/docs/reference/access-authn-authz/authentication/)
+需要的格式。RBAC 鉴权系统不对格式作任何要求，但是前缀 `system:` 是 Kubernetes 系统保留的，
 所以管理员要确保配置的用户名不能出现上述前缀格式。
 
-组是 Kubernetes 现在提供的一种身份验证模块，与用户一样，组的字符串没有格式要求，
+用户组信息是 Kubernetes 现在提供的一种身份验证模块，与用户一样，对组的字符串没有格式要求，
 只是不能使用保留的前缀 `system:` 。
 
-[Service Accounts](/docs/tasks/configure-pod-container/configure-service-account/) 是有前缀 `system:serviceaccount:` 的用户名和
-所属指向 `system:serviceaccounts:` 的组。
+[服务账号](/docs/tasks/configure-pod-container/configure-service-account/) 的用户名前缀为`system:serviceaccount:`，
+属于前缀为 `system:serviceaccounts:` 的用户组。
 
 <!--
 #### Role Binding Examples
@@ -906,7 +906,7 @@ All of the default cluster roles and rolebindings are labeled with `kubernetes.i
 
 API servers创建一组默认为 `ClusterRole` 和 `ClusterRoleBinding` 的对象。
 其中许多是以 `system:` 为前缀的，它表示资源是基础设施 "owned" 的。对于这些资源的修改可能导致集群功能失效。
-例如，`system:node` 是集群角色（ClusterRole），它是定义 kubelets 相关的权限，如果这个角色（Role）被修改，它将导致 kubelets 无法正常工作。
+例如，`system:node` 是集群角色，它是定义 kubelets 相关的权限，如果这个角色被修改，它将导致 kubelets 无法正常工作。
 
 所有默认的 ClusterRole 和 ClusterRoleBinding 对象都会被标记为 `kubernetes.io/bootstrapping=rbac-defaults`。
 
@@ -926,13 +926,13 @@ Auto-reconciliation is enabled in Kubernetes version 1.6+ when the RBAC authoriz
 -->
 ### 自动更新
 
-在每次启动时，API Server 都会更新默认 ClusterRole 所缺少的各种权限，并更新默认 ClusterRoleBinding 所缺少的各个角色（Role）绑定主体。
+在每次启动时，API Server 都会更新默认 ClusterRole 所缺少的各种权限，并更新默认 ClusterRoleBinding 所缺少的各个角色绑定主体。
 这种自动更新机制允许集群去修复一些特殊的修改。
-由于权限和角色（Role）绑定主体在新的 Kubernetes 版本中可能发生变化，所以这样的话也能够保证角色和角色绑定始终保持是最新的。
+由于权限和角色绑定主体在新的 Kubernetes 版本中可能发生变化，所以这样的话也能够保证角色和角色绑定始终保持是最新的。
 
 如果要禁止此功能,请将默认ClusterRole以及ClusterRoleBinding的`rbac.authorization.kubernetes.io/autoupdate`设置成`false`。
 
-注意，缺乏默认权限和角色（Role）绑定主体可能会导致非功能性集群问题。
+注意，缺乏默认权限和角色绑定主体可能会导致非功能性集群问题。
 
 自动更新功能在 Kubernetes 版本1.6+ 的 RBAC 认证是默认开启的。
 
@@ -975,16 +975,16 @@ NOTE: editing the role is not recommended as changes will be overwritten on API 
 -->
 ### Discovery Roles
 
-无论是经过身份验证的还是未经过身份验证的用户，默认角色（Role）的用户读取API被认为是安全的，可以公开访问（包括CustomResourceDefinitions），
+无论是经过身份验证的还是未经过身份验证的用户，默认角色的用户读取API被认为是安全的，可以公开访问（包括CustomResourceDefinitions），
 如果要禁用匿名未经过身份验证的用户访问，请在 API server 中添加 `--anonymous-auth=false` 的配置选项。
 
-通过运行命令 `kubectl` 可以查看这些角色（Role）的配置信息:
+通过运行命令 `kubectl` 可以查看这些角色的配置信息:
 
 ```
 kubectl get clusterroles system:discovery -o yaml
 ```
 
-注意：不建议编辑这个角色（Role），因为更改将在 API server 重启时自动更新时覆盖（见上文）
+注意：不建议编辑这个角色，因为更改将在 API server 重启时自动更新时覆盖（见上文）
 
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
@@ -1067,13 +1067,13 @@ It does not allow viewing secrets, since those are escalating.</td>
 </tr>
 </table>
 -->
-### 面向用户的角色（Role）
+### 面向用户的角色
 
-一些默认的角色不是前缀 `system:` 开头的。这些是面向用户的角色（Role）。它们包括 super-user 角色（`cluster-admin`），
-使用 ClusterRoleBindings （`cluster-status`）在集群范围内授予角色（Role），
-以及使用 RoleBindings （`admin`, `edit`, `view`）在特定命名空间中授予的角色（Role）。
+一些默认的角色不是前缀 `system:` 开头的。这些是面向用户的角色。它们包括 super-user 角色（`cluster-admin`），
+使用 ClusterRoleBindings （`cluster-status`）在集群范围内授予角色，
+以及使用 RoleBindings （`admin`, `edit`, `view`）在特定命名空间中授予的角色。
 
-在 1.9 开始，面向用户的角色（Role）使用[ClusterRole Aggregation](#aggregated-clusterroles)允许管理员在包含这些角色（Role）上的
+在 1.9 开始，面向用户的角色使用[ClusterRole Aggregation](#aggregated-clusterroles)允许管理员在包含这些角色上的
 自定义资源上添加规则。如果想要添加 "admin" "edit" 或者 "view" ，需要先创建使用以下一个或多个的 ClusterRole 的标签：
 
 ```yaml
@@ -1103,7 +1103,7 @@ metadata:
 <td>None</td>
 <td>允许管理员访问权限，旨在使用 <b>RoleBinding</b> 在命名空间内执行授权。
 如果在 <b>RoleBinding</b> 中使用，则可授予对命名空间中的大多数资源的读/写权限，
-包括创建角色（Role）和绑定角色（RoleBinding）的能力。
+包括创建角色和绑定角色（RoleBinding）的能力。
 但是它不允许对资源配额或者命名空间本身进行写操作。</td>
 </tr>
 <tr>
@@ -1165,7 +1165,7 @@ In 1.8+, no binding is automatically created.
 </tr>
 </table>
 -->
-### 核心组件角色（Role）
+### 核心组件角色
 
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
@@ -1195,9 +1195,9 @@ In 1.8+, no binding is automatically created.
 <td>None in 1.8+</td>
 <td>允许访问 kubelet 组件所需要的资源，<b>它包括读取所有的 Secrets 和对所有 Pod 状态对象的写操作。</b>
 
-从版本 1.7 开始，推荐使用 <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> 和 <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction 准入插件</a> 来代替这个角色（Role），它允许基于 kubelet 上调度执行的 Pods 来授权对 kubelet  API 的访问。
-在版本 1.7 之前，这个角色（role）会自动绑定到 `system:nodes` 组。
-在版本 1.7中，如果未启用`Node` 鉴权模式，这个角色（role）将自动绑定到 `system:nodes` 组
+从版本 1.7 开始，推荐使用 <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> 和 <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction 准入插件</a> 来代替这个角色，它允许基于 kubelet 上调度执行的 Pods 来授权对 kubelet  API 的访问。
+在版本 1.7 之前，这个角色会自动绑定到 `system:nodes` 组。
+在版本 1.7中，如果未启用`Node` 鉴权模式，这个角色将自动绑定到 `system:nodes` 组
 在版本 1.8+ 之后，不再自动创建绑定。
 </td>
 </tr>
@@ -1262,7 +1262,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 </tr>
 </table>
 -->
-### 其他组件角色（Role）
+### 其他组件角色
 
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
@@ -1280,17 +1280,17 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:heapster</b></td>
 <td>None</td>
-<td>为 <a href="https://github.com/kubernetes/heapster">Heapster</a> 组件定义的角色（Role）。</td>
+<td>为 <a href="https://github.com/kubernetes/heapster">Heapster</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:kube-aggregator</b></td>
 <td>None</td>
-<td>为 <a href="https://github.com/kubernetes/kube-aggregator">kube-aggregator</a> 组件定义的角色（Role）。</td>
+<td>为 <a href="https://github.com/kubernetes/kube-aggregator">kube-aggregator</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:kube-dns</b></td>
 <td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
-<td>为 <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> 组件定义的角色（Role）。</td>
+<td>为 <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:kubelet-api-admin</b></td>
@@ -1306,7 +1306,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:node-problem-detector</b></td>
 <td>None</td>
-<td>为 <a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> 组件定义的角色（Role）。</td>
+<td>为 <a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
