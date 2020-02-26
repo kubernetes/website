@@ -7,7 +7,7 @@ weight: 50
 {{< toc >}}
 
 {{% capture overview %}}
-네트워크 정책은 {{< glossary_tooltip text="p파드" term_id="pod">}} 그룹이 서로 간에 또는 다른 네트워크 엔드포인트와 통신할 수 있도록 허용하는 방법에 대한 명세이다.
+네트워크 정책은 {{< glossary_tooltip text="파드" term_id="pod">}} 그룹이 서로 간에 또는 다른 네트워크 엔드포인트와 통신할 수 있도록 허용하는 방법에 대한 명세이다.
 
 `NetworkPolicy` 리소스는 {{< glossary_tooltip text="레이블" term_id="label">}}을 사용해서 파드를 선택하고 선택한 파드에 허용되는 트래픽을 지정하는 규칙을 정의한다.
 
