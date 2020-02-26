@@ -17,8 +17,8 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 
 {{% capture prerequisites %}}
 
-* Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) 
-(or higher) in order to configure the Windows node that hosts Windows containers. 
+* Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)
+(or higher) in order to configure the Windows node that hosts Windows containers.
 If you are using VXLAN/Overlay networking you must have also have [KB4489899](https://support.microsoft.com/help/4489899) installed.
 
 * Build a Linux-based Kubernetes cluster in which you have access to the control-plane (some examples include [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/).
@@ -73,7 +73,7 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
     ```bash
     wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
-  
+
     Modify the `net-conf.json` section of the flannel manifest in order to set the VNI to 4096 and the Port to 4789. It should look as follows:
 
     ```json
@@ -90,7 +90,7 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
 
     {{< note >}}The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See the [VXLAN documentation](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)
     for an explanation of these fields.{{< /note >}}
-    
+
     {{< note >}}To use L2Bridge/Host-gateway mode instead change the value of `Type` to `"host-gw"` and omit `VNI` and `Port`.{{< /note >}}
 
 1. Apply the Flannel manifest and validate
@@ -117,13 +117,16 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
 
 1. Add Windows Flannel and kube-proxy DaemonSets
 
-    Now we will add Windows-compatible versions of Flannel and kube-proxy.
-    
+    Now we will add Windows-compatible versions of Flannel and kube-proxy. In order
+    to ensure that we get a compatible version of kube-proxy, we'll need to substitute
+    the tag of the image. The following example shows usage for Kubernetes 1.17.3,
+    but you should adjust the version for your own deployment.
+
     ```bash
-    kubectl apply -f https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/kube-proxy.yml
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/kube-proxy.yml | sed 's/VERSION/v1.17.3/g' | kubectl apply -f -
     kubectl apply -f https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/flannel-overlay.yml
-    ``` 
-    
+    ```
+
     {{< note >}}
     If you're using host-gateway use https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/flannel-host-gw.yml instead
     {{< /note >}}
@@ -150,7 +153,7 @@ with elevated permissions (Administrator) on the Windows worker node.
 
    ```PowerShell
    curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion v1.17.0    
+   .\PrepareNode.ps1 -KubernetesVersion v1.17.0
    ```
 {{< note >}}
 Kubernetes version must be >= 1.17.0
@@ -159,8 +162,8 @@ Kubernetes version must be >= 1.17.0
 1. Run kubeadm to join the node
 
     Use the command that was given to you when you ran `kubeadm init` on the master node.
-    If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command` 
-    on the master to generate a new token and join command. 
+    If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
+    on the master to generate a new token and join command.
 
 
 #### Verifying your installation
