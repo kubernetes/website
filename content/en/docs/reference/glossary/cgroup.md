@@ -1,5 +1,5 @@
 ---
-title: cgroup (control group)
+title: Control Group (cgroup)
 id: cgroup
 date: 2019-06-25
 full_link:
