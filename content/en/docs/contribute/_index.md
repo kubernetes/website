@@ -25,9 +25,8 @@ Some tasks require more trust and need more access in the Kubernetes organizatio
 See [Participating in SIG Docs](/docs/contribute/participating/) for more details about
 of roles and permissions.
 
-Kubernetes documentation resides in a GitHub repository.
-You need to be comfortable with git and GitHub to
-operate effectively in the Kubernetes community.
+Kubernetes documentation resides in a [GitHub repository](https://github.com/kubernetes/website).
+Anyone can open an issue about the Kubernetes documentation, blog, website, but you need to be comfortable with [git](https://git-scm.com/) and [GitHub](https://lab.github.com/) to operate effectively in the Kubernetes community.
 
 To get involved with documentation:
 
@@ -55,6 +54,7 @@ get involved in a larger way, start here:
 - Learn how to help with or document [new features](/docs/contribute/new-content/new-features/).
 - Participate in [SIG Docs](/docs/contribute/participating/),  become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).
 - Start or participate in a [localization](/docs/contribute/localization/) of Kubernetes documentation.
+
 
 ## Get involved with SIG Docs
 
