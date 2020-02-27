@@ -142,13 +142,6 @@ All code snippets in Windows sections are to be run in a PowerShell environment
 with elevated permissions (Administrator) on the Windows worker node.
 {{< /note >}}
 
-1. Install [NSSM](https://nssm.cc/), which we will use to run the Kubelet service
-
-   ```PowerShell
-   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/InstallNSSM.ps1
-   .\InstallNSSM.ps1
-   ```
-
 1. Install wins, kubelet, and kubeadm.
 
    ```PowerShell
