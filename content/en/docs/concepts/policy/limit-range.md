@@ -366,7 +366,7 @@ The pod creation failed as the ratio here (`3`) is greater than the enforced lim
 Error from server (Forbidden): error when creating "limit-range-pod-3.yaml": pods "busybox3" is forbidden: memory max limit to request ratio per Pod is 2, but provided ratio is 3.000000.
 ```
 
-### Clean up
+## Clean up
 
 Delete the `limitrange-demo` namespace to free all resources:
 
