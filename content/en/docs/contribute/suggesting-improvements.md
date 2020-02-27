@@ -59,8 +59,8 @@ To help others understand your issue and can act on it, do the following:
 - If the new issue relates to another issue or pull request, refer to it
   either by its full URL or by the issue or pull request number prefixed
   with a `#` character. For example, `Introduced by #987654`.
-- Follow the [Code of Conduct](/community/code-of-conduct/) – be respectful and
-  avoid venting. For example, "The docs about X suck" is not
+- Follow the [Code of Conduct](/community/code-of-conduct/). Respect your
+fellow contributors. For example, "The docs are terrible" is not
   helpful or polite feedback.
 
 {{% /capture %}}

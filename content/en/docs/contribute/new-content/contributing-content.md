@@ -14,14 +14,13 @@ card:
 **Kubernetes code developers**: If you are documenting a new feature for an
 upcoming Kubernetes release, your process is a bit different. See
 [Document a new feature](/docs/contribute/new-content/new-features/) for
-process guidelines and information about deadlines.
 {{< /note >}}
 
 To contribute new content pages or improve existing content pages, open a _pull request_ (PR). Make sure you follow all the requirements in the [Before you begin](#before-you-begin) section.
 
-If your change is only a few lines long, or you're not that familiar with Git, read the [Small changes](#small-changes) section to learn how to edit a page quickly.
+If your change is only a few lines long, or you're not that familiar with git, read "[Small changes](#small-changes)" to learn how to quickly edit a page.
 
-If your changes are larger, or span multiple pages, read the [Large changes](#large-changes) section to learn how to fork the Kubernetes website repository.
+If your changes are larger, or span multiple pages, read "[Large changes](#large-changes)" to learn how to fork the Kubernetes website repository.
 
 {{% /capture %}}
 
@@ -33,9 +32,9 @@ If you're less experienced with Git workflows, this is an easier method of
 opening a pull request.
 
 1.  On the page where you see the issue, click the pencil icon at the top right.
-    Alternatively, scroll to the bottom of the page and click the **Edit this page** button.
+    Alternatively, scroll to the bottom of the page and click **Edit this page**.
 
-2.  In the GitHub markdown editor, make your changes.
+2.  Make your changes in the GitHub markdown editor.
 
     {{< note >}}
     If you have not forked the Kubernetes website repository before, editing in
@@ -55,13 +54,13 @@ opening a pull request.
 4.  Click **Propose file change**. The change is saved as a commit in a
     new branch in your fork.
 
-    The next screen summarizes the changes you made, by comparing your new
+    The next screen compares your new
     branch (the **head fork** and **compare** selection boxes) to the current
     state of the **base fork** and **base** branch (`master` on the
     `kubernetes/website` repository by default).
 
 5.  Look at the difference
-    viewer on the bottom of the screen, and if everything looks right, click
+    viewer at the bottom of the screen, and if everything looks right, click
     **Create pull request**.
 
     {{< note >}}
@@ -72,9 +71,9 @@ opening a pull request.
     {{< /note >}}
 
 6.  The **Open a pull request** screen appears. Fill in the form:
-    - The **Subject** field of the pull request by default is the same as the commit summary.
+    - The **Subject** field of the pull request defaults to the commit summary.
     You can change it if needed.
-    - The **Body** is populated by your extended commit message if you have one,
+    - The **Body** contains your extended commit message, if you have one,
     and some template text. Add the
     details the template text asks for, then delete the extra template text.
     - If you add `fixes #<000000>` or `closes #<000000>` to the description,
@@ -87,7 +86,7 @@ opening a pull request.
 ## Large changes {#large-changes}
 
 If you're more experienced with Git, or if your changes are larger than a few lines,
-fork the repository first, clone it locally, and then open a pull request.
+fork the repository first, clone it locally, then open a pull request.
 
 ### Fork the `kubernetes/website` repository
 

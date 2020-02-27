@@ -12,8 +12,7 @@ card:
 
 {{% capture overview %}}
 
-The Kubernetes website loves all contributions from new members and experienced ones! Compared to other parts of the Kubernetes project, documentation is an easy way to
-get involved and have impact, especially for new contributors.
+The Kubernetes website loves contributions from all members, both new and experienced!
 
 {{% /capture %}}
 
@@ -36,7 +35,7 @@ To get involved with documentation:
 2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website) and the website's [static site generator](https://gohugo.io).
 3. Make sure you understand the basic processes for [improving content](https://kubernetes.io/docs/contribute/start/#improve-existing-content) and [reviewing changes](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
 
-## Good first contributions for beginners
+## Your first contribution
 
 If you're new to Kubernetes, working in GitHub, or working on documentation, start here:
 
@@ -46,7 +45,7 @@ If you're new to Kubernetes, working in GitHub, or working on documentation, sta
 - Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guide](/docs/contribute/style/style-guide/) to make your improvements better.
 - Learn how to [use page templates](/docs/contribute/style/page-templates/) and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to make bigger changes.
 
-## Contributions that require more knowledge
+## Next steps
 
 If you're comfortable with static site generators, GitHub, or Kubernetes, or are looking to
 get involved in a larger way, start here:
@@ -61,7 +60,7 @@ get involved in a larger way, start here:
 
 [SIG Docs](/docs/contribute/participating/) is the group of contributors who are responsible for documentation. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
 
-The SIG Docs team communicates using the following mechanisms:
+SIG Docs communicates with different methods:
 
 - [Join the Kubernetes Slack instance](http://slack.k8s.io/), then join the
   `#sig-docs` channel to discuss docs issues in real-time. Be sure to

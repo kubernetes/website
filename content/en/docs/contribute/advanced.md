@@ -82,7 +82,7 @@ An automated service, [`fejta-bot`](https://github.com/fejta-bot) automatically 
 SIG Docs [members](/docs/contribute/participating/#members) can propose improvements.
 
 After you've been contributing to the Kubernetes documentation for a while, you
-may have ideas for improvement to the [Style Guide](/docs/contribute/style/style-guide/)
+may have ideas for improving the [Style Guide](/docs/contribute/style/style-guide/)
 , the [Content Guide](/docs/contribute/style/content-guide/), the toolchain used to build
 the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
@@ -136,13 +136,13 @@ rotated among SIG Docs approvers.
 SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve as
 New Contributor Ambassadors.
 
-New Contributor Ambassadors work together to welcome new contributors to SIG-Docs,
+New Contributor Ambassadors welcome new contributors to SIG-Docs,
 suggest PRs to new contributors, and mentor new contributors through their first
 few PR submissions.  
 
 Responsibilities for New Contributor Ambassadors include:
 
-- Being available on the [Kubernetes #sig-docs channel](https://kubernetes.slack.com) to answer questions from new contributors.
+- Monitoring the [Kubernetes #sig-docs channel](https://kubernetes.slack.com) for questions from new contributors.
 - Working with PR wranglers to identify good first issues for new contributors.
 - Mentoring new contributors through their first few PRs to the docs repo.
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
@@ -185,7 +185,7 @@ Approvers must meet the following requirements to be a co-chair:
 
 ### Responsibilities
 
-The role of co-chair is primarily one of service: co-chairs handle process and policy, schedule and run meetings, schedule PR wranglers, and generally do the things that no one else wants to do in order to build contributor capacity.
+The role of co-chair is one of service: co-chairs build contributor capacity, handle process and policy, schedule and run meetings, schedule PR wranglers, advocate for docs in the Kubernetes community, make sure that docs succeed in Kubernetes release cycles, and keep SIG Docs focused on effective priorities.
 
 Responsibilities include:
 
@@ -228,7 +228,7 @@ For weekly meetings, copypaste the previous week's notes into the "Past meetings
 
 **Honor folks' time**:
 
-- Begin and end meetings punctually
+- Begin and end meetings on time
 
 **Use Zoom effectively**:
 

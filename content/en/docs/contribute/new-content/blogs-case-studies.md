@@ -19,7 +19,7 @@ to a committee for approval.
 ## Write a blog post
 
 Blog posts should not be
-commercial in nature. They should consist of content that applies broadly to
+vendor pitches. They must contain content that applies broadly to
 the Kubernetes community.
 
 To submit a blog post, you can either:

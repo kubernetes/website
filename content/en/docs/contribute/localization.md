@@ -196,7 +196,7 @@ cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kube
 Translation tools can speed up the translation process. For example, some editors offers plugins to quickly translate text.
 
 {{< caution >}}
-Machine-generated translation alone does not meet the minimum standard of quality and requires extensive human review to meet that standard.
+Machine-generated translation is insufficient on its own. Localization requires extensive human review to meet minimum standards of quality.
 {{< /caution >}}
 
 To ensure accuracy in grammar and meaning, members of your localization team should carefully review all machine-generated translations before publishing.
@@ -265,7 +265,7 @@ Teams must merge localized content into the same release branch from which the c
 
 An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch.
 
-At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous development branch and the current development branch.
+At the beginning of every team milestone, it's helpful to open an issue [comparing upstream changes](https://github.com/kubernetes/website/blob/master/scripts/upstream_changes.py) between the previous development branch and the current development branch.
 
  While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required.
 
