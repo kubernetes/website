@@ -54,7 +54,14 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "url": "https://kubernetes.io",
-    "logo": "https://kubernetes.io/images/favicon.png"
+    "logo": "https://kubernetes.io/images/favicon.png",
+{{- if not .Site.Params.deprecated }}
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ printf "%s%s" ("/docs/search/" | absURL) "?q={search_term_string}" }},
+      "query-input": "required name=search_term_string"
+    }
+{{ end }}
   }
 </script>
 <meta name="theme-color" content="#326ce5">
