@@ -243,4 +243,8 @@ After a certificate is signed using your preferred method, the certificate and t
 [cert-cas]: /docs/setup/best-practices/certificates/#single-root-ca
 [cert-table]: /docs/setup/best-practices/certificates/#all-certificates
 
+## Certificate authority (CA) rotation {#certificate-authority-rotation}
 
+Kubeadm does not support rotation or replacement of CA certificates out of the box.
+
+For more information about manual rotation or replacement of CA, see [manual rotation of CA certificates](/docs/tasks/tls/manual-rotation-of-ca-certificates/).
