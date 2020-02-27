@@ -381,7 +381,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 <!--
 - `Accelerators`: Enable Nvidia GPU support when using Docker
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
-- `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinitys](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+- `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks.
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
@@ -478,7 +478,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DynamicAuditing`: Enable [dynamic auditing](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
-  This feature is superceded by the `VolumeScheduling` feature completely in v1.12.
+  This feature is superseded by the `VolumeScheduling` feature completely in v1.12.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 -->
 - `DevicePlugins`：在节点上启用基于 [device-plugins](/docs/concepts/cluster-administration/device-plugins/) 的资源供应。
