@@ -66,7 +66,7 @@ In general, review pull requests for content and style in English.
 
 ## Reviewing checklist
 
-#### Language and Grammar
+#### Language and grammar
 
 - Are there any obvious errors in language or grammar? Is there a better way to phrase something?
 - Are there any complicated or archaic words which could be replaced with a simpler word?

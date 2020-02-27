@@ -1,6 +1,6 @@
 ---
-title: Reviewing for Approvers and Reviewers
-linktitle: For Approvers and Reviewers
+title: Reviewing for approvers and reviewers
+linktitle: For approvers and reviewers
 slug: for-approvers
 content_template: templates/concept
 weight: 20

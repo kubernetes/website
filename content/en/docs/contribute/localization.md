@@ -1,5 +1,5 @@
 ---
-title: Localizing Kubernetes Documentation
+title: Localizing Kubernetes documentation
 content_template: templates/concept
 approvers:
 - remyleone
@@ -106,11 +106,11 @@ Add a language-specific subdirectory to the [`content`](https://github.com/kuber
 mkdir content/de
 ```
 
-### Localize the Community Code of Conduct
+### Localize the community code of conduct
 
 Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages) repository to add the code of conduct in your language.
 
-### Add a localized README
+### Add a localized README file
 
 To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of k/website, where `**` is the two-letter language code. For example, a German README file would be `README-de.md`.
 
@@ -212,7 +212,7 @@ To find source files for the most recent release:
 
 The latest version is {{< latest-version >}}, so the most recent release branch is [`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}}).
 
-### Site strings in i18n/
+### Site strings in i18n
 
 Localizations must include the contents of [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in a new language-specific file. Using German as an example: `i18n/de.toml`.
 
