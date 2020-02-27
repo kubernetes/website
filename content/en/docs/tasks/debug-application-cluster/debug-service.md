@@ -29,6 +29,8 @@ If the command "COMMAND" is expected to run in a Pod and produce "OUTPUT":
 
 ```shell
 u@pod$ COMMAND
+```
+```none
 OUTPUT
 ```
 
@@ -36,6 +38,8 @@ If the command "COMMAND" is expected to run on a Node and produce "OUTPUT":
 
 ```shell
 u@node$ COMMAND
+```
+```none
 OUTPUT
 ```
 
@@ -43,6 +47,8 @@ If the command is "kubectl ARGS":
 
 ```shell
 kubectl ARGS
+```
+```none
 OUTPUT
 ```
 
@@ -53,8 +59,8 @@ sees.  The simplest way to do this is to run an interactive alpine Pod:
 
 ```none
 kubectl run -it --rm --restart=Never alpine --image=alpine sh
-/ #
 ```
+
 {{< note >}}
 If you don't see a command prompt, try pressing enter.
 {{< /note >}}
@@ -75,6 +81,8 @@ can follow along and get a second data point.
 ```shell
 kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
                       --replicas=3
+```
+```none
 deployment.apps/hostnames created
 ```
 
@@ -112,6 +120,8 @@ You can confirm your Pods are running:
 
 ```shell
 kubectl get pods -l run=hostnames
+```
+```none
 NAME                        READY     STATUS    RESTARTS   AGE
 hostnames-632524106-bbpiw   1/1       Running   0          2m
 hostnames-632524106-ly40y   1/1       Running   0          2m
@@ -124,6 +134,8 @@ Pod IP addresses and test them directly.
 ```shell
 kubectl get pods -l run=hostnames \
     -o go-template='{{range .items}}{{.status.podIP}}{{"\n"}}{{end}}'
+```
+```none
 10.244.0.5
 10.244.0.6
 10.244.0.7
@@ -134,13 +146,16 @@ via HTTP on port 9376, but if you are debugging your own app, you'll want to
 use whatever port number your Pods are listening on.
 
 ```shell
-u@pod$ wget -qO- 10.244.0.5:9376
+u@pod$ for ep in 10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376; do
+           wget -qO- $ep
+       done
+```
+
+This should produce something like:
+
+```
 hostnames-0uton
-
-pod $ wget -qO- 10.244.0.6:9376
 hostnames-bvc05
-
-u@pod$ wget -qO- 10.244.0.7:9376
 hostnames-yp2kp
 ```
 
@@ -165,6 +180,8 @@ something like:
 
 ```shell
 u@pod$ wget -O- hostnames
+```
+```none
 Resolving hostnames (hostnames)... failed: Name or service not known.
 wget: unable to resolve host address 'hostnames'
 ```
@@ -173,6 +190,8 @@ The first thing to check is whether that Service actually exists:
 
 ```shell
 kubectl get svc hostnames
+```
+```none
 No resources found.
 Error from server (NotFound): services "hostnames" not found
 ```
@@ -182,6 +201,8 @@ walk-through - you can use your own Service's details here.
 
 ```shell
 kubectl expose deployment hostnames --port=80 --target-port=9376
+```
+```none
 service/hostnames exposed
 ```
 
@@ -189,6 +210,8 @@ And read it back, just to be sure:
 
 ```shell
 kubectl get svc hostnames
+```
+```none
 NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 ```
@@ -227,6 +250,8 @@ From a Pod in the same Namespace:
 
 ```shell
 u@pod$ nslookup hostnames
+```
+```none
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
 Name:      hostnames
@@ -238,6 +263,8 @@ Namespaces, try a namespace-qualified name:
 
 ```shell
 u@pod$ nslookup hostnames.default
+```
+```none
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
 Name:      hostnames.default
@@ -250,6 +277,8 @@ fully-qualified name:
 
 ```shell
 u@pod$ nslookup hostnames.default.svc.cluster.local
+```
+```none
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
 Name:      hostnames.default.svc.cluster.local
@@ -269,6 +298,8 @@ You can also try this from a Node in the cluster:
 
 ```shell
 u@node$ nslookup hostnames.default.svc.cluster.local 10.0.0.10
+```
+```none
 Server:         10.0.0.10
 Address:        10.0.0.10#53
 
@@ -281,6 +312,11 @@ need to check that your `/etc/resolv.conf` file in your Pod is correct.
 
 ```shell
 u@pod$ cat /etc/resolv.conf
+```
+
+You should see something like:
+
+```
 nameserver 10.0.0.10
 search default.svc.cluster.local svc.cluster.local cluster.local example.com
 options ndots:5
@@ -311,6 +347,8 @@ Service should always work:
 
 ```shell
 u@pod$ nslookup kubernetes.default
+```
+```none
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
@@ -329,14 +367,17 @@ Service works by its IP address.  From a Pod in your cluster, access the
 Service's IP (from `kubectl get` above).
 
 ```shell
-u@pod$ wget -O- 10.0.1.175:80
+u@pod$ for i in $(seq 1 3); do 
+           wget -qO- 10.0.1.175:80
+       done
+```
+
+This should produce something like:
+
+```
 hostnames-0uton
-
-u@pod$ wget -O- 10.0.1.175:80
-hostnames-yp2kp
-
-u@pod$ wget -O- 10.0.1.175:80
 hostnames-bvc05
+hostnames-yp2kp
 ```
 
 If your Service is working, you should get correct responses.  If not, there
@@ -404,6 +445,8 @@ Earlier we saw that the Pods were running.  We can re-check that:
 
 ```shell
 kubectl get pods -l run=hostnames
+```
+```none
 NAME              READY     STATUS    RESTARTS   AGE
 hostnames-0uton   1/1       Running   0          1h
 hostnames-bvc05   1/1       Running   0          1h
@@ -425,6 +468,7 @@ every Service and saves the results into a corresponding Endpoints object.
 
 ```shell
 kubectl get endpoints hostnames
+
 NAME        ENDPOINTS
 hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
@@ -449,13 +493,16 @@ These commands use the Pod port (9376), rather than the Service port (80).
 {{< /note >}}
 
 ```shell
-u@pod$ wget -qO- 10.244.0.5:9376
+u@pod$ for ep in 10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376; do
+           wget -qO- $ep
+       done
+```
+
+This should produce something like:
+
+```
 hostnames-0uton
-
-pod $ wget -qO- 10.244.0.6:9376
 hostnames-bvc05
-
-u@pod$ wget -qO- 10.244.0.7:9376
 hostnames-yp2kp
 ```
 
@@ -482,6 +529,8 @@ like the below:
 
 ```shell
 u@node$ ps auxw | grep kube-proxy
+```
+```none
 root  4194  0.4  0.1 101864 17696 ?    Sl Jul04  25:43 /usr/local/bin/kube-proxy --master=https://kubernetes-master --kubeconfig=/var/lib/kube-proxy/kubeconfig --v=2
 ```
 
@@ -525,6 +574,8 @@ In "iptables" mode, you should see something like the following:
 
 ```shell
 u@node$ iptables-save | grep hostnames
+```
+```none
 -A KUBE-SEP-57KPRZ3JQVENLNBR -s 10.244.3.6/32 -m comment --comment "default/hostnames:" -j MARK --set-xmark 0x00004000/0x00004000
 -A KUBE-SEP-57KPRZ3JQVENLNBR -p tcp -m comment --comment "default/hostnames:" -m tcp -j DNAT --to-destination 10.244.3.6:9376
 -A KUBE-SEP-WNBA2IHDGP2BOBGZ -s 10.244.1.7/32 -m comment --comment "default/hostnames:" -j MARK --set-xmark 0x00004000/0x00004000
@@ -549,6 +600,8 @@ In "ipvs" mode, you should see something like the following:
 
 ```shell
 u@node$ ipvsadm -ln
+```
+```none
 Prot LocalAddress:Port Scheduler Flags
   -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
 ...
@@ -571,6 +624,8 @@ In rare cases, you may be using "userspace" mode.
 
 ```shell
 u@node$ iptables-save | grep hostnames
+```
+```none
 -A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
 -A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
 ```
@@ -588,6 +643,8 @@ IP from one of your Nodes.
 
 ```shell
 u@node$ curl 10.0.1.175:80
+```
+```none
 hostnames-0uton
 ```
 
@@ -600,12 +657,14 @@ examples it is "48577".  Now connect to that:
 
 ```shell
 u@node$ curl localhost:48577
+```
+```none
 hostnames-yp2kp
 ```
 
 If this still fails, look at the `kube-proxy` logs for specific lines like:
 
-```shell
+```none
 Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376]
 ```
 
@@ -632,8 +691,9 @@ You should see something like the below. `hairpin-mode` is set to
 
 ```shell
 u@node$ ps auxw|grep kubelet
+```
+```none
 root      3392  1.1  0.8 186804 65208 ?        Sl   00:51  11:11 /usr/local/bin/kubelet --enable-debugging-handlers=true --config=/etc/kubernetes/manifests --allow-privileged=True --v=4 --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --configure-cbr0=true --cgroup-root=/ --system-cgroups=/system --hairpin-mode=promiscuous-bridge --runtime-cgroups=/docker-daemon --kubelet-cgroups=/kubelet --babysit-daemons=true --max-pods=110 --serialize-image-pulls=false --outofdisk-transition-frequency=0
-
 ```
 
 * Confirm the effective `hairpin-mode`. To do this, you'll have to look at
@@ -644,7 +704,7 @@ match `--hairpin-mode` flag due to compatibility. Check if there is any log
 lines with key word `hairpin` in kubelet.log. There should be log lines
 indicating the effective hairpin mode, like something below.
 
-```shell
+```none
 I0629 00:51:43.648698    3252 kubelet.go:380] Hairpin mode set to "promiscuous-bridge"
 ```
 
@@ -654,6 +714,8 @@ you should see something like:
 
 ```shell
 for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; done
+```
+```none
 1
 1
 1
@@ -666,8 +728,9 @@ used and configured properly, you should see:
 
 ```shell
 u@node$ ifconfig cbr0 |grep PROMISC
+```
+```none
 UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
-
 ```
 
 * Seek help if none of above works out.
