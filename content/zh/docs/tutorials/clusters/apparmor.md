@@ -424,7 +424,7 @@ Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载�
 * By copying the profiles to each node and loading them through SSH, as demonstrated in the
   [Example](#example). -->
 * 通过在每个节点上运行 Pod 的[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)确保加载了正确的配置文件。可以找到一个示例实现[这里](https://git.k8s.io/kubernetes/test/images/apparmor-loader)。
-* 在节点初始化时，使用节点初始化脚本(例如 Salt 、Ansible 等)或图像。
+* 在节点初始化时，使用节点初始化脚本(例如 Salt 、Ansible 等)或镜像。
 * 通过将配置文件复制到每个节点并通过 SSH 加载它们，如[示例](#example)。
 
 <!-- The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
