@@ -63,8 +63,6 @@ different Kubernetes components.
 | `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
 | `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.13 |
 | `CSIBlockVolume` | `true` | Beta | 1.14 | |
-| `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
-| `CSIDriverRegistry` | `true` | Beta | 1.14 | |
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
 | `CSIInlineVolume` | `true` | Beta | 1.16 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
@@ -174,6 +172,9 @@ different Kubernetes components.
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | - |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
 | `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+| `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
+| `CSIDriverRegistry` | `true` | Beta | 1.14 | 1.17 |
+| `CSIDriverRegistry` | `true` | GA | 1.18 | |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | 1.16 |
 | `CSINodeInfo` | `true` | GA | 1.17 | |
