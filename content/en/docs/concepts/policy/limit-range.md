@@ -373,6 +373,11 @@ Delete the `limitrange-demo` namespace to free all resources:
 ```shell
 kubectl delete ns limitrange-demo
 ```
+Change your context to `default` namespace with the following command:
+
+```shell
+kubectl config set-context --current --namespace=default
+```
 
 ## Examples
 
