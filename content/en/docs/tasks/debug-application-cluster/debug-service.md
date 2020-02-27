@@ -18,40 +18,6 @@ you to figure out what's going wrong.
 
 {{% capture body %}}
 
-## Conventions
-
-Throughout this doc you will see various commands that you can run.  Some
-commands need to be run within a Pod, others on a Kubernetes Node, and others
-can run anywhere you have `kubectl` and credentials for the cluster.  To make it
-clear what is expected, this document will use the following conventions.
-
-If the command "COMMAND" is expected to run in a Pod and produce "OUTPUT":
-
-```shell
-u@pod$ COMMAND
-```
-```none
-OUTPUT
-```
-
-If the command "COMMAND" is expected to run on a Node and produce "OUTPUT":
-
-```shell
-u@node$ COMMAND
-```
-```none
-OUTPUT
-```
-
-If the command is "kubectl ARGS":
-
-```shell
-kubectl ARGS
-```
-```none
-OUTPUT
-```
-
 ## Running commands in a Pod
 
 For many steps here you will want to see what a Pod running in the cluster
@@ -145,10 +111,12 @@ The container we are using for this walk-through simply serves its own hostname
 via HTTP on port 9376, but if you are debugging your own app, you'll want to
 use whatever port number your Pods are listening on.
 
+From within a pod:
+
 ```shell
-u@pod$ for ep in 10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376; do
-           wget -qO- $ep
-       done
+for ep in 10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376; do
+    wget -qO- $ep
+done
 ```
 
 This should produce something like:
@@ -174,12 +142,12 @@ The astute reader will have noticed that we did not actually create a Service
 yet - that is intentional.  This is a step that sometimes gets forgotten, and
 is the first thing to check.
 
-What would happen if you tried to access a non-existent Service?  Assuming
+What would happen if you tried to access a non-existent Service?  If
 you have another Pod that consumes this Service by name you would get
 something like:
 
 ```shell
-u@pod$ wget -O- hostnames
+wget -O- hostnames
 ```
 ```none
 Resolving hostnames (hostnames)... failed: Name or service not known.
@@ -249,7 +217,7 @@ name.
 From a Pod in the same Namespace:
 
 ```shell
-u@pod$ nslookup hostnames
+nslookup hostnames
 ```
 ```none
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -259,10 +227,10 @@ Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 ```
 
 If this fails, perhaps your Pod and Service are in different
-Namespaces, try a namespace-qualified name:
+Namespaces, try a namespace-qualified name (again, from within a Pod):
 
 ```shell
-u@pod$ nslookup hostnames.default
+nslookup hostnames.default
 ```
 ```none
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -276,7 +244,7 @@ run your app and Service in the same Namespace.  If this still fails, try a
 fully-qualified name:
 
 ```shell
-u@pod$ nslookup hostnames.default.svc.cluster.local
+nslookup hostnames.default.svc.cluster.local
 ```
 ```none
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -297,7 +265,7 @@ You can also try this from a Node in the cluster:
 {{< /note >}}
 
 ```shell
-u@node$ nslookup hostnames.default.svc.cluster.local 10.0.0.10
+nslookup hostnames.default.svc.cluster.local 10.0.0.10
 ```
 ```none
 Server:         10.0.0.10
@@ -308,10 +276,11 @@ Address: 10.0.1.175
 ```
 
 If you are able to do a fully-qualified name lookup but not a relative one, you
-need to check that your `/etc/resolv.conf` file in your Pod is correct.
+need to check that your `/etc/resolv.conf` file in your Pod is correct.  From
+within a Pod:
 
 ```shell
-u@pod$ cat /etc/resolv.conf
+cat /etc/resolv.conf
 ```
 
 You should see something like:
@@ -343,10 +312,10 @@ high enough to cover all of the DNS names it generates.
 
 If the above still fails, DNS lookups are not working for your Service.  We
 can take a step back and see what else is not working.  The Kubernetes master
-Service should always work:
+Service should always work.  From within a Pod:
 
 ```shell
-u@pod$ nslookup kubernetes.default
+nslookup kubernetes.default
 ```
 ```none
 Server:    10.0.0.10
@@ -367,9 +336,9 @@ Service works by its IP address.  From a Pod in your cluster, access the
 Service's IP (from `kubectl get` above).
 
 ```shell
-u@pod$ for i in $(seq 1 3); do 
-           wget -qO- 10.0.1.175:80
-       done
+for i in $(seq 1 3); do 
+    wget -qO- 10.0.1.175:80
+done
 ```
 
 This should produce something like:
@@ -492,10 +461,12 @@ above.
 These commands use the Pod port (9376), rather than the Service port (80).
 {{< /note >}}
 
+From within a Pod:
+
 ```shell
-u@pod$ for ep in 10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376; do
-           wget -qO- $ep
-       done
+for ep in 10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376; do
+    wget -qO- $ep
+done
 ```
 
 This should produce something like:
@@ -524,11 +495,11 @@ will have to investigate whatever implementation of Services you are using.
 
 ### Is kube-proxy running?
 
-Confirm that `kube-proxy` is running on your Nodes.  You should get something
-like the below:
+Confirm that `kube-proxy` is running on your Nodes.  Running directly on a
+Node, you should get something like the below:
 
 ```shell
-u@node$ ps auxw | grep kube-proxy
+ps auxw | grep kube-proxy
 ```
 ```none
 root  4194  0.4  0.1 101864 17696 ?    Sl Jul04  25:43 /usr/local/bin/kube-proxy --master=https://kubernetes-master --kubeconfig=/var/lib/kube-proxy/kubeconfig --v=2
@@ -570,10 +541,10 @@ mode has largely been replaced by these.
 
 #### Iptables mode
 
-In "iptables" mode, you should see something like the following:
+In "iptables" mode, you should see something like the following on a Node:
 
 ```shell
-u@node$ iptables-save | grep hostnames
+iptables-save | grep hostnames
 ```
 ```none
 -A KUBE-SEP-57KPRZ3JQVENLNBR -s 10.244.3.6/32 -m comment --comment "default/hostnames:" -j MARK --set-xmark 0x00004000/0x00004000
@@ -596,10 +567,10 @@ config (including node-ports and load-balancers).
 
 #### IPVS mode
 
-In "ipvs" mode, you should see something like the following:
+In "ipvs" mode, you should see something like the following on a Node:
 
 ```shell
-u@node$ ipvsadm -ln
+ipvsadm -ln
 ```
 ```none
 Prot LocalAddress:Port Scheduler Flags
@@ -620,10 +591,10 @@ hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`,
 
 #### Userspace mode
 
-In rare cases, you may be using "userspace" mode.
+In rare cases, you may be using "userspace" mode.  From your Node:
 
 ```shell
-u@node$ iptables-save | grep hostnames
+iptables-save | grep hostnames
 ```
 ```none
 -A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
@@ -639,10 +610,10 @@ more time on it here.
 ### Is kube-proxy proxying?
 
 Assuming you do see one the above cases, try again to access your Service by
-IP from one of your Nodes.
+IP from one of your Nodes:
 
 ```shell
-u@node$ curl 10.0.1.175:80
+curl 10.0.1.175:80
 ```
 ```none
 hostnames-0uton
@@ -656,7 +627,7 @@ port number that `kube-proxy` is using for your Service.  In the above
 examples it is "48577".  Now connect to that:
 
 ```shell
-u@node$ curl localhost:48577
+curl localhost:48577
 ```
 ```none
 hostnames-yp2kp
@@ -690,7 +661,7 @@ You should see something like the below. `hairpin-mode` is set to
 `promiscuous-bridge` in the following example.
 
 ```shell
-u@node$ ps auxw|grep kubelet
+ps auxw | grep kubelet
 ```
 ```none
 root      3392  1.1  0.8 186804 65208 ?        Sl   00:51  11:11 /usr/local/bin/kubelet --enable-debugging-handlers=true --config=/etc/kubernetes/manifests --allow-privileged=True --v=4 --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --configure-cbr0=true --cgroup-root=/ --system-cgroups=/system --hairpin-mode=promiscuous-bridge --runtime-cgroups=/docker-daemon --kubelet-cgroups=/kubelet --babysit-daemons=true --max-pods=110 --serialize-image-pulls=false --outofdisk-transition-frequency=0
@@ -727,7 +698,7 @@ has the permission to manipulate linux bridge on node. If `cbr0` bridge is
 used and configured properly, you should see:
 
 ```shell
-u@node$ ifconfig cbr0 |grep PROMISC
+ifconfig cbr0 |grep PROMISC
 ```
 ```none
 UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
