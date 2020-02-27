@@ -94,7 +94,7 @@ hostnames-632524106-ly40y   1/1       Running   0          2m
 hostnames-632524106-tlaok   1/1       Running   0          2m
 ```
 
-You can also confirm that your Pods are serving.  We can get the list of
+You can also confirm that your Pods are serving.  You can get the list of
 Pod IP addresses and test them directly.
 
 ```shell
@@ -107,7 +107,7 @@ kubectl get pods -l run=hostnames \
 10.244.0.7
 ```
 
-The container we are using for this walk-through simply serves its own hostname
+The example container used for this walk-through simply serves its own hostname
 via HTTP on port 9376, but if you are debugging your own app, you'll want to
 use whatever port number your Pods are listening on.
 
@@ -133,12 +133,12 @@ You might find `kubectl logs` to be useful for seeing what is happening, or
 perhaps you need to `kubectl exec` directly into your Pods and debug from
 there.
 
-Assuming everythign has gone to plan so far, we can start to investigate why
+Assuming everythign has gone to plan so far, you can start to investigate why
 your Service doesn't work.
 
 ## Does the Service exist?
 
-The astute reader will have noticed that we did not actually create a Service
+The astute reader will have noticed that you did not actually create a Service
 yet - that is intentional.  This is a step that sometimes gets forgotten, and
 is the first thing to check.
 
@@ -164,7 +164,7 @@ No resources found.
 Error from server (NotFound): services "hostnames" not found
 ```
 
-So we have a culprit, let's create the Service.  As before, this is for the
+So you have a culprit, let's create the Service.  As before, this is for the
 walk-through - you can use your own Service's details here.
 
 ```shell
@@ -204,7 +204,7 @@ spec:
     targetPort: 9376
 ```
 
-In order to highlight the full range of configuration, the Service we created
+In order to highlight the full range of configuration, the Service you created
 here uses a different port number than the Pods.  For many real-world
 Services, these values might be the same.
 {{< /note >}}
@@ -254,7 +254,7 @@ Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 ```
 
 Note the suffix here: "default.svc.cluster.local".  The "default" is the
-Namespace we're operating in.  The "svc" denotes that this is a Service.
+Namespace you're operating in.  The "svc" denotes that this is a Service.
 The "cluster.local" is your cluster domain, which COULD be different in your
 own cluster.
 
@@ -300,7 +300,7 @@ Namespace ("default.svc.cluster.local"), Services in all Namespaces
 ("svc.cluster.local"), and lastly for names in the cluster ("cluster.local").
 Depending on your own install you might have additional records after that (up
 to 6 total).  The cluster suffix is passed into `kubelet` with the
-`--cluster-domain` flag.  We assume that is "cluster.local" in this document,
+`--cluster-domain` flag.  You assume that is "cluster.local" in this document,
 but yours might be different, in which case you should change that in all of
 the commands above.
 
@@ -310,7 +310,7 @@ high enough to cover all of the DNS names it generates.
 
 ### Does any Service work by DNS name? {#does-any-service-exist-in-dns}
 
-If the above still fails, DNS lookups are not working for your Service.  We
+If the above still fails, DNS lookups are not working for your Service.  You
 can take a step back and see what else is not working.  The Kubernetes master
 Service should always work.  From within a Pod:
 
@@ -325,13 +325,13 @@ Name:      kubernetes.default
 Address 1: 10.0.0.1 kubernetes.default.svc.cluster.local
 ```
 
-If this fails, you might need to go to the kube-proxy section of this doc, or
-even go back to the top of this document and start over, but instead of
+If this fails, you might need to go to the kube-proxy section of this document,
+or even go back to the top of this document and start over, but instead of
 debugging your own Service, debug the DNS Service.
 
 ## Does the Service work by IP?
 
-Assuming we have confirmed that DNS works, the next thing to test is whether your
+Assuming you have confirmed that DNS works, the next thing to test is whether your
 Service works by its IP address.  From a Pod in your cluster, access the
 Service's IP (from `kubectl get` above).
 
@@ -410,7 +410,7 @@ If you got this far, you have confirmed that your Service is correctly
 defined and is resolved by DNS.  Now let's check that the Pods you ran are
 actually being selected by the Service.
 
-Earlier we saw that the Pods were running.  We can re-check that:
+Earlier you saw that the Pods were running.  You can re-check that:
 
 ```shell
 kubectl get pods -l run=hostnames
@@ -451,9 +451,9 @@ Deployment specifying `run=hostnames`.
 
 ## Are the Pods working?
 
-At this point, we know that your Service exists and has selected your Pods.
-At the beginning of this walk-through, we verified the Pods themselves.
-Let's check again that the Pods are actually working - we can bypass the
+At this point, you know that your Service exists and has selected your Pods.
+At the beginning of this walk-through, you verified the Pods themselves.
+Let's check again that the Pods are actually working - you can bypass the
 Service mechanism and go straight to the Pods, as listed by the Endpoints
 above.
 
@@ -477,7 +477,7 @@ hostnames-bvc05
 hostnames-yp2kp
 ```
 
-We expect each Pod in the Endpoints list to return its own hostname.  If
+You expect each Pod in the Endpoints list to return its own hostname.  If
 this is not what happens (or whatever the correct behavior is for your own
 Pods), you should investigate what's happening there.
 
@@ -604,7 +604,7 @@ iptables-save | grep hostnames
 There should be 2 rules for each port of your Service (just one in this
 example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".
 
-Almost nobody should be using the "userspace" mode any more, so we won't spend
+Almost nobody should be using the "userspace" mode any more, so you won't spend
 more time on it here.
 
 ### Is kube-proxy proxying?
@@ -711,7 +711,7 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 If you get this far, something very strange is happening.  Your Service is
 running, has Endpoints, and your Pods are actually serving.  You have DNS
 working, and `kube-proxy` does not seem to be misbehaving.  And yet your
-Service is not working.  You should probably let us know, so we can help
+Service is not working.  You should probably let us know, so you can help
 investigate!
 
 Contact us on
