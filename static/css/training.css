@@ -4,67 +4,67 @@
 }
 
 .section {
-	clear: both;
-	padding: 0px;
-	margin-bottom: 2em;
+  clear: both;
+  padding: 0px;
+  margin-bottom: 2em;
 }
 
 .col {
-	display: block;
-	float:left;
-	margin: 1% 0 1% 1.6%;
-	background-color: #f9f9f9;
+  display: block;
+  float:left;
+  margin: 1% 0 1% 1.6%;
+  background-color: #f9f9f9;
 }
 .col:first-child { margin-left: 0; }
 
 .col-container {
-    display: table; /* Make the container element behave like a table */
-    width: 100%; /* Set full-width to expand the whole page */
-		padding-bottom: 30px;
+  display: table; /* Make the container element behave like a table */
+  width: 100%; /* Set full-width to expand the whole page */
+  padding-bottom: 30px;
 }
 
 .col-nav {
-    display: table-cell; /* Make elements inside the container behave like table cells */
-		width: 18%;
-		background-color: #f9f9f9;
-		padding: 20px;
-		border: 5px solid white;
+  display: table-cell; /* Make elements inside the container behave like table cells */
+  width: 18%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 5px solid white;
 }
 
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 
 @media only screen and (max-width: 480px) {
-	.col { margin: 1% 0 1% 0%;}
+  .col { margin: 1% 0 1% 0%;}
 }
 
 @media only screen and (max-width: 650px) {
-    .col-nav {
-        display: block;
-        width: 100%;
-    }
+  .col-nav {
+    display: block;
+    width: 100%;
+  }
 }
 
 .button{
   max-width: 100%;
-	box-sizing: border-box;
-	font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
   margin: 1em 0;
-	display: inline-block;
-	border-radius: 6px;
-	padding: 0 20px;
-	line-height: 40px;
-	color: #ffffff;
-	font-size: 16px;
-	background-color: #3371e3;
-	text-decoration: none;
- }
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0 20px;
+  line-height: 40px;
+  color: #ffffff;
+  font-size: 16px;
+  background-color: #3371e3;
+  text-decoration: none;
+}
 
- h5 {
-	font-size: 16px;
+h5 {
+  font-size: 16px;
   font-weight: 500;
-	line-height: 1.5em;
-	margin-bottom: 2em;
+  line-height: 1.5em;
+  margin-bottom: 2em;
 }
 
 .white-text {
