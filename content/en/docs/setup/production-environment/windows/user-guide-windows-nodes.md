@@ -119,16 +119,16 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
 
     Now we will add Windows-compatible versions of Flannel and kube-proxy. In order
     to ensure that we get a compatible version of kube-proxy, we'll need to substitute
-    the tag of the image. The following example shows usage for Kubernetes 1.17.3,
+    the tag of the image. The following example shows usage for Kubernetes 1.17.0,
     but you should adjust the version for your own deployment.
 
     ```bash
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/kube-proxy.yml | sed 's/VERSION/v1.17.3/g' | kubectl apply -f -
-    kubectl apply -f https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/flannel-overlay.yml
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/v1.17.0/g' | kubectl apply -f -
+    kubectl apply -f https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml
     ```
 
     {{< note >}}
-    If you're using host-gateway use https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/flannel-host-gw.yml instead
+    If you're using host-gateway use https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-host-gw.yml instead
     {{< /note >}}
 
 ### Joining a Windows worker node
@@ -145,7 +145,7 @@ with elevated permissions (Administrator) on the Windows worker node.
 1. Install wins, kubelet, and kubeadm.
 
    ```PowerShell
-   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/download/0.1/PrepareNode.ps1
+   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
    .\PrepareNode.ps1 -KubernetesVersion v1.17.0
    ```
 {{< note >}}
@@ -165,6 +165,15 @@ You should now be able to view the Windows node in your cluster by running:
 ```bash
 kubectl get nodes -o wide
 ```
+
+If your new node is in the `NotReady` state it is likely because the flannel image is still downloading.
+You can check the progress as before by checking on the flannel pods in the `kube-system` namespace:
+
+```
+kubectl -n kube-system get pods -l app=flannel
+```
+
+Once the flannel pod is running your node should enter the `Ready` state and is ready to handle workloads.
 
 {{% /capture %}}
 
