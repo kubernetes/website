@@ -229,4 +229,4 @@ number of replicas and rolling out updates are more important than controlling e
 the Pod runs on.  Use a DaemonSet when it is important that a copy of a Pod always run on
 all or certain hosts, and when it needs to start before other Pods.
 
-{{% /capture %}}
+{{% /capture %}} 
