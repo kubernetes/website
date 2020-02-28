@@ -63,10 +63,10 @@ true:
   [https://github.com/kubernetes/website/](https://github.com/kubernetes/website/)
   repository. Only a reviewer with push access can commit into their PR.
 
-  {{ < note > }}
+  {{< note >}}
   Encourage the author to push their branch to their fork before
   opening the PR next time.
-  {{ < /note > }}
+  {{< /note >}}
 
 - If the PR author explicitly disallows edits from approvers, you can't
   commit into their PR unless they change this setting.

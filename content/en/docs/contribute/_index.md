@@ -49,7 +49,7 @@ of roles and permissions.
 
 ## Next steps
 
-- Learn to [work from a local clone](/docs/contribute/new-content/working-locally/).
+- Learn to [work from a local clone](/docs/contribute/new-content/working-locally/) of the repository.
 - Contribute a [larger change](/docs/contribute/new-content/new-content/#large-changes).
 - Document [features in a release](/docs/contribute/new-content/new-features/).
 - Participate in [SIG Docs](/docs/contribute/participating/), and become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).
@@ -58,21 +58,20 @@ of roles and permissions.
 
 ## Get involved with SIG Docs
 
-[SIG Docs](/docs/contribute/participating/) is the group of contributors who are responsible for documentation. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
+[SIG Docs](/docs/contribute/participating/) is the group of contributors who publish and maintain documentation. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
 
 SIG Docs communicates with different methods:
 
-- [Join the Kubernetes Slack instance](http://slack.k8s.io/), then join the
-  `#sig-docs` channel to discuss docs issues in real-time. Be sure to
+- [Join `#sig-docs` on the Kubernetes Slack instance](http://slack.k8s.io/). Make sure to
   introduce yourself!
 - [Join the `kubernetes-sig-docs` mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   where broader discussions take place and official decisions are recorded.
-- Join the [weekly SIG Docs video meeting](https://github.com/kubernetes/community/tree/master/sig-docs). The meeting is always announced on the Slack channel and the mailing list. Currently, these meetings take place on Zoom, so you'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
+- Join the [weekly SIG Docs video meeting](https://github.com/kubernetes/community/tree/master/sig-docs). The meeting is always announced on the Slack and the mailing list. You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
 - Check the SIG Docs weekly meeting times on the [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
 
 ## Other ways to contribute
 
-- Visit the [Kubernetes community site](/community/) to participate on Twitter or Stack Overflow, learn about local Kubernetes meetups and events, and more.
+- Visit the [Kubernetes community site](/community/). Participate on Twitter or Stack Overflow, learn about local Kubernetes meetups and events, and more.
 - Read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get involved with Kubernetes feature development.
 - Submit a [blog post or case study](/docs/contribute/new-content/blogs-case-studies/).
 

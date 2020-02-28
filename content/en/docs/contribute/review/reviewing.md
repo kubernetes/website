@@ -96,7 +96,3 @@ comment with `nit:`. This lets the author know that they should address the issu
 but it's non-critical.
 
 {{% /capture %}}
-
-{{% capture whatsnext %}}
-what's next
-{{% /capture %}}

@@ -10,13 +10,11 @@ card:
 
 {{% capture overview %}}
 
-The easiest way to contribute to Kubernetes documentation file is to an issue about existing content,
-or a request for new content. All you need is a [GitHub account](https://github.com/join) and a web browser.
+If you notice an issue with Kubernetes documentation, or have an idea for new content, then file an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
 
 All new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
 then review, categorize and tag issues as needed. You or another member
-of the Kubernetes community begin work on the issue an open a pull request with changes,
-and the issue is resolved.
+of the Kubernetes community begin work on the issue an open a pull request with changes to resolve the issue.
 
 {{% /capture %}}
 

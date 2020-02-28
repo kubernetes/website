@@ -24,7 +24,7 @@ This page shows you how to [localize](https://blog.mozilla.org/l10n/2011/12/14/i
 
 Because contributors can't approve their own pull requests, you need at least two contributors to begin a localization.
 
-All localization teams must be self-sustaining with their own resources. We're happy to host your work, but we can't translate it for you.
+All localization teams must be self-sustaining with their own resources. The Kubernetes website is happy to host your work, but it's up to you to translate it.
 
 ### Find your two-letter language code
 
