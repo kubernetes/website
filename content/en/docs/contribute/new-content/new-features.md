@@ -1,24 +1,23 @@
 ---
-title: Documenting a new feature
-linktitle: New features
+title:  Documenting a feature for a release
+linktitle: Documenting for a release
 content_template: templates/concept
 main_menu: true
 weight: 20
 card:
   name: contribute
   weight: 45
-  title: Documenting a new feature
+  title:  Documenting a feature for a release
 ---
 {{% capture overview %}}
 
-Each major Kubernetes release includes new features.
-Most of these features need documentation to show people how to use them.
+Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
 
 Generally, the SIG responsible for a feature submits draft documentation for the
-feature as a pull request to the appropriate release branch of
+feature as a pull request to the appropriate release branch of the
 `kubernetes/website` repository, and someone on the SIG Docs team provides
 editorial feedback or edits the draft directly. This section covers the branching
-conventions and process used by both groups.
+conventions and process used during a release by both groups.
 
 {{% /capture %}}
 
@@ -26,10 +25,8 @@ conventions and process used by both groups.
 
 ## For documentation contributors
 
-As stated above, usually the SIG creating a new feature submits draft documentation.
-This means that your role may be
-more of a shepherding role for a given feature than developing the documentation
-from scratch.
+In general, documentation contributors don't write content from scratch for a release.
+Instead, they work with the SIG creating a new feature to refine the draft documentation and make it release ready.
 
 After you've chosen a feature to document/shepherd, ask about it in the `#sig-docs`
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
@@ -115,18 +112,16 @@ milestone.
 
 When ready, populate your placeholder PR with feature documentation.
 
-Don't worry about polish or formatting, just describe what the
-feature does and how to use it. The docs
-person managing the release will work with you to get the content into shape
-to be published.
+Do your best to describe your feature and how to use it. If you need help structuring your feature's documentation, feel free to ask for help in the `#sig-docs` slack channel.
+
+When your first draft is complete, the documentation person assigned to your feature will review it and work with you get the content to a release ready state.
 
 If your feature needs documentation and the first draft
 content is not received, the feature may be removed from the milestone.
 
 ### All PRs reviewed and ready to merge
 
-If your PR has not
-yet been merged into the `release-X.Y` branch by this deadline, work with the
+If your PR has not yet been merged into the `release-X.Y` branch by the release deadline, work with the
 docs person managing the release to get it in. If your feature needs
 documentation and the docs are not ready, the feature may be removed from the
 milestone.

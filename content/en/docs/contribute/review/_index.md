@@ -1,11 +1,6 @@
 ---
 title: Reviewing changes
-content_template: templates/concept
-main_menu: true
 weight: 30
-card:
-  name: contribute
-  weight: 20
 ---
 
 {{% capture overview %}}

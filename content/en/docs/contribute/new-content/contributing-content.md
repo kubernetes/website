@@ -260,7 +260,6 @@ the templates with as much detail as possible when you file issues or PRs.
 
 {{% capture whatsnext %}}
 
-- Read [Participate in SIG Docs](http://localhost:1313/docs/contribute/participating/) to learn more about the review process.
--
+- Read [Reviewing](/docs/contribute/reviewing/reviewing) to learn more about the review process.
 
 {{% /capture %}}

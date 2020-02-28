@@ -1,7 +1,5 @@
 ---
 title: Contributing new content
-content_template: templates/concept
-main_menu: true
 weight: 20
 ---
 

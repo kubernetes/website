@@ -12,7 +12,9 @@ card:
 
 {{% capture overview %}}
 
-The Kubernetes website loves contributions from all members, both new and experienced!
+The Kubernetes documenttion website loves contributions from all members, both new and experienced!
+
+The Kubernetes documentation website is a part of the Kubernetes project managed by its own SIG, [SIG Docs]((/docs/contribute/participating/). Kubernetes documentation contributors improve existing documentation content, create new content, translate the documentation and manage the documentation aspects of the Kubernetes release cycle.
 
 {{% /capture %}}
 
