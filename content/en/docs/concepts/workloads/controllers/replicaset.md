@@ -58,22 +58,26 @@ kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 You can then get the current ReplicaSets deployed:
+
 ```shell
 kubectl get rs
 ```
 
 And see the frontend one you created:
+
 ```shell
 NAME       DESIRED   CURRENT   READY   AGE
 frontend   3         3         3       6s
 ```
 
-You can also check on the state of the replicaset:
+You can also check on the state of the ReplicaSet:
+
 ```shell
 kubectl describe rs/frontend
 ```
 
 And you will see output similar to:
+
 ```shell
 Name:         frontend
 Namespace:    default
@@ -103,11 +107,13 @@ Events:
 ```
 
 And lastly you can check for the Pods brought up:
+
 ```shell
 kubectl get pods
 ```
 
 You should see Pod information similar to:
+
 ```shell
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-b2zdv   1/1     Running   0          6m36s
@@ -117,11 +123,13 @@ frontend-wtsmm   1/1     Running   0          6m36s
 
 You can also verify that the owner reference of these pods is set to the frontend ReplicaSet.
 To do this, get the yaml of one of the Pods running:
+
 ```shell
 kubectl get pods frontend-b2zdv -o yaml
 ```
 
 The output will look similar to this, with the frontend ReplicaSet's info set in the metadata's ownerReferences field:
+
 ```shell
 apiVersion: v1
 kind: Pod
@@ -166,11 +174,13 @@ The new Pods will be acquired by the ReplicaSet, and then immediately terminated
 its desired count.
 
 Fetching the Pods:
+
 ```shell
 kubectl get pods
 ```
 
 The output shows that the new Pods are either already terminated, or in the process of being terminated:
+
 ```shell
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
@@ -181,17 +191,20 @@ pod2             0/1     Terminating   0          1s
 ```
 
 If you create the Pods first:
+
 ```shell
 kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
 And then create the ReplicaSet however:
+
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 You shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
 number of its new Pods and the original matches its desired count. As fetching the Pods:
+
 ```shell
 kubectl get pods
 ```
@@ -212,6 +225,9 @@ As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `
 For ReplicaSets, the kind is always just ReplicaSet.
 In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
 Refer to the first lines of the `frontend.yaml` example for guidance.
+
+The name of a ReplicaSet object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
