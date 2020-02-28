@@ -13,7 +13,7 @@ card:
 
 Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
 
-Generally, the SIG responsible for a feature submits draft documentation for the
+Generally, the SIG responsible for a feature submits draft documentation of the
 feature as a pull request to the appropriate release branch of the
 `kubernetes/website` repository, and someone on the SIG Docs team provides
 editorial feedback or edits the draft directly. This section covers the branching
@@ -112,9 +112,9 @@ milestone.
 
 When ready, populate your placeholder PR with feature documentation.
 
-Do your best to describe your feature and how to use it. If you need help structuring your feature's documentation, feel free to ask for help in the `#sig-docs` slack channel.
+Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` slack channel.
 
-When your first draft is complete, the documentation person assigned to your feature will review it and work with you get the content to a release ready state.
+When you complete your content, the documentation person assigned to your feature reviews it. Use their suggestions to get the content to a release ready state.
 
 If your feature needs documentation and the first draft
 content is not received, the feature may be removed from the milestone.
@@ -122,7 +122,7 @@ content is not received, the feature may be removed from the milestone.
 ### All PRs reviewed and ready to merge
 
 If your PR has not yet been merged into the `release-X.Y` branch by the release deadline, work with the
-docs person managing the release to get it in. If your feature needs
+docs person managing the release to get it in by the deadline. If your feature needs
 documentation and the docs are not ready, the feature may be removed from the
 milestone.
 

@@ -21,7 +21,7 @@ Case studies require extensive review before they're approved.
 
 Blog posts should not be
 vendor pitches. They must contain content that applies broadly to
-the Kubernetes community.
+the Kubernetes community. The SIG Docs [blog subproject](https://github.com/kubernetes/community/tree/master/sig-docs/blog-subproject) manages the review process for blog posts. For more information, see [Submit a post](https://github.com/kubernetes/community/tree/master/sig-docs/blog-subproject#submit-a-post).
 
 To submit a blog post, you can either:
 

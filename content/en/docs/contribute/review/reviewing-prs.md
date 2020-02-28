@@ -43,7 +43,7 @@ In general, review pull requests for content and style in English.
     You see a list of every open pull request against the Kubernetes website and
     docs.
 
-2.  Apply some or all of the following labels:
+2.  Filter the open PRs using one or all of the following labels:
     - `cncf-cla: yes` (Recommended): PRs submitted by contributors who have not signed the CLA cannot be merged. See [Sign the CLA](/docs/contribute/new-content/#sign-the-cla) for more information.
     - `language/en` (Recommended): Filters for english language PRs only.
     - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
@@ -71,6 +71,7 @@ In general, review pull requests for content and style in English.
 - Are there any obvious errors in language or grammar? Is there a better way to phrase something?
 - Are there any complicated or archaic words which could be replaced with a simpler word?
 - Are there any words, terms or phrases in use which could be replaced with a non-discriminatory alternative?
+- Does the word choice and its capitalization follow the [style guide](/docs/contribute/style/style-guide/)?
 - Are there long sentences which could be shorter or less complex?
 - Are there any long paragraphs which might work better as a list or table?
 
@@ -90,9 +91,6 @@ In general, review pull requests for content and style in English.
 
 #### Other
 
-If you see any other issues wit the PR that don't have to do with the content or
-rendering of the content – for example, a typo or whitespace error – prefix your
-comment with `nit:`. This lets the author know that they should address the issue
-but it's non-critical.
+For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.  This lets the author know the issue is non-critical.
 
 {{% /capture %}}

@@ -150,7 +150,7 @@ You can now build the website locally For more information, see the `kubernetes/
 
 ### View your changes locally
 
-If you aren't ready to create a pull request but you want to see what your
+If you want to see what your
 changes look like, you can build and run a docker image to generate all the documentation and
 serve it locally.
 

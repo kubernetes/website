@@ -7,7 +7,7 @@ weight: 80
 card:
   name: contribute
   weight: 10
-  title: Contributing Overview
+  title: Contributing overview
 ---
 
 {{% capture overview %}}

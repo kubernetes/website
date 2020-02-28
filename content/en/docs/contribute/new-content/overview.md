@@ -31,13 +31,12 @@ This section contains information all contributors should know before beginning.
 
 All Kubernetes contributors **must** read the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 
-If you do not sign the CLA, your pull requests builds will fail the automated tests, and your
-contributions will not be accepted.
+Pull requests from contributors who haven't signed the CLA fail the automated tests.
 
 ### Configure commit signoffs
 
 All commits to Kubernetes repositories must be _signed off_ using the Git `--signoff` or `-s` flag.
-The signoff acknowledges that you have the rights to submit this work under the same
+The signoff acknowledges that you have the rights to submit contributions under the same
 license and [Developer Certificate of Origin](https://developercertificate.org/).
 
 If you're using a Git UI app, you can use the app's commit template functionality if it
@@ -47,8 +46,7 @@ exists, or add the following to your commit message body:
 Signed-off-by: Your Name <youremail@domain.com>
 ```
 
-In both cases, Make sure that the name and email you provide match those found in your
-`git config`, and that your git name and email match those used for the CNCF CLA.
+In both cases, the name and email you provide must match those found in your `git config`, and your git name and email must match those used for the CNCF CLA.
 
 ### Choose which Git branch to use
 
