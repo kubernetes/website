@@ -1,6 +1,6 @@
 ---
 title: Bring your ideas to the world with kubectl plugins
-date: tbd
+date: 2020-02-28
 ---
 
 **Author:** Cornelius Weig (TNG Technology Consulting GmbH)
