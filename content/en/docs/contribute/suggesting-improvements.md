@@ -10,22 +10,23 @@ card:
 
 {{% capture overview %}}
 
-If you notice an issue with Kubernetes documentation, or have an idea for new content, then file an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
+If you notice an issue with Kubernetes documentation, or have an idea for new content, then open an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
 
-All new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
-then review, categorize and tag issues as needed. You or another member
-of the Kubernetes community begin work on the issue an open a pull request with changes to resolve the issue.
+In most cases, new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
+then review, categorize and tag issues as needed. Next, you or another member
+of the Kubernetes community open a pull request with changes to resolve the issue.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Suggesting improvements to existing content
+## Opening an issue
+
+If you want to suggest improvements to existing content, or notice an error, then open an issue.
 
 1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
  to a GitHub issue page pre-populated with some headers.
-2. Using Markdown, fill in as many details as you can. At a minimum, describe what
-  the issue or suggestion for improvement is.
+2. Describe what the issue or suggestion for improvement is. Provide as many details as you can.
 3. Click **Submit new issue**.
 
 After submitting, check in on your issue occasionally or turn on GitHub notifications.
@@ -34,7 +35,7 @@ they can take action on your issue.
 
 ## Suggesting new content
 
-If you think content should exist, but you aren't sure where it should go, you can
+If you have an idea for new content, but you aren't sure where it should go, you can
 still file an issue. Either:
 
 - Choose an existing page in the section you think the content belongs in and click **Create an issue**.

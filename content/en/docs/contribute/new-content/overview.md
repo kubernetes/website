@@ -8,7 +8,7 @@ weight: 5
 
 {{% capture overview %}}
 
-This section contains information all contributors should know before beginning.
+This section contains information you should know before contributing new content.
 
 
 {{% /capture %}}

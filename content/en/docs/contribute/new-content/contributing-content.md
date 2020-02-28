@@ -175,7 +175,7 @@ serve it locally.
 4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
 {{% /tab %}}
-{{% tab name="Hugo locally" %}}
+{{% tab name="Hugo on the command line" %}}
 
 Alternatively, you can install and use the `hugo` command on your development machine:
 
