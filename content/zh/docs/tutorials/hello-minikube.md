@@ -171,7 +171,7 @@ Pod runs a Container based on the provided Docker image.
 -->
 ## 创建 Deployment
 
-Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) 是由一个或多个容器为了管理和联网的目的而绑定在一起构成的组。本教程中的 Pod 只有一个容器。Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。Deployment 是管理 Pod 创建和扩展的推荐方法。
+Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) 是由一个或多个为了管理和联网而绑定在一起的容器构成的组。本教程中的 Pod 只有一个容器。Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。Deployment 是管理 Pod 创建和扩展的推荐方法。
 
 1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker 镜像运行 Container。
 
