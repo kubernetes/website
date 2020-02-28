@@ -77,7 +77,7 @@ POD-NAME을 해당 파드 이름으로 수정해야 한다.
 
 ### Redis 마스터 서비스 생성하기
 
-방명록 애플리케이션에서 데이터를 쓰려면 Redis 마스터와 통신해야 한다. Redis 마스터 파드로 트래픽을 프록시하려면 [서비스](/docs/concepts/services-networking/service/)를 적용해야 한다. 서비스는 파드에 접근하기 위한 정책을 정의한다.
+방명록 애플리케이션에서 데이터를 쓰려면 Redis 마스터와 통신해야 한다. Redis 마스터 파드로 트래픽을 프록시하려면 [서비스](/ko/docs/concepts/services-networking/service/)를 적용해야 한다. 서비스는 파드에 접근하기 위한 정책을 정의한다.
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
@@ -197,7 +197,7 @@ Redis 마스터는 단일 파드이지만, 복제된 Redis 슬레이브를 추�
 
 ### 프론트엔드 서비스 생성하기
 
-서비스의 기본 유형은 [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types)이기 때문에 적용한 redis-slave 및 redis-master 서비스는 컨테이너 클러스터 내에서만 접근할 수 있다. `ClusterIP`는 서비스가 가리키는 파드 집합에 대한 단일 IP 주소를 제공한다. 이 IP 주소는 클러스터 내에서만 접근할 수 있다.
+서비스의 기본 유형은 [ClusterIP](/ko/docs/concepts/services-networking/service/#publishing-services-service-types)이기 때문에 적용한 redis-slave 및 redis-master 서비스는 컨테이너 클러스터 내에서만 접근할 수 있다. `ClusterIP`는 서비스가 가리키는 파드 집합에 대한 단일 IP 주소를 제공한다. 이 IP 주소는 클러스터 내에서만 접근할 수 있다.
 
 게스트가 방명록에 접근할 수 있도록 하려면, 외부에서 볼 수 있도록 프론트엔드 서비스를 구성해야 한다. 그렇게 하면 클라이언트가 컨테이너 클러스터 외부에서 서비스를 요청할 수 있다. Minikube는 `NodePort`를 통해서만 서비스를 노출할 수 있다.
 

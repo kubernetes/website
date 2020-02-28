@@ -33,7 +33,7 @@ weight: 90
     - 노드, 파드, 서비스에 도달하는데 사용할 수 있다.
     - 서비스에 도달할 때에는 로드 밸런싱을 수행한다.
 
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/ko/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 각 노드에서 실행한다.
     - UDP, TCP, SCTP를 이용하여 프락시 한다.
