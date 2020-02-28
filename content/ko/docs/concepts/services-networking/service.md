@@ -850,7 +850,7 @@ NLB는 특정 인스턴스 클래스에서만 작동한다. 지원되는 인스�
 헬스 체크에 실패하고 트래픽을 수신하지 못하게 된다.
 
 트래픽을 균일하게 하려면, DaemonSet을 사용하거나,
-[파드 안티어피니티(pod anti-affinity)](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
+[파드 안티어피니티(pod anti-affinity)](/ko/docs/concepts/configuration/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
 를 지정하여 동일한 노드에 위치하지 않도록 한다.
 
 [내부 로드 밸런서](/ko/docs/concepts/services-networking/service/#internal-load-balancer) 어노테이션과 함께 NLB 서비스를
@@ -939,7 +939,7 @@ spec:
 {{< note >}}
 ExternalName은 IPv4 주소 문자열을 허용하지만, IP 주소가 아닌 숫자로 구성된 DNS 이름을 허용한다. IPv4 주소와 유사한 ExternalName은 CoreDNS 또는 ingress-nginx에 의해 확인되지 않는데, ExternalName은
 정식(canonical) DNS 이름을 지정하기 때문이다. IP 주소를 하드 코딩하려면,
-[헤드리스(headless) 서비스](#headless-services) 사용을 고려한다.
+[헤드리스(headless) 서비스](#헤드리스-headless-서비스) 사용을 고려한다.
 {{< /note >}}
 
 `my-service.prod.svc.cluster.local` 호스트를 검색하면, 클러스터 DNS 서비스는

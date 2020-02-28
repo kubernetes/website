@@ -26,12 +26,12 @@ weight: 40
 
 ## 쿠버네티스 오브젝트
 
-쿠버네티스는 시스템의 상태를 나타내는 추상 개념을 다수 포함하고 있다. 컨테이너화되어 배포된 애플리케이션과 워크로드, 이에 연관된 네트워크와 디스크 자원, 그 밖에 클러스터가 무엇을 하고 있는지에 대한 정보가 이에 해당한다. 이런 추상 개념은 쿠버네티스 API 내 오브젝트로 표현된다. 보다 자세한 내용은 [쿠버네티스 오브젝트 이해하기](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/) 문서를 참조한다.
+쿠버네티스는 시스템의 상태를 나타내는 추상 개념을 다수 포함하고 있다. 컨테이너화되어 배포된 애플리케이션과 워크로드, 이에 연관된 네트워크와 디스크 자원, 그 밖에 클러스터가 무엇을 하고 있는지에 대한 정보가 이에 해당한다. 이런 추상 개념은 쿠버네티스 API 내 오브젝트로 표현된다. 보다 자세한 내용은 [쿠버네티스 오브젝트 이해하기](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects) 문서를 참조한다.
 
 기초적인 쿠버네티스 오브젝트에는 다음과 같은 것들이 있다.
 
 * [파드](/ko/docs/concepts/workloads/pods/pod-overview/)
-* [서비스](/docs/concepts/services-networking/service/)
+* [서비스](/ko/docs/concepts/services-networking/service/)
 * [볼륨](/docs/concepts/storage/volumes/)
 * [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/)
 

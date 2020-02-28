@@ -140,7 +140,7 @@ EOF
 # 기본 출력을 위한 Get 커맨드
 kubectl get services                          # 네임스페이스 내 모든 서비스의 목록 조회
 kubectl get pods --all-namespaces             # 모든 네임스페이스 내 모든 파드의 목록 조회
-kubectl get pods -o wide                      # 네임스페이스 내 모든 파드의 상세 목록 조회
+kubectl get pods -o wide                      # 해당하는 네임스페이스 내 모든 파드의 상세 목록 조회
 kubectl get deployment my-dep                 # 특정 디플로이먼트의 목록 조회
 kubectl get pods                              # 네임스페이스 내 모든 파드의 목록 조회
 kubectl get pod my-pod -o yaml                # 파드의 YAML 조회
@@ -156,9 +156,8 @@ kubectl get services --sort-by=.metadata.name
 # 재시작 횟수로 정렬된 파드의 목록 조회
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# test 네임스페이스를 가지는 PersistentVolumes을 용량별로 정렬해서 조회
-
-kubectl get pv -n test --sort-by=.spec.capacity.storage
+# PersistentVolumes을 용량별로 정렬해서 조회
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # app=cassandra 레이블을 가진 모든 파드의 레이블 버전 조회
 kubectl get pods --selector=app=cassandra -o \
