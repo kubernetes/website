@@ -9,8 +9,9 @@ weight: 30
 
 {{% capture overview %}}
 
-Anyone can write a blog post and submit it for review. You must submit case studies
-to a committee for approval.
+Anyone can write a blog post and submit it for review.
+Case studies require extensive review before they're approved.
+
 
 {{% /capture %}}
 

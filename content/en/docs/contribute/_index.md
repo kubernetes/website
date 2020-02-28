@@ -12,9 +12,14 @@ card:
 
 {{% capture overview %}}
 
-The Kubernetes documenttion website loves contributions from all members, both new and experienced!
+The documentation website is a part of the Kubernetes project. The website is managed by [SIG Docs]((/docs/contribute/participating/). Kubernetes documentation contributors:
 
-The Kubernetes documentation website is a part of the Kubernetes project managed by its own SIG, [SIG Docs]((/docs/contribute/participating/). Kubernetes documentation contributors improve existing documentation content, create new content, translate the documentation and manage the documentation aspects of the Kubernetes release cycle.
+- Improve existing content.
+- Create new content.
+- Translate the documentation.
+- Manage the documentation parts of the Kubernetes release cycle.
+
+Kubernetes documentation welcomes contributions from all members, both new and experienced!
 
 {{% /capture %}}
 
@@ -22,13 +27,7 @@ The Kubernetes documentation website is a part of the Kubernetes project managed
 
 ## Getting started
 
-Anyone can open an issue about documentation, or contribute a change with a pull request (PR).
-Some tasks require more trust and need more access in the Kubernetes organization.
-See [Participating in SIG Docs](/docs/contribute/participating/) for more details about
-of roles and permissions.
-
-Kubernetes documentation resides in a [GitHub repository](https://github.com/kubernetes/website).
-Anyone can open an issue about the Kubernetes documentation, blog, website, but you need to be comfortable with [git](https://git-scm.com/) and [GitHub](https://lab.github.com/) to operate effectively in the Kubernetes community.
+Anyone can open an issue about documentation, or contribute a change with a pull request (PR) to the [`kubernetes/website` GitHub repository](https://github.com/kubernetes/website). You need to be comfortable with [git](https://git-scm.com/) and [GitHub](https://lab.github.com/) to operate effectively in the Kubernetes community.
 
 To get involved with documentation:
 
@@ -36,26 +35,25 @@ To get involved with documentation:
 2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website) and the website's [static site generator](https://gohugo.io).
 3. Make sure you understand the basic processes for [improving content](https://kubernetes.io/docs/contribute/start/#improve-existing-content) and [reviewing changes](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
 
-## Your first contribution
+Some tasks require more trust and need more access in the Kubernetes organization.
+See [Participating in SIG Docs](/docs/contribute/participating/) for more details about
+of roles and permissions.
 
-If you're new to Kubernetes, working in GitHub, or working on documentation, start here:
+## Your first contribution
 
 - [Suggest improvements](/docs/contribute/suggest-improvements/) to existing documentation and learn more about filing issues in GitHub.
 - Contribute a [small change](/docs/contribute/new-content/new-content/#small-changes) to existing content to learn the pull review process.
 - [Review pull requests](/docs/contribute/review/reviewing/) from other Kubernetes community members for accuracy and language.
-- Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guide](/docs/contribute/style/style-guide/) to make your improvements better.
+- Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guides](/docs/contribute/style/style-guide/).
 - Learn how to [use page templates](/docs/contribute/style/page-templates/) and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to make bigger changes.
 
 ## Next steps
 
-If you're comfortable with static site generators, GitHub, or Kubernetes, or are looking to
-get involved in a larger way, start here:
-
-- Learn [work from a local clone](/docs/contribute/new-content/working-locally/) of the repository if you're new to GitHub.
-- Contribute a [larger change](/docs/contribute/new-content/new-content/#large-changes) to documentation.
-- Learn how to help with or document [new features](/docs/contribute/new-content/new-features/).
-- Participate in [SIG Docs](/docs/contribute/participating/),  become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).
-- Start or participate in a [localization](/docs/contribute/localization/) of Kubernetes documentation.
+- Learn to [work from a local clone](/docs/contribute/new-content/working-locally/).
+- Contribute a [larger change](/docs/contribute/new-content/new-content/#large-changes).
+- Document [features in a release](/docs/contribute/new-content/new-features/).
+- Participate in [SIG Docs](/docs/contribute/participating/), and become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).
+- Start or help with a [localization](/docs/contribute/localization/).
 
 
 ## Get involved with SIG Docs

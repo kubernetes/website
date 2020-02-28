@@ -5,7 +5,7 @@ weight: 30
 
 {{% capture overview %}}
 
-This section describes the ways in which contributors and anyone else can review content.
+This section describes how to review content.
 
 {{% /capture %}}
 

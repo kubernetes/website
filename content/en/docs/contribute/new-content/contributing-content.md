@@ -12,15 +12,15 @@ card:
 
 {{< note >}}
 **Kubernetes code developers**: If you are documenting a new feature for an
-upcoming Kubernetes release, your process is a bit different. See
-[Document a new feature](/docs/contribute/new-content/new-features/) for
+upcoming Kubernetes release, your process is a bit different. For more information, see
+[Document a new feature](/docs/contribute/new-content/new-features/).
 {{< /note >}}
 
 To contribute new content pages or improve existing content pages, open a _pull request_ (PR). Make sure you follow all the requirements in the [Before you begin](#before-you-begin) section.
 
-If your change is only a few lines long, or you're not that familiar with git, read "[Small changes](#small-changes)" to learn how to quickly edit a page.
+If your change is only a few lines long, or you're not that familiar with git, read [Small changes](#small-changes) to learn how to quickly edit a page.
 
-If your changes are larger, or span multiple pages, read "[Large changes](#large-changes)" to learn how to fork the Kubernetes website repository.
+If your changes are larger, or span multiple pages, read [Large changes](#large-changes) to learn how to fork the Kubernetes website repository.
 
 {{% /capture %}}
 
@@ -46,8 +46,7 @@ opening a pull request.
     the second field, provide a description.
 
     {{< note >}}
-    Do reference other GitHub issues or pull
-    requests in your commit message. You can add those to the pull request
+    Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) in your commit message. You can add those to the pull request
     description later.
     {{< /note >}}
 
@@ -66,7 +65,7 @@ opening a pull request.
     {{< note >}}
     If you don't want to create the pull request now, you can do it
     later. Browse to the main URL of the Kubernetes website repository or
-    your fork's repository. The GitHub website prompts you to create a
+    your fork's repository. GitHub prompts you to create a
     pull request if it detects a new branch pushed to your fork.
     {{< /note >}}
 
