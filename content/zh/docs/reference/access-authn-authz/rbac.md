@@ -54,7 +54,7 @@ bootstrapping first.
 ## API 概述
 
 本节介绍 RBAC API 所声明的四种顶级类型。用户可以像与其他 API 资源交互一样，
-（通过 `kubectl`、API 调用、etc等方式）与这些资源交互。例如，
+（通过 `kubectl`、API 调用等方式）与这些资源交互。例如，
 命令 `kubectl apply -f (resource).yml` 可以用在这里的任何一个例子之上。
 尽管如此，建议读者循序渐进阅读下面的章节，由浅入深。
 
@@ -427,7 +427,7 @@ rules:
 ```
 
 需要注意的是，`create` 请求不能被 resourceName 限制，因为在鉴权时还不知道对象名称。
-鉴权时间。另一个例外是 `deletecollection`。
+另一个例外是 `deletecollection`。
 
 <!--
 ### Aggregated ClusterRoles
@@ -538,8 +538,8 @@ rules:
 ```
 -->
 
-默认的面向用户的角色（如下所述）使用 ClusterRole 聚合。这让管理者可以使用规则属性自定义资源，
-比如在默认角色上，由 CustomResourceDefinitions 或 Aggregated API servers 提供的服务。
+默认的面向用户的角色（如下所述）使用 ClusterRole 聚合。这使得管理者可以为自定义资源设置使用规则属性，
+比如通过 CustomResourceDefinitions 或聚合 API 服务器为默认角色提供的服务。
 
 例如，在以下 ClusterRoles 中让 "admin" 和 "edit" 拥有管理自定义资源 "CronTabs" 的权限，
  "view" 角色对资源有只读操作权限。
@@ -2112,7 +2112,10 @@ kubectl create clusterrolebinding permissive-binding \
   --user=kubelet \
   --group=system:serviceaccounts
 ```
+{{< /warning >}}
+
 -->
+
 ## 宽松的 RBAC 权限
 
 可以使用 RBAC 角色绑定在多个场合使用宽松的策略。
@@ -2130,7 +2133,6 @@ kubectl create clusterrolebinding permissive-binding \
   --user=kubelet \
   --group=system:serviceaccounts
 ```
-
 {{< /warning >}}
 
 {{% /capture %}}
