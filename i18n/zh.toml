@@ -186,3 +186,6 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
+
+[input_placeholder_email_address]
+other = "电子邮件地址"
