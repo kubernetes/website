@@ -193,3 +193,6 @@ other = "Calendario de eventos"
 # UI elements
 [ui_search_placeholder]
 other = "Buscar"
+
+[input_placeholder_email_address]
+other = "dirección de correo electrónico"
