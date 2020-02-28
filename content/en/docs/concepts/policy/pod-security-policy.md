@@ -425,6 +425,11 @@ Only trusted users should be granted permission to create `PersistentVolume` obj
 
 **FSGroup** - Controls the supplemental group applied to some volumes.
 
+**FSGroupChangePolicy** -  FSGroupChangePolicy defines behavior of changing ownership and permission of the volume
+before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions).
+It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir.If not specified - default behaviour is to always recursively change permission and ownership. 
+of volume. This is an alpha feature in 1.18 and feature `ConfigurableFSGroupPolicy` must be enabled to use it.
+
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
 - *MayRunAs* - Requires at least one `range` to be specified. Allows
