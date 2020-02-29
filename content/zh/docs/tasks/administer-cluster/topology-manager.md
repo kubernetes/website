@@ -206,7 +206,7 @@ If it is, Topology Manager will store this and the *Hint Providers* can then use
 resource allocation decision.
 If, however, this is not possible then the Topology Manager will reject the pod from the node. This will result in a pod in a `Terminated` state with a pod admission failure.
 -->
-对于 Guaranteed 类 Pod 中的每个容器， 配置了 `single-numa-nodde` 拓扑管理策略的 kubelet 调用每个建议提供者以确定其资源可用性。
+对于 Guaranteed 类 Pod 中的每个容器， 配置了 `single-numa-node` 拓扑管理策略的 kubelet 调用每个建议提供者以确定其资源可用性。
 使用此信息，拓扑管理器确定单 NUMA 节点亲和性是否可能。
 如果是这样，则拓扑管理器将存储此信息，然后 *建议提供者* 可以在做出资源分配决定时使用此信息。
 如果不可能，则拓扑管理器将拒绝 Pod 运行于该节点。
