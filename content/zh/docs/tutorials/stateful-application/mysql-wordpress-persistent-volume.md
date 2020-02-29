@@ -151,7 +151,7 @@ A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piec
 Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use. 
 -->
 
-A [Secret](/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。您可以通过`kustomization.yaml`中的生成器创建一个 Secret。
+[Secret](/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。您可以通过`kustomization.yaml`中的生成器创建一个 Secret。
 
 通过以下命令在`kustomization.yaml`中添加一个 Secret 生成器。您需要用您要使用的密码替换`YOUR_PASSWORD`。
 
@@ -168,7 +168,7 @@ EOF
 ## Add resource configs for MySQL and WordPress 
 -->
 
-## 补充 MySQL 和 WordPress 的资源配置
+## 添加 MySQL 和 WordPress 的资源配置
 
 <!-- 
 The following manifest describes a single-instance MySQL Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD` environment variable sets the database password from the Secret.
@@ -185,7 +185,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 `WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated. 
 -->
 
-以下 manifest 文件描述了单实例 WordPress 部署。WordPress 容器将网站数据文件位于`/var/www/html`的 PersistentVolume。`WORDPRESS_DB_HOST`环境变量集上面定义的 MySQL Service 的名称，WordPress 将通过 Service 访问数据库。`WORDPRESS_DB_PASSWORD`环境变量设置从 Secret kustomize 生成的数据库密码。
+以下 manifest 文件描述了单实例 WordPress 部署。WordPress 容器为网站数据文件将PersistentVolume挂载到了`/var/www/html`。`WORDPRESS_DB_HOST`环境变量上面定义了 MySQL Service 的名称，WordPress 将通过 Service 访问数据库。`WORDPRESS_DB_PASSWORD`环境变量设置从 Secret kustomize 生成的数据库密码。
 {{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
 <!--
