@@ -190,7 +190,7 @@ For example, for GCE these metrics are called:
 
 ### kube-controller-manager指标
 
-控制器管理器指标提供了有关控制器管理器性能和运行状况的重要见解。这些指标包括常见的一些Go语言运行时的重要指标（比如go_routine的数量）和一些控制器的特定指标（比如etcd的请求延迟），还有一些与服务提供商（比如AWS,GCE,OpenStack）的API请求延时，用来评估集群的整体运行状况。
+控制器管理器指标提供了有关控制器管理器性能和运行状况的重要见解。这些指标包括常见的一些Go语言运行时的重要指标（比如go_routine的数量）和一些控制器的特定指标（比如etcd的请求时延），还有一些Cloudprovider（比如AWS，GCE，OpenStack）的API请求时延，用来评估集群的整体运行状况。
 
 从Kubernetes 1.7开始，详细的Cloudprovider指标便可用于GCE， AWS， Vsphere和OpenStack的存储操作，这些指标可用于监控持久卷运行时的健康状况。
 
@@ -215,8 +215,8 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 * Read about the [Kubernetes deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )
 -->
 
-* 阅读[Prometheus](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)指标相关的文本格式
-* 查看[Kubernetes](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)稳定版指标列表。
-* 查看[Kubernetes](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )指标弃用策略
+* 阅读[Prometheus指标相关的文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
+* 查看[Kubernetes稳定版指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)列表
+* 查看[Kubernetes指标弃用策略](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )
 
 {{% /capture %}}
