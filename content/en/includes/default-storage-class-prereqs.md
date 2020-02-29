@@ -1,6 +1,6 @@
 You need to either have a dynamic PersistentVolume provisioner with a default
-[StorageClass](/docs/concepts/storage/storage-classes/),
-or [statically provision PersistentVolumes](/docs/user-guide/persistent-volumes/#provisioning)
-yourself to satisfy the [PersistentVolumeClaims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+[StorageClass](/content/en/docs/concepts/storage/storage-classes.md),
+or [statically provision PersistentVolumes](/content/en/docs/reference/glossary/persistent-volume.md)
+yourself to satisfy the [PersistentVolumeClaims](/content/en/docs/reference/glossary/persistent-volume-claim.md)
 used here.
 
