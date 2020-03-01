@@ -67,8 +67,6 @@ PodCondition 배열의 각 요소는 다음 여섯 가지 필드를 가질 수 �
     모든 매칭 서비스들의 로드밸런싱 풀에 추가되어야 함.
   * `Initialized`: 모든 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers)가
     성공적으로 시작 완료되었음.
-  * `Unschedulable`: 스케줄러가 자원의 부족이나 다른 제약 등에 의해서
-    지금 당장은 파드를 스케줄할 수 없음.
   * `ContainersReady`: 파드 내의 모든 컨테이너가 준비 상태임.
 
 
@@ -255,12 +253,6 @@ status:
 
 파드 준비성 평가에 대한 변경을 촉진하기 위해서,
 이전 파드 조건인 `Ready`를 포착하기 위한 새로운 파드 조건 `ContainersReady`가 소개되었다.
-
-K8s 1.11에서, 알파 특징으로서, "파드 준비++" 특징을 사용하기 위해서는
-[특징 게이트](/docs/reference/command-line-tools-reference/feature-gates/)의 `PodReadinessGates`를
-참으로 설정함으로써 명시적으로 활성화해야 한다.
-
-K8s 1.12에서는, 해당 특징이 기본으로 활성화되어 있다.
 
 ## 재시작 정책
 

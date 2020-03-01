@@ -72,9 +72,9 @@ cluster admin on a per-node basis. Pods with disabled unsafe sysctls will be
 scheduled, but will fail to launch.
 
 With the warning above in mind, the cluster admin can allow certain _unsafe_
-sysctls for very special situations like e.g. high-performance or real-time
+sysctls for very special situations such as high-performance or real-time
 application tuning. _Unsafe_ sysctls are enabled on a node-by-node basis with a
-flag of the kubelet, e.g.:
+flag of the kubelet; for example:
 
 ```shell
 kubelet --allowed-unsafe-sysctls \

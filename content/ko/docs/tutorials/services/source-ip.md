@@ -23,8 +23,8 @@ content_template: templates/tutorial
 * [NAT](https://en.wikipedia.org/wiki/Network_address_translation): 네트워크 주소 변환
 * [소스 NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): 패킷 상의 소스 IP 주소를 변경함, 보통 노드의 IP 주소
 * [대상 NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): 패킷 상의 대상 IP 주소를 변경함, 보통 파드의 IP 주소
-* [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 가상 IP 주소, 모든 쿠버네티스 서비스에 할당된 것 같은
-* [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 네트워크 데몬으로 모든 노드에서 서비스 VIP 관리를 관리한다.
+* [VIP](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시): 가상 IP 주소, 모든 쿠버네티스 서비스에 할당된 것 같은
+* [Kube-proxy](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시): 네트워크 데몬으로 모든 노드에서 서비스 VIP 관리를 관리한다.
 
 
 ## 전제 조건
@@ -34,7 +34,7 @@ content_template: templates/tutorial
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```console
-kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 ```
 출력은 다음과 같다.
 ```
@@ -57,7 +57,7 @@ deployment.apps/source-ip-app created
 ## Type=ClusterIP인 서비스에서 소스 IP
 
 쿠버네티스 1.2부터 기본으로 제공하는
-[iptables 모드](/docs/concepts/services-networking/service/#proxy-mode-iptables)로 운영하는 경우
+[iptables 모드](/ko/docs/concepts/services-networking/service/#proxy-mode-iptables)로 운영하는 경우
 클러스터 내에서 클러스터 IP로 패킷을 보내면 소스 NAT를 통과하지 않는다.
 Kube-proxy는 이 모드를 `proxyMode` 엔드포인트를 통해 노출한다.
 
@@ -122,7 +122,7 @@ client_address는 클라이언트 파드와 서버 파드가 같은 노드 또�
 
 ## Type=NodePort인 서비스에서 소스 IP
 
-쿠버네티스 1.5부터 [Type=NodePort](/docs/concepts/services-networking/service/#nodeport)인 서비스로 보내진 패킷은
+쿠버네티스 1.5부터 [Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport)인 서비스로 보내진 패킷은
 소스 NAT가 기본으로 적용된다. `NodePort` 서비스를 생성하여 이것을 테스트할 수 있다.
 
 ```console
@@ -221,7 +221,7 @@ client_address=104.132.1.79
 
 ## Type=LoadBalancer인 서비스에서 소스 IP
 
-쿠버네티스 1.5 부터 [Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)인 서비스로
+쿠버네티스 1.5 부터 [Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer)인 서비스로
 보낸 패킷은 소스 NAT를 기본으로 하는데, `Ready` 상태로 모든 스케줄된 모든 쿠버네티스 노드는
 로드 밸런싱 트래픽에 적합하다. 따라서 엔드포인트가 없는 노드에
 패킷이 도착하면 시스템은 엔드포인트를 *포함한* 노드에 프록시를
