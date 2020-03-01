@@ -732,7 +732,7 @@ For Kubernetes 1.9 and earlier, we recommend running the following set of admiss
   ```
 
   * It's worth reiterating that in 1.9, these happen in a mutating phase
-and a validating phase, and that e.g. `ResourceQuota` runs in the validating
+and a validating phase, and that for example `ResourceQuota` runs in the validating
 phase, and therefore is the last admission controller to run.
 `MutatingAdmissionWebhook` appears before it in this list, because it runs
 in the mutating phase.

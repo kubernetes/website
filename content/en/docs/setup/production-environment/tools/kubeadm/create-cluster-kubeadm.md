@@ -403,7 +403,7 @@ for `kubeadm`.
 ### Control plane node isolation
 
 By default, your cluster will not schedule Pods on the control-plane node for security
-reasons. If you want to be able to schedule Pods on the control-plane node, e.g. for a
+reasons. If you want to be able to schedule Pods on the control-plane node, for example for a
 single-machine Kubernetes cluster for development, run:
 
 ```bash
