@@ -122,6 +122,14 @@ spec:
 ```
 
 <!--
+You must specify a capacity value for `spec.resources.requests.storage`, and the value you specify must be the same or larger than the capacity of the source volume.
+-->
+
+{{< note >}}
+你必须为 `spec.resources.requests.storage` 指定一个值，并且你指定的值必须大于或等于源卷的值。
+{{< /note >}}
+
+<!--
 The result is a new PVC with the name `clone-of-pvc-1` that has the exact same content as the specified source `pvc-1`.
 -->
 
