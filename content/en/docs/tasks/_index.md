@@ -1,5 +1,5 @@
 ---
-title: Tasks
+title: News-journal
 main_menu: true
 weight: 50
 content_template: templates/concept
