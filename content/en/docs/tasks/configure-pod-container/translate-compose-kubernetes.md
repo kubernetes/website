@@ -580,7 +580,7 @@ If you want to create normal pods without controllers you can use `restart` cons
 The controller object could be `deployment` or `replicationcontroller`, etc.
 {{< /note >}}
 
-For e.g. `pival` service will become pod down here. This container calculated value of `pi`.
+For example, the `pival` service will become pod down here. This container calculated value of `pi`.
 
 ```yaml
 version: '2'
