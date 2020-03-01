@@ -80,3 +80,6 @@ other = "Events Calendar"
 # UI elements
 [ui_search_placeholder]
 other = "Search"
+
+[input_placeholder_email_address]
+other = "indirizzo email"
