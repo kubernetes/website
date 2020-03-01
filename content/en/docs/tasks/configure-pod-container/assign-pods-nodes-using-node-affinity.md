@@ -1,5 +1,6 @@
 ---
 title: Assign Pods to Nodes using Node Affinity
+min-kubernetes-server-version: v1.10
 content_template: templates/task
 weight: 120
 ---
