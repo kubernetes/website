@@ -193,3 +193,6 @@ other = "Evenementenkalender"
 # UI elements
 [ui_search_placeholder]
 other = "Zoeken"
+
+[input_placeholder_email_address]
+other = "e-mailadres"
