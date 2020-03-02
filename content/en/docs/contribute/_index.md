@@ -33,8 +33,7 @@ To get involved with documentation:
 
 1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
 2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website) and the website's [static site generator](https://gohugo.io).
-3. Make sure you understand the basic processes for [improving content](https://kubernetes.io/docs/contribute/start/#improve-existing-content) and [reviewing changes](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
-
+3. Make sure you understand the basic processes for [improving content](/docs/contribute/suggest-improvements) and [reviewing changes](/docs/contribute/review/reviewing-prs).
 Some tasks require more trust and need more access in the Kubernetes organization.
 See [Participating in SIG Docs](/docs/contribute/participating/) for more details about
 of roles and permissions.
@@ -42,14 +41,14 @@ of roles and permissions.
 ## Your first contribution
 
 - [Suggest improvements](/docs/contribute/suggest-improvements/) to existing documentation and learn more about filing issues in GitHub.
-- Contribute a [small change](/docs/contribute/new-content/new-content/#small-changes) to existing content to learn the pull review process.
-- [Review pull requests](/docs/contribute/review/reviewing/) from other Kubernetes community members for accuracy and language.
+- Contribute a [small change](/docs/contribute/new-content/contributing-content#small-changes) to existing content to learn the pull review process.
+- [Review pull requests](/docs/contribute/review/reviewing-prs/) from other Kubernetes community members for accuracy and language.
 - Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guides](/docs/contribute/style/style-guide/) so you can leave informed comments.
 - Learn how to [use page templates](/docs/contribute/style/page-templates/) and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to make bigger changes.
 
 ## Next steps
 
-- Learn to [work from a local clone](/docs/contribute/new-content/working-locally/) of the repository.
+- Learn to [work from a local clone](/docs/contribute/new-content/new-content/#large-changes) of the repository.
 - Contribute a [larger change](/docs/contribute/new-content/new-content/#large-changes).
 - Document [features in a release](/docs/contribute/new-content/new-features/).
 - Participate in [SIG Docs](/docs/contribute/participating/), and become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).

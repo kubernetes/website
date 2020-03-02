@@ -22,7 +22,7 @@ This section contains information you should know before contributing new conten
 - [Page templates](/docs/contribute/style/page-templates/) control the presentation of documentation content in Hugo.
 - In addition to the standard Hugo shortcodes, we use a number of [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our documentation to control the presentation of content.
 - Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`.
-  - For more information about contributing to documentation in multiple languages, see ["Localize content"](/docs/contribute/intermediate#localize-content) in the intermediate contributing guide.
+  - For more information about contributing to documentation in multiple languages, see [Localize content](/docs/contribute/localization/) in the intermediate contributing guide.
   - If you're interested in starting a new localization, see ["Localization"](/docs/contribute/localization/).
 
 ## Before you begin {#before-you-begin}

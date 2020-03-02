@@ -16,7 +16,7 @@ upcoming Kubernetes release, your process is a bit different. For more informati
 [Document a new feature](/docs/contribute/new-content/new-features/).
 {{< /note >}}
 
-To contribute new content pages or improve existing content pages, open a _pull request_ (PR). Make sure you follow all the requirements in the [Before you begin](#before-you-begin) section.
+To contribute new content pages or improve existing content pages, open a _pull request_ (PR). Make sure you follow all the requirements in the [Before you begin](/docs/contribute/new-content/overview/#before-you-begin) section.
 
 If your change is only a few lines long, or you're not that familiar with git, read [Small changes](#small-changes) to learn how to quickly edit a page.
 
@@ -94,7 +94,7 @@ The Kubernetes project only allows pull requests from a fork.
 1. Navigate to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.
 2. Click **Fork**.
 
-### Create a local clone and set the upstream
+### Create a local clone and set the upstream {#work-locally}
 
 To work from a fork, ensure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your computer. You can also use a Git UI application.
 
@@ -259,6 +259,6 @@ the templates with as much detail as possible when you file issues or PRs.
 
 {{% capture whatsnext %}}
 
-- Read [Reviewing](/docs/contribute/reviewing/reviewing) to learn more about the review process.
+- Read [Reviewing PRs](/docs/contribute/review/reviewing-prs/) to learn more about the review process.
 
 {{% /capture %}}

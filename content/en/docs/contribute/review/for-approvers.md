@@ -30,7 +30,7 @@ guidance of the bot, and this also helps PRs to get reviewed quickly.
 
 Kubernetes documentation follows the [Kubernetes code review process](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process).
 
-Everything described in [Reviewing a pull request](/docs/contribute/review/reviewing/#review-process) applies, but Reviews and Approvers should pay attention should also do the following:
+Everything described in [Reviewing a pull request](/docs/contribute/review/reviewing-prs/#review-process) applies, but Reviews and Approvers should pay attention should also do the following:
 
 - Using the `/assign` Prow command to assign a specific reviewer to a PR as needed. This is extra important
 when it comes to requesting technical review from code contributors.
