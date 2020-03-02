@@ -4,7 +4,7 @@ title: EndpointSlices
 feature:
   title: EndpointSlices
   description: >
-    Scalable tracking of network endpoints in a Kubernetes cluster.
+    Suivi évolutif des points de terminaison réseau dans un cluster Kubernetes.
 
 content_template: templates/concept
 weight: 10
@@ -24,17 +24,17 @@ _EndpointSlices_ offrent une simple methode pour suivre les endpoints d'un rése
 ## Resource pour EndpointSlice {#endpointslice-resource}
 
 Dans Kubernetes, un EndpointSlice contient des reférences à un ensemble de reseau 
-endpoints. Le controleur d'EndpointSlice crée automatiquement des EndpointSlices pour un Kubernetes Service quand un {{< glossary_tooltip text="selector" term_id="selector" >}} est spécifié. Ces EnpointSlices vont inclure des references a n'importe quelle Pods qui correspond aux Service selector. EndpointSlices groupent ensemble les endpoints d'un reseau par combinaisons uniques de Services et de Ports.
+endpoints. Le controleur d'EndpointSlice crée automatiquement des EndpointSlices pour un Kubernetes Service quand un {{< glossary_tooltip text="selector" term_id="selector" >}} est spécifié. Ces EnpointSlices vont inclure des references a n'importe quelle Pods qui correspond aux selecteur de Service. EndpointSlices groupent ensemble les endpoints d'un reseau par combinaisons uniques de Services et de Ports.
 
-Par example, voici un échantillon d'une resource EndpointSlice pour le Kubernetes Service `example`.
+Par exemple, voici un échantillon d'une resource EndpointSlice pour le Kubernetes Service `exemple`.
 
 ```yaml
 apiVersion: discovery.k8s.io/v1beta1
 kind: EndpointSlice
 metadata:
-  name: example-abc
+  name: exemple-abc
   labels:
-    kubernetes.io/service-name: example
+    kubernetes.io/service-name: exemple
 addressType: IPv4
 ports:
   - name: http
@@ -66,9 +66,9 @@ EndpointSlices supporte trois type d'addresses:
 ### Topologie
 
 Chaque endpoint dans un EnpointSlice peut contenir des informations de topologie pertinentes. 
-Ceci est utilisé pour indiqué où se trouve un endpoint, qui contient les informations sur le Noeud, zone et region correspondant. Lorsque les valeurs sont disponibles, les etiquette de Topologies suivantes seront définies par le contrôleur EndpointSlice:
+Ceci est utilisé pour indiqué où se trouve un endpoint, qui contient les informations sur le Node, zone et region correspondant. Lorsque les valeurs sont disponibles, les etiquette de Topologies suivantes seront définies par le contrôleur EndpointSlice:
 
-* `kubernetes.io/hostname` - Nom du Noeud sur lequel l'endpoint se situe.
+* `kubernetes.io/hostname` - Nom du Node sur lequel l'endpoint se situe.
 * `topology.kubernetes.io/zone` - Zone dans laquelle l'endpoint se situe.
 * `topology.kubernetes.io/region` - Region dans laquelle l'endpoint se situe.
 
@@ -76,8 +76,8 @@ Le contrôleur EndpointSlice surveille les Services et les Pods pour assurer que
 
 ### Capacité d'EndpointSlices
 
-Les EndpointSlices sont limité a une capacité de 100 endpoints chacun, par defaut. Vous pouvez configurer ceci avec le `--max-endpoints-per-slice` {{< glossary_tooltip
-text="kube-controller-manager" term_id="kube-controller-manager" >}} flag [indicateur] jusqu'à un maximum de 1000.
+Les EndpointSlices sont limité a une capacité de 100 endpoints chacun, par defaut. Vous pouvez configurer ceci avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip
+text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
 
 ### Distribution d'EndpointSlices
 
@@ -89,9 +89,9 @@ Le contrôlleur essait de remplir l'EndpointSlice aussi complètement que possib
 2. Itérer à travers les EndpointSlices qui ont été modifiées dans la première étape et les remplir avec n'importe quelle endpoint nécéssaire.
 3. Si il reste encore des endpoints neuves à ajouter, essayez de les mettre dans une slice qui n'a pas été changé et/ou en crée de nouvelles.
 
-par-dessus tout, la troisème étape priorise la limitation de mises à jour d'EnpointSlice sur une distribution complètement pleine d'EndpointSlices. Par example, si il y avait 10 nouvelles endpoints à ajouter et 2 EndpointSlices qui peuvent accomoder 5 endpoint en plus chacun; cette approche créera une nouvelle EndpointSlice au lieu de remplir les EndpointSlice existantes. C'est à dire, une seule création EndpointSlice est préférable à plusieurs mises à jour d'EndpointSlice.
+Par-dessus tout, la troisème étape priorise la limitation de mises à jour d'EnpointSlice sur une distribution complètement pleine d'EndpointSlices. Par exemple, si il y avait 10 nouvelles endpoints à ajouter et 2 EndpointSlices qui peuvent accomoder 5 endpoint en plus chacun; cette approche créera une nouvelle EndpointSlice au lieu de remplir les EndpointSlice existantes. C'est à dire, une seule création EndpointSlice est préférable à plusieurs mises à jour d'EndpointSlice.
 
-Avec kube-proxy exécuté sur chaque Noeud et surveillant EndpointSlices, chaque changement à une EndpointSlice devient relativement coûteux puisqu'ils seront transmit à chaque Noeud du cluster. Cette approche vise à limiter le nombre de modifications qui doivent être envoyées à chaque Noeud, même si ça peut entraîner plusieurs EndpointSlices qui ne sont pas plein.
+Avec kube-proxy exécuté sur chaque Node et surveillant EndpointSlices, chaque changement à une EndpointSlice devient relativement coûteux puisqu'ils seront transmit à chaque Node du cluster. Cette approche vise à limiter le nombre de modifications qui doivent être envoyées à chaque Node, même si ça peut entraîner plusieurs EndpointSlices qui ne sont pas plein.
 
 En pratique, cette distribution moins qu'idéale devrait être rare. La plupart des changements traité par le contrôleur EndpointSlice sera suffisamment petit pour tenir dans un EndpointSlice existante, et sinon, une nouvelle EndpointSlice aura probablement été bientôt nécessaire de toute façon. Les mises à jour continues des déploiements fournissent également un remballage naturel des EndpointSlices avec tout leur pods et les endpoints correspondants qui se feront remplacer.
 
@@ -99,13 +99,13 @@ En pratique, cette distribution moins qu'idéale devrait être rare. La plupart 
 
 Les Endpoints API ont fournit une methode simple et facile de suivre les endpoint d'un réseau dans Kubernetes. Malheureusement, comme les clusters Kubernetes et Services sont devenus plus large, les limitations de cette API sont devenues plus visibles. Plus particulièrement, ceux-ci comprenaient des défis liés à la mise à l'échelle vers un plus grand nombre d'endpoint d'un réseau.
 
-Puisque tout les endpoint d'un réseau pour un Service ont été stockés dans un seul ressource Endpoints, ces ressources pourraient devenir assez considérable. Ça a affecté les performances des composants Kubernetes (notamment le plan de contrôle maître) et a donné lieu une grande quantité de trafic réseau et de traitement lorsque les Enpoints changent. EndpointSlices vous aide à atténuer ces problèmes ainsi qu'à fournir une plate-forme extensible pour des fonctionnalités supplémentaires telles que le routage topologique. 
+Puisque tout les endpoints d'un réseau pour un Service ont été stockés dans une seule ressource Endpoints, ces ressources pourraient devenir assez considérable. Ça a affecté les performances des composants Kubernetes (notamment le plan de contrôle maître) et a donné lieu à une grande quantité de trafic réseau et de traitement lorsque les Endpoints changent. EndpointSlices vous aide à atténuer ces problèmes ainsi qu'à fournir une plate-forme extensible pour des fonctionnalités supplémentaires telles que le routage topologique. 
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
 * [Activer EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
-* Read [Connecté des Agit stpplication aux Services](/docs/concepts/services-networking/connect-applications-service/)
+* Lire [Connecté des Agit stpplication aux Services](/docs/concepts/services-networking/connect-applications-service/)
 
 {{% /capture %}}
