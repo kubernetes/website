@@ -24,7 +24,7 @@ _EndpointSlices_ offrent une simple methode pour suivre les endpoints d'un rése
 ## Resource pour EndpointSlice {#endpointslice-resource}
 
 Dans Kubernetes, un EndpointSlice contient des reférences à un ensemble de reseau 
-endpoints. Le controleur d'EndpointSlice crée automatiquement des EndpointSlices pour un Kubernetes Service quand un {{< glossary_tooltip text="selecteur" term_id="selector" >}} est spécifié. Ces EnpointSlices vont inclure des references a n'importe quelle Pods qui correspond aux selecteur de Service. EndpointSlices groupent ensemble les endpoints d'un reseau par combinaisons uniques de Services et de Ports.
+endpoints. Le controleur d'EndpointSlice crée automatiquement des EndpointSlices pour un Kubernetes Service quand un {{< glossary_tooltip text="selecteur" term_id="selector" >}} est spécifié. Ces EnpointSlices vont inclure des references à n'importe quelle Pods qui correspond aux selecteur de Service. EndpointSlices groupent ensemble les endpoints d'un reseau par combinaisons uniques de Services et de Ports.
 
 Par exemple, voici un échantillon d'une resource EndpointSlice pour le Kubernetes Service `exemple`.
 
@@ -53,7 +53,7 @@ endpoints:
 
 EndpointSlices geré par le controleur d'EndpointSlice n'auront, par défaut, pas plus de 100 endpoints chacun. En dessous de cette échelle, EndpointSlices devrait mapper 1:1 les Endpoints et les Service et devrait avoir une performance similaire.
 
-EnpointpointSlices peuvent agir en tant que source de vérité pour kube-proxy quand it s'agit du routage d'un trafic interne. Lorsqu'ils sont activés, ils devront une amélioration de performance pour les services qui ont une grand quantité d'endpoints.
+EndpointSlices peuvent agir en tant que source de vérité pour kube-proxy quand it s'agit du routage d'un trafic interne. Lorsqu'ils sont activés, ils devraient offrir une amélioration de performance pour les services qui ont une grand quantité d'endpoints.
 
 ### Types d'addresses
 
@@ -66,7 +66,7 @@ EndpointSlices supporte trois type d'addresses:
 ### Topologie
 
 Chaque endpoint dans un EnpointSlice peut contenir des informations de topologie pertinentes. 
-Ceci est utilisé pour indiqué où se trouve un endpoint, qui contient les informations sur le Node, zone et region correspondant. Lorsque les valeurs sont disponibles, les etiquette de Topologies suivantes seront définies par le contrôleur EndpointSlice:
+Ceci est utilisé pour indiqué où se trouve un endpoint, qui contient les informations sur le Node, zone et region correspondante. Lorsque les valeurs sont disponibles, les étiquette de Topologies suivantes seront définies par le contrôleur EndpointSlice:
 
 * `kubernetes.io/hostname` - Nom du Node sur lequel l'endpoint se situe.
 * `topology.kubernetes.io/zone` - Zone dans laquelle l'endpoint se situe.
@@ -76,16 +76,15 @@ Le contrôleur EndpointSlice surveille les Services et les Pods pour assurer que
 
 ### Capacité d'EndpointSlices
 
-Les EndpointSlices sont limité a une capacité de 100 endpoints chacun, par defaut. Vous pouvez configurer ceci avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip
-text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
+Les EndpointSlices sont limité a une capacité de 100 endpoints chacun, par defaut. Vous pouvez configurer ceci avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
 
 ### Distribution d'EndpointSlices
 
 Chaque EndpointSlice a un ensemble de ports qui s'applique à toutes les endpoints dans la resource. Lorsque les ports nommés sont utilisé pour un Service, les Pods peuvent se retrouver avec differents port cible pour le même port nommé, nécessitant différents EndpointSlices. 
 
-Le contrôlleur essait de remplir l'EndpointSlice aussi complètement que possible, mais ne les rééquilibrent pas activement. La logic du contrôlleur est assez simple:
+Le contrôlleur essait de remplir l'EndpointSlice aussi complètement que possible, mais ne les rééquilibre pas activement. La logic du contrôlleur est assez simple:
 
-1. Itérer à travers les EnpointSlices existantes, retirer les endpoint qui ne sont plus voulues et mettre à jour les endpoints qui ont changées.
+1. Itérer à travers les EnpointSlices éxistantes, retirer les endpoint qui ne sont plus voulues et mettre à jour les endpoints qui ont changées.
 2. Itérer à travers les EndpointSlices qui ont été modifiées dans la première étape et les remplir avec n'importe quelle endpoint nécéssaire.
 3. Si il reste encore des endpoints neuves à ajouter, essayez de les mettre dans une slice qui n'a pas été changé et/ou en crée de nouvelles.
 
@@ -93,7 +92,7 @@ Par-dessus tout, la troisème étape priorise la limitation de mises à jour d'E
 
 Avec kube-proxy exécuté sur chaque Node et surveillant EndpointSlices, chaque changement à une EndpointSlice devient relativement coûteux puisqu'ils seront transmit à chaque Node du cluster. Cette approche vise à limiter le nombre de modifications qui doivent être envoyées à chaque Node, même si ça peut entraîner plusieurs EndpointSlices qui ne sont pas plein.
 
-En pratique, cette distribution moins qu'idéale devrait être rare. La plupart des changements traité par le contrôleur EndpointSlice sera suffisamment petit pour tenir dans un EndpointSlice existante, et sinon, une nouvelle EndpointSlice aura probablement été bientôt nécessaire de toute façon. Les mises à jour continues des déploiements fournissent également un remballage naturel des EndpointSlices avec tout leur pods et les endpoints correspondants qui se feront remplacer.
+En pratique, cette distribution bien peu idéale devrait être rare. La plupart des changements traité par le contrôleur EndpointSlice sera suffisamment petit pour tenir dans un EndpointSlice existante, et sinon, une nouvelle EndpointSlice aura probablement été bientôt nécessaire de toute façon. Les mises à jour continues des déploiements fournissent également un remballage naturel des EndpointSlices avec tout leur pods et les endpoints correspondants qui se feront remplacer.
 
 ## Motivation
 
