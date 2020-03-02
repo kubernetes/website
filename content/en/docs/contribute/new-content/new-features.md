@@ -127,8 +127,8 @@ documentation and the docs are not ready, the feature may be removed from the
 milestone.
 
 If your feature is an Alpha feature and is behind a feature gate, make sure you
-add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
 as part of your pull request. If your feature is moving out of Alpha, make sure to
-remove it from that file.
+remove it from that table.
 
 {{% /capture %}}

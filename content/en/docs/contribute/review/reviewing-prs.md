@@ -10,7 +10,7 @@ weight: 10
 Anyone can review a documentation pull request. Visit the [pull requests](https://github.com/kubernetes/website/pulls) section in the Kubernetes website repository to see open pull requests.
 
 Reviewing documentation pull requests is a
-great way to introduce yourself to contributing to the Kubernetes community.
+great way to introduce yourself to the Kubernetes community.
 It helps you learn the code base and build trust with other contributors.
 
 Before reviewing, it's a good idea to:
@@ -48,7 +48,7 @@ In general, review pull requests for content and style in English.
     - `language/en` (Recommended): Filters for english language PRs only.
     - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
 
-    Additionally, ensure the PR isn't marked as a work in progress.
+    Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in progress` label are not ready for review yet.
 
 3.  Once you've selected a PR to review, understand the change by:
     - Reading the PR description to understand the changes made, and read any linked issues
@@ -82,7 +82,7 @@ In general, review pull requests for content and style in English.
 
 #### Website
 
-- Did this PR change or remove a page title, slug/alias or anchor link? If so, is there a possibility of broken links as a result of this PR?
+- Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken links as a result of this PR? Is there another option, like changing the page title without changing the slug?
 - Does the PR introduce a new page? If so:
   - Is the page using the right [page template](/docs/contribute/style/page-templates/) and associated Hugo tags?
   - Does the page appear correctly in the section's side navigation (or at all)?

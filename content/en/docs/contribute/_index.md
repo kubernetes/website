@@ -7,7 +7,7 @@ weight: 80
 card:
   name: contribute
   weight: 10
-  title: Contributing overview
+  title: Start contributing
 ---
 
 {{% capture overview %}}
@@ -44,7 +44,7 @@ of roles and permissions.
 - [Suggest improvements](/docs/contribute/suggest-improvements/) to existing documentation and learn more about filing issues in GitHub.
 - Contribute a [small change](/docs/contribute/new-content/new-content/#small-changes) to existing content to learn the pull review process.
 - [Review pull requests](/docs/contribute/review/reviewing/) from other Kubernetes community members for accuracy and language.
-- Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guides](/docs/contribute/style/style-guide/).
+- Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guides](/docs/contribute/style/style-guide/) so you can leave informed comments.
 - Learn how to [use page templates](/docs/contribute/style/page-templates/) and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to make bigger changes.
 
 ## Next steps
