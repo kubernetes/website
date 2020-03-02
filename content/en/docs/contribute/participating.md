@@ -35,7 +35,7 @@ aspects of Kubernetes -- the Kubernetes website and documentation.
 
 ## Roles and responsibilities
 
-- **Anyone** can contribute to Kubernetes documentation. To contribute, you must [sign the CLA](/docs/contribute/start#sign-the-cla) and have a GitHub account.
+- **Anyone** can contribute to Kubernetes documentation. To contribute, you must [sign the CLA](/docs/contribute/new-content/overview/#sign-the-cla) and have a GitHub account.
 - **Members** of the Kubernetes organization are contributors who have spent time and effort on the Kubernetes project, usually by opening pull requests with accepted changes. See [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md) for membership criteria.
 - A SIG Docs **Reviewer** is a member of the Kubernetes organization who has
   expressed interest in reviewing documentation pull requests, and has been
@@ -60,7 +60,7 @@ Anyone can do the following:
   If you are not a member of the Kubernetes organization, using `/lgtm` has no effect on automated systems.
   {{< /note >}}
 
-After [signing the CLA](/docs/contribute/start#sign-the-cla), anyone can also:
+After [signing the CLA](/docs/contribute/new-content/overview/#sign-the-cla), anyone can also:
 - Open a pull request to improve existing content, add new content, or write a blog post or case study.
 
 ## Members

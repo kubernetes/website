@@ -32,7 +32,7 @@ First, consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/p
 
 ### Fork and clone the repo
 
-First, [create your own fork](/docs/contribute/start/#improve-existing-content) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
+First, [create your own fork](/docs/contribute/new-content/new-content/#large-changes) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
 
 Then, clone your fork and `cd` into it:
 
@@ -43,7 +43,7 @@ cd website
 
 ### Open a pull request
 
-Next, [open a pull request](/docs/contribute/start/#submit-a-pull-request) (PR) to add a localization to the `kubernetes/website` repository.
+Next, [open a pull request](/docs/contribute/new-content/new-content/#small-changes) (PR) to add a localization to the `kubernetes/website` repository.
 
 The PR must include all of the [minimum required content](#minimum-required-content) before it can be approved.
 
@@ -273,7 +273,7 @@ For more information about working from forks or directly from the repository, s
 
 ## Upstream contributions
 
-SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/intermediate#localize-content) to the English source.
+SIG Docs welcomes upstream contributions and corrections to the English source.
 
 ## Help an existing localization
 

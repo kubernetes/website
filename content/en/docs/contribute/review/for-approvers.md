@@ -76,8 +76,7 @@ true:
 [Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md) is
 the Kubernetes-based CI/CD system that runs jobs against pull requests (PRs). Prow
 enables chatbot-style commands to handle GitHub actions across the Kubernetes
-organization. You do actions like [adding and removing
-labels](#add-and-remove-labels), closing issues, and assigning an approver. Type
+organization. You do actions like [adding and removing labels](/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels), closing issues, and assigning an approver. Type
 the Prow command into the GitHub comment field using the `/<command-name>` format.
 
 The most common prow commands reviewers and approvers use are:
