@@ -194,7 +194,6 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 
 # List all containerIDs of initContainer of all pods
 # Helpful when cleaning up stopped containers, while avoiding removal of initContainers.
-# Related to https://github.com/kubernetes/kubernetes/issues/86531
 kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
 
 # List Events sorted by timestamp
