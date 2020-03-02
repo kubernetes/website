@@ -67,6 +67,7 @@ un nœud unique) qui ne nécessite qu'un docker-engine. Il utilise la technique 
 * [Amazon Elastic Container Service for Kubernetes](https://aws.amazon.com/eks/) offre un service managé de Kubernetes.
 
 * [Azure Kubernetes Service](https://azure.microsoft.com/services/container-service/) offre des clusters Kubernetes managés.
+* [Charmed Kubernetes](https://ubuntu.com/kubernetes) by [Canonical](https://canonical.com/) propose un service Charmed OpenStack entièrement infogéré, hébergé sur site ou dans un datacenter Canonical.
 
 * [Containership Kubernetes Engine (CKE)](https://containership.io/containership-platform) Approvisionnement et gestion intuitive de clusters
  Kubernetes sur GCP, Azure, AWS, Packet, et DigitalOcean. Mises à niveau transparentes, auto-scaling, métriques, création de
@@ -114,6 +115,7 @@ quelques commandes. Ces solutions sont activement développées et bénéficient
 * [AWS](/docs/setup/turnkey/aws/)
 * [Azure](/docs/setup/turnkey/azure/)
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
+* [Charmed Kubernetes](https://ubuntu.com/kubernetes) by [Canonical](https://canonical.com/)
 * [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
 * [Containership](https://containership.io/containership-platform)
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
@@ -140,6 +142,7 @@ Ces solutions vous permettent de créer des clusters Kubernetes sur votre cloud 
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
+* [Charmed Kubernetes](https://ubuntu.com/kubernetes) by [Canonical](https://canonical.com/)
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
@@ -185,6 +188,7 @@ Ces solutions sont des combinaisons de fournisseurs de cloud computing et de sys
 
 ### VMs On-Premises
 
+* [Charmed Kubernetes](https://ubuntu.com/kubernetes) by [Canonical](https://canonical.com/)
 * [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible, CoreOS and flannel)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
@@ -198,6 +202,7 @@ Ces solutions sont des combinaisons de fournisseurs de cloud computing et de sys
 
 ### Bare Metal
 
+* [Charmed Kubernetes](https://ubuntu.com/kubernetes) by [Canonical](https://canonical.com/)
 * [CoreOS](/docs/setup/custom-cloud/coreos/)
 * [Digital Rebar](/docs/setup/on-premises-metal/krib/)
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
