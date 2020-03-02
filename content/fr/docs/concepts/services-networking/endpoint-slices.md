@@ -4,7 +4,7 @@ title: EndpointSlices
 feature:
   title: EndpointSlices
   description: >
-    Suivi évolutif des points de terminaison réseau dans un cluster Kubernetes.
+    Suivi évolutif des réseau endpoints dans un cluster Kubernetes.
 
 content_template: templates/concept
 weight: 10
