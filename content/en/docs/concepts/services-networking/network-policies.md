@@ -205,7 +205,7 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 
 ## SCTP support
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 To use this feature, you (or your cluster administrator) will need to enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=true,…`.  
 When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.

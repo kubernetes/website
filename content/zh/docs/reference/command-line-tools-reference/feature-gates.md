@@ -161,7 +161,7 @@ Alpha 或 Beta 状态中功能的功能开关
 | `RuntimeClass` | `true` | Beta | 1.14 | |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
-| `SCTPSupport` | `false` | Alpha | 1.12 | |
+| `SCTPSupport` | `true` | Beta | 1.18 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | |
