@@ -26,8 +26,6 @@ _Topology Manager_ is a Kubelet component that aims to co-ordinate the set of co
 {{% capture prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-In Kubernetes versions 1.16 and 1.17, the Topology Manager feature gate must be enabled manually via the Kubelet `--feature-gates` flag.
-Please see documentation related to the Topology Manager [`feature gate`](#topology-manager-kubelet-feature-gate) for more details.
 
 {{% /capture %}}
 
@@ -47,10 +45,9 @@ The Topology manager receives Topology information from the *Hint Providers* as 
 The selected hint is stored as part of the Topology Manager. Depending on the policy configured the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the resource allocation decisions.
 
-### Topology Manager Kubelet Feature Gate
+### Enable the Topology Manager feature
 
-As of Kubernetes version 1.18, the Topology Manager feature gate is enabled by default. 
-For Kubernetes versions 1.16 and 1.17, the Topology Manager feature gate must be set via the Kubelet flag, `--feature-gates=TopologyManager=true`.
+Support for the Topology Manager requires `TopologyManager` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.18.
 
 ### Topology Manager Policies
 
