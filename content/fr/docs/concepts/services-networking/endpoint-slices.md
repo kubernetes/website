@@ -106,6 +106,6 @@ Puisque tout les endpoints d'un réseau pour un Service ont été stockés dans 
 {{% capture whatsnext %}}
 
 * [Activer EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
-* Lire [Connecté des Agit stpplication aux Services](/docs/concepts/services-networking/connect-applications-service/)
+* Lire [Connecté des Application aux Services](/docs/concepts/services-networking/connect-applications-service/)
 
 {{% /capture %}}
