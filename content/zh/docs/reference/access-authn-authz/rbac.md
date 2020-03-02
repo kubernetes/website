@@ -995,17 +995,17 @@ kubectl get clusterroles system:discovery -o yaml
 </tr>
 <tr>
 <td><b>system:basic-user</b></td>
-<td><b>system:authenticated</b> group</td>
+<td><b>system:authenticated</b> 组</td>
 <td>允许用户以只读的方式去访问他们自己的基本信息。在1.14版本之前，这个角色在默认情况下也绑定在 `system:unauthenticated` 上。</td>
 </tr>
 <tr>
 <td><b>system:discovery</b></td>
-<td><b>system:authenticated</b> group</td>
+<td><b>system:authenticated</b> 组</td>
 <td>允许以只读方式访问 API 发现端点，这些端点用来发现和协商 API 级别。在1.14版本之前，这个角色在默认情况下绑定在 `system:unauthenticated` 上。</td>
 </tr>
 <tr>
 <td><b>system:public-info-viewer</b></td>
-<td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
+<td><b>system:authenticated</b> 和 <b>system:unauthenticated</b> 组</td>
 <td>允许对集群的非敏感信息进行只读访问，它是在1.14版本中引入的。</td>
 </tr>
 </table>
@@ -1093,14 +1093,14 @@ metadata:
 </tr>
 <tr>
 <td><b>cluster-admin</b></td>
-<td><b>system:masters</b> group</td>
+<td><b>system:masters</b> 组</td>
 <td>允许超级用户在平台上的任何资源的所有操作。
 当在 <b>ClusterRoleBinding</b> 中使用时，可以授权对集群中以及所有命名空间中的全部资源进行完全控制。
 当在 <b>RoleBinding</b> 中使用时，可以授权控制 RoleBinding 所在命名空间中的所有资源，包括命名空间本身。</td>
 </tr>
 <tr>
 <td><b>admin</b></td>
-<td>None</td>
+<td>无</td>
 <td>允许管理员访问权限，旨在使用 <b>RoleBinding</b> 在命名空间内执行授权。
 如果在 <b>RoleBinding</b> 中使用，则可授予对命名空间中的大多数资源的读/写权限，
 包括创建角色和绑定角色（RoleBinding）的能力。
@@ -1108,13 +1108,13 @@ metadata:
 </tr>
 <tr>
 <td><b>edit</b></td>
-<td>None</td>
+<td>无</td>
 <td>允许对命名空间的大多数对象进行读/写操作。
 它不允许查看或者修改角色（Roles）或者角色绑定（RoleBindings）。</td>
 </tr>
 <tr>
 <td><b>view</b></td>
-<td>None</td>
+<td>无</td>
 <td>允许对命名空间的大多数对象有只读权限。
 它不允许查看角色（Roles）或角色绑定（RoleBindings）。
 它不允许查看 Secrets，因为这类操作属于越权。</td>
@@ -1176,23 +1176,23 @@ In 1.8+, no binding is automatically created.
 </tr>
 <tr>
 <td><b>system:kube-scheduler</b></td>
-<td><b>system:kube-scheduler</b> user</td>
+<td><b>system:kube-scheduler</b> 用户</td>
 <td>允许访问 kube-scheduler 组件所需要的资源。</td>
 </tr>
 <tr>
 <td><b>system:volume-scheduler</b></td>
-<td><b>system:kube-scheduler</b> user</td>
+<td><b>system:kube-scheduler</b> 用户</td>
 <td>允许访问 kube-scheduler 组件所需要的的卷资源。</td>
 </tr>
 <tr>
 <td><b>system:kube-controller-manager</b></td>
-<td><b>system:kube-controller-manager</b> user</td>
+<td><b>system:kube-controller-manager</b> 用户</td>
 <td>允许访问 kube-controller-manager 组件所需要的资源。
 各个控制环所需要的权限包含在 <a href="#controller-roles">controller roles</a> 之中。</td>
 </tr>
 <tr>
 <td><b>system:node</b></td>
-<td>None in 1.8+</td>
+<td>在版本1.8之后无</td>
 <td>允许访问 kubelet 组件所需要的资源，<b>它包括读取所有的 Secrets 和对所有 Pod 状态对象的写操作。</b>
 
 从版本 1.7 开始，推荐使用 <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> 和 <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction 准入插件</a> 来代替这个角色，它允许基于 kubelet 上调度执行的 Pods 来授权对 kubelet  API 的访问。
@@ -1203,7 +1203,7 @@ In 1.8+, no binding is automatically created.
 </tr>
 <tr>
 <td><b>system:node-proxier</b></td>
-<td><b>system:kube-proxy</b> user</td>
+<td><b>system:kube-proxy</b> 用户</td>
 <td>允许访问 kube-proxy 组件所需要的资源。</td>
 </tr>
 </table>
@@ -1273,44 +1273,44 @@ This is commonly used by add-on API servers for unified authentication and autho
 </tr>
 <tr>
 <td><b>system:auth-delegator</b></td>
-<td>None</td>
+<td>无</td>
 <td>允许代理身份认证和鉴权，
 它通常用在插件式 API 服务器上，以实现统一的身份认证和鉴权。</td>
 </tr>
 <tr>
 <td><b>system:heapster</b></td>
-<td>None</td>
+<td>无</td>
 <td>为 <a href="https://github.com/kubernetes/heapster">Heapster</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:kube-aggregator</b></td>
-<td>None</td>
+<td>无</td>
 <td>为 <a href="https://github.com/kubernetes/kube-aggregator">kube-aggregator</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:kube-dns</b></td>
-<td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
+<td>在<b>kube-system</b>命名空间中的<b>kube-dns</b>服务账号</td>
 <td>为 <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:kubelet-api-admin</b></td>
-<td>None</td>
+<td>无</td>
 <td>允许完全访问 kubelet API 。</td>
 </tr>  
 <tr>
 <td><b>system:node-bootstrapper</b></td>
-<td>None</td>
+<td>无</td>
 <td>允许访问执行
 <a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">Kubelet TLS 启动引导</a> 所需要的资源。</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>
-<td>None</td>
+<td>无</td>
 <td>为 <a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> 组件定义的角色。</td>
 </tr>
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
-<td>None</td>
+<td>无</td>
 <td>允许访问大部分的 <a href="/docs/concepts/storage/persistent-volumes/#provisioner">动态卷驱动</a> 所需要的资源。</td>
 </tr>
 </table>
