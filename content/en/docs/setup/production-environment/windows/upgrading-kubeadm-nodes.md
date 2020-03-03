@@ -1,8 +1,5 @@
 ---
-reviewers:
-- michmike
-- neolit123
-title: Guide for upgrading Windows Nodes in Kubernetes
+title: Upgrading Windows Nodes in Kubernetes
 min-kubernetes-server-version: v1.17
 content_template: templates/tutorial
 weight: 70

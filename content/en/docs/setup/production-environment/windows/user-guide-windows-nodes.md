@@ -2,7 +2,7 @@
 reviewers:
 - michmike
 - patricklang
-title: Guide for adding Windows Nodes in Kubernetes
+title: Adding Windows Nodes with kubeadm
 min-kubernetes-server-version: v1.17
 content_template: templates/tutorial
 weight: 70
@@ -177,3 +177,9 @@ Once the flannel pod is running your node should enter the `Ready` state and is 
 
 {{% /capture %}}
 
+{{% capture next %}}
+
+## Further reading
+- [Upgrading Windows kubeadm nodes]((/docs/setup/production-environment/windows/upgrading-kubeadm-nodes))
+
+{{% /capture %}}
