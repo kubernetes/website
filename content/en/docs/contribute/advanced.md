@@ -7,9 +7,7 @@ weight: 98
 
 {{% capture overview %}}
 
-This page assumes that you've read and mastered the
-[Start contributing](/docs/contribute/start/) and
-[Intermediate contributing](/docs/contribute/intermediate/) topics and are ready
+This page assumes that you're an active contributor to Kubernetes documentation, and are ready
 to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 
@@ -39,7 +37,7 @@ The PR wrangler’s duties include:
     - Assign `Doc Review: Open Issues` or `Tech Review: Open Issues` for PRs that have been reviewed and require further input or action before merging.
     - Assign `/lgtm` and `/approve` labels to PRs that can be merged.
 - Merge PRs when they are ready, or close PRs that shouldn’t be accepted.
-- Triage and tag incoming issues daily. See [Intermediate contributing](/docs/contribute/intermediate/) for guidelines on how SIG Docs uses metadata.
+- Triage and tag incoming issues daily. For more information, see [triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues).
 
 ### Helpful GitHub queries for wranglers
 
