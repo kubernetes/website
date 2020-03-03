@@ -1143,12 +1143,4 @@ a paused Deployment and one that is not paused, is that any changes into the Pod
 Deployment will not trigger new rollouts as long as it is paused. A Deployment is not paused by default when
 it is created.
 
-## Alternative to Deployments
-
-### kubectl rolling-update
-
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) updates Pods and ReplicationControllers
-in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
-additional features, such as rolling back to any previous revision even after the rolling update is done.
-
 {{% /capture %}}
