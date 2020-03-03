@@ -33,7 +33,7 @@ DaemonSet has two update strategy types:
 * RollingUpdate: This is the default update strategy.  
   With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
-  will be created automatically, in a controlled fashion.
+  will be created automatically, in a controlled fashion. At most one pod of the DaemonSet will be running on each node during the whole update process.
 
 ## Performing a Rolling Update
 
