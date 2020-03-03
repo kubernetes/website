@@ -1,5 +1,5 @@
 ---
-title: Documentation Content Guide
+title: Documentation content guide
 linktitle: Content guide
 content_template: templates/concept
 weight: 10

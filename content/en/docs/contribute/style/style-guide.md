@@ -1,5 +1,5 @@
 ---
-title: Documentation Style Guide
+title: Documentation style guide
 linktitle: Style guide
 content_template: templates/concept
 weight: 10
@@ -594,7 +594,6 @@ The Federation feature provides ... | The new Federation feature provides ...
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-templates/).
-* Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/contribute/start/#submit-a-pull-request/).
+* Learn about [creating a pull request](/docs/contribute/new-content/new-content/).
 
 {{% /capture %}}

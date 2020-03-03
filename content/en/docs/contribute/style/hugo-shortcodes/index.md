@@ -241,6 +241,5 @@ Renders to:
 * Learn about [Hugo](https://gohugo.io/).
 * Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+* Learn about [creating a pull request](/docs/contribute/new-content/new-content/#large-changes).
 {{% /capture %}}

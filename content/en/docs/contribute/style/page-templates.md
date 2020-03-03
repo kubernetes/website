@@ -1,5 +1,5 @@
 ---
-title: Using Page Templates
+title: Using page templates
 content_template: templates/concept
 weight: 30
 card:
