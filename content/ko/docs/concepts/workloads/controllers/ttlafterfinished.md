@@ -9,7 +9,7 @@ weight: 65
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
 TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
-제한하는 TTL 메커니즘을 제공한다. TTL 컨트롤러는 현재
+제한하는 TTL (time to live) 메커니즘을 제공한다. TTL 컨트롤러는 현재
 [잡(Job)](/docs/concepts/workloads/controllers/jobs-run-to-completion/)만
 처리하며, 파드와 커스텀 리소스와 같이 실행을 완료할 다른 리소스를
 처리하도록 확장될 수 있다.

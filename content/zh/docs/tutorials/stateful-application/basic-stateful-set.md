@@ -1527,7 +1527,7 @@ storage configuration, and provisioning method, to ensure that all storage is
 reclaimed.
 -->
 
-你需要删除本教程中用到的 PersistentVolumes 的持久化存储媒体。基于你的环境、存储配置和提供方式，按照必须的步骤保证回收所有的存储。
+你需要删除本教程中用到的 PersistentVolumes 的持久化存储介质。基于你的环境、存储配置和提供方式，按照必须的步骤保证回收所有的存储。
 {{% /capture %}}
 
 

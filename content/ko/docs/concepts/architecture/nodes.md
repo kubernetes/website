@@ -103,7 +103,7 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 ## 관리
 
-[파드](/ko/docs/concepts/workloads/pods/pod/)와 [서비스](/docs/concepts/services-networking/service/)와 달리,
+[파드](/ko/docs/concepts/workloads/pods/pod/)와 [서비스](/ko/docs/concepts/services-networking/service/)와 달리,
 노드는 본래 쿠버네티스에 의해 생성되지 않는다. 구글 컴퓨트 엔진과 같은 클라우드 제공사업자에 의해 
 외부로부터 생성 되거나, 물리적 또는 가상 머신의 풀 내에서 존재한다. 
 그래서 쿠버네티스가 노드를 생성할 때, 
@@ -271,6 +271,12 @@ DaemonSet 컨트롤러에 의해 생성된 파드는 쿠버네티스 스케줄�
 우회하고 노드 상에 스케줄 불가 속성을 고려하지 않는다. 심지어 리부트를 준비하는 동안
 애플리케이션을 유출시키는 중이라 할지라도 머신 상에 속한 데몬으로 여긴다.
 {{< /note >}}
+
+{{< caution >}}
+`kubectl cordon` 은 노드를 'unschedulable'로 표기하는데, 이는
+서비스 컨트롤러가 이전에 자격 있는 로드밸런서 노드 대상 목록에서 해당 노드를 제거하기에
+사실상 cordon 된 노드에서 들어오는 로드 밸런서 트래픽을 제거하는 부작용을 갖는다.
+{{< /caution >}}
 
 ### 노드 용량
 

@@ -362,7 +362,7 @@ you want to add Kafka sink for messages from a particular container for addition
 You can re-use the default [container image sources](https://git.k8s.io/contrib/fluentd/fluentd-gcp-image)
 with minor changes:
 
-* Change Makefile to point to your container repository, e.g. `PREFIX=gcr.io/<your-project-id>`.
+* Change Makefile to point to your container repository, for example `PREFIX=gcr.io/<your-project-id>`.
 * Add your dependency to the Gemfile, for example `gem 'fluent-plugin-kafka'`.
 
 Then run `make build push` from this directory. After updating `DaemonSet` to pick up the

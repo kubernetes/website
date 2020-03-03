@@ -57,14 +57,19 @@ index.php는 CPU 과부하 연산을 수행한다.
 ?>
 ```
 
-첫 번째 단계로, 실행 중인 이미지의 디플로이먼트를 시작하고 서비스로 노출시킨다.
+첫 번째 단계로, 다음 구성을 사용해서 실행 중인 이미지의 디플로이먼트를
+시작하고 서비스로 노출시킨다.
 
+{{< codenew file="application/php-apache.yaml" >}}
+
+
+다음의 명령어를 실행한다.
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
+kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
 ```
-service/php-apache created
 deployment.apps/php-apache created
+service/php-apache created
 ```
 
 ## Horizontal Pod Autoscaler 생성
