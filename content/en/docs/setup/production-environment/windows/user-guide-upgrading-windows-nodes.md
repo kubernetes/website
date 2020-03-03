@@ -30,7 +30,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 ### Upgrade kubeadm
 
-1.  Upgrade kubeadm on all Windows nodes:
+1.  From the Windows node, upgrade and restart the kubelet:
 
     ```powershell
     # replace 1.17.x with the desired version
@@ -64,22 +64,18 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 ### Upgrade kubelet
 
-1.  Upgrade the kubelet on all Windows nodes:
+1.  From the Windows node, upgrade and restart the kubelet:
 
     ```powershell
     stop-service kubelet
     curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/v1.17.x/bin/windows/amd64/kubelet.exe
-    ```
-
-1. Restart the kubelet
-
-    ```powershell
     restart-service kubelet
     ```
 
 ### Uncordon the node
 
-1.  Bring the node back online by marking it schedulable:
+1.  From a machine with access to the Kubernetes API,
+bring the node back online by marking it schedulable:
 
     ```shell
     # replace <node-to-drain> with the name of your node
