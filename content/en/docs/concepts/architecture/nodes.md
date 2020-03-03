@@ -157,7 +157,7 @@ controller deletes the node from its list of nodes.
 The third is monitoring the nodes' health. The node controller is
 responsible for updating the NodeReady condition of NodeStatus to
 ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
-receiving heartbeats for some reason, e.g. due to the node being down), and then later evicting
+receiving heartbeats for some reason, for example due to the node being down), and then later evicting
 all the pods from the node (using graceful termination) if the node continues
 to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller

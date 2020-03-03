@@ -70,7 +70,7 @@ spec:
     image: nginx:1.7.9
     ports:
     - containerPort: 80
-    
+
 ```
 
 ## 레이블 셀렉터
@@ -209,7 +209,7 @@ selector:
 
 #### 세트-기반 요건을 지원하는 리소스
 
-[`잡`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/), [`레플리카 셋`](/ko/docs/concepts/workloads/controllers/replicaset/) 그리고 [`데몬 셋`](/ko/docs/concepts/workloads/controllers/daemonset/) 같은 새로운 리소스들은 집합성 기준의 요건도 지원한다.
+[`잡`](/docs/concepts/workloads/controllers/jobs-run-to-completion/), [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/), [`레플리카셋`](/ko/docs/concepts/workloads/controllers/replicaset/) 그리고 [`데몬셋`](/ko/docs/concepts/workloads/controllers/daemonset/) 같은 새로운 리소스들은 집합성 기준의 요건도 지원한다.
 
 ```yaml
 selector:
@@ -225,6 +225,6 @@ selector:
 #### 노드 셋 선택
 
 레이블을 통해 선택하는 사용 사례 중 하나는 파드를 스케줄 할 수 있는 노드 셋을 제한하는 것이다.
-자세한 내용은 [노드 선택](/docs/concepts/configuration/assign-pod-node/) 문서를 참조한다.
+자세한 내용은 [노드 선택](/ko/docs/concepts/configuration/assign-pod-node/) 문서를 참조한다.
 
 {{% /capture %}}
