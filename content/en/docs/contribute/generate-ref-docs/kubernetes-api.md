@@ -189,7 +189,7 @@ make docker-serve
 In `<web-base>` run `git add` and `git commit` to commit the change.
 
 Submit your changes as a
-[pull request](/docs/contribute/start/) to the
+[pull request](/docs/contribute/new-content/contributing-content) to the
 [kubernetes/website](https://github.com/kubernetes/website) repository.
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
