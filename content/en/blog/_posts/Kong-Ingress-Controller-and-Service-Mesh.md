@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: “Kong Ingress Controller and Service Mesh: Setting up Ingress to Istio on Kubernetes”
+title: 'Kong Ingress Controller and Service Mesh: Setting up Ingress to Istio on Kubernetes'
 date: 2020-02-05
 slug: kong-ingress-controller-and-istio-service-mesh
 ---
@@ -9,7 +9,7 @@ slug: kong-ingress-controller-and-istio-service-mesh
 
 Kubernetes has become the de facto way to orchestrate containers and the services within services. But how do we give services outside our cluster access to what is within? Kubernetes comes with the Ingress API object that manages external access to services within a cluster.
 
-Ingress is a group of rules that will proxy inbound connections to endpoints defined by a backend. However, Kubernetes does not know what to do with Ingress resources without an Ingress controller. This is where an open source controller comes into play. In this post, we are going to use one option for this: the Kong Ingress Controller. The Kong Ingress Controller was open-sourced a year ago and recently reached one million downloads. In the recent 0.7 release, service mesh support was also added. Other features of this release include:
+Ingress is a group of rules that will proxy inbound connections to endpoints defined by a backend. However, Kubernetes does not know what to do with Ingress resources without an Ingress controller, which is where an open source controller can come into play. In this post, we are going to use one option for this: the Kong Ingress Controller. The Kong Ingress Controller was open-sourced a year ago and recently reached one million downloads. In the recent 0.7 release, service mesh support was also added. Other features of this release include:
 
 * **Built-In Kubernetes Admission Controller,** which validates Custom Resource Definitions (CRD) as they are created or updated and rejects any invalid configurations. 
 * **n-Memory Mode** - Each pod’s controller actively configures the Kong container in its pod, which limits the blast radius of failure of a single container of Kong or controller container to that pod only.
@@ -17,7 +17,7 @@ Ingress is a group of rules that will proxy inbound connections to endpoints def
 
 ![K4K-gRPC](/images/blog/Kong-Ingress-Controller-and-Service-Mesh/KIC-gRPC.png)
 
-If you’d like a deeper dive into Kong Ingress Controller 0.7, please check out the [GitHub repository](https://github.com/Kong/kubernetes-ingress-controller).
+If you would like a deeper dive into Kong Ingress Controller 0.7, please check out the [GitHub repository](https://github.com/Kong/kubernetes-ingress-controller).
 
 But let’s get back to the service mesh support since that will be the main focal point of this blog post. Service mesh allows organizations to address microservices challenges related to security, reliability, and observability by abstracting inter-service communication into a mesh layer. But what if our mesh layer sits within Kubernetes and we still need to expose certain services beyond our cluster? Then you need an Ingress controller such as the Kong Ingress Controller. In this blog post, we’ll cover how to deploy Kong Ingress Controller as your Ingress layer to an Istio mesh. Let’s dive right in:
 
@@ -94,10 +94,9 @@ ratings-v1-f745cf57b-hmkwf        2/2     Running   0          101s
 reviews-v1-85c474d9b8-kqcpt       2/2     Running   0          101s
 reviews-v2-ccffdd984-9jnsj        2/2     Running   0          101s
 reviews-v3-98dc67b68-nzw97        2/2     Running   0          101s
-
 ```
 
-This command outputs useful data so let’s take a second to understand it. If you examine the READY column, each pod has two containers running: the service and an Envoy sidecar injected alongside it. Another thing to highlight is that there are three review pods but only 1 review service. The Envoy sidecar will load balance the traffic to three different review pods that contain different versions, giving us the ability to A/B test our changes. With that said, you should now be able to access your product page!
+is command outputs useful data, so let’s take a second to understand it. If you examine the READY column, each pod has two containers running: the service and an Envoy sidecar injected alongside it. Another thing to highlight is that there are three review pods but only 1 review service. The Envoy sidecar will load balance the traffic to three different review pods that contain different versions, giving us the ability to A/B test our changes. With that said, you should now be able to access your product page!
 
 ```
 $ kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}') -c ratings -- curl productpage:9080/productpage | grep -o "<title>.*</title>"
