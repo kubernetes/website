@@ -9,7 +9,7 @@ weight: 70
 
 O Garbage collection(Coleta de lixo) é uma função útil do kubelet que limpa imagens e recipientes não utilizados. O kubelet executará o garbage collection para contêineres a cada minuto e para imagens a cada cinco minutos.
 
-Ferramentas externas de garbage collection não são recomendadas, pois podem potencialmente interromper o comportamento do kubelet removendo os recipientes que existem.
+Ferramentas externas de garbage collection não são recomendadas, pois podem potencialmente interromper o comportamento do kubelet removendo os contêineres que existem.
 
 {{% /capture %}}
 
@@ -20,7 +20,7 @@ Ferramentas externas de garbage collection não são recomendadas, pois podem po
 O Kubernetes gerencia o ciclo de vida de todas as imagens através do imageManager, com a cooperação do cadvisor.
 
 A política para o garbage collection de imagens leva dois fatores em consideração:
-`HighThresholdPercent` e `LowThresholdPercent`. Uso do disco acima do limite alto acionará o garbage collection. O garbage collection excluirá as imagens que foram menos usadas recentemente até que o nível fique abaixo do limite.
+`HighThresholdPercent` e `LowThresholdPercent`. Uso do disco acima do limite acionará o garbage collection. O garbage collection excluirá as imagens que foram menos usadas recentemente até que o nível fique abaixo do limite.
 
 ## Coleta de container
 
@@ -46,21 +46,21 @@ Também permitimos que os usuários personalizem a política do garbagem collect
 Os contêineres podem ser potencialmente coletados como lixo antes que sua utilidade expire. Esses contêineres podem conter logs e outros dados que podem ser úteis para solucionar problemas. Um valor suficientemente grande para `maximum-dead-containers-per-container` é altamente recomendado para permitir que pelo menos 1 contêiner morto seja retido por contêiner esperado. Um valor maior para `maximum-dead-containers` também é recomendados por um motivo semelhante.
 Consulte [está issue](https://github.com/kubernetes/kubernetes/issues/13287) para obter mais detalhes.
 
-## Deprecation
+## Descontinuado
 
 Alguns recursos do Garbage Collection netes documento serão substituídos pelo kubelet eviction no futuro.
 
 Incluindo:
 
-| Flag Existente                            | Nova Flag                               | Fundamentação                                                                     |
-| ----------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------- |
-| `--image-gc-high-threshold`               | `--eviction-hard` ou `--eviction-soft`  | os sinais do eviction existentes podem acionar o garbage collection da imagem     |
-| `--image-gc-low-threshold`                | `--eviction-minimum-reclaim`            | recuperações do eviction atingem o mesmo comportamento                            |
-| `--maximum-dead-containers`               |                                         | deprecated quando os logs antigos forem armazenados fora do contexto do contêiner |
-| `--maximum-dead-containers-per-container` |                                         | deprecated quando os logs antigos forem armazenados fora do contexto do contêiner |
-| `--minimum-container-ttl-duration`        |                                         | deprecated quando os logs antigos forem armazenados fora do contexto do contêiner |
-| `--low-diskspace-threshold-mb`            | `--eviction-hard` ou `eviction-soft`    | O eviction generaliza os limites do disco para outros recursos                    |
-| `--outofdisk-transition-frequency`        | `--eviction-pressure-transition-period` | O eviction generaliza a transição da pressão do disco para outros recursos        |
+| Flag Existente                            | Nova Flag                               | Fundamentação                                                                        |
+| ----------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------ |
+| `--image-gc-high-threshold`               | `--eviction-hard` ou `--eviction-soft`  | os sinais do eviction existentes podem acionar o garbage collection da imagem        |
+| `--image-gc-low-threshold`                | `--eviction-minimum-reclaim`            | recuperações do eviction atingem o mesmo comportamento                               |
+| `--maximum-dead-containers`               |                                         | descontinuado quando os logs antigos forem armazenados fora do contexto do contêiner |
+| `--maximum-dead-containers-per-container` |                                         | descontinuado quando os logs antigos forem armazenados fora do contexto do contêiner |
+| `--minimum-container-ttl-duration`        |                                         | descontinuado quando os logs antigos forem armazenados fora do contexto do contêiner |
+| `--low-diskspace-threshold-mb`            | `--eviction-hard` ou `eviction-soft`    | O eviction generaliza os limites do disco para outros recursos                       |
+| `--outofdisk-transition-frequency`        | `--eviction-pressure-transition-period` | O eviction generaliza a transição da pressão do disco para outros recursos           |
 
 {{% /capture %}}
 
