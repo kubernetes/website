@@ -217,7 +217,7 @@ to base your work on. Use these guidelines to make the decision:
     to beta in the next minor version, you need to know what the next minor
     version number is.
   - Find the release branch named for that version. For example, features that
-    changed in the v{{< release-branch >}} release got documented in the branch
+    changed in the {{< release-branch >}} version got documented in the branch
     named `dev-{{< release-branch >}}`.
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack or
