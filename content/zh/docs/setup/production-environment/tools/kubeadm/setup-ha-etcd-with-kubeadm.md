@@ -196,7 +196,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     如果您还没有 CA，则在 `$HOST0`（您为 kubeadm 生成配置文件的位置）上运行此命令。
 
     ```
-    kubeadm alpha phase certs etcd-ca
+    kubeadm init alpha phase certs etcd-ca
     ```
 
     <!--
