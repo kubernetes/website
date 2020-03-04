@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Contributor Summit Amsterdam Postponed"
-date: 2020-02-18
+date: 2020-03-04
 slug: Contributor-Summit-Delayed
 ---
 
