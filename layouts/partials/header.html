@@ -21,14 +21,14 @@
                 {{ end }}
                 </ul>
             </li>
-         
+
             <li>
                 <a href="#">
                     {{ site.Params.version }} <span class="ui-icon ui-icon-carat-1-s"></span>
                 </a>
                 <ul>
                 {{ range site.Params.versions }}
-                    <li><a href="{{  .url }}">{{ .version }}</a></li>
+                    <li><a href="{{ .url }}{{ $.RelPermalink }}">{{ .version }}</a></li>
                 {{ end }}
                 </ul>
             </li>
