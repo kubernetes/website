@@ -30,7 +30,6 @@ aliases:
     - onlydole
     - parispittman
     - vonguard
-    - onlydole
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -40,7 +39,6 @@ aliases:
     - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - bradamant3
     - bradtopol
     - daminisatya
     - gochist
@@ -49,6 +47,7 @@ aliases:
     - kbarnard10
     - kbhawkey
     - makoscafee
+    - onlydole
     - Rajakavitha1
     - sftim
     - steveperry-53
@@ -57,7 +56,6 @@ aliases:
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
-    - bradamant3
     - bradtopol
     - daminisatya
     - gochist
@@ -66,6 +64,7 @@ aliases:
     - kbarnard10
     - kbhawkey
     - makoscafee
+    - onlydole
     - rajakavitha1
     - sftim
     - steveperry-53
@@ -159,7 +158,6 @@ aliases:
     - seokho-son
     - ysyukr
   sig-docs-maintainers: # Website maintainers
-    - bradamant3
     - jimangel
     - kbarnard10
     - pwittrock

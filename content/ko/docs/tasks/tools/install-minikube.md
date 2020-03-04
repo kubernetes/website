@@ -74,9 +74,17 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-{{< note >}}
-Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다. 이 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop) 와 Linux 환경이 필요하지만, 하이퍼바이저는 필요하지 않는다. none 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop) 에서 도커를 apt로 설치하기를 사용하는 것을 권장한다. 도커의 스냅 설치는 minikube에서 작동하지 않는다.
-{{< /note >}}
+Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--vm-driver=none` 옵션도 지원한다.
+이 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop) 와 Linux 환경이 필요하지만, 하이퍼바이저는 필요하지 않다. 
+
+데비안(Debian) 또는 파생된 배포판에서 `none` 드라이버를 사용하는 경우,
+Minikube에서는 동작하지 않는 스냅 패키지 대신 도커용 `.deb` 패키지를 사용한다.
+[도커](https://www.docker.com/products/docker-desktop)에서 `.deb` 패키지를 다운로드 할 수 있다.
+
+{{< caution >}}
+`none` VM 드라이버는 보안과 데이터 손실 이슈를 일으킬 수 있다.
+`--vm-driver=none` 을 사용하기 전에 [이 문서](https://minikube.sigs.k8s.io/docs/reference/drivers/none/)를 참조해서 더 자세한 내용을 본다.
+{{< /caution >}}
 
 ### 패키지를 이용하여 Minikube 설치
 

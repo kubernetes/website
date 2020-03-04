@@ -350,7 +350,7 @@ parameters:
   contains user password to use when talking to Gluster REST service. These
   parameters are optional, empty password will be used when both
   `secretNamespace` and `secretName` are omitted. The provided secret must have
-  type `"kubernetes.io/glusterfs"`, e.g. created in this way:
+  type `"kubernetes.io/glusterfs"`, for example created in this way:
 
     ```
     kubectl create secret generic heketi-secret \
@@ -514,7 +514,7 @@ parameters:
   same as `adminId`.
 * `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It
   must exist in the same namespace as PVCs. This parameter is required.
-  The provided secret must have type "kubernetes.io/rbd", e.g. created in this
+  The provided secret must have type "kubernetes.io/rbd", for example created in this
   way:
 
     ```shell
@@ -561,7 +561,7 @@ parameters:
 * `adminSecretName`: secret that holds information about the Quobyte user and
   the password to authenticate against the API server. The provided secret
   must have type "kubernetes.io/quobyte" and the keys `user` and `password`,
-  e.g. created in this way:
+  for example:
 
     ```shell
     kubectl create secret generic quobyte-admin-secret \

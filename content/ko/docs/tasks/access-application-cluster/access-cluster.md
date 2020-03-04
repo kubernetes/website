@@ -352,7 +352,7 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy�
     - 노드, 파드, 서비스에 접근하는 데 사용될 수 있다
     - 서비스에 접근하는 데 사용되면 load balacing한다
 
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/ko/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 각 노드 상에서 실행된다
     - UDP와 TCP를 proxy한다

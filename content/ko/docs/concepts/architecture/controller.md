@@ -26,7 +26,7 @@ weight: 30
 ## 컨트롤러 패턴
 
 컨트롤러는 적어도 하나 이상의 쿠버네티스 리소스 유형을 추적한다.
-이 [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+이 [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
 는 의도한 상태를 표현하는 사양 필드를 가지고 있다.
 해당 리소스의 컨트롤러(들)은 현재 상태를 의도한 
 상태에 가깝게 만드는 역할을 한다.
