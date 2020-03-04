@@ -84,6 +84,11 @@ Please see the
 [kube-scheduler documentation](/docs/admin/kube-scheduler/) for
 detailed description of other command line arguments.
 
+You will also need to manually create the appropriate rolebinding:
+```
+kubectl create rolebinding -n kube-system ROLEBINDING_NAME --role=extension-apiserver-authentication-reader --serviceaccount=kube-system:my-scheduler
+```
+
 ## Run the second scheduler in the cluster
 
 In order to run your scheduler in a Kubernetes cluster, just create the deployment
@@ -116,7 +121,7 @@ First, update the following fields in your YAML file:
 * `--lock-object-namespace=lock-object-namespace`
 * `--lock-object-name=lock-object-name`
 
-If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add your scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
+If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add your scheduler name to the resourceNames of the rule applied for endpoints resources and add the storage.k8s.io section, as in the following example:
 ```
 kubectl edit clusterrole system:kube-scheduler
 ```
@@ -142,6 +147,14 @@ kubectl edit clusterrole system:kube-scheduler
     - get
     - patch
     - update
+  - apiGroups:
+    - storage.k8s.io
+    resources:
+    - storageclasses
+    verbs:
+    - watch
+    - list
+    - get
 ```
 
 ## Specify schedulers for pods
