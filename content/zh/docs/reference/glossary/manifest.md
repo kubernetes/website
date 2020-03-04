@@ -1,5 +1,5 @@
 ---
-title: 表现
+title: 清单
 id: manifest
 date: 2019-06-28
 short_description: >
@@ -31,5 +31,4 @@ JSON 或 YAML 格式的 Kubernetes API 对象的规范。
 <!--
 A manifest specifies the desired state of an object that Kubernetes will maintain when you apply the manifest. Each configuration file can contain multiple manifests.
 -->
-清单指定了应用清单时 Kubernetes 将维护的对象的所需状态。
-每个配置文件可以包含多个清单。
+清单指定了应用清单时 Kubernetes 将维护的对象的所需状态，每个配置文件可以包含多个清单。
