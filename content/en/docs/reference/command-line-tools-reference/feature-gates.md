@@ -103,6 +103,7 @@ different Kubernetes components.
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `EvenPodsSpread` | `false` | Alpha | 1.16 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
+| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
@@ -395,6 +396,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
+- `HugePageStorageMediumSize`: Enable support for multiple sizes pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
 - `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler` resources when using custom or external metrics.
 - `KubeletConfigFile`: Enable loading kubelet configuration from a file specified using a config file.
