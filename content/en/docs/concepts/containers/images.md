@@ -20,7 +20,7 @@ The `image` property of a container supports the same syntax as the `docker` com
 
 ## Updating Images
 
-The default pull policy is `IfNotPresent` which causes the Kubelet to skip
+The default pull policy is `IfNotPresent, which causes the Kubelet to skip
 pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following:
 
