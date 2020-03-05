@@ -73,6 +73,8 @@ balancer in between your application and the backend Pods.
 A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
+The name of a Service object must be a valid
+[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 For example, suppose you have a set of Pods that each listen on TCP port 9376
 and carry a label `app=MyApp`:
@@ -166,6 +168,9 @@ subsets:
     ports:
       - port: 9376
 ```
+
+The name of the Endpoints object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< note >}}
 The endpoint IPs _must not_ be: loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), or

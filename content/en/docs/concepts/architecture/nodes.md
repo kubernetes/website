@@ -131,6 +131,8 @@ Kubernetes creates a node object internally (the representation), and
 validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
 services are running -- it is eligible to run a pod. Otherwise, it is
 ignored for any cluster activity until it becomes valid.
+The name of a Node object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< note >}}
 Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
