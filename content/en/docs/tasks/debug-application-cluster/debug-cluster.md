@@ -32,7 +32,6 @@ And verify that all of the nodes you expect to see are present and that they are
 To get detailed information about the overall health of your cluster, you can run:.
 
 ```shell
-
 kubectl cluster-info dump
 ```
 ## Looking at logs
