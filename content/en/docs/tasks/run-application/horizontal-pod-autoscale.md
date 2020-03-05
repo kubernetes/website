@@ -178,6 +178,8 @@ The beta version, which includes support for scaling on memory and custom metric
 can be found in `autoscaling/v2beta2`. The new fields introduced in `autoscaling/v2beta2`
 are preserved as annotations when working with `autoscaling/v1`.
 
+When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 More details about the API object can be found at
 [HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 

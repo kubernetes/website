@@ -33,7 +33,7 @@ one of its arguments.
 A limit range is enforced in a particular namespace when there is a
 `LimitRange` object in that namespace.
 
-### Overview of Limit Range:
+### Overview of Limit Range
 
 - The administrator creates one `LimitRange` in one namespace.
 - Users create resources like Pods, Containers, and PersistentVolumeClaims in the namespace.
@@ -42,7 +42,6 @@ A limit range is enforced in a particular namespace when there is a
 - If limit range is activated in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the system may reject pod creation.
 - LimitRange validations occurs only at Pod Admission stage, not on Running pods.
-
 
 Examples of policies that could be created using limit range are:
 
@@ -76,6 +75,8 @@ Here is the configuration file for a LimitRange object:
 {{< codenew file="admin/resource/limit-mem-cpu-container.yaml" >}}
 
 This object defines minimum and maximum Memory/CPU limits,  default cpu/Memory requests  and default limits for CPU/Memory resources to be apply to containers.
+The name of a LimitRange object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 Create the `limit-mem-cpu-per-container` LimitRange in the `limitrange-demo` namespace with the following kubectl command:
 
