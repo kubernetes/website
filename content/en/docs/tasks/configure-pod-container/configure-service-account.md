@@ -95,6 +95,9 @@ metadata:
 EOF
 ```
 
+The name of a ServiceAccount object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 If you get a complete dump of the service account object, like this:
 
 ```shell
