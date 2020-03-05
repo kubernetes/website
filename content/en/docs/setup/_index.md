@@ -90,6 +90,7 @@ The following production environment solutions table lists the providers and the
 | [KubeOne](https://kubeone.io/) |  | &#x2714; | &#x2714; | &#x2714; | &#x2714; | &#x2714; |
 | [Kubermatic](https://kubermatic.io/) | &#x2714; | &#x2714; | &#x2714; | &#x2714; | &#x2714; | &#x2714; |
 | [KubeSail](https://kubesail.com/)    | &#x2714;       |  |      |     |        |
+| [KubeSphere](https://github.com/kubesphere/kubesphere) |  | &#x2714; | [KubeSphere Container Platform](https://github.com/kubesphere/kubesphere) | [KubeSphere Container Platform](https://github.com/kubesphere/kubesphere) | [KubeSphere Container Platform](https://github.com/kubesphere/kubesphere) | [KubeSphere Container Platform](https://github.com/kubesphere/kubesphere) |
 | [Kubespray](https://kubespray.io/#/)       |       |    |       |&#x2714;  | &#x2714; | &#x2714; |
 | [Kublr](https://kublr.com/)        |&#x2714; | &#x2714;  |&#x2714;       |&#x2714;  |&#x2714; |&#x2714; |
 | [Microsoft Azure](https://azure.microsoft.com)    |  [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/)     |  |     |        |    |
