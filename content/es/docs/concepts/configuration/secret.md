@@ -23,7 +23,7 @@ es más seguro y más flexible que ponerlo en la definición de un {{< glossary_
 
 ## Introducción a Secrets
 
-Un `Secret` es un objeto que contiene una pequeña cantidad de datos confidenciales como contraseñas, un token, o una llave.  Tal información podría ser puesta en la especificación de un `Pod` o en una imagen; poniendolo en un objeto de tipo `Secret` permite mayor control sobre como se usa, y reduce el riesgo de exposicición accidental.
+Un Secret es un objeto que contiene una pequeña cantidad de datos confidenciales como contraseñas, un token, o una llave.  Tal información podría ser puesta en la especificación de un Pod o en una imagen; poniendolo en un objeto de tipo Secret permite mayor control sobre como se usa, y reduce el riesgo de exposicición accidental.
 
 Los usuarios pueden crear Secrets, y el sistema también puede crearlos.
 
