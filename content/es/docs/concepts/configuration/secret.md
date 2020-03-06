@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+- raelga
 title: Secrets
 content_template: templates/concept
 feature:
