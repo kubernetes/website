@@ -27,7 +27,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 ### Upgrade kubeadm
 
-1.  From the Windows node, upgrade and restart the kubelet:
+1.  From the Windows node, upgrade kubeadm:
 
     ```powershell
     # replace {{< param "fullversion" >}} with your desired version
@@ -53,7 +53,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 ### Upgrade the kubelet configuration
 
-1.  From the Windows node, call the following command:
+1.  From the Windows node, call the following command to sync new kubelet configuration:
 
     ```powershell
     kubeadm upgrade node
