@@ -73,24 +73,25 @@ Poseidon-Firmament scheduler does not provide support for high availability; its
 
 ## Feature comparison {#feature-comparison-matrix}
 
+{{< table caption="Feature comparison of Kubernetes and Poseidon-Firmament schedulers." >}}
 |Feature|Kubernetes Default Scheduler|Poseidon-Firmament Scheduler|Notes|
 |--- |--- |--- |--- |
 |Node Affinity/Anti-Affinity|Y|Y||
-|Pod Affinity/Anti-Affinity - including support for pod anti-affinity symmetry|Y|Y|Currently, the default scheduler outperforms the Poseidon-Firmament scheduler pod affinity/anti-affinity functionality. We are working towards resolving this.|
+|Pod Affinity/Anti-Affinity - including support for pod anti-affinity symmetry|Y|Y|The default scheduler outperforms the Poseidon-Firmament scheduler pod affinity/anti-affinity functionality.|
 |Taints & Tolerations|Y|Y||
-|Baseline Scheduling capability in accordance to available compute resources (CPU & Memory) on a node|Y|Y**|Not all Predicates & Priorities are supported at this time.|
-|Extreme Throughput at scale|Y**|Y|Bulk scheduling approach scales or increases workload placement. Substantial throughput benefits using Firmament scheduler as long as resource requirements (CPU/Memory) for incoming Pods is uniform across Replicasets/Deployments/Jobs. This is mainly due to efficient amortization of work across Replicasets/Deployments/Jobs . 1) For “Big Data/AI” jobs consisting of large no. of tasks, throughput benefits are tremendous. 2) Substantial throughput benefits also for service or batch job scenarios where workload resource requirements are uniform across Replicasets/Deployments/Jobs.|
-|Optimal Scheduling|Pod-by-Pod scheduler, processes one pod at a time (may result into sub-optimal scheduling)|Bulk Scheduling (Optimal scheduling)|Pod-by-Pod Kubernetes default scheduler may assign tasks to a sub-optimal machine. By contrast, Firmament considers all unscheduled tasks at the same time together with their soft and hard constraints.|
-|Colocation Interference Avoidance|N|N**|Planned in Poseidon-Firmament.|
-|Priority Pre-emption|Y|N**|Partially exists in Poseidon-Firmament versus extensive support in Kubernetes default scheduler.|
-|Inherent Re-Scheduling|N|Y**|Poseidon-Firmament scheduler supports workload re-scheduling. In each scheduling run it considers all the pods, including running pods, and as a result can migrate or evict pods – a globally optimal scheduling environment.|
+|Baseline Scheduling capability in accordance to available compute resources (CPU & Memory) on a node|Y|Y†|**†** Not all Predicates & Priorities are supported with Poseidon-Firmament.|
+|Extreme Throughput at scale|Y†|Y|**†** Bulk scheduling approach scales or increases workload placement. Firmament scheduler offers high throughput when resource requirements (CPU/Memory) for incoming Pods are uniform across ReplicaSets/Deployments/Jobs.|
+|Colocation Interference Avoidance|N|N||
+|Priority Pre-emption|Y|N†|**†** Partially exists in Poseidon-Firmament versus extensive support in Kubernetes default scheduler.|
+|Inherent Re-Scheduling|N|Y†|**†** Poseidon-Firmament scheduler supports workload re-scheduling. In each scheduling run, Poseidon-Firmament considers all Pods, including running Pods, and as a result can migrate or evict Pods – a globally optimal scheduling environment.|
 |Gang Scheduling|N|Y||
 |Support for Pre-bound Persistence Volume Scheduling|Y|Y||
-|Support for Local Volume & Dynamic Persistence Volume Binding Scheduling|Y|N**|Planned.|
-|High Availability|Y|N**|Planned.|
-|Real-time metrics based scheduling|N|Y**|Initially supported using Heapster (now deprecated) for placing pods using actual cluster utilization statistics rather than reservations. Plans to switch over to "metric server".|
+|Support for Local Volume & Dynamic Persistence Volume Binding Scheduling|Y|N||
+|High Availability|Y|N||
+|Real-time metrics based scheduling|N|Y†|**†** Partially supported in Poseidon-Firmamemtn using Heapster (now deprecated) for placing Pods using actual cluster utilization statistics rather than reservations.|
 |Support for Max-Pod per node|Y|Y|Poseidon-Firmament scheduler seamlessly co-exists with Kubernetes default scheduler.|
 |Support for Ephemeral Storage, in addition to CPU/Memory|Y|Y||
+{{< /table >}}
 
 ## Installation
 
