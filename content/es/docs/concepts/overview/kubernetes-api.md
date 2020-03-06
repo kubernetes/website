@@ -121,7 +121,7 @@ Esta opción acepta pares de `clave=valor` separados por coma que describen la c
 
 ## Activar recursos en los grupos
 
-Los `DaemonSets`, `Deployments`, `HorizontalPodAutoscalers`, `Ingresses`, `Jobs` y `ReplicaSets` están activados de forma predeterminada.
+Los `DaemonSets`, `Deployments`, `HorizontalPodAutoscalers`, `Ingresses`, `Jobs` y `ReplicaSets` están activados por defecto.
 
 Se pueden activar otros recursos con la opción `--runtime-config` del `apiserver`. Por ejemplo, como `--runtime-config` acepta valores separados por coma, puede desactivar los deployments y los ingress con la opción
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
