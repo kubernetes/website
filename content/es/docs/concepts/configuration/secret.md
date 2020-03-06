@@ -27,7 +27,7 @@ Un Secret es un objeto que contiene una pequeña cantidad de datos confidenciale
 
 Los usuarios pueden crear Secrets, y el sistema también puede crearlos.
 
-Para usar un `Secret`, un `Pod` debe hacer referencia a este. Un Secret puede ser usado con un `Pod`  de dos formas: como archivos en un {{< glossary_tooltip text="volumen" term_id="volume" >}} montado en uno o más de sus contenedores, o utilizados por `kubelet` al extraer imágenes del pod.
+Para usar un Secret, un Pod debe hacer referencia a este. Un Secret puede ser usado con un Pod de dos formas: como archivos en un {{< glossary_tooltip text="volume" term_id="volume" >}} montado en uno o más de sus contenedores, o utilizados por el kubelet al extraer imágenes del pod.
 
 ### Secrets incorporados
 
