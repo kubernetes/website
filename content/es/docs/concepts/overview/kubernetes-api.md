@@ -31,7 +31,7 @@ Kubernetes está compuesto, en si mismo, por varios componentes que interactúan
 
 ## Cambios a la API
 
-En nuestra experiencia, cualquier sistema exitoso necesita crecer y evolucionar al cambiar o emerger nuevos casos de uso. Por lo tanto, esperamos que la API de Kubernetes cambie y crezca continuamente. Dicho esto, nuestro objetivo es no romper la compatibilidad con los clientes ya existentes, por un período extendido de tiempo. En general, podemos esperar que se agreguen nuevos recursos y propiedades con cierta frecuencia. Para eliminar un recurso o propiedad, se requiere seguir la [política de obsolescencia de la API](/docs/reference/using-api/deprecation-policy/).
+En nuestra experiencia, cualquier sistema exitoso necesita crecer y evolucionar al cambiar o emerger nuevos casos de uso. Por lo tanto, esperamos que la API de Kubernetes cambie y crezca continuamente. Dicho esto, nuestro objetivo es no romper la compatibilidad con los clientes ya existentes, por un período de tiempo razonable. En general, podemos esperar que se agreguen nuevos recursos y propiedades con cierta frecuencia. Para eliminar un recurso o propiedad, se requiere seguir la [política de obsolescencia de la API](/docs/reference/using-api/deprecation-policy/).
 
 En el documento de [cambios a la API](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md) describimos como cambiar la API y definimos lo que es considerado como un cambio compatible.
 
