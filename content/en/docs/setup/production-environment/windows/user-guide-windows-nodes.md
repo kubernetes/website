@@ -8,7 +8,7 @@ content_template: templates/tutorial
 weight: 70
 ---
 
-{{% capture overview %}}
+{{% capture overview %}} {{< version-check >}}
 
 The Kubernetes platform can now be used to run both Linux and Windows containers. This page shows how one or more Windows nodes can be registered to a cluster.
 
@@ -103,9 +103,9 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
 
 1. Add Windows Flannel and kube-proxy DaemonSets
 
-    Now we will add Windows-compatible versions of Flannel and kube-proxy. In order
-    to ensure that we get a compatible version of kube-proxy, we'll need to substitute
-    the tag of the image. The following example shows usage for Kubernetes 1.17.0,
+    Now you can add Windows-compatible versions of Flannel and kube-proxy. In order
+    to ensure that you get a compatible version of kube-proxy, you'll need to substitute
+    the tag of the image. The following example shows usage for Kubernetes {{< param "fullversion" >}},
     but you should adjust the version for your own deployment.
 
     ```bash
@@ -134,9 +134,6 @@ with elevated permissions (Administrator) on the Windows worker node.
    curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
    .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
    ```
-{{< note >}}
-Kubernetes version must be >= 1.17.0
-{{< /note >}}
 
 1. Run kubeadm to join the node
 
@@ -155,7 +152,7 @@ kubectl get nodes -o wide
 If your new node is in the `NotReady` state it is likely because the flannel image is still downloading.
 You can check the progress as before by checking on the flannel pods in the `kube-system` namespace:
 
-```
+```shell
 kubectl -n kube-system get pods -l app=flannel
 ```
 
@@ -166,6 +163,6 @@ Once the flannel Pod is running, your node should enter the `Ready` state and th
 {{% capture whatsnext %}}
 
 ## Further reading
-- [Upgrading Windows kubeadm nodes]((/docs/setup/production-environment/windows/upgrading-kubeadm-nodes))
+- [Upgrading Windows kubeadm nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
 
 {{% /capture %}}

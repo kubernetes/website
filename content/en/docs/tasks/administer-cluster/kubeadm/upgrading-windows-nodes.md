@@ -7,12 +7,12 @@ weight: 70
 
 {{% capture overview %}}
 
-This page explains how to upgrade a Windows node created with kubeadm.
+This page explains how to upgrade a Windows node [created with kubeadm](/docs/setup/production-environment/windows/user-guide-windows-nodes).
 
 {{% /capture %}}
 
 
-{{% capture prerequisites %}}
+{{% capture prerequisites %}} {{< version-check >}}
 
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
