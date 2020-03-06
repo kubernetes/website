@@ -3,19 +3,19 @@ reviewers:
 - michmike
 - patricklang
 title: Adding Windows Nodes with kubeadm
-min-kubernetes-server-version: v1.17
+min-kubernetes-server-version: 1.17
 content_template: templates/tutorial
 weight: 70
 ---
 
-{{% capture overview %}} {{< version-check >}}
+{{% capture overview %}}
 
 The Kubernetes platform can now be used to run both Linux and Windows containers. This page shows how one or more Windows nodes can be registered to a cluster.
 
 {{% /capture %}}
 
 
-{{% capture prerequisites %}}
+{{% capture prerequisites %}} {{< version-check >}}
 
 * Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)
 (or higher) in order to configure the Windows node that hosts Windows containers.
