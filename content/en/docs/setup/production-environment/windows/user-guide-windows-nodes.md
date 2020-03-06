@@ -74,7 +74,7 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
         }
     ```
 
-    {{< note >}}The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See the [VXLAN documentation](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)
+    {{< note >}}The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. See the [VXLAN documentation](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan).
     for an explanation of these fields.{{< /note >}}
 
     {{< note >}}To use L2Bridge/Host-gateway mode instead change the value of `Type` to `"host-gw"` and omit `VNI` and `Port`.{{< /note >}}
@@ -109,7 +109,7 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
     but you should adjust the version for your own deployment.
 
     ```bash
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/v1.17.0/g' | kubectl apply -f -
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
     kubectl apply -f https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml
     ```
 
@@ -120,7 +120,7 @@ Once you have a Linux-based Kubernetes control-plane ("Master") node you are rea
 ### Joining a Windows worker node
 {{< note >}}
 You must install the `Containers` feature and install Docker. Instructions
-to do so can be found [here](https://docs.docker.com/ee/docker-ee/windows/docker-ee/#install-docker-engine---enterprise).
+to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.docker.com/ee/docker-ee/windows/docker-ee/#install-docker-engine---enterprise).
 {{< /note >}}
 
 {{< note >}}
@@ -132,7 +132,7 @@ with elevated permissions (Administrator) on the Windows worker node.
 
    ```PowerShell
    curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion v1.17.0
+   .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
    ```
 {{< note >}}
 Kubernetes version must be >= 1.17.0
@@ -140,9 +140,9 @@ Kubernetes version must be >= 1.17.0
 
 1. Run kubeadm to join the node
 
-    Use the command that was given to you when you ran `kubeadm init` on the master node.
+    Use the command that was given to you when you ran `kubeadm init` on a control plane host.
     If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
-    on the master to generate a new token and join command.
+    (on a control plane host) to generate a new token and join command.
 
 
 #### Verifying your installation
@@ -159,11 +159,11 @@ You can check the progress as before by checking on the flannel pods in the `kub
 kubectl -n kube-system get pods -l app=flannel
 ```
 
-Once the flannel pod is running your node should enter the `Ready` state and is ready to handle workloads.
+Once the flannel Pod is running, your node should enter the `Ready` state and then be available to handle workloads.
 
 {{% /capture %}}
 
-{{% capture next %}}
+{{% capture whatsnext %}}
 
 ## Further reading
 - [Upgrading Windows kubeadm nodes]((/docs/setup/production-environment/windows/upgrading-kubeadm-nodes))

@@ -30,8 +30,8 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 1.  From the Windows node, upgrade and restart the kubelet:
 
     ```powershell
-    # replace 1.17.x with the desired version
-    curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/v1.17.x/bin/windows/amd64/kubeadm.exe
+    # replace {{< param "fullversion" >}} with your desired version
+    curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
     ```
 
 ### Drain the node
@@ -65,7 +65,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/v1.17.x/bin/windows/amd64/kubelet.exe
+    curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
     restart-service kubelet
     ```
 
@@ -81,10 +81,10 @@ bring the node back online by marking it schedulable:
 ### Upgrade kube-proxy
 
 1. From a machine with access to the Kubernetes API, run the following,
-again replacing 1.17.x with the desired version:
+again replacing {{< param "fullversion" >}} with your desired version:
 
     ```shell
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/v1.17.x/g' | kubectl apply -f -
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
     ```
 
 
