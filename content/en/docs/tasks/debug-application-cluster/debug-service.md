@@ -133,7 +133,7 @@ You might find `kubectl logs` to be useful for seeing what is happening, or
 perhaps you need to `kubectl exec` directly into your Pods and debug from
 there.
 
-Assuming everythign has gone to plan so far, you can start to investigate why
+Assuming everything has gone to plan so far, you can start to investigate why
 your Service doesn't work.
 
 ## Does the Service exist?
@@ -164,8 +164,8 @@ No resources found.
 Error from server (NotFound): services "hostnames" not found
 ```
 
-So you have a culprit, let's create the Service.  As before, this is for the
-walk-through - you can use your own Service's details here.
+Let's create the Service.  As before, this is for the walk-through - you can
+use your own Service's details here.
 
 ```shell
 kubectl expose deployment hostnames --port=80 --target-port=9376
@@ -300,9 +300,10 @@ Namespace ("default.svc.cluster.local"), Services in all Namespaces
 ("svc.cluster.local"), and lastly for names in the cluster ("cluster.local").
 Depending on your own install you might have additional records after that (up
 to 6 total).  The cluster suffix is passed into `kubelet` with the
-`--cluster-domain` flag.  You assume that is "cluster.local" in this document,
-but yours might be different, in which case you should change that in all of
-the commands above.
+`--cluster-domain` flag.  Throughout this document, the cluster suffix is
+assumed to be "cluster.local".  Your own clusters might be configured
+differently, in which case you should change that in all of the previous
+commands.
 
 The `options` line must set `ndots` high enough that your DNS client library
 considers search paths at all.  Kubernetes sets this to 5 by default, which is
@@ -325,9 +326,9 @@ Name:      kubernetes.default
 Address 1: 10.0.0.1 kubernetes.default.svc.cluster.local
 ```
 
-If this fails, you might need to go to the kube-proxy section of this document,
-or even go back to the top of this document and start over, but instead of
-debugging your own Service, debug the DNS Service.
+If this fails, please see the [kube-proxy](#is-the-kube-proxy-working) section
+of this document, or even go back to the top of this document and start over,
+but instead of debugging your own Service, debug the DNS Service.
 
 ## Does the Service work by IP?
 
@@ -534,8 +535,8 @@ installing Kubernetes from scratch. If this is the case, you need to manually
 install the `conntrack` package (e.g. `sudo apt install conntrack` on Ubuntu)
 and then retry.
 
-Kube-proxy can run in one of a few modes.  Youc an see in the log above the
-line `Using iptables Proxier`.  This indicates that kube-proxy is running in
+Kube-proxy can run in one of a few modes.  In the log listed above, the
+line `Using iptables Proxier` indicates that kube-proxy is running in
 "iptables" mode.  The most common other mode is "ipvs".  The older "userspace"
 mode has largely been replaced by these.
 
@@ -711,7 +712,7 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 If you get this far, something very strange is happening.  Your Service is
 running, has Endpoints, and your Pods are actually serving.  You have DNS
 working, and `kube-proxy` does not seem to be misbehaving.  And yet your
-Service is not working.  You should probably let us know, so you can help
+Service is not working.  Please let us know what is going on, so we can help
 investigate!
 
 Contact us on
