@@ -26,7 +26,7 @@ tags:
  In computing, a proxy is a server that acts as an intermediary for a remote
 service.
 -->
-在计算中，代理是充当远程服务中介的服务器。
+在计算机领域，代理指的是充当远程服务中介的服务器。
 
 
 <!--more-->
@@ -50,5 +50,6 @@ You can run kube-proxy as a plain userland proxy service. If your operating
 system supports it, you can instead run kube-proxy in a hybrid mode that
 achieves the same overall effect using less system resources.
 -->
-你可以将 kube-proxy 作为普通的 userland 代理服务运行。
-如果你的操作系统支持，则可以在混合模式下运行 kube-proxy ，该模式使用较少的系统资源即可达到相同的总体效果。
+你可以将 kube-proxy 作为普通的用户态代理服务运行。
+如果你的操作系统支持，则可以在混合模式下运行 kube-proxy；该模式使用较少的系统资源即可达到相同的总体效果。
+
