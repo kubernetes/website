@@ -56,7 +56,7 @@ El comando `kubectl create secret`
 empaqueta esos archivos en un Secret y crea el objeto en el Apiserver.
 
 ```shell
-kubectl create Secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
 ```
 ```
 Secret "db-user-pass" created
