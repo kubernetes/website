@@ -97,7 +97,7 @@ Estos grupos se especifican en una ruta REST y en la propiedad `apiVersion` de u
 
 Actualmente hay varios grupos de API en uso:
 
-1. El grupo *core* (o *grupo group*) en la ruta REST `/api/v1` y usa `apiVersion: v1`.
+1. El grupo *core* (o *group*) en la ruta REST `/api/v1` y usa `apiVersion: v1`.
 
 2. Los grupos con nombre están en la ruta REST `/apis/$NOMBRE_GRUPO/$VERSION` y usan `apiVersion: $NOMBRE_GRUPO/$VERSION`
    (p. ej., `apiVersion: batch/v1`).  Hay una lista completa de los grupos soportados en la [Referencia de la API](/es/docs/reference/).
