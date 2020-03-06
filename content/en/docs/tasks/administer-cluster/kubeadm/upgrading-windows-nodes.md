@@ -1,7 +1,7 @@
 ---
 title: Upgrading Windows Nodes in Kubernetes
 min-kubernetes-server-version: 1.17
-content_template: templates/tutorial
+content_template: templates/task
 weight: 70
 ---
 
