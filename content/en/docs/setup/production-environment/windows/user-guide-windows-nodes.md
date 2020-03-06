@@ -135,7 +135,7 @@ with elevated permissions (Administrator) on the Windows worker node.
    .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
    ```
 
-1. Run kubeadm to join the node
+1. Run `kubeadm` to join the node
 
     Use the command that was given to you when you ran `kubeadm init` on a control plane host.
     If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
