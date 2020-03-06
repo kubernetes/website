@@ -352,7 +352,7 @@ weight scheme, and others. More advanced load balancing concepts
 Ingress. You can instead get these features through the load balancer used for
 a Service.
 
-It's also worth noting that even though health checks are not exposed directly
+It's also worth nothing that even though health checks are not exposed directly
 through the Ingress, there exist parallel concepts in Kubernetes such as
 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 that allow you to achieve the same end result. Please review the controller
