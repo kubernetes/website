@@ -218,7 +218,7 @@ to base your work on. Use these guidelines to make the decision:
     version number is.
   - Find the release branch named for that version. For example, features that
     changed in the {{< latest-version >}} release got documented in the branch
-    named `dev-{{< latest-version >}}`.
+    named `dev-{{< latest-semver >}}`.
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack or
 attend a weekly SIG Docs meeting to get clarity.
