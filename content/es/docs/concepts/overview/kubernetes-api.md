@@ -78,7 +78,7 @@ Las distintas versiones de la API implican distintos niveles de estabilidad y so
   - Puede tener muchos errores. Activar esta característica podría exponer errores. Desactivada por defecto.
   - El soporte para esta característica podría ser eliminado sin previo aviso.
   - La API podría volverse incompatible en el futuro y sin previo aviso.
-  - Se recomienda su uso solo en clusters efímeros y de prueba ya que hay mayor riesgo de errores y carece de soporte a largo plazo
+  - Se recomienda su uso solo en clústers efímeros y de prueba ya que hay mayor riesgo de errores y carece de soporte a largo plazo
 - Nivel "beta":
   - El nombre de la versión contiene `beta` (p. ej., `v2beta3`).
   - El código ha sido probado. Activar esta característica es seguro. Activada por defecto.
