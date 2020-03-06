@@ -109,7 +109,7 @@ Hay dos rutas soportadas para extender la API con [recursos personalizados](/doc
    es para los usuarios que tengan necesidades CRUD muy básicas
 2. Los usuarios que necesiten la semántica completa de la API pueden implementar su propio `apiserver`
    usando el [agregador](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) para hacerlo
-   transparente para los clientes
+   transparente para los clientes.
 
 ## Activar los grupos de API
 
