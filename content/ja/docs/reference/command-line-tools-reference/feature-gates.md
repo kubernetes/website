@@ -385,7 +385,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `SupportPodPidsLimit`: PodのPID制限のサポートを有効にします。
 - `Sysctls`: 各podに設定できる名前空間付きのカーネルパラメーター(sysctl)のサポートを有効にします。詳細は[sysctls](/docs/tasks/administer-cluster/sysctl-cluster/)で確認できます。
 - `TaintBasedEvictions`: ノードの汚染とpodの許容に基づいてノードからpodを排除できるようにします。。詳細は[汚染と許容](/docs/concepts/configuration/taint-and-toleration/)で確認できます。
-- `TaintNodesByCondition`: [ノードの条件](/docs/concepts/architecture/nodes/#condition)に基づいてノードの自動汚染を有効にします。
+- `TaintNodesByCondition`: [ノードの条件](/ja/docs/concepts/architecture/nodes/#condition)に基づいてノードの自動汚染を有効にします。
 - `TokenRequest`: サービスアカウントリソースで`TokenRequest`エンドポイントを有効にします。
 - `TokenRequestProjection`: [投影ボリューム](/docs/concepts/storage/volumes/#projected)を使用したpodへのサービスアカウントのトークンの注入を有効にします。
 - `TTLAfterFinished`: [TTLコントローラー](/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
