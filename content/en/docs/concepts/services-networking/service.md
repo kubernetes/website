@@ -1146,7 +1146,7 @@ followed by the data from the client.
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-Kubernetes supports SCTP as a `protocol` value in Service, Endpoint, NetworkPolicy and Pod definitions as a beta feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `--feature-gates=SCTPSupport=true,…`.
+Kubernetes supports SCTP as a `protocol` value in Service, Endpoint, NetworkPolicy and Pod definitions as a beta feature. As a beta feature , this is enabled by default. To disable this feature, the cluster administrator needs to disable the `SCTPSupport` feature gate on the apiserver, for example, `--feature-gates=SCTPSupport=false,…`.
 
 When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
