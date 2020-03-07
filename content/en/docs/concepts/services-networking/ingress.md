@@ -136,10 +136,10 @@ kubectl get ingress test-ingress
 
 ```
 NAME           HOSTS     ADDRESS           PORTS     AGE
-test-ingress   *         107.178.254.228   80        59s
+test-ingress   *         203.0.113.123   80        59s
 ```
 
-Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
+Where `203.0.113.123` is the IP allocated by the Ingress controller to satisfy
 this Ingress.
 
 {{< note >}}

@@ -334,6 +334,8 @@
 /docs/tutorials/object-management-kubectl/imperative-object-management-command/      /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
 /docs/tutorials/object-management-kubectl/object-management/      /docs/concepts/overview/object-management-kubectl/overview/ 301
+/docs/tutorials/online-training/      /training/ 301
+/docs/tutorials/online-training/overview/      /training/ 301
 /docs/tutorials/stateful-application/run-replicated-stateful-application/     /docs/tasks/run-application/run-replicated-stateful-application/ 301
 /docs/tutorials/stateful-application/run-stateful-application/     /docs/tasks/run-application/run-single-instance-stateful-application/ 301
 /docs/tutorials/stateless-application/expose-external-ip-address-service/     /docs/tasks/access-application-cluster/service-access-application-cluster/ 301
@@ -554,4 +556,3 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
 /docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
 /docs/setup/certificates/     /docs/setup/best-practices/certificates/   301
-
