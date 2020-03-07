@@ -196,7 +196,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     如果您还没有 CA，则在 `$HOST0`（您为 kubeadm 生成配置文件的位置）上运行此命令。
 
     ```
-    kubeadm alpha phase certs etcd-ca
+    kubeadm init alpha phase certs etcd-ca
     ```
 
     <!--
@@ -214,25 +214,25 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 
     <!--
     ```sh
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST2}/
     # cleanup non-reusable certificates
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST1}/
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
     # No need to move the certs because they are for HOST0
 
     # clean up certs that should not be copied off this host
@@ -241,25 +241,25 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     ```
     -->
     ```sh
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST2}/
     # 清理不可重复使用的证书
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST1}/
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
     # 不需要移动 certs 因为它们是给 HOST0 使用的
 
     # 清理不应从此主机复制的证书
@@ -370,9 +370,9 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     既然证书和配置已经就绪，是时候去创建清单了。在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
 
     ```sh
-    root@HOST0 $ kubeadm alpha phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    root@HOST1 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
-    root@HOST2 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    root@HOST1 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    root@HOST2 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
     ```
 
     <!--
