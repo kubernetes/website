@@ -42,7 +42,7 @@ Containers have become popular because they provide extra benefits, such as:
 * Dev and Ops separation of concerns: create application container images at build/release time rather than deployment time, thereby decoupling applications from infrastructure.
 * Observability not only surfaces OS-level information and metrics, but also application health and other signals.
 * Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.
-* Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
+* Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-premises, on major public clouds, and anywhere else.
 * Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
 * Loosely coupled, distributed, elastic, liberated micro-services: applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a monolithic stack running on one big single-purpose machine.
 * Resource isolation: predictable application performance.
