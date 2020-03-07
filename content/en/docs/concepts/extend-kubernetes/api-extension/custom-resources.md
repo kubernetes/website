@@ -37,7 +37,7 @@ On their own, custom resources simply let you store and retrieve structured data
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 
-A [declarative API](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)
+A [declarative API](/docs/concepts/overview/kubernetes-api/)
 allows you to _declare_ or specify the desired state of your resource and tries to
 keep the current state of Kubernetes objects in sync with the desired state.
 The controller interprets the structured data as a record of the user's
@@ -128,7 +128,12 @@ Regardless of how they are installed, the new resources are referred to as Custo
 
 ## CustomResourceDefinitions
 
-The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) API resource allows you to define custom resources. Defining a CRD object creates a new custom resource with a name and schema that you specify. The Kubernetes API serves and handles the storage of your custom resource.
+The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)
+API resource allows you to define custom resources.
+Defining a CRD object creates a new custom resource with a name and schema that you specify.
+The Kubernetes API serves and handles the storage of your custom resource.
+The name of a CRD object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
@@ -179,7 +184,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
 | Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | Yes, using [Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks). | Yes |
 | Scale Subresource | Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource)  | Yes |
-| Status Subresource | <ul><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul> | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | Yes |
+| Status Subresource | Allows fine-grained access control where user writes the spec section and the controller writes the status section. Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource) | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | Yes |
 | Other Subresources | Add operations other than CRUD, such as "logs" or "exec". | No | Yes |
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
@@ -202,7 +207,7 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 | Finalizers | Block deletion of extension resources until external cleanup happens. |
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
-| Unset vs Empty | Clients can distinguish unset fields from zero-valued fields. |
+| Unset versus Empty | Clients can distinguish unset fields from zero-valued fields. |
 | Client Libraries Generation | Kubernetes provides generic client libraries, as well as tools to generate type-specific client libraries. |
 | Labels and annotations | Common metadata across objects that tools know how to edit for core and custom resources. |
 

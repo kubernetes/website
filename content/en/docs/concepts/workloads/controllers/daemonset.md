@@ -39,7 +39,8 @@ You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` f
 
 {{< codenew file="controllers/daemonset.yaml" >}}
 
-* Create a DaemonSet based on the YAML file:
+Create a DaemonSet based on the YAML file:
+
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
@@ -49,6 +50,9 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
 [configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/working-with-objects/object-management/) documents.
+
+The name of a DaemonSet object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) section.
 

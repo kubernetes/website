@@ -189,3 +189,6 @@ other = "Warning:"
 
 [whatsnext_heading]
 other = "What's next"
+
+[input_placeholder_email_address]
+other = "email address"

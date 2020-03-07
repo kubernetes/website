@@ -201,18 +201,19 @@ println "This is tab 2."
 {{< /tab >}}
 {{< /tabs >}}
 
-### Tabs demo: Inline Markdown and HTML
+<!-- ### Tabs demo: Inline Markdown and HTML -->
+### 标签页演示：内联 Markdown 和 HTML
 
 ```go-html-template
 {{</* tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
-This is **some markdown.**
-{{< note >}}**Note:** It can even contain shortcodes.{{< /note >}}
+这是 **一些 markdown 。**
+{{< note >}}它甚至可以包含短代码。{{< /note >}}
 {{% /tab %}}
 {{< tab name="HTML" >}}
 <div>
-	<h3>Plain HTML</h3>
-	<p>This is some <i>plain</i> HTML.</p>
+	<h3>纯 HTML</h3>
+	<p>这是一些 <i>纯</i> HTML 。</p>
 </div>
 {{< /tab >}}
 {{< /tabs */>}}
@@ -223,13 +224,13 @@ This is **some markdown.**
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
-This is **some markdown.**
-{{< note >}}**Note:** It can even contain shortcodes.{{< /note >}}
+这是 **一些 markdown 。**
+{{< note >}}它甚至可以包含短代码。{{< /note >}}
 {{% /tab %}}
 {{< tab name="HTML" >}}
 <div>
-	<h3>Plain HTML</h3>
-	<p>This is some <i>plain</i> HTML.</p>
+	<h3>纯 HTML</h3>
+	<p>这是一些 <i>纯</i> HTML 。</p>
 </div>
 {{< /tab >}}
 {{< /tabs >}}

@@ -72,8 +72,8 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 # Docker CE 설치
 ## 리포지터리 설정
 ### apt가 HTTPS 리포지터리를 사용할 수 있도록 해주는 패키지 설치
-apt-get update && apt-get install \
-  apt-transport-https ca-certificates curl software-properties-common
+apt-get update && apt-get install -y \
+  apt-transport-https ca-certificates curl software-properties-common gnupg2
 
 ### Docker의 공식 GPG 키 추가
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -85,7 +85,7 @@ add-apt-repository \
   stable"
 
 ## Docker CE 설치.
-apt-get update && apt-get install \
+apt-get update && apt-get install -y \
   containerd.io=1.2.10-3 \
   docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
   docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
@@ -113,14 +113,14 @@ systemctl restart docker
 # Docker CE 설치
 ## 리포지터리 설정
 ### 필요한 패키지 설치.
-yum install yum-utils device-mapper-persistent-data lvm2
+yum install -y yum-utils device-mapper-persistent-data lvm2
 
 ### Docker 리포지터리 추가
 yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Docker CE 설치.
-yum update && yum install \
+yum update -y && yum install -y \
   containerd.io-1.2.10 \
   docker-ce-19.03.4 \
   docker-ce-cli-19.03.4
@@ -160,6 +160,11 @@ systemctl restart docker
 
 시스템에 CRI-O를 설치하기 위해서 다음의 커맨드를 사용한다.
 
+{{< note >}}
+CRI-O 메이저와 마이너 버전은 쿠버네티스 메이저와 마이너 버전이 일치해야 한다.
+더 자세한 정보는 [CRI-O 호환 매트릭스](https://github.com/cri-o/cri-o)를 본다.
+{{< /note >}}
+
 ### 선행 조건
 
 ```shell
@@ -181,13 +186,13 @@ sysctl --system
 
 # 선행 조건 설치
 apt-get update
-apt-get install software-properties-common
+apt-get install -y software-properties-common
 
 add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
 # CRI-O 설치
-apt-get install cri-o-1.15
+apt-get install -y cri-o-1.15
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
@@ -196,7 +201,7 @@ apt-get install cri-o-1.15
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
 
 # CRI-O 설치
-yum install --nogpgcheck cri-o
+yum install --nogpgcheck -y cri-o
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -270,7 +275,7 @@ systemctl restart containerd
 # containerd 설치
 ## 리포지터리 설정
 ### 필요한 패키지 설치
-yum install yum-utils device-mapper-persistent-data lvm2
+yum install -y yum-utils device-mapper-persistent-data lvm2
 
 ### Docker 리포지터리 추가리
 yum-config-manager \
@@ -278,7 +283,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## containerd 설치
-yum update && yum install containerd.io
+yum update -y && yum install -y containerd.io
 
 # containerd 설정
 mkdir -p /etc/containerd
