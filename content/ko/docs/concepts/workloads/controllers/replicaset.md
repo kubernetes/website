@@ -71,53 +71,50 @@ kubectl describe rs/frontend
 
 출력은 다음과 유사할 것이다.
 ```shell
-Name:		frontend
-Namespace:	default
-Selector:	tier=frontend
-Labels:		app=guestbook
-		tier=frontend
-Annotations:	<none>
-Replicas:	3 current / 3 desired
-Pods Status:	3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Name:         frontend
+Namespace:    default
+Selector:     tier=frontend
+Labels:       app=guestbook
+              tier=frontend
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"apps/v1","kind":"ReplicaSet","metadata":{"annotations":{},"labels":{"app":"guestbook","tier":"frontend"},"name":"frontend",...
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 Pod Template:
-  Labels:       app=guestbook
-                tier=frontend
+  Labels:  tier=frontend
   Containers:
    php-redis:
-    Image:      gcr.io/google_samples/gb-frontend:v3
-    Port:       80/TCP
-    Requests:
-      cpu:      100m
-      memory:   100Mi
-    Environment:
-      GET_HOSTS_FROM:   dns
-    Mounts:             <none>
-  Volumes:              <none>
+    Image:        gcr.io/google_samples/gb-frontend:v3
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
 Events:
-  FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-  ---------    --------    -----    ----                -------------    --------    ------            -------
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-qhloh
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-dnjpy
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-9si5l
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  117s  replicaset-controller  Created pod: frontend-wtsmm
+  Normal  SuccessfulCreate  116s  replicaset-controller  Created pod: frontend-b2zdv
+  Normal  SuccessfulCreate  116s  replicaset-controller  Created pod: frontend-vcmts
 ```
 
 마지막으로 파드가 올라왔는지 확인할 수 있다.
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 다음과 유사한 파드 정보를 볼 수 있다.
 ```shell
-NAME             READY     STATUS    RESTARTS   AGE
-frontend-9si5l   1/1       Running   0          1m
-frontend-dnjpy   1/1       Running   0          1m
-frontend-qhloh   1/1       Running   0          1m
+NAME             READY   STATUS    RESTARTS   AGE
+frontend-b2zdv   1/1     Running   0          6m36s
+frontend-vcmts   1/1     Running   0          6m36s
+frontend-wtsmm   1/1     Running   0          6m36s
 ```
 
 또한 파드들의 소유자 참조 정보가 해당 프런트엔드 레플리카셋으로 설정되어 있는지 확인할 수 있다.
 확인을 위해서는 실행 중인 파드 중 하나의 yaml을 확인한다.
 ```shell
-kubectl get pods frontend-9si5l -o yaml
+kubectl get pods frontend-b2zdv -o yaml
 ```
 
 메타데이터의 ownerReferences 필드에 설정되어있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
@@ -125,11 +122,11 @@ kubectl get pods frontend-9si5l -o yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  creationTimestamp: 2019-01-31T17:20:41Z
+  creationTimestamp: "2020-02-12T07:06:16Z"
   generateName: frontend-
   labels:
     tier: frontend
-  name: frontend-9si5l
+  name: frontend-b2zdv
   namespace: default
   ownerReferences:
   - apiVersion: apps/v1
@@ -137,7 +134,7 @@ metadata:
     controller: true
     kind: ReplicaSet
     name: frontend
-    uid: 892a2330-257c-11e9-aecd-025000000001
+    uid: f391f6db-bb9b-4c09-ae74-6a1f77f3d5cf
 ...
 ```
 
@@ -166,16 +163,17 @@ kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 
 파드를 가져온다.
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 결과에는 새로운 파드가 이미 종료되었거나 종료가 진행 중인 것을 보여준다.
 ```shell
 NAME             READY   STATUS        RESTARTS   AGE
-frontend-9si5l   1/1     Running       0          1m
-frontend-dnjpy   1/1     Running       0          1m
-frontend-qhloh   1/1     Running       0          1m
-pod2             0/1     Terminating   0          4s
+frontend-b2zdv   1/1     Running       0          10m
+frontend-vcmts   1/1     Running       0          10m
+frontend-wtsmm   1/1     Running       0          10m
+pod1             0/1     Terminating   0          1s
+pod2             0/1     Terminating   0          1s
 ```
 
 파드를 먼저 생성한다.
@@ -191,15 +189,15 @@ kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 레플리카셋이 해당 파드를 소유한 것을 볼 수 있으며 새 파드 및 기존 파드의 수가 
 레플리카셋이 필요로 하는 수와 일치할 때까지 사양에 따라 신규 파드만 생성한다. 파드를 가져온다.
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 다음 출력에서 볼 수 있다.
 ```shell
 NAME             READY   STATUS    RESTARTS   AGE
-frontend-pxj4r   1/1     Running   0          5s
-pod1             1/1     Running   0          13s
-pod2             1/1     Running   0          13s
+frontend-hmmj2   1/1     Running   0          9s
+pod1             1/1     Running   0          36s
+pod2             1/1     Running   0          36s
 ```
 
 이러한 방식으로 레플리카셋은 템플릿을 사용하지 않는 파드를 소유하게 된다.

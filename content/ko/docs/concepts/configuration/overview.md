@@ -28,7 +28,7 @@ weight: 10
 - 더 나은 인트로스펙션(introspection)을 위해서, 어노테이션에 오브젝트의 설명을 넣는다.
 
 
-## "단독(Naked)" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡
+## "단독(Naked)" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡 {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - 가능하다면 단독 파드(즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드)를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
 
@@ -85,7 +85,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 - `imagePullPolicy: Never`: 이미지가 로컬에 존재한다고 가정한다. 이미지를 풀(Pull) 하기 위해 시도하지 않는다.
 
 {{< note >}}
-컨테이너가 항상 같은 버전의 이미지를 사용하도록 만들기 위해, `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`와 같은 이미지의 [다이제스트](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)를 명시할 수 있다. 다이제스트는 특정 버전의 이미지를 고유하게 식별하며, 다이제스트 값을 변경하지 않는 한 쿠버네티스에 의해 절대로 변경되지 않는다.
+컨테이너가 항상 같은 버전의 이미지를 사용하도록 하기 위해, `<이미지 이름>:<태그>` 를 `<이미지 이름>@<다이제스트>` (예시 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)로 변경해서 이미지의 [다이제스트](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)를 명시할 수 있다. 다이제스트는 특정 버전의 이미지를 고유하게 식별하며, 다이제스트 값을 변경하지 않는 한 쿠버네티스에 의해 절대로 변경되지 않는다.
 {{< /note >}}
 
 {{< note >}}
