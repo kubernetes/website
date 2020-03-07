@@ -51,9 +51,9 @@ If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, readin
 For example:
 -->
 
-在生产环境中，你可能需要配置 [Prometheus Server](https://prometheus.io/) 或其他指标刮板来定期收集这些指标，并使它们在某种时间序列数据库中可用。
+在生产环境中，你可能需要配置 [Prometheus Server](https://prometheus.io/) 或其他指标收集器来定期收集这些指标，并使它们在某种时间序列数据库中可用。
 
-请注意 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 同样暴露了下面这些端点 `/metrics/cadvisor`、`/metrics/resource` 和 `/metrics/probes`  端点，这些指标的生命周期并不相同。
+请注意 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 同样在 `/metrics/cadvisor`、`/metrics/resource` 和 `/metrics/probes`  等端点提供性能指标。这些指标的生命周期并不相同。
 
 如果你的集群还使用了 {{< glossary_tooltip term_id="rbac" text="RBAC" >}} ，那读取指标数据的时候，还需要通过具有 ClusterRole 的用户、组或者 ServiceAccount 来进行授权，才有权限访问 `/metrics` 。
 
@@ -84,7 +84,7 @@ Stable metrics can be guaranteed to not change; Specifically, stability means:
 
 内测版指标 → 稳定版指标 → 弃用指标 → 隐藏指标 → 删除
 
-内测版指标没有任何稳定性保证，因此可以随时对它进行修改或删除。
+内测版指标没有任何稳定性保证，因此可能随时被修改或删除。
 
 稳定版指标可以保证不会改变，具体的说，稳定就意味着：
 
@@ -102,9 +102,9 @@ Deprecated metric signal that the metric will eventually be deleted; to find whi
 Before deprecation:
 -->
 
-弃用指标的信号表明这个指标最终将会被删除，要想查找是哪个版本，你需要检查注释，其中包括该指标从哪个 kubernetes 版本被认为已弃用。
+弃用指标表明这个指标最终将会被删除，要想查找是哪个版本，你需要检查其注释，注释中包括该指标从哪个 kubernetes 版本被弃用。
 
-指标弃用前注释：
+指标弃用前：
 
 ```
 # HELP some_counter this counts things
@@ -116,7 +116,7 @@ some_counter 0
 After deprecation:
 -->
 
-指标弃用后注释：
+指标弃用后：
 
 ```
 # HELP some_counter (Deprecated since 1.15.0) this counts things
@@ -130,7 +130,7 @@ Once a metric is hidden then by default the metrics is not published for scrapin
 Once a metric is deleted, the metric is not published. You cannot change this using an override.
 -->
 
-一个指标一旦被隐藏，默认这个指标是不会发布来被抓取的。如果你想要使用这个隐藏指标，你需要覆盖相关集群的配置。
+一个指标一旦被隐藏，默认这个指标是不会发布来被抓取的。如果你想要使用这个隐藏指标，你需要覆盖相关集群组件的配置。
 
 一个指标一旦被删除，那这个指标就不会被发布，您也不可以通过覆盖配置来进行更改。
 
