@@ -86,7 +86,9 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
-`kubectl config unset users.<name>`을 실행하여 사용자를 삭제할 수 있다.
+- 사용자를 삭제하려면 `kubectl --kubeconfig=config-demo config unset users.<name>` 를 실행한다.
+- 클러스터를 제거하려면 `kubectl --kubeconfig=config-demo config unset clusters.<name>` 를 실행한다.
+- 컨텍스트를 제거하려면 `kubectl --kubeconfig=config-demo config unset contexts.<name>` 를 실행한다.
 {{< /note >}}
 
 컨텍스트 세부사항들을 구성 파일에 추가한다.
