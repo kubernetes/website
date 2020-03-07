@@ -23,8 +23,6 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 
-
-
 <!-- body -->
 
 ## Management
@@ -191,11 +189,11 @@ all the Pod objects running on the node to be deleted from the API server, and f
 names.
 
 The node lifecycle controller automatically creates
-[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that represent conditions.
+[taints]({{< ref "/docs/concepts/scheduling-eviction/taint-and-toleration.md" >}}) that represent conditions.
 The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
 Pods can also have tolerations which let them tolerate a Node's taints.
 
-See [Taint Nodes by Condition](/docs/concepts/configuration/taint-and-toleration/#taint-nodes-by-condition)
+See [Taint Nodes by Condition]({{< ref "/docs/concepts/scheduling-eviction/taint-and-toleration.md#taint-nodes-by-condition" >}})
 for more details.
 
 ### Capacity and Allocatable {#capacity}
@@ -208,7 +206,7 @@ Node has. The allocatable block indicates the amount of resources on a
 Node that is available to be consumed by normal Pods.
 
 You may read more about capacity and allocatable resources while learning how
-to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+to [reserve compute resources]({{< ref "/docs/tasks/administer-cluster/reserve-compute-resources.md#node-allocatable" >}})
 on a Node.
 
 ### Info
@@ -295,7 +293,6 @@ The node controller also adds {{< glossary_tooltip text="taints" term_id="taint"
 corresponding to node problems like node unreachable or not ready. This means
 that the scheduler won't place Pods onto unhealthy nodes.
 
-
 {{< caution >}}
 `kubectl cordon` marks a node as 'unschedulable', which has the side effect of the service
 controller removing the node from any LoadBalancer node target lists it was previously 
@@ -319,7 +316,7 @@ processes running outside of the kubelet's control.
 
 {{< note >}}
 If you want to explicitly reserve resources for non-Pod processes, see
-[reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
+[reserve resources for system daemons]({{ ref "/docs/tasks/administer-cluster/reserve-compute-resources.md#system-reserved" >}}).
 {{< /note >}}
 
 ## Node topology
@@ -327,18 +324,18 @@ If you want to explicitly reserve resources for non-Pod processes, see
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
 If you have enabled the `TopologyManager`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
+[feature gate]({{< ref "/docs/reference/command-line-tools-reference/feature-gates.md" >}}), then
 the kubelet can use topology hints when making resource assignment decisions.
-See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
+See [Control Topology Management Policies on a Node]({{< ref "/docs/tasks/administer-cluster/topology-manager.md" >}})
 for more information.
 
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
+* Learn about the [components]({{< ref "/docs/concepts/overview/components.md#node-components" >}}) that make up a node.
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
-* Read about [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/).
-* Read about [cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling).
+* Read about [taints and tolerations]({{< ref "/docs/concepts/scheduling-eviction/taint-and-toleration.md" >}}).
+* Read about [cluster autoscaling]({{< ref "/docs/tasks/administer-cluster/cluster-management.md#cluster-autoscaling" >}}).
 

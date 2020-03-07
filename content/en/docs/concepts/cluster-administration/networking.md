@@ -12,10 +12,10 @@ understand exactly how it is expected to work.  There are 4 distinct networking
 problems to address:
 
 1. Highly-coupled container-to-container communications: this is solved by
-   [pods](/docs/concepts/workloads/pods/pod/) and `localhost` communications.
+   [pods]({{< ref "/docs/concepts/workloads/pods/pod.md" >}}) and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
-4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
+3. Pod-to-Service communications: this is covered by [services]({{< ref "/docs/concepts/services-networking/service.md" >}}).
+4. External-to-Service communications: this is covered by [services]({{< ref "/docs/concepts/services-networking/service.md" >}}).
 
 
 
@@ -135,7 +135,7 @@ addressing, and it can be used in combination with other CNI plugins.
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model]({{< ref "/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model" >}}) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
@@ -302,7 +302,8 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 ### Romana
 
-[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
+[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network.
+Romana supports Kubernetes [Network Policy]({{< ref "/docs/concepts/services-networking/network-policies.md" >}}) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 
@@ -318,7 +319,6 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 
 
 The early design of the networking model and its rationale, and some future
-plans are described in more detail in the [networking design
-document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+plans are described in more detail in the [networking design document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
 
 

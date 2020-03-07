@@ -8,11 +8,11 @@ weight: 30
 This page explains how to manage Kubernetes running on a specific
 cloud provider.
 
-
-
 <!-- body -->
+
 ### kubeadm
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) is a popular option for creating kubernetes clusters.
+
+[kubeadm]({{< ref "/docs/reference/setup-tools/kubeadm/kubeadm.md" >}}) is a popular option for creating kubernetes clusters.
 kubeadm has configuration options to specify configuration information for cloud providers. For example a typical
 in-tree cloud provider can be configured using kubeadm as shown below:
 
@@ -46,8 +46,9 @@ controllerManager:
 ```
 
 The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-config` specified in the command lines
-for the [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and the
-[kubelet](/docs/admin/kubelet/). The contents of the file specified in `--cloud-config` for each provider is documented below as well.
+for the [kube-apiserver]({{< ref "/docs/reference/command-line-tools-reference/kube-apiserver.md" >}}),
+[kube-controller-manager]({{< ref "/docs/reference/command-line-tools-reference/kube-controller-manager.md" >}}) and the
+[kubelet]({{< ref "/docs/reference/command-line-tools-reference/kubelet.md" >}}). The contents of the file specified in `--cloud-config` for each provider is documented below as well.
 
 For all external cloud providers, please follow the instructions on the individual repositories,
 which are listed under their headings below, or one may view [the list of all repositories](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
@@ -63,7 +64,7 @@ If you wish to use the external cloud provider, its repository is [kubernetes/cl
 The AWS cloud provider uses the private DNS name of the AWS instance as the name of the Kubernetes Node object.
 
 ### Load Balancers
-You can setup [external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/)
+You can setup [external load balancers]({{< ref "/docs/tasks/access-application-cluster/create-external-load-balancer.md" >}})
 to use specific features in AWS by configuring the annotations as shown below.
 
 ```yaml
@@ -350,7 +351,7 @@ should appear in the `[Metadata]` section of the `cloud.conf` file:
 
 ##### Route
 
-These configuration options for the OpenStack provider pertain to the [kubenet]
+These configuration options for the OpenStack provider pertain to the [kubenet]({{< ref "/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins.md#kubenet" >}})
 Kubernetes network plugin and should appear in the `[Route]` section of the
 `cloud.conf` file:
 
@@ -358,12 +359,8 @@ Kubernetes network plugin and should appear in the `[Route]` section of the
   the `extraroutes` extension then use `router-id` to specify a router to add
   routes to.  The router chosen must span the private networks containing your
   cluster nodes (typically there is only one node network, and this value should be
-  the default router for the node network).  This value is required to use [kubenet]
+  the default router for the node network).  This value is required to use [kubenet]({{< ref "/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins.md#kubenet" >}})
   on OpenStack.
-
-[kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
-
-
 
 ## OVirt
 

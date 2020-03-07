@@ -124,10 +124,9 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
 * See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
-* Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
+* Read about the [Kubernetes deprecation policy]({{< ref "/docs/reference/using-api/deprecation-policy.md#deprecating-a-feature-or-behavior" >}})
+

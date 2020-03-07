@@ -27,8 +27,7 @@ the description of how logs are stored and handled on the node to be useful.
 
 In this section, you can see an example of basic logging in Kubernetes that
 outputs data to the standard output stream. This demonstration uses
-a [pod specification](/examples/debug/counter-pod.yaml) with
-a container that writes some text to standard output once per second.
+a pod specification with a container that writes some text to standard output once per second.
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
@@ -138,7 +137,10 @@ Because the logging agent must run on every node, it's common to implement it as
 
 Using a node-level logging agent is the most common and encouraged approach for a Kubernetes cluster, because it creates only one agent per node, and it doesn't require any changes to the applications running on the node. However, node-level logging _only works for applications' standard output and standard error_.
 
-Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). You can find more information and instructions in the dedicated documents. Both use [fluentd](http://www.fluentd.org/) with custom configuration as an agent on the node.
+Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release:
+[Stackdriver Logging]({{< ref "/docs/tasks/debug-application-cluster/logging-stackdriver.md" >}}) for use with Google Cloud Platform,
+and [Elasticsearch]({{< ref "/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md" >}}).
+You can find more information and instructions in the dedicated documents. Both use [fluentd](http://www.fluentd.org/) with custom configuration as an agent on the node.
 
 ### Using a sidecar container with the logging agent
 
@@ -235,10 +237,10 @@ those logs using `kubectl logs` command, because they are not controlled
 by the kubelet.
 {{< /note >}}
 
-As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
+As an example, you could use [Stackdriver]({{< ref "/docs/tasks/debug-application-cluster/logging-stackdriver.md" >}}),
 which uses fluentd as a logging agent. Here are two configuration files that
 you can use to implement this approach. The first file contains
-a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to configure fluentd.
+a [ConfigMap]({{< ref "/docs/tasks/configure-pod-container/configure-pod-configmap.md" >}}) to configure fluentd.
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 

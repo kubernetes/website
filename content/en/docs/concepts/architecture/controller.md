@@ -26,7 +26,7 @@ closer to the desired state, by turning equipment on or off.
 ## Controller pattern
 
 A controller tracks at least one Kubernetes resource type.
-These [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
+These [objects]({{< ref "/docs/concepts/overview/working-with-objects/kubernetes-objects.md#kubernetes-objects" >}})
 have a spec field that represents the desired state. The
 controller(s) for that resource are responsible for making the current
 state come closer to that desired state.
@@ -52,7 +52,7 @@ Job is a Kubernetes resource that runs a
 {{< glossary_tooltip term_id="pod" >}}, or perhaps several Pods, to carry out
 a task and then stop.
 
-(Once [scheduled](/docs/concepts/scheduling-eviction/), Pod objects become part of the
+(Once [scheduled]({{< ref "/docs/concepts/scheduling-eviction/_index.md" >}}), Pod objects become part of the
 desired state for a kubelet).
 
 When the Job controller sees a new task it makes sure that, somewhere
@@ -94,7 +94,7 @@ the current state closer in line.
 
 (There actually is a controller that horizontally scales the
 nodes in your cluster. See
-[Cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
+[Cluster autoscaling]({{< ref "/docs/tasks/administer-cluster/cluster-management.md#cluster-autoscaling" >}})).
 
 ## Desired versus current state {#desired-vs-current}
 
@@ -150,12 +150,10 @@ You can run your own controller as a set of Pods,
 or externally to Kubernetes. What fits best will depend on what that particular
 controller does.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-* Read about the [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
-* Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)
-* Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
+* Read about the [Kubernetes control plane]({{< ref "/docs/concepts/_index.md#kubernetes-control-plane" >}})
+* Discover some of the basic [Kubernetes objects]({{< ref "/docs/concepts/_index.md#kubernetes-objects" >}})
+* Learn more about the [Kubernetes API]({{< ref "/docs/concepts/overview/kubernetes-api.md" >}})
+* If you want to write your own controller, see [Extension Patterns]({{< ref "/docs/concepts/extend-kubernetes/extend-cluster.md#extension-patterns" >}}) in Extending Kubernetes.
 

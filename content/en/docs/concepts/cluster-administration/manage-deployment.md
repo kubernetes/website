@@ -8,10 +8,7 @@ weight: 40
 
 <!-- overview -->
 
-You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
-
-
-
+You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files]({{< ref "/docs/concepts/configuration/overview.md" >}}) and [labels]({{< ref "/docs/concepts/overview/working-with-objects/labels.md" >}}).
 
 <!-- body -->
 
@@ -156,7 +153,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/reference/kubectl/overview/).
+If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview]({{< ref "/docs/reference/kubectl/overview.md" >}}).
 
 ## Using labels effectively
 
@@ -294,7 +291,8 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with `-L` or `--label-columns`).
 
-For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/) and [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
+For more information, please see [labels]({{< ref "/docs/concepts/overview/working-with-objects/labels.md" >}}) and
+[kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label).
 
 ## Updating annotations
 
@@ -313,7 +311,8 @@ metadata:
 ...
 ```
 
-For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate) document.
+For more information, please see [annotations]({{< ref "/docs/concepts/overview/working-with-objects/annotations.md" >}}) and
+[kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate) document.
 
 ## Scaling your application
 
@@ -347,7 +346,9 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
 
-For more information, please see [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale), [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
+For more information, please see [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale),
+[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale) and
+[horizontal pod autoscaler]({{< ref "/docs/tasks/run-application/horizontal-pod-autoscale.md" >}}) document.
 
 
 ## In-place updates of resources
@@ -358,7 +359,7 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 
 It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to push your configuration changes to the cluster.
+Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) to push your configuration changes to the cluster.
 
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
@@ -396,15 +397,15 @@ rm /tmp/nginx.yaml
 
 This allows you to do more significant changes more easily. Note that you can specify the editor with your `EDITOR` or `KUBE_EDITOR` environment variables.
 
-For more information, please see [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) document.
+For more information, please see [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit) document.
 
 ### kubectl patch
 
 You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
 JSON merge patch, and strategic merge patch. See
-[Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
-and
-[kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
+
+[Update API Objects in Place Using kubectl patch]({{ ref "/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch.md" >}})
+and [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
 ## Disruptive updates
 
@@ -447,14 +448,10 @@ To update to version 1.16.1, simply change `.spec.template.spec.containers[0].im
 kubectl edit deployment/my-nginx
 ```
 
-That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
-
-
+That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page]({{< ref "/docs/concepts/workloads/controllers/deployment.md" >}}).
 
 ## {{% heading "whatsnext" %}}
 
-
-- Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/).
-- See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
-
+- Learn about [how to use `kubectl` for application introspection and debugging]({{< ref "/docs/tasks/debug-application-cluster/debug-application-introspection.md" >}}).
+- See [Configuration Best Practices and Tips]({{< ref "/docs/concepts/configuration/overview.md" >}}).
 

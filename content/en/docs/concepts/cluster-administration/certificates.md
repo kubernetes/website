@@ -247,6 +247,6 @@ done.
 
 You can use the `certificates.k8s.io` API to provision
 x509 certificates to use for authentication as documented
-[here](/docs/tasks/tls/managing-tls-in-a-cluster).
+[here]({{< ref "/docs/tasks/tls/managing-tls-in-a-cluster.md" >}}).
 
 

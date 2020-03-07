@@ -37,6 +37,7 @@ You can also run the cloud controller manager as a Kubernetes
 of the control plane.
 {{< /note >}}
 
+
 ## Cloud controller manager functions {#functions-of-the-ccm}
 
 The controllers inside the cloud controller manager include:
@@ -212,4 +213,4 @@ The cloud controller manager uses Go interfaces to allow implementations from an
 
 The implementation of the shared controllers highlighted in this document (Node, Route, and Service), and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core. Implementations specific to cloud providers are outside the core of Kubernetes and implement the `CloudProvider` interface.
 
-For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+For more information about developing plugins, see [Developing Cloud Controller Manager]({{< ref "/docs/tasks/administer-cluster/developing-cloud-controller-manager.md" >}}).

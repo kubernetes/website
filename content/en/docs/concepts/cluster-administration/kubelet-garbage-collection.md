@@ -82,6 +82,6 @@ Including:
 ## {{% heading "whatsnext" %}}
 
 
-See [Configuring Out Of Resource Handling](/docs/tasks/administer-cluster/out-of-resource/) for more details.
+See [Configuring Out Of Resource Handling]({{< ref "/docs/tasks/administer-cluster/out-of-resource.md" >}}) for more details.
 
 
