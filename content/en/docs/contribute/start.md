@@ -209,7 +209,7 @@ to base your work on. Use these guidelines to make the decision:
   - Some localization teams work with a series of long-lived branches, and
     periodically merge these to `master`. This kind of branch has a name like
     dev-\<version>-\<language code>.\<team milestone>; for example:
-    `dev-{{< release-branch >}}-ja.1`.
+    `dev-{{< latest-semver >}}-ja.1`
 - If you're writing or updating documentation for a feature change release,
   then you need to know the major and minor version of Kubernetes that
   the change will first appear in.
@@ -217,8 +217,8 @@ to base your work on. Use these guidelines to make the decision:
     to beta in the next minor version, you need to know what the next minor
     version number is.
   - Find the release branch named for that version. For example, features that
-    changed in the v{{< release-branch >}} release got documented in the branch
-    named `dev-{{< release-branch >}}`.
+    changed in the {{< latest-version >}} release got documented in the branch
+    named `dev-{{< latest-semver >}}`.
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack or
 attend a weekly SIG Docs meeting to get clarity.
