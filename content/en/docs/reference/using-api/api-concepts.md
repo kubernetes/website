@@ -334,6 +334,17 @@ are not vulnerable to ordering changes in the list.
 Once the last finalizer is removed, the resource is actually removed from etcd.
 
 
+## Single resource API
+
+API verbs GET, CREATE, UPDATE, PATCH, DELETE and PROXY support single resources only.
+These verbs with single resource support have no support for submitting
+multiple resources together in an ordered or unordered list or transaction.
+Clients including kubectl will parse a list of resources and make
+single-resource API requests.
+
+API verbs LIST and WATCH support getting multiple resources, and
+DELETECOLLECTION supports deleting multiple resources.
+
 ## Dry-run
 
  {{< feature-state for_k8s_version="v1.18" state="stable" >}}
