@@ -3,11 +3,11 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-Welcome! This repository houses all of the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
+வரவேற்பு! இந்த களஞ்சியத்தில் [குபெர்னெட்ஸ் வலைத்தளம் மற்றும் ஆவணங்களை](https://kubernetes.io/) உருவாக்க தேவையான அனைத்து சொத்துக்களும் உள்ளன. நீங்கள் பங்களிக்க விரும்புவதில் நாங்கள் மகிழ்ச்சியடைகிறோம்!
 
-## Contributing to the docs
+## அவங்களுக்கு பங்களிக்க
 
-You can click the **Fork** button in the upper-right area of the screen to create a copy of this repository in your GitHub account. This copy is called a *fork*. Make any changes you want in your fork, and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
+உங்கள் கிட்ஹப் கணக்கில் இந்த களஞ்சியத்தின் நகலை உருவாக்க திரையின் மேல்-வலது பகுதியில் உள்ள **ஃபோர்க்** பொத்தானைக் கிளிக் செய்யலாம். இந்த நகலை **ஃபோர்க்** என்று அழைக்கப்படுகிறது. உங்கள் ஃபோர்க் நீங்கள் விரும்பும் எந்த மாற்றங்களையும் செய்யுங்கள், அந்த மாற்றங்களை எங்களுக்கு அனுப்ப நீங்கள் தயாராக இருக்கும்போது, உங்கள் ஃபோர்க் சென்று புதிய புல் கோரிக்கையை உருவாக்கி அதைப் பற்றி எங்களுக்குத் தெரியப்படுத்துங்கள்.
 
 Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**  Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback. Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
 
