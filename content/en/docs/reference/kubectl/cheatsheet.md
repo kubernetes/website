@@ -171,7 +171,7 @@ kubectl get pods --selector=app=cassandra -o \
 # named 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
-# Get all running pods in the namespace
+# Get all running pods in the default namespace
 kubectl get pods --field-selector=status.phase=Running
 
 # Get ExternalIPs of all nodes
