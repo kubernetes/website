@@ -24,7 +24,7 @@ or upgrades for such nodes. The long term plan is to empower the tool
 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
 aspects.
 -->
-在本指南中，Kubeadm用作为外部节点管理工具，并不计划支持此类节点的证书更换或升级。对于长期规划是使用 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) 增强工具来管理这方面。
+在本指南中，Kubeadm用作为外部etcd节点管理工具，并不计划支持此类节点的证书更换或升级。对于长期规划是使用 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) 增强工具来管理这方面。
 {{< /note >}}
 
 <!--
