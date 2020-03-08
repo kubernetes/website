@@ -2,7 +2,6 @@
 title: " Kubernetes 社区每周聚会笔记- 2015年4月17日 "
 date: 2015-04-17
 slug: weekly-kubernetes-community-hangout_17
-url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_17
 ---
 
 <!--
@@ -15,12 +14,12 @@ url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_17
 -->
 
 <!--
-Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.  
+Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.
 -->
 每个星期，Kubernetes 贡献者社区几乎都会在谷歌 Hangouts 上聚会。我们希望任何对此感兴趣的人都能了解这个论坛的讨论内容。
 
 <!--
-Agenda  
+Agenda
 
 * Mesos Integration
 * High Availability (HA)
@@ -28,7 +27,7 @@ Agenda
 * Versioned clients
 
 -->
-议程  
+议程
 
 * Mesos 集成
 * 高可用性（HA）
@@ -36,7 +35,7 @@ Agenda
 * 客户端版本化
 
 <!--
-Notes  
+Notes
 -->
 笔记
 
@@ -71,7 +70,7 @@ Notes
     * Load-balance apiserver.
 
     * Cold standby for controller manager and other master components.
-    
+
 -->
 
 * HA
@@ -95,7 +94,7 @@ Notes
         * See
 
     * Justin working on multi-platform e2e dashboard
-    
+
 -->
 
 * 向 e2e 添加性能和分析详细信息以跟踪回归
@@ -123,7 +122,7 @@ Notes
     * Structured types are useful in the client. Versioned structs would be ok.
 
     * If start with json/yaml (kubectl), shouldn’t convert to structured types. Use swagger.
-    
+
 -->
 
 * 客户端版本化

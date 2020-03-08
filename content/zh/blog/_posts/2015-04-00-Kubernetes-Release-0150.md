@@ -2,7 +2,6 @@
 title: " Kubernetes Release: 0.15.0 "
 date: 2015-04-16
 slug: kubernetes-release-0150
-url: /blog/2015/04/Kubernetes-Release-0150
 ---
 
 <!--
