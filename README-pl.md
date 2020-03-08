@@ -41,7 +41,7 @@ Zalecaną metodą uruchomienia serwisu internetowego Kubernetesa lokalnie jest u
 choco install make
 ```
 
-> Jeśli wolisz uruchomić serwis lokalnie bez Dockera, przeczytaj [jak uruchomić serwis lokalnie przy pomocy Hugo](#jak-uruchomić-serwis-lokalnie-przy-pomocy-hugo) poniżej.
+> Jeśli wolisz uruchomić serwis lokalnie bez Dockera, przeczytaj [jak uruchomić serwis lokalnie przy pomocy Hugo](#jak-uruchomić-lokalną-kopię-strony-przy-pomocy-hugo) poniżej.
 
 Jeśli [zainstalowałeś i uruchomiłeś](https://www.docker.com/get-started) już Dockera, zbuduj obraz `kubernetes-hugo` lokalnie:
 
