@@ -1178,19 +1178,6 @@ SCTP is not supported on Windows based nodes.
 The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
 {{< /warning >}}
 
-## Future work
-
-In the future, the proxy policy for Services can become more nuanced than
-simple round-robin balancing, for example master-elected or sharded.  We also
-envision that some Services will have "real" load balancers, in which case the
-virtual IP address will simply transport the packets there.
-
-The Kubernetes project intends to improve support for L7 (HTTP) Services.
-
-The Kubernetes project intends to have more flexible ingress modes for Services
-that encompass the current ClusterIP, NodePort, and LoadBalancer modes and more.
-
-
 {{% /capture %}}
 
 {{% capture whatsnext %}}
