@@ -19,23 +19,22 @@
 * [ஆவணமாக்கல் நடை வழிகாட்டி](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [குபெர்னெட்ஸ் ஆவணமாக்கலை உள்ளூர்மயமாக்குதல்](https://kubernetes.io/docs/contribute/localization/)
 
-## Localization `README.md`'s
+## `README.md` உள்ளூர்மயமாக்கல்
 |  |  |
 |---|---|
 |[French README](README-fr.md)|[Korean README](README-ko.md)|
 |[German README](README-de.md)|[Portuguese README](README-pt.md)|
 |[Hindi README](README-hi.md)|[Spanish README](README-es.md)|
 |[Indonesian README](README-id.md)|[Chinese README](README-zh.md)|
-|[Japanese README](README-ja.md)|[Vietnamese README](README-vi.md)|
-|[Russian README](README-ru.md)|[Italian README](README-it.md)|
-|[Polish README](README-pl.md)||
-|||
+|[Japanese README](README-ja.md)|[Tamil README](README-ta.md)|
+|[Vietnamese README](README-vi.md)|[Russian README](README-ru.md)|
+|[Italian README](README-it.md)|[Polish README](README-pl.md)|
 
-## Running the website locally using Docker
+## டாக்கர் பயன்படுத்தி உள்-வலைத்தளத்தை இயக்குகிறது
 
-The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static website generator.
+குபெர்னெட்ஸ் வலைத்தளத்தை உள்ளே இயக்குவதற்கான பரிந்துரைக்கப்பட்ட வழி, [ஹ்யூகோ] (https://gohugo.io) நிலையான வலைத்தள ஜெனரேட்டரை உள்ளடக்கிய ஒரு சிறப்பு [டாக்கர்] (https://docker.com) படத்தை இயக்குவது.
 
-> If you are running on Windows, you'll need a few more tools which you can install with [Chocolatey](https://chocolatey.org). `choco install make`
+> நீங்கள் விண்டோஸில் இயங்குகிறீர்கள் என்றால், நீங்கள் நிறுவக்கூடிய இன்னும் சில கருவிகள் உங்களுக்குத் [Chocolatey](https://chocolatey.org). `choco install make` தேவைப்படும்.
 
 > If you'd prefer to run the website locally without Docker, see [Running the website locally using Hugo](#running-the-website-locally-using-hugo) below.
 
