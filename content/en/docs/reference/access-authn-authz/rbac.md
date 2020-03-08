@@ -894,7 +894,7 @@ Examples:
 * Test applying a manifest file of RBAC objects, displaying changes that would be made:
 
     ```
-    kubectl auth reconcile -f my-rbac-rules.yaml --dry-run
+    kubectl auth reconcile -f my-rbac-rules.yaml --dry-run=client
     ```
 
 * Apply a manifest file of RBAC objects, preserving any extra permissions (in roles) and any extra subjects (in bindings):
