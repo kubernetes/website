@@ -9,15 +9,15 @@
 
 உங்கள் கிட்ஹப் கணக்கில் இந்த களஞ்சியத்தின் நகலை உருவாக்க திரையின் மேல்-வலது பகுதியில் உள்ள **ஃபோர்க்** பொத்தானைக் கிளிக் செய்யலாம். இந்த நகலை **ஃபோர்க்** என்று அழைக்கப்படுகிறது. உங்கள் ஃபோர்க் நீங்கள் விரும்பும் எந்த மாற்றங்களையும் செய்யுங்கள், அந்த மாற்றங்களை எங்களுக்கு அனுப்ப நீங்கள் தயாராக இருக்கும்போது, உங்கள் ஃபோர்க் சென்று புதிய புல் கோரிக்கையை உருவாக்கி அதைப் பற்றி எங்களுக்குத் தெரியப்படுத்துங்கள்.
 
-Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**  Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback. Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+உங்கள் புல் கோரிக்கை உருவாக்கப்பட்டதும், தெளிவான, செயல்படக்கூடிய கருத்துக்களை வழங்குவதற்கான பொறுப்பை குபெர்னெட்ஸ் மதிப்பாய்வாளர் ஏற்றுக்கொள்வார். புல் கோரிக்கையின் உரிமையாளராக, **குபெர்னெட்ஸ் மதிப்பாய்வாளரால் உங்களுக்கு வழங்கப்பட்ட பின்னூட்டத்தை நிவர்த்தி செய்ய உங்கள் புல் கோரிக்கையை மாற்றுவது உங்கள் பொறுப்பு.**  மேலும், ஒன்றுக்கு மேற்பட்ட குபெர்னெட்ஸ் திறனாய்வாளர் உங்களுக்கு கருத்துக்களை வழங்குவதை நீங்கள் முடிக்கலாம் அல்லது குபெர்னெட்ஸ் திறனாய்வாளரிடமிருந்து கருத்துக்களைப் பெறுவதை நீங்கள் முடிக்கலாம், இது உங்களுக்கு பின்னூட்டத்தை வழங்க ஆரம்பத்தில் ஒதுக்கப்பட்டதை விட வித்தியாசமானது. மேலும், சில சந்தர்ப்பங்களில், உங்கள் மதிப்பாய்வாளர்களில் ஒருவர் தேவைப்படும்போது [குபெர்னெட்ஸ் தொழில்நுட்ப விமர்சகரிடமிருந்து](https://github.com/kubernetes/website/wiki/Tech-reviewers) தொழில்நுட்ப மதிப்பாய்வைக் கேட்கலாம். சரியான நேரத்தில் கருத்துக்களை வழங்க விமர்சகர்கள் தங்களால் முடிந்த அனைத்தையும் செய்வார்கள், ஆனால் சூழ்நிலைகளின் அடிப்படையில் பதிலளிக்கும் நேரம் மாறுபடும்.
 
-For more information about contributing to the Kubernetes documentation, see:
+குபெர்னெட்ஸ் ஆவணத்தில் பங்களிப்பது பற்றிய கூடுதல் தகவலுக்கு, பார்க்க:
 
-* [Start contributing](https://kubernetes.io/docs/contribute/start/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+* [பங்களிக்கத் தொடங்குங்கள்](https://kubernetes.io/docs/contribute/start/)
+* [உங்கள் ஆவண மாற்றங்களை மேடைக்கு ஏற்ற](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [பக்க வார்ப்புருக்களைப் பயன்படுத்துதல்](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [ஆவணமாக்கல் நடை வழிகாட்டி](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [குபெர்னெட்ஸ் ஆவணமாக்கலை உள்ளூர்மயமாக்குதல்](https://kubernetes.io/docs/contribute/localization/)
 
 ## Localization `README.md`'s
 |  |  |
