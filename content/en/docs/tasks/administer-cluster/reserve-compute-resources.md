@@ -94,8 +94,7 @@ be configured to use the `systemd` cgroup driver.
 `kube-reserved` is meant to capture resource reservation for kubernetes system
 daemons like the `kubelet`, `container runtime`, `node problem detector`, etc.
 It is not meant to reserve resources for system daemons that are run as pods.
-`kube-reserved` is typically a function of `pod density` on the nodes. [This blog
-post](https://kubernetes.io/blog/2016/11/visualize-kubelet-performance-with-node-dashboard)
+`kube-reserved` is typically a function of `pod density` on the nodes. [Visualize Kubelet Performance with Node Dashboard](https://kubernetes.io/blog/2016/11/visualize-kubelet-performance-with-node-dashboard)
 explains how the dashboard can be interpreted to come up with a suitable
 `kube-reserved` reservation.
 
