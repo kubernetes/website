@@ -81,11 +81,12 @@ Le contrôleur gère les EndpointSlices pour tous les Services qui ont un sélec
 
 ### Capacité d'EndpointSlices
 
-Les EndpointSlices sont limités a une capacité de 100 Endpoints chacun, par defaut. Vous pouvez configurer cela avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
+Les EndpointSlices sont limités a une capacité de 100 Endpoints chacun, par défaut. Vous pouvez configurer ceci avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
 
 ### Distribution d'EndpointSlices
 
-Chaque EndpointSlice a un ensemble de ports qui s'applique à toutes les Endpoints dans la resource. Lorsque les ports nommés sont utilisés pour un Service, les Pods peuvent se retrouver avec différents port cible pour le même port nommé, nécessitant différents EndpointSlices. 
+Chaque EndpointSlice a un ensemble de ports qui s'applique à tous les Endpoints dans la resource. 
+Lorsque les ports nommés sont utilisés pour un Service, les Pods peuvent se retrouver avec différents port cible pour le même port nommé, nécessitant différents EndpointSlices. 
 
 Le contrôleur essaie de remplir l'EndpointSlice aussi complètement que possible, mais ne les rééquilibre pas activement. La logique du contrôleur est assez simple:
 
