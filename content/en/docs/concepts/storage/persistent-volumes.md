@@ -743,5 +743,17 @@ and need persistent storage, it is recommended that you use the following patter
   dynamic storage support (in which case the user should create a matching PV)
   or the cluster has no storage system (in which case the user cannot deploy
   config requiring PVCs).
+{{% /capture %}}
+  {{% capture whatsnext %}}
 
+* Learn more about [Creating a Persistent Volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+* Learn more about [Creating a Persistent Volume Claim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
+* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+
+### Reference
+
+* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
+* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
 {{% /capture %}}
