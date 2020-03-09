@@ -50,7 +50,7 @@ of roles and permissions.
 ## Next steps
 
 - Learn to [work from a local clone](/docs/contribute/new-content/working-locally/) of the repository.
-- Contribute a [larger change](/docs/contribute/new-content/new-content/#large-changes).
+- Contribute a [larger change](/docs/contribute/new-content/new-content/#fork-the-repo).
 - Document [features in a release](/docs/contribute/new-content/new-features/).
 - Participate in [SIG Docs](/docs/contribute/participating/), and become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).
 - Start or help with a [localization](/docs/contribute/localization/).

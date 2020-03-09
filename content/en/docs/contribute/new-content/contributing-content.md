@@ -20,7 +20,7 @@ To contribute new content pages or improve existing content pages, open a _pull 
 
 If your change is only a few lines long, or you're not that familiar with git, read [Small changes](#small-changes) to learn how to quickly edit a page.
 
-If your changes are larger, or span multiple pages, read [Large changes](#large-changes) to learn how to fork the Kubernetes website repository.
+If your changes are larger, or span multiple pages, read [Fork the kubernetes/website repostiory](#fork-the-repo) to learn how to fork the Kubernetes website repository.
 
 {{% /capture %}}
 
@@ -82,12 +82,10 @@ opening a pull request.
 
 6.  Click **Create pull request**.
 
-## Large changes {#large-changes}
+## Fork the kubernetes/website repository {#fork-the-repo}
 
 If you're more experienced with Git, or if your changes are larger than a few lines,
 fork the repository first, clone it locally, then open a pull request.
-
-### Fork the `kubernetes/website` repository
 
 The Kubernetes project only allows pull requests from a fork.
 
@@ -195,7 +193,7 @@ Alternatively, you can install and use the `hugo` command on your development ma
 
 {{% /tab %}}
 
-### Open a pull request from your fork to `kubernetes/website`
+### Open a pull request from your fork to kubernetes/website
 
 When you're ready to subit your changes for review, do the following:
 
