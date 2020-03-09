@@ -36,7 +36,7 @@ cards:
   button_path: "/docs/setup"
 - name: tasks
   title: "Learn how to use Kubernetes"
-  description: "Look up common tasks and how to perform them using a short sequence of steps."
+  description: "Look up common tasks and how to perform them using a short sequence of steps. You can also use <a href="/training/" data-auto-burger-exclude>Kubernetes training</a> for learning."
   button: "View Tasks"
   button_path: "/docs/tasks"
 - name: reference
