@@ -2,10 +2,10 @@
 reviewers:
 - michmike
 - patricklang
-title: Adding Windows Nodes with kubeadm
+title: Adding Windows nodes
 min-kubernetes-server-version: 1.17
 content_template: templates/tutorial
-weight: 70
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -21,7 +21,7 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 (or higher) in order to configure the Windows node that hosts Windows containers.
 If you are using VXLAN/Overlay networking you must have also have [KB4489899](https://support.microsoft.com/help/4489899) installed.
 
-* Build a Linux-based Kubernetes cluster in which you have access to the control-plane (some examples include [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), [AKS Engine](/docs/setup/production-environment/turnkey/azure/), [GCE](/docs/setup/production-environment/turnkey/gce/), [AWS](/docs/setup/production-environment/turnkey/aws/).
+* A Linux-based Kubernetes kubeadm cluster in which you have access to the control plane (see [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
 {{% /capture %}}
 
@@ -40,13 +40,13 @@ If you are using VXLAN/Overlay networking you must have also have [KB4489899](ht
 
 ### Networking Configuration
 
-Once you have a Linux-based Kubernetes control-plane ("Master") node you are ready to choose a networking solution. This guide illustrates using Flannel in VXLAN mode for simplicity.
+Once you have a Linux-based Kubernetes control-plane node you are ready to choose a networking solution. This guide illustrates using Flannel in VXLAN mode for simplicity.
 
 #### Configuring Flannel
 
-1. Prepare Kubernetes master for Flannel
+1. Prepare Kubernetes control plane for Flannel
 
-    Some minor preparation is recommended on the Kubernetes master in our cluster. It is recommended to enable bridged IPv4 traffic to iptables chains when using Flannel. This can be done using the following command:
+    Some minor preparation is recommended on the Kubernetes control plane in our cluster. It is recommended to enable bridged IPv4 traffic to iptables chains when using Flannel. This can be done using the following command:
 
     ```bash
     sudo sysctl net.bridge.bridge-nf-call-iptables=1
@@ -162,7 +162,6 @@ Once the flannel Pod is running, your node should enter the `Ready` state and th
 
 {{% capture whatsnext %}}
 
-## Further reading
 - [Upgrading Windows kubeadm nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
 
 {{% /capture %}}

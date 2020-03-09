@@ -2,12 +2,12 @@
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_template: templates/task
-weight: 70
+weight: 11
 ---
 
 {{% capture overview %}}
 
-This page explains how to upgrade a Windows node [created with kubeadm](/docs/setup/production-environment/windows/user-guide-windows-nodes).
+This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
 
 {{% /capture %}}
 
