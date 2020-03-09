@@ -992,11 +992,11 @@ used only by the controller selector with no other semantic meaning.
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "apps/v1/deployment/nginx"
+      app: "nginx"
 template:
   metadata:
     labels:
-      controller-selector: "apps/v1/deployment/nginx"
+      app: "nginx"
 ```
 
 {{% capture whatsnext %}}
