@@ -62,7 +62,7 @@ In the bootstrap initialization process, the following occurs:
 4. kubelet reads its bootstrap file, retrieving the URL of the API server and a limited usage "token"
 5. kubelet connects to the API server, authenticates using the token
 6. kubelet now has limited credentials to create and retrieve a certificate signing request (CSR)
-7. kubelet creates a CSR for itself with the signerName set to 
+7. kubelet creates a CSR for itself with the signerName set to `kubernetes.io/kube-apiserver-client-kubelet`
 8. CSR is approved in one of two ways:
   * If configured, kube-controller-manager automatically approves the CSR
   * If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`

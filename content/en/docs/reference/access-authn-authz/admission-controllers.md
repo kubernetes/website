@@ -115,17 +115,29 @@ required.
 
 Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
-### CertificateApproval
+### CertificateApproval {#certificateapproval}
 
-TBD
+This admission controller observes requests to 'approve' CertificateSigningRequest resources and performs additional
+authorization checks to ensure the approving user has permission to `approve` certificate requests with the
+`spec.signerName` requested on the CertificateSigningRequest resource.
 
-### CertificateSigning
+See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
+information on the permissions required to perform different actions on CertificateSigningRequest resources.
 
-TBD
+### CertificateSigning {#certificatesigning}
 
-### CertificateSubjectRestrictions
+This admission controller observes updates to the `status.certificate` field of CertificateSigningRequest resources
+and performs an additional authorization checks to ensure the signing user has permission to `sign` certificate
+requests with the `spec.signerName` requested on the CertificateSigningRequest resource.
 
-TBD
+See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
+information on the permissions required to perform different actions on CertificateSigningRequest resources.
+
+### CertificateSubjectRestrictions {#certificatesubjectrestrictions}
+
+This admission controller observes creation of CertificateSigningRequest resources that have a `spec.signerName`
+of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies a 'group' (or 'organization attribute')
+of `system:masters`.
 
 ### DefaultStorageClass {#defaultstorageclass}
 
