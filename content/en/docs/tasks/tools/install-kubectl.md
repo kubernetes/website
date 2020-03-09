@@ -393,16 +393,16 @@ You can check your Bash's version by running:
 echo $BASH_VERSION
 ```
 
-If it is too old, you can install it from Homebrew (or upgrade it if it already exists):
+If it is too old, you can install/upgrade it using Homebrew:
 
 ```shell
 brew install bash
 ```
 
-Reload your shell and verify that it is the one you just installed or upgraded:
+Reload your shell and verify that the desired version is being used:
 
 ```shell
-echo $SHELL
+echo $BASH_VERSION $SHELL
 ```
 
 Homebrew usually installs it at `/usr/local/bin/bash`.
