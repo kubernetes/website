@@ -426,7 +426,8 @@ Only trusted users should be granted permission to create `PersistentVolume` obj
 **FSGroup** - Controls the supplemental group applied to some volumes.
 
 **FSGroupChangePolicy** -  FSGroupChangePolicy defines behavior of changing ownership and permission of the volume
-before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions).
+before being exposed inside a Pod. This field only applies to volume types that support
+`fsGroup` controlled ownership (and permissions).
 This field has no effect on ephemeral volume types such as 
 [`secret`](https://kubernetes.io/docs/concepts/storage/volumes/#secret),
 [`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
