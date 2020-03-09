@@ -26,7 +26,7 @@ If you want to suggest improvements to existing content, or notice an error, the
 
 1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
  to a GitHub issue page pre-populated with some headers.
-2. Describe what the issue or suggestion for improvement is. Provide as many details as you can.
+2. Describe the issue or suggestion for improvement. Provide as many details as you can.
 3. Click **Submit new issue**.
 
 After submitting, check in on your issue occasionally or turn on GitHub notifications.
@@ -43,9 +43,9 @@ still file an issue. Either:
 
 ## How to file great issues
 
-To help others understand your issue and can act on it, do the following:
 
-- Use the issue template (the pre-populated text), and fill out as many details as you can.
+Keep the following in mind when filing an issue:
+
 - Provide a clear issue description. Describe what specifically is missing, out of date,
   wrong, or needs improvement.
 - Explain the specific impact the issue has on users.

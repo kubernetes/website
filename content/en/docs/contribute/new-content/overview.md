@@ -17,10 +17,10 @@ This section contains information you should know before contributing new conten
 
 ## Contributing basics
 
-- Write Kubernetes documentation in markdown and build the Kubernetes site using [Hugo](https://gohugo.io/).
-- The source is in GitHub at [https://github.com/kubernetes/website](https://github.com/kubernetes/website). Most of the documentation source is stored in `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
+- Write Kubernetes documentation in Markdown and build the Kubernetes site using [Hugo](https://gohugo.io/).
+- The source is in [GitHub](https://github.com/kubernetes/website). You can find Kubernetes documentation at `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
 - [Page templates](/docs/contribute/style/page-templates/) control the presentation of documentation content in Hugo.
-- In addition to the standard Hugo shortcodes, we use a number of [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our documentation to control the presentation of content.
+- In addition to the standard Hugo shortcodes, we use a number of [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our documentation to control the presentation of content.
 - Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`.
   - For more information about contributing to documentation in multiple languages, see ["Localize content"](/docs/contribute/intermediate#localize-content) in the intermediate contributing guide.
   - If you're interested in starting a new localization, see ["Localization"](/docs/contribute/localization/).
@@ -54,7 +54,7 @@ When opening a pull request, you need to know in advance which branch to base yo
 
 Scenario | Branch
 :---------|:------------
-Existing or new english language content for the current release | `master`
+Existing or new English language content for the current release | `master`
 Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-release-<version>`. For example, if a feature changes in the `vrelease-1.17` release, then add documentation changes to the `dev-release-1.17` branch.
 Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.
 
@@ -62,7 +62,7 @@ Content in other languages (localizations) | Use the localization's convention. 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 
 {{< note >}}
-If you already submitted your pull request and you know that the Base Branch
+If you already submitted your pull request and you know that the base branch
 was wrong, you (and only you, the submitter) can change it.
 {{< /note >}}
 

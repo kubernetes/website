@@ -17,7 +17,7 @@ Before reviewing, it's a good idea to:
 
 - Read the  [content guide](/docs/contribute/style/content-guide/) and
 [style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
-- Understand the different [roles and responsibilities](/docs/contribute/participating/#roles-and-responsibilities) in the Kubernetes documentation community
+- Understand the different [roles and responsibilities](/docs/contribute/participating/#roles-and-responsibilities) in the Kubernetes documentation community.
 
 {{% /capture %}}
 
@@ -29,7 +29,7 @@ Before you start a review:
 
 - Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and ensure that you abide by it at all times.
 - Be polite, considerate, and helpful.
-- Comment on positive aspects of PRs as well.
+- Comment on positive aspects of PRs as well as changes.
 - Be empathetic and mindful of how your review may be received.
 - Assume good intent and ask clarifying questions.
 - Experienced contributors, consider pairing with new contributors whose work requires extensive changes.

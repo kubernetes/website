@@ -12,14 +12,14 @@ card:
 
 {{% capture overview %}}
 
-The documentation website is a part of the Kubernetes project. The website is managed by [SIG Docs]((/docs/contribute/participating/). Kubernetes documentation contributors:
+The documentation website is a part of the Kubernetes project. The website is managed by [SIG Docs](/docs/contribute/participating/). Kubernetes documentation contributors:
 
 - Improve existing content.
 - Create new content.
 - Translate the documentation.
 - Manage the documentation parts of the Kubernetes release cycle.
 
-Kubernetes documentation welcomes contributions from all members, both new and experienced!
+Kubernetes documentation welcomes contributions from all contributors, new and experienced!
 
 {{% /capture %}}
 
@@ -66,8 +66,7 @@ SIG Docs communicates with different methods:
   introduce yourself!
 - [Join the `kubernetes-sig-docs` mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   where broader discussions take place and official decisions are recorded.
-- Join the [weekly SIG Docs video meeting](https://github.com/kubernetes/community/tree/master/sig-docs). The meeting is always announced on the Slack and the mailing list. You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
-- Check the SIG Docs weekly meeting times on the [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
+- Join the [weekly SIG Docs video meeting](https://github.com/kubernetes/community/tree/master/sig-docs). Meetings are always announced on `#sig-docs` and added to the [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
 
 ## Other ways to contribute
 

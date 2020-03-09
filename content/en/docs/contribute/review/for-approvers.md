@@ -156,7 +156,7 @@ To remove a label, leave a comment in one of the following formats:
 In both cases, the label must already exist. If you try to add a label that does not exist, the command is
 silently ignored.
 
-For a list of all labels, see the [website repository's Labels section]([repository](https://github.com/kubernetes/website/labels). Not all labels are used by SIG Docs.
+For a list of all labels, see the [website repository's Labels section](https://github.com/kubernetes/website/labels). Not all labels are used by SIG Docs.
 
 ### Issue lifecycle labels
 
@@ -187,7 +187,7 @@ and avoids duplicate work on the same problem.
 
 ### Dead link issues
 
-Assign dead links in the API and `kubectl` docs are automation issues `/priority critical-urgent` until the problem is fully understood. Assign all other dead link issues `/priority important-longterm`, as they must be manually fixed.
+If the dead link issue is in the API or `kubectl` documentation, assign them `/priority critical-urgent` until the problem is fully understood. Assign all other dead link issues `/priority important-longterm`, as they must be manually fixed.
 
 ### Blog issues
 
