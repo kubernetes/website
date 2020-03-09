@@ -911,8 +911,8 @@ deadlines. Some deadlines related to documentation are:
 
 If your feature is an Alpha feature and is behind a feature gate, make sure you
 add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-as part of your pull request. If your feature is moving out of Alpha, make sure to
-remove it from that file.
+as part of your pull request. If your feature is moving to Beta 
+or to General Availability, update the feature gates file.
 
 ## Contribute to other repos
 

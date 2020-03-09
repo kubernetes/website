@@ -43,23 +43,6 @@ _서비스 토폴로지_ 기능은 서비스 생성자가 발신 노드와 수�
 트래픽을 라우팅 하거나, 대기시간을 최소화하기 위해 동일한 랙 상단(top-of-rack) 스위치에
 연결된 노드로 트래픽을 유지하는 것이 있다.
 
-## 전제 조건
-
-서비스 라우팅을 인식하는 토폴로지를 활성화 하려면 다음과 같은 전제 조건이
-필요하다.
-
-   * 쿠버네티스 1.17 또는 이후 버전
-   * Kube-proxy 가 iptables 모드 또는 IPVS 모드에서 실행 중
-   * [엔드포인트 슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)의 활성화
-
-## 서비스 토폴로지 활성화하기
-
-서비스 토폴로지를 활성화하려면 kube-apiserver 와 kube-proxy의
-기능 게이트에서 `ServiceTopology` 를 활성화 한다.
-
-```
---feature-gates="ServiceTopology=true"
-```
 
 ## 서비스 토폴로지 사용하기
 
@@ -112,6 +95,98 @@ _서비스 토폴로지_ 기능은 서비스 생성자가 발신 노드와 수�
 
 * 만약 캐치 올(catch-all) 값인 `"*"` 를 사용한다면 토폴로지 키들의 마지막 값이어야
   한다.
+
+
+## 예시들
+
+다음은 서비스 토폴로지 기능을 사용하는 일반적인 예시이다.
+
+### 노드 로컬 엔드포인트만
+
+노드 로컬 엔드포인트로만 라우팅하는 서비스이다. 만약 노드에 엔드포인트가 없으면 트레픽이 드롭된다.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+```
+
+### 노드 로컬 엔드포인트 선호
+
+노드 로컬 엔드포인트를 선호하지만, 노드 로컬 엔드포인트가 없는 경우 클러스터 전체 엔드포인트로 폴백 하는 서비스이다.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+    - "*"
+```
+
+
+### 영역 또는 지리적 엔드포인트만
+
+영역보다는 지리적 엔드포인트를 선호하는 서비스이다. 만약 엔드포인트가 없다면, 트래픽은 드롭된다.
+
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "topology.kubernetes.io/zone"
+    - "topology.kubernetes.io/region"
+```
+
+### 노드 로컬, 영역 및 지역 엔드포인트 선호
+
+노드 로컬, 영역 및 지역 엔드포인트를 선호하지만, 클러스터 전체 엔드포인트로 폴백하는 서비스이다.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+    - "topology.kubernetes.io/zone"
+    - "topology.kubernetes.io/region"
+    - "*"
+```
 
 
 {{% /capture %}}

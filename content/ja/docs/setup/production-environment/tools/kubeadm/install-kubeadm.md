@@ -56,6 +56,9 @@ Linuxでは、カーネルのiptablesサブシステムの最新の代替品と�
 {{< tabs name="iptables_legacy" >}}
 {{% tab name="Debian or Ubuntu" %}}
 ```bash
+# レガシーバイナリがインストールされていることを確認してください
+sudo apt-get install -y iptables arptables ebtables
+
 sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
 sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
@@ -189,7 +192,7 @@ systemctl enable --now kubelet
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
 
     ```bash
-    cat <<EOF >  /etc/sysctl.d/k8s.conf
+    cat <<EOF > /etc/sysctl.d/k8s.conf
     net.bridge.bridge-nf-call-ip6tables = 1
     net.bridge.bridge-nf-call-iptables = 1
     EOF
@@ -268,6 +271,6 @@ kubeadmで問題が発生した場合は、[トラブルシューティング](/
 
 {{% capture whatsnext %}}
 
-* [kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* [kubeadmを使用したシングルコントロールプレーンクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
 {{% /capture %}}

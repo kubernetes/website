@@ -12,7 +12,7 @@ card:
 {{% /capture %}}
 
 {{% capture body %}}
-## 쿠버네티스 오브젝트 이해하기
+## 쿠버네티스 오브젝트 이해하기 {#kubernetes-objects}
 
 *쿠버네티스 오브젝트* 는 쿠버네티스 시스템에서 영속성을 가지는 개체이다. 쿠버네티스는 클러스터의 상태를 나타내기 위해 이 개체를 이용한다. 구체적으로 말하자면, 다음을 기술할 수 있다.
 
@@ -41,8 +41,9 @@ card:
 
 {{< codenew file="application/deployment.yaml" >}}
 
-위 예시와 같이 .yaml 파일을 이용하여 디플로이먼트를 생성하기 위한 하나의 방식으로는 `kubectl` 커맨드-라인 인터페이스에 인자값으로 `.yaml` 파일를 건네 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 커맨드를 이용하는 것이다. 다음 예시와 같다.
-
+위 예시와 같이 .yaml 파일을 이용하여 디플로이먼트를 생성하기 위한 하나의 방식으로는
+`kubectl` 커맨드-라인 인터페이스에 인자값으로 `.yaml` 파일를 건네
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 커맨드를 이용하는 것이다. 다음 예시와 같다.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
@@ -50,8 +51,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
 
 그 출력 내용은 다음과 유사하다.
 
-
-```shell
+```
 deployment.apps/nginx-deployment created
 ```
 
@@ -65,14 +65,15 @@ deployment.apps/nginx-deployment created
 * `spec` - 오브젝트에 대해 어떤 상태를 의도하는지
 
 오브젝트 `spec`에 대한 정확한 포맷은 모든 쿠버네티스 오브젝트마다 다르고, 그 오브젝트 특유의 중첩된 필드를 포함한다. [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 는 쿠버네티스를 이용하여 생성할 수 있는 오브젝트에 대한 모든 spec 포맷을 살펴볼 수 있도록 해준다. 
-예를 들어, `파드`에 대한 `spec` 포맷은 
-[여기](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-에서 확인할 수 있고, `디플로이먼트`에 대한 `spec` 포맷은 
-[여기](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)에서 확인할 수 있다.
+예를 들어, 파드에 대한 `spec` 포맷은 
+[PodSpec v1 Core](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
+에서 확인할 수 있고, 디플로이먼트에 대한 `spec` 포맷은 
+[DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)에서 확인할 수 있다.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+* API 개념의 더 많은 설명은 [Kubernetes API 개요](/ko/docs/reference/using-api/api-overview/)를 본다.
 * [파드(Pod)](/ko/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
 * 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.
 {{% /capture %}}

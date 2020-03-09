@@ -25,6 +25,9 @@
 {{- if eq .Params.class "gridPage" }}
 <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
 {{- end }}
+{{- if eq .Params.class "training" }}
+<link rel="stylesheet" href="{{ "css/training.css" | relURL }}">
+{{- end }}
 {{- with .Params.css }}
 {{- $extraCss := split . "," }}
 {{- range $extraCss }}

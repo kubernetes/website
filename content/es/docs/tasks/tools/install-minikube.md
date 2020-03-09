@@ -49,7 +49,7 @@ Minikube también soporta una opción `--vm-driver=none` que ejecuta los compone
 La forma más fácil de instalar Minikube en macOS es usar [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 También puedes instalarlo en macOS descargando un ejecutable autocontenido:

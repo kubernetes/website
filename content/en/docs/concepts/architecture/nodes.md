@@ -30,7 +30,7 @@ A node's status contains the following information:
 * [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
-Node status and other details about a node can be displayed using below command:
+Node status and other details about a node can be displayed using the following command:
 ```shell
 kubectl describe node <insert-node-name-here>
 ```
@@ -131,6 +131,8 @@ Kubernetes creates a node object internally (the representation), and
 validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
 services are running -- it is eligible to run a pod. Otherwise, it is
 ignored for any cluster activity until it becomes valid.
+The name of a Node object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< note >}}
 Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
@@ -157,7 +159,7 @@ controller deletes the node from its list of nodes.
 The third is monitoring the nodes' health. The node controller is
 responsible for updating the NodeReady condition of NodeStatus to
 ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
-receiving heartbeats for some reason, e.g. due to the node being down), and then later evicting
+receiving heartbeats for some reason, for example due to the node being down), and then later evicting
 all the pods from the node (using graceful termination) if the node continues
 to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
@@ -188,7 +190,7 @@ a Lease object.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
-(e.g. because the master has networking problem). Starting with 1.4, the node
+(e.g. because the master has networking problems). Starting with 1.4, the node
 controller looks at the state of all nodes in the cluster when making a
 decision about pod eviction.
 
@@ -212,9 +214,9 @@ there is only one availability zone (the whole cluster).
 
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
-Therefore, if all nodes in a zone are unhealthy then node controller evicts at
-the normal rate `--node-eviction-rate`.  The corner case is when all zones are
-completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
+Therefore, if all nodes in a zone are unhealthy then the node controller evicts at
+the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
+completely unhealthy (i.e. there are no healthy nodes in the cluster). In such a
 case, the node controller assumes that there's some problem with master
 connectivity and stops all evictions until some connectivity is restored.
 

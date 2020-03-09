@@ -21,9 +21,7 @@ encryption keys, into Pods.
 ## Convert your secret data to a base-64 representation
 
 Suppose you want to have two pieces of secret data: a username `my-app` and a password
-`39528$vdg7Jb`. First, use online Base 64 Encoding Tool [Base64 encoding](https://www.base64encode.org/), [Base64 encode](https://goonlinetools.com/base64-encode/) to
-convert your username and password to a base-64 representation. Here's a Linux
-example:
+`39528$vdg7Jb`. First, use a base64 encoding tool to convert your username and password to a base64 representation. Here's an example using the commonly available base64 program:
 
 ```shell
 echo -n 'my-app' | base64

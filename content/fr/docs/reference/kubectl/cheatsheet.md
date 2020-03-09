@@ -197,7 +197,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Mise à jour de ressources
 
-Depuis la version 1.11, `rolling-update` a été déprécié (voir [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), utilisez plutôt `rollout`.
+Depuis la version 1.11, `rolling-update` a été déprécié (voir [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), utilisez plutôt `rollout`.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update du conteneur "www" du déploiement "frontend", par mise à jour de son image

@@ -68,6 +68,8 @@ echo -n '1f2d1e2e67df' > ./password.txt
 
 The `kubectl create secret` command packages these files into a Secret and creates
 the object on the API server.
+The name of a Secret object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 ```shell
 kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
@@ -137,8 +139,10 @@ See [decoding a secret](#decoding-a-secret) to learn how to view the contents of
 #### Creating a Secret manually
 
 You can also create a Secret in a file first, in JSON or YAML format,
-and then create that object. The
-[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+and then create that object.
+The name of a Secret object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 contains two maps:
 `data` and `stringData`. The `data` field is used to store arbitrary data, encoded using
 base64. The `stringData` field is provided for convenience, and allows you to provide
