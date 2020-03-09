@@ -21,7 +21,7 @@ with [volumes](/docs/concepts/storage/volumes/) and
 
 ## Introduction
 
-A `StorageClass` provides a way for administrators to describe the "classes" of
+A StorageClass provides a way for administrators to describe the "classes" of
 storage they offer. Different classes might map to quality-of-service levels,
 or to backup policies, or to arbitrary policies determined by the cluster
 administrators. Kubernetes itself is unopinionated about what classes
@@ -30,18 +30,18 @@ systems.
 
 ## The StorageClass Resource
 
-Each `StorageClass` contains the fields `provisioner`, `parameters`, and
-`reclaimPolicy`, which are used when a `PersistentVolume` belonging to the
+Each StorageClass contains the fields `provisioner`, `parameters`, and
+`reclaimPolicy`, which are used when a PersistentVolume belonging to the
 class needs to be dynamically provisioned.
 
-The name of a `StorageClass` object is significant, and is how users can
+The name of a StorageClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
-of a class when first creating `StorageClass` objects, and the objects cannot
+of a class when first creating StorageClass objects, and the objects cannot
 be updated once they are created.
 
-Administrators can specify a default `StorageClass` just for PVCs that don't
+Administrators can specify a default StorageClass just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
+[PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
 
 ```yaml
@@ -61,7 +61,7 @@ volumeBindingMode: Immediate
 
 ### Provisioner
 
-Storage classes have a provisioner that determines what volume plugin is used
+Storage Classes have a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
 
 | Volume Plugin        | Internal Provisioner| Config Example                       |
@@ -104,12 +104,12 @@ vendors provide their own external provisioner.
 
 ### Reclaim Policy
 
-Persistent Volumes that are dynamically created by a storage class will have the
+Persistent Volumes that are dynamically created by a StorageClass will have the
 reclaim policy specified in the `reclaimPolicy` field of the class, which can be
 either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
-`StorageClass` object is created, it will default to `Delete`.
+StorageClass object is created, it will default to `Delete`.
 
-Persistent Volumes that are created manually and managed via a storage class will have
+Persistent Volumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
 
 ### Allow Volume Expansion
@@ -120,7 +120,7 @@ Persistent Volumes can be configured to be expandable. This feature when set to 
 allows the users to resize the volume by editing the corresponding PVC object. 
 
 The following types of volumes support volume expansion, when the underlying
-Storage Class has the field `allowVolumeExpansion` set to true.
+StorageClass has the field `allowVolumeExpansion` set to true.
 
 {{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
 
@@ -146,7 +146,7 @@ You can only use the volume expansion feature to grow a Volume, not to shrink it
 
 ### Mount Options
 
-Persistent Volumes that are dynamically created by a storage class will have the
+Persistent Volumes that are dynamically created by a StorageClass will have the
 mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
@@ -219,7 +219,7 @@ allowedTopologies:
 
 ## Parameters
 
-Storage classes have parameters that describe volumes belonging to the storage
+Storage Classes have parameters that describe volumes belonging to the storage
 class. Different parameters may be accepted depending on the `provisioner`. For
  example, the value `io1`, for the parameter `type`, and the parameter
 `iopsPerGB` are specific to EBS. When a parameter is omitted, some default is
@@ -367,7 +367,7 @@ parameters:
   `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`. This
   is an optional parameter.
 * `gidMin`, `gidMax` : The minimum and maximum value of GID range for the
-  storage class. A unique value (GID) in this range ( gidMin-gidMax ) will be
+  StorageClass. A unique value (GID) in this range ( gidMin-gidMax ) will be
   used for dynamically provisioned volumes. These are optional values. If not
   specified, the volume will be provisioned with a value between 2000-2147483647
   which are defaults for gidMin and gidMax respectively.
@@ -441,7 +441,7 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
     ```
 
     `datastore`: The user can also specify the datastore in the StorageClass.
-    The volume will be created on the datastore specified in the storage class,
+    The volume will be created on the datastore specified in the StorageClass,
     which in this case is `VSANDatastore`. This field is optional. If the
     datastore is not specified, then the volume will be created on the datastore
     specified in the vSphere config file used to initialize the vSphere Cloud
@@ -580,7 +580,7 @@ parameters:
 
 ### Azure Disk
 
-#### Azure Unmanaged Disk Storage Class
+#### Azure Unmanaged Disk StorageClass
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -601,7 +601,7 @@ parameters:
   ignored. If a storage account is not provided, a new storage account will be
   created in the same resource group as the cluster.
 
-#### New Azure Disk Storage Class (starting from v1.7.2)
+#### New Azure Disk StorageClass (starting from v1.7.2)
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -766,8 +766,8 @@ parameters:
 * `pool`: The name of the StorageOS distributed capacity pool to provision the
   volume from.  Uses the `default` pool which is normally present if not specified.
 * `description`: The description to assign to volumes that were created dynamically.
-  All volume descriptions will be the same for the storage class, but different
-  storage classes can be used to allow descriptions for different use cases.
+  All volume descriptions will be the same for the StorageClass, but different
+  Storage Classes can be used to allow descriptions for different use cases.
   Defaults to `Kubernetes volume`.
 * `fsType`: The default filesystem type to request. Note that user-defined rules
   within StorageOS may override this value.  Defaults to `ext4`.
