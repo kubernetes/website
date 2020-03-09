@@ -18,11 +18,10 @@ No entanto, a funcionalidade nativa fornecida por um mecanismo de contêiner ou 
 {{% capture body %}}
 
 As arquiteturas de log no nível de cluster são descritas no pressuposto de que um back-end de log esteja presente dentro ou fora do cluster. Se você não estiver interessado em ter o log no nível do cluster, ainda poderá encontrar a descrição de como os logs são armazenados e manipulados no nó para serem úteis.
-Cluster-level logging architectures are described in assumption that a logging backend is present inside or outside of your cluster. If you're not interested in having cluster-level logging, you might still find the description of how logs are stored and handled on the node to be useful.
 
 ## Log básico no Kubernentes
 
-Nesta seção, você pode ver um exemplo de log básico no Kubernetes que gera dados para o fluxo de saída padrão. Esta demostração usa uma [especificação de pod](/examples/debug/counter-pod.yaml) com um contêiner que grava algum texto na saída padrão uma vez por segundo.
+Nesta seção, você pode ver um exemplo de log básico no Kubernetes que gera dados para o fluxo de saída padrão(standard output stream). Esta demostração usa uma [especificação de pod](/examples/debug/counter-pod.yaml) com um contêiner que grava algum texto na saída padrão uma vez por segundo.
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
@@ -53,7 +52,7 @@ A saída será:
 ...
 ```
 
-Você pode usar `kubectl logs` para recuperar logs de uma instanciação anterior de um contêiner com o sinalizador `--previous`, caso o contêiner tenha falhado. Se o seu pod tiver vários contêineres, você deverá especificar quais logs do contêiner você deverá especificar quais logs do contêiner você deseja acessar anexando um nome de contêiner ao comando. Veja a [documentação do `kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) para mais destalhes.
+Você pode usar `kubectl logs` para recuperar logs de uma instanciação anterior de um contêiner com o sinalizador `--previous`, caso o contêiner tenha falhado. Se o seu pod tiver vários contêineres, você deverá especificar quais logs do contêiner você deseja acessar anexando um nome de contêiner ao comando. Veja a [documentação do `kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) para mais destalhes.
 
 ## Logs no nível do Nó
 
@@ -73,7 +72,7 @@ No script `kube-up.sh`, a última abordagem é usada para imagem COS no GCP, e a
 
 Como exemplo, você pode encontrar informações detalhadas sobre como o `kube-up.sh` define o log da imagem COS no GCP no [script][cosconfigurehelper] correspondente.
 
-Quando você executa [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) como em exemplo básico de log, o kubelet no nó lida com a solicitação e lê diretamente do arquivo de log, retornando o conteúdo na resposta.
+Quando você executa [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) como no exemplo de log básico acima, o kubelet no nó lida com a solicitação e lê diretamente do arquivo de log, retornando o conteúdo na resposta.
 
 {{< note >}}
 Atualmente, se algum sistema externo executou a rotação, apenas o conteúdo do arquivo de log mais recente estará disponível através de `kubectl logs`. Por exemplo, se houver um arquivo de 10MB, o `logrotate` executa a rotação e existem dois arquivos, um com 10MB de tamanho e um vazio, o `kubectl logs` retornará uma resposta vazia.
@@ -85,7 +84,7 @@ Atualmente, se algum sistema externo executou a rotação, apenas o conteúdo do
 
 Existem dois tipos de componentes do sistema: aqueles que são executados em um contêiner e aqueles que não são executados em um contêiner. Por exemplo:
 
-- O agendador Kubernetes e o kube-proxy são executados em um contêiner.
+- O scheduler Kubernetes e o kube-proxy são executados em um contêiner.
 - O tempo de execução do kubelet e do contêiner, por exemplo, Docker, não é executado em contêineres.
 
 Nas máquinas com systemd, o tempo de execução do kubelet e do container é gravado no journald. Se systemd não estiver presente, eles gravam em arquivos `.log` no diretório `/var/log`.
