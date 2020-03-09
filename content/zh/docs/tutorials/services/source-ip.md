@@ -278,7 +278,7 @@ client_address=10.240.0.5
 ```
 
 
-然而，如果你的集群运行在 Google Kubernetes Engine/GCE 上，设置 `service.spec.externalTrafficPolicy` 字段值为 `Local` 可以强制使*没有* endpoints 的节点把他们自己从负载均衡流量的可选节点名单中删除。这是通过故意使它们健康检查失败达到的。
+然而，如果你的集群运行在 Google Kubernetes Engine/GCE 上，可以通过设置 service.spec.externalTrafficPolicy 字段值为 Local ，故意导致健康检查失败来强制使没有 endpoints 的节点把自己从负载均衡流量的可选节点列表中删除。
 
 
 用图表示：
