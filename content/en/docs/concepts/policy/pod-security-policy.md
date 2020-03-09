@@ -434,7 +434,9 @@ This field has no effect on ephemeral volume types such as
 and [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
 If you don't specify `FSGroupChangePolicy` for a durable (non-ephemeral) volume,
 the kubelet always recursively changes permission and ownership.
-of volume. This is an alpha feature in 1.18 and feature `ConfigurableFSGroupPolicy` must be enabled to use it.
+of volume. This is an alpha feature. To use it, enable the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates]
+`ConfigurableFSGroupPolicy` in the kubelet, api-server and controller-manager.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
