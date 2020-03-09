@@ -62,7 +62,7 @@ Below are general categories of non-Kubernetes project content along with guidel
 1. Instructional content involving non-Kubernetes projects during setup or operation of Kubernetes
     - Allowed:
         - Referring to or linking to existing documentation about a CNCF project or a project in the kubernetes or kubernetes-sigs GitHub organizations
-            - Example: for installating Kubernetes in a learning environment, including a prerequisite stating that successful installation and configuration of minikube is required and linking to the relevant minikube documentation
+            - Example: for installing Kubernetes in a learning environment, including a prerequisite stating that successful installation and configuration of minikube is required and linking to the relevant minikube documentation
         - Adding content for kubernetes or kubernetes-sigs projects that don't have their own instructional content
             - Example: including [kubeadm](https://github.com/kubernetes/kubeadm) installation and troubleshooting instructions
     - Not Allowed:

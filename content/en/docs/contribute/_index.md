@@ -36,11 +36,11 @@ To get involved with documentation:
 
 ## Contributions best practices
 
-- Do write clear and meaningful GIT commit messages.
-- Make sure to include _Github Special Keywords_ which references the issue and automatically closes the issue when PR is merged.
-- When you make a small change to a PR like fixing a typo, any style change, or changing grammar. Make sure you squash your commits so that you dont get a large number of commits for a relatively small change.
+- Do write clear and meaningful Git commit messages.
+- Make sure to include _GitHub Special Keywords_ which references the issue and automatically closes the issue when PR is merged.
+- When you make a small change to a PR like fixing a typo, any style change, or changing grammar. Make sure you squash your commits so that you don't get a large number of commits for a relatively small change.
 - Make sure you include a nice PR description depicting the code you have changes, why to change a following piece of code and ensuring there is sufficient information for the reviewer to understand your PR.
-- Additional Readings : 
+- Additional Readings:
     - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
     - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests )
     - [davidwalsh.name/squash-commits-git ](https://davidwalsh.name/squash-commits-git )

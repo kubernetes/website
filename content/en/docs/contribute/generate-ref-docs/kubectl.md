@@ -33,7 +33,7 @@ reference page, see
 
 ## Setting up the local repositories
 
-Create a local workspace and set your `GOPATH`.
+Create a local workspace and set your `GOPATH`:
 
 ```shell
 mkdir -p $HOME/<workspace>
@@ -62,7 +62,7 @@ Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes:
 git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
 ```
 
-Remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor/github.com`.
+Remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor/github.com`:
 
 ```shell
 rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/github.com/spf13
@@ -137,7 +137,7 @@ need to work with someone who can set the label and milestone for you.
 
 ## Setting build variables
 
-Go to `<rdocs-base>`. On you command line, set the following environment variables.
+Go to `<rdocs-base>`. On you command line, set the following environment variables:
 
 * Set `K8S_ROOT` to `<k8s-base>`.
 * Set `WEB_ROOT` to `<web-base>`.
@@ -230,7 +230,7 @@ static/docs/reference/generated/kubectl/node_modules/font-awesome/css/font-aweso
 
 ## Locally test the documentation
 
-Build the Kubernetes documentation in your local `<web-base>`.
+Build the Kubernetes documentation in your local `<web-base>`:
 
 ```shell
 cd <web-base>

@@ -23,7 +23,7 @@ the build setup and generates the reference documentation for a release.
 ## Getting the docs repository
 
 Make sure your `website` fork is up-to-date with the `kubernetes/website` master and clone
-your `website` fork.
+your `website` fork:
 
 ```shell
 mkdir github.com

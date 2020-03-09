@@ -165,7 +165,7 @@ The ["Participating"](/docs/contribute/participating/#approvers) section contain
     symbol. Within a line, the actual modified content has a slightly darker
     green background than the rest of the line.
 
-      - Especially if the PR uses tricky formatting or changes CSS, Javascript,
+      - Especially if the PR uses tricky formatting or changes CSS, JavaScript,
         or other site-wide elements, you can preview the website with the PR
         applied. Go to the **Conversation** tab and click the **Details** link
         for the `deploy/netlify` test, near the bottom of the page. It opens in
@@ -283,14 +283,14 @@ to the GitHub UI.
 
 3.  Fetch the remote. This doesn't change any local files, but updates your
     clone's notion of the remote's objects (such as branches and tags) and
-    their current state.
+    their current state:
 
       ```bash
       git remote fetch <name>
       ```
 
 4.  Check out the remote branch. This command will fail if you already have a
-    local branch with the same name.
+    local branch with the same name:
 
       ```bash
       git checkout <branch-from-PR>
@@ -298,7 +298,7 @@ to the GitHub UI.
 
 5.  Make your changes, use `git add` to add them, and commit them.
 
-6.  Push your changes to the author's remote.
+6.  Push your changes to the author's remote:
 
       ```bash
       git push <remote-name> <branch-name>
@@ -330,7 +330,7 @@ on the Kubernetes documentation.
     and click the **Fork** button. After a few seconds, you are redirected to
     the URL for your fork, which is `https://github.com/<github_username>/website`.
 
-2.  In a terminal window, use `git clone` to clone the your fork.
+2.  In a terminal window, use `git clone` to clone the your fork:
 
       ```bash
       git clone git@github.com/<github_username>/website
@@ -339,7 +339,7 @@ on the Kubernetes documentation.
       The new directory `website` is created in your current directory, with
       the contents of your GitHub repository. Your fork is your `origin`.
 
-3.  Change to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote.
+3.  Change to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote:
 
       ```bash
       cd website
@@ -347,7 +347,7 @@ on the Kubernetes documentation.
       git remote add upstream https://github.com/kubernetes/website.git
       ```
 
-4.  Confirm your `origin` and `upstream` repositories.
+4.  Confirm your `origin` and `upstream` repositories:
 
     ```bash
     git remote -v
@@ -418,7 +418,7 @@ most up-to-date version of that branch.
     There are two important sections: `Changes staged for commit` and
     `Changes not staged for commit`. Any files that show up in the latter
     section under `modified` or `untracked` need to be added if you want them to
-    be part of this commit. For each file that needs to be added, use `git add`.
+    be part of this commit. For each file that needs to be added, use `git add`:
 
       ```bash
       git add example-file.md
@@ -445,7 +445,7 @@ most up-to-date version of that branch.
 
 6.  Before you can create a pull request which includes your local commit, you
     need to push the branch to your fork, which is the endpoint for the `origin`
-    remote.
+    remote:
 
       ```bash
       git push origin <my_new_branch>
@@ -478,7 +478,7 @@ most up-to-date version of that branch.
     your changes applied. This is how reviewers will check your changes.
 
 9.  When you need to make more changes, address the feedback locally and amend
-    your original commit.
+    your original commit:
 
     ```bash
     git commit -a --amend
@@ -499,7 +499,7 @@ most up-to-date version of that branch.
 
 10. If a reviewer adds changes to your pull request, you need to fetch those
     changes from your fork before you can add more changes. Use the following
-    commands to do this, assuming that your branch is currently checked out.
+    commands to do this, assuming that your branch is currently checked out:
 
       ```bash
       git fetch origin
@@ -507,7 +507,7 @@ most up-to-date version of that branch.
       ```
 
       After rebasing, you need to add the `--force-with-lease` flag to
-      force push the branch's new changes to your fork.
+      force push the branch's new changes to your fork:
 
       ```bash
       git push --force-with-lease origin <your-branch-name>
@@ -522,7 +522,7 @@ most up-to-date version of that branch.
       the same state.
 
       Next, fetch `upstream` and rebase your branch on the branch it was
-      originally based on, like `upstream/master`.
+      originally based on, like `upstream/master`:
 
       ```bash
       git fetch upstream
@@ -543,11 +543,11 @@ most up-to-date version of that branch.
 12. If your PR still has multiple commits after amending previous commits, you
     must squash multiple commits into a single commit before your PR can be merged.
     You can check the number of commits on your PR's `Commits` tab or by running
-    `git log` locally. Squashing commits is a form of rebasing.
+    `git log` locally. Squashing commits is a form of rebasing:
 
     ```bash
     git rebase -i HEAD~<number_of_commits>
-    ```  
+    ```
 
     The `-i` switch tells git you want to rebase interactively. This enables
     you to tell git which commits to squash into the first one. For
@@ -556,10 +556,10 @@ most up-to-date version of that branch.
     ```
     12345 commit 4 (2 minutes ago)
     6789d commit 3 (30 minutes ago)
-    456df commit 2 (1 day ago)     
+    456df commit 2 (1 day ago)
     ```
 
-    You must squash your last three commits into the first one.
+    You must squash your last three commits into the first one:
 
     ```
     git rebase -i HEAD~3
@@ -574,7 +574,7 @@ most up-to-date version of that branch.
     ```
 
     Change `pick` to `squash` on the commits you want to squash, and make sure
-    the one `pick` commit is at the top of the editor.
+    the one `pick` commit is at the top of the editor:
 
     ```
     pick 456df commit 2
@@ -911,7 +911,7 @@ deadlines. Some deadlines related to documentation are:
 
 If your feature is an Alpha feature and is behind a feature gate, make sure you
 add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-as part of your pull request. If your feature is moving to Beta 
+as part of your pull request. If your feature is moving to Beta
 or to General Availability, update the feature gates file.
 
 ## Contribute to other repos

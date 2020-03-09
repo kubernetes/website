@@ -21,7 +21,7 @@ This page shows you how to [localize](https://blog.mozilla.org/l10n/2011/12/14/i
 
 ## Getting started
 
-Because contributors can't approve their own pull requests, you need at least two contributors to begin a localization. 
+Because contributors can't approve their own pull requests, you need at least two contributors to begin a localization.
 
 All localization teams must be self-sustaining with their own resources. We're happy to host your work, but we can't translate it for you.
 
@@ -42,12 +42,12 @@ cd website
 
 ### Open a pull request
 
-Next, [open a pull request](/docs/contribute/start/#submit-a-pull-request) (PR) to add a localization to the `kubernetes/website` repository. 
+Next, [open a pull request](/docs/contribute/start/#submit-a-pull-request) (PR) to add a localization to the `kubernetes/website` repository.
 
 The PR must include all of the [minimum required content](#minimum-required-content) before it can be approved.
 
 For an example of adding a new localization, see the PR to enable [docs in French](https://github.com/kubernetes/website/pull/12548).
-    
+
 ### Join the Kubernetes GitHub organization
 
 Once you've opened a localization PR, you can become members of the Kubernetes GitHub organization. Each person on the team needs to create their own [Organization Membership Request](https://github.com/kubernetes/org/issues/new/choose) in the `kubernetes/org` repository.
@@ -74,7 +74,7 @@ For an example of adding a label, see the PR for adding the [Italian language la
 
 Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/). Other localization teams are happy to help you get started and answer any questions you have.
 
-You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding channels for Indonesian and Portuguese](https://github.com/kubernetes/community/pull/3605). 
+You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding channels for Indonesian and Portuguese](https://github.com/kubernetes/community/pull/3605).
 
 ## Minimum required content
 
@@ -105,7 +105,7 @@ Add a language-specific subdirectory to the [`content`](https://github.com/kuber
 mkdir content/de
 ```
 
-### Localize the Community Code of Conduct 
+### Localize the Community Code of Conduct
 
 Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages) repository to add the code of conduct in your language.
 
@@ -192,10 +192,10 @@ mkdir -p content/de/docs/tutorials
 cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
 ```
 
-Translation tools can speed up the translation process. For example, some editors offers plugins to quickly translate text. 
+Translation tools can speed up the translation process. For example, some editors offers plugins to quickly translate text.
 
 {{< caution >}}
-Machine-generated translation alone does not meet the minimum standard of quality and requires extensive human review to meet that standard. 
+Machine-generated translation alone does not meet the minimum standard of quality and requires extensive human review to meet that standard.
 {{< /caution >}}
 
 To ensure accuracy in grammar and meaning, members of your localization team should carefully review all machine-generated translations before publishing.
@@ -264,7 +264,7 @@ Teams must merge localized content into the same release branch from which the c
 
 An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch.
 
-At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous development branch and the current development branch. 
+At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous development branch and the current development branch.
 
  While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required.
 
@@ -272,7 +272,7 @@ For more information about working from forks or directly from the repository, s
 
 ## Upstream contributions
 
-SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/intermediate#localize-content) to the English source. 
+SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/intermediate#localize-content) to the English source.
 
 ## Help an existing localization
 

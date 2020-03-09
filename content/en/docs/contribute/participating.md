@@ -62,6 +62,7 @@ Anyone can do the following:
   {{< /note >}}
 
 After [signing the CLA](/docs/contribute/start#sign-the-cla), anyone can also:
+
 - Open a pull request to improve existing content, add new content, or write a blog post or case study.
 
 ## Members

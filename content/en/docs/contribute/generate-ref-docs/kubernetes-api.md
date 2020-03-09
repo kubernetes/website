@@ -30,7 +30,7 @@ spec, continue reading this page.
 
 ## Setting up the local repositories
 
-Create a local workspace and set your `GOPATH`.
+Create a local workspace and set your `GOPATH`:
 
 ```shell
 mkdir -p $HOME/<workspace>
