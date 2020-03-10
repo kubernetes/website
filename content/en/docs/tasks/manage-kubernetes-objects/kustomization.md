@@ -791,6 +791,12 @@ kubectl get -k ./
 kubectl describe -k ./
 ```
 
+Run the following command to compare the Deployment object `dev-my-nginx` against the state that the cluster would be in if the manifest was applied:
+
+```shell
+kubectl diff -k ./
+```
+
 Run the following command to delete the Deployment object `dev-my-nginx`:
 
 ```shell
