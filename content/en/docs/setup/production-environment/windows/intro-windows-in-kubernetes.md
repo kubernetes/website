@@ -408,7 +408,6 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
         # Register kubelet.exe
         # Microsoft releases the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.2.0
-        # For more info search for "pause" in the "Guide for adding Windows Nodes in Kubernetes"
         nssm install kubelet C:\k\kubelet.exe
         nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.2.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
@@ -426,8 +425,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
         nssm install kube-proxy C:\k\kube-proxy.exe
         nssm set kube-proxy AppDirectory c:\k
         nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --feature-gates="WinOverlay=true" --hostname-override=<hostname> --kubeconfig=c:\k\config --network-name=vxlan0 --source-vip=<source-vip> --enable-dsr=false --log-dir=<log directory> --logtostderr=false
-        nssm set kube-proxy DependOnService kubelet
-        nssm start kube-proxy
+        nssm set kube-proxy DependOnService kubelet nssm start kube-proxy
         ```
 
 
@@ -612,7 +610,11 @@ spec:
 
 ### Deployment with kubeadm and cluster API
 
-Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
+Kubeadm is becoming the de facto standard for users to deploy a Kubernetes
+cluster. Windows node support in kubeadm is currently a work-in-progress but a
+guide is available [here](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/).
+We are also making investments in cluster API to ensure Windows nodes are
+properly provisioned.
 
 ### A few other key features
 * Beta support for Group Managed Service Accounts
