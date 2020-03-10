@@ -45,8 +45,8 @@ client libraries:
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
-  * [kube-scheduler Policies](/docs/reference/kube-scheduler/policies)
-  * [kube-scheduler Profiles](/docs/reference/kube-scheduler/profiles)
+  * [kube-scheduler Policies](/docs/reference/scheduling/policies)
+  * [kube-scheduler Profiles](/docs/reference/scheduling/profiles)
 
 ## Design Docs
 

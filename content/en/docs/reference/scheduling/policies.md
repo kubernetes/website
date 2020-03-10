@@ -1,13 +1,13 @@
 ---
-title: Kube-scheduler Policies
+title: Scheduling Policies
 content_template: templates/concept
 weight: 10
 ---
 
 {{% capture overview %}}
 
-A scheduling Policy can be used to specify the predicates and priorities that
-[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
+A scheduling Policy can be used to specify the *predicates* and *priorities*
+that the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 runs to [filter and score nodes](/docs/concept/scheduling/kube-scheduler/#kube-scheduler-implementation),
 respectively.
 
@@ -21,7 +21,7 @@ ConfigMap (via `--policy-configmap` flag) that follows the
 
 ## Predicates
 
-The following predicates implement filtering:
+The following *predicates* implement filtering:
 
 - `PodFitsHostPorts`: Checks if a Node has free ports (the network protocol kind)
   for the Pod ports the Pod is requesting.
@@ -68,7 +68,7 @@ The following predicates implement filtering:
 
 ## Priorities
 
-The following priorities implement scoring:
+The following *priorities* implement scoring:
 
 - `SelectorSpreadPriority`: Spreads Pods across hosts, considering Pods that
    belong to the same {{< glossary_tooltip text="Service" term_id="service" >}},
@@ -120,5 +120,5 @@ The following priorities implement scoring:
 
 {{% capture whatsnext %}}
 * Learn about [scheduling](/docs/concepts/scheduling/kube-scheduler/)
-* Learn about [kube-scheduler profiles](/docs/reference/kube-scheduler/profiles/)
+* Learn about [kube-scheduler profiles](/docs/reference/scheduling/profiles/)
 {{% /capture %}}

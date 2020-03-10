@@ -1,5 +1,5 @@
 ---
-title: Kube-scheduler Profiles
+title: Scheduling Profiles
 content_template: templates/concept
 weight: 20
 ---
@@ -9,7 +9,7 @@ weight: 20
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
 A scheduling Profile allows to configure the different stages of scheduling
-in [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
+in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
 Each stage is exposed in a extension point. Plugins provide scheduling behaviors
 by implementing one or more of these extension points.
 
@@ -17,6 +17,8 @@ You can specify scheduling profiles for kube-scheduler in a configuration file
 (via `--config` flag) using the component config APIs
 ([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
 or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
+The `v1alpha2` API allows you to configure kube-scheduler to run
+[multiple profiles](#multiple-profiles).
 
 {{% /capture %}}
 
@@ -24,121 +26,126 @@ or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2
 
 ## Extension points
 
-Scheduling stages are exposed in the following extension points:
+Scheduling happens in a series of stages that are exposed through the following
+extension points:
 
-1. **QueueSort**: These plugins provide an ordering function that is used to
+1. `QueueSort`: These plugins provide an ordering function that is used to
    sort pending Pods in the scheduling queue. Exactly one queue sort plugin
    may be enabled at a time.
-1. **PreFilter**: These plugins are used to pre-process or check information
+1. `PreFilter`: These plugins are used to pre-process or check information
    about a Pod or the cluster before filtering.
-1. **Filter**: These plugins are the equivalent of Predicates in a scheduling
+1. `Filter`: These plugins are the equivalent of Predicates in a scheduling
    Policy and are used to filter out nodes that can not run the Pod. Filters
    are called in the configured order.
-1. **PreScore**: This is an informational extension point that can be used
+1. `PreScore`: This is an informational extension point that can be used
    for doing pre-scoring work.
-1. **Score**: These plugins provide a score to each node that has passed the
+1. `Score`: These plugins provide a score to each node that has passed the
    filtering phase. The scheduler will then select the node with the highest
    weighted scores sum.
-1. **Reserve**: This is an informational extension point that notifies plugins
+1. `Reserve`: This is an informational extension point that notifies plugins
    when resources have being reserved for a given Pod.
-1. **Permit**: These plugins can prevent or delay the binding of a Pod.
-1. **PreBind**: These plugins perform any work required before a Pod is bound.
-1. **Bind**: The plugins bind a Pod to a Node. Bind plugins are called in order
+1. `Permit`: These plugins can prevent or delay the binding of a Pod.
+1. `PreBind`: These plugins perform any work required before a Pod is bound.
+1. `Bind`: The plugins bind a Pod to a Node. Bind plugins are called in order
    and once one has done the binding, the remaining plugins are skipped. At
    least one bind plugin is required.
-1. **PostBind**: This is an informational extension point that is called after
+1. `PostBind`: This is an informational extension point that is called after
    a Pod has been bound.
-1. **UnReserve**: This is an informational extension point that is called if
-   a Pod is rejected after being reserved and put on hold by a Permit plugin.
+1. `UnReserve`: This is an informational extension point that is called if
+   a Pod is rejected after being reserved and put on hold by a `Permit` plugin.
    
 ## Scheduling plugins
 
 The following plugins, enabled by default, implement one or more of these
 extension points:
 
-
 - `DefaultTopologySpread`: Favors spreading across nodes for Pods that belong to
-  services, replica sets and stateful sets.
-  Extension points: *PreScore*, *Score*.
+  {{< glossary_tooltip text="Services" term_id="service" >}},
+  {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and
+  {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}
+  Extension points: `PreScore`, `Score`.
 - `ImageLocality`: Favors nodes that already have the container images that the
   Pod runs.
-  Extension points: *Score*.
+  Extension points: `Score`.
 - `TaintToleration`: Implements
   [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/).
-  Implements extension points: *Filter*, *Prescore*, *Score*.
+  Implements extension points: `Filter`, `Prescore`, `Score`.
 - `NodeName`: Checks if a Pod spec node name matches the current node.
-  Extension points: *Filter*.
+  Extension points: `Filter`.
 - `NodePorts`: Checks if a node has free ports for the requested Pod ports.
-  Extension points: *PreFilter*, *Filter*.
-- `NodePreferAvoidPods`: Scores nodes according to the node annotation
+  Extension points: `PreFilter`, `Filter`.
+- `NodePreferAvoidPods`: Scores nodes according to the node
+  {{< glossary_tooltip text="annotation" term_id="annotation" >}}
   `scheduler.alpha.kubernetes.io/preferAvoidPods`.
-  Extension points: *Score*.
+  Extension points: `Score`.
 - `NodeAffinity`: Implements
   [node selectors](/docs/concepts/configuration/assign-pod-node/#nodeselector)
   and [node affinity](/docs/concepts/configuration/assign-pod-node/#node-affinity).
-  Extension points: *Filter*, *Score*.
+  Extension points: `Filter`, `Score`.
 - `PodTopologySpread`: Implements
   [Pod topology spread](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
-  Extension points: *PreFilter*, *Filter*, *PreScore*, *Score*.
+  Extension points: `PreFilter`, `Filter`, `PreScore`, `Score`.
 - `NodeUnschedulable`: Filters out nodes that have `.spec.unschedulable` set to
   true.
-  Extension points: *Filter*.
+  Extension points: `Filter`.
 - `NodeResourcesFit`: Checks if the node has all the resources that the Pod is
   requesting.
-  Extension points: *PreFilter*, *Filter*.
+  Extension points: `PreFilter`, `Filter`.
 - `NodeResourcesBallancedAllocation`: Favors nodes that would obtain a more
   balanced resource usage if the Pod is scheduled there.
-  Extension points: *Score*.
+  Extension points: `Score`.
 - `NodeResourcesLeastAllocated`: Favors nodes that have a low allocation of
   resources.
-  Extension points: *Score*.
+  Extension points: `Score`.
 - `VolumeBinding`: Checks if the node has or if it can bind the requested
-  volumes.
-  Extension points: *Filter*.
+  {{< glossary_tooltip text="volumes" term_id="volume" >}}.
+  Extension points: `Filter`.
 - `VolumeRestrictions`: Checks that volumes mounted in the node satisfy
-  restrictions which are specific to the volume provider.
-  Extension points: *Filter*.
+  restrictions that are specific to the volume provider.
+  Extension points: `Filter`.
 - `VolumeZone`: Checks that volumes requested satisfy any zone requirements they
   might have.
-  Extension points: *Filter*.
+  Extension points: `Filter`.
 - `NodeVolumeLimits`: Checks that CSI volume limits can be satisfied for the
   node.
-  Extension points: *Filter*.
-- `EBSLimits`: Checks that EBS volume limits can be satisfied for the node.
-  Extension points: *Filter*.
+  Extension points: `Filter`.
+- `EBSLimits`: Checks that AWS EBS volume limits can be satisfied for the node.
+  Extension points: `Filter`.
 - `GCEPDLimits`: Checks that GCP-PD volume limits can be satisfied for the node.
-  Extension points: *Filter*.
+  Extension points: `Filter`.
 - `AzureDiskLimits`: Checks that Azure disk volume limits can be satisfied for
   the node.
-  Extension points: *Filter*.
+  Extension points: `Filter`.
 - `InterPodAffinity`: Implements
-  [inter Pod affininity and antiaffinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
-  Extension points: *PreFilter*, *Filter*, *PreScore*, *Score*.
+  [inter-Pod affinity and anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
+  Extension points: `PreFilter`, `Filter`, `PreScore`, `Score`.
 - `PrioritySort`: Provides the default priority based sorting.
-  Extension points: *QueueSort*.
+  Extension points: `QueueSort`.
 - `DefaultBinder`: Provides the default binding mechanism.
-  Extension points: *Bind*.
+  Extension points: `Bind`.
   
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
 
 - `NodeResourcesMostAllocated`: Favors nodes that have a high allocation of
   resources.
-  Extension points: *Score*.
+  Extension points: `Score`.
 - `RequestedToCapacityRatio`: Favor nodes according to a configured function of
   the allocated resources.
-  Extension points: *Score*.
+  Extension points: `Score`.
 - `NodeResourceLimits`: Favors nodes that satisfy the Pod resource limits.
-  Extension points: *PreScore*, *Score*.
-- `CinderVolume`: Checks that Cinder volume limits can be satisfied for the
-  node.
-  Extension points: *Filter*.
-- `NodeLabel`: Filters and/or scores a node according to the configured labels.
-  Extension points: *Filter*, *Score*.
-- `ServiceAffinity`: Checks that Pods that belong to a service fit in a set of
-  nodes defined by configured labels. It also favors spreading the Pods
-  belonging to a service across nodes.
-  Extension points: *PreFilter*, *Filter*, *Score*.
+  Extension points: `PreScore`, `Score`.
+- `CinderVolume`: Checks that OpenStack Cinder volume limits can be satisfied
+  for the node.
+  Extension points: `Filter`.
+- `NodeLabel`: Filters and / or scores a node according to configured
+  {{< glossary_tooltip text="label(s)" term_id="label" >}}.
+  Extension points: `Filter`, `Score`.
+- `ServiceAffinity`: Checks that Pods that belong to a
+  {{< glossary_tooltip term_id="service" >}} fit in a set of nodes defined by
+  configured labels. This plugin also favors spreading the Pods belonging to a
+  Service across nodes.
+  Extension points: `PreFilter`, `Filter`, `Score`.
   
 ## Multiple profiles
 
