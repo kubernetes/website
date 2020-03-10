@@ -33,7 +33,7 @@ additional overhead.
 You can also use RuntimeClass to run different Pods with the same container runtime
 but with different settings.
 
-## Set up
+## Setup
 
 Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
 Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
