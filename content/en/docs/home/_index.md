@@ -36,13 +36,11 @@ cards:
   button_path: "/docs/setup"
 - name: tasks
   title: "Learn how to use Kubernetes"
+  post: >
+    <p><a href="/training/">Learn Kubernetes with trainings and certifications, and make your cloud native projects successful.</a></p>
   description: "Look up common tasks and how to perform them using a short sequence of steps."
   button: "View Tasks"
   button_path: "/docs/tasks"
-  title: "Build your cloud native career with online trainings"
-  description: "Invest in your career, learn Kubernetes, and make your cloud native projects successful."
-  button:"View courses"
-  button_path:"/trainings"
 - name: reference
   title: Look up reference information
   description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
