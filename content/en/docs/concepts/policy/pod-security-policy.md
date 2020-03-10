@@ -425,19 +425,6 @@ Only trusted users should be granted permission to create `PersistentVolume` obj
 
 **FSGroup** - Controls the supplemental group applied to some volumes.
 
-**FSGroupChangePolicy** -  FSGroupChangePolicy defines behavior of changing ownership and permission of the volume
-before being exposed inside a Pod. This field only applies to volume types that support
-`fsGroup` controlled ownership (and permissions).
-This field has no effect on ephemeral volume types such as 
-[`secret`](https://kubernetes.io/docs/concepts/storage/volumes/#secret),
-[`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
-and [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
-If you don't specify `FSGroupChangePolicy` for a durable (non-ephemeral) volume,
-the kubelet always recursively changes permission and ownership.
-of volume. This is an alpha feature. To use it, enable the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates]
-`ConfigurableFSGroupPolicy` in the kubelet, api-server and controller-manager.
-
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
 - *MayRunAs* - Requires at least one `range` to be specified. Allows

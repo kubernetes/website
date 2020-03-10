@@ -124,6 +124,24 @@ The output shows that `testfile` has group ID 2000, which is the value of `fsGro
 -rw-r--r-- 1 1000 2000 6 Jun  6 20:08 testfile
 ```
 
+Kubernetes by default recursively changes ownership and permission of volume to match `fsGroup` specified in pod's
+`securityContext` when volume is mounted. Changing ownership and permissions of a large volume can be time consuming
+operation and that is where `fsGroupChangePolicy` field in `securityContext` comes in.
+
+**fSGroupChangePolicy** -  fSGroupChangePolicy defines behavior of changing ownership and permission of the volume
+before being exposed inside a Pod. This field only applies to volume types that support
+`fsGroup` controlled ownership (and permissions).
+This field has no effect on ephemeral volume types such as 
+[`secret`](https://kubernetes.io/docs/concepts/storage/volumes/#secret),
+[`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
+and [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
+If you don't specify `fSGroupChangePolicy` for a durable (non-ephemeral) volume,
+the kubelet always recursively changes permission and ownership.
+of volume. This is an alpha feature. To use it, enable the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates]
+`ConfigurableFSGroupPolicy` in the kubelet, api-server and controller-manager.
+
+
 Run the following command:
 
 ```shell
