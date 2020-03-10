@@ -387,7 +387,7 @@ there are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which 
 
 ### Upgrade Bash
 
-You can check your Bash's version by running:
+The instructions here assume you use Bash 4.1+. You can check your Bash's version by running:
 
 ```shell
 echo $BASH_VERSION
