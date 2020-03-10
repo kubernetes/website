@@ -21,7 +21,7 @@ experience with Kubernetes, and we tried to address some of these:
 
 - While compilers and linters do a good job to detect errors in pull-requests
   for code, a good validation is missing for Kubernetes configuration files.
-  The existing solution is to run `kubectl apply --dry-run=client`, but this runs a
+  The existing solution is to run `kubectl apply --dry-run`, but this runs a
   *local* dry-run that doesn't talk to the server: it doesn't have server
   validation and doesn't go through validating admission controllers. As an
   example, Custom resource names are only validated on the server so a local
@@ -67,7 +67,7 @@ have side-effects on dry-run (or at all).
 ### How to use it
 
 You can trigger the feature from kubectl by using `kubectl apply
---dry-run=server`, which will decorate the request with the dryRun flag
+--server-dry-run`, which will decorate the request with the dryRun flag
 and return the object as it would have been applied, or an error if it would
 have failed.
 
