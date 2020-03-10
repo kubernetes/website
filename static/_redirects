@@ -37,8 +37,6 @@
 /docs/admin/etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/admin/etcd_upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/admin/extensible-admission-controllers.md     /docs/admin/extensible-admission-controllers/ 301
-/docs/admin/federation/kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
-/docs/admin/federation/kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 /docs/admin/garbage-collection/     /docs/concepts/cluster-administration/kubelet-garbage-collection/ 301
 /docs/admin/ha-master-gce/     /docs/tasks/administer-cluster/highly-available-master/ 301
 /docs/admin/ha-master-gce.md/     /docs/tasks/administer-cluster/highly-available-master/ 301
@@ -49,7 +47,6 @@
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
 /docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
-/docs/admin/multi-cluster/     /docs/concepts/cluster-administration/federation/ 301
 /docs/admin/multiple-schedulers/     /docs/tasks/administer-cluster/configure-multiple-schedulers/ 301
 /docs/admin/namespaces/     /docs/tasks/administer-cluster/namespaces/ 301
 /docs/admin/namespaces/walkthrough/     /docs/tasks/administer-cluster/namespaces-walkthrough/ 301
@@ -96,10 +93,8 @@
 /docs/concepts/cluster-administration/configure-etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/device-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/ 301
 /docs/concepts/cluster-administration/etcd-upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
-/docs/concepts/cluster-administration/federation-service-discovery/     /docs/tasks/federation/federation-service-discovery/ 301
 /docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
 /docs/concepts/cluster-administration/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
-/docs/concepts/cluster-administration/multiple-clusters/     /docs/concepts/cluster-administration/federation/ 301
 /docs/concepts/cluster-administration/network-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/ 301
 /docs/concepts/cluster-administration/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
 /docs/concepts/cluster-administration/resource-usage-monitoring /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
@@ -286,7 +281,6 @@
 /docs/tasks/configure-pod-container/romana-network-policy/     /docs/tasks/administer-cluster/romana-network-policy/ 301
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
-/docs/tasks/federation/set-up-cluster-federation-kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 /docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/tasks/kubectl/install/     /docs/tasks/tools/install-kubectl/ 301
@@ -309,10 +303,6 @@
 
 /docs/tutorials/clusters/multiple-schedulers/     /docs/tasks/administer-cluster/configure-multiple-schedulers/ 301
 /docs/tutorials/connecting-apps/connecting-frontend-backend/     /docs/tasks/access-application-cluster/connecting-frontend-backend/ 301
-/docs/tutorials/federation/set-up-cluster-federation-kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
-/docs/tutorials/federation/set-up-cluster-federation-kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
-/docs/tutorials/federation/set-up-coredns-provider-federation/     /docs/tasks/federation/set-up-coredns-provider-federation/ 301
-/docs/tutorials/federation/set-up-placement-policies-federation/     /docs/tasks/federation/set-up-placement-policies-federation/ 301
 /docs/tutorials/kubernetes-basics/cluster-interactive/     /docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/ 301
 /docs/tutorials/kubernetes-basics/cluster-intro/     /docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/ 301
 /docs/tutorials/kubernetes-basics/deploy-interactive/     /docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/ 301
@@ -342,7 +332,6 @@
 /docs/tutorials/stateless-application/hello-minikube/     /docs/tutorials/hello-minikube/ 301
 /docs/tutorials/stateless-application/run-stateless-ap-replication-controller/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
-/docs/tutorials/tasks/set-up-cluster-federation-kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 
 /docs/user-guide/     /docs/home/ 301
 /docs/user-guide/accessing-the-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
@@ -369,21 +358,6 @@
 /docs/user-guide/downward-api/README/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/downward-api/volume/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
 /docs/user-guide/environment-guide/     /docs/tasks/inject-data-application/environment-variable-expose-pod-information/ 301
-/docs/user-guide/federation/     /docs/concepts/cluster-administration/federation/ 301
-/docs/user-guide/federation/cluster/     /docs/tasks/administer-federation/cluster/ 301
-/docs/user-guide/federation/configmap/     /docs/tasks/administer-federation/configmap/ 301
-/docs/user-guide/federation/configmap.md     /docs/tasks/administer-federation/configmap/ 301
-/docs/user-guide/federation/daemonsets/     /docs/tasks/administer-federation/daemonset/ 301
-/docs/user-guide/federation/daemonsets.md     /docs/tasks/administer-federation/daemonset/ 301
-/docs/user-guide/federation/deployment/     /docs/tasks/administer-federation/deployment/ 301
-/docs/user-guide/federation/deployment.md     /docs/tasks/administer-federation/deployment/ 301
-/docs/user-guide/federation/events/     /docs/tasks/administer-federation/events/ 301
-/docs/user-guide/federation/federated-ingress/     /docs/tasks/administer-federation/ingress/ 301
-/docs/user-guide/federation/federated-services/     /docs/tasks/federation/federation-service-discovery/ 301
-/docs/user-guide/federation/index.md     /docs/concepts/cluster-administration/federation/ 301
-/docs/user-guide/federation/namespaces/     /docs/tasks/administer-federation/namespaces/ 301
-/docs/user-guide/federation/replicasets/     /docs/tasks/administer-federation/replicaset/ 301
-/docs/user-guide/federation/secrets/     /docs/tasks/administer-federation/secret/ 301
 /docs/user-guide/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/user-guide/garbage-collector/*     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/user-guide/gpus/     /docs/tasks/manage-gpus/scheduling-gpus/ 301
