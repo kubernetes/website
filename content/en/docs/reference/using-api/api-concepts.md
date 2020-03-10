@@ -336,7 +336,9 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 
 ## Dry-run
 
-{{< feature-state for_k8s_version="v1.18" state="stable" >}} In version 1.18 the dry-run feature is enabled by default. The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry-run mode. DryRun mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non-dry-run response. The system guarantees that dry-run requests will not be persisted in storage or have any other side effects.
+ {{< feature-state for_k8s_version="v1.18" state="stable" >}}
+
+The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a _dry run_ mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non-dry-run response. The system guarantees that dry-run requests will not be persisted in storage or have any other side effects.
 
 
 ### Make a dry-run request
