@@ -419,13 +419,3 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ```
 
 {{% /capture %}}
-
-{{% capture whatsnext %}}
-
-Kubernetes also supports Federated Services, which can span multiple
-clusters and cloud providers, to provide increased availability,
-better fault tolerance and greater scalability for your services. See
-the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
-for further information.
-
-{{% /capture %}}
