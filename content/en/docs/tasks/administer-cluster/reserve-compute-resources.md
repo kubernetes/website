@@ -5,6 +5,7 @@ reviewers:
 - dashpole
 title: Reserve Compute Resources for System Daemons
 content_template: templates/task
+min-kubernetes-server-version: 1.8
 ---
 
 {{% capture overview %}}
@@ -27,6 +28,9 @@ on each node.
 {{% capture prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+Your Kubernetes server must be at or later than version 1.17 to use
+the kubelet command line option `--reserved-cpus` to set an
+[explicitly reserved CPU list](#explicitly-reserved-cpu-list).
 
 {{% /capture %}}
 
@@ -152,9 +156,9 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 - **Kubelet Flag**: `--reserved-cpus=0-3`
 
 `reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
-kubernetes system daemons. This option is added in 1.17 release. `reserved-cpus`
-is for systems that do not intent to define separate top level cgroups for
-OS system daemons and kubernetes system daemons with regard to cpuset resource.
+kubernetes system daemons. `reserved-cpus` is for systems that do not intend to
+define separate top level cgroups for OS system daemons and kubernetes system daemons
+with regard to cpuset resource.
 If the Kubelet **does not** have `--system-reserved-cgroup` and `--kube-reserved-cgroup`,
 the explicit cpuset provided by `reserved-cpus` will take precedence over the CPUs
 defined by `--kube-reserved` and `--system-reserved` options.
