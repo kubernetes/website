@@ -61,7 +61,7 @@ volumeBindingMode: Immediate
 
 ### Provisioner
 
-Storage Classes have a provisioner that determines what volume plugin is used
+Each StorageClass has a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
 
 | Volume Plugin        | Internal Provisioner| Config Example                       |
@@ -104,19 +104,19 @@ vendors provide their own external provisioner.
 
 ### Reclaim Policy
 
-Persistent Volumes that are dynamically created by a StorageClass will have the
+PersistentVolumes that are dynamically created by a StorageClass will have the
 reclaim policy specified in the `reclaimPolicy` field of the class, which can be
 either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
 StorageClass object is created, it will default to `Delete`.
 
-Persistent Volumes that are created manually and managed via a StorageClass will have
+PersistentVolumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
 
 ### Allow Volume Expansion
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-Persistent Volumes can be configured to be expandable. This feature when set to `true`, 
+PersistentVolumes can be configured to be expandable. This feature when set to `true`, 
 allows the users to resize the volume by editing the corresponding PVC object. 
 
 The following types of volumes support volume expansion, when the underlying
@@ -146,7 +146,7 @@ You can only use the volume expansion feature to grow a Volume, not to shrink it
 
 ### Mount Options
 
-Persistent Volumes that are dynamically created by a StorageClass will have the
+PersistentVolumes that are dynamically created by a StorageClass will have the
 mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
@@ -580,7 +580,7 @@ parameters:
 
 ### Azure Disk
 
-#### Azure Unmanaged Disk StorageClass
+#### Azure Unmanaged Disk storage class
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -601,7 +601,7 @@ parameters:
   ignored. If a storage account is not provided, a new storage account will be
   created in the same resource group as the cluster.
 
-#### New Azure Disk StorageClass (starting from v1.7.2)
+#### Azure Disk storage class (starting from v1.7.2)
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -766,8 +766,8 @@ parameters:
 * `pool`: The name of the StorageOS distributed capacity pool to provision the
   volume from.  Uses the `default` pool which is normally present if not specified.
 * `description`: The description to assign to volumes that were created dynamically.
-  All volume descriptions will be the same for the StorageClass, but different
-  Storage Classes can be used to allow descriptions for different use cases.
+  All volume descriptions will be the same for the storage class, but different
+  storage classes can be used to allow descriptions for different use cases.
   Defaults to `Kubernetes volume`.
 * `fsType`: The default filesystem type to request. Note that user-defined rules
   within StorageOS may override this value.  Defaults to `ext4`.

@@ -31,7 +31,7 @@ A PersistentVolume (PV) is a piece of storage in the cluster that has been provi
 
 A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., they can be mounted once read/write or many times read-only).
 
-While `PersistentVolumeClaims` allow a user to consume abstract storage resources, it is common that users need `PersistentVolumes` with varying properties, such as performance, for different problems. Cluster administrators need to be able to offer a variety of `PersistentVolumes` that differ in more ways than just size and access modes, without exposing users to the details of how those volumes are implemented. For these needs, there is the StorageClass resource.
+While PersistentVolumeClaims allow a user to consume abstract storage resources, it is common that users need PersistentVolumes with varying properties, such as performance, for different problems. Cluster administrators need to be able to offer a variety of PersistentVolumes that differ in more ways than just size and access modes, without exposing users to the details of how those volumes are implemented. For these needs, there is the _StorageClass_ resource.
 
 See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
@@ -51,7 +51,7 @@ A cluster administrator creates a number of PVs. They carry the details of the r
 
 When none of the static PVs the administrator created match a user's PersistentVolumeClaim,
 the cluster may try to dynamically provision a volume specially for the PVC.
-This provisioning is based on `StorageClasses`: the PVC must request a
+This provisioning is based on StorageClasses: the PVC must request a
 [storage class](/docs/concepts/storage/storage-classes/) and
 the administrator must have created and configured that class for dynamic
 provisioning to occur. Claims that request the class `""` effectively disable
@@ -74,7 +74,7 @@ Claims will remain unbound indefinitely if a matching volume does not exist. Cla
 
 Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a Pod. For volumes that support multiple access modes, the user specifies which mode is desired when using their claim as a volume in a Pod.
 
-Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
+Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a `persistentVolumeClaim` section in a Pod's `volumes` block. [Claims As Volumes](#claims-as-volumes) for more details on this.
 
 ### Storage Object in Use Protection
 The purpose of the Storage Object in Use Protection feature is to ensure that PersistentVolumeClaims (PVCs) in active use by a Pod and PersistentVolume (PVs) that are bound to PVCs are not removed from the system, as this may result in data loss.
@@ -222,7 +222,7 @@ Support for expanding CSI volumes is enabled by default but it also requires a s
 You can only resize volumes containing a file system if the file system is XFS, Ext3, or Ext4.
 
 When a volume contains a file system, the file system is only resized when a new Pod is using
-the PersistentVolumeClaim in ReadWrite mode. File system expansion is either done when a Pod is starting up
+the PersistentVolumeClaim in `ReadWrite` mode. File system expansion is either done when a Pod is starting up
 or when a Pod is running and the underlying file system supports online expansion.
 
 FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to `true`.
@@ -294,7 +294,7 @@ spec:
     storage: 5Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - `Once
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: slow
   mountOptions:
@@ -326,20 +326,20 @@ A PersistentVolume can be mounted on a host in any way supported by the resource
 
 The access modes are:
 
-* ReadWriteOnce -- the volume can be mounted as read-write by a single node
+* `Once -- the volume can be mounted as read-write by a single node
 * ReadOnlyMany -- the volume can be mounted read-only by many nodes
-* ReadWriteMany -- the volume can be mounted as read-write by many nodes
+* `Many -- the volume can be mounted as read-write by many nodes
 
 In the CLI, the access modes are abbreviated to:
 
-* RWO - ReadWriteOnce
+* RWO - `Once
 * ROX - ReadOnlyMany
-* RWX - ReadWriteMany
+* RWX - `Many
 
-> __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
+> __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as `Once by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
-| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
+| Volume Plugin        | `Once          | ReadOnlyMany          | `Many|
 | :---                 | :---:                  | :---:                 | :---:        |
 | AWSElasticBlockStore | &#x2713;               | -                     | -            |
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;     |
@@ -447,7 +447,7 @@ metadata:
   name: myclaim
 spec:
   accessModes:
-    - ReadWriteOnce
+    - `Once
   volumeMode: Filesystem
   resources:
     requests:
@@ -549,7 +549,7 @@ spec:
 
 ### A Note on Namespaces
 
-`PersistentVolumes` binds are exclusive, and since `PersistentVolumeClaims` are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
+PersistentVolumes binds are exclusive, and since PersistentVolumeClaims are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
 
 ## Raw Block Volume Support
 
@@ -572,7 +572,7 @@ Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
 Support for the additional plugins was added in 1.10.
 {{< /note >}}
 
-### PersistentVolume using a Raw Block Volume
+### PersistentVolume using a Raw Block Volume {#persistent-volume-using-a-raw-block-volume}
 
 ```yaml
 apiVersion: v1
@@ -583,7 +583,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteOnce
+    - `Once
   volumeMode: Block
   persistentVolumeReclaimPolicy: Retain
   fc:
@@ -591,7 +591,7 @@ spec:
     lun: 0
     readOnly: false
 ```
-### PersistentVolumeClaim requesting a Raw Block Volume
+### PersistentVolumeClaim requesting a Raw Block Volume {#persistent-volume-claim-requesting-a-raw-block-volume}
 
 ```yaml
 apiVersion: v1
@@ -600,7 +600,7 @@ metadata:
   name: block-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - `Once
   volumeMode: Block
   resources:
     requests:
@@ -664,7 +664,7 @@ Volume snapshot feature was added to support CSI Volume Plugins only. For detail
 To enable support for restoring a volume from a volume snapshot data source, enable the
 `VolumeSnapshotDataSource` feature gate on the apiserver and controller-manager.
 
-### Create PersistentVolumeClaim from Volume Snapshot
+### Create a PersistentVolumeClaim from a Volume Snapshot {#create-persistent-volume-claim-from-volume-snapshot}
 
 ```yaml
 apiVersion: v1
@@ -678,7 +678,7 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
   accessModes:
-    - ReadWriteOnce
+    - `Once
   resources:
     requests:
       storage: 10Gi
@@ -693,7 +693,7 @@ Volume clone feature was added to support CSI Volume Plugins only. For details, 
 To enable support for cloning a volume from a PVC data source, enable the
 `VolumePVCDataSource` feature gate on the apiserver and controller-manager.
 
-### Create PersistentVolumeClaim from an existing pvc
+### Create PersistentVolumeClaim from an existing PVC {#create-persistent-volume-claim-from-an-existing-pvc}
 
 ```yaml
 apiVersion: v1
@@ -706,7 +706,7 @@ spec:
     name: existing-src-pvc-name
     kind: PersistentVolumeClaim
   accessModes:
-    - ReadWriteOnce
+    - `Once
   resources:
     requests:
       storage: 10Gi
