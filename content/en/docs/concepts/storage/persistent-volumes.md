@@ -4,6 +4,7 @@ reviewers:
 - saad-ali
 - thockin
 - msau42
+- xing-yang
 title: Persistent Volumes
 feature:
   title: Storage orchestration
@@ -663,7 +664,7 @@ Only statically provisioned volumes are supported for alpha release. Administrat
 
 ## Volume Snapshot and Restore Volume from Snapshot Support
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 Volume snapshot feature was added to support CSI Volume Plugins only. For details, see [volume snapshots](/docs/concepts/storage/volume-snapshots/).
 
