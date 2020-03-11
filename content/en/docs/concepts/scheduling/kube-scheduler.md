@@ -79,11 +79,11 @@ one of these at random.
 There are two supported ways to configure the filtering and scoring behavior
 of the scheduler:
 
-1. [Scheduling Policies](/docs/reference/kube-scheduler/policies) allows you to
-  configure *Predicates* for filtering and *Priorities* for scoring.
-1. [Scheduling Profiles](/docs/reference/kube-scheduler/profiles) allows you to
+1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to
+  configure _Predicates_ for filtering and _Priorities_ for scoring.
+1. [Scheduling Profiles](/docs/reference/scheduling/profiles) allow you to
   configure Plugins that implement different scheduling stages, including:
-  `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` and others. You
+  `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
   can also configure the kube-scheduler to run different profiles.
 
 {{% /capture %}}
