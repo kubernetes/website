@@ -3,7 +3,7 @@ reviewers:
 - ahg-g
 title: Scheduling Framework
 content_template: templates/concept
-weight: 70
+weight: 60
 ---
 
 {{% capture overview %}}
@@ -56,16 +56,16 @@ stateful tasks.
 
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" >}}
 
-### Queue sort
+### QueueSort
 
 These plugins are used to sort Pods in the scheduling queue. A queue sort plugin
-essentially will provide a "less(Pod1, Pod2)" function. Only one queue sort
+essentially will provide a `Less(Pod1, Pod2)` function. Only one queue sort
 plugin may be enabled at a time.
 
-### Pre-filter
+### PreFilter
 
 These plugins are used to pre-process info about the Pod, or to check certain
-conditions that the cluster or the Pod must meet. If a pre-filter plugin returns
+conditions that the cluster or the Pod must meet. If a PreFilter plugin returns
 an error, the scheduling cycle is aborted.
 
 ### Filter
@@ -75,14 +75,11 @@ node, the scheduler will call filter plugins in their configured order. If any
 filter plugin marks the node as infeasible, the remaining plugins will not be
 called for that node. Nodes may be evaluated concurrently.
 
-### Post-filter
+## PreScore
 
-This is an informational extension point. Plugins will be called with a list of
-nodes that passed the filtering phase. A plugin may use this data to update
-internal state or to generate logs/metrics.
-
-**Note:** Plugins wishing to perform "pre-scoring" work should use the
-post-filter extension point.
+These plugins are used to perform "pre-scoring" work, which generates a sharable
+state for further Score plugins to use. If a PreScore plugin returns an error, the
+scheduling cycle is aborted.
 
 ### Scoring
 
@@ -104,7 +101,7 @@ many blinking lights they have.
 
 ```go
 func ScoreNode(_ *v1.pod, n *v1.Node) (int, error) {
-   return getBlinkingLightCount(n)
+    return getBlinkingLightCount(n)
 }
 ```
 
@@ -114,13 +111,13 @@ extension point.
 
 ```go
 func NormalizeScores(scores map[string]int) {
-   highest := 0
-   for _, score := range scores {
-      highest = max(highest, score)
-   }
-   for node, score := range scores {
-      scores[node] = score*NodeScoreMax/highest
-   }
+    highest := 0
+    for _, score := range scores {
+        highest = max(highest, score)
+    }
+    for node, score := range scores {
+        scores[node] = score*NodeScoreMax/highest
+    }
 }
 ```
 
@@ -146,8 +143,11 @@ state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
 
 ### Permit
 
-These plugins are used to prevent or delay the binding of a Pod. A permit plugin
-can do one of three things.
+The Permit extension point contains two parts which spans scheduling cycle and
+binding cycle.
+
+In the scheduling cycle, Permit plugins are called to prevent or delay the binding
+of a Pod. A permit plugin can do one of three things:
 
 1.  **approve** \
     Once all permit plugins approve a Pod, it is sent for binding.
@@ -157,19 +157,21 @@ can do one of three things.
     This will trigger [Unreserve](#unreserve) plugins.
 
 1.  **wait** (with a timeout) \
-    If a permit plugin returns "wait", then the Pod is kept in the permit phase
-    until a [plugin approves it](#frameworkhandle). If a timeout occurs, **wait**
-    becomes **deny** and the Pod is returned to the scheduling queue, triggering
+    If a permit plugin returns "wait", then the Pod is kept into an internal "waiting"
+    Pods list until a [plugin approves it](#frameworkhandle). If a timeout occurs,
+    **wait** becomes **deny** and the Pod is returned to the scheduling queue, triggering
     [Unreserve](#unreserve) plugins.
 
-**Approving a Pod binding**
-
-While any plugin can access the list of "waiting" Pods from the cache and
+**Note:** While any plugin can access the list of "waiting" Pods from the cache and
 approve them (see [`FrameworkHandle`](#frameworkhandle)) we expect only the permit
-plugins to approve binding of reserved Pods that are in "waiting" state. Once a
-Pod is approved, it is sent to the pre-bind phase.
+plugins to approve binding of reserved Pods that are in "waiting" state.
 
-### Pre-bind
+In the beginning of binding cycle, if the current Pod is in "waiting" Pods list, scheduler
+framework waits for it to be finished - either approved, denied, or timed out. Only when
+the Pod is approved, it is sent to the subsequent [PreBind](#prebind) phase; otherwise the binding
+cycle is aborted.
+
+### PreBind
 
 These plugins are used to perform any work required before a Pod is bound. For
 example, a pre-bind plugin may provision a network volume and mount it on the
@@ -186,7 +188,7 @@ configured order. A bind plugin may choose whether or not to handle the given
 Pod. If a bind plugin chooses to handle a Pod, **the remaining bind plugins are
 skipped**.
 
-### Post-bind
+### PostBind
 
 This is an informational extension point. Post-bind plugins are called after a
 Pod is successfully bound. This is the end of a binding cycle, and can be used
@@ -209,17 +211,17 @@ interfaces have the following form.
 
 ```go
 type Plugin interface {
-   Name() string
+    Name() string
 }
 
 type QueueSortPlugin interface {
-   Plugin
-   Less(*v1.pod, *v1.pod) bool
+    Plugin
+    Less(*v1.pod, *v1.pod) bool
 }
 
 type PreFilterPlugin interface {
-   Plugin
-   PreFilter(PluginContext, *v1.pod) error
+    Plugin
+    PreFilter(context.Context, *framework.CycleState, *v1.pod) error
 }
 
 // ...
@@ -228,8 +230,8 @@ type PreFilterPlugin interface {
 # Plugin Configuration
 
 Plugins can be enabled in the scheduler configuration. Also, default plugins can
-be disabled in the configuration. In 1.15, there are no default plugins for the
-scheduling framework.
+be disabled in the configuration. Starting from 1.18, there are a number of [default 
+plugins](/docs/reference/scheduling/profiles/#scheduling-plugins) enabled for the scheduling framework.
 
 The scheduler configuration can include configuration for plugins as well. Such
 configurations are passed to the plugins at the time the scheduler initializes
@@ -241,28 +243,30 @@ plugins at `reserve` and `preBind` extension points and disables a plugin. It
 also provides a configuration to plugin `foo`.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
+apiVersion: kubescheduler.config.k8s.io/v1alpha2
 kind: KubeSchedulerConfiguration
 
 ...
 
-plugins:
-  reserve:
-    enabled:
-    - name: foo
-    - name: bar
-    disabled:
-    - name: baz
-  preBind:
-    enabled:
-    - name: foo
-    disabled:
-    - name: baz
+profiles:
+- schedulerName: schedulerA
+  plugins:
+    reserve:
+      enabled:
+      - name: foo
+      - name: bar
+      disabled:
+      - name: baz
+    preBind:
+      enabled:
+      - name: foo
+      disabled:
+      - name: baz
 
-pluginConfig:
-- name: foo
-  args: >
-    Arbitrary set of args to plugin foo
+  pluginConfig:
+  - name: foo
+    args: >
+      Arbitrary set of args to plugin foo
 ```
 
 When an extension point is omitted from the configuration default plugins for
@@ -279,18 +283,20 @@ and enable `bar` and `foo` in order. The following example shows the
 configuration that achieves this:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
+apiVersion: kubescheduler.config.k8s.io/v1alpha2
 kind: KubeSchedulerConfiguration
 
 ...
 
-plugins:
-  reserve:
-    enabled:
-    - name: bar
-    - name: foo
-    disabled:
-    - name: foo
+profiles:
+- schedulerName: schedulerA
+  plugins:
+    reserve:
+      enabled:
+      - name: bar
+      - name: foo
+      disabled:
+      - name: foo
 ```
 
 {{% /capture %}}
