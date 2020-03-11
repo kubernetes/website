@@ -40,9 +40,9 @@ cards:
   button: "View Tasks"
   button_path: "/docs/tasks"
 - name: training
-  title: "Trainings"
+  title: "Training"
   description: "Get certified in Kubernetes and make your cloud native projects successful!"
-  button: "View trainings"
+  button: "View training"
   button_path: "/training"
 - name: reference
   title: Look up reference information
