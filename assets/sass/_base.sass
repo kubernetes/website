@@ -245,7 +245,7 @@ header
 
 #mainNav
   display: none
-  
+
   h5
     color: $blue
     font-weight: normal
@@ -853,6 +853,8 @@ dd
     font-weight: 500
     margin-bottom: 30px
     padding-bottom: 10px
+    position: relative
+    z-index: 1
 
     // Make sure anchor links aren't hidden by the header
     &:before
@@ -889,6 +891,8 @@ dd
     font-size: 16px
     font-weight: 300
     line-height: 1.75em
+    position: relative
+    z-index: 2
 
   p + p
     margin-top: 10px
@@ -962,6 +966,8 @@ dd
     margin: 20px 0
     padding-left: 30px
     font-weight: 300
+    position: relative
+    z-index: 2
 
   ul ul, ol ol, ul ol, ol ul
     margin: 0.75em 0
