@@ -80,7 +80,7 @@ yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
-### Installation avec des gestionnaires des paquets alternatif
+### Installation avec des gestionnaires des paquets alternatifs
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
