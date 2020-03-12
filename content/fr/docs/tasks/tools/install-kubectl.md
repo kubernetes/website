@@ -54,7 +54,7 @@ Vous devez utiliser une version de kubectl qui différe seulement d'une version 
 4. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Installation à l'aide des gestionnaires des paquets natifs
