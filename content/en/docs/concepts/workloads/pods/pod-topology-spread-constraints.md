@@ -189,7 +189,7 @@ There are some implicit conventions worth noting here:
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
 It is possible to set default topology spread constraints for a cluster. Default
-topology spread constraints are applied to a pod iff:
+topology spread constraints are applied to a Pod if, and only if:
 
 - It doesn't define any constraints in its `.spec.topologySpreadConstraints`.
 - It belongs to a service, replication controller, replica set or stateful set.
@@ -203,14 +203,17 @@ replication controllers, replica sets or stateful sets that the Pod belongs to.
 An example configuration might look like follows:
 
 ```yaml
-...
-pluginConfig:
-- name: PodTopologySpread
-  args:
-    defaultConstraints:
-    - maxSkew: 1
-      topologyKey: failure-domain.beta.kubernetes.io/zone
-      whenUnsatisfiable: ScheduleAnyway
+apiVersion: kubescheduler.config.k8s.io/v1alpha2
+kind: KubeSchedulerConfiguration
+
+profiles:
+  pluginConfig:
+  - name: PodTopologySpread
+    args:
+      defaultConstraints:
+      - maxSkew: 1
+        topologyKey: failure-domain.beta.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
 ```
 
 {{< note >}}
