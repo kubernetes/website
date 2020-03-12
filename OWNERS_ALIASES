@@ -190,10 +190,12 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna
