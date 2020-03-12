@@ -97,3 +97,11 @@ semantics to fields! It's also going to improve support for CRDs and unions!
 - Some kubectl apply features are missing from diff and could be useful, like the ability
 to filter by label, or to display pruned resources.
 - Eventually, kubectl diff will use server-side apply!
+
+{{< note >}}
+
+The flag `kubectl apply --server-dry-run` is deprecated in v1.18.
+Use the flag `--dry-run=server` for using server-side dry-run in
+`kubectl apply` and other subcommands.
+
+{{< /note >}}

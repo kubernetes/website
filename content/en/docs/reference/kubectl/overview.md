@@ -92,7 +92,7 @@ Operation       | Syntax    |       Description
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Run a proxy to the Kubernetes API server.
 `replace`        | `kubectl replace -f FILENAME` | Replace a resource from a file or stdin.
 `rolling-update`    | <code>kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE &#124; -f NEW_CONTROLLER_SPEC) [flags]</code> | Perform a rolling update by gradually replacing the specified replication controller and its pods.
-`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | Run a specified image on the cluster.
+`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=server|client|none] [--overrides=inline-json] [flags]` | Run a specified image on the cluster.
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | Update the size of the specified replication controller.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
