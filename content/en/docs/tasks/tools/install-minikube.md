@@ -221,6 +221,11 @@ For setting the `--vm-driver` with `minikube start`, enter the name of the hyper
 ```shell
 minikube start --vm-driver=<driver_name>
 ```
+For example, if you are using the HyperKit, then your command should be :
+
+```shell
+minikube start --vm-driver=hyperkit
+```
 
 Once `minikube start` finishes, run the command below to check the status of the cluster:
 
