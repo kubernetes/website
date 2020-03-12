@@ -425,7 +425,8 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
         nssm install kube-proxy C:\k\kube-proxy.exe
         nssm set kube-proxy AppDirectory c:\k
         nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --feature-gates="WinOverlay=true" --hostname-override=<hostname> --kubeconfig=c:\k\config --network-name=vxlan0 --source-vip=<source-vip> --enable-dsr=false --log-dir=<log directory> --logtostderr=false
-        nssm set kube-proxy DependOnService kubelet nssm start kube-proxy
+        nssm set kube-proxy DependOnService kubelet
+        nssm start kube-proxy
         ```
 
 
