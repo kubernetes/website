@@ -407,7 +407,7 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 ```
 
-Rechargez votre shell et vérifié que bash-completion v2 est correctement installé avec `type _init_completion`.
+Rechargez votre shell et vérifiéz que bash-completion v2 est correctement installé avec `type _init_completion`.
 
 ### Activer l'auto-complétion de kubectl
 
