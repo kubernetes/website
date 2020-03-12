@@ -16,7 +16,7 @@ weight: 20
 
 {{% capture overview %}}
 
-This document describes the current state of Persistent Volumes in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
+This document describes the current state of _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
 {{% /capture %}}
 

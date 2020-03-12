@@ -580,7 +580,7 @@ parameters:
 
 ### Azure Disk
 
-#### Azure Unmanaged Disk storage class
+#### Azure Unmanaged Disk storage class {#azure-unmanaged-disk-storage-class}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -601,7 +601,7 @@ parameters:
   ignored. If a storage account is not provided, a new storage account will be
   created in the same resource group as the cluster.
 
-#### Azure Disk storage class (starting from v1.7.2)
+#### Azure Disk storage class (starting from v1.7.2) {#azure-disk-storage-class}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
