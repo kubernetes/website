@@ -75,25 +75,25 @@ node, the scheduler will call filter plugins in their configured order. If any
 filter plugin marks the node as infeasible, the remaining plugins will not be
 called for that node. Nodes may be evaluated concurrently.
 
-## PreScore
+### PreScore
 
 These plugins are used to perform "pre-scoring" work, which generates a sharable
-state for further Score plugins to use. If a PreScore plugin returns an error, the
+state for Score plugins to use. If a PreScore plugin returns an error, the
 scheduling cycle is aborted.
 
-### Scoring
+### Score
 
 These plugins are used to rank nodes that have passed the filtering phase. The
 scheduler will call each scoring plugin for each node. There will be a well
 defined range of integers representing the minimum and maximum scores. After the
-[normalize scoring](#normalize-scoring) phase, the scheduler will combine node
+[Normalize Score](#normalize-score) phase, the scheduler will combine node
 scores from all plugins according to the configured plugin weights.
 
-### Normalize scoring
+### Normalize Score
 
 These plugins are used to modify scores before the scheduler computes a final
 ranking of Nodes. A plugin that registers for this extension point will be
-called with the [scoring](#scoring) results from the same plugin. This is called
+called with the [Score](#score) results from the same plugin. This is called
 once per plugin per scheduling cycle.
 
 For example, suppose a plugin `BlinkingLightScorer` ranks Nodes based on how
@@ -137,39 +137,34 @@ to prevent race conditions while the scheduler waits for the bind to succeed.
 
 This is the last step in a scheduling cycle. Once a Pod is in the reserved
 state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
-[Post-bind](#post-bind) plugins (on success) at the end of the binding cycle.
+[PostBind](#postbind) plugins (on success) at the end of the binding cycle.
 
 *Note: This concept used to be referred to as "assume".*
 
 ### Permit
 
-The Permit extension point contains two parts which spans scheduling cycle and
-binding cycle.
-
-In the scheduling cycle, Permit plugins are called to prevent or delay the binding
-of a Pod. A permit plugin can do one of three things:
+Permit plugins are invoked at the end of the scheduling cycle for each pod to
+prevent or delay the binding to the candidate node. A permit plugin can do one of
+the three things:
 
 1.  **approve** \
-    Once all permit plugins approve a Pod, it is sent for binding.
+    Once all Permit plugins approve a Pod, it is sent for binding.
 
 1.  **deny** \
-    If any permit plugin denies a Pod, it is returned to the scheduling queue.
+    If any Permit plugin denies a Pod, it is returned to the scheduling queue.
     This will trigger [Unreserve](#unreserve) plugins.
 
 1.  **wait** (with a timeout) \
-    If a permit plugin returns "wait", then the Pod is kept into an internal "waiting"
-    Pods list until a [plugin approves it](#frameworkhandle). If a timeout occurs,
-    **wait** becomes **deny** and the Pod is returned to the scheduling queue, triggering
-    [Unreserve](#unreserve) plugins.
+    If a Permit plugin returns "wait", then the Pod is kept in an internal "waiting"
+    Pods list, and the binding cycle of this Pod starts but directly blocks until it
+    gets [approved](#frameworkhandle). If a timeout occurs, **wait** becomes **deny**
+    and the Pod is returned to the scheduling queue, triggering [Unreserve](#unreserve)
+    plugins.
 
-**Note:** While any plugin can access the list of "waiting" Pods from the cache and
-approve them (see [`FrameworkHandle`](#frameworkhandle)) we expect only the permit
-plugins to approve binding of reserved Pods that are in "waiting" state.
-
-In the beginning of binding cycle, if the current Pod is in "waiting" Pods list, scheduler
-framework waits for it to be finished - either approved, denied, or timed out. Only when
-the Pod is approved, it is sent to the subsequent [PreBind](#prebind) phase; otherwise the binding
-cycle is aborted.
+**Note:** While any plugin can access the list of "waiting" Pods and approve them
+(see [`FrameworkHandle`](#frameworkhandle)), we expect only the permit
+plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
+is approved, it is sent to the [PreBind](#prebind) phase.
 
 ### PreBind
 
@@ -227,76 +222,19 @@ type PreFilterPlugin interface {
 // ...
 ```
 
-# Plugin Configuration
+## Plugin Configuration
 
 Plugins can be enabled in the scheduler configuration. Also, default plugins can
 be disabled in the configuration. Starting from 1.18, there are a number of [default 
-plugins](/docs/reference/scheduling/profiles/#scheduling-plugins) enabled for the scheduling framework.
+plugins](/docs/reference/scheduling/profiles/#scheduling-plugins) enabled for the
+scheduling framework.
 
-The scheduler configuration can include configuration for plugins as well. Such
-configurations are passed to the plugins at the time the scheduler initializes
-them. The configuration is an arbitrary value. The receiving plugin should
-decode and process the configuration.
+In addition to default plugins, you can also implement your own scheduling
+plugins and get them configured along with default plugins. You can visit
+[scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins) for more details.
 
-The following example shows a scheduler configuration that enables some
-plugins at `reserve` and `preBind` extension points and disables a plugin. It
-also provides a configuration to plugin `foo`.
-
-```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha2
-kind: KubeSchedulerConfiguration
-
-...
-
-profiles:
-- schedulerName: schedulerA
-  plugins:
-    reserve:
-      enabled:
-      - name: foo
-      - name: bar
-      disabled:
-      - name: baz
-    preBind:
-      enabled:
-      - name: foo
-      disabled:
-      - name: baz
-
-  pluginConfig:
-  - name: foo
-    args: >
-      Arbitrary set of args to plugin foo
-```
-
-When an extension point is omitted from the configuration default plugins for
-that extension points are used. When an extension point exists and `enabled` is
-provided, the `enabled` plugins are called in addition to default plugins.
-Default plugins are called first and then the additional enabled plugins are
-called in the same order specified in the configuration. If a different order of
-calling default plugins is desired, default plugins must be `disabled` and
-`enabled` in the desired order.
-
-Assuming there is a default plugin called `foo` at `reserve` and we are adding
-plugin `bar` that we want to be invoked before `foo`, we should disable `foo`
-and enable `bar` and `foo` in order. The following example shows the
-configuration that achieves this:
-
-```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha2
-kind: KubeSchedulerConfiguration
-
-...
-
-profiles:
-- schedulerName: schedulerA
-  plugins:
-    reserve:
-      enabled:
-      - name: bar
-      - name: foo
-      disabled:
-      - name: foo
-```
+Starting from 1.18, you can configure a set of plugins as a scheduler profile and then
+define multiple profiles to fit various kinds of workload. Learn more at
+[multiple profiles](/docs/reference/scheduling/profiles/#multiple-profiles).
 
 {{% /capture %}}
