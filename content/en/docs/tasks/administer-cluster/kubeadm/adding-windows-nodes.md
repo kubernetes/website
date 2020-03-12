@@ -10,6 +10,8 @@ weight: 30
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+
 You can use Kubernetes to run a mixture of Linux and Windows nodes, so you can mix Pods that run on Linux on with Pods that run on Windows. This page shows how to register Windows nodes to your cluster.
 
 {{% /capture %}}

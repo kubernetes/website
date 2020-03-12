@@ -7,6 +7,8 @@ weight: 40
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+
 This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
 
 {{% /capture %}}
