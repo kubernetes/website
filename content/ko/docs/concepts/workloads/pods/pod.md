@@ -41,7 +41,7 @@ _파드_ 는 (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지
 공유 볼륨에 엑세스 할 수 있다.
 
 [도커](https://www.docker.com/)의 구조 관점에서 보면
-파드는 공유 네임스페이스와 공유 [볼륨](/docs/concepts/storage/volumes/)을 가진
+파드는 공유 네임스페이스와 공유 [볼륨](/ko/docs/concepts/storage/volumes/)을 가진
 도커 컨테이너 그룹으로 모델링 된다.
 
 개별 애플리케이션 컨테이너와 같이, 파드는 상대적으로 수명이 짧은 엔터티로 간주된다.
