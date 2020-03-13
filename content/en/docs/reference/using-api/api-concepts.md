@@ -519,8 +519,12 @@ content type `application/apply-patch+yaml`) and `Update` (all other operations
 which modify the object). Both operations update the `managedFields`, but behave
 a little differently.
 
-{{< note >}}The apply content type `application/apply-patch+yaml` accepts both yaml **and** json,
-despite it's name.{{< /note >}}
+{{< note >}}
+Whether you are submitting JSON data or YAML data, use `application/apply-patch+yaml` as the
+Content-Type header value.
+
+All JSON documents are valid YAML.
+{{< /note >}}
 
 For instance, only the apply operation fails on conflicts while update does
 not. Also, apply operations are required to identify themselves by providing a
@@ -634,7 +638,8 @@ case.
 With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
 additional `application/apply-patch+yaml` content type. Users of Server Side
 Apply can send partially specified objects as YAML to this endpoint.
-An applied config should always include every field that the applier has an opinion about.
+When applying a configuration, one should always include all the fields
+that they have an opinion about.
 
 ### Clearing ManagedFields
 
@@ -668,10 +673,10 @@ the managedFields, this will result in the managedFields being reset first and
 the other changes being processed afterwards. As a result the applier takes
 ownership of any fields updated in the same request.
 
-### Known Issues
-
-- There is a known issue with using Server Side Apply on sub-resource endpoints
-  where field ownership is not being updated [#88981](https://github.com/kubernetes/kubernetes/issues/88981). 
+{{< caution >}} Server Side Apply does not correctly track ownership on
+sub-resources that don't receive the resource object type. If you are
+using Server Side Apply with such a sub-resource, the changed fields
+won't be tracked.  {{< /caution >}}
 
 ### Disabling the feature
 
