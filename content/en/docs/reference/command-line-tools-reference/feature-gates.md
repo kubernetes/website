@@ -91,6 +91,8 @@ different Kubernetes components.
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
 | `EndpointSlice` | `false` | Beta | 1.17 | |
+| `EndpointSlice` | `true` | Beta | 1.18 | |
+| `EndpointSliceProxying` | `false` | Alpha | 1.18 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
@@ -399,8 +401,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
    capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled
    if user namespace remapping is enabled in the Docker daemon.
 - `EndpointSlice`: Enables Endpoint Slices for more scalable and extensible
-   network endpoints. Requires corresponding API and Controller to be enabled.
-   See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+   network endpoints. See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+- `EndpointSliceProxying`: When this feature gate is enabled, kube-proxy will
+   use EndpointSlices as the primary data source instead of Endpoints, enabling
+   scalability and performance improvements. See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HugePageStorageMediumSize`: Enable support for multiple sizes pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
