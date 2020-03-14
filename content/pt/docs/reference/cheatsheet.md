@@ -13,7 +13,7 @@ card:
 {{% capture overview %}}
 
 Veja também: [Visão geral do Kubectl](/docs/reference/kubectl/overview/) e [JsonPath Guide](/docs/reference/kubectl/jsonpath).
-
+git h
 Esta página é uma visão geral do comando `kubectl`.
 
 {{% /capture %}}
@@ -254,47 +254,47 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
-## Editing Resources
-Edit any API resource in your preferred editor.
+## Editando Recursos
+Edite qualquer recurso da API no seu editor preferido.
 
 ```bash
-kubectl edit svc/docker-registry                      # Edit the service named docker-registry
-KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative editor
+kubectl edit svc/docker-registry                      # Edite o serviço chamado docker-registry
+KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use um editor alternativo
 ```
 
-## Scaling Resources
+## Escalando recursos
 
 ```bash
-kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3
-kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3
-kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3
-kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
+kubectl scale --replicas=3 rs/foo                                 # Escale um replicaset chamado 'foo' para 3
+kubectl scale --replicas=3 -f foo.yaml                            # Escale um recurso especifico em "foo.yaml" para 3
+kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Se o tamanho atual do deployment chamado mysql for dois, assim escale para 3
+kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Escalar vários replicaset
 ```
 
-## Deleting Resources
+## Exclusão de recursos
 
 ```bash
-kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
-kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
-kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl -n my-ns delete pod,svc --all                                      # Delete all pods and services in namespace my-ns,
-# Delete all pods matching the awk pattern1 or pattern2
+kubectl delete -f ./pod.json                                              # Exclua um pod usando o tipo e o nome especificados em pod.json
+kubectl delete pod,service baz foo                                        # Excluir pods e serviços com os mesmos nomes "baz" e "foo"
+kubectl delete pods,services -l name=myLabel                              # Excluir pods e serviços com o nome da label = myLabel
+kubectl -n my-ns delete pod,svc --all                                     # Exclua todos os pods e serviços no namespace my-ns,
+# Excluir todos os pods que correspondem ao awk pattern1 ou pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
-## Interacting with running Pods
+## Interagindo com a execução de Pods
 
 ```bash
-kubectl logs my-pod                                 # dump pod logs (stdout)
-kubectl logs -l name=myLabel                        # dump pod logs, with label name=myLabel (stdout)
-kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
-kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
-kubectl logs -l name=myLabel -c my-container        # dump pod logs, with label name=myLabel (stdout)
-kubectl logs my-pod -c my-container --previous      # dump pod container logs (stdout, multi-container case) for a previous instantiation of a container
-kubectl logs -f my-pod                              # stream pod logs (stdout)
-kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
-kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
-kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
+kubectl logs my-pod                                 # despejar logs de pod (stdout)
+kubectl logs -l name=myLabel                        # despejar logs de pod, com nome da label = myLabel (stdout)
+kubectl logs my-pod --previous                      # despejar logs de pod (stdout) para a instancia anterior de um contêiner
+kubectl logs my-pod -c my-container                 # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres)
+kubectl logs -l name=myLabel -c my-container        # despejar logs de pod, com nome da label = myLabel (stdout)
+kubectl logs my-pod -c my-container --previous      # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres) para uma instanciação anterior de um contêiner
+kubectl logs -f my-pod                              # Fluxo de logs de pod (stdout)
+kubectl logs -f my-pod -c my-container              # Fluxo de logs para um específico contêiner em um pod (stdout, caixa com vários contêineres)
+kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com nome da label = myLabel (stdout)
+kubectl run -i --tty busybox --image=busybox -- sh  # Executar pod como shell interativo
 kubectl run nginx --image=nginx --restart=Never -n 
 mynamespace                                         # Run pod nginx in a specific namespace
 kubectl run nginx --image=nginx --restart=Never     # Run pod nginx and write its spec into a file called pod.yaml
