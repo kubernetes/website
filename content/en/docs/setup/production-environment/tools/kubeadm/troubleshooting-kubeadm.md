@@ -64,16 +64,7 @@ This may be caused by a number of problems. The most common are:
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
-- your OS uses cgroup2 which is currently not supported by kubelet which is failed to start  
-  Diagnostic:
-    - `journalctl --unit kubelet` has *Failed to start ContainerManager system validation failed - Following Cgroup subsystem not mounted: [cpu cpuacct cpuset memory]* right before unit terminaltion
-    - `mount | grep cgroup` shows single mount point
-  Solution: add *systemd.unified_cgroup_hierarchy=0* to kernel command line. For Fedora 31:
-  ```
-  sed -ri 's/^(GRUB_CMDLINE_LINUX=.*)"$/\1 systemd.unified_cgroup_hierarchy=0"/g' /etc/sysconfig/grub && \
-  grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg && \
-  reboot
-  ```
+- your Linux distribution uses cgroups v2 which are currently unsupported by the kubelet and it failed to start.
 
 ## kubeadm blocks when removing managed containers
 
