@@ -153,8 +153,6 @@ different Kubernetes components.
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
 | `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | - |
-| `WindowsGMSA` | `false` | Alpha | 1.14 | |
-| `WindowsGMSA` | `true` | Beta | 1.16 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | |
 {{< /table >}}
@@ -276,6 +274,7 @@ different Kubernetes components.
 | `WindowsRunAsUserName` | `false` | Alpha | 1.16 | 1.16 |
 | `WindowsRunAsUserName` | `true` | Beta | 1.17 | 1.17 |
 | `WindowsRunAsUserName` | `true` | GA | 1.18 | - |
+| `WindowsGMSA` | `true` | GA | 1.18 | - |
 {{< /table >}}
 
 ## Using a feature
