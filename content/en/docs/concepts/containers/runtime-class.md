@@ -174,15 +174,14 @@ Nodes](/docs/concepts/configuration/assign-pod-node/).
 
 ### Pod Overhead
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-As of Kubernetes v1.16, RuntimeClass includes support for specifying overhead associated with
-running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead/) feature.
-To use `PodOverhead`, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled (it is off by default).
+You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
+the cluster (including the scheduler) to account for it when making decisions about Pods and resources.  
+To use Pod overhead, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled (it is on by default).
 
-
-Pod overhead is defined in RuntimeClass through the `Overhead` fields. Through the use of these fields,
+Pod overhead is defined in RuntimeClass through the `overhead` fields. Through the use of these fields,
 you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
 are accounted for in Kubernetes.
 
