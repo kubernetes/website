@@ -95,7 +95,7 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
 kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
 kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
-kubectl explain pods,svc                       # get the documentation for pod and svc manifests
+kubectl explain pods                           # get the documentation for pod manifests
 
 # Create multiple YAML objects from stdin
 cat <<EOF | kubectl apply -f -
