@@ -296,92 +296,92 @@ kubectl logs -f my-pod -c my-container              # Fluxo de logs para um espe
 kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com nome da label = myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Executar pod como shell interativo
 kubectl run nginx --image=nginx --restart=Never -n 
-mynamespace                                         # Run pod nginx in a specific namespace
-kubectl run nginx --image=nginx --restart=Never     # Run pod nginx and write its spec into a file called pod.yaml
+mynamespace                                         # Execute o pod nginx em um espaço de nome específico
+kubectl run nginx --image=nginx --restart=Never     # Execute o pod nginx e salve suas especificações em um arquivo chamado pod.yaml
 --dry-run -o yaml > pod.yaml
 
-kubectl attach my-pod -i                            # Attach to Running Container
-kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
-kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
-kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
-kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
+kubectl attach my-pod -i                            # Anexar ao contêiner em execução
+kubectl port-forward my-pod 5000:6000               # Ouça na porta 5000 na máquina local e encaminhe para a porta 6000 no my-pod
+kubectl exec my-pod -- ls /                         # Executar comando no pod existente (1 contêiner)
+kubectl exec my-pod -c my-container -- ls /         # Executar comando no pod existente (pod com vários contêineres)
+kubectl top pod POD_NAME --containers               # Mostrar métricas para um determinado pod e seus contêineres
 ```
 
-## Interacting with Nodes and Cluster
+## Interagindo com nós e cluster
 
 ```bash
-kubectl cordon my-node                                                # Mark my-node as unschedulable
-kubectl drain my-node                                                 # Drain my-node in preparation for maintenance
-kubectl uncordon my-node                                              # Mark my-node as schedulable
-kubectl top node my-node                                              # Show metrics for a given node
-kubectl cluster-info                                                  # Display addresses of the master and services
-kubectl cluster-info dump                                             # Dump current cluster state to stdout
-kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
+kubectl cordon my-node                                                # Marcar meu nó como não agendável
+kubectl drain my-node                                                 # Drene o meu nó na preparação para manutenção
+kubectl uncordon my-node                                              # Marcar meu nó como agendável
+kubectl top node my-node                                              # Mostrar métricas para um determinado nó
+kubectl cluster-info                                                  # Exibir endereços do mestre e serviços
+kubectl cluster-info dump                                             # Despejar o estado atual do cluster no stdout
+kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Despejar o estado atual do cluster em / path / to / cluster-state
 
-# If a taint with that key and effect already exists, its value is replaced as specified.
+# Se uma `taint` com essa chave e efeito já existir, seu valor será substituído conforme especificado.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 
-### Resource types
+### Tipos de recursos
 
-List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+Listar todos os tipos de recursos suportados, juntamente com seus nomes abreviados, [Grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups), se eles são por [namespaces](/docs/concepts/overview/working-with-objects/namespaces), e [objetos](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
 ```bash
 kubectl api-resources
 ```
 
-Other operations for exploring API resources:
+Outras operações para explorar os recursos da API:
 
 ```bash
-kubectl api-resources --namespaced=true      # All namespaced resources
-kubectl api-resources --namespaced=false     # All non-namespaced resources
-kubectl api-resources -o name                # All resources with simple output (just the resource name)
-kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
-kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
-kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
+kubectl api-resources --namespaced=true      # Todos os recursos com namespace
+kubectl api-resources --namespaced=false     # Todos os recursos sem namespace
+kubectl api-resources -o name                # Todos os recursos com saída simples (apenas o nome do recurso)
+kubectl api-resources -o wide                # Todos os recursos com saída expandida (também conhecida como "ampla")
+kubectl api-resources --verbs=list,get       # Todos os recursos que suportam os verbos de API "list" e "get"
+kubectl api-resources --api-group=extensions # Todos os recursos no grupo de API "extensions"
 ```
 
-### Formatting output
+### Formatação de saída
 
-To output details to your terminal window in a specific format, add the `-o` (or `--output`) flag to a supported `kubectl` command.
+Para enviar detalhes para a janela do terminal em um formato específico, adicione a flag `-o` (ou `--output`) para um comando `kubectl` suportado.
 
-Output format | Description
+Formato de saída | Descrição
 --------------| -----------
-`-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
-`-o=custom-columns-file=<filename>` | Print a table using the custom columns template in the `<filename>` file
-`-o=json`     | Output a JSON formatted API object
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath) expression
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath) expression in the `<filename>` file
-`-o=name`     | Print only the resource name and nothing else
-`-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
-`-o=yaml`     | Output a YAML formatted API object
+`-o=custom-columns=<spec>` | Imprimir uma tabela usando uma lista separada por vírgula de colunas personalizadas
+`-o=custom-columns-file=<filename>` | Imprima uma tabela usando o modelo de colunas personalizadas no arquivo `<nome do arquivo>`
+`-o=json`     | Saída de um objeto de API formatado em JSON
+`-o=jsonpath=<template>` | Imprima os campos definidos em uma expressão [jsonpath](/docs/reference/kubectl/jsonpath) 
+`-o=jsonpath-file=<filename>` | Imprima os campos definidos pela expressão [jsonpath](/docs/reference/kubectl/jsonpath) no arquivo `<nome do arquivo>`
+`-o=name`     | Imprima apenas o nome do recurso e nada mais
+`-o=wide`     | Saída no formato de texto sem formatação com qualquer informação adicional e, para pods, o nome do nó está incluído
+`-o=yaml`     | Saída de um objeto de API formatado em YAML
 
-### Kubectl output verbosity and debugging
+### Verbosidade da saída do Kubectl e debugging
 
-Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+A verbosidade do Kubectl é controlado com os sinalizadores `-v` ou` --v` seguidos por um número inteiro representando o nível do log. As convenções gerais de log do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
-Verbosity | Description
+Verbosidade | Descrição
 --------------| -----------
-`--v=0` | Generally useful for this to *always* be visible to a cluster operator.
-`--v=1` | A reasonable default log level if you don't want verbosity.
-`--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
-`--v=3` | Extended information about changes.
-`--v=4` | Debug level verbosity.
-`--v=6` | Display requested resources.
-`--v=7` | Display HTTP request headers.
-`--v=8` | Display HTTP request contents.
-`--v=9` | Display HTTP request contents without truncation of contents.
+`--v=0` | Geralmente útil para *sempre* estar visível para um operador de cluster.
+`--v=1` | Um nível de log padrão razoável se você não deseja verbosidade.
+`--v=2` | Informações úteis sobre o estado estacionário sobre o serviço e mensagens importantes de log que podem se correlacionar com alterações significativas no sistema. Este é o nível de log padrão recomendado para a maioria dos sistemas.
+`--v=3` | Informações estendidas sobre alterações.
+`--v=4` | Detalhamento no nível de debugging.
+`--v=6` | Exibir os recursos solicitados.
+`--v=7` | Exibir cabeçalhos de solicitação HTTP.
+`--v=8` | Exibir conteúdo da solicitação HTTP.
+`--v=9` | Exiba o conteúdo da solicitação HTTP sem o truncamento do conteúdo.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
+* Saiba mais em [Visão geral do kubectl](/docs/reference/kubectl/overview/).
 
-* See [kubectl](/docs/reference/kubectl/kubectl/) options.
+* Veja as opções do [kubectl](/docs/reference/kubectl/kubectl/).
 
-* Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
+* Veja as [Convenções de uso do kubectl](/docs/reference/kubectl/conventions/) para entender como usá-lo em scripts reutilizáveis.
 
-* See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
+* Ver mais comunidade [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
 {{% /capture %}}
