@@ -13,7 +13,7 @@ card:
 {{% capture overview %}}
 
 Veja também: [Visão geral do Kubectl](/docs/reference/kubectl/overview/) e [JsonPath Guide](/docs/reference/kubectl/jsonpath).
-git h
+
 Esta página é uma visão geral do comando `kubectl`.
 
 {{% /capture %}}
@@ -27,8 +27,8 @@ Esta página é uma visão geral do comando `kubectl`.
 ### BASH
 
 ```bash
-source <(kubectl completion bash) # configuração de autocomplete no bash do shell atual, o pacote bash-completion precisa ter sido instalado primeiro should be installed first.
-echo "source <(kubectl completion bash)" >> ~/.bashrc # para adicionar o autocomplete permanentemente para o seu shell bash.
+source <(kubectl completion bash) # configuração de autocomplete no bash do shell atual, o pacote bash-completion precisa ter sido instalado primeiro.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # para adicionar o autocomplete permanentemente no seu shell bash.
 ```
 
 Você também pode usar um apelido abreviado para `kubectl` que também funciona com o autocomplete:
@@ -41,13 +41,13 @@ complete -F __start_kubectl k
 ### ZSH
 
 ```bash
-source <(kubectl completion zsh)  # configuração autocomplete no terminal zsh no shell atual
+source <(kubectl completion zsh)  # configuração para usar autocomplete no terminal zsh no shell atual
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # adicionar autocomplete permanentemente para o seu shell zsh
 ```
 
 ## Kubectl Contexto e configuração
 
-Defina com qual cluster do Kubernetes o `kubectl` se comunica e modifique a informação da configuração.
+Defina com qual cluster do Kubernetes o `kubectl` se comunica e modifique os detales da configuração.
 Veja a documentação [Autenticando entre clusters com o kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) para
 informações detalhadas do arquivo de configuração.
 
@@ -68,10 +68,10 @@ kubectl config get-contexts                          # exibir lista de contextos
 kubectl config current-context                       # exibir o contexto atual
 kubectl config use-context my-cluster-name           # defina o contexto padrão como my-cluster-name
 
-# adicione um novo cluster ao seu kubeconf que suporte autenticação básica
+# adicione um novo cluster ao seu kubeconfig que suporte autenticação básica
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
-#salve o namespace permanentemente para todos os comandos subsequentes do kubectl nesse contexto.
+# salve o namespace permanentemente para todos os comandos subsequentes do kubectl nesse contexto.
 kubectl config set-context --current --namespace=ggckad-s2
 
 # defina um contexto utilizando um nome de usuário e o namespace.
@@ -81,9 +81,9 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
 kubectl config unset users.foo                       # excluir usuário foo
 ```
 
-## Aplique
+## Aplicar
 `apply` gerencia aplicativos através de arquivos que definem os recursos do Kubernetes. Ele cria e atualiza recursos em um cluster através da execução `kubectl apply`.
-Esta é a maneira recomendada de gerenciar aplicativos Kubernetes em ambiente de produção. Veja [Livro Kubectl](https://kubectl.docs.kubernetes.io).
+Esta é a maneira recomendada de gerenciar aplicativos Kubernetes em ambiente de produção. Veja a [documentação do Kubectl](https://kubectl.docs.kubernetes.io).
 
 ## Criando objetos
 
@@ -139,10 +139,10 @@ EOF
 
 ```
 
-## Vendo, localizando recursos
+## Visualizando e localizando recursos
 
 ```bash
-# Obter comandos com saída básica
+# Obter comandos com saída simples
 kubectl get services                          # Listar todos os serviços do namespace
 kubectl get pods --all-namespaces             # Listar todos os pods em todos namespaces
 kubectl get pods -o wide                      # Listar todos os pods no atual namespace, com mais detalhes
@@ -164,7 +164,7 @@ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 # Lista PersistentVolumes classificado por capacidade
 kubectl get pv --sort-by=.spec.capacity.storage
 
-# Obtenha a versão do rótulo de todos os pods com o rótulo app=cassandra
+# Obtenha a versão da label de todos os pods com a label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
