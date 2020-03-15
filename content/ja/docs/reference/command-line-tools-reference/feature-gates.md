@@ -387,7 +387,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `TaintBasedEvictions`: ノードの汚染とpodの許容に基づいてノードからpodを排除できるようにします。。詳細は[汚染と許容](/docs/concepts/configuration/taint-and-toleration/)で確認できます。
 - `TaintNodesByCondition`: [ノードの条件](/ja/docs/concepts/architecture/nodes/#condition)に基づいてノードの自動汚染を有効にします。
 - `TokenRequest`: サービスアカウントリソースで`TokenRequest`エンドポイントを有効にします。
-- `TokenRequestProjection`: [投影ボリューム](/docs/concepts/storage/volumes/#projected)を使用したpodへのサービスアカウントのトークンの注入を有効にします。
+- `TokenRequestProjection`: [Projectedボリューム](/docs/concepts/storage/volumes/#projected)を使用したpodへのサービスアカウントのトークンの注入を有効にします。
 - `TTLAfterFinished`: [TTLコントローラー](/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
 - `VolumePVCDataSource`: 既存のPVCをデータソースとして指定するサポートを有効にします。
 - `VolumeScheduling`: ボリュームトポロジー対応のスケジューリングを有効にし、PersistentVolumeClaim（PVC）バインディングにスケジューリングの決定を認識させます。また`PersistentLocalVolumes`フィーチャーゲートと一緒に使用すると[`local`](/docs/concepts/storage/volumes/#local)ボリュームタイプの使用が可能になります。
