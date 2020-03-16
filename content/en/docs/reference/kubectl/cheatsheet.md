@@ -42,7 +42,7 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 
 ## Kubectl Context and Configuration
@@ -95,7 +95,7 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
 kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
 kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
-kubectl explain pods,svc                       # get the documentation for pod and svc manifests
+kubectl explain pods                           # get the documentation for pod manifests
 
 # Create multiple YAML objects from stdin
 cat <<EOF | kubectl apply -f -
@@ -148,7 +148,6 @@ kubectl get pods -o wide                      # List all pods in the current nam
 kubectl get deployment my-dep                 # List a particular deployment
 kubectl get pods                              # List all pods in the namespace
 kubectl get pod my-pod -o yaml                # Get a pod's YAML
-kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster specific information
 
 # Describe commands with verbose output
 kubectl describe nodes my-node

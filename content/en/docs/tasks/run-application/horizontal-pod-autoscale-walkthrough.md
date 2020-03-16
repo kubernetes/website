@@ -369,8 +369,8 @@ label, you can specify the following metric block to scale only on GET requests:
 type: Object
 object:
   metric:
-    name: `http_requests`
-    selector: `verb=GET`
+    name: http_requests
+    selector: {matchLabels: {verb: GET}}
 ```
 
 This selector uses the same syntax as the full Kubernetes label selectors. The monitoring pipeline

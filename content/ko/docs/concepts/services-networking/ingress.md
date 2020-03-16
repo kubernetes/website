@@ -334,7 +334,7 @@ spec:
 {{< note >}}
 TLS 기능을 제공하는 다양한 인그레스 컨트롤러간의 기능
 차이가 있다. 사용자 환경에서의 TLS의 작동 방식을 이해하려면
-[nginx](https://git.k8s.io/ingress-nginx/README.md#https),
+[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https) 또는 기타
 플랫폼의 특정 인그레스 컨트롤러에 대한 설명서를 참조한다.
 {{< /note >}}

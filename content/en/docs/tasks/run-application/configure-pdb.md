@@ -180,8 +180,8 @@ then you'll see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               0                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               0                     7s
 ```
 
 If there are matching pods (say, 3), then you would see something like this:
@@ -190,11 +190,11 @@ If there are matching pods (say, 3), then you would see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               1                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               1                     7s
 ```
 
-The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
+The non-zero value for `ALLOWED DISRUPTIONS` means that the disruption controller has seen the pods,
 counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
@@ -206,14 +206,15 @@ kubectl get poddisruptionbudgets zk-pdb -o yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  creationTimestamp: 2017-08-28T02:38:26Z
+  annotations:
+…
+  creationTimestamp: "2020-03-04T04:22:56Z"
   generation: 1
   name: zk-pdb
 …
 status:
   currentHealthy: 3
-  desiredHealthy: 3
-  disruptedPods: null
+  desiredHealthy: 2
   disruptionsAllowed: 1
   expectedPods: 3
   observedGeneration: 1
