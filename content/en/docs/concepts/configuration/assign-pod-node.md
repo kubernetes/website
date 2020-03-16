@@ -111,9 +111,10 @@ For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
 feature, greatly expands the types of constraints you can express. The key enhancements are
 
-1. the language is more expressive (not just "AND or exact match")
+1. The affinity/anti-affinity language is more expressive. The language offers more matching rules
+   besides exact matches created with a logical AND operation;
 2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
-   can't satisfy it, the pod will still be scheduled
+   can't satisfy it, the pod will still be scheduled;
 3. you can constrain against labels on other pods running on the node (or other topological domain),
    rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
 
@@ -159,9 +160,9 @@ You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, o
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
 
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of** the `nodeSelectorTerms` is satisfied.
+If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **only if all** `nodeSelectorTerms` can be satisfied.
 
-If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
+If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **if one of** the `matchExpressions` is satisfied.
 
 If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
 
@@ -228,7 +229,7 @@ for performance and security reasons, there are some constraints on topologyKey:
 1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
 empty `topologyKey` is not allowed.
 2. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
-3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
+3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is not allowed.
 4. Except for the above cases, the `topologyKey` can be any legal label-key.
 
 In addition to `labelSelector` and `topologyKey`, you can optionally specify a list `namespaces`
