@@ -154,11 +154,7 @@ for a volume.
 
 **fsGroupChangePolicy** -  `fsGroupChangePolicy` defines behavior for changing ownership and permission of the volume
 before being exposed inside a Pod. This field only applies to volume types that support
-`fsGroup` controlled ownership (and permissions).
-This field has no effect on ephemeral volume types such as
-[`secret`](https://kubernetes.io/docs/concepts/storage/volumes/#secret),
-[`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
-and [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir). This field has two possible values:
+`fsGroup` controlled ownership and permissions. This field has two possible values:
 
 * _OnRootMismatch_: Only change permissions and ownership if permission and ownership of root directory does not match with expected permissions of the volume. This could help shorten the time it takes to change ownership and permission of a volume.
 * _Always_: Always change permission and ownership of the volume when volume is mounted.
@@ -174,6 +170,13 @@ securityContext:
 ```
 
 This is an alpha feature. To use it, enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates) `ConfigurableFSGroupPolicy` in the kubelet, api-server and controller-manager.
+
+{{< note >}}
+This field has no effect on ephemeral volume types such as
+[`secret`](https://kubernetes.io/docs/concepts/storage/volumes/#secret),
+[`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
+and [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
+{{< /note >}}
 
 
 ## Set the security context for a Container
