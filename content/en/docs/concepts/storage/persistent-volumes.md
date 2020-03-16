@@ -319,11 +319,10 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
-Now, you can set the value of `volumeMode` to `block` to use a raw block device, or `filesystem`
-to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
+You can set the value of `volumeMode` to `Block` to use a raw block device, or `Filesystem`
+to use a filesystem. `Filesystem` is the default if the value is omitted. This is an optional API
 parameter.
 
 ### Access Modes
@@ -559,24 +558,21 @@ spec:
 
 ## Raw Block Volume Support
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable:
 
 * AWSElasticBlockStore
 * AzureDisk
+* CSI
 * FC (Fibre Channel)
 * GCEPersistentDisk
 * iSCSI
 * Local volume
+* OpenStack Cinder
 * RBD (Ceph Block Device)
-* VsphereVolume (alpha)
-
-{{< note >}}
-Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
-Support for the additional plugins was added in 1.10.
-{{< /note >}}
+* VsphereVolume
 
 ### Persistent Volumes using a Raw Block Volume
 
