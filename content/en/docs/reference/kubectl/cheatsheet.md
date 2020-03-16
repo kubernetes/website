@@ -42,7 +42,7 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 
 ## Kubectl Context and Configuration
