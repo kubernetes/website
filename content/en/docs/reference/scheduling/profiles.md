@@ -13,8 +13,8 @@ in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
 Each stage is exposed in a extension point. Plugins provide scheduling behaviors
 by implementing one or more of these extension points.
 
-You can specify scheduling profiles for kube-scheduler in a configuration file
-(via `--config` flag) using the component config APIs
+You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
+using the component config APIs
 ([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@{{< param "fullversion" >}}/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
 or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@{{< param "fullversion" >}}/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
 The `v1alpha2` API allows you to configure kube-scheduler to run

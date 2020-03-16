@@ -8,12 +8,13 @@ weight: 10
 
 A scheduling Policy can be used to specify the *predicates* and *priorities*
 that the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-runs to [filter and score nodes](/docs/concept/scheduling/kube-scheduler/#kube-scheduler-implementation),
+runs to [filter and score nodes](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation),
 respectively.
 
-A policy can be specified through a file (via `--policy-config-file` flag) or a
-ConfigMap (via `--policy-configmap` flag) that follows the
-[Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy).
+You can set a scheduling policy by running
+`kube-scheduler --policy-config-file <filename>` or
+`kube-scheduler --policy-configmap <ConfigMap>`
+and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy).
 
 {{% /capture %}}
 
