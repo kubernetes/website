@@ -169,7 +169,7 @@ securityContext:
   fsGroupChangePolicy: "OnRootMismatch"
 ```
 
-This is an alpha feature. To use it, enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates) `ConfigurableFSGroupPolicy` in the kubelet, api-server and controller-manager.
+This is an alpha feature. To use it, enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ConfigurableFSGroupPolicy` for the kube-api-server, the kube-controller-manager, and for the kubelet.
 
 {{< note >}}
 This field has no effect on ephemeral volume types such as
