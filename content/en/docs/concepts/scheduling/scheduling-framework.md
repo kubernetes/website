@@ -59,7 +59,7 @@ stateful tasks.
 ### QueueSort {#queue-sort}
 
 These plugins are used to sort Pods in the scheduling queue. A queue sort plugin
-essentially will provide a `Less(Pod1, Pod2)` function. Only one queue sort
+essentially provides a `Less(Pod1, Pod2)` function. Only one queue sort
 plugin may be enabled at a time.
 
 ### PreFilter {#pre-filter}
@@ -86,10 +86,10 @@ scheduling cycle is aborted.
 These plugins are used to rank nodes that have passed the filtering phase. The
 scheduler will call each scoring plugin for each node. There will be a well
 defined range of integers representing the minimum and maximum scores. After the
-[Normalize Score](#normalize-scoring) phase, the scheduler will combine node
+[NormalizeScore](#normalize-scoring) phase, the scheduler will combine node
 scores from all plugins according to the configured plugin weights.
 
-### Normalize Score {#normalize-scoring}
+### NormalizeScore {#normalize-scoring}
 
 These plugins are used to modify scores before the scheduler computes a final
 ranking of Nodes. A plugin that registers for this extension point will be
@@ -121,12 +121,12 @@ func NormalizeScores(scores map[string]int) {
 }
 ```
 
-If any Normalize Score plugin returns an error, the scheduling cycle is
+If any NormalizeScore plugin returns an error, the scheduling cycle is
 aborted.
 
 {{< note >}}
 Plugins wishing to perform "pre-reserve" work should use the
-Normalize Score extension point.
+NormalizeScore extension point.
 {{< /note >}}
 
 ### Reserve
@@ -141,13 +141,9 @@ This is the last step in a scheduling cycle. Once a Pod is in the reserved
 state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
 [PostBind](#post-bind) plugins (on success) at the end of the binding cycle.
 
-{{< note >}}
-This concept used to be referred to as "assume".
-{{< /note >}}
-
 ### Permit
 
-Permit plugins are invoked at the end of the scheduling cycle for each pod to
+_Permit_ plugins are invoked at the end of the scheduling cycle for each Pod, to
 prevent or delay the binding to the candidate node. A permit plugin can do one of
 the three things:
 
@@ -178,13 +174,13 @@ These plugins are used to perform any work required before a Pod is bound. For
 example, a pre-bind plugin may provision a network volume and mount it on the
 target node before allowing the Pod to run there.
 
-If any pre-bind plugin returns an error, the Pod is [rejected](#unreserve) and
+If any PreBind plugin returns an error, the Pod is [rejected](#unreserve) and
 returned to the scheduling queue.
 
 ### Bind
 
 These plugins are used to bind a Pod to a Node. Bind plugins will not be called
-until all pre-bind plugins have completed. Each bind plugin is called in the
+until all PreBind plugins have completed. Each bind plugin is called in the
 configured order. A bind plugin may choose whether or not to handle the given
 Pod. If a bind plugin chooses to handle a Pod, **the remaining bind plugins are
 skipped**.
@@ -230,17 +226,17 @@ type PreFilterPlugin interface {
 
 ## Plugin configuration
 
-Plugins can be enabled in the scheduler configuration. Also, default plugins can
-be disabled in the configuration. Starting from 1.18, there are a number of [default 
-plugins](/docs/reference/scheduling/profiles/#scheduling-plugins) enabled for the
-scheduling framework.
+You can enable or disable plugins in the scheduler configuration. If you are using
+Kubernetes v1.18 or later, most scheduling
+[plugins](/docs/reference/scheduling/profiles/#scheduling-plugins) are in use and
+enabled by default.
 
 In addition to default plugins, you can also implement your own scheduling
 plugins and get them configured along with default plugins. You can visit
 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins) for more details.
 
-Starting from 1.18, you can configure a set of plugins as a scheduler profile and then
-define multiple profiles to fit various kinds of workload. Learn more at
-[multiple profiles](/docs/reference/scheduling/profiles/#multiple-profiles).
+If you are using Kubernetes v1.18 or later, you can configure a set of plugins as
+a scheduler profile and then define multiple profiles to fit various kinds of workload.
+Learn more at [multiple profiles](/docs/reference/scheduling/profiles/#multiple-profiles).
 
 {{% /capture %}}
