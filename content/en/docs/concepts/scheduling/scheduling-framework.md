@@ -10,7 +10,7 @@ weight: 60
 
 {{< feature-state for_k8s_version="1.15" state="alpha" >}}
 
-The scheduling framework is a new pluggable architecture for Kubernetes Scheduler
+The scheduling framework is a pluggable architecture for Kubernetes Scheduler
 that makes scheduler customizations easy. It adds a new set of "plugin" APIs to
 the existing scheduler. Plugins are compiled into the scheduler. The APIs
 allow most scheduling features to be implemented as plugins, while keeping the
@@ -56,13 +56,13 @@ stateful tasks.
 
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" >}}
 
-### QueueSort
+### QueueSort {#queue-sort}
 
 These plugins are used to sort Pods in the scheduling queue. A queue sort plugin
 essentially will provide a `Less(Pod1, Pod2)` function. Only one queue sort
 plugin may be enabled at a time.
 
-### PreFilter
+### PreFilter {#pre-filter}
 
 These plugins are used to pre-process info about the Pod, or to check certain
 conditions that the cluster or the Pod must meet. If a PreFilter plugin returns
@@ -75,25 +75,25 @@ node, the scheduler will call filter plugins in their configured order. If any
 filter plugin marks the node as infeasible, the remaining plugins will not be
 called for that node. Nodes may be evaluated concurrently.
 
-### PreScore
+### PreScore {#pre-score}
 
 These plugins are used to perform "pre-scoring" work, which generates a sharable
 state for Score plugins to use. If a PreScore plugin returns an error, the
 scheduling cycle is aborted.
 
-### Score
+### Score {#scoring}
 
 These plugins are used to rank nodes that have passed the filtering phase. The
 scheduler will call each scoring plugin for each node. There will be a well
 defined range of integers representing the minimum and maximum scores. After the
-[Normalize Score](#normalize-score) phase, the scheduler will combine node
+[Normalize Score](#normalize-scoring) phase, the scheduler will combine node
 scores from all plugins according to the configured plugin weights.
 
-### Normalize Score
+### Normalize Score {#normalize-scoring}
 
 These plugins are used to modify scores before the scheduler computes a final
 ranking of Nodes. A plugin that registers for this extension point will be
-called with the [Score](#score) results from the same plugin. This is called
+called with the [Score](#scoring) results from the same plugin. This is called
 once per plugin per scheduling cycle.
 
 For example, suppose a plugin `BlinkingLightScorer` ranks Nodes based on how
@@ -121,11 +121,13 @@ func NormalizeScores(scores map[string]int) {
 }
 ```
 
-If any normalize-scoring plugin returns an error, the scheduling cycle is
+If any Normalize Score plugin returns an error, the scheduling cycle is
 aborted.
 
-**Note:** Plugins wishing to perform "pre-reserve" work should use the
-normalize-scoring extension point.
+{{< note >}}
+Plugins wishing to perform "pre-reserve" work should use the
+Normalize Score extension point.
+{{< /note >}}
 
 ### Reserve
 
@@ -137,9 +139,11 @@ to prevent race conditions while the scheduler waits for the bind to succeed.
 
 This is the last step in a scheduling cycle. Once a Pod is in the reserved
 state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
-[PostBind](#postbind) plugins (on success) at the end of the binding cycle.
+[PostBind](#post-bind) plugins (on success) at the end of the binding cycle.
 
-*Note: This concept used to be referred to as "assume".*
+{{< note >}}
+This concept used to be referred to as "assume".
+{{< /note >}}
 
 ### Permit
 
@@ -161,12 +165,14 @@ the three things:
     and the Pod is returned to the scheduling queue, triggering [Unreserve](#unreserve)
     plugins.
 
-**Note:** While any plugin can access the list of "waiting" Pods and approve them
+{{< note >}}
+While any plugin can access the list of "waiting" Pods and approve them
 (see [`FrameworkHandle`](#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
-is approved, it is sent to the [PreBind](#prebind) phase.
+is approved, it is sent to the [PreBind](#pre-bind) phase.
+{{< /note >}}
 
-### PreBind
+### PreBind {#pre-bind}
 
 These plugins are used to perform any work required before a Pod is bound. For
 example, a pre-bind plugin may provision a network volume and mount it on the
@@ -183,7 +189,7 @@ configured order. A bind plugin may choose whether or not to handle the given
 Pod. If a bind plugin chooses to handle a Pod, **the remaining bind plugins are
 skipped**.
 
-### PostBind
+### PostBind {#post-bind}
 
 This is an informational extension point. Post-bind plugins are called after a
 Pod is successfully bound. This is the end of a binding cycle, and can be used
@@ -222,7 +228,7 @@ type PreFilterPlugin interface {
 // ...
 ```
 
-## Plugin Configuration
+## Plugin configuration
 
 Plugins can be enabled in the scheduler configuration. Also, default plugins can
 be disabled in the configuration. Starting from 1.18, there are a number of [default 
