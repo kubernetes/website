@@ -294,7 +294,7 @@ spec:
     storage: 5Gi
   volumeMode: Filesystem
   accessModes:
-    - `Once
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: slow
   mountOptions:
@@ -326,20 +326,20 @@ A PersistentVolume can be mounted on a host in any way supported by the resource
 
 The access modes are:
 
-* `Once -- the volume can be mounted as read-write by a single node
+* ReadWriteOnce -- the volume can be mounted as read-write by a single node
 * ReadOnlyMany -- the volume can be mounted read-only by many nodes
-* `Many -- the volume can be mounted as read-write by many nodes
+* ReadWriteMany -- the volume can be mounted as read-write by many nodes
 
 In the CLI, the access modes are abbreviated to:
 
-* RWO - `Once
+* RWO - ReadWriteOnce
 * ROX - ReadOnlyMany
-* RWX - `Many
+* RWX - ReadWriteMany
 
-> __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as `Once by a single node or ReadOnlyMany by many nodes, but not at the same time.
+> __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
-| Volume Plugin        | `Once          | ReadOnlyMany          | `Many|
+| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
 | :---                 | :---:                  | :---:                 | :---:        |
 | AWSElasticBlockStore | &#x2713;               | -                     | -            |
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;     |
@@ -447,7 +447,7 @@ metadata:
   name: myclaim
 spec:
   accessModes:
-    - `Once
+    - ReadWriteOnce
   volumeMode: Filesystem
   resources:
     requests:
@@ -583,7 +583,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - `Once
+    - ReadWriteOnce
   volumeMode: Block
   persistentVolumeReclaimPolicy: Retain
   fc:
@@ -600,7 +600,7 @@ metadata:
   name: block-pvc
 spec:
   accessModes:
-    - `Once
+    - ReadWriteOnce
   volumeMode: Block
   resources:
     requests:
@@ -678,7 +678,7 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
   accessModes:
-    - `Once
+    - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
@@ -706,7 +706,7 @@ spec:
     name: existing-src-pvc-name
     kind: PersistentVolumeClaim
   accessModes:
-    - `Once
+    - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
