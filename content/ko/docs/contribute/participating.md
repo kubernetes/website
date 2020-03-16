@@ -24,6 +24,7 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 쿠버네티스 커뮤니티 내에서 멤버십이 운영되는 방식에 대한 보다 많은 정보를 확인하려면
 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)
 문서를 확인한다.
+
 문서의 나머지에서는 대외적으로 쿠버네티스를 가장 잘 드러내는 수단 중 하나인 쿠버네티스 웹사이트와
 문서를 관리하는 책임을 가지는 SIG Docs에서,
 이런 체계가 작동하는 특유의 방식에 대한 윤곽을 잡아보겠다.
@@ -52,7 +53,8 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 누구나 다음 작업을 할 수 있다.
 
 - 문서를 포함한 쿠버네티스의 모든 부분에 대해 GitHub 이슈 열기.
-- 풀 리퀘스트/ 에 대한 구속력 없는 피드백 제공
+- 풀 리퀘스트에 대한 구속력 없는 피드백 제공
+- 기존 컨텐츠를 현지화하는데 도움주는 것
 - [슬랙](http://slack.k8s.io/) 또는 [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에 개선할 아이디어를 제시한다.
 - `/lgtm` Prow 명령 ("looks good to me" 의 줄임말)을 사용해서 병합을 위한 풀 리퀘스트의 변경을 추천한다.
   {{< note >}}
@@ -120,7 +122,6 @@ GitHub 그룹의 멤버이다. 리뷰어는 문서 풀 리퀘스트를 리뷰하
 - 이슈 해결 및 분류
 - 풀 리퀘스트 리뷰와 구속력있는 피드백 제공
 - 다이어그램, 그래픽 자산과 포함가능한 스크린샷과 비디오를 생성
-- 현지화
 - 코드에서 사용자 화면 문자열 편집
 - 코드 코멘트 개선
 
@@ -166,7 +167,7 @@ GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-adm
 
 승인자는
 [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
-GitHub 그룹의 멤버이다. [SIG Docs의 팀과 그룹](#teams-and-groups-within-sig-docs) 문서를 참조한다.
+GitHub 그룹의 멤버이다. [SIG Docs 팀과 자동화](#sig-docs-팀과-자동화) 문서를 참조한다.
 
 승인자는 다음의 작업을 할 수 있다.
 
@@ -225,7 +226,7 @@ GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-adm
 것으로 기대한다. [일주일 간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 문서를 참고한다.
 
-## SIG Docs chairperson
+## SIG Docs 의장
 
 SIG Docs를 포함한 각 SIG는, 한 명 이상의 SIG 멤버가 의장 역할을 하도록 선정한다. 이들은 SIG Docs와
 다른 쿠버네티스 조직 간 연락책(point of contact)이 된다. 이들은 쿠버네티스 프로젝트 전반의 조직과
@@ -297,7 +298,7 @@ PR 소유자에게 조언하는데 활용된다.
 - 모든 쿠버네티스 맴버는 코멘트에 `/lgtm` 을 추가해서 `lgtm` 레이블을 추가할 수 있다.
 - SIG Docs 승인자들만이 코멘트에 `/approve` 를
   추가해서 풀 리퀘스트를 병합할 수 있다. 일부 승인자들은
-  [PR Wrangler](#pr-wrangler) EHsms [SIG Docs 의장](#sig-docs-chairperson)과
+  [PR Wrangler](#pr-wrangler) 또는 [SIG Docs 의장](#sig-docs-의장)과
   같은 특정 역할도 수행한다.
 
 {{% /capture %}}

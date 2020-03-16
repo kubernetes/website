@@ -36,7 +36,7 @@ systems.
 ## 介绍
 
 `StorageClass` 为管理员提供了描述存储 `"类"` 的方法。
-不同的`类型`可能会映射到不同的服务质量等级或备份策略，或是由群集管理员制定的任意策略。
+不同的`类型`可能会映射到不同的服务质量等级或备份策略，或是由集群管理员制定的任意策略。
 Kubernetes 本身并不清楚各种`类`代表的什么。这个`类`的概念在其他存储系统中有时被称为"配置文件"。
 
 <!--
@@ -66,8 +66,8 @@ request any particular class to bind to: see the
 [`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
  -->
-管理员可以为没有申请绑定到特定 `StorageClass` 的 PVC 指定一个默认的`类` ：
-更多详情请参阅 [`PersistentVolumeClaim` 章节](#persistentvolumeclaims)。
+管理员可以为没有申请绑定到特定 `StorageClass` 的 PVC 指定一个默认的存储`类` ：
+更多详情请参阅 [`PersistentVolumeClaim` 章节](/docs/concepts/storage/persistent-volumes/#class-1)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -92,13 +92,13 @@ for provisioning PVs. This field must be specified.
  -->
 ### 存储分配器
 
-`StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`持久化卷申领`。该字段必须指定。
+`StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`PV`。该字段必须指定。
 
 <!--
 | Volume Plugin        | Internal Provisioner| Config Example                       |
 -->
 
-| 卷插件        | 提供厂商 | 配置例子                      |
+| 卷插件        | 内置分配器 | 配置例子                      |
 | :---                 |     :---:           |    :---:                             |
 | AWSElasticBlockStore | &#x2713;            | [AWS EBS](#aws-ebs)                          |
 | AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
