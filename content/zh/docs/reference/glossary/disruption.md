@@ -29,7 +29,7 @@ A disruption has consequences for workload resources, such as
 {{< glossary_tooltip term_id="deployment" >}}, that rely on the affected
 Pods.
 -->
-干扰是导致一个或多个 {{< glossary_tooltip term_id="pod" text="Pods" >}} 无法提供服务的事件。
+干扰是导致一个或多个 {{< glossary_tooltip term_id="pod" text="Pod" >}} 无法提供服务的事件。
 干扰会对依赖于被影响的 Pod 的工作负载资源（例如{{< glossary_tooltip term_id="deployment" >}}）产生影响。
 
 <!--more-->
