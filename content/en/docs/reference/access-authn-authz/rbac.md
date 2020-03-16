@@ -74,6 +74,9 @@ rules:
   verbs: ["get", "watch", "list"]
 ```
 
+The name of a Role or a ClusterRole object must be a valid
+[path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
+
 ### RoleBinding and ClusterRoleBinding
 
 A role binding grants the permissions defined in a role to a user or set of users.
@@ -81,6 +84,9 @@ It holds a list of subjects (users, groups, or service accounts), and a referenc
 Permissions can be granted within a namespace with a `RoleBinding`, or cluster-wide with a `ClusterRoleBinding`.
 
 A `RoleBinding` may reference a `Role` in the same namespace.
+The name of a `RoleBinding` object must be a valid
+[path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
+
 The following `RoleBinding` grants the "pod-reader" role to the user "jane" within the "default" namespace.
 This allows "jane" to read pods in the "default" namespace.
 
@@ -129,8 +135,10 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-Finally, a `ClusterRoleBinding` may be used to grant permission at the cluster level and in all
-namespaces. The following `ClusterRoleBinding` allows any user in the group "manager" to read 
+Finally, a `ClusterRoleBinding` may be used to grant permission at the cluster level and in all namespaces.
+ The name of a `ClusterRoleBinding` object must be a valid
+[path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
+The following `ClusterRoleBinding` allows any user in the group "manager" to read
 secrets in any namespace.
 
 ```yaml
