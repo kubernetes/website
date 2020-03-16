@@ -1,7 +1,7 @@
 ---
 title: Kubernetes Scheduler
 content_template: templates/concept
-weight: 60
+weight: 50
 ---
 
 {{% capture overview %}}
