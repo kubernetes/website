@@ -3,6 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}

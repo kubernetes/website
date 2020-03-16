@@ -427,7 +427,6 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
         # Register kubelet.exe
         # Microsoft releases the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.2.0
-        # For more info search for "pause" in the "Guide for adding Windows Nodes in Kubernetes"
         nssm install kubelet C:\k\kubelet.exe
         nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.2.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
@@ -539,7 +538,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service expect the image to be tagged as :latest.
 
-    Starting with Kubernetes v1.14, Microsoft releases the pause infrastructure container at `mcr.microsoft.com/k8s/core/pause:1.2.0`. For more information search for "pause" in the [Guide for adding Windows Nodes in Kubernetes](../user-guide-windows-nodes).
+    Starting with Kubernetes v1.14, Microsoft releases the pause infrastructure container at `mcr.microsoft.com/k8s/core/pause:1.2.0`.
 
 1. DNS resolution is not properly working
 
@@ -628,7 +627,11 @@ spec:
 
 ### Deployment with kubeadm and cluster API
 
-Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
+Kubeadm is becoming the de facto standard for users to deploy a Kubernetes
+cluster. Windows node support in kubeadm is currently a work-in-progress but a
+guide is available [here](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/).
+We are also making investments in cluster API to ensure Windows nodes are
+properly provisioned.
 
 ### A few other key features
 * Beta support for Group Managed Service Accounts
