@@ -144,11 +144,15 @@ exit
 
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
-Kubernetes by default recursively changes ownership and permission of volume to match `fsGroup` specified in pod's
-`securityContext` when volume is mounted. Changing ownership and permissions of a large volume can be time consuming
-operation and that is where `fsGroupChangePolicy` field in `securityContext` comes in.
+By default, Kubernetes recursively changes ownership and permissions for the contents of each
+volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is
+mounted.
+For large volumes, checking and changing ownership and permissions can take a lot of time,
+slowing Pod startup. You can use the `fsGroupChangePolicy` field inside a `securityContext`
+to control the way that Kubernetes checks and manages ownership and permissions
+for a volume.
 
-**fsGroupChangePolicy** -  fsGroupChangePolicy defines behavior of changing ownership and permission of the volume
+**fsGroupChangePolicy** -  `fsGroupChangePolicy` defines behavior for changing ownership and permission of the volume
 before being exposed inside a Pod. This field only applies to volume types that support
 `fsGroup` controlled ownership (and permissions).
 This field has no effect on ephemeral volume types such as
@@ -156,8 +160,8 @@ This field has no effect on ephemeral volume types such as
 [`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
 and [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir). This field has two possible values:
 
-* OnRootMismatch : Only change permissions and ownership if permission and ownership of root directory does not match with expected permissions of the volume. This could help shorten the time it takes to change ownership and permission of a volume.
-* Always: Always change permission and ownership of the volume when volume is mounted.
+* _OnRootMismatch_: Only change permissions and ownership if permission and ownership of root directory does not match with expected permissions of the volume. This could help shorten the time it takes to change ownership and permission of a volume.
+* _Always_: Always change permission and ownership of the volume when volume is mounted.
 
 For example:
 
