@@ -265,15 +265,6 @@ work properly owing to a known issue with Alpine.
 Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
 for more information.
 
-## Kubernetes Federation (Multiple Zone support)
-
-Release 1.3 introduced Cluster Federation support for multi-site Kubernetes
-installations. This required some minor (backward-compatible) changes to the
-way the Kubernetes cluster DNS server processes DNS queries, to facilitate
-the lookup of federated services (which span multiple Kubernetes clusters).
-See the [Cluster Federation Administrators' Guide](/docs/concepts/cluster-administration/federation/)
-for more details on Cluster Federation and multi-site support.
-
 ## References
 
 - [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)

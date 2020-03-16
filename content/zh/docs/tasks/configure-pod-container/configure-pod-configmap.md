@@ -73,17 +73,6 @@ For example: -->
 你可以使用 `kubectl create configmap` 从同一目录中的多个文件创建 ConfigMap。
 
 例如：
-
-<!-- # Create the local directory
-mkdir -p configure-pod-container/configmap/
-
-# Download the sample files into `configure-pod-container/configmap/` directory
-wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties
-wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
-
-# Create the configmap
-kubectl create configmap game-config --from-file=configure-pod-container/configmap/ -->
-
 ```shell
 # 创建本地目录
 mkdir -p configure-pod-container/configmap/
@@ -534,18 +523,6 @@ configmap/game-config-5-m67dt67794 created
 <!-- To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
 you can specify the ConfigMap generator in `kusotmization.yaml` as -->
 要从文字 `special.type=charm` 和 `special.how=very` 生成 ConfigMap，可以在 `kusotmization.yaml` 中将 ConfigMap 生成器指定。
-
-<!-- ```shell
-# Create a kustomization.yaml file with ConfigMapGenerator
-cat <<EOF >./kustomization.yaml
-configMapGenerator:
-- name: special-config-2
-  literals:
-  - special.how=very
-  - special.type=charm
-EOF
-``` -->
-
 ```shell
 # 使用 ConfigMapGenerator 创建 kustomization.yaml 文件
 cat <<EOF >./kustomization.yaml
