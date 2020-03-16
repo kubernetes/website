@@ -77,7 +77,7 @@ Here is the configuration file for a LimitRange object:
 
 This object defines minimum and maximum Memory/CPU limits,  default cpu/Memory requests  and default limits for CPU/Memory resources to be apply to containers.
 
-Create the `limit-mem-cpu-per-container` LimitRange in the `limitrange-demo` namespace with the following kubectl command:
+Create the `limit-mem-cpu-per-container` LimitRange with the following kubectl command:
 
 ```shell
 kubectl create -f https://k8s.io/examples/admin/resource/limit-mem-cpu-container.yaml
