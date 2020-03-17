@@ -319,7 +319,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
-        image: nginx:1.12-alpine
+        image: nginx:1.16-alpine
 ```
 
 If we create the above two deployments, our three node cluster should look like below.
