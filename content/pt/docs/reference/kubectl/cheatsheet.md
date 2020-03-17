@@ -47,7 +47,7 @@ echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~
 
 ##  Contexto e configuração do Kubectl
 
-Defina com qual cluster do Kubernetes o `kubectl` se comunica e modifique os detales da configuração.
+Defina com qual cluster Kubernetes o `kubectl` se comunica e modifique os detalhes da configuração.
 Veja a documentação [Autenticando entre clusters com o kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) para
 informações detalhadas do arquivo de configuração.
 
