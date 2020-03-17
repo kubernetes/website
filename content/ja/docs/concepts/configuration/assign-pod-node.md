@@ -207,7 +207,7 @@ Pod AffinityとPod Anti-Affinityで使用できるオペレーターは、`In`�
 `labelSelector`と`topologyKey`に加え、`labelSelector`が合致すべき`namespaces`のリストを特定することも可能です(これは`labelSelector`と`topologyKey`を定義することと同等です)。
 省略した場合や空の場合は、AffinityとAnti-Affinityが定義されたPodのnamespaceがデフォルトで設定されます。
 
-`requiredDuringSchedulingIgnoredDuringExecution`が指定されたAffinityとAnti-Affinityでは、`matchExpressions`に記載された全ての条件が満たされるNodeにPodがスケジュールされます。 
+`requiredDuringSchedulingIgnoredDuringExecution`が指定されたAffinityとAnti-Affinityでは、`matchExpressions`に記載された全ての条件が満たされるNodeにPodがスケジュールされます。
 
 
 #### 実際的なユースケース
@@ -296,7 +296,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
-        image: nginx:1.12-alpine
+        image: nginx:1.16-alpine
 ```
 
 上記2つのDeploymentが生成されると、3つのノードは以下のようになります。
