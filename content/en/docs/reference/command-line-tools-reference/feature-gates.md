@@ -279,6 +279,9 @@ different Kubernetes components.
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
+| `WindowsGMSA` | `false` | Alpha | 1.14 | 1.15 |
+| `WindowsGMSA` | `true` | Beta | 1.16 | 1.17 |
+| `WindowsGMSA` | `true` | GA | 1.18 | - |
 | `WindowsRunAsUserName` | `false` | Alpha | 1.16 | 1.16 |
 | `WindowsRunAsUserName` | `true` | Beta | 1.17 | 1.17 |
 | `WindowsRunAsUserName` | `true` | GA | 1.18 | - |
