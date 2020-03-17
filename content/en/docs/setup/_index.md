@@ -53,6 +53,6 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 
 When evaluating a solution for a production environment, consider which aspects of operating a Kubernetes cluster (or _abstractions_) you want to manage yourself or offload to a provider.
 
-For a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers, see "[Partners](https://kubernetes.io/partners/#conformance)". 
+[Kubernetes Partners](https://kubernetes.io/partners/#conformance) includes a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers.
 
 {{% /capture %}}
