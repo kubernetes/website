@@ -48,6 +48,7 @@ different Kubernetes components.
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
+| `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIPriorityAndFairness` | `false` | Alpha | 1.17 | |
@@ -334,6 +335,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
+- `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a 
+  {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks.
 - `APIPriorityAndFairness`: Enable managing request concurrency with prioritization and fairness at each server. (Renamed from `RequestManagement`)
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
