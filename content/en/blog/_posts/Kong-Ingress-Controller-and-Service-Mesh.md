@@ -132,11 +132,11 @@ NAME                               READY   STATUS    RESTARTS   AGE
 pod/ingress-kong-8b44c9856-9s42v   3/3     Running   0          2m26s
 ```
 
-There will be three containers within this pod. The first container is the Kong Gateway that will be the Ingress point to your cluster. The second container is the Ingress controller. It uses Ingress resources and updates the proxy to follow rules defined in the resource. And lastly, the third container is the Envoy proxy injected by Istio. Kong will route traffic through the Envoy sidecar proxy to the appropriate service. To send requests into the cluster via our newly deployed Kong Gateway, setup an environment variable with the IP address at which Kong is accessible.
+There will be three containers within this pod. The first container is the Kong Gateway that will be the Ingress point to your cluster. The second container is the Ingress controller. It uses Ingress resources and updates the proxy to follow rules defined in the resource. And lastly, the third container is the Envoy proxy injected by Istio. Kong will route traffic through the Envoy sidecar proxy to the appropriate service. To send requests into the cluster via our newly deployed Kong Gateway, setup an environment variable with the a URL based on the IP address at which Kong is accessible.
 
 ```
-$ export PROXY_IP="$(minikube service -n kong kong-proxy --url | head -1)"
-$ echo $PROXY_IP
+$ export PROXY_URL="$(minikube service -n kong kong-proxy --url | head -1)"
+$ echo $PROXY_URL
 http://192.168.99.100:32728
 ```
 
@@ -183,10 +183,10 @@ spec:
 ingress.extensions/productpage created
 ```
 
-And just like that, the Kong Ingress Controller is able to understand the rules you defined in the Ingress resource and routes it to the productpage service! To view the product page service’s GUI, go to `$PROXY_IP/productpage` in your browser. Or to test it in your command line, try:
+And just like that, the Kong Ingress Controller is able to understand the rules you defined in the Ingress resource and routes it to the productpage service! To view the product page service’s GUI, go to `$PROXY_URL/productpage` in your browser. Or to test it in your command line, try:
 
 ```
-$ curl $PROXY_IP/productpage
+$ curl $PROXY_URL/productpage
 ```
 
 That is all I have for this walk-through. If you enjoyed the technologies used in this post, please check out their repositories since they are all open source and would love to have more contributors! Here are their links for your convenience:
