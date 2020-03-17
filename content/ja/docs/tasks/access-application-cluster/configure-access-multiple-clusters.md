@@ -13,7 +13,7 @@ card:
 ここでは、設定ファイルを使って複数のクラスターにアクセスする方法を紹介します。クラスター、ユーザー、contextの情報を一つ以上の設定ファイルにまとめることで、`kubectl config use-context`のコマンドを使ってクラスターを素早く切り替えることができます。
 
 {{< note >}}
-クラスターへのアクセスを設定するファイルを、*kubeconfig file* と呼ぶことがあります。これは設定ファイルの一般的な呼び方です。`kubeconfig`という名前のファイルが存在するわけではありません。
+クラスターへのアクセスを設定するファイルを、*kubeconfig* ファイルと呼ぶことがあります。これは設定ファイルの一般的な呼び方です。`kubeconfig`という名前のファイルが存在するわけではありません。
 {{< /note >}}
 
 {{% /capture %}}
@@ -28,7 +28,7 @@ card:
 
 ## クラスター、ユーザー、contextを設定する
 
-例として、開発用のクラスターが一つ、実験用のクラスターが一つ、計二つのクラスターが存在するとしましょう。`development`と呼ばれる開発用のクラスター内では、フロントエンドの開発者は`frontend`というnamespace内で、ストレージの開発者は`storage`というnamespace内で作業をします。`scratch`と呼ばれる実験用のクラスター内では、開発者はデフォルトのnamespaceで作業をするか、状況に応じて追加のnamespaceを作成します。開発用のクラスターは証明書を通しての認証を必要とします。実験用のクラスターはユーザーネームとパスワードを通しての認証を必要とします。
+例として、開発用のクラスターが一つ、実験用のクラスターが一つ、計二つのクラスターが存在する場合を考えます。`development`と呼ばれる開発用のクラスター内では、フロントエンドの開発者は`frontend`というnamespace内で、ストレージの開発者は`storage`というnamespace内で作業をします。`scratch`と呼ばれる実験用のクラスター内では、開発者はデフォルトのnamespaceで作業をするか、状況に応じて追加のnamespaceを作成します。開発用のクラスターは証明書を通しての認証を必要とします。実験用のクラスターはユーザーネームとパスワードを通しての認証を必要とします。
 
 `config-exercise`というディレクトリを作成してください。`config-exercise`ディレクトリ内に、以下を含む`config-demo`というファイルを作成してください:
 
@@ -137,7 +137,7 @@ users:
 
 証明書ファイルのパスの代わりにbase64にエンコードされたデータを使用したい場合は、キーに`-data`の接尾辞を加えてください。例えば、`certificate-authority-data`、`client-certificate-data`、`client-key-data`とできます。
 
-それぞれのcontextは、クラスター、ユーザー、namespaceの三つ組からなっています。例えば、`dev-frontend`contextは、`developer`ユーザーの認証情報を使って`development`クラスターの`frontend`namespaceにアクセスしてください、と示しています。
+それぞれのcontextは、クラスター、ユーザー、namespaceの三つ組からなっています。例えば、`dev-frontend`contextは、`developer`ユーザーの認証情報を使って`development`クラスターの`frontend`namespaceへのアクセスを意味しています。
 
 現在のcontextを設定してください:
 
@@ -178,7 +178,7 @@ users:
     client-key: fake-key-file
 ```
 
-今度は、実験用のクラスター内でしばらく作業したいこととしましょう。
+今度は、実験用のクラスター内でしばらく作業する場合を考えます。
 
 現在のcontextを`exp-scratch`に切り替えてください:
 
@@ -194,7 +194,7 @@ kubectl config --kubeconfig=config-demo use-context exp-scratch
 kubectl config --kubeconfig=config-demo view --minify
 ```
 
-最後に、`development`クラスター内の`storage`namespaceでしばらく作業したいこととしましょう。
+最後に、`development`クラスター内の`storage`namespaceでしばらく作業する場合を考えます。
 
 現在のcontextを`dev-storage`に切り替えてください:
 
@@ -285,7 +285,7 @@ contexts:
   name: exp-scratch
 ```
 
-kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)をご覧ください。
+kubeconfigファイルに関するさらなる情報を参照するには、[kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)を参照してください。
 
 ## $HOME/.kubeディレクトリの内容を確認する
 
@@ -314,7 +314,7 @@ kubectl config view
 
 ## クリーンアップ
 
-`KUBECONFIG`環境変数を元に戻してください。例えば:<br>
+`KUBECONFIG`環境変数を元に戻してください。例えば:
 
 Linux:
 ```shell
