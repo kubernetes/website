@@ -82,7 +82,7 @@ kubectl config unset users.foo                       # excluir usuário foo
 ```
 
 ## Aplicar
-`apply` gerencia aplicativos através de arquivos que definem os recursos do Kubernetes. Ele cria e atualiza recursos em um cluster através da execução `kubectl apply`.
+`apply` gerencia aplicações através de arquivos que definem os recursos do Kubernetes. Ele cria e atualiza recursos em um cluster através da execução `kubectl apply`.
 Esta é a maneira recomendada de gerenciar aplicativos Kubernetes em ambiente de produção. Veja a [documentação do Kubectl](https://kubectl.docs.kubernetes.io).
 
 ## Criando objetos
