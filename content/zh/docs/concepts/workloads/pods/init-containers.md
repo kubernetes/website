@@ -2,11 +2,6 @@
 approvers:
 - erictune
 title: Init 容器
-redirect_from:
-- "/docs/concepts/abstractions/init-containers/"
-- "/docs/concepts/abstractions/init-containers.html"
-- "/docs/user-guide/pods/init-container/"
-- "/docs/user-guide/pods/init-container.html"
 content_template: templates/concept
 ---
 
