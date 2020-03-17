@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kong Ingress Controller and Service Mesh: Setting up Ingress to Istio on Kubernetes'
-date: 2020-03-11
+date: 2020-03-18
 slug: kong-ingress-controller-and-istio-service-mesh
 ---
 
