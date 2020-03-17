@@ -75,6 +75,7 @@ different Kubernetes components.
 | `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | |
+| `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
 | `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
@@ -348,6 +349,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
    ServiceAccountTokenVolumeProjection.
    Check [Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)
    for more details.
+- `ConfigurableFSGroupPolicy`: Allows user to configure volume permission change policy for fsGroups when mounting a volume in a Pod. See [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods) for more details.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) documentation for more details.
