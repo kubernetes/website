@@ -39,7 +39,6 @@ project](https://github.com/kubernetes/kubernetes).
 Kubernetes docs permit only some kinds of content.
 
 ### Third party content
-
 Kubernetes documentation includes applied examples of projects in the Kubernetes project&emdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
 [kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations. 
 
@@ -48,7 +47,7 @@ Links to active content in the Kubernetes project are always allowed.
 Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker), 
 [networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and [logging](https://kubernetes.io/docs/concepts/cluster-administration/logging/).
 
-Docs can link to third-party content outside the Kubernetes project if it's necessary for Kubernetes to function in-project.
+Docs can link to third-party open source software (OSS) outside the Kubernetes project if it's necessary for Kubernetes to function.
 
 ### Dual sourced content
 
