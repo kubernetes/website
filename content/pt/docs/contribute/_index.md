@@ -36,7 +36,7 @@ Para se envolver com a documentação:
 ## Melhores Práticas recomendadas para contribuições
 
 - Escreva mensagens GIT claras e significativas.
-- Certifique-se de incluir _Github Special Keywords_ que faz referência ao problema e o fecha automaticamente quando o PR é mergeado.
+- Certifique-se de incluir _Github Special Keywords_ que faz referência a issue e o fecha automaticamente quando o PR é mergeado.
 - Quando você faz uma pequena alteração em um PR, como corrigir um erro de digitação, qualquer alteração de estilo ou gramática, certifique-se de esmagar seus commits (squash) para não obter um grande número de commits por uma alteração relativamente pequena.
 - Certifique-se de incluir uma boa descrição de PE explicando as alterações no código, o motivo de alterar um trecho de código e garantir que haja informações suficientes para o revisor entender seu PR.
 - Leituras adicionais: 
