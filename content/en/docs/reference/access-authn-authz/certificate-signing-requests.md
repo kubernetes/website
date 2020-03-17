@@ -32,22 +32,22 @@ Once created, a CertificateSigningRequest must be approved before it can be sign
 Depending on the signer requested, a CertificateSigningRequest may be auto-approved by a
 {{< glossary_tooltip text="controller" term_id="controller" >}}.
 Otherwise, a CertificateSigningRequest must be manually approved either via the REST API (or client-go)
-or via `kubectl certificate approve`. Likewise, a CertificateSigningRequest may also be denied, in which
-case the configured signer must not sign the request.
+or via `kubectl certificate approve`. Likewise, a CertificateSigningRequest may also be denied,
+which tells the configured signer that it must not sign the request.
 
 Once approved, a signing controller must attempt to sign the request. A signer should apply its own policy
 restrictions, similar to the approval process, on the request to ensure it never signs an invalid request.
-There is currently not a mechanism for a signer implementation to report its inability to sign a request.
 Once the signer has determined that a request should be signed, it must sign the request and store the
 resulting certificate (and if appropriate, certificate chain) in the `status.certificate` field as PEM-encoded
 certificates.
 
 Once the `status.certificate` field has been populated, the request has been completed and clients can now
 fetch the signed certificate PEM data from the CertificateSigningRequest resource.
+Signers can instead deny certificate signing if the approval conditions are not met.
 
 In order to reduce the number of old CertificateSigningRequest resources left in a cluster, a garbage collection
-controller runs periodically. Depending on the state of the request, it will automatically delete requests older
-than a specified duration:
+controller runs periodically. The garbage collection removes CertificateSigningRequests that have not changed
+state for some duration:
 
 * Approved requests: automatically deleted after 1 hour
 * Denied requests: automatically deleted after 1 hour
@@ -222,7 +222,7 @@ rules:
   - sign
 ```
 
-## Approval/Rejection
+## Approval & rejection
 
 ### kube-controller-manager auto-approval
 
