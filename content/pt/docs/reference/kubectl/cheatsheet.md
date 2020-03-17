@@ -178,7 +178,7 @@ kubectl get pods --field-selector=status.phase=Running
 # Obter ExternalIPs de todos os nós
 kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
-# Listar nomes de pods pertencentes a um particular RC
+# Listar nomes de pods pertencentes a um RC particular 
 # O comando "jq" é útil para transformações que são muito complexas para jsonpath, pode ser encontrado em https://stedolan.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
