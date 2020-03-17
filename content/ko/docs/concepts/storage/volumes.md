@@ -599,6 +599,38 @@ spec:
       type: Directory
 ```
 
+{{< caution >}}
+`FileOrCreate` 모드에서는 파일의 상위 디렉터리가 생성되지 않는다. 마운트된 파일의 상위 디렉터리가 없으면 파드가 시작되지 않는다. 이 모드가 작동하도록 하기 위해 다음과 같이 디렉터리와 파일을 별도로 마운트할 수 있다.
+{{< /caution >}}
+
+#### FileOrCreate 파드 예시
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-webserver
+spec:
+  containers:
+  - name: test-webserver
+    image: k8s.gcr.io/test-webserver:latest
+    volumeMounts:
+    - mountPath: /var/local/aaa
+      name: mydir
+    - mountPath: /var/local/aaa/1.txt
+      name: myfile
+  volumes:
+  - name: mydir
+    hostPath:
+      # 파일 디렉터리가 생성되었는지 확인한다.
+      path: /var/local/aaa
+      type: DirectoryOrCreate
+  - name: myfile
+    hostPath:
+      path: /var/local/aaa/1.txt
+      type: FileOrCreate
+```
+
 ### iscsi {#iscsi}
 
 `iscsi` 볼륨을 사용하면 기존 iSCSI (SCSI over IP) 볼륨을 파드에 마운트
@@ -1440,5 +1472,5 @@ sudo systemctl restart docker
 
 
 {{% capture whatsnext %}}
-* [퍼시스턴트 볼륨과 함께 워드프레스와 MySQL 배포하기](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)의 예시를 따른다.
+* [퍼시스턴트 볼륨과 함께 워드프레스와 MySQL 배포하기](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)의 예시를 따른다.
 {{% /capture %}}

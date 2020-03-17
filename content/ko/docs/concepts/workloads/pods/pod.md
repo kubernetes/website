@@ -165,8 +165,8 @@ _컨테이너의 어피니티(affinity) 기반 공동 스케줄링을 지원하�
 1. API 서버 안의 파드는 유예 기간에 따라, 시간을 넘은 것(죽은)것으로 간주되는 파드가 업데이트 된다.  
 1. 클라이언트 명령에서 파드는 "Terminating" 이라는 문구를 나타낸다.
 1. (3번 단계와 동시에) Kubelet은 파드가 2번 단계에서 설정된 시간으로 인해 Terminating으로 표시되는 것을 확인하면 파드 종료 단계를 시작한다.
-    1. 파드의 컨테이너 중 하나에 [preStop hook](/ko/docs/concepts/containers/container-lifecycle-hooks/#hook-details)이 정의된 경우, 해당 컨테이너 내부에서 실행된다. 유예 기간이 만료된 후에도 `preStop` 훅이 계속 실행 중이면, 유예 기간을 짧게(2초) 연장해서 2번 단계를 실행한다.
-    1. 파드의 프로세스에 TERM 시그널이 전달된다. 파드의 모든 컨테이너가 TERM 시그널을 동시에 받기 때문에 컨테이너의 종료 순서가 중요한 경우에는 `preStop` 훅이 각각 필요할 수 있음을 알아두자.
+    1. 파드의 컨테이너 중 하나에 [preStop hook](/ko/docs/concepts/containers/container-lifecycle-hooks/#hook-details)이 정의된 경우, 해당 컨테이너 내부에서 실행된다. 유예 기간이 만료된 후에도 `preStop` 훅이 계속 실행 중이면, 유예 기간을 짧게(2초)를 1회 연장해서 2번 단계를 실행한다.
+    1. 파드의 프로세스에 TERM 시그널이 전달된다. 파드의 모든 컨테이너가 TERM 시그널을 동시에 받기 때문에 컨테이너의 종료 순서가 중요한 경우에는 `preStop` 훅이 각각 필요할 수 있음을 알아두자. 만약 `preStop` 훅을 완료하는 데 더 오랜 시간이 필요한 경우 `terminationGracePeriodSeconds` 를 수정해야 한다.
 1. (3번 단계와 동시에) 파드는 서비스를 위해 엔드포인트 목록에서 제거되며, 더 이상 레플리케이션 컨트롤러가 실행중인 파드로 고려하지 않는다.
 느리게 종료되는 파드는 로드밸런서(서비스 프록시와 같은)의 로테이션에서 지워지기 때문에 트래픽을 계속 처리할 수 없다.
 1. 유예 기간이 만료되면, 파드에서 실행중이던 모든 프로세스가 SIGKILL로 종료된다.
@@ -200,6 +200,7 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 
 파드는 쿠버네티스 REST API에서 최상위 리소스이다. API 오브젝트에 더 자세한 정보는 아래 내용을 참조한다:
 [파드 API 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
-
+파드 오브젝트에 대한 매니페스트를 생성할때는 지정된 이름이 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)인지 확인해야 한다.
 
 {{% /capture %}}
