@@ -1,5 +1,5 @@
 ---
-title: Панель управления
+title: Плоскость управления (Control Plane)
 id: control-plane
 date: 2019-05-12
 full_link:
