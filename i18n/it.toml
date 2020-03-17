@@ -107,7 +107,7 @@ other = "Caricando i risultati..."
 other = "di"
 
 [main_cncf_project]
-other = """Noi siamo un <a href="https://cncf.io/">CNCF</a> progetto </p>"""
+other = """Kubernetes è un progetto <a href="https://cncf.io/">CNCF</a></p>"""
 
 [main_community_explore]
 other = "Explora la community"
