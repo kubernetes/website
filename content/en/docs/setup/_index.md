@@ -46,7 +46,6 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 |                     | [MicroK8s](https://microk8s.io/)|
 |                     | [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) |
 |                     | [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)|
-|                     | [k3s](https://k3s.io)|
 
 
 ## Production environment
