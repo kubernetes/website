@@ -34,7 +34,7 @@ This page shows how to run an application using a Kubernetes Deployment object.
 
 You can run an application by creating a Kubernetes Deployment object, and you
 can describe a Deployment in a YAML file. For example, this YAML file describes
-a Deployment that runs the nginx:1.7.9 Docker image:
+a Deployment that runs the nginx:1.14.2 Docker image:
 
 {{< codenew file="application/deployment.yaml" >}}
 
@@ -64,7 +64,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
           Labels:       app=nginx
           Containers:
            nginx:
-            Image:              nginx:1.7.9
+            Image:              nginx:1.14.2
             Port:               80/TCP
             Environment:        <none>
             Mounts:             <none>
