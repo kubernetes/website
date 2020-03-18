@@ -314,13 +314,13 @@ kubectl top pod POD_NAME --containers               # Mostrar métricas para um 
 ## Interagindo com nós e cluster
 
 ```bash
-kubectl cordon my-node                                                # Marcar meu nó como não agendável
-kubectl drain my-node                                                 # Drene o meu nó na preparação para manutenção
-kubectl uncordon my-node                                              # Marcar meu nó como agendável
+kubectl cordon my-node                                                # Marcar o nó my-node como não agendável
+kubectl drain my-node                                                 # Drene o nó my-node na preparação para manutenção
+kubectl uncordon my-node                                              # Marcar nó my-node como agendável
 kubectl top node my-node                                              # Mostrar métricas para um determinado nó
 kubectl cluster-info                                                  # Exibir endereços do mestre e serviços
 kubectl cluster-info dump                                             # Despejar o estado atual do cluster no stdout
-kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Despejar o estado atual do cluster em / path / to / cluster-state
+kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Despejar o estado atual do cluster em /path/to/cluster-state
 
 # Se uma `taint` com essa chave e efeito já existir, seu valor será substituído conforme especificado.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
