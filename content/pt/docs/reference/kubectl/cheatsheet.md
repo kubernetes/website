@@ -219,7 +219,7 @@ kubectl rollout restart deployment/frontend                      # Reinício con
 
 # versão inicial descontinuada 1.11
 kubectl rolling-update frontend-v1 -f frontend-v2.json           # (descontinuada) Atualização contínua dos pods de frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (descontinuada) altere o nome do recurso e atualize a imagem
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (descontinuada) Altera o nome do recurso e atualiza a imagem
 kubectl rolling-update frontend --image=image:v2                 # (descontinuada) Atualize a imagem dos pods do frontend
 kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (descontinuada) Interromper o lançamento existente em andamento
 
