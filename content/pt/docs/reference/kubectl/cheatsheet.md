@@ -193,6 +193,10 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
 # Listar todos os segredos atualmente em uso por um pod
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
+# Listar todos os containerIDs de initContainer de todos os pods
+# Útil ao limpar contêineres parados, evitando a remoção de initContainers.
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
+
 # Listar eventos classificados por carimbo de data / hora
 kubectl get events --sort-by=.metadata.creationTimestamp
 
