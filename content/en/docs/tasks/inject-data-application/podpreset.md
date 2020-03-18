@@ -29,6 +29,9 @@ Here is the manifest for the PodPreset:
 
 {{< codenew file="podpreset/preset.yaml" >}}
 
+The name of a PodPreset object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 In the manifest, you can see that the preset has an environment variable definition called `DB_PORT`
 and a volume mount definition called `cache-volume` which is mounted under `/cache`. The {{< glossary_tooltip text="selector" term_id="selector" >}} specifies that
 the preset will act upon any Pod that is labeled `role:frontend`.

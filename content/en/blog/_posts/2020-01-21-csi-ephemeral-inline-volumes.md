@@ -186,7 +186,7 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.13-alpine
+    image: nginx:1.16-alpine
     ports:
     - containerPort: 80
     volumeMounts:

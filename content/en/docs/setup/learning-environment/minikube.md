@@ -24,7 +24,7 @@ Minikube supports the following Kubernetes features:
 * NodePorts
 * ConfigMaps and Secrets
 * Dashboards
-* Container Runtime: Docker, [CRI-O](https://cri-o.io/), and [containerd](https://github.com/containerd/containerd)
+* Container Runtime: [Docker](https://www.docker.com/), [CRI-O](https://cri-o.io/), and [containerd](https://github.com/containerd/containerd)
 * Enabling CNI (Container Network Interface)
 * Ingress
 
