@@ -225,7 +225,7 @@ kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (descontinuad
 
 cat pod.json | kubectl replace -f -                              # Substitua um pod com base no JSON passado para std
 
-# Forçar o update, excluir e recriar o recurso. Causará uma interrupção do serviço.
+# Força a substituição, exclui e recria o recurso. Causará uma interrupção do serviço.
 kubectl replace --force -f ./pod.json
 
 # Crie um serviço para um nginx replicado, que serve na porta 80 e se conecta aos contêineres na porta 8000
