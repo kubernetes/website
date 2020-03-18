@@ -388,6 +388,8 @@ Some values of an object are typically generated before the object is persisted.
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
+{{< note >}}Starting from Kubernetes v1.18, if you have Server Side Apply enabled then the control plane tracks managed fields for all newly created objects.{{< /note >}}
+
 ### Introduction
 
 Server Side Apply helps users and controllers manage their resources via
@@ -517,6 +519,13 @@ content type `application/apply-patch+yaml`) and `Update` (all other operations
 which modify the object). Both operations update the `managedFields`, but behave
 a little differently.
 
+{{< note >}}
+Whether you are submitting JSON data or YAML data, use `application/apply-patch+yaml` as the
+Content-Type header value.
+
+All JSON documents are valid YAML.
+{{< /note >}}
+
 For instance, only the apply operation fails on conflicts while update does
 not. Also, apply operations are required to identify themselves by providing a
 `fieldManager` query parameter, while the query parameter is optional for update
@@ -628,8 +637,9 @@ case.
 
 With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
 additional `application/apply-patch+yaml` content type. Users of Server Side
-Apply can send partially specified objects to this endpoint. An applied config
-should always include every field that the applier has an opinion about.
+Apply can send partially specified objects as YAML to this endpoint.
+When applying a configuration, one should always include all the fields
+that they have an opinion about.
 
 ### Clearing ManagedFields
 
@@ -662,6 +672,11 @@ In cases where the reset operation is combined with changes to other fields than
 the managedFields, this will result in the managedFields being reset first and
 the other changes being processed afterwards. As a result the applier takes
 ownership of any fields updated in the same request.
+
+{{< caution >}} Server Side Apply does not correctly track ownership on
+sub-resources that don't receive the resource object type. If you are
+using Server Side Apply with such a sub-resource, the changed fields
+won't be tracked.  {{< /caution >}}
 
 ### Disabling the feature
 
