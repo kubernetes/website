@@ -223,6 +223,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```bash
+
+#For x86
+
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -232,6 +235,20 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
+
+#For PPC 
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-ppc64le
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+
 
 # Set SELinux in permissive mode (effectively disabling it)
 setenforce 0
