@@ -2,7 +2,7 @@
     <div class="light-text main-section">
         <nav>
             {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
-            {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
+            {{ $sections := slice "docs/home" "blog" "training" "partners" "community" "case-studies" }}
             {{ range $sections }}
             {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
             {{ end }}

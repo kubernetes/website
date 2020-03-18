@@ -422,10 +422,8 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 {{% capture whatsnext %}}
 
-Kubernetes also supports Federated Services, which can span multiple
-clusters and cloud providers, to provide increased availability,
-better fault tolerance and greater scalability for your services. See
-the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
-for further information.
+* Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
+* Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
 {{% /capture %}}

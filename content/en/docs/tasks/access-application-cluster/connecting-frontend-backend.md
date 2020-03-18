@@ -39,7 +39,7 @@ frontend and backend are connected using a Kubernetes
 
 {{% capture lessoncontent %}}
 
-### Creating the backend using a Deployment
+## Creating the backend using a Deployment
 
 The backend is a simple hello greeter microservice. Here is the configuration
 file for the backend Deployment:
@@ -95,7 +95,7 @@ Events:
 ...
 ```
 
-### Creating the backend Service object
+## Creating the backend Service object
 
 The key to connecting a frontend to a backend is the backend
 Service. A Service creates a persistent IP address and DNS name entry
@@ -119,7 +119,7 @@ kubectl apply -f https://k8s.io/examples/service/access/hello-service.yaml
 At this point, you have a backend Deployment running, and you have a
 Service that can route traffic to it.
 
-### Creating the frontend
+## Creating the frontend
 
 Now that you have your backend, you can create a frontend that connects to the backend.
 The frontend connects to the backend worker Pods by using the DNS name
@@ -158,7 +158,7 @@ be to use a
 so that you can change the configuration more easily.
 {{< /note >}}
 
-### Interact with the frontend Service
+## Interact with the frontend Service
 
 Once you’ve created a Service of type LoadBalancer, you can use this
 command to find the external IP:
@@ -186,7 +186,7 @@ frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 That IP can now be used to interact with the `frontend` service from outside the
 cluster.
 
-### Send traffic through the frontend
+## Send traffic through the frontend
 
 The frontend and backends are now connected. You can hit the endpoint
 by using the curl command on the external IP of your frontend Service.

@@ -4,7 +4,7 @@ reviewers:
 - enisoc
 - deads2k
 content_template: templates/concept
-weight: 20
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -167,7 +167,7 @@ CRDs are easier to create than Aggregated APIs.
 
 | CRDs                        | Aggregated API |
 | --------------------------- | -------------- |
-| Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. Users can choose any language for a CRD controller. |
+| Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. |
 | No additional service to run; CRs are handled by API Server. | An additional service to create and that could fail. |
 | No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated APIserver. |
 | No need to handle multiple versions of your API. For example: when you control the client for this resource, you can upgrade it in sync with the API. | You need to handle multiple versions of your API, for example: when developing an extension to share with the world. |
@@ -184,7 +184,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
 | Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | Yes, using [Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks). | Yes |
 | Scale Subresource | Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource)  | Yes |
-| Status Subresource | <ul><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul> | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | Yes |
+| Status Subresource | Allows fine-grained access control where user writes the spec section and the controller writes the status section. Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource) | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | Yes |
 | Other Subresources | Add operations other than CRUD, such as "logs" or "exec". | No | Yes |
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |

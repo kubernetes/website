@@ -183,7 +183,7 @@ For field values of type string or integer, use normal style without quotation m
 Do | Don't
 :--| :-----
 Set the value of `imagePullPolicy` to Always. | Set the value of `imagePullPolicy` to "Always".
-Set the value of `image` to nginx:1.8. | Set the value of `image` to `nginx:1.8`.
+Set the value of `image` to nginx:1.16. | Set the value of `image` to `nginx:1.16`.
 Set the value of the `replicas` field to 2. | Set the value of the `replicas` field to `2`.
 {{< /table >}} 
 

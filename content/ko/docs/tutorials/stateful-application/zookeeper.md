@@ -19,7 +19,7 @@ weight: 40
 -   [파드](/docs/user-guide/pods/single-container/)
 -   [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
 -   [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
--   [퍼시스턴트볼륨](/docs/concepts/storage/volumes/)
+-   [퍼시스턴트볼륨](/ko/docs/concepts/storage/volumes/)
 -   [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 -   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 -   [파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)

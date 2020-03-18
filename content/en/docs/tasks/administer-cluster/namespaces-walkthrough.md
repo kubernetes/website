@@ -224,12 +224,14 @@ At this point, all requests we make to the Kubernetes cluster from the command l
 
 Let's create some contents.
 
+{{< codenew file="admin/snowflake-deployment.yaml" >}}
+
+Apply the manifest to create a Deployment 
+
 ```shell
-kubectl run snowflake --image=k8s.gcr.io/serve_hostname --replicas=2
+kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml
 ```
 We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
-Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) for more details.
 
 ```shell
 kubectl get deployment
