@@ -294,7 +294,7 @@ kubectl logs -l name=myLabel                        # despejar logs de pod, com 
 kubectl logs my-pod --previous                      # despejar logs de pod (stdout) para a instância anterior de um contêiner
 kubectl logs my-pod -c my-container                 # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres)
 kubectl logs -l name=myLabel -c my-container        # despejar logs de pod, com nome da label = myLabel (stdout)
-kubectl logs my-pod -c my-container --previous      # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres) para uma instanciação anterior de um contêiner
+kubectl logs my-pod -c my-container --previous      # despejar logs de um contêiner específico em um pod (stdout, no caso de vários contêineres) para uma instanciação anterior de um contêiner
 kubectl logs -f my-pod                              # Fluxo de logs de pod (stdout)
 kubectl logs -f my-pod -c my-container              # Fluxo de logs para um específico contêiner em um pod (stdout, caixa com vários contêineres)
 kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com nome da label = myLabel (stdout)
