@@ -31,7 +31,7 @@ source <(kubectl completion bash) # configuração de autocomplete no bash do sh
 echo "source <(kubectl completion bash)" >> ~/.bashrc # para adicionar o autocomplete permanentemente no seu shell bash.
 ```
 
-Você também pode usar um apelido abreviado para `kubectl` que também funciona com o autocomplete:
+Você também pode usar uma abreviação para o atalho para `kubectl` que também funciona com o auto completar:
 
 ```bash
 alias k=kubectl
@@ -42,12 +42,12 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # configuração para usar autocomplete no terminal zsh no shell atual
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # adicionar autocomplete permanentemente para o seu shell zsh
+echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # adicionar auto completar permanentemente para o seu shell zsh
 ```
 
 ##  Contexto e configuração do Kubectl
 
-Defina com qual cluster do Kubernetes o `kubectl` se comunica e modifique os detales da configuração.
+Defina com qual cluster Kubernetes o `kubectl` se comunica e modifique os detalhes da configuração.
 Veja a documentação [Autenticando entre clusters com o kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) para
 informações detalhadas do arquivo de configuração.
 
@@ -82,7 +82,7 @@ kubectl config unset users.foo                       # excluir usuário foo
 ```
 
 ## Aplicar
-`apply` gerencia aplicativos através de arquivos que definem os recursos do Kubernetes. Ele cria e atualiza recursos em um cluster através da execução `kubectl apply`.
+`apply` gerencia aplicações através de arquivos que definem os recursos do Kubernetes. Ele cria e atualiza recursos em um cluster através da execução `kubectl apply`.
 Esta é a maneira recomendada de gerenciar aplicativos Kubernetes em ambiente de produção. Veja a [documentação do Kubectl](https://kubectl.docs.kubernetes.io).
 
 ## Criando objetos
@@ -168,17 +168,17 @@ kubectl get pv --sort-by=.spec.capacity.storage
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
-# Obter todos os nós dos workers  (use um seletor para excluir resultados que possuem um rótulo
+# Obter todos os nós workers (use um seletor para excluir resultados que possuem um rótulo
 # nomeado 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
-# Obter todos os pods em execução no espaço para nome
+# Obter todos os pods em execução no namespace
 kubectl get pods --field-selector=status.phase=Running
 
 # Obter ExternalIPs de todos os nós
 kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
-# Listar nomes de pods pertencentes a um particular RC
+# Listar nomes de pods pertencentes a um RC particular 
 # O comando "jq" é útil para transformações que são muito complexas para jsonpath, pode ser encontrado em https://stedolan.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
