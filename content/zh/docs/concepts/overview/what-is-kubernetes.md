@@ -153,7 +153,7 @@ You can describe the desired state for your deployed containers using Kubernetes
 * **Automatic bin packing**  
 Kubernetes allows you to specify how much CPU and memory (RAM) each container needs. When containers have resource requests specified, Kubernetes can make better decisions to manage the resources for containers.
 -->
-* **自动二进制打包**  
+* **自动装箱**  
 Kubernetes 允许您指定每个容器所需 CPU 和内存（RAM）。当容器指定了资源请求时，Kubernetes 可以做出更好的决策来管理容器的资源。
 
 <!--
