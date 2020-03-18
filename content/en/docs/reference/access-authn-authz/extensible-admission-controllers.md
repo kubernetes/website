@@ -114,7 +114,7 @@ webhooks:
     service:
       namespace: "example-namespace"
       name: "example-service"
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate.>...tLS0K"
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
   timeoutSeconds: 5
@@ -139,7 +139,7 @@ webhooks:
     service:
       namespace: "example-namespace"
       name: "example-service"
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate>...tLS0K"
   admissionReviewVersions: ["v1beta1"]
   timeoutSeconds: 5
 ```
@@ -1050,7 +1050,7 @@ to turn up in a new cluster.
 
 The scheme must be "https"; the URL must begin with "https://".
 
-Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Attempting to use a user or basic auth (for example "user:password@") is not allowed.
 Fragments ("#...") and query parameters ("?...") are also not allowed.
 
 Here is an example of a mutating webhook configured to call a URL
@@ -1122,7 +1122,7 @@ kind: MutatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   clientConfig:
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate>...tLS0K"
     service:
       namespace: my-service-namespace
       name: my-service-name

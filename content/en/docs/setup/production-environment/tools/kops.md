@@ -49,13 +49,11 @@ Download the latest release with the command:
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
 ```
 
-To download a specific version, replace the
+To download a specific version, replace the following portion of the command with the specific kops version.
 
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
-
-portion of the command with the specific version.
 
 For example, to download kops version v1.15.0 type:
 

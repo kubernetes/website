@@ -116,6 +116,8 @@ specifies an expression that just gets the name from each pod in the returned li
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
+The name of a ReplicationController object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [object management ](/docs/concepts/overview/working-with-objects/object-management/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).

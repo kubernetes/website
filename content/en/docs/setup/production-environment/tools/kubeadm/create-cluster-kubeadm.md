@@ -344,10 +344,6 @@ Please refer to this installation guide: [Contiv-VPP Manual Installation](https:
 
 For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
 
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [Network Plugin Requirements](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
-
 Make sure that your firewall rules allow UDP ports 8285 and 8472 traffic for all hosts participating in the overlay network. The [Firewall](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls) section of Flannel's troubleshooting guide explains about this in more detail.
 
 Flannel works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` architectures under Linux.
@@ -362,9 +358,6 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 {{% /tab %}}
 
 {{% tab name="Kube-router" %}}
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [Network Plugin Requirements](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controller-manager to allocate Pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
@@ -374,9 +367,6 @@ For information on using the `kubeadm` tool to set up a Kubernetes cluster with 
 {{% /tab %}}
 
 {{% tab name="Weave Net" %}}
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [Network Plugin Requirements](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 For more information on setting up your Kubernetes cluster with Weave Net, please see [Integrating Kubernetes via the Addon]((https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -403,7 +393,7 @@ for `kubeadm`.
 ### Control plane node isolation
 
 By default, your cluster will not schedule Pods on the control-plane node for security
-reasons. If you want to be able to schedule Pods on the control-plane node, e.g. for a
+reasons. If you want to be able to schedule Pods on the control-plane node, for example for a
 single-machine Kubernetes cluster for development, run:
 
 ```bash

@@ -76,7 +76,7 @@ should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
 there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
 tool configured to run each hour. You can also set up a container runtime to
-rotate application's logs automatically, e.g. by using Docker's `log-opt`.
+rotate application's logs automatically, for example by using Docker's `log-opt`.
 In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
 and the former approach is used in any other environment. In both cases, by
 default rotation is configured to take place when log file exceeds 10MB.
