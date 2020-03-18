@@ -270,7 +270,7 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use um editor alternativ
 
 ```bash
 kubectl scale --replicas=3 rs/foo                                 # Escale um replicaset chamado 'foo' para 3
-kubectl scale --replicas=3 -f foo.yaml                            # Escale um recurso especifico em "foo.yaml" para 3
+kubectl scale --replicas=3 -f foo.yaml                            # Escale um recurso especificado em "foo.yaml" para 3
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Se o tamanho atual do deployment chamado mysql for dois, assim escale para 3
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Escalar vários replicaset
 ```
