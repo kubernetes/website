@@ -210,22 +210,22 @@ A partir da versão 1.11 `rolling-update` foi descontinuado (veja [CHANGELOG-1.1
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Aplica o atualização contínua nos containers "www" do deployment "frontend", atualizando a imagem
-kubectl rollout history deployment/frontend                      # Verifique o histórico de implantações, incluindo a revisão
+kubectl rollout history deployment/frontend                      # Verifica o histórico de implantações, incluindo a revisão
 kubectl rollout undo deployment/frontend                         # Rollback para a implantação anterior
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback para uma revisão específica
-kubectl rollout status -w deployment/frontend                    # Assista ao status do atualização sem interrupçãoe do "front-end" até a conclusão
+kubectl rollout status -w deployment/frontend                    # Acompanhe o status de atualização do "front-end" até sua conclusão sem interrupção 
 kubectl rollout restart deployment/frontend                      # Reinício contínuo da implantação "front-end"
 
 
 # versão inicial descontinuada 1.11
 kubectl rolling-update frontend-v1 -f frontend-v2.json           # (descontinuada) Atualização contínua dos pods de frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (descontinuada) altere o nome do recurso e atualize a imagem
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (descontinuada) Altera o nome do recurso e atualiza a imagem
 kubectl rolling-update frontend --image=image:v2                 # (descontinuada) Atualize a imagem dos pods do frontend
 kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (descontinuada) Interromper o lançamento existente em andamento
 
 cat pod.json | kubectl replace -f -                              # Substitua um pod com base no JSON passado para std
 
-# Forçar o update, excluir e recriar o recurso. Causará uma interrupção do serviço.
+# Força a substituição, exclui e recria o recurso. Causará uma interrupção do serviço.
 kubectl replace --force -f ./pod.json
 
 # Crie um serviço para um nginx replicado, que serve na porta 80 e se conecta aos contêineres na porta 8000
@@ -270,7 +270,7 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use um editor alternativ
 
 ```bash
 kubectl scale --replicas=3 rs/foo                                 # Escale um replicaset chamado 'foo' para 3
-kubectl scale --replicas=3 -f foo.yaml                            # Escale um recurso especifico em "foo.yaml" para 3
+kubectl scale --replicas=3 -f foo.yaml                            # Escale um recurso especificado em "foo.yaml" para 3
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Se o tamanho atual do deployment chamado mysql for dois, assim escale para 3
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Escalar vários replicaset
 ```
@@ -291,10 +291,10 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 ```bash
 kubectl logs my-pod                                 # despejar logs de pod (stdout)
 kubectl logs -l name=myLabel                        # despejar logs de pod, com nome da label = myLabel (stdout)
-kubectl logs my-pod --previous                      # despejar logs de pod (stdout) para a instancia anterior de um contêiner
+kubectl logs my-pod --previous                      # despejar logs de pod (stdout) para a instância anterior de um contêiner
 kubectl logs my-pod -c my-container                 # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres)
 kubectl logs -l name=myLabel -c my-container        # despejar logs de pod, com nome da label = myLabel (stdout)
-kubectl logs my-pod -c my-container --previous      # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres) para uma instanciação anterior de um contêiner
+kubectl logs my-pod -c my-container --previous      # despejar logs de um contêiner específico em um pod (stdout, no caso de vários contêineres) para uma instanciação anterior de um contêiner
 kubectl logs -f my-pod                              # Fluxo de logs de pod (stdout)
 kubectl logs -f my-pod -c my-container              # Fluxo de logs para um específico contêiner em um pod (stdout, caixa com vários contêineres)
 kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com nome da label = myLabel (stdout)
