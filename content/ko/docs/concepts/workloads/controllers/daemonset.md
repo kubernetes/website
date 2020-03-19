@@ -33,7 +33,8 @@ YAML 파일로 데몬셋을 설명 할 수 있다. 예를 들어 아래 `daemons
 
 {{< codenew file="controllers/daemonset.yaml" >}}
 
-* YAML 파일을 기반으로 데몬셋을 생성한다.
+YAML 파일을 기반으로 데몬셋을 생성한다.
+
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
@@ -44,6 +45,8 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 일반적인 설정파일 작업에 대한 정보는 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), 
 [컨테이너 구성하기](/ko/docs/tasks/) 그리고 [kubectl을 사용한 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
+데몬셋 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 데몬셋에는 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 섹션도 필요하다.
 
 ### 파드 템플릿

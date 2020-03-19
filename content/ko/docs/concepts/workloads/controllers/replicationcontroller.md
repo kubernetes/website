@@ -113,6 +113,8 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ## 레플리케이션 컨트롤러의 Spec 작성
 
 다른 모든 쿠버네티스 컨피그와 마찬가지로 레플리케이션 컨트롤러는 `apiVersion`, `kind`, `metadata` 와 같은 필드가 필요하다.
+레플리케이션 컨트롤러 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 컨피그 파일의 동작에 관련된 일반적인 정보는 다음을 참조하라 [쿠버네티스 오브젝트 관리 ](/ko/docs/concepts/overview/working-with-objects/object-management/).
 
 레플리케이션 컨트롤러는 또한 [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 도 필요하다.

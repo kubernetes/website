@@ -50,13 +50,11 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
 ```
 
-특정 버전을 다운로드 받는다면 다음을 변경한다.
+특정 버전을 다운로드 받는다면 명령의 다음부분을 특정 kops 버전으로 변경한다.
 
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
-
-특정 버전의 명령 부분이다.
 
 예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
 
