@@ -47,7 +47,7 @@ Get a local clone of the following repositories:
 go get -u github.com/spf13/pflag
 go get -u github.com/spf13/cobra
 go get -u gopkg.in/yaml.v2
-go get -u kubernetes-sigs/reference-docs
+go get -u github.com/kubernetes-sigs/reference-docs
 ```
 
 If you don't already have the kubernetes/website repository, get it now:
@@ -140,15 +140,15 @@ need to work with someone who can set the label and milestone for you.
 Go to `<rdocs-base>`. On you command line, set the following environment variables.
 
 * Set `K8S_ROOT` to `<k8s-base>`.
-* Set `WEB_ROOT` to `<web-base>`.
+* Set `K8S_WEBROOT` to `<web-base>`.
 * Set `K8S_RELEASE` to the version of the docs you want to build.
   For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
 
 For example:
 
 ```shell
-export WEB_ROOT=$(GOPATH)/src/github.com/<your-username>/website
-export K8S_ROOT=$(GOPATH)/src/k8s.io/kubernetes
+export K8S_WEBROOT=$GOPATH/src/github.com/<your-username>/website
+export K8S_ROOT=$GOPATH/src/k8s.io/kubernetes
 export K8S_RELEASE=1.17
 ```
 
