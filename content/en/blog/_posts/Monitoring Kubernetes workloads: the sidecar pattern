@@ -17,7 +17,7 @@ Cloud computing is here to stay, and while Kubernetes is a powerful platform for
 
 ## Monitoring Kubernetes: the challenges and data sources
 
-Adopting Kubernetes means contending with an enormous variety of data sources. These data sources are all abstractions, so in order to gain visibility into the health and performance of the system, you need access to monitoring data all the way down the stack.
+Adopting Kubernetes means contending with an enormous variety of data sources. These data sources are all abstractions, so to gain visibility into the health and performance of the system, you need access to monitoring data down the stack.
 
 Sensu CTO Sean Porter [outlines the data sources in detail in this post](https://www.cncf.io/blog/2019/01/09/monitoring-kubernetes-part-1-the-challenges-data-sources/). In short, you need to be able to collect data from four main sources:
 
