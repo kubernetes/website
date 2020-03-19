@@ -41,7 +41,7 @@ With these observability approaches in mind, let’s take a closer look at one o
 
 ### Prometheus + Kubernetes
 
-Sean writes about [the ways that Prometheus can be a great telemetry-based monitoring companion to Kubernetes](https://blog.sensu.io/monitoring-kubernetes-docker-part-2-prometheus). In particular, if you don’t want your developers to have to think about modifying their deployment YAML, Prometheus is great for that. You can instrument your apps and expose telemetry-focused metrics and you’re done. And, you could always have developers reference a ConfigMap to make use of a sidecar pattern, (more details on that below).
+Sean writes about [the ways that Prometheus can be a great telemetry-based monitoring companion to Kubernetes](https://blog.sensu.io/monitoring-kubernetes-docker-part-2-prometheus). In particular, if you don’t want your developers to have to think about modifying their deployment YAML, Prometheus is great for that. You can instrument your apps and expose telemetry-focused metrics. Developers can reference a ConfigMap to make use of a sidecar pattern, (more details on that below).
 
 However, if you need the additional functional service health checking, you can’t really map “Is this thing healthy or not?” to a 1 and a 0 with Prometheus. To check functional service health, you need to look elsewhere.  
 
