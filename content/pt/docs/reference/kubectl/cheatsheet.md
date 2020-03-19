@@ -139,7 +139,7 @@ EOF
 
 ```
 
-## Visualizando e localizando recursos
+## Visualizando e Localizando Recursos
 
 ```bash
 # Obter comandos com saída simples
