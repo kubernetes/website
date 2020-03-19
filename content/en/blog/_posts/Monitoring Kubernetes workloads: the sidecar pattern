@@ -19,7 +19,7 @@ Cloud computing is here to stay, and while Kubernetes is a powerful platform for
 
 Adopting Kubernetes means contending with an enormous variety of data sources. These data sources are all abstractions, so to gain visibility into the health and performance of the system, you need access to monitoring data down the stack.
 
-Sensu CTO Sean Porter [outlines the data sources in detail in this post](https://www.cncf.io/blog/2019/01/09/monitoring-kubernetes-part-1-the-challenges-data-sources/). In short, you need to be able to collect data from four main sources:
+Sensu CTO Sean Porter [outlines the data sources in detail in this post](https://www.cncf.io/blog/2019/01/09/monitoring-kubernetes-part-1-the-challenges-data-sources/). In short, you need to be able to collect data from four primary sources:
 
 1. **The Kubernetes hosts running the Kubelet**. The most common way to get data out of these hosts is to use the [Prometheus node exporter](https://github.com/prometheus/node_exporter), which scrapes data from the Kubernetes host and exposes system resource telemetry data on an HTTP endpoint.
 2. **The Kubernetes process, AKA Kubelet metrics**. These provide details on Kubernetes nodes and the jobs they run.
