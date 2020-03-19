@@ -197,7 +197,7 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 # Útil ao limpar contêineres parados, evitando a remoção de initContainers.
 kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
 
-# Listar eventos classificados por carimbo de data / hora
+# Listar eventos classificados por timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
 
 # Compara o estado atual do cluster com o estado em que o cluster estaria se o manifesto fosse aplicado.
