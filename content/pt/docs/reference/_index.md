@@ -1,5 +1,5 @@
 ---
-title: Reference
+title: Referência
 approvers:
 - chenopis
 linkTitle: "Reference"
