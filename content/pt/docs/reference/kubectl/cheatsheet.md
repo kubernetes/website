@@ -209,7 +209,7 @@ kubectl diff -f ./my-manifest.yaml
 A partir da versão 1.11 `rolling-update` foi descontinuado (veja [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), utilize o comando `rollout` no lugar deste.
 
 ```bash
-kubectl set image deployment/frontend www=image:v2               # Aplica o atualização contínua nos containers "www" do deployment "frontend", atualizando a imagem
+kubectl set image deployment/frontend www=image:v2               # Aplica o rollout nos containers "www" do deployment "frontend", atualizando a imagem
 kubectl rollout history deployment/frontend                      # Verifica o histórico de implantações, incluindo a revisão
 kubectl rollout undo deployment/frontend                         # Rollback para a implantação anterior
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback para uma revisão específica
