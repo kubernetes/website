@@ -184,7 +184,7 @@ a Lease object.
   timeout for unreachable nodes).
 - The kubelet creates and then updates its Lease object every 10 seconds
   (the default update interval). Lease updates occur independently from the
-  `NodeStatus` updates.
+  `NodeStatus` updates. If the Lease update fails, the kubelet retries with exponential backoff starting at 200 milliseconds and capped at 7 seconds.
 
 #### Reliability
 
