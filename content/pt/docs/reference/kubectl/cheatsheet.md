@@ -45,7 +45,7 @@ source <(kubectl completion zsh)  # configuração para usar autocomplete no ter
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # adicionar auto completar permanentemente para o seu shell zsh
 ```
 
-##  Contexto e configuração do Kubectl
+##  Contexto e Configuração do Kubectl
 
 Defina com qual cluster Kubernetes o `kubectl` se comunica e modifique os detalhes da configuração.
 Veja a documentação [Autenticando entre clusters com o kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) para
