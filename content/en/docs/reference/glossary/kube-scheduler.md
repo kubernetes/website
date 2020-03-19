@@ -11,7 +11,7 @@ tags:
 - architecture
 ---
 Control plane component that watches for newly created
-{{< glossary_tooltip term_id="node" >}} with no assigned
+{{< glossary_tooltip term_id="pod" text="Pods" >}} with no assigned
 {{< glossary_tooltip term_id="node" text="node">}}, and selects a node for them
 to run on.
 
