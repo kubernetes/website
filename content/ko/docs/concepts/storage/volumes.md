@@ -1440,5 +1440,5 @@ sudo systemctl restart docker
 
 
 {{% capture whatsnext %}}
-* [퍼시스턴트 볼륨과 함께 워드프레스와 MySQL 배포하기](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)의 예시를 따른다.
+* [퍼시스턴트 볼륨과 함께 워드프레스와 MySQL 배포하기](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)의 예시를 따른다.
 {{% /capture %}}

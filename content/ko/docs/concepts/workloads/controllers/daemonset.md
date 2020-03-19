@@ -61,7 +61,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 파드 셀렉터
 
 `.spec.selector` 필드는 파드 셀렉터이다. 이것은 
-[잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)의 `.spec.selector` 와 같은 동작을 한다.
+[잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)의 `.spec.selector` 와 같은 동작을 한다.
 
 쿠버네티스 1.8 부터는 레이블이 `.spec.template` 와 일치하는 파드 셀렉터를 명시해야 한다.
 파드 셀렉터는 비워두면 더 이상 기본 값이 설정이 되지 않는다.

@@ -345,7 +345,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 위의 예시에서 `topologyKey:"kubernetes.io/hostname"` 과 함께 `PodAntiAffinity` 규칙을 사용해서
 두 개의 인스터스가 동일한 호스트에 있지 않도록 redis 클러스터를 배포한다.
 같은 기술을 사용해서 고 가용성을 위해 안티-어피니티로 구성된 스테이트풀셋의 예시는
-[ZooKeeper 튜토리얼](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)을 본다.
+[ZooKeeper 튜토리얼](/ko/docs/tutorials/stateful-application/zookeeper/#노드-실패-방지)을 본다.
 
 ## nodeName
 
