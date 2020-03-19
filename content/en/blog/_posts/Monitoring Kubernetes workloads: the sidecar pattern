@@ -126,7 +126,7 @@ Here’s the excerpt from the `.spec.template.spec.containers` scope in the Kube
 Now that you have this configuration in place, you can scale resources easily. 
 
 ```
-kubectl --namespace webinar scale deployment nginx --replicas 10
+$ kubectl --namespace webinar scale deployment nginx --replicas 10
 ```
 
 Before we configure the monitoring check, I’ll provide some background on Sensu’s architecture and how the services communicate. The Sensu agent communicates with the Sensu backend in a pub-sub model, and the agent only requires outbound network access so we don’t have to open ports in the agent or on the pod to get access to them. Agents have TLS-encrypted web sockets in Sensu Go, and they maintain this connection with the Sensu backend, with built-in support for high availability. 
