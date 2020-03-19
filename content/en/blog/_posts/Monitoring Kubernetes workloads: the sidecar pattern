@@ -1,3 +1,10 @@
+---
+layout: blog
+title: 'Monitoring Kubernetes Workloads: The Sidecar Pattern'
+date: 2020-03-25
+slug: monitoring-kubernetes-sidecar-pattern
+---
+
 Kubernetes has entirely changed the way we build infrastructure, speeding up deployments and letting us replicate and scale microservice architectures. That speed comes with a new set of challenges around how we maintain visibility and monitor infrastructure.
 
 In this post, I’ll recap the [webinar Sensu CEO Caleb Hailey did with the CNCF](https://www.sensu.io/resources/webinar/monitoring-kubernetes-sidecar-pattern) where he discussed some of the existing and popular patterns for monitoring Kubernetes (like Prometheus) and why traditional methods fall short in a cloud-native world. I’ll also go over current best practices for monitoring workloads on Kubernetes, including the sidecar pattern for monitoring.
