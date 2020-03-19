@@ -214,7 +214,7 @@ kubectl rollout history deployment/frontend                      # Verifica o hi
 kubectl rollout undo deployment/frontend                         # Rollback para o deployment anterior
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback para uma revisão específica
 kubectl rollout status -w deployment/frontend                    # Acompanhe o status de atualização do "front-end" até sua conclusão sem interrupção 
-kubectl rollout restart deployment/frontend                      # Reinício contínuo da implantação "front-end"
+kubectl rollout restart deployment/frontend                      # Reinício contínuo do deployment "frontend"
 
 
 # versão inicial descontinuada 1.11
