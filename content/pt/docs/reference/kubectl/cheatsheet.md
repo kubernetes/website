@@ -213,7 +213,7 @@ kubectl set image deployment/frontend www=image:v2               # Aplica o roll
 kubectl rollout history deployment/frontend                      # Verifica o histórico do deployment, incluindo a revisão
 kubectl rollout undo deployment/frontend                         # Rollback para o deployment anterior
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback para uma revisão específica
-kubectl rollout status -w deployment/frontend                    # Acompanhe o status de atualização do "front-end" até sua conclusão sem interrupção 
+kubectl rollout status -w deployment/frontend                    # Acompanhe o status de atualização do "frontend" até sua conclusão sem interrupção 
 kubectl rollout restart deployment/frontend                      # Reinício contínuo do deployment "frontend"
 
 
