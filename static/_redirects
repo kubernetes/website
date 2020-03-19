@@ -6,19 +6,19 @@
 
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
-/docs/     /docs/home/ 301
-/de/docs/     /de/docs/home/ 301
-/es/docs/     /es/docs/home/ 301
-/fr/docs/     /fr/docs/home/ 301
-/id/docs/     /id/docs/home/ 301
-/ja/docs/     /ja/docs/home/ 301
-/ko/docs/     /ko/docs/home/ 301
-/no/docs/     /no/docs/home/ 301
-/pl/docs/     /pl/docs/home/ 301
-/pt/docs/     /pt/docs/home/ 301
-/ru/docs/     /ru/docs/home/ 301
-/vi/docs/     /vi/docs/home/ 301
-/zh/docs/     /zh/docs/home/ 301
+/docs/     /docs/home/ 301!
+/de/docs/     /de/docs/home/ 301!
+/es/docs/     /es/docs/home/ 301!
+/fr/docs/     /fr/docs/home/ 301!
+/id/docs/     /id/docs/home/ 301!
+/ja/docs/     /ja/docs/home/ 301!
+/ko/docs/     /ko/docs/home/ 301!
+/no/docs/     /no/docs/home/ 301!
+/pl/docs/     /pl/docs/home/ 301!
+/pt/docs/     /pt/docs/home/ 301!
+/ru/docs/     /ru/docs/home/ 301!
+/vi/docs/     /vi/docs/home/ 301!
+/zh/docs/     /zh/docs/home/ 301!
 
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/27/kubernetes-1.10-stabilizing-storage-security-networking/     301
 
@@ -132,7 +132,7 @@
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
+/docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
 
 /docs/consumer-guideline/pod-security-coverage/     /docs/concepts/policy/pod-security-policy/ 301
@@ -221,7 +221,7 @@
 /docs/samples/     /docs/tutorials/ 301
 /docs/stable/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 
-/docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301
+/docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301!
 /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
 /docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/     /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/ 301
