@@ -419,7 +419,7 @@ You can test if you have bash-completion v2 already installed with `type _init_c
 brew install bash-completion@2
 ```
 
-As stated in the output of this command, add the following to your `~/.bashrc` file:
+As stated in the output of this command, add the following to your `~/.bash_profile` file:
 
 ```shell
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
@@ -432,10 +432,10 @@ Reload your shell and verify that bash-completion v2 is correctly installed with
 
 You now have to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways to achieve this:
 
-- Source the completion script in your `~/.bashrc` file:
+- Source the completion script in your `~/.bash_profile` file:
 
     ```shell
-    echo 'source <(kubectl completion bash)' >>~/.bashrc
+    echo 'source <(kubectl completion bash)' >>~/.bash_profile
 
     ```
 
@@ -448,8 +448,8 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
 - If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
     ```shell
-    echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'alias k=kubectl' >>~/.bash_profile
+    echo 'complete -F __start_kubectl k' >>~/.bash_profile
     ```
     
 - If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
