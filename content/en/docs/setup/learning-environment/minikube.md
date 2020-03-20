@@ -72,24 +72,24 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```
 4. The `hello-minikube` Pod is now launched but you have to wait until the Pod is up before accessing it via the exposed Service.
 
-	Check if the Pod is up and running:
-	```shell
-	kubectl get pod
-	```
-	If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
-	If the output shows the `STATUS` as `Running`, the Pod is now up and running:
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
+ Check if the Pod is up and running:
+ ```shell
+ kubectl get pod
+ ```
+ If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+ ```
+ NAME                              READY     STATUS              RESTARTS   AGE
+ hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+ ```
+ If the output shows the `STATUS` as `Running`, the Pod is now up and running:
+ ```
+ NAME                              READY     STATUS    RESTARTS   AGE
+ hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+ ```
 5. Get the URL of the exposed Service to view the Service details:
-	```shell
-	minikube service hello-minikube --url
-	```
+ ```shell
+ minikube service hello-minikube --url
+ ```
 6. To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
 
     The output is similar to this:
@@ -119,7 +119,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Request Body:
         -no body in request-
     ```
-	If you no longer want the Service and cluster to run, you can delete them.
+ If you no longer want the Service and cluster to run, you can delete them.
 7. Delete the `hello-minikube` Service:
     ```shell
     kubectl delete services hello-minikube
@@ -145,7 +145,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Stopping "minikube"...
     "minikube" stopped.
     ```
-	For more information, see [Stopping a Cluster](#stopping-a-cluster).
+ For more information, see [Stopping a Cluster](#stopping-a-cluster).
 10. Delete the local Minikube cluster:
     ```shell
     minikube delete
@@ -155,7 +155,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-	For more information, see [Deleting a cluster](#deleting-a-cluster).
+  For more information, see [Deleting a cluster](#deleting-a-cluster).
 
 ## Managing your Cluster
 

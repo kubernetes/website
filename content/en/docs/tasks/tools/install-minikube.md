@@ -70,9 +70,9 @@ Make sure you have kubectl installed. You can install kubectl according to the i
 
 If you do not already have a hypervisor installed, install one of these now:
 
-• [KVM](https://www.linux-kvm.org/), which also uses QEMU
+* [KVM](https://www.linux-kvm.org/), which also uses QEMU
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 Minikube also supports a `--driver=none` option that runs the Kubernetes components on the host and not in a VM.
 Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.

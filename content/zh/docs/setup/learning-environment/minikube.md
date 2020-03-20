@@ -95,7 +95,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     <!--
     For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
     -->
-    
+
     有关使用特定 Kubernetes 版本、VM 或容器运行时启动集群的详细信息，请参阅[启动集群](#starting-a-cluster)。
 
 2. 现在，您可以使用 kubectl 与集群进行交互。有关详细信息，请参阅[与集群交互](#interacting-with-your-cluster)。
@@ -151,7 +151,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     -->
 
     <!--
-	Check if the Pod is up and running:
+		Check if the Pod is up and running:
     -->
     检查 Pod 是否启动并运行：
 
@@ -159,7 +159,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 	kubectl get pod
 	```
     <!--
-	If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+		If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
     -->
     如果输出显示 `STATUS` 为 `ContainerCreating`，则表明 Pod 仍在创建中：
 	```
@@ -167,7 +167,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
 	```
     <!--
-	If the output shows the `STATUS` as `Running`, the Pod is now up and running:
+  If the output shows the `STATUS` as `Running`, the Pod is now up and running:
     -->
     如果输出显示 `STATUS` 为 `Running`，则 Pod 现在正在运行：
 	```
@@ -223,7 +223,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
         -no body in request-
     ```
     <!--
-	If you no longer want the Service and cluster to run, you can delete them.
+		If you no longer want the Service and cluster to run, you can delete them.
     -->
     如果您不再希望运行 Service 和集群，则可以删除它们。
 
@@ -282,7 +282,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     "minikube" stopped.
     ```
     <!--
- 	For more information, see [Stopping a Cluster](#stopping-a-cluster).
+ 	   For more information, see [Stopping a Cluster](#stopping-a-cluster).
     -->
     有关更多信息，请参阅[停止集群](#stopsing-a-cluster)。
 
@@ -305,7 +305,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     The "minikube" cluster has been deleted.
     ```
     <!--
-	For more information, see [Deleting a cluster](#deleting-a-cluster).
+		For more information, see [Deleting a cluster](#deleting-a-cluster).
     -->
     有关更多信息，请参阅[删除集群](#deletion-a-cluster)。
 

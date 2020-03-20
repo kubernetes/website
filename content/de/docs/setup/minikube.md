@@ -96,24 +96,24 @@ Pod Information:
  -no pod information available-
 
 Server values:
-	server_version=nginx: 1.13.3 - lua: 10008
+ server_version=nginx: 1.13.3 - lua: 10008
 
 Request Information:
-	client_address=172.17.0.1
-	method=GET
-	real path=/
-	query=
-	request_version=1.1
-	request_scheme=http
-	request_uri=http://192.168.99.100:8080/
+ client_address=172.17.0.1
+ method=GET
+ real path=/
+ query=
+ request_version=1.1
+ request_scheme=http
+ request_uri=http://192.168.99.100:8080/
 
 Request Headers:
-	accept=*/*
-	host=192.168.99.100:30674
-	user-agent=curl/7.47.0
+ accept=*/*
+ host=192.168.99.100:30674
+ user-agent=curl/7.47.0
 
 Request Body:
-	-no body in request-
+ -no body in request-
 ```
 
 ```shell
