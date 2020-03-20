@@ -158,20 +158,20 @@ The [NVIDIA GPU Feature Discovery](https://github.com/NVIDIA/gpu-feature-discove
 
 The currently available labels are:
 
-| Label Name                     | Value Type | Meaning                                  |
-| -------------------------------| ---------- | ---------------------------------------- |
-| nvidia.com/cuda.runtime.major  | Integer    | Major of the version of CUDA             |
-| nvidia.com/cuda.runtime.minor  | Integer    | Minor of the version of CUDA             |
-| nvidia.com/cuda.driver.major   | Integer    | Major of the version of NVIDIA driver    |
-| nvidia.com/cuda.driver.minor   | Integer    | Minor of the version of NVIDIA driver    |
-| nvidia.com/cuda.driver.rev     | Integer    | Revision of the version of NVIDIA driver |
-| nvidia.com/gpu.family          | String     | Architecture family of the GPU           |
-| nvidia.com/gpu.machine         | String     | Machine type                             |
-| nvidia.com/gpu.product         | String     | Model of the GPU                         |
-| nvidia.com/gpu.memory          | Integer    | Memory of the GPU in Mb                  |
-| nvidia.com/gpu.compute.major   | Integer    | Major of the compute capabilities        |
-| nvidia.com/gpu.compute.minor   | Integer    | Minor of the compute capabilities        |
-| nvidia.com/gfd.timestamp       | Integer    | Timestamp of the generated labels        |
+| Label Name                      | Value Type | Meaning                                  |
+| --------------------------------| ---------- | ---------------------------------------- |
+| `nvidia.com/cuda.driver.major`  | Integer    | Major of the version of NVIDIA driver    |
+| `nvidia.com/cuda.driver.minor`  | Integer    | Minor of the version of NVIDIA driver    |
+| `nvidia.com/cuda.driver.rev`    | Integer    | Revision of the version of NVIDIA driver |
+| `nvidia.com/cuda.runtime.major` | Integer    | Major of the version of CUDA             |
+| `nvidia.com/cuda.runtime.minor` | Integer    | Minor of the version of CUDA             |
+| `nvidia.com/gpu.compute.major`  | Integer    | Major of the compute capabilities        |
+| `nvidia.com/gpu.compute.minor`  | Integer    | Minor of the compute capabilities        |
+| `nvidia.com/gpu.family`         | String     | Architecture family of the GPU           |
+| `nvidia.com/gpu.machine`        | String     | Machine type                             |
+| `nvidia.com/gpu.memory`         | Integer    | Memory of the GPU in Mb                  |
+| `nvidia.com/gpu.product`        | String     | Model of the GPU                         |
+| `nvidia.com/gfd.timestamp`      | Integer    | Timestamp of the generated labels        |
 
 With the GPU Feature Discovery in use, you can specify the GPU type in the Pod spec:
 
