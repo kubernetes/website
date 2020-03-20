@@ -300,7 +300,7 @@ language_alternatives = ["en"]
 
 [languages.ar]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "تنسيق الحاويات على مستوى الإنتاج"
 languageName = "العربية"
 weight = 14
 contentDir = "content/ar"

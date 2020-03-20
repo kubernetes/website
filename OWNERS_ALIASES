@@ -223,7 +223,6 @@ aliases:
     - kpucynski
   sig-docs-ar-owners: # Admins for Arabic content
     - mohamedsgap
-    - mohamedkhaledhafez
   sig-docs-ar-reviews: # PR reviews for Arabic content
     - mohamedsgap
     - mohamedkhaledhafez

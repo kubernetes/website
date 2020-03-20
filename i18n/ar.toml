@@ -40,7 +40,7 @@ other = " يجب أن يكون خادم Kubernetes الخاص بك هو الإص
 other = "يجب أن يكون خادم Kubernetes في الإصدار أو بعده "
 
 [version_check_tocheck]
-other = "To check the version, enter "
+other = "لفحص النسخة اضغط "
 
 [caution]
 other = "احذر:"
@@ -49,7 +49,7 @@ other = "احذر:"
 other = "ملاحظة:"
 
 [warning]
-other = "Warning:"
+other = "تحذير:"
 
 [main_read_about]
 other = "أقرأ عن"
@@ -67,10 +67,10 @@ other = "View On GitHub"
 other = "إنشاء مشكلة"
 
 [main_community_explore]
-other = "Explore the community"
+other = "استكشف المجتمع"
 
 [main_kubernetes_features]
-other = "Kubernetes Features"
+other = "ميزات Kubernetes"
 
 [main_cncf_project]
 other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
@@ -79,22 +79,22 @@ other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
 other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
 
 [main_kubernetes_past_link]
-other = "View past newsletters"
+other = "عرض النشرات الإخبارية السابقة"
 
 [main_kubeweekly_signup]
-other = "Subscribe"
+other = "الإشتراك"
 
 [main_contribute]
-other = "Contribute"
+other = "مساهمة"
 
 [main_edit_this_page]
-other = "Edit This Page"
+other = "تحرير هذه الصفحة"
 
 [main_page_history]
-other ="Page History"
+other ="محفوظات الصفحة"
 
 [main_page_last_modified_on]
-other = "Page last modified on"
+other = "آخر تعديل للصفحة في"
 
 [main_by]
 other = "by"
@@ -107,13 +107,13 @@ other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation
 
 # Labels for the docs portal home page.
 [docs_label_browse]
-other = "Browse Docs"
+other = "تصفح المستندات"
 
 [docs_label_contributors]
-other = "Contributors"
+other = "المساهمون"
 
 [docs_label_users]
-other = "Users"
+other = "المستخدمون"
 
 [docs_label_i_am]
 other = "I AM..."
@@ -129,30 +129,30 @@ other = "التالية >>"
 # layouts > blog > list
 
 [layouts_case_studies_list_tell]
-other = "Tell your story"
+other = "أخبرنا قصتك"
 
 # layouts > docs > glossary
 
 [layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to K8s, as well as more general terms that provide useful context."
+other = "الغرض من هذا المسرد هو أن يكون قائمة موحدة وشاملة لمصطلحات Kubernetes. يتضمن المصطلحات التقنية الخاصة بـ K8s ، بالإضافة إلى المصطلحات الأكثر عمومية التي توفر سياق مفيد."
 
 [layouts_docs_glossary_filter]
-other = "Filter terms according to their tags"
+other = "تصفية المصطلحات وفقا لعلاماتها"
 
 [layouts_docs_glossary_select_all]
-other = "Select all"
+other = "أختر الكل"
 
 [layouts_docs_glossary_deselect_all]
-other = "Deselect all"
+other = "عدم اختيار الكل"
 
 [layouts_docs_glossary_aka]
-other = "Also known as"
+other = "أيضا معروف ب"
 
 [layouts_docs_glossary_click_details_before]
 other = "اضغط على"
 
 [layouts_docs_glossary_click_details_after]
-other = "indicators below to get a longer explanation for any particular term."
+other = "المؤشرات أدناه للحصول على شرح أطول لأي مصطلح معين."
 
 # layouts > docs > search
 
@@ -162,10 +162,10 @@ other = "Fetching results.."
 # layouts > partial > feedback
 
 [layouts_docs_partials_feedback_thanks]
-other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+other = "شكرا على ملاحظاتك. إذا كان لديك سؤال محدد قابل للإجابة حول كيفية استخدام Kubernetes، فاسأله"
 
 [layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to "
+other = "افتح مشكلة في المستودع إذا كنت ترغب في ذلك"
 
 [layouts_docs_partials_feedback_problem]
 other = "الإبلاغ عن مشكلة"
@@ -174,7 +174,7 @@ other = "الإبلاغ عن مشكلة"
 other = "أو"
 
 [layouts_docs_partials_feedback_improvement]
-other = "suggest an improvement"
+other = "اقترح تحسين"
 
 # Community links
 [community_twitter_name]
