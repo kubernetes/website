@@ -51,6 +51,23 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
+## Letting iptables see bridged traffic
+
+As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
+
+```bash
+cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
+```
+
+Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
+
+For more details please see the [Network Plugin Requirements](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
+
+
 ## Ensure iptables tooling does not use the nftables backend
 
 In Linux, nftables is available as a modern replacement for the kernel's iptables subsystem. The
@@ -230,17 +247,7 @@ systemctl enable --now kubelet
   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
     This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
     You have to do this until SELinux support is improved in the kubelet.
-  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
-    `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
-
-    ```bash
-    cat <<EOF > /etc/sysctl.d/k8s.conf
-    net.bridge.bridge-nf-call-ip6tables = 1
-    net.bridge.bridge-nf-call-iptables = 1
-    EOF
-    sysctl --system
-    ```
-  - Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
+    
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 Install CNI plugins (required for most pod network):
