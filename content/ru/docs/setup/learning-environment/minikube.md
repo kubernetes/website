@@ -83,30 +83,30 @@ Minikube поддерживает следующие возможности Kube
 
 4.  Под (Pod) `hello-minikube` теперь запущен, но нужно подождать, пока он начнёт функционировать, прежде чем обращаться к нему.
 
-  Проверьте, что под работает:
+	Проверьте, что под работает:
 
-  ```shell
-  kubectl get pod
-  ```
+	```shell
+	kubectl get pod
+	```
 
   Если в столбце вывода `STATUS` выводится `ContainerCreating`, значит под все еще создается:
 
-  ```
-  NAME                              READY     STATUS              RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-  ```
+	```
+	NAME                              READY     STATUS              RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+	```
 
   Если в столбце `STATUS` указано `Running`, то под теперь в рабочем состоянии:
 
-  ```
-  NAME                              READY     STATUS    RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-  ```
+	```
+	NAME                              READY     STATUS    RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+	```
 5. Узнайте URL-адрес открытого (exposed) сервиса, чтобы просмотреть подробные сведения о сервисе:
 
-  ```shell
-  minikube service hello-minikube --url
-  ```
+	```shell
+	minikube service hello-minikube --url
+	```
 6. Чтобы ознакомиться с подробной информацией о локальном кластере, скопируйте и откройте полученный из вывода команды на предыдущем шаге URL-адрес в браузере.
 
     Вывод будет примерно следующим:
@@ -170,7 +170,7 @@ Minikube поддерживает следующие возможности Kube
     Stopping "minikube"...
     "minikube" stopped.
     ```
-    Подробности смотрите в разделе [Остановка кластера](#остановка-кластера).
+	  Подробности смотрите в разделе [Остановка кластера](#остановка-кластера).
 10. Удалите локальный кластер Minikube:
     ```shell
     minikube delete
@@ -182,7 +182,7 @@ Minikube поддерживает следующие возможности Kube
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-  Подробности смотрите в разделе [Удаление кластера](#удаление-кластера).
+	Подробности смотрите в разделе [Удаление кластера](#удаление-кластера).
 
 ## Управление кластером
 
@@ -215,29 +215,27 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 
 #### Указание драйвера виртуальной машины
 
-Вы можете изменить драйвер виртуальной машины, добавив флаг `--driver=<enter_driver_name>` в команду `minikube start`.
+Вы можете изменить драйвер виртуальной машины, добавив флаг `--vm-driver=<enter_driver_name>` в команду `minikube start`.
 
 Тогда команда будет выглядеть так:
 
 ```shell
-minikube start --driver=<driver_name>
+minikube start --vm-driver=<driver_name>
 ```
 
 Minikube поддерживает следующие драйверы:
 
 {{< note >}}
-Смотрите файл [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) для получения подробной информации о поддерживаемых драйверах и как устанавливать плагины.
+Смотрите файл [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) для получения подробной информации о поддерживаемых драйверах и как устанавливать плагины.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* docker (EXPERIMENTAL)
-* kvm2 ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
-* hyperkit ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
-* hyperv ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
+* kvm2 ([установка драйвера](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* hyperkit ([установка драйвера](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* hyperv ([установка драйвера](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Обратите внимание, что указанный IP-адрес на этой странице является динамическим и может изменяться. Его можно получить с помощью `minikube ip`.
-* vmware ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
-* parallels ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+* vmware ([установка драйвера](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
 * none (Запускает компоненты Kubernetes на хосте, а не на виртуальной машине. Использование этого драйвера требует использование Linux и установленного {{< glossary_tooltip term_id="docker" >}}.)
 
 {{< caution >}}

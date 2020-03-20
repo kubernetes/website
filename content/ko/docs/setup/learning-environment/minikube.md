@@ -68,24 +68,24 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     ```
 4. `hello-minikube` 파드가 이제 시작되었지만 노출된 서비스를 통해서 접근하기 전에 파드가 뜨기를 기다려야한다.
 
-  파드가 떠서 구동되고 있는지 확인한다.
-  ```shell
-  kubectl get pod
-  ```
-  출력에서 `STATUS`가 `ContainerCreating`으로 나타나는 경우, 파드는 아직 생성 중이다.
-  ```
-  NAME                              READY     STATUS              RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-  ```
-  출력에서 `STATUS`가 `Running`으로 나타나는 경우, 파드는 이제 떠서 기동 중이다.
-  ```
-  NAME                              READY     STATUS    RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-  ```
+	파드가 떠서 구동되고 있는지 확인한다.
+	```shell
+	kubectl get pod
+	```
+	출력에서 `STATUS`가 `ContainerCreating`으로 나타나는 경우, 파드는 아직 생성 중이다.
+	```
+	NAME                              READY     STATUS              RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+	```
+	출력에서 `STATUS`가 `Running`으로 나타나는 경우, 파드는 이제 떠서 기동 중이다.
+	```
+	NAME                              READY     STATUS    RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+	```
 5. 서비스 상세를 보기 위해서 노출된 서비스의 URL을 얻는다.
-  ```shell
-  minikube service hello-minikube --url
-  ```
+	```shell
+	minikube service hello-minikube --url
+	```
 6. 로컬 클러스터의 상세를 보기위해서, 출력에서 얻은 URL을 브라우저에 복사해서 붙여 넣는다.
 
     출력은 다음과 비슷하다.
@@ -115,7 +115,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     Request Body:
         -no body in request-
     ```
-  서비스나 클러스터가 더 이상 구동되지 않도록 하려면, 삭제한다.
+  서비스나 클러스터가 더 이상 구동되지 않도록 하려면, 삭제한다.  
 7. `hello-minikube` 서비스 삭제
     ```shell
     kubectl delete services hello-minikube
@@ -141,7 +141,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     Stopping "minikube"...
     "minikube" stopped.
     ```
-  보다 상세한 정보는 [클러스터 중지하기](#클러스터-중지하기)를 참조한다.
+	보다 상세한 정보는 [클러스터 중지하기](#클러스터-중지하기)를 참조한다.
 10. 로컬 Minikube 클러스터 삭제
     ```shell
     minikube delete
@@ -151,7 +151,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-  보다 상세한 정보는 [Deleting a cluster](#클러스터-삭제하기)를 참조한다.
+	보다 상세한 정보는 [Deleting a cluster](#클러스터-삭제하기)를 참조한다.
 
 ## 클러스터 관리하기
 
@@ -162,7 +162,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 이 커멘드는 또한 [kubectl](/docs/user-guide/kubectl-overview/)도 설정해서 클러스터와 통신할 수 있도록 한다.
 
 {{< note >}}
-웹 프록시 뒤에 있다면, `minikube start` 커맨드에 해당 정보를 전달해야 한다.
+웹 프록시 뒤에 있다면, `minikube start` 커맨드에 해당 정보를 전달해야 한다. 
 
 ```shell
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
@@ -175,36 +175,33 @@ Minikube는 또한 "minikube" 컨텍스트를 생성하고 이를 kubectl의 기
 
 #### 쿠버네티스 버전 지정하기
 
-`minikube start` 코멘드에 `--kubernetes-version` 문자열을
-추가해서 Minikube에서 사용할 쿠버네티스 버전을 지정할 수 있다.
+`minikube start` 코멘드에 `--kubernetes-version` 문자열을 
+추가해서 Minikube에서 사용할 쿠버네티스 버전을 지정할 수 있다. 
 예를 들어 버전 {{< param "fullversion" >}}를 구동하려면, 다음과 같이 실행한다.
 
 ```
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### VM 드라이버 지정하기
-`minikube start` 코멘드에 `--driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
+`minikube start` 코멘드에 `--vm-driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
 코멘드를 예를 들면 다음과 같다.
 ```shell
-minikube start --driver=<driver_name>
+minikube start --vm-driver=<driver_name>
 ```
  Minikube는 다음의 드라이버를 지원한다.
  {{< note >}}
- 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://minikube.sigs.k8s.io/docs/reference/drivers/)를 참조한다.
+ 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 참조한다.
 {{< /note >}}
-
 
 * virtualbox
 * vmwarefusion
-* docker (EXPERIMENTAL)
-* kvm2 ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
-* hyperkit ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
-* hyperv ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
+* kvm2 ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* hyperkit ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* hyperv ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 다음 IP는 동적이며 변경할 수 있다. `minikube ip`로 알아낼 수 있다.
-* vmware ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
-* parallels ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+* vmware ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
 * none (쿠버네티스 컴포넌트를 가상 머신이 아닌 호스트 상에서 구동한다. 리눅스를 실행중이어야 하고, {{< glossary_tooltip term_id="docker" >}}가 설치되어야 한다.)
-
+  
 {{< caution >}}
 `none` 드라이버를 사용한다면 일부 쿠버네티스 컴포넌트는 Minikube 환경 외부에 있는 부작용이 있는 권한을 가진 컨테이너로 실행된다. 이런 부작용은 개인용 워크스테이션에는 `none` 드라이버가 권장하지 않는 것을 의미 한다.
 {{< /caution >}}
@@ -322,7 +319,7 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 ### 클러스터 중지
 `minikube stop` 명령어는 클러스터를 중지하는데 사용할 수 있다.
 이 명령어는 Minikube 가상 머신을 종료하지만, 모든 클러스터 상태와 데이터를 보존한다.
-클러스터를 다시 시작하면 이전의 상태로 돌려줍니다.
+클러스터를 다시 시작하면 이전의 상태로 돌려줍니다. 
 
 ### 클러스터 삭제
 `minikube delete` 명령은 클러스터를 삭제하는데 사용할 수 있다.
@@ -338,7 +335,7 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 `minikube start` 명령어는 Minikube로 부르는 [kubectl 컨텍스트](/docs/reference/generated/kubectl/kubectl-commands/#-em-set-context-em-)를 생성한다.
 이 컨텍스트는 Minikube 클러스터와 통신하는 설정을 포함한다.
 
-Minikube는 이 컨텍스트를 자동적으로 기본으로 설정한다. 만약 미래에 이것을 바꾸고 싶다면
+Minikube는 이 컨텍스트를 자동적으로 기본으로 설정한다. 만약 미래에 이것을 바꾸고 싶다면 
 
 `kubectl config use-context minikube`을 실행하자.
 
@@ -419,7 +416,7 @@ spec:
 
 ## 애드온
 
-Minikube에서 커스텀 애드온을 적절히 시작하고 재시작할 수 있으려면,
+Minikube에서 커스텀 애드온을 적절히 시작하고 재시작할 수 있으려면, 
 Minikube와 함께 시작하려는 애드온을 `~/.minikube/addons` 디렉터리에 두자.
 폴더 내부의 애드온은 Minikube VM으로 이동되어
 Minikube가 시작하거나 재시작될 때에 함께 실행된다.
@@ -462,7 +459,7 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 * **개발 가이드**: 풀 리퀘스트를 보내는 방법에 대한 개요는 [참여 가이드](https://git.k8s.io/minikube/CONTRIBUTING.md)를 살펴보자.
 * **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://git.k8s.io/minikube/docs/contributors/build_guide.md)를 살펴보자.
 * **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는, [의존성 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)를 보자.
-* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자.
+* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자. 
 * **MicroK8s**: 가상 머신을 사용하지 않으려는 Linux 사용자는 대안으로 [MicroK8s](https://microk8s.io/)를 고려할 수 있다.
 
 ## 커뮤니티

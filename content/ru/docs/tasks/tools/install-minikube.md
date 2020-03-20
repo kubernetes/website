@@ -68,21 +68,21 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 Если у вас ещё не установлен гипервизор, установите один из них:
 
-* [KVM](https://www.linux-kvm.org/), который также использует QEMU
+• [KVM](https://www.linux-kvm.org/), который также использует QEMU
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-Minikube также поддерживает опцию `--driver=none`, которая запускает компоненты Kubernetes на хосте, а не на виртуальной машине.
+Minikube также поддерживает опцию `--vm-driver=none`, которая запускает компоненты Kubernetes на хосте, а не на виртуальной машине.
 Для использования этого драйвера требуется только [Docker](https://www.docker.com/products/docker-desktop) и Linux, но не гипервизор.
 
 Если вы используете драйвер `none` в Debian и его производных, используйте пакеты `.deb` для Docker, а не snap-пакет, который не работает с Minikube.
 Вы можете скачать `.deb`-пакеты с сайта [Docker](https://www.docker.com/products/docker-desktop).
 
 {{< caution >}}
-Драйвера виртуальной машины `none` может привести к проблемам безопасности и потери данных. Перед использованием `--driver=none` обратитесь к [этой документации](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) для получения дополнительной информации.
+Драйвера виртуальной машины `none` может привести к проблемам безопасности и потери данных. Перед использованием `--vm-driver=none` обратитесь к [этой документации](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) для получения дополнительной информации.
 {{< /caution >}}
 
-Minikube также поддерживает `driver=podman`, похожий на драйвер Docker. Podman, работающий с правами суперпользователя (пользователь root) — это лучший способ гарантировать вашим контейнерам полный доступ ко всем возможностям в системе.
+Minikube также поддерживает `vm-driver=podman`, похожий на драйвер Docker. Podman, работающий с правами суперпользователя (пользователь root) — это лучший способ гарантировать вашим контейнерам полный доступ ко всем возможностям в системе.
 
 {{< caution >}}
 Драйвер `podman` должен запускать контейнеры от имени суперпользователя, поскольку у обычных аккаунтов нет полного доступа ко всем возможностям операционной системы, которые могут понадобиться контейнерам для работы.
@@ -128,11 +128,11 @@ brew install minikube
 
 Если у вас ещё не установлен гипервизор, установите один из них:
 
-* [HyperKit](https://github.com/moby/hyperkit)
+• [HyperKit](https://github.com/moby/hyperkit)
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-* [VMware Fusion](https://www.vmware.com/products/fusion)
+• [VMware Fusion](https://www.vmware.com/products/fusion)
 
 ### Установка Minikube
 Простейший способ установить Minikube в macOS — использовать [Homebrew](https://brew.sh):
@@ -164,9 +164,9 @@ sudo mv minikube /usr/local/bin
 
 Если у вас ещё не установлен гипервизор, установите один из них:
 
-* [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 Hyper-V может работать в трёх версиях Windows 10: Windows 10 Enterprise, Windows 10 Professional и Windows 10 Education.
@@ -208,12 +208,12 @@ choco install minikube
 
 {{< note >}}
 
-Для использования опции `--driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Полный список значений для опции  `--driver` перечислен в разделе по [указанию драйвера виртуальной машины](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+Для использования опции `--vm-driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Полный список значений для опции  `--vm-driver` перечислен в разделе по [указанию драйвера виртуальной машины](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
 
 {{< /note >}}
 
 ```shell
-minikube start --driver=<driver_name>
+minikube start --vm-driver=<driver_name>
 ```
 
 После того, как команда `minikube start` отработала успешно, выполните команду для проверки состояния кластера:

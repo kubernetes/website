@@ -95,7 +95,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     <!--
     For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
     -->
-
+    
     有关使用特定 Kubernetes 版本、VM 或容器运行时启动集群的详细信息，请参阅[启动集群](#starting-a-cluster)。
 
 2. 现在，您可以使用 kubectl 与集群进行交互。有关详细信息，请参阅[与集群交互](#interacting-with-your-cluster)。
@@ -105,7 +105,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     -->
 
     <!--
-    Let's create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
+    Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     -->
     让我们使用名为 `echoserver` 的镜像创建一个 Kubernetes Deployment，并使用 `--port` 在端口 8080 上暴露服务。`echoserver` 是一个简单的 HTTP 服务器。
 
@@ -151,29 +151,29 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     -->
 
     <!--
-  Check if the Pod is up and running:
+	Check if the Pod is up and running:
     -->
     检查 Pod 是否启动并运行：
 
-  ```shell
-  kubectl get pod
-  ```
+	```shell
+	kubectl get pod
+	```
     <!--
-  If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+	If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
     -->
     如果输出显示 `STATUS` 为 `ContainerCreating`，则表明 Pod 仍在创建中：
-  ```
-  NAME                              READY     STATUS              RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-  ```
+	```
+	NAME                              READY     STATUS              RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+	```
     <!--
-  If the output shows the `STATUS` as `Running`, the Pod is now up and running:
+	If the output shows the `STATUS` as `Running`, the Pod is now up and running:
     -->
     如果输出显示 `STATUS` 为 `Running`，则 Pod 现在正在运行：
-  ```
-  NAME                              READY     STATUS    RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-  ```
+	```
+	NAME                              READY     STATUS    RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+	```
 
 5. 获取暴露 Service 的 URL 以查看 Service 的详细信息：
 
@@ -181,9 +181,9 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Get the URL of the exposed Service to view the Service details:
     -->
 
-  ```shell
-  minikube service hello-minikube --url
-  ```
+	```shell
+	minikube service hello-minikube --url
+	```
 
 6. 要查看本地集群的详细信息，请在浏览器中复制粘贴并访问上一步骤输出的 URL。
 
@@ -223,7 +223,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
         -no body in request-
     ```
     <!--
-  If you no longer want the Service and cluster to run, you can delete them.
+	If you no longer want the Service and cluster to run, you can delete them.
     -->
     如果您不再希望运行 Service 和集群，则可以删除它们。
 
@@ -282,7 +282,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     "minikube" stopped.
     ```
     <!--
-  For more information, see [Stopping a Cluster](#stopping-a-cluster).
+	For more information, see [Stopping a Cluster](#stopping-a-cluster).
     -->
     有关更多信息，请参阅[停止集群](#stopsing-a-cluster)。
 
@@ -305,7 +305,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     The "minikube" cluster has been deleted.
     ```
     <!--
-  For more information, see [Deleting a cluster](#deleting-a-cluster).
+	For more information, see [Deleting a cluster](#deleting-a-cluster).
     -->
     有关更多信息，请参阅[删除集群](#deletion-a-cluster)。
 
@@ -378,17 +378,17 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 #### 指定 VM 驱动程序
 
 <!--
-You can change the VM driver by adding the `--driver=<enter_driver_name>` flag to `minikube start`.
+You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
 -->
 
-您可以通过将 `--driver=<enter_driver_name>` 参数添加到 `minikube start` 来更改 VM 驱动程序。
+您可以通过将 `--vm-driver=<enter_driver_name>` 参数添加到 `minikube start` 来更改 VM 驱动程序。
 <!--
 For example the command would be.
 -->
 例如命令：
 
 ```shell
-minikube start --driver=<driver_name>
+minikube start --vm-driver=<driver_name>
 ```
 <!--
  Minikube supports the following drivers:
@@ -396,24 +396,35 @@ minikube start --driver=<driver_name>
 Minikube 支持以下驱动程序：
 
 <!--
- See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install plugins.
+ See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install plugins.
+-->
+
+<!--
+* virtualbox
+* vmwarefusion
+* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 -->
 
 
  {{< note >}}
-有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://minikube.sigs.k8s.io/docs/reference/drivers/)。
+有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://git.k8s.io/minikube/docs/drivers.md)。
 {{< /note >}}
-
 
 * virtualbox
 * vmwarefusion
-* docker (EXPERIMENTAL)
-* kvm2 ([驱动安装](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
-* hyperkit ([驱动安装](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
-* hyperv ([驱动安装](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
+* kvm2 ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* hyperkit ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* hyperv ([驱动安装](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+<!--
+Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+-->
 请注意，下面的 IP 是动态的，可以更改。可以使用 `minikube ip` 检索。
-* vmware ([驱动安装](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
-* parallels ([驱动安装](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+* vmware ([驱动安装](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) （VMware 统一驱动）
 * none (在主机上运行Kubernetes组件，而不是在 VM 中。使用该驱动依赖 Docker ([安装 Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) 和 Linux 环境)
 
 <!--
@@ -605,7 +616,7 @@ To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--ext
 要将 `apiserver` 的 `AuthorizationMode` 设置为 `RBAC`，您可以使用：`--extra-config=apiserver.authorization-mode=RBAC`。
 
 <!--
-### Stopping a ClusterThe
+### Stopping a ClusterThe 
 
 `minikube stop` command can be used to stop your cluster.
 -->
@@ -622,7 +633,7 @@ Starting the cluster again will restore it to its previous state.
 再次启动集群会将其恢复到以前的状态。
 
 <!--
-### Deleting a ClusterThe
+### Deleting a ClusterThe 
 
 `minikube delete` command can be used to delete your cluster.
 -->

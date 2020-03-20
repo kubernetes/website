@@ -52,7 +52,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 
 2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](#interacting-with-your-cluster).
 
-    Let's create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
+    Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
     kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
     ```
@@ -72,24 +72,24 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```
 4. The `hello-minikube` Pod is now launched but you have to wait until the Pod is up before accessing it via the exposed Service.
 
-  Check if the Pod is up and running:
-  ```shell
-  kubectl get pod
-  ```
-  If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
-  ```
-  NAME                              READY     STATUS              RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-  ```
-  If the output shows the `STATUS` as `Running`, the Pod is now up and running:
-  ```
-  NAME                              READY     STATUS    RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-  ```
+	Check if the Pod is up and running:
+	```shell
+	kubectl get pod
+	```
+	If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+	```
+	NAME                              READY     STATUS              RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+	```
+	If the output shows the `STATUS` as `Running`, the Pod is now up and running:
+	```
+	NAME                              READY     STATUS    RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+	```
 5. Get the URL of the exposed Service to view the Service details:
-  ```shell
-  minikube service hello-minikube --url
-  ```
+	```shell
+	minikube service hello-minikube --url
+	```
 6. To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
 
     The output is similar to this:
@@ -119,7 +119,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Request Body:
         -no body in request-
     ```
-  If you no longer want the Service and cluster to run, you can delete them.
+	If you no longer want the Service and cluster to run, you can delete them.
 7. Delete the `hello-minikube` Service:
     ```shell
     kubectl delete services hello-minikube
@@ -145,7 +145,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Stopping "minikube"...
     "minikube" stopped.
     ```
-  For more information, see [Stopping a Cluster](#stopping-a-cluster).
+	For more information, see [Stopping a Cluster](#stopping-a-cluster).
 10. Delete the local Minikube cluster:
     ```shell
     minikube delete
@@ -155,7 +155,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-  For more information, see [Deleting a cluster](#deleting-a-cluster).
+	For more information, see [Deleting a cluster](#deleting-a-cluster).
 
 ## Managing your Cluster
 
@@ -187,26 +187,24 @@ example, to run version {{< param "fullversion" >}}, you would run the following
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### Specifying the VM driver
-You can change the VM driver by adding the `--driver=<enter_driver_name>` flag to `minikube start`.
+You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
 For example the command would be.
 ```shell
-minikube start --driver=<driver_name>
+minikube start --vm-driver=<driver_name>
 ```
  Minikube supports the following drivers:
  {{< note >}}
- See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install
+ See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
 plugins.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* docker (EXPERIMENTAL)
-* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
-* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
-* hyperv ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
+* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
-* vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
-* parallels ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
 * none (Runs the Kubernetes components on the host and not in a virtual machine. You need to be running Linux and to have {{< glossary_tooltip term_id="docker" >}} installed.)
 
 {{< caution >}}

@@ -29,20 +29,16 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 ## クイックスタート
 
 これはMinikubeの使い方の簡単なデモです。
-もしVMドライバを変更したい場合は、適切な `--driver=xxx` フラグを `minikube start` に設定してください。Minikubeは以下のドライバをサポートしています。
-
-* vmware ([installation du pilote](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
-* parallels ([installation du pilote](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+もしVMドライバを変更したい場合は、適切な `--vm-driver=xxx` フラグを `minikube start` に設定してください。Minikubeは以下のドライバをサポートしています。
 
 * virtualbox
 * vmwarefusion
-* docker (EXPERIMENTAL)
-* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
-* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
-* hyperv ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
+* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
+* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (非推奨)
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 注意: 以下のIPは動的であり、変更される可能性があります。IPは `minikube ip` で取得することができます。
-* vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
-* parallels ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 * none (VMではなくホスト上でKubernetesコンポーネントを起動する。このドライバを使用するにはDocker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) とLinux環境を必要とします)
 
 ```shell
@@ -94,27 +90,27 @@ curl $(minikube service hello-minikube --url)
 Hostname: hello-minikube-7c77b68cff-8wdzq
 
 Pod Information:
-  -no pod information available-
+	-no pod information available-
 
 Server values:
-  server_version=nginx: 1.13.3 - lua: 10008
+	server_version=nginx: 1.13.3 - lua: 10008
 
 Request Information:
-  client_address=172.17.0.1
-  method=GET
-  real path=/
-  query=
-  request_version=1.1
-  request_scheme=http
-  request_uri=http://192.168.99.100:8080/
+	client_address=172.17.0.1
+	method=GET
+	real path=/
+	query=
+	request_version=1.1
+	request_scheme=http
+	request_uri=http://192.168.99.100:8080/
 
 Request Headers:
-  accept=*/*
-  host=192.168.99.100:30674
-  user-agent=curl/7.47.0
+	accept=*/*
+	host=192.168.99.100:30674
+	user-agent=curl/7.47.0
 
 Request Body:
-  -no body in request-
+	-no body in request-
 ```
 
 ```shell
@@ -204,7 +200,7 @@ minikube start \
 
 ### ドライバープラグイン
 
-サポートされているドライバとプラグインのインストールの詳細については [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) を参照してください。
+サポートされているドライバとプラグインのインストールの詳細については [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) を参照してください。
 
 ### Dockerデーモンの再利用によるローカルイメージの使用
 
