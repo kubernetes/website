@@ -100,10 +100,10 @@ other = "آخر تعديل للصفحة في"
 other = "by"
 
 [main_documentation_license]
-other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+other = """مؤلفى Kubernetes | الوثائق الموزعة تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """مؤسسة لينكس &reg;. كل الحقوق محفوظة. سجلت مؤسسة Linux علامات تجارية وتستخدم علامات تجارية. للحصول على قائمة العلامات التجارية لمؤسسة لينكس, يرجى الاطلاع على <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحة استخدام العلامات التجارية</a>"""
 
 # Labels for the docs portal home page.
 [docs_label_browse]
