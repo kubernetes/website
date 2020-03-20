@@ -70,9 +70,9 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 
 하이퍼바이저를 설치하지 않다면, 운영체제에 적합한 하이퍼바이저를 지금 설치한다.
 
-* [KVM](https://www.linux-kvm.org/), 또한 QEMU를 사용한다
+• [KVM](https://www.linux-kvm.org/), 또한 QEMU를 사용한다
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--driver=none` 옵션도 지원한다.
 이 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop) 와 Linux 환경이 필요하지만, 하이퍼바이저는 필요하지 않다.
@@ -128,11 +128,11 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 
 하이퍼바이저를 설치하지 않았다면, 다음 중 하나를 지금 설치한다.
 
-* [HyperKit](https://github.com/moby/hyperkit)
+• [HyperKit](https://github.com/moby/hyperkit)
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-* [VMware Fusion](https://www.vmware.com/products/fusion)
+• [VMware Fusion](https://www.vmware.com/products/fusion)
 
 ### Minikube 설치
 가장 쉽게 맥OS에 Minikube를 설치하는 방법은 [Homebrew](https://brew.sh)를 이용하는 것이다.
@@ -164,9 +164,9 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 
 하이퍼바이저가 설치 안 되어 있다면 아래중 하나를 지금 설치한다.
 
-* [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 Hyper-V는 다음 세 버전의 윈도우 10에서 실행할 수 있다. Windows 10 Enterprise, Windows 10 Professional, Windows 10 Education.

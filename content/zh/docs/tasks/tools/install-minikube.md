@@ -140,9 +140,9 @@ If you do not already have a hypervisor installed, install one of these now:
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 -->
 
-* [KVM](https://www.linux-kvm.org/)，也使用了 QEMU
+• [KVM](https://www.linux-kvm.org/)，也使用了 QEMU
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 <!--
 Minikube also supports a `--driver=none` option that runs the Kubernetes components on the host and not in a VM.
@@ -178,7 +178,7 @@ Minikube 还支持另外一个类似于 Docker 驱动的方式 `driver=podman`�
 
 {{< caution >}}
 <!--
-The `podman` driver requires running the containers as root because regular user accounts don't have full access to all operating system features that their containers might need to run.
+The `podman` driver requires running the containers as root because regular user accounts don’t have full access to all operating system features that their containers might need to run.
 -->
 `Podman` 驱动方式需要以 root 用户身份运行容器，因为普通用户帐户没有足够的权限使用容器运行可能需要的操作系统上的所有特性。
 {{< /caution >}}
@@ -261,11 +261,11 @@ If you do not already have a hypervisor installed, install one of these now:
 
 如果你还没有安装 hypervisor，请选择以下方式之一进行安装：
 
-* [HyperKit](https://github.com/moby/hyperkit)
+• [HyperKit](https://github.com/moby/hyperkit)
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-* [VMware Fusion](https://www.vmware.com/products/fusion)
+• [VMware Fusion](https://www.vmware.com/products/fusion)
 
 <!--
 ### Install Minikube
@@ -324,9 +324,9 @@ If you do not already have a hypervisor installed, install one of these now:
 
 如果你还没有安装 hypervisor，请选择以下方式之一进行安装：
 
-* [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 <!--

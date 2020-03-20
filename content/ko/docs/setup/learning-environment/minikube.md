@@ -68,24 +68,24 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     ```
 4. `hello-minikube` 파드가 이제 시작되었지만 노출된 서비스를 통해서 접근하기 전에 파드가 뜨기를 기다려야한다.
 
-  파드가 떠서 구동되고 있는지 확인한다.
-  ```shell
-  kubectl get pod
-  ```
-  출력에서 `STATUS`가 `ContainerCreating`으로 나타나는 경우, 파드는 아직 생성 중이다.
-  ```
-  NAME                              READY     STATUS              RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-  ```
-  출력에서 `STATUS`가 `Running`으로 나타나는 경우, 파드는 이제 떠서 기동 중이다.
-  ```
-  NAME                              READY     STATUS    RESTARTS   AGE
-  hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-  ```
+	파드가 떠서 구동되고 있는지 확인한다.
+	```shell
+	kubectl get pod
+	```
+	출력에서 `STATUS`가 `ContainerCreating`으로 나타나는 경우, 파드는 아직 생성 중이다.
+	```
+	NAME                              READY     STATUS              RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+	```
+	출력에서 `STATUS`가 `Running`으로 나타나는 경우, 파드는 이제 떠서 기동 중이다.
+	```
+	NAME                              READY     STATUS    RESTARTS   AGE
+	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+	```
 5. 서비스 상세를 보기 위해서 노출된 서비스의 URL을 얻는다.
-  ```shell
-  minikube service hello-minikube --url
-  ```
+	```shell
+	minikube service hello-minikube --url
+	```
 6. 로컬 클러스터의 상세를 보기위해서, 출력에서 얻은 URL을 브라우저에 복사해서 붙여 넣는다.
 
     출력은 다음과 비슷하다.
@@ -141,7 +141,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     Stopping "minikube"...
     "minikube" stopped.
     ```
-  보다 상세한 정보는 [클러스터 중지하기](#클러스터-중지하기)를 참조한다.
+	보다 상세한 정보는 [클러스터 중지하기](#클러스터-중지하기)를 참조한다.
 10. 로컬 Minikube 클러스터 삭제
     ```shell
     minikube delete
@@ -151,7 +151,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-  보다 상세한 정보는 [Deleting a cluster](#클러스터-삭제하기)를 참조한다.
+	보다 상세한 정보는 [Deleting a cluster](#클러스터-삭제하기)를 참조한다.
 
 ## 클러스터 관리하기
 
