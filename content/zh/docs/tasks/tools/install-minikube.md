@@ -135,17 +135,17 @@ If you do not already have a hypervisor installed, install one of these now:
 如果还没有装过 hypervisor，请选择以下方式之一进行安装：
 
 <!--
-• [KVM](https://www.linux-kvm.org/), which also uses QEMU
+* [KVM](https://www.linux-kvm.org/), which also uses QEMU
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 -->
 
-• [KVM](https://www.linux-kvm.org/)，也使用了 QEMU
+* [KVM](https://www.linux-kvm.org/)，也使用了 QEMU
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 <!--
-Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.
+Minikube also supports a `--driver=none` option that runs the Kubernetes components on the host and not in a VM.
 Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.
 
 If you're using the `none` driver in Debian or a derivative, use the `.deb` packages for
@@ -153,7 +153,7 @@ Docker rather than the snap package, which does not work with Minikube.
 You can download `.deb` packages from [Docker](https://www.docker.com/products/docker-desktop).
 -->
 
-Minikube 还支持使用一个 `--vm-driver=none` 选项，让 Kubernetes 组件运行在主机中，而不是在 VM 中。
+Minikube 还支持使用一个 `--driver=none` 选项，让 Kubernetes 组件运行在主机中，而不是在 VM 中。
 使用这种驱动方式需要 [Docker](https://www.docker.com/products/docker-desktop) 和 Linux 环境，但不需要 hypervisor。
 
 如果你在 Debian 系的 OS 中使用了 `none` 这种驱动方式，请使用 `.deb` 包安装 Docker，不要使用 snap 包的方式，Minikube 不支持这种方式。
@@ -162,23 +162,23 @@ Minikube 还支持使用一个 `--vm-driver=none` 选项，让 Kubernetes 组件
 {{< caution >}}
 <!--
 The `none` VM driver can result in security and data loss issues.
-Before using `--vm-driver=none`, consult [this documentation](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) for more information.
+Before using `--driver=none`, consult [this documentation](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) for more information.
 -->
 
 `none` VM 驱动方式存在导致安全和数据丢失的问题。
-使用 `--vm-driver=none` 之前，请参考[这个文档](https://minikube.sigs.k8s.io/docs/reference/drivers/none/)获取详细信息。
+使用 `--driver=none` 之前，请参考[这个文档](https://minikube.sigs.k8s.io/docs/reference/drivers/none/)获取详细信息。
 {{< /caution >}}
 
 <!--
-Minikube also supports a `vm-driver=podman` similar to the Docker driver. Podman run as superuser privilege (root user) is the best way to ensure that your containers have full access to any feature available on your system.
+Minikube also supports a `driver=podman` similar to the Docker driver. Podman run as superuser privilege (root user) is the best way to ensure that your containers have full access to any feature available on your system.
 -->
 
-Minikube 还支持另外一个类似于 Docker 驱动的方式 `vm-driver=podman`。
+Minikube 还支持另外一个类似于 Docker 驱动的方式 `driver=podman`。
 使用超级用户权限（root 用户）运行 Podman 可以最好的确保容器具有足够的权限使用你操作系统上的所有特性。
 
 {{< caution >}}
 <!--
-The `podman` driver requires running the containers as root because regular user accounts don’t have full access to all operating system features that their containers might need to run.
+The `podman` driver requires running the containers as root because regular user accounts don't have full access to all operating system features that their containers might need to run.
 -->
 `Podman` 驱动方式需要以 root 用户身份运行容器，因为普通用户帐户没有足够的权限使用容器运行可能需要的操作系统上的所有特性。
 {{< /caution >}}
@@ -261,11 +261,11 @@ If you do not already have a hypervisor installed, install one of these now:
 
 如果你还没有安装 hypervisor，请选择以下方式之一进行安装：
 
-• [HyperKit](https://github.com/moby/hyperkit)
+* [HyperKit](https://github.com/moby/hyperkit)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-• [VMware Fusion](https://www.vmware.com/products/fusion)
+* [VMware Fusion](https://www.vmware.com/products/fusion)
 
 <!--
 ### Install Minikube
@@ -324,9 +324,9 @@ If you do not already have a hypervisor installed, install one of these now:
 
 如果你还没有安装 hypervisor，请选择以下方式之一进行安装：
 
-• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+* [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 <!--
@@ -405,16 +405,16 @@ To confirm successful installation of both a hypervisor and Minikube, you can ru
 
 {{< note >}}
 <!--
-For setting the `--vm-driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--vm-driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+For setting the `--driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
 -->
 
-通过 `minikube start` 设置 `--vm-driver`。在下面提到 `<driver_name>` 的地方，用小写字母，输入你安装的 hypervisor 的名称。
-[指定 VM 驱动程序](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver) 列举了 `--vm-driver` 值的完整列表
+通过 `minikube start` 设置 `--driver`。在下面提到 `<driver_name>` 的地方，用小写字母，输入你安装的 hypervisor 的名称。
+[指定 VM 驱动程序](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver) 列举了 `--driver` 值的完整列表
 
 {{< /note >}}
 
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
 
 <!--

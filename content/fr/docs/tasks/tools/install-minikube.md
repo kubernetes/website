@@ -62,7 +62,7 @@ Linux | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [KVM](http://ww
 Windows | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
 {{< note >}}
-Minikube supporte également une option `--vm-driver=none` qui exécute les composants Kubernetes sur la machine hôte et non dans une VM. L'utilisation de ce pilote nécessite Docker et un environnement Linux mais pas un hyperviseur.
+Minikube supporte également une option `--driver=none` qui exécute les composants Kubernetes sur la machine hôte et non dans une VM. L'utilisation de ce pilote nécessite Docker et un environnement Linux mais pas un hyperviseur.
 {{< /note >}}
 
 ## Installer kubectl

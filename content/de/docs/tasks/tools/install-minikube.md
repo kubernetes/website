@@ -35,7 +35,7 @@ Linux | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [KVM](http://ww
 Windows | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
 {{< note >}}
-Minikube unterstützt auch die Option `--vm-driver=none`, mit der die Kubernetes-Komponenten auf dem Host und nicht in einer VM ausgeführt werden. Die Verwendung dieses Treibers erfordert Docker und eine Linux-Umgebung, jedoch keinen Hypervisor.
+Minikube unterstützt auch die Option `--driver=none`, mit der die Kubernetes-Komponenten auf dem Host und nicht in einer VM ausgeführt werden. Die Verwendung dieses Treibers erfordert Docker und eine Linux-Umgebung, jedoch keinen Hypervisor.
 {{< /note >}}
 
 ## Kubectl installieren

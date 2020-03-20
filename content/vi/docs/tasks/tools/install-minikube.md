@@ -26,7 +26,7 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 {{% tab name="macOS" %}}
 Để kiểm tra xem việc ảo hóa (virtualization) có được hỗ trợ trên macOS không, chạy lệnh sau trên terminal:
 ```
-sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 Nếu bạn thấy `VMX` ở kết quả trả về (có màu), thì VT-x đã được hỗ trợ.
 {{% /tab %}}
@@ -70,12 +70,12 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 Nếu bạn chưa cài đặt Hypervisor, hãy cài đặt một trong những phần mềm sau đây:
 
-• [KVM](https://www.linux-kvm.org/), sử dụng QEMU
+* [KVM](https://www.linux-kvm.org/), sử dụng QEMU
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
-Minikube cũng hỗ trợ tùy chọn `--vm-driver=none` để chạy các thành phần của Kubernetes ngay trên máy chủ chứ không phải trong một VM. Sử dụng driver này yêu cầu [Docker](https://www.docker.com/products/docker-desktop) và môi trường Linux chứ không phải một Hypervisor. Bạn nên sử dụng cài đặt apt của docker từ [Docker](https://www.docker.com/products/docker-desktop) khi sử dụng non driver. Cài đặt snap của docker không hoạt động với minikube.
+Minikube cũng hỗ trợ tùy chọn `--driver=none` để chạy các thành phần của Kubernetes ngay trên máy chủ chứ không phải trong một VM. Sử dụng driver này yêu cầu [Docker](https://www.docker.com/products/docker-desktop) và môi trường Linux chứ không phải một Hypervisor. Bạn nên sử dụng cài đặt apt của docker từ [Docker](https://www.docker.com/products/docker-desktop) khi sử dụng non driver. Cài đặt snap của docker không hoạt động với minikube.
 {{< /note >}}
 
 ### Cài đặt Minikube sử dụng package
@@ -118,11 +118,11 @@ brew install minikube
 
 Nếu bạn chưa cài đặt Hypervisor, hãy cài đặt một trong những phần mềm sau đây:
 
-• [HyperKit](https://github.com/moby/hyperkit)
+* [HyperKit](https://github.com/moby/hyperkit)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-• [VMware Fusion](https://www.vmware.com/products/fusion)
+* [VMware Fusion](https://www.vmware.com/products/fusion)
 
 ### Cài đặt Minikube
 Cách đơn giản nhất để cài đặt Minikube trên macOS là sử dụng [Homebrew](https://brew.sh):
@@ -154,9 +154,9 @@ sudo mv minikube /usr/local/bin
 
 Nếu bạn chưa cài đặt Hypervisor, hãy cài đặt một trong những phần mềm sau đây:
 
-• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+* [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 Hyper-V có thể chạy trên 3 phiên bản khác nhau của Windows 10: Windows 10 Enterprise, Windows 10 Professional, và Windows 10 Education.

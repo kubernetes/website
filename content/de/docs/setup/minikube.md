@@ -29,16 +29,18 @@ Lesen Sie [Minikube installieren](/docs/tasks/tools/install-minikube/) für Info
 ## Schnellstart
 
 Folgend finden Sie eine kurze Demo zur Verwendung von Minikube.
-Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--vm-driver=xxx`-Flag zu `minikube start` hinzu.
+Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--driver=xxx`-Flag zu `minikube start` hinzu.
 Minikube unterstützt die folgenden Treiber:
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* kvm ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* hyperkit ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* xhyve ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
-* hyperv ([Treiber installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker (EXPERIMENTAL)
+* kvm2 ([Treiber installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([Treiber installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([Treiber installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
+Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+* vmware ([Treiber installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([Treiber installation](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 Beachten Sie, dass die unten angegebene IP-Adresse dynamisch ist und sich ändern kann. Sie kann mit `minikube ip` abgerufen werden.
 * none (Führt die Kubernetes-Komponenten auf dem Host und nicht in einer VM aus. Die Verwendung dieses Treibers erfordert Docker ([Docker installieren](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) und eine Linux-Umgebung)
 
@@ -91,27 +93,27 @@ curl $(minikube service hello-minikube --url)
 Hostname: hello-minikube-7c77b68cff-8wdzq
 
 Pod Information:
-	-no pod information available-
+  -no pod information available-
 
 Server values:
-	server_version=nginx: 1.13.3 - lua: 10008
+  server_version=nginx: 1.13.3 - lua: 10008
 
 Request Information:
-	client_address=172.17.0.1
-	method=GET
-	real path=/
-	query=
-	request_version=1.1
-	request_scheme=http
-	request_uri=http://192.168.99.100:8080/
+  client_address=172.17.0.1
+  method=GET
+  real path=/
+  query=
+  request_version=1.1
+  request_scheme=http
+  request_uri=http://192.168.99.100:8080/
 
 Request Headers:
-	accept=*/*
-	host=192.168.99.100:30674
-	user-agent=curl/7.47.0
+  accept=*/*
+  host=192.168.99.100:30674
+  user-agent=curl/7.47.0
 
 Request Body:
-	-no body in request-
+  -no body in request-
 ```
 
 ```shell
@@ -201,7 +203,7 @@ Hierbei wird ein alternatives Minikube-ISO-Image verwendet, das sowohl rkt als a
 
 ### Treiber Plugins
 
-Weitere Informationen zu unterstützten Treibern und zur Installation von Plugins finden Sie bei Bedarf unter [TREIBER](https://git.k8s.io/minikube/docs/drivers.md).
+Weitere Informationen zu unterstützten Treibern und zur Installation von Plugins finden Sie bei Bedarf unter [TREIBER](https://minikube.sigs.k8s.io/docs/reference/drivers/).
 
 ### Lokale Images durch erneute Verwendung des Docker-Daemon ausführen
 
