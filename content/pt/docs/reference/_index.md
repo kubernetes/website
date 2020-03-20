@@ -2,7 +2,7 @@
 title: Referência
 approvers:
 - chenopis
-linkTitle: "Reference"
+linkTitle: "Referência"
 main_menu: true
 weight: 70
 content_template: templates/concept
@@ -39,7 +39,7 @@ Para chamar a API Kubernetes de uma linguagem de programação, você pode usar
 
 ## Referência de configuração
 
-* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - O principal * agente do nó * que é executado em cada nó. O kubelet usa um conjunto de PodSpecs e garante que os contêineres descritos estejam funcionando e saudáveis.
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - O principal *agente do nó* que é executado em cada nó. O kubelet usa um conjunto de PodSpecs e garante que os contêineres descritos estejam funcionando e saudáveis.
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) - API REST que valida e configura dados para objetos de API, como pods, serviços, controladores de replicação.
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon que incorpora os principais loops de controle enviados com o Kubernetes.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - É possível fazer o encaminhamento de fluxo TCP/UDP de forma simples ou utilizando o algoritimo de Round Robin encaminhando através de um conjunto de back-ends.
