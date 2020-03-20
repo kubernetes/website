@@ -28,7 +28,7 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 ## API 변경
 
-경험에 따르면, 성공적인 시스템은 새로운 유스케이스의 등장과 기존의 유스케이스의 변경에 맞춰 성장하고 변경될 필요가 있다. 그래서, 쿠버네티스 API가 지속적으로 변경되고 성장하기를 바란다. 그러나, 일정 기간 동안은 현존하는 클라이언트와의 호환성을 깨지 않으려고 한다. 일반적으로, 새로운 API 리소스와 새로운 리소스 필드가 주기적으로 추가될 것이다. 리소스나 필드를 없애는 일은 다음의 [API deprecation policy](/docs/reference/using-api/deprecation-policy/)를 따른다.
+경험에 따르면, 성공적인 시스템은 새로운 유스케이스의 등장과 기존 유스케이스의 변경에 맞춰 성장하고 변경될 필요가 있다. 그래서, 쿠버네티스 API가 지속적으로 변경되고 성장하기를 바란다. 그러나, 일정 기간 동안은 현재의 클라이언트와의 호환성을 깨지 않으려고 한다. 일반적으로, 새로운 API 리소스와 새로운 리소스 필드가 주기적으로 추가될 것이다. 리소스나 필드를 없애는 일은 다음의 [API deprecation policy](/docs/reference/using-api/deprecation-policy/)를 따른다.
 
 호환되는 변경에 어떤 내용이 포함되는지, 어떻게 API를 변경하는지에 대한 자세한 내용은 [API change document](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md)에 있다.
 
@@ -45,7 +45,7 @@ Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+
 Accept-Encoding | `gzip` (이 헤더를 전달하지 않아도 됨)
 
 1.14 이전 버전에서 형식이 구분된 엔드포인트(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)는 OpenAPI 스펙을 다른 포맷으로 제공한다.
-이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거됬다.
+이러한 엔드포인트는 사용이 중단되었으며, 쿠버네티스 1.14에서 제거되었다.
 
 **OpenAPI 규격을 조회하는 예제**
 
@@ -59,7 +59,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 1.14 이전 버전에서 쿠버네티스 apiserver는 `/swaggerapi`에서 [Swagger v1.2](http://swagger.io/)
 쿠버네티스 API 스펙을 검색하는데 사용할 수 있는 API도 제공한다.
-이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거되었다.
+이러한 엔드포인트는 사용이 중단되었으며, 쿠버네티스 1.14에서 제거되었다.
 
 ## API 버전 규칙
 
@@ -131,7 +131,7 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 
 ## 그룹 내 리소스 활성화 시키기
 
-데몬셋, 디플로이먼트, HorizontalPodAutoscaler, 인그레스, 잡 및 레플리카셋이 기본적으로 활성화되어 있다.
+데몬 셋, 디플로이먼트, HorizontalPodAutoscaler, 인그레스, 잡 및 레플리카 셋이 기본적으로 활성화되어 있다.
 다른 확장 리소스는 apiserver의 `--runtime-config`를 설정해서 활성화 시킬 수 있다.
 `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어 디플로이먼트와 인그레스를 비활성화 시키려면,
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`와 같이 설정한다.
