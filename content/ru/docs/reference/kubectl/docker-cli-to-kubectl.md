@@ -1,9 +1,6 @@
 ---
 title: kubectl для пользователей Docker
 content_template: templates/concept
-reviewers:
-- brendandburns
-- thockin
 ---
 
 {{% capture overview %}}
