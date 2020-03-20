@@ -83,30 +83,30 @@ Minikube поддерживает следующие возможности Kube
 
 4.  Под (Pod) `hello-minikube` теперь запущен, но нужно подождать, пока он начнёт функционировать, прежде чем обращаться к нему.
 
-	Проверьте, что под работает:
-	
-	```shell
-	kubectl get pod
-	```
+  Проверьте, что под работает:
+
+  ```shell
+  kubectl get pod
+  ```
 
   Если в столбце вывода `STATUS` выводится `ContainerCreating`, значит под все еще создается:
 
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
+  ```
+  NAME                              READY     STATUS              RESTARTS   AGE
+  hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+  ```
 
   Если в столбце `STATUS` указано `Running`, то под теперь в рабочем состоянии:
 
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
+  ```
+  NAME                              READY     STATUS    RESTARTS   AGE
+  hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+  ```
 5. Узнайте URL-адрес открытого (exposed) сервиса, чтобы просмотреть подробные сведения о сервисе:
 
-	```shell
-	minikube service hello-minikube --url
-	```
+  ```shell
+  minikube service hello-minikube --url
+  ```
 6. Чтобы ознакомиться с подробной информацией о локальном кластере, скопируйте и откройте полученный из вывода команды на предыдущем шаге URL-адрес в браузере.
 
     Вывод будет примерно следующим:
@@ -170,7 +170,7 @@ Minikube поддерживает следующие возможности Kube
     Stopping "minikube"...
     "minikube" stopped.
     ```
-	Подробности смотрите в разделе [Остановка кластера](#остановка-кластера).
+    Подробности смотрите в разделе [Остановка кластера](#остановка-кластера).
 10. Удалите локальный кластер Minikube:
     ```shell
     minikube delete
@@ -182,7 +182,7 @@ Minikube поддерживает следующие возможности Kube
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-	Подробности смотрите в разделе [Удаление кластера](#удаление-кластера).
+  Подробности смотрите в разделе [Удаление кластера](#удаление-кластера).
 
 ## Управление кластером
 

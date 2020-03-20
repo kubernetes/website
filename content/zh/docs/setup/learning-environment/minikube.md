@@ -105,7 +105,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     -->
 
     <!--
-    Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
+    Let's create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     -->
     让我们使用名为 `echoserver` 的镜像创建一个 Kubernetes Deployment，并使用 `--port` 在端口 8080 上暴露服务。`echoserver` 是一个简单的 HTTP 服务器。
 
@@ -151,29 +151,29 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     -->
 
     <!--
-		Check if the Pod is up and running:
+  Check if the Pod is up and running:
     -->
     检查 Pod 是否启动并运行：
 
-	```shell
-	kubectl get pod
-	```
+  ```shell
+  kubectl get pod
+  ```
     <!--
-		If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+  If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
     -->
     如果输出显示 `STATUS` 为 `ContainerCreating`，则表明 Pod 仍在创建中：
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
+  ```
+  NAME                              READY     STATUS              RESTARTS   AGE
+  hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+  ```
     <!--
   If the output shows the `STATUS` as `Running`, the Pod is now up and running:
     -->
     如果输出显示 `STATUS` 为 `Running`，则 Pod 现在正在运行：
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
+  ```
+  NAME                              READY     STATUS    RESTARTS   AGE
+  hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+  ```
 
 5. 获取暴露 Service 的 URL 以查看 Service 的详细信息：
 
@@ -181,9 +181,9 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Get the URL of the exposed Service to view the Service details:
     -->
 
-	```shell
-	minikube service hello-minikube --url
-	```
+  ```shell
+  minikube service hello-minikube --url
+  ```
 
 6. 要查看本地集群的详细信息，请在浏览器中复制粘贴并访问上一步骤输出的 URL。
 
@@ -223,7 +223,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
         -no body in request-
     ```
     <!--
-		If you no longer want the Service and cluster to run, you can delete them.
+  If you no longer want the Service and cluster to run, you can delete them.
     -->
     如果您不再希望运行 Service 和集群，则可以删除它们。
 
@@ -282,7 +282,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     "minikube" stopped.
     ```
     <!--
- 	   For more information, see [Stopping a Cluster](#stopping-a-cluster).
+  For more information, see [Stopping a Cluster](#stopping-a-cluster).
     -->
     有关更多信息，请参阅[停止集群](#stopsing-a-cluster)。
 
@@ -305,7 +305,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     The "minikube" cluster has been deleted.
     ```
     <!--
-		For more information, see [Deleting a cluster](#deleting-a-cluster).
+  For more information, see [Deleting a cluster](#deleting-a-cluster).
     -->
     有关更多信息，请参阅[删除集群](#deletion-a-cluster)。
 

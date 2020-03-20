@@ -5,7 +5,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Minikube est un outil facilitant l’exécution locale de Kubernetes.
+Minikube est un outil facilitant l'exécution locale de Kubernetes.
 Minikube exécute un cluster Kubernetes à nœud unique dans une machine virtuelle (VM) de votre ordinateur portable pour les utilisateurs qui souhaitent essayer Kubernetes ou le développer au quotidien.
 
 {{% /capture %}}
@@ -53,7 +53,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
 2. Vous pouvez maintenant interagir avec votre cluster à l'aide de kubectl.
    Pour plus d'informations, voir [Interagir avec votre cluster.](#interacting-with-your-cluster).
 
-    Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l’aide de `--port`.
+    Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l'aide de `--port`.
 
     ```shell
     kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
@@ -107,7 +107,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
    minikube service hello-minikube --url
    ```
 
-6. Pour afficher les détails de votre cluster local, copiez et collez l’URL que vous avez obtenue en tant que sortie dans votre navigateur.
+6. Pour afficher les détails de votre cluster local, copiez et collez l'URL que vous avez obtenue en tant que sortie dans votre navigateur.
 
     Le résultat est similaire à ceci:
 
@@ -306,7 +306,7 @@ minikube start \
 #### Utiliser des images locales en réutilisant le démon Docker
 
 Lorsque vous utilisez une seule machine virtuelle pour Kubernetes, il est utile de réutiliser le démon Docker intégré de Minikube.
-La réutilisation du démon intégré signifie que vous n’avez pas besoin de créer un registre Docker sur votre ordinateur hôte et d’y insérer l’image.
+La réutilisation du démon intégré signifie que vous n'avez pas besoin de créer un registre Docker sur votre ordinateur hôte et d'y insérer l'image.
 Au lieu de cela, vous pouvez créer le même démon Docker que Minikube, ce qui accélère les expériences locales.
 
 {{< note >}}
@@ -327,7 +327,7 @@ docker ps
 ```
 
 {{< note >}}
-Sur Centos 7, Docker peut signaler l’erreur suivante:
+Sur Centos 7, Docker peut signaler l'erreur suivante:
 
 ```text
 Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no such file or directory
@@ -433,7 +433,7 @@ Minikube supporte les [PersistentVolumes](/docs/concepts/storage/persistent-volu
 Ces volumes persistants sont mappés vers un répertoire à l'intérieur de la VM Minikube.
 
 La machine virtuelle Minikube démarre dans un fichier tmpfs, de sorte que la plupart des répertoires ne seront pas conservés lors des redémarrages avec (`minikube stop`).
-Toutefois, Minikube est configuré pour conserver les fichiers stockés dans les répertoires d’hôte suivants:
+Toutefois, Minikube est configuré pour conserver les fichiers stockés dans les répertoires d'hôte suivants:
 
 * `/data`
 * `/var/lib/minikube`
@@ -489,7 +489,7 @@ Minikube crée une machine virtuelle qui inclut Kubernetes et un démon Docker.
 Lorsque Kubernetes tente de planifier des conteneurs à l'aide de Docker, le démon Docker peut nécessiter un accès réseau externe pour extraire les conteneurs.
 
 Si vous êtes derrière un proxy HTTP, vous devrez peut-être fournir à Docker les paramètres de proxy.
-Pour ce faire, transmettez les variables d’environnement requises en tant qu’indicateurs lors de la création de `minikube start`.
+Pour ce faire, transmettez les variables d'environnement requises en tant qu'indicateurs lors de la création de `minikube start`.
 
 Par exemple:
 
@@ -522,8 +522,8 @@ Pour plus d'informations sur Minikube, voir la [proposition](https://git.k8s.io/
 * **Guide de développement**: Voir [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) pour avoir un aperçu de comment envoyer des pull requests.
 * **Construire Minikube**: Pour obtenir des instructions sur la création / test de Minikube à partir des sources, voir le [guide de build](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
 * **Ajout d'une nouvelle dépendance**: Pour savoir comment ajouter une nouvelle dépendance à Minikube, voir la section [guide d'ajout de dépendances](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
-* **Ajout d'un nouvel addon**: Pour savoir comment ajouter un nouvel addon pour Minikube, reportez-vous au [Ajout d’un addon](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
-* **MicroK8s**: Les utilisateurs de Linux qui souhaitent éviter d’exécuter une machine virtuelle peuvent envisager [MicroK8s](https://microk8s.io/).
+* **Ajout d'un nouvel addon**: Pour savoir comment ajouter un nouvel addon pour Minikube, reportez-vous au [Ajout d'un addon](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **MicroK8s**: Les utilisateurs de Linux qui souhaitent éviter d'exécuter une machine virtuelle peuvent envisager [MicroK8s](https://microk8s.io/).
 
 ## Communauté
 

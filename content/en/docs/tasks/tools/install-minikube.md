@@ -89,7 +89,7 @@ Before using `--driver=none`, consult [this documentation](https://minikube.sigs
 Minikube also supports a `vm-driver=podman` similar to the Docker driver. Podman run as superuser privilege (root user) is the best way to ensure that your containers have full access to any feature available on your system.
 
 {{< caution >}}
-The `podman` driver requires running the containers as root because regular user accounts don’t have full access to all operating system features that their containers might need to run.
+The `podman` driver requires running the containers as root because regular user accounts don't have full access to all operating system features that their containers might need to run.
 {{< /caution >}}
 
 ### Install Minikube using a package
@@ -134,11 +134,11 @@ Make sure you have kubectl installed. You can install kubectl according to the i
 
 If you do not already have a hypervisor installed, install one of these now:
 
-• [HyperKit](https://github.com/moby/hyperkit)
+* [HyperKit](https://github.com/moby/hyperkit)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-• [VMware Fusion](https://www.vmware.com/products/fusion)
+* [VMware Fusion](https://www.vmware.com/products/fusion)
 
 ### Install Minikube
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
@@ -170,9 +170,9 @@ Make sure you have kubectl installed. You can install kubectl according to the i
 
 If you do not already have a hypervisor installed, install one of these now:
 
-• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+* [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 Hyper-V can run on three versions of Windows 10: Windows 10 Enterprise, Windows 10 Professional, and Windows 10 Education.

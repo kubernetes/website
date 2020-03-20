@@ -68,9 +68,9 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 Если у вас ещё не установлен гипервизор, установите один из них:
 
-• [KVM](https://www.linux-kvm.org/), который также использует QEMU
+* [KVM](https://www.linux-kvm.org/), который также использует QEMU
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 Minikube также поддерживает опцию `--driver=none`, которая запускает компоненты Kubernetes на хосте, а не на виртуальной машине.
 Для использования этого драйвера требуется только [Docker](https://www.docker.com/products/docker-desktop) и Linux, но не гипервизор.
@@ -128,11 +128,11 @@ brew install minikube
 
 Если у вас ещё не установлен гипервизор, установите один из них:
 
-• [HyperKit](https://github.com/moby/hyperkit)
+* [HyperKit](https://github.com/moby/hyperkit)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-• [VMware Fusion](https://www.vmware.com/products/fusion)
+* [VMware Fusion](https://www.vmware.com/products/fusion)
 
 ### Установка Minikube
 Простейший способ установить Minikube в macOS — использовать [Homebrew](https://brew.sh):
@@ -164,9 +164,9 @@ sudo mv minikube /usr/local/bin
 
 Если у вас ещё не установлен гипервизор, установите один из них:
 
-• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+* [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
-• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 Hyper-V может работать в трёх версиях Windows 10: Windows 10 Enterprise, Windows 10 Professional и Windows 10 Education.
