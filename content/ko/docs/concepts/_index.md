@@ -41,7 +41,7 @@ weight: 40
 * [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)
 * [스테이트풀 셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 * [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)
-* [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## 쿠버네티스 컨트롤 플레인
 
