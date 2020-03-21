@@ -38,13 +38,13 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # 현재 셸에 zsh의 자동 완성 설정
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
 ```
 
 ## Kubectl 컨텍스트와 설정
 
 `kubectl`이 통신하고 설정 정보를 수정하는 쿠버네티스 클러스터를
-지정한다. 설정 파일에 대한 자세한 정보는 [kubeconfig를 이용한 클러스터 간 인증](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 문서를
+지정한다. 설정 파일에 대한 자세한 정보는 [kubeconfig를 이용한 클러스터 간 인증](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 문서를
 참고한다.
 
 ```bash
@@ -91,7 +91,7 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # 여러 파일로 부터 생성
 kubectl apply -f ./dir                         # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
 kubectl apply -f https://git.io/vPieo          # url로부터 리소스(들) 생성
 kubectl create deployment nginx --image=nginx  # nginx 단일 인스턴스를 시작
-kubectl explain pods,svc                       # 파드와 서비스 매니페스트 문서를 조회
+kubectl explain pods                           # 파드 매니페스트 문서를 조회
 
 # stdin으로 다수의 YAML 오브젝트 생성
 cat <<EOF | kubectl apply -f -
@@ -144,7 +144,6 @@ kubectl get pods -o wide                      # 해당하는 네임스페이스 
 kubectl get deployment my-dep                 # 특정 디플로이먼트의 목록 조회
 kubectl get pods                              # 네임스페이스 내 모든 파드의 목록 조회
 kubectl get pod my-pod -o yaml                # 파드의 YAML 조회
-kubectl get pod my-pod -o yaml --export       # 클러스터 명세 없이 파드의 YAML 조회
 
 # 상세 출력을 위한 Describe 커맨드
 kubectl describe nodes my-node
@@ -187,6 +186,10 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
 
 # 파드에 의해 현재 사용되고 있는 모든 시크릿 목록 조회
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
+
+# 모든 파드의 초기화 컨테이너(initContainer)의 컨테이너ID 목록 조회
+# 초기화 컨테이너(initContainer)를 제거하지 않고 정지된 모든 컨테이너를 정리할 때 유용하다.
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
 
 # 타임스탬프로 정렬된 이벤트 목록 조회
 kubectl get events --sort-by=.metadata.creationTimestamp

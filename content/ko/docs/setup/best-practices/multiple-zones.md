@@ -184,7 +184,7 @@ kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0      
 
 Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
-```json
+```bash
 kubectl apply -f - <<EOF
 {
   "apiVersion": "v1",

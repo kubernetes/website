@@ -209,7 +209,7 @@ selector:
 
 #### 세트-기반 요건을 지원하는 리소스
 
-[`잡`](/docs/concepts/workloads/controllers/jobs-run-to-completion/), [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/), [`레플리카셋`](/ko/docs/concepts/workloads/controllers/replicaset/) 그리고 [`데몬셋`](/ko/docs/concepts/workloads/controllers/daemonset/) 같은 새로운 리소스들은 집합성 기준의 요건도 지원한다.
+[`잡`](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/), [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/), [`레플리카셋`](/ko/docs/concepts/workloads/controllers/replicaset/) 그리고 [`데몬셋`](/ko/docs/concepts/workloads/controllers/daemonset/) 같은 새로운 리소스들은 집합성 기준의 요건도 지원한다.
 
 ```yaml
 selector:
