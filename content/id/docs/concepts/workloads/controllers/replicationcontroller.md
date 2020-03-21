@@ -99,7 +99,7 @@ Pada perintah di atas, selektor yang dimaksud adalah selektor yang sama dengan y
 
 ## Menulis Spesifikasi ReplicationController
 
-Seperti semua konfirugasi Kubernetes lainnya, sebuah ReplicationController membutuhkan _field_ `apiVersion`, `kind`, dan `metadata`.
+Seperti semua konfigurasi Kubernetes lainnya, sebuah ReplicationController membutuhkan _field_ `apiVersion`, `kind`, dan `metadata`.
 
 Untuk informasi umum mengenai berkas konfigurasi, kamu dapat melihat [pengaturan objek](/docs/concepts/overview/working-with-objects/object-management/).
 
@@ -141,7 +141,7 @@ Jika kamu tidak menentukan nilai dari `.spec.replicas`, maka akan digunakan nila
 
 ### Menghapus Sebuah ReplicationController dan Pod-nya
 
-Untuk menghapus sebuah ReplicationController dan Pod-POd yang berhubungan dengannya, gunakan perintah  [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl akan mengatur ReplicationController ke nol dan menunggunya untuk menghapus setiap Pod sebelum menghapus ReplicationController itu sendiri. Jika perintah kubectl ini terhenti, maka dapat diulang kembali.
+Untuk menghapus sebuah ReplicationController dan Pod-Pod yang berhubungan dengannya, gunakan perintah  [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl akan mengatur ReplicationController ke nol dan menunggunya untuk menghapus setiap Pod sebelum menghapus ReplicationController itu sendiri. Jika perintah kubectl ini terhenti, maka dapat diulang kembali.
 
 Ketika menggunakan REST API atau _library_ klien go, maka kamu perlu melakukan langkah-langkahnya secara eksplisit (mengatur replika-replika ke 0, menunggu penghapusan Pod, dan barulah menghapus ReplicationController).
 
@@ -153,13 +153,13 @@ Dengan menggunakan kubectl, tentukan opsi `--cascade=false` ke [`kubectl delete`
 
 Ketika menggunakan REST API atau _library_ klien go, cukup hapus objek ReplicationController.
 
-Ketika ReplicationController yang asli telah dihapus,kamu dapat membuat ReplicationController yang baru sebagai penggantinya. Selama `.spec.selector` yang lama dan baru memiliki nilai yang sama, maka ReplicationController baru akan mengadopsi Pod-Pod yang lama.
+Ketika ReplicationController yang asli telah dihapus, kamu dapat membuat ReplicationController yang baru sebagai penggantinya. Selama `.spec.selector` yang lama dan baru memiliki nilai yang sama, maka ReplicationController baru akan mengadopsi Pod-Pod yang lama.
 Walaupun begitu, ia tidak akan melakukan usaha apapun untuk membuat Pod-Pod yang telah ada sebelumnya untuk sesuai dengan templat Pod yang baru dan berbeda.
-Untuk memerbarui Pod-Pod ke spesifikasi yang baru dengan cara yang terkontrol, gunakan [pembaruan bergulir](#pembaruan-bergulir).
+Untuk memperbarui Pod-Pod ke spesifikasi yang baru dengan cara yang terkontrol, gunakan [pembaruan bergulir](#pembaruan-bergulir).
 
 ### Mengisolasi Pod dari ReplicationController
 
-Pod-Pod dapat dihapus dari kumpulan target sebuah ReplicationController dengan menganti nilai dari labelnya. Teknik ini dapat digunakan untuk mencopot Pod-POd dari servis untuk keperluan pengawakutuan (_debugging_), pemulihan data, dan lainnya. Pod-Pod yang dicopot dengan cara ini dapat digantikan secara otomatis (dengan asumsi bahwa jumlah replika juga tidak berubah).
+Pod-Pod dapat dihapus dari kumpulan target sebuah ReplicationController dengan mengganti nilai dari labelnya. Teknik ini dapat digunakan untuk mencopot Pod-Pod dari servis untuk keperluan pengawakutuan (_debugging_), pemulihan data, dan lainnya. Pod-Pod yang dicopot dengan cara ini dapat digantikan secara otomatis (dengan asumsi bahwa jumlah replika juga tidak berubah).
 
 ## Pola penggunaan umum
 
@@ -203,7 +203,7 @@ Pod-Pod yang dibuat oleh ReplicationController ditujukan untuk dapat sepadan dan
 
 ReplicationController hanya memastikan ketersediaan dari sejumlah Pod yang cocok dengan selektor label dan berjalan dengan baik. Saat ini, hanya Pod yang diterminasi yang dijadikan pengecualian dari penghitungan. Kedepannya, [kesiapan](http://issue.k8s.io/620) dan informasi yang ada lainnya dari sistem dapat menjadi pertimbangan, kami dapat meningkatkan kontrol terhadap kebijakan penggantian, dan kami berencana untuk menginformasikan kejadian (_event_) yang dapat digunakan klien eksternal untuk implementasi penggantian yang sesuai dan/atau kebijakan pengurangan.
 
-ReplicationController akan selalu dibatasi terhadap tanggung jawab spesifik ini. Ia tidak akan melakukan _probe_ kesiapan atau keaktifan. Daripada melakukan _auto-scaling_, ia ditujukan untuk dikontrol oleh _auto-scaler_ eksternal (seperti yang didiskusikan pada [#492](http://issue.k8s.io/492)), yang akan mengganti _field_ `replicas`. Kami tidak akan menambahkan kebijakan penjadwalan (contohnya [_spreading_](http://issue.k8s.io/367#issuecomment-48428019)) untuk ReplicationController. Ia juga tidak seharusnya melakukan verifikasi terhadap Pod-POd yang sedang dikontrol yang cocok dengan spesifikasi templat saat ini, karena hal itu dapat menghambat _auto-sizing_ dan proses otomatis lainnya. Demikian pula batas waktu penyelesaian, pengurutan _dependencies_, ekspansi konfigurasi, dan fitur-fitur lain yang seharusnya berada di komponen lain. Kami juga bahkan berencana untuk mengeluarkan mekanisme pembuatan Pod secara serentak ([#170](http://issue.k8s.io/170)).
+ReplicationController akan selalu dibatasi terhadap tanggung jawab spesifik ini. Ia tidak akan melakukan _probe_ kesiapan atau keaktifan. Daripada melakukan _auto-scaling_, ia ditujukan untuk dikontrol oleh _auto-scaler_ eksternal (seperti yang didiskusikan pada [#492](http://issue.k8s.io/492)), yang akan mengganti _field_ `replicas`. Kami tidak akan menambahkan kebijakan penjadwalan (contohnya [_spreading_](http://issue.k8s.io/367#issuecomment-48428019)) untuk ReplicationController. Ia juga tidak seharusnya melakukan verifikasi terhadap Pod-Pod yang sedang dikontrol yang cocok dengan spesifikasi templat saat ini, karena hal itu dapat menghambat _auto-sizing_ dan proses otomatis lainnya. Demikian pula batas waktu penyelesaian, pengurutan _dependencies_, ekspansi konfigurasi, dan fitur-fitur lain yang seharusnya berada di komponen lain. Kami juga bahkan berencana untuk mengeluarkan mekanisme pembuatan Pod secara serentak ([#170](http://issue.k8s.io/170)).
 
 ReplicationController ditujukan untuk menjadi primitif komponen yang dapat dibangun untuk berbagai kebutuhan. Kami menargetkan API dengan tingkatan yang lebih tinggi dan/atau perkakas-perkakas untuk dibangun di atasnya dan primitif tambahan lainnya untuk kenyamanan pengguna kedepannya. Operasi-operasi makro yang sudah didukung oleh kubectl (_run_, _scale_, _rolling-update_) adalah contoh _proof-of-concept_ dari konsep ini. Sebagai contohnya, kita dapat menganggap sesuatu seperti [Asgard](http://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) yang mengatur beberapa ReplicationController, _auto-scaler_, servis, kebijakan penjadwalan, canary, dan yang lainnya.
 
@@ -226,7 +226,7 @@ Perhatikan bahwa kami merekomendasikan untuk menggunakan Deployment sebagai gant
 
 ### Pod sederhana
 
-Tidak seperti pada kasus ketika pengguna secara langsung membuat Pod, ReplicationController menggantikan Pod-Pod yang dihapus atau dimatikan untuk alasan apapun, seperti pada kasus kegagalan Node atau pemeliharaan Node yang disruptif, seperti pembaruan kernel. Untuk alasan ini, kami merekomendasikan kamu untuk menggunakan ReplicationController bahkan ketika aplikasimu hanya membutuhkan satu Pod saja. Anggap hal ini mirip dengan pengawas proses, hanya pada kasus ini mengawasi banyka Pod yang terdapat pada berbagai Node dan bukan proses-proses tunggal pada satu Node. ReplicationController mendelegasikan pengulangan kontainer lokal ke agen yang terdapat dalam Node (contohnya Kubelet atau Docker).
+Tidak seperti pada kasus ketika pengguna secara langsung membuat Pod, ReplicationController menggantikan Pod-Pod yang dihapus atau dimatikan untuk alasan apapun, seperti pada kasus kegagalan Node atau pemeliharaan Node yang disruptif, seperti pembaruan kernel. Untuk alasan ini, kami merekomendasikan kamu untuk menggunakan ReplicationController bahkan ketika aplikasimu hanya membutuhkan satu Pod saja. Anggap hal ini mirip dengan pengawas proses, hanya pada kasus ini mengawasi banyak Pod yang terdapat pada berbagai Node dan bukan proses-proses tunggal pada satu Node. ReplicationController mendelegasikan pengulangan kontainer lokal ke agen yang terdapat dalam Node (contohnya Kubelet atau Docker).
 
 ### Job
 
@@ -234,7 +234,7 @@ Gunakan [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) sebagai
 
 ### DaemonSet
 
-Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) sebagai ganti ReplicationController untuk Pod-POd yang menyediakan fungsi pada level mesin, seperti pengamatan mesin atau pencatatan mesin. Pod-Pod ini memiliki waktu hidup yang bergantung dengan waktu hidup mesin: Pod butuh untuk dijalankan di mesin sebelum Pod-Pod lainnya dimulai, dan aman untuk diterminasi ketika mesin sudah siap untuk dinyalakan ulang atau dimatikan.
+Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) sebagai ganti ReplicationController untuk Pod-Pod yang menyediakan fungsi pada level mesin, seperti pengamatan mesin atau pencatatan mesin. Pod-Pod ini memiliki waktu hidup yang bergantung dengan waktu hidup mesin: Pod butuh untuk dijalankan di mesin sebelum Pod-Pod lainnya dimulai, dan aman untuk diterminasi ketika mesin sudah siap untuk dinyalakan ulang atau dimatikan.
 
 ## Informasi lanjutan
 
