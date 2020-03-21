@@ -367,8 +367,8 @@ status:
 type: Object
 object:
   metric:
-    name: `http_requests`
-    selector: `verb=GET`
+    name: http_requests
+    selector: {matchLabels: {verb: GET}}
 ```
 
 이 셀렉터는 쿠버네티스의 레이블 셀렉터와 동일한 문법이다.
