@@ -57,7 +57,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 W Kubernetes zaimplementowany jest alternatywny format serializacji na potrzeby API oparty o Protobuf, który jest przede wszystkim przeznaczony na potrzeby wewnętrznej komunikacji w klastrze i opisany w [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md). Pliki IDL dla każdego ze schematów można znaleźć w pakietach Go, które definiują obiekty API.
 
 Przed wersją 1.14, apiserver Kubernetes udostępniał też specyfikację API [Swagger v1.2](http://swagger.io/) poprzez `/swaggerapi`.
-Ten punkt końcowy jest fazie wycofywania i zostanie ostatecznie usunięty w wersji Kubernetes 1.14.
+Ten punkt końcowy został skierowany do wycofania i ostatecznie usunięty w wersji Kubernetes 1.14.
 
 ## Obsługa wersji API
 

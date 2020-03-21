@@ -2,9 +2,6 @@
 approvers:
 - pweil-
 title: Pod 安全策略
-redirect_from:
-- "/docs/user-guide/pod-security-policy/"
-- "/docs/user-guide/pod-security-policy/index.html"
 ---
 
 

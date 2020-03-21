@@ -32,6 +32,8 @@ for a Kubernetes Service when a {{< glossary_tooltip text="selector"
 term_id="selector" >}} is specified. These EndpointSlices will include
 references to any Pods that match the Service selector. EndpointSlices group
 network endpoints together by unique Service and Port combinations.
+The name of a EndpointSlice object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 As an example, here's a sample EndpointSlice resource for the `example`
 Kubernetes Service.
