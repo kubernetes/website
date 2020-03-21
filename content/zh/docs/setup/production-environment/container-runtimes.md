@@ -285,12 +285,9 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-<!--
-# Restart Docker
-systemctl daemon-reload
-systemctl restart docker
--->
-# 重启 Docker
+
+# 重启 Docker 
+
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
