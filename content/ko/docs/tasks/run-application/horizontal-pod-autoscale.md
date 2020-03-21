@@ -67,7 +67,7 @@ Horizontal Pod Autoscaler는 컨트롤러
 HorizontalPodAutoscaler는 보통 일련의 API 집합(`metrics.k8s.io`,
 `custom.metrics.k8s.io`, `external.metrics.k8s.io`)에서 메트릭을 가져온다. `metrics.k8s.io` API는 대개 별도로
 시작해야 하는 메트릭-서버에 의해 제공된다. 가이드는
-[메트릭-서버](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)를
+[메트릭-서버](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를
 참조한다. HorizontalPodAutoscaler는 힙스터(Heapster)에서 직접 메트릭을 가져올 수도 있다.
 
 {{< note >}}
@@ -277,8 +277,8 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 [custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md),
 [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md)를 참조한다.
 
-어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)과
-[외부 메트릭스 사용하는 작업 과정](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)을 참조한다.
+어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#다양한-메트릭-및-사용자-정의-메트릭을-기초로한-오토스케일링)과
+[외부 메트릭스 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#쿠버네티스-오브젝트와-관련이-없는-메트릭을-기초로한-오토스케일링)을 참조한다.
 
 {{% /capture %}}
 

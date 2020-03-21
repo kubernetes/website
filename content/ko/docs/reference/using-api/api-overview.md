@@ -23,7 +23,7 @@ API 오브젝트로 취급되고,
 그러나, REST 호출 사용을 통해서 API에 직접 접근할 수도 있다.
 
 쿠버네티스 API를 사용하는 애플리케이션을 작성하는 경우
-[클라이언트 라이브러리](/docs/reference/using-api/client-libraries/)중 하나의 사용을 고려한다.
+[클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)중 하나의 사용을 고려한다.
 
 ## API 버전 규칙
 

@@ -44,7 +44,7 @@ echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc 
 ## Kubectl 컨텍스트와 설정
 
 `kubectl`이 통신하고 설정 정보를 수정하는 쿠버네티스 클러스터를
-지정한다. 설정 파일에 대한 자세한 정보는 [kubeconfig를 이용한 클러스터 간 인증](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 문서를
+지정한다. 설정 파일에 대한 자세한 정보는 [kubeconfig를 이용한 클러스터 간 인증](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 문서를
 참고한다.
 
 ```bash
