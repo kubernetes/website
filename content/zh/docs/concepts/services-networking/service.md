@@ -169,7 +169,7 @@ also named “my-service”.
 
 上述配置创建一个名称为 "my-service" 的 `Service` 对象，它会将请求代理到使用 TCP 端口 9376，并且具有标签 `"app=MyApp"` 的 `Pod` 上。
 Kubernetes 为该服务分配一个 IP 地址（有时称为 "集群IP" ），该 IP 地址由服务代理使用。
-(请参见下面的 [VIP 和 Service 代理](#vip-和-service-代理)).
+(请参见下面的 [VIP 和 Service 代理](#virtual-ips-and-service-proxies)).
 服务选择器的控制器不断扫描与其选择器匹配的 Pod，然后将所有更新发布到也称为 “my-service” 的Endpoint对象。
 
 {{< note >}}
@@ -336,7 +336,7 @@ responsible for implementing a form of virtual IP for `Services` of type other
 than [`ExternalName`](#externalname).
 -->
 
-## VIP 和 Service 代理
+## VIP 和 Service 代理 {#virtual-ips-and-service-proxies}
 
 在 Kubernetes 集群中，每个 Node 运行一个 `kube-proxy` 进程。`kube-proxy` 负责为 `Service` 实现了一种 VIP（虚拟 IP）的形式，而不是 [`ExternalName`](#externalname) 的形式。
 
