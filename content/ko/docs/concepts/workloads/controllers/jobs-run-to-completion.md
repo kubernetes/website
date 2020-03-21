@@ -36,7 +36,7 @@ weight: 70
 이 명령으로 예시를 실행할 수 있다.
 
 ```shell
-kubectl apply -f https://k8s.io/examples/controllers/job.yaml
+kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 ```
 ```
 job.batch/pi created
@@ -111,6 +111,7 @@ kubectl logs $pods
 ## 잡 사양 작성하기
 
 다른 쿠버네티스의 설정과 마찬가지로 잡에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
+잡의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
 잡에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
 
