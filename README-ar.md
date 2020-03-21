@@ -25,7 +25,7 @@
 ## تشغيل الموقع محليًا باستخدام Docker
 
 تمثل الطريقة الموصى بها لتشغيل موقع Kubernetes محليًا في تشغيل صورة [Docker](https://docker.com) تتضمن موقع ويب ثابت [Hugo](https://gohugo.io).
-The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static website generator.
+الطريقة الموصى بها لتشغيل موقع Kubernetes محليًا هي تشغيل صورة [Docker](https://docker.com) متخصصة تحتوي على مولد [Hugo](https://gohugo.io) الثابت.
 
 > إذا كنت تعمل على Windows ، فستحتاج إلى عدد قليل من الأدوات التي يمكنك تثبيتها باستخدام [Chocolatey](https://chocoly.org).  
   

@@ -121,10 +121,10 @@ other = "I AM..."
 # layouts > blog > pager
 
 [layouts_blog_pager_prev]
-other = "<<  السابقة"
+other = "الصفحة السابقة"
 
 [layouts_blog_pager_next]
-other = "التالية >>"
+other = "الصفحة التالية"
 
 # layouts > blog > list
 
