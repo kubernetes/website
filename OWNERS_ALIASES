@@ -42,7 +42,6 @@ aliases:
     - bradamant3
     - bradtopol
     - daminisatya
-    - gochist
     - jaredbhatti
     - jimangel
     - kbarnard10
@@ -61,7 +60,6 @@ aliases:
     - bradamant3
     - bradtopol
     - daminisatya
-    - gochist
     - jaredbhatti
     - jimangel
     - kbarnard10
@@ -195,10 +193,12 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna

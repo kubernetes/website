@@ -46,6 +46,9 @@ To enable dynamic provisioning, a cluster administrator needs to pre-create
 one or more StorageClass objects for users.
 StorageClass objects define which provisioner should be used and what parameters
 should be passed to that provisioner when dynamic provisioning is invoked.
+The name of a StorageClass object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 The following manifest creates a storage class "slow" which provisions standard
 disk-like persistent disks.
 

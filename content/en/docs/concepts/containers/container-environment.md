@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 - thockin
-title: Container Environment Variables
+title: Container Environment
 content_template: templates/concept
 weight: 20
 ---

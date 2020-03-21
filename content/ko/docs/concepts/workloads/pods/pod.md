@@ -41,7 +41,7 @@ _파드_ 는 (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지
 공유 볼륨에 엑세스 할 수 있다.
 
 [도커](https://www.docker.com/)의 구조 관점에서 보면
-파드는 공유 네임스페이스와 공유 [볼륨](/docs/concepts/storage/volumes/)을 가진
+파드는 공유 네임스페이스와 공유 [볼륨](/ko/docs/concepts/storage/volumes/)을 가진
 도커 컨테이너 그룹으로 모델링 된다.
 
 개별 애플리케이션 컨테이너와 같이, 파드는 상대적으로 수명이 짧은 엔터티로 간주된다.
@@ -146,7 +146,7 @@ _컨테이너의 어피니티(affinity) 기반 공동 스케줄링을 지원하�
 
 * 스케줄러 및 컨트롤러 연결 가능
 * "프록시" 없이 컨트롤러 API를 통한 파드-레벨 수준의 동작 지원
-* 부트스트랩과 같이 컨트롤러의 생에와 파드의 생애 분리
+* 부트스트랩과 같이 컨트롤러의 생애와 파드의 생애 분리
 * 컨트롤러와 서비스의 분리 &mdash; 파드를 감시하는 엔드 포인트 컨트롤러
 * 클러스터 레벨과 kubelet 레벨 기능의 깔끔한 구성 &mdash; Kubelet은 효과적인 "파드 컨트롤러" 이다.
 * 계획된 삭제 또는 이미지 프리페칭과 같이 파드가 종료되기 전에 교체가 될 것이고,
@@ -189,7 +189,7 @@ API에서 파드를 즉시 제거하므로 동일한 이름으로 새 파드를 
 Kubernetes v1.1부터, 파드의 모든 컨테이너는 컨테이너 스펙의 `SecurityContext`의 `privileged` 플래그를 사용하여 특권 모드를 사용할 수 있다. 이것은 네트워크 스택을 조작하고 장치에 액세스하는 것과 같은 Linux 기능을 사용하려는 컨테이너에 유용하다. 컨테이너 내의 프로세스는 컨테이너 외부의 프로세스에서 사용할 수 있는 거의 동일한 권한을 갖는다. 특권 모드를 사용하면 네트워크 및 볼륨 플러그인을 kubelet에 컴파일 할 필요가 없는 별도의 파드로 쉽게 만들 수 있다.
 
 마스터가 Kubernetes v1.1 이상에서 실행 중이고, 노드가 v1.1 보다 낮은 버전을 실행중인 경우 새 권한이 부여 된 파드는 api-server에 의해 승인되지만 시작되지는 않는다. 이것들은 pending 상태가 될 것이다.
-사용자가 `kubectl describe pod FooPodName` 을 호출하면 사용자는 파드가 사용자가 `kubectl describe pod FooPodName` 을 호출하면 사용자는 파드가 pending 상태에 있는 이유를 볼 수 있다. describe 명령 출력의 이벤트 테이블은 다음과 같다.
+사용자가 `kubectl describe pod FooPodName` 을 호출하면 사용자는 파드가 pending 상태에 있는 이유를 볼 수 있다. describe 명령 출력의 이벤트 테이블은 다음과 같다.
 `Error validating pod "FooPodName"."FooPodNamespace" from api, ignoring: spec.containers[0].securityContext.privileged: forbidden '<*>(0xc2089d3248)true'`
 
 마스터가 v1.1보다 낮은 버전에서 실행중인 경우 특권을 갖는 파드를 만들 수 없다. 유저가 특권을 갖는 컨테이너가 있는 파드를 만들려고 하면 다음과 같은 오류가 발생한다.

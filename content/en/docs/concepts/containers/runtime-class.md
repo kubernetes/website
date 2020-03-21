@@ -82,6 +82,9 @@ metadata:
 handler: myconfiguration  # The name of the corresponding CRI configuration
 ```
 
+The name of a RuntimeClass object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 {{< note >}}
 It is recommended that RuntimeClass write operations (create/update/patch/delete) be
 restricted to the cluster administrator. This is typically the default. See [Authorization
