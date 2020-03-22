@@ -234,7 +234,7 @@ kubectl expose rc nginx --port=80 --target-port=8000
 # Atualizar a versão da imagem (tag) de um pod de contêiner único para a v4
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
-kubectl label pods my-pod new-label=awesome                      # Adicionar um rótulo
+kubectl label pods my-pod new-label=awesome                      # Adicionar uma label
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Adicionar uma anotação
 kubectl autoscale deployment foo --min=2 --max=10                # Escalar automaticamente uma implantação "foo"
 ```
