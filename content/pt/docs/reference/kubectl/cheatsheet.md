@@ -239,7 +239,7 @@ kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Adicionar uma
 kubectl autoscale deployment foo --min=2 --max=10                # Escalar automaticamente um deployment "foo"
 ```
 
-## Recursos de correção
+## Recursos de Correção
 
 ```bash
 # Atualizar parcialmente um nó
