@@ -142,7 +142,7 @@ the following things are true:
  * The object's `deletionTimestamp` is set
  * The object's `metadata.finalizers` contains the value "foregroundDeletion".
 -->
-在*显式级联删除*模式下，根对象首先进入 `deletion in progress` 状态。在 `deletion in progress` 状态会有如下的情况：
+在 *显式级联删除* 模式下，根对象首先进入 `deletion in progress` 状态。在 `deletion in progress` 状态会有如下的情况：
 
  * 对象仍然可以通过 REST API 可见。
  * 会设置对象的 `deletionTimestamp` 字段。
