@@ -345,7 +345,7 @@ kubectl api-resources --verbs=list,get       # Todos os recursos que suportam os
 kubectl api-resources --api-group=extensions # Todos os recursos no grupo de API "extensions"
 ```
 
-### Formatação de saída
+### Formatação de Saída
 
 Para enviar detalhes para a janela do terminal em um formato específico, adicione a flag `-o` (ou `--output`) para um comando `kubectl` suportado.
 
