@@ -251,7 +251,7 @@ kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve
 # Atualizar a imagem de um contêiner usando um patch json com matrizes posicionais
 kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/containers/0/image", "value":"new image"}]'
 
-#Desative um livenessProbe de implantação usando um patch json com matrizes posicionais
+# Desative um livenessProbe de deployment usando um patch json com matrizes posicionais
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
 # Adicionar um novo elemento a uma matriz posicional
