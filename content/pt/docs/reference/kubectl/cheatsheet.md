@@ -318,7 +318,7 @@ kubectl cordon my-node                                                # Marcar o
 kubectl drain my-node                                                 # Drene o nó my-node na preparação para manutenção
 kubectl uncordon my-node                                              # Marcar nó my-node como agendável
 kubectl top node my-node                                              # Mostrar métricas para um determinado nó
-kubectl cluster-info                                                  # Exibir endereços do mestre e serviços
+kubectl cluster-info                                                  # Exibir endereços da master e serviços
 kubectl cluster-info dump                                             # Despejar o estado atual do cluster no stdout
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Despejar o estado atual do cluster em /path/to/cluster-state
 
