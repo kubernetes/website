@@ -186,3 +186,6 @@ other = "次の項目"
 
 [warning]
 other = "警告:"
+
+[input_placeholder_email_address]
+other = "メールアドレス"
