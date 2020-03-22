@@ -6,7 +6,7 @@ weight: 40
 
 
 {{% capture overview %}}
-[こちらの記事](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature)にて説明されているNode affinityはPodを特定のNodeに(必須あるいは優先の要件として)*引きつける*、*Pod*のプロパティです。Taintはその反対で、*Node*が特定のPodを*遠ざける*ことができます。
+[こちらの記事](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature)にて説明されているNode affinityはPodを特定のNodeに(必須あるいは優先の要件として)*引きつける* 、*Pod* のプロパティです。Taintはその反対で、*Node* が特定のPodを*遠ざける* ことができます。
 
 TaintとTolerationは、不適切なNodeにPodがスケジュールされないようにするために連携して機能します。単一のNodeに対しては、1つまたはそれ以上のTaintが適用されます。これは、NodeがこのTaintを許容しないPodを受け入れてはならないということを示します。TolerationはPodに適用され、PodがそれにマッチするTaintを持つNodeにのみスケジュールされることを許します(ただし、必須ではありません)。
 
@@ -72,7 +72,7 @@ tolerations:
 ```
 {{< /note >}}
 
-上記の例では、`NoSchedule`の`effect`が使われます。かわりに`PreferNoSchedule`を使うこともできます。これは`NoSchedule`を「ソフトにした」バージョンで、システムはノード上にある該当のtaintを許容しないPodを配置*しようとします*が、必須の条件にはなりません。3つ目の`effect`には`NoExecute`がありますが、これは後で説明します。
+上記の例では、`NoSchedule`の`effect`が使われます。かわりに`PreferNoSchedule`を使うこともできます。これは`NoSchedule`を「ソフトにした」バージョンで、システムはノード上にある該当のtaintを許容しないPodを配置*しようとします* が、必須の条件にはなりません。3つ目の`effect`には`NoExecute`がありますが、これは後で説明します。
 
 同一のNodeには複数のtaintを付与することができ、また、Podについても同様に複数のtolerationを付与することができます。Kubernetesは、複数のtaintやtolerationをフィルターのように処理します。Nodeの持つtaintを評価し、配置したいPodがそれに一致するtolerationを保つ場合は全て無視します。
 最後に残ったtaintが、Podに対して明示されたeffectの値で作用します。特に
