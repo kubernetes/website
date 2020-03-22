@@ -311,7 +311,7 @@ kubectl exec my-pod -c my-container -- ls /         # Executar comando no pod ex
 kubectl top pod POD_NAME --containers               # Mostrar métricas para um determinado pod e seus contêineres
 ```
 
-## Interagindo com nós e cluster
+## Interagindo com Nós e Cluster
 
 ```bash
 kubectl cordon my-node                                                # Marcar o nó my-node como não agendável
