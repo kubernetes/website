@@ -360,7 +360,7 @@ Formato de saída | Descrição
 `-o=wide`     | Saída no formato de texto sem formatação com qualquer informação adicional e, para pods, o nome do nó está incluído
 `-o=yaml`     | Saída de um objeto de API formatado em YAML
 
-### Verbosidade da saída do Kubectl e debugging
+### Verbosidade da Saída do Kubectl e Debugging
 
 A verbosidade do Kubectl é controlado com os sinalizadores `-v` ou` --v` seguidos por um número inteiro representando o nível do log. As convenções gerais de log do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
