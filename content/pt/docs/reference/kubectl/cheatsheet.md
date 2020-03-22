@@ -266,7 +266,7 @@ kubectl edit svc/docker-registry                      # Edite o serviço chamado
 KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use um editor alternativo
 ```
 
-## Escalando recursos
+## Escalando Recursos
 
 ```bash
 kubectl scale --replicas=3 rs/foo                                 # Escale um replicaset chamado 'foo' para 3
