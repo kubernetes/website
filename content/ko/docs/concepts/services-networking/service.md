@@ -1189,7 +1189,7 @@ kube-proxy는 유저스페이스 모드에 있을 때 SCTP 연결 관리를 지�
 
 {{% capture whatsnext %}}
 
-* [서비스와 애플리케이션 연결](/docs/concepts/services-networking/connect-applications-service/) 알아보기
+* [서비스와 애플리케이션 연결](/ko/docs/concepts/services-networking/connect-applications-service/) 알아보기
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 알아보기
 * [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)에 대해 알아보기
 

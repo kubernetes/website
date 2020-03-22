@@ -2,7 +2,6 @@
 title: "幻灯片：Kubernetes 集群管理，爱丁堡大学演讲"
 date: 2015-06-26
 slug: slides-cluster-management-with
-url: /blog/2015/06/Slides-Cluster-Management-With
 ---
 
 <!--
