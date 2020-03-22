@@ -1,11 +1,20 @@
 ---
 title: 理解 Kubernetes 对象
-
-redirect_from:
-- "/docs/concepts/abstractions/overview/"
-- "/docs/concepts/abstractions/overview.html"
 content_template: templates/concept
+weight: 10
+card: 
+  name: 概念
+  weight: 40
 ---
+
+<!---
+title: Understanding Kubernetes Objects
+content_template: templates/concept
+weight: 10
+card: 
+  name: concepts
+  weight: 40
+-->
 
 {{% capture overview %}}
 <!--
@@ -139,7 +148,7 @@ and the `spec` format for a `Deployment` can be found
 [here](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 -->
 
-也需要提供对象的 `spec` 字段。对象 `spec` 的精确格式对每个 Kubernetes 对象来说是不同的，包含了特定于该对象的嵌套字段。[Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)能够帮助我们找到任何我们想创建的对象的 spec 格式。
+您也需要提供对象的 `spec` 字段。对象 `spec` 的精确格式对每个 Kubernetes 对象来说是不同的，包含了特定于该对象的嵌套字段。[Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)能够帮助我们找到任何我们想创建的对象的 spec 格式。
 例如，可以从
 [这里](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 查看 `Pod` 的 `spec` 格式，
@@ -150,10 +159,13 @@ and the `spec` format for a `Deployment` can be found
 
 {{% capture whatsnext %}}
 <!--
+* [Kubernetes API overview](/docs/reference/using-api/api-overview/) explains some more API concepts
 * Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
+* Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes
 -->
-
-* 了解最重要的基本 Kubernetes 对象，例如 [Pod](/docs/concepts/workloads/pods/pod-overview/)。
+* [Kubernetes API 概述](/docs/reference/using-api/api-overview/) 提供关于 API 概念的进一步阐述
+* 了解最重要的 Kubernetes 基本对象，例如 [Pod](/docs/concepts/workloads/pods/pod-overview/)。
+* 了解 Kubernetes 中的[控制器](/docs/concepts/architecture/controller/)。
 {{% /capture %}}
 
 

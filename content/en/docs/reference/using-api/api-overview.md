@@ -91,12 +91,14 @@ The two paths that support extending the API with [custom resources](/docs/conce
  - [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md) for a full set of Kubernetes API semantics to implement their own apiserver.
  
 
-## Enabling API groups
+## Enabling or disabling API groups
 
 Certain resources and API groups are enabled by default. You can enable or disable them by setting `--runtime-config`
 on the apiserver. `--runtime-config` accepts comma separated values. For example:
+
  - to disable batch/v1, set `--runtime-config=batch/v1=false`
  - to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`
+
 The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
 
 {{< note >}}
@@ -104,12 +106,10 @@ When you enable or disable groups or resources, you need to restart the apiserve
 to pick up the `--runtime-config` changes.
 {{< /note >}}
 
-## Enabling resources in the groups
+## Enabling specific resources in the extensions/v1beta1 group
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
-You can enable other extensions resources by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For example, to disable deployments and jobs, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
-{{% /capture %}}
+DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
+For example: to enable deployments and daemonsets, set
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
 
-
+{{< note >}}Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.{{< /note >}}

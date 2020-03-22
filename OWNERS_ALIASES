@@ -41,7 +41,6 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - bradtopol
     - daminisatya
-    - gochist
     - jaredbhatti
     - jimangel
     - kbarnard10
@@ -59,7 +58,6 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - daminisatya
-    - gochist
     - jaredbhatti
     - jimangel
     - kbarnard10
@@ -67,6 +65,7 @@ aliases:
     - makoscafee
     - onlydole
     - rajakavitha1
+    - rajeshdeshpande02
     - sftim
     - steveperry-53
     - tengqm
@@ -192,10 +191,12 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna

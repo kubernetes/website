@@ -22,8 +22,6 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [Podstawy Kubernetes](/docs/tutorials/kubernetes-basics/) to interaktywny samouczek, który pomoże zrozumieć system Kubernetes i wypróbować jego podstawowe możliwości.
 
-* [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
-
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
 * [Hello Minikube](/docs/tutorials/hello-minikube/)
