@@ -182,11 +182,11 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### API 오브젝트에서 참조 설정
 
-[`service`](/ko/docs/user-guide/services) 와 [`replicationcontrollers`](/ko/docs/concepts/workloads/controllers/replicationcontroller/)와 같은 일부 쿠버네티스 오브젝트는 레이블 셀렉터를 사용해서 [파드](/ko/docs/concepts/workloads/pods/pod/)와 같은 다른 리소스 집합을 선택한다.
+[`services`](/ko/docs/user-guide/services) 와 [`replicationcontrollers`](/ko/docs/concepts/workloads/controllers/replicationcontroller/)와 같은 일부 쿠버네티스 오브젝트는 레이블 셀렉터를 사용해서 [파드](/ko/docs/concepts/workloads/pods/pod/)와 같은 다른 리소스 집합을 선택한다.
 
 #### 서비스와 레플리케이션 컨트롤러
 
-`service`에서 지정하는 파드 집합은 레이블 셀렉터로 정의한다. 마찬가지로 `replicationcontrollers`가 관리하는 파드의 개체군도 레이블 셀렉터로 정의한다.
+`services`에서 지정하는 파드 집합은 레이블 셀렉터로 정의한다. 마찬가지로 `replicationcontrollers`가 관리하는 파드의 개체군도 레이블 셀렉터로 정의한다.
 
 서비스와 레플리케이션 컨트롤러의 레이블 셀렉터는 `json` 또는 `yaml` 파일에 매핑된 _균등-기반_ 요구사항의 셀렉터만 지원한다.
 
