@@ -326,7 +326,7 @@ kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Despejar
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 
-### Tipos de recursos
+### Tipos de Recursos
 
 Listar todos os tipos de recursos suportados, juntamente com seus nomes abreviados, [Grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups), se eles são por [namespaces](/docs/concepts/overview/working-with-objects/namespaces), e [objetos](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
