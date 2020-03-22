@@ -36,7 +36,7 @@ seen as an addition to Endpoints in a cluster, not a replacement for them.
 {{< /note >}}
 
 EndpointSlices are a beta feature. Both the API and the EndpointSlice
-{< glossary_tooltip term_id="controller" >}} are enabled by default.
+{{< glossary_tooltip term_id="controller" >}} are enabled by default.
 {{<  glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}
 uses Endpoints by default, not EndpointSlices.
 
