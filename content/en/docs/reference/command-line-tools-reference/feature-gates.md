@@ -145,9 +145,8 @@ different Kubernetes components.
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
-| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
-| `TopologyManager` | `true` | Beta | 1.18 | |
-| `ValidateProxyRedirects` | `false` | Alpha | 1.10 | 1.13 |
+| `TopologyManager` | `false` | Alpha | 1.16 | |
+| `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
 | `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | - |
@@ -335,7 +334,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
 - `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
-- `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a 
+- `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks.
 - `APIPriorityAndFairness`: Enable managing request concurrency with prioritization and fairness at each server. (Renamed from `RequestManagement`)
