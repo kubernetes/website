@@ -4,7 +4,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
+{{< glossary_definition term_id="service-catalog" length="all" prepend="サービスカタログは" >}}  
 
 [Helm](https://helm.sh/)を使用してKubernetesクラスタにサービスカタログをインストールします。手順の最新情報は[kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog/blob/master/docs/install.md)レポジトリーを参照してください。
 
