@@ -578,6 +578,9 @@ section
   li
     display: inline-block
     height: 100%
+    margin-right: 10px
+    &:last-child
+      margin-right: 0
 
   a
     display: block
@@ -598,11 +601,11 @@ section
   #vendorStrip
     line-height: 44px
     max-width: 100%
-    overflow-x: auto
     -webkit-overflow-scrolling: touch
 
     ul
       float: none
+      overflow-x: auto
 
     #searchBox
       float: none
