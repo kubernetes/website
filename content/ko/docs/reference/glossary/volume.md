@@ -2,7 +2,7 @@
 title: 볼륨(Volume)
 id: volume
 date: 2018-04-12
-full_link: /docs/concepts/storage/volumes/
+full_link: /ko/docs/concepts/storage/volumes/
 short_description: >
   데이터를 포함하고 있는 디렉토리이며, 파드의 컨테이너에서 접근 가능하다.
 

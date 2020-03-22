@@ -22,7 +22,7 @@ updates.
 ## What is a Pod Security Policy?
 
 A _Pod Security Policy_ is a cluster-level resource that controls security
-sensitive aspects of the pod specification. The `PodSecurityPolicy` objects
+sensitive aspects of the pod specification. The [PodSecurityPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) objects
 define a set of conditions that a pod must run with in order to be accepted into
 the system, as well as defaults for the related fields. They allow an
 administrator to control the following:
@@ -197,6 +197,8 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 Define the example PodSecurityPolicy object in a file. This is a policy that
 simply prevents the creation of privileged pods.
+The name of a PodSecurityPolicy object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< codenew file="policy/example-psp.yaml" >}}
 
@@ -419,8 +421,10 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 - projected
 
 {{< warning >}}
-PodSecurityPolicy does not limit the types of `PersistentVolume` objects that may be referenced by a `PersistentVolumeClaim`.
-Only trusted users should be granted permission to create `PersistentVolume` objects.
+PodSecurityPolicy does not limit the types of `PersistentVolume` objects that
+may be referenced by a `PersistentVolumeClaim`, and hostPath type
+`PersistentVolumes` do not support read-only access mode. Only trusted users
+should be granted permission to create `PersistentVolume` objects.
 {{< /warning >}}
 
 **FSGroup** - Controls the supplemental group applied to some volumes.
@@ -624,5 +628,11 @@ By default, all safe sysctls are allowed.
 
 Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 
 {{% /capture %}}

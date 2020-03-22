@@ -17,12 +17,18 @@ A _Cron Job_ creates [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-com
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-{{< note >}}
-All **CronJob** `schedule:` times are based on the timezone of the master where the job is initiated.
-{{< /note >}}
+{{< caution >}}
+All **CronJob** `schedule:` times are based on the timezone of the
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+If your control plane runs the kube-controller-manager in Pods or bare
+containers, the timezone set for the kube-controller-manager container determines the timezone
+that the cron job controller uses.
+{{< /caution >}}
 
 When creating the manifest for a CronJob resource, make sure the name you provide
-is no longer than 52 characters. This is because the CronJob controller will automatically
+is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name must be no longer than 52 characters. This is because the CronJob controller will automatically
 append 11 characters to the job name provided and there is a constraint that the
 maximum length of a Job name is no more than 63 characters.
 

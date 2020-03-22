@@ -132,7 +132,7 @@ kubeadm 사용자만 해당:
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |
 | kubelet.conf            | default-auth               | system:node:`<nodeName>` (note를 보자) | system:nodes   |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
-| scheduler.conf          | default-manager            | system:kube-scheduler          |                |
+| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |
 
 {{< note >}}
 `kubelet.conf`을 위한 `<nodeName>`값은 API 서버에 등록된 것처럼 kubelet에 제공되는 노드 이름 값과 **반드시** 정확히 일치해야 한다. 더 자세한 내용은 [노드 인증](/docs/reference/access-authn-authz/node/)을 살펴보자.

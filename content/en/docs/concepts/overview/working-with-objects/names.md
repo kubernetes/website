@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 - thockin
-title: Names
+title: Object Names and IDs
 content_template: templates/concept
 weight: 20
 ---
@@ -18,14 +18,41 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 
 {{% /capture %}}
 
-
 {{% capture body %}}
 
 ## Names
 
 {{< glossary_definition term_id="name" length="all" >}}
 
-Kubernetes resources can have names up to 253 characters long. The characters allowed in names are: digits (0-9), lower case letters (a-z), `-`, and `.`.
+Below are three types of commonly used name constraints for resources.
+
+### DNS Subdomain Names
+
+Most resource types require a name that can be used as a DNS subdomain name
+as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
+This means the name must:
+
+- contain no more than 253 characters
+- contain only lowercase alphanumeric characters, '-' or '.'
+- start with an alphanumeric character
+- end with an alphanumeric character
+
+### DNS Label Names
+
+Some resource types require their names to follow the DNS
+label standard as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
+This means the name must:
+
+- contain at most 63 characters
+- contain only lowercase alphanumeric characters or '-'
+- start with an alphanumeric character
+- end with an alphanumeric character
+
+### Path Segment Names
+
+Some resource types require their names to be able to be safely encoded as a
+path segment. In other words, the name may not be "." or ".." and the name may
+not contain "/" or "%".
 
 Here’s an example manifest for a Pod named `nginx-demo`.
 
@@ -37,10 +64,11 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
 ```
+
 
 {{< note >}}
 Some resource types have additional restrictions on their names.

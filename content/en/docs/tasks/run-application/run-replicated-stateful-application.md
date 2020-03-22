@@ -18,9 +18,10 @@ This page shows how to run a replicated stateful application using a
 The example is a MySQL single-master topology with multiple slaves running
 asynchronous replication.
 
-Note that **this is not a production configuration**.
-In particular, MySQL settings remain on insecure defaults to keep the focus
+{{< note >}}
+**This is not a production configuration**. MySQL settings remain on insecure defaults to keep the focus
 on general patterns for running stateful applications in Kubernetes.
+{{< /note >}}
 
 {{% /capture %}}
 

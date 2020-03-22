@@ -51,7 +51,7 @@ detail.
 -->
 ## 控制器模式 {#controller-pattern}
 
-一个控制器至少追踪一种类型的 Kubernetes 资源。这些[对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)有一个代表期望状态的指定字段。正对这种资源的控制器就是要使他的当前状态接近与期望状态。
+一个控制器至少追踪一种类型的 Kubernetes 资源。这些[对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)有一个代表期望状态的指定字段。控制器负责确保其追踪的资源对象的当前状态接近期望状态。
 
 控制器可能会自行执行操作；在 Kubernetes 中更常见的是一个控制器会发送信息给 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}，这会有副作用。看下面这个例子。
 
@@ -168,6 +168,7 @@ Kubernetes 采用了系统的云原生视图，并且可以处理持续的变化
 在任务执行时，集群随时都可能被修改，并且控制环会自动的修复故障。这意味着很可能集群永远不会达到稳定状态。
 
 只要集群中控制器的在运行并且进行有效的修改，整体状态的稳定与否是无关紧要的。
+
 <!--
 ## Design
 
@@ -196,6 +197,7 @@ because there is information ({{< glossary_tooltip term_id="label" text="labels"
 the controllers can use to tell those Pods apart.
 {{< /note >}}
 -->
+
 ## 设计 {#design}
 
 作为设计的一个原则，Kubernetes 使用了很多控制器，每个控制器管理集群状态的一个特定方面。最常见的一个特定的控制器使用一种类型的资源作为它的期望状态，控制器管理控制另外一种类型的资源向它的期望状态发展。

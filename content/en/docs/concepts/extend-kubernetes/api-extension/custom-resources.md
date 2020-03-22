@@ -4,7 +4,7 @@ reviewers:
 - enisoc
 - deads2k
 content_template: templates/concept
-weight: 20
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -37,14 +37,14 @@ On their own, custom resources simply let you store and retrieve structured data
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 
-A [declarative API](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)
+A [declarative API](/docs/concepts/overview/kubernetes-api/)
 allows you to _declare_ or specify the desired state of your resource and tries to
 keep the current state of Kubernetes objects in sync with the desired state.
 The controller interprets the structured data as a record of the user's
 desired state, and continually maintains this state.
 
 You can deploy and update a custom controller on a running cluster, independently
-of the cluster's own lifecycle. Custom controllers can work with any kind of resource,
+of the cluster's lifecycle. Custom controllers can work with any kind of resource,
 but they are especially effective when combined with custom resources. The
 [Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
 resources and custom controllers. You can use custom controllers to encode domain knowledge
@@ -61,7 +61,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 | You want to view your new types in a Kubernetes UI, such as dashboard, alongside built-in types. | Kubernetes UI support is not required. |
 | You are developing a new API. | You already have a program that serves your API and works well. |
 | You are willing to accept the format restriction that Kubernetes puts on REST resource paths, such as API Groups and Namespaces. (See the [API Overview](/docs/concepts/overview/kubernetes-api/).) | You need to have specific REST paths to be compatible with an already defined REST API. |
-| Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
+| Your resources are naturally scoped to a cluster or namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
 | You want to reuse [Kubernetes API support features](#common-features).  | You don't need those features. |
 
 ### Declarative APIs
@@ -83,7 +83,7 @@ Signs that your API might not be declarative include:
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
  - High bandwidth access (10s of requests per second sustained) needed.
- - Store end-user data (such as images, PII, etc) or other large-scale data processed by applications.
+ - Store end-user data (such as images, PII, etc.) or other large-scale data processed by applications.
  - The natural operations on the objects are not CRUD-y.
  - The API is not easily modeled as objects.
  - You chose to represent pending operations with an operation ID or an operation object.
@@ -96,7 +96,7 @@ Use a ConfigMap if any of the following apply:
 * You want to put the entire config file into one key of a configMap.
 * The main use of the config file is for a program running in a Pod on your cluster to consume the file to configure itself.
 * Consumers of the file prefer to consume via file in a Pod or environment variable in a pod, rather than the Kubernetes API.
-* You want to perform rolling updates via Deployment, etc, when the file is updated.
+* You want to perform rolling updates via Deployment, etc., when the file is updated.
 
 {{< note >}}
 Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
@@ -128,7 +128,12 @@ Regardless of how they are installed, the new resources are referred to as Custo
 
 ## CustomResourceDefinitions
 
-The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) API resource allows you to define custom resources. Defining a CRD object creates a new custom resource with a name and schema that you specify. The Kubernetes API serves and handles the storage of your custom resource.
+The [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)
+API resource allows you to define custom resources.
+Defining a CRD object creates a new custom resource with a name and schema that you specify.
+The Kubernetes API serves and handles the storage of your custom resource.
+The name of a CRD object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
@@ -140,7 +145,7 @@ and use a controller to handle events.
 
 ## API server aggregation
 
-Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CRDs](#customresourcedefinitions).
+Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also generically handle custom resources through [CRDs](#customresourcedefinitions).
 
 The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
@@ -162,7 +167,7 @@ CRDs are easier to create than Aggregated APIs.
 
 | CRDs                        | Aggregated API |
 | --------------------------- | -------------- |
-| Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. Users can choose any language for a CRD controller. |
+| Do not require programming. Users can choose any language for a CRD controller. | Requires programming in Go and building binary and image. |
 | No additional service to run; CRs are handled by API Server. | An additional service to create and that could fail. |
 | No ongoing support once the CRD is created. Any bug fixes are picked up as part of normal Kubernetes Master upgrades. | May need to periodically pickup bug fixes from upstream and rebuild and update the Aggregated APIserver. |
 | No need to handle multiple versions of your API. For example: when you control the client for this resource, you can upgrade it in sync with the API. | You need to handle multiple versions of your API, for example: when developing an extension to share with the world. |
@@ -179,7 +184,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
 | Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | Yes, using [Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks). | Yes |
 | Scale Subresource | Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource)  | Yes |
-| Status Subresource | <ul><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul> | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | Yes |
+| Status Subresource | Allows fine-grained access control where user writes the spec section and the controller writes the status section. Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource) | [Yes](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | Yes |
 | Other Subresources | Add operations other than CRUD, such as "logs" or "exec". | No | Yes |
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
@@ -202,7 +207,7 @@ When you create a custom resource, either via a CRDs or an AA, you get many feat
 | Finalizers | Block deletion of extension resources until external cleanup happens. |
 | Admission Webhooks | Set default values and validate extension resources during any create/update/delete operation. |
 | UI/CLI Display | Kubectl, dashboard can display extension resources. |
-| Unset vs Empty | Clients can distinguish unset fields from zero-valued fields. |
+| Unset versus Empty | Clients can distinguish unset fields from zero-valued fields. |
 | Client Libraries Generation | Kubernetes provides generic client libraries, as well as tools to generate type-specific client libraries. |
 | Labels and annotations | Common metadata across objects that tools know how to edit for core and custom resources. |
 

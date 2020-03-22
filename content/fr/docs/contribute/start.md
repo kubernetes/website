@@ -70,7 +70,7 @@ Pour plus d'informations sur la contribution à la documentation dans plusieurs 
 
 Si vous souhaitez démarrer une nouvelle traduction, voir ["Traduction"](/docs/contribute/localization/).
 
-## Créer des demander recevables
+## Créer des demandes recevables
 
 Toute personne possédant un compte GitHub peut soumettre un problème (rapport de bogue) à la documentation de Kubernetes.
 Si vous voyez quelque chose qui ne va pas, même si vous ne savez pas comment le réparer, [ouvrez un ticket](#how-to-file-an-issue).

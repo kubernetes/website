@@ -83,6 +83,7 @@ The Kubernetes in-tree storage plugin to Container Storage Interface (CSI) migra
 - volumeDevices mapping ignored when container is privileged
 - The `Should recreate evicted statefulset` conformance [test](https://github.com/kubernetes/kubernetes/blob/master/test/e2e/apps/statefulset.go) fails because `Pod ss-0 expected to be re-created at least once`. This was caused by the `Predicate PodFitsHostPorts failed` scheduling error. The root cause was a host port conflict for port `21017`. This port was in-use as an ephemeral port by another application running on the node. This will be looked at for the 1.18 release.
 - client-go discovery clients constructed using `NewDiscoveryClientForConfig` or `NewDiscoveryClientForConfigOrDie` default to rate limits that cause normal discovery request patterns to take several seconds. This is fixed in https://issue.k8s.io/86168 and will be resolved in v1.17.1. As a workaround, the `Burst` value can be adjusted higher in the rest.Config passed into `NewDiscoveryClientForConfig` or `NewDiscoveryClientForConfigOrDie`.
+- The IP allocator in v1.17.0 can return errors such as `the cluster IP <ip> for service <service-name> is not within the service CIDR <cidr>; please recreate` in the logs of the kube-apiserver. The cause is incorrect CIDR calculations if the service CIDR (`--service-cluster-ip-range`) is set to bits lower than `/16`. This is fixed in http://issue.k8s.io/86534 and will be resolved in v1.17.1.
 
 ## Urgent Upgrade Notes
 
@@ -104,7 +105,7 @@ The Kubernetes in-tree storage plugin to Container Storage Interface (CSI) migra
 
 #### Storage
 
-- All nodes need to be drained before upgrading Kubernetes cluster, because paths used for block volumes are changed in this release, so on-line upgrade of nodes aren't allowed. ([#74026](https://github.com/kubernetes/kubernetes/pull/74026), [@mkimuram](https://github.com/mkimuram))
+- A node that uses a CSI raw block volume needs to be drained before kubelet can be upgraded to 1.17. ([#74026](https://github.com/kubernetes/kubernetes/pull/74026), [@mkimuram](https://github.com/mkimuram))
 
 #### Windows
 

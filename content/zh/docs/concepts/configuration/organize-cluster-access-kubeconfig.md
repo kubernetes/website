@@ -29,7 +29,7 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 --->
 {{< note >}}
-注意：用于配置集群访问的文件称为 *kubeconfig 文件*。这是引用配置文件的通用方法。这并不意味着有一个名为 `kubeconfig` 的文件
+用于配置集群访问的文件称为 *kubeconfig 文件*。这是引用配置文件的通用方法。这并不意味着有一个名为 `kubeconfig` 的文件
 {{< /note >}}
 
 <!--

@@ -57,14 +57,14 @@ The upgrade workflow at high level is the following:
 - You need to have a kubeadm Kubernetes cluster running version 1.16.0 or later.
 - [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
 - The cluster should use a static control plane and etcd pods or external etcd.
-- Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md) carefully.
+- Make sure you read the [release notes]({{< latest-release-notes >}}) carefully.
 - Make sure to back up any important components, such as app-level state stored in a database.
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 -->
 - 您需要有一个由 `kubeadm` 创建并运行着 1.16.0 或更高版本的 Kubernetes 集群。
 - [禁用 Swap](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux)。
 - 集群应使用静态的控制平面和 etcd pod 或者 外部 etcd。
-- 务必仔细认真阅读[发行说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md)。
+- 务必仔细认真阅读[发行说明]({{< latest-release-notes >}})。
 - 务必备份所有重要组件，例如存储在数据库中应用层面的状态。
   `kubeadm upgrade` 不会影响您的工作负载，只会涉及 Kubernetes 内部的组件，但备份终究是好的。
 

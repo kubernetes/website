@@ -18,7 +18,7 @@ incomplete features are referred to in order to better describe service accounts
 {{% /capture %}}
 
 {{% capture body %}}
-## User accounts vs service accounts
+## User accounts versus service accounts
 
 Kubernetes distinguishes between the concept of a user account and a service account
 for a number of reasons:

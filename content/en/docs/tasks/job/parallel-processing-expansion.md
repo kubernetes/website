@@ -120,14 +120,10 @@ process-item-banana-wrsf7   0/1       Completed   0          4m
 process-item-cherry-dnfu9   0/1       Completed   0          4m
 ```
 
-There is not a single command to check on the output of all jobs at once,
-but looping over all the pods is pretty easy:
+We can use this single command to check on the output of all jobs at once:
 
 ```shell
-for p in $(kubectl get pods -l jobgroup=jobexample -o name)
-do
-  kubectl logs $p
-done
+kubectl logs -f -l jobgroup=jobexample
 ```
 
 The output is:

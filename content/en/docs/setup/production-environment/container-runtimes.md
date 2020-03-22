@@ -74,8 +74,8 @@ Use the following commands to install Docker on your system:
 # Install Docker CE
 ## Set up the repository:
 ### Install packages to allow apt to use a repository over HTTPS
-apt-get update && apt-get install \
-  apt-transport-https ca-certificates curl software-properties-common
+apt-get update && apt-get install -y \
+  apt-transport-https ca-certificates curl software-properties-common gnupg2
 
 ### Add Docker’s official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -87,7 +87,7 @@ add-apt-repository \
   stable"
 
 ## Install Docker CE.
-apt-get update && apt-get install \
+apt-get update && apt-get install -y \
   containerd.io=1.2.10-3 \
   docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
   docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
@@ -115,14 +115,14 @@ systemctl restart docker
 # Install Docker CE
 ## Set up the repository
 ### Install required packages.
-yum install yum-utils device-mapper-persistent-data lvm2
+yum install -y yum-utils device-mapper-persistent-data lvm2
 
 ### Add Docker repository.
 yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Install Docker CE.
-yum update && yum install \
+yum update -y && yum install -y \
   containerd.io-1.2.10 \
   docker-ce-19.03.4 \
   docker-ce-cli-19.03.4
@@ -162,6 +162,11 @@ This section contains the necessary steps to install `CRI-O` as CRI runtime.
 
 Use the following commands to install CRI-O on your system:
 
+{{< note >}}
+The CRI-O major and minor versions must match the Kubernetes major and minor versions.
+For more information, see the [CRI-O compatiblity matrix](https://github.com/cri-o/cri-o).
+{{< /note >}}
+
 ### Prerequisites
 
 ```shell
@@ -183,13 +188,13 @@ sysctl --system
 
 # Install prerequisites
 apt-get update
-apt-get install software-properties-common
+apt-get install -y software-properties-common
 
 add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
 # Install CRI-O
-apt-get install cri-o-1.15
+apt-get install -y cri-o-1.15
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
@@ -198,7 +203,7 @@ apt-get install cri-o-1.15
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
 
 # Install CRI-O
-yum install --nogpgcheck cri-o
+yum install --nogpgcheck -y cri-o
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -272,7 +277,7 @@ systemctl restart containerd
 # Install containerd
 ## Set up the repository
 ### Install required packages
-yum install yum-utils device-mapper-persistent-data lvm2
+yum install -y yum-utils device-mapper-persistent-data lvm2
 
 ### Add docker repository
 yum-config-manager \
@@ -280,7 +285,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Install containerd
-yum update && yum install containerd.io
+yum update -y && yum install -y containerd.io
 
 # Configure containerd
 mkdir -p /etc/containerd

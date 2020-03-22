@@ -82,7 +82,7 @@ kubectl config unset users.foo                       # foo 사용자 삭제
 
 ## 오브젝트 생성
 
-쿠버네티스 매니페스트는 json이나 yaml로 정의된다. 파일 확장자는 `.yaml`
+쿠버네티스 매니페스트는 JSON이나 YAML로 정의된다. 파일 확장자는 `.yaml`
 , `.yml`, `.json` 이 사용된다.
 
 ```bash
@@ -140,7 +140,7 @@ EOF
 # 기본 출력을 위한 Get 커맨드
 kubectl get services                          # 네임스페이스 내 모든 서비스의 목록 조회
 kubectl get pods --all-namespaces             # 모든 네임스페이스 내 모든 파드의 목록 조회
-kubectl get pods -o wide                      # 네임스페이스 내 모든 파드의 상세 목록 조회
+kubectl get pods -o wide                      # 해당하는 네임스페이스 내 모든 파드의 상세 목록 조회
 kubectl get deployment my-dep                 # 특정 디플로이먼트의 목록 조회
 kubectl get pods                              # 네임스페이스 내 모든 파드의 목록 조회
 kubectl get pod my-pod -o yaml                # 파드의 YAML 조회
@@ -156,9 +156,8 @@ kubectl get services --sort-by=.metadata.name
 # 재시작 횟수로 정렬된 파드의 목록 조회
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# test 네임스페이스를 가지는 PersistentVolumes을 용량별로 정렬해서 조회
-
-kubectl get pv -n test --sort-by=.spec.capacity.storage
+# PersistentVolumes을 용량별로 정렬해서 조회
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # app=cassandra 레이블을 가진 모든 파드의 레이블 버전 조회
 kubectl get pods --selector=app=cassandra -o \
@@ -191,11 +190,14 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 
 # 타임스탬프로 정렬된 이벤트 목록 조회
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# 매니페스트가 적용된 경우 클러스터의 현재 상태와 클러스터의 상태를 비교한다.
+kubectl diff -f ./my-manifest.yaml
 ```
 
 ## 리소스 업데이트
 
-1.11 버전에서 `rolling-update`는 사용 중단(deprecated)되었다. ([CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md) 참고) 대신 `rollout`를 사용한다.
+1.11 버전에서 `rolling-update`는 사용 중단(deprecated)되었다. ([CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md) 참고) 대신 `rollout`를 사용한다.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # "frontend" 디플로이먼트의 "www" 컨테이너 이미지를 업데이트하는 롤링 업데이트
@@ -203,6 +205,7 @@ kubectl rollout history deployment/frontend                      # 현 리비전
 kubectl rollout undo deployment/frontend                         # 이전 디플로이먼트로 롤백
 kubectl rollout undo deployment/frontend --to-revision=2         # 특정 리비전으로 롤백
 kubectl rollout status -w deployment/frontend                    # 완료될 때까지 "frontend" 디플로이먼트의 롤링 업데이트 상태를 감시
+kubectl rollout restart deployment/frontend                      # "frontend" 디플로이먼트의 롤링 재시작
 
 
 # 버전 1.11 부터 사용 중단
@@ -330,7 +333,7 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 
 ### 출력 형식 지정
 
-특정 형식으로 터미널 창에 세부 사항을 출력하려면, 지원되는 `kubectl` 명령에 `-o` 또는 `--output` 플래그를 추가하면 된다.
+특정 형식으로 터미널 창에 세부 사항을 출력하려면, 지원되는 `kubectl` 명령에 `-o` (또는 `--output`) 플래그를 추가한다.
 
 출력 형식       | 세부 사항
 --------------| -----------

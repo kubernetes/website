@@ -6,9 +6,9 @@ weight: 40
 
 {{% capture overview %}}
 이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
-쿠버네티스에서 [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)과
-[파드디스룹선버짓(PodDisruptionBudget)](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
-[파드안티어피니티(PodAntiAffinity)](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
+쿠버네티스에서 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)과
+[파드디스룹선버짓(PodDisruptionBudget)](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
+[파드안티어피니티(PodAntiAffinity)](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -18,12 +18,12 @@ weight: 40
 
 -   [파드](/docs/user-guide/pods/single-container/)
 -   [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
--   [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)
--   [퍼시스턴트볼륨](/docs/concepts/storage/volumes/)
+-   [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
+-   [퍼시스턴트볼륨](/ko/docs/concepts/storage/volumes/)
 -   [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 -   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 -   [파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
--   [파드안티어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
+-   [파드안티어피니티](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)
 -   [kubectl CLI](/docs/user-guide/kubectl/)
 
 최소한 4개의 노드가 있는 클러스터가 필요하며, 각 노드는 적어도 2 개의 CPU와 4 GiB 메모리가 필요하다. 이 튜토리얼에서 클러스터 노드를 통제(cordon)하고 비우게(drain) 할 것이다. **이것은 클러스터를 종료하여 노드의 모든 파드를 퇴출(evict)하는 것으로, 모든 파드는 임시로 언스케줄된다는 의미이다.** 이 튜토리얼을 위해 전용 클러스터를 이용하거나, 다른 테넌트에 간섭을 하는 혼란이 발생하지 않도록 해야 합니다.
@@ -62,8 +62,8 @@ ZooKeeper는 전체 상태 머신을 메모리에 보존하고 모든 돌연변�
 ## ZooKeeper 앙상블 생성하기
 
 아래 메니페스트에는
-[헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services),
-[서비스](/docs/concepts/services-networking/service/),
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스),
+[서비스](/ko/docs/concepts/services-networking/service/),
 [파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
 

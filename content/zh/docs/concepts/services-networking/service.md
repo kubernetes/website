@@ -118,9 +118,9 @@ balancer in between your application and the backend Pods.
 -->
 ### 云原生服务发现
 
-如果您能够在应用程序中使用 Kubernetes 接口进行服务发现，则可以查询 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} 的 endpoint 资源，只要服务中的Pod集合发生更改，端点就会更新。
+如果您想要在应用程序中使用 Kubernetes 接口进行服务发现，则可以查询 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} 的 endpoint 资源，只要服务中的Pod集合发生更改，端点就会更新。
 
-对于非本机应用程序，Kubernetes提供了在应用程序和后端Pod之间放置网络端口或负载平衡器的方法。
+对于非本机应用程序，Kubernetes提供了在应用程序和后端Pod之间放置网络端口或负载均衡器的方法。
 
 <!--
 ## Defining a Service
@@ -169,7 +169,7 @@ also named “my-service”.
 
 上述配置创建一个名称为 "my-service" 的 `Service` 对象，它会将请求代理到使用 TCP 端口 9376，并且具有标签 `"app=MyApp"` 的 `Pod` 上。
 Kubernetes 为该服务分配一个 IP 地址（有时称为 "集群IP" ），该 IP 地址由服务代理使用。
-(请参见下面的 [虚拟 IP 和服务代理](#virtual-ips-and-service-proxies)).
+(请参见下面的 [VIP 和 Service 代理](#virtual-ips-and-service-proxies)).
 服务选择器的控制器不断扫描与其选择器匹配的 Pod，然后将所有更新发布到也称为 “my-service” 的Endpoint对象。
 
 {{< note >}}
@@ -205,7 +205,7 @@ Pod中的端口定义具有名称字段，您可以在服务的 `targetTarget` �
 这为部署和发展服务提供了很大的灵活性。
 例如，您可以更改Pods在新版本的后端软件中公开的端口号，而不会破坏客户端。
 
-服务的默认协议是TCP；默认协议是TCP。 您还可以使用任何其他 [受支持的协议](#protocol-support)。
+服务的默认协议是TCP。 您还可以使用任何其他 [受支持的协议](#protocol-support)。
 
 由于许多服务需要公开多个端口，因此 Kubernetes 在服务对象上支持多个端口定义。
 每个端口定义可以具有相同的 `protocol`，也可以具有不同的协议。
@@ -336,7 +336,7 @@ responsible for implementing a form of virtual IP for `Services` of type other
 than [`ExternalName`](#externalname).
 -->
 
-## VIP 和 Service 代理
+## VIP 和 Service 代理 {#virtual-ips-and-service-proxies}
 
 在 Kubernetes 集群中，每个 Node 运行一个 `kube-proxy` 进程。`kube-proxy` 负责为 `Service` 实现了一种 VIP（虚拟 IP）的形式，而不是 [`ExternalName`](#externalname) 的形式。
 
@@ -596,7 +596,7 @@ For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` a
 
 与一般的Kubernetes名称一样，端口名称只能包含 小写字母数字字符 和 `-`。 端口名称还必须以字母数字字符开头和结尾。
 
-例如，名称 `123_abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
+例如，名称 `123-abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
 {{< /note >}}
 
 <!--
@@ -828,6 +828,7 @@ You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expos
 Kubernetes `ServiceTypes` 允许指定一个需要的类型的 Service，默认是 `ClusterIP` 类型。
 
 `Type` 的取值以及行为如下：
+
   * `ClusterIP`：通过集群的内部 IP 暴露服务，选择该值，服务只能够在集群内部可以访问，这也是默认的 `ServiceType`。
   * [`NodePort`](#nodeport)：通过每个 Node 上的 IP 和静态端口（`NodePort`）暴露服务。`NodePort` 服务会路由到 `ClusterIP` 服务，这个 `ClusterIP` 服务会自动创建。通过请求 `<NodeIP>:<NodePort>`，可以从集群的外部访问一个 `NodePort` 服务。
   * [`LoadBalancer`](#loadbalancer)：使用云提供商的负载局衡器，可以向外部暴露服务。外部的负载均衡器可以路由到 `NodePort` 服务和 `ClusterIP` 服务。
