@@ -37,6 +37,11 @@ cards:
   description: "일반적인 태스크와 이를 수행하는 방법을 여러 단계로 구성된 짧은 시퀀스를 통해 살펴본다."
   button: "태스크 보기"
   button_path: "/ko/docs/tasks"
+- name: training
+  title: 교육"
+  description: "공인 쿠버네티스 인증을 획득하고 클라우드 네이티브 프로젝트를 성공적으로 수행하세요!"
+  button: "교육 보기"
+  button_path: "/training"  
 - name: reference
   title: 레퍼런스 정보 찾기
   description: 용어, 커맨드 라인 구문, API 자원 종류, 그리고 설치 툴 문서를 살펴본다.
