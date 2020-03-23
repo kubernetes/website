@@ -6,10 +6,10 @@ weight: 30
 
 {{% capture overview %}}
 
-Em robótica e automação, um _control loop_ ou em português _ciclo de controlo_ é
+Em robótica e automação um _control loop_, ou em português _ciclo de controlo_, é
 um ciclo não terminado que regula o estado de um sistema.
 
-Um exemplo de um ciclo de controlo é um termostato de uma sala.
+Um exemplo de ciclo de controlo é um termostato de uma sala.
 
 Quando você define a temperatura, isso indica ao termostato
 sobre o seu *estado desejado*. A temperatura ambiente real é o
@@ -31,14 +31,14 @@ têm um campo *spec* (especificação) que representa o *estado desejado*.
 Os controladores para esse recurso são responsáveis por trazer o *estado atual*
 mais perto do *estado desejado*.
 
-O controlador pode levar ele proprio a cabo a ação; é mais comum, no Kubernetes,
+O controlador pode levar ele próprio a cabo a ação; é mais comum, no Kubernetes,
 um controlador enviar uma mensagem para o
 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} que tem
-efeitos colaterais uteis. Você vai ver exemplos disto abaixo.
+efeitos colaterais úteis. Você vai ver exemplos disto abaixo.
 
 {{< comment >}}
 Alguns controladores embutidos, como é o caso do controlador *namespace*, atuam em objetos
-que não têm uma especificação (*spec*). Por questões de simplicidade, esta página omite explicar
+que não têm uma especificação (*spec*). Por questões de simplicidade esta página omite explicar
 esse detalhe.
 {{< /comment >}}
 
@@ -49,14 +49,14 @@ controlador Kubernetes embutido. Controladores embutidos gerem estados através 
 interação com o *cluster API server*.
 
 *Job* é um recurso do Kubernetes que corre um
-{{< glossary_tooltip term_id="pod" >}}, ou talvez vários *Pods*, com o objetivo de
+*{{< glossary_tooltip term_id="pod" >}}*, ou talvez vários *Pods*, com o objetivo de
 executar uma tarefa e depois parar.
 
 (Uma vez [agendado](/docs/concepts/scheduling/), objetos *Pod* passam a fazer parte objects become part of the
 do *estado desejado* para um kubelet.
 
 Quando o controlador *Job* observa uma nova tarefa ele garante que,
-algures no seu *cluster*, os kubelets num conjunto de nós (*Nodes*) estão correndo o numero
+algures no seu *cluster*, os kubelets num conjunto de nós (*Nodes*) estão correndo o número
 correto de *Pods* para completar o trabalho.
 O controlador *Job* não corre *Pods* ou *containers* ele próprio.
 Em vez disso, o controlador *Job* informa o *API server* para criar ou remover *Pods*.
@@ -96,7 +96,7 @@ Veja [Escalamento automático do cluster](/docs/tasks/administer-cluster/cluster
 
 ## Estado desejado versus atual {#desired-vs-current}
 
-Kubernetes leva uma visão *cloud-native* de sistemas, e é capaz de manipular
+Kubernetes leva uma visão *cloud-native* de sistemas e é capaz de manipular
 mudanças constantes.
 
 O seu *cluster* pode mudar em qualquer altura à medida que o trabalho acontece e
@@ -104,17 +104,17 @@ os ciclos de controlo corrigem falhas automaticamente. Isto significa que,
 potencialmente, o seu *cluster* nunca atinge um estado estável.
 
 Enquanto os controladores no seu *cluster* estiverem a correr e forem capazes de
-fazer alterações uteis, não importa se o estado é estável ou se é instável.
+fazer alterações úteis, não importa se o estado é estável ou se é instável.
 
 ## Desenho
 
-Como um principio do seu desenho, o Kubernetes usa muitos controladores onde cada
+Como um princípio do seu desenho, o Kubernetes usa muitos controladores onde cada
 um gere um aspeto particular do estado do *cluster*. Maioritariamente, um particular
 ciclo de controlo (controlador) usa uma espécie de recurso como o seu *estado desejado*,
 e tem uma espécie diferente de recurso que o mesmo gere para garantir que esse *estado desejado*
 é cumprido.
 
-É util que haja controladores simples em vez de um conjunto monolítico de ciclos de controlo
+É útil que haja controladores simples em vez de um conjunto monolítico de ciclos de controlo
 que estão interligados. Controladores podem falhar, então o Kubernetes foi desenhado para
 permitir isso.
 
@@ -140,9 +140,9 @@ O Kubernetes vem com um conjunto de controladores embutidos que correm
 dentro do {{< glossary_tooltip term_id="kube-controller-manager" >}}.
 Estes controladores embutidos providenciam comportamentos centrais importantes.
 
-O controlador *Deployment* e o controlador *Job* são exemplods de controladores
+O controlador *Deployment* e o controlador *Job* são exemplos de controladores
 que veem como parte do próprio Kubernetes (controladores "embutidos").
-O Kubernetes deixa voce correr o plano de controlo resiliente, para que se qualquer
+O Kubernetes deixa você correr o plano de controlo resiliente, para que se qualquer
 um dos controladores embutidos falhar, outra parte do plano de controlo assume
 o trabalho.
 
