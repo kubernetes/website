@@ -30,7 +30,6 @@ spec:
       volumeMounts:
         - name: podinfo
           mountPath: /etc/podinfo
-          readOnly: false
   volumes:
     - name: podinfo
       downwardAPI:

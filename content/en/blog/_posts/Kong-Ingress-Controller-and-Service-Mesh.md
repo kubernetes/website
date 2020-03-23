@@ -11,8 +11,8 @@ Kubernetes has become the de facto way to orchestrate containers and the service
 
 Ingress is a group of rules that will proxy inbound connections to endpoints defined by a backend. However, Kubernetes does not know what to do with Ingress resources without an Ingress controller, which is where an open source controller can come into play. In this post, we are going to use one option for this: the Kong Ingress Controller. The Kong Ingress Controller was open-sourced a year ago and recently reached one million downloads. In the recent 0.7 release, service mesh support was also added. Other features of this release include:
 
-* **Built-In Kubernetes Admission Controller,** which validates Custom Resource Definitions (CRD) as they are created or updated and rejects any invalid configurations. 
-* **n-Memory Mode** - Each pod’s controller actively configures the Kong container in its pod, which limits the blast radius of failure of a single container of Kong or controller container to that pod only.
+* **Built-In Kubernetes Admission Controller**, which validates Custom Resource Definitions (CRD) as they are created or updated and rejects any invalid configurations. 
+* **In-memory Mode** - Each pod’s controller actively configures the Kong container in its pod, which limits the blast radius of failure of a single container of Kong or controller container to that pod only.
 * **Native gRPC Routing** - gRPC traffic can now be routed via Kong Ingress Controller natively with support for method-based routing.
 
 ![K4K-gRPC](/images/blog/Kong-Ingress-Controller-and-Service-Mesh/KIC-gRPC.png)
@@ -50,7 +50,7 @@ $ kubectl label namespace kong istio-injection=enabled
 namespace/kong labeled
 ```
 
-Having both namespaces labeled istio-injection=enabled is necessary. Or else the default configuration will not inject a sidecar into the pods of your namespaces.
+Having both namespaces labeled `istio-injection=enabled` is necessary. Or else the default configuration will not inject a sidecar container into the pods of your namespaces.
 
 Now deploy your BookInfo application with the following command:
 
@@ -72,7 +72,7 @@ serviceaccount/bookinfo-productpage created
 deployment.apps/productpage-v1 created
 ```
 
-Let’s double-check our services and pods to make sure that we have it all set up correctly:
+Let’s double-check our Services and Pods to make sure that we have it all set up correctly:
 
 ```
 $ kubectl get services
@@ -87,6 +87,7 @@ reviews       ClusterIP   10.104.207.136   <none>        9080/TCP   28s
 You should see four new services: details, productpage, ratings, and reviews. None of them have an external IP so we will use the [Kong gateway](https://github.com/Kong/kong) to expose the necessary services. And to check pods, run the following command:
 
 ```
+$ kubectl get pods
 NAME                              READY   STATUS    RESTARTS   AGE
 details-v1-c5b5f496d-9wm29        2/2     Running   0          101s
 productpage-v1-7d6cfb7dfd-5mc96   2/2     Running   0          100s
@@ -96,7 +97,7 @@ reviews-v2-ccffdd984-9jnsj        2/2     Running   0          101s
 reviews-v3-98dc67b68-nzw97        2/2     Running   0          101s
 ```
 
-is command outputs useful data, so let’s take a second to understand it. If you examine the READY column, each pod has two containers running: the service and an Envoy sidecar injected alongside it. Another thing to highlight is that there are three review pods but only 1 review service. The Envoy sidecar will load balance the traffic to three different review pods that contain different versions, giving us the ability to A/B test our changes. With that said, you should now be able to access your product page!
+This command outputs useful data, so let’s take a second to understand it. If you examine the READY column, each pod has two containers running: the service and an Envoy sidecar injected alongside it. Another thing to highlight is that there are three review pods but only 1 review service. The Envoy sidecar will load balance the traffic to three different review pods that contain different versions, giving us the ability to A/B test our changes. With that said, you should now be able to access your product page!
 
 ```
 $ kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}') -c ratings -- curl productpage:9080/productpage | grep -o "<title>.*</title>"
@@ -131,11 +132,11 @@ NAME                               READY   STATUS    RESTARTS   AGE
 pod/ingress-kong-8b44c9856-9s42v   3/3     Running   0          2m26s
 ```
 
-There will be three containers within this pod. The first container is the Kong Gateway that will be the Ingress point to your cluster. The second container is the Ingress controller. It uses Ingress resources and updates the proxy to follow rules defined in the resource. And lastly, the third container is the Envoy proxy injected by Istio. Kong will route traffic through the Envoy sidecar proxy to the appropriate service. To send requests into the cluster via our newly deployed Kong Gateway, setup an environment variable with the IP address at which Kong is accessible.
+There will be three containers within this pod. The first container is the Kong Gateway that will be the Ingress point to your cluster. The second container is the Ingress controller. It uses Ingress resources and updates the proxy to follow rules defined in the resource. And lastly, the third container is the Envoy proxy injected by Istio. Kong will route traffic through the Envoy sidecar proxy to the appropriate service. To send requests into the cluster via our newly deployed Kong Gateway, setup an environment variable with the a URL based on the IP address at which Kong is accessible.
 
 ```
-$ export PROXY_IP=$(minikube service -n kong kong-proxy --url | head -1)
-$ echo $PROXY_IP
+$ export PROXY_URL="$(minikube service -n kong kong-proxy --url | head -1)"
+$ echo $PROXY_URL
 http://192.168.99.100:32728
 ```
 
@@ -182,10 +183,10 @@ spec:
 ingress.extensions/productpage created
 ```
 
-And just like that, the Kong Ingress Controller is able to understand the rules you defined in the Ingress resource and routes it to the productpage service! To view the product page service’s GUI, go to [http://](http://{Your)<span style="text-decoration:underline;">$PROXY_IP/productpage.</span> Or to test it in your command line, try:
+And just like that, the Kong Ingress Controller is able to understand the rules you defined in the Ingress resource and routes it to the productpage service! To view the product page service’s GUI, go to `$PROXY_URL/productpage` in your browser. Or to test it in your command line, try:
 
 ```
-$ curl <span style="text-decoration:underline;">$PROXY_IP/productpage</span>
+$ curl $PROXY_URL/productpage
 ```
 
 That is all I have for this walk-through. If you enjoyed the technologies used in this post, please check out their repositories since they are all open source and would love to have more contributors! Here are their links for your convenience:
