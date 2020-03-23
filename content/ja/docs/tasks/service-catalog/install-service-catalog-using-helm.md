@@ -16,7 +16,7 @@ content_template: templates/task
 * サービスカタログを使用するには、Kubernetesクラスターのバージョンが1.7以降である必要があります。
 * KubernetesクラスターのクラスターDNSを有効化する必要があります。
   * クラウド上のKubernetesクラスター、または{{< glossary_tooltip text="Minikube" term_id="minikube" >}}を使用している場合、クラスターDNSはすでに有効化されています。
-  * `hack/local-up-cluster.sh`を使用している場合は、環境変数`KUBE_ENABLE_CLUSTER_DNS` が設定されていることを確認し、インストールスクリプトを実行してください。
+  * `hack/local-up-cluster.sh`を使用している場合は、環境変数`KUBE_ENABLE_CLUSTER_DNS`が設定されていることを確認し、インストールスクリプトを実行してください。
 * [Install and setup kubectl](/docs/tasks/tools/install-kubectl/)を参考に、v1.7以降のkubectlをインストールし、設定を行ってください。
 * v2.7.0以降の[Helm](http://helm.sh/)をインストールしてください。
   * [Helm install instructions](https://helm.sh/docs/intro/install/)を参考にしてください。
