@@ -43,7 +43,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 他の全てのKubernetesの設定と同様に、DaemonSetは`apiVersion`、`kind`と`metadata`フィールドが必須となります。  
 設定ファイルの活用法に関する一般的な情報は、[アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)、[コンテナの設定](/docs/tasks/)、[kuberctlを用いたオブジェクトの管理](/docs/concepts/overview/object-management-kubectl/overview/)といったドキュメントを参照ください。
 
-また、DaemonSetにおいて[`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)セクションも必須となります。
+また、DaemonSetにおいて[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)セクションも必須となります。
 
 ### Podテンプレート
 
