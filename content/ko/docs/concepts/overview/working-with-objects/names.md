@@ -9,9 +9,9 @@ weight: 20
 클러스터의 각 오브젝트는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names) 을 가지고 있다.
 또한, 모든 쿠버네티스 오브젝트는 전체 클러스터에 걸쳐 고유한 [_UID_](#uids) 를 가지고 있다.
 
-예를 들어, 이름이 `myapp-1234`인 파드는 동일한 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/) 내에서 하나만 가질 수 있지만, 이름이 `myapp-1234`인 파드와 디플로이먼트는 각각 가질 수 있다.
+예를 들어, 이름이 `myapp-1234`인 파드는 동일한 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/) 내에서 하나만 존재할 수 있지만, 이름이 `myapp-1234`인 파드와 디플로이먼트는 각각 존재할 수 있다.
 
-유일하지 않은 사용자 제공 속성에 대해서, 쿠버네티스는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)과 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
+유일하지 않은 사용자 제공 속성의 경우 쿠버네티스는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)과 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
 
 {{% /capture %}}
 
@@ -22,9 +22,9 @@ weight: 20
 
 {{< glossary_definition term_id="name" length="all" >}}
 
-다음은 리소스에 일반적으로 사용되는 세가지 유형의 이름 제한 조건이다.
+다음은 리소스에 일반적으로 사용되는 세 가지 유형의 이름 제한 조건이다.
 
-### DNS 서브도메인 이름들
+### DNS 서브도메인 이름
 
 대부분의 리소스 유형에는 [RFC 1123](https://tools.ietf.org/html/rfc1123)에 정의된 대로 
 DNS 서브도메인 이름으로 사용할 수 있는 이름이 필요하다.
@@ -52,7 +52,7 @@ DNS 서브도메인 이름으로 사용할 수 있는 이름이 필요하다.
 있어야 한다. 즉 이름이 "." 또는 ".."이 아닐 수 있으며 이름에는
 "/" 또는 "%"가 포함될 수 없다.
 
-여기 파드의 이름이 `nginx-demo`라는 매니페스트 예시가 있다.
+아래는 파드의 이름이 `nginx-demo`라는 매니페스트 예시이다.
 
 ```yaml
 apiVersion: v1
