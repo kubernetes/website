@@ -4,6 +4,7 @@ reviewers:
 - saad-ali
 - thockin
 - msau42
+- xing-yang
 title: Persistent Volumes
 feature:
   title: Storage orchestration
@@ -663,7 +664,7 @@ Only statically provisioned volumes are supported for alpha release. Administrat
 
 ## Volume Snapshot and Restore Volume from Snapshot Support
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 Volume snapshot feature was added to support CSI Volume Plugins only. For details, see [volume snapshots](/docs/concepts/storage/volume-snapshots/).
 
@@ -743,5 +744,17 @@ and need persistent storage, it is recommended that you use the following patter
   dynamic storage support (in which case the user should create a matching PV)
   or the cluster has no storage system (in which case the user cannot deploy
   config requiring PVCs).
+{{% /capture %}}
+  {{% capture whatsnext %}}
 
+* Learn more about [Creating a Persistent Volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+* Learn more about [Creating a Persistent Volume Claim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
+* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+
+### Reference
+
+* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
+* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
 {{% /capture %}}
