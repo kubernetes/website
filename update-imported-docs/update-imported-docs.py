@@ -33,12 +33,14 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import platform
 
 error_msgs = []
 
 # pip should be installed when Python is installed, but just in case...
 if not (shutil.which('pip') or shutil.which('pip3')):
-    error_msgs.append("Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
+    error_msgs.append(
+        "Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
 
 reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
 installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
@@ -203,7 +205,9 @@ def main():
     # create the temp work_dir
     try:
         print("Making temp work_dir")
-        work_dir = tempfile.mkdtemp()
+        work_dir = tempfile.mkdtemp(
+            dir='/tmp' if platform.system() == 'Darwin' else tempfile.gettempdir()
+        )
     except OSError as ose:
         print("[Error] Unable to create temp work_dir {}; error: {}"
               .format(work_dir, ose))

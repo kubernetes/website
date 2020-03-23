@@ -33,7 +33,7 @@ stored as `Secrets`, which are mounted into pods allowing in-cluster processes
 to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
-as anonymous requests. This means every process inside or outside the cluster, from
+as [anonymous requests](#anonymous-requests). This means every process inside or outside the cluster, from
 a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
 of the control plane, must authenticate when making requests to the API server,
 or be treated as an anonymous user.

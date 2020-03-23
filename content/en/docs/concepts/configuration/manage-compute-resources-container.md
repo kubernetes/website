@@ -68,13 +68,7 @@ resource requests/limits of that type for each Container in the Pod.
 ## Meaning of CPU
 
 Limits and requests for CPU resources are measured in *cpu* units.
-One cpu, in Kubernetes, is equivalent to:
-
-- 1 AWS vCPU
-- 1 GCP Core
-- 1 Azure vCore
-- 1 IBM vCPU
-- 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
+One cpu, in Kubernetes, is equivalent to **1 vCPU/Core** for cloud providers and **1 hyperthread** on bare-metal Intel processors.
 
 Fractional requests are allowed. A Container with
 `spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
