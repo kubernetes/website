@@ -75,7 +75,7 @@ v0.26以降のMinikubeを使用している場合、`--extra-config`を指定し
 AUTHORIZATION_MODE=Node,RBAC hack/local-up-cluster.sh -O
 ```
 
-`helm init` は、デフォルトで`kube-system` のnamespaceにTiller Podをインストールし、Tillerは`default`のServiceAccountを使用するように設定されています。
+`helm init`は、デフォルトで`kube-system`のnamespaceにTiller Podをインストールし、Tillerは`default`のServiceAccountを使用するように設定されています。
 
 {{< note >}}
 `helm init`を実行する際に`--tiller-namespace`または`--service-account`のフラグを使用する場合、以下のコマンドの`--serviceaccount` フラグには適切なnamespaceとServiceAccountを指定する必要があります。
