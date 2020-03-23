@@ -296,6 +296,10 @@ spec:
     server: 172.17.0.2
 ```
 
+{{< note >}}
+Helper programs relating to the volume type may be required for consumption of a PersistentVolume within a cluster.  In this example, the PersistentVolume is of type NFS and the helper program /sbin/mount.nfs is required to support the mounting of NFS filesystems.
+{{< /note >}}
+
 ### Kapasitas
 
 Secara umum, sebuah PV akan memiliki kapasitas _storage_ tertentu.  Hal ini ditentukan menggunakan atribut `capacity` pada PV.  Lihat [Model Sumber Daya](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) Kubernetes untuk memahami satuan yang diharapkan pada atribut `capacity`.
