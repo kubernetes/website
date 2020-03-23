@@ -87,7 +87,7 @@ Esta é a maneira recomendada de gerenciar aplicações Kubernetes em ambiente d
 
 ## Criando objetos
 
-Manifestos Kubernetes podem ser definidos em YAML ou JSON. A extensão do arquivo `.yaml`,
+Manifestos Kubernetes podem ser definidos em YAML ou JSON. A extensão de arquivo `.yaml`,
 `.yml`, e `.json` pode ser usado.
 
 ```bash
