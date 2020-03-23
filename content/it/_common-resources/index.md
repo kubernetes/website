@@ -1,4 +1,3 @@
 ---
-draft: True
 headless: true
 ---
