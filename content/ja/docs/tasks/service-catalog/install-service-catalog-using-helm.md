@@ -12,7 +12,7 @@ content_template: templates/task
 
 
 {{% capture prerequisites %}}
-* [Service Catalog](/docs/concepts/service-catalog/)の基本概念を理解してください。
+* [サービスカタログ](/docs/concepts/service-catalog/)の基本概念を理解してください。
 * サービスカタログを使用するには、Kubernetesクラスタのバージョンが1.7以降である必要があります。
 * KubernetesクラスタのクラスターDNSを有効化する必要があります。
   * クラウド上のKubernetesクラスタ、または{{< glossary_tooltip text="Minikube" term_id="minikube" >}}を使用している場合、クラスターDNSはすでに有効化されています。
