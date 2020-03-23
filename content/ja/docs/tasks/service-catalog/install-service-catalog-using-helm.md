@@ -51,7 +51,7 @@ svc-cat/catalog-v0.2	0.2.2        	           	service-catalog API server and co
 
 ## RBACの有効化
 
-KubernetesクラスタのRBACを有効化することで、Tiller Podに`cluster-admin`アクセスを持たせます。
+KubernetesクラスターのRBACを有効化することで、Tiller Podに`cluster-admin`アクセスを持たせます。
 
 v0.25以前のMinikubeを使用している場合は、明示的にRBACを有効化して起動する必要があります:
 
