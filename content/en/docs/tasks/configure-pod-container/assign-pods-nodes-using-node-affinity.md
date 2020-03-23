@@ -25,7 +25,6 @@ Kubernetes cluster.
     ```shell
     kubectl get nodes --show-labels
     ```
-
     The output is similar to this:
 
     ```shell
@@ -39,7 +38,6 @@ Kubernetes cluster.
     ```shell
     kubectl label nodes <your-node-name> disktype=ssd
     ```
-
     where `<your-node-name>` is the name of your chosen node.
 
 1. Verify that your chosen node has a `disktype=ssd` label:
@@ -86,6 +84,7 @@ This means that the pod will get scheduled only on a node that has a `disktype=s
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
+    
 ## Schedule a Pod using preferred node affinity
 
 This manifest describes a Pod that has a `preferredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
