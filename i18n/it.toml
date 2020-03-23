@@ -32,7 +32,7 @@ other = "YouTube"
 other = "Sfoglia documenti"
 
 [docs_label_contributors]
-other = "Contributori"
+other = "Contributors"
 
 [docs_label_i_am]
 other = "Io Sono..."
@@ -62,22 +62,22 @@ other = "<< Precedente"
 other = "Succesiva >>"
 
 [layouts_case_studies_list_tell]
-other = "Racconta la tua storia"
+other = "Racconta il tuo use case"
 
 [layouts_docs_glossary_aka]
 other = "Anche noto come"
 
 [layouts_docs_glossary_description]
-other = "Questo glossario vuole essere una lista comprensiva per standardizzare la terminologia di Kubernetes. Include termini tecnici che sono specifici di Kubernetes, così come termini più generali che sono utili per dare un contesto."
+other = "Questo glossario vuole essere un aiuto per standardizzare la terminologia usata per Kubernetes. Include termini tecnici che sono specifici di Kubernetes, così come termini più generali che sono utili per dare un contesto."
 
 [layouts_docs_glossary_deselect_all]
 other = "Deseleziona tutto"
 
 [layouts_docs_glossary_click_details_after]
-other = "per avere una spiegazione più completa per il termine."
+other = "per il significato di questo termine."
 
 [layouts_docs_glossary_click_details_before]
-other = "Fare click sull'icona "
+other = "Fare click sull'icona"
 
 [layouts_docs_glossary_filter]
 other = "Filtra i termini sulla base delle loro etichette"
@@ -128,7 +128,7 @@ other = "Modifica questa pagina"
 other = "Crea un issue"
 
 [main_github_invite]
-other = "Ti interessa l'hacking sulla base del codice di Kubernetes?"
+other = "Sei interessato a contribuire a Kubernetes?"
 
 [main_github_view_on]
 other = "Visualizza su GitHub"
@@ -170,10 +170,10 @@ other = "Prima di cominciare"
 other = "Cerca"
 
 [version_check_mustbe]
-other = "La tua installazione Kubernetes deve essere la versione "
+other = "La tua installazione Kubernetes deve avere la versione "
 
 [version_check_mustbeorlater]
-other = "La tua installazione Kubernetes deve essere almeno la versione "
+other = "La tua installazione Kubernetes deve avere almeno la versione "
 
 [version_check_tocheck]
 other = "Per verificare la versione, esegui "
