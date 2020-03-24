@@ -275,7 +275,7 @@ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Se o tamanho
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Escalar vários replicaset
 ```
 
-## Exclusão de recursos
+## Exclusão de Recursos
 
 ```bash
 kubectl delete -f ./pod.json                                              # Exclua um pod usando o tipo e o nome especificados em pod.json
