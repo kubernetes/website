@@ -161,7 +161,7 @@ kubectl get services --sort-by=.metadata.name
 # Listar pods classificados por contagem de reinicializações
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# Lista PersistentVolumes classificado por capacidade
+# Listar PersistentVolumes classificado por capacidade
 kubectl get pv --sort-by=.spec.capacity.storage
 
 # Obtenha a versão da label de todos os pods com a label app=cassandra
