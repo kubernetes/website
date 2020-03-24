@@ -300,7 +300,7 @@ kubectl logs -f my-pod -c my-container              # Fluxo de logs para um espe
 kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com a label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Executar pod como shell interativo
 kubectl run nginx --image=nginx --restart=Never -n 
-mynamespace                                         # Execute o pod nginx em um espaço de nome específico
+mynamespace                                         # Execute o pod nginx em um namespace específico
 kubectl run nginx --image=nginx --restart=Never     # Execute o pod nginx e salve suas especificações em um arquivo chamado pod.yaml
 --dry-run -o yaml > pod.yaml
 
