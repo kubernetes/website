@@ -21,7 +21,7 @@ desenvolvedor, usuário final ou alguém que simplesmente não suporta ver erros
 Qualquer pessoa pode abrir uma issue descrevendo o problema ou melhorias desejadas com a documentação ou contribuir com uma alteração e uma solicitação de mudança (Pull Request - PR).
 Algumas tarefas exigem mais confiança e precisam de mais acesso na organização Kubernetes.
 Veja [Participando do SIG Docs](/docs/contribute/participating/) para mais detalhes sobre
-de funções e permissões.
+as funções e permissões.
 
 A documentação do Kubernetes reside em um repositório do GitHub. Nós damos as boas-vindas
 a todas as contribuições, mas você vai precisa estar familiarizado com o uso básico de git e GitHub para
