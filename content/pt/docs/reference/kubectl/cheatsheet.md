@@ -204,7 +204,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl diff -f ./my-manifest.yaml
 ```
 
-## Atualizando recursos
+## Atualizando Recursos
 
 A partir da versão 1.11 `rolling-update` foi descontinuado (veja [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), utilize o comando `rollout` no lugar deste.
 
