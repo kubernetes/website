@@ -51,7 +51,7 @@ In your shell on that Node, create a `/mnt/data` directory:
 sudo mkdir /mnt/data
 ```
 
-If you are using minikube, you can do this with a line:
+If you are using Minikube, you can do this with a line:
 
 ```shell
 # This also assumes that your Node uses "sudo" to run commands
