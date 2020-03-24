@@ -1,0 +1,4 @@
+{{- $link := .Destination }}
+{{- $isRemote := strings.HasPrefix $link "http" }}
+
+<a href="{{ $link | relLangURL | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix .Destination "http" }} target="_blank"{{ end }}>{{ .Text | safeHTML }}</a>
