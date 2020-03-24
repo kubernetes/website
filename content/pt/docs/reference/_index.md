@@ -26,10 +26,10 @@ Esta seção da documentação do Kubernetes contém referências.
 Para chamar a API Kubernetes de uma linguagem de programação, você pode usar
 [bibliotecas de clientes](/docs/reference/using-api/client-libraries/). Bibliotecas oficialmente suportadas:
 
-- [Biblioteca em Go do cliente Kubernetes](https://github.com/kubernetes/client-go/)
-- [Biblioteca em Python do cliente Kubernetes](https://github.com/kubernetes-client/python)
-- [Biblioteca em Java do cliente Kubernetes](https://github.com/kubernetes-client/java)
-- [Biblioteca em JavaScript do cliente Kubernetes ](https://github.com/kubernetes-client/javascript)
+- [Biblioteca do cliente Kubernetes em Go](https://github.com/kubernetes/client-go/)
+- [Biblioteca do cliente Kubernetes em Python](https://github.com/kubernetes-client/python)
+- [Biblioteca do cliente Kubernetes em Java](https://github.com/kubernetes-client/java)
+- [Biblioteca do cliente Kubernetes em JavaScript](https://github.com/kubernetes-client/javascript)
 
 ## Referência da CLI
 
