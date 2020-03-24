@@ -146,7 +146,7 @@ EOF
 kubectl get services                          # Listar todos os serviços do namespace
 kubectl get pods --all-namespaces             # Listar todos os pods em todos namespaces
 kubectl get pods -o wide                      # Listar todos os pods no namespace atual, com mais detalhes
-kubectl get deployment my-dep                 # Listar uma implantação específica
+kubectl get deployment my-dep                 # Listar um deployment específico
 kubectl get pods                              # Listar todos os pods no namespace
 kubectl get pod my-pod -o yaml                # Obter o YAML de um pod
 kubectl get pod my-pod -o yaml --export       # Obtenha o YAML de um pod sem informações específicas do cluster
