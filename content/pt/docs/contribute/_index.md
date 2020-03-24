@@ -54,7 +54,7 @@ Para se envolver com a documentação:
 {{% capture whatsnext %}}
 
 - Para obter mais informações sobre os conceitos básicos de contribuição para a documentação, leia [Comece a contribuir](/docs/contribute/start/).
-- Siga o [Guia de estilo de documentação do Kubernetes](/docs/contribute/style/style-guide/) when proposing changes.
+- Siga o [Guia de estilo de documentação do Kubernetes](/docs/contribute/style/style-guide/) ao propor mudanças.
 - Para mais informações sobre o SIG Docs, leia [Participando do SIG Docs](/docs/contribute/participating/).
 - Para mais informações sobre a localização de documentos do Kubernetes, leia [Localização da documentação do Kubernetes](/docs/contribute/localization/).
 
