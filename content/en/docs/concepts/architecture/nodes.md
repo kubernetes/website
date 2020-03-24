@@ -131,6 +131,8 @@ Kubernetes creates a node object internally (the representation), and
 validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
 services are running -- it is eligible to run a pod. Otherwise, it is
 ignored for any cluster activity until it becomes valid.
+The name of a Node object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< note >}}
 Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
@@ -182,7 +184,7 @@ a Lease object.
   timeout for unreachable nodes).
 - The kubelet creates and then updates its Lease object every 10 seconds
   (the default update interval). Lease updates occur independently from the
-  `NodeStatus` updates.
+  `NodeStatus` updates. If the Lease update fails, the kubelet retries with exponential backoff starting at 200 milliseconds and capped at 7 seconds.
 
 #### Reliability
 
