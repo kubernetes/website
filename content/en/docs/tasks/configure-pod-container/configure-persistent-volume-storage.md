@@ -51,6 +51,13 @@ In your shell on that Node, create a `/mnt/data` directory:
 sudo mkdir /mnt/data
 ```
 
+If you are using minikube, you can do this with a line:
+
+```shell
+# This also assumes that your Node uses "sudo" to run commands
+# as the superuser
+minikube ssh sudo mkdir /mnt/data
+```
 
 In the `/mnt/data` directory, create an `index.html` file:
 
