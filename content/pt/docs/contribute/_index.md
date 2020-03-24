@@ -38,7 +38,7 @@ Para se envolver com a documentação:
 - Escreva mensagens GIT claras e significativas.
 - Certifique-se de incluir _Github Special Keywords_ que faz referência a issue e o fecha automaticamente quando o PR é mergeado.
 - Quando você faz uma pequena alteração em um PR, como corrigir um erro de digitação, qualquer alteração de estilo ou gramática, certifique-se de esmagar seus commits (squash) para não obter um grande número de commits por uma alteração relativamente pequena.
-- Certifique-se de incluir uma boa descrição de PE explicando as alterações no código, o motivo de alterar um trecho de código e garantir que haja informações suficientes para o revisor entender seu PR.
+- Certifique-se de incluir uma boa descrição de PR explicando as alterações no código, o motivo de alterar um trecho de código e garantir que haja informações suficientes para o revisor entender seu PR.
 - Leituras adicionais: 
     - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
     - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests )
