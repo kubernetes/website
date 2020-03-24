@@ -290,7 +290,7 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 
 ```bash
 kubectl logs my-pod                                 # despejar logs de pod (stdout)
-kubectl logs -l name=myLabel                        # despejar logs de pod, com nome da label = myLabel (stdout)
+kubectl logs -l name=myLabel                        # despejar logs de pod, com a label de name=myLabel (stdout)
 kubectl logs my-pod --previous                      # despejar logs de pod (stdout) para a instância anterior de um contêiner
 kubectl logs my-pod -c my-container                 # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres)
 kubectl logs -l name=myLabel -c my-container        # despejar logs de pod, com nome da label = myLabel (stdout)
