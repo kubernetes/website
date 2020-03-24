@@ -19,7 +19,7 @@ desenvolvedor, usuário final ou alguém que simplesmente não suporta ver erros
 ## Começando
 
 Qualquer pessoa pode abrir uma issue descrevendo o problema ou melhorias desejadas com a documentação ou contribuir com uma alteração e uma solicitação de mudança (Pull Request - PR).
-SAlgumas tarefas exigem mais confiança e precisam de mais acesso na organização Kubernetes.
+Algumas tarefas exigem mais confiança e precisam de mais acesso na organização Kubernetes.
 Veja [Participando do SIG Docs](/docs/contribute/participating/) para mais detalhes sobre
 de funções e permissões.
 
