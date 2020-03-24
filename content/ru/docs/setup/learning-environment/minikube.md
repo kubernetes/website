@@ -386,7 +386,7 @@ kubectl config use-context minikube
 
 ### Панель управления
 
-Чтобы получить доступ к [панели управления Kubernetes](/docs/tasks/access-application-cluster/web-ui-dashboard/), запустите эту команду в командной оболочке после запуска Minikube, чтобы получить адрес:
+Чтобы получить доступ к [веб-панели управления Kubernetes](/docs/tasks/access-application-cluster/web-ui-dashboard/), запустите эту команду в командной оболочке после запуска Minikube, чтобы получить адрес:
 
 ```shell
 minikube dashboard

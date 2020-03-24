@@ -13,65 +13,38 @@ lub strony www Kubernetesa! Nieważne, czy dopiero poznajesz projekt, czy jeste�
 z nami już od dawna, czy uważasz się za programistę, użytkownika, czy po prostu
 nie możesz patrzeć na literówki.
 
-Więcej informacji na temat zawartości dokumentacji Kubernetesa i jej stylu,
-znajdziesz w
- [Opisie stylu dokumentacji](/docs/contribute/style/).
+{{% /capture %}}
 
 {{% capture body %}}
 
-## Rodzaje uczestnictwa w procesie tworzenia dokumentacji
+## Od czego zacząć?
 
-- _Członek_ (_member_) organizacji Kubernetes, który [podpisał CLA](/docs/contribute/start#sign-the-cla)
-  i poświęcił swój czas oraz wysiłek na rzecz projektu. Dokument
-  [Członkostwo w organizacji](https://github.com/kubernetes/community/blob/master/community-membership.md)
-  zawiera szczegóły z tym związane.
-- _Recenzent_ (_reviewer_) SIG Docs to członek organizacji Kubernetes, który zgłosił
-  swoją chęć weryfikacji propozycji zmian w dokumentacji (PR) i został dodany
-  do odpowiedniej grupy GitHub i pliku 'OWNERS' w repozytorium GitHub przez
-  osobę zatwierdzającą SIG Docs.
-- _Osoba zatwierdzająca_ (_approver_) SIG Docs to członek organizacji o uznanej reputacji,
-  który wykazał się długotrwałym zaangażowaniem w prace projektu.
-  Osoba zatwierdzająca może włączać propozycje zmian do repozytoriów i publikować
-  treści w imieniu organizacji Kubernetes.
-  Osoby zatwierdzające mogą również reprezentować SIG Docs na szerszym forum
-  społeczności Kubernetes.
-  Niektóre wymagania związane z tą rolą, jak na przykład koordynacja kolejnego wydania,
-  wymagają poświęcenia znacznej ilości czasu.
+Każdy może otworzyć zgłoszenie, które zawiera opis problemu czy oczekiwane usprawnienia dokumentacji lub samemu zaproponować zmianę poprzez *pull request* (PR).
+Do realizacji niektórych zadań potrzeba wyższego poziomu zaufania i odpowiednich uprawnień w organizacji Kubernetes.
+Zajrzyj do [Participating in SIG Docs](/docs/contribute/participating/) po więcej szczegółów
+dotyczących ról i uprawnień.
 
-## Sposoby współpracy przy tworzeniu dokumentacji
+Dokumentacja Kubernetesa znajduje się w repozytorium GitHub. Zapraszamy wszystkich
+do aktywnych działań na rzecz jej rozwoju, niemniej aby móc sprawnie funkcjonować w społeczności Kubernetes,
+wymagana jest pewna biegłość w korzystaniu z git i GitHuba.
 
-Poniższa lista podzielona jest na rzeczy, które może robić każdy, te, które może
-robić członek organizacji Kubernetes oraz na takie, które wymagają wyższych uprawnień
-i znajomości procesów SIG Docs. W miarę postępującej współpracy, będziesz mógł lepiej
-zrozumieć niektóre narzędzia czy decyzje, które zostały wcześniej podjęte
-na poziomie organizacyjnym.
+Aby zaangażować się w prace nad dokumentacją należy:
 
-Ta lista nie wyczerpuje wszystkich możliwości udziału, ale powinna być pomocna
-na początku.
+1. Podpisać [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md) CNCF.
+2. Zapoznać się z [repozytorium dokumentacji](https://github.com/kubernetes/website) i z [generatorem statycznej strony](https://gohugo.io) www.
+3. Zrozumieć podstawowe procesy [ulepszania zawartości](https://kubernetes.io/docs/contribute/start/#improve-existing-content) i [recenzowania propozycji zmian](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
 
-- [Każdy](/docs/contribute/start/)
-  - Otwieranie wszelkiego rodzaju zgłoszeń, względem których mogą zostać podjęte jakieś działania
-- [Członek](/docs/contribute/start/)
-  - Ulepszanie istniejącej dokumentacji
-  - Zgłaszanie pomysłów na ulepszenia poprzez komunikator [Slack](http://slack.k8s.io/) lub [listę dystrybucyjną SIG docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
-  - Zwiększanie dostępności dokumentacji
-  - Zgłaszanie niewiążących uwag do propozycji zmian (PR)
-  - Pisanie bloga lub studium przypadku
-- [Recenzent](/docs/contribute/intermediate/)
-  - Opisywanie nowych funkcjonalności
-  - Przydzielanie kategorii i klasyfikowanie zgłoszeń
-  - Recenzowanie propozycji zmian
-  - Tworzenie schematów, grafik, osadzonych prezentacji (_screencasts_) i filmów
-  - Tłumaczenie
-  - Współtworzenie zawartości innych repozytoriów jako przedstawiciel zespołu dokumentacji
-  - Opracowywanie osadzonych w oprogramowaniu komunikatów dla użytkownika
-  - Ulepszanie komentarzy w oprogramowaniu, Godoc
-- [Osoba zatwierdzająca](/docs/contribute/advanced/)
-  - Publikowanie dostarczonych treści poprzez zatwierdzanie propozycji zmian i włączanie ich do repozytorium
-  - Udział w pracach zespołu przygotowującego nowe wydanie Kubernetesa jako przedstawiciel zespołu dokumentacji
-  - Proponowanie ulepszeń wytycznych dotyczących stylu
-  - Proponowanie ulepszeń testowania dokumentacji
-  - Proponowanie ulepszeń strony Kubernetes lub innych narzędzi
+## Najlepsze praktyki zgłaszania zmian
+
+- Opis GIT commit powinien być jasny i zrozumiały.
+- Należy używać _Github Special Keywords_, które odwołują się do zgłoszenia _(issue)_ i automatycznie je zamykają, kiedy PR zostaje zaakceptowany.
+- Kiedy wprowadzasz drobne zmiany do PR, takie jak literówki czy poprawki stylu lub gramatyki, pamiętaj o ich zgrupowaniu _(squash)_, aby uniknąć sytuacji, kiedy mamy dużą liczbę commitów dla stosunkowo niewielkiej zmiany.
+- Dołącz dobry opis PR, który tłumaczy zmiany w kodzie, powód dla tych zmian i wszystkie informacje wystarczające, aby recenzent zrozumiał Twój PR.
+- Dodatkowa literatura:
+  - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
+  - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests)
+  - [davidwalsh.name/squash-commits-git ](https://davidwalsh.name/squash-commits-git )
+
 
 ## Inne metody współpracy
 
