@@ -31,7 +31,7 @@ Para se envolver com a documentação:
 
 1. Assine o [Contrato de Licença de Colaborador](https://github.com/kubernetes/community/blob/master/CLA.md) do CNCF.
 2. Familiarize-se com o [repositório de documentação](https://github.com/kubernetes/website) e o [gerador de site estático](https://gohugo.io) hugo.
-3. Certifique-se de entender os processos básicos para [melhorar o conteúdo](https://kubernetes.io/docs/contribute/start/#improve-existing-content)e [revisar alterações](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
+3. Certifique-se de entender os processos básicos para [melhorar o conteúdo](https://kubernetes.io/docs/contribute/start/#improve-existing-content) e [revisar alterações](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests).
 
 ## Melhores Práticas recomendadas para contribuições
 
