@@ -286,7 +286,7 @@ kubectl -n my-ns delete pod,svc --all                                     # Excl
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
-## Interagindo com a execução de Pods
+## Interagindo com Pods em execução
 
 ```bash
 kubectl logs my-pod                                 # despejar logs de pod (stdout)
