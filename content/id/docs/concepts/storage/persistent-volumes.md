@@ -297,7 +297,7 @@ spec:
 ```
 
 {{< note >}}
-Helper programs relating to the volume type may be required for consumption of a PersistentVolume within a cluster.  In this example, the PersistentVolume is of type NFS and the helper program /sbin/mount.nfs is required to support the mounting of NFS filesystems.
+Program pembantu yang berkaitan dengan tipe volume bisa saja diperlukan untuk mengonsumsi sebuah PersistentVolume di dalam klaster. Contoh ini menggunakan PersistentVolume dengan tipe NFS dan program pembantu /sbin/mount.nfs diperlukan untuk mendukung proses mounting sistem berkas (filesystem) NFS.
 {{< /note >}}
 
 ### Kapasitas
