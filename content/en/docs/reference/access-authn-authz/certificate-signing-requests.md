@@ -184,7 +184,7 @@ rules:
   - certificates.k8s.io
   resources:
   - signers
-  resourceName:
+  resourceNames:
   - example.com/my-signer-name # example.com/* can be used to authorize for all signers in the 'example.com' domain
   verbs:
   - approve
