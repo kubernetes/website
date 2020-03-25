@@ -46,7 +46,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 
 ## Infrastructure
 
-* [KubeVirt](https://kubevirt.io/user-guide/docs/latest/administration/intro.html#cluster-side-add-on-deployment) is an add-on to run virtual machines on Kubernetes. Usually run on bare-metal clusters.
+* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) is an add-on to run virtual machines on Kubernetes. Usually run on bare-metal clusters.
 
 ## Legacy Add-ons
 
