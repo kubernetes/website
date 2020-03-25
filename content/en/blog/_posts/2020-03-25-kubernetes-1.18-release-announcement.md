@@ -58,7 +58,7 @@ With the release of Kubernetes 1.18, an alpha version of CSI Proxy for Windows i
 - [Adding AppProtocol to Services and Endpoints](https://github.com/kubernetes/enhancements/issues/1507)
 - [Extending Hugepage Feature](https://github.com/kubernetes/enhancements/issues/1539)
 - [client-go signature refactor to standardize options and context handling](https://github.com/kubernetes/enhancements/issues/1601)
-- [Graduate NodeLocal DNSCache to GA ](https://github.com/kubernetes/enhancements/issues/1024)
+- [Node-local DNS cache](https://github.com/kubernetes/enhancements/issues/1024)
 
 
 ### Major Changes
