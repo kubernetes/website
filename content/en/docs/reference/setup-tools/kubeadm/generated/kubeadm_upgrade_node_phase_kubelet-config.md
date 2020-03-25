@@ -2,7 +2,7 @@
 ### Synopsis
 
 
-Download the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. kubeadm uses the KuberneteVersion field in the kubeadm-config ConfigMap to determine what the _desired_ kubelet version is, but the user can override this by using the --kubelet-version parameter.
+Download the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. kubeadm uses the KuberneteVersion field in the kubeadm-config ConfigMap to determine what the _desired_ kubelet version is.
 
 ```
 kubeadm upgrade node phase kubelet-config [flags]
@@ -36,13 +36,6 @@ kubeadm upgrade node phase kubelet-config [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--kubelet-version string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The *desired* version for the kubelet config after the upgrade. If not specified, the KubernetesVersion from the kubeadm-config ConfigMap will be used</td>
     </tr>
 
   </tbody>

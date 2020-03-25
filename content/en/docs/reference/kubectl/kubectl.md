@@ -461,6 +461,13 @@ kubectl [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--tls-server-name string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--token string</td>
     </tr>
     <tr>
@@ -518,6 +525,7 @@ kubectl [flags]
 
 {{% capture seealso %}}
 
+* [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)	 - Commands for features in alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Print the supported API resources on the server
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Print the supported API versions on the server, in the form of "group/version"
