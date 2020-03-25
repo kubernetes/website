@@ -17,6 +17,7 @@ toc:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
     - docs/admin/bootstrap-tokens.md
+    - docs/admin/certificate-signing-requests.md
     - docs/admin/admission-controllers.md
     - docs/admin/extensible-admission-controllers.md
     - docs/admin/service-accounts-admin.md

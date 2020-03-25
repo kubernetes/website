@@ -62,7 +62,7 @@ In the bootstrap initialization process, the following occurs:
 4. kubelet reads its bootstrap file, retrieving the URL of the API server and a limited usage "token"
 5. kubelet connects to the API server, authenticates using the token
 6. kubelet now has limited credentials to create and retrieve a certificate signing request (CSR)
-7. kubelet creates a CSR for itself
+7. kubelet creates a CSR for itself with the signerName set to `kubernetes.io/kube-apiserver-client-kubelet`
 8. CSR is approved in one of two ways:
   * If configured, kube-controller-manager automatically approves the CSR
   * If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`
@@ -117,7 +117,7 @@ While any authentication strategy can be used for the kubelet's initial
 bootstrap credentials, the following two authenticators are recommended for ease
 of provisioning.
 
-1. [Bootstrap Tokens](#bootstrap-tokens) - __beta__
+1. [Bootstrap Tokens](#bootstrap-tokens)
 2. [Token authentication file](#token-authentication-file)
 
 Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver. 
@@ -291,35 +291,6 @@ roleRef:
   name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
   apiGroup: rbac.authorization.k8s.io
 ```
-
-**Note: Kubernetes Below 1.8**: If you are running an earlier version of Kubernetes, notably a version below 1.8, then the cluster roles referenced above do not ship by default. You will have to create them yourself _in addition to_ the `ClusterRoleBindings` listed.
-
-To create the `ClusterRole`s:
-
-```yml
-# A ClusterRole which instructs the CSR approver to approve a user requesting
-# node client credentials.
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: system:certificates.k8s.io:certificatesigningrequests:nodeclient
-rules:
-- apiGroups: ["certificates.k8s.io"]
-  resources: ["certificatesigningrequests/nodeclient"]
-  verbs: ["create"]
----
-# A ClusterRole which instructs the CSR approver to approve a node renewing its
-# own client credentials.
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
-rules:
-- apiGroups: ["certificates.k8s.io"]
-  resources: ["certificatesigningrequests/selfnodeclient"]
-  verbs: ["create"]
-```
-
 
 The `csrapproving` controller that ships as part of
 [kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled

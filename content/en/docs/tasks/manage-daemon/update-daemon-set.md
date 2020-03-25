@@ -57,7 +57,7 @@ If you haven't created the DaemonSet in the system, check your DaemonSet
 manifest with the following command instead:
 
 ```shell
-kubectl apply -f ds.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
+kubectl apply -f ds.yaml --dry-run=client -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
 ```
 
 The output from both commands should be:

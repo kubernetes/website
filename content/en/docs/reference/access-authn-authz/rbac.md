@@ -85,7 +85,7 @@ Because ClusterRoles are cluster-scoped, you can also use them to grant access t
 
 * cluster-scoped resources (like {{< glossary_tooltip text="nodes" term_id="node" >}})
 * non-resource endpoints (like `/healthz`)
-* namespaced resources (like Pods), across all namespaces  
+* namespaced resources (like Pods), across all namespaces
   For example: you can use a ClusterRole to allow a particular user to run
   `kubectl get pods --all-namespaces`.
 
@@ -215,7 +215,7 @@ There are two reasons for this restriction:
 1. Making `roleRef` immutable allows granting someone `update` permission on an existing binding
 object, so that they can manage the list of subjects, without being able to change
 the role that is granted to those subjects.
-1. A binding to a different role is a fundamentally different binding.  
+1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
 the new role (as opposed to enabling accidentally modifying just the roleRef
@@ -223,7 +223,7 @@ without verifying all of the existing subjects should be given the new role's
 permissions).
 
 The `kubectl auth reconcile` command-line utility creates or updates a manifest file containing RBAC objects,
-and handles deleting and recreating binding objects if required to change the role they refer to.  
+and handles deleting and recreating binding objects if required to change the role they refer to.
 See [command usage and examples](#kubectl-auth-reconcile) for more information.
 
 ### Referring to resources
@@ -769,7 +769,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td><b>system:kubelet-api-admin</b></td>
 <td>None</td>
 <td>Allows full access to the kubelet API.</td>
-</tr>  
+</tr>
 <tr>
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
@@ -1034,8 +1034,8 @@ Examples:
 
 * Test applying a manifest file of RBAC objects, displaying changes that would be made:
 
-    ```shell
-    kubectl auth reconcile -f my-rbac-rules.yaml --dry-run
+    ```
+    kubectl auth reconcile -f my-rbac-rules.yaml --dry-run=client
     ```
 
 * Apply a manifest file of RBAC objects, preserving any extra permissions (in roles) and any extra subjects (in bindings):
