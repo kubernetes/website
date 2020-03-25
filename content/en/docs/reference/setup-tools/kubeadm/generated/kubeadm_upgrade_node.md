@@ -67,13 +67,6 @@ kubeadm upgrade node [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--kubelet-version string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The *desired* version for the kubelet config after the upgrade. If not specified, the KubernetesVersion from the kubeadm-config ConfigMap will be used</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--skip-phases stringSlice</td>
     </tr>
     <tr>
