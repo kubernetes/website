@@ -45,7 +45,7 @@ With the release of Kubernetes 1.18, an alpha version of CSI Proxy for Windows i
 ### Graduated to Stable 💯
 
 - [Taint Based Eviction](https://github.com/kubernetes/enhancements/issues/166)
-- [Kubectl Diff](https://github.com/kubernetes/enhancements/issues/491)
+- [`kubectl diff`](https://github.com/kubernetes/enhancements/issues/491)
 - [CSI Block storage support](https://github.com/kubernetes/enhancements/issues/565)
 - [API Server dry run](https://github.com/kubernetes/enhancements/issues/576)
 - [Pass Pod information in CSI calls](https://github.com/kubernetes/enhancements/issues/603)
