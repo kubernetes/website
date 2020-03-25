@@ -55,7 +55,7 @@ With the release of Kubernetes 1.18, an alpha version of CSI Proxy for Windows i
 - [Extend allowed PVC DataSources](https://github.com/kubernetes/enhancements/issues/989)
 - [Moving kubectl package code to staging](https://github.com/kubernetes/enhancements/issues/1020)
 - [RunAsUserName for Windows](https://github.com/kubernetes/enhancements/issues/1043)
-- [Adding AppProtocol to Services and Endpoints](https://github.com/kubernetes/enhancements/issues/1507)
+- [AppProtocol for Services and Endpoints](https://github.com/kubernetes/enhancements/issues/1507)
 - [Extending Hugepage Feature](https://github.com/kubernetes/enhancements/issues/1539)
 - [client-go signature refactor to standardize options and context handling](https://github.com/kubernetes/enhancements/issues/1601)
 - [Node-local DNS cache](https://github.com/kubernetes/enhancements/issues/1024)
