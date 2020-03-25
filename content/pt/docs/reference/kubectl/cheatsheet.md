@@ -145,8 +145,8 @@ EOF
 # Obter comandos com saída simples
 kubectl get services                          # Listar todos os serviços do namespace
 kubectl get pods --all-namespaces             # Listar todos os pods em todos namespaces
-kubectl get pods -o wide                      # Listar todos os pods no atual namespace, com mais detalhes
-kubectl get deployment my-dep                 # Listar uma implantação específica
+kubectl get pods -o wide                      # Listar todos os pods no namespace atual, com mais detalhes
+kubectl get deployment my-dep                 # Listar um deployment específico
 kubectl get pods                              # Listar todos os pods no namespace
 kubectl get pod my-pod -o yaml                # Obter o YAML de um pod
 
@@ -160,14 +160,14 @@ kubectl get services --sort-by=.metadata.name
 # Listar pods classificados por contagem de reinicializações
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# Lista PersistentVolumes classificado por capacidade
+# Listar PersistentVolumes classificado por capacidade
 kubectl get pv --sort-by=.spec.capacity.storage
 
 # Obtenha a versão da label de todos os pods com a label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
-# Obter todos os nós workers (use um seletor para excluir resultados que possuem um rótulo
+# Obter todos os nós workers (use um seletor para excluir resultados que possuem uma label
 # nomeado 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
@@ -203,7 +203,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl diff -f ./my-manifest.yaml
 ```
 
-## Atualizando recursos
+## Atualizando Recursos
 
 A partir da versão 1.11 `rolling-update` foi descontinuado (veja [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), utilize o comando `rollout` no lugar deste.
 
@@ -274,7 +274,7 @@ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Se o tamanho
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Escalar vários replicaset
 ```
 
-## Exclusão de recursos
+## Exclusão de Recursos
 
 ```bash
 kubectl delete -f ./pod.json                                              # Exclua um pod usando o tipo e o nome especificados em pod.json
@@ -285,21 +285,21 @@ kubectl -n my-ns delete pod,svc --all                                     # Excl
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
-## Interagindo com a execução de Pods
+## Interagindo com Pods em execução
 
 ```bash
 kubectl logs my-pod                                 # despejar logs de pod (stdout)
-kubectl logs -l name=myLabel                        # despejar logs de pod, com nome da label = myLabel (stdout)
+kubectl logs -l name=myLabel                        # despejar logs de pod, com a label de name=myLabel (stdout)
 kubectl logs my-pod --previous                      # despejar logs de pod (stdout) para a instância anterior de um contêiner
 kubectl logs my-pod -c my-container                 # despejar logs de um específico contêiner em um pod (stdout, no caso de vários contêineres)
 kubectl logs -l name=myLabel -c my-container        # despejar logs de pod, com nome da label = myLabel (stdout)
 kubectl logs my-pod -c my-container --previous      # despejar logs de um contêiner específico em um pod (stdout, no caso de vários contêineres) para uma instanciação anterior de um contêiner
 kubectl logs -f my-pod                              # Fluxo de logs de pod (stdout)
 kubectl logs -f my-pod -c my-container              # Fluxo de logs para um específico contêiner em um pod (stdout, caixa com vários contêineres)
-kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com nome da label = myLabel (stdout)
+kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com a label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Executar pod como shell interativo
 kubectl run nginx --image=nginx --restart=Never -n 
-mynamespace                                         # Execute o pod nginx em um espaço de nome específico
+mynamespace                                         # Execute o pod nginx em um namespace específico
 kubectl run nginx --image=nginx --restart=Never     # Execute o pod nginx e salve suas especificações em um arquivo chamado pod.yaml
 --dry-run -o yaml > pod.yaml
 
