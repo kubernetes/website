@@ -52,7 +52,7 @@ With the release of Kubernetes 1.18, an alpha version of CSI Proxy for Windows i
 - [Support Out-of-Tree vSphere Cloud Provider](https://github.com/kubernetes/enhancements/issues/670)
 - [Support GMSA for Windows workloads](https://github.com/kubernetes/enhancements/issues/689)
 - [Skip attach for non-attachable CSI volumes](https://github.com/kubernetes/enhancements/issues/770)
-- [Extend allowed PVC DataSources](https://github.com/kubernetes/enhancements/issues/989)
+- [PVC cloning](https://github.com/kubernetes/enhancements/issues/989)
 - [Moving kubectl package code to staging](https://github.com/kubernetes/enhancements/issues/1020)
 - [RunAsUserName for Windows](https://github.com/kubernetes/enhancements/issues/1043)
 - [AppProtocol for Services and Endpoints](https://github.com/kubernetes/enhancements/issues/1507)
