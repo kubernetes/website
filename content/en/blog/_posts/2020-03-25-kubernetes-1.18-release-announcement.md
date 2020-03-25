@@ -65,7 +65,6 @@ With the release of Kubernetes 1.18, an alpha version of CSI Proxy for Windows i
 
 - [EndpointSlice API](https://github.com/kubernetes/enhancements/issues/752)
 - [Moving kubectl package code to staging](https://github.com/kubernetes/enhancements/issues/1020)
-- [Graduate Ingress to V1](https://github.com/kubernetes/enhancements/issues/1453)
 - [CertificateSigningRequest API](https://github.com/kubernetes/enhancements/issues/1513)
 - [Extending Hugepage Feature](https://github.com/kubernetes/enhancements/issues/1539)
 - [client-go signature refactor to standardize options and context handling](https://github.com/kubernetes/enhancements/issues/1601)
