@@ -11,7 +11,7 @@ KubeSphere provides [All-in-One](https://kubesphere.io/docs/v2.1/en/installation
 
 {{% /capture %}}
 
-{{% capture prerequisites %}}
+{{% capture body %}}
 
 ## Prerequisites
 
@@ -33,10 +33,6 @@ A Linux machine that is either a virtual machine or bare metal. This machine req
 Ensure your firewall meets the [port requirements](https://kubesphere.io/docs/installation/port-firewall/). If this is not immediately feasible, you may need to disable the firewall as documented in your distribution.
 {{< /note >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
-
 ## Provisioning a Kubernetes cluster
 
 1. Download KubeSphere to your Linux machine, move to the KubeSphere directory. For example, if the created directory is `kubesphere-all-v2.1.1`:
@@ -50,7 +46,7 @@ cd kubesphere-all-v2.1.1/scripts
 2. Execute the installation script, it will create a standard Kubernetes cluster. Select the **"1) All-in-one"** option when prompted:
 
 ```bash
-$ ./install.sh
+./install.sh
 ```
 
 3. Installation may take 15 ~ 20 minutes. Wait until all pods are running. Access the console using the account information obtained from the installation logs:
