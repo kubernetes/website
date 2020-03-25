@@ -149,7 +149,6 @@ kubectl get pods -o wide                      # Listar todos os pods no atual na
 kubectl get deployment my-dep                 # Listar uma implantação específica
 kubectl get pods                              # Listar todos os pods no namespace
 kubectl get pod my-pod -o yaml                # Obter o YAML de um pod
-kubectl get pod my-pod -o yaml --export       # Obtenha o YAML de um pod sem informações específicas do cluster
 
 # Descrever comandos com saída detalhada
 kubectl describe nodes my-node
