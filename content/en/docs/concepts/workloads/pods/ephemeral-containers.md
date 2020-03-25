@@ -12,16 +12,15 @@ weight: 80
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
 This page provides an overview of ephemeral containers: a special type of container
-that runs temporarily in an existing {{< glossary_tooltip term_id="pod" >}} to accomplish user-initiated actions such
-as troubleshooting. You use ephemeral containers to inspect services rather than
-to build applications.
+that runs temporarily in an existing {{< glossary_tooltip term_id="pod" >}} to
+accomplish user-initiated actions such as troubleshooting. You use ephemeral
+containers to inspect services rather than to build applications.
 
 {{< warning >}}
 Ephemeral containers are in early alpha state and are not suitable for production
-clusters. You should expect the feature not to work in some situations, such as
-when targeting the namespaces of a container. In accordance with the [Kubernetes
-Deprecation Policy](/docs/reference/using-api/deprecation-policy/), this alpha
-feature could change significantly in the future or be removed entirely.
+clusters. In accordance with the [Kubernetes Deprecation Policy](
+/docs/reference/using-api/deprecation-policy/), this alpha feature could change
+significantly in the future or be removed entirely.
 {{< /warning >}}
 
 {{% /capture %}}
@@ -78,7 +77,11 @@ When using ephemeral containers, it's helpful to enable [process namespace
 sharing](/docs/tasks/configure-pod-container/share-process-namespace/) so
 you can view processes in other containers.
 
-### Examples
+See [Debugging with Ephemeral Debug Container](
+/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)
+for examples of troubleshooting using ephemeral containers.
+
+## Ephemeral containers API
 
 {{< note >}}
 The examples in this section require the `EphemeralContainers` [feature
@@ -87,8 +90,9 @@ enabled, and Kubernetes client and server version v1.16 or later.
 {{< /note >}}
 
 The examples in this section demonstrate how ephemeral containers appear in
-the API. You would normally use a `kubectl` plugin for troubleshooting that
-automates these steps.
+the API. You would normally use `kubectl alpha debug` or another `kubectl`
+[plugin](/docs/tasks/extend-kubectl/kubectl-plugins/) to automate these steps
+rather than invoking the API directly.
 
 Ephemeral containers are created using the `ephemeralcontainers` subresource
 of Pod, which can be demonstrated using `kubectl --raw`. First describe
@@ -180,35 +184,12 @@ Ephemeral Containers:
 ...
 ```
 
-You can attach to the new ephemeral container using `kubectl attach`:
+You can interact with the new ephemeral container in the same way as other
+containers using `kubectl attach`, `kubectl exec`, and `kubectl logs`, for
+example:
 
 ```shell
 kubectl attach -it example-pod -c debugger
-```
-
-If process namespace sharing is enabled, you can see processes from all the containers in that Pod.
-For example, after attaching, you run `ps` in the debugger container:
-
-```shell
-# Run this in a shell inside the "debugger" ephemeral container
-ps auxww
-```
-The output is similar to:
-```
-PID   USER     TIME  COMMAND
-    1 root      0:00 /pause
-    6 root      0:00 nginx: master process nginx -g daemon off;
-   11 101       0:00 nginx: worker process
-   12 101       0:00 nginx: worker process
-   13 101       0:00 nginx: worker process
-   14 101       0:00 nginx: worker process
-   15 101       0:00 nginx: worker process
-   16 101       0:00 nginx: worker process
-   17 101       0:00 nginx: worker process
-   18 101       0:00 nginx: worker process
-   19 root      0:00 /pause
-   24 root      0:00 sh
-   29 root      0:00 ps auxww
 ```
 
 {{% /capture %}}

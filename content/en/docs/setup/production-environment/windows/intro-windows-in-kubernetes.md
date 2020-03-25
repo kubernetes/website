@@ -100,7 +100,26 @@ Pods, Controllers and Services are critical elements to managing Windows workloa
 
 #### Container Runtime
 
-Docker EE-basic 18.09 is required on Windows Server 2019 / 1809 nodes for Kubernetes. This works with the dockershim code included in the kubelet. Additional runtimes such as CRI-ContainerD may be supported in later Kubernetes versions.
+##### Docker EE
+
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+
+Docker EE-basic 18.09+ is the recommended container runtime for Windows Server 2019 / 1809 nodes running Kubernetes. This works with the dockershim code included in the kubelet.
+
+##### CRI-ContainerD
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+ContainerD is an OCI-compliant runtime that works with Kubernetes on Linux. Kubernetes v1.18 adds support for {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} on Windows. Progress for ContainerD on Windows can be tracked at [enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001).
+
+{{< caution >}}
+
+ContainerD on Windows in Kubernetes v1.18 has the following known shortcomings:
+
+* ContainerD does not have an official release with support for Windows; all development in Kubernetes has been performed against active ContainerD development branches. Production deployments should always use official releases that have been fully tested and are supported with security fixes.
+* Group-Managed Service Accounts are not implemented when using ContainerD - see [containerd/cri#1276](https://github.com/containerd/cri/issues/1276).
+
+{{< /caution >}}
 
 #### Persistent Storage
 
@@ -408,7 +427,6 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
         # Register kubelet.exe
         # Microsoft releases the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.2.0
-        # For more info search for "pause" in the "Guide for adding Windows Nodes in Kubernetes"
         nssm install kubelet C:\k\kubelet.exe
         nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.2.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
@@ -520,7 +538,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service expect the image to be tagged as :latest.
 
-    Starting with Kubernetes v1.14, Microsoft releases the pause infrastructure container at `mcr.microsoft.com/k8s/core/pause:1.2.0`. For more information search for "pause" in the [Guide for adding Windows Nodes in Kubernetes](../user-guide-windows-nodes).
+    Starting with Kubernetes v1.14, Microsoft releases the pause infrastructure container at `mcr.microsoft.com/k8s/core/pause:1.2.0`.
 
 1. DNS resolution is not properly working
 
@@ -534,6 +552,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 1. My Kubernetes installation is failing because my Windows Server node is behind a proxy
 
     If you are behind a proxy, the following PowerShell environment variables must be defined:
+
     ```PowerShell
     [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
     [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
@@ -571,18 +590,14 @@ If filing a bug, please include detailed information about how to reproduce the 
 
 We have a lot of features in our roadmap. An abbreviated high level list is included below, but we encourage you to view our [roadmap project](https://github.com/orgs/kubernetes/projects/8) and help us make Windows support better by [contributing](https://github.com/kubernetes/community/blob/master/sig-windows/).
 
-### CRI-ContainerD
+### Hyper-V isolation
 
-{{< glossary_tooltip term_id="containerd" >}} is another OCI-compliant runtime that recently graduated as a {{< glossary_tooltip text="CNCF" term_id="cncf" >}} project. It's currently tested on Linux, but 1.3 will bring support for Windows and Hyper-V. [[reference](https://blog.docker.com/2019/02/containerd-graduates-within-the-cncf/)]
-
-The CRI-ContainerD interface will be able to manage sandboxes based on Hyper-V. This provides a foundation where RuntimeClass could be implemented for new use cases including:
+Hyper-V isolation is requried to enable the following use cases for Windows containers in Kubernetes:
 
 * Hypervisor-based isolation between pods for additional security
 * Backwards compatibility allowing a node to run a newer Windows Server version without requiring containers to be rebuilt
 * Specific CPU/NUMA settings for a pod
 * Memory isolation and reservations
-
-### Hyper-V isolation
 
 The existing Hyper-V isolation support, an experimental feature as of v1.10, will be deprecated in the future in favor of the CRI-ContainerD and RuntimeClass features mentioned above. To use the current features and create a Hyper-V isolated container, the kubelet should be started with feature gates `HyperVContainer=true` and the Pod should include the annotation `experimental.windows.kubernetes.io/isolation-type=hyperv`. In the experiemental release, this feature is limited to 1 container per Pod.
 
@@ -612,7 +627,11 @@ spec:
 
 ### Deployment with kubeadm and cluster API
 
-Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
+Kubeadm is becoming the de facto standard for users to deploy a Kubernetes
+cluster. Windows node support in kubeadm is currently a work-in-progress but a
+guide is available [here](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/).
+We are also making investments in cluster API to ensure Windows nodes are
+properly provisioned.
 
 ### A few other key features
 * Beta support for Group Managed Service Accounts
