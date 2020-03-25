@@ -17,16 +17,25 @@ weight: 20
 
 {{% capture overview %}}
 
-This document describes the current state of `PersistentVolumes` in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
+<!-- This document describes the current state of `PersistentVolumes` in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested. -->
+
+此文档描述了Kubernetes中 `PersistentVolumes` 的一些当前情况，建议先熟悉 [volumes](/docs/concepts/storage/volumes/)
+
+
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-## Introduction
+<!-- ## Introduction
 
-Managing storage is a distinct problem from managing compute instances. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this, we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
+Managing storage is a distinct problem from managing compute instances. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this, we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`. -->
+
+## 引言
+
+管理存储与管理计算实例有着明显的区别. `PersistentVolume` 子系统为用户和管理员提供了一个抽象的API涉及存储是如何获取及分配的。我们先介绍两种新的API资源 :  `PersistentVolume` 和 `PersistentVolumeClaim`.
+
 
 A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
