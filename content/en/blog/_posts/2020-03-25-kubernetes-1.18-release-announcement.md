@@ -47,7 +47,7 @@ With the release of Kubernetes 1.18, an alpha version of CSI Proxy for Windows i
 - [Taint Based Eviction](https://github.com/kubernetes/enhancements/issues/166)
 - [Kubectl Diff](https://github.com/kubernetes/enhancements/issues/491)
 - [CSI Block storage support](https://github.com/kubernetes/enhancements/issues/565)
-- [APIServer DryRun](https://github.com/kubernetes/enhancements/issues/576)
+- [API Server dry run](https://github.com/kubernetes/enhancements/issues/576)
 - [Pass Pod information in CSI calls](https://github.com/kubernetes/enhancements/issues/603)
 - [Support Out-of-Tree vSphere Cloud Provider](https://github.com/kubernetes/enhancements/issues/670)
 - [Support GMSA for Windows workloads](https://github.com/kubernetes/enhancements/issues/689)
