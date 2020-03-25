@@ -1,5 +1,5 @@
 ---
-title: Kubernetes on KubeSphere
+title: KubeSphere
 content_template: templates/concept
 ---
 
@@ -65,5 +65,9 @@ At the same time, Kubernetes has been installed into your environment.
 {{< /note >}}
 
 <img src="https://istio.io/docs/setup/platform-setup/kubesphere/images/kubesphere-console.png">
+
+## Community
+
+If you have any questions, feel free to submit an issue on [GitHub](https://github.com/kubesphere/kubesphere).
 
 {{% /capture %}}
