@@ -79,7 +79,7 @@ Operation       | Syntax    |       Description
 `create`        | `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.
 `delete`        | <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
 `describe`    | <code>kubectl describe (-f FILENAME &#124; TYPE [NAME_PREFIX &#124; /NAME &#124; -l label]) [flags]</code> | Display the detailed state of one or more resources.
-`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration (**BETA**)
+`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration.
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | Edit and update the definition of one or more resources on the server by using the default editor.
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
@@ -92,7 +92,7 @@ Operation       | Syntax    |       Description
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Run a proxy to the Kubernetes API server.
 `replace`        | `kubectl replace -f FILENAME` | Replace a resource from a file or stdin.
 `rolling-update`    | <code>kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE &#124; -f NEW_CONTROLLER_SPEC) [flags]</code> | Perform a rolling update by gradually replacing the specified replication controller and its pods.
-`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | Run a specified image on the cluster.
+`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=server|client|none] [--overrides=inline-json] [flags]` | Run a specified image on the cluster.
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | Update the size of the specified replication controller.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
@@ -368,6 +368,16 @@ kubectl logs <pod-name>
 
 # Start streaming the logs from pod <pod-name>. This is similar to the 'tail -f' Linux command.
 kubectl logs -f <pod-name>
+```
+
+`kubectl diff` - View a diff of the proposed updates to a cluster.
+
+```shell
+# Diff resources included in "pod.json".
+kubectl diff -f pod.json
+
+# Diff file read from stdin.
+cat service.yaml | kubectl diff -f -
 ```
 
 ## Examples: Creating and using plugins

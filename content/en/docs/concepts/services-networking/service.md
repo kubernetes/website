@@ -202,6 +202,17 @@ endpoints.
 EndpointSlices provide additional attributes and functionality which is
 described in detail in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 
+### Application protocol
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+The AppProtocol field provides a way to specify an application protocol to be
+used for each Service port.
+
+As an alpha feature, this field is not enabled by default. To use this field,
+enable the `ServiceAppProtocol` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
 ## Virtual IPs and service proxies
 
 Every node in a Kubernetes cluster runs a `kube-proxy`. `kube-proxy` is

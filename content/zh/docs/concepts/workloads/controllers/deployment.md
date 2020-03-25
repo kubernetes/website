@@ -42,8 +42,12 @@ Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in th
 
 {{% /capture %}}
 
-
 {{% capture body %}}
+
+You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
+
+-->
+描述 Deployment 中的 _desired state_，并且 Deployment 控制器以受控速率更改实际状态，以达到期望状态。可以定义 Deployments 以创建新的 ReplicaSets ，或删除现有 Deployments ，并通过新的 Deployments 使用其所有资源。
 
 <!--
 
@@ -212,7 +216,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
  2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
 -->
   2. 运行 `kubectl get deployments` 以检查 Deployment 是否已创建。如果仍在创建 Deployment ，则输出以下内容：
-  
+
     ```shell
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         0         0            0           1s
@@ -247,7 +251,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
  3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`. The output is similar to this:
 -->
   3. 要查看 Deployment 展开状态，运行 `kubectl rollout status deployment.v1.apps/nginx-deployment`。输出：
-  
+
     ```shell
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
     deployment.apps/nginx-deployment successfully rolled out
@@ -257,7 +261,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
  4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
 -->
   4. 几秒钟后再次运行 `kubectl get deployments`。输出：
-  
+
     ```shell
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         3         3            3           18s
@@ -271,7 +275,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
  5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
 -->
   5. 要查看 Deployment 创建的 ReplicaSet  （`rs`），运行 `kubectl get rs`。输出：
-  
+
     ```shell
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-75675f5897   3         3         3       18s
@@ -286,7 +290,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
  6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`. The following output is returned:
 -->
   6. 要查看每个 Pod 自动生成的标签，运行 `kubectl get pods --show-labels`。返回以下输出：
-  
+
     ```shell
     NAME                                READY     STATUS    RESTARTS   AGE       LABELS
     nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
@@ -361,7 +365,7 @@ is changed, for example if the labels or container images of the template are up
  The output is similar to this:
 -->
     输出：
-    
+
     ```shell
     deployment.apps/nginx-deployment image updated
     ```
@@ -378,7 +382,7 @@ is changed, for example if the labels or container images of the template are up
 <!--
  The output is similar to this:
 -->
-    
+
     输出：
 
     ```shell
@@ -499,12 +503,11 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
  * Get details of your Deployment:
 -->
 * 获取 Deployment 的更多信息
-
   ```shell
   kubectl describe deployments
   ```
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
   输出：
 
@@ -648,7 +651,6 @@ rolled back.
  * Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 -->
 * 假设在更新 Deployment 时犯了一个拼写错误，将镜像名称命名为 `nginx:1.91` 而不是 `nginx:1.9.1`：
-
     ```shell
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
     ```
@@ -693,7 +695,6 @@ rolled back.
  * You see that the number of old replicas
 -->
 * 查看旧 ReplicaSets ：
-
     ```shell
     kubectl get rs
     ```
@@ -742,16 +743,15 @@ rolled back.
 {{< /note >}}
 
 <!--
- * Get the description of the Deployment:   
+ * Get the description of the Deployment:
 -->
 * 获取 Deployment 描述信息：
-
     ```shell
     kubectl describe deployment
     ```
 
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
     输出：
 
@@ -811,7 +811,7 @@ rolled back.
 按照如下步骤检查回滚历史：
 
 <!--
- 1. First, check the revisions of this Deployment:   
+ 1. First, check the revisions of this Deployment:
 -->
   1. 首先，检查 Deployment 修改历史：
 
@@ -819,7 +819,7 @@ rolled back.
     kubectl rollout history deployment.v1.apps/nginx-deployment
     ```
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
     输出：
 
@@ -855,7 +855,7 @@ rolled back.
     ```
 
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
     输出：
 
@@ -893,7 +893,7 @@ Follow the steps given below to rollback the Deployment from the current version
     ```
 
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
     输出：
 
@@ -910,7 +910,7 @@ Follow the steps given below to rollback the Deployment from the current version
     ```
 
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
     输出：
 
@@ -939,7 +939,7 @@ Follow the steps given below to rollback the Deployment from the current version
     ```
 
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
     输出：
 
@@ -958,7 +958,7 @@ Follow the steps given below to rollback the Deployment from the current version
     ```
 
 <!--
- The output is similar to this:   
+ The output is similar to this:
 -->
     输出：
 
@@ -1073,7 +1073,6 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
  * Ensure that the 10 replicas in your Deployment are running.
 -->
 * 确保这10个副本都在运行。
-
   ```shell
   kubectl get deploy
   ```
@@ -1092,7 +1091,6 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
  * You update to a new image which happens to be unresolvable from inside the cluster.
 -->
 * 更新到新镜像，该镜像恰好无法从集群内部解析。
-
     ```shell
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
     ```
@@ -1111,7 +1109,6 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
 `maxUnavailable` requirement that you mentioned above. Check out the rollout status:
 -->
 * 镜像更新使用 ReplicaSet  nginx-deployment-1989198191 启动新的展开，但由于上面提到的最大不可用要求。检查展开状态：
-
     ```shell
     kubectl get rs
     ```
@@ -1139,7 +1136,7 @@ ReplicaSet with the most replicas. ReplicaSets with zero replicas are not scaled
 <!--
  In our example above, 3 replicas are added to the old ReplicaSet and 2 replicas are added to the
 new ReplicaSet. The rollout process should eventually move all replicas to the new ReplicaSet, assuming
-the new replicas become healthy. To confirm this, run:   
+the new replicas become healthy. To confirm this, run:
 -->
 在上面的示例中，3 个副本添加到旧 ReplicaSet 中，2 个副本添加到新 ReplicaSet 。展开过程最终应将所有副本移动到新的 ReplicaSet ，假定新的副本变得正常。要确认这一点，请运行：
 
@@ -1395,6 +1392,198 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     nginx-3926361531   3         3         3         28s
     ```
 
+<!--
+ You can pause a Deployment before triggering one or more updates and then resume it. This allows you to
+apply multiple fixes in between pausing and resuming without triggering unnecessary rollouts.
+-->
+可以在触发一个或多个更新之前暂停 Deployment ，然后继续它。这允许在暂停和恢复之间应用多个修补程序，而不会触发不必要的 Deployment 。
+
+<!--
+ * For example, with a Deployment that was just created:
+  Get the Deployment details:
+-->
+* 例如，对于一个刚刚创建的 Deployment ：
+  获取 Deployment 信息：
+  ```shell
+  kubectl get deploy
+  ```
+<!--
+ The output is similar to this:
+-->
+  输出：
+  ```
+  NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+  nginx     3         3         3            3           1m
+  ```
+
+<!--
+ Get the rollout status:
+-->
+  获取 Deployment 状态：
+  ```shell
+  kubectl get rs
+  ```
+
+<!--
+ The output is similar to this:
+-->
+  输出：
+  ```
+  NAME               DESIRED   CURRENT   READY     AGE
+  nginx-2142116321   3         3         3         1m
+  ```
+
+<!--
+ * Pause by running the following command:
+-->
+使用如下指令中断运行：
+    ```shell
+    kubectl rollout pause deployment.v1.apps/nginx-deployment
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    deployment.apps/nginx-deployment paused
+    ```
+
+<!--
+ * Then update the image of the Deployment:
+-->
+* 然后更新 Deployment 镜像：
+    ```shell
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    deployment.apps/nginx-deployment image updated
+    ```
+
+<!--
+ * Notice that no new rollout started:
+-->
+* 注意没有新的展开：
+    ```shell
+    kubectl rollout history deployment.v1.apps/nginx-deployment
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    deployments "nginx"
+    REVISION  CHANGE-CAUSE
+    1   <none>
+    ```
+
+<!--
+ * Get the rollout status to ensure that the Deployment is updates successfully:
+-->
+* 获取展开状态确保 Deployment 更新已经成功：
+    ```shell
+    kubectl get rs
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    NAME               DESIRED   CURRENT   READY     AGE
+    nginx-2142116321   3         3         3         2m
+    ```
+
+<!--
+ * You can make as many updates as you wish, for example, update the resources that will be used:
+-->
+* 更新是很容易的，例如，可以这样更新使用到的资源：
+    ```shell
+    kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    deployment.apps/nginx-deployment resource requirements updated
+    ```
+
+<!--
+ The initial state of the Deployment prior to pausing it will continue its function, but new updates to
+    the Deployment will not have any effect as long as the Deployment is paused.
+-->
+    暂停 Deployment 之前的初始状态将继续其功能，但新的更新只要暂停 Deployment ， Deployment 就不会产生任何效果。
+
+<!--
+ * Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
+-->
+* 最后，恢复 Deployment 并观察新的 ReplicaSet ，并更新所有新的更新：
+    ```shell
+    kubectl rollout resume deployment.v1.apps/nginx-deployment
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    deployment.apps/nginx-deployment resumed
+    ```
+<!--
+ * Watch the status of the rollout until it's done.
+-->
+* 观察展开的状态，直到完成。
+    ```shell
+    kubectl get rs -w
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    NAME               DESIRED   CURRENT   READY     AGE
+    nginx-2142116321   2         2         2         2m
+    nginx-3926361531   2         2         0         6s
+    nginx-3926361531   2         2         1         18s
+    nginx-2142116321   1         2         2         2m
+    nginx-2142116321   1         2         2         2m
+    nginx-3926361531   3         2         1         18s
+    nginx-3926361531   3         2         1         18s
+    nginx-2142116321   1         1         1         2m
+    nginx-3926361531   3         3         1         18s
+    nginx-3926361531   3         3         2         19s
+    nginx-2142116321   0         1         1         2m
+    nginx-2142116321   0         1         1         2m
+    nginx-2142116321   0         0         0         2m
+    nginx-3926361531   3         3         3         20s
+    ```
+
+<!--
+ * Get the status of the latest rollout:
+-->
+* 获取最近展开的状态：
+    ```shell
+    kubectl get rs
+    ```
+
+<!--
+ The output is similar to this:
+-->
+    输出：
+    ```
+    NAME               DESIRED   CURRENT   READY     AGE
+    nginx-2142116321   0         0         0         2m
+    nginx-3926361531   3         3         3         28s
+    ```
 {{< note >}}
 <!--
  You cannot rollback a paused Deployment until you resume it.

@@ -10,12 +10,12 @@ menu:
       <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
 card:
   name: tutorials
-  weight: 10 
+  weight: 10
 ---
 
 {{% capture overview %}}
 
-이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여 
+이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여
 쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
@@ -69,7 +69,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 쿠버네티스 [*파드*](/ko/docs/concepts/workloads/pods/pod/)는 관리와
 네트워킹 목적으로 함께 묶여 있는 하나 이상의 컨테이너 그룹이다.
-이 튜토리얼의 파드에는 단 하나의 컨테이너만 있다. 쿠버네티스 
+이 튜토리얼의 파드에는 단 하나의 컨테이너만 있다. 쿠버네티스
 [*디플로이먼트*](/ko/docs/concepts/workloads/controllers/deployment/)는 파드의
 헬스를 검사해서 파드의 컨테이너가 종료되었다면 재시작해준다.
 파드의 생성 및 스케일링을 관리하는 방법으로 디플로이먼트를 권장한다.

@@ -324,12 +324,24 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
-Now, you can set the value of `volumeMode` to `block` to use a raw block device, or `filesystem`
-to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
-parameter.
+Kubernetes supports two `volumeModes` of PersistentVolumes: `Filesystem` and `Block`.
+
+`volumeMode` is an optional API parameter.
+`Filesystem` is the default mode used when `volumeMode` parameter is omitted.
+
+A volume with `volumeMode: Filesystem` is *mounted* into Pods into a directory. If the volume
+is backed by a block device and the device is empty, Kuberneretes creates a filesystem
+on the device before mounting it for the first time.
+
+You can set the value of `volumeMode` to `Block` to use a volume as a raw block device.
+Such volume is presented into a Pod as a block device, without any filesystem on it.
+This mode is useful to provide a Pod the fastest possible way to access a volume, without
+any filesystem layer between the Pod and the volume. On the other hand, the application
+running in the Pod must know how to handle a raw block device.
+See [Raw Block Volume Support](docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
+for an example on how to use a volume with `volumeMode: Block` in a Pod.
 
 ### Access Modes
 
@@ -564,24 +576,21 @@ spec:
 
 ## Raw Block Volume Support
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable:
 
 * AWSElasticBlockStore
 * AzureDisk
+* CSI
 * FC (Fibre Channel)
 * GCEPersistentDisk
 * iSCSI
 * Local volume
+* OpenStack Cinder
 * RBD (Ceph Block Device)
-* VsphereVolume (alpha)
-
-{{< note >}}
-Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
-Support for the additional plugins was added in 1.10.
-{{< /note >}}
+* VsphereVolume
 
 ### Persistent Volumes using a Raw Block Volume
 
@@ -697,12 +706,7 @@ spec:
 
 ## Volume Cloning
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
-
-Volume clone feature was added to support CSI Volume Plugins only. For details, see [volume cloning](/docs/concepts/storage/volume-pvc-datasource/).
-
-To enable support for cloning a volume from a PVC data source, enable the
-`VolumePVCDataSource` feature gate on the apiserver and controller-manager.
+[Volume Cloning](/docs/concepts/storage/volume-pvc-datasource/) only available for CSI volume plugins.
 
 ### Create Persistent Volume Claim from an existing pvc
 

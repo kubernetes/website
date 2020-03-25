@@ -73,6 +73,7 @@ spec:
   - http:
       paths:
       - path: /testpath
+        pathType: Prefix
         backend:
           serviceName: test
           servicePort: 80
@@ -116,6 +117,84 @@ backend is typically a configuration option of the [Ingress controller](/docs/co
 
 If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
 routed to your default backend.
+
+### Path Types
+
+Each path in an Ingress has a corresponding path type. There are three supported
+path types:
+
+* _`ImplementationSpecific`_ (default): With this path type, matching is up to
+  the IngressClass. Implementations can treat this as a separate `pathType or
+  treat it identically to `Prefix` or `Exact` path types.
+
+* _`Exact`_: Matches the URL path exactly and with case sensitivity.
+
+* _`Prefix`_: Matches based on a URL path prefix split by `/`. Matching is case
+  sensitive and done on a path element by element basis. A path element refers
+  to the list of labels in the path split by the `/` separator. A request is a
+  match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
+  request path.
+    {{< note >}}
+    If the last element of the path is a substring of the
+    last element in request path, it is not a match (for example:
+    `/foo/bar` matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
+    {{< /note >}}
+
+#### Multiple Matches
+In some cases, multiple paths within an Ingress will match a request. In those
+cases precedence will be given first to the longest matching path. If two paths
+are still equally matched, precedence will be given to paths with an exact path
+type over prefix path type.
+
+## Ingress Class
+
+Ingresses can be implemented by different controllers, often with different
+configuration. Each Ingress should specify a class, a reference to an
+IngressClass resource that contains additional configuration including the name
+of the controller that should implement the class.
+
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    apiGroup: k8s.example.com/v1alpha
+    kind: IngressParameters
+    name: external-lb
+```
+
+IngressClass resources contain an optional parameters field. This can be used to
+reference additional configuration for this class.
+
+### Deprecated Annotation
+
+Before the IngressClass resource and `ingressClassName` field were added in
+Kubernetes 1.18, Ingress classes were specified with a
+`kubernetes.io/ingress.class` annotation on the Ingress. This annotation was
+never formally defined, but was widely supported by Ingress controllers.
+
+The newer `ingressClassName` field on Ingresses is a replacement for that
+annotation, but is not a direct equivalent. While the annotation was generally
+used to reference the name of the Ingress controller that should implement the
+Ingress, the field is a reference to an IngressClass resource that contains
+additional Ingress configuration, including the name of the Ingress controller.
+
+### Default Ingress Class
+
+You can mark a particular IngressClass as default for your cluster. Setting the
+`ingressclass.kubernetes.io/is-default-class` annotation to `true` on an
+IngressClass resource will ensure that new Ingresses without an
+`ingressClassName` field specified will be assigned this default IngressClass.
+
+{{< caution >}}
+If you have more than one IngressClass marked as the default for your cluster,
+the admission controller prevents creating new Ingress objects that don't have
+an `ingressClassName` specified. You can resolve this by ensuring that at most 1
+IngressClasess are marked as default in your cluster.
+{{< /caution >}}
 
 ## Types of Ingress
 
