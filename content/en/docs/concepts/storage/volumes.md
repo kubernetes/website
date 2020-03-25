@@ -1334,19 +1334,13 @@ persistent volume:
 
 #### CSI raw block volume support
 
-{{< feature-state for_k8s_version="v1.14" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Starting with version 1.11, CSI introduced support for raw block volumes, which
-relies on the raw block volume feature that was introduced in a previous version of
-Kubernetes.  This feature will make it possible for vendors with external CSI drivers to
-implement raw block volumes support in Kubernetes workloads.
+Vendors with external CSI drivers can implement raw block volumes support
+in Kubernetes workloads.
 
-CSI block volume support is feature-gated, but enabled by default. The two
-feature gates which must be enabled for this feature are `BlockVolume` and
-`CSIBlockVolume`.
-
-Learn how to
-[setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
+You can [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
+as usual, without any CSI specific changes.
 
 #### CSI ephemeral volumes
 

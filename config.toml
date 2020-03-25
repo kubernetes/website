@@ -66,10 +66,10 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.17"
+latest = "v1.18"
 
-fullversion = "v1.17.0"
-version = "v1.17"
+fullversion = "v1.18.0"
+version = "v1.18"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -83,12 +83,6 @@ announcement = false
 # announcement_message is only displayed when announcement = true; update with your specific message
 announcement_message = "The Kubernetes Documentation team would like your feedback!  Please take a <a href='https://www.surveymonkey.com/r/8R237FN' target='_blank'>short survey</a> so we can improve the Kubernetes online documentation."
 
-[[params.versions]]
-fullversion = "v1.17.0"
-version = "v1.17"
-githubbranch = "v1.17.0"
-docsbranch = "release-1.17"
-url = "https://kubernetes.io"
 
 [params.pushAssets]
 css = [
@@ -100,6 +94,20 @@ js = [
   "custom-jekyll/tags",
   "script"
 ]
+
+[[params.versions]]
+fullversion = "v1.18.0"
+version = "v1.18"
+githubbranch = "v1.18.0"
+docsbranch = "release-1.18"
+url = "https://kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.17.0"
+version = "v1.17"
+githubbranch = "v1.17.0"
+docsbranch = "release-1.17"
+url = "https://v1-17.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.16.3"
@@ -121,13 +129,6 @@ version = "v1.14"
 githubbranch = "v1.14.9"
 docsbranch = "release-1.14"
 url = "https://v1-14.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.13.12"
-version = "v1.13"
-githubbranch = "v1.13.12"
-docsbranch = "release-1.13"
-url = "https://v1-13.docs.kubernetes.io"
 
 # Language definitions.
 

@@ -447,21 +447,11 @@ A ServiceAccount for `kube-proxy` is created in the `kube-system` namespace; the
 
 #### DNS
 
-Note that:
-
+- In Kubernetes version 1.18 kube-dns usage with kubeadm is deprecated and will be removed in a future release
 - The CoreDNS service is named `kube-dns`. This is done to prevent any interruption
 in service when the user is switching the cluster DNS from kube-dns to CoreDNS or vice-versa
-- In Kubernetes version 1.10 and earlier, you must enable CoreDNS with `--feature-gates=CoreDNS=true`
-- In Kubernetes version 1.11 and 1.12, CoreDNS is the default DNS server and you must
-invoke kubeadm with `--feature-gates=CoreDNS=false` to install kube-dns instead
-- In Kubernetes version 1.13 and later, the `CoreDNS` feature gate is no longer available and kube-dns can be installed using the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
-
-
-A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
-
-Deploy the `kube-dns` Deployment and Service:
-
-- It's the upstream CoreDNS deployment relatively unmodified
+the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
+- A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
 - The `kube-dns` ServiceAccount is bound to the privileges in the `system:kube-dns` ClusterRole
 
 ## kubeadm join phases internal design
