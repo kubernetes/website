@@ -16,7 +16,7 @@ kubeadm alpha kubelet config enable-dynamic [flags]
 
 ```
   # Enable dynamic kubelet configuration for a Node.
-  kubeadm alpha phase kubelet enable-dynamic-config --node-name node-1 --kubelet-version 1.17.0
+  kubeadm alpha phase kubelet enable-dynamic-config --node-name node-1 --kubelet-version 1.18.0
   
   WARNING: This feature is still experimental, and disabled by default. Enable only if you know what you are doing, as it
   may have surprising side-effects at this stage.

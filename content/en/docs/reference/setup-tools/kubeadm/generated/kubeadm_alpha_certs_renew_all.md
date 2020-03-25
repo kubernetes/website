@@ -59,13 +59,6 @@ kubeadm alpha certs renew all [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
     </tr>
 
-    <tr>
-      <td colspan="2">--use-api</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Use the Kubernetes certificate API to renew certificates</td>
-    </tr>
-
   </tbody>
 </table>
 
