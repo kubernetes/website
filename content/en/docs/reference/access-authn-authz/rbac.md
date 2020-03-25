@@ -326,7 +326,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-The [default user-facing roles](#default-roles-and-rolebindings) use ClusterRole aggregation. This lets you,
+The [default user-facing roles](#default-roles-and-role-bindings) use ClusterRole aggregation. This lets you,
 as a cluster administrator, include rules for custom resources, such as those served by
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
 or aggregated API servers, to extend the default roles.
