@@ -8,7 +8,7 @@ content_template: templates/task
 ---
  
 {{% capture overview %}}
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 {{% /capture %}}
 
