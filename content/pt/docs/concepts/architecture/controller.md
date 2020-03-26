@@ -6,7 +6,7 @@ weight: 30
 
 {{% capture overview %}}
 
-Em robótica e automação um _control loop_, ou em português _ciclo de controlo_, é
+Em robótica e automação um _control loop_, ou em português _ciclo de controle_, é
 um ciclo não terminado que regula o estado de um sistema.
 
 Um exemplo de ciclo de controlo é um termostato de uma sala.
@@ -48,11 +48,11 @@ O controlador {{< glossary_tooltip term_id="job" >}} é um exemplo de um
 controlador Kubernetes embutido. Controladores embutidos gerem estados através da
 interação com o *cluster API server*.
 
-*Job* é um recurso do Kubernetes que corre um
+*Job* é um recurso do Kubernetes que é executado em um
 *{{< glossary_tooltip term_id="pod" >}}*, ou talvez vários *Pods*, com o objetivo de
 executar uma tarefa e depois parar.
 
-(Uma vez [agendado](/docs/concepts/scheduling/), objetos *Pod* passam a fazer parte objects become part of the
+(Uma vez [agendado](/docs/concepts/scheduling/), objetos *Pod* passam a fazer parte
 do *estado desejado* para um kubelet.
 
 Quando o controlador *Job* observa uma nova tarefa ele garante que,
@@ -62,12 +62,12 @@ O controlador *Job* não corre *Pods* ou *containers* ele próprio.
 Em vez disso, o controlador *Job* informa o *API server* para criar ou remover *Pods*.
 Outros componentes do plano de controle
 ({{< glossary_tooltip text="control plane" term_id="control-plane" >}})
-atuem na nova informação (existem novos *Pods* para serem agendados e executados),
+atuam na nova informação (existem novos *Pods* para serem agendados e executados),
 e eventualmente o trabalho é feito.
 
 Após ter criado um novo *Job*, o *estado desejado* é que esse Job seja completado.
 O controlador *Job* faz com que o *estado atual* para esse *Job* esteja mais perto do seu
-*estado desejado*: creando *Pods* que fazem o trabalho desejado para esse *Job* para que
+*estado desejado*: criando *Pods* que fazem o trabalho desejado para esse *Job* para que
 o *Job* fique mais perto de ser completado.
 
 Controladores também atualizam os objetos que os configuram.
@@ -77,12 +77,12 @@ o controlador *Job* atualiza esse objeto *Job* para o marcar como `Finished` (te
 (Isto é um pouco como alguns termostatos desligam uma luz para
 indicar que a temperatura da sala está agora na temperatura que foi introduzida).
 
-### Controlo direto
+### Controle direto
 
 Em contraste com *Job*, alguns controladores necessitam de efetuar
-mudanças a coisas fora do *cluster*.
+mudanças fora do *cluster*.
 
-Por exemplo, se usar um ciclo de controlo para garantir que existem
+Por exemplo, se usar um ciclo de controle para garantir que existem
 *{{< glossary_tooltip text="Nodes" term_id="node" >}}* suficientes
 no seu *cluster*, então esse controlador necessita de algo exterior ao
 *cluster* atual para configurar novos *Nodes* quando necessário.
@@ -96,25 +96,25 @@ Veja [Escalamento automático do cluster](/docs/tasks/administer-cluster/cluster
 
 ## Estado desejado versus atual {#desired-vs-current}
 
-Kubernetes leva uma visão *cloud-native* de sistemas e é capaz de manipular
+Kubernetes tem uma visão *cloud-native* de sistemas e é capaz de manipular
 mudanças constantes.
 
-O seu *cluster* pode mudar em qualquer altura à medida que o trabalho acontece e
-os ciclos de controlo corrigem falhas automaticamente. Isto significa que,
+O seu *cluster* pode mudar em qualquer momento à medida que as ações acontecem e
+os ciclos de controle corrigem falhas automaticamente. Isto significa que,
 potencialmente, o seu *cluster* nunca atinge um estado estável.
 
-Enquanto os controladores no seu *cluster* estiverem a correr e forem capazes de
+Enquanto os controladores no seu *cluster* estiverem rodando e forem capazes de
 fazer alterações úteis, não importa se o estado é estável ou se é instável.
 
-## Desenho
+## Design
 
 Como um princípio do seu desenho, o Kubernetes usa muitos controladores onde cada
-um gere um aspeto particular do estado do *cluster*. Maioritariamente, um particular
-ciclo de controlo (controlador) usa uma espécie de recurso como o seu *estado desejado*,
+um gerencia um aspecto particular do estado do *cluster*. Comumente, um particular
+ciclo de controle (controlador) usa uma espécie de recurso como o seu *estado desejado*,
 e tem uma espécie diferente de recurso que o mesmo gere para garantir que esse *estado desejado*
 é cumprido.
 
-É útil que haja controladores simples em vez de um conjunto monolítico de ciclos de controlo
+É útil que haja controladores simples em vez de um conjunto monolítico de ciclos de controle
 que estão interligados. Controladores podem falhar, então o Kubernetes foi desenhado para
 permitir isso.
 
@@ -134,7 +134,7 @@ porque existe informação ({{< glossary_tooltip term_id="label" text="labels" >
 que os controladores podem usar para diferenciar esses *Pods*.
 {{< /note >}}
 
-## Formas de correr controladores {#running-controllers}
+## Formas de rodar controladores {#running-controllers}
 
 O Kubernetes vem com um conjunto de controladores embutidos que correm
 dentro do {{< glossary_tooltip term_id="kube-controller-manager" >}}.
@@ -142,11 +142,11 @@ Estes controladores embutidos providenciam comportamentos centrais importantes.
 
 O controlador *Deployment* e o controlador *Job* são exemplos de controladores
 que veem como parte do próprio Kubernetes (controladores "embutidos").
-O Kubernetes deixa você correr o plano de controlo resiliente, para que se qualquer
-um dos controladores embutidos falhar, outra parte do plano de controlo assume
+O Kubernetes deixa você correr o plano de controle resiliente, para que se qualquer
+um dos controladores embutidos falhar, outra parte do plano de controle assume
 o trabalho.
 
-Pode encontrar controladores fora do plano de controlo, para extender o Kubernetes.
+Pode encontrar controladores fora do plano de controle, para extender o Kubernetes.
 Ou, se quiser, pode escrever um novo controlador você mesmo.
 Pode correr o seu próprio controlador como um conjunto de *Pods*,
 ou externo ao Kubernetes. O que encaixa melhor vai depender no que esse
@@ -155,7 +155,7 @@ controlador faz em particular.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Leia mais sobre o [plano de controlo do Kubernetes](/docs/concepts/#kubernetes-control-plane)
+* Leia mais sobre o [plano de controle do Kubernetes](/docs/concepts/#kubernetes-control-plane)
 * Descubra alguns dos [objetos Kubernetes](/docs/concepts/#kubernetes-objects) básicos.
 * Aprenda mais sobre [API do Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Se pretender escrever o seu próprio controlador, veja [Padrões de Extensão](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)
