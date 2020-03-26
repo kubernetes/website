@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kubectl Reference Docs</title>
-<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="icon" href="/images/favicon.png">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" type="text/css">
@@ -11,7 +12,7 @@
 <link rel="stylesheet" href="stylesheet.css" type="text/css">
 </head>
 <body>
-<div id="sidebar-wrapper" class="side-nav side-bar-nav"><ul><li class="nav-level-1 strong-nav"><a href="#-strong-getting-started-strong-" class="nav-item"><strong>GETTING STARTED</strong></a></li></ul><ul><li class="nav-level-1"><a href="#create" class="nav-item">create</a></li><ul id="create-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-clusterrole-em-" class="nav-item"><em>clusterrole</em></a></li><li class="nav-level-2"><a href="#-em-clusterrolebinding-em-" class="nav-item"><em>clusterrolebinding</em></a></li><li class="nav-level-2"><a href="#-em-configmap-em-" class="nav-item"><em>configmap</em></a></li><li class="nav-level-2"><a href="#-em-cronjob-em-" class="nav-item"><em>cronjob</em></a></li><li class="nav-level-2"><a href="#-em-deployment-em-" class="nav-item"><em>deployment</em></a></li><li class="nav-level-2"><a href="#-em-job-em-" class="nav-item"><em>job</em></a></li><li class="nav-level-2"><a href="#-em-namespace-em-" class="nav-item"><em>namespace</em></a></li><li class="nav-level-2"><a href="#-em-poddisruptionbudget-em-" class="nav-item"><em>poddisruptionbudget</em></a></li><li class="nav-level-2"><a href="#-em-priorityclass-em-" class="nav-item"><em>priorityclass</em></a></li><li class="nav-level-2"><a href="#-em-quota-em-" class="nav-item"><em>quota</em></a></li><li class="nav-level-2"><a href="#-em-role-em-" class="nav-item"><em>role</em></a></li><li class="nav-level-2"><a href="#-em-rolebinding-em-" class="nav-item"><em>rolebinding</em></a></li><li class="nav-level-2"><a href="#-em-secret-em-" class="nav-item"><em>secret</em></a></li><li class="nav-level-2"><a href="#-em-secret-docker-registry-em-" class="nav-item"><em>secret docker-registry</em></a></li><li class="nav-level-2"><a href="#-em-secret-generic-em-" class="nav-item"><em>secret generic</em></a></li><li class="nav-level-2"><a href="#-em-secret-tls-em-" class="nav-item"><em>secret tls</em></a></li><li class="nav-level-2"><a href="#-em-service-em-" class="nav-item"><em>service</em></a></li><li class="nav-level-2"><a href="#-em-service-clusterip-em-" class="nav-item"><em>service clusterip</em></a></li><li class="nav-level-2"><a href="#-em-service-externalname-em-" class="nav-item"><em>service externalname</em></a></li><li class="nav-level-2"><a href="#-em-service-loadbalancer-em-" class="nav-item"><em>service loadbalancer</em></a></li><li class="nav-level-2"><a href="#-em-service-nodeport-em-" class="nav-item"><em>service nodeport</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em-" class="nav-item"><em>serviceaccount</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#get" class="nav-item">get</a></li></ul><ul><li class="nav-level-1"><a href="#run" class="nav-item">run</a></li></ul><ul><li class="nav-level-1"><a href="#expose" class="nav-item">expose</a></li></ul><ul><li class="nav-level-1"><a href="#delete" class="nav-item">delete</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-app-management-strong-" class="nav-item"><strong>APP MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#apply" class="nav-item">apply</a></li><ul id="apply-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-edit-last-applied-em-" class="nav-item"><em>edit-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-set-last-applied-em-" class="nav-item"><em>set-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-view-last-applied-em-" class="nav-item"><em>view-last-applied</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#annotate" class="nav-item">annotate</a></li></ul><ul><li class="nav-level-1"><a href="#autoscale" class="nav-item">autoscale</a></li></ul><ul><li class="nav-level-1"><a href="#convert" class="nav-item">convert</a></li></ul><ul><li class="nav-level-1"><a href="#diff" class="nav-item">diff</a></li></ul><ul><li class="nav-level-1"><a href="#edit" class="nav-item">edit</a></li></ul><ul><li class="nav-level-1"><a href="#kustomize" class="nav-item">kustomize</a></li></ul><ul><li class="nav-level-1"><a href="#label" class="nav-item">label</a></li></ul><ul><li class="nav-level-1"><a href="#patch" class="nav-item">patch</a></li></ul><ul><li class="nav-level-1"><a href="#replace" class="nav-item">replace</a></li></ul><ul><li class="nav-level-1"><a href="#rollout" class="nav-item">rollout</a></li><ul id="rollout-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-history-em-" class="nav-item"><em>history</em></a></li><li class="nav-level-2"><a href="#-em-pause-em-" class="nav-item"><em>pause</em></a></li><li class="nav-level-2"><a href="#-em-restart-em-" class="nav-item"><em>restart</em></a></li><li class="nav-level-2"><a href="#-em-resume-em-" class="nav-item"><em>resume</em></a></li><li class="nav-level-2"><a href="#-em-status-em-" class="nav-item"><em>status</em></a></li><li class="nav-level-2"><a href="#-em-undo-em-" class="nav-item"><em>undo</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#scale" class="nav-item">scale</a></li></ul><ul><li class="nav-level-1"><a href="#set" class="nav-item">set</a></li><ul id="set-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-env-em-" class="nav-item"><em>env</em></a></li><li class="nav-level-2"><a href="#-em-image-em-" class="nav-item"><em>image</em></a></li><li class="nav-level-2"><a href="#-em-resources-em-" class="nav-item"><em>resources</em></a></li><li class="nav-level-2"><a href="#-em-selector-em-" class="nav-item"><em>selector</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em--1" class="nav-item"><em>serviceaccount</em></a></li><li class="nav-level-2"><a href="#-em-subject-em-" class="nav-item"><em>subject</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#wait" class="nav-item">wait</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-working-with-apps-strong-" class="nav-item"><strong>WORKING WITH APPS</strong></a></li></ul><ul><li class="nav-level-1"><a href="#attach" class="nav-item">attach</a></li></ul><ul><li class="nav-level-1"><a href="#auth" class="nav-item">auth</a></li><ul id="auth-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-can-i-em-" class="nav-item"><em>can-i</em></a></li><li class="nav-level-2"><a href="#-em-reconcile-em-" class="nav-item"><em>reconcile</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cp" class="nav-item">cp</a></li></ul><ul><li class="nav-level-1"><a href="#describe" class="nav-item">describe</a></li></ul><ul><li class="nav-level-1"><a href="#exec" class="nav-item">exec</a></li></ul><ul><li class="nav-level-1"><a href="#logs" class="nav-item">logs</a></li></ul><ul><li class="nav-level-1"><a href="#port-forward" class="nav-item">port-forward</a></li></ul><ul><li class="nav-level-1"><a href="#proxy" class="nav-item">proxy</a></li></ul><ul><li class="nav-level-1"><a href="#top" class="nav-item">top</a></li><ul id="top-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-node-em-" class="nav-item"><em>node</em></a></li><li class="nav-level-2"><a href="#-em-pod-em-" class="nav-item"><em>pod</em></a></li></ul></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-cluster-management-strong-" class="nav-item"><strong>CLUSTER MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#api-versions" class="nav-item">api-versions</a></li></ul><ul><li class="nav-level-1"><a href="#certificate" class="nav-item">certificate</a></li><ul id="certificate-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-approve-em-" class="nav-item"><em>approve</em></a></li><li class="nav-level-2"><a href="#-em-deny-em-" class="nav-item"><em>deny</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cluster-info" class="nav-item">cluster-info</a></li><ul id="cluster-info-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-dump-em-" class="nav-item"><em>dump</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cordon" class="nav-item">cordon</a></li></ul><ul><li class="nav-level-1"><a href="#drain" class="nav-item">drain</a></li></ul><ul><li class="nav-level-1"><a href="#taint" class="nav-item">taint</a></li></ul><ul><li class="nav-level-1"><a href="#uncordon" class="nav-item">uncordon</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-kubectl-settings-and-usage-strong-" class="nav-item"><strong>KUBECTL SETTINGS AND USAGE</strong></a></li></ul><ul><li class="nav-level-1"><a href="#alpha" class="nav-item">alpha</a></li><ul id="alpha-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-debug-em-" class="nav-item"><em>debug</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#api-resources" class="nav-item">api-resources</a></li></ul><ul><li class="nav-level-1"><a href="#completion" class="nav-item">completion</a></li></ul><ul><li class="nav-level-1"><a href="#config" class="nav-item">config</a></li><ul id="config-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-current-context-em-" class="nav-item"><em>current-context</em></a></li><li class="nav-level-2"><a href="#-em-delete-cluster-em-" class="nav-item"><em>delete-cluster</em></a></li><li class="nav-level-2"><a href="#-em-delete-context-em-" class="nav-item"><em>delete-context</em></a></li><li class="nav-level-2"><a href="#-em-get-clusters-em-" class="nav-item"><em>get-clusters</em></a></li><li class="nav-level-2"><a href="#-em-get-contexts-em-" class="nav-item"><em>get-contexts</em></a></li><li class="nav-level-2"><a href="#-em-rename-context-em-" class="nav-item"><em>rename-context</em></a></li><li class="nav-level-2"><a href="#-em-set-em-" class="nav-item"><em>set</em></a></li><li class="nav-level-2"><a href="#-em-set-cluster-em-" class="nav-item"><em>set-cluster</em></a></li><li class="nav-level-2"><a href="#-em-set-context-em-" class="nav-item"><em>set-context</em></a></li><li class="nav-level-2"><a href="#-em-set-credentials-em-" class="nav-item"><em>set-credentials</em></a></li><li class="nav-level-2"><a href="#-em-unset-em-" class="nav-item"><em>unset</em></a></li><li class="nav-level-2"><a href="#-em-use-context-em-" class="nav-item"><em>use-context</em></a></li><li class="nav-level-2"><a href="#-em-view-em-" class="nav-item"><em>view</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#explain" class="nav-item">explain</a></li></ul><ul><li class="nav-level-1"><a href="#options" class="nav-item">options</a></li></ul><ul><li class="nav-level-1"><a href="#plugin" class="nav-item">plugin</a></li><ul id="plugin-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-list-em-" class="nav-item"><em>list</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#version" class="nav-item">version</a></li></ul><br/><div class="copyright"><a href="https://github.com/kubernetes/kubernetes">Copyright 2019 The Kubernetes Authors.</a></div></div>
+<div id="sidebar-wrapper" class="side-nav side-bar-nav"><ul><li class="nav-level-1 strong-nav"><a href="#-strong-getting-started-strong-" class="nav-item"><strong>GETTING STARTED</strong></a></li></ul><ul><li class="nav-level-1"><a href="#create" class="nav-item">create</a></li><ul id="create-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-clusterrole-em-" class="nav-item"><em>clusterrole</em></a></li><li class="nav-level-2"><a href="#-em-clusterrolebinding-em-" class="nav-item"><em>clusterrolebinding</em></a></li><li class="nav-level-2"><a href="#-em-configmap-em-" class="nav-item"><em>configmap</em></a></li><li class="nav-level-2"><a href="#-em-cronjob-em-" class="nav-item"><em>cronjob</em></a></li><li class="nav-level-2"><a href="#-em-deployment-em-" class="nav-item"><em>deployment</em></a></li><li class="nav-level-2"><a href="#-em-job-em-" class="nav-item"><em>job</em></a></li><li class="nav-level-2"><a href="#-em-namespace-em-" class="nav-item"><em>namespace</em></a></li><li class="nav-level-2"><a href="#-em-poddisruptionbudget-em-" class="nav-item"><em>poddisruptionbudget</em></a></li><li class="nav-level-2"><a href="#-em-priorityclass-em-" class="nav-item"><em>priorityclass</em></a></li><li class="nav-level-2"><a href="#-em-quota-em-" class="nav-item"><em>quota</em></a></li><li class="nav-level-2"><a href="#-em-role-em-" class="nav-item"><em>role</em></a></li><li class="nav-level-2"><a href="#-em-rolebinding-em-" class="nav-item"><em>rolebinding</em></a></li><li class="nav-level-2"><a href="#-em-secret-em-" class="nav-item"><em>secret</em></a></li><li class="nav-level-2"><a href="#-em-secret-docker-registry-em-" class="nav-item"><em>secret docker-registry</em></a></li><li class="nav-level-2"><a href="#-em-secret-generic-em-" class="nav-item"><em>secret generic</em></a></li><li class="nav-level-2"><a href="#-em-secret-tls-em-" class="nav-item"><em>secret tls</em></a></li><li class="nav-level-2"><a href="#-em-service-em-" class="nav-item"><em>service</em></a></li><li class="nav-level-2"><a href="#-em-service-clusterip-em-" class="nav-item"><em>service clusterip</em></a></li><li class="nav-level-2"><a href="#-em-service-externalname-em-" class="nav-item"><em>service externalname</em></a></li><li class="nav-level-2"><a href="#-em-service-loadbalancer-em-" class="nav-item"><em>service loadbalancer</em></a></li><li class="nav-level-2"><a href="#-em-service-nodeport-em-" class="nav-item"><em>service nodeport</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em-" class="nav-item"><em>serviceaccount</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#get" class="nav-item">get</a></li></ul><ul><li class="nav-level-1"><a href="#run" class="nav-item">run</a></li></ul><ul><li class="nav-level-1"><a href="#expose" class="nav-item">expose</a></li></ul><ul><li class="nav-level-1"><a href="#delete" class="nav-item">delete</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-app-management-strong-" class="nav-item"><strong>APP MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#apply" class="nav-item">apply</a></li><ul id="apply-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-edit-last-applied-em-" class="nav-item"><em>edit-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-set-last-applied-em-" class="nav-item"><em>set-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-view-last-applied-em-" class="nav-item"><em>view-last-applied</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#annotate" class="nav-item">annotate</a></li></ul><ul><li class="nav-level-1"><a href="#autoscale" class="nav-item">autoscale</a></li></ul><ul><li class="nav-level-1"><a href="#convert" class="nav-item">convert</a></li></ul><ul><li class="nav-level-1"><a href="#diff" class="nav-item">diff</a></li></ul><ul><li class="nav-level-1"><a href="#edit" class="nav-item">edit</a></li></ul><ul><li class="nav-level-1"><a href="#kustomize" class="nav-item">kustomize</a></li></ul><ul><li class="nav-level-1"><a href="#label" class="nav-item">label</a></li></ul><ul><li class="nav-level-1"><a href="#patch" class="nav-item">patch</a></li></ul><ul><li class="nav-level-1"><a href="#replace" class="nav-item">replace</a></li></ul><ul><li class="nav-level-1"><a href="#rollout" class="nav-item">rollout</a></li><ul id="rollout-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-history-em-" class="nav-item"><em>history</em></a></li><li class="nav-level-2"><a href="#-em-pause-em-" class="nav-item"><em>pause</em></a></li><li class="nav-level-2"><a href="#-em-restart-em-" class="nav-item"><em>restart</em></a></li><li class="nav-level-2"><a href="#-em-resume-em-" class="nav-item"><em>resume</em></a></li><li class="nav-level-2"><a href="#-em-status-em-" class="nav-item"><em>status</em></a></li><li class="nav-level-2"><a href="#-em-undo-em-" class="nav-item"><em>undo</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#scale" class="nav-item">scale</a></li></ul><ul><li class="nav-level-1"><a href="#set" class="nav-item">set</a></li><ul id="set-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-env-em-" class="nav-item"><em>env</em></a></li><li class="nav-level-2"><a href="#-em-image-em-" class="nav-item"><em>image</em></a></li><li class="nav-level-2"><a href="#-em-resources-em-" class="nav-item"><em>resources</em></a></li><li class="nav-level-2"><a href="#-em-selector-em-" class="nav-item"><em>selector</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em--1" class="nav-item"><em>serviceaccount</em></a></li><li class="nav-level-2"><a href="#-em-subject-em-" class="nav-item"><em>subject</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#wait" class="nav-item">wait</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-working-with-apps-strong-" class="nav-item"><strong>WORKING WITH APPS</strong></a></li></ul><ul><li class="nav-level-1"><a href="#attach" class="nav-item">attach</a></li></ul><ul><li class="nav-level-1"><a href="#auth" class="nav-item">auth</a></li><ul id="auth-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-can-i-em-" class="nav-item"><em>can-i</em></a></li><li class="nav-level-2"><a href="#-em-reconcile-em-" class="nav-item"><em>reconcile</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cp" class="nav-item">cp</a></li></ul><ul><li class="nav-level-1"><a href="#describe" class="nav-item">describe</a></li></ul><ul><li class="nav-level-1"><a href="#exec" class="nav-item">exec</a></li></ul><ul><li class="nav-level-1"><a href="#logs" class="nav-item">logs</a></li></ul><ul><li class="nav-level-1"><a href="#port-forward" class="nav-item">port-forward</a></li></ul><ul><li class="nav-level-1"><a href="#proxy" class="nav-item">proxy</a></li></ul><ul><li class="nav-level-1"><a href="#top" class="nav-item">top</a></li><ul id="top-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-node-em-" class="nav-item"><em>node</em></a></li><li class="nav-level-2"><a href="#-em-pod-em-" class="nav-item"><em>pod</em></a></li></ul></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-cluster-management-strong-" class="nav-item"><strong>CLUSTER MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#api-versions" class="nav-item">api-versions</a></li></ul><ul><li class="nav-level-1"><a href="#certificate" class="nav-item">certificate</a></li><ul id="certificate-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-approve-em-" class="nav-item"><em>approve</em></a></li><li class="nav-level-2"><a href="#-em-deny-em-" class="nav-item"><em>deny</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cluster-info" class="nav-item">cluster-info</a></li><ul id="cluster-info-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-dump-em-" class="nav-item"><em>dump</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cordon" class="nav-item">cordon</a></li></ul><ul><li class="nav-level-1"><a href="#drain" class="nav-item">drain</a></li></ul><ul><li class="nav-level-1"><a href="#taint" class="nav-item">taint</a></li></ul><ul><li class="nav-level-1"><a href="#uncordon" class="nav-item">uncordon</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-kubectl-settings-and-usage-strong-" class="nav-item"><strong>KUBECTL SETTINGS AND USAGE</strong></a></li></ul><ul><li class="nav-level-1"><a href="#alpha" class="nav-item">alpha</a></li><ul id="alpha-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-debug-em-" class="nav-item"><em>debug</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#api-resources" class="nav-item">api-resources</a></li></ul><ul><li class="nav-level-1"><a href="#completion" class="nav-item">completion</a></li></ul><ul><li class="nav-level-1"><a href="#config" class="nav-item">config</a></li><ul id="config-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-current-context-em-" class="nav-item"><em>current-context</em></a></li><li class="nav-level-2"><a href="#-em-delete-cluster-em-" class="nav-item"><em>delete-cluster</em></a></li><li class="nav-level-2"><a href="#-em-delete-context-em-" class="nav-item"><em>delete-context</em></a></li><li class="nav-level-2"><a href="#-em-get-clusters-em-" class="nav-item"><em>get-clusters</em></a></li><li class="nav-level-2"><a href="#-em-get-contexts-em-" class="nav-item"><em>get-contexts</em></a></li><li class="nav-level-2"><a href="#-em-rename-context-em-" class="nav-item"><em>rename-context</em></a></li><li class="nav-level-2"><a href="#-em-set-em-" class="nav-item"><em>set</em></a></li><li class="nav-level-2"><a href="#-em-set-cluster-em-" class="nav-item"><em>set-cluster</em></a></li><li class="nav-level-2"><a href="#-em-set-context-em-" class="nav-item"><em>set-context</em></a></li><li class="nav-level-2"><a href="#-em-set-credentials-em-" class="nav-item"><em>set-credentials</em></a></li><li class="nav-level-2"><a href="#-em-unset-em-" class="nav-item"><em>unset</em></a></li><li class="nav-level-2"><a href="#-em-use-context-em-" class="nav-item"><em>use-context</em></a></li><li class="nav-level-2"><a href="#-em-view-em-" class="nav-item"><em>view</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#explain" class="nav-item">explain</a></li></ul><ul><li class="nav-level-1"><a href="#options" class="nav-item">options</a></li></ul><ul><li class="nav-level-1"><a href="#plugin" class="nav-item">plugin</a></li><ul id="plugin-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-list-em-" class="nav-item"><em>list</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#version" class="nav-item">version</a></li></ul><br/><div class="copyright"><a href="https://github.com/kubernetes/kubernetes">Copyright 2020 The Kubernetes Authors.</a></div></div>
 <div id="wrapper">
 <div id="code-tabs-wrapper" class="code-tabs"><ul class="code-tab-list"><li class="code-tab" id="example">example</li></ul></div>
 <div id="page-content-wrapper" class="body-content container-fluid"><h1 id="-strong-getting-started-strong-"><strong>GETTING STARTED</strong></h1>
@@ -34,7 +35,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Create a pod based on the JSON passed into stdin.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">cat pod.json <span class="hljs-string">| kubectl create -f -</span>
+<pre class="code-block example"><code class="lang-shell">cat pod.json | kubectl <span class="hljs-keyword">create</span> -f -
 </code></pre>
 <blockquote class="code-block example">
 <p> Edit the data in docker-registry.yaml in JSON then create the resource using the edited data.</p>
@@ -126,7 +127,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -240,7 +241,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -323,13 +324,13 @@ inspect them.</p>
 <td>serviceaccount</td>
 <td></td>
 <td>[]</td>
-<td>Service accounts to bind to the clusterrole, in the format <namespace>:<name> </td>
+<td>Service accounts to bind to the clusterrole, in the format &lt;namespace&gt;:&lt;name&gt; </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -441,7 +442,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -528,7 +529,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -599,7 +600,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -680,7 +681,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -745,7 +746,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -833,7 +834,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -926,7 +927,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1014,7 +1015,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1100,7 +1101,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1189,13 +1190,13 @@ inspect them.</p>
 <td>serviceaccount</td>
 <td></td>
 <td>[]</td>
-<td>Service accounts to bind to the role, in the format <namespace>:<name> </td>
+<td>Service accounts to bind to the role, in the format &lt;namespace&gt;:&lt;name&gt; </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1308,7 +1309,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1420,7 +1421,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>type</td>
@@ -1510,7 +1511,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1591,13 +1592,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1669,13 +1670,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1740,13 +1741,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1817,13 +1818,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1888,7 +1889,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1918,17 +1919,17 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> List deployments in JSON output format, in the &quot;v1&quot; version of the &quot;apps&quot; API group:</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl get deployments<span class="hljs-selector-class">.v1</span><span class="hljs-selector-class">.apps</span> -o json
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">get</span> <span class="hljs-selector-tag">deployments</span><span class="hljs-selector-class">.v1</span><span class="hljs-selector-class">.apps</span> <span class="hljs-selector-tag">-o</span> <span class="hljs-selector-tag">json</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> List a single pod in JSON output format.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> -o json pod web-pod-13je7
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">get</span> -o <span class="hljs-type">json</span> pod web-pod<span class="hljs-number">-13</span>je7
 </code></pre>
 <blockquote class="code-block example">
 <p> List a pod identified by type and name specified in &quot;pod.yaml&quot; in JSON output format.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> -f pod.yaml -o json
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">get</span> -f pod.yaml -o <span class="hljs-type">json</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> List resources from a directory with kustomization.yaml - e.g. dir/kustomization.yaml.</p>
@@ -2037,7 +2038,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns [<a href="http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns]">http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns]</a>, golang template [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a> and jsonpath template [<a href="http://kubernetes.io/docs/user-guide/jsonpath]">http://kubernetes.io/docs/user-guide/jsonpath]</a>. </td>
+<td>Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns [<a href="http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns">http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns</a>], golang template [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>] and jsonpath template [<a href="http://kubernetes.io/docs/user-guide/jsonpath">http://kubernetes.io/docs/user-guide/jsonpath</a>]. </td>
 </tr>
 <tr>
 <td>output-watch-events</td>
@@ -2091,7 +2092,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>use-openapi-print-columns</td>
@@ -2388,7 +2389,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -2594,7 +2595,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>type</td>
@@ -2619,7 +2620,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Delete a pod based on the type and name in the JSON passed into stdin.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-keyword">cat</span> pod.json | kubectl <span class="hljs-keyword">delete</span> -<span class="hljs-keyword">f</span> -
+<pre class="code-block example"><code class="lang-shell">cat pod.json | kubectl <span class="hljs-keyword">delete</span> -f -
 </code></pre>
 <blockquote class="code-block example">
 <p> Delete pods and services with same names &quot;baz&quot; and &quot;foo&quot;</p>
@@ -2629,7 +2630,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Delete pods and services with label name=myLabel.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl delete pods,services -l <span class="hljs-attribute">name</span>=myLabel
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> pods,services -l <span class="hljs-type">name</span>=myLabel
 </code></pre>
 <blockquote class="code-block example">
 <p> Delete a pod with minimal delay</p>
@@ -2796,7 +2797,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Apply the configuration in manifest.yaml and delete all the other configmaps that are not in the file.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">apply</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">prune</span> <span class="hljs-literal">-</span><span class="hljs-comment">f</span> <span class="hljs-comment">manifest</span><span class="hljs-string">.</span><span class="hljs-comment">yaml</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">all</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">prune</span><span class="hljs-literal">-</span><span class="hljs-comment">whitelist=core/v1/ConfigMap</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">apply</span> --<span class="hljs-comment">prune</span> <span class="hljs-literal">-</span><span class="hljs-comment">f</span> <span class="hljs-comment">manifest</span><span class="hljs-string">.</span><span class="hljs-comment">yaml</span> --<span class="hljs-comment">all</span> --<span class="hljs-comment">prune</span><span class="hljs-literal">-</span><span class="hljs-comment">whitelist=core/v1/ConfigMap</span>
 </code></pre>
 <p>Apply a configuration to a resource by filename or stdin. The resource name must be specified. This resource will be created if it doesn&#39;t exist yet. To use &#39;apply&#39;, always create the resource initially with either &#39;apply&#39; or &#39;create --save-config&#39;.</p>
 <p> JSON and YAML formats are accepted.</p>
@@ -2938,7 +2939,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -3030,7 +3031,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>windows-line-endings</td>
@@ -3105,7 +3106,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -3184,7 +3185,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Update a pod identified by type and name in &quot;pod.json&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl annotate -f pod<span class="hljs-selector-class">.json</span> description=<span class="hljs-string">'my frontend'</span>
+<pre class="code-block example"><code class="lang-shell">kubectl annotate -f pod.json <span class="hljs-keyword">description</span>=<span class="hljs-string">'my frontend'</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Update pod &#39;foo&#39; with the annotation &#39;description&#39; and the value &#39;my frontend running nginx&#39;, overwriting any existing value.</p>
@@ -3305,7 +3306,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -3418,7 +3419,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -3501,7 +3502,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -3594,7 +3595,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Edit the job &#39;myjob&#39; in JSON using the v1 API format:</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl edit job<span class="hljs-selector-class">.v1</span><span class="hljs-selector-class">.batch</span>/myjob -o json
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">edit</span> job.v1.batch/myjob -o json
 </code></pre>
 <blockquote class="code-block example">
 <p> Edit the deployment &#39;mydeployment&#39; in YAML and save the modified config in its annotation:</p>
@@ -3672,7 +3673,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -3703,7 +3704,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Use a URL</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl kustomize github.com<span class="hljs-regexp">/kubernetes-sigs/</span>kustomize.git<span class="hljs-regexp">/examples/</span>helloWorld?ref=v1.<span class="hljs-number">0.6</span>
+<pre class="code-block example"><code class="lang-shell">kubectl kustomize github.com/kubernetes-sigs/kustomize.git/examples/helloWorld?<span class="hljs-built_in">ref</span>=v1<span class="hljs-number">.0</span><span class="hljs-number">.6</span>
 </code></pre>
 <p>Print a set of API resources generated from instructions in a kustomization.yaml file.</p>
 <p> The argument must be the path to the directory containing the file, or a git repository URL with a path suffix specifying same with respect to the repository root.</p>
@@ -3730,7 +3731,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Update a pod identified by the type and name in &quot;pod.json&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-selector-tag">label</span> -f pod<span class="hljs-selector-class">.json</span> status=unhealthy
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">label</span><span class="bash"> -f pod.json status=unhealthy</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Update pod &#39;foo&#39; only if the resource is unchanged from version 1.</p>
@@ -3850,7 +3851,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -3954,7 +3955,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>type</td>
@@ -4072,7 +4073,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -4181,7 +4182,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -4241,7 +4242,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -4306,7 +4307,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -4366,7 +4367,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -4501,7 +4502,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>to-revision</td>
@@ -4624,7 +4625,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -4821,7 +4822,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -4840,7 +4841,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Update image of all containers of daemonset abc to &#39;nginx:1.9.1&#39;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">set</span> image <span class="hljs-comment">daemonset abc *=nginx:1.9.1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">set</span> image daemonset abc *=nginx:<span class="hljs-number">1.9</span><span class="hljs-number">.1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Print result (in yaml format) of updating nginx container image from local file, without hitting the server</p>
@@ -4927,7 +4928,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -5051,7 +5052,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -5060,8 +5061,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> set the labels and selector before creating a deployment/service pair.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create service clusterip my-svc --clusterip=<span class="hljs-string">"None"</span> -o yaml --dry-<span class="hljs-keyword">run</span><span class="bash">=client | kubectl <span class="hljs-built_in">set</span> selector --<span class="hljs-built_in">local</span> -f - <span class="hljs-string">'environment=qa'</span> -o yaml | kubectl create -f -
-</span>kubectl create deployment my-dep -o yaml --dry-<span class="hljs-keyword">run</span><span class="bash">=client | kubectl label --<span class="hljs-built_in">local</span> -f - environment=qa -o yaml | kubectl create -f -</span>
+<pre class="code-block example"><code class="lang-shell">kubectl create<span class="hljs-built_in"> service </span>clusterip my-svc <span class="hljs-attribute">--clusterip</span>=<span class="hljs-string">"None"</span> -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl <span class="hljs-builtin-name">set</span> selector --local -f - <span class="hljs-string">'environment=qa'</span> -o yaml | kubectl create -f -
+kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl label --local -f - <span class="hljs-attribute">environment</span>=qa -o yaml | kubectl create -f -
 </code></pre>
 <p>Set the selector on a resource. Note that the new selector will overwrite the old selector if the resource had one prior to the invocation of &#39;set selector&#39;.</p>
 <p> A selector must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  63 characters. If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used. Note: currently selectors can only be set on Service objects.</p>
@@ -5136,7 +5137,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -5226,7 +5227,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -5331,7 +5332,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -5340,13 +5341,13 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Wait for the pod &quot;busybox1&quot; to contain the status condition of type &quot;Ready&quot;.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for</span>=condition=Ready pod/busybox1
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> <span class="hljs-comment">--for=condition=Ready pod/busybox1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Wait for the pod &quot;busybox1&quot; to be deleted, with a timeout of 60s, after having issued the &quot;delete&quot; command.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> pod/busybox1
-kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for</span>=<span class="hljs-keyword">delete</span> pod/busybox1 --timeout=<span class="hljs-number">60</span>s
+<pre class="code-block example"><code class="lang-shell">kubectl delete pod/busybox1
+kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span class="hljs-attribute">--timeout</span>=60s
 </code></pre>
 <p>Experimental: Wait for a specific condition on one or many resources.</p>
 <p> The command takes multiple resources and waits until the specified condition is seen in the Status field of every given resource.</p>
@@ -5429,7 +5430,7 @@ kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -5524,17 +5525,17 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Check to see if I can list deployments in my current namespace</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-selector-tag">i</span> list deployments.apps
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-i <span class="hljs-built_in">list</span> deployments.apps
 </code></pre>
 <blockquote class="code-block example">
 <p> Check to see if I can do everything in my current namespace (&quot;*&quot; means all)</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-selector-tag">i</span> <span class="hljs-string">'*'</span> <span class="hljs-string">'*'</span>
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-built_in">i</span> <span class="hljs-string">'*'</span> <span class="hljs-string">'*'</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Check to see if I can get the job named &quot;bar&quot; in namespace &quot;foo&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-selector-tag">i</span> list jobs.batch/bar -n foo
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-i <span class="hljs-built_in">list</span> jobs.batch/bar -n foo
 </code></pre>
 <blockquote class="code-block example">
 <p> Check to see if I can read pod logs</p>
@@ -5549,7 +5550,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> List all allowed actions in namespace &quot;foo&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-i --<span class="hljs-built_in">list</span> --<span class="hljs-keyword">namespace</span>=foo
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-i --list --<span class="hljs-keyword">namespace</span>=<span class="hljs-symbol">foo</span>
 </code></pre>
 <p>Check whether an action is allowed.</p>
 <p> VERB is a logical Kubernetes API verb like &#39;get&#39;, &#39;list&#39;, &#39;watch&#39;, &#39;delete&#39;, etc. TYPE is a Kubernetes resource. Shortcuts and groups will be resolved. NONRESOURCEURL is a partial URL starts with &quot;/&quot;. NAME is the name of a particular Kubernetes resource.</p>
@@ -5675,7 +5676,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -5925,12 +5926,12 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Return snapshot of previous terminated ruby container logs from pod web-1</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs -<span class="hljs-selector-tag">p</span> -c ruby web-<span class="hljs-number">1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs -p -c ruby web<span class="hljs-number">-1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Begin streaming the logs of the ruby container in pod web-1</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs -f -<span class="hljs-keyword">c</span> ruby web<span class="hljs-number">-1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs -f -c ruby web<span class="hljs-number">-1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Begin streaming the logs from all containers in pods defined by label app=nginx</p>
@@ -5960,7 +5961,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Return snapshot logs from container nginx-1 of a deployment named nginx</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs deployment/nginx -<span class="hljs-keyword">c</span> nginx<span class="hljs-number">-1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs deployment/nginx -c nginx<span class="hljs-number">-1</span>
 </code></pre>
 <p>Print the logs for a container in a pod or specified resource. If the pod has only one container, the container name is optional.</p>
 <h3 id="usage">Usage</h3>
@@ -6088,22 +6089,22 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Listen on port 8888 locally, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-<span class="hljs-keyword">forward</span> pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Listen on port 8888 on all addresses, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address <span class="hljs-number">0.0.0.0</span> pod/mypod <span class="hljs-number">8888:5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Listen on port 8888 on localhost and selected IP, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address localhost,<span class="hljs-number">10.19.21.23</span> pod/mypod <span class="hljs-number">8888:5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address localhost,<span class="hljs-number">10.19</span><span class="hljs-number">.21</span><span class="hljs-number">.23</span> pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Listen on a random port locally, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-<span class="hljs-keyword">forward</span> pod/mypod :<span class="hljs-number">5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward pod/mypod :<span class="hljs-number">5000</span>
 </code></pre>
 <p>Forward one or more local ports to a pod. This command requires the node to have &#39;socat&#39; installed.</p>
 <p> Use resource type/name such as deployment/mydeployment to select a pod. Resource type defaults to &#39;pod&#39; if omitted.</p>
@@ -6343,7 +6344,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Show metrics for all pods in the given namespace</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl top pod --<span class="hljs-keyword">namespace</span>=NAMESPACE
+<pre class="code-block example"><code class="lang-shell">kubectl top pod --<span class="hljs-keyword">namespace</span>=<span class="hljs-symbol">NAMESPACE</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Show metrics for a given pod and its containers</p>
@@ -6501,7 +6502,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -6562,7 +6563,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -6591,7 +6592,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Dump all namespaces to stdout</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl cluster-info <span class="hljs-built_in">dump</span> <span class="hljs-comment">--all-namespaces</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">cluster</span>-<span class="hljs-keyword">info</span> dump <span class="hljs-comment">--all-namespaces</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Dump a set of namespaces to /path/to/cluster-state</p>
@@ -6653,7 +6654,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -6697,7 +6698,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Drain node &quot;foo&quot;, even if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet on it.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-meta">$</span><span class="bash"> kubectl drain foo --force</span>
+<pre class="code-block example"><code class="lang-shell">$ kubectl drain foo <span class="hljs-comment">--force</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> As above, but abort if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet, and use a grace period of 15 minutes.</p>
@@ -6873,7 +6874,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -6888,7 +6889,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Mark node &quot;foo&quot; as schedulable.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-meta">$</span><span class="bash"> kubectl uncordon foo</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-variable">$ </span>kubectl uncordon foo
 </code></pre>
 <p>Mark node as schedulable.</p>
 <h3 id="usage">Usage</h3>
@@ -7112,12 +7113,12 @@ applications.</p>
 <blockquote class="code-block example#">
 <p> or, if running Bash 4.1+</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span><span class="hljs-keyword">bash-completion@2</span>
+<pre class="code-block example"><code class="lang-shell">brew install bash-<span class="hljs-symbol">completion@</span><span class="hljs-number">2</span>
 </code></pre>
 <blockquote class="code-block example#">
 <p> If kubectl is installed via homebrew, this should start working immediately. ## If you&#39;ve installed via other means, you may need add the completion to your completion directory</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-symbol">kubectl</span> completion <span class="hljs-keyword">bash </span>&gt; $(<span class="hljs-keyword">brew </span>--prefix)/etc/<span class="hljs-keyword">bash_completion.d/kubectl</span>
+<pre class="code-block example"><code class="lang-shell">kubectl completion bash &gt; <span class="hljs-constructor">$(<span class="hljs-params">brew</span> --<span class="hljs-params">prefix</span>)</span>/etc/bash_completion.d/kubectl
 </code></pre>
 <blockquote class="code-block example">
 <p> Installing bash completion on Linux ## If bash-completion is not installed on Linux, please install the &#39;bash-completion&#39; package ## via your distribution&#39;s package manager. ## Load the kubectl completion code for bash into the current shell</p>
@@ -7127,8 +7128,8 @@ applications.</p>
 <blockquote class="code-block example#">
 <p> Write bash completion code to a file and source if from .bash_profile</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl completion bash &gt; ~/.kube/completion<span class="hljs-selector-class">.bash</span><span class="hljs-selector-class">.inc</span>
-printf <span class="hljs-string">"</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-symbol">kubectl</span> completion <span class="hljs-keyword">bash </span>&gt; ~/.kube/completion.<span class="hljs-keyword">bash.inc
+</span><span class="hljs-symbol">printf</span> <span class="hljs-string">"</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Kubectl shell completion</p>
@@ -7261,7 +7262,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <blockquote class="code-block example">
 <p> Set server field on the my-cluster cluster to <a href="https://1.2.3.4">https://1.2.3.4</a></p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl config set clusters<span class="hljs-selector-class">.my-cluster</span><span class="hljs-selector-class">.server</span> https:<span class="hljs-comment">//1.2.3.4</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">config</span> <span class="hljs-built_in">set</span> clusters.my-cluster.server https:<span class="hljs-comment">//1.2.3.4</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Set certificate-authority-data field on the my-cluster cluster.</p>
@@ -7594,7 +7595,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview]">http://golang.org/pkg/text/template/#pkg-overview]</a>. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
 </tr>
 </tbody>
 </table>
@@ -7608,11 +7609,11 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <blockquote class="code-block example">
 <p> Get the documentation of a specific field of a resource</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl explain pods<span class="hljs-selector-class">.spec</span><span class="hljs-selector-class">.containers</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">explain</span> <span class="hljs-selector-tag">pods</span><span class="hljs-selector-class">.spec</span><span class="hljs-selector-class">.containers</span>
 </code></pre>
 <p>List the fields for supported resources</p>
 <p> This command describes the fields associated with each supported API resource. Fields are identified via a simple JSONPath identifier:</p>
-<p>  <type>.<fieldName>[.<fieldName>]</p>
+<p>  &lt;type&gt;.&lt;fieldName&gt;[.&lt;fieldName&gt;]</p>
 <p> Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
