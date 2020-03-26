@@ -130,6 +130,7 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `ServiceTopology` | `false` | Alpha | 1.17 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
@@ -471,6 +472,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if labelled with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key or `node.kubernetes.io/exclude-from-external-load-balancers`.
+- `ServiceTopology`: Enable service to route traffic based upon the Node topology of the cluster. See [ServiceTopology](https://kubernetes.io/docs/concepts/services-networking/service-topology/) for more details.
 - `StartupProbe`: Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
   PersistentVolumeClaim objects if they are still being used.
