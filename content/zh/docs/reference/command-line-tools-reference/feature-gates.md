@@ -179,6 +179,7 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `ServiceTopology` | `false` | Alpha | 1.17 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
@@ -698,6 +699,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if labelled with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key or `node.kubernetes.io/exclude-from-external-load-balancers`.
+- `ServiceTopology`: Enable service to route traffic based upon the Node topology of the cluster. See [ServiceTopology](https://kubernetes.io/docs/concepts/services-networking/service-topology/) for more details.
 - `StartupProbe`: Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
   PersistentVolumeClaim objects if they are still being used.
@@ -707,6 +709,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServerSideApply`：在 API 服务器上启用[服务器端应用（SSA）](/docs/reference/using-api/api-concepts/#server-side-apply) 路径。
 - `ServiceLoadBalancerFinalizer`：为服务负载均衡启用终结器保护。
 - `ServiceNodeExclusion`：启用从云提供商创建的负载均衡中排除节点。如果节点标记有 `alpha.service-controller.kubernetes.io/exclude-balancer` 键或 `node.kubernetes.io/exclude-from-external-load-balancers`，则可以排除节点。
+- `ServiceTopology`: 启用服务拓扑可以让一个服务基于集群的节点拓扑进行流量路由。有关更多详细信息，请参见[Service 拓扑](https://kubernetes.io/zh/docs/concepts/services-networking/service-topology/)
 - `StartupProbe`：在 kubelet 中启用 [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) 探针。
 - `StorageObjectInUseProtection`：如果仍在使用 PersistentVolume 或 PersistentVolumeClaim 对象，则将其推迟。
 
