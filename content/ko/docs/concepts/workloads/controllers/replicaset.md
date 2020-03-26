@@ -54,22 +54,26 @@ kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 현재 배포된 레플리카셋을 확인할 수 있다.
+
 ```shell
 kubectl get rs
 ```
 
 그리고 생성된 프런트엔드를 볼 수 있다.
+
 ```shell
 NAME       DESIRED   CURRENT   READY   AGE
 frontend   3         3         3       6s
 ```
 
 또한 레플리카셋의 상태를 확인할 수 있다.
+
 ```shell
 kubectl describe rs/frontend
 ```
 
 출력은 다음과 유사할 것이다.
+
 ```shell
 Name:         frontend
 Namespace:    default
@@ -99,11 +103,13 @@ Events:
 ```
 
 마지막으로 파드가 올라왔는지 확인할 수 있다.
+
 ```shell
 kubectl get pods
 ```
 
 다음과 유사한 파드 정보를 볼 수 있다.
+
 ```shell
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-b2zdv   1/1     Running   0          6m36s
@@ -113,11 +119,13 @@ frontend-wtsmm   1/1     Running   0          6m36s
 
 또한 파드들의 소유자 참조 정보가 해당 프런트엔드 레플리카셋으로 설정되어 있는지 확인할 수 있다.
 확인을 위해서는 실행 중인 파드 중 하나의 yaml을 확인한다.
+
 ```shell
 kubectl get pods frontend-b2zdv -o yaml
 ```
 
 메타데이터의 ownerReferences 필드에 설정되어있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
+
 ```shell
 apiVersion: v1
 kind: Pod
@@ -162,11 +170,13 @@ kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 즉시 종료된다.
 
 파드를 가져온다.
+
 ```shell
 kubectl get pods
 ```
 
 결과에는 새로운 파드가 이미 종료되었거나 종료가 진행 중인 것을 보여준다.
+
 ```shell
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-b2zdv   1/1     Running       0          10m
@@ -177,17 +187,20 @@ pod2             0/1     Terminating   0          1s
 ```
 
 파드를 먼저 생성한다.
+
 ```shell
 kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
 그 다음 레플리카셋을 생성한다.
+
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 레플리카셋이 해당 파드를 소유한 것을 볼 수 있으며 새 파드 및 기존 파드의 수가
 레플리카셋이 필요로 하는 수와 일치할 때까지 사양에 따라 신규 파드만 생성한다. 파드를 가져온다.
+
 ```shell
 kubectl get pods
 ```
@@ -208,6 +221,9 @@ pod2             1/1     Running   0          36s
 레플리카셋에 대한 kind 필드의 값은 항상 레플리카셋이다.
 쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
 API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
+
+레플리카셋 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
 레플리카셋도 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)이 필요하다.
 
