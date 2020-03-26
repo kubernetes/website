@@ -86,6 +86,12 @@ Minikube에서는 동작하지 않는 스냅 패키지 대신 도커용 `.deb` �
 `--vm-driver=none` 을 사용하기 전에 [이 문서](https://minikube.sigs.k8s.io/docs/reference/drivers/none/)를 참조해서 더 자세한 내용을 본다.
 {{< /caution >}}
 
+Minikube는 도커 드라이브와 비슷한 `vm-driver=podman` 도 지원한다. 슈퍼사용자 권한(root 사용자)으로 실행되는 Podman은 컨테이너가 시스템에서 사용 가능한 모든 기능에 완전히 접근할 수 있는 가장 좋은 방법이다.
+
+{{< caution >}}
+일반 사용자 계정은 컨테이너를 실행하는 데 필요한 모든 운영 체제 기능에 완전히 접근할 수 없기에 `podman` 드라이버는 컨테이너를 root로 실행해야 한다.
+{{< /caution >}}
+
 ### 패키지를 이용하여 Minikube 설치
 
 Minikube를 위한 *실험적인* 패키지가 있다.

@@ -107,7 +107,8 @@ spec:
 `nodeSelector` 는 파드를 특정 레이블이 있는 노드로 제한하는 매우 간단한 방법을 제공한다.
 어피니티/안티-어피니티 기능은 표현할 수 있는 제약 종류를 크게 확장한다. 주요 개선 사항은 다음과 같다.
 
-1. 언어가 보다 표현적이다("AND 또는 정확한 일치" 만이 아니다).
+1. 어피니티/안티-어피니티 언어가 더 표현적이다. 언어는 논리 연산자인 AND 연산으로 작성된
+   정확한 매칭 항목 이외에 더 많은 매칭 규칙을 제공한다.
 2. 규칙이 엄격한 요구 사항이 아니라 "유연한(soft)"/"선호(preference)" 규칙을 나타낼 수 있기에 스케줄러가 규칙을 만족할 수 없더라도,
    파드가 계속 스케줄 되도록 한다.
 3. 노드 자체에 레이블을 붙이기보다는 노드(또는 다른 토폴로지 도메인)에서 실행 중인 다른 파드의 레이블을 제한할 수 있다.
@@ -155,9 +156,9 @@ spec:
 `nodeSelector` 와 `nodeAffinity` 를 모두 지정한다면 파드가 후보 노드에 스케줄 되기 위해서는
 *둘 다* 반드시 만족해야 한다.
 
-`nodeAffinity` 유형과 연관된 `nodeSelectorTerms` 를 지정하면, 파드를 `nodeSelectorTerms` 가 지정된 것 중 **한 가지**라도 만족하는 노드에 스케줄할 수 있다.
+`nodeAffinity` 유형과 연관된 `nodeSelectorTerms` 를 지정하면, 파드는 `nodeSelectorTerms` 를 **모두** 만족하는 노드에만 스케줄할 수 있다.
 
-`nodeSelectorTerms` 와 연관된 여러 `matchExpressions` 를 지정하면, 파드는 `matchExpressions` 를 **모두** 만족하는 노드에만 스케줄할 수 있다.
+`nodeSelectorTerms` 와 연관된 여러 `matchExpressions` 를 지정하면, 파드는 `matchExpressions` 이 지정된 것 중 **한 가지**라도 만족하는 노드에만 스케줄할 수 있다.
 
 파드가 스케줄 된 노드의 레이블을 지우거나 변경해도 파드는 제거되지 않는다. 다시 말해서 어피니티 선택은 파드를 스케줄링 하는 시점에만 작동한다.
 
@@ -224,7 +225,7 @@ spec:
 1. 어피니티와 `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 대해
 `topologyKey` 가 비어있는 것을 허용하지 않는다.
 2. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에서 `topologyKey` 를 `kubernetes.io/hostname` 로 제한하기 위해 어드미션 컨트롤러 `LimitPodHardAntiAffinityTopology` 가 도입되었다. 사용자 지정 토폴로지를에 사용할 수 있도록 하려면, 어드미션 컨트롤러를 수정하거나 간단히 이를 비활성화 할 수 있다.
-3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티의 경우 빈 `topologyKey` 는 "all topology"("all topology"는 현재 `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` 그리고 `failure-domain.beta.kubernetes.io/region` 의 조합으로 제한된다)로 해석한다.
+3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 `topologyKey` 가 비어있는 것을 허용하지 않는다.
 4. 위의 경우를 제외하고, `topologyKey` 는 적법한 어느 레이블-키도 가능하다.
 
 `labelSelector` 와 `topologyKey` 외에도 `labelSelector` 와 일치해야 하는 네임스페이스 목록 `namespaces` 를
@@ -345,7 +346,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 위의 예시에서 `topologyKey:"kubernetes.io/hostname"` 과 함께 `PodAntiAffinity` 규칙을 사용해서
 두 개의 인스터스가 동일한 호스트에 있지 않도록 redis 클러스터를 배포한다.
 같은 기술을 사용해서 고 가용성을 위해 안티-어피니티로 구성된 스테이트풀셋의 예시는
-[ZooKeeper 튜토리얼](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)을 본다.
+[ZooKeeper 튜토리얼](/ko/docs/tutorials/stateful-application/zookeeper/#노드-실패-방지)을 본다.
 
 ## nodeName
 

@@ -291,7 +291,7 @@ v1.14 이후의 최신 바이너리를 [https://github.com/kubernetes/kubernetes
 
 본 단계는 다음의 행위를 수행한다.
 
-1. 컨트롤 플레인("마스터") 노드에 SSH로 접속해서 [Kubeconfig 파일](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 얻어온다.
+1. 컨트롤 플레인("마스터") 노드에 SSH로 접속해서 [Kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 얻어온다.
 1. kubelet을 윈도우 서비스로 등록한다.
 1. CNI 네트워크 플러그인을 구성한다.
 1. 선택된 네트워크 인터페이스 상에서 HNS 네트워크를 생성한다.
@@ -328,7 +328,7 @@ kubectl get nodes
 1. 등록된 모든 쿠버네티스 서비스(flanneld, kubelet, kube-proxy)를 해지한다.
 1. 쿠버네티스 바이너리(kube-proxy.exe, kubelet.exe, flanneld.exe, kubeadm.exe)를 모두 삭제한다.
 1. CNI 네트워크 플러그인 바이너리를 모두 삭제한다.
-1. 쿠버네티스 클러스터에 접근하기 위한 [Kubeconfig 파일](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 삭제한다.
+1. 쿠버네티스 클러스터에 접근하기 위한 [Kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 삭제한다.
 
 
 ### 퍼블릭 클라우드 제공자

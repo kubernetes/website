@@ -179,7 +179,7 @@ Python 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 
 
 ### 다른 언어
 
-다른 언어에서 API를 접속하기 위한 [클라이언트 라이브러리들](/docs/reference/using-api/client-libraries/)도 존재한다.
+다른 언어에서 API를 접속하기 위한 [클라이언트 라이브러리들](/ko/docs/reference/using-api/client-libraries/)도 존재한다.
 이들이 어떻게 인증하는지는 다른 라이브러리들의 문서를 참조한다.
 
 ## 파드에서 API 액세스

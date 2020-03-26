@@ -243,7 +243,7 @@ status:
 파드의 새로운 조건들은
 쿠버네티스의 [레이블 키 포멧](/ko/docs/concepts/overview/working-with-objects/labels/#구문과-캐릭터-셋)을 준수해야 한다.
 `kubectl patch` 명령어가 오브젝트 상태 패치(patching)를 아직 제공하지 않기 때문에,
-새로운 파드 조건들은 [KubeClient 라이브러리](/docs/reference/using-api/client-libraries/)를 통한 `PATCH` 액션을 통해서 주입되어야 한다.
+새로운 파드 조건들은 [KubeClient 라이브러리](/ko/docs/reference/using-api/client-libraries/)를 통한 `PATCH` 액션을 통해서 주입되어야 한다.
 
 새로운 파드 조건들이 적용된 경우, 파드는 **오직**
 다음 두 문장이 모두 참일 때만 준비 상태로 평가된다.
