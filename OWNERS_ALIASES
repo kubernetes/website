@@ -128,12 +128,10 @@ aliases:
     - fabriziopandini
     - mattiaperi
     - micheleberardi
-    - rlenferink
   sig-docs-it-reviews: # PR reviews for Italian content
     - fabriziopandini
     - mattiaperi
     - micheleberardi
-    - rlenferink
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - inductor
