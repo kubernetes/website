@@ -79,14 +79,14 @@ Here is the configuration file for a LimitRange object:
 
 This object defines minimum and maximum CPU/Memory limits, default CPU/Memory requests, and default limits for CPU/Memory resources to be apply to containers.
 
-Create the `limit-mem-cpu-per-container` LimitRange in the `limitrange-demo` namespace with the following kubectl command:
+Create the `limit-mem-cpu-per-container` LimitRange with the following kubectl command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/limit-mem-cpu-container.yaml -n limitrange-demo
+kubectl create -f https://k8s.io/examples/admin/resource/limit-mem-cpu-container.yaml
 ```
 
 ```shell
-kubectl describe limitrange/limit-mem-cpu-per-container -n limitrange-demo
+kubectl describe limitrange/limit-mem-cpu-per-container
 ```
 
 ```shell
@@ -102,7 +102,7 @@ Here is the configuration file for a Pod with 04 Containers to demonstrate Limit
 Create the `busybox1` Pod:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-1.yaml -n limitrange-demo
+kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-1.yaml
 ```
 
 ### Container spec with valid CPU/Memory requests and limits
@@ -110,7 +110,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-1.yaml -
 View the `busybox-cnt01` resource configuration:
 
 ```shell
-kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[0].resources"
+kubectl get po/busybox1 -o json | jq ".spec.containers[0].resources"
 ```
 
 ```json
@@ -137,7 +137,7 @@ kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[0].res
 View the  `busybox-cnt02` resource configuration
 
 ```shell
-kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[1].resources"
+kubectl get po/busybox1 -o json | jq ".spec.containers[1].resources"
 ```
 
 ```json
@@ -164,7 +164,7 @@ kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[1].res
 View the `busybox-cnt03` resource configuration:
 
 ```shell
-kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[2].resources"
+kubectl get po/busybox1 -o json | jq ".spec.containers[2].resources"
 ```
 ```json
 {
@@ -190,7 +190,7 @@ kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[2].res
 View the `busybox-cnt04` resource configuration:
 
 ```shell
-kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[3].resources"
+kubectl get po/busybox1 -o json | jq ".spec.containers[3].resources"
 ```
 
 ```json
@@ -225,7 +225,7 @@ The following section discusses how to constrain resources at the Pod level.
 Without having to delete the `busybox1` Pod, create the `limit-mem-cpu-pod` LimitRange in the `limitrange-demo` namespace:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-mem-cpu-pod.yaml -n limitrange-demo
+kubectl apply -f https://k8s.io/examples/admin/resource/limit-mem-cpu-pod.yaml
 ```
 The LimitRange is created and limits CPU to 2 Core and Memory to 2Gi per Pod:
 
@@ -253,7 +253,7 @@ Now create the `busybox2` Pod:
 {{< codenew file="admin/resource/limit-range-pod-2.yaml" >}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-2.yaml -n limitrange-demo
+kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-2.yaml
 ```
 
 The `busybox2` Pod definition is identical to `busybox1`, but an error is reported since the Pod's resources are now limited:
@@ -263,7 +263,7 @@ Error from server (Forbidden): error when creating "limit-range-pod-2.yaml": pod
 ```
 
 ```shell
-kubectl get po/busybox1 -n limitrange-demo -o json | jq ".spec.containers[].resources.limits.memory"
+kubectl get po/busybox1 -o json | jq ".spec.containers[].resources.limits.memory"
 "200Mi"
 "900Mi"
 "200Mi"
@@ -282,7 +282,7 @@ You can enforce minimum and maximum size of [storage resources](/docs/concepts/s
 Apply the YAML using `kubectl create`:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/storagelimits.yaml -n limitrange-demo
+kubectl create -f https://k8s.io/examples/admin/resource/storagelimits.yaml
 ```
 
 ```shell
@@ -308,7 +308,7 @@ PersistentVolumeClaim  storage   1Gi  2Gi  -                -              -
 {{< codenew file="admin/resource/pvc-limit-lower.yaml" >}}
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/pvc-limit-lower.yaml -n limitrange-demo
+kubectl create -f https://k8s.io/examples/admin/resource/pvc-limit-lower.yaml
 ```
 
 While creating a PVC with `requests.storage` lower than the Min value in the LimitRange, an Error thrown by the server:
@@ -322,7 +322,7 @@ Same behaviour is noted if  the `requests.storage` is greater than the Max value
 {{< codenew file="admin/resource/pvc-limit-greater.yaml" >}}
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/pvc-limit-greater.yaml -n limitrange-demo
+kubectl create -f https://k8s.io/examples/admin/resource/pvc-limit-greater.yaml
 ```
 
 ```shell
@@ -369,12 +369,17 @@ The pod creation failed as the ratio here (`3`) is greater than the enforced lim
 Error from server (Forbidden): error when creating "limit-range-pod-3.yaml": pods "busybox3" is forbidden: memory max limit to request ratio per Pod is 2, but provided ratio is 3.000000.
 ```
 
-### Clean up
+## Clean up
 
 Delete the `limitrange-demo` namespace to free all resources:
 
 ```shell
 kubectl delete ns limitrange-demo
+```
+Change your context to `default` namespace with the following command:
+
+```shell
+kubectl config set-context --current --namespace=default
 ```
 
 ## Examples
