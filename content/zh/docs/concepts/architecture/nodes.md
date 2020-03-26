@@ -338,7 +338,7 @@ In most cases, node controller limits the eviction rate to
 `--node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
 from more than 1 node per 10 seconds.
 -->
-大部分情况下，节点控制器把驱逐频率限制在每秒 `--node-eviction-rate` 个（默认为 0.1）。这表示它每 10 秒钟内之多从一个节点驱逐 Pods。
+大部分情况下，节点控制器把驱逐频率限制在每秒 `--node-eviction-rate` 个（默认为 0.1）。这表示它每 10 秒钟内至多从一个节点驱逐 Pods。
 
 <!--
 The node eviction behavior changes when a node in a given availability zone
