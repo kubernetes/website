@@ -31,7 +31,7 @@ content_template: templates/concept
 
 ## 대시보드
 
-[`대시보드`](/docs/tasks/access-application-cluster/web-ui-dashboard/), 는 쿠버네티스의 웹기반 유저 인터페이스이며 컨테이너화된 애플리케이션을 쿠버네티스 클러스터로 배포하고
+[`대시보드`](/ko/docs/tasks/access-application-cluster/web-ui-dashboard/), 는 쿠버네티스의 웹기반 유저 인터페이스이며 컨테이너화된 애플리케이션을 쿠버네티스 클러스터로 배포하고
 클러스터 및 클러스터 자원의 문제를 해결하며 관리할 수 있게 해준다.
 
 ## Helm

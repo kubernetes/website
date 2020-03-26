@@ -322,7 +322,7 @@ contexts:
 ```
 
 kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는 
-[kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)를 참조한다.
+[kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)를 참조한다.
 
 ## $HOME/.kube 디렉토리 탐색
 
@@ -372,7 +372,7 @@ Windows PowerShell
 
 {{% capture whatsnext %}}
 
-* [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}

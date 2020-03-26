@@ -56,6 +56,10 @@ spec:
     name: pvc-1
 ```
 
+{{< note >}}
+`spec.resources.requests.storage` 에 용량 값을 지정해야 하며, 지정한 값은 소스 볼륨의 용량과 같거나 또는 더 커야 한다.
+{{< /note >}}
+
 그 결과로 지정된 소스 `pvc-1` 과 동일한 내용을 가진 `clone-of-pvc-1` 이라는 이름을 가지는 새로운 PVC가 생겨난다.
 
 ## 사용

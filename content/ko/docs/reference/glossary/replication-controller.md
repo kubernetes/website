@@ -11,7 +11,7 @@ tags:
 - workload
 - core-object
 ---
- 특정 수의 파드 인스턴스가 항상 동작하도록 보장하는 쿠버네티스 서비스.
+ 특정 수의 {{< glossary_tooltip text="파드" term_id="pod" >}} 인스턴스가 항상 동작하도록 보장하는 쿠버네티스 서비스.
 
 <!--more--> 
 

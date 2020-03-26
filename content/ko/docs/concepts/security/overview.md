@@ -152,7 +152,7 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 클라이
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* [파드에 대한 네트워크 정책](/docs/concepts/services-networking/network-policies/) 알아보기
+* [파드에 대한 네트워크 정책](/ko/docs/concepts/services-networking/network-policies/) 알아보기
 * [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/)에 대해 알아보기
 * [API 접근 통제](/docs/reference/access-authn-authz/controlling-access/)에 대해 알아보기
 * 컨트롤 플레인에 대한 [전송 데이터 암호화](/docs/tasks/tls/managing-tls-in-a-cluster/) 알아보기

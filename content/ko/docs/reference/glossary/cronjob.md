@@ -4,14 +4,14 @@ id: cronjob
 date: 2018-04-12
 full_link: /ko/docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
-  주기적인 일정에 따라 실행되는 [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 관리.
+  주기적인 일정에 따라 실행되는 [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 관리.
 
 aka: 
 tags:
 - core-object
 - workload
 ---
- 주기적인 일정에 따라 실행되는 [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 관리.
+ 주기적인 일정에 따라 실행되는 [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 관리.
 
 <!--more-->
 
