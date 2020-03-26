@@ -296,7 +296,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
-        image: nginx:1.12-alpine
+        image: nginx:1.16-alpine
 ```
 
 上記2つのDeploymentが生成されると、3つのノードは以下のようになります。
