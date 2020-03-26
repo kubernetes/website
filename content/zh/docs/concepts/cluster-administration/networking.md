@@ -105,7 +105,11 @@ It is possible to request ports on the `Node` itself which forward to your `Pod`
 implemented is also a detail of the container runtime. The `Pod` itself is
 blind to the existence or non-existence of host ports.
 -->
+如何实现这一点是正在使用的容器运行时的特定信息。
 
+也可以在 `node` 本身通过端口去请求你的 `Pod` （称之为主机端口），但这是一个很特殊的操作。转发方式如何实现也是容器运行时的细节。`Pod` 自己并不知道这些主机端口是否存在。
+
+<!--
 ## How to implement the Kubernetes networking model
 
 There are a number of ways that this network model can be implemented.  This
@@ -114,16 +118,32 @@ as an introduction to various technologies and serves as a jumping-off point.
 
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
+-->
+## 如何实现 Kubernetes 的网络模型
 
+有很多种方式可以实现这种网络模型，本文档并不是对各种实现技术的详细研究，但是希望可以作为对各种技术的详细介绍，并且成为你研究的起点。
+
+接下来的网络技术是按照首字母排序，并无其他任何含义。
+
+<!--
 ### ACI
 
 [Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) offers an integrated overlay and underlay SDN solution that supports containers, virtual machines, and bare metal servers. [ACI](https://www.github.com/noironetworks/aci-containers) provides container networking integration for ACI. An overview of the integration is provided [here](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf).
+-->
+### ACI
+[Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) 提供了一个集成覆盖和底层 SDN 解决方案来支持容器、虚拟机和其他裸机服务器。 [ACI](https://www.github.com/noironetworks/aci-containers) 为ACI提供了容器网络集成。点击[这里](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf)查看概述
 
+<!--
 ### Antrea
 
 Project [Antrea](https://github.com/vmware-tanzu/antrea) is an opensource Kubernetes networking solution intended to be Kubernetes native. It leverages Open vSwitch as the networking data plane. Open vSwitch is a high-performance programmable virtual switch that supports both Linux and Windows. Open vSwitch enables Antrea to implement Kubernetes Network Policies in a high-performance and efficient manner.
 Thanks to the "programmable" characteristic of Open vSwitch, Antrea is able to implement an extensive set of networking and security features and services on top of Open vSwitch.
+-->
+### Antrea
 
+[Antrea](https://github.com/vmware-tanzu/antrea) 项目是一个开源的，旨在成为 Kubernetes 原生的网络解决方案。它利用 Open vSwitch 作为网络数据平面。 Open vSwitch 是一个高性能可编程的虚拟交换机，支持 Linux 和 Windows 平台。Open vSwitch 使 Antrea 能够以高性能和高效的方式实现 Kubernetes 的网络策略。借助 Open vSwitch 可编程的特性， Antrea 能够在 Open vSwitch 之上实现广泛的网络，安全功能和服务。
+
+<!--
 ### AOS from Apstra
 
 [AOS](http://www.apstra.com/products/aos/) is an Intent-Based Networking system that creates and manages complex datacenter environments from a simple integrated platform.  AOS leverages a highly scalable distributed design to eliminate network outages while minimizing costs.
@@ -135,7 +155,20 @@ AOS has a rich set of REST API endpoints that enable Kubernetes to quickly chang
 AOS supports the use of common vendor equipment from manufacturers including Cisco, Arista, Dell, Mellanox, HPE, and a large number of white-box systems and open network operating systems like Microsoft SONiC, Dell OPX, and Cumulus Linux.
 
 Details on how the AOS system works can be accessed here: http://www.apstra.com/products/how-it-works/
+-->
+### Apstra 中的 AOS 
 
+[AOS](http://www.apstra.com/products/aos/) 是一个基于意图的网络系统，可以通过一个简单的集成平台创建和管理复杂的数据中心环境。 AOS 利用高度可扩展的分布式设计来消除网络中断，同时将成本降至最低。
+
+AOS 参考设计当前支持三层连接的主机，这些主机消除了旧的两层连接的交换问题。这些三层连接的主机可以是 Linux(Debian, Ubuntu, CentOS) 系统，它们直接在机架式交换机（TOR） 的顶部创建 BGP 邻居关系。 AOS 自动执行路由邻接，然后提供对 Kubernetes 部署中常见的路由运行状况注入（ RHI ）的精细控制。
+
+AOS 具有一组丰富的 REST API 端点，这些端点使K ubernetes 能够根据应用程序需求快速更改网络策略。进一步的增强功能将用于网络设计的 AOS Graph 模型与工作负载供应集成在一起，从而为私有云和公共云提供端到端管理系统。
+
+AOS 支持使用包括 Cisco，Arista，Dell，Mellanox，HPE 在内的制造商提供的通用供应商设备，以及大量白盒系统和开放网络操作系统，例如 Microsoft SONiC，Dell OPX 和 Cumulus Linux 。
+
+想要更详细地了解 AOS 系统是如何工作的可以点击这里： http://www.apstra.com/products/how-it-works/
+
+<!--
 ### AWS VPC CNI for Kubernetes
 
 The [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) offers integrated AWS Virtual Private Cloud (VPC) networking for Kubernetes clusters. This CNI plugin offers high throughput and availability, low latency, and minimal network jitter. Additionally, users can apply existing AWS VPC networking and security best practices for building Kubernetes clusters. This includes the ability to use VPC flow logs, VPC routing policies, and security groups for network traffic isolation.
@@ -143,12 +176,24 @@ The [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) offers integrated A
 Using this CNI plugin allows Kubernetes pods to have the same IP address inside the pod as they do on the VPC network. The CNI allocates AWS Elastic Networking Interfaces (ENIs) to each Kubernetes node and using the secondary IP range from each ENI for pods on the node. The CNI includes controls for pre-allocation of ENIs and IP addresses for fast pod startup times and enables large clusters of up to 2,000 nodes.
 
 Additionally, the CNI can be run alongside [Calico for network policy enforcement](https://docs.aws.amazon.com/eks/latest/userguide/calico.html). The AWS VPC CNI project is open source with [documentation on GitHub](https://github.com/aws/amazon-vpc-cni-k8s).
+-->
+### Kubernetes 的 AWS VPC CNI 
 
-### Azure CNI for Kubernetes
+[AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) 为 Kubernetes 集群提供了集成的 AWS 虚拟私有云（ VPC ）网络。该 CNI 插件提供了高吞吐量和可用性，低延迟以及最小的网络抖动。此外，用户可以使用现有的 AWS VPC 网络和安全最佳实践来构建 Kubernetes 集群。这包括使用 VPC 流日志，VPC 路由策略和安全组进行网络流量隔离的功能。
+
+使用该 CNI 插件，可使 Kubernetes Pods 在 Pod 中拥有与在 VPC 网络上相同的 IP 地址。 CNI 将 AWS 弹性网络接口（ ENI ）分配给每个 Kubernetes 节点，并将每个 ENI 的辅助 IP 范围用于该节点上的 Pod 。 CNI 包含用于 ENI 和 IP 地址的预分配的控件，以便加快 Pod 的启动时间，并且能够支持多达2000个节点的大型集群。
+
+此外，CNI可以与[用于执行网络策略的 Calico](https://docs.aws.amazon.com/eks/latest/userguide/calico.html)一起运行。 AWS VPC CNI项目是开源的，查看 [GitHub 上的文档](https://github.com/aws/amazon-vpc-cni-k8s)。
+
+<!--
+### Azure CNI for Kubernetes 
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
 
 Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
- 
+-->
+### Kubernetes 的 Azure CNI
+
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) 是一个[开源插件](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)，
 
 ### Big Cloud Fabric from Big Switch Networks
 
