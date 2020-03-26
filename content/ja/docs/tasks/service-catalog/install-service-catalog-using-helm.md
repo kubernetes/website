@@ -100,7 +100,7 @@ kubectl create clusterrolebinding tiller-cluster-admin \
 helm install catalog svc-cat/catalog --namespace catalog
 ```
 {{% /tab %}}
-{{% tab name="Helm version 2" %}}
+{{% tab name="Helm バージョン2" %}}
 ```shell
 helm install svc-cat/catalog --name catalog --namespace catalog
 ```
