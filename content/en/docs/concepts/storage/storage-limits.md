@@ -32,6 +32,7 @@ that can be attached to a Node:
   <tr><td><a href="https://aws.amazon.com/ebs/">Amazon Elastic Block Store (EBS)</a></td><td>39</td></tr>
   <tr><td><a href="https://cloud.google.com/persistent-disk/">Google Persistent Disk</a></td><td>16</td></tr>
   <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
+  <tr><td><a href="https://wiki.hetzner.de/index.php/CloudServer/ru#.D0.A2.D0.BE.D0.BC.D0.B0">Hetzner Cloud Volumes</a></td><td>16</td></tr>
 </table>
 
 ## Custom limits
