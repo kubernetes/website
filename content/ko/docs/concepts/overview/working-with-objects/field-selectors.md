@@ -3,7 +3,7 @@ title: 필드 셀렉터
 weight: 60
 ---
 
-_필드 셀렉터_ 는 한 개 이상의 리소스 필드 값에 따라 [쿠버네티스 리소스를 선택](/docs/concepts/overview/working-with-objects/kubernetes-objects)하기 위해 사용된다. 필드 셀렉터 쿼리의 예시는 다음과 같다.
+_필드 셀렉터_ 는 한 개 이상의 리소스 필드 값에 따라 [쿠버네티스 리소스를 선택](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/)하기 위해 사용된다. 필드 셀렉터 쿼리의 예시는 다음과 같다.
 
 * `metadata.name=my-service`
 * `metadata.namespace!=default`
@@ -45,7 +45,7 @@ kubectl get services  --all-namespaces --field-selector metadata.namespace!=defa
 
 ## 연계되는 셀렉터
 
-[레이블](/docs/concepts/overview/working-with-objects/labels)을 비롯한 다른 셀렉터처럼, 쉼표로 구분되는 목록을 통해 필드 셀렉터를 연계해서 사용할 수 있다. 다음의 `kubectl` 커맨드는 `status.phase` 필드가 `Running` 이 아니고, `spec.restartPolicy` 필드가 `Always` 인 모든 파드를 선택한다.
+[레이블](/ko/docs/concepts/overview/working-with-objects/labels)을 비롯한 다른 셀렉터처럼, 쉼표로 구분되는 목록을 통해 필드 셀렉터를 연계해서 사용할 수 있다. 다음의 `kubectl` 커맨드는 `status.phase` 필드가 `Running` 이 아니고, `spec.restartPolicy` 필드가 `Always` 인 모든 파드를 선택한다.
 
 ```shell
 kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Always

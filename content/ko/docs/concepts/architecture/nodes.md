@@ -128,6 +128,7 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 `metadata.name` 필드를 근거로 상태 체크를 수행하여 노드의 유효성을 확인한다. 노드가 유효하면, 즉 
 모든 필요한 서비스가 동작 중이면, 파드를 동작시킬 자격이 된다. 그렇지 않으면, 
 유효하게 될때까지 어떠한 클러스터 활동에 대해서도 무시된다.
+노드 오브젝트의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
 {{< note >}}
 쿠버네티스는 유효하지 않은 노드로부터 오브젝트를 보호하고 유효한 상태로 이르는지 확인하기 위해 지속적으로 체크한다. 
