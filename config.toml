@@ -103,30 +103,30 @@ docsbranch = "release-1.18"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.17.0"
+fullversion = "v1.17.4"
 version = "v1.17"
-githubbranch = "v1.17.0"
+githubbranch = "v1.17.4"
 docsbranch = "release-1.17"
 url = "https://v1-17.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.16.3"
+fullversion = "v1.16.8"
 version = "v1.16"
-githubbranch = "v1.16.3"
+githubbranch = "v1.16.8"
 docsbranch = "release-1.16"
 url = "https://v1-16.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.15.6"
+fullversion = "v1.15.11"
 version = "v1.15"
-githubbranch = "v1.15.6"
+githubbranch = "v1.15.11"
 docsbranch = "release-1.15"
 url = "https://v1-15.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.14.9"
+fullversion = "v1.14.10"
 version = "v1.14"
-githubbranch = "v1.14.9"
+githubbranch = "v1.14.10"
 docsbranch = "release-1.14"
 url = "https://v1-14.docs.kubernetes.io"
 
