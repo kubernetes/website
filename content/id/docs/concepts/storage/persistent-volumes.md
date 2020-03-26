@@ -296,6 +296,10 @@ spec:
     server: 172.17.0.2
 ```
 
+{{< note >}}
+Program pembantu yang berkaitan dengan tipe volume bisa saja diperlukan untuk mengonsumsi sebuah PersistentVolume di dalam klaster. Contoh ini menggunakan PersistentVolume dengan tipe NFS dan program pembantu /sbin/mount.nfs diperlukan untuk mendukung proses mounting sistem berkas (filesystem) NFS.
+{{< /note >}}
+
 ### Kapasitas
 
 Secara umum, sebuah PV akan memiliki kapasitas _storage_ tertentu.  Hal ini ditentukan menggunakan atribut `capacity` pada PV.  Lihat [Model Sumber Daya](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) Kubernetes untuk memahami satuan yang diharapkan pada atribut `capacity`.
