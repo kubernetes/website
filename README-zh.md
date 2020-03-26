@@ -122,7 +122,7 @@ Open up your browser to http://localhost:1313 to view the website. As you make c
 <!--
 ## Running the website locally using Hugo
  -->
-## 使用 Hugo 在本地运行网站
+## 使用 Hugo 在本地运行网站 {#running-the-site-locally-using-hugo}
 
 <!--
 See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions.
