@@ -76,7 +76,7 @@ If you install Kubernetes with kubeadm, certificates are stored in `/etc/kuberne
 -->
 ## 证书存放的位置
 
-如果你是通过 kubeadm 安装的 Kubernetes，所有证书都存放在 `/etc/kuberntes/pki` 目录下。本文所有相关的路径都是基于该路径的相对路径。
+如果你是通过 kubeadm 安装的 Kubernetes，所有证书都存放在 `/etc/kubernetes/pki` 目录下。本文所有相关的路径都是基于该路径的相对路径。
 
 <!--
 ## Configure certificates manually
