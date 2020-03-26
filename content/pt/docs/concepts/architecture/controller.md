@@ -31,8 +31,8 @@ têm um campo *spec* (especificação) que representa o *estado desejado*.
 Os controladores para esse recurso são responsáveis por trazer o *estado atual*
 mais perto do *estado desejado*.
 
-O controlador pode levar ele próprio a cabo a ação; é mais comum, no Kubernetes,
-um controlador enviar uma mensagem para o
+O controlador pode executar uma ação ele próprio, ou,
+o que é mais comum, enviar uma mensagem para o Kubernetes
 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} que tem
 efeitos colaterais úteis. Você vai ver exemplos disto abaixo.
 
