@@ -187,24 +187,26 @@ example, to run version {{< param "fullversion" >}}, you would run the following
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### Specifying the VM driver
-You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
+You can change the VM driver by adding the `--driver=<enter_driver_name>` flag to `minikube start`.
 For example the command would be.
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
  Minikube supports the following drivers:
  {{< note >}}
- See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
+ See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install
 plugins.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker (EXPERIMENTAL)
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
-* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 * none (Runs the Kubernetes components on the host and not in a virtual machine. You need to be running Linux and to have {{< glossary_tooltip term_id="docker" >}} installed.)
 
 {{< caution >}}
