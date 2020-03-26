@@ -11,7 +11,7 @@ tags:
 - fundamental
 - core-object
 ---
- 클러스터의 각 노드에서 실행되는 에이전트. Kubelet은 파드에서 컨테이너가 확실하게 동작하도록 관리한다.
+ 클러스터의 각 {{< glossary_tooltip text="노드" term_id="node" >}}에서 실행되는 에이전트. Kubelet은 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 {{< glossary_tooltip text="컨테이너" term_id="container" >}}가 확실하게 동작하도록 관리한다.
 
 <!--more--> 
 

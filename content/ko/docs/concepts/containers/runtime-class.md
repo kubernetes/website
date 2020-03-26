@@ -79,6 +79,9 @@ metadata:
 handler: myconfiguration  # 상응하는 CRI 설정의 이름임
 ```
 
+런타임 클래스 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)어이야 한다.
+
 {{< note >}}
 런타임 클래스 쓰기 작업(create/update/patch/delete)은
 클러스터 관리자로 제한할 것을 권장한다. 이것은 일반적으로 기본 설정이다.
