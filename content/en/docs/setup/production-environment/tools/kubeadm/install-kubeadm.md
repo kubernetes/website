@@ -68,38 +68,6 @@ Make sure that the `br_netfilter` module is loaded before this step. This can be
 For more details please see the [Network Plugin Requirements](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
 
 
-## Ensure iptables tooling does not use the nftables backend
-
-In Linux, nftables is available as a modern replacement for the kernel's iptables subsystem. The
-`iptables` tooling can act as a compatibility layer, behaving like iptables but actually configuring
-nftables. This nftables backend is not compatible with the current kubeadm packages: it causes duplicated
-firewall rules and breaks `kube-proxy`.
-
-If your system's `iptables` tooling uses the nftables backend, you will need to switch the `iptables`
-tooling to 'legacy' mode to avoid these problems. This is the case on at least Debian 10 (Buster),
-Ubuntu 19.04, Fedora 29 and newer releases of these distributions by default. RHEL 8 does not support
-switching to legacy mode, and is therefore incompatible with current kubeadm packages.
-
-{{< tabs name="iptables_legacy" >}}
-{{% tab name="Debian or Ubuntu" %}}
-```bash
-# ensure legacy binaries are installed
-sudo apt-get install -y iptables arptables ebtables
-
-# switch to legacy versions
-sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
-sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
-sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
-```
-{{% /tab %}}
-{{% tab name="Fedora" %}}
-```bash
-update-alternatives --set iptables /usr/sbin/iptables-legacy
-```
-{{% /tab %}}
-{{< /tabs >}}
-
 ## Check required ports
 
 ### Control-plane node(s)
