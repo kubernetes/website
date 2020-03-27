@@ -192,7 +192,7 @@ pod2             1/1     Running   0          13s
 ReplicaSetでは、`kind`フィールドの値は`ReplicaSet`です。
 Kubernetes1.9において、ReplicaSetは`apps/v1`というAPIバージョンが現在のバージョンで、デフォルトで有効です。`apps/v1beta2`というAPIバージョンは廃止されています。先ほど作成した`frontend.yaml`ファイルの最初の行を参考にしてください。
 
-また、ReplicaSetは[`.spec` セクション](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)も必須です。
+また、ReplicaSetは[`.spec` セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必須です。
 
 ### Pod テンプレート
 
