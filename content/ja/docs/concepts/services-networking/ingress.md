@@ -13,7 +13,7 @@ weight: 40
 
 ## 用語
 
-まずわかりやすくするために、このガイドでは次の用語を定義します。
+まずわかりやすくするために、このガイドでは次の用語を定義します。
 
 - ノード: Kubernetes内のワーカーマシンで、クラスターの一部です。
 
@@ -27,7 +27,7 @@ weight: 40
 
 ## Ingressとは何か
 
-Ingressはクラスター外からクラスター内{{< link text="Service" url="/docs/concepts/services-networking/service/" >}}へのHTTPとHTTPSのルートを公開します。トラフィックのルーティングはIngressリソース上で定義されるルールによって制御されます。
+Ingressはクラスター外からクラスター内{{< link text="Service" url="/ja/docs/concepts/services-networking/service/" >}}へのHTTPとHTTPSのルートを公開します。トラフィックのルーティングはIngressリソース上で定義されるルールによって制御されます。
 
 ```none
     internet
@@ -39,7 +39,7 @@ Ingressはクラスター外からクラスター内{{< link text="Service" url=
 
 IngressはServiceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように構成できます。[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)は通常はロードバランサーを使用してIngressの機能を実現しますが、エッジルーターや、追加のフロントエンドを構成してトラフィックの処理を支援することもできます。
 
-Ingressは任意のポートやプロトコルを公開しません。HTTPやHTTPS以外のServiceをインターネットに公開するときは、[Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)や[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)のServiceタイプを使用することが多いです。
+Ingressは任意のポートやプロトコルを公開しません。HTTPやHTTPS以外のServiceをインターネットに公開するときは、[Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)や[Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)のServiceタイプを使用することが多いです。
 
 ## Ingressを使用する上での前提条件
 
@@ -86,7 +86,7 @@ Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/
 
 * オプションで設定可能なホスト名。上記のリソースの例では、ホスト名が指定されていないと、そのルールは指定されたIPアドレスを経由する全てのインバウンドHTTPトラフィックに適用されます。ホスト名が指定されていると(例: foo.bar.com)、そのルールはホストに対して適用されます。
 * パスのリスト(例: `/testpath`)。各パスには`serviceName`と`servicePort`で定義されるバックエンドが関連づけられます。ロードバランサーがトラフィックを関連づけられたServiceに転送するために、外部からくるリクエストのホスト名とパスが条件と一致させる必要があります。
-* [Serviceドキュメント](/docs/concepts/services-networking/service/)に書かれているように、バックエンドはServiceとポート名の組み合わせとなります。Ingressで設定されたホスト名とパスのルールに一致するHTTP(とHTTPS)のリクエストは、リスト内のバックエンドに対して送信されます。
+* [Serviceドキュメント](/ja/docs/concepts/services-networking/service/)に書かれているように、バックエンドはServiceとポート名の組み合わせとなります。Ingressで設定されたホスト名とパスのルールに一致するHTTP(とHTTPS)のリクエストは、リスト内のバックエンドに対して送信されます。
 
 Ingressコントローラーでは、デフォルトのバックエンドが設定されていることがあります。これはSpec内で指定されているパスに一致しないようなリクエストのためのバックエンドです。
 
@@ -183,7 +183,7 @@ IngressコントローラーはService(`service1`、`service2`)が存在する�
 構築が完了すると、ADDRESSフィールドでロードバランサーのアドレスを確認できます。
 
 {{< note >}}
-ユーザーが使用している[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)に依存しますが、ユーザーはdefault-http-backend[Service](/docs/concepts/services-networking/service/)の作成が必要な場合があります。
+ユーザーが使用している[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)に依存しますが、ユーザーはdefault-http-backend[Service](/ja/docs/concepts/services-networking/service/)の作成が必要な場合があります。
 {{< /note >}}
 
 ### 名前ベースの仮想ホスティング
@@ -392,8 +392,8 @@ Ingressと関連するリソースの今後の開発については[SIG Network]
 Ingressリソースに直接関与しない複数の方法でServiceを公開できます。
 
 下記の2つの使用を検討してください。
-* [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* [Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)
+* [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)
 
 {{% /capture %}}
 

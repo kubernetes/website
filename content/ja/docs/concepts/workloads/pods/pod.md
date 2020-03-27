@@ -110,9 +110,9 @@ Podは、耐久性のある存在として扱われることを意図してい�
 リソースの不足やNodeのメンテナンスといった場合に、追い出されて停止することもあり得ます。
 
 一般に、ユーザーはPodを直接作成する必要はありません。
-ほとんどの場合、対象がシングルトンであったとしても、[Deployments](/docs/concepts/workloads/controllers/deployment/)などのコントローラーを使用するべきです。
+ほとんどの場合、対象がシングルトンであったとしても、[Deployments](/ja/docs/concepts/workloads/controllers/deployment/)などのコントローラーを使用するべきです。
 コントローラーは、レプリケーションとロールアウト管理だけでなく、クラスターレベルの自己修復機能も提供します。
-[StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)ようなコントローラーもステートフルなPodをサポートします。
+[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset.md)ようなコントローラーもステートフルなPodをサポートします。
 
 主要なユーザー向けのプリミティブとして集合APIを使用することは、[Borg](https://research.google.com/pubs/pub43438.html)、 [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)、[Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)、[Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)などのクラスタースケジューリングシステムで比較的一般的です。
 
@@ -151,7 +151,7 @@ PodはAPIから消え、クライアントからは見えなくなる
 
 デフォルトでは、すべての削除は30秒以内に正常に行われます。
 `kubectl delete` コマンドは、ユーザーがデフォルト値を上書きして独自の値を指定できるようにする `--grace-period=<seconds>` オプションをサポートします。
-値 `0` はPodを[強制的に削除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)します。
+値 `0` はPodを[強制的に削除](/ja/docs/concepts/workloads/pods/pod/#podの強制削除)します。
 kubectlのバージョン1.5以降では、強制削除を実行するために `--grace-period=0` と共に `--force` というフラグを追加で指定する必要があります。
 
 ### Podの強制削除

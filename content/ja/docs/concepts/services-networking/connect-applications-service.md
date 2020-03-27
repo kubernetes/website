@@ -105,7 +105,7 @@ my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 
 前述のように、ServiceはPodのグループによってサポートされています。
 これらのPodはエンドポイントを通じて公開されます。
-Serviceのセレクターは継続的に評価され、結果は`my-nginx`という名前のEndpointオブジェクトにPOSTされます。
+Serviceのセレクターは継続的に評価され、結果は`my-nginx`という名前のEndpointsオブジェクトにPOSTされます。
 Podが終了すると、エンドポイントから自動的に削除され、Serviceのセレクターに一致する新しいPodが自動的にエンドポイントに追加されます。
 エンドポイントを確認し、IPが最初のステップで作成されたPodと同じであることを確認します:
 
@@ -135,7 +135,7 @@ my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 
 クラスター内の任意のノードから、`<CLUSTER-IP>:<PORT>`でnginx Serviceにcurl接続できるようになりました。
 Service IPは完全に仮想的なもので、ホスト側のネットワークには接続できないことに注意してください。
-この仕組みに興味がある場合は、[サービスプロキシー](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)の詳細をお読みください。
+この仕組みに興味がある場合は、[サービスプロキシー](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)の詳細をお読みください。
 
 ## Serviceにアクセスする
 
