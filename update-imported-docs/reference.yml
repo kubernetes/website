@@ -6,10 +6,12 @@ repos:
   branch: master
   generate-command: |
     cd $GOPATH
-    git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
+    # set the branch, ex: v1.17.0 while K8S_RELEASE=1.17
+    # CAUTION: The script won't work if you set K8S_RELEASE=1.18 before 1.18 is formally released.
+    # The `v${K8S_RELEASE}.0` string must be a valid tag name from the kubernetes repo, which
+    # is only created after the formal release.
+    git clone --depth=1 --single-branch --branch v${K8S_RELEASE}.0 https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    # set the branch, ex: v1.17.0
-    git checkout v${K8S_RELEASE}.0
     make generated_files
     cp -L -R vendor $GOPATH/src
     rm -r vendor/github.com/spf13/cobra
