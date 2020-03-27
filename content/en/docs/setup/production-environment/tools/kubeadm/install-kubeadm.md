@@ -51,37 +51,22 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
-## Ensure iptables tooling does not use the nftables backend
+## Letting iptables see bridged traffic
 
-In Linux, nftables is available as a modern replacement for the kernel's iptables subsystem. The
-`iptables` tooling can act as a compatibility layer, behaving like iptables but actually configuring
-nftables. This nftables backend is not compatible with the current kubeadm packages: it causes duplicated
-firewall rules and breaks `kube-proxy`.
+As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
 
-If your system's `iptables` tooling uses the nftables backend, you will need to switch the `iptables`
-tooling to 'legacy' mode to avoid these problems. This is the case on at least Debian 10 (Buster),
-Ubuntu 19.04, Fedora 29 and newer releases of these distributions by default. RHEL 8 does not support
-switching to legacy mode, and is therefore incompatible with current kubeadm packages.
-
-{{< tabs name="iptables_legacy" >}}
-{{% tab name="Debian or Ubuntu" %}}
 ```bash
-# ensure legacy binaries are installed
-sudo apt-get install -y iptables arptables ebtables
+cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
+```
 
-# switch to legacy versions
-sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
-sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
-sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
-```
-{{% /tab %}}
-{{% tab name="Fedora" %}}
-```bash
-update-alternatives --set iptables /usr/sbin/iptables-legacy
-```
-{{% /tab %}}
-{{< /tabs >}}
+Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
+
+For more details please see the [Network Plugin Requirements](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
+
 
 ## Check required ports
 
@@ -230,17 +215,7 @@ systemctl enable --now kubelet
   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
     This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
     You have to do this until SELinux support is improved in the kubelet.
-  - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
-    `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
-
-    ```bash
-    cat <<EOF > /etc/sysctl.d/k8s.conf
-    net.bridge.bridge-nf-call-ip6tables = 1
-    net.bridge.bridge-nf-call-iptables = 1
-    EOF
-    sysctl --system
-    ```
-  - Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
+    
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 Install CNI plugins (required for most pod network):

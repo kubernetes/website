@@ -1,7 +1,4 @@
 ---
-reviewers:
-- michmike
-- patricklang
 title: Intro to Windows support in Kubernetes
 content_template: templates/concept
 weight: 65

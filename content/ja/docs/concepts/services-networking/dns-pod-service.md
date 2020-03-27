@@ -36,7 +36,7 @@ Kubernetesの`bar`というネームスペース内で`foo`という名前のSer
 ### SRVレコード
 
 SRVレコードは、通常のServiceもしくは[Headless
-Services](/docs/concepts/services-networking/service/#headless-services)の一部である名前付きポート向けに作成されます。それぞれの名前付きポートに対して、そのSRVレコードは`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`という形式となります。  
+Services](/ja/docs/concepts/services-networking/service/#headless-service)の一部である名前付きポート向けに作成されます。それぞれの名前付きポートに対して、そのSRVレコードは`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`という形式となります。  
 通常のServiceに対しては、このSRVレコードは`my-svc.my-namespace.svc.cluster.local`という形式のドメイン名とポート番号へ名前解決します。  
 Headless Serviceに対しては、このSRVレコードは複数の結果を返します。それはServiceの背後にある各Podの1つを返すのと、`auto-generated-name.my-svc.my-namespace.svc.cluster.local`という形式のPodのドメイン名とポート番号を含んだ結果を返します。
 

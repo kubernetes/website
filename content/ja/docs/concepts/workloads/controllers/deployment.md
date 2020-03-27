@@ -11,7 +11,7 @@ weight: 30
 
 {{% capture overview %}}
 
-_Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
+_Deployment_ コントローラーは[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
 
 ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deploymentコントローラーは指定された頻度で現在の状態を理想的な状態に変更させます。ユーザーはDeploymentを定義して、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
@@ -28,7 +28,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 下記の項目はDeploymentの典型的なユースケースです。
 
-* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
+* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
 * Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
@@ -52,7 +52,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
     {{< /note >}}
 * `template`フィールドは、下記のサブフィールドを持ちます。:
   * Podは`labels`フィールドによって指定された`app: nginx`というラベルがつけられる
-  * PodTemplateの仕様もしくは、`.template.spec`フィールドは、このPodは`nginx`という名前のコンテナーを1つ稼働させ、それは`nginx`というさせ、[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.7.9を使うことを示します
+  * PodTemplateの仕様もしくは、`.template.spec`フィールドは、このPodは`nginx`という名前のコンテナーを1つ稼働させ、それは`nginx`というさせ、[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2を使うことを示します
   * 1つのコンテナを作成し、`name`フィールドを使って`nginx`という名前をつけます
 
   上記のDeploymentを作成するために、以下に示すステップにしたがってください。
@@ -136,10 +136,10 @@ Deploymentのロールアウトは、DeploymentのPodテンプレート(この�
 
 Deploymentを更新するには下記のステップに従ってください。
 
-1. nginxのPodで、`nginx:1.7.9`イメージの代わりに`nginx:1.9.1`を使うように更新します。
+1. nginxのPodで、`nginx:1.14.2`イメージの代わりに`nginx:1.16.1`を使うように更新します。
 
     ```shell
-    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     実行結果は下記のとおりです。
@@ -147,7 +147,7 @@ Deploymentを更新するには下記のステップに従ってください。
     deployment.apps/nginx-deployment image updated
     ```
 
-    また、Deploymentを`編集`して、`.spec.template.spec.containers[0].image`を`nginx:1.7.9`から`nginx:1.9.1`に変更することができます。
+    また、Deploymentを`編集`して、`.spec.template.spec.containers[0].image`を`nginx:1.14.2`から`nginx:1.16.1`に変更することができます。
 
     ```shell
     kubectl edit deployment.v1.apps/nginx-deployment
@@ -237,7 +237,7 @@ Deploymentを更新するには下記のステップに従ってください。
     Labels:  app=nginx
      Containers:
       nginx:
-        Image:        nginx:1.9.1
+        Image:        nginx:1.16.1
         Port:         80/TCP
         Environment:  <none>
         Mounts:       <none>
@@ -268,7 +268,7 @@ Deploymentコントローラーにより、新しいDeploymentが観測される
 
 Deploymentのロールアウトが進行中にDeploymentを更新すると、Deploymentは更新する毎に新しいReplicaSetを作成してスケールアップさせ、以前にスケールアップしたReplicaSetのロールオーバーを行います。Deploymentは更新前のReplicaSetを古いReplicaSetのリストに追加し、スケールダウンを開始します。
 
-例えば、5つのレプリカを持つ`nginx:1.7.9`のDeploymentを作成し、`nginx:1.7.9`の3つのレプリカが作成されているときに5つのレプリカを持つ`nginx:1.9.1`に更新します。このケースではDeploymentは作成済みの`nginx:1.7.9`の3つのPodをすぐに削除し、`nginx:1.9.1`のPodの作成を開始します。`nginx:1.7.9`の5つのレプリカを全て作成するのを待つことはありません。
+例えば、5つのレプリカを持つ`nginx:1.14.2`のDeploymentを作成し、`nginx:1.14.2`の3つのレプリカが作成されているときに5つのレプリカを持つ`nginx:1.16.1`に更新します。このケースではDeploymentは作成済みの`nginx:1.14.2`の3つのPodをすぐに削除し、`nginx:1.16.1`のPodの作成を開始します。`nginx:1.14.2`の5つのレプリカを全て作成するのを待つことはありません。
 
 ### ラベルセレクターの更新
 
@@ -290,10 +290,10 @@ Deploymentのロールバックを行いたい場合があります。例えば�
 Deploymentのリビジョンは、Deploymentのロールアウトがトリガーされた時に作成されます。これはDeploymentのPodテンプレート(`.spec.template`)が変更されたときのみ新しいリビジョンが作成されることを意味します。Deploymentのスケーリングなど、他の種類の更新においてはDeploymentのリビジョンは作成されません。これは手動もしくはオートスケーリングを同時に行うことができるようにするためです。これは過去のリビジョンにロールバックするとき、DeploymentのPodテンプレートの箇所のみロールバックされることを意味します。
 {{< /note >}}
 
-* `nginx:1.9.1`の代わりに`nginx:1.91`というイメージに更新して、Deploymentの更新中にタイプミスをしたと仮定します。
+* `nginx:1.16.1`の代わりに`nginx:1.161`というイメージに更新して、Deploymentの更新中にタイプミスをしたと仮定します。
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
     実行結果は下記のとおりです。
@@ -367,7 +367,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
       Labels:  app=nginx
       Containers:
        nginx:
-        Image:        nginx:1.91
+        Image:        nginx:1.161
         Port:         80/TCP
         Host Port:    0/TCP
         Environment:  <none>
@@ -408,13 +408,13 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
     1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
     `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。下記の手段により`CHANGE-CAUSE`メッセージを指定できます。
 
-    * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`の実行によりアノテーションを追加する。
+    * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加する。
     * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加する。
     * リソースのマニフェストを手動で編集する。
 
@@ -428,10 +428,10 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
       Containers:
        nginx:
-        Image:      nginx:1.9.1
+        Image:      nginx:1.16.1
         Port:       80/TCP
          QoS Tier:
             cpu:      BestEffort
@@ -488,7 +488,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
+                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
@@ -498,7 +498,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
       Labels:  app=nginx
       Containers:
        nginx:
-        Image:        nginx:1.9.1
+        Image:        nginx:1.16.1
         Port:         80/TCP
         Host Port:    0/TCP
         Environment:  <none>
@@ -647,7 +647,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
 
 * 次にDeploymentのイメージを更新します。
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     実行結果は下記のとおりです。
@@ -915,7 +915,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 `.spec.template`と`.spec.selector`は`.spec`における必須のフィールドです。
 
-`.spec.template`は[Podテンプレート](/docs/concepts/workloads/pods/pod-overview/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/ja/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 

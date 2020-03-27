@@ -988,6 +988,39 @@ spec:
       type: Directory
 ```
 
+{{< caution >}}
+<!-- It should be noted that the `FileOrCreate` mode does not create the parent directory of the file. If the parent directory of the mounted file does not exist, the pod fails to start. To ensure that this mode works, you can try to mount directories and files separately, as shown below. -->
+应当注意,`FileOrCreate` 类型不会负责创建文件的父目录。如果挂载挂载文件的父目录不存在，pod 启动会失败。为了确保这种 `type` 能够工作，可以尝试把文件和它对应的目录分开挂载，如下所示：
+{{< /caution >}}
+
+#### FileOrCreate pod 示例
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-webserver
+spec:
+  containers:
+  - name: test-webserver
+    image: k8s.gcr.io/test-webserver:latest
+    volumeMounts:
+    - mountPath: /var/local/aaa
+      name: mydir
+    - mountPath: /var/local/aaa/1.txt
+      name: myfile
+  volumes:
+  - name: mydir
+    hostPath:
+      # 确保文件所在目录成功创建。
+      path: /var/local/aaa
+      type: DirectoryOrCreate
+  - name: myfile
+    hostPath:
+      path: /var/local/aaa/1.txt
+      type: FileOrCreate
+```
+
 ### iscsi {#iscsi}
 
 <!--

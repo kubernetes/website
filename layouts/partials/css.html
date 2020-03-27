@@ -22,7 +22,7 @@
 {{- if .Params.deprecated }}
 <link rel="stylesheet" href="{{ "css/deprecation-warning.css" | relURL }}">
 {{- end }}
-{{- if eq .Params.class "gridPage" }}
+{{- if or (eq .Params.class "gridPage") (eq .Params.class "gridPage gridPageHome") }}
 <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
 {{- end }}
 {{- if eq .Params.class "training" }}

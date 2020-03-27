@@ -109,7 +109,7 @@ track=stable
 
 - **이미지 풀(Pull) 시크릿**: 특정 도커 컨테이너 이미지가 프라이빗한 경우, [풀(Pull) 시크릿](/docs/concepts/configuration/secret/) 증명을 요구한다.
 
-  대시보드는 가능한 모든 시크릿을 드롭다운 리스트로 제공하며, 새로운 시크릿을 생성 할 수 있도록 한다. 시크릿 이름은 예를 들어 `new.image-pull.secret` 과 같이 DNS 도메인 이름 구문으로 따르기로 한다. 시크릿 내용은 base64 인코딩 방식이며, [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 파일로 정의된다. 시크릿 이름은 최대 253 문자를 포함할 수 있다.
+  대시보드는 가능한 모든 시크릿을 드롭다운 리스트로 제공하며, 새로운 시크릿을 생성 할 수 있도록 한다. 시크릿 이름은 예를 들어 `new.image-pull.secret` 과 같이 DNS 도메인 이름 구문으로 따르기로 한다. 시크릿 내용은 base64 인코딩 방식이며, [`.dockercfg`](/ko/docs/concepts/containers/images/#파드에-imagepullsecrets-명시) 파일로 정의된다. 시크릿 이름은 최대 253 문자를 포함할 수 있다.
 
   이미지 풀(Pull) 시크릿의 생성이 성공한 경우, 기본으로 선택된다. 만약 생성에 실패하면, 시크릿은 허용되지 않는다.
 

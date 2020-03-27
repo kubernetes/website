@@ -32,7 +32,7 @@ weight: 10
 
 ## nginx deploymentの作成と探検
 
-Kubernetes Deploymentオブジェクトを作成することでアプリケーションを実行できます。また、YAMLファイルでDeploymentを記述できます。例えば、このYAMLファイルはnginx:1.7.9 Dockerイメージを実行するデプロイメントを記述しています:
+Kubernetes Deploymentオブジェクトを作成することでアプリケーションを実行できます。また、YAMLファイルでDeploymentを記述できます。例えば、このYAMLファイルはnginx:1.14.2 Dockerイメージを実行するデプロイメントを記述しています:
 
 {{< codenew file="application/deployment.yaml" >}}
 
@@ -62,7 +62,7 @@ Kubernetes Deploymentオブジェクトを作成することでアプリケー�
           Labels:       app=nginx
           Containers:
            nginx:
-            Image:              nginx:1.7.9
+            Image:              nginx:1.14.2
             Port:               80/TCP
             Environment:        <none>
             Mounts:             <none>
@@ -143,7 +143,7 @@ Deploymentを名前を指定して削除します:
 
 {{% capture whatsnext %}}
 
-* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)の詳細
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)の詳細
 
 {{% /capture %}}
 
