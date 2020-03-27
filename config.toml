@@ -28,9 +28,9 @@ enableGitInfo = true
 # Italian is disabled until it meets minimum standards for quality.
 disableLanguages = ["hi", "it", "no"]
 
-[blackfriday]
-hrefTargetBlank = true
-fractions = false
+#[blackfriday]
+#hrefTargetBlank = true
+#fractions = false
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
