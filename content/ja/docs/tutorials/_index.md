@@ -21,7 +21,7 @@ content_template: templates/concept
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Hello Minikube](/docs/tutorials/hello-minikube/)
+* [Hello Minikube](/ja/docs/tutorials/hello-minikube/)
 
 ## 設定
 

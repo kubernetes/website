@@ -24,7 +24,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 
 ## インストール
 
-[Minikubeのインストール](/docs/tasks/tools/install-minikube/) を参照
+[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/) を参照
 
 ## クイックスタート
 

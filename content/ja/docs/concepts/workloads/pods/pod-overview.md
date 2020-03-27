@@ -1,6 +1,4 @@
 ---
-reviewers:
-- erictune
 title: Podについての概観(Pod Overview)
 content_template: templates/concept
 weight: 10
@@ -80,16 +78,16 @@ Podは、Podそれ自体によって自己修復しません。もし、稼働�
 
 1つまたはそれ以上のPodを含むコントローラーの例は下記の通りです。
 
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)
+* [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)
 
 通常は、コントローラーはユーザーが作成したPodテンプレートを使用して、担当するPodを作成します。
 
 ## Podテンプレート
 
 Podテンプレートは、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)や、
-[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)のような他のオブジェクト内で含まれるPodの仕様となります。
+[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)のような他のオブジェクト内で含まれるPodの仕様となります。
 コントローラーは実際のPodを作成するためにPodテンプレートを使用します。  
 下記のサンプルは、メッセージを表示する単一のコンテナを含んだ、シンプルなPodのマニフェストとなります。
 

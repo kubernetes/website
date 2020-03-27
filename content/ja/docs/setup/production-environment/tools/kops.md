@@ -31,7 +31,7 @@ a building block.  kops builds on the kubeadm work.
 
 #### 要件
 
-You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
+You must have [kubectl](/ja/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
 
 #### インストール
 
