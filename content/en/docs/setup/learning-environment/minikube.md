@@ -332,8 +332,8 @@ Starting the cluster again will restore it to its previous state.
 The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the Minikube Virtual Machine. No data or state is preserved.
 
-### Upgrading minikube
-See [upgrade minikube](https://minikube.sigs.k8s.io/docs/start/macos/)
+### Upgrading Minikube
+If you are using macOS, see [Upgrading Minikube](https://minikube.sigs.k8s.io/docs/start/macos/#upgrading-minikube) to upgrade your existing minikube installation.
 
 ## Interacting with Your Cluster
 
