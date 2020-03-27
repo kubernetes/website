@@ -36,7 +36,7 @@ Kubernetesが多くの機能を提供すると言いつつも、新しい機能�
 
 [ラベル](/docs/concepts/overview/working-with-objects/labels/)を使用すると、ユーザーは自分のリソースを整理できます。[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を使用すると、ユーザーは自分のワークフローを容易にし、管理ツールが状態をチェックするための簡単な方法を提供するためにカスタムデータを使ってリソースを装飾できるようになります。
 
-さらに、[Kubernetesコントロールプレーン](/docs/concepts/overview/components/)は、開発者やユーザーが使える[API](/docs/reference/using-api/api-overview/)の上で成り立っています。ユーザーは[スケジューラー](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md)などの独自のコントローラーを、汎用の[コマンドラインツール](/docs/user-guide/kubectl-overview/)で使える[独自のAPI](/docs/concepts/api-extension/custom-resources/)を持たせて作成することができます。
+さらに、[Kubernetesコントロールプレーン](/ja/docs/concepts/overview/components/)は、開発者やユーザーが使える[API](/docs/reference/using-api/api-overview/)の上で成り立っています。ユーザーは[スケジューラー](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md)などの独自のコントローラーを、汎用の[コマンドラインツール](/docs/user-guide/kubectl-overview/)で使える[独自のAPI](/docs/concepts/api-extension/custom-resources/)を持たせて作成することができます。
 
 この[デザイン](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)によって、他の多くのシステムがKubernetes上で構築できるようになりました。
 
@@ -98,7 +98,7 @@ Kubernetesは...
 
 {{% capture whatsnext %}}
 *   [はじめる](/docs/setup/)準備はできましたか？
-*   さらなる詳細については、[Kubernetesのドキュメント](/docs/home/)を御覧ください。
+*   さらなる詳細については、[Kubernetesのドキュメント](/ja/docs/home/)を御覧ください。
 {{% /capture %}}
 
 

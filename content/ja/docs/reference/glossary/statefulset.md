@@ -2,7 +2,7 @@
 title: StatefulSet
 id: statefulset
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/statefulset/
+full_link: /ja/docs/concepts/workloads/controllers/statefulset/
 short_description: >
   Manages the deployment and scaling of a set of Pods, *and provides guarantees about the ordering and uniqueness* of these Pods.
 
