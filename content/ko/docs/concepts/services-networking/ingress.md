@@ -71,6 +71,7 @@ spec:
   - http:
       paths:
       - path: /testpath
+        pathType: Prefix
         backend:
           serviceName: test
           servicePort: 80
@@ -114,6 +115,84 @@ spec:
 
 만약 인그레스 오브젝트의 HTTP 요청과 일치하는 호스트 또는 경로가 없으면, 트래픽은
 기본 백엔드로 라우팅 된다.
+
+### 경로(Path) 유형
+
+인그레스의 각 경로에는 해당하는 경로 유형이 있다. 지원되는 세 가지의 경로
+유형이 있다.
+
+* _`ImplementationSpecific`_ (기본): 이 경로 유형의 일치 여부는 IngressClass에 따라
+  달라진다. 이를 구현할 때 별도 pathType으로 처리하거나, `Prefix` 또는 `Exact`
+  경로 유형과 같이 동일하게 처리할 수 있다.
+
+* _`Exact`_: URL 경로의 대소문자를 엄격하게 일치시킨다.
+
+* _`Prefix`_: URL 경로의 접두사를 `/` 를 기준으로 분리한 값과 일치시킨다.
+  일치는 대소문자를 구분하고,
+  요소별로 경로 요소에 대해 수행한다.
+  모든 _p_ 가 요청 경로의 요소별 접두사가 _p_ 인 경우
+  요청은 _p_ 경로에 일치한다.
+    {{< note >}}
+    경로의 마지막 요소가 요청 경로에 있는 마지막 요소의
+    하위 문자열인 경우에는 일치하지 않는다(예시: 
+    `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
+    {{< /note >}}
+
+#### 다중 일치
+경우에 따라 인그레스의 여러 경로가 요청과 일치할 수 있다.
+이 경우 가장 긴 일치하는 경로가 우선하게 된다. 두 개의 경로가
+여전히 동일하게 일치하는 경우 접두사(prefix) 경로 유형보다
+정확한(exact) 경로 유형을 가진 경로가 사용 된다.
+
+## 인그레스 클래스
+
+인그레스는 서로 다른 컨트롤러에 의해 구현될 수 있으며, 종종 다른 구성으로
+구현될 수 있다. 각 인그레스에서는 클래스를 구현해야하는 컨트롤러
+이름을 포함하여 추가 구성이 포함된 IngressClass
+리소스에 대한 참조 클래스를 지정해야 한다.
+
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    apiGroup: k8s.example.com/v1alpha
+    kind: IngressParameters
+    name: external-lb
+```
+
+IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클래스에 대한
+추가 구성을 참조하는데 사용할 수 있다.
+
+### 사용중단(Deprecated) 어노테이션
+
+쿠버네티스 1.18에 IngressClass 리소스 및 `ingressClassName` 필드가 추가되기
+전에 인그레스 클래스는 인그레스에서
+`kubernetes.io/ingress.class` 어노테이션으로 지정되었다. 이 어노테이션은
+공식적으로 정의된 것은 아니지만, 인그레스 컨트롤러에서 널리 지원되었었다.
+
+인그레스의 최신 `ingressClassName` 필드는 해당 어노테이션을
+대체하지만, 직접적으로 해당하는 것은 아니다. 어노테이션은 일반적으로
+인그레스를 구현해야 하는 인그레스 컨트롤러의 이름을 참조하는 데 사용되었지만,
+이 필드는 인그레스 컨트롤러의 이름을 포함하는 추가 인그레스 구성이
+포함된 인그레스 클래스 리소스에 대한 참조이다.
+
+### 기본 인그레스 클래스
+
+특정 IngressClass를 클러스터의 기본 값으로 표시할 수 있다. IngressClass
+리소스에서 `ingressclass.kubernetes.io/is-default-class` 를 `true` 로
+설정하면 `ingressClassName` 필드가 지정되지 않은
+새 인그레스에게 기본 IngressClass가 할당된다.
+
+{{< caution >}}
+클러스터의 기본값으로 표시된 IngressClass가 두 개 이상 있는 경우
+어드미션 컨트롤러에서 `ingressClassName` 이 지정되지 않은
+새 인그레스 오브젝트를 생성할 수 없다. 클러스터에서 최대 1개의 IngressClass가
+기본값으로 표시하도록 해서 이 문제를 해결할 수 있다.
+{{< /caution >}}
 
 ## 인그레스 유형들
 

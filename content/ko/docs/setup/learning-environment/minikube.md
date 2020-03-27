@@ -183,23 +183,25 @@ Minikube는 또한 "minikube" 컨텍스트를 생성하고 이를 kubectl의 기
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### VM 드라이버 지정하기
-`minikube start` 코멘드에 `--vm-driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
+`minikube start` 코멘드에 `--driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
 코멘드를 예를 들면 다음과 같다.
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
  Minikube는 다음의 드라이버를 지원한다.
  {{< note >}}
- 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 참조한다.
+ 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://minikube.sigs.k8s.io/docs/reference/drivers/)를 참조한다.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker (EXPERIMENTAL)
+* kvm2 ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 다음 IP는 동적이며 변경할 수 있다. `minikube ip`로 알아낼 수 있다.
-* vmware ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* vmware ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 * none (쿠버네티스 컴포넌트를 가상 머신이 아닌 호스트 상에서 구동한다. 리눅스를 실행중이어야 하고, {{< glossary_tooltip term_id="docker" >}}가 설치되어야 한다.)
   
 {{< caution >}}

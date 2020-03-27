@@ -6,7 +6,6 @@ weight: 30
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 이 문서에서는 쿠버네티스의 기존 CSI 볼륨 복제의 개념을 설명한다.  [볼륨]
 (/ko/docs/concepts/storage/volumes)을 숙지하는 것을 추천한다.
 
@@ -32,6 +31,7 @@ weight: 30
 * 복제는 동일한 스토리지 클래스 내에서만 지원된다.
     - 대상 볼륨은 소스와 동일한 스토리지 클래스여야 한다.
     - 기본 스토리지 클래스를 사용할 수 있으며, 사양에 storageClassName을 생략할 수 있다.
+* 동일한 VolumeMode 설정을 사용하는 두 볼륨에만 복제를 수행할 수 있다(블록 모드 볼륨을 요청하는 경우에는 반드시 소스도 블록 모드여야 한다).
 
 
 ## 프로비저닝

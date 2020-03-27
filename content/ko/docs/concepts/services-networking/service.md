@@ -202,6 +202,17 @@ API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 
 엔드포인트슬라이스는 [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)에서
 자세하게 설명된 추가적인 속성 및 기능을 제공한다.
 
+### 애플리케이션 프로토콜
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+AppProtocol 필드는 각 서비스 포트에 사용될 애플리케이션 프로토콜을
+지정하는 방법을 제공한다.
+
+알파 기능으로 이 필드는 기본적으로 활성화되어 있지 않다. 이 필드를 사용하려면,
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)에서
+`ServiceAppProtocol` 을 활성화해야 한다.
+
 ## 가상 IP와 서비스 프록시
 
 쿠버네티스 클러스터의 모든 노드는 `kube-proxy`를 실행한다. `kube-proxy`는

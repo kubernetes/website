@@ -36,13 +36,15 @@ content_template: templates/concept
     * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectl에서 [JSONPath 표현](http://goessner.net/articles/JsonPath/)을 사용하기 위한 문법 가이드.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - 안정적인 쿠버네티스 클러스터를 쉽게 프로비전하기 위한 CLI 도구.
 
-## 설정 레퍼런스
+## 컴포넌트 레퍼런스
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - 각 노드에서 구동되는 주요한 *노드 에이전트*. kubelet은 PodSpecs 집합을 가지며 기술된 컨테이너가 구동되고 있는지, 정상 작동하는지를 보장한다.
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) - 파드, 서비스, 레플리케이션 컨트롤러와 같은 API 오브젝트에 대한 검증과 구성을 수행하는 REST API.
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - 쿠버네티스에 탑재된 핵심 제어 루프를 포함하는 데몬.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - 간단한 TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로빈 TCP/UDP 포워딩을 할 수 있다.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 가용성, 성능 및 용량을 관리하는 스케줄러.
+  * [kube-scheduler 정책](/docs/reference/scheduling/policies)
+  * [kube-scheduler 프로파일](/docs/reference/scheduling/profiles)
 
 ## 설계 문서
 
