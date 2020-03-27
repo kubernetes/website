@@ -191,10 +191,13 @@ Additionally, the CNI can be run alongside [Calico for network policy enforcemen
 
 Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
 -->
-### Kubernetes 的 Azure CNI
+### Kubernetes 的 Azure CNI 
 
-[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) 是一个[开源插件](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)，
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) 是一个[开源插件](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)，将 Kubernetes Pods 和 Azure 虚拟网络（也称为VNet）集成在一起，可提供与VN相当的网络性能。Pod 可以通过 Express Route 或者 站点到站点的 VPN 来连接到对等的 VNet ，也可以从这些网络来直接访问 Pod 。 Pod 可以访问受服务端点或者受保护链接的 Azure 服务，比如存储和 SQL 。你可以使用 VNet 安全策略和路由来筛选 Pod 流量。该插件通过利用在 Kubernetes 节点的网络接口上预分配的辅助 IP 池将 VNet 分配给 Pod 。
 
+Azure CNI 可以在 [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni) 中获得。
+
+<!--
 ### Big Cloud Fabric from Big Switch Networks
 
 [Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) is a cloud native networking architecture, designed to run Kubernetes in private cloud/on-premises environments. Using unified physical & virtual SDN, Big Cloud Fabric tackles inherent container networking problems such as load balancing, visibility, troubleshooting, security policies & container traffic monitoring.
@@ -202,7 +205,16 @@ Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https:/
 With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, container orchestration systems such as Kubernetes, RedHat OpenShift, Mesosphere DC/OS & Docker Swarm will be natively integrated alongside with VM orchestration systems such as VMware, OpenStack & Nutanix. Customers will be able to securely inter-connect any number of these clusters and enable inter-tenant communication between them if needed.
 
 BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on-premises deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
+-->
+### Big Switch Networks 的 Big Cloud Fabric
 
+[Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) 是一个基于云原生的网络架构，旨在在私有云或者本地环境中运行 Kubernetes 。它使用统一的物理和虚拟 SDN ， Big Cloud Fabric 解决了固有的容器网络问题，比如负载均衡，可见性，鼓掌排除，安全策略和容器流量监控。
+
+在 Big Cloud Fabric 的虚拟 Pod 多租户架构的帮助下，容器编排系统（比如 Kubernetes, RedHat OpenShift, Mesosphere DC/OS 和 Docker Swarm ）将于VM本地编排系统（比如 VMware, OpenStack 和 Nutanix）进行本地集成。客户将能够安全地互联任意数量的这些集群，并且在需要时启用他们之间的租户间通信。
+
+在最新的 [Magic Quadrant](http://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html) 上，BCF 被 Gartner 认为是非常有远见的。而 BCF 的一条关于 Kubernetes 的本地部署（其中包括 Kubernetes， DC/OS 和在不同地理区域的多个 DC 上运行的 VMware ）也在[这里](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)被引用。
+
+<!--
 ### Cilium
 
 [Cilium](https://github.com/cilium/cilium) is open source software for
@@ -210,13 +222,25 @@ providing and transparently securing network connectivity between application
 containers. Cilium is L7/HTTP aware and can enforce network policies on L3-L7
 using an identity based security model that is decoupled from network
 addressing, and it can be used in combination with other CNI plugins.
+-->
+### Cilium
 
+[Cilium](https://github.com/cilium/cilium) 是一个开源软件，用于提供并透明保护应用容器间的网络连接。 Cilium 支持 L7/HTTP ，可以在 L3-L7 上通过使用与网络分离的基于身份的安全模型寻址来实施网络策略，并且可以与其他 CNI 插件结合使用。
+
+<!--
 ### CNI-Genie from Huawei
 
 [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
+-->
+### 华为的 CNI-Genie
 
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) 是一个 CNI 插件，可以让 Kubernetes 在运行时允许不同的 [Kubernetes 的网络模型](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)的[实现同时被访问](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。这包括以 [CNI 插件](https://github.com/containernetworking/cni#3rd-party-plugins)运行的任何实现，比如 [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/) 。
+
+CNI-Genie 还支持[将多个 IP 地址分配给 Pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multi-ip-addresses-per-pod) ，每个都来自不同的 CNI 插件。
+
+<!--
 ### cni-ipvlan-vpc-k8s
 [cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) contains a set
 of CNI and IPAM plugins to provide a simple, host-local, low latency, high
@@ -232,6 +256,12 @@ networks, BGP, disabling source/destination checks, or adjusting VPC route
 tables to provide per-instance subnets to each host (which is limited to 50-100
 entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the
 network complexity required to deploy Kubernetes at scale within AWS.
+-->
+### cni-ipvlan-vpc-k8s
+
+[cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) 包含了一组 CNI 和 IPAM 插件来提供一个简单的，本地主机，低延迟，高吞吐量，以及通过使用 Amazon 弹性网络接口（ENI）并使用 Linux 内核的 IPv2 驱动程序以 L2 模式将 AWS 管理的 IP 绑定到 Pod 中，在 Amazon Virtual Private Cloud（VPC）环境中为 Kubernetes 兼容的网络堆栈。
+
+这些插件旨在直接在 VPC 中进行配置和部署， Kubelets 先启动，然后根据需要进行自我配置和扩展它们的 IP 使用率，而无需经常建议复杂的管理覆盖网络， BGP ，禁用源/目标检查，或调整VPC路由表以向每个主机提供每个实例子网的复杂性（每个 VPC 限制为50-100个条目）。简而言之， cni-ipvlan-vpc-k8s 大大降低了在 AWS 中大规模部署 Kubernetes 所需的网络复杂性。
 
 ### Contiv
 
