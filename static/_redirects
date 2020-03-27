@@ -6,16 +6,17 @@
 
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
-/docs/     /docs/home/ 301
-/de/docs/     /de/docs/home/ 301
-/es/docs/     /es/docs/home/ 301
-/fr/docs/     /fr/docs/home/ 301
-/id/docs/     /id/docs/home/ 301
-/ja/docs/     /ja/docs/home/ 301
-/ko/docs/     /ko/docs/home/ 301
-/pt/docs/     /pt/docs/home/ 301
+/docs/     /docs/home/ 301!
+/de/docs/     /de/docs/home/ 301!
+/es/docs/     /es/docs/home/ 301!
+/fr/docs/     /fr/docs/home/ 301!
+/id/docs/     /id/docs/home/ 301!
+/ja/docs/     /ja/docs/home/ 301!
+/ko/docs/     /ko/docs/home/ 301!
+/pt/docs/     /pt/docs/home/ 301!
+/zh/docs/     /zh/docs/home/ 301!
 
-/blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/27/kubernetes-1.10-stabilizing-storage-security-networking/     301
+/blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301
 
 /docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
@@ -240,9 +241,6 @@
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
-/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
-/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8/ 301
-/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/ 301
 /docs/tasks/administer-cluster/kube-router-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/ 301
 /docs/tasks/administer-cluster/memory-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/ 301
@@ -253,10 +251,9 @@
 /docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
 /docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
-/docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
+/docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301!
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/administer-cluster/static-pod/ /docs/tasks/configure-pod-container/static-pod/ 301
-/docs/tasks/administer-cluster/upgrade-1-6/      /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 /docs/tasks/administer-cluster/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/ 301
 /docs/tasks/configure-pod-container/apply-resource-quota-limit/     /docs/tasks/administer-cluster/apply-resource-quota-limit/ 301
 /docs/tasks/configure-pod-container/assign-cpu-ram-container/     /docs/tasks/configure-pod-container/assign-memory-resource/ 301
@@ -315,7 +312,7 @@
 /docs/tutorials/kubernetes-basics/scale-intro/     /docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /docs/tutorials/kubernetes-basics/update-interactive/    /docs/tutorials/kubernetes-basics/update/update-interactive/ 301
 /docs/tutorials/kubernetes-basics/update-intro/     /docs/tutorials/kubernetes-basics/update/update-intro/ 301
-/docs/tutorials/example-tutorial-template.md -> /example-templates/example-tutorial-template.md 301
+#/docs/tutorials/example-tutorial-template.md -> /example-templates/example-tutorial-template.md 301
 /docs/tutorials/object-management-kubectl/declarative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-command/      /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
@@ -464,9 +461,6 @@
 /serviceaccount/token/     /docs/tasks/configure-pod-container/configure-service-account/ 301
 /swagger-spec/*     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
 /third_party/swagger-ui/*     /docs/reference/ 301
-/v1.1/docs/admin/networking.html     /docs/concepts/cluster-administration/networking/     301
-
-https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:splat 301
 
 /docs/admin/cloud-controller-manager/     /docs/reference/generated/cloud-controller-manager/ 301
 /docs/admin/kube-apiserver/     /docs/reference/generated/kube-apiserver/ 301
