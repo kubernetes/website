@@ -91,7 +91,7 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 | TCP       | Inbound    | 10250       | Kubelet API             | Self, Control plane     |
 | TCP       | Inbound    | 30000-32767 | NodePort Services**     | All                     |
 
-** [NodePort Services](/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
+** [NodePort Services](/ja/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
 
 \*の項目は書き換え可能です。そのため、あなたが指定したカスタムポートも開いていることを確認する必要があります。
 
@@ -138,7 +138,7 @@ Linux以外のノードでは、デフォルトで使用されるコンテナラ
 
 kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**ため、kubeadmにインストールするKubernetesコントロールプレーンのバージョンと一致させる必要があります。そうしないと、予期しないバグのある動作につながる可能性のあるバージョン差異(version skew)が発生するリスクがあります。ただし、kubeletとコントロールプレーン間のマイナーバージョン差異(minor version skew)は_1つ_サポートされていますが、kubeletバージョンがAPIサーバーのバージョンを超えることはできません。たとえば、1.7.0を実行するkubeletは1.8.0 APIサーバーと完全に互換性がありますが、その逆はできません。
 
-`kubectl`のインストールに関する詳細情報は、[kubectlのインストールおよびセットアップ](/docs/tasks/tools/install-kubectl/)を参照してください。
+`kubectl`のインストールに関する詳細情報は、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)を参照してください。
 
 {{< warning >}}
 これらの手順はシステムアップグレードによるすべてのKubernetesパッケージの更新を除きます。これはkubeadmとKubernetesが[アップグレードにおける特別な注意](docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を必要とするからです。

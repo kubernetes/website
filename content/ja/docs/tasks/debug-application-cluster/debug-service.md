@@ -329,7 +329,7 @@ kubectl get service hostnames -o json
 * `targetPort`を名前で定義しようとしている場合、`Pod`は同じ名前でポートを公開していますか？
 * ポートの`protocol`は`Pod`のものと同じですか？
 
-## ServiceにEndpointがあるか？
+## ServiceにEndpointsがあるか？
 
 ここまで来たということは、`Service`は存在し、DNSによって名前解決できることが確認できているでしょう。
 ここでは、実行した`Pod`が`Service`によって実際に選択されていることを確認しましょう。
@@ -347,7 +347,7 @@ hostnames-yp2kp   1/1       Running   0          1h
 "AGE"列は、これらの`Pod`が約1時間前のものであることを示しており、それらが正常に実行され、クラッシュしていないことを意味します。
 
 `-l app=hostnames`引数はラベルセレクターで、ちょうど私たちの`Service`に定義されているものと同じです。
-Kubernetesシステム内には、すべての`Service`のセレクターを評価し、結果を`Endpoint`オブジェクトに保存するコントロールループがあります。
+Kubernetesシステム内には、すべての`Service`のセレクターを評価し、結果を`Endpoints`オブジェクトに保存するコントロールループがあります。
 
 ```shell
 kubectl get endpoints hostnames
@@ -355,7 +355,7 @@ NAME        ENDPOINTS
 hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
 
-これにより、Endpointコントローラーが`Service`の正しい`Pod`を見つけていることを確認できます。
+これにより、Endpointsコントローラーが`Service`の正しい`Pod`を見つけていることを確認できます。
 `hostnames`行が空白の場合、`Service`の`spec.selector`フィールドが実際に`Pod`の`metadata.labels`値を選択していることを確認する必要があります。
 よくある間違いは、タイプミスまたは他のエラー、たとえば`Service`が`run=hostnames`を選択しているのに`Deployment`が`app=hostnames`を指定していることです。
 
@@ -379,7 +379,7 @@ u@pod$ wget -qO- 10.244.0.7:9376
 hostnames-yp2kp
 ```
 
-`Endpoint`リスト内の各`Pod`は、それぞれの自身のホスト名を返すはずです。
+`Endpoints`リスト内の各`Pod`は、それぞれの自身のホスト名を返すはずです。
 そうならない(または、あなた自身の`Pod`の正しい振る舞いにならない)場合は、そこで何が起こっているのかを調査する必要があります。
 `kubectl logs`が役立つかもしれません。あるいは、`kubectl exec`で直接`Pod`にアクセスし、そこでサービスをチェックしましょう。
 
@@ -398,7 +398,7 @@ hostnames-632524106-tlaok   1/1       Running   0          2m
 
 ## kube-proxyは機能しているか？
 
-ここに到達したのなら、`Service`は実行され、`Endpoint`があり、`Pod`が実際にサービスを提供しています。
+ここに到達したのなら、`Service`は実行され、`Endpoints`があり、`Pod`が実際にサービスを提供しています。
 この時点で、`Service`のプロキシーメカニズム全体が疑わしいです。
 ひとつひとつ確認しましょう。
 
@@ -579,7 +579,7 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 ## 助けを求める
 
 ここまでたどり着いたということは、とてもおかしなことが起こっています。
-`Service`は実行中で、`Endpoint`があり、`Pod`は実際にサービスを提供しています。
+`Service`は実行中で、`Endpoints`があり、`Pod`は実際にサービスを提供しています。
 DNSは動作していて、`iptables`ルールがインストールされていて、`kube-proxy`も誤動作していないようです。
 それでも、あなたの`Service`は機能していません。
 おそらく私たちにお知らせ頂いた方がよいでしょう。調査をお手伝いします！

@@ -10,7 +10,7 @@ card:
 
 {{% capture overview %}}
 
-全般的なAPIの規則は、[API規則ドキュメント](https://git.k8s.io/community/contributors/devel/api-conventions.md)に記載されています。
+全般的なAPIの規則は、[API規則ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)に記載されています。
 
 APIエンドポイント、リソースタイプ、そしてサンプルは[APIリファレンス](/docs/reference)に記載されています。
 
