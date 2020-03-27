@@ -75,11 +75,7 @@ If you haven't created the DaemonSet in the system, check your DaemonSet
 manifest with the following command instead:
 
 ```shell
-<<<<<<< HEAD
 kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dry-run=client -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
-=======
-kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
->>>>>>> Adding example for DaemonSet Rolling Update task
 ```
 
 The output from both commands should be:
