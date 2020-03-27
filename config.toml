@@ -83,6 +83,17 @@ announcement = false
 # announcement_message is only displayed when announcement = true; update with your specific message
 announcement_message = "The Kubernetes Documentation team would like your feedback!  Please take a <a href='https://www.surveymonkey.com/r/8R237FN' target='_blank'>short survey</a> so we can improve the Kubernetes online documentation."
 
+[params.pushAssets]
+css = [
+  "callouts",
+  "styles",
+  "custom-jekyll/tags"
+]
+js = [
+  "custom-jekyll/tags",
+  "script"
+]
+
 [[params.versions]]
 fullversion = "v1.18.0"
 version = "v1.18"
@@ -95,18 +106,7 @@ fullversion = "v1.17.4"
 version = "v1.17"
 githubbranch = "v1.17.4"
 docsbranch = "release-1.17"
-url = "https://kubernetes.io"
-
-[params.pushAssets]
-css = [
-  "callouts",
-  "styles",
-  "custom-jekyll/tags"
-]
-js = [
-  "custom-jekyll/tags",
-  "script"
-]
+url = "https://v1-17.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.16.8"
