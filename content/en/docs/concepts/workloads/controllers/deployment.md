@@ -1076,7 +1076,7 @@ All existing Pods are killed before new ones are created when `.spec.strategy.ty
 
 #### Rolling Update Deployment
 
-The Deployment updates Pods in a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/)
+The Deployment updates Pods in a rolling update
 fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 
