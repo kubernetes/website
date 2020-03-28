@@ -7,9 +7,9 @@ weight: 30
 {{% capture overview %}}
 
 Operadores são extensões de software para o Kubernetes que
-fazem uso de [*custom resources*](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+fazem uso de [*recursos personalizados*](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 para gerir aplicações e os seus componentes. Operadores seguem os  
-principios do Kubernetes, notavelmente o [ciclo de controlo](/docs/concepts/#kubernetes-control-plane).
+princípios do Kubernetes, notavelmente o [ciclo de controle](/docs/concepts/#kubernetes-control-plane).
 
 {{% /capture %}}
 
@@ -19,8 +19,8 @@ principios do Kubernetes, notavelmente o [ciclo de controlo](/docs/concepts/#kub
 ## Motivação
 
 O padrão Operador tem como objetivo capturar o principal objetivo de um operador
-humano que gere um serviço ou um conjunto de serviços. Operadores humans 
-responsaveis por aplicações e serviços especificos teem um conhecimento
+humano que gere um serviço ou um conjunto de serviços. Operadores humanos 
+responsáveis por aplicações e serviços específicos têm um conhecimento
 profundo da forma como o sistema é suposto se comportar, como é instalado
 e como deve reagir na ocorrência de problemas.
 
@@ -33,7 +33,7 @@ o Kubernetes fornece.
 
 O Kubernetes é desenhado para automação. *Out of the box*, você tem um
 monte de automação embutida desde o núcleo do Kubernetes. Pode usar
-o Kubernetes para automatizar instalações e correr cargas de trabalho,
+o Kubernetes para automatizar instalações e executar cargas de trabalho,
 e pode ainda automatizar a forma como o Kubernetes faz isso.
 
 O conceito de {{< glossary_tooltip text="controlador" term_id="controller" >}} no
@@ -52,24 +52,24 @@ Algumas das coisas que um operador pode ser usado para automatizar incluem:
   como esquemas de base de dados ou definições de configuração extra
 * publicar um *Service* para aplicações que não suportam a APIs do Kubernetes
   para as descobrir
-* simular una falha em todo ou parte do cluster de forma a testar a resiliencia
-* escolher um lider para uma aplicação distribuida sem um processo
+* simular una falha em todo ou parte do cluster de forma a testar a resiliência
+* escolher um lider para uma aplicação distribuída sem um processo
   de eleição de membro interno
 
 Como deve um Operador parecer em mais detalhe? Aqui está um exemplo em mais
 detalhe:
 
-1. Um recurso personalizado (*custom resource*) chamado SampleDB, que voce pode
+1. Um recurso personalizado (*custom resource*) chamado SampleDB, que você pode
   configurar para dentro do *cluster*.
-2. Um *Deployment* que garante que um *Pod* está a correr que contém a
+2. Um *Deployment* que garante que um *Pod* está a executar que contém a
   parte controlador do operador.
 3. Uma imagem do *container* do código do operador.
-4. Código do controlador que consulta o plano de controlo para descobrir quais
+4. Código do controlador que consulta o plano de controle para descobrir quais
   recursos *SampleDB* estão configurados.
 5. O núcleo do Operador é o código para informar ao servidor da API (*API server*) como fazer
    a realidade coincidir com os recursos configurados.
    * Se você adicionar um novo *SampleDB*, o operador configurará *PersistentVolumeClaims*
-     para fornecer armazenamento de base de dados durável, um *StatefulSet* para correr *SampleDB* e
+     para fornecer armazenamento de base de dados durável, um *StatefulSet* para executar *SampleDB* e
      um *Job* para lidar com a configuração inicial.
    * Se você apagá-lo, o Operador tira um *snapshot* e então garante que
      o *StatefulSet* e *Volumes* também são removidos.
@@ -79,7 +79,7 @@ detalhe:
    e / ou um *Secret* que possui detalhes e credenciais de conexão com à base de dados.
 7. Como o Operador tem como objetivo fornecer automação robusta para o recurso
    que gere, haveria código de suporte adicional. Para este exemplo,
-   O código verifica se a base de dados está a correr uma versão antiga e, se estiver,
+   O código verifica se a base de dados está a executar uma versão antiga e, se estiver,
    cria objetos *Job* que o atualizam para si.
 
 ## Instalar Operadores
@@ -87,11 +87,10 @@ detalhe:
 A forma mais comum de instalar um Operador é a de adicionar a
 definição personalizada de recurso (*Custom Resource Definition*) e
 o seu Controlador associado ao seu cluster.
-O Controlador vai normalmente correr fora do
-{{< glossary_tooltip text="plano de controlo" term_id="control-plane" >}},
+O Controlador vai normalmente executar fora do
+{{< glossary_tooltip text="plano de controle" term_id="control-plane" >}},
 como você faria com qualquer aplicação containerizada.
-Por exemplo, você pode correr o controlador no seu cluster como um *Deployment*
-For example, you can run the controller in your cluster as a Deployment.
+Por exemplo, você pode executar o controlador no seu cluster como um *Deployment*.
 
 ## Usando um Operador {#using-operators}
 
