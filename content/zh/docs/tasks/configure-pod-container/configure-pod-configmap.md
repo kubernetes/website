@@ -330,7 +330,7 @@ data:
 ```
 
 <!-- #### Define the key to use when creating a ConfigMap from a file -->
-#### 定义从文件创建 ConfigMa p时要使用的密钥
+#### 定义从文件创建 ConfigMap 时要使用的密钥
 
 <!-- You can define a key other than the file name to use in the `data` section of your ConfigMap when using the `--from-file` argument: -->
 您可以在使用 `--from-file` 参数时,在 ConfigMap 的 `data` 部分中定义除文件名以外的其他键:
