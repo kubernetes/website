@@ -111,7 +111,7 @@ class RedisWQ(object):
         # If we crash here, then the GC code will try to move the value, but it will
         # not be here, which is fine.  So this does not need to be a transaction.
         itemkey = self._itemkey(value)
-        self._db.delete(self._lease_key_prefix + itemkey, self._session)
+        self._db.delete(self._lease_key_prefix + itemkey)
 
 # TODO: add functions to clean up all keys associated with "name" when
 # processing is complete.
