@@ -1076,7 +1076,7 @@ All existing Pods are killed before new ones are created when `.spec.strategy.ty
 
 #### Rolling Update Deployment
 
-The Deployment updates Pods in a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/)
+The Deployment updates Pods in a rolling update
 fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 
@@ -1142,13 +1142,5 @@ In this case, a new Deployment rollout cannot be undone, since its revision hist
 a paused Deployment and one that is not paused, is that any changes into the PodTemplateSpec of the paused
 Deployment will not trigger new rollouts as long as it is paused. A Deployment is not paused by default when
 it is created.
-
-## Alternative to Deployments
-
-### kubectl rolling-update
-
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) updates Pods and ReplicationControllers
-in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
-additional features, such as rolling back to any previous revision even after the rolling update is done.
 
 {{% /capture %}}
