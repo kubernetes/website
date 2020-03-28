@@ -119,8 +119,12 @@ kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/
 
 Hit enter for command prompt
 
-while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+while true; do wget -q -O- http://php-apache.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; done
 ```
+
+{{< note >}}
+The file `/var/run/secrets/kubernetes.io/serviceaccount/namespace` on the running container is used to capture the name of the active namespace relating to the php-apache service.  The file is automatically placed into the container during deployment.  Further information available here - [Accessing the API from a Pod](/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod).
+{{< /note >}}
 
 Within a minute or so, we should see the higher CPU load by executing:
 
