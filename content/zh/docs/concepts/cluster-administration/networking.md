@@ -261,16 +261,28 @@ network complexity required to deploy Kubernetes at scale within AWS.
 
 [cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) 包含了一组 CNI 和 IPAM 插件来提供一个简单的，本地主机，低延迟，高吞吐量，以及通过使用 Amazon 弹性网络接口（ENI）并使用 Linux 内核的 IPv2 驱动程序以 L2 模式将 AWS 管理的 IP 绑定到 Pod 中，在 Amazon Virtual Private Cloud（VPC）环境中为 Kubernetes 兼容的网络堆栈。
 
-这些插件旨在直接在 VPC 中进行配置和部署， Kubelets 先启动，然后根据需要进行自我配置和扩展它们的 IP 使用率，而无需经常建议复杂的管理覆盖网络， BGP ，禁用源/目标检查，或调整VPC路由表以向每个主机提供每个实例子网的复杂性（每个 VPC 限制为50-100个条目）。简而言之， cni-ipvlan-vpc-k8s 大大降低了在 AWS 中大规模部署 Kubernetes 所需的网络复杂性。
+这些插件旨在直接在 VPC 中进行配置和部署， Kubelets 先启动，然后根据需要进行自我配置和扩展它们的 IP 使用率，而无需经常建议复杂的管理覆盖网络， BGP ，禁用源/目标检查，或调整 VPC 路由表以向每个主机提供每个实例子网的复杂性（每个 VPC 限制为50-100个条目）。简而言之， cni-ipvlan-vpc-k8s 大大降低了在 AWS 中大规模部署 Kubernetes 所需的网络复杂性。
 
+<!--
 ### Contiv
 
 [Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
+-->
+### Contiv
 
+[Contiv](https://github.com/contiv/netplugin) 为个重点呢情况提供了一个可配置网络（使用了 BGP 的本地 l3 ，使用 vxlan 的覆盖，经典 l2 或 Cisco-SDN/ACI）。 [Contiv](http://contiv.io) 是完全开源的。
+
+<!--
 ### Contrail / Tungsten Fabric
 
 [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is a truly open, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with various orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide different isolation modes for virtual machines, containers/pods and bare metal workloads.
+-->
 
+### Contrail / Tungsten Fabric
+
+[Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/) 是基于 [Tungsten Fabric](https://tungsten.io) 的，真正开放的，多云网络虚拟化和策略管理平台。 Contrail 和 Tungsten Fabric 与各种编排系统集成在一起，例如 Kubernetes, OpenShift, OpenStack 和 Mesos ，并为虚拟机、容器或 Pods 以及裸机工作负载提供了不同的隔离模式。
+
+<!--
 ### DANM
 
 [DANM](https://github.com/nokia/danm) is a networking solution for telco workloads running in a Kubernetes cluster. It's built up from the following components:
@@ -282,13 +294,31 @@ network complexity required to deploy Kubernetes at scale within AWS.
    * Another Kubernetes controller extending Kubernetes' Service-based service discovery concept to work over all network interfaces of a Pod
 
 With this toolset DANM is able to provide multiple separated network interfaces, the possibility to use different networking back ends and advanced IPAM features for the pods.
+-->
+### DANM
 
+[DANM](https://github.com/nokia/danm) 是一个针对在 Kubernetes 集群中运行的电信工作负载的网络解决方案。它由以下几个组件构成：
+
+    * 能够配置具有高级功能的 IPVLAN 接口的 CNI 插件
+    * 一个内置的 IPAM 模块，能够管理多个、群集内的、不连续的 L3 网络，并按请求提供动态、静态或无 IP 分配方案
+    * CNI 元插件能够通过自己的 CNI 或通过将任务授权给其他任何流行的 CNI 解决方案（例如 SRI-OV 或 Flannel）来实现将多个网络接口连接到容器
+    * Kubernetes 控制器能够集中管理所有 Kubernetes 主机的 VxLAN 和 VLAN 接口
+    * 另一个 Kubernetes 控制器扩展了 Kubernetes 的基于服务的服务发现概念，以在 Pod 的所有网络接口上工作
+
+通过这个工具集， DANM 可以提供多个分离的网络接口，可以为 pods 使用不同的网络后端和高级 IPAM 功能。
+
+<!--
 ### Flannel
 
 [Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
 network that satisfies the Kubernetes requirements. Many
 people have reported success with Flannel and Kubernetes.
+-->
+### Flannel
 
+[Flannel](https://github.com/coreos/flannel#flannel) 是一个非常简单的能够满足 Kubernetes 所需要的重叠网络。已经有许多人报告了使用 Flannel 和 Kubernetes 的成功案例。
+
+<!--
 ### Google Compute Engine (GCE)
 
 For the Google Compute Engine cluster configuration scripts, [advanced
@@ -331,7 +361,36 @@ sysctl net.ipv4.ip_forward=1
 
 The result of all this is that all `Pods` can reach each other and can egress
 traffic to the internet.
+-->
+### Google Compute Engine (GCE)
 
+对于 Google Compute Engine 的集群配置脚本， [advanced routing](https://cloud.google.com/vpc/docs/routes) 用于为每个虚机分配一个子网（默认是`/24` - 254个 IP ），绑定到该子网的任何流量都将通过 GCE 网络结构直接路由到虚机。 这是除了分配给虚机的“主要” IP 地址之外的一个补充，该 IP 地址经过 NAT 转换以用于访问外网。 linux网桥（称为“cbr0”）被配置为存在于该子网中，并被传递到 docker 的 --bridge 参数上。
+
+Docker 会以这样的参数启动：
+
+```shell
+DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
+```
+
+这个网桥是由 Kubelet （由 --network-plugin=kubenet 参数控制）根据节点的 .spec.podCIDR 参数创建的。
+
+Docker将会从 `cbr-cidr` 块分配 IP 。容器之间可以通过 cbr0 网桥相互访问，也可以访问节点。 这些 IP 都可以在 GCE 的网络中被路由。
+
+而 GCE 本身并不知道这些 IP ，所以不会对访问外网的流量进行 NAT ，为了实现此目的，使用了 iptables 规则来伪装（又称为 SNAT ，使数据包看起来好像是来自“节点”本身），将通信绑定到 GCE 项目网络（10.0.0.0/8）之外的 IP 。
+
+```shell
+iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
+```
+
+最后，在内核中启用了 IP 转发（因此内核将处理桥接容器的数据包）：
+
+```shell
+sysctl net.ipv4.ip_forward=1
+```
+
+所有这些的结果是所有 `Pods` 都可以互相访问，并且可以将流量发送到互联网。
+
+<!--
 ### Jaguar
 
 [Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight. Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod.
@@ -339,7 +398,16 @@ traffic to the internet.
 ### k-vswitch
 
 [k-vswitch](https://github.com/k-vswitch/k-vswitch) is a simple Kubernetes networking plugin based on [Open vSwitch](https://www.openvswitch.org/). It leverages existing functionality in Open vSwitch to provide a robust networking plugin that is easy-to-operate, performant and secure.
+-->
+### Jaguar
 
+[Jaguar](https://gitlab.com/sdnlab/jaguar) 是一个基于 OpenDaylight 的 Kubernetes 网络开源解决方案。 Jaguar 使用 vxlan 提供覆盖网络，而 Jaguar CNIPlugin 为每个 Pod 提供一个 IP 地址。
+
+### k-vswitch
+
+[k-vswitch](https://github.com/k-vswitch/k-vswitch) 是一个基于 [Open vSwitch](https://www.openvswitch.org/) 的简易 Kubernetes 网络插件。它利用 Open vSwitch 中现有的功能来提供强大的网络插件，该插件易于操作，高效且安全。
+
+<!--
 ### Knitter
 
 [Knitter](https://github.com/ZTE/Knitter/) is a network solution which supports multiple networking in Kubernetes. It provides the ability of tenant management and network management. Knitter includes a set of end-to-end NFV container networking solutions besides multiple network planes, such as keeping IP address for applications, IP address migration, etc.
@@ -347,11 +415,26 @@ traffic to the internet.
 ### Kube-OVN
 
 [Kube-OVN](https://github.com/alauda/kube-ovn) is an OVN-based kubernetes network fabric for enterprises. With the help of OVN/OVS, it provides some advanced overlay network features like subnet, QoS, static IP allocation, traffic mirroring, gateway, openflow-based network policy and service proxy.
+-->
 
+### Knitter
+
+[Knitter](https://github.com/ZTE/Knitter/) 是一个支持 Kubernetes 中实现多个网络系统的解决方案。它提供了租户管理和网络管理的功能。除了多个网络平面外， Knitter 还包括一组端到端的 NFV 容器网络解决方案，例如为应用程序保留 IP 地址， IP 地址迁移等。
+
+### Kube-OVN
+
+[Kube-OVN](https://github.com/alauda/kube-ovn) 是一个基于 OVN 的用于企业的 Kubernetes 网络架构。借助于 OVN/OVS ，它提供了一些高级覆盖网络功能，例如子网， QoS ，静态 IP 分配，流量镜像，网关，基于开放流的网络策略和服务代理。
+
+<!--
 ### Kube-router
 
 [Kube-router](https://github.com/cloudnativelabs/kube-router) is a purpose-built networking solution for Kubernetes that aims to provide high performance and operational simplicity. Kube-router provides a Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html)-based service proxy, a Linux kernel forwarding-based pod-to-pod networking solution with no overlays, and iptables/ipset-based network policy enforcer.
+-->
+### Kube-router
 
+[Kube-router](https://github.com/cloudnativelabs/kube-router) 是 Kubernetes 的专用网络解决方案，旨在提供高性能和易操作性。 Kube-router 提供了一个基于 Linux [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html) 的服务代理，一个基于 Linux 内核转发的无覆盖 Pod-to-Pod 网络解决方案， 和基于 iptables/ipset 的网络策略执行器。
+
+<!--
 ### L2 networks and linux bridging
 
 If you have a "dumb" L2 network, such as a simple switch in a "bare-metal"
@@ -363,12 +446,23 @@ perfect the process, please let us know.
 Follow the "With Linux Bridge devices" section of [this very nice
 tutorial](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
 Lars Kellogg-Stedman.
+-->
+### L2 networks and linux bridging
 
+如果你具有一个“哑”的L2网络，例如“裸机”环境中的简单交换机，则应该能够执行与上述 GCE 设置类似的操作。 请注意，这些说明仅是非常简单的尝试过-似乎可行，但尚未经过全面测试。 如果您使用此技术并完善了流程，请告诉我们。
+
+根据 Lars Kellogg-Stedman 的这份非常不错的“ Linux 网桥设备”[使用说明](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/)来进行操作。
+
+<!--
 ### Multus (a Multi Network plugin)
 
 [Multus](https://github.com/Intel-Corp/multus-cni) is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
 
 Multus supports all [reference plugins](https://github.com/containernetworking/plugins) (eg. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) that implement the CNI specification and 3rd party plugins (eg. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). In addition to it, Multus supports [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) workloads in Kubernetes with both cloud native and NFV based applications in Kubernetes.
+-->
+### Multus (a Multi Network plugin)
+
+
 
 ### NSX-T
 
