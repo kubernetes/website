@@ -13,7 +13,6 @@ O Kubernetes contém várias ferramentas internas para ajudá-lo a trabalhar com
 [`kubectl`](/docs/tasks/tools/install-kubectl/) é a ferramenta de linha de comando para o Kubernetes. Ela controla o gerenciador de cluster do Kubernetes.
 
 
-
 ## Kubeadm
 
 [`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) é a ferramenta de linha de comando para provisionar facilmente um cluster Kubernetes seguro sobre servidores físicos ou na nuvem ou em máquinas virtuais (atualmente em alfa).
@@ -24,11 +23,9 @@ O Kubernetes contém várias ferramentas internas para ajudá-lo a trabalhar com
 [`minikube`](/docs/tasks/tools/install-minikube/) é uma ferramenta que facilita a execução local de um cluster Kubernetes de nó único em sua estação de trabalho para fins de desenvolvimento e teste.
 
 
-
 ## Dashboard
 
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), a interface Web do Kubernetes, permite implantar aplicativos em contêiner em um cluster do Kubernetes, solucionar problemas e gerenciar o cluster e seus próprios recursos.
-
 
 
 ## Helm
@@ -55,6 +52,3 @@ Use o Kompose para:
 * Converter arquivos `yaml` do Docker Compose v1 ou v2 ou [Bundles de Aplicativos Distribuídos](https://docs.docker.com/compose/bundles/)
 
 {{% /capture %}}
-
-
-
